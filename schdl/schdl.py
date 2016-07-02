@@ -164,8 +164,7 @@ class Pin(object):
 
     def __add__(self, net):
         if self.net and self.net != net:
-            print(self.part.name, self.part.ref, self.net.name, net.name)
-            raise Exception("Can't assign multiple nets to pin!")
+            raise Exception("Can't assign multiple nets ({} and {}) to pin {}-{} of part {}-{}!".format(self.net.name, net.name, self.num, self.name, self.part.ref, self.part.name))
         self.net = net
         net += self
         return self
@@ -189,6 +188,27 @@ class Part(object):
                 net += self[pin]
         for k, v in kwargs.items():
             self.__dict__[k] = v
+
+    def copy(self, num_copies):
+        copies = []
+        if not isinstance(num_copies,int):
+            raise Exception("Can't make a non-integer number ({}) of copies of a part!".format(num_copies))
+        for i in range(num_copies):
+            cpy = deepcopy(self)
+            for i, pin in enumerate(cpy.pins):
+                pin.part = cpy
+                pin.net = None
+                original_net = self.pins[i].net
+                if original_net:
+                    original_net += pin
+            copies.append(cpy)
+        return copies
+
+    def __mul__(self, num_copies):
+        return self.copy(num_copies)
+
+    def __rmul__(self, num_copies):
+        return self.copy(num_copies)
 
     def load(self, lib, name, tool):
         if isinstance(lib, type('')):
@@ -332,6 +352,7 @@ class Part(object):
                                                                values))))
 
         # define some shortcuts
+        self.num_units = int(self.definition['unit_count'])
         self.name = self.definition['name']
         self.ref_prefix = self.definition['reference']
         self.ref = '???'
@@ -453,10 +474,27 @@ class Part(object):
         '''Delete the part footprint.'''
         del sel._foot
 
+    def unit(self, *unit_ids):
+        '''Return a subunit of this part.'''
+        return PartUnit(self, *unit_ids)
+
 
 class PartUnit(Part):
-    def __init__(self, part, unit_id):
-        self.pins = part.filter_pins(unit=str(unit_id))
+    def __init__(self, part, *unit_ids):
+        for k, v in part.__dict__.items():
+            self.__dict__[k] = v
+        unique_pins = set()
+        for unit_id in unit_ids:
+            if isinstance(unit_id,int):
+                unique_pins |= set(part.filter_pins(unit=str(unit_id)))
+            elif isinstance(unit_id,slice):
+                max_index = part.num_units
+                for id in range(*unit_id.indices(max_index)):
+                    unique_pins |= set(part.filter_pins(unit=str(id)))
+        self.pins = [p for p in unique_pins]
+        print('# pins in unit = {}'.format(len(self.pins)))
+        print(self.name, self.pins[0].part.name)
+        print(self.ref, self.pins[0].part.ref)
 
 
 class SubCircuit(object):
@@ -484,6 +522,7 @@ class Net(object):
         for pin in pins:
             if isinstance(pin, Pin):
                 if pin not in self.pins:
+                    # Pin is not already in the net, so add it to the net.
                     self.pins.append(pin)  # This must come 1st to prevent infinite recursion!
                     pin += self  # Let the pin know the net it's connected to.
             elif isinstance(pin, (list, tuple)):
