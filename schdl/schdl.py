@@ -141,7 +141,7 @@ class SchLib(object):
             elif len(part_data) > 0:
                 part_data.append(line)
                 if line.startswith('ENDDEF'):
-                    self.parts.append(Part(data=part_data, tool='kicad'))
+                    self.parts.append(Part(data=part_data, tool='kicad', to_lib=True))
                     part_data = []
 
     def get_parts(self, **kwargs):
@@ -175,7 +175,7 @@ class Part(object):
     Schematic part class.
     """
 
-    def __init__(self, lib=None, name=None, data=None, tool='kicad', connections=None, **kwargs):
+    def __init__(self, lib=None, name=None, data=None, tool='kicad', to_lib=False, connections=None, **kwargs):
         if lib:
             self.load(lib, name, tool)
         elif data:
@@ -188,8 +188,10 @@ class Part(object):
                 net += self[pin]
         for k, v in kwargs.items():
             self.__dict__[k] = v
+        if not to_lib:
+            circuit_parts.append(self)
 
-    def copy(self, num_copies):
+    def copy(self, num_copies=1):
         copies = []
         if not isinstance(num_copies,int):
             raise Exception("Can't make a non-integer number ({}) of copies of a part!".format(num_copies))
@@ -202,7 +204,8 @@ class Part(object):
                 if original_net:
                     original_net += pin
             copies.append(cpy)
-        return copies
+            circuit_parts.append(cpy)
+        return list_to_scalar(copies)
 
     def __mul__(self, num_copies):
         return self.copy(num_copies)
@@ -497,6 +500,26 @@ class PartUnit(Part):
         print(self.ref, self.pins[0].part.ref)
 
 
+circuit_parts = []
+circuit_nets = []
+context = [(0,'top')]
+
+def circuit(circuit_func):
+    (level, fname) = context[-1]
+    level += 1
+    fname += '.' + circuit_func.__name__
+    context.append((level,fname))
+
+    def wrapper(*args, **kwargs):
+        results = circuit_func(*args, **kwargs)
+        return results
+    wrapper.fname = fname
+
+    context.pop()
+    (level, fname) = context[-1]
+    return wrapper
+
+
 class SubCircuit(object):
     pass
 
@@ -505,6 +528,7 @@ class Net(object):
     def __init__(self, name=None, *pins):
         self.name = name
         self.pins = []
+        circuit_nets.append(self)
 
     @property
     def name(self):

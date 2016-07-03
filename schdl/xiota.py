@@ -11,9 +11,41 @@ psoc_u = (psoc.unit(i) for i in range(1,1+int(psoc.definition['unit_count'])))
 psoc_u = psoc.unit(6,slice(6,8))
 for p in psoc_u.pins:
     print(p.unit, p.name, p.num, p.part.name, p.part.ref)
-print('Done!')
-import sys
-sys.exit()
+
+
+def circuit(circuit_func):
+    def wrapper(*args, **kwargs):
+        upper_circuit_nets = circuit_nets
+        circuit_nets = []
+        upper_circuit_parts = circuit_parts
+        circuit_parts = []
+        circuit_name = upper_circuit_name + '.' + 'kdnj'
+        results = circuit_func(*args, **kwargs)
+        merge(upper_nets, circuit_nets)
+        merge(upper_parts, circuit_parts)
+        circuit_parts = upper_circuit_parts
+        circuit_nets = upper_circuit_nets
+        return results
+
+    return wrapper
+
+@circuit
+res_divider(in1, out1):
+    r1 = Part('C:/xesscorp/KiCad/Libraries/xess.lib', 'R')
+    r2 = r1.copy()
+    r1.val = '1K6'
+    r2.val = '500K3'
+    r1[1] = in1
+    out1 += r1[2], r2[1]
+    r2[2] = gnd
+
+a = Net('A')
+b = Net('B')
+c = Net('C')
+res_divider(a,b)
+res_divider(b,c)
+
+    
 
 psoc_uu = []
 for u in psoc_u:
