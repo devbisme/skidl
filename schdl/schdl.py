@@ -189,7 +189,7 @@ class Part(object):
         for k, v in kwargs.items():
             self.__dict__[k] = v
         if not to_lib:
-            circuit_parts.append(self)
+            SubCircuit.circuit_parts.append(self)
 
     def copy(self, num_copies=1):
         copies = []
@@ -204,7 +204,7 @@ class Part(object):
                 if original_net:
                     original_net += pin
             copies.append(cpy)
-            circuit_parts.append(cpy)
+            SubCircuit.circuit_parts.append(cpy)
         return list_to_scalar(copies)
 
     def __mul__(self, num_copies):
@@ -500,35 +500,34 @@ class PartUnit(Part):
         print(self.ref, self.pins[0].part.ref)
 
 
-circuit_parts = []
-circuit_nets = []
-context = [(0,'top')]
-
-def circuit(circuit_func):
-    (level, fname) = context[-1]
-    level += 1
-    fname += '.' + circuit_func.__name__
-    context.append((level,fname))
-
-    def wrapper(*args, **kwargs):
-        results = circuit_func(*args, **kwargs)
-        return results
-    wrapper.fname = fname
-
-    context.pop()
-    (level, fname) = context[-1]
-    return wrapper
-
-
 class SubCircuit(object):
-    pass
+    circuit_parts = []
+    circuit_nets = []
+    context = [(0,'top')]
+
+    def __init__(self, circuit_func):
+        self.circuit_func = circuit_func
+
+    def __call__(self, *args, **kwargs):
+
+        (level, fname) = self.context[-1]
+        level += 1
+        fname += '.' + self.circuit_func.__name__
+        self.context.append((level,fname))
+
+        self.fname = fname
+        results = self.circuit_func(*args, **kwargs)
+
+        self.context.pop()
+        (level, fname) = self.context[-1]
+        return results
 
 
 class Net(object):
     def __init__(self, name=None, *pins):
         self.name = name
         self.pins = []
-        circuit_nets.append(self)
+        SubCircuit.circuit_nets.append(self)
 
     @property
     def name(self):
