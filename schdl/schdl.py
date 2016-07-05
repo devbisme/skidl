@@ -71,14 +71,18 @@ def to_list(x):
     return [x]  # Wasn't a list, so make it into one.
 
 
-def list_to_scalar(lst):
+def list_or_scalar(lst):
     '''
+    Return a list if passed a multi-element list.
+    Return the list element if passed a single-element list.
+    Return None if passed an empty list.
+    Return a scalar if passed a scalar.
     '''
     if isinstance(lst, (list, tuple)):
         if len(lst) > 1:
             return lst  # Multi-element list, so return it unchanged.
         if len(lst) == 1:
-            return lst[0]  # Single-element list, so return the scalar element.
+            return lst[0]  # Single-element list, so return the only element.
         return None  # Empty list, so return None.
     return lst  # Must have been a scalar, so return that.
 
@@ -141,7 +145,9 @@ class SchLib(object):
             elif len(part_data) > 0:
                 part_data.append(line)
                 if line.startswith('ENDDEF'):
-                    self.parts.append(Part(data=part_data, tool='kicad', to_lib=True))
+                    self.parts.append(Part(data=part_data,
+                                           tool='kicad',
+                                           to_lib=True))
                     part_data = []
 
     def get_parts(self, **kwargs):
@@ -149,7 +155,7 @@ class SchLib(object):
         Return a list of parts that match a list of criteria.
         Return a Part object if only a single match is found.
         '''
-        return list_to_scalar(filter(self.parts, **kwargs))
+        return list_or_scalar(filter(self.parts, **kwargs))
 
     def get_part_by_name(self, name):
         return self.get_parts(name=name)
@@ -164,7 +170,10 @@ class Pin(object):
 
     def __add__(self, net):
         if self.net and self.net != net:
-            raise Exception("Can't assign multiple nets ({} and {}) to pin {}-{} of part {}-{}!".format(self.net.name, net.name, self.num, self.name, self.part.ref, self.part.name))
+            raise Exception(
+                "Can't assign multiple nets ({} and {}) to pin {}-{} of part {}-{}!".format(
+                    self.net.name, net.name, self.num, self.name,
+                    self.part.ref, self.part.name))
         self.net = net
         net += self
         return self
@@ -189,14 +198,17 @@ class Part(object):
         for k, v in kwargs.items():
             self.__dict__[k] = v
         if not to_lib:
-            SubCircuit.circuit_parts.append(self)
+            SubCircuit.add_part(self)
 
     def copy(self, num_copies=1):
         copies = []
-        if not isinstance(num_copies,int):
-            raise Exception("Can't make a non-integer number ({}) of copies of a part!".format(num_copies))
+        if not isinstance(num_copies, int):
+            raise Exception(
+                "Can't make a non-integer number ({}) of copies of a part!".format(
+                    num_copies))
         for i in range(num_copies):
             cpy = deepcopy(self)
+            cpy._ref = None
             for i, pin in enumerate(cpy.pins):
                 pin.part = cpy
                 pin.net = None
@@ -204,8 +216,8 @@ class Part(object):
                 if original_net:
                     original_net += pin
             copies.append(cpy)
-            SubCircuit.circuit_parts.append(cpy)
-        return list_to_scalar(copies)
+            SubCircuit.add_part(cpy)
+        return list_or_scalar(copies)
 
     def __mul__(self, num_copies):
         return self.copy(num_copies)
@@ -358,7 +370,7 @@ class Part(object):
         self.num_units = int(self.definition['unit_count'])
         self.name = self.definition['name']
         self.ref_prefix = self.definition['reference']
-        self.ref = '???'
+        self._ref = None
 
         def kicad_pin_to_pin(kpin):
             p = Pin()
@@ -395,7 +407,7 @@ class Part(object):
                     pins.extend(to_list(tmp_pins))
                 else:
                     pins.extend(to_list(self.filter_pins(name=p_id)))
-        return list_to_scalar(pins)
+        return list_or_scalar(pins)
 
     def filter_pins(self, **kwargs):
         '''
@@ -408,7 +420,7 @@ class Part(object):
         '''
         return filter(self.pins, **kwargs)
 
-    def __setitem__(self, pin_ids, nets):
+    def connect_nets_to_pins(self, pin_ids, nets):
         '''
         Attach nets or pins of other parts to the specified pins of this part.
         '''
@@ -426,6 +438,9 @@ class Part(object):
                 net += pin
         else:
             raise Exception("Can't attach differing numbers of pins and nets!")
+        
+    def __setitem__(self, pin_ids, nets):
+        self.connect_nets_to_pins(pin_ids, nets)
 
     @property
     def ref(self):
@@ -433,14 +448,24 @@ class Part(object):
         return self._ref
 
     @ref.setter
-    def ref(self, id):
+    def ref(self, r):
         '''Set the part reference.'''
+        if self._ref == r and r is not None:
+            return # Do nothing if the part is already labeled with the given reference.
         if isinstance(id, int):
-            self._ref = self.ref_prefix + str(id)
-        elif isinstance(id, type('')):
-            self._ref = id
+            self._ref = self.ref_prefix + str(r)
         else:
-            raise Exception("Illegal part reference: {}".format(id))
+            self._ref = r
+        if self.ref is None:
+            cnt = SubCircuit.part_ref_prefix_counts.get(self.ref_prefix, 1)
+            SubCircuit.part_ref_prefix_counts[self.ref_prefix] = cnt + 1
+            self._ref = '{}{}'.format(self.ref_prefix,cnt)
+        if self.ref in SubCircuit.part_ref_counts:
+            SubCircuit.part_ref_counts[self.ref] += 1
+            self._ref = '{}_{}'.format(self.ref,SubCircuit.part_ref_counts[self.ref]-1)
+            SubCircuit.part_ref_counts[self.ref] = 1
+        else:
+            SubCircuit.part_ref_counts[self.ref] = 1
 
     @ref.deleter
     def ref(self):
@@ -481,6 +506,14 @@ class Part(object):
         '''Return a subunit of this part.'''
         return PartUnit(self, *unit_ids)
 
+    def is_connected(self):
+        if len(self.pins) == 0:
+            return True # Assume parts without pins (like mech. holes) are always connected.
+        for p in self.pins:
+            if p.net is not None:
+                return True
+        return False
+
 
 class PartUnit(Part):
     def __init__(self, part, *unit_ids):
@@ -488,22 +521,46 @@ class PartUnit(Part):
             self.__dict__[k] = v
         unique_pins = set()
         for unit_id in unit_ids:
-            if isinstance(unit_id,int):
+            if isinstance(unit_id, int):
                 unique_pins |= set(part.filter_pins(unit=str(unit_id)))
-            elif isinstance(unit_id,slice):
+            elif isinstance(unit_id, slice):
                 max_index = part.num_units
                 for id in range(*unit_id.indices(max_index)):
                     unique_pins |= set(part.filter_pins(unit=str(id)))
         self.pins = [p for p in unique_pins]
-        print('# pins in unit = {}'.format(len(self.pins)))
-        print(self.name, self.pins[0].part.name)
-        print(self.ref, self.pins[0].part.ref)
 
 
 class SubCircuit(object):
     circuit_parts = []
     circuit_nets = []
-    context = [(0,'top')]
+    circuit_name_counts = {}
+    part_ref_prefix_counts = {}
+    part_ref_counts = {}
+    level = 0
+    context = [(0, 'top')]
+
+    @classmethod
+    def clear(cls):
+        cls.circuit_parts = []
+        cls.circuit_nets = []
+        cls.part_ref_prefix_counts = {}
+        cls.level = 0
+        cls.context = [(0, 'top')]
+
+    @classmethod
+    def add_part(cls, part):
+        part.ref = part.ref
+        cls.circuit_parts.append(part)
+
+    @classmethod
+    def name_net(cls, net):
+        if net.name is None:
+            net.name = 'N$' + '{:05d}'.format(len(cls.circuit_nets))
+
+    @classmethod
+    def add_net(cls, net):
+        cls.name_net(net)
+        cls.circuit_nets.append(net)
 
     def __init__(self, circuit_func):
         self.circuit_func = circuit_func
@@ -511,9 +568,9 @@ class SubCircuit(object):
     def __call__(self, *args, **kwargs):
 
         (level, fname) = self.context[-1]
-        level += 1
+        self.level += 1
         fname += '.' + self.circuit_func.__name__
-        self.context.append((level,fname))
+        self.context.append((self.level, fname))
 
         self.fname = fname
         results = self.circuit_func(*args, **kwargs)
@@ -527,7 +584,7 @@ class Net(object):
     def __init__(self, name=None, *pins):
         self.name = name
         self.pins = []
-        SubCircuit.circuit_nets.append(self)
+        SubCircuit.add_net(self)
 
     @property
     def name(self):
@@ -535,7 +592,7 @@ class Net(object):
 
     @name.setter
     def name(self, name):
-        self._name = name or 'Default'
+        self._name = name or None
 
     @name.deleter
     def name(self):
@@ -556,7 +613,7 @@ class Net(object):
                     type(pin), self.name))
         return self
 
-    def __add__(self, *pins):
+    def __iadd__(self, *pins):
         return self.add_pins(*pins)
 
 
