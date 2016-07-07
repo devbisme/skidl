@@ -126,11 +126,14 @@ def filter(lst, **criteria):
         for k, v in criteria.items():
             attr_val = getattr(item, k)
 
-            if not isinstance(attr_val, (list,tuple)):
+            if not isinstance(attr_val, (list, tuple)):
                 # If the attribute value from the item in the list is a scalar,
                 # see if the value matches the current criterium. If it doesn't,
-                # then break from the criteria loop and don't extract this item. 
-                if not re.fullmatch(str(v), str(attr_val), flags=re.IGNORECASE):
+                # then break from the criteria loop and don't extract this item.
+                if not re.fullmatch(
+                        str(v),
+                        str(attr_val),
+                        flags=re.IGNORECASE):
                     break
             else:
                 # If the attribute value from the item is a non-scalar,
@@ -166,6 +169,7 @@ class SchLib(object):
         filename: The name of the file from which the parts were read.
         parts: The list of parts (composed of Part objects).
     """
+    cache = {}
 
     def __init__(self, filename=None, format='KICAD'):
         """
@@ -178,8 +182,11 @@ class SchLib(object):
         self.filename = filename
         self.parts = []
 
-        if format == 'KICAD':
+        if filename in self.cache:
+            self.__dict__.update(self.cache[filename].__dict__)
+        elif format == 'KICAD':
             self.load_kicad_sch_lib(filename)
+            self.cache[filename] = self
         else:
             sys.stderr.write('Unsupported library file format: {}'.format(
                 format))
@@ -268,7 +275,9 @@ class SchLib(object):
         if parts:
             return parts
 
-        raise Exception('Unable to find part with name {} in library {}.'.format(name, self.filename))
+        raise Exception(
+            'Unable to find part with name {} in library {}.'.format(
+                name, self.filename))
         return self.get_parts(aliases=name)
 
     def __getitem__(self, name):
@@ -308,17 +317,17 @@ class Pin(object):
         0, 11)
 
     pin_info = {
-        Input: {'function': 'INPUT',},
-        Output: {'function': 'OUTPUT',},
-        BiDir: {'function': 'BIDIRECTIONAL',},
-        TriState: {'function': 'TRISTATE',},
-        Passive: {'function': 'PASSIVE',},
-        Unspec: {'function': 'UNSPECIFIED',},
-        PwrIn: {'function': 'POWER-IN',},
-        PwrOut: {'function': 'POWER-OUT',},
-        OpenColl: {'function': 'OPEN-COLLECTOR',},
-        OpenEmit: {'function': 'OPEN-EMITTER',},
-        NoConnect: {'function': 'NO-CONNECT',},
+        Input: {'function': 'INPUT', 'drive':0, 'receive':1, },
+        Output: {'function': 'OUTPUT', 'drive':2, 'receive':0, },
+        BiDir: {'function': 'BIDIRECTIONAL', 'drive':2, 'receive':0, },
+        TriState: {'function': 'TRISTATE', 'drive':2, 'receive':0, },
+        Passive: {'function': 'PASSIVE', 'drive':0, 'receive':0, },
+        Unspec: {'function': 'UNSPECIFIED', 'drive':0, 'receive':0, },
+        PwrIn: {'function': 'POWER-IN', 'drive':0, 'receive':3, },
+        PwrOut: {'function': 'POWER-OUT', 'drive':3, 'receive':0, },
+        OpenColl: {'function': 'OPEN-COLLECTOR', 'drive':1, 'receive':0, },
+        OpenEmit: {'function': 'OPEN-EMITTER', 'drive':1, 'receive':0, },
+        NoConnect: {'function': 'NO-CONNECT', 'drive':0, 'receive':0, },
     }
 
     def __init__(self):
@@ -402,7 +411,7 @@ class Part(object):
             # If the lib argument is a string, the create a library using the 
             # string as the library file name.
             if isinstance(lib, type('')):
-                lib = SchLib(filename=lib, tool=tool)
+                lib = SchLib(filename=lib, format=format)
 
             # Make a copy of the part from the library but don't add it to the netlist.
             part = lib.get_part_by_name(name).copy(1, 'DONT_ADD_TO_NETLIST')
@@ -635,10 +644,19 @@ class Part(object):
             # to the current part, but we'll fix that soon.
             p.__dict__.update(kicad_pin)
 
-            pin_type_translation = { 'I':Pin.Input, 'O':Pin.Output, 'B':Pin.BiDir, 'T':Pin.TriState, 'P':Pin.Passive,
-                'U':Pin.Unspec, 'W':Pin.PwrIn, 'w':Pin.PwrOut, 'C':Pin.OpenColl, 'E':Pin.OpenEmit, 'N':Pin.NoConnect }
+            pin_type_translation = {'I': Pin.Input,
+                                    'O': Pin.Output,
+                                    'B': Pin.BiDir,
+                                    'T': Pin.TriState,
+                                    'P': Pin.Passive,
+                                    'U': Pin.Unspec,
+                                    'W': Pin.PwrIn,
+                                    'w': Pin.PwrOut,
+                                    'C': Pin.OpenColl,
+                                    'E': Pin.OpenEmit,
+                                    'N': Pin.NoConnect}
             p.func = pin_type_translation[p.electrical_type]
-            
+
             return p
 
         self.pins = [kicad_pin_to_pin(p) for p in self.draw['pins']]
@@ -1107,6 +1125,42 @@ class Net(object):
     def __iadd__(self, *pins):
         return self.add_pins(*pins)
 
+    def erc(self, errs_warns):
+
+        def pin_to_pin_chk(pin1, pin2):
+            erc_result = Circuit.erc_matrix[pin1.func][pin2.func]
+            if erc_result == Circuit.OK:
+                return '', 0, 0
+
+            def pin_desc(pin):
+                pin_function = Pin.pin_info[pin.func]['function']
+                desc = "{f} pin {p.num}/{p.name} of {p.part.name}/{p.part.ref}".format(
+                    f=pin_function,
+                    p=pin)
+                return desc
+
+            msg = 'Pin conflict on Net {n}: {p1} <==> {p2}'.format(
+                n=pin1.net.name,
+                p1=pin_desc(pin1),
+                p2=pin_desc(pin2))
+            if erc_result == Circuit.Warning:
+                return 'Warning: ' + msg, 0, 1
+            return 'ERROR: ' + msg, 1, 0
+
+        pins = self.pins
+        num_pins = len(pins)
+        net_drive = 0
+        for p in pins:
+            net_drive = max(net_drive, Pin.pin_info[p.func]['drive'])
+        for i in range(num_pins):
+            for j in range(i + 1, num_pins):
+                msg, is_erc_error, is_erc_warning = pin_to_pin_chk(
+                    pins[i], pins[j])
+                if is_erc_error or is_erc_warning:
+                    print(msg)
+                    errs_warns = [errs_warns[0] + is_erc_error,
+                                  errs_warns[1] + is_erc_warning]
+
 
 class Bus(object):
     def __init__(self, name=None):
@@ -1243,11 +1297,12 @@ class SubCircuit(object):
 
         return results
 
+
 class Circuit(SubCircuit):
 
     OK, Warning, Error = range(3)
 
-    @classmethod 
+    @classmethod
     def setup(cls):
         cls.erc_matrix = [[cls.OK for c in range(11)] for r in range(11)]
         cls.erc_matrix[Pin.Output][Pin.Output] = cls.Error
@@ -1285,40 +1340,15 @@ class Circuit(SubCircuit):
         cls.erc_matrix[Pin.NoConnect][Pin.OpenColl] = cls.Error
         cls.erc_matrix[Pin.NoConnect][Pin.OpenEmit] = cls.Error
         cls.erc_matrix[Pin.NoConnect][Pin.NoConnect] = cls.Error
-        for c in range(1,11):
+        for c in range(1, 11):
             for r in range(c):
                 cls.erc_matrix[r][c] = cls.erc_matrix[c][r]
-                
+
     @classmethod
     def ERC(cls):
         cls.setup()
-        errs_warns = [0,0]
+        errs_warns = [0, 0]
         for n in cls.circuit_nets:
-            cls.net_erc(n, errs_warns)
-        if errs_warns == [0,0]:
+            n.erc(errs_warns)
+        if errs_warns == [0, 0]:
             print('No errors or warnings found.')
-
-    @classmethod
-    def erc_pin_to_pin_check(cls, pin1, pin2):
-        erc_result = cls.erc_matrix[pin1.func][pin2.func]
-        if erc_result == cls.OK:
-            return '', 0, 0
-        def pin_desc(pin):
-            pin_function = Pin.pin_info[pin.func]['function']
-            desc = "{f} pin {p.num}/{p.name} of {p.part.name}/{p.part.ref}".format(f=pin_function, p=pin)
-            return desc
-        msg = 'Pin conflict on Net {n}: {p1} <==> {p2}'.format(n=pin1.net.name, p1=pin_desc(pin1), p2=pin_desc(pin2))
-        if erc_result == cls.Warning:
-            return 'Warning: ' + msg, 0, 1
-        return 'ERROR: ' + msg, 1, 0
-
-    @classmethod
-    def net_erc(cls, net, errs_warns):
-        pins = net.pins
-        num_pins = len(pins)
-        for i in range(num_pins):
-            for j in range(i+1, num_pins):
-                msg, is_erc_error, is_erc_warning = cls.erc_pin_to_pin_check(pins[i], pins[j])
-                if is_erc_error or is_erc_warning:
-                    print(msg)
-                    errs_warns = [errs_warns[0]+is_erc_error, errs_warns[1]+is_erc_warning] 
