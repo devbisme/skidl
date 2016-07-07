@@ -63,21 +63,27 @@ import re
 
 
 def to_list(x):
-    '''
+    """
     Return x if it is already a list, or return a list if x is a scalar.
-    '''
+    """
     if isinstance(x, (list, tuple)):
         return x  # Already a list, so just return it.
     return [x]  # Wasn't a list, so make it into one.
 
 
 def list_or_scalar(lst):
-    '''
-    Return a list if passed a multi-element list.
-    Return the list element if passed a single-element list.
-    Return None if passed an empty list.
-    Return a scalar if passed a scalar.
-    '''
+    """
+    Return a list if passed a multi-element list, otherwise return a single scalar.
+
+    Args:
+        lst: Either a list or a scalar.
+
+    Returns:
+        * A list if passed a multi-element list.
+        * The list element if passed a single-element list.
+        * None if passed an empty list.
+        * A scalar if passed a scalar.
+    """
     if isinstance(lst, (list, tuple)):
         if len(lst) > 1:
             return lst  # Multi-element list, so return it unchanged.
@@ -87,45 +93,115 @@ def list_or_scalar(lst):
     return lst  # Must have been a scalar, so return that.
 
 
-def filter(lst, **kwargs):
-    '''
+def filter(lst, **criteria):
+    """
+    Return a list of objects whose attributes match a set of criteria.
+
     Return a list of objects extracted from a list whose attributes match a 
     set of criteria. The match is done using regular expressions.
     Example: filter(pins, name='io[0-9]+', direction='bidir') will
     return all the bidirectional pins of the component that have pin names
     starting with 'io' followed by a number (e.g., 'IO45').
-    '''
+
+    Args:
+        lst: The list from which objects will be extracted.
+        criteria: Keyword-argument pairs. The keyword specifies the attribute
+            name while the argument contains the desired value of the attribute.
+            Regardless of what type the argument is, it is always compared as if
+            it was a string. The argument can also be a regular expression that
+            must match the entire string created from the attribute of the list
+            object.
+
+    Returns:
+        A list of objects whose attributes match *all* the criteria.
+    """
+
+    # Place any matching objects from the list in here.
     extract = []
+
     for item in lst:
-        for k, v in kwargs.items():
-            # Break out of the loop if any of the item's given attributes doesn't match.
-            if not re.fullmatch(v, getattr(item, k), flags=re.IGNORECASE):
-                break
+        # String-compare an item's attributes to each of the criteria.
+        # Break out of the criteria loop and don't add the item to the extract
+        # list if *any* of the item's attributes *does not* match.
+        for k, v in criteria.items():
+            attr_val = getattr(item, k)
+
+            if not isinstance(attr_val, (list,tuple)):
+                # If the attribute value from the item in the list is a scalar,
+                # see if the value matches the current criterium. If it doesn't,
+                # then break from the criteria loop and don't extract this item. 
+                if not re.fullmatch(str(v), str(attr_val), flags=re.IGNORECASE):
+                    break
+            else:
+                # If the attribute value from the item is a non-scalar,
+                # loop through the list of attribute values. If at least one
+                # value matches the current criterium, then break from the
+                # criteria loop and don't extract this item.
+                for val in attr_val:
+                    if re.fullmatch(str(v), str(val), flags=re.IGNORECASE):
+                        # One of the list of values matched, so break from this
+                        # loop and do not execute the break in the
+                        # loop's else clause.
+                        break
+                else:
+                    # If we got here, then none of the values in the attribute
+                    # list matched the current criterium. Therefore, break out
+                    # of the criteria loop and don't add this list item to
+                    # the extract list.
+                    break
         else:
             # If we get here, then all the item attributes matched and the
-            # for loop didn't break, so add this item to the list.
+            # for criteria loop didn't break, so add this item to the
+            # extract list.
             extract.append(item)
+
     return extract
 
 
 class SchLib(object):
     """
-    A class to parse schematic library files into a list of Parts.
+    A class for storing parts from a schematic component library file.
+
+    Attributes:
+        filename: The name of the file from which the parts were read.
+        parts: The list of parts (composed of Part objects).
     """
 
-    def __init__(self, filename=None, tool='kicad'):
-        self.load_kicad_sch_lib(filename)
+    def __init__(self, filename=None, format='KICAD'):
+        """
+        Load the object with parts from a library file.
 
-    def load_kicad_sch_lib(self, filename=None):
+        Args:
+            filename: The name of the library file.
+            tool: The format of the library file (e.g., 'kicad').
+        """
         self.filename = filename
         self.parts = []
 
+        if format == 'KICAD':
+            self.load_kicad_sch_lib(filename)
+        else:
+            sys.stderr.write('Unsupported library file format: {}'.format(
+                format))
+
+    def load_kicad_sch_lib(self, filename=None):
+        """
+        Load the object with parts from a KiCad schematic library file.
+
+        Args:
+            filename: The name of the KiCad schematic library file.
+        """
+        self.filename = filename
+        self.parts = []
+
+        # Try to open the file.
         try:
             f = open(filename)
         except (FileNotFoundError, TypeError):
             sys.stderr.write('Error opening file: {}\n'.format(filename))
             return
 
+        # Check the file header to make sure it's a KiCad library.
         header = []
         header = [f.readline()]
         if header and 'EESchema-LIBRARY' not in header[0]:
@@ -133,108 +209,247 @@ class SchLib(object):
                 'The file is not a KiCad Schematic Library File\n')
             return
 
-        part_data = []
+        # Read the definition of each part line-by-line and then create
+        # a Part object that gets stored in the part list.
+        part_defn = []
         for line in f.readlines():
 
+            # Skip over comments.
             if line.startswith('#'):
                 pass
 
+            # Look for the start of a part definition.
             elif line.startswith('DEF'):
-                part_data = [line]
+                # Initialize the part definition with the first line.
+                # This will also signal that succeeding lines should be added.
+                part_defn = [line]
 
-            elif len(part_data) > 0:
-                part_data.append(line)
+            # If gathering the part definition has begun, then continue adding lines.
+            elif len(part_defn) > 0:
+                part_defn.append(line)
+
+                # If the current line ends this part definition, then create
+                # the Part object and add it to the part list. Be sure to
+                # indicate that the Part object is being added to a library
+                # and not to a schematic netlist.
                 if line.startswith('ENDDEF'):
-                    self.parts.append(Part(data=part_data,
-                                           tool='kicad',
-                                           to_lib=True))
-                    part_data = []
+                    self.parts.append(Part(part_defn=part_defn,
+                                           format='KICAD',
+                                           destination='LIBRARY'))
 
-    def get_parts(self, **kwargs):
-        '''
-        Return a list of parts that match a list of criteria.
-        Return a Part object if only a single match is found.
-        '''
-        return list_or_scalar(filter(self.parts, **kwargs))
+                    # Clear the part definition in preparation for the next one.
+                    part_defn = []
+
+    def get_parts(self, **criteria):
+        """
+        Return parts from a library that match *all* the given criteria.
+
+        Args:
+            criteria: One or more keyword-argument pairs. The keyword specifies
+                the attribute name while the argument contains the desired value
+                of the attribute.
+
+        Returns:
+            * Return a list of Part objects that match the criteria.
+            * Return a Part object if only a single match is found.
+        """
+        return list_or_scalar(filter(self.parts, **criteria))
 
     def get_part_by_name(self, name):
-        return self.get_parts(name=name)
+        """Return a Part with the given name or alias from the part list."""
+
+        # First check to see if there is a part or parts with a matching name.
+        parts = self.get_parts(name=name)
+        if parts:
+            return parts
+
+        # No part with that name, so check for an alias that matches.
+        parts = self.get_parts(aliases=name)
+        if parts:
+            return parts
+
+        raise Exception('Unable to find part with name {} in library {}.'.format(name, self.filename))
+        return self.get_parts(aliases=name)
 
     def __getitem__(self, name):
+        """
+        Return a Part with the given name using indexing notation.
+
+        A part can be retrieved from a library by indexing the library with
+        the part name in brackets. For example, a part named 'LM324' could be
+        retrieved from a SchLib object called 'opamps' using the notation
+        opamps['LM324'].
+
+        Args:
+            name: A string containing the name of the desired part. This can
+                also be a regular expression.
+
+        Returns:
+            * A Part object if the part list contains a single Part object with the
+              given name. 
+            * A list of parts will be returned if the name is a regular
+              expression that matches multiple part names in the part list. 
+              (e.g., 'LM324.*' will match 'LM324', 'LM324-SOIC8', etc.)
+            * None is returned if no matches were found.
+        """
         return self.get_part_by_name(name)
 
 
 class Pin(object):
+    """
+    A class for storing data about pins for a part.
+
+    Attributes:
+        net: The electrical net this pin is connected to.
+        part: Link to the Part object this pin belongs to.
+    """
+
+    Input, Output, BiDir, TriState, Passive, Unspec, PwrIn, PwrOut, OpenColl, OpenEmit, NoConnect = range(
+        0, 11)
+
+    pin_info = {
+        Input: {'function': 'INPUT',},
+        Output: {'function': 'OUTPUT',},
+        BiDir: {'function': 'BIDIRECTIONAL',},
+        TriState: {'function': 'TRISTATE',},
+        Passive: {'function': 'PASSIVE',},
+        Unspec: {'function': 'UNSPECIFIED',},
+        PwrIn: {'function': 'POWER-IN',},
+        PwrOut: {'function': 'POWER-OUT',},
+        OpenColl: {'function': 'OPEN-COLLECTOR',},
+        OpenEmit: {'function': 'OPEN-EMITTER',},
+        NoConnect: {'function': 'NO-CONNECT',},
+    }
+
     def __init__(self):
+        """Initialize the pin."""
         self.net = None
+        self.part = None
 
     def __add__(self, net):
+        """
+        Connect a net to a pin.
+
+        Args:
+            net: A Net object to be connected to this pin.
+
+        Returns:
+            The updated Pin object with the new net connection.
+
+        Raises:
+            An exception if trying to attach a net to a pin that is already
+            connected to a different net.
+        """
+
+        # First, check that the pin is not already connected to a different net.
+        # (A pin cannot be connected to more than one net.)
         if self.net and self.net != net:
             raise Exception(
                 "Can't assign multiple nets ({} and {}) to pin {}-{} of part {}-{}!".format(
                     self.net.name, net.name, self.num, self.name,
                     self.part.ref, self.part.name))
+
+        # Assign the net to this pin.
         self.net = net
+
+        # Now, add the pin to the list of pins maintained by the Net object.
+        # This ties them together so that a given pin can find the net it
+        # connects to, and a given net can find all the pins it's connected to.
         net += self
+
         return self
 
 
 class Part(object):
     """
-    Schematic part class.
+    A class for storing a definition of a schematic part.
+
+    Attributes:
+        ref: String storing the reference of a part within a schematic (e.g., 'R5').
+        value: String storing the part value (e.g., '3K3').
+        footprint: String storing the PCB footprint associated with a part (e.g., SOIC-8).
+        pins: List of Pin objects for this part.
     """
 
-    def __init__(self, lib=None, name=None, data=None, tool='kicad', to_lib=False, connections=None, **kwargs):
+    def __init__(self, lib=None, name=None, part_defn=None, format='KICAD', destination='NETLIST', connections=None, **attribs):
+        """
+        Create a Part object from a library or a part definition.
+
+        Args:
+            lib: Either a SchLib object or a schematic part library file name.
+            name: A string with name of the part to find in the library, or to assign to
+                the part defined by the part definition.
+            part_defn: A list of strings that define the part (usually read from a
+                schematic library file).
+            format: The format for the library file or part definition (e.g., 'KICAD').
+            destination: String that indicates where the part is destined for:
+                'NETLIST': The part will become part of a circuit netlist.
+                'LIBRARY': The part will be placed in the part list for a library.
+            connections: A dictionary with part pin names/numbers as keys and the 
+                names of nets to which they will be connected as values. For example:
+                { 'IN-':'a_in', 'IN+':'GND', '1':'AMPED_OUTPUT', '14':'VCC', '7':'GND' }
+            **attribs: Name/value pairs for setting attributes for the part.
+                For example, manf_num='LM4808MP-8' would create an attribute
+                named 'manf_num' for the part and assign it the value 'LM4808MP-8'.
+
+        Raises:
+            * Exception if the part library and definition are both missing.
+            * Exception if an unknown file format is requested.
+        """
+
+        # Create a Part from a library entry.
         if lib:
-            self.load(lib, name, tool)
-        elif data:
-            self.create_part_from_kicad(data, tool)
+            # If the lib argument is a string, the create a library using the 
+            # string as the library file name.
+            if isinstance(lib, type('')):
+                lib = SchLib(filename=lib, tool=tool)
+
+            # Make a copy of the part from the library but don't add it to the netlist.
+            part = lib.get_part_by_name(name).copy(1, 'DONT_ADD_TO_NETLIST')
+
+            # Overwrite self with the new part.
+            self.__dict__.update(part.__dict__)
+
+            # Make sure all the pins have a valid reference to this part.
+            self.associate_part_with_pins()
+
+        # Otherwise, create a Part from a part definition.
+        elif part_defn:
+            if format == 'KICAD':
+                self.create_part_from_kicad(part_defn)
+            else:
+                raise Exception(
+                    'Unknown file format ({}) was specified.'.format(format))
+
         else:
             raise Exception(
-                "Can't make a part without a library & part name or some part data.")
-        if isinstance(connections, type({})):
-            for pin, net in connections.items():
-                net += self[pin]
-        for k, v in kwargs.items():
+                "Can't make a part without a library & part name or a part definition.")
+
+        # Add additional attributes to the part.
+        for k, v in attribs.items():
             self.__dict__[k] = v
-        if not to_lib:
+
+        # If the part is going to be an element in a circuit, then add it to the
+        # the circuit and make any indicated pin/net connections.
+        if destination == 'NETLIST':
             SubCircuit.add_part(self)
+            if isinstance(connections, dict):
+                for pin, net in connections.items():
+                    net += self[pin]
 
-    def copy(self, num_copies=1):
-        copies = []
-        if not isinstance(num_copies, int):
-            raise Exception(
-                "Can't make a non-integer number ({}) of copies of a part!".format(
-                    num_copies))
-        for i in range(num_copies):
-            cpy = deepcopy(self)
-            cpy._ref = None
-            for i, pin in enumerate(cpy.pins):
-                pin.part = cpy
-                pin.net = None
-                original_net = self.pins[i].net
-                if original_net:
-                    original_net += pin
-            copies.append(cpy)
-            SubCircuit.add_part(cpy)
-        return list_or_scalar(copies)
+    def create_part_from_kicad(self, part_defn):
+        """
+        Create a Part using a part definition from a KiCad schematic library.
 
-    def __mul__(self, num_copies):
-        return self.copy(num_copies)
+        This method was written based on the code from 
+        https://github.com/KiCad/kicad-library-utils/tree/master/schlib.
+        It's covered by GPL3.
 
-    def __rmul__(self, num_copies):
-        return self.copy(num_copies)
+        Args:
+            part_defn: A list of strings that define the part (usually read from a
+                schematic library file).
+        """
 
-    def load(self, lib, name, tool):
-        if isinstance(lib, type('')):
-            lib = SchLib(filename=lib, tool=tool)
-        part = deepcopy(lib.get_part_by_name(name))
-        self.__dict__.update(part.__dict__)  # Overwrite self with the new part.
-        # Update the reference in each pin to point to the copied part.
-        for p in self.pins:
-            p.part = self
-
-    def create_part_from_kicad(self, data, tool):
         _DEF_KEYS = ['name', 'reference', 'unused', 'text_offset',
                      'draw_pinnumber', 'draw_pinname', 'unit_count',
                      'units_locked', 'option_flag']
@@ -280,47 +495,64 @@ class Part(object):
                  'T': _TEXT_KEYS,
                  'X': _PIN_KEYS}
 
-        self.fplist = []
-        self.aliases = []
-        building_fplist = False
-        building_draw = False
-        for line in data:
+        self.fplist = []  # Footprint list.
+        self.aliases = []  # Part aliases.
+        building_fplist = False  # True when working on footprint list in defn.
+        building_draw = False  # True when gathering part drawing from defn.
+
+        # Go through the part definition line-by-line.
+        for line in part_defn:
+
+            # Split the line into words.
             line = line.replace('\n', '')
             s = shlex.shlex(line)
             s.whitespace_split = True
             s.commenters = ''
             s.quotes = '"'
-            line = list(s)
+            line = list(s)  # Place the words in a list.
 
+            # The first word indicates the type of part definition data that will follow.
             if line[0] in _KEYS:
+                # Get the keywords for the current part definition data.
                 key_list = _KEYS[line[0]]
+                # Make a list of the values in the part data associated with each key.
+                # Use an empty string for any missing values so every key will be
+                # associated with something.
                 values = line[1:] + [
                     '' for n in range(len(key_list) - len(line[1:]))
                 ]
 
+            # Create a dictionary of part definition keywords and values.
             if line[0] == 'DEF':
                 self.definition = dict(list(zip(_DEF_KEYS, values)))
 
+            # Create a dictionary of F0 part field keywords and values.
             elif line[0] == 'F0':
                 self.fields = []
                 self.fields.append(dict(list(zip(_F0_KEYS, values))))
 
+            # Create a dictionary of the other part field keywords and values.
             elif line[0][0] == 'F':
+                # Make a list of field values with empty strings for missing fields.
                 values = line[1:] + [
                     '' for n in range(len(_FN_KEYS) - len(line[1:]))
                 ]
                 self.fields.append(dict(list(zip(_FN_KEYS, values))))
 
+            # Create a list of part aliases.
             elif line[0] == 'ALIAS':
                 self.aliases = [alias for alias in line[1:]]
 
+            # Start the list of part footprints.
             elif line[0] == '$FPLIST':
                 building_fplist = True
                 self.fplist = []
 
+            # End the list of part footprints.
             elif line[0] == '$ENDFPLIST':
                 building_fplist = False
 
+            # Start gathering the drawing primitives for the part symbol.
             elif line[0] == 'DRAW':
                 building_draw = True
                 self.draw = {
@@ -332,20 +564,31 @@ class Part(object):
                     'pins': []
                 }
 
+            # End the gathering of drawing primitives.
             elif line[0] == 'ENDDRAW':
                 building_draw = False
 
+            # Every other line is either a footprint or a drawing primitive.
             else:
+                # If the footprint list is being built, then add this line to it.
                 if building_fplist:
                     self.fplist.append(line[0])
 
+                # Else if the drawing primitives are being gathered, process the
+                # current line to see what type of primitive is in play.
                 elif building_draw:
+
+                    # Gather arcs.
                     if line[0] == 'A':
                         self.draw['arcs'].append(dict(list(zip(_ARC_KEYS,
                                                                values))))
+
+                    # Gather circles.
                     if line[0] == 'C':
                         self.draw['circles'].append(dict(list(zip(_CIRCLE_KEYS,
                                                                   values))))
+
+                    # Gather polygons.
                     if line[0] == 'P':
                         n_points = int(line[1])
                         points = line[5:5 + (2 * n_points)]
@@ -356,228 +599,476 @@ class Part(object):
                             values += ['']
                         self.draw['polylines'].append(dict(list(zip(_POLY_KEYS,
                                                                     values))))
+
+                    # Gather rectangles.
                     if line[0] == 'S':
                         self.draw['rectangles'].append(dict(list(zip(
                             _RECT_KEYS, values))))
+
+                    # Gather text.
                     if line[0] == 'T':
                         self.draw['texts'].append(dict(list(zip(_TEXT_KEYS,
                                                                 values))))
+
+                    # Gather the pin symbols. This is what we really want since
+                    # this defines the names, numbers and attributes of the
+                    # pins associated with the part.
                     if line[0] == 'X':
                         self.draw['pins'].append(dict(list(zip(_PIN_KEYS,
                                                                values))))
 
-        # define some shortcuts
-        self.num_units = int(self.definition['unit_count'])
-        self.name = self.definition['name']
-        self.ref_prefix = self.definition['reference']
+        # Define some shortcuts to part information.
+        self.num_units = int(self.definition['unit_count'])  # # of units within the part.
+        self.name = self.definition['name']  # Part name (e.g., 'LM324').
+        self.ref_prefix = self.definition['reference']  # Part ref prefix (e.g., 'R').
+
+        # Clear the part reference field directly. Don't use the setter function
+        # since it will try to generate and assign a unique part reference if
+        # passed a value of None.
         self._ref = None
 
-        def kicad_pin_to_pin(kpin):
+        # Make a Pin object from the information in the KiCad pin data fields.
+        def kicad_pin_to_pin(kicad_pin):
             p = Pin()
-            p.__dict__.update(kpin)
-            # the reference to the containing part needs to be updated when
-            # the part is copied!!!
-            p.part = self  # This lets the pin find the part that contains it.
+            # Replicate the KiCad pin fields as attributes in the Pin object.
+            # Note that this update will not give the pins valid references 
+            # to the current part, but we'll fix that soon.
+            p.__dict__.update(kicad_pin)
+
+            pin_type_translation = { 'I':Pin.Input, 'O':Pin.Output, 'B':Pin.BiDir, 'T':Pin.TriState, 'P':Pin.Passive,
+                'U':Pin.Unspec, 'W':Pin.PwrIn, 'w':Pin.PwrOut, 'C':Pin.OpenColl, 'E':Pin.OpenEmit, 'N':Pin.NoConnect }
+            p.func = pin_type_translation[p.electrical_type]
+            
             return p
 
         self.pins = [kicad_pin_to_pin(p) for p in self.draw['pins']]
 
-    def __getitem__(self, *pin_ids):
-        '''
+        # Make sure all the pins have a valid reference to this part.
+        self.associate_part_with_pins()
+
+    def associate_part_with_pins(self):
+        """
+        Make sure all the pins in a part have valid references to the part.
+        """
+        for p in self.pins:
+            p.part = self
+
+    def copy(self, num_copies=1, destination='NETLIST'):
+        """
+        Make zero or more copies of this part while maintaining all pin/net
+        connections.
+
+        Args:
+            num_copies: Number of copies to make of this part.
+
+        Returns:
+            A list of Part copies or a single Part if num_copies==1.
+            destination: String that indicates where the part is destined for:
+                'NETLIST': The part will become part of a circuit netlist.
+                'LIBRARY': The part will be placed in the part list for a library.
+
+        Raises:
+            Exception if the requested number of copies is a non-integer or negative.
+        """
+
+        # Check that a valid number of copies is requested.
+        if not isinstance(num_copies, int):
+            raise Exception(
+                "Can't make a non-integer number ({}) of copies of a part!".format(
+                    num_copies))
+        if num_copies < 0:
+            raise Exception(
+                "Can't make a negative number ({}) of copies of a part!".format(
+                    num_copies))
+
+        # Now make copies of the part one-by-one.
+        copies = []
+        for i in range(num_copies):
+            cpy = deepcopy(self)
+
+            # Clear the part reference of the copied part so a unique reference
+            # can be assigned when the part is added to the circuit.
+            # (This is not strictly necessary since the part reference will be
+            # adjusted to be unique if needed during the addition process.)
+            cpy._ref = None
+
+            # copy the pin/net connections of the original to the part copy.
+            for i, pin in enumerate(cpy.pins):
+
+                # Tell the copied pins they belong to the copied part.
+                pin.part = cpy
+
+                # Disconnect the pins of the copied part and then reconnect
+                # them to the same nets. This is done to update the nets
+                # with the new pin connections to the copied part.
+                original_net = pin.net  # Remember net this pin was connected to.
+
+                pin.net = None  # Disconnect pin of copied part from net.
+
+                # Now connect the copied pin back to the net.
+                if original_net:
+                    original_net += pin
+
+            # Add the part copy to the list of copies and then add the
+            # part to the circuit netlist (if requested).
+            copies.append(cpy)
+            if destination == 'NETLIST':
+                SubCircuit.add_part(cpy)
+
+        return list_or_scalar(copies)
+
+    def __mul__(self, num_copies):
+        """
+        Make part copies with the multiplication operator.
+
+        Make copies of a part using the multiplication operator.
+        For example, five copies of a Part object called lm324 could
+        be made like so: 5 * lm324.
+        """
+        return self.copy(num_copies)
+
+    def __rmul__(self, num_copies):
+        """
+        Make part copies with the multiplication operator.
+
+        Make copies of a part using the multiplication operator.
+        For example, five copies of a Part object called lm324 could
+        be made like so: lm324 * 5.
+        """
+        return self.copy(num_copies)
+
+    def get_pins(self, *pin_ids):
+        """
         Return list of part pins selected by pin numbers or names.
-        '''
+
+        For example, this would return a last of part pins that match
+        any of these::
+
+            lm324.get_pins(1, 'VCC', 'IN.*', 4:8, range(4,8))
+
+        Args:
+            pin_ids: A list of strings containing pin names, numbers,
+                regular expressions, slices, lists or tuples.
+
+        Returns:
+            A list of pins matching the given IDs, or just a single Pin object
+            if only a single match was found. Or None if no match was found.
+        """
+
         pins = []
+
+        # Go through the list of pin IDs one-by-one.
         for p_id in pin_ids:
+
+            # Pin ID is an integer.
             if isinstance(p_id, int):
                 pins.extend(to_list(self.filter_pins(num=str(p_id))))
+
+            # Pin ID is a list or tuple.
             elif isinstance(p_id, (list, tuple)):
+                # Recursive call to this function for each element in list.
                 for p in p_id:
                     pins.extend(to_list(self[p]))
+
+            # Pin ID is a slice.
             elif isinstance(p_id, slice):
+                # Determine the bounds of the slice.
                 if p_id.start is None or p_id.stop is None:
                     pin_nums = [int(p.num) for p in self.pins]
                 start = p_id.start or min(pin_nums)
                 stop = p_id.stop or (max(pin_nums) + 1)
                 step = p_id.step or 1
+                # Now loop through the slice and get each pin one-by-one.
                 for pin_num in range(start, stop, step):
                     pins.extend(to_list(self[pin_num]))
+
+            # Pin ID is a string containing a number or name.
             else:
+                # First try to get pins using the string as a number.
                 tmp_pins = self.filter_pins(num=p_id)
                 if tmp_pins:
                     pins.extend(to_list(tmp_pins))
+                # If that didn't work, try using the string as a pin name.
                 else:
                     pins.extend(to_list(self.filter_pins(name=p_id)))
+
         return list_or_scalar(pins)
 
-    def filter_pins(self, **kwargs):
-        '''
-        Return a list of component pins that match a list of criteria.
-        Possible criteria are 'name', 'direction', 'electrical_type', etc.
-        The match is done using regular expressions.
-        Example: comp.filter_pins(name='io[0-9]+', direction='bidir') will
+    def __getitem__(self, *pin_ids):
+        """
+        Return list of part pins selected by pin numbers/names using index brackets.
+
+        For example, this would return a last of part pins that match
+        any of these::
+
+            lm324.get_pins(1, 'VCC', 'IN.*', 4:8, range(4,8))
+        """
+        return self.get_pins(*pin_ids)
+
+    def filter_pins(self, **criteria):
+        """
+        Return a list of part pins whose attributes match a list of criteria.
+
+        Return a list of pins extracted from a part whose attributes match a 
+        list of criteria. The match is done using regular expressions.
+        Example: filter_pins(name='io[0-9]+', direction='bidir') will
         return all the bidirectional pins of the component that have pin names
         starting with 'io' followed by a number (e.g., 'IO45').
-        '''
-        return filter(self.pins, **kwargs)
+
+        Args:
+            criteria: Keyword-argument pairs. The keyword specifies the attribute
+                name while the argument contains the desired value of the attribute.
+
+        Returns:
+            A list of Pins whose attributes match *all* the criteria.
+        """
+        return filter(self.pins, **criteria)
 
     def connect_nets_to_pins(self, pin_ids, nets):
-        '''
-        Attach nets or pins of other parts to the specified pins of this part.
-        '''
-        pins = self[pin_ids]
-        if isinstance(pins, Pin):
-            pins = [pins]
+        """
+        Connect nets or pins of other parts to the specified pins of this part.
+
+        For example, this would connect a net to a part pin::
+
+            lm324.connect_nets_to_pins('IN-', input_net)
+
+        Args:
+            pin_ids: List of IDs of pins for this part. See get_pins() for the
+                types of acceptable pin IDs.
+            nets: Net objects
+
+        Raises:
+            Exception if the list of pins to connect to is empty.
+        """
+
+        pins = self.get_pins(pin_ids)  # Get the pins selected by the pin IDs.
+        pins = to_list(pins)  # Make it a list (in case only a single pin was found).
+
+        # if isinstance(pins, Pin):
+        # pins = [pins]
         if pins is None or len(pins) == 0:
             raise Exception("No pins to attach to!")
-        if isinstance(nets, Net):
-            nets = [nets]
+
+        nets = to_list(nets)  # Make sure nets is a list.
+
+        # if isinstance(nets, Net):
+        # nets = [nets]
+
+        # If just a single net is to be connected, make a list out of it that's
+        # just as long as the list of pins to connect to. This will connect
+        # multiple pins to the same net.
         if len(nets) == 1:
             nets = nets * len(pins)
+
+        # Now connect the pins to the nets.
         if len(nets) == len(pins):
             for pin, net in zip(pins, nets):
                 net += pin
         else:
             raise Exception("Can't attach differing numbers of pins and nets!")
-        
+
     def __setitem__(self, pin_ids, nets):
+        """
+        Connect nets or pins of other parts to the specified pins of this part.
+
+        For example, this would connect a net to a part pin::
+
+            lm324['IN-'] = input_net
+
+        Raises:
+            Exception if the list of pins to connect to is empty.
+        """
         self.connect_nets_to_pins(pin_ids, nets)
 
     @property
     def ref(self):
-        '''Return the part reference.'''
+        """Return the part reference."""
         return self._ref
 
     @ref.setter
     def ref(self, r):
-        '''Set the part reference.'''
+        """
+        Set the part reference.
+
+        This sets the part reference to be a unique identifier.
+
+        Args:
+            r: The requested reference for the part. If another part with the
+                same reference is found, this reference is modified by adding
+                an underscore and a counter value based on the number of duplicates.
+                If r is None, then r is assigned a unique reference consisting
+                of the reference prefix for the part followed by a number.
+        """
+
+        # Do nothing if the part is already labeled with the given reference.
         if self._ref == r and r is not None:
-            return # Do nothing if the part is already labeled with the given reference.
+            return
+
+        # If the requested reference is just an integer, prepend the part prefix
+        # to the number and make that the preliminary reference. Otherwise, just
+        # use whatever was passed in (which could even be None).
         if isinstance(id, int):
             self._ref = self.ref_prefix + str(r)
         else:
             self._ref = r
+
+        # If requested ref is None, make a unique reference for the part.
         if self.ref is None:
-            cnt = SubCircuit.part_ref_prefix_counts.get(self.ref_prefix, 1)
-            SubCircuit.part_ref_prefix_counts[self.ref_prefix] = cnt + 1
-            self._ref = '{}{}'.format(self.ref_prefix,cnt)
+            # Get the number of parts instantiated with the same ref prefix,
+            # or zero if the ref prefix hasn't been used, yet.
+            cnt = SubCircuit.part_ref_prefix_counts.get(self.ref_prefix, 0)
+            # Increment the count since this part is being added.
+            cnt += 1
+            # Use the updated count to create the new part reference.
+            self._ref = '{}{}'.format(self.ref_prefix, cnt)
+            # Update the count for the reference prefix.
+            SubCircuit.part_ref_prefix_counts[self.ref_prefix] = cnt
+
+        # If the part reference is a duplicate, adjust it to make it unique.
         if self.ref in SubCircuit.part_ref_counts:
-            SubCircuit.part_ref_counts[self.ref] += 1
-            self._ref = '{}_{}'.format(self.ref,SubCircuit.part_ref_counts[self.ref]-1)
-            SubCircuit.part_ref_counts[self.ref] = 1
-        else:
-            SubCircuit.part_ref_counts[self.ref] = 1
+            duplicate_ref = self.ref
+            # Create a unique ref by appending an underscore and the number
+            # of duplicate refs to the ref for this part.
+            self._ref = '{}_{}'.format(
+                duplicate_ref, SubCircuit.part_ref_counts[duplicate_ref])
+            # Increment the number of duplicates seen for this reference so
+            # the next duplicate will also be unique.
+            SubCircuit.part_ref_counts[duplicate_ref] += 1
+
+        # Finally, store the unique reference for this part in the ref list 
+        # so that *another* part ref can't clash with *it*.
+        SubCircuit.part_ref_counts[self.ref] = 1
 
     @ref.deleter
     def ref(self):
-        '''Delete the part reference.'''
-        del sel._ref
+        """Delete the part reference."""
+        sel._ref = None
 
     @property
-    def val(self):
-        '''Return the part value.'''
-        return self._val
+    def value(self):
+        """Return the part value."""
+        return self._value
 
-    @val.setter
-    def val(self, value):
-        '''Set the part value.'''
-        self._val = str(value)
+    @value.setter
+    def value(self, value):
+        """Set the part value."""
+        self._value = str(value)
 
-    @val.deleter
-    def val(self):
-        '''Delete the part value.'''
-        del sel._val
+    @value.deleter
+    def value(self):
+        """Delete the part value."""
+        del sel._value
 
     @property
     def foot(self):
-        '''Return the part footprint.'''
+        """Return the part footprint."""
         return self._foot
 
     @foot.setter
     def foot(self, footprint):
-        '''Set the part footprint.'''
+        """Set the part footprint."""
         self._foot = str(footprint)
 
     @foot.deleter
     def foot(self):
-        '''Delete the part footprint.'''
+        """Delete the part footprint."""
         del sel._foot
 
     def unit(self, *unit_ids):
-        '''Return a subunit of this part.'''
+        """
+        Return a unit of this part.
+
+        Many parts are organized into smaller pieces called units. This method
+        will search a Part for one or more unit identifiers and return a single
+        PartUnit object containing the pins from the matching units. 
+        For example, this will return unit 1 from a part::
+
+            lm324.unit(1)
+
+        And this will return a single PartUnit that combines two units of a part::
+
+            lm324.unit(2, 4)
+
+        You can even use slices:
+
+            lm324.unit(2:5)
+
+        Args:
+            unit_ids: One or more unit identifiers to search for.
+
+        Returns:
+            A PartUnit object.
+        """
         return PartUnit(self, *unit_ids)
 
     def is_connected(self):
+        """
+        Return T/F depending upon whether a part is connected in a netlist.
+
+        If a part has pins but none of them are connected to nets, then
+        this method will return False. Otherwise, it will return True even if
+        the part has no pins (which can be the case for mechanical parts,
+        silkscreen logos, or other non-electrical schematic elements).
+        """
+
+        # Assume parts without pins (like mech. holes) are always connected.
         if len(self.pins) == 0:
-            return True # Assume parts without pins (like mech. holes) are always connected.
+            return True
+
+        # If any pin is found to be connected to a net, return True
         for p in self.pins:
             if p.net is not None:
                 return True
+
+        # No net connections found, so return False.
         return False
 
 
 class PartUnit(Part):
+    """
+    Many parts are organized into smaller pieces called units. This object
+    acts like a Part but contains only a subset of the pins of a part.
+    """
+
     def __init__(self, part, *unit_ids):
+        """
+        Create a PartUnit from the pins of one or more units in a Part object.
+
+        Create a PartUnit from one or more units and return a single
+        PartUnit object containing the pins from the matching units. 
+        For example, this will return unit 1 from a part::
+
+            PartUnit(lm324, 1)
+
+        And this will return a single PartUnit that combines two units of a part::
+
+            PartUnit(lm324, 2, 4)
+
+        You can even use slices:
+
+            PartUnit(lm324, 2:5)
+        """
+
+        # Give the PartUnit the same information as the Part it is generated
+        # from so it can act the same way, just with fewer pins.
         for k, v in part.__dict__.items():
             self.__dict__[k] = v
+
+        # Collect pins into a set so there won't be any duplicates.
         unique_pins = set()
+
+        # Now collect the pins the unit will have access to.
         for unit_id in unit_ids:
-            if isinstance(unit_id, int):
-                unique_pins |= set(part.filter_pins(unit=str(unit_id)))
-            elif isinstance(unit_id, slice):
+            if isinstance(unit_id, slice):
                 max_index = part.num_units
                 for id in range(*unit_id.indices(max_index)):
-                    unique_pins |= set(part.filter_pins(unit=str(id)))
-        self.pins = [p for p in unique_pins]
+                    unique_pins |= set(part.filter_pins(unit=id))
+            else:
+                # Handle non-slice unit IDs here (ints, strings, regexes).
+                unique_pins |= set(part.filter_pins(unit=unit_id))
 
-
-class SubCircuit(object):
-    circuit_parts = []
-    circuit_nets = []
-    circuit_name_counts = {}
-    part_ref_prefix_counts = {}
-    part_ref_counts = {}
-    level = 0
-    context = [(0, 'top')]
-
-    @classmethod
-    def clear(cls):
-        cls.circuit_parts = []
-        cls.circuit_nets = []
-        cls.part_ref_prefix_counts = {}
-        cls.level = 0
-        cls.context = [(0, 'top')]
-
-    @classmethod
-    def add_part(cls, part):
-        part.ref = part.ref
-        cls.circuit_parts.append(part)
-
-    @classmethod
-    def name_net(cls, net):
-        if net.name is None:
-            net.name = 'N$' + '{:05d}'.format(len(cls.circuit_nets))
-
-    @classmethod
-    def add_net(cls, net):
-        cls.name_net(net)
-        cls.circuit_nets.append(net)
-
-    def __init__(self, circuit_func):
-        self.circuit_func = circuit_func
-
-    def __call__(self, *args, **kwargs):
-
-        (level, fname) = self.context[-1]
-        self.level += 1
-        fname += '.' + self.circuit_func.__name__
-        self.context.append((self.level, fname))
-
-        self.fname = fname
-        results = self.circuit_func(*args, **kwargs)
-
-        self.context.pop()
-        (level, fname) = self.context[-1]
-        return results
+        # Store the pins in the PartUnit.
+        self.pins = unique_pins[:]
 
 
 class Net(object):
@@ -645,91 +1136,189 @@ class Bus(object):
             return subset
 
 
-if __name__ == '__main__':
+class SubCircuit(object):
+    """
+    Class object that holds the entire netlist of parts and nets. This is
+    initialized once when the module is first imported and then all parts
+    and nets are added to its static members.
 
-    # Libraries.
-    xess_lib = SchLib('C:/xesscorp/KiCad/libraries/xess.lib')
+    Static Attributes:
+        circuit_parts: List of all the schematic parts as Part objects.
+        circuit_nets: List of all the schematic nets as Net objects.
+        part_ref_prefix_counts: Dictionary of each part prefix in the schematic
+            and the number of times it has occurred. This is used for
+            automatically numbering part references.
+        part_ref_counts: Dictionary of schematic part references and the number
+            of times each one has occurred. This is used for disambiguating
+            parts which were assigned the same reference.
+        hierarchy: A '.'-separated concatenation of the names of nested
+            SubCircuits at the current time it is read.
+        level: The current level in the schematic hierarchy.
+        context: Stack of contexts for each level in the hierarchy.
 
-    # Components.
-    vreg = Part(xess_lib, '1117')  # Also check part aliases!
-    vreg.ref = 1
+    Attributes:
+        circuit_func: The function that creates a given subcircuit.
+    """
 
-    psoc = Part(xess_lib, 'CY8C52\?\?LTI-LP')
-    psoc.ref = 2
-    psoc_unit_A = PartUnit(psoc, '2')
-    for p in psoc_unit_A.pins:
-        print(p.part.ref, p.name, p.num, p.unit)
+    circuit_parts = []
+    circuit_nets = []
+    part_ref_prefix_counts = {}
+    part_ref_counts = {}
+    hierarchy = 'top'
+    level = 0
+    context = [('top', )]
 
-    cap = [Part(xess_lib, 'C-NONPOL') for i in range(5)]
-    for i in range(len(cap)):
-        cap[i].ref = i
+    @classmethod
+    def clear(cls):
+        """Clear the current circuit."""
+        cls.circuit_parts = []
+        cls.circuit_nets = []
+        cls.part_ref_prefix_counts = {}
+        cls.hierarchy = 'top'
+        cls.level = 0
+        cls.context = [('top', )]
 
-    bead = Part(xess_lib, 'FERRITE.*')
-    bead.ref = 'L1'
+    @classmethod
+    def add_part(cls, part):
+        """Add a Part object to the circuit"""
+        part.ref = part.ref  # This adjusts the part reference if necessary.
+        part.hierarchy = cls.hierarchy  # Tag the part with its hierarchy position.
+        cls.circuit_parts.append(part)
 
-    # Power and ground nets.
-    gnd = Net(name='GND')
-    vcc_5 = Net(name='+5V')
-    vcc_33_a = Net(name='+3.3V-A')
-    vcc_33 = Net(name='+3.3V')
-    dummy = Net(name='dummy')
-    psoc_unit_A[27] = vcc_33_a
+    @classmethod
+    def name_net(cls, net):
+        """Assign a name to a net if it doesn't have one."""
+        if net.name is None:
+            net.name = 'N$' + '{:05d}'.format(len(cls.circuit_nets))
 
-    # Connect pins to nets.
-    #vcc_33 += vreg['OUT']
-    vreg['OUT', 'IN'] = vcc_33
-    #vcc_5 += vreg['IN']
-    gnd += vreg['GND']
-    vcc_33_a += bead[2]
+    @classmethod
+    def add_net(cls, net):
+        """Add a Net object to the circuit. Assign a net name if necessary."""
+        cls.name_net(net)
+        net.hierarchy = cls.hierarchy  # Tag the net with its hierarchy position.
+        cls.circuit_nets.append(net)
 
-    #gnd += psoc['VSS.*']
-    psoc['VSS.*'] = gnd
+    def __init__(self, circuit_func):
+        '''
+        When you place the @SubCircuit decorator before a function, this method
+        stores the reference to the subroutine into the SubCircuit object.
+        '''
 
-    for c in cap[:3]:
-        vcc_33_a += c[1]
-        gnd += c[2]
-    for c in cap[3:]:
-        vcc_33 += c[1]
-        gnd += c[2]
+        self.circuit_func = circuit_func
 
-    dummy += vreg[4]
-    #dummy += 1
+    def __call__(self, *args, **kwargs):
+        """
+        This method is called when you invoke the SubCircuit object to create
+        some schematic circuitry.
+        """
 
-    print('GND:')
-    for p in gnd.pins:
-        print(p.part.ref, p.name, p.num, p.electrical_type)
-    print('INPUT POWER:')
-    for p in vcc_5.pins:
-        print(p.part.ref, p.name, p.num, p.electrical_type)
-    print('VCC (analog):')
-    for p in vcc_33_a.pins:
-        print(p.part.ref, p.name, p.num, p.electrical_type)
-    print('VCC (digital):')
-    for p in vcc_33.pins:
-        print(p.part.ref, p.name, p.num, p.electrical_type)
-    print('dummy:')
-    for p in dummy.pins:
-        print(p.part.ref, p.name, p.num, p.electrical_type)
+        # Invoking the SubCircuit object creates circuitry at a level one
+        # greater than the current level. (The top level is zero.)
+        self.level += 1
 
-    sys.exit()
+        # Create a name for this SubCircuit from the concatenated names of all
+        # the SubCircuit functions that were called on all the preceding levels
+        # that led to this one.
+        self.__class__.hierarchy = self.context[-1][
+            0] + '.' + self.circuit_func.__name__
 
-    #lib_file = 'C:/xesscorp/KiCad/libraries/xilinx7.lib'
-    #part_name = 'xc7a100tfgg484'
-    lib_file = 'C:/xesscorp/KiCad/libraries/Cypress_cy8c5xlp.lib'
-    part_name = 'CY8C54LP-.*'
-    lib = SchLib(lib_file)
-    part_list = lib.get_parts(name=part_name)
-    for p in part_list:
-        print(p.name)
-    part_name = 'CY8C54LP-TQFP100'
-    part = Part(lib_file, part_name)
-    print(part.name)
-    for p in part.pins:
-        print(p.part.name, p.name, p.num)
-    #gnd.add_pins(*part['gnd.*'])
-    gnd += part['vss.*']
-    gnd += part[70]
-    gnd += part['.*MHZ_XTAL:XO.*']
-    for p in gnd.pins:
-        print(p.name, p.num, p.electrical_type)
-    #pprint(part['gnd.*'])
+        # Store the context so it can be used if this SubCircuit object
+        # invokes another SubCircuit object within itself to add more
+        # levels of hierarchy.
+        self.context.append((self.__class__.hierarchy, ))
+
+        # Call the SubCircuit object function to create whatever circuitry it handles.  
+        # The arguments to the function are usually nets to be connected to the
+        # parts instantiated in the function, but they may also be user-specific
+        # and have no effect on the mechanics of adding parts or nets although
+        # they may direct the function as to what parts and nets get created.
+        # Store any results it returns as a list. These results are user-specific
+        # and have no effect on the mechanics of adding parts or nets.
+        results = list_or_scalar(self.circuit_func(*args, **kwargs))
+
+        # Restore the context that existed before the SubCircuit circuitry was 
+        # created. This does not remove the circuitry since it has already been
+        # added to the circuit_parts and circuit_nets lists.
+        self.context.pop()
+
+        return results
+
+class Circuit(SubCircuit):
+
+    OK, Warning, Error = range(3)
+
+    @classmethod 
+    def setup(cls):
+        cls.erc_matrix = [[cls.OK for c in range(11)] for r in range(11)]
+        cls.erc_matrix[Pin.Output][Pin.Output] = cls.Error
+        cls.erc_matrix[Pin.TriState][Pin.Output] = cls.Warning
+        cls.erc_matrix[Pin.Unspec][Pin.Input] = cls.Warning
+        cls.erc_matrix[Pin.Unspec][Pin.Output] = cls.Warning
+        cls.erc_matrix[Pin.Unspec][Pin.BiDir] = cls.Warning
+        cls.erc_matrix[Pin.Unspec][Pin.TriState] = cls.Warning
+        cls.erc_matrix[Pin.Unspec][Pin.Passive] = cls.Warning
+        cls.erc_matrix[Pin.Unspec][Pin.Unspec] = cls.Warning
+        cls.erc_matrix[Pin.PwrIn][Pin.TriState] = cls.Warning
+        cls.erc_matrix[Pin.PwrIn][Pin.Unspec] = cls.Warning
+        cls.erc_matrix[Pin.PwrOut][Pin.Output] = cls.Error
+        cls.erc_matrix[Pin.PwrOut][Pin.BiDir] = cls.Warning
+        cls.erc_matrix[Pin.PwrOut][Pin.TriState] = cls.Error
+        cls.erc_matrix[Pin.PwrOut][Pin.Unspec] = cls.Warning
+        cls.erc_matrix[Pin.PwrOut][Pin.PwrOut] = cls.Error
+        cls.erc_matrix[Pin.OpenColl][Pin.Output] = cls.Error
+        cls.erc_matrix[Pin.OpenColl][Pin.TriState] = cls.Error
+        cls.erc_matrix[Pin.OpenColl][Pin.Unspec] = cls.Warning
+        cls.erc_matrix[Pin.OpenColl][Pin.PwrOut] = cls.Error
+        cls.erc_matrix[Pin.OpenEmit][Pin.Output] = cls.Error
+        cls.erc_matrix[Pin.OpenEmit][Pin.BiDir] = cls.Warning
+        cls.erc_matrix[Pin.OpenEmit][Pin.TriState] = cls.Warning
+        cls.erc_matrix[Pin.OpenEmit][Pin.Unspec] = cls.Warning
+        cls.erc_matrix[Pin.OpenEmit][Pin.PwrOut] = cls.Error
+        cls.erc_matrix[Pin.NoConnect][Pin.Input] = cls.Error
+        cls.erc_matrix[Pin.NoConnect][Pin.Output] = cls.Error
+        cls.erc_matrix[Pin.NoConnect][Pin.BiDir] = cls.Error
+        cls.erc_matrix[Pin.NoConnect][Pin.TriState] = cls.Error
+        cls.erc_matrix[Pin.NoConnect][Pin.Passive] = cls.Error
+        cls.erc_matrix[Pin.NoConnect][Pin.Unspec] = cls.Error
+        cls.erc_matrix[Pin.NoConnect][Pin.PwrIn] = cls.Error
+        cls.erc_matrix[Pin.NoConnect][Pin.PwrOut] = cls.Error
+        cls.erc_matrix[Pin.NoConnect][Pin.OpenColl] = cls.Error
+        cls.erc_matrix[Pin.NoConnect][Pin.OpenEmit] = cls.Error
+        cls.erc_matrix[Pin.NoConnect][Pin.NoConnect] = cls.Error
+        for c in range(1,11):
+            for r in range(c):
+                cls.erc_matrix[r][c] = cls.erc_matrix[c][r]
+                
+    @classmethod
+    def ERC(cls):
+        cls.setup()
+        errs_warns = [0,0]
+        for n in cls.circuit_nets:
+            cls.net_erc(n, errs_warns)
+        if errs_warns == [0,0]:
+            print('No errors or warnings found.')
+
+    @classmethod
+    def erc_pin_to_pin_check(cls, pin1, pin2):
+        erc_result = cls.erc_matrix[pin1.func][pin2.func]
+        if erc_result == cls.OK:
+            return '', 0, 0
+        def pin_desc(pin):
+            pin_function = Pin.pin_info[pin.func]['function']
+            desc = "{f} pin {p.num}/{p.name} of {p.part.name}/{p.part.ref}".format(f=pin_function, p=pin)
+            return desc
+        msg = 'Pin conflict on Net {n}: {p1} <==> {p2}'.format(n=pin1.net.name, p1=pin_desc(pin1), p2=pin_desc(pin2))
+        if erc_result == cls.Warning:
+            return 'Warning: ' + msg, 0, 1
+        return 'ERROR: ' + msg, 1, 0
+
+    @classmethod
+    def net_erc(cls, net, errs_warns):
+        pins = net.pins
+        num_pins = len(pins)
+        for i in range(num_pins):
+            for j in range(i+1, num_pins):
+                msg, is_erc_error, is_erc_warning = cls.erc_pin_to_pin_check(pins[i], pins[j])
+                if is_erc_error or is_erc_warning:
+                    print(msg)
+                    errs_warns = [errs_warns[0]+is_erc_error, errs_warns[1]+is_erc_warning] 
