@@ -31,11 +31,16 @@ standard_library.install_aliases()
 
 import sys
 import os
+import os.path
 import re
 import logging
 from copy import deepcopy
 from pprint import pprint
+import time
 import pdb
+
+#from schdl import __version__
+__version__ = '0.0.1'
 
 logger = logging.getLogger('schdl')
 
@@ -46,10 +51,6 @@ DEBUG_OVERVIEW = logging.DEBUG
 DEBUG_DETAILED = logging.DEBUG - 1
 DEBUG_OBSESSIVE = logging.DEBUG - 2
 
-#
-# This code was taken from https://github.com/KiCad/kicad-library-utils/tree/master/schlib.
-# It's covered by GPL3.
-#
 
 from builtins import str
 from builtins import zip
@@ -102,6 +103,11 @@ def filter(lst, **criteria):
     Example: filter(pins, name='io[0-9]+', direction='bidir') will
     return all the bidirectional pins of the component that have pin names
     starting with 'io' followed by a number (e.g., 'IO45').
+
+    If an attribute of the lst object is a list or tuple, each entry in the
+    list/tuple will be checked for a match. Only one entry needs to match to
+    consider the entire attribute a match. This feature is useful when
+    searching for objects that contain a list of aliases, such as Part objects.
 
     Args:
         lst: The list from which objects will be extracted.
@@ -168,6 +174,8 @@ class SchLib(object):
     Attributes:
         filename: The name of the file from which the parts were read.
         parts: The list of parts (composed of Part objects).
+        cache: A dict of filenames and their associated SchLib object
+            for fast loading of libraries.
     """
     cache = {}
 
@@ -179,14 +187,20 @@ class SchLib(object):
             filename: The name of the library file.
             tool: The format of the library file (e.g., 'kicad').
         """
+
         self.filename = filename
         self.parts = []
 
+        # Load this SchLib with an existing SchLib object if the file names match.
         if filename in self.cache:
             self.__dict__.update(self.cache[filename].__dict__)
+
+        # Otherwise, load from a schematic library file.
         elif format == 'KICAD':
             self.load_kicad_sch_lib(filename)
-            self.cache[filename] = self
+            self.cache[filename] = self  # Cache a reference to the library.
+
+        # OK, that didn't work so well...
         else:
             sys.stderr.write('Unsupported library file format: {}'.format(
                 format))
@@ -367,6 +381,13 @@ class Pin(object):
         net += self
 
         return self
+
+    def erc_pin_desc(self):
+        pin_function = Pin.pin_info[self.func]['function']
+        desc = "{f} pin {p.num}/{p.name} of {p.part.name}/{p.part.ref}".format(
+            f=pin_function,
+            p=self)
+        return desc
 
 
 class Part(object):
@@ -1042,6 +1063,65 @@ class Part(object):
         return False
 
 
+    def erc(self, errs_warns):
+        """
+        Do electrical rules check on a part in the schematic.
+
+        Args:
+            errs_warns: A two-element list where the first element records
+                the number of errors and the second element records the number
+                of warnings. This list is updated by the method as it processes
+                the part.
+        """
+        for p in self.pins:
+            if p.net is None and p.func != Pin.NoConnect:
+                msg = 'Warning: Unconnected pin: Pin {p}.'.format(p=p.erc_pin_desc())
+                print(msg)
+                e_w = (0,1)
+                for i in range(len(errs_warns)):
+                    errs_warns[i] = errs_warns[i] + e_w[i]
+            if p.net is not None and p.func == Pin.NoConnect:
+                msg = 'Warning: Incorrectly connected pin: Pin {p} should not be connected to a net (n).'.format(p=p.erc_pin_desc(), n=p.net.name)
+                print(msg)
+                e_w = (0,1)
+                for i in range(len(errs_warns)):
+                    errs_warns[i] = errs_warns[i] + e_w[i]
+
+    def generate_netlist_component(self, format='KICAD'):
+        """
+        Generate the part information for inclusion in a netlist.
+
+        Args:
+            format: The format for the netlist file (e.g., 'KICAD').
+        """
+
+        def gen_netlist_comp_kicad():
+            ref = self.ref
+            try:
+                value = self.value
+                if not value:
+                    value = self.name
+            except AttributeError:
+                try:
+                    value = self.name
+                except AttributeError:
+                    value = self.ref_prefix
+            try:
+                footprint = self.footprint
+            except AttributeError:
+                footprint = 'No Footprint'
+
+            txt = '    (comp (ref {ref})\n      (value {value})\n      (footprint {footprint}))'.format(ref=ref, value=value, footprint=footprint)
+            return txt
+
+        if format == 'KICAD':
+            return gen_netlist_comp_kicad()
+        else:
+            raise Exception('Requesting unknown netlist format ({}).'.format(format))
+            return ''
+            
+
+
 class PartUnit(Part):
     """
     Many parts are organized into smaller pieces called units. This object
@@ -1126,40 +1206,95 @@ class Net(object):
         return self.add_pins(*pins)
 
     def erc(self, errs_warns):
+        """
+        Do electrical rules check on a net in the schematic.
 
-        def pin_to_pin_chk(pin1, pin2):
-            erc_result = Circuit.erc_matrix[pin1.func][pin2.func]
-            if erc_result == Circuit.OK:
-                return '', 0, 0
+        Args:
+            errs_warns: A two-element list where the first element records
+                the number of errors and the second element records the number
+                of warnings. This list is updated by the method as it processes
+                the net.
+        """
 
-            def pin_desc(pin):
-                pin_function = Pin.pin_info[pin.func]['function']
-                desc = "{f} pin {p.num}/{p.name} of {p.part.name}/{p.part.ref}".format(
-                    f=pin_function,
-                    p=pin)
-                return desc
+        def pin_conflict_chk(pin1, pin2):
+            """
+            Check for conflict/contention between two pins on the same net.
+            """
 
-            msg = 'Pin conflict on Net {n}: {p1} <==> {p2}'.format(
+            # Use the functions of the two pins to index into the ERC table
+            # and see if the pins are compatible (e.g., an input and an output)
+            # or incompatible (e.g., a conflict because both are outputs).
+            erc_result = SubCircuit.erc_matrix[pin1.func][pin2.func]
+
+            # Return if the pins are compatible.
+            if erc_result == SubCircuit.OK:
+                return '', (0, 0)
+
+            # Otherwise, generate an error or warning message.
+            msg = 'Pin conflict on net {n}: {p1} <==> {p2}'.format(
                 n=pin1.net.name,
-                p1=pin_desc(pin1),
-                p2=pin_desc(pin2))
-            if erc_result == Circuit.Warning:
-                return 'Warning: ' + msg, 0, 1
-            return 'ERROR: ' + msg, 1, 0
+                p1=pin1.erc_pin_desc(),
+                p2=pin2.erc_pin_desc())
+            if erc_result == SubCircuit.Warning:
+                return 'Warning: ' + msg, (0, 1)
+            return 'ERROR: ' + msg, (1, 0)
 
-        pins = self.pins
-        num_pins = len(pins)
-        net_drive = 0
-        for p in pins:
-            net_drive = max(net_drive, Pin.pin_info[p.func]['drive'])
+        def net_drive_chk():
+            """
+            """
+
+            # Find the maximum signal driver on this net.
+            net_drive = 0
+            for p in self.pins:
+                net_drive = max(net_drive, Pin.pin_info[p.func]['drive'])
+
+            msg = ''
+            error = (0,0)
+            if net_drive == 0:
+                msg = msg + '\n' + 'Warning: No drivers for net {n}'.format(n=self.name)
+                error = (0, 1)
+            for p in self.pins:
+                if Pin.pin_info[p.func]['receive'] > net_drive:
+                    msg = msg + '\n' + 'Warning: Insufficient drive current on net {n} for pin {p}'.format(n=self.name, p=p.erc_pin_desc())
+                    error = (0, 1)
+            return msg, error
+
+        num_pins = len(self.pins)
         for i in range(num_pins):
             for j in range(i + 1, num_pins):
-                msg, is_erc_error, is_erc_warning = pin_to_pin_chk(
-                    pins[i], pins[j])
-                if is_erc_error or is_erc_warning:
+                msg, e_w = pin_conflict_chk(
+                    self.pins[i], self.pins[j])
+                if e_w != (0, 0):
                     print(msg)
-                    errs_warns = [errs_warns[0] + is_erc_error,
-                                  errs_warns[1] + is_erc_warning]
+                    for i in range(len(errs_warns)):
+                        errs_warns[i] = errs_warns[i] + e_w[i]
+
+        msg, e_w = net_drive_chk()
+        if e_w != (0, 0):
+            print(msg)
+            for i in range(len(errs_warns)):
+                errs_warns[i] = errs_warns[i] + e_w[i]
+
+    def generate_netlist_net(self, format='KICAD'):
+        """
+        Generate the net information for inclusion in a netlist.
+
+        Args:
+            format: The format for the netlist file (e.g., 'KICAD').
+        """
+
+        def gen_netlist_net_kicad():
+            txt = '    (net (code {code}) (name "{name}")'.format(code=self.code, name=self.name)
+            for p in self.pins:
+                txt += '\n      (node (ref {part_ref})(pin {pin_num}))'.format(part_ref=p.part.ref, pin_num=p.num)
+            txt += (')')
+            return txt
+
+        if format == 'KICAD':
+            return gen_netlist_net_kicad()
+        else:
+            raise Exception('Requesting unknown netlist format ({}).'.format(format))
+            return ''
 
 
 class Bus(object):
@@ -1213,6 +1348,8 @@ class SubCircuit(object):
     Attributes:
         circuit_func: The function that creates a given subcircuit.
     """
+
+    OK, Warning, Error = range(3)
 
     circuit_parts = []
     circuit_nets = []
@@ -1297,13 +1434,13 @@ class SubCircuit(object):
 
         return results
 
-
-class Circuit(SubCircuit):
-
-    OK, Warning, Error = range(3)
-
     @classmethod
-    def setup(cls):
+    def erc_setup(cls):
+        """
+        Initialize the electrical rules checker.
+        """
+
+        # Initialize the pin conention matrix.
         cls.erc_matrix = [[cls.OK for c in range(11)] for r in range(11)]
         cls.erc_matrix[Pin.Output][Pin.Output] = cls.Error
         cls.erc_matrix[Pin.TriState][Pin.Output] = cls.Warning
@@ -1340,15 +1477,108 @@ class Circuit(SubCircuit):
         cls.erc_matrix[Pin.NoConnect][Pin.OpenColl] = cls.Error
         cls.erc_matrix[Pin.NoConnect][Pin.OpenEmit] = cls.Error
         cls.erc_matrix[Pin.NoConnect][Pin.NoConnect] = cls.Error
+
+        # Fill-in the other half of the symmetrical matrix.
         for c in range(1, 11):
             for r in range(c):
                 cls.erc_matrix[r][c] = cls.erc_matrix[c][r]
 
     @classmethod
     def ERC(cls):
-        cls.setup()
+        """
+        Do an electrical rules check on the circuit.
+        """
+
+        cls.erc_setup()
         errs_warns = [0, 0]
-        for n in cls.circuit_nets:
-            n.erc(errs_warns)
+
+        # Check the nets for errors.
+        for net in cls.circuit_nets:
+            net.erc(errs_warns)
+
+        # Check the parts for errors.
+        for part in cls.circuit_parts:
+            part.erc(errs_warns)
+
         if errs_warns == [0, 0]:
             print('No errors or warnings found.')
+
+    @classmethod
+    def generate_netlist(cls, filename, format='KICAD'):
+        
+        if format == 'KICAD':
+            scr_dict = scriptinfo()
+            src_file = os.path.join(scr_dict['dir'], scr_dict['source'])
+            date = time.strftime('%m/%d/%Y %I:%M %p')
+            tool = 'SchDL (' + __version__ + ')'
+
+            print('''(export (version D)
+  (design
+    (source "{src_file}")
+    (date "{date}")
+    (tool "{tool}"))'''.format(src_file=src_file, date=date, tool=tool)
+            )
+            print("  (components")
+            for p in SubCircuit.circuit_parts:
+                comp_txt = p.generate_netlist_component(format)
+                print(comp_txt)
+            print("  )")
+            print("  (nets")
+            for code, n in enumerate(SubCircuit.circuit_nets):
+                n.code = code
+                net_txt = n.generate_netlist_net(format)
+                print(net_txt)
+            print("  )")
+            print(")")
+
+
+def scriptinfo():
+    '''
+    Returns a dictionary with information about the running top level Python
+    script:
+    ---------------------------------------------------------------------------
+    dir:    directory containing script or compiled executable
+    name:   name of script or executable
+    source: name of source code file
+    ---------------------------------------------------------------------------
+    "name" and "source" are identical if and only if running interpreted code.
+    When running code compiled by py2exe or cx_freeze, "source" contains
+    the name of the originating Python script.
+    If compiled by PyInstaller, "source" contains no meaningful information.
+
+    Downloaded from:
+    http://code.activestate.com/recipes/579018-python-determine-name-and-directory-of-the-top-lev/
+    '''
+
+    import os, sys, inspect
+    #---------------------------------------------------------------------------
+    # scan through call stack for caller information
+    #---------------------------------------------------------------------------
+    for teil in inspect.stack():
+        # skip system calls
+        if teil[1].startswith("<"):
+            continue
+        if teil[1].upper().startswith(sys.exec_prefix.upper()):
+            continue
+        trc = teil[1]
+        
+    # trc contains highest level calling script name
+    # check if we have been compiled
+    if getattr(sys, 'frozen', False):
+        scriptdir, scriptname = os.path.split(sys.executable)
+        return {"dir": scriptdir,
+                "name": scriptname,
+                "source": trc}
+
+    # from here on, we are in the interpreted case
+    scriptdir, trc = os.path.split(trc)
+    # if trc did not contain directory information,
+    # the current working directory is what we need
+    if not scriptdir:
+        scriptdir = os.getcwd()
+
+    scr_dict ={"name": trc,
+               "source": trc,
+               "dir": scriptdir}
+    return scr_dict
+            
