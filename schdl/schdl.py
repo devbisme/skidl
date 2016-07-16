@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 
 # MIT license
-# 
+#
 # Copyright (C) 2016 by XESS Corp.
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be included in
 # all copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -34,12 +34,17 @@ import os
 import os.path
 import re
 import logging
+import shlex
 from copy import deepcopy
 from pprint import pprint
 import time
 import pdb
+from builtins import str
+from builtins import zip
+from builtins import range
+from builtins import object
 
-#from schdl import __version__
+# from schdl import __version__
 __version__ = '0.0.1'
 
 logger = logging.getLogger('schdl')
@@ -52,15 +57,31 @@ DEBUG_DETAILED = logging.DEBUG - 1
 DEBUG_OBSESSIVE = logging.DEBUG - 2
 
 
-from builtins import str
-from builtins import zip
-from builtins import range
-from builtins import object
+class count_calls(object):
+    """
+    Decorator for counting the number of times a function is called.
 
-import sys
-import shlex
-import os.path
-import re
+    This is used for counting errors and warnings passed to logging functions,
+    making it easy to track if and how many errors/warnings were issued.
+    """
+
+    def __init__(self, func):
+        self.func = func
+        self.count = 0
+
+    def __call__(self, *args, **kwargs):
+        self.count += 1
+        return self.func(*args, **kwargs)
+
+# Set up logging.
+logger = logging.getLogger('schdl')
+log_level = logging.WARNING
+handler = logging.StreamHandler(sys.stderr)
+handler.setLevel(log_level)
+logger.addHandler(handler)
+logger.setLevel(log_level)
+logger.error = count_calls(logger.error)
+logger.warning = count_calls(logger.warning)
 
 
 def to_list(x):
@@ -98,7 +119,7 @@ def filter(lst, **criteria):
     """
     Return a list of objects whose attributes match a set of criteria.
 
-    Return a list of objects extracted from a list whose attributes match a 
+    Return a list of objects extracted from a list whose attributes match a
     set of criteria. The match is done using regular expressions.
     Example: filter(pins, name='io[0-9]+', direction='bidir') will
     return all the bidirectional pins of the component that have pin names
@@ -137,8 +158,7 @@ def filter(lst, **criteria):
                 # see if the value matches the current criterium. If it doesn't,
                 # then break from the criteria loop and don't extract this item.
                 if not re.fullmatch(
-                        str(v),
-                        str(attr_val),
+                        str(v), str(attr_val),
                         flags=re.IGNORECASE):
                     break
             else:
@@ -166,6 +186,8 @@ def filter(lst, **criteria):
 
     return extract
 
+##############################################################################
+
 
 class SchLib(object):
     """
@@ -177,7 +199,7 @@ class SchLib(object):
         cache: A dict of filenames and their associated SchLib object
             for fast loading of libraries.
     """
-    cache = {}
+    cache = {}  # Cache of previously read part libraries.
 
     def __init__(self, filename=None, format='KICAD'):
         """
@@ -191,7 +213,8 @@ class SchLib(object):
         self.filename = filename
         self.parts = []
 
-        # Load this SchLib with an existing SchLib object if the file names match.
+        # Load this SchLib with an existing SchLib object if the file name
+        # matches one in the cache.
         if filename in self.cache:
             self.__dict__.update(self.cache[filename].__dict__)
 
@@ -202,8 +225,7 @@ class SchLib(object):
 
         # OK, that didn't work so well...
         else:
-            sys.stderr.write('Unsupported library file format: {}'.format(
-                format))
+            logger.error('Unsupported library file format: {}'.format(format))
 
     def load_kicad_sch_lib(self, filename=None):
         """
@@ -219,15 +241,16 @@ class SchLib(object):
         try:
             f = open(filename)
         except (FileNotFoundError, TypeError):
-            sys.stderr.write('Error opening file: {}\n'.format(filename))
+            logger.error("Can't open file: {}\n".format(filename))
             return
 
         # Check the file header to make sure it's a KiCad library.
         header = []
         header = [f.readline()]
         if header and 'EESchema-LIBRARY' not in header[0]:
-            sys.stderr.write(
-                'The file is not a KiCad Schematic Library File\n')
+            logger.error(
+                'The file {} is not a KiCad Schematic Library File\n'.format(
+                    filename))
             return
 
         # Read the definition of each part line-by-line and then create
@@ -289,10 +312,9 @@ class SchLib(object):
         if parts:
             return parts
 
-        raise Exception(
-            'Unable to find part with name {} in library {}.'.format(
-                name, self.filename))
-        return self.get_parts(aliases=name)
+        logger.error('Unable to find part {} in library {}.'.format(
+            name, self.filename))
+        raise Exception
 
     def __getitem__(self, name):
         """
@@ -309,13 +331,15 @@ class SchLib(object):
 
         Returns:
             * A Part object if the part list contains a single Part object with the
-              given name. 
+              given name.
             * A list of parts will be returned if the name is a regular
-              expression that matches multiple part names in the part list. 
+              expression that matches multiple part names in the part list.
               (e.g., 'LM324.*' will match 'LM324', 'LM324-SOIC8', etc.)
             * None is returned if no matches were found.
         """
         return self.get_part_by_name(name)
+
+##############################################################################
 
 
 class Pin(object):
@@ -327,21 +351,43 @@ class Pin(object):
         part: Link to the Part object this pin belongs to.
     """
 
-    Input, Output, BiDir, TriState, Passive, Unspec, PwrIn, PwrOut, OpenColl, OpenEmit, NoConnect = range(
+    INPUT, OUTPUT, BIDIR, TRISTATE, PASSIVE, UNSPEC, PWRIN, PWROUT, OPENCOLL, OPENEMIT, NOCONNECT = range(
         0, 11)
 
     pin_info = {
-        Input: {'function': 'INPUT', 'drive':0, 'receive':1, },
-        Output: {'function': 'OUTPUT', 'drive':2, 'receive':0, },
-        BiDir: {'function': 'BIDIRECTIONAL', 'drive':2, 'receive':0, },
-        TriState: {'function': 'TRISTATE', 'drive':2, 'receive':0, },
-        Passive: {'function': 'PASSIVE', 'drive':0, 'receive':0, },
-        Unspec: {'function': 'UNSPECIFIED', 'drive':0, 'receive':0, },
-        PwrIn: {'function': 'POWER-IN', 'drive':0, 'receive':3, },
-        PwrOut: {'function': 'POWER-OUT', 'drive':3, 'receive':0, },
-        OpenColl: {'function': 'OPEN-COLLECTOR', 'drive':1, 'receive':0, },
-        OpenEmit: {'function': 'OPEN-EMITTER', 'drive':1, 'receive':0, },
-        NoConnect: {'function': 'NO-CONNECT', 'drive':0, 'receive':0, },
+        INPUT: {'function': 'INPUT',
+                'drive': 0,
+                'receive': 1, },
+        OUTPUT: {'function': 'OUTPUT',
+                 'drive': 2,
+                 'receive': 0, },
+        BIDIR: {'function': 'BIDIRECTIONAL',
+                'drive': 2,
+                'receive': 0, },
+        TRISTATE: {'function': 'TRISTATE',
+                   'drive': 2,
+                   'receive': 0, },
+        PASSIVE: {'function': 'PASSIVE',
+                  'drive': 0,
+                  'receive': 0, },
+        UNSPEC: {'function': 'UNSPECIFIED',
+                 'drive': 0,
+                 'receive': 0, },
+        PWRIN: {'function': 'POWER-IN',
+                'drive': 0,
+                'receive': 3, },
+        PWROUT: {'function': 'POWER-OUT',
+                 'drive': 3,
+                 'receive': 0, },
+        OPENCOLL: {'function': 'OPEN-COLLECTOR',
+                   'drive': 1,
+                   'receive': 0, },
+        OPENEMIT: {'function': 'OPEN-EMITTER',
+                   'drive': 1,
+                   'receive': 0, },
+        NOCONNECT: {'function': 'NO-CONNECT',
+                    'drive': 0,
+                    'receive': 0, },
     }
 
     def __init__(self):
@@ -367,10 +413,11 @@ class Pin(object):
         # First, check that the pin is not already connected to a different net.
         # (A pin cannot be connected to more than one net.)
         if self.net and self.net != net:
-            raise Exception(
-                "Can't assign multiple nets ({} and {}) to pin {}-{} of part {}-{}!".format(
-                    self.net.name, net.name, self.num, self.name,
-                    self.part.ref, self.part.name))
+            logger.error(
+                "Can't assign net {} to pin {}-{} of part {}-{} because it's already connected to net {}!".format(
+                    net.name, self.num, self.name, self.part.ref,
+                    self.part.name, self.net.name))
+            return self
 
         # Assign the net to this pin.
         self.net = net
@@ -385,9 +432,10 @@ class Pin(object):
     def erc_pin_desc(self):
         pin_function = Pin.pin_info[self.func]['function']
         desc = "{f} pin {p.num}/{p.name} of {p.part.name}/{p.part.ref}".format(
-            f=pin_function,
-            p=self)
+            f=pin_function, p=self)
         return desc
+
+##############################################################################
 
 
 class Part(object):
@@ -401,7 +449,14 @@ class Part(object):
         pins: List of Pin objects for this part.
     """
 
-    def __init__(self, lib=None, name=None, part_defn=None, format='KICAD', destination='NETLIST', connections=None, **attribs):
+    def __init__(self,
+                 lib=None,
+                 name=None,
+                 part_defn=None,
+                 format='KICAD',
+                 destination='NETLIST',
+                 connections=None,
+                 **attribs):
         """
         Create a Part object from a library or a part definition.
 
@@ -415,7 +470,7 @@ class Part(object):
             destination: String that indicates where the part is destined for:
                 'NETLIST': The part will become part of a circuit netlist.
                 'LIBRARY': The part will be placed in the part list for a library.
-            connections: A dictionary with part pin names/numbers as keys and the 
+            connections: A dictionary with part pin names/numbers as keys and the
                 names of nets to which they will be connected as values. For example:
                 { 'IN-':'a_in', 'IN+':'GND', '1':'AMPED_OUTPUT', '14':'VCC', '7':'GND' }
             **attribs: Name/value pairs for setting attributes for the part.
@@ -429,7 +484,7 @@ class Part(object):
 
         # Create a Part from a library entry.
         if lib:
-            # If the lib argument is a string, the create a library using the 
+            # If the lib argument is a string, the create a library using the
             # string as the library file name.
             if isinstance(lib, type('')):
                 lib = SchLib(filename=lib, format=format)
@@ -448,12 +503,15 @@ class Part(object):
             if format == 'KICAD':
                 self.create_part_from_kicad(part_defn)
             else:
-                raise Exception(
-                    'Unknown file format ({}) was specified.'.format(format))
+                logger.error(
+                    "Can't create a part with an unknown file format: {}.".format(
+                        format))
+                raise Exception
 
         else:
-            raise Exception(
+            logger.error(
                 "Can't make a part without a library & part name or a part definition.")
+            raise Exception
 
         # Add additional attributes to the part.
         for k, v in attribs.items():
@@ -471,7 +529,7 @@ class Part(object):
         """
         Create a Part using a part definition from a KiCad schematic library.
 
-        This method was written based on the code from 
+        This method was written based on the code from
         https://github.com/KiCad/kicad-library-utils/tree/master/schlib.
         It's covered by GPL3.
 
@@ -648,9 +706,11 @@ class Part(object):
                                                                values))))
 
         # Define some shortcuts to part information.
-        self.num_units = int(self.definition['unit_count'])  # # of units within the part.
+        self.num_units = int(
+            self.definition['unit_count'])  # # of units within the part.
         self.name = self.definition['name']  # Part name (e.g., 'LM324').
-        self.ref_prefix = self.definition['reference']  # Part ref prefix (e.g., 'R').
+        self.ref_prefix = self.definition[
+            'reference']  # Part ref prefix (e.g., 'R').
 
         # Clear the part reference field directly. Don't use the setter function
         # since it will try to generate and assign a unique part reference if
@@ -661,21 +721,21 @@ class Part(object):
         def kicad_pin_to_pin(kicad_pin):
             p = Pin()
             # Replicate the KiCad pin fields as attributes in the Pin object.
-            # Note that this update will not give the pins valid references 
+            # Note that this update will not give the pins valid references
             # to the current part, but we'll fix that soon.
             p.__dict__.update(kicad_pin)
 
-            pin_type_translation = {'I': Pin.Input,
-                                    'O': Pin.Output,
-                                    'B': Pin.BiDir,
-                                    'T': Pin.TriState,
-                                    'P': Pin.Passive,
-                                    'U': Pin.Unspec,
-                                    'W': Pin.PwrIn,
-                                    'w': Pin.PwrOut,
-                                    'C': Pin.OpenColl,
-                                    'E': Pin.OpenEmit,
-                                    'N': Pin.NoConnect}
+            pin_type_translation = {'I': Pin.INPUT,
+                                    'O': Pin.OUTPUT,
+                                    'B': Pin.BIDIR,
+                                    'T': Pin.TRISTATE,
+                                    'P': Pin.PASSIVE,
+                                    'U': Pin.UNSPEC,
+                                    'W': Pin.PWRIN,
+                                    'w': Pin.PWROUT,
+                                    'C': Pin.OPENCOLL,
+                                    'E': Pin.OPENEMIT,
+                                    'N': Pin.NOCONNECT}
             p.func = pin_type_translation[p.electrical_type]
 
             return p
@@ -712,13 +772,15 @@ class Part(object):
 
         # Check that a valid number of copies is requested.
         if not isinstance(num_copies, int):
-            raise Exception(
+            logger.error(
                 "Can't make a non-integer number ({}) of copies of a part!".format(
                     num_copies))
+            raise Exception
         if num_copies < 0:
-            raise Exception(
+            logger.error(
                 "Can't make a negative number ({}) of copies of a part!".format(
                     num_copies))
+            raise Exception
 
         # Now make copies of the part one-by-one.
         copies = []
@@ -848,7 +910,7 @@ class Part(object):
         """
         Return a list of part pins whose attributes match a list of criteria.
 
-        Return a list of pins extracted from a part whose attributes match a 
+        Return a list of pins extracted from a part whose attributes match a
         list of criteria. The match is done using regular expressions.
         Example: filter_pins(name='io[0-9]+', direction='bidir') will
         return all the bidirectional pins of the component that have pin names
@@ -881,17 +943,13 @@ class Part(object):
         """
 
         pins = self.get_pins(pin_ids)  # Get the pins selected by the pin IDs.
-        pins = to_list(pins)  # Make it a list (in case only a single pin was found).
+        pins = to_list(pins)  # Make list in case only a single pin was found.
 
-        # if isinstance(pins, Pin):
-        # pins = [pins]
         if pins is None or len(pins) == 0:
-            raise Exception("No pins to attach to!")
+            logger.error("No pins to attach to!")
+            raise Exception
 
         nets = to_list(nets)  # Make sure nets is a list.
-
-        # if isinstance(nets, Net):
-        # nets = [nets]
 
         # If just a single net is to be connected, make a list out of it that's
         # just as long as the list of pins to connect to. This will connect
@@ -904,7 +962,8 @@ class Part(object):
             for pin, net in zip(pins, nets):
                 net += pin
         else:
-            raise Exception("Can't attach differing numbers of pins and nets!")
+            logger.error("Can't attach differing numbers of pins and nets!")
+            raise Exception
 
     def __setitem__(self, pin_ids, nets):
         """
@@ -974,14 +1033,14 @@ class Part(object):
             # the next duplicate will also be unique.
             SubCircuit.part_ref_counts[duplicate_ref] += 1
 
-        # Finally, store the unique reference for this part in the ref list 
+        # Finally, store the unique reference for this part in the ref list
         # so that *another* part ref can't clash with *it*.
         SubCircuit.part_ref_counts[self.ref] = 1
 
     @ref.deleter
     def ref(self):
         """Delete the part reference."""
-        sel._ref = None
+        self._ref = None
 
     @property
     def value(self):
@@ -996,7 +1055,7 @@ class Part(object):
     @value.deleter
     def value(self):
         """Delete the part value."""
-        del sel._value
+        del self._value
 
     @property
     def foot(self):
@@ -1011,7 +1070,7 @@ class Part(object):
     @foot.deleter
     def foot(self):
         """Delete the part footprint."""
-        del sel._foot
+        del self._foot
 
     def unit(self, *unit_ids):
         """
@@ -1019,7 +1078,7 @@ class Part(object):
 
         Many parts are organized into smaller pieces called units. This method
         will search a Part for one or more unit identifiers and return a single
-        PartUnit object containing the pins from the matching units. 
+        PartUnit object containing the pins from the matching units.
         For example, this will return unit 1 from a part::
 
             lm324.unit(1)
@@ -1062,30 +1121,18 @@ class Part(object):
         # No net connections found, so return False.
         return False
 
-
-    def erc(self, errs_warns):
+    def erc(self):
         """
         Do electrical rules check on a part in the schematic.
-
-        Args:
-            errs_warns: A two-element list where the first element records
-                the number of errors and the second element records the number
-                of warnings. This list is updated by the method as it processes
-                the part.
         """
         for p in self.pins:
-            if p.net is None and p.func != Pin.NoConnect:
-                msg = 'Warning: Unconnected pin: Pin {p}.'.format(p=p.erc_pin_desc())
-                print(msg)
-                e_w = (0,1)
-                for i in range(len(errs_warns)):
-                    errs_warns[i] = errs_warns[i] + e_w[i]
-            if p.net is not None and p.func == Pin.NoConnect:
-                msg = 'Warning: Incorrectly connected pin: Pin {p} should not be connected to a net (n).'.format(p=p.erc_pin_desc(), n=p.net.name)
-                print(msg)
-                e_w = (0,1)
-                for i in range(len(errs_warns)):
-                    errs_warns[i] = errs_warns[i] + e_w[i]
+            if p.net is None and p.func != Pin.NOCONNECT:
+                erc_logger.warning('Unconnected pin: Pin {p}.'.format(
+                    p=p.erc_pin_desc()))
+            if p.net is not None and p.func == Pin.NOCONNECT:
+                erc_logger.warning(
+                    'Incorrectly connected pin: Pin {p} should not be connected to a net (n).'.format(
+                        p=p.erc_pin_desc(), n=p.net.name))
 
     def generate_netlist_component(self, format='KICAD'):
         """
@@ -1109,17 +1156,24 @@ class Part(object):
             try:
                 footprint = self.footprint
             except AttributeError:
+                logger.warning('No footprint for {part}/{ref}.'.format(
+                    part=self.name, ref=ref))
                 footprint = 'No Footprint'
 
-            txt = '    (comp (ref {ref})\n      (value {value})\n      (footprint {footprint}))'.format(ref=ref, value=value, footprint=footprint)
+            txt = '    (comp (ref {ref})\n      (value {value})\n      (footprint {footprint}))'.format(
+                ref=ref, value=value, footprint=footprint)
             return txt
 
         if format == 'KICAD':
             return gen_netlist_comp_kicad()
         else:
-            raise Exception('Requesting unknown netlist format ({}).'.format(format))
+            logger.error(
+                "Can't generate netlist in an unknown format ({}).".format(
+                    format))
+            raise Exception
             return ''
-            
+
+##############################################################################
 
 
 class PartUnit(Part):
@@ -1133,7 +1187,7 @@ class PartUnit(Part):
         Create a PartUnit from the pins of one or more units in a Part object.
 
         Create a PartUnit from one or more units and return a single
-        PartUnit object containing the pins from the matching units. 
+        PartUnit object containing the pins from the matching units.
         For example, this will return unit 1 from a part::
 
             PartUnit(lm324, 1)
@@ -1168,11 +1222,17 @@ class PartUnit(Part):
         # Store the pins in the PartUnit.
         self.pins = unique_pins[:]
 
+##############################################################################
+
 
 class Net(object):
+
+    NO_DRIVE, OPEN_DRIVE, OUTPUT_DRIVE, POWER_DRIVE = range(4)
+
     def __init__(self, name=None, *pins):
         self.name = name
         self.pins = []
+        self._drive = 0
         SubCircuit.add_net(self)
 
     @property
@@ -1187,33 +1247,40 @@ class Net(object):
     def name(self):
         del self._name
 
+    @property
+    def drive(self):
+        return self._drive
+
+    @drive.setter
+    def drive(self, drive):
+        self._drive = max(drive, self._drive)
+
+    @drive.deleter
+    def drive(self):
+        del self._drive
+
     def add_pins(self, *pins):
         for pin in pins:
             if isinstance(pin, Pin):
                 if pin not in self.pins:
                     # Pin is not already in the net, so add it to the net.
-                    self.pins.append(pin)  # This must come 1st to prevent infinite recursion!
+                    self.pins.append(pin)  # Do 1st or else infinite recursion!
                     pin += self  # Let the pin know the net it's connected to.
             elif isinstance(pin, (list, tuple)):
                 for p in pin:
                     self += p
             else:
-                raise Exception('Cannot attach a non-Pin {} to Net {}.'.format(
+                logger.error('Cannot attach a non-Pin {} to Net {}.'.format(
                     type(pin), self.name))
+                raise Exception
         return self
 
     def __iadd__(self, *pins):
         return self.add_pins(*pins)
 
-    def erc(self, errs_warns):
+    def erc(self):
         """
         Do electrical rules check on a net in the schematic.
-
-        Args:
-            errs_warns: A two-element list where the first element records
-                the number of errors and the second element records the number
-                of warnings. This list is updated by the method as it processes
-                the net.
         """
 
         def pin_conflict_chk(pin1, pin2):
@@ -1228,7 +1295,7 @@ class Net(object):
 
             # Return if the pins are compatible.
             if erc_result == SubCircuit.OK:
-                return '', (0, 0)
+                return
 
             # Otherwise, generate an error or warning message.
             msg = 'Pin conflict on net {n}: {p1} <==> {p2}'.format(
@@ -1236,44 +1303,43 @@ class Net(object):
                 p1=pin1.erc_pin_desc(),
                 p2=pin2.erc_pin_desc())
             if erc_result == SubCircuit.Warning:
-                return 'Warning: ' + msg, (0, 1)
-            return 'ERROR: ' + msg, (1, 0)
+                erc_logger.warning(msg)
+            else:
+                erc_logger.error(msg)
 
         def net_drive_chk():
             """
             """
 
             # Find the maximum signal driver on this net.
-            net_drive = 0
+            net_drive = self.drive  # Start with user-set drive level.
             for p in self.pins:
                 net_drive = max(net_drive, Pin.pin_info[p.func]['drive'])
 
-            msg = ''
-            error = (0,0)
             if net_drive == 0:
-                msg = msg + '\n' + 'Warning: No drivers for net {n}'.format(n=self.name)
-                error = (0, 1)
+                erc_logger.warning('No drivers for net {n}'.format(
+                    n=self.name))
             for p in self.pins:
                 if Pin.pin_info[p.func]['receive'] > net_drive:
-                    msg = msg + '\n' + 'Warning: Insufficient drive current on net {n} for pin {p}'.format(n=self.name, p=p.erc_pin_desc())
-                    error = (0, 1)
-            return msg, error
+                    erc_logger.warning(
+                        'Insufficient drive current on net {n} for pin {p}'.format(
+                            n=self.name, p=p.erc_pin_desc()))
 
         num_pins = len(self.pins)
-        for i in range(num_pins):
-            for j in range(i + 1, num_pins):
-                msg, e_w = pin_conflict_chk(
-                    self.pins[i], self.pins[j])
-                if e_w != (0, 0):
-                    print(msg)
-                    for i in range(len(errs_warns)):
-                        errs_warns[i] = errs_warns[i] + e_w[i]
+        if num_pins == 0:
+            erc_logger.warning('No pins attached to net {n}.'.format(
+                n=self.name))
+        elif num_pins == 1:
+            erc_logger.warning(
+                'Only one pin ({p}) attached to net {n}.'.format(p=self.pins[
+                    0].erc_pin_desc(),
+                                                                 n=self.name))
+        else:
+            for i in range(num_pins):
+                for j in range(i + 1, num_pins):
+                    pin_conflict_chk(self.pins[i], self.pins[j])
 
-        msg, e_w = net_drive_chk()
-        if e_w != (0, 0):
-            print(msg)
-            for i in range(len(errs_warns)):
-                errs_warns[i] = errs_warns[i] + e_w[i]
+        net_drive_chk()
 
     def generate_netlist_net(self, format='KICAD'):
         """
@@ -1284,17 +1350,24 @@ class Net(object):
         """
 
         def gen_netlist_net_kicad():
-            txt = '    (net (code {code}) (name "{name}")'.format(code=self.code, name=self.name)
+            txt = '    (net (code {code}) (name "{name}")'.format(
+                code=self.code, name=self.name)
             for p in self.pins:
-                txt += '\n      (node (ref {part_ref})(pin {pin_num}))'.format(part_ref=p.part.ref, pin_num=p.num)
+                txt += '\n      (node (ref {part_ref})(pin {pin_num}))'.format(
+                    part_ref=p.part.ref, pin_num=p.num)
             txt += (')')
             return txt
 
         if format == 'KICAD':
             return gen_netlist_net_kicad()
         else:
-            raise Exception('Requesting unknown netlist format ({}).'.format(format))
+            logger.error(
+                "Can't generate netlist in an unknown format ({})".format(
+                    format))
+            raise Exception
             return ''
+
+##############################################################################
 
 
 class Bus(object):
@@ -1323,6 +1396,8 @@ class Bus(object):
             return subset[0]
         else:
             return subset
+
+##############################################################################
 
 
 class SubCircuit(object):
@@ -1418,16 +1493,19 @@ class SubCircuit(object):
         # levels of hierarchy.
         self.context.append((self.__class__.hierarchy, ))
 
-        # Call the SubCircuit object function to create whatever circuitry it handles.  
+        # Call the SubCircuit object function to create whatever circuitry it handles.
         # The arguments to the function are usually nets to be connected to the
         # parts instantiated in the function, but they may also be user-specific
         # and have no effect on the mechanics of adding parts or nets although
         # they may direct the function as to what parts and nets get created.
         # Store any results it returns as a list. These results are user-specific
         # and have no effect on the mechanics of adding parts or nets.
-        results = list_or_scalar(self.circuit_func(*args, **kwargs))
+        try:
+            results = list_or_scalar(self.circuit_func(*args, **kwargs))
+        except:
+            logger.exception("Serious error! Can't continue.")
 
-        # Restore the context that existed before the SubCircuit circuitry was 
+        # Restore the context that existed before the SubCircuit circuitry was
         # created. This does not remove the circuitry since it has already been
         # added to the circuit_parts and circuit_nets lists.
         self.context.pop()
@@ -1442,46 +1520,52 @@ class SubCircuit(object):
 
         # Initialize the pin conention matrix.
         cls.erc_matrix = [[cls.OK for c in range(11)] for r in range(11)]
-        cls.erc_matrix[Pin.Output][Pin.Output] = cls.Error
-        cls.erc_matrix[Pin.TriState][Pin.Output] = cls.Warning
-        cls.erc_matrix[Pin.Unspec][Pin.Input] = cls.Warning
-        cls.erc_matrix[Pin.Unspec][Pin.Output] = cls.Warning
-        cls.erc_matrix[Pin.Unspec][Pin.BiDir] = cls.Warning
-        cls.erc_matrix[Pin.Unspec][Pin.TriState] = cls.Warning
-        cls.erc_matrix[Pin.Unspec][Pin.Passive] = cls.Warning
-        cls.erc_matrix[Pin.Unspec][Pin.Unspec] = cls.Warning
-        cls.erc_matrix[Pin.PwrIn][Pin.TriState] = cls.Warning
-        cls.erc_matrix[Pin.PwrIn][Pin.Unspec] = cls.Warning
-        cls.erc_matrix[Pin.PwrOut][Pin.Output] = cls.Error
-        cls.erc_matrix[Pin.PwrOut][Pin.BiDir] = cls.Warning
-        cls.erc_matrix[Pin.PwrOut][Pin.TriState] = cls.Error
-        cls.erc_matrix[Pin.PwrOut][Pin.Unspec] = cls.Warning
-        cls.erc_matrix[Pin.PwrOut][Pin.PwrOut] = cls.Error
-        cls.erc_matrix[Pin.OpenColl][Pin.Output] = cls.Error
-        cls.erc_matrix[Pin.OpenColl][Pin.TriState] = cls.Error
-        cls.erc_matrix[Pin.OpenColl][Pin.Unspec] = cls.Warning
-        cls.erc_matrix[Pin.OpenColl][Pin.PwrOut] = cls.Error
-        cls.erc_matrix[Pin.OpenEmit][Pin.Output] = cls.Error
-        cls.erc_matrix[Pin.OpenEmit][Pin.BiDir] = cls.Warning
-        cls.erc_matrix[Pin.OpenEmit][Pin.TriState] = cls.Warning
-        cls.erc_matrix[Pin.OpenEmit][Pin.Unspec] = cls.Warning
-        cls.erc_matrix[Pin.OpenEmit][Pin.PwrOut] = cls.Error
-        cls.erc_matrix[Pin.NoConnect][Pin.Input] = cls.Error
-        cls.erc_matrix[Pin.NoConnect][Pin.Output] = cls.Error
-        cls.erc_matrix[Pin.NoConnect][Pin.BiDir] = cls.Error
-        cls.erc_matrix[Pin.NoConnect][Pin.TriState] = cls.Error
-        cls.erc_matrix[Pin.NoConnect][Pin.Passive] = cls.Error
-        cls.erc_matrix[Pin.NoConnect][Pin.Unspec] = cls.Error
-        cls.erc_matrix[Pin.NoConnect][Pin.PwrIn] = cls.Error
-        cls.erc_matrix[Pin.NoConnect][Pin.PwrOut] = cls.Error
-        cls.erc_matrix[Pin.NoConnect][Pin.OpenColl] = cls.Error
-        cls.erc_matrix[Pin.NoConnect][Pin.OpenEmit] = cls.Error
-        cls.erc_matrix[Pin.NoConnect][Pin.NoConnect] = cls.Error
+        cls.erc_matrix[Pin.OUTPUT][Pin.OUTPUT] = cls.Error
+        cls.erc_matrix[Pin.TRISTATE][Pin.OUTPUT] = cls.Warning
+        cls.erc_matrix[Pin.UNSPEC][Pin.INPUT] = cls.Warning
+        cls.erc_matrix[Pin.UNSPEC][Pin.OUTPUT] = cls.Warning
+        cls.erc_matrix[Pin.UNSPEC][Pin.BIDIR] = cls.Warning
+        cls.erc_matrix[Pin.UNSPEC][Pin.TRISTATE] = cls.Warning
+        cls.erc_matrix[Pin.UNSPEC][Pin.PASSIVE] = cls.Warning
+        cls.erc_matrix[Pin.UNSPEC][Pin.UNSPEC] = cls.Warning
+        cls.erc_matrix[Pin.PWRIN][Pin.TRISTATE] = cls.Warning
+        cls.erc_matrix[Pin.PWRIN][Pin.UNSPEC] = cls.Warning
+        cls.erc_matrix[Pin.PWROUT][Pin.OUTPUT] = cls.Error
+        cls.erc_matrix[Pin.PWROUT][Pin.BIDIR] = cls.Warning
+        cls.erc_matrix[Pin.PWROUT][Pin.TRISTATE] = cls.Error
+        cls.erc_matrix[Pin.PWROUT][Pin.UNSPEC] = cls.Warning
+        cls.erc_matrix[Pin.PWROUT][Pin.PWROUT] = cls.Error
+        cls.erc_matrix[Pin.OPENCOLL][Pin.OUTPUT] = cls.Error
+        cls.erc_matrix[Pin.OPENCOLL][Pin.TRISTATE] = cls.Error
+        cls.erc_matrix[Pin.OPENCOLL][Pin.UNSPEC] = cls.Warning
+        cls.erc_matrix[Pin.OPENCOLL][Pin.PWROUT] = cls.Error
+        cls.erc_matrix[Pin.OPENEMIT][Pin.OUTPUT] = cls.Error
+        cls.erc_matrix[Pin.OPENEMIT][Pin.BIDIR] = cls.Warning
+        cls.erc_matrix[Pin.OPENEMIT][Pin.TRISTATE] = cls.Warning
+        cls.erc_matrix[Pin.OPENEMIT][Pin.UNSPEC] = cls.Warning
+        cls.erc_matrix[Pin.OPENEMIT][Pin.PWROUT] = cls.Error
+        cls.erc_matrix[Pin.NOCONNECT][Pin.INPUT] = cls.Error
+        cls.erc_matrix[Pin.NOCONNECT][Pin.OUTPUT] = cls.Error
+        cls.erc_matrix[Pin.NOCONNECT][Pin.BIDIR] = cls.Error
+        cls.erc_matrix[Pin.NOCONNECT][Pin.TRISTATE] = cls.Error
+        cls.erc_matrix[Pin.NOCONNECT][Pin.PASSIVE] = cls.Error
+        cls.erc_matrix[Pin.NOCONNECT][Pin.UNSPEC] = cls.Error
+        cls.erc_matrix[Pin.NOCONNECT][Pin.PWRIN] = cls.Error
+        cls.erc_matrix[Pin.NOCONNECT][Pin.PWROUT] = cls.Error
+        cls.erc_matrix[Pin.NOCONNECT][Pin.OPENCOLL] = cls.Error
+        cls.erc_matrix[Pin.NOCONNECT][Pin.OPENEMIT] = cls.Error
+        cls.erc_matrix[Pin.NOCONNECT][Pin.NOCONNECT] = cls.Error
 
         # Fill-in the other half of the symmetrical matrix.
         for c in range(1, 11):
             for r in range(c):
                 cls.erc_matrix[r][c] = cls.erc_matrix[c][r]
+
+        # Setup the error/warning logger.
+        global erc_logger
+        erc_logger = logging.getLogger('ERC_Logger')
+        erc_logger.error = count_calls(erc_logger.error)
+        erc_logger.warning = count_calls(erc_logger.warning)
 
     @classmethod
     def ERC(cls):
@@ -1490,22 +1574,21 @@ class SubCircuit(object):
         """
 
         cls.erc_setup()
-        errs_warns = [0, 0]
 
         # Check the nets for errors.
         for net in cls.circuit_nets:
-            net.erc(errs_warns)
+            net.erc()
 
         # Check the parts for errors.
         for part in cls.circuit_parts:
-            part.erc(errs_warns)
+            part.erc()
 
-        if errs_warns == [0, 0]:
+        if (erc_logger.error.count, erc_logger.warning.count) == (0, 0):
             print('No errors or warnings found.')
 
     @classmethod
     def generate_netlist(cls, filename, format='KICAD'):
-        
+
         if format == 'KICAD':
             scr_dict = scriptinfo()
             src_file = os.path.join(scr_dict['dir'], scr_dict['source'])
@@ -1516,8 +1599,9 @@ class SubCircuit(object):
   (design
     (source "{src_file}")
     (date "{date}")
-    (tool "{tool}"))'''.format(src_file=src_file, date=date, tool=tool)
-            )
+    (tool "{tool}"))'''
+                  .format(src_file=src_file,
+                          date=date, tool=tool))
             print("  (components")
             for p in SubCircuit.circuit_parts:
                 comp_txt = p.generate_netlist_component(format)
@@ -1561,14 +1645,12 @@ def scriptinfo():
         if teil[1].upper().startswith(sys.exec_prefix.upper()):
             continue
         trc = teil[1]
-        
+
     # trc contains highest level calling script name
     # check if we have been compiled
     if getattr(sys, 'frozen', False):
         scriptdir, scriptname = os.path.split(sys.executable)
-        return {"dir": scriptdir,
-                "name": scriptname,
-                "source": trc}
+        return {"dir": scriptdir, "name": scriptname, "source": trc}
 
     # from here on, we are in the interpreted case
     scriptdir, trc = os.path.split(trc)
@@ -1577,8 +1659,5 @@ def scriptinfo():
     if not scriptdir:
         scriptdir = os.getcwd()
 
-    scr_dict ={"name": trc,
-               "source": trc,
-               "dir": scriptdir}
+    scr_dict = {"name": trc, "source": trc, "dir": scriptdir}
     return scr_dict
-            
