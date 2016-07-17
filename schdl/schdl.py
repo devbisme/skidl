@@ -269,7 +269,7 @@ class SchLib(object):
                 part_defn = [line]
 
             # If gathering the part definition has begun, then continue adding lines.
-            elif len(part_defn) > 0:
+            elif part_defn:
                 part_defn.append(line)
 
                 # If the current line ends this part definition, then create
@@ -304,17 +304,18 @@ class SchLib(object):
 
         # First check to see if there is a part or parts with a matching name.
         parts = self.get_parts(name=name)
-        if parts:
-            return parts
-
-        # No part with that name, so check for an alias that matches.
-        parts = self.get_parts(aliases=name)
-        if parts:
-            return parts
-
-        logger.error('Unable to find part {} in library {}.'.format(
-            name, self.filename))
-        raise Exception
+        if not parts:
+            # No part with that name, so check for an alias that matches.
+            parts = self.get_parts(aliases=name)
+            if not parts:
+                logger.error('Unable to find part {} in library {}.'.format(
+                    name, self.filename))
+                raise Exception
+        if isinstance(parts,(list,tuple)):
+            logger.warning('Found multiple parts matching {}. Selecting {}.'.format(name,parts[0].name))
+            parts = parts[0]
+        parts.parse()
+        return parts
 
     def __getitem__(self, name):
         """
@@ -351,43 +352,44 @@ class Pin(object):
         part: Link to the Part object this pin belongs to.
     """
 
-    INPUT, OUTPUT, BIDIR, TRISTATE, PASSIVE, UNSPEC, PWRIN, PWROUT, OPENCOLL, OPENEMIT, NOCONNECT = range(
-        0, 11)
+    NO_DRIVE, ONESIDE_DRIVE, PUSHPULL_DRIVE, POWER_DRIVE = range(4)
+
+    INPUT, OUTPUT, BIDIR, TRISTATE, PASSIVE, UNSPEC, PWRIN, PWROUT, OPENCOLL, OPENEMIT, NOCONNECT = range(11)
 
     pin_info = {
         INPUT: {'function': 'INPUT',
-                'drive': 0,
-                'receive': 1, },
+                'drive': NO_DRIVE,
+                'receive': ONESIDE_DRIVE, },
         OUTPUT: {'function': 'OUTPUT',
-                 'drive': 2,
-                 'receive': 0, },
+                 'drive': PUSHPULL_DRIVE,
+                 'receive': NO_DRIVE, },
         BIDIR: {'function': 'BIDIRECTIONAL',
-                'drive': 2,
-                'receive': 0, },
+                'drive': PUSHPULL_DRIVE,
+                'receive': NO_DRIVE, },
         TRISTATE: {'function': 'TRISTATE',
-                   'drive': 2,
-                   'receive': 0, },
+                   'drive': PUSHPULL_DRIVE,
+                   'receive': NO_DRIVE, },
         PASSIVE: {'function': 'PASSIVE',
-                  'drive': 0,
-                  'receive': 0, },
+                  'drive': NO_DRIVE,
+                  'receive': NO_DRIVE, },
         UNSPEC: {'function': 'UNSPECIFIED',
-                 'drive': 0,
-                 'receive': 0, },
+                 'drive': NO_DRIVE,
+                 'receive': NO_DRIVE, },
         PWRIN: {'function': 'POWER-IN',
-                'drive': 0,
-                'receive': 3, },
+                'drive': NO_DRIVE,
+                'receive': POWER_DRIVE, },
         PWROUT: {'function': 'POWER-OUT',
-                 'drive': 3,
-                 'receive': 0, },
+                 'drive': POWER_DRIVE,
+                 'receive': NO_DRIVE, },
         OPENCOLL: {'function': 'OPEN-COLLECTOR',
-                   'drive': 1,
-                   'receive': 0, },
+                   'drive': ONESIDE_DRIVE,
+                   'receive': NO_DRIVE, },
         OPENEMIT: {'function': 'OPEN-EMITTER',
-                   'drive': 1,
-                   'receive': 0, },
+                   'drive': ONESIDE_DRIVE,
+                   'receive': NO_DRIVE, },
         NOCONNECT: {'function': 'NO-CONNECT',
-                    'drive': 0,
-                    'receive': 0, },
+                    'drive': NO_DRIVE,
+                    'receive': NO_DRIVE, },
     }
 
     def __init__(self):
@@ -484,7 +486,7 @@ class Part(object):
 
         # Create a Part from a library entry.
         if lib:
-            # If the lib argument is a string, the create a library using the
+            # If the lib argument is a string, then create a library using the
             # string as the library file name.
             if isinstance(lib, type('')):
                 lib = SchLib(filename=lib, format=format)
@@ -498,15 +500,13 @@ class Part(object):
             # Make sure all the pins have a valid reference to this part.
             self.associate_part_with_pins()
 
-        # Otherwise, create a Part from a part definition.
+        # Otherwise, create a Part from a part definition. If the part is
+        # destined for a library, then just get its name. If it's going into
+        # a netlist, then parse the entire part definition.
         elif part_defn:
-            if format == 'KICAD':
-                self.create_part_from_kicad(part_defn)
-            else:
-                logger.error(
-                    "Can't create a part with an unknown file format: {}.".format(
-                        format))
-                raise Exception
+            self.format = format
+            self.part_defn = part_defn
+            self.parse(just_get_name=destination != 'NETLIST')
 
         else:
             logger.error(
@@ -525,7 +525,27 @@ class Part(object):
                 for pin, net in connections.items():
                     net += self[pin]
 
-    def create_part_from_kicad(self, part_defn):
+    def parse(self, just_get_name=False):
+        """
+        Create a part using a part definition.
+
+        Args:
+            part_defn: A list of strings that define the part (usually read
+                from a schematic library file).
+            format: Part definition format, e.g. 'KICAD'.
+            just_get_name: When true, just get the name and aliases for the
+                part. Leave the rest unparsed.
+        """
+        if self.format == 'KICAD':
+            self.parse_kicad(just_get_name)
+        else:
+            logger.error(
+                "Can't create a part with an unknown file format: {}.".format(
+                    format))
+            raise Exception
+            
+
+    def parse_kicad(self, just_get_name=False):
         """
         Create a Part using a part definition from a KiCad schematic library.
 
@@ -535,7 +555,9 @@ class Part(object):
 
         Args:
             part_defn: A list of strings that define the part (usually read from a
-                schematic library file).
+                schematic library file). Can also be None.
+            just_get_name: If true, scan the part definition until the part
+                name is found and just return that.
         """
 
         _DEF_KEYS = ['name', 'reference', 'unused', 'text_offset',
@@ -583,13 +605,23 @@ class Part(object):
                  'T': _TEXT_KEYS,
                  'X': _PIN_KEYS}
 
+        # Return if there's nothing to do (i.e., part has already been parsed).
+        if not self.part_defn:
+            return
+
+        no_aliases = True
+        for line in self.part_defn:
+            if re.match('^\s*ALIAS\s', line):
+                no_aliases = False
+                break
+
         self.fplist = []  # Footprint list.
         self.aliases = []  # Part aliases.
         building_fplist = False  # True when working on footprint list in defn.
         building_draw = False  # True when gathering part drawing from defn.
 
         # Go through the part definition line-by-line.
-        for line in part_defn:
+        for line in self.part_defn:
 
             # Split the line into words.
             line = line.replace('\n', '')
@@ -613,6 +645,9 @@ class Part(object):
             # Create a dictionary of part definition keywords and values.
             if line[0] == 'DEF':
                 self.definition = dict(list(zip(_DEF_KEYS, values)))
+                self.name = self.definition['name']
+                if just_get_name and (self.aliases or no_aliases):
+                    return
 
             # Create a dictionary of F0 part field keywords and values.
             elif line[0] == 'F0':
@@ -630,6 +665,8 @@ class Part(object):
             # Create a list of part aliases.
             elif line[0] == 'ALIAS':
                 self.aliases = [alias for alias in line[1:]]
+                if just_get_name and self.name:
+                    return
 
             # Start the list of part footprints.
             elif line[0] == '$FPLIST':
@@ -744,6 +781,10 @@ class Part(object):
 
         # Make sure all the pins have a valid reference to this part.
         self.associate_part_with_pins()
+
+        # Part definition has been parsed, so clear it out. This prevents a
+        # part from being parsed more than once.
+        self.part_defn = None
 
     def associate_part_with_pins(self):
         """
@@ -1227,12 +1268,11 @@ class PartUnit(Part):
 
 class Net(object):
 
-    NO_DRIVE, OPEN_DRIVE, OUTPUT_DRIVE, POWER_DRIVE = range(4)
-
     def __init__(self, name=None, *pins):
         self.name = name
+        self._drive = Pin.NO_DRIVE
         self.pins = []
-        self._drive = 0
+        self.add_pins(*pins)
         SubCircuit.add_net(self)
 
     @property
@@ -1258,6 +1298,46 @@ class Net(object):
     @drive.deleter
     def drive(self):
         del self._drive
+
+    def copy(self, num_copies=1):
+        """
+        Make zero or more copies of this net.
+
+        Args:
+            num_copies: Number of copies to make of this part.
+
+        Raises:
+            Exception if the requested number of copies is a non-integer or negative.
+        """
+
+        # Check that a valid number of copies is requested.
+        if not isinstance(num_copies, int):
+            logger.error(
+                "Can't make a non-integer number ({}) of copies of a net!".format(
+                    num_copies))
+            raise Exception
+        if num_copies < 0:
+            logger.error(
+                "Can't make a negative number ({}) of copies of a net!".format(
+                    num_copies))
+            raise Exception
+
+        # Now make copies of the net one-by-one.
+        copies = [deepcopy(self) for i in range(num_copies)]
+
+        return list_or_scalar(copies)
+
+    def __mul__(self, num_copies):
+        """
+        Make net copies with the multiplication operator.
+        """
+        return self.copy(num_copies)
+
+    def __rmul__(self, num_copies):
+        """
+        Make net copies with the multiplication operator.
+        """
+        return self.copy(num_copies)
 
     def add_pins(self, *pins):
         for pin in pins:
@@ -1371,9 +1451,14 @@ class Net(object):
 
 
 class Bus(object):
-    def __init__(self, name=None):
+    def __init__(self, name=None, width=None):
         self.set_name(name)
-        self.nets = []
+        if width:
+            self.nets = width * Net()
+            for i, n in enumerate(self.nets):
+                n.name = self.name + str(i)
+        else:
+            self.nets = []
 
     def set_name(self, name):
         self.name = name
