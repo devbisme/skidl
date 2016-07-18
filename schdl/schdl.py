@@ -151,7 +151,12 @@ def filter(lst, **criteria):
         # Break out of the criteria loop and don't add the item to the extract
         # list if *any* of the item's attributes *does not* match.
         for k, v in criteria.items():
-            attr_val = getattr(item, k)
+
+            try:
+                attr_val = getattr(item, k)
+            except AttributeError:
+                # If the attribute doesn't exist, then that's a non-match.
+                break
 
             if not isinstance(attr_val, (list, tuple)):
                 # If the attribute value from the item in the list is a scalar,
@@ -556,8 +561,9 @@ class Part(object):
         Args:
             part_defn: A list of strings that define the part (usually read from a
                 schematic library file). Can also be None.
-            just_get_name: If true, scan the part definition until the part
-                name is found and just return that.
+            just_get_name: If true, scan the part definition until the
+                name and aliases are found. The rest of the definition
+                will be parsed if the part is actually used.
         """
 
         _DEF_KEYS = ['name', 'reference', 'unused', 'text_offset',
@@ -609,12 +615,6 @@ class Part(object):
         if not self.part_defn:
             return
 
-        no_aliases = True
-        for line in self.part_defn:
-            if re.match('^\s*ALIAS\s', line):
-                no_aliases = False
-                break
-
         self.fplist = []  # Footprint list.
         self.aliases = []  # Part aliases.
         building_fplist = False  # True when working on footprint list in defn.
@@ -646,8 +646,23 @@ class Part(object):
             if line[0] == 'DEF':
                 self.definition = dict(list(zip(_DEF_KEYS, values)))
                 self.name = self.definition['name']
-                if just_get_name and (self.aliases or no_aliases):
-                    return
+
+                # To handle libraries quickly, just get the name and
+                # aliases and only parse the rest of the part definition later.
+                if just_get_name:
+                    if self.aliases:
+                        # Name found, aliases already found so we're done.
+                        return
+                    # Name found so scan defn to see if aliases are present.
+                    # (The majority of parts don't have aliases.)
+                    for line in self.part_defn:
+                        if re.match('^\s*ALIAS\s', line):
+                            # Break and keep parsing defn if aliases are present.
+                            break
+                    else:
+                        # No aliases found, so part name is all that's needed.
+                        return
+
 
             # Create a dictionary of F0 part field keywords and values.
             elif line[0] == 'F0':
@@ -666,6 +681,7 @@ class Part(object):
             elif line[0] == 'ALIAS':
                 self.aliases = [alias for alias in line[1:]]
                 if just_get_name and self.name:
+                    # Aliases found, name already found so we're done.
                     return
 
             # Start the list of part footprints.
