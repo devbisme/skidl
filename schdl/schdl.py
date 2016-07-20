@@ -191,6 +191,43 @@ def filter(lst, **criteria):
 
     return extract
 
+
+def unnest_list(nested_list):
+    """
+    Return a list of items extracted from a nested list.
+    """
+    lst = []
+    for e in nested_list:
+        if isinstance(e, (list, tuple)):
+            lst.extend(unnest_list(e))
+        else:
+            lst.append(e)
+    return lst
+
+
+def expand_indices(slice_max, *indices):
+    """
+    Expand a list of indices into a list of integers and strings.
+
+    Args:
+        slice_max: The maximum possible index (used for slice indices).
+        indices: A list of indices made up of numbers, slices, text strings.
+            The list can also be nested.
+
+    Returns:
+        A linear list of all the indices made up only of numbers and strings.
+    """
+    ids = []
+    for i in unnest_list(indices):
+        if isinstance(i, slice):
+            ids.extend(range(*i.indices(slice_max)))
+        elif isinstance(i, (int, type(''))):
+            ids.append(i)
+        else:
+            logger.error('Unknown type in index: {}'.format(type(i)))
+            raise Exception
+    return ids
+
 ##############################################################################
 
 
@@ -231,6 +268,12 @@ class SchLib(object):
         # OK, that didn't work so well...
         else:
             logger.error('Unsupported library file format: {}'.format(format))
+
+    def __len__(self):
+        """
+        Return number of parts in library.
+        """
+        return len(self.parts)
 
     def load_kicad_sch_lib(self, filename=None):
         """
@@ -316,34 +359,15 @@ class SchLib(object):
                 logger.error('Unable to find part {} in library {}.'.format(
                     name, self.filename))
                 raise Exception
-        if isinstance(parts,(list,tuple)):
-            logger.warning('Found multiple parts matching {}. Selecting {}.'.format(name,parts[0].name))
+        if isinstance(parts, (list, tuple)):
+            logger.warning(
+                'Found multiple parts matching {}. Selecting {}.'.format(
+                    name, parts[0].name))
             parts = parts[0]
         parts.parse()
         return parts
 
-    def __getitem__(self, name):
-        """
-        Return a Part with the given name using indexing notation.
-
-        A part can be retrieved from a library by indexing the library with
-        the part name in brackets. For example, a part named 'LM324' could be
-        retrieved from a SchLib object called 'opamps' using the notation
-        opamps['LM324'].
-
-        Args:
-            name: A string containing the name of the desired part. This can
-                also be a regular expression.
-
-        Returns:
-            * A Part object if the part list contains a single Part object with the
-              given name.
-            * A list of parts will be returned if the name is a regular
-              expression that matches multiple part names in the part list.
-              (e.g., 'LM324.*' will match 'LM324', 'LM324-SOIC8', etc.)
-            * None is returned if no matches were found.
-        """
-        return self.get_part_by_name(name)
+    __getitem__ = get_part_by_name
 
 ##############################################################################
 
@@ -359,7 +383,8 @@ class Pin(object):
 
     NO_DRIVE, ONESIDE_DRIVE, PUSHPULL_DRIVE, POWER_DRIVE = range(4)
 
-    INPUT, OUTPUT, BIDIR, TRISTATE, PASSIVE, UNSPEC, PWRIN, PWROUT, OPENCOLL, OPENEMIT, NOCONNECT = range(11)
+    INPUT, OUTPUT, BIDIR, TRISTATE, PASSIVE, UNSPEC, PWRIN, PWROUT, OPENCOLL, OPENEMIT, NOCONNECT = range(
+        11)
 
     pin_info = {
         INPUT: {'function': 'INPUT',
@@ -402,7 +427,7 @@ class Pin(object):
         self.net = None
         self.part = None
 
-    def __add__(self, net):
+    def __iadd__(self, net):
         """
         Connect a net to a pin.
 
@@ -435,6 +460,12 @@ class Pin(object):
         net += self
 
         return self
+
+    def get_nets(self):
+        return to_list(self.net)
+
+    def get_pins(self):
+        return to_list(self)
 
     def erc_pin_desc(self):
         pin_function = Pin.pin_info[self.func]['function']
@@ -548,7 +579,6 @@ class Part(object):
                 "Can't create a part with an unknown file format: {}.".format(
                     format))
             raise Exception
-            
 
     def parse_kicad(self, just_get_name=False):
         """
@@ -662,7 +692,6 @@ class Part(object):
                     else:
                         # No aliases found, so part name is all that's needed.
                         return
-
 
             # Create a dictionary of F0 part field keywords and values.
             elif line[0] == 'F0':
@@ -875,25 +904,9 @@ class Part(object):
 
         return list_or_scalar(copies)
 
-    def __mul__(self, num_copies):
-        """
-        Make part copies with the multiplication operator.
-
-        Make copies of a part using the multiplication operator.
-        For example, five copies of a Part object called lm324 could
-        be made like so: 5 * lm324.
-        """
-        return self.copy(num_copies)
-
-    def __rmul__(self, num_copies):
-        """
-        Make part copies with the multiplication operator.
-
-        Make copies of a part using the multiplication operator.
-        For example, five copies of a Part object called lm324 could
-        be made like so: lm324 * 5.
-        """
-        return self.copy(num_copies)
+    """Make copies with the multiplication operator"""
+    __mul__ = copy
+    __rmul__ = copy
 
     def get_pins(self, *pin_ids):
         """
@@ -913,32 +926,15 @@ class Part(object):
             if only a single match was found. Or None if no match was found.
         """
 
-        pins = []
+        pin_ids = expand_indices(len(self.pins), *pin_ids)
 
         # Go through the list of pin IDs one-by-one.
+        pins = []
         for p_id in pin_ids:
 
             # Pin ID is an integer.
             if isinstance(p_id, int):
                 pins.extend(to_list(self.filter_pins(num=str(p_id))))
-
-            # Pin ID is a list or tuple.
-            elif isinstance(p_id, (list, tuple)):
-                # Recursive call to this function for each element in list.
-                for p in p_id:
-                    pins.extend(to_list(self[p]))
-
-            # Pin ID is a slice.
-            elif isinstance(p_id, slice):
-                # Determine the bounds of the slice.
-                if p_id.start is None or p_id.stop is None:
-                    pin_nums = [int(p.num) for p in self.pins]
-                start = p_id.start or min(pin_nums)
-                stop = p_id.stop or (max(pin_nums) + 1)
-                step = p_id.step or 1
-                # Now loop through the slice and get each pin one-by-one.
-                for pin_num in range(start, stop, step):
-                    pins.extend(to_list(self[pin_num]))
 
             # Pin ID is a string containing a number or name.
             else:
@@ -952,16 +948,8 @@ class Part(object):
 
         return list_or_scalar(pins)
 
-    def __getitem__(self, *pin_ids):
-        """
-        Return list of part pins selected by pin numbers/names using index brackets.
-
-        For example, this would return a last of part pins that match
-        any of these::
-
-            lm324.get_pins(1, 'VCC', 'IN.*', 4:8, range(4,8))
-        """
-        return self.get_pins(*pin_ids)
+    """Return list of part pins selected by pin numbers/names using index brackets."""
+    __getitem__ = get_pins
 
     def filter_pins(self, **criteria):
         """
@@ -982,18 +970,18 @@ class Part(object):
         """
         return filter(self.pins, **criteria)
 
-    def connect_nets_to_pins(self, pin_ids, nets):
+    def connect(self, pin_ids, nets):
         """
         Connect nets or pins of other parts to the specified pins of this part.
 
         For example, this would connect a net to a part pin::
 
-            lm324.connect_nets_to_pins('IN-', input_net)
+            lm324.connect('IN-', input_net)
 
         Args:
             pin_ids: List of IDs of pins for this part. See get_pins() for the
                 types of acceptable pin IDs.
-            nets: Net objects
+            nets: Net objects.
 
         Raises:
             Exception if the list of pins to connect to is empty.
@@ -1007,33 +995,27 @@ class Part(object):
             raise Exception
 
         nets = to_list(nets)  # Make sure nets is a list.
+        expanded_nets = []
+        for n in nets:
+            print('expanding', n.name)
+            expanded_nets.extend(n.get_nets())
+        print('# nets = ', len(expanded_nets))
 
         # If just a single net is to be connected, make a list out of it that's
         # just as long as the list of pins to connect to. This will connect
         # multiple pins to the same net.
-        if len(nets) == 1:
+        if len(expanded_nets) == 1:
             nets = nets * len(pins)
 
         # Now connect the pins to the nets.
-        if len(nets) == len(pins):
-            for pin, net in zip(pins, nets):
+        if len(expanded_nets) == len(pins):
+            for pin, net in zip(pins, expanded_nets):
                 net += pin
         else:
             logger.error("Can't attach differing numbers of pins and nets!")
             raise Exception
 
-    def __setitem__(self, pin_ids, nets):
-        """
-        Connect nets or pins of other parts to the specified pins of this part.
-
-        For example, this would connect a net to a part pin::
-
-            lm324['IN-'] = input_net
-
-        Raises:
-            Exception if the list of pins to connect to is empty.
-        """
-        self.connect_nets_to_pins(pin_ids, nets)
+    __setitem__ = connect
 
     @property
     def ref(self):
@@ -1267,14 +1249,8 @@ class PartUnit(Part):
         unique_pins = set()
 
         # Now collect the pins the unit will have access to.
-        for unit_id in unit_ids:
-            if isinstance(unit_id, slice):
-                max_index = part.num_units
-                for id in range(*unit_id.indices(max_index)):
-                    unique_pins |= set(part.filter_pins(unit=id))
-            else:
-                # Handle non-slice unit IDs here (ints, strings, regexes).
-                unique_pins |= set(part.filter_pins(unit=unit_id))
+        for unit_id in expand_indices(part.num_units, unit_ids):
+            unique_pins |= set(part.filter_pins(unit=unit_id))
 
         # Store the pins in the PartUnit.
         self.pins = unique_pins[:]
@@ -1283,13 +1259,14 @@ class PartUnit(Part):
 
 
 class Net(object):
-
     def __init__(self, name=None, *pins):
         self.name = name
         self._drive = Pin.NO_DRIVE
         self.pins = []
         self.add_pins(*pins)
-        SubCircuit.add_net(self)
+
+    def __len__(self):
+        return len(self.pins)
 
     @property
     def name(self):
@@ -1315,6 +1292,12 @@ class Net(object):
     def drive(self):
         del self._drive
 
+    def get_pins(self):
+        return to_list(self.pins)
+
+    def get_nets(self):
+        return to_list(self)
+
     def copy(self, num_copies=1):
         """
         Make zero or more copies of this net.
@@ -1338,22 +1321,18 @@ class Net(object):
                     num_copies))
             raise Exception
 
+        if self.pins:
+            logger.error("Can't make copies of a net that already has pins attached to it!")
+            raise Exception
+
         # Now make copies of the net one-by-one.
         copies = [deepcopy(self) for i in range(num_copies)]
 
         return list_or_scalar(copies)
 
-    def __mul__(self, num_copies):
-        """
-        Make net copies with the multiplication operator.
-        """
-        return self.copy(num_copies)
-
-    def __rmul__(self, num_copies):
-        """
-        Make net copies with the multiplication operator.
-        """
-        return self.copy(num_copies)
+    """Make net copies with the multiplication operator."""
+    __mul__ = copy
+    __rmul__ = copy
 
     def add_pins(self, *pins):
         for pin in pins:
@@ -1362,17 +1341,23 @@ class Net(object):
                     # Pin is not already in the net, so add it to the net.
                     self.pins.append(pin)  # Do 1st or else infinite recursion!
                     pin += self  # Let the pin know the net it's connected to.
+
+                    # Once the first pin is added to a net, it becomes "real"
+                    # so add it to the list of nets of the circuit.
+                    if len(self.pins) == 1:
+                        SubCircuit.add_net(self)
+
             elif isinstance(pin, (list, tuple)):
                 for p in pin:
                     self += p
+
             else:
                 logger.error('Cannot attach a non-Pin {} to Net {}.'.format(
                     type(pin), self.name))
                 raise Exception
         return self
 
-    def __iadd__(self, *pins):
-        return self.add_pins(*pins)
+    __iadd__ = add_pins
 
     def erc(self):
         """
@@ -1398,7 +1383,7 @@ class Net(object):
                 n=pin1.net.name,
                 p1=pin1.erc_pin_desc(),
                 p2=pin2.erc_pin_desc())
-            if erc_result == SubCircuit.Warning:
+            if erc_result == SubCircuit.WARNING:
                 erc_logger.warning(msg)
             else:
                 erc_logger.error(msg)
@@ -1467,38 +1452,122 @@ class Net(object):
 
 
 class Bus(object):
-    def __init__(self, name=None, width=None):
+    def __init__(self, name, *args):
         self.set_name(name)
-        if width:
-            self.nets = width * Net()
-            for i, n in enumerate(self.nets):
-                n.name = self.name + str(i)
-        else:
-            self.nets = []
+        self.nets = []
+        for arg in args:
+            if isinstance(arg, int):
+                nets = arg * Net()
+                for i, n in enumerate(nets):
+                    n.name = self.name + str(i)
+                self.nets.extend(nets)
+            elif isinstance(arg, Net):
+                self.nets.append(arg)
+            elif isinstance(arg, Pin):
+                self.nets.append(arg.net)
+            elif isinstance(arg, Bus):
+                self.nets.extend(arg.nets)
 
     def set_name(self, name):
         self.name = name
 
-    def __getitem__(self, *ids):
-        subset = Bus()
-        for id in ids:
-            if isinstance(id, slice):
-                for i in range(id.start, id.stop, id.step):
-                    subset.nets.append(self.nets[i])
-            elif isinstance(id, int):
-                subset.nets.append(self.nets[id])
-            else:
-                for n in self.nets:
-                    if re.match(id, n.name):
-                        subset.nets.append(n)
-        if len(subset) == 0:
-            return None
-        elif len(subset) == 1:
-            return subset[0]
-        else:
-            return subset
+    def __len__(self):
+        return len(self.nets)
 
-##############################################################################
+    def __getitem__(self, *ids):
+        nets = []
+        for id in expand_indices(len(self), ids):
+            print(self.name, id, type(id))
+            if isinstance(id, int):
+                nets.append(self.nets[id])
+            elif isinstance(id, type('')):
+                nets.extend(filter(self.nets, name=id))
+            else:
+                logger.error("Can't index bus with a {}.".format(type(id)))
+                raise Exception
+        if len(nets) == 0:
+            return None
+        elif len(nets) == 1:
+            return nets[0]
+        else:
+            return Bus('SUBSET', *nets)
+
+    def get_nets(self):
+        return to_list(self.nets)
+
+    def get_pins(self):
+        logger.error("Can't get the list of pins on a bus!")
+        raise Exception
+
+    def connect(self, *pin_net_bus):
+        nets = []
+        for item in unnest_list(pin_net_bus):
+            if isinstance(item,Pin):
+                print('pin net:', item.net, item.name)
+                nets.append(item)
+            elif isinstance(item,Net):
+                nets.append(item)
+            elif isinstance(item,Bus):
+                nets.extend(item.nets)
+            else:
+                logger.error("Can't connect a {} to a bus.".format(type(id)))
+                raise Exception
+
+        if len(nets) != len(self):
+            logger.error("Bus connection mismatch.")
+            raise Exception
+        
+        print(nets)
+        for i,net in enumerate(nets):
+            self.nets[i] += net
+
+    __iadd__ = connect
+
+    def connect2(self, *pin_net_bus):
+        """
+        Connect nets or pins of other parts to the specified bus lines.
+
+        Args:
+            bus_lines: List of indices for individual bus lines.
+            nets: Nets, pins or buses to be connected.
+
+        Raises:
+            Exception if the list of pins to connect to is empty.
+        """
+        self.connect(*pin_net_bus)
+        return
+
+        pins = self.get_pins(pin_ids)  # Get the pins selected by the pin IDs.
+        pins = to_list(pins)  # Make list in case only a single pin was found.
+
+        if pins is None or len(pins) == 0:
+            logger.error("No pins to attach to!")
+            raise Exception
+
+        nets = to_list(nets)  # Make sure nets is a list.
+        expanded_nets = []
+        for n in nets:
+            print('expanding', n.name)
+            expanded_nets.extend(n.get_nets())
+        print('# nets = ', len(expanded_nets))
+
+        # If just a single net is to be connected, make a list out of it that's
+        # just as long as the list of pins to connect to. This will connect
+        # multiple pins to the same net.
+        if len(expanded_nets) == 1:
+            nets = nets * len(pins)
+
+        # Now connect the pins to the nets.
+        if len(expanded_nets) == len(pins):
+            for pin, net in zip(pins, expanded_nets):
+                net += pin
+        else:
+            logger.error("Can't attach differing numbers of pins and nets!")
+            raise Exception
+
+    __setitem__ = connect2
+
+    ##############################################################################
 
 
 class SubCircuit(object):
@@ -1525,7 +1594,7 @@ class SubCircuit(object):
         circuit_func: The function that creates a given subcircuit.
     """
 
-    OK, Warning, Error = range(3)
+    OK, WARNING, ERROR = range(3)
 
     circuit_parts = []
     circuit_nets = []
@@ -1536,11 +1605,12 @@ class SubCircuit(object):
     context = [('top', )]
 
     @classmethod
-    def clear(cls):
-        """Clear the current circuit."""
+    def reset(cls):
+        """Clear any circuitry and start over."""
         cls.circuit_parts = []
         cls.circuit_nets = []
         cls.part_ref_prefix_counts = {}
+        cls.part_ref_counts = {}
         cls.hierarchy = 'top'
         cls.level = 0
         cls.context = [('top', )]
@@ -1621,41 +1691,41 @@ class SubCircuit(object):
 
         # Initialize the pin conention matrix.
         cls.erc_matrix = [[cls.OK for c in range(11)] for r in range(11)]
-        cls.erc_matrix[Pin.OUTPUT][Pin.OUTPUT] = cls.Error
-        cls.erc_matrix[Pin.TRISTATE][Pin.OUTPUT] = cls.Warning
-        cls.erc_matrix[Pin.UNSPEC][Pin.INPUT] = cls.Warning
-        cls.erc_matrix[Pin.UNSPEC][Pin.OUTPUT] = cls.Warning
-        cls.erc_matrix[Pin.UNSPEC][Pin.BIDIR] = cls.Warning
-        cls.erc_matrix[Pin.UNSPEC][Pin.TRISTATE] = cls.Warning
-        cls.erc_matrix[Pin.UNSPEC][Pin.PASSIVE] = cls.Warning
-        cls.erc_matrix[Pin.UNSPEC][Pin.UNSPEC] = cls.Warning
-        cls.erc_matrix[Pin.PWRIN][Pin.TRISTATE] = cls.Warning
-        cls.erc_matrix[Pin.PWRIN][Pin.UNSPEC] = cls.Warning
-        cls.erc_matrix[Pin.PWROUT][Pin.OUTPUT] = cls.Error
-        cls.erc_matrix[Pin.PWROUT][Pin.BIDIR] = cls.Warning
-        cls.erc_matrix[Pin.PWROUT][Pin.TRISTATE] = cls.Error
-        cls.erc_matrix[Pin.PWROUT][Pin.UNSPEC] = cls.Warning
-        cls.erc_matrix[Pin.PWROUT][Pin.PWROUT] = cls.Error
-        cls.erc_matrix[Pin.OPENCOLL][Pin.OUTPUT] = cls.Error
-        cls.erc_matrix[Pin.OPENCOLL][Pin.TRISTATE] = cls.Error
-        cls.erc_matrix[Pin.OPENCOLL][Pin.UNSPEC] = cls.Warning
-        cls.erc_matrix[Pin.OPENCOLL][Pin.PWROUT] = cls.Error
-        cls.erc_matrix[Pin.OPENEMIT][Pin.OUTPUT] = cls.Error
-        cls.erc_matrix[Pin.OPENEMIT][Pin.BIDIR] = cls.Warning
-        cls.erc_matrix[Pin.OPENEMIT][Pin.TRISTATE] = cls.Warning
-        cls.erc_matrix[Pin.OPENEMIT][Pin.UNSPEC] = cls.Warning
-        cls.erc_matrix[Pin.OPENEMIT][Pin.PWROUT] = cls.Error
-        cls.erc_matrix[Pin.NOCONNECT][Pin.INPUT] = cls.Error
-        cls.erc_matrix[Pin.NOCONNECT][Pin.OUTPUT] = cls.Error
-        cls.erc_matrix[Pin.NOCONNECT][Pin.BIDIR] = cls.Error
-        cls.erc_matrix[Pin.NOCONNECT][Pin.TRISTATE] = cls.Error
-        cls.erc_matrix[Pin.NOCONNECT][Pin.PASSIVE] = cls.Error
-        cls.erc_matrix[Pin.NOCONNECT][Pin.UNSPEC] = cls.Error
-        cls.erc_matrix[Pin.NOCONNECT][Pin.PWRIN] = cls.Error
-        cls.erc_matrix[Pin.NOCONNECT][Pin.PWROUT] = cls.Error
-        cls.erc_matrix[Pin.NOCONNECT][Pin.OPENCOLL] = cls.Error
-        cls.erc_matrix[Pin.NOCONNECT][Pin.OPENEMIT] = cls.Error
-        cls.erc_matrix[Pin.NOCONNECT][Pin.NOCONNECT] = cls.Error
+        cls.erc_matrix[Pin.OUTPUT][Pin.OUTPUT] = cls.ERROR
+        cls.erc_matrix[Pin.TRISTATE][Pin.OUTPUT] = cls.WARNING
+        cls.erc_matrix[Pin.UNSPEC][Pin.INPUT] = cls.WARNING
+        cls.erc_matrix[Pin.UNSPEC][Pin.OUTPUT] = cls.WARNING
+        cls.erc_matrix[Pin.UNSPEC][Pin.BIDIR] = cls.WARNING
+        cls.erc_matrix[Pin.UNSPEC][Pin.TRISTATE] = cls.WARNING
+        cls.erc_matrix[Pin.UNSPEC][Pin.PASSIVE] = cls.WARNING
+        cls.erc_matrix[Pin.UNSPEC][Pin.UNSPEC] = cls.WARNING
+        cls.erc_matrix[Pin.PWRIN][Pin.TRISTATE] = cls.WARNING
+        cls.erc_matrix[Pin.PWRIN][Pin.UNSPEC] = cls.WARNING
+        cls.erc_matrix[Pin.PWROUT][Pin.OUTPUT] = cls.ERROR
+        cls.erc_matrix[Pin.PWROUT][Pin.BIDIR] = cls.WARNING
+        cls.erc_matrix[Pin.PWROUT][Pin.TRISTATE] = cls.ERROR
+        cls.erc_matrix[Pin.PWROUT][Pin.UNSPEC] = cls.WARNING
+        cls.erc_matrix[Pin.PWROUT][Pin.PWROUT] = cls.ERROR
+        cls.erc_matrix[Pin.OPENCOLL][Pin.OUTPUT] = cls.ERROR
+        cls.erc_matrix[Pin.OPENCOLL][Pin.TRISTATE] = cls.ERROR
+        cls.erc_matrix[Pin.OPENCOLL][Pin.UNSPEC] = cls.WARNING
+        cls.erc_matrix[Pin.OPENCOLL][Pin.PWROUT] = cls.ERROR
+        cls.erc_matrix[Pin.OPENEMIT][Pin.OUTPUT] = cls.ERROR
+        cls.erc_matrix[Pin.OPENEMIT][Pin.BIDIR] = cls.WARNING
+        cls.erc_matrix[Pin.OPENEMIT][Pin.TRISTATE] = cls.WARNING
+        cls.erc_matrix[Pin.OPENEMIT][Pin.UNSPEC] = cls.WARNING
+        cls.erc_matrix[Pin.OPENEMIT][Pin.PWROUT] = cls.ERROR
+        cls.erc_matrix[Pin.NOCONNECT][Pin.INPUT] = cls.ERROR
+        cls.erc_matrix[Pin.NOCONNECT][Pin.OUTPUT] = cls.ERROR
+        cls.erc_matrix[Pin.NOCONNECT][Pin.BIDIR] = cls.ERROR
+        cls.erc_matrix[Pin.NOCONNECT][Pin.TRISTATE] = cls.ERROR
+        cls.erc_matrix[Pin.NOCONNECT][Pin.PASSIVE] = cls.ERROR
+        cls.erc_matrix[Pin.NOCONNECT][Pin.UNSPEC] = cls.ERROR
+        cls.erc_matrix[Pin.NOCONNECT][Pin.PWRIN] = cls.ERROR
+        cls.erc_matrix[Pin.NOCONNECT][Pin.PWROUT] = cls.ERROR
+        cls.erc_matrix[Pin.NOCONNECT][Pin.OPENCOLL] = cls.ERROR
+        cls.erc_matrix[Pin.NOCONNECT][Pin.OPENEMIT] = cls.ERROR
+        cls.erc_matrix[Pin.NOCONNECT][Pin.NOCONNECT] = cls.ERROR
 
         # Fill-in the other half of the symmetrical matrix.
         for c in range(1, 11):
