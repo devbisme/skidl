@@ -78,6 +78,7 @@ logger = logging.getLogger('schdl')
 log_level = logging.WARNING
 handler = logging.StreamHandler(sys.stderr)
 handler.setLevel(log_level)
+handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
 logger.addHandler(handler)
 logger.setLevel(log_level)
 logger.error = count_calls(logger.error)
@@ -113,6 +114,62 @@ def list_or_scalar(lst):
             return lst[0]  # Single-element list, so return the only element.
         return None  # Empty list, so return None.
     return lst  # Must have been a scalar, so return that.
+
+
+def get_unique_name(lst, attrib, prefix, initial=None):
+    """
+    Return a name that doesn't collide with another in a list.
+
+    This subroutine is used to generate unique part references (e.g., "R12")
+    or unique net names (e.g., "N$5").
+
+    Args:
+        lst: The list of objects containing names.
+        attrib: The attribute in each object containing the name.
+        prefix: The prefix attached to each name.
+        initial: The initial setting of the name (can be None).
+    """
+
+    # Get list of everything with a name starting with the prefix 
+    # and ending with a string of digits.
+    filter_dict = {attrib: re.escape(prefix) + '\d+'}
+    sub_list = filter(lst, **filter_dict)
+
+    # If there's nothing in the list like that, then return the name that
+    # was passed in, or make a new name and check/adjust it for uniqueness.
+    if not sub_list:
+        if initial:
+            return initial
+        else:
+            # The initial name was None, so start naming using the prefix
+            # with number '1' appended to it.
+            return get_unique_name(lst, attrib, prefix, prefix + '1')
+
+    # If there are items in the list with names like the one trying to be
+    # assigned but there is no inital name given, then add the next one in
+    # the existing sequence.
+    elif not initial:
+        filter_dict = {attrib: re.escape(prefix) + '\d+'}
+        sub_sub_list = filter(sub_list, **filter_dict)
+        # If there are already 3 resistors named R1, R2, and R3, then
+        # name the next resistor R4 where 4 = len(list)+1.
+        trial_name = prefix + str(len(sub_sub_list) + 1)
+        return get_unique_name(lst, attrib, prefix, trial_name)
+
+    # There are items in the list like the one trying to be assigned,
+    # and an initial name was given. See if the initial name collides
+    # with an existing name. If not, just return the initial name.
+    # But if it does, append an underscore and a number based on the 
+    # number of collisions. (For example, R1 would collide with R1, R1_1,
+    # and R1_2 so it's name should be adjusted to R1_3.)
+    else:
+        filter_dict = {attrib: re.escape(initial) + '(_\d+)?'}
+        sub_sub_list = filter(sub_list, **filter_dict)
+        if sub_sub_list:
+            trial_name = initial + '_' + str(len(sub_sub_list))
+            return get_unique_name(lst, attrib, prefix, trial_name)
+        else:
+            return initial
 
 
 def filter(lst, **criteria):
@@ -243,7 +300,7 @@ class SchLib(object):
     """
     cache = {}  # Cache of previously read part libraries.
 
-    def __init__(self, filename=None, format='KICAD'):
+    def __init__(self, filename=None, format='KICAD', **attribs):
         """
         Load the object with parts from a library file.
 
@@ -268,6 +325,10 @@ class SchLib(object):
         # OK, that didn't work so well...
         else:
             logger.error('Unsupported library file format: {}'.format(format))
+
+        # Attach additional attributes to the library.
+        for k, v in attribs.items():
+            setattr(self, k, v)
 
     def __len__(self):
         """
@@ -347,11 +408,12 @@ class SchLib(object):
         """
         return list_or_scalar(filter(self.parts, **criteria))
 
-    def get_part_by_name(self, name):
+    def get_part_by_name(self, name, allow_multiples=False):
         """Return a Part with the given name or alias from the part list."""
 
         # First check to see if there is a part or parts with a matching name.
         parts = self.get_parts(name=name)
+
         if not parts:
             # No part with that name, so check for an alias that matches.
             parts = self.get_parts(aliases=name)
@@ -359,12 +421,19 @@ class SchLib(object):
                 logger.error('Unable to find part {} in library {}.'.format(
                     name, self.filename))
                 raise Exception
+
         if isinstance(parts, (list, tuple)):
-            logger.warning(
-                'Found multiple parts matching {}. Selecting {}.'.format(
-                    name, parts[0].name))
-            parts = parts[0]
-        parts.parse()
+            if allow_multiples:
+                parts = [p.parse() for p in parts]
+            else:
+                logger.warning(
+                    'Found multiple parts matching {}. Selecting {}.'.format(
+                        name, parts[0].name))
+                parts = parts[0]
+                parts.parse()
+        else:
+            parts.parse()
+
         return parts
 
     __getitem__ = get_part_by_name
@@ -422,10 +491,14 @@ class Pin(object):
                     'receive': NO_DRIVE, },
     }
 
-    def __init__(self):
+    def __init__(self, **attribs):
         """Initialize the pin."""
         self.net = None
         self.part = None
+
+        # Attach additional attributes to the pin.
+        for k, v in attribs.items():
+            setattr(self, k, v)
 
     def __iadd__(self, net):
         """
@@ -462,6 +535,8 @@ class Pin(object):
         return self
 
     def get_nets(self):
+        if self.net is None:
+            return []
         return to_list(self.net)
 
     def get_pins(self):
@@ -551,7 +626,7 @@ class Part(object):
 
         # Add additional attributes to the part.
         for k, v in attribs.items():
-            self.__dict__[k] = v
+            setattr(self, k, v)
 
         # If the part is going to be an element in a circuit, then add it to the
         # the circuit and make any indicated pin/net connections.
@@ -838,7 +913,7 @@ class Part(object):
         for p in self.pins:
             p.part = self
 
-    def copy(self, num_copies=1, destination='NETLIST'):
+    def copy(self, num_copies=1, destination='NETLIST', **attribs):
         """
         Make zero or more copies of this part while maintaining all pin/net
         connections.
@@ -895,6 +970,9 @@ class Part(object):
                 # Now connect the copied pin back to the net.
                 if original_net:
                     original_net += pin
+
+            for k, v in attribs.items():
+                setattr(cpy, k, v)
 
             # Add the part copy to the list of copies and then add the
             # part to the circuit netlist (if requested).
@@ -994,25 +1072,28 @@ class Part(object):
             logger.error("No pins to attach to!")
             raise Exception
 
-        nets = to_list(nets)  # Make sure nets is a list.
+        nets = unnest_list(to_list(nets))  # Make sure nets is a list.
         expanded_nets = []
         for n in nets:
-            print('expanding', n.name)
+            if isinstance(n, Pin):
+                if not n.get_nets():
+                    n += Net()
             expanded_nets.extend(n.get_nets())
-        print('# nets = ', len(expanded_nets))
 
         # If just a single net is to be connected, make a list out of it that's
         # just as long as the list of pins to connect to. This will connect
         # multiple pins to the same net.
         if len(expanded_nets) == 1:
-            nets = nets * len(pins)
+            expanded_nets = [expanded_nets[0] for _ in range(len(pins))]
 
         # Now connect the pins to the nets.
         if len(expanded_nets) == len(pins):
             for pin, net in zip(pins, expanded_nets):
                 net += pin
         else:
-            logger.error("Can't attach differing numbers of pins and nets!")
+            logger.error(
+                "Can't attach differing numbers of pins ({}) and nets ({})!".format(
+                    len(pins), len(expanded_nets)))
             raise Exception
 
     __setitem__ = connect
@@ -1036,45 +1117,9 @@ class Part(object):
                 If r is None, then r is assigned a unique reference consisting
                 of the reference prefix for the part followed by a number.
         """
-
-        # Do nothing if the part is already labeled with the given reference.
-        if self._ref == r and r is not None:
-            return
-
-        # If the requested reference is just an integer, prepend the part prefix
-        # to the number and make that the preliminary reference. Otherwise, just
-        # use whatever was passed in (which could even be None).
-        if isinstance(id, int):
-            self._ref = self.ref_prefix + str(r)
-        else:
-            self._ref = r
-
-        # If requested ref is None, make a unique reference for the part.
-        if self.ref is None:
-            # Get the number of parts instantiated with the same ref prefix,
-            # or zero if the ref prefix hasn't been used, yet.
-            cnt = SubCircuit.part_ref_prefix_counts.get(self.ref_prefix, 0)
-            # Increment the count since this part is being added.
-            cnt += 1
-            # Use the updated count to create the new part reference.
-            self._ref = '{}{}'.format(self.ref_prefix, cnt)
-            # Update the count for the reference prefix.
-            SubCircuit.part_ref_prefix_counts[self.ref_prefix] = cnt
-
-        # If the part reference is a duplicate, adjust it to make it unique.
-        if self.ref in SubCircuit.part_ref_counts:
-            duplicate_ref = self.ref
-            # Create a unique ref by appending an underscore and the number
-            # of duplicate refs to the ref for this part.
-            self._ref = '{}_{}'.format(
-                duplicate_ref, SubCircuit.part_ref_counts[duplicate_ref])
-            # Increment the number of duplicates seen for this reference so
-            # the next duplicate will also be unique.
-            SubCircuit.part_ref_counts[duplicate_ref] += 1
-
-        # Finally, store the unique reference for this part in the ref list
-        # so that *another* part ref can't clash with *it*.
-        SubCircuit.part_ref_counts[self.ref] = 1
+        self._ref = get_unique_name(SubCircuit.circuit_parts, 'ref',
+                                    self.ref_prefix, r)
+        return
 
     @ref.deleter
     def ref(self):
@@ -1259,11 +1304,17 @@ class PartUnit(Part):
 
 
 class Net(object):
-    def __init__(self, name=None, *pins):
+    def __init__(self, name=None, *pins, **attribs):
         self.name = name
         self._drive = Pin.NO_DRIVE
         self.pins = []
+
+        # Attach whatever pins were given.
         self.add_pins(*pins)
+
+        # Attach additional attributes to the net.
+        for k, v in attribs.items():
+            setattr(self, k, v)
 
     def __len__(self):
         return len(self.pins)
@@ -1274,7 +1325,8 @@ class Net(object):
 
     @name.setter
     def name(self, name):
-        self._name = name or None
+        self._name = get_unique_name(SubCircuit.circuit_nets, 'name', 'N$',
+                                     name)
 
     @name.deleter
     def name(self):
@@ -1322,7 +1374,8 @@ class Net(object):
             raise Exception
 
         if self.pins:
-            logger.error("Can't make copies of a net that already has pins attached to it!")
+            logger.error(
+                "Can't make copies of a net that already has pins attached to it!")
             raise Exception
 
         # Now make copies of the net one-by-one.
@@ -1452,9 +1505,11 @@ class Net(object):
 
 
 class Bus(object):
-    def __init__(self, name, *args):
+    def __init__(self, name, *args, **attribs):
         self.set_name(name)
         self.nets = []
+
+        # Build the bus from net widths, existing nets, nets of pins, other buses.
         for arg in args:
             if isinstance(arg, int):
                 nets = arg * Net()
@@ -1468,6 +1523,10 @@ class Bus(object):
             elif isinstance(arg, Bus):
                 self.nets.extend(arg.nets)
 
+        # Attach additional attributes to the bus.
+        for k, v in attribs.items():
+            setattr(self, k, v)
+
     def set_name(self, name):
         self.name = name
 
@@ -1477,7 +1536,6 @@ class Bus(object):
     def __getitem__(self, *ids):
         nets = []
         for id in expand_indices(len(self), ids):
-            print(self.name, id, type(id))
             if isinstance(id, int):
                 nets.append(self.nets[id])
             elif isinstance(id, type('')):
@@ -1502,28 +1560,29 @@ class Bus(object):
     def connect(self, *pin_net_bus):
         nets = []
         for item in unnest_list(pin_net_bus):
-            if isinstance(item,Pin):
-                print('pin net:', item.net, item.name)
+            if isinstance(item, Pin):
                 nets.append(item)
-            elif isinstance(item,Net):
+            elif isinstance(item, Net):
                 nets.append(item)
-            elif isinstance(item,Bus):
+            elif isinstance(item, Bus):
                 nets.extend(item.nets)
             else:
-                logger.error("Can't connect a {} to a bus.".format(type(id)))
+                logger.error("Can't connect a {} {} to a bus.".format(
+                    type(id), item.__name__))
                 raise Exception
 
         if len(nets) != len(self):
             logger.error("Bus connection mismatch.")
             raise Exception
-        
-        print(nets)
-        for i,net in enumerate(nets):
+
+        for i, net in enumerate(nets):
             self.nets[i] += net
+
+        return self
 
     __iadd__ = connect
 
-    def connect2(self, *pin_net_bus):
+    def __setitem__(self, ids, *pin_net_bus):
         """
         Connect nets or pins of other parts to the specified bus lines.
 
@@ -1534,40 +1593,9 @@ class Bus(object):
         Raises:
             Exception if the list of pins to connect to is empty.
         """
-        self.connect(*pin_net_bus)
-        return
+        return self
 
-        pins = self.get_pins(pin_ids)  # Get the pins selected by the pin IDs.
-        pins = to_list(pins)  # Make list in case only a single pin was found.
-
-        if pins is None or len(pins) == 0:
-            logger.error("No pins to attach to!")
-            raise Exception
-
-        nets = to_list(nets)  # Make sure nets is a list.
-        expanded_nets = []
-        for n in nets:
-            print('expanding', n.name)
-            expanded_nets.extend(n.get_nets())
-        print('# nets = ', len(expanded_nets))
-
-        # If just a single net is to be connected, make a list out of it that's
-        # just as long as the list of pins to connect to. This will connect
-        # multiple pins to the same net.
-        if len(expanded_nets) == 1:
-            nets = nets * len(pins)
-
-        # Now connect the pins to the nets.
-        if len(expanded_nets) == len(pins):
-            for pin, net in zip(pins, expanded_nets):
-                net += pin
-        else:
-            logger.error("Can't attach differing numbers of pins and nets!")
-            raise Exception
-
-    __setitem__ = connect2
-
-    ##############################################################################
+##############################################################################
 
 
 class SubCircuit(object):
@@ -1579,12 +1607,6 @@ class SubCircuit(object):
     Static Attributes:
         circuit_parts: List of all the schematic parts as Part objects.
         circuit_nets: List of all the schematic nets as Net objects.
-        part_ref_prefix_counts: Dictionary of each part prefix in the schematic
-            and the number of times it has occurred. This is used for
-            automatically numbering part references.
-        part_ref_counts: Dictionary of schematic part references and the number
-            of times each one has occurred. This is used for disambiguating
-            parts which were assigned the same reference.
         hierarchy: A '.'-separated concatenation of the names of nested
             SubCircuits at the current time it is read.
         level: The current level in the schematic hierarchy.
@@ -1598,8 +1620,6 @@ class SubCircuit(object):
 
     circuit_parts = []
     circuit_nets = []
-    part_ref_prefix_counts = {}
-    part_ref_counts = {}
     hierarchy = 'top'
     level = 0
     context = [('top', )]
@@ -1609,8 +1629,6 @@ class SubCircuit(object):
         """Clear any circuitry and start over."""
         cls.circuit_parts = []
         cls.circuit_nets = []
-        cls.part_ref_prefix_counts = {}
-        cls.part_ref_counts = {}
         cls.hierarchy = 'top'
         cls.level = 0
         cls.context = [('top', )]
@@ -1623,15 +1641,10 @@ class SubCircuit(object):
         cls.circuit_parts.append(part)
 
     @classmethod
-    def name_net(cls, net):
-        """Assign a name to a net if it doesn't have one."""
-        if net.name is None:
-            net.name = 'N$' + '{:05d}'.format(len(cls.circuit_nets))
-
-    @classmethod
     def add_net(cls, net):
         """Add a Net object to the circuit. Assign a net name if necessary."""
-        cls.name_net(net)
+        net.name = net.name
+        #cls.name_net(net)
         net.hierarchy = cls.hierarchy  # Tag the net with its hierarchy position.
         cls.circuit_nets.append(net)
 
@@ -1735,6 +1748,13 @@ class SubCircuit(object):
         # Setup the error/warning logger.
         global erc_logger
         erc_logger = logging.getLogger('ERC_Logger')
+        log_level = logging.WARNING
+        handler = logging.StreamHandler(sys.stderr)
+        handler.setLevel(log_level)
+        handler.setFormatter(logging.Formatter(
+            'ERC %(levelname)s: %(message)s'))
+        erc_logger.addHandler(handler)
+        erc_logger.setLevel(log_level)
         erc_logger.error = count_calls(erc_logger.error)
         erc_logger.warning = count_calls(erc_logger.warning)
 
@@ -1755,7 +1775,7 @@ class SubCircuit(object):
             part.erc()
 
         if (erc_logger.error.count, erc_logger.warning.count) == (0, 0):
-            print('No errors or warnings found.')
+            logger.info('No errors or warnings found.')
 
     @classmethod
     def generate_netlist(cls, filename, format='KICAD'):
