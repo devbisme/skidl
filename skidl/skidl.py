@@ -52,10 +52,6 @@ logger = logging.getLogger('skidl')
 USING_PYTHON2 = (sys.version_info.major == 2)
 USING_PYTHON3 = not USING_PYTHON2
 
-DEBUG_OVERVIEW = logging.DEBUG
-DEBUG_DETAILED = logging.DEBUG - 1
-DEBUG_OBSESSIVE = logging.DEBUG - 2
-
 
 class count_calls(object):
     """
@@ -330,6 +326,11 @@ class SchLib(object):
         for k, v in attribs.items():
             setattr(self, k, v)
 
+    def __str__(self):
+        return '\n'.join([p.name for p in self.parts])
+
+    __repr__ = __str__
+
     def __len__(self):
         """
         Return number of parts in library.
@@ -500,6 +501,11 @@ class Pin(object):
         for k, v in attribs.items():
             setattr(self, k, v)
 
+    def __str__(self):
+        return 'Pin {num}/{name}: {func}'.format(num=self.num, name=self.name, func=Pin.pin_info[self.func]['function']) 
+
+    __repr__ = __str__
+
     def __iadd__(self, net):
         """
         Connect a net to a pin.
@@ -635,6 +641,11 @@ class Part(object):
             if isinstance(connections, dict):
                 for pin, net in connections.items():
                     net += self[pin]
+
+    def __str__(self):
+        return self.name + ': ' + '\n\t'.join([p.__str__() for p in self.pins])
+
+    __repr__ = __str__
 
     def parse(self, just_get_name=False):
         """
@@ -1316,6 +1327,11 @@ class Net(object):
         for k, v in attribs.items():
             setattr(self, k, v)
 
+    def __str__(self):
+        return self.name + ': ' + ', '.join([p.__str__() for p in self.pins])
+
+    __repr__ = __str__
+
     def __len__(self):
         return len(self.pins)
 
@@ -1526,6 +1542,11 @@ class Bus(object):
         # Attach additional attributes to the bus.
         for k, v in attribs.items():
             setattr(self, k, v)
+
+    def __str__(self):
+        return self.name + ': ' + '\n\t'.join([n.__str__() for n in self.nets])
+
+    __repr__ = __str__
 
     def set_name(self, name):
         self.name = name
