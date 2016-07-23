@@ -2,6 +2,6 @@
 Usage
 ========
 
-To use schdl in a project::
+To use skidl in a project::
 
-    import schdl
+    import skidl

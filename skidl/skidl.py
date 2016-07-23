@@ -44,10 +44,10 @@ from builtins import zip
 from builtins import range
 from builtins import object
 
-# from schdl import __version__
+# from skidl import __version__
 __version__ = '0.0.1'
 
-logger = logging.getLogger('schdl')
+logger = logging.getLogger('skidl')
 
 USING_PYTHON2 = (sys.version_info.major == 2)
 USING_PYTHON3 = not USING_PYTHON2
@@ -74,7 +74,7 @@ class count_calls(object):
         return self.func(*args, **kwargs)
 
 # Set up logging.
-logger = logging.getLogger('schdl')
+logger = logging.getLogger('skidl')
 log_level = logging.WARNING
 handler = logging.StreamHandler(sys.stderr)
 handler.setLevel(log_level)
@@ -251,7 +251,7 @@ def filter(lst, **criteria):
 
 def unnest_list(nested_list):
     """
-    Return a list of items extracted from a nested list.
+    Return a flattened list of items from a nested list.
     """
     lst = []
     for e in nested_list:
@@ -1784,7 +1784,7 @@ class SubCircuit(object):
             scr_dict = scriptinfo()
             src_file = os.path.join(scr_dict['dir'], scr_dict['source'])
             date = time.strftime('%m/%d/%Y %I:%M %p')
-            tool = 'SchDL (' + __version__ + ')'
+            tool = 'SKiDL (' + __version__ + ')'
 
             print('''(export (version D)
   (design

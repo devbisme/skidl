@@ -4,9 +4,9 @@ Installation
 
 At the command line::
 
-    $ easy_install schdl
+    $ easy_install skidl
 
 Or, if you have virtualenvwrapper installed::
 
-    $ mkvirtualenv schdl
-    $ pip install schdl
+    $ mkvirtualenv skidl
+    $ pip install skidl

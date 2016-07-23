@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import setuptools
-import schdl
+import skidl
 
 
 try:
@@ -27,32 +27,30 @@ test_requirements = [
 ]
 
 setup(
-    name='schdl',
-    version=schdl.__version__,
+    name='skidl',
+    version=skidl.__version__,
     description="A Python package for textually describing circuit schematics.",
     long_description=readme + '\n\n' + history,
-    author=schdl.__author__,
-    author_email=schdl.__email__,
-    url='https://github.com/xesscorp/schdl',
-#    packages=['schdl',],
+    author=skidl.__author__,
+    author_email=skidl.__email__,
+    url='https://github.com/xesscorp/skidl',
+#    packages=['skidl',],
     packages=setuptools.find_packages(),
-    entry_points={'console_scripts':['schdl = schdl.__main__:main']},}
-    package_dir={'schdl':
-                 'schdl'},
+    entry_points={'console_scripts':['skidl = skidl.__main__:main']},
+    package_dir={'skidl': 'skidl'},
     include_package_data=True,
-    package_data={'schdl': ['*.gif', '*.png']},
+    package_data={'skidl': ['*.gif', '*.png']},
     scripts=[],
     install_requires=requirements,
     license="MIT",
     zip_safe=False,
-    keywords='schdl',
+    keywords='skidl',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
     ],
     test_suite='tests',
     tests_require=test_requirements
