@@ -126,46 +126,54 @@ def get_unique_name(lst, attrib, prefix, initial=None):
         initial: The initial setting of the name (can be None).
     """
 
-    # Get list of everything with a name starting with the prefix 
-    # and ending with a string of digits.
-    filter_dict = {attrib: re.escape(prefix) + '\d+'}
+    # If the initial name is None, then create a name based on the prefix
+    # and the smallest unused number that's available for that prefix.
+    if not initial:
+
+        # Get list entries with the prefix followed by a number, e.g.: C55
+        filter_dict = {attrib: re.escape(prefix)+'\d+'}
+        sub_list = filter(lst, **filter_dict)
+
+        # If entries were found, then find the smallest available number.
+        if sub_list:
+            # Get the list of names.
+            names = [getattr(item,attrib) for item in sub_list]
+            # Remove the prefix from each name, leaving only the numbers.
+            l = len(prefix)
+            nums = set([int(n[l:]) for n in names])
+            stop = max(nums) + 1
+            # Generate a list of the unused numbers in the range [1,stop]
+            # and select the minimum value.
+            n = min(set(range(1,stop+1)) - nums)
+
+        # If no entries were found, start counting from 1.
+        else:
+            n = 1
+
+        # The initial name is the prefix plus the number.
+        initial = prefix + str(n)
+
+    # If the initial name is just a number, then prepend the prefix to it.
+    elif isinstance(initial,int):
+        initial = prefix + str(initial)
+
+    # Now determine if there are any items in the list with the same name.
+    filter_dict = {attrib: re.escape(initial)}
     sub_list = filter(lst, **filter_dict)
 
-    # If there's nothing in the list like that, then return the name that
-    # was passed in, or make a new name and check/adjust it for uniqueness.
+    # If the name is unique, then return it.
     if not sub_list:
-        if initial:
-            return initial
-        else:
-            # The initial name was None, so start naming using the prefix
-            # with number '1' appended to it.
-            return get_unique_name(lst, attrib, prefix, prefix + '1')
+        return initial
 
-    # If there are items in the list with names like the one trying to be
-    # assigned but there is no inital name given, then add the next one in
-    # the existing sequence.
-    elif not initial:
-        filter_dict = {attrib: re.escape(prefix) + '\d+'}
-        sub_sub_list = filter(sub_list, **filter_dict)
-        # If there are already 3 resistors named R1, R2, and R3, then
-        # name the next resistor R4 where 4 = len(list)+1.
-        trial_name = prefix + str(len(sub_sub_list) + 1)
-        return get_unique_name(lst, attrib, prefix, trial_name)
+    # Otherwise, determine how many copies of the name are in the list and
+    # append a number to make this name unique.
+    filter_dict = {attrib: re.escape(initial)+'_\d+'}
+    n = len(filter(lst, **filter_dict))
+    initial = initial + '_' + str(n+1)
 
-    # There are items in the list like the one trying to be assigned,
-    # and an initial name was given. See if the initial name collides
-    # with an existing name. If not, just return the initial name.
-    # But if it does, append an underscore and a number based on the 
-    # number of collisions. (For example, R1 would collide with R1, R1_1,
-    # and R1_2 so it's name should be adjusted to R1_3.)
-    else:
-        filter_dict = {attrib: re.escape(initial) + '(_\d+)?'}
-        sub_sub_list = filter(sub_list, **filter_dict)
-        if sub_sub_list:
-            trial_name = initial + '_' + str(len(sub_sub_list))
-            return get_unique_name(lst, attrib, prefix, trial_name)
-        else:
-            return initial
+    # Recursively call this routine using the newly-generated name to
+    # make sure it's unique. Eventually, a unique name will be returned.
+    return get_unique_name(lst, attrib, prefix, initial)
 
 
 def filter(lst, **criteria):
@@ -327,6 +335,7 @@ class SchLib(object):
             setattr(self, k, v)
 
     def __str__(self):
+        """Return a list of the part names in this library as a string."""
         return '\n'.join([p.name for p in self.parts])
 
     __repr__ = __str__
@@ -389,7 +398,7 @@ class SchLib(object):
                 if line.startswith('ENDDEF'):
                     self.parts.append(Part(part_defn=part_defn,
                                            format='KICAD',
-                                           destination='LIBRARY'))
+                                           dest='LIBRARY'))
 
                     # Clear the part definition in preparation for the next one.
                     part_defn = []
@@ -410,33 +419,58 @@ class SchLib(object):
         return list_or_scalar(filter(self.parts, **criteria))
 
     def get_part_by_name(self, name, allow_multiples=False):
-        """Return a Part with the given name or alias from the part list."""
+        """
+        Return a Part with the given name or alias from the part list.
+
+        Args:
+            name: The part name or alias to search for in the library.
+            allow_multiples: If true, return a list of parts matching the name.
+                If false, return only the first part in the list and issue
+                a warning.
+
+        Returns:
+            * Return a list of Part objects with matching name or alias.
+            * Return a Part object if only a single match is found.
+        """
 
         # First check to see if there is a part or parts with a matching name.
         parts = self.get_parts(name=name)
 
+        # No part with that name, so check for an alias that matches.
         if not parts:
-            # No part with that name, so check for an alias that matches.
             parts = self.get_parts(aliases=name)
+
+            # No part with that alias either, so signal an error.
             if not parts:
                 logger.error('Unable to find part {} in library {}.'.format(
                     name, self.filename))
                 raise Exception
 
+        # Multiple parts with that name or alias exists, so return the list
+        # of parts or just the first part on the list.
         if isinstance(parts, (list, tuple)):
+
+            # Return the entire list if multiples are allowed.
             if allow_multiples:
                 parts = [p.parse() for p in parts]
+
+            # Just return the first part from the list if multiples are not
+            # allowed and issue a warning.
             else:
                 logger.warning(
                     'Found multiple parts matching {}. Selecting {}.'.format(
                         name, parts[0].name))
                 parts = parts[0]
                 parts.parse()
+
+        # Only a single matching part was found, so return that.
         else:
             parts.parse()
 
+        # Return the library part or parts that were found.
         return parts
 
+    """Get part by name or alias using []'s."""
     __getitem__ = get_part_by_name
 
 ##############################################################################
@@ -451,45 +485,69 @@ class Pin(object):
         part: Link to the Part object this pin belongs to.
     """
 
-    NO_DRIVE, ONESIDE_DRIVE, PUSHPULL_DRIVE, POWER_DRIVE = range(4)
-
+    # Various types of pins.
     INPUT, OUTPUT, BIDIR, TRISTATE, PASSIVE, UNSPEC, PWRIN, PWROUT, OPENCOLL, OPENEMIT, NOCONNECT = range(
         11)
 
+    # Various drive levels a pin can output:
+    #   NOCONNECT_DRIVE: NC pin drive.
+    #   NO_DRIVE: No drive capability (like an input pin).
+    #   PASSIVE_DRIVE: Small drive capability, such as a pullup.
+    #   ONESIDE_DRIVE: Can pull high (open-emitter) or low (open-collector).
+    #   PUSHPULL_DRIVE: Can actively drive high or low.
+    #   POWER_DRIVE: A power supply or ground line.
+    NOCONNECT_DRIVE, NO_DRIVE, PASSIVE_DRIVE, ONESIDE_DRIVE, TRISTATE_DRIVE, PUSHPULL_DRIVE, POWER_DRIVE = range(7)
+
+    # Information about the various types of pins:
+    #   function: A string describing the pin's function.
+    #   drive: The drive capability of the pin.
+    #   rcv_min: The minimum amount of drive the pin must receive to function.
+    #   rcv_max: The maximum amount of drive the pin can receive and still function.
     pin_info = {
         INPUT: {'function': 'INPUT',
                 'drive': NO_DRIVE,
-                'receive': ONESIDE_DRIVE, },
+                'max_rcv': POWER_DRIVE,
+                'min_rcv': PASSIVE_DRIVE, },
         OUTPUT: {'function': 'OUTPUT',
                  'drive': PUSHPULL_DRIVE,
-                 'receive': NO_DRIVE, },
+                 'max_rcv': PASSIVE_DRIVE,
+                 'min_rcv': NO_DRIVE, },
         BIDIR: {'function': 'BIDIRECTIONAL',
-                'drive': PUSHPULL_DRIVE,
-                'receive': NO_DRIVE, },
+                'drive': TRISTATE_DRIVE,
+                'max_rcv': POWER_DRIVE,
+                'min_rcv': NO_DRIVE, },
         TRISTATE: {'function': 'TRISTATE',
-                   'drive': PUSHPULL_DRIVE,
-                   'receive': NO_DRIVE, },
+                   'drive': TRISTATE_DRIVE,
+                   'max_rcv': TRISTATE_DRIVE,
+                   'min_rcv': NO_DRIVE, },
         PASSIVE: {'function': 'PASSIVE',
-                  'drive': NO_DRIVE,
-                  'receive': NO_DRIVE, },
+                  'drive': PASSIVE_DRIVE,
+                  'max_rcv': POWER_DRIVE,
+                  'min_rcv': NO_DRIVE, },
         UNSPEC: {'function': 'UNSPECIFIED',
                  'drive': NO_DRIVE,
-                 'receive': NO_DRIVE, },
+                 'max_rcv': POWER_DRIVE,
+                 'min_rcv': NO_DRIVE, },
         PWRIN: {'function': 'POWER-IN',
                 'drive': NO_DRIVE,
-                'receive': POWER_DRIVE, },
+                'max_rcv': POWER_DRIVE,
+                'min_rcv': POWER_DRIVE, },
         PWROUT: {'function': 'POWER-OUT',
                  'drive': POWER_DRIVE,
-                 'receive': NO_DRIVE, },
+                 'max_rcv': PASSIVE_DRIVE,
+                 'min_rcv': NO_DRIVE, },
         OPENCOLL: {'function': 'OPEN-COLLECTOR',
                    'drive': ONESIDE_DRIVE,
-                   'receive': NO_DRIVE, },
+                    'max_rcv': TRISTATE_DRIVE,
+                   'min_rcv': NO_DRIVE, },
         OPENEMIT: {'function': 'OPEN-EMITTER',
                    'drive': ONESIDE_DRIVE,
-                   'receive': NO_DRIVE, },
+                    'max_rcv': TRISTATE_DRIVE,
+                   'min_rcv': NO_DRIVE, },
         NOCONNECT: {'function': 'NO-CONNECT',
-                    'drive': NO_DRIVE,
-                    'receive': NO_DRIVE, },
+                    'drive': NOCONNECT_DRIVE,
+                    'max_rcv': NOCONNECT_DRIVE,
+                    'min_rcv': NOCONNECT_DRIVE, },
     }
 
     def __init__(self, **attribs):
@@ -502,11 +560,12 @@ class Pin(object):
             setattr(self, k, v)
 
     def __str__(self):
-        return 'Pin {num}/{name}: {func}'.format(num=self.num, name=self.name, func=Pin.pin_info[self.func]['function']) 
+        """Return a description of this pin as a string."""
+        return 'Pin {num}/{name}: {func}'.format(num=self.num, name=self.name, func=Pin.pin_info[self.func]['function'])
 
     __repr__ = __str__
 
-    def __iadd__(self, net):
+    def connect(self, net):
         """
         Connect a net to a pin.
 
@@ -523,7 +582,7 @@ class Pin(object):
 
         # First, check that the pin is not already connected to a different net.
         # (A pin cannot be connected to more than one net.)
-        if self.net and self.net != net:
+        if self.net and not isinstance(self.net,NCNet) and self.net != net:
             logger.error(
                 "Can't assign net {} to pin {}-{} of part {}-{} because it's already connected to net {}!".format(
                     net.name, self.num, self.name, self.part.ref,
@@ -540,15 +599,21 @@ class Pin(object):
 
         return self
 
+    """Connect a net to a pin using the += operator."""
+    __iadd__ = connect
+
     def get_nets(self):
+        """Return the Net object connected to this pin."""
         if self.net is None:
             return []
         return to_list(self.net)
 
     def get_pins(self):
+        """Return this pin."""
         return to_list(self)
 
     def erc_pin_desc(self):
+        """Return a string describing this pin."""
         pin_function = Pin.pin_info[self.func]['function']
         desc = "{f} pin {p.num}/{p.name} of {p.part.name}/{p.part.ref}".format(
             f=pin_function, p=self)
@@ -573,7 +638,7 @@ class Part(object):
                  name=None,
                  part_defn=None,
                  format='KICAD',
-                 destination='NETLIST',
+                 dest='NETLIST',
                  connections=None,
                  **attribs):
         """
@@ -586,7 +651,7 @@ class Part(object):
             part_defn: A list of strings that define the part (usually read from a
                 schematic library file).
             format: The format for the library file or part definition (e.g., 'KICAD').
-            destination: String that indicates where the part is destined for:
+            dest: String that indicates where the part is destined for:
                 'NETLIST': The part will become part of a circuit netlist.
                 'LIBRARY': The part will be placed in the part list for a library.
             connections: A dictionary with part pin names/numbers as keys and the
@@ -623,7 +688,7 @@ class Part(object):
         elif part_defn:
             self.format = format
             self.part_defn = part_defn
-            self.parse(just_get_name=destination != 'NETLIST')
+            self.parse(just_get_name=dest != 'NETLIST')
 
         else:
             logger.error(
@@ -636,16 +701,12 @@ class Part(object):
 
         # If the part is going to be an element in a circuit, then add it to the
         # the circuit and make any indicated pin/net connections.
-        if destination == 'NETLIST':
-            SubCircuit.add_part(self)
+        if dest != 'LIBRARY':
+            if dest == 'NETLIST':
+                SubCircuit.add_part(self)
             if isinstance(connections, dict):
                 for pin, net in connections.items():
                     net += self[pin]
-
-    def __str__(self):
-        return self.name + ': ' + '\n\t'.join([p.__str__() for p in self.pins])
-
-    __repr__ = __str__
 
     def parse(self, just_get_name=False):
         """
@@ -924,7 +985,7 @@ class Part(object):
         for p in self.pins:
             p.part = self
 
-    def copy(self, num_copies=1, destination='NETLIST', **attribs):
+    def copy(self, num_copies=1, dest='NETLIST', **attribs):
         """
         Make zero or more copies of this part while maintaining all pin/net
         connections.
@@ -934,7 +995,7 @@ class Part(object):
 
         Returns:
             A list of Part copies or a single Part if num_copies==1.
-            destination: String that indicates where the part is destined for:
+            dest: String that indicates where the part is destined for:
                 'NETLIST': The part will become part of a circuit netlist.
                 'LIBRARY': The part will be placed in the part list for a library.
 
@@ -988,7 +1049,7 @@ class Part(object):
             # Add the part copy to the list of copies and then add the
             # part to the circuit netlist (if requested).
             copies.append(cpy)
-            if destination == 'NETLIST':
+            if dest == 'NETLIST':
                 SubCircuit.add_part(cpy)
 
         return list_or_scalar(copies)
@@ -1015,7 +1076,7 @@ class Part(object):
             if only a single match was found. Or None if no match was found.
         """
 
-        pin_ids = expand_indices(len(self.pins), *pin_ids)
+        pin_ids = expand_indices(len(self.pins)+1, *pin_ids)
 
         # Go through the list of pin IDs one-by-one.
         pins = []
@@ -1109,6 +1170,12 @@ class Part(object):
 
     __setitem__ = connect
 
+    def __str__(self):
+        """Return a description of the pins on this part as a string."""
+        return self.name + ': ' + '\n\t'.join([p.__str__() for p in self.pins])
+
+    __repr__ = __str__
+
     @property
     def ref(self):
         """Return the part reference."""
@@ -1194,39 +1261,41 @@ class Part(object):
         """
         return PartUnit(self, *unit_ids)
 
-    def is_connected(self):
-        """
-        Return T/F depending upon whether a part is connected in a netlist.
+    # def is_connected(self):
+        # """
+        # Return T/F depending upon whether a part is connected in a netlist.
 
-        If a part has pins but none of them are connected to nets, then
-        this method will return False. Otherwise, it will return True even if
-        the part has no pins (which can be the case for mechanical parts,
-        silkscreen logos, or other non-electrical schematic elements).
-        """
+        # If a part has pins but none of them are connected to nets, then
+        # this method will return False. Otherwise, it will return True even if
+        # the part has no pins (which can be the case for mechanical parts,
+        # silkscreen logos, or other non-electrical schematic elements).
+        # """
 
-        # Assume parts without pins (like mech. holes) are always connected.
-        if len(self.pins) == 0:
-            return True
+        # # Assume parts without pins (like mech. holes) are always connected.
+        # if len(self.pins) == 0:
+            # return True
 
-        # If any pin is found to be connected to a net, return True
-        for p in self.pins:
-            if p.net is not None:
-                return True
+        # # If any pin is found to be connected to a net, return True
+        # for p in self.pins:
+            # if p.net is not None:
+                # return True
 
-        # No net connections found, so return False.
-        return False
+        # # No net connections found, so return False.
+        # return False
 
     def erc(self):
         """
         Do electrical rules check on a part in the schematic.
         """
         for p in self.pins:
-            if p.net is None and p.func != Pin.NOCONNECT:
-                erc_logger.warning('Unconnected pin: Pin {p}.'.format(
-                    p=p.erc_pin_desc()))
-            if p.net is not None and p.func == Pin.NOCONNECT:
-                erc_logger.warning(
-                    'Incorrectly connected pin: Pin {p} should not be connected to a net (n).'.format(
+            if p.net is None:
+                if p.func != Pin.NOCONNECT:
+                    erc_logger.warning('Unconnected pin: {p}.'.format(
+                        p=p.erc_pin_desc()))
+            elif p.net.drive != Pin.NOCONNECT_DRIVE:
+                if p.func == Pin.NOCONNECT:
+                    erc_logger.warning(
+                        'Incorrectly connected pin: {p} should not be connected to a net (n).'.format(
                         p=p.erc_pin_desc(), n=p.net.name))
 
     def generate_netlist_component(self, format='KICAD'):
@@ -1316,54 +1385,76 @@ class PartUnit(Part):
 
 class Net(object):
     def __init__(self, name=None, *pins, **attribs):
-        self.name = name
+        """
+        Create a Net object.
+
+        Args:
+            name: A string with the name of the net. If None or '', then
+                a unique net name will be assigned.
+            pins: A list of pins to attach to the net.
+            attribs: A dictionary of attributes and values to attach to
+                the Net object.
+        """
+        self._name = None
+        if name:
+            self.name = name
         self._drive = Pin.NO_DRIVE
         self.pins = []
 
         # Attach whatever pins were given.
-        self.add_pins(*pins)
+        self.connect(*pins)
 
         # Attach additional attributes to the net.
         for k, v in attribs.items():
             setattr(self, k, v)
 
     def __str__(self):
+        """Return a list of the pins on this net as a string."""
         return self.name + ': ' + ', '.join([p.__str__() for p in self.pins])
 
     __repr__ = __str__
 
     def __len__(self):
+        """Return the number of pins attached to this net."""
         return len(self.pins)
 
     @property
     def name(self):
+        """Return the name of this net as a string."""
         return self._name
 
     @name.setter
     def name(self, name):
+        """Set the name of this net to a unique string."""
         self._name = get_unique_name(SubCircuit.circuit_nets, 'name', 'N$',
                                      name)
 
     @name.deleter
     def name(self):
+        """Delete the name of this net."""
         del self._name
 
     @property
     def drive(self):
+        """Return the drive strength of this net."""
         return self._drive
 
     @drive.setter
     def drive(self, drive):
+        """Set the drive strength of this net."""
         self._drive = max(drive, self._drive)
 
     @drive.deleter
     def drive(self):
+        """Delete the drive strength of this net."""
         del self._drive
 
     def get_pins(self):
+        """Return  a list of pins attached to this net."""
         return to_list(self.pins)
 
     def get_nets(self):
+        """Return this net as a one-element list."""
         return to_list(self)
 
     def copy(self, num_copies=1):
@@ -1389,6 +1480,10 @@ class Net(object):
                     num_copies))
             raise Exception
 
+        # Can't make a distinct copy of a net which already has pins on it
+        # because what happens if a pin is connected to the copy? Then we have
+        # to search for all the other copies to add the pin to those.
+        # And what's the value of that?
         if self.pins:
             logger.error(
                 "Can't make copies of a net that already has pins attached to it!")
@@ -1403,8 +1498,14 @@ class Net(object):
     __mul__ = copy
     __rmul__ = copy
 
-    def add_pins(self, *pins):
-        for pin in pins:
+    def connect(self, *pins):
+        """
+        Return the net after connecting a list of pins to itself.
+
+        Args:
+            pins: A list of Pin objects to be connected to the net object.
+        """
+        for pin in unnest_list(pins):
             if isinstance(pin, Pin):
                 if pin not in self.pins:
                     # Pin is not already in the net, so add it to the net.
@@ -1415,18 +1516,13 @@ class Net(object):
                     # so add it to the list of nets of the circuit.
                     if len(self.pins) == 1:
                         SubCircuit.add_net(self)
-
-            elif isinstance(pin, (list, tuple)):
-                for p in pin:
-                    self += p
-
             else:
                 logger.error('Cannot attach a non-Pin {} to Net {}.'.format(
                     type(pin), self.name))
                 raise Exception
         return self
 
-    __iadd__ = add_pins
+    __iadd__ = connect
 
     def erc(self):
         """
@@ -1470,7 +1566,7 @@ class Net(object):
                 erc_logger.warning('No drivers for net {n}'.format(
                     n=self.name))
             for p in self.pins:
-                if Pin.pin_info[p.func]['receive'] > net_drive:
+                if Pin.pin_info[p.func]['min_rcv'] > net_drive:
                     erc_logger.warning(
                         'Insufficient drive current on net {n} for pin {p}'.format(
                             n=self.name, p=p.erc_pin_desc()))
@@ -1503,7 +1599,7 @@ class Net(object):
             txt = '    (net (code {code}) (name "{name}")'.format(
                 code=self.code, name=self.name)
             for p in self.pins:
-                txt += '\n      (node (ref {part_ref})(pin {pin_num}))'.format(
+                txt += '\n      (node (ref {part_ref}) (pin {pin_num}))'.format(
                     part_ref=p.part.ref, pin_num=p.num)
             txt += (')')
             return txt
@@ -1519,14 +1615,54 @@ class Net(object):
 
 ##############################################################################
 
+class NCNet(Net):
+
+    def __init__(self, name=None, *pins, **attribs):
+        super(NCNet, self).__init__(name, *pins, **attribs)
+        self._drive = Pin.NOCONNECT_DRIVE
+
+    @property
+    def drive(self):
+        """Return the drive strength of this net."""
+        return self._drive
+
+    @drive.setter
+    def drive(self, drive):
+        """The drive strength is always NOCONNECT_DRIVE. It can't be changed."""
+        self._drive = Pin.NOCONNECT_DRIVE
+
+    @drive.deleter
+    def drive(self):
+        """You can't delete the drive strength of this net."""
+        pass
+
+    def erc(self):
+        """No need to check NO_CONNECT nets."""
+        pass
+
+    def generate_netlist_net(self, format='KICAD'):
+        """NO_CONNECT nets don't generate anything for netlists."""
+        return ''
+
+##############################################################################
+
 
 class Bus(object):
     def __init__(self, name, *args, **attribs):
-        self.set_name(name)
-        self.nets = []
+        """
+        Create a Bus object.
+
+        Args:
+            name: A string with the name of the bus.
+            pins: A list of pins to attach to the net.
+            attribs: A dictionary of attributes and values to attach to
+                the Net object.
+        """
+        self.name = name
 
         # Build the bus from net widths, existing nets, nets of pins, other buses.
-        for arg in args:
+        self.nets = []
+        for arg in unnest_list(args):
             if isinstance(arg, int):
                 nets = arg * Net()
                 for i, n in enumerate(nets):
@@ -1544,17 +1680,38 @@ class Bus(object):
             setattr(self, k, v)
 
     def __str__(self):
+        """Return a list of the nets in this bus as a string."""
         return self.name + ': ' + '\n\t'.join([n.__str__() for n in self.nets])
 
     __repr__ = __str__
 
-    def set_name(self, name):
-        self.name = name
+    @property
+    def name(self):
+        """Return the name of the bus."""
+        return self._name
+
+    @name.setter
+    def name(self, name):
+        """Set the name of the bus."""
+        self._name = name
+
+    @name.deleter
+    def name(self):
+        """Delete the bus name."""
+        del self._name
 
     def __len__(self):
+        """Return the number of nets in this bus."""
         return len(self.nets)
 
     def __getitem__(self, *ids):
+        """
+        Return a bus made up of the nets at the given indices.
+
+        Args:
+            ids: A list of indices of bus lines. These can be individual
+                numbers, or nested lists, or slices.
+        """
         nets = []
         for id in expand_indices(len(self), ids):
             if isinstance(id, int):
@@ -1572,13 +1729,18 @@ class Bus(object):
             return Bus('SUBSET', *nets)
 
     def get_nets(self):
+        """Return the list of nets contained in this bus."""
         return to_list(self.nets)
 
     def get_pins(self):
+        """It's an error to get the list of pins attacxhed to all bus lines."""
         logger.error("Can't get the list of pins on a bus!")
         raise Exception
 
     def connect(self, *pin_net_bus):
+        """
+        Connect pins, nets and buses to a bus.
+        """
         nets = []
         for item in unnest_list(pin_net_bus):
             if isinstance(item, Pin):
@@ -1588,7 +1750,7 @@ class Bus(object):
             elif isinstance(item, Bus):
                 nets.extend(item.nets)
             else:
-                logger.error("Can't connect a {} {} to a bus.".format(
+                logger.error("Can't connect a {} ({}) to a bus.".format(
                     type(id), item.__name__))
                 raise Exception
 
@@ -1606,13 +1768,6 @@ class Bus(object):
     def __setitem__(self, ids, *pin_net_bus):
         """
         Connect nets or pins of other parts to the specified bus lines.
-
-        Args:
-            bus_lines: List of indices for individual bus lines.
-            nets: Nets, pins or buses to be connected.
-
-        Raises:
-            Exception if the list of pins to connect to is empty.
         """
         return self
 
@@ -1665,7 +1820,6 @@ class SubCircuit(object):
     def add_net(cls, net):
         """Add a Net object to the circuit. Assign a net name if necessary."""
         net.name = net.name
-        #cls.name_net(net)
         net.hierarchy = cls.hierarchy  # Tag the net with its hierarchy position.
         cls.circuit_nets.append(net)
 
@@ -1723,7 +1877,7 @@ class SubCircuit(object):
         Initialize the electrical rules checker.
         """
 
-        # Initialize the pin conention matrix.
+        # Initialize the pin contention matrix.
         cls.erc_matrix = [[cls.OK for c in range(11)] for r in range(11)]
         cls.erc_matrix[Pin.OUTPUT][Pin.OUTPUT] = cls.ERROR
         cls.erc_matrix[Pin.TRISTATE][Pin.OUTPUT] = cls.WARNING
@@ -1801,12 +1955,7 @@ class SubCircuit(object):
     @classmethod
     def generate_netlist(cls, filename, format='KICAD'):
 
-        if format == 'KICAD':
-            scr_dict = scriptinfo()
-            src_file = os.path.join(scr_dict['dir'], scr_dict['source'])
-            date = time.strftime('%m/%d/%Y %I:%M %p')
-            tool = 'SKiDL (' + __version__ + ')'
-
+        def gen_netlist_kicad():
             print('''(export (version D)
   (design
     (source "{src_file}")
@@ -1826,6 +1975,29 @@ class SubCircuit(object):
                 print(net_txt)
             print("  )")
             print(")")
+
+        scr_dict = scriptinfo()
+        src_file = os.path.join(scr_dict['dir'], scr_dict['source'])
+        date = time.strftime('%m/%d/%Y %I:%M %p')
+        tool = 'SKiDL (' + __version__ + ')'
+
+        if format == 'KICAD':
+            return gen_netlist_kicad()
+        else:
+            logger.error(
+                "Can't generate netlist in an unknown format ({})".format(
+                    format))
+            raise Exception
+            return ''
+
+
+ERC = SubCircuit.ERC
+generate_netlist = SubCircuit.generate_netlist
+
+POWER = Pin.POWER_DRIVE
+
+# This is a NOCONNECT net for attaching to pins which are intentionally left open.
+NC = NCNet('NOCONNECT')
 
 
 def scriptinfo():
