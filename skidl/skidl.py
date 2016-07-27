@@ -580,6 +580,35 @@ class Pin(object):
             connected to a different net.
         """
 
+        if not isinstance(net, (Pin, Net)):
+            logger.error("Can't assign type {} to a pin!".format(type(net)))
+            raise Exception
+
+        if not self.net:
+            if not net.get_nets():
+                n = Net()
+                n += self, net
+            else:
+                n = net.get_nets()[0]
+                self.net = n
+                n += self
+        else:
+            if not net.get_nets():
+                self.net += net
+            else:
+                if isinstance(self.net, NCNet):
+                    self.net = net.get_nets()[0]
+                    net += self
+                elif self.net == net.get_nets()[0]:
+                    pass
+                else:
+                    logger.error(
+                        "Can't assign net {} to pin {}-{} of part {}-{} because it's already connected to net {}!".format(
+                            net.name, self.num, self.name, self.part.ref,
+                            self.part.name, self.net.name))
+                    raise Exception
+        return self
+
         # First, check that the pin is not already connected to a different net.
         # (A pin cannot be connected to more than one net.)
         if self.net and not isinstance(self.net,NCNet) and self.net != net:
@@ -1058,6 +1087,25 @@ class Part(object):
     __mul__ = copy
     __rmul__ = copy
 
+    def filter_pins(self, **criteria):
+        """
+        Return a list of part pins whose attributes match a list of criteria.
+
+        Return a list of pins extracted from a part whose attributes match a
+        list of criteria. The match is done using regular expressions.
+        Example: filter_pins(name='io[0-9]+', direction='bidir') will
+        return all the bidirectional pins of the component that have pin names
+        starting with 'io' followed by a number (e.g., 'IO45').
+
+        Args:
+            criteria: Keyword-argument pairs. The keyword specifies the attribute
+                name while the argument contains the desired value of the attribute.
+
+        Returns:
+            A list of Pins whose attributes match *all* the criteria.
+        """
+        return filter(self.pins, **criteria)
+
     def get_pins(self, *pin_ids):
         """
         Return list of part pins selected by pin numbers or names.
@@ -1101,26 +1149,7 @@ class Part(object):
     """Return list of part pins selected by pin numbers/names using index brackets."""
     __getitem__ = get_pins
 
-    def filter_pins(self, **criteria):
-        """
-        Return a list of part pins whose attributes match a list of criteria.
-
-        Return a list of pins extracted from a part whose attributes match a
-        list of criteria. The match is done using regular expressions.
-        Example: filter_pins(name='io[0-9]+', direction='bidir') will
-        return all the bidirectional pins of the component that have pin names
-        starting with 'io' followed by a number (e.g., 'IO45').
-
-        Args:
-            criteria: Keyword-argument pairs. The keyword specifies the attribute
-                name while the argument contains the desired value of the attribute.
-
-        Returns:
-            A list of Pins whose attributes match *all* the criteria.
-        """
-        return filter(self.pins, **criteria)
-
-    def connect(self, pin_ids, nets):
+    def connect(self, pin_ids, nets_pins):
         """
         Connect nets or pins of other parts to the specified pins of this part.
 
@@ -1131,7 +1160,7 @@ class Part(object):
         Args:
             pin_ids: List of IDs of pins for this part. See get_pins() for the
                 types of acceptable pin IDs.
-            nets: Net objects.
+            nets_pins: List of Net and Pin objects.
 
         Raises:
             Exception if the list of pins to connect to is empty.
@@ -1144,13 +1173,14 @@ class Part(object):
             logger.error("No pins to attach to!")
             raise Exception
 
-        nets = unnest_list(to_list(nets))  # Make sure nets is a list.
-        expanded_nets = []
-        for n in nets:
-            if isinstance(n, Pin):
-                if not n.get_nets():
-                    n += Net()
-            expanded_nets.extend(n.get_nets())
+        nets_pins = unnest_list(to_list(nets_pins))  # Make sure nets is a list.
+        expanded_nets = nets_pins
+        # expanded_nets = []
+        # for np in nets_pins:
+            # if isinstance(np, Pin):
+                # if not np.get_nets():
+                    # np += Net()
+            # expanded_nets.extend(np.get_nets())
 
         # If just a single net is to be connected, make a list out of it that's
         # just as long as the list of pins to connect to. This will connect
@@ -1161,7 +1191,10 @@ class Part(object):
         # Now connect the pins to the nets.
         if len(expanded_nets) == len(pins):
             for pin, net in zip(pins, expanded_nets):
-                net += pin
+                pin += net
+                # if not pin.get_nets() and not net.get_nets():
+                    # net += Net()
+                # net += pin
         else:
             logger.error(
                 "Can't attach differing numbers of pins ({}) and nets ({})!".format(
@@ -1169,6 +1202,28 @@ class Part(object):
             raise Exception
 
     __setitem__ = connect
+
+    def is_connected(self):
+        """
+        Return T/F depending upon whether a part is connected in a netlist.
+
+        If a part has pins but none of them are connected to nets, then
+        this method will return False. Otherwise, it will return True even if
+        the part has no pins (which can be the case for mechanical parts,
+        silkscreen logos, or other non-electrical schematic elements).
+        """
+
+        # Assume parts without pins (like mech. holes) are always connected.
+        if len(self.pins) == 0:
+            return True
+
+        # If any pin is found to be connected to a net, return True
+        for p in self.pins:
+            if p.net:
+                return True
+
+        # No net connections found, so return False.
+        return False
 
     def __str__(self):
         """Return a description of the pins on this part as a string."""
@@ -1260,28 +1315,6 @@ class Part(object):
             A PartUnit object.
         """
         return PartUnit(self, *unit_ids)
-
-    # def is_connected(self):
-        # """
-        # Return T/F depending upon whether a part is connected in a netlist.
-
-        # If a part has pins but none of them are connected to nets, then
-        # this method will return False. Otherwise, it will return True even if
-        # the part has no pins (which can be the case for mechanical parts,
-        # silkscreen logos, or other non-electrical schematic elements).
-        # """
-
-        # # Assume parts without pins (like mech. holes) are always connected.
-        # if len(self.pins) == 0:
-            # return True
-
-        # # If any pin is found to be connected to a net, return True
-        # for p in self.pins:
-            # if p.net is not None:
-                # return True
-
-        # # No net connections found, so return False.
-        # return False
 
     def erc(self):
         """
