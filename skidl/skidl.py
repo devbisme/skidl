@@ -44,8 +44,7 @@ from builtins import zip
 from builtins import range
 from builtins import object
 
-# from skidl import __version__
-__version__ = '0.0.1'
+from . __init__ import __version__
 
 logger = logging.getLogger('skidl')
 
@@ -565,80 +564,92 @@ class Pin(object):
 
     __repr__ = __str__
 
-    def connect(self, net):
+    def connect(self, net_pin):
         """
-        Connect a net to a pin.
+        Connect a net or pin to this pin.
 
         Args:
-            net: A Net object to be connected to this pin.
+            net_pin: A Net or Pin object to be connected to this pin.
 
         Returns:
-            The updated Pin object with the new net connection.
+            The updated Pin object with the new connection.
 
         Raises:
-            An exception if trying to attach a net to a pin that is already
+            An exception if trying to attach a net/pin to a pin that is already
             connected to a different net.
         """
 
-        if not isinstance(net, (Pin, Net)):
+        # Only a net or pin can be connected to a pin.
+        if not isinstance(net_pin, (Pin, Net)):
             logger.error("Can't assign type {} to a pin!".format(type(net)))
             raise Exception
 
+        # If the thing to be connected is a net, then this supplies the net.
+        # If the thing to be connected is a pin, then this supplies the net
+        # the pin is connected to or None if it's not connected.
+        try:
+            connect_net = net_pin.get_nets()[0]
+            if isinstance(net_pin, Pin) and isinstance(connect_net, NCNet):
+                # If the thing being connected to this pin is a pin that has
+                # already been connected to a no-connect net, then disconnect
+                # it from the no-connect net so it can be reconnected to this pin.
+                net_pin.net = None
+                connect_net = None
+        except IndexError:
+            # This only happens if pin_net is an unconnected pin.
+            connect_net = None
+
         if not self.net:
-            if not net.get_nets():
+            if connect_net is None:
+                # Both this pin and the pin to be connected are not currently
+                # assigned to nets, so create a net and attach both to it.
                 n = Net()
-                n += self, net
+                n += self, net_pin
             else:
-                n = net.get_nets()[0]
-                self.net = n
-                n += self
+                # The thing to be connected to this pin is already connected
+                # to a net, so assign the net to this pin and then connect
+                # this pin to the net.
+                self.net = connect_net
+                connect_net += self
         else:
-            if not net.get_nets():
-                self.net += net
+            if connect_net is None:
+                # This pin is already connected to a net, but the thing to
+                # be connected isn't. So connect that thing to the net of
+                # this pin.
+                self.net += net_pin
             else:
+                # This pin and the thing to be connected are both already
+                # connected to nets.
                 if isinstance(self.net, NCNet):
-                    self.net = net.get_nets()[0]
-                    net += self
-                elif self.net == net.get_nets()[0]:
+                    # If this pin is connected to a no-connect net, then it's
+                    # OK to change it's connection to the other net.
+                    self.net = connect_net  # Assign net to this pin.
+                    connect_net += self  # Connect this pin to its new net.
+                elif self.net == connect_net:
+                    # This pin and the thing to be connected are both already
+                    # connected to the same net, so do nothing.
                     pass
                 else:
+                    # This pin is already connected to a net, so it's
+                    # an error to try and connect it to a different net.
                     logger.error(
                         "Can't assign net {} to pin {}-{} of part {}-{} because it's already connected to net {}!".format(
-                            net.name, self.num, self.name, self.part.ref,
+                            net_pin.name, self.num, self.name, self.part.ref,
                             self.part.name, self.net.name))
                     raise Exception
-        return self
-
-        # First, check that the pin is not already connected to a different net.
-        # (A pin cannot be connected to more than one net.)
-        if self.net and not isinstance(self.net,NCNet) and self.net != net:
-            logger.error(
-                "Can't assign net {} to pin {}-{} of part {}-{} because it's already connected to net {}!".format(
-                    net.name, self.num, self.name, self.part.ref,
-                    self.part.name, self.net.name))
-            return self
-
-        # Assign the net to this pin.
-        self.net = net
-
-        # Now, add the pin to the list of pins maintained by the Net object.
-        # This ties them together so that a given pin can find the net it
-        # connects to, and a given net can find all the pins it's connected to.
-        net += self
-
         return self
 
     """Connect a net to a pin using the += operator."""
     __iadd__ = connect
 
     def get_nets(self):
-        """Return the Net object connected to this pin."""
+        """Return a list containing Net object connected to this pin."""
         if self.net is None:
             return []
         return to_list(self.net)
 
     def get_pins(self):
-        """Return this pin."""
+        """Return a list containing this pin."""
         return to_list(self)
 
     def erc_pin_desc(self):
@@ -709,7 +720,7 @@ class Part(object):
             self.__dict__.update(part.__dict__)
 
             # Make sure all the pins have a valid reference to this part.
-            self.associate_part_with_pins()
+            self.associate_pins()
 
         # Otherwise, create a Part from a part definition. If the part is
         # destined for a library, then just get its name. If it's going into
@@ -1001,18 +1012,28 @@ class Part(object):
         self.pins = [kicad_pin_to_pin(p) for p in self.draw['pins']]
 
         # Make sure all the pins have a valid reference to this part.
-        self.associate_part_with_pins()
+        self.associate_pins()
 
         # Part definition has been parsed, so clear it out. This prevents a
         # part from being parsed more than once.
         self.part_defn = None
 
-    def associate_part_with_pins(self):
+    def associate_pins(self):
         """
         Make sure all the pins in a part have valid references to the part.
         """
         for p in self.pins:
             p.part = self
+
+    def reconnect_pins(self):
+        """
+        Reconnect all the pins of a part to add them to the nets.
+        """
+        for p in self.pins:
+            n = p.net  # Remember the net this pin was connected to.
+            if n:
+                p.net = None  # Disconnect the pin.
+                n += p  # Now reconnect the pin.
 
     def copy(self, num_copies=1, dest='NETLIST', **attribs):
         """
@@ -1055,22 +1076,11 @@ class Part(object):
             # adjusted to be unique if needed during the addition process.)
             cpy._ref = None
 
-            # copy the pin/net connections of the original to the part copy.
-            for i, pin in enumerate(cpy.pins):
+            # Make sure all the pins have a referecne to this new part copy.
+            cpy.associate_pins()
 
-                # Tell the copied pins they belong to the copied part.
-                pin.part = cpy
-
-                # Disconnect the pins of the copied part and then reconnect
-                # them to the same nets. This is done to update the nets
-                # with the new pin connections to the copied part.
-                original_net = pin.net  # Remember net this pin was connected to.
-
-                pin.net = None  # Disconnect pin of copied part from net.
-
-                # Now connect the copied pin back to the net.
-                if original_net:
-                    original_net += pin
+            # Reattach all the pins of the copy so they get added to the nets.
+            cpy.reconnect_pins()
 
             for k, v in attribs.items():
                 setattr(cpy, k, v)
@@ -1417,6 +1427,10 @@ class PartUnit(Part):
 
 
 class Net(object):
+    """
+    Lists of connected pins are stored as nets using this class.
+    """
+
     def __init__(self, name=None, *pins, **attribs):
         """
         Create a Net object.
@@ -1649,6 +1663,13 @@ class Net(object):
 ##############################################################################
 
 class NCNet(Net):
+    """
+    This is a netlist subclass used for storing lists of pins which are
+    explicitly specified as not being connected. This means the ERC won't
+    flag these pins as floating, but no net connections for these pins
+    will be placed in the netlist so there will actually be no
+    connections to these pins in the physical circuit.
+    """
 
     def __init__(self, name=None, *pins, **attribs):
         super(NCNet, self).__init__(name, *pins, **attribs)
@@ -1681,13 +1702,17 @@ class NCNet(Net):
 
 
 class Bus(object):
+    """
+    This class collects one or more nets into a group that can be indexed.
+    """
+
     def __init__(self, name, *args, **attribs):
         """
         Create a Bus object.
 
         Args:
             name: A string with the name of the bus.
-            pins: A list of pins to attach to the net.
+            args: A list of ints, pins, nets, buses to attach to the net.
             attribs: A dictionary of attributes and values to attach to
                 the Net object.
         """
@@ -1704,7 +1729,12 @@ class Bus(object):
             elif isinstance(arg, Net):
                 self.nets.append(arg)
             elif isinstance(arg, Pin):
-                self.nets.append(arg.net)
+                try:
+                    self.nets.append(arg.get_nets()[0])
+                except IndexError:
+                    n = Net()
+                    n += arg
+                    self.nets.append(n)
             elif isinstance(arg, Bus):
                 self.nets.extend(arg.nets)
 
