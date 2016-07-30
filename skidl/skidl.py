@@ -35,7 +35,7 @@ import os.path
 import re
 import logging
 import shlex
-from copy import deepcopy
+from copy import deepcopy, copy
 from pprint import pprint
 import time
 import pdb
@@ -44,7 +44,7 @@ from builtins import zip
 from builtins import range
 from builtins import object
 
-from . __init__ import __version__
+from .__init__ import __version__
 
 logger = logging.getLogger('skidl')
 
@@ -130,20 +130,20 @@ def get_unique_name(lst, attrib, prefix, initial=None):
     if not initial:
 
         # Get list entries with the prefix followed by a number, e.g.: C55
-        filter_dict = {attrib: re.escape(prefix)+'\d+'}
+        filter_dict = {attrib: re.escape(prefix) + '\d+'}
         sub_list = filter(lst, **filter_dict)
 
         # If entries were found, then find the smallest available number.
         if sub_list:
             # Get the list of names.
-            names = [getattr(item,attrib) for item in sub_list]
+            names = [getattr(item, attrib) for item in sub_list]
             # Remove the prefix from each name, leaving only the numbers.
             l = len(prefix)
             nums = set([int(n[l:]) for n in names])
             stop = max(nums) + 1
             # Generate a list of the unused numbers in the range [1,stop]
             # and select the minimum value.
-            n = min(set(range(1,stop+1)) - nums)
+            n = min(set(range(1, stop + 1)) - nums)
 
         # If no entries were found, start counting from 1.
         else:
@@ -153,7 +153,7 @@ def get_unique_name(lst, attrib, prefix, initial=None):
         initial = prefix + str(n)
 
     # If the initial name is just a number, then prepend the prefix to it.
-    elif isinstance(initial,int):
+    elif isinstance(initial, int):
         initial = prefix + str(initial)
 
     # Now determine if there are any items in the list with the same name.
@@ -166,9 +166,9 @@ def get_unique_name(lst, attrib, prefix, initial=None):
 
     # Otherwise, determine how many copies of the name are in the list and
     # append a number to make this name unique.
-    filter_dict = {attrib: re.escape(initial)+'_\d+'}
+    filter_dict = {attrib: re.escape(initial) + '_\d+'}
     n = len(filter(lst, **filter_dict))
-    initial = initial + '_' + str(n+1)
+    initial = initial + '_' + str(n + 1)
 
     # Recursively call this routine using the newly-generated name to
     # make sure it's unique. Eventually, a unique name will be returned.
@@ -287,6 +287,46 @@ def expand_indices(slice_max, *indices):
             logger.error('Unknown type in index: {}'.format(type(i)))
             raise Exception
     return ids
+
+
+def find_num_copies(**attribs):
+    """
+    Return the number of copies to make from the length of attribute values.
+
+    Args:
+        attribs: Dict of Keyword/Value pairs for setting object attributes.
+            If the value is a scalar, then the number of copies is one.
+            If the value is a list/tuple, the number of copies is the
+            length of the list/tuple.
+
+    Returns:
+        The length of the longest value in the dict of attributes.
+
+    Raises:
+        Exception if there are two or more list/tuple values with different
+        lengths that are greater than 1. (All attribute values must be scalars
+        or lists/tuples of the same length.)
+    """
+    num_copies = set()
+    for k,v in attribs.items():
+        if isinstance(v, (list,tuple)):
+            num_copies.add(len(v))
+        else:
+            num_copies.add(1)
+
+    num_copies = list(num_copies)
+    if len(num_copies) > 2:
+        logger.error("Mismatched lengths of attributes: {}!".format(num_copies))
+        raise Exception
+    elif len(num_copies) > 1 and min(num_copies) > 1:
+        logger.error("Mismatched lengths of attributes: {}!".format(num_copies))
+        raise Exception
+
+    try:
+        return max(num_copies)
+    except ValueError:
+        return 0 # If the list if empty.
+        
 
 ##############################################################################
 
@@ -495,7 +535,8 @@ class Pin(object):
     #   ONESIDE_DRIVE: Can pull high (open-emitter) or low (open-collector).
     #   PUSHPULL_DRIVE: Can actively drive high or low.
     #   POWER_DRIVE: A power supply or ground line.
-    NOCONNECT_DRIVE, NO_DRIVE, PASSIVE_DRIVE, ONESIDE_DRIVE, TRISTATE_DRIVE, PUSHPULL_DRIVE, POWER_DRIVE = range(7)
+    NOCONNECT_DRIVE, NO_DRIVE, PASSIVE_DRIVE, ONESIDE_DRIVE, TRISTATE_DRIVE, PUSHPULL_DRIVE, POWER_DRIVE = range(
+        7)
 
     # Information about the various types of pins:
     #   function: A string describing the pin's function.
@@ -537,11 +578,11 @@ class Pin(object):
                  'min_rcv': NO_DRIVE, },
         OPENCOLL: {'function': 'OPEN-COLLECTOR',
                    'drive': ONESIDE_DRIVE,
-                    'max_rcv': TRISTATE_DRIVE,
+                   'max_rcv': TRISTATE_DRIVE,
                    'min_rcv': NO_DRIVE, },
         OPENEMIT: {'function': 'OPEN-EMITTER',
                    'drive': ONESIDE_DRIVE,
-                    'max_rcv': TRISTATE_DRIVE,
+                   'max_rcv': TRISTATE_DRIVE,
                    'min_rcv': NO_DRIVE, },
         NOCONNECT: {'function': 'NO-CONNECT',
                     'drive': NOCONNECT_DRIVE,
@@ -560,9 +601,48 @@ class Pin(object):
 
     def __str__(self):
         """Return a description of this pin as a string."""
-        return 'Pin {num}/{name}: {func}'.format(num=self.num, name=self.name, func=Pin.pin_info[self.func]['function'])
+        return 'Pin {num}/{name}: {func}'.format(
+            num=self.num,
+            name=self.name,
+            func=Pin.pin_info[self.func]['function'])
 
     __repr__ = __str__
+
+    def copy(self, num_copies=1, **attribs):
+        """
+        Return copy or list of copies of a pin including any net connection.
+        """
+
+        # Check that a valid number of copies is requested.
+        if not isinstance(num_copies, int):
+            logger.error(
+                "Can't make a non-integer number ({}) of copies of a pin!".format(
+                    num_copies))
+            raise Exception
+        if num_copies < 0:
+            logger.error(
+                "Can't make a negative number ({}) of copies of a pin!".format(
+                    num_copies))
+            raise Exception
+
+        copies = []
+        for _ in range(num_copies):
+
+            # Make a shallow copy of the pin.
+            cpy = copy(self)
+
+            # Connect the new pin to the same net as the original.
+            cpy.net = None
+            if self.net:
+                self.net += cpy
+
+            # Attach additional attributes to the pin.
+            for k, v in attribs.items():
+                setattr(cpy, k, v)
+
+            copies.append(cpy)
+
+        return list_or_scalar(copies)
 
     def connect(self, net_pin):
         """
@@ -1025,16 +1105,6 @@ class Part(object):
         for p in self.pins:
             p.part = self
 
-    def reconnect_pins(self):
-        """
-        Reconnect all the pins of a part to add them to the nets.
-        """
-        for p in self.pins:
-            n = p.net  # Remember the net this pin was connected to.
-            if n:
-                p.net = None  # Disconnect the pin.
-                n += p  # Now reconnect the pin.
-
     def copy(self, num_copies=1, dest='NETLIST', **attribs):
         """
         Make zero or more copies of this part while maintaining all pin/net
@@ -1053,6 +1123,8 @@ class Part(object):
             Exception if the requested number of copies is a non-integer or negative.
         """
 
+        num_copies = max(num_copies, find_num_copies(**attribs))
+
         # Check that a valid number of copies is requested.
         if not isinstance(num_copies, int):
             logger.error(
@@ -1068,7 +1140,19 @@ class Part(object):
         # Now make copies of the part one-by-one.
         copies = []
         for i in range(num_copies):
-            cpy = deepcopy(self)
+
+            # Make a shallow copy of the part.
+            cpy = copy(self)
+
+            # The shallow copy will just put references to the pins of the
+            # original into the copy, so create independent copies of the pins.
+            pin_copies = []
+            for p in self.pins:
+                pin_copies.append(p.copy())
+            self.pins = pin_copies
+
+            # Make sure all the pins have a reference to this new part copy.
+            cpy.associate_pins()
 
             # Clear the part reference of the copied part so a unique reference
             # can be assigned when the part is added to the circuit.
@@ -1076,13 +1160,14 @@ class Part(object):
             # adjusted to be unique if needed during the addition process.)
             cpy._ref = None
 
-            # Make sure all the pins have a referecne to this new part copy.
-            cpy.associate_pins()
-
-            # Reattach all the pins of the copy so they get added to the nets.
-            cpy.reconnect_pins()
-
+            # Enter any new attributes.
             for k, v in attribs.items():
+                if isinstance(v, (list, tuple)):
+                    try:
+                        v = v[i]
+                    except IndexError:
+                        logger.error("{} copies of part {} were requested, but too few elements in attribute {}!".format(num_copies, self.name, k))
+                        raise Exception
                 setattr(cpy, k, v)
 
             # Add the part copy to the list of copies and then add the
@@ -1096,6 +1181,9 @@ class Part(object):
     """Make copies with the multiplication operator"""
     __mul__ = copy
     __rmul__ = copy
+
+    """Make copies just by calling the object."""
+    __call__ = copy
 
     def filter_pins(self, **criteria):
         """
@@ -1134,7 +1222,7 @@ class Part(object):
             if only a single match was found. Or None if no match was found.
         """
 
-        pin_ids = expand_indices(len(self.pins)+1, *pin_ids)
+        pin_ids = expand_indices(len(self.pins) + 1, *pin_ids)
 
         # Go through the list of pin IDs one-by-one.
         pins = []
@@ -1183,14 +1271,15 @@ class Part(object):
             logger.error("No pins to attach to!")
             raise Exception
 
-        nets_pins = unnest_list(to_list(nets_pins))  # Make sure nets is a list.
+        nets_pins = unnest_list(
+            to_list(nets_pins))  # Make sure nets is a list.
         expanded_nets = nets_pins
         # expanded_nets = []
         # for np in nets_pins:
-            # if isinstance(np, Pin):
-                # if not np.get_nets():
-                    # np += Net()
-            # expanded_nets.extend(np.get_nets())
+        # if isinstance(np, Pin):
+        # if not np.get_nets():
+        # np += Net()
+        # expanded_nets.extend(np.get_nets())
 
         # If just a single net is to be connected, make a list out of it that's
         # just as long as the list of pins to connect to. This will connect
@@ -1203,7 +1292,7 @@ class Part(object):
             for pin, net in zip(pins, expanded_nets):
                 pin += net
                 # if not pin.get_nets() and not net.get_nets():
-                    # net += Net()
+                # net += Net()
                 # net += pin
         else:
             logger.error(
@@ -1339,7 +1428,8 @@ class Part(object):
                 if p.func == Pin.NOCONNECT:
                     erc_logger.warning(
                         'Incorrectly connected pin: {p} should not be connected to a net (n).'.format(
-                        p=p.erc_pin_desc(), n=p.net.name))
+                            p=p.erc_pin_desc(),
+                            n=p.net.name))
 
     def generate_netlist_component(self, format='KICAD'):
         """
@@ -1421,7 +1511,7 @@ class PartUnit(Part):
             unique_pins |= set(part.filter_pins(unit=unit_id))
 
         # Store the pins in the PartUnit.
-        self.pins = unique_pins[:]
+        self.pins = list(unique_pins)
 
 ##############################################################################
 
@@ -1662,6 +1752,7 @@ class Net(object):
 
 ##############################################################################
 
+
 class NCNet(Net):
     """
     This is a netlist subclass used for storing lists of pins which are
@@ -1799,6 +1890,42 @@ class Bus(object):
         """It's an error to get the list of pins attacxhed to all bus lines."""
         logger.error("Can't get the list of pins on a bus!")
         raise Exception
+
+    def copy(self, num_copies=1, **attribs):
+        """
+        Make zero or more copies of this bus.
+
+        Args:
+            num_copies: Number of copies to make of this part.
+
+        Raises:
+            Exception if the requested number of copies is a non-integer or negative.
+        """
+
+        # Check that a valid number of copies is requested.
+        if not isinstance(num_copies, int):
+            logger.error(
+                "Can't make a non-integer number ({}) of copies of a bus!".format(
+                    num_copies))
+            raise Exception
+        if num_copies < 0:
+            logger.error(
+                "Can't make a negative number ({}) of copies of a bus!".format(
+                    num_copies))
+            raise Exception
+
+        copies = []
+        for _ in range(num_copies):
+
+            cpy = Bus(self)
+
+            # Attach additional attributes to the pin.
+            for k, v in attribs.items():
+                setattr(cpy, k, v)
+
+            copies.append(cpy)
+
+        return list_or_scalar(copies)
 
     def connect(self, *pin_net_bus):
         """
@@ -2017,7 +2144,6 @@ class SubCircuit(object):
 
     @classmethod
     def generate_netlist(cls, filename, format='KICAD'):
-
         def gen_netlist_kicad():
             print('''(export (version D)
   (design
