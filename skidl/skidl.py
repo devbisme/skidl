@@ -80,6 +80,53 @@ logger.error = count_calls(logger.error)
 logger.warning = count_calls(logger.warning)
 
 
+def scriptinfo():
+    '''
+    Returns a dictionary with information about the running top level Python
+    script:
+    ---------------------------------------------------------------------------
+    dir:    directory containing script or compiled executable
+    name:   name of script or executable
+    source: name of source code file
+    ---------------------------------------------------------------------------
+    "name" and "source" are identical if and only if running interpreted code.
+    When running code compiled by py2exe or cx_freeze, "source" contains
+    the name of the originating Python script.
+    If compiled by PyInstaller, "source" contains no meaningful information.
+
+    Downloaded from:
+    http://code.activestate.com/recipes/579018-python-determine-name-and-directory-of-the-top-lev/
+    '''
+
+    import os, sys, inspect
+    #---------------------------------------------------------------------------
+    # scan through call stack for caller information
+    #---------------------------------------------------------------------------
+    for teil in inspect.stack():
+        # skip system calls
+        if teil[1].startswith("<"):
+            continue
+        if teil[1].upper().startswith(sys.exec_prefix.upper()):
+            continue
+        trc = teil[1]
+
+    # trc contains highest level calling script name
+    # check if we have been compiled
+    if getattr(sys, 'frozen', False):
+        scriptdir, scriptname = os.path.split(sys.executable)
+        return {"dir": scriptdir, "name": scriptname, "source": trc}
+
+    # from here on, we are in the interpreted case
+    scriptdir, trc = os.path.split(trc)
+    # if trc did not contain directory information,
+    # the current working directory is what we need
+    if not scriptdir:
+        scriptdir = os.getcwd()
+
+    scr_dict = {"name": trc, "source": trc, "dir": scriptdir}
+    return scr_dict
+
+
 def to_list(x):
     """
     Return x if it is already a list, or return a list if x is a scalar.
@@ -252,14 +299,14 @@ def filter(lst, **criteria):
     return extract
 
 
-def unnest_list(nested_list):
+def unnest(nested_list):
     """
     Return a flattened list of items from a nested list.
     """
     lst = []
     for e in nested_list:
         if isinstance(e, (list, tuple)):
-            lst.extend(unnest_list(e))
+            lst.extend(unnest(e))
         else:
             lst.append(e)
     return lst
@@ -278,7 +325,7 @@ def expand_indices(slice_max, *indices):
         A linear list of all the indices made up only of numbers and strings.
     """
     ids = []
-    for i in unnest_list(indices):
+    for i in unnest(indices):
         if isinstance(i, slice):
             ids.extend(range(*i.indices(slice_max)))
         elif isinstance(i, (int, type(''))):
@@ -308,27 +355,28 @@ def find_num_copies(**attribs):
         or lists/tuples of the same length.)
     """
     num_copies = set()
-    for k,v in attribs.items():
-        if isinstance(v, (list,tuple)):
+    for k, v in attribs.items():
+        if isinstance(v, (list, tuple)):
             num_copies.add(len(v))
         else:
             num_copies.add(1)
 
     num_copies = list(num_copies)
     if len(num_copies) > 2:
-        logger.error("Mismatched lengths of attributes: {}!".format(num_copies))
+        logger.error("Mismatched lengths of attributes: {}!".format(
+            num_copies))
         raise Exception
     elif len(num_copies) > 1 and min(num_copies) > 1:
-        logger.error("Mismatched lengths of attributes: {}!".format(num_copies))
+        logger.error("Mismatched lengths of attributes: {}!".format(
+            num_copies))
         raise Exception
 
     try:
         return max(num_copies)
     except ValueError:
-        return 0 # If the list if empty.
-        
+        return 0  # If the list if empty.
 
-##############################################################################
+        ##############################################################################
 
 
 class SchLib(object):
@@ -631,8 +679,10 @@ class Pin(object):
             # Make a shallow copy of the pin.
             cpy = copy(self)
 
-            # Connect the new pin to the same net as the original.
+            # The copy is not on a net, yet.
             cpy.net = None
+
+            # Connect the new pin to the same net as the original.
             if self.net:
                 self.net += cpy
 
@@ -1166,7 +1216,9 @@ class Part(object):
                     try:
                         v = v[i]
                     except IndexError:
-                        logger.error("{} copies of part {} were requested, but too few elements in attribute {}!".format(num_copies, self.name, k))
+                        logger.error(
+                            "{} copies of part {} were requested, but too few elements in attribute {}!".format(
+                                num_copies, self.name, k))
                         raise Exception
                 setattr(cpy, k, v)
 
@@ -1181,7 +1233,6 @@ class Part(object):
     """Make copies with the multiplication operator"""
     __mul__ = copy
     __rmul__ = copy
-
     """Make copies just by calling the object."""
     __call__ = copy
 
@@ -1271,8 +1322,7 @@ class Part(object):
             logger.error("No pins to attach to!")
             raise Exception
 
-        nets_pins = unnest_list(
-            to_list(nets_pins))  # Make sure nets is a list.
+        nets_pins = unnest(to_list(nets_pins))  # Make sure nets is a list.
         expanded_nets = nets_pins
         # expanded_nets = []
         # for np in nets_pins:
@@ -1349,8 +1399,15 @@ class Part(object):
                 If r is None, then r is assigned a unique reference consisting
                 of the reference prefix for the part followed by a number.
         """
-        self._ref = get_unique_name(SubCircuit.circuit_parts, 'ref',
-                                    self.ref_prefix, r)
+
+        # Remove the existing reference so it doesn't cause a collision if the
+        # object is renamed with its existing name.
+        self._ref = None
+
+        # Now name the object with the given reference or some variation
+        # of it that doesn't collide with anything else in the list.
+        self._ref = get_unique_name(SubCircuit.parts, 'ref', self.ref_prefix,
+                                    r)
         return
 
     @ref.deleter
@@ -1563,8 +1620,14 @@ class Net(object):
     @name.setter
     def name(self, name):
         """Set the name of this net to a unique string."""
-        self._name = get_unique_name(SubCircuit.circuit_nets, 'name', 'N$',
-                                     name)
+
+        # Remove the existing name so it doesn't cause a collision if the
+        # object is renamed with its existing name.
+        self._name = None
+
+        # Now name the object with the given name or some variation
+        # of it that doesn't collide with anything else in the list.
+        self._name = get_unique_name(SubCircuit.nets, 'name', 'N$', name)
 
     @name.deleter
     def name(self):
@@ -1637,12 +1700,12 @@ class Net(object):
 
     def connect(self, *pins):
         """
-        Return the net after connecting a list of pins to itself.
+        Return the net after connecting a list of pins to it.
 
         Args:
             pins: A list of Pin objects to be connected to the net object.
         """
-        for pin in unnest_list(pins):
+        for pin in unnest(pins):
             if isinstance(pin, Pin):
                 if pin not in self.pins:
                     # Pin is not already in the net, so add it to the net.
@@ -1660,6 +1723,51 @@ class Net(object):
         return self
 
     __iadd__ = connect
+
+    def associate_pins(self):
+        """
+        Make sure all the pins on a net have valid references to the net.
+        """
+        for p in self.pins:
+            p.net = self
+
+    def merge(self, *nets):
+        """
+        Merge pins on one or more nets onto this net and delete the other nets.
+
+        Args:
+            One or more nets or lists of nets.
+        """
+
+        if isinstance(self, NCNet):
+            logger.error("Can't merge with a no-connect net {}!".format(
+                self.name))
+            raise Exception
+
+        # Start the set of unique pins with the pins on the net being merged to.
+        pins = set(self.pins)
+
+        # Go through the list of nets.
+        for net in unnest(nets):
+
+            if isinstance(net, NCNet):
+                logger.error("Can't merge with a no-connect net {}!".format(
+                    net.name))
+                raise Exception
+
+            # If a net has pins, add them to the set but omit duplicates.
+            if net.pins:
+                pins = pins.union(net.pins)
+
+            # Got the pins off the net, so remove it from the circuit.
+            SubCircuit.delete_net(net)
+
+        # Replace the pins on the main net with the list of pins from all the nets.
+        self.pins = list(pins)
+
+        # Make sure all the pins on this net have a reference to the net they
+        # now belong to.
+        self.associate_pins()
 
     def erc(self):
         """
@@ -1811,7 +1919,7 @@ class Bus(object):
 
         # Build the bus from net widths, existing nets, nets of pins, other buses.
         self.nets = []
-        for arg in unnest_list(args):
+        for arg in unnest(args):
             if isinstance(arg, int):
                 nets = arg * Net()
                 for i, n in enumerate(nets):
@@ -1846,8 +1954,15 @@ class Bus(object):
 
     @name.setter
     def name(self, name):
-        """Set the name of the bus."""
-        self._name = name
+        """Set the name of this bus to a unique string."""
+
+        # Remove the existing name so it doesn't cause a collision if the
+        # object is renamed with its existing name.
+        self._name = None
+
+        # Now name the object with the given name or some variation
+        # of it that doesn't collide with anything else in the list.
+        self._name = get_unique_name(SubCircuit.buses, 'name', 'B$', name)
 
     @name.deleter
     def name(self):
@@ -1932,7 +2047,7 @@ class Bus(object):
         Connect pins, nets and buses to a bus.
         """
         nets = []
-        for item in unnest_list(pin_net_bus):
+        for item in unnest(pin_net_bus):
             if isinstance(item, Pin):
                 nets.append(item)
             elif isinstance(item, Net):
@@ -1971,8 +2086,8 @@ class SubCircuit(object):
     and nets are added to its static members.
 
     Static Attributes:
-        circuit_parts: List of all the schematic parts as Part objects.
-        circuit_nets: List of all the schematic nets as Net objects.
+        parts: List of all the schematic parts as Part objects.
+        nets: List of all the schematic nets as Net objects.
         hierarchy: A '.'-separated concatenation of the names of nested
             SubCircuits at the current time it is read.
         level: The current level in the schematic hierarchy.
@@ -1984,8 +2099,9 @@ class SubCircuit(object):
 
     OK, WARNING, ERROR = range(3)
 
-    circuit_parts = []
-    circuit_nets = []
+    parts = []
+    nets = []
+    buses = []
     hierarchy = 'top'
     level = 0
     context = [('top', )]
@@ -1993,8 +2109,8 @@ class SubCircuit(object):
     @classmethod
     def reset(cls):
         """Clear any circuitry and start over."""
-        cls.circuit_parts = []
-        cls.circuit_nets = []
+        cls.parts = []
+        cls.nets = []
         cls.hierarchy = 'top'
         cls.level = 0
         cls.context = [('top', )]
@@ -2004,14 +2120,28 @@ class SubCircuit(object):
         """Add a Part object to the circuit"""
         part.ref = part.ref  # This adjusts the part reference if necessary.
         part.hierarchy = cls.hierarchy  # Tag the part with its hierarchy position.
-        cls.circuit_parts.append(part)
+        cls.parts.append(part)
 
     @classmethod
     def add_net(cls, net):
         """Add a Net object to the circuit. Assign a net name if necessary."""
         net.name = net.name
         net.hierarchy = cls.hierarchy  # Tag the net with its hierarchy position.
-        cls.circuit_nets.append(net)
+        cls.nets.append(net)
+
+    @classmethod
+    def delete_net(cls, net):
+        """Delete net from circuit."""
+        if net in cls.nets:
+            cls.nets.remove(net)
+        del net
+
+    @classmethod
+    def add_bus(cls, bus):
+        """Add a Bus object to the circuit. Assign a bus name if necessary."""
+        bus.name = bus.name
+        bus.hierarchy = cls.hierarchy  # Tag the bus with its hierarchy position.
+        cls.buses.append(bus)
 
     def __init__(self, circuit_func):
         '''
@@ -2056,7 +2186,7 @@ class SubCircuit(object):
 
         # Restore the context that existed before the SubCircuit circuitry was
         # created. This does not remove the circuitry since it has already been
-        # added to the circuit_parts and circuit_nets lists.
+        # added to the parts and nets lists.
         self.context.pop()
 
         return results
@@ -2132,11 +2262,11 @@ class SubCircuit(object):
         cls.erc_setup()
 
         # Check the nets for errors.
-        for net in cls.circuit_nets:
+        for net in cls.nets:
             net.erc()
 
         # Check the parts for errors.
-        for part in cls.circuit_parts:
+        for part in cls.parts:
             part.erc()
 
         if (erc_logger.error.count, erc_logger.warning.count) == (0, 0):
@@ -2153,12 +2283,12 @@ class SubCircuit(object):
                   .format(src_file=src_file,
                           date=date, tool=tool))
             print("  (components")
-            for p in SubCircuit.circuit_parts:
+            for p in SubCircuit.parts:
                 comp_txt = p.generate_netlist_component(format)
                 print(comp_txt)
             print("  )")
             print("  (nets")
-            for code, n in enumerate(SubCircuit.circuit_nets):
+            for code, n in enumerate(SubCircuit.nets):
                 n.code = code
                 net_txt = n.generate_netlist_net(format)
                 print(net_txt)
@@ -2180,6 +2310,8 @@ class SubCircuit(object):
             return ''
 
 
+Circuit = SubCircuit
+
 ERC = SubCircuit.ERC
 generate_netlist = SubCircuit.generate_netlist
 
@@ -2187,50 +2319,3 @@ POWER = Pin.POWER_DRIVE
 
 # This is a NOCONNECT net for attaching to pins which are intentionally left open.
 NC = NCNet('NOCONNECT')
-
-
-def scriptinfo():
-    '''
-    Returns a dictionary with information about the running top level Python
-    script:
-    ---------------------------------------------------------------------------
-    dir:    directory containing script or compiled executable
-    name:   name of script or executable
-    source: name of source code file
-    ---------------------------------------------------------------------------
-    "name" and "source" are identical if and only if running interpreted code.
-    When running code compiled by py2exe or cx_freeze, "source" contains
-    the name of the originating Python script.
-    If compiled by PyInstaller, "source" contains no meaningful information.
-
-    Downloaded from:
-    http://code.activestate.com/recipes/579018-python-determine-name-and-directory-of-the-top-lev/
-    '''
-
-    import os, sys, inspect
-    #---------------------------------------------------------------------------
-    # scan through call stack for caller information
-    #---------------------------------------------------------------------------
-    for teil in inspect.stack():
-        # skip system calls
-        if teil[1].startswith("<"):
-            continue
-        if teil[1].upper().startswith(sys.exec_prefix.upper()):
-            continue
-        trc = teil[1]
-
-    # trc contains highest level calling script name
-    # check if we have been compiled
-    if getattr(sys, 'frozen', False):
-        scriptdir, scriptname = os.path.split(sys.executable)
-        return {"dir": scriptdir, "name": scriptname, "source": trc}
-
-    # from here on, we are in the interpreted case
-    scriptdir, trc = os.path.split(trc)
-    # if trc did not contain directory information,
-    # the current working directory is what we need
-    if not scriptdir:
-        scriptdir = os.getcwd()
-
-    scr_dict = {"name": trc, "source": trc, "dir": scriptdir}
-    return scr_dict
