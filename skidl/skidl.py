@@ -46,42 +46,18 @@ from builtins import object
 
 from .__init__ import __version__
 
-logger = logging.getLogger('skidl')
-
 USING_PYTHON2 = (sys.version_info.major == 2)
 USING_PYTHON3 = not USING_PYTHON2
 
-
 # Supported ECAD tools.
-KICAD, EAGLE = ['kicad','eagle']
+KICAD, EAGLE = ['kicad', 'eagle']
 
+# Places where parts can be stored.
+NETLIST, LIBRARY, TEMPLATE = ['NETLIST', 'LIBRARY', 'TEMPLATE']
 
-class count_calls(object):
-    """
-    Decorator for counting the number of times a function is called.
-
-    This is used for counting errors and warnings passed to logging functions,
-    making it easy to track if and how many errors/warnings were issued.
-    """
-
-    def __init__(self, func):
-        self.func = func
-        self.count = 0
-
-    def __call__(self, *args, **kwargs):
-        self.count += 1
-        return self.func(*args, **kwargs)
-
-# Set up logging.
-logger = logging.getLogger('skidl')
-log_level = logging.WARNING
-handler = logging.StreamHandler(sys.stderr)
-handler.setLevel(log_level)
-handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
-logger.addHandler(handler)
-logger.setLevel(log_level)
-logger.error = count_calls(logger.error)
-logger.warning = count_calls(logger.warning)
+# Prefixes for anonymouse nets and buses.
+NET_PREFIX = 'N$'
+BUS_PREFIX = 'B$'
 
 
 def _scriptinfo():
@@ -129,6 +105,45 @@ def _scriptinfo():
 
     scr_dict = {"name": trc, "source": trc, "dir": scriptdir}
     return scr_dict
+
+
+def _get_script_name():
+    return os.path.splitext(_scriptinfo()['name'])[0]
+
+
+class count_calls(object):
+    """
+    Decorator for counting the number of times a function is called.
+
+    This is used for counting errors and warnings passed to logging functions,
+    making it easy to track if and how many errors/warnings were issued.
+    """
+
+    def __init__(self, func):
+        self.func = func
+        self.count = 0
+
+    def __call__(self, *args, **kwargs):
+        self.count += 1
+        return self.func(*args, **kwargs)
+
+# Set up logging.
+logger = logging.getLogger('skidl')
+
+handler = logging.StreamHandler(sys.stderr)
+handler.setLevel(logging.ERROR)
+handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
+logger.addHandler(handler)
+
+scr_name = _get_script_name()
+handler = logging.StreamHandler(open(scr_name + '.log', 'w'))
+handler.setLevel(logging.WARNING)
+handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
+logger.addHandler(handler)
+
+logger.setLevel(logging.INFO)
+logger.error = count_calls(logger.error)
+logger.warning = count_calls(logger.warning)
 
 
 def _to_list(x):
@@ -303,20 +318,33 @@ def _filter(lst, **criteria):
     return extract
 
 
-def _unnest(nested_list):
+def _flatten(nested_list):
     """
     Return a flattened list of items from a nested list.
     """
     lst = []
     for e in nested_list:
         if isinstance(e, (list, tuple)):
-            lst.extend(_unnest(e))
+            lst.extend(_flatten(e))
         else:
             lst.append(e)
     return lst
 
 
-def _expand_indices(slice_max, *indices):
+def _expand_buses(pins_nets_buses):
+    """
+    Take pins, nets, and buses and return a list of only pins and nets.
+    """
+    pins_nets = []
+    for pnb in pins_nets_buses:
+        if isinstance(pnb, Bus):
+            pins_nets.extend(pnb.get_nets())
+        else:
+            pins_nets.append(pnb)
+    return pins_nets
+
+
+def _expand_indices(slice_min, slice_max, *indices):
     """
     Expand a list of indices into a list of integers and strings.
 
@@ -328,10 +356,30 @@ def _expand_indices(slice_max, *indices):
     Returns:
         A linear list of all the indices made up only of numbers and strings.
     """
+
+    def expand_slice(s):
+        start, stop, step = s.indices(slice_max)
+        start = max(start, slice_min)
+        stop = max(stop, slice_min)
+        if start > stop:
+            if s.start and s.start > slice_max:
+                logger.error('Index out of range ({} > {})!'.format(s.start,
+                                                                    slice_max))
+                raise Exception
+            stop = stop - step
+            step = -step
+        else:
+            if s.stop and s.stop > slice_max:
+                logger.error('Index out of range ({} > {})!'.format(s.stop,
+                                                                    slice_max))
+                raise Exception
+            stop += step
+        return range(start, stop, step)
+
     ids = []
-    for i in _unnest(indices):
+    for i in _flatten(indices):
         if isinstance(i, slice):
-            ids.extend(range(*i.indices(slice_max)))
+            ids.extend(expand_slice(i))
         elif isinstance(i, (int, type(''))):
             ids.append(i)
         else:
@@ -416,10 +464,12 @@ class SchLib(object):
         else:
             try:
                 # Use the tool name to find the function for loading the library.
-                load_func = self.__class__.__dict__['_load_{}_sch_lib'.format(tool)]
+                load_func = self.__class__.__dict__['_load_sch_lib_{}'.format(
+                    tool)]
                 load_func(self, filename)
-                self.cache[filename] = self  # Cache a reference to the library.
-            except:
+                self.cache[
+                    filename] = self  # Cache a reference to the library.
+            except KeyError:
                 # OK, that didn't work so well...
                 logger.error('Unsupported ECAD tool library: {}'.format(tool))
                 raise Exception
@@ -440,7 +490,7 @@ class SchLib(object):
         """
         return len(self.parts)
 
-    def _load_kicad_sch_lib(self, filename=None):
+    def _load_sch_lib_kicad(self, filename=None):
         """
         Load the object with parts from a KiCad schematic library file.
 
@@ -458,7 +508,8 @@ class SchLib(object):
                 filename += '.lib'
             f = open(filename)
         except FileNotFoundError:
-            filename = os.path.join(os.environ['KISYSMOD'],'..','library',filename)
+            filename = os.path.join(os.environ['KISYSMOD'], '..', 'library',
+                                    filename)
             try:
                 f = open(filename)
             except FileNotFoundError:
@@ -503,7 +554,7 @@ class SchLib(object):
                 if line.startswith('ENDDEF'):
                     self.parts.append(Part(part_defn=part_defn,
                                            tool=KICAD,
-                                           dest='LIBRARY'))
+                                           dest=LIBRARY))
 
                     # Clear the part definition in preparation for the next one.
                     part_defn = []
@@ -660,6 +711,7 @@ class Pin(object):
         """Initialize the pin."""
         self.net = None
         self.part = None
+        self.do_erc = True
 
         # Attach additional attributes to the pin.
         for k, v in attribs.items():
@@ -730,16 +782,17 @@ class Pin(object):
             return False
         if isinstance(self.net, Net):
             return True
-        logger.error("{} is connected to something strange: {}".format(self.erc_desc(), type(self.net)))
+        logger.error("{} is connected to something strange: {}".format(
+            self.erc_desc(), type(self.net)))
         raise Exception
 
-    def connect(self, *pins_nets):
+    def connect(self, *pins_nets_buses):
         """
         Return the pin after connecting it to one or more nets or pins.
 
         Args:
-            *pins_nets: One or more Pin or Net objects or lists/tuples
-                of Net and Pin objects.
+            *pins_nets_buses: One or more Pin, Net or Bus objects or 
+                lists/tuples of them.
 
         Returns:
             The updated pin with the new connections.
@@ -755,7 +808,7 @@ class Pin(object):
 
             # If this pin is not connected to a net, then...
             else:
-                self.net = None # Might be on an NCNet, so make pin truly disconnected.
+                self.net = None  # Might be on an NCNet, so make pin truly disconnected.
 
                 # If the other pin is on a net, then connect this pin to it.
                 if pin.is_connected():
@@ -775,11 +828,11 @@ class Pin(object):
 
             # If this pin is not on a net, then connect it to the other net.
             else:
-                self.net = None # Might be on an NCNet, so make pin truly disconnected.
+                self.net = None  # Might be on an NCNet, so make pin truly disconnected.
                 net.connect(self)
 
         # Go through all the pins and/or nets and connect them to this pin.
-        for pn in _unnest(pins_nets):
+        for pn in _expand_buses(_flatten(pins_nets_buses)):
             if isinstance(pn, Pin):
                 connect_pin(pn)
             elif isinstance(pn, Net):
@@ -808,7 +861,8 @@ class Pin(object):
         """Return a string describing this pin."""
         pin_function = Pin.pin_info[self.func]['function']
         desc = "{f} pin {pin.num}/{pin.name} of {part}".format(
-            f=pin_function, pin=self, part=self.part.erc_desc())
+            f=pin_function, pin=self,
+            part=self.part.erc_desc())
         return desc
 
 ##############################################################################
@@ -830,7 +884,7 @@ class Part(object):
                  name=None,
                  part_defn=None,
                  tool=KICAD,
-                 dest='NETLIST',
+                 dest=NETLIST,
                  connections=None,
                  **attribs):
         """
@@ -844,8 +898,9 @@ class Part(object):
                 schematic library file).
             tool: The format for the library file or part definition (e.g., 'kicad').
             dest: String that indicates where the part is destined for:
-                'NETLIST': The part will become part of a circuit netlist.
-                'LIBRARY': The part will be placed in the part list for a library.
+                NETLIST: The part will become part of a circuit netlist.
+                LIBRARY: The part will be placed in the part list for a library.
+                TEMPLATE: The part will be used as a template to be copied from.
             connections: A dictionary with part pin names/numbers as keys and the
                 names of nets to which they will be connected as values. For example:
                 { 'IN-':'a_in', 'IN+':'GND', '1':'AMPED_OUTPUT', '14':'VCC', '7':'GND' }
@@ -866,7 +921,7 @@ class Part(object):
                 lib = SchLib(filename=lib, tool=tool)
 
             # Make a copy of the part from the library but don't add it to the netlist.
-            part = lib.get_part_by_name(name).copy(1, 'DONT_ADD_TO_NETLIST')
+            part = lib.get_part_by_name(name).copy(1, TEMPLATE)
 
             # Overwrite self with the new part.
             self.__dict__.update(part.__dict__)
@@ -880,7 +935,7 @@ class Part(object):
         elif part_defn:
             self.tool = tool
             self.part_defn = part_defn
-            self.parse(just_get_name=dest != 'NETLIST')
+            self.parse(just_get_name=dest != NETLIST)
 
         else:
             logger.error(
@@ -891,14 +946,35 @@ class Part(object):
         for k, v in attribs.items():
             setattr(self, k, v)
 
+        # Allow part to be included in ERC.
+        self.do_erc = True
+
         # If the part is going to be an element in a circuit, then add it to the
         # the circuit and make any indicated pin/net connections.
-        if dest != 'LIBRARY':
-            if dest == 'NETLIST':
+        if dest != LIBRARY:
+            if dest == NETLIST:
                 SubCircuit.add_part(self)
             if isinstance(connections, dict):
                 for pin, net in connections.items():
                     net += self[pin]
+
+    def _find_min_max_pins(self):
+        """ Return the minimum and maximum pin numbers for the part. """
+        pin_nums = []
+        try:
+            for p in self.pins:
+                try:
+                    pin_nums.append(int(p.num))
+                except ValueError:
+                    pass
+        except AttributeError:
+            # This happens if the part has no pins.
+            pass
+        try:
+            return min(pin_nums), max(pin_nums)
+        except ValueError:
+            # This happens if the part has no integer-labeled pins.
+            return 0, 0
 
     def parse(self, just_get_name=False):
         """
@@ -912,11 +988,14 @@ class Part(object):
         try:
             parse_func = self.__class__.__dict__['_parse_{}'.format(self.tool)]
             parse_func(self, just_get_name)
-        except Exception:
+        except KeyError:
             logger.error(
                 "Can't create a part with an unknown ECAD tool file format: {}.".format(
                     self.tool))
             raise Exception
+
+        # Find the minimum and maximum pin numbers for the part after parsing.
+        self.min_pin, self.max_pin = self._find_min_max_pins()
 
     def _parse_kicad(self, just_get_name=False):
         """
@@ -1176,7 +1255,7 @@ class Part(object):
         for p in self.pins:
             p.part = self
 
-    def copy(self, num_copies=1, dest='NETLIST', **attribs):
+    def copy(self, num_copies=1, dest=NETLIST, **attribs):
         """
         Make zero or more copies of this part while maintaining all pin/net
         connections.
@@ -1187,8 +1266,9 @@ class Part(object):
         Returns:
             A list of Part copies or a single Part if num_copies==1.
             dest: String that indicates where the part is destined for:
-                'NETLIST': The part will become part of a circuit netlist.
-                'LIBRARY': The part will be placed in the part list for a library.
+                NETLIST: The part will become part of a circuit netlist.
+                LIBRARY: The part will be placed in the part list for a library.
+                TEMPLATE: The part will be used as a source to copy from.
 
         Raises:
             Exception if the requested number of copies is a non-integer or negative.
@@ -1246,7 +1326,7 @@ class Part(object):
             # Add the part copy to the list of copies and then add the
             # part to the circuit netlist (if requested).
             copies.append(cpy)
-            if dest == 'NETLIST':
+            if dest == NETLIST:
                 SubCircuit.add_part(cpy)
 
         return _list_or_scalar(copies)
@@ -1254,7 +1334,6 @@ class Part(object):
     """Make copies with the multiplication operator"""
     __mul__ = copy
     __rmul__ = copy
-
     """Make copies just by calling the object."""
     __call__ = copy
 
@@ -1295,7 +1374,7 @@ class Part(object):
             if only a single match was found. Or None if no match was found.
         """
 
-        pin_ids = _expand_indices(len(self.pins) + 1, *pin_ids)
+        pin_ids = _expand_indices(self.min_pin, self.max_pin, *pin_ids)
 
         # Go through the list of pin IDs one-by-one.
         pins = []
@@ -1320,7 +1399,7 @@ class Part(object):
     """Return list of part pins selected by pin numbers/names using index brackets."""
     __getitem__ = get_pins
 
-    def connect(self, pin_ids, *nets_pins):
+    def connect(self, pin_ids, *nets_pins_buses):
         """
         Connect nets or pins of other parts to the specified pins of this part.
 
@@ -1331,7 +1410,7 @@ class Part(object):
         Args:
             pin_ids: List of IDs of pins for this part. See get_pins() for the
                 types of acceptable pin IDs.
-            nets_pins: List of Net and Pin objects.
+            nets_pins_buses: List of Net, Pin, and Bus objects.
 
         Raises:
             Exception if the list of pins to connect to is empty.
@@ -1344,7 +1423,8 @@ class Part(object):
             logger.error("No pins on {} to attach to!".format(self.erc_desc()))
             raise Exception
 
-        nets_pins = _unnest(nets_pins)  # Make sure nets/pins is a flat list.
+        nets_pins = _expand_buses(
+            _flatten(nets_pins_buses))  # Make sure nets/pins is a flat list.
 
         # If just a single net is to be connected, make a list out of it that's
         # just as long as the list of pins to connect to. This will connect
@@ -1418,7 +1498,8 @@ class Part(object):
 
         # Now name the object with the given reference or some variation
         # of it that doesn't collide with anything else in the list.
-        self._ref = _get_unique_name(SubCircuit.parts, 'ref', self.ref_prefix, r)
+        self._ref = _get_unique_name(SubCircuit.parts, 'ref', self.ref_prefix,
+                                     r)
         return
 
     @ref.deleter
@@ -1487,7 +1568,12 @@ class Part(object):
         """
         Do electrical rules check on a part in the schematic.
         """
+        if self.do_erc == False:
+            return
+
         for p in self.pins:
+            if p.do_erc == False:
+                continue
             if p.net is None:
                 if p.func != Pin.NOCONNECT:
                     erc_logger.warning('Unconnected pin: {p}.'.format(
@@ -1496,8 +1582,7 @@ class Part(object):
                 if p.func == Pin.NOCONNECT:
                     erc_logger.warning(
                         'Incorrectly connected pin: {p} should not be connected to a net (n).'.format(
-                            p=p.erc_desc(),
-                            n=p.net.name))
+                            p=p.erc_desc(), n=p.net.name))
 
     def erc_desc(self):
         """Create description of part for ERC and other error reporting."""
@@ -1512,9 +1597,10 @@ class Part(object):
         """
 
         try:
-            gen_func = self.__class__.__dict__['_gen_netlist_comp_{}'.format(tool)]
+            gen_func = self.__class__.__dict__['_gen_netlist_comp_{}'.format(
+                tool)]
             return gen_func(self)
-        except Exception:
+        except KeyError:
             logger.error(
                 "Can't generate netlist in an unknown ECAD tool format ({}).".format(
                     format))
@@ -1534,7 +1620,7 @@ class Part(object):
         try:
             footprint = self.footprint
         except AttributeError:
-            logger.warning('No footprint for {part}/{ref}.'.format(
+            logger.error('No footprint for {part}/{ref}.'.format(
                 part=self.name, ref=ref))
             footprint = 'No Footprint'
 
@@ -1579,7 +1665,7 @@ class PartUnit(Part):
         unique_pins = set()
 
         # Now collect the pins the unit will have access to.
-        for unit_id in _expand_indices(part.num_units, unit_ids):
+        for unit_id in _expand_indices(1, part.num_units, unit_ids):
             unique_pins |= set(part.filter_pins(unit=unit_id))
 
         # Store the pins in the PartUnit.
@@ -1605,6 +1691,7 @@ class Net(object):
                 the Net object.
         """
         self._name = None
+        self.do_erc = True
         if name:
             self.name = name
         self._drive = Pin.NO_DRIVE
@@ -1642,7 +1729,8 @@ class Net(object):
 
         # Now name the object with the given name or some variation
         # of it that doesn't collide with anything else in the list.
-        self._name = _get_unique_name(SubCircuit.nets, 'name', 'N$', name)
+        self._name = _get_unique_name(SubCircuit.nets, 'name', NET_PREFIX,
+                                      name)
 
     @name.deleter
     def name(self):
@@ -1712,7 +1800,6 @@ class Net(object):
     """Make net copies with the multiplication operator."""
     __mul__ = copy
     __rmul__ = copy
-
     """Make copies just by calling the object."""
     __call__ = copy
 
@@ -1740,7 +1827,7 @@ class Net(object):
         pins = set(self.pins)
 
         # Go through the list of nets.
-        for net in _unnest(nets):
+        for net in _flatten(nets):
 
             if isinstance(net, NCNet):
                 logger.error("Can't merge with a no-connect net {}!".format(
@@ -1760,11 +1847,13 @@ class Net(object):
                     return name1
                 if not name1:
                     return name2
-                if re.match('N\\$', name2):
+                if re.match(re.escape(NET_PREFIX), name2):
                     return name1
-                if re.match('N\\$', name1):
+                if re.match(re.escape(NET_PREFIX), name1):
                     return name2
-                logger.warning('Merging two named nets ({a} and {b}) into {a}.'.format(a=name1, b=name2))
+                logger.warning(
+                    'Merging two named nets ({a} and {b}) into {a}.'.format(
+                        a=name1, b=name2))
                 return name1
 
             # Update the name of the merged net.
@@ -1780,13 +1869,13 @@ class Net(object):
         # now belong to.
         self.associate_pins()
 
-    def connect(self, *pins_nets):
+    def connect(self, *pins_nets_buses):
         """
         Return the net after connecting other pins and nets to it.
 
         Args:
-            *pins_nets: One or more Pin or Net objects or lists/tuples
-                of Net and Pin objects.
+            *pins_nets_buses: One or more Pin, Net, or Bus objects or 
+                lists/tuples of them.
 
         Returns:
             The updated net with the new connections.
@@ -1812,14 +1901,15 @@ class Net(object):
                     pin.net = self
 
         # Go through all the pins and/or nets and connect them to this net.
-        for pn in _unnest(pins_nets):
+        for pn in _expand_buses(_flatten(pins_nets_buses)):
             if isinstance(pn, Net):
                 connect_net(pn)
             elif isinstance(pn, Pin):
                 connect_pin(pn)
             else:
-                logger.error('Cannot attach non-Pin/non-Net {} to Net {}.'.format(
-                    type(pn), self.name))
+                logger.error(
+                    'Cannot attach non-Pin/non-Net {} to Net {}.'.format(
+                        type(pn), self.name))
                 raise Exception
 
         # Add the net to the global netlist. (It won't be added again
@@ -1839,6 +1929,9 @@ class Net(object):
             """
             Check for conflict/contention between two pins on the same net.
             """
+
+            if pin1.do_erc == False or pin2.do_erc == False:
+                return
 
             # Use the functions of the two pins to index into the ERC table
             # and see if the pins are compatible (e.g., an input and an output)
@@ -1877,6 +1970,9 @@ class Net(object):
                         'Insufficient drive current on net {n} for pin {p}'.format(
                             n=self.name, p=p.erc_desc()))
 
+        if self.do_erc == False:
+            return
+
         num_pins = len(self.pins)
         if num_pins == 0:
             erc_logger.warning('No pins attached to net {n}.'.format(
@@ -1884,8 +1980,7 @@ class Net(object):
         elif num_pins == 1:
             erc_logger.warning(
                 'Only one pin ({p}) attached to net {n}.'.format(p=self.pins[
-                    0].erc_desc(),
-                                                                 n=self.name))
+                    0].erc_desc(), n=self.name))
         else:
             for i in range(num_pins):
                 for j in range(i + 1, num_pins):
@@ -1902,17 +1997,18 @@ class Net(object):
         """
 
         try:
-            gen_func = self.__class__.__dict__['_gen_netlist_net_{}'.format(tool)]
+            gen_func = self.__class__.__dict__['_gen_netlist_net_{}'.format(
+                tool)]
             return gen_func(self)
-        except Exception:
+        except KeyError:
             logger.error(
                 "Can't generate netlist in an unknown ECAD tool format ({}).".format(
                     format))
             raise Exception
 
     def _gen_netlist_net_kicad(self):
-        txt = '    (net (code {code}) (name "{name}")'.format(
-            code=self.code, name=self.name)
+        txt = '    (net (code {code}) (name "{name}")'.format(code=self.code,
+                                                              name=self.name)
         for p in self.pins:
             txt += '\n      (node (ref {part_ref}) (pin {pin_num}))'.format(
                 part_ref=p.part.ref, pin_num=p.num)
@@ -1980,7 +2076,7 @@ class Bus(object):
 
         # Build the bus from net widths, existing nets, nets of pins, other buses.
         self.nets = []
-        for arg in _unnest(args):
+        for arg in _flatten(args):
             if isinstance(arg, int):
                 nets = arg * Net()
                 for i, n in enumerate(nets):
@@ -2023,7 +2119,8 @@ class Bus(object):
 
         # Now name the object with the given name or some variation
         # of it that doesn't collide with anything else in the list.
-        self._name = _get_unique_name(SubCircuit.buses, 'name', 'B$', name)
+        self._name = _get_unique_name(SubCircuit.buses, 'name', BUS_PREFIX,
+                                      name)
 
     @name.deleter
     def name(self):
@@ -2043,7 +2140,7 @@ class Bus(object):
                 numbers, or nested lists, or slices.
         """
         nets = []
-        for id in _expand_indices(len(self), ids):
+        for id in _expand_indices(0, len(self) - 1, ids):
             if isinstance(id, int):
                 nets.append(self.nets[id])
             elif isinstance(id, type('')):
@@ -2111,7 +2208,7 @@ class Bus(object):
         Connect pins, nets and buses to a bus.
         """
         nets = []
-        for item in _unnest(pin_net_bus):
+        for item in _flatten(pin_net_bus):
             if isinstance(item, Pin):
                 nets.append(item)
             elif isinstance(item, Net):
@@ -2124,7 +2221,9 @@ class Bus(object):
                 raise Exception
 
         if len(nets) != len(self):
-            logger.error("Bus connection mismatch.")
+            logger.error(
+                "Bus connection mismatch: Bus {} ({}) and nets ().".format(
+                    self.name, len(self), len(nets)))
             raise Exception
 
         for i, net in enumerate(nets):
@@ -2189,7 +2288,7 @@ class SubCircuit(object):
     @classmethod
     def add_net(cls, net):
         """Add a Net object to the circuit. Assign a net name if necessary."""
-        if net in cls.nets or len(net.pins)==0:
+        if net in cls.nets or len(net.pins) == 0:
             return
         net.name = net.name
         net.hierarchy = cls.hierarchy  # Tag the net with its hierarchy position.
@@ -2310,11 +2409,19 @@ class SubCircuit(object):
         global erc_logger
         erc_logger = logging.getLogger('ERC_Logger')
         log_level = logging.WARNING
+
         handler = logging.StreamHandler(sys.stderr)
-        handler.setLevel(log_level)
+        handler.setLevel(logging.ERROR)
         handler.setFormatter(logging.Formatter(
             'ERC %(levelname)s: %(message)s'))
         erc_logger.addHandler(handler)
+
+        scr_name = _get_script_name()
+        handler = logging.StreamHandler(open(scr_name + '.erc', 'w'))
+        handler.setLevel(log_level)
+        handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
+        erc_logger.addHandler(handler)
+
         erc_logger.setLevel(log_level)
         erc_logger.error = count_calls(erc_logger.error)
         erc_logger.warning = count_calls(erc_logger.warning)
@@ -2336,44 +2443,80 @@ class SubCircuit(object):
             part.erc()
 
         if (erc_logger.error.count, erc_logger.warning.count) == (0, 0):
-            logger.info('No errors or warnings found.')
+            sys.stderr.write('\nNo ERC errors or warnings found.\n\n')
+        else:
+            sys.stderr.write('\n{} warnings found during ERC.\n'.format(
+                erc_logger.warning.count))
+            sys.stderr.write('{} errors found during ERC.\n\n'.format(
+                erc_logger.error.count))
 
     @classmethod
-    def generate_netlist(cls, filename, tool=KICAD):
+    def generate_netlist(cls, file=None, tool=KICAD):
+        """
+        Return a netlist as a string and also write it to a file/stream.
 
+        Args:
+            file: Either a file object that can be written to, or a string
+                containing a file name, or None.
+
+        Returns:
+            A string containing the netlist.
+        """
         try:
             gen_func = cls.__dict__['_gen_netlist_{}'.format(tool)]
-            return gen_func(cls)
-        except Exception:
+            netlist = gen_func(cls)
+        except KeyError:
             logger.error(
                 "Can't generate netlist in an unknown ECAD tool format ({}).".format(
-                    format))
+                    tool))
             raise Exception
+
+        if (logger.error.count, logger.warning.count) == (0, 0):
+            sys.stderr.write(
+                '\nNo errors or warnings found during netlist generation.\n\n')
+        else:
+            sys.stderr.write(
+                '\n{} warnings found during netlist generation.\n'.format(
+                    logger.warning.count))
+            sys.stderr.write(
+                '{} errors found during netlist generation.\n\n'.format(
+                    logger.error.count))
+
+        try:
+            with file as f:
+                f.write(netlist)
+        except AttributeError:
+            try:
+                with open(file, 'w') as f:
+                    f.write(netlist)
+            except (FileNotFoundError, TypeError):
+                with open(_get_script_name() + '.net', 'w') as f:
+                    f.write(netlist)
+        return netlist
 
     def _gen_netlist_kicad(cls):
         scr_dict = _scriptinfo()
         src_file = os.path.join(scr_dict['dir'], scr_dict['source'])
         date = time.strftime('%m/%d/%Y %I:%M %p')
         tool = 'SKiDL (' + __version__ + ')'
-        print('''(export (version D)
+        netlist = ('''(export (version D)
   (design
     (source "{src_file}")
     (date "{date}")
-    (tool "{tool}"))'''
-              .format(src_file=src_file,
-                      date=date, tool=tool))
-        print("  (components")
+    (tool "{tool}"))\n'''.format(src_file=src_file,
+                                 date=date,
+                                 tool=tool))
+        netlist += "  (components"
         for p in SubCircuit.parts:
             comp_txt = p.generate_netlist_component(KICAD)
-            print(comp_txt)
-        print("  )")
-        print("  (nets")
+            netlist += '\n' + comp_txt
+        netlist += ")\n"
+        netlist += "  (nets"
         for code, n in enumerate(SubCircuit.nets):
             n.code = code
-            net_txt = n.generate_netlist_net(KICAD)
-            print(net_txt)
-        print("  )")
-        print(")")
+            netlist += '\n' + n.generate_netlist_net(KICAD)
+        netlist += ")\n)\n"
+        return netlist
 
 
 Circuit = SubCircuit
