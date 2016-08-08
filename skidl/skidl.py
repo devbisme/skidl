@@ -111,7 +111,7 @@ def _get_script_name():
     return os.path.splitext(_scriptinfo()['name'])[0]
 
 
-class count_calls(object):
+class _CountCalls(object):
     """
     Decorator for counting the number of times a function is called.
 
@@ -142,8 +142,8 @@ handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
 logger.addHandler(handler)
 
 logger.setLevel(logging.INFO)
-logger.error = count_calls(logger.error)
-logger.warning = count_calls(logger.warning)
+logger.error = _CountCalls(logger.error)
+logger.warning = _CountCalls(logger.warning)
 
 
 def _to_list(x):
@@ -1810,6 +1810,14 @@ class Net(object):
         for p in self.pins:
             p.net = self
 
+    def is_anonymous(self, net_name=None):
+        """Return true if the net name is anonymous."""
+        if net_name:
+            return re.match(re.escape(NET_PREFIX), net_name)
+        if self.name:
+            return re.match(re.escape(NET_PREFIX), self.name)
+        return True
+
     def merge(self, *nets):
         """
         Merge pins on one or more nets onto this net and delete the other nets.
@@ -1847,9 +1855,9 @@ class Net(object):
                     return name1
                 if not name1:
                     return name2
-                if re.match(re.escape(NET_PREFIX), name2):
+                if self.is_anonymous(name2):
                     return name1
-                if re.match(re.escape(NET_PREFIX), name1):
+                if self.is_anonymous(name1):
                     return name2
                 logger.warning(
                     'Merging two named nets ({a} and {b}) into {a}.'.format(
@@ -2060,18 +2068,24 @@ class NCNet(Net):
 class Bus(object):
     """
     This class collects one or more nets into a group that can be indexed.
+
+    Args:
+        name: A string with the name of the bus.
+        args: A list of ints, pins, nets, buses to attach to the net.
+
+    Keyword Args:
+        attribs: A dictionary of attributes and values to attach to
+            the Net object.
+
+    Example:
+        ::
+
+            n = Net()
+            led1 = Part('device', 'LED')
+            b = Bus('B', 8, n, led1['K'])        
     """
 
     def __init__(self, name, *args, **attribs):
-        """
-        Create a Bus object.
-
-        Args:
-            name: A string with the name of the bus.
-            args: A list of ints, pins, nets, buses to attach to the net.
-            attribs: A dictionary of attributes and values to attach to
-                the Net object.
-        """
         self.name = name
 
         # Build the bus from net widths, existing nets, nets of pins, other buses.
@@ -2079,8 +2093,6 @@ class Bus(object):
         for arg in _flatten(args):
             if isinstance(arg, int):
                 nets = arg * Net()
-                for i, n in enumerate(nets):
-                    n.name = self.name + str(i)
                 self.nets.extend(nets)
             elif isinstance(arg, Net):
                 self.nets.append(arg)
@@ -2093,6 +2105,10 @@ class Bus(object):
                     self.nets.append(n)
             elif isinstance(arg, Bus):
                 self.nets.extend(arg.nets)
+
+        for i, net in enumerate(self.nets):
+            if net.is_anonymous():
+                net.name = self.name + str(i)
 
         # Attach additional attributes to the bus.
         for k, v in attribs.items():
@@ -2423,8 +2439,8 @@ class SubCircuit(object):
         erc_logger.addHandler(handler)
 
         erc_logger.setLevel(log_level)
-        erc_logger.error = count_calls(erc_logger.error)
-        erc_logger.warning = count_calls(erc_logger.warning)
+        erc_logger.error = _CountCalls(erc_logger.error)
+        erc_logger.warning = _CountCalls(erc_logger.warning)
 
     @classmethod
     def ERC(cls):
