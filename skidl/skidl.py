@@ -1606,7 +1606,7 @@ class Part(object):
 
     def __str__(self):
         """Return a description of the pins on this part as a string."""
-        return self.name + ': ' + '\n\t'.join([p.__str__() for p in self.pins])
+        return self.name + ':\n\t' + '\n\t'.join([p.__str__() for p in self.pins])
 
     __repr__ = __str__
 
@@ -2723,6 +2723,33 @@ class SubCircuit(object):
             netlist += '\n' + n._generate_netlist_net(KICAD)
         netlist += ")\n)\n"
         return netlist
+
+def part_search(name):
+    lib_dir = os.path.join(os.environ['KISYSMOD'], '..', 'library')
+    lib_files = os.listdir(lib_dir)
+    lib_files.extend(os.listdir('.'))
+    lib_files = [l for l in lib_files if l.endswith('.lib')]
+    parts = []
+    for lib_file in lib_files:
+        lib = SchLib(lib_file)
+        def mk_list(l):
+            if isinstance(l, (list,tuple)):
+                return l
+            if not l:
+                return []
+            return [l]
+        for p in mk_list(lib.get_parts(name=name)):
+            p._parse()
+            parts.append((lib_file, p))
+        for p in mk_list(lib.get_parts(alias=name)):
+            p._parse()
+            parts.append((lib_file, p))
+    for lib_file, p in parts:
+        print('{}: {}'.format(lib_file, p.name))
+
+def show_part(lib_file, name):
+    print(Part(lib_file, name))
+    
 
 
 Circuit = SubCircuit
