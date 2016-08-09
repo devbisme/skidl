@@ -281,7 +281,7 @@ def _filter(lst, **criteria):
     extract = []
 
     for item in lst:
-        # String-compare an item's attributes to each of the criteria.
+        # Compare an item's attributes to each of the criteria.
         # Break out of the criteria loop and don't add the item to the extract
         # list if *any* of the item's attributes *does not* match.
         for k, v in criteria.items():
@@ -292,31 +292,43 @@ def _filter(lst, **criteria):
                 # If the attribute doesn't exist, then that's a non-match.
                 break
 
-            if not isinstance(attr_val, (list, tuple)):
-                # If the attribute value from the item in the list is a scalar,
-                # see if the value matches the current criterium. If it doesn't,
-                # then break from the criteria loop and don't extract this item.
-                if not re.fullmatch(
-                        str(v), str(attr_val),
-                        flags=re.IGNORECASE):
-                    break
-            else:
-                # If the attribute value from the item is a non-scalar,
-                # loop through the list of attribute values. If at least one
-                # value matches the current criterium, then break from the
-                # criteria loop and don't extract this item.
-                for val in attr_val:
-                    if re.fullmatch(str(v), str(val), flags=re.IGNORECASE):
-                        # One of the list of values matched, so break from this
-                        # loop and do not execute the break in the
-                        # loop's else clause.
+            if isinstance(v, (int, type(''))):
+                # Check integer or string attributes.
+
+                if isinstance(attr_val, (list, tuple)):
+                    # If the attribute value from the item is a list or tuple,
+                    # loop through the list of attribute values. If at least one
+                    # value matches the current criterium, then break from the
+                    # criteria loop and extract this item.
+                    for val in attr_val:
+                        if re.fullmatch(str(v), str(val), flags=re.IGNORECASE):
+                            # One of the list of values matched, so break from this
+                            # loop and do not execute the break in the
+                            # loop's else clause.
+                            break
+                    else:
+                        # If we got here, then none of the values in the attribute
+                        # list matched the current criterium. Therefore, break out
+                        # of the criteria loop and don't add this list item to
+                        # the extract list.
                         break
                 else:
-                    # If we got here, then none of the values in the attribute
-                    # list matched the current criterium. Therefore, break out
-                    # of the criteria loop and don't add this list item to
-                    # the extract list.
+                    # If the attribute value from the item in the list is a scalar,
+                    # see if the value matches the current criterium. If it doesn't,
+                    # then break from the criteria loop and don't extract this item.
+                    if not re.fullmatch(
+                            str(v), str(attr_val),
+                            flags=re.IGNORECASE):
+                        break
+
+            else:
+                # Check non-integer, non-string attributes.
+                if isinstance(attr_val, (list, tuple)):
+                    if v not in attr_val:
+                        break
+                elif v != attr_val:
                     break
+
         else:
             # If we get here, then all the item attributes matched and the
             # for criteria loop didn't break, so add this item to the
@@ -908,6 +920,42 @@ class Pin(object):
             func=Pin.pin_info[self.func]['function'])
 
     __repr__ = __str__
+
+##############################################################################
+
+class Alias(object):
+    """
+    An alias can be added to another object to give it another name.
+    Since an object might have several aliases, each alias can be tagged
+    with an identifier to discriminate between them.
+
+    Args:
+        name: The alias name.
+        id: The identifier tag.
+    """
+    def __init__(self, name, id=None):
+        self.name = name
+        self.id = id
+
+    def __eq__(self, search):
+        """
+        Return true if one alias is equal to another.
+
+        The aliases are equal if the following conditions are both true::
+
+            1. The ids must match or one or both ids must be something
+                that evaluates to False (i.e., None, empty string or list, etc.).
+
+            2. The names must match based on using one name as a 
+                regular expression to compare to the other.
+
+        Args:
+            search: The Alias object which self will be compared to.
+        """
+        return (not self.id or not search.id or search.id == self.id) and \
+            (re.fullmatch(str(search.name), str(self.name), flags=re.IGNORECASE) or
+            re.fullmatch(str(self.name), str(search.name), flags=re.IGNORECASE))
+
 
 ##############################################################################
 
