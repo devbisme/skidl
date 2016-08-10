@@ -35,6 +35,7 @@ import os.path
 import re
 import logging
 import shlex
+import inspect
 from copy import deepcopy, copy
 from pprint import pprint
 import time
@@ -78,7 +79,6 @@ def _scriptinfo():
     http://code.activestate.com/recipes/579018-python-determine-name-and-directory-of-the-top-lev/
     """
 
-    import os, sys, inspect
     #---------------------------------------------------------------------------
     # scan through call stack for caller information
     #---------------------------------------------------------------------------
@@ -133,7 +133,7 @@ logger = logging.getLogger('skidl')
 
 # Errors always appear on the terminal.
 handler = logging.StreamHandler(sys.stderr)
-handler.setLevel(logging.ERROR)
+handler.setLevel(logging.WARNING)
 handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
 logger.addHandler(handler)
 
@@ -202,7 +202,7 @@ def _get_unique_name(lst, attrib, prefix, initial=None):
     if not initial:
 
         # Get list entries with the prefix followed by a number, e.g.: C55
-        filter_dict = {attrib: re.escape(prefix) + '\d+'}
+        filter_dict = {attrib: re.escape(prefix) + r'\d+'}
         sub_list = _filter(lst, **filter_dict)
 
         # If entries were found, then find the smallest available number.
@@ -238,7 +238,7 @@ def _get_unique_name(lst, attrib, prefix, initial=None):
 
     # Otherwise, determine how many copies of the name are in the list and
     # append a number to make this name unique.
-    filter_dict = {attrib: re.escape(initial) + '_\d+'}
+    filter_dict = {attrib: re.escape(initial) + r'_\d+'}
     n = len(_filter(lst, **filter_dict))
     initial = initial + '_' + str(n + 1)
 
@@ -343,11 +343,11 @@ def _flatten(nested_list):
     Return a flattened list of items from a nested list.
     """
     lst = []
-    for e in nested_list:
-        if isinstance(e, (list, tuple)):
-            lst.extend(_flatten(e))
+    for item in nested_list:
+        if isinstance(item, (list, tuple)):
+            lst.extend(_flatten(item))
         else:
-            lst.append(e)
+            lst.append(item)
     return lst
 
 
@@ -378,18 +378,18 @@ def _expand_indices(slice_min, slice_max, *indices):
         A linear list of all the indices made up only of numbers and strings.
     """
 
-    def expand_slice(s):
+    def expand_slice(slc):
         """Expand slice notation."""
 
         # Get bounds for slice.
-        start, stop, step = s.indices(slice_max)
+        start, stop, step = slc.indices(slice_max)
         start = max(start, slice_min)
         stop = max(stop, slice_min)
 
         # Do this if it's a downward slice (e.g., [7:0]).
         if start > stop:
-            if s.start and s.start > slice_max:
-                logger.error('Index out of range ({} > {})!'.format(s.start,
+            if slc.start and slc.start > slice_max:
+                logger.error('Index out of range ({} > {})!'.format(slc.start,
                                                                     slice_max))
                 raise Exception
             # Count down from start to stop.
@@ -398,8 +398,8 @@ def _expand_indices(slice_min, slice_max, *indices):
 
         # Do this if it's a normal slice (e.g., [0:7]).
         else:
-            if s.stop and s.stop > slice_max:
-                logger.error('Index out of range ({} > {})!'.format(s.stop,
+            if slc.stop and slc.stop > slice_max:
+                logger.error('Index out of range ({} > {})!'.format(slc.stop,
                                                                     slice_max))
                 raise Exception
             # Count up from start to stop
@@ -829,7 +829,7 @@ class Pin(object):
         Return the pin after connecting it to one or more nets or pins.
 
         Args:
-            pins_nets_buses: One or more Pin, Net or Bus objects or 
+            pins_nets_buses: One or more Pin, Net or Bus objects or
                 lists/tuples of them.
 
         Returns:
@@ -904,7 +904,6 @@ class Pin(object):
 
     def _erc_desc(self):
         """Return a string describing this pin for ERC."""
-        pin_function = Pin.pin_info[self.func]['function']
         desc = "{func} pin {num}/{name} of {part}".format(
             part=self.part._erc_desc(),
             num=self.num,
@@ -923,6 +922,7 @@ class Pin(object):
 
 ##############################################################################
 
+
 class Alias(object):
     """
     An alias can be added to another object to give it another name.
@@ -931,11 +931,12 @@ class Alias(object):
 
     Args:
         name: The alias name.
-        id: The identifier tag.
+        id_tag: The identifier tag.
     """
-    def __init__(self, name, id=None):
+
+    def __init__(self, name, id_tag=None):
         self.name = name
-        self.id = id
+        self.id = id_tag
 
     def __eq__(self, search):
         """
@@ -946,7 +947,7 @@ class Alias(object):
             1. The ids must match or one or both ids must be something
                 that evaluates to False (i.e., None, empty string or list, etc.).
 
-            2. The names must match based on using one name as a 
+            2. The names must match based on using one name as a
                 regular expression to compare to the other.
 
         Args:
@@ -954,8 +955,7 @@ class Alias(object):
         """
         return (not self.id or not search.id or search.id == self.id) and \
             (re.fullmatch(str(search.name), str(self.name), flags=re.IGNORECASE) or
-            re.fullmatch(str(self.name), str(search.name), flags=re.IGNORECASE))
-
+             re.fullmatch(str(self.name), str(search.name), flags=re.IGNORECASE))
 
 ##############################################################################
 
@@ -1036,6 +1036,9 @@ class Part(object):
 
         # Allow part to be included in ERC.
         self.do_erc = True
+
+        # Dictionary for storing subunits of the part, if desired.
+        self.unit = {}
 
         # If the part is going to be an element in a circuit, then add it to the
         # the circuit and make any indicated pin/net connections.
@@ -1191,7 +1194,7 @@ class Part(object):
                     # Name found so scan defn to see if aliases are present.
                     # (The majority of parts don't have aliases.)
                     for line in self.part_defn:
-                        if re.match('^\s*ALIAS\s', line):
+                        if re.match(r'^\s*ALIAS\s', line):
                             # Break and keep parsing defn if aliases are present.
                             break
                     else:
@@ -1441,15 +1444,16 @@ class Part(object):
 
         Args:
             pin_ids: A list of strings containing pin names, numbers,
-                regular expressions, slices, lists or tuples.
+                regular expressions, slices, lists or tuples. If empty,
+                then it will select all pins.
 
         Keyword Args:
             criteria: Key/value pairs that specify attribute values the
-                pin must have in order to be selected.
+                pins must have in order to be selected.
 
         Returns:
             A list of pins matching the given IDs and satisfying all the criteria,
-            or just a single Pin object if only a single match was found. 
+            or just a single Pin object if only a single match was found.
             Or None if no match was found.
 
         Notes:
@@ -1461,31 +1465,91 @@ class Part(object):
                 net += atmega['.*RESET.*']  # Connects reset pin to the net.
         """
 
+        # If no pin identifiers were given, then use a wildcard that will
+        # select all pins.
+        if not pin_ids:
+            pin_ids = ['.*']
+
         # Go through the list of pin IDs one-by-one.
         pins = []
         for p_id in _expand_indices(self.min_pin, self.max_pin, *pin_ids):
 
             # Pin ID is an integer.
             if isinstance(p_id, int):
-                pins.extend(_to_list(_filter(self.pins, num=str(p_id), **criteria)))
-                # pins.extend(_to_list(self._filter_pins(num=str(p_id))))
+                pins.extend(_filter(self.pins, num=str(p_id), **criteria))
 
             # Pin ID is a string containing a number or name.
             else:
                 # First try to get pins using the string as a number.
                 tmp_pins = _filter(self.pins, num=p_id, **criteria)
-                #tmp_pins = self._filter_pins(num=p_id)
                 if tmp_pins:
-                    pins.extend(_to_list(tmp_pins))
-                # If that didn't work, try using the string as a pin name.
+                    pins.extend(tmp_pins)
                 else:
-                    pins.extend(_to_list(_filter(self.pins, name=p_id, **criteria)))
-                    #pins.extend(_to_list(self._filter_pins(name=p_id)))
+                    # If that didn't work, try using the string as a pin name.
+                    tmp_pins = _filter(self.pins, name=p_id, **criteria)
+                    if tmp_pins:
+                        pins.extend(tmp_pins)
+                    else:
+                        # If that didn't work, look for pin aliases.
+                        alias = Alias(p_id, id(self))
+                        pins.extend(_filter(self.pins,
+                                            alias=alias,
+                                            **criteria))
 
         return _list_or_scalar(pins)
 
-    """Return list of part pins selected by pin numbers/names using index brackets."""
-    __getitem__ = get_pins
+    def __getitem__(self, *ids, **criteria):
+        """
+        Return a part unit or pins using index brackets.
+
+        If multiple identifiers are given, this method will return the pin or
+        list of pins that match the identifiers.
+
+        If only a single identifier is given, this method will check to see
+        if it matches the label for a unit of the part. If it does, then that
+        part unit will be returned. Otherwise, any matching pins will be
+        returned.
+
+        Args:
+            ids: A list of strings containing pin names, numbers,
+                regular expressions, slices, lists or tuples. If empty,
+                then it will select all pins.
+
+        Keyword Args:
+            criteria: Key/value pairs that specify attribute values the
+                pins must have in order to be selected.
+
+        Returns:
+            A list of pins matching the given IDs and satisfying all the criteria,
+            or just a single Pin object if only a single match was found.
+            Or None if no match was found.
+
+        Notes:
+            Pins can be selected from a part by using brackets like so::
+
+                atmega = Part('atmel', 'ATMEGA16U2')
+                net = Net()
+                atmega[1] += net  # Connects pin 1 of chip to the net.
+                net += atmega['.*RESET.*']  # Connects reset pin to the net.
+        """
+        if len(ids) == 1:
+            try:
+                return self.unit[ids[0]]
+            except Exception:
+                pass
+        return self.get_pins(*ids, **criteria)
+
+    # __getitem__ = get_pins
+
+    def alias(self, alias, *pin_ids, **criteria):
+        pins = _to_list(self.get_pins(*pin_ids, **criteria))
+        if not pins:
+            logger.error("Trying to alias a non-existent pin.")
+        if len(pins) > 1:
+            logger.error("Trying to give more than one pin the same alias.")
+            raise Exception
+        for pin in pins:
+            pin.alias = Alias(alias, id(self))
 
     def connect(self, pin_ids, *nets_pins_buses):
         """
@@ -1514,7 +1578,8 @@ class Part(object):
         pins = _to_list(self.get_pins(pin_ids))
 
         if not pins:
-            logger.error("No pins on {} to attach to!".format(self._erc_desc()))
+            logger.error("No pins on {} to attach to!".format(self._erc_desc(
+            )))
             raise Exception
 
         nets_pins = _expand_buses(
@@ -1561,32 +1626,31 @@ class Part(object):
         # No net connections found, so return False.
         return False
 
-    def unit(self, *unit_ids):
+    def make_unit(self, label, *pin_ids, **criteria):
         """
-        Return a unit of this part.
+        Create a PartUnit from a set of pins in a Part object.
 
-        Many parts are organized into smaller pieces called units. This method
-        will search a Part for one or more unit identifiers and return a single
-        PartUnit object containing the pins from the matching units.
-        For example, this will return unit 1 from a part::
-
-            lm324.unit(1)
-
-        And this will return a single PartUnit that combines two units of a part::
-
-            lm324.unit(2, 4)
-
-        You can even use slices:
-
-            lm324.unit(2:5)
+        Parts can be organized into smaller pieces called PartUnits. A PartUnit
+        acts like a Part but contains only a subset of the pins of the Part.
 
         Args:
-            unit_ids: One or more unit identifiers to search for.
+            label: The label used to identify the PartUnit.
+            pin_ids: A list of strings containing pin names, numbers,
+                regular expressions, slices, lists or tuples.
+
+        Keyword Args:
+            criteria: Key/value pairs that specify attribute values the
+                pin must have in order to be selected.
 
         Returns:
-            A PartUnit object.
+            The PartUnit.
         """
-        return PartUnit(self, *unit_ids)
+
+        collisions = self.get_pins(label)
+        if collisions:
+            logger.warning("Using a label ({}) for a unit of {} that matches one or more of it's pin names ({})!".format(label, self._erc_desc(), collisions))
+        self.unit[label] = PartUnit(self, *pin_ids, **criteria)
+        return self.unit[label]
 
     def _generate_netlist_component(self, tool=KICAD):
         """
@@ -1632,11 +1696,11 @@ class Part(object):
         """
         Do electrical rules check on a part in the schematic.
         """
-        if self.do_erc == False:
+        if not self.do_erc:
             return
 
         for p in self.pins:
-            if p.do_erc == False:
+            if not p.do_erc:
                 continue
             if p.net is None:
                 if p.func != Pin.NOCONNECT:
@@ -1645,7 +1709,7 @@ class Part(object):
             elif p.net.drive != Pin.NOCONNECT_DRIVE:
                 if p.func == Pin.NOCONNECT:
                     erc_logger.warning(
-                        'Incorrectly connected pin: {p} should not be connected to a net (n).'.format(
+                        'Incorrectly connected pin: {p} should not be connected to a net ({n}).'.format(
                             p=p._erc_desc(), n=p.net.name))
 
     def _erc_desc(self):
@@ -1654,7 +1718,8 @@ class Part(object):
 
     def __str__(self):
         """Return a description of the pins on this part as a string."""
-        return self.name + ':\n\t' + '\n\t'.join([p.__str__() for p in self.pins])
+        return self.name + ':\n\t' + '\n\t'.join(
+            [p.__str__() for p in self.pins])
 
     __repr__ = __str__
 
@@ -1721,40 +1786,55 @@ class Part(object):
 
 class PartUnit(Part):
     """
-    Create a PartUnit from the pins of one or more units in a Part object.
+    Create a PartUnit from a set of pins in a Part object.
 
-    Many parts are organized into smaller pieces called units. This object
-    acts like a Part but contains only a subset of the pins of a part.
+    Parts can be organized into smaller pieces called PartUnits. A PartUnit
+    acts like a Part but contains only a subset of the pins of the Part.
+
+    Args:
+        part: This is the parent Part whose pins the PartUnit is built from.
+        pin_ids: A list of strings containing pin names, numbers,
+            regular expressions, slices, lists or tuples.
+
+    Keyword Args:
+        criteria: Key/value pairs that specify attribute values the
+            pin must have in order to be selected.
 
     Examples:
         This will return unit 1 from a part::
 
-            PartUnit(lm324, 1)
+            lm358 = Part('linear','lm358')
+            lm358a = PartUnit(lm358, unit=1)
 
-        And this will return a single PartUnit that combines two units of a part::
+        Or you can specify the pins directly::
 
-            PartUnit(lm324, 2, 4)
-
-        You can even use slices:
-
-            PartUnit(lm324, 2:4)
-
+            lm358a = PartUnit(lm358, 1, 2, 3)
     """
 
-    def __init__(self, part, *unit_ids):
+    def __init__(self, part, *pin_ids, **criteria):
+        # Remember the part that this unit belongs to.
+        self.parent = part
+
         # Give the PartUnit the same information as the Part it is generated
         # from so it can act the same way, just with fewer pins.
         for k, v in part.__dict__.items():
             self.__dict__[k] = v
 
-        # Collect pins into a set so there won't be any duplicates.
-        unique_pins = set()
+        # Remove the pins copied from the parent and replace them with
+        # pins selected from the parent.
+        self.pins = []
+        self._add_pins(*pin_ids, **criteria)
 
-        # Now collect the pins the unit will have access to.
-        for unit_id in _expand_indices(1, part.num_units, unit_ids):
-            unique_pins |= set(_filter(self.pins, unit=unit_id))
-
-        # Store the pins in the PartUnit.
+    def _add_pins(self, *pin_ids, **criteria):
+        """
+        Add selected pins from the parent to the part unit.
+        """
+        try:
+            unique_pins = set(self.pins)
+        except (AttributeError, TypeError):
+            unique_pins = set()
+        unique_pins |= set(_to_list(self.parent.get_pins(*pin_ids, **
+                                                         criteria)))
         self.pins = list(unique_pins)
 
 ##############################################################################
@@ -1949,7 +2029,7 @@ class Net(object):
         Return the net after connecting other pins, nets, and buses to it.
 
         Args:
-            *pins_nets_buses: One or more Pin, Net, or Bus objects or 
+            *pins_nets_buses: One or more Pin, Net, or Bus objects or
                 lists/tuples of them to be connected to this net.
 
         Returns:
@@ -2000,7 +2080,6 @@ class Net(object):
 
         return self
 
-
     # Use += to connect to nets.
     __iadd__ = connect
 
@@ -2041,7 +2120,7 @@ class Net(object):
             Check for conflict/contention between two pins on the same net.
             """
 
-            if pin1.do_erc == False or pin2.do_erc == False:
+            if not pin1.do_erc or not pin2.do_erc:
                 return
 
             erc_result = SubCircuit._erc_pin_to_pin_chk(pin1, pin2)
@@ -2080,7 +2159,7 @@ class Net(object):
                             n=self.name, p=p._erc_desc()))
 
         # Skip ERC check on this net if flag is cleared.
-        if self.do_erc == False:
+        if not self.do_erc:
             return
 
         # Check the number of pins attached to the net.
@@ -2193,7 +2272,7 @@ class _NCNet(Net):
     def drive(self):
         """
         Get the drive strength of this net.
-        
+
         The drive strength is always NOCONNECT_DRIVE. It can't be changed.
         The drive strength cannot be deleted.
         """
@@ -2219,7 +2298,7 @@ class Bus(object):
 
             n = Net()
             led1 = Part('device', 'LED')
-            b = Bus('B', 8, n, led1['K'])        
+            b = Bus('B', 8, n, led1['K'])
     """
 
     def __init__(self, name, *args, **attribs):
@@ -2274,13 +2353,13 @@ class Bus(object):
 
         # Use the indices to get the nets from the bus.
         nets = []
-        for id in _expand_indices(0, len(self) - 1, ids):
-            if isinstance(id, int):
-                nets.append(self.nets[id])
-            elif isinstance(id, type('')):
-                nets.extend(_filter(self.nets, name=id))
+        for ident in _expand_indices(0, len(self) - 1, ids):
+            if isinstance(ident, int):
+                nets.append(self.nets[ident])
+            elif isinstance(ident, type('')):
+                nets.extend(_filter(self.nets, name=ident))
             else:
-                logger.error("Can't index bus with a {}.".format(type(id)))
+                logger.error("Can't index bus with a {}.".format(type(ident)))
                 raise Exception
 
         if len(nets) == 0:
@@ -2372,7 +2451,7 @@ class Bus(object):
         Return the bus after connecting one or more nets, pins, or buses.
 
         Args:
-            pins_nets_buses: One or more Pin, Net or Bus objects or 
+            pins_nets_buses: One or more Pin, Net or Bus objects or
                 lists/tuples of them.
 
         Returns:
@@ -2402,7 +2481,7 @@ class Bus(object):
         # Are there enough nets to connect to every net in the bus?
         if len(nets) != len(self):
             logger.error(
-                "Bus connection mismatch: Bus {} ({}) and nets ().".format(
+                "Bus connection mismatch: Bus {} ({}) and nets ({}).".format(
                     self.name, len(self), len(nets)))
             raise Exception
 
@@ -2576,7 +2655,7 @@ class SubCircuit(object):
         # and have no effect on the mechanics of adding parts or nets.
         try:
             results = _list_or_scalar(self.circuit_func(*args, **kwargs))
-        except:
+        except Exception:
             logger.exception("Serious error! Can't continue.")
 
         # Restore the context that existed before the SubCircuit circuitry was
@@ -2657,7 +2736,7 @@ class SubCircuit(object):
         erc_logger.warning = _CountCalls(erc_logger.warning)
 
     @classmethod
-    def set_pin_conflict_rule(pin1_func, pin2_func, conflict_level):
+    def set_pin_conflict_rule(cls, pin1_func, pin2_func, conflict_level):
         """
         Set the level of conflict for two types of pins on the same net.
 
@@ -2748,7 +2827,7 @@ class SubCircuit(object):
                     f.write(netlist)
         return netlist
 
-    def _gen_netlist_kicad(cls):
+    def _gen_netlist_kicad(self):
         scr_dict = _scriptinfo()
         src_file = os.path.join(scr_dict['dir'], scr_dict['source'])
         date = time.strftime('%m/%d/%Y %I:%M %p')
@@ -2772,6 +2851,7 @@ class SubCircuit(object):
         netlist += ")\n)\n"
         return netlist
 
+
 def part_search(name):
     lib_dir = os.path.join(os.environ['KISYSMOD'], '..', 'library')
     lib_files = os.listdir(lib_dir)
@@ -2780,12 +2860,14 @@ def part_search(name):
     parts = []
     for lib_file in lib_files:
         lib = SchLib(lib_file)
+
         def mk_list(l):
-            if isinstance(l, (list,tuple)):
+            if isinstance(l, (list, tuple)):
                 return l
             if not l:
                 return []
             return [l]
+
         for p in mk_list(lib.get_parts(name=name)):
             p._parse()
             parts.append((lib_file, p))
@@ -2795,9 +2877,9 @@ def part_search(name):
     for lib_file, p in parts:
         print('{}: {}'.format(lib_file, p.name))
 
+
 def show_part(lib_file, name):
     print(Part(lib_file, name))
-    
 
 
 Circuit = SubCircuit
