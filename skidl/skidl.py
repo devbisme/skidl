@@ -1539,8 +1539,6 @@ class Part(object):
                 pass
         return self.get_pins(*ids, **criteria)
 
-    # __getitem__ = get_pins
-
     def alias(self, alias, *pin_ids, **criteria):
         pins = _to_list(self.get_pins(*pin_ids, **criteria))
         if not pins:
@@ -2498,6 +2496,8 @@ class Bus(object):
             self.parent.allow_assign = True
         except AttributeError:
             pass
+
+        return self
 
     __iadd__ = connect
 
