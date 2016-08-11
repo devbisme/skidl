@@ -887,7 +887,8 @@ class Pin(object):
                     type(pn), self._erc_desc()))
                 raise Exception
 
-        return self
+        return IaddFlag()
+        #return self
 
     """Connect a net to a pin using the += operator."""
     __iadd__ = connect
@@ -1537,70 +1538,57 @@ class Part(object):
                 return self.unit[ids[0]]
             except Exception:
                 pass
-        return self.get_pins(*ids, **criteria)
-
-    def alias(self, alias, *pin_ids, **criteria):
-        pins = _to_list(self.get_pins(*pin_ids, **criteria))
-        if not pins:
-            logger.error("Trying to alias a non-existent pin.")
-        if len(pins) > 1:
-            logger.error("Trying to give more than one pin the same alias.")
-            raise Exception
-        for pin in pins:
-            pin.alias = Alias(alias, id(self))
-
-    def connect(self, pin_ids, *nets_pins_buses):
-        """
-        Connect nets or pins of other parts to the specified pins of this part.
-
-        For example, this would connect a net to a part pin::
-
-            lm324.connect('IN-', input_net)
-
-        Args:
-            pin_ids: List of IDs of pins for this part.
-            nets_pins_buses: List of Net, Pin, and Bus objects to connect to pins.
-
-        Raises:
-            Exception if the list of pins to connect to is empty.
-
-        Notes:
-            Pins of a part can be connected by using brackets like so::
-
-                atmega = Part('atmel', 'ATMEGA16U2')
-                net = Net()
-                atmega[1] += net  # Connects pin 1 of chip to the net.
-        """
-
-        # Get a list of the pins selected by the pin IDs.
-        pins = _to_list(self.get_pins(pin_ids))
-
-        if not pins:
-            logger.error("No pins on {} to attach to!".format(self._erc_desc(
-            )))
-            raise Exception
-
-        nets_pins = _expand_buses(
-            _flatten(nets_pins_buses))  # Make sure nets/pins is a flat list.
-
-        # If just a single net is to be connected, make a list out of it that's
-        # just as long as the list of pins to connect to. This will connect
-        # multiple pins to the same net.
-        if len(nets_pins) == 1:
-            nets_pins = [nets_pins[0] for _ in range(len(pins))]
-
-        # Now connect the pins to the nets.
-        if len(nets_pins) == len(pins):
-            for pin, net in zip(pins, nets_pins):
-                net.connect(pin)
+        pins = _to_list(self.get_pins(*ids, **criteria))
+        # return NetPinList(pins)
+        if len(pins) == 1:
+            sys.stderr.write('\nreturning a pin\n')
+            return pins[0]
         else:
-            logger.error(
-                "Can't attach differing numbers of pins ({}) and nets ({})!".format(
-                    len(pins), len(nets_pins)))
-            raise Exception
+            sys.stderr.write('\nreturning a NetPinList\n')
+            return NetPinList(pins)
 
-    # Use brackets to connect to pins.
-    __setitem__ = connect
+    def __setitem__(self, ids, *pin_net_bus):
+        """
+        Connect nets or pins of other parts to the specified part pins.
+        """
+
+        # If the allow_assign flag is present, then it's OK that we got
+        # here and don't issue an error. Also, delete the flag.
+        if isinstance(pin_net_bus[0], IaddFlag):
+            return
+        # if isinstance(pin_net_bus[0], NetPinList):
+            # return
+        logger.error("Can't assign to a part! Use the += operator.")
+        raise Exception
+
+    # def connect(self, *nets_pins_buses):
+        # """
+        # Connect nets or pins of other parts to the specified pins of this part.
+
+        # For example, this would connect a net to a part pin::
+
+            # lm324.connect('IN-', input_net)
+
+        # Args:
+            # pin_ids: List of IDs of pins for this part.
+            # nets_pins_buses: List of Net, Pin, and Bus objects to connect to pins.
+
+        # Raises:
+            # Exception if the list of pins to connect to is empty.
+
+        # Notes:
+            # Pins of a part can be connected by using brackets like so::
+
+                # atmega = Part('atmel', 'ATMEGA16U2')
+                # net = Net()
+                # atmega[1] += net  # Connects pin 1 of chip to the net.
+        # """
+        # pins = NetPinList(self.pins)
+        # pins += nets_pins_buses
+        # return self
+
+    # # Use brackets to connect to pins.
+    # __iadd__ = connect
 
     def _is_connected(self):
         """
@@ -1623,6 +1611,16 @@ class Part(object):
 
         # No net connections found, so return False.
         return False
+
+    def alias(self, alias, *pin_ids, **criteria):
+        pins = _to_list(self.get_pins(*pin_ids, **criteria))
+        if not pins:
+            logger.error("Trying to alias a non-existent pin.")
+        if len(pins) > 1:
+            logger.error("Trying to give more than one pin the same alias.")
+            raise Exception
+        for pin in pins:
+            pin.alias = Alias(alias, id(self))
 
     def make_unit(self, label, *pin_ids, **criteria):
         """
@@ -2337,39 +2335,6 @@ class Bus(object):
         for k, v in attribs.items():
             setattr(self, k, v)
 
-    def __getitem__(self, *ids):
-        """
-        Return a bus made up of the nets at the given indices.
-
-        Args:
-            ids: A list of indices of bus lines. These can be individual
-                numbers, nested lists, or slices.
-
-        Returns:
-            A bus if the indices are valid, otherwise None.
-        """
-
-        # Use the indices to get the nets from the bus.
-        nets = []
-        for ident in _expand_indices(0, len(self) - 1, ids):
-            if isinstance(ident, int):
-                nets.append(self.nets[ident])
-            elif isinstance(ident, type('')):
-                nets.extend(_filter(self.nets, name=ident))
-            else:
-                logger.error("Can't index bus with a {}.".format(type(ident)))
-                raise Exception
-
-        if len(nets) == 0:
-            # No nets were selected from the bus, so return None.
-            return None
-        else:
-            # Otherwise, create a bus from the collected nets.
-            subbus = Bus(self.name + '_SUBSET', *nets)
-            # Store a reference to the bus that spawned this bus.
-            subbus.parent = self
-            return subbus
-
     def _get_nets(self):
         """Return the list of nets contained in this bus."""
         return _to_list(self.nets)
@@ -2444,6 +2409,53 @@ class Bus(object):
     __rmul__ = copy
     __call__ = copy
 
+    def __getitem__(self, *ids):
+        """
+        Return a bus made up of the nets at the given indices.
+
+        Args:
+            ids: A list of indices of bus lines. These can be individual
+                numbers, net names, nested lists, or slices.
+
+        Returns:
+            A bus if the indices are valid, otherwise None.
+        """
+
+        # Use the indices to get the nets from the bus.
+        nets = []
+        for ident in _expand_indices(0, len(self) - 1, ids):
+            if isinstance(ident, int):
+                nets.append(self.nets[ident])
+            elif isinstance(ident, type('')):
+                nets.extend(_filter(self.nets, name=ident))
+            else:
+                logger.error("Can't index bus with a {}.".format(type(ident)))
+                raise Exception
+
+        if len(nets) == 0:
+            # No nets were selected from the bus, so return None.
+            return None
+        # if len(nets) == 1:
+            # # Just one net selected, so return the Net object.
+            # return nets[0]
+        else:
+            # Multiple nets selected, so return them as a NetPinList list.
+            return NetPinList(nets)
+
+    def __setitem__(self, ids, *pin_net_bus):
+        """
+        Connect nets or pins of other parts to the specified bus lines.
+        """
+
+        # If the allow_assign flag is present, then it's OK that we got
+        # here and don't issue an error. Also, delete the flag.
+        if isinstance(pin_net_bus[0], IaddFlag):
+            return
+        # if isinstance(pin_net_bus[0], NetPinList):
+            # return
+        logger.error("Can't assign to a bus! Use the += operator.")
+        raise Exception
+
     def connect(self, *pins_nets_buses):
         """
         Return the bus after connecting one or more nets, pins, or buses.
@@ -2463,56 +2475,11 @@ class Bus(object):
                 b = Bus('B', 2) # Create a two-wire bus.
                 b += p,n        # Connect pin and net to B[0] and B[1].
         """
-
-        # Gather the nets to connect to the bus.
-        nets = []
-        for item in _flatten(pins_nets_buses):
-            if isinstance(item, (Pin, Net)):
-                nets.append(item)
-            elif isinstance(item, Bus):
-                nets.extend(item.nets)
-            else:
-                logger.error("Can't connect a {} ({}) to a bus.".format(
-                    type(id), item.__name__))
-                raise Exception
-
-        # Are there enough nets to connect to every net in the bus?
-        if len(nets) != len(self):
-            logger.error(
-                "Bus connection mismatch: Bus {} ({}) and nets ({}).".format(
-                    self.name, len(self), len(nets)))
-            raise Exception
-
-        # Connect the nets to the nets in the bus.
-        for i, net in enumerate(nets):
-            self.nets[i] += net
-
-        # If this bus has a parent, then it must have already come though
-        # __getitem__(). That means it will go from here to __setitem__()
-        # so set a flag to prevent reporting of an error.
-        # If there is no parent, then this is a full-size bus connect and
-        # it won't be going to __setitem__() so no need to set the flag.
-        try:
-            self.parent.allow_assign = True
-        except AttributeError:
-            pass
-
+        nets = NetPinList(self.nets)
+        nets += pins_nets_buses
         return self
 
     __iadd__ = connect
-
-    def __setitem__(self, ids, *pin_net_bus):
-        """
-        Connect nets or pins of other parts to the specified bus lines.
-        """
-
-        # If the allow_assign flag is present, then it's OK that we got
-        # here and don't issue an error. Also, delete the flag.
-        try:
-            del self.allow_assign
-        except AttributeError:
-            logger.error("Can't assign to a bus! Use the += operator.")
-            raise Exception
 
     @property
     def name(self):
@@ -2549,6 +2516,47 @@ class Bus(object):
     def __len__(self):
         """Return the number of nets in this bus."""
         return len(self.nets)
+
+##############################################################################
+
+class IaddFlag(object):
+    pass
+
+class NetPinList(list):
+
+    def __iadd__(self, *nets_pins_buses):
+
+        nets_pins = []
+        for item in _expand_buses(_flatten(nets_pins_buses)):
+            if isinstance(item, (Pin, Net)):
+                nets_pins.append(item)
+            # elif isinstance(item, Bus):
+                # nets_pins.extend(item[:])
+            else:
+                logger.error("Can't make connections to a {} ({}).".format(
+                    type(id), item.__name__))
+                raise Exception
+
+        if len(nets_pins) != len(self):
+            if Net in [type(item) for item in self] or len(nets_pins) > 1:
+                logger.error(
+                    "Connection mismatch {} != {}!".format(
+                        len(self), len(nets_pins)))
+                raise Exception
+
+            # If just a single net is to be connected, make a list out of it that's
+            # just as long as the list of pins to connect to. This will connect
+            # multiple pins to the same net.
+            if len(nets_pins) == 1:
+                nets_pins = [nets_pins[0] for _ in range(len(self))]
+
+        # Connect the nets to the nets in the bus.
+        for i, np in enumerate(nets_pins):
+            self[i] += np
+
+        sys.stderr.write('\nReturning IaddFlag+stuff\n')
+        return IaddFlag()
+
 
 ##############################################################################
 
