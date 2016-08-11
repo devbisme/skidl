@@ -843,52 +843,25 @@ class Pin(object):
                 p += net      # Connect the net to the pin.
         """
 
-        def connect_pin(pin):
-            """Connect a pin to this pin."""
-
-            # If this pin is already on a net, then connect the other
-            # pin to that same net.
-            if self._is_connected():
-                self.net.connect(pin)
-
-            # If this pin is not connected to a net, then...
-            else:
-                self.net = None  # Might be on an NCNet, so make pin truly disconnected.
-
-                # If the other pin is on a net, then connect this pin to it.
-                if pin._is_connected():
-                    pin.net.connect(self)
-
-                # If neither pin is on a net, then create a new net and connect
-                # them both to it.
-                else:
-                    Net().connect(self, pin)
-
-        def connect_net(net):
-            """Connect a net to this pin."""
-
-            # If this pin is already on a net, then merge the two nets.
-            if self._is_connected():
-                self.net._merge(net)
-
-            # If this pin is not on a net, then connect it to the other net.
-            else:
-                self.net = None  # Might be on an NCNet, so make pin truly disconnected.
-                net.connect(self)
-
         # Go through all the pins and/or nets and connect them to this pin.
         for pn in _expand_buses(_flatten(pins_nets_buses)):
             if isinstance(pn, Pin):
-                connect_pin(pn)
+                # Connecting pin-to-pin, so create a net and connect both pins
+                # to it. If the pins are already connected to nets, then the
+                # Net connect() method will handle the net merging.
+                n = Net()
+                n.connect(self, pn)
             elif isinstance(pn, Net):
-                connect_net(pn)
+                # Connecting pin-to-net, so just connect the pin to the net.
+                pn.connect(self)
             else:
                 logger.error('Cannot attach non-Pin/non-Net {} to {}.'.format(
                     type(pn), self._erc_desc()))
                 raise Exception
 
-        return IaddFlag()
-        #return self
+        self.iadd_flag = True
+
+        return self
 
     """Connect a net to a pin using the += operator."""
     __iadd__ = connect
@@ -1533,13 +1506,7 @@ class Part(object):
                 atmega[1] += net  # Connects pin 1 of chip to the net.
                 net += atmega['.*RESET.*']  # Connects reset pin to the net.
         """
-        if len(ids) == 1:
-            try:
-                return self.unit[ids[0]]
-            except Exception:
-                pass
         pins = _to_list(self.get_pins(*ids, **criteria))
-        # return NetPinList(pins)
         if len(pins) == 1:
             sys.stderr.write('\nreturning a pin\n')
             return pins[0]
@@ -1547,48 +1514,21 @@ class Part(object):
             sys.stderr.write('\nreturning a NetPinList\n')
             return NetPinList(pins)
 
-    def __setitem__(self, ids, *pin_net_bus):
+    def __setitem__(self, ids, *pins_nets_buses):
         """
         Connect nets or pins of other parts to the specified part pins.
         """
 
-        # If the allow_assign flag is present, then it's OK that we got
+        # If the iadd_flag is set, then it's OK that we got
         # here and don't issue an error. Also, delete the flag.
-        if isinstance(pin_net_bus[0], IaddFlag):
+        for pn in _flatten(pins_nets_buses):
+            if not getattr(pn,'iadd_flag',False):
+                break
+            del pn.iadd_flag
+        else:
             return
-        # if isinstance(pin_net_bus[0], NetPinList):
-            # return
         logger.error("Can't assign to a part! Use the += operator.")
         raise Exception
-
-    # def connect(self, *nets_pins_buses):
-        # """
-        # Connect nets or pins of other parts to the specified pins of this part.
-
-        # For example, this would connect a net to a part pin::
-
-            # lm324.connect('IN-', input_net)
-
-        # Args:
-            # pin_ids: List of IDs of pins for this part.
-            # nets_pins_buses: List of Net, Pin, and Bus objects to connect to pins.
-
-        # Raises:
-            # Exception if the list of pins to connect to is empty.
-
-        # Notes:
-            # Pins of a part can be connected by using brackets like so::
-
-                # atmega = Part('atmel', 'ATMEGA16U2')
-                # net = Net()
-                # atmega[1] += net  # Connects pin 1 of chip to the net.
-        # """
-        # pins = NetPinList(self.pins)
-        # pins += nets_pins_buses
-        # return self
-
-    # # Use brackets to connect to pins.
-    # __iadd__ = connect
 
     def _is_connected(self):
         """
@@ -1961,31 +1901,47 @@ class Net(object):
             return re.match(re.escape(NET_PREFIX), self.name)
         return True
 
-    def _merge(self, *nets):
+    def connect(self, *pins_nets_buses):
         """
-        Merge pins on one or more nets onto this net and delete the other nets.
+        Return the net after connecting other pins, nets, and buses to it.
 
         Args:
-            nets: One or more nets or lists of nets.
+            *pins_nets_buses: One or more Pin, Net, or Bus objects or
+                lists/tuples of them to be connected to this net.
+
+        Returns:
+            The updated net with the new connections.
+
+        Notes:
+            Connections to nets can also be made using the += operator like so::
+
+                atmega = Part('atmel', 'ATMEGA16U2')
+                net = Net()
+                net += atmega[1]  # Connects pin 1 of chip to the net.
         """
 
-        if isinstance(self, _NCNet):
-            logger.error("Can't merge with a no-connect net {}!".format(
-                self.name))
-            raise Exception
+        def merge(net):
+            """
+            Merge pins on net with self and then delete net.
 
-        # Start the set of unique pins with the pins on the net being merged to.
-        pins = set(self.pins)
+            Args:
+                net: The net to merge with self.
+            """
 
-        # Go through the list of nets.
-        for net in _flatten(nets):
+            if isinstance(self, _NCNet):
+                logger.error("Can't merge with a no-connect net {}!".format(
+                    self.name))
+                raise Exception
 
             if isinstance(net, _NCNet):
                 logger.error("Can't merge with a no-connect net {}!".format(
                     net.name))
                 raise Exception
 
-            # If a net has pins, add them to the set but omit duplicates.
+            # Start the set of unique pins with the pins on the net being merged to.
+            pins = set(self.pins)
+
+            # If the net has pins, add them to the set but omit duplicates.
             if net.pins:
                 pins = pins.union(net.pins)
 
@@ -2013,35 +1969,12 @@ class Net(object):
             # Got the pins off the net, so remove it from the circuit.
             SubCircuit._delete_net(net)
 
-        # Replace the pins on the main net with the list of pins from all the nets.
-        self.pins = list(pins)
+            # Replace the pins on the main net with the list of pins from all the nets.
+            self.pins = list(pins)
 
-        # Make sure all the pins on this net have a reference to the net they
-        # now belong to.
-        self._associate_pins()
-
-    def connect(self, *pins_nets_buses):
-        """
-        Return the net after connecting other pins, nets, and buses to it.
-
-        Args:
-            *pins_nets_buses: One or more Pin, Net, or Bus objects or
-                lists/tuples of them to be connected to this net.
-
-        Returns:
-            The updated net with the new connections.
-
-        Notes:
-            Connections to nets can also be made using the += operator like so::
-
-                atmega = Part('atmel', 'ATMEGA16U2')
-                net = Net()
-                net += atmega[1]  # Connects pin 1 of chip to the net.
-        """
-
-        def connect_net(net):
-            """Connect a net to this net."""
-            self._merge(net)
+            # Make sure all the pins on this net have a reference to the net they
+            # now belong to.
+            self._associate_pins()
 
         def connect_pin(pin):
             """Connect a pin to this net."""
@@ -2049,7 +1982,7 @@ class Net(object):
             # If the pin is already connected to another net, then just
             # merge the nets.
             if pin._is_connected():
-                self._merge(pin.net)
+                merge(pin.net)
 
             # If the pin is not connected to a net, then just connect it
             # to this net if it's not already on it.
@@ -2061,7 +1994,7 @@ class Net(object):
         # Go through all the pins and/or nets and connect them to this net.
         for pn in _expand_buses(_flatten(pins_nets_buses)):
             if isinstance(pn, Net):
-                connect_net(pn)
+                merge(pn)
             elif isinstance(pn, Pin):
                 connect_pin(pn)
             else:
@@ -2074,6 +2007,7 @@ class Net(object):
         # if it's already there.)
         SubCircuit._add_net(self)
 
+        self.iadd_flag = True
         return self
 
     # Use += to connect to nets.
@@ -2435,24 +2369,26 @@ class Bus(object):
         if len(nets) == 0:
             # No nets were selected from the bus, so return None.
             return None
-        # if len(nets) == 1:
-            # # Just one net selected, so return the Net object.
-            # return nets[0]
+        if len(nets) == 1:
+            # Just one net selected, so return the Net object.
+            return nets[0]
         else:
             # Multiple nets selected, so return them as a NetPinList list.
             return NetPinList(nets)
 
-    def __setitem__(self, ids, *pin_net_bus):
+    def __setitem__(self, ids, *pins_nets_buses):
         """
         Connect nets or pins of other parts to the specified bus lines.
         """
 
-        # If the allow_assign flag is present, then it's OK that we got
+        # If the iadd_flag is set, then it's OK that we got
         # here and don't issue an error. Also, delete the flag.
-        if isinstance(pin_net_bus[0], IaddFlag):
+        for pn in _flatten(pins_nets_buses):
+            if not getattr(pn,'iadd_flag',False):
+                break
+            del pn.iadd_flag
+        else:
             return
-        # if isinstance(pin_net_bus[0], NetPinList):
-            # return
         logger.error("Can't assign to a bus! Use the += operator.")
         raise Exception
 
@@ -2519,9 +2455,6 @@ class Bus(object):
 
 ##############################################################################
 
-class IaddFlag(object):
-    pass
-
 class NetPinList(list):
 
     def __iadd__(self, *nets_pins_buses):
@@ -2553,9 +2486,9 @@ class NetPinList(list):
         # Connect the nets to the nets in the bus.
         for i, np in enumerate(nets_pins):
             self[i] += np
+            self[i].iadd_flag = True
 
-        sys.stderr.write('\nReturning IaddFlag+stuff\n')
-        return IaddFlag()
+        return self
 
 
 ##############################################################################
