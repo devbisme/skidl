@@ -49,7 +49,7 @@ from .__init__ import __version__
 
 # Supported ECAD tools.
 # KICAD, EAGLE = ['kicad', 'eagle']
-KICAD = ['kicad',]
+KICAD, = ['kicad',]
 
 # Places where parts can be stored.
 #   NETLIST: The part will become part of a circuit netlist.
@@ -860,11 +860,20 @@ class Pin(object):
         # Go through all the pins and/or nets and connect them to this pin.
         for pn in _expand_buses(_flatten(pins_nets_buses)):
             if isinstance(pn, Pin):
-                # Connecting pin-to-pin, so create a net and connect both pins
-                # to it. If the pins are already connected to nets, then the
-                # Net connect() method will handle the net merging.
-                n = Net()
-                n.connect(self, pn)
+                # Connecting pin-to-pin.
+                if self._is_connected():
+                    # If self is already connected to a net, then add the
+                    # other pin to it.
+                    self.net.connect(pn)
+                elif pn._is_connected():
+                    # If self is unconnected but the other pin is, then
+                    # connect self to the other pin's net.
+                    pn.net.connect(self)
+                else:
+                    # Neither pin is connected to a net, so create a net
+                    # and attach both to it.
+                    n = Net()
+                    n.connect(self, pn)
             elif isinstance(pn, Net):
                 # Connecting pin-to-net, so just connect the pin to the net.
                 pn.connect(self)
