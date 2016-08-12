@@ -48,7 +48,8 @@ from builtins import object
 from .__init__ import __version__
 
 # Supported ECAD tools.
-KICAD, EAGLE = ['kicad', 'eagle']
+# KICAD, EAGLE = ['kicad', 'eagle']
+KICAD = ['kicad',]
 
 # Places where parts can be stored.
 #   NETLIST: The part will become part of a circuit netlist.
@@ -59,6 +60,9 @@ NETLIST, LIBRARY, TEMPLATE = ['NETLIST', 'LIBRARY', 'TEMPLATE']
 # Prefixes for anonymous nets and buses.
 NET_PREFIX = 'N$'
 BUS_PREFIX = 'B$'
+
+# Separator for strings containing multiple indices.
+INDEX_SEPARATOR = ','
 
 
 def _scriptinfo():
@@ -178,6 +182,32 @@ def _list_or_scalar(lst):
             return lst[0]  # Single-element list, so return the only element.
         return None  # Empty list, so return None.
     return lst  # Must have been a scalar, so return that.
+
+
+def _flatten(nested_list):
+    """
+    Return a flattened list of items from a nested list.
+    """
+    lst = []
+    for item in nested_list:
+        if isinstance(item, (list, tuple)):
+            lst.extend(_flatten(item))
+        else:
+            lst.append(item)
+    return lst
+
+
+def _expand_buses(pins_nets_buses):
+    """
+    Take list of pins, nets, and buses and return a list of only pins and nets.
+    """
+    pins_nets = []
+    for pnb in pins_nets_buses:
+        if isinstance(pnb, Bus):
+            pins_nets.extend(pnb._get_nets())
+        else:
+            pins_nets.append(pnb)
+    return pins_nets
 
 
 def _get_unique_name(lst, attrib, prefix, initial=None):
@@ -338,35 +368,15 @@ def _filter(lst, **criteria):
     return extract
 
 
-def _flatten(nested_list):
-    """
-    Return a flattened list of items from a nested list.
-    """
-    lst = []
-    for item in nested_list:
-        if isinstance(item, (list, tuple)):
-            lst.extend(_flatten(item))
-        else:
-            lst.append(item)
-    return lst
-
-
-def _expand_buses(pins_nets_buses):
-    """
-    Take pins, nets, and buses and return a list of only pins and nets.
-    """
-    pins_nets = []
-    for pnb in pins_nets_buses:
-        if isinstance(pnb, Bus):
-            pins_nets.extend(pnb._get_nets())
-        else:
-            pins_nets.append(pnb)
-    return pins_nets
-
-
 def _expand_indices(slice_min, slice_max, *indices):
     """
     Expand a list of indices into a list of integers and strings.
+
+    This function takes the indices used to select pins of parts and 
+    lines of buses and returns a flat list of numbers and strings.
+    String and integer indices are put in the list unchanged, but
+    slices are expanded into a list of integers before entering the
+    final list.
 
     Args:
         slice_min: The minimum possible index.
@@ -396,7 +406,7 @@ def _expand_indices(slice_min, slice_max, *indices):
             stop = stop - step
             step = -step
 
-        # Do this if it's a normal slice (e.g., [0:7]).
+        # Do this if it's a normal (i.e., upward) slice (e.g., [0:7]).
         else:
             if slc.stop and slc.stop > slice_max:
                 logger.error('Index out of range ({} > {})!'.format(slc.stop,
@@ -410,13 +420,17 @@ def _expand_indices(slice_min, slice_max, *indices):
 
     # Expand each index and add it to the list.
     ids = []
-    for i in _flatten(indices):
-        if isinstance(i, slice):
-            ids.extend(expand_slice(i))
-        elif isinstance(i, (int, type(''))):
-            ids.append(i)
+    for indx in _flatten(indices):
+        if isinstance(indx, slice):
+            ids.extend(expand_slice(indx))
+        elif isinstance(indx, int):
+            ids.append(indx)
+        elif isinstance(indx, type('')):
+            # String might contain multiple indices with a separator.
+            for id in indx.split(INDEX_SEPARATOR):
+                ids.append(id.strip())
         else:
-            logger.error('Unknown type in index: {}'.format(type(i)))
+            logger.error('Unknown type in index: {}'.format(type(indx)))
             raise Exception
 
     # Return the completely expanded list of indices.
@@ -466,7 +480,7 @@ def _find_num_copies(**attribs):
 ##############################################################################
 
 
-class SchLib(object):
+class _SchLib(object):
     """
     A class for storing parts from a schematic component library file.
 
@@ -859,6 +873,7 @@ class Pin(object):
                     type(pn), self._erc_desc()))
                 raise Exception
 
+        # Set the flag to indicate this result came from the += operator.
         self.iadd_flag = True
 
         return self
@@ -980,10 +995,10 @@ class Part(object):
             # If the lib argument is a string, then create a library using the
             # string as the library file name.
             if isinstance(lib, type('')):
-                lib = SchLib(filename=lib, tool=tool)
+                lib = _SchLib(filename=lib, tool=tool)
 
             # Make a copy of the part from the library but don't add it to the netlist.
-            part = lib.get_part_by_name(name).copy(1, TEMPLATE)
+            part = lib[name].copy(1, TEMPLATE)
 
             # Overwrite self with the new part.
             self.__dict__.update(part.__dict__)
@@ -1445,7 +1460,7 @@ class Part(object):
             pin_ids = ['.*']
 
         # Go through the list of pin IDs one-by-one.
-        pins = []
+        pins = _NetPinList()
         for p_id in _expand_indices(self.min_pin, self.max_pin, *pin_ids):
 
             # Pin ID is an integer.
@@ -1472,61 +1487,38 @@ class Part(object):
 
         return _list_or_scalar(pins)
 
-    def __getitem__(self, *ids, **criteria):
-        """
-        Return a part unit or pins using index brackets.
-
-        If multiple identifiers are given, this method will return the pin or
-        list of pins that match the identifiers.
-
-        If only a single identifier is given, this method will check to see
-        if it matches the label for a unit of the part. If it does, then that
-        part unit will be returned. Otherwise, any matching pins will be
-        returned.
-
-        Args:
-            ids: A list of strings containing pin names, numbers,
-                regular expressions, slices, lists or tuples. If empty,
-                then it will select all pins.
-
-        Keyword Args:
-            criteria: Key/value pairs that specify attribute values the
-                pins must have in order to be selected.
-
-        Returns:
-            A list of pins matching the given IDs and satisfying all the criteria,
-            or just a single Pin object if only a single match was found.
-            Or None if no match was found.
-
-        Notes:
-            Pins can be selected from a part by using brackets like so::
-
-                atmega = Part('atmel', 'ATMEGA16U2')
-                net = Net()
-                atmega[1] += net  # Connects pin 1 of chip to the net.
-                net += atmega['.*RESET.*']  # Connects reset pin to the net.
-        """
-        pins = _to_list(self.get_pins(*ids, **criteria))
-        if len(pins) == 1:
-            sys.stderr.write('\nreturning a pin\n')
-            return pins[0]
-        else:
-            sys.stderr.write('\nreturning a NetPinList\n')
-            return NetPinList(pins)
+    # Get pins from a part using brackets, e.g. [1,5:9,'A[0-9]+'].
+    __getitem__ = get_pins
 
     def __setitem__(self, ids, *pins_nets_buses):
         """
-        Connect nets or pins of other parts to the specified part pins.
+        You can't assign to the pins of parts. You must use the += operator.
+        
+        This method is a work-around that allows the use of the += for making
+        connections to pins while prohibiting direct assignment. Python
+        processes something like my_part['GND'] += gnd as follows::
+
+            1. Part.__getitem__ is called with 'GND' as the index. This 
+               returns a single Pin or a NetPinList.
+            2. The Pin.__iadd__ or NetPinList.__iadd__ method is passed
+               the thing to connect to the pin (gnd in this case). This method
+               makes the actual connection to the part pin or pins. Then it
+               creates an iadd_flag attribute in the object it returns.
+            3. Finally, Part.__setitem__ is called. If the iadd_flag attribute
+               is true in the passed argument, then __setitem__ was entered
+               as part of processing the += operator. If there is no
+               iadd_flag attribute, then __setitem__ was entered as a result
+               of using a direct assignment, which is not allowed.
         """
 
         # If the iadd_flag is set, then it's OK that we got
         # here and don't issue an error. Also, delete the flag.
-        for pn in _flatten(pins_nets_buses):
-            if not getattr(pn,'iadd_flag',False):
-                break
-            del pn.iadd_flag
-        else:
+        if getattr(pins_nets_buses[0], 'iadd_flag', False):
+            del pins_nets_buses[0].iadd_flag
             return
+
+        # No iadd_flag or it wasn't set. This means a direct assignment
+        # was made to the pin, which is not allowed.
         logger.error("Can't assign to a part! Use the += operator.")
         raise Exception
 
@@ -1544,7 +1536,7 @@ class Part(object):
         if len(self.pins) == 0:
             return True
 
-        # If any pin is found to be connected to a net, return True
+        # If any pin is found to be connected to a net, return True.
         for p in self.pins:
             if p._is_connected():
                 return True
@@ -1632,16 +1624,25 @@ class Part(object):
         """
         Do electrical rules check on a part in the schematic.
         """
+
+        # Don't check this part if the flag is not true.
         if not self.do_erc:
             return
 
+        # Check each pin of the part.
         for p in self.pins:
+
+            # Skip this pin if the flag is false.
             if not p.do_erc:
                 continue
+
+            # Error if a pin is unconnected but not of type NOCONNECT.
             if p.net is None:
                 if p.func != Pin.NOCONNECT:
                     erc_logger.warning('Unconnected pin: {p}.'.format(
                         p=p._erc_desc()))
+
+            # Error if a no-connect pin is connected to a net.
             elif p.net.drive != Pin.NOCONNECT_DRIVE:
                 if p.func == Pin.NOCONNECT:
                     erc_logger.warning(
@@ -1791,6 +1792,7 @@ class Net(object):
     """
 
     def __init__(self, name=None, *pins, **attribs):
+        self._valid = True # Make net valid before doing anything else.
         self._name = None
         if name:
             self.name = name
@@ -1800,6 +1802,7 @@ class Net(object):
 
         # Attach whatever pins were given.
         self.connect(pins)
+        del self.iadd_flag # Remove the += flag inserted by connect().
 
         # Attach additional attributes to the net.
         for k, v in attribs.items():
@@ -1807,10 +1810,12 @@ class Net(object):
 
     def _get_pins(self):
         """Return  a list of pins attached to this net."""
+        self.test_validity()
         return _to_list(self.pins)
 
     def _get_nets(self):
         """Return this net as a one-element list."""
+        self.test_validity()
         return _to_list(self)
 
     def copy(self, num_copies=1, **attribs):
@@ -1839,6 +1844,8 @@ class Net(object):
 
                 n = 10 * Net('A')  # Create an array of nets.
         """
+
+        self.test_validity()
 
         num_copies = max(num_copies, _find_num_copies(**attribs))
 
@@ -1890,11 +1897,13 @@ class Net(object):
         """
         Make sure all the pins on a net have valid references to the net.
         """
+        self.test_validity()
         for p in self.pins:
             p.net = self
 
     def _is_anonymous(self, net_name=None):
         """Return true if the net name is anonymous."""
+        self.test_validity()
         if net_name:
             return re.match(re.escape(NET_PREFIX), net_name)
         if self.name:
@@ -1938,6 +1947,10 @@ class Net(object):
                     net.name))
                 raise Exception
 
+            # No need to do anything if merging a net with itself.
+            if self == net:
+                return
+
             # Start the set of unique pins with the pins on the net being merged to.
             pins = set(self.pins)
 
@@ -1967,6 +1980,7 @@ class Net(object):
             self.name = merge_names(self.name, net.name)
 
             # Got the pins off the net, so remove it from the circuit.
+            net.valid = False
             SubCircuit._delete_net(net)
 
             # Replace the pins on the main net with the list of pins from all the nets.
@@ -1991,6 +2005,8 @@ class Net(object):
                     self.pins.append(pin)
                     pin.net = self
 
+        self.test_validity()
+
         # Go through all the pins and/or nets and connect them to this net.
         for pn in _expand_buses(_flatten(pins_nets_buses)):
             if isinstance(pn, Net):
@@ -2007,7 +2023,9 @@ class Net(object):
         # if it's already there.)
         SubCircuit._add_net(self)
 
+        # Set the flag to indicate this result came from the += operator.
         self.iadd_flag = True
+
         return self
 
     # Use += to connect to nets.
@@ -2020,6 +2038,7 @@ class Net(object):
         Args:
             tool: The format for the netlist file (e.g., KICAD).
         """
+        self.test_validity()
 
         try:
             gen_func = self.__class__.__dict__['_gen_netlist_net_{}'.format(
@@ -2088,6 +2107,8 @@ class Net(object):
                         'Insufficient drive current on net {n} for pin {p}'.format(
                             n=self.name, p=p._erc_desc()))
 
+        self.test_validity()
+
         # Skip ERC check on this net if flag is cleared.
         if not self.do_erc:
             return
@@ -2111,12 +2132,14 @@ class Net(object):
 
     def __str__(self):
         """Return a list of the pins on this net as a string."""
+        self.test_validity()
         return self.name + ': ' + ', '.join([p.__str__() for p in self.pins])
 
     __repr__ = __str__
 
     def __len__(self):
         """Return the number of pins attached to this net."""
+        self.test_validity()
         return len(self.pins)
 
     @property
@@ -2131,6 +2154,7 @@ class Net(object):
 
     @name.setter
     def name(self, name):
+        self.test_validity()
         # Remove the existing name so it doesn't cause a collision if the
         # object is renamed with its existing name.
         self._name = None
@@ -2142,6 +2166,7 @@ class Net(object):
 
     @name.deleter
     def name(self):
+        self.test_validity()
         del self._name
 
     @property
@@ -2153,15 +2178,33 @@ class Net(object):
         value. So as pins are added to a net, the drive strength reflects the
         maximum drive value of the pins currently on the net.
         """
+        self.test_validity()
         return self._drive
 
     @drive.setter
     def drive(self, drive):
+        self.test_validity()
         self._drive = max(drive, self._drive)
 
     @drive.deleter
     def drive(self):
+        self.test_validity()
         del self._drive
+
+    @property
+    def valid(self):
+        return self._valid
+
+    @valid.setter
+    def valid(self, val):
+        self.test_validity()
+        self._valid = val
+
+    def test_validity(self):
+        if self.valid:
+            return
+        logger.error('Net {} is no longer valid. Do not use it!'.format(self.name))
+        raise Exception
 
 ##############################################################################
 
@@ -2274,7 +2317,7 @@ class Bus(object):
         return _to_list(self.nets)
 
     def _get_pins(self):
-        """It's an error to get the list of pins attacxhed to all bus lines."""
+        """It's an error to get the list of pins attached to all bus lines."""
         logger.error("Can't get the list of pins on a bus!")
         raise Exception
 
@@ -2374,21 +2417,37 @@ class Bus(object):
             return nets[0]
         else:
             # Multiple nets selected, so return them as a NetPinList list.
-            return NetPinList(nets)
+            return _NetPinList(nets)
 
     def __setitem__(self, ids, *pins_nets_buses):
         """
-        Connect nets or pins of other parts to the specified bus lines.
+        You can't assign to bus lines. You must use the += operator.
+        
+        This method is a work-around that allows the use of the += for making
+        connections to bus lines while prohibiting direct assignment. Python
+        processes something like my_bus[7:0] += 8 * Pin() as follows::
+
+            1. Part.__getitem__ is called with '7:0' as the index. This 
+               returns a NetPinList of eight nets from my_bus.
+            2. The NetPinList.__iadd__ method is passed the NetPinList and
+               the thing to connect to the it (eight pins in this case). This
+               method makes the actual connection to the part pin or pins. Then
+               it creates an iadd_flag attribute in the object it returns.
+            3. Finally, Bus.__setitem__ is called. If the iadd_flag attribute
+               is true in the passed argument, then __setitem__ was entered
+               as part of processing the += operator. If there is no
+               iadd_flag attribute, then __setitem__ was entered as a result
+               of using a direct assignment, which is not allowed.
         """
 
         # If the iadd_flag is set, then it's OK that we got
         # here and don't issue an error. Also, delete the flag.
-        for pn in _flatten(pins_nets_buses):
-            if not getattr(pn,'iadd_flag',False):
-                break
-            del pn.iadd_flag
-        else:
+        if getattr(pins_nets_buses[0], 'iadd_flag', False):
+            del pins_nets_buses[0].iadd_flag
             return
+
+        # No iadd_flag or it wasn't set. This means a direct assignment
+        # was made to the pin, which is not allowed.
         logger.error("Can't assign to a bus! Use the += operator.")
         raise Exception
 
@@ -2411,7 +2470,7 @@ class Bus(object):
                 b = Bus('B', 2) # Create a two-wire bus.
                 b += p,n        # Connect pin and net to B[0] and B[1].
         """
-        nets = NetPinList(self.nets)
+        nets = _NetPinList(self.nets)
         nets += pins_nets_buses
         return self
 
@@ -2455,7 +2514,7 @@ class Bus(object):
 
 ##############################################################################
 
-class NetPinList(list):
+class _NetPinList(list):
 
     def __iadd__(self, *nets_pins_buses):
 
@@ -2486,7 +2545,9 @@ class NetPinList(list):
         # Connect the nets to the nets in the bus.
         for i, np in enumerate(nets_pins):
             self[i] += np
-            self[i].iadd_flag = True
+
+        # Set the flag to indicate this result came from the += operator.
+        self.iadd_flag = True
 
         return self
 
