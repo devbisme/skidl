@@ -1820,30 +1820,46 @@ class Net(object):
         for k, v in attribs.items():
             setattr(self, k, v)
 
-    def _get_pins(self):
-        """Return  a list of pins attached to this net."""
+    def _traverse(self):
+        """Return all the nets and pins attached to this net, including itself."""
         self.test_validity()
         prev_nets = set([self])
         nets = set([self])
         prev_pins = set([])
         pins = set(self.pins)
         while pins != prev_pins:
-            prev_pins = set(list(pins)[:])
-            for p in pins:
-                if p._is_connected():
-                    for n in p._get_nets():
-                        nets.add(n)
-            for n in list(nets):
-                if n not in prev_nets:
-                    for p in n.pins:
-                        pins.add(p)
-            prev_nets = set(list(nets)[:])
-        return list(pins)
+
+            # Add the nets attached to any unvisited pins.
+            for pin in pins - prev_pins:
+                # No use visiting a pin that is not connected to a net.
+                if pin._is_connected():
+                    nets |= set(pin._get_nets())
+
+            # Update the set of previously visited pins.
+            prev_pins = copy(pins)
+
+            # Add the pins attached to any unvisited nets.
+            for net in nets - prev_nets:
+                pins |= set(net.pins)
+
+            # Update the set of previously visited nets.
+            prev_nets = copy(nets)
+
+        return list(nets), list(pins)
+
+    def _get_pins(self):
+        """Return a list of pins attached to this net."""
+        self.test_validity()
+        return self._traverse()[1]
 
     def _get_nets(self):
-        """Return this net as a one-element list."""
+        """Return a list of nets attached to this net, including this net."""
         self.test_validity()
-        return _to_list(self)
+        return self._traverse()[0]
+
+    def _is_attached(self, net):
+        """Return true if the net is attached to this one."""
+        return net in self._get_nets()
 
     def copy(self, num_copies=1, **attribs):
         """
@@ -1920,15 +1936,6 @@ class Net(object):
     __rmul__ = copy
     __call__ = copy
 
-    def _associate_pins(self):
-        """
-        Make sure all the pins on a net have valid references to the net.
-        """
-        return   # TODO!!!
-        self.test_validity()
-        for p in self.pins:
-            p.net = self
-
     def _is_anonymous(self, net_name=None):
         """Return true if the net name is anonymous."""
         self.test_validity()
@@ -1979,8 +1986,10 @@ class Net(object):
             if self == net:
                 return
 
+            # If this net has pins, just attach the other net to one of them.
             if self.pins:
                 self.pins[0].net.append(net)
+            # If the other net has pins, attach this net to a pin on the other net.
             elif net.pins:
                 net.pins[0].net.append(self)
                 self.pins.append(net.pins[0])
@@ -2005,10 +2014,7 @@ class Net(object):
 
             # Update the name of the merged net.
             self.name = merge_names(self.name, net.name)
-
-            # Make sure all the pins on this net have a reference to the net they
-            # now belong to.
-            self._associate_pins()
+            net.name = self.name
 
         def connect_pin(pin):
             """Connect a pin to this net."""
@@ -2016,20 +2022,6 @@ class Net(object):
                 self.pins.append(pin)
                 pin.net.append(self)
             return
-
-            # TODO!
-
-            # If the pin is already connected to another net, then just
-            # merge the nets.
-            if pin._is_connected():
-                merge(pin.net)
-
-            # If the pin is not connected to a net, then just connect it
-            # to this net if it's not already on it.
-            else:
-                if pin not in self.pins:
-                    self.pins.append(pin)
-                    pin.net = self
 
         self.test_validity()
 
