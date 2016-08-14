@@ -393,8 +393,8 @@ def _expand_indices(slice_min, slice_max, *indices):
 
         # Get bounds for slice.
         start, stop, step = slc.indices(slice_max)
-        start = max(start, slice_min)
-        stop = max(stop, slice_min)
+        start = min(max(start, slice_min), slice_max)
+        stop = min(max(stop, slice_min), slice_max)
 
         # Do this if it's a downward slice (e.g., [7:0]).
         if start > stop:
@@ -993,10 +993,10 @@ class Part(object):
     def __init__(self,
                  lib=None,
                  name=None,
-                 part_defn=None,
-                 tool=KICAD,
                  dest=NETLIST,
+                 tool=KICAD,
                  connections=None,
+                 part_defn=None,
                  **attribs):
 
         # Create a Part from a library entry.
@@ -1553,7 +1553,7 @@ class Part(object):
         # No net connections found, so return False.
         return False
 
-    def alias(self, alias, *pin_ids, **criteria):
+    def set_pin_alias(self, alias, *pin_ids, **criteria):
         pins = _to_list(self.get_pins(*pin_ids, **criteria))
         if not pins:
             logger.error("Trying to alias a non-existent pin.")
@@ -2513,7 +2513,7 @@ class Bus(object):
 
     def __str__(self):
         """Return a list of the nets in this bus as a string."""
-        return self.name + ':' + '\n\t'.join([n.__str__() for n in self.nets])
+        return self.name + ':\n\t' + '\n\t'.join([n.__str__() for n in self.nets])
 
     __repr__ = __str__
 
@@ -2863,14 +2863,14 @@ class SubCircuit(object):
         return netlist
 
 
-def part_search(name):
+def search(name):
     lib_dir = os.path.join(os.environ['KISYSMOD'], '..', 'library')
     lib_files = os.listdir(lib_dir)
     lib_files.extend(os.listdir('.'))
     lib_files = [l for l in lib_files if l.endswith('.lib')]
     parts = []
     for lib_file in lib_files:
-        lib = SchLib(lib_file)
+        lib = _SchLib(lib_file)
 
         def mk_list(l):
             if isinstance(l, (list, tuple)):
@@ -2889,7 +2889,7 @@ def part_search(name):
         print('{}: {}'.format(lib_file, p.name))
 
 
-def show_part(lib_file, name):
+def show(lib_file, name):
     print(Part(lib_file, name))
 
 
