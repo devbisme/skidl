@@ -761,7 +761,7 @@ class Pin(object):
     }
 
     def __init__(self, **attribs):
-        self.net = None
+        self.net = []
         self.part = None
         self.do_erc = True
 
@@ -805,11 +805,11 @@ class Pin(object):
             cpy = copy(self)
 
             # The copy is not on a net, yet.
-            cpy.net = None
+            cpy.net = []
 
             # Connect the new pin to the same net as the original.
             if self.net:
-                self.net += cpy
+                self.net[0] += cpy
 
             # Attach additional attributes to the pin.
             for k, v in attribs.items():
@@ -830,12 +830,16 @@ class Pin(object):
         """
         if not self.net:
             return False
-        if isinstance(self.net, _NCNet):
+        nets = set([type(n) for n in self.net])
+        if set([_NCNet]) == nets:
             return False
-        if isinstance(self.net, Net):
+        if set([Net]) == nets:
             return True
+        if set([Net,_NCNet]) == nets:
+            logger.error('{} is connected to both normal and no-connect nets!'.format(self._erc_desc()))
+            raise Exception
         logger.error("{} is connected to something strange: {}".format(
-            self._erc_desc(), type(self.net)))
+            self._erc_desc(), nets))
         raise Exception
 
     def connect(self, *pins_nets_buses):
@@ -864,11 +868,11 @@ class Pin(object):
                 if self._is_connected():
                     # If self is already connected to a net, then add the
                     # other pin to it.
-                    self.net.connect(pn)
+                    self.net[0].connect(pn)
                 elif pn._is_connected():
                     # If self is unconnected but the other pin is, then
                     # connect self to the other pin's net.
-                    pn.net.connect(self)
+                    pn.net[0].connect(self)
                 else:
                     # Neither pin is connected to a net, so create a net
                     # and attach both to it.
@@ -892,9 +896,7 @@ class Pin(object):
 
     def _get_nets(self):
         """Return a list containing Net object connected to this pin."""
-        if self.net is None:
-            return []
-        return _to_list(self.net)
+        return self.net
 
     def _get_pins(self):
         """Return a list containing this pin."""
@@ -1793,14 +1795,15 @@ class Net(object):
     Args:
         name: A string with the name of the net. If None or '', then
             a unique net name will be assigned.
-        pins: A list of pins to attach to the net.
+        *pins_nets_buses: One or more Pin, Net, or Bus objects or
+            lists/tuples of them to be connected to this net.
 
     Keyword Args:
         attribs: A dictionary of attributes and values to attach to
             the Net object.
     """
 
-    def __init__(self, name=None, *pins, **attribs):
+    def __init__(self, name=None, *pins_nets_buses, **attribs):
         self._valid = True # Make net valid before doing anything else.
         self._name = None
         if name:
@@ -1810,7 +1813,7 @@ class Net(object):
         self.pins = []
 
         # Attach whatever pins were given.
-        self.connect(pins)
+        self.connect(pins_nets_buses)
         del self.iadd_flag # Remove the += flag inserted by connect().
 
         # Attach additional attributes to the net.
@@ -1820,7 +1823,22 @@ class Net(object):
     def _get_pins(self):
         """Return  a list of pins attached to this net."""
         self.test_validity()
-        return _to_list(self.pins)
+        prev_nets = set([self])
+        nets = set([self])
+        prev_pins = set([])
+        pins = set(self.pins)
+        while pins != prev_pins:
+            prev_pins = set(list(pins)[:])
+            for p in pins:
+                if p._is_connected():
+                    for n in p._get_nets():
+                        nets.add(n)
+            for n in list(nets):
+                if n not in prev_nets:
+                    for p in n.pins:
+                        pins.add(p)
+            prev_nets = set(list(nets)[:])
+        return list(pins)
 
     def _get_nets(self):
         """Return this net as a one-element list."""
@@ -1906,6 +1924,7 @@ class Net(object):
         """
         Make sure all the pins on a net have valid references to the net.
         """
+        return   # TODO!!!
         self.test_validity()
         for p in self.pins:
             p.net = self
@@ -1960,12 +1979,11 @@ class Net(object):
             if self == net:
                 return
 
-            # Start the set of unique pins with the pins on the net being merged to.
-            pins = set(self.pins)
-
-            # If the net has pins, add them to the set but omit duplicates.
-            if net.pins:
-                pins = pins.union(net.pins)
+            if self.pins:
+                self.pins[0].net.append(net)
+            elif net.pins:
+                net.pins[0].net.append(self)
+                self.pins.append(net.pins[0])
 
             # Update net drive.
             self.drive = net.drive
@@ -1988,19 +2006,18 @@ class Net(object):
             # Update the name of the merged net.
             self.name = merge_names(self.name, net.name)
 
-            # Got the pins off the net, so remove it from the circuit.
-            net.valid = False
-            SubCircuit._delete_net(net)
-
-            # Replace the pins on the main net with the list of pins from all the nets.
-            self.pins = list(pins)
-
             # Make sure all the pins on this net have a reference to the net they
             # now belong to.
             self._associate_pins()
 
         def connect_pin(pin):
             """Connect a pin to this net."""
+            if pin not in self.pins:
+                self.pins.append(pin)
+                pin.net.append(self)
+            return
+
+            # TODO!
 
             # If the pin is already connected to another net, then just
             # merge the nets.
@@ -2123,18 +2140,19 @@ class Net(object):
             return
 
         # Check the number of pins attached to the net.
-        num_pins = len(self.pins)
+        pins = self._get_pins()
+        num_pins = len(pins)
         if num_pins == 0:
             erc_logger.warning('No pins attached to net {n}.'.format(
                 n=self.name))
         elif num_pins == 1:
             erc_logger.warning(
-                'Only one pin ({p}) attached to net {n}.'.format(p=self.pins[
+                'Only one pin ({p}) attached to net {n}.'.format(p=pins[
                     0]._erc_desc(), n=self.name))
         else:
             for i in range(num_pins):
                 for j in range(i + 1, num_pins):
-                    pin_conflict_chk(self.pins[i], self.pins[j])
+                    pin_conflict_chk(pins[i], pins[j])
 
         # Check to see if the net has sufficient drive.
         net_drive_chk()
@@ -2142,14 +2160,16 @@ class Net(object):
     def __str__(self):
         """Return a list of the pins on this net as a string."""
         self.test_validity()
-        return self.name + ': ' + ', '.join([p.__str__() for p in self.pins])
+        pins = self._get_pins()
+        return self.name + ': ' + ', '.join([p.__str__() for p in pins])
 
     __repr__ = __str__
 
     def __len__(self):
         """Return the number of pins attached to this net."""
         self.test_validity()
-        return len(self.pins)
+        pins = self._get_pins()
+        return len(pins)
 
     @property
     def name(self):
@@ -2231,15 +2251,16 @@ class _NCNet(Net):
     Args:
         name: A string with the name of the net. If None or '', then
             a unique net name will be assigned.
-        pins: A list of pins to attach to the net.
+        *pins_nets_buses: One or more Pin, Net, or Bus objects or
+            lists/tuples of them to be connected to this net.
 
     Keyword Args:
         attribs: A dictionary of attributes and values to attach to
             the object.
     """
 
-    def __init__(self, name=None, *pins, **attribs):
-        super(_NCNet, self).__init__(name, *pins, **attribs)
+    def __init__(self, name=None, *pins_nets_buses, **attribs):
+        super(_NCNet, self).__init__(name, *pins_nets_buses, **attribs)
         self._drive = Pin.NOCONNECT_DRIVE
 
     def _generate_netlist_net(self, tool=KICAD):
@@ -2531,8 +2552,6 @@ class _NetPinList(list):
         for item in _expand_buses(_flatten(nets_pins_buses)):
             if isinstance(item, (Pin, Net)):
                 nets_pins.append(item)
-            # elif isinstance(item, Bus):
-                # nets_pins.extend(item[:])
             else:
                 logger.error("Can't make connections to a {} ({}).".format(
                     type(id), item.__name__))
