@@ -947,13 +947,20 @@ class Pin(object):
 
     def __str__(self):
         """Return a description of this pin as a string."""
-        return 'Pin {num}/{name}: {func}'.format(
-            num=self.num,
-            name=self.name,
-            func=Pin.pin_info[self.func]['function'])
+        part_ref = getattr(self.part, 'ref', '???')
+        pin_num = getattr(self, 'num', '???')
+        pin_name = getattr(self, 'name', '???')
+        pin_func = getattr(self, 'func', Pin.UNSPEC)
+        pin_func_str = Pin.pin_info[pin_func]['function']
+        return 'Pin {ref}/{num}/{name}/{func}'.format(
+            ref = part_ref,
+            num=pin_num,
+            name=pin_name,
+            func=pin_func_str)
 
     @property
     def net(self):
+        """Return one of the nets the pin is connected to."""
         if self.nets:
             return self.nets[0]
         return None
@@ -2039,17 +2046,37 @@ class Net(object):
             # If this net has pins, just attach the other net to one of them.
             if self.pins:
                 self.pins[0].nets.append(net)
+                net.pins.append(self.pins[0])
             # If the other net has pins, attach this net to a pin on the other net.
             elif net.pins:
                 net.pins[0].nets.append(self)
                 self.pins.append(net.pins[0])
 
-            # Update net drive.
+            # Update the drive of the merged nets.
             self.drive = net.drive
+            net.drive = self.drive
 
-            # Update the name of the merged net.
-            # self.name = merge_names(self.name, net.name)
-            # net.name = self.name
+            def select_name(name1, name2):
+                """Select one name or the other for the merged net."""
+                if not name2:
+                    return name1
+                if not name1:
+                    return name2
+                if self._is_anonymous(name2):
+                    return name1
+                if self._is_anonymous(name1):
+                    return name2
+                logger.warning(
+                    'Merging two named nets ({a} and {b}) into {a}.'.format(
+                        a=name1, b=name2))
+                return name1
+
+            # Give the merged net the name of one of the nets.
+            # Bypass the unique naming function because all the
+            # net names should already have unique names.
+            name = select_name(self.name, net.name)
+            self._name = name
+            net._name = name
 
         def connect_pin(pin):
             """Connect a pin to this net."""
@@ -2074,33 +2101,6 @@ class Net(object):
                     'Cannot attach non-Pin/non-Net {} to Net {}.'.format(
                         type(pn), self.name))
                 raise Exception
-
-        def select_name(name1, name2):
-            """Select one name or the other for the merged net."""
-            if not name2:
-                return name1
-            if not name1:
-                return name2
-            if self._is_anonymous(name2):
-                return name1
-            if self._is_anonymous(name1):
-                return name2
-            logger.warning(
-                'Merging two named nets ({a} and {b}) into {a}.'.format(
-                    a=name1, b=name2))
-            return name1
-
-        # Go through the connected nets and give them all the same name.
-        name = None
-        nets = self._get_nets()
-        # Find the best of all the net names.
-        for n in nets:
-            name = select_name(name, n.name)
-        # Give the best name to all the nets.
-        for n in nets:
-            # Bypass the unique naming function because all the
-            # net names should already have been unique.
-            n._name = name
 
         # Add the net to the global netlist. (It won't be added again
         # if it's already there.)
@@ -2830,7 +2830,7 @@ class SubCircuit(object):
         log_level = logging.WARNING
 
         handler = logging.StreamHandler(sys.stderr)
-        handler.setLevel(logging.ERROR)
+        handler.setLevel(logging.WARNING)
         handler.setFormatter(logging.Formatter(
             'ERC %(levelname)s: %(message)s'))
         erc_logger.addHandler(handler)
