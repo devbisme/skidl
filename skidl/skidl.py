@@ -22,10 +22,27 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+"""SKiDL: A Python-Based Schematic Design Language
+
+This module extends Python with the ability to design electronic
+circuits. It provides classes for working with **1)** electronic parts (``Part``),
+**2)** collections of part terminals (``Pin``) connected via wires (``Net``), and
+**3)** groups of related nets (``Bus``). Using these classes, you can
+concisely describe the interconnection of components using a linear
+and/or hierarchical structure. It also provides the capability to
+check the resulting circuitry for the violation of electrical rules.
+The output of a SKiDL-enabled Python script is a netlist that can be
+imported into a PCB layout tool.
+"""
+
 from __future__ import print_function
 from __future__ import unicode_literals
 from __future__ import division
 from __future__ import absolute_import
+from builtins import super
+from builtins import open
+from builtins import int
+from builtins import dict
 from future import standard_library
 standard_library.install_aliases()
 
@@ -47,6 +64,19 @@ from builtins import object
 
 from .__init__ import __version__
 
+USING_PYTHON2 = (sys.version_info.major == 2)
+USING_PYTHON3 = not USING_PYTHON2
+
+if USING_PYTHON2:
+    class FileNotFoundError(OSError):
+        pass
+
+if USING_PYTHON3:
+    # Python 3 doesn't have basestring,
+    # Python 2 doesn't work with type(''),
+    # so....
+    basestring = type('')
+
 # Supported ECAD tools.
 # KICAD, EAGLE = ['kicad', 'eagle']
 KICAD, = ['kicad',]
@@ -57,7 +87,7 @@ KICAD, = ['kicad',]
 #   TEMPLATE: The part will be used as a template to be copied from.
 NETLIST, LIBRARY, TEMPLATE = ['NETLIST', 'LIBRARY', 'TEMPLATE']
 
-# Prefixes for anonymous nets and buses.
+# Prefixes for implicit nets and buses.
 NET_PREFIX = 'N$'
 BUS_PREFIX = 'B$'
 
@@ -277,6 +307,10 @@ def _get_unique_name(lst, attrib, prefix, initial=None):
     return _get_unique_name(lst, attrib, prefix, initial)
 
 
+def _fullmatch(regex, string, flags=0):
+    """Emulate python-3.4 re.fullmatch()."""
+    return re.match("(?:" + regex + r")\Z", string, flags=flags)
+
 def _filter(lst, **criteria):
     """
     Return a list of objects whose attributes match a set of criteria.
@@ -322,7 +356,7 @@ def _filter(lst, **criteria):
                 # If the attribute doesn't exist, then that's a non-match.
                 break
 
-            if isinstance(v, (int, type(''))):
+            if isinstance(v, (int, basestring)):
                 # Check integer or string attributes.
 
                 if isinstance(attr_val, (list, tuple)):
@@ -331,7 +365,7 @@ def _filter(lst, **criteria):
                     # value matches the current criterium, then break from the
                     # criteria loop and extract this item.
                     for val in attr_val:
-                        if re.fullmatch(str(v), str(val), flags=re.IGNORECASE):
+                        if _fullmatch(str(v), str(val), flags=re.IGNORECASE):
                             # One of the list of values matched, so break from this
                             # loop and do not execute the break in the
                             # loop's else clause.
@@ -346,7 +380,7 @@ def _filter(lst, **criteria):
                     # If the attribute value from the item in the list is a scalar,
                     # see if the value matches the current criterium. If it doesn't,
                     # then break from the criteria loop and don't extract this item.
-                    if not re.fullmatch(
+                    if not _fullmatch(
                             str(v), str(attr_val),
                             flags=re.IGNORECASE):
                         break
@@ -425,7 +459,7 @@ def _expand_indices(slice_min, slice_max, *indices):
             ids.extend(expand_slice(indx))
         elif isinstance(indx, int):
             ids.append(indx)
-        elif isinstance(indx, type('')):
+        elif isinstance(indx, basestring):
             # String might contain multiple indices with a separator.
             for id in indx.split(INDEX_SEPARATOR):
                 ids.append(id.strip())
@@ -546,7 +580,7 @@ class _SchLib(object):
             if ext.lower() != '.lib':
                 filename += '.lib'
             f = open(filename)
-        except FileNotFoundError:
+        except (IOError, FileNotFoundError):
             filename = os.path.join(os.environ['KISYSMOD'], '..', 'library',
                                     filename)
             try:
@@ -1001,8 +1035,8 @@ class Alias(object):
             search: The Alias object which self will be compared to.
         """
         return (not self.id or not search.id or search.id == self.id) and \
-            (re.fullmatch(str(search.name), str(self.name), flags=re.IGNORECASE) or
-             re.fullmatch(str(self.name), str(search.name), flags=re.IGNORECASE))
+            (_fullmatch(str(search.name), str(self.name), flags=re.IGNORECASE) or
+             _fullmatch(str(self.name), str(search.name), flags=re.IGNORECASE))
 
 ##############################################################################
 
@@ -1052,7 +1086,7 @@ class Part(object):
         if lib:
             # If the lib argument is a string, then create a library using the
             # string as the library file name.
-            if isinstance(lib, type('')):
+            if isinstance(lib, basestring):
                 lib = _SchLib(filename=lib, tool=tool)
 
             # Make a copy of the part from the library but don't add it to the netlist.
@@ -1993,8 +2027,8 @@ class Net(object):
     __rmul__ = copy
     __call__ = copy
 
-    def _is_anonymous(self, net_name=None):
-        """Return true if the net name is anonymous."""
+    def _is_implicit(self, net_name=None):
+        """Return true if the net name is implicit."""
         self.test_validity()
         if net_name:
             return re.match(re.escape(NET_PREFIX), net_name)
@@ -2062,9 +2096,9 @@ class Net(object):
                     return name1
                 if not name1:
                     return name2
-                if self._is_anonymous(name2):
+                if self._is_implicit(name2):
                     return name1
-                if self._is_anonymous(name1):
+                if self._is_implicit(name1):
                     return name2
                 logger.warning(
                     'Merging two named nets ({a} and {b}) into {a}.'.format(
@@ -2399,7 +2433,7 @@ class Bus(object):
 
         # Assign names to all the unnamed nets in the bus.
         for i, net in enumerate(self.nets):
-            if net._is_anonymous():
+            if net._is_implicit():
                 # Net names are the bus name with the index appended.
                 net.name = self.name + str(i)
 
@@ -2498,7 +2532,7 @@ class Bus(object):
         for ident in _expand_indices(0, len(self) - 1, ids):
             if isinstance(ident, int):
                 nets.append(self.nets[ident])
-            elif isinstance(ident, type('')):
+            elif isinstance(ident, basestring):
                 nets.extend(_filter(self.nets, name=ident))
             else:
                 logger.error("Can't index bus with a {}.".format(type(ident)))

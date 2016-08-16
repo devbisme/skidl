@@ -29,7 +29,7 @@ test_requirements = [
 setup(
     name='skidl',
     version=skidl.__version__,
-    description="A Python package for textually describing circuit schematics.",
+    description="A Python package for textually describing electronic circuit schematics.",
     long_description=readme + '\n\n' + history,
     author=skidl.__author__,
     author_email=skidl.__email__,
@@ -50,6 +50,7 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
+        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.5',
     ],
     test_suite='tests',

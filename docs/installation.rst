@@ -2,11 +2,10 @@
 Installation
 ============
 
-At the command line::
+|skidl| is pure Python so it's easy to install::
+
+    $ pip install skidl
+
+or::
 
     $ easy_install skidl
-
-Or, if you have virtualenvwrapper installed::
-
-    $ mkvirtualenv skidl
-    $ pip install skidl
