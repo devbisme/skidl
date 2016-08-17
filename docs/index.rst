@@ -13,7 +13,7 @@ Welcome to SKiDL's documentation!
    caveats
    installation
    usage
-   api
+   ..   api
    ..   contributing
    authors
    acknowledgements

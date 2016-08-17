@@ -275,10 +275,3 @@ texinfo_documents = [
 
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
-
-
-rst_prolog = """
-.. |skidl| replace:: ``SKiDL``
-.. |skidlpckg| replace:: skidl
-.. |kicad| replace:: KiCad
-"""

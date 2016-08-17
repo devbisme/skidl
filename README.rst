@@ -9,7 +9,7 @@ skidl
         :target: https://pypi.python.org/pypi/skidl
 
 
-|skidl| is a module that allows you to compactly describe the interconnection of 
+SKiDL is a module that allows you to compactly describe the interconnection of 
 electronic circuits and components using Python.
 The resulting Python program performs electrical rules checking
 for common mistakes and outputs a netlist that serves as input to
@@ -37,7 +37,7 @@ Features
   for outputing the correct netlist format).
 * Takes advantage of all the benefits of the Python ecosystem (because it *is* Python).
 
-As a very simple example, the |skidl| program below describes a circuit that
+As a very simple example, the SKiDL program below describes a circuit that
 takes an input voltage, divides it by three, and outputs it::
 
     from skidl import *

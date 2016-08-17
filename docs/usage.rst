@@ -6,15 +6,15 @@ Scratching the Surface
 --------------------------
 
 This is the minimum that you need to know to design electronic circuitry
-using |skidl|:
+using SKiDL:
 
-* How to get access to |skidl|.
+* How to get access to SKiDL.
 * How to find and instantiate a component (or *part*).
 * How to connect *pins* of the parts to each other using *nets*.
 * How to run an ERC on the circuit.
 * How to generate a *netlist* for the circuit that serves as input to a PCB layout tool.
 
-I'll demonstrate these steps using |skidl| in an interactive Python session,
+I'll demonstrate these steps using SKiDL in an interactive Python session,
 but normally the statements that are shown would be entered into a file and
 executed as a Python script.
 
@@ -34,7 +34,7 @@ But for this tutorial, I'll just import everything::
 Finding Parts
 ................................
 
-|skidl| provides a convenience function for searching for parts called
+SKiDL provides a convenience function for searching for parts called
 (naturally) ``search``. Suppose you want to use a resistor, but don't know 
 what the name of the part is. Assuming it probably starts with "R", ``search``
 can be used to do a wildcard search of the part libraries:
@@ -132,9 +132,9 @@ What if we tried renaming the first resistor back to ``R1``:
     >>> resistor.ref
     'R1_1'
 
-Since the ``R1`` reference was already taken, |skidl| tried to give us
+Since the ``R1`` reference was already taken, SKiDL tried to give us
 something close to what we wanted.
-|skidl| won't let different parts have the same reference because
+SKiDL won't let different parts have the same reference because
 that would confuse the hell out of everybody.
                             
 
@@ -144,7 +144,7 @@ Connecting Pins
 Parts are great and all, but not very useful if they aren't connected to anything.
 The connections between parts are called *nets* (think of them as wires)
 and every net has one or more part *pins* on it.
-|skidl| makes it easy to create nets and connect pins to them. 
+SKiDL makes it easy to create nets and connect pins to them. 
 To demonstrate, let's build the voltage divider circuit
 shown in the introduction.
 
@@ -217,7 +217,7 @@ like this::
     0 errors found during ERC.          
 
 Since this is an interactive session, the ERC warnings and errors are stored 
-in the file ``skidl.erc``. (Normally, your |skidl| circuit description is stored
+in the file ``skidl.erc``. (Normally, your SKiDL circuit description is stored
 as a Python script such as ``my_circuit.py`` and the ``ERC()`` function will
 dump its messages to ``my_circuit.erc``.)
 The ERC messages are::
@@ -240,13 +240,13 @@ these two nets to prevent the spurious messages::
 Generating a Netlist
 ................................
 
-The end goal of using |skidl| is to generate a netlist that can be used
+The end goal of using SKiDL is to generate a netlist that can be used
 with a layout tool to generate a PCB. The netlist is output as follows::
 
     >>> generate_netlist()
 
 Like the ERC output, the netlist shown below is stored in the file ``skidl.net``.
-But if your |skidl| circuit description is in the ``my_circuit.py`` file, 
+But if your SKiDL circuit description is in the ``my_circuit.py`` file, 
 then the netlist will be stored in ``my_circuit.net``.
 
 ::
@@ -278,16 +278,16 @@ Going Deeper
 ---------------------
 
 The previous section showed the bare minimum you need to know to design
-circuits with |skidl|, but doing a complicated circuit that way would suck donkeys.
+circuits with SKiDL, but doing a complicated circuit that way would suck donkeys.
 This section will talk about some more advanced features.
 
-Basic |skidl| Objects: Parts, Pins, Nets, and Buses
+Basic SKiDL Objects: Parts, Pins, Nets, and Buses
 .....................................................
 
-|skidl| uses four types of objects to represent a circuit: ``Part``, ``Pin``,
+SKiDL uses four types of objects to represent a circuit: ``Part``, ``Pin``,
 ``Net``, and ``Bus``.
 
-The ``Part`` object represents an electronic component, which |skidl| thinks of as simple
+The ``Part`` object represents an electronic component, which SKiDL thinks of as simple
 bags of ``Pin`` objects with a few other attributes attached 
 (like the part number, name, reference, value, footprint, etc.).
 
@@ -308,7 +308,7 @@ A bus of a certain width can be created from a number of existing nets,
 newly-created nets, or both.
 
 
-Creating |skidl| Objects
+Creating SKiDL Objects
 ............................
 
 Here's the most common way to create a part in your circuit::
@@ -318,10 +318,10 @@ Here's the most common way to create a part in your circuit::
 When this is processed, the current directory will be checked for a file
 called ``some_library.lib`` which will be opened and scanned for a part with the
 name ``some_part_name``. If the file is not found or it doesn't contain
-the requested part, then the process will be repeated using |kicad|'s default
+the requested part, then the process will be repeated using KiCad's default
 library directory.
 
-You're not restricted to using only the current directory or the |kicad| default
+You're not restricted to using only the current directory or the KiCad default
 directory to search for parts. You can also search any file for a part by 
 using a full file name::
 
@@ -357,14 +357,14 @@ Creating nets is also simple::
     my_net = Net()              # An unnamed net.
     my_other_net = Net('Fred')  # A named net.
 
-As with parts, |skidl| will alter the name you assign to a net if it collides with another net
+As with parts, SKiDL will alter the name you assign to a net if it collides with another net
 having the same name.
 
 You can create a bus of a certain width like this::
 
     my_bus = Bus('bus_name', 8)  # Create a byte-wide bus.
 
-(All buses must be named, but |skidl| will look for and correct colliding
+(All buses must be named, but SKiDL will look for and correct colliding
 bus names.)
 
 You can also create a bus from existing nets, or buses, or the pins of parts::
@@ -430,9 +430,9 @@ You can even use Python slice notation::
     >>> pic10[:]    # Get all the pins.
     [Pin 1/ICSPDAT/AN0/GP0: BIDIRECTIONAL, Pin 2/VSS: POWER-IN, Pin 3/ICSPCLK/AN1/GP1: BIDIRECTIONAL, Pin 4/T0CKI/FOSC4/GP2: BIDIRECTIONAL, Pin 5/VDD: POWER-IN, Pin 6/Vpp/~MCLR~/GP3: INPUT]
 
-(It's important to note that the slice notation used by |skidl| for parts is slightly
+(It's important to note that the slice notation used by SKiDL for parts is slightly
 different than standard Python. In Python, a slice ``n:m`` would fetch indices
-``n``, ``n+1``, ``...``, ``m-1``. With |skidl|, it actually fetches all the
+``n``, ``n+1``, ``...``, ``m-1``. With SKiDL, it actually fetches all the
 way up to the last number: ``n``, ``n+1``, ``...``, ``m-1``, ``m``.
 The reason for doing this is that most electronics designers are used to
 the bounds on a slice including both endpoints. Perhaps it is a mistake to
@@ -453,7 +453,7 @@ You can use multiple names or regular expressions to get more than one pin::
     [Pin 3/ICSPCLK/AN1/GP1: BIDIRECTIONAL, Pin 4/T0CKI/FOSC4/GP2: BIDIRECTIONAL, Pin 6/Vpp/~MCLR~/GP3: INPUT]
 
 It can be tedious and error prone entering all the quote marks if you're accessing
-many pin names. |skidl| lets you enter a single, comma-delimited string of
+many pin names. SKiDL lets you enter a single, comma-delimited string of
 pin names::
 
     >>> pic10['.*GP0, .*GP1, .*GP2']
@@ -498,18 +498,18 @@ Making Connections
 ...........................
 
 Pins, nets, parts and buses can all be connected together in various ways, but
-the primary rule of |skidl| connections is:
+the primary rule of SKiDL connections is:
 
     **The ``+=`` operator is the only way to make connections!**
 
 At times you'll mistakenly try to make connections using the 
-assignment operator (``=``). In many cases, |skidl| warns you if you do that,
+assignment operator (``=``). In many cases, SKiDL warns you if you do that,
 but there are situations where it can't (because
 Python is a general-purpose programming language where
 assignment is a necessary operation).
 So remember the primary rule!
 
-After the primary rule, the next thing to remember is that |skidl|'s main
+After the primary rule, the next thing to remember is that SKiDL's main
 purpose is creating netlists. To that end, it handles four basic, connection operations:
 
 **Pin-to-Net**:
@@ -612,7 +612,7 @@ Here's an example of connecting a three-bit bus to three pins on a part:
             GP1: Pin 3/ICSPCLK/AN1/GP1: BIDIRECTIONAL
             GP2: Pin 4/T0CKI/FOSC4/GP2: BIDIRECTIONAL
 
-But |skidl| will warn you if there aren't the same number of things to
+But SKiDL will warn you if there aren't the same number of things to
 connect on each side::
 
     >>> pic10[4,3,1] += b[1:0]  # Too few bus lines for the pins!
@@ -627,7 +627,7 @@ connect on each side::
 Hierarchy
 ...................
 
-|skidl| supports the encapsulation of parts, nets and buses into modules
+SKiDL supports the encapsulation of parts, nets and buses into modules
 that can be replicated to reduce the design effort, and can be used in
 other modules to create a functional hierarchy.
 It does this using Python's built-in machinery for defining and calling functions
@@ -773,7 +773,7 @@ And here's the resulting netlist::
 Doodads
 ...................................
 
-|skidl| has a few features that don't fit into any other
+SKiDL has a few features that don't fit into any other
 category. Here they are.
 
 No Connects
@@ -865,7 +865,7 @@ Selectively Supressing ERC Messages
 
 Sometimes a portion of your circuit throws a lot of ERC warnings or errors
 even though you know it's correct.
-|skidl| provides flags that allow you to turn off the ERC for selected nets, pins,
+SKiDL provides flags that allow you to turn off the ERC for selected nets, pins,
 and parts like so::
 
     my_net.do_erc = False      # Turns of ERC for this particular net.

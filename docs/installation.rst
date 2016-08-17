@@ -2,7 +2,7 @@
 Installation
 ============
 
-|skidl| is pure Python so it's easy to install::
+SKiDL is pure Python so it's easy to install::
 
     $ pip install skidl
 
