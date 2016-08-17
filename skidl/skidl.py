@@ -43,6 +43,10 @@ from builtins import super
 from builtins import open
 from builtins import int
 from builtins import dict
+from builtins import str
+from builtins import zip
+from builtins import range
+from builtins import object
 from future import standard_library
 standard_library.install_aliases()
 
@@ -57,10 +61,6 @@ from copy import deepcopy, copy
 from pprint import pprint
 import time
 import pdb
-from builtins import str
-from builtins import zip
-from builtins import range
-from builtins import object
 
 from .__init__ import __version__
 
