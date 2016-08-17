@@ -1,0 +1,1062 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>skidl 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="None" href="index.html#document-index" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="nav-item nav-item-0"><a href="index.html#document-index">skidl 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-skidl-s-documentation">
+<h1>Welcome to SKiDL&#8217;s documentation!<a class="headerlink" href="#welcome-to-skidl-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<span id="document-readme"></span><div class="section" id="skidl">
+<h2>skidl<a class="headerlink" href="#skidl" title="Permalink to this headline">¶</a></h2>
+<a class="reference external image-reference" href="https://pypi.python.org/pypi/skidl"><img src="https://img.shields.io/pypi/v/skidl.svg" /></a>
+<p>SKiDL is a module that allows you to compactly describe the interconnection of
+electronic circuits and components using Python.
+The resulting Python program performs electrical rules checking
+for common mistakes and outputs a netlist that serves as input to
+a PCB layout tool.</p>
+<ul class="simple">
+<li>Free software: MIT license</li>
+<li>Documentation: <a class="reference external" href="http://xesscorp.github.io/skidl/index.html">http://xesscorp.github.io/skidl/index.html</a></li>
+</ul>
+<div class="section" id="features">
+<h3>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Has a powerful, flexible syntax (because it <em>is</em> Python).</li>
+<li>Permits compact descriptions of electronic circuits (think about <em>not</em> tracing
+signals through a multi-page schematic).</li>
+<li>Allows textual descriptions of electronic circuits (think about using
+<code class="docutils literal"><span class="pre">diff</span></code> and <a class="reference external" href="https://en.wikipedia.org/wiki/Git_(software)">git</a> for circuits).</li>
+<li>Performs electrical rules checking (ERC) for common mistakes (e.g., unconnected device I/O pins).</li>
+<li>Supports linear / hierarchical / mixed descriptions of electronic designs.</li>
+<li>Fosters design reuse (think about using <a class="reference external" href="https://pypi.org/">PyPi</a> and <a class="reference external" href="https://github.com/">Github</a>
+to distribute electronic designs).</li>
+<li>Makes possible the creation of <em>smart circuit modules</em> whose behavior / structure are changed parametrically
+(think about filters whose component values are automatically adjusted based on your
+desired cutoff frequency).</li>
+<li>Can work with any ECAD tool (only two methods are needed: one for reading the part libraries and another
+for outputing the correct netlist format).</li>
+<li>Takes advantage of all the benefits of the Python ecosystem (because it <em>is</em> Python).</li>
+</ul>
+<p>As a very simple example, the SKiDL program below describes a circuit that
+takes an input voltage, divides it by three, and outputs it:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skidl</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>  <span class="c1"># Ground reference.</span>
+<span class="n">vin</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;VI&#39;</span><span class="p">)</span>   <span class="c1"># Input voltage to the divider.</span>
+<span class="n">vout</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;VO&#39;</span><span class="p">)</span>  <span class="c1"># Output voltage from the divider.</span>
+<span class="n">r1</span><span class="p">,</span> <span class="n">r2</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;device&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="n">TEMPLATE</span><span class="p">)</span>  <span class="c1"># Create two resistors.</span>
+<span class="n">r1</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">r1</span><span class="o">.</span><span class="n">footprint</span> <span class="o">=</span> <span class="s1">&#39;1K&#39;</span><span class="p">,</span>  <span class="s1">&#39;Resistors_SMD:R_0805&#39;</span>  <span class="c1"># Set resistor values</span>
+<span class="n">r2</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">r2</span><span class="o">.</span><span class="n">footprint</span> <span class="o">=</span> <span class="s1">&#39;500&#39;</span><span class="p">,</span> <span class="s1">&#39;Resistors_SMD:R_0805&#39;</span>  <span class="c1"># and footprints.</span>
+<span class="n">r1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vin</span>      <span class="c1"># Connect the input to the first resistor.</span>
+<span class="n">r2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">gnd</span>      <span class="c1"># Connect the second resistor to ground.</span>
+<span class="n">vout</span> <span class="o">+=</span> <span class="n">r1</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">r2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Output comes from the connection of the two resistors.</span>
+
+<span class="n">generate_netlist</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>And this is the output that can be fed to a program like KiCad&#8217;s <code class="docutils literal"><span class="pre">PCBNEW</span></code> to
+create the physical PCB:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">export</span> <span class="p">(</span><span class="n">version</span> <span class="n">D</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">design</span>
+    <span class="p">(</span><span class="n">source</span> <span class="s2">&quot;C:/Users/DEVB/PycharmProjects/test1</span><span class="se">\t</span><span class="s2">est.py&quot;</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">date</span> <span class="s2">&quot;08/12/2016 11:13 AM&quot;</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">tool</span> <span class="s2">&quot;SKiDL (0.0.1)&quot;</span><span class="p">))</span>
+  <span class="p">(</span><span class="n">components</span>
+    <span class="p">(</span><span class="n">comp</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R1</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">value</span> <span class="mi">1</span><span class="n">K</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">footprint</span> <span class="n">Resistors_SMD</span><span class="p">:</span><span class="n">R_0805</span><span class="p">))</span>
+    <span class="p">(</span><span class="n">comp</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R2</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">value</span> <span class="mi">500</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">footprint</span> <span class="n">Resistors_SMD</span><span class="p">:</span><span class="n">R_0805</span><span class="p">)))</span>
+  <span class="p">(</span><span class="n">nets</span>
+    <span class="p">(</span><span class="n">net</span> <span class="p">(</span><span class="n">code</span> <span class="mi">0</span><span class="p">)</span> <span class="p">(</span><span class="n">name</span> <span class="s2">&quot;VI&quot;</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">node</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R1</span><span class="p">)</span> <span class="p">(</span><span class="n">pin</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="p">(</span><span class="n">net</span> <span class="p">(</span><span class="n">code</span> <span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="n">name</span> <span class="s2">&quot;GND&quot;</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">node</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R2</span><span class="p">)</span> <span class="p">(</span><span class="n">pin</span> <span class="mi">2</span><span class="p">)))</span>
+    <span class="p">(</span><span class="n">net</span> <span class="p">(</span><span class="n">code</span> <span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="n">name</span> <span class="s2">&quot;VO&quot;</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">node</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R1</span><span class="p">)</span> <span class="p">(</span><span class="n">pin</span> <span class="mi">2</span><span class="p">))</span>
+      <span class="p">(</span><span class="n">node</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R2</span><span class="p">)</span> <span class="p">(</span><span class="n">pin</span> <span class="mi">1</span><span class="p">))))</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<span id="document-caveats"></span><div class="section" id="caveats">
+<h2>Caveats<a class="headerlink" href="#caveats" title="Permalink to this headline">¶</a></h2>
+<p>Before working with SKiDL, please realize that it is still under development
+and features are missing and/or likely to change.
+The most notable missing feature is the lack of <em>back annotation</em> where
+changes made to a circuit during PCB layout are reflected back into the
+schematic (or, in our case, the SKiDL program).</p>
+<p>Also, while SKiDL-generated netlists have been brought into KiCad&#8217;s PCBNEW
+layout editor and manipulated, no physical PCBs have yet been fabricated.</p>
+</div>
+<span id="document-installation"></span><div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>SKiDL is pure Python so it&#8217;s easy to install:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ pip install skidl
+</pre></div>
+</div>
+<p>or:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ easy_install skidl
+</pre></div>
+</div>
+</div>
+<span id="document-usage"></span><div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="scratching-the-surface">
+<h3>Scratching the Surface<a class="headerlink" href="#scratching-the-surface" title="Permalink to this headline">¶</a></h3>
+<p>This is the minimum that you need to know to design electronic circuitry
+using SKiDL:</p>
+<ul class="simple">
+<li>How to get access to SKiDL.</li>
+<li>How to find and instantiate a component (or <em>part</em>).</li>
+<li>How to connect <em>pins</em> of the parts to each other using <em>nets</em>.</li>
+<li>How to run an ERC on the circuit.</li>
+<li>How to generate a <em>netlist</em> for the circuit that serves as input to a PCB layout tool.</li>
+</ul>
+<p>I&#8217;ll demonstrate these steps using SKiDL in an interactive Python session,
+but normally the statements that are shown would be entered into a file and
+executed as a Python script.</p>
+<div class="section" id="accessing-skidl">
+<h4>Accessing SKiDL<a class="headerlink" href="#accessing-skidl" title="Permalink to this headline">¶</a></h4>
+<p>To use skidl in a project, just place the following at the top of your file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">skidl</span>
+</pre></div>
+</div>
+<p>But for this tutorial, I&#8217;ll just import everything:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skidl</span> <span class="k">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="finding-parts">
+<h4>Finding Parts<a class="headerlink" href="#finding-parts" title="Permalink to this headline">¶</a></h4>
+<p>SKiDL provides a convenience function for searching for parts called
+(naturally) <code class="docutils literal"><span class="pre">search</span></code>. Suppose you want to use a resistor, but don&#8217;t know
+what the name of the part is. Assuming it probably starts with &#8220;R&#8221;, <code class="docutils literal"><span class="pre">search</span></code>
+can be used to do a wildcard search of the part libraries:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;R.*&#39;</span><span class="p">)</span>
+<span class="go">bbd.lib: RD5106A</span>
+<span class="go">conn.lib: RJ12</span>
+<span class="go">conn.lib: RJ45</span>
+<span class="go">conn.lib: RJ45-TRANSFO</span>
+<span class="go">conn.lib: RJ45_LEDS</span>
+<span class="go">device.lib: R</span>
+<span class="go">device.lib: RELAY_2RT</span>
+<span class="go">device.lib: RF_SHIELD_ONE_PIECE</span>
+<span class="go">device.lib: RF_SHIELD_TWO_PIECES</span>
+<span class="gp">...</span>
+<span class="go">references.lib: REF3212AMDBVREP</span>
+<span class="go">references.lib: REF5020AD</span>
+<span class="go">references.lib: REF5020ADGK</span>
+<span class="go">rfcom.lib: RN42</span>
+<span class="go">rfcom.lib: RN42N</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>Or suppose you want an LM358 opamp:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;LM358&#39;</span><span class="p">)</span>
+<span class="go">linear.lib: LM358</span>
+</pre></div>
+</div>
+<p>Once you have the part name and library, you can see the part&#8217;s pin numbers, names
+and their functions using the <code class="docutils literal"><span class="pre">show</span></code> function:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">show</span><span class="p">(</span><span class="s1">&#39;device&#39;</span><span class="p">,</span><span class="s1">&#39;R&#39;</span><span class="p">)</span>
+<span class="go">R:</span>
+<span class="go">        Pin 1/~: PASSIVE</span>
+<span class="go">        Pin 2/~: PASSIVE</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">show</span><span class="p">(</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span><span class="s1">&#39;LM358&#39;</span><span class="p">)</span>
+<span class="go">LM358:</span>
+<span class="go">        Pin 4/V-: POWER-IN</span>
+<span class="go">        Pin 8/V+: POWER-IN</span>
+<span class="go">        Pin 1/~: OUTPUT</span>
+<span class="go">        Pin 2/-: INPUT</span>
+<span class="go">        Pin 3/+: INPUT</span>
+<span class="go">        Pin 5/+: INPUT</span>
+<span class="go">        Pin 6/-: INPUT</span>
+<span class="go">        Pin 7/~: OUTPUT</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="instantiating-parts">
+<h4>Instantiating Parts<a class="headerlink" href="#instantiating-parts" title="Permalink to this headline">¶</a></h4>
+<p>The part library and name are used to instantiate a part as follows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">resistor</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;device&#39;</span><span class="p">,</span><span class="s1">&#39;R&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can customize the resistor by setting its attributes:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">resistor</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;1K&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">resistor</span><span class="o">.</span><span class="n">value</span>
+<span class="go">&#39;1K&#39;</span>
+</pre></div>
+</div>
+<p>You can also combine the setting of attributes with the creation of the part:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">resistor</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;device&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;1K&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">resistor</span><span class="o">.</span><span class="n">value</span>
+<span class="go">&#39;1K&#39;</span>
+</pre></div>
+</div>
+<p>You can use any valid Python name for a part attribute, but <code class="docutils literal"><span class="pre">ref</span></code>, <code class="docutils literal"><span class="pre">value</span></code>,
+and <code class="docutils literal"><span class="pre">footprint</span></code> are necessary in order to generate the final netlist
+for your circuit. And the attribute can hold any type of Python object,
+but simple strings are probably the most useful.</p>
+<p>The <code class="docutils literal"><span class="pre">ref</span></code> attribute holds the <em>reference</em> for the part. It&#8217;s set automatically
+when you create the part:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">resistor</span><span class="o">.</span><span class="n">ref</span>
+<span class="go">&#39;R1&#39;</span>
+</pre></div>
+</div>
+<p>Since this was the first resistor we created, it has the honor of being named <code class="docutils literal"><span class="pre">R1</span></code>.
+But you can easily change it:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">resistor</span><span class="o">.</span><span class="n">ref</span> <span class="o">=</span> <span class="s1">&#39;R5&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">resistor</span><span class="o">.</span><span class="n">ref</span>
+<span class="go">&#39;R5&#39;</span>
+</pre></div>
+</div>
+<p>Now what happens if we create another resistor?:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">another_res</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;device&#39;</span><span class="p">,</span><span class="s1">&#39;R&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">another_res</span><span class="o">.</span><span class="n">ref</span>
+<span class="go">&#39;R1&#39;</span>
+</pre></div>
+</div>
+<p>Since the <code class="docutils literal"><span class="pre">R1</span></code> reference was now available, the new resistor got it.
+What if we tried renaming the first resistor back to <code class="docutils literal"><span class="pre">R1</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">resistor</span><span class="o">.</span><span class="n">ref</span> <span class="o">=</span> <span class="s1">&#39;R1&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">resistor</span><span class="o">.</span><span class="n">ref</span>
+<span class="go">&#39;R1_1&#39;</span>
+</pre></div>
+</div>
+<p>Since the <code class="docutils literal"><span class="pre">R1</span></code> reference was already taken, SKiDL tried to give us
+something close to what we wanted.
+SKiDL won&#8217;t let different parts have the same reference because
+that would confuse the hell out of everybody.</p>
+</div>
+<div class="section" id="connecting-pins">
+<h4>Connecting Pins<a class="headerlink" href="#connecting-pins" title="Permalink to this headline">¶</a></h4>
+<p>Parts are great and all, but not very useful if they aren&#8217;t connected to anything.
+The connections between parts are called <em>nets</em> (think of them as wires)
+and every net has one or more part <em>pins</em> on it.
+SKiDL makes it easy to create nets and connect pins to them.
+To demonstrate, let&#8217;s build the voltage divider circuit
+shown in the introduction.</p>
+<p>First, start by creating two resistors (note that I&#8217;ve also added the
+<code class="docutils literal"><span class="pre">footprint</span></code> attribute that describes the physical package for the resistors):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rup</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;device&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;1K&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Resistors_SMD:R_0805&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rlow</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;device&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;500&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Resistors_SMD:R_0805&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rup</span><span class="o">.</span><span class="n">ref</span><span class="p">,</span> <span class="n">rlow</span><span class="o">.</span><span class="n">ref</span>
+<span class="go">(&#39;R1&#39;, &#39;R2&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rup</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">rlow</span><span class="o">.</span><span class="n">value</span>
+<span class="go">(&#39;1K&#39;, &#39;500&#39;)</span>
+</pre></div>
+</div>
+<p>To bring the voltage that will be divided into the circuit, let&#8217;s create a net:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">v_in</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;VIN&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v_in</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;VIN&#39;</span>
+</pre></div>
+</div>
+<p>Now attach the net to one of the pins of the <code class="docutils literal"><span class="pre">rup</span></code> resistor
+(resistors are bidirectional which means it doesn&#8217;t matter which pin, so pick pin 1):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rup</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">v_in</span>
+</pre></div>
+</div>
+<p>You can verify that the net is attached to pin 1 of the resistor like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rup</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">net</span>
+<span class="go">VIN: Pin 1/~: PASSIVE</span>
+</pre></div>
+</div>
+<p>Next, create a ground reference net and attach it to <code class="docutils literal"><span class="pre">rlow</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rlow</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">gnd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rlow</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">net</span>
+<span class="go">GND: Pin 1/~: PASSIVE</span>
+</pre></div>
+</div>
+<p>Finally, the divided voltage has to come out of the circuit on a net.
+This can be done in several ways.
+The first way is to define the output net and then attach the unconnected
+pins of both resistors to it:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">v_out</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;VO&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v_out</span> <span class="o">+=</span> <span class="n">rup</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">rlow</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rup</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">net</span><span class="p">,</span> <span class="n">rlow</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">net</span>
+<span class="go">(VO: Pin 2/~: PASSIVE, Pin 2/~: PASSIVE, VO: Pin 2/~: PASSIVE, Pin 2/~: PASSIVE)</span>
+</pre></div>
+</div>
+<p>An alternate method is to connect the resistors and then attach their
+junction to the output net:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rup</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">rlow</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v_out</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;VO&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v_out</span> <span class="o">+=</span> <span class="n">rlow</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rup</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">net</span><span class="p">,</span> <span class="n">rlow</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">net</span>
+<span class="go">(VO: Pin 2/~: PASSIVE, Pin 2/~: PASSIVE, VO: Pin 2/~: PASSIVE, Pin 2/~: PASSIVE)</span>
+</pre></div>
+</div>
+<p>Either way works! Sometimes pin-to-pin connections are easier when you&#8217;re
+just wiring two devices together, while the pin-to-net connection method
+excels when three or more pins have a common connection.</p>
+</div>
+<div class="section" id="checking-for-errors">
+<h4>Checking for Errors<a class="headerlink" href="#checking-for-errors" title="Permalink to this headline">¶</a></h4>
+<p>Once the parts are wired together, you can do simple electrical rules checking
+like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ERC</span><span class="p">()</span>
+
+<span class="go">2 warnings found during ERC.</span>
+<span class="go">0 errors found during ERC.</span>
+</pre></div>
+</div>
+<p>Since this is an interactive session, the ERC warnings and errors are stored
+in the file <code class="docutils literal"><span class="pre">skidl.erc</span></code>. (Normally, your SKiDL circuit description is stored
+as a Python script such as <code class="docutils literal"><span class="pre">my_circuit.py</span></code> and the <code class="docutils literal"><span class="pre">ERC()</span></code> function will
+dump its messages to <code class="docutils literal"><span class="pre">my_circuit.erc</span></code>.)
+The ERC messages are:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">WARNING</span><span class="p">:</span> <span class="n">Only</span> <span class="n">one</span> <span class="n">pin</span> <span class="p">(</span><span class="n">PASSIVE</span> <span class="n">pin</span> <span class="mi">1</span><span class="o">/~</span> <span class="n">of</span> <span class="n">R</span><span class="o">/</span><span class="n">R1</span><span class="p">)</span> <span class="n">attached</span> <span class="n">to</span> <span class="n">net</span> <span class="n">VIN</span><span class="o">.</span>
+<span class="n">WARNING</span><span class="p">:</span> <span class="n">Only</span> <span class="n">one</span> <span class="n">pin</span> <span class="p">(</span><span class="n">PASSIVE</span> <span class="n">pin</span> <span class="mi">1</span><span class="o">/~</span> <span class="n">of</span> <span class="n">R</span><span class="o">/</span><span class="n">R2</span><span class="p">)</span> <span class="n">attached</span> <span class="n">to</span> <span class="n">net</span> <span class="n">GND</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>These messages are generated because the <code class="docutils literal"><span class="pre">VIN</span></code> and <code class="docutils literal"><span class="pre">GND</span></code> nets each have only
+a single pin on them and this usually indicates a problem.
+But it&#8217;s OK for this simple example, so the ERC can be turned off for
+these two nets to prevent the spurious messages:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">v_in</span><span class="o">.</span><span class="n">do_erc</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gnd</span><span class="o">.</span><span class="n">do_erc</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ERC</span><span class="p">()</span>
+
+<span class="go">No ERC errors or warnings found.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="generating-a-netlist">
+<h4>Generating a Netlist<a class="headerlink" href="#generating-a-netlist" title="Permalink to this headline">¶</a></h4>
+<p>The end goal of using SKiDL is to generate a netlist that can be used
+with a layout tool to generate a PCB. The netlist is output as follows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">generate_netlist</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Like the ERC output, the netlist shown below is stored in the file <code class="docutils literal"><span class="pre">skidl.net</span></code>.
+But if your SKiDL circuit description is in the <code class="docutils literal"><span class="pre">my_circuit.py</span></code> file,
+then the netlist will be stored in <code class="docutils literal"><span class="pre">my_circuit.net</span></code>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">export</span> <span class="p">(</span><span class="n">version</span> <span class="n">D</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">design</span>
+    <span class="p">(</span><span class="n">source</span> <span class="s2">&quot;C:\xesscorp\KiCad</span><span class="se">\t</span><span class="s2">ools\skidl\skidl\skidl.py&quot;</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">date</span> <span class="s2">&quot;08/12/2016 10:05 PM&quot;</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">tool</span> <span class="s2">&quot;SKiDL (0.0.1)&quot;</span><span class="p">))</span>
+  <span class="p">(</span><span class="n">components</span>
+    <span class="p">(</span><span class="n">comp</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R1</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">value</span> <span class="mi">1</span><span class="n">K</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">footprint</span> <span class="n">Resistors_SMD</span><span class="p">:</span><span class="n">R_0805</span><span class="p">))</span>
+    <span class="p">(</span><span class="n">comp</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R2</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">value</span> <span class="mi">500</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">footprint</span> <span class="n">Resistors_SMD</span><span class="p">:</span><span class="n">R_0805</span><span class="p">)))</span>
+  <span class="p">(</span><span class="n">nets</span>
+    <span class="p">(</span><span class="n">net</span> <span class="p">(</span><span class="n">code</span> <span class="mi">0</span><span class="p">)</span> <span class="p">(</span><span class="n">name</span> <span class="s2">&quot;VIN&quot;</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">node</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R1</span><span class="p">)</span> <span class="p">(</span><span class="n">pin</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="p">(</span><span class="n">net</span> <span class="p">(</span><span class="n">code</span> <span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="n">name</span> <span class="s2">&quot;GND&quot;</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">node</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R2</span><span class="p">)</span> <span class="p">(</span><span class="n">pin</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="p">(</span><span class="n">net</span> <span class="p">(</span><span class="n">code</span> <span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="n">name</span> <span class="s2">&quot;VO&quot;</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">node</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R1</span><span class="p">)</span> <span class="p">(</span><span class="n">pin</span> <span class="mi">2</span><span class="p">))</span>
+      <span class="p">(</span><span class="n">node</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R2</span><span class="p">)</span> <span class="p">(</span><span class="n">pin</span> <span class="mi">2</span><span class="p">))))</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="going-deeper">
+<h3>Going Deeper<a class="headerlink" href="#going-deeper" title="Permalink to this headline">¶</a></h3>
+<p>The previous section showed the bare minimum you need to know to design
+circuits with SKiDL, but doing a complicated circuit that way would suck donkeys.
+This section will talk about some more advanced features.</p>
+<div class="section" id="basic-skidl-objects-parts-pins-nets-and-buses">
+<h4>Basic SKiDL Objects: Parts, Pins, Nets, and Buses<a class="headerlink" href="#basic-skidl-objects-parts-pins-nets-and-buses" title="Permalink to this headline">¶</a></h4>
+<p>SKiDL uses four types of objects to represent a circuit: <code class="docutils literal"><span class="pre">Part</span></code>, <code class="docutils literal"><span class="pre">Pin</span></code>,
+<code class="docutils literal"><span class="pre">Net</span></code>, and <code class="docutils literal"><span class="pre">Bus</span></code>.</p>
+<p>The <code class="docutils literal"><span class="pre">Part</span></code> object represents an electronic component, which SKiDL thinks of as simple
+bags of <code class="docutils literal"><span class="pre">Pin</span></code> objects with a few other attributes attached
+(like the part number, name, reference, value, footprint, etc.).</p>
+<p>The <code class="docutils literal"><span class="pre">Pin</span></code> object represents a terminal that brings an electronic signal into
+and out of the part. Each <code class="docutils literal"><span class="pre">Pin</span></code> object has two important attributes:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">part</span></code> which stores the reference to the <code class="docutils literal"><span class="pre">Part</span></code> object to which the pin belongs.</li>
+<li><code class="docutils literal"><span class="pre">net</span></code> which stores the the reference to the <code class="docutils literal"><span class="pre">Net</span></code> object that the pin is
+connected to, or <code class="docutils literal"><span class="pre">None</span></code> if the pin is unconnected.</li>
+</ul>
+<p>A <code class="docutils literal"><span class="pre">Net</span></code> object is kind of like a <code class="docutils literal"><span class="pre">Part</span></code>: it&#8217;s a simple bag of pins.
+The difference is, unlike a part, pins can be added to a net.
+This happens when a pin on some part is connected to the net or when the
+net is merged with another net.</p>
+<p>Finally, a <code class="docutils literal"><span class="pre">Bus</span></code> is just a list of <code class="docutils literal"><span class="pre">Net</span></code> objects.
+A bus of a certain width can be created from a number of existing nets,
+newly-created nets, or both.</p>
+</div>
+<div class="section" id="creating-skidl-objects">
+<h4>Creating SKiDL Objects<a class="headerlink" href="#creating-skidl-objects" title="Permalink to this headline">¶</a></h4>
+<p>Here&#8217;s the most common way to create a part in your circuit:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_part</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;some_library&#39;</span><span class="p">,</span> <span class="s1">&#39;some_part_name&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>When this is processed, the current directory will be checked for a file
+called <code class="docutils literal"><span class="pre">some_library.lib</span></code> which will be opened and scanned for a part with the
+name <code class="docutils literal"><span class="pre">some_part_name</span></code>. If the file is not found or it doesn&#8217;t contain
+the requested part, then the process will be repeated using KiCad&#8217;s default
+library directory.</p>
+<p>You&#8217;re not restricted to using only the current directory or the KiCad default
+directory to search for parts. You can also search any file for a part by
+using a full file name:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_part</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;C:/my_libs/my_great_parts.lib&#39;</span><span class="p">,</span> <span class="s1">&#39;my_super_regulator&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You&#8217;re also not restricted to getting an exact match on the part name: you can
+use a <em>regular expression</em> instead. For example, this will find a part
+with &#8220;358&#8221; anywhere in a part name or alias:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_part</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;some_library&#39;</span><span class="p">,</span> <span class="s1">&#39;.*358.*&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If the regular expression matches more than one part, then you&#8217;ll only get the
+first match and a warning that multiple parts were found.</p>
+<p>Once you have a part, you can set its attributes like you could for any Python
+object. As was shown previously, the <code class="docutils literal"><span class="pre">ref</span></code> attribute will already be set
+but you can override it:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_part</span><span class="o">.</span><span class="n">ref</span> <span class="o">=</span> <span class="s1">&#39;U5&#39;</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">value</span></code> and <code class="docutils literal"><span class="pre">footprint</span></code> attributes are also required for generating
+a netlist. But you can also add any other attribute:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_part</span><span class="o">.</span><span class="n">manf</span> <span class="o">=</span> <span class="s1">&#39;Atmel&#39;</span>
+<span class="n">my_part</span><span class="o">.</span><span class="n">setattr</span><span class="p">(</span><span class="s1">&#39;manf#&#39;</span><span class="p">,</span> <span class="s1">&#39;ATTINY4-TSHR&#39;</span>
+</pre></div>
+</div>
+<p>It&#8217;s also possible to set the attributes during the part creation:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_part</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;some_lib&#39;</span><span class="p">,</span> <span class="s1">&#39;some_part&#39;</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="s1">&#39;U5&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;SMD:SOT23_6&#39;</span><span class="p">,</span> <span class="n">manf</span><span class="o">=</span><span class="s1">&#39;Atmel&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Creating nets is also simple:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>              <span class="c1"># An unnamed net.</span>
+<span class="n">my_other_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;Fred&#39;</span><span class="p">)</span>  <span class="c1"># A named net.</span>
+</pre></div>
+</div>
+<p>As with parts, SKiDL will alter the name you assign to a net if it collides with another net
+having the same name.</p>
+<p>You can create a bus of a certain width like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_bus</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;bus_name&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>  <span class="c1"># Create a byte-wide bus.</span>
+</pre></div>
+</div>
+<p>(All buses must be named, but SKiDL will look for and correct colliding
+bus names.)</p>
+<p>You can also create a bus from existing nets, or buses, or the pins of parts:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_part</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="s1">&#39;LM358&#39;</span><span class="p">)</span>
+<span class="n">a_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>
+<span class="n">b_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>
+<span class="n">bus_nets</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;net_bus&#39;</span><span class="p">,</span> <span class="n">a_net</span><span class="p">,</span> <span class="n">b_net</span><span class="p">)</span>            <span class="c1"># A 2-bit bus.</span>
+<span class="n">bus_pins</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;pin_bus&#39;</span><span class="p">,</span> <span class="n">my_part</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">my_part</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>  <span class="c1"># A 2-bit bus.</span>
+<span class="n">bus_buses</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;bus_bus&#39;</span><span class="p">,</span> <span class="n">my_bus</span><span class="p">)</span>                 <span class="c1"># An 8-bit bus.</span>
+</pre></div>
+</div>
+<p>Finally, you can mix-and-match any combination of widths, nets, buses or part pins:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">bus_mixed</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;mongrel&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">a_net</span><span class="p">,</span> <span class="n">my_bus</span><span class="p">,</span> <span class="n">my_part</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>  <span class="c1"># 8+1+8+1 = 18-bit bus.</span>
+</pre></div>
+</div>
+<p>The final object you can create is a <code class="docutils literal"><span class="pre">Pin</span></code>. You&#8217;ll probably never do this
+(except in interactive sessions), and it&#8217;s probably a mistake if
+you ever do do it, but here&#8217;s how to do it:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;my_pin&#39;</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">Pin</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span>
+<span class="go">Pin 1/my_pin: TRISTATE</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="accessing-part-pins-and-bus-lines">
+<h4>Accessing Part Pins and Bus Lines<a class="headerlink" href="#accessing-part-pins-and-bus-lines" title="Permalink to this headline">¶</a></h4>
+<p>You can access the pins on a part or the individual nets of a bus
+using numbers, slices, strings, and regular expressions, either singly or in any combination.</p>
+<p>Suppose you have a PIC10 processor in a six-pin package:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;microchip_pic10mcu&#39;</span><span class="p">,</span> <span class="s1">&#39;pic10f220-i/ot&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span>
+<span class="go">PIC10F220-I/OT:</span>
+<span class="go">        Pin 1/ICSPDAT/AN0/GP0: BIDIRECTIONAL</span>
+<span class="go">        Pin 2/VSS: POWER-IN</span>
+<span class="go">        Pin 3/ICSPCLK/AN1/GP1: BIDIRECTIONAL</span>
+<span class="go">        Pin 4/T0CKI/FOSC4/GP2: BIDIRECTIONAL</span>
+<span class="go">        Pin 5/VDD: POWER-IN</span>
+<span class="go">        Pin 6/Vpp/~MCLR~/GP3: INPUT</span>
+</pre></div>
+</div>
+<p>The most natural way to access one of its pins is to give the pin number
+in brackets:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="go">Pin 3/ICSPCLK/AN1/GP1: BIDIRECTIONAL</span>
+</pre></div>
+</div>
+<p>(If you have a part in a BGA package with pins numbers like <code class="docutils literal"><span class="pre">C11</span></code>, then
+you&#8217;ll have to enter the pin number as a quoted string like <code class="docutils literal"><span class="pre">'C11'</span></code>.)</p>
+<p>You can also get several pins at once in a list:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+<span class="go">[Pin 3/ICSPCLK/AN1/GP1: BIDIRECTIONAL, Pin 1/ICSPDAT/AN0/GP0: BIDIRECTIONAL, Pin 6/Vpp/~MCLR~/GP3: INPUT]</span>
+</pre></div>
+</div>
+<p>You can even use Python slice notation:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>  <span class="c1"># Get pins 2 through 4.</span>
+<span class="go">[Pin 2/VSS: POWER-IN, Pin 3/ICSPCLK/AN1/GP1: BIDIRECTIONAL, Pin 4/T0CKI/FOSC4/GP2: BIDIRECTIONAL]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># Get pins 4 through 2.</span>
+<span class="go">[Pin 4/T0CKI/FOSC4/GP2: BIDIRECTIONAL, Pin 3/ICSPCLK/AN1/GP1: BIDIRECTIONAL, Pin 2/VSS: POWER-IN]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span><span class="p">[:]</span>    <span class="c1"># Get all the pins.</span>
+<span class="go">[Pin 1/ICSPDAT/AN0/GP0: BIDIRECTIONAL, Pin 2/VSS: POWER-IN, Pin 3/ICSPCLK/AN1/GP1: BIDIRECTIONAL, Pin 4/T0CKI/FOSC4/GP2: BIDIRECTIONAL, Pin 5/VDD: POWER-IN, Pin 6/Vpp/~MCLR~/GP3: INPUT]</span>
+</pre></div>
+</div>
+<p>(It&#8217;s important to note that the slice notation used by SKiDL for parts is slightly
+different than standard Python. In Python, a slice <code class="docutils literal"><span class="pre">n:m</span></code> would fetch indices
+<code class="docutils literal"><span class="pre">n</span></code>, <code class="docutils literal"><span class="pre">n+1</span></code>, <code class="docutils literal"><span class="pre">...</span></code>, <code class="docutils literal"><span class="pre">m-1</span></code>. With SKiDL, it actually fetches all the
+way up to the last number: <code class="docutils literal"><span class="pre">n</span></code>, <code class="docutils literal"><span class="pre">n+1</span></code>, <code class="docutils literal"><span class="pre">...</span></code>, <code class="docutils literal"><span class="pre">m-1</span></code>, <code class="docutils literal"><span class="pre">m</span></code>.
+The reason for doing this is that most electronics designers are used to
+the bounds on a slice including both endpoints. Perhaps it is a mistake to
+do it this way. We&#8217;ll see...)</p>
+<p>Instead of pin numbers, sometimes it makes the design intent more clear to
+access pins by their names.
+For example, it&#8217;s more obvious that a voltage supply net is being
+attached to the power pin of the processor when it&#8217;s expressed like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pic10</span><span class="p">[</span><span class="s1">&#39;VDD&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">supply_5V</span>
+</pre></div>
+</div>
+<p>You can use multiple names or regular expressions to get more than one pin:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span><span class="p">[</span><span class="s1">&#39;VDD&#39;</span><span class="p">,</span><span class="s1">&#39;VSS&#39;</span><span class="p">]</span>
+<span class="go">[Pin 5/VDD: POWER-IN, Pin 2/VSS: POWER-IN]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span><span class="p">[</span><span class="s1">&#39;.*GP[1-3]&#39;</span><span class="p">]</span>
+<span class="go">[Pin 3/ICSPCLK/AN1/GP1: BIDIRECTIONAL, Pin 4/T0CKI/FOSC4/GP2: BIDIRECTIONAL, Pin 6/Vpp/~MCLR~/GP3: INPUT]</span>
+</pre></div>
+</div>
+<p>It can be tedious and error prone entering all the quote marks if you&#8217;re accessing
+many pin names. SKiDL lets you enter a single, comma-delimited string of
+pin names:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span><span class="p">[</span><span class="s1">&#39;.*GP0, .*GP1, .*GP2&#39;</span><span class="p">]</span>
+<span class="go">[Pin 1/ICSPDAT/AN0/GP0: BIDIRECTIONAL, Pin 3/ICSPCLK/AN1/GP1: BIDIRECTIONAL, Pin 4/T0CKI/FOSC4/GP2: BIDIRECTIONAL]</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">Part</span></code> objects also provide the <code class="docutils literal"><span class="pre">get_pins()</span></code> function which can select pins in even more ways.
+For example, this would get every bidirectional pin of the processor:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span><span class="o">.</span><span class="n">get_pins</span><span class="p">(</span><span class="n">func</span><span class="o">=</span><span class="n">Pin</span><span class="o">.</span><span class="n">BIDIR</span><span class="p">)</span>
+<span class="go">[Pin 1/ICSPDAT/AN0/GP0: BIDIRECTIONAL, Pin 3/ICSPCLK/AN1/GP1: BIDIRECTIONAL, Pin 4/T0CKI/FOSC4/GP2: BIDIRECTIONAL]</span>
+</pre></div>
+</div>
+<p>However, slice notation doesn&#8217;t work with pin names. You&#8217;ll get an error if you try that.</p>
+<p>Accessing the individual nets of a bus works similarly to accessing part pins:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;NET_A&#39;</span><span class="p">)</span>  <span class="c1"># Create a named net.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;BUS_B&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>  <span class="c1"># Create a nine-bit bus.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span>
+<span class="go">BUS_B:</span>
+<span class="go">        BUS_B0:  # Note how the individual nets of the bus are named.</span>
+<span class="go">        BUS_B1:</span>
+<span class="go">        BUS_B2:</span>
+<span class="go">        BUS_B3:</span>
+<span class="go">        BUS_B4:</span>
+<span class="go">        BUS_B5:</span>
+<span class="go">        BUS_B6:</span>
+<span class="go">        BUS_B7:</span>
+<span class="go">        NET_A:   # The last net retains its original name.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Get the first net of the bus.</span>
+<span class="go">BUS_B0:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">]</span>  <span class="c1"># Get the fifth and ninth bus lines.</span>
+<span class="go">[BUS_B4: , NET_A: ]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Get the first four bus lines in reverse order.</span>
+<span class="go">[BUS_B3: , BUS_B2: , BUS_B1: , BUS_B0: ]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span><span class="p">[</span><span class="s1">&#39;BUS_B.*&#39;</span><span class="p">]</span>  <span class="c1"># Get all the bus lines except the last one.</span>
+<span class="go">[BUS_B0: , BUS_B1: , BUS_B2: , BUS_B3: , BUS_B4: , BUS_B5: , BUS_B6: , BUS_B7: ]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span><span class="p">[</span><span class="s1">&#39;NET_A&#39;</span><span class="p">]</span>  <span class="c1"># Get the last bus line.</span>
+<span class="go">NET_A:</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="making-connections">
+<h4>Making Connections<a class="headerlink" href="#making-connections" title="Permalink to this headline">¶</a></h4>
+<p>Pins, nets, parts and buses can all be connected together in various ways, but
+the primary rule of SKiDL connections is:</p>
+<blockquote>
+<div><strong>The ``+=`` operator is the only way to make connections!</strong></div></blockquote>
+<p>At times you&#8217;ll mistakenly try to make connections using the
+assignment operator (<code class="docutils literal"><span class="pre">=</span></code>). In many cases, SKiDL warns you if you do that,
+but there are situations where it can&#8217;t (because
+Python is a general-purpose programming language where
+assignment is a necessary operation).
+So remember the primary rule!</p>
+<p>After the primary rule, the next thing to remember is that SKiDL&#8217;s main
+purpose is creating netlists. To that end, it handles four basic, connection operations:</p>
+<dl class="docutils">
+<dt><strong>Pin-to-Net</strong>:</dt>
+<dd>A pin is connected to a net, adding it to the list of pins
+connected to that net. If the pin is already attached to other nets,
+then those nets are connected to this net as well.</dd>
+<dt><strong>Net-to-Pin</strong>:</dt>
+<dd>This is the same as doing a pin-to-net connection.</dd>
+<dt><strong>Pin-to-Pin</strong>:</dt>
+<dd>A net is created and both pins are attached to it. If one or
+both pins are already connected to other nets, then those nets are connected
+to the newly-created net as well.</dd>
+<dt><strong>Net-to-Net</strong>:</dt>
+<dd>Connecting one net to another <em>merges</em> the pins on both nets
+onto a single, larger net.</dd>
+</dl>
+<p>There are three variants of each connection operation:</p>
+<dl class="docutils">
+<dt><strong>One-to-One</strong>:</dt>
+<dd>This is the most frequent type of connection, for example, connecting one
+pin to another or connecting a pin to a net.</dd>
+<dt><strong>One-to-Many</strong>:</dt>
+<dd>This mainly occurs when multiple pins are connected to the same net, like
+when multiple ground pins of a chip are connected to the circuit ground net.</dd>
+<dt><strong>Many-to-Many</strong>:</dt>
+<dd>This usually involves bus connections to a part, such as connecting
+a bus to the data or address pins of a processor. But there must be the
+same number of things to connect in each set, e.g. you can&#8217;t connect
+three pins to four nets.</dd>
+</dl>
+<p>As a first example, let&#8217;s connect a net to a pin on a part:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;microchip_pic10mcu&#39;</span><span class="p">,</span><span class="s1">&#39;pic10f220-i/ot&#39;</span><span class="p">)</span>  <span class="c1"># Get a part.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">io</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;IO_NET&#39;</span><span class="p">)</span>    <span class="c1"># Create a net.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span><span class="p">[</span><span class="s1">&#39;.*GP0&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">io</span>  <span class="c1"># Connect the net to a part pin.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">io</span>                    <span class="c1"># Show the pins connected to the net.</span>
+<span class="go">IO_NET: Pin 1/ICSPDAT/AN0/GP0: BIDIRECTIONAL</span>
+</pre></div>
+</div>
+<p>You can do the same operation in reverse by connecting the part pin to the net
+with the same result:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;microchip_pic10mcu&#39;</span><span class="p">,</span><span class="s1">&#39;pic10f220-i/ot&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">io</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;IO_NET&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">io</span> <span class="o">+=</span> <span class="n">pic10</span><span class="p">[</span><span class="s1">&#39;.*GP0&#39;</span><span class="p">]</span>  <span class="c1"># Connect a part pin to the net.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">io</span>
+<span class="go">IO_NET: Pin 1/ICSPDAT/AN0/GP0: BIDIRECTIONAL</span>
+</pre></div>
+</div>
+<p>You can also connect a pin directly to another pin.
+In this case, an <em>implicit net</em> will be created between the pins that can be
+accessed using the <code class="docutils literal"><span class="pre">net</span></code> attribute of either part pin:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span><span class="p">[</span><span class="s1">&#39;.*GP1&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pic10</span><span class="p">[</span><span class="s1">&#39;.*GP2&#39;</span><span class="p">]</span>  <span class="c1"># Connect two pins together.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span><span class="p">[</span><span class="s1">&#39;.*GP1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">net</span>     <span class="c1"># Show the net connected to the pin.</span>
+<span class="go">N$1: Pin 4/T0CKI/FOSC4/GP2: BIDIRECTIONAL, Pin 3/ICSPCLK/AN1/GP1: BIDIRECTIONAL</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span><span class="p">[</span><span class="s1">&#39;.*GP2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">net</span>     <span class="c1"># Show the net connected to the other pin. Same thing!</span>
+<span class="go">N$1: Pin 4/T0CKI/FOSC4/GP2: BIDIRECTIONAL, Pin 3/ICSPCLK/AN1/GP1: BIDIRECTIONAL</span>
+</pre></div>
+</div>
+<p>You can connect multiple pins together, all at once:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pic10</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">net</span>
+<span class="go">N$1: Pin 6/Vpp/~MCLR~/GP3: INPUT, Pin 3/ICSPCLK/AN1/GP1: BIDIRECTIONAL, Pin 1/ICSPDAT/AN0/GP0: BIDIRECTIONAL, Pin 2/VSS: POWER-IN</span>
+</pre></div>
+</div>
+<p>Or you can do it incrementally:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pic10</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pic10</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pic10</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">net</span>
+<span class="go">N$1: Pin 2/VSS: POWER-IN, Pin 6/Vpp/~MCLR~/GP3: INPUT, Pin 1/ICSPDAT/AN0/GP0: BIDIRECTIONAL, Pin 3/ICSPCLK/AN1/GP1: BIDIRECTIONAL</span>
+</pre></div>
+</div>
+<p>If you connect pins on separate nets together, then all the pins are merged onto the same net:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pic10</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># Put pins 1 &amp; 2 on one net.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">net</span>
+<span class="go">N$1: Pin 1/ICSPDAT/AN0/GP0: BIDIRECTIONAL, Pin 2/VSS: POWER-IN</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pic10</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>  <span class="c1"># Put pins 3 &amp; 4 on another net.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">net</span>
+<span class="go">N$2: Pin 4/T0CKI/FOSC4/GP2: BIDIRECTIONAL, Pin 3/ICSPCLK/AN1/GP1: BIDIRECTIONAL</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pic10</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>  <span class="c1"># Connect two pins from different nets.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">net</span>          <span class="c1"># Now all the pins are on the same net!</span>
+<span class="go">N$2: Pin 1/ICSPDAT/AN0/GP0: BIDIRECTIONAL, Pin 2/VSS: POWER-IN, Pin 4/T0CKI/FOSC4/GP2: BIDIRECTIONAL, Pin 3/ICSPCLK/AN1/GP1: BIDIRECTIONAL</span>
+</pre></div>
+</div>
+<p>Here&#8217;s an example of connecting a three-bit bus to three pins on a part:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;microchip_pic10mcu&#39;</span><span class="p">,</span><span class="s1">&#39;pic10f220-i/ot&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span>
+<span class="go">PIC10F220-I/OT:</span>
+<span class="go">        Pin 1/ICSPDAT/AN0/GP0: BIDIRECTIONAL</span>
+<span class="go">        Pin 2/VSS: POWER-IN</span>
+<span class="go">        Pin 3/ICSPCLK/AN1/GP1: BIDIRECTIONAL</span>
+<span class="go">        Pin 4/T0CKI/FOSC4/GP2: BIDIRECTIONAL</span>
+<span class="go">        Pin 5/VDD: POWER-IN</span>
+<span class="go">        Pin 6/Vpp/~MCLR~/GP3: INPUT</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;GP&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>        <span class="c1"># Create a 3-bit bus.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Connect bus to part pins, one-to-one.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span>
+<span class="go">GP:</span>
+<span class="go">        GP0: Pin 1/ICSPDAT/AN0/GP0: BIDIRECTIONAL</span>
+<span class="go">        GP1: Pin 3/ICSPCLK/AN1/GP1: BIDIRECTIONAL</span>
+<span class="go">        GP2: Pin 4/T0CKI/FOSC4/GP2: BIDIRECTIONAL</span>
+</pre></div>
+</div>
+<p>But SKiDL will warn you if there aren&#8217;t the same number of things to
+connect on each side:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Too few bus lines for the pins!</span>
+<span class="go">ERROR: Connection mismatch 3 != 2!</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+  File <span class="nb">&quot;c:\xesscorp\kicad\tools\skidl\skidl\skidl.py&quot;</span>, line <span class="m">2630</span>, in <span class="n">__iadd__</span>
+    <span class="k">raise</span> <span class="ne">Exception</span>
+<span class="gr">Exception</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="hierarchy">
+<h4>Hierarchy<a class="headerlink" href="#hierarchy" title="Permalink to this headline">¶</a></h4>
+<p>SKiDL supports the encapsulation of parts, nets and buses into modules
+that can be replicated to reduce the design effort, and can be used in
+other modules to create a functional hierarchy.
+It does this using Python&#8217;s built-in machinery for defining and calling functions
+so there&#8217;s almost nothing new to learn.</p>
+<p>As an example, here&#8217;s the voltage divider as a module:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skidl</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="c1"># Define the voltage divider module. The @SubCircuit decorator</span>
+<span class="c1"># handles some skidl housekeeping that needs to be done.</span>
+<span class="nd">@SubCircuit</span>
+<span class="k">def</span> <span class="nf">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Divide inp voltage by 3 and place it on outp net.&quot;&quot;&quot;</span>
+    <span class="n">rup</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;device&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;1K&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Resistors_SMD:R_0805&#39;</span><span class="p">)</span>
+    <span class="n">rlo</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;device&#39;</span><span class="p">,</span><span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;500&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Resistors_SMD:R_0805&#39;</span><span class="p">)</span>
+    <span class="n">rup</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">inp</span><span class="p">,</span> <span class="n">outp</span>
+    <span class="n">rlo</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">outp</span><span class="p">,</span> <span class="n">gnd</span>
+
+<span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>         <span class="c1"># GLobal ground net.</span>
+<span class="n">input_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;IN&#39;</span><span class="p">)</span>    <span class="c1"># Net with the voltage to be divided.</span>
+<span class="n">output_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;OUT&#39;</span><span class="p">)</span>  <span class="c1"># Net with the divided voltage.</span>
+
+<span class="c1"># Instantiate the voltage divider and connect it to the input &amp; output nets.</span>
+<span class="n">vdiv</span><span class="p">(</span><span class="n">input_net</span><span class="p">,</span> <span class="n">output_net</span><span class="p">)</span>
+
+<span class="n">generate_netlist</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For the most part, <code class="docutils literal"><span class="pre">vdiv</span></code> is just a standard Python function:
+it accepts inputs, it performs operations on them, and it could return
+outputs (but in this case, it doesn&#8217;t need to).
+Other than the <code class="docutils literal"><span class="pre">&#64;SubCircuit</span></code> decorator that appears before the function definition,
+<code class="docutils literal"><span class="pre">vdiv</span></code> is just a Python function and it can do anything that a Python function can do.</p>
+<p>Here&#8217;s the netlist that&#8217;s generated:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">export</span> <span class="p">(</span><span class="n">version</span> <span class="n">D</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">design</span>
+    <span class="p">(</span><span class="n">source</span> <span class="s2">&quot;C:/Users/DEVB/PycharmProjects/test1</span><span class="se">\t</span><span class="s2">est.py&quot;</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">date</span> <span class="s2">&quot;08/15/2016 03:35 PM&quot;</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">tool</span> <span class="s2">&quot;SKiDL (0.0.1)&quot;</span><span class="p">))</span>
+  <span class="p">(</span><span class="n">components</span>
+    <span class="p">(</span><span class="n">comp</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R1</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">value</span> <span class="mi">1</span><span class="n">K</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">footprint</span> <span class="n">Resistors_SMD</span><span class="p">:</span><span class="n">R_0805</span><span class="p">))</span>
+    <span class="p">(</span><span class="n">comp</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R2</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">value</span> <span class="mi">500</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">footprint</span> <span class="n">Resistors_SMD</span><span class="p">:</span><span class="n">R_0805</span><span class="p">)))</span>
+  <span class="p">(</span><span class="n">nets</span>
+    <span class="p">(</span><span class="n">net</span> <span class="p">(</span><span class="n">code</span> <span class="mi">0</span><span class="p">)</span> <span class="p">(</span><span class="n">name</span> <span class="s2">&quot;IN&quot;</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">node</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R1</span><span class="p">)</span> <span class="p">(</span><span class="n">pin</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="p">(</span><span class="n">net</span> <span class="p">(</span><span class="n">code</span> <span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="n">name</span> <span class="s2">&quot;OUT&quot;</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">node</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R1</span><span class="p">)</span> <span class="p">(</span><span class="n">pin</span> <span class="mi">2</span><span class="p">))</span>
+      <span class="p">(</span><span class="n">node</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R2</span><span class="p">)</span> <span class="p">(</span><span class="n">pin</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="p">(</span><span class="n">net</span> <span class="p">(</span><span class="n">code</span> <span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="n">name</span> <span class="s2">&quot;GND&quot;</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">node</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R2</span><span class="p">)</span> <span class="p">(</span><span class="n">pin</span> <span class="mi">2</span><span class="p">))))</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>For an example of a multi-level hierarchy, the <code class="docutils literal"><span class="pre">multi_vdiv</span></code> module shown below
+can use the <code class="docutils literal"><span class="pre">vdiv</span></code> module to divide a voltage multiple times:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skidl</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="c1"># Define the voltage divider module.</span>
+<span class="nd">@SubCircuit</span>
+<span class="k">def</span> <span class="nf">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Divide inp voltage by 3 and place it on outp net.&quot;&quot;&quot;</span>
+    <span class="n">rup</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;device&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;1K&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Resistors_SMD:R_0805&#39;</span><span class="p">)</span>
+    <span class="n">rlo</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;device&#39;</span><span class="p">,</span><span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;500&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Resistors_SMD:R_0805&#39;</span><span class="p">)</span>
+    <span class="n">rup</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">inp</span><span class="p">,</span> <span class="n">outp</span>
+    <span class="n">rlo</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">outp</span><span class="p">,</span> <span class="n">gnd</span>
+
+<span class="nd">@SubCircuit</span>
+<span class="k">def</span> <span class="nf">multi_vdiv</span><span class="p">(</span><span class="n">repeat</span><span class="p">,</span> <span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Divide inp voltage by 3 ** repeat and place it on outp net.&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">repeat</span><span class="p">):</span>
+        <span class="n">out_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>     <span class="c1"># Create an output net for the current stage.</span>
+        <span class="n">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">out_net</span><span class="p">)</span>  <span class="c1"># Instantiate a divider stage.</span>
+        <span class="n">inp</span> <span class="o">=</span> <span class="n">out_net</span>       <span class="c1"># The output net becomes the input net for the next stage.</span>
+    <span class="n">outp</span> <span class="o">+=</span> <span class="n">out_net</span>         <span class="c1"># Connect the output from the last stage to the module output net.</span>
+
+<span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>         <span class="c1"># GLobal ground net.</span>
+<span class="n">input_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;IN&#39;</span><span class="p">)</span>    <span class="c1"># Net with the voltage to be divided.</span>
+<span class="n">output_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;OUT&#39;</span><span class="p">)</span>  <span class="c1"># Net with the divided voltage.</span>
+<span class="n">multi_vdiv</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">input_net</span><span class="p">,</span> <span class="n">output_net</span><span class="p">)</span>  <span class="c1"># Run the input through 3 voltage dividers.</span>
+
+<span class="n">generate_netlist</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(For the EE&#8217;s out there: <em>yes, I know cascading three simple voltage dividers
+will not multiplicatively scale the input voltage because of the
+input and output impedances of each stage!</em>
+It&#8217;s just the simplest example I could think of that shows the feature.)</p>
+<p>And here&#8217;s the resulting netlist:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">export</span> <span class="p">(</span><span class="n">version</span> <span class="n">D</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">design</span>
+    <span class="p">(</span><span class="n">source</span> <span class="s2">&quot;C:/Users/DEVB/PycharmProjects/test1</span><span class="se">\t</span><span class="s2">est.py&quot;</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">date</span> <span class="s2">&quot;08/15/2016 05:52 PM&quot;</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">tool</span> <span class="s2">&quot;SKiDL (0.0.1)&quot;</span><span class="p">))</span>
+  <span class="p">(</span><span class="n">components</span>
+    <span class="p">(</span><span class="n">comp</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R1</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">value</span> <span class="mi">1</span><span class="n">K</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">footprint</span> <span class="n">Resistors_SMD</span><span class="p">:</span><span class="n">R_0805</span><span class="p">))</span>
+    <span class="p">(</span><span class="n">comp</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R2</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">value</span> <span class="mi">500</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">footprint</span> <span class="n">Resistors_SMD</span><span class="p">:</span><span class="n">R_0805</span><span class="p">))</span>
+    <span class="p">(</span><span class="n">comp</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R3</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">value</span> <span class="mi">1</span><span class="n">K</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">footprint</span> <span class="n">Resistors_SMD</span><span class="p">:</span><span class="n">R_0805</span><span class="p">))</span>
+    <span class="p">(</span><span class="n">comp</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R4</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">value</span> <span class="mi">500</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">footprint</span> <span class="n">Resistors_SMD</span><span class="p">:</span><span class="n">R_0805</span><span class="p">))</span>
+    <span class="p">(</span><span class="n">comp</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R5</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">value</span> <span class="mi">1</span><span class="n">K</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">footprint</span> <span class="n">Resistors_SMD</span><span class="p">:</span><span class="n">R_0805</span><span class="p">))</span>
+    <span class="p">(</span><span class="n">comp</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R6</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">value</span> <span class="mi">500</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">footprint</span> <span class="n">Resistors_SMD</span><span class="p">:</span><span class="n">R_0805</span><span class="p">)))</span>
+  <span class="p">(</span><span class="n">nets</span>
+    <span class="p">(</span><span class="n">net</span> <span class="p">(</span><span class="n">code</span> <span class="mi">0</span><span class="p">)</span> <span class="p">(</span><span class="n">name</span> <span class="s2">&quot;IN&quot;</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">node</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R1</span><span class="p">)</span> <span class="p">(</span><span class="n">pin</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="p">(</span><span class="n">net</span> <span class="p">(</span><span class="n">code</span> <span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="n">name</span> <span class="s2">&quot;N$1&quot;</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">node</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R2</span><span class="p">)</span> <span class="p">(</span><span class="n">pin</span> <span class="mi">1</span><span class="p">))</span>
+      <span class="p">(</span><span class="n">node</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R1</span><span class="p">)</span> <span class="p">(</span><span class="n">pin</span> <span class="mi">2</span><span class="p">))</span>
+      <span class="p">(</span><span class="n">node</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R3</span><span class="p">)</span> <span class="p">(</span><span class="n">pin</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="p">(</span><span class="n">net</span> <span class="p">(</span><span class="n">code</span> <span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="n">name</span> <span class="s2">&quot;GND&quot;</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">node</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R4</span><span class="p">)</span> <span class="p">(</span><span class="n">pin</span> <span class="mi">2</span><span class="p">))</span>
+      <span class="p">(</span><span class="n">node</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R6</span><span class="p">)</span> <span class="p">(</span><span class="n">pin</span> <span class="mi">2</span><span class="p">))</span>
+      <span class="p">(</span><span class="n">node</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R2</span><span class="p">)</span> <span class="p">(</span><span class="n">pin</span> <span class="mi">2</span><span class="p">)))</span>
+    <span class="p">(</span><span class="n">net</span> <span class="p">(</span><span class="n">code</span> <span class="mi">3</span><span class="p">)</span> <span class="p">(</span><span class="n">name</span> <span class="s2">&quot;N$2&quot;</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">node</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R5</span><span class="p">)</span> <span class="p">(</span><span class="n">pin</span> <span class="mi">1</span><span class="p">))</span>
+      <span class="p">(</span><span class="n">node</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R3</span><span class="p">)</span> <span class="p">(</span><span class="n">pin</span> <span class="mi">2</span><span class="p">))</span>
+      <span class="p">(</span><span class="n">node</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R4</span><span class="p">)</span> <span class="p">(</span><span class="n">pin</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="p">(</span><span class="n">net</span> <span class="p">(</span><span class="n">code</span> <span class="mi">4</span><span class="p">)</span> <span class="p">(</span><span class="n">name</span> <span class="s2">&quot;OUT&quot;</span><span class="p">)</span>
+      <span class="p">(</span><span class="n">node</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R5</span><span class="p">)</span> <span class="p">(</span><span class="n">pin</span> <span class="mi">2</span><span class="p">))</span>
+      <span class="p">(</span><span class="n">node</span> <span class="p">(</span><span class="n">ref</span> <span class="n">R6</span><span class="p">)</span> <span class="p">(</span><span class="n">pin</span> <span class="mi">1</span><span class="p">))))</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="doodads">
+<h4>Doodads<a class="headerlink" href="#doodads" title="Permalink to this headline">¶</a></h4>
+<p>SKiDL has a few features that don&#8217;t fit into any other
+category. Here they are.</p>
+<div class="section" id="no-connects">
+<h5>No Connects<a class="headerlink" href="#no-connects" title="Permalink to this headline">¶</a></h5>
+<p>Sometimes you will use a part, but you won&#8217;t use every pin.
+The ERC will complain about those unconnected pins:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;microchip_pic10mcu&#39;</span><span class="p">,</span><span class="s1">&#39;pic10f220-i/ot&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ERC</span><span class="p">()</span>
+<span class="go">ERC WARNING: Unconnected pin: BIDIRECTIONAL pin 1/ICSPDAT/AN0/GP0 of PIC10F220-I/OT/IC1.</span>
+<span class="go">ERC WARNING: Unconnected pin: POWER-IN pin 2/VSS of PIC10F220-I/OT/IC1.</span>
+<span class="go">ERC WARNING: Unconnected pin: BIDIRECTIONAL pin 3/ICSPCLK/AN1/GP1 of PIC10F220-I/OT/IC1.</span>
+<span class="go">ERC WARNING: Unconnected pin: BIDIRECTIONAL pin 4/T0CKI/FOSC4/GP2 of PIC10F220-I/OT/IC1.</span>
+<span class="go">ERC WARNING: Unconnected pin: POWER-IN pin 5/VDD of PIC10F220-I/OT/IC1.</span>
+<span class="go">ERC WARNING: Unconnected pin: INPUT pin 6/Vpp/~MCLR~/GP3 of PIC10F220-I/OT/IC1.</span>
+</pre></div>
+</div>
+<p>If you have pins that you intentionally want to leave unconnected, then
+attach them to the special-purpose <code class="docutils literal"><span class="pre">NC</span></code> (no-connect) net and the warnings will
+be supressed:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span> <span class="o">+=</span> <span class="n">NC</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ERC</span><span class="p">()</span>
+<span class="go">ERC WARNING: Unconnected pin: POWER-IN pin 2/VSS of PIC10F220-I/OT/IC1.</span>
+<span class="go">ERC WARNING: Unconnected pin: POWER-IN pin 5/VDD of PIC10F220-I/OT/IC1.</span>
+<span class="go">ERC WARNING: Unconnected pin: INPUT pin 6/Vpp/~MCLR~/GP3 of PIC10F220-I/OT/IC1.</span>
+</pre></div>
+</div>
+<p>In fact, if you have a part with many pins that are not going to be used,
+you can start off by attaching all the pins to the <code class="docutils literal"><span class="pre">NC</span></code> net.
+After that, you can attach the pins you&#8217;re using to normal nets and they
+will be removed from the <code class="docutils literal"><span class="pre">NC</span></code> net:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_part</span><span class="p">[:]</span> <span class="o">+=</span> <span class="n">NC</span>  <span class="c1"># Connect every pin to NC net.</span>
+<span class="o">...</span>
+<span class="n">my_part</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">+=</span> <span class="n">Net</span><span class="p">()</span>  <span class="c1"># Pin 5 is no longer unconnected.</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">NC</span></code> net is the only net for which this happens.
+For all other nets, connecting two or more nets to the same pin
+merges those nets and all the pins on them together.</p>
+</div>
+<div class="section" id="net-drive-level">
+<h5>Net Drive Level<a class="headerlink" href="#net-drive-level" title="Permalink to this headline">¶</a></h5>
+<p>Certain parts have power pins that are required to be driven by
+a power supply net or else ERC warnings ensue.
+This condition is usually satisfied if the power pins are driven by
+the output of another part like a voltage regulator.
+But if the regulator output passes through something like a
+ferrite bead (to remove noise), then the filtered signal
+is no longer a supply net and an ERC warning is issued.</p>
+<p>In order to satisfy the ERC, the drive strength of a net can be set manually
+using its <code class="docutils literal"><span class="pre">drive</span></code> attribute. As a simple example, consider connecting
+a net to the power supply input of a processor and then running
+the ERC:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;microchip_pic10mcu&#39;</span><span class="p">,</span><span class="s1">&#39;pic10f220-i/ot&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span><span class="p">[</span><span class="s1">&#39;VDD&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">a</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ERC</span><span class="p">()</span>
+<span class="gp">...</span>
+<span class="go">ERC WARNING: Insufficient drive current on net N$1 for pin POWER-IN pin 5/VDD of PIC10F220-I/OT/IC1</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+<p>This issue is fixed by changing the <code class="docutils literal"><span class="pre">drive</span></code> attribute of the net:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;microchip_pic10mcu&#39;</span><span class="p">,</span><span class="s1">&#39;pic10f220-i/ot&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pic10</span><span class="p">[</span><span class="s1">&#39;VDD&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">a</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">drive</span> <span class="o">=</span> <span class="n">POWER</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ERC</span><span class="p">()</span>
+<span class="gp">...</span>
+<span class="go">(Insufficient drive warning is no longer present.)</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+<p>You can set the <code class="docutils literal"><span class="pre">drive</span></code> attribute at any time to any defined level, but <code class="docutils literal"><span class="pre">POWER</span></code>
+is probably the only setting you&#8217;ll use.
+Also, the <code class="docutils literal"><span class="pre">drive</span></code> attribute retains the highest of all the levels it has been set at,
+so once it is set to the POWER level it is impossible to set it to a lower level.
+(This is done during internal processing to keep a net at the highest drive
+level of any of the pins that have been attached to it.)</p>
+<p>In short, for any net you create that supplies power to devices in your circuit,
+you should probably set its <code class="docutils literal"><span class="pre">drive</span></code> attribute to <code class="docutils literal"><span class="pre">POWER</span></code>.
+This is equivalent to attaching power flags to nets in some ECAD packages like KiCad.</p>
+</div>
+<div class="section" id="selectively-supressing-erc-messages">
+<h5>Selectively Supressing ERC Messages<a class="headerlink" href="#selectively-supressing-erc-messages" title="Permalink to this headline">¶</a></h5>
+<p>Sometimes a portion of your circuit throws a lot of ERC warnings or errors
+even though you know it&#8217;s correct.
+SKiDL provides flags that allow you to turn off the ERC for selected nets, pins,
+and parts like so:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_net</span><span class="o">.</span><span class="n">do_erc</span> <span class="o">=</span> <span class="kc">False</span>      <span class="c1"># Turns of ERC for this particular net.</span>
+<span class="n">my_part</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">do_erc</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># Turns off ERC for this pin of this part.</span>
+<span class="n">my_part</span><span class="o">.</span><span class="n">do_erc</span> <span class="o">=</span> <span class="kc">False</span>     <span class="c1"># Turns off ERC for all the pins of this part.</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<span id="document-authors"></span><div class="section" id="credits">
+<h2>Credits<a class="headerlink" href="#credits" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="development-lead">
+<h3>Development Lead<a class="headerlink" href="#development-lead" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>XESS Corp. &lt;<a class="reference external" href="mailto:info&#37;&#52;&#48;xess&#46;com">info<span>&#64;</span>xess<span>&#46;</span>com</a>&gt;</li>
+</ul>
+</div>
+<div class="section" id="contributors">
+<h3>Contributors<a class="headerlink" href="#contributors" title="Permalink to this headline">¶</a></h3>
+<p>None yet. Why not be the first?</p>
+</div>
+</div>
+<span id="document-acknowledgements"></span><div class="section" id="acknowledgements">
+<h2>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permalink to this headline">¶</a></h2>
+<p>SKiDL was inspired by two other projects:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://sourceforge.net/p/phdl/wiki/Home/">PHDL</a> is a schematic design
+language that exemplifies the main features I wanted in SKiDL:
+concise, text-based design entry with support for hierarchy.</li>
+<li><a class="reference external" href="http://myhdl.org/">MyHDL</a> showed how to use the features of Python to support a particular
+application (designing/simulating digital logic systems) while keeping access to a
+rich software ecosystem.</li>
+</ul>
+</div>
+<span id="document-history"></span><div class="section" id="history">
+<h2>History<a class="headerlink" href="#history" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>0.0.1 (2016-08-16)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>First release on PyPI.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html#document-index">Table Of Contents</a></h3>
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-readme">skidl</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#features">Features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-caveats">Caveats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-usage">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#scratching-the-surface">Scratching the Surface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#going-deeper">Going Deeper</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-authors">Credits</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#development-lead">Development Lead</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#contributors">Contributors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-history">History</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id1">0.0.1 (2016-08-16)</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="nav-item nav-item-0"><a href="index.html#document-index">skidl 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, XESS Corp..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.4.
+    </div>
+  </body>
+</html>
