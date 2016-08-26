@@ -22,7 +22,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-"""SKiDL: A Python-Based Schematic Design Language
+"""
+SKiDL: A Python-Based Schematic Design Language
 
 This module extends Python with the ability to design electronic
 circuits. It provides classes for working with **1)** electronic parts (``Part``),
@@ -62,20 +63,8 @@ from pprint import pprint
 import time
 import pdb
 
-from .__init__ import __version__
-
-USING_PYTHON2 = (sys.version_info.major == 2)
-USING_PYTHON3 = not USING_PYTHON2
-
-if USING_PYTHON2:
-    class FileNotFoundError(OSError):
-        pass
-
-if USING_PYTHON3:
-    # Python 3 doesn't have basestring,
-    # Python 2 doesn't work with type(''),
-    # so....
-    basestring = type('')
+from .version import __version__
+from .py_2_3 import *
 
 # Supported ECAD tools.
 # KICAD, EAGLE = ['kicad', 'eagle']
@@ -182,6 +171,14 @@ logger.setLevel(logging.INFO)
 logger.error = _CountCalls(logger.error)
 logger.warning = _CountCalls(logger.warning)
 
+
+def _add_quotes(s):
+    """Return string with added quotes if it contains whitespace or parens."""
+    if not isinstance(s, basestring):
+        return s
+    if re.search('[\s()]', s):
+        return '"' + s + '"'
+    return s
 
 def _to_list(x):
     """
@@ -1098,13 +1095,16 @@ class Part(object):
             # Make sure all the pins have a valid reference to this part.
             self._associate_pins()
 
+            # Store the library name of this part.
+            self.lib = lib.filename
+
         # Otherwise, create a Part from a part definition. If the part is
         # destined for a library, then just get its name. If it's going into
         # a netlist, then parse the entire part definition.
         elif part_defn:
             self.tool = tool
             self.part_defn = part_defn
-            self._parse(just_get_name=dest != NETLIST)
+            self._parse(just_get_name=(dest != NETLIST))
 
         else:
             logger.error(
@@ -1691,7 +1691,8 @@ class Part(object):
             raise Exception
 
     def _gen_netlist_comp_kicad(self):
-        ref = self.ref
+        ref = _add_quotes(self.ref)
+
         try:
             value = self.value
             if not value:
@@ -1701,15 +1702,24 @@ class Part(object):
                 value = self.name
             except AttributeError:
                 value = self.ref_prefix
+        value = _add_quotes(value)
+
         try:
             footprint = self.footprint
         except AttributeError:
             logger.error('No footprint for {part}/{ref}.'.format(
                 part=self.name, ref=ref))
             footprint = 'No Footprint'
+        footprint = _add_quotes(footprint)
 
-        txt = '    (comp (ref {ref})\n      (value {value})\n      (footprint {footprint}))'.format(
-            ref=ref, value=value, footprint=footprint)
+        lib = _add_quotes(self.lib)
+        name = _add_quotes(self.name)
+
+        template = '    (comp (ref {ref})\n' + \
+                   '      (value {value})\n' + \
+                   '      (footprint {footprint})\n' + \
+                   '      (libsource (lib {lib}) (part {name})))'
+        txt = template.format(**locals())
         return txt
 
     def _erc(self):
@@ -2175,11 +2185,13 @@ class Net(object):
             raise Exception
 
     def _gen_netlist_net_kicad(self):
-        txt = '    (net (code {code}) (name "{name}")'.format(code=self.code,
-                                                              name=self.name)
+        code = _add_quotes(self.code)
+        name = _add_quotes(self.name)
+        txt = '    (net (code {code}) (name {name})'.format(**locals())
         for p in self._get_pins():
-            txt += '\n      (node (ref {part_ref}) (pin {pin_num}))'.format(
-                part_ref=p.part.ref, pin_num=p.num)
+            part_ref = _add_quotes(p.part.ref)
+            pin_num = _add_quotes(p.num)
+            txt += '\n      (node (ref {part_ref}) (pin {pin_num}))'.format(**locals())
         txt += (')')
         return txt
 
@@ -2976,13 +2988,12 @@ class SubCircuit(object):
         src_file = os.path.join(scr_dict['dir'], scr_dict['source'])
         date = time.strftime('%m/%d/%Y %I:%M %p')
         tool = 'SKiDL (' + __version__ + ')'
-        netlist = ('''(export (version D)
-  (design
-    (source "{src_file}")
-    (date "{date}")
-    (tool "{tool}"))\n'''.format(src_file=src_file,
-                                 date=date,
-                                 tool=tool))
+        template = '(export (version D)\n' + \
+                   '  (design\n' + \
+                   '    (source "{src_file}")\n' + \
+                   '    (date "{date}")\n' + \
+                   '    (tool "{tool}"))\n'
+        netlist = template.format(**locals())
         netlist += "  (components"
         for p in SubCircuit.parts:
             comp_txt = p._generate_netlist_component(KICAD)

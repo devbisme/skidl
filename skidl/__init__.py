@@ -2,6 +2,9 @@
 
 __author__ = 'XESS Corp.'
 __email__ = 'info@xess.com'
-__version__ = '0.0.2'
+
+from .version import __version__ 
 
 from .skidl import *
+from .parse_netlist import *
+from .netlist_to_skidl import *

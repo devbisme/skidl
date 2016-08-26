@@ -381,3 +381,9 @@ def test_net_merge_1():
     assert len(b) == 3
     a += b
     assert len(a) == 8
+
+def test_parser_1():
+    parse_netlist(r'C:\xesscorp\KiCad\tools\skidl\tests\Arduino_Uno_R3_From_Scratch.net')
+
+def test_netlist_to_skidl_1():
+    netlist_to_skidl(r'C:\xesscorp\KiCad\tools\skidl\tests\Arduino_Uno_R3_From_Scratch.net')

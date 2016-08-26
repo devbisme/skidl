@@ -22,10 +22,17 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+
+"""
+Command-line program to convert a netlist into an equivalent SKiDL program.
+"""
+
+
 from __future__ import print_function
 from __future__ import unicode_literals
 from __future__ import division
 from __future__ import absolute_import
+from builtins import open
 from future import standard_library
 standard_library.install_aliases()
 
@@ -34,58 +41,46 @@ import os
 import shutil
 import sys
 import logging
-from .schdl import *
-from . import __version__
+
+from .version import __version__
+from .netlist_to_skidl import netlist_to_skidl
 
 ###############################################################################
 # Command-line interface.
 ###############################################################################
 
-
 def main():
     parser = argparse.ArgumentParser(
         description=
-        '''A Python package for textually describing circuit schematics.''')
+        'A Python package for textually describing circuit schematics.')
     parser.add_argument('--version',
                         '-v',
                         action='version',
-                        version='schdl ' + __version__)
+                        version='skidl ' + __version__)
     parser.add_argument(
-        '--extract',
-        '-x',
-        nargs='+',
-        type=str,
-        metavar='file.[xlsx|csv|sch|lib|dcm]',
-        help='''Extract field values from one or more spreadsheet or
-            schematic files.''')
-    parser.add_argument(
-        '--insert',
+        '--input',
         '-i',
-        nargs='+',
+        nargs=1,
         type=str,
-        metavar='file.[xlsx|csv|sch|lib|dcm]',
-        help='''Insert extracted field values into one or more schematic
-            or spreadsheet files.''')
+        metavar='file.net',
+        help='Netlist input file.')
+    parser.add_argument(
+        '--output',
+        '-o',
+        nargs=1,
+        type=str,
+        metavar='file.py',
+        help='Output file for SKiDL code.')
     parser.add_argument('--overwrite',
                         '-w',
                         action='store_true',
-                        help='Allow field insertion into an existing file.')
+                        help='Overwrite an existing file.')
     parser.add_argument(
         '--nobackup',
         '-nb',
         action='store_true',
-        help='''Do *not* create backups before modifying files.
-            (Default is to make backup files.)''')
-    parser.add_argument(
-        '--fields',
-        '-f',
-        nargs='+',
-        type=str,
-        default=[],
-        metavar='name|/name|~name',
-        help='''Specify the names of the fields to extract and insert.
-            Place a '/' or '~' in front of a field you wish to omit.
-            (Leave blank to extract/insert *all* fields.)''')
+        help='Do *not* create backups before modifying files. ' +
+             '(Default is to make backup files.)')
     parser.add_argument(
         '--debug',
         '-d',
@@ -97,7 +92,7 @@ def main():
 
     args = parser.parse_args()
 
-    logger = logging.getLogger('schdl')
+    logger = logging.getLogger('netlist_to_skidl')
     if args.debug is not None:
         log_level = logging.DEBUG + 1 - args.debug
         handler = logging.StreamHandler(sys.stdout)
@@ -105,21 +100,21 @@ def main():
         logger.addHandler(handler)
         logger.setLevel(log_level)
 
-    if args.extract is None:
+    if args.input is None:
         logger.critical(
-            'Hey! Give me some files to extract field values from!')
+            'Hey! Give me some netlist files!')
         sys.exit(2)
 
-    if args.insert is None:
-        print('Hey! I need some files where I can insert the field values!')
+    if args.output is None:
+        print('Hey! I need some place where I can store the SKiDL code!')
         sys.exit(1)
 
-    for file in args.insert:
+    for file in args.output:
         if os.path.isfile(file):
             if not args.overwrite and args.nobackup:
                 logger.critical(
-                    '''File {} already exists! Use the --overwrite option to
-                    allow modifications to it or allow backups.'''
+                    'File {} already exists! Use the --overwrite option to ' +
+                    'allow modifications to it or allow backups.'
                     .format(file))
                 sys.exit(1)
             if not args.nobackup:
@@ -133,18 +128,9 @@ def main():
                         break  # Backup done, so break out of loop.
                     index += 1  # Else keep looking for an unused backup file name.
 
-    inc_fields = []
-    exc_fields = []
-    for f in args.fields:
-        if f[0] in [r'/', r'~']:
-            exc_fields.append(f[1:])
-        else:
-            inc_fields.append(f)
+    skidl_code = netlist_to_skidl(args.input[0])
+    open(args.output[0],'w').write(skidl_code)
 
-    schdl(extract_filenames=args.extract,
-            insert_filenames=args.insert,
-            inc_field_names=inc_fields,
-            exc_field_names=exc_fields)
 
 ###############################################################################
 # Main entrypoint.

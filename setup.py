@@ -36,7 +36,8 @@ setup(
     url='https://github.com/xesscorp/skidl',
 #    packages=['skidl',],
     packages=setuptools.find_packages(),
-    entry_points={'console_scripts':['skidl = skidl.__main__:main']},
+#    entry_points={'console_scripts':['netlist_to_skidl = skidl.__main__:main']},
+    entry_points={'console_scripts':['netlist_to_skidl = skidl.netlist_to_skidl_main:main']},
     package_dir={'skidl': 'skidl'},
     include_package_data=True,
     package_data={'skidl': ['*.gif', '*.png']},
@@ -44,7 +45,7 @@ setup(
     install_requires=requirements,
     license="MIT",
     zip_safe=False,
-    keywords='skidl',
+    keywords='skidl electronic circuit schematics',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
