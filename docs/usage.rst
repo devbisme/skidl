@@ -872,3 +872,19 @@ and parts like so::
     my_part[5].do_erc = False  # Turns off ERC for this pin of this part.
     my_part.do_erc = False     # Turns off ERC for all the pins of this part.
 
+
+Converting Existing Designs to SKiDL
+-------------------------------------
+
+If you have an existing schematic-based design, you can convert it to SKiDL as follows:
+
+#. Generate a netlist file for your design using whatever procedure your ECAD
+   system provides. For this discussion, call the netlist file ``my_design.net``.
+
+#. Convert the netlist file into a SKiDL program using the following command::
+
+    netlist_to_skidl -i my_design.net -o my_design.py -w
+
+That's it! You can execute the ``my_design.py`` script and it will regenerate the
+netlist. Or you can use the script as a subcircuit in a larger design.
+Or do anything else that a SKiDL-based design supports.

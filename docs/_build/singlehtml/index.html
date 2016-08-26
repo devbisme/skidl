@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>skidl 0.0.2 documentation</title>
+    <title>skidl 0.0.3 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.0.2',
+        VERSION:     '0.0.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
-        <li class="nav-item nav-item-0"><a href="index.html#document-index">skidl 0.0.2 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html#document-index">skidl 0.0.3 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -967,6 +967,23 @@ and parts like so:</p>
 </div>
 </div>
 </div>
+<div class="section" id="converting-existing-designs-to-skidl">
+<h3>Converting Existing Designs to SKiDL<a class="headerlink" href="#converting-existing-designs-to-skidl" title="Permalink to this headline">¶</a></h3>
+<p>If you have an existing schematic-based design, you can convert it to SKiDL as follows:</p>
+<ol class="arabic">
+<li><p class="first">Generate a netlist file for your design using whatever procedure your ECAD
+system provides. For this discussion, call the netlist file <code class="docutils literal"><span class="pre">my_design.net</span></code>.</p>
+</li>
+<li><p class="first">Convert the netlist file into a SKiDL program using the following command:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">netlist_to_skidl</span> <span class="o">-</span><span class="n">i</span> <span class="n">my_design</span><span class="o">.</span><span class="n">net</span> <span class="o">-</span><span class="n">o</span> <span class="n">my_design</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">w</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>That&#8217;s it! You can execute the <code class="docutils literal"><span class="pre">my_design.py</span></code> script and it will regenerate the
+netlist. Or you can use the script as a subcircuit in a larger design.
+Or do anything else that a SKiDL-based design supports.</p>
+</div>
 </div>
 <span id="document-authors"></span><div class="section" id="credits">
 <h2>Credits<a class="headerlink" href="#credits" title="Permalink to this headline">¶</a></h2>
@@ -996,13 +1013,19 @@ rich software ecosystem.</li>
 <span id="document-history"></span><div class="section" id="history">
 <h2>History<a class="headerlink" href="#history" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id1">
-<h3>0.0.2 (2016-08-17)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<h3>0.0.3 (2016-08-25)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Added command-line utility to convert netlists into SKiDL programs.</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h3>0.0.2 (2016-08-17)<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Changed the link to the documentation.</li>
 </ul>
 </div>
-<div class="section" id="id2">
-<h3>0.0.1 (2016-08-16)<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3>0.0.1 (2016-08-16)<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>First release on PyPI.</li>
 </ul>
@@ -1036,6 +1059,7 @@ rich software ecosystem.</li>
 <li class="toctree-l1"><a class="reference internal" href="index.html#document-usage">Usage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="index.html#scratching-the-surface">Scratching the Surface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#going-deeper">Going Deeper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#converting-existing-designs-to-skidl">Converting Existing Designs to SKiDL</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="index.html#document-authors">Credits</a><ul>
@@ -1045,8 +1069,9 @@ rich software ecosystem.</li>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="index.html#document-acknowledgements">Acknowledgements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="index.html#document-history">History</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="index.html#id1">0.0.2 (2016-08-17)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#id2">0.0.1 (2016-08-16)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id1">0.0.3 (2016-08-25)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id2">0.0.2 (2016-08-17)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id3">0.0.1 (2016-08-16)</a></li>
 </ul>
 </li>
 </ul>
@@ -1058,7 +1083,7 @@ rich software ecosystem.</li>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
-        <li class="nav-item nav-item-0"><a href="index.html#document-index">skidl 0.0.2 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html#document-index">skidl 0.0.3 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
