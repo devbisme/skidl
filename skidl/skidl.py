@@ -1672,6 +1672,20 @@ class Part(object):
         self.unit[label] = PartUnit(self, *pin_ids, **criteria)
         return self.unit[label]
 
+    def _get_fields(self):
+        """
+        Return a list of component field names.
+        """
+
+        # Get all the component attributes and subtract all the ones that
+        # should not appear under "fields" in the netlist or XML.
+        fields = set(self.__dict__.keys())
+        non_fields = set(['name', 'min_pin','max_pin','hierarchy','_value',
+                      '_ref','ref_prefix','unit','num_units','part_defn',
+                      'definition','fields','draw','lib','fplist',
+                      'do_erc','aliases','tool','pins','footprint'])
+        return list(fields-non_fields)
+
     def _generate_netlist_component(self, tool=KICAD):
         """
         Generate the part information for inclusion in a netlist.
@@ -1715,10 +1729,78 @@ class Part(object):
         lib = _add_quotes(self.lib)
         name = _add_quotes(self.name)
 
+        fields = ''
+        for fld_name in self._get_fields():
+            fld_value = _add_quotes(self.__dict__[fld_name])
+            fld_name = _add_quotes(fld_name)
+            fields += '\n        (field (name {fld_name}) {fld_value})'.format(**locals())
+        if fields:
+            fields = '      (fields' + fields
+            fields += ')\n'
+
         template = '    (comp (ref {ref})\n' + \
                    '      (value {value})\n' + \
                    '      (footprint {footprint})\n' + \
+                   '{fields}' + \
                    '      (libsource (lib {lib}) (part {name})))'
+        txt = template.format(**locals())
+        return txt
+
+    def _generate_xml_component(self, tool=KICAD):
+        """
+        Generate the part information for inclusion in an XML file.
+
+        Args:
+            tool: The format for the XML file (e.g., KICAD).
+        """
+
+        try:
+            gen_func = self.__class__.__dict__['_gen_xml_comp_{}'.format(
+                tool)]
+            return gen_func(self)
+        except KeyError:
+            logger.error(
+                "Can't generate XML in an unknown ECAD tool format ({}).".format(
+                    format))
+            raise Exception
+
+    def _gen_xml_comp_kicad(self):
+        ref = self.ref
+
+        try:
+            value = self.value
+            if not value:
+                value = self.name
+        except AttributeError:
+            try:
+                value = self.name
+            except AttributeError:
+                value = self.ref_prefix
+
+        try:
+            footprint = self.footprint
+        except AttributeError:
+            logger.error('No footprint for {part}/{ref}.'.format(
+                part=self.name, ref=ref))
+            footprint = 'No Footprint'
+
+        lib = self.lib
+        name = self.name
+
+        fields = ''
+        for fld_name in self._get_fields():
+            fld_value = self.__dict__[fld_name]
+            fields += '\n        <field name="{fld_name}">{fld_value}</field>'.format(**locals())
+        if fields:
+            fields = '      <fields>' + fields
+            fields += '\n      </fields>\n'
+
+        template = '    <comp ref="{ref}">\n' + \
+                   '      <value>{value}</value>\n' + \
+                   '      <footprint>{footprint}</footprint>\n' + \
+                   '{fields}' + \
+                   '      <libsource lib="{lib}" part="{name}"/>\n' + \
+                   '    </comp>'
         txt = template.format(**locals())
         return txt
 
@@ -2192,7 +2274,37 @@ class Net(object):
             part_ref = _add_quotes(p.part.ref)
             pin_num = _add_quotes(p.num)
             txt += '\n      (node (ref {part_ref}) (pin {pin_num}))'.format(**locals())
-        txt += (')')
+        txt += ')'
+        return txt
+
+    def _generate_xml_net(self, tool=KICAD):
+        """
+        Generate the net information for inclusion in an XML file.
+
+        Args:
+            tool: The format for the XML file (e.g., KICAD).
+        """
+        self.test_validity()
+
+        try:
+            gen_func = self.__class__.__dict__['_gen_xml_net_{}'.format(
+                tool)]
+            return gen_func(self)
+        except KeyError:
+            logger.error(
+                "Can't generate XML in an unknown ECAD tool format ({}).".format(
+                    format))
+            raise Exception
+
+    def _gen_xml_net_kicad(self):
+        code = self.code
+        name = self.name
+        txt = '    <net code="{code}" name="{name}">'.format(**locals())
+        for p in self._get_pins():
+            part_ref = p.part.ref
+            pin_num = p.num
+            txt += '\n      <node ref="{part_ref}" pin="{pin_num}"/>'.format(**locals())
+        txt += '\n    </net>'
         return txt
 
     def _erc(self):
@@ -2996,14 +3108,82 @@ class SubCircuit(object):
         netlist = template.format(**locals())
         netlist += "  (components"
         for p in SubCircuit.parts:
-            comp_txt = p._generate_netlist_component(KICAD)
-            netlist += '\n' + comp_txt
+            netlist += '\n' + p._generate_netlist_component(KICAD)
         netlist += ")\n"
         netlist += "  (nets"
         for code, n in enumerate(SubCircuit._get_nets()):
             n.code = code
             netlist += '\n' + n._generate_netlist_net(KICAD)
         netlist += ")\n)\n"
+        return netlist
+
+    @classmethod
+    def _generate_xml(cls, file=None, tool=KICAD):
+        """
+        Return netlist as an XML string and also write it to a file/stream.
+
+        Args:
+            file: Either a file object that can be written to, or a string
+                containing a file name, or None.
+
+        Returns:
+            A string containing the netlist.
+        """
+        try:
+            gen_func = cls.__dict__['_gen_xml_{}'.format(tool)]
+            netlist = gen_func(cls)
+        except KeyError:
+            logger.error(
+                "Can't generate XML in an unknown ECAD tool format ({}).".format(
+                    tool))
+            raise Exception
+
+        if (logger.error.count, logger.warning.count) == (0, 0):
+            sys.stderr.write(
+                '\nNo errors or warnings found during XML generation.\n\n')
+        else:
+            sys.stderr.write(
+                '\n{} warnings found during XML generation.\n'.format(
+                    logger.warning.count))
+            sys.stderr.write(
+                '{} errors found during XML generation.\n\n'.format(
+                    logger.error.count))
+
+        try:
+            with file as f:
+                f.write(netlist)
+        except AttributeError:
+            try:
+                with open(file, 'w') as f:
+                    f.write(netlist)
+            except (FileNotFoundError, TypeError):
+                with open(_get_script_name() + '.xml', 'w') as f:
+                    f.write(netlist)
+        return netlist
+
+    def _gen_xml_kicad(self):
+        scr_dict = _scriptinfo()
+        src_file = os.path.join(scr_dict['dir'], scr_dict['source'])
+        date = time.strftime('%m/%d/%Y %I:%M %p')
+        tool = 'SKiDL (' + __version__ + ')'
+        template = '<?xml version="1.0" encoding="UTF-8"?>\n' + \
+                   '<export version="D">\n' + \
+                   '  <design>\n' + \
+                   '    <source>{src_file}</source>\n' + \
+                   '    <date>{date}</date>\n' + \
+                   '    <tool>{tool}</tool>\n' + \
+                   '  </design>\n'
+        netlist = template.format(**locals())
+        netlist += '  <components>'
+        for p in SubCircuit.parts:
+            netlist += '\n' + p._generate_xml_component(KICAD)
+        netlist += '\n  </components>\n'
+        netlist += '  <nets>'
+        for code, n in enumerate(SubCircuit._get_nets()):
+            n.code = code
+            netlist += '\n' + n._generate_xml_net(KICAD)
+        netlist += '\n  </nets>\n'
+        netlist += '</export>\n'
         return netlist
 
 
@@ -3041,6 +3221,7 @@ Circuit = SubCircuit
 
 ERC = SubCircuit._ERC
 generate_netlist = SubCircuit._generate_netlist
+generate_xml = SubCircuit._generate_xml
 
 POWER = Pin.POWER_DRIVE
 
