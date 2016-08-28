@@ -16,7 +16,7 @@ for common mistakes and outputs a netlist that serves as input to
 a PCB layout tool.
 
 * Free software: MIT license
-* Documentation: http://xesscorp.github.io/skidl/index.html
+* Documentation: http://xesscorp.github.io/skidl
 
 Features
 --------

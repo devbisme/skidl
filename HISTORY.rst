@@ -4,6 +4,12 @@ History
 -------
 
 
+0.0.4 (2016-08-27)
+______________________
+
+* SKiDL scripts can now output netlists in XML format.
+
+
 0.0.3 (2016-08-25)
 ______________________
 

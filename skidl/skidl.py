@@ -1875,7 +1875,13 @@ class Part(object):
     @property
     def value(self):
         """Get, set and delete the part value."""
-        return self._value
+        try:
+            return self._value
+        except AttributeError:
+            # If part has no value, return its part name as the value. This is
+            # done in KiCad where a resistor value is set to 'R' if no
+            # explicit value was set.
+            return self.name
 
     @value.setter
     def value(self, value):

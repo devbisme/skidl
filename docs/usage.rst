@@ -273,6 +273,13 @@ then the netlist will be stored in ``my_circuit.net``.
           (node (ref R2) (pin 2))))
     )
 
+You can also generate the netlist in XML format::
+
+    >>> generate_xml()
+
+This is useful in a KiCad environment where the XML file is used as the
+input to BOM-generation tools.
+
 
 Going Deeper
 ---------------------
@@ -387,6 +394,25 @@ you ever do do it, but here's how to do it::
     >>> p = Pin(num=1, name='my_pin', func=Pin.TRISTATE)
     >>> p
     Pin 1/my_pin: TRISTATE
+
+Instead of creating a SKiDL object from scratch, sometimes it's easier to just
+copy an existing object. Here are some examples of creating a resistor and then making
+some copies of it::
+
+    >>> r1 = Part('device', 'R', value=500)
+    >>> r2 = r1.copy()                         # Make a single copy of the resistor.
+    >>> r3 = r1.copy(value='1K')               # Make a single copy, but give it a different value.
+    >>> r4 = r1(value='1K')                    # You can also call the object directly to make copies.
+    >>> r5, r6, r7 = r1(3)                     # Make 3 copies of the resistor.
+    >>> r8, r9, r10 = r1(value=[110,220,330])  # Make 3 copies, each with a different value.
+    >>> r11, r12 = 2 * r1                      # Make copies using the '*' operator.
+
+In some cases it's clearer to create parts by copying a *template part* that
+doesn't actually get included in the netlist for the circuitry.
+This is done like so::
+
+    >>> r_template = Part('device', 'R', dest=TEMPLATE)  # Create a resistor just for copying.
+    >>> r1 = r_template(value='1K')  # Make copy that becomes part of the actual circuitry.
 
 
 Accessing Part Pins and Bus Lines
