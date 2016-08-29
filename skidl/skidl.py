@@ -66,6 +66,8 @@ import pdb
 from .version import __version__
 from .py_2_3 import *
 
+THIS_MODULE = locals()
+
 # Supported ECAD tools.
 # KICAD, EAGLE = ['kicad', 'eagle']
 KICAD, = ['kicad',]
@@ -82,6 +84,10 @@ BUS_PREFIX = 'B$'
 
 # Separator for strings containing multiple indices.
 INDEX_SEPARATOR = ','
+
+# These are the paths to search for KiCad libraries.
+_sch_lib_dir_kicad = os.path.join(os.environ['KISYSMOD'], '..', 'library')
+lib_search_paths_kicad = ['.', _sch_lib_dir_kicad]
 
 
 def _scriptinfo():
@@ -171,6 +177,34 @@ logger.setLevel(logging.INFO)
 logger.error = _CountCalls(logger.error)
 logger.warning = _CountCalls(logger.warning)
 
+
+def _find_and_open_file(filename, paths=None, ext=None, allow_failure=False):
+    """Search for a file in list of paths, open it and return file pointer."""
+
+    # If no paths are given, then just check the current directory.
+    if not paths:
+        paths = ['.']
+
+    # If the filename has no extension, then give it one.
+    if not os.path.splitext(filename)[1]:
+        filename += ext
+
+    # Search the paths for the file.
+    for path in paths:
+        abs_filename = os.path.join(path, filename)
+        try:
+            # The search stops once the file is successfully opened.
+            return open(abs_filename)
+        except (IOError, FileNotFoundError, TypeError):
+            # Keep looking until all paths are checked.
+            pass
+
+    # Couldn't find the file.
+    if allow_failure:
+        return None
+    else:
+        logger.error("Can't open file: {}\n".format(filename))
+        raise FileNotFoundError
 
 def _add_quotes(s):
     """Return string with added quotes if it contains whitespace or parens."""
@@ -550,7 +584,9 @@ class _SchLib(object):
                 # Use the tool name to find the function for loading the library.
                 func_name = '_load_sch_lib_{}'.format(tool)
                 load_func = self.__class__.__dict__[func_name]
-                load_func(self, filename)
+                search_paths_name = 'lib_search_paths_{}'.format(tool)
+                lib_search_paths = THIS_MODULE[search_paths_name]
+                load_func(self, filename, lib_search_paths)
                 # Cache a reference to the library.
                 self._cache[filename] = self
             except KeyError:
@@ -562,7 +598,7 @@ class _SchLib(object):
         for k, v in attribs.items():
             setattr(self, k, v)
 
-    def _load_sch_lib_kicad(self, filename=None):
+    def _load_sch_lib_kicad(self, filename=None, lib_search_paths=None):
         """
         Load the parts from a KiCad schematic library file.
 
@@ -572,22 +608,7 @@ class _SchLib(object):
 
         # Try to open the file. Add a .lib extension if needed. If the file
         # doesn't open, then try looking in the KiCad library directory.
-        try:
-            _, ext = os.path.splitext(filename)
-            if ext.lower() != '.lib':
-                filename += '.lib'
-            f = open(filename)
-        except (IOError, FileNotFoundError):
-            filename = os.path.join(os.environ['KISYSMOD'], '..', 'library',
-                                    filename)
-            try:
-                f = open(filename)
-            except FileNotFoundError:
-                logger.error("Can't open file: {}\n".format(filename))
-                return
-        except TypeError:
-            logger.error("Can't open file: {}\n".format(filename))
-            return
+        f = _find_and_open_file(filename, lib_search_paths, '.lib')
 
         # Check the file header to make sure it's a KiCad library.
         header = []
@@ -628,6 +649,42 @@ class _SchLib(object):
 
                     # Clear the part definition in preparation for the next one.
                     part_defn = []
+
+        # Now add information from any associated DCM file.
+        filename = os.path.splitext(filename)[0] # Strip any extension.
+        f = _find_and_open_file(filename, lib_search_paths, '.dcm', allow_failure=True)
+        if not f:
+            return
+
+        part_desc = {}
+        for line in f.readlines():
+
+            # Skip over comments.
+            if line.startswith('#'):
+                pass
+
+            # Look for the start of a part description.
+            elif line.startswith('$CMP'):
+                part_desc['name'] = line.split()[-1]
+
+            # If gathering the part definition has begun, then continue adding lines.
+            elif part_desc:
+                if line.startswith('D'):
+                    part_desc['description'] = ' '.join(line.split()[1:])
+                elif line.startswith('K'):
+                    part_desc['keywords'] = ' '.join(line.split()[1:])
+                elif line.startswith('$ENDCMP'):
+                    try:
+                        part = self.get_part_by_name(part_desc['name'])
+                    except Exception:
+                        pass
+                    else:
+                        part.description = part_desc.get('description', '')
+                        part.keywords = part_desc.get('keywords', '')
+                    part_desc = {}
+                else:
+                    pass
+            
 
     def get_parts(self, **criteria):
         """
@@ -3193,29 +3250,35 @@ class SubCircuit(object):
         return netlist
 
 
-def search(name):
-    lib_dir = os.path.join(os.environ['KISYSMOD'], '..', 'library')
-    lib_files = os.listdir(lib_dir)
-    lib_files.extend(os.listdir('.'))
-    lib_files = [l for l in lib_files if l.endswith('.lib')]
-    parts = []
-    for lib_file in lib_files:
-        lib = _SchLib(lib_file)
+def search(term):
+    for lib_dir in lib_search_paths_kicad:
+        lib_files = os.listdir(lib_dir)
+        lib_files.extend(os.listdir('.'))
+        lib_files = [l for l in lib_files if l.endswith('.lib')]
+        parts = set()
+        for lib_file in lib_files:
+            lib = _SchLib(lib_file)
 
-        def mk_list(l):
-            if isinstance(l, (list, tuple)):
-                return l
-            if not l:
-                return []
-            return [l]
+            def mk_list(l):
+                if isinstance(l, (list, tuple)):
+                    return l
+                if not l:
+                    return []
+                return [l]
 
-        for p in mk_list(lib.get_parts(name=name)):
-            p._parse()
-            parts.append((lib_file, p))
-        for p in mk_list(lib.get_parts(alias=name)):
-            p._parse()
-            parts.append((lib_file, p))
-    for lib_file, p in parts:
+            for p in mk_list(lib.get_parts(name=term)):
+                p._parse()
+                parts.add((lib_file, p))
+            for p in mk_list(lib.get_parts(alias=term)):
+                p._parse()
+                parts.add((lib_file, p))
+            for p in mk_list(lib.get_parts(description=term)):
+                p._parse()
+                parts.add((lib_file, p))
+            for p in mk_list(lib.get_parts(keywords=term)):
+                p._parse()
+                parts.add((lib_file, p))
+    for lib_file, p in sorted(list(parts), key=lambda p: p[0]):
         print('{}: {}'.format(lib_file, p.name))
 
 
@@ -3233,3 +3296,4 @@ POWER = Pin.POWER_DRIVE
 
 # This is a NOCONNECT net for attaching to pins which are intentionally left open.
 NC = _NCNet('NOCONNECT')
+
