@@ -4,6 +4,13 @@ History
 -------
 
 
+0.0.5 (2016-09-07)
+______________________
+
+* SKiDL now searches for parts with a user-configurable list of library search paths.
+* Part descriptions and keywords are now loaded from the .dcm file associated with a .lib file.
+
+
 0.0.4 (2016-08-27)
 ______________________
 

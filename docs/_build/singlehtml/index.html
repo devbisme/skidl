@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>skidl 0.0.4 documentation</title>
+    <title>skidl 0.0.5 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.0.4',
+        VERSION:     '0.0.5',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
-        <li class="nav-item nav-item-0"><a href="index.html#document-index">skidl 0.0.4 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html#document-index">skidl 0.0.5 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -51,7 +51,7 @@ for common mistakes and outputs a netlist that serves as input to
 a PCB layout tool.</p>
 <ul class="simple">
 <li>Free software: MIT license</li>
-<li>Documentation: <a class="reference external" href="http://xesscorp.github.io/skidl/index.html">http://xesscorp.github.io/skidl/index.html</a></li>
+<li>Documentation: <a class="reference external" href="http://xesscorp.github.io/skidl">http://xesscorp.github.io/skidl</a></li>
 </ul>
 <div class="section" id="features">
 <h3>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h3>
@@ -192,6 +192,16 @@ can be used to do a wildcard search of the part libraries:</p>
 <p>Or suppose you want an LM358 opamp:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;LM358&#39;</span><span class="p">)</span>
 <span class="go">linear.lib: LM358</span>
+</pre></div>
+</div>
+<p>In addition to part names, SKiDL&#8217;s <code class="docutils literal"><span class="pre">search</span></code> function also scans over the description and keywords for all
+the parts, making it easy to find things like transistors and opamps:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">skidl</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;.*opamp.*&#39;</span><span class="p">)</span>
+<span class="go">linear.lib: LM386</span>
+<span class="go">linear.lib: MCP601</span>
+<span class="go">linear.lib: MCP601R</span>
+<span class="go">linear.lib: AD620</span>
+<span class="go">linear.lib: LTC6082</span>
 </pre></div>
 </div>
 <p>Once you have the part name and library, you can see the part&#8217;s pin numbers, names
@@ -440,7 +450,9 @@ newly-created nets, or both.</p>
 called <code class="docutils literal"><span class="pre">some_library.lib</span></code> which will be opened and scanned for a part with the
 name <code class="docutils literal"><span class="pre">some_part_name</span></code>. If the file is not found or it doesn&#8217;t contain
 the requested part, then the process will be repeated using KiCad&#8217;s default
-library directory.</p>
+library directory.
+(You can change SKiDL&#8217;s library search by changing the list of directories
+stored in the <cite>skidl.lib_search_paths_kicad</cite> list.)</p>
 <p>You&#8217;re not restricted to using only the current directory or the KiCad default
 directory to search for parts. You can also search any file for a part by
 using a full file name:</p>
@@ -505,6 +517,9 @@ you ever do do it, but here&#8217;s how to do it:</p>
 <span class="go">Pin 1/my_pin: TRISTATE</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="copying-skidl-objects">
+<h4>Copying SKiDL Objects<a class="headerlink" href="#copying-skidl-objects" title="Permalink to this headline">¶</a></h4>
 <p>Instead of creating a SKiDL object from scratch, sometimes it&#8217;s easier to just
 copy an existing object. Here are some examples of creating a resistor and then making
 some copies of it:</p>
@@ -1636,25 +1651,32 @@ rich software ecosystem.</li>
 <span id="document-history"></span><div class="section" id="history">
 <h2>History<a class="headerlink" href="#history" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id1">
-<h3>0.0.4 (2016-08-27)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<h3>0.0.5 (2016-09-07)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>SKiDL now searches for parts with a user-configurable list of library search paths.</li>
+<li>Part descriptions and keywords are now loaded from the .dcm file associated with a .lib file.</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h3>0.0.4 (2016-08-27)<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>SKiDL scripts can now output netlists in XML format.</li>
 </ul>
 </div>
-<div class="section" id="id2">
-<h3>0.0.3 (2016-08-25)<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3>0.0.3 (2016-08-25)<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Added command-line utility to convert netlists into SKiDL programs.</li>
 </ul>
 </div>
-<div class="section" id="id3">
-<h3>0.0.2 (2016-08-17)<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3>0.0.2 (2016-08-17)<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Changed the link to the documentation.</li>
 </ul>
 </div>
-<div class="section" id="id4">
-<h3>0.0.1 (2016-08-16)<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h3>0.0.1 (2016-08-16)<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>First release on PyPI.</li>
 </ul>
@@ -1699,10 +1721,11 @@ rich software ecosystem.</li>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="index.html#document-acknowledgements">Acknowledgements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="index.html#document-history">History</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="index.html#id1">0.0.4 (2016-08-27)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#id2">0.0.3 (2016-08-25)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#id3">0.0.2 (2016-08-17)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#id4">0.0.1 (2016-08-16)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id1">0.0.5 (2016-09-07)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id2">0.0.4 (2016-08-27)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id3">0.0.3 (2016-08-25)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id4">0.0.2 (2016-08-17)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id5">0.0.1 (2016-08-16)</a></li>
 </ul>
 </li>
 </ul>
@@ -1714,7 +1737,7 @@ rich software ecosystem.</li>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
-        <li class="nav-item nav-item-0"><a href="index.html#document-index">skidl 0.0.4 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html#document-index">skidl 0.0.5 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

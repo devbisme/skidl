@@ -62,6 +62,16 @@ Or suppose you want an LM358 opamp::
     >>> search('LM358')
     linear.lib: LM358
 
+In addition to part names, SKiDL's ``search`` function also scans over the description and keywords for all
+the parts, making it easy to find things like transistors and opamps::
+
+    >>> skidl.search('.*opamp.*')
+    linear.lib: LM386
+    linear.lib: MCP601
+    linear.lib: MCP601R
+    linear.lib: AD620
+    linear.lib: LTC6082
+
 Once you have the part name and library, you can see the part's pin numbers, names
 and their functions using the ``show`` function::
 
@@ -327,6 +337,8 @@ called ``some_library.lib`` which will be opened and scanned for a part with the
 name ``some_part_name``. If the file is not found or it doesn't contain
 the requested part, then the process will be repeated using KiCad's default
 library directory.
+(You can change SKiDL's library search by changing the list of directories
+stored in the `skidl.lib_search_paths_kicad` list.)
 
 You're not restricted to using only the current directory or the KiCad default
 directory to search for parts. You can also search any file for a part by 
@@ -394,6 +406,10 @@ you ever do do it, but here's how to do it::
     >>> p = Pin(num=1, name='my_pin', func=Pin.TRISTATE)
     >>> p
     Pin 1/my_pin: TRISTATE
+
+
+Copying SKiDL Objects
+............................
 
 Instead of creating a SKiDL object from scratch, sometimes it's easier to just
 copy an existing object. Here are some examples of creating a resistor and then making
