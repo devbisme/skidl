@@ -111,6 +111,7 @@ def _scriptinfo():
     #---------------------------------------------------------------------------
     # scan through call stack for caller information
     #---------------------------------------------------------------------------
+    trc = ''
     for teil in inspect.stack():
         # skip system calls
         if teil[1].startswith("<"):
@@ -675,7 +676,7 @@ class _SchLib(object):
                     part_desc['keywords'] = ' '.join(line.split()[1:])
                 elif line.startswith('$ENDCMP'):
                     try:
-                        part = self.get_part_by_name(part_desc['name'])
+                        part = self.get_part_by_name(part_desc['name'], silent=True)
                     except Exception:
                         pass
                     else:
@@ -699,7 +700,7 @@ class _SchLib(object):
             A single Part or a list of Parts that match all the criteria.        """
         return _list_or_scalar(_filter(self.parts, **criteria))
 
-    def get_part_by_name(self, name, allow_multiples=False):
+    def get_part_by_name(self, name, allow_multiples=False, silent=False):
         """
         Return a Part with the given name or alias from the part list.
 
@@ -708,6 +709,7 @@ class _SchLib(object):
             allow_multiples: If true, return a list of parts matching the name.
                 If false, return only the first matching part and issue
                 a warning if there were more than one.
+            silent: If true, don't issue errors or warnings.
 
         Returns:
             A single Part or a list of Parts that match all the criteria.
@@ -722,8 +724,9 @@ class _SchLib(object):
 
             # No part with that alias either, so signal an error.
             if not parts:
-                logger.error('Unable to find part {} in library {}.'.format(
-                    name, self.filename))
+                if not silent:
+                    logger.error('Unable to find part {} in library {}.'.format(
+                        name, self.filename))
                 raise Exception
 
         # Multiple parts with that name or alias exists, so return the list
@@ -737,9 +740,10 @@ class _SchLib(object):
             # Just return the first part from the list if multiples are not
             # allowed and issue a warning.
             else:
-                logger.warning(
-                    'Found multiple parts matching {}. Selecting {}.'.format(
-                        name, parts[0].name))
+                if not silent:
+                    logger.warning(
+                        'Found multiple parts matching {}. Selecting {}.'.format(
+                            name, parts[0].name))
                 parts = parts[0]
                 parts._parse()
 

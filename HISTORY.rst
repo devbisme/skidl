@@ -4,6 +4,13 @@ History
 -------
 
 
+0.0.6 (2016-09-10)
+______________________
+
+* Fixed error caused when trying to find script name when SKiDL is run in interactive mode.
+* Silenced errors/warnings when loading KiCad part description (.dcm) files.
+
+
 0.0.5 (2016-09-07)
 ______________________
 
