@@ -4,6 +4,14 @@ History
 -------
 
 
+0.0.7 (2016-09-11)
+______________________
+
+* Lack of KISYSMOD environment variable no longer causes an exception.
+* requirements.txt file now references the requirements from setup.py.
+* Changed setup so it generates a pckg_info file with version, author, email.
+
+
 0.0.6 (2016-09-10)
 ______________________
 

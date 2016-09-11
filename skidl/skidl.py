@@ -63,7 +63,7 @@ from pprint import pprint
 import time
 import pdb
 
-from .version import __version__
+from .pckg_info import __version__
 from .py_2_3 import *
 
 THIS_MODULE = locals()
@@ -86,7 +86,12 @@ BUS_PREFIX = 'B$'
 INDEX_SEPARATOR = ','
 
 # These are the paths to search for KiCad libraries.
-_sch_lib_dir_kicad = os.path.join(os.environ['KISYSMOD'], '..', 'library')
+try:
+    _sch_lib_dir_kicad = os.path.join(os.environ['KISYSMOD'], '..', 'library')
+except KeyError:
+    logging.warning("KISYSMOD environment variable is missing, so default KiCad libraries won't be searched.")
+    _sch_lib_dir_kicad = ''
+
 lib_search_paths_kicad = ['.', _sch_lib_dir_kicad]
 
 
@@ -111,7 +116,7 @@ def _scriptinfo():
     #---------------------------------------------------------------------------
     # scan through call stack for caller information
     #---------------------------------------------------------------------------
-    trc = ''
+    trc = 'skidl' # Make sure this gets set to something when in interactive mode.
     for teil in inspect.stack():
         # skip system calls
         if teil[1].startswith("<"):

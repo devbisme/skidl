@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>skidl 0.0.6 documentation</title>
+    <title>skidl 0.0.7 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.0.6',
+        VERSION:     '0.0.7',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
-        <li class="nav-item nav-item-0"><a href="index.html#document-index">skidl 0.0.6 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html#document-index">skidl 0.0.7 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -43,7 +43,7 @@
 <div class="toctree-wrapper compound">
 <span id="document-readme"></span><div class="section" id="skidl">
 <h2>skidl<a class="headerlink" href="#skidl" title="Permalink to this headline">¶</a></h2>
-<a class="reference external image-reference" href="https://pypi.python.org/pypi/skidl"><img src="https://img.shields.io/pypi/v/skidl.svg" /></a>
+<a class="reference external image-reference" href="https://pypi.python.org/pypi/skidl"><img alt="https://img.shields.io/pypi/v/skidl.svg" src="https://img.shields.io/pypi/v/skidl.svg" /></a>
 <p>SKiDL is a module that allows you to compactly describe the interconnection of
 electronic circuits and components using Python.
 The resulting Python program performs electrical rules checking
@@ -1255,7 +1255,7 @@ is found, the name for this net is adjusted to make it unique.</p>
 
 <dl class="class">
 <dt id="skidl.skidl.Part">
-<em class="property">class </em><code class="descclassname">skidl.skidl.</code><code class="descname">Part</code><span class="sig-paren">(</span><em>lib=None</em>, <em>name=None</em>, <em>dest='NETLIST'</em>, <em>tool='kicad'</em>, <em>connections=None</em>, <em>part_defn=None</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Part"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Part" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">skidl.skidl.</code><code class="descname">Part</code><span class="sig-paren">(</span><em>lib=None</em>, <em>name=None</em>, <em>dest=u'NETLIST'</em>, <em>tool=u'kicad'</em>, <em>connections=None</em>, <em>part_defn=None</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Part"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Part" title="Permalink to this definition">¶</a></dt>
 <dd><p>A class for storing a definition of a schematic part.</p>
 <dl class="attribute">
 <dt id="skidl.skidl.Part.ref">
@@ -1315,7 +1315,7 @@ named &#8216;manf_num&#8217; for the part and assign it the value &#8216;LM4808M
 </table>
 <dl class="method">
 <dt id="skidl.skidl.Part.copy">
-<code class="descname">copy</code><span class="sig-paren">(</span><em>num_copies=1</em>, <em>dest='NETLIST'</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Part.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Part.copy" title="Permalink to this definition">¶</a></dt>
+<code class="descname">copy</code><span class="sig-paren">(</span><em>num_copies=1</em>, <em>dest=u'NETLIST'</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Part.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Part.copy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make zero or more copies of this part while maintaining all pin/net
 connections.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1651,39 +1651,47 @@ rich software ecosystem.</li>
 <span id="document-history"></span><div class="section" id="history">
 <h2>History<a class="headerlink" href="#history" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id1">
-<h3>0.0.6 (2016-09-10)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<h3>0.0.7 (2016-09-11)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Lack of KISYSMOD environment variable no longer causes an exception.</li>
+<li>requirements.txt file now references the requirements from setup.py.</li>
+<li>Changed setup so it generates a pckg_info file with version, author, email.</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h3>0.0.6 (2016-09-10)<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Fixed error caused when trying to find script name when SKiDL is run in interactive mode.</li>
 <li>Silenced errors/warnings when loading KiCad part description (.dcm) files.</li>
 </ul>
 </div>
-<div class="section" id="id2">
-<h3>0.0.5 (2016-09-07)<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3>0.0.5 (2016-09-07)<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>SKiDL now searches for parts with a user-configurable list of library search paths.</li>
 <li>Part descriptions and keywords are now loaded from the .dcm file associated with a .lib file.</li>
 </ul>
 </div>
-<div class="section" id="id3">
-<h3>0.0.4 (2016-08-27)<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3>0.0.4 (2016-08-27)<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>SKiDL scripts can now output netlists in XML format.</li>
 </ul>
 </div>
-<div class="section" id="id4">
-<h3>0.0.3 (2016-08-25)<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h3>0.0.3 (2016-08-25)<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Added command-line utility to convert netlists into SKiDL programs.</li>
 </ul>
 </div>
-<div class="section" id="id5">
-<h3>0.0.2 (2016-08-17)<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h3>0.0.2 (2016-08-17)<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Changed the link to the documentation.</li>
 </ul>
 </div>
-<div class="section" id="id6">
-<h3>0.0.1 (2016-08-16)<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h3>0.0.1 (2016-08-16)<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>First release on PyPI.</li>
 </ul>
@@ -1728,12 +1736,13 @@ rich software ecosystem.</li>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="index.html#document-acknowledgements">Acknowledgements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="index.html#document-history">History</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="index.html#id1">0.0.6 (2016-09-10)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#id2">0.0.5 (2016-09-07)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#id3">0.0.4 (2016-08-27)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#id4">0.0.3 (2016-08-25)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#id5">0.0.2 (2016-08-17)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#id6">0.0.1 (2016-08-16)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id1">0.0.7 (2016-09-11)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id2">0.0.6 (2016-09-10)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id3">0.0.5 (2016-09-07)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id4">0.0.4 (2016-08-27)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id5">0.0.3 (2016-08-25)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id6">0.0.2 (2016-08-17)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id7">0.0.1 (2016-08-16)</a></li>
 </ul>
 </li>
 </ul>
@@ -1745,12 +1754,12 @@ rich software ecosystem.</li>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
-        <li class="nav-item nav-item-0"><a href="index.html#document-index">skidl 0.0.6 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html#document-index">skidl 0.0.7 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2016, XESS Corp..
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.4.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.5.
     </div>
   </body>
 </html>

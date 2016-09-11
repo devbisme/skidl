@@ -42,7 +42,7 @@ import shutil
 import sys
 import logging
 
-from .version import __version__
+from .pckg_info import __version__
 from .netlist_to_skidl import netlist_to_skidl
 
 ###############################################################################

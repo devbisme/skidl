@@ -1,9 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+    
+import sys
 import setuptools
-import skidl
 
+__version__ = '0.0.7'
+__author__ = 'XESS Corp.'
+__email__ = 'info@xess.com'
+
+if 'sdist' in sys.argv[1:]:
+    with open('skidl/pckg_info.py','w') as f:
+        for name in ['__version__','__author__','__email__']:
+            f.write("{} = '{}'\n".format(name,locals()[name]))
 
 try:
     from setuptools import setup
@@ -19,6 +28,7 @@ with open('HISTORY.rst') as history_file:
 
 requirements = [
     'future >= 0.15.0',
+    'pyparsing',
     # TODO: put package requirements here
 ]
 
@@ -28,11 +38,11 @@ test_requirements = [
 
 setup(
     name='skidl',
-    version=skidl.__version__,
+    version=__version__,
     description="A Python package for textually describing electronic circuit schematics.",
     long_description=readme + '\n\n' + history,
-    author=skidl.__author__,
-    author_email=skidl.__email__,
+    author=__author__,
+    author_email=__email__,
     url='https://github.com/xesscorp/skidl',
 #    packages=['skidl',],
     packages=setuptools.find_packages(),
