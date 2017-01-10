@@ -1621,27 +1621,38 @@ class Part(object):
         pins = _NetPinList()
         for p_id in _expand_indices(self.min_pin, self.max_pin, *pin_ids):
 
-            # Pin ID is an integer.
-            if isinstance(p_id, int):
-                pins.extend(_filter(self.pins, num=str(p_id), **criteria))
+            # Does pin ID (either integer or string) match a pin number...
+            tmp_pins = _filter(self.pins, num=str(p_id), **criteria)
+            if tmp_pins:
+                pins.extend(tmp_pins)
+                continue
 
-            # Pin ID is a string containing a number or name.
-            else:
-                # First try to get pins using the string as a number.
-                tmp_pins = _filter(self.pins, num=p_id, **criteria)
-                if tmp_pins:
-                    pins.extend(tmp_pins)
-                else:
-                    # If that didn't work, try using the string as a pin name.
-                    tmp_pins = _filter(self.pins, name=p_id, **criteria)
-                    if tmp_pins:
-                        pins.extend(tmp_pins)
-                    else:
-                        # If that didn't work, look for pin aliases.
-                        alias = Alias(p_id, id(self))
-                        pins.extend(_filter(self.pins,
-                                            alias=alias,
-                                            **criteria))
+            # OK, pin ID is not a pin number. Does it match a pin name...
+            tmp_pins = _filter(self.pins, name=p_id, **criteria)
+            if tmp_pins:
+                pins.extend(tmp_pins)
+                continue
+
+            # How about a pin alias...
+            pin_alias = Alias(p_id, id(self))
+            tmp_pins = _filter(self.pins, alias=pin_alias, **criteria)
+            if tmp_pins:
+                pins.extend(tmp_pins)
+                continue
+
+            # OK, does pin ID match a substring within a pin name...
+            loose_p_id = ''.join(['.*', p_id, '.*'])
+            tmp_pins = _filter(self.pins, name=loose_p_id, **criteria)
+            if tmp_pins:
+                pins.extend(tmp_pins)
+                continue
+
+            # Last chance: does pin ID match a substring within a pin alias...
+            loose_pin_alias = Alias(loose_p_id, id(self))
+            tmp_pins = _filter(self.pins, alias=loose_pin_alias, **criteria)
+            if tmp_pins:
+                pins.extend(tmp_pins)
+                continue
 
         return _list_or_scalar(pins)
 
