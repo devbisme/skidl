@@ -19,12 +19,9 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-
-
 """
 Convert a netlist into an equivalent SKiDL program.
 """
-
 
 from __future__ import unicode_literals
 from __future__ import print_function
@@ -35,6 +32,7 @@ from future import standard_library
 standard_library.install_aliases()
 
 import re
+from collections import defaultdict
 
 from .parse_netlist import *
 
@@ -44,51 +42,139 @@ def netlist_to_skidl(netlist_src):
     tab = ' ' * 4
 
     def legalize(name):
-        return re.sub('[^a-zA-Z0-9_]','_',name)
+        """Make a string into a legal python variable name."""
+        return re.sub('[^a-zA-Z0-9_]', '_', name)
 
-    def comp_to_skidl(comp):
-        ltab = tab
-        ref = comp.ref.val
-        legal_ref = legalize(ref)
-        value = comp.value.val
+    def comp_key(comp):
+        """Create an ID key from component's major characteristics."""
         lib = comp.libsource.lib.val
         part = comp.libsource.part.val
-        comp_skidl = "{ltab}{legal_ref} = Part('{lib}', '{part}', ref='{ref}', value='{value}')\n".format(**locals())
+        # Do not include the value in the key otherwise every capacitor or
+        # resistor value will get its own template.
         try:
             footprint = comp.footprint.val
-            comp_skidl += "{ltab}setattr({legal_ref}, 'footprint', '{footprint}')\n".format(**locals())
+            return legalize('_'.join([lib, part, footprint]))
         except AttributeError:
-            pass
+            # Component has no assigned footprint.
+            return legalize('_'.join([lib, part]))
+
+    def template_comp_to_skidl(template_comp):
+        """Instantiate a component that will be used as a template."""
+        ltab = tab
+
+        # Instantiate component template.
+        name = comp_key(template_comp)  # python variable name for template.
+        lib = template_comp.libsource.lib.val
+        part = template_comp.libsource.part.val
+        try:
+            footprint = template_comp.footprint.val
+            template_comp_skidl = "{ltab}{name} = Part('{lib}', '{part}', footprint='{footprint}', dest=TEMPLATE)\n".format(**locals())
+        except AttributeError:
+            template_comp_skidl = "{ltab}{name} = Part('{lib}', '{part}', dest=TEMPLATE)\n".format(**locals())
+
+        # Set attributes of template using the component fields.
+        for fld in template_comp.fields:
+            template_comp_skidl += "{ltab}setattr({name}, '{fld.name.val}', '{fld.text}')\n".format(**locals())
+
+        return template_comp_skidl
+
+    def comp_to_skidl(comp, template_comps):
+        """Instantiate components using the component templates."""
+        ltab = tab
+
+        # Use the component key to get the template that matches this component.
+        template_comp_name = comp_key(comp)
+        template_comp = template_comps[template_comp_name]
+
+        # Get the fields for the template.
+        template_comp_fields = {fld.name.val: fld.text
+                                for fld in template_comp.fields}
+
+        # Create a legal python variable for storing the instantiated component.
+        ref = comp.ref.val
+        legal_ref = legalize(ref)
+
+        # Instantiate the component and its value (if any).
+        try:
+            comp_skidl = "{ltab}{legal_ref} = {template_comp_name}(ref='{ref}', value='{comp.value.val}')\n".format(**locals())
+        except AttributeError:
+            comp_skidl = "{ltab}{legal_ref} = {template_comp_name}(ref='{ref}')\n".format(**locals())
+
+        # Set the fields of the instantiated component if they differ from the values in the template.
         for fld in comp.fields:
-            comp_skidl += "{ltab}setattr({legal_ref}, '{fld.name.val}', '{fld.text}')\n".format(**locals())
+            if fld.text != template_comp_fields.get(fld.name.val, ''):
+                comp_skidl += "{ltab}setattr({legal_ref}, '{fld.name.val}', '{fld.text}')\n".format(**locals())
+
         return comp_skidl
 
     def net_to_skidl(net):
+        """Instantiate the nets between components."""
         ltab = tab
-        name = net.name.val
-        code = int(net.code.val)
-        net_skidl = "{ltab}net__{code} = Net('{name}')\n".format(**locals())
-        net_skidl += "{ltab}net__{code} += ".format(**locals())
+
+        code = net.code.val  # Unique code integer for each net.
+        name = legalize('net__' + code)  # Python variable name to storing net.
+        net_name = net.name.val  # Original net name from netlist.
+
+        # Instantiate the net.
+        net_skidl = "{ltab}{name} = Net('{net_name}')\n".format(**locals())
+
+        # Connect component pins to the net.
+        net_skidl += "{ltab}{name} += ".format(**locals())
+        comp_pins = []
         for n in net.nodes:
-            legal_ref = legalize(n.ref.val)
-            net_skidl += "{legal_ref}['{n.pin.val}'],".format(**locals())
-        return net_skidl[:-1] + '\n' # Strip off the last ','.
+            comp_var = legalize(
+                n.ref.val)  # Python variable storing component.
+            pin_num = n.pin.val  # Pin number of component attached to net.
+            comp_pins.append("{comp_var}['{pin_num}']".format(**locals()))
+        net_skidl += ', '.join(comp_pins) + '\n'
+
+        return net_skidl
 
     def _netlist_to_skidl(ntlst):
+        """Convert a netlist into a skidl script."""
+
+        # Sequence of operations:
+        #   1. Create a template for each component having a given library, part name and footprint.
+        #   2. Instantiate each component using its matching template. Also, set any attributes
+        #      for the component that don't match those in the template.
+        #   3. Instantiate the nets connecting the component pins.
+        #   4. Call the script to instantiate the complete circuit.
+        #   5. Generate the netlist for the circuit.
+
         ltab = tab
+
+        section_div = '#' + '=' * 79
+        section_comment = "\n\n{ltab}{section_div}\n{ltab}# {section_desc}\n{ltab}{section_div}\n\n"
+
         skidl = ''
         skidl += '# -*- coding: utf-8 -*-\n\n'
         skidl += 'from skidl import *\n\n\n'
         circuit_name = legalize(ntlst.design.source.val)
-        skidl += 'def {circuit_name}():\n\n'.format(**locals())
+        skidl += 'def {circuit_name}():'.format(**locals())
 
-        for comp in ntlst.components:
-            skidl += comp_to_skidl(comp) + '\n'
+        section_desc = 'Component templates.'
+        skidl += section_comment.format(**locals())
+        comp_templates = {comp_key(comp): comp for comp in ntlst.components}
+        template_statements = sorted(
+            [template_comp_to_skidl(c) for c in list(comp_templates.values())])
+        skidl += '\n'.join(template_statements)
 
-        for net in ntlst.nets:
-            skidl += net_to_skidl(net) + '\n'
+        section_desc = 'Component instantiations.'
+        skidl += section_comment.format(**locals())
+        comp_inst_statements = sorted(
+            [comp_to_skidl(c, comp_templates) for c in ntlst.components])
+        skidl += '\n'.join(comp_inst_statements)
 
-        skidl += '\nif __name__ == "__main__":\n\n'
+        section_desc = 'Net interconnections between instantiated components.'
+        skidl += section_comment.format(**locals())
+        net_statements = sorted([net_to_skidl(n) for n in ntlst.nets])
+        skidl += '\n'.join(net_statements)
+
+        ltab = ''
+        section_desc = 'Instantiate the circuit and generate the netlist.'
+        skidl += section_comment.format(**locals())
+        ltab = tab
+        skidl += 'if __name__ == "__main__":\n'
         skidl += '{ltab}{circuit_name}()\n'.format(**locals())
         skidl += '{ltab}generate_netlist()\n'.format(**locals())
 
