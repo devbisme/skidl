@@ -35,52 +35,45 @@ Finding Parts
 ................................
 
 SKiDL provides a convenience function for searching for parts called
-(naturally) ``search``. Suppose you want to use a resistor, but don't know 
-what the name of the part is. Assuming it probably starts with "R", ``search``
-can be used to do a wildcard search of the part libraries:
+(naturally) ``search``.
+For example, if you needed an operational amplifier, then the following command would
+pull up some likely candidates::
 
-    >>> search('R.*')
-    bbd.lib: RD5106A
-    conn.lib: RJ12
-    conn.lib: RJ45
-    conn.lib: RJ45-TRANSFO
-    conn.lib: RJ45_LEDS
-    device.lib: R
-    device.lib: RELAY_2RT
-    device.lib: RF_SHIELD_ONE_PIECE
-    device.lib: RF_SHIELD_TWO_PIECES
-    ...
-    references.lib: REF3212AMDBVREP
-    references.lib: REF5020AD
-    references.lib: REF5020ADGK
-    rfcom.lib: RN42
-    rfcom.lib: RN42N
-    >>>
-
-Or suppose you want an LM358 opamp::
-
-    >>> search('LM358')
-    linear.lib: LM358
-
-In addition to part names, SKiDL's ``search`` function also scans over the description and keywords for all
-the parts, making it easy to find things like transistors and opamps::
-
-    >>> skidl.search('.*opamp.*')
-    linear.lib: LM386
-    linear.lib: MCP601
+    >>> search('opamp')
+    linear.lib: LT1492
     linear.lib: MCP601R
-    linear.lib: AD620
+    linear.lib: LT1493
+    linear.lib: MCP603
+    linear.lib: LM4250
+    ...
+    linear.lib: LM386
+    linear.lib: MCP603SN
+    linear.lib: INA128
     linear.lib: LTC6082
+    linear.lib: MCP601SN
+
+``search`` accepts a regular expression and scans for it *anywhere* within the
+name, description and keywords of all the parts in the library path.
+So the following search pulls up several candidates::
+
+    >>> search('lm35')
+    dc-dc.lib: LM3578
+    linear.lib: LM358
+    regul.lib: LM350T
+    sensors.lib: LM35-NEB
+    sensors.lib: LM35-D
+    sensors.lib: LM35-LP
+
+If you want to restrict the search to a specific part, then
+use a regular expression like the following::
+
+    >>> search('^lm358$')
+    linear.lib: LM358
 
 Once you have the part name and library, you can see the part's pin numbers, names
 and their functions using the ``show`` function::
 
-    >>> show('device','R')
-    R:
-            Pin 1/~: PASSIVE
-            Pin 2/~: PASSIVE
-
-    >>> show('linear','LM358')
+    >>> show('linear', 'LM358')
     LM358:
             Pin 4/V-: POWER-IN
             Pin 8/V+: POWER-IN
@@ -90,6 +83,12 @@ and their functions using the ``show`` function::
             Pin 5/+: INPUT
             Pin 6/-: INPUT
             Pin 7/~: OUTPUT
+
+``show`` looks for exact matches of the part name in a library, so the following
+command raises an error::
+
+    >>> show('linear', 'lm35')
+    ERROR: Unable to find part lm35 in library linear.
 
 
 Instantiating Parts

@@ -4,6 +4,14 @@ History
 -------
 
 
+0.0.8 (2017-01-11)
+______________________
+
+* skidl_to_netlist now uses templates.
+* Default operation of search() is now less exacting.
+* Traceback is now suppressed if show() is passed a part name not in a library.
+
+
 0.0.7 (2016-09-11)
 ______________________
 

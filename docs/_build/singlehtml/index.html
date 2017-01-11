@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>skidl 0.0.7 documentation</title>
+    <title>skidl 0.0.8 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.0.7',
+        VERSION:     '0.0.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
-        <li class="nav-item nav-item-0"><a href="index.html#document-index">skidl 0.0.7 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html#document-index">skidl 0.0.8 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -43,7 +43,7 @@
 <div class="toctree-wrapper compound">
 <span id="document-readme"></span><div class="section" id="skidl">
 <h2>skidl<a class="headerlink" href="#skidl" title="Permalink to this headline">¶</a></h2>
-<a class="reference external image-reference" href="https://pypi.python.org/pypi/skidl"><img alt="https://img.shields.io/pypi/v/skidl.svg" src="https://img.shields.io/pypi/v/skidl.svg" /></a>
+<a class="reference external image-reference" href="https://pypi.python.org/pypi/skidl"><img src="https://img.shields.io/pypi/v/skidl.svg" /></a>
 <p>SKiDL is a module that allows you to compactly describe the interconnection of
 electronic circuits and components using Python.
 The resulting Python program performs electrical rules checking
@@ -167,51 +167,44 @@ executed as a Python script.</p>
 <div class="section" id="finding-parts">
 <h4>Finding Parts<a class="headerlink" href="#finding-parts" title="Permalink to this headline">¶</a></h4>
 <p>SKiDL provides a convenience function for searching for parts called
-(naturally) <code class="docutils literal"><span class="pre">search</span></code>. Suppose you want to use a resistor, but don&#8217;t know
-what the name of the part is. Assuming it probably starts with &#8220;R&#8221;, <code class="docutils literal"><span class="pre">search</span></code>
-can be used to do a wildcard search of the part libraries:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;R.*&#39;</span><span class="p">)</span>
-<span class="go">bbd.lib: RD5106A</span>
-<span class="go">conn.lib: RJ12</span>
-<span class="go">conn.lib: RJ45</span>
-<span class="go">conn.lib: RJ45-TRANSFO</span>
-<span class="go">conn.lib: RJ45_LEDS</span>
-<span class="go">device.lib: R</span>
-<span class="go">device.lib: RELAY_2RT</span>
-<span class="go">device.lib: RF_SHIELD_ONE_PIECE</span>
-<span class="go">device.lib: RF_SHIELD_TWO_PIECES</span>
-<span class="gp">...</span>
-<span class="go">references.lib: REF3212AMDBVREP</span>
-<span class="go">references.lib: REF5020AD</span>
-<span class="go">references.lib: REF5020ADGK</span>
-<span class="go">rfcom.lib: RN42</span>
-<span class="go">rfcom.lib: RN42N</span>
-<span class="go">&gt;&gt;&gt;</span>
-</pre></div>
-</div>
-<p>Or suppose you want an LM358 opamp:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;LM358&#39;</span><span class="p">)</span>
-<span class="go">linear.lib: LM358</span>
-</pre></div>
-</div>
-<p>In addition to part names, SKiDL&#8217;s <code class="docutils literal"><span class="pre">search</span></code> function also scans over the description and keywords for all
-the parts, making it easy to find things like transistors and opamps:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">skidl</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;.*opamp.*&#39;</span><span class="p">)</span>
-<span class="go">linear.lib: LM386</span>
-<span class="go">linear.lib: MCP601</span>
+(naturally) <code class="docutils literal"><span class="pre">search</span></code>.
+For example, if you needed an operational amplifier, then the following command would
+pull up some likely candidates:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;opamp&#39;</span><span class="p">)</span>
+<span class="go">linear.lib: LT1492</span>
 <span class="go">linear.lib: MCP601R</span>
-<span class="go">linear.lib: AD620</span>
+<span class="go">linear.lib: LT1493</span>
+<span class="go">linear.lib: MCP603</span>
+<span class="go">linear.lib: LM4250</span>
+<span class="gp">...</span>
+<span class="go">linear.lib: LM386</span>
+<span class="go">linear.lib: MCP603SN</span>
+<span class="go">linear.lib: INA128</span>
 <span class="go">linear.lib: LTC6082</span>
+<span class="go">linear.lib: MCP601SN</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">search</span></code> accepts a regular expression and scans for it <em>anywhere</em> within the
+name, description and keywords of all the parts in the library path.
+So the following search pulls up several candidates:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;lm35&#39;</span><span class="p">)</span>
+<span class="go">dc-dc.lib: LM3578</span>
+<span class="go">linear.lib: LM358</span>
+<span class="go">regul.lib: LM350T</span>
+<span class="go">sensors.lib: LM35-NEB</span>
+<span class="go">sensors.lib: LM35-D</span>
+<span class="go">sensors.lib: LM35-LP</span>
+</pre></div>
+</div>
+<p>If you want to restrict the search to a specific part, then
+use a regular expression like the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;^lm358$&#39;</span><span class="p">)</span>
+<span class="go">linear.lib: LM358</span>
 </pre></div>
 </div>
 <p>Once you have the part name and library, you can see the part&#8217;s pin numbers, names
 and their functions using the <code class="docutils literal"><span class="pre">show</span></code> function:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">show</span><span class="p">(</span><span class="s1">&#39;device&#39;</span><span class="p">,</span><span class="s1">&#39;R&#39;</span><span class="p">)</span>
-<span class="go">R:</span>
-<span class="go">        Pin 1/~: PASSIVE</span>
-<span class="go">        Pin 2/~: PASSIVE</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="n">show</span><span class="p">(</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span><span class="s1">&#39;LM358&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">show</span><span class="p">(</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="s1">&#39;LM358&#39;</span><span class="p">)</span>
 <span class="go">LM358:</span>
 <span class="go">        Pin 4/V-: POWER-IN</span>
 <span class="go">        Pin 8/V+: POWER-IN</span>
@@ -221,6 +214,12 @@ and their functions using the <code class="docutils literal"><span class="pre">s
 <span class="go">        Pin 5/+: INPUT</span>
 <span class="go">        Pin 6/-: INPUT</span>
 <span class="go">        Pin 7/~: OUTPUT</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">show</span></code> looks for exact matches of the part name in a library, so the following
+command raises an error:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">show</span><span class="p">(</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="s1">&#39;lm35&#39;</span><span class="p">)</span>
+<span class="go">ERROR: Unable to find part lm35 in library linear.</span>
 </pre></div>
 </div>
 </div>
@@ -1255,7 +1254,7 @@ is found, the name for this net is adjusted to make it unique.</p>
 
 <dl class="class">
 <dt id="skidl.skidl.Part">
-<em class="property">class </em><code class="descclassname">skidl.skidl.</code><code class="descname">Part</code><span class="sig-paren">(</span><em>lib=None</em>, <em>name=None</em>, <em>dest=u'NETLIST'</em>, <em>tool=u'kicad'</em>, <em>connections=None</em>, <em>part_defn=None</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Part"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Part" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">skidl.skidl.</code><code class="descname">Part</code><span class="sig-paren">(</span><em>lib=None</em>, <em>name=None</em>, <em>dest='NETLIST'</em>, <em>tool='kicad'</em>, <em>connections=None</em>, <em>part_defn=None</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Part"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Part" title="Permalink to this definition">¶</a></dt>
 <dd><p>A class for storing a definition of a schematic part.</p>
 <dl class="attribute">
 <dt id="skidl.skidl.Part.ref">
@@ -1315,7 +1314,7 @@ named &#8216;manf_num&#8217; for the part and assign it the value &#8216;LM4808M
 </table>
 <dl class="method">
 <dt id="skidl.skidl.Part.copy">
-<code class="descname">copy</code><span class="sig-paren">(</span><em>num_copies=1</em>, <em>dest=u'NETLIST'</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Part.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Part.copy" title="Permalink to this definition">¶</a></dt>
+<code class="descname">copy</code><span class="sig-paren">(</span><em>num_copies=1</em>, <em>dest='NETLIST'</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Part.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Part.copy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make zero or more copies of this part while maintaining all pin/net
 connections.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1622,6 +1621,18 @@ SubCircuits at the current time it is read.</p>
 
 </dd></dl>
 
+<dl class="function">
+<dt id="skidl.skidl.search">
+<code class="descclassname">skidl.skidl.</code><code class="descname">search</code><span class="sig-paren">(</span><em>term</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#search"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print a list of components with the regex term within their name, alias, description or keywords.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.skidl.show">
+<code class="descclassname">skidl.skidl.</code><code class="descname">show</code><span class="sig-paren">(</span><em>lib_name</em>, <em>part_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the I/O pins for a given part in a library.</p>
+</dd></dl>
+
 </div>
 <span id="document-authors"></span><div class="section" id="credits">
 <h2>Credits<a class="headerlink" href="#credits" title="Permalink to this headline">¶</a></h2>
@@ -1651,47 +1662,55 @@ rich software ecosystem.</li>
 <span id="document-history"></span><div class="section" id="history">
 <h2>History<a class="headerlink" href="#history" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id1">
-<h3>0.0.7 (2016-09-11)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<h3>0.0.8 (2017-01-11)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>skidl_to_netlist now uses templates.</li>
+<li>Default operation of search() is now less exacting.</li>
+<li>Traceback is now suppressed if show() is passed a part name not in a library.</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h3>0.0.7 (2016-09-11)<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Lack of KISYSMOD environment variable no longer causes an exception.</li>
 <li>requirements.txt file now references the requirements from setup.py.</li>
 <li>Changed setup so it generates a pckg_info file with version, author, email.</li>
 </ul>
 </div>
-<div class="section" id="id2">
-<h3>0.0.6 (2016-09-10)<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3>0.0.6 (2016-09-10)<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Fixed error caused when trying to find script name when SKiDL is run in interactive mode.</li>
 <li>Silenced errors/warnings when loading KiCad part description (.dcm) files.</li>
 </ul>
 </div>
-<div class="section" id="id3">
-<h3>0.0.5 (2016-09-07)<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3>0.0.5 (2016-09-07)<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>SKiDL now searches for parts with a user-configurable list of library search paths.</li>
 <li>Part descriptions and keywords are now loaded from the .dcm file associated with a .lib file.</li>
 </ul>
 </div>
-<div class="section" id="id4">
-<h3>0.0.4 (2016-08-27)<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h3>0.0.4 (2016-08-27)<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>SKiDL scripts can now output netlists in XML format.</li>
 </ul>
 </div>
-<div class="section" id="id5">
-<h3>0.0.3 (2016-08-25)<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h3>0.0.3 (2016-08-25)<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Added command-line utility to convert netlists into SKiDL programs.</li>
 </ul>
 </div>
-<div class="section" id="id6">
-<h3>0.0.2 (2016-08-17)<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h3>0.0.2 (2016-08-17)<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Changed the link to the documentation.</li>
 </ul>
 </div>
-<div class="section" id="id7">
-<h3>0.0.1 (2016-08-16)<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h3>0.0.1 (2016-08-16)<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>First release on PyPI.</li>
 </ul>
@@ -1736,13 +1755,14 @@ rich software ecosystem.</li>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="index.html#document-acknowledgements">Acknowledgements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="index.html#document-history">History</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="index.html#id1">0.0.7 (2016-09-11)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#id2">0.0.6 (2016-09-10)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#id3">0.0.5 (2016-09-07)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#id4">0.0.4 (2016-08-27)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#id5">0.0.3 (2016-08-25)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#id6">0.0.2 (2016-08-17)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#id7">0.0.1 (2016-08-16)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id1">0.0.8 (2017-01-11)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id2">0.0.7 (2016-09-11)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id3">0.0.6 (2016-09-10)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id4">0.0.5 (2016-09-07)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id5">0.0.4 (2016-08-27)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id6">0.0.3 (2016-08-25)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id7">0.0.2 (2016-08-17)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id8">0.0.1 (2016-08-16)</a></li>
 </ul>
 </li>
 </ul>
@@ -1754,12 +1774,12 @@ rich software ecosystem.</li>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
-        <li class="nav-item nav-item-0"><a href="index.html#document-index">skidl 0.0.7 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html#document-index">skidl 0.0.8 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2016, XESS Corp..
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.5.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.4.
     </div>
   </body>
 </html>
