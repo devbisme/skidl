@@ -1916,7 +1916,7 @@ class Part(object):
 
     def __str__(self):
         """Return a description of the pins on this part as a string."""
-        return self.name + ':\n\t' + '\n\t'.join(
+        return '\n' + self.name + ':\n\t' + '\n\t'.join(
             [p.__str__() for p in self.pins])
 
     __repr__ = __str__
@@ -3271,39 +3271,53 @@ class SubCircuit(object):
 
 
 def search(term):
-    for lib_dir in lib_search_paths_kicad:
-        lib_files = os.listdir(lib_dir)
-        lib_files.extend(os.listdir('.'))
-        lib_files = [l for l in lib_files if l.endswith('.lib')]
-        parts = set()
-        for lib_file in lib_files:
-            lib = _SchLib(lib_file)
+    """Print a list of components with the regex term within their name, alias, description or keywords."""
 
-            def mk_list(l):
-                if isinstance(l, (list, tuple)):
-                    return l
-                if not l:
-                    return []
-                return [l]
+    def search_libraries(term):
+        """Search for a regex term in part libraries."""
 
-            for p in mk_list(lib.get_parts(name=term)):
-                p._parse()
-                parts.add((lib_file, p))
-            for p in mk_list(lib.get_parts(alias=term)):
-                p._parse()
-                parts.add((lib_file, p))
-            for p in mk_list(lib.get_parts(description=term)):
-                p._parse()
-                parts.add((lib_file, p))
-            for p in mk_list(lib.get_parts(keywords=term)):
-                p._parse()
-                parts.add((lib_file, p))
-    for lib_file, p in sorted(list(parts), key=lambda p: p[0]):
+        for lib_dir in lib_search_paths_kicad:
+            # Get all the library files in the search path.
+            lib_files = os.listdir(lib_dir)
+            lib_files.extend(os.listdir('.'))
+            lib_files = [l for l in lib_files if l.endswith('.lib')]
+
+            parts = set() # Set of parts and their containing libraries found with the term.
+
+            for lib_file in lib_files:
+                lib = _SchLib(lib_file) # Open the library file.
+
+                def mk_list(l):
+                    """Make a list out of whatever is given."""
+                    if isinstance(l, (list, tuple)):
+                        return l
+                    if not l:
+                        return []
+                    return [l]
+
+                # Search the current library for parts with the given term in 
+                # each of the these categories.
+                for category in ['name', 'alias', 'description', 'keywords']:
+                    for part in mk_list(lib.get_parts(**{category:term})):
+                        part._parse() # Parse the part to instantiate the complete object.
+                        parts.add((lib_file, part)) # Store the library name and part object.
+
+        return list(parts) # Return the list of parts and their containing libraries.
+
+    term = '.*' + term + '.*' # Use the given term as a substring.
+    parts = search_libraries(term)  # Search for parts with that substring.
+
+    # Print each part name sorted by the library where it was found.
+    for lib_file, p in sorted(parts, key=lambda p: p[0]):
         print('{}: {}'.format(lib_file, p.name))
 
 
-def show(lib_file, name):
-    print(Part(lib_file, name))
+def show(lib_name, part_name):
+    """Print the I/O pins for a given part in a library."""
+    try:
+        return Part(lib_name, re.escape(part_name))
+    except Exception:
+        return None # Suppress the traceback information.
 
 
 Circuit = SubCircuit
