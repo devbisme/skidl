@@ -2,7 +2,7 @@ callback([
 
   {
     "text": "Building a USB-to-JTAG Interface Using SKiDL",
-    "href": "http://xesscorp.github.io/skidl/blog/building-a-usb-to-jtag-interface-using-skidl"
+    "href": "http://xesscorp.github.io/skidl/_site/blog/building-a-usb-to-jtag-interface-using-skidl"
   } 
 
 ])
