@@ -1,0 +1,638 @@
+/* tools */
+.cf:before,
+.cf:after {
+  content: " ";
+  display: table; }
+
+.cf:after {
+  clear: both; }
+
+html, body, .notepad-post-container, .notepad-post-header {
+  height: 100%; }
+
+.notepad-post-header-title {
+  display: inline-block;
+  padding: 0;
+  padding-left: 1.25rem;
+  height: 5rem;
+  line-height: 5rem;
+  vertical-align: middle;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.625rem;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: -0.0625rem; }
+  .notepad-post-header-title a {
+    color: white; }
+    .notepad-post-header-title a:hover {
+      color: white; }
+
+.post-template {
+  /* Header */
+  /* based on http://tympanus.net/Development/ArticleIntroEffects/index3.html */
+  /* Trigger Button */
+  /* Conent */
+  /* -------------------------- */
+  /* Sliced */
+  /* based on http://tympanus.net/Development/ArticleIntroEffects/index3.html
+  /* -------------------------- */
+  /* Delays */ }
+  .post-template .notepad-blog-menu .notepad-mobile-menu a {
+    color: white; }
+    .post-template .notepad-blog-menu .notepad-mobile-menu a:hover {
+      color: white; }
+  @media only screen and (min-width: 40.063em) {
+    .post-template .notepad-blog-menu ul li a {
+      color: white; }
+      .post-template .notepad-blog-menu ul li a:hover {
+        border-bottom: 0.1875rem solid white; } }
+  .post-template .notepad-post-header {
+    position: relative;
+    margin: 0 auto;
+    min-height: 35rem;
+    width: 100%; }
+    .post-template .notepad-post-header .notepad-post-menu-header {
+      width: 100%;
+      height: 5rem;
+      background-color: black;
+      color: white;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 9999; }
+      .post-template .notepad-post-header .notepad-post-menu-header .notepad-blog-logo {
+        display: inline-block;
+        max-height: 5rem; }
+        .post-template .notepad-post-header .notepad-post-menu-header .notepad-blog-logo img {
+          max-height: 5rem; }
+  .post-template .bg-img {
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    -webkit-backface-visibility: hidden; }
+    .post-template .bg-img img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      min-width: 100%;
+      min-height: 100%;
+      max-width: none; }
+  .post-template .notepad-post-title {
+    z-index: 1000;
+    margin: 0 auto;
+    padding: 0 1.25em;
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%); }
+    .post-template .notepad-post-title a {
+      color: black; }
+      .post-template .notepad-post-title a:hover {
+        color: #006699; }
+    .post-template .notepad-post-title h1 {
+      color: black;
+      font-weight: 800;
+      font-size: 2.5rem;
+      margin: 0 auto;
+      line-height: 1.1;
+      text-transform: uppercase; }
+      @media only screen and (min-width: 40.063em) {
+        .post-template .notepad-post-title h1 {
+          font-size: 3.125rem; } }
+      @media only screen and (min-width: 70em) {
+        .post-template .notepad-post-title h1 {
+          font-size: 4.375rem; } }
+      @media only screen and (min-width: 90em) {
+        .post-template .notepad-post-title h1 {
+          font-size: 5.3125rem; } }
+    .post-template .notepad-post-title.background--light h1 {
+      color: black; }
+    .post-template .notepad-post-title.background--dark h1 {
+      color: white; }
+  .post-template button.trigger {
+    position: fixed;
+    bottom: 2.5rem;
+    left: 50%;
+    z-index: 5000;
+    display: block;
+    margin-left: -0.5em;
+    padding: 0;
+    width: 1em;
+    height: 1em;
+    border: none;
+    background: transparent;
+    color: transparent;
+    font-size: 2em;
+    cursor: pointer; }
+    .post-template button.trigger.background--light::before, .post-template button.trigger.background--light span::before {
+      color: black; }
+    .post-template button.trigger.background--dark::before, .post-template button.trigger.background--dark span::before {
+      color: white; }
+  .post-template .notepad-post-container:not(.notrans) button.trigger {
+    -webkit-transition: opacity 0.3s 0.5s;
+    transition: opacity 0.3s 0.5s; }
+  .post-template .notepad-post-container.modify:not(.notrans) button.trigger {
+    opacity: 0;
+    pointer-events: none;
+    -webkit-transition-delay: 0s;
+    transition-delay: 0s; }
+  .post-template button.trigger::before {
+    position: absolute;
+    bottom: 100%;
+    left: -200%;
+    padding: 0.8em;
+    width: 500%;
+    color: black;
+    content: attr(data-info);
+    font-size: 1.125rem;
+    text-transform: uppercase;
+    -webkit-backface-visibility: hidden; }
+  .post-template button.trigger:focus {
+    outline: none; }
+  .post-template button.trigger span {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: 100%; }
+  .post-template button.trigger span::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: black;
+    content: "\f078";
+    text-transform: none;
+    font-weight: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-family: 'FontAwesome';
+    line-height: 1;
+    speak: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale; }
+  .post-template .notepad-post-content {
+    margin: 0 auto;
+    padding: 0; }
+    .post-template .notepad-post-content > div:not(.notepad-post-title) {
+      margin: -25% auto 0;
+      padding-left: 1.875rem;
+      padding-right: 1.875rem; }
+      @media only screen and (min-width: 40.063em) {
+        .post-template .notepad-post-content > div:not(.notepad-post-title) {
+          margin: -18% auto 0; } }
+      @media only screen and (min-width: 70em) {
+        .post-template .notepad-post-content > div:not(.notepad-post-title) {
+          margin: -10% auto 0; } }
+      .post-template .notepad-post-content > div:not(.notepad-post-title) a, .post-template .notepad-post-content > div:not(.notepad-post-title) code {
+        color: #006699; }
+      .post-template .notepad-post-content > div:not(.notepad-post-title) ul, .post-template .notepad-post-content > div:not(.notepad-post-title) ol {
+        padding-left: 1.25rem;
+        font-size: 1.125rem; }
+      .post-template .notepad-post-content > div:not(.notepad-post-title) h1, .post-template .notepad-post-content > div:not(.notepad-post-title) h2, .post-template .notepad-post-content > div:not(.notepad-post-title) h3, .post-template .notepad-post-content > div:not(.notepad-post-title) h4, .post-template .notepad-post-content > div:not(.notepad-post-title) h5, .post-template .notepad-post-content > div:not(.notepad-post-title) h6 {
+        font-weight: bold; }
+      .post-template .notepad-post-content > div:not(.notepad-post-title) h1, .post-template .notepad-post-content > div:not(.notepad-post-title) h2, .post-template .notepad-post-content > div:not(.notepad-post-title) h3, .post-template .notepad-post-content > div:not(.notepad-post-title) h4, .post-template .notepad-post-content > div:not(.notepad-post-title) h5, .post-template .notepad-post-content > div:not(.notepad-post-title) h6, .post-template .notepad-post-content > div:not(.notepad-post-title) ul, .post-template .notepad-post-content > div:not(.notepad-post-title) ol, .post-template .notepad-post-content > div:not(.notepad-post-title) blockquote, .post-template .notepad-post-content > div:not(.notepad-post-title) pre, .post-template .notepad-post-content > div:not(.notepad-post-title) hr {
+        max-width: 56.25rem;
+        margin-left: auto;
+        margin-right: auto; }
+      .post-template .notepad-post-content > div:not(.notepad-post-title) p {
+        margin: 0 auto 2em auto;
+        max-width: 56.25rem;
+        font-size: 1.125rem; }
+        .post-template .notepad-post-content > div:not(.notepad-post-title) p:first-child {
+          font-size: 1.375rem;
+          font-weight: 300; }
+          @media only screen and (min-width: 40.063em) {
+            .post-template .notepad-post-content > div:not(.notepad-post-title) p:first-child {
+              font-size: 1.625rem; } }
+        .post-template .notepad-post-content > div:not(.notepad-post-title) p.with-image {
+          text-align: center;
+          padding-top: 1.125rem;
+          padding-bottom: 1.125rem;
+          max-width: 75rem; }
+  .post-template .notepad-post-content.tag-simple > div:not(.notepad-post-title) {
+    margin: 0 auto 0; }
+  @media screen and (max-width: 47em) {
+    .post-template .notepad-post-title, .post-template .notepad-post-content {
+      font-size: 70%; } }
+  @media screen and (max-width: 27em) {
+    .post-template .notepad-post-title, .post-template .notepad-post-content {
+      font-size: 50%; }
+    .post-template button.trigger::before {
+      display: none; } }
+  .post-template .intro-effect-sliced:not(.notrans) .bg-img,
+  .post-template .intro-effect-sliced:not(.notrans) .notepad-post-title {
+    -webkit-transition-property: -webkit-transform;
+    transition-property: transform; }
+  .post-template .intro-effect-sliced:not(.notrans) .notepad-post-header h1 {
+    -webkit-transition-property: color;
+    transition-property: color; }
+  .post-template .intro-effect-sliced:not(.notrans) .notepad-post-header p {
+    -webkit-transition-property: opacity;
+    transition-property: opacity; }
+  .post-template .intro-effect-sliced:not(.notrans) .notepad-post-content > div {
+    -webkit-transition-property: -webkit-transform, opacity;
+    transition-property: transform, opacity; }
+  .post-template .intro-effect-sliced:not(.notrans) .bg-img,
+  .post-template .intro-effect-sliced:not(.notrans) .notepad-post-header h1,
+  .post-template .intro-effect-sliced:not(.notrans) .notepad-post-title,
+  .post-template .intro-effect-sliced:not(.notrans) .notepad-post-header p,
+  .post-template .intro-effect-sliced:not(.notrans) .notepad-post-content > div {
+    -webkit-transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+    transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s; }
+  .post-template .intro-effect-sliced.modify:not(.notrans) .notepad-post-header h1,
+  .post-template .intro-effect-sliced.modify:not(.notrans) .notepad-post-title,
+  .post-template .intro-effect-sliced.modify:not(.notrans) .notepad-post-header p,
+  .post-template .intro-effect-sliced.modify:not(.notrans) .notepad-post-content > div {
+    -webkit-transition-timing-function: ease;
+    transition-timing-function: ease;
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    -webkit-transition-delay: 0.4s;
+    transition-delay: 0.4s; }
+  .post-template .intro-effect-sliced .bg-img:first-child {
+    bottom: 50%; }
+  .post-template .intro-effect-sliced .bg-img:last-child {
+    top: 50%;
+    position: fixed;
+    z-index: 900; }
+  .post-template .intro-effect-sliced .bg-img:last-child img {
+    top: -100%; }
+  .post-template .intro-effect-sliced.modify .bg-img:first-child {
+    -webkit-transform: translateY(-100%);
+    transform: translateY(-100%); }
+  .post-template .intro-effect-sliced.modify .bg-img:last-child {
+    -webkit-transform: translateY(100%);
+    transform: translateY(100%); }
+  .post-template .intro-effect-sliced .notepad-post-title {
+    -webkit-transform: translateX(-50%) translateY(-50%) scale(0.7);
+    transform: translateX(-50%) translateY(-50%) scale(0.7); }
+  .post-template .intro-effect-sliced.modify .notepad-post-title {
+    -webkit-transform: translateX(-50%) translateY(-50%) scale(1);
+    transform: translateX(-50%) translateY(-50%) scale(1); }
+  .post-template .intro-effect-sliced .notepad-post-header p {
+    opacity: 0;
+    color: black; }
+  .post-template .intro-effect-sliced.modify .notepad-post-header p {
+    opacity: 1; }
+  .post-template .intro-effect-sliced.modify .notepad-post-header h1 {
+    color: black; }
+  .post-template .intro-effect-sliced .notepad-post-content > div {
+    -webkit-transform: translateY(200px);
+    transform: translateY(200px);
+    opacity: 0; }
+  .post-template .intro-effect-sliced.modify .notepad-post-content > div {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    opacity: 1; }
+  .post-template .intro-effect-sliced.modify:not(.notrans) .notepad-post-title {
+    -webkit-transition-delay: 0.3s;
+    transition-delay: 0.3s; }
+
+.notepad-post-share {
+  font-size: 1.875rem;
+  padding: 0;
+  padding-top: 3.75rem;
+  padding-bottom: 3.75rem;
+  border-top: 0.0625rem solid #f2f2f2;
+  color: #006699; }
+  .notepad-post-share a {
+    display: inline-block;
+    margin: 0 0.9375rem;
+    color: #006699; }
+  @media only screen and (min-width: 40.063em) {
+    .notepad-post-share {
+      padding-top: 5rem;
+      padding-bottom: 5rem; } }
+
+.notepad-author-info {
+  padding: 0;
+  padding-top: 3.75rem;
+  padding-bottom: 3.75rem;
+  background: #f2f2f2; }
+  @media only screen and (min-width: 40.063em) {
+    .notepad-author-info {
+      padding-top: 5rem;
+      padding-bottom: 5rem; } }
+  @media only screen and (min-width: 70em) {
+    .notepad-author-info {
+      padding-top: 6.875rem;
+      padding-bottom: 6.875rem; } }
+  @media only screen and (min-width: 90em) {
+    .notepad-author-info {
+      padding-top: 7.5rem;
+      padding-bottom: 7.5rem; } }
+  .notepad-author-info .notepad-post-author {
+    padding-left: 1.875rem;
+    padding-right: 1.875rem;
+    text-align: center; }
+    .notepad-author-info .notepad-post-author .author-label {
+      display: block;
+      font-size: 1rem;
+      color: gray;
+      font-style: italic; }
+    .notepad-author-info .notepad-post-author .author-website {
+      font-size: 1rem; }
+    .notepad-author-info .notepad-post-author h1 {
+      margin: 0;
+      padding: 0;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 700;
+      text-transform: uppercase; }
+    .notepad-author-info .notepad-post-author > p {
+      font-size: 1.125rem; }
+      .notepad-author-info .notepad-post-author > p a {
+        color: #006699; }
+    .notepad-author-info .notepad-post-author .notepad-post-author-avatar {
+      width: 12.5rem;
+      height: 12.5rem;
+      border-radius: 50%;
+      float: none;
+      margin-right: 0;
+      margin-bottom: 1.25rem; }
+      @media only screen and (min-width: 40.063em) {
+        .notepad-author-info .notepad-post-author .notepad-post-author-avatar {
+          margin-right: 3.125rem;
+          margin-bottom: 0;
+          float: left; } }
+    @media only screen and (min-width: 40.063em) {
+      .notepad-author-info .notepad-post-author {
+        text-align: left; } }
+
+.notepad-page-menu-header,
+.notepad-post-menu-header-simple {
+  width: 100%;
+  height: 5rem;
+  background-color: black;
+  color: white;
+  position: relative;
+  z-index: 9999; }
+  .notepad-page-menu-header .notepad-blog-logo,
+  .notepad-post-menu-header-simple .notepad-blog-logo {
+    display: inline-block;
+    max-height: 5rem; }
+    .notepad-page-menu-header .notepad-blog-logo img,
+    .notepad-post-menu-header-simple .notepad-blog-logo img {
+      max-height: 5rem; }
+
+.notepad-page-title,
+.notepad-post-title-simple {
+  margin: 0 auto;
+  width: 100%; }
+  .notepad-page-title a,
+  .notepad-post-title-simple a {
+    color: black; }
+    .notepad-page-title a:hover,
+    .notepad-post-title-simple a:hover {
+      color: #006699; }
+  .notepad-page-title h1,
+  .notepad-post-title-simple h1 {
+    color: black;
+    font-weight: 800;
+    font-size: 3.125rem;
+    padding: 0;
+    padding-top: 5rem;
+    padding-bottom: 4.375rem;
+    margin: 0 auto;
+    line-height: 1.1;
+    text-align: center;
+    text-transform: uppercase; }
+    @media only screen and (min-width: 40.063em) {
+      .notepad-page-title h1,
+      .notepad-post-title-simple h1 {
+        font-size: 4.375rem;
+        padding-top: 5.625rem;
+        padding-bottom: 5.625rem; } }
+    @media only screen and (min-width: 70em) {
+      .notepad-page-title h1,
+      .notepad-post-title-simple h1 {
+        padding-top: 6.875rem;
+        padding-bottom: 6.875rem; } }
+    @media only screen and (min-width: 90em) {
+      .notepad-page-title h1,
+      .notepad-post-title-simple h1 {
+        font-size: 5.3125rem;
+        padding-top: 8.125rem;
+        padding-bottom: 8.125rem; } }
+  .notepad-page-title .notepad-post-meta-simple,
+  .notepad-post-title-simple .notepad-post-meta-simple {
+    text-align: center;
+    padding-top: 5rem;
+    padding-bottom: 2.5rem; }
+    .notepad-page-title .notepad-post-meta-simple h1,
+    .notepad-post-title-simple .notepad-post-meta-simple h1 {
+      padding: 0; }
+    .notepad-page-title .notepad-post-meta-simple p.meta,
+    .notepad-post-title-simple .notepad-post-meta-simple p.meta {
+      padding-top: 0.625rem; }
+    @media only screen and (min-width: 40.063em) {
+      .notepad-page-title .notepad-post-meta-simple,
+      .notepad-post-title-simple .notepad-post-meta-simple {
+        padding-top: 6.25rem;
+        padding-bottom: 3.75rem; } }
+    @media only screen and (min-width: 70em) {
+      .notepad-page-title .notepad-post-meta-simple,
+      .notepad-post-title-simple .notepad-post-meta-simple {
+        padding-top: 8.75rem;
+        padding-bottom: 5.625rem; } }
+    @media only screen and (min-width: 90em) {
+      .notepad-page-title .notepad-post-meta-simple,
+      .notepad-post-title-simple .notepad-post-meta-simple {
+        padding-top: 10rem;
+        padding-bottom: 6.25rem; } }
+
+/* Page conent */
+.notepad-page-content {
+  margin: 0 auto;
+  padding: 0 0 5rem; }
+  .notepad-page-content > div:not(.notepad-page-title) {
+    margin: 0 auto;
+    padding-left: 1.875rem;
+    padding-right: 1.875rem; }
+    .notepad-page-content > div:not(.notepad-page-title) a, .notepad-page-content > div:not(.notepad-page-title) code {
+      color: #006699; }
+    .notepad-page-content > div:not(.notepad-page-title) ul, .notepad-page-content > div:not(.notepad-page-title) ol {
+      padding-left: 1.25rem;
+      font-size: 1.125rem; }
+    .notepad-page-content > div:not(.notepad-page-title) h1, .notepad-page-content > div:not(.notepad-page-title) h2, .notepad-page-content > div:not(.notepad-page-title) h3, .notepad-page-content > div:not(.notepad-page-title) h4, .notepad-page-content > div:not(.notepad-page-title) h5, .notepad-page-content > div:not(.notepad-page-title) h6 {
+      font-weight: bold; }
+    .notepad-page-content > div:not(.notepad-page-title) h1, .notepad-page-content > div:not(.notepad-page-title) h2, .notepad-page-content > div:not(.notepad-page-title) h3, .notepad-page-content > div:not(.notepad-page-title) h4, .notepad-page-content > div:not(.notepad-page-title) h5, .notepad-page-content > div:not(.notepad-page-title) h6, .notepad-page-content > div:not(.notepad-page-title) ul, .notepad-page-content > div:not(.notepad-page-title) ol, .notepad-page-content > div:not(.notepad-page-title) blockquote, .notepad-page-content > div:not(.notepad-page-title) pre, .notepad-page-content > div:not(.notepad-page-title) hr {
+      max-width: 56.25rem;
+      margin-left: auto;
+      margin-right: auto; }
+    .notepad-page-content > div:not(.notepad-page-title) p {
+      margin: 0 auto 2em auto;
+      max-width: 56.25rem;
+      font-size: 1.125rem; }
+      .notepad-page-content > div:not(.notepad-page-title) p:first-child {
+        font-size: 1.375rem;
+        font-weight: 300; }
+        @media only screen and (min-width: 40.063em) {
+          .notepad-page-content > div:not(.notepad-page-title) p:first-child {
+            font-size: 1.625rem; } }
+      .notepad-page-content > div:not(.notepad-page-title) p.with-image {
+        text-align: center;
+        padding-top: 1.125rem;
+        padding-bottom: 1.125rem;
+        max-width: 75rem; }
+
+@media screen and (max-width: 47em) {
+  .notepad-page-title, .notepad-page-content {
+    font-size: 70%; } }
+@media screen and (max-width: 27em) {
+  .notepad-page-title, .notepad-page-content {
+    font-size: 50%; } }
+.post-template .notepad-post-title-simple.row,
+.post-template .notepad-disqus.row,
+.post-template .social-icons.row,
+.page-template .notepad-post-title-simple.row,
+.page-template .notepad-disqus.row,
+.page-template .social-icons.row {
+  margin-left: auto;
+  margin-right: auto; }
+.post-template .notepad-author-info .row,
+.page-template .notepad-author-info .row {
+  margin-left: auto;
+  margin-right: auto; }
+.post-template .row,
+.page-template .row {
+  max-width: 58.125rem;
+  margin-left: -0.9375rem;
+  margin-right: -0.9375rem; }
+  .post-template .row p,
+  .page-template .row p {
+    margin: 0 auto 2em auto !important;
+    max-width: 56.25rem !important;
+    font-size: 1.125rem !important; }
+  @media only screen and (min-width: 58.125em) {
+    .post-template .row,
+    .page-template .row {
+      margin-left: auto;
+      margin-right: auto; } }
+
+::selection {
+  background: #006699;
+  color: #fff; }
+
+::-moz-selection {
+  background: #006699;
+  color: #fff; }
+
+pre {
+  word-wrap: break-word;
+  margin-bottom: 1.5625rem; }
+
+code {
+  font-size: 0.9375rem;
+  line-height: 1.2; }
+
+iframe {
+  border: 0; }
+
+.flex-video {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 75rem; }
+
+.notepad-disqus {
+  padding: 0;
+  padding-top: 3.75rem;
+  padding-bottom: 5.625rem;
+  padding-left: 1.875rem;
+  padding-right: 1.875rem; }
+  .notepad-disqus .notepad-comments-header {
+    font-weight: 700;
+    text-transform: uppercase; }
+  @media only screen and (min-width: 40.063em) {
+    .notepad-disqus {
+      padding-top: 5.3125rem;
+      padding-bottom: 9.375rem; } }
+.post-list {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.post-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    *zoom: 1;
+}
+
+.post-list li:after,.post-list li:before {
+    display: table;
+    line-height: 0;
+    content: "";
+}
+
+.post-list li:after {
+    clear: both;
+}
+
+.post-list a>span {
+    float: right;
+}
+
+.post-list .entry-date {
+    display: none;
+    font-size: 14px;
+    text-transform: uppercase;
+    float: right;
+}
+
+@media only screen and (min-width:48em) {
+    .post-list .entry-date {
+        display: inline;
+    }
+}
+.tag-box {
+    padding: 4px 0;
+    margin: 0;
+    overflow: hidden;
+    list-style: none;
+    *zoom: 1;
+}
+
+.tag-box:after,.tag-box:before {
+    display: table;
+    line-height: 0;
+    content: "";
+}
+
+.tag-box:after {
+    clear: both;
+}
+
+.tag-box.inline li {
+    float: left;
+    font-size: 14px;
+    line-height: 2.5;
+}
+
+.tag-box a {
+    padding: 4px 6px;
+    margin: 2px;
+    text-decoration: none;
+    border: 0.0625rem solid black;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.tag-box a span {
+    font-size: 10px;
+    vertical-align: super;
+    color: black;
+}

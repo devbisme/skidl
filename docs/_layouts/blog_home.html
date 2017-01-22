@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% include head.html %}
+    </head>
+    <body class="home-template" itemscope itemtype="http://schema.org/WebPage">
+
+        <header class="notepad-site-head">
+            <div class="notepad-post-menu-header-simple">
+                <a class="notepad-blog-logo" href="{{ site.url }}"><img src="{{ site.url }}/images/{{ site.logo }}" alt="Blog Logo" /></a>
+                <div class="notepad-blog-menu">
+                    <div class="notepad-mobile-menu show-for-small">
+                        <a href="#"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <ul class="notepad-blog-menu">
+                        <li class="notepad-mobile-close-btn show-for-small text-right">
+                            <a href="#" style="color:white"><i class="fa fa-times"></i></a>
+                        </li>
+                        {% for link in site.links %}
+                        <li>{% if link.external %}
+                            <a href="{{ link.url }}" style="color:white">{{ link.title }}</a>
+                            {% else %}
+                            <a href="{{ site.url }}" {{ link.url }} style="color:white">{{ link.title }}</a>
+                            {% endif %} 
+                        </li>
+                        {% endfor %}            
+                        <li><a href="{{ site.url }}/feed.xml" title="Atom/RSS feed" style="color:white"><i class="icon-rss"></i> Feed</a></li>
+                    </ul>
+            </div>
+        </header>
+
+        <main class="notepad-content" role="main">
+            <article class="notepad-index-post post row" role="main">
+                <div class="small-12 medium-9 large-10 columns">
+                    {{ content }}
+                </div>
+            </article>
+        </main>
+
+        {% include footer.html %}
+        {% include scripts.html %}  
+
+    </body>
+</html>

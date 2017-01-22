@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+
+
+
+<title type="text">SKiDL</title>
+<generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
+<link rel="self" type="application/atom+xml" href="http://xesscorp.github.io/skidl/feed.xml" />
+<link rel="alternate" type="text/html" href="http://xesscorp.github.io/skidl/" />
+<updated>2017-01-22T17:43:36+00:00</updated>
+<id>http://xesscorp.github.io/skidl/</id>
+<author>
+  <name>XESS Corp.</name>
+  <uri>http://xesscorp.github.io/skidl/</uri>
+  <email>skidl@xess.com</email>
+</author>
+
+
+<entry>
+  <title type="html"><![CDATA[Building a USB-to-JTAG Interface Using SKiDL]]></title>
+  <link rel="alternate" type="text/html" href="http://xesscorp.github.io/skidl/blog/building-a-usb-to-jtag-interface-using-skidl"/>
+  <id>http://xesscorp.github.io/skidl/blog/building-a-usb-to-jtag-module-using-skidl</id>
+  <published>2017-01-19T03:40:48+00:00</published>
+  <updated>2017-01-19T03:40:48+00:00</updated>
+  <author>
+    <name>XESS Corp.</name>
+    <uri>http://xesscorp.github.io/skidl</uri>
+    <email>skidl@xess.com</email>
+  </author>
+  
+  <content type="html">
+  
+    &lt;p&gt;This post describes using SKiDL for a USB-to-JTAG interface
+that was taken all the way from concept to physically building the device.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/usb_to_jtag/assembled_brd.png&quot; alt=&quot;Assembled USB-to-JTAG board&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The interface is pretty simple. It’s built from the following stuff:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;A PIC32MX220 microcontroller.&lt;/li&gt;
+  &lt;li&gt;A 12 MHz crystal.&lt;/li&gt;
+  &lt;li&gt;Some reset circuitry.&lt;/li&gt;
+  &lt;li&gt;A six-pin Microchip programming header (for the PIC32).&lt;/li&gt;
+  &lt;li&gt;A mini-USBB connector.&lt;/li&gt;
+  &lt;li&gt;A six-pin header for connecting to a JTAG port.&lt;/li&gt;
+  &lt;li&gt;A 5V-to-3.3V voltage regulator.&lt;/li&gt;
+  &lt;li&gt;A status LED.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Here’s a block diagram to help orient you as the SKiDL code is presented.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/usb_to_jtag/block_diag.png&quot; width=&quot;400&quot; alt=&quot;USB-to-JTAG device block diagram&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Any SKiDL project starts as a Python file.
+In this example, I created the file &lt;code class=&quot;highlighter-rouge&quot;&gt;intfc_brd.py&lt;/code&gt;.
+The first line in the file imports all the functions and classes of the &lt;code class=&quot;highlighter-rouge&quot;&gt;skidl&lt;/code&gt; module:&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;skidl&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Next, I made strings that contain the paths to some of my personal KiCad symbol libraries.
+If these libraries ever move to another directory, then I only have to make a change here.
+(The libraries that come with KiCad are included by default by querying the &lt;code class=&quot;highlighter-rouge&quot;&gt;KISYSMOD&lt;/code&gt; 
+environment variable.)&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Libraries.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;xess_lib&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;r'C:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;xesscorp&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;KiCad&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;libraries&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;xess.lib'&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;pic32_lib&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;r'C:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;xesscorp&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;KiCad&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;libraries&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;pic32.lib'&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;pickit3_lib&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;r'C:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;xesscorp&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;KiCad&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;libraries&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;pickit3.lib'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Then I made templates for a resistor and a capacitor from the standard KiCad &lt;code class=&quot;highlighter-rouge&quot;&gt;device&lt;/code&gt; library.
+I’ll make copies of these later on whenever I need one of these common components
+in the design.
+As with the libraries, if I ever need to modify these components (to use a 
+different footprint, for instance) then I only need to make the change here to
+have it take effect globally.&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Some common parts used as templates.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Part&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'device'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'R'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;footprint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Resistors_SMD:R_0603'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TEMPLATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cap&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Part&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'device'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'C'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;footprint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Capacitors_SMD:C_0603'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TEMPLATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I start the actual circuit design by defining three nets that distribute power
+to all the other parts: ground, 5V from the USB port, and 3.3V generated by the
+voltage regulator.
+I also set the &lt;code class=&quot;highlighter-rouge&quot;&gt;drive&lt;/code&gt; attribute of the ground and 5V nets to indicate they are
+for distributing power.
+(I didn’t need to do that for the 3.3V net because that will happen automatically
+when it is connected to the output of the regulator.)&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Global nets.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;gnd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'GND'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;gnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;drive&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;POWER&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;vusb&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'VUSB'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;vusb&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;drive&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;POWER&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;vdd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'+3.3V'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Next, I instantiated a voltage regulator from my personal library: a Texas Instruments TPS79333.
+I also assigned an SOT-23-5 package to it from the &lt;code class=&quot;highlighter-rouge&quot;&gt;TO_SOT_Packages_SMD&lt;/code&gt; footprint
+library distributed with KiCad.
+Since I only needed one of these regulators, I omitted the &lt;code class=&quot;highlighter-rouge&quot;&gt;dest=TEMPLATE&lt;/code&gt; argument and
+instantiated it directly into the circuit instead of making it a template.&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Regulate +5V VUSB down to +3.3V for VDD.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;vreg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Part&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xess_lib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'TPS793XX'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;footprint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'TO_SOT_Packages_SMD:SOT-23-5'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The input power to the regulator arrives on the 5V net from the USB port.
+The enable pin is also pulled high with the 5V net in order to enable the regulator.
+This can all be done with the following, single statement.
+(Note that I used names instead of numbers to reference the regulator pins.
+This makes the design intent clearer and decouples it from the pin numbering scheme
+of a particular package.)&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;vreg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'IN, EN'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vusb&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The next two lines connect the ground pin of the regulator to the ground net,
+and the regulator output to the 3.3V net:&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;vreg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'GND'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gnd&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;vreg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'OUT'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vdd&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The TPS79333 regulator also has a &lt;em&gt;noise reduction&lt;/em&gt; pin where a small capacitor
+is attached to filter out hash on the regulated output.
+The &lt;code class=&quot;highlighter-rouge&quot;&gt;cap&lt;/code&gt; template I created earlier is instantiated as &lt;code class=&quot;highlighter-rouge&quot;&gt;noise_cap&lt;/code&gt; with an assigned value of 0.01 μF.
+Then, the pins of &lt;code class=&quot;highlighter-rouge&quot;&gt;noise_cap&lt;/code&gt; are attached to the noise reduction pin of the voltage
+regulator and ground, respectively.&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;noise_cap&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'0.01uf'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;noise_cap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vreg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'NR'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gnd&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Next up is the microcontroller: a PIC32MX220 in a 28-pin SSOP package.
+The part is found in my personal PIC32 library, and the SSOP package is
+in a KiCad footprint library.
+(The rather cryptic name for the PIC32 results from my naming the library part
+&lt;code class=&quot;highlighter-rouge&quot;&gt;PIC32MX2*0F***B&lt;/code&gt; in order to cover all the Microchip PIC32MX 200-series variants
+with their differing memory sizes. Then I had to escape the &lt;code class=&quot;highlighter-rouge&quot;&gt;*&lt;/code&gt; characters
+with backslashes to stop them from being interpreted as wildcards.)&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Microcontroller.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;pic32&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Part&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pic32_lib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'pic32MX2&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;*0F&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;*B-SSOP28-SOIC28-SPDIP28'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+             &lt;span class=&quot;n&quot;&gt;footprint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Housings_SSOP:SSOP-28_5.3x10.2mm_Pitch0.65mm'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;All the power and ground pins of the microcontroller are connected with the next
+three statements. &lt;em&gt;Any&lt;/em&gt; microcontroller pin with &lt;code class=&quot;highlighter-rouge&quot;&gt;VSS&lt;/code&gt; within its name gets
+connected to ground, and &lt;em&gt;any&lt;/em&gt; pins containing &lt;code class=&quot;highlighter-rouge&quot;&gt;VDD&lt;/code&gt; are connected to +3.3V
+(this includes the analog power and ground pins, &lt;code class=&quot;highlighter-rouge&quot;&gt;AVSS&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;AVDD&lt;/code&gt;).
+The same applies to the &lt;code class=&quot;highlighter-rouge&quot;&gt;VUSB3V3&lt;/code&gt; pin, but here’s only one of those so it really
+doesn’t matter.&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;pic32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'VSS'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gnd&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;pic32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'VDD'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vdd&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# Main CPU power.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;pic32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'VUSB3V3'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vdd&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# Power to USB transceiver.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The next statement connects the 5V pin from the USB port to the USB voltage monitoring
+pin of the microcontroller.
+I had to be careful with the name of the pin because there was &lt;em&gt;another&lt;/em&gt; pin
+on the chip that contained &lt;code class=&quot;highlighter-rouge&quot;&gt;VBUS&lt;/code&gt; in its name.
+I prevented that pin from being selected by surrounding &lt;code class=&quot;highlighter-rouge&quot;&gt;VBUS&lt;/code&gt; with the &lt;em&gt;start&lt;/em&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;^&lt;/code&gt;)
+and &lt;em&gt;end&lt;/em&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;$&lt;/code&gt;) special characters for regular expressions so the pin name had to
+exactly match &lt;code class=&quot;highlighter-rouge&quot;&gt;VBUS&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;pic32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'^VBUS$'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vusb&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# Monitor power pin of USB connector.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The microcontroller needs some power supply bypass capacitors, so three 0.1 μF
+capacitors are created (as a Python list) with two attached between the 3.3V supply rail and ground
+while the remaining capacitor connects to the &lt;code class=&quot;highlighter-rouge&quot;&gt;VCAP&lt;/code&gt; pin to filter the internal CPU logic supply.&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Bypass capacitors for microcontroller.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;bypass&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'0.1uf'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;bypass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vdd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gnd&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;bypass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vdd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gnd&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;bypass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pic32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'VCAP'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gnd&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The microcontroller reset circuit contains two resistors and a capacitor that
+create an RC time delay on the &lt;code class=&quot;highlighter-rouge&quot;&gt;MCLR&lt;/code&gt; pin of the PIC32.
+The &lt;code class=&quot;highlighter-rouge&quot;&gt;r_pullup&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;filter_cap&lt;/code&gt; components are connected in series between
+3.3V and ground to create a delayed release from reset upon power-up, and the &lt;code class=&quot;highlighter-rouge&quot;&gt;r_series&lt;/code&gt; resistor carries
+the delayed signal to the &lt;code class=&quot;highlighter-rouge&quot;&gt;MCLR&lt;/code&gt; pin.&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Microcontroller MCLR circuitry:&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#   Pull-up resistor to VDD.&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#   Filter capacitor to delay exit of reset or eliminate glitches.&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#   Series resistor to isolate capacitor from device programmer.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;r_pullup&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'10K'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;filter_cap&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'0.1uf'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;r_pullup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vdd&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;filter_cap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r_pullup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gnd&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;r_series&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'1K'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;r_series&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r_pullup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pic32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'MCLR'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The next two lines instantiate a mini-B USB connector and attach the &lt;code class=&quot;highlighter-rouge&quot;&gt;D+&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;D-&lt;/code&gt;
+data lines to the associated pins of the microcontroller.
+The USB power and ground pins are wired to the 5V and ground nets of the board.
+The USB connector also has an unused pin (&lt;code class=&quot;highlighter-rouge&quot;&gt;NC&lt;/code&gt;) which is connected to a special
+&lt;em&gt;no-connect&lt;/em&gt; net designated by &lt;code class=&quot;highlighter-rouge&quot;&gt;NC&lt;/code&gt; (which prevents a warning when the ERC is run).&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# USB connector.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;usb_conn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Part&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xess_lib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'USBB'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;footprint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'XESS:UX60SC-MB-5ST'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;usb_conn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'D&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;+, D-, VCC, GND, NC'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pic32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'D&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;+, D-'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vusb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gnd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NC&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The shield pins of the USB connector are attached to ground through a parallel
+capacitor/resistor network.
+This is supposed to provide high-frequency RF shielding while preventing DC ground-loop currents.
+Or something like that. Nobody’s really sure.&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Noise filtering/isolation on the USB connector shield.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;shld_cap&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'4.7nf'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;shld_res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'1M'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;shld_cap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;usb_conn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'shield'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;shld_res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;usb_conn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'shield'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;gnd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shld_cap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shld_res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The following statements implement
+a status LED driven by pin &lt;code class=&quot;highlighter-rouge&quot;&gt;RB4&lt;/code&gt; of the PIC32 through a current-limiting resistor.
+Once again, note the use of the &lt;code class=&quot;highlighter-rouge&quot;&gt;A&lt;/code&gt; (anode) and &lt;code class=&quot;highlighter-rouge&quot;&gt;K&lt;/code&gt; (cathode) pin names for the LED
+instead of pin numbers in order to more clearly show design intent.&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# LED with current-limiting resistor driven by microcontroller pin.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;led&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Part&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'device'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'led'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;footprint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Diodes_SMD:D_0603'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;led_curr_limit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'1K'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;led_curr_limit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pic32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'RB4'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;led&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'A'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;led&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'K'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gnd&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;A 12 MHz crystal in a four-pin package provides the frequency source for the microcontroller.
+Two of the pins (1 and 3) attach to the oscillator pins of the PIC32 (&lt;code class=&quot;highlighter-rouge&quot;&gt;OSC1&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;OSC2&lt;/code&gt;),
+while the remaining two pins connect to ground.
+Two trim capacitors connect from the non-ground pins of the crystal to ground.&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Crystal and trim capacitors.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;xtal&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Part&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xess_lib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'XTAL4'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;footprint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'XESS:32x25-4'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;xtal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'12 MHz'&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;xtal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gnd&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;pic32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'OSC1, OSC2'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xtal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;trim_cap&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'10pf'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;trim_cap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xtal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gnd&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;trim_cap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xtal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gnd&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;A six-pin header provides the attachment point for a Microchip PICKit3 programmer
+that is used to program the flash memory of the PIC32.
+The PICKit3 port attaches to the &lt;code class=&quot;highlighter-rouge&quot;&gt;MCLR&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;PGEC&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;PGED&lt;/code&gt; programming pins of the PIC32.
+It also connects to the 3.3V and ground nets so the PICKit3 can power the board
+during programming and debugging.&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Port for attachment of device programmer.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;prg_hdr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Part&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pickit3_lib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'pickit3_hdr'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;footprint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Pin_Headers:Pin_Header_Straight_1x06'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;prg_hdr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ref&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'PRG'&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;prg_hdr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'MCLR'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pic32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'MCLR'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;prg_hdr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'PGC'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pic32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'PGEC1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;prg_hdr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'PGD'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pic32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'PGED1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;prg_hdr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'VDD'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vdd&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;prg_hdr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'GND'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gnd&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The microcontroller receives data packets from the USB port and translates them
+into JTAG signals that are driven through another six-pin header.
+The &lt;code class=&quot;highlighter-rouge&quot;&gt;TCK&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;TMS&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;TDI&lt;/code&gt;, and &lt;code class=&quot;highlighter-rouge&quot;&gt;TDO&lt;/code&gt; JTAG signals are attached to specific pins
+of the PIC32 that connect to dedicated SPI circuitry for fast JTAG transfers.&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Port for attachment of FPGA programming pins.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;port&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Part&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'conn'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'CONN_01x06'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;footprint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Pin_Headers:Pin_Header_Straight_1x06'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ref&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'JTAG'&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vusb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gnd&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pic32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'SCK1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# SCK1 output for TMS.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pic32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'RB5'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# PPS: SDI1 input for TDI.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pic32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'RB15'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# PPS: SS1 output for TMS.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pic32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'RA4'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# PPS: SDO1 output for TDO.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The next-to-last line of the file runs an &lt;em&gt;electrical rules check&lt;/em&gt; (ERC) on the
+instantiated circuitry to try and detect any problems.
+Unconnected pins and conflicting drivers are the usual culprits it finds.&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;ERC&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The final line outputs the circuitry netlist into a file (&lt;code class=&quot;highlighter-rouge&quot;&gt;intfc_brd.net&lt;/code&gt;, in this case).&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;generate_netlist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Once the Python file is complete, the netlist is created by running the command:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python intfc_brd.py
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Python will execute the script and generate the following warnings:&lt;/p&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ python intfc_brd.py
+
+ERC WARNING: Unconnected pin: BIDIRECTIONAL pin 2/PGED3/VREF+/CVREF+/AN0/C3INC/RPA0/CTED1/PMD7/RA0 of PIC32MX2*0F***B-SSOP28-SOIC28-SPDIP28/U2.
+ERC WARNING: Unconnected pin: BIDIRECTIONAL pin 3/PGEC3/VREF-/CVREF-/AN1/RPA1/CTED2/PMD6/RA1 of PIC32MX2*0F***B-SSOP28-SOIC28-SPDIP28/U2.
+ERC WARNING: Unconnected pin: BIDIRECTIONAL pin 6/AN4/C1INB/C2IND/RPB2/SDA2/CTED13/PMD2/RB2 of PIC32MX2*0F***B-SSOP28-SOIC28-SPDIP28/U2.
+ERC WARNING: Unconnected pin: BIDIRECTIONAL pin 7/AN5/C1INA/C2INC/RTCC/RPB3/SCL2/PMWR/RB3 of PIC32MX2*0F***B-SSOP28-SOIC28-SPDIP28/U2.
+ERC WARNING: Unconnected pin: BIDIRECTIONAL pin 16/TDI/RPB7/CTED3/PMD5/INT0/RB7 of PIC32MX2*0F***B-SSOP28-SOIC28-SPDIP28/U2.
+ERC WARNING: Unconnected pin: BIDIRECTIONAL pin 17/TCK/RPB8/SCL1/CTED10/PMD4/RB8 of PIC32MX2*0F***B-SSOP28-SOIC28-SPDIP28/U2.
+ERC WARNING: Unconnected pin: BIDIRECTIONAL pin 18/TDO/RPB9/SDA1/CTED4/PMD3/RB9 of PIC32MX2*0F***B-SSOP28-SOIC28-SPDIP28/U2.
+ERC WARNING: Unconnected pin: BIDIRECTIONAL pin 24/AN11/RPB13/CTPLS/PMRD/RB13 of PIC32MX2*0F***B-SSOP28-SOIC28-SPDIP28/U2.
+
+8 warnings found during ERC.
+0 errors found during ERC.
+
+
+No errors or warnings found during netlist generation.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The ERC warns that eight of the microcontroller pins are unconnected (because I’m not using them for anything).
+That might be a problem in a production design, but I’m willing to let it slide
+for this project.&lt;/p&gt;
+
+&lt;p&gt;The contents of the generated netlist file look like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(export (version D)
+  (design
+    (source &quot;C:\xesscorp\PRODUCTS\XuLA_Developmental\fmw\intfc_brd\intfc_brd.py&quot;)
+    (date &quot;01/19/2017 06:11 PM&quot;)
+    (tool &quot;SKiDL (0.0.8)&quot;))
+  (components
+    ( (ref U1)
+      (value TPS793XX)
+      (footprint TO_SOT_Packages_SMD:SOT-23-5)
+      (libsource (lib C:\xesscorp\KiCad\libraries\xess.lib) (part TPS793XX)))
+    (comp (ref C1)
+      (value 0.01uf)
+      (footprint Capacitors_SMD:C_0603)
+      (fields
+        (field (name description) &quot;Unpolarized capacitor&quot;)
+        (field (name keywords) &quot;cap capacitor&quot;))
+      (libsource (lib device) (part C)))
+    (comp (ref U2)
+      (value PIC32MX2*0F***B-SSOP28-SOIC28-SPDIP28)
+      (footprint Housings_SSOP:SSOP-28_5.3x10.2mm_Pitch0.65mm)
+      (libsource (lib C:\xesscorp\KiCad\libraries\pic32.lib) (part PIC32MX2*0F***B-SSOP28-SOIC28-SPDIP28)))
+    (comp (ref C2)
+      (value 0.1uf)
+      (footprint Capacitors_SMD:C_0603)
+      (fields
+        (field (name description) &quot;Unpolarized capacitor&quot;)
+        (field (name keywords) &quot;cap capacitor&quot;))
+      (libsource (lib device) (part C)))
+    (comp (ref C3)
+      (value 0.1uf)
+      (footprint Capacitors_SMD:C_0603)
+      (fields
+        (field (name description) &quot;Unpolarized capacitor&quot;)
+        (field (name keywords) &quot;cap capacitor&quot;))
+      (libsource (lib device) (part C)))
+    (comp (ref C4)
+      (value 0.1uf)
+      (footprint Capacitors_SMD:C_0603)
+      (fields
+        (field (name description) &quot;Unpolarized capacitor&quot;)
+        (field (name keywords) &quot;cap capacitor&quot;))
+      (libsource (lib device) (part C)))
+    (comp (ref R1)
+      (value 10K)
+      (footprint Resistors_SMD:R_0603)
+      (fields
+        (field (name description) Resistor)
+        (field (name keywords) &quot;r res resistor&quot;))
+      (libsource (lib device) (part R)))
+    (comp (ref R2)
+      (value 1K)
+      (footprint Resistors_SMD:R_0603)
+      (fields
+        (field (name description) Resistor)
+        (field (name keywords) &quot;r res resistor&quot;))
+      (libsource (lib device) (part R)))
+    (comp (ref C5)
+      (value 0.1uf)
+      (footprint Capacitors_SMD:C_0603)
+      (fields
+        (field (name description) &quot;Unpolarized capacitor&quot;)
+        (field (name keywords) &quot;cap capacitor&quot;))
+      (libsource (lib device) (part C)))
+    (comp (ref USB1)
+      (value USBB)
+      (footprint XESS:UX60SC-MB-5ST)
+      (fields
+        (field (name description) &quot;USBB connector&quot;)
+        (field (name keywords) &quot;USB, USBB, connector&quot;))
+      (libsource (lib C:\xesscorp\KiCad\libraries\xess.lib) (part USBB)))
+    (comp (ref C6)
+      (value 4.7nf)
+      (footprint Capacitors_SMD:C_0603)
+      (fields
+        (field (name description) &quot;Unpolarized capacitor&quot;)
+        (field (name keywords) &quot;cap capacitor&quot;))
+      (libsource (lib device) (part C)))
+    (comp (ref R3)
+      (value 1M)
+      (footprint Resistors_SMD:R_0603)
+      (fields
+        (field (name description) Resistor)
+        (field (name keywords) &quot;r res resistor&quot;))
+      (libsource (lib device) (part R)))
+    (comp (ref D1)
+      (value LED)
+      (footprint Diodes_SMD:D_0603)
+      (fields
+        (field (name description) &quot;LED generic&quot;)
+        (field (name keywords) &quot;led diode&quot;))
+      (libsource (lib device) (part LED)))
+    (comp (ref R4)
+      (value 1K)
+      (footprint Resistors_SMD:R_0603)
+      (fields
+        (field (name description) Resistor)
+        (field (name keywords) &quot;r res resistor&quot;))
+      (libsource (lib device) (part R)))
+    (comp (ref Y1)
+      (value XTAL4)
+      (footprint XESS:32x25-4)
+      (libsource (lib C:\xesscorp\KiCad\libraries\xess.lib) (part XTAL4)))
+    (comp (ref C7)
+      (value 10pf)
+      (footprint Capacitors_SMD:C_0603)
+      (fields
+        (field (name description) &quot;Unpolarized capacitor&quot;)
+        (field (name keywords) &quot;cap capacitor&quot;))
+      (libsource (lib device) (part C)))
+    (comp (ref C8)
+      (value 10pf)
+      (footprint Capacitors_SMD:C_0603)
+      (fields
+        (field (name description) &quot;Unpolarized capacitor&quot;)
+        (field (name keywords) &quot;cap capacitor&quot;))
+      (libsource (lib device) (part C)))
+    (comp (ref PRG)
+      (value PICkit3_hdr)
+      (footprint Pin_Headers:Pin_Header_Straight_1x06)
+      (libsource (lib C:\xesscorp\KiCad\libraries\pickit3.lib) (part PICkit3_hdr)))
+    (comp (ref JTAG)
+      (value CONN_01X06)
+      (footprint Pin_Headers:Pin_Header_Straight_1x06)
+      (fields
+        (field (name description) &quot;Connector, single row, 01x06&quot;)
+        (field (name keywords) connector))
+      (libsource (lib conn) (part CONN_01X06))))
+  (nets
+    (net (code 0) (name VUSB)
+      (node (ref U2) (pin 15))
+      (node (ref U1) (pin 3))
+      (node (ref USB1) (pin 1))
+      (node (ref U1) (pin 1))
+      (node (ref JTAG) (pin 1)))
+    (net (code 1) (name GND)
+      (node (ref C3) (pin 2))
+      (node (ref C6) (pin 2))
+      (node (ref U1) (pin 2))
+      (node (ref U2) (pin 8))
+      (node (ref C1) (pin 2))
+      (node (ref R3) (pin 2))
+      (node (ref Y1) (pin 4))
+      (node (ref JTAG) (pin 2))
+      (node (ref PRG) (pin 3))
+      (node (ref U2) (pin 27))
+      (node (ref C4) (pin 2))
+      (node (ref USB1) (pin 5))
+      (node (ref C8) (pin 2))
+      (node (ref D1) (pin 1))
+      (node (ref Y1) (pin 2))
+      (node (ref C5) (pin 2))
+      (node (ref C2) (pin 2))
+      (node (ref C7) (pin 2))
+      (node (ref U2) (pin 19)))
+    (net (code 2) (name +3.3V)
+      (node (ref U2) (pin 23))
+      (node (ref C3) (pin 1))
+      (node (ref U1) (pin 5))
+      (node (ref R1) (pin 2))
+      (node (ref U2) (pin 28))
+      (node (ref U2) (pin 13))
+      (node (ref C2) (pin 1))
+      (node (ref PRG) (pin 2)))
+    (net (code 3) (name N$1)
+      (node (ref C1) (pin 1))
+      (node (ref U1) (pin 4)))
+    (net (code 4) (name N$2)
+      (node (ref C4) (pin 1))
+      (node (ref U2) (pin 20)))
+    (net (code 5) (name N$3)
+      (node (ref R2) (pin 1))
+      (node (ref R1) (pin 1))
+      (node (ref C5) (pin 1)))
+    (net (code 6) (name N$4)
+      (node (ref U2) (pin 1))
+      (node (ref PRG) (pin 1))
+      (node (ref R2) (pin 2)))
+    (net (code 7) (name N$5)
+      (node (ref U2) (pin 21))
+      (node (ref USB1) (pin 3)))
+    (net (code 8) (name N$6)
+      (node (ref USB1) (pin 2))
+      (node (ref U2) (pin 22)))
+
+    (net (code 10) (name N$7)
+      (node (ref R3) (pin 1))
+      (node (ref C6) (pin 1))
+      (node (ref USB1) (pin SH))
+      (node (ref USB1) (pin SH2)))
+    (net (code 11) (name N$8)
+      (node (ref U2) (pin 11))
+      (node (ref R4) (pin 1)))
+    (net (code 12) (name N$9)
+      (node (ref R4) (pin 2))
+      (node (ref D1) (pin 2)))
+    (net (code 13) (name N$10)
+      (node (ref C8) (pin 1))
+      (node (ref U2) (pin 9))
+      (node (ref Y1) (pin 3)))
+    (net (code 14) (name N$11)
+      (node (ref C7) (pin 1))
+      (node (ref Y1) (pin 1))
+      (node (ref U2) (pin 10)))
+    (net (code 15) (name N$12)
+      (node (ref U2) (pin 5))
+      (node (ref PRG) (pin 5)))
+    (net (code 16) (name N$13)
+      (node (ref PRG) (pin 4))
+      (node (ref U2) (pin 4)))
+    (net (code 17) (name N$14)
+      (node (ref JTAG) (pin 3))
+      (node (ref U2) (pin 25)))
+    (net (code 18) (name N$15)
+      (node (ref U2) (pin 14))
+      (node (ref JTAG) (pin 5)))
+    (net (code 19) (name N$16)
+      (node (ref U2) (pin 26))
+      (node (ref JTAG) (pin 4)))
+    (net (code 20) (name N$17)
+      (node (ref JTAG) (pin 6))
+      (node (ref U2) (pin 12))))
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;When &lt;code class=&quot;highlighter-rouge&quot;&gt;intfc_brd.net&lt;/code&gt; is taken in by KiCad’s PCBNEW layout editor,
+the initial component arrangement looks something like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/usb_to_jtag/pcbnew-unplaced.png&quot; width=&quot;800&quot; alt=&quot;USB-to-JTAG board with unplaced parts&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;After a suitable amount of fiddling (none of which has anything to do with SKiDL at this point),
+we get to a final PCB layout:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/usb_to_jtag/pcbnew-routed.png&quot; width=&quot;800&quot; alt=&quot;USB-to-JTAG board with unplaced parts&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The layout is translated into &lt;a href=&quot;https://en.wikipedia.org/wiki/Gerber_format&quot;&gt;Gerber files&lt;/a&gt;
+that are sent for fabrication into a physical PCB.
+Parts are assembled with the PCB
+to arrive at the finished module shown at the beginning of this post.&lt;/p&gt;
+
+&lt;p&gt;Initial testing of the interface board shows the microcontroller can be loaded
+with a program that successfully communicates over a USB link.
+While this is a relatively small board (18 components and 20 nets), it is my
+first end-to-end design using SKiDL.
+I’m encouraged by the fact no problems arose, although I found facets of
+SKiDL that need polishing.
+But that’s always going to be the case.&lt;/p&gt;
+
+  
+  &lt;p&gt;&lt;a href=&quot;http://xesscorp.github.io/skidl/blog/building-a-usb-to-jtag-interface-using-skidl&quot;&gt;Building a USB-to-JTAG Interface Using SKiDL&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://xesscorp.github.io/skidl&quot;&gt;SKiDL&lt;/a&gt; on January 19, 2017.&lt;/p&gt;</content>
+</entry>
+
+</feed>
