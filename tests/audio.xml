@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="D">
+  <design>
+    <source>C:\xesscorp\KiCad\tools\skidl\tests\audio.py</source>
+    <date>08/27/2016 11:31 AM</date>
+    <tool>SKiDL (0.0.3)</tool>
+  </design>
+  <components>
+    <comp ref="STK1">
+      <value>STICKIT2_HDR</value>
+      <footprint>XESS:STICKIT2_HDR</footprint>
+      <fields>
+        <field name="kicost:pricing">1:0.09</field>
+      </fields>
+      <libsource lib="xess" part="STICKIT2_HDR"/>
+    </comp>
+    <comp ref="JP1">
+      <value>JUMPER</value>
+      <footprint>XESS:HDR_1x2</footprint>
+      <libsource lib="device" part="JUMPER"/>
+    </comp>
+    <comp ref="JP2">
+      <value>JUMPER</value>
+      <footprint>XESS:HDR_1x2</footprint>
+      <libsource lib="device" part="JUMPER"/>
+    </comp>
+    <comp ref="U1">
+      <value>AK4565VF</value>
+      <footprint>XESS:VSOP28</footprint>
+      <fields>
+        <field name="manf">Asahi Kasei</field>
+        <field name="kicost:link">http://www.aliexpress.com/item/100-New-AK4565VF-AK4565-TSSOP28-AKM-Brand-new-original-orders-are-welcome/32617934313.html?ws_ab_test=searchweb201556_8,searchweb201602_1_10037_10017_10021_507_10022_10032_10009_10020_10008_10018_10019_101,searchweb201603_2&btsid=f1412ba2-0f0a-4e39-9924-091cc8da27fc</field>
+        <field name="manf#">AK4565VF</field>
+        <field name="kicost:pricing">1:$5.45</field>
+      </fields>
+      <libsource lib="xess" part="AK4565"/>
+    </comp>
+    <comp ref="U2">
+      <value>LM4808</value>
+      <footprint>XESS:MSOP8</footprint>
+      <fields>
+        <field name="manf">TI</field>
+        <field name="manf#">LM4808MM</field>
+      </fields>
+      <libsource lib="xess" part="LM4808"/>
+    </comp>
+    <comp ref="J1">
+      <value>STEREO_JACK</value>
+      <footprint>XESS:PJ-313-TH</footprint>
+      <fields>
+        <field name="kicost:link">http://www.aliexpress.com/item/20Pcs-3-5mm-Female-Audio-Connector-5-Pin-DIP-Stereo-Headphone-Jack-PJ-313-Green/32600096063.html?ws_ab_test=searchweb201556_8,searchweb201602_1_10037_10017_10021_507_10022_10032_10009_10020_10008_10018_10019_101,searchweb201603_2&btsid=e31655d7-f43d-4ec6-a859-bfbd2dcde38a</field>
+        <field name="kicost:pricing">1:$0.123</field>
+      </fields>
+      <libsource lib="xess" part="STEREO_JACK"/>
+    </comp>
+    <comp ref="J2">
+      <value>STEREO_JACK</value>
+      <footprint>XESS:PJ-313-TH</footprint>
+      <fields>
+        <field name="kicost:link">http://www.aliexpress.com/item/20Pcs-3-5mm-Female-Audio-Connector-5-Pin-DIP-Stereo-Headphone-Jack-PJ-313-Green/32600096063.html?ws_ab_test=searchweb201556_8,searchweb201602_1_10037_10017_10021_507_10022_10032_10009_10020_10008_10018_10019_101,searchweb201603_2&btsid=e31655d7-f43d-4ec6-a859-bfbd2dcde38a</field>
+        <field name="kicost:pricing">1:$0.123</field>
+      </fields>
+      <libsource lib="xess" part="STEREO_JACK"/>
+    </comp>
+    <comp ref="C7">
+      <value>0.1uF</value>
+      <footprint>Capacitors_SMD:C_0603_HandSoldering</footprint>
+      <fields>
+        <field name="manf#">CL03A104KQ3NNNH</field>
+      </fields>
+      <libsource lib="device" part="C"/>
+    </comp>
+    <comp ref="C2">
+      <value>33uF</value>
+      <footprint>Capacitors_SMD:c_elec_5x4.5</footprint>
+      <fields>
+        <field name="manf#">UWX1A330MCL1GB</field>
+      </fields>
+      <libsource lib="device" part="CP1"/>
+    </comp>
+    <comp ref="C6">
+      <value>4.7uF</value>
+      <footprint>Capacitors_SMD:C_0603_HandSoldering</footprint>
+      <fields>
+        <field name="manf#">EMK107ABJ475KA-T</field>
+      </fields>
+      <libsource lib="device" part="C"/>
+    </comp>
+    <comp ref="RN3">
+      <value>4K7</value>
+      <footprint>XESS:CTS_742C043</footprint>
+      <fields>
+        <field name="manf#">742c043472</field>
+      </fields>
+      <libsource lib="xess" part="RN2"/>
+    </comp>
+    <comp ref="RN1">
+      <value>4K7</value>
+      <footprint>XESS:CTS_742C083</footprint>
+      <fields>
+        <field name="manf#">742c083472</field>
+      </fields>
+      <libsource lib="xess" part="RN4"/>
+    </comp>
+    <comp ref="RN2">
+      <value>4K7</value>
+      <footprint>XESS:CTS_742C043</footprint>
+      <fields>
+        <field name="manf#">742c043472</field>
+      </fields>
+      <libsource lib="xess" part="RN2"/>
+    </comp>
+    <comp ref="C4">
+      <value>33uF</value>
+      <footprint>Capacitors_SMD:c_elec_5x4.5</footprint>
+      <fields>
+        <field name="manf#">UWX1A330MCL1GB</field>
+      </fields>
+      <libsource lib="device" part="CP1"/>
+    </comp>
+    <comp ref="C5">
+      <value>33uF</value>
+      <footprint>Capacitors_SMD:c_elec_5x4.5</footprint>
+      <fields>
+        <field name="manf#">UWX1A330MCL1GB</field>
+      </fields>
+      <libsource lib="device" part="CP1"/>
+    </comp>
+    <comp ref="C1">
+      <value>33uF</value>
+      <footprint>Capacitors_SMD:c_elec_5x4.5</footprint>
+      <fields>
+        <field name="manf#">UWX1A330MCL1GB</field>
+      </fields>
+      <libsource lib="device" part="CP1"/>
+    </comp>
+    <comp ref="C9">
+      <value>0.1uF</value>
+      <footprint>Capacitors_SMD:C_0603_HandSoldering</footprint>
+      <fields>
+        <field name="manf#">CL03A104KQ3NNNH</field>
+      </fields>
+      <libsource lib="device" part="C"/>
+    </comp>
+    <comp ref="C3">
+      <value>0.1uF</value>
+      <footprint>Capacitors_SMD:C_0603_HandSoldering</footprint>
+      <fields>
+        <field name="manf#">CL03A104KQ3NNNH</field>
+      </fields>
+      <libsource lib="device" part="C"/>
+    </comp>
+    <comp ref="C8">
+      <value>4.7uF</value>
+      <footprint>Capacitors_SMD:C_0603_HandSoldering</footprint>
+      <fields>
+        <field name="manf#">EMK107ABJ475KA-T</field>
+      </fields>
+      <libsource lib="device" part="C"/>
+    </comp>
+    <comp ref="L1">
+      <value>FERRITE_BEAD</value>
+      <footprint>Capacitors_SMD:C_0805_HandSoldering</footprint>
+      <fields>
+        <field name="manf#">CIM21J252NE</field>
+      </fields>
+      <libsource lib="xess" part="FERRITE_BEAD"/>
+    </comp>
+    <comp ref="PCB1">
+      <value>PCB</value>
+      <footprint>No Footprint</footprint>
+      <fields>
+        <field name="kicost:pricing">1:$0.32</field>
+      </fields>
+      <libsource lib="xess" part="PCB"/>
+    </comp>
+  </components>
+  <nets>
+    <net code="0" name="Net-(RN1-Pad3)">
+      <node ref="RN1" pin="4"/>
+      <node ref="U2" pin="2"/>
+      <node ref="RN1" pin="3"/>
+    </net>
+    <net code="1" name="Net-(C1-Pad1)">
+      <node ref="U2" pin="1"/>
+      <node ref="RN1" pin="5"/>
+      <node ref="C1" pin="1"/>
+    </net>
+    <net code="2" name="Net-(RN1-Pad1)">
+      <node ref="RN1" pin="2"/>
+      <node ref="U2" pin="6"/>
+      <node ref="RN1" pin="1"/>
+    </net>
+    <net code="3" name="Net-(C2-Pad1)">
+      <node ref="C2" pin="1"/>
+      <node ref="RN1" pin="8"/>
+      <node ref="U2" pin="7"/>
+    </net>
+    <net code="4" name="Net-(C1-Pad2)">
+      <node ref="J1" pin="tip"/>
+      <node ref="C1" pin="2"/>
+    </net>
+    <net code="5" name="Net-(C2-Pad2)">
+      <node ref="J1" pin="ring"/>
+      <node ref="C2" pin="2"/>
+    </net>
+    <net code="6" name="Net-(C4-Pad2)">
+      <node ref="RN3" pin="1"/>
+      <node ref="J2" pin="tip"/>
+      <node ref="C4" pin="2"/>
+    </net>
+    <net code="7" name="Net-(C5-Pad2)">
+      <node ref="RN3" pin="2"/>
+      <node ref="J2" pin="ring"/>
+      <node ref="C5" pin="2"/>
+    </net>
+    <net code="8" name="LRCK">
+      <node ref="U1" pin="21"/>
+      <node ref="STK1" pin="D2"/>
+    </net>
+    <net code="9" name="CCLK">
+      <node ref="U1" pin="27"/>
+      <node ref="STK1" pin="D7"/>
+    </net>
+    <net code="10" name="SDTI">
+      <node ref="U1" pin="25"/>
+      <node ref="U1" pin="20"/>
+      <node ref="STK1" pin="D1"/>
+    </net>
+    <net code="11" name="SCLK">
+      <node ref="U1" pin="23"/>
+      <node ref="STK1" pin="D5"/>
+    </net>
+    <net code="12" name="MCLK">
+      <node ref="U1" pin="22"/>
+      <node ref="STK1" pin="D3"/>
+    </net>
+    <net code="13" name="Net-(RN1-Pad7)">
+      <node ref="U1" pin="2"/>
+      <node ref="RN1" pin="7"/>
+    </net>
+    <net code="14" name="SDTO">
+      <node ref="STK1" pin="D0"/>
+      <node ref="U1" pin="18"/>
+    </net>
+    <net code="15" name="~CS">
+      <node ref="U1" pin="26"/>
+      <node ref="RN2" pin="3"/>
+      <node ref="STK1" pin="D4"/>
+    </net>
+    <net code="16" name="~RESET">
+      <node ref="STK1" pin="D6"/>
+      <node ref="RN2" pin="4"/>
+      <node ref="U1" pin="28"/>
+    </net>
+    <net code="17" name="+3.3V-A">
+      <node ref="C7" pin="1"/>
+      <node ref="U2" pin="8"/>
+      <node ref="RN3" pin="4"/>
+      <node ref="U1" pin="14"/>
+      <node ref="U1" pin="13"/>
+      <node ref="L1" pin="1"/>
+      <node ref="RN3" pin="3"/>
+      <node ref="C6" pin="1"/>
+    </net>
+    <net code="18" name="+3.3V">
+      <node ref="JP2" pin="1"/>
+      <node ref="C8" pin="1"/>
+      <node ref="STK1" pin="VCC"/>
+      <node ref="RN2" pin="1"/>
+      <node ref="C9" pin="1"/>
+      <node ref="JP2" pin="2"/>
+      <node ref="L1" pin="2"/>
+      <node ref="U1" pin="17"/>
+      <node ref="U1" pin="15"/>
+      <node ref="RN2" pin="2"/>
+    </net>
+    <net code="19" name="Net-(U1-Pad19)">
+      <node ref="U1" pin="19"/>
+    </net>
+    <net code="20" name="Net-(U1-Pad24)">
+      <node ref="U1" pin="24"/>
+    </net>
+    <net code="21" name="Net-(U1-Pad5)">
+      <node ref="U1" pin="5"/>
+    </net>
+    <net code="22" name="Net-(U1-Pad6)">
+      <node ref="U1" pin="6"/>
+    </net>
+    <net code="23" name="Net-(U1-Pad7)">
+      <node ref="U1" pin="7"/>
+    </net>
+    <net code="24" name="Net-(U1-Pad8)">
+      <node ref="U1" pin="8"/>
+    </net>
+    <net code="25" name="Net-(C5-Pad1)">
+      <node ref="U1" pin="10"/>
+      <node ref="C5" pin="1"/>
+      <node ref="U1" pin="4"/>
+    </net>
+    <net code="26" name="Net-(RN1-Pad6)">
+      <node ref="U1" pin="1"/>
+      <node ref="RN1" pin="6"/>
+    </net>
+    <net code="27" name="Net-(C4-Pad1)">
+      <node ref="U1" pin="9"/>
+      <node ref="U1" pin="3"/>
+      <node ref="C4" pin="1"/>
+    </net>
+    <net code="28" name="Net-(C3-Pad1)">
+      <node ref="U2" pin="5"/>
+      <node ref="U2" pin="3"/>
+      <node ref="C3" pin="1"/>
+      <node ref="U1" pin="11"/>
+    </net>
+    <net code="29" name="GND">
+      <node ref="C3" pin="2"/>
+      <node ref="JP1" pin="2"/>
+      <node ref="U2" pin="4"/>
+      <node ref="C6" pin="2"/>
+      <node ref="STK1" pin="GND"/>
+      <node ref="C8" pin="2"/>
+      <node ref="C9" pin="2"/>
+      <node ref="U1" pin="16"/>
+      <node ref="J1" pin="slv"/>
+      <node ref="JP1" pin="1"/>
+      <node ref="C7" pin="2"/>
+      <node ref="J2" pin="slv"/>
+      <node ref="U1" pin="12"/>
+    </net>
+  </nets>
+</export>

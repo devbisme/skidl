@@ -139,7 +139,7 @@
         <div><p>This post describes using SKiDL for a USB-to-JTAG interface
 that was taken all the way from concept to physically building the device.</p>
 
-<p><img src="/images/usb_to_jtag/assembled_brd.png" alt="Assembled USB-to-JTAG board" /></p>
+<p><img src="https://xesscorp.github.io/skidl/docs/_site/images/usb_to_jtag/assembled_brd.png" alt="Assembled USB-to-JTAG board" /></p>
 
 <p>The interface is pretty simple. It’s built from the following stuff:</p>
 
@@ -156,7 +156,7 @@ that was taken all the way from concept to physically building the device.</p>
 
 <p>Here’s a block diagram to help orient you as the SKiDL code is presented.</p>
 
-<p><img src="/images/usb_to_jtag/block_diag.png" width="400" alt="USB-to-JTAG device block diagram" /></p>
+<p><img src="https://xesscorp.github.io/skidl/docs/_site/images/usb_to_jtag/block_diag.png" width="400" alt="USB-to-JTAG device block diagram" /></p>
 
 <p>Any SKiDL project starts as a Python file.
 In this example, I created the file <code class="highlighter-rouge">intfc_brd.py</code>.
@@ -682,12 +682,12 @@ for this project.</p>
 <p>When <code class="highlighter-rouge">intfc_brd.net</code> is taken in by KiCad’s PCBNEW layout editor,
 the initial component arrangement looks something like this:</p>
 
-<p><img src="/images/usb_to_jtag/pcbnew-unplaced.png" width="800" alt="USB-to-JTAG board with unplaced parts" /></p>
+<p><img src="https://xesscorp.github.io/skidl/docs/_site/images/usb_to_jtag/pcbnew-unplaced.png" width="800" alt="USB-to-JTAG board with unplaced parts" /></p>
 
 <p>After a suitable amount of fiddling (none of which has anything to do with SKiDL at this point),
 we get to a final PCB layout:</p>
 
-<p><img src="/images/usb_to_jtag/pcbnew-routed.png" width="800" alt="USB-to-JTAG board with unplaced parts" /></p>
+<p><img src="https://xesscorp.github.io/skidl/docs/_site/images/usb_to_jtag/pcbnew-routed.png" width="800" alt="USB-to-JTAG board with unplaced parts" /></p>
 
 <p>The layout is translated into <a href="https://en.wikipedia.org/wiki/Gerber_format">Gerber files</a>
 that are sent for fabrication into a physical PCB.
