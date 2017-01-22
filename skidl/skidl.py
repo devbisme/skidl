@@ -1627,32 +1627,12 @@ class Part(object):
                 pins.extend(tmp_pins)
                 continue
 
-            # OK, pin ID is not a pin number. Does it match a pin name...
-            tmp_pins = _filter(self.pins, name=p_id, **criteria)
-            if tmp_pins:
-                pins.extend(tmp_pins)
-                continue
-
-            # How about a pin alias...
-            pin_alias = Alias(p_id, id(self))
-            tmp_pins = _filter(self.pins, alias=pin_alias, **criteria)
-            if tmp_pins:
-                pins.extend(tmp_pins)
-                continue
-
-            # OK, does pin ID match a substring within a pin name...
+            # OK, pin ID is not a pin number. Does it match a substring
+            # within a pin name or alias?
             loose_p_id = ''.join(['.*', p_id, '.*'])
-            tmp_pins = _filter(self.pins, name=loose_p_id, **criteria)
-            if tmp_pins:
-                pins.extend(tmp_pins)
-                continue
-
-            # Last chance: does pin ID match a substring within a pin alias...
+            pins.extend(_filter(self.pins, name=loose_p_id, **criteria))
             loose_pin_alias = Alias(loose_p_id, id(self))
-            tmp_pins = _filter(self.pins, alias=loose_pin_alias, **criteria)
-            if tmp_pins:
-                pins.extend(tmp_pins)
-                continue
+            pins.extend(_filter(self.pins, alias=loose_pin_alias, **criteria))
 
         return _list_or_scalar(pins)
 
