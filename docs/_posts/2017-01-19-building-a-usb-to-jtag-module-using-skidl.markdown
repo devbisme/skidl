@@ -12,7 +12,7 @@ permalink: blog/building-a-usb-to-jtag-interface-using-skidl
 ---
 
 This post describes using SKiDL for a USB-to-JTAG interface
-that was taken all the way from concept to physically building the device.
+that was taken all the way from concept to physically building a device.
 
 {%img {{site.url}}/images/usb_to_jtag/assembled_brd.png "Assembled USB-to-JTAG board" %}
 
