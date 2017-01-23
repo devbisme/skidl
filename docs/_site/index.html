@@ -120,7 +120,8 @@
         </header>
 
         <main class="notepad-content" role="main">
-            <article class="notepad-index-post post row" role="main">
+            <!-- <article class="notepad-index-post post row" role="main"> -->
+            <article class="post row" role="main">
                 <div class="small-12 medium-9 large-10 columns">
                     
 <h1 id="tldr">TL;DR</h1>
@@ -137,7 +138,7 @@ create a finished circuit board.</p>
   <li><a href="#installation">Installation</a></li>
   <li><a href="#basic-usage">Basic Usage</a></li>
   <li><a href="#going-deeper">Going Deeper</a></li>
-  <li><a href="#examples">Examples</a></li>
+  <li><a href="#converting-existing-designs-to-skidl">Converting Existing Designs to SKiDL</a></li>
 </ul>
 
 <h1 id="introduction">Introduction</h1>
@@ -1105,7 +1106,7 @@ and parts like so:</p>
 <span class="n">my_part</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">do_erc</span> <span class="o">=</span> <span class="bp">False</span>  <span class="c"># Turns off ERC for this pin of this part.</span>
 <span class="n">my_part</span><span class="o">.</span><span class="n">do_erc</span> <span class="o">=</span> <span class="bp">False</span>     <span class="c"># Turns off ERC for all the pins of this part.</span></code></pre></figure>
 
-<h2 id="converting-existing-designs-to-skidl">Converting Existing Designs to SKiDL</h2>
+<h1 id="converting-existing-designs-to-skidl">Converting Existing Designs to SKiDL</h1>
 
 <p>If you have an existing schematic-based design, you can convert it to SKiDL as follows:</p>
 
@@ -1125,10 +1126,6 @@ system provides. For this discussion, call the netlist file <code>my_design.net<
 <p>That’s it! You can execute the <code>my_design.py</code> script and it will regenerate the
 netlist. Or you can use the script as a subcircuit in a larger design.
 Or do anything else that a SKiDL-based design supports.</p>
-
-<h1 id="examples">Examples</h1>
-
-<h1 id="history">History</h1>
 
 
 
