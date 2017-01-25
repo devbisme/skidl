@@ -14,7 +14,7 @@ permalink: blog/building-a-usb-to-jtag-interface-using-skidl
 This post describes using SKiDL for a USB-to-JTAG interface
 that was taken all the way from concept to physically building a device.
 
-{%img {{site.url}}/images/usb_to_jtag/assembled_brd.png "Assembled USB-to-JTAG board" %}
+{%img {{site.url}}/images/usb-to-jtag/assembled_brd.png "Assembled USB-to-JTAG board." %}
 
 The interface is pretty simple. It's built from the following stuff:
 
@@ -29,7 +29,7 @@ The interface is pretty simple. It's built from the following stuff:
 
 Here's a block diagram to help orient you as the SKiDL code is presented.
 
-{% img {{site.url}}/images/usb_to_jtag/block_diag.png 400 "USB-to-JTAG device block diagram" %}
+{% img {{site.url}}/images/usb-to-jtag/block_diag.png 400 "USB-to-JTAG device block diagram." %}
 
 Any SKiDL project starts as a Python file.
 In this example, I created the file `intfc_brd.py`.
@@ -555,12 +555,12 @@ The contents of the generated netlist file look like this:
 When `intfc_brd.net` is taken in by KiCad's PCBNEW layout editor,
 the initial component arrangement looks something like this:
 
-{%img {{site.url}}/images/usb_to_jtag/pcbnew-unplaced.png 800 "USB-to-JTAG board with unplaced parts" %}
+{%img {{site.url}}/images/usb-to-jtag/pcbnew-unplaced.png 800 "USB-to-JTAG board with unplaced parts." %}
 
 After a suitable amount of fiddling (none of which has anything to do with SKiDL at this point),
 we get to a final PCB layout:
 
-{%img {{site.url}}/images/usb_to_jtag/pcbnew-routed.png 800 "USB-to-JTAG board with unplaced parts" %}
+{%img {{site.url}}/images/usb-to-jtag/pcbnew-routed.png 800 "Completed USB-to-JTAG board layout." %}
 
 The layout is translated into [Gerber files](https://en.wikipedia.org/wiki/Gerber_format)
 that are sent for fabrication into a physical PCB.

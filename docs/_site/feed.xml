@@ -5,26 +5,131 @@
 
 <title type="text">SKiDL</title>
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
-<link rel="self" type="application/atom+xml" href="https://xesscorp.github.io/skidl/docs/_site/feed.xml" />
-<link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/" />
-<updated>2017-01-25T05:14:02+00:00</updated>
-<id>https://xesscorp.github.io/skidl/docs/_site/</id>
+<link rel="self" type="application/atom+xml" href="http://127.0.0.1:4000/feed.xml" />
+<link rel="alternate" type="text/html" href="http://127.0.0.1:4000/" />
+<updated>2017-01-25T17:45:58+00:00</updated>
+<id>http://127.0.0.1:4000/</id>
 <author>
   <name>XESS Corp.</name>
-  <uri>https://xesscorp.github.io/skidl/docs/_site/</uri>
+  <uri>http://127.0.0.1:4000/</uri>
   <email>skidl@xess.com</email>
 </author>
 
 
 <entry>
+  <title type="html"><![CDATA[Names, Not Numbers]]></title>
+  <link rel="alternate" type="text/html" href="http://127.0.0.1:4000/blog/names-not-numbers"/>
+  <id>http://127.0.0.1:4000/blog/names-not-numbers</id>
+  <published>2017-01-25T14:35:28+00:00</published>
+  <updated>2017-01-25T14:35:28+00:00</updated>
+  <author>
+    <name>XESS Corp.</name>
+    <uri>http://127.0.0.1:4000</uri>
+    <email>skidl@xess.com</email>
+  </author>
+  
+  <content type="html">
+  
+    &lt;p&gt;In my &lt;a href=&quot;/blog/building-a-usb-to-jtag-interface-using-skidl&quot;&gt;previous post&lt;/a&gt;,
+I showed how to use SKiDL to describe the circuit for a simple USB-to-JTAG
+interface circuit.
+That circuit used a PIC32MX microcontroller in a 28-pin SSOP package:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/names-not-numbers/pic32mx-ssop28.png&quot; alt=&quot;PIC32MX in a 28-pin SSOP package.&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;and the corresponding SKiDL code was:&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;pic32&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Part&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pic32_lib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'pic32MX2&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;*0F&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;*B-SSOP28-SOIC28-SPDIP28'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+             &lt;span class=&quot;n&quot;&gt;footprint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Housings_SSOP:SSOP-28_5.3x10.2mm_Pitch0.65mm'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I wanted to try using the same processor, but housed in a smaller QFN package:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/names-not-numbers/pic32mx-qfn28.png&quot; alt=&quot;PIC32MX in a 28-pin QFN package.&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;To do that, I changed the SKiDL code to reference a different part and footprint like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;pic32&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Part&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pic32_lib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'pic32MX2&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;*0F&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;*B-QFN28'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+             &lt;span class=&quot;n&quot;&gt;footprint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Housings_DFN_QFN:QFN-28-1EP_6x6mm_Pitch0.65mm'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;That’s it! No other changes were needed because I wrote my SKiDL code to use
+pin &lt;em&gt;names&lt;/em&gt; instead of pin &lt;em&gt;numbers&lt;/em&gt;.
+For example, I connected the 12 MHz crystal to the microcontroller &lt;code class=&quot;highlighter-rouge&quot;&gt;OSC1&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;OSC2&lt;/code&gt;
+pins like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;pic32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'OSC1, OSC2'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xtal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This works for either version of the microcontroller because they both have
+pins named &lt;code class=&quot;highlighter-rouge&quot;&gt;OSC1&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;OSC2&lt;/code&gt;.
+But, if I had made the crystal connections for the microcontroller in the 28-pin SSOP
+using pin numbers:&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;pic32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xtal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# OSC1==9, OSC2==10 for 28-pin SSOP version.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;then I would have had to change the code when I switched to the QFN packaged version
+of the microcontroller:&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;pic32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xtal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# OSC1==6, OSC2=7 for 28-pin QFN version.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Multiply this by the number of pins a device has (which can be over a thousand
+for modern-day parts like FPGAs), and you can see how using pin names
+reduces the effort and likelihood of errors when making a
+design change.&lt;/p&gt;
+
+&lt;p&gt;For the new board, I also changed from using a mini USB connector:&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;usb_conn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Part&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xess_lib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'USBB'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;footprint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'XESS:UX60SC-MB-5ST'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;to a micro connector:&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;usb_conn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Part&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xess_lib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'USB-MicroB'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;footprint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'XESS:USB-microB-1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Once again, using pin names meant I didn’t have to touch the rest of the code:&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;usb_conn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'D&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;+, D-, VCC, GND, NC'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pic32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'D&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;+, D-'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vusb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gnd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NC&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;After the changes to the SKiDL script were done, I just ran it and imported the
+netlist into KiCad’s &lt;code class=&quot;highlighter-rouge&quot;&gt;PCBNEW&lt;/code&gt; layout program.
+At that point, it didn’t matter whether I used pin names or numbers: I still had
+to re-route the wire traces on the PCB because the physical location
+of the pins had changed. There’s no getting around that.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/names-not-numbers/pcbnew-routed.png&quot; width=&quot;800&quot; alt=&quot;Completed USB-to-JTAG board layout.&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Here’s a side-by-side of the previous and new USB-to-JTAG boards:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/names-not-numbers/old-and-new-boards.jpg&quot; width=&quot;800&quot; alt=&quot;Old and new USB-to-JTAG boards.&quot; /&gt;&lt;/p&gt;
+
+
+  
+  &lt;p&gt;&lt;a href=&quot;http://127.0.0.1:4000/blog/names-not-numbers&quot;&gt;Names, Not Numbers&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://127.0.0.1:4000&quot;&gt;SKiDL&lt;/a&gt; on January 25, 2017.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
   <title type="html"><![CDATA[Building a USB-to-JTAG Interface Using SKiDL]]></title>
-  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/building-a-usb-to-jtag-interface-using-skidl"/>
-  <id>https://xesscorp.github.io/skidl/docs/_site/blog/building-a-usb-to-jtag-module-using-skidl</id>
+  <link rel="alternate" type="text/html" href="http://127.0.0.1:4000/blog/building-a-usb-to-jtag-interface-using-skidl"/>
+  <id>http://127.0.0.1:4000/blog/building-a-usb-to-jtag-module-using-skidl</id>
   <published>2017-01-19T03:40:48+00:00</published>
   <updated>2017-01-19T03:40:48+00:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
+    <uri>http://127.0.0.1:4000</uri>
     <email>skidl@xess.com</email>
   </author>
   
@@ -33,7 +138,7 @@
     &lt;p&gt;This post describes using SKiDL for a USB-to-JTAG interface
 that was taken all the way from concept to physically building a device.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/usb_to_jtag/assembled_brd.png&quot; alt=&quot;Assembled USB-to-JTAG board&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/usb-to-jtag/assembled_brd.png&quot; alt=&quot;Assembled USB-to-JTAG board.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The interface is pretty simple. It’s built from the following stuff:&lt;/p&gt;
 
@@ -50,7 +155,7 @@ that was taken all the way from concept to physically building a device.&lt;/p&g
 
 &lt;p&gt;Here’s a block diagram to help orient you as the SKiDL code is presented.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/usb_to_jtag/block_diag.png&quot; width=&quot;400&quot; alt=&quot;USB-to-JTAG device block diagram&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/usb-to-jtag/block_diag.png&quot; width=&quot;400&quot; alt=&quot;USB-to-JTAG device block diagram.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Any SKiDL project starts as a Python file.
 In this example, I created the file &lt;code class=&quot;highlighter-rouge&quot;&gt;intfc_brd.py&lt;/code&gt;.
@@ -576,12 +681,12 @@ for this project.&lt;/p&gt;
 &lt;p&gt;When &lt;code class=&quot;highlighter-rouge&quot;&gt;intfc_brd.net&lt;/code&gt; is taken in by KiCad’s PCBNEW layout editor,
 the initial component arrangement looks something like this:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/usb_to_jtag/pcbnew-unplaced.png&quot; width=&quot;800&quot; alt=&quot;USB-to-JTAG board with unplaced parts&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/usb-to-jtag/pcbnew-unplaced.png&quot; width=&quot;800&quot; alt=&quot;USB-to-JTAG board with unplaced parts.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;After a suitable amount of fiddling (none of which has anything to do with SKiDL at this point),
 we get to a final PCB layout:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/usb_to_jtag/pcbnew-routed.png&quot; width=&quot;800&quot; alt=&quot;USB-to-JTAG board with unplaced parts&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/usb-to-jtag/pcbnew-routed.png&quot; width=&quot;800&quot; alt=&quot;Completed USB-to-JTAG board layout.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The layout is translated into &lt;a href=&quot;https://en.wikipedia.org/wiki/Gerber_format&quot;&gt;Gerber files&lt;/a&gt;
 that are sent for fabrication into a physical PCB.
@@ -597,7 +702,7 @@ SKiDL that need polishing.
 But that’s always going to be the case.&lt;/p&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/building-a-usb-to-jtag-interface-using-skidl&quot;&gt;Building a USB-to-JTAG Interface Using SKiDL&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on January 19, 2017.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://127.0.0.1:4000/blog/building-a-usb-to-jtag-interface-using-skidl&quot;&gt;Building a USB-to-JTAG Interface Using SKiDL&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://127.0.0.1:4000&quot;&gt;SKiDL&lt;/a&gt; on January 19, 2017.&lt;/p&gt;</content>
 </entry>
 
 </feed>
