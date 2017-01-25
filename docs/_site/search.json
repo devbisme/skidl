@@ -3,7 +3,7 @@
 		{
 		  "title"      : "Building a USB-to-JTAG Interface Using SKiDL",
 		  "category"   : "blog",
-		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/building-a-usb-to-jtag-interface-using-skidl",
+		  "url"        : "/docs/_site/blog/building-a-usb-to-jtag-interface-using-skidl",
 		  "date"       : "2017-01-19 03:40:48 +0000",
 		  "shortdate"  : "January 19, 2017"
 		} 

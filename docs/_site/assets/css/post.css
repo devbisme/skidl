@@ -524,7 +524,8 @@ body,
 .notepad-post-title-simple h1 {
     color: black;
     font-weight: 800;
-    font-size: 3.125rem;
+    /* font-size: 3.125rem; */
+    font-size: 2.0rem;
     padding: 0;
     padding-top: 5rem;
     padding-bottom: 4.375rem;
@@ -536,7 +537,8 @@ body,
 @media only screen and (min-width: 40.063em) {
     .notepad-page-title h1,
     .notepad-post-title-simple h1 {
-        font-size: 4.375rem;
+        /* font-size: 4.375rem; */
+        font-size: 2.25rem;
         padding-top: 5.625rem;
         padding-bottom: 5.625rem;
     }
@@ -544,6 +546,7 @@ body,
 @media only screen and (min-width: 70em) {
     .notepad-page-title h1,
     .notepad-post-title-simple h1 {
+        font-size: 2.75rem;
         padding-top: 6.875rem;
         padding-bottom: 6.875rem;
     }
@@ -551,7 +554,8 @@ body,
 @media only screen and (min-width: 90em) {
     .notepad-page-title h1,
     .notepad-post-title-simple h1 {
-        font-size: 5.3125rem;
+        /* font-size: 5.3125rem; */
+        font-size: 3.125rem;
         padding-top: 8.125rem;
         padding-bottom: 8.125rem;
     }
