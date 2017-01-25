@@ -11,7 +11,7 @@ category: blog
 permalink: blog/names-not-numbers
 ---
 
-In my [previous post](/blog/building-a-usb-to-jtag-interface-using-skidl),
+In my [previous post]({{site.url}}/blog/building-a-usb-to-jtag-interface-using-skidl),
 I showed how to use SKiDL to describe the circuit for a simple USB-to-JTAG
 interface circuit.
 That circuit used a PIC32MX microcontroller in a 28-pin SSOP package:
