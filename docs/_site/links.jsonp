@@ -2,12 +2,12 @@ callback([
 
   {
     "text": "Building a USB-to-JTAG Interface Using SKiDL",
-    "href": "http://127.0.0.1:4000/blog/building-a-usb-to-jtag-interface-using-skidl"
+    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/building-a-usb-to-jtag-interface-using-skidl"
   } ,
 
   {
     "text": "Names, Not Numbers",
-    "href": "http://127.0.0.1:4000/blog/names-not-numbers"
+    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/names-not-numbers"
   } 
 
 ])

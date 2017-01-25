@@ -1,3 +1,10 @@
+Adding a new post:
+
+  1. octopress new post "name of post".
+  2. Edit _posts/name-of-post.
+  3. Run "jekyll serve",
+  4. View it at http://127.0.0.1:4000.
+
 To rebuild website:
 
   1. Go into docs/_api and run "make singlehtml".
