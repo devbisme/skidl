@@ -5,26 +5,26 @@
 
 <title type="text">SKiDL</title>
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
-<link rel="self" type="application/atom+xml" href="http:/docs/_site/feed.xml" />
-<link rel="alternate" type="text/html" href="http:/docs/_site/" />
-<updated>2017-01-25T05:07:18+00:00</updated>
-<id>http:/docs/_site/</id>
+<link rel="self" type="application/atom+xml" href="http:skidl/docs/_site/feed.xml" />
+<link rel="alternate" type="text/html" href="http:skidl/docs/_site/" />
+<updated>2017-01-25T05:09:31+00:00</updated>
+<id>http:skidl/docs/_site/</id>
 <author>
   <name>XESS Corp.</name>
-  <uri>http:/docs/_site/</uri>
+  <uri>http:skidl/docs/_site/</uri>
   <email>skidl@xess.com</email>
 </author>
 
 
 <entry>
   <title type="html"><![CDATA[Building a USB-to-JTAG Interface Using SKiDL]]></title>
-  <link rel="alternate" type="text/html" href="http:/docs/_site/blog/building-a-usb-to-jtag-interface-using-skidl"/>
-  <id>http:/docs/_site/blog/building-a-usb-to-jtag-module-using-skidl</id>
+  <link rel="alternate" type="text/html" href="http:skidl/docs/_site/blog/building-a-usb-to-jtag-interface-using-skidl"/>
+  <id>http:skidl/docs/_site/blog/building-a-usb-to-jtag-module-using-skidl</id>
   <published>2017-01-19T03:40:48+00:00</published>
   <updated>2017-01-19T03:40:48+00:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>http:/docs/_site</uri>
+    <uri>http:skidl/docs/_site</uri>
     <email>skidl@xess.com</email>
   </author>
   
@@ -33,7 +33,7 @@
     &lt;p&gt;This post describes using SKiDL for a USB-to-JTAG interface
 that was taken all the way from concept to physically building a device.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http:/docs/_site/images/usb_to_jtag/assembled_brd.png&quot; alt=&quot;Assembled USB-to-JTAG board&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http:skidl/docs/_site/images/usb_to_jtag/assembled_brd.png&quot; alt=&quot;Assembled USB-to-JTAG board&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The interface is pretty simple. It’s built from the following stuff:&lt;/p&gt;
 
@@ -50,7 +50,7 @@ that was taken all the way from concept to physically building a device.&lt;/p&g
 
 &lt;p&gt;Here’s a block diagram to help orient you as the SKiDL code is presented.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http:/docs/_site/images/usb_to_jtag/block_diag.png&quot; width=&quot;400&quot; alt=&quot;USB-to-JTAG device block diagram&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http:skidl/docs/_site/images/usb_to_jtag/block_diag.png&quot; width=&quot;400&quot; alt=&quot;USB-to-JTAG device block diagram&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Any SKiDL project starts as a Python file.
 In this example, I created the file &lt;code class=&quot;highlighter-rouge&quot;&gt;intfc_brd.py&lt;/code&gt;.
@@ -576,12 +576,12 @@ for this project.&lt;/p&gt;
 &lt;p&gt;When &lt;code class=&quot;highlighter-rouge&quot;&gt;intfc_brd.net&lt;/code&gt; is taken in by KiCad’s PCBNEW layout editor,
 the initial component arrangement looks something like this:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http:/docs/_site/images/usb_to_jtag/pcbnew-unplaced.png&quot; width=&quot;800&quot; alt=&quot;USB-to-JTAG board with unplaced parts&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http:skidl/docs/_site/images/usb_to_jtag/pcbnew-unplaced.png&quot; width=&quot;800&quot; alt=&quot;USB-to-JTAG board with unplaced parts&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;After a suitable amount of fiddling (none of which has anything to do with SKiDL at this point),
 we get to a final PCB layout:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http:/docs/_site/images/usb_to_jtag/pcbnew-routed.png&quot; width=&quot;800&quot; alt=&quot;USB-to-JTAG board with unplaced parts&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http:skidl/docs/_site/images/usb_to_jtag/pcbnew-routed.png&quot; width=&quot;800&quot; alt=&quot;USB-to-JTAG board with unplaced parts&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The layout is translated into &lt;a href=&quot;https://en.wikipedia.org/wiki/Gerber_format&quot;&gt;Gerber files&lt;/a&gt;
 that are sent for fabrication into a physical PCB.
@@ -597,7 +597,7 @@ SKiDL that need polishing.
 But that’s always going to be the case.&lt;/p&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;http:/docs/_site/blog/building-a-usb-to-jtag-interface-using-skidl&quot;&gt;Building a USB-to-JTAG Interface Using SKiDL&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http:/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on January 19, 2017.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http:skidl/docs/_site/blog/building-a-usb-to-jtag-interface-using-skidl&quot;&gt;Building a USB-to-JTAG Interface Using SKiDL&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http:skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on January 19, 2017.&lt;/p&gt;</content>
 </entry>
 
 </feed>
