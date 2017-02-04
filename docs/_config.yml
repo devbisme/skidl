@@ -88,8 +88,12 @@ kramdown:
     coderay_bold_every: 10
     coderay_css: class
 
+# render_code code directory.
+code_dir: files
+
 gems:
 - jemoji
 - octopress-paginate
 - octopress-image-tag
+- octopress-render-code
 #- jekyll-paginate

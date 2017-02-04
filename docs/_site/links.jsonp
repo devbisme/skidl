@@ -8,6 +8,11 @@ callback([
   {
     "text": "Names, Not Numbers",
     "href": "https://xesscorp.github.io/skidl/docs/_site/blog/names-not-numbers"
+  } ,
+
+  {
+    "text": "A Taste of Hierarchy",
+    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/a-taste-of-hierarchy"
   } 
 
 ])

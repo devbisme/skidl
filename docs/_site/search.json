@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "A Taste of Hierarchy",
+		  "category"   : "blog",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/a-taste-of-hierarchy",
+		  "date"       : "2017-02-03 21:51:58 +0000",
+		  "shortdate"  : "February 03, 2017"
+		} ,
+	
+		{
 		  "title"      : "Names, Not Numbers",
 		  "category"   : "blog",
 		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/names-not-numbers",
