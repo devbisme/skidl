@@ -3258,7 +3258,10 @@ def search(term):
 
         for lib_dir in lib_search_paths_kicad:
             # Get all the library files in the search path.
-            lib_files = os.listdir(lib_dir)
+            try:
+                lib_files = os.listdir(lib_dir)
+            except FileNotFoundError:
+                logging.warning("Could not open directory '{}'".format(lib_dir))
             lib_files.extend(os.listdir('.'))
             lib_files = [l for l in lib_files if l.endswith('.lib')]
 
