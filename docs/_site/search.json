@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "Don&#39;t Replicate, Automate!",
+		  "category"   : "blog",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/dont-replicate-automate",
+		  "date"       : "2017-02-17 14:00:01 +0000",
+		  "shortdate"  : "February 17, 2017"
+		} ,
+	
+		{
 		  "title"      : "A Taste of Hierarchy",
 		  "category"   : "blog",
 		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/a-taste-of-hierarchy",

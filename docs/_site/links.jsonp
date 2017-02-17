@@ -13,6 +13,11 @@ callback([
   {
     "text": "A Taste of Hierarchy",
     "href": "https://xesscorp.github.io/skidl/docs/_site/blog/a-taste-of-hierarchy"
+  } ,
+
+  {
+    "text": "Don't Replicate, Automate!",
+    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/dont-replicate-automate"
   } 
 
 ])
