@@ -66,7 +66,7 @@ And here's the design process:
 
 As I discovered with bricklaying, that's no way to live.
 This particular problem is caused by the manual nature of graphical schematic editors:
-they require conscious thought to be applied to each repetition of common operations.
+they require the application of conscious thought to each repetition of common operations.
 Even if you use copy-paste to lay down multiple bypass caps, you're still repeating yourself.
 And each repetition is an opportunity for an error to creep in.
 
@@ -135,7 +135,7 @@ for _ in range(num_gnd_pins):
 Better, but I really don't want to type out that loop for every chip that needs bypass caps.
 Luckily, programming languages have functions to encapsulate code that's used multiple times.
 SKiDL is a programming language, so it must have them too!
-Let's encapsulate the bypass cap instantiation loop in a one:
+Let's encapsulate the bypass cap instantiation loop in one:
 
 ``` py
 from skidl import *
