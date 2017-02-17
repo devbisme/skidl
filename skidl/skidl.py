@@ -588,14 +588,13 @@ class _SchLib(object):
         else:
             try:
                 # Use the tool name to find the function for loading the library.
-                func_name = '_load_sch_lib_{}'.format(tool)
-                load_func = self.__class__.__dict__[func_name]
+                load_func = getattr(self, '_load_sch_lib_{}'.format(tool))
                 search_paths_name = 'lib_search_paths_{}'.format(tool)
                 lib_search_paths = THIS_MODULE[search_paths_name]
-                load_func(self, filename, lib_search_paths)
+                load_func(filename, lib_search_paths)
                 # Cache a reference to the library.
                 self._cache[filename] = self
-            except KeyError:
+            except AttributeError:
                 # OK, that didn't work so well...
                 logger.error('Unsupported ECAD tool library: {}'.format(tool))
                 raise Exception
@@ -1224,9 +1223,9 @@ class Part(object):
         """
 
         try:
-            parse_func = self.__class__.__dict__['_parse_{}'.format(self.tool)]
-            parse_func(self, just_get_name)
-        except KeyError:
+            parse_func = getattr(self, '_parse_{}'.format(self.tool))
+            parse_func(just_get_name)
+        except AttributeError:
             logger.error(
                 "Can't create a part with an unknown ECAD tool file format: {}.".format(
                     self.tool))
@@ -1752,10 +1751,9 @@ class Part(object):
         """
 
         try:
-            gen_func = self.__class__.__dict__['_gen_netlist_comp_{}'.format(
-                tool)]
-            return gen_func(self)
-        except KeyError:
+            gen_func = getattr(self, '_gen_netlist_comp_{}'.format(tool))
+            return gen_func()
+        except AttributeError:
             logger.error(
                 "Can't generate netlist in an unknown ECAD tool format ({}).".format(
                     format))
@@ -1812,10 +1810,9 @@ class Part(object):
         """
 
         try:
-            gen_func = self.__class__.__dict__['_gen_xml_comp_{}'.format(
-                tool)]
-            return gen_func(self)
-        except KeyError:
+            gen_func = getattr(self, '_gen_xml_comp_{}'.format(tool))
+            return gen_func()
+        except AttributeError:
             logger.error(
                 "Can't generate XML in an unknown ECAD tool format ({}).".format(
                     format))
@@ -2320,10 +2317,9 @@ class Net(object):
         self.test_validity()
 
         try:
-            gen_func = self.__class__.__dict__['_gen_netlist_net_{}'.format(
-                tool)]
-            return gen_func(self)
-        except KeyError:
+            gen_func = getattr(self, '_gen_netlist_net_{}'.format(tool))
+            return gen_func()
+        except AttributeError:
             logger.error(
                 "Can't generate netlist in an unknown ECAD tool format ({}).".format(
                     format))
@@ -2350,10 +2346,9 @@ class Net(object):
         self.test_validity()
 
         try:
-            gen_func = self.__class__.__dict__['_gen_xml_net_{}'.format(
-                tool)]
-            return gen_func(self)
-        except KeyError:
+            gen_func = getattr(self, '_gen_xml_net_{}'.format(tool))
+            return gen_func()
+        except AttributeError:
             logger.error(
                 "Can't generate XML in an unknown ECAD tool format ({}).".format(
                     format))

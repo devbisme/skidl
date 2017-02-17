@@ -4,6 +4,13 @@ History
 -------
 
 
+0.0.9 (2017-02-16)
+______________________
+
+* Use getattr() instead of __class__.__dict__ so that subclasses of SKiDL objects
+  can find attributes named within strings without searching the __mor__.
+
+
 0.0.8 (2017-01-11)
 ______________________
 
