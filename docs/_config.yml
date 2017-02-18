@@ -33,9 +33,9 @@ author1:
 
 
 # Analytics and webmaster tools stuff goes here
-#google_analytics:   UA-46791108-1
-#google_verify:      
-# https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
+google_analytics:   UA-765812-6
+google_verify:      
+ https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
 #bing_verify:         
 
 # Links to include in footer navigation
