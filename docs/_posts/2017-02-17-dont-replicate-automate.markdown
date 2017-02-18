@@ -189,8 +189,8 @@ And that class can be used for chip after chip in design after design
 until I die. But not of boredom!
 
 Are there shortcomings in my technique?
-Of course (and I'll correct them in a future blog post), but I didn't show the
-production-ready code because it would obscure the primary point of
+Of course (and I'll correct them in a future blog post), but I wanted to keep
+the code simple so it wouldn't distract from the primary point of
 using SKiDL:
 
 **Automation is pretty good stuff. (We should do more of it.)**

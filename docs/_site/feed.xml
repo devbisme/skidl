@@ -7,7 +7,7 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="https://xesscorp.github.io/skidl/docs/_site/feed.xml" />
 <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/" />
-<updated>2017-02-17T20:53:20+00:00</updated>
+<updated>2017-02-18T02:23:04+00:00</updated>
 <id>https://xesscorp.github.io/skidl/docs/_site/</id>
 <author>
   <name>XESS Corp.</name>
@@ -212,8 +212,8 @@ And that class can be used for chip after chip in design after design
 until I die. But not of boredom!&lt;/p&gt;
 
 &lt;p&gt;Are there shortcomings in my technique?
-Of course (and I’ll correct them in a future blog post), but I didn’t show the
-production-ready code because it would obscure the primary point of
+Of course (and I’ll correct them in a future blog post), but I wanted to keep
+the code simple so it wouldn’t distract from the primary point of
 using SKiDL:&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Automation is pretty good stuff. (We should do more of it.)&lt;/strong&gt;&lt;/p&gt;
