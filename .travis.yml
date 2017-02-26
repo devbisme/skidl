@@ -19,6 +19,7 @@ install:
 before_script:
     flake8 . --count --ignore=E402 --max-line-length=127 --statistics --exit-zero
 
+# command to run tests, e.g. python setup.py test
 script: python setup.py test
 
 notifications:
