@@ -1304,6 +1304,17 @@ class Part(object):
         building_fplist = False  # True when working on footprint list in defn.
         building_draw = False  # True when gathering part drawing from defn.
 
+        # Always make sure there are drawing & footprint sections, even if the part doesn't have them.
+        self.draw = {
+            'arcs': [],
+            'circles': [],
+            'polylines': [],
+            'rectangles': [],
+            'texts': [],
+            'pins': []
+        }
+        self.fplist = []
+
         # Go through the part definition line-by-line.
         for line in self.part_defn:
 
@@ -1347,6 +1358,10 @@ class Part(object):
                         # No aliases found, so part name is all that's needed.
                         return
 
+            # End the parsing of the part definition.
+            elif line[0] == 'ENDDEF':
+                break
+
             # Create a dictionary of F0 part field keywords and values.
             elif line[0] == 'F0':
                 self.fields = []
@@ -1370,7 +1385,6 @@ class Part(object):
             # Start the list of part footprints.
             elif line[0] == '$FPLIST':
                 building_fplist = True
-                self.fplist = []
 
             # End the list of part footprints.
             elif line[0] == '$ENDFPLIST':
@@ -1379,14 +1393,6 @@ class Part(object):
             # Start gathering the drawing primitives for the part symbol.
             elif line[0] == 'DRAW':
                 building_draw = True
-                self.draw = {
-                    'arcs': [],
-                    'circles': [],
-                    'polylines': [],
-                    'rectangles': [],
-                    'texts': [],
-                    'pins': []
-                }
 
             # End the gathering of drawing primitives.
             elif line[0] == 'ENDDRAW':
@@ -1408,12 +1414,12 @@ class Part(object):
                                                                values))))
 
                     # Gather circles.
-                    if line[0] == 'C':
+                    elif line[0] == 'C':
                         self.draw['circles'].append(dict(list(zip(_CIRCLE_KEYS,
                                                                   values))))
 
                     # Gather polygons.
-                    if line[0] == 'P':
+                    elif line[0] == 'P':
                         n_points = int(line[1])
                         points = line[5:5 + (2 * n_points)]
                         values = line[1:5] + [points]
@@ -1425,21 +1431,31 @@ class Part(object):
                                                                     values))))
 
                     # Gather rectangles.
-                    if line[0] == 'S':
+                    elif line[0] == 'S':
                         self.draw['rectangles'].append(dict(list(zip(
                             _RECT_KEYS, values))))
 
                     # Gather text.
-                    if line[0] == 'T':
+                    elif line[0] == 'T':
                         self.draw['texts'].append(dict(list(zip(_TEXT_KEYS,
                                                                 values))))
 
                     # Gather the pin symbols. This is what we really want since
                     # this defines the names, numbers and attributes of the
                     # pins associated with the part.
-                    if line[0] == 'X':
+                    elif line[0] == 'X':
                         self.draw['pins'].append(dict(list(zip(_PIN_KEYS,
                                                                values))))
+
+                    # Found something unknown in the drawing section.
+                    else:
+                        msg = 'Found something strange in {} symbol drawing: {}'.format(self.name, line)
+                        logger.warning(msg)
+
+                # Found something unknown outside the footprint list or drawing section.
+                else:
+                    msg = 'Found something strange in {} symbol definition: {}'.format(self.name, line)
+                    logger.warning(msg)
 
         # Define some shortcuts to part information.
         self.num_units = int(
