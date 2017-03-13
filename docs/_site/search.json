@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "Two Easy Pieces",
+		  "category"   : "blog",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/two-easy-pieces",
+		  "date"       : "2017-03-02 21:45:58 +0000",
+		  "shortdate"  : "March 02, 2017"
+		} ,
+	
+		{
 		  "title"      : "Don&#39;t Replicate, Automate!",
 		  "category"   : "blog",
 		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/dont-replicate-automate",

@@ -18,6 +18,11 @@ callback([
   {
     "text": "Don't Replicate, Automate!",
     "href": "https://xesscorp.github.io/skidl/docs/_site/blog/dont-replicate-automate"
+  } ,
+
+  {
+    "text": "Two Easy Pieces",
+    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/two-easy-pieces"
   } 
 
 ])

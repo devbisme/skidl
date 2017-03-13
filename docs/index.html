@@ -115,6 +115,9 @@ or:
 $ easy_install skidl
 {% endhighlight %}
 
+In order for SKiDL to access part libraries,
+you'll also need to install [KiCad](http://kicad-pcb.org/).
+
 
 
 # Basic Usage
@@ -574,6 +577,15 @@ Finally, you can mix-and-match any combination of widths, nets, buses or part pi
 
 {% highlight py %}
 bus_mixed = Bus('mongrel', 8, a_net, my_bus, my_part[2])  # 8+1+8+1 = 18-bit bus.
+{% endhighlight %}
+
+Finally, you can modify an existing bus by inserting or extending it with any combination
+of widths, nets, buses or pins:
+
+{% highlight py %}
+bus = Bus('A', 8)   # Eight-bit bus.
+bus.insert(4, Bus('I', 3))  # Insert 3-bit bus before bus line bus[4].
+bus.extend(5, Pin(), Net()) # Extend bus with another 5-bit bus, a pin, and a net.
 {% endhighlight %}
 
 The final object you can create is a `Pin`. You'll probably never do this

@@ -223,6 +223,9 @@ create the physical PCB:</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>easy_install skidl</code></pre></figure>
 
+<p>In order for SKiDL to access part libraries,
+you’ll also need to install <a href="http://kicad-pcb.org/">KiCad</a>.</p>
+
 <h1 id="basic-usage">Basic Usage</h1>
 
 <p>This is the minimum that you need to know to design electronic circuitry
@@ -602,6 +605,13 @@ bus names.)</p>
 <p>Finally, you can mix-and-match any combination of widths, nets, buses or part pins:</p>
 
 <figure class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">bus_mixed</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s">'mongrel'</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">a_net</span><span class="p">,</span> <span class="n">my_bus</span><span class="p">,</span> <span class="n">my_part</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>  <span class="c"># 8+1+8+1 = 18-bit bus.</span></code></pre></figure>
+
+<p>Finally, you can modify an existing bus by inserting or extending it with any combination
+of widths, nets, buses or pins:</p>
+
+<figure class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">bus</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s">'A'</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>   <span class="c"># Eight-bit bus.</span>
+<span class="n">bus</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">Bus</span><span class="p">(</span><span class="s">'I'</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>  <span class="c"># Insert 3-bit bus before bus line bus[4].</span>
+<span class="n">bus</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">Pin</span><span class="p">(),</span> <span class="n">Net</span><span class="p">())</span> <span class="c"># Extend bus with another 5-bit bus, a pin, and a net.</span></code></pre></figure>
 
 <p>The final object you can create is a <code>Pin</code>. You’ll probably never do this
 (except in interactive sessions), and it’s probably a mistake if

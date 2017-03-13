@@ -813,3 +813,10 @@ iframe {
     vertical-align: super;
     color: black;
 }
+
+
+/* Added or else lists are printed in large font. */
+.post-template .notepad-post-content > div:not(.notepad-post-title) li p {
+    font-size: 1.125rem !important;
+    font-weight: normal !important;
+}
