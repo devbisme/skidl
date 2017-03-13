@@ -4,6 +4,14 @@ History
 -------
 
 
+0.0.10 (2017-03-13)
+______________________
+
+* Nets without pins can now be merged.
+* Parts and Pins are now sorted when netlists are generated.
+* For an existing Bus, new bus lines can be inserted at any position or the bus can be extended.
+
+
 0.0.9 (2017-02-16)
 ______________________
 

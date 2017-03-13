@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>skidl 0.0.8 documentation</title>
+    <title>skidl 0.0.10 documentation</title>
     
     <link rel="stylesheet" href="static/classic.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.0.8',
+        VERSION:     '0.0.10',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -29,7 +29,7 @@
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
-        <li class="nav-item nav-item-0"><a href="index.html#document-index">skidl 0.0.8 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html#document-index">skidl 0.0.10 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -154,6 +154,18 @@ lists/tuples of them.</td>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>  <span class="c1"># Create an array of buses.</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.skidl.Bus.extend">
+<code class="descname">extend</code><span class="sig-paren">(</span><em>*objects</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Bus.extend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Bus.extend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extend bus by appending objects to the end (MSB).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.skidl.Bus.insert">
+<code class="descname">insert</code><span class="sig-paren">(</span><em>index</em>, <em>*objects</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Bus.insert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Bus.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert objects into bus starting at indexed position.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -490,6 +502,13 @@ pin must have in order to be selected.</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="skidl.skidl.PhantomPin">
+<em class="property">class </em><code class="descclassname">skidl.skidl.</code><code class="descname">PhantomPin</code><span class="sig-paren">(</span><em>**attribs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#PhantomPin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.PhantomPin" title="Permalink to this definition">¶</a></dt>
+<dd><p>A pin type that exists solely to tie two pinless nets together.
+It will not participate in generating any netlists.</p>
+</dd></dl>
+
+<dl class="class">
 <dt id="skidl.skidl.Pin">
 <em class="property">class </em><code class="descclassname">skidl.skidl.</code><code class="descname">Pin</code><span class="sig-paren">(</span><em>**attribs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Pin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Pin" title="Permalink to this definition">¶</a></dt>
 <dd><p>A class for storing data about pins for a part.</p>
@@ -678,7 +697,7 @@ SubCircuits at the current time it is read.</p>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
-        <li class="nav-item nav-item-0"><a href="index.html#document-index">skidl 0.0.8 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html#document-index">skidl 0.0.10 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
