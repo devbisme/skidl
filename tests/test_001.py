@@ -370,6 +370,30 @@ def test_name_1():
     bus1.name = 'B1'
     assert bus1.name == 'B1'
 
+def test_name_2():
+    Circuit._reset()
+    b = Bus('A',2)
+    for n in b:
+        n += Pin()
+    n = Net('A0')
+    n += Pin()
+    net_names = [n.name for n in Circuit.nets]
+    unique_net_names = set(net_names)
+    print(unique_net_names)
+    assert len(unique_net_names) == len(net_names)
+
+def test_name_3():
+    Circuit._reset()
+    n = Net('A0')
+    n += Pin()
+    b = Bus('A',2)
+    for n in b:
+        n += Pin()
+    net_names = [n.name for n in Circuit.nets]
+    unique_net_names = set(net_names)
+    print(unique_net_names)
+    assert len(unique_net_names) == len(net_names)
+
 
 def test_net_merge_1():
     Circuit._reset()

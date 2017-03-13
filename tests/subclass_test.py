@@ -1,3 +1,4 @@
+import pytest
 from skidl import *
 
 class Resistor(Part):
