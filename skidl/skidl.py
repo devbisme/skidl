@@ -1066,6 +1066,22 @@ class Pin(object):
 ##############################################################################
 
 
+class PhantomPin(Pin):
+    """
+    A pin type that exists solely to tie two pinless nets together.
+    It will not participate in generating any netlists.
+    """
+
+    def __init__(self, **attribs):
+        super(PhantomPin, self).__init__(**attribs)
+        self.nets = []
+        self.part = None
+        self.do_erc = False
+
+
+##############################################################################
+
+
 class Alias(object):
     """
     An alias can be added to another object to give it another name.
@@ -2094,6 +2110,9 @@ class Net(object):
             # Update the set of previously visited nets.
             prev_nets = copy(nets)
 
+        # Remove any phantom pins that may have existed for tieing nets together.
+        pins = set([p for p in pins if not isinstance(p, PhantomPin)])
+
         return list(nets), list(pins)
 
     def _get_pins(self):
@@ -2253,6 +2272,13 @@ class Net(object):
             elif net.pins:
                 net.pins[0].nets.append(self)
                 self.pins.append(net.pins[0])
+            # If neither net has any pins, then attach a phantom pin to one net
+            # and then connect the nets together.
+            else:
+                p = PhantomPin()
+                connect_pin(p)
+                self.pins[0].nets.append(net)
+                net.pins.append(self.pins[0])
 
             # Update the drive of the merged nets.
             self.drive = net.drive
@@ -2345,7 +2371,7 @@ class Net(object):
         code = _add_quotes(self.code)
         name = _add_quotes(self.name)
         txt = '    (net (code {code}) (name {name})'.format(**locals())
-        for p in self._get_pins():
+        for p in sorted(self._get_pins(), key=lambda p: str(p)):
             part_ref = _add_quotes(p.part.ref)
             pin_num = _add_quotes(p.num)
             txt += '\n      (node (ref {part_ref}) (pin {pin_num}))'.format(**locals())
@@ -2458,7 +2484,7 @@ class Net(object):
         """Return a list of the pins on this net as a string."""
         self.test_validity()
         pins = self._get_pins()
-        return self.name + ': ' + ', '.join([p.__str__() for p in pins])
+        return self.name + ': ' + ', '.join([p.__str__() for p in sorted(pins, key=lambda p: str(p))])
 
     __repr__ = __str__
 
@@ -2606,38 +2632,55 @@ class Bus(object):
 
         # Build the bus from net widths, existing nets, nets of pins, other buses.
         self.nets = []
-        for arg in _flatten(args):
-            if isinstance(arg, int):
+        self.extend(args)
+
+        # Attach additional attributes to the bus.
+        for k, v in attribs.items():
+            setattr(self, k, v)
+
+    def extend(self, *objects):
+        """Extend bus by appending objects to the end (MSB)."""
+        self.insert(len(self.nets), objects)
+
+    def insert(self, index, *objects):
+        """Insert objects into bus starting at indexed position."""
+        for obj in _flatten(objects):
+            if isinstance(obj, int):
                 # Add a number of new nets to the bus.
-                self.nets.extend(arg * Net())
-            elif isinstance(arg, Net):
+                for _ in range(obj):
+                    self.nets.insert(index, Net())
+                index += obj
+            elif isinstance(obj, Net):
                 # Add an existing net to the bus.
-                self.nets.append(arg)
-            elif isinstance(arg, Pin):
+                self.nets.insert(index, obj)
+                index += 1
+            elif isinstance(obj, Pin):
                 # Add a pin to the bus.
                 try:
                     # Add the pin's net to the bus.
-                    self.nets.append(arg._get_nets()[0])
+                    self.nets.insert(index, obj._get_nets()[0])
                 except IndexError:
                     # OK, the pin wasn't already connected to a net,
                     # so create a new net, add it to the bus, and
                     # connect the pin to it.
                     n = Net()
-                    n += arg
-                    self.nets.append(n)
-            elif isinstance(arg, Bus):
+                    n += obj
+                    self.nets.insert(index, n)
+                index += 1
+            elif isinstance(obj, Bus):
                 # Add an existing bus to this bus.
-                self.nets.extend(arg.nets)
+                for n in reversed(obj.nets):
+                    self.nets.insert(index, n)
+                index += len(obj)
+            else:
+                logger.error('Adding illegal type of object ({}) to Bus {}'.format(type(obj), self.name))
+                raise Exception
 
         # Assign names to all the unnamed nets in the bus.
         for i, net in enumerate(self.nets):
             if net._is_implicit():
                 # Net names are the bus name with the index appended.
                 net.name = self.name + str(i)
-
-        # Attach additional attributes to the bus.
-        for k, v in attribs.items():
-            setattr(self, k, v)
 
     def _get_nets(self):
         """Return the list of nets contained in this bus."""
@@ -3181,11 +3224,11 @@ class SubCircuit(object):
                    '    (tool "{tool}"))\n'
         netlist = template.format(**locals())
         netlist += "  (components"
-        for p in SubCircuit.parts:
+        for p in sorted(SubCircuit.parts, key=lambda p: p.ref):
             netlist += '\n' + p._generate_netlist_component(KICAD)
         netlist += ")\n"
         netlist += "  (nets"
-        for code, n in enumerate(SubCircuit._get_nets()):
+        for code, n in enumerate(sorted(SubCircuit._get_nets(), key=lambda n: n.name)):
             n.code = code
             netlist += '\n' + n._generate_netlist_net(KICAD)
         netlist += ")\n)\n"
