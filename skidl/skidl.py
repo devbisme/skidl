@@ -576,12 +576,20 @@ class _SchLib(object):
         Load the parts from a library file.
         """
 
-        self.filename = filename
+        # Library starts off empty of parts.
         self.parts = []
+
+        # Attach attributes to the library.
+        for k, v in attribs.items():
+            setattr(self, k, v)
+
+        # If no filename, create an empty library.
+        if not filename:
+            pass
 
         # Load this SchLib with an existing SchLib object if the file name
         # matches one in the cache.
-        if filename in self._cache:
+        elif filename in self._cache:
             self.__dict__.update(self._cache[filename].__dict__)
 
         # Otherwise, load from a schematic library file.
@@ -592,16 +600,13 @@ class _SchLib(object):
                 search_paths_name = 'lib_search_paths_{}'.format(tool)
                 lib_search_paths = THIS_MODULE[search_paths_name]
                 load_func(filename, lib_search_paths)
+                self.filename = filename
                 # Cache a reference to the library.
                 self._cache[filename] = self
             except AttributeError:
                 # OK, that didn't work so well...
                 logger.error('Unsupported ECAD tool library: {}'.format(tool))
                 raise Exception
-
-        # Attach additional attributes to the library.
-        for k, v in attribs.items():
-            setattr(self, k, v)
 
     def _load_sch_lib_kicad(self, filename=None, lib_search_paths=None):
         """
