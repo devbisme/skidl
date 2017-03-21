@@ -788,7 +788,7 @@ class SchLib(object):
     def export(self, libname, file=None):
         if not file:
             file = libname + '.py'
-        lib_repr = 'from skidl import *\n\n'
+        lib_repr = 'from skidl import Pin, Part, SchLib\n\n'
         lib_repr += 'SKIDL_lib_version = 0.1\n\n'
         lib_repr += '{} = {}\n'.format(libname, repr(self))
         try:
