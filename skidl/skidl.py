@@ -69,8 +69,7 @@ from .py_2_3 import *
 THIS_MODULE = locals()
 
 # Supported ECAD tools.
-# KICAD, EAGLE = ['kicad', 'eagle']
-KICAD, = ['kicad',]
+KICAD, SKIDL = ['kicad', 'skidl']
 
 # Places where parts can be stored.
 #   NETLIST: The part will become part of a circuit netlist.
@@ -93,6 +92,7 @@ except KeyError:
     _sch_lib_dir_kicad = ''
 
 lib_search_paths_kicad = ['.', _sch_lib_dir_kicad]
+lib_search_paths_skidl = ['.']
 
 
 def _scriptinfo():
@@ -551,7 +551,7 @@ def _find_num_copies(**attribs):
 ##############################################################################
 
 
-class _SchLib(object):
+class SchLib(object):
     """
     A class for storing parts from a schematic component library file.
 
@@ -653,9 +653,7 @@ class _SchLib(object):
                 # indicate that the Part object is being added to a library
                 # and not to a schematic netlist.
                 if line.startswith('ENDDEF'):
-                    self.parts.append(Part(part_defn=part_defn,
-                                           tool=KICAD,
-                                           dest=LIBRARY))
+                    self.add_parts(Part(part_defn=part_defn, tool=KICAD, dest=LIBRARY))
 
                     # Clear the part definition in preparation for the next one.
                     part_defn = []
@@ -694,7 +692,20 @@ class _SchLib(object):
                     part_desc = {}
                 else:
                     pass
-            
+
+    def _load_sch_lib_skidl(self, filename=None, lib_search_paths=None):
+        """TODO: Fill in later."""
+        pass
+
+    def add_parts(self, *parts):
+        """Add one or more parts to a library."""
+        for part in _flatten(parts):
+            # Parts with the same name are not allowed in the library.
+            if not self.get_parts(name = re.escape(part.name)):
+                self.parts.append(part.copy(dest=TEMPLATE))
+        return self
+
+    __iadd__ = add_parts
 
     def get_parts(self, **criteria):
         """
@@ -735,7 +746,7 @@ class _SchLib(object):
             if not parts:
                 if not silent:
                     logger.error('Unable to find part {} in library {}.'.format(
-                        name, self.filename))
+                        name, getattr(self, 'filename', 'UNKNOWN')))
                 raise Exception
 
         # Multiple parts with that name or alias exists, so return the list
@@ -770,13 +781,29 @@ class _SchLib(object):
         """Return a list of the part names in this library as a string."""
         return '\n'.join([p.name for p in self.parts])
 
-    __repr__ = __str__
+    def __repr__(self):
+        """Return a string to recreate a SchLib object."""
+        return 'SchLib(tool={}).add_parts(*{})'.format(repr(SKIDL), repr(self.parts)) 
+
+    def export(self, libname, file=None):
+        if not file:
+            file = libname + '.py'
+        lib_repr = 'from skidl import *\n\n'
+        lib_repr += 'SKIDL_lib_version = 0.1\n\n'
+        lib_repr += '{} = {}\n'.format(libname, repr(self))
+        try:
+            with file as f:
+                f.write(lib_repr)
+        except AttributeError:
+            with open(file, 'w') as f:
+                f.write(lib_repr)
 
     def __len__(self):
         """
         Return number of parts in library.
         """
         return len(self.parts)
+
 
 ##############################################################################
 
@@ -816,46 +843,57 @@ class Pin(object):
     #   rcv_max: The maximum amount of drive the pin can receive and still function.
     pin_info = {
         INPUT: {'function': 'INPUT',
+                'func_str': 'INPUT',
                 'drive': NO_DRIVE,
                 'max_rcv': POWER_DRIVE,
                 'min_rcv': PASSIVE_DRIVE, },
         OUTPUT: {'function': 'OUTPUT',
+                 'func_str': 'OUTPUT',
                  'drive': PUSHPULL_DRIVE,
                  'max_rcv': PASSIVE_DRIVE,
                  'min_rcv': NO_DRIVE, },
         BIDIR: {'function': 'BIDIRECTIONAL',
+                'func_str': 'BIDIR',
                 'drive': TRISTATE_DRIVE,
                 'max_rcv': POWER_DRIVE,
                 'min_rcv': NO_DRIVE, },
         TRISTATE: {'function': 'TRISTATE',
+                   'func_str': 'TRISTATE',
                    'drive': TRISTATE_DRIVE,
                    'max_rcv': TRISTATE_DRIVE,
                    'min_rcv': NO_DRIVE, },
         PASSIVE: {'function': 'PASSIVE',
+                  'func_str': 'PASSIVE',
                   'drive': PASSIVE_DRIVE,
                   'max_rcv': POWER_DRIVE,
                   'min_rcv': NO_DRIVE, },
         UNSPEC: {'function': 'UNSPECIFIED',
+                 'func_str': 'UNSPEC',
                  'drive': NO_DRIVE,
                  'max_rcv': POWER_DRIVE,
                  'min_rcv': NO_DRIVE, },
         PWRIN: {'function': 'POWER-IN',
+                'func_str': 'PWRIN',
                 'drive': NO_DRIVE,
                 'max_rcv': POWER_DRIVE,
                 'min_rcv': POWER_DRIVE, },
         PWROUT: {'function': 'POWER-OUT',
+                 'func_str': 'PWROUT',
                  'drive': POWER_DRIVE,
                  'max_rcv': PASSIVE_DRIVE,
                  'min_rcv': NO_DRIVE, },
         OPENCOLL: {'function': 'OPEN-COLLECTOR',
+                   'func_str': 'OPENCOLL',
                    'drive': ONESIDE_DRIVE,
                    'max_rcv': TRISTATE_DRIVE,
                    'min_rcv': NO_DRIVE, },
         OPENEMIT: {'function': 'OPEN-EMITTER',
+                   'func_str': 'OPENEMIT',
                    'drive': ONESIDE_DRIVE,
                    'max_rcv': TRISTATE_DRIVE,
                    'min_rcv': NO_DRIVE, },
         NOCONNECT: {'function': 'NO-CONNECT',
+                    'func_str': 'NOCONNECT',
                     'drive': NOCONNECT_DRIVE,
                     'max_rcv': NOCONNECT_DRIVE,
                     'min_rcv': NOCONNECT_DRIVE, },
@@ -1059,14 +1097,28 @@ class Pin(object):
             name=pin_name,
             func=pin_func_str)
 
+    def __repr__(self):
+        """Return a string to recreate a Pin object."""
+        attribs = []
+        for k in ['num', 'name', 'func', 'do_erc']:
+            v = getattr(self, k, None)
+            if v:
+                if k == 'func':
+                    # Assign the pin function using the actual name of the
+                    # function, not its numerical value (in case that changes
+                    # in the future if more pin functions are added). 
+                    v = 'Pin.' + Pin.pin_info[v]['func_str']
+                else:
+                    v = repr(v)
+                attribs.append('{}={}'.format(k,v))
+        return 'Pin({})'.format(','.join(attribs))
+
     @property
     def net(self):
         """Return one of the nets the pin is connected to."""
         if self.nets:
             return self.nets[0]
         return None
-
-    __repr__ = __str__
 
 ##############################################################################
 
@@ -1165,12 +1217,19 @@ class Part(object):
                  part_defn=None,
                  **attribs):
 
+        # Setup some part attributes that might be overwritten later on.
+        self.do_erc = True # Allow part to be included in ERC.
+        self.unit = {} # Dictionary for storing subunits of the part, if desired.
+        self.pins = [] # Start with no pins, but a place to store them.
+        self.name = name # Initial part name.
+        self.tool = tool # Initial type of part (SKIDL, KICAD, etc.)
+
         # Create a Part from a library entry.
         if lib:
             # If the lib argument is a string, then create a library using the
             # string as the library file name.
             if isinstance(lib, basestring):
-                lib = _SchLib(filename=lib, tool=tool)
+                lib = SchLib(filename=lib, tool=tool)
 
             # Make a copy of the part from the library but don't add it to the netlist.
             part = lib[name].copy(1, TEMPLATE)
@@ -1182,16 +1241,20 @@ class Part(object):
             self._associate_pins()
 
             # Store the library name of this part.
-            self.lib = lib.filename
+            self.lib = getattr(lib, 'filename', None)
 
         # Otherwise, create a Part from a part definition. If the part is
         # destined for a library, then just get its name. If it's going into
         # a netlist, then parse the entire part definition.
         elif part_defn:
-            self.tool = tool
             self.part_defn = part_defn
             self._parse(just_get_name=(dest != NETLIST))
 
+        # If the part is destined for a SKiDL library, then it will be defined
+        # by the additional attribute values that are passed.
+        elif tool == SKIDL and name:
+            pass
+            
         else:
             logger.error(
                 "Can't make a part without a library & part name or a part definition.")
@@ -1200,12 +1263,6 @@ class Part(object):
         # Add additional attributes to the part.
         for k, v in attribs.items():
             setattr(self, k, v)
-
-        # Allow part to be included in ERC.
-        self.do_erc = True
-
-        # Dictionary for storing subunits of the part, if desired.
-        self.unit = {}
 
         # If the part is going to be an element in a circuit, then add it to the
         # the circuit and make any indicated pin/net connections.
@@ -1522,6 +1579,16 @@ class Part(object):
         # part from being parsed more than once.
         self.part_defn = None
 
+    def _parse_skidl(self, just_get_name=False):
+        """
+        Create a Part using a part definition from a SKiDL library.
+        """
+
+        # Parts in a SKiDL library are already parsed and ready for use,
+        # so just return the part.
+        return self
+
+
     def _associate_pins(self):
         """
         Make sure all the pins in a part have valid references to the part.
@@ -1582,10 +1649,9 @@ class Part(object):
 
             # The shallow copy will just put references to the pins of the
             # original into the copy, so create independent copies of the pins.
-            pin_copies = []
-            for p in self.pins:
-                pin_copies.append(p.copy())
-            self.pins = pin_copies
+            cpy.pins = []
+            for p in getattr(self, 'pins', None):
+                cpy.pins.append(p.copy())
 
             # Make sure all the pins have a reference to this new part copy.
             cpy._associate_pins()
@@ -1620,6 +1686,14 @@ class Part(object):
     __mul__ = copy
     __rmul__ = copy
     __call__ = copy
+
+    def add_pins(self, *pins):
+        """Add one or more pins to a part."""
+        for pin in _flatten(pins):
+            self.pins.append(pin.copy())
+        return self
+
+    __iadd__ = add_pins
 
     def get_pins(self, *pin_ids, **criteria):
         """
@@ -1933,7 +2007,21 @@ class Part(object):
         return '\n' + self.name + ':\n\t' + '\n\t'.join(
             [p.__str__() for p in self.pins])
 
-    __repr__ = __str__
+    def __repr__(self):
+        """Return a string to recreate a Part object."""
+        keys = self._get_fields()
+        keys.extend(('ref_prefix','num_units','fplist','do_erc','aliases','pin','footprint'))
+        attribs = []
+        attribs.append('{}={}'.format('name',repr(self.name)))
+        attribs.append('{}={}'.format('dest',repr(TEMPLATE)))
+        attribs.append('{}={}'.format('tool',repr(SKIDL)))
+        for k in keys:
+            v = getattr(self, k, None)
+            if v:
+                attribs.append('{}={}'.format(k,repr(v)))
+        attribs.append('{}={}'.format('pins',repr(self.pins)))
+        return 'Part({})'.format(','.join(attribs))
+        
 
     @property
     def ref(self):
@@ -1998,6 +2086,28 @@ class Part(object):
     def foot(self):
         """Delete the part footprint."""
         del self._foot
+
+##############################################################################
+
+
+class SkidlPart(Part):
+    """
+    A class for storing a SKiDL definition of a schematic part. It's identical
+    to its Part superclass except:
+        *) The tool defaults to SKIDL.
+        *) The destination defaults to TEMPLATE so that it's easier to start
+           a part and then add pins to it without it being added to the netlist.
+    """
+
+    def __init__(self,
+                 lib=None,
+                 name=None,
+                 dest=TEMPLATE,
+                 tool=SKIDL,
+                 connections=None,
+                 **attribs):
+        super(SkidlPart, self).__init__(lib, name, dest, tool, connections, attribs)
+
 
 ##############################################################################
 
@@ -3308,6 +3418,26 @@ class SubCircuit(object):
         netlist += '</export>\n'
         return netlist
 
+    @classmethod
+    def _save_parts(cls, file=None):
+        """
+        Export parts in circuit as a string to a file/stream.
+
+        Args:
+            file: Either a file object that can be written to, or a string
+                containing a file name, or None.
+
+        Returns:
+            Nothing.
+        """
+
+        save_lib = SchLib()
+        save_lib.parts = cls.parts
+        libname = _get_script_name() + '_lib'
+        if not file:
+            file = libname + '.py'
+        save_lib.export(libname=libname, file=file)
+
 
 def search(term):
     """Print a list of components with the regex term within their name, alias, description or keywords."""
@@ -3324,7 +3454,7 @@ def search(term):
             parts = set() # Set of parts and their containing libraries found with the term.
 
             for lib_file in lib_files:
-                lib = _SchLib(lib_file) # Open the library file.
+                lib = SchLib(lib_file) # Open the library file.
 
                 def mk_list(l):
                     """Make a list out of whatever is given."""
@@ -3364,6 +3494,7 @@ Circuit = SubCircuit
 ERC = SubCircuit._ERC
 generate_netlist = SubCircuit._generate_netlist
 generate_xml = SubCircuit._generate_xml
+save_parts = SubCircuit._save_parts
 
 POWER = Pin.POWER_DRIVE
 

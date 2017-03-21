@@ -4,13 +4,13 @@ from skidl import *
 
 def test_lib_import_1():
     Circuit._reset()
-    lib = skidl._SchLib('C:/xesscorp/KiCad/libraries/xess.lib')
+    lib = skidl.SchLib('C:/xesscorp/KiCad/libraries/xess.lib')
     assert len(lib) > 0
 
 
 def test_part_find_1():
     Circuit._reset()
-    lib = skidl._SchLib('C:/xesscorp/KiCad/libraries/xess.lib')
+    lib = skidl.SchLib('C:/xesscorp/KiCad/libraries/xess.lib')
     parts = Part(lib, '1117')
     assert isinstance(parts, Part)
 
@@ -405,6 +405,24 @@ def test_net_merge_1():
     assert len(b) == 3
     a += b
     assert len(a) == 8
+
+def test_lib_creation_1():
+    Circuit._reset()
+    lib = SchLib()
+    prt1 = SkidlPart(name='Q', dest=TEMPLATE)
+    lib += prt1
+    lib += prt1  # Duplicate library entries are not added.
+    assert(len(lib.parts) == 1)
+    assert(not lib.get_parts(name='QQ')) # Part not in library.
+    prt2 = SkidlPart(name='QQ', dest=TEMPLATE)
+    prt2.add_pins(Pin(num=1,name='Q1',func=Pin.TRISTATE), Pin(num=2,name='Q2',func=Pin.PWRIN))
+    lib += prt2
+    prt2.add_pins(Pin(num=3,name='Q1',func=Pin.PWROUT))
+    assert(len(lib.parts) == 2)
+    assert(lib['Q'].name == 'Q')
+    assert(len(lib['Q'].pins) == 0)
+    assert(lib['QQ'].name == 'QQ')
+    assert(len(lib['QQ'].pins) == 2)
 
 def test_parser_1():
     parse_netlist(r'C:\xesscorp\KiCad\tools\skidl\tests\Arduino_Uno_R3_From_Scratch.net')
