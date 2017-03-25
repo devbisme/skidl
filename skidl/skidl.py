@@ -66,12 +66,6 @@ import time
 from .pckg_info import __version__
 from .py_2_3 import *
 
-THIS_MODULE = locals()
-
-# Supported ECAD tools.
-KICAD, SKIDL = ['kicad', 'skidl']
-DEFAULT_TOOL = KICAD
-
 # Places where parts can be stored.
 #   NETLIST: The part will become part of a circuit netlist.
 #   LIBRARY: The part will be placed in the part list for a library.
@@ -85,16 +79,22 @@ BUS_PREFIX = 'B$'
 # Separator for strings containing multiple indices.
 INDEX_SEPARATOR = ','
 
-# These are the paths to search for KiCad libraries.
+# Supported ECAD tools.
+KICAD, SKIDL = ['kicad', 'skidl']
+DEFAULT_TOOL = KICAD
+
+# These are the paths to search for part libraries for various tools.
+lib_search_paths = {
+    KICAD: ['.'],
+    SKIDL: ['.']
+}
 try:
-    _sch_lib_dir_kicad = os.path.join(os.environ['KISYSMOD'], '..', 'library')
+    lib_search_paths[KICAD].append( os.path.join(os.environ['KISYSMOD'], '..', 'library') )
 except KeyError:
     logging.warning("KISYSMOD environment variable is missing, so default KiCad libraries won't be searched.")
-    _sch_lib_dir_kicad = ''
 
-lib_search_paths_kicad = ['.', _sch_lib_dir_kicad]
-lib_search_paths_skidl = ['.']
 
+##############################################################################
 
 def _scriptinfo():
     """
@@ -184,6 +184,7 @@ class _CountCalls(object):
     def __call__(self, *args, **kwargs):
         self.count += 1
         return self.func(*args, **kwargs)
+
 
 # Set up logging.
 logger = logging.getLogger('skidl')
@@ -621,9 +622,7 @@ class SchLib(object):
                 if tool is None:
                     tool = DEFAULT_TOOL
                 load_func = getattr(self, '_load_sch_lib_{}'.format(tool))
-                search_paths_name = 'lib_search_paths_{}'.format(tool)
-                lib_search_paths = THIS_MODULE[search_paths_name]
-                load_func(filename, lib_search_paths)
+                load_func(filename, lib_search_paths[tool])
                 self.filename = filename
                 # Cache a reference to the library.
                 self._cache[filename] = self
