@@ -379,7 +379,6 @@ def test_name_2():
     n += Pin()
     net_names = [n.name for n in Circuit.nets]
     unique_net_names = set(net_names)
-    print(unique_net_names)
     assert len(unique_net_names) == len(net_names)
 
 def test_name_3():
@@ -391,7 +390,6 @@ def test_name_3():
         n += Pin()
     net_names = [n.name for n in Circuit.nets]
     unique_net_names = set(net_names)
-    print(unique_net_names)
     assert len(unique_net_names) == len(net_names)
 
 
@@ -423,6 +421,22 @@ def test_lib_creation_1():
     assert(len(lib['Q'].pins) == 0)
     assert(lib['QQ'].name == 'QQ')
     assert(len(lib['QQ'].pins) == 2)
+
+def test_backup_1():
+    Circuit._reset()
+    a = Part('device','R',footprint='null')
+    b = Part('device','C',footprint='null')
+    generate_netlist()  # This creates the backup parts library.
+    a = Part('crap','R',footprint='null')
+    b = Part('crap','C',footprint='null')
+    generate_netlist()
+
+def test_lib_1():
+    Circuit._reset()
+    lib_kicad = SchLib('device')
+    lib_kicad.export('device')
+    lib_skidl = SchLib('device', tool=SKIDL)
+    assert(len(lib_kicad) == len(lib_skidl))
 
 def test_parser_1():
     parse_netlist(r'C:\xesscorp\KiCad\tools\skidl\tests\Arduino_Uno_R3_From_Scratch.net')

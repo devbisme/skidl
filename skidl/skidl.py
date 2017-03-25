@@ -58,10 +58,10 @@ import re
 import logging
 import shlex
 import inspect
+import traceback
 from copy import deepcopy, copy
 from pprint import pprint
 import time
-import pdb
 
 from .pckg_info import __version__
 from .py_2_3 import *
@@ -70,6 +70,7 @@ THIS_MODULE = locals()
 
 # Supported ECAD tools.
 KICAD, SKIDL = ['kicad', 'skidl']
+DEFAULT_TOOL = KICAD
 
 # Places where parts can be stored.
 #   NETLIST: The part will become part of a circuit netlist.
@@ -146,6 +147,27 @@ def _get_script_name():
     """Return the name of the top-level script."""
     return os.path.splitext(_scriptinfo()['name'])[0]
 
+
+# Definitions for backup library of circuit parts.
+BACKUP_LIB_NAME = _get_script_name() + '_lib'
+BACKUP_LIB_FILE_NAME = BACKUP_LIB_NAME + '.py'
+QUERY_BACKUP_LIB = True
+CREATE_BACKUP_LIB = True
+backup_lib = None
+
+
+def norecurse(f):
+    """This decorator will keep function f from recursively calling itself."""
+    def func(*args, **kwargs):
+        # If a function's name is on the stack twice (once for the current call
+        # and a second time for the previous call), then return without
+        # executing the function.
+        if len([1 for l in traceback.extract_stack() if l[2] == f.__name__]) > 1:
+            return None
+
+        # Otherwise, not a recursive call so execute the function and return result.
+        return f(*args, **kwargs)
+    return func
 
 class _CountCalls(object):
     """
@@ -571,7 +593,7 @@ class SchLib(object):
     # for fast loading of libraries.
     _cache = {}
 
-    def __init__(self, filename=None, tool=KICAD, **attribs):
+    def __init__(self, filename=None, tool=None, **attribs):
         """
         Load the parts from a library file.
         """
@@ -596,6 +618,8 @@ class SchLib(object):
         else:
             try:
                 # Use the tool name to find the function for loading the library.
+                if tool is None:
+                    tool = DEFAULT_TOOL
                 load_func = getattr(self, '_load_sch_lib_{}'.format(tool))
                 search_paths_name = 'lib_search_paths_{}'.format(tool)
                 lib_search_paths = THIS_MODULE[search_paths_name]
@@ -608,6 +632,10 @@ class SchLib(object):
                 logger.error('Unsupported ECAD tool library: {}'.format(tool))
                 raise Exception
 
+    @classmethod
+    def _reset(cls):
+        cls._cache = {}
+
     def _load_sch_lib_kicad(self, filename=None, lib_search_paths=None):
         """
         Load the parts from a KiCad schematic library file.
@@ -618,7 +646,10 @@ class SchLib(object):
 
         # Try to open the file. Add a .lib extension if needed. If the file
         # doesn't open, then try looking in the KiCad library directory.
-        f = _find_and_open_file(filename, lib_search_paths, '.lib')
+        f = _find_and_open_file(filename, lib_search_paths, '.lib', allow_failure=True)
+        if not f:
+            logger.warning('Unable to open KiCad Schematic Library File {}\n.'.format(filename))
+            return
 
         # Check the file header to make sure it's a KiCad library.
         header = []
@@ -694,20 +725,49 @@ class SchLib(object):
                     pass
 
     def _load_sch_lib_skidl(self, filename=None, lib_search_paths=None):
-        """TODO: Fill in later."""
-        pass
+        """
+        Load the parts from a SKiDL schematic library file.
+
+        Args:
+            filename: The name of the SKiDL schematic library file.
+        """
+        f = _find_and_open_file(filename, lib_search_paths, '.py', allow_failure=True)
+        if not f:
+            logger.warning('Unable to open SKiDL Schematic Library File {}\n.'.format(filename))
+            return
+        try:
+            # The SKiDL library is stored as a Python module that's executed to
+            # recreate the library object.
+            vars = {}  # Empty dictionary for storing library object.
+            exec(f.read(), vars)  # Execute and store library in dict.
+
+            # Now look through the dict to find the library object.
+            for v, val in vars.items():
+                if isinstance(val, SchLib):
+                    # Overwrite self with the new library.
+                    self.__dict__.update(val.__dict__)
+                    return
+
+            # Oops! No library object. Something went wrong.
+            raise Exception('No SchLib object found in {}'.format(filename))
+
+        except Exception as e:
+            logger.error(e)
+            raise Exception
 
     def add_parts(self, *parts):
         """Add one or more parts to a library."""
         for part in _flatten(parts):
             # Parts with the same name are not allowed in the library.
-            if not self.get_parts(name = re.escape(part.name)):
+            # Also, do not check the backup library to see if the parts
+            # are in there because that's probably a different library.
+            if not self.get_parts(use_backup_lib=False, name = re.escape(part.name)):
                 self.parts.append(part.copy(dest=TEMPLATE))
         return self
 
     __iadd__ = add_parts
 
-    def get_parts(self, **criteria):
+    def get_parts(self, use_backup_lib=True, **criteria):
         """
         Return parts from a library that match *all* the given criteria.
 
@@ -717,8 +777,16 @@ class SchLib(object):
                 of the attribute.
 
         Returns:
-            A single Part or a list of Parts that match all the criteria.        """
-        return _list_or_scalar(_filter(self.parts, **criteria))
+            A single Part or a list of Parts that match all the criteria.        
+        """
+        parts = _list_or_scalar(_filter(self.parts, **criteria))
+        if not parts and use_backup_lib and QUERY_BACKUP_LIB:
+            try:
+                backup_lib = load_backup_lib()
+                parts = backup_lib.get_parts(use_backup_lib=False, **criteria)
+            except AttributeError:
+                pass
+        return parts
 
     def get_part_by_name(self, name, allow_multiples=False, silent=False):
         """
@@ -789,7 +857,7 @@ class SchLib(object):
         if not file:
             file = libname + '.py'
         lib_repr = 'from skidl import Pin, Part, SchLib\n\n'
-        lib_repr += 'SKIDL_lib_version = 0.1\n\n'
+        lib_repr += "SKIDL_lib_version = '0.1'\n\n"
         lib_repr += '{} = {}\n'.format(libname, repr(self))
         try:
             with file as f:
@@ -1212,10 +1280,13 @@ class Part(object):
                  lib=None,
                  name=None,
                  dest=NETLIST,
-                 tool=KICAD,
+                 tool=None,
                  connections=None,
                  part_defn=None,
                  **attribs):
+
+        if tool is None:
+            tool = DEFAULT_TOOL
 
         # Setup some part attributes that might be overwritten later on.
         self.do_erc = True # Allow part to be included in ERC.
@@ -1853,13 +1924,16 @@ class Part(object):
                       'do_erc','aliases','tool','pins','footprint'])
         return list(fields-non_fields)
 
-    def _generate_netlist_component(self, tool=KICAD):
+    def _generate_netlist_component(self, tool=None):
         """
         Generate the part information for inclusion in a netlist.
 
         Args:
             tool: The format for the netlist file (e.g., KICAD).
         """
+
+        if tool is None:
+            tool = DEFAULT_TOOL
 
         try:
             gen_func = getattr(self, '_gen_netlist_comp_{}'.format(tool))
@@ -1912,13 +1986,16 @@ class Part(object):
         txt = template.format(**locals())
         return txt
 
-    def _generate_xml_component(self, tool=KICAD):
+    def _generate_xml_component(self, tool=None):
         """
         Generate the part information for inclusion in an XML file.
 
         Args:
             tool: The format for the XML file (e.g., KICAD).
         """
+
+        if tool is None:
+            tool = DEFAULT_TOOL
 
         try:
             gen_func = getattr(self, '_gen_xml_comp_{}'.format(tool))
@@ -2464,13 +2541,17 @@ class Net(object):
         except ValueError:
             pass
 
-    def _generate_netlist_net(self, tool=KICAD):
+    def _generate_netlist_net(self, tool=None):
         """
         Generate the net information for inclusion in a netlist.
 
         Args:
             tool: The format for the netlist file (e.g., KICAD).
         """
+
+        if tool is None:
+            tool = DEFAULT_TOOL
+
         self.test_validity()
 
         try:
@@ -2493,13 +2574,17 @@ class Net(object):
         txt += ')'
         return txt
 
-    def _generate_xml_net(self, tool=KICAD):
+    def _generate_xml_net(self, tool=None):
         """
         Generate the net information for inclusion in an XML file.
 
         Args:
             tool: The format for the XML file (e.g., KICAD).
         """
+
+        if tool is None:
+            tool = DEFAULT_TOOL
+
         self.test_validity()
 
         try:
@@ -2701,8 +2786,12 @@ class _NCNet(Net):
         super(_NCNet, self).__init__(name, *pins_nets_buses, **attribs)
         self._drive = Pin.NOCONNECT_DRIVE
 
-    def _generate_netlist_net(self, tool=KICAD):
+    def _generate_netlist_net(self, tool=None):
         """NO_CONNECT nets don't generate anything for netlists."""
+
+        if tool is None:
+            tool = DEFAULT_TOOL
+
         return ''
 
     def _erc(self):
@@ -3071,6 +3160,8 @@ class SubCircuit(object):
         cls.hierarchy = 'top'
         cls.level = 0
         cls.context = [('top', )]
+        SchLib._reset()  # Also clear any cached libraries.
+        backup_lib = None
 
     @classmethod
     def _add_part(cls, part):
@@ -3284,7 +3375,7 @@ class SubCircuit(object):
                 erc_logger.error.count))
 
     @classmethod
-    def _generate_netlist(cls, file=None, tool=KICAD):
+    def _generate_netlist(cls, file=None, tool=None):
         """
         Return a netlist as a string and also write it to a file/stream.
 
@@ -3295,6 +3386,10 @@ class SubCircuit(object):
         Returns:
             A string containing the netlist.
         """
+
+        if tool is None:
+            tool = DEFAULT_TOOL
+
         try:
             gen_func = cls.__dict__['_gen_netlist_{}'.format(tool)]
             netlist = gen_func(cls)
@@ -3325,6 +3420,10 @@ class SubCircuit(object):
             except (FileNotFoundError, TypeError):
                 with open(_get_script_name() + '.net', 'w') as f:
                     f.write(netlist)
+
+        if CREATE_BACKUP_LIB:
+            cls._backup_parts()
+
         return netlist
 
     def _gen_netlist_kicad(self):
@@ -3350,7 +3449,7 @@ class SubCircuit(object):
         return netlist
 
     @classmethod
-    def _generate_xml(cls, file=None, tool=KICAD):
+    def _generate_xml(cls, file=None, tool=None):
         """
         Return netlist as an XML string and also write it to a file/stream.
 
@@ -3361,6 +3460,10 @@ class SubCircuit(object):
         Returns:
             A string containing the netlist.
         """
+
+        if tool is None:
+            tool = DEFAULT_TOOL
+
         try:
             gen_func = cls.__dict__['_gen_xml_{}'.format(tool)]
             netlist = gen_func(cls)
@@ -3419,24 +3522,46 @@ class SubCircuit(object):
         return netlist
 
     @classmethod
-    def _save_parts(cls, file=None):
+    def _backup_parts(cls, file=None):
         """
-        Export parts in circuit as a string to a file/stream.
+        Saves parts in circuit as a SKiDL library in a file.
 
         Args:
             file: Either a file object that can be written to, or a string
-                containing a file name, or None.
+                containing a file name, or None. If None, a standard library
+                file will be used.
 
         Returns:
             Nothing.
         """
 
-        save_lib = SchLib()
-        save_lib.parts = cls.parts
-        libname = _get_script_name() + '_lib'
+        lib = SchLib(tool=SKIDL)  # Create empty library.
+        lib.parts = cls.parts  # Link the parts in the circuit to the library.
+        if len(cls.parts) == 0:
+            raise Exception
         if not file:
-            file = libname + '.py'
-        save_lib.export(libname=libname, file=file)
+            file = BACKUP_LIB_FILE_NAME 
+        lib.export(libname=BACKUP_LIB_NAME, file=file)
+
+
+@norecurse
+def load_backup_lib():
+    """Load a backup library that stores the parts used in the circuit."""
+
+    global backup_lib
+
+    # Don't keep reloading the backup library once it's loaded.
+    if not backup_lib:
+        try:
+            # The backup library is a SKiDL lib stored as a Python module.
+            exec(open(BACKUP_LIB_FILE_NAME).read())
+            # Copy the backup library in the local storage to the global storage.
+            backup_lib = locals()[BACKUP_LIB_NAME]
+
+        except (FileNotFoundError, ImportError, NameError) as e:
+            backup_lib = None
+
+    return backup_lib
 
 
 def search(term):
@@ -3494,7 +3619,7 @@ Circuit = SubCircuit
 ERC = SubCircuit._ERC
 generate_netlist = SubCircuit._generate_netlist
 generate_xml = SubCircuit._generate_xml
-save_parts = SubCircuit._save_parts
+backup_parts = SubCircuit._backup_parts
 
 POWER = Pin.POWER_DRIVE
 
