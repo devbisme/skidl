@@ -83,11 +83,12 @@ INDEX_SEPARATOR = ','
 KICAD, SKIDL = ['kicad', 'skidl']
 DEFAULT_TOOL = KICAD
 
-# These are the paths to search for part libraries for various tools.
+# These are the paths to search for part libraries of the ECAD tools.
 lib_search_paths = {
     KICAD: ['.'],
     SKIDL: ['.']
 }
+# Add the location of the KiCad schematic part libs to the search path.
 try:
     lib_search_paths[KICAD].append( os.path.join(os.environ['KISYSMOD'], '..', 'library') )
 except KeyError:
@@ -3558,18 +3559,20 @@ def load_backup_lib():
             backup_lib = locals()[BACKUP_LIB_NAME]
 
         except (FileNotFoundError, ImportError, NameError) as e:
-            backup_lib = None
+            pass
 
     return backup_lib
 
 
-def search(term):
-    """Print a list of components with the regex term within their name, alias, description or keywords."""
+def search(term, tool=None):
+    """
+    Print a list of components with the regex term within their name, alias, description or keywords.
+    """
 
-    def search_libraries(term):
+    def search_libraries(term, tool):
         """Search for a regex term in part libraries."""
 
-        for lib_dir in lib_search_paths_kicad:
+        for lib_dir in lib_search_paths[tool]:
             # Get all the library files in the search path.
             lib_files = os.listdir(lib_dir)
             lib_files.extend(os.listdir('.'))
@@ -3597,20 +3600,37 @@ def search(term):
 
         return list(parts) # Return the list of parts and their containing libraries.
 
+
+    if tool is None:
+        tool = DEFAULT_TOOL
+
     term = '.*' + term + '.*' # Use the given term as a substring.
-    parts = search_libraries(term)  # Search for parts with that substring.
+    parts = search_libraries(term, tool)  # Search for parts with that substring.
 
     # Print each part name sorted by the library where it was found.
     for lib_file, p in sorted(parts, key=lambda p: p[0]):
         print('{}: {}'.format(lib_file, p.name))
 
 
-def show(lib_name, part_name):
-    """Print the I/O pins for a given part in a library."""
+def show(lib, part_name, tool=None):
+    """
+    Print the I/O pins for a given part in a library.
+
+    Args:
+        lib: Either a SchLib object or the name of a library.
+        part_name: The name of the part in the library.
+        tool: The ECAD tool format for the library.
+
+    Returns:
+        Nothing.
+    """
+
+    if tool is None:
+        tool = DEFAULT_TOOL
     try:
-        return Part(lib_name, re.escape(part_name))
+        print(Part(lib, re.escape(part_name), tool=tool, dest=TEMPLATE))
     except Exception:
-        return None # Suppress the traceback information.
+        pass # Suppress the traceback information.
 
 
 Circuit = SubCircuit
