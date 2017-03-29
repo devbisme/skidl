@@ -426,7 +426,9 @@ def test_backup_1():
     Circuit._reset()
     a = Part('device','R',footprint='null')
     b = Part('device','C',footprint='null')
+    c = Part('device','L',footprint='null')
     generate_netlist()  # This creates the backup parts library.
+    Circuit._reset()
     a = Part('crap','R',footprint='null')
     b = Part('crap','C',footprint='null')
     generate_netlist()
@@ -437,6 +439,12 @@ def test_lib_1():
     lib_kicad.export('device')
     lib_skidl = SchLib('device', tool=SKIDL)
     assert(len(lib_kicad) == len(lib_skidl))
+    DEFAULT_TOOL = SKIDL
+    QUERY_BACKUP_LIB = False
+    a = Part('device','R')
+    b = Part('device','L')
+    c = Part('device','C')
+    QUERY_BACKUP_LIB = True
 
 def test_parser_1():
     parse_netlist(r'C:\xesscorp\KiCad\tools\skidl\tests\Arduino_Uno_R3_From_Scratch.net')

@@ -59,6 +59,7 @@ import logging
 import shlex
 import inspect
 import traceback
+from importlib import import_module
 from copy import deepcopy, copy
 from pprint import pprint
 import time
@@ -83,16 +84,29 @@ INDEX_SEPARATOR = ','
 KICAD, SKIDL = ['kicad', 'skidl']
 DEFAULT_TOOL = KICAD
 
+
+##############################################################################
+
 # These are the paths to search for part libraries of the ECAD tools.
 lib_search_paths = {
     KICAD: ['.'],
     SKIDL: ['.']
 }
-# Add the location of the KiCad schematic part libs to the search path.
+
+# Add the location of the default KiCad schematic part libs to the search path.
 try:
     lib_search_paths[KICAD].append( os.path.join(os.environ['KISYSMOD'], '..', 'library') )
 except KeyError:
     logging.warning("KISYSMOD environment variable is missing, so default KiCad libraries won't be searched.")
+
+# Add the location of the default SKiDL part libraries.
+import skidl.libs
+lib_search_paths[SKIDL].append( skidl.libs.__path__[0] )
+
+lib_suffixes = {
+    KICAD: '.lib',
+    SKIDL: '_sklib.py'
+}
 
 
 ##############################################################################
@@ -151,7 +165,7 @@ def _get_script_name():
 
 # Definitions for backup library of circuit parts.
 BACKUP_LIB_NAME = _get_script_name() + '_lib'
-BACKUP_LIB_FILE_NAME = BACKUP_LIB_NAME + '.py'
+BACKUP_LIB_FILE_NAME = BACKUP_LIB_NAME + lib_suffixes[SKIDL]
 QUERY_BACKUP_LIB = True
 CREATE_BACKUP_LIB = True
 backup_lib = None
@@ -233,7 +247,7 @@ def _find_and_open_file(filename, paths=None, ext=None, allow_failure=False):
     if allow_failure:
         return None
     else:
-        logger.error("Can't open file: {}\n".format(filename))
+        logger.error("Can't open file: {}.\n".format(filename))
         raise FileNotFoundError
 
 def _add_quotes(s):
@@ -252,6 +266,9 @@ def _to_list(x):
         return x  # Already a list, so just return it.
     return [x]  # Wasn't a list, so make it into one.
 
+def cnvt_to_var_name(s):
+    """Convert a string to a legal Python variable name and return it."""
+    return re.sub('\W|^(?=\d)', '_', s)
 
 def _list_or_scalar(lst):
     """
@@ -525,7 +542,7 @@ def _expand_indices(slice_min, slice_max, *indices):
             for id in indx.split(INDEX_SEPARATOR):
                 ids.append(id.strip())
         else:
-            logger.error('Unknown type in index: {}'.format(type(indx)))
+            logger.error('Unknown type in index: {}.'.format(type(indx)))
             raise Exception
 
     # Return the completely expanded list of indices.
@@ -629,7 +646,7 @@ class SchLib(object):
                 self._cache[filename] = self
             except AttributeError:
                 # OK, that didn't work so well...
-                logger.error('Unsupported ECAD tool library: {}'.format(tool))
+                logger.error('Unsupported ECAD tool library: {}.'.format(tool))
                 raise Exception
 
     @classmethod
@@ -646,9 +663,9 @@ class SchLib(object):
 
         # Try to open the file. Add a .lib extension if needed. If the file
         # doesn't open, then try looking in the KiCad library directory.
-        f = _find_and_open_file(filename, lib_search_paths, '.lib', allow_failure=True)
+        f = _find_and_open_file(filename, lib_search_paths, lib_suffixes[KICAD], allow_failure=True)
         if not f:
-            logger.warning('Unable to open KiCad Schematic Library File {}\n.'.format(filename))
+            logger.warning('Unable to open KiCad Schematic Library File {}.\n'.format(filename))
             return
 
         # Check the file header to make sure it's a KiCad library.
@@ -656,7 +673,7 @@ class SchLib(object):
         header = [f.readline()]
         if header and 'EESchema-LIBRARY' not in header[0]:
             logger.error(
-                'The file {} is not a KiCad Schematic Library File\n'.format(
+                'The file {} is not a KiCad Schematic Library File.\n'.format(
                     filename))
             return
 
@@ -731,9 +748,10 @@ class SchLib(object):
         Args:
             filename: The name of the SKiDL schematic library file.
         """
-        f = _find_and_open_file(filename, lib_search_paths, '.py', allow_failure=True)
+
+        f = _find_and_open_file(filename, lib_search_paths, lib_suffixes[SKIDL], allow_failure=True)
         if not f:
-            logger.warning('Unable to open SKiDL Schematic Library File {}\n.'.format(filename))
+            logger.warning('Unable to open SKiDL Schematic Library File {}.\n'.format(filename))
             return
         try:
             # The SKiDL library is stored as a Python module that's executed to
@@ -854,14 +872,23 @@ class SchLib(object):
         return 'SchLib(tool={}).add_parts(*{})'.format(repr(SKIDL), repr(self.parts)) 
 
     def export(self, libname, file=None):
+        """
+        Export a library into a file.
+
+        Args:
+            libname: A string containing the name of the library.
+            file: The file the library will be exported to. It can either
+                be a file object or a string or None. If None, the file
+                will be the same as the library name with the library
+                suffix appended.
+        """
         if not file:
-            file = libname + '.py'
+            file = libname + lib_suffixes[SKIDL]
         lib_repr = 'from skidl import Pin, Part, SchLib\n\n'
         lib_repr += "SKIDL_lib_version = '0.1'\n\n"
-        lib_repr += '{} = {}\n'.format(libname, repr(self))
+        lib_repr += '{} = {}\n'.format(cnvt_to_var_name(libname), repr(self))
         try:
-            with file as f:
-                f.write(lib_repr)
+            file.write(lib_repr)
         except AttributeError:
             with open(file, 'w') as f:
                 f.write(lib_repr)
@@ -1053,7 +1080,7 @@ class Pin(object):
             logger.error('{} is connected to both normal and no-connect nets!'.format(self._erc_desc()))
             raise Exception
         # This is just strange...
-        logger.error("{} is connected to something strange: {}".format(
+        logger.error("{} is connected to something strange: {}.".format(
             self._erc_desc(), nets))
         raise Exception
 
@@ -1598,12 +1625,12 @@ class Part(object):
 
                     # Found something unknown in the drawing section.
                     else:
-                        msg = 'Found something strange in {} symbol drawing: {}'.format(self.name, line)
+                        msg = 'Found something strange in {} symbol drawing: {}.'.format(self.name, line)
                         logger.warning(msg)
 
                 # Found something unknown outside the footprint list or drawing section.
                 else:
-                    msg = 'Found something strange in {} symbol definition: {}'.format(self.name, line)
+                    msg = 'Found something strange in {} symbol definition: {}.'.format(self.name, line)
                     logger.warning(msg)
 
         # Define some shortcuts to part information.
@@ -2877,7 +2904,7 @@ class Bus(object):
                     self.nets.insert(index, n)
                 index += len(obj)
             else:
-                logger.error('Adding illegal type of object ({}) to Bus {}'.format(type(obj), self.name))
+                logger.error('Adding illegal type of object ({}) to Bus {}.'.format(type(obj), self.name))
                 raise Exception
 
         # Assign names to all the unnamed nets in the bus.
@@ -3161,6 +3188,7 @@ class SubCircuit(object):
         cls.level = 0
         cls.context = [('top', )]
         SchLib._reset()  # Also clear any cached libraries.
+        global backup_lib
         backup_lib = None
 
     @classmethod
@@ -3422,7 +3450,9 @@ class SubCircuit(object):
                     f.write(netlist)
 
         if CREATE_BACKUP_LIB:
-            cls._backup_parts()
+            cls._backup_parts()  # Create a new backup lib for the circuit parts.
+            global backup_lib    # Clear out any old backup lib so the new one
+            backup_lib = None    #   will get reloaded when it's needed.
 
         return netlist
 
@@ -3521,6 +3551,9 @@ class SubCircuit(object):
         netlist += '</export>\n'
         return netlist
 
+    def _generate_xml_skidl(self):
+        logger.error("Can't generate XML in SKiDL format!")
+
     @classmethod
     def _backup_parts(cls, file=None):
         """
@@ -3536,9 +3569,8 @@ class SubCircuit(object):
         """
 
         lib = SchLib(tool=SKIDL)  # Create empty library.
-        lib.parts = cls.parts  # Link the parts in the circuit to the library.
-        if len(cls.parts) == 0:
-            raise Exception
+        for p in cls.parts:
+            lib += p
         if not file:
             file = BACKUP_LIB_FILE_NAME 
         lib.export(libname=BACKUP_LIB_NAME, file=file)
@@ -3576,12 +3608,13 @@ def search(term, tool=None):
             # Get all the library files in the search path.
             lib_files = os.listdir(lib_dir)
             lib_files.extend(os.listdir('.'))
-            lib_files = [l for l in lib_files if l.endswith('.lib')]
+            lib_files = [l for l in lib_files if l.endswith(lib_suffixes[tool])]
 
             parts = set() # Set of parts and their containing libraries found with the term.
 
             for lib_file in lib_files:
-                lib = SchLib(lib_file) # Open the library file.
+                print(tool, lib_dir, lib_file)
+                lib = SchLib(os.path.join(lib_dir,lib_file), tool=tool) # Open the library file.
 
                 def mk_list(l):
                     """Make a list out of whatever is given."""
@@ -3599,7 +3632,6 @@ def search(term, tool=None):
                         parts.add((lib_file, part)) # Store the library name and part object.
 
         return list(parts) # Return the list of parts and their containing libraries.
-
 
     if tool is None:
         tool = DEFAULT_TOOL
@@ -3631,6 +3663,10 @@ def show(lib, part_name, tool=None):
         print(Part(lib, re.escape(part_name), tool=tool, dest=TEMPLATE))
     except Exception:
         pass # Suppress the traceback information.
+
+def set_default_tool(tool):
+    global DEFAULT_TOOL
+    DEFAULT_TOOL = tool
 
 
 Circuit = SubCircuit
