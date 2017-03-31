@@ -230,7 +230,7 @@ def _find_and_open_file(filename, paths=None, ext=None, allow_failure=False):
         paths = ['.']
 
     # If the filename has no extension, then give it one.
-    if not os.path.splitext(filename)[1]:
+    if ext and not filename.endswith(ext):
         filename += ext
 
     # Search the paths for the file.
@@ -617,6 +617,9 @@ class SchLib(object):
         Load the parts from a library file.
         """
 
+        if tool is None:
+            tool = DEFAULT_TOOL
+
         # Library starts off empty of parts.
         self.parts = []
 
@@ -637,8 +640,6 @@ class SchLib(object):
         else:
             try:
                 # Use the tool name to find the function for loading the library.
-                if tool is None:
-                    tool = DEFAULT_TOOL
                 load_func = getattr(self, '_load_sch_lib_{}'.format(tool))
                 load_func(filename, lib_search_paths[tool])
                 self.filename = filename
@@ -865,11 +866,9 @@ class SchLib(object):
 
     def __str__(self):
         """Return a list of the part names in this library as a string."""
-        return '\n'.join([p.name for p in self.parts])
+        return '\n'.join(['{}: {}'.format(p.name, p.description) for p in self.parts])
 
-    def __repr__(self):
-        """Return a string to recreate a SchLib object."""
-        return 'SchLib(tool={}).add_parts(*{})'.format(repr(SKIDL), repr(self.parts)) 
+    __repr__ = __str__
 
     def export(self, libname, file=None):
         """
@@ -882,16 +881,25 @@ class SchLib(object):
                 will be the same as the library name with the library
                 suffix appended.
         """
+
+        def prettify(s):
+            """Breakup and indent library export string."""
+            s = re.sub(r'(Part\()', r'\n        \1', s)
+            s =  re.sub(r'(Pin\()', r'\n            \1', s)
+            return s
+
         if not file:
             file = libname + lib_suffixes[SKIDL]
-        lib_repr = 'from skidl import Pin, Part, SchLib\n\n'
-        lib_repr += "SKIDL_lib_version = '0.1'\n\n"
-        lib_repr += '{} = {}\n'.format(cnvt_to_var_name(libname), repr(self))
+        export_str = 'from skidl import Pin, Part, SchLib, SKIDL, TEMPLATE\n\n'
+        export_str += "SKIDL_lib_version = '0.0.1'\n\n"
+        part_export_str = ','.join([p.export() for p in self.parts])
+        export_str += '{} = SchLib(tool=SKIDL).add_parts(*[{}])'.format(cnvt_to_var_name(libname), part_export_str)
+        export_str = prettify(export_str)
         try:
-            file.write(lib_repr)
+            file.write(export_str)
         except AttributeError:
             with open(file, 'w') as f:
-                f.write(lib_repr)
+                f.write(export_str)
 
     def __len__(self):
         """
@@ -1192,7 +1200,9 @@ class Pin(object):
             name=pin_name,
             func=pin_func_str)
 
-    def __repr__(self):
+    __repr__ = __str__
+
+    def export(self):
         """Return a string to recreate a Pin object."""
         attribs = []
         for k in ['num', 'name', 'func', 'do_erc']:
@@ -1320,6 +1330,7 @@ class Part(object):
         self.unit = {} # Dictionary for storing subunits of the part, if desired.
         self.pins = [] # Start with no pins, but a place to store them.
         self.name = name # Initial part name.
+        self.description = '' # Make sure there is a description, even if empty.
         self.tool = tool # Initial type of part (SKIDL, KICAD, etc.)
 
         # Create a Part from a library entry.
@@ -2108,22 +2119,26 @@ class Part(object):
 
     def __str__(self):
         """Return a description of the pins on this part as a string."""
-        return '\n' + self.name + ':\n\t' + '\n\t'.join(
+        return '\n' + self.name + ': ' + self.description + '\n    ' + '\n    '.join(
             [p.__str__() for p in self.pins])
 
-    def __repr__(self):
+    __repr__ = __str__
+
+    def export(self):
         """Return a string to recreate a Part object."""
         keys = self._get_fields()
         keys.extend(('ref_prefix','num_units','fplist','do_erc','aliases','pin','footprint'))
         attribs = []
         attribs.append('{}={}'.format('name',repr(self.name)))
-        attribs.append('{}={}'.format('dest',repr(TEMPLATE)))
-        attribs.append('{}={}'.format('tool',repr(SKIDL)))
+        attribs.append('dest=TEMPLATE')
+        attribs.append('tool=SKIDL')
         for k in keys:
             v = getattr(self, k, None)
             if v:
                 attribs.append('{}={}'.format(k,repr(v)))
-        attribs.append('{}={}'.format('pins',repr(self.pins)))
+        if self.pins:
+            pin_strs = [p.export() for p in self.pins]
+            attribs.append('pins=[{}]'.format(','.join(pin_strs)))
         return 'Part({})'.format(','.join(attribs))
         
 
@@ -3607,13 +3622,11 @@ def search(term, tool=None):
         for lib_dir in lib_search_paths[tool]:
             # Get all the library files in the search path.
             lib_files = os.listdir(lib_dir)
-            lib_files.extend(os.listdir('.'))
             lib_files = [l for l in lib_files if l.endswith(lib_suffixes[tool])]
 
             parts = set() # Set of parts and their containing libraries found with the term.
 
             for lib_file in lib_files:
-                print(tool, lib_dir, lib_file)
                 lib = SchLib(os.path.join(lib_dir,lib_file), tool=tool) # Open the library file.
 
                 def mk_list(l):
@@ -3641,7 +3654,7 @@ def search(term, tool=None):
 
     # Print each part name sorted by the library where it was found.
     for lib_file, p in sorted(parts, key=lambda p: p[0]):
-        print('{}: {}'.format(lib_file, p.name))
+        print('{}: {} ({})'.format(lib_file, p.name, p.description))
 
 
 def show(lib, part_name, tool=None):
@@ -3654,17 +3667,16 @@ def show(lib, part_name, tool=None):
         tool: The ECAD tool format for the library.
 
     Returns:
-        Nothing.
+        A Part object.
     """
 
     if tool is None:
         tool = DEFAULT_TOOL
-    try:
-        print(Part(lib, re.escape(part_name), tool=tool, dest=TEMPLATE))
-    except Exception:
-        pass # Suppress the traceback information.
+    return Part(lib, re.escape(part_name), tool=tool, dest=TEMPLATE)
+
 
 def set_default_tool(tool):
+    """Set the ECAD tool that will be used by default."""
     global DEFAULT_TOOL
     DEFAULT_TOOL = tool
 
