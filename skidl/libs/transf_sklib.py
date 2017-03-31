@@ -1,0 +1,125 @@
+from skidl import Pin, Part, SchLib, SKIDL, TEMPLATE
+
+SKIDL_lib_version = '0.0.1'
+
+transf = SchLib(tool=SKIDL).add_parts(*[
+        Part(name='TEZ0.5-D-1',dest=TEMPLATE,tool=SKIDL,keywords='0.5VA PCB Transformer Single Secondary',description='TEZ0.5/D/x, 0.5VA, Single Secondary, Cast Resin Transformer, PCB',ref_prefix='TR',num_units=1,fplist=['Transformer*Breve*TEZ*22x24*'],do_erc=True,pins=[
+            Pin(num='1',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='4',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='6',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='7',name='~',func=Pin.PASSIVE,do_erc=True)]),
+        Part(name='TEZ0.5-D-2',dest=TEMPLATE,tool=SKIDL,keywords='0.5VA PCB Transformer Dual Secondary',description='TEZ0.5/D/x-x, 0.5VA, Dual Secondary, Cast Resin Transformer, PCB',ref_prefix='TR',num_units=1,fplist=['Transformer*Breve*TEZ*22x24*'],do_erc=True,pins=[
+            Pin(num='1',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='4',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='5',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='6',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='7',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='8',name='~',func=Pin.PASSIVE,do_erc=True)]),
+        Part(name='TEZ1.5-D-1',dest=TEMPLATE,tool=SKIDL,keywords='1.5VA PCB Transformer Single Secondary',description='TEZ1.5/D/x, 1.5VA, Single Secondary, Cast Resin Transformer, PCB',ref_prefix='TR',num_units=1,fplist=['Transformer*Breve*TEZ*28x33*'],do_erc=True,pins=[
+            Pin(num='1',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='5',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='7',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='9',name='~',func=Pin.PASSIVE,do_erc=True)]),
+        Part(name='TEZ1.5-D-2',dest=TEMPLATE,tool=SKIDL,keywords='1.5VA PCB Transformer Dual Secondary',description='TEZ1.5/D/x-x, 1.5VA, Dual Secondary, Cast Resin Transformer, PCB',ref_prefix='TR',num_units=1,fplist=['Transformer*Breve*TEZ+28x33*'],do_erc=True,pins=[
+            Pin(num='1',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='5',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='6',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='7',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='9',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='10',name='~',func=Pin.PASSIVE,do_erc=True)]),
+        Part(name='TEZ10.0-D-1',dest=TEMPLATE,tool=SKIDL,keywords='10VA PCB Transformer Single Secondary',description='TEZ10.0/D/x, 10VA, Single Secondary, Cast Resin Transformer, PCB',ref_prefix='TR',num_units=1,fplist=['Transformer*Breve*TEZ*44x52*'],do_erc=True,pins=[
+            Pin(num='1',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='6',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='8',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='11',name='~',func=Pin.PASSIVE,do_erc=True)]),
+        Part(name='TEZ10.0-D-2',dest=TEMPLATE,tool=SKIDL,keywords='10VA PCB Transformer Dual Secondary',description='TEZ10.0/D/x-x, 10VA, Dual Secondary, Cast Resin Transformer, PCB',ref_prefix='TR',num_units=1,fplist=['Transformer*Breve*TEZ*44x52*'],do_erc=True,pins=[
+            Pin(num='1',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='6',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='7',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='8',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='11',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='12',name='~',func=Pin.PASSIVE,do_erc=True)]),
+        Part(name='TEZ16.0-D-1',dest=TEMPLATE,tool=SKIDL,keywords='16VA PCB Transformer Single Secondary',description='TEZ16.0/D/x, 16VA, Single Secondary, Cast Resin Transformer, PCB',ref_prefix='TR',num_units=1,fplist=['Transformer*Breve*TEZ*47x57*'],do_erc=True,pins=[
+            Pin(num='1',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='7',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='9',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='13',name='~',func=Pin.PASSIVE,do_erc=True)]),
+        Part(name='TEZ16.0-D-2',dest=TEMPLATE,tool=SKIDL,keywords='16VA PCB Transformer Dual Secondary',description='TEZ16.0/D/x-x, 16VA, Dual Secondary, Cast Resin Transformer, PCB',ref_prefix='TR',num_units=1,fplist=['Transformer*Breve*TEZ*47x57*'],do_erc=True,pins=[
+            Pin(num='1',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='7',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='8',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='9',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='13',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='14',name='~',func=Pin.PASSIVE,do_erc=True)]),
+        Part(name='TEZ2.0-D-1',dest=TEMPLATE,tool=SKIDL,keywords='2VA PCB Transformer Single Secondary',description='TEZ2.0/D/x, 2VA, Single Secondary, Cast Resin Transformer, PCB',ref_prefix='TR',num_units=1,fplist=['Transformer*Breve*TEZ*28x33*'],do_erc=True,pins=[
+            Pin(num='1',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='5',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='7',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='9',name='~',func=Pin.PASSIVE,do_erc=True)]),
+        Part(name='TEZ2.0-D-2',dest=TEMPLATE,tool=SKIDL,keywords='2VA PCB Transformer Dual Secondary',description='TEZ2.0/D/x-x, 2VA, Dual Secondary, Cast Resin Transformer, PCB',ref_prefix='TR',num_units=1,fplist=['Transformer*Breve*TEZ*28x33*'],do_erc=True,pins=[
+            Pin(num='1',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='5',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='6',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='7',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='9',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='10',name='~',func=Pin.PASSIVE,do_erc=True)]),
+        Part(name='TEZ2.5-D-1',dest=TEMPLATE,tool=SKIDL,keywords='2.5VA PCB Transformer Single Secondary',description='TEZ2.5/D/x, 2.5VA, Single Secondary, Cast Resin Transformer, PCB',ref_prefix='TR',num_units=1,fplist=['Transformer*Breve*TEZ*28x33*'],do_erc=True,pins=[
+            Pin(num='1',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='5',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='7',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='9',name='~',func=Pin.PASSIVE,do_erc=True)]),
+        Part(name='TEZ2.5-D-2',dest=TEMPLATE,tool=SKIDL,keywords='2.5VA PCB Transformer Dual Secondary',description='TEZ2.5/D/x-x, 2.5VA, Dual Secondary, Cast Resin Transformer, PCB',ref_prefix='TR',num_units=1,fplist=['Transformer*Breve*TEZ*28x33*'],do_erc=True,pins=[
+            Pin(num='1',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='5',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='6',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='7',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='9',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='10',name='~',func=Pin.PASSIVE,do_erc=True)]),
+        Part(name='TEZ2.6-D-1',dest=TEMPLATE,tool=SKIDL,keywords='2.6VA PCB Transformer Single Secondary',description='TEZ2.6/D/x, 2.6VA, Single Secondary, Cast Resin Transformer, PCB',ref_prefix='TR',num_units=1,fplist=['Transformer*Breve*TEZ*28x33*'],do_erc=True,pins=[
+            Pin(num='1',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='5',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='7',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='9',name='~',func=Pin.PASSIVE,do_erc=True)]),
+        Part(name='TEZ2.6-D-2',dest=TEMPLATE,tool=SKIDL,keywords='2.6VA PCB Transformer Dual Secondary',description='TEZ2.6/D/x-x, 2.6VA, Dual Secondary, Cast Resin Transformer, PCB',ref_prefix='TR',num_units=1,fplist=['Transformer*Breve*TEZ*28x33*'],do_erc=True,pins=[
+            Pin(num='1',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='5',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='6',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='7',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='9',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='10',name='~',func=Pin.PASSIVE,do_erc=True)]),
+        Part(name='TEZ4.0-D-1',dest=TEMPLATE,tool=SKIDL,keywords='4VA PCB Transformer Single Secondary',description='TEZ4.0/D/x, 4VA, Single Secondary, Cast Resin Transformer, PCB',ref_prefix='TR',num_units=1,fplist=['Transformer*Breve*TEZ*35x42*'],do_erc=True,pins=[
+            Pin(num='1',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='5',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='7',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='9',name='~',func=Pin.PASSIVE,do_erc=True)]),
+        Part(name='TEZ4.0-D-2',dest=TEMPLATE,tool=SKIDL,keywords='4VA PCB Transformer Dual Secondary',description='TEZ4.0/D/x-x, 4VA, Dual Secondary, Cast Resin Transformer, PCB',ref_prefix='TR',num_units=1,fplist=['Transformer*Breve*TEZ*35x42*'],do_erc=True,pins=[
+            Pin(num='1',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='5',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='6',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='7',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='9',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='10',name='~',func=Pin.PASSIVE,do_erc=True)]),
+        Part(name='TEZ6.0-D-1',dest=TEMPLATE,tool=SKIDL,keywords='6VA PCB Transformer Single Secondary',description='TEZ6.0/D/x, 6VA, Single Secondary, Cast Resin Transformer, PCB',ref_prefix='TR',num_units=1,fplist=['Transformer*Breve*TEZ*38x45*'],do_erc=True,pins=[
+            Pin(num='1',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='5',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='7',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='9',name='~',func=Pin.PASSIVE,do_erc=True)]),
+        Part(name='TEZ6.0-D-2',dest=TEMPLATE,tool=SKIDL,keywords='6VA PCB Transformer Dual Secondary',description='TEZ6.0/D/x-x, 6VA, Dual Secondary, Cast Resin Transformer, PCB',ref_prefix='TR',num_units=1,fplist=['Transformer*Breve*TEZ*38x45*'],do_erc=True,pins=[
+            Pin(num='1',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='5',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='6',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='7',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='9',name='~',func=Pin.PASSIVE,do_erc=True),
+            Pin(num='10',name='~',func=Pin.PASSIVE,do_erc=True)]),
+        Part(name='TR1-SO8',dest=TEMPLATE,tool=SKIDL,do_erc=True),
+        Part(name='TR60_FC',dest=TEMPLATE,tool=SKIDL,do_erc=True),
+        Part(name='TR60_IC',dest=TEMPLATE,tool=SKIDL,do_erc=True),
+        Part(name='TR60_IC2',dest=TEMPLATE,tool=SKIDL,do_erc=True),
+        Part(name='TRANSF1',dest=TEMPLATE,tool=SKIDL,do_erc=True),
+        Part(name='TRANSF2',dest=TEMPLATE,tool=SKIDL,do_erc=True),
+        Part(name='TRANSF3',dest=TEMPLATE,tool=SKIDL,do_erc=True),
+        Part(name='TRANSF4',dest=TEMPLATE,tool=SKIDL,do_erc=True),
+        Part(name='TRANSF5',dest=TEMPLATE,tool=SKIDL,do_erc=True),
+        Part(name='TRANSF6',dest=TEMPLATE,tool=SKIDL,do_erc=True),
+        Part(name='TRANSF7',dest=TEMPLATE,tool=SKIDL,do_erc=True),
+        Part(name='TRANSF8',dest=TEMPLATE,tool=SKIDL,do_erc=True)])
