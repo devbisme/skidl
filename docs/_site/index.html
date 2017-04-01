@@ -275,6 +275,7 @@ linear.lib: LTC6082
 
 <p><code>search</code> accepts a regular expression and scans for it <em>anywhere</em> within the
 name, description and keywords of all the parts in the library path.
+(You can read more about how SKiDL handles libraries <a href="#libraries">here</a>.)
 So the following search pulls up several candidates:</p>
 
 <figure class="highlight"><pre><code class="language-terminal" data-lang="terminal">&gt;&gt;&gt; search('lm35')
@@ -1017,6 +1018,179 @@ It’s just the simplest example I could think of that shows the feature.)</p>
       (node (ref R5) (pin 2))
       (node (ref R6) (pin 1))))
 )</code></pre></figure>
+
+<h2 id="libraries">Libraries</h2>
+
+<p>As you’ve already seen, SKiDL gets its parts from <em>part libraries</em>.
+By default, SKiDL finds the libraries provided by KiCad (using the <code>KISYSMOD</code>
+environment variable), so if that’s all you need then you’re all set.</p>
+
+<p>Currently, SKiDL supports the library formats for the following ECAD tools:</p>
+
+<ul>
+  <li><code>KICAD</code>: KiCad schematic part libraries.</li>
+  <li><code>SKIDL</code>: Schematic parts stored as SKiDL/Python modules.</li>
+</ul>
+
+<p>You can set the default library format you want to use in your SKiDL script like so:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">DEFAULT_TOOL</span> <span class="o">=</span> <span class="n">KICAD</span>  <span class="c"># KiCad is the default library format.</span>
+<span class="n">DEFAULT_TOOL</span> <span class="o">=</span> <span class="n">SKIDL</span>  <span class="c"># Now SKiDL is the default library format.</span></code></pre></figure>
+
+<p>You can also set the directories where SKiDL looks for parts using the 
+<code>lib_search_paths</code> dictionary:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">lib_search_paths</span><span class="p">[</span><span class="n">SKIDL</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s">'.'</span><span class="p">,</span> <span class="s">'..'</span><span class="p">,</span> <span class="s">'C:</span><span class="se">\\</span><span class="s">temp'</span><span class="p">]</span>
+<span class="n">lib_search_paths</span><span class="p">[</span><span class="n">KICAD</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">'C:</span><span class="se">\\</span><span class="s">my</span><span class="se">\\</span><span class="s">kicad</span><span class="se">\\</span><span class="s">libs'</span><span class="p">)</span></code></pre></figure>
+
+<p>You can also convert a KiCad library into the SKiDL format by exporting it:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">kicad_lib</span> <span class="o">=</span> <span class="n">SchLib</span><span class="p">(</span><span class="s">'device'</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="n">KICAD</span><span class="p">)</span>       <span class="c"># Open a KiCad library.</span>
+<span class="n">kicad_lib</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="s">'my_skidl_lib'</span><span class="p">)</span>               <span class="c"># Export it into a file in SKiDL format.</span>
+<span class="n">skidl_lib</span> <span class="o">=</span> <span class="n">SchLib</span><span class="p">(</span><span class="s">'my_skidl_lib'</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="n">SKIDL</span><span class="p">)</span> <span class="c"># Create a SKiDL library object from the new file.</span>
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">skidl_lib</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">kicad_lib</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'As expected, both libraries have the same number of parts!'</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'Something went wrong!'</span><span class="p">)</span>
+<span class="n">diode</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">skidl_lib</span><span class="p">,</span> <span class="s">'D'</span><span class="p">)</span>                   <span class="c"># Instantiate a diode from the SKiDL library.</span></code></pre></figure>
+
+<p>You can also make ad-hoc libraries just by creating a SchLib object and adding
+Part objects to it:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">my_lib</span> <span class="o">=</span> <span class="n">SchLib</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">'my_lib'</span><span class="p">)</span>                      <span class="c"># Create an empty library object.</span>
+<span class="n">my_part</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">'R'</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="n">SKIDL</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span> <span class="c"># Create an empty part object template.</span>
+<span class="n">my_part</span><span class="o">.</span><span class="n">ref_prefix</span> <span class="o">=</span> <span class="s">'R'</span>                            <span class="c"># Set the part reference prefix.</span>
+<span class="n">my_part</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="s">'resistor'</span>                    <span class="c"># Set the part's description field.</span>
+<span class="n">my_part</span><span class="o">.</span><span class="n">keywords</span> <span class="o">=</span> <span class="s">'res resistor'</span>                   <span class="c"># Set the part's keywords.</span>
+<span class="n">my_part</span> <span class="o">+=</span> <span class="n">Pin</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">Pin</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">)</span>             <span class="c"># Add a pin to the part.</span>
+<span class="n">my_part</span> <span class="o">+=</span> <span class="n">Pin</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">Pin</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">)</span>             <span class="c"># Add another pin to the part.</span>
+<span class="n">my_lib</span> <span class="o">+=</span> <span class="n">my_part</span>                                   <span class="c"># Add the part to the library.</span>
+
+<span class="n">new_resistor</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">my_lib</span><span class="p">,</span> <span class="s">'R'</span><span class="p">)</span>                    <span class="c"># Instantiate the part from the library.</span>
+<span class="n">my_lib</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="s">'my_lib'</span><span class="p">)</span>                             <span class="c"># Save the library in a file my_lib.py.</span></code></pre></figure>
+
+<p>Always create a part intended for a library as a template so you don’t inadvertently
+add it to the circuit netlist.
+Then set the part attributes and create and add pins to the part.
+Here are the most common attributes you’ll want to set:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>name</td>
+      <td>A string containing the name of the part, e.g. ‘LM35’ for a temperature sensor.</td>
+    </tr>
+    <tr>
+      <td>ref_prefix</td>
+      <td>A string containing the prefix for this part’s references, e.g. ‘U’ for ICs.</td>
+    </tr>
+    <tr>
+      <td>description</td>
+      <td>A string describing the part, e.g. ‘temperature sensor’.</td>
+    </tr>
+    <tr>
+      <td>keywords</td>
+      <td>A string containing keywords about the part, e.g. ‘sensor temperature IC’.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>When creating a pin, these are the attributes you’ll want to set:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>num</td>
+      <td>A string or integer containing the pin number, e.g. 5 or ‘A13’.</td>
+    </tr>
+    <tr>
+      <td>name</td>
+      <td>A string containing the name of the pin, e.g. ‘CS’.</td>
+    </tr>
+    <tr>
+      <td>func</td>
+      <td>An identifier for the function of the pin.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The pin function identifiers are as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Identifier</th>
+      <th>Pin Function</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Pin.INPUT</td>
+      <td>Input pin.</td>
+    </tr>
+    <tr>
+      <td>Pin.OUTPUT</td>
+      <td>Output pin.</td>
+    </tr>
+    <tr>
+      <td>Pin.BIDIR</td>
+      <td>Bidirectional in/out pin.</td>
+    </tr>
+    <tr>
+      <td>Pin.TRISTATE</td>
+      <td>Output pin that goes into a high-impedance state when disabled.</td>
+    </tr>
+    <tr>
+      <td>Pin.PASSIVE</td>
+      <td>Pin on a passive component (like a resistor).</td>
+    </tr>
+    <tr>
+      <td>Pin.UNSPEC</td>
+      <td>Pin with an unspecified function.</td>
+    </tr>
+    <tr>
+      <td>Pin.PWRIN</td>
+      <td>Power input pin (either voltage supply or ground).</td>
+    </tr>
+    <tr>
+      <td>Pin.PWROUT</td>
+      <td>Power output pin (like the output of a voltage regulator).</td>
+    </tr>
+    <tr>
+      <td>Pin.OPENCOLL</td>
+      <td>Open-collector pin (pulls to ground but not to positive rail).</td>
+    </tr>
+    <tr>
+      <td>Pin.OPENEMIT</td>
+      <td>Open-emitter pin (pulls to positive rail but not to ground).</td>
+    </tr>
+    <tr>
+      <td>Pin.NOCONNECT</td>
+      <td>A pin that should be left unconnected.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>SKiDL will also create a library of all the parts used in your design whenever
+you use the <code>generate_netlist()</code> function.
+For example, if your SKiDL script is named <code>my_design.py</code>, then the parts instantiated
+in that script will be stored as a SKiDL library in the file <code>my_design_lib.py</code>.
+This can be useful if you’re sending the design to someone who may not have all
+the libraries you do.
+Just send them <code>my_design.py</code> and <code>my_design_lib.py</code> and any parts not found
+when they run the script will be fetched from the backup parts in the library.</p>
 
 <h2 id="doodads">Doodads</h2>
 

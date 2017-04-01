@@ -175,6 +175,7 @@ linear.lib: MCP601SN
 
 `search` accepts a regular expression and scans for it *anywhere* within the
 name, description and keywords of all the parts in the library path.
+(You can read more about how SKiDL handles libraries [here](#libraries).)
 So the following search pulls up several candidates:
 
 {% highlight terminal %}
@@ -1043,6 +1044,108 @@ And here's the resulting netlist:
       (node (ref R6) (pin 1))))
 )
 {% endhighlight %}
+
+
+## Libraries
+
+As you've already seen, SKiDL gets its parts from *part libraries*.
+By default, SKiDL finds the libraries provided by KiCad (using the `KISYSMOD`
+environment variable), so if that's all you need then you're all set.
+
+Currently, SKiDL supports the library formats for the following ECAD tools:
+
+* `KICAD`: KiCad schematic part libraries.
+* `SKIDL`: Schematic parts stored as SKiDL/Python modules.
+
+You can set the default library format you want to use in your SKiDL script like so:
+
+{% highlight python %}
+DEFAULT_TOOL = KICAD  # KiCad is the default library format.
+DEFAULT_TOOL = SKIDL  # Now SKiDL is the default library format.
+{% endhighlight %}
+
+You can also set the directories where SKiDL looks for parts using the 
+`lib_search_paths` dictionary:
+
+{% highlight python %}
+lib_search_paths[SKIDL] = ['.', '..', 'C:\\temp']
+lib_search_paths[KICAD].append('C:\\my\\kicad\\libs')
+{% endhighlight %}
+
+You can also convert a KiCad library into the SKiDL format by exporting it:
+
+{% highlight python %}
+kicad_lib = SchLib('device', tool=KICAD)       # Open a KiCad library.
+kicad_lib.export('my_skidl_lib')               # Export it into a file in SKiDL format.
+skidl_lib = SchLib('my_skidl_lib', tool=SKIDL) # Create a SKiDL library object from the new file.
+if len(skidl_lib) == len(kicad_lib):
+    print('As expected, both libraries have the same number of parts!')
+else:
+    print('Something went wrong!')
+diode = Part(skidl_lib, 'D')                   # Instantiate a diode from the SKiDL library.
+{% endhighlight %}
+
+You can also make ad-hoc libraries just by creating a SchLib object and adding
+Part objects to it:
+
+{% highlight python %}
+my_lib = SchLib(name='my_lib')                      # Create an empty library object.
+my_part = Part(name='R', tool=SKIDL, dest=TEMPLATE) # Create an empty part object template.
+my_part.ref_prefix = 'R'                            # Set the part reference prefix.
+my_part.description = 'resistor'                    # Set the part's description field.
+my_part.keywords = 'res resistor'                   # Set the part's keywords.
+my_part += Pin(num=1, func=Pin.PASSIVE)             # Add a pin to the part.
+my_part += Pin(num=2, func=Pin.PASSIVE)             # Add another pin to the part.
+my_lib += my_part                                   # Add the part to the library.
+
+new_resistor = Part(my_lib, 'R')                    # Instantiate the part from the library.
+my_lib.export('my_lib')                             # Save the library in a file my_lib.py.
+{% endhighlight %}
+
+Always create a part intended for a library as a template so you don't inadvertently
+add it to the circuit netlist.
+Then set the part attributes and create and add pins to the part.
+Here are the most common attributes you'll want to set:
+
+Attribute | Meaning
+----------|------------------
+name      | A string containing the name of the part, e.g. 'LM35' for a temperature sensor.
+ref_prefix | A string containing the prefix for this part's references, e.g. 'U' for ICs.
+description | A string describing the part, e.g. 'temperature sensor'.
+keywords  | A string containing keywords about the part, e.g. 'sensor temperature IC'.
+
+When creating a pin, these are the attributes you'll want to set:
+
+Attribute | Meaning
+----------|------------------
+num       | A string or integer containing the pin number, e.g. 5 or 'A13'.
+name      | A string containing the name of the pin, e.g. 'CS'.
+func      | An identifier for the function of the pin.
+
+The pin function identifiers are as follows:
+ 
+Identifier | Pin Function
+-----------|-----------------
+Pin.INPUT | Input pin.
+Pin.OUTPUT | Output pin.
+Pin.BIDIR | Bidirectional in/out pin.
+Pin.TRISTATE | Output pin that goes into a high-impedance state when disabled.
+Pin.PASSIVE | Pin on a passive component (like a resistor).
+Pin.UNSPEC | Pin with an unspecified function.
+Pin.PWRIN | Power input pin (either voltage supply or ground).
+Pin.PWROUT | Power output pin (like the output of a voltage regulator).
+Pin.OPENCOLL | Open-collector pin (pulls to ground but not to positive rail).
+Pin.OPENEMIT | Open-emitter pin (pulls to positive rail but not to ground).
+Pin.NOCONNECT | A pin that should be left unconnected.
+
+SKiDL will also create a library of all the parts used in your design whenever
+you use the `generate_netlist()` function.
+For example, if your SKiDL script is named `my_design.py`, then the parts instantiated
+in that script will be stored as a SKiDL library in the file `my_design_lib.py`.
+This can be useful if you're sending the design to someone who may not have all
+the libraries you do.
+Just send them `my_design.py` and `my_design_lib.py` and any parts not found
+when they run the script will be fetched from the backup parts in the library.
 
 
 ## Doodads
