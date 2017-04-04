@@ -4,6 +4,15 @@ History
 -------
 
 
+0.0.11 (2017-04-04)
+______________________
+
+* Part libraries in SKiDL format are now supported.
+* Parts can now be created on-the-fly and instantiated or added to libraries.
+* The parts used in a circuit can be stored in a backup SKiDL library and used if the original libraries are missing.
+* The KiCad standard part libraries were converted to SKiDL libraries and placed in skidl.libs.
+
+
 0.0.10 (2017-03-13)
 ______________________
 
