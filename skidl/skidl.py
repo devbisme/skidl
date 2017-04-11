@@ -3605,7 +3605,7 @@ def load_backup_lib():
             # Copy the backup library in the local storage to the global storage.
             backup_lib = locals()[BACKUP_LIB_NAME]
 
-        except (FileNotFoundError, ImportError, NameError) as e:
+        except (FileNotFoundError, ImportError, NameError, IOError) as e:
             pass
 
     return backup_lib
