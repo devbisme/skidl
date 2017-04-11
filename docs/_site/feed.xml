@@ -7,7 +7,7 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="https://xesscorp.github.io/skidl/docs/_site/feed.xml" />
 <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/" />
-<updated>2017-04-01T05:24:35+01:00</updated>
+<updated>2017-04-11T09:50:26-04:00</updated>
 <id>https://xesscorp.github.io/skidl/docs/_site/</id>
 <author>
   <name>XESS Corp.</name>
@@ -20,8 +20,8 @@
   <title type="html"><![CDATA[An Arduino With SKiDL]]></title>
   <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/an-arduino-with-skidl"/>
   <id>https://xesscorp.github.io/skidl/docs/_site/blog/an-arduino-with-skidl</id>
-  <published>2017-04-01T04:06:41+01:00</published>
-  <updated>2017-04-01T04:06:41+01:00</updated>
+  <published>2017-03-31T23:06:41-04:00</published>
+  <updated>2017-03-31T23:06:41-04:00</updated>
   <author>
     <name>XESS Corp.</name>
     <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
@@ -139,7 +139,7 @@ Happy Arduino Day!&lt;/p&gt;
 &lt;p&gt;Really. I’m not joking.&lt;/p&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/an-arduino-with-skidl&quot;&gt;An Arduino With SKiDL&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on April 01, 2017.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/an-arduino-with-skidl&quot;&gt;An Arduino With SKiDL&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on March 31, 2017.&lt;/p&gt;</content>
 </entry>
 
 
@@ -147,8 +147,8 @@ Happy Arduino Day!&lt;/p&gt;
   <title type="html"><![CDATA[Two Easy Pieces]]></title>
   <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/two-easy-pieces"/>
   <id>https://xesscorp.github.io/skidl/docs/_site/blog/two-easy-pieces</id>
-  <published>2017-03-02T21:45:58+00:00</published>
-  <updated>2017-03-02T21:45:58+00:00</updated>
+  <published>2017-03-02T16:45:58-05:00</published>
+  <updated>2017-03-02T16:45:58-05:00</updated>
   <author>
     <name>XESS Corp.</name>
     <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
@@ -455,8 +455,8 @@ similar to how programmers insert calls to subroutine libraries into their code.
   <title type="html"><![CDATA[Don't Replicate, Automate!]]></title>
   <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/dont-replicate-automate"/>
   <id>https://xesscorp.github.io/skidl/docs/_site/blog/dont-replicate-automate</id>
-  <published>2017-02-17T14:00:01+00:00</published>
-  <updated>2017-02-17T14:00:01+00:00</updated>
+  <published>2017-02-17T09:00:01-05:00</published>
+  <updated>2017-02-17T09:00:01-05:00</updated>
   <author>
     <name>XESS Corp.</name>
     <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
@@ -662,8 +662,8 @@ using SKiDL:&lt;/p&gt;
   <title type="html"><![CDATA[A Taste of Hierarchy]]></title>
   <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/a-taste-of-hierarchy"/>
   <id>https://xesscorp.github.io/skidl/docs/_site/blog/a-taste-of-hierarchy</id>
-  <published>2017-02-03T21:51:58+00:00</published>
-  <updated>2017-02-03T21:51:58+00:00</updated>
+  <published>2017-02-03T16:51:58-05:00</published>
+  <updated>2017-02-03T16:51:58-05:00</updated>
   <author>
     <name>XESS Corp.</name>
     <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
@@ -909,8 +909,8 @@ Python default parameters come to the rescue!&lt;/p&gt;
   <title type="html"><![CDATA[Names, Not Numbers]]></title>
   <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/names-not-numbers"/>
   <id>https://xesscorp.github.io/skidl/docs/_site/blog/names-not-numbers</id>
-  <published>2017-01-25T14:35:28+00:00</published>
-  <updated>2017-01-25T14:35:28+00:00</updated>
+  <published>2017-01-25T09:35:28-05:00</published>
+  <updated>2017-01-25T09:35:28-05:00</updated>
   <author>
     <name>XESS Corp.</name>
     <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
@@ -1014,8 +1014,8 @@ of the pins had changed. There’s no getting around that.&lt;/p&gt;
   <title type="html"><![CDATA[Building a USB-to-JTAG Interface Using SKiDL]]></title>
   <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/building-a-usb-to-jtag-interface-using-skidl"/>
   <id>https://xesscorp.github.io/skidl/docs/_site/blog/building-a-usb-to-jtag-module-using-skidl</id>
-  <published>2017-01-19T03:40:48+00:00</published>
-  <updated>2017-01-19T03:40:48+00:00</updated>
+  <published>2017-01-18T22:40:48-05:00</published>
+  <updated>2017-01-18T22:40:48-05:00</updated>
   <author>
     <name>XESS Corp.</name>
     <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
@@ -1591,7 +1591,7 @@ SKiDL that need polishing.
 But that’s always going to be the case.&lt;/p&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/building-a-usb-to-jtag-interface-using-skidl&quot;&gt;Building a USB-to-JTAG Interface Using SKiDL&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on January 19, 2017.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/building-a-usb-to-jtag-interface-using-skidl&quot;&gt;Building a USB-to-JTAG Interface Using SKiDL&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on January 18, 2017.&lt;/p&gt;</content>
 </entry>
 
 </feed>

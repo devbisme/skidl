@@ -56,7 +56,7 @@ links:
     url: /about
 
 # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-timezone:    US/Eastern
+#timezone:    US/Eastern
 future:      true
 #rouge: pygments
 markdown:    kramdown
