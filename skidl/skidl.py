@@ -1073,9 +1073,7 @@ class Pin(object):
     __call__ = copy
 
     def _is_connected(self):
-        """
-        Return true if a pin is connected to a net (but not a no-connect net).
-        """
+        """Return true if a pin is connected to a net (but not a no-connect net)."""
         if not self.nets:
             # This pin is not connected to any nets.
             return False
@@ -1098,7 +1096,7 @@ class Pin(object):
             self._erc_desc(), nets))
         raise Exception
 
-    def _is_attached(pin_net_bus):
+    def _is_attached(self, pin_net_bus):
         """Return true if this pin is attached to the given pin, net or bus."""
         if not self._is_connected():
             return False
