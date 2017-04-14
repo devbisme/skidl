@@ -870,7 +870,7 @@ class SchLib(object):
 
     __repr__ = __str__
 
-    def export(self, libname, file=None):
+    def export(self, libname, file=None, tool=None):
         """
         Export a library into a file.
 
@@ -880,6 +880,8 @@ class SchLib(object):
                 be a file object or a string or None. If None, the file
                 will be the same as the library name with the library
                 suffix appended.
+            tool: The CAD tool library format to be used. Currently, this can
+                only be SKIDL.
         """
 
         def prettify(s):
@@ -888,8 +890,12 @@ class SchLib(object):
             s =  re.sub(r'(Pin\()', r'\n            \1', s)
             return s
 
+        if tool is None:
+            tool = SKIDL
+
         if not file:
-            file = libname + lib_suffixes[SKIDL]
+            file = libname + lib_suffixes[tool]
+
         export_str = 'from skidl import Pin, Part, SchLib, SKIDL, TEMPLATE\n\n'
         export_str += "SKIDL_lib_version = '0.0.1'\n\n"
         part_export_str = ','.join([p.export() for p in self.parts])
@@ -1295,13 +1301,14 @@ class Part(object):
         lib: Either a SchLib object or a schematic part library file name.
         name: A string with name of the part to find in the library, or to assign to
             the part defined by the part definition.
-        part_defn: A list of strings that define the part (usually read from a
-            schematic library file).
-        tool: The format for the library file or part definition (e.g., KICAD).
         dest: String that indicates where the part is destined for (e.g., LIBRARY).
+        tool: The format for the library file or part definition (e.g., KICAD).
         connections: A dictionary with part pin names/numbers as keys and the
             names of nets to which they will be connected as values. For example:
             { 'IN-':'a_in', 'IN+':'GND', '1':'AMPED_OUTPUT', '14':'VCC', '7':'GND' }
+        part_defn: A list of strings that define the part (usually read from a
+            schematic library file).
+        circuit: The Circuit object this Part belongs to.
 
     Keyword Args:
         attribs: Name/value pairs for setting attributes for the part.
@@ -1320,6 +1327,7 @@ class Part(object):
                  tool=None,
                  connections=None,
                  part_defn=None,
+                 circuit=None,
                  **attribs):
 
         if tool is None:
@@ -1329,9 +1337,10 @@ class Part(object):
         self.do_erc = True # Allow part to be included in ERC.
         self.unit = {} # Dictionary for storing subunits of the part, if desired.
         self.pins = [] # Start with no pins, but a place to store them.
-        self.name = name # Initial part name.
+        self.name = name # Assign initial part name. (Must come after circuit is assigned.)
         self.description = '' # Make sure there is a description, even if empty.
         self.tool = tool # Initial type of part (SKIDL, KICAD, etc.)
+        self.circuit = None # Part starts off unassociated with any circuit.
 
         # Create a Part from a library entry.
         if lib:
@@ -1369,18 +1378,24 @@ class Part(object):
                 "Can't make a part without a library & part name or a part definition.")
             raise Exception
 
-        # Add additional attributes to the part.
-        for k, v in attribs.items():
-            setattr(self, k, v)
-
         # If the part is going to be an element in a circuit, then add it to the
         # the circuit and make any indicated pin/net connections.
         if dest != LIBRARY:
             if dest == NETLIST:
-                SubCircuit._add_part(self)
+                # If no Circuit object is given, then use the default Circuit that always exists.
+                # Always set circuit first because naming the part requires a lookup
+                # of existing names in the circuit.
+                if not circuit:
+                    circuit = default_circuit
+                self.circuit = circuit
+                self.circuit.add_part(self)
             if isinstance(connections, dict):
                 for pin, net in connections.items():
                     net += self[pin]
+
+            # Add attributes to the part.
+            for k, v in attribs.items():
+                setattr(self, k, v)
 
     def _find_min_max_pins(self):
         """ Return the minimum and maximum pin numbers for the part. """
@@ -1786,8 +1801,14 @@ class Part(object):
             # Add the part copy to the list of copies and then add the
             # part to the circuit netlist (if requested).
             copies.append(cpy)
+
+            # If copy is destined for a netlist, then add it to the Circuit its
+            # source came from or else add it to the default Circuit object.
             if dest == NETLIST:
-                SubCircuit._add_part(cpy)
+                # If copy not assigned to circuit, place on default circuit.
+                if not cpy.circuit:
+                    cpy.circuit = default_circuit
+                cpy.circuit.add_part(cpy)
 
         return _list_or_scalar(copies)
 
@@ -1959,7 +1980,7 @@ class Part(object):
         non_fields = set(['name', 'min_pin','max_pin','hierarchy','_value',
                       '_ref','ref_prefix','unit','num_units','part_defn',
                       'definition','fields','draw','lib','fplist',
-                      'do_erc','aliases','tool','pins','footprint'])
+                      'do_erc','aliases','tool','pins','footprint', 'circuit'])
         return list(fields-non_fields)
 
     def _generate_netlist_component(self, tool=None):
@@ -2161,8 +2182,7 @@ class Part(object):
 
         # Now name the object with the given reference or some variation
         # of it that doesn't collide with anything else in the list.
-        self._ref = _get_unique_name(SubCircuit.parts, 'ref', self.ref_prefix,
-                                     r)
+        self._ref = _get_unique_name(self.circuit.parts, 'ref', self.ref_prefix, r)
         return
 
     @ref.deleter
@@ -2294,6 +2314,7 @@ class Net(object):
     Args:
         name: A string with the name of the net. If None or '', then
             a unique net name will be assigned.
+        circuit: The Circuit object this net belongs to.
         *pins_nets_buses: One or more Pin, Net, or Bus objects or
             lists/tuples of them to be connected to this net.
 
@@ -2302,11 +2323,19 @@ class Net(object):
             the Net object.
     """
 
-    def __init__(self, name=None, *pins_nets_buses, **attribs):
+    def __init__(self, name=None, circuit=None, *pins_nets_buses, **attribs):
         self._valid = True # Make net valid before doing anything else.
-        self._name = None
+
+        # Set the Circuit object for the net first because setting the net name
+        # requires a lookup of existing names in the circuit.
+        if not circuit:
+            circuit = default_circuit
+        self.circuit = circuit
+
+        self._name = None # Initialize name.
         if name:
-            self.name = name
+            self.name = name # Assign a unique name if the given one is already taken.
+
         self.do_erc = True
         self._drive = Pin.NO_DRIVE
         self.pins = []
@@ -2566,7 +2595,7 @@ class Net(object):
 
         # Add the net to the global netlist. (It won't be added again
         # if it's already there.)
-        SubCircuit._add_net(self)
+        self.circuit.add_net(self)
 
         # Set the flag to indicate this result came from the += operator.
         self.iadd_flag = True
@@ -2662,10 +2691,10 @@ class Net(object):
             if not pin1.do_erc or not pin2.do_erc:
                 return
 
-            erc_result = SubCircuit._erc_pin_to_pin_chk(pin1, pin2)
+            erc_result = self.circuit._erc_pin_to_pin_chk(pin1, pin2)
 
             # Return if the pins are compatible.
-            if erc_result == SubCircuit.OK:
+            if erc_result == Circuit.OK:
                 return
 
             # Otherwise, generate an error or warning message.
@@ -2673,7 +2702,7 @@ class Net(object):
                 n=pin1.net.name,
                 p1=pin1._erc_desc(),
                 p2=pin2._erc_desc())
-            if erc_result == SubCircuit.WARNING:
+            if erc_result == Circuit.WARNING:
                 erc_logger.warning(msg)
             else:
                 erc_logger.error(msg)
@@ -2755,8 +2784,7 @@ class Net(object):
 
         # Now name the object with the given name or some variation
         # of it that doesn't collide with anything else in the list.
-        self._name = _get_unique_name(SubCircuit.nets, 'name', NET_PREFIX,
-                                      name)
+        self._name = _get_unique_name(self.circuit.nets, 'name', NET_PREFIX, name)
 
     @name.deleter
     def name(self):
@@ -2874,15 +2902,25 @@ class Bus(object):
     """
 
     def __init__(self, name, *args, **attribs):
+
+        # For Bus objects, the circuit object the bus is a member of is passed
+        # in with all the other attributes. If a circuit object isn't provided,
+        # then the default circuit object is added to the attributes.
+        attribs['circuit'] = attribs.get('circuit', default_circuit)
+
+        # Attach additional attributes to the bus. (The Circuit object also gets
+        # set here.)
+        for k, v in attribs.items():
+            setattr(self, k, v)
+
         self.name = name
+
+        # Add the bus to the circuit.
+        self.circuit.add_bus(self)
 
         # Build the bus from net widths, existing nets, nets of pins, other buses.
         self.nets = []
         self.extend(args)
-
-        # Attach additional attributes to the bus.
-        for k, v in attribs.items():
-            setattr(self, k, v)
 
     def extend(self, *objects):
         """Extend bus by appending objects to the end (MSB)."""
@@ -3110,8 +3148,7 @@ class Bus(object):
 
         # Now name the object with the given name or some variation
         # of it that doesn't collide with anything else in the list.
-        self._name = _get_unique_name(SubCircuit.buses, 'name', BUS_PREFIX,
-                                      name)
+        self._name = _get_unique_name(self.circuit.buses, 'name', BUS_PREFIX, name)
 
     @name.deleter
     def name(self):
@@ -3169,64 +3206,76 @@ class _NetPinList(list):
 ##############################################################################
 
 
-class SubCircuit(object):
+class Circuit(object):
     """
-    Class object that holds the entire netlist of parts and nets. This is
-    initialized once when the module is first imported and then all parts
-    and nets are added to its static members.
+    Class object that holds the entire netlist of parts and nets.
 
     Attributes:
         parts: List of all the schematic parts as Part objects.
         nets: List of all the schematic nets as Net objects.
+        buses: List of all the buses as Bus objects. 
         hierarchy: A '.'-separated concatenation of the names of nested
             SubCircuits at the current time it is read.
         level: The current level in the schematic hierarchy.
         context: Stack of contexts for each level in the hierarchy.
-        circuit_func: The function that creates a given subcircuit.
     """
 
     OK, WARNING, ERROR = range(3)
 
-    parts = []
-    nets = []
-    buses = []
-    hierarchy = 'top'
-    level = 0
-    context = [('top', )]
+    def __init__(self):
+        """
+        When you place the @SubCircuit decorator before a function, this method
+        stores the reference to the subroutine into the SubCircuit object.
+        """
+        self._reset()
 
-    @classmethod
-    def _reset(cls):
+    def _reset(self):
         """Clear any circuitry and start over."""
-        cls.parts = []
-        cls.nets = []
-        cls.hierarchy = 'top'
-        cls.level = 0
-        cls.context = [('top', )]
-        SchLib._reset()  # Also clear any cached libraries.
+        self.parts = []
+        self.nets = []
+        self.buses = []
+        self.hierarchy = 'top'
+        self.level = 0
+        self.context = [('top', )]
+
+        # Also clear any cached libraries.
+        SchLib._reset()
         global backup_lib
         backup_lib = None
 
-    @classmethod
-    def _add_part(cls, part):
+    def add_part(self, part):
         """Add a Part object to the circuit"""
         part.ref = part.ref  # This adjusts the part reference if necessary.
-        part.hierarchy = cls.hierarchy  # Tag the part with its hierarchy position.
-        cls.parts.append(part)
+        part.hierarchy = self.hierarchy  # Tag the part with its hierarchy position.
+        part.circuit = self  # Record the Circuit object the part belongs to.
+        self.parts.append(part)
 
-    @classmethod
-    def _add_net(cls, net):
+    def add_net(self, net):
         """Add a Net object to the circuit. Assign a net name if necessary."""
-        if net in cls.nets or len(net.pins) == 0:
+        if net in self.nets or len(net.pins) == 0:
             return
         net.name = net.name
-        net.hierarchy = cls.hierarchy  # Tag the net with its hierarchy position.
-        cls.nets.append(net)
+        net.hierarchy = self.hierarchy  # Tag the net with its hierarchy position.
+        net.circuit = self  # Record the Circuit object the net belongs to.
+        self.nets.append(net)
 
-    @classmethod
-    def _get_nets(cls):
+    def add_bus(self, bus):
+        """Add a Bus object to the circuit. Assign a bus name if necessary."""
+        bus.name = bus.name
+        bus.hierarchy = self.hierarchy  # Tag the bus with its hierarchy position.
+        bus.circuit = self  # Record the Circuit object the bus belongs to.
+        self.buses.append(bus)
+
+    # def _delete_net(self, net):
+        # """Delete net from circuit."""
+        # if net in self.nets:
+            # self.nets.remove(net)
+        # del net
+
+    def _get_nets(self):
         """Get all the distinct nets for the circuit."""
         distinct_nets = []
-        for net in cls.nets:
+        for net in self.nets:
             for n in distinct_nets:
                 # Exclude net if its already attached to a previously selected net.
                 if net._is_attached(n):
@@ -3237,116 +3286,53 @@ class SubCircuit(object):
                 distinct_nets.append(net)
         return distinct_nets
 
-    @classmethod
-    def _delete_net(cls, net):
-        """Delete net from circuit."""
-        if net in cls.nets:
-            cls.nets.remove(net)
-        del net
-
-    @classmethod
-    def _add_bus(cls, bus):
-        """Add a Bus object to the circuit. Assign a bus name if necessary."""
-        bus.name = bus.name
-        bus.hierarchy = cls.hierarchy  # Tag the bus with its hierarchy position.
-        cls.buses.append(bus)
-
-    def __init__(self, circuit_func):
-        """
-        When you place the @SubCircuit decorator before a function, this method
-        stores the reference to the subroutine into the SubCircuit object.
-        """
-
-        self.circuit_func = circuit_func
-
-    def __call__(self, *args, **kwargs):
-        """
-        This method is called when you invoke the SubCircuit object to create
-        some schematic circuitry.
-        """
-
-        # Invoking the SubCircuit object creates circuitry at a level one
-        # greater than the current level. (The top level is zero.)
-        self.level += 1
-
-        # Create a name for this SubCircuit from the concatenated names of all
-        # the SubCircuit functions that were called on all the preceding levels
-        # that led to this one.
-        self.__class__.hierarchy = self.context[-1][
-            0] + '.' + self.circuit_func.__name__
-
-        # Store the context so it can be used if this SubCircuit object
-        # invokes another SubCircuit object within itself to add more
-        # levels of hierarchy.
-        self.context.append((self.__class__.hierarchy, ))
-
-        # Call the SubCircuit object function to create whatever circuitry it handles.
-        # The arguments to the function are usually nets to be connected to the
-        # parts instantiated in the function, but they may also be user-specific
-        # and have no effect on the mechanics of adding parts or nets although
-        # they may direct the function as to what parts and nets get created.
-        # Store any results it returns as a list. These results are user-specific
-        # and have no effect on the mechanics of adding parts or nets.
-        try:
-            results = _list_or_scalar(self.circuit_func(*args, **kwargs))
-        except Exception:
-            logger.exception("Serious error! Can't continue.")
-
-        # Restore the context that existed before the SubCircuit circuitry was
-        # created. This does not remove the circuitry since it has already been
-        # added to the parts and nets lists.
-        self.context.pop()
-
-        return results
-
-    @classmethod
-    def _erc_setup(cls):
+    def _erc_setup(self):
         """
         Initialize the electrical rules checker.
         """
 
         # Initialize the pin contention matrix.
-        cls._erc_matrix = [[cls.OK for c in range(11)] for r in range(11)]
-        cls._erc_matrix[Pin.OUTPUT][Pin.OUTPUT] = cls.ERROR
-        cls._erc_matrix[Pin.TRISTATE][Pin.OUTPUT] = cls.WARNING
-        cls._erc_matrix[Pin.UNSPEC][Pin.INPUT] = cls.WARNING
-        cls._erc_matrix[Pin.UNSPEC][Pin.OUTPUT] = cls.WARNING
-        cls._erc_matrix[Pin.UNSPEC][Pin.BIDIR] = cls.WARNING
-        cls._erc_matrix[Pin.UNSPEC][Pin.TRISTATE] = cls.WARNING
-        cls._erc_matrix[Pin.UNSPEC][Pin.PASSIVE] = cls.WARNING
-        cls._erc_matrix[Pin.UNSPEC][Pin.UNSPEC] = cls.WARNING
-        cls._erc_matrix[Pin.PWRIN][Pin.TRISTATE] = cls.WARNING
-        cls._erc_matrix[Pin.PWRIN][Pin.UNSPEC] = cls.WARNING
-        cls._erc_matrix[Pin.PWROUT][Pin.OUTPUT] = cls.ERROR
-        cls._erc_matrix[Pin.PWROUT][Pin.BIDIR] = cls.WARNING
-        cls._erc_matrix[Pin.PWROUT][Pin.TRISTATE] = cls.ERROR
-        cls._erc_matrix[Pin.PWROUT][Pin.UNSPEC] = cls.WARNING
-        cls._erc_matrix[Pin.PWROUT][Pin.PWROUT] = cls.ERROR
-        cls._erc_matrix[Pin.OPENCOLL][Pin.OUTPUT] = cls.ERROR
-        cls._erc_matrix[Pin.OPENCOLL][Pin.TRISTATE] = cls.ERROR
-        cls._erc_matrix[Pin.OPENCOLL][Pin.UNSPEC] = cls.WARNING
-        cls._erc_matrix[Pin.OPENCOLL][Pin.PWROUT] = cls.ERROR
-        cls._erc_matrix[Pin.OPENEMIT][Pin.OUTPUT] = cls.ERROR
-        cls._erc_matrix[Pin.OPENEMIT][Pin.BIDIR] = cls.WARNING
-        cls._erc_matrix[Pin.OPENEMIT][Pin.TRISTATE] = cls.WARNING
-        cls._erc_matrix[Pin.OPENEMIT][Pin.UNSPEC] = cls.WARNING
-        cls._erc_matrix[Pin.OPENEMIT][Pin.PWROUT] = cls.ERROR
-        cls._erc_matrix[Pin.NOCONNECT][Pin.INPUT] = cls.ERROR
-        cls._erc_matrix[Pin.NOCONNECT][Pin.OUTPUT] = cls.ERROR
-        cls._erc_matrix[Pin.NOCONNECT][Pin.BIDIR] = cls.ERROR
-        cls._erc_matrix[Pin.NOCONNECT][Pin.TRISTATE] = cls.ERROR
-        cls._erc_matrix[Pin.NOCONNECT][Pin.PASSIVE] = cls.ERROR
-        cls._erc_matrix[Pin.NOCONNECT][Pin.UNSPEC] = cls.ERROR
-        cls._erc_matrix[Pin.NOCONNECT][Pin.PWRIN] = cls.ERROR
-        cls._erc_matrix[Pin.NOCONNECT][Pin.PWROUT] = cls.ERROR
-        cls._erc_matrix[Pin.NOCONNECT][Pin.OPENCOLL] = cls.ERROR
-        cls._erc_matrix[Pin.NOCONNECT][Pin.OPENEMIT] = cls.ERROR
-        cls._erc_matrix[Pin.NOCONNECT][Pin.NOCONNECT] = cls.ERROR
+        self._erc_matrix = [[self.OK for c in range(11)] for r in range(11)]
+        self._erc_matrix[Pin.OUTPUT][Pin.OUTPUT] = self.ERROR
+        self._erc_matrix[Pin.TRISTATE][Pin.OUTPUT] = self.WARNING
+        self._erc_matrix[Pin.UNSPEC][Pin.INPUT] = self.WARNING
+        self._erc_matrix[Pin.UNSPEC][Pin.OUTPUT] = self.WARNING
+        self._erc_matrix[Pin.UNSPEC][Pin.BIDIR] = self.WARNING
+        self._erc_matrix[Pin.UNSPEC][Pin.TRISTATE] = self.WARNING
+        self._erc_matrix[Pin.UNSPEC][Pin.PASSIVE] = self.WARNING
+        self._erc_matrix[Pin.UNSPEC][Pin.UNSPEC] = self.WARNING
+        self._erc_matrix[Pin.PWRIN][Pin.TRISTATE] = self.WARNING
+        self._erc_matrix[Pin.PWRIN][Pin.UNSPEC] = self.WARNING
+        self._erc_matrix[Pin.PWROUT][Pin.OUTPUT] = self.ERROR
+        self._erc_matrix[Pin.PWROUT][Pin.BIDIR] = self.WARNING
+        self._erc_matrix[Pin.PWROUT][Pin.TRISTATE] = self.ERROR
+        self._erc_matrix[Pin.PWROUT][Pin.UNSPEC] = self.WARNING
+        self._erc_matrix[Pin.PWROUT][Pin.PWROUT] = self.ERROR
+        self._erc_matrix[Pin.OPENCOLL][Pin.OUTPUT] = self.ERROR
+        self._erc_matrix[Pin.OPENCOLL][Pin.TRISTATE] = self.ERROR
+        self._erc_matrix[Pin.OPENCOLL][Pin.UNSPEC] = self.WARNING
+        self._erc_matrix[Pin.OPENCOLL][Pin.PWROUT] = self.ERROR
+        self._erc_matrix[Pin.OPENEMIT][Pin.OUTPUT] = self.ERROR
+        self._erc_matrix[Pin.OPENEMIT][Pin.BIDIR] = self.WARNING
+        self._erc_matrix[Pin.OPENEMIT][Pin.TRISTATE] = self.WARNING
+        self._erc_matrix[Pin.OPENEMIT][Pin.UNSPEC] = self.WARNING
+        self._erc_matrix[Pin.OPENEMIT][Pin.PWROUT] = self.ERROR
+        self._erc_matrix[Pin.NOCONNECT][Pin.INPUT] = self.ERROR
+        self._erc_matrix[Pin.NOCONNECT][Pin.OUTPUT] = self.ERROR
+        self._erc_matrix[Pin.NOCONNECT][Pin.BIDIR] = self.ERROR
+        self._erc_matrix[Pin.NOCONNECT][Pin.TRISTATE] = self.ERROR
+        self._erc_matrix[Pin.NOCONNECT][Pin.PASSIVE] = self.ERROR
+        self._erc_matrix[Pin.NOCONNECT][Pin.UNSPEC] = self.ERROR
+        self._erc_matrix[Pin.NOCONNECT][Pin.PWRIN] = self.ERROR
+        self._erc_matrix[Pin.NOCONNECT][Pin.PWROUT] = self.ERROR
+        self._erc_matrix[Pin.NOCONNECT][Pin.OPENCOLL] = self.ERROR
+        self._erc_matrix[Pin.NOCONNECT][Pin.OPENEMIT] = self.ERROR
+        self._erc_matrix[Pin.NOCONNECT][Pin.NOCONNECT] = self.ERROR
 
         # Fill-in the other half of the symmetrical matrix.
         for c in range(1, 11):
             for r in range(c):
-                cls._erc_matrix[r][c] = cls._erc_matrix[c][r]
+                self._erc_matrix[r][c] = self._erc_matrix[c][r]
 
         # Setup the error/warning logger.
         global erc_logger
@@ -3369,44 +3355,41 @@ class SubCircuit(object):
         erc_logger.error = _CountCalls(erc_logger.error)
         erc_logger.warning = _CountCalls(erc_logger.warning)
 
-    @classmethod
-    def set_pin_conflict_rule(cls, pin1_func, pin2_func, conflict_level):
+    def set_pin_conflict_rule(self, pin1_func, pin2_func, conflict_level):
         """
         Set the level of conflict for two types of pins on the same net.
 
         Args:
             pin1_func: The function of the first pin (e.g., Pin.OUTPUT).
             pin2_func: The function of the second pin (e.g., Pin.TRISTATE).
-            conflict_level: Severity of conflict (e.g., cls.OK, cls.WARNING, cls.ERROR).
+            conflict_level: Severity of conflict (e.g., self.OK, self.WARNING, self.ERROR).
         """
 
         # Place the conflict level into the symmetrical ERC matrix.
-        cls._erc_matrix[pin1_func][pin2_func] = conflict_level
-        cls._erc_matrix[pin2_func][pin1_func] = conflict_level
+        self._erc_matrix[pin1_func][pin2_func] = conflict_level
+        self._erc_matrix[pin2_func][pin1_func] = conflict_level
 
-    @classmethod
-    def _erc_pin_to_pin_chk(cls, pin1, pin2):
+    def _erc_pin_to_pin_chk(self, pin1, pin2):
         """Check for conflict between two pins on a net."""
 
         # Use the functions of the two pins to index into the ERC table
         # and see if the pins are compatible (e.g., an input and an output)
         # or incompatible (e.g., a conflict because both are outputs).
-        return cls._erc_matrix[pin1.func][pin2.func]
+        return self._erc_matrix[pin1.func][pin2.func]
 
-    @classmethod
-    def _ERC(cls):
+    def ERC(self):
         """
         Do an electrical rules check on the circuit.
         """
 
-        cls._erc_setup()
+        self._erc_setup()
 
         # Check the nets for errors.
-        for net in cls.nets:
+        for net in self.nets:
             net._erc()
 
         # Check the parts for errors.
-        for part in cls.parts:
+        for part in self.parts:
             part._erc()
 
         if (erc_logger.error.count, erc_logger.warning.count) == (0, 0):
@@ -3417,8 +3400,7 @@ class SubCircuit(object):
             sys.stderr.write('{} errors found during ERC.\n\n'.format(
                 erc_logger.error.count))
 
-    @classmethod
-    def _generate_netlist(cls, file=None, tool=None):
+    def generate_netlist(self, file=None, tool=None):
         """
         Return a netlist as a string and also write it to a file/stream.
 
@@ -3434,8 +3416,8 @@ class SubCircuit(object):
             tool = DEFAULT_TOOL
 
         try:
-            gen_func = cls.__dict__['_gen_netlist_{}'.format(tool)]
-            netlist = gen_func(cls)
+            gen_func = getattr(self, '_gen_netlist_{}'.format(tool))
+            netlist = gen_func()
         except KeyError:
             logger.error(
                 "Can't generate netlist in an unknown ECAD tool format ({}).".format(
@@ -3465,7 +3447,7 @@ class SubCircuit(object):
                     f.write(netlist)
 
         if CREATE_BACKUP_LIB:
-            cls._backup_parts()  # Create a new backup lib for the circuit parts.
+            self.backup_parts()  # Create a new backup lib for the circuit parts.
             global backup_lib    # Clear out any old backup lib so the new one
             backup_lib = None    #   will get reloaded when it's needed.
 
@@ -3483,18 +3465,17 @@ class SubCircuit(object):
                    '    (tool "{tool}"))\n'
         netlist = template.format(**locals())
         netlist += "  (components"
-        for p in sorted(SubCircuit.parts, key=lambda p: p.ref):
+        for p in sorted(self.parts, key=lambda p: str(p.ref)):
             netlist += '\n' + p._generate_netlist_component(KICAD)
         netlist += ")\n"
         netlist += "  (nets"
-        for code, n in enumerate(sorted(SubCircuit._get_nets(), key=lambda n: n.name)):
+        for code, n in enumerate(sorted(self._get_nets(), key=lambda n: str(n.name))):
             n.code = code
             netlist += '\n' + n._generate_netlist_net(KICAD)
         netlist += ")\n)\n"
         return netlist
 
-    @classmethod
-    def _generate_xml(cls, file=None, tool=None):
+    def generate_xml(self, file=None, tool=None):
         """
         Return netlist as an XML string and also write it to a file/stream.
 
@@ -3510,8 +3491,8 @@ class SubCircuit(object):
             tool = DEFAULT_TOOL
 
         try:
-            gen_func = cls.__dict__['_gen_xml_{}'.format(tool)]
-            netlist = gen_func(cls)
+            gen_func = getattr(self, '_gen_xml_{}'.format(tool))
+            netlist = gen_func()
         except KeyError:
             logger.error(
                 "Can't generate XML in an unknown ECAD tool format ({}).".format(
@@ -3555,22 +3536,21 @@ class SubCircuit(object):
                    '  </design>\n'
         netlist = template.format(**locals())
         netlist += '  <components>'
-        for p in SubCircuit.parts:
+        for p in self.parts:
             netlist += '\n' + p._generate_xml_component(KICAD)
         netlist += '\n  </components>\n'
         netlist += '  <nets>'
-        for code, n in enumerate(SubCircuit._get_nets()):
+        for code, n in enumerate(self._get_nets()):
             n.code = code
             netlist += '\n' + n._generate_xml_net(KICAD)
         netlist += '\n  </nets>\n'
         netlist += '</export>\n'
         return netlist
 
-    def _generate_xml_skidl(self):
+    def _gen_xml_skidl(self):
         logger.error("Can't generate XML in SKiDL format!")
 
-    @classmethod
-    def _backup_parts(cls, file=None):
+    def backup_parts(self, file=None):
         """
         Saves parts in circuit as a SKiDL library in a file.
 
@@ -3584,12 +3564,82 @@ class SubCircuit(object):
         """
 
         lib = SchLib(tool=SKIDL)  # Create empty library.
-        for p in cls.parts:
+        for p in self.parts:
             lib += p
         if not file:
             file = BACKUP_LIB_FILE_NAME 
         lib.export(libname=BACKUP_LIB_NAME, file=file)
 
+def SubCircuit(f):
+    """
+    A @SubCircuit decorator is used to create hierarchical circuits.
+
+    Args:
+        f: The function containing SKiDL statements that represents a subcircuit.
+    """
+    def sub_f(*args, **kwargs):
+        # Upon entry, save the reference to the default Circuit object.
+        global default_circuit
+        save_default_circuit = default_circuit
+
+        # If the subcircuit has no 'circuit' argument, then all the SKiDL
+        # statements in the subcircuit function will reference the default Circuit
+        # object.
+        if 'circuit' not in kwargs:
+            circuit = default_circuit
+            kwargs['circuit'] = default_circuit
+
+        # But if the subcircuit function has a 'circuit' argument, then set the default
+        # Circuit object to that. Then all SKiDL statements in the function will
+        # make changes (i.e., add parts, nets, buses) to that.
+        else:
+            circuit = kwargs['circuit']
+            default_circuit = circuit
+
+        # Invoking the subcircuit function creates circuitry at a level one
+        # greater than the current level. (The top level is zero.)
+        circuit.level += 1
+
+        # Create a name for this subcircuit from the concatenated names of all
+        # the nested subcircuit functions that were called on all the preceding levels
+        # that led to this one.
+        circuit.hierarchy = circuit.context[-1][0] + '.' + f.__name__
+
+        # Store the context so it can be used if this subcircuit function
+        # invokes another subcircuit function within itself to add more
+        # levels of hierarchy.
+        circuit.context.append((circuit.hierarchy, ))
+
+        # Call the function to create whatever circuitry it handles.
+        # The arguments to the function are usually nets to be connected to the
+        # parts instantiated in the function, but they may also be user-specific
+        # and have no effect on the mechanics of adding parts or nets although
+        # they may direct the function as to what parts and nets get created.
+        # Store any results it returns as a list. These results are user-specific
+        # and have no effect on the mechanics of adding parts or nets.
+        try:
+            results = f(*args, **kwargs)
+        except Exception:
+            logger.exception("Serious error! Can't continue.")
+
+        # Restore the context that existed before the subcircuitry was
+        # created. This does not remove the circuitry since it has already been
+        # added to the parts and nets lists.
+        circuit.context.pop()
+
+        # Restore the hierarchy label and level.
+        circuit.hierarchy = circuit.context[-1][0]
+        circuit.level -= 1
+
+        # Restore the default circuit.
+        default_circuit = save_default_circuit
+
+        return results
+
+    return sub_f
+
+# The decorator can also be called as "@subcircuit".
+subcircuit = SubCircuit
 
 @norecurse
 def load_backup_lib():
@@ -3681,13 +3731,16 @@ def set_default_tool(tool):
     DEFAULT_TOOL = tool
 
 
-Circuit = SubCircuit
+# Create the default Circuit object that will be used unless another is explicitly created.
+default_circuit = Circuit()
 
-ERC = SubCircuit._ERC
-generate_netlist = SubCircuit._generate_netlist
-generate_xml = SubCircuit._generate_xml
-backup_parts = SubCircuit._backup_parts
+# Create calls to functions on whichever Circuit object is the current default.
+ERC = default_circuit.ERC
+generate_netlist = default_circuit.generate_netlist
+generate_xml = default_circuit.generate_xml
+backup_parts = default_circuit.backup_parts
 
+# Define a tag for nets that convey power (e.g., VCC or GND).
 POWER = Pin.POWER_DRIVE
 
 # This is a NOCONNECT net for attaching to pins which are intentionally left open.
