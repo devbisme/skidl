@@ -3587,13 +3587,13 @@ def SubCircuit(f):
         # object.
         if 'circuit' not in kwargs:
             circuit = default_circuit
-            kwargs['circuit'] = default_circuit
 
         # But if the subcircuit function has a 'circuit' argument, then set the default
         # Circuit object to that. Then all SKiDL statements in the function will
         # make changes (i.e., add parts, nets, buses) to that.
         else:
             circuit = kwargs['circuit']
+            del kwargs['circuit'] # Don't pass the circuit parameter down to the f function.
             default_circuit = circuit
 
         # Invoking the subcircuit function creates circuitry at a level one
