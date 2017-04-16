@@ -1385,13 +1385,14 @@ class Part(object):
                 # of existing names in the circuit.
                 if not circuit:
                     circuit = default_circuit
-                self.circuit = circuit
-                self.circuit.add_part(self)
+                circuit += self
+
+            # Add any net/pin connections to this part that were passed as arguments.
             if isinstance(connections, dict):
                 for pin, net in connections.items():
                     net += self[pin]
 
-            # Add attributes to the part.
+            # Add any other passed-in attributes to the part.
             for k, v in attribs.items():
                 setattr(self, k, v)
 
@@ -1718,7 +1719,7 @@ class Part(object):
         for p in self.pins:
             p.part = self
 
-    def copy(self, num_copies=1, dest=NETLIST, **attribs):
+    def copy(self, num_copies=1, dest=NETLIST, circuit=None, **attribs):
         """
         Make zero or more copies of this part while maintaining all pin/net
         connections.
@@ -1784,6 +1785,23 @@ class Part(object):
             # adjusted to be unique if needed during the addition process.)
             cpy._ref = None
 
+            # Copied part starts off not being in any circuit.
+            cpy.circuit = None
+
+            # If copy is destined for a netlist, then add it to the Circuit its
+            # source came from or else add it to the default Circuit object.
+            if dest == NETLIST:
+                # Place the copied part in the explicitly-stated circuit,
+                # or else into the same circuit as the source part,
+                # or else into the default circuit.
+                if circuit:
+                    circuit += cpy
+                elif isinstance(self.circuit, Circuit):
+                    self.circuit += cpy
+                else:
+                    global default_circuit
+                    default_circuit += cpy
+
             # Enter any new attributes.
             for k, v in attribs.items():
                 if isinstance(v, (list, tuple)):
@@ -1796,17 +1814,8 @@ class Part(object):
                         raise Exception
                 setattr(cpy, k, v)
 
-            # Add the part copy to the list of copies and then add the
-            # part to the circuit netlist (if requested).
+            # Add the part copy to the list of copies.
             copies.append(cpy)
-
-            # If copy is destined for a netlist, then add it to the Circuit its
-            # source came from or else add it to the default Circuit object.
-            if dest == NETLIST:
-                # If copy not assigned to circuit, place on default circuit.
-                if not cpy.circuit:
-                    cpy.circuit = default_circuit
-                cpy.circuit.add_part(cpy)
 
         return _list_or_scalar(copies)
 
@@ -1931,6 +1940,18 @@ class Part(object):
         # No net connections found, so return False.
         return False
 
+    def _is_movable(self):
+        """
+        Return T/F if the part can be moved from one circuit into another.
+
+        This method returns true if:
+            1) the part is not in a circuit, or
+            2) the part has pins but none of them are connected to nets, or
+            3) the part has no pins (which can be the case for mechanical parts,
+               silkscreen logos, or other non-electrical schematic elements).
+        """
+        return not isinstance(self.circuit, Circuit) or not self._is_connected() or not self.pins
+
     def set_pin_alias(self, alias, *pin_ids, **criteria):
         pins = _to_list(self.get_pins(*pin_ids, **criteria))
         if not pins:
@@ -2029,8 +2050,9 @@ class Part(object):
         fields = ''
         for fld_name in self._get_fields():
             fld_value = _add_quotes(self.__dict__[fld_name])
-            fld_name = _add_quotes(fld_name)
-            fields += '\n        (field (name {fld_name}) {fld_value})'.format(**locals())
+            if fld_value:
+                fld_name = _add_quotes(fld_name)
+                fields += '\n        (field (name {fld_name}) {fld_value})'.format(**locals())
         if fields:
             fields = '      (fields' + fields
             fields += ')\n'
@@ -2059,8 +2081,7 @@ class Part(object):
             return gen_func()
         except AttributeError:
             logger.error(
-                "Can't generate XML in an unknown ECAD tool format ({}).".format(
-                    format))
+                "Can't generate XML in an unknown ECAD tool format ({}).".format(format))
             raise Exception
 
     def _gen_xml_comp_kicad(self):
@@ -2089,7 +2110,8 @@ class Part(object):
         fields = ''
         for fld_name in self._get_fields():
             fld_value = self.__dict__[fld_name]
-            fields += '\n        <field name="{fld_name}">{fld_value}</field>'.format(**locals())
+            if fld_value:
+                fields += '\n        <field name="{fld_name}">{fld_value}</field>'.format(**locals())
         if fields:
             fields = '      <fields>' + fields
             fields += '\n      </fields>\n'
@@ -2323,20 +2345,26 @@ class Net(object):
 
     def __init__(self, name=None, circuit=None, *pins_nets_buses, **attribs):
         self._valid = True # Make net valid before doing anything else.
-
-        # Set the Circuit object for the net first because setting the net name
-        # requires a lookup of existing names in the circuit.
-        if not circuit:
-            circuit = default_circuit
-        self.circuit = circuit
-
-        self._name = None # Initialize name.
-        if name:
-            self.name = name # Assign a unique name if the given one is already taken.
-
         self.do_erc = True
         self._drive = Pin.NO_DRIVE
         self.pins = []
+        self._name = None
+        self.circuit = None
+
+        # Set the Circuit object for the net first because setting the net name
+        # requires a lookup of existing names in the circuit.
+        # Add the net to the passed-in circuit or to the default circuit.
+        if circuit:
+            circuit += self
+        else:
+            global default_circuit
+            default_circuit += self
+
+        # Set the net name *after* the net is assigned to a circuit so the
+        # net can be assigned a unique name that doesn't conflict with existing
+        # nets names in the circuit.
+        if name:
+            self.name = name
 
         # Attach whatever pins were given.
         self.connect(pins_nets_buses)
@@ -2387,7 +2415,7 @@ class Net(object):
         return self._traverse()[0]
 
     def _is_attached(self, pin_net_bus):
-        """Return true if the net is attached to this one."""
+        """Return true if the pin, net or bus is attached to this one."""
         if isinstance(pin_net_bus, Net):
             return pin_net_bus in self._get_nets()
         if isinstance(pin_net_bus, Pin):
@@ -2400,7 +2428,17 @@ class Net(object):
         logger.error("Nets can't be attached to {}!".format(type(pin_net_bus)))
         raise Exception
 
-    def copy(self, num_copies=1, **attribs):
+    def _is_movable(self):
+        """
+        Return true if the net is movable to another circuit.
+
+        A net is movable if it's not part of a Circuit or if there are no pins
+        attached to it.
+        """
+        return not isinstance(self.circuit, Circuit) or not self.pins
+        
+
+    def copy(self, num_copies=1, circuit=None, **attribs):
         """
         Make zero or more copies of this net.
 
@@ -2452,11 +2490,23 @@ class Net(object):
                 "Can't make copies of a net that already has pins attached to it!")
             raise Exception
 
-        # Now make copies of the net one-by-one.
-        copies = [deepcopy(self) for i in range(num_copies)]
+        # Create a list of copies of this net.
+        copies = []
+        for i in range(num_copies):
+            # Create a deep copy of the net.
+            cpy = deepcopy(self)
 
-        # Enter new attributes into each copy.
-        for i, cpy in enumerate(copies):
+            # Place the copy into either the passed-in circuit, the circuit of
+            # the source net, or the default circuit.
+            cpy.circuit = None
+            if circuit:
+                circuit += cpy
+            elif self.circuit:
+                self.circuit += cpy
+            else:
+                default_circuit += cpy
+
+            # Add other attributes to the net copy.
             for k, v in attribs.items():
                 if isinstance(v, (list, tuple)):
                     try:
@@ -2467,6 +2517,9 @@ class Net(object):
                                 num_copies, self.name, k))
                         raise Exception
                 setattr(cpy, k, v)
+
+            # Place the copy into the list of copies.
+            copies.append(cpy)
 
         return _list_or_scalar(copies)
 
@@ -2593,7 +2646,7 @@ class Net(object):
 
         # Add the net to the global netlist. (It won't be added again
         # if it's already there.)
-        self.circuit.add_net(self)
+        self.circuit += self
 
         # Set the flag to indicate this result came from the += operator.
         self.iadd_flag = True
@@ -2622,6 +2675,10 @@ class Net(object):
             tool = DEFAULT_TOOL
 
         self.test_validity()
+
+        # Don't add anything to the netlist if no pins are on this net.
+        if not self._get_pins():
+            return
 
         try:
             gen_func = getattr(self, '_gen_netlist_net_{}'.format(tool))
@@ -2655,6 +2712,10 @@ class Net(object):
             tool = DEFAULT_TOOL
 
         self.test_validity()
+
+        # Don't add anything to the XML if no pins are on this net.
+        if not self._get_pins():
+            return
 
         try:
             gen_func = getattr(self, '_gen_xml_net_{}'.format(tool))
@@ -2914,7 +2975,7 @@ class Bus(object):
         self.name = name
 
         # Add the bus to the circuit.
-        self.circuit.add_bus(self)
+        self.circuit += self
 
         # Build the bus from net widths, existing nets, nets of pins, other buses.
         self.nets = []
@@ -3241,28 +3302,66 @@ class Circuit(object):
         global backup_lib
         backup_lib = None
 
-    def add_part(self, part):
-        """Add a Part object to the circuit"""
-        part.ref = part.ref  # This adjusts the part reference if necessary.
-        part.hierarchy = self.hierarchy  # Tag the part with its hierarchy position.
-        part.circuit = self  # Record the Circuit object the part belongs to.
-        self.parts.append(part)
+    def add_parts(self, *parts):
+        """Add some Part objects to the circuit."""
+        # TODO: handle subtracting a part from a circuit.
+        for part in parts:
+            # Add the part to this circuit if the part is movable and
+            # it's not already in this circuit.
+            if part._is_movable() and part.circuit != self:
 
-    def add_net(self, net):
-        """Add a Net object to the circuit. Assign a net name if necessary."""
-        if net in self.nets or len(net.pins) == 0:
-            return
-        net.name = net.name
-        net.hierarchy = self.hierarchy  # Tag the net with its hierarchy position.
-        net.circuit = self  # Record the Circuit object the net belongs to.
-        self.nets.append(net)
+                # Remove the part from the circuit it's already in.
+                if isinstance(part.circuit, Circuit):
+                    part.circuit -= part
 
-    def add_bus(self, bus):
-        """Add a Bus object to the circuit. Assign a bus name if necessary."""
-        bus.name = bus.name
-        bus.hierarchy = self.hierarchy  # Tag the bus with its hierarchy position.
-        bus.circuit = self  # Record the Circuit object the bus belongs to.
-        self.buses.append(bus)
+                # Add the part to this circuit.
+                part.circuit = self  # Record the Circuit object the part belongs to.
+                part.ref = part.ref  # This adjusts the part reference if necessary.
+                part.hierarchy = self.hierarchy  # Tag the part with its hierarchy position.
+                self.parts.append(part)
+
+    def add_nets(self, *nets):
+        """Add some Net objects to the circuit. Assign a net name if necessary."""
+        # TODO: handle subtracting a net from a circuit.
+        for net in nets:
+            # Add the net to this circuit if the net is movable and
+            # it's not already in this circuit.
+            if net._is_movable() and net.circuit != self:
+
+                # Remove the net from the circuit it's already in.
+                if isinstance(net.circuit, Net):
+                    net.circuit -= net
+
+                # Add the net to this circuit.
+                net.circuit = self  # Record the Circuit object the net belongs to.
+                net.name = net.name
+                net.hierarchy = self.hierarchy  # Tag the net with its hierarchy position.
+                self.nets.append(net)
+
+    def add_buses(self, *buses):
+        """Add some Bus objects to the circuit. Assign a bus name if necessary."""
+        # TODO: handle moving bus from one circuit to another.
+        for bus in buses:
+            bus.name = bus.name
+            bus.hierarchy = self.hierarchy  # Tag the bus with its hierarchy position.
+            bus.circuit = self  # Record the Circuit object the bus belongs to.
+            self.buses.append(bus)
+
+    def add_parts_nets_buses(self, *parts_nets_buses):
+        """Add Parts, Nets and Buses to the circuit."""
+        for pnb in parts_nets_buses:
+            if isinstance(pnb, Part):
+                self.add_parts(pnb)
+            elif isinstance(pnb, Net):
+                self.add_nets(pnb)
+            elif isinstance(pnb, Bus):
+                self.add_buses(pnb)
+            else:
+                logger.error("Can't add a {} to a Circuit object.".format(type(pnb)))
+                raise Exception
+        return self
+
+    __iadd__ = add_parts_nets_buses
 
     # def _delete_net(self, net):
         # """Delete net from circuit."""
@@ -3274,6 +3373,9 @@ class Circuit(object):
         """Get all the distinct nets for the circuit."""
         distinct_nets = []
         for net in self.nets:
+            if not net._get_pins():
+                # Exclude empty nets with no attached pins.
+                continue
             for n in distinct_nets:
                 # Exclude net if its already attached to a previously selected net.
                 if net._is_attached(n):
@@ -3742,5 +3844,4 @@ backup_parts = default_circuit.backup_parts
 POWER = Pin.POWER_DRIVE
 
 # This is a NOCONNECT net for attaching to pins which are intentionally left open.
-NC = _NCNet('NOCONNECT')
-
+NC = _NCNet()

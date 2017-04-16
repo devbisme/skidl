@@ -16,7 +16,7 @@ def test_bus_2():
     c = Net()
     bus = Bus('BB', a, b, c)
     assert len(bus) == 3
-    assert len(default_circuit.nets) == 0
+    assert len(default_circuit._get_nets()) == 0
 
 
 def test_bus_3():
@@ -27,7 +27,7 @@ def test_bus_3():
     c = Net()
     bus = Bus('BB', a, 5, b, c)
     assert len(bus) == 8
-    assert len(default_circuit.nets) == 0
+    assert len(default_circuit._get_nets()) == 0
 
 
 def test_bus_4():
@@ -42,7 +42,7 @@ def test_bus_4():
     assert bus1.name == 'AA'
     bus2 = Bus('BB', b, bus1, 3)
     assert len(bus2) == len(bus1) + 4
-    assert len(default_circuit.nets) == 0
+    assert len(default_circuit._get_nets()) == 0
 
 
 def test_bus_5():
@@ -60,7 +60,7 @@ def test_bus_5():
     assert len(a) == 1
     assert len(bus[0]) == 1
     assert len(bus[1]) == 1
-    assert len(default_circuit.nets) == 1
+    assert len(default_circuit._get_nets()) == 1
 
 
 def test_bus_6():
