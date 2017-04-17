@@ -2440,7 +2440,6 @@ class Net(object):
         attached to it.
         """
         return not isinstance(self.circuit, Circuit) or not self.pins
-        
 
     def copy(self, num_copies=1, circuit=None, **attribs):
         """
@@ -2976,6 +2975,9 @@ class Bus(object):
 
     def __init__(self, name, *args, **attribs):
 
+        # Define the member storing the nets so it's present, but it starts empty.
+        self.nets = []
+
         # For Bus objects, the circuit object the bus is a member of is passed
         # in with all the other attributes. If a circuit object isn't provided,
         # then the default circuit object is added to the attributes.
@@ -2986,13 +2988,14 @@ class Bus(object):
         for k, v in attribs.items():
             setattr(self, k, v)
 
+        # The bus name is set after the circuit is assigned so the name can be
+        # checked against the other bus names already in that circuit.
         self.name = name
 
         # Add the bus to the circuit.
         self.circuit += self
 
         # Build the bus from net widths, existing nets, nets of pins, other buses.
-        self.nets = []
         self.extend(args)
 
     def extend(self, *objects):
@@ -3090,7 +3093,7 @@ class Bus(object):
         copies = []
         for i in range(num_copies):
 
-            cpy = Bus(self)
+            cpy = Bus(self.name, self)
 
             # Attach additional attributes to the bus.
             for k, v in attribs.items():
@@ -3177,6 +3180,18 @@ class Bus(object):
         # was made to the pin, which is not allowed.
         logger.error("Can't assign to a bus! Use the += operator.")
         raise Exception
+
+    def _is_movable(self):
+        """
+        Return true if the bus is movable to another circuit.
+
+        A bus  is movable if all the nets in it are movable.
+        """
+        for n in self.nets:
+            if not n._is_movable():
+                # One net not movable means the entire Bus is not movable.
+                return False
+        return True # All the nets were movable.
 
     def connect(self, *pins_nets_buses):
         """
@@ -3385,17 +3400,42 @@ class Circuit(object):
                 else:
                     logger.warning("Removing non-existent net {} from this circuit.".format(net.name))
             else:
-                logger.error("Can't remove net {} from this circuit.".format(net.name))
+                logger.error("Can't remove unmovable net {} from this circuit.".format(net.name))
                 raise Exception
 
     def add_buses(self, *buses):
         """Add some Bus objects to the circuit. Assign a bus name if necessary."""
         # TODO: handle moving bus from one circuit to another.
         for bus in buses:
-            bus.name = bus.name
-            bus.hierarchy = self.hierarchy  # Tag the bus with its hierarchy position.
-            bus.circuit = self  # Record the Circuit object the bus belongs to.
-            self.buses.append(bus)
+            if bus._is_movable():
+
+                # Remove the bus from the circuit it's already in.
+                if isinstance(bus.circuit, Circuit):
+                    bus.circuit -= bus
+
+                # Add the bus to this circuit.
+                bus.circuit = self
+                bus.name = bus.name
+                bus.hierarchy = self.hierarchy  # Tag the bus with its hierarchy position.
+                self.buses.append(bus)
+                for net in bus.nets:
+                    self += net
+
+    def rmv_buses(self, *buses):
+        """Remove some buses from the circuit."""
+        for bus in buses:
+            if bus._is_movable():
+                if bus.circuit == self and bus in self.buses:
+                    bus.circuit = None
+                    bus.hierarchy = None
+                    self.buses.remove(bus)
+                    for net in bus.nets:
+                        self.nets.remove(net)
+                else:
+                    logger.warning("Removing non-existent bus {} from this circuit.".format(bus.name))
+            else:
+                logger.error("Can't remove unmovable bus {} from this circuit.".format(bus.name))
+                raise Exception
 
     def add_parts_nets_buses(self, *parts_nets_buses):
         """Add Parts, Nets and Buses to the circuit."""
