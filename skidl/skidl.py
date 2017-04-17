@@ -1011,6 +1011,8 @@ class Pin(object):
     def __init__(self, **attribs):
         self.nets = []
         self.part = None
+        self.name = ''
+        self.num = ''
         self.do_erc = True
 
         # Attach additional attributes to the pin.
@@ -1337,6 +1339,8 @@ class Part(object):
         self.pins = [] # Start with no pins, but a place to store them.
         self.name = name # Assign initial part name. (Must come after circuit is assigned.)
         self.description = '' # Make sure there is a description, even if empty.
+        self._ref = '' # Provide a member for holding a reference.
+        self.ref_prefix = '' # Provide a member for holding the part reference prefix.
         self.tool = tool # Initial type of part (SKIDL, KICAD, etc.)
         self.circuit = None # Part starts off unassociated with any circuit.
 
@@ -2635,9 +2639,19 @@ class Net(object):
         # Go through all the pins and/or nets and connect them to this net.
         for pn in _expand_buses(_flatten(pins_nets_buses)):
             if isinstance(pn, Net):
-                merge(pn)
+                if pn.circuit == self.circuit:
+                    merge(pn)
+                else:
+                    logger.error("Can't attach nets in different circuits!")
+                    raise Exception
             elif isinstance(pn, Pin):
-                connect_pin(pn)
+                if not pn.part or pn.part.circuit == self.circuit:
+                    if not pn.part:
+                        logger.warning("Attaching non-part Pin {} to a Net {}.".format(pn.name, self.name))
+                    connect_pin(pn)
+                else:
+                    logger.error("Can't attach part to net in a different circuit!")
+                    raise Exception
             else:
                 logger.error(
                     'Cannot attach non-Pin/non-Net {} to Net {}.'.format(
@@ -3304,39 +3318,75 @@ class Circuit(object):
 
     def add_parts(self, *parts):
         """Add some Part objects to the circuit."""
-        # TODO: handle subtracting a part from a circuit.
         for part in parts:
             # Add the part to this circuit if the part is movable and
             # it's not already in this circuit.
-            if part._is_movable() and part.circuit != self:
+            if part.circuit != self:
+                if part._is_movable():
 
-                # Remove the part from the circuit it's already in.
-                if isinstance(part.circuit, Circuit):
-                    part.circuit -= part
+                    # Remove the part from the circuit it's already in.
+                    if isinstance(part.circuit, Circuit):
+                        part.circuit -= part
 
-                # Add the part to this circuit.
-                part.circuit = self  # Record the Circuit object the part belongs to.
-                part.ref = part.ref  # This adjusts the part reference if necessary.
-                part.hierarchy = self.hierarchy  # Tag the part with its hierarchy position.
-                self.parts.append(part)
+                    # Add the part to this circuit.
+                    part.circuit = self  # Record the Circuit object the part belongs to.
+                    part.ref = part.ref  # This adjusts the part reference if necessary.
+                    part.hierarchy = self.hierarchy  # Tag the part with its hierarchy position.
+                    self.parts.append(part)
+
+                else:
+                    logger.error("Can't add unmovable part {} to this circuit.".format(part.ref))
+                    raise Exception
+
+    def rmv_parts(self, *parts):
+        """Remove some Part objects from the circuit."""
+        for part in parts:
+            if part._is_movable():
+                if part.circuit == self and part in self.parts:
+                    part.circuit = None
+                    part.hierarchy = None
+                    self.parts.remove(part)
+                else:
+                    logger.warning("Removing non-existent part {} from this circuit.".format(part.ref))
+            else:
+                logger.error("Can't remove part {} from this circuit.".format(part.ref))
+                raise Exception
 
     def add_nets(self, *nets):
         """Add some Net objects to the circuit. Assign a net name if necessary."""
-        # TODO: handle subtracting a net from a circuit.
         for net in nets:
             # Add the net to this circuit if the net is movable and
             # it's not already in this circuit.
-            if net._is_movable() and net.circuit != self:
+            if net.circuit != self:
+                if net._is_movable():
 
-                # Remove the net from the circuit it's already in.
-                if isinstance(net.circuit, Net):
-                    net.circuit -= net
+                    # Remove the net from the circuit it's already in.
+                    if isinstance(net.circuit, Circuit):
+                        net.circuit -= net
 
-                # Add the net to this circuit.
-                net.circuit = self  # Record the Circuit object the net belongs to.
-                net.name = net.name
-                net.hierarchy = self.hierarchy  # Tag the net with its hierarchy position.
-                self.nets.append(net)
+                    # Add the net to this circuit.
+                    net.circuit = self  # Record the Circuit object the net belongs to.
+                    net.name = net.name
+                    net.hierarchy = self.hierarchy  # Tag the net with its hierarchy position.
+                    self.nets.append(net)
+
+                else:
+                    logger.error("Can't add unmovable net {} to this circuit.".format(net.name))
+                    raise Exception
+
+    def rmv_nets(self, *nets):
+        """Remove some Net objects from the circuit."""
+        for net in nets:
+            if net._is_movable():
+                if net.circuit == self and net in self.nets:
+                    net.circuit = None
+                    net.hierarchy = None
+                    self.nets.remove(net)
+                else:
+                    logger.warning("Removing non-existent net {} from this circuit.".format(net.name))
+            else:
+                logger.error("Can't remove net {} from this circuit.".format(net.name))
+                raise Exception
 
     def add_buses(self, *buses):
         """Add some Bus objects to the circuit. Assign a bus name if necessary."""
@@ -3361,13 +3411,22 @@ class Circuit(object):
                 raise Exception
         return self
 
-    __iadd__ = add_parts_nets_buses
+    def rmv_parts_nets_buses(self, *parts_nets_buses):
+        """Add Parts, Nets and Buses to the circuit."""
+        for pnb in parts_nets_buses:
+            if isinstance(pnb, Part):
+                self.rmv_parts(pnb)
+            elif isinstance(pnb, Net):
+                self.rmv_nets(pnb)
+            elif isinstance(pnb, Bus):
+                self.rmv_buses(pnb)
+            else:
+                logger.error("Can't remove a {} from a Circuit object.".format(type(pnb)))
+                raise Exception
+        return self
 
-    # def _delete_net(self, net):
-        # """Delete net from circuit."""
-        # if net in self.nets:
-            # self.nets.remove(net)
-        # del net
+    __iadd__ = add_parts_nets_buses
+    __isub__ = rmv_parts_nets_buses
 
     def _get_nets(self):
         """Get all the distinct nets for the circuit."""
