@@ -161,6 +161,18 @@ def test_circuit_add_rmv_1():
     with pytest.raises(Exception):
         circuit1 += r1
 
+def test_circuit_add_rmv_2():
+    circuit1 = Circuit()
+    circuit2 = Circuit()
+    r1 = Part('device','R')
+    bus = Bus('B', 8)
+    circuit1 += bus
+    assert len(circuit1.nets) == len(bus)
+    assert len(circuit2.nets) == 0
+    circuit2 += bus
+    assert len(circuit1.nets) == 0
+    assert len(circuit2.nets) == len(bus)
+
 def test_circuit_connect_btwn_circuits_1():
     circuit1 = Circuit()
     circuit2 = Circuit()

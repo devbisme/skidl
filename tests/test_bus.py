@@ -151,3 +151,8 @@ def test_bus_15():
     nets = bus1[:][::-1]
     for n, i in zip(nets, range(8)[::-1]):
         assert 'A'+str(i) == n.name
+
+def test_bus_copy_1():
+    bus1 = Bus('A',8)
+    bus2 = bus1()
+    assert len(bus1) == len(bus2)
