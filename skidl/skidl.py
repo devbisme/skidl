@@ -1436,9 +1436,6 @@ class Part(object):
                     self.tool))
             raise Exception
 
-        # Find the minimum and maximum pin numbers for the part after parsing.
-        self.min_pin, self.max_pin = self._find_min_max_pins()
-
     def _parse_kicad(self, just_get_name=False):
         """
         Create a Part using a part definition from a KiCad schematic library.
@@ -1831,7 +1828,8 @@ class Part(object):
     def add_pins(self, *pins):
         """Add one or more pins to a part."""
         for pin in _flatten(pins):
-            self.pins.append(pin.copy())
+            pin.part = self
+            self.pins.append(pin)
         return self
 
     __iadd__ = add_pins
@@ -1867,6 +1865,10 @@ class Part(object):
         # select all pins.
         if not pin_ids:
             pin_ids = ['.*']
+
+        # Determine the minimum and maximum pin ids if they don't already exist.
+        if 'min_pin' not in dir(self) or 'max_pin' not in dir(self):
+            self.min_pin, self.max_pin = self._find_min_max_pins()
 
         # Go through the list of pin IDs one-by-one.
         pins = _NetPinList()
@@ -3325,6 +3327,7 @@ class Circuit(object):
         self.hierarchy = 'top'
         self.level = 0
         self.context = [('top', )]
+        self.NC = _NCNet(name='__NOCONNECT', circuit=self)  # Net for storing no-connects for parts in this circuit.
 
         # Also clear any cached libraries.
         SchLib._reset()
@@ -3472,6 +3475,9 @@ class Circuit(object):
         """Get all the distinct nets for the circuit."""
         distinct_nets = []
         for net in self.nets:
+            if net is self.NC:
+                # Exclude no-connect net.
+                continue
             if not net._get_pins():
                 # Exclude empty nets with no attached pins.
                 continue
@@ -3932,6 +3938,7 @@ def set_default_tool(tool):
 
 # Create the default Circuit object that will be used unless another is explicitly created.
 default_circuit = Circuit()
+NC = default_circuit.NC  # NOCONNECT net for attaching pins that are intentionally left open.
 
 # Create calls to functions on whichever Circuit object is the current default.
 ERC = default_circuit.ERC
@@ -3941,6 +3948,3 @@ backup_parts = default_circuit.backup_parts
 
 # Define a tag for nets that convey power (e.g., VCC or GND).
 POWER = Pin.POWER_DRIVE
-
-# This is a NOCONNECT net for attaching to pins which are intentionally left open.
-NC = _NCNet()
