@@ -2025,7 +2025,7 @@ class Part(object):
         except AttributeError:
             logger.error(
                 "Can't generate netlist in an unknown ECAD tool format ({}).".format(
-                    format))
+                    tool))
             raise Exception
 
     def _gen_netlist_comp_kicad(self):
@@ -2050,7 +2050,7 @@ class Part(object):
             footprint = 'No Footprint'
         footprint = _add_quotes(footprint)
 
-        lib = _add_quotes(self.lib)
+        lib = _add_quotes(getattr(self, 'lib', 'NO_LIB'))
         name = _add_quotes(self.name)
 
         fields = ''
@@ -2087,7 +2087,7 @@ class Part(object):
             return gen_func()
         except AttributeError:
             logger.error(
-                "Can't generate XML in an unknown ECAD tool format ({}).".format(format))
+                "Can't generate XML in an unknown ECAD tool format ({}).".format(tool))
             raise Exception
 
     def _gen_xml_comp_kicad(self):
@@ -2110,7 +2110,7 @@ class Part(object):
                 part=self.name, ref=ref))
             footprint = 'No Footprint'
 
-        lib = self.lib
+        lib = _add_quotes(getattr(self, 'lib', 'NO_LIB'))
         name = self.name
 
         fields = ''
@@ -2643,7 +2643,7 @@ class Net(object):
                 if pn.circuit == self.circuit:
                     merge(pn)
                 else:
-                    logger.error("Can't attach nets in different circuits!")
+                    logger.error("Can't attach nets in different circuits ({}, {})!".format(pn.circuit.name,self.circuit.name))
                     raise Exception
             elif isinstance(pn, Pin):
                 if not pn.part or pn.part.circuit == self.circuit:
@@ -2651,7 +2651,7 @@ class Net(object):
                         logger.warning("Attaching non-part Pin {} to a Net {}.".format(pn.name, self.name))
                     connect_pin(pn)
                 else:
-                    logger.error("Can't attach part to net in a different circuit!")
+                    logger.error("Can't attach part to net in a different circuit ({}, {})!".format(pn.part.circuit.name,self.circuit.name))
                     raise Exception
             else:
                 logger.error(
@@ -2701,7 +2701,7 @@ class Net(object):
         except AttributeError:
             logger.error(
                 "Can't generate netlist in an unknown ECAD tool format ({}).".format(
-                    format))
+                    tool))
             raise Exception
 
     def _gen_netlist_net_kicad(self):
@@ -2738,7 +2738,7 @@ class Net(object):
         except AttributeError:
             logger.error(
                 "Can't generate XML in an unknown ECAD tool format ({}).".format(
-                    format))
+                    tool))
             raise Exception
 
     def _gen_xml_net_kicad(self):
@@ -2926,8 +2926,8 @@ class _NCNet(Net):
             the object.
     """
 
-    def __init__(self, name=None, *pins_nets_buses, **attribs):
-        super(_NCNet, self).__init__(name, *pins_nets_buses, **attribs)
+    def __init__(self, name=None, circuit=None, *pins_nets_buses, **attribs):
+        super(_NCNet, self).__init__(name=name, circuit=circuit, *pins_nets_buses, **attribs)
         self._drive = Pin.NOCONNECT_DRIVE
 
     def _generate_netlist_net(self, tool=None):
@@ -3312,12 +3312,16 @@ class Circuit(object):
 
     OK, WARNING, ERROR = range(3)
 
-    def __init__(self):
+    def __init__(self, **kwargs):
         """
         When you place the @SubCircuit decorator before a function, this method
         stores the reference to the subroutine into the SubCircuit object.
         """
         self._reset()
+
+        # Set passed-in attributes for the circuit.
+        for k, v in kwargs.items():
+            setattr(self, k, v)
 
     def _reset(self):
         """Clear any circuitry and start over."""
@@ -3784,7 +3788,7 @@ def SubCircuit(f):
     """
     def sub_f(*args, **kwargs):
         # Upon entry, save the reference to the default Circuit object.
-        global default_circuit
+        global default_circuit, NC
         save_default_circuit = default_circuit
 
         # If the subcircuit has no 'circuit' argument, then all the SKiDL
@@ -3800,6 +3804,14 @@ def SubCircuit(f):
             circuit = kwargs['circuit']
             del kwargs['circuit'] # Don't pass the circuit parameter down to the f function.
             default_circuit = circuit
+
+        # Setup some globals needed in the subcircuit.
+        NC = default_circuit.NC
+
+        import __builtin__
+        __builtin__.NC = NC
+        __builtin__.default_circuit = default_circuit
+        __builtin__.NNC = default_circuit.NC
 
         # Invoking the subcircuit function creates circuitry at a level one
         # greater than the current level. (The top level is zero.)
@@ -3822,6 +3834,7 @@ def SubCircuit(f):
         # they may direct the function as to what parts and nets get created.
         # Store any results it returns as a list. These results are user-specific
         # and have no effect on the mechanics of adding parts or nets.
+        print('Entering circuit {} with NC member of {}.'.format(default_circuit.name, NC.circuit.name))
         try:
             results = f(*args, **kwargs)
         except Exception:
@@ -3836,8 +3849,9 @@ def SubCircuit(f):
         circuit.hierarchy = circuit.context[-1][0]
         circuit.level -= 1
 
-        # Restore the default circuit.
+        # Restore the default circuit and globals.
         default_circuit = save_default_circuit
+        NC = default_circuit.NC
 
         return results
 
@@ -3845,6 +3859,7 @@ def SubCircuit(f):
 
 # The decorator can also be called as "@subcircuit".
 subcircuit = SubCircuit
+
 
 @norecurse
 def load_backup_lib():
@@ -3937,6 +3952,7 @@ def set_default_tool(tool):
 
 
 # Create the default Circuit object that will be used unless another is explicitly created.
+default_circuit = None
 default_circuit = Circuit()
 NC = default_circuit.NC  # NOCONNECT net for attaching pins that are intentionally left open.
 
