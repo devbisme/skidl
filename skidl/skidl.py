@@ -51,6 +51,7 @@ from builtins import object
 from future import standard_library
 standard_library.install_aliases()
 
+import __builtin__
 import sys
 import os
 import os.path
@@ -1800,8 +1801,7 @@ class Part(object):
                 elif isinstance(self.circuit, Circuit):
                     self.circuit += cpy
                 else:
-                    global default_circuit
-                    default_circuit += cpy
+                    __builtin__.default_circuit += cpy
 
             # Enter any new attributes.
             for k, v in attribs.items():
@@ -2363,8 +2363,7 @@ class Net(object):
         if circuit:
             circuit += self
         else:
-            global default_circuit
-            default_circuit += self
+            __builtin__.default_circuit += self
 
         # Set the net name *after* the net is assigned to a circuit so the
         # net can be assigned a unique name that doesn't conflict with existing
@@ -2509,7 +2508,7 @@ class Net(object):
             elif self.circuit:
                 self.circuit += cpy
             else:
-                default_circuit += cpy
+                __builtin__.default_circuit += cpy
 
             # Add other attributes to the net copy.
             for k, v in attribs.items():
@@ -3331,7 +3330,14 @@ class Circuit(object):
         self.hierarchy = 'top'
         self.level = 0
         self.context = [('top', )]
-        self.NC = _NCNet(name='__NOCONNECT', circuit=self)  # Net for storing no-connects for parts in this circuit.
+
+        # Clear out the no-connect net and set the global no-connect if it's
+        # tied to this circuit.
+        if getattr(self,'NC',False) and NC and NC is self.NC:
+            self.NC = _NCNet(name='__NOCONNECT', circuit=self)  # Net for storing no-connects for parts in this circuit.
+            __builtin__.NC = self.NC
+        else:
+            self.NC = _NCNet(name='__NOCONNECT', circuit=self)  # Net for storing no-connects for parts in this circuit.
 
         # Also clear any cached libraries.
         SchLib._reset()
@@ -3412,7 +3418,6 @@ class Circuit(object):
 
     def add_buses(self, *buses):
         """Add some Bus objects to the circuit. Assign a bus name if necessary."""
-        # TODO: handle moving bus from one circuit to another.
         for bus in buses:
             if bus._is_movable():
 
@@ -3788,7 +3793,6 @@ def SubCircuit(f):
     """
     def sub_f(*args, **kwargs):
         # Upon entry, save the reference to the default Circuit object.
-        global default_circuit, NC
         save_default_circuit = default_circuit
 
         # If the subcircuit has no 'circuit' argument, then all the SKiDL
@@ -3803,15 +3807,10 @@ def SubCircuit(f):
         else:
             circuit = kwargs['circuit']
             del kwargs['circuit'] # Don't pass the circuit parameter down to the f function.
-            default_circuit = circuit
+            __builtin__.default_circuit = circuit
 
         # Setup some globals needed in the subcircuit.
-        NC = default_circuit.NC
-
-        import __builtin__
-        __builtin__.NC = NC
-        __builtin__.default_circuit = default_circuit
-        __builtin__.NNC = default_circuit.NC
+        __builtin__.NC = default_circuit.NC
 
         # Invoking the subcircuit function creates circuitry at a level one
         # greater than the current level. (The top level is zero.)
@@ -3834,7 +3833,6 @@ def SubCircuit(f):
         # they may direct the function as to what parts and nets get created.
         # Store any results it returns as a list. These results are user-specific
         # and have no effect on the mechanics of adding parts or nets.
-        print('Entering circuit {} with NC member of {}.'.format(default_circuit.name, NC.circuit.name))
         try:
             results = f(*args, **kwargs)
         except Exception:
@@ -3850,8 +3848,8 @@ def SubCircuit(f):
         circuit.level -= 1
 
         # Restore the default circuit and globals.
-        default_circuit = save_default_circuit
-        NC = default_circuit.NC
+        __builtin__.default_circuit = save_default_circuit
+        __builtin__.NC = default_circuit.NC
 
         return results
 
@@ -3952,9 +3950,10 @@ def set_default_tool(tool):
 
 
 # Create the default Circuit object that will be used unless another is explicitly created.
-default_circuit = None
-default_circuit = Circuit()
-NC = default_circuit.NC  # NOCONNECT net for attaching pins that are intentionally left open.
+__builtin__.default_circuit = None
+__builtin__.NC = None
+__builtin__.default_circuit = Circuit()
+__builtin__.NC = default_circuit.NC  # NOCONNECT net for attaching pins that are intentionally left open.
 
 # Create calls to functions on whichever Circuit object is the current default.
 ERC = default_circuit.ERC
