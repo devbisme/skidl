@@ -4,20 +4,17 @@ from .setup_teardown import *
 
 def test_subcircuit_1():
 
-    class Resistor(Part):
-        def __init__(self, value, ref=None, footprint='Resistors_SMD:R_0805'):
-            super().__init__('device', 'R', value=value, ref=ref, footprint=footprint)
-
     @subcircuit
     def resdiv():
         gnd = Net('GND') # Ground reference.
         vin = Net('VI')  # Input voltage to the divider.
         vout = Net('VO')  # Output voltage from the divider.
 
-        r1 = Resistor('1k')
-        r2 = Resistor('500')
+        res = Part(tool=SKIDL, name='res', ref_prefix='R', dest=TEMPLATE, pins=[Pin(num=1,func=Pin.PASSIVE), Pin(num=2, func=Pin.PASSIVE)])
+        r1 = res(value='1K')
+        r2 = res(value='500')
 
-        cap = Part('device','C', dest=TEMPLATE)
+        cap = Part(tool=SKIDL, name='cap', ref_prefix='C', dest=TEMPLATE, pins=[Pin(num=1,func=Pin.PASSIVE), Pin(num=2, func=Pin.PASSIVE)])
         c1 = cap()
         c2 = cap(value='1uF')
 
@@ -66,20 +63,19 @@ def test_subcircuit_2():
         def __init__(self, value, ref=None, footprint='Resistors_SMD:R_0805'):
             super().__init__('device', 'R', value=value, ref=ref, footprint=footprint)
 
-    @subcircuit    
+    @subcircuit
     def resdiv_1():
         gnd = Net('GND') # Ground reference.
         vin = Net('VI')  # Input voltage to the divider.
         vout = Net('VO')  # Output voltage from the divider.
 
-        r1 = Resistor('1k')
-        r2 = Resistor('500')
+        res = Part(tool=SKIDL, name='res', ref_prefix='R', dest=TEMPLATE, pins=[Pin(num=1,func=Pin.PASSIVE), Pin(num=2, func=Pin.PASSIVE)])
+        r1 = res(value='1K')
+        r2 = res(value='500')
 
-        cap = Part('device','C', dest=TEMPLATE)
+        cap = Part(tool=SKIDL, name='cap', ref_prefix='C', dest=TEMPLATE, pins=[Pin(num=1,func=Pin.PASSIVE), Pin(num=2, func=Pin.PASSIVE)])
         c1 = cap()
         c2 = cap(value='1uF')
-        c1[1] += NC
-        c2[1,2] += NC
 
         bus1 = Bus('BB',10)
 
@@ -96,10 +92,11 @@ def test_subcircuit_2():
         b = Net('VI')  # Input voltage to the divider.
         c = Net('VO')  # Output voltage from the divider.
 
-        r1 = Resistor('1k')
-        r2 = Resistor('500')
+        res = Part(tool=SKIDL, name='res', ref_prefix='R', dest=TEMPLATE, pins=[Pin(num=1,func=Pin.PASSIVE), Pin(num=2, func=Pin.PASSIVE)])
+        r1 = res(value='1K')
+        r2 = res(value='500')
 
-        cap = Part('device','C', dest=TEMPLATE)
+        cap = Part(tool=SKIDL, name='cap', ref_prefix='C', dest=TEMPLATE, pins=[Pin(num=1,func=Pin.PASSIVE), Pin(num=2, func=Pin.PASSIVE)])
         c1 = cap()
         c2 = cap(value='1uF')
 
@@ -109,9 +106,8 @@ def test_subcircuit_2():
         r2[2] += b  # Connect the second resistor to ground.
         c += r1[2], r2[1]  # Output comes from the connection of the two resistors.
 
-    default_circuit.name = 'DEFAULT'
-    circuit1 = Circuit(name='CIRCUIT1')
-    circuit2 = Circuit(name='CIRCUIT2')
+    circuit1 = Circuit()
+    circuit2 = Circuit()
     resdiv_2(circuit=circuit2)
     resdiv_2()
     resdiv_2(circuit=circuit1)
@@ -122,17 +118,14 @@ def test_subcircuit_2():
     assert len(default_circuit.parts) == 12
     assert len(default_circuit._get_nets()) == 9
     assert len(default_circuit.buses) == 3
-    assert len(NC.pins) == 6
 
     assert len(circuit1.parts) == 24
     assert len(circuit1._get_nets()) == 18
     assert len(circuit1.buses) == 6
-    assert len(circuit1.NC.pins) == 12
 
     assert len(circuit2.parts) == 36
     assert len(circuit2._get_nets()) == 27
     assert len(circuit2.buses) == 9
-    assert len(circuit2.NC.pins) == 18
 
     ERC()
     generate_netlist()
@@ -149,7 +142,8 @@ def test_subcircuit_2():
 def test_circuit_add_rmv_1():
     circuit1 = Circuit()
     circuit2 = Circuit()
-    r1 = Part('device','R')
+    r1 = Part(tool=SKIDL, name='res', ref_prefix='R', pins=[Pin(num=1), Pin(num=2)])
+
     n1 = Net('N1')
     circuit1 += r1
     circuit1 += n1
@@ -170,7 +164,7 @@ def test_circuit_add_rmv_1():
 def test_circuit_add_rmv_2():
     circuit1 = Circuit()
     circuit2 = Circuit()
-    r1 = Part('device','R')
+    r1 = Part(tool=SKIDL, name='res', ref_prefix='R', pins=[Pin(num=1), Pin(num=2)])
     bus = Bus('B', 8)
     circuit1 += bus
     assert len(circuit1.nets) == len(bus) + 1 # Add 1 for NC
@@ -182,24 +176,11 @@ def test_circuit_add_rmv_2():
 def test_circuit_connect_btwn_circuits_1():
     circuit1 = Circuit()
     circuit2 = Circuit()
-    r1 = Part(tool=SKIDL, name='R')
+    #r1 = Part(tool=SKIDL, name='R', pins=[Pin(num=1), Pin(num=2)])
+    r1 = Part(tool=SKIDL, name='res', ref_prefix='R')
     r1 += Pin(num=1), Pin(num=2)
     n1 = Net('N1')
     circuit1 += r1
     circuit2 += n1
     with pytest.raises(Exception):
         n1 += r1[1]
-
-def test_circuit_NC_1():
-    circuit1 = Circuit()
-    circuit2 = Circuit()
-    res = Part(tool=SKIDL, name='res', dest=TEMPLATE, pins=[Pin(num=1),Pin(num=2)])
-    r1 = res()
-    r2 = res(circuit=circuit1)
-    r3 = res()
-    circuit2 += r3
-    r2[1,2] += circuit1.NC
-    r3[1] += circuit2.NC
-    assert len(NC.pins) == 0
-    assert len(circuit1.NC.pins) == 2
-    assert len(circuit2.NC.pins) == 1
