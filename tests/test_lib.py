@@ -37,7 +37,7 @@ def test_backup_1():
     b = Part('device','C',footprint='null')
     c = Part('device','L',footprint='null')
     generate_netlist()  # This creates the backup parts library.
-    default_circuit._reset()
+    default_circuit.reset()
     QUERY_BACKUP_LIB = True
     a = Part('crap','R',footprint='null')
     b = Part('crap','C',footprint='null')

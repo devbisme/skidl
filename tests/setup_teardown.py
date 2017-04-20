@@ -6,14 +6,13 @@ files_at_start = set([])
 def setup_function(f):
     global files_at_start
     files_at_start = set(os.listdir('.'))
-    default_circuit._reset()
+    default_circuit.mini_reset()
 
 def teardown_function(f):
     files_at_end = set(os.listdir('.'))
-    for f in files_at_end - files_at_start:
-        #print('removing {}'.format(f))
+    for file in files_at_end - files_at_start:
         try:
-            os.remove(f)
+            os.remove(file)
         except Exception:
             pass
 

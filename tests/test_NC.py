@@ -8,7 +8,6 @@ def test_NC_1():
     def circ_nc():
         res = Part(tool=SKIDL, name='res', ref_prefix='R', dest=TEMPLATE, pins=[Pin(num=1,func=Pin.PASSIVE), Pin(num=2, func=Pin.PASSIVE)])
         r1 = res()
-        #import pdb; pdb.set_trace()
         r1[1] += NC
 
     default_circuit.name = 'DEFAULT'
