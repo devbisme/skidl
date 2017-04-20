@@ -51,11 +51,16 @@ from builtins import object
 from future import standard_library
 standard_library.install_aliases()
 
-import __builtin__
+try:
+    import __builtin__ as builtins
+except ImportError:
+    import builtins
+
 import sys
 import os
 import os.path
 import re
+import collections
 import logging
 import shlex
 import inspect
@@ -1151,8 +1156,8 @@ class Pin(object):
                     pn.nets[0] += self
                 else:
                     # Neither pin is connected to a net, so create a net
-                    # and attach both to it.
-                    Net().connect(self, pn)
+                    # in the same circuit as the pin and attach both to it.
+                    Net(circuit=self.part.circuit).connect(self, pn)
             elif isinstance(pn, Net):
                 # Connecting pin-to-net, so just connect the pin to the net.
                 pn += self
@@ -1391,6 +1396,12 @@ class Part(object):
                 if not circuit:
                     circuit = default_circuit
                 circuit += self
+            elif dest == TEMPLATE:
+                # If this is just a part template, don't add the part to the circuit.
+                # Just place the reference to the Circuit object in the template.
+                if not circuit:
+                    self.circuit = default_circuit
+                self.circuit = circuit
 
             # Add any net/pin connections to this part that were passed as arguments.
             if isinstance(connections, dict):
@@ -1801,7 +1812,7 @@ class Part(object):
                 elif isinstance(self.circuit, Circuit):
                     self.circuit += cpy
                 else:
-                    __builtin__.default_circuit += cpy
+                    builtins.default_circuit += cpy
 
             # Enter any new attributes.
             for k, v in attribs.items():
@@ -2363,7 +2374,7 @@ class Net(object):
         if circuit:
             circuit += self
         else:
-            __builtin__.default_circuit += self
+            builtins.default_circuit += self
 
         # Set the net name *after* the net is assigned to a circuit so the
         # net can be assigned a unique name that doesn't conflict with existing
@@ -2407,17 +2418,20 @@ class Net(object):
         # Remove any phantom pins that may have existed for tieing nets together.
         pins = set([p for p in pins if not isinstance(p, PhantomPin)])
 
-        return list(nets), list(pins)
+        traversal = collections.namedtuple('Traversal', ['nets', 'pins'])
+        traversal.nets = list(nets)
+        traversal.pins = list(pins)
+        return traversal
 
     def _get_pins(self):
         """Return a list of pins attached to this net."""
         self.test_validity()
-        return self._traverse()[1]
+        return self._traverse().pins
 
     def _get_nets(self):
         """Return a list of nets attached to this net, including this net."""
         self.test_validity()
-        return self._traverse()[0]
+        return self._traverse().nets
 
     def _is_attached(self, pin_net_bus):
         """Return true if the pin, net or bus is attached to this one."""
@@ -2508,7 +2522,7 @@ class Net(object):
             elif self.circuit:
                 self.circuit += cpy
             else:
-                __builtin__.default_circuit += cpy
+                builtins.default_circuit += cpy
 
             # Add other attributes to the net copy.
             for k, v in attribs.items():
@@ -2602,28 +2616,6 @@ class Net(object):
             self.drive = net.drive
             net.drive = self.drive
 
-            def select_name(name1, name2):
-                """Select one name or the other for the merged net."""
-                if not name2:
-                    return name1
-                if not name1:
-                    return name2
-                if self._is_implicit(name2):
-                    return name1
-                if self._is_implicit(name1):
-                    return name2
-                logger.warning(
-                    'Merging two named nets ({a} and {b}) into {a}.'.format(
-                        a=name1, b=name2))
-                return name1
-
-            # Give the merged net the name of one of the nets.
-            # Bypass the unique naming function because all the
-            # net names should already have unique names.
-            name = select_name(self.name, net.name)
-            self._name = name
-            net._name = name
-
         def connect_pin(pin):
             """Connect a pin to this net."""
             if pin not in self.pins:
@@ -2650,13 +2642,48 @@ class Net(object):
                         logger.warning("Attaching non-part Pin {} to a Net {}.".format(pn.name, self.name))
                     connect_pin(pn)
                 else:
-                    logger.error("Can't attach part to net in a different circuit ({}, {})!".format(pn.part.circuit.name,self.circuit.name))
+                    logger.error("Can't attach a part to a net in different circuits ({}, {})!".format(pn.part.circuit.name,self.circuit.name))
                     raise Exception
             else:
                 logger.error(
-                    'Cannot attach non-Pin/non-Net {} to Net {}.'.format(
-                        type(pn), self.name))
+                    'Cannot attach non-Pin/non-Net {} to Net {}.'.format(type(pn), self.name))
                 raise Exception
+
+        def select_name(nets):
+            """Return the net with the best name among a list of nets."""
+
+            if len(nets) == 0:
+                return None  # No nets, return None.
+            if len(nets) == 1:
+                return nets[0]  # One net, return it.
+            if len(nets) == 2:
+                # Two nets, return the best of them.
+                name0 = getattr(nets[0], 'name')
+                name1 = getattr(nets[1], 'name')
+                if not name1:
+                    return nets[0]
+                if not name0:
+                    return nets[1]
+                if self._is_implicit(name1):
+                    return nets[0]
+                if self._is_implicit(name0):
+                    return nets[1]
+                logger.warning('Merging two named nets ({name0} and {name1}) into {name0}.'.format(**locals()))
+                return nets[0]
+
+            # More than two nets, so bisect the list into two smaller lists and
+            # recursively find the best name from each list and then return the
+            # best name of those two.
+            mid_point = len(nets) // 2
+            return select_name([select_name(nets[0:mid_point]), select_name(nets[mid_point:])])
+
+        # Assign the same name to all the nets that are connected to this net.
+        nets = self._traverse().nets
+        selected_name = getattr(select_name(self._traverse().nets), 'name')
+        for net in nets:
+            # Assign the name directly to each net. Using the name property
+            # would cause the names to be changed so they were unique.
+            net._name = selected_name
 
         # Add the net to the global netlist. (It won't be added again
         # if it's already there.)
@@ -2994,7 +3021,8 @@ class Bus(object):
         self.name = name
 
         # Add the bus to the circuit.
-        self.circuit += self
+        self.circuit = None  # Bus won't get added if it's already seen as part of circuit.
+        attribs['circuit'] += self  # Add bus to circuit. This also sets self.circuit again.
 
         # Build the bus from net widths, existing nets, nets of pins, other buses.
         self.extend(args)
@@ -3312,18 +3340,27 @@ class Circuit(object):
     OK, WARNING, ERROR = range(3)
 
     def __init__(self, **kwargs):
-        """
-        When you place the @SubCircuit decorator before a function, this method
-        stores the reference to the subroutine into the SubCircuit object.
-        """
-        self._reset()
+        """Initialize the Circuit object."""
+        self.reset()
 
         # Set passed-in attributes for the circuit.
         for k, v in kwargs.items():
             setattr(self, k, v)
 
-    def _reset(self):
-        """Clear any circuitry and start over."""
+    def reset(self):
+        """Clear any circuitry and cached part libraries and start over."""
+
+        # Clear circuitry.
+        self.mini_reset()
+
+        # Also clear any cached libraries.
+        SchLib._reset()
+        global backup_lib
+        backup_lib = None
+
+    def mini_reset(self):
+        """Clear any circuitry but don't erase any loaded part libraries."""
+        self.name = ''
         self.parts = []
         self.nets = []
         self.buses = []
@@ -3335,14 +3372,9 @@ class Circuit(object):
         # tied to this circuit.
         if getattr(self,'NC',False) and NC and NC is self.NC:
             self.NC = _NCNet(name='__NOCONNECT', circuit=self)  # Net for storing no-connects for parts in this circuit.
-            __builtin__.NC = self.NC
+            builtins.NC = self.NC
         else:
             self.NC = _NCNet(name='__NOCONNECT', circuit=self)  # Net for storing no-connects for parts in this circuit.
-
-        # Also clear any cached libraries.
-        SchLib._reset()
-        global backup_lib
-        backup_lib = None
 
     def add_parts(self, *parts):
         """Add some Part objects to the circuit."""
@@ -3419,19 +3451,23 @@ class Circuit(object):
     def add_buses(self, *buses):
         """Add some Bus objects to the circuit. Assign a bus name if necessary."""
         for bus in buses:
-            if bus._is_movable():
+            # Add the bus to this circuit if the bus is movable and
+            # it's not already in this circuit.
+            if bus.circuit != self:
+                if bus._is_movable():
 
-                # Remove the bus from the circuit it's already in.
-                if isinstance(bus.circuit, Circuit):
-                    bus.circuit -= bus
+                    # Remove the bus from the circuit it's already in, but skip
+                    # this if the bus isn't already in a Circuit.
+                    if isinstance(bus.circuit, Circuit):
+                        bus.circuit -= bus
 
-                # Add the bus to this circuit.
-                bus.circuit = self
-                bus.name = bus.name
-                bus.hierarchy = self.hierarchy  # Tag the bus with its hierarchy position.
-                self.buses.append(bus)
-                for net in bus.nets:
-                    self += net
+                    # Add the bus to this circuit.
+                    bus.circuit = self
+                    bus.name = bus.name
+                    bus.hierarchy = self.hierarchy  # Tag the bus with its hierarchy position.
+                    self.buses.append(bus)
+                    for net in bus.nets:
+                        self += net
 
     def rmv_buses(self, *buses):
         """Remove some buses from the circuit."""
@@ -3807,10 +3843,10 @@ def SubCircuit(f):
         else:
             circuit = kwargs['circuit']
             del kwargs['circuit'] # Don't pass the circuit parameter down to the f function.
-            __builtin__.default_circuit = circuit
+            builtins.default_circuit = circuit
 
         # Setup some globals needed in the subcircuit.
-        __builtin__.NC = default_circuit.NC
+        builtins.NC = default_circuit.NC
 
         # Invoking the subcircuit function creates circuitry at a level one
         # greater than the current level. (The top level is zero.)
@@ -3848,8 +3884,8 @@ def SubCircuit(f):
         circuit.level -= 1
 
         # Restore the default circuit and globals.
-        __builtin__.default_circuit = save_default_circuit
-        __builtin__.NC = default_circuit.NC
+        builtins.default_circuit = save_default_circuit
+        builtins.NC = default_circuit.NC
 
         return results
 
@@ -3895,6 +3931,7 @@ def search(term, tool=None):
             parts = set() # Set of parts and their containing libraries found with the term.
 
             for lib_file in lib_files:
+                print(' '*79, '\rSearching {} ...'.format(lib_file), end = '\r')
                 lib = SchLib(os.path.join(lib_dir,lib_file), tool=tool) # Open the library file.
 
                 def mk_list(l):
@@ -3911,6 +3948,7 @@ def search(term, tool=None):
                     for part in mk_list(lib.get_parts(**{category:term})):
                         part._parse() # Parse the part to instantiate the complete object.
                         parts.add((lib_file, part)) # Store the library name and part object.
+                print(' '*79, end = '\r')  # 
 
         return list(parts) # Return the list of parts and their containing libraries.
 
@@ -3922,7 +3960,18 @@ def search(term, tool=None):
 
     # Print each part name sorted by the library where it was found.
     for lib_file, p in sorted(parts, key=lambda p: p[0]):
-        print('{}: {} ({})'.format(lib_file, p.name, p.description))
+        try:
+            print('{}:'.format(lib_file), end=" ")
+        except Exception:
+            pass
+        try:
+            print(p.name, end=" ")
+        except Exception:
+            pass
+        try:
+            print('({})'.format(p.description))
+        except Exception:
+            print(' ')
 
 
 def show(lib, part_name, tool=None):
@@ -3940,7 +3989,10 @@ def show(lib, part_name, tool=None):
 
     if tool is None:
         tool = DEFAULT_TOOL
-    return Part(lib, re.escape(part_name), tool=tool, dest=TEMPLATE)
+    try:
+        return Part(lib, re.escape(part_name), tool=tool, dest=TEMPLATE)
+    except Exception:
+        return None
 
 
 def set_default_tool(tool):
@@ -3950,10 +4002,10 @@ def set_default_tool(tool):
 
 
 # Create the default Circuit object that will be used unless another is explicitly created.
-__builtin__.default_circuit = None
-__builtin__.NC = None
-__builtin__.default_circuit = Circuit()
-__builtin__.NC = default_circuit.NC  # NOCONNECT net for attaching pins that are intentionally left open.
+builtins.default_circuit = None
+builtins.NC = None
+builtins.default_circuit = Circuit()
+builtins.NC = default_circuit.NC  # NOCONNECT net for attaching pins that are intentionally left open.
 
 # Create calls to functions on whichever Circuit object is the current default.
 ERC = default_circuit.ERC
