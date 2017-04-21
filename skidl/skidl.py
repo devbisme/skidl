@@ -3487,7 +3487,7 @@ class Circuit(object):
 
     def add_parts_nets_buses(self, *parts_nets_buses):
         """Add Parts, Nets and Buses to the circuit."""
-        for pnb in parts_nets_buses:
+        for pnb in _flatten(parts_nets_buses):
             if isinstance(pnb, Part):
                 self.add_parts(pnb)
             elif isinstance(pnb, Net):
@@ -3501,7 +3501,7 @@ class Circuit(object):
 
     def rmv_parts_nets_buses(self, *parts_nets_buses):
         """Add Parts, Nets and Buses to the circuit."""
-        for pnb in parts_nets_buses:
+        for pnb in _flatten(parts_nets_buses):
             if isinstance(pnb, Part):
                 self.rmv_parts(pnb)
             elif isinstance(pnb, Net):

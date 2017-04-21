@@ -179,6 +179,18 @@ def test_circuit_add_rmv_2():
     assert len(circuit1.nets) == 1 # Add 1 for NC
     assert len(circuit2.nets) == len(bus) + 1 # Add 1 for NC
 
+def test_circuit_add_rmv_3():
+    circuit = Circuit()
+    r = Part('device', 'R')
+    c = Part('device', 'C')
+    n = Net('N')
+    bus = Bus('B', 8)
+    circuit += r, c, bus, n
+    circuit += r, c, bus, n  # Shouldn't do anything since these are already in the circuit.
+    assert len(circuit.nets) == len(bus) + 1 + 1 # Add 1 for NC
+    assert len(circuit.parts) == 2
+    assert len(circuit.buses) == 1
+
 def test_circuit_connect_btwn_circuits_1():
     circuit1 = Circuit()
     circuit2 = Circuit()
