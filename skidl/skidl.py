@@ -3392,6 +3392,40 @@ class Circuit(object):
                     part.circuit = self  # Record the Circuit object the part belongs to.
                     part.ref = part.ref  # This adjusts the part reference if necessary.
                     part.hierarchy = self.hierarchy  # Tag the part with its hierarchy position.
+
+                    # To determine where this part was created, trace the function
+                    # calls that led to this part and place into a field
+                    # but strip off all the calls to internal SKiDL functions.
+                    call_stack = inspect.stack()  # Get function call stack.
+                    # Use the function at the top of the stack to
+                    # determine the location of the SKiDL library functions.
+                    try:
+                        skidl_dir, _ = os.path.split(call_stack[0].filename)
+                    except AttributeError:
+                        skidl_dir, _ = os.path.split(call_stack[0][1])
+                    # Record file_name#line_num starting from the bottom of the stack
+                    # and terminate as soon as a function is found that's in the
+                    # SKiDL library (no use recording internal calls).
+                    skidl_trace = []
+                    for frame in reversed(call_stack):
+                        try:
+                            filename = frame.filename
+                            lineno = frame.lineno
+                        except AttributeError:
+                            filename = frame[1]
+                            lineno = frame[2]
+                        if os.path.split(filename)[0] == skidl_dir:
+                            # Found function in SKiDL library, so trace is complete.
+                            break
+                        # Get the absolute path to the file containing the function
+                        # and the line number of the call in the file. Append these
+                        # to the trace.
+                        filepath = os.path.abspath(filename)
+                        skidl_trace.append('#'.join((filepath, str(lineno))))
+                    # Store the function call trace into a part field.
+                    if skidl_trace:
+                        part.skidl_trace = ';'.join(skidl_trace)
+
                     self.parts.append(part)
 
                 else:

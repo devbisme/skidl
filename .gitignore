@@ -43,3 +43,5 @@ output/*/index.html
 *.log
 .cache
 uno_r3
+
+*.erc
