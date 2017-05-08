@@ -3961,7 +3961,10 @@ def search(term, tool=None):
 
         for lib_dir in lib_search_paths[tool]:
             # Get all the library files in the search path.
-            lib_files = os.listdir(lib_dir)
+            try:
+                lib_files = os.listdir(lib_dir)
+            except OSError:
+                continue
             lib_files = [l for l in lib_files if l.endswith(lib_suffixes[tool])]
 
             parts = set() # Set of parts and their containing libraries found with the term.
