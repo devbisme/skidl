@@ -29,6 +29,7 @@ with open('HISTORY.rst') as history_file:
 requirements = [
     'future >= 0.15.0',
     'pyparsing',
+    'graphviz',
     # TODO: put package requirements here
 ]
 

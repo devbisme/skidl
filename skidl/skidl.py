@@ -69,6 +69,7 @@ from importlib import import_module
 from copy import deepcopy, copy
 from pprint import pprint
 import time
+import graphviz
 
 from .pckg_info import __version__
 from .py_2_3 import *
@@ -3836,6 +3837,21 @@ class Circuit(object):
     def _gen_xml_skidl(self):
         logger.error("Can't generate XML in SKiDL format!")
 
+    def generate_graph(self):
+        dot = graphviz.Digraph()
+        dot.attr(rankdir='LR')
+
+        for p in self.parts:
+            dot.node(p.ref, shape='rectangle')
+        for code, n in enumerate(self._get_nets()):
+            dot.node(n.name, shape='point', style='invisible', xlabel=n.name)
+            for pin in n.pins:
+                dot.edge(pin.part.ref, n.name, dir='none')
+
+        return dot
+
+
+
     def backup_parts(self, file=None):
         """
         Saves parts in circuit as a SKiDL library in a file.
@@ -4050,6 +4066,7 @@ builtins.NC = default_circuit.NC  # NOCONNECT net for attaching pins that are in
 ERC = default_circuit.ERC
 generate_netlist = default_circuit.generate_netlist
 generate_xml = default_circuit.generate_xml
+generate_graph = default_circuit.generate_graph
 backup_parts = default_circuit.backup_parts
 
 # Define a tag for nets that convey power (e.g., VCC or GND).
