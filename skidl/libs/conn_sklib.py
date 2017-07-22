@@ -3,7 +3,7 @@ from skidl import Pin, Part, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 conn = SchLib(tool=SKIDL).add_parts(*[
-        Part(name='BARREL_JACK',dest=TEMPLATE,tool=SKIDL,keywords='DC power barrel jack connector',description='DCÂ Barrel Jack',ref_prefix='J',num_units=1,do_erc=True,pins=[
+        Part(name='BARREL_JACK',dest=TEMPLATE,tool=SKIDL,keywords='DC power barrel jack connector',description='DCÃ‚ Barrel Jack',ref_prefix='J',num_units=1,do_erc=True,pins=[
             Pin(num='1',name='~',func=Pin.PASSIVE,do_erc=True),
             Pin(num='2',name='~',func=Pin.PASSIVE,do_erc=True),
             Pin(num='3',name='~',func=Pin.PASSIVE,do_erc=True)]),
