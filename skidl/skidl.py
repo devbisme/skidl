@@ -3837,17 +3837,22 @@ class Circuit(object):
     def _gen_xml_skidl(self):
         logger.error("Can't generate XML in SKiDL format!")
 
-    def generate_graph(self):
-        dot = graphviz.Digraph()
-        dot.attr(rankdir='LR')
+    def generate_graph(self, file=None, rankdir=None, engine='neato',
+                       part_shape='rectangle', net_shape='point',
+                       splines=None):
+        dot = graphviz.Digraph(engine=engine)
+        dot.attr(rankdir=rankdir, splines=splines)
 
         for p in self.parts:
-            dot.node(p.ref, shape='rectangle')
-        for code, n in enumerate(self._get_nets()):
-            dot.node(n.name, shape='point', style='invisible', xlabel=n.name)
+            dot.node(p.ref, shape=part_shape)
+
+        for n in self._get_nets():
+            dot.node(n.name, shape=net_shape, style='invisible', xlabel=n.name)
             for pin in n.pins:
                 dot.edge(pin.part.ref, n.name, dir='none')
 
+        if file is not None:
+            dot.save(file)
         return dot
 
 
