@@ -779,6 +779,7 @@ class SchLib(object):
             raise Exception('No SchLib object found in {}'.format(filename))
 
         except Exception as e:
+            logger.error('Problem with {}'.format(f))
             logger.error(e)
             raise Exception
 
