@@ -3837,9 +3837,9 @@ class Circuit(object):
     def _gen_xml_skidl(self):
         logger.error("Can't generate XML in SKiDL format!")
 
-    def generate_graph(self, file=None, rankdir='LR', engine='neato',
+    def generate_graph(self, file=None, engine='neato', rankdir='LR',
                        part_shape='rectangle', net_shape='point',
-                       splines=None, show_values=True):
+                       splines=None, show_values=True, show_anon=False):
         """
         Returns a graphviz graph as graphviz object and can also write it to a file/stream.
         When used in ipython the graphviz object will drawn as an SVG in the output.
@@ -3848,12 +3848,13 @@ class Circuit(object):
 
         Args:
             file: A string containing a file name, or None.
-            rankdir: See graphviz documentation
             engine: See graphviz documentation
+            rankdir: See graphviz documentation
             part_shape: Shape of the part nodes
             net_shape: Shape of the net nodes
             splines: Style for the edges, try 'ortho' for a schematic like feel
             show_values: Show values as external labels on part nodes
+            show_anon: Show anonymous net names
 
         Returns:
             graphviz.Digraph
@@ -3873,7 +3874,10 @@ class Circuit(object):
         nets = gnds + nets
 
         for n in nets:
-            dot.node(n.name, shape=net_shape, xlabel=n.name)
+            xlabel = n.name
+            if not show_anon and n._is_implicit():
+                xlabel= None
+            dot.node(n.name, shape=net_shape, xlabel=xlabel)
             for pin in n.pins:
                 dot.edge(pin.part.ref, n.name, arrowhead='none')
 
