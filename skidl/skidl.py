@@ -3840,15 +3840,32 @@ class Circuit(object):
     def generate_graph(self, file=None, rankdir='LR', engine='neato',
                        part_shape='rectangle', net_shape='point',
                        splines=None):
+        """
+        Returns a graphviz graph as graphviz object and can also write it to a file/stream.
+        When used in ipython the graphviz object will drawn as an SVG in the output.
+
+        See https://graphviz.readthedocs.io/en/stable/ and http://graphviz.org/doc/info/attrs.html
+
+        Args:
+            file: A string containing a file name, or None.
+            rankdir: See graphviz documentation
+            engine: See graphviz documentation
+            part_shape: Shape of the part nodes
+            net_shape: Shape of the net nodes
+            splines: Style for the edges, try 'ortho' for a schematic like feel
+
+        Returns:
+            graphviz.Digraph
+        """
         dot = graphviz.Digraph(engine=engine)
         dot.attr(rankdir=rankdir, splines=splines)
 
         nets = self._get_nets()
 
-        #try and keep things in the same order
+        # try and keep things in the same order
         nets.sort(key=lambda n: n.name.lower())
 
-        #try and keep gnds at start so they appear at bottom with 'neato' engine
+        # try and keep gnds at start so they appear at bottom with 'neato' engine
         r = re.compile('gnd', re.IGNORECASE)
         gnds = [n for n in nets if r.match(n.name) is not None]
         nets = [n for n in nets if r.match(n.name) is None]
