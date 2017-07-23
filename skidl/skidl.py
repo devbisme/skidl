@@ -3837,19 +3837,30 @@ class Circuit(object):
     def _gen_xml_skidl(self):
         logger.error("Can't generate XML in SKiDL format!")
 
-    def generate_graph(self, file=None, rankdir=None, engine='neato',
+    def generate_graph(self, file=None, rankdir='LR', engine='neato',
                        part_shape='rectangle', net_shape='point',
                        splines=None):
         dot = graphviz.Digraph(engine=engine)
         dot.attr(rankdir=rankdir, splines=splines)
 
-        for p in self.parts:
-            dot.node(p.ref, shape=part_shape)
+        nets = self._get_nets()
 
-        for n in self._get_nets():
-            dot.node(n.name, shape=net_shape, style='invisible', xlabel=n.name)
+        #try and keep things in the same order
+        nets.sort(key=lambda n: n.name.lower())
+
+        #try and keep gnds at start so they appear at bottom with 'neato' engine
+        r = re.compile('gnd', re.IGNORECASE)
+        gnds = [n for n in nets if r.match(n.name) is not None]
+        nets = [n for n in nets if r.match(n.name) is None]
+        nets = gnds + nets
+
+        for n in nets:
+            dot.node(n.name, shape=net_shape, xlabel=n.name)
             for pin in n.pins:
-                dot.edge(pin.part.ref, n.name, dir='none')
+                dot.edge(pin.part.ref, n.name, arrowhead='none')
+
+        for p in sorted(self.parts, key=lambda p: p.ref.lower()):
+            dot.node(p.ref, shape=part_shape)
 
         if file is not None:
             dot.save(file)
