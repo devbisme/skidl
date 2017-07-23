@@ -3839,7 +3839,7 @@ class Circuit(object):
 
     def generate_graph(self, file=None, rankdir='LR', engine='neato',
                        part_shape='rectangle', net_shape='point',
-                       splines=None):
+                       splines=None, show_values=True):
         """
         Returns a graphviz graph as graphviz object and can also write it to a file/stream.
         When used in ipython the graphviz object will drawn as an SVG in the output.
@@ -3853,6 +3853,7 @@ class Circuit(object):
             part_shape: Shape of the part nodes
             net_shape: Shape of the net nodes
             splines: Style for the edges, try 'ortho' for a schematic like feel
+            show_values: Show values as external labels on part nodes
 
         Returns:
             graphviz.Digraph
@@ -3877,7 +3878,10 @@ class Circuit(object):
                 dot.edge(pin.part.ref, n.name, arrowhead='none')
 
         for p in sorted(self.parts, key=lambda p: p.ref.lower()):
-            dot.node(p.ref, shape=part_shape)
+            xlabel = None
+            if show_values:
+                xlabel = p.value
+            dot.node(p.ref, shape=part_shape, xlabel=xlabel)
 
         if file is not None:
             dot.save(file)
