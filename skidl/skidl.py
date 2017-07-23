@@ -3867,12 +3867,6 @@ class Circuit(object):
         # try and keep things in the same order
         nets.sort(key=lambda n: n.name.lower())
 
-        # try and keep gnds at start so they appear at bottom with 'neato' engine
-        r = re.compile('gnd', re.IGNORECASE)
-        gnds = [n for n in nets if r.match(n.name) is not None]
-        nets = [n for n in nets if r.match(n.name) is None]
-        nets = gnds + nets
-
         for n in nets:
             xlabel = n.name
             if not show_anon and n._is_implicit():
