@@ -55,12 +55,12 @@ def _parse_netlist_kicad(text):
                 )(keyword)
 
     #++++++++++++++++++++++++++++ Parser Definition +++++++++++++++++++++++++++
+
     # Basic elements.
     word = Word(alphas)
     inum = Word(nums)
     fnum = Word(nums) + Optional(Literal('.') + Optional(Word(nums)))
-    string = ZeroOrMore(White()).suppress() + CharsNotIn('()') + ZeroOrMore(White(
-    )).suppress()
+    string = ZeroOrMore(White()).suppress() + CharsNotIn('()') + ZeroOrMore(White()).suppress()
     qstring = dblQuotedString() ^ sglQuotedString()
     qstring.addParseAction(removeQuotes)
     anystring = qstring ^ string
@@ -81,13 +81,12 @@ def _parse_netlist_kicad(text):
     comment = Group(_paren_clause('comment', number & value))
     comments = Group(OneOrMore(comment))('comments')
     title_block = _paren_clause('title_block', Optional(title) &
-                                Optional(company) & Optional(rev) &
-                                Optional(date) & Optional(source) & comments)
-    sheet = Group(_paren_clause('sheet', number + name + tstamps + Optional(
-        title_block)))
+                        Optional(company) & Optional(rev) &
+                        Optional(date) & Optional(source) & comments)
+    sheet = Group(_paren_clause('sheet', number + name + tstamps + Optional(title_block)))
     sheets = Group(OneOrMore(sheet))('sheets')
     design = _paren_clause('design', Optional(source) & Optional(date) &
-                           Optional(tool) & Optional(sheets))
+                        Optional(tool) & Optional(sheets))
 
     # Components section.
     ref = _paren_clause('ref', anystring)
@@ -99,7 +98,9 @@ def _parse_netlist_kicad(text):
     footprint = _paren_clause('footprint', anystring)
     libsource = _paren_clause('libsource', lib & part)
     sheetpath = _paren_clause('sheetpath', names & tstamps)
-    comp = Group(_paren_clause('comp', ref & value & Optional(datasheet) & Optional(fields) & Optional(libsource) & Optional(footprint) & Optional(sheetpath) & Optional(tstamp)))
+    comp = Group(_paren_clause('comp', ref & value & Optional(datasheet) & 
+                    Optional(fields) & Optional(libsource) & Optional(footprint) & 
+                    Optional(sheetpath) & Optional(tstamp)))
     components = _paren_clause('components', ZeroOrMore(comp))
 
     # Part library section.
@@ -136,8 +137,8 @@ def _parse_netlist_kicad(text):
     version = _paren_clause('version', word)
     end_of_file = ZeroOrMore(White()) + stringEnd
     parser = _paren_clause('export', version +
-                            (design & components & Optional(libparts) & Optional(libraries) & nets
-                             ))('netlist') + end_of_file.suppress()
+                (design & components & Optional(libparts) & Optional(libraries) & nets
+                ))('netlist') + end_of_file.suppress()
 
     return parser.parseString(text)
 
