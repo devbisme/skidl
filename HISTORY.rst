@@ -4,6 +4,12 @@ History
 -------
 
 
+0.0.13 (2017-08-20)
+______________________
+
+* Fixed problem where the search function was only returning parts found in the last library searched.
+
+
 0.0.12 (2017-04-20)
 ______________________
 

@@ -3959,15 +3959,16 @@ def search(term, tool=None):
     def search_libraries(term, tool):
         """Search for a regex term in part libraries."""
 
+        parts = set() # Set of parts and their containing libraries found with the term.
+
         for lib_dir in lib_search_paths[tool]:
+            print('lib_dir = {}'.format(lib_dir))
             # Get all the library files in the search path.
             try:
                 lib_files = os.listdir(lib_dir)
             except OSError:
                 continue
             lib_files = [l for l in lib_files if l.endswith(lib_suffixes[tool])]
-
-            parts = set() # Set of parts and their containing libraries found with the term.
 
             for lib_file in lib_files:
                 print(' '*79, '\rSearching {} ...'.format(lib_file), end = '\r')
