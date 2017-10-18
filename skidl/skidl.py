@@ -3957,10 +3957,7 @@ def SubCircuit(f):
         # they may direct the function as to what parts and nets get created.
         # Store any results it returns as a list. These results are user-specific
         # and have no effect on the mechanics of adding parts or nets.
-        try:
-            results = f(*args, **kwargs)
-        except Exception:
-            logger.exception("Serious error! Can't continue.")
+        results = f(*args, **kwargs)
 
         # Restore the context that existed before the subcircuitry was
         # created. This does not remove the circuitry since it has already been
