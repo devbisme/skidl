@@ -69,6 +69,7 @@ from importlib import import_module
 from copy import deepcopy, copy
 from pprint import pprint
 import time
+import graphviz
 
 from .pckg_info import __version__
 from .py_2_3 import *
@@ -779,6 +780,7 @@ class SchLib(object):
             raise Exception('No SchLib object found in {}'.format(filename))
 
         except Exception as e:
+            logger.error('Problem with {}'.format(f))
             logger.error(e)
             raise Exception
 
@@ -3836,6 +3838,56 @@ class Circuit(object):
     def _gen_xml_skidl(self):
         logger.error("Can't generate XML in SKiDL format!")
 
+    def generate_graph(self, file=None, engine='neato', rankdir='LR',
+                       part_shape='rectangle', net_shape='point',
+                       splines=None, show_values=True, show_anon=False):
+        """
+        Returns a graphviz graph as graphviz object and can also write it to a file/stream.
+        When used in ipython the graphviz object will drawn as an SVG in the output.
+
+        See https://graphviz.readthedocs.io/en/stable/ and http://graphviz.org/doc/info/attrs.html
+
+        Args:
+            file: A string containing a file name, or None.
+            engine: See graphviz documentation
+            rankdir: See graphviz documentation
+            part_shape: Shape of the part nodes
+            net_shape: Shape of the net nodes
+            splines: Style for the edges, try 'ortho' for a schematic like feel
+            show_values: Show values as external labels on part nodes
+            show_anon: Show anonymous net names
+
+        Returns:
+            graphviz.Digraph
+        """
+        dot = graphviz.Digraph(engine=engine)
+        dot.attr(rankdir=rankdir, splines=splines)
+
+        nets = self._get_nets()
+
+        # try and keep things in the same order
+        nets.sort(key=lambda n: n.name.lower())
+
+        for n in nets:
+            xlabel = n.name
+            if not show_anon and n._is_implicit():
+                xlabel= None
+            dot.node(n.name, shape=net_shape, xlabel=xlabel)
+            for pin in n.pins:
+                dot.edge(pin.part.ref, n.name, arrowhead='none')
+
+        for p in sorted(self.parts, key=lambda p: p.ref.lower()):
+            xlabel = None
+            if show_values:
+                xlabel = p.value
+            dot.node(p.ref, shape=part_shape, xlabel=xlabel)
+
+        if file is not None:
+            dot.save(file)
+        return dot
+
+
+
     def backup_parts(self, file=None):
         """
         Saves parts in circuit as a SKiDL library in a file.
@@ -3905,10 +3957,7 @@ def SubCircuit(f):
         # they may direct the function as to what parts and nets get created.
         # Store any results it returns as a list. These results are user-specific
         # and have no effect on the mechanics of adding parts or nets.
-        try:
-            results = f(*args, **kwargs)
-        except Exception:
-            logger.exception("Serious error! Can't continue.")
+        results = f(*args, **kwargs)
 
         # Restore the context that existed before the subcircuitry was
         # created. This does not remove the circuitry since it has already been
@@ -4051,6 +4100,7 @@ builtins.NC = default_circuit.NC  # NOCONNECT net for attaching pins that are in
 ERC = default_circuit.ERC
 generate_netlist = default_circuit.generate_netlist
 generate_xml = default_circuit.generate_xml
+generate_graph = default_circuit.generate_graph
 backup_parts = default_circuit.backup_parts
 
 # Define a tag for nets that convey power (e.g., VCC or GND).
