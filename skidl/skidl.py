@@ -51,26 +51,28 @@ from builtins import object
 from future import standard_library
 standard_library.install_aliases()
 
+try:
+    import __builtin__ as builtins
+except ImportError:
+    import builtins
+
 import sys
 import os
 import os.path
 import re
+import collections
 import logging
 import shlex
 import inspect
+import traceback
+from importlib import import_module
 from copy import deepcopy, copy
 from pprint import pprint
 import time
-import pdb
+import graphviz
 
 from .pckg_info import __version__
 from .py_2_3 import *
-
-THIS_MODULE = locals()
-
-# Supported ECAD tools.
-# KICAD, EAGLE = ['kicad', 'eagle']
-KICAD, = ['kicad',]
 
 # Places where parts can be stored.
 #   NETLIST: The part will become part of a circuit netlist.
@@ -85,15 +87,38 @@ BUS_PREFIX = 'B$'
 # Separator for strings containing multiple indices.
 INDEX_SEPARATOR = ','
 
-# These are the paths to search for KiCad libraries.
+# Supported ECAD tools.
+KICAD, SKIDL = ['kicad', 'skidl']
+DEFAULT_TOOL = KICAD
+
+
+##############################################################################
+
+# These are the paths to search for part libraries of the ECAD tools.
+# Start off with a path that allows absolute file names, and then searches
+# within the current directory.
+lib_search_paths = {
+    KICAD: ['', '.'],
+    SKIDL: ['', '.']
+}
+
+# Add the location of the default KiCad schematic part libs to the search path.
 try:
-    _sch_lib_dir_kicad = os.path.join(os.environ['KISYSMOD'], '..', 'library')
+    lib_search_paths[KICAD].append( os.path.join(os.environ['KISYSMOD'], '..', 'library') )
 except KeyError:
     logging.warning("KISYSMOD environment variable is missing, so default KiCad libraries won't be searched.")
-    _sch_lib_dir_kicad = ''
 
-lib_search_paths_kicad = ['.', _sch_lib_dir_kicad]
+# Add the location of the default SKiDL part libraries.
+import skidl.libs
+lib_search_paths[SKIDL].append( skidl.libs.__path__[0] )
 
+lib_suffixes = {
+    KICAD: '.lib',
+    SKIDL: '_sklib.py'
+}
+
+
+##############################################################################
 
 def _scriptinfo():
     """
@@ -147,6 +172,27 @@ def _get_script_name():
     return os.path.splitext(_scriptinfo()['name'])[0]
 
 
+# Definitions for backup library of circuit parts.
+BACKUP_LIB_NAME = _get_script_name() + '_lib'
+BACKUP_LIB_FILE_NAME = BACKUP_LIB_NAME + lib_suffixes[SKIDL]
+QUERY_BACKUP_LIB = True
+CREATE_BACKUP_LIB = True
+backup_lib = None
+
+
+def norecurse(f):
+    """This decorator will keep function f from recursively calling itself."""
+    def func(*args, **kwargs):
+        # If a function's name is on the stack twice (once for the current call
+        # and a second time for the previous call), then return without
+        # executing the function.
+        if len([1 for l in traceback.extract_stack() if l[2] == f.__name__]) > 1:
+            return None
+
+        # Otherwise, not a recursive call so execute the function and return result.
+        return f(*args, **kwargs)
+    return func
+
 class _CountCalls(object):
     """
     Decorator for counting the number of times a function is called.
@@ -162,6 +208,7 @@ class _CountCalls(object):
     def __call__(self, *args, **kwargs):
         self.count += 1
         return self.func(*args, **kwargs)
+
 
 # Set up logging.
 logger = logging.getLogger('skidl')
@@ -192,7 +239,7 @@ def _find_and_open_file(filename, paths=None, ext=None, allow_failure=False):
         paths = ['.']
 
     # If the filename has no extension, then give it one.
-    if not os.path.splitext(filename)[1]:
+    if ext and not filename.endswith(ext):
         filename += ext
 
     # Search the paths for the file.
@@ -209,7 +256,7 @@ def _find_and_open_file(filename, paths=None, ext=None, allow_failure=False):
     if allow_failure:
         return None
     else:
-        logger.error("Can't open file: {}\n".format(filename))
+        logger.error("Can't open file: {}.\n".format(filename))
         raise FileNotFoundError
 
 def _add_quotes(s):
@@ -228,6 +275,9 @@ def _to_list(x):
         return x  # Already a list, so just return it.
     return [x]  # Wasn't a list, so make it into one.
 
+def cnvt_to_var_name(s):
+    """Convert a string to a legal Python variable name and return it."""
+    return re.sub('\W|^(?=\d)', '_', s)
 
 def _list_or_scalar(lst):
     """
@@ -501,7 +551,7 @@ def _expand_indices(slice_min, slice_max, *indices):
             for id in indx.split(INDEX_SEPARATOR):
                 ids.append(id.strip())
         else:
-            logger.error('Unknown type in index: {}'.format(type(indx)))
+            logger.error('Unknown type in index: {}.'.format(type(indx)))
             raise Exception
 
     # Return the completely expanded list of indices.
@@ -551,7 +601,7 @@ def _find_num_copies(**attribs):
 ##############################################################################
 
 
-class _SchLib(object):
+class SchLib(object):
     """
     A class for storing parts from a schematic component library file.
 
@@ -571,38 +621,47 @@ class _SchLib(object):
     # for fast loading of libraries.
     _cache = {}
 
-    def __init__(self, filename=None, tool=KICAD, **attribs):
+    def __init__(self, filename=None, tool=None, **attribs):
         """
         Load the parts from a library file.
         """
 
-        self.filename = filename
+        if tool is None:
+            tool = DEFAULT_TOOL
+
+        # Library starts off empty of parts.
         self.parts = []
+
+        # Attach attributes to the library.
+        for k, v in attribs.items():
+            setattr(self, k, v)
+
+        # If no filename, create an empty library.
+        if not filename:
+            pass
 
         # Load this SchLib with an existing SchLib object if the file name
         # matches one in the cache.
-        if filename in self._cache:
+        elif filename in self._cache:
             self.__dict__.update(self._cache[filename].__dict__)
 
         # Otherwise, load from a schematic library file.
         else:
             try:
                 # Use the tool name to find the function for loading the library.
-                func_name = '_load_sch_lib_{}'.format(tool)
-                load_func = self.__class__.__dict__[func_name]
-                search_paths_name = 'lib_search_paths_{}'.format(tool)
-                lib_search_paths = THIS_MODULE[search_paths_name]
-                load_func(self, filename, lib_search_paths)
+                load_func = getattr(self, '_load_sch_lib_{}'.format(tool))
+                load_func(filename, lib_search_paths[tool])
+                self.filename = filename
                 # Cache a reference to the library.
                 self._cache[filename] = self
-            except KeyError:
+            except AttributeError:
                 # OK, that didn't work so well...
-                logger.error('Unsupported ECAD tool library: {}'.format(tool))
+                logger.error('Unsupported ECAD tool library: {}.'.format(tool))
                 raise Exception
 
-        # Attach additional attributes to the library.
-        for k, v in attribs.items():
-            setattr(self, k, v)
+    @classmethod
+    def _reset(cls):
+        cls._cache = {}
 
     def _load_sch_lib_kicad(self, filename=None, lib_search_paths=None):
         """
@@ -614,14 +673,17 @@ class _SchLib(object):
 
         # Try to open the file. Add a .lib extension if needed. If the file
         # doesn't open, then try looking in the KiCad library directory.
-        f = _find_and_open_file(filename, lib_search_paths, '.lib')
+        f = _find_and_open_file(filename, lib_search_paths, lib_suffixes[KICAD], allow_failure=True)
+        if not f:
+            logger.warning('Unable to open KiCad Schematic Library File {}.\n'.format(filename))
+            return
 
         # Check the file header to make sure it's a KiCad library.
         header = []
         header = [f.readline()]
         if header and 'EESchema-LIBRARY' not in header[0]:
             logger.error(
-                'The file {} is not a KiCad Schematic Library File\n'.format(
+                'The file {} is not a KiCad Schematic Library File.\n'.format(
                     filename))
             return
 
@@ -649,9 +711,7 @@ class _SchLib(object):
                 # indicate that the Part object is being added to a library
                 # and not to a schematic netlist.
                 if line.startswith('ENDDEF'):
-                    self.parts.append(Part(part_defn=part_defn,
-                                           tool=KICAD,
-                                           dest=LIBRARY))
+                    self.add_parts(Part(part_defn=part_defn, tool=KICAD, dest=LIBRARY))
 
                     # Clear the part definition in preparation for the next one.
                     part_defn = []
@@ -690,9 +750,53 @@ class _SchLib(object):
                     part_desc = {}
                 else:
                     pass
-            
 
-    def get_parts(self, **criteria):
+    def _load_sch_lib_skidl(self, filename=None, lib_search_paths=None):
+        """
+        Load the parts from a SKiDL schematic library file.
+
+        Args:
+            filename: The name of the SKiDL schematic library file.
+        """
+
+        f = _find_and_open_file(filename, lib_search_paths, lib_suffixes[SKIDL], allow_failure=True)
+        if not f:
+            logger.warning('Unable to open SKiDL Schematic Library File {}.\n'.format(filename))
+            return
+        try:
+            # The SKiDL library is stored as a Python module that's executed to
+            # recreate the library object.
+            vars = {}  # Empty dictionary for storing library object.
+            exec(f.read(), vars)  # Execute and store library in dict.
+
+            # Now look through the dict to find the library object.
+            for v, val in vars.items():
+                if isinstance(val, SchLib):
+                    # Overwrite self with the new library.
+                    self.__dict__.update(val.__dict__)
+                    return
+
+            # Oops! No library object. Something went wrong.
+            raise Exception('No SchLib object found in {}'.format(filename))
+
+        except Exception as e:
+            logger.error('Problem with {}'.format(f))
+            logger.error(e)
+            raise Exception
+
+    def add_parts(self, *parts):
+        """Add one or more parts to a library."""
+        for part in _flatten(parts):
+            # Parts with the same name are not allowed in the library.
+            # Also, do not check the backup library to see if the parts
+            # are in there because that's probably a different library.
+            if not self.get_parts(use_backup_lib=False, name = re.escape(part.name)):
+                self.parts.append(part.copy(dest=TEMPLATE))
+        return self
+
+    __iadd__ = add_parts
+
+    def get_parts(self, use_backup_lib=True, **criteria):
         """
         Return parts from a library that match *all* the given criteria.
 
@@ -702,8 +806,16 @@ class _SchLib(object):
                 of the attribute.
 
         Returns:
-            A single Part or a list of Parts that match all the criteria.        """
-        return _list_or_scalar(_filter(self.parts, **criteria))
+            A single Part or a list of Parts that match all the criteria.        
+        """
+        parts = _list_or_scalar(_filter(self.parts, **criteria))
+        if not parts and use_backup_lib and QUERY_BACKUP_LIB:
+            try:
+                backup_lib = load_backup_lib()
+                parts = backup_lib.get_parts(use_backup_lib=False, **criteria)
+            except AttributeError:
+                pass
+        return parts
 
     def get_part_by_name(self, name, allow_multiples=False, silent=False):
         """
@@ -731,7 +843,7 @@ class _SchLib(object):
             if not parts:
                 if not silent:
                     logger.error('Unable to find part {} in library {}.'.format(
-                        name, self.filename))
+                        name, getattr(self, 'filename', 'UNKNOWN')))
                 raise Exception
 
         # Multiple parts with that name or alias exists, so return the list
@@ -764,15 +876,53 @@ class _SchLib(object):
 
     def __str__(self):
         """Return a list of the part names in this library as a string."""
-        return '\n'.join([p.name for p in self.parts])
+        return '\n'.join(['{}: {}'.format(p.name, p.description) for p in self.parts])
 
     __repr__ = __str__
+
+    def export(self, libname, file=None, tool=None):
+        """
+        Export a library into a file.
+
+        Args:
+            libname: A string containing the name of the library.
+            file: The file the library will be exported to. It can either
+                be a file object or a string or None. If None, the file
+                will be the same as the library name with the library
+                suffix appended.
+            tool: The CAD tool library format to be used. Currently, this can
+                only be SKIDL.
+        """
+
+        def prettify(s):
+            """Breakup and indent library export string."""
+            s = re.sub(r'(Part\()', r'\n        \1', s)
+            s =  re.sub(r'(Pin\()', r'\n            \1', s)
+            return s
+
+        if tool is None:
+            tool = SKIDL
+
+        if not file:
+            file = libname + lib_suffixes[tool]
+
+        export_str = 'from skidl import Pin, Part, SchLib, SKIDL, TEMPLATE\n\n'
+        export_str += "SKIDL_lib_version = '0.0.1'\n\n"
+        part_export_str = ','.join([p.export() for p in self.parts])
+        export_str += '{} = SchLib(tool=SKIDL).add_parts(*[{}])'.format(cnvt_to_var_name(libname), part_export_str)
+        export_str = prettify(export_str)
+        try:
+            file.write(export_str)
+        except AttributeError:
+            with open(file, 'w') as f:
+                f.write(export_str)
 
     def __len__(self):
         """
         Return number of parts in library.
         """
         return len(self.parts)
+
 
 ##############################################################################
 
@@ -812,46 +962,57 @@ class Pin(object):
     #   rcv_max: The maximum amount of drive the pin can receive and still function.
     pin_info = {
         INPUT: {'function': 'INPUT',
+                'func_str': 'INPUT',
                 'drive': NO_DRIVE,
                 'max_rcv': POWER_DRIVE,
                 'min_rcv': PASSIVE_DRIVE, },
         OUTPUT: {'function': 'OUTPUT',
+                 'func_str': 'OUTPUT',
                  'drive': PUSHPULL_DRIVE,
                  'max_rcv': PASSIVE_DRIVE,
                  'min_rcv': NO_DRIVE, },
         BIDIR: {'function': 'BIDIRECTIONAL',
+                'func_str': 'BIDIR',
                 'drive': TRISTATE_DRIVE,
                 'max_rcv': POWER_DRIVE,
                 'min_rcv': NO_DRIVE, },
         TRISTATE: {'function': 'TRISTATE',
+                   'func_str': 'TRISTATE',
                    'drive': TRISTATE_DRIVE,
                    'max_rcv': TRISTATE_DRIVE,
                    'min_rcv': NO_DRIVE, },
         PASSIVE: {'function': 'PASSIVE',
+                  'func_str': 'PASSIVE',
                   'drive': PASSIVE_DRIVE,
                   'max_rcv': POWER_DRIVE,
                   'min_rcv': NO_DRIVE, },
         UNSPEC: {'function': 'UNSPECIFIED',
+                 'func_str': 'UNSPEC',
                  'drive': NO_DRIVE,
                  'max_rcv': POWER_DRIVE,
                  'min_rcv': NO_DRIVE, },
         PWRIN: {'function': 'POWER-IN',
+                'func_str': 'PWRIN',
                 'drive': NO_DRIVE,
                 'max_rcv': POWER_DRIVE,
                 'min_rcv': POWER_DRIVE, },
         PWROUT: {'function': 'POWER-OUT',
+                 'func_str': 'PWROUT',
                  'drive': POWER_DRIVE,
                  'max_rcv': PASSIVE_DRIVE,
                  'min_rcv': NO_DRIVE, },
         OPENCOLL: {'function': 'OPEN-COLLECTOR',
+                   'func_str': 'OPENCOLL',
                    'drive': ONESIDE_DRIVE,
                    'max_rcv': TRISTATE_DRIVE,
                    'min_rcv': NO_DRIVE, },
         OPENEMIT: {'function': 'OPEN-EMITTER',
+                   'func_str': 'OPENEMIT',
                    'drive': ONESIDE_DRIVE,
                    'max_rcv': TRISTATE_DRIVE,
                    'min_rcv': NO_DRIVE, },
         NOCONNECT: {'function': 'NO-CONNECT',
+                    'func_str': 'NOCONNECT',
                     'drive': NOCONNECT_DRIVE,
                     'max_rcv': NOCONNECT_DRIVE,
                     'min_rcv': NOCONNECT_DRIVE, },
@@ -860,6 +1021,8 @@ class Pin(object):
     def __init__(self, **attribs):
         self.nets = []
         self.part = None
+        self.name = ''
+        self.num = ''
         self.do_erc = True
 
         # Attach additional attributes to the pin.
@@ -922,9 +1085,7 @@ class Pin(object):
     __call__ = copy
 
     def _is_connected(self):
-        """
-        Return true if a pin is connected to a net (but not a no-connect net).
-        """
+        """Return true if a pin is connected to a net (but not a no-connect net)."""
         if not self.nets:
             # This pin is not connected to any nets.
             return False
@@ -943,11 +1104,11 @@ class Pin(object):
             logger.error('{} is connected to both normal and no-connect nets!'.format(self._erc_desc()))
             raise Exception
         # This is just strange...
-        logger.error("{} is connected to something strange: {}".format(
+        logger.error("{} is connected to something strange: {}.".format(
             self._erc_desc(), nets))
         raise Exception
 
-    def _is_attached(pin_net_bus):
+    def _is_attached(self, pin_net_bus):
         """Return true if this pin is attached to the given pin, net or bus."""
         if not self._is_connected():
             return False
@@ -999,8 +1160,8 @@ class Pin(object):
                     pn.nets[0] += self
                 else:
                     # Neither pin is connected to a net, so create a net
-                    # and attach both to it.
-                    Net().connect(self, pn)
+                    # in the same circuit as the pin and attach both to it.
+                    Net(circuit=self.part.circuit).connect(self, pn)
             elif isinstance(pn, Net):
                 # Connecting pin-to-net, so just connect the pin to the net.
                 pn += self
@@ -1055,6 +1216,24 @@ class Pin(object):
             name=pin_name,
             func=pin_func_str)
 
+    __repr__ = __str__
+
+    def export(self):
+        """Return a string to recreate a Pin object."""
+        attribs = []
+        for k in ['num', 'name', 'func', 'do_erc']:
+            v = getattr(self, k, None)
+            if v:
+                if k == 'func':
+                    # Assign the pin function using the actual name of the
+                    # function, not its numerical value (in case that changes
+                    # in the future if more pin functions are added). 
+                    v = 'Pin.' + Pin.pin_info[v]['func_str']
+                else:
+                    v = repr(v)
+                attribs.append('{}={}'.format(k,v))
+        return 'Pin({})'.format(','.join(attribs))
+
     @property
     def net(self):
         """Return one of the nets the pin is connected to."""
@@ -1062,7 +1241,21 @@ class Pin(object):
             return self.nets[0]
         return None
 
-    __repr__ = __str__
+##############################################################################
+
+
+class PhantomPin(Pin):
+    """
+    A pin type that exists solely to tie two pinless nets together.
+    It will not participate in generating any netlists.
+    """
+
+    def __init__(self, **attribs):
+        super(PhantomPin, self).__init__(**attribs)
+        self.nets = []
+        self.part = None
+        self.do_erc = False
+
 
 ##############################################################################
 
@@ -1118,13 +1311,14 @@ class Part(object):
         lib: Either a SchLib object or a schematic part library file name.
         name: A string with name of the part to find in the library, or to assign to
             the part defined by the part definition.
-        part_defn: A list of strings that define the part (usually read from a
-            schematic library file).
-        tool: The format for the library file or part definition (e.g., KICAD).
         dest: String that indicates where the part is destined for (e.g., LIBRARY).
+        tool: The format for the library file or part definition (e.g., KICAD).
         connections: A dictionary with part pin names/numbers as keys and the
             names of nets to which they will be connected as values. For example:
             { 'IN-':'a_in', 'IN+':'GND', '1':'AMPED_OUTPUT', '14':'VCC', '7':'GND' }
+        part_defn: A list of strings that define the part (usually read from a
+            schematic library file).
+        circuit: The Circuit object this Part belongs to.
 
     Keyword Args:
         attribs: Name/value pairs for setting attributes for the part.
@@ -1140,17 +1334,32 @@ class Part(object):
                  lib=None,
                  name=None,
                  dest=NETLIST,
-                 tool=KICAD,
+                 tool=None,
                  connections=None,
                  part_defn=None,
+                 circuit=None,
                  **attribs):
+
+        if tool is None:
+            tool = DEFAULT_TOOL
+
+        # Setup some part attributes that might be overwritten later on.
+        self.do_erc = True # Allow part to be included in ERC.
+        self.unit = {} # Dictionary for storing subunits of the part, if desired.
+        self.pins = [] # Start with no pins, but a place to store them.
+        self.name = name # Assign initial part name. (Must come after circuit is assigned.)
+        self.description = '' # Make sure there is a description, even if empty.
+        self._ref = '' # Provide a member for holding a reference.
+        self.ref_prefix = '' # Provide a member for holding the part reference prefix.
+        self.tool = tool # Initial type of part (SKIDL, KICAD, etc.)
+        self.circuit = None # Part starts off unassociated with any circuit.
 
         # Create a Part from a library entry.
         if lib:
             # If the lib argument is a string, then create a library using the
             # string as the library file name.
             if isinstance(lib, basestring):
-                lib = _SchLib(filename=lib, tool=tool)
+                lib = SchLib(filename=lib, tool=tool)
 
             # Make a copy of the part from the library but don't add it to the netlist.
             part = lib[name].copy(1, TEMPLATE)
@@ -1162,39 +1371,50 @@ class Part(object):
             self._associate_pins()
 
             # Store the library name of this part.
-            self.lib = lib.filename
+            self.lib = getattr(lib, 'filename', None)
 
         # Otherwise, create a Part from a part definition. If the part is
         # destined for a library, then just get its name. If it's going into
         # a netlist, then parse the entire part definition.
         elif part_defn:
-            self.tool = tool
             self.part_defn = part_defn
             self._parse(just_get_name=(dest != NETLIST))
 
+        # If the part is destined for a SKiDL library, then it will be defined
+        # by the additional attribute values that are passed.
+        elif tool == SKIDL and name:
+            pass
+            
         else:
             logger.error(
                 "Can't make a part without a library & part name or a part definition.")
             raise Exception
 
-        # Add additional attributes to the part.
-        for k, v in attribs.items():
-            setattr(self, k, v)
-
-        # Allow part to be included in ERC.
-        self.do_erc = True
-
-        # Dictionary for storing subunits of the part, if desired.
-        self.unit = {}
-
         # If the part is going to be an element in a circuit, then add it to the
         # the circuit and make any indicated pin/net connections.
         if dest != LIBRARY:
             if dest == NETLIST:
-                SubCircuit._add_part(self)
+                # If no Circuit object is given, then use the default Circuit that always exists.
+                # Always set circuit first because naming the part requires a lookup
+                # of existing names in the circuit.
+                if not circuit:
+                    circuit = default_circuit
+                circuit += self
+            elif dest == TEMPLATE:
+                # If this is just a part template, don't add the part to the circuit.
+                # Just place the reference to the Circuit object in the template.
+                if not circuit:
+                    self.circuit = default_circuit
+                self.circuit = circuit
+
+            # Add any net/pin connections to this part that were passed as arguments.
             if isinstance(connections, dict):
                 for pin, net in connections.items():
                     net += self[pin]
+
+            # Add any other passed-in attributes to the part.
+            for k, v in attribs.items():
+                setattr(self, k, v)
 
     def _find_min_max_pins(self):
         """ Return the minimum and maximum pin numbers for the part. """
@@ -1224,16 +1444,13 @@ class Part(object):
         """
 
         try:
-            parse_func = self.__class__.__dict__['_parse_{}'.format(self.tool)]
-            parse_func(self, just_get_name)
-        except KeyError:
+            parse_func = getattr(self, '_parse_{}'.format(self.tool))
+            parse_func(just_get_name)
+        except AttributeError:
             logger.error(
                 "Can't create a part with an unknown ECAD tool file format: {}.".format(
                     self.tool))
             raise Exception
-
-        # Find the minimum and maximum pin numbers for the part after parsing.
-        self.min_pin, self.max_pin = self._find_min_max_pins()
 
     def _parse_kicad(self, just_get_name=False):
         """
@@ -1305,6 +1522,17 @@ class Part(object):
         building_fplist = False  # True when working on footprint list in defn.
         building_draw = False  # True when gathering part drawing from defn.
 
+        # Always make sure there are drawing & footprint sections, even if the part doesn't have them.
+        self.draw = {
+            'arcs': [],
+            'circles': [],
+            'polylines': [],
+            'rectangles': [],
+            'texts': [],
+            'pins': []
+        }
+        self.fplist = []
+
         # Go through the part definition line-by-line.
         for line in self.part_defn:
 
@@ -1348,6 +1576,10 @@ class Part(object):
                         # No aliases found, so part name is all that's needed.
                         return
 
+            # End the parsing of the part definition.
+            elif line[0] == 'ENDDEF':
+                break
+
             # Create a dictionary of F0 part field keywords and values.
             elif line[0] == 'F0':
                 self.fields = []
@@ -1371,7 +1603,6 @@ class Part(object):
             # Start the list of part footprints.
             elif line[0] == '$FPLIST':
                 building_fplist = True
-                self.fplist = []
 
             # End the list of part footprints.
             elif line[0] == '$ENDFPLIST':
@@ -1380,14 +1611,6 @@ class Part(object):
             # Start gathering the drawing primitives for the part symbol.
             elif line[0] == 'DRAW':
                 building_draw = True
-                self.draw = {
-                    'arcs': [],
-                    'circles': [],
-                    'polylines': [],
-                    'rectangles': [],
-                    'texts': [],
-                    'pins': []
-                }
 
             # End the gathering of drawing primitives.
             elif line[0] == 'ENDDRAW':
@@ -1409,12 +1632,12 @@ class Part(object):
                                                                values))))
 
                     # Gather circles.
-                    if line[0] == 'C':
+                    elif line[0] == 'C':
                         self.draw['circles'].append(dict(list(zip(_CIRCLE_KEYS,
                                                                   values))))
 
                     # Gather polygons.
-                    if line[0] == 'P':
+                    elif line[0] == 'P':
                         n_points = int(line[1])
                         points = line[5:5 + (2 * n_points)]
                         values = line[1:5] + [points]
@@ -1426,21 +1649,31 @@ class Part(object):
                                                                     values))))
 
                     # Gather rectangles.
-                    if line[0] == 'S':
+                    elif line[0] == 'S':
                         self.draw['rectangles'].append(dict(list(zip(
                             _RECT_KEYS, values))))
 
                     # Gather text.
-                    if line[0] == 'T':
+                    elif line[0] == 'T':
                         self.draw['texts'].append(dict(list(zip(_TEXT_KEYS,
                                                                 values))))
 
                     # Gather the pin symbols. This is what we really want since
                     # this defines the names, numbers and attributes of the
                     # pins associated with the part.
-                    if line[0] == 'X':
+                    elif line[0] == 'X':
                         self.draw['pins'].append(dict(list(zip(_PIN_KEYS,
                                                                values))))
+
+                    # Found something unknown in the drawing section.
+                    else:
+                        msg = 'Found something strange in {} symbol drawing: {}.'.format(self.name, line)
+                        logger.warning(msg)
+
+                # Found something unknown outside the footprint list or drawing section.
+                else:
+                    msg = 'Found something strange in {} symbol definition: {}.'.format(self.name, line)
+                    logger.warning(msg)
 
         # Define some shortcuts to part information.
         self.num_units = int(
@@ -1486,6 +1719,16 @@ class Part(object):
         # part from being parsed more than once.
         self.part_defn = None
 
+    def _parse_skidl(self, just_get_name=False):
+        """
+        Create a Part using a part definition from a SKiDL library.
+        """
+
+        # Parts in a SKiDL library are already parsed and ready for use,
+        # so just return the part.
+        return self
+
+
     def _associate_pins(self):
         """
         Make sure all the pins in a part have valid references to the part.
@@ -1493,7 +1736,7 @@ class Part(object):
         for p in self.pins:
             p.part = self
 
-    def copy(self, num_copies=1, dest=NETLIST, **attribs):
+    def copy(self, num_copies=1, dest=NETLIST, circuit=None, **attribs):
         """
         Make zero or more copies of this part while maintaining all pin/net
         connections.
@@ -1546,10 +1789,9 @@ class Part(object):
 
             # The shallow copy will just put references to the pins of the
             # original into the copy, so create independent copies of the pins.
-            pin_copies = []
-            for p in self.pins:
-                pin_copies.append(p.copy())
-            self.pins = pin_copies
+            cpy.pins = []
+            for p in getattr(self, 'pins', None):
+                cpy.pins.append(p.copy())
 
             # Make sure all the pins have a reference to this new part copy.
             cpy._associate_pins()
@@ -1559,6 +1801,22 @@ class Part(object):
             # (This is not strictly necessary since the part reference will be
             # adjusted to be unique if needed during the addition process.)
             cpy._ref = None
+
+            # Copied part starts off not being in any circuit.
+            cpy.circuit = None
+
+            # If copy is destined for a netlist, then add it to the Circuit its
+            # source came from or else add it to the default Circuit object.
+            if dest == NETLIST:
+                # Place the copied part in the explicitly-stated circuit,
+                # or else into the same circuit as the source part,
+                # or else into the default circuit.
+                if circuit:
+                    circuit += cpy
+                elif isinstance(self.circuit, Circuit):
+                    self.circuit += cpy
+                else:
+                    builtins.default_circuit += cpy
 
             # Enter any new attributes.
             for k, v in attribs.items():
@@ -1572,11 +1830,8 @@ class Part(object):
                         raise Exception
                 setattr(cpy, k, v)
 
-            # Add the part copy to the list of copies and then add the
-            # part to the circuit netlist (if requested).
+            # Add the part copy to the list of copies.
             copies.append(cpy)
-            if dest == NETLIST:
-                SubCircuit._add_part(cpy)
 
         return _list_or_scalar(copies)
 
@@ -1584,6 +1839,15 @@ class Part(object):
     __mul__ = copy
     __rmul__ = copy
     __call__ = copy
+
+    def add_pins(self, *pins):
+        """Add one or more pins to a part."""
+        for pin in _flatten(pins):
+            pin.part = self
+            self.pins.append(pin)
+        return self
+
+    __iadd__ = add_pins
 
     def get_pins(self, *pin_ids, **criteria):
         """
@@ -1616,6 +1880,10 @@ class Part(object):
         # select all pins.
         if not pin_ids:
             pin_ids = ['.*']
+
+        # Determine the minimum and maximum pin ids if they don't already exist.
+        if 'min_pin' not in dir(self) or 'max_pin' not in dir(self):
+            self.min_pin, self.max_pin = self._find_min_max_pins()
 
         # Go through the list of pin IDs one-by-one.
         pins = _NetPinList()
@@ -1693,6 +1961,18 @@ class Part(object):
         # No net connections found, so return False.
         return False
 
+    def _is_movable(self):
+        """
+        Return T/F if the part can be moved from one circuit into another.
+
+        This method returns true if:
+            1) the part is not in a circuit, or
+            2) the part has pins but none of them are connected to nets, or
+            3) the part has no pins (which can be the case for mechanical parts,
+               silkscreen logos, or other non-electrical schematic elements).
+        """
+        return not isinstance(self.circuit, Circuit) or not self._is_connected() or not self.pins
+
     def set_pin_alias(self, alias, *pin_ids, **criteria):
         pins = _to_list(self.get_pins(*pin_ids, **criteria))
         if not pins:
@@ -1740,10 +2020,10 @@ class Part(object):
         non_fields = set(['name', 'min_pin','max_pin','hierarchy','_value',
                       '_ref','ref_prefix','unit','num_units','part_defn',
                       'definition','fields','draw','lib','fplist',
-                      'do_erc','aliases','tool','pins','footprint'])
+                      'do_erc','aliases','tool','pins','footprint', 'circuit'])
         return list(fields-non_fields)
 
-    def _generate_netlist_component(self, tool=KICAD):
+    def _generate_netlist_component(self, tool=None):
         """
         Generate the part information for inclusion in a netlist.
 
@@ -1751,14 +2031,16 @@ class Part(object):
             tool: The format for the netlist file (e.g., KICAD).
         """
 
+        if tool is None:
+            tool = DEFAULT_TOOL
+
         try:
-            gen_func = self.__class__.__dict__['_gen_netlist_comp_{}'.format(
-                tool)]
-            return gen_func(self)
-        except KeyError:
+            gen_func = getattr(self, '_gen_netlist_comp_{}'.format(tool))
+            return gen_func()
+        except AttributeError:
             logger.error(
                 "Can't generate netlist in an unknown ECAD tool format ({}).".format(
-                    format))
+                    tool))
             raise Exception
 
     def _gen_netlist_comp_kicad(self):
@@ -1783,14 +2065,15 @@ class Part(object):
             footprint = 'No Footprint'
         footprint = _add_quotes(footprint)
 
-        lib = _add_quotes(self.lib)
+        lib = _add_quotes(getattr(self, 'lib', 'NO_LIB'))
         name = _add_quotes(self.name)
 
         fields = ''
         for fld_name in self._get_fields():
             fld_value = _add_quotes(self.__dict__[fld_name])
-            fld_name = _add_quotes(fld_name)
-            fields += '\n        (field (name {fld_name}) {fld_value})'.format(**locals())
+            if fld_value:
+                fld_name = _add_quotes(fld_name)
+                fields += '\n        (field (name {fld_name}) {fld_value})'.format(**locals())
         if fields:
             fields = '      (fields' + fields
             fields += ')\n'
@@ -1803,7 +2086,7 @@ class Part(object):
         txt = template.format(**locals())
         return txt
 
-    def _generate_xml_component(self, tool=KICAD):
+    def _generate_xml_component(self, tool=None):
         """
         Generate the part information for inclusion in an XML file.
 
@@ -1811,14 +2094,15 @@ class Part(object):
             tool: The format for the XML file (e.g., KICAD).
         """
 
+        if tool is None:
+            tool = DEFAULT_TOOL
+
         try:
-            gen_func = self.__class__.__dict__['_gen_xml_comp_{}'.format(
-                tool)]
-            return gen_func(self)
-        except KeyError:
+            gen_func = getattr(self, '_gen_xml_comp_{}'.format(tool))
+            return gen_func()
+        except AttributeError:
             logger.error(
-                "Can't generate XML in an unknown ECAD tool format ({}).".format(
-                    format))
+                "Can't generate XML in an unknown ECAD tool format ({}).".format(tool))
             raise Exception
 
     def _gen_xml_comp_kicad(self):
@@ -1841,13 +2125,14 @@ class Part(object):
                 part=self.name, ref=ref))
             footprint = 'No Footprint'
 
-        lib = self.lib
+        lib = _add_quotes(getattr(self, 'lib', 'NO_LIB'))
         name = self.name
 
         fields = ''
         for fld_name in self._get_fields():
             fld_value = self.__dict__[fld_name]
-            fields += '\n        <field name="{fld_name}">{fld_value}</field>'.format(**locals())
+            if fld_value:
+                fields += '\n        <field name="{fld_name}">{fld_value}</field>'.format(**locals())
         if fields:
             fields = '      <fields>' + fields
             fields += '\n      </fields>\n'
@@ -1896,10 +2181,28 @@ class Part(object):
 
     def __str__(self):
         """Return a description of the pins on this part as a string."""
-        return '\n' + self.name + ':\n\t' + '\n\t'.join(
+        return '\n' + self.name + ': ' + self.description + '\n    ' + '\n    '.join(
             [p.__str__() for p in self.pins])
 
     __repr__ = __str__
+
+    def export(self):
+        """Return a string to recreate a Part object."""
+        keys = self._get_fields()
+        keys.extend(('ref_prefix','num_units','fplist','do_erc','aliases','pin','footprint'))
+        attribs = []
+        attribs.append('{}={}'.format('name',repr(self.name)))
+        attribs.append('dest=TEMPLATE')
+        attribs.append('tool=SKIDL')
+        for k in keys:
+            v = getattr(self, k, None)
+            if v:
+                attribs.append('{}={}'.format(k,repr(v)))
+        if self.pins:
+            pin_strs = [p.export() for p in self.pins]
+            attribs.append('pins=[{}]'.format(','.join(pin_strs)))
+        return 'Part({})'.format(','.join(attribs))
+        
 
     @property
     def ref(self):
@@ -1920,8 +2223,7 @@ class Part(object):
 
         # Now name the object with the given reference or some variation
         # of it that doesn't collide with anything else in the list.
-        self._ref = _get_unique_name(SubCircuit.parts, 'ref', self.ref_prefix,
-                                     r)
+        self._ref = _get_unique_name(self.circuit.parts, 'ref', self.ref_prefix, r)
         return
 
     @ref.deleter
@@ -1964,6 +2266,28 @@ class Part(object):
     def foot(self):
         """Delete the part footprint."""
         del self._foot
+
+##############################################################################
+
+
+class SkidlPart(Part):
+    """
+    A class for storing a SKiDL definition of a schematic part. It's identical
+    to its Part superclass except:
+        *) The tool defaults to SKIDL.
+        *) The destination defaults to TEMPLATE so that it's easier to start
+           a part and then add pins to it without it being added to the netlist.
+    """
+
+    def __init__(self,
+                 lib=None,
+                 name=None,
+                 dest=TEMPLATE,
+                 tool=SKIDL,
+                 connections=None,
+                 **attribs):
+        super(SkidlPart, self).__init__(lib, name, dest, tool, connections, attribs)
+
 
 ##############################################################################
 
@@ -2031,6 +2355,7 @@ class Net(object):
     Args:
         name: A string with the name of the net. If None or '', then
             a unique net name will be assigned.
+        circuit: The Circuit object this net belongs to.
         *pins_nets_buses: One or more Pin, Net, or Bus objects or
             lists/tuples of them to be connected to this net.
 
@@ -2039,14 +2364,27 @@ class Net(object):
             the Net object.
     """
 
-    def __init__(self, name=None, *pins_nets_buses, **attribs):
+    def __init__(self, name=None, circuit=None, *pins_nets_buses, **attribs):
         self._valid = True # Make net valid before doing anything else.
-        self._name = None
-        if name:
-            self.name = name
         self.do_erc = True
         self._drive = Pin.NO_DRIVE
         self.pins = []
+        self._name = None
+        self.circuit = None
+
+        # Set the Circuit object for the net first because setting the net name
+        # requires a lookup of existing names in the circuit.
+        # Add the net to the passed-in circuit or to the default circuit.
+        if circuit:
+            circuit += self
+        else:
+            builtins.default_circuit += self
+
+        # Set the net name *after* the net is assigned to a circuit so the
+        # net can be assigned a unique name that doesn't conflict with existing
+        # nets names in the circuit.
+        if name:
+            self.name = name
 
         # Attach whatever pins were given.
         self.connect(pins_nets_buses)
@@ -2081,20 +2419,26 @@ class Net(object):
             # Update the set of previously visited nets.
             prev_nets = copy(nets)
 
-        return list(nets), list(pins)
+        # Remove any phantom pins that may have existed for tieing nets together.
+        pins = set([p for p in pins if not isinstance(p, PhantomPin)])
+
+        traversal = collections.namedtuple('Traversal', ['nets', 'pins'])
+        traversal.nets = list(nets)
+        traversal.pins = list(pins)
+        return traversal
 
     def _get_pins(self):
         """Return a list of pins attached to this net."""
         self.test_validity()
-        return self._traverse()[1]
+        return self._traverse().pins
 
     def _get_nets(self):
         """Return a list of nets attached to this net, including this net."""
         self.test_validity()
-        return self._traverse()[0]
+        return self._traverse().nets
 
     def _is_attached(self, pin_net_bus):
-        """Return true if the net is attached to this one."""
+        """Return true if the pin, net or bus is attached to this one."""
         if isinstance(pin_net_bus, Net):
             return pin_net_bus in self._get_nets()
         if isinstance(pin_net_bus, Pin):
@@ -2107,7 +2451,16 @@ class Net(object):
         logger.error("Nets can't be attached to {}!".format(type(pin_net_bus)))
         raise Exception
 
-    def copy(self, num_copies=1, **attribs):
+    def _is_movable(self):
+        """
+        Return true if the net is movable to another circuit.
+
+        A net is movable if it's not part of a Circuit or if there are no pins
+        attached to it.
+        """
+        return not isinstance(self.circuit, Circuit) or not self.pins
+
+    def copy(self, num_copies=1, circuit=None, **attribs):
         """
         Make zero or more copies of this net.
 
@@ -2159,11 +2512,23 @@ class Net(object):
                 "Can't make copies of a net that already has pins attached to it!")
             raise Exception
 
-        # Now make copies of the net one-by-one.
-        copies = [deepcopy(self) for i in range(num_copies)]
+        # Create a list of copies of this net.
+        copies = []
+        for i in range(num_copies):
+            # Create a deep copy of the net.
+            cpy = deepcopy(self)
 
-        # Enter new attributes into each copy.
-        for i, cpy in enumerate(copies):
+            # Place the copy into either the passed-in circuit, the circuit of
+            # the source net, or the default circuit.
+            cpy.circuit = None
+            if circuit:
+                circuit += cpy
+            elif self.circuit:
+                self.circuit += cpy
+            else:
+                builtins.default_circuit += cpy
+
+            # Add other attributes to the net copy.
             for k, v in attribs.items():
                 if isinstance(v, (list, tuple)):
                     try:
@@ -2174,6 +2539,9 @@ class Net(object):
                                 num_copies, self.name, k))
                         raise Exception
                 setattr(cpy, k, v)
+
+            # Place the copy into the list of copies.
+            copies.append(cpy)
 
         return _list_or_scalar(copies)
 
@@ -2240,32 +2608,17 @@ class Net(object):
             elif net.pins:
                 net.pins[0].nets.append(self)
                 self.pins.append(net.pins[0])
+            # If neither net has any pins, then attach a phantom pin to one net
+            # and then connect the nets together.
+            else:
+                p = PhantomPin()
+                connect_pin(p)
+                self.pins[0].nets.append(net)
+                net.pins.append(self.pins[0])
 
             # Update the drive of the merged nets.
             self.drive = net.drive
             net.drive = self.drive
-
-            def select_name(name1, name2):
-                """Select one name or the other for the merged net."""
-                if not name2:
-                    return name1
-                if not name1:
-                    return name2
-                if self._is_implicit(name2):
-                    return name1
-                if self._is_implicit(name1):
-                    return name2
-                logger.warning(
-                    'Merging two named nets ({a} and {b}) into {a}.'.format(
-                        a=name1, b=name2))
-                return name1
-
-            # Give the merged net the name of one of the nets.
-            # Bypass the unique naming function because all the
-            # net names should already have unique names.
-            name = select_name(self.name, net.name)
-            self._name = name
-            net._name = name
 
         def connect_pin(pin):
             """Connect a pin to this net."""
@@ -2282,18 +2635,63 @@ class Net(object):
         # Go through all the pins and/or nets and connect them to this net.
         for pn in _expand_buses(_flatten(pins_nets_buses)):
             if isinstance(pn, Net):
-                merge(pn)
+                if pn.circuit == self.circuit:
+                    merge(pn)
+                else:
+                    logger.error("Can't attach nets in different circuits ({}, {})!".format(pn.circuit.name,self.circuit.name))
+                    raise Exception
             elif isinstance(pn, Pin):
-                connect_pin(pn)
+                if not pn.part or pn.part.circuit == self.circuit:
+                    if not pn.part:
+                        logger.warning("Attaching non-part Pin {} to a Net {}.".format(pn.name, self.name))
+                    connect_pin(pn)
+                else:
+                    logger.error("Can't attach a part to a net in different circuits ({}, {})!".format(pn.part.circuit.name,self.circuit.name))
+                    raise Exception
             else:
                 logger.error(
-                    'Cannot attach non-Pin/non-Net {} to Net {}.'.format(
-                        type(pn), self.name))
+                    'Cannot attach non-Pin/non-Net {} to Net {}.'.format(type(pn), self.name))
                 raise Exception
+
+        def select_name(nets):
+            """Return the net with the best name among a list of nets."""
+
+            if len(nets) == 0:
+                return None  # No nets, return None.
+            if len(nets) == 1:
+                return nets[0]  # One net, return it.
+            if len(nets) == 2:
+                # Two nets, return the best of them.
+                name0 = getattr(nets[0], 'name')
+                name1 = getattr(nets[1], 'name')
+                if not name1:
+                    return nets[0]
+                if not name0:
+                    return nets[1]
+                if self._is_implicit(name1):
+                    return nets[0]
+                if self._is_implicit(name0):
+                    return nets[1]
+                logger.warning('Merging two named nets ({name0} and {name1}) into {name0}.'.format(**locals()))
+                return nets[0]
+
+            # More than two nets, so bisect the list into two smaller lists and
+            # recursively find the best name from each list and then return the
+            # best name of those two.
+            mid_point = len(nets) // 2
+            return select_name([select_name(nets[0:mid_point]), select_name(nets[mid_point:])])
+
+        # Assign the same name to all the nets that are connected to this net.
+        nets = self._traverse().nets
+        selected_name = getattr(select_name(self._traverse().nets), 'name')
+        for net in nets:
+            # Assign the name directly to each net. Using the name property
+            # would cause the names to be changed so they were unique.
+            net._name = selected_name
 
         # Add the net to the global netlist. (It won't be added again
         # if it's already there.)
-        SubCircuit._add_net(self)
+        self.circuit += self
 
         # Set the flag to indicate this result came from the += operator.
         self.iadd_flag = True
@@ -2310,53 +2708,67 @@ class Net(object):
         except ValueError:
             pass
 
-    def _generate_netlist_net(self, tool=KICAD):
+    def _generate_netlist_net(self, tool=None):
         """
         Generate the net information for inclusion in a netlist.
 
         Args:
             tool: The format for the netlist file (e.g., KICAD).
         """
+
+        if tool is None:
+            tool = DEFAULT_TOOL
+
         self.test_validity()
 
+        # Don't add anything to the netlist if no pins are on this net.
+        if not self._get_pins():
+            return
+
         try:
-            gen_func = self.__class__.__dict__['_gen_netlist_net_{}'.format(
-                tool)]
-            return gen_func(self)
-        except KeyError:
+            gen_func = getattr(self, '_gen_netlist_net_{}'.format(tool))
+            return gen_func()
+        except AttributeError:
             logger.error(
                 "Can't generate netlist in an unknown ECAD tool format ({}).".format(
-                    format))
+                    tool))
             raise Exception
 
     def _gen_netlist_net_kicad(self):
         code = _add_quotes(self.code)
         name = _add_quotes(self.name)
         txt = '    (net (code {code}) (name {name})'.format(**locals())
-        for p in self._get_pins():
+        for p in sorted(self._get_pins(), key=lambda p: str(p)):
             part_ref = _add_quotes(p.part.ref)
             pin_num = _add_quotes(p.num)
             txt += '\n      (node (ref {part_ref}) (pin {pin_num}))'.format(**locals())
         txt += ')'
         return txt
 
-    def _generate_xml_net(self, tool=KICAD):
+    def _generate_xml_net(self, tool=None):
         """
         Generate the net information for inclusion in an XML file.
 
         Args:
             tool: The format for the XML file (e.g., KICAD).
         """
+
+        if tool is None:
+            tool = DEFAULT_TOOL
+
         self.test_validity()
 
+        # Don't add anything to the XML if no pins are on this net.
+        if not self._get_pins():
+            return
+
         try:
-            gen_func = self.__class__.__dict__['_gen_xml_net_{}'.format(
-                tool)]
-            return gen_func(self)
-        except KeyError:
+            gen_func = getattr(self, '_gen_xml_net_{}'.format(tool))
+            return gen_func()
+        except AttributeError:
             logger.error(
                 "Can't generate XML in an unknown ECAD tool format ({}).".format(
-                    format))
+                    tool))
             raise Exception
 
     def _gen_xml_net_kicad(self):
@@ -2383,10 +2795,10 @@ class Net(object):
             if not pin1.do_erc or not pin2.do_erc:
                 return
 
-            erc_result = SubCircuit._erc_pin_to_pin_chk(pin1, pin2)
+            erc_result = self.circuit._erc_pin_to_pin_chk(pin1, pin2)
 
             # Return if the pins are compatible.
-            if erc_result == SubCircuit.OK:
+            if erc_result == Circuit.OK:
                 return
 
             # Otherwise, generate an error or warning message.
@@ -2394,7 +2806,7 @@ class Net(object):
                 n=pin1.net.name,
                 p1=pin1._erc_desc(),
                 p2=pin2._erc_desc())
-            if erc_result == SubCircuit.WARNING:
+            if erc_result == Circuit.WARNING:
                 erc_logger.warning(msg)
             else:
                 erc_logger.error(msg)
@@ -2447,7 +2859,7 @@ class Net(object):
         """Return a list of the pins on this net as a string."""
         self.test_validity()
         pins = self._get_pins()
-        return self.name + ': ' + ', '.join([p.__str__() for p in pins])
+        return self.name + ': ' + ', '.join([p.__str__() for p in sorted(pins, key=lambda p: str(p))])
 
     __repr__ = __str__
 
@@ -2476,8 +2888,7 @@ class Net(object):
 
         # Now name the object with the given name or some variation
         # of it that doesn't collide with anything else in the list.
-        self._name = _get_unique_name(SubCircuit.nets, 'name', NET_PREFIX,
-                                      name)
+        self._name = _get_unique_name(self.circuit.nets, 'name', NET_PREFIX, name)
 
     @name.deleter
     def name(self):
@@ -2545,12 +2956,16 @@ class _NCNet(Net):
             the object.
     """
 
-    def __init__(self, name=None, *pins_nets_buses, **attribs):
-        super(_NCNet, self).__init__(name, *pins_nets_buses, **attribs)
+    def __init__(self, name=None, circuit=None, *pins_nets_buses, **attribs):
+        super(_NCNet, self).__init__(name=name, circuit=circuit, *pins_nets_buses, **attribs)
         self._drive = Pin.NOCONNECT_DRIVE
 
-    def _generate_netlist_net(self, tool=KICAD):
+    def _generate_netlist_net(self, tool=None):
         """NO_CONNECT nets don't generate anything for netlists."""
+
+        if tool is None:
+            tool = DEFAULT_TOOL
+
         return ''
 
     def _erc(self):
@@ -2591,42 +3006,74 @@ class Bus(object):
     """
 
     def __init__(self, name, *args, **attribs):
+
+        # Define the member storing the nets so it's present, but it starts empty.
+        self.nets = []
+
+        # For Bus objects, the circuit object the bus is a member of is passed
+        # in with all the other attributes. If a circuit object isn't provided,
+        # then the default circuit object is added to the attributes.
+        attribs['circuit'] = attribs.get('circuit', default_circuit)
+
+        # Attach additional attributes to the bus. (The Circuit object also gets
+        # set here.)
+        for k, v in attribs.items():
+            setattr(self, k, v)
+
+        # The bus name is set after the circuit is assigned so the name can be
+        # checked against the other bus names already in that circuit.
         self.name = name
 
+        # Add the bus to the circuit.
+        self.circuit = None  # Bus won't get added if it's already seen as part of circuit.
+        attribs['circuit'] += self  # Add bus to circuit. This also sets self.circuit again.
+
         # Build the bus from net widths, existing nets, nets of pins, other buses.
-        self.nets = []
-        for arg in _flatten(args):
-            if isinstance(arg, int):
+        self.extend(args)
+
+    def extend(self, *objects):
+        """Extend bus by appending objects to the end (MSB)."""
+        self.insert(len(self.nets), objects)
+
+    def insert(self, index, *objects):
+        """Insert objects into bus starting at indexed position."""
+        for obj in _flatten(objects):
+            if isinstance(obj, int):
                 # Add a number of new nets to the bus.
-                self.nets.extend(arg * Net())
-            elif isinstance(arg, Net):
+                for _ in range(obj):
+                    self.nets.insert(index, Net())
+                index += obj
+            elif isinstance(obj, Net):
                 # Add an existing net to the bus.
-                self.nets.append(arg)
-            elif isinstance(arg, Pin):
+                self.nets.insert(index, obj)
+                index += 1
+            elif isinstance(obj, Pin):
                 # Add a pin to the bus.
                 try:
                     # Add the pin's net to the bus.
-                    self.nets.append(arg._get_nets()[0])
+                    self.nets.insert(index, obj._get_nets()[0])
                 except IndexError:
                     # OK, the pin wasn't already connected to a net,
                     # so create a new net, add it to the bus, and
                     # connect the pin to it.
                     n = Net()
-                    n += arg
-                    self.nets.append(n)
-            elif isinstance(arg, Bus):
+                    n += obj
+                    self.nets.insert(index, n)
+                index += 1
+            elif isinstance(obj, Bus):
                 # Add an existing bus to this bus.
-                self.nets.extend(arg.nets)
+                for n in reversed(obj.nets):
+                    self.nets.insert(index, n)
+                index += len(obj)
+            else:
+                logger.error('Adding illegal type of object ({}) to Bus {}.'.format(type(obj), self.name))
+                raise Exception
 
         # Assign names to all the unnamed nets in the bus.
         for i, net in enumerate(self.nets):
             if net._is_implicit():
                 # Net names are the bus name with the index appended.
                 net.name = self.name + str(i)
-
-        # Attach additional attributes to the bus.
-        for k, v in attribs.items():
-            setattr(self, k, v)
 
     def _get_nets(self):
         """Return the list of nets contained in this bus."""
@@ -2679,7 +3126,7 @@ class Bus(object):
         copies = []
         for i in range(num_copies):
 
-            cpy = Bus(self)
+            cpy = Bus(self.name, self)
 
             # Attach additional attributes to the bus.
             for k, v in attribs.items():
@@ -2767,6 +3214,18 @@ class Bus(object):
         logger.error("Can't assign to a bus! Use the += operator.")
         raise Exception
 
+    def _is_movable(self):
+        """
+        Return true if the bus is movable to another circuit.
+
+        A bus  is movable if all the nets in it are movable.
+        """
+        for n in self.nets:
+            if not n._is_movable():
+                # One net not movable means the entire Bus is not movable.
+                return False
+        return True # All the nets were movable.
+
     def connect(self, *pins_nets_buses):
         """
         Return the bus after connecting one or more nets, pins, or buses.
@@ -2810,8 +3269,7 @@ class Bus(object):
 
         # Now name the object with the given name or some variation
         # of it that doesn't collide with anything else in the list.
-        self._name = _get_unique_name(SubCircuit.buses, 'name', BUS_PREFIX,
-                                      name)
+        self._name = _get_unique_name(self.circuit.buses, 'name', BUS_PREFIX, name)
 
     @name.deleter
     def name(self):
@@ -2869,61 +3327,243 @@ class _NetPinList(list):
 ##############################################################################
 
 
-class SubCircuit(object):
+class Circuit(object):
     """
-    Class object that holds the entire netlist of parts and nets. This is
-    initialized once when the module is first imported and then all parts
-    and nets are added to its static members.
+    Class object that holds the entire netlist of parts and nets.
 
     Attributes:
         parts: List of all the schematic parts as Part objects.
         nets: List of all the schematic nets as Net objects.
+        buses: List of all the buses as Bus objects. 
         hierarchy: A '.'-separated concatenation of the names of nested
             SubCircuits at the current time it is read.
         level: The current level in the schematic hierarchy.
         context: Stack of contexts for each level in the hierarchy.
-        circuit_func: The function that creates a given subcircuit.
     """
 
     OK, WARNING, ERROR = range(3)
 
-    parts = []
-    nets = []
-    buses = []
-    hierarchy = 'top'
-    level = 0
-    context = [('top', )]
+    def __init__(self, **kwargs):
+        """Initialize the Circuit object."""
+        self.reset()
 
-    @classmethod
-    def _reset(cls):
-        """Clear any circuitry and start over."""
-        cls.parts = []
-        cls.nets = []
-        cls.hierarchy = 'top'
-        cls.level = 0
-        cls.context = [('top', )]
+        # Set passed-in attributes for the circuit.
+        for k, v in kwargs.items():
+            setattr(self, k, v)
 
-    @classmethod
-    def _add_part(cls, part):
-        """Add a Part object to the circuit"""
-        part.ref = part.ref  # This adjusts the part reference if necessary.
-        part.hierarchy = cls.hierarchy  # Tag the part with its hierarchy position.
-        cls.parts.append(part)
+    def reset(self):
+        """Clear any circuitry and cached part libraries and start over."""
 
-    @classmethod
-    def _add_net(cls, net):
-        """Add a Net object to the circuit. Assign a net name if necessary."""
-        if net in cls.nets or len(net.pins) == 0:
-            return
-        net.name = net.name
-        net.hierarchy = cls.hierarchy  # Tag the net with its hierarchy position.
-        cls.nets.append(net)
+        # Clear circuitry.
+        self.mini_reset()
 
-    @classmethod
-    def _get_nets(cls):
+        # Also clear any cached libraries.
+        SchLib._reset()
+        global backup_lib
+        backup_lib = None
+
+    def mini_reset(self):
+        """Clear any circuitry but don't erase any loaded part libraries."""
+        self.name = ''
+        self.parts = []
+        self.nets = []
+        self.buses = []
+        self.hierarchy = 'top'
+        self.level = 0
+        self.context = [('top', )]
+
+        # Clear out the no-connect net and set the global no-connect if it's
+        # tied to this circuit.
+        if getattr(self,'NC',False) and NC and NC is self.NC:
+            self.NC = _NCNet(name='__NOCONNECT', circuit=self)  # Net for storing no-connects for parts in this circuit.
+            builtins.NC = self.NC
+        else:
+            self.NC = _NCNet(name='__NOCONNECT', circuit=self)  # Net for storing no-connects for parts in this circuit.
+
+    def add_parts(self, *parts):
+        """Add some Part objects to the circuit."""
+        for part in parts:
+            # Add the part to this circuit if the part is movable and
+            # it's not already in this circuit.
+            if part.circuit != self:
+                if part._is_movable():
+
+                    # Remove the part from the circuit it's already in.
+                    if isinstance(part.circuit, Circuit):
+                        part.circuit -= part
+
+                    # Add the part to this circuit.
+                    part.circuit = self  # Record the Circuit object the part belongs to.
+                    part.ref = part.ref  # This adjusts the part reference if necessary.
+                    part.hierarchy = self.hierarchy  # Tag the part with its hierarchy position.
+
+                    # To determine where this part was created, trace the function
+                    # calls that led to this part and place into a field
+                    # but strip off all the calls to internal SKiDL functions.
+                    call_stack = inspect.stack()  # Get function call stack.
+                    # Use the function at the top of the stack to
+                    # determine the location of the SKiDL library functions.
+                    try:
+                        skidl_dir, _ = os.path.split(call_stack[0].filename)
+                    except AttributeError:
+                        skidl_dir, _ = os.path.split(call_stack[0][1])
+                    # Record file_name#line_num starting from the bottom of the stack
+                    # and terminate as soon as a function is found that's in the
+                    # SKiDL library (no use recording internal calls).
+                    skidl_trace = []
+                    for frame in reversed(call_stack):
+                        try:
+                            filename = frame.filename
+                            lineno = frame.lineno
+                        except AttributeError:
+                            filename = frame[1]
+                            lineno = frame[2]
+                        if os.path.split(filename)[0] == skidl_dir:
+                            # Found function in SKiDL library, so trace is complete.
+                            break
+                        # Get the absolute path to the file containing the function
+                        # and the line number of the call in the file. Append these
+                        # to the trace.
+                        filepath = os.path.abspath(filename)
+                        skidl_trace.append('#'.join((filepath, str(lineno))))
+                    # Store the function call trace into a part field.
+                    if skidl_trace:
+                        part.skidl_trace = ';'.join(skidl_trace)
+
+                    self.parts.append(part)
+
+                else:
+                    logger.error("Can't add unmovable part {} to this circuit.".format(part.ref))
+                    raise Exception
+
+    def rmv_parts(self, *parts):
+        """Remove some Part objects from the circuit."""
+        for part in parts:
+            if part._is_movable():
+                if part.circuit == self and part in self.parts:
+                    part.circuit = None
+                    part.hierarchy = None
+                    self.parts.remove(part)
+                else:
+                    logger.warning("Removing non-existent part {} from this circuit.".format(part.ref))
+            else:
+                logger.error("Can't remove part {} from this circuit.".format(part.ref))
+                raise Exception
+
+    def add_nets(self, *nets):
+        """Add some Net objects to the circuit. Assign a net name if necessary."""
+        for net in nets:
+            # Add the net to this circuit if the net is movable and
+            # it's not already in this circuit.
+            if net.circuit != self:
+                if net._is_movable():
+
+                    # Remove the net from the circuit it's already in.
+                    if isinstance(net.circuit, Circuit):
+                        net.circuit -= net
+
+                    # Add the net to this circuit.
+                    net.circuit = self  # Record the Circuit object the net belongs to.
+                    net.name = net.name
+                    net.hierarchy = self.hierarchy  # Tag the net with its hierarchy position.
+                    self.nets.append(net)
+
+                else:
+                    logger.error("Can't add unmovable net {} to this circuit.".format(net.name))
+                    raise Exception
+
+    def rmv_nets(self, *nets):
+        """Remove some Net objects from the circuit."""
+        for net in nets:
+            if net._is_movable():
+                if net.circuit == self and net in self.nets:
+                    net.circuit = None
+                    net.hierarchy = None
+                    self.nets.remove(net)
+                else:
+                    logger.warning("Removing non-existent net {} from this circuit.".format(net.name))
+            else:
+                logger.error("Can't remove unmovable net {} from this circuit.".format(net.name))
+                raise Exception
+
+    def add_buses(self, *buses):
+        """Add some Bus objects to the circuit. Assign a bus name if necessary."""
+        for bus in buses:
+            # Add the bus to this circuit if the bus is movable and
+            # it's not already in this circuit.
+            if bus.circuit != self:
+                if bus._is_movable():
+
+                    # Remove the bus from the circuit it's already in, but skip
+                    # this if the bus isn't already in a Circuit.
+                    if isinstance(bus.circuit, Circuit):
+                        bus.circuit -= bus
+
+                    # Add the bus to this circuit.
+                    bus.circuit = self
+                    bus.name = bus.name
+                    bus.hierarchy = self.hierarchy  # Tag the bus with its hierarchy position.
+                    self.buses.append(bus)
+                    for net in bus.nets:
+                        self += net
+
+    def rmv_buses(self, *buses):
+        """Remove some buses from the circuit."""
+        for bus in buses:
+            if bus._is_movable():
+                if bus.circuit == self and bus in self.buses:
+                    bus.circuit = None
+                    bus.hierarchy = None
+                    self.buses.remove(bus)
+                    for net in bus.nets:
+                        self.nets.remove(net)
+                else:
+                    logger.warning("Removing non-existent bus {} from this circuit.".format(bus.name))
+            else:
+                logger.error("Can't remove unmovable bus {} from this circuit.".format(bus.name))
+                raise Exception
+
+    def add_parts_nets_buses(self, *parts_nets_buses):
+        """Add Parts, Nets and Buses to the circuit."""
+        for pnb in _flatten(parts_nets_buses):
+            if isinstance(pnb, Part):
+                self.add_parts(pnb)
+            elif isinstance(pnb, Net):
+                self.add_nets(pnb)
+            elif isinstance(pnb, Bus):
+                self.add_buses(pnb)
+            else:
+                logger.error("Can't add a {} to a Circuit object.".format(type(pnb)))
+                raise Exception
+        return self
+
+    def rmv_parts_nets_buses(self, *parts_nets_buses):
+        """Add Parts, Nets and Buses to the circuit."""
+        for pnb in _flatten(parts_nets_buses):
+            if isinstance(pnb, Part):
+                self.rmv_parts(pnb)
+            elif isinstance(pnb, Net):
+                self.rmv_nets(pnb)
+            elif isinstance(pnb, Bus):
+                self.rmv_buses(pnb)
+            else:
+                logger.error("Can't remove a {} from a Circuit object.".format(type(pnb)))
+                raise Exception
+        return self
+
+    __iadd__ = add_parts_nets_buses
+    __isub__ = rmv_parts_nets_buses
+
+    def _get_nets(self):
         """Get all the distinct nets for the circuit."""
         distinct_nets = []
-        for net in cls.nets:
+        for net in self.nets:
+            if net is self.NC:
+                # Exclude no-connect net.
+                continue
+            if not net._get_pins():
+                # Exclude empty nets with no attached pins.
+                continue
             for n in distinct_nets:
                 # Exclude net if its already attached to a previously selected net.
                 if net._is_attached(n):
@@ -2934,116 +3574,53 @@ class SubCircuit(object):
                 distinct_nets.append(net)
         return distinct_nets
 
-    @classmethod
-    def _delete_net(cls, net):
-        """Delete net from circuit."""
-        if net in cls.nets:
-            cls.nets.remove(net)
-        del net
-
-    @classmethod
-    def _add_bus(cls, bus):
-        """Add a Bus object to the circuit. Assign a bus name if necessary."""
-        bus.name = bus.name
-        bus.hierarchy = cls.hierarchy  # Tag the bus with its hierarchy position.
-        cls.buses.append(bus)
-
-    def __init__(self, circuit_func):
-        """
-        When you place the @SubCircuit decorator before a function, this method
-        stores the reference to the subroutine into the SubCircuit object.
-        """
-
-        self.circuit_func = circuit_func
-
-    def __call__(self, *args, **kwargs):
-        """
-        This method is called when you invoke the SubCircuit object to create
-        some schematic circuitry.
-        """
-
-        # Invoking the SubCircuit object creates circuitry at a level one
-        # greater than the current level. (The top level is zero.)
-        self.level += 1
-
-        # Create a name for this SubCircuit from the concatenated names of all
-        # the SubCircuit functions that were called on all the preceding levels
-        # that led to this one.
-        self.__class__.hierarchy = self.context[-1][
-            0] + '.' + self.circuit_func.__name__
-
-        # Store the context so it can be used if this SubCircuit object
-        # invokes another SubCircuit object within itself to add more
-        # levels of hierarchy.
-        self.context.append((self.__class__.hierarchy, ))
-
-        # Call the SubCircuit object function to create whatever circuitry it handles.
-        # The arguments to the function are usually nets to be connected to the
-        # parts instantiated in the function, but they may also be user-specific
-        # and have no effect on the mechanics of adding parts or nets although
-        # they may direct the function as to what parts and nets get created.
-        # Store any results it returns as a list. These results are user-specific
-        # and have no effect on the mechanics of adding parts or nets.
-        try:
-            results = _list_or_scalar(self.circuit_func(*args, **kwargs))
-        except Exception:
-            logger.exception("Serious error! Can't continue.")
-
-        # Restore the context that existed before the SubCircuit circuitry was
-        # created. This does not remove the circuitry since it has already been
-        # added to the parts and nets lists.
-        self.context.pop()
-
-        return results
-
-    @classmethod
-    def _erc_setup(cls):
+    def _erc_setup(self):
         """
         Initialize the electrical rules checker.
         """
 
         # Initialize the pin contention matrix.
-        cls._erc_matrix = [[cls.OK for c in range(11)] for r in range(11)]
-        cls._erc_matrix[Pin.OUTPUT][Pin.OUTPUT] = cls.ERROR
-        cls._erc_matrix[Pin.TRISTATE][Pin.OUTPUT] = cls.WARNING
-        cls._erc_matrix[Pin.UNSPEC][Pin.INPUT] = cls.WARNING
-        cls._erc_matrix[Pin.UNSPEC][Pin.OUTPUT] = cls.WARNING
-        cls._erc_matrix[Pin.UNSPEC][Pin.BIDIR] = cls.WARNING
-        cls._erc_matrix[Pin.UNSPEC][Pin.TRISTATE] = cls.WARNING
-        cls._erc_matrix[Pin.UNSPEC][Pin.PASSIVE] = cls.WARNING
-        cls._erc_matrix[Pin.UNSPEC][Pin.UNSPEC] = cls.WARNING
-        cls._erc_matrix[Pin.PWRIN][Pin.TRISTATE] = cls.WARNING
-        cls._erc_matrix[Pin.PWRIN][Pin.UNSPEC] = cls.WARNING
-        cls._erc_matrix[Pin.PWROUT][Pin.OUTPUT] = cls.ERROR
-        cls._erc_matrix[Pin.PWROUT][Pin.BIDIR] = cls.WARNING
-        cls._erc_matrix[Pin.PWROUT][Pin.TRISTATE] = cls.ERROR
-        cls._erc_matrix[Pin.PWROUT][Pin.UNSPEC] = cls.WARNING
-        cls._erc_matrix[Pin.PWROUT][Pin.PWROUT] = cls.ERROR
-        cls._erc_matrix[Pin.OPENCOLL][Pin.OUTPUT] = cls.ERROR
-        cls._erc_matrix[Pin.OPENCOLL][Pin.TRISTATE] = cls.ERROR
-        cls._erc_matrix[Pin.OPENCOLL][Pin.UNSPEC] = cls.WARNING
-        cls._erc_matrix[Pin.OPENCOLL][Pin.PWROUT] = cls.ERROR
-        cls._erc_matrix[Pin.OPENEMIT][Pin.OUTPUT] = cls.ERROR
-        cls._erc_matrix[Pin.OPENEMIT][Pin.BIDIR] = cls.WARNING
-        cls._erc_matrix[Pin.OPENEMIT][Pin.TRISTATE] = cls.WARNING
-        cls._erc_matrix[Pin.OPENEMIT][Pin.UNSPEC] = cls.WARNING
-        cls._erc_matrix[Pin.OPENEMIT][Pin.PWROUT] = cls.ERROR
-        cls._erc_matrix[Pin.NOCONNECT][Pin.INPUT] = cls.ERROR
-        cls._erc_matrix[Pin.NOCONNECT][Pin.OUTPUT] = cls.ERROR
-        cls._erc_matrix[Pin.NOCONNECT][Pin.BIDIR] = cls.ERROR
-        cls._erc_matrix[Pin.NOCONNECT][Pin.TRISTATE] = cls.ERROR
-        cls._erc_matrix[Pin.NOCONNECT][Pin.PASSIVE] = cls.ERROR
-        cls._erc_matrix[Pin.NOCONNECT][Pin.UNSPEC] = cls.ERROR
-        cls._erc_matrix[Pin.NOCONNECT][Pin.PWRIN] = cls.ERROR
-        cls._erc_matrix[Pin.NOCONNECT][Pin.PWROUT] = cls.ERROR
-        cls._erc_matrix[Pin.NOCONNECT][Pin.OPENCOLL] = cls.ERROR
-        cls._erc_matrix[Pin.NOCONNECT][Pin.OPENEMIT] = cls.ERROR
-        cls._erc_matrix[Pin.NOCONNECT][Pin.NOCONNECT] = cls.ERROR
+        self._erc_matrix = [[self.OK for c in range(11)] for r in range(11)]
+        self._erc_matrix[Pin.OUTPUT][Pin.OUTPUT] = self.ERROR
+        self._erc_matrix[Pin.TRISTATE][Pin.OUTPUT] = self.WARNING
+        self._erc_matrix[Pin.UNSPEC][Pin.INPUT] = self.WARNING
+        self._erc_matrix[Pin.UNSPEC][Pin.OUTPUT] = self.WARNING
+        self._erc_matrix[Pin.UNSPEC][Pin.BIDIR] = self.WARNING
+        self._erc_matrix[Pin.UNSPEC][Pin.TRISTATE] = self.WARNING
+        self._erc_matrix[Pin.UNSPEC][Pin.PASSIVE] = self.WARNING
+        self._erc_matrix[Pin.UNSPEC][Pin.UNSPEC] = self.WARNING
+        self._erc_matrix[Pin.PWRIN][Pin.TRISTATE] = self.WARNING
+        self._erc_matrix[Pin.PWRIN][Pin.UNSPEC] = self.WARNING
+        self._erc_matrix[Pin.PWROUT][Pin.OUTPUT] = self.ERROR
+        self._erc_matrix[Pin.PWROUT][Pin.BIDIR] = self.WARNING
+        self._erc_matrix[Pin.PWROUT][Pin.TRISTATE] = self.ERROR
+        self._erc_matrix[Pin.PWROUT][Pin.UNSPEC] = self.WARNING
+        self._erc_matrix[Pin.PWROUT][Pin.PWROUT] = self.ERROR
+        self._erc_matrix[Pin.OPENCOLL][Pin.OUTPUT] = self.ERROR
+        self._erc_matrix[Pin.OPENCOLL][Pin.TRISTATE] = self.ERROR
+        self._erc_matrix[Pin.OPENCOLL][Pin.UNSPEC] = self.WARNING
+        self._erc_matrix[Pin.OPENCOLL][Pin.PWROUT] = self.ERROR
+        self._erc_matrix[Pin.OPENEMIT][Pin.OUTPUT] = self.ERROR
+        self._erc_matrix[Pin.OPENEMIT][Pin.BIDIR] = self.WARNING
+        self._erc_matrix[Pin.OPENEMIT][Pin.TRISTATE] = self.WARNING
+        self._erc_matrix[Pin.OPENEMIT][Pin.UNSPEC] = self.WARNING
+        self._erc_matrix[Pin.OPENEMIT][Pin.PWROUT] = self.ERROR
+        self._erc_matrix[Pin.NOCONNECT][Pin.INPUT] = self.ERROR
+        self._erc_matrix[Pin.NOCONNECT][Pin.OUTPUT] = self.ERROR
+        self._erc_matrix[Pin.NOCONNECT][Pin.BIDIR] = self.ERROR
+        self._erc_matrix[Pin.NOCONNECT][Pin.TRISTATE] = self.ERROR
+        self._erc_matrix[Pin.NOCONNECT][Pin.PASSIVE] = self.ERROR
+        self._erc_matrix[Pin.NOCONNECT][Pin.UNSPEC] = self.ERROR
+        self._erc_matrix[Pin.NOCONNECT][Pin.PWRIN] = self.ERROR
+        self._erc_matrix[Pin.NOCONNECT][Pin.PWROUT] = self.ERROR
+        self._erc_matrix[Pin.NOCONNECT][Pin.OPENCOLL] = self.ERROR
+        self._erc_matrix[Pin.NOCONNECT][Pin.OPENEMIT] = self.ERROR
+        self._erc_matrix[Pin.NOCONNECT][Pin.NOCONNECT] = self.ERROR
 
         # Fill-in the other half of the symmetrical matrix.
         for c in range(1, 11):
             for r in range(c):
-                cls._erc_matrix[r][c] = cls._erc_matrix[c][r]
+                self._erc_matrix[r][c] = self._erc_matrix[c][r]
 
         # Setup the error/warning logger.
         global erc_logger
@@ -3066,44 +3643,41 @@ class SubCircuit(object):
         erc_logger.error = _CountCalls(erc_logger.error)
         erc_logger.warning = _CountCalls(erc_logger.warning)
 
-    @classmethod
-    def set_pin_conflict_rule(cls, pin1_func, pin2_func, conflict_level):
+    def set_pin_conflict_rule(self, pin1_func, pin2_func, conflict_level):
         """
         Set the level of conflict for two types of pins on the same net.
 
         Args:
             pin1_func: The function of the first pin (e.g., Pin.OUTPUT).
             pin2_func: The function of the second pin (e.g., Pin.TRISTATE).
-            conflict_level: Severity of conflict (e.g., cls.OK, cls.WARNING, cls.ERROR).
+            conflict_level: Severity of conflict (e.g., self.OK, self.WARNING, self.ERROR).
         """
 
         # Place the conflict level into the symmetrical ERC matrix.
-        cls._erc_matrix[pin1_func][pin2_func] = conflict_level
-        cls._erc_matrix[pin2_func][pin1_func] = conflict_level
+        self._erc_matrix[pin1_func][pin2_func] = conflict_level
+        self._erc_matrix[pin2_func][pin1_func] = conflict_level
 
-    @classmethod
-    def _erc_pin_to_pin_chk(cls, pin1, pin2):
+    def _erc_pin_to_pin_chk(self, pin1, pin2):
         """Check for conflict between two pins on a net."""
 
         # Use the functions of the two pins to index into the ERC table
         # and see if the pins are compatible (e.g., an input and an output)
         # or incompatible (e.g., a conflict because both are outputs).
-        return cls._erc_matrix[pin1.func][pin2.func]
+        return self._erc_matrix[pin1.func][pin2.func]
 
-    @classmethod
-    def _ERC(cls):
+    def ERC(self):
         """
         Do an electrical rules check on the circuit.
         """
 
-        cls._erc_setup()
+        self._erc_setup()
 
         # Check the nets for errors.
-        for net in cls.nets:
+        for net in self.nets:
             net._erc()
 
         # Check the parts for errors.
-        for part in cls.parts:
+        for part in self.parts:
             part._erc()
 
         if (erc_logger.error.count, erc_logger.warning.count) == (0, 0):
@@ -3114,8 +3688,7 @@ class SubCircuit(object):
             sys.stderr.write('{} errors found during ERC.\n\n'.format(
                 erc_logger.error.count))
 
-    @classmethod
-    def _generate_netlist(cls, file=None, tool=KICAD):
+    def generate_netlist(self, file=None, tool=None):
         """
         Return a netlist as a string and also write it to a file/stream.
 
@@ -3126,9 +3699,13 @@ class SubCircuit(object):
         Returns:
             A string containing the netlist.
         """
+
+        if tool is None:
+            tool = DEFAULT_TOOL
+
         try:
-            gen_func = cls.__dict__['_gen_netlist_{}'.format(tool)]
-            netlist = gen_func(cls)
+            gen_func = getattr(self, '_gen_netlist_{}'.format(tool))
+            netlist = gen_func()
         except KeyError:
             logger.error(
                 "Can't generate netlist in an unknown ECAD tool format ({}).".format(
@@ -3156,6 +3733,12 @@ class SubCircuit(object):
             except (FileNotFoundError, TypeError):
                 with open(_get_script_name() + '.net', 'w') as f:
                     f.write(netlist)
+
+        if CREATE_BACKUP_LIB:
+            self.backup_parts()  # Create a new backup lib for the circuit parts.
+            global backup_lib    # Clear out any old backup lib so the new one
+            backup_lib = None    #   will get reloaded when it's needed.
+
         return netlist
 
     def _gen_netlist_kicad(self):
@@ -3170,18 +3753,17 @@ class SubCircuit(object):
                    '    (tool "{tool}"))\n'
         netlist = template.format(**locals())
         netlist += "  (components"
-        for p in SubCircuit.parts:
+        for p in sorted(self.parts, key=lambda p: str(p.ref)):
             netlist += '\n' + p._generate_netlist_component(KICAD)
         netlist += ")\n"
         netlist += "  (nets"
-        for code, n in enumerate(SubCircuit._get_nets()):
+        for code, n in enumerate(sorted(self._get_nets(), key=lambda n: str(n.name))):
             n.code = code
             netlist += '\n' + n._generate_netlist_net(KICAD)
         netlist += ")\n)\n"
         return netlist
 
-    @classmethod
-    def _generate_xml(cls, file=None, tool=KICAD):
+    def generate_xml(self, file=None, tool=None):
         """
         Return netlist as an XML string and also write it to a file/stream.
 
@@ -3192,9 +3774,13 @@ class SubCircuit(object):
         Returns:
             A string containing the netlist.
         """
+
+        if tool is None:
+            tool = DEFAULT_TOOL
+
         try:
-            gen_func = cls.__dict__['_gen_xml_{}'.format(tool)]
-            netlist = gen_func(cls)
+            gen_func = getattr(self, '_gen_xml_{}'.format(tool))
+            netlist = gen_func()
         except KeyError:
             logger.error(
                 "Can't generate XML in an unknown ECAD tool format ({}).".format(
@@ -3238,37 +3824,205 @@ class SubCircuit(object):
                    '  </design>\n'
         netlist = template.format(**locals())
         netlist += '  <components>'
-        for p in SubCircuit.parts:
+        for p in self.parts:
             netlist += '\n' + p._generate_xml_component(KICAD)
         netlist += '\n  </components>\n'
         netlist += '  <nets>'
-        for code, n in enumerate(SubCircuit._get_nets()):
+        for code, n in enumerate(self._get_nets()):
             n.code = code
             netlist += '\n' + n._generate_xml_net(KICAD)
         netlist += '\n  </nets>\n'
         netlist += '</export>\n'
         return netlist
 
+    def _gen_xml_skidl(self):
+        logger.error("Can't generate XML in SKiDL format!")
 
-def search(term):
-    """Print a list of components with the regex term within their name, alias, description or keywords."""
+    def generate_graph(self, file=None, engine='neato', rankdir='LR',
+                       part_shape='rectangle', net_shape='point',
+                       splines=None, show_values=True, show_anon=False):
+        """
+        Returns a graphviz graph as graphviz object and can also write it to a file/stream.
+        When used in ipython the graphviz object will drawn as an SVG in the output.
 
-    def search_libraries(term):
+        See https://graphviz.readthedocs.io/en/stable/ and http://graphviz.org/doc/info/attrs.html
+
+        Args:
+            file: A string containing a file name, or None.
+            engine: See graphviz documentation
+            rankdir: See graphviz documentation
+            part_shape: Shape of the part nodes
+            net_shape: Shape of the net nodes
+            splines: Style for the edges, try 'ortho' for a schematic like feel
+            show_values: Show values as external labels on part nodes
+            show_anon: Show anonymous net names
+
+        Returns:
+            graphviz.Digraph
+        """
+        dot = graphviz.Digraph(engine=engine)
+        dot.attr(rankdir=rankdir, splines=splines)
+
+        nets = self._get_nets()
+
+        # try and keep things in the same order
+        nets.sort(key=lambda n: n.name.lower())
+
+        for n in nets:
+            xlabel = n.name
+            if not show_anon and n._is_implicit():
+                xlabel= None
+            dot.node(n.name, shape=net_shape, xlabel=xlabel)
+            for pin in n.pins:
+                dot.edge(pin.part.ref, n.name, arrowhead='none')
+
+        for p in sorted(self.parts, key=lambda p: p.ref.lower()):
+            xlabel = None
+            if show_values:
+                xlabel = p.value
+            dot.node(p.ref, shape=part_shape, xlabel=xlabel)
+
+        if file is not None:
+            dot.save(file)
+        return dot
+
+
+
+    def backup_parts(self, file=None):
+        """
+        Saves parts in circuit as a SKiDL library in a file.
+
+        Args:
+            file: Either a file object that can be written to, or a string
+                containing a file name, or None. If None, a standard library
+                file will be used.
+
+        Returns:
+            Nothing.
+        """
+
+        lib = SchLib(tool=SKIDL)  # Create empty library.
+        for p in self.parts:
+            lib += p
+        if not file:
+            file = BACKUP_LIB_FILE_NAME 
+        lib.export(libname=BACKUP_LIB_NAME, file=file)
+
+def SubCircuit(f):
+    """
+    A @SubCircuit decorator is used to create hierarchical circuits.
+
+    Args:
+        f: The function containing SKiDL statements that represents a subcircuit.
+    """
+    def sub_f(*args, **kwargs):
+        # Upon entry, save the reference to the default Circuit object.
+        save_default_circuit = default_circuit
+
+        # If the subcircuit has no 'circuit' argument, then all the SKiDL
+        # statements in the subcircuit function will reference the default Circuit
+        # object.
+        if 'circuit' not in kwargs:
+            circuit = default_circuit
+
+        # But if the subcircuit function has a 'circuit' argument, then set the default
+        # Circuit object to that. Then all SKiDL statements in the function will
+        # make changes (i.e., add parts, nets, buses) to that.
+        else:
+            circuit = kwargs['circuit']
+            del kwargs['circuit'] # Don't pass the circuit parameter down to the f function.
+            builtins.default_circuit = circuit
+
+        # Setup some globals needed in the subcircuit.
+        builtins.NC = default_circuit.NC
+
+        # Invoking the subcircuit function creates circuitry at a level one
+        # greater than the current level. (The top level is zero.)
+        circuit.level += 1
+
+        # Create a name for this subcircuit from the concatenated names of all
+        # the nested subcircuit functions that were called on all the preceding levels
+        # that led to this one.
+        circuit.hierarchy = circuit.context[-1][0] + '.' + f.__name__
+
+        # Store the context so it can be used if this subcircuit function
+        # invokes another subcircuit function within itself to add more
+        # levels of hierarchy.
+        circuit.context.append((circuit.hierarchy, ))
+
+        # Call the function to create whatever circuitry it handles.
+        # The arguments to the function are usually nets to be connected to the
+        # parts instantiated in the function, but they may also be user-specific
+        # and have no effect on the mechanics of adding parts or nets although
+        # they may direct the function as to what parts and nets get created.
+        # Store any results it returns as a list. These results are user-specific
+        # and have no effect on the mechanics of adding parts or nets.
+        results = f(*args, **kwargs)
+
+        # Restore the context that existed before the subcircuitry was
+        # created. This does not remove the circuitry since it has already been
+        # added to the parts and nets lists.
+        circuit.context.pop()
+
+        # Restore the hierarchy label and level.
+        circuit.hierarchy = circuit.context[-1][0]
+        circuit.level -= 1
+
+        # Restore the default circuit and globals.
+        builtins.default_circuit = save_default_circuit
+        builtins.NC = default_circuit.NC
+
+        return results
+
+    return sub_f
+
+# The decorator can also be called as "@subcircuit".
+subcircuit = SubCircuit
+
+
+@norecurse
+def load_backup_lib():
+    """Load a backup library that stores the parts used in the circuit."""
+
+    global backup_lib
+
+    # Don't keep reloading the backup library once it's loaded.
+    if not backup_lib:
+        try:
+            # The backup library is a SKiDL lib stored as a Python module.
+            exec(open(BACKUP_LIB_FILE_NAME).read())
+            # Copy the backup library in the local storage to the global storage.
+            backup_lib = locals()[BACKUP_LIB_NAME]
+
+        except (FileNotFoundError, ImportError, NameError, IOError) as e:
+            pass
+
+    return backup_lib
+
+
+def search(term, tool=None):
+    """
+    Print a list of components with the regex term within their name, alias, description or keywords.
+    """
+
+    def search_libraries(term, tool):
         """Search for a regex term in part libraries."""
 
-        for lib_dir in lib_search_paths_kicad:
+        parts = set() # Set of parts and their containing libraries found with the term.
+
+        for lib_dir in lib_search_paths[tool]:
+            print('lib_dir = {}'.format(lib_dir))
             # Get all the library files in the search path.
             try:
                 lib_files = os.listdir(lib_dir)
-            except FileNotFoundError:
+            except (FileNotFoundError, OSError):
                 logging.warning("Could not open directory '{}'".format(lib_dir))
-            lib_files.extend(os.listdir('.'))
-            lib_files = [l for l in lib_files if l.endswith('.lib')]
-
-            parts = set() # Set of parts and their containing libraries found with the term.
+                lib_files = list()  # Empty list since library directory was not found.
+            lib_files = [l for l in lib_files if l.endswith(lib_suffixes[tool])]
 
             for lib_file in lib_files:
-                lib = _SchLib(lib_file) # Open the library file.
+                print(' '*79, '\rSearching {} ...'.format(lib_file), end = '\r')
+                lib = SchLib(os.path.join(lib_dir,lib_file), tool=tool) # Open the library file.
 
                 def mk_list(l):
                     """Make a list out of whatever is given."""
@@ -3284,33 +4038,71 @@ def search(term):
                     for part in mk_list(lib.get_parts(**{category:term})):
                         part._parse() # Parse the part to instantiate the complete object.
                         parts.add((lib_file, part)) # Store the library name and part object.
+                print(' '*79, end = '\r')  # 
 
         return list(parts) # Return the list of parts and their containing libraries.
 
+    if tool is None:
+        tool = DEFAULT_TOOL
+
     term = '.*' + term + '.*' # Use the given term as a substring.
-    parts = search_libraries(term)  # Search for parts with that substring.
+    parts = search_libraries(term, tool)  # Search for parts with that substring.
 
     # Print each part name sorted by the library where it was found.
     for lib_file, p in sorted(parts, key=lambda p: p[0]):
-        print('{}: {}'.format(lib_file, p.name))
+        try:
+            print('{}:'.format(lib_file), end=" ")
+        except Exception:
+            pass
+        try:
+            print(p.name, end=" ")
+        except Exception:
+            pass
+        try:
+            print('({})'.format(p.description))
+        except Exception:
+            print(' ')
 
 
-def show(lib_name, part_name):
-    """Print the I/O pins for a given part in a library."""
+def show(lib, part_name, tool=None):
+    """
+    Print the I/O pins for a given part in a library.
+
+    Args:
+        lib: Either a SchLib object or the name of a library.
+        part_name: The name of the part in the library.
+        tool: The ECAD tool format for the library.
+
+    Returns:
+        A Part object.
+    """
+
+    if tool is None:
+        tool = DEFAULT_TOOL
     try:
-        return Part(lib_name, re.escape(part_name))
+        return Part(lib, re.escape(part_name), tool=tool, dest=TEMPLATE)
     except Exception:
-        return None # Suppress the traceback information.
+        return None
 
 
-Circuit = SubCircuit
+def set_default_tool(tool):
+    """Set the ECAD tool that will be used by default."""
+    global DEFAULT_TOOL
+    DEFAULT_TOOL = tool
 
-ERC = SubCircuit._ERC
-generate_netlist = SubCircuit._generate_netlist
-generate_xml = SubCircuit._generate_xml
 
+# Create the default Circuit object that will be used unless another is explicitly created.
+builtins.default_circuit = None
+builtins.NC = None
+builtins.default_circuit = Circuit()
+builtins.NC = default_circuit.NC  # NOCONNECT net for attaching pins that are intentionally left open.
+
+# Create calls to functions on whichever Circuit object is the current default.
+ERC = default_circuit.ERC
+generate_netlist = default_circuit.generate_netlist
+generate_xml = default_circuit.generate_xml
+generate_graph = default_circuit.generate_graph
+backup_parts = default_circuit.backup_parts
+
+# Define a tag for nets that convey power (e.g., VCC or GND).
 POWER = Pin.POWER_DRIVE
-
-# This is a NOCONNECT net for attaching to pins which are intentionally left open.
-NC = _NCNet('NOCONNECT')
-

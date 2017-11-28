@@ -1,0 +1,4 @@
+*.net
+*.erc
+*.log
+__pycache__
