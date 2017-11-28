@@ -4015,8 +4015,9 @@ def search(term, tool=None):
             # Get all the library files in the search path.
             try:
                 lib_files = os.listdir(lib_dir)
-            except OSError:
-                continue
+            except (FileNotFoundError, OSError):
+                logging.warning("Could not open directory '{}'".format(lib_dir))
+                lib_files = list()  # Empty list since library directory was not found.
             lib_files = [l for l in lib_files if l.endswith(lib_suffixes[tool])]
 
             for lib_file in lib_files:
