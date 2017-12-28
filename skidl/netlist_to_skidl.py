@@ -33,8 +33,7 @@ standard_library.install_aliases()
 
 import re
 from collections import defaultdict
-
-from .parse_netlist import *
+from kinparse import parse_netlist
 
 
 def netlist_to_skidl(netlist_src):

@@ -5,7 +5,7 @@
 import sys
 import setuptools
 
-__version__ = '0.0.13'
+__version__ = '0.0.14'
 __author__ = 'XESS Corp.'
 __email__ = 'info@xess.com'
 
@@ -28,7 +28,7 @@ with open('HISTORY.rst') as history_file:
 
 requirements = [
     'future >= 0.15.0',
-    'pyparsing',
+    'kinparse',
     'graphviz',
 ]
 
