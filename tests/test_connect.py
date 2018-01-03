@@ -13,7 +13,7 @@ def test_connect_1():
     gnd += vreg[1]
     vin += vreg[2]
     vout += vreg[3]
-    assert vreg._is_connected() == True
+    assert vreg.is_connected() == True
     assert len(gnd) == 1
     assert len(vin) == 1
     assert len(vout) == 1
@@ -32,8 +32,8 @@ def test_connect_2():
     vin += vreg1[2]
     vout += vreg1[3]
     vreg2[1, 2, 3] += gnd, vin, vout
-    assert vreg1._is_connected() == True
-    assert vreg2._is_connected() == True
+    assert vreg1.is_connected() == True
+    assert vreg2.is_connected() == True
     assert len(gnd) == 2
     assert len(vin) == 2
     assert len(vout) == 2
@@ -51,8 +51,8 @@ def test_connect_3():
     gnd += vreg1[1], vreg2[1]
     vin += vreg1[2], vreg2[2]
     vout += vreg1[3], vreg2[3]
-    assert vreg1._is_connected() == True
-    assert vreg2._is_connected() == True
+    assert vreg1.is_connected() == True
+    assert vreg2.is_connected() == True
     assert len(gnd) == 2
     assert len(vin) == 2
     assert len(vout) == 2
@@ -69,8 +69,8 @@ def test_connect_4():
     vout = Net('Vout')
     Bus('TMP', gnd, vin, vout)[:] += vreg1[1:3]
     Bus('TMP', gnd, vin, vout)[1:2] += vreg2[(2, 3)]
-    assert vreg1._is_connected() == True
-    assert vreg2._is_connected() == True
+    assert vreg1.is_connected() == True
+    assert vreg2.is_connected() == True
     assert len(gnd) == 1
     assert len(vin) == 2
     assert len(vout) == 2
@@ -85,7 +85,7 @@ def test_connect_5():
     vreg1['GND', 'IN'] += gnd, vin
     vreg1['HS'] += vreg1['OUT']
     vreg1['OUT'] += vreg1['HS']
-    assert vreg1._is_connected() == True
+    assert vreg1.is_connected() == True
     assert len(gnd) == 1
     assert len(vin) == 1
     assert len(vreg1['IN'].net) == 1
@@ -108,7 +108,7 @@ def test_connect_6():
     vreg1['HS'] += vreg1['OUT']
     vregs = 2 * vreg1
     vregs = vreg1.copy(2)
-    assert vreg1._is_connected() == True
+    assert vreg1.is_connected() == True
     assert len(gnd) == 6
     assert len(vin) == 6
     assert len(vreg1['IN'].net) == 6
@@ -125,4 +125,4 @@ def test_connect_7():
     assert len(p1.net) == len(p2.net) == len(p3.net)
     assert len(n1) == 3
     assert len(n2) == 3
-    assert n2._is_attached(n1)
+    assert n2.is_attached(n1)

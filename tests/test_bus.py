@@ -16,7 +16,7 @@ def test_bus_2():
     c = Net()
     bus = Bus('BB', a, b, c)
     assert len(bus) == 3
-    assert len(default_circuit._get_nets()) == 0
+    assert len(default_circuit.get_nets()) == 0
 
 
 def test_bus_3():
@@ -27,7 +27,7 @@ def test_bus_3():
     c = Net()
     bus = Bus('BB', a, 5, b, c)
     assert len(bus) == 8
-    assert len(default_circuit._get_nets()) == 0
+    assert len(default_circuit.get_nets()) == 0
 
 
 def test_bus_4():
@@ -42,7 +42,7 @@ def test_bus_4():
     assert bus1.name == 'AA'
     bus2 = Bus('BB', b, bus1, 3)
     assert len(bus2) == len(bus1) + 4
-    assert len(default_circuit._get_nets()) == 0
+    assert len(default_circuit.get_nets()) == 0
 
 
 def test_bus_5():
@@ -60,7 +60,7 @@ def test_bus_5():
     assert len(a) == 1
     assert len(bus[0]) == 1
     assert len(bus[1]) == 1
-    assert len(default_circuit._get_nets()) == 1
+    assert len(default_circuit.get_nets()) == 1
 
 
 def test_bus_6():
@@ -70,10 +70,10 @@ def test_bus_6():
     pin = Pin()
     bus = Bus(bus_prefix, 4, net, 3, pin, 4)
     assert len(bus) == 13
-    for i, n in enumerate(bus._get_nets()):
+    for i, n in enumerate(bus.get_nets()):
         assert bus_prefix + str(i) == n.name
     net.name = 'a'
-    for i, n in enumerate(bus._get_nets()):
+    for i, n in enumerate(bus.get_nets()):
         if i == 4:
             assert net.name == n.name
         else:
@@ -101,7 +101,7 @@ def test_bus_8():
     bus2 = Bus('B', 8)
     assert isinstance(bus2, Bus)
     bus1 += bus2
-    assert len(default_circuit._get_nets()) == len(bus1)
+    assert len(default_circuit.get_nets()) == len(bus1)
 
 
 def test_bus_9():
@@ -109,7 +109,7 @@ def test_bus_9():
     bus2 = Bus('B', 8)
     bus2 += 8 * Pin()
     bus1 += bus2[7:0]
-    assert len(default_circuit._get_nets()) == len(bus1)
+    assert len(default_circuit.get_nets()) == len(bus1)
 
 
 def test_bus_10():

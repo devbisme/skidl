@@ -9,10 +9,10 @@ def test_string_indices_1():
     gnd = Net('GND')
     vin = Net('Vin')
     vreg1['GND, IN, OUT'] += gnd, vin, vreg1['HS']
-    assert vreg1._is_connected() == True
+    assert vreg1.is_connected() == True
     assert len(gnd) == 1
     assert len(vin) == 1
     assert len(vreg1['IN'].net) == 1
     assert len(vreg1['HS'].net) == 2
     assert len(vreg1['OUT'].net) == 2
-    assert vreg1['OUT'].net._is_attached(vreg1['HS'].net)
+    assert vreg1['OUT'].net.is_attached(vreg1['HS'].net)

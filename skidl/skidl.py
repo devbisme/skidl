@@ -61,18 +61,15 @@ import os
 import os.path
 import re
 import collections
-import logging
 import shlex
 import inspect
-import traceback
-from importlib import import_module
 from copy import deepcopy, copy
-from pprint import pprint
 import time
 import graphviz
 
 from .pckg_info import __version__
 from .py_2_3 import *
+from .utilities import *
 
 # Places where parts can be stored.
 #   NETLIST: The part will become part of a circuit netlist.
@@ -83,9 +80,6 @@ NETLIST, LIBRARY, TEMPLATE = ['NETLIST', 'LIBRARY', 'TEMPLATE']
 # Prefixes for implicit nets and buses.
 NET_PREFIX = 'N$'
 BUS_PREFIX = 'B$'
-
-# Separator for strings containing multiple indices.
-INDEX_SEPARATOR = ','
 
 # Supported ECAD tools.
 KICAD, SKIDL = ['kicad', 'skidl']
@@ -104,13 +98,13 @@ lib_search_paths = {
 
 # Add the location of the default KiCad schematic part libs to the search path.
 try:
-    lib_search_paths[KICAD].append( os.path.join(os.environ['KISYSMOD'], '..', 'library') )
+    lib_search_paths[KICAD].append(os.path.join(os.environ['KISYSMOD'], '..', 'library'))
 except KeyError:
     logging.warning("KISYSMOD environment variable is missing, so default KiCad libraries won't be searched.")
 
 # Add the location of the default SKiDL part libraries.
 import skidl.libs
-lib_search_paths[SKIDL].append( skidl.libs.__path__[0] )
+lib_search_paths[SKIDL].append( skidl.libs.__path__[0])
 
 lib_suffixes = {
     KICAD: '.lib',
@@ -120,198 +114,17 @@ lib_suffixes = {
 
 ##############################################################################
 
-def _scriptinfo():
-    """
-    Returns a dictionary with information about the running top level Python
-    script:
-    ---------------------------------------------------------------------------
-    dir:    directory containing script or compiled executable
-    name:   name of script or executable
-    source: name of source code file
-    ---------------------------------------------------------------------------
-    "name" and "source" are identical if and only if running interpreted code.
-    When running code compiled by py2exe or cx_freeze, "source" contains
-    the name of the originating Python script.
-    If compiled by PyInstaller, "source" contains no meaningful information.
-
-    Downloaded from:
-    http://code.activestate.com/recipes/579018-python-determine-name-and-directory-of-the-top-lev/
-    """
-
-    #---------------------------------------------------------------------------
-    # scan through call stack for caller information
-    #---------------------------------------------------------------------------
-    trc = 'skidl' # Make sure this gets set to something when in interactive mode.
-    for teil in inspect.stack():
-        # skip system calls
-        if teil[1].startswith("<"):
-            continue
-        if teil[1].upper().startswith(sys.exec_prefix.upper()):
-            continue
-        trc = teil[1]
-
-    # trc contains highest level calling script name
-    # check if we have been compiled
-    if getattr(sys, 'frozen', False):
-        scriptdir, scriptname = os.path.split(sys.executable)
-        return {"dir": scriptdir, "name": scriptname, "source": trc}
-
-    # from here on, we are in the interpreted case
-    scriptdir, trc = os.path.split(trc)
-    # if trc did not contain directory information,
-    # the current working directory is what we need
-    if not scriptdir:
-        scriptdir = os.getcwd()
-
-    scr_dict = {"name": trc, "source": trc, "dir": scriptdir}
-    return scr_dict
-
-
-def _get_script_name():
-    """Return the name of the top-level script."""
-    return os.path.splitext(_scriptinfo()['name'])[0]
-
 
 # Definitions for backup library of circuit parts.
-BACKUP_LIB_NAME = _get_script_name() + '_lib'
+BACKUP_LIB_NAME = get_script_name() + '_lib'
 BACKUP_LIB_FILE_NAME = BACKUP_LIB_NAME + lib_suffixes[SKIDL]
 QUERY_BACKUP_LIB = True
 CREATE_BACKUP_LIB = True
 backup_lib = None
 
 
-def norecurse(f):
-    """This decorator will keep function f from recursively calling itself."""
-    def func(*args, **kwargs):
-        # If a function's name is on the stack twice (once for the current call
-        # and a second time for the previous call), then return without
-        # executing the function.
-        if len([1 for l in traceback.extract_stack() if l[2] == f.__name__]) > 1:
-            return None
-
-        # Otherwise, not a recursive call so execute the function and return result.
-        return f(*args, **kwargs)
-    return func
-
-class _CountCalls(object):
-    """
-    Decorator for counting the number of times a function is called.
-
-    This is used for counting errors and warnings passed to logging functions,
-    making it easy to track if and how many errors/warnings were issued.
-    """
-
-    def __init__(self, func):
-        self.func = func
-        self.count = 0
-
-    def __call__(self, *args, **kwargs):
-        self.count += 1
-        return self.func(*args, **kwargs)
-
-
 # Set up logging.
-logger = logging.getLogger('skidl')
-
-# Errors always appear on the terminal.
-handler = logging.StreamHandler(sys.stderr)
-handler.setLevel(logging.WARNING)
-handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
-logger.addHandler(handler)
-
-# Errors and warnings are stored in a log file with the top-level script's name.
-scr_name = _get_script_name()
-handler = logging.StreamHandler(open(scr_name + '.log', 'w'))
-handler.setLevel(logging.WARNING)
-handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
-logger.addHandler(handler)
-
-logger.setLevel(logging.INFO)
-logger.error = _CountCalls(logger.error)
-logger.warning = _CountCalls(logger.warning)
-
-
-def _find_and_open_file(filename, paths=None, ext=None, allow_failure=False):
-    """Search for a file in list of paths, open it and return file pointer."""
-
-    # If no paths are given, then just check the current directory.
-    if not paths:
-        paths = ['.']
-
-    # If the filename has no extension, then give it one.
-    if ext and not filename.endswith(ext):
-        filename += ext
-
-    # Search the paths for the file.
-    for path in paths:
-        abs_filename = os.path.join(path, filename)
-        try:
-            # The search stops once the file is successfully opened.
-            return open(abs_filename)
-        except (IOError, FileNotFoundError, TypeError):
-            # Keep looking until all paths are checked.
-            pass
-
-    # Couldn't find the file.
-    if allow_failure:
-        return None
-    else:
-        logger.error("Can't open file: {}.\n".format(filename))
-        raise FileNotFoundError
-
-def _add_quotes(s):
-    """Return string with added quotes if it contains whitespace or parens."""
-    if not isinstance(s, basestring):
-        return s
-    if re.search('[\s()]', s):
-        return '"' + s + '"'
-    return s
-
-def _to_list(x):
-    """
-    Return x if it is already a list, or return a list if x is a scalar.
-    """
-    if isinstance(x, (list, tuple)):
-        return x  # Already a list, so just return it.
-    return [x]  # Wasn't a list, so make it into one.
-
-def cnvt_to_var_name(s):
-    """Convert a string to a legal Python variable name and return it."""
-    return re.sub('\W|^(?=\d)', '_', s)
-
-def _list_or_scalar(lst):
-    """
-    Return a list if passed a multi-element list, otherwise return a single scalar.
-
-    Args:
-        lst: Either a list or a scalar.
-
-    Returns:
-        * A list if passed a multi-element list.
-        * The list element if passed a single-element list.
-        * None if passed an empty list.
-        * A scalar if passed a scalar.
-    """
-    if isinstance(lst, (list, tuple)):
-        if len(lst) > 1:
-            return lst  # Multi-element list, so return it unchanged.
-        if len(lst) == 1:
-            return lst[0]  # Single-element list, so return the only element.
-        return None  # Empty list, so return None.
-    return lst  # Must have been a scalar, so return that.
-
-
-def _flatten(nested_list):
-    """
-    Return a flattened list of items from a nested list.
-    """
-    lst = []
-    for item in nested_list:
-        if isinstance(item, (list, tuple)):
-            lst.extend(_flatten(item))
-        else:
-            lst.append(item)
-    return lst
+logger = create_logger('skidl')
 
 
 def _expand_buses(pins_nets_buses):
@@ -321,282 +134,11 @@ def _expand_buses(pins_nets_buses):
     pins_nets = []
     for pnb in pins_nets_buses:
         if isinstance(pnb, Bus):
-            pins_nets.extend(pnb._get_nets())
+            pins_nets.extend(pnb.get_nets())
         else:
             pins_nets.append(pnb)
     return pins_nets
 
-
-def _get_unique_name(lst, attrib, prefix, initial=None):
-    """
-    Return a name that doesn't collide with another in a list.
-
-    This subroutine is used to generate unique part references (e.g., "R12")
-    or unique net names (e.g., "N$5").
-
-    Args:
-        lst: The list of objects containing names.
-        attrib: The attribute in each object containing the name.
-        prefix: The prefix attached to each name.
-        initial: The initial setting of the name (can be None or empty string).
-
-    Returns:
-        A string containing the unique name.
-    """
-
-    # If the initial name is None, then create a name based on the prefix
-    # and the smallest unused number that's available for that prefix.
-    if not initial:
-
-        # Get list entries with the prefix followed by a number, e.g.: C55
-        filter_dict = {attrib: re.escape(prefix) + r'\d+'}
-        sub_list = _filter(lst, **filter_dict)
-
-        # If entries were found, then find the smallest available number.
-        if sub_list:
-            # Get the list of names.
-            names = [getattr(item, attrib) for item in sub_list]
-            # Remove the prefix from each name, leaving only the numbers.
-            l = len(prefix)
-            nums = set([int(n[l:]) for n in names])
-            stop = max(nums) + 1
-            # Generate a list of the unused numbers in the range [1,stop]
-            # and select the minimum value.
-            n = min(set(range(1, stop + 1)) - nums)
-
-        # If no entries were found, start counting from 1.
-        else:
-            n = 1
-
-        # The initial name is the prefix plus the number.
-        initial = prefix + str(n)
-
-    # If the initial name is just a number, then prepend the prefix to it.
-    elif isinstance(initial, int):
-        initial = prefix + str(initial)
-
-    # Now determine if there are any items in the list with the same name.
-    filter_dict = {attrib: re.escape(initial)}
-    sub_list = _filter(lst, **filter_dict)
-
-    # If the name is unique, then return it.
-    if not sub_list:
-        return initial
-
-    # Otherwise, determine how many copies of the name are in the list and
-    # append a number to make this name unique.
-    filter_dict = {attrib: re.escape(initial) + r'_\d+'}
-    n = len(_filter(lst, **filter_dict))
-    initial = initial + '_' + str(n + 1)
-
-    # Recursively call this routine using the newly-generated name to
-    # make sure it's unique. Eventually, a unique name will be returned.
-    return _get_unique_name(lst, attrib, prefix, initial)
-
-
-def _fullmatch(regex, string, flags=0):
-    """Emulate python-3.4 re.fullmatch()."""
-    return re.match("(?:" + regex + r")\Z", string, flags=flags)
-
-def _filter(lst, **criteria):
-    """
-    Return a list of objects whose attributes match a set of criteria.
-
-    Return a list of objects extracted from a list whose attributes match a
-    set of criteria. The match is done using regular expressions.
-    Example: _filter(pins, name='io[0-9]+', direction='bidir') will
-    return all the bidirectional pins of the component that have pin names
-    starting with 'io' followed by a number (e.g., 'IO45').
-
-    If an attribute of the lst object is a list or tuple, each entry in the
-    list/tuple will be checked for a match. Only one entry needs to match to
-    consider the entire attribute a match. This feature is useful when
-    searching for objects that contain a list of aliases, such as Part objects.
-
-    Args:
-        lst: The list from which objects will be extracted.
-
-    Keywords Args:
-        criteria: Keyword-argument pairs. The keyword specifies the attribute
-            name while the argument contains the desired value of the attribute.
-            Regardless of what type the argument is, it is always compared as if
-            it was a string. The argument can also be a regular expression that
-            must match the entire string created from the attribute of the list
-            object.
-
-    Returns:
-        A list of objects whose attributes match *all* the criteria.
-    """
-
-    # Place any matching objects from the list in here.
-    extract = []
-
-    for item in lst:
-        # Compare an item's attributes to each of the criteria.
-        # Break out of the criteria loop and don't add the item to the extract
-        # list if *any* of the item's attributes *does not* match.
-        for k, v in criteria.items():
-
-            try:
-                attr_val = getattr(item, k)
-            except AttributeError:
-                # If the attribute doesn't exist, then that's a non-match.
-                break
-
-            if isinstance(v, (int, basestring)):
-                # Check integer or string attributes.
-
-                if isinstance(attr_val, (list, tuple)):
-                    # If the attribute value from the item is a list or tuple,
-                    # loop through the list of attribute values. If at least one
-                    # value matches the current criterium, then break from the
-                    # criteria loop and extract this item.
-                    for val in attr_val:
-                        if _fullmatch(str(v), str(val), flags=re.IGNORECASE):
-                            # One of the list of values matched, so break from this
-                            # loop and do not execute the break in the
-                            # loop's else clause.
-                            break
-                    else:
-                        # If we got here, then none of the values in the attribute
-                        # list matched the current criterium. Therefore, break out
-                        # of the criteria loop and don't add this list item to
-                        # the extract list.
-                        break
-                else:
-                    # If the attribute value from the item in the list is a scalar,
-                    # see if the value matches the current criterium. If it doesn't,
-                    # then break from the criteria loop and don't extract this item.
-                    if not _fullmatch(
-                            str(v), str(attr_val),
-                            flags=re.IGNORECASE):
-                        break
-
-            else:
-                # Check non-integer, non-string attributes.
-                if isinstance(attr_val, (list, tuple)):
-                    if v not in attr_val:
-                        break
-                elif v != attr_val:
-                    break
-
-        else:
-            # If we get here, then all the item attributes matched and the
-            # for criteria loop didn't break, so add this item to the
-            # extract list.
-            extract.append(item)
-
-    return extract
-
-
-def _expand_indices(slice_min, slice_max, *indices):
-    """
-    Expand a list of indices into a list of integers and strings.
-
-    This function takes the indices used to select pins of parts and 
-    lines of buses and returns a flat list of numbers and strings.
-    String and integer indices are put in the list unchanged, but
-    slices are expanded into a list of integers before entering the
-    final list.
-
-    Args:
-        slice_min: The minimum possible index.
-        slice_max: The maximum possible index (used for slice indices).
-        indices: A list of indices made up of numbers, slices, text strings.
-            The list can also be nested.
-
-    Returns:
-        A linear list of all the indices made up only of numbers and strings.
-    """
-
-    def expand_slice(slc):
-        """Expand slice notation."""
-
-        # Get bounds for slice.
-        start, stop, step = slc.indices(slice_max)
-        start = min(max(start, slice_min), slice_max)
-        stop = min(max(stop, slice_min), slice_max)
-
-        # Do this if it's a downward slice (e.g., [7:0]).
-        if start > stop:
-            if slc.start and slc.start > slice_max:
-                logger.error('Index out of range ({} > {})!'.format(slc.start,
-                                                                    slice_max))
-                raise Exception
-            # Count down from start to stop.
-            stop = stop - step
-            step = -step
-
-        # Do this if it's a normal (i.e., upward) slice (e.g., [0:7]).
-        else:
-            if slc.stop and slc.stop > slice_max:
-                logger.error('Index out of range ({} > {})!'.format(slc.stop,
-                                                                    slice_max))
-                raise Exception
-            # Count up from start to stop
-            stop += step
-
-        # Create the sequence of indices.
-        return range(start, stop, step)
-
-    # Expand each index and add it to the list.
-    ids = []
-    for indx in _flatten(indices):
-        if isinstance(indx, slice):
-            ids.extend(expand_slice(indx))
-        elif isinstance(indx, int):
-            ids.append(indx)
-        elif isinstance(indx, basestring):
-            # String might contain multiple indices with a separator.
-            for id in indx.split(INDEX_SEPARATOR):
-                ids.append(id.strip())
-        else:
-            logger.error('Unknown type in index: {}.'.format(type(indx)))
-            raise Exception
-
-    # Return the completely expanded list of indices.
-    return ids
-
-
-def _find_num_copies(**attribs):
-    """
-    Return the number of copies to make from the length of attribute values.
-
-    Keyword Args:
-        attribs: Dict of Keyword/Value pairs for setting object attributes.
-            If the value is a scalar, then the number of copies is one.
-            If the value is a list/tuple, the number of copies is the
-            length of the list/tuple.
-
-    Returns:
-        The length of the longest value in the dict of attributes.
-
-    Raises:
-        Exception if there are two or more list/tuple values with different
-        lengths that are greater than 1. (All attribute values must be scalars
-        or lists/tuples of the same length.)
-    """
-    num_copies = set()
-    for k, v in attribs.items():
-        if isinstance(v, (list, tuple)):
-            num_copies.add(len(v))
-        else:
-            num_copies.add(1)
-
-    num_copies = list(num_copies)
-    if len(num_copies) > 2:
-        logger.error("Mismatched lengths of attributes: {}!".format(
-            num_copies))
-        raise Exception
-    elif len(num_copies) > 1 and min(num_copies) > 1:
-        logger.error("Mismatched lengths of attributes: {}!".format(
-            num_copies))
-        raise Exception
-
-    try:
-        return max(num_copies)
-    except ValueError:
-        return 0  # If the list if empty.
 
 ##############################################################################
 
@@ -673,7 +215,7 @@ class SchLib(object):
 
         # Try to open the file. Add a .lib extension if needed. If the file
         # doesn't open, then try looking in the KiCad library directory.
-        f = _find_and_open_file(filename, lib_search_paths, lib_suffixes[KICAD], allow_failure=True)
+        f = find_and_open_file(filename, lib_search_paths, lib_suffixes[KICAD], allow_failure=True)
         if not f:
             logger.warning('Unable to open KiCad Schematic Library File {}.\n'.format(filename))
             return
@@ -718,7 +260,7 @@ class SchLib(object):
 
         # Now add information from any associated DCM file.
         filename = os.path.splitext(filename)[0] # Strip any extension.
-        f = _find_and_open_file(filename, lib_search_paths, '.dcm', allow_failure=True)
+        f = find_and_open_file(filename, lib_search_paths, '.dcm', allow_failure=True)
         if not f:
             return
 
@@ -759,7 +301,7 @@ class SchLib(object):
             filename: The name of the SKiDL schematic library file.
         """
 
-        f = _find_and_open_file(filename, lib_search_paths, lib_suffixes[SKIDL], allow_failure=True)
+        f = find_and_open_file(filename, lib_search_paths, lib_suffixes[SKIDL], allow_failure=True)
         if not f:
             logger.warning('Unable to open SKiDL Schematic Library File {}.\n'.format(filename))
             return
@@ -786,11 +328,11 @@ class SchLib(object):
 
     def add_parts(self, *parts):
         """Add one or more parts to a library."""
-        for part in _flatten(parts):
+        for part in flatten(parts):
             # Parts with the same name are not allowed in the library.
             # Also, do not check the backup library to see if the parts
             # are in there because that's probably a different library.
-            if not self.get_parts(use_backup_lib=False, name = re.escape(part.name)):
+            if not self.get_parts(use_backup_lib=False, name=re.escape(part.name)):
                 self.parts.append(part.copy(dest=TEMPLATE))
         return self
 
@@ -806,9 +348,9 @@ class SchLib(object):
                 of the attribute.
 
         Returns:
-            A single Part or a list of Parts that match all the criteria.        
+            A single Part or a list of Parts that match all the criteria.
         """
-        parts = _list_or_scalar(_filter(self.parts, **criteria))
+        parts = list_or_scalar(filter_list(self.parts, **criteria))
         if not parts and use_backup_lib and QUERY_BACKUP_LIB:
             try:
                 backup_lib = load_backup_lib()
@@ -862,11 +404,11 @@ class SchLib(object):
                         'Found multiple parts matching {}. Selecting {}.'.format(
                             name, parts[0].name))
                 parts = parts[0]
-                parts._parse()
+                parts.parse()
 
         # Only a single matching part was found, so return that.
         else:
-            parts._parse()
+            parts.parse()
 
         # Return the library part or parts that were found.
         return parts
@@ -897,7 +439,7 @@ class SchLib(object):
         def prettify(s):
             """Breakup and indent library export string."""
             s = re.sub(r'(Part\()', r'\n        \1', s)
-            s =  re.sub(r'(Pin\()', r'\n            \1', s)
+            s = re.sub(r'(Pin\()', r'\n            \1', s)
             return s
 
         if tool is None:
@@ -909,7 +451,8 @@ class SchLib(object):
         export_str = 'from skidl import Pin, Part, SchLib, SKIDL, TEMPLATE\n\n'
         export_str += "SKIDL_lib_version = '0.0.1'\n\n"
         part_export_str = ','.join([p.export() for p in self.parts])
-        export_str += '{} = SchLib(tool=SKIDL).add_parts(*[{}])'.format(cnvt_to_var_name(libname), part_export_str)
+        export_str += '{} = SchLib(tool=SKIDL).add_parts(*[{}])'.format(
+                        cnvt_to_var_name(libname), part_export_str)
         export_str = prettify(export_str)
         try:
             file.write(export_str)
@@ -1077,14 +620,14 @@ class Pin(object):
 
             copies.append(cpy)
 
-        return _list_or_scalar(copies)
+        return list_or_scalar(copies)
 
     """Make copies with the multiplication operator or by calling the object."""
     __mul__ = copy
     __rmul__ = copy
     __call__ = copy
 
-    def _is_connected(self):
+    def is_connected(self):
         """Return true if a pin is connected to a net (but not a no-connect net)."""
         if not self.nets:
             # This pin is not connected to any nets.
@@ -1099,7 +642,7 @@ class Pin(object):
         if set([Net]) == net_types:
             # This pin is only connected to normal nets.
             return True
-        if set([Net,_NCNet]) == net_types:
+        if set([Net, _NCNet]) == net_types:
             # Can't be connected to both normal and no-connect nets!
             logger.error('{} is connected to both normal and no-connect nets!'.format(self._erc_desc()))
             raise Exception
@@ -1108,20 +651,20 @@ class Pin(object):
             self._erc_desc(), nets))
         raise Exception
 
-    def _is_attached(self, pin_net_bus):
+    def is_attached(self, pin_net_bus):
         """Return true if this pin is attached to the given pin, net or bus."""
-        if not self._is_connected():
+        if not self.is_connected():
             return False
         if isinstance(pin_net_bus, Pin):
-            if pin_net_bus._is_connected():
-                return pin_net_bus.net._is_attached(self.net)
+            if pin_net_bus.is_connected():
+                return pin_net_bus.net.is_attached(self.net)
             else:
                 return False
         if isinstance(pin_net_bus, Net):
-            return pin_net_bus._is_attached(self.net)
+            return pin_net_bus.is_attached(self.net)
         if isinstance(pin_net_bus, Bus):
             for net in pin_net_bus[:]:
-                if self.net._is_attached(net):
+                if self.net.is_attached(net):
                     return True
             return False
         logger.error("Pins can't be attached to {}!".format(type(pin_net_bus)))
@@ -1147,14 +690,14 @@ class Pin(object):
         """
 
         # Go through all the pins and/or nets and connect them to this pin.
-        for pn in _expand_buses(_flatten(pins_nets_buses)):
+        for pn in _expand_buses(flatten(pins_nets_buses)):
             if isinstance(pn, Pin):
                 # Connecting pin-to-pin.
-                if self._is_connected():
+                if self.is_connected():
                     # If self is already connected to a net, then add the
                     # other pin to the same net.
                     self.nets[0] += pn
-                elif pn._is_connected():
+                elif pn.is_connected():
                     # If self is unconnected but the other pin is, then
                     # connect self to the other pin's net.
                     pn.nets[0] += self
@@ -1186,13 +729,13 @@ class Pin(object):
             n._disconnect(self)
         self.nets = []
 
-    def _get_nets(self):
+    def get_nets(self):
         """Return a list containing the Net objects connected to this pin."""
         return self.nets
 
     def _get_pins(self):
         """Return a list containing this pin."""
-        return _to_list(self)
+        return to_list(self)
 
     def _erc_desc(self):
         """Return a string describing this pin for ERC."""
@@ -1211,7 +754,7 @@ class Pin(object):
         pin_func = getattr(self, 'func', Pin.UNSPEC)
         pin_func_str = Pin.pin_info[pin_func]['function']
         return 'Pin {ref}/{num}/{name}/{func}'.format(
-            ref = part_ref,
+            ref=part_ref,
             num=pin_num,
             name=pin_name,
             func=pin_func_str)
@@ -1227,11 +770,11 @@ class Pin(object):
                 if k == 'func':
                     # Assign the pin function using the actual name of the
                     # function, not its numerical value (in case that changes
-                    # in the future if more pin functions are added). 
+                    # in the future if more pin functions are added).
                     v = 'Pin.' + Pin.pin_info[v]['func_str']
                 else:
                     v = repr(v)
-                attribs.append('{}={}'.format(k,v))
+                attribs.append('{}={}'.format(k, v))
         return 'Pin({})'.format(','.join(attribs))
 
     @property
@@ -1291,8 +834,8 @@ class Alias(object):
             search: The Alias object which self will be compared to.
         """
         return (not self.id or not search.id or search.id == self.id) and \
-            (_fullmatch(str(search.name), str(self.name), flags=re.IGNORECASE) or
-             _fullmatch(str(self.name), str(search.name), flags=re.IGNORECASE))
+            (fullmatch(str(search.name), str(self.name), flags=re.IGNORECASE) or
+             fullmatch(str(self.name), str(search.name), flags=re.IGNORECASE))
 
 ##############################################################################
 
@@ -1378,13 +921,13 @@ class Part(object):
         # a netlist, then parse the entire part definition.
         elif part_defn:
             self.part_defn = part_defn
-            self._parse(just_get_name=(dest != NETLIST))
+            self.parse(just_get_name=(dest != NETLIST))
 
         # If the part is destined for a SKiDL library, then it will be defined
         # by the additional attribute values that are passed.
         elif tool == SKIDL and name:
             pass
-            
+
         else:
             logger.error(
                 "Can't make a part without a library & part name or a part definition.")
@@ -1434,7 +977,7 @@ class Part(object):
             # This happens if the part has no integer-labeled pins.
             return 0, 0
 
-    def _parse(self, just_get_name=False):
+    def parse(self, just_get_name=False):
         """
         Create a part from its stored part definition.
 
@@ -1444,7 +987,7 @@ class Part(object):
         """
 
         try:
-            parse_func = getattr(self, '_parse_{}'.format(self.tool))
+            parse_func = getattr(self, 'parse_{}'.format(self.tool))
             parse_func(just_get_name)
         except AttributeError:
             logger.error(
@@ -1452,7 +995,7 @@ class Part(object):
                     self.tool))
             raise Exception
 
-    def _parse_kicad(self, just_get_name=False):
+    def parse_kicad(self, just_get_name=False):
         """
         Create a Part using a part definition from a KiCad schematic library.
 
@@ -1719,7 +1262,7 @@ class Part(object):
         # part from being parsed more than once.
         self.part_defn = None
 
-    def _parse_skidl(self, just_get_name=False):
+    def parse_skidl(self, just_get_name=False):
         """
         Create a Part using a part definition from a SKiDL library.
         """
@@ -1766,7 +1309,7 @@ class Part(object):
                 caps = 10 * cap             # Make an array with 10 copies of it.
         """
 
-        num_copies = max(num_copies, _find_num_copies(**attribs))
+        num_copies = max(num_copies, find_num_copies(**attribs))
 
         # Check that a valid number of copies is requested.
         if not isinstance(num_copies, int):
@@ -1833,7 +1376,7 @@ class Part(object):
             # Add the part copy to the list of copies.
             copies.append(cpy)
 
-        return _list_or_scalar(copies)
+        return list_or_scalar(copies)
 
     """Make copies with the multiplication operator or by calling the object."""
     __mul__ = copy
@@ -1842,7 +1385,7 @@ class Part(object):
 
     def add_pins(self, *pins):
         """Add one or more pins to a part."""
-        for pin in _flatten(pins):
+        for pin in flatten(pins):
             pin.part = self
             self.pins.append(pin)
         return self
@@ -1887,10 +1430,10 @@ class Part(object):
 
         # Go through the list of pin IDs one-by-one.
         pins = _NetPinList()
-        for p_id in _expand_indices(self.min_pin, self.max_pin, *pin_ids):
+        for p_id in expand_indices(self.min_pin, self.max_pin, *pin_ids):
 
             # Does pin ID (either integer or string) match a pin number...
-            tmp_pins = _filter(self.pins, num=str(p_id), **criteria)
+            tmp_pins = filter_list(self.pins, num=str(p_id), **criteria)
             if tmp_pins:
                 pins.extend(tmp_pins)
                 continue
@@ -1898,11 +1441,11 @@ class Part(object):
             # OK, pin ID is not a pin number. Does it match a substring
             # within a pin name or alias?
             loose_p_id = ''.join(['.*', p_id, '.*'])
-            pins.extend(_filter(self.pins, name=loose_p_id, **criteria))
+            pins.extend(filter_list(self.pins, name=loose_p_id, **criteria))
             loose_pin_alias = Alias(loose_p_id, id(self))
-            pins.extend(_filter(self.pins, alias=loose_pin_alias, **criteria))
+            pins.extend(filter_list(self.pins, alias=loose_pin_alias, **criteria))
 
-        return _list_or_scalar(pins)
+        return list_or_scalar(pins)
 
     # Get pins from a part using brackets, e.g. [1,5:9,'A[0-9]+'].
     __getitem__ = get_pins
@@ -1910,12 +1453,12 @@ class Part(object):
     def __setitem__(self, ids, *pins_nets_buses):
         """
         You can't assign to the pins of parts. You must use the += operator.
-        
+
         This method is a work-around that allows the use of the += for making
         connections to pins while prohibiting direct assignment. Python
         processes something like my_part['GND'] += gnd as follows::
 
-            1. Part.__getitem__ is called with 'GND' as the index. This 
+            1. Part.__getitem__ is called with 'GND' as the index. This
                returns a single Pin or a NetPinList.
             2. The Pin.__iadd__ or NetPinList.__iadd__ method is passed
                the thing to connect to the pin (gnd in this case). This method
@@ -1939,7 +1482,7 @@ class Part(object):
         logger.error("Can't assign to a part! Use the += operator.")
         raise Exception
 
-    def _is_connected(self):
+    def is_connected(self):
         """
         Return T/F depending upon whether a part is connected in a netlist.
 
@@ -1955,7 +1498,7 @@ class Part(object):
 
         # If any pin is found to be connected to a net, return True.
         for p in self.pins:
-            if p._is_connected():
+            if p.is_connected():
                 return True
 
         # No net connections found, so return False.
@@ -1971,10 +1514,10 @@ class Part(object):
             3) the part has no pins (which can be the case for mechanical parts,
                silkscreen logos, or other non-electrical schematic elements).
         """
-        return not isinstance(self.circuit, Circuit) or not self._is_connected() or not self.pins
+        return not isinstance(self.circuit, Circuit) or not self.is_connected() or not self.pins
 
     def set_pin_alias(self, alias, *pin_ids, **criteria):
-        pins = _to_list(self.get_pins(*pin_ids, **criteria))
+        pins = to_list(self.get_pins(*pin_ids, **criteria))
         if not pins:
             logger.error("Trying to alias a non-existent pin.")
         if len(pins) > 1:
@@ -2017,10 +1560,10 @@ class Part(object):
         # Get all the component attributes and subtract all the ones that
         # should not appear under "fields" in the netlist or XML.
         fields = set(self.__dict__.keys())
-        non_fields = set(['name', 'min_pin','max_pin','hierarchy','_value',
-                      '_ref','ref_prefix','unit','num_units','part_defn',
-                      'definition','fields','draw','lib','fplist',
-                      'do_erc','aliases','tool','pins','footprint', 'circuit'])
+        non_fields = set(['name', 'min_pin', 'max_pin', 'hierarchy', '_value',
+                      '_ref', 'ref_prefix', 'unit', 'num_units', 'part_defn',
+                      'definition', 'fields', 'draw', 'lib', 'fplist',
+                      'do_erc', 'aliases', 'tool', 'pins', 'footprint', 'circuit'])
         return list(fields-non_fields)
 
     def _generate_netlist_component(self, tool=None):
@@ -2044,7 +1587,7 @@ class Part(object):
             raise Exception
 
     def _gen_netlist_comp_kicad(self):
-        ref = _add_quotes(self.ref)
+        ref = add_quotes(self.ref)
 
         try:
             value = self.value
@@ -2055,7 +1598,7 @@ class Part(object):
                 value = self.name
             except AttributeError:
                 value = self.ref_prefix
-        value = _add_quotes(value)
+        value = add_quotes(value)
 
         try:
             footprint = self.footprint
@@ -2063,16 +1606,16 @@ class Part(object):
             logger.error('No footprint for {part}/{ref}.'.format(
                 part=self.name, ref=ref))
             footprint = 'No Footprint'
-        footprint = _add_quotes(footprint)
+        footprint = add_quotes(footprint)
 
-        lib = _add_quotes(getattr(self, 'lib', 'NO_LIB'))
-        name = _add_quotes(self.name)
+        lib = add_quotes(getattr(self, 'lib', 'NO_LIB'))
+        name = add_quotes(self.name)
 
         fields = ''
         for fld_name in self._get_fields():
-            fld_value = _add_quotes(self.__dict__[fld_name])
+            fld_value = add_quotes(self.__dict__[fld_name])
             if fld_value:
-                fld_name = _add_quotes(fld_name)
+                fld_name = add_quotes(fld_name)
                 fields += '\n        (field (name {fld_name}) {fld_value})'.format(**locals())
         if fields:
             fields = '      (fields' + fields
@@ -2125,7 +1668,7 @@ class Part(object):
                 part=self.name, ref=ref))
             footprint = 'No Footprint'
 
-        lib = _add_quotes(getattr(self, 'lib', 'NO_LIB'))
+        lib = add_quotes(getattr(self, 'lib', 'NO_LIB'))
         name = self.name
 
         fields = ''
@@ -2189,20 +1732,20 @@ class Part(object):
     def export(self):
         """Return a string to recreate a Part object."""
         keys = self._get_fields()
-        keys.extend(('ref_prefix','num_units','fplist','do_erc','aliases','pin','footprint'))
+        keys.extend(('ref_prefix', 'num_units', 'fplist', 'do_erc', 'aliases', 'pin', 'footprint'))
         attribs = []
-        attribs.append('{}={}'.format('name',repr(self.name)))
+        attribs.append('{}={}'.format('name', repr(self.name)))
         attribs.append('dest=TEMPLATE')
         attribs.append('tool=SKIDL')
         for k in keys:
             v = getattr(self, k, None)
             if v:
-                attribs.append('{}={}'.format(k,repr(v)))
+                attribs.append('{}={}'.format(k, repr(v)))
         if self.pins:
             pin_strs = [p.export() for p in self.pins]
             attribs.append('pins=[{}]'.format(','.join(pin_strs)))
         return 'Part({})'.format(','.join(attribs))
-        
+
 
     @property
     def ref(self):
@@ -2223,7 +1766,7 @@ class Part(object):
 
         # Now name the object with the given reference or some variation
         # of it that doesn't collide with anything else in the list.
-        self._ref = _get_unique_name(self.circuit.parts, 'ref', self.ref_prefix, r)
+        self._ref = get_unique_name(self.circuit.parts, 'ref', self.ref_prefix, r)
         return
 
     @ref.deleter
@@ -2341,8 +1884,7 @@ class PartUnit(Part):
             unique_pins = set(self.pins)
         except (AttributeError, TypeError):
             unique_pins = set()
-        unique_pins |= set(_to_list(self.parent.get_pins(*pin_ids, **
-                                                         criteria)))
+        unique_pins |= set(to_list(self.parent.get_pins(*pin_ids, **criteria)))
         self.pins = list(unique_pins)
 
 ##############################################################################
@@ -2406,8 +1948,8 @@ class Net(object):
             # Add the nets attached to any unvisited pins.
             for pin in pins - prev_pins:
                 # No use visiting a pin that is not connected to a net.
-                if pin._is_connected():
-                    nets |= set(pin._get_nets())
+                if pin.is_connected():
+                    nets |= set(pin.get_nets())
 
             # Update the set of previously visited pins.
             prev_pins = copy(pins)
@@ -2432,20 +1974,20 @@ class Net(object):
         self.test_validity()
         return self._traverse().pins
 
-    def _get_nets(self):
+    def get_nets(self):
         """Return a list of nets attached to this net, including this net."""
         self.test_validity()
         return self._traverse().nets
 
-    def _is_attached(self, pin_net_bus):
+    def is_attached(self, pin_net_bus):
         """Return true if the pin, net or bus is attached to this one."""
         if isinstance(pin_net_bus, Net):
-            return pin_net_bus in self._get_nets()
+            return pin_net_bus in self.get_nets()
         if isinstance(pin_net_bus, Pin):
-            return pin_net_bus._is_attached(self)
+            return pin_net_bus.is_attached(self)
         if isinstance(pin_net_bus, Bus):
             for net in pin_net_bus[:]:
-                if self._is_attached(net):
+                if self.is_attached(net):
                     return True
             return False
         logger.error("Nets can't be attached to {}!".format(type(pin_net_bus)))
@@ -2489,7 +2031,7 @@ class Net(object):
 
         self.test_validity()
 
-        num_copies = max(num_copies, _find_num_copies(**attribs))
+        num_copies = max(num_copies, find_num_copies(**attribs))
 
         # Check that a valid number of copies is requested.
         if not isinstance(num_copies, int):
@@ -2543,7 +2085,7 @@ class Net(object):
             # Place the copy into the list of copies.
             copies.append(cpy)
 
-        return _list_or_scalar(copies)
+        return list_or_scalar(copies)
 
     """Make copies with the multiplication operator or by calling the object."""
     __mul__ = copy
@@ -2623,7 +2165,7 @@ class Net(object):
         def connect_pin(pin):
             """Connect a pin to this net."""
             if pin not in self.pins:
-                if not pin._is_connected():
+                if not pin.is_connected():
                     # Remove the pin from the no-connect net if it is attached to it.
                     pin._disconnect()
                 self.pins.append(pin)
@@ -2633,12 +2175,12 @@ class Net(object):
         self.test_validity()
 
         # Go through all the pins and/or nets and connect them to this net.
-        for pn in _expand_buses(_flatten(pins_nets_buses)):
+        for pn in _expand_buses(flatten(pins_nets_buses)):
             if isinstance(pn, Net):
                 if pn.circuit == self.circuit:
                     merge(pn)
                 else:
-                    logger.error("Can't attach nets in different circuits ({}, {})!".format(pn.circuit.name,self.circuit.name))
+                    logger.error("Can't attach nets in different circuits ({}, {})!".format(pn.circuit.name, self.circuit.name))
                     raise Exception
             elif isinstance(pn, Pin):
                 if not pn.part or pn.part.circuit == self.circuit:
@@ -2646,7 +2188,7 @@ class Net(object):
                         logger.warning("Attaching non-part Pin {} to a Net {}.".format(pn.name, self.name))
                     connect_pin(pn)
                 else:
-                    logger.error("Can't attach a part to a net in different circuits ({}, {})!".format(pn.part.circuit.name,self.circuit.name))
+                    logger.error("Can't attach a part to a net in different circuits ({}, {})!".format(pn.part.circuit.name, self.circuit.name))
                     raise Exception
             else:
                 logger.error(
@@ -2735,12 +2277,12 @@ class Net(object):
             raise Exception
 
     def _gen_netlist_net_kicad(self):
-        code = _add_quotes(self.code)
-        name = _add_quotes(self.name)
+        code = add_quotes(self.code)
+        name = add_quotes(self.name)
         txt = '    (net (code {code}) (name {name})'.format(**locals())
         for p in sorted(self._get_pins(), key=lambda p: str(p)):
-            part_ref = _add_quotes(p.part.ref)
-            pin_num = _add_quotes(p.num)
+            part_ref = add_quotes(p.part.ref)
+            pin_num = add_quotes(p.num)
             txt += '\n      (node (ref {part_ref}) (pin {pin_num}))'.format(**locals())
         txt += ')'
         return txt
@@ -2888,7 +2430,7 @@ class Net(object):
 
         # Now name the object with the given name or some variation
         # of it that doesn't collide with anything else in the list.
-        self._name = _get_unique_name(self.circuit.nets, 'name', NET_PREFIX, name)
+        self._name = get_unique_name(self.circuit.nets, 'name', NET_PREFIX, name)
 
     @name.deleter
     def name(self):
@@ -3037,7 +2579,7 @@ class Bus(object):
 
     def insert(self, index, *objects):
         """Insert objects into bus starting at indexed position."""
-        for obj in _flatten(objects):
+        for obj in flatten(objects):
             if isinstance(obj, int):
                 # Add a number of new nets to the bus.
                 for _ in range(obj):
@@ -3051,7 +2593,7 @@ class Bus(object):
                 # Add a pin to the bus.
                 try:
                     # Add the pin's net to the bus.
-                    self.nets.insert(index, obj._get_nets()[0])
+                    self.nets.insert(index, obj.get_nets()[0])
                 except IndexError:
                     # OK, the pin wasn't already connected to a net,
                     # so create a new net, add it to the bus, and
@@ -3075,9 +2617,9 @@ class Bus(object):
                 # Net names are the bus name with the index appended.
                 net.name = self.name + str(i)
 
-    def _get_nets(self):
+    def get_nets(self):
         """Return the list of nets contained in this bus."""
-        return _to_list(self.nets)
+        return to_list(self.nets)
 
     def _get_pins(self):
         """It's an error to get the list of pins attached to all bus lines."""
@@ -3142,7 +2684,7 @@ class Bus(object):
 
             copies.append(cpy)
 
-        return _list_or_scalar(copies)
+        return list_or_scalar(copies)
 
     """Make copies with the multiplication operator or by calling the object."""
     __mul__ = copy
@@ -3163,11 +2705,11 @@ class Bus(object):
 
         # Use the indices to get the nets from the bus.
         nets = []
-        for ident in _expand_indices(0, len(self) - 1, ids):
+        for ident in expand_indices(0, len(self) - 1, ids):
             if isinstance(ident, int):
                 nets.append(self.nets[ident])
             elif isinstance(ident, basestring):
-                nets.extend(_filter(self.nets, name=ident))
+                nets.extend(filter_list(self.nets, name=ident))
             else:
                 logger.error("Can't index bus with a {}.".format(type(ident)))
                 raise Exception
@@ -3185,12 +2727,12 @@ class Bus(object):
     def __setitem__(self, ids, *pins_nets_buses):
         """
         You can't assign to bus lines. You must use the += operator.
-        
+
         This method is a work-around that allows the use of the += for making
         connections to bus lines while prohibiting direct assignment. Python
         processes something like my_bus[7:0] += 8 * Pin() as follows::
 
-            1. Part.__getitem__ is called with '7:0' as the index. This 
+            1. Part.__getitem__ is called with '7:0' as the index. This
                returns a NetPinList of eight nets from my_bus.
             2. The NetPinList.__iadd__ method is passed the NetPinList and
                the thing to connect to the it (eight pins in this case). This
@@ -3269,7 +2811,7 @@ class Bus(object):
 
         # Now name the object with the given name or some variation
         # of it that doesn't collide with anything else in the list.
-        self._name = _get_unique_name(self.circuit.buses, 'name', BUS_PREFIX, name)
+        self._name = get_unique_name(self.circuit.buses, 'name', BUS_PREFIX, name)
 
     @name.deleter
     def name(self):
@@ -3293,7 +2835,7 @@ class _NetPinList(list):
     def __iadd__(self, *nets_pins_buses):
 
         nets_pins = []
-        for item in _expand_buses(_flatten(nets_pins_buses)):
+        for item in _expand_buses(flatten(nets_pins_buses)):
             if isinstance(item, (Pin, Net)):
                 nets_pins.append(item)
             else:
@@ -3334,7 +2876,7 @@ class Circuit(object):
     Attributes:
         parts: List of all the schematic parts as Part objects.
         nets: List of all the schematic nets as Net objects.
-        buses: List of all the buses as Bus objects. 
+        buses: List of all the buses as Bus objects.
         hierarchy: A '.'-separated concatenation of the names of nested
             SubCircuits at the current time it is read.
         level: The current level in the schematic hierarchy.
@@ -3374,7 +2916,7 @@ class Circuit(object):
 
         # Clear out the no-connect net and set the global no-connect if it's
         # tied to this circuit.
-        if getattr(self,'NC',False) and NC and NC is self.NC:
+        if getattr(self, 'NC', False) and NC and NC is self.NC:
             self.NC = _NCNet(name='__NOCONNECT', circuit=self)  # Net for storing no-connects for parts in this circuit.
             builtins.NC = self.NC
         else:
@@ -3525,7 +3067,7 @@ class Circuit(object):
 
     def add_parts_nets_buses(self, *parts_nets_buses):
         """Add Parts, Nets and Buses to the circuit."""
-        for pnb in _flatten(parts_nets_buses):
+        for pnb in flatten(parts_nets_buses):
             if isinstance(pnb, Part):
                 self.add_parts(pnb)
             elif isinstance(pnb, Net):
@@ -3539,7 +3081,7 @@ class Circuit(object):
 
     def rmv_parts_nets_buses(self, *parts_nets_buses):
         """Add Parts, Nets and Buses to the circuit."""
-        for pnb in _flatten(parts_nets_buses):
+        for pnb in flatten(parts_nets_buses):
             if isinstance(pnb, Part):
                 self.rmv_parts(pnb)
             elif isinstance(pnb, Net):
@@ -3554,7 +3096,7 @@ class Circuit(object):
     __iadd__ = add_parts_nets_buses
     __isub__ = rmv_parts_nets_buses
 
-    def _get_nets(self):
+    def get_nets(self):
         """Get all the distinct nets for the circuit."""
         distinct_nets = []
         for net in self.nets:
@@ -3566,7 +3108,7 @@ class Circuit(object):
                 continue
             for n in distinct_nets:
                 # Exclude net if its already attached to a previously selected net.
-                if net._is_attached(n):
+                if net.is_attached(n):
                     break
             else:
                 # This net is not attached to any of the other distinct nets,
@@ -3624,24 +3166,7 @@ class Circuit(object):
 
         # Setup the error/warning logger.
         global erc_logger
-        erc_logger = logging.getLogger('ERC_Logger')
-        log_level = logging.WARNING
-
-        handler = logging.StreamHandler(sys.stderr)
-        handler.setLevel(logging.WARNING)
-        handler.setFormatter(logging.Formatter(
-            'ERC %(levelname)s: %(message)s'))
-        erc_logger.addHandler(handler)
-
-        scr_name = _get_script_name()
-        handler = logging.StreamHandler(open(scr_name + '.erc', 'w'))
-        handler.setLevel(log_level)
-        handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
-        erc_logger.addHandler(handler)
-
-        erc_logger.setLevel(log_level)
-        erc_logger.error = _CountCalls(erc_logger.error)
-        erc_logger.warning = _CountCalls(erc_logger.warning)
+        erc_logger = create_logger('ERC_Logger', 'ERC ', '.erc')
 
     def set_pin_conflict_rule(self, pin1_func, pin2_func, conflict_level):
         """
@@ -3731,7 +3256,7 @@ class Circuit(object):
                 with open(file, 'w') as f:
                     f.write(netlist)
             except (FileNotFoundError, TypeError):
-                with open(_get_script_name() + '.net', 'w') as f:
+                with open(get_script_name() + '.net', 'w') as f:
                     f.write(netlist)
 
         if CREATE_BACKUP_LIB:
@@ -3742,7 +3267,7 @@ class Circuit(object):
         return netlist
 
     def _gen_netlist_kicad(self):
-        scr_dict = _scriptinfo()
+        scr_dict = scriptinfo()
         src_file = os.path.join(scr_dict['dir'], scr_dict['source'])
         date = time.strftime('%m/%d/%Y %I:%M %p')
         tool = 'SKiDL (' + __version__ + ')'
@@ -3757,7 +3282,7 @@ class Circuit(object):
             netlist += '\n' + p._generate_netlist_component(KICAD)
         netlist += ")\n"
         netlist += "  (nets"
-        for code, n in enumerate(sorted(self._get_nets(), key=lambda n: str(n.name))):
+        for code, n in enumerate(sorted(self.get_nets(), key=lambda n: str(n.name))):
             n.code = code
             netlist += '\n' + n._generate_netlist_net(KICAD)
         netlist += ")\n)\n"
@@ -3806,12 +3331,12 @@ class Circuit(object):
                 with open(file, 'w') as f:
                     f.write(netlist)
             except (FileNotFoundError, TypeError):
-                with open(_get_script_name() + '.xml', 'w') as f:
+                with open(get_script_name() + '.xml', 'w') as f:
                     f.write(netlist)
         return netlist
 
     def _gen_xml_kicad(self):
-        scr_dict = _scriptinfo()
+        scr_dict = scriptinfo()
         src_file = os.path.join(scr_dict['dir'], scr_dict['source'])
         date = time.strftime('%m/%d/%Y %I:%M %p')
         tool = 'SKiDL (' + __version__ + ')'
@@ -3828,7 +3353,7 @@ class Circuit(object):
             netlist += '\n' + p._generate_xml_component(KICAD)
         netlist += '\n  </components>\n'
         netlist += '  <nets>'
-        for code, n in enumerate(self._get_nets()):
+        for code, n in enumerate(self.get_nets()):
             n.code = code
             netlist += '\n' + n._generate_xml_net(KICAD)
         netlist += '\n  </nets>\n'
@@ -3863,7 +3388,7 @@ class Circuit(object):
         dot = graphviz.Digraph(engine=engine)
         dot.attr(rankdir=rankdir, splines=splines)
 
-        nets = self._get_nets()
+        nets = self.get_nets()
 
         # try and keep things in the same order
         nets.sort(key=lambda n: n.name.lower())
@@ -3871,7 +3396,7 @@ class Circuit(object):
         for n in nets:
             xlabel = n.name
             if not show_anon and n._is_implicit():
-                xlabel= None
+                xlabel = None
             dot.node(n.name, shape=net_shape, xlabel=xlabel)
             for pin in n.pins:
                 dot.edge(pin.part.ref, n.name, arrowhead='none')
@@ -3905,7 +3430,7 @@ class Circuit(object):
         for p in self.parts:
             lib += p
         if not file:
-            file = BACKUP_LIB_FILE_NAME 
+            file = BACKUP_LIB_FILE_NAME
         lib.export(libname=BACKUP_LIB_NAME, file=file)
 
 def SubCircuit(f):
@@ -4020,8 +3545,8 @@ def search(term, tool=None):
             lib_files = [l for l in lib_files if l.endswith(lib_suffixes[tool])]
 
             for lib_file in lib_files:
-                print(' '*79, '\rSearching {} ...'.format(lib_file), end = '\r')
-                lib = SchLib(os.path.join(lib_dir,lib_file), tool=tool) # Open the library file.
+                print(' '*79, '\rSearching {} ...'.format(lib_file), end='\r')
+                lib = SchLib(os.path.join(lib_dir, lib_file), tool=tool) # Open the library file.
 
                 def mk_list(l):
                     """Make a list out of whatever is given."""
@@ -4035,9 +3560,9 @@ def search(term, tool=None):
                 # each of the these categories.
                 for category in ['name', 'alias', 'description', 'keywords']:
                     for part in mk_list(lib.get_parts(**{category:term})):
-                        part._parse() # Parse the part to instantiate the complete object.
+                        part.parse() # Parse the part to instantiate the complete object.
                         parts.add((lib_file, part)) # Store the library name and part object.
-                print(' '*79, end = '\r')  # 
+                print(' '*79, end='\r')
 
         return list(parts) # Return the list of parts and their containing libraries.
 

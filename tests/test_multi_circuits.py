@@ -37,15 +37,15 @@ def test_subcircuit_1():
     resdiv(circuit=circuit2)
 
     assert len(default_circuit.parts) == 4
-    assert len(default_circuit._get_nets()) == 3
+    assert len(default_circuit.get_nets()) == 3
     assert len(default_circuit.buses) == 1
 
     assert len(circuit1.parts) == 8
-    assert len(circuit1._get_nets()) == 6
+    assert len(circuit1.get_nets()) == 6
     assert len(circuit1.buses) == 2
 
     assert len(circuit2.parts) == 12
-    assert len(circuit2._get_nets()) == 9
+    assert len(circuit2.get_nets()) == 9
     assert len(circuit2.buses) == 3
 
     ERC()
@@ -120,17 +120,17 @@ def test_subcircuit_2():
     resdiv_2(circuit=circuit2)
 
     assert len(default_circuit.parts) == 12
-    assert len(default_circuit._get_nets()) == 9
+    assert len(default_circuit.get_nets()) == 9
     assert len(default_circuit.buses) == 3
     assert len(NC.pins) == 6
 
     assert len(circuit1.parts) == 24
-    assert len(circuit1._get_nets()) == 18
+    assert len(circuit1.get_nets()) == 18
     assert len(circuit1.buses) == 6
     assert len(circuit1.NC.pins) == 12
 
     assert len(circuit2.parts) == 36
-    assert len(circuit2._get_nets()) == 27
+    assert len(circuit2.get_nets()) == 27
     assert len(circuit2.buses) == 9
     assert len(circuit2.NC.pins) == 18
 
