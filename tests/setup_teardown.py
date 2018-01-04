@@ -21,3 +21,11 @@ if __name__ == '__main__':
     with open('test.txt','wb') as f:
         f.write('test')
     teardown_function(None)
+
+def get_filename(fn):
+    """
+    Resolves a filename relative to the "tests" directory.
+    """
+    return os.path.join(
+        os.path.dirname(os.path.abspath(__file__)),
+        fn)
