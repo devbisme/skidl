@@ -3,7 +3,7 @@ from skidl import *
 from .setup_teardown import *
 
 def test_name_1():
-    vreg1 = Part('C:/xesscorp/KiCad/libraries/xess.lib', '1117')
+    vreg1 = Part(get_filename('xess.lib'), '1117')
     assert vreg1.ref == 'U1'
     vreg1.ref = 'U1'
     assert vreg1.ref == 'U1'

@@ -3,7 +3,7 @@ from skidl import *
 from .setup_teardown import *
 
 def test_lib_import_1():
-    lib = SchLib('C:/xesscorp/KiCad/libraries/xess.lib')
+    lib = SchLib(get_filename('xess.lib'))
     assert len(lib) > 0
 
 def test_lib_import_2():
