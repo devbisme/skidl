@@ -3,7 +3,7 @@ from skidl import *
 from .setup_teardown import *
 
 def test_string_indices_1():
-    vreg1 = Part('C:/xesscorp/KiCad/libraries/xess.lib',
+    vreg1 = Part('xess.lib',
                  '1117',
                  footprint='null')
     gnd = Net('GND')

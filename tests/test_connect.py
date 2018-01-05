@@ -3,7 +3,7 @@ from skidl import *
 from .setup_teardown import *
 
 def test_connect_1():
-    vreg = Part('C:/xesscorp/KiCad/libraries/xess.lib',
+    vreg = Part('xess.lib',
                 '1117',
                 footprint='null')
     vreg.value = 'NCV1117'
@@ -20,7 +20,7 @@ def test_connect_1():
 
 
 def test_connect_2():
-    vreg1 = Part('C:/xesscorp/KiCad/libraries/xess.lib',
+    vreg1 = Part('xess.lib',
                  '1117',
                  footprint='null')
     vreg1.value = 'NCV1117'
@@ -40,7 +40,7 @@ def test_connect_2():
 
 
 def test_connect_3():
-    vreg1 = Part('C:/xesscorp/KiCad/libraries/xess.lib',
+    vreg1 = Part('xess.lib',
                  '1117',
                  footprint='null')
     vreg1.value = 'NCV1117'
@@ -59,7 +59,7 @@ def test_connect_3():
 
 
 def test_connect_4():
-    vreg1 = Part('C:/xesscorp/KiCad/libraries/xess.lib',
+    vreg1 = Part('xess.lib',
                  '1117',
                  footprint='null')
     vreg1.value = 'NCV1117'
@@ -77,7 +77,7 @@ def test_connect_4():
 
 
 def test_connect_5():
-    vreg1 = Part('C:/xesscorp/KiCad/libraries/xess.lib',
+    vreg1 = Part('xess.lib',
                  '1117',
                  footprint='null')
     gnd = Net('GND')
@@ -95,12 +95,12 @@ def test_connect_5():
 def test_connect_6():
     gnd = Net('GND')
     vin = Net('Vin')
-    vreg1 = Part('C:/xesscorp/KiCad/libraries/xess.lib',
+    vreg1 = Part('xess.lib',
                  '1117',
                  footprint='null',
                  connections={'GND': gnd,
                               'IN': vin})
-    vreg2 = Part('C:/xesscorp/KiCad/libraries/xess.lib',
+    vreg2 = Part('xess.lib',
                  '1117',
                  footprint='null',
                  connections={'GND': gnd,
