@@ -126,6 +126,7 @@ backup_lib = None
 
 # Set up logging.
 logger = create_logger('skidl')
+erc_logger = create_logger('ERC_Logger', 'ERC ', '.erc')
 
 
 def _expand_buses(pins_nets_buses):
@@ -203,7 +204,7 @@ class SchLib(object):
                 raise Exception
 
     @classmethod
-    def _reset(cls):
+    def reset(cls):
         cls._cache = {}
 
     def _load_sch_lib_kicad(self, filename=None, lib_search_paths_=None):
@@ -645,11 +646,11 @@ class Pin(object):
             return True
         if set([Net, _NCNet]) == net_types:
             # Can't be connected to both normal and no-connect nets!
-            logger.error('{} is connected to both normal and no-connect nets!'.format(self._erc_desc()))
+            logger.error('{} is connected to both normal and no-connect nets!'.format(self.erc_desc()))
             raise Exception
         # This is just strange...
         logger.error("{} is connected to something strange: {}.".format(
-            self._erc_desc(), self.nets))
+            self.erc_desc(), self.nets))
         raise Exception
 
     def is_attached(self, pin_net_bus):
@@ -711,7 +712,7 @@ class Pin(object):
                 pn += self
             else:
                 logger.error('Cannot attach non-Pin/non-Net {} to {}.'.format(
-                    type(pn), self._erc_desc()))
+                    type(pn), self.erc_desc()))
                 raise Exception
 
         # Set the flag to indicate this result came from the += operator.
@@ -722,12 +723,12 @@ class Pin(object):
     # Connect a net to a pin using the += operator.
     __iadd__ = connect
 
-    def _disconnect(self):
+    def disconnect(self):
         """Disconnect this pin from all nets."""
         if not self.net:
             return
         for n in self.nets:
-            n._disconnect(self)
+            n.disconnect(self)
         self.nets = []
 
     def get_nets(self):
@@ -738,10 +739,10 @@ class Pin(object):
         """Return a list containing this pin."""
         return to_list(self)
 
-    def _erc_desc(self):
+    def erc_desc(self):
         """Return a string describing this pin for ERC."""
         desc = "{func} pin {num}/{name} of {part}".format(
-            part=self.part._erc_desc(),
+            part=self.part.erc_desc(),
             num=self.num,
             name=self.name,
             func=Pin.pin_info[self.func]['function'])
@@ -912,7 +913,7 @@ class Part(object):
             self.__dict__.update(part.__dict__)
 
             # Make sure all the pins have a valid reference to this part.
-            self._associate_pins()
+            self.associate_pins()
 
             # Store the library name of this part.
             self.lib = getattr(lib, 'filename', None)
@@ -1258,7 +1259,7 @@ class Part(object):
         self.pins = [kicad_pin_to_pin(p) for p in self.draw['pins']]
 
         # Make sure all the pins have a valid reference to this part.
-        self._associate_pins()
+        self.associate_pins()
 
         # Part definition has been parsed, so clear it out. This prevents a
         # part from being parsed more than once.
@@ -1274,7 +1275,7 @@ class Part(object):
         return self
 
 
-    def _associate_pins(self):
+    def associate_pins(self):
         """
         Make sure all the pins in a part have valid references to the part.
         """
@@ -1339,7 +1340,7 @@ class Part(object):
                 cpy.pins.append(p.copy())
 
             # Make sure all the pins have a reference to this new part copy.
-            cpy._associate_pins()
+            cpy.associate_pins()
 
             # Clear the part reference of the copied part so a unique reference
             # can be assigned when the part is added to the circuit.
@@ -1506,7 +1507,7 @@ class Part(object):
         # No net connections found, so return False.
         return False
 
-    def _is_movable(self):
+    def is_movable(self):
         """
         Return T/F if the part can be moved from one circuit into another.
 
@@ -1550,7 +1551,7 @@ class Part(object):
 
         collisions = self.get_pins(label)
         if collisions:
-            logger.warning("Using a label ({}) for a unit of {} that matches one or more of it's pin names ({})!".format(label, self._erc_desc(), collisions))
+            logger.warning("Using a label ({}) for a unit of {} that matches one or more of it's pin names ({})!".format(label, self.erc_desc(), collisions))
         self.unit[label] = PartUnit(self, *pin_ids, **criteria)
         return self.unit[label]
 
@@ -1610,8 +1611,8 @@ class Part(object):
             footprint = 'No Footprint'
         footprint = add_quotes(footprint)
 
-        lib = add_quotes(getattr(self, 'lib', 'NO_LIB'))
-        name = add_quotes(self.name)
+        lib = add_quotes(getattr(self, 'lib', 'NO_LIB'))  # pylint: disable=unused-variable
+        name = add_quotes(self.name)                      # pylint: disable=unused-variable
 
         fields = ''
         for fld_name in self._get_fields():
@@ -1664,14 +1665,14 @@ class Part(object):
                 value = self.ref_prefix
 
         try:
-            footprint = self.footprint
+            footprint = self.footprint  # pylint: disable=unused-variable
         except AttributeError:
             logger.error('No footprint for {part}/{ref}.'.format(
                 part=self.name, ref=ref))
             footprint = 'No Footprint'
 
-        lib = add_quotes(getattr(self, 'lib', 'NO_LIB'))
-        name = self.name
+        lib = add_quotes(getattr(self, 'lib', 'NO_LIB'))  # pylint: disable=unused-variable
+        name = self.name                                  # pylint: disable=unused-variable
 
         fields = ''
         for fld_name in self._get_fields():
@@ -1711,16 +1712,16 @@ class Part(object):
             if p.net is None:
                 if p.func != Pin.NOCONNECT:
                     erc_logger.warning('Unconnected pin: {p}.'.format(
-                        p=p._erc_desc()))
+                        p=p.erc_desc()))
 
             # Error if a no-connect pin is connected to a net.
             elif p.net.drive != Pin.NOCONNECT_DRIVE:
                 if p.func == Pin.NOCONNECT:
                     erc_logger.warning(
                         'Incorrectly connected pin: {p} should not be connected to a net ({n}).'.format(
-                            p=p._erc_desc(), n=p.net.name))
+                            p=p.erc_desc(), n=p.net.name))
 
-    def _erc_desc(self):
+    def erc_desc(self):
         """Create description of part for ERC and other error reporting."""
         return "{p.name}/{p.ref}".format(p=self)
 
@@ -1996,7 +1997,7 @@ class Net(object):
         logger.error("Nets can't be attached to {}!".format(type(pin_net_bus)))
         raise Exception
 
-    def _is_movable(self):
+    def is_movable(self):
         """
         Return true if the net is movable to another circuit.
 
@@ -2090,12 +2091,12 @@ class Net(object):
 
         return list_or_scalar(copies)
 
-    """Make copies with the multiplication operator or by calling the object."""
+    # Make copies with the multiplication operator or by calling the object.
     __mul__ = copy
     __rmul__ = copy
     __call__ = copy
 
-    def _is_implicit(self, net_name=None):
+    def is_implicit(self, net_name=None):
         """Return true if the net name is implicit."""
         self.test_validity()
         if net_name:
@@ -2170,7 +2171,7 @@ class Net(object):
             if pin not in self.pins:
                 if not pin.is_connected():
                     # Remove the pin from the no-connect net if it is attached to it.
-                    pin._disconnect()
+                    pin.disconnect()
                 self.pins.append(pin)
                 pin.nets.append(self)
             return
@@ -2213,9 +2214,9 @@ class Net(object):
                     return nets[0]
                 if not name0:
                     return nets[1]
-                if self._is_implicit(name1):
+                if self.is_implicit(name1):
                     return nets[0]
-                if self._is_implicit(name0):
+                if self.is_implicit(name0):
                     return nets[1]
                 logger.warning('Merging two named nets ({name0} and {name1}) into {name0}.'.format(**locals()))
                 return nets[0]
@@ -2232,7 +2233,7 @@ class Net(object):
         for net in nets:
             # Assign the name directly to each net. Using the name property
             # would cause the names to be changed so they were unique.
-            net._name = selected_name
+            net._name = selected_name  # pylint: disable=protected-access
 
         # Add the net to the global netlist. (It won't be added again
         # if it's already there.)
@@ -2246,7 +2247,7 @@ class Net(object):
     # Use += to connect to nets.
     __iadd__ = connect
 
-    def _disconnect(self, pin):
+    def disconnect(self, pin):
         """Remove the pin from this net but not any other nets it's attached to."""
         try:
             self.pins.remove(pin)
@@ -2280,12 +2281,12 @@ class Net(object):
             raise Exception
 
     def _gen_netlist_net_kicad(self):
-        code = add_quotes(self.code)
-        name = add_quotes(self.name)
+        code = add_quotes(self.code)  # pylint: disable=unused-variable
+        name = add_quotes(self.name)  # pylint: disable=unused-variable
         txt = '    (net (code {code}) (name {name})'.format(**locals())
         for p in sorted(self._get_pins(), key=lambda p: str(p)):
-            part_ref = add_quotes(p.part.ref)
-            pin_num = add_quotes(p.num)
+            part_ref = add_quotes(p.part.ref)  # pylint: disable=unused-variable
+            pin_num = add_quotes(p.num)        # pylint: disable=unused-variable
             txt += '\n      (node (ref {part_ref}) (pin {pin_num}))'.format(**locals())
         txt += ')'
         return txt
@@ -2317,12 +2318,12 @@ class Net(object):
             raise Exception
 
     def _gen_xml_net_kicad(self):
-        code = self.code
-        name = self.name
+        code = self.code  # pylint: disable=unused-variable
+        name = self.name  # pylint: disable=unused-variable
         txt = '    <net code="{code}" name="{name}">'.format(**locals())
         for p in self._get_pins():
-            part_ref = p.part.ref
-            pin_num = p.num
+            part_ref = p.part.ref  # pylint: disable=unused-variable
+            pin_num = p.num        # pylint: disable=unused-variable
             txt += '\n      <node ref="{part_ref}" pin="{pin_num}"/>'.format(**locals())
         txt += '\n    </net>'
         return txt
@@ -2349,8 +2350,8 @@ class Net(object):
             # Otherwise, generate an error or warning message.
             msg = 'Pin conflict on net {n}: {p1} <==> {p2}'.format(
                 n=pin1.net.name,
-                p1=pin1._erc_desc(),
-                p2=pin2._erc_desc())
+                p1=pin1.erc_desc(),
+                p2=pin2.erc_desc())
             if erc_result == Circuit.WARNING:
                 erc_logger.warning(msg)
             else:
@@ -2374,7 +2375,7 @@ class Net(object):
                 if Pin.pin_info[p.func]['min_rcv'] > net_drive:
                     erc_logger.warning(
                         'Insufficient drive current on net {n} for pin {p}'.format(
-                            n=self.name, p=p._erc_desc()))
+                            n=self.name, p=p.erc_desc()))
 
         self.test_validity()
 
@@ -2391,7 +2392,7 @@ class Net(object):
         elif num_pins == 1:
             erc_logger.warning(
                 'Only one pin ({p}) attached to net {n}.'.format(p=pins[
-                    0]._erc_desc(), n=self.name))
+                    0].erc_desc(), n=self.name))
         else:
             for i in range(num_pins):
                 for j in range(i + 1, num_pins):
@@ -2616,7 +2617,7 @@ class Bus(object):
 
         # Assign names to all the unnamed nets in the bus.
         for i, net in enumerate(self.nets):
-            if net._is_implicit():
+            if net.is_implicit():
                 # Net names are the bus name with the index appended.
                 net.name = self.name + str(i)
 
@@ -2689,7 +2690,7 @@ class Bus(object):
 
         return list_or_scalar(copies)
 
-    """Make copies with the multiplication operator or by calling the object."""
+    # Make copies with the multiplication operator or by calling the object.
     __mul__ = copy
     __rmul__ = copy
     __call__ = copy
@@ -2759,14 +2760,14 @@ class Bus(object):
         logger.error("Can't assign to a bus! Use the += operator.")
         raise Exception
 
-    def _is_movable(self):
+    def is_movable(self):
         """
         Return true if the bus is movable to another circuit.
 
         A bus  is movable if all the nets in it are movable.
         """
         for n in self.nets:
-            if not n._is_movable():
+            if not n.is_movable():
                 # One net not movable means the entire Bus is not movable.
                 return False
         return True # All the nets were movable.
@@ -2906,7 +2907,7 @@ class Circuit(object):
         self.mini_reset()
 
         # Also clear any cached libraries.
-        SchLib._reset()
+        SchLib.reset()
         global backup_lib
         backup_lib = None
 
@@ -2934,7 +2935,7 @@ class Circuit(object):
             # Add the part to this circuit if the part is movable and
             # it's not already in this circuit.
             if part.circuit != self:
-                if part._is_movable():
+                if part.is_movable():
 
                     # Remove the part from the circuit it's already in.
                     if isinstance(part.circuit, Circuit):
@@ -2987,7 +2988,7 @@ class Circuit(object):
     def rmv_parts(self, *parts):
         """Remove some Part objects from the circuit."""
         for part in parts:
-            if part._is_movable():
+            if part.is_movable():
                 if part.circuit == self and part in self.parts:
                     part.circuit = None
                     part.hierarchy = None
@@ -3004,7 +3005,7 @@ class Circuit(object):
             # Add the net to this circuit if the net is movable and
             # it's not already in this circuit.
             if net.circuit != self:
-                if net._is_movable():
+                if net.is_movable():
 
                     # Remove the net from the circuit it's already in.
                     if isinstance(net.circuit, Circuit):
@@ -3023,7 +3024,7 @@ class Circuit(object):
     def rmv_nets(self, *nets):
         """Remove some Net objects from the circuit."""
         for net in nets:
-            if net._is_movable():
+            if net.is_movable():
                 if net.circuit == self and net in self.nets:
                     net.circuit = None
                     net.hierarchy = None
@@ -3040,7 +3041,7 @@ class Circuit(object):
             # Add the bus to this circuit if the bus is movable and
             # it's not already in this circuit.
             if bus.circuit != self:
-                if bus._is_movable():
+                if bus.is_movable():
 
                     # Remove the bus from the circuit it's already in, but skip
                     # this if the bus isn't already in a Circuit.
@@ -3058,7 +3059,7 @@ class Circuit(object):
     def rmv_buses(self, *buses):
         """Remove some buses from the circuit."""
         for bus in buses:
-            if bus._is_movable():
+            if bus.is_movable():
                 if bus.circuit == self and bus in self.buses:
                     bus.circuit = None
                     bus.hierarchy = None
@@ -3169,10 +3170,6 @@ class Circuit(object):
         for c in range(1, 11):
             for r in range(c):
                 self._erc_matrix[r][c] = self._erc_matrix[c][r]
-
-        # Setup the error/warning logger.
-        global erc_logger
-        erc_logger = create_logger('ERC_Logger', 'ERC ', '.erc')
 
     def set_pin_conflict_rule(self, pin1_func, pin2_func, conflict_level):
         """
@@ -3401,7 +3398,7 @@ class Circuit(object):
 
         for n in nets:
             xlabel = n.name
-            if not show_anon and n._is_implicit():
+            if not show_anon and n.is_implicit():
                 xlabel = None
             dot.node(n.name, shape=net_shape, xlabel=xlabel)
             for pin in n.pins:
