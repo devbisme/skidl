@@ -105,7 +105,7 @@ except KeyError:
 
 # Add the location of the default SKiDL part libraries.
 import skidl.libs
-lib_search_paths[SKIDL].append( skidl.libs.__path__[0])
+lib_search_paths[SKIDL].append(skidl.libs.__path__[0])
 
 lib_suffixes = {
     KICAD: '.lib',
@@ -124,9 +124,9 @@ CREATE_BACKUP_LIB = True
 backup_lib = None
 
 
-# Set up logging.
-logger = create_logger('skidl')
-erc_logger = create_logger('ERC_Logger', 'ERC ', '.erc')
+# Set up logging for runtime messages and ERC reports.
+builtins.logger = create_logger('skidl')
+builtins.erc_logger = create_logger('ERC_Logger', 'ERC ', '.erc')
 
 
 def _expand_buses(pins_nets_buses):
@@ -205,6 +205,7 @@ class SchLib(object):
 
     @classmethod
     def reset(cls):
+        """Clear the cache of processed library files."""
         cls._cache = {}
 
     def _load_sch_lib_kicad(self, filename=None, lib_search_paths_=None):
@@ -424,13 +425,13 @@ class SchLib(object):
 
     __repr__ = __str__
 
-    def export(self, libname, file=None, tool=None):
+    def export(self, libname, file_=None, tool=None):
         """
         Export a library into a file.
 
         Args:
             libname: A string containing the name of the library.
-            file: The file the library will be exported to. It can either
+            file_: The file the library will be exported to. It can either
                 be a file object or a string or None. If None, the file
                 will be the same as the library name with the library
                 suffix appended.
@@ -447,19 +448,19 @@ class SchLib(object):
         if tool is None:
             tool = SKIDL
 
-        if not file:
-            file = libname + lib_suffixes[tool]
+        if not file_:
+            file_ = libname + lib_suffixes[tool]
 
         export_str = 'from skidl import Pin, Part, SchLib, SKIDL, TEMPLATE\n\n'
         export_str += "SKIDL_lib_version = '0.0.1'\n\n"
         part_export_str = ','.join([p.export() for p in self.parts])
         export_str += '{} = SchLib(tool=SKIDL).add_parts(*[{}])'.format(
-                        cnvt_to_var_name(libname), part_export_str)
+            cnvt_to_var_name(libname), part_export_str)
         export_str = prettify(export_str)
         try:
-            file.write(export_str)
+            file_.write(export_str)
         except AttributeError:
-            with open(file, 'w') as f:
+            with open(file_, 'w') as f:
                 f.write(export_str)
 
     def __len__(self):
@@ -660,8 +661,7 @@ class Pin(object):
         if isinstance(pin_net_bus, Pin):
             if pin_net_bus.is_connected():
                 return pin_net_bus.net.is_attached(self.net)
-            else:
-                return False
+            return False
         if isinstance(pin_net_bus, Net):
             return pin_net_bus.is_attached(self.net)
         if isinstance(pin_net_bus, Bus):
@@ -716,7 +716,7 @@ class Pin(object):
                 raise Exception
 
         # Set the flag to indicate this result came from the += operator.
-        self.iadd_flag = True
+        self.iadd_flag = True  # pylint: disable=attribute-defined-outside-init
 
         return self
 
@@ -735,7 +735,7 @@ class Pin(object):
         """Return a list containing the Net objects connected to this pin."""
         return self.nets
 
-    def _get_pins(self):
+    def get_pins(self):
         """Return a list containing this pin."""
         return to_list(self)
 
@@ -818,9 +818,9 @@ class Alias(object):
 
     def __init__(self, name, id_tag=None):
         self.name = name
-        self.id = id_tag
+        self.id_ = id_tag
 
-    def __eq__(self, search):
+    def __eq__(self, other):
         """
         Return true if one alias is equal to another.
 
@@ -833,11 +833,11 @@ class Alias(object):
                 regular expression to compare to the other.
 
         Args:
-            search: The Alias object which self will be compared to.
+            other: The Alias object which self will be compared to.
         """
-        return (not self.id or not search.id or search.id == self.id) and \
-            (fullmatch(str(search.name), str(self.name), flags=re.IGNORECASE) or
-             fullmatch(str(self.name), str(search.name), flags=re.IGNORECASE))
+        return (not self.id_ or not other.id_ or other.id_ == self.id_) and \
+            (fullmatch(str(other.name), str(self.name), flags=re.IGNORECASE) or
+             fullmatch(str(self.name), str(other.name), flags=re.IGNORECASE))
 
 ##############################################################################
 
@@ -1097,7 +1097,7 @@ class Part(object):
                 # Use an empty string for any missing values so every key will be
                 # associated with something.
                 values = line[1:] + [
-                    '' for n in range(len(key_list) - len(line[1:]))
+                    '' for _ in range(len(key_list) - len(line[1:]))
                 ]
 
             # Create a dictionary of part definition keywords and values.
@@ -1113,8 +1113,8 @@ class Part(object):
                         return
                     # Name found so scan defn to see if aliases are present.
                     # (The majority of parts don't have aliases.)
-                    for line in self.part_defn:
-                        if re.match(r'^\s*ALIAS\s', line):
+                    for ln in self.part_defn:
+                        if re.match(r'^\s*ALIAS\s', ln):
                             # Break and keep parsing defn if aliases are present.
                             break
                     else:
@@ -1134,7 +1134,7 @@ class Part(object):
             elif line[0][0] == 'F':
                 # Make a list of field values with empty strings for missing fields.
                 values = line[1:] + [
-                    '' for n in range(len(_FN_KEYS) - len(line[1:]))
+                    '' for _ in range(len(_FN_KEYS) - len(line[1:]))
                 ]
                 self.fields.append(dict(list(zip(_FN_KEYS, values))))
 
@@ -1252,7 +1252,7 @@ class Part(object):
                                     'C': Pin.OPENCOLL,
                                     'E': Pin.OPENEMIT,
                                     'N': Pin.NOCONNECT}
-            p.func = pin_type_translation[p.electrical_type]  # pylint: disable=no-member
+            p.func = pin_type_translation[p.electrical_type]  # pylint: disable=no-member, attribute-defined-outside-init
 
             return p
 
@@ -1265,7 +1265,7 @@ class Part(object):
         # part from being parsed more than once.
         self.part_defn = None
 
-    def parse_skidl(self, just_get_name=False):
+    def parse_skidl(self, just_get_name=False):  # pylint: disable=unused-argument
         """
         Create a Part using a part definition from a SKiDL library.
         """
@@ -1381,7 +1381,7 @@ class Part(object):
 
         return list_or_scalar(copies)
 
-    """Make copies with the multiplication operator or by calling the object."""
+    # Make copies with the multiplication operator or by calling the object.
     __mul__ = copy
     __rmul__ = copy
     __call__ = copy
@@ -1564,12 +1564,12 @@ class Part(object):
         # should not appear under "fields" in the netlist or XML.
         fields = set(self.__dict__.keys())
         non_fields = set(['name', 'min_pin', 'max_pin', 'hierarchy', '_value',
-                      '_ref', 'ref_prefix', 'unit', 'num_units', 'part_defn',
-                      'definition', 'fields', 'draw', 'lib', 'fplist',
-                      'do_erc', 'aliases', 'tool', 'pins', 'footprint', 'circuit'])
+                          '_ref', 'ref_prefix', 'unit', 'num_units', 'part_defn',
+                          'definition', 'fields', 'draw', 'lib', 'fplist',
+                          'do_erc', 'aliases', 'tool', 'pins', 'footprint', 'circuit'])
         return list(fields-non_fields)
 
-    def _generate_netlist_component(self, tool=None):
+    def generate_netlist_component(self, tool=None):
         """
         Generate the part information for inclusion in a netlist.
 
@@ -1632,7 +1632,7 @@ class Part(object):
         txt = template.format(**locals())
         return txt
 
-    def _generate_xml_component(self, tool=None):
+    def generate_xml_component(self, tool=None):
         """
         Generate the part information for inclusion in an XML file.
 
@@ -1692,7 +1692,7 @@ class Part(object):
         txt = template.format(**locals())
         return txt
 
-    def _erc(self):
+    def erc(self):
         """
         Do electrical rules check on a part in the schematic.
         """
@@ -1973,7 +1973,7 @@ class Net(object):
         traversal.pins = list(pins)
         return traversal
 
-    def _get_pins(self):
+    def get_pins(self):
         """Return a list of pins attached to this net."""
         self.test_validity()
         return self._traverse().pins
@@ -2254,7 +2254,7 @@ class Net(object):
         except ValueError:
             pass
 
-    def _generate_netlist_net(self, tool=None):
+    def generate_netlist_net(self, tool=None):
         """
         Generate the net information for inclusion in a netlist.
 
@@ -2268,7 +2268,7 @@ class Net(object):
         self.test_validity()
 
         # Don't add anything to the netlist if no pins are on this net.
-        if not self._get_pins():
+        if not self.get_pins():
             return
 
         try:
@@ -2284,14 +2284,14 @@ class Net(object):
         code = add_quotes(self.code)  # pylint: disable=unused-variable
         name = add_quotes(self.name)  # pylint: disable=unused-variable
         txt = '    (net (code {code}) (name {name})'.format(**locals())
-        for p in sorted(self._get_pins(), key=lambda p: str(p)):
+        for p in sorted(self.get_pins(), key=str):
             part_ref = add_quotes(p.part.ref)  # pylint: disable=unused-variable
             pin_num = add_quotes(p.num)        # pylint: disable=unused-variable
             txt += '\n      (node (ref {part_ref}) (pin {pin_num}))'.format(**locals())
         txt += ')'
         return txt
 
-    def _generate_xml_net(self, tool=None):
+    def generate_xml_net(self, tool=None):
         """
         Generate the net information for inclusion in an XML file.
 
@@ -2305,7 +2305,7 @@ class Net(object):
         self.test_validity()
 
         # Don't add anything to the XML if no pins are on this net.
-        if not self._get_pins():
+        if not self.get_pins():
             return
 
         try:
@@ -2321,14 +2321,14 @@ class Net(object):
         code = self.code  # pylint: disable=unused-variable
         name = self.name  # pylint: disable=unused-variable
         txt = '    <net code="{code}" name="{name}">'.format(**locals())
-        for p in self._get_pins():
+        for p in self.get_pins():
             part_ref = p.part.ref  # pylint: disable=unused-variable
             pin_num = p.num        # pylint: disable=unused-variable
             txt += '\n      <node ref="{part_ref}" pin="{pin_num}"/>'.format(**locals())
         txt += '\n    </net>'
         return txt
 
-    def _erc(self):
+    def erc(self):
         """
         Do electrical rules check on a net in the schematic.
         """
@@ -2341,7 +2341,7 @@ class Net(object):
             if not pin1.do_erc or not pin2.do_erc:
                 return
 
-            erc_result = self.circuit._erc_pin_to_pin_chk(pin1, pin2)
+            erc_result = self.circuit.erc_pin_to_pin_chk(pin1, pin2)
 
             # Return if the pins are compatible.
             if erc_result == Circuit.OK:
@@ -2364,7 +2364,7 @@ class Net(object):
 
             # Find the maximum signal driver on this net.
             net_drive = self.drive  # Start with user-set drive level.
-            pins = self._get_pins()
+            pins = self.get_pins()
             for p in pins:
                 net_drive = max(net_drive, Pin.pin_info[p.func]['drive'])
 
@@ -2384,7 +2384,7 @@ class Net(object):
             return
 
         # Check the number of pins attached to the net.
-        pins = self._get_pins()
+        pins = self.get_pins()
         num_pins = len(pins)
         if num_pins == 0:
             erc_logger.warning('No pins attached to net {n}.'.format(
@@ -2404,15 +2404,15 @@ class Net(object):
     def __str__(self):
         """Return a list of the pins on this net as a string."""
         self.test_validity()
-        pins = self._get_pins()
-        return self.name + ': ' + ', '.join([p.__str__() for p in sorted(pins, key=lambda p: str(p))])
+        pins = self.get_pins()
+        return self.name + ': ' + ', '.join([p.__str__() for p in sorted(pins, key=str)])
 
     __repr__ = __str__
 
     def __len__(self):
         """Return the number of pins attached to this net."""
         self.test_validity()
-        pins = self._get_pins()
+        pins = self.get_pins()
         return len(pins)
 
     @property
@@ -2506,7 +2506,7 @@ class _NCNet(Net):
         super(_NCNet, self).__init__(name=name, circuit=circuit, *pins_nets_buses, **attribs)
         self._drive = Pin.NOCONNECT_DRIVE
 
-    def _generate_netlist_net(self, tool=None):
+    def generate_netlist_net(self, tool=None):
         """NO_CONNECT nets don't generate anything for netlists."""
 
         if tool is None:
@@ -2514,7 +2514,7 @@ class _NCNet(Net):
 
         return ''
 
-    def _erc(self):
+    def erc(self):
         """No need to check NO_CONNECT nets."""
         pass
 
@@ -2625,7 +2625,7 @@ class Bus(object):
         """Return the list of nets contained in this bus."""
         return to_list(self.nets)
 
-    def _get_pins(self):
+    def get_pins(self):
         """It's an error to get the list of pins attached to all bus lines."""
         logger.error("Can't get the list of pins on a bus!")
         raise Exception
@@ -2721,12 +2721,13 @@ class Bus(object):
         if len(nets) == 0:
             # No nets were selected from the bus, so return None.
             return None
+
         if len(nets) == 1:
             # Just one net selected, so return the Net object.
             return nets[0]
-        else:
-            # Multiple nets selected, so return them as a NetPinList list.
-            return _NetPinList(nets)
+
+        # Multiple nets selected, so return them as a NetPinList list.
+        return _NetPinList(nets)
 
     def __setitem__(self, ids, *pins_nets_buses):
         """
@@ -2844,7 +2845,7 @@ class _NetPinList(list):
                 nets_pins.append(item)
             else:
                 logger.error("Can't make connections to a {} ({}).".format(
-                    type(id), item.__name__))
+                    type(item), item.__name__))
                 raise Exception
 
         if len(nets_pins) != len(self):
@@ -2865,7 +2866,7 @@ class _NetPinList(list):
             self[i] += np
 
         # Set the flag to indicate this result came from the += operator.
-        self.iadd_flag = True
+        self.iadd_flag = True  # pylint: disable=attribute-defined-outside-init
 
         return self
 
@@ -3110,7 +3111,7 @@ class Circuit(object):
             if net is self.NC:
                 # Exclude no-connect net.
                 continue
-            if not net._get_pins():
+            if not net.get_pins():
                 # Exclude empty nets with no attached pins.
                 continue
             for n in distinct_nets:
@@ -3185,7 +3186,7 @@ class Circuit(object):
         self._erc_matrix[pin1_func][pin2_func] = conflict_level
         self._erc_matrix[pin2_func][pin1_func] = conflict_level
 
-    def _erc_pin_to_pin_chk(self, pin1, pin2):
+    def erc_pin_to_pin_chk(self, pin1, pin2):
         """Check for conflict between two pins on a net."""
 
         # Use the functions of the two pins to index into the ERC table
@@ -3202,11 +3203,11 @@ class Circuit(object):
 
         # Check the nets for errors.
         for net in self.nets:
-            net._erc()
+            net.erc()
 
         # Check the parts for errors.
         for part in self.parts:
-            part._erc()
+            part.erc()
 
         if (erc_logger.error.count, erc_logger.warning.count) == (0, 0):
             sys.stderr.write('\nNo ERC errors or warnings found.\n\n')
@@ -3216,7 +3217,7 @@ class Circuit(object):
             sys.stderr.write('{} errors found during ERC.\n\n'.format(
                 erc_logger.error.count))
 
-    def generate_netlist(self, file=None, tool=None):
+    def generate_netlist(self, file_=None, tool=None):
         """
         Return a netlist as a string and also write it to a file/stream.
 
@@ -3252,11 +3253,11 @@ class Circuit(object):
                     logger.error.count))
 
         try:
-            with file as f:
+            with file_ as f:
                 f.write(netlist)
         except AttributeError:
             try:
-                with open(file, 'w') as f:
+                with open(file_, 'w') as f:
                     f.write(netlist)
             except (FileNotFoundError, TypeError):
                 with open(get_script_name() + '.net', 'w') as f:
@@ -3271,9 +3272,9 @@ class Circuit(object):
 
     def _gen_netlist_kicad(self):
         scr_dict = scriptinfo()
-        src_file = os.path.join(scr_dict['dir'], scr_dict['source'])
-        date = time.strftime('%m/%d/%Y %I:%M %p')
-        tool = 'SKiDL (' + __version__ + ')'
+        src_file = os.path.join(scr_dict['dir'], scr_dict['source'])  # pylint: disable=unused-variable
+        date = time.strftime('%m/%d/%Y %I:%M %p')                     # pylint: disable=unused-variable
+        tool = 'SKiDL (' + __version__ + ')'                          # pylint: disable=unused-variable
         template = '(export (version D)\n' + \
                    '  (design\n' + \
                    '    (source "{src_file}")\n' + \
@@ -3282,21 +3283,21 @@ class Circuit(object):
         netlist = template.format(**locals())
         netlist += "  (components"
         for p in sorted(self.parts, key=lambda p: str(p.ref)):
-            netlist += '\n' + p._generate_netlist_component(KICAD)
+            netlist += '\n' + p.generate_netlist_component(KICAD)
         netlist += ")\n"
         netlist += "  (nets"
         for code, n in enumerate(sorted(self.get_nets(), key=lambda n: str(n.name))):
             n.code = code
-            netlist += '\n' + n._generate_netlist_net(KICAD)
+            netlist += '\n' + n.generate_netlist_net(KICAD)
         netlist += ")\n)\n"
         return netlist
 
-    def generate_xml(self, file=None, tool=None):
+    def generate_xml(self, file_=None, tool=None):
         """
         Return netlist as an XML string and also write it to a file/stream.
 
         Args:
-            file: Either a file object that can be written to, or a string
+            file_: Either a file object that can be written to, or a string
                 containing a file name, or None.
 
         Returns:
@@ -3327,11 +3328,11 @@ class Circuit(object):
                     logger.error.count))
 
         try:
-            with file as f:
+            with file_ as f:
                 f.write(netlist)
         except AttributeError:
             try:
-                with open(file, 'w') as f:
+                with open(file_, 'w') as f:
                     f.write(netlist)
             except (FileNotFoundError, TypeError):
                 with open(get_script_name() + '.xml', 'w') as f:
@@ -3340,9 +3341,9 @@ class Circuit(object):
 
     def _gen_xml_kicad(self):
         scr_dict = scriptinfo()
-        src_file = os.path.join(scr_dict['dir'], scr_dict['source'])
-        date = time.strftime('%m/%d/%Y %I:%M %p')
-        tool = 'SKiDL (' + __version__ + ')'
+        src_file = os.path.join(scr_dict['dir'], scr_dict['source'])  # pylint: disable=unused-variable
+        date = time.strftime('%m/%d/%Y %I:%M %p')                     # pylint: disable=unused-variable
+        tool = 'SKiDL (' + __version__ + ')'                          # pylint: disable=unused-variable
         template = '<?xml version="1.0" encoding="UTF-8"?>\n' + \
                    '<export version="D">\n' + \
                    '  <design>\n' + \
@@ -3353,12 +3354,12 @@ class Circuit(object):
         netlist = template.format(**locals())
         netlist += '  <components>'
         for p in self.parts:
-            netlist += '\n' + p._generate_xml_component(KICAD)
+            netlist += '\n' + p.generate_xml_component(KICAD)
         netlist += '\n  </components>\n'
         netlist += '  <nets>'
         for code, n in enumerate(self.get_nets()):
             n.code = code
-            netlist += '\n' + n._generate_xml_net(KICAD)
+            netlist += '\n' + n.generate_xml_net(KICAD)
         netlist += '\n  </nets>\n'
         netlist += '</export>\n'
         return netlist
@@ -3366,7 +3367,7 @@ class Circuit(object):
     def _gen_xml_skidl(self):
         logger.error("Can't generate XML in SKiDL format!")
 
-    def generate_graph(self, file=None, engine='neato', rankdir='LR',
+    def generate_graph(self, file_=None, engine='neato', rankdir='LR',
                        part_shape='rectangle', net_shape='point',
                        splines=None, show_values=True, show_anon=False):
         """
@@ -3376,7 +3377,7 @@ class Circuit(object):
         See https://graphviz.readthedocs.io/en/stable/ and http://graphviz.org/doc/info/attrs.html
 
         Args:
-            file: A string containing a file name, or None.
+            file_: A string containing a file name, or None.
             engine: See graphviz documentation
             rankdir: See graphviz documentation
             part_shape: Shape of the part nodes
@@ -3410,13 +3411,13 @@ class Circuit(object):
                 xlabel = p.value
             dot.node(p.ref, shape=part_shape, xlabel=xlabel)
 
-        if file is not None:
-            dot.save(file)
+        if file_ is not None:
+            dot.save(file_)
         return dot
 
 
 
-    def backup_parts(self, file=None):
+    def backup_parts(self, file_=None):
         """
         Saves parts in circuit as a SKiDL library in a file.
 
@@ -3432,9 +3433,9 @@ class Circuit(object):
         lib = SchLib(tool=SKIDL)  # Create empty library.
         for p in self.parts:
             lib += p
-        if not file:
-            file = BACKUP_LIB_FILE_NAME
-        lib.export(libname=BACKUP_LIB_NAME, file=file)
+        if not file_:
+            file_ = BACKUP_LIB_FILE_NAME
+        lib.export(libname=BACKUP_LIB_NAME, file_=file_)
 
 def SubCircuit(f):
     """
@@ -3559,7 +3560,7 @@ def search(term, tool=None):
                         return []
                     return [l]
 
-                # Search the current library for parts with the given term in 
+                # Search the current library for parts with the given term in
                 # each of the these categories.
                 for category in ['name', 'alias', 'description', 'keywords']:
                     for part in mk_list(lib.get_parts(**{category:term})):
@@ -3577,18 +3578,7 @@ def search(term, tool=None):
 
     # Print each part name sorted by the library where it was found.
     for lib_file, p in sorted(parts, key=lambda p: p[0]):
-        try:
-            print('{}:'.format(lib_file), end=" ")
-        except Exception:
-            pass
-        try:
-            print(p.name, end=" ")
-        except Exception:
-            pass
-        try:
-            print('({})'.format(p.description))
-        except Exception:
-            print(' ')
+        print('{}: {} ({})'.format(lib_file, getattr(p, 'name', '???'), getattr(p, 'description', '???')))
 
 
 def show(lib, part_name, tool=None):
