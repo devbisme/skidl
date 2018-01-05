@@ -40,14 +40,14 @@ from __future__ import print_function
 from __future__ import unicode_literals
 from __future__ import division
 from __future__ import absolute_import
-from builtins import super
-from builtins import open
-from builtins import int
-from builtins import dict
-from builtins import str
-from builtins import zip
-from builtins import range
-from builtins import object
+from builtins import super  # pylint: disable=redefined-builtin
+from builtins import open  # pylint: disable=redefined-builtin
+from builtins import int  # pylint: disable=redefined-builtin
+from builtins import dict  # pylint: disable=redefined-builtin
+from builtins import str  # pylint: disable=redefined-builtin
+from builtins import zip  # pylint: disable=redefined-builtin
+from builtins import range  # pylint: disable=redefined-builtin
+from builtins import object  # pylint: disable=redefined-builtin
 from future import standard_library
 standard_library.install_aliases()
 
@@ -68,8 +68,9 @@ import time
 import graphviz
 
 from .pckg_info import __version__
-from .py_2_3 import *
-from .utilities import *
+from .py_2_3 import *  # pylint: disable=wildcard-import
+from .utilities import *  # pylint: disable=wildcard-import
+
 
 # Places where parts can be stored.
 #   NETLIST: The part will become part of a circuit netlist.
@@ -205,7 +206,7 @@ class SchLib(object):
     def _reset(cls):
         cls._cache = {}
 
-    def _load_sch_lib_kicad(self, filename=None, lib_search_paths=None):
+    def _load_sch_lib_kicad(self, filename=None, lib_search_paths_=None):
         """
         Load the parts from a KiCad schematic library file.
 
@@ -215,7 +216,7 @@ class SchLib(object):
 
         # Try to open the file. Add a .lib extension if needed. If the file
         # doesn't open, then try looking in the KiCad library directory.
-        f = find_and_open_file(filename, lib_search_paths, lib_suffixes[KICAD], allow_failure=True)
+        f = find_and_open_file(filename, lib_search_paths_, lib_suffixes[KICAD], allow_failure=True)
         if not f:
             logger.warning('Unable to open KiCad Schematic Library File {}.\n'.format(filename))
             return
@@ -260,7 +261,7 @@ class SchLib(object):
 
         # Now add information from any associated DCM file.
         filename = os.path.splitext(filename)[0] # Strip any extension.
-        f = find_and_open_file(filename, lib_search_paths, '.dcm', allow_failure=True)
+        f = find_and_open_file(filename, lib_search_paths_, '.dcm', allow_failure=True)
         if not f:
             return
 
@@ -293,7 +294,7 @@ class SchLib(object):
                 else:
                     pass
 
-    def _load_sch_lib_skidl(self, filename=None, lib_search_paths=None):
+    def _load_sch_lib_skidl(self, filename=None, lib_search_paths_=None):
         """
         Load the parts from a SKiDL schematic library file.
 
@@ -301,18 +302,18 @@ class SchLib(object):
             filename: The name of the SKiDL schematic library file.
         """
 
-        f = find_and_open_file(filename, lib_search_paths, lib_suffixes[SKIDL], allow_failure=True)
+        f = find_and_open_file(filename, lib_search_paths_, lib_suffixes[SKIDL], allow_failure=True)
         if not f:
             logger.warning('Unable to open SKiDL Schematic Library File {}.\n'.format(filename))
             return
         try:
             # The SKiDL library is stored as a Python module that's executed to
             # recreate the library object.
-            vars = {}  # Empty dictionary for storing library object.
-            exec(f.read(), vars)  # Execute and store library in dict.
+            vars_ = {}  # Empty dictionary for storing library object.
+            exec(f.read(), vars_)  # Execute and store library in dict.
 
             # Now look through the dict to find the library object.
-            for v, val in vars.items():
+            for val in vars_.values():
                 if isinstance(val, SchLib):
                     # Overwrite self with the new library.
                     self.__dict__.update(val.__dict__)
@@ -353,8 +354,8 @@ class SchLib(object):
         parts = list_or_scalar(filter_list(self.parts, **criteria))
         if not parts and use_backup_lib and QUERY_BACKUP_LIB:
             try:
-                backup_lib = load_backup_lib()
-                parts = backup_lib.get_parts(use_backup_lib=False, **criteria)
+                backup_lib_ = load_backup_lib()
+                parts = backup_lib_.get_parts(use_backup_lib=False, **criteria)
             except AttributeError:
                 pass
         return parts
@@ -413,7 +414,7 @@ class SchLib(object):
         # Return the library part or parts that were found.
         return parts
 
-    """Get part by name or alias using []'s."""
+    # Get part by name or alias using []'s.
     __getitem__ = get_part_by_name
 
     def __str__(self):
@@ -622,7 +623,7 @@ class Pin(object):
 
         return list_or_scalar(copies)
 
-    """Make copies with the multiplication operator or by calling the object."""
+    # Make copies with the multiplication operator or by calling the object.
     __mul__ = copy
     __rmul__ = copy
     __call__ = copy
@@ -648,7 +649,7 @@ class Pin(object):
             raise Exception
         # This is just strange...
         logger.error("{} is connected to something strange: {}.".format(
-            self._erc_desc(), nets))
+            self._erc_desc(), self.nets))
         raise Exception
 
     def is_attached(self, pin_net_bus):
@@ -718,7 +719,7 @@ class Pin(object):
 
         return self
 
-    """Connect a net to a pin using the += operator."""
+    # Connect a net to a pin using the += operator.
     __iadd__ = connect
 
     def _disconnect(self):
@@ -941,13 +942,13 @@ class Part(object):
                 # Always set circuit first because naming the part requires a lookup
                 # of existing names in the circuit.
                 if not circuit:
-                    circuit = default_circuit
+                    circuit = default_circuit  # pylint: disable=undefined-variable
                 circuit += self
             elif dest == TEMPLATE:
                 # If this is just a part template, don't add the part to the circuit.
                 # Just place the reference to the Circuit object in the template.
                 if not circuit:
-                    self.circuit = default_circuit
+                    self.circuit = default_circuit  # pylint: disable=undefined-variable
                 self.circuit = circuit
 
             # Add any net/pin connections to this part that were passed as arguments.
@@ -1232,7 +1233,8 @@ class Part(object):
 
         # Make a Pin object from the information in the KiCad pin data fields.
         def kicad_pin_to_pin(kicad_pin):
-            p = Pin()
+            p = Pin()  # Create a blank pin.
+
             # Replicate the KiCad pin fields as attributes in the Pin object.
             # Note that this update will not give the pins valid references
             # to the current part, but we'll fix that soon.
@@ -1249,7 +1251,7 @@ class Part(object):
                                     'C': Pin.OPENCOLL,
                                     'E': Pin.OPENEMIT,
                                     'N': Pin.NOCONNECT}
-            p.func = pin_type_translation[p.electrical_type]
+            p.func = pin_type_translation[p.electrical_type]  # pylint: disable=no-member
 
             return p
 
@@ -1913,6 +1915,7 @@ class Net(object):
         self.pins = []
         self._name = None
         self.circuit = None
+        self.code = None  # This is the net number used in a KiCad netlist file.
 
         # Set the Circuit object for the net first because setting the net name
         # requires a lookup of existing names in the circuit.
@@ -2555,7 +2558,7 @@ class Bus(object):
         # For Bus objects, the circuit object the bus is a member of is passed
         # in with all the other attributes. If a circuit object isn't provided,
         # then the default circuit object is added to the attributes.
-        attribs['circuit'] = attribs.get('circuit', default_circuit)
+        attribs['circuit'] = attribs.get('circuit', default_circuit)  # pylint: disable=undefined-variable
 
         # Attach additional attributes to the bus. (The Circuit object also gets
         # set here.)
@@ -2896,6 +2899,9 @@ class Circuit(object):
     def reset(self):
         """Clear any circuitry and cached part libraries and start over."""
 
+        # Create this member here to prevent pylint error later in mini_reset().
+        self.NC = None
+
         # Clear circuitry.
         self.mini_reset()
 
@@ -2916,7 +2922,7 @@ class Circuit(object):
 
         # Clear out the no-connect net and set the global no-connect if it's
         # tied to this circuit.
-        if getattr(self, 'NC', False) and NC and NC is self.NC:
+        if getattr(self, 'NC', False) and NC and NC is self.NC:  # pylint: disable=undefined-variable
             self.NC = _NCNet(name='__NOCONNECT', circuit=self)  # Net for storing no-connects for parts in this circuit.
             builtins.NC = self.NC
         else:
@@ -3442,13 +3448,13 @@ def SubCircuit(f):
     """
     def sub_f(*args, **kwargs):
         # Upon entry, save the reference to the default Circuit object.
-        save_default_circuit = default_circuit
+        save_default_circuit = default_circuit  # pylint: disable=undefined-variable
 
         # If the subcircuit has no 'circuit' argument, then all the SKiDL
         # statements in the subcircuit function will reference the default Circuit
         # object.
         if 'circuit' not in kwargs:
-            circuit = default_circuit
+            circuit = default_circuit  # pylint: disable=undefined-variable
 
         # But if the subcircuit function has a 'circuit' argument, then set the default
         # Circuit object to that. Then all SKiDL statements in the function will
@@ -3459,7 +3465,7 @@ def SubCircuit(f):
             builtins.default_circuit = circuit
 
         # Setup some globals needed in the subcircuit.
-        builtins.NC = default_circuit.NC
+        builtins.NC = default_circuit.NC  # pylint: disable=undefined-variable
 
         # Invoking the subcircuit function creates circuitry at a level one
         # greater than the current level. (The top level is zero.)
@@ -3495,7 +3501,7 @@ def SubCircuit(f):
 
         # Restore the default circuit and globals.
         builtins.default_circuit = save_default_circuit
-        builtins.NC = default_circuit.NC
+        builtins.NC = default_circuit.NC  # pylint: disable=undefined-variable
 
         return results
 
@@ -3519,7 +3525,7 @@ def load_backup_lib():
             # Copy the backup library in the local storage to the global storage.
             backup_lib = locals()[BACKUP_LIB_NAME]
 
-        except (FileNotFoundError, ImportError, NameError, IOError) as e:
+        except (FileNotFoundError, ImportError, NameError, IOError):
             pass
 
     return backup_lib
@@ -3616,17 +3622,16 @@ def set_default_tool(tool):
 
 
 # Create the default Circuit object that will be used unless another is explicitly created.
-builtins.default_circuit = None
-builtins.NC = None
 builtins.default_circuit = Circuit()
-builtins.NC = default_circuit.NC  # NOCONNECT net for attaching pins that are intentionally left open.
+# NOCONNECT net for attaching pins that are intentionally left open.
+builtins.NC = default_circuit.NC  # pylint: disable=undefined-variable
 
 # Create calls to functions on whichever Circuit object is the current default.
-ERC = default_circuit.ERC
-generate_netlist = default_circuit.generate_netlist
-generate_xml = default_circuit.generate_xml
-generate_graph = default_circuit.generate_graph
-backup_parts = default_circuit.backup_parts
+ERC = default_circuit.ERC                            # pylint: disable=undefined-variable
+generate_netlist = default_circuit.generate_netlist  # pylint: disable=undefined-variable
+generate_xml = default_circuit.generate_xml          # pylint: disable=undefined-variable
+generate_graph = default_circuit.generate_graph      # pylint: disable=undefined-variable
+backup_parts = default_circuit.backup_parts          # pylint: disable=undefined-variable
 
 # Define a tag for nets that convey power (e.g., VCC or GND).
 POWER = Pin.POWER_DRIVE
