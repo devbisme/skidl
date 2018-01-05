@@ -4,6 +4,14 @@ History
 -------
 
 
+0.0.14 (2018-01-05)
+______________________
+
+* KiCad netlists are now parsed using the external package kinparse.
+* Cleaned-up pylint-identified issues.
+* Removed absolute file paths to libraries from tests.
+
+
 0.0.13 (2017-08-20)
 ______________________
 
