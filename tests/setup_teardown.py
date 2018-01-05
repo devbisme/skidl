@@ -16,6 +16,14 @@ def teardown_function(f):
         except Exception:
             pass
 
+def get_filename(fn):
+    """
+    Resolves a filename relative to the "tests" directory.
+    """
+    return os.path.join(
+        os.path.dirname(os.path.abspath(__file__)),
+        fn)
+
 if __name__ == '__main__':
     setup_function(None)
     with open('test.txt','wb') as f:
