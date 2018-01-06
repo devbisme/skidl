@@ -101,7 +101,7 @@ lib_search_paths = {
 try:
     lib_search_paths[KICAD].append(os.path.join(os.environ['KISYSMOD'], '..', 'library'))
 except KeyError:
-    logging.warning("KISYSMOD environment variable is missing, so default KiCad libraries won't be searched.")
+    logger.warning("KISYSMOD environment variable is missing, so default KiCad libraries won't be searched.")
 
 # Add the location of the default SKiDL part libraries.
 import skidl.libs
@@ -122,11 +122,6 @@ BACKUP_LIB_FILE_NAME = BACKUP_LIB_NAME + lib_suffixes[SKIDL]
 QUERY_BACKUP_LIB = True
 CREATE_BACKUP_LIB = True
 backup_lib = None
-
-
-# Set up logging for runtime messages and ERC reports.
-builtins.logger = create_logger('skidl')
-builtins.erc_logger = create_logger('ERC_Logger', 'ERC ', '.erc')
 
 
 def _expand_buses(pins_nets_buses):
@@ -3544,8 +3539,9 @@ def search(term, tool=None):
             # Get all the library files in the search path.
             try:
                 lib_files = os.listdir(lib_dir)
-            except OSError:
-                continue
+            except (FileNotFoundError, OSError):
+                logger.warning("Could not open directory '{}'".format(lib_dir))
+                lib_files = list()  # Empty list since library directory was not found.
             lib_files = [l for l in lib_files if l.endswith(lib_suffixes[tool])]
 
             for lib_file in lib_files:

@@ -168,6 +168,15 @@ def create_logger(title, log_msg_id='', log_file_suffix='.log'):
     return logger
 
 
+###############################################################################
+# Set up loggers for runtime messages and ERC reports.
+
+logger = create_logger('skidl')
+erc_logger = create_logger('ERC_Logger', 'ERC ', '.erc')
+
+###############################################################################
+
+
 def find_and_open_file(filename, paths=None, ext=None, allow_failure=False):
     """Search for a file in list of paths, open it and return file pointer."""
 
