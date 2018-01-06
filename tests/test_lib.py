@@ -46,13 +46,18 @@ def test_backup_1():
 def test_lib_1():
     lib_kicad = SchLib('device')
     lib_kicad.export('device')
+    SchLib.reset()
     lib_skidl = SchLib('device', tool=SKIDL)
     assert(len(lib_kicad) == len(lib_skidl))
+    SchLib.reset()
     set_default_tool(SKIDL)
     set_query_backup_lib(False)
     a = Part('device','R')
+    assert a.tool == SKIDL
     b = Part('device','L')
+    assert b.tool == SKIDL
     c = Part('device','C')
+    assert c.tool == SKIDL
 
 def test_non_existing_lib_cannot_be_loaded():
     for tool in ALL_TOOLS:

@@ -6,7 +6,7 @@ files_at_start = set([])
 def setup_function(f):
     global files_at_start
     files_at_start = set(os.listdir('.'))
-    default_circuit.mini_reset()
+    default_circuit.reset()
     lib_search_paths.clear()
     lib_search_paths.update({
         KICAD: [".", get_filename(".")],
