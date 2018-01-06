@@ -84,7 +84,7 @@ BUS_PREFIX = 'B$'
 
 # Supported ECAD tools.
 ALL_TOOLS = KICAD, SKIDL = ['kicad', 'skidl']
-DEFAULT_TOOL = KICAD
+_DEFAULT_TOOL = INITIAL_DEFAULT_TOOL = KICAD
 
 
 ##############################################################################
@@ -119,7 +119,7 @@ lib_suffixes = {
 # Definitions for backup library of circuit parts.
 BACKUP_LIB_NAME = get_script_name() + '_lib'
 BACKUP_LIB_FILE_NAME = BACKUP_LIB_NAME + lib_suffixes[SKIDL]
-QUERY_BACKUP_LIB = True
+_QUERY_BACKUP_LIB = INITIAL_QUERY_BACKUP_LIB = True
 CREATE_BACKUP_LIB = True
 backup_lib = None
 
@@ -166,7 +166,7 @@ class SchLib(object):
         """
 
         if tool is None:
-            tool = DEFAULT_TOOL
+            tool = _DEFAULT_TOOL
 
         # Library starts off empty of parts.
         self.parts = []
@@ -355,7 +355,7 @@ class SchLib(object):
             A single Part or a list of Parts that match all the criteria.
         """
         parts = list_or_scalar(filter_list(self.parts, **criteria))
-        if not parts and use_backup_lib and QUERY_BACKUP_LIB:
+        if not parts and use_backup_lib and _QUERY_BACKUP_LIB:
             try:
                 backup_lib_ = load_backup_lib()
                 parts = backup_lib_.get_parts(use_backup_lib=False, **criteria)
@@ -887,7 +887,7 @@ class Part(object):
                  **attribs):
 
         if tool is None:
-            tool = DEFAULT_TOOL
+            tool = _DEFAULT_TOOL
 
         # Setup some part attributes that might be overwritten later on.
         self.do_erc = True # Allow part to be included in ERC.
@@ -909,7 +909,7 @@ class Part(object):
                     libname = lib
                     lib = SchLib(filename=libname, tool=tool)
                 except Exception as e:
-                    if QUERY_BACKUP_LIB:
+                    if _QUERY_BACKUP_LIB:
                         logger.warning('Could not load KiCad schematic library "{}", falling back to backup library.'
                                        .format(libname))
                         lib = load_backup_lib()
@@ -1590,7 +1590,7 @@ class Part(object):
         """
 
         if tool is None:
-            tool = DEFAULT_TOOL
+            tool = _DEFAULT_TOOL
 
         try:
             gen_func = getattr(self, '_gen_netlist_comp_{}'.format(tool))
@@ -1653,7 +1653,7 @@ class Part(object):
         """
 
         if tool is None:
-            tool = DEFAULT_TOOL
+            tool = _DEFAULT_TOOL
 
         try:
             gen_func = getattr(self, '_gen_xml_comp_{}'.format(tool))
@@ -2275,7 +2275,7 @@ class Net(object):
         """
 
         if tool is None:
-            tool = DEFAULT_TOOL
+            tool = _DEFAULT_TOOL
 
         self.test_validity()
 
@@ -2312,7 +2312,7 @@ class Net(object):
         """
 
         if tool is None:
-            tool = DEFAULT_TOOL
+            tool = _DEFAULT_TOOL
 
         self.test_validity()
 
@@ -2522,7 +2522,7 @@ class _NCNet(Net):
         """NO_CONNECT nets don't generate anything for netlists."""
 
         if tool is None:
-            tool = DEFAULT_TOOL
+            tool = _DEFAULT_TOOL
 
         return ''
 
@@ -3242,7 +3242,7 @@ class Circuit(object):
         """
 
         if tool is None:
-            tool = DEFAULT_TOOL
+            tool = _DEFAULT_TOOL
 
         try:
             gen_func = getattr(self, '_gen_netlist_{}'.format(tool))
@@ -3317,7 +3317,7 @@ class Circuit(object):
         """
 
         if tool is None:
-            tool = DEFAULT_TOOL
+            tool = _DEFAULT_TOOL
 
         try:
             gen_func = getattr(self, '_gen_xml_{}'.format(tool))
@@ -3584,7 +3584,7 @@ def search(term, tool=None):
         return list(parts) # Return the list of parts and their containing libraries.
 
     if tool is None:
-        tool = DEFAULT_TOOL
+        tool = _DEFAULT_TOOL
 
     term = '.*' + term + '.*' # Use the given term as a substring.
     parts = search_libraries(term, tool)  # Search for parts with that substring.
@@ -3608,7 +3608,7 @@ def show(lib, part_name, tool=None):
     """
 
     if tool is None:
-        tool = DEFAULT_TOOL
+        tool = _DEFAULT_TOOL
     try:
         return Part(lib, re.escape(part_name), tool=tool, dest=TEMPLATE)
     except Exception:
@@ -3617,9 +3617,12 @@ def show(lib, part_name, tool=None):
 
 def set_default_tool(tool):
     """Set the ECAD tool that will be used by default."""
-    global DEFAULT_TOOL
-    DEFAULT_TOOL = tool
+    global _DEFAULT_TOOL
+    _DEFAULT_TOOL = tool
 
+def set_query_backup_lib(val):
+    global _QUERY_BACKUP_LIB
+    _QUERY_BACKUP_LIB = val
 
 # Create the default Circuit object that will be used unless another is explicitly created.
 builtins.default_circuit = Circuit()

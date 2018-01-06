@@ -38,7 +38,7 @@ def test_backup_1():
     c = Part('device','L',footprint='null')
     generate_netlist()  # This creates the backup parts library.
     default_circuit.reset()
-    QUERY_BACKUP_LIB = True
+    set_query_backup_lib(True) # FIXME: this is already True by default!
     a = Part('crap','R',footprint='null')
     b = Part('crap','C',footprint='null')
     generate_netlist()
@@ -48,12 +48,11 @@ def test_lib_1():
     lib_kicad.export('device')
     lib_skidl = SchLib('device', tool=SKIDL)
     assert(len(lib_kicad) == len(lib_skidl))
-    DEFAULT_TOOL = SKIDL
-    QUERY_BACKUP_LIB = False
+    set_default_tool(SKIDL)
+    set_query_backup_lib(False)
     a = Part('device','R')
     b = Part('device','L')
     c = Part('device','C')
-    QUERY_BACKUP_LIB = True
 
 def test_non_existing_lib_cannot_be_loaded():
     for tool in ALL_TOOLS:
