@@ -905,7 +905,18 @@ class Part(object):
             # If the lib argument is a string, then create a library using the
             # string as the library file name.
             if isinstance(lib, basestring):
-                lib = SchLib(filename=lib, tool=tool)
+                try:
+                    libname = lib
+                    lib = SchLib(filename=libname, tool=tool)
+                except Exception as e:
+                    if QUERY_BACKUP_LIB:
+                        logger.warning('Could not load KiCad schematic library "{}", falling back to backup library.'
+                                       .format(libname))
+                        lib = load_backup_lib()
+                        if not lib:
+                            raise e
+                    else:
+                        raise e
 
             # Make a copy of the part from the library but don't add it to the netlist.
             part = lib[name].copy(1, TEMPLATE)
