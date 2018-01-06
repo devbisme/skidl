@@ -6,12 +6,12 @@ files_at_start = set([])
 def setup_function(f):
     global files_at_start
     files_at_start = set(os.listdir('.'))
-
-    # Make this test directory the library search paths for all ECAD tools 
-    for tool_lib_path in lib_search_paths:
-        tool_lib_path = [os.path.dirname(os.path.abspath(__file__))]
-
     default_circuit.mini_reset()
+    lib_search_paths.clear()
+    lib_search_paths.update({
+        KICAD: [".", get_filename(".")],
+        SKIDL: [".", get_filename("../skidl/libs")]
+    })
 
 def teardown_function(f):
     files_at_end = set(os.listdir('.'))
