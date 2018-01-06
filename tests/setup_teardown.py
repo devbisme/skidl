@@ -25,9 +25,12 @@ def get_filename(fn):
     """
     Resolves a filename relative to the "tests" directory.
     """
-    return os.path.join(
-        os.path.dirname(os.path.abspath(__file__)),
-        fn)
+    abs_fn = \
+        fn if os.path.isabs(fn) else \
+        os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            fn)
+    return os.path.realpath(abs_fn)
 
 if __name__ == '__main__':
     setup_function(None)
