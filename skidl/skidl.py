@@ -2904,27 +2904,24 @@ class Circuit(object):
 
     def __init__(self, **kwargs):
         """Initialize the Circuit object."""
-        self.reset()
+        self.reset(init = True)
 
         # Set passed-in attributes for the circuit.
         for k, v in kwargs.items():
             setattr(self, k, v)
 
-    def reset(self):
+    def reset(self, init = False):
         """Clear any circuitry and cached part libraries and start over."""
 
-        # Create this member here to prevent pylint error later in mini_reset().
-        self.NC = None
-
         # Clear circuitry.
-        self.mini_reset()
+        self.mini_reset(init)
 
         # Also clear any cached libraries.
         SchLib.reset()
         global backup_lib
         backup_lib = None
 
-    def mini_reset(self):
+    def mini_reset(self, init = False):
         """Clear any circuitry but don't erase any loaded part libraries."""
         self.name = ''
         self.parts = []
@@ -2936,11 +2933,9 @@ class Circuit(object):
 
         # Clear out the no-connect net and set the global no-connect if it's
         # tied to this circuit.
-        if getattr(self, 'NC', False) and NC and NC is self.NC:  # pylint: disable=undefined-variable
-            self.NC = _NCNet(name='__NOCONNECT', circuit=self)  # Net for storing no-connects for parts in this circuit.
+        self.NC = _NCNet(name='__NOCONNECT', circuit=self)  # Net for storing no-connects for parts in this circuit.
+        if not init and self is default_circuit:
             builtins.NC = self.NC
-        else:
-            self.NC = _NCNet(name='__NOCONNECT', circuit=self)  # Net for storing no-connects for parts in this circuit.
 
     def add_parts(self, *parts):
         """Add some Part objects to the circuit."""
