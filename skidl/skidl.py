@@ -83,7 +83,7 @@ NET_PREFIX = 'N$'
 BUS_PREFIX = 'B$'
 
 # Supported ECAD tools.
-KICAD, SKIDL = ['kicad', 'skidl']
+ALL_TOOLS = KICAD, SKIDL = ['kicad', 'skidl']
 DEFAULT_TOOL = KICAD
 
 
@@ -189,14 +189,15 @@ class SchLib(object):
             try:
                 # Use the tool name to find the function for loading the library.
                 load_func = getattr(self, '_load_sch_lib_{}'.format(tool))
-                load_func(filename, lib_search_paths[tool])
-                self.filename = filename
-                # Cache a reference to the library.
-                self._cache[filename] = self
             except AttributeError:
                 # OK, that didn't work so well...
                 logger.error('Unsupported ECAD tool library: {}.'.format(tool))
                 raise Exception
+            else:
+                load_func(filename, lib_search_paths[tool])
+                self.filename = filename
+                # Cache a reference to the library.
+                self._cache[filename] = self
 
     @classmethod
     def reset(cls):
@@ -213,19 +214,21 @@ class SchLib(object):
 
         # Try to open the file. Add a .lib extension if needed. If the file
         # doesn't open, then try looking in the KiCad library directory.
-        f = find_and_open_file(filename, lib_search_paths_, lib_suffixes[KICAD], allow_failure=True)
-        if not f:
-            logger.warning('Unable to open KiCad Schematic Library File {}.\n'.format(filename))
-            return
+        try:
+            f = find_and_open_file(filename, lib_search_paths_, lib_suffixes[KICAD])
+        except Exception as e:
+            raise Exception(
+                'Unable to open KiCad Schematic Library File {} ({})'.format(
+                    filename,
+                    str(e)))
 
         # Check the file header to make sure it's a KiCad library.
         header = []
         header = [f.readline()]
         if header and 'EESchema-LIBRARY' not in header[0]:
-            logger.error(
+            raise Exception(
                 'The file {} is not a KiCad Schematic Library File.\n'.format(
                     filename))
-            return
 
         # Read the definition of each part line-by-line and then create
         # a Part object that gets stored in the part list.
@@ -299,10 +302,13 @@ class SchLib(object):
             filename: The name of the SKiDL schematic library file.
         """
 
-        f = find_and_open_file(filename, lib_search_paths_, lib_suffixes[SKIDL], allow_failure=True)
-        if not f:
-            logger.warning('Unable to open SKiDL Schematic Library File {}.\n'.format(filename))
-            return
+        try:
+            f = find_and_open_file(filename, lib_search_paths_, lib_suffixes[SKIDL])
+        except Exception as e:
+            raise Exception(
+                'Unable to open SKiDL Schematic Library File {} ({})'.format(
+                    filename,
+                    str(e)))
         try:
             # The SKiDL library is stored as a Python module that's executed to
             # recreate the library object.
@@ -322,7 +328,7 @@ class SchLib(object):
         except Exception as e:
             logger.error('Problem with {}'.format(f))
             logger.error(e)
-            raise Exception
+            raise
 
     def add_parts(self, *parts):
         """Add one or more parts to a library."""

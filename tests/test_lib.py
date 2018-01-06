@@ -54,3 +54,13 @@ def test_lib_1():
     b = Part('device','L')
     c = Part('device','C')
     QUERY_BACKUP_LIB = True
+
+def test_non_existing_lib_cannot_be_loaded():
+    for tool in ALL_TOOLS:
+        with pytest.raises(Exception):
+            lib = SchLib("non-existing", tool = tool)
+
+def test_part_from_non_existing_lib_cannot_be_instantiated():
+    for tool in ALL_TOOLS:
+        with pytest.raises(Exception):
+            part = Part("non-existing", "P", tool = tool)
