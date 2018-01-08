@@ -2,6 +2,15 @@ import pytest
 from skidl import *
 from .setup_teardown import *
 
+def test_missing_lib():
+    # Sometimes, loading a part from a non-existent library doesn't throw an
+    # exception until the second time it's tried. This detects that error.
+    QUERY_BACKUP_LIB = False  # Don't allow searching backup lib that might exist from previous tests.
+    with pytest.raises(Exception):
+        a = Part('crap', 'R')
+    with pytest.raises(Exception):
+        b = Part('crap', 'C')
+
 def test_lib_import_1():
     lib = SchLib('xess.lib')
     assert len(lib) > 0
