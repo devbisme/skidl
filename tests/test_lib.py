@@ -5,7 +5,7 @@ from .setup_teardown import *
 def test_missing_lib():
     # Sometimes, loading a part from a non-existent library doesn't throw an
     # exception until the second time it's tried. This detects that error.
-    QUERY_BACKUP_LIB = False  # Don't allow searching backup lib that might exist from previous tests.
+    set_query_backup_lib(False)  # Don't allow searching backup lib that might exist from previous tests.
     with pytest.raises(Exception):
         a = Part('crap', 'R')
     with pytest.raises(Exception):
@@ -45,9 +45,9 @@ def test_backup_1():
     a = Part('device','R',footprint='null')
     b = Part('device','C',footprint='null')
     c = Part('device','L',footprint='null')
-    generate_netlist()  # This creates the backup parts library.
+    generate_netlist(do_backup=True)  # This creates the backup parts library.
     default_circuit.reset()
-    QUERY_BACKUP_LIB = True
+    set_query_backup_lib(True) # FIXME: this is already True by default!
     a = Part('crap','R',footprint='null')
     b = Part('crap','C',footprint='null')
     generate_netlist()
@@ -55,11 +55,25 @@ def test_backup_1():
 def test_lib_1():
     lib_kicad = SchLib('device')
     lib_kicad.export('device')
+    SchLib.reset()
     lib_skidl = SchLib('device', tool=SKIDL)
     assert(len(lib_kicad) == len(lib_skidl))
-    DEFAULT_TOOL = SKIDL
-    QUERY_BACKUP_LIB = False
+    SchLib.reset()
+    set_default_tool(SKIDL)
+    set_query_backup_lib(False)
     a = Part('device','R')
+    assert a.tool == SKIDL
     b = Part('device','L')
+    assert b.tool == SKIDL
     c = Part('device','C')
-    QUERY_BACKUP_LIB = True
+    assert c.tool == SKIDL
+
+def test_non_existing_lib_cannot_be_loaded():
+    for tool in ALL_TOOLS:
+        with pytest.raises(Exception):
+            lib = SchLib("non-existing", tool = tool)
+
+def test_part_from_non_existing_lib_cannot_be_instantiated():
+    for tool in ALL_TOOLS:
+        with pytest.raises(Exception):
+            part = Part("non-existing", "P", tool = tool)
