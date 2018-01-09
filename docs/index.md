@@ -1133,8 +1133,8 @@ Currently, SKiDL supports the library formats for the following ECAD tools:
 You can set the default library format you want to use in your SKiDL script like so:
 
 ```py
-DEFAULT_TOOL = KICAD  # KiCad is the default library format.
-DEFAULT_TOOL = SKIDL  # Now SKiDL is the default library format.
+set_default_tool(KICAD)  # KiCad is the default library format.
+set_default_tool(SKIDL)  # Now SKiDL is the default library format.
 ```
 
 You can also set the directories where SKiDL looks for parts using the 
