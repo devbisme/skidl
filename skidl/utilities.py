@@ -49,6 +49,8 @@ import logging
 import inspect
 import traceback
 
+from contextlib import contextmanager
+
 from .py_2_3 import *
 
 
@@ -535,3 +537,27 @@ def find_num_copies(**attribs):
         return max(num_copies)
     except ValueError:
         return 0  # If the list if empty.
+
+@contextmanager
+def opened(f_or_fn, mode):
+    """
+    Yields an opened file or file-like object.
+
+    Args:
+       file_or_filename: Either an already opened file or file-like
+           object, or a filename to open.
+       mode: The mode to open the file in.
+    """
+    if isinstance(f_or_fn, basestring):
+        with open(f_or_fn, mode) as f:
+            yield f
+    elif hasattr(f_or_fn, "fileno"):
+        if mode.replace("+", "") == f_or_fn.mode.replace("+", ""):
+            # same mode, can reuse file handle
+            yield f_or_fn
+        else:
+            # open in new mode
+            with os.fdopen(f_or_fn.fileno(), mode) as f:
+                yield f
+    else:
+        raise TypeError("argument must be a filename or a file-like object (is: {})".format(type(f_or_fn)))

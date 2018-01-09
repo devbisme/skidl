@@ -457,11 +457,8 @@ class SchLib(object):
         export_str += '{} = SchLib(tool=SKIDL).add_parts(*[{}])'.format(
             cnvt_to_var_name(libname), part_export_str)
         export_str = prettify(export_str)
-        try:
-            file_.write(export_str)
-        except AttributeError:
-            with open(file_, 'w') as f:
-                f.write(export_str)
+        with opened(file_, "w") as f:
+            f.write(export_str)
 
     def __len__(self):
         """
@@ -3259,16 +3256,10 @@ class Circuit(object):
                 '{} errors found during netlist generation.\n\n'.format(
                     logger.error.count))
 
-        try:
-            with file_ as f:
-                f.write(netlist)
-        except AttributeError:
-            try:
-                with open(file_, 'w') as f:
-                    f.write(netlist)
-            except (FileNotFoundError, TypeError):
-                with open(get_script_name() + '.net', 'w') as f:
-                    f.write(netlist)
+        with opened(
+                file_ or (get_script_name() + '.net'),
+                'w') as f:
+            f.write(netlist)
 
         if do_backup:
             self.backup_parts()  # Create a new backup lib for the circuit parts.
@@ -3334,16 +3325,11 @@ class Circuit(object):
                 '{} errors found during XML generation.\n\n'.format(
                     logger.error.count))
 
-        try:
-            with file_ as f:
-                f.write(netlist)
-        except AttributeError:
-            try:
-                with open(file_, 'w') as f:
-                    f.write(netlist)
-            except (FileNotFoundError, TypeError):
-                with open(get_script_name() + '.xml', 'w') as f:
-                    f.write(netlist)
+        with opened(
+                file_ or (get_script_name() + '.xml'),
+                'w') as f:
+            f.write(netlist)
+
         return netlist
 
     def _gen_xml_kicad(self):
