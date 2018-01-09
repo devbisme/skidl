@@ -61,7 +61,6 @@ import os
 import os.path
 import re
 import collections
-import shlex
 import inspect
 from copy import deepcopy, copy
 import time
@@ -1093,12 +1092,14 @@ class Part(object):
         for line in self.part_defn:
 
             # Split the line into words.
+
             line = line.replace('\n', '')
-            s = shlex.shlex(line)
-            s.whitespace_split = True
-            s.commenters = ''
-            s.quotes = '"'
-            line = list(s)  # Place the words in a list.
+
+            # Extract all the non-quoted and quoted text pieces, accounting for escaped quotes. 
+            unqu = r'[^\s"]+'  # Word without spaces or double-quotes.
+            qu = r'(?<!\\)".*?(?<!\\)"'  # Quoted string, possibly with escaped quotes.
+            srch = '|'.join([unqu+qu, qu, unqu])
+            line = re.findall(srch, line)  # Replace line with list of pieces of line.
 
             # The first word indicates the type of part definition data that will follow.
             if line[0] in _KEYS:
