@@ -83,8 +83,8 @@ NET_PREFIX = 'N$'
 BUS_PREFIX = 'B$'
 
 # Supported ECAD tools.
-KICAD, SKIDL = ['kicad', 'skidl']
-DEFAULT_TOOL = KICAD
+ALL_TOOLS = KICAD, SKIDL = ['kicad', 'skidl']
+_DEFAULT_TOOL = INITIAL_DEFAULT_TOOL = KICAD
 
 
 ##############################################################################
@@ -119,8 +119,7 @@ lib_suffixes = {
 # Definitions for backup library of circuit parts.
 BACKUP_LIB_NAME = get_script_name() + '_lib'
 BACKUP_LIB_FILE_NAME = BACKUP_LIB_NAME + lib_suffixes[SKIDL]
-QUERY_BACKUP_LIB = True
-CREATE_BACKUP_LIB = True
+_QUERY_BACKUP_LIB = INITIAL_QUERY_BACKUP_LIB = True
 backup_lib = None
 
 
@@ -166,7 +165,7 @@ class SchLib(object):
         """
 
         if tool is None:
-            tool = DEFAULT_TOOL
+            tool = _DEFAULT_TOOL
 
         # Library starts off empty of parts.
         self.parts = []
@@ -189,14 +188,15 @@ class SchLib(object):
             try:
                 # Use the tool name to find the function for loading the library.
                 load_func = getattr(self, '_load_sch_lib_{}'.format(tool))
-                load_func(filename, lib_search_paths[tool])
-                self.filename = filename
-                # Cache a reference to the library.
-                self._cache[filename] = self
             except AttributeError:
                 # OK, that didn't work so well...
                 logger.error('Unsupported ECAD tool library: {}.'.format(tool))
                 raise Exception
+            else:
+                load_func(filename, lib_search_paths[tool])
+                self.filename = filename
+                # Cache a reference to the library.
+                self._cache[filename] = self
 
     @classmethod
     def reset(cls):
@@ -213,19 +213,21 @@ class SchLib(object):
 
         # Try to open the file. Add a .lib extension if needed. If the file
         # doesn't open, then try looking in the KiCad library directory.
-        f = find_and_open_file(filename, lib_search_paths_, lib_suffixes[KICAD], allow_failure=True)
-        if not f:
-            logger.warning('Unable to open KiCad Schematic Library File {}.\n'.format(filename))
-            return
+        try:
+            f = find_and_open_file(filename, lib_search_paths_, lib_suffixes[KICAD])
+        except Exception as e:
+            raise Exception(
+                'Unable to open KiCad Schematic Library File {} ({})'.format(
+                    filename,
+                    str(e)))
 
         # Check the file header to make sure it's a KiCad library.
         header = []
         header = [f.readline()]
         if header and 'EESchema-LIBRARY' not in header[0]:
-            logger.error(
+            raise Exception(
                 'The file {} is not a KiCad Schematic Library File.\n'.format(
                     filename))
-            return
 
         # Read the definition of each part line-by-line and then create
         # a Part object that gets stored in the part list.
@@ -299,10 +301,13 @@ class SchLib(object):
             filename: The name of the SKiDL schematic library file.
         """
 
-        f = find_and_open_file(filename, lib_search_paths_, lib_suffixes[SKIDL], allow_failure=True)
-        if not f:
-            logger.warning('Unable to open SKiDL Schematic Library File {}.\n'.format(filename))
-            return
+        try:
+            f = find_and_open_file(filename, lib_search_paths_, lib_suffixes[SKIDL])
+        except Exception as e:
+            raise Exception(
+                'Unable to open SKiDL Schematic Library File {} ({})'.format(
+                    filename,
+                    str(e)))
         try:
             # The SKiDL library is stored as a Python module that's executed to
             # recreate the library object.
@@ -322,7 +327,7 @@ class SchLib(object):
         except Exception as e:
             logger.error('Problem with {}'.format(f))
             logger.error(e)
-            raise Exception
+            raise
 
     def add_parts(self, *parts):
         """Add one or more parts to a library."""
@@ -349,7 +354,7 @@ class SchLib(object):
             A single Part or a list of Parts that match all the criteria.
         """
         parts = list_or_scalar(filter_list(self.parts, **criteria))
-        if not parts and use_backup_lib and QUERY_BACKUP_LIB:
+        if not parts and use_backup_lib and _QUERY_BACKUP_LIB:
             try:
                 backup_lib_ = load_backup_lib()
                 parts = backup_lib_.get_parts(use_backup_lib=False, **criteria)
@@ -881,7 +886,7 @@ class Part(object):
                  **attribs):
 
         if tool is None:
-            tool = DEFAULT_TOOL
+            tool = _DEFAULT_TOOL
 
         # Setup some part attributes that might be overwritten later on.
         self.do_erc = True # Allow part to be included in ERC.
@@ -899,7 +904,18 @@ class Part(object):
             # If the lib argument is a string, then create a library using the
             # string as the library file name.
             if isinstance(lib, basestring):
-                lib = SchLib(filename=lib, tool=tool)
+                try:
+                    libname = lib
+                    lib = SchLib(filename=libname, tool=tool)
+                except Exception as e:
+                    if _QUERY_BACKUP_LIB:
+                        logger.warning('Could not load KiCad schematic library "{}", falling back to backup library.'
+                                       .format(libname))
+                        lib = load_backup_lib()
+                        if not lib:
+                            raise e
+                    else:
+                        raise e
 
             # Make a copy of the part from the library but don't add it to the netlist.
             part = lib[name].copy(1, TEMPLATE)
@@ -1573,7 +1589,7 @@ class Part(object):
         """
 
         if tool is None:
-            tool = DEFAULT_TOOL
+            tool = _DEFAULT_TOOL
 
         try:
             gen_func = getattr(self, '_gen_netlist_comp_{}'.format(tool))
@@ -1636,7 +1652,7 @@ class Part(object):
         """
 
         if tool is None:
-            tool = DEFAULT_TOOL
+            tool = _DEFAULT_TOOL
 
         try:
             gen_func = getattr(self, '_gen_xml_comp_{}'.format(tool))
@@ -2258,7 +2274,7 @@ class Net(object):
         """
 
         if tool is None:
-            tool = DEFAULT_TOOL
+            tool = _DEFAULT_TOOL
 
         self.test_validity()
 
@@ -2295,7 +2311,7 @@ class Net(object):
         """
 
         if tool is None:
-            tool = DEFAULT_TOOL
+            tool = _DEFAULT_TOOL
 
         self.test_validity()
 
@@ -2505,7 +2521,7 @@ class _NCNet(Net):
         """NO_CONNECT nets don't generate anything for netlists."""
 
         if tool is None:
-            tool = DEFAULT_TOOL
+            tool = _DEFAULT_TOOL
 
         return ''
 
@@ -2887,27 +2903,24 @@ class Circuit(object):
 
     def __init__(self, **kwargs):
         """Initialize the Circuit object."""
-        self.reset()
+        self.reset(init = True)
 
         # Set passed-in attributes for the circuit.
         for k, v in kwargs.items():
             setattr(self, k, v)
 
-    def reset(self):
+    def reset(self, init = False):
         """Clear any circuitry and cached part libraries and start over."""
 
-        # Create this member here to prevent pylint error later in mini_reset().
-        self.NC = None
-
         # Clear circuitry.
-        self.mini_reset()
+        self.mini_reset(init)
 
         # Also clear any cached libraries.
         SchLib.reset()
         global backup_lib
         backup_lib = None
 
-    def mini_reset(self):
+    def mini_reset(self, init = False):
         """Clear any circuitry but don't erase any loaded part libraries."""
         self.name = ''
         self.parts = []
@@ -2919,11 +2932,9 @@ class Circuit(object):
 
         # Clear out the no-connect net and set the global no-connect if it's
         # tied to this circuit.
-        if getattr(self, 'NC', False) and NC and NC is self.NC:  # pylint: disable=undefined-variable
-            self.NC = _NCNet(name='__NOCONNECT', circuit=self)  # Net for storing no-connects for parts in this circuit.
+        self.NC = _NCNet(name='__NOCONNECT', circuit=self)  # Net for storing no-connects for parts in this circuit.
+        if not init and self is default_circuit:
             builtins.NC = self.NC
-        else:
-            self.NC = _NCNet(name='__NOCONNECT', circuit=self)  # Net for storing no-connects for parts in this circuit.
 
     def add_parts(self, *parts):
         """Add some Part objects to the circuit."""
@@ -3212,20 +3223,21 @@ class Circuit(object):
             sys.stderr.write('{} errors found during ERC.\n\n'.format(
                 erc_logger.error.count))
 
-    def generate_netlist(self, file_=None, tool=None):
+    def generate_netlist(self, file_=None, tool=None, do_backup=True):
         """
         Return a netlist as a string and also write it to a file/stream.
 
         Args:
             file: Either a file object that can be written to, or a string
                 containing a file name, or None.
+            do_backup: If true, create a library with all the parts in the circuit.
 
         Returns:
             A string containing the netlist.
         """
 
         if tool is None:
-            tool = DEFAULT_TOOL
+            tool = _DEFAULT_TOOL
 
         try:
             gen_func = getattr(self, '_gen_netlist_{}'.format(tool))
@@ -3258,7 +3270,7 @@ class Circuit(object):
                 with open(get_script_name() + '.net', 'w') as f:
                     f.write(netlist)
 
-        if CREATE_BACKUP_LIB:
+        if do_backup:
             self.backup_parts()  # Create a new backup lib for the circuit parts.
             global backup_lib    # Clear out any old backup lib so the new one
             backup_lib = None    #   will get reloaded when it's needed.
@@ -3300,7 +3312,7 @@ class Circuit(object):
         """
 
         if tool is None:
-            tool = DEFAULT_TOOL
+            tool = _DEFAULT_TOOL
 
         try:
             gen_func = getattr(self, '_gen_xml_{}'.format(tool))
@@ -3411,7 +3423,6 @@ class Circuit(object):
         return dot
 
 
-
     def backup_parts(self, file_=None):
         """
         Saves parts in circuit as a SKiDL library in a file.
@@ -3431,6 +3442,7 @@ class Circuit(object):
         if not file_:
             file_ = BACKUP_LIB_FILE_NAME
         lib.export(libname=BACKUP_LIB_NAME, file_=file_)
+
 
 def SubCircuit(f):
     """
@@ -3567,7 +3579,7 @@ def search(term, tool=None):
         return list(parts) # Return the list of parts and their containing libraries.
 
     if tool is None:
-        tool = DEFAULT_TOOL
+        tool = _DEFAULT_TOOL
 
     term = '.*' + term + '.*' # Use the given term as a substring.
     parts = search_libraries(term, tool)  # Search for parts with that substring.
@@ -3591,7 +3603,7 @@ def show(lib, part_name, tool=None):
     """
 
     if tool is None:
-        tool = DEFAULT_TOOL
+        tool = _DEFAULT_TOOL
     try:
         return Part(lib, re.escape(part_name), tool=tool, dest=TEMPLATE)
     except Exception:
@@ -3600,9 +3612,12 @@ def show(lib, part_name, tool=None):
 
 def set_default_tool(tool):
     """Set the ECAD tool that will be used by default."""
-    global DEFAULT_TOOL
-    DEFAULT_TOOL = tool
+    global _DEFAULT_TOOL
+    _DEFAULT_TOOL = tool
 
+def set_query_backup_lib(val):
+    global _QUERY_BACKUP_LIB
+    _QUERY_BACKUP_LIB = val
 
 # Create the default Circuit object that will be used unless another is explicitly created.
 builtins.default_circuit = Circuit()
