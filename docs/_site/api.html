@@ -1,35 +1,34 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>skidl 0.0.13 documentation</title>
-    
+    <title>skidl 0.0.14 documentation</title>
     <link rel="stylesheet" href="static/classic.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.0.13',
+        VERSION:     '0.0.14',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="None" href="index.html#document-index" /> 
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
-        <li class="nav-item nav-item-0"><a href="index.html#document-index">skidl 0.0.13 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html#document-index">skidl 0.0.14 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -41,7 +40,7 @@
   <div class="section" id="skidl-api">
 <h1>SKiDL API<a class="headerlink" href="#skidl-api" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
-<span id="document-api"></span><p><strong>This is a really, really bad API document.</strong> I&#8217;m working to make Sphinx generate a better one
+<span id="document-api"></span><p><strong>This is a really, really bad API document.</strong> I’m working to make Sphinx generate a better one
 but, right now, the description on the homepage about how to use SKiDL is much better than this.</p>
 <span class="target" id="module-skidl.skidl"></span><p>SKiDL: A Python-Based Schematic Design Language</p>
 <p>This module extends Python with the ability to design electronic
@@ -55,7 +54,7 @@ The output of a SKiDL-enabled Python script is a netlist that can be
 imported into a PCB layout tool.</p>
 <dl class="class">
 <dt id="skidl.skidl.Alias">
-<em class="property">class </em><code class="descclassname">skidl.skidl.</code><code class="descname">Alias</code><span class="sig-paren">(</span><em>name</em>, <em>id_tag=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Alias"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Alias" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">skidl.skidl.</code><code class="descname">Alias</code><span class="sig-paren">(</span><em>name</em>, <em>id_tag=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Alias" title="Permalink to this definition">¶</a></dt>
 <dd><p>An alias can be added to another object to give it another name.
 Since an object might have several aliases, each alias can be tagged
 with an identifier to discriminate between them.</p>
@@ -64,8 +63,8 @@ with an identifier to discriminate between them.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>name</strong> &#8211; The alias name.</li>
-<li><strong>id_tag</strong> &#8211; The identifier tag.</li>
+<li><strong>name</strong> – The alias name.</li>
+<li><strong>id_tag</strong> – The identifier tag.</li>
 </ul>
 </td>
 </tr>
@@ -75,20 +74,20 @@ with an identifier to discriminate between them.</p>
 
 <dl class="class">
 <dt id="skidl.skidl.Bus">
-<em class="property">class </em><code class="descclassname">skidl.skidl.</code><code class="descname">Bus</code><span class="sig-paren">(</span><em>name</em>, <em>*args</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Bus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Bus" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">skidl.skidl.</code><code class="descname">Bus</code><span class="sig-paren">(</span><em>name</em>, <em>*args</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Bus" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class collects one or more nets into a group that can be indexed.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; A string with the name of the bus.</li>
-<li><strong>args</strong> &#8211; A list of ints, pins, nets, buses to attach to the net.</li>
+<li><strong>name</strong> – A string with the name of the bus.</li>
+<li><strong>args</strong> – A list of ints, pins, nets, buses to attach to the net.</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last"><strong>attribs</strong> &#8211; A dictionary of attributes and values to attach to
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first last"><strong>attribs</strong> – A dictionary of attributes and values to attach to
 the Net object.</p>
 </td>
 </tr>
@@ -102,13 +101,13 @@ the Net object.</p>
 </div>
 <dl class="method">
 <dt id="skidl.skidl.Bus.connect">
-<code class="descname">connect</code><span class="sig-paren">(</span><em>*pins_nets_buses</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Bus.connect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Bus.connect" title="Permalink to this definition">¶</a></dt>
+<code class="descname">connect</code><span class="sig-paren">(</span><em>*pins_nets_buses</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Bus.connect" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the bus after connecting one or more nets, pins, or buses.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pins_nets_buses</strong> &#8211; One or more Pin, Net or Bus objects or
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pins_nets_buses</strong> – One or more Pin, Net or Bus objects or
 lists/tuples of them.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The updated bus with the new connections.</td>
@@ -127,16 +126,16 @@ lists/tuples of them.</td>
 
 <dl class="method">
 <dt id="skidl.skidl.Bus.copy">
-<code class="descname">copy</code><span class="sig-paren">(</span><em>num_copies=1</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Bus.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Bus.copy" title="Permalink to this definition">¶</a></dt>
+<code class="descname">copy</code><span class="sig-paren">(</span><em>num_copies=1</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Bus.copy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make zero or more copies of this bus.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>num_copies</strong> &#8211; Number of copies to make of this bus.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>num_copies</strong> – Number of copies to make of this bus.</td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><strong>attribs</strong> &#8211; Name/value pairs for setting attributes for the copy.</td>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><strong>attribs</strong> – Name/value pairs for setting attributes for the copy.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A list of Bus copies or a Bus if num_copies==1.</td>
 </tr>
@@ -158,14 +157,33 @@ lists/tuples of them.</td>
 
 <dl class="method">
 <dt id="skidl.skidl.Bus.extend">
-<code class="descname">extend</code><span class="sig-paren">(</span><em>*objects</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Bus.extend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Bus.extend" title="Permalink to this definition">¶</a></dt>
+<code class="descname">extend</code><span class="sig-paren">(</span><em>*objects</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Bus.extend" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extend bus by appending objects to the end (MSB).</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="skidl.skidl.Bus.get_nets">
+<code class="descname">get_nets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Bus.get_nets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the list of nets contained in this bus.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.skidl.Bus.get_pins">
+<code class="descname">get_pins</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Bus.get_pins" title="Permalink to this definition">¶</a></dt>
+<dd><p>It’s an error to get the list of pins attached to all bus lines.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="skidl.skidl.Bus.insert">
-<code class="descname">insert</code><span class="sig-paren">(</span><em>index</em>, <em>*objects</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Bus.insert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Bus.insert" title="Permalink to this definition">¶</a></dt>
+<code class="descname">insert</code><span class="sig-paren">(</span><em>index</em>, <em>*objects</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Bus.insert" title="Permalink to this definition">¶</a></dt>
 <dd><p>Insert objects into bus starting at indexed position.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.skidl.Bus.is_movable">
+<code class="descname">is_movable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Bus.is_movable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return true if the bus is movable to another circuit.</p>
+<p>A bus  is movable if all the nets in it are movable.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -180,7 +198,7 @@ is found, the name for this bus is adjusted to make it unique.</p>
 
 <dl class="class">
 <dt id="skidl.skidl.Circuit">
-<em class="property">class </em><code class="descclassname">skidl.skidl.</code><code class="descname">Circuit</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Circuit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Circuit" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">skidl.skidl.</code><code class="descname">Circuit</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Circuit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class object that holds the entire netlist of parts and nets.</p>
 <dl class="attribute">
 <dt id="skidl.skidl.Circuit.parts">
@@ -203,7 +221,7 @@ is found, the name for this bus is adjusted to make it unique.</p>
 <dl class="attribute">
 <dt id="skidl.skidl.Circuit.hierarchy">
 <code class="descname">hierarchy</code><a class="headerlink" href="#skidl.skidl.Circuit.hierarchy" title="Permalink to this definition">¶</a></dt>
-<dd><p>A &#8216;.&#8217;-separated concatenation of the names of nested
+<dd><p>A ‘.’-separated concatenation of the names of nested
 SubCircuits at the current time it is read.</p>
 </dd></dl>
 
@@ -221,43 +239,43 @@ SubCircuits at the current time it is read.</p>
 
 <dl class="method">
 <dt id="skidl.skidl.Circuit.ERC">
-<code class="descname">ERC</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Circuit.ERC"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Circuit.ERC" title="Permalink to this definition">¶</a></dt>
+<code class="descname">ERC</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Circuit.ERC" title="Permalink to this definition">¶</a></dt>
 <dd><p>Do an electrical rules check on the circuit.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="skidl.skidl.Circuit.add_buses">
-<code class="descname">add_buses</code><span class="sig-paren">(</span><em>*buses</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Circuit.add_buses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Circuit.add_buses" title="Permalink to this definition">¶</a></dt>
+<code class="descname">add_buses</code><span class="sig-paren">(</span><em>*buses</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Circuit.add_buses" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add some Bus objects to the circuit. Assign a bus name if necessary.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="skidl.skidl.Circuit.add_nets">
-<code class="descname">add_nets</code><span class="sig-paren">(</span><em>*nets</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Circuit.add_nets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Circuit.add_nets" title="Permalink to this definition">¶</a></dt>
+<code class="descname">add_nets</code><span class="sig-paren">(</span><em>*nets</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Circuit.add_nets" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add some Net objects to the circuit. Assign a net name if necessary.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="skidl.skidl.Circuit.add_parts">
-<code class="descname">add_parts</code><span class="sig-paren">(</span><em>*parts</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Circuit.add_parts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Circuit.add_parts" title="Permalink to this definition">¶</a></dt>
+<code class="descname">add_parts</code><span class="sig-paren">(</span><em>*parts</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Circuit.add_parts" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add some Part objects to the circuit.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="skidl.skidl.Circuit.add_parts_nets_buses">
-<code class="descname">add_parts_nets_buses</code><span class="sig-paren">(</span><em>*parts_nets_buses</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Circuit.add_parts_nets_buses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Circuit.add_parts_nets_buses" title="Permalink to this definition">¶</a></dt>
+<code class="descname">add_parts_nets_buses</code><span class="sig-paren">(</span><em>*parts_nets_buses</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Circuit.add_parts_nets_buses" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add Parts, Nets and Buses to the circuit.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="skidl.skidl.Circuit.backup_parts">
-<code class="descname">backup_parts</code><span class="sig-paren">(</span><em>file=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Circuit.backup_parts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Circuit.backup_parts" title="Permalink to this definition">¶</a></dt>
+<code class="descname">backup_parts</code><span class="sig-paren">(</span><em>file_=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Circuit.backup_parts" title="Permalink to this definition">¶</a></dt>
 <dd><p>Saves parts in circuit as a SKiDL library in a file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file</strong> &#8211; Either a file object that can be written to, or a string
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file</strong> – Either a file object that can be written to, or a string
 containing a file name, or None. If None, a standard library
 file will be used.</td>
 </tr>
@@ -268,17 +286,57 @@ file will be used.</td>
 </dd></dl>
 
 <dl class="method">
+<dt id="skidl.skidl.Circuit.erc_pin_to_pin_chk">
+<code class="descname">erc_pin_to_pin_chk</code><span class="sig-paren">(</span><em>pin1</em>, <em>pin2</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Circuit.erc_pin_to_pin_chk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check for conflict between two pins on a net.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.skidl.Circuit.generate_graph">
+<code class="descname">generate_graph</code><span class="sig-paren">(</span><em>file_=None</em>, <em>engine='neato'</em>, <em>rankdir='LR'</em>, <em>part_shape='rectangle'</em>, <em>net_shape='point'</em>, <em>splines=None</em>, <em>show_values=True</em>, <em>show_anon=False</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Circuit.generate_graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a graphviz graph as graphviz object and can also write it to a file/stream.
+When used in ipython the graphviz object will drawn as an SVG in the output.</p>
+<p>See <a class="reference external" href="https://graphviz.readthedocs.io/en/stable/">https://graphviz.readthedocs.io/en/stable/</a> and <a class="reference external" href="http://graphviz.org/doc/info/attrs.html">http://graphviz.org/doc/info/attrs.html</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>file</strong> – A string containing a file name, or None.</li>
+<li><strong>engine</strong> – See graphviz documentation</li>
+<li><strong>rankdir</strong> – See graphviz documentation</li>
+<li><strong>part_shape</strong> – Shape of the part nodes</li>
+<li><strong>net_shape</strong> – Shape of the net nodes</li>
+<li><strong>splines</strong> – Style for the edges, try ‘ortho’ for a schematic like feel</li>
+<li><strong>show_values</strong> – Show values as external labels on part nodes</li>
+<li><strong>show_anon</strong> – Show anonymous net names</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">graphviz.Digraph</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="skidl.skidl.Circuit.generate_netlist">
-<code class="descname">generate_netlist</code><span class="sig-paren">(</span><em>file=None</em>, <em>tool=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Circuit.generate_netlist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Circuit.generate_netlist" title="Permalink to this definition">¶</a></dt>
+<code class="descname">generate_netlist</code><span class="sig-paren">(</span><em>file_=None</em>, <em>tool=None</em>, <em>do_backup=True</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Circuit.generate_netlist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a netlist as a string and also write it to a file/stream.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file</strong> &#8211; Either a file object that can be written to, or a string
-containing a file name, or None.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>file</strong> – Either a file object that can be written to, or a string
+containing a file name, or None.</li>
+<li><strong>do_backup</strong> – If true, create a library with all the parts in the circuit.</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A string containing the netlist.</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A string containing the netlist.</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -286,13 +344,13 @@ containing a file name, or None.</td>
 
 <dl class="method">
 <dt id="skidl.skidl.Circuit.generate_xml">
-<code class="descname">generate_xml</code><span class="sig-paren">(</span><em>file=None</em>, <em>tool=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Circuit.generate_xml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Circuit.generate_xml" title="Permalink to this definition">¶</a></dt>
+<code class="descname">generate_xml</code><span class="sig-paren">(</span><em>file_=None</em>, <em>tool=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Circuit.generate_xml" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return netlist as an XML string and also write it to a file/stream.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file</strong> &#8211; Either a file object that can be written to, or a string
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file</strong> – Either a file object that can be written to, or a string
 containing a file name, or None.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A string containing the netlist.</td>
@@ -302,53 +360,59 @@ containing a file name, or None.</td>
 </dd></dl>
 
 <dl class="method">
+<dt id="skidl.skidl.Circuit.get_nets">
+<code class="descname">get_nets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Circuit.get_nets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all the distinct nets for the circuit.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="skidl.skidl.Circuit.mini_reset">
-<code class="descname">mini_reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Circuit.mini_reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Circuit.mini_reset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Clear any circuitry but don&#8217;t erase any loaded part libraries.</p>
+<code class="descname">mini_reset</code><span class="sig-paren">(</span><em>init=False</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Circuit.mini_reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear any circuitry but don’t erase any loaded part libraries.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="skidl.skidl.Circuit.reset">
-<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Circuit.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Circuit.reset" title="Permalink to this definition">¶</a></dt>
+<code class="descname">reset</code><span class="sig-paren">(</span><em>init=False</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Circuit.reset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clear any circuitry and cached part libraries and start over.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="skidl.skidl.Circuit.rmv_buses">
-<code class="descname">rmv_buses</code><span class="sig-paren">(</span><em>*buses</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Circuit.rmv_buses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Circuit.rmv_buses" title="Permalink to this definition">¶</a></dt>
+<code class="descname">rmv_buses</code><span class="sig-paren">(</span><em>*buses</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Circuit.rmv_buses" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove some buses from the circuit.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="skidl.skidl.Circuit.rmv_nets">
-<code class="descname">rmv_nets</code><span class="sig-paren">(</span><em>*nets</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Circuit.rmv_nets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Circuit.rmv_nets" title="Permalink to this definition">¶</a></dt>
+<code class="descname">rmv_nets</code><span class="sig-paren">(</span><em>*nets</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Circuit.rmv_nets" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove some Net objects from the circuit.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="skidl.skidl.Circuit.rmv_parts">
-<code class="descname">rmv_parts</code><span class="sig-paren">(</span><em>*parts</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Circuit.rmv_parts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Circuit.rmv_parts" title="Permalink to this definition">¶</a></dt>
+<code class="descname">rmv_parts</code><span class="sig-paren">(</span><em>*parts</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Circuit.rmv_parts" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove some Part objects from the circuit.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="skidl.skidl.Circuit.rmv_parts_nets_buses">
-<code class="descname">rmv_parts_nets_buses</code><span class="sig-paren">(</span><em>*parts_nets_buses</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Circuit.rmv_parts_nets_buses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Circuit.rmv_parts_nets_buses" title="Permalink to this definition">¶</a></dt>
+<code class="descname">rmv_parts_nets_buses</code><span class="sig-paren">(</span><em>*parts_nets_buses</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Circuit.rmv_parts_nets_buses" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add Parts, Nets and Buses to the circuit.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="skidl.skidl.Circuit.set_pin_conflict_rule">
-<code class="descname">set_pin_conflict_rule</code><span class="sig-paren">(</span><em>pin1_func</em>, <em>pin2_func</em>, <em>conflict_level</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Circuit.set_pin_conflict_rule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Circuit.set_pin_conflict_rule" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_pin_conflict_rule</code><span class="sig-paren">(</span><em>pin1_func</em>, <em>pin2_func</em>, <em>conflict_level</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Circuit.set_pin_conflict_rule" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the level of conflict for two types of pins on the same net.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>pin1_func</strong> &#8211; The function of the first pin (e.g., Pin.OUTPUT).</li>
-<li><strong>pin2_func</strong> &#8211; The function of the second pin (e.g., Pin.TRISTATE).</li>
-<li><strong>conflict_level</strong> &#8211; Severity of conflict (e.g., self.OK, self.WARNING, self.ERROR).</li>
+<li><strong>pin1_func</strong> – The function of the first pin (e.g., Pin.OUTPUT).</li>
+<li><strong>pin2_func</strong> – The function of the second pin (e.g., Pin.TRISTATE).</li>
+<li><strong>conflict_level</strong> – Severity of conflict (e.g., self.OK, self.WARNING, self.ERROR).</li>
 </ul>
 </td>
 </tr>
@@ -360,23 +424,23 @@ containing a file name, or None.</td>
 
 <dl class="class">
 <dt id="skidl.skidl.Net">
-<em class="property">class </em><code class="descclassname">skidl.skidl.</code><code class="descname">Net</code><span class="sig-paren">(</span><em>name=None</em>, <em>circuit=None</em>, <em>*pins_nets_buses</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Net"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Net" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">skidl.skidl.</code><code class="descname">Net</code><span class="sig-paren">(</span><em>name=None</em>, <em>circuit=None</em>, <em>*pins_nets_buses</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Net" title="Permalink to this definition">¶</a></dt>
 <dd><p>Lists of connected pins are stored as nets using this class.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; A string with the name of the net. If None or &#8216;&#8217;, then
+<li><strong>name</strong> – A string with the name of the net. If None or ‘’, then
 a unique net name will be assigned.</li>
-<li><strong>circuit</strong> &#8211; The Circuit object this net belongs to.</li>
-<li><strong>*pins_nets_buses</strong> &#8211; One or more Pin, Net, or Bus objects or
+<li><strong>circuit</strong> – The Circuit object this net belongs to.</li>
+<li><strong>*pins_nets_buses</strong> – One or more Pin, Net, or Bus objects or
 lists/tuples of them to be connected to this net.</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last"><strong>attribs</strong> &#8211; A dictionary of attributes and values to attach to
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first last"><strong>attribs</strong> – A dictionary of attributes and values to attach to
 the Net object.</p>
 </td>
 </tr>
@@ -384,13 +448,13 @@ the Net object.</p>
 </table>
 <dl class="method">
 <dt id="skidl.skidl.Net.connect">
-<code class="descname">connect</code><span class="sig-paren">(</span><em>*pins_nets_buses</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Net.connect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Net.connect" title="Permalink to this definition">¶</a></dt>
+<code class="descname">connect</code><span class="sig-paren">(</span><em>*pins_nets_buses</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Net.connect" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the net after connecting other pins, nets, and buses to it.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>*pins_nets_buses</strong> &#8211; One or more Pin, Net, or Bus objects or
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>*pins_nets_buses</strong> – One or more Pin, Net, or Bus objects or
 lists/tuples of them to be connected to this net.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The updated net with the new connections.</td>
@@ -408,16 +472,16 @@ lists/tuples of them to be connected to this net.</td>
 
 <dl class="method">
 <dt id="skidl.skidl.Net.copy">
-<code class="descname">copy</code><span class="sig-paren">(</span><em>num_copies=1</em>, <em>circuit=None</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Net.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Net.copy" title="Permalink to this definition">¶</a></dt>
+<code class="descname">copy</code><span class="sig-paren">(</span><em>num_copies=1</em>, <em>circuit=None</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Net.copy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make zero or more copies of this net.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>num_copies</strong> &#8211; Number of copies to make of this net.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>num_copies</strong> – Number of copies to make of this net.</td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><strong>attribs</strong> &#8211; Name/value pairs for setting attributes for the copy.</td>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><strong>attribs</strong> – Name/value pairs for setting attributes for the copy.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A list of Net copies or a Net if num_copies==1.</td>
 </tr>
@@ -437,6 +501,12 @@ lists/tuples of them to be connected to this net.</td>
 </div>
 </dd></dl>
 
+<dl class="method">
+<dt id="skidl.skidl.Net.disconnect">
+<code class="descname">disconnect</code><span class="sig-paren">(</span><em>pin</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Net.disconnect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove the pin from this net but not any other nets it’s attached to.</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="skidl.skidl.Net.drive">
 <code class="descname">drive</code><a class="headerlink" href="#skidl.skidl.Net.drive" title="Permalink to this definition">¶</a></dt>
@@ -444,6 +514,72 @@ lists/tuples of them to be connected to this net.</td>
 <p>The drive strength cannot be set to a value less than its current
 value. So as pins are added to a net, the drive strength reflects the
 maximum drive value of the pins currently on the net.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.skidl.Net.erc">
+<code class="descname">erc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Net.erc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do electrical rules check on a net in the schematic.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.skidl.Net.generate_netlist_net">
+<code class="descname">generate_netlist_net</code><span class="sig-paren">(</span><em>tool=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Net.generate_netlist_net" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the net information for inclusion in a netlist.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tool</strong> – The format for the netlist file (e.g., KICAD).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.skidl.Net.generate_xml_net">
+<code class="descname">generate_xml_net</code><span class="sig-paren">(</span><em>tool=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Net.generate_xml_net" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the net information for inclusion in an XML file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tool</strong> – The format for the XML file (e.g., KICAD).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.skidl.Net.get_nets">
+<code class="descname">get_nets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Net.get_nets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of nets attached to this net, including this net.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.skidl.Net.get_pins">
+<code class="descname">get_pins</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Net.get_pins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of pins attached to this net.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.skidl.Net.is_attached">
+<code class="descname">is_attached</code><span class="sig-paren">(</span><em>pin_net_bus</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Net.is_attached" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return true if the pin, net or bus is attached to this one.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.skidl.Net.is_implicit">
+<code class="descname">is_implicit</code><span class="sig-paren">(</span><em>net_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Net.is_implicit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return true if the net name is implicit.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.skidl.Net.is_movable">
+<code class="descname">is_movable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Net.is_movable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return true if the net is movable to another circuit.</p>
+<p>A net is movable if it’s not part of a Circuit or if there are no pins
+attached to it.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -458,18 +594,18 @@ is found, the name for this net is adjusted to make it unique.</p>
 
 <dl class="class">
 <dt id="skidl.skidl.Part">
-<em class="property">class </em><code class="descclassname">skidl.skidl.</code><code class="descname">Part</code><span class="sig-paren">(</span><em>lib=None</em>, <em>name=None</em>, <em>dest='NETLIST'</em>, <em>tool=None</em>, <em>connections=None</em>, <em>part_defn=None</em>, <em>circuit=None</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Part"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Part" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">skidl.skidl.</code><code class="descname">Part</code><span class="sig-paren">(</span><em>lib=None</em>, <em>name=None</em>, <em>dest='NETLIST'</em>, <em>tool=None</em>, <em>connections=None</em>, <em>part_defn=None</em>, <em>circuit=None</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Part" title="Permalink to this definition">¶</a></dt>
 <dd><p>A class for storing a definition of a schematic part.</p>
 <dl class="attribute">
 <dt id="skidl.skidl.Part.ref">
 <code class="descname">ref</code><a class="headerlink" href="#skidl.skidl.Part.ref" title="Permalink to this definition">¶</a></dt>
-<dd><p>String storing the reference of a part within a schematic (e.g., &#8216;R5&#8217;).</p>
+<dd><p>String storing the reference of a part within a schematic (e.g., ‘R5’).</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="skidl.skidl.Part.value">
 <code class="descname">value</code><a class="headerlink" href="#skidl.skidl.Part.value" title="Permalink to this definition">¶</a></dt>
-<dd><p>String storing the part value (e.g., &#8216;3K3&#8217;).</p>
+<dd><p>String storing the part value (e.g., ‘3K3’).</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -489,24 +625,24 @@ is found, the name for this net is adjusted to make it unique.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>lib</strong> &#8211; Either a SchLib object or a schematic part library file name.</li>
-<li><strong>name</strong> &#8211; A string with name of the part to find in the library, or to assign to
+<li><strong>lib</strong> – Either a SchLib object or a schematic part library file name.</li>
+<li><strong>name</strong> – A string with name of the part to find in the library, or to assign to
 the part defined by the part definition.</li>
-<li><strong>dest</strong> &#8211; String that indicates where the part is destined for (e.g., LIBRARY).</li>
-<li><strong>tool</strong> &#8211; The format for the library file or part definition (e.g., KICAD).</li>
-<li><strong>connections</strong> &#8211; A dictionary with part pin names/numbers as keys and the
+<li><strong>dest</strong> – String that indicates where the part is destined for (e.g., LIBRARY).</li>
+<li><strong>tool</strong> – The format for the library file or part definition (e.g., KICAD).</li>
+<li><strong>connections</strong> – A dictionary with part pin names/numbers as keys and the
 names of nets to which they will be connected as values. For example:
-{ &#8216;IN-&#8216;:&#8217;a_in&#8217;, &#8216;IN+&#8217;:&#8217;GND&#8217;, &#8216;1&#8217;:&#8217;AMPED_OUTPUT&#8217;, &#8216;14&#8217;:&#8217;VCC&#8217;, &#8216;7&#8217;:&#8217;GND&#8217; }</li>
-<li><strong>part_defn</strong> &#8211; A list of strings that define the part (usually read from a
+{ ‘IN-‘:’a_in’, ‘IN+’:’GND’, ‘1’:’AMPED_OUTPUT’, ‘14’:’VCC’, ‘7’:’GND’ }</li>
+<li><strong>part_defn</strong> – A list of strings that define the part (usually read from a
 schematic library file).</li>
-<li><strong>circuit</strong> &#8211; The Circuit object this Part belongs to.</li>
+<li><strong>circuit</strong> – The Circuit object this Part belongs to.</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first"><strong>attribs</strong> &#8211; Name/value pairs for setting attributes for the part.
-For example, manf_num=&#8217;LM4808MP-8&#8217; would create an attribute
-named &#8216;manf_num&#8217; for the part and assign it the value &#8216;LM4808MP-8&#8217;.</p>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first"><strong>attribs</strong> – Name/value pairs for setting attributes for the part.
+For example, manf_num=’LM4808MP-8’ would create an attribute
+named ‘manf_num’ for the part and assign it the value ‘LM4808MP-8’.</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
@@ -519,13 +655,19 @@ named &#8216;manf_num&#8217; for the part and assign it the value &#8216;LM4808M
 </table>
 <dl class="method">
 <dt id="skidl.skidl.Part.add_pins">
-<code class="descname">add_pins</code><span class="sig-paren">(</span><em>*pins</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Part.add_pins"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Part.add_pins" title="Permalink to this definition">¶</a></dt>
+<code class="descname">add_pins</code><span class="sig-paren">(</span><em>*pins</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Part.add_pins" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add one or more pins to a part.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="skidl.skidl.Part.associate_pins">
+<code class="descname">associate_pins</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Part.associate_pins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make sure all the pins in a part have valid references to the part.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="skidl.skidl.Part.copy">
-<code class="descname">copy</code><span class="sig-paren">(</span><em>num_copies=1</em>, <em>dest='NETLIST'</em>, <em>circuit=None</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Part.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Part.copy" title="Permalink to this definition">¶</a></dt>
+<code class="descname">copy</code><span class="sig-paren">(</span><em>num_copies=1</em>, <em>dest='NETLIST'</em>, <em>circuit=None</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Part.copy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make zero or more copies of this part while maintaining all pin/net
 connections.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -533,13 +675,13 @@ connections.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>num_copies</strong> &#8211; Number of copies to make of this part.</li>
-<li><strong>dest</strong> &#8211; Indicates where the copy is destined for (e.g., NETLIST).</li>
+<li><strong>num_copies</strong> – Number of copies to make of this part.</li>
+<li><strong>dest</strong> – Indicates where the copy is destined for (e.g., NETLIST).</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first"><strong>attribs</strong> &#8211; Name/value pairs for setting attributes for the copy.</p>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first"><strong>attribs</strong> – Name/value pairs for setting attributes for the copy.</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A list of Part copies or a single Part if num_copies==1.</p>
@@ -564,8 +706,20 @@ connections.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="skidl.skidl.Part.erc">
+<code class="descname">erc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Part.erc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do electrical rules check on a part in the schematic.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.skidl.Part.erc_desc">
+<code class="descname">erc_desc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Part.erc_desc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create description of part for ERC and other error reporting.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="skidl.skidl.Part.export">
-<code class="descname">export</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Part.export"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Part.export" title="Permalink to this definition">¶</a></dt>
+<code class="descname">export</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Part.export" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a string to recreate a Part object.</p>
 </dd></dl>
 
@@ -576,19 +730,47 @@ connections.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="skidl.skidl.Part.generate_netlist_component">
+<code class="descname">generate_netlist_component</code><span class="sig-paren">(</span><em>tool=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Part.generate_netlist_component" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the part information for inclusion in a netlist.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tool</strong> – The format for the netlist file (e.g., KICAD).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.skidl.Part.generate_xml_component">
+<code class="descname">generate_xml_component</code><span class="sig-paren">(</span><em>tool=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Part.generate_xml_component" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the part information for inclusion in an XML file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tool</strong> – The format for the XML file (e.g., KICAD).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="skidl.skidl.Part.get_pins">
-<code class="descname">get_pins</code><span class="sig-paren">(</span><em>*pin_ids</em>, <em>**criteria</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Part.get_pins"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Part.get_pins" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_pins</code><span class="sig-paren">(</span><em>*pin_ids</em>, <em>**criteria</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Part.get_pins" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return list of part pins selected by pin numbers or names.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pin_ids</strong> &#8211; A list of strings containing pin names, numbers,
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pin_ids</strong> – A list of strings containing pin names, numbers,
 regular expressions, slices, lists or tuples. If empty,
 then it will select all pins.</td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><strong>criteria</strong> &#8211; Key/value pairs that specify attribute values the
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><strong>criteria</strong> – Key/value pairs that specify attribute values the
 pins must have in order to be selected.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A list of pins matching the given IDs and satisfying all the criteria,
@@ -608,8 +790,34 @@ Or None if no match was found.</td>
 </dd></dl>
 
 <dl class="method">
+<dt id="skidl.skidl.Part.is_connected">
+<code class="descname">is_connected</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Part.is_connected" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return T/F depending upon whether a part is connected in a netlist.</p>
+<p>If a part has pins but none of them are connected to nets, then
+this method will return False. Otherwise, it will return True even if
+the part has no pins (which can be the case for mechanical parts,
+silkscreen logos, or other non-electrical schematic elements).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.skidl.Part.is_movable">
+<code class="descname">is_movable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Part.is_movable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return T/F if the part can be moved from one circuit into another.</p>
+<dl class="docutils">
+<dt>This method returns true if:</dt>
+<dd><ol class="first last arabic simple">
+<li>the part is not in a circuit, or</li>
+<li>the part has pins but none of them are connected to nets, or</li>
+<li>the part has no pins (which can be the case for mechanical parts,
+silkscreen logos, or other non-electrical schematic elements).</li>
+</ol>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="skidl.skidl.Part.make_unit">
-<code class="descname">make_unit</code><span class="sig-paren">(</span><em>label</em>, <em>*pin_ids</em>, <em>**criteria</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Part.make_unit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Part.make_unit" title="Permalink to this definition">¶</a></dt>
+<code class="descname">make_unit</code><span class="sig-paren">(</span><em>label</em>, <em>*pin_ids</em>, <em>**criteria</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Part.make_unit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a PartUnit from a set of pins in a Part object.</p>
 <p>Parts can be organized into smaller pieces called PartUnits. A PartUnit
 acts like a Part but contains only a subset of the pins of the Part.</p>
@@ -618,14 +826,14 @@ acts like a Part but contains only a subset of the pins of the Part.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>label</strong> &#8211; The label used to identify the PartUnit.</li>
-<li><strong>pin_ids</strong> &#8211; A list of strings containing pin names, numbers,
+<li><strong>label</strong> – The label used to identify the PartUnit.</li>
+<li><strong>pin_ids</strong> – A list of strings containing pin names, numbers,
 regular expressions, slices, lists or tuples.</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first"><strong>criteria</strong> &#8211; Key/value pairs that specify attribute values the
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first"><strong>criteria</strong> – Key/value pairs that specify attribute values the
 pin must have in order to be selected.</p>
 </td>
 </tr>
@@ -634,6 +842,51 @@ pin must have in order to be selected.</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.skidl.Part.parse">
+<code class="descname">parse</code><span class="sig-paren">(</span><em>just_get_name=False</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Part.parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a part from its stored part definition.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>just_get_name</strong> – When true, just get the name and aliases for the
+part. Leave the rest unparsed.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.skidl.Part.parse_kicad">
+<code class="descname">parse_kicad</code><span class="sig-paren">(</span><em>just_get_name=False</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Part.parse_kicad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a Part using a part definition from a KiCad schematic library.</p>
+<p>This method was written based on the code from
+<a class="reference external" href="https://github.com/KiCad/kicad-library-utils/tree/master/schlib">https://github.com/KiCad/kicad-library-utils/tree/master/schlib</a>.
+It’s covered by GPL3.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>part_defn</strong> – A list of strings that define the part (usually read from a
+schematic library file). Can also be None.</li>
+<li><strong>just_get_name</strong> – If true, scan the part definition until the
+name and aliases are found. The rest of the definition
+will be parsed if the part is actually used.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.skidl.Part.parse_skidl">
+<code class="descname">parse_skidl</code><span class="sig-paren">(</span><em>just_get_name=False</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Part.parse_skidl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a Part using a part definition from a SKiDL library.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -655,7 +908,7 @@ it unique.</p>
 
 <dl class="class">
 <dt id="skidl.skidl.PartUnit">
-<em class="property">class </em><code class="descclassname">skidl.skidl.</code><code class="descname">PartUnit</code><span class="sig-paren">(</span><em>part</em>, <em>*pin_ids</em>, <em>**criteria</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#PartUnit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.PartUnit" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">skidl.skidl.</code><code class="descname">PartUnit</code><span class="sig-paren">(</span><em>part</em>, <em>*pin_ids</em>, <em>**criteria</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.PartUnit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a PartUnit from a set of pins in a Part object.</p>
 <p>Parts can be organized into smaller pieces called PartUnits. A PartUnit
 acts like a Part but contains only a subset of the pins of the Part.</p>
@@ -664,14 +917,14 @@ acts like a Part but contains only a subset of the pins of the Part.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>part</strong> &#8211; This is the parent Part whose pins the PartUnit is built from.</li>
-<li><strong>pin_ids</strong> &#8211; A list of strings containing pin names, numbers,
+<li><strong>part</strong> – This is the parent Part whose pins the PartUnit is built from.</li>
+<li><strong>pin_ids</strong> – A list of strings containing pin names, numbers,
 regular expressions, slices, lists or tuples.</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last"><strong>criteria</strong> &#8211; Key/value pairs that specify attribute values the
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first last"><strong>criteria</strong> – Key/value pairs that specify attribute values the
 pin must have in order to be selected.</p>
 </td>
 </tr>
@@ -691,20 +944,20 @@ pin must have in order to be selected.</p>
 
 <dl class="class">
 <dt id="skidl.skidl.PhantomPin">
-<em class="property">class </em><code class="descclassname">skidl.skidl.</code><code class="descname">PhantomPin</code><span class="sig-paren">(</span><em>**attribs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#PhantomPin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.PhantomPin" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">skidl.skidl.</code><code class="descname">PhantomPin</code><span class="sig-paren">(</span><em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.PhantomPin" title="Permalink to this definition">¶</a></dt>
 <dd><p>A pin type that exists solely to tie two pinless nets together.
 It will not participate in generating any netlists.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="skidl.skidl.Pin">
-<em class="property">class </em><code class="descclassname">skidl.skidl.</code><code class="descname">Pin</code><span class="sig-paren">(</span><em>**attribs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Pin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Pin" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">skidl.skidl.</code><code class="descname">Pin</code><span class="sig-paren">(</span><em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Pin" title="Permalink to this definition">¶</a></dt>
 <dd><p>A class for storing data about pins for a part.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>attribs</strong> &#8211; Key/value pairs of attributes to add to the library.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>attribs</strong> – Key/value pairs of attributes to add to the library.</td>
 </tr>
 </tbody>
 </table>
@@ -728,13 +981,13 @@ It will not participate in generating any netlists.</p>
 
 <dl class="method">
 <dt id="skidl.skidl.Pin.connect">
-<code class="descname">connect</code><span class="sig-paren">(</span><em>*pins_nets_buses</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Pin.connect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Pin.connect" title="Permalink to this definition">¶</a></dt>
+<code class="descname">connect</code><span class="sig-paren">(</span><em>*pins_nets_buses</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Pin.connect" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the pin after connecting it to one or more nets or pins.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pins_nets_buses</strong> &#8211; One or more Pin, Net or Bus objects or
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pins_nets_buses</strong> – One or more Pin, Net or Bus objects or
 lists/tuples of them.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The updated pin with the new connections.</td>
@@ -752,16 +1005,16 @@ lists/tuples of them.</td>
 
 <dl class="method">
 <dt id="skidl.skidl.Pin.copy">
-<code class="descname">copy</code><span class="sig-paren">(</span><em>num_copies=1</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Pin.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Pin.copy" title="Permalink to this definition">¶</a></dt>
+<code class="descname">copy</code><span class="sig-paren">(</span><em>num_copies=1</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Pin.copy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return copy or list of copies of a pin including any net connection.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>num_copies</strong> &#8211; Number of copies to make of pin.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>num_copies</strong> – Number of copies to make of pin.</td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><strong>attribs</strong> &#8211; Name/value pairs for setting attributes for the pin.</td>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><strong>attribs</strong> – Name/value pairs for setting attributes for the pin.</td>
 </tr>
 </tbody>
 </table>
@@ -774,9 +1027,45 @@ lists/tuples of them.</td>
 </dd></dl>
 
 <dl class="method">
+<dt id="skidl.skidl.Pin.disconnect">
+<code class="descname">disconnect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Pin.disconnect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disconnect this pin from all nets.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.skidl.Pin.erc_desc">
+<code class="descname">erc_desc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Pin.erc_desc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a string describing this pin for ERC.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="skidl.skidl.Pin.export">
-<code class="descname">export</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#Pin.export"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.Pin.export" title="Permalink to this definition">¶</a></dt>
+<code class="descname">export</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Pin.export" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a string to recreate a Pin object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.skidl.Pin.get_nets">
+<code class="descname">get_nets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Pin.get_nets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list containing the Net objects connected to this pin.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.skidl.Pin.get_pins">
+<code class="descname">get_pins</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Pin.get_pins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list containing this pin.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.skidl.Pin.is_attached">
+<code class="descname">is_attached</code><span class="sig-paren">(</span><em>pin_net_bus</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Pin.is_attached" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return true if this pin is attached to the given pin, net or bus.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.skidl.Pin.is_connected">
+<code class="descname">is_connected</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.Pin.is_connected" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return true if a pin is connected to a net (but not a no-connect net).</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -789,7 +1078,7 @@ lists/tuples of them.</td>
 
 <dl class="class">
 <dt id="skidl.skidl.SchLib">
-<em class="property">class </em><code class="descclassname">skidl.skidl.</code><code class="descname">SchLib</code><span class="sig-paren">(</span><em>filename=None</em>, <em>tool=None</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#SchLib"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.SchLib" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">skidl.skidl.</code><code class="descname">SchLib</code><span class="sig-paren">(</span><em>filename=None</em>, <em>tool=None</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.SchLib" title="Permalink to this definition">¶</a></dt>
 <dd><p>A class for storing parts from a schematic component library file.</p>
 <dl class="attribute">
 <dt id="skidl.skidl.SchLib.filename">
@@ -808,38 +1097,38 @@ lists/tuples of them.</td>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>filename</strong> &#8211; The name of the library file.</li>
-<li><strong>tool</strong> &#8211; The format of the library file (e.g., KICAD).</li>
+<li><strong>filename</strong> – The name of the library file.</li>
+<li><strong>tool</strong> – The format of the library file (e.g., KICAD).</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last"><strong>attribs</strong> &#8211; Key/value pairs of attributes to add to the library.</p>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first last"><strong>attribs</strong> – Key/value pairs of attributes to add to the library.</p>
 </td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
 <dt id="skidl.skidl.SchLib.add_parts">
-<code class="descname">add_parts</code><span class="sig-paren">(</span><em>*parts</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#SchLib.add_parts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.SchLib.add_parts" title="Permalink to this definition">¶</a></dt>
+<code class="descname">add_parts</code><span class="sig-paren">(</span><em>*parts</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.SchLib.add_parts" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add one or more parts to a library.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="skidl.skidl.SchLib.export">
-<code class="descname">export</code><span class="sig-paren">(</span><em>libname</em>, <em>file=None</em>, <em>tool=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#SchLib.export"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.SchLib.export" title="Permalink to this definition">¶</a></dt>
+<code class="descname">export</code><span class="sig-paren">(</span><em>libname</em>, <em>file_=None</em>, <em>tool=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.SchLib.export" title="Permalink to this definition">¶</a></dt>
 <dd><p>Export a library into a file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>libname</strong> &#8211; A string containing the name of the library.</li>
-<li><strong>file</strong> &#8211; The file the library will be exported to. It can either
+<li><strong>libname</strong> – A string containing the name of the library.</li>
+<li><strong>file</strong> – The file the library will be exported to. It can either
 be a file object or a string or None. If None, the file
 will be the same as the library name with the library
 suffix appended.</li>
-<li><strong>tool</strong> &#8211; The CAD tool library format to be used. Currently, this can
+<li><strong>tool</strong> – The CAD tool library format to be used. Currently, this can
 only be SKIDL.</li>
 </ul>
 </td>
@@ -850,18 +1139,18 @@ only be SKIDL.</li>
 
 <dl class="method">
 <dt id="skidl.skidl.SchLib.get_part_by_name">
-<code class="descname">get_part_by_name</code><span class="sig-paren">(</span><em>name</em>, <em>allow_multiples=False</em>, <em>silent=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#SchLib.get_part_by_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.SchLib.get_part_by_name" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_part_by_name</code><span class="sig-paren">(</span><em>name</em>, <em>allow_multiples=False</em>, <em>silent=False</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.SchLib.get_part_by_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a Part with the given name or alias from the part list.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; The part name or alias to search for in the library.</li>
-<li><strong>allow_multiples</strong> &#8211; If true, return a list of parts matching the name.
+<li><strong>name</strong> – The part name or alias to search for in the library.</li>
+<li><strong>allow_multiples</strong> – If true, return a list of parts matching the name.
 If false, return only the first matching part and issue
 a warning if there were more than one.</li>
-<li><strong>silent</strong> &#8211; If true, don&#8217;t issue errors or warnings.</li>
+<li><strong>silent</strong> – If true, don’t issue errors or warnings.</li>
 </ul>
 </td>
 </tr>
@@ -874,14 +1163,14 @@ a warning if there were more than one.</li>
 
 <dl class="method">
 <dt id="skidl.skidl.SchLib.get_parts">
-<code class="descname">get_parts</code><span class="sig-paren">(</span><em>use_backup_lib=True</em>, <em>**criteria</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#SchLib.get_parts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.SchLib.get_parts" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_parts</code><span class="sig-paren">(</span><em>use_backup_lib=True</em>, <em>**criteria</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.SchLib.get_parts" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return parts from a library that match <em>all</em> the given criteria.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><strong>criteria</strong> &#8211; One or more keyword-argument pairs. The keyword specifies
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><strong>criteria</strong> – One or more keyword-argument pairs. The keyword specifies
 the attribute name while the argument contains the desired value
 of the attribute.</td>
 </tr>
@@ -891,16 +1180,22 @@ of the attribute.</td>
 </table>
 </dd></dl>
 
+<dl class="classmethod">
+<dt id="skidl.skidl.SchLib.reset">
+<em class="property">classmethod </em><code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.SchLib.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear the cache of processed library files.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="skidl.skidl.SkidlPart">
-<em class="property">class </em><code class="descclassname">skidl.skidl.</code><code class="descname">SkidlPart</code><span class="sig-paren">(</span><em>lib=None</em>, <em>name=None</em>, <em>dest='TEMPLATE'</em>, <em>tool='skidl'</em>, <em>connections=None</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#SkidlPart"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.SkidlPart" title="Permalink to this definition">¶</a></dt>
-<dd><p>A class for storing a SKiDL definition of a schematic part. It&#8217;s identical
+<em class="property">class </em><code class="descclassname">skidl.skidl.</code><code class="descname">SkidlPart</code><span class="sig-paren">(</span><em>lib=None</em>, <em>name=None</em>, <em>dest='TEMPLATE'</em>, <em>tool='skidl'</em>, <em>connections=None</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.SkidlPart" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class for storing a SKiDL definition of a schematic part. It’s identical
 to its Part superclass except:</p>
 <blockquote>
 <div><p><a href="#id1"><span class="problematic" id="id2">*</span></a>) The tool defaults to SKIDL.
-<a href="#id3"><span class="problematic" id="id4">*</span></a>) The destination defaults to TEMPLATE so that it&#8217;s easier to start</p>
+<a href="#id3"><span class="problematic" id="id4">*</span></a>) The destination defaults to TEMPLATE so that it’s easier to start</p>
 <blockquote>
 <div>a part and then add pins to it without it being added to the netlist.</div></blockquote>
 </div></blockquote>
@@ -908,54 +1203,42 @@ to its Part superclass except:</p>
 
 <dl class="function">
 <dt id="skidl.skidl.SubCircuit">
-<code class="descclassname">skidl.skidl.</code><code class="descname">SubCircuit</code><span class="sig-paren">(</span><em>f</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#SubCircuit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.SubCircuit" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">skidl.skidl.</code><code class="descname">SubCircuit</code><span class="sig-paren">(</span><em>f</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.SubCircuit" title="Permalink to this definition">¶</a></dt>
 <dd><p>A &#64;SubCircuit decorator is used to create hierarchical circuits.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>f</strong> &#8211; The function containing SKiDL statements that represents a subcircuit.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>f</strong> – The function containing SKiDL statements that represents a subcircuit.</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="function">
-<dt id="skidl.skidl.cnvt_to_var_name">
-<code class="descclassname">skidl.skidl.</code><code class="descname">cnvt_to_var_name</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#cnvt_to_var_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.cnvt_to_var_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert a string to a legal Python variable name and return it.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="skidl.skidl.norecurse">
-<code class="descclassname">skidl.skidl.</code><code class="descname">norecurse</code><span class="sig-paren">(</span><em>f</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#norecurse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.norecurse" title="Permalink to this definition">¶</a></dt>
-<dd><p>This decorator will keep function f from recursively calling itself.</p>
-</dd></dl>
-
-<dl class="function">
 <dt id="skidl.skidl.search">
-<code class="descclassname">skidl.skidl.</code><code class="descname">search</code><span class="sig-paren">(</span><em>term</em>, <em>tool=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#search"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.search" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">skidl.skidl.</code><code class="descname">search</code><span class="sig-paren">(</span><em>term</em>, <em>tool=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.search" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print a list of components with the regex term within their name, alias, description or keywords.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="skidl.skidl.set_default_tool">
-<code class="descclassname">skidl.skidl.</code><code class="descname">set_default_tool</code><span class="sig-paren">(</span><em>tool</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#set_default_tool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.set_default_tool" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">skidl.skidl.</code><code class="descname">set_default_tool</code><span class="sig-paren">(</span><em>tool</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.set_default_tool" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the ECAD tool that will be used by default.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="skidl.skidl.show">
-<code class="descclassname">skidl.skidl.</code><code class="descname">show</code><span class="sig-paren">(</span><em>lib</em>, <em>part_name</em>, <em>tool=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/skidl/skidl.html#show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#skidl.skidl.show" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">skidl.skidl.</code><code class="descname">show</code><span class="sig-paren">(</span><em>lib</em>, <em>part_name</em>, <em>tool=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.show" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print the I/O pins for a given part in a library.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>lib</strong> &#8211; Either a SchLib object or the name of a library.</li>
-<li><strong>part_name</strong> &#8211; The name of the part in the library.</li>
-<li><strong>tool</strong> &#8211; The ECAD tool format for the library.</li>
+<li><strong>lib</strong> – Either a SchLib object or the name of a library.</li>
+<li><strong>part_name</strong> – The name of the part in the library.</li>
+<li><strong>tool</strong> – The ECAD tool format for the library.</li>
 </ul>
 </td>
 </tr>
@@ -974,7 +1257,7 @@ to its Part superclass except:</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>f</strong> &#8211; The function containing SKiDL statements that represents a subcircuit.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>f</strong> – The function containing SKiDL statements that represents a subcircuit.</td>
 </tr>
 </tbody>
 </table>
@@ -997,10 +1280,6 @@ to its Part superclass except:</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html#document-index">Table Of Contents</a></h3>
-  <ul class="simple">
-</ul>
-
         </div>
       </div>
       <div class="clearer"></div>
@@ -1008,11 +1287,11 @@ to its Part superclass except:</p>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
-        <li class="nav-item nav-item-0"><a href="index.html#document-index">skidl 0.0.13 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html#document-index">skidl 0.0.14 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.4.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>

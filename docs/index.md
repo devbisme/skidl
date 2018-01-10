@@ -1133,11 +1133,11 @@ Currently, SKiDL supports the library formats for the following ECAD tools:
 You can set the default library format you want to use in your SKiDL script like so:
 
 ```py
-DEFAULT_TOOL = KICAD  # KiCad is the default library format.
-DEFAULT_TOOL = SKIDL  # Now SKiDL is the default library format.
+set_default_tool(KICAD)  # KiCad is the default library format.
+set_default_tool(SKIDL)  # Now SKiDL is the default library format.
 ```
 
-You can also set the directories where SKiDL looks for parts using the 
+You can select the directories where SKiDL looks for parts using the 
 `lib_search_paths` dictionary:
 
 ```py
@@ -1145,7 +1145,7 @@ lib_search_paths[SKIDL] = ['.', '..', 'C:\\temp']
 lib_search_paths[KICAD].append('C:\\my\\kicad\\libs')
 ```
 
-You can also convert a KiCad library into the SKiDL format by exporting it:
+You can convert a KiCad library into the SKiDL format by exporting it:
 
 ```py
 kicad_lib = SchLib('device', tool=KICAD)       # Open a KiCad library.
@@ -1158,7 +1158,7 @@ else:
 diode = Part(skidl_lib, 'D')                   # Instantiate a diode from the SKiDL library.
 ```
 
-You can also make ad-hoc libraries just by creating a SchLib object and adding
+You can make ad-hoc libraries just by creating a SchLib object and adding
 Part objects to it:
 
 ```py

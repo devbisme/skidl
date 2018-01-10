@@ -1241,12 +1241,12 @@ environment variable), so if that’s all you need then you’re all set.</p>
 
 <p>You can set the default library format you want to use in your SKiDL script like so:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">DEFAULT_TOOL</span> <span class="o">=</span> <span class="n">KICAD</span>  <span class="c"># KiCad is the default library format.</span>
-<span class="n">DEFAULT_TOOL</span> <span class="o">=</span> <span class="n">SKIDL</span>  <span class="c"># Now SKiDL is the default library format.</span>
+<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">set_default_tool</span><span class="p">(</span><span class="n">KICAD</span><span class="p">)</span>  <span class="c"># KiCad is the default library format.</span>
+<span class="n">set_default_tool</span><span class="p">(</span><span class="n">SKIDL</span><span class="p">)</span>  <span class="c"># Now SKiDL is the default library format.</span>
 </code></pre>
 </div>
 
-<p>You can also set the directories where SKiDL looks for parts using the 
+<p>You can select the directories where SKiDL looks for parts using the 
 <code class="highlighter-rouge">lib_search_paths</code> dictionary:</p>
 
 <div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">lib_search_paths</span><span class="p">[</span><span class="n">SKIDL</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s">'.'</span><span class="p">,</span> <span class="s">'..'</span><span class="p">,</span> <span class="s">'C:</span><span class="se">\\</span><span class="s">temp'</span><span class="p">]</span>
@@ -1254,7 +1254,7 @@ environment variable), so if that’s all you need then you’re all set.</p>
 </code></pre>
 </div>
 
-<p>You can also convert a KiCad library into the SKiDL format by exporting it:</p>
+<p>You can convert a KiCad library into the SKiDL format by exporting it:</p>
 
 <div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">kicad_lib</span> <span class="o">=</span> <span class="n">SchLib</span><span class="p">(</span><span class="s">'device'</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="n">KICAD</span><span class="p">)</span>       <span class="c"># Open a KiCad library.</span>
 <span class="n">kicad_lib</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="s">'my_skidl_lib'</span><span class="p">)</span>               <span class="c"># Export it into a file in SKiDL format.</span>
@@ -1267,7 +1267,7 @@ environment variable), so if that’s all you need then you’re all set.</p>
 </code></pre>
 </div>
 
-<p>You can also make ad-hoc libraries just by creating a SchLib object and adding
+<p>You can make ad-hoc libraries just by creating a SchLib object and adding
 Part objects to it:</p>
 
 <div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">my_lib</span> <span class="o">=</span> <span class="n">SchLib</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">'my_lib'</span><span class="p">)</span>                      <span class="c"># Create an empty library object.</span>
