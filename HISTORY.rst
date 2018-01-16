@@ -4,6 +4,14 @@ History
 -------
 
 
+0.0.16 (2018-01-16)
+______________________
+
+* Parsing of KiCad EESchema libraries made more robust.
+* DEFAULT_TOOL replaced with set_default_tool() function.
+* Some code simplification by using a context manager for opening files.
+
+
 0.0.15 (2018-01-09)
 ______________________
 

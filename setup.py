@@ -5,7 +5,7 @@
 import sys
 import setuptools
 
-__version__ = '0.0.15'
+__version__ = '0.0.16'
 __author__ = 'XESS Corp.'
 __email__ = 'info@xess.com'
 
@@ -46,7 +46,6 @@ setup(
     url='https://github.com/xesscorp/skidl',
 #    packages=['skidl',],
     packages=setuptools.find_packages(),
-#    entry_points={'console_scripts':['netlist_to_skidl = skidl.__main__:main']},
     entry_points={'console_scripts':['netlist_to_skidl = skidl.netlist_to_skidl_main:main']},
     package_dir={'skidl': 'skidl'},
     include_package_data=True,
@@ -57,12 +56,13 @@ setup(
     zip_safe=False,
     keywords='skidl electronic circuit schematics',
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 3 - Pre-Alpha',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
     ],
     test_suite='tests',
     tests_require=test_requirements
