@@ -56,7 +56,7 @@ setup(
     zip_safe=False,
     keywords='skidl electronic circuit schematics',
     classifiers=[
-        'Development Status :: 3 - Pre-Alpha',
+        'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
