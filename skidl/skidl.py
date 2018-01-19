@@ -122,19 +122,6 @@ _QUERY_BACKUP_LIB = INITIAL_QUERY_BACKUP_LIB = True
 backup_lib = None
 
 
-def _expand_buses(pins_nets_buses):
-    """
-    Take list of pins, nets, and buses and return a list of only pins and nets.
-    """
-    pins_nets = []
-    for pnb in pins_nets_buses:
-        if isinstance(pnb, Bus):
-            pins_nets.extend(pnb.get_nets())
-        else:
-            pins_nets.append(pnb)
-    return pins_nets
-
-
 ##############################################################################
 
 
@@ -688,7 +675,7 @@ class Pin(object):
         """
 
         # Go through all the pins and/or nets and connect them to this pin.
-        for pn in _expand_buses(flatten(pins_nets_buses)):
+        for pn in expand_buses(flatten(pins_nets_buses)):
             if isinstance(pn, Pin):
                 # Connecting pin-to-pin.
                 if self.is_connected():
@@ -2188,7 +2175,7 @@ class Net(object):
         self.test_validity()
 
         # Go through all the pins and/or nets and connect them to this net.
-        for pn in _expand_buses(flatten(pins_nets_buses)):
+        for pn in expand_buses(flatten(pins_nets_buses)):
             if isinstance(pn, Net):
                 if pn.circuit == self.circuit:
                     merge(pn)
@@ -2849,7 +2836,7 @@ class _NetPinList(list):
     def __iadd__(self, *nets_pins_buses):
 
         nets_pins = []
-        for item in _expand_buses(flatten(nets_pins_buses)):
+        for item in expand_buses(flatten(nets_pins_buses)):
             if isinstance(item, (Pin, Net)):
                 nets_pins.append(item)
             else:

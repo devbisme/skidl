@@ -561,3 +561,17 @@ def opened(f_or_fn, mode):
                 yield f
     else:
         raise TypeError("argument must be a filename or a file-like object (is: {})".format(type(f_or_fn)))
+
+
+def expand_buses(pins_nets_buses):
+    """
+    Take list of pins, nets, and buses and return a list of only pins and nets.
+    """
+    import skidl
+    pins_nets = []
+    for pnb in pins_nets_buses:
+        if isinstance(pnb, skidl.Bus):
+            pins_nets.extend(pnb.get_nets())
+        else:
+            pins_nets.append(pnb)
+    return pins_nets
