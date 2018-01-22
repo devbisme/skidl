@@ -67,7 +67,7 @@ class SchLib(object):
 
         if tool is None:
             import skidl
-            tool = skidl.DEFAULT_TOOL
+            tool = skidl.get_default_tool()
 
         # Library starts off empty of parts.
         self.parts = []

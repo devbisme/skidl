@@ -36,7 +36,6 @@ standard_library.install_aliases()
 import os
 import os.path
 
-import skidl
 from .py_2_3 import *  # pylint: disable=wildcard-import
 from .utilities import *
 
@@ -45,6 +44,8 @@ def search(term, tool=None):
     """
     Print a list of components with the regex term within their name, alias, description or keywords.
     """
+
+    import skidl
 
     def search_libraries(term, tool):
         """Search for a regex term in part libraries."""
@@ -84,7 +85,7 @@ def search(term, tool=None):
         return list(parts) # Return the list of parts and their containing libraries.
 
     if tool is None:
-        tool = skidl.DEFAULT_TOOL
+        tool = skidl.get_default_tool()
 
     term = '.*' + term + '.*' # Use the given term as a substring.
     parts = search_libraries(term, tool)  # Search for parts with that substring.
@@ -107,8 +108,10 @@ def show(lib, part_name, tool=None):
         A Part object.
     """
 
+    import skidl
+
     if tool is None:
-        tool = skidl.DEFAULT_TOOL
+        tool = skidl.get_default_tool()
     try:
         return skidl.Part(lib, re.escape(part_name), tool=tool, dest=skidl.TEMPLATE)
     except Exception:

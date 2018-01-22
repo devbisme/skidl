@@ -26,9 +26,11 @@
 Handles part pins.
 """
 
+
 from copy import copy
 
 from .utilities import *
+
 
 class Pin(object):
     """

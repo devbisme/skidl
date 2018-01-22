@@ -97,7 +97,7 @@ class Part(object):
         import skidl
 
         if tool is None:
-            tool = skidl.DEFAULT_TOOL
+            tool = skidl.get_default_tool()
 
         # Setup some part attributes that might be overwritten later on.
         self.do_erc = True # Allow part to be included in ERC.
@@ -815,7 +815,7 @@ class Part(object):
         import skidl
 
         if tool is None:
-            tool = skidl.DEFAULT_TOOL
+            tool = skidl.get_default_tool()
 
         try:
             gen_func = getattr(self, '_gen_netlist_comp_{}'.format(tool))
@@ -880,7 +880,7 @@ class Part(object):
         import skidl
 
         if tool is None:
-            tool = skidl.DEFAULT_TOOL
+            tool = skidl.get_default_tool()
 
         try:
             gen_func = getattr(self, '_gen_xml_comp_{}'.format(tool))

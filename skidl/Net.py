@@ -54,14 +54,12 @@ class Net(object):
             the Net object.
     """
 
-    import skidl
-
     def __init__(self, name=None, circuit=None, *pins_nets_buses, **attribs):
-        import skidl
+        from .Pin import Pin
 
         self._valid = True # Make net valid before doing anything else.
         self.do_erc = True
-        self._drive = skidl.Pin.NO_DRIVE
+        self._drive = Pin.NO_DRIVE
         self.pins = []
         self._name = None
         self.circuit = None
@@ -157,9 +155,9 @@ class Net(object):
         attached to it.
         """
 
-        import skidl
+        from .Circuit import Circuit
 
-        return not isinstance(self.circuit, skidl.Circuit) or not self.pins
+        return not isinstance(self.circuit, Circuit) or not self.pins
 
     def copy(self, num_copies=1, circuit=None, **attribs):
         """
@@ -425,7 +423,7 @@ class Net(object):
         import skidl
 
         if tool is None:
-            tool = skidl.DEFAULT_TOOL
+            tool = skidl.get_default_tool()
 
         self.test_validity()
 
@@ -464,7 +462,7 @@ class Net(object):
         import skidl
 
         if tool is None:
-            tool = skidl.DEFAULT_TOOL
+            tool = skidl.get_default_tool()
 
         self.test_validity()
 
@@ -593,7 +591,7 @@ class Net(object):
 
     @name.setter
     def name(self, name):
-        import skidl
+        from .defines import NET_PREFIX
 
         self.test_validity()
         # Remove the existing name so it doesn't cause a collision if the
@@ -602,7 +600,7 @@ class Net(object):
 
         # Now name the object with the given name or some variation
         # of it that doesn't collide with anything else in the list.
-        self._name = get_unique_name(self.circuit.nets, 'name', skidl.NET_PREFIX, name)
+        self._name = get_unique_name(self.circuit.nets, 'name', NET_PREFIX, name)
 
     @name.deleter
     def name(self):
@@ -669,10 +667,10 @@ class NCNet(Net):
     """
 
     def __init__(self, name=None, circuit=None, *pins_nets_buses, **attribs):
-        import skidl
+        from .Pin import Pin
 
         super(NCNet, self).__init__(name=name, circuit=circuit, *pins_nets_buses, **attribs)
-        self._drive = skidl.Pin.NOCONNECT_DRIVE
+        self._drive = Pin.NOCONNECT_DRIVE
 
     def generate_netlist_net(self, tool=None):
         """NO_CONNECT nets don't generate anything for netlists."""
@@ -680,7 +678,7 @@ class NCNet(Net):
         import skidl
 
         if tool is None:
-            tool = skidl.DEFAULT_TOOL
+            tool = skidl.get_default_tool()
 
         return ''
 

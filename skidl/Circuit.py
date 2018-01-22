@@ -68,20 +68,20 @@ class Circuit(object):
     def reset(self, init = False):
         """Clear any circuitry and cached part libraries and start over."""
 
-        import skidl
+        from .SchLib import SchLib
 
         # Clear circuitry.
         self.mini_reset(init)
 
         # Also clear any cached libraries.
-        skidl.SchLib.reset()
+        SchLib.reset()
         global backup_lib
         backup_lib = None
 
     def mini_reset(self, init = False):
         """Clear any circuitry but don't erase any loaded part libraries."""
 
-        import skidl
+        from .Net import NCNet
 
         self.name = ''
         self.parts = []
@@ -93,7 +93,7 @@ class Circuit(object):
 
         # Clear out the no-connect net and set the global no-connect if it's
         # tied to this circuit.
-        self.NC = skidl.NCNet(name='__NOCONNECT', circuit=self)  # Net for storing no-connects for parts in this circuit.
+        self.NC = NCNet(name='__NOCONNECT', circuit=self)  # Net for storing no-connects for parts in this circuit.
         if not init and self is default_circuit:
             builtins.NC = self.NC
 
@@ -243,14 +243,16 @@ class Circuit(object):
     def add_parts_nets_buses(self, *parts_nets_buses):
         """Add Parts, Nets and Buses to the circuit."""
 
-        import skidl
+        from .Part import Part
+        from .Net import Net
+        from .Bus import Bus
 
         for pnb in flatten(parts_nets_buses):
-            if isinstance(pnb, skidl.Part):
+            if isinstance(pnb, Part):
                 self.add_parts(pnb)
-            elif isinstance(pnb, skidl.Net):
+            elif isinstance(pnb, Net):
                 self.add_nets(pnb)
-            elif isinstance(pnb, skidl.Bus):
+            elif isinstance(pnb, Bus):
                 self.add_buses(pnb)
             else:
                 logger.error("Can't add a {} to a Circuit object.".format(type(pnb)))
@@ -408,7 +410,7 @@ class Circuit(object):
         import skidl
 
         if tool is None:
-            tool = skidl.DEFAULT_TOOL
+            tool = skidl.get_default_tool()
 
         try:
             gen_func = getattr(self, '_gen_netlist_{}'.format(tool))
@@ -481,7 +483,7 @@ class Circuit(object):
         import skidl
 
         if tool is None:
-            tool = skidl.DEFAULT_TOOL
+            tool = skidl.get_default_tool()
 
         try:
             gen_func = getattr(self, '_gen_xml_{}'.format(tool))
