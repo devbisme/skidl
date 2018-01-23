@@ -37,7 +37,7 @@ from future import standard_library
 standard_library.install_aliases()
 
 try:
-    import builtins as builtins
+    import __builtin__ as builtins
 except ImportError:
     import builtins
 
@@ -67,7 +67,7 @@ class Net(object):
     def __init__(self, name=None, circuit=None, *pins_nets_buses, **attribs):
         from .Pin import Pin
 
-        self._valid = True # Make net valid before doing anything else.
+        self._valid = True  # Make net valid before doing anything else.
         self.do_erc = True
         self._drive = Pin.NO_DRIVE
         self.pins = []
@@ -91,7 +91,7 @@ class Net(object):
 
         # Attach whatever pins were given.
         self.connect(pins_nets_buses)
-        del self.iadd_flag # Remove the += flag inserted by connect().
+        del self.iadd_flag  # Remove the += flag inserted by connect().
 
         # Attach additional attributes to the net.
         for k, v in attribs.items():
@@ -203,8 +203,8 @@ class Net(object):
         # Check that a valid number of copies is requested.
         if not isinstance(num_copies, int):
             logger.error(
-                "Can't make a non-integer number ({}) of copies of a net!".format(
-                    num_copies))
+                "Can't make a non-integer number ({}) of copies of a net!".
+                format(num_copies))
             raise Exception
         if num_copies < 0:
             logger.error(
@@ -218,7 +218,8 @@ class Net(object):
         # And what's the value of that?
         if self.pins:
             logger.error(
-                "Can't make copies of a net that already has pins attached to it!")
+                "Can't make copies of a net that already has pins attached to it!"
+            )
             raise Exception
 
         # Create a list of copies of this net.
@@ -244,8 +245,8 @@ class Net(object):
                         v = v[i]
                     except IndexError:
                         logger.error(
-                            "{} copies of net {} were requested, but too few elements in attribute {}!".format(
-                                num_copies, self.name, k))
+                            "{} copies of net {} were requested, but too few elements in attribute {}!".
+                            format(num_copies, self.name, k))
                         raise Exception
                 setattr(cpy, k, v)
 
@@ -301,13 +302,13 @@ class Net(object):
             """
 
             if isinstance(self, NCNet):
-                logger.error("Can't merge with a no-connect net {}!".format(
-                    self.name))
+                logger.error(
+                    "Can't merge with a no-connect net {}!".format(self.name))
                 raise Exception
 
             if isinstance(net, NCNet):
-                logger.error("Can't merge with a no-connect net {}!".format(
-                    net.name))
+                logger.error(
+                    "Can't merge with a no-connect net {}!".format(net.name))
                 raise Exception
 
             # No need to do anything if merging a net with itself.
@@ -352,19 +353,25 @@ class Net(object):
                 if pn.circuit == self.circuit:
                     merge(pn)
                 else:
-                    logger.error("Can't attach nets in different circuits ({}, {})!".format(pn.circuit.name, self.circuit.name))
+                    logger.error(
+                        "Can't attach nets in different circuits ({}, {})!".
+                        format(pn.circuit.name, self.circuit.name))
                     raise Exception
             elif isinstance(pn, skidl.Pin):
                 if not pn.part or pn.part.circuit == self.circuit:
                     if not pn.part:
-                        logger.warning("Attaching non-part Pin {} to a Net {}.".format(pn.name, self.name))
+                        logger.warning(
+                            "Attaching non-part Pin {} to a Net {}.".format(
+                                pn.name, self.name))
                     connect_pin(pn)
                 else:
-                    logger.error("Can't attach a part to a net in different circuits ({}, {})!".format(pn.part.circuit.name, self.circuit.name))
+                    logger.error(
+                        "Can't attach a part to a net in different circuits ({}, {})!".
+                        format(pn.part.circuit.name, self.circuit.name))
                     raise Exception
             else:
-                logger.error(
-                    'Cannot attach non-Pin/non-Net {} to Net {}.'.format(type(pn), self.name))
+                logger.error('Cannot attach non-Pin/non-Net {} to Net {}.'.
+                             format(type(pn), self.name))
                 raise Exception
 
         def select_name(nets):
@@ -386,14 +393,19 @@ class Net(object):
                     return nets[0]
                 if self.is_implicit(name0):
                     return nets[1]
-                logger.warning('Merging two named nets ({name0} and {name1}) into {name0}.'.format(**locals()))
+                logger.warning(
+                    'Merging two named nets ({name0} and {name1}) into {name0}.'.
+                    format(**locals()))
                 return nets[0]
 
             # More than two nets, so bisect the list into two smaller lists and
             # recursively find the best name from each list and then return the
             # best name of those two.
             mid_point = len(nets) // 2
-            return select_name([select_name(nets[0:mid_point]), select_name(nets[mid_point:])])
+            return select_name([
+                select_name(nets[0:mid_point]),
+                select_name(nets[mid_point:])
+            ])
 
         # Assign the same name to all the nets that are connected to this net.
         nets = self._traverse().nets
@@ -446,8 +458,8 @@ class Net(object):
             return gen_func()
         except AttributeError:
             logger.error(
-                "Can't generate netlist in an unknown ECAD tool format ({}).".format(
-                    tool))
+                "Can't generate netlist in an unknown ECAD tool format ({}).".
+                format(tool))
             raise Exception
 
     def _gen_netlist_net_kicad(self):
@@ -456,8 +468,9 @@ class Net(object):
         txt = '    (net (code {code}) (name {name})'.format(**locals())
         for p in sorted(self.get_pins(), key=str):
             part_ref = add_quotes(p.part.ref)  # pylint: disable=unused-variable
-            pin_num = add_quotes(p.num)        # pylint: disable=unused-variable
-            txt += '\n      (node (ref {part_ref}) (pin {pin_num}))'.format(**locals())
+            pin_num = add_quotes(p.num)  # pylint: disable=unused-variable
+            txt += '\n      (node (ref {part_ref}) (pin {pin_num}))'.format(
+                **locals())
         txt += ')'
         return txt
 
@@ -485,8 +498,8 @@ class Net(object):
             return gen_func()
         except AttributeError:
             logger.error(
-                "Can't generate XML in an unknown ECAD tool format ({}).".format(
-                    tool))
+                "Can't generate XML in an unknown ECAD tool format ({}).".
+                format(tool))
             raise Exception
 
     def _gen_xml_net_kicad(self):
@@ -495,8 +508,9 @@ class Net(object):
         txt = '    <net code="{code}" name="{name}">'.format(**locals())
         for p in self.get_pins():
             part_ref = p.part.ref  # pylint: disable=unused-variable
-            pin_num = p.num        # pylint: disable=unused-variable
-            txt += '\n      <node ref="{part_ref}" pin="{pin_num}"/>'.format(**locals())
+            pin_num = p.num  # pylint: disable=unused-variable
+            txt += '\n      <node ref="{part_ref}" pin="{pin_num}"/>'.format(
+                **locals())
         txt += '\n    </net>'
         return txt
 
@@ -523,9 +537,7 @@ class Net(object):
 
             # Otherwise, generate an error or warning message.
             msg = 'Pin conflict on net {n}: {p1} <==> {p2}'.format(
-                n=pin1.net.name,
-                p1=pin1.erc_desc(),
-                p2=pin2.erc_desc())
+                n=pin1.net.name, p1=pin1.erc_desc(), p2=pin2.erc_desc())
             if erc_result == skidl.Circuit.WARNING:
                 erc_logger.warning(msg)
             else:
@@ -543,13 +555,13 @@ class Net(object):
                 net_drive = max(net_drive, skidl.Pin.pin_info[p.func]['drive'])
 
             if net_drive <= skidl.Pin.NO_DRIVE:
-                erc_logger.warning('No drivers for net {n}'.format(
-                    n=self.name))
+                erc_logger.warning(
+                    'No drivers for net {n}'.format(n=self.name))
             for p in pins:
                 if skidl.Pin.pin_info[p.func]['min_rcv'] > net_drive:
                     erc_logger.warning(
-                        'Insufficient drive current on net {n} for pin {p}'.format(
-                            n=self.name, p=p.erc_desc()))
+                        'Insufficient drive current on net {n} for pin {p}'.
+                        format(n=self.name, p=p.erc_desc()))
 
         self.test_validity()
 
@@ -561,12 +573,11 @@ class Net(object):
         pins = self.get_pins()
         num_pins = len(pins)
         if num_pins == 0:
-            erc_logger.warning('No pins attached to net {n}.'.format(
-                n=self.name))
-        elif num_pins == 1:
             erc_logger.warning(
-                'Only one pin ({p}) attached to net {n}.'.format(p=pins[
-                    0].erc_desc(), n=self.name))
+                'No pins attached to net {n}.'.format(n=self.name))
+        elif num_pins == 1:
+            erc_logger.warning('Only one pin ({p}) attached to net {n}.'.
+                               format(p=pins[0].erc_desc(), n=self.name))
         else:
             for i in range(num_pins):
                 for j in range(i + 1, num_pins):
@@ -579,7 +590,8 @@ class Net(object):
         """Return a list of the pins on this net as a string."""
         self.test_validity()
         pins = self.get_pins()
-        return self.name + ': ' + ', '.join([p.__str__() for p in sorted(pins, key=str)])
+        return self.name + ': ' + ', '.join(
+            [p.__str__() for p in sorted(pins, key=str)])
 
     __repr__ = __str__
 
@@ -610,7 +622,8 @@ class Net(object):
 
         # Now name the object with the given name or some variation
         # of it that doesn't collide with anything else in the list.
-        self._name = get_unique_name(self.circuit.nets, 'name', NET_PREFIX, name)
+        self._name = get_unique_name(self.circuit.nets, 'name', NET_PREFIX,
+                                     name)
 
     @name.deleter
     def name(self):
@@ -651,7 +664,8 @@ class Net(object):
     def test_validity(self):
         if self.valid:
             return
-        logger.error('Net {} is no longer valid. Do not use it!'.format(self.name))
+        logger.error(
+            'Net {} is no longer valid. Do not use it!'.format(self.name))
         raise Exception
 
 
@@ -679,7 +693,8 @@ class NCNet(Net):
     def __init__(self, name=None, circuit=None, *pins_nets_buses, **attribs):
         from .Pin import Pin
 
-        super(NCNet, self).__init__(name=name, circuit=circuit, *pins_nets_buses, **attribs)
+        super(NCNet, self).__init__(
+            name=name, circuit=circuit, *pins_nets_buses, **attribs)
         self._drive = Pin.NOCONNECT_DRIVE
 
     def generate_netlist_net(self, tool=None):
