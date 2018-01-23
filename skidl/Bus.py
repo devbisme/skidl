@@ -26,9 +26,18 @@
 Handles buses.
 """
 
+from __future__ import unicode_literals
+from __future__ import print_function
+from __future__ import division
+from __future__ import absolute_import
+
+from builtins import range
+from builtins import str
+from future import standard_library
+standard_library.install_aliases()
 
 try:
-    import __builtin__ as builtins
+    import builtins as builtins
 except ImportError:
     import builtins
 
@@ -77,7 +86,8 @@ class Bus(object):
 
         # Add the bus to the circuit.
         self.circuit = None  # Bus won't get added if it's already seen as part of circuit.
-        attribs['circuit'] += self  # Add bus to circuit. This also sets self.circuit again.
+        attribs[
+            'circuit'] += self  # Add bus to circuit. This also sets self.circuit again.
 
         # Build the bus from net widths, existing nets, nets of pins, other buses.
         self.extend(args)
@@ -120,7 +130,8 @@ class Bus(object):
                     self.nets.insert(index, n)
                 index += len(obj)
             else:
-                logger.error('Adding illegal type of object ({}) to Bus {}.'.format(type(obj), self.name))
+                logger.error('Adding illegal type of object ({}) to Bus {}.'.
+                             format(type(obj), self.name))
                 raise Exception
 
         # Assign names to all the unnamed nets in the bus.
@@ -168,8 +179,8 @@ class Bus(object):
         # Check that a valid number of copies is requested.
         if not isinstance(num_copies, int):
             logger.error(
-                "Can't make a non-integer number ({}) of copies of a bus!".format(
-                    num_copies))
+                "Can't make a non-integer number ({}) of copies of a bus!".
+                format(num_copies))
             raise Exception
         if num_copies < 0:
             logger.error(
@@ -189,8 +200,8 @@ class Bus(object):
                         v = v[i]
                     except IndexError:
                         logger.error(
-                            "{} copies of bus {} were requested, but too few elements in attribute {}!".format(
-                                num_copies, self.name, k))
+                            "{} copies of bus {} were requested, but too few elements in attribute {}!".
+                            format(num_copies, self.name, k))
                         raise Exception
                 setattr(cpy, k, v)
 
@@ -281,7 +292,7 @@ class Bus(object):
             if not n.is_movable():
                 # One net not movable means the entire Bus is not movable.
                 return False
-        return True # All the nets were movable.
+        return True  # All the nets were movable.
 
     def connect(self, *pins_nets_buses):
         """
@@ -331,7 +342,8 @@ class Bus(object):
 
         # Now name the object with the given name or some variation
         # of it that doesn't collide with anything else in the list.
-        self._name = get_unique_name(self.circuit.buses, 'name', skidl.BUS_PREFIX, name)
+        self._name = get_unique_name(self.circuit.buses, 'name',
+                                     skidl.BUS_PREFIX, name)
 
     @name.deleter
     def name(self):
@@ -340,7 +352,8 @@ class Bus(object):
 
     def __str__(self):
         """Return a list of the nets in this bus as a string."""
-        return self.name + ':\n\t' + '\n\t'.join([n.__str__() for n in self.nets])
+        return self.name + ':\n\t' + '\n\t'.join(
+            [n.__str__() for n in self.nets])
 
     __repr__ = __str__
 
