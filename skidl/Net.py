@@ -26,8 +26,18 @@
 Handles nets.
 """
 
+from __future__ import unicode_literals
+from __future__ import print_function
+from __future__ import division
+from __future__ import absolute_import
+
+from builtins import super
+from builtins import range
+from future import standard_library
+standard_library.install_aliases()
+
 try:
-    import __builtin__ as builtins
+    import builtins as builtins
 except ImportError:
     import builtins
 
