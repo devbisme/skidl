@@ -26,7 +26,15 @@
 Handles complete circuits made of parts and nets.
 """
 
+from __future__ import unicode_literals
+from __future__ import print_function
+from __future__ import division
+from __future__ import absolute_import
 
+from builtins import range
+from builtins import str
+from future import standard_library
+standard_library.install_aliases()
 try:
     import __builtin__ as builtins
 except ImportError:
@@ -59,13 +67,13 @@ class Circuit(object):
 
     def __init__(self, **kwargs):
         """Initialize the Circuit object."""
-        self.reset(init = True)
+        self.reset(init=True)
 
         # Set passed-in attributes for the circuit.
         for k, v in kwargs.items():
             setattr(self, k, v)
 
-    def reset(self, init = False):
+    def reset(self, init=False):
         """Clear any circuitry and cached part libraries and start over."""
 
         from .SchLib import SchLib
@@ -78,7 +86,7 @@ class Circuit(object):
         global backup_lib
         backup_lib = None
 
-    def mini_reset(self, init = False):
+    def mini_reset(self, init=False):
         """Clear any circuitry but don't erase any loaded part libraries."""
 
         from .Net import NCNet
@@ -93,7 +101,9 @@ class Circuit(object):
 
         # Clear out the no-connect net and set the global no-connect if it's
         # tied to this circuit.
-        self.NC = NCNet(name='__NOCONNECT', circuit=self)  # Net for storing no-connects for parts in this circuit.
+        self.NC = NCNet(
+            name='__NOCONNECT', circuit=self
+        )  # Net for storing no-connects for parts in this circuit.
         if not init and self is default_circuit:
             builtins.NC = self.NC
 
@@ -150,7 +160,9 @@ class Circuit(object):
                     self.parts.append(part)
 
                 else:
-                    logger.error("Can't add unmovable part {} to this circuit.".format(part.ref))
+                    logger.error(
+                        "Can't add unmovable part {} to this circuit.".format(
+                            part.ref))
                     raise Exception
 
     def rmv_parts(self, *parts):
@@ -162,9 +174,12 @@ class Circuit(object):
                     part.hierarchy = None
                     self.parts.remove(part)
                 else:
-                    logger.warning("Removing non-existent part {} from this circuit.".format(part.ref))
+                    logger.warning(
+                        "Removing non-existent part {} from this circuit.".
+                        format(part.ref))
             else:
-                logger.error("Can't remove part {} from this circuit.".format(part.ref))
+                logger.error("Can't remove part {} from this circuit.".format(
+                    part.ref))
                 raise Exception
 
     def add_nets(self, *nets):
@@ -186,7 +201,9 @@ class Circuit(object):
                     self.nets.append(net)
 
                 else:
-                    logger.error("Can't add unmovable net {} to this circuit.".format(net.name))
+                    logger.error(
+                        "Can't add unmovable net {} to this circuit.".format(
+                            net.name))
                     raise Exception
 
     def rmv_nets(self, *nets):
@@ -198,9 +215,13 @@ class Circuit(object):
                     net.hierarchy = None
                     self.nets.remove(net)
                 else:
-                    logger.warning("Removing non-existent net {} from this circuit.".format(net.name))
+                    logger.warning(
+                        "Removing non-existent net {} from this circuit.".
+                        format(net.name))
             else:
-                logger.error("Can't remove unmovable net {} from this circuit.".format(net.name))
+                logger.error(
+                    "Can't remove unmovable net {} from this circuit.".format(
+                        net.name))
                 raise Exception
 
     def add_buses(self, *buses):
@@ -235,9 +256,13 @@ class Circuit(object):
                     for net in bus.nets:
                         self.nets.remove(net)
                 else:
-                    logger.warning("Removing non-existent bus {} from this circuit.".format(bus.name))
+                    logger.warning(
+                        "Removing non-existent bus {} from this circuit.".
+                        format(bus.name))
             else:
-                logger.error("Can't remove unmovable bus {} from this circuit.".format(bus.name))
+                logger.error(
+                    "Can't remove unmovable bus {} from this circuit.".format(
+                        bus.name))
                 raise Exception
 
     def add_parts_nets_buses(self, *parts_nets_buses):
@@ -255,7 +280,8 @@ class Circuit(object):
             elif isinstance(pnb, Bus):
                 self.add_buses(pnb)
             else:
-                logger.error("Can't add a {} to a Circuit object.".format(type(pnb)))
+                logger.error("Can't add a {} to a Circuit object.".format(
+                    type(pnb)))
                 raise Exception
         return self
 
@@ -272,7 +298,8 @@ class Circuit(object):
             elif isinstance(pnb, skidl.Bus):
                 self.rmv_buses(pnb)
             else:
-                logger.error("Can't remove a {} from a Circuit object.".format(type(pnb)))
+                logger.error("Can't remove a {} from a Circuit object.".format(
+                    type(pnb)))
                 raise Exception
         return self
 
@@ -417,8 +444,8 @@ class Circuit(object):
             netlist = gen_func()
         except KeyError:
             logger.error(
-                "Can't generate netlist in an unknown ECAD tool format ({}).".format(
-                    tool))
+                "Can't generate netlist in an unknown ECAD tool format ({}).".
+                format(tool))
             raise Exception
 
         if (logger.error.count, logger.warning.count) == (0, 0):
@@ -432,15 +459,14 @@ class Circuit(object):
                 '{} errors found during netlist generation.\n\n'.format(
                     logger.error.count))
 
-        with opened(
-                file_ or (get_script_name() + '.net'),
-                'w') as f:
+        with opened(file_ or (get_script_name() + '.net'), 'w') as f:
             f.write(netlist)
 
         if do_backup:
-            self.backup_parts()  # Create a new backup lib for the circuit parts.
-            global backup_lib    # Clear out any old backup lib so the new one
-            backup_lib = None    #   will get reloaded when it's needed.
+            self.backup_parts(
+            )  # Create a new backup lib for the circuit parts.
+            global backup_lib  # Clear out any old backup lib so the new one
+            backup_lib = None  #   will get reloaded when it's needed.
 
         return netlist
 
@@ -449,8 +475,8 @@ class Circuit(object):
 
         scr_dict = scriptinfo()
         src_file = os.path.join(scr_dict['dir'], scr_dict['source'])  # pylint: disable=unused-variable
-        date = time.strftime('%m/%d/%Y %I:%M %p')                     # pylint: disable=unused-variable
-        tool = 'SKiDL (' + __version__ + ')'                          # pylint: disable=unused-variable
+        date = time.strftime('%m/%d/%Y %I:%M %p')  # pylint: disable=unused-variable
+        tool = 'SKiDL (' + __version__ + ')'  # pylint: disable=unused-variable
         template = '(export (version D)\n' + \
                    '  (design\n' + \
                    '    (source "{src_file}")\n' + \
@@ -462,7 +488,8 @@ class Circuit(object):
             netlist += '\n' + p.generate_netlist_component(skidl.KICAD)
         netlist += ")\n"
         netlist += "  (nets"
-        for code, n in enumerate(sorted(self.get_nets(), key=lambda n: str(n.name))):
+        for code, n in enumerate(
+                sorted(self.get_nets(), key=lambda n: str(n.name))):
             n.code = code
             netlist += '\n' + n.generate_netlist_net(skidl.KICAD)
         netlist += ")\n)\n"
@@ -490,8 +517,8 @@ class Circuit(object):
             netlist = gen_func()
         except KeyError:
             logger.error(
-                "Can't generate XML in an unknown ECAD tool format ({}).".format(
-                    tool))
+                "Can't generate XML in an unknown ECAD tool format ({}).".
+                format(tool))
             raise Exception
 
         if (logger.error.count, logger.warning.count) == (0, 0):
@@ -505,9 +532,7 @@ class Circuit(object):
                 '{} errors found during XML generation.\n\n'.format(
                     logger.error.count))
 
-        with opened(
-                file_ or (get_script_name() + '.xml'),
-                'w') as f:
+        with opened(file_ or (get_script_name() + '.xml'), 'w') as f:
             f.write(netlist)
 
         return netlist
@@ -517,8 +542,8 @@ class Circuit(object):
 
         scr_dict = scriptinfo()
         src_file = os.path.join(scr_dict['dir'], scr_dict['source'])  # pylint: disable=unused-variable
-        date = time.strftime('%m/%d/%Y %I:%M %p')                     # pylint: disable=unused-variable
-        tool = 'SKiDL (' + __version__ + ')'                          # pylint: disable=unused-variable
+        date = time.strftime('%m/%d/%Y %I:%M %p')  # pylint: disable=unused-variable
+        tool = 'SKiDL (' + __version__ + ')'  # pylint: disable=unused-variable
         template = '<?xml version="1.0" encoding="UTF-8"?>\n' + \
                    '<export version="D">\n' + \
                    '  <design>\n' + \
@@ -542,9 +567,15 @@ class Circuit(object):
     def _gen_xml_skidl(self):
         logger.error("Can't generate XML in SKiDL format!")
 
-    def generate_graph(self, file_=None, engine='neato', rankdir='LR',
-                       part_shape='rectangle', net_shape='point',
-                       splines=None, show_values=True, show_anon=False):
+    def generate_graph(self,
+                       file_=None,
+                       engine='neato',
+                       rankdir='LR',
+                       part_shape='rectangle',
+                       net_shape='point',
+                       splines=None,
+                       show_values=True,
+                       show_anon=False):
         """
         Returns a graphviz graph as graphviz object and can also write it to a file/stream.
         When used in ipython the graphviz object will drawn as an SVG in the output.
@@ -590,7 +621,6 @@ class Circuit(object):
             dot.save(file_)
         return dot
 
-
     def backup_parts(self, file_=None):
         """
         Saves parts in circuit as a SKiDL library in a file.
@@ -621,6 +651,7 @@ def SubCircuit(f):
     Args:
         f: The function containing SKiDL statements that represents a subcircuit.
     """
+
     def sub_f(*args, **kwargs):
         # Upon entry, save the reference to the default Circuit object.
         save_default_circuit = default_circuit  # pylint: disable=undefined-variable
@@ -636,7 +667,8 @@ def SubCircuit(f):
         # make changes (i.e., add parts, nets, buses) to that.
         else:
             circuit = kwargs['circuit']
-            del kwargs['circuit'] # Don't pass the circuit parameter down to the f function.
+            del kwargs[
+                'circuit']  # Don't pass the circuit parameter down to the f function.
             builtins.default_circuit = circuit
 
         # Setup some globals needed in the subcircuit.
@@ -681,6 +713,7 @@ def SubCircuit(f):
         return results
 
     return sub_f
+
 
 # The decorator can also be called as "@subcircuit".
 subcircuit = SubCircuit

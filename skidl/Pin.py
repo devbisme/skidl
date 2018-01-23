@@ -26,7 +26,15 @@
 Handles part pins.
 """
 
+from __future__ import unicode_literals
+from __future__ import print_function
+from __future__ import division
+from __future__ import absolute_import
 
+from builtins import super
+from builtins import range
+from future import standard_library
+standard_library.install_aliases()
 from copy import copy
 
 from .utilities import *
@@ -66,61 +74,83 @@ class Pin(object):
     #   rcv_min: The minimum amount of drive the pin must receive to function.
     #   rcv_max: The maximum amount of drive the pin can receive and still function.
     pin_info = {
-        INPUT: {'function': 'INPUT',
-                'func_str': 'INPUT',
-                'drive': NO_DRIVE,
-                'max_rcv': POWER_DRIVE,
-                'min_rcv': PASSIVE_DRIVE, },
-        OUTPUT: {'function': 'OUTPUT',
-                 'func_str': 'OUTPUT',
-                 'drive': PUSHPULL_DRIVE,
-                 'max_rcv': PASSIVE_DRIVE,
-                 'min_rcv': NO_DRIVE, },
-        BIDIR: {'function': 'BIDIRECTIONAL',
-                'func_str': 'BIDIR',
-                'drive': TRISTATE_DRIVE,
-                'max_rcv': POWER_DRIVE,
-                'min_rcv': NO_DRIVE, },
-        TRISTATE: {'function': 'TRISTATE',
-                   'func_str': 'TRISTATE',
-                   'drive': TRISTATE_DRIVE,
-                   'max_rcv': TRISTATE_DRIVE,
-                   'min_rcv': NO_DRIVE, },
-        PASSIVE: {'function': 'PASSIVE',
-                  'func_str': 'PASSIVE',
-                  'drive': PASSIVE_DRIVE,
-                  'max_rcv': POWER_DRIVE,
-                  'min_rcv': NO_DRIVE, },
-        UNSPEC: {'function': 'UNSPECIFIED',
-                 'func_str': 'UNSPEC',
-                 'drive': NO_DRIVE,
-                 'max_rcv': POWER_DRIVE,
-                 'min_rcv': NO_DRIVE, },
-        PWRIN: {'function': 'POWER-IN',
-                'func_str': 'PWRIN',
-                'drive': NO_DRIVE,
-                'max_rcv': POWER_DRIVE,
-                'min_rcv': POWER_DRIVE, },
-        PWROUT: {'function': 'POWER-OUT',
-                 'func_str': 'PWROUT',
-                 'drive': POWER_DRIVE,
-                 'max_rcv': PASSIVE_DRIVE,
-                 'min_rcv': NO_DRIVE, },
-        OPENCOLL: {'function': 'OPEN-COLLECTOR',
-                   'func_str': 'OPENCOLL',
-                   'drive': ONESIDE_DRIVE,
-                   'max_rcv': TRISTATE_DRIVE,
-                   'min_rcv': NO_DRIVE, },
-        OPENEMIT: {'function': 'OPEN-EMITTER',
-                   'func_str': 'OPENEMIT',
-                   'drive': ONESIDE_DRIVE,
-                   'max_rcv': TRISTATE_DRIVE,
-                   'min_rcv': NO_DRIVE, },
-        NOCONNECT: {'function': 'NO-CONNECT',
-                    'func_str': 'NOCONNECT',
-                    'drive': NOCONNECT_DRIVE,
-                    'max_rcv': NOCONNECT_DRIVE,
-                    'min_rcv': NOCONNECT_DRIVE, },
+        INPUT: {
+            'function': 'INPUT',
+            'func_str': 'INPUT',
+            'drive': NO_DRIVE,
+            'max_rcv': POWER_DRIVE,
+            'min_rcv': PASSIVE_DRIVE,
+        },
+        OUTPUT: {
+            'function': 'OUTPUT',
+            'func_str': 'OUTPUT',
+            'drive': PUSHPULL_DRIVE,
+            'max_rcv': PASSIVE_DRIVE,
+            'min_rcv': NO_DRIVE,
+        },
+        BIDIR: {
+            'function': 'BIDIRECTIONAL',
+            'func_str': 'BIDIR',
+            'drive': TRISTATE_DRIVE,
+            'max_rcv': POWER_DRIVE,
+            'min_rcv': NO_DRIVE,
+        },
+        TRISTATE: {
+            'function': 'TRISTATE',
+            'func_str': 'TRISTATE',
+            'drive': TRISTATE_DRIVE,
+            'max_rcv': TRISTATE_DRIVE,
+            'min_rcv': NO_DRIVE,
+        },
+        PASSIVE: {
+            'function': 'PASSIVE',
+            'func_str': 'PASSIVE',
+            'drive': PASSIVE_DRIVE,
+            'max_rcv': POWER_DRIVE,
+            'min_rcv': NO_DRIVE,
+        },
+        UNSPEC: {
+            'function': 'UNSPECIFIED',
+            'func_str': 'UNSPEC',
+            'drive': NO_DRIVE,
+            'max_rcv': POWER_DRIVE,
+            'min_rcv': NO_DRIVE,
+        },
+        PWRIN: {
+            'function': 'POWER-IN',
+            'func_str': 'PWRIN',
+            'drive': NO_DRIVE,
+            'max_rcv': POWER_DRIVE,
+            'min_rcv': POWER_DRIVE,
+        },
+        PWROUT: {
+            'function': 'POWER-OUT',
+            'func_str': 'PWROUT',
+            'drive': POWER_DRIVE,
+            'max_rcv': PASSIVE_DRIVE,
+            'min_rcv': NO_DRIVE,
+        },
+        OPENCOLL: {
+            'function': 'OPEN-COLLECTOR',
+            'func_str': 'OPENCOLL',
+            'drive': ONESIDE_DRIVE,
+            'max_rcv': TRISTATE_DRIVE,
+            'min_rcv': NO_DRIVE,
+        },
+        OPENEMIT: {
+            'function': 'OPEN-EMITTER',
+            'func_str': 'OPENEMIT',
+            'drive': ONESIDE_DRIVE,
+            'max_rcv': TRISTATE_DRIVE,
+            'min_rcv': NO_DRIVE,
+        },
+        NOCONNECT: {
+            'function': 'NO-CONNECT',
+            'func_str': 'NOCONNECT',
+            'drive': NOCONNECT_DRIVE,
+            'max_rcv': NOCONNECT_DRIVE,
+            'min_rcv': NOCONNECT_DRIVE,
+        },
     }
 
     def __init__(self, **attribs):
@@ -154,8 +184,8 @@ class Pin(object):
         # Check that a valid number of copies is requested.
         if not isinstance(num_copies, int):
             logger.error(
-                "Can't make a non-integer number ({}) of copies of a pin!".format(
-                    num_copies))
+                "Can't make a non-integer number ({}) of copies of a pin!".
+                format(num_copies))
             raise Exception
         if num_copies < 0:
             logger.error(
@@ -209,7 +239,9 @@ class Pin(object):
             return True
         if set([skidl.Net, skidl.NCNet]) == net_types:
             # Can't be connected to both normal and no-connect nets!
-            logger.error('{} is connected to both normal and no-connect nets!'.format(self.erc_desc()))
+            logger.error(
+                '{} is connected to both normal and no-connect nets!'.format(
+                    self.erc_desc()))
             raise Exception
         # This is just strange...
         logger.error("{} is connected to something strange: {}.".format(
@@ -323,10 +355,7 @@ class Pin(object):
         pin_func = getattr(self, 'func', Pin.UNSPEC)
         pin_func_str = Pin.pin_info[pin_func]['function']
         return 'Pin {ref}/{num}/{name}/{func}'.format(
-            ref=part_ref,
-            num=pin_num,
-            name=pin_name,
-            func=pin_func_str)
+            ref=part_ref, num=pin_num, name=pin_name, func=pin_func_str)
 
     __repr__ = __str__
 
@@ -352,6 +381,7 @@ class Pin(object):
         if self.nets:
             return self.nets[0]
         return None
+
 
 ##############################################################################
 

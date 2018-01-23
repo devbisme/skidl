@@ -26,7 +26,6 @@
 Handles schematic libraries for various ECAD tools.
 """
 
-
 from __future__ import unicode_literals
 from __future__ import print_function
 from __future__ import division
@@ -118,12 +117,12 @@ class SchLib(object):
         # Try to open the file. Add a .lib extension if needed. If the file
         # doesn't open, then try looking in the KiCad library directory.
         try:
-            f = find_and_open_file(filename, lib_search_paths_, skidl.lib_suffixes[skidl.KICAD])
+            f = find_and_open_file(filename, lib_search_paths_,
+                                   skidl.lib_suffixes[skidl.KICAD])
         except Exception as e:
             raise Exception(
                 'Unable to open KiCad Schematic Library File {} ({})'.format(
-                    filename,
-                    str(e)))
+                    filename, str(e)))
 
         # Check the file header to make sure it's a KiCad library.
         header = []
@@ -157,14 +156,19 @@ class SchLib(object):
                 # indicate that the Part object is being added to a library
                 # and not to a schematic netlist.
                 if line.startswith('ENDDEF'):
-                    self.add_parts(skidl.Part(part_defn=part_defn, tool=skidl.KICAD, dest=skidl.LIBRARY))
+                    self.add_parts(
+                        skidl.Part(
+                            part_defn=part_defn,
+                            tool=skidl.KICAD,
+                            dest=skidl.LIBRARY))
 
                     # Clear the part definition in preparation for the next one.
                     part_defn = []
 
         # Now add information from any associated DCM file.
-        filename = os.path.splitext(filename)[0] # Strip any extension.
-        f = find_and_open_file(filename, lib_search_paths_, '.dcm', allow_failure=True)
+        filename = os.path.splitext(filename)[0]  # Strip any extension.
+        f = find_and_open_file(
+            filename, lib_search_paths_, '.dcm', allow_failure=True)
         if not f:
             return
 
@@ -187,7 +191,8 @@ class SchLib(object):
                     part_desc['keywords'] = ' '.join(line.split()[1:])
                 elif line.startswith('$ENDCMP'):
                     try:
-                        part = self.get_part_by_name(part_desc['name'], silent=True)
+                        part = self.get_part_by_name(
+                            part_desc['name'], silent=True)
                     except Exception:
                         pass
                     else:
@@ -208,12 +213,12 @@ class SchLib(object):
         import skidl
 
         try:
-            f = find_and_open_file(filename, lib_search_paths_, skidl.lib_suffixes[skidl.SKIDL])
+            f = find_and_open_file(filename, lib_search_paths_,
+                                   skidl.lib_suffixes[skidl.SKIDL])
         except Exception as e:
             raise Exception(
                 'Unable to open SKiDL Schematic Library File {} ({})'.format(
-                    filename,
-                    str(e)))
+                    filename, str(e)))
         try:
             # The SKiDL library is stored as a Python module that's executed to
             # recreate the library object.
@@ -244,7 +249,8 @@ class SchLib(object):
             # Parts with the same name are not allowed in the library.
             # Also, do not check the backup library to see if the parts
             # are in there because that's probably a different library.
-            if not self.get_parts(use_backup_lib=False, name=re.escape(part.name)):
+            if not self.get_parts(
+                    use_backup_lib=False, name=re.escape(part.name)):
                 self.parts.append(part.copy(dest=skidl.TEMPLATE))
         return self
 
@@ -297,8 +303,9 @@ class SchLib(object):
             # No part with that alias either, so signal an error.
             if not parts:
                 if not silent:
-                    logger.error('Unable to find part {} in library {}.'.format(
-                        name, getattr(self, 'filename', 'UNKNOWN')))
+                    logger.error(
+                        'Unable to find part {} in library {}.'.format(
+                            name, getattr(self, 'filename', 'UNKNOWN')))
                 raise Exception
 
         # Multiple parts with that name or alias exists, so return the list
@@ -314,8 +321,8 @@ class SchLib(object):
             else:
                 if not silent:
                     logger.warning(
-                        'Found multiple parts matching {}. Selecting {}.'.format(
-                            name, parts[0].name))
+                        'Found multiple parts matching {}. Selecting {}.'.
+                        format(name, parts[0].name))
                 parts = parts[0]
                 parts.parse()
 
@@ -331,7 +338,8 @@ class SchLib(object):
 
     def __str__(self):
         """Return a list of the part names in this library as a string."""
-        return '\n'.join(['{}: {}'.format(p.name, p.description) for p in self.parts])
+        return '\n'.join(
+            ['{}: {}'.format(p.name, p.description) for p in self.parts])
 
     __repr__ = __str__
 

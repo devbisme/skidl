@@ -100,15 +100,16 @@ class Part(object):
             tool = skidl.get_default_tool()
 
         # Setup some part attributes that might be overwritten later on.
-        self.do_erc = True # Allow part to be included in ERC.
-        self.unit = {} # Dictionary for storing subunits of the part, if desired.
-        self.pins = [] # Start with no pins, but a place to store them.
-        self.name = name # Assign initial part name. (Must come after circuit is assigned.)
-        self.description = '' # Make sure there is a description, even if empty.
-        self._ref = '' # Provide a member for holding a reference.
-        self.ref_prefix = '' # Provide a member for holding the part reference prefix.
-        self.tool = tool # Initial type of part (SKIDL, KICAD, etc.)
-        self.circuit = None # Part starts off unassociated with any circuit.
+        self.do_erc = True  # Allow part to be included in ERC.
+        self.unit = {
+        }  # Dictionary for storing subunits of the part, if desired.
+        self.pins = []  # Start with no pins, but a place to store them.
+        self.name = name  # Assign initial part name. (Must come after circuit is assigned.)
+        self.description = ''  # Make sure there is a description, even if empty.
+        self._ref = ''  # Provide a member for holding a reference.
+        self.ref_prefix = ''  # Provide a member for holding the part reference prefix.
+        self.tool = tool  # Initial type of part (SKIDL, KICAD, etc.)
+        self.circuit = None  # Part starts off unassociated with any circuit.
 
         # Create a Part from a library entry.
         if lib:
@@ -120,8 +121,9 @@ class Part(object):
                     lib = skidl.SchLib(filename=libname, tool=tool)
                 except Exception as e:
                     if skidl.QUERY_BACKUP_LIB:
-                        logger.warning('Could not load KiCad schematic library "{}", falling back to backup library.'
-                                       .format(libname))
+                        logger.warning(
+                            'Could not load KiCad schematic library "{}", falling back to backup library.'
+                            .format(libname))
                         lib = skidl.load_backup_lib()
                         if not lib:
                             raise e
@@ -154,7 +156,8 @@ class Part(object):
 
         else:
             logger.error(
-                "Can't make a part without a library & part name or a part definition.")
+                "Can't make a part without a library & part name or a part definition."
+            )
             raise Exception
 
         # If the part is going to be an element in a circuit, then add it to the
@@ -215,8 +218,8 @@ class Part(object):
             parse_func(just_get_name)
         except AttributeError:
             logger.error(
-                "Can't create a part with an unknown ECAD tool file format: {}.".format(
-                    self.tool))
+                "Can't create a part with an unknown ECAD tool file format: {}.".
+                format(self.tool))
             raise Exception
 
     def parse_kicad(self, just_get_name=False):
@@ -237,50 +240,68 @@ class Part(object):
 
         import skidl
 
-        _DEF_KEYS = ['name', 'reference', 'unused', 'text_offset',
-                     'draw_pinnumber', 'draw_pinname', 'unit_count',
-                     'units_locked', 'option_flag']
-        _F0_KEYS = ['reference', 'posx', 'posy', 'text_size', 'text_orient',
-                    'visibility', 'htext_justify', 'vtext_justify']
-        _FN_KEYS = ['name', 'posx', 'posy', 'text_size', 'text_orient',
-                    'visibility', 'htext_justify', 'vtext_justify',
-                    'fieldname']
-        _ARC_KEYS = ['posx', 'posy', 'radius', 'start_angle', 'end_angle',
-                     'unit', 'convert', 'thickness', 'fill', 'startx',
-                     'starty', 'endx', 'endy']
-        _CIRCLE_KEYS = ['posx', 'posy', 'radius', 'unit', 'convert',
-                        'thickness', 'fill']
-        _POLY_KEYS = ['point_count', 'unit', 'convert', 'thickness', 'points',
-                      'fill']
-        _RECT_KEYS = ['startx', 'starty', 'endx', 'endy', 'unit', 'convert',
-                      'thickness', 'fill']
-        _TEXT_KEYS = ['direction', 'posx', 'posy', 'text_size', 'text_type',
-                      'unit', 'convert', 'text', 'italic', 'bold', 'hjustify',
-                      'vjustify']
-        _PIN_KEYS = ['name', 'num', 'posx', 'posy', 'length', 'direction',
-                     'name_text_size', 'num_text_size', 'unit', 'convert',
-                     'electrical_type', 'pin_type']
-        _DRAW_KEYS = {'arcs': _ARC_KEYS,
-                      'circles': _CIRCLE_KEYS,
-                      'polylines': _POLY_KEYS,
-                      'rectangles': _RECT_KEYS,
-                      'texts': _TEXT_KEYS,
-                      'pins': _PIN_KEYS}
-        _DRAW_ELEMS = {'arcs': 'A',
-                       'circles': 'C',
-                       'polylines': 'P',
-                       'rectangles': 'S',
-                       'texts': 'T',
-                       'pins': 'X'}
-        _KEYS = {'DEF': _DEF_KEYS,
-                 'F0': _F0_KEYS,
-                 'F': _FN_KEYS,
-                 'A': _ARC_KEYS,
-                 'C': _CIRCLE_KEYS,
-                 'P': _POLY_KEYS,
-                 'S': _RECT_KEYS,
-                 'T': _TEXT_KEYS,
-                 'X': _PIN_KEYS}
+        _DEF_KEYS = [
+            'name', 'reference', 'unused', 'text_offset', 'draw_pinnumber',
+            'draw_pinname', 'unit_count', 'units_locked', 'option_flag'
+        ]
+        _F0_KEYS = [
+            'reference', 'posx', 'posy', 'text_size', 'text_orient',
+            'visibility', 'htext_justify', 'vtext_justify'
+        ]
+        _FN_KEYS = [
+            'name', 'posx', 'posy', 'text_size', 'text_orient', 'visibility',
+            'htext_justify', 'vtext_justify', 'fieldname'
+        ]
+        _ARC_KEYS = [
+            'posx', 'posy', 'radius', 'start_angle', 'end_angle', 'unit',
+            'convert', 'thickness', 'fill', 'startx', 'starty', 'endx', 'endy'
+        ]
+        _CIRCLE_KEYS = [
+            'posx', 'posy', 'radius', 'unit', 'convert', 'thickness', 'fill'
+        ]
+        _POLY_KEYS = [
+            'point_count', 'unit', 'convert', 'thickness', 'points', 'fill'
+        ]
+        _RECT_KEYS = [
+            'startx', 'starty', 'endx', 'endy', 'unit', 'convert', 'thickness',
+            'fill'
+        ]
+        _TEXT_KEYS = [
+            'direction', 'posx', 'posy', 'text_size', 'text_type', 'unit',
+            'convert', 'text', 'italic', 'bold', 'hjustify', 'vjustify'
+        ]
+        _PIN_KEYS = [
+            'name', 'num', 'posx', 'posy', 'length', 'direction',
+            'name_text_size', 'num_text_size', 'unit', 'convert',
+            'electrical_type', 'pin_type'
+        ]
+        _DRAW_KEYS = {
+            'arcs': _ARC_KEYS,
+            'circles': _CIRCLE_KEYS,
+            'polylines': _POLY_KEYS,
+            'rectangles': _RECT_KEYS,
+            'texts': _TEXT_KEYS,
+            'pins': _PIN_KEYS
+        }
+        _DRAW_ELEMS = {
+            'arcs': 'A',
+            'circles': 'C',
+            'polylines': 'P',
+            'rectangles': 'S',
+            'texts': 'T',
+            'pins': 'X'
+        }
+        _KEYS = {
+            'DEF': _DEF_KEYS,
+            'F0': _F0_KEYS,
+            'F': _FN_KEYS,
+            'A': _ARC_KEYS,
+            'C': _CIRCLE_KEYS,
+            'P': _POLY_KEYS,
+            'S': _RECT_KEYS,
+            'T': _TEXT_KEYS,
+            'X': _PIN_KEYS
+        }
 
         # Return if there's nothing to do (i.e., part has already been parsed).
         if not self.part_defn:
@@ -309,11 +330,12 @@ class Part(object):
 
             line = line.replace('\n', '')
 
-            # Extract all the non-quoted and quoted text pieces, accounting for escaped quotes. 
+            # Extract all the non-quoted and quoted text pieces, accounting for escaped quotes.
             unqu = r'[^\s"]+'  # Word without spaces or double-quotes.
             qu = r'(?<!\\)".*?(?<!\\)"'  # Quoted string, possibly with escaped quotes.
-            srch = '|'.join([unqu+qu, qu, unqu])
-            line = re.findall(srch, line)  # Replace line with list of pieces of line.
+            srch = '|'.join([unqu + qu, qu, unqu])
+            line = re.findall(
+                srch, line)  # Replace line with list of pieces of line.
 
             # The first word indicates the type of part definition data that will follow.
             if line[0] in _KEYS:
@@ -399,13 +421,13 @@ class Part(object):
 
                     # Gather arcs.
                     if line[0] == 'A':
-                        self.draw['arcs'].append(dict(list(zip(_ARC_KEYS,
-                                                               values))))
+                        self.draw['arcs'].append(
+                            dict(list(zip(_ARC_KEYS, values))))
 
                     # Gather circles.
                     elif line[0] == 'C':
-                        self.draw['circles'].append(dict(list(zip(_CIRCLE_KEYS,
-                                                                  values))))
+                        self.draw['circles'].append(
+                            dict(list(zip(_CIRCLE_KEYS, values))))
 
                     # Gather polygons.
                     elif line[0] == 'P':
@@ -416,34 +438,36 @@ class Part(object):
                             values += [line[-1]]
                         else:
                             values += ['']
-                        self.draw['polylines'].append(dict(list(zip(_POLY_KEYS,
-                                                                    values))))
+                        self.draw['polylines'].append(
+                            dict(list(zip(_POLY_KEYS, values))))
 
                     # Gather rectangles.
                     elif line[0] == 'S':
-                        self.draw['rectangles'].append(dict(list(zip(
-                            _RECT_KEYS, values))))
+                        self.draw['rectangles'].append(
+                            dict(list(zip(_RECT_KEYS, values))))
 
                     # Gather text.
                     elif line[0] == 'T':
-                        self.draw['texts'].append(dict(list(zip(_TEXT_KEYS,
-                                                                values))))
+                        self.draw['texts'].append(
+                            dict(list(zip(_TEXT_KEYS, values))))
 
                     # Gather the pin symbols. This is what we really want since
                     # this defines the names, numbers and attributes of the
                     # pins associated with the part.
                     elif line[0] == 'X':
-                        self.draw['pins'].append(dict(list(zip(_PIN_KEYS,
-                                                               values))))
+                        self.draw['pins'].append(
+                            dict(list(zip(_PIN_KEYS, values))))
 
                     # Found something unknown in the drawing section.
                     else:
-                        msg = 'Found something strange in {} symbol drawing: {}.'.format(self.name, line)
+                        msg = 'Found something strange in {} symbol drawing: {}.'.format(
+                            self.name, line)
                         logger.warning(msg)
 
                 # Found something unknown outside the footprint list or drawing section.
                 else:
-                    msg = 'Found something strange in {} symbol definition: {}.'.format(self.name, line)
+                    msg = 'Found something strange in {} symbol definition: {}.'.format(
+                        self.name, line)
                     logger.warning(msg)
 
         # Define some shortcuts to part information.
@@ -467,17 +491,19 @@ class Part(object):
             # to the current part, but we'll fix that soon.
             p.__dict__.update(kicad_pin)
 
-            pin_type_translation = {'I': skidl.Pin.INPUT,
-                                    'O': skidl.Pin.OUTPUT,
-                                    'B': skidl.Pin.BIDIR,
-                                    'T': skidl.Pin.TRISTATE,
-                                    'P': skidl.Pin.PASSIVE,
-                                    'U': skidl.Pin.UNSPEC,
-                                    'W': skidl.Pin.PWRIN,
-                                    'w': skidl.Pin.PWROUT,
-                                    'C': skidl.Pin.OPENCOLL,
-                                    'E': skidl.Pin.OPENEMIT,
-                                    'N': skidl.Pin.NOCONNECT}
+            pin_type_translation = {
+                'I': skidl.Pin.INPUT,
+                'O': skidl.Pin.OUTPUT,
+                'B': skidl.Pin.BIDIR,
+                'T': skidl.Pin.TRISTATE,
+                'P': skidl.Pin.PASSIVE,
+                'U': skidl.Pin.UNSPEC,
+                'W': skidl.Pin.PWRIN,
+                'w': skidl.Pin.PWROUT,
+                'C': skidl.Pin.OPENCOLL,
+                'E': skidl.Pin.OPENEMIT,
+                'N': skidl.Pin.NOCONNECT
+            }
             p.func = pin_type_translation[p.electrical_type]  # pylint: disable=no-member, attribute-defined-outside-init
 
             return p
@@ -499,7 +525,6 @@ class Part(object):
         # Parts in a SKiDL library are already parsed and ready for use,
         # so just return the part.
         return self
-
 
     def associate_pins(self):
         """
@@ -545,13 +570,13 @@ class Part(object):
         # Check that a valid number of copies is requested.
         if not isinstance(num_copies, int):
             logger.error(
-                "Can't make a non-integer number ({}) of copies of a part!".format(
-                    num_copies))
+                "Can't make a non-integer number ({}) of copies of a part!".
+                format(num_copies))
             raise Exception
         if num_copies < 0:
             logger.error(
-                "Can't make a negative number ({}) of copies of a part!".format(
-                    num_copies))
+                "Can't make a negative number ({}) of copies of a part!".
+                format(num_copies))
             raise Exception
 
         # Now make copies of the part one-by-one.
@@ -599,8 +624,8 @@ class Part(object):
                         v = v[i]
                     except IndexError:
                         logger.error(
-                            "{} copies of part {} were requested, but too few elements in attribute {}!".format(
-                                num_copies, self.name, k))
+                            "{} copies of part {} were requested, but too few elements in attribute {}!".
+                            format(num_copies, self.name, k))
                         raise Exception
                 setattr(cpy, k, v)
 
@@ -676,7 +701,8 @@ class Part(object):
             loose_p_id = ''.join(['.*', p_id, '.*'])
             pins.extend(filter_list(self.pins, name=loose_p_id, **criteria))
             loose_pin_alias = skidl.Alias(loose_p_id, id(self))
-            pins.extend(filter_list(self.pins, alias=loose_pin_alias, **criteria))
+            pins.extend(
+                filter_list(self.pins, alias=loose_pin_alias, **criteria))
 
         return list_or_scalar(pins)
 
@@ -750,7 +776,9 @@ class Part(object):
 
         import skidl
 
-        return not isinstance(self.circuit, skidl.Circuit) or not self.is_connected() or not self.pins
+        return not isinstance(
+            self.circuit,
+            skidl.Circuit) or not self.is_connected() or not self.pins
 
     def set_pin_alias(self, alias, *pin_ids, **criteria):
         import skidl
@@ -786,7 +814,9 @@ class Part(object):
 
         collisions = self.get_pins(label)
         if collisions:
-            logger.warning("Using a label ({}) for a unit of {} that matches one or more of it's pin names ({})!".format(label, self.erc_desc(), collisions))
+            logger.warning(
+                "Using a label ({}) for a unit of {} that matches one or more of it's pin names ({})!".
+                format(label, self.erc_desc(), collisions))
         self.unit[label] = PartUnit(self, *pin_ids, **criteria)
         return self.unit[label]
 
@@ -798,11 +828,13 @@ class Part(object):
         # Get all the component attributes and subtract all the ones that
         # should not appear under "fields" in the netlist or XML.
         fields = set(self.__dict__.keys())
-        non_fields = set(['name', 'min_pin', 'max_pin', 'hierarchy', '_value',
-                          '_ref', 'ref_prefix', 'unit', 'num_units', 'part_defn',
-                          'definition', 'fields', 'draw', 'lib', 'fplist',
-                          'do_erc', 'aliases', 'tool', 'pins', 'footprint', 'circuit'])
-        return list(fields-non_fields)
+        non_fields = set([
+            'name', 'min_pin', 'max_pin', 'hierarchy', '_value', '_ref',
+            'ref_prefix', 'unit', 'num_units', 'part_defn', 'definition',
+            'fields', 'draw', 'lib', 'fplist', 'do_erc', 'aliases', 'tool',
+            'pins', 'footprint', 'circuit'
+        ])
+        return list(fields - non_fields)
 
     def generate_netlist_component(self, tool=None):
         """
@@ -822,8 +854,8 @@ class Part(object):
             return gen_func()
         except AttributeError:
             logger.error(
-                "Can't generate netlist in an unknown ECAD tool format ({}).".format(
-                    tool))
+                "Can't generate netlist in an unknown ECAD tool format ({}).".
+                format(tool))
             raise Exception
 
     def _gen_netlist_comp_kicad(self):
@@ -849,14 +881,15 @@ class Part(object):
         footprint = add_quotes(footprint)
 
         lib = add_quotes(getattr(self, 'lib', 'NO_LIB'))  # pylint: disable=unused-variable
-        name = add_quotes(self.name)                      # pylint: disable=unused-variable
+        name = add_quotes(self.name)  # pylint: disable=unused-variable
 
         fields = ''
         for fld_name in self._get_fields():
             fld_value = add_quotes(self.__dict__[fld_name])
             if fld_value:
                 fld_name = add_quotes(fld_name)
-                fields += '\n        (field (name {fld_name}) {fld_value})'.format(**locals())
+                fields += '\n        (field (name {fld_name}) {fld_value})'.format(
+                    **locals())
         if fields:
             fields = '      (fields' + fields
             fields += ')\n'
@@ -887,7 +920,8 @@ class Part(object):
             return gen_func()
         except AttributeError:
             logger.error(
-                "Can't generate XML in an unknown ECAD tool format ({}).".format(tool))
+                "Can't generate XML in an unknown ECAD tool format ({}).".
+                format(tool))
             raise Exception
 
     def _gen_xml_comp_kicad(self):
@@ -911,13 +945,14 @@ class Part(object):
             footprint = 'No Footprint'
 
         lib = add_quotes(getattr(self, 'lib', 'NO_LIB'))  # pylint: disable=unused-variable
-        name = self.name                                  # pylint: disable=unused-variable
+        name = self.name  # pylint: disable=unused-variable
 
         fields = ''
         for fld_name in self._get_fields():
             fld_value = self.__dict__[fld_name]
             if fld_value:
-                fields += '\n        <field name="{fld_name}">{fld_value}</field>'.format(**locals())
+                fields += '\n        <field name="{fld_name}">{fld_value}</field>'.format(
+                    **locals())
         if fields:
             fields = '      <fields>' + fields
             fields += '\n      </fields>\n'
@@ -952,15 +987,15 @@ class Part(object):
             # Error if a pin is unconnected but not of type NOCONNECT.
             if p.net is None:
                 if p.func != skidl.Pin.NOCONNECT:
-                    erc_logger.warning('Unconnected pin: {p}.'.format(
-                        p=p.erc_desc()))
+                    erc_logger.warning(
+                        'Unconnected pin: {p}.'.format(p=p.erc_desc()))
 
             # Error if a no-connect pin is connected to a net.
             elif p.net.drive != skidl.Pin.NOCONNECT_DRIVE:
                 if p.func == skidl.Pin.NOCONNECT:
                     erc_logger.warning(
-                        'Incorrectly connected pin: {p} should not be connected to a net ({n}).'.format(
-                            p=p.erc_desc(), n=p.net.name))
+                        'Incorrectly connected pin: {p} should not be connected to a net ({n}).'.
+                        format(p=p.erc_desc(), n=p.net.name))
 
     def erc_desc(self):
         """Create description of part for ERC and other error reporting."""
@@ -976,7 +1011,8 @@ class Part(object):
     def export(self):
         """Return a string to recreate a Part object."""
         keys = self._get_fields()
-        keys.extend(('ref_prefix', 'num_units', 'fplist', 'do_erc', 'aliases', 'pin', 'footprint'))
+        keys.extend(('ref_prefix', 'num_units', 'fplist', 'do_erc', 'aliases',
+                     'pin', 'footprint'))
         attribs = []
         attribs.append('{}={}'.format('name', repr(self.name)))
         attribs.append('dest=TEMPLATE')
@@ -989,7 +1025,6 @@ class Part(object):
             pin_strs = [p.export() for p in self.pins]
             attribs.append('pins=[{}]'.format(','.join(pin_strs)))
         return 'Part({})'.format(','.join(attribs))
-
 
     @property
     def ref(self):
@@ -1010,7 +1045,8 @@ class Part(object):
 
         # Now name the object with the given reference or some variation
         # of it that doesn't collide with anything else in the list.
-        self._ref = get_unique_name(self.circuit.parts, 'ref', self.ref_prefix, r)
+        self._ref = get_unique_name(self.circuit.parts, 'ref', self.ref_prefix,
+                                    r)
         return
 
     @ref.deleter
@@ -1054,6 +1090,7 @@ class Part(object):
         """Delete the part footprint."""
         del self._foot
 
+
 ##############################################################################
 
 
@@ -1075,7 +1112,8 @@ class SkidlPart(Part):
                  tool=SKIDL,
                  connections=None,
                  **attribs):
-        super(SkidlPart, self).__init__(lib, name, dest, tool, connections, attribs)
+        super(SkidlPart, self).__init__(lib, name, dest, tool, connections,
+                                        attribs)
 
 
 ##############################################################################

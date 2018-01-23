@@ -26,12 +26,18 @@
 Specialized list for handling nets, pins, and buses.
 """
 
+from __future__ import unicode_literals
+from __future__ import print_function
+from __future__ import division
+from __future__ import absolute_import
 
+from builtins import range
+from future import standard_library
+standard_library.install_aliases()
 from .utilities import *
 
 
 class NetPinList(list):
-
     def __iadd__(self, *nets_pins_buses):
 
         import skidl
@@ -46,10 +52,10 @@ class NetPinList(list):
                 raise Exception
 
         if len(nets_pins) != len(self):
-            if skidl.Net in [type(item) for item in self] or len(nets_pins) > 1:
-                logger.error(
-                    "Connection mismatch {} != {}!".format(
-                        len(self), len(nets_pins)))
+            if skidl.Net in [type(item)
+                             for item in self] or len(nets_pins) > 1:
+                logger.error("Connection mismatch {} != {}!".format(
+                    len(self), len(nets_pins)))
                 raise Exception
 
             # If just a single net is to be connected, make a list out of it that's

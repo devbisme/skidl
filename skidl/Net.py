@@ -302,13 +302,13 @@ class Net(object):
             """
 
             if isinstance(self, NCNet):
-                logger.error(
-                    "Can't merge with a no-connect net {}!".format(self.name))
+                logger.error("Can't merge with a no-connect net {}!".format(
+                    self.name))
                 raise Exception
 
             if isinstance(net, NCNet):
-                logger.error(
-                    "Can't merge with a no-connect net {}!".format(net.name))
+                logger.error("Can't merge with a no-connect net {}!".format(
+                    net.name))
                 raise Exception
 
             # No need to do anything if merging a net with itself.
@@ -370,8 +370,9 @@ class Net(object):
                         format(pn.part.circuit.name, self.circuit.name))
                     raise Exception
             else:
-                logger.error('Cannot attach non-Pin/non-Net {} to Net {}.'.
-                             format(type(pn), self.name))
+                logger.error(
+                    'Cannot attach non-Pin/non-Net {} to Net {}.'.format(
+                        type(pn), self.name))
                 raise Exception
 
         def select_name(nets):
@@ -576,8 +577,9 @@ class Net(object):
             erc_logger.warning(
                 'No pins attached to net {n}.'.format(n=self.name))
         elif num_pins == 1:
-            erc_logger.warning('Only one pin ({p}) attached to net {n}.'.
-                               format(p=pins[0].erc_desc(), n=self.name))
+            erc_logger.warning(
+                'Only one pin ({p}) attached to net {n}.'.format(
+                    p=pins[0].erc_desc(), n=self.name))
         else:
             for i in range(num_pins):
                 for j in range(i + 1, num_pins):
@@ -664,8 +666,8 @@ class Net(object):
     def test_validity(self):
         if self.valid:
             return
-        logger.error(
-            'Net {} is no longer valid. Do not use it!'.format(self.name))
+        logger.error('Net {} is no longer valid. Do not use it!'.format(
+            self.name))
         raise Exception
 
 

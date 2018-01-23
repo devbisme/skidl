@@ -37,7 +37,7 @@ from future import standard_library
 standard_library.install_aliases()
 
 try:
-    import builtins as builtins
+    import __builtin__ as builtins
 except ImportError:
     import builtins
 
@@ -130,8 +130,9 @@ class Bus(object):
                     self.nets.insert(index, n)
                 index += len(obj)
             else:
-                logger.error('Adding illegal type of object ({}) to Bus {}.'.
-                             format(type(obj), self.name))
+                logger.error(
+                    'Adding illegal type of object ({}) to Bus {}.'.format(
+                        type(obj), self.name))
                 raise Exception
 
         # Assign names to all the unnamed nets in the bus.

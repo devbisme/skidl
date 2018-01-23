@@ -21,6 +21,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
+
 """
 Utility functions.
 """
@@ -130,7 +131,7 @@ def scriptinfo():
     # if trc did not contain directory information,
     # the current working directory is what we need
     if not scriptdir:
-        scriptdir = os.getcwd()
+        scriptdir = os.getcwdu()
 
     scr_dict = {"name": trc, "source": trc, "dir": scriptdir}
     return scr_dict

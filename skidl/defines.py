@@ -26,11 +26,17 @@
 Definitions used everywhere.
 """
 
+from __future__ import unicode_literals
+from __future__ import print_function
+from __future__ import division
+from __future__ import absolute_import
 
 # Places where parts can be stored.
 #   NETLIST: The part will become part of a circuit netlist.
 #   LIBRARY: The part will be placed in the part list for a library.
 #   TEMPLATE: The part will be used as a template to be copied from.
+from future import standard_library
+standard_library.install_aliases()
 NETLIST, LIBRARY, TEMPLATE = ['NETLIST', 'LIBRARY', 'TEMPLATE']
 
 # Prefixes for implicit nets and buses.

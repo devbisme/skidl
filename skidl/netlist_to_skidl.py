@@ -1,17 +1,17 @@
 # MIT license
-# 
+#
 # Copyright (C) 2016 by XESS Corporation.
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be included in
 # all copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -19,6 +19,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
+
 """
 Convert a netlist into an equivalent SKiDL program.
 """
@@ -67,13 +68,16 @@ def netlist_to_skidl(netlist_src):
         part = template_comp.libsource.part.val
         try:
             footprint = template_comp.footprint.val
-            template_comp_skidl = "{ltab}{name} = Part('{lib}', '{part}', footprint='{footprint}', dest=TEMPLATE)\n".format(**locals())
+            template_comp_skidl = "{ltab}{name} = Part('{lib}', '{part}', footprint='{footprint}', dest=TEMPLATE)\n".format(
+                **locals())
         except AttributeError:
-            template_comp_skidl = "{ltab}{name} = Part('{lib}', '{part}', dest=TEMPLATE)\n".format(**locals())
+            template_comp_skidl = "{ltab}{name} = Part('{lib}', '{part}', dest=TEMPLATE)\n".format(
+                **locals())
 
         # Set attributes of template using the component fields.
         for fld in template_comp.fields:
-            template_comp_skidl += "{ltab}setattr({name}, '{fld.name.val}', '{fld.text}')\n".format(**locals())
+            template_comp_skidl += "{ltab}setattr({name}, '{fld.name.val}', '{fld.text}')\n".format(
+                **locals())
 
         return template_comp_skidl
 
@@ -86,8 +90,10 @@ def netlist_to_skidl(netlist_src):
         template_comp = template_comps[template_comp_name]
 
         # Get the fields for the template.
-        template_comp_fields = {fld.name.val: fld.text
-                                for fld in template_comp.fields}
+        template_comp_fields = {
+            fld.name.val: fld.text
+            for fld in template_comp.fields
+        }
 
         # Create a legal python variable for storing the instantiated component.
         ref = comp.ref.val
@@ -95,14 +101,17 @@ def netlist_to_skidl(netlist_src):
 
         # Instantiate the component and its value (if any).
         try:
-            comp_skidl = "{ltab}{legal_ref} = {template_comp_name}(ref='{ref}', value='{comp.value.val}')\n".format(**locals())
+            comp_skidl = "{ltab}{legal_ref} = {template_comp_name}(ref='{ref}', value='{comp.value.val}')\n".format(
+                **locals())
         except AttributeError:
-            comp_skidl = "{ltab}{legal_ref} = {template_comp_name}(ref='{ref}')\n".format(**locals())
+            comp_skidl = "{ltab}{legal_ref} = {template_comp_name}(ref='{ref}')\n".format(
+                **locals())
 
         # Set the fields of the instantiated component if they differ from the values in the template.
         for fld in comp.fields:
             if fld.text != template_comp_fields.get(fld.name.val, ''):
-                comp_skidl += "{ltab}setattr({legal_ref}, '{fld.name.val}', '{fld.text}')\n".format(**locals())
+                comp_skidl += "{ltab}setattr({legal_ref}, '{fld.name.val}', '{fld.text}')\n".format(
+                    **locals())
 
         return comp_skidl
 
