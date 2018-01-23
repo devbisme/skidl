@@ -99,19 +99,21 @@ class Bus(object):
     def insert(self, index, *objects):
         """Insert objects into bus starting at indexed position."""
 
-        import skidl
+        from .Net import Net
+        from .Bus import Bus
+        from .Pin import Pin
 
         for obj in flatten(objects):
             if isinstance(obj, int):
                 # Add a number of new nets to the bus.
                 for _ in range(obj):
-                    self.nets.insert(index, skidl.Net())
+                    self.nets.insert(index, Net())
                 index += obj
-            elif isinstance(obj, skidl.Net):
+            elif isinstance(obj, Net):
                 # Add an existing net to the bus.
                 self.nets.insert(index, obj)
                 index += 1
-            elif isinstance(obj, skidl.Pin):
+            elif isinstance(obj, Pin):
                 # Add a pin to the bus.
                 try:
                     # Add the pin's net to the bus.
@@ -120,11 +122,11 @@ class Bus(object):
                     # OK, the pin wasn't already connected to a net,
                     # so create a new net, add it to the bus, and
                     # connect the pin to it.
-                    n = skidl.Net()
+                    n = Net()
                     n += obj
                     self.nets.insert(index, n)
                 index += 1
-            elif isinstance(obj, skidl.Bus):
+            elif isinstance(obj, Bus):
                 # Add an existing bus to this bus.
                 for n in reversed(obj.nets):
                     self.nets.insert(index, n)
@@ -227,7 +229,7 @@ class Bus(object):
             A bus if the indices are valid, otherwise None.
         """
 
-        import skidl
+        from .NetPinList import NetPinList
 
         # Use the indices to get the nets from the bus.
         nets = []
@@ -249,7 +251,7 @@ class Bus(object):
             return nets[0]
 
         # Multiple nets selected, so return them as a NetPinList list.
-        return skidl.NetPinList(nets)
+        return NetPinList(nets)
 
     def __setitem__(self, ids, *pins_nets_buses):
         """
@@ -315,9 +317,9 @@ class Bus(object):
                 b += p,n        # Connect pin and net to B[0] and B[1].
         """
 
-        import skidl
+        from .NetPinList import NetPinList
 
-        nets = skidl.NetPinList(self.nets)
+        nets = NetPinList(self.nets)
         nets += pins_nets_buses
         return self
 
@@ -335,7 +337,7 @@ class Bus(object):
 
     @name.setter
     def name(self, name):
-        import skidl
+        from .defines import BUS_PREFIX
 
         # Remove the existing name so it doesn't cause a collision if the
         # object is renamed with its existing name.
@@ -344,7 +346,7 @@ class Bus(object):
         # Now name the object with the given name or some variation
         # of it that doesn't collide with anything else in the list.
         self._name = get_unique_name(self.circuit.buses, 'name',
-                                     skidl.BUS_PREFIX, name)
+                                     BUS_PREFIX, name)
 
     @name.deleter
     def name(self):

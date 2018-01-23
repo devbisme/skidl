@@ -222,7 +222,7 @@ class Pin(object):
     def is_connected(self):
         """Return true if a pin is connected to a net (but not a no-connect net)."""
 
-        import skidl
+        from .Net import Net, NCNet
 
         if not self.nets:
             # This pin is not connected to any nets.
@@ -231,13 +231,13 @@ class Pin(object):
         # Get the types of things this pin is connected to.
         net_types = set([type(n) for n in self.nets])
 
-        if set([skidl.NCNet]) == net_types:
+        if set([NCNet]) == net_types:
             # This pin is only connected to no-connect nets.
             return False
-        if set([skidl.Net]) == net_types:
+        if set([Net]) == net_types:
             # This pin is only connected to normal nets.
             return True
-        if set([skidl.Net, skidl.NCNet]) == net_types:
+        if set([Net, NCNet]) == net_types:
             # Can't be connected to both normal and no-connect nets!
             logger.error(
                 '{} is connected to both normal and no-connect nets!'.format(
@@ -251,15 +251,16 @@ class Pin(object):
     def is_attached(self, pin_net_bus):
         """Return true if this pin is attached to the given pin, net or bus."""
 
-        import skidl
+        from .Net import Net
+        from .Pin import Pin
 
         if not self.is_connected():
             return False
-        if isinstance(pin_net_bus, skidl.Pin):
+        if isinstance(pin_net_bus, Pin):
             if pin_net_bus.is_connected():
                 return pin_net_bus.net.is_attached(self.net)
             return False
-        if isinstance(pin_net_bus, skidl.Net):
+        if isinstance(pin_net_bus, Net):
             return pin_net_bus.is_attached(self.net)
         if isinstance(pin_net_bus, Bus):
             for net in pin_net_bus[:]:
@@ -288,7 +289,7 @@ class Pin(object):
                 p += net      # Connect the net to the pin.
         """
 
-        import skidl
+        from .Net import Net
 
         # Go through all the pins and/or nets and connect them to this pin.
         for pn in expand_buses(flatten(pins_nets_buses)):
@@ -305,8 +306,8 @@ class Pin(object):
                 else:
                     # Neither pin is connected to a net, so create a net
                     # in the same circuit as the pin and attach both to it.
-                    skidl.Net(circuit=self.part.circuit).connect(self, pn)
-            elif isinstance(pn, skidl.Net):
+                    Net(circuit=self.part.circuit).connect(self, pn)
+            elif isinstance(pn, Net):
                 # Connecting pin-to-net, so just connect the pin to the net.
                 pn += self
             else:

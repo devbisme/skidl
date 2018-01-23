@@ -95,6 +95,8 @@ class Part(object):
                  **attribs):
 
         import skidl
+        from .SchLib import SchLib
+        from .defines import TEMPLATE, NETLIST, LIBRARY, SKIDL
 
         if tool is None:
             tool = skidl.get_default_tool()
@@ -118,7 +120,7 @@ class Part(object):
             if isinstance(lib, basestring):
                 try:
                     libname = lib
-                    lib = skidl.SchLib(filename=libname, tool=tool)
+                    lib = SchLib(filename=libname, tool=tool)
                 except Exception as e:
                     if skidl.QUERY_BACKUP_LIB:
                         logger.warning(
@@ -131,7 +133,7 @@ class Part(object):
                         raise e
 
             # Make a copy of the part from the library but don't add it to the netlist.
-            part = lib[name].copy(1, skidl.TEMPLATE)
+            part = lib[name].copy(1, TEMPLATE)
 
             # Overwrite self with the new part.
             self.__dict__.update(part.__dict__)
@@ -147,11 +149,11 @@ class Part(object):
         # a netlist, then parse the entire part definition.
         elif part_defn:
             self.part_defn = part_defn
-            self.parse(just_get_name=(dest != skidl.NETLIST))
+            self.parse(just_get_name=(dest != NETLIST))
 
         # If the part is destined for a SKiDL library, then it will be defined
         # by the additional attribute values that are passed.
-        elif tool == skidl.SKIDL and name:
+        elif tool == SKIDL and name:
             pass
 
         else:
@@ -162,15 +164,15 @@ class Part(object):
 
         # If the part is going to be an element in a circuit, then add it to the
         # the circuit and make any indicated pin/net connections.
-        if dest != skidl.LIBRARY:
-            if dest == skidl.NETLIST:
+        if dest != LIBRARY:
+            if dest == NETLIST:
                 # If no Circuit object is given, then use the default Circuit that always exists.
                 # Always set circuit first because naming the part requires a lookup
                 # of existing names in the circuit.
                 if not circuit:
                     circuit = default_circuit  # pylint: disable=undefined-variable
                 circuit += self
-            elif dest == skidl.TEMPLATE:
+            elif dest == TEMPLATE:
                 # If this is just a part template, don't add the part to the circuit.
                 # Just place the reference to the Circuit object in the template.
                 if not circuit:
@@ -238,7 +240,7 @@ class Part(object):
                 will be parsed if the part is actually used.
         """
 
-        import skidl
+        from .Pin import Pin
 
         _DEF_KEYS = [
             'name', 'reference', 'unused', 'text_offset', 'draw_pinnumber',
@@ -484,7 +486,7 @@ class Part(object):
 
         # Make a Pin object from the information in the KiCad pin data fields.
         def kicad_pin_to_pin(kicad_pin):
-            p = skidl.Pin()  # Create a blank pin.
+            p = Pin()  # Create a blank pin.
 
             # Replicate the KiCad pin fields as attributes in the Pin object.
             # Note that this update will not give the pins valid references
@@ -492,17 +494,17 @@ class Part(object):
             p.__dict__.update(kicad_pin)
 
             pin_type_translation = {
-                'I': skidl.Pin.INPUT,
-                'O': skidl.Pin.OUTPUT,
-                'B': skidl.Pin.BIDIR,
-                'T': skidl.Pin.TRISTATE,
-                'P': skidl.Pin.PASSIVE,
-                'U': skidl.Pin.UNSPEC,
-                'W': skidl.Pin.PWRIN,
-                'w': skidl.Pin.PWROUT,
-                'C': skidl.Pin.OPENCOLL,
-                'E': skidl.Pin.OPENEMIT,
-                'N': skidl.Pin.NOCONNECT
+                'I': Pin.INPUT,
+                'O': Pin.OUTPUT,
+                'B': Pin.BIDIR,
+                'T': Pin.TRISTATE,
+                'P': Pin.PASSIVE,
+                'U': Pin.UNSPEC,
+                'W': Pin.PWRIN,
+                'w': Pin.PWROUT,
+                'C': Pin.OPENCOLL,
+                'E': Pin.OPENEMIT,
+                'N': Pin.NOCONNECT
             }
             p.func = pin_type_translation[p.electrical_type]  # pylint: disable=no-member, attribute-defined-outside-init
 
@@ -563,7 +565,8 @@ class Part(object):
                 caps = 10 * cap             # Make an array with 10 copies of it.
         """
 
-        import skidl
+        from .defines import NETLIST
+        from .Circuit import Circuit
 
         num_copies = max(num_copies, find_num_copies(**attribs))
 
@@ -606,13 +609,13 @@ class Part(object):
 
             # If copy is destined for a netlist, then add it to the Circuit its
             # source came from or else add it to the default Circuit object.
-            if dest == skidl.NETLIST:
+            if dest == NETLIST:
                 # Place the copied part in the explicitly-stated circuit,
                 # or else into the same circuit as the source part,
                 # or else into the default circuit.
                 if circuit:
                     circuit += cpy
-                elif isinstance(self.circuit, skidl.Circuit):
+                elif isinstance(self.circuit, Circuit):
                     self.circuit += cpy
                 else:
                     builtins.default_circuit += cpy
@@ -675,7 +678,8 @@ class Part(object):
                 net += atmega['.*RESET.*']  # Connects reset pin to the net.
         """
 
-        import skidl
+        from .NetPinList import NetPinList
+        from .Alias import Alias
 
         # If no pin identifiers were given, then use a wildcard that will
         # select all pins.
@@ -687,7 +691,7 @@ class Part(object):
             self.min_pin, self.max_pin = self._find_min_max_pins()
 
         # Go through the list of pin IDs one-by-one.
-        pins = skidl.NetPinList()
+        pins = NetPinList()
         for p_id in expand_indices(self.min_pin, self.max_pin, *pin_ids):
 
             # Does pin ID (either integer or string) match a pin number...
@@ -700,7 +704,7 @@ class Part(object):
             # within a pin name or alias?
             loose_p_id = ''.join(['.*', p_id, '.*'])
             pins.extend(filter_list(self.pins, name=loose_p_id, **criteria))
-            loose_pin_alias = skidl.Alias(loose_p_id, id(self))
+            loose_pin_alias = Alias(loose_p_id, id(self))
             pins.extend(
                 filter_list(self.pins, alias=loose_pin_alias, **criteria))
 
@@ -774,14 +778,14 @@ class Part(object):
                silkscreen logos, or other non-electrical schematic elements).
         """
 
-        import skidl
+        from .Circuit import Circuit
 
         return not isinstance(
             self.circuit,
-            skidl.Circuit) or not self.is_connected() or not self.pins
+            Circuit) or not self.is_connected() or not self.pins
 
     def set_pin_alias(self, alias, *pin_ids, **criteria):
-        import skidl
+        from .Alias import Alias
 
         pins = to_list(self.get_pins(*pin_ids, **criteria))
         if not pins:
@@ -790,7 +794,7 @@ class Part(object):
             logger.error("Trying to give more than one pin the same alias.")
             raise Exception
         for pin in pins:
-            pin.alias = skidl.Alias(alias, id(self))
+            pin.alias = Alias(alias, id(self))
 
     def make_unit(self, label, *pin_ids, **criteria):
         """
@@ -971,7 +975,7 @@ class Part(object):
         Do electrical rules check on a part in the schematic.
         """
 
-        import skidl
+        from .Pin import Pin
 
         # Don't check this part if the flag is not true.
         if not self.do_erc:
@@ -986,13 +990,13 @@ class Part(object):
 
             # Error if a pin is unconnected but not of type NOCONNECT.
             if p.net is None:
-                if p.func != skidl.Pin.NOCONNECT:
+                if p.func != Pin.NOCONNECT:
                     erc_logger.warning(
                         'Unconnected pin: {p}.'.format(p=p.erc_desc()))
 
             # Error if a no-connect pin is connected to a net.
-            elif p.net.drive != skidl.Pin.NOCONNECT_DRIVE:
-                if p.func == skidl.Pin.NOCONNECT:
+            elif p.net.drive != Pin.NOCONNECT_DRIVE:
+                if p.func == Pin.NOCONNECT:
                     erc_logger.warning(
                         'Incorrectly connected pin: {p} should not be connected to a net ({n}).'.
                         format(p=p.erc_desc(), n=p.net.name))
@@ -1103,7 +1107,7 @@ class SkidlPart(Part):
            a part and then add pins to it without it being added to the netlist.
     """
 
-    import skidl
+    from .defines import SKIDL, TEMPLATE
 
     def __init__(self,
                  lib=None,

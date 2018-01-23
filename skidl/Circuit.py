@@ -286,16 +286,18 @@ class Circuit(object):
         return self
 
     def rmv_parts_nets_buses(self, *parts_nets_buses):
-        """Add Parts, Nets and Buses to the circuit."""
+        """Remove Parts, Nets and Buses from the circuit."""
 
-        import skidl
+        from .Net import Net
+        from .Bus import Bus
+        from .Part import Part
 
         for pnb in flatten(parts_nets_buses):
-            if isinstance(pnb, skidl.Part):
+            if isinstance(pnb, Part):
                 self.rmv_parts(pnb)
-            elif isinstance(pnb, skidl.Net):
+            elif isinstance(pnb, Net):
                 self.rmv_nets(pnb)
-            elif isinstance(pnb, skidl.Bus):
+            elif isinstance(pnb, Bus):
                 self.rmv_buses(pnb)
             else:
                 logger.error("Can't remove a {} from a Circuit object.".format(
@@ -471,7 +473,7 @@ class Circuit(object):
         return netlist
 
     def _gen_netlist_kicad(self):
-        import skidl
+        from .defines import KICAD
 
         scr_dict = scriptinfo()
         src_file = os.path.join(scr_dict['dir'], scr_dict['source'])  # pylint: disable=unused-variable
@@ -485,13 +487,13 @@ class Circuit(object):
         netlist = template.format(**locals())
         netlist += "  (components"
         for p in sorted(self.parts, key=lambda p: str(p.ref)):
-            netlist += '\n' + p.generate_netlist_component(skidl.KICAD)
+            netlist += '\n' + p.generate_netlist_component(KICAD)
         netlist += ")\n"
         netlist += "  (nets"
         for code, n in enumerate(
                 sorted(self.get_nets(), key=lambda n: str(n.name))):
             n.code = code
-            netlist += '\n' + n.generate_netlist_net(skidl.KICAD)
+            netlist += '\n' + n.generate_netlist_net(KICAD)
         netlist += ")\n)\n"
         return netlist
 
@@ -538,7 +540,7 @@ class Circuit(object):
         return netlist
 
     def _gen_xml_kicad(self):
-        import skidl
+        from .defines import KICAD
 
         scr_dict = scriptinfo()
         src_file = os.path.join(scr_dict['dir'], scr_dict['source'])  # pylint: disable=unused-variable
@@ -554,12 +556,12 @@ class Circuit(object):
         netlist = template.format(**locals())
         netlist += '  <components>'
         for p in self.parts:
-            netlist += '\n' + p.generate_xml_component(skidl.KICAD)
+            netlist += '\n' + p.generate_xml_component(KICAD)
         netlist += '\n  </components>\n'
         netlist += '  <nets>'
         for code, n in enumerate(self.get_nets()):
             n.code = code
-            netlist += '\n' + n.generate_xml_net(skidl.KICAD)
+            netlist += '\n' + n.generate_xml_net(KICAD)
         netlist += '\n  </nets>\n'
         netlist += '</export>\n'
         return netlist
@@ -635,8 +637,9 @@ class Circuit(object):
         """
 
         import skidl
+        from .defines import SKIDL
 
-        lib = skidl.SchLib(tool=skidl.SKIDL)  # Create empty library.
+        lib = skidl.SchLib(tool=SKIDL)  # Create empty library.
         for p in self.parts:
             lib += p
         if not file_:

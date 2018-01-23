@@ -573,10 +573,12 @@ def expand_buses(pins_nets_buses):
     """
     Take list of pins, nets, and buses and return a list of only pins and nets.
     """
-    import skidl
+
+    from .Bus import Bus
+
     pins_nets = []
     for pnb in pins_nets_buses:
-        if isinstance(pnb, skidl.Bus):
+        if isinstance(pnb, Bus):
             pins_nets.extend(pnb.get_nets())
         else:
             pins_nets.append(pnb)

@@ -40,11 +40,12 @@ from .utilities import *
 class NetPinList(list):
     def __iadd__(self, *nets_pins_buses):
 
-        import skidl
+        from .Net import Net
+        from .Pin import Pin
 
         nets_pins = []
         for item in expand_buses(flatten(nets_pins_buses)):
-            if isinstance(item, (skidl.Pin, skidl.Net)):
+            if isinstance(item, (Pin, Net)):
                 nets_pins.append(item)
             else:
                 logger.error("Can't make connections to a {} ({}).".format(
@@ -52,7 +53,7 @@ class NetPinList(list):
                 raise Exception
 
         if len(nets_pins) != len(self):
-            if skidl.Net in [type(item)
+            if Net in [type(item)
                              for item in self] or len(nets_pins) > 1:
                 logger.error("Connection mismatch {} != {}!".format(
                     len(self), len(nets_pins)))

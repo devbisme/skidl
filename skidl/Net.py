@@ -100,7 +100,7 @@ class Net(object):
     def _traverse(self):
         """Return all the nets and pins attached to this net, including itself."""
 
-        import skidl
+        from .Pin import PhantomPin
 
         self.test_validity()
         prev_nets = set([self])
@@ -126,7 +126,7 @@ class Net(object):
             prev_nets = copy(nets)
 
         # Remove any phantom pins that may have existed for tieing nets together.
-        pins = set([p for p in pins if not isinstance(p, skidl.PhantomPin)])
+        pins = set([p for p in pins if not isinstance(p, PhantomPin)])
 
         traversal = collections.namedtuple('Traversal', ['nets', 'pins'])
         traversal.nets = list(nets)
@@ -263,13 +263,13 @@ class Net(object):
     def is_implicit(self, net_name=None):
         """Return true if the net name is implicit."""
 
-        import skidl
+        from .defines import NET_PREFIX
 
         self.test_validity()
         if net_name:
-            return re.match(re.escape(skidl.NET_PREFIX), net_name)
+            return re.match(re.escape(NET_PREFIX), net_name)
         if self.name:
-            return re.match(re.escape(skidl.NET_PREFIX), self.name)
+            return re.match(re.escape(NET_PREFIX), self.name)
         return True
 
     def connect(self, *pins_nets_buses):
@@ -291,7 +291,7 @@ class Net(object):
                 net += atmega[1]  # Connects pin 1 of chip to the net.
         """
 
-        import skidl
+        from .Pin import Pin, PhantomPin
 
         def merge(net):
             """
@@ -357,7 +357,7 @@ class Net(object):
                         "Can't attach nets in different circuits ({}, {})!".
                         format(pn.circuit.name, self.circuit.name))
                     raise Exception
-            elif isinstance(pn, skidl.Pin):
+            elif isinstance(pn, Pin):
                 if not pn.part or pn.part.circuit == self.circuit:
                     if not pn.part:
                         logger.warning(
@@ -520,7 +520,8 @@ class Net(object):
         Do electrical rules check on a net in the schematic.
         """
 
-        import skidl
+        from .Pin import Pin
+        from .Circuit import Circuit
 
         def pin_conflict_chk(pin1, pin2):
             """
@@ -533,13 +534,13 @@ class Net(object):
             erc_result = self.circuit.erc_pin_to_pin_chk(pin1, pin2)
 
             # Return if the pins are compatible.
-            if erc_result == skidl.Circuit.OK:
+            if erc_result == Circuit.OK:
                 return
 
             # Otherwise, generate an error or warning message.
             msg = 'Pin conflict on net {n}: {p1} <==> {p2}'.format(
                 n=pin1.net.name, p1=pin1.erc_desc(), p2=pin2.erc_desc())
-            if erc_result == skidl.Circuit.WARNING:
+            if erc_result == Circuit.WARNING:
                 erc_logger.warning(msg)
             else:
                 erc_logger.error(msg)
@@ -553,13 +554,13 @@ class Net(object):
             net_drive = self.drive  # Start with user-set drive level.
             pins = self.get_pins()
             for p in pins:
-                net_drive = max(net_drive, skidl.Pin.pin_info[p.func]['drive'])
+                net_drive = max(net_drive, Pin.pin_info[p.func]['drive'])
 
-            if net_drive <= skidl.Pin.NO_DRIVE:
+            if net_drive <= Pin.NO_DRIVE:
                 erc_logger.warning(
                     'No drivers for net {n}'.format(n=self.name))
             for p in pins:
-                if skidl.Pin.pin_info[p.func]['min_rcv'] > net_drive:
+                if Pin.pin_info[p.func]['min_rcv'] > net_drive:
                     erc_logger.warning(
                         'Insufficient drive current on net {n} for pin {p}'.
                         format(n=self.name, p=p.erc_desc()))

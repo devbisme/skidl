@@ -46,6 +46,7 @@ def search(term, tool=None):
     """
 
     import skidl
+    from .SchLib import SchLib
 
     def search_libraries(term, tool):
         """Search for a regex term in part libraries."""
@@ -69,7 +70,7 @@ def search(term, tool=None):
             for lib_file in lib_files:
                 print(
                     ' ' * 79, '\rSearching {} ...'.format(lib_file), end='\r')
-                lib = skidl.SchLib(
+                lib = SchLib(
                     os.path.join(lib_dir, lib_file),
                     tool=tool)  # Open the library file.
 
@@ -122,11 +123,13 @@ def show(lib, part_name, tool=None):
     """
 
     import skidl
+    from .Part import Part
+    from .defines import TEMPLATE
 
     if tool is None:
         tool = skidl.get_default_tool()
     try:
-        return skidl.Part(
-            lib, re.escape(part_name), tool=tool, dest=skidl.TEMPLATE)
+        return Part(
+            lib, re.escape(part_name), tool=tool, dest=TEMPLATE)
     except Exception:
         return None

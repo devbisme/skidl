@@ -65,7 +65,6 @@ class SchLib(object):
         import skidl
 
         if tool is None:
-            import skidl
             tool = skidl.get_default_tool()
 
         # Library starts off empty of parts.
@@ -113,12 +112,14 @@ class SchLib(object):
         """
 
         import skidl
+        from .defines import KICAD, LIBRARY
+        from .Part import Part
 
         # Try to open the file. Add a .lib extension if needed. If the file
         # doesn't open, then try looking in the KiCad library directory.
         try:
             f = find_and_open_file(filename, lib_search_paths_,
-                                   skidl.lib_suffixes[skidl.KICAD])
+                                   skidl.lib_suffixes[KICAD])
         except Exception as e:
             raise Exception(
                 'Unable to open KiCad Schematic Library File {} ({})'.format(
@@ -157,10 +158,10 @@ class SchLib(object):
                 # and not to a schematic netlist.
                 if line.startswith('ENDDEF'):
                     self.add_parts(
-                        skidl.Part(
+                        Part(
                             part_defn=part_defn,
-                            tool=skidl.KICAD,
-                            dest=skidl.LIBRARY))
+                            tool=KICAD,
+                            dest=LIBRARY))
 
                     # Clear the part definition in preparation for the next one.
                     part_defn = []
@@ -211,10 +212,11 @@ class SchLib(object):
         """
 
         import skidl
+        from .defines import SKIDL
 
         try:
             f = find_and_open_file(filename, lib_search_paths_,
-                                   skidl.lib_suffixes[skidl.SKIDL])
+                                   skidl.lib_suffixes[SKIDL])
         except Exception as e:
             raise Exception(
                 'Unable to open SKiDL Schematic Library File {} ({})'.format(
@@ -243,7 +245,7 @@ class SchLib(object):
     def add_parts(self, *parts):
         """Add one or more parts to a library."""
 
-        import skidl
+        from .defines import TEMPLATE
 
         for part in flatten(parts):
             # Parts with the same name are not allowed in the library.
@@ -251,7 +253,7 @@ class SchLib(object):
             # are in there because that's probably a different library.
             if not self.get_parts(
                     use_backup_lib=False, name=re.escape(part.name)):
-                self.parts.append(part.copy(dest=skidl.TEMPLATE))
+                self.parts.append(part.copy(dest=TEMPLATE))
         return self
 
     __iadd__ = add_parts
@@ -268,7 +270,9 @@ class SchLib(object):
         Returns:
             A single Part or a list of Parts that match all the criteria.
         """
+
         import skidl
+
         parts = list_or_scalar(filter_list(self.parts, **criteria))
         if not parts and use_backup_lib and skidl.QUERY_BACKUP_LIB:
             try:
@@ -364,9 +368,10 @@ class SchLib(object):
             return s
 
         import skidl
+        from .defines import SKIDL
 
         if tool is None:
-            tool = skidl.SKIDL
+            tool = SKIDL
 
         if not file_:
             file_ = libname + skidl.lib_suffixes[tool]
