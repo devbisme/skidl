@@ -48,11 +48,9 @@ import re
 import logging
 import inspect
 import traceback
-
 from contextlib import contextmanager
 
 from .py_2_3 import *
-
 
 # Separator for strings containing multiple indices.
 INDEX_SEPARATOR = ','
@@ -60,15 +58,18 @@ INDEX_SEPARATOR = ','
 
 def norecurse(f):
     """This decorator will keep function f from recursively calling itself."""
+
     def func(*args, **kwargs):
         # If a function's name is on the stack twice (once for the current call
         # and a second time for the previous call), then return without
         # executing the function.
-        if len([1 for l in traceback.extract_stack() if l[2] == f.__name__]) > 1:
+        if len([1 for l in traceback.extract_stack()
+                if l[2] == f.__name__]) > 1:
             return None
 
         # Otherwise, not a recursive call so execute the function and return result.
         return f(*args, **kwargs)
+
     return func
 
 
@@ -110,7 +111,7 @@ def scriptinfo():
     #---------------------------------------------------------------------------
     # scan through call stack for caller information
     #---------------------------------------------------------------------------
-    trc = 'skidl' # Make sure this gets set to something when in interactive mode.
+    trc = 'skidl'  # Make sure this gets set to something when in interactive mode.
     for teil in inspect.stack():
         # skip system calls
         if teil[1].startswith("<"):
@@ -151,13 +152,16 @@ def create_logger(title, log_msg_id='', log_file_suffix='.log'):
     # Errors & warnings always appear on the terminal.
     handler = logging.StreamHandler(sys.stderr)
     handler.setLevel(logging.WARNING)
-    handler.setFormatter(logging.Formatter(log_msg_id + '%(levelname)s: %(message)s'))
+    handler.setFormatter(
+        logging.Formatter(log_msg_id + '%(levelname)s: %(message)s'))
     logger.addHandler(handler)
 
     # Errors and warnings are stored in a log file with the top-level script's name.
-    handler = logging.StreamHandler(open(get_script_name() + log_file_suffix, 'w'))
+    handler = logging.StreamHandler(
+        open(get_script_name() + log_file_suffix, 'w'))
     handler.setLevel(logging.WARNING)
-    handler.setFormatter(logging.Formatter(log_msg_id + '%(levelname)s: %(message)s'))
+    handler.setFormatter(
+        logging.Formatter(log_msg_id + '%(levelname)s: %(message)s'))
     logger.addHandler(handler)
 
     # Set logger to trigger on info, warning, and error messages.
@@ -408,8 +412,7 @@ def filter_list(lst, **criteria):
                     # see if the value matches the current criterium. If it doesn't,
                     # then break from the criteria loop and don't extract this item.
                     if not fullmatch(
-                            str(v), str(attr_val),
-                            flags=re.IGNORECASE):
+                            str(v), str(attr_val), flags=re.IGNORECASE):
                         break
 
             else:
@@ -460,8 +463,8 @@ def expand_indices(slice_min, slice_max, *indices):
         # Do this if it's a downward slice (e.g., [7:0]).
         if start > stop:
             if slc.start and slc.start > slice_max:
-                logger.error('Index out of range ({} > {})!'.format(slc.start,
-                                                                    slice_max))
+                logger.error('Index out of range ({} > {})!'.format(
+                    slc.start, slice_max))
                 raise Exception
             # Count down from start to stop.
             stop = stop - step
@@ -470,8 +473,8 @@ def expand_indices(slice_min, slice_max, *indices):
         # Do this if it's a normal (i.e., upward) slice (e.g., [0:7]).
         else:
             if slc.stop and slc.stop > slice_max:
-                logger.error('Index out of range ({} > {})!'.format(slc.stop,
-                                                                    slice_max))
+                logger.error('Index out of range ({} > {})!'.format(
+                    slc.stop, slice_max))
                 raise Exception
             # Count up from start to stop
             stop += step
@@ -500,7 +503,7 @@ def expand_indices(slice_min, slice_max, *indices):
 
 def find_num_copies(**attribs):
     """
-    Return the number of copies to make from the length of attribute values.
+    Return the number of copies to based on the number of attribute values.
 
     Keyword Args:
         attribs: Dict of Keyword/Value pairs for setting object attributes.
@@ -525,18 +528,19 @@ def find_num_copies(**attribs):
 
     num_copies = list(num_copies)
     if len(num_copies) > 2:
-        logger.error("Mismatched lengths of attributes: {}!".format(
-            num_copies))
+        logger.error(
+            "Mismatched lengths of attributes: {}!".format(num_copies))
         raise Exception
     elif len(num_copies) > 1 and min(num_copies) > 1:
-        logger.error("Mismatched lengths of attributes: {}!".format(
-            num_copies))
+        logger.error(
+            "Mismatched lengths of attributes: {}!".format(num_copies))
         raise Exception
 
     try:
         return max(num_copies)
     except ValueError:
         return 0  # If the list if empty.
+
 
 @contextmanager
 def opened(f_or_fn, mode):
@@ -560,4 +564,22 @@ def opened(f_or_fn, mode):
             with os.fdopen(f_or_fn.fileno(), mode) as f:
                 yield f
     else:
-        raise TypeError("argument must be a filename or a file-like object (is: {})".format(type(f_or_fn)))
+        raise TypeError(
+            "argument must be a filename or a file-like object (is: {})".
+            format(type(f_or_fn)))
+
+
+def expand_buses(pins_nets_buses):
+    """
+    Take list of pins, nets, and buses and return a list of only pins and nets.
+    """
+
+    from .Bus import Bus
+
+    pins_nets = []
+    for pnb in pins_nets_buses:
+        if isinstance(pnb, Bus):
+            pins_nets.extend(pnb.get_nets())
+        else:
+            pins_nets.append(pnb)
+    return pins_nets

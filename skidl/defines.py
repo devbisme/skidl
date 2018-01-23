@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
+
 # MIT license
 #
-# Copyright (C) 2016 by XESS Corporation.
+# Copyright (C) 2018 by XESS Corp.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -21,7 +23,7 @@
 # THE SOFTWARE.
 
 """
-Some definitions to make stuff work with both Python 2 & 3.
+Definitions used everywhere.
 """
 
 from __future__ import unicode_literals
@@ -29,21 +31,17 @@ from __future__ import print_function
 from __future__ import division
 from __future__ import absolute_import
 
+# Places where parts can be stored.
+#   NETLIST: The part will become part of a circuit netlist.
+#   LIBRARY: The part will be placed in the part list for a library.
+#   TEMPLATE: The part will be used as a template to be copied from.
 from future import standard_library
 standard_library.install_aliases()
-import sys
+NETLIST, LIBRARY, TEMPLATE = ['NETLIST', 'LIBRARY', 'TEMPLATE']
 
-USING_PYTHON2 = (sys.version_info.major == 2)
-USING_PYTHON3 = not USING_PYTHON2
+# Prefixes for implicit nets and buses.
+NET_PREFIX = 'N$'
+BUS_PREFIX = 'B$'
 
-if USING_PYTHON2:
-
-    class FileNotFoundError(OSError):
-        pass
-
-
-if USING_PYTHON3:
-    # Python 3 doesn't have basestring,
-    # Python 2 doesn't work with type(''),
-    # so....
-    basestring = type('')
+# Supported ECAD tools.
+ALL_TOOLS = KICAD, SKIDL = ['kicad', 'skidl']

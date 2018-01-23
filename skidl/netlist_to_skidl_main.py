@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 
 # MIT license
-# 
+#
 # Copyright (C) 2016 by { cookiecutter.full_name }
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be included in
 # all copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -22,11 +22,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-
 """
 Command-line program to convert a netlist into an equivalent SKiDL program.
 """
-
 
 from __future__ import print_function
 from __future__ import unicode_literals
@@ -49,14 +47,13 @@ from .netlist_to_skidl import netlist_to_skidl
 # Command-line interface.
 ###############################################################################
 
+
 def main():
     parser = argparse.ArgumentParser(
         description=
         'A Python package for textually describing circuit schematics.')
-    parser.add_argument('--version',
-                        '-v',
-                        action='version',
-                        version='skidl ' + __version__)
+    parser.add_argument(
+        '--version', '-v', action='version', version='skidl ' + __version__)
     parser.add_argument(
         '--input',
         '-i',
@@ -71,16 +68,17 @@ def main():
         type=str,
         metavar='file.py',
         help='Output file for SKiDL code.')
-    parser.add_argument('--overwrite',
-                        '-w',
-                        action='store_true',
-                        help='Overwrite an existing file.')
+    parser.add_argument(
+        '--overwrite',
+        '-w',
+        action='store_true',
+        help='Overwrite an existing file.')
     parser.add_argument(
         '--nobackup',
         '-nb',
         action='store_true',
         help='Do *not* create backups before modifying files. ' +
-             '(Default is to make backup files.)')
+        '(Default is to make backup files.)')
     parser.add_argument(
         '--debug',
         '-d',
@@ -101,8 +99,7 @@ def main():
         logger.setLevel(log_level)
 
     if args.input is None:
-        logger.critical(
-            'Hey! Give me some netlist files!')
+        logger.critical('Hey! Give me some netlist files!')
         sys.exit(2)
 
     if args.output is None:
@@ -114,8 +111,7 @@ def main():
             if not args.overwrite and args.nobackup:
                 logger.critical(
                     'File {} already exists! Use the --overwrite option to ' +
-                    'allow modifications to it or allow backups.'
-                    .format(file))
+                    'allow modifications to it or allow backups.'.format(file))
                 sys.exit(1)
             if not args.nobackup:
                 # Create a backup file.
@@ -129,7 +125,7 @@ def main():
                     index += 1  # Else keep looking for an unused backup file name.
 
     skidl_code = netlist_to_skidl(args.input[0])
-    open(args.output[0],'w').write(skidl_code)
+    open(args.output[0], 'w').write(skidl_code)
 
 
 ###############################################################################
