@@ -472,31 +472,6 @@ class Circuit(object):
 
         return netlist
 
-    def _gen_netlist_kicad(self):
-        from .defines import KICAD
-
-        scr_dict = scriptinfo()
-        src_file = os.path.join(scr_dict['dir'], scr_dict['source'])  # pylint: disable=unused-variable
-        date = time.strftime('%m/%d/%Y %I:%M %p')  # pylint: disable=unused-variable
-        tool = 'SKiDL (' + __version__ + ')'  # pylint: disable=unused-variable
-        template = '(export (version D)\n' + \
-                   '  (design\n' + \
-                   '    (source "{src_file}")\n' + \
-                   '    (date "{date}")\n' + \
-                   '    (tool "{tool}"))\n'
-        netlist = template.format(**locals())
-        netlist += "  (components"
-        for p in sorted(self.parts, key=lambda p: str(p.ref)):
-            netlist += '\n' + p.generate_netlist_component(KICAD)
-        netlist += ")\n"
-        netlist += "  (nets"
-        for code, n in enumerate(
-                sorted(self.get_nets(), key=lambda n: str(n.name))):
-            n.code = code
-            netlist += '\n' + n.generate_netlist_net(KICAD)
-        netlist += ")\n)\n"
-        return netlist
-
     def generate_xml(self, file_=None, tool=None):
         """
         Return netlist as an XML string and also write it to a file/stream.
@@ -538,36 +513,6 @@ class Circuit(object):
             f.write(netlist)
 
         return netlist
-
-    def _gen_xml_kicad(self):
-        from .defines import KICAD
-
-        scr_dict = scriptinfo()
-        src_file = os.path.join(scr_dict['dir'], scr_dict['source'])  # pylint: disable=unused-variable
-        date = time.strftime('%m/%d/%Y %I:%M %p')  # pylint: disable=unused-variable
-        tool = 'SKiDL (' + __version__ + ')'  # pylint: disable=unused-variable
-        template = '<?xml version="1.0" encoding="UTF-8"?>\n' + \
-                   '<export version="D">\n' + \
-                   '  <design>\n' + \
-                   '    <source>{src_file}</source>\n' + \
-                   '    <date>{date}</date>\n' + \
-                   '    <tool>{tool}</tool>\n' + \
-                   '  </design>\n'
-        netlist = template.format(**locals())
-        netlist += '  <components>'
-        for p in self.parts:
-            netlist += '\n' + p.generate_xml_component(KICAD)
-        netlist += '\n  </components>\n'
-        netlist += '  <nets>'
-        for code, n in enumerate(self.get_nets()):
-            n.code = code
-            netlist += '\n' + n.generate_xml_net(KICAD)
-        netlist += '\n  </nets>\n'
-        netlist += '</export>\n'
-        return netlist
-
-    def _gen_xml_skidl(self):
-        logger.error("Can't generate XML in SKiDL format!")
 
     def generate_graph(self,
                        file_=None,

@@ -52,6 +52,7 @@ standard_library.install_aliases()
 from .py_2_3 import *  # pylint: disable=wildcard-import
 from .defines import *
 from .utilities import *  # pylint: disable=wildcard-import
+from . import tools  # Import EDA tool-specific stuff.
 from .SchLib import *
 from .Pin import *
 from .Alias import *
@@ -68,7 +69,6 @@ from .part_query import *
 
 # Supported ECAD tools.
 DEFAULT_TOOL = INITIAL_DEFAULT_TOOL = KICAD
-print('Initializing DEFAULT_TOOL =', DEFAULT_TOOL)
 
 
 def set_default_tool(tool):
@@ -100,8 +100,8 @@ default_skidl_libs = os.path.join(
     os.path.dirname(os.path.abspath(__file__)), 'libs')
 lib_search_paths[SKIDL].append(default_skidl_libs)
 
-# Library suffixes for the various ECAD tools.
-lib_suffixes = {KICAD: '.lib', SKIDL: '_sklib.py'}
+# Make the various EDA tool library suffixes globally available.
+lib_suffixes = tools.lib_suffixes
 
 # Definitions for backup library of circuit parts.
 BACKUP_LIB_NAME = get_script_name() + '_lib'
