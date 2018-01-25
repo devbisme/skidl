@@ -145,57 +145,7 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
             else:
                 pass
 
-def _gen_netlist_(self):
-
-    scr_dict = scriptinfo()
-    src_file = os.path.join(scr_dict['dir'], scr_dict['source'])  # pylint: disable=unused-variable
-    date = time.strftime('%m/%d/%Y %I:%M %p')  # pylint: disable=unused-variable
-    tool = 'SKiDL (' + __version__ + ')'  # pylint: disable=unused-variable
-    template = '(export (version D)\n' + \
-               '  (design\n' + \
-               '    (source "{src_file}")\n' + \
-               '    (date "{date}")\n' + \
-               '    (tool "{tool}"))\n'
-    netlist = template.format(**locals())
-    netlist += "  (components"
-    for p in sorted(self.parts, key=lambda p: str(p.ref)):
-        netlist += '\n' + p.generate_netlist_component(KICAD)
-    netlist += ")\n"
-    netlist += "  (nets"
-    for code, n in enumerate(
-            sorted(self.get_nets(), key=lambda n: str(n.name))):
-        n.code = code
-        netlist += '\n' + n.generate_netlist_net(KICAD)
-    netlist += ")\n)\n"
-    return netlist
-
-def _gen_xml_(self):
-
-    scr_dict = scriptinfo()
-    src_file = os.path.join(scr_dict['dir'], scr_dict['source'])  # pylint: disable=unused-variable
-    date = time.strftime('%m/%d/%Y %I:%M %p')  # pylint: disable=unused-variable
-    tool = 'SKiDL (' + __version__ + ')'  # pylint: disable=unused-variable
-    template = '<?xml version="1.0" encoding="UTF-8"?>\n' + \
-               '<export version="D">\n' + \
-               '  <design>\n' + \
-               '    <source>{src_file}</source>\n' + \
-               '    <date>{date}</date>\n' + \
-               '    <tool>{tool}</tool>\n' + \
-               '  </design>\n'
-    netlist = template.format(**locals())
-    netlist += '  <components>'
-    for p in self.parts:
-        netlist += '\n' + p.generate_xml_component(KICAD)
-    netlist += '\n  </components>\n'
-    netlist += '  <nets>'
-    for code, n in enumerate(self.get_nets()):
-        n.code = code
-        netlist += '\n' + n.generate_xml_net(KICAD)
-    netlist += '\n  </nets>\n'
-    netlist += '</export>\n'
-    return netlist
-
-def _parse_(self, just_get_name=False):
+def _parse_lib_part_(self, just_get_name=False):
     """
     Create a Part using a part definition from a KiCad schematic library.
 
@@ -490,6 +440,29 @@ def _parse_(self, just_get_name=False):
     # part from being parsed more than once.
     self.part_defn = None
 
+def _gen_netlist_(self):
+    scr_dict = scriptinfo()
+    src_file = os.path.join(scr_dict['dir'], scr_dict['source'])  # pylint: disable=unused-variable
+    date = time.strftime('%m/%d/%Y %I:%M %p')  # pylint: disable=unused-variable
+    tool = 'SKiDL (' + __version__ + ')'  # pylint: disable=unused-variable
+    template = '(export (version D)\n' + \
+               '  (design\n' + \
+               '    (source "{src_file}")\n' + \
+               '    (date "{date}")\n' + \
+               '    (tool "{tool}"))\n'
+    netlist = template.format(**locals())
+    netlist += "  (components"
+    for p in sorted(self.parts, key=lambda p: str(p.ref)):
+        netlist += '\n' + p.generate_netlist_component(KICAD)
+    netlist += ")\n"
+    netlist += "  (nets"
+    for code, n in enumerate(
+            sorted(self.get_nets(), key=lambda n: str(n.name))):
+        n.code = code
+        netlist += '\n' + n.generate_netlist_net(KICAD)
+    netlist += ")\n)\n"
+    return netlist
+
 def _gen_netlist_comp_(self):
     ref = add_quotes(self.ref)
 
@@ -534,6 +507,43 @@ def _gen_netlist_comp_(self):
     txt = template.format(**locals())
     return txt
 
+def _gen_netlist_net_(self):
+    code = add_quotes(self.code)  # pylint: disable=unused-variable
+    name = add_quotes(self.name)  # pylint: disable=unused-variable
+    txt = '    (net (code {code}) (name {name})'.format(**locals())
+    for p in sorted(self.get_pins(), key=str):
+        part_ref = add_quotes(p.part.ref)  # pylint: disable=unused-variable
+        pin_num = add_quotes(p.num)  # pylint: disable=unused-variable
+        txt += '\n      (node (ref {part_ref}) (pin {pin_num}))'.format(
+            **locals())
+    txt += ')'
+    return txt
+
+def _gen_xml_(self):
+    scr_dict = scriptinfo()
+    src_file = os.path.join(scr_dict['dir'], scr_dict['source'])  # pylint: disable=unused-variable
+    date = time.strftime('%m/%d/%Y %I:%M %p')  # pylint: disable=unused-variable
+    tool = 'SKiDL (' + __version__ + ')'  # pylint: disable=unused-variable
+    template = '<?xml version="1.0" encoding="UTF-8"?>\n' + \
+               '<export version="D">\n' + \
+               '  <design>\n' + \
+               '    <source>{src_file}</source>\n' + \
+               '    <date>{date}</date>\n' + \
+               '    <tool>{tool}</tool>\n' + \
+               '  </design>\n'
+    netlist = template.format(**locals())
+    netlist += '  <components>'
+    for p in self.parts:
+        netlist += '\n' + p.generate_xml_component(KICAD)
+    netlist += '\n  </components>\n'
+    netlist += '  <nets>'
+    for code, n in enumerate(self.get_nets()):
+        n.code = code
+        netlist += '\n' + n.generate_xml_net(KICAD)
+    netlist += '\n  </nets>\n'
+    netlist += '</export>\n'
+    return netlist
+
 def _gen_xml_comp_(self):
     ref = self.ref
 
@@ -574,4 +584,16 @@ def _gen_xml_comp_(self):
                '      <libsource lib="{lib}" part="{name}"/>\n' + \
                '    </comp>'
     txt = template.format(**locals())
+    return txt
+
+def _gen_xml_net_(self):
+    code = self.code  # pylint: disable=unused-variable
+    name = self.name  # pylint: disable=unused-variable
+    txt = '    <net code="{code}" name="{name}">'.format(**locals())
+    for p in self.get_pins():
+        part_ref = p.part.ref  # pylint: disable=unused-variable
+        pin_num = p.num  # pylint: disable=unused-variable
+        txt += '\n      <node ref="{part_ref}" pin="{pin_num}"/>'.format(
+            **locals())
+    txt += '\n    </net>'
     return txt

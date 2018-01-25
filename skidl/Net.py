@@ -463,18 +463,6 @@ class Net(object):
                 format(tool))
             raise Exception
 
-    def _gen_netlist_net_kicad(self):
-        code = add_quotes(self.code)  # pylint: disable=unused-variable
-        name = add_quotes(self.name)  # pylint: disable=unused-variable
-        txt = '    (net (code {code}) (name {name})'.format(**locals())
-        for p in sorted(self.get_pins(), key=str):
-            part_ref = add_quotes(p.part.ref)  # pylint: disable=unused-variable
-            pin_num = add_quotes(p.num)  # pylint: disable=unused-variable
-            txt += '\n      (node (ref {part_ref}) (pin {pin_num}))'.format(
-                **locals())
-        txt += ')'
-        return txt
-
     def generate_xml_net(self, tool=None):
         """
         Generate the net information for inclusion in an XML file.
@@ -502,18 +490,6 @@ class Net(object):
                 "Can't generate XML in an unknown ECAD tool format ({}).".
                 format(tool))
             raise Exception
-
-    def _gen_xml_net_kicad(self):
-        code = self.code  # pylint: disable=unused-variable
-        name = self.name  # pylint: disable=unused-variable
-        txt = '    <net code="{code}" name="{name}">'.format(**locals())
-        for p in self.get_pins():
-            part_ref = p.part.ref  # pylint: disable=unused-variable
-            pin_num = p.num  # pylint: disable=unused-variable
-            txt += '\n      <node ref="{part_ref}" pin="{pin_num}"/>'.format(
-                **locals())
-        txt += '\n    </net>'
-        return txt
 
     def erc(self):
         """

@@ -31,6 +31,7 @@ import os.path
 from .. import SchLib
 from .. import Circuit
 from .. import Part
+from .. import Net
 
 lib_suffixes = {}
 
@@ -62,11 +63,13 @@ for module in os.listdir(directory):
 
     for class_, method in (
             (SchLib.SchLib, '_load_sch_lib_'),
+            (Part.Part, '_parse_lib_part_'),
             (Circuit.Circuit, '_gen_netlist_'),
-            (Circuit.Circuit, '_gen_xml_'),
-            (Part.Part, '_parse_'),
             (Part.Part, '_gen_netlist_comp_'),
+            (Net.Net, '_gen_netlist_net_'),
+            (Circuit.Circuit, '_gen_xml_'),
             (Part.Part, '_gen_xml_comp_'),
+            (Net.Net, '_gen_xml_net_'),
             ):
         try:
             setattr(class_, method+tool_name, getattr(mod, method))

@@ -216,7 +216,7 @@ class Part(object):
         """
 
         try:
-            parse_func = getattr(self, '_parse_{}'.format(self.tool))
+            parse_func = getattr(self, '_parse_lib_part_{}'.format(self.tool))
             parse_func(just_get_name)
         except AttributeError:
             logger.error(

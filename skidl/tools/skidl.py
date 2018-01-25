@@ -81,7 +81,7 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
         logger.error(e)
         raise
 
-def _parse_(self, just_get_name=False):  # pylint: disable=unused-argument
+def _parse_lib_part_(self, just_get_name=False):  # pylint: disable=unused-argument
     """
     Create a Part using a part definition from a SKiDL library.
     """
