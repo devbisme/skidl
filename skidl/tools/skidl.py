@@ -26,7 +26,17 @@
 Handler for reading SKiDL libraries and generating netlists.
 """
 
+from __future__ import unicode_literals
+from __future__ import print_function
+from __future__ import division
+from __future__ import absolute_import
+
+from builtins import str
+from future import standard_library
+standard_library.install_aliases()
+
 from ..defines import SKIDL
+
 tool_name = SKIDL
 lib_suffix = '_sklib.py'
 
@@ -70,3 +80,12 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
         logger.error('Problem with {}'.format(f))
         logger.error(e)
         raise
+
+def _parse_(self, just_get_name=False):  # pylint: disable=unused-argument
+    """
+    Create a Part using a part definition from a SKiDL library.
+    """
+
+    # Parts in a SKiDL library are already parsed and ready for use,
+    # so just return the part.
+    return self
