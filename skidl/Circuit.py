@@ -424,6 +424,27 @@ class Circuit(object):
             sys.stderr.write('{} errors found during ERC.\n\n'.format(
                 erc_logger.error.count))
 
+    def generate_pyspice_circuit(self, **kwargs):
+        """
+        Return a PySpice Circuit generated from a SKiDL circuit.
+        """
+        from PySpice.Spice.Netlist import Circuit
+        from .libs.pyspice_sklib import add_spice_subcircuit
+
+        # Create an empty PySpice circuit.
+        title = kwargs.pop('title', '') # Get title and remove it from kwargs.
+        circuit = Circuit(title)
+
+        # Add each part in the SKiDL circuit to the PySpice circuit.
+        for part in sorted(self.parts, key=lambda p: str(p.ref)):
+            # Add each part. All PySpice parts have an add_to_spice attribute
+            # and can be added directly. Other parts are added as subcircuits.
+            try:
+                part.add_to_spice(part, circuit)
+            except AttributeError:
+                add_spice_subcircuit(part, circuit)
+        return circuit
+
     def generate_netlist(self, file_=None, tool=None, do_backup=True):
         """
         Return a netlist as a string and also write it to a file/stream.
