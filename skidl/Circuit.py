@@ -440,7 +440,7 @@ class Circuit(object):
             # Add each part. All PySpice parts have an add_to_spice attribute
             # and can be added directly. Other parts are added as subcircuits.
             try:
-                part.add_to_spice(part, circuit)
+                part.pyspice['add'](part, circuit)
             except AttributeError:
                 add_spice_subcircuit(part, circuit)
         return circuit

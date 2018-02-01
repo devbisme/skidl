@@ -46,6 +46,7 @@ except ImportError:
     import builtins
 
 from copy import copy
+from PySpice.Unit.Unit import UnitValue
 
 from .defines import *
 from .utilities import *
@@ -672,7 +673,10 @@ class Part(object):
     def value(self):
         """Get, set and delete the part value."""
         try:
-            return self._value
+            if isinstance(self._value, UnitValue):
+                return self._value
+            else:
+                return str(self._value)
         except AttributeError:
             # If part has no value, return its part name as the value. This is
             # done in KiCad where a resistor value is set to 'R' if no
@@ -682,7 +686,7 @@ class Part(object):
     @value.setter
     def value(self, value):
         """Set the part value."""
-        self._value = str(value)
+        self._value = value
 
     @value.deleter
     def value(self):
