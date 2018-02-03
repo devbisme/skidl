@@ -165,6 +165,8 @@ ERC = default_circuit.ERC  # pylint: disable=undefined-variable
 generate_netlist = default_circuit.generate_netlist  # pylint: disable=undefined-variable
 generate_xml = default_circuit.generate_xml  # pylint: disable=undefined-variable
 generate_graph = default_circuit.generate_graph  # pylint: disable=undefined-variable
+generate_pyspice_circuit = default_circuit.generate_pyspice_circuit  # pylint: disable=undefined-variable
+reset = default_circuit.reset  # pylint: disable=undefined-variable
 backup_parts = default_circuit.backup_parts  # pylint: disable=undefined-variable
 
 # Define a tag for nets that convey power (e.g., VCC or GND).

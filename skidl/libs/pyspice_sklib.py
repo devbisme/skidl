@@ -26,8 +26,16 @@
 An interface from SKiDL to PySpice.
 """
 
-from skidl import Pin, Part, SchLib, SKIDL, TEMPLATE, logger
+from PySpice import *
+from PySpice.Unit import *
+from skidl import Net, Pin, Part, SchLib, SKIDL, TEMPLATE, logger
 
+
+def node(net_or_pin):
+    if isinstance(net_or_pin, Net):
+        return net_or_pin.name
+    if isinstance(net_or_pin, Pin):
+        return net_or_pin.net.name
 
 def _get_spice_ref(part):
     '''Return a SPICE reference ID for the part.'''
@@ -38,7 +46,7 @@ def _get_spice_ref(part):
 
 def _get_net_names(part):
     '''Return a list of net names attached to the pins of a part.'''
-    return [pin.net.name for pin in part.pins if pin.is_connected()]
+    return [node(pin) for pin in part.pins if pin.is_connected()]
 
 
 def _get_pos_args(part, pos_arg_names):
@@ -46,7 +54,14 @@ def _get_pos_args(part, pos_arg_names):
     pos_arg_values = []
     for name in pos_arg_names:
         try:
-            pos_arg_values.append(getattr(part, name))
+            # If the positional argument is a Part, then substitute the part
+            # reference because it's probably a control current for something
+            # like a current-controlled source or switch. Otherwise, just use
+            # the positional argument as-is.
+            value = getattr(part, name)
+            if isinstance(value, Part):
+                value = value.ref
+            pos_arg_values.append(value)
         except AttributeError:
             pass
     return pos_arg_values
@@ -57,7 +72,14 @@ def _get_kwargs(part, kw):
     kwargs = {}
     for key in kw:
         try:
-            kwargs.update({key: getattr(part, key)})
+            # If the keyword argument is a Part, then substitute the part
+            # reference because it's probably a control current for something
+            # like a current-controlled source or switch. Otherwise, just use
+            # the keyword argument as-is.
+            value = getattr(part, key)
+            if isinstance(value, Part):
+                value = value.ref
+            kwargs.update({key: value})
         except AttributeError:
             pass
     return kwargs
@@ -99,7 +121,7 @@ def _not_implemented(part, circuit):
 # Create a SKiDL library of SPICE elements.
 
 pyspice = SchLib(tool=SKIDL).add_parts(*[
-    Part(
+    Part( #####################################################################
         name='A',
         dest=TEMPLATE,
         tool=SKIDL,
@@ -107,14 +129,13 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
         description='XSPICE code module',
         ref_prefix='A',
         pyspice={
-            'prefix': 'A',
             'name': 'XSpiceElement',
             'add': _not_implemented,
         },
         num_units=1,
         do_erc=True,
         pins=[]),
-    Part(
+    Part( #####################################################################
         name='B',
         dest=TEMPLATE,
         tool=SKIDL,
@@ -122,7 +143,6 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
         description='Behavioral (arbitrary) source',
         ref_prefix='B',
         pyspice={
-            'prefix': 'B',
             'name': 'BehavioralSource',
             'add': _not_implemented,
         },
@@ -134,13 +154,13 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
         ]),
     Part(
         name='C',
+        aliases=['cap', 'CAP'],
         dest=TEMPLATE,
         tool=SKIDL,
         keywords='cap capacitor',
         description='Capacitor',
         ref_prefix='C',
         pyspice={
-            'prefix': 'C',
             'name': 'C',
             'pos': ('value', ),
             'kw': ('model', 'multiplier', 'm', 'scale', 'temperature', 'temp',
@@ -155,13 +175,13 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
         ]),
     Part(
         name='D',
+        aliases=['diode', 'DIODE'],
         dest=TEMPLATE,
         tool=SKIDL,
         keywords='diode rectifier',
         description='Diode',
         ref_prefix='D',
         pyspice={
-            'prefix': 'D',
             'name': 'D',
             'pos': ('value', ),
             'kw': ('model', 'area', 'multiplier', 'm', 'pj', 'off', 'ic', 'temperature',
@@ -176,15 +196,17 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
         ]),
     Part(
         name='E',
+        aliases=['VCVS', 'vcvs'],
         dest=TEMPLATE,
         tool=SKIDL,
         keywords='voltage-controlled voltage source',
         description='Voltage-controlled voltage source',
         ref_prefix='E',
         pyspice={
-            'prefix': 'E',
-            'name': 'VoltageControlledVoltageSource',
-            'add': _not_implemented,
+            'name': 'VCVS',
+            'pos': ('gain',),
+            'kw': [],
+            'add': _add_part_to_circuit,
         },
         num_units=1,
         do_erc=True,
@@ -196,15 +218,17 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
         ]),
     Part(
         name='F',
+        aliases=['CCCS', 'cccs'],
         dest=TEMPLATE,
         tool=SKIDL,
         keywords='current-controlled current source',
         description='Current-controlled current source',
         ref_prefix='F',
         pyspice={
-            'prefix': 'F',
-            'name': 'CurrentControlledCurrentSource',
-            'add': _not_implemented,
+            'name': 'CCCS',
+            'pos': ('control', 'gain', ),
+            'kw': [],
+            'add': _add_part_to_circuit,
         },
         num_units=1,
         do_erc=True,
@@ -220,9 +244,10 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
         description='Voltage-controlled current source',
         ref_prefix='G',
         pyspice={
-            'prefix': 'G',
-            'name': 'VoltageControlledCurrentSource',
-            'add': _not_implemented,
+            'name': 'VCCS',
+            'pos': ('transconductance', ),
+            'kw': [],
+            'add': _add_part_to_circuit,
         },
         num_units=1,
         do_erc=True,
@@ -234,15 +259,17 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
         ]),
     Part(
         name='H',
+        aliases=['CCVS', 'ccvs'],
         dest=TEMPLATE,
         tool=SKIDL,
         keywords='current-controlled voltage source',
         description='Current-controlled voltage source',
         ref_prefix='H',
         pyspice={
-            'prefix': 'H',
-            'name': 'CurrentControlledCurrentSource',
-            'add': _not_implemented,
+            'name': 'CCVS',
+            'pos': ('control', 'transresistance', ),
+            'kw': [],
+            'add': _add_part_to_circuit,
         },
         num_units=1,
         do_erc=True,
@@ -252,15 +279,17 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
         ]),
     Part(
         name='I',
+        aliases=['cs', 'CS'],
         dest=TEMPLATE,
         tool=SKIDL,
         keywords='current source',
         description='Current source',
         ref_prefix='I',
         pyspice={
-            'prefix': 'I',
             'name': 'CurrentSource',
-            'add': _not_implemented,
+            'pos': [],
+            'kw': ('dc_value', ),
+            'add': _add_part_to_circuit,
         },
         num_units=1,
         do_erc=True,
@@ -270,17 +299,17 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
         ]),
     Part(
         name='J',
+        aliases=['JFET', 'jfet'],
         dest=TEMPLATE,
         tool=SKIDL,
         keywords='junction field-effect transistor JFET',
         description='Junction field-effect transistor',
         ref_prefix='J',
         pyspice={
-            'prefix': 'J',
             'name': 'JFET',
-            'pos': [],
-            'kw': ('model', 'area', 'off', 'ic', 'temperature', 'temp'),
-            'add': _not_implemented,
+            'pos': ('model',),
+            'kw': ('area', 'off', 'ic', 'temperature', 'temp'),
+            'add': _add_part_to_circuit,
         },
         num_units=1,
         do_erc=True,
@@ -289,7 +318,7 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='2', name='G', func=Pin.PASSIVE, do_erc=True),
             Pin(num='3', name='S', func=Pin.PASSIVE, do_erc=True),
         ]),
-    Part(
+    Part( #####################################################################
         name='K',
         dest=TEMPLATE,
         tool=SKIDL,
@@ -297,7 +326,6 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
         description='Coupled (mutual) inductors',
         ref_prefix='K',
         pyspice={
-            'prefix': 'K',
             'name': 'CoupledInductor',
             'add': _not_implemented,
         },
@@ -313,7 +341,6 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
         description='Inductor',
         ref_prefix='L',
         pyspice={
-            'prefix': 'L',
             'name': 'L',
             'pos': ('value', ),
             'kw': ('value', 'nt', 'multiplier', 'm', 'scale', 'temperature', 'temp',
@@ -328,16 +355,16 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
         ]),
     Part(
         name='M',
+        aliases=['MOSFET', 'mosfet', 'FET', 'fet',],
         dest=TEMPLATE,
         tool=SKIDL,
         keywords='metal-oxide field-effect transistor MOSFET',
         description='Metal-oxide field-effect transistor',
         ref_prefix='M',
         pyspice={
-            'prefix': 'M',
             'name': 'Mosfet',
-            'pos': [],
-            'kw': ('model', 'mltiplier', 'm', 'length', 'l', 'width', 'w',
+            'pos': ('model',),
+            'kw': ('multiplier', 'm', 'length', 'l', 'width', 'w',
                    'drain_area', 'ad', 'source_area', 'as', 'drain_perimeter', 'pd',
                    'source_perimeter', 'ps', 'drain_number', 'nrd',
                    'source_number_square', 'nrs', 'off', 'ic', 'temperature', 'temp'),
@@ -351,7 +378,7 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3', name='S', func=Pin.PASSIVE, do_erc=True),
             Pin(num='4', name='T', func=Pin.PASSIVE, do_erc=True),
         ]),
-    Part(
+    Part( #####################################################################
         name='N',
         dest=TEMPLATE,
         tool=SKIDL,
@@ -359,14 +386,13 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
         description='Numerical device for GSS',
         ref_prefix='N',
         pyspice={
-            'prefix': 'N',
             'name': 'GSSElement',
             'add': _not_implemented,
         },
         num_units=1,
         do_erc=True,
         pins=[]),
-    Part(
+    Part( #####################################################################
         name='O',
         dest=TEMPLATE,
         tool=SKIDL,
@@ -374,7 +400,6 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
         description='Lossy transmission line',
         ref_prefix='O',
         pyspice={
-            'prefix': 'O',
             'name': 'LossyTransmission',
             'add': _not_implemented,
         },
@@ -386,7 +411,7 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3', name='op', func=Pin.PASSIVE, do_erc=True),
             Pin(num='4', name='on', func=Pin.PASSIVE, do_erc=True),
         ]),
-    Part(
+    Part( #####################################################################
         name='P',
         dest=TEMPLATE,
         tool=SKIDL,
@@ -394,7 +419,6 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
         description='Coupled multiconductor line',
         ref_prefix='P',
         pyspice={
-            'prefix': 'P',
             'name': 'CoupledMulticonductorLine',
             'add': _not_implemented,
         },
@@ -404,17 +428,16 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
         pins=[]),
     Part(
         name='Q',
-        aliases=('BJT','NPN'),
+        aliases=('BJT', 'bjt'),
         dest=TEMPLATE,
         tool=SKIDL,
         keywords='bipolar transistor npn pnp',
         description='Bipolar Junction Transistor',
         ref_prefix='Q',
         pyspice={
-            'prefix': 'Q',
             'name': 'BJT',
-            'pos': [],
-            'kw': ('model', 'area', 'areac', 'areab'
+            'pos': ('model',),
+            'kw': ('area', 'areac', 'areab'
                    'multiplier', 'm', 'off', 'ic', 'temperature', 'temp',
                    'device_temperature', 'dtemp'),
             'add': _add_part_to_circuit,
@@ -435,7 +458,6 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
         description='Resistor',
         ref_prefix='R',
         pyspice={
-            'prefix': 'R',
             'name': 'R',
             'pos': ('value', ),
             'kw': ('ac', 'multiplier', 'm', 'scale', 'temperature', 'temp',
@@ -450,15 +472,17 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
         ]),
     Part(
         name='S',
+        aliases=['VCS', 'vcs'],
         dest=TEMPLATE,
         tool=SKIDL,
         keywords='voltage-controlled switch',
         description='Voltage-controlled switch',
         ref_prefix='S',
         pyspice={
-            'prefix': 'S',
-            'name': 'VoltageControlledSwitch',
-            'add': _not_implemented,
+            'name': 'VCS',
+            'pos': [],
+            'kw': ('model', 'initial_state',),
+            'add': _add_part_to_circuit,
         },
         num_units=1,
         do_erc=True,
@@ -468,7 +492,7 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3', name='op', func=Pin.PASSIVE, do_erc=True),
             Pin(num='4', name='on', func=Pin.PASSIVE, do_erc=True),
         ]),
-    Part(
+    Part( #####################################################################
         name='T',
         dest=TEMPLATE,
         tool=SKIDL,
@@ -476,7 +500,6 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
         description='transmission line',
         ref_prefix='T',
         pyspice={
-            'prefix': '',
             'name': 'TransmissionLine',
             'add': _not_implemented,
         },
@@ -488,7 +511,7 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3', name='op', func=Pin.PASSIVE, do_erc=True),
             Pin(num='4', name='on', func=Pin.PASSIVE, do_erc=True),
         ]),
-    Part(
+    Part( #####################################################################
         name='U',
         dest=TEMPLATE,
         tool=SKIDL,
@@ -496,7 +519,6 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
         description='Uniformly-distributed RC line',
         ref_prefix='U',
         pyspice={
-            'prefix': 'U',
             'name': 'UniformDistributedRCLine',
             'add': _not_implemented,
         },
@@ -505,16 +527,16 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
         pins=[]),
     Part(
         name='V',
+        aliases=['v', 'AMMETER', 'ammeter',],
         dest=TEMPLATE,
         tool=SKIDL,
         keywords='voltage source',
         description='Voltage source',
         ref_prefix='V',
         pyspice={
-            'prefix': 'V',
             'name': 'V',
             'pos': [],
-            'kw': ('dc_value', ),
+            'kw': ('dc_value', 'amplitude', 'frequency'),
             'add': _add_part_to_circuit,
         },
         num_units=1,
@@ -525,15 +547,17 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
         ]),
     Part(
         name='W',
+        aliases=['CCS', 'ccs'],
         dest=TEMPLATE,
         tool=SKIDL,
         keywords='current-controlled switch',
         description='Current-controlled switch',
         ref_prefix='W',
         pyspice={
-            'prefix': 'W',
             'name': 'CurrentControlledSwitch',
-            'add': _not_implemented,
+            'pos': ('control',),
+            'kw': ('model', 'initial_state',),
+            'add': _add_part_to_circuit,
         },
         num_units=1,
         do_erc=True,
@@ -542,7 +566,7 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True),
         ]),
     # Don't put X subcircuit in this list! It's handled separately.
-    Part(
+    Part( #####################################################################
         name='Y',
         dest=TEMPLATE,
         tool=SKIDL,
@@ -550,7 +574,6 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
         description='Single lossy transmission line',
         ref_prefix='Y',
         pyspice={
-            'prefix': 'Y',
             'name': 'SingleLossyTransmissionLine',
             'add': _not_implemented,
         },
@@ -560,16 +583,16 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
         pins=[]),
     Part(
         name='Z',
+        aliases=['MESFET', 'mesfet'],
         dest=TEMPLATE,
         tool=SKIDL,
         keywords='metal-semiconductor field-effect transistor MOSFET',
         description='Metal-semiconductor field-effect transistor',
         ref_prefix='Z',
         pyspice={
-            'prefix': 'Z',
             'name': 'Mesfet',
-            'pos': [],
-            'kw': ('model', 'area', 'off', 'ic', 'temperature', 'temp'),
+            'pos': ('model',),
+            'kw': ('area', 'off', 'ic', 'temperature', 'temp'),
             'add': _add_part_to_circuit,
         },
         num_units=1,
@@ -578,6 +601,146 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='1', name='D', func=Pin.PASSIVE, do_erc=True),
             Pin(num='2', name='G', func=Pin.PASSIVE, do_erc=True),
             Pin(num='3', name='S', func=Pin.PASSIVE, do_erc=True),
+        ]),
+    Part(
+        name='SINE',
+        aliases=['SIN', 'SINUSOIDAL', 'sin', 'sine', 'sinusoidal'],
+        dest=TEMPLATE,
+        tool=SKIDL,
+        keywords='simusoidal voltage source',
+        description='Sinusoidal voltage source',
+        ref_prefix='V',
+        pyspice={
+            'name': 'Sinusoidal',
+            'pos': [],
+            'kw': ['dc_offset', 'amplitude', 'frequency', 'delay', 'damping_factor'],
+            'add': _add_part_to_circuit,
+        },
+        num_units=1,
+        do_erc=True,
+        pins=[
+            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True),
+            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True),
+        ]),
+    Part(
+        name='PULSE',
+        aliases=['pulse'],
+        dest=TEMPLATE,
+        tool=SKIDL,
+        keywords='pulsed voltage source',
+        description='Pulsed voltage source',
+        ref_prefix='V',
+        pyspice={
+            'name': 'Pulse',
+            'pos': [],
+            'kw': ['initial_value', 'pulsed_value', 'delay_time', 'rise_time', 'fall_time', 'pulse_width', 'period'],
+            'add': _add_part_to_circuit,
+        },
+        num_units=1,
+        do_erc=True,
+        pins=[
+            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True),
+            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True),
+        ]),
+    Part(
+        name='EXP',
+        aliases=['exp', 'exponential', 'EXPONENTIAL'],
+        dest=TEMPLATE,
+        tool=SKIDL,
+        keywords='exponential voltage source',
+        description='Exponential voltage source',
+        ref_prefix='V',
+        pyspice={
+            'name': 'Exponential',
+            'pos': [],
+            'kw': ['initial_value', 'pulsed_value', 'rise_delay_time', 'rise_time_constant', 'fall_delay_time', 'fall_time_constant'],
+            'add': _add_part_to_circuit,
+        },
+        num_units=1,
+        do_erc=True,
+        pins=[
+            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True),
+            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True),
+        ]),
+    Part(
+        name='PWL',
+        aliases=['pwl', 'piecewiselinear', 'PIECEWISELINEAR'],
+        dest=TEMPLATE,
+        tool=SKIDL,
+        keywords='piecewise linear voltage source',
+        description='Piecewise linear voltage source',
+        ref_prefix='V',
+        pyspice={
+            'name': 'PieceWiseLinear',
+            'pos': [],
+            'kw': ['repeate_time', 'delay_time',],
+            'add': _add_part_to_circuit,
+        },
+        num_units=1,
+        do_erc=True,
+        pins=[
+            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True),
+            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True),
+        ]),
+    Part(
+        name='FM',
+        aliases=['fm', 'SFFM', 'sffm', 'SINGLEFREQUENCYFM', 'singlefrequencyfm'],
+        dest=TEMPLATE,
+        tool=SKIDL,
+        keywords='single frequency FM modulated voltage source',
+        description='Single-frequency FM voltage source',
+        ref_prefix='V',
+        pyspice={
+            'name': 'SingleFrequencyFM',
+            'pos': [],
+            'kw': ['offset', 'amplitude', 'carrier_frequency', 'modulation_index', 'signal_frequency'],
+            'add': _add_part_to_circuit,
+        },
+        num_units=1,
+        do_erc=True,
+        pins=[
+            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True),
+            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True),
+        ]),
+    Part(
+        name='AM',
+        aliases=['am', 'AMPLITUDEMODULATED', 'amplitudemodulated'],
+        dest=TEMPLATE,
+        tool=SKIDL,
+        keywords='amplitude modulated voltage source',
+        description='Amplitude modulated voltage source',
+        ref_prefix='V',
+        pyspice={
+            'name': 'AmplitudeModulated',
+            'pos': [],
+            'kw': ['offset', 'amplitude', 'carrier_frequency', 'modulating_frequency', 'signal_delay'],
+            'add': _add_part_to_circuit,
+        },
+        num_units=1,
+        do_erc=True,
+        pins=[
+            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True),
+            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True),
+        ]),
+    Part(
+        name='RND',
+        aliases=['rnd',],
+        dest=TEMPLATE,
+        tool=SKIDL,
+        keywords='random voltage source',
+        description='Random voltage source',
+        ref_prefix='V',
+        pyspice={
+            'name': 'RandomVoltage',
+            'pos': [],
+            'kw': ['random_type', 'duration', 'time_delay', 'parameter1', 'parameter2'],
+            'add': _add_part_to_circuit,
+        },
+        num_units=1,
+        do_erc=True,
+        pins=[
+            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True),
+            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True),
         ]),
 ])
 

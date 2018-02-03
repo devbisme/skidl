@@ -45,3 +45,10 @@ BUS_PREFIX = 'B$'
 
 # Supported ECAD tools.
 ALL_TOOLS = KICAD, SKIDL = ['kicad', 'skidl']
+
+# Utility for changing the net and bus prefixes.
+def set_net_bus_prefixes(net, bus):
+    global NET_PREFIX
+    global BUS_PREFIX
+    NET_PREFIX = net
+    BUS_PREFIX = bus

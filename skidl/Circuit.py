@@ -441,7 +441,8 @@ class Circuit(object):
             # and can be added directly. Other parts are added as subcircuits.
             try:
                 part.pyspice['add'](part, circuit)
-            except AttributeError:
+            #except (AttributeError, KeyError):
+            except IOError:
                 add_spice_subcircuit(part, circuit)
         return circuit
 
