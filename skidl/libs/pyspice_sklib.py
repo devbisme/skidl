@@ -492,16 +492,19 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3', name='op', func=Pin.PASSIVE, do_erc=True),
             Pin(num='4', name='on', func=Pin.PASSIVE, do_erc=True),
         ]),
-    Part( #####################################################################
+    Part(
         name='T',
+        aliases=['transmissionline', 'TRANSMISSIONLINE'],
         dest=TEMPLATE,
         tool=SKIDL,
         keywords='transmission line',
-        description='transmission line',
+        description='Transmission line',
         ref_prefix='T',
         pyspice={
             'name': 'TransmissionLine',
-            'add': _not_implemented,
+            'add': _add_part_to_circuit,
+            'pos': [],
+            'kw': ('impedance', 'time_delay', 'frequency', 'normalized_length',),
         },
         num_units=1,
         do_erc=True,
