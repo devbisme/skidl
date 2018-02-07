@@ -35,6 +35,7 @@ Features
   desired cutoff frequency).
 * Can work with any ECAD tool (only two methods are needed: one for reading the part libraries and another
   for outputing the correct netlist format).
+* Can perform SPICE simulations (Python 3 only).
 * Takes advantage of all the benefits of the Python ecosystem (because it *is* Python).
 
 As a very simple example, the SKiDL program below describes a circuit that

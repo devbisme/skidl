@@ -4,6 +4,12 @@ History
 -------
 
 
+0.0.18 (2018-02-07)
+______________________
+
+* SPICE simulations of circuits now supported (Python 3 only).
+
+
 0.0.17 (2018-01-23)
 ______________________
 
