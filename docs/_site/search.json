@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "Spice Simulation",
+		  "category"   : "blog",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/spice-simulation",
+		  "date"       : "2018-02-07 10:23:43 -0500",
+		  "shortdate"  : "February 07, 2018"
+		} ,
+	
+		{
 		  "title"      : "An Arduino With SKiDL",
 		  "category"   : "blog",
 		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/an-arduino-with-skidl",

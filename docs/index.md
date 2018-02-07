@@ -21,6 +21,7 @@ create a finished circuit board.
 * [Going Deeper](#going-deeper)
 * [Going Really Deep](#going-really-deep)
 * [Converting Existing Designs to SKiDL](#converting-existing-designs-to-skidl)
+* [SPICE Simulations](#spice-simulations)
 
 
 
@@ -1437,3 +1438,9 @@ That's it! You can execute the `my_design.py` script and it will regenerate the
 netlist. Or you can use the script as a subcircuit in a larger design.
 Or do anything else that a SKiDL-based design supports.
 
+
+# SPICE Simulations
+
+Now you can describe a circuit using SKiDL and run a SPICE simulation on it!
+Go [here](https://github.com/xesscorp/skidl/tree/master/examples/spice-sim-intro/spice-sim-intro.html)
+to get the complete details.
