@@ -1442,5 +1442,5 @@ Or do anything else that a SKiDL-based design supports.
 # SPICE Simulations
 
 Now you can describe a circuit using SKiDL and run a SPICE simulation on it!
-Go [here](https://github.com/xesscorp/skidl/tree/master/examples/spice-sim-intro/spice-sim-intro.html)
+Go [here](https://github.com/xesscorp/skidl/blob/master/examples/spice-sim-intro/spice-sim-intro.ipynb)
 to get the complete details.

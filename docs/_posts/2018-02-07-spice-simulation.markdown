@@ -13,4 +13,4 @@ permalink: blog/spice-simulation
 
 I've added the capability to do SPICE simulations of circuits designed with SKiDL.
 You can read about it
-[in this Jupyter notebook](https://github.com/xesscorp/skidl/tree/master/examples/spice-sim-intro/spice-sim-intro.ipynb).
+[in this Jupyter notebook](https://github.com/xesscorp/skidl/blob/master/examples/spice-sim-intro/spice-sim-intro.ipynb).
