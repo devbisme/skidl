@@ -11,12 +11,17 @@
 Import this file to reconfigure SKiDL for doing SPICE simulations.
 """
 
-from skidl import *  # Now only need to import this file to use SKiDL + PySpice.
-from .libs.pyspice_sklib import *
+from skidl import *
 
-set_net_bus_prefixes('N', 'B')  # Use prefixes with no odd characters for SPICE.
+# PySpice only works with Python 3, so don't set up SPICE simulation for Python 2.
+if USING_PYTHON3:
+    from PySpice import *
+    from PySpice.Unit import *
+    from .libs.pyspice_sklib import *
 
-set_default_tool(SKIDL)     # Set the library format for reading SKiDL libraries.
-_splib = SchLib('pyspice')  # Read-in the SPICE part library.
+    set_net_bus_prefixes('N', 'B')  # Use prefixes with no odd characters for SPICE.
 
-GND = gnd = Net('0')  # Instantiate the default ground net for SPICE.
+    set_default_tool(SKIDL)     # Set the library format for reading SKiDL libraries.
+    _splib = SchLib('pyspice')  # Read-in the SPICE part library.
+
+    GND = gnd = Net('0')  # Instantiate the default ground net for SPICE.

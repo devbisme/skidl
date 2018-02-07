@@ -46,6 +46,11 @@ import inspect
 import time
 import graphviz
 
+from .py_2_3 import USING_PYTHON2, USING_PYTHON3
+if USING_PYTHON3:
+    from PySpice.Spice.Library import SpiceLibrary
+    from PySpice.Spice.Netlist import Circuit as PySpiceCircuit # Avoid clash with Circuit class below.
+
 from .pckg_info import __version__
 from .utilities import *
 
@@ -428,12 +433,15 @@ class Circuit(object):
         """
         Return a PySpice Circuit generated from a SKiDL circuit.
         """
-        from PySpice.Spice.Netlist import Circuit
+
+        if USING_PYTHON2:
+            return None
+
         from .libs.pyspice_sklib import add_spice_subcircuit
 
         # Create an empty PySpice circuit.
         title = kwargs.pop('title', '') # Get title and remove it from kwargs.
-        circuit = Circuit(title)
+        circuit = PySpiceCircuit(title)
 
         # Add each part in the SKiDL circuit to the PySpice circuit.
         for part in sorted(self.parts, key=lambda p: str(p.ref)):
@@ -441,9 +449,33 @@ class Circuit(object):
             # and can be added directly. Other parts are added as subcircuits.
             try:
                 part.pyspice['add'](part, circuit)
-            #except (AttributeError, KeyError):
-            except IOError:
+            except (AttributeError, KeyError):
                 add_spice_subcircuit(part, circuit)
+
+        # Add any models used by the parts to the PySpice circuit.
+        lib_dirs = flatten([kwargs.get('libs', None)])
+        spice_libs = [SpiceLibrary(dir) for dir in lib_dirs]
+        included_models = set()
+        models = []
+        for part in self.parts:
+            try:
+                model = getattr(part, 'model')
+            except AttributeError:
+                pass
+            else:
+                for lib in spice_libs:
+                    try:
+                        lib_model = lib[model]
+                        if lib_model not in included_models:
+                            circuit.include(lib_model)
+                            included_models.add(lib_model)
+                    except KeyError:
+                        pass
+                    else:
+                        break
+                else:
+                    logger.error('Unknown SPICE model/subcircuit: {}'.format(model))
+                        
         return circuit
 
     def generate_netlist(self, file_=None, tool=None, do_backup=True):

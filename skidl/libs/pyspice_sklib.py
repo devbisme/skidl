@@ -26,8 +26,6 @@
 An interface from SKiDL to PySpice.
 """
 
-from PySpice import *
-from PySpice.Unit import *
 from skidl import Net, Pin, Part, SchLib, SKIDL, TEMPLATE, logger
 
 
@@ -88,6 +86,10 @@ def _get_kwargs(part, kw):
 def _add_part_to_circuit(part, circuit):
     '''
     Add a part to a PySpice Circuit object.
+
+    Args:
+        part: SKiDL Part object.
+        circuit: PySpice Circuit object.
     '''
 
     pos = part.pyspice['pos']
@@ -106,6 +108,13 @@ def _add_part_to_circuit(part, circuit):
 
 
 def add_spice_subcircuit(part, circuit):
+    '''
+    Add a .SUBCKT part to a PySpice Circuit object.
+
+    Args:
+        part: SKiDL Part object.
+        circuit: PySpice Circuit object.
+    '''
     # How to add the SKiDL-part pins to the subcircuit in the correct order?
     # The SKiDL-part must have a parameter dict to pass to the subcircuit.
     logger.error(
@@ -118,9 +127,10 @@ def _not_implemented(part, circuit):
         part.name, part.ref))
 
 
-# Create a SKiDL library of SPICE elements.
+# Create a SKiDL library of SPICE elements. All PySpice-related info goes into
+# a pyspice dictionary that is added as an attribute to the SKiDL Part object.
 
-pyspice = SchLib(tool=SKIDL).add_parts(*[
+pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
     Part( #####################################################################
         name='A',
         dest=TEMPLATE,
@@ -876,13 +886,13 @@ pyspice = SchLib(tool=SKIDL).add_parts(*[
 
 
 # Place all the PySpice parts into the namespace so they can bb instantiated easily.
-this_module = __import__(__name__)
-for p in pyspice.get_parts():
+_this_module = __import__(__name__)
+for p in pyspice_lib.get_parts():
     # Add the part name to the module namespace.
-    setattr(this_module, p.name, p)
+    setattr(_this_module, p.name, p)
     # Add all the part aliases to the module namespace.
     try:
         for alias in p.aliases:
-            setattr(this_module, alias, p)
+            setattr(_this_module, alias, p)
     except AttributeError:
         pass

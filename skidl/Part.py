@@ -46,7 +46,15 @@ except ImportError:
     import builtins
 
 from copy import copy
-from PySpice.Unit.Unit import UnitValue
+
+# PySpice is not supported in Python 2, so need to make a dummy class to replicate
+# a class from PySpice.
+from .py_2_3 import USING_PYTHON2, USING_PYTHON3
+if USING_PYTHON3:
+    from PySpice.Unit.Unit import UnitValue
+else:
+    class UnitValue:
+        pass
 
 from .defines import *
 from .utilities import *
@@ -618,8 +626,12 @@ class Part(object):
 
     def __str__(self):
         """Return a description of the pins on this part as a string."""
-        return '\n' + self.name + ': ' + self.description + '\n    ' + '\n    '.join(
-            [p.__str__() for p in self.pins])
+        return '\n {name} ({aliases}): {desc}\n    {pins}'.format(
+            name=self.name, 
+            aliases=', '.join(getattr(self, 'aliases','')), 
+            desc=self.description, 
+            pins='\n    '.join([p.__str__() for p in self.pins])
+            )
 
     __repr__ = __str__
 
