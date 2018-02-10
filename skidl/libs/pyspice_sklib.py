@@ -107,7 +107,7 @@ def _add_part_to_circuit(part, circuit):
     getattr(circuit, part.pyspice['name'])(*args, **kwargs)
 
 
-def add_spice_subcircuit(part, circuit):
+def _add_subcircuit_to_circuit(part, circuit):
     '''
     Add a .SUBCKT part to a PySpice Circuit object.
 
@@ -705,7 +705,20 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True),
             Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True),
         ]),
-    # Don't put X subcircuit in this list! It's handled separately.
+    Part( #####################################################################
+        name='X',
+        dest=TEMPLATE,
+        tool=SKIDL,
+        keywords='subcircuit',
+        description='Subcircuit',
+        ref_prefix='Y',
+        pyspice={
+            'name': 'SubCircuitElement',
+            'add': _add_subcircuit_to_circuit,
+        },
+        num_units=1,
+        do_erc=True,
+        pins=[]),
     Part( #####################################################################
         name='Y',
         dest=TEMPLATE,

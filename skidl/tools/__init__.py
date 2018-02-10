@@ -58,9 +58,10 @@ for module in os.listdir(directory):
     tool_name = getattr(mod, 'tool_name')
     lib_suffix = getattr(mod, 'lib_suffix')
 
-    # Store
+    # Store library file suffix for this tool.
     lib_suffixes[tool_name] = lib_suffix
 
+    # Make the methods for this tool available where they are needed.
     for class_, method in (
             (SchLib.SchLib, '_load_sch_lib_'),
             (Part.Part, '_parse_lib_part_'),

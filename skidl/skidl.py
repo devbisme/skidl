@@ -84,7 +84,7 @@ def get_default_tool():
 # These are the paths to search for part libraries of the ECAD tools.
 # Start off with a path that allows absolute file names, and then searches
 # within the current directory.
-lib_search_paths = {KICAD: ['', '.'], SKIDL: ['', '.']}
+lib_search_paths = {KICAD: ['', '.'], SKIDL: ['', '.'], SPICE: ['', '.'],}
 
 # Add the location of the default KiCad schematic part libs to the search path.
 try:

@@ -15,7 +15,8 @@ def setup_function(f):
     lib_search_paths.clear()
     lib_search_paths.update({
         KICAD: [os.getcwd(), this_file_dir],
-        SKIDL: [os.getcwd(), this_file_dir, get_filename("../skidl/libs")]
+        SKIDL: [os.getcwd(), this_file_dir, get_filename("../skidl/libs")],
+        SPICE: [os.getcwd(), this_file_dir]
     })
 
     set_default_tool(INITIAL_DEFAULT_TOOL)

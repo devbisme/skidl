@@ -19,9 +19,10 @@ if USING_PYTHON3:
     from PySpice.Unit import *
     from .libs.pyspice_sklib import *
 
-    set_net_bus_prefixes('N', 'B')  # Use prefixes with no odd characters for SPICE.
+    _splib = SchLib('pyspice', tool=SKIDL)  # Read-in the SPICE part library.
 
-    set_default_tool(SKIDL)     # Set the library format for reading SKiDL libraries.
-    _splib = SchLib('pyspice')  # Read-in the SPICE part library.
+    set_default_tool(SPICE)     # Set the library format for reading SKiDL libraries.
+
+    set_net_bus_prefixes('N', 'B')  # Use prefixes with no odd characters for SPICE.
 
     GND = gnd = Net('0')  # Instantiate the default ground net for SPICE.
