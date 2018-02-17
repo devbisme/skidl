@@ -64,7 +64,7 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
     # Try to open the file. Add a .lib extension if needed. If the file
     # doesn't open, then try looking in the KiCad library directory.
     try:
-        f = find_and_open_file(filename, lib_search_paths_, lib_suffixes[KICAD])
+        f, _ = find_and_open_file(filename, lib_search_paths_, lib_suffixes[KICAD])
     except Exception as e:
         raise Exception(
             'Unable to open KiCad Schematic Library File {} ({})'.format(
@@ -110,7 +110,7 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
 
     # Now add information from any associated DCM file.
     filename = os.path.splitext(filename)[0]  # Strip any extension.
-    f = find_and_open_file(
+    f, _ = find_and_open_file(
         filename, lib_search_paths_, '.dcm', allow_failure=True)
     if not f:
         return

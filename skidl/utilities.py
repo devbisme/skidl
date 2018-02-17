@@ -21,7 +21,6 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-
 """
 Utility functions.
 """
@@ -185,23 +184,30 @@ erc_logger = create_logger('ERC_Logger', 'ERC ', '.erc')
 
 def is_binary_file(filename):
     '''Return true if a file contains binary (non-text) characters.'''
-    text_chars = bytearray({7,8,9,10,12,13,27} | set(range(0x20,0x100)) - {0x7f})
+    text_chars = bytearray({7, 8, 9, 10, 12, 13, 27}
+                           | set(range(0x20, 0x100)) - {0x7f})
     try:
         with open(filename, 'rb') as fp:
             return bool(fp.read(1024).translate(None, text_chars))
     except (IOError, FileNotFoundError, TypeError):
         return False
 
-def find_and_open_file(filename, paths=None, ext=None, allow_failure=False, exclude_binary=False, descend=0):
+
+def find_and_open_file(filename,
+                       paths=None,
+                       ext=None,
+                       allow_failure=False,
+                       exclude_binary=False,
+                       descend=0):
     """
-    Search for a file in list of paths, open it and return file pointer.
+    Search for a file in list of paths, open it and return file pointer and full file name.
 
     Args:
         filename: Base file name (e.g., "my_file").
         paths: List of paths to search for the file.
         ext: The extension for the file (e.g., "txt").
         allow_failure: If false, failure to find file raises and exception.
-        exclude_binary: If true, don't return a file if it contains binary data.
+        exclude_binary: If true, skip files that contain binary data.
         descend: If 0, don't search lower-level directories. If positive, search
                  that many levels down for the file. If negative, descend into
                  subdirectories without limit.
@@ -219,11 +225,13 @@ def find_and_open_file(filename, paths=None, ext=None, allow_failure=False, excl
 
     # Search the paths for the file.
     for path in paths:
+        if not os.path.exists(path):
+            continue  # Skip paths that don't exist.
         abs_filename = os.path.join(path, fn_plus_ext)
         if not exclude_binary or not is_binary_file(abs_filename):
             try:
                 # The search stops once the file is successfully opened.
-                return open(abs_filename)
+                return open(abs_filename), abs_filename
             except (IOError, FileNotFoundError, TypeError):
                 pass
         # If file not found, look in subdirectories or go to next path.
@@ -232,13 +240,19 @@ def find_and_open_file(filename, paths=None, ext=None, allow_failure=False, excl
             dir_contents = [os.path.join(path, f) for f in os.listdir(path)]
             subdirs = [f for f in dir_contents if os.path.isdir(f)]
             if subdirs:
-                fp = find_and_open_file(filename, subdirs, ext, allow_failure=True, exclude_binary=exclude_binary, descend=descend-1)
+                fp, fn = find_and_open_file(
+                    filename=filename,
+                    paths=subdirs,
+                    ext=ext,
+                    allow_failure=True,
+                    exclude_binary=exclude_binary,
+                    descend=descend - 1)
                 if fp:
-                    return fp
+                    return fp, fn
 
     # Couldn't find the file.
     if allow_failure:
-        return None
+        return None, None
     else:
         logger.error("Can't open file: {}.\n".format(filename))
         raise FileNotFoundError

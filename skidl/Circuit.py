@@ -46,10 +46,6 @@ import inspect
 import time
 import graphviz
 
-from .py_2_3 import USING_PYTHON2, USING_PYTHON3
-if USING_PYTHON3:
-    from PySpice.Spice.Library import SpiceLibrary
-    from PySpice.Spice.Netlist import Circuit as PySpiceCircuit # Avoid clash with Circuit class below.
 
 from .pckg_info import __version__
 from .utilities import *
@@ -429,76 +425,33 @@ class Circuit(object):
             sys.stderr.write('{} errors found during ERC.\n\n'.format(
                 erc_logger.error.count))
 
-    def generate_pyspice_circuit(self, **kwargs):
+    def generate_netlist(self, **kwargs):
         """
-        Return a PySpice Circuit generated from a SKiDL circuit.
-        """
-
-        if USING_PYTHON2:
-            return None
-
-        from .libs.pyspice_sklib import add_spice_subcircuit
-
-        # Create an empty PySpice circuit.
-        title = kwargs.pop('title', '') # Get title and remove it from kwargs.
-        circuit = PySpiceCircuit(title)
-
-        # Add each part in the SKiDL circuit to the PySpice circuit.
-        for part in sorted(self.parts, key=lambda p: str(p.ref)):
-            # Add each part. All PySpice parts have an add_to_spice attribute
-            # and can be added directly. Other parts are added as subcircuits.
-            try:
-                part.pyspice['add'](part, circuit)
-            except (AttributeError, KeyError):
-                add_spice_subcircuit(part, circuit)
-
-        # Add any models used by the parts to the PySpice circuit.
-        lib_dirs = flatten([kwargs.get('libs', None)])
-        spice_libs = [SpiceLibrary(dir) for dir in lib_dirs]
-        included_models = set()
-        models = []
-        for part in self.parts:
-            try:
-                model = getattr(part, 'model')
-            except AttributeError:
-                pass
-            else:
-                for lib in spice_libs:
-                    try:
-                        lib_model = lib[model]
-                        if lib_model not in included_models:
-                            circuit.include(lib_model)
-                            included_models.add(lib_model)
-                    except KeyError:
-                        pass
-                    else:
-                        break
-                else:
-                    logger.error('Unknown SPICE model/subcircuit: {}'.format(model))
-                        
-        return circuit
-
-    def generate_netlist(self, file_=None, tool=None, do_backup=True):
-        """
-        Return a netlist as a string and also write it to a file/stream.
+        Return a netlist and also write it to a file/stream.
 
         Args:
-            file: Either a file object that can be written to, or a string
+            file_: Either a file object that can be written to, or a string
                 containing a file name, or None.
+            tool: The EDA tool the netlist will be generated for.
             do_backup: If true, create a library with all the parts in the circuit.
 
         Returns:
-            A string containing the netlist.
+            A netlist.
         """
 
         import skidl
 
-        if tool is None:
-            tool = skidl.get_default_tool()
+        # Extract arguments:
+        #     Get EDA tool the netlist will be generated for.
+        #     Get file the netlist will be stored in (if any).
+        #     Get flag controlling the generation of a backup library.
+        tool = kwargs.pop('tool', skidl.get_default_tool())
+        file_ = kwargs.pop('file_', None)
+        do_backup = kwargs.pop('do_backup', True)
 
         try:
             gen_func = getattr(self, '_gen_netlist_{}'.format(tool))
-            netlist = gen_func()
+            netlist = gen_func(**kwargs)  # Pass any remaining arguments.
         except KeyError:
             logger.error(
                 "Can't generate netlist in an unknown ECAD tool format ({}).".
@@ -517,7 +470,7 @@ class Circuit(object):
                     logger.error.count))
 
         with opened(file_ or (get_script_name() + '.net'), 'w') as f:
-            f.write(netlist)
+            f.write(str(netlist))
 
         if do_backup:
             self.backup_parts(

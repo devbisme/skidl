@@ -55,7 +55,7 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
     from ..utilities import find_and_open_file, logger
 
     try:
-        f = find_and_open_file(filename, lib_search_paths_, lib_suffixes[SKIDL])
+        f, _ = find_and_open_file(filename, lib_search_paths_, lib_suffixes[SKIDL])
     except Exception as e:
         raise Exception(
             'Unable to open SKiDL Schematic Library File {} ({})'.format(

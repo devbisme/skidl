@@ -18,6 +18,7 @@ if USING_PYTHON3:
     from PySpice import *
     from PySpice.Unit import *
     from .libs.pyspice_sklib import *
+    from .tools.spice import *
 
     _splib = SchLib('pyspice', tool=SKIDL)  # Read-in the SPICE part library.
 
@@ -26,3 +27,15 @@ if USING_PYTHON3:
     set_net_bus_prefixes('N', 'B')  # Use prefixes with no odd characters for SPICE.
 
     GND = gnd = Net('0')  # Instantiate the default ground net for SPICE.
+
+    # Place all the PySpice parts into the namespace so they can be instantiated easily.
+    _this_module = sys.modules[__name__]
+    for p in _splib.get_parts():
+        # Add the part name to the module namespace.
+        setattr(_this_module, p.name, p)
+        # Add all the part aliases to the module namespace.
+        try:
+            for alias in p.aliases:
+                setattr(_this_module, alias, p)
+        except AttributeError:
+            pass

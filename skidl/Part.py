@@ -49,7 +49,7 @@ from copy import copy
 
 # PySpice is not supported in Python 2, so need to make a dummy class to replicate
 # a class from PySpice.
-from .py_2_3 import USING_PYTHON2, USING_PYTHON3
+from .py_2_3 import *
 if USING_PYTHON3:
     from PySpice.Unit.Unit import UnitValue
 else:
@@ -651,7 +651,9 @@ class Part(object):
         if self.pins:
             pin_strs = [p.export() for p in self.pins]
             attribs.append('pins=[{}]'.format(','.join(pin_strs)))
-        return 'Part({})'.format(','.join(attribs))
+
+        # Return the string after removing all the non-ascii stuff (like ohm symbols).
+        return 'Part({})'.format(','.join(attribs)).encode('ascii', 'ignore').decode('utf-8')
 
     @property
     def ref(self):
