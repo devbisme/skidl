@@ -276,7 +276,8 @@ def _get_pos_args(part, pos_arg_names):
 def _get_kwargs(part, kw):
     '''Return a dict of keyword arguments to PySpice element constructor.'''
     kwargs = {}
-    for key in kw:
+
+    for key, param_name in kw.items():
         try:
             # If the keyword argument is a Part, then substitute the part
             # reference because it's probably a control current for something
@@ -284,12 +285,23 @@ def _get_kwargs(part, kw):
             # the keyword argument as-is.
             value = getattr(part, key)
             if isinstance(value, Part):
-                value = value.ref
+                kwargs.update({param_name: value.ref})
             elif isinstance(value, Net):
-                value = value.name
-            kwargs.update({key: value})
+                kwargs.update({param_name: node(value)})
+            else:
+                kwargs.update({param_name: value})
         except AttributeError:
             pass
+
+    for pin in part.pins:
+        if pin.is_connected():
+            try:
+                param_name = kw[pin.name]
+                print(param_name, pin)
+                kwargs.update({param_name: node(pin)})
+            except KeyError:
+                logger.error('Part {}-{} has no {} pin: {}'.format(part.ref, part.name, pin.name, part))
+
     return kwargs
 
 
@@ -314,27 +326,13 @@ def add_part_to_circuit(part, circuit):
         circuit: PySpice Circuit object.
     '''
 
-    pos = part.pyspice['pos']
     kw = part.pyspice['kw']
-    optional_pins = part.pyspice.get('optional_pins', None)
 
     # Positional arguments start with the device name.
     args = [_get_spice_ref(part)]
 
-    # Then add the net connections to the device unless it has optional pins
-    # like the substrate connection of a MOSFET. In that case, they'll get
-    # added as keyword arguments below.
-    if not optional_pins:
-        args.extend(_get_net_names(part))
-
-    # Then add any additional positional arguments.
-    args.extend(_get_pos_args(part, pos))
     # Get keyword arguments.
     kwargs = _get_kwargs(part, kw)
-
-    # If the device has optional pins, add all pins as keyword arguments.
-    if optional_pins:
-        kwargs.update(_get_optional_pin_nets(part, optional_pins))
 
     # Add the part to the PySpice circuit.
     print('Adding {}-{} to PySpice Circuit object.'.format(part.name, part.ref))
