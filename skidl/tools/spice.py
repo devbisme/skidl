@@ -60,6 +60,7 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
 
     Args:
         filename: The name of the SPICE library file.
+        lib_search_paths_ : List of directories to search for the file.
     """
 
     from ..skidl import lib_suffixes
@@ -69,10 +70,11 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
     # Try to open the file. Add a .lib extension if needed. If the file
     # doesn't open, then try looking in the KiCad library directory.
     try:
-        f, filename = find_and_open_file(
+        f, filepath = find_and_open_file(
             filename,
             lib_search_paths_,
             lib_suffixes[SPICE],
+            allow_failure=False,
             exclude_binary=True,
             descend=-1)
     except Exception as e:
@@ -98,7 +100,7 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
             part = _mk_subckt_part(line)  # Create un-filled part template.
 
             # Flesh-out the part.
-            part.filename = filename  # Store filename where this part came from.
+            part.filename = filepath  # Store filename where this part came from.
 
             # Parse the part definition.
             pieces = part.part_defn.split()
@@ -112,13 +114,10 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
                     part.part_defn))
             else:
                 # Now find a symbol file for the part to assign names to the pins.
+                # First, check for LTSpice symbol file.
                 sym_file, _ = find_and_open_file(
-                    part.name,
-                    lib_search_paths_,
-                    '.asy',
-                    allow_failure=True,
-                    exclude_binary=True,
-                    descend=-1)
+                    part.name, lib_search_paths_, '.asy',
+                    allow_failure=True, exclude_binary=True, descend=-1)
                 if sym_file:
                     pin_names = []
                     pin_indices = []
@@ -135,6 +134,26 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
                     # order of the pins in the .subckt file.
                     for index, name in zip(pin_indices, pin_names):
                         part.pins[int(index) - 1].name = name
+                else:
+                    # No LTSpice symbol file, so check for PSPICE symbol file.
+                    sym_file, diag = find_and_open_file(
+                        filename, lib_search_paths_, '.slb',
+                        allow_failure=True, exclude_binary=True, descend=-1)
+                    if sym_file:
+                        pin_names = []
+                        active = False
+                        for sym_line in sym_file:
+                            line_parts = sym_line.lower().split()
+                            if line_parts[0] == '*symbol':
+                                active = (line_parts[1]==part.name.lower())
+                            if active:
+                                if line_parts[0] == 'p':
+                                    pin_names.append(line_parts[6])
+                                elif line_parts[0] == 'd':
+                                    part.description = ' '.join(line_parts[1:])
+                        pin_indices = list(range(len(pin_names)))
+                        for pin, name in zip(part.pins, pin_names):
+                            pin.name = name
 
             # Remove the part definition string since we're done parsing it.
             self.part_defn = None
@@ -243,34 +262,12 @@ def node(net_or_pin):
     if isinstance(net_or_pin, Pin):
         return net_or_pin.net.name
 
+
 def _get_spice_ref(part):
     '''Return a SPICE reference ID for the part.'''
     if part.ref.startswith(part.ref_prefix):
         return part.ref[len(part.ref_prefix):]
     return part.ref
-
-
-def _get_net_names(part):
-    '''Return a list of net names attached to the pins of a part.'''
-    return [node(pin) for pin in part.pins if pin.is_connected()]
-
-
-def _get_pos_args(part, pos_arg_names):
-    '''Return the values for positional arguments to PySpice element constructor.'''
-    pos_arg_values = []
-    for name in pos_arg_names:
-        try:
-            # If the positional argument is a Part, then substitute the part
-            # reference because it's probably a control current for something
-            # like a current-controlled source or switch. Otherwise, just use
-            # the positional argument as-is.
-            value = getattr(part, name)
-            if isinstance(value, Part):
-                value = value.ref
-            pos_arg_values.append(value)
-        except AttributeError:
-            pass
-    return pos_arg_values
 
 
 def _get_kwargs(part, kw):
@@ -279,42 +276,34 @@ def _get_kwargs(part, kw):
 
     for key, param_name in kw.items():
         try:
-            # If the keyword argument is a Part, then substitute the part
-            # reference because it's probably a control current for something
-            # like a current-controlled source or switch. Otherwise, just use
-            # the keyword argument as-is.
-            value = getattr(part, key)
-            if isinstance(value, Part):
-                kwargs.update({param_name: value.ref})
-            elif isinstance(value, Net):
-                kwargs.update({param_name: node(value)})
-            else:
-                kwargs.update({param_name: value})
+            # The key indicates some attribute of the part.
+            part_attr = getattr(part, key)
         except AttributeError:
             pass
+        else:
+            # If the keyword argument is a Part, then substitute the part
+            # reference because it's probably a control current for something
+            # like a current-controlled source or switch.
+            if isinstance(part_attr, Part):
+                kwargs.update({param_name: part_attr.ref})
+            # If the keyword argument is a Net, substitute the net name.
+            elif isinstance(part_attr, Net):
+                kwargs.update({param_name: node(part_attr)})
+            # If the keyword argument is a Pin, skip it. It gets handled below.
+            elif isinstance(part_attr, Pin):
+                continue
+            else:
+                kwargs.update({param_name: part_attr})
 
     for pin in part.pins:
         if pin.is_connected():
             try:
                 param_name = kw[pin.name]
-                print(param_name, pin)
                 kwargs.update({param_name: node(pin)})
             except KeyError:
                 logger.error('Part {}-{} has no {} pin: {}'.format(part.ref, part.name, pin.name, part))
 
     return kwargs
-
-
-def _get_optional_pin_nets(part, optional_pins):
-    pins = {}
-    for pin in part.pins:
-        if pin.is_connected():
-            try:
-                pin_key = optional_pins[pin.name]
-                pins[pin_key] = node(pin)
-            except KeyError:
-                logger.error('Part {}-{} has no {} pin: {}'.format(part.ref, part.name, pin.name, part))
-    return pins
 
 
 def add_part_to_circuit(part, circuit):
@@ -335,10 +324,12 @@ def add_part_to_circuit(part, circuit):
     kwargs = _get_kwargs(part, kw)
 
     # Add the part to the PySpice circuit.
-    print('Adding {}-{} to PySpice Circuit object.'.format(part.name, part.ref))
-    print('args:', args)
-    print('kwargs:', kwargs)
     getattr(circuit, part.pyspice['name'])(*args, **kwargs)
+
+
+def _get_net_names(part):
+    '''Return a list of net names attached to the pins of a part.'''
+    return [node(pin) for pin in part.pins if pin.is_connected()]
 
 
 def add_subcircuit_to_circuit(part, circuit):
