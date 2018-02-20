@@ -4,6 +4,15 @@ History
 -------
 
 
+0.0.19 (2018-02-20)
+______________________
+
+* Selecting part pins now looks for exact match before falling back to regex matching.
+* PySpice now needs to be manually installed to perform SPICE simulations.
+* SPICE simulations of subcircuits (.SUBCKT) now supported.
+* Improvements/additions to the library of supported SPICE parts.
+
+
 0.0.18 (2018-02-07)
 ______________________
 
