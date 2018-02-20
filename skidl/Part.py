@@ -47,12 +47,11 @@ except ImportError:
 
 from copy import copy
 
-# PySpice is not supported in Python 2, so need to make a dummy class to replicate
-# a class from PySpice.
-from .py_2_3 import *
-if USING_PYTHON3:
+try:
     from PySpice.Unit.Unit import UnitValue
-else:
+except ImportError:
+    # PySpice is not supported in Python 2, so need to make a dummy class
+    # to replicate a class from PySpice.
     class UnitValue:
         pass
 

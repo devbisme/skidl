@@ -14,12 +14,14 @@ Import this file to reconfigure SKiDL for doing SPICE simulations.
 from skidl import *
 
 # PySpice only works with Python 3, so don't set up SPICE simulation for Python 2.
-if USING_PYTHON3:
+try:
     from PySpice import *
     from PySpice.Unit import *
     from .libs.pyspice_sklib import *
     from .tools.spice import *
-
+except ImportError:
+    pass
+else:
     _splib = SchLib('pyspice', tool=SKIDL)  # Read-in the SPICE part library.
 
     set_default_tool(SPICE)     # Set the library format for reading SKiDL libraries.

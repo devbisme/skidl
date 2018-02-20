@@ -46,9 +46,12 @@ from ..Part import Part
 from ..Net import Net
 from ..Pin import Pin
 
-if USING_PYTHON3:
+# PySpice may not be installed, particularly under Python 2.
+try:
     from PySpice.Spice.Library import SpiceLibrary
     from PySpice.Spice.Netlist import Circuit as PySpiceCircuit # Avoid clash with Circuit class below.
+except ImportError:
+    pass
 
 tool_name = SPICE
 lib_suffix = '.lib'
