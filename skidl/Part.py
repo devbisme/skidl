@@ -400,13 +400,27 @@ class Part(object):
         for p_id in expand_indices(self.min_pin, self.max_pin, *pin_ids):
 
             # Does pin ID (either integer or string) match a pin number...
-            tmp_pins = filter_list(self.pins, num=str(p_id), **criteria)
+            tmp_pins = filter_list(self.pins, num=re.escape(str(p_id)), **criteria)
             if tmp_pins:
                 pins.extend(tmp_pins)
                 continue
 
-            # OK, pin ID is not a pin number. Does it match a substring
-            # within a pin name or alias?
+            # OK, assume it's not a pin number but a pin name. Look for an
+            # exact match.
+            name = '^' + re.escape(p_id) + '$'
+            tmp_pins = filter_list(self.pins, name=name, **criteria)
+            if tmp_pins:
+                pins.extend(tmp_pins)
+                continue
+
+            # OK, now check pin aliases for an exact match.
+            tmp_pins = filter_list(self.pins, alias=name, **criteria)
+            if tmp_pins:
+                pins.extend(tmp_pins)
+                continue
+
+            # OK, pin ID is not a pin number and doesn't exactly match a pin
+            # name. Does it match a substring within a pin name or alias?
             loose_p_id = ''.join(['.*', p_id, '.*'])
             pins.extend(filter_list(self.pins, name=loose_p_id, **criteria))
             loose_pin_alias = Alias(loose_p_id, id(self))
