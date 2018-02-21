@@ -399,21 +399,20 @@ class Part(object):
         for p_id in expand_indices(self.min_pin, self.max_pin, *pin_ids):
 
             # Does pin ID (either integer or string) match a pin number...
-            tmp_pins = filter_list(self.pins, num=re.escape(str(p_id)), do_str_match=True, **criteria)
+            tmp_pins = filter_list(self.pins, num=str(p_id), do_str_match=True, **criteria)
             if tmp_pins:
                 pins.extend(tmp_pins)
                 continue
 
             # OK, assume it's not a pin number but a pin name. Look for an
             # exact match.
-            name = '^' + re.escape(p_id) + '$'
-            tmp_pins = filter_list(self.pins, name=name, do_str_match=True, **criteria)
+            tmp_pins = filter_list(self.pins, name=p_id, do_str_match=True, **criteria)
             if tmp_pins:
                 pins.extend(tmp_pins)
                 continue
 
             # OK, now check pin aliases for an exact match.
-            tmp_pins = filter_list(self.pins, alias=name, do_str_match=True, **criteria)
+            tmp_pins = filter_list(self.pins, alias=p_id, do_str_match=True, **criteria)
             if tmp_pins:
                 pins.extend(tmp_pins)
                 continue
