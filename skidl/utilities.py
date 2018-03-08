@@ -427,9 +427,9 @@ def filter_list(lst, **criteria):
     # If do_str_match is False, then do regex matching.
     # If do_str_match is True, then do simple string matching.
     if criteria.pop('do_str_match', False):
-        compare_func = fullmatch
-    else:
         compare_func = strmatch
+    else:
+        compare_func = fullmatch
 
     # Place any matching objects from the list in here.
     extract = []

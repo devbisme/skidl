@@ -86,15 +86,14 @@ def search(term, tool=None):
                 # each of the these categories.
                 for category in ['name', 'alias', 'description', 'keywords']:
                     for part in mk_list(lib.get_parts(**{category: term})):
-                        part.parse(
-                        )  # Parse the part to instantiate the complete object.
-                        parts.add(
-                            (lib_file,
-                             part))  # Store the library name and part object.
+                        # Parse the part to instantiate the complete object.
+                        part.parse()
+                        # Store the library name and part object.
+                        parts.add((lib_file, part))
                 print(' ' * 79, end='\r')
 
-        return list(
-            parts)  # Return the list of parts and their containing libraries.
+        # Return the list of parts and their containing libraries.
+        return list(parts)
 
     if tool is None:
         tool = skidl.get_default_tool()
