@@ -64,7 +64,7 @@ def search(term, tool=None):
                 lib_files = list(
                 )  # Empty list since library directory was not found.
             lib_files = [
-                l for l in lib_files if l.endswith(lib_suffixes[tool])
+                l for l in lib_files if l.endswith(skidl.lib_suffixes[tool])
             ]
 
             for lib_file in lib_files:
