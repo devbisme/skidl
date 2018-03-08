@@ -8,11 +8,11 @@ def test_name_1():
     vreg1.ref = 'U1'
     assert vreg1.ref == 'U1'
     bus1 = Bus(None)
-    assert bus1.name == 'B$1'
-    bus1 = Bus('B1')
-    assert bus1.name == 'B1'
-    bus1.name = 'B1'
-    assert bus1.name == 'B1'
+    assert bus1.name == BUS_PREFIX + '1'
+    bus1 = Bus('T1')
+    assert bus1.name == 'T1'
+    bus1.name = 'T1'
+    assert bus1.name == 'T1'
 
 def test_name_2():
     b = Bus('A',2)

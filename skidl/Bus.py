@@ -86,8 +86,7 @@ class Bus(object):
 
         # Add the bus to the circuit.
         self.circuit = None  # Bus won't get added if it's already seen as part of circuit.
-        attribs[
-            'circuit'] += self  # Add bus to circuit. This also sets self.circuit again.
+        attribs['circuit'] += self  # Add bus to circuit. This also sets self.circuit again.
 
         # Build the bus from net widths, existing nets, nets of pins, other buses.
         self.extend(args)
@@ -337,8 +336,6 @@ class Bus(object):
 
     @name.setter
     def name(self, name):
-        from .defines import BUS_PREFIX
-
         # Remove the existing name so it doesn't cause a collision if the
         # object is renamed with its existing name.
         self._name = None
