@@ -4,6 +4,13 @@ History
 -------
 
 
+0.0.20 (2018-03-08)
+______________________
+
+* Matching of pin lists now begins with normal string matching before using regexes.
+* Added more tests and fixed existing tests.
+
+
 0.0.19 (2018-02-20)
 ______________________
 
