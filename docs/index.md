@@ -934,6 +934,77 @@ Exception
 ```
 
 
+## Units Within Parts
+
+Some components may contain smaller *units* that operate independently of the
+component as a whole.
+For example, an operational amplifier chip might contain two individual opamp units,
+each capable of operating on their own set of inputs and outputs.
+
+Some library parts may already have predefined units, but you can add them to
+any part.
+For example, a four-pin *resistor network* might contain two resistors:
+one attached between pins 1 and 4, and the other bewtween pins 2 and 3.
+Each resistor could be assigned to a unit as follows:
+
+```terminal
+>>> rn = Part('device', 'R_Pack02')
+>>> rn.make_unit('A', 1, 4)  # Make a unit called 'A' for the first resistor.
+
+ R_Pack02 (): 2 Resistor network, parallel topology, DIP package
+    Pin RN1/4/R1.2/PASSIVE
+    Pin RN1/1/R1.1/PASSIVE
+>>> rn.make_unit('B', 2, 3)  # Now make a unit called 'B' for the second resistor.
+
+ R_Pack02 (): 2 Resistor network, parallel topology, DIP package
+    Pin RN1/2/R2.1/PASSIVE
+    Pin RN1/3/R2.2/PASSIVE
+>>> rn.unit['A'][1, 4] += Net(), Net()
+```
+
+Once the units are defined, you can use them just like any part:
+
+```terminal
+>>> rn.unit['A'][1,4] += Net(), Net()  # Connect resistor A to two nets.
+>>> rn.unit['B'][2,3] += rn.unit['A'][1,4]  # Connect resistor B in parallel with resistor A.
+```
+
+Now this isn't all that useful because you still have to remeber which pins
+are assigned to each unit, and if you wanted to swap the resistors you would have
+to change the unit names *and the pins numbers!*.
+In order to get around this inconvenience, you could assign *aliases* to each
+pin like this:
+
+```terminal
+>>> rn = Part('device', 'R_Pack02')
+>>> rn.make_unit('A', 1, 4)
+
+ R_Pack02 (): 2 Resistor network, parallel topology, DIP package
+    Pin RN1/4/R1.2/PASSIVE
+    Pin RN1/1/R1.1/PASSIVE
+>>> rn.make_unit('B', 2, 3)
+
+ R_Pack02 (): 2 Resistor network, parallel topology, DIP package
+    Pin RN1/3/R2.2/PASSIVE
+    Pin RN1/2/R2.1/PASSIVE
+>>> rn.unit['A'].set_pin_alias('L',1) # Alias 'L' of pin 1 on left-side of package.
+>>> rn.unit['A'].set_pin_alias('R',4) # Alias 'R' of pin 4 on right-side of package.
+>>> rn.unit['B'].set_pin_alias('L',2) # Alias 'L' of pin 2 on left-side.
+>>> rn.unit['B'].set_pin_alias('R',3) # Alias 'R' of pin 3 on right-side.
+```
+
+Now the same connections can be made using the pin aliases:
+
+```terminal
+>>> rn.unit['A']['L,R'] += Net(), Net()  # Connect resistor A to two nets.
+>>> rn.unit['B']['L,R'] += rn.unit['A']['L,R']  # Connect resistor B in parallel with resistor A.
+```
+
+In this case, if you wanted to swap the A and B resistors, you only need to change
+their unit labels.
+The pin aliases don't need to be altered.
+
+
 ## Hierarchy
 
 SKiDL supports the encapsulation of parts, nets and buses into modules
@@ -1415,10 +1486,11 @@ Naturally, the presence of multiple, independent circuits creates the possibilit
 new types of errors.
 Here are a few things you can't do (and will get warned about):
 
-* You can't connect parts, nets or buses in different Circuit objects.
+* You can't make connections between parts, nets or buses that reside in 
+  different Circuit objects.
 
-* Once a part, net, or bus has something connected to it, it can't be moved
-  to a different Circuit object.
+* Once a part, net, or bus is connected to something else in a Circuit object,
+  it can't be moved to a different Circuit object.
 
 
 # Converting Existing Designs to SKiDL

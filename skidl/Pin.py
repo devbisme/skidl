@@ -38,6 +38,7 @@ standard_library.install_aliases()
 from copy import copy
 
 from .utilities import *
+from .Alias import *
 
 
 class Pin(object):
@@ -205,6 +206,13 @@ class Pin(object):
             # Connect the new pin to the same net as the original.
             if self.nets:
                 self.nets[0] += cpy
+
+            # Copy the alias for the pin if it has one.
+            try:
+                cpy.alias = Alias(self.alias.name, id(cpy))
+            except AttributeError:
+                # Pin has no alias.
+                pass
 
             # Attach additional attributes to the pin.
             for k, v in attribs.items():

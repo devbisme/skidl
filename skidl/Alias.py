@@ -54,6 +54,13 @@ class Alias(object):
         self.name = name
         self.id_ = id_tag
 
+    def __str__(self):
+        """Return the alias."""
+        # This function was added to make filter_list simpler when searching
+        # for an alias in a list of pins since the actual name is hidden
+        # as an attribute of the Alias class.
+        return str(self.name)
+
     def __eq__(self, other):
         """
         Return true if one alias is equal to another.

@@ -302,6 +302,15 @@ class Part(object):
             # Make sure all the pins have a reference to this new part copy.
             cpy.associate_pins()
 
+            # Make copies of the units in the new part copy.
+            for label in self.unit:
+                # Get the pin numbers from the unit in the original.
+                unit = self.unit[label]
+                pin_nums = [p.num for p in unit.pins]
+
+                # Make a unit in the part copy with the same pin numbers.
+                cpy.make_unit(label, *pin_nums)
+
             # Clear the part reference of the copied part so a unique reference
             # can be assigned when the part is added to the circuit.
             # (This is not strictly necessary since the part reference will be
@@ -425,6 +434,11 @@ class Part(object):
             pins.extend(
                 filter_list(self.pins, alias=loose_pin_alias, **criteria))
 
+        # It's possible we've picked-up some pins multiple times because
+        # both their names and aliases matched or there were overlapping pin ids.
+        # Remove the duplicates.
+        pins = NetPinList(set(pins))
+
         return list_or_scalar(pins)
 
     # Get pins from a part using brackets, e.g. [1,5:9,'A[0-9]+'].
@@ -494,7 +508,6 @@ class Part(object):
             3) the part has no pins (which can be the case for mechanical parts,
                silkscreen logos, or other non-electrical schematic elements).
         """
-
         from .Circuit import Circuit
 
         return not isinstance(
@@ -502,16 +515,33 @@ class Part(object):
             Circuit) or not self.is_connected() or not self.pins
 
     def set_pin_alias(self, alias, *pin_ids, **criteria):
+        """
+        Set the alias for a part pin.
+
+        Args:
+            alias: The alias for the pin.
+            pin_ids: A list of strings containing pin names, numbers,
+                regular expressions, slices, lists or tuples.
+
+        Keyword Args:
+            criteria: Key/value pairs that specify attribute values the
+                pin must have in order to be selected.
+
+        Returns:
+            Nothing.
+        """
+
         from .Alias import Alias
 
-        pins = to_list(self.get_pins(*pin_ids, **criteria))
-        if not pins:
-            logger.error("Trying to alias a non-existent pin.")
-        if len(pins) > 1:
-            logger.error("Trying to give more than one pin the same alias.")
+        pin = self.get_pins(*pin_ids, **criteria)
+        if pin is None:
+            logger.error('Cannot set alias for non-existent pin.')
             raise Exception
-        for pin in pins:
-            pin.alias = Alias(alias, id(self))
+        elif isinstance(pin, list):
+            logger.error('Cannot use the same alias for multiple pins.')
+            raise Exception
+        else:
+            setattr(pin, 'alias', Alias(alias, id(pin)))
 
     def make_unit(self, label, *pin_ids, **criteria):
         """
@@ -533,11 +563,14 @@ class Part(object):
             The PartUnit.
         """
 
+        # Warn if the unit label collides with any of the part's pin names.
         collisions = self.get_pins(label)
         if collisions:
             logger.warning(
                 "Using a label ({}) for a unit of {} that matches one or more of it's pin names ({})!".
                 format(label, self.erc_desc(), collisions))
+
+        # Create the part unit.
         self.unit[label] = PartUnit(self, *pin_ids, **criteria)
         return self.unit[label]
 
@@ -799,18 +832,24 @@ class PartUnit(Part):
         for k, v in part.__dict__.items():
             self.__dict__[k] = v
 
+        # Don't associate any units from the parent with this unit itself.
+        self.unit = {}
+
         # Remove the pins copied from the parent and replace them with
         # pins selected from the parent.
         self.pins = []
-        self._add_pins(*pin_ids, **criteria)
+        self.add_pins_from_parent(*pin_ids, **criteria)
 
-    def _add_pins(self, *pin_ids, **criteria):
+    def add_pins_from_parent(self, *pin_ids, **criteria):
         """
         Add selected pins from the parent to the part unit.
         """
-        try:
-            unique_pins = set(self.pins)
-        except (AttributeError, TypeError):
-            unique_pins = set()
-        unique_pins |= set(to_list(self.parent.get_pins(*pin_ids, **criteria)))
-        self.pins = list(unique_pins)
+
+        # Start with any existing pins the PartUnit already has.
+        pins = set(self.pins)
+
+        # Add pins from parent that match the ids and criteria.
+        pins |= set(to_list(self.parent.get_pins(*pin_ids, **criteria)))
+
+        # Convert set of pins back into a list.
+        self.pins = list(pins)
