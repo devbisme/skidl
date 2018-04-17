@@ -388,7 +388,7 @@ class Part(object):
                 atmega = Part('atmel', 'ATMEGA16U2')
                 net = Net()
                 atmega[1] += net  # Connects pin 1 of chip to the net.
-                net += atmega['.*RESET.*']  # Connects reset pin to the net.
+                net += atmega['RESET']  # Connects reset pin to the net.
         """
 
         from .NetPinList import NetPinList
@@ -427,17 +427,20 @@ class Part(object):
                 continue
 
             # OK, pin ID is not a pin number and doesn't exactly match a pin
-            # name. Does it match a substring within a pin name or alias?
-            loose_p_id = ''.join(['.*', p_id, '.*'])
-            pins.extend(filter_list(self.pins, name=loose_p_id, **criteria))
-            loose_pin_alias = Alias(loose_p_id, id(self))
-            pins.extend(
-                filter_list(self.pins, alias=loose_pin_alias, **criteria))
+            # name or alias. Does it match a substring within a pin name?
+            p_id_re = ''.join(['.*', p_id, '.*'])
+            tmp_pins = filter_list(self.pins, name=p_id_re, **criteria)
+            if tmp_pins:
+                pins.extend(tmp_pins)
+                continue
 
-        # It's possible we've picked-up some pins multiple times because
-        # both their names and aliases matched or there were overlapping pin ids.
-        # Remove the duplicates.
-        pins = NetPinList(set(pins))
+            # Pin ID didn't match a substring in the pin names, so now check
+            # the pin aliases.
+            p_id_re_alias = Alias(p_id_re, id(self))
+            tmp_pins = filter_list(self.pins, alias=p_id_re_alias, **criteria)
+            if tmp_pins:
+                pins.extend(tmp_pins)
+                continue
 
         return list_or_scalar(pins)
 
