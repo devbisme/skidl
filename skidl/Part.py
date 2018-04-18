@@ -271,6 +271,7 @@ class Part(object):
 
         from .defines import NETLIST
         from .Circuit import Circuit
+        from .Pin import Pin
 
         num_copies = max(num_copies, find_num_copies(**attribs))
 
@@ -293,11 +294,16 @@ class Part(object):
             # Make a shallow copy of the part.
             cpy = copy(self)
 
+            # Remove any existing Pin and PartUnit attributes so new ones
+            # can be made in the copy without generating warning messages.
+            rmv_attrs = [k for k,v in cpy.__dict__.items() if isinstance(v, (Pin, PartUnit))]
+            for attr in rmv_attrs:
+                delattr(cpy, attr)
+
             # The shallow copy will just put references to the pins of the
             # original into the copy, so create independent copies of the pins.
             cpy.pins = []
-            for p in getattr(self, 'pins', None):
-                cpy.pins.append(p.copy())
+            cpy += [p.copy() for p in self.pins] # Add pin and its attribute.
 
             # Make sure all the pins have a reference to this new part copy.
             cpy.associate_pins()
@@ -360,6 +366,10 @@ class Part(object):
         for pin in flatten(pins):
             pin.part = self
             self.pins.append(pin)
+            # Create attributes so pin can be accessed by name or number such
+            # as part.ENBL or part.p5.
+            add_unique_attr(self, pin.name, pin)
+            add_unique_attr(self, 'p'+str(pin.num), pin)
         return self
 
     __iadd__ = add_pins
@@ -545,6 +555,7 @@ class Part(object):
             raise Exception
         else:
             setattr(pin, 'alias', Alias(alias, id(pin)))
+            add_unique_attr(self, alias, pin)
 
     def make_unit(self, label, *pin_ids, **criteria):
         """
@@ -575,6 +586,7 @@ class Part(object):
 
         # Create the part unit.
         self.unit[label] = PartUnit(self, *pin_ids, **criteria)
+        add_unique_attr(self, label, self.unit[label])
         return self.unit[label]
 
     def _get_fields(self):
@@ -582,14 +594,17 @@ class Part(object):
         Return a list of component field names.
         """
 
+        from .Pin import Pin
+
         # Get all the component attributes and subtract all the ones that
         # should not appear under "fields" in the netlist or XML.
-        fields = set(self.__dict__.keys())
+		# Also, skip all the Pin and PartUnit attributes.
+        fields = set([k for k,v in self.__dict__.items() if not isinstance(v, (Pin,PartUnit))])
         non_fields = set([
             'name', 'min_pin', 'max_pin', 'hierarchy', '_value', '_ref',
             'ref_prefix', 'unit', 'num_units', 'part_defn', 'definition',
             'fields', 'draw', 'lib', 'fplist', 'do_erc', 'aliases', 'tool',
-            'pins', 'footprint', 'circuit'
+            'pins', 'footprint', 'circuit', 'skidl_trace'
         ])
         return list(fields - non_fields)
 
@@ -848,11 +863,13 @@ class PartUnit(Part):
         Add selected pins from the parent to the part unit.
         """
 
-        # Start with any existing pins the PartUnit already has.
-        pins = set(self.pins)
+        # Get new pins selected from the parent.
+        new_pins = to_list(self.parent.get_pins(*pin_ids, **criteria))
 
-        # Add pins from parent that match the ids and criteria.
-        pins |= set(to_list(self.parent.get_pins(*pin_ids, **criteria)))
+        # Add attributes for accessing the new pins.
+        for pin in new_pins:
+            add_unique_attr(self, 'p'+str(pin.num), pin)
+            add_unique_attr(self, pin.name, pin)
 
-        # Convert set of pins back into a list.
-        self.pins = list(pins)
+        # Add new pins to existing pins of the unit, removing duplicates.
+        self.pins = list(set(self.pins + new_pins))

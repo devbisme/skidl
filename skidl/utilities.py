@@ -258,6 +258,13 @@ def find_and_open_file(filename,
         raise FileNotFoundError
 
 
+def add_unique_attr(obj, name, value):
+    """Create an attribute if the attribute name isn't already used."""
+    setattr(obj, name, getattr(obj, name, value))
+    if id(getattr(obj, name)) != id(value):
+        logger.warn('Unable to create attribute {name} of type {typ1} because one already exists of type {typ2} in {obj}'.format(name=name, typ1=type(value), typ2=type(getattr(obj,name)), obj=str(obj)))
+
+
 def add_quotes(s):
     """Return string with added quotes if it contains whitespace or parens."""
     if not isinstance(s, basestring):
