@@ -260,6 +260,62 @@ class Net(object):
     __rmul__ = copy
     __call__ = copy
 
+    def __getitem__(self, *ids):
+        """
+        Return the net if the indices resolve to a single index of 0.
+
+        Args:
+            ids: A list of indices. These can be individual
+                numbers, net names, nested lists, or slices.
+
+        Returns:
+            The net, otherwise None or raises an Exception.
+        """
+
+        # Resolve the indices.
+        indices = list(set(expand_indices(0, self.width-1, ids)))
+        if indices is None or len(indices)==0:
+            return None
+        if len(indices) > 1:
+            logger.error("Can't index a net with multiple indices.")
+            raise Exception
+        if indices[0] != 0:
+            logger.error("Can't use a non-zero index for a net.")
+            raise Exception
+        return self
+
+    def __setitem__(self, ids, *pins_nets_buses):
+        """
+        You can't assign to Nets. You must use the += operator.
+
+        This method is a work-around that allows the use of the += for making
+        connections to nets while prohibiting direct assignment. Python
+        processes something like net[0] += Pin() as follows::
+
+            1. Net.__getitem__ is called with '0' as the index. This
+               returns a single Net.
+            2. The Net.__iadd__ method is passed the net and
+               the thing to connect to it (a Pin in this case). This
+               method makes the actual connection to the pin. Then
+               it creates an iadd_flag attribute in the object it returns.
+            3. Finally, Net.__setitem__ is called. If the iadd_flag attribute
+               is true in the passed argument, then __setitem__ was entered
+               as part of processing the += operator. If there is no
+               iadd_flag attribute, then __setitem__ was entered as a result
+               of using a direct assignment, which is not allowed.
+        """
+
+        # If the iadd_flag is set, then it's OK that we got
+        # here and don't issue an error. Also, delete the flag.
+        if getattr(pins_nets_buses[0], 'iadd_flag', False):
+            del pins_nets_buses[0].iadd_flag
+            return
+
+        # No iadd_flag or it wasn't set. This means a direct assignment
+        # was made to the pin, which is not allowed.
+        logger.error("Can't assign to a Net! Use the += operator.")
+        raise Exception
+
     def is_implicit(self, net_name=None):
         """Return true if the net name is implicit."""
 

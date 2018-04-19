@@ -260,7 +260,7 @@ class Bus(object):
         connections to bus lines while prohibiting direct assignment. Python
         processes something like my_bus[7:0] += 8 * Pin() as follows::
 
-            1. Part.__getitem__ is called with '7:0' as the index. This
+            1. Bus.__getitem__ is called with '7:0' as the index. This
                returns a NetPinList of eight nets from my_bus.
             2. The NetPinList.__iadd__ method is passed the NetPinList and
                the thing to connect to the it (eight pins in this case). This

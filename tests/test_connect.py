@@ -29,14 +29,14 @@ def test_connect_2():
     vin = Net('Vin')
     vout = Net('Vout')
     gnd += vreg1[1]
-    vin += vreg1[2]
-    vout += vreg1[3]
-    vreg2[1, 2, 3] += gnd, vin, vout
+    vin += vreg1.p2
+    vout += vreg1.IN, vreg1.HS
+    vreg2[1, 2, 3, 'HS'] += gnd, vin, vout, vout
     assert vreg1.is_connected() == True
     assert vreg2.is_connected() == True
     assert len(gnd) == 2
     assert len(vin) == 2
-    assert len(vout) == 2
+    assert len(vout) == 4
 
 
 def test_connect_3():
@@ -126,3 +126,27 @@ def test_connect_7():
     assert len(n1) == 3
     assert len(n2) == 3
     assert n2.is_attached(n1)
+
+def test_connect_8():
+    n1 = Net()
+    p1, p2, p3 = 3 * Pin()
+    n1[0] += p1, p2, p3
+    assert len(n1) == 3
+
+def test_connect_9():
+    n1 = Net()
+    p1, p2, p3 = 3 * Pin()
+    n1[:] += p1, p2, p3
+    assert len(n1) == 3
+
+def test_connect_10():
+    n1 = Net()
+    p1, p2, p3 = 3 * Pin()
+    with pytest.raises(Exception):
+        n1[1] += p1, p2, p3
+
+def test_connect_11():
+    n1 = Net()
+    p1, p2, p3 = 3 * Pin()
+    n1[:] += p1, p2, p3[:]
+    assert len(n1) == 3
