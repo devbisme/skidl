@@ -360,3 +360,8 @@ class Bus(object):
     def __len__(self):
         """Return the number of nets in this bus."""
         return len(self.nets)
+
+    @property
+    def width(self):
+        """Return width of a Bus, which is the same as using the len() operator."""
+        return len(self)

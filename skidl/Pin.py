@@ -391,6 +391,11 @@ class Pin(object):
             return self.nets[0]
         return None
 
+    @property
+    def width(self):
+        """Return width of a Pin, which is always 1."""
+        return 1
+
 
 ##############################################################################
 

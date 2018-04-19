@@ -581,6 +581,11 @@ class Net(object):
         return len(pins)
 
     @property
+    def width(self):
+        """Return width of a Net, which is always 1."""
+        return 1
+
+    @property
     def name(self):
         """
         Get, set and delete the name of this net.

@@ -38,6 +38,7 @@ from .utilities import *
 
 
 class NetPinList(list):
+
     def __iadd__(self, *nets_pins_buses):
 
         from .Net import Net
@@ -73,3 +74,8 @@ class NetPinList(list):
         self.iadd_flag = True  # pylint: disable=attribute-defined-outside-init
 
         return self
+
+    @property
+    def width(self):
+        """Return width, which is the same as using the len() operator."""
+        return len(self)
