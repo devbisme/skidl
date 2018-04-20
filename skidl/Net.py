@@ -319,13 +319,14 @@ class Net(object):
     def is_implicit(self, net_name=None):
         """Return true if the net name is implicit."""
 
-        from .defines import NET_PREFIX
+        from .defines import NET_PREFIX, BUS_PREFIX
 
         self.test_validity()
+        prefix_re = re.escape(NET_PREFIX) + '|' + re.escape(BUS_PREFIX)
         if net_name:
-            return re.match(re.escape(NET_PREFIX), net_name)
+            return re.match(prefix_re, net_name)
         if self.name:
-            return re.match(re.escape(NET_PREFIX), self.name)
+            return re.match(prefix_re, self.name)
         return True
 
     def connect(self, *pins_nets_buses):
