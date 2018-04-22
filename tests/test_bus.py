@@ -156,3 +156,14 @@ def test_bus_copy_1():
     bus1 = Bus('A',8)
     bus2 = bus1()
     assert len(bus1) == len(bus2)
+
+def test_bus_get_pull_1():
+    bus1 = Bus.get('test_bus')
+    assert bus1 is None
+    bus2 = Bus.pull('test_bus')
+    assert isinstance(bus2, Bus)
+    assert len(default_circuit.buses) == 1
+    bus3 = Bus.get('test_bus')
+    assert id(bus3) == id(bus2)
+    assert len(default_circuit.buses) == 1
+

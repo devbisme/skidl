@@ -64,6 +64,33 @@ class Net(object):
             the Net object.
     """
 
+    @classmethod
+    def get(cls, name, circuit=None):
+        """Get the net with the given name from a circuit, or return None."""
+
+        from .Alias import Alias
+
+        if not circuit:
+            circuit = builtins.default_circuit
+        search_params = (
+            ('name', name, True),
+            ('alias', name, True),
+            #('name', ''.join(('.*',name,'.*')), False),
+            #('alias', Alias(''.join(('.*',name,'.*'))), False)
+        )
+        for attr, name, do_str_match in search_params:
+            net = filter_list(circuit.nets, do_str_match=do_str_match, **{attr:name})
+            if net:
+                return list_or_scalar(net)
+        return None
+
+    @classmethod
+    def pull(cls, name, *args, **attribs):
+        """Get the net with the given name from a circuit, or create it if not found."""
+
+        circuit = attribs.get('circuit', builtins.default_circuit)
+        return cls.get(name, circuit=circuit) or cls(name, *args, **attribs) 
+
     def __init__(self, name=None, circuit=None, *pins_nets_buses, **attribs):
         from .Pin import Pin
 
@@ -78,10 +105,9 @@ class Net(object):
         # Set the Circuit object for the net first because setting the net name
         # requires a lookup of existing names in the circuit.
         # Add the net to the passed-in circuit or to the default circuit.
-        if circuit:
-            circuit += self
-        else:
-            builtins.default_circuit += self
+        if circuit is None:
+            circuit = builtins.default_circuit
+        circuit += self
 
         # Set the net name *after* the net is assigned to a circuit so the
         # net can be assigned a unique name that doesn't conflict with existing
@@ -212,6 +238,13 @@ class Net(object):
                     num_copies))
             raise Exception
 
+        # If circuitis not specified, then create the copies within the circuit of the master.
+        # If the master isn't in a circuit, then use the default circuit.
+        if not circuit:
+            circuit = self.circuit
+            if not circuit:
+                circuit = builtins.default_circuit
+
         # Can't make a distinct copy of a net which already has pins on it
         # because what happens if a pin is connected to the copy? Then we have
         # to search for all the other copies to add the pin to those.
@@ -231,12 +264,7 @@ class Net(object):
             # Place the copy into either the passed-in circuit, the circuit of
             # the source net, or the default circuit.
             cpy.circuit = None
-            if circuit:
-                circuit += cpy
-            elif self.circuit:
-                self.circuit += cpy
-            else:
-                builtins.default_circuit += cpy
+            circuit += cpy
 
             # Add other attributes to the net copy.
             for k, v in attribs.items():
@@ -259,7 +287,7 @@ class Net(object):
     __mul__ = copy
     __rmul__ = copy
     __call__ = copy
-
+        
     def __getitem__(self, *ids):
         """
         Return the net if the indices resolve to a single index of 0.
@@ -708,6 +736,11 @@ class Net(object):
         logger.error('Net {} is no longer valid. Do not use it!'.format(
             self.name))
         raise Exception
+
+    def __bool__(self):
+        """Any valid Net is True"""
+        return True
+    __nonzero__ = __bool__  # Python 2 compatibility.
 
 
 class NCNet(Net):

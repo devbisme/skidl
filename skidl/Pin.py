@@ -452,6 +452,11 @@ class Pin(object):
         """Return width of a Pin, which is always 1."""
         return 1
 
+    def __bool__(self):
+        """Any valid Pin is True"""
+        return True
+    __nonzero__ = __bool__  # Python 2 compatibility.
+
 
 ##############################################################################
 

@@ -65,6 +65,33 @@ class Bus(object):
             b = Bus('B', 8, n, led1['K'])
     """
 
+    @classmethod
+    def get(cls, name, circuit=None):
+        """Get the bus with the given name from a circuit, or return None."""
+
+        from .Alias import Alias
+
+        if not circuit:
+            circuit = builtins.default_circuit
+        search_params = (
+            ('name', name, True),
+            ('alias', name, True),
+            #('name', ''.join(('.*',name,'.*')), False),
+            #('alias', Alias(''.join(('.*',name,'.*'))), False)
+        )
+        for attr, name, do_str_match in search_params:
+            buses = filter_list(circuit.buses, do_str_match=do_str_match, **{attr:name})
+            if buses:
+                return list_or_scalar(buses)
+        return None
+
+    @classmethod
+    def pull(cls, name, *args, **attribs):
+        """Get the bus with the given name from a circuit, or create it if not found."""
+
+        circuit = attribs.get('circuit', builtins.default_circuit)
+        return cls.get(name, circuit=circuit) or cls(name, *args, **attribs) 
+
     def __init__(self, name, *args, **attribs):
 
         # Define the member storing the nets so it's present, but it starts empty.
@@ -365,3 +392,8 @@ class Bus(object):
     def width(self):
         """Return width of a Bus, which is the same as using the len() operator."""
         return len(self)
+
+    def __bool__(self):
+        """Any valid Bus is True"""
+        return True
+    __nonzero__ = __bool__  # Python 2 compatibility.
