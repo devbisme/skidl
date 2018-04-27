@@ -80,8 +80,8 @@ class Net(object):
         )
         for attr, name, do_str_match in search_params:
             # filter_list() always returns a list. A net can consist of multiple
-            # interconnected Net objects with the same names. If the list is
-            # non-empty, just return the first Net object on the list.
+            # interconnected Net objects. If the list is non-empty,
+            # just return the first Net object on the list.
             nets = filter_list(circuit.nets, do_str_match=do_str_match, **{attr:name})
             try:
                 return nets[0]
