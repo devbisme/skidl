@@ -79,9 +79,14 @@ class Net(object):
             #('alias', Alias(''.join(('.*',name,'.*'))), False)
         )
         for attr, name, do_str_match in search_params:
-            net = filter_list(circuit.nets, do_str_match=do_str_match, **{attr:name})
-            if net:
-                return list_or_scalar(net)
+            # filter_list() always returns a list. A net can consist of multiple
+            # interconnected Net objects with the same names. If the list is
+            # non-empty, just return the first Net object on the list.
+            nets = filter_list(circuit.nets, do_str_match=do_str_match, **{attr:name})
+            try:
+                return nets[0]
+            except IndexError:
+                pass
         return None
 
     @classmethod
@@ -479,9 +484,10 @@ class Net(object):
                     return nets[0]
                 if self.is_implicit(name0):
                     return nets[1]
-                logger.warning(
-                    'Merging two named nets ({name0} and {name1}) into {name0}.'.
-                    format(**locals()))
+                if name0 != name1:
+                    logger.warning(
+                        'Merging two named nets ({name0} and {name1}) into {name0}.'.
+                        format(**locals()))
                 return nets[0]
 
             # More than two nets, so bisect the list into two smaller lists and
@@ -615,7 +621,13 @@ class Net(object):
             net_drive = self.drive  # Start with user-set drive level.
             pins = self.get_pins()
             for p in pins:
-                net_drive = max(net_drive, Pin.pin_info[p.func]['drive'])
+                # The drive for a pin can be overridden by assigning a 'drive'
+                # attribute to it. Otherwise, the pin function will determine
+                # the drive capabilities.
+                try:
+                    net_drive = max(p.drive, net_drive)
+                except AttributeError:
+                    net_drive = max(net_drive, Pin.pin_info[p.func]['drive'])
 
             if net_drive <= Pin.NO_DRIVE:
                 erc_logger.warning(
