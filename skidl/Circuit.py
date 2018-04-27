@@ -402,6 +402,11 @@ class Circuit(object):
         # or incompatible (e.g., a conflict because both are outputs).
         return self._erc_matrix[pin1.func][pin2.func]
 
+    def _merge_net_names(self):
+        """Select a single name for each multi-segment net."""
+        for net in self.nets:
+            net.merge_names()
+
     def ERC(self):
         """
         Do an electrical rules check on the circuit.
@@ -410,6 +415,7 @@ class Circuit(object):
         self._erc_setup()
 
         # Check the nets for errors.
+        self._merge_net_names()  # Clean-up names for multi-segment nets.
         for net in self.nets:
             net.erc()
 
@@ -438,6 +444,9 @@ class Circuit(object):
         Returns:
             A netlist.
         """
+
+        # Before anything else, clean-up names for multi-segment nets.
+        self._merge_net_names()
 
         import skidl
 
@@ -491,6 +500,9 @@ class Circuit(object):
         Returns:
             A string containing the netlist.
         """
+
+        # Before anything else, clean-up names for multi-segment nets.
+        self._merge_net_names()
 
         import skidl
 
@@ -550,6 +562,10 @@ class Circuit(object):
         Returns:
             graphviz.Digraph
         """
+
+        # Before anything else, clean-up names for multi-segment nets.
+        self._merge_net_names()
+
         dot = graphviz.Digraph(engine=engine)
         dot.attr(rankdir=rankdir, splines=splines)
 

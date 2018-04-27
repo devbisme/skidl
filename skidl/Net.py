@@ -465,6 +465,28 @@ class Net(object):
                         type(pn), self.name))
                 raise Exception
 
+        # Add the net to the global netlist. (It won't be added again
+        # if it's already there.)
+        self.circuit += self
+
+        # Set the flag to indicate this result came from the += operator.
+        self.iadd_flag = True
+
+        return self
+
+    # Use += to connect to nets.
+    __iadd__ = connect
+
+    def disconnect(self, pin):
+        """Remove the pin from this net but not any other nets it's attached to."""
+        try:
+            self.pins.remove(pin)
+        except ValueError:
+            pass
+
+    def merge_names(self):
+        """For multi-segment nets, select a common name for all the segments."""
+
         def select_name(nets):
             """Return the net with the best name among a list of nets."""
 
@@ -501,30 +523,11 @@ class Net(object):
 
         # Assign the same name to all the nets that are connected to this net.
         nets = self._traverse().nets
-        selected_name = getattr(select_name(self._traverse().nets), 'name')
+        selected_name = getattr(select_name(nets), 'name')
         for net in nets:
             # Assign the name directly to each net. Using the name property
             # would cause the names to be changed so they were unique.
             net._name = selected_name  # pylint: disable=protected-access
-
-        # Add the net to the global netlist. (It won't be added again
-        # if it's already there.)
-        self.circuit += self
-
-        # Set the flag to indicate this result came from the += operator.
-        self.iadd_flag = True
-
-        return self
-
-    # Use += to connect to nets.
-    __iadd__ = connect
-
-    def disconnect(self, pin):
-        """Remove the pin from this net but not any other nets it's attached to."""
-        try:
-            self.pins.remove(pin)
-        except ValueError:
-            pass
 
     def generate_netlist_net(self, tool=None):
         """
