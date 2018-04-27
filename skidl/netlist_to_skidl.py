@@ -117,26 +117,19 @@ def netlist_to_skidl(netlist_src):
 
     def net_to_skidl(net):
         """Instantiate the nets between components."""
+
+        # Build a list of component pins attached to the net.
+        pins = []
+        for n in net.nodes:
+            comp = legalize(n.ref.val)  # Name of Python variable storing component.
+            pin_num = n.pin.val  # Pin number of component attached to net.
+            pins.append("{comp}['{pin_num}']".format(**locals()))
+        pins = ', '.join(pins)  # String the pins into an argument list.
+
         ltab = tab
 
-        code = net.code.val  # Unique code integer for each net.
-        name = legalize('net__' + code)  # Python variable name to storing net.
-        net_name = net.name.val  # Original net name from netlist.
-
-        # Instantiate the net.
-        net_skidl = "{ltab}{name} = Net('{net_name}')\n".format(**locals())
-
-        # Connect component pins to the net.
-        net_skidl += "{ltab}{name} += ".format(**locals())
-        comp_pins = []
-        for n in net.nodes:
-            comp_var = legalize(
-                n.ref.val)  # Python variable storing component.
-            pin_num = n.pin.val  # Pin number of component attached to net.
-            comp_pins.append("{comp_var}['{pin_num}']".format(**locals()))
-        net_skidl += ', '.join(comp_pins) + '\n'
-
-        return net_skidl
+        # Instantiate the net, connect the pins to it, and return it.
+        return "{ltab}Net('{net.name.val}').connect({pins})\n".format(**locals())
 
     def _netlist_to_skidl(ntlst):
         """Convert a netlist into a skidl script."""
