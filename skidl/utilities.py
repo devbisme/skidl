@@ -566,6 +566,50 @@ def expand_indices(slice_min, slice_max, *indices):
     return ids
 
 
+def explode(bus_str):
+    """
+    Explode a bus into its separate lines.
+
+    This function takes a bus expression like "ADDR0:ADDR3" and returns
+    "ADDR0,ADDR1,ADDR2,ADDR3". The bus separator can be ":" or "-".
+    It also works if the order is reversed, e.g. "ADDR3:ADDR0" returns
+    "ADDR3,ADDR2,ADDR1,ADDR0".
+
+    Args:
+        bus_str: A bus expression like "D0-D4".
+
+    Returns:
+        A string of comma-separated bus lines like "D0,D1,D2,D3,D4".
+    """
+
+    try:
+        begin, end = re.split('[:\-]', bus_str)
+    except ValueError:
+        # Couldn't split the bus index string, so it must be a single bit.
+        return bus_str
+    begin_base = re.match('[A-Za-z_]+', begin).group()
+    end_base = re.match('[A-Za-z_]+', end).group()
+    if begin_base != end_base:
+        logger.error("Bus names in indexes don't match: {bus_str}.".format(**locals()))
+        raise Exception
+    base = begin[0:len(begin_base)]  # Get the common base of both bus indexes.
+    base_end = len(base)
+    try:
+        begin_num = int(begin[base_end:])
+    except ValueError:
+        logger.error("Non-integer bus index {begin} in {bus_str}.".format(**locals()))
+        raise Exception
+    try:
+        end_num = int(end[base_end:])
+    except ValueError:
+        logger.error("Non-integer bus index {end} in {bus_str}.".format(**locals()))
+        raise Exception
+    dir = [1, -1][int(begin_num > end_num)] # Bus indexes increasing or decreasing?
+    bus_pin_nums = range(begin_num, end_num+dir, dir)
+    bus_pins = [base+str(n) for n in bus_pin_nums]
+    return ','.join(bus_pins)
+
+
 def find_num_copies(**attribs):
     """
     Return the number of copies to based on the number of attribute values.
