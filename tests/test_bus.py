@@ -160,7 +160,7 @@ def test_bus_copy_1():
 def test_bus_get_pull_1():
     bus1 = Bus.get('test_bus')
     assert bus1 is None
-    bus2 = Bus.pull('test_bus')
+    bus2 = Bus.fetch('test_bus')
     assert isinstance(bus2, Bus)
     assert len(default_circuit.buses) == 1
     bus3 = Bus.get('test_bus')

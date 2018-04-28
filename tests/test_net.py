@@ -21,7 +21,7 @@ def test_nets_1():
 def test_net_get_pull_1():
     net1 = Net.get('test_net')
     assert net1 is None
-    net2 = Net.pull('test_net')
+    net2 = Net.fetch('test_net')
     assert isinstance(net2, Net)
     assert len(default_circuit.nets) == 2  # NOCONNECT net is always there.
     net3 = Net.get('test_net')

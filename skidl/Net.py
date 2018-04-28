@@ -90,7 +90,7 @@ class Net(object):
         return None
 
     @classmethod
-    def pull(cls, name, *args, **attribs):
+    def fetch(cls, name, *args, **attribs):
         """Get the net with the given name from a circuit, or create it if not found."""
 
         circuit = attribs.get('circuit', builtins.default_circuit)
