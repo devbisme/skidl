@@ -511,7 +511,6 @@ def expand_indices(slice_min, slice_max, *indices):
         slice_min: The minimum possible index.
         slice_max: The maximum possible index (used for slice indices).
         indices: A list of indices made up of numbers, slices, text strings.
-            The list can also be nested.
 
     Returns:
         A linear list of all the indices made up only of numbers and strings.
@@ -557,7 +556,10 @@ def expand_indices(slice_min, slice_max, *indices):
         elif isinstance(indx, basestring):
             # String might contain multiple indices with a separator.
             for id in indx.split(INDEX_SEPARATOR):
-                ids.append(id.strip())
+                # If the id is a valid bus expression, then the exploded bus lines
+                # are added to the list of ids. If not, the original id is
+                # added to the list.
+                ids.extend(explode(id.strip()))
         else:
             logger.error('Unknown type in index: {}.'.format(type(indx)))
             raise Exception
@@ -573,41 +575,30 @@ def explode(bus_str):
     This function takes a bus expression like "ADDR0:ADDR3" and returns
     "ADDR0,ADDR1,ADDR2,ADDR3". The bus separator can be ":" or "-".
     It also works if the order is reversed, e.g. "ADDR3:ADDR0" returns
-    "ADDR3,ADDR2,ADDR1,ADDR0".
+    "ADDR3,ADDR2,ADDR1,ADDR0". If the input string is not a valid
+    bus expression, then the string is returned in a one-element list.
 
     Args:
-        bus_str: A bus expression like "D0-D4".
+        bus_str: A string containing a bus expression like "D0-D4".
 
     Returns:
-        A string of comma-separated bus lines like "D0,D1,D2,D3,D4".
+        A list of bus lines like ['D0', 'D1', 'D2', 'D3'] or a one-element
+        list with the original input string if it's not a valid bus expression.
     """
 
-    try:
-        begin, end = re.split('[:\-]', bus_str)
-    except ValueError:
-        # Couldn't split the bus index string, so it must be a single bit.
-        return bus_str
-    begin_base = re.match('[A-Za-z_]+', begin).group()
-    end_base = re.match('[A-Za-z_]+', end).group()
-    if begin_base != end_base:
-        logger.error("Bus names in indexes don't match: {bus_str}.".format(**locals()))
+    bus = re.match('^([A-Za-z_]+)([0-9]+)[:\-]([A-Za-z_]+)([0-9]+)$', bus_str)
+    if not bus:
+        return [bus_str] # Not a valid bus expression, so return input string.
+    begin_bus = bus.group(1)
+    end_bus = bus.group(3)
+    if begin_bus != end_bus:
+        logger.error("Bus names in indexes don't match: {begin_bus} != {end_bus}.".format(**locals()))
         raise Exception
-    base = begin[0:len(begin_base)]  # Get the common base of both bus indexes.
-    base_end = len(base)
-    try:
-        begin_num = int(begin[base_end:])
-    except ValueError:
-        logger.error("Non-integer bus index {begin} in {bus_str}.".format(**locals()))
-        raise Exception
-    try:
-        end_num = int(end[base_end:])
-    except ValueError:
-        logger.error("Non-integer bus index {end} in {bus_str}.".format(**locals()))
-        raise Exception
+    begin_num = int(bus.group(2))
+    end_num = int(bus.group(4))
     dir = [1, -1][int(begin_num > end_num)] # Bus indexes increasing or decreasing?
     bus_pin_nums = range(begin_num, end_num+dir, dir)
-    bus_pins = [base+str(n) for n in bus_pin_nums]
-    return ','.join(bus_pins)
+    return [begin_bus+str(n) for n in bus_pin_nums]
 
 
 def find_num_copies(**attribs):
