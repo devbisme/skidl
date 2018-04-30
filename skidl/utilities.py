@@ -572,33 +572,29 @@ def explode(bus_str):
     """
     Explode a bus into its separate lines.
 
-    This function takes a bus expression like "ADDR0:ADDR3" and returns
-    "ADDR0,ADDR1,ADDR2,ADDR3". The bus separator can be ":" or "-".
-    It also works if the order is reversed, e.g. "ADDR3:ADDR0" returns
-    "ADDR3,ADDR2,ADDR1,ADDR0". If the input string is not a valid
-    bus expression, then the string is returned in a one-element list.
+    This function takes a bus expression like "ADDR[0:3]" and returns
+    "ADDR0,ADDR1,ADDR2,ADDR3". It also works if the order is reversed,
+    e.g. "ADDR[3:0]" returns "ADDR3,ADDR2,ADDR1,ADDR0". If the input
+    string is not a valid bus expression, then the string is returned
+    in a one-element list.
 
     Args:
-        bus_str: A string containing a bus expression like "D0-D4".
+        bus_str: A string containing a bus expression like "D[0:3]".
 
     Returns:
         A list of bus lines like ['D0', 'D1', 'D2', 'D3'] or a one-element
         list with the original input string if it's not a valid bus expression.
     """
 
-    bus = re.match('^([A-Za-z_]+)([0-9]+)[:\-]([A-Za-z_]+)([0-9]+)$', bus_str)
+    bus = re.match('^([A-Za-z_]+)\[([0-9]+):([0-9]+)\]$', bus_str)
     if not bus:
         return [bus_str] # Not a valid bus expression, so return input string.
-    begin_bus = bus.group(1)
-    end_bus = bus.group(3)
-    if begin_bus != end_bus:
-        logger.error("Bus names in indexes don't match: {begin_bus} != {end_bus}.".format(**locals()))
-        raise Exception
+    bus_name = bus.group(1)
     begin_num = int(bus.group(2))
-    end_num = int(bus.group(4))
+    end_num = int(bus.group(3))
     dir = [1, -1][int(begin_num > end_num)] # Bus indexes increasing or decreasing?
     bus_pin_nums = range(begin_num, end_num+dir, dir)
-    return [begin_bus+str(n) for n in bus_pin_nums]
+    return [bus_name+str(n) for n in bus_pin_nums]
 
 
 def find_num_copies(**attribs):
