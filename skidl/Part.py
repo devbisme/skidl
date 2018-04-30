@@ -785,6 +785,11 @@ class Part(object):
         """Delete the part footprint."""
         del self._foot
 
+    def __bool__(self):
+        """Any valid Part is True"""
+        return True
+    __nonzero__ = __bool__  # Python 2 compatibility.
+
 
 ##############################################################################
 
