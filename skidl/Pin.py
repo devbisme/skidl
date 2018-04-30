@@ -452,6 +452,21 @@ class Pin(object):
         """Return width of a Pin, which is always 1."""
         return 1
 
+    @property
+    def drive(self):
+        """
+        Get, set and delete the drive strength of this pin.
+        """
+        return self._drive
+
+    @drive.setter
+    def drive(self, drive):
+        self._drive = drive
+
+    @drive.deleter
+    def drive(self):
+        del self._drive
+
     def __bool__(self):
         """Any valid Pin is True"""
         return True
