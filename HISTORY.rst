@@ -4,9 +4,15 @@ History
 -------
 
 
-0.0.21 (2018-04-16)
+0.0.21 (2018-04-30)
 ______________________
 
+* Added pull() and fetch() methods for getting/creating existing/new Net and Bus objects.
+* Added drive property to pins to override their default pin function attribute.
+* Part pins and units can now be accessed as attributes.
+* Nets, pins, and buses now support the width property.
+* Indexing with brackets now works equivalently for pins, nets, and buses.
+* Grouped part pins (such as address and data buses) can now be accessed using a slice-like notation, e.g. memory['ADDR[0:7]'].
 * Matching of pin lists now begins with normal string matching before using regexes.
 * Added more tests and fixed existing tests.
 

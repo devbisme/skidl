@@ -639,6 +639,33 @@ Pin ???/1/my_pin/TRISTATE
 ```
 
 
+## Finding SKiDL Objects
+
+Sometimes you may want to access a bus or net that's already been created.
+In such an instance, you can use the `get()` class method:
+
+```py
+n = Net.get('Fred')  # Find the existing Net object named 'Fred'.
+b = Bus.get('A')     # Find the existing Bus object named 'A'.
+```
+
+If a net or bus is found with the exact name that was given, then that SKiDL
+object is returned (no wild-card searches using regular expressions are allowed).
+If the search is unsuccessful, `None` is returned.
+
+There may be other times when you want to access a particular bus or net and,
+if it doesn't exist, then create it.
+The `fetch()` class method is used for this:
+
+```py
+n = Net.fetch('Fred')  # Find the existing Net object named 'Fred' or create it if not found.
+b = Bus.fetch('A',8)   # Find the existing Bus object named 'A' or create it if not found.
+```
+
+Note that with the `Bus.fetch()` method, you also have to provide the arguments to
+build the bus (such as its width) in case it doesn't exist.
+
+
 ## Copying SKiDL Objects
 
 Instead of creating a SKiDL object from scratch, sometimes it's easier to just
@@ -694,7 +721,7 @@ Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL
 ```
 
 (If you have a part in a BGA package with pins numbers like `C11`, then
-you'll have to enter the pin number as a quoted string like `'C11'`.)
+you'll have to enter the pin number as a quoted string like '`C11`'.)
 
 You can also get several pins at once in a list:
 
@@ -722,6 +749,14 @@ The reason for doing this is that most electronics designers are used to
 the bounds on a slice including both endpoints. Perhaps it is a mistake to
 do it this way. We'll see...)
 
+In addition to the bracket notation, you can also get a single pin using an attribute name
+that begins with a '`p`' followed by the pin number:
+
+```terminal
+>>> pic10.p2
+Pin U1/2/VSS/POWER-IN
+```
+
 Instead of pin numbers, sometimes it makes the design intent more clear to 
 access pins by their names.
 For example, it's more obvious that a voltage supply net is being
@@ -729,6 +764,13 @@ attached to the power pin of the processor when it's expressed like this:
 
 ```py
 pic10['VDD'] += supply_5V
+```
+
+Like pin numbers, pin names can also be used as attributes to access the pin:
+
+```terminal
+>>> pic10.VDD
+Pin U1/5/VDD/POWER-IN
 ```
 
 You can use multiple names or regular expressions to get more than one pin:
@@ -749,6 +791,23 @@ pin names:
 [Pin U1/1/ICSPDAT/AN0/GP0/BIDIRECTIONAL, Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL, Pin U1/4/T0CKI/FOSC4/GP2/BIDIRECTIONAL]
 ```
 
+Some parts have sequentially-numbered sets of pins like the address and data buses of a RAM.
+SKiDL lets you access these pins using a slice-like notation in a string like so:
+
+```terminal
+>>> ram = Part('memory', 'sram_512ko')
+>>> ram['D[0:7]']
+[Pin U1/13/D0/TRISTATE, Pin U1/14/D1/TRISTATE, Pin U1/15/D2/TRISTATE, Pin U1/17/D3/TRISTATE, Pin U1/18/D4/TRISTATE, Pin U1/19/D5/TRISTATE, Pin U1/20/D6/TRISTATE, Pin U1/21/D7/TRISTATE]
+```
+
+Or you can access the pins in the reverse order:
+
+```terminal
+>>> ram = Part('memory', 'sram_512ko')
+>>> ram['D[7:0]']
+[Pin U2/21/D7/TRISTATE, Pin U2/20/D6/TRISTATE, Pin U2/19/D5/TRISTATE, Pin U2/18/D4/TRISTATE, Pin U2/17/D3/TRISTATE, Pin U2/15/D2/TRISTATE, Pin U2/14/D1/TRISTATE, Pin U2/13/D0/TRISTATE]
+```
+
 `Part` objects also provide the `get_pins()` function which can select pins in even more ways.
 For example, this would get every bidirectional pin of the processor:
 
@@ -756,8 +815,6 @@ For example, this would get every bidirectional pin of the processor:
 >>> pic10.get_pins(func=Pin.BIDIR)
 [Pin U1/1/ICSPDAT/AN0/GP0/BIDIRECTIONAL, Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL, Pin U1/4/T0CKI/FOSC4/GP2/BIDIRECTIONAL]
 ```
-
-However, slice notation doesn't work with pin names. You'll get an error if you try that.
 
 Accessing the individual nets of a bus works similarly to accessing part pins:
 
@@ -793,7 +850,7 @@ NET_A:
 Pins, nets, parts and buses can all be connected together in various ways, but
 the primary rule of SKiDL connections is:
 
-    **The `+=` operator is the only way to make connections!**
+> > **The `+=` operator is the only way to make connections!**
 
 At times you'll mistakenly try to make connections using the 
 assignment operator (`=`). In many cases, SKiDL warns you if you do that,
@@ -809,27 +866,33 @@ purpose is creating netlists. To that end, it handles four basic, connection ope
     A pin is connected to a net, adding it to the list of pins
     connected to that net. If the pin is already attached to other nets,
     then those nets are connected to this net as well.
+
 **Net-to-Pin**: 
     This is the same as doing a pin-to-net connection.
+
 **Pin-to-Pin**:
     A net is created and both pins are attached to it. If one or
     both pins are already connected to other nets, then those nets are connected
     to the newly-created net as well.
+
 **Net-to-Net**:
     Connecting one net to another *merges* the pins on both nets
     onto a single, larger net.
 
-There are three variants of each connection operation:
+For each type of connection operation, there are three variants based on
+the number of things being connected:
 
 **One-to-One**:
     This is the most frequent type of connection, for example, connecting one
     pin to another or connecting a pin to a net.
+
 **One-to-Many**:
     This mainly occurs when multiple pins are connected to the same net, like
     when multiple ground pins of a chip are connected to the circuit ground net.
+
 **Many-to-Many**:
     This usually involves bus connections to a part, such as connecting
-    a bus to the data or address pins of a processor. But there must be the
+    a bus to the data or address pins of a processor. For this variant, there must be the
     same number of things to connect in each set, e.g. you can't connect
     three pins to four nets.
 
@@ -855,8 +918,8 @@ IO_NET: Pin U1/1/ICSPDAT/AN0/GP0/BIDIRECTIONAL
 ```
 
 You can also connect a pin directly to another pin.
-In this case, an *implicit net* will be created between the pins that can be
-accessed using the `net` attribute of either part pin:
+In this case, an *implicit net* will be created between the pins that you can
+access using the `net` attribute of either part pin:
 
 ```terminal
 >>> pic10['.*GP1'] += pic10['.*GP2']  # Connect two pins together.
@@ -969,7 +1032,7 @@ Once the units are defined, you can use them just like any part:
 >>> rn.unit['B'][2,3] += rn.unit['A'][1,4]  # Connect resistor B in parallel with resistor A.
 ```
 
-Now this isn't all that useful because you still have to remeber which pins
+Now this isn't all that useful because you still have to remember which pins
 are assigned to each unit, and if you wanted to swap the resistors you would have
 to change the unit names *and the pins numbers!*.
 In order to get around this inconvenience, you could assign *aliases* to each
@@ -1003,6 +1066,14 @@ Now the same connections can be made using the pin aliases:
 In this case, if you wanted to swap the A and B resistors, you only need to change
 their unit labels.
 The pin aliases don't need to be altered.
+
+If you find the `unit[...]` notation cumbersome, units can also be accessed by
+using their names as attributes:
+
+```terminal
+>>> rn.A['L,R'] += Net(), Net()  # Connect resistor A to two nets.
+>>> rn.B['L,R'] += rn.A['L,R']   # Connect resistor B in parallel with resistor A.
+```
 
 
 ## Hierarchy
@@ -1347,7 +1418,7 @@ The `NC` net is the only net for which this happens.
 For all other nets, connecting two or more nets to the same pin
 merges those nets and all the pins on them together.
 
-### Net Drive Level
+### Net and Pin Drive Levels
 
 Certain parts have power pins that are required to be driven by
 a power supply net or else ERC warnings ensue.
@@ -1387,14 +1458,83 @@ This issue is fixed by changing the `drive` attribute of the net:
 
 You can set the `drive` attribute at any time to any defined level, but `POWER`
 is probably the only setting you'll use.
-Also, the `drive` attribute retains the highest of all the levels it has been set at,
-so once it is set to the POWER level it is impossible to set it to a lower level.
-(This is done during internal processing to keep a net at the highest drive 
-level of any of the pins that have been attached to it.)
-
-In short, for any net you create that supplies power to devices in your circuit,
+For any net you create that supplies power to devices in your circuit,
 you should probably set its `drive` attribute to `POWER`.
 This is equivalent to attaching power flags to nets in some ECAD packages like KiCad.
+
+You can also set the `drive` attribute of part pins to override their default drive level.
+This is sometimes useful when you are using an output pin of a part to power
+another part.
+
+```terminal
+>>> pic10_a = Part('microchip_pic10mcu','pic10f220-I/OT')
+>>> pic10_b = Part('microchip_pic10mcu','pic10f220-I/OT')
+>>> pic10_b['VDD'] += pic10_a[1]  # Power pic10_b from output pin of pic10_a.
+>>> ERC()
+ERC WARNING: Insufficient drive current on net N$1 for pin POWER-IN pin 5/VDD of PIC10F220-I/OT/U2
+... <additional unconnected pin warnings> ...
+
+>>> pic10_a[1].drive = POWER  # Change drive level of pic10_a output pin.
+>>> ERC()
+... <unconnected pin warnings, but insufficient drive warning is gone> ...
+```
+
+### Pin, Net, Bus Equivalencies
+
+Pins, nets, and buses can all be connected to one another in a number of ways.
+In order to make them as interchangeable as possible, some additional functions
+are defined for each object:
+
+**`__bool__` and `__nonzero__`**:
+    Each object will return `True` when used in a boolean operation.
+    This can be useful when trying to select an active connection from a set of
+    candidates using the `or` operator:
+
+```terminal
+>>> a = Net('A')
+>>> b = Bus('B', 8)
+>>> c = Pin()
+>>> d = a or b or c
+>>> d
+A:
+>>> type(d)
+<class 'skidl.Net.Net'>
+```
+
+**Indexing**:
+    Normally, indices can only be used with a Bus object to select one or more bus lines.
+    But `Pin` and `Net` objects can also be indexed as long as the index evaluates to zero:
+
+```terminal
+>>> a = Net('A')
+>>> c = Pin()
+>>> a[0] += c[0]
+WARNING: Attaching non-part Pin  to a Net A.
+>>> a[0] += c[1]
+ERROR: Can't use a non-zero index for a pin.
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "C:\xesscorp\KiCad\tools\skidl\skidl\Pin.py", line 251, in __getitem__
+    raise Exception
+Exception
+```
+
+**Width**:
+    `Bus`, `Net`, and `Pin` objects all support the `width` property.
+    For a `Bus` object, `width` returns the number of bus lines it contains.
+    For a `Net` or `Pin` object, `width` always returns 1.
+
+```terminal
+>>> a = Net('A')
+>>> b = Bus('B', 8)
+>>> c = Pin()
+>>> a.width
+1
+>>> b.width
+8
+>>> c.width
+1
+```
 
 ### Selectively Supressing ERC Messages
 
