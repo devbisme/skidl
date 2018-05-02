@@ -522,7 +522,7 @@ class Net(object):
             ])
 
         # Assign the same name to all the nets that are connected to this net.
-        nets = self._traverse().nets
+        nets = self.get_nets()
         selected_name = getattr(select_name(nets), 'name')
         for net in nets:
             # Assign the name directly to each net. Using the name property

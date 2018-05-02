@@ -412,12 +412,20 @@ class Circuit(object):
         Do an electrical rules check on the circuit.
         """
 
+        from .Net import Net
+
         self._erc_setup()
 
-        # Check the nets for errors.
-        self._merge_net_names()  # Clean-up names for multi-segment nets.
-        for net in self.nets:
-            net.erc()
+        # Check the nets for errors:
+        #   1. Merge names to get a single name for all multi-segment nets.
+        #   2. Find the set of unique net names.
+        #   3. Get the net associated with each name and do an ERC on it.
+        # This prevents flagging the same error multiple times by running
+        # ERC on different segments of a multi-segment net.
+        self._merge_net_names()
+        net_names = set([net.name for net in self.nets])
+        for name in net_names:
+            Net.get(name, circuit=self).erc()
 
         # Check the parts for errors.
         for part in self.parts:
