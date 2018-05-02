@@ -97,6 +97,7 @@ class Circuit(object):
         self.parts = []
         self.nets = []
         self.buses = []
+        self.interfaces = []
         self.hierarchy = 'top'
         self.level = 0
         self.context = [('top', )]
@@ -267,48 +268,91 @@ class Circuit(object):
                         bus.name))
                 raise Exception
 
-    def add_parts_nets_buses(self, *parts_nets_buses):
-        """Add Parts, Nets and Buses to the circuit."""
+    def add_interfaces(self, *interfaces):
+        """Add some Interface objects to the circuit. Assign an interface name if necessary."""
+        for interface in interfaces:
+            # Add the interface to this circuit if the interface is movable and
+            # it's not already in this circuit.
+            if interface.circuit != self:
+                if interface.is_movable():
+
+                    # Remove the interface from the circuit it's already in, but skip
+                    # this if the interface isn't already in a Circuit.
+                    if isinstance(interface.circuit, Circuit):
+                        interface.circuit -= interface
+
+                    # Add the interface to this circuit.
+                    interface.circuit = self
+                    interface.name = interface.name
+                    interface.hierarchy = self.hierarchy  # Tag the bus with its hierarchy position.
+                    self.interfaces.append(interface)
+
+    def rmv_interfaces(self, *interfaces):
+        """Remove some interfaces from the circuit."""
+        for interface in interfaces:
+            if interface.is_movable():
+                if interface.circuit == self and interface in self.interfaces:
+                    interface.circuit = None
+                    interface.hierarchy = None
+                    self.interfaces.remove(interface)
+                else:
+                    logger.warning(
+                        "Removing non-existent interface {} from this circuit.".
+                        format(interface.name))
+            else:
+                logger.error(
+                    "Can't remove unmovable interface {} from this circuit.".format(
+                        interface.name))
+                raise Exception
+
+    def add_stuff(self, *stuff):
+        """Add Parts, Nets, Buses, and Interfaces to the circuit."""
 
         from .Part import Part
         from .Net import Net
         from .Bus import Bus
+        from .Interface import Interface
 
-        for pnb in flatten(parts_nets_buses):
-            if isinstance(pnb, Part):
-                self.add_parts(pnb)
-            elif isinstance(pnb, Net):
-                self.add_nets(pnb)
-            elif isinstance(pnb, Bus):
-                self.add_buses(pnb)
+        for thing in flatten(stuff):
+            if isinstance(thing, Part):
+                self.add_parts(thing)
+            elif isinstance(thing, Net):
+                self.add_nets(thing)
+            elif isinstance(thing, Bus):
+                self.add_buses(thing)
+            elif isinstance(thing, Interface):
+                self.add_interfaces(thing)
             else:
                 logger.error("Can't add a {} to a Circuit object.".format(
-                    type(pnb)))
+                    type(thing)))
                 raise Exception
         return self
 
-    def rmv_parts_nets_buses(self, *parts_nets_buses):
-        """Remove Parts, Nets and Buses from the circuit."""
+    def rmv_stuff(self, *stuff):
+        """Remove Parts, Nets, Buses, and Interfaces from the circuit."""
 
         from .Net import Net
         from .Bus import Bus
         from .Part import Part
+        from .Interface import Interface
 
-        for pnb in flatten(parts_nets_buses):
-            if isinstance(pnb, Part):
-                self.rmv_parts(pnb)
-            elif isinstance(pnb, Net):
-                self.rmv_nets(pnb)
-            elif isinstance(pnb, Bus):
-                self.rmv_buses(pnb)
+        for thing in flatten(stuff):
+            if isinstance(thing, Part):
+                self.rmv_parts(thing)
+            elif isinstance(thing, Net):
+                self.rmv_nets(thing)
+            elif isinstance(thing, Bus):
+                self.rmv_buses(thing)
+            elif isinstance(thing, Interface):
+                self.rmv_interfaces(thing)
             else:
                 logger.error("Can't remove a {} from a Circuit object.".format(
                     type(pnb)))
                 raise Exception
         return self
 
-    __iadd__ = add_parts_nets_buses
-    __isub__ = rmv_parts_nets_buses
+    __iadd__ = add_stuff
+    __isub__ = rmv_stuff
 
     def get_nets(self):
         """Get all the distinct nets for the circuit."""

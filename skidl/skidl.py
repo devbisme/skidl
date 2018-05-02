@@ -59,6 +59,7 @@ from .Alias import *
 from .Part import *
 from .Net import *
 from .Bus import *
+from .Interface import *
 from .NetPinList import *
 from .Circuit import *
 from .part_query import *

@@ -3,6 +3,11 @@
 History
 -------
 
+0.0.22 (2018-05-XX)
+______________________
+
+* Added Interface objects for storing complicated sets of I/O signals for subsystems.
+
 
 0.0.21 (2018-04-30)
 ______________________
