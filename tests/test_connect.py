@@ -24,7 +24,7 @@ def test_connect_2():
                  '1117',
                  footprint='null')
     vreg1.value = 'NCV1117'
-    vreg2 = 1 * vreg1
+    vreg2 = vreg1.copy(1)[0]
     gnd = Net('GND')
     vin = Net('Vin')
     vout = Net('Vout')
@@ -44,7 +44,7 @@ def test_connect_3():
                  '1117',
                  footprint='null')
     vreg1.value = 'NCV1117'
-    vreg2 = 1 * vreg1
+    vreg2 = vreg1.copy()
     gnd = Net('GND')
     vin = Net('Vin')
     vout = Net('Vout')
@@ -63,7 +63,7 @@ def test_connect_4():
                  '1117',
                  footprint='null')
     vreg1.value = 'NCV1117'
-    vreg2 = 1 * vreg1
+    vreg2 = vreg1()
     gnd = Net('GND')
     vin = Net('Vin')
     vout = Net('Vout')
