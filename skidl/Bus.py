@@ -328,6 +328,18 @@ class Bus(object):
         logger.error("Can't assign to a bus! Use the += operator.")
         raise Exception
 
+    def __iter__(self):
+        self.iter_num = 0
+        return self
+
+    def __next__(self):
+        if self.iter_num < self.width:
+            bus_line = self[self.iter_num]
+            self.iter_num += 1
+            return bus_line
+        else:
+            raise StopIteration
+
     def is_movable(self):
         """
         Return true if the bus is movable to another circuit.

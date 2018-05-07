@@ -300,6 +300,18 @@ class Pin(object):
         logger.error("Can't assign to a Net! Use the += operator.")
         raise Exception
 
+    def __iter__(self):
+        self.iter_num = 0
+        return self
+
+    def __next__(self):
+        # You can only iterate a Pin one time.
+        if self.iter_num == 0:
+            self.iter_num = 1
+            return self[0]
+        else:
+            raise StopIteration
+
     def is_connected(self):
         """Return true if a pin is connected to a net (but not a no-connect net)."""
 
