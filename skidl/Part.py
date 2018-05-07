@@ -368,12 +368,12 @@ class Part(object):
 
     # Make copies with the multiplication operator or by calling the object.
     __call__ = copy
-    #__mul__ = copy
-    #__rmul__ = copy
+
     def __mul__(self, num_copies):
         if num_copies is None:
             num_copies = 0
         return self.copy(num_copies=num_copies)
+
     __rmul__ = __mul__
 
     def add_pins(self, *pins):

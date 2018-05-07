@@ -200,7 +200,7 @@ class Net(object):
 
         return not isinstance(self.circuit, Circuit) or not self.pins
 
-    def copy(self, num_copies=1, circuit=None, **attribs):
+    def copy(self, num_copies=None, circuit=None, **attribs):
         """
         Make zero or more copies of this net.
 
@@ -229,7 +229,14 @@ class Net(object):
 
         self.test_validity()
 
-        num_copies = max(num_copies, find_num_copies(**attribs))
+        # If the number of copies is None, then a single copy will be made
+        # and returned as a scalar (not a list). Otherwise, the number of
+        # copies will be set by the num_copies parameter or the number of
+        # values supplied for each part attribute.
+        num_copies_attribs = find_num_copies(**attribs)
+        return_list = (num_copies is not None) or (num_copies_attribs > 1)
+        if num_copies is None:
+            num_copies = max(1, num_copies_attribs)
 
         # Check that a valid number of copies is requested.
         if not isinstance(num_copies, int):
@@ -286,12 +293,20 @@ class Net(object):
             # Place the copy into the list of copies.
             copies.append(cpy)
 
-        return list_or_scalar(copies)
+        # Return a list of the copies made or just a single copy.
+        if return_list:
+            return copies
+        return copies[0]
 
     # Make copies with the multiplication operator or by calling the object.
-    __mul__ = copy
-    __rmul__ = copy
     __call__ = copy
+
+    def __mul__(self, num_copies):
+        if num_copies is None:
+            num_copies = 0
+        return self.copy(num_copies=num_copies)
+
+    __rmul__ = __mul__
         
     def __getitem__(self, *ids):
         """
