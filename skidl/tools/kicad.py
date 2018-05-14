@@ -81,7 +81,7 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
     # Read the definition of each part line-by-line and then create
     # a Part object that gets stored in the part list.
     part_defn = []
-    for line in f.readlines():
+    for line in f:
 
         # Skip over comments.
         if line.startswith('#'):
@@ -116,7 +116,7 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
         return
 
     part_desc = {}
-    for line in f.readlines():
+    for line in f:
 
         # Skip over comments.
         if line.startswith('#'):

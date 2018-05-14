@@ -231,7 +231,7 @@ def find_and_open_file(filename,
         if not exclude_binary or not is_binary_file(abs_filename):
             try:
                 # The search stops once the file is successfully opened.
-                return open(abs_filename), abs_filename
+                return open(abs_filename, encoding='utf8'), abs_filename
             except (IOError, FileNotFoundError, TypeError):
                 pass
         # If file not found, look in subdirectories or go to next path.
