@@ -89,11 +89,14 @@ lib_search_paths = {KICAD: ['', '.'], SKIDL: ['', '.'], SPICE: ['', '.'],}
 
 # Add the location of the default KiCad schematic part libs to the search path.
 try:
-    lib_search_paths[KICAD].append(
-        os.path.join(os.environ['KISYSMOD'], '..', 'library'))
+    lib_search_paths[KICAD].append(os.environ['KICAD_SYMBOL_DIR'])
 except KeyError:
-    logger.warning(
-        "KISYSMOD environment variable is missing, so default KiCad libraries won't be searched."
+    try:
+        lib_search_paths[KICAD].append(
+            os.path.join(os.environ['KISYSMOD'], '..', 'library'))
+    except KeyError:
+        logger.warning(
+            "KICAD_SYMBOL_DIR and KISYSMOD environment variables are missing, so the default KiCad libraries won't be searched."
     )
 
 # Add the location of the default SKiDL part libraries.
