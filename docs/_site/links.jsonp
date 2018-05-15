@@ -33,6 +33,11 @@ callback([
   {
     "text": "Spice Simulation",
     "href": "https://xesscorp.github.io/skidl/docs/_site/blog/spice-simulation"
+  } ,
+
+  {
+    "text": "Reusability Ain't What It Used To Be",
+    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/reuse-leds"
   } 
 
 ])
