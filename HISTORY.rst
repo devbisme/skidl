@@ -7,6 +7,10 @@ History
 ______________________
 
 * Added Interface objects for storing complicated sets of I/O signals for subsystems.
+* ERC no longer redundantly checks every segment of a multi-segment net and reports multiple errors.
+* copy() function of Part, Bus, Pin, Net objects now returns a scalar object while copy(1) returns a list with one object.
+* Bus, Pin, and Net objects now have iterators.
+* Corrected initialization of KiCad library search paths.
 
 
 0.0.21 (2018-04-30)
