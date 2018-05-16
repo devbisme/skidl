@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Reusability Ain't What It Used To Be
-date: 2018-05-15
+date: 2018-05-15T23:00:23-04:00
 author:
     name: Dave Vandenbout
     photo: devb-pic.jpg
