@@ -9,14 +9,6 @@
 		} ,
 	
 		{
-		  "title"      : "Reusability Ain&#39;t What It Used To Be",
-		  "category"   : "blog",
-		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/reuse-leds",
-		  "date"       : "2018-05-15 00:00:00 -0400",
-		  "shortdate"  : "May 15, 2018"
-		} ,
-	
-		{
 		  "title"      : "Spice Simulation",
 		  "category"   : "blog",
 		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/spice-simulation",

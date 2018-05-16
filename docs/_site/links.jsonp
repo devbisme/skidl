@@ -38,11 +38,6 @@ callback([
   {
     "text": "Reusability Ain't What It Used To Be",
     "href": "https://xesscorp.github.io/skidl/docs/_site/blog/reuse-leds"
-  } ,
-
-  {
-    "text": "Reusability Ain't What It Used To Be",
-    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/reuse-leds"
   } 
 
 ])
