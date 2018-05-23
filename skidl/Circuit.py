@@ -668,6 +668,9 @@ class Circuit(object):
         lib.export(libname=skidl.BACKUP_LIB_NAME, file_=file_)
 
 
+from collections import defaultdict
+__func_name_cntr = defaultdict(int)
+
 def SubCircuit(f):
     """
     A @SubCircuit decorator is used to create hierarchical circuits.
@@ -677,23 +680,13 @@ def SubCircuit(f):
     """
 
     def sub_f(*args, **kwargs):
-        # Upon entry, save the reference to the default Circuit object.
+        # Upon entry, save the reference to the current default Circuit object.
         save_default_circuit = default_circuit  # pylint: disable=undefined-variable
 
-        # If the subcircuit has no 'circuit' argument, then all the SKiDL
-        # statements in the subcircuit function will reference the default Circuit
-        # object.
-        if 'circuit' not in kwargs:
-            circuit = default_circuit  # pylint: disable=undefined-variable
-
-        # But if the subcircuit function has a 'circuit' argument, then set the default
-        # Circuit object to that. Then all SKiDL statements in the function will
-        # make changes (i.e., add parts, nets, buses) to that.
-        else:
-            circuit = kwargs['circuit']
-            del kwargs[
-                'circuit']  # Don't pass the circuit parameter down to the f function.
-            builtins.default_circuit = circuit
+        # If the subcircuit uses the 'circuit' argument, then set the default
+        # Circuit object to that. Otherwise, use the current default Circuit object.
+        circuit = kwargs.pop('circuit', default_circuit)
+        builtins.default_circuit = circuit
 
         # Setup some globals needed in the subcircuit.
         builtins.NC = default_circuit.NC  # pylint: disable=undefined-variable
@@ -704,8 +697,10 @@ def SubCircuit(f):
 
         # Create a name for this subcircuit from the concatenated names of all
         # the nested subcircuit functions that were called on all the preceding levels
-        # that led to this one.
-        circuit.hierarchy = circuit.context[-1][0] + '.' + f.__name__
+        # that led to this one. Also, add a distinct integer to the current
+        # function name to disambiguate multiple uses of the same function.
+        circuit.hierarchy = circuit.context[-1][0] + '.' + f.__name__ + str(__func_name_cntr[f.__name__])
+        __func_name_cntr[f.__name__] = __func_name_cntr[f.__name__] + 1
 
         # Store the context so it can be used if this subcircuit function
         # invokes another subcircuit function within itself to add more
