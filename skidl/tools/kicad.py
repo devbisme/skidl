@@ -41,6 +41,8 @@ standard_library.install_aliases()
 
 import os.path
 import time
+from random import randint
+
 from ..py_2_3 import *
 from ..defines import *
 from ..utilities import *
@@ -488,6 +490,11 @@ def _gen_netlist_comp_(self):
     lib = add_quotes(getattr(self, 'lib', 'NO_LIB'))  # pylint: disable=unused-variable
     name = add_quotes(self.name)  # pylint: disable=unused-variable
 
+    # Embed the hierarchy along with a random integer into the sheetpath for each component.
+    # This enables hierarchical selection in pcbnew.
+    hierarchy = add_quotes('/'+getattr(self,'hierarchy','.').replace('.','/')+'/'+str(randint(0,2**64-1)))
+    tstamps = hierarchy
+
     fields = ''
     for fld_name in self._get_fields():
         fld_value = add_quotes(self.__dict__[fld_name])
@@ -503,7 +510,8 @@ def _gen_netlist_comp_(self):
                '      (value {value})\n' + \
                '      (footprint {footprint})\n' + \
                '{fields}' + \
-               '      (libsource (lib {lib}) (part {name})))'
+               '      (libsource (lib {lib}) (part {name}))\n' + \
+               '      (sheetpath (names {hierarchy}) (tstamps {tstamps})))'
     txt = template.format(**locals())
     return txt
 
