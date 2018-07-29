@@ -7,7 +7,7 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="https://xesscorp.github.io/skidl/docs/_site/feed.xml" />
 <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/" />
-<updated>2018-07-29T15:15:17-04:00</updated>
+<updated>2018-07-29T18:51:11-04:00</updated>
 <id>https://xesscorp.github.io/skidl/docs/_site/</id>
 <author>
   <name>XESS Corp.</name>
@@ -38,7 +38,7 @@ Here are two examples.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://github.com/mossmann/blinkenface&quot;&gt;Blinkenface&lt;/a&gt; is a version of “LED glasses”
 made with a cascaded string of APA102 RGB LEDs controlled through an SPI interface:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/others-use-it-too/blinkenface_pcb.png&quot; alt=&quot;Blinkenface PCB&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/others-use-it-too/blinkenface_pcb.png&quot; alt=&quot;Blinkenface PCB&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Th majority of Blinkenface is just a repetitive connection of one APA102 to the
 next one in line: perfect for a loop construct!

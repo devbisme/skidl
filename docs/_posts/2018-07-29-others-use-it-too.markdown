@@ -20,7 +20,7 @@ Here are two examples.
 [Blinkenface](https://github.com/mossmann/blinkenface) is a version of "LED glasses"
 made with a cascaded string of APA102 RGB LEDs controlled through an SPI interface:
 
-![Blinkenface PCB](/images/others-use-it-too/blinkenface_pcb.png)
+![Blinkenface PCB]({{site.url}}/images/others-use-it-too/blinkenface_pcb.png)
 
 Th majority of Blinkenface is just a repetitive connection of one APA102 to the
 next one in line: perfect for a loop construct!
