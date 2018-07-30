@@ -43,13 +43,13 @@ led = Part('device', 'D', footprint='Diodes_SMD:D_0603', dest=TEMPLATE)
 # Connect the 60 second LEDs to the anodes and cathodes.
 for a in anodes[1:4]:             # Connect LEDs between anodes 1, 2, 3, 4.
     for k in cathodes[1:15]:      # and cathodes 1, 2, 3, ... , 15.
-        led(1)['A', 'K'] += a, k  # Copy LED template and connect anode and cathode.
+        led()['A', 'K'] += a, k  # Copy LED template and connect anode and cathode.
 
 # Now connect the 12 hour LEDs, all of which are attached to anode a[5].
 # The nested for loops select the cathodes in the correct order.
 for i in range(2,6):
     for k in cathodes[i:i+10:5]: # Connect k[2,7,12], k[3,8,13], k[4,9,14] and k[5,10,15].
-        led(1)['A', 'K'] += anodes[5], k  # Copy LED and connect anode and cathode.
+        led()['A', 'K'] += anodes[5], k  # Copy LED and connect anode and cathode.
 
 ERC()               # Look for rule violations.
 generate_netlist()  # Generate netlist file.
