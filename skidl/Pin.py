@@ -21,7 +21,6 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-
 """
 Handles part pins.
 """
@@ -257,8 +256,8 @@ class Pin(object):
         """
 
         # Resolve the indices.
-        indices = list(set(expand_indices(0, self.width-1, ids)))
-        if indices is None or len(indices)==0:
+        indices = list(set(expand_indices(0, self.width - 1, ids)))
+        if indices is None or len(indices) == 0:
             return None
         if len(indices) > 1:
             logger.error("Can't index a pin with multiple indices.")
@@ -432,6 +431,38 @@ class Pin(object):
         """Return a list containing this pin."""
         return to_list(self)
 
+    def create_network(self):
+        """Create a network from a single pin."""
+        from .Network import Network
+
+        ntwk = Network()
+        ntwk.append(self)
+        return ntwk
+
+    def __and__(self, obj):
+        """Attach a pin and another part/pin/net in serial."""
+        from .Network import Network
+
+        return Network(self) & obj
+
+    def __rand__(self, obj):
+        """Attach a pin and another part/pin/net in serial."""
+        from .Network import Network
+
+        return obj & Network(self)
+
+    def __or__(self, obj):
+        """Attach a pin and another part/pin/net in parallel."""
+        from .Network import Network
+
+        return Network(self) | obj
+
+    def __ror__(self, obj):
+        """Attach a pin and another part/pin/net in parallel."""
+        from .Network import Network
+
+        return obj | Network(self)
+
     def erc_desc(self):
         """Return a string describing this pin for ERC."""
         desc = "{func} pin {num}/{name} of {part}".format(
@@ -499,6 +530,7 @@ class Pin(object):
     def __bool__(self):
         """Any valid Pin is True"""
         return True
+
     __nonzero__ = __bool__  # Python 2 compatibility.
 
 

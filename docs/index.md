@@ -997,6 +997,66 @@ Exception
 ```
 
 
+## Making Parallel and Serial Networks
+
+The previous section showed some general-purpose techniques for connecting parts,
+but SKiDL also has some specialized syntax for wiring two-pin components
+in parallel or serial.
+For example, here is a network of four resistors connected in series
+between power and ground:
+
+```terminal
+vcc, gnd = Net('VCC'), Net('GND')
+r1, r2, r3, r4 = Part('device', 'R', dest=TEMPLATE) * 4
+ser_ntwk = vcc & r1 & r2 & r3 & r4 & gnd
+```
+
+It's also possible to connect the resistors in parallel between power and ground:
+
+```terminal
+par_ntwk = vcc & (r1 | r2 | r3 | r4) & gnd
+```
+
+Or you can do something like placing pairs of resistors in series and then paralleling
+those combinations like this:
+
+```terminal
+combo_ntwk = vcc & ((r1 & r2) | (r3 & r4)) & gnd
+```
+
+The examples above work with *non-polarized* components, but what about parts
+like diodes? In that case, you have to specify the pins *explicitly* with the
+first pin connected to the preceding part and the second pin to the following part:
+
+```terminal
+d1 = Part('device', 'D')
+polar_ntwk = vcc & r1 & d1['A,K'] & gnd  # Diode anode connected to resistor and cathode to ground.
+```
+
+Explicitly listing the pins also lets you use multi-pin parts with networks.
+For example, here's an NPN-transistor amplifier:
+
+```terminal
+q1 = Part('device', 'Q_NPN_ECB')
+ntwk_ce = vcc & r1 & q1['C,E'] & gnd  # VCC through load resistor to collector and emitter attached to ground.
+ntwk_b = r2 & q1['B']  # Resistor attached to base.
+```
+
+That's all well and good, but how do you connect to internal points in these networks where
+the interesting things are happening?
+For instance, how do you apply an input to the transistor circuit and then connect
+to the output?
+One way is by inserting nets inside the networks:
+
+```terminal
+inp, outp = Net('INPUT'), Net('OUTPUT')
+ntwk_ce = vcc & r1 & outp & q1['C,E'] & gnd  # Connect net outp to the junction of the resistor and transistor collector.
+ntwk_b = inp & r2 & q1['B']  # Connect net inp to the resistor driving the transistor base.
+```
+
+After that's done, the `inp` and `outp` nets can be connected to other points in the circuit.
+
+
 ## Units Within Parts
 
 Some components may contain smaller *units* that operate independently of the

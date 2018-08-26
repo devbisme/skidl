@@ -21,7 +21,6 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-
 """
 SKiDL: A Python-Based Schematic Design Language
 
@@ -59,6 +58,7 @@ from .Alias import *
 from .Part import *
 from .Net import *
 from .Bus import *
+from .Network import *
 from .Interface import *
 from .NetPinList import *
 from .Circuit import *
@@ -85,7 +85,11 @@ def get_default_tool():
 # These are the paths to search for part libraries of the ECAD tools.
 # Start off with a path that allows absolute file names, and then searches
 # within the current directory.
-lib_search_paths = {KICAD: ['', '.'], SKIDL: ['', '.'], SPICE: ['', '.'],}
+lib_search_paths = {
+    KICAD: ['', '.'],
+    SKIDL: ['', '.'],
+    SPICE: ['', '.'],
+}
 
 # Add the location of the default KiCad schematic part libs to the search path.
 try:
@@ -97,7 +101,7 @@ except KeyError:
     except KeyError:
         logger.warning(
             "KICAD_SYMBOL_DIR and KISYSMOD environment variables are missing, so the default KiCad libraries won't be searched."
-    )
+        )
 
 # Add the location of the default SKiDL part libraries.
 default_skidl_libs = os.path.join(

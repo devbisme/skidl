@@ -21,7 +21,6 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-
 """
 Specialized list for handling nets, pins, and buses.
 """
@@ -38,7 +37,6 @@ from .utilities import *
 
 
 class NetPinList(list):
-
     def __iadd__(self, *nets_pins_buses):
 
         from .Net import Net
@@ -54,8 +52,7 @@ class NetPinList(list):
                 raise Exception
 
         if len(nets_pins) != len(self):
-            if Net in [type(item)
-                             for item in self] or len(nets_pins) > 1:
+            if Net in [type(item) for item in self] or len(nets_pins) > 1:
                 logger.error("Connection mismatch {} != {}!".format(
                     len(self), len(nets_pins)))
                 raise Exception
@@ -74,6 +71,37 @@ class NetPinList(list):
         self.iadd_flag = True  # pylint: disable=attribute-defined-outside-init
 
         return self
+
+    def create_network(self):
+        """Create a network from a list of pins and nets."""
+        from .Network import Network
+
+        return Network(
+            *self)  # An error will occur if list has more than 2 items.
+
+    def __and__(self, obj):
+        """Attach a NetPinList and another part/pin/net in serial."""
+        from .Network import Network
+
+        return Network(self) & obj
+
+    def __rand__(self, obj):
+        """Attach a NetPinList and another part/pin/net in serial."""
+        from .Network import Network
+
+        return obj & Network(self)
+
+    def __or__(self, obj):
+        """Attach a NetPinList and another part/pin/net in parallel."""
+        from .Network import Network
+
+        return Network(self) | obj
+
+    def __ror__(self, obj):
+        """Attach a NetPinList and another part/pin/net in parallel."""
+        from .Network import Network
+
+        return obj | Network(self)
 
     @property
     def width(self):

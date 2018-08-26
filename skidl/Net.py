@@ -21,7 +21,6 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-
 """
 Handles nets.
 """
@@ -82,7 +81,8 @@ class Net(object):
             # filter_list() always returns a list. A net can consist of multiple
             # interconnected Net objects. If the list is non-empty,
             # just return the first Net object on the list.
-            nets = filter_list(circuit.nets, do_str_match=do_str_match, **{attr:name})
+            nets = filter_list(
+                circuit.nets, do_str_match=do_str_match, **{attr: name})
             try:
                 return nets[0]
             except IndexError:
@@ -94,7 +94,7 @@ class Net(object):
         """Get the net with the given name from a circuit, or create it if not found."""
 
         circuit = attribs.get('circuit', builtins.default_circuit)
-        return cls.get(name, circuit=circuit) or cls(name, *args, **attribs) 
+        return cls.get(name, circuit=circuit) or cls(name, *args, **attribs)
 
     def __init__(self, name=None, circuit=None, *pins_nets_buses, **attribs):
         from .Pin import Pin
@@ -307,7 +307,7 @@ class Net(object):
         return self.copy(num_copies=num_copies)
 
     __rmul__ = __mul__
-        
+
     def __getitem__(self, *ids):
         """
         Return the net if the indices resolve to a single index of 0.
@@ -321,8 +321,8 @@ class Net(object):
         """
 
         # Resolve the indices.
-        indices = list(set(expand_indices(0, self.width-1, ids)))
-        if indices is None or len(indices)==0:
+        indices = list(set(expand_indices(0, self.width - 1, ids)))
+        if indices is None or len(indices) == 0:
             return None
         if len(indices) > 1:
             logger.error("Can't index a net with multiple indices.")
@@ -556,6 +556,38 @@ class Net(object):
             # would cause the names to be changed so they were unique.
             net._name = selected_name  # pylint: disable=protected-access
 
+    def create_network(self):
+        """Create a network from a single net."""
+        from .Network import Network
+
+        ntwk = Network()
+        ntwk.append(self)
+        return ntwk
+
+    def __and__(self, obj):
+        """Attach a net and another part/pin/net in serial."""
+        from .Network import Network
+
+        return Network(self) & obj
+
+    def __rand__(self, obj):
+        """Attach a net and another part/pin/net in serial."""
+        from .Network import Network
+
+        return obj & Network(self)
+
+    def __or__(self, obj):
+        """Attach a net and another part/pin/net in parallel."""
+        from .Network import Network
+
+        return Network(self) | obj
+
+    def __ror__(self, obj):
+        """Attach a net and another part/pin/net in parallel."""
+        from .Network import Network
+
+        return obj | Network(self)
+
     def generate_netlist_net(self, tool=None):
         """
         Generate the net information for inclusion in a netlist.
@@ -782,6 +814,7 @@ class Net(object):
     def __bool__(self):
         """Any valid Net is True"""
         return True
+
     __nonzero__ = __bool__  # Python 2 compatibility.
 
 

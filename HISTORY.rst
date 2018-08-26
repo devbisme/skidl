@@ -3,6 +3,13 @@
 History
 -------
 
+0.0.23 (2018-08-25)
+______________________
+
+* Added Network objects to make it easy to create serial & parallel combinations of two-pin parts.
+* SKiDL design hierarchy is now embedded in the KiCad netlist that's generated.
+
+
 0.0.22 (2018-05-XX)
 ______________________
 
@@ -22,8 +29,6 @@ ______________________
 * Nets, pins, and buses now support the width property.
 * Indexing with brackets now works equivalently for pins, nets, and buses.
 * Grouped part pins (such as address and data buses) can now be accessed using a slice-like notation, e.g. memory['ADDR[0:7]'].
-* Matching of pin lists now begins with normal string matching before using regexes.
-* Added more tests and fixed existing tests.
 
 
 0.0.20 (2018-03-08)

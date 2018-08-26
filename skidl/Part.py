@@ -21,7 +21,6 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-
 """
 Handles parts.
 """
@@ -54,6 +53,7 @@ except ImportError:
     # to replicate a class from PySpice.
     class UnitValue:
         pass
+
 
 from .defines import *
 from .utilities import *
@@ -303,14 +303,17 @@ class Part(object):
 
             # Remove any existing Pin and PartUnit attributes so new ones
             # can be made in the copy without generating warning messages.
-            rmv_attrs = [k for k,v in cpy.__dict__.items() if isinstance(v, (Pin, PartUnit))]
+            rmv_attrs = [
+                k for k, v in cpy.__dict__.items()
+                if isinstance(v, (Pin, PartUnit))
+            ]
             for attr in rmv_attrs:
                 delattr(cpy, attr)
 
             # The shallow copy will just put references to the pins of the
             # original into the copy, so create independent copies of the pins.
             cpy.pins = []
-            cpy += [p.copy() for p in self.pins] # Add pin and its attribute.
+            cpy += [p.copy() for p in self.pins]  # Add pin and its attribute.
 
             # Make sure all the pins have a reference to this new part copy.
             cpy.associate_pins()
@@ -384,7 +387,7 @@ class Part(object):
             # Create attributes so pin can be accessed by name or number such
             # as part.ENBL or part.p5.
             add_unique_attr(self, pin.name, pin)
-            add_unique_attr(self, 'p'+str(pin.num), pin)
+            add_unique_attr(self, 'p' + str(pin.num), pin)
         return self
 
     __iadd__ = add_pins
@@ -433,20 +436,23 @@ class Part(object):
         for p_id in expand_indices(self.min_pin, self.max_pin, *pin_ids):
 
             # Does pin ID (either integer or string) match a pin number...
-            tmp_pins = filter_list(self.pins, num=str(p_id), do_str_match=True, **criteria)
+            tmp_pins = filter_list(
+                self.pins, num=str(p_id), do_str_match=True, **criteria)
             if tmp_pins:
                 pins.extend(tmp_pins)
                 continue
 
             # OK, assume it's not a pin number but a pin name. Look for an
             # exact match.
-            tmp_pins = filter_list(self.pins, name=p_id, do_str_match=True, **criteria)
+            tmp_pins = filter_list(
+                self.pins, name=p_id, do_str_match=True, **criteria)
             if tmp_pins:
                 pins.extend(tmp_pins)
                 continue
 
             # OK, now check pin aliases for an exact match.
-            tmp_pins = filter_list(self.pins, alias=p_id, do_str_match=True, **criteria)
+            tmp_pins = filter_list(
+                self.pins, alias=p_id, do_str_match=True, **criteria)
             if tmp_pins:
                 pins.extend(tmp_pins)
                 continue
@@ -539,8 +545,7 @@ class Part(object):
         from .Circuit import Circuit
 
         return not isinstance(
-            self.circuit,
-            Circuit) or not self.is_connected() or not self.pins
+            self.circuit, Circuit) or not self.is_connected() or not self.pins
 
     def set_pin_alias(self, alias, *pin_ids, **criteria):
         """
@@ -604,6 +609,38 @@ class Part(object):
         add_unique_attr(self, label, self.unit[label])
         return self.unit[label]
 
+    def create_network(self):
+        """Create a network from the pins of a part."""
+        from .Network import Network
+
+        ntwk = Network(
+            self[:])  # An error will occur if part has more than 2 pins.
+        return ntwk
+
+    def __and__(self, obj):
+        """Attach a part and another part/pin/net in serial."""
+        from .Network import Network
+
+        return Network(self) & obj
+
+    def __rand__(self, obj):
+        """Attach a part and another part/pin/net in serial."""
+        from .Network import Network
+
+        return obj & Network(self)
+
+    def __or__(self, obj):
+        """Attach a part and another part/pin/net in parallel."""
+        from .Network import Network
+
+        return Network(self) | obj
+
+    def __ror__(self, obj):
+        """Attach a part and another part/pin/net in parallel."""
+        from .Network import Network
+
+        return obj | Network(self)
+
     def _get_fields(self):
         """
         Return a list of component field names.
@@ -613,8 +650,11 @@ class Part(object):
 
         # Get all the component attributes and subtract all the ones that
         # should not appear under "fields" in the netlist or XML.
-		# Also, skip all the Pin and PartUnit attributes.
-        fields = set([k for k,v in self.__dict__.items() if not isinstance(v, (Pin,PartUnit))])
+        # Also, skip all the Pin and PartUnit attributes.
+        fields = set([
+            k for k, v in self.__dict__.items()
+            if not isinstance(v, (Pin, PartUnit))
+        ])
         non_fields = set([
             'name', 'min_pin', 'max_pin', 'hierarchy', '_value', '_ref',
             'ref_prefix', 'unit', 'num_units', 'part_defn', 'definition',
@@ -705,11 +745,10 @@ class Part(object):
     def __str__(self):
         """Return a description of the pins on this part as a string."""
         return '\n {name} ({aliases}): {desc}\n    {pins}'.format(
-            name=self.name, 
-            aliases=', '.join(getattr(self, 'aliases','')), 
-            desc=self.description, 
-            pins='\n    '.join([p.__str__() for p in self.pins])
-            )
+            name=self.name,
+            aliases=', '.join(getattr(self, 'aliases', '')),
+            desc=self.description,
+            pins='\n    '.join([p.__str__() for p in self.pins]))
 
     __repr__ = __str__
 
@@ -731,7 +770,8 @@ class Part(object):
             attribs.append('pins=[{}]'.format(','.join(pin_strs)))
 
         # Return the string after removing all the non-ascii stuff (like ohm symbols).
-        return 'Part({})'.format(','.join(attribs)).encode('ascii', 'ignore').decode('utf-8')
+        return 'Part({})'.format(','.join(attribs)).encode(
+            'ascii', 'ignore').decode('utf-8')
 
     @property
     def ref(self):
@@ -803,6 +843,7 @@ class Part(object):
     def __bool__(self):
         """Any valid Part is True"""
         return True
+
     __nonzero__ = __bool__  # Python 2 compatibility.
 
 
@@ -888,7 +929,7 @@ class PartUnit(Part):
 
         # Add attributes for accessing the new pins.
         for pin in new_pins:
-            add_unique_attr(self, 'p'+str(pin.num), pin)
+            add_unique_attr(self, 'p' + str(pin.num), pin)
             add_unique_attr(self, pin.name, pin)
 
         # Add new pins to existing pins of the unit, removing duplicates.
