@@ -2,47 +2,52 @@ callback([
 
   {
     "text": "Building a USB-to-JTAG Interface Using SKiDL",
-    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/building-a-usb-to-jtag-interface-using-skidl"
+    "href": "http://localhost:4000/blog/building-a-usb-to-jtag-interface-using-skidl"
   } ,
 
   {
     "text": "Names, Not Numbers",
-    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/names-not-numbers"
+    "href": "http://localhost:4000/blog/names-not-numbers"
   } ,
 
   {
     "text": "A Taste of Hierarchy",
-    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/a-taste-of-hierarchy"
+    "href": "http://localhost:4000/blog/a-taste-of-hierarchy"
   } ,
 
   {
     "text": "Don't Replicate, Automate!",
-    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/dont-replicate-automate"
+    "href": "http://localhost:4000/blog/dont-replicate-automate"
   } ,
 
   {
     "text": "Two Easy Pieces",
-    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/two-easy-pieces"
+    "href": "http://localhost:4000/blog/two-easy-pieces"
   } ,
 
   {
     "text": "An Arduino With SKiDL",
-    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/an-arduino-with-skidl"
+    "href": "http://localhost:4000/blog/an-arduino-with-skidl"
   } ,
 
   {
     "text": "Spice Simulation",
-    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/spice-simulation"
+    "href": "http://localhost:4000/blog/spice-simulation"
   } ,
 
   {
     "text": "Reusability Ain't What It Used To Be",
-    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/reuse-leds"
+    "href": "http://localhost:4000/blog/reuse-leds"
   } ,
 
   {
     "text": "Others Use It, Too!",
-    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/others-use-it-too"
+    "href": "http://localhost:4000/blog/others-use-it-too"
+  } ,
+
+  {
+    "text": "Sweetening SKiDL",
+    "href": "http://localhost:4000/blog/sweetening-skidl"
   } 
 
 ])

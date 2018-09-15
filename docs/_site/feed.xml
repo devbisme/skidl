@@ -5,26 +5,226 @@
 
 <title type="text">SKiDL</title>
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
-<link rel="self" type="application/atom+xml" href="https://xesscorp.github.io/skidl/docs/_site/feed.xml" />
-<link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/" />
-<updated>2018-08-25T22:53:25-04:00</updated>
-<id>https://xesscorp.github.io/skidl/docs/_site/</id>
+<link rel="self" type="application/atom+xml" href="http://localhost:4000/feed.xml" />
+<link rel="alternate" type="text/html" href="http://localhost:4000/" />
+<updated>2018-09-15T10:53:49-04:00</updated>
+<id>http://localhost:4000/</id>
 <author>
   <name>XESS Corp.</name>
-  <uri>https://xesscorp.github.io/skidl/docs/_site/</uri>
+  <uri>http://localhost:4000/</uri>
   <email>skidl@xess.com</email>
 </author>
 
 
 <entry>
+  <title type="html"><![CDATA[Sweetening SKiDL]]></title>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/sweetening-skidl"/>
+  <id>http://localhost:4000/blog/sweetening-skidl</id>
+  <published>2018-09-03T19:59:47-04:00</published>
+  <updated>2018-09-03T19:59:47-04:00</updated>
+  <author>
+    <name>XESS Corp.</name>
+    <uri>http://localhost:4000</uri>
+    <email>skidl@xess.com</email>
+  </author>
+  
+  <content type="html">
+  
+    &lt;p&gt;I’ve added a bit of syntactic sugar to SKiDL over the past few months. 
+It doesn’t really change what SKiDL does, just makes it easier to do some things.&lt;/p&gt;
+
+&lt;h3 id=&quot;series-and-parallel-network-constructors&quot;&gt;Series and Parallel Network Constructors&lt;/h3&gt;
+
+&lt;p&gt;Last year, I had a &lt;a href=&quot;https://github.com/xesscorp/skidl/issues/26&quot;&gt;discussion&lt;/a&gt; with
+&lt;a href=&quot;https://github.com/kasbah&quot;&gt;kasbah&lt;/a&gt; on the SKiDL Github about his suggestion
+to overload the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;gt;&amp;gt;&lt;/code&gt; operator to wire two-pin parts in series.
+While a lot of good ideas came out of that,
+in the end we felt the idea was too limited to make the effort worthwhile.&lt;/p&gt;
+
+&lt;p&gt;Fast forward to a few months ago when I was working on a project to use genetic algorithms
+for optimizing a power supply.
+One of the tasks was to programmatically create series and parallel combinations
+of two-pin components.
+By looking at the connection of $N$ two-pin components in serial or parallel as the
+creation of a two-pin &lt;em&gt;network&lt;/em&gt;, a concise syntax arose to create circuits much
+more complicated than simple series connections.&lt;/p&gt;
+
+&lt;p&gt;To support this idea in SKiDL, I overloaded the bitwise AND (&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;&lt;/code&gt;) and OR (&lt;code class=&quot;highlighter-rouge&quot;&gt;|&lt;/code&gt;) operators
+to connect two-pin components in &lt;em&gt;series or parallel&lt;/em&gt;, respectively.
+For example, here is a network of four series resistors using the standard
+SKiDL syntax:&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r4&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Part&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'device'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'R'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TEMPLATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;r3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This is the same thing using the new &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;&lt;/code&gt; operator:&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r4&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Part&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'device'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'R'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TEMPLATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ser_ntwk&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r4&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/sweetening-skidl/ser_ntwk.png&quot; alt=&quot;Serial Network&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Here are four resistors wired in parallel:&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;par_ntwk&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r4&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/sweetening-skidl/par_ntwk.png&quot; alt=&quot;Parallel Network&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Or you can do something like placing pairs of resistors in series and then paralleling
+those combinations like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;combo_ntwk&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/sweetening-skidl/combo_ntwk.png&quot; alt=&quot;Parallel+Serial Network&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In addition to connecting parts, the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;|&lt;/code&gt; operators also work with nets.
+This lets you apply inputs and extract outputs by attaching nets to nodes in the network.
+To illustrate, here’s a simple resistor network that divides an input voltage
+to generate an output voltage:&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;vin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gnd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'VI'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'VO'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'GND'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;vdiv_ntwk&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gnd&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/sweetening-skidl/vdiv_ntwk.png&quot; alt=&quot;Voltage-Divider Network&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You could do the same thing using a single pin instead of a net.
+Here’s the voltage divider attached directly to a pin of a microcontroller:&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;pic10&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Part&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'MCU_Microchip_PIC10'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'PIC10F320-IP'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;pin_ntwk&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pic10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'RA3'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gnd&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/sweetening-skidl/micro_ntwk.png&quot; alt=&quot;Voltage-Divider Network for Microcontroller&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The examples above work with &lt;em&gt;non-polarized&lt;/em&gt; components, but what about &lt;em&gt;polarized&lt;/em&gt; parts
+like diodes and electrolytic capacitors? For those, you have to specify the 
+pins &lt;em&gt;explicitly&lt;/em&gt; with the first pin connected to the preceding part and the
+second pin to the following part like so:&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;vcc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'VCC'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;d1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Part&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'device'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'D'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;polar_ntwk&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vcc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'A,K'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gnd&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# Diode anode connected to resistor and cathode to ground.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/sweetening-skidl/polar_ntwk.png&quot; alt=&quot;Polar network&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Explicitly listing the pins also lets you use multi-pin parts with networks.
+For example, here’s an NPN-transistor amplifier built using two networks:
+one for the carrying the amplified current through the load resistor and
+the transistor’s collector and emitter, 
+and another for applying the input to the base.&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;inp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;outp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'INPUT'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'OUTPUT'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;q1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Part&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'device'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Q_NPN_ECB'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ntwk_ce&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vcc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;outp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;q1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'C,E'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gnd&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# Connect net outp to the junction of the resistor and transistor collector.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ntwk_b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;q1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'B'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# Connect net inp to the resistor driving the transistor base.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/sweetening-skidl/trans_ntwk.png&quot; alt=&quot;Transistor Amplifier&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;bussed-part-pins&quot;&gt;Bussed Part Pins&lt;/h3&gt;
+
+&lt;p&gt;Some parts have sequentially-numbered sets of pins, such as a RAM’s address and data buses.
+Previously, you had to explicitly list these pins to make connections like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-terminal highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; databus = Bus('DATA', 8)
+&amp;gt;&amp;gt;&amp;gt; ram = Part('Memory_RAM','AS6C1616')
+&amp;gt;&amp;gt;&amp;gt; ram['DQ7,DQ6,DQ5,DQ4,DQ3,DQ2,DQ1,DQ0'] += databus[7:0]
+&amp;gt;&amp;gt;&amp;gt; databus
+DATA:
+        DATA0: Pin U1/29/DQ0/BIDIRECTIONAL
+        DATA1: Pin U1/31/DQ1/BIDIRECTIONAL
+        DATA2: Pin U1/33/DQ2/BIDIRECTIONAL
+        DATA3: Pin U1/35/DQ3/BIDIRECTIONAL
+        DATA4: Pin U1/38/DQ4/BIDIRECTIONAL
+        DATA5: Pin U1/40/DQ5/BIDIRECTIONAL
+        DATA6: Pin U1/42/DQ6/BIDIRECTIONAL
+        DATA7: Pin U1/44/DQ7/BIDIRECTIONAL
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This is functional but tedious for large buses, so I introduced a
+more compact notation to do the same thing:&lt;/p&gt;
+
+&lt;div class=&quot;language-terminal highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; ram['DQ[7:0]'] += databus[7:0]
+&amp;gt;&amp;gt;&amp;gt; databus
+DATA:
+        DATA0: Pin U1/29/DQ0/BIDIRECTIONAL
+        DATA1: Pin U1/31/DQ1/BIDIRECTIONAL
+        DATA2: Pin U1/33/DQ2/BIDIRECTIONAL
+        DATA3: Pin U1/35/DQ3/BIDIRECTIONAL
+        DATA4: Pin U1/38/DQ4/BIDIRECTIONAL
+        DATA5: Pin U1/40/DQ5/BIDIRECTIONAL
+        DATA6: Pin U1/42/DQ6/BIDIRECTIONAL
+        DATA7: Pin U1/44/DQ7/BIDIRECTIONAL
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;part-pins-as-attributes&quot;&gt;Part Pins as Attributes&lt;/h3&gt;
+
+&lt;p&gt;The standard syntax for accessing a part pin uses array index notation like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-terminal highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; ram['DQ0'] += databus[0]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;In order to slim this down, part pins can now also be referenced using their
+names as attributes:&lt;/p&gt;
+
+&lt;div class=&quot;language-terminal highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; ram.DQ0 += databus[0]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Note that this works as long as the pin name is a legal attribute name (i.e., it begins
+with an alpha character and contains only alphanumeric characters and the underscore).
+If it’s not, you’ll have to use array indexing.&lt;/p&gt;
+
+&lt;p&gt;You can also use attribute references with pin &lt;em&gt;numbers&lt;/em&gt; by prefixing the number
+with &lt;code class=&quot;highlighter-rouge&quot;&gt;p&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-terminal highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; r = Part('device', 'R')
+&amp;gt;&amp;gt;&amp;gt; r
+
+ R (): Resistor
+    Pin R1/1/~/PASSIVE
+    Pin R1/2/~/PASSIVE
+
+&amp;gt;&amp;gt;&amp;gt; vcc = Net('VCC')
+&amp;gt;&amp;gt;&amp;gt; r.p1 += vcc
+&amp;gt;&amp;gt;&amp;gt; vcc
+VCC: Pin R1/1/~/PASSIVE
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+  
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/sweetening-skidl&quot;&gt;Sweetening SKiDL&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://localhost:4000&quot;&gt;SKiDL&lt;/a&gt; on September 03, 2018.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
   <title type="html"><![CDATA[Others Use It, Too!]]></title>
-  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/others-use-it-too"/>
-  <id>https://xesscorp.github.io/skidl/docs/_site/blog/others-use-it-too</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/others-use-it-too"/>
+  <id>http://localhost:4000/blog/others-use-it-too</id>
   <published>2018-07-29T10:26:18-04:00</published>
   <updated>2018-07-29T10:26:18-04:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
+    <uri>http://localhost:4000</uri>
     <email>skidl@xess.com</email>
   </author>
   
@@ -38,7 +238,7 @@ Here are two examples.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://github.com/mossmann/blinkenface&quot;&gt;Blinkenface&lt;/a&gt; is a version of “LED glasses”
 made with a cascaded string of APA102 RGB LEDs controlled through an SPI interface:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/others-use-it-too/blinkenface_pcb.png&quot; alt=&quot;Blinkenface PCB&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/others-use-it-too/blinkenface_pcb.png&quot; alt=&quot;Blinkenface PCB&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Th majority of Blinkenface is just a repetitive connection of one APA102 to the
 next one in line: perfect for a loop construct!
@@ -281,19 +481,19 @@ whatever you want.&lt;/p&gt;
 If you have used SKiDL for something, &lt;a href=&quot;mailto:skidl@xess.com&quot;&gt;drop me a line&lt;/a&gt; and let me know.&lt;/p&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/others-use-it-too&quot;&gt;Others Use It, Too!&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on July 29, 2018.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/others-use-it-too&quot;&gt;Others Use It, Too!&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://localhost:4000&quot;&gt;SKiDL&lt;/a&gt; on July 29, 2018.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Reusability Ain't What It Used To Be]]></title>
-  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/reuse-leds"/>
-  <id>https://xesscorp.github.io/skidl/docs/_site/blog/reuse-leds</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/reuse-leds"/>
+  <id>http://localhost:4000/blog/reuse-leds</id>
   <published>2018-05-15T23:00:23-04:00</published>
   <updated>2018-05-15T23:00:23-04:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
+    <uri>http://localhost:4000</uri>
     <email>skidl@xess.com</email>
   </author>
   
@@ -410,7 +610,7 @@ microcontroller unit like this:&lt;/p&gt;
 
 &lt;p&gt;And here’s a layout for the netlist that was generated:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/reuse-leds/leds2.png&quot; width=&quot;600&quot; alt=&quot;Common-cathode LEDs attached to PIC18F MCU.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/reuse-leds/leds2.png&quot; width=&quot;600&quot; alt=&quot;Common-cathode LEDs attached to PIC18F MCU.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;So far, so good. The module is even more general-purpose but it’s a bit cost-inefficient
 to use all those discrete resistors for limiting the LED current.
@@ -423,9 +623,9 @@ The next version of the module will remedy that.&lt;/p&gt;
 containing two, four, or eight independent resistors will lower
 the number of components and reduce assembly costs.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/reuse-leds/742c163.png&quot; width=&quot;200&quot; alt=&quot;An eight-resistor array.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/reuse-leds/742c163.png&quot; width=&quot;200&quot; alt=&quot;An eight-resistor array.&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/reuse-leds/resistor-pinouts.png&quot; width=&quot;600&quot; alt=&quot;Resistor pinouts.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/reuse-leds/resistor-pinouts.png&quot; width=&quot;600&quot; alt=&quot;Resistor pinouts.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The following code iteratively packs the resistors into one or more arrays
 until all the inputs are connected:&lt;/p&gt;
@@ -516,7 +716,7 @@ until all the inputs are connected:&lt;/p&gt;
 &lt;p&gt;From the layout, you can see the five current-limiting resistors have been packed into a four-resistor
 array and an additional discrete resistor:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/reuse-leds/leds4.png&quot; width=&quot;600&quot; alt=&quot;Common-anodes LEDs attached to PIC18F MCU.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/reuse-leds/leds4.png&quot; width=&quot;600&quot; alt=&quot;Common-anodes LEDs attached to PIC18F MCU.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Up to this point, all the components used in these modules have been hard-coded.
 While I might consider myself a great designer with impeccable taste in choosing parts,
@@ -617,19 +817,19 @@ with a single statement, conditional execution, iterative looping) make the
 creation of parameterized, general-purpose modules less tedious.&lt;/p&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/reuse-leds&quot;&gt;Reusability Ain't What It Used To Be&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on May 15, 2018.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/reuse-leds&quot;&gt;Reusability Ain't What It Used To Be&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://localhost:4000&quot;&gt;SKiDL&lt;/a&gt; on May 15, 2018.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Spice Simulation]]></title>
-  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/spice-simulation"/>
-  <id>https://xesscorp.github.io/skidl/docs/_site/blog/spice-simulation</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/spice-simulation"/>
+  <id>http://localhost:4000/blog/spice-simulation</id>
   <published>2018-02-07T10:23:43-05:00</published>
   <updated>2018-02-07T10:23:43-05:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
+    <uri>http://localhost:4000</uri>
     <email>skidl@xess.com</email>
   </author>
   
@@ -640,19 +840,19 @@ You can read about it
 &lt;a href=&quot;https://github.com/xesscorp/skidl/blob/master/examples/spice-sim-intro/spice-sim-intro.ipynb&quot;&gt;in this Jupyter notebook&lt;/a&gt;.&lt;/p&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/spice-simulation&quot;&gt;Spice Simulation&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on February 07, 2018.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/spice-simulation&quot;&gt;Spice Simulation&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://localhost:4000&quot;&gt;SKiDL&lt;/a&gt; on February 07, 2018.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[An Arduino With SKiDL]]></title>
-  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/an-arduino-with-skidl"/>
-  <id>https://xesscorp.github.io/skidl/docs/_site/blog/an-arduino-with-skidl</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/an-arduino-with-skidl"/>
+  <id>http://localhost:4000/blog/an-arduino-with-skidl</id>
   <published>2017-03-31T23:06:41-04:00</published>
   <updated>2017-03-31T23:06:41-04:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
+    <uri>http://localhost:4000</uri>
     <email>skidl@xess.com</email>
   </author>
   
@@ -679,7 +879,7 @@ descriptions, usage notes, etc.&lt;/li&gt;
   &lt;li&gt;It’s already done, which means I don’t have to do it.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/an-arduino-with-skidl/arduino-schematic.png&quot; width=&quot;800&quot; alt=&quot;A page of the Arduino schematic.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/an-arduino-with-skidl/arduino-schematic.png&quot; width=&quot;800&quot; alt=&quot;A page of the Arduino schematic.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;After loading the Arduino project with KiCad, the netlist for the design
 is exported by the Eeschema schematic editor using the &lt;code class=&quot;highlighter-rouge&quot;&gt;Tools =&amp;gt; Generate Netlist File...&lt;/code&gt;
@@ -767,19 +967,19 @@ Happy Arduino Day!&lt;/p&gt;
 &lt;p&gt;Really. I’m not joking.&lt;/p&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/an-arduino-with-skidl&quot;&gt;An Arduino With SKiDL&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on March 31, 2017.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/an-arduino-with-skidl&quot;&gt;An Arduino With SKiDL&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://localhost:4000&quot;&gt;SKiDL&lt;/a&gt; on March 31, 2017.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Two Easy Pieces]]></title>
-  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/two-easy-pieces"/>
-  <id>https://xesscorp.github.io/skidl/docs/_site/blog/two-easy-pieces</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/two-easy-pieces"/>
+  <id>http://localhost:4000/blog/two-easy-pieces</id>
   <published>2017-03-02T16:45:58-05:00</published>
   <updated>2017-03-02T16:45:58-05:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
+    <uri>http://localhost:4000</uri>
     <email>skidl@xess.com</email>
   </author>
   
@@ -839,19 +1039,19 @@ with the command:&lt;/p&gt;
 &lt;p&gt;This stored the netlist into a file called &lt;code class=&quot;highlighter-rouge&quot;&gt;led_clock.net&lt;/code&gt;. 
 I imported the netlist into &lt;code class=&quot;highlighter-rouge&quot;&gt;PCBNEW&lt;/code&gt; which arranged the LEDs like this:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/two-easy-pieces/clock-initial-placement.png&quot; width=&quot;800&quot; alt=&quot;Initial placement of clock LEDs.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/two-easy-pieces/clock-initial-placement.png&quot; width=&quot;800&quot; alt=&quot;Initial placement of clock LEDs.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Obviously that doesn’t look much like a clock face, but DougE’s script should
 take care of that.
 I stored his script in a file called &lt;code class=&quot;highlighter-rouge&quot;&gt;place_and_route_led_clock.py&lt;/code&gt; in my top-level
 directory, and then executed it in &lt;code class=&quot;highlighter-rouge&quot;&gt;PCBNEW&lt;/code&gt;’s Python shell:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/two-easy-pieces/clock-python-shell.png&quot; width=&quot;800&quot; alt=&quot;Executing the clock LED placement script.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/two-easy-pieces/clock-python-shell.png&quot; width=&quot;800&quot; alt=&quot;Executing the clock LED placement script.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The script rearranged the LEDs and routed all the traces to create
 a clock face similar to the one above (except mine uses a smaller 0603 LED):&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/two-easy-pieces/clock-led-placement.png&quot; width=&quot;800&quot; alt=&quot;LEDs rearranged into a clock face.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/two-easy-pieces/clock-led-placement.png&quot; width=&quot;800&quot; alt=&quot;LEDs rearranged into a clock face.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;This SKiDL script is relatively simple because it uses only LEDs and the
 bus sizes are fixed for a particular clock face layout.
@@ -864,7 +1064,7 @@ that forms a weighted sum of digital signals to create the analog
 red, green and blue signals which drive a monitor.
 The guts of the circuit are shown below:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/two-easy-pieces/vga-schematic.png&quot; width=&quot;600&quot; alt=&quot;VGA interface schematic.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/two-easy-pieces/vga-schematic.png&quot; width=&quot;600&quot; alt=&quot;VGA interface schematic.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;As it stands, this would be simple to implement in SKiDL.
 But why settle for a VGA interface with the red, green and blue color depths
@@ -1051,15 +1251,15 @@ with some connectors to build the complete VGA interface circuit:&lt;/p&gt;
 
 &lt;p&gt;Then it’s just a matter of running the script:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/two-easy-pieces/vga-python-cmd.png&quot; width=&quot;600&quot; alt=&quot;Running the VGA interface script.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/two-easy-pieces/vga-python-cmd.png&quot; width=&quot;600&quot; alt=&quot;Running the VGA interface script.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;And then importing the netlist into &lt;code class=&quot;highlighter-rouge&quot;&gt;PCBNEW&lt;/code&gt;:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/two-easy-pieces/vga-initial-placement.png&quot; width=&quot;800&quot; alt=&quot;Initial placement of VGA interface components.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/two-easy-pieces/vga-initial-placement.png&quot; width=&quot;800&quot; alt=&quot;Initial placement of VGA interface components.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;After the tedious work of placing parts and routing wires, the final VGA interface PCB layout appears:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/two-easy-pieces/vga-final.png&quot; width=&quot;800&quot; alt=&quot;Finished layout of VGA interface.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/two-easy-pieces/vga-final.png&quot; width=&quot;800&quot; alt=&quot;Finished layout of VGA interface.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Now, you could say this SKiDL script doesn’t qualify as an “easy piece”.
 There are some complications in the code, but that’s what usually happens when
@@ -1075,19 +1275,19 @@ And anyone else can use it in their designs,
 similar to how programmers insert calls to subroutine libraries into their code.&lt;/p&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/two-easy-pieces&quot;&gt;Two Easy Pieces&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on March 02, 2017.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/two-easy-pieces&quot;&gt;Two Easy Pieces&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://localhost:4000&quot;&gt;SKiDL&lt;/a&gt; on March 02, 2017.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Don't Replicate, Automate!]]></title>
-  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/dont-replicate-automate"/>
-  <id>https://xesscorp.github.io/skidl/docs/_site/blog/dont-replicate-automate</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/dont-replicate-automate"/>
+  <id>http://localhost:4000/blog/dont-replicate-automate</id>
   <published>2017-02-17T09:00:01-05:00</published>
   <updated>2017-02-17T09:00:01-05:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
+    <uri>http://localhost:4000</uri>
     <email>skidl@xess.com</email>
   </author>
   
@@ -1130,7 +1330,7 @@ placing hundreds of bypass caps.
 Here’s a section of a schematic showing just the bypass caps for a
 relatively small chip with around a dozen ground pins:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/dont-replicate-automate/bypass-caps.png&quot; alt=&quot;Schematic with bypass capacitors.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/dont-replicate-automate/bypass-caps.png&quot; alt=&quot;Schematic with bypass capacitors.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;And here’s the design process:&lt;/p&gt;
 
@@ -1282,19 +1482,19 @@ using SKiDL:&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Automation is pretty good stuff. (We should do more of it.)&lt;/strong&gt;&lt;/p&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/dont-replicate-automate&quot;&gt;Don't Replicate, Automate!&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on February 17, 2017.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/dont-replicate-automate&quot;&gt;Don't Replicate, Automate!&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://localhost:4000&quot;&gt;SKiDL&lt;/a&gt; on February 17, 2017.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[A Taste of Hierarchy]]></title>
-  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/a-taste-of-hierarchy"/>
-  <id>https://xesscorp.github.io/skidl/docs/_site/blog/a-taste-of-hierarchy</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/a-taste-of-hierarchy"/>
+  <id>http://localhost:4000/blog/a-taste-of-hierarchy</id>
   <published>2017-02-03T16:51:58-05:00</published>
   <updated>2017-02-03T16:51:58-05:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
+    <uri>http://localhost:4000</uri>
     <email>skidl@xess.com</email>
   </author>
   
@@ -1325,7 +1525,7 @@ Here’s what a SKiDL subcircuit for the crystal circuit looks like:&lt;/p&gt;
 &lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;@SubCircuit&lt;/code&gt; decorator handles some housekeeping that’s necessary to
 integrate the encapsulated circuit into the larger whole.
 That’s followed by a Python function containing SKiDL code for the subcircuit.
-(Look back at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/building-a-usb-to-jtag-interface-using-skidl&quot;&gt;this post&lt;/a&gt;
+(Look back at &lt;a href=&quot;http://localhost:4000/blog/building-a-usb-to-jtag-interface-using-skidl&quot;&gt;this post&lt;/a&gt;
 for a description of what this code does.)&lt;/p&gt;
 
 &lt;p&gt;Once the subcircuit is defined, all you need to do is call it somewhere within the
@@ -1428,7 +1628,7 @@ Python default parameters come to the rescue!&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Finally, here’s the &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/files/a-taste-of-hierarchy/intfc_brd.py&quot;&gt;complete SKiDL program&lt;/a&gt; so you can see how it fits together:&lt;/p&gt;
+&lt;p&gt;Finally, here’s the &lt;a href=&quot;http://localhost:4000/files/a-taste-of-hierarchy/intfc_brd.py&quot;&gt;complete SKiDL program&lt;/a&gt; so you can see how it fits together:&lt;/p&gt;
 
 &lt;figure class=&quot;code-highlight-figure&quot;&gt;&lt;div class=&quot;code-highlight&quot;&gt;&lt;pre class=&quot;code-highlight-pre&quot;&gt;&lt;div data-line=&quot;1&quot; class=&quot;code-highlight-row numbered&quot;&gt;&lt;div class=&quot;code-highlight-line&quot;&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;skidl&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
 &lt;/div&gt;&lt;/div&gt;&lt;div data-line=&quot;2&quot; class=&quot;code-highlight-row numbered&quot;&gt;&lt;div class=&quot;code-highlight-line&quot;&gt; &lt;/div&gt;&lt;/div&gt;&lt;div data-line=&quot;3&quot; class=&quot;code-highlight-row numbered&quot;&gt;&lt;div class=&quot;code-highlight-line&quot;&gt;&lt;span class=&quot;nd&quot;&gt;@SubCircuit&lt;/span&gt;
@@ -1529,30 +1729,30 @@ Python default parameters come to the rescue!&lt;/p&gt;
 &lt;/div&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/figure&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/a-taste-of-hierarchy&quot;&gt;A Taste of Hierarchy&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on February 03, 2017.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/a-taste-of-hierarchy&quot;&gt;A Taste of Hierarchy&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://localhost:4000&quot;&gt;SKiDL&lt;/a&gt; on February 03, 2017.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Names, Not Numbers]]></title>
-  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/names-not-numbers"/>
-  <id>https://xesscorp.github.io/skidl/docs/_site/blog/names-not-numbers</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/names-not-numbers"/>
+  <id>http://localhost:4000/blog/names-not-numbers</id>
   <published>2017-01-25T09:35:28-05:00</published>
   <updated>2017-01-25T09:35:28-05:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
+    <uri>http://localhost:4000</uri>
     <email>skidl@xess.com</email>
   </author>
   
   <content type="html">
   
-    &lt;p&gt;In my &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/building-a-usb-to-jtag-interface-using-skidl&quot;&gt;previous post&lt;/a&gt;,
+    &lt;p&gt;In my &lt;a href=&quot;http://localhost:4000/blog/building-a-usb-to-jtag-interface-using-skidl&quot;&gt;previous post&lt;/a&gt;,
 I showed how to use SKiDL to describe the circuit for a simple USB-to-JTAG
 interface circuit.
 That circuit used a PIC32MX microcontroller in a 28-pin SSOP package:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/names-not-numbers/pic32mx-ssop28.png&quot; alt=&quot;PIC32MX in a 28-pin SSOP package.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/names-not-numbers/pic32mx-ssop28.png&quot; alt=&quot;PIC32MX in a 28-pin SSOP package.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;and the corresponding SKiDL code was:&lt;/p&gt;
 
@@ -1563,7 +1763,7 @@ That circuit used a PIC32MX microcontroller in a 28-pin SSOP package:&lt;/p&gt;
 
 &lt;p&gt;I wanted to try using the same processor, but housed in a smaller QFN package:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/names-not-numbers/pic32mx-qfn28.png&quot; alt=&quot;PIC32MX in a 28-pin QFN package.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/names-not-numbers/pic32mx-qfn28.png&quot; alt=&quot;PIC32MX in a 28-pin QFN package.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;To do that, I changed the SKiDL code to reference a different part and footprint like this:&lt;/p&gt;
 
@@ -1626,27 +1826,27 @@ At that point, it didn’t matter whether I used pin names or numbers: I still h
 to re-route the wire traces on the PCB because the physical location
 of the pins had changed. There’s no getting around that.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/names-not-numbers/pcbnew-routed.png&quot; width=&quot;800&quot; alt=&quot;Completed USB-to-JTAG board layout.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/names-not-numbers/pcbnew-routed.png&quot; width=&quot;800&quot; alt=&quot;Completed USB-to-JTAG board layout.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Here’s a side-by-side of the previous and new USB-to-JTAG boards:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/names-not-numbers/old-and-new-boards.jpg&quot; width=&quot;800&quot; alt=&quot;Old and new USB-to-JTAG boards.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/names-not-numbers/old-and-new-boards.jpg&quot; width=&quot;800&quot; alt=&quot;Old and new USB-to-JTAG boards.&quot; /&gt;&lt;/p&gt;
 
 
   
-  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/names-not-numbers&quot;&gt;Names, Not Numbers&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on January 25, 2017.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/names-not-numbers&quot;&gt;Names, Not Numbers&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://localhost:4000&quot;&gt;SKiDL&lt;/a&gt; on January 25, 2017.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Building a USB-to-JTAG Interface Using SKiDL]]></title>
-  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/building-a-usb-to-jtag-interface-using-skidl"/>
-  <id>https://xesscorp.github.io/skidl/docs/_site/blog/building-a-usb-to-jtag-module-using-skidl</id>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/building-a-usb-to-jtag-interface-using-skidl"/>
+  <id>http://localhost:4000/blog/building-a-usb-to-jtag-module-using-skidl</id>
   <published>2017-01-18T22:40:48-05:00</published>
   <updated>2017-01-18T22:40:48-05:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
+    <uri>http://localhost:4000</uri>
     <email>skidl@xess.com</email>
   </author>
   
@@ -1655,7 +1855,7 @@ of the pins had changed. There’s no getting around that.&lt;/p&gt;
     &lt;p&gt;This post describes using SKiDL for a USB-to-JTAG interface
 that was taken all the way from concept to physically building a device.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/usb-to-jtag/assembled_brd.png&quot; alt=&quot;Assembled USB-to-JTAG board.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/usb-to-jtag/assembled_brd.png&quot; alt=&quot;Assembled USB-to-JTAG board.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The interface is pretty simple. It’s built from the following stuff:&lt;/p&gt;
 
@@ -1672,7 +1872,7 @@ that was taken all the way from concept to physically building a device.&lt;/p&g
 
 &lt;p&gt;Here’s a block diagram to help orient you as the SKiDL code is presented.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/usb-to-jtag/block_diag.png&quot; width=&quot;400&quot; alt=&quot;USB-to-JTAG device block diagram.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/usb-to-jtag/block_diag.png&quot; width=&quot;400&quot; alt=&quot;USB-to-JTAG device block diagram.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Any SKiDL project starts as a Python file.
 In this example, I created the file &lt;code class=&quot;highlighter-rouge&quot;&gt;intfc_brd.py&lt;/code&gt;.
@@ -2198,12 +2398,12 @@ for this project.&lt;/p&gt;
 &lt;p&gt;When &lt;code class=&quot;highlighter-rouge&quot;&gt;intfc_brd.net&lt;/code&gt; is taken in by KiCad’s PCBNEW layout editor,
 the initial component arrangement looks something like this:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/usb-to-jtag/pcbnew-unplaced.png&quot; width=&quot;800&quot; alt=&quot;USB-to-JTAG board with unplaced parts.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/usb-to-jtag/pcbnew-unplaced.png&quot; width=&quot;800&quot; alt=&quot;USB-to-JTAG board with unplaced parts.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;After a suitable amount of fiddling (none of which has anything to do with SKiDL at this point),
 we get to a final PCB layout:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/usb-to-jtag/pcbnew-routed.png&quot; width=&quot;800&quot; alt=&quot;Completed USB-to-JTAG board layout.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/usb-to-jtag/pcbnew-routed.png&quot; width=&quot;800&quot; alt=&quot;Completed USB-to-JTAG board layout.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The layout is translated into &lt;a href=&quot;https://en.wikipedia.org/wiki/Gerber_format&quot;&gt;Gerber files&lt;/a&gt;
 that are sent for fabrication into a physical PCB.
@@ -2219,7 +2419,7 @@ SKiDL that need polishing.
 But that’s always going to be the case.&lt;/p&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/building-a-usb-to-jtag-interface-using-skidl&quot;&gt;Building a USB-to-JTAG Interface Using SKiDL&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on January 18, 2017.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/building-a-usb-to-jtag-interface-using-skidl&quot;&gt;Building a USB-to-JTAG Interface Using SKiDL&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://localhost:4000&quot;&gt;SKiDL&lt;/a&gt; on January 18, 2017.&lt;/p&gt;</content>
 </entry>
 
 </feed>
