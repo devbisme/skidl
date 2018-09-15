@@ -314,6 +314,11 @@ class Part(object):
             # original into the copy, so create independent copies of the pins.
             cpy.pins = []
             cpy += [p.copy() for p in self.pins]  # Add pin and its attribute.
+            # If the part copy is intended as a template, then disconnect its pins
+            # from any circuit nets.
+            if dest == TEMPLATE:
+                for p in cpy.pins:
+                    p.disconnect()
 
             # Make sure all the pins have a reference to this new part copy.
             cpy.associate_pins()

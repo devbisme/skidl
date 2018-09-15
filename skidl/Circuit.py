@@ -534,8 +534,7 @@ class Circuit(object):
             f.write(str(netlist))
 
         if do_backup:
-            self.backup_parts(
-            )  # Create a new backup lib for the circuit parts.
+            self.backup_parts()  # Create a new backup lib for the circuit parts.
             global backup_lib  # Clear out any old backup lib so the new one
             backup_lib = None  #   will get reloaded when it's needed.
 

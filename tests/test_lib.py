@@ -51,6 +51,17 @@ def test_backup_1():
     a = Part('crap','R',footprint='null')
     b = Part('crap','C',footprint='null')
     generate_netlist()
+    
+def test_backup_2():
+    a = Part('device','R',footprint='null')
+    b = Part('device','C',footprint='null')
+    c = Part('device','L',footprint='null')
+    a & b & c # Place parts in series.
+    num_pins_per_net_1 = {net.name:len(net) for net in default_circuit.get_nets()}
+    generate_netlist(do_backup=True)  # This creates the backup parts library.
+    num_pins_per_net_2 = {net.name:len(net) for net in default_circuit.get_nets()}
+    for nm in num_pins_per_net_1:
+        assert(num_pins_per_net_1[nm] == num_pins_per_net_2[nm])
 
 def test_lib_1():
     lib_kicad = SchLib('device')
