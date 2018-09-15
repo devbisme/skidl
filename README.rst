@@ -38,44 +38,59 @@ Features
 * Can perform SPICE simulations (Python 3 only).
 * Takes advantage of all the benefits of the Python ecosystem (because it *is* Python).
 
-As a very simple example, the SKiDL program below describes a circuit that
+As a very simple example (and you can see more examples in the 
+`SKiDL blog <https://xesscorp.github.io/skidl/docs/_site/blog/>`_),
+the SKiDL program below describes a circuit that
 takes an input voltage, divides it by three, and outputs it::
 
     from skidl import *
 
-    gnd = Net('GND')  # Ground reference.
-    vin = Net('VI')   # Input voltage to the divider.
-    vout = Net('VO')  # Output voltage from the divider.
-    r1, r2 = 2 * Part('device', 'R', TEMPLATE)  # Create two resistors.
-    r1.value, r1.footprint = '1K',  'Resistors_SMD:R_0805'  # Set resistor values
-    r2.value, r2.footprint = '500', 'Resistors_SMD:R_0805'  # and footprints.
-    r1[1] += vin      # Connect the input to the first resistor.
-    r2[2] += gnd      # Connect the second resistor to ground.
-    vout += r1[2], r2[1]  # Output comes from the connection of the two resistors.
+    # Create input & output voltages and ground reference.
+    vin, vout, gnd = Net('VI'), Net('VO'), Net('GND')
+
+    # Create two resistors.
+    r1, r2 = 2 * Part('device', 'R', TEMPLATE, footprint='Resistors_SMD:R_0805')
+    r1.value = '1K'   # Set upper resistor value.
+    r2.value = '500'  # Set lower resistor value.
+
+    # Connect the nets and resistors.
+    vin += r1[1]      # Connect the input to the upper resistor.
+    gnd += r2[2]      # Connect the lower resistor to ground.
+    vout += r1[2], r2[1] # Output comes from the connection of the two resistors.
 
     generate_netlist()
 
 And this is the output that can be fed to a program like KiCad's ``PCBNEW`` to
 create the physical PCB::
 
-    (export (version D)
-      (design
-        (source "C:/Users/DEVB/PycharmProjects/test1\test.py")
-        (date "08/12/2016 11:13 AM")
-        (tool "SKiDL (0.0.1)"))
-      (components
-        (comp (ref R1)
-          (value 1K)
-          (footprint Resistors_SMD:R_0805))
-        (comp (ref R2)
-          (value 500)
-          (footprint Resistors_SMD:R_0805)))
-      (nets
-        (net (code 0) (name "VI")
-          (node (ref R1) (pin 1)))
-        (net (code 1) (name "GND")
-          (node (ref R2) (pin 2)))
-        (net (code 2) (name "VO")
-          (node (ref R1) (pin 2))
-          (node (ref R2) (pin 1))))
-    )
+    (export (version D)                                                                                    
+      (design                                                                                              
+        (source "C:\xesscorp\KiCad\tools\skidl\tests\vdiv.py")                                             
+        (date "09/14/2018 08:49 PM")                                                                       
+        (tool "SKiDL (0.0.23)"))                                                                           
+      (components                                                                                          
+        (comp (ref R1)                                                                                     
+          (value 1K)                                                                                       
+          (footprint Resistors_SMD:R_0805)                                                                 
+          (fields                                                                                          
+            (field (name description) Resistor)                                                            
+            (field (name keywords) "r res resistor"))                                                      
+          (libsource (lib device) (part R))                                                                
+          (sheetpath (names /top/12995167876889795071) (tstamps /top/12995167876889795071)))               
+        (comp (ref R2)                                                                                     
+          (value 500)                                                                                      
+          (footprint Resistors_SMD:R_0805)                                                                 
+          (fields                                                                                          
+            (field (name description) Resistor)                                                            
+            (field (name keywords) "r res resistor"))                                                      
+          (libsource (lib device) (part R))                                                                
+          (sheetpath (names /top/8869138953290924483) (tstamps /top/8869138953290924483))))                
+      (nets                                                                                                
+        (net (code 0) (name GND)                                                                           
+          (node (ref R2) (pin 2)))                                                                         
+        (net (code 1) (name VI)                                                                            
+          (node (ref R1) (pin 1)))                                                                         
+        (net (code 2) (name VO)                                                                            
+          (node (ref R1) (pin 2))                                                                          
+          (node (ref R2) (pin 1))))                                                                        
+    )                                                                                                      

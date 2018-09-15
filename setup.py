@@ -5,7 +5,7 @@
 import sys
 import setuptools
 
-__version__ = '0.0.23'
+__version__ = '0.0.24'
 __author__ = 'XESS Corp.'
 __email__ = 'info@xess.com'
 
@@ -55,9 +55,9 @@ setup(
     install_requires=requirements,
     license="MIT",
     zip_safe=False,
-    keywords='skidl electronic circuit schematics',
+    keywords='skidl kicad electronic circuit schematics',
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',

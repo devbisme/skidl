@@ -3,6 +3,12 @@
 History
 -------
 
+0.0.24 (2018-09-XX)
+______________________
+
+* Fixed an error where creating a backup part library for a design would create extra pins attached to the nets.
+
+
 0.0.23 (2018-08-25)
 ______________________
 
