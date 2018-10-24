@@ -11,8 +11,13 @@ category: blog
 permalink: blog/sweetening-skidl
 ---
 
-I've added a bit of syntactic sugar to SKiDL over the past few months. 
-It doesn't really change what SKiDL does, just makes it easier to do some things.
+I've added a bit of syntactic sugar to SKiDL over the past few months:
+
+* [Series and parallel network constructors](#series-and-parallel-network-constructors),
+* [Bussed part pins](#bussed-part-pins), and
+* [Accessing part pins as attributes](#accessing-part-pins-as-attributes).
+ 
+It doesn't change what SKiDL does, but does make it easier to do it.
 
 
 ### Series and Parallel Network Constructors
@@ -20,14 +25,14 @@ It doesn't really change what SKiDL does, just makes it easier to do some things
 Last year, I had a [discussion](https://github.com/xesscorp/skidl/issues/26) with
 [kasbah](https://github.com/kasbah) on the SKiDL Github about his suggestion
 to overload the `>>` operator to wire two-pin parts in series.
-While a lot of good ideas came out of that,
-in the end we felt the idea was too limited to make the effort worthwhile.
+A lot of good ideas came out of that,
+but in the end we thought it had limited use and dropped it.
 
 Fast forward to a few months ago when I was working on a project to use genetic algorithms
 for optimizing a power supply.
 One of the tasks was to programmatically create series and parallel combinations
 of two-pin components.
-By looking at the connection of $N$ two-pin components in serial or parallel as the
+By looking at the connection of two-pin components in serial or parallel as the
 creation of a two-pin *network*, a concise syntax arose to create circuits much
 more complicated than simple series connections.
 
@@ -159,7 +164,7 @@ DATA:
 ```
 
 
-### Part Pins as Attributes
+### Accessing Part Pins as Attributes
 
 The standard syntax for accessing a part pin uses array index notation like this:
 

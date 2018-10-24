@@ -7,7 +7,7 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="https://xesscorp.github.io/skidl/docs/_site/feed.xml" />
 <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/" />
-<updated>2018-09-15T13:55:24-04:00</updated>
+<updated>2018-10-24T09:40:56-04:00</updated>
 <id>https://xesscorp.github.io/skidl/docs/_site/</id>
 <author>
   <name>XESS Corp.</name>
@@ -30,22 +30,29 @@
   
   <content type="html">
   
-    &lt;p&gt;I’ve added a bit of syntactic sugar to SKiDL over the past few months. 
-It doesn’t really change what SKiDL does, just makes it easier to do some things.&lt;/p&gt;
+    &lt;p&gt;I’ve added a bit of syntactic sugar to SKiDL over the past few months:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#series-and-parallel-network-constructors&quot;&gt;Series and parallel network constructors&lt;/a&gt;,&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#bussed-part-pins&quot;&gt;Bussed part pins&lt;/a&gt;, and&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#accessing-part-pins-as-attributes&quot;&gt;Accessing part pins as attributes&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;It doesn’t change what SKiDL does, but does make it easier to do it.&lt;/p&gt;
 
 &lt;h3 id=&quot;series-and-parallel-network-constructors&quot;&gt;Series and Parallel Network Constructors&lt;/h3&gt;
 
 &lt;p&gt;Last year, I had a &lt;a href=&quot;https://github.com/xesscorp/skidl/issues/26&quot;&gt;discussion&lt;/a&gt; with
 &lt;a href=&quot;https://github.com/kasbah&quot;&gt;kasbah&lt;/a&gt; on the SKiDL Github about his suggestion
 to overload the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;gt;&amp;gt;&lt;/code&gt; operator to wire two-pin parts in series.
-While a lot of good ideas came out of that,
-in the end we felt the idea was too limited to make the effort worthwhile.&lt;/p&gt;
+A lot of good ideas came out of that,
+but in the end we thought it had limited use and dropped it.&lt;/p&gt;
 
 &lt;p&gt;Fast forward to a few months ago when I was working on a project to use genetic algorithms
 for optimizing a power supply.
 One of the tasks was to programmatically create series and parallel combinations
 of two-pin components.
-By looking at the connection of $N$ two-pin components in serial or parallel as the
+By looking at the connection of two-pin components in serial or parallel as the
 creation of a two-pin &lt;em&gt;network&lt;/em&gt;, a concise syntax arose to create circuits much
 more complicated than simple series connections.&lt;/p&gt;
 
@@ -175,7 +182,7 @@ DATA:
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;part-pins-as-attributes&quot;&gt;Part Pins as Attributes&lt;/h3&gt;
+&lt;h3 id=&quot;accessing-part-pins-as-attributes&quot;&gt;Accessing Part Pins as Attributes&lt;/h3&gt;
 
 &lt;p&gt;The standard syntax for accessing a part pin uses array index notation like this:&lt;/p&gt;
 
