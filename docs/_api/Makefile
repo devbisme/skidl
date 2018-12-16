@@ -60,10 +60,11 @@ dirhtml:
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/dirhtml."
 
 singlehtml:
+	sphinx-apidoc -f -o . ../../skidl ../../skidl/libs
 	$(SPHINXBUILD) -b singlehtml $(ALLSPHINXOPTS) $(BUILDDIR)/singlehtml
 	@echo "Copying files."
-    cp $(BUILDDIR)/singlehtml/index.html ../api.html
-    cp -r $(BUILDDIR)/singlehtml/_static ../_static
+	sed s/_static/static/g $(BUILDDIR)/singlehtml/api.html > ../api.html
+	cp -r $(BUILDDIR)/singlehtml/_static ../static
 	@echo "Build finished. The HTML page is in $(BUILDDIR)/singlehtml."
 
 pickle:

@@ -77,10 +77,11 @@ if "%1" == "dirhtml" (
 )
 
 if "%1" == "singlehtml" (
+	sphinx-apidoc -f -o . ../../skidl ../../skidl/libs
 	%SPHINXBUILD% -b singlehtml %ALLSPHINXOPTS% %BUILDDIR%/singlehtml
 	if errorlevel 1 exit /b 1
-    sed s/_static/static/g %BUILDDIR%/singlehtml/index.html > ../api.html
-    cp -r %BUILDDIR%/singlehtml/_static ../static
+	sed s/_static/static/g %BUILDDIR%/singlehtml/api.html > ../api.html
+	cp -r %BUILDDIR%/singlehtml/_static ../static
 	echo.Build finished. The HTML pages are in %BUILDDIR%/singlehtml.
 	goto end
 )

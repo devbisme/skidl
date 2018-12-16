@@ -54,11 +54,11 @@ source_suffix = '.rst'
 #source_encoding = 'utf-8-sig'
 
 # The master toctree document.
-master_doc = 'index'
+master_doc = 'api'
 
 # General information about the project.
 project = u'skidl'
-copyright = u'2016, XESS Corp.'
+copyright = u'2016-2018, XESS Corp.'
 
 # The version info for the project you're documenting, acts as replacement
 # for |version| and |release|, also used in various other places throughout
@@ -275,3 +275,7 @@ texinfo_documents = [
 
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
+
+
+# autodoc options.
+autodoc_member_order = 'bysource'
