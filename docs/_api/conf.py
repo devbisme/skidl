@@ -53,7 +53,8 @@ source_suffix = '.rst'
 # The encoding of source files.
 #source_encoding = 'utf-8-sig'
 
-# The master toctree document.
+# The master toctree document. Don't use index.rst because that will conflict
+# with the index.rst file generated with Jekyll.
 master_doc = 'api'
 
 # General information about the project.
@@ -113,7 +114,8 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'default'
+#html_theme = 'alabaster'
+html_theme = 'agogo'
 
 # Theme options are theme-specific and customize the look and feel of a
 # theme further.  For a list of options available for each theme, see the

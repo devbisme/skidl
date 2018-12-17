@@ -21,8 +21,9 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
+
 """
-Utility functions.
+Utility functions used by the rest of SKiDL.
 """
 
 from __future__ import print_function
@@ -51,12 +52,17 @@ from contextlib import contextmanager
 
 from .py_2_3 import *
 
-# Separator for strings containing multiple indices.
+"""Separator for strings containing multiple indices."""
 INDEX_SEPARATOR = ','
 
 
 def norecurse(f):
-    """This decorator will keep function f from recursively calling itself."""
+    """Decorator that keeps a function from recursively calling itself.
+
+    Parameters
+    ----------
+    f: function
+    """
 
     def func(*args, **kwargs):
         # If a function's name is on the stack twice (once for the current call
@@ -73,8 +79,7 @@ def norecurse(f):
 
 
 class CountCalls(object):
-    """
-    Decorator for counting the number of times a function is called.
+    """Decorator for counting the number of times a function is called.
 
     This is used for counting errors and warnings passed to logging functions,
     making it easy to track if and how many errors/warnings were issued.
@@ -98,10 +103,10 @@ def scriptinfo():
     name:   name of script or executable
     source: name of source code file
     ---------------------------------------------------------------------------
-    "name" and "source" are identical if and only if running interpreted code.
-    When running code compiled by py2exe or cx_freeze, "source" contains
+    `name` and `source` are identical if and only if running interpreted code.
+    When running code compiled by `py2exe` or `cx_freeze`, `source` contains
     the name of the originating Python script.
-    If compiled by PyInstaller, "source" contains no meaningful information.
+    If compiled by PyInstaller, `source` contains no meaningful information.
 
     Downloaded from:
     http://code.activestate.com/recipes/579018-python-determine-name-and-directory-of-the-top-lev/

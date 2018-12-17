@@ -21,23 +21,6 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-"""
-SKiDL: A Python-Based Schematic Design Language
-
-This module extends Python with the ability to design electronic
-circuits. It provides classes for working with 
-
-**1)** electronic parts (``Part``),
-**2)** collections of part terminals (``Pin``) connected via wires (``Net``), and
-**3)** groups of related nets (``Bus``).
-
-Using these classes, you can
-concisely describe the interconnection of components using a linear
-and/or hierarchical structure. It also provides the capability to
-check the resulting circuitry for the violation of electrical rules.
-The output of a SKiDL-enabled Python script is a netlist that can be
-imported into a PCB layout tool.
-"""
 
 from __future__ import print_function
 from __future__ import unicode_literals

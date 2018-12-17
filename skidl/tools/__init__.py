@@ -23,7 +23,7 @@
 # THE SOFTWARE.
 
 """
-Installs handlers for various EDA tools.
+This package contains the handler functions for various EDA tools.
 """
 
 import os

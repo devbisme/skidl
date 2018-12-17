@@ -7,25 +7,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>skidl 0.0.24 documentation</title>
-    <link rel="stylesheet" href="static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
-    
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="static/documentation_options.js"></script>
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="nav-item nav-item-0"><a href="api.html#document-api">skidl 0.0.24 documentation</a> &#187;</li> 
-      </ul>
-    </div>  
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="api.html#document-api">skidl 0.0.24 documentation</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+        </div>
+       </div>
+    </div>
 
-    <div class="document">
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
       <div class="documentwrapper">
         <div class="bodywrapper">
           <div class="body" role="main">
@@ -108,7 +111,7 @@ but, right now, the description on the homepage about how to use SKiDL is much b
 </div>
 <div class="section" id="module-skidl.tools">
 <span id="module-contents"></span><h6>Module contents<a class="headerlink" href="#module-skidl.tools" title="Permalink to this headline">¶</a></h6>
-<p>Installs handlers for various EDA tools.</p>
+<p>This package contains the handler functions for various EDA tools.</p>
 </div>
 </div>
 </div>
@@ -1735,18 +1738,6 @@ only be SKIDL.</li>
 </div>
 <div class="section" id="module-skidl.skidl">
 <span id="skidl-skidl-module"></span><h4>skidl.skidl module<a class="headerlink" href="#module-skidl.skidl" title="Permalink to this headline">¶</a></h4>
-<p>SKiDL: A Python-Based Schematic Design Language</p>
-<p>This module extends Python with the ability to design electronic
-circuits. It provides classes for working with</p>
-<p><strong>1)</strong> electronic parts (<code class="docutils literal notranslate"><span class="pre">Part</span></code>),
-<strong>2)</strong> collections of part terminals (<code class="docutils literal notranslate"><span class="pre">Pin</span></code>) connected via wires (<code class="docutils literal notranslate"><span class="pre">Net</span></code>), and
-<strong>3)</strong> groups of related nets (<code class="docutils literal notranslate"><span class="pre">Bus</span></code>).</p>
-<p>Using these classes, you can
-concisely describe the interconnection of components using a linear
-and/or hierarchical structure. It also provides the capability to
-check the resulting circuitry for the violation of electrical rules.
-The output of a SKiDL-enabled Python script is a netlist that can be
-imported into a PCB layout tool.</p>
 <dl class="function">
 <dt id="skidl.skidl.set_default_tool">
 <code class="descclassname">skidl.skidl.</code><code class="descname">set_default_tool</code><span class="sig-paren">(</span><em>tool</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.set_default_tool" title="Permalink to this definition">¶</a></dt>
@@ -1783,11 +1774,19 @@ imported into a PCB layout tool.</p>
 </div>
 <div class="section" id="module-skidl.utilities">
 <span id="skidl-utilities-module"></span><h4>skidl.utilities module<a class="headerlink" href="#module-skidl.utilities" title="Permalink to this headline">¶</a></h4>
-<p>Utility functions.</p>
+<p>Utility functions used by the rest of SKiDL.</p>
 <dl class="function">
 <dt id="skidl.utilities.norecurse">
 <code class="descclassname">skidl.utilities.</code><code class="descname">norecurse</code><span class="sig-paren">(</span><em>f</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.utilities.norecurse" title="Permalink to this definition">¶</a></dt>
-<dd><p>This decorator will keep function f from recursively calling itself.</p>
+<dd><p>Decorator that keeps a function from recursively calling itself.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>f</strong> (<em>function</em>) – </td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="class">
@@ -1809,10 +1808,10 @@ dir:    directory containing script or compiled executable
 name:   name of script or executable
 source: name of source code file
 —————————————————————————
-“name” and “source” are identical if and only if running interpreted code.
-When running code compiled by py2exe or cx_freeze, “source” contains
+<cite>name</cite> and <cite>source</cite> are identical if and only if running interpreted code.
+When running code compiled by <cite>py2exe</cite> or <cite>cx_freeze</cite>, <cite>source</cite> contains
 the name of the originating Python script.
-If compiled by PyInstaller, “source” contains no meaningful information.</p>
+If compiled by PyInstaller, <cite>source</cite> contains no meaningful information.</p>
 <p>Downloaded from:
 <a class="reference external" href="http://code.activestate.com/recipes/579018-python-determine-name-and-directory-of-the-top-lev/">http://code.activestate.com/recipes/579018-python-determine-name-and-directory-of-the-top-lev/</a></p>
 </dd></dl>
@@ -2091,6 +2090,20 @@ object, or a filename to open.</li>
 </div>
 <div class="section" id="module-skidl">
 <span id="module-contents"></span><h4>Module contents<a class="headerlink" href="#module-skidl" title="Permalink to this headline">¶</a></h4>
+<p>SKiDL: A Python-Based Schematic Design Language</p>
+<p>This module extends Python with the ability to design electronic
+circuits. It provides classes for working with:</p>
+<ul class="simple">
+<li>Electronic parts (<code class="docutils literal notranslate"><span class="pre">Part</span></code>),</li>
+<li>Collections of part terminals (<code class="docutils literal notranslate"><span class="pre">Pin</span></code>) connected via wires (<code class="docutils literal notranslate"><span class="pre">Net</span></code>), and</li>
+<li>Groups of related nets (<code class="docutils literal notranslate"><span class="pre">Bus</span></code>).</li>
+</ul>
+<p>Using these classes, you can concisely describe the interconnection of
+parts using a flat or hierarchical structure.
+A resulting Python script outputs a netlist that can be
+imported into a PCB layout tool or Spice simulator.
+The script can also
+check the resulting circuitry for electrical rule violations.</p>
 </div>
 </div>
 </div>
@@ -2110,55 +2123,45 @@ object, or a filename to open.</li>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="api.html#document-api">Table of Contents</a></h3>
-  <ul>
-<li class="toctree-l1"><a class="reference internal" href="api.html#document-modules">skidl</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api.html#document-skidl">skidl package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api.html#document-skidl.tools">skidl.tools package</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#module-skidl.Alias">skidl.Alias module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#module-skidl.Bus">skidl.Bus module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#module-skidl.Circuit">skidl.Circuit module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#module-skidl.Interface">skidl.Interface module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#module-skidl.Net">skidl.Net module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#module-skidl.NetPinList">skidl.NetPinList module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#module-skidl.Network">skidl.Network module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#module-skidl.Part">skidl.Part module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#module-skidl.Pin">skidl.Pin module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#module-skidl.SchLib">skidl.SchLib module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#module-skidl.defines">skidl.defines module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#module-skidl.netlist_to_skidl">skidl.netlist_to_skidl module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#module-skidl.netlist_to_skidl_main">skidl.netlist_to_skidl_main module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#module-skidl.part_query">skidl.part_query module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#module-skidl.pckg_info">skidl.pckg_info module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#module-skidl.py_2_3">skidl.py_2_3 module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#module-skidl.pyspice">skidl.pyspice module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#module-skidl.skidl">skidl.skidl module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#module-skidl.utilities">skidl.utilities module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#module-skidl">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
+        </div>
+        <div class="sidebar">
+          <h3>Table of Contents</h3>
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html#document-modules">skidl</a></li>
 </ul>
 
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+            </form>
+          </div>
         </div>
+        <div class="clearer"></div>
       </div>
-      <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="nav-item nav-item-0"><a href="api.html#document-api">skidl 0.0.24 documentation</a> &#187;</li> 
-      </ul>
-    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+          </div>
+          <div role="note" aria-label="source link">
+          </div>
+        </div>
+
+        <div class="right">
+          
     <div class="footer" role="contentinfo">
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.2.
     </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
   </body>
 </html>
