@@ -49,7 +49,7 @@ takes an input voltage, divides it by three, and outputs it::
     vin, vout, gnd = Net('VI'), Net('VO'), Net('GND')
 
     # Create two resistors.
-    r1, r2 = 2 * Part('device', 'R', TEMPLATE, footprint='Resistors_SMD:R_0805')
+    r1, r2 = 2 * Part('device', 'R', TEMPLATE, footprint='KiCad/Resistors_SMD.pretty:R_0805')
     r1.value = '1K'   # Set upper resistor value.
     r2.value = '500'  # Set lower resistor value.
 

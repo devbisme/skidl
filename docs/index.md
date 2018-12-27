@@ -122,16 +122,19 @@ SKiDL is pure Python so it's easy to install:
 $ pip install skidl
 ```
 
-or:
-
-```bash
-$ easy_install skidl
-```
-
 In order for SKiDL to access part libraries,
 you'll also need to install [KiCad](http://kicad-pcb.org/).
 
+Last but not least, make sure you define the following environment variables on your `.bashrc`, i.e, for OSX:
 
+```
+# KiCad/SKidl
+export KISYSMOD="/Library/Application Support/kicad/modules/"
+export KICAD_SYMBOL_DIR="/Library/Application Support/kicad/library"
+```
+
+Those paths are operating system-dependent so launching KiCAD and going to `Preferences->Configure Paths`
+will reveal the needed paths.
 
 # Basic Usage
 
