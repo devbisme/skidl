@@ -63,7 +63,7 @@ from skidl import *
 vin, vout, gnd = Net('VI'), Net('VO'), Net('GND')
 
 # Create two resistors.
-r1, r2 = 2 * Part('device', 'R', TEMPLATE, footprint='Resistors_SMD:R_0805')
+r1, r2 = 2 * Part('device', 'R', TEMPLATE, footprint='Resistor_SMD.pretty:R_0805_2012Metric')
 r1.value = '1K'   # Set upper resistor value.
 r2.value = '500'  # Set lower resistor value.
 
@@ -87,7 +87,7 @@ create the physical PCB:
   (components                                                                                          
     (comp (ref R1)                                                                                     
       (value 1K)                                                                                       
-      (footprint Resistors_SMD:R_0805)                                                                 
+      (footprint Resistor_SMD.pretty:R_0805_2012Metric)                                                                 
       (fields                                                                                          
         (field (name description) Resistor)                                                            
         (field (name keywords) "r res resistor"))                                                      
@@ -95,7 +95,7 @@ create the physical PCB:
       (sheetpath (names /top/12995167876889795071) (tstamps /top/12995167876889795071)))               
     (comp (ref R2)                                                                                     
       (value 500)                                                                                      
-      (footprint Resistors_SMD:R_0805)                                                                 
+      (footprint Resistor_SMD.pretty:R_0805_2012Metric)                                                                 
       (fields                                                                                          
         (field (name description) Resistor)                                                            
         (field (name keywords) "r res resistor"))                                                      
@@ -122,19 +122,23 @@ SKiDL is pure Python so it's easy to install:
 $ pip install skidl
 ```
 
-In order for SKiDL to access part libraries,
+To give SKiDL some part libraries to work with,
 you'll also need to install [KiCad](http://kicad-pcb.org/).
-
-Last but not least, make sure you define the following environment variables on your `.bashrc`, i.e, for OSX:
+Then, you'll need to set an environment variable so SKiDL can find the libraries.
+For Windows, do this:
 
 ```
-# KiCad/SKidl
-export KISYSMOD="/Library/Application Support/kicad/modules/"
-export KICAD_SYMBOL_DIR="/Library/Application Support/kicad/library"
+set KICAD_SYMBOL_DIR=C:\Program Files\KiCad\share\kicad\kicad-symbols
 ```
 
-Those paths are operating system-dependent so launching KiCAD and going to `Preferences->Configure Paths`
-will reveal the needed paths.
+And for linux-type OSes, define the environment variable in your `.bashrc` like so:
+
+```
+export KICAD_SYMBOL_DIR="/Library/Application Support/kicad/kicad-symbols"
+```
+
+**These paths are OS-dependent**, so launch KiCAD and click `Preferences->Configure Paths`
+to reveal the needed paths.
 
 # Basic Usage
 
@@ -320,8 +324,8 @@ First, start by creating two resistors (note that I've also added the
 `footprint` attribute that describes the physical package for the resistors):
 
 ```py
->>> rup = Part('device', 'R', value='1K', footprint='Resistors_SMD:R_0805')                            
->>> rlow = Part('device', 'R', value='500', footprint='Resistors_SMD:R_0805')                          
+>>> rup = Part('device', 'R', value='1K', footprint='Resistor_SMD.pretty:R_0805_2012Metric')                            
+>>> rlow = Part('device', 'R', value='500', footprint='Resistor_SMD.pretty:R_0805_2012Metric')                          
 >>> rup.ref, rlow.ref                                                
 ('R1', 'R2')                                                         
 >>> rup.value, rlow.value                                            
@@ -446,10 +450,10 @@ then the netlist will be stored in `my_circuit.net`.
   (components
     (comp (ref R1)
       (value 1K)
-      (footprint Resistors_SMD:R_0805))
+      (footprint Resistor_SMD.pretty:R_0805_2012Metric))
     (comp (ref R2)
       (value 500)
-      (footprint Resistors_SMD:R_0805)))
+      (footprint Resistor_SMD.pretty:R_0805_2012Metric)))
   (nets
     (net (code 0) (name "VIN")
       (node (ref R1) (pin 1)))
@@ -467,14 +471,14 @@ then the netlist will be stored in `my_circuit.net`.
   (components
     (comp (ref R1)
       (value 1K)
-      (footprint Resistors_SMD:R_0805)
+      (footprint Resistor_SMD.pretty:R_0805_2012Metric)
       (fields
         (field (name keywords) "r res resistor")
         (field (name description) Resistor))
       (libsource (lib device) (part R)))
     (comp (ref R2)
       (value 500)
-      (footprint Resistors_SMD:R_0805)
+      (footprint Resistor_SMD.pretty:R_0805_2012Metric)
       (fields
         (field (name keywords) "r res resistor")
         (field (name description) Resistor))
@@ -577,8 +581,8 @@ but you can override it:
 my_part.ref = 'U5'
 ```
 
-The `value` and `footprint` attributes are also required for generating
-a netlist. But you can also add any other attribute:
+In addition, the `value` and `footprint` attributes are required for generating
+a netlist. You can also add any other attribute:
 
 ```py
 my_part.manf = 'Atmel'
@@ -588,7 +592,7 @@ my_part.setattr('manf#', 'ATTINY4-TSHR'
 It's also possible to set the attributes during the part creation:
 
 ```py
-my_part = Part('some_lib', 'some_part', ref='U5', footprint='SMD:SOT23_6', manf='Atmel')
+my_part = Part('some_lib', 'some_part', ref='U5', footprint='Package_TO_SOT_SMD.pretty:SOT-23-6', manf='Atmel')
 ```
 
 Creating nets is also simple:
@@ -1163,8 +1167,8 @@ import sys
 @subcircuit
 def vdiv(inp, outp):
     """Divide inp voltage by 3 and place it on outp net."""
-    rup = Part('device', 'R', value='1K', footprint='Resistors_SMD:R_0805')
-    rlo = Part('device','R', value='500', footprint='Resistors_SMD:R_0805')
+    rup = Part('device', 'R', value='1K', footprint='Resistor_SMD.pretty:R_0805_2012Metric')
+    rlo = Part('device','R', value='500', footprint='Resistor_SMD.pretty:R_0805_2012Metric')
     rup[1,2] += inp, outp
     rlo[1,2] += outp, gnd
 
@@ -1195,14 +1199,14 @@ Here's the netlist that's generated:
   (components
     (comp (ref R1)
       (value 1K)
-      (footprint Resistors_SMD:R_0805)
+      (footprint Resistor_SMD.pretty:R_0805_2012Metric)
       (fields
         (field (name keywords) "r res resistor")
         (field (name description) Resistor))
       (libsource (lib device) (part R)))
     (comp (ref R2)
       (value 500)
-      (footprint Resistors_SMD:R_0805)
+      (footprint Resistor_SMD.pretty:R_0805_2012Metric)
       (fields
         (field (name keywords) "r res resistor")
         (field (name description) Resistor))
@@ -1230,8 +1234,8 @@ import sys
 @subcircuit
 def vdiv(inp, outp):
     """Divide inp voltage by 3 and place it on outp net."""
-    rup = Part('device', 'R', value='1K', footprint='Resistors_SMD:R_0805')
-    rlo = Part('device','R', value='500', footprint='Resistors_SMD:R_0805')
+    rup = Part('device', 'R', value='1K', footprint='Resistor_SMD.pretty:R_0805_2012Metric')
+    rlo = Part('device','R', value='500', footprint='Resistor_SMD.pretty:R_0805_2012Metric')
     rup[1,2] += inp, outp
     rlo[1,2] += outp, gnd
 
@@ -1255,7 +1259,7 @@ generate_netlist(sys.stdout)
 (For the EE's out there: *yes, I know cascading three simple voltage dividers
 will not multiplicatively scale the input voltage because of the
 input and output impedances of each stage!*
-It's just the simplest example I could think of that shows the feature.)
+It's just the simplest example I could use to show hierarchy.)
 
 And here's the resulting netlist:
 
@@ -1268,42 +1272,42 @@ And here's the resulting netlist:
   (components
     (comp (ref R1)
       (value 1K)
-      (footprint Resistors_SMD:R_0805)
+      (footprint Resistor_SMD.pretty:R_0805_2012Metric)
       (fields
         (field (name keywords) "r res resistor")
         (field (name description) Resistor))
       (libsource (lib device) (part R)))
     (comp (ref R2)
       (value 500)
-      (footprint Resistors_SMD:R_0805)
+      (footprint Resistor_SMD.pretty:R_0805_2012Metric)
       (fields
         (field (name keywords) "r res resistor")
         (field (name description) Resistor))
       (libsource (lib device) (part R)))
     (comp (ref R3)
       (value 1K)
-      (footprint Resistors_SMD:R_0805)
+      (footprint Resistor_SMD.pretty:R_0805_2012Metric)
       (fields
         (field (name keywords) "r res resistor")
         (field (name description) Resistor))
       (libsource (lib device) (part R)))
     (comp (ref R4)
       (value 500)
-      (footprint Resistors_SMD:R_0805)
+      (footprint Resistor_SMD.pretty:R_0805_2012Metric)
       (fields
         (field (name keywords) "r res resistor")
         (field (name description) Resistor))
       (libsource (lib device) (part R)))
     (comp (ref R5)
       (value 1K)
-      (footprint Resistors_SMD:R_0805)
+      (footprint Resistor_SMD.pretty:R_0805_2012Metric)
       (fields
         (field (name keywords) "r res resistor")
         (field (name description) Resistor))
       (libsource (lib device) (part R)))
     (comp (ref R6)
       (value 500)
-      (footprint Resistors_SMD:R_0805)
+      (footprint Resistor_SMD.pretty:R_0805_2012Metric)
       (fields
         (field (name keywords) "r res resistor")
         (field (name description) Resistor))
@@ -1333,7 +1337,7 @@ And here's the resulting netlist:
 ## Libraries
 
 As you've already seen, SKiDL gets its parts from *part libraries*.
-By default, SKiDL finds the libraries provided by KiCad (using the `KISYSMOD`
+By default, SKiDL finds the libraries provided by KiCad (using the `KICAD_SYMBOL_DIR`
 environment variable), so if that's all you need then you're all set.
 
 Currently, SKiDL supports the library formats for the following ECAD tools:
@@ -1391,12 +1395,12 @@ add it to the circuit netlist.
 Then set the part attributes and create and add pins to the part.
 Here are the most common attributes you'll want to set:
 
-Attribute | Meaning
-----------|------------------
-name      | A string containing the name of the part, e.g. 'LM35' for a temperature sensor.
-ref_prefix | A string containing the prefix for this part's references, e.g. 'U' for ICs.
+Attribute   | Meaning
+------------|------------------
+name        | A string containing the name of the part, e.g. 'LM35' for a temperature sensor.
+ref_prefix  | A string containing the prefix for this part's references, e.g. 'U' for ICs.
 description | A string describing the part, e.g. 'temperature sensor'.
-keywords  | A string containing keywords about the part, e.g. 'sensor temperature IC'.
+keywords    | A string containing keywords about the part, e.g. 'sensor temperature IC'.
 
 When creating a pin, these are the attributes you'll want to set:
 
@@ -1408,18 +1412,18 @@ func      | An identifier for the function of the pin.
 
 The pin function identifiers are as follows:
  
-Identifier | Pin Function
------------|-----------------
-Pin.INPUT | Input pin.
-Pin.OUTPUT | Output pin.
-Pin.BIDIR | Bidirectional in/out pin.
-Pin.TRISTATE | Output pin that goes into a high-impedance state when disabled.
-Pin.PASSIVE | Pin on a passive component (like a resistor).
-Pin.UNSPEC | Pin with an unspecified function.
-Pin.PWRIN | Power input pin (either voltage supply or ground).
-Pin.PWROUT | Power output pin (like the output of a voltage regulator).
-Pin.OPENCOLL | Open-collector pin (pulls to ground but not to positive rail).
-Pin.OPENEMIT | Open-emitter pin (pulls to positive rail but not to ground).
+Identifier    | Pin Function
+--------------|-----------------
+Pin.INPUT     | Input pin.
+Pin.OUTPUT    | Output pin.
+Pin.BIDIR     | Bidirectional in/out pin.
+Pin.TRISTATE  | Output pin that goes into a high-impedance state when disabled.
+Pin.PASSIVE   | Pin on a passive component (like a resistor).
+Pin.UNSPEC    | Pin with an unspecified function.
+Pin.PWRIN     | Power input pin (either voltage supply or ground).
+Pin.PWROUT    | Power output pin (like the output of a voltage regulator).
+Pin.OPENCOLL  | Open-collector pin (pulls to ground but not to positive rail).
+Pin.OPENEMIT  | Open-emitter pin (pulls to positive rail but not to ground).
 Pin.NOCONNECT | A pin that should be left unconnected.
 
 SKiDL will also create a library of all the parts used in your design whenever

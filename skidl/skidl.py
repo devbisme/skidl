@@ -78,13 +78,9 @@ lib_search_paths = {
 try:
     lib_search_paths[KICAD].append(os.environ['KICAD_SYMBOL_DIR'])
 except KeyError:
-    try:
-        lib_search_paths[KICAD].append(
-            os.path.join(os.environ['KISYSMOD'], '..', 'library'))
-    except KeyError:
-        logger.warning(
-            "KICAD_SYMBOL_DIR and KISYSMOD environment variables are missing, so the default KiCad libraries won't be searched."
-        )
+    logger.warning(
+        "KICAD_SYMBOL_DIR environment variable is missing, so the default KiCad symbol libraries won't be searched."
+    )
 
 # Add the location of the default SKiDL part libraries.
 default_skidl_libs = os.path.join(

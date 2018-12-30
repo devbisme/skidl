@@ -181,7 +181,7 @@ takes an input voltage, divides it by three, and outputs it:</p>
 <span class="n">vin</span><span class="p">,</span> <span class="n">vout</span><span class="p">,</span> <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'VI'</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s">'VO'</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s">'GND'</span><span class="p">)</span>
 
 <span class="c"># Create two resistors.</span>
-<span class="n">r1</span><span class="p">,</span> <span class="n">r2</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">Part</span><span class="p">(</span><span class="s">'device'</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="n">TEMPLATE</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Resistors_SMD:R_0805'</span><span class="p">)</span>
+<span class="n">r1</span><span class="p">,</span> <span class="n">r2</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">Part</span><span class="p">(</span><span class="s">'device'</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="n">TEMPLATE</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Resistor_SMD.pretty:R_0805_2012Metric'</span><span class="p">)</span>
 <span class="n">r1</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s">'1K'</span>   <span class="c"># Set upper resistor value.</span>
 <span class="n">r2</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s">'500'</span>  <span class="c"># Set lower resistor value.</span>
 
@@ -205,7 +205,7 @@ create the physical PCB:</p>
   (components                                                                                          
     (comp (ref R1)                                                                                     
       (value 1K)                                                                                       
-      (footprint Resistors_SMD:R_0805)                                                                 
+      (footprint Resistor_SMD.pretty:R_0805_2012Metric)                                                                 
       (fields                                                                                          
         (field (name description) Resistor)                                                            
         (field (name keywords) "r res resistor"))                                                      
@@ -213,7 +213,7 @@ create the physical PCB:</p>
       (sheetpath (names /top/12995167876889795071) (tstamps /top/12995167876889795071)))               
     (comp (ref R2)                                                                                     
       (value 500)                                                                                      
-      (footprint Resistors_SMD:R_0805)                                                                 
+      (footprint Resistor_SMD.pretty:R_0805_2012Metric)                                                                 
       (fields                                                                                          
         (field (name description) Resistor)                                                            
         (field (name keywords) "r res resistor"))                                                      
@@ -239,14 +239,23 @@ create the physical PCB:</p>
 </code></pre>
 </div>
 
-<p>or:</p>
+<p>To give SKiDL some part libraries to work with,
+you’ll also need to install <a href="http://kicad-pcb.org/">KiCad</a>.
+Then, you’ll need to set an environment variable so SKiDL can find the libraries.
+For Windows, do this:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>easy_install skidl
+<div class="highlighter-rouge"><pre class="highlight"><code>set KICAD_SYMBOL_DIR=C:\Program Files\KiCad\share\kicad\kicad-symbols
 </code></pre>
 </div>
 
-<p>In order for SKiDL to access part libraries,
-you’ll also need to install <a href="http://kicad-pcb.org/">KiCad</a>.</p>
+<p>And for linux-type OSes, define the environment variable in your <code class="highlighter-rouge">.bashrc</code> like so:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>export KICAD_SYMBOL_DIR="/Library/Application Support/kicad/kicad-symbols"
+</code></pre>
+</div>
+
+<p><strong>These paths are OS-dependent</strong>, so launch KiCAD and click <code class="highlighter-rouge">Preferences-&gt;Configure Paths</code>
+to reveal the needed paths.</p>
 
 <h1 id="basic-usage">Basic Usage</h1>
 
@@ -429,8 +438,8 @@ shown in the introduction.</p>
 <p>First, start by creating two resistors (note that I’ve also added the
 <code class="highlighter-rouge">footprint</code> attribute that describes the physical package for the resistors):</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">rup</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'device'</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">'1K'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Resistors_SMD:R_0805'</span><span class="p">)</span>                            
-<span class="o">&gt;&gt;&gt;</span> <span class="n">rlow</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'device'</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">'500'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Resistors_SMD:R_0805'</span><span class="p">)</span>                          
+<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">rup</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'device'</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">'1K'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Resistor_SMD.pretty:R_0805_2012Metric'</span><span class="p">)</span>                            
+<span class="o">&gt;&gt;&gt;</span> <span class="n">rlow</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'device'</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">'500'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Resistor_SMD.pretty:R_0805_2012Metric'</span><span class="p">)</span>                          
 <span class="o">&gt;&gt;&gt;</span> <span class="n">rup</span><span class="o">.</span><span class="n">ref</span><span class="p">,</span> <span class="n">rlow</span><span class="o">.</span><span class="n">ref</span>                                                
 <span class="p">(</span><span class="s">'R1'</span><span class="p">,</span> <span class="s">'R2'</span><span class="p">)</span>                                                         
 <span class="o">&gt;&gt;&gt;</span> <span class="n">rup</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">rlow</span><span class="o">.</span><span class="n">value</span>                                            
@@ -553,10 +562,10 @@ then the netlist will be stored in <code class="highlighter-rouge">my_circuit.ne
   (components
     (comp (ref R1)
       (value 1K)
-      (footprint Resistors_SMD:R_0805))
+      (footprint Resistor_SMD.pretty:R_0805_2012Metric))
     (comp (ref R2)
       (value 500)
-      (footprint Resistors_SMD:R_0805)))
+      (footprint Resistor_SMD.pretty:R_0805_2012Metric)))
   (nets
     (net (code 0) (name "VIN")
       (node (ref R1) (pin 1)))
@@ -574,14 +583,14 @@ then the netlist will be stored in <code class="highlighter-rouge">my_circuit.ne
   (components
     (comp (ref R1)
       (value 1K)
-      (footprint Resistors_SMD:R_0805)
+      (footprint Resistor_SMD.pretty:R_0805_2012Metric)
       (fields
         (field (name keywords) "r res resistor")
         (field (name description) Resistor))
       (libsource (lib device) (part R)))
     (comp (ref R2)
       (value 500)
-      (footprint Resistors_SMD:R_0805)
+      (footprint Resistor_SMD.pretty:R_0805_2012Metric)
       (fields
         (field (name keywords) "r res resistor")
         (field (name description) Resistor))
@@ -684,8 +693,8 @@ but you can override it:</p>
 </code></pre>
 </div>
 
-<p>The <code class="highlighter-rouge">value</code> and <code class="highlighter-rouge">footprint</code> attributes are also required for generating
-a netlist. But you can also add any other attribute:</p>
+<p>In addition, the <code class="highlighter-rouge">value</code> and <code class="highlighter-rouge">footprint</code> attributes are required for generating
+a netlist. You can also add any other attribute:</p>
 
 <div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">my_part</span><span class="o">.</span><span class="n">manf</span> <span class="o">=</span> <span class="s">'Atmel'</span>
 <span class="n">my_part</span><span class="o">.</span><span class="nb">setattr</span><span class="p">(</span><span class="s">'manf#'</span><span class="p">,</span> <span class="s">'ATTINY4-TSHR'</span>
@@ -694,7 +703,7 @@ a netlist. But you can also add any other attribute:</p>
 
 <p>It’s also possible to set the attributes during the part creation:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">my_part</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'some_lib'</span><span class="p">,</span> <span class="s">'some_part'</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="s">'U5'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'SMD:SOT23_6'</span><span class="p">,</span> <span class="n">manf</span><span class="o">=</span><span class="s">'Atmel'</span><span class="p">)</span>
+<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">my_part</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'some_lib'</span><span class="p">,</span> <span class="s">'some_part'</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="s">'U5'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Package_TO_SOT_SMD.pretty:SOT-23-6'</span><span class="p">,</span> <span class="n">manf</span><span class="o">=</span><span class="s">'Atmel'</span><span class="p">)</span>
 </code></pre>
 </div>
 
@@ -1266,8 +1275,8 @@ so there’s almost nothing new to learn.</p>
 <span class="nd">@subcircuit</span>
 <span class="k">def</span> <span class="nf">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">):</span>
     <span class="s">"""Divide inp voltage by 3 and place it on outp net."""</span>
-    <span class="n">rup</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'device'</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">'1K'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Resistors_SMD:R_0805'</span><span class="p">)</span>
-    <span class="n">rlo</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'device'</span><span class="p">,</span><span class="s">'R'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">'500'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Resistors_SMD:R_0805'</span><span class="p">)</span>
+    <span class="n">rup</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'device'</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">'1K'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Resistor_SMD.pretty:R_0805_2012Metric'</span><span class="p">)</span>
+    <span class="n">rlo</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'device'</span><span class="p">,</span><span class="s">'R'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">'500'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Resistor_SMD.pretty:R_0805_2012Metric'</span><span class="p">)</span>
     <span class="n">rup</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">inp</span><span class="p">,</span> <span class="n">outp</span>
     <span class="n">rlo</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">outp</span><span class="p">,</span> <span class="n">gnd</span>
 
@@ -1298,14 +1307,14 @@ Other than the <code class="highlighter-rouge">@subcircuit</code> decorator that
   (components
     (comp (ref R1)
       (value 1K)
-      (footprint Resistors_SMD:R_0805)
+      (footprint Resistor_SMD.pretty:R_0805_2012Metric)
       (fields
         (field (name keywords) "r res resistor")
         (field (name description) Resistor))
       (libsource (lib device) (part R)))
     (comp (ref R2)
       (value 500)
-      (footprint Resistors_SMD:R_0805)
+      (footprint Resistor_SMD.pretty:R_0805_2012Metric)
       (fields
         (field (name keywords) "r res resistor")
         (field (name description) Resistor))
@@ -1333,8 +1342,8 @@ can use the <code class="highlighter-rouge">vdiv</code> module to divide a volta
 <span class="nd">@subcircuit</span>
 <span class="k">def</span> <span class="nf">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">):</span>
     <span class="s">"""Divide inp voltage by 3 and place it on outp net."""</span>
-    <span class="n">rup</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'device'</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">'1K'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Resistors_SMD:R_0805'</span><span class="p">)</span>
-    <span class="n">rlo</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'device'</span><span class="p">,</span><span class="s">'R'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">'500'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Resistors_SMD:R_0805'</span><span class="p">)</span>
+    <span class="n">rup</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'device'</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">'1K'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Resistor_SMD.pretty:R_0805_2012Metric'</span><span class="p">)</span>
+    <span class="n">rlo</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'device'</span><span class="p">,</span><span class="s">'R'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">'500'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Resistor_SMD.pretty:R_0805_2012Metric'</span><span class="p">)</span>
     <span class="n">rup</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">inp</span><span class="p">,</span> <span class="n">outp</span>
     <span class="n">rlo</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">outp</span><span class="p">,</span> <span class="n">gnd</span>
 
@@ -1359,7 +1368,7 @@ can use the <code class="highlighter-rouge">vdiv</code> module to divide a volta
 <p>(For the EE’s out there: <em>yes, I know cascading three simple voltage dividers
 will not multiplicatively scale the input voltage because of the
 input and output impedances of each stage!</em>
-It’s just the simplest example I could think of that shows the feature.)</p>
+It’s just the simplest example I could use to show hierarchy.)</p>
 
 <p>And here’s the resulting netlist:</p>
 
@@ -1371,42 +1380,42 @@ It’s just the simplest example I could think of that shows the feature.)</p>
   (components
     (comp (ref R1)
       (value 1K)
-      (footprint Resistors_SMD:R_0805)
+      (footprint Resistor_SMD.pretty:R_0805_2012Metric)
       (fields
         (field (name keywords) "r res resistor")
         (field (name description) Resistor))
       (libsource (lib device) (part R)))
     (comp (ref R2)
       (value 500)
-      (footprint Resistors_SMD:R_0805)
+      (footprint Resistor_SMD.pretty:R_0805_2012Metric)
       (fields
         (field (name keywords) "r res resistor")
         (field (name description) Resistor))
       (libsource (lib device) (part R)))
     (comp (ref R3)
       (value 1K)
-      (footprint Resistors_SMD:R_0805)
+      (footprint Resistor_SMD.pretty:R_0805_2012Metric)
       (fields
         (field (name keywords) "r res resistor")
         (field (name description) Resistor))
       (libsource (lib device) (part R)))
     (comp (ref R4)
       (value 500)
-      (footprint Resistors_SMD:R_0805)
+      (footprint Resistor_SMD.pretty:R_0805_2012Metric)
       (fields
         (field (name keywords) "r res resistor")
         (field (name description) Resistor))
       (libsource (lib device) (part R)))
     (comp (ref R5)
       (value 1K)
-      (footprint Resistors_SMD:R_0805)
+      (footprint Resistor_SMD.pretty:R_0805_2012Metric)
       (fields
         (field (name keywords) "r res resistor")
         (field (name description) Resistor))
       (libsource (lib device) (part R)))
     (comp (ref R6)
       (value 500)
-      (footprint Resistors_SMD:R_0805)
+      (footprint Resistor_SMD.pretty:R_0805_2012Metric)
       (fields
         (field (name keywords) "r res resistor")
         (field (name description) Resistor))
@@ -1436,7 +1445,7 @@ It’s just the simplest example I could think of that shows the feature.)</p>
 <h2 id="libraries">Libraries</h2>
 
 <p>As you’ve already seen, SKiDL gets its parts from <em>part libraries</em>.
-By default, SKiDL finds the libraries provided by KiCad (using the <code class="highlighter-rouge">KISYSMOD</code>
+By default, SKiDL finds the libraries provided by KiCad (using the <code class="highlighter-rouge">KICAD_SYMBOL_DIR</code>
 environment variable), so if that’s all you need then you’re all set.</p>
 
 <p>Currently, SKiDL supports the library formats for the following ECAD tools:</p>

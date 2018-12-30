@@ -5,7 +5,7 @@
 import sys
 import setuptools
 
-__version__ = '0.0.24'
+__version__ = '0.0.25'
 __author__ = 'XESS Corp.'
 __email__ = 'info@xess.com'
 
@@ -28,7 +28,7 @@ with open('HISTORY.rst') as history_file:
 
 requirements = [
     'future >= 0.15.0',
-    'kinparse',
+    'kinparse >= 0.0.5',
     #'PySpice; python_version >= "3.0"',
     'graphviz',
 ]
@@ -64,6 +64,7 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
     ],
     test_suite='tests',
     tests_require=test_requirements

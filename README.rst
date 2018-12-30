@@ -49,7 +49,7 @@ takes an input voltage, divides it by three, and outputs it::
     vin, vout, gnd = Net('VI'), Net('VO'), Net('GND')
 
     # Create two resistors.
-    r1, r2 = 2 * Part('device', 'R', TEMPLATE, footprint='KiCad/Resistors_SMD.pretty:R_0805')
+    r1, r2 = 2 * Part('device', 'R', TEMPLATE, footprint='Resistor_SMD.pretty:R_0805_2012Metric')
     r1.value = '1K'   # Set upper resistor value.
     r2.value = '500'  # Set lower resistor value.
 
@@ -71,7 +71,7 @@ create the physical PCB::
       (components                                                                                          
         (comp (ref R1)                                                                                     
           (value 1K)                                                                                       
-          (footprint Resistors_SMD:R_0805)                                                                 
+          (footprint Resistor_SMD.pretty:R_0805_2012Metric)                                                                 
           (fields                                                                                          
             (field (name description) Resistor)                                                            
             (field (name keywords) "r res resistor"))                                                      
@@ -79,7 +79,7 @@ create the physical PCB::
           (sheetpath (names /top/12995167876889795071) (tstamps /top/12995167876889795071)))               
         (comp (ref R2)                                                                                     
           (value 500)                                                                                      
-          (footprint Resistors_SMD:R_0805)                                                                 
+          (footprint Resistor_SMD.pretty:R_0805_2012Metric)                                                                 
           (fields                                                                                          
             (field (name description) Resistor)                                                            
             (field (name keywords) "r res resistor"))                                                      

@@ -3,7 +3,14 @@
 History
 -------
 
-0.0.24 (2018-09-XX)
+0.0.25 (2019-12-30)
+______________________
+
+* Updated website.
+* KISYSMOD is no longer used to find part libraries, only KICAD_SYMBOL_DIR is used now.
+
+
+0.0.24 (2018-09-15)
 ______________________
 
 * Fixed an error where creating a backup part library for a design would create extra pins attached to the nets.
