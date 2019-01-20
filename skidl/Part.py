@@ -480,6 +480,18 @@ class Part(object):
 
         return list_or_scalar(pins)
 
+    def __iter__(self):
+        self.iter_num = 0
+        return self
+
+    def __next__(self):
+        if self.iter_num < len(self.pins):
+            pin = self.pins[self.iter_num]
+            self.iter_num += 1
+            return pin
+        else:
+            raise StopIteration
+
     # Get pins from a part using brackets, e.g. [1,5:9,'A[0-9]+'].
     __getitem__ = get_pins
 
@@ -850,6 +862,10 @@ class Part(object):
         return True
 
     __nonzero__ = __bool__  # Python 2 compatibility.
+
+    def __len__(self):
+        """Return the number of pins in this part."""
+        return len(self.pins)
 
 
 ##############################################################################
