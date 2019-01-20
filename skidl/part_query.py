@@ -85,7 +85,7 @@ def search(term, tool=None):
                 # Search the current library for parts with the given term in
                 # each of the these categories.
                 for category in ['name', 'alias', 'description', 'keywords']:
-                    for part in mk_list(lib.get_parts(**{category: term})):
+                    for part in mk_list(lib.get_parts(use_backup_lib=False, **{category: term})):
                         # Parse the part to instantiate the complete object.
                         part.parse()
                         # Store the library name and part object.
