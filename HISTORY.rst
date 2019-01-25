@@ -3,7 +3,15 @@
 History
 -------
 
-0.0.25 (2019-12-30)
+0.0.26 (2019-01-25)
+______________________
+
+* ``search`` command no longer looks in backup library because that leads to erroneous hits in all libraries.
+* Part objects will now iterate through their pins and len() will return the number of pins.
+* Updated netlist_to_skidl utility to account for new version of kinparse.
+
+
+0.0.25 (2018-12-30)
 ______________________
 
 * Updated website.
