@@ -2,11 +2,10 @@
 skidl
 ===============================
 
-.. .. image:: https://img.shields.io/travis/xesscorp/skidl.svg
-        :target: https://travis-ci.org/xesscorp/skidl
-
 .. image:: https://img.shields.io/pypi/v/skidl.svg
         :target: https://pypi.python.org/pypi/skidl
+.. image:: https://travis-ci.com/xesscorp/skidl.svg?branch=master
+    :target: https://travis-ci.com/xesscorp/skidl
 
 
 SKiDL is a module that allows you to compactly describe the interconnection of 
