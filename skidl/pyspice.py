@@ -29,6 +29,7 @@ else:
     set_net_bus_prefixes('N', 'B')  # Use prefixes with no odd characters for SPICE.
 
     GND = gnd = Net('0')  # Instantiate the default ground net for SPICE.
+    gnd.fixed_name = True # Make sure ground keeps it's name of "0" during net merges.
 
     # Place all the PySpice parts into the namespace so they can be instantiated easily.
     _this_module = sys.modules[__name__]

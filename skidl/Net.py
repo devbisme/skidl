@@ -74,8 +74,6 @@ class Net(object):
         search_params = (
             ('name', name, True),
             ('alias', name, True),
-            #('name', ''.join(('.*',name,'.*')), False),
-            #('alias', Alias(''.join(('.*',name,'.*'))), False)
         )
         for attr, name, do_str_match in search_params:
             # filter_list() always returns a list. A net can consist of multiple
@@ -376,18 +374,14 @@ class Net(object):
         else:
             raise StopIteration
 
-    def is_implicit(self, net_name=None):
+    def is_implicit(self):
         """Return true if the net name is implicit."""
 
         from .defines import NET_PREFIX, BUS_PREFIX
 
         self.test_validity()
-        prefix_re = re.escape(NET_PREFIX) + '|' + re.escape(BUS_PREFIX)
-        if net_name:
-            return re.match(prefix_re, net_name)
-        if self.name:
-            return re.match(prefix_re, self.name)
-        return True
+        prefix_re = "({}|{})*".format(re.escape(NET_PREFIX), re.escape(BUS_PREFIX))
+        return re.match(prefix_re, self.name)
 
     def connect(self, *pins_nets_buses):
         """
@@ -412,7 +406,7 @@ class Net(object):
 
         def merge(net):
             """
-            Merge pins on net with self and then delete net.
+            Merge nets by giving them each a pin in common.
 
             Args:
                 net: The net to merge with self.
@@ -525,13 +519,24 @@ class Net(object):
                 # Two nets, return the best of them.
                 name0 = getattr(nets[0], 'name')
                 name1 = getattr(nets[1], 'name')
+                fixed0 = getattr(nets[0], 'fixed_name', False)
+                fixed1 = getattr(nets[1], 'fixed_name', False)
                 if not name1:
                     return nets[0]
                 if not name0:
                     return nets[1]
-                if self.is_implicit(name1):
+                if fixed0 and not fixed1:
                     return nets[0]
-                if self.is_implicit(name0):
+                if fixed1 and not fixed0:
+                    return nets[1]
+                if fixed0 and fixed1:
+                    logger.error(
+                        'Cannot merge two nets with fixed names: {} and {}.'.format(
+                            name0, name1))
+                    raise Exception
+                if nets[1].is_implicit():
+                    return nets[0]
+                if nets[0].is_implicit():
                     return nets[1]
                 if name0 != name1:
                     logger.warning(

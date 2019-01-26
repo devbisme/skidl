@@ -28,3 +28,12 @@ def test_net_get_pull_1():
     assert id(net3) == id(net2)
     assert len(default_circuit.nets) == 2  # No new net should have been created.
 
+def test_net_fixed_name_1():
+    net_fixed = Net('A', fixed_name=True)
+    net_merged = Net()
+    net_merged += net_fixed
+    for _ in range(5):
+        net_merged += Net()
+    default_circuit._merge_net_names()
+    assert(net_merged.name == 'A')
+
