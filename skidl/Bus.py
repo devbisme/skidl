@@ -329,16 +329,10 @@ class Bus(object):
         raise Exception
 
     def __iter__(self):
-        self.iter_num = 0
-        return self
-
-    def __next__(self):
-        if self.iter_num < self.width:
-            bus_line = self[self.iter_num]
-            self.iter_num += 1
-            return bus_line
-        else:
-            raise StopIteration
+        """
+        Return an iterator for stepping thru individual lines of the bus.
+        """
+        return (self[l] for l in range(len(self))) # Return generator expr.
 
     def is_movable(self):
         """

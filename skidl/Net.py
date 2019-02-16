@@ -363,16 +363,11 @@ class Net(object):
         raise Exception
 
     def __iter__(self):
-        self.iter_num = 0
-        return self
-
-    def __next__(self):
+        """
+        Return an iterator for stepping through the net.
+        """
         # You can only iterate a Net one time.
-        if self.iter_num == 0:
-            self.iter_num = 1
-            return self[0]
-        else:
-            raise StopIteration
+        return (self[i] for i in [0,]) # Return generator expr.
 
     def is_implicit(self):
         """Return true if the net name is implicit."""

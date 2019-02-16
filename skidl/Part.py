@@ -481,16 +481,10 @@ class Part(object):
         return list_or_scalar(pins)
 
     def __iter__(self):
-        self.iter_num = 0
-        return self
-
-    def __next__(self):
-        if self.iter_num < len(self.pins):
-            pin = self.pins[self.iter_num]
-            self.iter_num += 1
-            return pin
-        else:
-            raise StopIteration
+        """
+        Return an iterator for stepping thru individual pins of the part.
+        """
+        return (p for p in self.pins) # Return generator expr.
 
     # Get pins from a part using brackets, e.g. [1,5:9,'A[0-9]+'].
     __getitem__ = get_pins

@@ -300,16 +300,11 @@ class Pin(object):
         raise Exception
 
     def __iter__(self):
-        self.iter_num = 0
-        return self
-
-    def __next__(self):
+        """
+        Return an iterator for stepping through the pin.
+        """
         # You can only iterate a Pin one time.
-        if self.iter_num == 0:
-            self.iter_num = 1
-            return self[0]
-        else:
-            raise StopIteration
+        return (self for i in [0,]) # Return generator expr.
 
     def is_connected(self):
         """Return true if a pin is connected to a net (but not a no-connect net)."""
