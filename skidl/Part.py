@@ -223,14 +223,17 @@ class Part(object):
                 part. Leave the rest unparsed.
         """
 
+        # Get the function to parse the part description.
         try:
             parse_func = getattr(self, '_parse_lib_part_{}'.format(self.tool))
-            parse_func(just_get_name)
         except AttributeError:
             logger.error(
                 "Can't create a part with an unknown ECAD tool file format: {}.".
                 format(self.tool))
             raise Exception
+
+        # Parse the part description.
+        parse_func(just_get_name)
 
     def associate_pins(self):
         """
@@ -609,7 +612,7 @@ class Part(object):
         """
 
         # Warn if the unit label collides with any of the part's pin names.
-        collisions = self.get_pins(label)
+        collisions = self.get_pins('^'+label+'$')  # Look for exact match.
         if collisions:
             logger.warning(
                 "Using a label ({}) for a unit of {} that matches one or more of it's pin names ({})!".
@@ -900,7 +903,8 @@ class PartUnit(Part):
     Args:
         part: This is the parent Part whose pins the PartUnit is built from.
         pin_ids: A list of strings containing pin names, numbers,
-            regular expressions, slices, lists or tuples.
+            regular expressions, slices, lists or tuples. If empty, it
+            will match *every* pin of the part.
 
     Keyword Args:
         criteria: Key/value pairs that specify attribute values the
@@ -940,7 +944,15 @@ class PartUnit(Part):
         """
 
         # Get new pins selected from the parent.
+        if not pin_ids:
+            pin_ids = ['.*'] # Empty list matches everything.
         new_pins = to_list(self.parent.get_pins(*pin_ids, **criteria))
+
+        # Remove None if that's gotten into the list.
+        try:
+            new_pins.remove(None)
+        except ValueError:
+            pass
 
         # Add attributes for accessing the new pins.
         for pin in new_pins:

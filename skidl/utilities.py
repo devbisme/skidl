@@ -270,6 +270,16 @@ def add_unique_attr(obj, name, value):
         # logger.warn('Unable to create attribute {name} of type {typ1} because one already exists of type {typ2} in {obj}'.format(name=name, typ1=type(value), typ2=type(getattr(obj,name)), obj=str(obj)))
 
 
+def num_to_chars(num):
+    """Return a string like 'AB' when given a number like 28."""
+    num -= 1
+    s = ''
+    while num >= 0:
+        s = chr(ord('A') + (num % 26)) + s
+        num = num // 26 - 1
+    return s
+
+
 def add_quotes(s):
     """Return string with added quotes if it contains whitespace or parens."""
     if not isinstance(s, basestring):
@@ -604,7 +614,7 @@ def explode(bus_str):
 
 def find_num_copies(**attribs):
     """
-    Return the number of copies to based on the number of attribute values.
+    Return the number of copies to make based on the number of attribute values.
 
     Keyword Args:
         attribs: Dict of Keyword/Value pairs for setting object attributes.

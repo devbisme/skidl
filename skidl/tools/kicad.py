@@ -438,6 +438,11 @@ def _parse_lib_part_(self, just_get_name=False):
     # Make sure all the pins have a valid reference to this part.
     self.associate_pins()
 
+    # Create part units if there are more than 1.
+    if self.num_units > 1:
+        for i in range(1, self.num_units+1):
+            self.make_unit(num_to_chars(i), **{'unit': i})
+
     # Part definition has been parsed, so clear it out. This prevents a
     # part from being parsed more than once.
     self.part_defn = None
