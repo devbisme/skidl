@@ -3,6 +3,15 @@
 History
 -------
 
+0.0.27 (2019-02-23)
+______________________
+
+* Prevent changing the name of net 0 when generating a SPICE netlist.
+* Fixed Pin, Net, Bus and Part iterators so they'll work in nested loops.
+* Part units are automatically added when a part is parsed.
+* Files are now opened for reading using latin_1 encoding to allow special symbols used by KiCad.
+
+
 0.0.26 (2019-01-25)
 ______________________
 

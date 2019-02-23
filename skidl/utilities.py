@@ -236,7 +236,7 @@ def find_and_open_file(filename,
         if not exclude_binary or not is_binary_file(abs_filename):
             try:
                 # The search stops once the file is successfully opened.
-                return open(abs_filename, encoding='utf8'), abs_filename
+                return open(abs_filename, encoding='latin_1'), abs_filename
             except (IOError, FileNotFoundError, TypeError):
                 pass
         # If file not found, look in subdirectories or go to next path.
@@ -664,7 +664,7 @@ def opened(f_or_fn, mode):
        mode: The mode to open the file in.
     """
     if isinstance(f_or_fn, basestring):
-        with open(f_or_fn, mode) as f:
+        with open(f_or_fn, mode, encoding='latin_1') as f:
             yield f
     elif hasattr(f_or_fn, "fileno"):
         if mode.replace("+", "") == f_or_fn.mode.replace("+", ""):

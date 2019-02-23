@@ -51,11 +51,11 @@ def search(term, tool=None):
     def search_libraries(term, tool):
         """Search for a regex term in part libraries."""
 
-        parts = set(
-        )  # Set of parts and their containing libraries found with the term.
+        # Set of parts and their containing libraries found with the term.
+        parts = set()
 
         for lib_dir in skidl.lib_search_paths[tool]:
-            print('lib_dir = {}'.format(lib_dir))
+
             # Get all the library files in the search path.
             try:
                 lib_files = os.listdir(lib_dir)
@@ -63,13 +63,15 @@ def search(term, tool=None):
                 logger.warning("Could not open directory '{}'".format(lib_dir))
                 lib_files = list(
                 )  # Empty list since library directory was not found.
+
             lib_files = [
                 l for l in lib_files if l.endswith(skidl.lib_suffixes[tool])
             ]
 
             for lib_file in lib_files:
-                print(
-                    ' ' * 79, '\rSearching {} ...'.format(lib_file), end='\r')
+
+                print(' ' * 79, '\rSearching {} ...'.format(lib_file), end='\r')
+
                 lib = SchLib(
                     os.path.join(lib_dir, lib_file),
                     tool=tool)  # Open the library file.
@@ -90,6 +92,7 @@ def search(term, tool=None):
                         part.parse()
                         # Store the library name and part object.
                         parts.add((lib_file, part))
+
                 print(' ' * 79, end='\r')
 
         # Return the list of parts and their containing libraries.
