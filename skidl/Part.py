@@ -579,17 +579,19 @@ class Part(object):
         """
 
         from .Alias import Alias
+        from .Pin import Pin
 
         pin = self.get_pins(*pin_ids, **criteria)
-        if pin is None:
-            logger.error('Cannot set alias for non-existent pin.')
-            raise Exception
-        elif isinstance(pin, list):
-            logger.error('Cannot use the same alias for multiple pins.')
-            raise Exception
-        else:
-            setattr(pin, 'alias', Alias(alias, id(pin)))
+        if isinstance(pin, Pin):
+            # Alias the single pin that was found.
+            pin.alias = alias
+            # Add the name of the aliased pin as an attribute to the part,
+            # so it will act just like a pin for making connections.
             add_unique_attr(self, alias, pin)
+        else:
+            # Error: either 0 or multiple pins were found.
+            logger.error('Cannot set alias for {}'.format(pin_ids))
+            raise Exception
 
     def make_unit(self, label, *pin_ids, **criteria):
         """

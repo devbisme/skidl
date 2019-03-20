@@ -73,16 +73,19 @@ class Bus(object):
 
         if not circuit:
             circuit = builtins.default_circuit
+
         search_params = (
             ('name', name, True),
             ('alias', name, True),
             #('name', ''.join(('.*',name,'.*')), False),
             #('alias', Alias(''.join(('.*',name,'.*'))), False)
         )
+
         for attr, name, do_str_match in search_params:
             buses = filter_list(circuit.buses, do_str_match=do_str_match, **{attr:name})
             if buses:
                 return list_or_scalar(buses)
+
         return None
 
     @classmethod

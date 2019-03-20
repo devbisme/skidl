@@ -71,10 +71,12 @@ class Net(object):
 
         if not circuit:
             circuit = builtins.default_circuit
+
         search_params = (
             ('name', name, True),
             ('alias', name, True),
         )
+
         for attr, name, do_str_match in search_params:
             # filter_list() always returns a list. A net can consist of multiple
             # interconnected Net objects. If the list is non-empty,
@@ -85,6 +87,7 @@ class Net(object):
                 return nets[0]
             except IndexError:
                 pass
+
         return None
 
     @classmethod

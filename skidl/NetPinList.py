@@ -107,3 +107,18 @@ class NetPinList(list):
     def width(self):
         """Return width, which is the same as using the len() operator."""
         return len(self)
+
+    # Trying to set an alias attribute on a NetPinList is an error.
+    # This prevents setting an alias on a list of two or more pins that
+    # might be returned by the filter_list() utility.
+    @property
+    def alias(self):
+        raise Exception
+
+    @alias.setter
+    def alias(self, alias):
+        raise Exception
+
+    @alias.deleter
+    def alias(self):
+        raise Exception

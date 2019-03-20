@@ -469,13 +469,16 @@ class Pin(object):
 
     def __str__(self):
         """Return a description of this pin as a string."""
-        part_ref = getattr(self.part, 'ref', '???')
-        pin_num = getattr(self, 'num', '???')
-        pin_name = getattr(self, 'name', '???')
-        pin_func = getattr(self, 'func', Pin.UNSPEC)
-        pin_func_str = Pin.pin_info[pin_func]['function']
-        return 'Pin {ref}/{num}/{name}/{func}'.format(
-            ref=part_ref, num=pin_num, name=pin_name, func=pin_func_str)
+        ref = getattr(self.part, 'ref', '???')
+        num = getattr(self, 'num', '???')
+        name = getattr(self, 'name', '???')
+        try:
+            alias = '/' + self.alias
+        except AttributeError:
+            alias = ''
+        func = getattr(self, 'func', Pin.UNSPEC)
+        func = Pin.pin_info[func]['function']
+        return 'Pin {ref}/{num}/{name}{alias}/{func}'.format(**locals())
 
     __repr__ = __str__
 
@@ -522,8 +525,24 @@ class Pin(object):
     def drive(self):
         del self._drive
 
+    @property
+    def alias(self):
+        """Get, set, and delete the alias name for the pin."""
+
+        # Don't test to see if _alias attribute exists. Just let
+        # the exception occur if it doesn't.
+        return self._alias
+ 
+    @alias.setter
+    def alias(self, alias):
+        self._alias = Alias(alias, id(self))
+
+    @alias.deleter
+    def alias(self):
+        del self._alias
+
     def __bool__(self):
-        """Any valid Pin is True"""
+        """Any valid Pin is True."""
         return True
 
     __nonzero__ = __bool__  # Python 2 compatibility.
