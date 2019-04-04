@@ -196,23 +196,56 @@ class Part(object):
             for k, v in attribs.items():
                 setattr(self, k, v)
 
+    @classmethod
+    def get(cls, text, circuit=None):
+        """
+        Get the part with the given text from a circuit, or return None.
+
+        Args:
+            text: A text string that will be searched for in the list of
+                parts.
+        
+        Keyword Args: 
+            circuit: The circuit whose parts will be searched. If set to None,
+                then the parts in the default_circuit will be searched.
+
+        Returns:
+            A list of parts that match the text string with either their
+            reference, name, alias, or their description.
+        """
+
+        from .Alias import Alias
+
+        if not circuit:
+            circuit = builtins.default_circuit
+
+        search_params = (
+            ('ref', text, True),
+            ('name', text, True),
+            ('alias', text, True),
+            ('description', text, False),
+        )
+
+        parts = []
+        for attr, name, do_str_match in search_params:
+            parts.extend(
+                filter_list(circuit.parts, do_str_match=do_str_match,
+                    **{attr:name}))
+
+        return parts
+
     def _find_min_max_pins(self):
         """ Return the minimum and maximum pin numbers for the part. """
+
         pin_nums = []
-        try:
-            for p in self.pins:
-                try:
-                    pin_nums.append(int(p.num))
-                except ValueError:
-                    pass
-        except AttributeError:
-            # This happens if the part has no pins.
-            pass
-        try:
-            return min(pin_nums), max(pin_nums)
-        except ValueError:
-            # This happens if the part has no integer-labeled pins.
-            return 0, 0
+
+        for p in self.pins:
+            try:
+                pin_nums.append(int(p.num))
+            except ValueError:
+                pass
+
+        return min(pin_nums, default=0), max(pin_nums, default=0)
 
     def parse(self, just_get_name=False):
         """
