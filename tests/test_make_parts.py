@@ -10,11 +10,11 @@ def test_subcircuit_1():
         vin = Net('VI')  # Input voltage to the divider.
         vout = Net('VO')  # Output voltage from the divider.
 
-        res = Part(tool=SKIDL, name='res', ref_prefix='R', dest=TEMPLATE, pins=[Pin(num=1,func=Pin.PASSIVE), Pin(num=2, func=Pin.PASSIVE)])
+        res = Part(tool=SKIDL, name='res', ref_prefix='R', dest=TEMPLATE, pins=[Pin(num=1,func=PinType.PASSIVE), Pin(num=2, func=PinType.PASSIVE)])
         r1 = res(value='1K')
         r2 = res(value='500')
 
-        cap = Part(tool=SKIDL, name='cap', ref_prefix='C', dest=TEMPLATE, pins=[Pin(num=1,func=Pin.PASSIVE), Pin(num=2, func=Pin.PASSIVE)])
+        cap = Part(tool=SKIDL, name='cap', ref_prefix='C', dest=TEMPLATE, pins=[Pin(num=1,func=PinType.PASSIVE), Pin(num=2, func=PinType.PASSIVE)])
         c1 = cap()
         c2 = cap(value='1uF')
 
@@ -69,11 +69,11 @@ def test_subcircuit_2():
         vin = Net('VI')  # Input voltage to the divider.
         vout = Net('VO')  # Output voltage from the divider.
 
-        res = Part(tool=SKIDL, name='res', ref_prefix='R', dest=TEMPLATE, pins=[Pin(num=1,func=Pin.PASSIVE), Pin(num=2, func=Pin.PASSIVE)])
+        res = Part(tool=SKIDL, name='res', ref_prefix='R', dest=TEMPLATE, pins=[Pin(num=1,func=PinType.PASSIVE), Pin(num=2, func=PinType.PASSIVE)])
         r1 = res(value='1K')
         r2 = res(value='500')
 
-        cap = Part(tool=SKIDL, name='cap', ref_prefix='C', dest=TEMPLATE, pins=[Pin(num=1,func=Pin.PASSIVE), Pin(num=2, func=Pin.PASSIVE)])
+        cap = Part(tool=SKIDL, name='cap', ref_prefix='C', dest=TEMPLATE, pins=[Pin(num=1,func=PinType.PASSIVE), Pin(num=2, func=PinType.PASSIVE)])
         c1 = cap()
         c2 = cap(value='1uF')
 
@@ -92,11 +92,11 @@ def test_subcircuit_2():
         b = Net('VI')  # Input voltage to the divider.
         c = Net('VO')  # Output voltage from the divider.
 
-        res = Part(tool=SKIDL, name='res', ref_prefix='R', dest=TEMPLATE, pins=[Pin(num=1,func=Pin.PASSIVE), Pin(num=2, func=Pin.PASSIVE)])
+        res = Part(tool=SKIDL, name='res', ref_prefix='R', dest=TEMPLATE, pins=[Pin(num=1,func=PinType.PASSIVE), Pin(num=2, func=PinType.PASSIVE)])
         r1 = res(value='1K')
         r2 = res(value='500')
 
-        cap = Part(tool=SKIDL, name='cap', ref_prefix='C', dest=TEMPLATE, pins=[Pin(num=1,func=Pin.PASSIVE), Pin(num=2, func=Pin.PASSIVE)])
+        cap = Part(tool=SKIDL, name='cap', ref_prefix='C', dest=TEMPLATE, pins=[Pin(num=1,func=PinType.PASSIVE), Pin(num=2, func=PinType.PASSIVE)])
         c1 = cap()
         c2 = cap(value='1uF')
 

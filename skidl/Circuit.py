@@ -379,45 +379,45 @@ class Circuit(object):
         Initialize the electrical rules checker.
         """
 
-        from skidl import Pin
+        from skidl import PinType
 
         # Initialize the pin contention matrix.
         self._erc_matrix = [[self.OK for c in range(11)] for r in range(11)]
-        self._erc_matrix[Pin.OUTPUT][Pin.OUTPUT] = self.ERROR
-        self._erc_matrix[Pin.TRISTATE][Pin.OUTPUT] = self.WARNING
-        self._erc_matrix[Pin.UNSPEC][Pin.INPUT] = self.WARNING
-        self._erc_matrix[Pin.UNSPEC][Pin.OUTPUT] = self.WARNING
-        self._erc_matrix[Pin.UNSPEC][Pin.BIDIR] = self.WARNING
-        self._erc_matrix[Pin.UNSPEC][Pin.TRISTATE] = self.WARNING
-        self._erc_matrix[Pin.UNSPEC][Pin.PASSIVE] = self.WARNING
-        self._erc_matrix[Pin.UNSPEC][Pin.UNSPEC] = self.WARNING
-        self._erc_matrix[Pin.PWRIN][Pin.TRISTATE] = self.WARNING
-        self._erc_matrix[Pin.PWRIN][Pin.UNSPEC] = self.WARNING
-        self._erc_matrix[Pin.PWROUT][Pin.OUTPUT] = self.ERROR
-        self._erc_matrix[Pin.PWROUT][Pin.BIDIR] = self.WARNING
-        self._erc_matrix[Pin.PWROUT][Pin.TRISTATE] = self.ERROR
-        self._erc_matrix[Pin.PWROUT][Pin.UNSPEC] = self.WARNING
-        self._erc_matrix[Pin.PWROUT][Pin.PWROUT] = self.ERROR
-        self._erc_matrix[Pin.OPENCOLL][Pin.OUTPUT] = self.ERROR
-        self._erc_matrix[Pin.OPENCOLL][Pin.TRISTATE] = self.ERROR
-        self._erc_matrix[Pin.OPENCOLL][Pin.UNSPEC] = self.WARNING
-        self._erc_matrix[Pin.OPENCOLL][Pin.PWROUT] = self.ERROR
-        self._erc_matrix[Pin.OPENEMIT][Pin.OUTPUT] = self.ERROR
-        self._erc_matrix[Pin.OPENEMIT][Pin.BIDIR] = self.WARNING
-        self._erc_matrix[Pin.OPENEMIT][Pin.TRISTATE] = self.WARNING
-        self._erc_matrix[Pin.OPENEMIT][Pin.UNSPEC] = self.WARNING
-        self._erc_matrix[Pin.OPENEMIT][Pin.PWROUT] = self.ERROR
-        self._erc_matrix[Pin.NOCONNECT][Pin.INPUT] = self.ERROR
-        self._erc_matrix[Pin.NOCONNECT][Pin.OUTPUT] = self.ERROR
-        self._erc_matrix[Pin.NOCONNECT][Pin.BIDIR] = self.ERROR
-        self._erc_matrix[Pin.NOCONNECT][Pin.TRISTATE] = self.ERROR
-        self._erc_matrix[Pin.NOCONNECT][Pin.PASSIVE] = self.ERROR
-        self._erc_matrix[Pin.NOCONNECT][Pin.UNSPEC] = self.ERROR
-        self._erc_matrix[Pin.NOCONNECT][Pin.PWRIN] = self.ERROR
-        self._erc_matrix[Pin.NOCONNECT][Pin.PWROUT] = self.ERROR
-        self._erc_matrix[Pin.NOCONNECT][Pin.OPENCOLL] = self.ERROR
-        self._erc_matrix[Pin.NOCONNECT][Pin.OPENEMIT] = self.ERROR
-        self._erc_matrix[Pin.NOCONNECT][Pin.NOCONNECT] = self.ERROR
+        self._erc_matrix[PinType.OUTPUT][PinType.OUTPUT] = self.ERROR
+        self._erc_matrix[PinType.TRISTATE][PinType.OUTPUT] = self.WARNING
+        self._erc_matrix[PinType.UNSPEC][PinType.INPUT] = self.WARNING
+        self._erc_matrix[PinType.UNSPEC][PinType.OUTPUT] = self.WARNING
+        self._erc_matrix[PinType.UNSPEC][PinType.BIDIR] = self.WARNING
+        self._erc_matrix[PinType.UNSPEC][PinType.TRISTATE] = self.WARNING
+        self._erc_matrix[PinType.UNSPEC][PinType.PASSIVE] = self.WARNING
+        self._erc_matrix[PinType.UNSPEC][PinType.UNSPEC] = self.WARNING
+        self._erc_matrix[PinType.PWRIN][PinType.TRISTATE] = self.WARNING
+        self._erc_matrix[PinType.PWRIN][PinType.UNSPEC] = self.WARNING
+        self._erc_matrix[PinType.PWROUT][PinType.OUTPUT] = self.ERROR
+        self._erc_matrix[PinType.PWROUT][PinType.BIDIR] = self.WARNING
+        self._erc_matrix[PinType.PWROUT][PinType.TRISTATE] = self.ERROR
+        self._erc_matrix[PinType.PWROUT][PinType.UNSPEC] = self.WARNING
+        self._erc_matrix[PinType.PWROUT][PinType.PWROUT] = self.ERROR
+        self._erc_matrix[PinType.OPENCOLL][PinType.OUTPUT] = self.ERROR
+        self._erc_matrix[PinType.OPENCOLL][PinType.TRISTATE] = self.ERROR
+        self._erc_matrix[PinType.OPENCOLL][PinType.UNSPEC] = self.WARNING
+        self._erc_matrix[PinType.OPENCOLL][PinType.PWROUT] = self.ERROR
+        self._erc_matrix[PinType.OPENEMIT][PinType.OUTPUT] = self.ERROR
+        self._erc_matrix[PinType.OPENEMIT][PinType.BIDIR] = self.WARNING
+        self._erc_matrix[PinType.OPENEMIT][PinType.TRISTATE] = self.WARNING
+        self._erc_matrix[PinType.OPENEMIT][PinType.UNSPEC] = self.WARNING
+        self._erc_matrix[PinType.OPENEMIT][PinType.PWROUT] = self.ERROR
+        self._erc_matrix[PinType.NOCONNECT][PinType.INPUT] = self.ERROR
+        self._erc_matrix[PinType.NOCONNECT][PinType.OUTPUT] = self.ERROR
+        self._erc_matrix[PinType.NOCONNECT][PinType.BIDIR] = self.ERROR
+        self._erc_matrix[PinType.NOCONNECT][PinType.TRISTATE] = self.ERROR
+        self._erc_matrix[PinType.NOCONNECT][PinType.PASSIVE] = self.ERROR
+        self._erc_matrix[PinType.NOCONNECT][PinType.UNSPEC] = self.ERROR
+        self._erc_matrix[PinType.NOCONNECT][PinType.PWRIN] = self.ERROR
+        self._erc_matrix[PinType.NOCONNECT][PinType.PWROUT] = self.ERROR
+        self._erc_matrix[PinType.NOCONNECT][PinType.OPENCOLL] = self.ERROR
+        self._erc_matrix[PinType.NOCONNECT][PinType.OPENEMIT] = self.ERROR
+        self._erc_matrix[PinType.NOCONNECT][PinType.NOCONNECT] = self.ERROR
 
         # Fill-in the other half of the symmetrical matrix.
         for c in range(1, 11):

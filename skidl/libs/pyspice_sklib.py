@@ -30,7 +30,7 @@ An interface from SKiDL to PySpice.
 # a pyspice dictionary that is added as an attribute to the SKiDL Part object.
 
 
-from skidl import Pin, Part, SchLib, SKIDL, TEMPLATE
+from skidl import Pin, PinType, Part, SchLib, SKIDL, TEMPLATE
 from skidl.tools.spice import not_implemented, add_part_to_circuit
 
 # Pin aliases.
@@ -80,8 +80,8 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
     Part(
         name='C',
@@ -107,8 +107,8 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
     Part(
         name='BEHAVCAP',
@@ -130,8 +130,8 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
     Part(
         name='SEMICAP',
@@ -159,8 +159,8 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
     Part(
         name='D',
@@ -186,8 +186,8 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
     Part(
         name='E',
@@ -208,10 +208,10 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='ip', func=Pin.PASSIVE, do_erc=True, alias=_POS_IN_PORT_ALIASES),
-            Pin(num='2', name='in', func=Pin.PASSIVE, do_erc=True, alias=_NEG_IN_PORT_ALIASES),
-            Pin(num='3', name='op', func=Pin.PASSIVE, do_erc=True, alias=_POS_OUT_PORT_ALIASES),
-            Pin(num='4', name='on', func=Pin.PASSIVE, do_erc=True, alias=_NEG_OUT_PORT_ALIASES),
+            Pin(num='1', name='ip', func=PinType.PASSIVE, do_erc=True, alias=_POS_IN_PORT_ALIASES),
+            Pin(num='2', name='in', func=PinType.PASSIVE, do_erc=True, alias=_NEG_IN_PORT_ALIASES),
+            Pin(num='3', name='op', func=PinType.PASSIVE, do_erc=True, alias=_POS_OUT_PORT_ALIASES),
+            Pin(num='4', name='on', func=PinType.PASSIVE, do_erc=True, alias=_NEG_OUT_PORT_ALIASES),
         ]),
     Part(
         name='NONLINV',
@@ -232,8 +232,8 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
     Part(
         name='F',
@@ -256,8 +256,8 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
     Part(
         name='G',
@@ -278,10 +278,10 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='ip', func=Pin.PASSIVE, do_erc=True, alias=_POS_IN_PORT_ALIASES),
-            Pin(num='2', name='in', func=Pin.PASSIVE, do_erc=True, alias=_NEG_IN_PORT_ALIASES),
-            Pin(num='3', name='op', func=Pin.PASSIVE, do_erc=True, alias=_POS_OUT_PORT_ALIASES),
-            Pin(num='4', name='on', func=Pin.PASSIVE, do_erc=True, alias=_NEG_OUT_PORT_ALIASES),
+            Pin(num='1', name='ip', func=PinType.PASSIVE, do_erc=True, alias=_POS_IN_PORT_ALIASES),
+            Pin(num='2', name='in', func=PinType.PASSIVE, do_erc=True, alias=_NEG_IN_PORT_ALIASES),
+            Pin(num='3', name='op', func=PinType.PASSIVE, do_erc=True, alias=_POS_OUT_PORT_ALIASES),
+            Pin(num='4', name='on', func=PinType.PASSIVE, do_erc=True, alias=_NEG_OUT_PORT_ALIASES),
         ]),
     Part(
         name='NONLINI',
@@ -302,8 +302,8 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
     Part(
         name='H',
@@ -325,8 +325,8 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
     Part(
         name='I',
@@ -347,8 +347,8 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
     Part(
         name='J',
@@ -372,9 +372,9 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='d', func=Pin.PASSIVE, do_erc=True, alias=['drain',]),
-            Pin(num='2', name='g', func=Pin.PASSIVE, do_erc=True, alias=['gate',]),
-            Pin(num='3', name='s', func=Pin.PASSIVE, do_erc=True, alias=['source',]),
+            Pin(num='1', name='d', func=PinType.PASSIVE, do_erc=True, alias=['drain',]),
+            Pin(num='2', name='g', func=PinType.PASSIVE, do_erc=True, alias=['gate',]),
+            Pin(num='3', name='s', func=PinType.PASSIVE, do_erc=True, alias=['source',]),
         ]),
     Part(
         name='K',
@@ -418,8 +418,8 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
     Part(
         name='BEHAVIND',
@@ -441,8 +441,8 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
     Part(
         name='M',
@@ -475,10 +475,10 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='d', func=Pin.PASSIVE, do_erc=True, alias=['drain',]),
-            Pin(num='2', name='g', func=Pin.PASSIVE, do_erc=True, alias=['gate',]),
-            Pin(num='3', name='s', func=Pin.PASSIVE, do_erc=True, alias=['source',]),
-            Pin(num='4', name='b', func=Pin.PASSIVE, do_erc=True, alias=['bulk', 'substrate']),
+            Pin(num='1', name='d', func=PinType.PASSIVE, do_erc=True, alias=['drain',]),
+            Pin(num='2', name='g', func=PinType.PASSIVE, do_erc=True, alias=['gate',]),
+            Pin(num='3', name='s', func=PinType.PASSIVE, do_erc=True, alias=['source',]),
+            Pin(num='4', name='b', func=PinType.PASSIVE, do_erc=True, alias=['bulk', 'substrate']),
         ]),
     Part( #####################################################################
         name='N',
@@ -512,10 +512,10 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='ip', func=Pin.PASSIVE, do_erc=True, alias=_POS_IN_PORT_ALIASES),
-            Pin(num='2', name='in', func=Pin.PASSIVE, do_erc=True, alias=_NEG_IN_PORT_ALIASES),
-            Pin(num='3', name='op', func=Pin.PASSIVE, do_erc=True, alias=_POS_OUT_PORT_ALIASES),
-            Pin(num='4', name='on', func=Pin.PASSIVE, do_erc=True, alias=_NEG_OUT_PORT_ALIASES),
+            Pin(num='1', name='ip', func=PinType.PASSIVE, do_erc=True, alias=_POS_IN_PORT_ALIASES),
+            Pin(num='2', name='in', func=PinType.PASSIVE, do_erc=True, alias=_NEG_IN_PORT_ALIASES),
+            Pin(num='3', name='op', func=PinType.PASSIVE, do_erc=True, alias=_POS_OUT_PORT_ALIASES),
+            Pin(num='4', name='on', func=PinType.PASSIVE, do_erc=True, alias=_NEG_OUT_PORT_ALIASES),
         ]),
     Part(
         name='P',
@@ -560,10 +560,10 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='c', func=Pin.PASSIVE, do_erc=True, alias=['collector',]),
-            Pin(num='2', name='b', func=Pin.PASSIVE, do_erc=True, alias=['base',]),
-            Pin(num='3', name='e', func=Pin.PASSIVE, do_erc=True, alias=['emitter',]),
-            Pin(num='4', name='s', func=Pin.PASSIVE, do_erc=True, alias=['substrate', 'bulk']),
+            Pin(num='1', name='c', func=PinType.PASSIVE, do_erc=True, alias=['collector',]),
+            Pin(num='2', name='b', func=PinType.PASSIVE, do_erc=True, alias=['base',]),
+            Pin(num='3', name='e', func=PinType.PASSIVE, do_erc=True, alias=['emitter',]),
+            Pin(num='4', name='s', func=PinType.PASSIVE, do_erc=True, alias=['substrate', 'bulk']),
         ]),
     Part(
         name='R',
@@ -588,8 +588,8 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
     Part(
         name='BEHAVRES',
@@ -611,8 +611,8 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
     Part(
         name='SEMIRES',
@@ -642,8 +642,8 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
     Part(
         name='S',
@@ -665,10 +665,10 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='ip', func=Pin.PASSIVE, do_erc=True, alias=_POS_IN_PORT_ALIASES),
-            Pin(num='2', name='in', func=Pin.PASSIVE, do_erc=True, alias=_NEG_IN_PORT_ALIASES),
-            Pin(num='3', name='op', func=Pin.PASSIVE, do_erc=True, alias=_POS_OUT_PORT_ALIASES),
-            Pin(num='4', name='on', func=Pin.PASSIVE, do_erc=True, alias=_NEG_OUT_PORT_ALIASES),
+            Pin(num='1', name='ip', func=PinType.PASSIVE, do_erc=True, alias=_POS_IN_PORT_ALIASES),
+            Pin(num='2', name='in', func=PinType.PASSIVE, do_erc=True, alias=_NEG_IN_PORT_ALIASES),
+            Pin(num='3', name='op', func=PinType.PASSIVE, do_erc=True, alias=_POS_OUT_PORT_ALIASES),
+            Pin(num='4', name='on', func=PinType.PASSIVE, do_erc=True, alias=_NEG_OUT_PORT_ALIASES),
         ]),
     Part(
         name='T',
@@ -692,10 +692,10 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='ip', func=Pin.PASSIVE, do_erc=True, alias=_POS_IN_PORT_ALIASES),
-            Pin(num='2', name='in', func=Pin.PASSIVE, do_erc=True, alias=_NEG_IN_PORT_ALIASES),
-            Pin(num='3', name='op', func=Pin.PASSIVE, do_erc=True, alias=_POS_OUT_PORT_ALIASES),
-            Pin(num='4', name='on', func=Pin.PASSIVE, do_erc=True, alias=_NEG_OUT_PORT_ALIASES),
+            Pin(num='1', name='ip', func=PinType.PASSIVE, do_erc=True, alias=_POS_IN_PORT_ALIASES),
+            Pin(num='2', name='in', func=PinType.PASSIVE, do_erc=True, alias=_NEG_IN_PORT_ALIASES),
+            Pin(num='3', name='op', func=PinType.PASSIVE, do_erc=True, alias=_POS_OUT_PORT_ALIASES),
+            Pin(num='4', name='on', func=PinType.PASSIVE, do_erc=True, alias=_NEG_OUT_PORT_ALIASES),
         ]),
     Part(
         name='U',
@@ -717,9 +717,9 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='o', func=Pin.PASSIVE, do_erc=True, alias=['output']),
-            Pin(num='2', name='i', func=Pin.PASSIVE, do_erc=True, alias=['input',]),
-            Pin(num='3', name='cn', func=Pin.PASSIVE, do_erc=True, alias=['cap_node', 'capacitance_node']),
+            Pin(num='1', name='o', func=PinType.PASSIVE, do_erc=True, alias=['output']),
+            Pin(num='2', name='i', func=PinType.PASSIVE, do_erc=True, alias=['input',]),
+            Pin(num='3', name='cn', func=PinType.PASSIVE, do_erc=True, alias=['cap_node', 'capacitance_node']),
         ]),
     Part(
         name='V',
@@ -740,8 +740,8 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
     Part(
         name='W',
@@ -763,8 +763,8 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
     # Part( #####################################################################
         # name='X',
@@ -799,10 +799,10 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='ip', func=Pin.PASSIVE, do_erc=True, alias=_POS_IN_PORT_ALIASES),
-            Pin(num='2', name='in', func=Pin.PASSIVE, do_erc=True, alias=_NEG_IN_PORT_ALIASES),
-            Pin(num='3', name='op', func=Pin.PASSIVE, do_erc=True, alias=_POS_OUT_PORT_ALIASES),
-            Pin(num='4', name='on', func=Pin.PASSIVE, do_erc=True, alias=_NEG_OUT_PORT_ALIASES),
+            Pin(num='1', name='ip', func=PinType.PASSIVE, do_erc=True, alias=_POS_IN_PORT_ALIASES),
+            Pin(num='2', name='in', func=PinType.PASSIVE, do_erc=True, alias=_NEG_IN_PORT_ALIASES),
+            Pin(num='3', name='op', func=PinType.PASSIVE, do_erc=True, alias=_POS_OUT_PORT_ALIASES),
+            Pin(num='4', name='on', func=PinType.PASSIVE, do_erc=True, alias=_NEG_OUT_PORT_ALIASES),
         ]),
     Part(
         name='Z',
@@ -827,9 +827,9 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='d', func=Pin.PASSIVE, do_erc=True, alias=['drain',]),
-            Pin(num='2', name='g', func=Pin.PASSIVE, do_erc=True, alias=['gate',]),
-            Pin(num='3', name='s', func=Pin.PASSIVE, do_erc=True, alias=['source',]),
+            Pin(num='1', name='d', func=PinType.PASSIVE, do_erc=True, alias=['drain',]),
+            Pin(num='2', name='g', func=PinType.PASSIVE, do_erc=True, alias=['gate',]),
+            Pin(num='3', name='s', func=PinType.PASSIVE, do_erc=True, alias=['source',]),
         ]),
     Part(
         name='SINEV',
@@ -852,8 +852,8 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
     Part(
         name='SINEI',
@@ -876,8 +876,8 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
     Part(
         name='PULSEV',
@@ -901,8 +901,8 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
     Part(
         name='PULSEI',
@@ -926,8 +926,8 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
     Part(
         name='EXPV',
@@ -950,8 +950,8 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
     Part(
         name='EXPI',
@@ -974,8 +974,8 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
     Part(
         name='PWLV',
@@ -997,8 +997,8 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
     Part(
         name='PWLI',
@@ -1020,8 +1020,8 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
     Part(
         name='FMV',
@@ -1045,8 +1045,8 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
     Part(
         name='FMI',
@@ -1070,8 +1070,8 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
     Part(
         name='AMV',
@@ -1095,8 +1095,8 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
     Part(
         name='AMI',
@@ -1120,8 +1120,8 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
     Part(
         name='RNDV',
@@ -1145,8 +1145,8 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
     Part(
         name='RNDI',
@@ -1170,7 +1170,7 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
         num_units=1,
         do_erc=True,
         pins=[
-            Pin(num='1', name='p', func=Pin.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
-            Pin(num='2', name='n', func=Pin.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
+            Pin(num='1', name='p', func=PinType.PASSIVE, do_erc=True, alias=_POS_DIPOLE_ALIASES),
+            Pin(num='2', name='n', func=PinType.PASSIVE, do_erc=True, alias=_NEG_DIPOLE_ALIASES),
         ]),
 ])

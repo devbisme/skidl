@@ -98,11 +98,11 @@ class Net(object):
         return cls.get(name, circuit=circuit) or cls(name, *args, **attribs)
 
     def __init__(self, name=None, circuit=None, *pins_nets_buses, **attribs):
-        from .Pin import Pin
+        from .Pin import PinType
 
         self._valid = True  # Make net valid before doing anything else.
         self.do_erc = True
-        self._drive = Pin.NO_DRIVE
+        self._drive = PinType.NO_DRIVE
         self.pins = []
         self._name = None
         self.circuit = None
@@ -652,7 +652,7 @@ class Net(object):
         Do electrical rules check on a net in the schematic.
         """
 
-        from .Pin import Pin
+        from .Pin import PinType
         from .Circuit import Circuit
 
         def pin_conflict_chk(pin1, pin2):
@@ -692,13 +692,13 @@ class Net(object):
                 try:
                     net_drive = max(p.drive, net_drive)
                 except AttributeError:
-                    net_drive = max(net_drive, Pin.pin_info[p.func]['drive'])
+                    net_drive = max(net_drive, PinType.pin_info[p.func]['drive'])
 
-            if net_drive <= Pin.NO_DRIVE:
+            if net_drive <= PinType.NO_DRIVE:
                 erc_logger.warning(
                     'No drivers for net {n}'.format(n=self.name))
             for p in pins:
-                if Pin.pin_info[p.func]['min_rcv'] > net_drive:
+                if PinType.pin_info[p.func]['min_rcv'] > net_drive:
                     erc_logger.warning(
                         'Insufficient drive current on net {n} for pin {p}'.
                         format(n=self.name, p=p.erc_desc()))
@@ -843,11 +843,11 @@ class NCNet(Net):
     """
 
     def __init__(self, name=None, circuit=None, *pins_nets_buses, **attribs):
-        from .Pin import Pin
+        from .Pin import PinType
 
         super(NCNet, self).__init__(
             name=name, circuit=circuit, *pins_nets_buses, **attribs)
-        self._drive = Pin.NOCONNECT_DRIVE
+        self._drive = PinType.NOCONNECT_DRIVE
 
     def generate_netlist_net(self, tool=None):
         """NO_CONNECT nets don't generate anything for netlists."""

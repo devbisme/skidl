@@ -156,4 +156,4 @@ reset = default_circuit.reset  # pylint: disable=undefined-variable
 backup_parts = default_circuit.backup_parts  # pylint: disable=undefined-variable
 
 # Define a tag for nets that convey power (e.g., VCC or GND).
-POWER = Pin.POWER_DRIVE
+POWER = PinType.POWER_DRIVE

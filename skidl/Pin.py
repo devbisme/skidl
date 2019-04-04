@@ -40,17 +40,9 @@ from .utilities import *
 from .Alias import *
 
 
-class Pin(object):
+class PinType(object):
     """
-    A class for storing data about pins for a part.
-
-    Args:
-        attribs: Key/value pairs of attributes to add to the library.
-
-    Attributes:
-        nets: The electrical nets this pin is connected to (can be >1).
-        part: Link to the Part object this pin belongs to.
-        do_erc: When false, the pin is not checked for ERC violations.
+    A class for storing data describing a pin's characteristics.
     """
 
     # Various types of pins.
@@ -153,12 +145,33 @@ class Pin(object):
         },
     }
 
+    def __init__(self, **attribs): 
+        # Attach additional attributes to the pin.
+        for k, v in attribs.items():
+            setattr(self, k, v)
+
+
+class Pin(object):
+    """
+    A class for storing data about pins for a part.
+
+    Args:
+        attribs: Key/value pairs of attributes to add to the library.
+
+    Attributes:
+        nets: The electrical nets this pin is connected to (can be >1).
+        part: Link to the Part object this pin belongs to.
+        func: Pin function such as PinType.INPUT.
+        do_erc: When false, the pin is not checked for ERC violations.
+    """
+
     def __init__(self, **attribs):
         self.nets = []
         self.part = None
         self.name = ''
         self.num = ''
         self.do_erc = True
+        self.type = PinType()
 
         # Attach additional attributes to the pin.
         for k, v in attribs.items():
@@ -464,7 +477,7 @@ class Pin(object):
             part=self.part.erc_desc(),
             num=self.num,
             name=self.name,
-            func=Pin.pin_info[self.func]['function'])
+            func=PinType.pin_info[self.func]['function'])
         return desc
 
     def __str__(self):
@@ -476,8 +489,8 @@ class Pin(object):
             alias = '/' + self.alias
         except AttributeError:
             alias = ''
-        func = getattr(self, 'func', Pin.UNSPEC)
-        func = Pin.pin_info[func]['function']
+        func = getattr(self, 'func', PinType.UNSPEC)
+        func = PinType.pin_info[func]['function']
         return 'Pin {ref}/{num}/{name}{alias}/{func}'.format(**locals())
 
     __repr__ = __str__
@@ -492,7 +505,7 @@ class Pin(object):
                     # Assign the pin function using the actual name of the
                     # function, not its numerical value (in case that changes
                     # in the future if more pin functions are added).
-                    v = 'Pin.' + Pin.pin_info[v]['func_str']
+                    v = 'PinType.' + PinType.pin_info[v]['func_str']
                 else:
                     v = repr(v)
                 attribs.append('{}={}'.format(k, v))
@@ -515,15 +528,15 @@ class Pin(object):
         """
         Get, set and delete the drive strength of this pin.
         """
-        return self._drive
+        return self.type._drive
 
     @drive.setter
     def drive(self, drive):
-        self._drive = drive
+        self.type._drive = drive
 
     @drive.deleter
     def drive(self):
-        del self._drive
+        del self.type._drive
 
     @property
     def alias(self):

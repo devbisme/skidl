@@ -236,16 +236,21 @@ class Part(object):
 
     def _find_min_max_pins(self):
         """ Return the minimum and maximum pin numbers for the part. """
-
         pin_nums = []
-
-        for p in self.pins:
-            try:
-                pin_nums.append(int(p.num))
-            except ValueError:
-                pass
-
-        return min(pin_nums, default=0), max(pin_nums, default=0)
+        try:
+            for p in self.pins:
+                try:
+                    pin_nums.append(int(p.num))
+                except ValueError:
+                    pass
+        except AttributeError:
+            # This happens if the part has no pins.
+            pass
+        try:
+            return min(pin_nums), max(pin_nums)
+        except ValueError:
+            # This happens if the part has no integer-labeled pins.
+            return 0, 0
 
     def parse(self, just_get_name=False):
         """
@@ -761,7 +766,7 @@ class Part(object):
         Do electrical rules check on a part in the schematic.
         """
 
-        from .Pin import Pin
+        from .Pin import PinType
 
         # Don't check this part if the flag is not true.
         if not self.do_erc:
@@ -776,13 +781,13 @@ class Part(object):
 
             # Error if a pin is unconnected but not of type NOCONNECT.
             if p.net is None:
-                if p.func != Pin.NOCONNECT:
+                if p.func != PinType.NOCONNECT:
                     erc_logger.warning(
                         'Unconnected pin: {p}.'.format(p=p.erc_desc()))
 
             # Error if a no-connect pin is connected to a net.
-            elif p.net.drive != Pin.NOCONNECT_DRIVE:
-                if p.func == Pin.NOCONNECT:
+            elif p.net.drive != PinType.NOCONNECT_DRIVE:
+                if p.func == PinType.NOCONNECT:
                     erc_logger.warning(
                         'Incorrectly connected pin: {p} should not be connected to a net ({n}).'.
                         format(p=p.erc_desc(), n=p.net.name))

@@ -163,7 +163,7 @@ def _parse_lib_part_(self, just_get_name=False):
             will be parsed if the part is actually used.
     """
 
-    from ..Pin import Pin
+    from ..Pin import Pin, PinType
 
     _DEF_KEYS = [
         'name', 'reference', 'unused', 'text_offset', 'draw_pinnumber',
@@ -417,17 +417,17 @@ def _parse_lib_part_(self, just_get_name=False):
         p.__dict__.update(kicad_pin)
 
         pin_type_translation = {
-            'I': Pin.INPUT,
-            'O': Pin.OUTPUT,
-            'B': Pin.BIDIR,
-            'T': Pin.TRISTATE,
-            'P': Pin.PASSIVE,
-            'U': Pin.UNSPEC,
-            'W': Pin.PWRIN,
-            'w': Pin.PWROUT,
-            'C': Pin.OPENCOLL,
-            'E': Pin.OPENEMIT,
-            'N': Pin.NOCONNECT
+            'I': PinType.INPUT,
+            'O': PinType.OUTPUT,
+            'B': PinType.BIDIR,
+            'T': PinType.TRISTATE,
+            'P': PinType.PASSIVE,
+            'U': PinType.UNSPEC,
+            'W': PinType.PWRIN,
+            'w': PinType.PWROUT,
+            'C': PinType.OPENCOLL,
+            'E': PinType.OPENEMIT,
+            'N': PinType.NOCONNECT
         }
         p.func = pin_type_translation[p.electrical_type]  # pylint: disable=no-member, attribute-defined-outside-init
 

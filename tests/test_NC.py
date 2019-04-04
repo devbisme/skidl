@@ -6,7 +6,7 @@ def test_NC_1():
 
     @subcircuit
     def circ_nc():
-        res = Part(tool=SKIDL, name='res', ref_prefix='R', dest=TEMPLATE, pins=[Pin(num=1,func=Pin.PASSIVE), Pin(num=2, func=Pin.PASSIVE)])
+        res = Part(tool=SKIDL, name='res', ref_prefix='R', dest=TEMPLATE, pins=[Pin(num=1,func=PinType.PASSIVE), Pin(num=2, func=PinType.PASSIVE)])
         r1 = res()
         r1[1] += NC
 
