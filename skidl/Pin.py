@@ -35,9 +35,12 @@ from builtins import range
 from future import standard_library
 standard_library.install_aliases()
 from copy import copy
+from enum import IntEnum
+from collections import defaultdict
 
 from .utilities import *
 from .Alias import *
+from .Circuit import OK, WARNING, ERROR
 
 
 class PinType(object):
@@ -45,111 +48,10 @@ class PinType(object):
     A class for storing data describing a pin's characteristics.
     """
 
-    # Various types of pins.
-    INPUT, OUTPUT, BIDIR, TRISTATE, PASSIVE, UNSPEC, PWRIN,\
-    PWROUT, OPENCOLL, OPENEMIT, NOCONNECT = range(11)
-
-    # Various drive levels a pin can output:
-    #   NOCONNECT_DRIVE: NC pin drive.
-    #   NO_DRIVE: No drive capability (like an input pin).
-    #   PASSIVE_DRIVE: Small drive capability, such as a pullup.
-    #   ONESIDE_DRIVE: Can pull high (open-emitter) or low (open-collector).
-    #   TRISTATE_DRIVE: Can pull high/low and be in high-impedance state.
-    #   PUSHPULL_DRIVE: Can actively drive high or low.
-    #   POWER_DRIVE: A power supply or ground line.
-    NOCONNECT_DRIVE, NO_DRIVE, PASSIVE_DRIVE, ONESIDE_DRIVE,\
-    TRISTATE_DRIVE, PUSHPULL_DRIVE, POWER_DRIVE = range(7)
-
-    # Information about the various types of pins:
-    #   function: A string describing the pin's function.
-    #   drive: The drive capability of the pin.
-    #   rcv_min: The minimum amount of drive the pin must receive to function.
-    #   rcv_max: The maximum amount of drive the pin can receive and still function.
-    pin_info = {
-        INPUT: {
-            'function': 'INPUT',
-            'func_str': 'INPUT',
-            'drive': NO_DRIVE,
-            'max_rcv': POWER_DRIVE,
-            'min_rcv': PASSIVE_DRIVE,
-        },
-        OUTPUT: {
-            'function': 'OUTPUT',
-            'func_str': 'OUTPUT',
-            'drive': PUSHPULL_DRIVE,
-            'max_rcv': PASSIVE_DRIVE,
-            'min_rcv': NO_DRIVE,
-        },
-        BIDIR: {
-            'function': 'BIDIRECTIONAL',
-            'func_str': 'BIDIR',
-            'drive': TRISTATE_DRIVE,
-            'max_rcv': POWER_DRIVE,
-            'min_rcv': NO_DRIVE,
-        },
-        TRISTATE: {
-            'function': 'TRISTATE',
-            'func_str': 'TRISTATE',
-            'drive': TRISTATE_DRIVE,
-            'max_rcv': TRISTATE_DRIVE,
-            'min_rcv': NO_DRIVE,
-        },
-        PASSIVE: {
-            'function': 'PASSIVE',
-            'func_str': 'PASSIVE',
-            'drive': PASSIVE_DRIVE,
-            'max_rcv': POWER_DRIVE,
-            'min_rcv': NO_DRIVE,
-        },
-        UNSPEC: {
-            'function': 'UNSPECIFIED',
-            'func_str': 'UNSPEC',
-            'drive': NO_DRIVE,
-            'max_rcv': POWER_DRIVE,
-            'min_rcv': NO_DRIVE,
-        },
-        PWRIN: {
-            'function': 'POWER-IN',
-            'func_str': 'PWRIN',
-            'drive': NO_DRIVE,
-            'max_rcv': POWER_DRIVE,
-            'min_rcv': POWER_DRIVE,
-        },
-        PWROUT: {
-            'function': 'POWER-OUT',
-            'func_str': 'PWROUT',
-            'drive': POWER_DRIVE,
-            'max_rcv': PASSIVE_DRIVE,
-            'min_rcv': NO_DRIVE,
-        },
-        OPENCOLL: {
-            'function': 'OPEN-COLLECTOR',
-            'func_str': 'OPENCOLL',
-            'drive': ONESIDE_DRIVE,
-            'max_rcv': TRISTATE_DRIVE,
-            'min_rcv': NO_DRIVE,
-        },
-        OPENEMIT: {
-            'function': 'OPEN-EMITTER',
-            'func_str': 'OPENEMIT',
-            'drive': ONESIDE_DRIVE,
-            'max_rcv': TRISTATE_DRIVE,
-            'min_rcv': NO_DRIVE,
-        },
-        NOCONNECT: {
-            'function': 'NO-CONNECT',
-            'func_str': 'NOCONNECT',
-            'drive': NOCONNECT_DRIVE,
-            'max_rcv': NOCONNECT_DRIVE,
-            'min_rcv': NOCONNECT_DRIVE,
-        },
-    }
-
     def __init__(self, **attribs): 
-        # Attach additional attributes to the pin.
+        # Attach additional attributes to the pin type.
         for k, v in attribs.items():
             setattr(self, k, v)
-
 
 class Pin(object):
     """
@@ -161,9 +63,110 @@ class Pin(object):
     Attributes:
         nets: The electrical nets this pin is connected to (can be >1).
         part: Link to the Part object this pin belongs to.
-        func: Pin function such as PinType.INPUT.
+        func: Pin function such as PinType.types.INPUT.
         do_erc: When false, the pin is not checked for ERC violations.
     """
+
+    # Various types of pins.
+    types = IntEnum('types', ('INPUT', 'OUTPUT', 'BIDIR', 'TRISTATE', 'PASSIVE',
+                    'UNSPEC', 'PWRIN', 'PWROUT', 'OPENCOLL', 'OPENEMIT',
+                    'NOCONNECT'))
+
+    # Various drive levels a pin can output:
+    #   NOCONNECT: NC pin drive.
+    #   NONE: No drive capability (like an input pin).
+    #   PASSIVE: Small drive capability, such as a pullup.
+    #   ONESIDE: Can pull high (open-emitter) or low (open-collector).
+    #   TRISTATE: Can pull high/low and be in high-impedance state.
+    #   PUSHPULL: Can actively drive high or low.
+    #   POWER: A power supply or ground line.
+    drives = IntEnum('drives', ('NOCONNECT', 'NONE', 'PASSIVE',
+                    'ONESIDE', 'TRISTATE', 'PUSHPULL', 'POWER'))
+
+    # Information about the various types of pins:
+    #   function: A string describing the pin's function.
+    #   drive: The drive capability of the pin.
+    #   rcv_min: The minimum amount of drive the pin must receive to function.
+    #   rcv_max: The maximum amount of drive the pin can receive and still function.
+    pin_info = {
+        types.INPUT: {
+            'function': 'INPUT',
+            'func_str': 'INPUT',
+            'drive': drives.NONE,
+            'max_rcv': drives.POWER,
+            'min_rcv': drives.PASSIVE,
+        },
+        types.OUTPUT: {
+            'function': 'OUTPUT',
+            'func_str': 'OUTPUT',
+            'drive': drives.PUSHPULL,
+            'max_rcv': drives.PASSIVE,
+            'min_rcv': drives.NONE,
+        },
+        types.BIDIR: {
+            'function': 'BIDIRECTIONAL',
+            'func_str': 'BIDIR',
+            'drive': drives.TRISTATE,
+            'max_rcv': drives.POWER,
+            'min_rcv': drives.NONE,
+        },
+        types.TRISTATE: {
+            'function': 'TRISTATE',
+            'func_str': 'TRISTATE',
+            'drive': drives.TRISTATE,
+            'max_rcv': drives.TRISTATE,
+            'min_rcv': drives.NONE,
+        },
+        types.PASSIVE: {
+            'function': 'PASSIVE',
+            'func_str': 'PASSIVE',
+            'drive': drives.PASSIVE,
+            'max_rcv': drives.POWER,
+            'min_rcv': drives.NONE,
+        },
+        types.UNSPEC: {
+            'function': 'UNSPECIFIED',
+            'func_str': 'UNSPEC',
+            'drive': drives.NONE,
+            'max_rcv': drives.POWER,
+            'min_rcv': drives.NONE,
+        },
+        types.PWRIN: {
+            'function': 'POWER-IN',
+            'func_str': 'PWRIN',
+            'drive': drives.NONE,
+            'max_rcv': drives.POWER,
+            'min_rcv': drives.POWER,
+        },
+        types.PWROUT: {
+            'function': 'POWER-OUT',
+            'func_str': 'PWROUT',
+            'drive': drives.POWER,
+            'max_rcv': drives.PASSIVE,
+            'min_rcv': drives.NONE,
+        },
+        types.OPENCOLL: {
+            'function': 'OPEN-COLLECTOR',
+            'func_str': 'OPENCOLL',
+            'drive': drives.ONESIDE,
+            'max_rcv': drives.TRISTATE,
+            'min_rcv': drives.NONE,
+        },
+        types.OPENEMIT: {
+            'function': 'OPEN-EMITTER',
+            'func_str': 'OPENEMIT',
+            'drive': drives.ONESIDE,
+            'max_rcv': drives.TRISTATE,
+            'min_rcv': drives.NONE,
+        },
+        types.NOCONNECT: {
+            'function': 'NO-CONNECT',
+            'func_str': 'NOCONNECT',
+            'drive': drives.NOCONNECT,
+            'max_rcv': drives.NOCONNECT,
+            'min_rcv': drives.NOCONNECT,
+        },
+    }
 
     def __init__(self, **attribs):
         self.nets = []
@@ -471,13 +474,34 @@ class Pin(object):
 
         return obj | Network(self)
 
+    def chk_conflict(self, other_pin):
+        """Check for electrical rule conflicts between this pin and another."""
+        from .Circuit import OK, ERROR, WARNING
+
+        if not self.do_erc or not other_pin.do_erc:
+            return
+
+        erc_result = conflict_matrix[self.func][other_pin.func]
+
+        # Return if the pins are compatible.
+        if erc_result == OK:
+            return
+
+        # Otherwise, generate an error or warning message.
+        msg = 'Pin conflict on net {n}: {p1} <==> {p2}'.format(
+            n=self.net.name, p1=self.erc_desc(), p2=other_pin.erc_desc())
+        if erc_result == WARNING:
+            erc_logger.warning(msg)
+        else:
+            erc_logger.error(msg)
+
     def erc_desc(self):
         """Return a string describing this pin for ERC."""
         desc = "{func} pin {num}/{name} of {part}".format(
             part=self.part.erc_desc(),
             num=self.num,
             name=self.name,
-            func=PinType.pin_info[self.func]['function'])
+            func=Pin.pin_info[self.func]['function'])
         return desc
 
     def __str__(self):
@@ -489,8 +513,8 @@ class Pin(object):
             alias = '/' + self.alias
         except AttributeError:
             alias = ''
-        func = getattr(self, 'func', PinType.UNSPEC)
-        func = PinType.pin_info[func]['function']
+        func = getattr(self, 'func', Pin.types.UNSPEC)
+        func = Pin.pin_info[func]['function']
         return 'Pin {ref}/{num}/{name}{alias}/{func}'.format(**locals())
 
     __repr__ = __str__
@@ -505,7 +529,7 @@ class Pin(object):
                     # Assign the pin function using the actual name of the
                     # function, not its numerical value (in case that changes
                     # in the future if more pin functions are added).
-                    v = 'PinType.' + PinType.pin_info[v]['func_str']
+                    v = 'Pin.types.' + Pin.pin_info[v]['func_str']
                 else:
                     v = repr(v)
                 attribs.append('{}={}'.format(k, v))
@@ -575,3 +599,57 @@ class PhantomPin(Pin):
         self.nets = []
         self.part = None
         self.do_erc = False
+
+
+##############################################################################
+
+
+# Create the pin conflict matrix as a defaultdict of defaultdicts which
+# returns OK if the given element is not in the matrix. This would indicate
+# the pin types used to index that element have no contention if connected.
+conflict_matrix = defaultdict(lambda: defaultdict(lambda: OK))
+
+# Add the non-OK pin connections to the matrix.
+conflict_matrix[Pin.types.OUTPUT][Pin.types.OUTPUT] = ERROR
+conflict_matrix[Pin.types.TRISTATE][Pin.types.OUTPUT] = WARNING
+conflict_matrix[Pin.types.UNSPEC][Pin.types.INPUT] = WARNING
+conflict_matrix[Pin.types.UNSPEC][Pin.types.OUTPUT] = WARNING
+conflict_matrix[Pin.types.UNSPEC][Pin.types.BIDIR] = WARNING
+conflict_matrix[Pin.types.UNSPEC][Pin.types.TRISTATE] = WARNING
+conflict_matrix[Pin.types.UNSPEC][Pin.types.PASSIVE] = WARNING
+conflict_matrix[Pin.types.UNSPEC][Pin.types.UNSPEC] = WARNING
+conflict_matrix[Pin.types.PWRIN][Pin.types.TRISTATE] = WARNING
+conflict_matrix[Pin.types.PWRIN][Pin.types.UNSPEC] = WARNING
+conflict_matrix[Pin.types.PWROUT][Pin.types.OUTPUT] = ERROR
+conflict_matrix[Pin.types.PWROUT][Pin.types.BIDIR] = WARNING
+conflict_matrix[Pin.types.PWROUT][Pin.types.TRISTATE] = ERROR
+conflict_matrix[Pin.types.PWROUT][Pin.types.UNSPEC] = WARNING
+conflict_matrix[Pin.types.PWROUT][Pin.types.PWROUT] = ERROR
+conflict_matrix[Pin.types.OPENCOLL][Pin.types.OUTPUT] = ERROR
+conflict_matrix[Pin.types.OPENCOLL][Pin.types.TRISTATE] = ERROR
+conflict_matrix[Pin.types.OPENCOLL][Pin.types.UNSPEC] = WARNING
+conflict_matrix[Pin.types.OPENCOLL][Pin.types.PWROUT] = ERROR
+conflict_matrix[Pin.types.OPENEMIT][Pin.types.OUTPUT] = ERROR
+conflict_matrix[Pin.types.OPENEMIT][Pin.types.BIDIR] = WARNING
+conflict_matrix[Pin.types.OPENEMIT][Pin.types.TRISTATE] = WARNING
+conflict_matrix[Pin.types.OPENEMIT][Pin.types.UNSPEC] = WARNING
+conflict_matrix[Pin.types.OPENEMIT][Pin.types.PWROUT] = ERROR
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.INPUT] = ERROR
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.OUTPUT] = ERROR
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.BIDIR] = ERROR
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.TRISTATE] = ERROR
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.PASSIVE] = ERROR
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.UNSPEC] = ERROR
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.PWRIN] = ERROR
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.PWROUT] = ERROR
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.OPENCOLL] = ERROR
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.OPENEMIT] = ERROR
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.NOCONNECT] = ERROR
+
+# Fill-in the other half of the symmetrical contention matrix by looking
+# for entries that != OK at position (r,c) and copying them to position
+# (c,r).
+cols = list(conflict_matrix.keys())
+for c in cols:
+    for r in conflict_matrix[c].keys():
+        conflict_matrix[r][c] = conflict_matrix[c][r]

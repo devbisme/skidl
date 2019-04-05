@@ -766,7 +766,7 @@ class Part(object):
         Do electrical rules check on a part in the schematic.
         """
 
-        from .Pin import PinType
+        from .Pin import Pin
 
         # Don't check this part if the flag is not true.
         if not self.do_erc:
@@ -781,13 +781,13 @@ class Part(object):
 
             # Error if a pin is unconnected but not of type NOCONNECT.
             if p.net is None:
-                if p.func != PinType.NOCONNECT:
+                if p.func != Pin.types.NOCONNECT:
                     erc_logger.warning(
                         'Unconnected pin: {p}.'.format(p=p.erc_desc()))
 
             # Error if a no-connect pin is connected to a net.
-            elif p.net.drive != PinType.NOCONNECT_DRIVE:
-                if p.func == PinType.NOCONNECT:
+            elif p.net.drive != Pin.drives.NOCONNECT:
+                if p.func == Pin.types.NOCONNECT:
                     erc_logger.warning(
                         'Incorrectly connected pin: {p} should not be connected to a net ({n}).'.
                         format(p=p.erc_desc(), n=p.net.name))

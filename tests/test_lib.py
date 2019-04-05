@@ -32,9 +32,9 @@ def test_lib_creation_1():
     assert(len(lib.parts) == 1)
     assert(not lib.get_parts(name='QQ')) # Part not in library.
     prt2 = SkidlPart(name='QQ', dest=TEMPLATE)
-    prt2.add_pins(Pin(num=1,name='Q1',func=PinType.TRISTATE), Pin(num=2,name='Q2',func=PinType.PWRIN))
+    prt2.add_pins(Pin(num=1,name='Q1',func=Pin.types.TRISTATE), Pin(num=2,name='Q2',func=Pin.types.PWRIN))
     lib += prt2
-    prt2.add_pins(Pin(num=3,name='Q1',func=PinType.PWROUT))
+    prt2.add_pins(Pin(num=3,name='Q1',func=Pin.types.PWROUT))
     assert(len(lib.parts) == 2)
     assert(lib['Q'].name == 'Q')
     assert(len(lib['Q'].pins) == 0)

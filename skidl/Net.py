@@ -98,11 +98,11 @@ class Net(object):
         return cls.get(name, circuit=circuit) or cls(name, *args, **attribs)
 
     def __init__(self, name=None, circuit=None, *pins_nets_buses, **attribs):
-        from .Pin import PinType
+        from .Pin import Pin
 
         self._valid = True  # Make net valid before doing anything else.
         self.do_erc = True
-        self._drive = PinType.NO_DRIVE
+        self._drive = Pin.drives.NONE
         self.pins = []
         self._name = None
         self.circuit = None
@@ -652,56 +652,7 @@ class Net(object):
         Do electrical rules check on a net in the schematic.
         """
 
-        from .Pin import PinType
-        from .Circuit import Circuit
-
-        def pin_conflict_chk(pin1, pin2):
-            """
-            Check for conflict/contention between two pins on the same net.
-            """
-
-            if not pin1.do_erc or not pin2.do_erc:
-                return
-
-            erc_result = self.circuit.erc_pin_to_pin_chk(pin1, pin2)
-
-            # Return if the pins are compatible.
-            if erc_result == Circuit.OK:
-                return
-
-            # Otherwise, generate an error or warning message.
-            msg = 'Pin conflict on net {n}: {p1} <==> {p2}'.format(
-                n=pin1.net.name, p1=pin1.erc_desc(), p2=pin2.erc_desc())
-            if erc_result == Circuit.WARNING:
-                erc_logger.warning(msg)
-            else:
-                erc_logger.error(msg)
-
-        def net_drive_chk():
-            """
-            Check the drive level on the net to see if it is within bounds.
-            """
-
-            # Find the maximum signal driver on this net.
-            net_drive = self.drive  # Start with user-set drive level.
-            pins = self.get_pins()
-            for p in pins:
-                # The drive for a pin can be overridden by assigning a 'drive'
-                # attribute to it. Otherwise, the pin function will determine
-                # the drive capabilities.
-                try:
-                    net_drive = max(p.drive, net_drive)
-                except AttributeError:
-                    net_drive = max(net_drive, PinType.pin_info[p.func]['drive'])
-
-            if net_drive <= PinType.NO_DRIVE:
-                erc_logger.warning(
-                    'No drivers for net {n}'.format(n=self.name))
-            for p in pins:
-                if PinType.pin_info[p.func]['min_rcv'] > net_drive:
-                    erc_logger.warning(
-                        'Insufficient drive current on net {n} for pin {p}'.
-                        format(n=self.name, p=p.erc_desc()))
+        from .Pin import Pin
 
         self.test_validity()
 
@@ -722,10 +673,29 @@ class Net(object):
         else:
             for i in range(num_pins):
                 for j in range(i + 1, num_pins):
-                    pin_conflict_chk(pins[i], pins[j])
+                    pins[i].chk_conflict(pins[j])
 
         # Check to see if the net has sufficient drive.
-        net_drive_chk()
+
+        # Find the maximum signal driver on this net.
+        net_drive = self.drive  # Start with user-set drive level.
+        for p in pins:
+            # The drive for a pin can be overridden by assigning a 'drive'
+            # attribute to it. Otherwise, the pin function will determine
+            # the drive capabilities.
+            try:
+                net_drive = max(p.drive, net_drive)
+            except AttributeError:
+                net_drive = max(net_drive, Pin.pin_info[p.func]['drive'])
+
+        if net_drive <= Pin.drives.NONE:
+            erc_logger.warning(
+                'No drivers for net {n}'.format(n=self.name))
+        for p in pins:
+            if Pin.pin_info[p.func]['min_rcv'] > net_drive:
+                erc_logger.warning(
+                    'Insufficient drive current on net {n} for pin {p}'.
+                    format(n=self.name, p=p.erc_desc()))
 
     def __str__(self):
         """Return a list of the pins on this net as a string."""
@@ -843,11 +813,11 @@ class NCNet(Net):
     """
 
     def __init__(self, name=None, circuit=None, *pins_nets_buses, **attribs):
-        from .Pin import PinType
+        from .Pin import Pin
 
         super(NCNet, self).__init__(
             name=name, circuit=circuit, *pins_nets_buses, **attribs)
-        self._drive = PinType.NOCONNECT_DRIVE
+        self._drive = Pin.drives.NOCONNECT
 
     def generate_netlist_net(self, tool=None):
         """NO_CONNECT nets don't generate anything for netlists."""

@@ -237,7 +237,7 @@ class SchLib(object):
         if not file_:
             file_ = libname + skidl.lib_suffixes[tool]
 
-        export_str = 'from skidl import Pin, PinType, Part, SchLib, SKIDL, TEMPLATE\n\n'
+        export_str = 'from skidl import Pin, Part, SchLib, SKIDL, TEMPLATE\n\n'
         export_str += "SKIDL_lib_version = '0.0.1'\n\n"
         part_export_str = ','.join([p.export() for p in self.parts])
         export_str += '{} = SchLib(tool=SKIDL).add_parts(*[{}])'.format(

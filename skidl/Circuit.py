@@ -50,6 +50,7 @@ import graphviz
 from .pckg_info import __version__
 from .utilities import *
 
+OK, WARNING, ERROR = range(3)
 
 class Circuit(object):
     """
@@ -64,8 +65,6 @@ class Circuit(object):
         level: The current level in the schematic hierarchy.
         context: Stack of contexts for each level in the hierarchy.
     """
-
-    OK, WARNING, ERROR = range(3)
 
     def __init__(self, **kwargs):
         """Initialize the Circuit object."""
@@ -374,78 +373,6 @@ class Circuit(object):
                 distinct_nets.append(net)
         return distinct_nets
 
-    def _erc_setup(self):
-        """
-        Initialize the electrical rules checker.
-        """
-
-        from skidl import PinType
-
-        # Initialize the pin contention matrix.
-        self._erc_matrix = [[self.OK for c in range(11)] for r in range(11)]
-        self._erc_matrix[PinType.OUTPUT][PinType.OUTPUT] = self.ERROR
-        self._erc_matrix[PinType.TRISTATE][PinType.OUTPUT] = self.WARNING
-        self._erc_matrix[PinType.UNSPEC][PinType.INPUT] = self.WARNING
-        self._erc_matrix[PinType.UNSPEC][PinType.OUTPUT] = self.WARNING
-        self._erc_matrix[PinType.UNSPEC][PinType.BIDIR] = self.WARNING
-        self._erc_matrix[PinType.UNSPEC][PinType.TRISTATE] = self.WARNING
-        self._erc_matrix[PinType.UNSPEC][PinType.PASSIVE] = self.WARNING
-        self._erc_matrix[PinType.UNSPEC][PinType.UNSPEC] = self.WARNING
-        self._erc_matrix[PinType.PWRIN][PinType.TRISTATE] = self.WARNING
-        self._erc_matrix[PinType.PWRIN][PinType.UNSPEC] = self.WARNING
-        self._erc_matrix[PinType.PWROUT][PinType.OUTPUT] = self.ERROR
-        self._erc_matrix[PinType.PWROUT][PinType.BIDIR] = self.WARNING
-        self._erc_matrix[PinType.PWROUT][PinType.TRISTATE] = self.ERROR
-        self._erc_matrix[PinType.PWROUT][PinType.UNSPEC] = self.WARNING
-        self._erc_matrix[PinType.PWROUT][PinType.PWROUT] = self.ERROR
-        self._erc_matrix[PinType.OPENCOLL][PinType.OUTPUT] = self.ERROR
-        self._erc_matrix[PinType.OPENCOLL][PinType.TRISTATE] = self.ERROR
-        self._erc_matrix[PinType.OPENCOLL][PinType.UNSPEC] = self.WARNING
-        self._erc_matrix[PinType.OPENCOLL][PinType.PWROUT] = self.ERROR
-        self._erc_matrix[PinType.OPENEMIT][PinType.OUTPUT] = self.ERROR
-        self._erc_matrix[PinType.OPENEMIT][PinType.BIDIR] = self.WARNING
-        self._erc_matrix[PinType.OPENEMIT][PinType.TRISTATE] = self.WARNING
-        self._erc_matrix[PinType.OPENEMIT][PinType.UNSPEC] = self.WARNING
-        self._erc_matrix[PinType.OPENEMIT][PinType.PWROUT] = self.ERROR
-        self._erc_matrix[PinType.NOCONNECT][PinType.INPUT] = self.ERROR
-        self._erc_matrix[PinType.NOCONNECT][PinType.OUTPUT] = self.ERROR
-        self._erc_matrix[PinType.NOCONNECT][PinType.BIDIR] = self.ERROR
-        self._erc_matrix[PinType.NOCONNECT][PinType.TRISTATE] = self.ERROR
-        self._erc_matrix[PinType.NOCONNECT][PinType.PASSIVE] = self.ERROR
-        self._erc_matrix[PinType.NOCONNECT][PinType.UNSPEC] = self.ERROR
-        self._erc_matrix[PinType.NOCONNECT][PinType.PWRIN] = self.ERROR
-        self._erc_matrix[PinType.NOCONNECT][PinType.PWROUT] = self.ERROR
-        self._erc_matrix[PinType.NOCONNECT][PinType.OPENCOLL] = self.ERROR
-        self._erc_matrix[PinType.NOCONNECT][PinType.OPENEMIT] = self.ERROR
-        self._erc_matrix[PinType.NOCONNECT][PinType.NOCONNECT] = self.ERROR
-
-        # Fill-in the other half of the symmetrical matrix.
-        for c in range(1, 11):
-            for r in range(c):
-                self._erc_matrix[r][c] = self._erc_matrix[c][r]
-
-    def set_pin_conflict_rule(self, pin1_func, pin2_func, conflict_level):
-        """
-        Set the level of conflict for two types of pins on the same net.
-
-        Args:
-            pin1_func: The function of the first pin (e.g., Pin.OUTPUT).
-            pin2_func: The function of the second pin (e.g., Pin.TRISTATE).
-            conflict_level: Severity of conflict (e.g., self.OK, self.WARNING, self.ERROR).
-        """
-
-        # Place the conflict level into the symmetrical ERC matrix.
-        self._erc_matrix[pin1_func][pin2_func] = conflict_level
-        self._erc_matrix[pin2_func][pin1_func] = conflict_level
-
-    def erc_pin_to_pin_chk(self, pin1, pin2):
-        """Check for conflict between two pins on a net."""
-
-        # Use the functions of the two pins to index into the ERC table
-        # and see if the pins are compatible (e.g., an input and an output)
-        # or incompatible (e.g., a conflict because both are outputs).
-        return self._erc_matrix[pin1.func][pin2.func]
-
     def _merge_net_names(self):
         """Select a single name for each multi-segment net."""
         for net in self.nets:
@@ -457,8 +384,6 @@ class Circuit(object):
         """
 
         from .Net import Net
-
-        self._erc_setup()
 
         # Check the nets for errors:
         #   1. Merge names to get a single name for all multi-segment nets.
