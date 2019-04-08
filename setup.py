@@ -29,6 +29,7 @@ with open('HISTORY.rst') as history_file:
 requirements = [
     'future >= 0.15.0',
     'kinparse >= 0.1.0',
+    'enum34; python_version < "3.0"',
     #'PySpice; python_version >= "3.0"',
     'graphviz',
 ]
