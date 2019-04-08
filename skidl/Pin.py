@@ -43,16 +43,6 @@ from .Alias import *
 from .Circuit import OK, WARNING, ERROR
 
 
-class PinType(object):
-    """
-    A class for storing data describing a pin's characteristics.
-    """
-
-    def __init__(self, **attribs): 
-        # Attach additional attributes to the pin type.
-        for k, v in attribs.items():
-            setattr(self, k, v)
-
 class Pin(object):
     """
     A class for storing data about pins for a part.
@@ -174,7 +164,6 @@ class Pin(object):
         self.name = ''
         self.num = ''
         self.do_erc = True
-        self.type = PinType()
 
         # Attach additional attributes to the pin.
         for k, v in attribs.items():
@@ -552,15 +541,15 @@ class Pin(object):
         """
         Get, set and delete the drive strength of this pin.
         """
-        return self.type._drive
+        return self._drive
 
     @drive.setter
     def drive(self, drive):
-        self.type._drive = drive
+        self._drive = drive
 
     @drive.deleter
     def drive(self):
-        del self.type._drive
+        del self._drive
 
     @property
     def alias(self):
