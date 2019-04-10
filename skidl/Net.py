@@ -44,6 +44,7 @@ from copy import deepcopy, copy
 import collections
 
 from .defines import *
+from .erc import dflt_net_erc
 from .utilities import *
 
 
@@ -62,6 +63,9 @@ class Net(object):
         attribs: A dictionary of attributes and values to attach to
             the Net object.
     """
+
+    # Set the default ERC functions for all Part instances.
+    erc_list = [dflt_net_erc]
 
     @classmethod
     def get(cls, name, circuit=None):
@@ -647,55 +651,10 @@ class Net(object):
                 format(tool))
             raise Exception
 
-    def erc(self):
-        """
-        Do electrical rules check on a net in the schematic.
-        """
+    def ERC(self, *args, **kwargs):
+        """Run class-wide and local ERC functions on this net."""
 
-        from .Pin import Pin
-
-        self.test_validity()
-
-        # Skip ERC check on this net if flag is cleared.
-        if not self.do_erc:
-            return
-
-        # Check the number of pins attached to the net.
-        pins = self.get_pins()
-        num_pins = len(pins)
-        if num_pins == 0:
-            erc_logger.warning(
-                'No pins attached to net {n}.'.format(n=self.name))
-        elif num_pins == 1:
-            erc_logger.warning(
-                'Only one pin ({p}) attached to net {n}.'.format(
-                    p=pins[0].erc_desc(), n=self.name))
-        else:
-            for i in range(num_pins):
-                for j in range(i + 1, num_pins):
-                    pins[i].chk_conflict(pins[j])
-
-        # Check to see if the net has sufficient drive.
-
-        # Find the maximum signal driver on this net.
-        net_drive = self.drive  # Start with user-set drive level.
-        for p in pins:
-            # The drive for a pin can be overridden by assigning a 'drive'
-            # attribute to it. Otherwise, the pin function will determine
-            # the drive capabilities.
-            try:
-                net_drive = max(p.drive, net_drive)
-            except AttributeError:
-                net_drive = max(net_drive, Pin.pin_info[p.func]['drive'])
-
-        if net_drive <= Pin.drives.NONE:
-            erc_logger.warning(
-                'No drivers for net {n}'.format(n=self.name))
-        for p in pins:
-            if Pin.pin_info[p.func]['min_rcv'] > net_drive:
-                erc_logger.warning(
-                    'Insufficient drive current on net {n} for pin {p}'.
-                    format(n=self.name, p=p.erc_desc()))
+        exec_function_list(self, 'erc_list', *args, **kwargs)
 
     def __str__(self):
         """Return a list of the pins on this net as a string."""
@@ -818,6 +777,7 @@ class NCNet(Net):
         super(NCNet, self).__init__(
             name=name, circuit=circuit, *pins_nets_buses, **attribs)
         self._drive = Pin.drives.NOCONNECT
+        self.do_erc = False # No need to do ERC on no-connect nets.
 
     def generate_netlist_net(self, tool=None):
         """NO_CONNECT nets don't generate anything for netlists."""
@@ -828,10 +788,6 @@ class NCNet(Net):
             tool = skidl.get_default_tool()
 
         return ''
-
-    def erc(self):
-        """No need to check NO_CONNECT nets."""
-        pass
 
     @property
     def drive(self):

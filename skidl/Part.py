@@ -56,6 +56,7 @@ except ImportError:
 
 
 from .defines import *
+from .erc import dflt_part_erc
 from .utilities import *
 
 
@@ -91,6 +92,9 @@ class Part(object):
         * Exception if the part library and definition are both missing.
         * Exception if an unknown file format is requested.
     """
+
+    # Set the default ERC functions for all Part instances.
+    erc_list = [dflt_part_erc]
 
     def __init__(self,
                  lib=None,
@@ -229,8 +233,8 @@ class Part(object):
         parts = []
         for attr, name, do_str_match in search_params:
             parts.extend(
-                filter_list(circuit.parts, do_str_match=do_str_match,
-                    **{attr:name}))
+                filter_list(
+                    circuit.parts, do_str_match=do_str_match, **{attr: name}))
 
         return parts
 
@@ -266,8 +270,8 @@ class Part(object):
             parse_func = getattr(self, '_parse_lib_part_{}'.format(self.tool))
         except AttributeError:
             logger.error(
-                "Can't create a part with an unknown ECAD tool file format: {}.".
-                format(self.tool))
+                "Can't create a part with an unknown ECAD tool file format: {}."
+                .format(self.tool))
             raise Exception
 
         # Parse the part description.
@@ -402,8 +406,8 @@ class Part(object):
                         v = v[i]
                     except IndexError:
                         logger.error(
-                            "{} copies of part {} were requested, but too few elements in attribute {}!".
-                            format(num_copies, self.name, k))
+                            "{} copies of part {} were requested, but too few elements in attribute {}!"
+                            .format(num_copies, self.name, k))
                         raise Exception
                 setattr(cpy, k, v)
 
@@ -525,7 +529,7 @@ class Part(object):
         """
         Return an iterator for stepping thru individual pins of the part.
         """
-        return (p for p in self.pins) # Return generator expr.
+        return (p for p in self.pins)  # Return generator expr.
 
     # Get pins from a part using brackets, e.g. [1,5:9,'A[0-9]+'].
     __getitem__ = get_pins
@@ -652,11 +656,11 @@ class Part(object):
         """
 
         # Warn if the unit label collides with any of the part's pin names.
-        collisions = self.get_pins('^'+label+'$')  # Look for exact match.
+        collisions = self.get_pins('^' + label + '$')  # Look for exact match.
         if collisions:
             logger.warning(
-                "Using a label ({}) for a unit of {} that matches one or more of it's pin names ({})!".
-                format(label, self.erc_desc(), collisions))
+                "Using a label ({}) for a unit of {} that matches one or more of it's pin names ({})!"
+                .format(label, self.erc_desc(), collisions))
 
         # Create the part unit.
         self.unit[label] = PartUnit(self, *pin_ids, **criteria)
@@ -761,36 +765,9 @@ class Part(object):
                 format(tool))
             raise Exception
 
-    def erc(self):
-        """
-        Do electrical rules check on a part in the schematic.
-        """
-
-        from .Pin import Pin
-
-        # Don't check this part if the flag is not true.
-        if not self.do_erc:
-            return
-
-        # Check each pin of the part.
-        for p in self.pins:
-
-            # Skip this pin if the flag is false.
-            if not p.do_erc:
-                continue
-
-            # Error if a pin is unconnected but not of type NOCONNECT.
-            if p.net is None:
-                if p.func != Pin.types.NOCONNECT:
-                    erc_logger.warning(
-                        'Unconnected pin: {p}.'.format(p=p.erc_desc()))
-
-            # Error if a no-connect pin is connected to a net.
-            elif p.net.drive != Pin.drives.NOCONNECT:
-                if p.func == Pin.types.NOCONNECT:
-                    erc_logger.warning(
-                        'Incorrectly connected pin: {p} should not be connected to a net ({n}).'.
-                        format(p=p.erc_desc(), n=p.net.name))
+    def ERC(self, *args, **kwargs):
+        """Run class-wide and local ERC functions on this part."""
+        exec_function_list(self, 'erc_list', *args, **kwargs)
 
     def erc_desc(self):
         """Create description of part for ERC and other error reporting."""
@@ -985,7 +962,7 @@ class PartUnit(Part):
 
         # Get new pins selected from the parent.
         if not pin_ids:
-            pin_ids = ['.*'] # Empty list matches everything.
+            pin_ids = ['.*']  # Empty list matches everything.
         new_pins = to_list(self.parent.get_pins(*pin_ids, **criteria))
 
         # Remove None if that's gotten into the list.

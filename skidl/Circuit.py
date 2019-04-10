@@ -48,6 +48,7 @@ import graphviz
 
 
 from .pckg_info import __version__
+from .erc import dflt_circuit_erc
 from .utilities import *
 
 OK, WARNING, ERROR = range(3)
@@ -65,6 +66,9 @@ class Circuit(object):
         level: The current level in the schematic hierarchy.
         context: Stack of contexts for each level in the hierarchy.
     """
+
+    # Set the default ERC functions for all Circuit instances.
+    erc_list = [dflt_circuit_erc]
 
     def __init__(self, **kwargs):
         """Initialize the Circuit object."""
@@ -373,40 +377,15 @@ class Circuit(object):
                 distinct_nets.append(net)
         return distinct_nets
 
+    def ERC(self, *args, **kwargs):
+        """Run class-wide and local ERC functions on this circuit."""
+
+        exec_function_list(self, 'erc_list', *args, **kwargs)
+
     def _merge_net_names(self):
         """Select a single name for each multi-segment net."""
         for net in self.nets:
             net.merge_names()
-
-    def ERC(self):
-        """
-        Do an electrical rules check on the circuit.
-        """
-
-        from .Net import Net
-
-        # Check the nets for errors:
-        #   1. Merge names to get a single name for all multi-segment nets.
-        #   2. Find the set of unique net names.
-        #   3. Get the net associated with each name and do an ERC on it.
-        # This prevents flagging the same error multiple times by running
-        # ERC on different segments of a multi-segment net.
-        self._merge_net_names()
-        net_names = set([net.name for net in self.nets])
-        for name in net_names:
-            Net.get(name, circuit=self).erc()
-
-        # Check the parts for errors.
-        for part in self.parts:
-            part.erc()
-
-        if (erc_logger.error.count, erc_logger.warning.count) == (0, 0):
-            sys.stderr.write('\nNo ERC errors or warnings found.\n\n')
-        else:
-            sys.stderr.write('\n{} warnings found during ERC.\n'.format(
-                erc_logger.warning.count))
-            sys.stderr.write('{} errors found during ERC.\n\n'.format(
-                erc_logger.error.count))
 
     def generate_netlist(self, **kwargs):
         """

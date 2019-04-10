@@ -694,3 +694,36 @@ def expand_buses(pins_nets_buses):
         else:
             pins_nets.append(pnb)
     return pins_nets
+
+
+def exec_function_list(inst, list_name, *args, **kwargs):
+    """
+    Execute class-wide and local functions on a class instance.
+
+    Args:
+        inst: Instance of a class.
+        list_name: String containing the attribute name of the list of
+            class-wide and local functions.
+        *args, **kwargs: Arbitary argument lists to pass to the functions
+            that are executed. (All functions get the same arguments.) 
+    """
+
+    # Execute the class-wide functions on this instance.
+    if list_name in inst.__class__.__dict__:
+        for f in inst.__class__.__dict__[list_name]:
+            f(inst, *args, **kwargs)
+
+    # Now execute any instance functions for this particular instance.
+    if list_name in inst.__dict__:
+        for f in inst.__dict__[list_name]:
+            f(inst, *args, **kwargs)
+
+def add_to_function_list(class_or_inst, list_name, func):
+    """Append a function to a function list of a class or class instance."""
+    if list_name not in class_or_inst.__dict__:
+        setattr(class_or_inst, list_name, [])
+    getattr(class_or_inst, list_name).append(func)
+
+def add_erc_function(class_or_inst, func):
+    """Add an ERC function to a class or class instance."""
+    add_to_function_list(class_or_inst, 'erc_list', func)

@@ -21,7 +21,6 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-
 """
 Handles interfaces for subsystems with complicated I/O.
 """
@@ -48,10 +47,13 @@ class Interface(object):
     signal becoming an attribute.
     """
 
+    # Set the default ERC functions for all Interface instances.
+    erc_list = []
+
     def __init__(self, prefix, circuit=None):
 
-        self.circuit = None   # New interface is not a member of any circuit.
-        self._name = None     # New interface has no assigned name.
+        self.circuit = None  # New interface is not a member of any circuit.
+        self._name = None  # New interface has no assigned name.
         self.prefix = prefix  # Prefix string for this particular interface.
 
         # Set the Circuit object for the interface first because setting the
@@ -63,6 +65,11 @@ class Interface(object):
 
     def is_movable(self):
         return True
+
+    def ERC(self, *args, **kwargs):
+        """Run class-wide and local ERC functions on this interface."""
+
+        exec_function_list(self, 'erc_list', *args, **kwargs)
 
     @property
     def name(self):
@@ -82,7 +89,8 @@ class Interface(object):
 
         # Now name the object with the given name or some variation
         # of it that doesn't collide with anything else in the list.
-        self._name = get_unique_name(self.circuit.interfaces, 'name', self.prefix, name)
+        self._name = get_unique_name(self.circuit.interfaces, 'name',
+                                     self.prefix, name)
 
     @name.deleter
     def name(self):

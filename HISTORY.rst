@@ -12,6 +12,7 @@ ______________________
 * Files are now opened for reading using latin_1 encoding to allow special symbols used by KiCad.
 * Part pins can now be aliased directly, e.g. `uc[5].alias = 'gp0'`.
 * Added class method get() to Part to allow finding a part based on name, reference, description.
+* Refactored ERC functions to allow user-extensibility.
 
 
 0.0.26 (2019-01-25)
