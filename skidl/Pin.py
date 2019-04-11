@@ -59,18 +59,31 @@ class Pin(object):
 
     # Various types of pins.
     types = IntEnum('types', ('INPUT', 'OUTPUT', 'BIDIR', 'TRISTATE', 'PASSIVE',
-                    'UNSPEC', 'PWRIN', 'PWROUT', 'OPENCOLL', 'OPENEMIT',
+                    'UNSPEC', 'PWRIN', 'PWROUT', 'OPENCOLL', 'OPENEMIT', 'PULLUP', 'PULLDN',
                     'NOCONNECT'))
+
+    @classmethod
+    def add_type(cls, pin_type):
+        """
+        Add a new pin type identifier to the list of pin types.
+
+        Args:
+            pin_type: A string identifying the pin type.
+        """
+        cls.types = IntEnum('types', [m.name for m in cls.types] + [pin_type])
 
     # Various drive levels a pin can output:
     #   NOCONNECT: NC pin drive.
     #   NONE: No drive capability (like an input pin).
-    #   PASSIVE: Small drive capability, such as a pullup.
+    #   PASSIVE: Small drive capability, but less than a pull-up or pull-down.
+    #   PULLUPDN: Pull-up or pull-down capability.
     #   ONESIDE: Can pull high (open-emitter) or low (open-collector).
     #   TRISTATE: Can pull high/low and be in high-impedance state.
     #   PUSHPULL: Can actively drive high or low.
     #   POWER: A power supply or ground line.
-    drives = IntEnum('drives', ('NOCONNECT', 'NONE', 'PASSIVE',
+    # The order of these is important! The first entry has the weakest
+    # drive and the drive increases for each successive entry.
+    drives = IntEnum('drives', ('NOCONNECT', 'NONE', 'PASSIVE', 'PULLUPDN',
                     'ONESIDE', 'TRISTATE', 'PUSHPULL', 'POWER'))
 
     # Information about the various types of pins:
@@ -111,6 +124,20 @@ class Pin(object):
             'function': 'PASSIVE',
             'func_str': 'PASSIVE',
             'drive': drives.PASSIVE,
+            'max_rcv': drives.POWER,
+            'min_rcv': drives.NONE,
+        },
+        types.PULLUP: {
+            'function': 'PULLUP',
+            'func_str': 'PULLUP',
+            'drive': drives.PULLUPDN,
+            'max_rcv': drives.POWER,
+            'min_rcv': drives.NONE,
+        },
+        types.PULLDN: {
+            'function': 'PULLDN',
+            'func_str': 'PULLDN',
+            'drive': drives.PULLUPDN,
             'max_rcv': drives.POWER,
             'min_rcv': drives.NONE,
         },
@@ -164,6 +191,7 @@ class Pin(object):
         self.name = ''
         self.num = ''
         self.do_erc = True
+        self.func = self.types.UNSPEC # Pin function defaults to unspecified.
 
         # Attach additional attributes to the pin.
         for k, v in attribs.items():
@@ -470,15 +498,21 @@ class Pin(object):
         if not self.do_erc or not other_pin.do_erc:
             return
 
-        erc_result = conflict_matrix[self.func][other_pin.func]
+        [erc_result, erc_msg] = conflict_matrix[self.func][other_pin.func]
 
         # Return if the pins are compatible.
         if erc_result == OK:
             return
 
         # Otherwise, generate an error or warning message.
-        msg = 'Pin conflict on net {n}: {p1} <==> {p2}'.format(
-            n=self.net.name, p1=self.erc_desc(), p2=other_pin.erc_desc())
+        if not erc_msg:
+            erc_msg = ' '.join((self.pin_info[self.func]['function'],
+                                'connected to',
+                                other_pin.pin_info[other_pin.func]['function']))
+        n = self.net.name
+        p1 = self.erc_desc()
+        p2 = other_pin.erc_desc()
+        msg = 'Pin conflict on net {n}, {p1} <==> {p2} ({erc_msg})'.format(**locals())
         if erc_result == WARNING:
             erc_logger.warning(msg)
         else:
@@ -502,8 +536,7 @@ class Pin(object):
             alias = '/' + self.alias
         except AttributeError:
             alias = ''
-        func = getattr(self, 'func', Pin.types.UNSPEC)
-        func = Pin.pin_info[func]['function']
+        func = Pin.pin_info[self.func]['function']
         return 'Pin {ref}/{num}/{name}{alias}/{func}'.format(**locals())
 
     __repr__ = __str__
@@ -541,7 +574,11 @@ class Pin(object):
         """
         Get, set and delete the drive strength of this pin.
         """
-        return self._drive
+        try:
+            return self._drive
+        except AttributeError:
+            # Drive unspecified, so use default drive for this type of pin.
+            return self.pin_info[self.func]['drive']
 
     @drive.setter
     def drive(self, drive):
@@ -549,7 +586,10 @@ class Pin(object):
 
     @drive.deleter
     def drive(self):
-        del self._drive
+        try:
+            del self._drive
+        except AttributeError:
+            pass
 
     @property
     def alias(self):
@@ -596,44 +636,51 @@ class PhantomPin(Pin):
 # Create the pin conflict matrix as a defaultdict of defaultdicts which
 # returns OK if the given element is not in the matrix. This would indicate
 # the pin types used to index that element have no contention if connected.
-conflict_matrix = defaultdict(lambda: defaultdict(lambda: OK))
+conflict_matrix = defaultdict(lambda: defaultdict(lambda: [OK,'']))
 
 # Add the non-OK pin connections to the matrix.
-conflict_matrix[Pin.types.OUTPUT][Pin.types.OUTPUT] = ERROR
-conflict_matrix[Pin.types.TRISTATE][Pin.types.OUTPUT] = WARNING
-conflict_matrix[Pin.types.UNSPEC][Pin.types.INPUT] = WARNING
-conflict_matrix[Pin.types.UNSPEC][Pin.types.OUTPUT] = WARNING
-conflict_matrix[Pin.types.UNSPEC][Pin.types.BIDIR] = WARNING
-conflict_matrix[Pin.types.UNSPEC][Pin.types.TRISTATE] = WARNING
-conflict_matrix[Pin.types.UNSPEC][Pin.types.PASSIVE] = WARNING
-conflict_matrix[Pin.types.UNSPEC][Pin.types.UNSPEC] = WARNING
-conflict_matrix[Pin.types.PWRIN][Pin.types.TRISTATE] = WARNING
-conflict_matrix[Pin.types.PWRIN][Pin.types.UNSPEC] = WARNING
-conflict_matrix[Pin.types.PWROUT][Pin.types.OUTPUT] = ERROR
-conflict_matrix[Pin.types.PWROUT][Pin.types.BIDIR] = WARNING
-conflict_matrix[Pin.types.PWROUT][Pin.types.TRISTATE] = ERROR
-conflict_matrix[Pin.types.PWROUT][Pin.types.UNSPEC] = WARNING
-conflict_matrix[Pin.types.PWROUT][Pin.types.PWROUT] = ERROR
-conflict_matrix[Pin.types.OPENCOLL][Pin.types.OUTPUT] = ERROR
-conflict_matrix[Pin.types.OPENCOLL][Pin.types.TRISTATE] = ERROR
-conflict_matrix[Pin.types.OPENCOLL][Pin.types.UNSPEC] = WARNING
-conflict_matrix[Pin.types.OPENCOLL][Pin.types.PWROUT] = ERROR
-conflict_matrix[Pin.types.OPENEMIT][Pin.types.OUTPUT] = ERROR
-conflict_matrix[Pin.types.OPENEMIT][Pin.types.BIDIR] = WARNING
-conflict_matrix[Pin.types.OPENEMIT][Pin.types.TRISTATE] = WARNING
-conflict_matrix[Pin.types.OPENEMIT][Pin.types.UNSPEC] = WARNING
-conflict_matrix[Pin.types.OPENEMIT][Pin.types.PWROUT] = ERROR
-conflict_matrix[Pin.types.NOCONNECT][Pin.types.INPUT] = ERROR
-conflict_matrix[Pin.types.NOCONNECT][Pin.types.OUTPUT] = ERROR
-conflict_matrix[Pin.types.NOCONNECT][Pin.types.BIDIR] = ERROR
-conflict_matrix[Pin.types.NOCONNECT][Pin.types.TRISTATE] = ERROR
-conflict_matrix[Pin.types.NOCONNECT][Pin.types.PASSIVE] = ERROR
-conflict_matrix[Pin.types.NOCONNECT][Pin.types.UNSPEC] = ERROR
-conflict_matrix[Pin.types.NOCONNECT][Pin.types.PWRIN] = ERROR
-conflict_matrix[Pin.types.NOCONNECT][Pin.types.PWROUT] = ERROR
-conflict_matrix[Pin.types.NOCONNECT][Pin.types.OPENCOLL] = ERROR
-conflict_matrix[Pin.types.NOCONNECT][Pin.types.OPENEMIT] = ERROR
-conflict_matrix[Pin.types.NOCONNECT][Pin.types.NOCONNECT] = ERROR
+conflict_matrix[Pin.types.OUTPUT][Pin.types.OUTPUT]       = [ERROR  , '']
+conflict_matrix[Pin.types.TRISTATE][Pin.types.OUTPUT]     = [WARNING, '']
+conflict_matrix[Pin.types.UNSPEC][Pin.types.INPUT]        = [WARNING, '']
+conflict_matrix[Pin.types.UNSPEC][Pin.types.OUTPUT]       = [WARNING, '']
+conflict_matrix[Pin.types.UNSPEC][Pin.types.BIDIR]        = [WARNING, '']
+conflict_matrix[Pin.types.UNSPEC][Pin.types.TRISTATE]     = [WARNING, '']
+conflict_matrix[Pin.types.UNSPEC][Pin.types.PASSIVE]      = [WARNING, '']
+conflict_matrix[Pin.types.UNSPEC][Pin.types.PULLUP]       = [WARNING, '']
+conflict_matrix[Pin.types.UNSPEC][Pin.types.PULLDN]       = [WARNING, '']
+conflict_matrix[Pin.types.UNSPEC][Pin.types.UNSPEC]       = [WARNING, '']
+conflict_matrix[Pin.types.PWRIN][Pin.types.TRISTATE]      = [WARNING, '']
+conflict_matrix[Pin.types.PWRIN][Pin.types.UNSPEC]        = [WARNING, '']
+conflict_matrix[Pin.types.PWROUT][Pin.types.OUTPUT]       = [ERROR  , '']
+conflict_matrix[Pin.types.PWROUT][Pin.types.BIDIR]        = [WARNING, '']
+conflict_matrix[Pin.types.PWROUT][Pin.types.TRISTATE]     = [ERROR  , '']
+conflict_matrix[Pin.types.PWROUT][Pin.types.UNSPEC]       = [WARNING, '']
+conflict_matrix[Pin.types.PWROUT][Pin.types.PWROUT]       = [ERROR  , '']
+conflict_matrix[Pin.types.OPENCOLL][Pin.types.OUTPUT]     = [ERROR  , '']
+conflict_matrix[Pin.types.OPENCOLL][Pin.types.TRISTATE]   = [ERROR  , '']
+conflict_matrix[Pin.types.OPENCOLL][Pin.types.UNSPEC]     = [WARNING, '']
+conflict_matrix[Pin.types.OPENCOLL][Pin.types.PWROUT]     = [ERROR  , '']
+conflict_matrix[Pin.types.OPENEMIT][Pin.types.OUTPUT]     = [ERROR  , '']
+conflict_matrix[Pin.types.OPENEMIT][Pin.types.BIDIR]      = [WARNING, '']
+conflict_matrix[Pin.types.OPENEMIT][Pin.types.TRISTATE]   = [WARNING, '']
+conflict_matrix[Pin.types.OPENEMIT][Pin.types.UNSPEC]     = [WARNING, '']
+conflict_matrix[Pin.types.OPENEMIT][Pin.types.PWROUT]     = [ERROR  , '']
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.INPUT]     = [ERROR  , '']
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.OUTPUT]    = [ERROR  , '']
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.BIDIR]     = [ERROR  , '']
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.TRISTATE]  = [ERROR  , '']
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.PASSIVE]   = [ERROR  , '']
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.PULLUP]    = [ERROR  , '']
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.PULLDN]    = [ERROR  , '']
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.UNSPEC]    = [ERROR  , '']
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.PWRIN]     = [ERROR  , '']
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.PWROUT]    = [ERROR  , '']
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.OPENCOLL]  = [ERROR  , '']
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.OPENEMIT]  = [ERROR  , '']
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.NOCONNECT] = [ERROR  , '']
+conflict_matrix[Pin.types.PULLUP][Pin.types.PULLUP]       = [WARNING, 'Multiple pull-ups connected.']
+conflict_matrix[Pin.types.PULLDN][Pin.types.PULLDN]       = [WARNING, 'Multiple pull-downs connected.']
+conflict_matrix[Pin.types.PULLUP][Pin.types.PULLDN]       = [ERROR, 'Pull-up connected to pull-down.']
 
 # Fill-in the other half of the symmetrical contention matrix by looking
 # for entries that != OK at position (r,c) and copying them to position

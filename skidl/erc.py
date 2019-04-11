@@ -134,16 +134,9 @@ def dflt_net_erc(net):
 
     # Check to see if the net has sufficient drive.
 
-    # Find the maximum signal driver on this net.
-    net_drive = net.drive  # Start with user-set drive level.
-    for p in pins:
-        # The drive for a pin can be overridden by assigning a 'drive'
-        # attribute to it. Otherwise, the pin function will determine
-        # the drive capabilities.
-        try:
-            net_drive = max(p.drive, net_drive)
-        except AttributeError:
-            net_drive = max(net_drive, Pin.pin_info[p.func]['drive'])
+    # Find the maximum signal driver on this net. The net might have also
+    # been assigned a drive, so include that.
+    net_drive = max([p.drive for p in pins] + [net.drive])
 
     if net_drive <= Pin.drives.NONE:
         erc_logger.warning('No drivers for net {n}'.format(n=net.name))

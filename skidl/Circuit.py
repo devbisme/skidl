@@ -359,6 +359,7 @@ class Circuit(object):
 
     def get_nets(self):
         """Get all the distinct nets for the circuit."""
+
         distinct_nets = []
         for net in self.nets:
             if net is self.NC:
@@ -380,10 +381,15 @@ class Circuit(object):
     def ERC(self, *args, **kwargs):
         """Run class-wide and local ERC functions on this circuit."""
 
+        # Reset the counters to clear any warnings/errors from previous ERC run.
+        erc_logger.error.reset()
+        erc_logger.warning.reset()
+
         exec_function_list(self, 'erc_list', *args, **kwargs)
 
     def _merge_net_names(self):
         """Select a single name for each multi-segment net."""
+
         for net in self.nets:
             net.merge_names()
 
@@ -400,6 +406,10 @@ class Circuit(object):
         Returns:
             A netlist.
         """
+
+        # Reset the counters to clear any warnings/errors from previous run.
+        logger.error.reset()
+        logger.warning.reset()
 
         # Before anything else, clean-up names for multi-segment nets.
         self._merge_net_names()
@@ -455,6 +465,10 @@ class Circuit(object):
         Returns:
             A string containing the netlist.
         """
+
+        # Reset the counters to clear any warnings/errors from previous run.
+        logger.error.reset()
+        logger.warning.reset()
 
         # Before anything else, clean-up names for multi-segment nets.
         self._merge_net_names()
@@ -517,6 +531,10 @@ class Circuit(object):
         Returns:
             graphviz.Digraph
         """
+
+        # Reset the counters to clear any warnings/errors from previous run.
+        logger.error.reset()
+        logger.warning.reset()
 
         # Before anything else, clean-up names for multi-segment nets.
         self._merge_net_names()

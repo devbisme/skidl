@@ -93,6 +93,9 @@ class CountCalls(object):
         self.count += 1
         return self.func(*args, **kwargs)
 
+    def reset(self):
+        self.count = 0
+
 
 def scriptinfo():
     """
