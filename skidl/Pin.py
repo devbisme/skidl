@@ -533,7 +533,7 @@ class Pin(object):
         num = getattr(self, 'num', '???')
         name = getattr(self, 'name', '???')
         try:
-            alias = '/' + self.alias
+            alias = '/' + str(self.alias)
         except AttributeError:
             alias = ''
         func = Pin.pin_info[self.func]['function']
