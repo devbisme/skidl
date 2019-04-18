@@ -42,10 +42,11 @@ except ImportError:
     import builtins
 
 from .defines import *
+from .baseobj import SkidlBaseObject
 from .utilities import *
 
 
-class Bus(object):
+class Bus(SkidlBaseObject):
     """
     This class collects one or more nets into a group that can be indexed.
 
@@ -96,6 +97,8 @@ class Bus(object):
         return cls.get(name, circuit=circuit) or cls(name, *args, **attribs) 
 
     def __init__(self, name, *args, **attribs):
+
+        super(Bus, self).__init__()
 
         # Define the member storing the nets so it's present, but it starts empty.
         self.nets = []

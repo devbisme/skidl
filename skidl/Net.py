@@ -45,10 +45,11 @@ import collections
 
 from .defines import *
 from .erc import dflt_net_erc
+from .baseobj import SkidlBaseObject
 from .utilities import *
 
 
-class Net(object):
+class Net(SkidlBaseObject):
     """
     Lists of connected pins are stored as nets using this class.
 
@@ -103,6 +104,8 @@ class Net(object):
 
     def __init__(self, name=None, circuit=None, *pins_nets_buses, **attribs):
         from .Pin import Pin
+
+        super(Net, self).__init__()
 
         self._valid = True  # Make net valid before doing anything else.
         self.do_erc = True

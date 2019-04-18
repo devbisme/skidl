@@ -39,11 +39,12 @@ from enum import IntEnum
 from collections import defaultdict
 
 from .utilities import *
+from .baseobj import SkidlBaseObject
 from .Alias import *
 from .Circuit import OK, WARNING, ERROR
 
 
-class Pin(object):
+class Pin(SkidlBaseObject):
     """
     A class for storing data about pins for a part.
 
@@ -186,6 +187,9 @@ class Pin(object):
     }
 
     def __init__(self, **attribs):
+
+        super(Pin, self).__init__()
+
         self.nets = []
         self.part = None
         self.name = ''

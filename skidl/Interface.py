@@ -38,10 +38,11 @@ try:
 except ImportError:
     import builtins
 
+from .baseobj import SkidlBaseObject
 from .utilities import *
 
 
-class Interface(object):
+class Interface(SkidlBaseObject):
     """
     An Interface bundles a group of signals into a single entity with each
     signal becoming an attribute.
@@ -51,6 +52,8 @@ class Interface(object):
     erc_list = []
 
     def __init__(self, prefix, circuit=None):
+
+        super(Interface, self).__init__()
 
         self.circuit = None  # New interface is not a member of any circuit.
         self._name = None  # New interface has no assigned name.

@@ -49,11 +49,12 @@ import graphviz
 
 from .pckg_info import __version__
 from .erc import dflt_circuit_erc
+from .baseobj import SkidlBaseObject
 from .utilities import *
 
 OK, WARNING, ERROR = range(3)
 
-class Circuit(object):
+class Circuit(SkidlBaseObject):
     """
     Class object that holds the entire netlist of parts and nets.
 
@@ -71,6 +72,8 @@ class Circuit(object):
     erc_list = [dflt_circuit_erc]
 
     def __init__(self, **kwargs):
+        super(Circuit, self).__init__()
+
         """Initialize the Circuit object."""
         self.reset(init=True)
 

@@ -57,10 +57,11 @@ except ImportError:
 
 from .defines import *
 from .erc import dflt_part_erc
+from .baseobj import SkidlBaseObject
 from .utilities import *
 
 
-class Part(object):
+class Part(SkidlBaseObject):
     """
     A class for storing a definition of a schematic part.
 
@@ -109,6 +110,8 @@ class Part(object):
         import skidl
         from .SchLib import SchLib
         from .defines import TEMPLATE, NETLIST, LIBRARY, SKIDL
+
+        super(Part, self).__init__()
 
         if tool is None:
             tool = skidl.get_default_tool()

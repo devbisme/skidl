@@ -474,7 +474,7 @@ def filter_list(lst, **criteria):
             if isinstance(v, (int, basestring)):
                 # Check integer or string attributes.
 
-                if isinstance(attr_val, (list, tuple)):
+                if isinstance(attr_val, (list, tuple, set)):
                     # If the attribute value from the item is a list or tuple,
                     # loop through the list of attribute values. If at least one
                     # value matches the current criterium, then break from the

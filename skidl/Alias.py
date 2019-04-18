@@ -39,19 +39,22 @@ import re
 from .utilities import *
 
 
-class Alias(object):
+class Alias(list):
     """
     An alias can be added to another object to give it another name.
     Since an object might have several aliases, each alias can be tagged
     with an identifier to discriminate between them.
 
     Args:
-        name: The alias name.
+        aliases: A single string or a list of strings.
         id_tag: The identifier tag.
     """
 
-    def __init__(self, name, id_tag=None):
-        self.name = name
+    def __init__(self, aliases, id_tag=None):
+        if isinstance(aliases, (set, list, tuple)):
+            self.extend(aliases)
+        else:
+            self.append(aliases)
         self.id_ = id_tag
 
     def __str__(self):
@@ -59,7 +62,7 @@ class Alias(object):
         # This function was added to make filter_list simpler when searching
         # for an alias in a list of pins since the actual name is hidden
         # as an attribute of the Alias class.
-        return str(self.name)
+        return str(self[0])
 
     def __eq__(self, other):
         """
@@ -77,5 +80,5 @@ class Alias(object):
             other: The Alias object which self will be compared to.
         """
         return (not self.id_ or not other.id_ or other.id_ == self.id_) and \
-            (fullmatch(str(other.name), str(self.name), flags=re.IGNORECASE) or
-             fullmatch(str(self.name), str(other.name), flags=re.IGNORECASE))
+            (fullmatch(str(other[0]), str(self[0]), flags=re.IGNORECASE) or
+             fullmatch(str(self[0]), str(other[0]), flags=re.IGNORECASE))
