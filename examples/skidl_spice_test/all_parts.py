@@ -295,7 +295,7 @@ reset()
 vs = PULSEV(initial_value=0, pulsed_value=5@u_V, pulse_width=1@u_ms, period=2@u_ms)  # 1ms ON, 1ms OFF pulses.
 r = R(value=1@u_kOhm)    # 1 Kohm resistor.
 c = C(value=1@u_uF)      # 1 uF capacitor.
-r[1,2] += vs['p'], c[1]  # Connect the resistor between the positive source terminal and one of the capacitor terminals.
+r['+','-'] += vs['p'], c[1]  # Connect the resistor between the positive source terminal and one of the capacitor terminals.
 gnd += vs['n'], c[2]     # Connect the negative battery terminal and the other capacitor terminal to ground.
 
 # Simulate the circuit.
