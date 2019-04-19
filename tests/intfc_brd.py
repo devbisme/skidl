@@ -1,9 +1,9 @@
 from skidl import *
 
 # Libraries.
-xess_lib = r'C:\xesscorp\KiCad\libraries\xess.lib'
-pic32_lib = r'C:\xesscorp\KiCad\libraries\pic32.lib'
-pickit3_lib = r'C:\xesscorp\KiCad\libraries\pickit3.lib'
+xess_lib = r'xess.lib'
+pic32_lib = r'pic32.lib'
+pickit3_lib = r'pickit3.lib'
 
 # Global nets.
 gnd = Net('GND')
