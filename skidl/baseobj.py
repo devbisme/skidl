@@ -49,18 +49,13 @@ class SkidlBaseObject(object):
         try:
             return self._aliases
         except AttributeError:
-            return Alias([])
+            return Alias([]) # No aliases, so just return an empty list.
 
     @aliases.setter
     def aliases(self, name_or_list):
         if not name_or_list:
             return
-        aliases = self.aliases
-        if isinstance(name_or_list, (list, tuple, set)):
-            aliases.extend(name_or_list)
-        else:
-            aliases.append(name_or_list)
-        self._aliases = aliases
+        self._aliases = Alias(name_or_list, id(self))
 
     @aliases.deleter
     def aliases(self):

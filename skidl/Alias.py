@@ -51,6 +51,7 @@ class Alias(list):
     """
 
     def __init__(self, aliases, id_tag=None):
+        super(Alias, self).__init__()
         if isinstance(aliases, (set, list, tuple)):
             self.extend(aliases)
         else:
