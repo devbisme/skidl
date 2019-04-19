@@ -3,7 +3,7 @@
 History
 -------
 
-0.0.27 (2019-02-23)
+0.0.27 (2019-XX-XX)
 ______________________
 
 * Prevent changing the name of net 0 when generating a SPICE netlist.
@@ -13,6 +13,9 @@ ______________________
 * Part pins can now be aliased directly, e.g. `uc[5].alias = 'gp0'`.
 * Added class method get() to Part to allow finding a part based on name, reference, description.
 * Refactored ERC functions to allow user-extensibility.
+* Created a base object for Circuit, Part, Pin, Net, Bus and Interface objects.
+* Added an aliases property to the SKiDL base object so all its children could be aliased.
+* Updated to perform simulations with ngspice version 30.
 
 
 0.0.26 (2019-01-25)
