@@ -604,7 +604,7 @@ def explode(bus_str):
         list with the original input string if it's not a valid bus expression.
     """
 
-    bus = re.match('^([A-Za-z_]+)\[([0-9]+):([0-9]+)\]$', bus_str)
+    bus = re.match(r'^([A-Za-z_]+)\[([0-9]+):([0-9]+)\]$', bus_str)
     if not bus:
         return [bus_str] # Not a valid bus expression, so return input string.
     bus_name = bus.group(1)
