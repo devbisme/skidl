@@ -18,9 +18,9 @@ def test_alias_2():
 
 def test_alias_3():
     vreg = Part('xess.lib', '1117')
-    vreg[1].alias = 'my_alias'
-    vreg[2].alias = 'my_alias'
+    vreg[1].aliases = 'my_alias'
+    vreg[2].aliases = 'my_alias'
     assert len(vreg['my_alias']) == 2
     assert len(vreg['.*']) == 4
     with pytest.raises(Exception):
-        vreg['my_alias'].alias = 'new_alias'
+        vreg['my_alias'].aliases = 'new_alias'

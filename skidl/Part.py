@@ -229,7 +229,7 @@ class Part(SkidlBaseObject):
         search_params = (
             ('ref', text, True),
             ('name', text, True),
-            ('alias', text, True),
+            ('aliases', text, True),
             ('description', text, False),
         )
 
@@ -505,7 +505,7 @@ class Part(SkidlBaseObject):
 
             # OK, now check pin aliases for an exact match.
             tmp_pins = filter_list(
-                self.pins, alias=p_id, do_str_match=True, **criteria)
+                self.pins, aliases=p_id, do_str_match=True, **criteria)
             if tmp_pins:
                 pins.extend(tmp_pins)
                 continue
@@ -521,7 +521,7 @@ class Part(SkidlBaseObject):
             # Pin ID didn't match a substring in the pin names, so now check
             # the pin aliases.
             p_id_re_alias = Alias(p_id_re, id(self))
-            tmp_pins = filter_list(self.pins, alias=p_id_re_alias, **criteria)
+            tmp_pins = filter_list(self.pins, aliases=p_id_re_alias, **criteria)
             if tmp_pins:
                 pins.extend(tmp_pins)
                 continue
@@ -629,7 +629,7 @@ class Part(SkidlBaseObject):
         pin = self.get_pins(*pin_ids, **criteria)
         if isinstance(pin, Pin):
             # Alias the single pin that was found.
-            pin.alias = alias
+            pin.aliases = alias
             # Add the name of the aliased pin as an attribute to the part,
             # so it will act just like a pin for making connections.
             add_unique_attr(self, alias, pin)

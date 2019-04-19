@@ -79,7 +79,7 @@ class Net(SkidlBaseObject):
 
         search_params = (
             ('name', name, True),
-            ('alias', name, True),
+            ('aliases', name, True),
         )
 
         for attr, name, do_str_match in search_params:

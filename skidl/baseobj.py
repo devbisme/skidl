@@ -53,6 +53,8 @@ class SkidlBaseObject(object):
 
     @aliases.setter
     def aliases(self, name_or_list):
+        if not name_or_list:
+            return
         aliases = self.aliases
         if isinstance(name_or_list, (list, tuple, set)):
             aliases.extend(name_or_list)

@@ -112,13 +112,13 @@ class NetPinList(list):
     # This prevents setting an alias on a list of two or more pins that
     # might be returned by the filter_list() utility.
     @property
-    def alias(self):
+    def aliases(self):
         raise Exception
 
-    @alias.setter
-    def alias(self, alias):
+    @aliases.setter
+    def aliases(self, alias):
         raise Exception
 
-    @alias.deleter
-    def alias(self):
+    @aliases.deleter
+    def aliases(self):
         raise Exception

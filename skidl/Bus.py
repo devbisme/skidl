@@ -77,9 +77,9 @@ class Bus(SkidlBaseObject):
 
         search_params = (
             ('name', name, True),
-            ('alias', name, True),
+            ('aliases', name, True),
             #('name', ''.join(('.*',name,'.*')), False),
-            #('alias', Alias(''.join(('.*',name,'.*'))), False)
+            #('aliases', Alias(''.join(('.*',name,'.*'))), False)
         )
 
         for attr, name, do_str_match in search_params:

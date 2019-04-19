@@ -252,12 +252,8 @@ class Pin(SkidlBaseObject):
             if self.nets:
                 self.nets[0] += cpy
 
-            # Copy the alias for the pin if it has one.
-            try:
-                cpy.alias = Alias(self.alias.name, id(cpy))
-            except AttributeError:
-                # Pin has no alias.
-                pass
+            # Copy the aliases for the pin if it has them.
+            cpy.aliases = self.aliases
 
             # Attach additional attributes to the pin.
             for k, v in attribs.items():
@@ -535,13 +531,11 @@ class Pin(SkidlBaseObject):
         """Return a description of this pin as a string."""
         ref = getattr(self.part, 'ref', '???')
         num = getattr(self, 'num', '???')
-        name = getattr(self, 'name', '???')
-        try:
-            alias = '/' + str(self.alias)
-        except AttributeError:
-            alias = ''
+        names = [getattr(self, 'name', '???')]
+        names.extend(self.aliases)
+        names = ','.join(names)
         func = Pin.pin_info[self.func]['function']
-        return 'Pin {ref}/{num}/{name}{alias}/{func}'.format(**locals())
+        return 'Pin {ref}/{num}/{names}/{func}'.format(**locals())
 
     __repr__ = __str__
 
@@ -594,22 +588,6 @@ class Pin(SkidlBaseObject):
             del self._drive
         except AttributeError:
             pass
-
-    @property
-    def alias(self):
-        """Get, set, and delete the alias name for the pin."""
-
-        # Don't test to see if _alias attribute exists. Just let
-        # the exception occur if it doesn't.
-        return self._alias
- 
-    @alias.setter
-    def alias(self, alias):
-        self._alias = Alias(alias, id(self))
-
-    @alias.deleter
-    def alias(self):
-        del self._alias
 
     def __bool__(self):
         """Any valid Pin is True."""
