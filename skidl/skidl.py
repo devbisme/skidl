@@ -38,6 +38,7 @@ from . import tools  # Import EDA tool-specific stuff.
 from .SchLib import *
 from .Pin import *
 from .Alias import *
+from .Note import *
 from .Part import *
 from .Net import *
 from .Bus import *

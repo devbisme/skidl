@@ -37,6 +37,7 @@ standard_library.install_aliases()
 import re
 
 from .Alias import Alias
+from .Note import Note
 from .utilities import *
 
 

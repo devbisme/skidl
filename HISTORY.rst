@@ -16,6 +16,7 @@ ______________________
 * Created a base object for Circuit, Part, Pin, Net, Bus and Interface objects.
 * Added an aliases property to the SKiDL base object so all its children could be aliased.
 * Updated to perform simulations with ngspice version 30.
+* Added a notes property to allow attachment of user notes to Parts, Pins, Nets, etc.
 
 
 0.0.26 (2019-01-25)
