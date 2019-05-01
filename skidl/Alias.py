@@ -41,45 +41,35 @@ from .utilities import *
 
 class Alias(list):
     """
-    An alias can be added to another object to give it another name.
-    Since an object might have several aliases, each alias can be tagged
-    with an identifier to discriminate between them.
+    Multiple aliases can be added to another object to give it other names.
 
     Args:
         aliases: A single string or a list of strings.
-        id_tag: The identifier tag.
     """
 
-    def __init__(self, aliases, id_tag=None):
+
+    def __init__(self, *aliases):
         super(Alias, self).__init__()
-        if isinstance(aliases, (set, list, tuple)):
-            self.extend(aliases)
-        else:
-            self.append(aliases)
-        self.id_ = id_tag
+        self.__iadd__(*aliases)
+
+    def __iadd__(self, *aliases):
+        """Add new aliases."""
+        for alias in aliases:
+            if isinstance(alias, (tuple, list, set)):
+                self.extend(alias)
+            else:
+                self.append(alias)
+        return self
 
     def __str__(self):
-        """Return the alias."""
-        # This function was added to make filter_list simpler when searching
-        # for an alias in a list of pins since the actual name is hidden
-        # as an attribute of the Alias class.
+        """Return the aliases as a delimited string."""
         return '/'.join(self)
 
     def __eq__(self, other):
         """
-        Return true if one alias is equal to another.
-
-        The aliases are equal if the following conditions are both true::
-
-            1. The ids must match or one or both ids must be something
-                that evaluates to False (i.e., None, empty string or list, etc.).
-
-            2. The names must match based on using one name as a
-                regular expression to compare to the other.
+        Return true if both lists of aliases have at least one alias in common.
 
         Args:
             other: The Alias object which self will be compared to.
         """
-        return (not self.id_ or not other.id_ or other.id_ == self.id_) and \
-            (fullmatch(str(other), str(self), flags=re.IGNORECASE) or
-             fullmatch(str(self), str(other), flags=re.IGNORECASE))
+        return bool(set(self).intersection(other))

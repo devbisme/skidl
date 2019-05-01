@@ -55,7 +55,7 @@ class SkidlBaseObject(object):
     def aliases(self, name_or_list):
         if not name_or_list:
             return
-        self._aliases = Alias(name_or_list, id(self))
+        self._aliases = Alias(name_or_list)
 
     @aliases.deleter
     def aliases(self):

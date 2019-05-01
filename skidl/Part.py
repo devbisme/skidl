@@ -520,7 +520,7 @@ class Part(SkidlBaseObject):
 
             # Pin ID didn't match a substring in the pin names, so now check
             # the pin aliases.
-            p_id_re_alias = Alias(p_id_re, id(self))
+            p_id_re_alias = Alias(p_id_re)
             tmp_pins = filter_list(self.pins, aliases=p_id_re_alias, **criteria)
             if tmp_pins:
                 pins.extend(tmp_pins)
