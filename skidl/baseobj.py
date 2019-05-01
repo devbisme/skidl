@@ -63,3 +63,23 @@ class SkidlBaseObject(object):
             del self._aliases
         except AttributeError:
             pass
+
+    @property
+    def notes(self):
+        try:
+            return self._notes
+        except AttributeError:
+            return Note([]) # No notes, so just return empty list.
+
+    @notes.setter
+    def notes(self, text_or_notes):
+        if not text_or_notes:
+            return
+        self._notes = Note(text_or_notes)
+
+    @notes.deleter
+    def notes(self):
+        try:
+            del self._notes
+        except AttributeError:
+            pass
