@@ -39,7 +39,7 @@ import re
 from .utilities import *
 
 
-class Alias(list):
+class Alias(set):
     """
     Multiple aliases can be added to another object to give it other names.
 
@@ -56,14 +56,15 @@ class Alias(list):
         """Add new aliases."""
         for alias in aliases:
             if isinstance(alias, (tuple, list, set)):
-                self.extend(alias)
+                for a in list(alias):
+                    self.add(a)
             else:
-                self.append(alias)
+                self.add(alias)
         return self
 
     def __str__(self):
         """Return the aliases as a delimited string."""
-        return '/'.join(self)
+        return '/'.join(list(self))
 
     def __eq__(self, other):
         """
@@ -72,4 +73,4 @@ class Alias(list):
         Args:
             other: The Alias object which self will be compared to.
         """
-        return bool(set(self).intersection(other))
+        return bool(self.intersection(other))
