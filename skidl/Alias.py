@@ -23,7 +23,7 @@
 # THE SOFTWARE.
 
 """
-Handles aliases for parts and other stuff.
+Handles aliases for Circuit, Part, Pin, Net, Bus, Interface objects.
 """
 
 from __future__ import unicode_literals
@@ -63,7 +63,7 @@ class Alias(list):
         # This function was added to make filter_list simpler when searching
         # for an alias in a list of pins since the actual name is hidden
         # as an attribute of the Alias class.
-        return str(self[0])
+        return '/'.join(self)
 
     def __eq__(self, other):
         """
@@ -81,5 +81,5 @@ class Alias(list):
             other: The Alias object which self will be compared to.
         """
         return (not self.id_ or not other.id_ or other.id_ == self.id_) and \
-            (fullmatch(str(other[0]), str(self[0]), flags=re.IGNORECASE) or
-             fullmatch(str(self[0]), str(other[0]), flags=re.IGNORECASE))
+            (fullmatch(str(other), str(self), flags=re.IGNORECASE) or
+             fullmatch(str(self), str(other), flags=re.IGNORECASE))
