@@ -730,10 +730,13 @@ class Net(SkidlBaseObject):
         Also, assigning a net class of None will have no affect on the
         existing net class of a net.
         """
+        self.test_validity()
         return getattr(self, '_netclass', None)
 
     @netclass.setter
     def netclass(self, netclass):
+        self.test_validity()
+
         # Just leave the existing net class at its current value if setting the
         # net class to None. This is useful when merging nets because you just
         # assign each net the net class of the other and they should both get
@@ -745,20 +748,31 @@ class Net(SkidlBaseObject):
         # A net class can only be assigned if there is no existing net class
         # or if the existing net class matches the net class parameter (in
         # which case this is redundant).
-        try:
-            if self._netclass != netclass:
-                logger.error("Can't assign net class {netclass.name} to net {self.name} that's already assigned net class {self.netclass.name}".format(**locals()))
+        nets = self.get_nets() # Get all interconnected subnets.
+        netclasses = set([getattr(n,'_netclass',None) for n in nets])
+        netclasses.discard(None)
+        if len(netclasses) == 0:
+            pass
+        elif len(netclasses) == 1:
+            if netclass not in netclasses:
+                logger.error("Can't assign net class {netclass.name} to net {self.name} that's already assigned net class {netclasses}".format(**locals()))
                 raise Exception
-        except AttributeError:
-            # No existing net class, so assign it from the net class parameter.
-            self._netclass = netclass
+        else:
+            logger.error("Too many netclasses assigned to net {self.name}".format(**locals()))
+            raise Exception
+
+        for n in nets:
+            n._netclass = netclass
 
     @netclass.deleter
     def netclass(self):
-        try:
-            del self._netclass
-        except AttributeError:
-            pass
+        self.test_validity()
+        nets = self.get_nets() # Get all interconnected subnets.
+        for n in nets:
+            try:
+                del self._netclass
+            except AttributeError:
+                pass
 
     @property
     def drive(self):
@@ -770,17 +784,25 @@ class Net(SkidlBaseObject):
         maximum drive value of the pins currently on the net.
         """
         self.test_validity()
-        return self._drive
+        nets = self.get_nets() # Get all interconnected subnets.
+        max_drive = max(nets, key=lambda n: n._drive)._drive
+        return max_drive
 
     @drive.setter
     def drive(self, drive):
         self.test_validity()
-        self._drive = max(drive, self._drive)
+        nets = self.get_nets() # Get all interconnected subnets.
+        max_drive = max(nets, key=lambda n: n._drive)._drive
+        max_drive = max(drive, max_drive)
+        for n in nets:
+            n._drive = max_drive
 
     @drive.deleter
     def drive(self):
         self.test_validity()
-        del self._drive
+        nets = self.get_nets() # Get all interconnected subnets.
+        for n in nets:
+            del n._drive
 
     @property
     def valid(self):

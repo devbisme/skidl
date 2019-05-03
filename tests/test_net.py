@@ -37,3 +37,49 @@ def test_net_fixed_name_1():
     default_circuit._merge_net_names()
     assert(net_merged.name == 'A')
 
+def test_netclass_1():
+    vreg = Part('xess.lib', '1117')
+    n1 = Net()
+    n1 += vreg[1,2,3]
+    n1.netclass = NetClass('my_net', a=1, b=2, c=3)
+
+def test_netclass_2():
+    vreg = Part('xess.lib', '1117')
+    n1 = Net()
+    n1 += vreg[1,2,3]
+    n1.netclass = NetClass('my_net', a=1, b=2, c=3)
+    with pytest.raises(Exception):
+        n1.netclass = NetClass('my_net', a=5, b=6, c=7)
+
+def test_netclass_3():
+    n1, n2 = Net('a'), Net('b')
+    n1.netclass = NetClass('class1')
+    n2.netclass = NetClass('class2')
+    with pytest.raises(Exception):
+        n1 += n2
+
+def test_netclass_4():
+    n1, n2 = Net('a'), Net('b')
+    n1 += n2
+    n1.netclass = NetClass('class1')
+    assert(n2.netclass.name == 'class1')
+    with pytest.raises(Exception):
+        n2.netclass = NetClass('class2')
+
+def test_drive_1():
+    n1, n2 = Net('a'), Net('b')
+    n1.drive = 5
+    n2.drive = 6
+    n1 += n2
+    assert(n1.drive == n2.drive)
+    assert(n1.drive == 6)
+
+def test_drive_2():
+    n1, n2 = Net('a'), Net('b')
+    n1.drive = 5
+    n1 += n2
+    assert(n1.drive == n2.drive)
+    assert(n2.drive == 5)
+    n1.drive = 7
+    assert(n2.drive == 7)
+    
