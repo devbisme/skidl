@@ -102,6 +102,7 @@ class Circuit(SkidlBaseObject):
         self.name = ''
         self.parts = []
         self.nets = []
+        self.netclasses = {}
         self.buses = []
         self.interfaces = []
         self.hierarchy = 'top'

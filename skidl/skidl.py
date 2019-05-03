@@ -41,6 +41,7 @@ from .Alias import *
 from .Note import *
 from .Part import *
 from .Net import *
+from .netclass import *
 from .Bus import *
 from .Network import *
 from .Interface import *

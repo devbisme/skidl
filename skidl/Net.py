@@ -447,9 +447,18 @@ class Net(SkidlBaseObject):
                 self.pins[0].nets.append(net)
                 net.pins.append(self.pins[0])
 
-            # Update the drive of the merged nets.
+            # Update the drive of the merged nets. When setting the drive of a
+            # net the net drive will be the maximum of its current drive or the
+            # new drive. So the following two operations will set each net
+            # drive to the same maximum value.
             self.drive = net.drive
             net.drive = self.drive
+
+            # Update the net class of the merged nets. The following two
+            # operations will set each net's class to the same value, or
+            # throw an error if they are in different classes.
+            self.netclass = net.netclass
+            net.netclass = self.netclass
 
         def connect_pin(pin):
             """Connect a pin to this net."""
@@ -707,6 +716,49 @@ class Net(SkidlBaseObject):
     def name(self):
         self.test_validity()
         del self._name
+
+    @property
+    def netclass(self):
+        """
+        Get, set and delete the net class assigned to this net.
+
+        If not net class is set, then reading the net class returns None.
+
+        You can't overwrite the net class of a net once it's set.
+        You'll have to delete it and then set it to a new value.
+
+        Also, assigning a net class of None will have no affect on the
+        existing net class of a net.
+        """
+        return getattr(self, '_netclass', None)
+
+    @netclass.setter
+    def netclass(self, netclass):
+        # Just leave the existing net class at its current value if setting the
+        # net class to None. This is useful when merging nets because you just
+        # assign each net the net class of the other and they should both get
+        # the same net class (either None or the value of the net class of one,
+        # the other, or both.)
+        if netclass is None:
+            return
+
+        # A net class can only be assigned if there is no existing net class
+        # or if the existing net class matches the net class parameter (in
+        # which case this is redundant).
+        try:
+            if self._netclass != netclass:
+                logger.error("Can't assign net class {netclass.name} to net {self.name} that's already assigned net class {self.netclass.name}".format(**locals()))
+                raise Exception
+        except AttributeError:
+            # No existing net class, so assign it from the net class parameter.
+            self._netclass = netclass
+
+    @netclass.deleter
+    def netclass(self):
+        try:
+            del self._netclass
+        except AttributeError:
+            pass
 
     @property
     def drive(self):
