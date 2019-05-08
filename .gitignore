@@ -1,3 +1,9 @@
+# IntelliJ IDEA & pycharm
+.idea
+
+# virtualenvs
+venv
+
 *.py[cod]
 *.bak
 
