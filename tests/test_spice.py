@@ -16,7 +16,7 @@ def test_lib_import_1():
         print(p)
 
 def test_lib_import_2():
-    with pytest.raises(Exception):
+    with pytest.raises(FileNotFoundError):
         lib = SchLib('lt1074', tool=SPICE)
 
 def test_lib_export_1():

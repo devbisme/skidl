@@ -48,14 +48,14 @@ def test_netclass_2():
     n1 = Net()
     n1 += vreg[1,2,3]
     n1.netclass = NetClass('my_net', a=1, b=2, c=3)
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         n1.netclass = NetClass('my_net', a=5, b=6, c=7)
 
 def test_netclass_3():
     n1, n2 = Net('a'), Net('b')
     n1.netclass = NetClass('class1')
     n2.netclass = NetClass('class2')
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         n1 += n2
 
 def test_netclass_4():
@@ -63,7 +63,7 @@ def test_netclass_4():
     n1 += n2
     n1.netclass = NetClass('class1')
     assert(n2.netclass.name == 'class1')
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         n2.netclass = NetClass('class2')
 
 def test_drive_1():
@@ -82,4 +82,3 @@ def test_drive_2():
     assert(n2.drive == 5)
     n1.drive = 7
     assert(n2.drive == 7)
-    

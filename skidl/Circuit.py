@@ -170,10 +170,9 @@ class Circuit(SkidlBaseObject):
                     self.parts.append(part)
 
                 else:
-                    logger.error(
+                    raise ValueError(
                         "Can't add unmovable part {} to this circuit.".format(
                             part.ref))
-                    raise Exception
 
     def rmv_parts(self, *parts):
         """Remove some Part objects from the circuit."""
@@ -188,9 +187,8 @@ class Circuit(SkidlBaseObject):
                         "Removing non-existent part {} from this circuit.".
                         format(part.ref))
             else:
-                logger.error("Can't remove part {} from this circuit.".format(
+                raise ValueError("Can't remove part {} from this circuit.".format(
                     part.ref))
-                raise Exception
 
     def add_nets(self, *nets):
         """Add some Net objects to the circuit. Assign a net name if necessary."""
@@ -211,10 +209,9 @@ class Circuit(SkidlBaseObject):
                     self.nets.append(net)
 
                 else:
-                    logger.error(
+                    raise ValueError(
                         "Can't add unmovable net {} to this circuit.".format(
                             net.name))
-                    raise Exception
 
     def rmv_nets(self, *nets):
         """Remove some Net objects from the circuit."""
@@ -229,10 +226,9 @@ class Circuit(SkidlBaseObject):
                         "Removing non-existent net {} from this circuit.".
                         format(net.name))
             else:
-                logger.error(
+                raise ValueError(
                     "Can't remove unmovable net {} from this circuit.".format(
                         net.name))
-                raise Exception
 
     def add_buses(self, *buses):
         """Add some Bus objects to the circuit. Assign a bus name if necessary."""
@@ -270,10 +266,9 @@ class Circuit(SkidlBaseObject):
                         "Removing non-existent bus {} from this circuit.".
                         format(bus.name))
             else:
-                logger.error(
+                raise ValueError(
                     "Can't remove unmovable bus {} from this circuit.".format(
                         bus.name))
-                raise Exception
 
     def add_interfaces(self, *interfaces):
         """Add some Interface objects to the circuit. Assign an interface name if necessary."""
@@ -307,10 +302,9 @@ class Circuit(SkidlBaseObject):
                         "Removing non-existent interface {} from this circuit.".
                         format(interface.name))
             else:
-                logger.error(
+                raise ValueError(
                     "Can't remove unmovable interface {} from this circuit.".format(
                         interface.name))
-                raise Exception
 
     def add_stuff(self, *stuff):
         """Add Parts, Nets, Buses, and Interfaces to the circuit."""
@@ -330,9 +324,8 @@ class Circuit(SkidlBaseObject):
             elif isinstance(thing, Interface):
                 self.add_interfaces(thing)
             else:
-                logger.error("Can't add a {} to a Circuit object.".format(
+                raise ValueError("Can't add a {} to a Circuit object.".format(
                     type(thing)))
-                raise Exception
         return self
 
     def rmv_stuff(self, *stuff):
@@ -353,9 +346,8 @@ class Circuit(SkidlBaseObject):
             elif isinstance(thing, Interface):
                 self.rmv_interfaces(thing)
             else:
-                logger.error("Can't remove a {} from a Circuit object.".format(
+                raise ValueError("Can't remove a {} from a Circuit object.".format(
                     type(pnb)))
-                raise Exception
         return self
 
     __iadd__ = add_stuff
@@ -432,10 +424,9 @@ class Circuit(SkidlBaseObject):
             gen_func = getattr(self, '_gen_netlist_{}'.format(tool))
             netlist = gen_func(**kwargs)  # Pass any remaining arguments.
         except KeyError:
-            logger.error(
+            raise ValueError(
                 "Can't generate netlist in an unknown ECAD tool format ({}).".
-                format(tool))
-            raise Exception
+                    format(tool))
 
         if (logger.error.count, logger.warning.count) == (0, 0):
             sys.stderr.write(
@@ -486,10 +477,9 @@ class Circuit(SkidlBaseObject):
             gen_func = getattr(self, '_gen_xml_{}'.format(tool))
             netlist = gen_func()
         except KeyError:
-            logger.error(
+            raise ValueError(
                 "Can't generate XML in an unknown ECAD tool format ({}).".
-                format(tool))
-            raise Exception
+                    format(tool))
 
         if (logger.error.count, logger.warning.count) == (0, 0):
             sys.stderr.write(

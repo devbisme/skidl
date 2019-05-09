@@ -164,7 +164,7 @@ def test_circuit_add_rmv_1():
     assert len(circuit1.nets) == 1 # Add 1 for NC
     assert len(circuit2.nets) == 2 # Add 1 for NC
     n1 += r1[1]
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         circuit1 += r1
 
 def test_circuit_add_rmv_2():
@@ -199,7 +199,7 @@ def test_circuit_connect_btwn_circuits_1():
     n1 = Net('N1')
     circuit1 += r1
     circuit2 += n1
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         n1 += r1[1]
 
 def test_circuit_NC_1():

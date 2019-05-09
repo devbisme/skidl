@@ -67,8 +67,8 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
     # doesn't open, then try looking in the KiCad library directory.
     try:
         f, _ = find_and_open_file(filename, lib_search_paths_, lib_suffixes[KICAD])
-    except Exception as e:
-        raise Exception(
+    except FileNotFoundError as e:
+        raise FileNotFoundError(
             'Unable to open KiCad Schematic Library File {} ({})'.format(
                 filename, str(e)))
 
@@ -76,7 +76,7 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
     header = []
     header = [f.readline()]
     if header and 'EESchema-LIBRARY' not in header[0]:
-        raise Exception(
+        raise RuntimeError(
             'The file {} is not a KiCad Schematic Library File.\n'.format(
                 filename))
 

@@ -262,8 +262,7 @@ def find_and_open_file(filename,
     if allow_failure:
         return None, None
     else:
-        logger.error("Can't open file: {}.\n".format(filename))
-        raise FileNotFoundError
+        raise FileNotFoundError("Can't open file: {}.\n".format(filename))
 
 
 def add_unique_attr(obj, name, value):
@@ -545,9 +544,8 @@ def expand_indices(slice_min, slice_max, *indices):
         # Do this if it's a downward slice (e.g., [7:0]).
         if start > stop:
             if slc.start and slc.start > slice_max:
-                logger.error('Index out of range ({} > {})!'.format(
+                raise IndexError('Index out of range ({} > {})!'.format(
                     slc.start, slice_max))
-                raise Exception
             # Count down from start to stop.
             stop = stop - step
             step = -step
@@ -555,9 +553,8 @@ def expand_indices(slice_min, slice_max, *indices):
         # Do this if it's a normal (i.e., upward) slice (e.g., [0:7]).
         else:
             if slc.stop and slc.stop > slice_max:
-                logger.error('Index out of range ({} > {})!'.format(
+                raise IndexError('Index out of range ({} > {})!'.format(
                     slc.stop, slice_max))
-                raise Exception
             # Count up from start to stop
             stop += step
 
@@ -579,8 +576,7 @@ def expand_indices(slice_min, slice_max, *indices):
                 # added to the list.
                 ids.extend(explode(id.strip()))
         else:
-            logger.error('Unknown type in index: {}.'.format(type(indx)))
-            raise Exception
+            raise ValueError('Unknown type in index: {}.'.format(type(indx)))
 
     # Return the completely expanded list of indices.
     return ids
@@ -642,13 +638,11 @@ def find_num_copies(**attribs):
 
     num_copies = list(num_copies)
     if len(num_copies) > 2:
-        logger.error(
+        raise ValueError(
             "Mismatched lengths of attributes: {}!".format(num_copies))
-        raise Exception
     elif len(num_copies) > 1 and min(num_copies) > 1:
-        logger.error(
+        raise ValueError(
             "Mismatched lengths of attributes: {}!".format(num_copies))
-        raise Exception
 
     try:
         return max(num_copies)

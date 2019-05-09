@@ -142,7 +142,7 @@ def test_connect_9():
 def test_connect_10():
     n1 = Net()
     p1, p2, p3 = 3 * Pin()
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         n1[1] += p1, p2, p3
 
 def test_connect_11():

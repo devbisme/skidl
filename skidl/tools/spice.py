@@ -80,8 +80,8 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
             allow_failure=False,
             exclude_binary=True,
             descend=-1)
-    except Exception as e:
-        raise Exception('Unable to open SPICE Library File {} ({})'.format(
+    except FileNotFoundError as e:
+        raise FileNotFoundError('Unable to open SPICE Library File {} ({})'.format(
             filename, str(e)))
 
     # Read the definition of each part line-by-line and then create

@@ -46,14 +46,14 @@ def test_ntwk_3():
 def test_ntwk_4():
     """Test limit on network length."""
     q1 = Part('device', 'Q_NPN_EBC')
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         Network(q1)
 
 
 def test_ntwk_5():
     """Test limit on network length."""
     q1 = Part('device', 'Q_NPN_EBC')
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         Network(q1[:])
 
 
@@ -61,5 +61,5 @@ def test_ntwk_6():
     """Test limit on network length."""
     r1, r2 = Part('device', 'R', dest=TEMPLATE) * 2
     q1 = Part('device', 'Q_NPN_EBC')
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         (r1 | r2) & q1
