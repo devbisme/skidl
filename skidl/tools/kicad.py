@@ -36,8 +36,6 @@ from builtins import int
 from builtins import range
 from builtins import dict
 from builtins import zip
-from future import standard_library
-standard_library.install_aliases()
 
 import os.path
 import time

@@ -1,5 +1,6 @@
 import pytest
 from skidl import *
+from skidl.py_2_3 import *  # pylint: disable=wildcard-import
 from .setup_teardown import *
 
 def test_missing_lib():

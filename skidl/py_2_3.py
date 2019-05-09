@@ -37,7 +37,6 @@ USING_PYTHON2 = (sys.version_info.major == 2)
 USING_PYTHON3 = not USING_PYTHON2
 
 if USING_PYTHON2:
-
     class FileNotFoundError(OSError):
         pass
 

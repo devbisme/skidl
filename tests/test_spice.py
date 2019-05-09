@@ -4,6 +4,7 @@ import pytest
 pexpect = pytest.importorskip("PySpice")
 
 from skidl.pyspice import *
+from skidl.py_2_3 import *  # pylint: disable=wildcard-import
 from .setup_teardown import *
 import PySpice
 

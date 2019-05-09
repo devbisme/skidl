@@ -36,8 +36,8 @@ from builtins import int
 from builtins import range
 from builtins import dict
 from builtins import zip
-from future import standard_library
-standard_library.install_aliases()
+
+from .py_2_3 import *  # pylint: disable=wildcard-import
 
 try:
     import __builtin__ as builtins

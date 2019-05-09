@@ -32,8 +32,8 @@ from __future__ import division
 from __future__ import absolute_import
 
 from builtins import str
-from future import standard_library
-standard_library.install_aliases()
+
+from ..py_2_3 import *  # pylint: disable=wildcard-import
 
 from ..defines import SKIDL
 
