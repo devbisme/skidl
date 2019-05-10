@@ -3,9 +3,10 @@ import pytest
 # Skip this test module if PySpice is missing.
 pexpect = pytest.importorskip("PySpice")
 
-from skidl.pyspice import *
+from skidl.py_2_3 import *  # pylint: disable=wildcard-import
 from .setup_teardown import *
-import PySpice
+
+from skidl.pyspice import *  # isort:skip
 
 
 def test_lib_import_1():
