@@ -17,6 +17,8 @@ ______________________
 * Added an aliases property to the SKiDL base object so all its children could be aliased.
 * Updated to perform simulations with ngspice version 30.
 * Added a notes property to allow attachment of user notes to Parts, Pins, Nets, etc.
+* Added net class to net objects for specifying net-specific design rules in PCBNEW.
+* Ignore multiple pins with the same number in symbols with DeMorgan equivalents.
 
 
 0.0.26 (2019-01-25)
