@@ -244,7 +244,7 @@ def _parse_lib_part_(self, just_get_name=False):
         'polylines': [],
         'rectangles': [],
         'texts': [],
-        'pins': []
+        'pins': {}  # Use pin number as key to detect duplicates.
     }
     self.fplist = []
 
@@ -380,8 +380,21 @@ def _parse_lib_part_(self, just_get_name=False):
                 # this defines the names, numbers and attributes of the
                 # pins associated with the part.
                 elif line[0] == 'X':
-                    self.draw['pins'].append(
-                        dict(list(zip(_PIN_KEYS, values))))
+                    # Get the information for this pin.
+                    pin = dict(list(zip(_PIN_KEYS, values)))
+                    try:
+                        # See if the pin number already exists for this part.
+                        rpt_pin = self.draw['pins'][pin['num']]
+                    except KeyError:
+                        # No, this pin number is unique (so far), so store it
+                        # using the pin number as the dict key.
+                        self.draw['pins'][pin['num']] = pin
+                    else:
+                        # Uh, oh: Repeated pin number! Check to see if the 
+                        # duplicated pins have the same I/O type and unit num.
+                        if (pin['electrical_type'] != rpt_pin['electrical_type'] or
+                            pin['unit'] != rpt_pin['unit']):
+                            logger.warning('Non-identical pins with the same number ({}) in symbol drawing {}'.format(pin['num'], self.name))
 
                 # Found something unknown in the drawing section.
                 else:
@@ -433,7 +446,7 @@ def _parse_lib_part_(self, just_get_name=False):
 
         return p
 
-    self.pins = [kicad_pin_to_pin(p) for p in self.draw['pins']]
+    self.pins = [kicad_pin_to_pin(p) for p in self.draw['pins'].values()]
 
     # Make sure all the pins have a valid reference to this part.
     self.associate_pins()

@@ -512,11 +512,18 @@ class Part(SkidlBaseObject):
 
             # OK, pin ID is not a pin number and doesn't exactly match a pin
             # name or alias. Does it match a substring within a pin name?
-            p_id_re = ''.join(['.*', p_id, '.*'])
-            tmp_pins = filter_list(self.pins, name=p_id_re, **criteria)
-            if tmp_pins:
-                pins.extend(tmp_pins)
+            try:
+                p_id_re = ''.join(['.*', p_id, '.*'])
+            except TypeError:
+                # This will happen if the p_id is a number and not a string.
+                # Skip this and the next block because p_id_re can't be made.
                 continue
+            else:
+                # The p_id is a string, so now check the pin names.
+                tmp_pins = filter_list(self.pins, name=p_id_re, **criteria)
+                if tmp_pins:
+                    pins.extend(tmp_pins)
+                    continue
 
             # Pin ID didn't match a substring in the pin names, so now check
             # the pin aliases.
