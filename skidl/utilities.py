@@ -260,7 +260,7 @@ def find_and_open_file(filename,
     if allow_failure:
         return None, None
     else:
-        raise FileNotFoundError("Can't open file: {}.\n".format(filename))
+        log_and_raise(logger, FileNotFoundError, "Can't open file: {}.\n".format(filename))
 
 
 def add_unique_attr(obj, name, value):
@@ -542,7 +542,7 @@ def expand_indices(slice_min, slice_max, *indices):
         # Do this if it's a downward slice (e.g., [7:0]).
         if start > stop:
             if slc.start and slc.start > slice_max:
-                raise IndexError('Index out of range ({} > {})!'.format(
+                log_and_raise(logger, IndexError, 'Index out of range ({} > {})!'.format(
                     slc.start, slice_max))
             # Count down from start to stop.
             stop = stop - step
@@ -551,7 +551,7 @@ def expand_indices(slice_min, slice_max, *indices):
         # Do this if it's a normal (i.e., upward) slice (e.g., [0:7]).
         else:
             if slc.stop and slc.stop > slice_max:
-                raise IndexError('Index out of range ({} > {})!'.format(
+                log_and_raise(logger, IndexError, 'Index out of range ({} > {})!'.format(
                     slc.stop, slice_max))
             # Count up from start to stop
             stop += step
@@ -574,7 +574,8 @@ def expand_indices(slice_min, slice_max, *indices):
                 # added to the list.
                 ids.extend(explode(id.strip()))
         else:
-            raise TypeError('Unknown type in index: {}.'.format(type(indx)))
+            log_and_raise(logger, TypeError,
+                          'Unknown type in index: {}.'.format(type(indx)))
 
     # Return the completely expanded list of indices.
     return ids
@@ -636,10 +637,10 @@ def find_num_copies(**attribs):
 
     num_copies = list(num_copies)
     if len(num_copies) > 2:
-        raise ValueError(
+        log_and_raise(logger, ValueError,
             "Mismatched lengths of attributes: {}!".format(num_copies))
     elif len(num_copies) > 1 and min(num_copies) > 1:
-        raise ValueError(
+        log_and_raise(logger, ValueError,
             "Mismatched lengths of attributes: {}!".format(num_copies))
 
     try:
@@ -722,3 +723,8 @@ def add_to_function_list(class_or_inst, list_name, func):
 def add_erc_function(class_or_inst, func):
     """Add an ERC function to a class or class instance."""
     add_to_function_list(class_or_inst, 'erc_list', func)
+
+
+def log_and_raise(logger_in, exc_class, message):
+    logger_in.error(message)
+    raise exc_class(message)

@@ -172,9 +172,9 @@ class Part(SkidlBaseObject):
             pass
 
         else:
-            raise ValueError(
+            log_and_raise(logger, ValueError,
                 "Can't make a part without a library & part name or a part definition."
-            )
+                          )
 
         # If the part is going to be an element in a circuit, then add it to the
         # the circuit and make any indicated pin/net connections.
@@ -271,9 +271,9 @@ class Part(SkidlBaseObject):
         try:
             parse_func = getattr(self, '_parse_lib_part_{}'.format(self.tool))
         except AttributeError:
-            raise ValueError(
+            log_and_raise(logger, ValueError,
                 "Can't create a part with an unknown ECAD tool file format: {}."
-                    .format(self.tool))
+                          .format(self.tool))
 
         # Parse the part description.
         parse_func(just_get_name)
@@ -330,13 +330,13 @@ class Part(SkidlBaseObject):
 
         # Check that a valid number of copies is requested.
         if not isinstance(num_copies, int):
-            raise ValueError(
+            log_and_raise(logger, ValueError,
                 "Can't make a non-integer number ({}) of copies of a part!".
-                    format(num_copies))
+                          format(num_copies))
         if num_copies < 0:
-            raise ValueError(
+            log_and_raise(logger, ValueError,
                 "Can't make a negative number ({}) of copies of a part!".
-                    format(num_copies))
+                          format(num_copies))
 
         # Now make copies of the part one-by-one.
         copies = []
@@ -404,9 +404,9 @@ class Part(SkidlBaseObject):
                     try:
                         v = v[i]
                     except IndexError:
-                        raise ValueError(
+                        log_and_raise(logger, ValueError,
                             "{} copies of part {} were requested, but too few elements in attribute {}!"
-                                .format(num_copies, self.name, k))
+                                      .format(num_copies, self.name, k))
                 setattr(cpy, k, v)
 
             # Add the part copy to the list of copies.
@@ -568,7 +568,8 @@ class Part(SkidlBaseObject):
 
         # No iadd_flag or it wasn't set. This means a direct assignment
         # was made to the pin, which is not allowed.
-        raise TypeError("Can't assign to a part! Use the += operator.")
+        log_and_raise(logger, TypeError,
+                      "Can't assign to a part! Use the += operator.")
 
     def is_connected(self):
         """
@@ -636,7 +637,8 @@ class Part(SkidlBaseObject):
             add_unique_attr(self, alias, pin)
         else:
             # Error: either 0 or multiple pins were found.
-            raise ValueError('Cannot set alias for {}'.format(pin_ids))
+            log_and_raise(logger, ValueError,
+                          'Cannot set alias for {}'.format(pin_ids))
 
     def make_unit(self, label, *pin_ids, **criteria):
         """
@@ -741,9 +743,9 @@ class Part(SkidlBaseObject):
             gen_func = getattr(self, '_gen_netlist_comp_{}'.format(tool))
             return gen_func()
         except AttributeError:
-            raise ValueError(
+            log_and_raise(logger, ValueError,
                 "Can't generate netlist in an unknown ECAD tool format ({}).".
-                    format(tool))
+                          format(tool))
 
     def generate_xml_component(self, tool=None):
         """
@@ -762,9 +764,9 @@ class Part(SkidlBaseObject):
             gen_func = getattr(self, '_gen_xml_comp_{}'.format(tool))
             return gen_func()
         except AttributeError:
-            raise ValueError(
+            log_and_raise(logger, ValueError,
                 "Can't generate XML in an unknown ECAD tool format ({}).".
-                    format(tool))
+                          format(tool))
 
     def ERC(self, *args, **kwargs):
         """Run class-wide and local ERC functions on this part."""

@@ -45,7 +45,7 @@ class Network(list):
                 ntwk = obj.create_network(
                 )  # Create a Network from each object.
             except AttributeError:
-                raise TypeError(
+                log_and_raise(logger, TypeError,
                     "Can't create a network from a {} object ({}).".format(
                         type(obj), obj.__name__))
 
@@ -58,7 +58,8 @@ class Network(list):
             # have zero, in which case it is just an empty container waiting to
             # have ports added to it.
             if len(self) > 2:
-                raise ValueError("A Network object can't have more than two nodes.")
+                log_and_raise(logger, ValueError,
+                              "A Network object can't have more than two nodes.")
 
 
     def __and__(self, obj):
@@ -68,7 +69,7 @@ class Network(list):
         try:
             ntwk = obj.create_network()
         except AttributeError:
-            raise TypeError(
+            log_and_raise(logger, TypeError,
                 "Unable to create a Network from a {} object ({}).".format(
                     type(obj), obj.__name__))
 
@@ -94,7 +95,7 @@ class Network(list):
         try:
             ntwk = obj.create_network()
         except AttributeError:
-            raise TypeError(
+            log_and_raise(logger, TypeError,
                 "Unable to create a Network from a {} object ({}).".format(
                     type(obj), obj.__name__))
 

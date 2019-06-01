@@ -90,7 +90,8 @@ class SchLib(object):
                 load_func = getattr(self, '_load_sch_lib_{}'.format(tool))
             except AttributeError:
                 # OK, that didn't work so well...
-                raise ValueError('Unsupported ECAD tool library: {}.'.format(tool))
+                log_and_raise(logger, ValueError,
+                              'Unsupported ECAD tool library: {}.'.format(tool))
             else:
                 load_func(filename, skidl.lib_search_paths[tool])
                 self.filename = filename
@@ -166,9 +167,11 @@ class SchLib(object):
 
             # No part with that alias either, so signal an error.
             if not parts:
-                raise ValueError(
-                    'Unable to find part {} in library {}.'.format(
-                        name, getattr(self, 'filename', 'UNKNOWN')))
+                message = 'Unable to find part {} in library {}.'.format(
+                    name, getattr(self, 'filename', 'UNKNOWN'))
+                if not silent:
+                    logger.error(message)
+                raise ValueError(message)
 
         # Multiple parts with that name or alias exists, so return the list
         # of parts or just the first part on the list.

@@ -229,11 +229,11 @@ class Pin(SkidlBaseObject):
 
         # Check that a valid number of copies is requested.
         if not isinstance(num_copies, int):
-            raise ValueError(
+            log_and_raise(logger, ValueError,
                 "Can't make a non-integer number ({}) of copies of a pin!".
-                    format(num_copies))
+                          format(num_copies))
         if num_copies < 0:
-            raise ValueError(
+            log_and_raise(logger, ValueError,
                 "Can't make a negative number ({}) of copies of a pin!".format(
                     num_copies))
 
@@ -291,9 +291,9 @@ class Pin(SkidlBaseObject):
         if indices is None or len(indices) == 0:
             return None
         if len(indices) > 1:
-            raise ValueError("Can't index a pin with multiple indices.")
+            log_and_raise(logger, ValueError, "Can't index a pin with multiple indices.")
         if indices[0] != 0:
-            raise ValueError("Can't use a non-zero index for a pin.")
+            log_and_raise(logger, ValueError, "Can't use a non-zero index for a pin.")
         return self
 
     def __setitem__(self, ids, *pins_nets_buses):
@@ -325,7 +325,7 @@ class Pin(SkidlBaseObject):
 
         # No iadd_flag or it wasn't set. This means a direct assignment
         # was made to the pin, which is not allowed.
-        raise TypeError("Can't assign to a Net! Use the += operator.")
+        log_and_raise(logger, TypeError, "Can't assign to a Net! Use the += operator.")
 
     def __iter__(self):
         """
@@ -354,11 +354,12 @@ class Pin(SkidlBaseObject):
             return True
         if set([Net, NCNet]) == net_types:
             # Can't be connected to both normal and no-connect nets!
-            raise ValueError(
+            log_and_raise(logger, ValueError,
                 '{} is connected to both normal and no-connect nets!'.format(
                     self.erc_desc()))
         # This is just strange...
-        raise ValueError("{} is connected to something strange: {}.".format(
+        log_and_raise(logger, ValueError,
+            "{} is connected to something strange: {}.".format(
             self.erc_desc(), self.nets))
 
     def is_attached(self, pin_net_bus):
@@ -380,7 +381,8 @@ class Pin(SkidlBaseObject):
                 if self.net.is_attached(net):
                     return True
             return False
-        raise ValueError("Pins can't be attached to {}!".format(type(pin_net_bus)))
+        log_and_raise(logger, ValueError,
+            "Pins can't be attached to {}!".format(type(pin_net_bus)))
 
     def connect(self, *pins_nets_buses):
         """
@@ -423,7 +425,8 @@ class Pin(SkidlBaseObject):
                 # Connecting pin-to-net, so just connect the pin to the net.
                 pn += self
             else:
-                raise TypeError('Cannot attach non-Pin/non-Net {} to {}.'.format(
+                log_and_raise(logger, TypeError,
+                    'Cannot attach non-Pin/non-Net {} to {}.'.format(
                     type(pn), self.erc_desc()))
 
         # Set the flag to indicate this result came from the += operator.
