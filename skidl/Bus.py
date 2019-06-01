@@ -180,7 +180,7 @@ class Bus(SkidlBaseObject):
 
     def get_pins(self):
         """It's an error to get the list of pins attached to all bus lines."""
-        raise ValueError("Can't get the list of pins on a bus!")
+        raise TypeError("Can't get the list of pins on a bus!")
 
     def copy(self, num_copies=None, **attribs):
         """
@@ -283,7 +283,7 @@ class Bus(SkidlBaseObject):
             elif isinstance(ident, basestring):
                 nets.extend(filter_list(self.nets, name=ident))
             else:
-                raise ValueError("Can't index bus with a {}.".format(type(ident)))
+                raise TypeError("Can't index bus with a {}.".format(type(ident)))
 
         if len(nets) == 0:
             # No nets were selected from the bus, so return None.
@@ -325,7 +325,7 @@ class Bus(SkidlBaseObject):
 
         # No iadd_flag or it wasn't set. This means a direct assignment
         # was made to the pin, which is not allowed.
-        raise ValueError("Can't assign to a bus! Use the += operator.")
+        raise TypeError("Can't assign to a bus! Use the += operator.")
 
     def __iter__(self):
         """

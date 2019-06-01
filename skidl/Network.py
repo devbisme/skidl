@@ -45,7 +45,7 @@ class Network(list):
                 ntwk = obj.create_network(
                 )  # Create a Network from each object.
             except AttributeError:
-                raise ValueError(
+                raise TypeError(
                     "Can't create a network from a {} object ({}).".format(
                         type(obj), obj.__name__))
 
@@ -68,7 +68,7 @@ class Network(list):
         try:
             ntwk = obj.create_network()
         except AttributeError:
-            raise ValueError(
+            raise TypeError(
                 "Unable to create a Network from a {} object ({}).".format(
                     type(obj), obj.__name__))
 
@@ -94,7 +94,7 @@ class Network(list):
         try:
             ntwk = obj.create_network()
         except AttributeError:
-            raise ValueError(
+            raise TypeError(
                 "Unable to create a Network from a {} object ({}).".format(
                     type(obj), obj.__name__))
 

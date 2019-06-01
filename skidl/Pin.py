@@ -325,7 +325,7 @@ class Pin(SkidlBaseObject):
 
         # No iadd_flag or it wasn't set. This means a direct assignment
         # was made to the pin, which is not allowed.
-        raise ValueError("Can't assign to a Net! Use the += operator.")
+        raise TypeError("Can't assign to a Net! Use the += operator.")
 
     def __iter__(self):
         """
@@ -423,7 +423,7 @@ class Pin(SkidlBaseObject):
                 # Connecting pin-to-net, so just connect the pin to the net.
                 pn += self
             else:
-                raise ValueError('Cannot attach non-Pin/non-Net {} to {}.'.format(
+                raise TypeError('Cannot attach non-Pin/non-Net {} to {}.'.format(
                     type(pn), self.erc_desc()))
 
         # Set the flag to indicate this result came from the += operator.

@@ -574,7 +574,7 @@ def expand_indices(slice_min, slice_max, *indices):
                 # added to the list.
                 ids.extend(explode(id.strip()))
         else:
-            raise ValueError('Unknown type in index: {}.'.format(type(indx)))
+            raise TypeError('Unknown type in index: {}.'.format(type(indx)))
 
     # Return the completely expanded list of indices.
     return ids

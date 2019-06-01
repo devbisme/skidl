@@ -193,7 +193,7 @@ class Net(SkidlBaseObject):
                 if self.is_attached(net):
                     return True
             return False
-        raise ValueError("Nets can't be attached to {}!".format(type(pin_net_bus)))
+        raise TypeError("Nets can't be attached to {}!".format(type(pin_net_bus)))
 
     def is_movable(self):
         """
@@ -363,7 +363,7 @@ class Net(SkidlBaseObject):
 
         # No iadd_flag or it wasn't set. This means a direct assignment
         # was made to the pin, which is not allowed.
-        raise ValueError("Can't assign to a Net! Use the += operator.")
+        raise TypeError("Can't assign to a Net! Use the += operator.")
 
     def __iter__(self):
         """
@@ -484,7 +484,7 @@ class Net(SkidlBaseObject):
                         "Can't attach a part to a net in different circuits ({}, {})!"
                             .format(pn.part.circuit.name, self.circuit.name))
             else:
-                raise ValueError(
+                raise TypeError(
                     'Cannot attach non-Pin/non-Net {} to Net {}.'.format(
                         type(pn), self.name))
 

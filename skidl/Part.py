@@ -568,7 +568,7 @@ class Part(SkidlBaseObject):
 
         # No iadd_flag or it wasn't set. This means a direct assignment
         # was made to the pin, which is not allowed.
-        raise ValueError("Can't assign to a part! Use the += operator.")
+        raise TypeError("Can't assign to a part! Use the += operator.")
 
     def is_connected(self):
         """

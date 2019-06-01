@@ -128,14 +128,14 @@ def test_bus_11():
 
 def test_bus_12():
     bus1 = Bus('A', 8)
-    with pytest.raises(ValueError):
+    with pytest.raises(TypeError):
         bus1[5:0] = 6 * Pin()
 
 
 def test_bus_13():
     bus1 = Bus('A', 8)
     bus1 += 8 * Pin()
-    with pytest.raises(ValueError):
+    with pytest.raises(TypeError):
         bus1[5:0] = 6 * Pin()
 
 def test_bus_14():
