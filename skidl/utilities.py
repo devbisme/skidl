@@ -287,8 +287,16 @@ def add_quotes(s):
     """Return string with added quotes if it contains whitespace or parens."""
     if not isinstance(s, basestring):
         return s
-    if re.search(r'[\s()]', s):
-        return '"' + s + '"'
+
+    try:
+        if re.search(r'[\s()]', s):
+            s = '"' + s + '"'
+    except UnicodeDecodeError:
+        # Remove all the non-ascii stuff (like ohm symbols).
+        s = s.decode('utf-8')
+        s = s.encode('ascii', 'ignore')
+        s = s.decode('utf-8')
+
     return s
 
 
