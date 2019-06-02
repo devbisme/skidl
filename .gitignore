@@ -13,6 +13,7 @@ venv
 # Packages
 *.egg
 *.egg-info
+pip-wheel-metadata/
 dist
 build
 eggs

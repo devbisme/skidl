@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-    
+
 import sys
 import setuptools
 
@@ -12,7 +12,7 @@ __email__ = 'info@xess.com'
 if 'sdist' in sys.argv[1:]:
     with open('skidl/pckg_info.py','w') as f:
         for name in ['__version__','__author__','__email__']:
-            f.write("{} = '{}'\n".format(name,locals()[name]))
+            f.write('{} = "{}"\n'.format(name,locals()[name]))
 
 try:
     from setuptools import setup

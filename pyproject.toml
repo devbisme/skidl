@@ -1,0 +1,28 @@
+[tool.black]
+exclude = '''
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+  | /skidl/libs/
+)
+'''
+
+[tool.isort]
+multi_line_output=3
+include_trailing_comma=true
+force_grid_wrap=0
+use_parentheses=true
+line_length=88
+known_first_party=["skidl"]
+known_future_library=["skidl.py_2_3"]
+known_third_party=["pytest", "PySpice"]
