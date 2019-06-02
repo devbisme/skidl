@@ -38,8 +38,6 @@ from builtins import str
 from builtins import zip
 from builtins import range
 from builtins import object
-from future import standard_library
-standard_library.install_aliases()
 
 import sys
 import os
@@ -262,8 +260,7 @@ def find_and_open_file(filename,
     if allow_failure:
         return None, None
     else:
-        logger.error("Can't open file: {}.\n".format(filename))
-        raise FileNotFoundError
+        log_and_raise(logger, FileNotFoundError, "Can't open file: {}.\n".format(filename))
 
 
 def add_unique_attr(obj, name, value):
@@ -550,9 +547,8 @@ def expand_indices(slice_min, slice_max, *indices):
         # Do this if it's a downward slice (e.g., [7:0]).
         if start > stop:
             if slc.start and slc.start > slice_max:
-                logger.error('Index out of range ({} > {})!'.format(
+                log_and_raise(logger, IndexError, 'Index out of range ({} > {})!'.format(
                     slc.start, slice_max))
-                raise Exception
             # Count down from start to stop.
             stop = stop - step
             step = -step
@@ -560,9 +556,8 @@ def expand_indices(slice_min, slice_max, *indices):
         # Do this if it's a normal (i.e., upward) slice (e.g., [0:7]).
         else:
             if slc.stop and slc.stop > slice_max:
-                logger.error('Index out of range ({} > {})!'.format(
+                log_and_raise(logger, IndexError, 'Index out of range ({} > {})!'.format(
                     slc.stop, slice_max))
-                raise Exception
             # Count up from start to stop
             stop += step
 
@@ -584,8 +579,8 @@ def expand_indices(slice_min, slice_max, *indices):
                 # added to the list.
                 ids.extend(explode(id.strip()))
         else:
-            logger.error('Unknown type in index: {}.'.format(type(indx)))
-            raise Exception
+            log_and_raise(logger, TypeError,
+                          'Unknown type in index: {}.'.format(type(indx)))
 
     # Return the completely expanded list of indices.
     return ids
@@ -647,13 +642,11 @@ def find_num_copies(**attribs):
 
     num_copies = list(num_copies)
     if len(num_copies) > 2:
-        logger.error(
+        log_and_raise(logger, ValueError,
             "Mismatched lengths of attributes: {}!".format(num_copies))
-        raise Exception
     elif len(num_copies) > 1 and min(num_copies) > 1:
-        logger.error(
+        log_and_raise(logger, ValueError,
             "Mismatched lengths of attributes: {}!".format(num_copies))
-        raise Exception
 
     try:
         return max(num_copies)
@@ -735,3 +728,8 @@ def add_to_function_list(class_or_inst, list_name, func):
 def add_erc_function(class_or_inst, func):
     """Add an ERC function to a class or class instance."""
     add_to_function_list(class_or_inst, 'erc_list', func)
+
+
+def log_and_raise(logger_in, exc_class, message):
+    logger_in.error(message)
+    raise exc_class(message)

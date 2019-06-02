@@ -47,15 +47,15 @@ class NetPinList(list):
             if isinstance(item, (Pin, Net)):
                 nets_pins.append(item)
             else:
-                logger.error("Can't make connections to a {} ({}).".format(
-                    type(item), item.__name__))
-                raise Exception
+                log_and_raise(logger, ValueError,
+                              "Can't make connections to a {} ({}).".format(
+                                type(item), item.__name__))
 
         if len(nets_pins) != len(self):
             if Net in [type(item) for item in self] or len(nets_pins) > 1:
-                logger.error("Connection mismatch {} != {}!".format(
-                    len(self), len(nets_pins)))
-                raise Exception
+                log_and_raise(logger, ValueError,
+                              "Connection mismatch {} != {}!".format(
+                                len(self), len(nets_pins)))
 
             # If just a single net is to be connected, make a list out of it that's
             # just as long as the list of pins to connect to. This will connect
@@ -113,12 +113,12 @@ class NetPinList(list):
     # might be returned by the filter_list() utility.
     @property
     def aliases(self):
-        raise Exception
+        raise NotImplementedError
 
     @aliases.setter
     def aliases(self, alias):
-        raise Exception
+        raise NotImplementedError
 
     @aliases.deleter
     def aliases(self):
-        raise Exception
+        raise NotImplementedError

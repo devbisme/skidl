@@ -13,7 +13,7 @@ def test_alias_2():
     vreg = Part('xess.lib', '1117')
     vreg.set_pin_alias('my_alias', 1)
     vreg.set_pin_alias('my_alias', 2)
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         vreg.set_pin_alias('new_alias', 'my_alias')
 
 def test_alias_3():
@@ -22,5 +22,5 @@ def test_alias_3():
     vreg[2].aliases = 'my_alias'
     assert len(vreg['my_alias']) == 2
     assert len(vreg['.*']) == 4
-    with pytest.raises(Exception):
+    with pytest.raises(NotImplementedError):
         vreg['my_alias'].aliases = 'new_alias'

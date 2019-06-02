@@ -35,8 +35,6 @@ from builtins import int
 from builtins import range
 from builtins import dict
 from builtins import zip
-from future import standard_library
-standard_library.install_aliases()
 
 import os.path
 from ..py_2_3 import *
@@ -80,8 +78,8 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
             allow_failure=False,
             exclude_binary=True,
             descend=-1)
-    except Exception as e:
-        raise Exception('Unable to open SPICE Library File {} ({})'.format(
+    except FileNotFoundError as e:
+        raise FileNotFoundError('Unable to open SPICE Library File {} ({})'.format(
             filename, str(e)))
 
     # Read the definition of each part line-by-line and then create

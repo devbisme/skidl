@@ -36,8 +36,8 @@ from builtins import int
 from builtins import range
 from builtins import dict
 from builtins import zip
-from future import standard_library
-standard_library.install_aliases()
+
+from .py_2_3 import *  # pylint: disable=wildcard-import
 
 try:
     import __builtin__ as builtins
@@ -133,10 +133,10 @@ class Part(SkidlBaseObject):
             # If the lib argument is a string, then create a library using the
             # string as the library file name.
             if isinstance(lib, basestring):
+                libname = lib
                 try:
-                    libname = lib
                     lib = SchLib(filename=libname, tool=tool)
-                except Exception as e:
+                except FileNotFoundError as e:
                     if skidl.QUERY_BACKUP_LIB:
                         logger.warning(
                             'Could not load KiCad schematic library "{}", falling back to backup library.'
@@ -172,10 +172,9 @@ class Part(SkidlBaseObject):
             pass
 
         else:
-            logger.error(
+            log_and_raise(logger, ValueError,
                 "Can't make a part without a library & part name or a part definition."
-            )
-            raise Exception
+                          )
 
         # If the part is going to be an element in a circuit, then add it to the
         # the circuit and make any indicated pin/net connections.
@@ -272,10 +271,9 @@ class Part(SkidlBaseObject):
         try:
             parse_func = getattr(self, '_parse_lib_part_{}'.format(self.tool))
         except AttributeError:
-            logger.error(
+            log_and_raise(logger, ValueError,
                 "Can't create a part with an unknown ECAD tool file format: {}."
-                .format(self.tool))
-            raise Exception
+                          .format(self.tool))
 
         # Parse the part description.
         parse_func(just_get_name)
@@ -332,15 +330,13 @@ class Part(SkidlBaseObject):
 
         # Check that a valid number of copies is requested.
         if not isinstance(num_copies, int):
-            logger.error(
+            log_and_raise(logger, ValueError,
                 "Can't make a non-integer number ({}) of copies of a part!".
-                format(num_copies))
-            raise Exception
+                          format(num_copies))
         if num_copies < 0:
-            logger.error(
+            log_and_raise(logger, ValueError,
                 "Can't make a negative number ({}) of copies of a part!".
-                format(num_copies))
-            raise Exception
+                          format(num_copies))
 
         # Now make copies of the part one-by-one.
         copies = []
@@ -408,10 +404,9 @@ class Part(SkidlBaseObject):
                     try:
                         v = v[i]
                     except IndexError:
-                        logger.error(
+                        log_and_raise(logger, ValueError,
                             "{} copies of part {} were requested, but too few elements in attribute {}!"
-                            .format(num_copies, self.name, k))
-                        raise Exception
+                                      .format(num_copies, self.name, k))
                 setattr(cpy, k, v)
 
             # Add the part copy to the list of copies.
@@ -573,8 +568,8 @@ class Part(SkidlBaseObject):
 
         # No iadd_flag or it wasn't set. This means a direct assignment
         # was made to the pin, which is not allowed.
-        logger.error("Can't assign to a part! Use the += operator.")
-        raise Exception
+        log_and_raise(logger, TypeError,
+                      "Can't assign to a part! Use the += operator.")
 
     def is_connected(self):
         """
@@ -642,8 +637,8 @@ class Part(SkidlBaseObject):
             add_unique_attr(self, alias, pin)
         else:
             # Error: either 0 or multiple pins were found.
-            logger.error('Cannot set alias for {}'.format(pin_ids))
-            raise Exception
+            log_and_raise(logger, ValueError,
+                          'Cannot set alias for {}'.format(pin_ids))
 
     def make_unit(self, label, *pin_ids, **criteria):
         """
@@ -747,11 +742,9 @@ class Part(SkidlBaseObject):
         try:
             gen_func = getattr(self, '_gen_netlist_comp_{}'.format(tool))
         except AttributeError:
-            import pdb; pdb.set_trace()
-            logger.error(
+            log_and_raise(logger, ValueError,
                 "Can't generate netlist in an unknown ECAD tool format ({}).".
-                format(tool))
-            raise Exception
+                          format(tool))
 
         return gen_func()
 
@@ -771,10 +764,9 @@ class Part(SkidlBaseObject):
         try:
             gen_func = getattr(self, '_gen_xml_comp_{}'.format(tool))
         except AttributeError:
-            logger.error(
+            log_and_raise(logger, ValueError,
                 "Can't generate XML in an unknown ECAD tool format ({}).".
-                format(tool))
-            raise Exception
+                          format(tool))
 
         return gen_func()
 

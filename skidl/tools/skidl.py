@@ -32,8 +32,8 @@ from __future__ import division
 from __future__ import absolute_import
 
 from builtins import str
-from future import standard_library
-standard_library.install_aliases()
+
+from ..py_2_3 import *  # pylint: disable=wildcard-import
 
 from ..defines import SKIDL
 
@@ -56,8 +56,8 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
 
     try:
         f, _ = find_and_open_file(filename, lib_search_paths_, lib_suffixes[SKIDL])
-    except Exception as e:
-        raise Exception(
+    except FileNotFoundError as e:
+        raise FileNotFoundError(
             'Unable to open SKiDL Schematic Library File {} ({})'.format(
                 filename, str(e)))
     try:
@@ -74,7 +74,7 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
                 return
 
         # Oops! No library object. Something went wrong.
-        raise Exception('No SchLib object found in {}'.format(filename))
+        raise ValueError('No SchLib object found in {}'.format(filename))
 
     except Exception as e:
         logger.error('Problem with {}'.format(f))

@@ -4,6 +4,7 @@ import pytest
 pexpect = pytest.importorskip("PySpice")
 
 from skidl.pyspice import *
+from skidl.py_2_3 import *  # pylint: disable=wildcard-import
 from .setup_teardown import *
 import PySpice
 
@@ -16,7 +17,7 @@ def test_lib_import_1():
         print(p)
 
 def test_lib_import_2():
-    with pytest.raises(Exception):
+    with pytest.raises(FileNotFoundError):
         lib = SchLib('lt1074', tool=SPICE)
 
 def test_lib_export_1():

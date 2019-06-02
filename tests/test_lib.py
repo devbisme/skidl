@@ -1,14 +1,15 @@
 import pytest
 from skidl import *
+from skidl.py_2_3 import *  # pylint: disable=wildcard-import
 from .setup_teardown import *
 
 def test_missing_lib():
     # Sometimes, loading a part from a non-existent library doesn't throw an
     # exception until the second time it's tried. This detects that error.
     set_query_backup_lib(False)  # Don't allow searching backup lib that might exist from previous tests.
-    with pytest.raises(Exception):
+    with pytest.raises(FileNotFoundError):
         a = Part('crap', 'R')
-    with pytest.raises(Exception):
+    with pytest.raises(FileNotFoundError):
         b = Part('crap', 'C')
 
 def test_lib_import_1():
@@ -81,10 +82,10 @@ def test_lib_1():
 
 def test_non_existing_lib_cannot_be_loaded():
     for tool in ALL_TOOLS:
-        with pytest.raises(Exception):
+        with pytest.raises(FileNotFoundError):
             lib = SchLib("non-existing", tool = tool)
 
 def test_part_from_non_existing_lib_cannot_be_instantiated():
     for tool in ALL_TOOLS:
-        with pytest.raises(Exception):
+        with pytest.raises(ValueError):
             part = Part("non-existing", "P", tool = tool)

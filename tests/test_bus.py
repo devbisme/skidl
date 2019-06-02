@@ -115,27 +115,27 @@ def test_bus_9():
 def test_bus_10():
     bus1 = Bus('A', 8)
     bus2 = Bus('B', 9)
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         bus1 += bus2
 
 
 def test_bus_11():
     bus1 = Bus('A', 8)
     bus2 = Bus('B', 9)
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         bus2 += bus1
 
 
 def test_bus_12():
     bus1 = Bus('A', 8)
-    with pytest.raises(Exception):
+    with pytest.raises(TypeError):
         bus1[5:0] = 6 * Pin()
 
 
 def test_bus_13():
     bus1 = Bus('A', 8)
     bus1 += 8 * Pin()
-    with pytest.raises(Exception):
+    with pytest.raises(TypeError):
         bus1[5:0] = 6 * Pin()
 
 def test_bus_14():
