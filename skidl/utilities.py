@@ -294,7 +294,7 @@ def add_quotes(s):
     except UnicodeDecodeError:
         # Remove all the non-ascii stuff (like ohm symbols).
         s = s.decode('utf-8')
-        s = s.encode('ascii', 'ignore')
+        s = s.encode('ascii', 'xmlcharrefreplace')
         s = s.decode('utf-8')
 
     return s

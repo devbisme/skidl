@@ -799,20 +799,20 @@ class Part(SkidlBaseObject):
         keys.extend(('ref_prefix', 'num_units', 'fplist', 'do_erc', 'aliases',
                      'pin', 'footprint'))
         attribs = []
-        attribs.append('{}={}'.format('name', repr(self.name)))
-        attribs.append('dest=TEMPLATE')
-        attribs.append('tool=SKIDL')
+        attribs.append("'{}':{}".format('name', repr(self.name)))
+        attribs.append("'dest':TEMPLATE")
+        attribs.append("'tool':SKIDL")
         for k in keys:
             v = getattr(self, k, None)
             if v:
-                attribs.append('{}={}'.format(k, repr(v)))
+                attribs.append("'{}':{}".format(k, repr(v)))
         if self.pins:
             pin_strs = [p.export() for p in self.pins]
-            attribs.append('pins=[{}]'.format(','.join(pin_strs)))
+            attribs.append("'pins':[{}]".format(','.join(pin_strs)))
 
         # Return the string after removing all the non-ascii stuff (like ohm symbols).
-        return 'Part({})'.format(','.join(attribs)).encode(
-            'ascii', 'ignore').decode('utf-8')
+        return 'Part(**{{ {} }})'.format(', '.join(attribs)).encode(
+            'utf-8', 'xmlcharrefreplace').decode('utf-8')
 
     @property
     def ref(self):
