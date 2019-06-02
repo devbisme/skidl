@@ -288,14 +288,11 @@ def add_quotes(s):
     if not isinstance(s, basestring):
         return s
 
-    try:
-        if re.search(r'[\s()]', s):
+    if re.search(r'[\s()]', s):
+        try:
+            s = u'"' + s.decode('utf-8') + u'"'
+        except AttributeError:
             s = '"' + s + '"'
-    except UnicodeDecodeError:
-        # Remove all the non-ascii stuff (like ohm symbols).
-        s = s.decode('utf-8')
-        s = s.encode('ascii', 'xmlcharrefreplace')
-        s = s.decode('utf-8')
 
     return s
 

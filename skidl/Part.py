@@ -746,12 +746,14 @@ class Part(SkidlBaseObject):
 
         try:
             gen_func = getattr(self, '_gen_netlist_comp_{}'.format(tool))
-            return gen_func()
         except AttributeError:
+            import pdb; pdb.set_trace()
             logger.error(
                 "Can't generate netlist in an unknown ECAD tool format ({}).".
                 format(tool))
             raise Exception
+
+        return gen_func()
 
     def generate_xml_component(self, tool=None):
         """
@@ -768,12 +770,13 @@ class Part(SkidlBaseObject):
 
         try:
             gen_func = getattr(self, '_gen_xml_comp_{}'.format(tool))
-            return gen_func()
         except AttributeError:
             logger.error(
                 "Can't generate XML in an unknown ECAD tool format ({}).".
                 format(tool))
             raise Exception
+
+        return gen_func()
 
     def ERC(self, *args, **kwargs):
         """Run class-wide and local ERC functions on this part."""
@@ -811,8 +814,7 @@ class Part(SkidlBaseObject):
             attribs.append("'pins':[{}]".format(','.join(pin_strs)))
 
         # Return the string after removing all the non-ascii stuff (like ohm symbols).
-        return 'Part(**{{ {} }})'.format(', '.join(attribs)).encode(
-            'utf-8', 'xmlcharrefreplace').decode('utf-8')
+        return 'Part(**{{ {} }})'.format(', '.join(attribs))
 
     @property
     def ref(self):
