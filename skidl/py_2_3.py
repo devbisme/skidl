@@ -24,19 +24,19 @@
 Some definitions to make stuff work with both Python 2 & 3.
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
-from __future__ import division
-from __future__ import absolute_import
+from __future__ import absolute_import, division, print_function, unicode_literals
 
-from future import standard_library
-standard_library.install_aliases()
 import sys
 
-USING_PYTHON2 = (sys.version_info.major == 2)
+from future import standard_library
+
+standard_library.install_aliases()
+
+USING_PYTHON2 = sys.version_info.major == 2
 USING_PYTHON3 = not USING_PYTHON2
 
 if USING_PYTHON2:
+
     class FileNotFoundError(OSError):
         pass
 
@@ -45,4 +45,4 @@ if USING_PYTHON3:
     # Python 3 doesn't have basestring,
     # Python 2 doesn't work with type(''),
     # so....
-    basestring = type('')
+    basestring = type("")

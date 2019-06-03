@@ -1,6 +1,8 @@
-from skidl import *
 import os
 import os.path
+
+from skidl import *
+
 
 def convert_libs(from_dir, to_dir):
     lib_files = [l for l in os.listdir(from_dir) if l.endswith(lib_suffixes[KICAD])]

@@ -26,19 +26,15 @@
 Handler for reading SKiDL libraries and generating netlists.
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
-from __future__ import division
-from __future__ import absolute_import
+from __future__ import absolute_import, division, print_function, unicode_literals
 
 from builtins import str
 
+from ..defines import SKIDL
 from ..py_2_3 import *  # pylint: disable=wildcard-import
 
-from ..defines import SKIDL
-
 tool_name = SKIDL
-lib_suffix = '_sklib.py'
+lib_suffix = "_sklib.py"
 
 
 def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
@@ -58,8 +54,10 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
         f, _ = find_and_open_file(filename, lib_search_paths_, lib_suffixes[SKIDL])
     except FileNotFoundError as e:
         raise FileNotFoundError(
-            'Unable to open SKiDL Schematic Library File {} ({})'.format(
-                filename, str(e)))
+            "Unable to open SKiDL Schematic Library File {} ({})".format(
+                filename, str(e)
+            )
+        )
     try:
         # The SKiDL library is stored as a Python module that's executed to
         # recreate the library object.
@@ -74,12 +72,13 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
                 return
 
         # Oops! No library object. Something went wrong.
-        raise ValueError('No SchLib object found in {}'.format(filename))
+        raise ValueError("No SchLib object found in {}".format(filename))
 
     except Exception as e:
-        logger.error('Problem with {}'.format(f))
+        logger.error("Problem with {}".format(f))
         logger.error(e)
         raise
+
 
 def _parse_lib_part_(self, just_get_name=False):  # pylint: disable=unused-argument
     """

@@ -26,32 +26,22 @@
 Utility functions used by the rest of SKiDL.
 """
 
-from __future__ import print_function
-from __future__ import unicode_literals
-from __future__ import division
-from __future__ import absolute_import
-from builtins import super
-from builtins import open
-from builtins import int
-from builtins import dict
-from builtins import str
-from builtins import zip
-from builtins import range
-from builtins import object
+from __future__ import absolute_import, division, print_function, unicode_literals
 
-import sys
+import inspect
+import logging
 import os
 import os.path
 import re
-import logging
-import inspect
+import sys
 import traceback
+from builtins import dict, int, object, open, range, str, super, zip
 from contextlib import contextmanager
 
 from .py_2_3 import *
 
 """Separator for strings containing multiple indices."""
-INDEX_SEPARATOR = ','
+INDEX_SEPARATOR = ","
 
 
 def norecurse(f):
@@ -66,8 +56,7 @@ def norecurse(f):
         # If a function's name is on the stack twice (once for the current call
         # and a second time for the previous call), then return without
         # executing the function.
-        if len([1 for l in traceback.extract_stack()
-                if l[2] == f.__name__]) > 1:
+        if len([1 for l in traceback.extract_stack() if l[2] == f.__name__]) > 1:
             return None
 
         # Otherwise, not a recursive call so execute the function and return result.
@@ -113,10 +102,10 @@ def scriptinfo():
     http://code.activestate.com/recipes/579018-python-determine-name-and-directory-of-the-top-lev/
     """
 
-    #---------------------------------------------------------------------------
+    # ---------------------------------------------------------------------------
     # scan through call stack for caller information
-    #---------------------------------------------------------------------------
-    trc = 'skidl'  # Make sure this gets set to something when in interactive mode.
+    # ---------------------------------------------------------------------------
+    trc = "skidl"  # Make sure this gets set to something when in interactive mode.
     for teil in inspect.stack():
         # skip system calls
         if teil[1].startswith("<"):
@@ -127,7 +116,7 @@ def scriptinfo():
 
     # trc contains highest level calling script name
     # check if we have been compiled
-    if getattr(sys, 'frozen', False):
+    if getattr(sys, "frozen", False):
         scriptdir, scriptname = os.path.split(sys.executable)
         return {"dir": scriptdir, "name": scriptname, "source": trc}
 
@@ -144,10 +133,10 @@ def scriptinfo():
 
 def get_script_name():
     """Return the name of the top-level script."""
-    return os.path.splitext(scriptinfo()['name'])[0]
+    return os.path.splitext(scriptinfo()["name"])[0]
 
 
-def create_logger(title, log_msg_id='', log_file_suffix='.log'):
+def create_logger(title, log_msg_id="", log_file_suffix=".log"):
     """
     Create a logger, usually for run-time errors or ERC violations.
     """
@@ -157,16 +146,13 @@ def create_logger(title, log_msg_id='', log_file_suffix='.log'):
     # Errors & warnings always appear on the terminal.
     handler = logging.StreamHandler(sys.stderr)
     handler.setLevel(logging.WARNING)
-    handler.setFormatter(
-        logging.Formatter(log_msg_id + '%(levelname)s: %(message)s'))
+    handler.setFormatter(logging.Formatter(log_msg_id + "%(levelname)s: %(message)s"))
     logger.addHandler(handler)
 
     # Errors and warnings are stored in a log file with the top-level script's name.
-    handler = logging.StreamHandler(
-        open(get_script_name() + log_file_suffix, 'w'))
+    handler = logging.StreamHandler(open(get_script_name() + log_file_suffix, "w"))
     handler.setLevel(logging.WARNING)
-    handler.setFormatter(
-        logging.Formatter(log_msg_id + '%(levelname)s: %(message)s'))
+    handler.setFormatter(logging.Formatter(log_msg_id + "%(levelname)s: %(message)s"))
     logger.addHandler(handler)
 
     # Set logger to trigger on info, warning, and error messages.
@@ -182,29 +168,25 @@ def create_logger(title, log_msg_id='', log_file_suffix='.log'):
 ###############################################################################
 # Set up loggers for runtime messages and ERC reports.
 
-logger = create_logger('skidl')
-erc_logger = create_logger('ERC_Logger', 'ERC ', '.erc')
+logger = create_logger("skidl")
+erc_logger = create_logger("ERC_Logger", "ERC ", ".erc")
 
 ###############################################################################
 
 
 def is_binary_file(filename):
-    '''Return true if a file contains binary (non-text) characters.'''
-    text_chars = bytearray({7, 8, 9, 10, 12, 13, 27}
-                           | set(range(0x20, 0x100)) - {0x7f})
+    """Return true if a file contains binary (non-text) characters."""
+    text_chars = bytearray({7, 8, 9, 10, 12, 13, 27} | set(range(0x20, 0x100)) - {0x7F})
     try:
-        with open(filename, 'rb') as fp:
+        with open(filename, "rb") as fp:
             return bool(fp.read(1024).translate(None, text_chars))
     except (IOError, FileNotFoundError, TypeError):
         return False
 
 
-def find_and_open_file(filename,
-                       paths=None,
-                       ext=None,
-                       allow_failure=False,
-                       exclude_binary=False,
-                       descend=0):
+def find_and_open_file(
+    filename, paths=None, ext=None, allow_failure=False, exclude_binary=False, descend=0
+):
     """
     Search for a file in list of paths, open it and return file pointer and full file name.
 
@@ -221,7 +203,7 @@ def find_and_open_file(filename,
 
     # If no paths are given, then just check the current directory.
     if not paths:
-        paths = ['.']
+        paths = ["."]
 
     # If the filename has no extension, then give it one.
     if ext and not filename.endswith(ext):
@@ -237,7 +219,7 @@ def find_and_open_file(filename,
         if not exclude_binary or not is_binary_file(abs_filename):
             try:
                 # The search stops once the file is successfully opened.
-                return open(abs_filename, encoding='latin_1'), abs_filename
+                return open(abs_filename, encoding="latin_1"), abs_filename
             except (IOError, FileNotFoundError, TypeError):
                 pass
         # If file not found, look in subdirectories or go to next path.
@@ -252,7 +234,8 @@ def find_and_open_file(filename,
                     ext=ext,
                     allow_failure=True,
                     exclude_binary=exclude_binary,
-                    descend=descend - 1)
+                    descend=descend - 1,
+                )
                 if fp:
                     return fp, fn
 
@@ -260,22 +243,24 @@ def find_and_open_file(filename,
     if allow_failure:
         return None, None
     else:
-        log_and_raise(logger, FileNotFoundError, "Can't open file: {}.\n".format(filename))
+        log_and_raise(
+            logger, FileNotFoundError, "Can't open file: {}.\n".format(filename)
+        )
 
 
 def add_unique_attr(obj, name, value):
     """Create an attribute if the attribute name isn't already used."""
     setattr(obj, name, getattr(obj, name, value))
     # if id(getattr(obj, name)) != id(value):
-        # logger.warn('Unable to create attribute {name} of type {typ1} because one already exists of type {typ2} in {obj}'.format(name=name, typ1=type(value), typ2=type(getattr(obj,name)), obj=str(obj)))
+    # logger.warn('Unable to create attribute {name} of type {typ1} because one already exists of type {typ2} in {obj}'.format(name=name, typ1=type(value), typ2=type(getattr(obj,name)), obj=str(obj)))
 
 
 def num_to_chars(num):
     """Return a string like 'AB' when given a number like 28."""
     num -= 1
-    s = ''
+    s = ""
     while num >= 0:
-        s = chr(ord('A') + (num % 26)) + s
+        s = chr(ord("A") + (num % 26)) + s
         num = num // 26 - 1
     return s
 
@@ -285,9 +270,9 @@ def add_quotes(s):
     if not isinstance(s, basestring):
         return s
 
-    if re.search(r'[\s()]', s):
+    if re.search(r"[\s()]", s):
         try:
-            s = u'"' + s.decode('utf-8') + u'"'
+            s = '"' + s.decode("utf-8") + '"'
         except AttributeError:
             s = '"' + s + '"'
 
@@ -305,7 +290,7 @@ def to_list(x):
 
 def cnvt_to_var_name(s):
     """Convert a string to a legal Python variable name and return it."""
-    return re.sub(r'\W|^(?=\d)', '_', s)
+    return re.sub(r"\W|^(?=\d)", "_", s)
 
 
 def list_or_scalar(lst):
@@ -365,7 +350,7 @@ def get_unique_name(lst, attrib, prefix, initial=None):
     if not initial:
 
         # Get list entries with the prefix followed by a number, e.g.: C55
-        filter_dict = {attrib: re.escape(prefix) + r'\d+'}
+        filter_dict = {attrib: re.escape(prefix) + r"\d+"}
         sub_list = filter_list(lst, **filter_dict)
 
         # If entries were found, then find the smallest available number.
@@ -401,9 +386,9 @@ def get_unique_name(lst, attrib, prefix, initial=None):
 
     # Otherwise, determine how many copies of the name are in the list and
     # append a number to make this name unique.
-    filter_dict = {attrib: re.escape(initial) + r'_\d+'}
+    filter_dict = {attrib: re.escape(initial) + r"_\d+"}
     n = len(filter_list(lst, **filter_dict))
-    initial = initial + '_' + str(n + 1)
+    initial = initial + "_" + str(n + 1)
 
     # Recursively call this routine using the newly-generated name to
     # make sure it's unique. Eventually, a unique name will be returned.
@@ -446,14 +431,14 @@ def filter_list(lst, **criteria):
     """
 
     def strmatch(a, b, flags):
-        '''Case-insensitive string matching.'''
+        """Case-insensitive string matching."""
         return a.lower() == b.lower()
 
     # Determine what type of matching is needed: string or regex.
     # If no do_str_match, then do regex matching.
     # If do_str_match is False, then do regex matching.
     # If do_str_match is True, then do simple string matching.
-    if criteria.pop('do_str_match', False):
+    if criteria.pop("do_str_match", False):
         compare_func = strmatch
     else:
         compare_func = fullmatch
@@ -547,8 +532,11 @@ def expand_indices(slice_min, slice_max, *indices):
         # Do this if it's a downward slice (e.g., [7:0]).
         if start > stop:
             if slc.start and slc.start > slice_max:
-                log_and_raise(logger, IndexError, 'Index out of range ({} > {})!'.format(
-                    slc.start, slice_max))
+                log_and_raise(
+                    logger,
+                    IndexError,
+                    "Index out of range ({} > {})!".format(slc.start, slice_max),
+                )
             # Count down from start to stop.
             stop = stop - step
             step = -step
@@ -556,8 +544,11 @@ def expand_indices(slice_min, slice_max, *indices):
         # Do this if it's a normal (i.e., upward) slice (e.g., [0:7]).
         else:
             if slc.stop and slc.stop > slice_max:
-                log_and_raise(logger, IndexError, 'Index out of range ({} > {})!'.format(
-                    slc.stop, slice_max))
+                log_and_raise(
+                    logger,
+                    IndexError,
+                    "Index out of range ({} > {})!".format(slc.stop, slice_max),
+                )
             # Count up from start to stop
             stop += step
 
@@ -579,8 +570,9 @@ def expand_indices(slice_min, slice_max, *indices):
                 # added to the list.
                 ids.extend(explode(id.strip()))
         else:
-            log_and_raise(logger, TypeError,
-                          'Unknown type in index: {}.'.format(type(indx)))
+            log_and_raise(
+                logger, TypeError, "Unknown type in index: {}.".format(type(indx))
+            )
 
     # Return the completely expanded list of indices.
     return ids
@@ -604,15 +596,15 @@ def explode(bus_str):
         list with the original input string if it's not a valid bus expression.
     """
 
-    bus = re.match(r'^([A-Za-z_]+)\[([0-9]+):([0-9]+)\]$', bus_str)
+    bus = re.match(r"^([A-Za-z_]+)\[([0-9]+):([0-9]+)\]$", bus_str)
     if not bus:
-        return [bus_str] # Not a valid bus expression, so return input string.
+        return [bus_str]  # Not a valid bus expression, so return input string.
     bus_name = bus.group(1)
     begin_num = int(bus.group(2))
     end_num = int(bus.group(3))
-    dir = [1, -1][int(begin_num > end_num)] # Bus indexes increasing or decreasing?
-    bus_pin_nums = range(begin_num, end_num+dir, dir)
-    return [bus_name+str(n) for n in bus_pin_nums]
+    dir = [1, -1][int(begin_num > end_num)]  # Bus indexes increasing or decreasing?
+    bus_pin_nums = range(begin_num, end_num + dir, dir)
+    return [bus_name + str(n) for n in bus_pin_nums]
 
 
 def find_num_copies(**attribs):
@@ -642,11 +634,17 @@ def find_num_copies(**attribs):
 
     num_copies = list(num_copies)
     if len(num_copies) > 2:
-        log_and_raise(logger, ValueError,
-            "Mismatched lengths of attributes: {}!".format(num_copies))
+        log_and_raise(
+            logger,
+            ValueError,
+            "Mismatched lengths of attributes: {}!".format(num_copies),
+        )
     elif len(num_copies) > 1 and min(num_copies) > 1:
-        log_and_raise(logger, ValueError,
-            "Mismatched lengths of attributes: {}!".format(num_copies))
+        log_and_raise(
+            logger,
+            ValueError,
+            "Mismatched lengths of attributes: {}!".format(num_copies),
+        )
 
     try:
         return max(num_copies)
@@ -665,7 +663,7 @@ def opened(f_or_fn, mode):
        mode: The mode to open the file in.
     """
     if isinstance(f_or_fn, basestring):
-        with open(f_or_fn, mode, encoding='latin_1') as f:
+        with open(f_or_fn, mode, encoding="latin_1") as f:
             yield f
     elif hasattr(f_or_fn, "fileno"):
         if mode.replace("+", "") == f_or_fn.mode.replace("+", ""):
@@ -677,8 +675,10 @@ def opened(f_or_fn, mode):
                 yield f
     else:
         raise TypeError(
-            "argument must be a filename or a file-like object (is: {})".
-            format(type(f_or_fn)))
+            "argument must be a filename or a file-like object (is: {})".format(
+                type(f_or_fn)
+            )
+        )
 
 
 def expand_buses(pins_nets_buses):
@@ -719,15 +719,17 @@ def exec_function_list(inst, list_name, *args, **kwargs):
         for f in inst.__dict__[list_name]:
             f(inst, *args, **kwargs)
 
+
 def add_to_function_list(class_or_inst, list_name, func):
     """Append a function to a function list of a class or class instance."""
     if list_name not in class_or_inst.__dict__:
         setattr(class_or_inst, list_name, [])
     getattr(class_or_inst, list_name).append(func)
 
+
 def add_erc_function(class_or_inst, func):
     """Add an ERC function to a class or class instance."""
-    add_to_function_list(class_or_inst, 'erc_list', func)
+    add_to_function_list(class_or_inst, "erc_list", func)
 
 
 def log_and_raise(logger_in, exc_class, message):

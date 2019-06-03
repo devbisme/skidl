@@ -30,8 +30,8 @@ An interface from SKiDL to PySpice.
 # a pyspice dictionary that is added as an attribute to the SKiDL Part object.
 
 
-from skidl import Pin, Part, SchLib, SKIDL, TEMPLATE
-from skidl.tools.spice import not_implemented, add_part_to_circuit
+from skidl import SKIDL, TEMPLATE, Part, Pin, SchLib
+from skidl.tools.spice import add_part_to_circuit, not_implemented
 
 # Pin aliases.
 _POS_DIPOLE_ALIASES = ['+', 'plus', 'anode', 'A']

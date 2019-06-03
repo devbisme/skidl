@@ -26,25 +26,23 @@
 Definitions used everywhere.
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
-from __future__ import division
-from __future__ import absolute_import
+from __future__ import absolute_import, division, print_function, unicode_literals
 
 # Places where parts can be stored.
 #   NETLIST: The part will become part of a circuit netlist.
 #   LIBRARY: The part will be placed in the part list for a library.
 #   TEMPLATE: The part will be used as a template to be copied from.
 from future import standard_library
+
 standard_library.install_aliases()
-NETLIST, LIBRARY, TEMPLATE = ['NETLIST', 'LIBRARY', 'TEMPLATE']
+NETLIST, LIBRARY, TEMPLATE = ["NETLIST", "LIBRARY", "TEMPLATE"]
 
 # Prefixes for implicit nets and buses.
-NET_PREFIX = 'N$'
-BUS_PREFIX = 'B$'
+NET_PREFIX = "N$"
+BUS_PREFIX = "B$"
 
 # Supported ECAD tools.
-ALL_TOOLS = KICAD, SKIDL, SPICE = ['kicad', 'skidl', 'spice']
+ALL_TOOLS = KICAD, SKIDL, SPICE = ["kicad", "skidl", "spice"]
 
 # Utility for changing the net and bus prefixes.
 def set_net_bus_prefixes(net, bus):

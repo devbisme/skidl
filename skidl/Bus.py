@@ -26,24 +26,22 @@
 Handles buses.
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
-from __future__ import division
-from __future__ import absolute_import
+from __future__ import absolute_import, division, print_function, unicode_literals
 
-from builtins import range
-from builtins import str
+from builtins import range, str
+
 from future import standard_library
+
+from .baseobj import SkidlBaseObject
+from .defines import *
+from .utilities import *
+
 standard_library.install_aliases()
 
 try:
     import __builtin__ as builtins
 except ImportError:
     import builtins
-
-from .defines import *
-from .baseobj import SkidlBaseObject
-from .utilities import *
 
 
 class Bus(SkidlBaseObject):
@@ -76,14 +74,16 @@ class Bus(SkidlBaseObject):
             circuit = builtins.default_circuit
 
         search_params = (
-            ('name', name, True),
-            ('aliases', name, True),
-            #('name', ''.join(('.*',name,'.*')), False),
-            #('aliases', Alias(''.join(('.*',name,'.*'))), False)
+            ("name", name, True),
+            ("aliases", name, True),
+            # ('name', ''.join(('.*',name,'.*')), False),
+            # ('aliases', Alias(''.join(('.*',name,'.*'))), False)
         )
 
         for attr, name, do_str_match in search_params:
-            buses = filter_list(circuit.buses, do_str_match=do_str_match, **{attr:name})
+            buses = filter_list(
+                circuit.buses, do_str_match=do_str_match, **{attr: name}
+            )
             if buses:
                 return list_or_scalar(buses)
 
@@ -93,8 +93,8 @@ class Bus(SkidlBaseObject):
     def fetch(cls, name, *args, **attribs):
         """Get the bus with the given name from a circuit, or create it if not found."""
 
-        circuit = attribs.get('circuit', builtins.default_circuit)
-        return cls.get(name, circuit=circuit) or cls(name, *args, **attribs) 
+        circuit = attribs.get("circuit", builtins.default_circuit)
+        return cls.get(name, circuit=circuit) or cls(name, *args, **attribs)
 
     def __init__(self, name, *args, **attribs):
 
@@ -106,7 +106,9 @@ class Bus(SkidlBaseObject):
         # For Bus objects, the circuit object the bus is a member of is passed
         # in with all the other attributes. If a circuit object isn't provided,
         # then the default circuit object is added to the attributes.
-        attribs['circuit'] = attribs.get('circuit', default_circuit)  # pylint: disable=undefined-variable
+        attribs["circuit"] = attribs.get(
+            "circuit", default_circuit
+        )  # pylint: disable=undefined-variable
 
         # Attach additional attributes to the bus. (The Circuit object also gets
         # set here.)
@@ -118,8 +120,12 @@ class Bus(SkidlBaseObject):
         self.name = name
 
         # Add the bus to the circuit.
-        self.circuit = None  # Bus won't get added if it's already seen as part of circuit.
-        attribs['circuit'] += self  # Add bus to circuit. This also sets self.circuit again.
+        self.circuit = (
+            None
+        )  # Bus won't get added if it's already seen as part of circuit.
+        attribs[
+            "circuit"
+        ] += self  # Add bus to circuit. This also sets self.circuit again.
 
         # Build the bus from net widths, existing nets, nets of pins, other buses.
         self.extend(args)
@@ -164,9 +170,13 @@ class Bus(SkidlBaseObject):
                     self.nets.insert(index, n)
                 index += len(obj)
             else:
-                log_and_raise(logger, ValueError,
-                    'Adding illegal type of object ({}) to Bus {}.'.format(
-                        type(obj), self.name))
+                log_and_raise(
+                    logger,
+                    ValueError,
+                    "Adding illegal type of object ({}) to Bus {}.".format(
+                        type(obj), self.name
+                    ),
+                )
 
         # Assign names to all the unnamed nets in the bus.
         for i, net in enumerate(self.nets):
@@ -220,13 +230,21 @@ class Bus(SkidlBaseObject):
 
         # Check that a valid number of copies is requested.
         if not isinstance(num_copies, int):
-            log_and_raise(logger, ValueError,
-                "Can't make a non-integer number ({}) of copies of a bus!".
-                          format(num_copies))
+            log_and_raise(
+                logger,
+                ValueError,
+                "Can't make a non-integer number ({}) of copies of a bus!".format(
+                    num_copies
+                ),
+            )
         if num_copies < 0:
-            log_and_raise(logger, ValueError,
+            log_and_raise(
+                logger,
+                ValueError,
                 "Can't make a negative number ({}) of copies of a bus!".format(
-                    num_copies))
+                    num_copies
+                ),
+            )
 
         copies = []
         for i in range(num_copies):
@@ -239,9 +257,13 @@ class Bus(SkidlBaseObject):
                     try:
                         v = v[i]
                     except IndexError:
-                        log_and_raise(logger, ValueError,
-                            "{} copies of bus {} were requested, but too few elements in attribute {}!".
-                                      format(num_copies, self.name, k))
+                        log_and_raise(
+                            logger,
+                            ValueError,
+                            "{} copies of bus {} were requested, but too few elements in attribute {}!".format(
+                                num_copies, self.name, k
+                            ),
+                        )
                 setattr(cpy, k, v)
 
             copies.append(cpy)
@@ -283,7 +305,9 @@ class Bus(SkidlBaseObject):
             elif isinstance(ident, basestring):
                 nets.extend(filter_list(self.nets, name=ident))
             else:
-                log_and_raise(logger, TypeError, "Can't index bus with a {}.".format(type(ident)))
+                log_and_raise(
+                    logger, TypeError, "Can't index bus with a {}.".format(type(ident))
+                )
 
         if len(nets) == 0:
             # No nets were selected from the bus, so return None.
@@ -319,7 +343,7 @@ class Bus(SkidlBaseObject):
 
         # If the iadd_flag is set, then it's OK that we got
         # here and don't issue an error. Also, delete the flag.
-        if getattr(pins_nets_buses[0], 'iadd_flag', False):
+        if getattr(pins_nets_buses[0], "iadd_flag", False):
             del pins_nets_buses[0].iadd_flag
             return
 
@@ -331,7 +355,7 @@ class Bus(SkidlBaseObject):
         """
         Return an iterator for stepping thru individual lines of the bus.
         """
-        return (self[l] for l in range(len(self))) # Return generator expr.
+        return (self[l] for l in range(len(self)))  # Return generator expr.
 
     def is_movable(self):
         """
@@ -391,8 +415,7 @@ class Bus(SkidlBaseObject):
 
         # Now name the object with the given name or some variation
         # of it that doesn't collide with anything else in the list.
-        self._name = get_unique_name(self.circuit.buses, 'name',
-                                     BUS_PREFIX, name)
+        self._name = get_unique_name(self.circuit.buses, "name", BUS_PREFIX, name)
 
     @name.deleter
     def name(self):
@@ -401,8 +424,7 @@ class Bus(SkidlBaseObject):
 
     def __str__(self):
         """Return a list of the nets in this bus as a string."""
-        return self.name + ':\n\t' + '\n\t'.join(
-            [n.__str__() for n in self.nets])
+        return self.name + ":\n\t" + "\n\t".join([n.__str__() for n in self.nets])
 
     __repr__ = __str__
 
@@ -418,4 +440,5 @@ class Bus(SkidlBaseObject):
     def __bool__(self):
         """Any valid Bus is True"""
         return True
+
     __nonzero__ = __bool__  # Python 2 compatibility.

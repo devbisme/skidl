@@ -1,27 +1,29 @@
 import pytest
+
 from skidl import *
+
 from .setup_teardown import *
 
-def test_subcircuit_1():
 
+def test_subcircuit_1():
     class Resistor(Part):
-        def __init__(self, value, ref=None, footprint='Resistors_SMD:R_0805'):
-            super().__init__('device', 'R', value=value, ref=ref, footprint=footprint)
+        def __init__(self, value, ref=None, footprint="Resistors_SMD:R_0805"):
+            super().__init__("device", "R", value=value, ref=ref, footprint=footprint)
 
     @subcircuit
     def resdiv():
-        gnd = Net('GND') # Ground reference.
-        vin = Net('VI')  # Input voltage to the divider.
-        vout = Net('VO')  # Output voltage from the divider.
+        gnd = Net("GND")  # Ground reference.
+        vin = Net("VI")  # Input voltage to the divider.
+        vout = Net("VO")  # Output voltage from the divider.
 
-        r1 = Resistor('1k')
-        r2 = Resistor('500')
+        r1 = Resistor("1k")
+        r2 = Resistor("500")
 
-        cap = Part('device','C', dest=TEMPLATE)
+        cap = Part("device", "C", dest=TEMPLATE)
         c1 = cap()
-        c2 = cap(value='1uF')
+        c2 = cap(value="1uF")
 
-        bus1 = Bus('BB',10)
+        bus1 = Bus("BB", 10)
 
         r1[1] += vin  # Connect the input to the first resistor.
         r2[2] += gnd  # Connect the second resistor to ground.
@@ -38,48 +40,48 @@ def test_subcircuit_1():
     generate_netlist()
     generate_xml()
 
+
 def test_subcircuit_2():
-
     class Resistor(Part):
-        def __init__(self, value, ref=None, footprint='Resistors_SMD:R_0805'):
-            super().__init__('device', 'R', value=value, ref=ref, footprint=footprint)
+        def __init__(self, value, ref=None, footprint="Resistors_SMD:R_0805"):
+            super().__init__("device", "R", value=value, ref=ref, footprint=footprint)
 
-    @subcircuit    
+    @subcircuit
     def resdiv_1():
-        gnd = Net('GND') # Ground reference.
-        vin = Net('VI')  # Input voltage to the divider.
-        vout = Net('VO')  # Output voltage from the divider.
+        gnd = Net("GND")  # Ground reference.
+        vin = Net("VI")  # Input voltage to the divider.
+        vout = Net("VO")  # Output voltage from the divider.
 
-        r1 = Resistor('1k')
-        r2 = Resistor('500')
+        r1 = Resistor("1k")
+        r2 = Resistor("500")
 
-        cap = Part('device','C', dest=TEMPLATE)
+        cap = Part("device", "C", dest=TEMPLATE)
         c1 = cap()
-        c2 = cap(value='1uF')
+        c2 = cap(value="1uF")
 
-        bus1 = Bus('BB',10)
+        bus1 = Bus("BB", 10)
 
         r1[1] += vin  # Connect the input to the first resistor.
         r2[2] += gnd  # Connect the second resistor to ground.
         vout += r1[2], r2[1]  # Output comes from the connection of the two resistors.
 
-    @subcircuit    
+    @subcircuit
     def resdiv_2():
         resdiv_1()
         resdiv_1()
 
-        a = Net('GND') # Ground reference.
-        b = Net('VI')  # Input voltage to the divider.
-        c = Net('VO')  # Output voltage from the divider.
+        a = Net("GND")  # Ground reference.
+        b = Net("VI")  # Input voltage to the divider.
+        c = Net("VO")  # Output voltage from the divider.
 
-        r1 = Resistor('1k')
-        r2 = Resistor('500')
+        r1 = Resistor("1k")
+        r2 = Resistor("500")
 
-        cap = Part('device','C', dest=TEMPLATE)
+        cap = Part("device", "C", dest=TEMPLATE)
         c1 = cap()
-        c2 = cap(value='1uF')
+        c2 = cap(value="1uF")
 
-        bus1 = Bus('BB',10)
+        bus1 = Bus("BB", 10)
 
         r1[1] += a  # Connect the input to the first resistor.
         r2[2] += b  # Connect the second resistor to ground.

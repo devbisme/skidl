@@ -28,10 +28,8 @@ This package contains the handler functions for various EDA tools.
 
 import os
 import os.path
-from .. import SchLib
-from .. import Circuit
-from .. import Part
-from .. import Net
+
+from .. import Circuit, Net, Part, SchLib
 
 lib_suffixes = {}
 
@@ -42,37 +40,37 @@ directory = os.path.dirname(__file__)
 for module in os.listdir(directory):
 
     # Avoid directories like __pycache__.
-    if module.startswith('__'):
+    if module.startswith("__"):
         continue
 
     module_name, module_ext = os.path.splitext(os.path.basename(module))
 
     # Don't import anything but Python files.
-    if module_ext not in ('.py',):
+    if module_ext not in (".py",):
         continue
 
     # Import the module.
     mod = __import__(module_name, globals(), locals(), [], level=1)
 
     # Get some info from the imported module.
-    tool_name = getattr(mod, 'tool_name')
-    lib_suffix = getattr(mod, 'lib_suffix')
+    tool_name = getattr(mod, "tool_name")
+    lib_suffix = getattr(mod, "lib_suffix")
 
     # Store library file suffix for this tool.
     lib_suffixes[tool_name] = lib_suffix
 
     # Make the methods for this tool available where they are needed.
     for class_, method in (
-            (SchLib.SchLib, '_load_sch_lib_'),
-            (Part.Part, '_parse_lib_part_'),
-            (Circuit.Circuit, '_gen_netlist_'),
-            (Part.Part, '_gen_netlist_comp_'),
-            (Net.Net, '_gen_netlist_net_'),
-            (Circuit.Circuit, '_gen_xml_'),
-            (Part.Part, '_gen_xml_comp_'),
-            (Net.Net, '_gen_xml_net_'),
-            ):
+        (SchLib.SchLib, "_load_sch_lib_"),
+        (Part.Part, "_parse_lib_part_"),
+        (Circuit.Circuit, "_gen_netlist_"),
+        (Part.Part, "_gen_netlist_comp_"),
+        (Net.Net, "_gen_netlist_net_"),
+        (Circuit.Circuit, "_gen_xml_"),
+        (Part.Part, "_gen_xml_comp_"),
+        (Net.Net, "_gen_xml_net_"),
+    ):
         try:
-            setattr(class_, method+tool_name, getattr(mod, method))
+            setattr(class_, method + tool_name, getattr(mod, method))
         except AttributeError:
             pass  # No method implemented for this ECAD tool.

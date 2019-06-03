@@ -26,15 +26,15 @@
 Handles schematic libraries for various ECAD tools.
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
-from __future__ import division
-from __future__ import absolute_import
+from __future__ import absolute_import, division, print_function, unicode_literals
+
 from builtins import str
+
 from future import standard_library
-standard_library.install_aliases()
 
 from .utilities import *
+
+standard_library.install_aliases()
 
 
 class SchLib(object):
@@ -87,11 +87,14 @@ class SchLib(object):
         else:
             try:
                 # Use the tool name to find the function for loading the library.
-                load_func = getattr(self, '_load_sch_lib_{}'.format(tool))
+                load_func = getattr(self, "_load_sch_lib_{}".format(tool))
             except AttributeError:
                 # OK, that didn't work so well...
-                log_and_raise(logger, ValueError,
-                              'Unsupported ECAD tool library: {}.'.format(tool))
+                log_and_raise(
+                    logger,
+                    ValueError,
+                    "Unsupported ECAD tool library: {}.".format(tool),
+                )
             else:
                 load_func(filename, skidl.lib_search_paths[tool])
                 self.filename = filename
@@ -112,8 +115,7 @@ class SchLib(object):
             # Parts with the same name are not allowed in the library.
             # Also, do not check the backup library to see if the parts
             # are in there because that's probably a different library.
-            if not self.get_parts(
-                    use_backup_lib=False, name=re.escape(part.name)):
+            if not self.get_parts(use_backup_lib=False, name=re.escape(part.name)):
                 self.parts.append(part.copy(dest=TEMPLATE))
         return self
 
@@ -167,8 +169,9 @@ class SchLib(object):
 
             # No part with that alias either, so signal an error.
             if not parts:
-                message = 'Unable to find part {} in library {}.'.format(
-                    name, getattr(self, 'filename', 'UNKNOWN'))
+                message = "Unable to find part {} in library {}.".format(
+                    name, getattr(self, "filename", "UNKNOWN")
+                )
                 if not silent:
                     logger.error(message)
                 raise ValueError(message)
@@ -186,8 +189,10 @@ class SchLib(object):
             else:
                 if not silent:
                     logger.warning(
-                        'Found multiple parts matching {}. Selecting {}.'.
-                        format(name, parts[0].name))
+                        "Found multiple parts matching {}. Selecting {}.".format(
+                            name, parts[0].name
+                        )
+                    )
                 parts = parts[0]
                 parts.parse()
 
@@ -203,8 +208,7 @@ class SchLib(object):
 
     def __str__(self):
         """Return a list of the part names in this library as a string."""
-        return '\n'.join(
-            ['{}: {}'.format(p.name, p.description) for p in self.parts])
+        return "\n".join(["{}: {}".format(p.name, p.description) for p in self.parts])
 
     __repr__ = __str__
 
@@ -224,8 +228,8 @@ class SchLib(object):
 
         def prettify(s):
             """Breakup and indent library export string."""
-            s = re.sub(r'(Part\()', r'\n        \1', s)
-            s = re.sub(r'(Pin\()', r'\n            \1', s)
+            s = re.sub(r"(Part\()", r"\n        \1", s)
+            s = re.sub(r"(Pin\()", r"\n            \1", s)
             return s
 
         import skidl
@@ -237,11 +241,12 @@ class SchLib(object):
         if not file_:
             file_ = libname + skidl.lib_suffixes[tool]
 
-        export_str = 'from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE\n\n'
+        export_str = "from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE\n\n"
         export_str += "SKIDL_lib_version = '0.0.1'\n\n"
-        part_export_str = ','.join([p.export() for p in self.parts])
-        export_str += '{} = SchLib(tool=SKIDL).add_parts(*[{}])'.format(
-            cnvt_to_var_name(libname), part_export_str)
+        part_export_str = ",".join([p.export() for p in self.parts])
+        export_str += "{} = SchLib(tool=SKIDL).add_parts(*[{}])".format(
+            cnvt_to_var_name(libname), part_export_str
+        )
         export_str = prettify(export_str)
         with opened(file_, "w") as f:
             f.write(export_str)

@@ -22,30 +22,27 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-from __future__ import print_function
-from __future__ import unicode_literals
-from __future__ import division
-from __future__ import absolute_import
+from __future__ import absolute_import, division, print_function, unicode_literals
 
 from builtins import open
 
-from .py_2_3 import *  # pylint: disable=wildcard-import
-from .defines import *
-from .utilities import *  # pylint: disable=wildcard-import
 from . import tools  # Import EDA tool-specific stuff.
-from .SchLib import *
-from .Pin import *
 from .Alias import *
-from .Note import *
-from .Part import *
+from .Bus import *
+from .Circuit import *
+from .defines import *
+from .Interface import *
 from .Net import *
 from .netclass import *
-from .Bus import *
-from .Network import *
-from .Interface import *
 from .NetPinList import *
-from .Circuit import *
+from .Network import *
+from .Note import *
+from .Part import *
 from .part_query import *
+from .Pin import *
+from .py_2_3 import *  # pylint: disable=wildcard-import
+from .SchLib import *
+from .utilities import *  # pylint: disable=wildcard-import
 
 ###############################################################################
 # Globals that are used by everything else.
@@ -68,30 +65,25 @@ def get_default_tool():
 # These are the paths to search for part libraries of the ECAD tools.
 # Start off with a path that allows absolute file names, and then searches
 # within the current directory.
-lib_search_paths = {
-    KICAD: ['', '.'],
-    SKIDL: ['', '.'],
-    SPICE: ['', '.'],
-}
+lib_search_paths = {KICAD: ["", "."], SKIDL: ["", "."], SPICE: ["", "."]}
 
 # Add the location of the default KiCad schematic part libs to the search path.
 try:
-    lib_search_paths[KICAD].append(os.environ['KICAD_SYMBOL_DIR'])
+    lib_search_paths[KICAD].append(os.environ["KICAD_SYMBOL_DIR"])
 except KeyError:
     logger.warning(
         "KICAD_SYMBOL_DIR environment variable is missing, so the default KiCad symbol libraries won't be searched."
     )
 
 # Add the location of the default SKiDL part libraries.
-default_skidl_libs = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), 'libs')
+default_skidl_libs = os.path.join(os.path.dirname(os.path.abspath(__file__)), "libs")
 lib_search_paths[SKIDL].append(default_skidl_libs)
 
 # Make the various EDA tool library suffixes globally available.
 lib_suffixes = tools.lib_suffixes
 
 # Definitions for backup library of circuit parts.
-BACKUP_LIB_NAME = get_script_name() + '_lib'
+BACKUP_LIB_NAME = get_script_name() + "_lib"
 BACKUP_LIB_FILE_NAME = BACKUP_LIB_NAME + lib_suffixes[SKIDL]
 
 # Boolean controls whether backup lib will be searched for missing parts.
@@ -149,7 +141,9 @@ builtins.NC = default_circuit.NC  # pylint: disable=undefined-variable
 
 # Create calls to functions on whichever Circuit object is the current default.
 ERC = default_circuit.ERC  # pylint: disable=undefined-variable
-generate_netlist = default_circuit.generate_netlist  # pylint: disable=undefined-variable
+generate_netlist = (
+    default_circuit.generate_netlist
+)  # pylint: disable=undefined-variable
 generate_xml = default_circuit.generate_xml  # pylint: disable=undefined-variable
 generate_graph = default_circuit.generate_graph  # pylint: disable=undefined-variable
 reset = default_circuit.reset  # pylint: disable=undefined-variable

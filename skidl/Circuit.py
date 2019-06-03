@@ -26,14 +26,22 @@
 Handles complete circuits made of parts and nets.
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
-from __future__ import division
-from __future__ import absolute_import
+from __future__ import absolute_import, division, print_function, unicode_literals
 
-from builtins import range
-from builtins import str
+import inspect
+import os.path
+import time
+from builtins import range, str
+from collections import defaultdict
+
+import graphviz
 from future import standard_library
+
+from .baseobj import SkidlBaseObject
+from .erc import dflt_circuit_erc
+from .pckg_info import __version__
+from .utilities import *
+
 standard_library.install_aliases()
 
 try:
@@ -41,18 +49,9 @@ try:
 except ImportError:
     import builtins
 
-import os.path
-import inspect
-import time
-import graphviz
-
-
-from .pckg_info import __version__
-from .erc import dflt_circuit_erc
-from .baseobj import SkidlBaseObject
-from .utilities import *
 
 OK, WARNING, ERROR = range(3)
+
 
 class Circuit(SkidlBaseObject):
     """
@@ -99,20 +98,20 @@ class Circuit(SkidlBaseObject):
 
         from .Net import NCNet
 
-        self.name = ''
+        self.name = ""
         self.parts = []
         self.nets = []
         self.netclasses = {}
         self.buses = []
         self.interfaces = []
-        self.hierarchy = 'top'
+        self.hierarchy = "top"
         self.level = 0
-        self.context = [('top', )]
+        self.context = [("top",)]
 
         # Clear out the no-connect net and set the global no-connect if it's
         # tied to this circuit.
         self.NC = NCNet(
-            name='__NOCONNECT', circuit=self
+            name="__NOCONNECT", circuit=self
         )  # Net for storing no-connects for parts in this circuit.
         if not init and self is default_circuit:
             builtins.NC = self.NC
@@ -130,9 +129,13 @@ class Circuit(SkidlBaseObject):
                         part.circuit -= part
 
                     # Add the part to this circuit.
-                    part.circuit = self  # Record the Circuit object the part belongs to.
+                    part.circuit = (
+                        self
+                    )  # Record the Circuit object the part belongs to.
                     part.ref = part.ref  # This adjusts the part reference if necessary.
-                    part.hierarchy = self.hierarchy  # Tag the part with its hierarchy position.
+                    part.hierarchy = (
+                        self.hierarchy
+                    )  # Tag the part with its hierarchy position.
 
                     # To determine where this part was created, trace the function
                     # calls that led to this part and place into a field
@@ -162,17 +165,19 @@ class Circuit(SkidlBaseObject):
                         # and the line number of the call in the file. Append these
                         # to the trace.
                         filepath = os.path.abspath(filename)
-                        skidl_trace.append('#'.join((filepath, str(lineno))))
+                        skidl_trace.append("#".join((filepath, str(lineno))))
                     # Store the function call trace into a part field.
                     if skidl_trace:
-                        part.skidl_trace = ';'.join(skidl_trace)
+                        part.skidl_trace = ";".join(skidl_trace)
 
                     self.parts.append(part)
 
                 else:
-                    log_and_raise(logger, ValueError,
-                        "Can't add unmovable part {} to this circuit.".format(
-                            part.ref))
+                    log_and_raise(
+                        logger,
+                        ValueError,
+                        "Can't add unmovable part {} to this circuit.".format(part.ref),
+                    )
 
     def rmv_parts(self, *parts):
         """Remove some Part objects from the circuit."""
@@ -184,12 +189,16 @@ class Circuit(SkidlBaseObject):
                     self.parts.remove(part)
                 else:
                     logger.warning(
-                        "Removing non-existent part {} from this circuit.".
-                        format(part.ref))
+                        "Removing non-existent part {} from this circuit.".format(
+                            part.ref
+                        )
+                    )
             else:
-                log_and_raise(logger, ValueError,
-                    "Can't remove part {} from this circuit.".format(
-                    part.ref))
+                log_and_raise(
+                    logger,
+                    ValueError,
+                    "Can't remove part {} from this circuit.".format(part.ref),
+                )
 
     def add_nets(self, *nets):
         """Add some Net objects to the circuit. Assign a net name if necessary."""
@@ -206,13 +215,17 @@ class Circuit(SkidlBaseObject):
                     # Add the net to this circuit.
                     net.circuit = self  # Record the Circuit object the net belongs to.
                     net.name = net.name
-                    net.hierarchy = self.hierarchy  # Tag the net with its hierarchy position.
+                    net.hierarchy = (
+                        self.hierarchy
+                    )  # Tag the net with its hierarchy position.
                     self.nets.append(net)
 
                 else:
-                    log_and_raise(logger, ValueError,
-                        "Can't add unmovable net {} to this circuit.".format(
-                            net.name))
+                    log_and_raise(
+                        logger,
+                        ValueError,
+                        "Can't add unmovable net {} to this circuit.".format(net.name),
+                    )
 
     def rmv_nets(self, *nets):
         """Remove some Net objects from the circuit."""
@@ -224,12 +237,16 @@ class Circuit(SkidlBaseObject):
                     self.nets.remove(net)
                 else:
                     logger.warning(
-                        "Removing non-existent net {} from this circuit.".
-                        format(net.name))
+                        "Removing non-existent net {} from this circuit.".format(
+                            net.name
+                        )
+                    )
             else:
-                log_and_raise(logger, ValueError,
-                    "Can't remove unmovable net {} from this circuit.".format(
-                        net.name))
+                log_and_raise(
+                    logger,
+                    ValueError,
+                    "Can't remove unmovable net {} from this circuit.".format(net.name),
+                )
 
     def add_buses(self, *buses):
         """Add some Bus objects to the circuit. Assign a bus name if necessary."""
@@ -247,7 +264,9 @@ class Circuit(SkidlBaseObject):
                     # Add the bus to this circuit.
                     bus.circuit = self
                     bus.name = bus.name
-                    bus.hierarchy = self.hierarchy  # Tag the bus with its hierarchy position.
+                    bus.hierarchy = (
+                        self.hierarchy
+                    )  # Tag the bus with its hierarchy position.
                     self.buses.append(bus)
                     for net in bus.nets:
                         self += net
@@ -264,12 +283,16 @@ class Circuit(SkidlBaseObject):
                         self.nets.remove(net)
                 else:
                     logger.warning(
-                        "Removing non-existent bus {} from this circuit.".
-                        format(bus.name))
+                        "Removing non-existent bus {} from this circuit.".format(
+                            bus.name
+                        )
+                    )
             else:
-                log_and_raise(logger, ValueError,
-                    "Can't remove unmovable bus {} from this circuit.".format(
-                        bus.name))
+                log_and_raise(
+                    logger,
+                    ValueError,
+                    "Can't remove unmovable bus {} from this circuit.".format(bus.name),
+                )
 
     def add_interfaces(self, *interfaces):
         """Add some Interface objects to the circuit. Assign an interface name if necessary."""
@@ -287,7 +310,9 @@ class Circuit(SkidlBaseObject):
                     # Add the interface to this circuit.
                     interface.circuit = self
                     interface.name = interface.name
-                    interface.hierarchy = self.hierarchy  # Tag the bus with its hierarchy position.
+                    interface.hierarchy = (
+                        self.hierarchy
+                    )  # Tag the bus with its hierarchy position.
                     self.interfaces.append(interface)
 
     def rmv_interfaces(self, *interfaces):
@@ -300,12 +325,18 @@ class Circuit(SkidlBaseObject):
                     self.interfaces.remove(interface)
                 else:
                     logger.warning(
-                        "Removing non-existent interface {} from this circuit.".
-                        format(interface.name))
+                        "Removing non-existent interface {} from this circuit.".format(
+                            interface.name
+                        )
+                    )
             else:
-                log_and_raise(logger, ValueError,
+                log_and_raise(
+                    logger,
+                    ValueError,
                     "Can't remove unmovable interface {} from this circuit.".format(
-                        interface.name))
+                        interface.name
+                    ),
+                )
 
     def add_stuff(self, *stuff):
         """Add Parts, Nets, Buses, and Interfaces to the circuit."""
@@ -325,8 +356,11 @@ class Circuit(SkidlBaseObject):
             elif isinstance(thing, Interface):
                 self.add_interfaces(thing)
             else:
-                log_and_raise(logger, ValueError,"Can't add a {} to a Circuit object.".format(
-                    type(thing)))
+                log_and_raise(
+                    logger,
+                    ValueError,
+                    "Can't add a {} to a Circuit object.".format(type(thing)),
+                )
         return self
 
     def rmv_stuff(self, *stuff):
@@ -347,8 +381,11 @@ class Circuit(SkidlBaseObject):
             elif isinstance(thing, Interface):
                 self.rmv_interfaces(thing)
             else:
-                log_and_raise(logger, ValueError,"Can't remove a {} from a Circuit object.".format(
-                    type(pnb)))
+                log_and_raise(
+                    logger,
+                    ValueError,
+                    "Can't remove a {} from a Circuit object.".format(type(pnb)),
+                )
         return self
 
     __iadd__ = add_stuff
@@ -382,7 +419,7 @@ class Circuit(SkidlBaseObject):
         erc_logger.error.reset()
         erc_logger.warning.reset()
 
-        exec_function_list(self, 'erc_list', *args, **kwargs)
+        exec_function_list(self, "erc_list", *args, **kwargs)
 
     def _merge_net_names(self):
         """Select a single name for each multi-segment net."""
@@ -417,30 +454,39 @@ class Circuit(SkidlBaseObject):
         #     Get EDA tool the netlist will be generated for.
         #     Get file the netlist will be stored in (if any).
         #     Get flag controlling the generation of a backup library.
-        tool = kwargs.pop('tool', skidl.get_default_tool())
-        file_ = kwargs.pop('file_', None)
-        do_backup = kwargs.pop('do_backup', True)
+        tool = kwargs.pop("tool", skidl.get_default_tool())
+        file_ = kwargs.pop("file_", None)
+        do_backup = kwargs.pop("do_backup", True)
 
         try:
-            gen_func = getattr(self, '_gen_netlist_{}'.format(tool))
+            gen_func = getattr(self, "_gen_netlist_{}".format(tool))
             netlist = gen_func(**kwargs)  # Pass any remaining arguments.
         except KeyError:
-            log_and_raise(logger, ValueError,
-                "Can't generate netlist in an unknown ECAD tool format ({}).".
-                    format(tool))
+            log_and_raise(
+                logger,
+                ValueError,
+                "Can't generate netlist in an unknown ECAD tool format ({}).".format(
+                    tool
+                ),
+            )
 
         if (logger.error.count, logger.warning.count) == (0, 0):
             sys.stderr.write(
-                '\nNo errors or warnings found during netlist generation.\n\n')
+                "\nNo errors or warnings found during netlist generation.\n\n"
+            )
         else:
             sys.stderr.write(
-                '\n{} warnings found during netlist generation.\n'.format(
-                    logger.warning.count))
+                "\n{} warnings found during netlist generation.\n".format(
+                    logger.warning.count
+                )
+            )
             sys.stderr.write(
-                '{} errors found during netlist generation.\n\n'.format(
-                    logger.error.count))
+                "{} errors found during netlist generation.\n\n".format(
+                    logger.error.count
+                )
+            )
 
-        with opened(file_ or (get_script_name() + '.net'), 'w') as f:
+        with opened(file_ or (get_script_name() + ".net"), "w") as f:
             f.write(str(netlist))
 
         if do_backup:
@@ -475,38 +521,43 @@ class Circuit(SkidlBaseObject):
             tool = skidl.get_default_tool()
 
         try:
-            gen_func = getattr(self, '_gen_xml_{}'.format(tool))
+            gen_func = getattr(self, "_gen_xml_{}".format(tool))
             netlist = gen_func()
         except KeyError:
-            log_and_raise(logger, ValueError,
-                "Can't generate XML in an unknown ECAD tool format ({}).".
-                    format(tool))
+            log_and_raise(
+                logger,
+                ValueError,
+                "Can't generate XML in an unknown ECAD tool format ({}).".format(tool),
+            )
 
         if (logger.error.count, logger.warning.count) == (0, 0):
-            sys.stderr.write(
-                '\nNo errors or warnings found during XML generation.\n\n')
+            sys.stderr.write("\nNo errors or warnings found during XML generation.\n\n")
         else:
             sys.stderr.write(
-                '\n{} warnings found during XML generation.\n'.format(
-                    logger.warning.count))
+                "\n{} warnings found during XML generation.\n".format(
+                    logger.warning.count
+                )
+            )
             sys.stderr.write(
-                '{} errors found during XML generation.\n\n'.format(
-                    logger.error.count))
+                "{} errors found during XML generation.\n\n".format(logger.error.count)
+            )
 
-        with opened(file_ or (get_script_name() + '.xml'), 'w') as f:
+        with opened(file_ or (get_script_name() + ".xml"), "w") as f:
             f.write(netlist)
 
         return netlist
 
-    def generate_graph(self,
-                       file_=None,
-                       engine='neato',
-                       rankdir='LR',
-                       part_shape='rectangle',
-                       net_shape='point',
-                       splines=None,
-                       show_values=True,
-                       show_anon=False):
+    def generate_graph(
+        self,
+        file_=None,
+        engine="neato",
+        rankdir="LR",
+        part_shape="rectangle",
+        net_shape="point",
+        splines=None,
+        show_values=True,
+        show_anon=False,
+    ):
         """
         Returns a graphviz graph as graphviz object and can also write it to a file/stream.
         When used in ipython the graphviz object will drawn as an SVG in the output.
@@ -548,7 +599,7 @@ class Circuit(SkidlBaseObject):
                 xlabel = None
             dot.node(n.name, shape=net_shape, xlabel=xlabel)
             for pin in n.pins:
-                dot.edge(pin.part.ref, n.name, arrowhead='none')
+                dot.edge(pin.part.ref, n.name, arrowhead="none")
 
         for p in sorted(self.parts, key=lambda p: p.ref.lower()):
             xlabel = None
@@ -584,8 +635,8 @@ class Circuit(SkidlBaseObject):
         lib.export(libname=skidl.BACKUP_LIB_NAME, file_=file_)
 
 
-from collections import defaultdict
 __func_name_cntr = defaultdict(int)
+
 
 def SubCircuit(f):
     """
@@ -601,7 +652,7 @@ def SubCircuit(f):
 
         # If the subcircuit uses the 'circuit' argument, then set the default
         # Circuit object to that. Otherwise, use the current default Circuit object.
-        circuit = kwargs.pop('circuit', default_circuit)
+        circuit = kwargs.pop("circuit", default_circuit)
         builtins.default_circuit = circuit
 
         # Setup some globals needed in the subcircuit.
@@ -615,13 +666,18 @@ def SubCircuit(f):
         # the nested subcircuit functions that were called on all the preceding levels
         # that led to this one. Also, add a distinct integer to the current
         # function name to disambiguate multiple uses of the same function.
-        circuit.hierarchy = circuit.context[-1][0] + '.' + f.__name__ + str(__func_name_cntr[f.__name__])
+        circuit.hierarchy = (
+            circuit.context[-1][0]
+            + "."
+            + f.__name__
+            + str(__func_name_cntr[f.__name__])
+        )
         __func_name_cntr[f.__name__] = __func_name_cntr[f.__name__] + 1
 
         # Store the context so it can be used if this subcircuit function
         # invokes another subcircuit function within itself to add more
         # levels of hierarchy.
-        circuit.context.append((circuit.hierarchy, ))
+        circuit.context.append((circuit.hierarchy,))
 
         # Call the function to create whatever circuitry it handles.
         # The arguments to the function are usually nets to be connected to the

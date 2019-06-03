@@ -25,28 +25,25 @@
 Handles nets.
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
-from __future__ import division
-from __future__ import absolute_import
+from __future__ import absolute_import, division, print_function, unicode_literals
 
-from builtins import super
-from builtins import range
+import collections
+from builtins import range, super
+from copy import copy, deepcopy
+
 from future import standard_library
+
+from .baseobj import SkidlBaseObject
+from .defines import *
+from .erc import dflt_net_erc
+from .utilities import *
+
 standard_library.install_aliases()
 
 try:
     import __builtin__ as builtins
 except ImportError:
     import builtins
-
-from copy import deepcopy, copy
-import collections
-
-from .defines import *
-from .erc import dflt_net_erc
-from .baseobj import SkidlBaseObject
-from .utilities import *
 
 
 class Net(SkidlBaseObject):
@@ -77,17 +74,13 @@ class Net(SkidlBaseObject):
         if not circuit:
             circuit = builtins.default_circuit
 
-        search_params = (
-            ('name', name, True),
-            ('aliases', name, True),
-        )
+        search_params = (("name", name, True), ("aliases", name, True))
 
         for attr, name, do_str_match in search_params:
             # filter_list() always returns a list. A net can consist of multiple
             # interconnected Net objects. If the list is non-empty,
             # just return the first Net object on the list.
-            nets = filter_list(
-                circuit.nets, do_str_match=do_str_match, **{attr: name})
+            nets = filter_list(circuit.nets, do_str_match=do_str_match, **{attr: name})
             try:
                 return nets[0]
             except IndexError:
@@ -99,7 +92,7 @@ class Net(SkidlBaseObject):
     def fetch(cls, name, *args, **attribs):
         """Get the net with the given name from a circuit, or create it if not found."""
 
-        circuit = attribs.get('circuit', builtins.default_circuit)
+        circuit = attribs.get("circuit", builtins.default_circuit)
         return cls.get(name, circuit=circuit) or cls(name, *args, **attribs)
 
     def __init__(self, name=None, circuit=None, *pins_nets_buses, **attribs):
@@ -167,7 +160,7 @@ class Net(SkidlBaseObject):
         # Remove any phantom pins that may have existed for tieing nets together.
         pins = set([p for p in pins if not isinstance(p, PhantomPin)])
 
-        traversal = collections.namedtuple('Traversal', ['nets', 'pins'])
+        traversal = collections.namedtuple("Traversal", ["nets", "pins"])
         traversal.nets = list(nets)
         traversal.pins = list(pins)
         return traversal
@@ -193,7 +186,9 @@ class Net(SkidlBaseObject):
                 if self.is_attached(net):
                     return True
             return False
-        log_and_raise(logger, TypeError, "Nets can't be attached to {}!".format(type(pin_net_bus)))
+        log_and_raise(
+            logger, TypeError, "Nets can't be attached to {}!".format(type(pin_net_bus))
+        )
 
     def is_movable(self):
         """
@@ -247,13 +242,19 @@ class Net(SkidlBaseObject):
 
         # Check that a valid number of copies is requested.
         if not isinstance(num_copies, int):
-            log_and_raise(logger, ValueError,
+            log_and_raise(
+                logger,
+                ValueError,
                 "Can't make a non-integer number "
-                "({}) of copies of a net!".format(num_copies))
+                "({}) of copies of a net!".format(num_copies),
+            )
         if num_copies < 0:
-            log_and_raise(logger, ValueError,
+            log_and_raise(
+                logger,
+                ValueError,
                 "Can't make a negative number "
-                "({}) of copies of a net!".format(num_copies))
+                "({}) of copies of a net!".format(num_copies),
+            )
 
         # If circuitis not specified, then create the copies within the circuit of the master.
         # If the master isn't in a circuit, then use the default circuit.
@@ -267,8 +268,11 @@ class Net(SkidlBaseObject):
         # to search for all the other copies to add the pin to those.
         # And what's the value of that?
         if self.pins:
-            log_and_raise(logger, ValueError, "Can't make copies of a net that already has "
-                             "pins attached to it!")
+            log_and_raise(
+                logger,
+                ValueError,
+                "Can't make copies of a net that already has " "pins attached to it!",
+            )
 
         # Create a list of copies of this net.
         copies = []
@@ -287,12 +291,15 @@ class Net(SkidlBaseObject):
                     try:
                         v = v[i]
                     except IndexError:
-                        log_and_raise(logger, ValueError,
-                                      ("{} copies of net {} were requested, but too "
-                             "few elements in attribute {}!"
-                             ).format(num_copies, self.name, k))
+                        log_and_raise(
+                            logger,
+                            ValueError,
+                            (
+                                "{} copies of net {} were requested, but too "
+                                "few elements in attribute {}!"
+                            ).format(num_copies, self.name, k),
+                        )
                 setattr(cpy, k, v)
-
 
             # Place the copy into the list of copies.
             copies.append(cpy)
@@ -329,7 +336,9 @@ class Net(SkidlBaseObject):
         if indices is None or len(indices) == 0:
             return None
         if len(indices) > 1:
-            log_and_raise(logger, ValueError, "Can't index a net with multiple indices.")
+            log_and_raise(
+                logger, ValueError, "Can't index a net with multiple indices."
+            )
         if indices[0] != 0:
             log_and_raise(logger, ValueError, "Can't use a non-zero index for a net.")
         return self
@@ -357,7 +366,7 @@ class Net(SkidlBaseObject):
 
         # If the iadd_flag is set, then it's OK that we got
         # here and don't issue an error. Also, delete the flag.
-        if getattr(pins_nets_buses[0], 'iadd_flag', False):
+        if getattr(pins_nets_buses[0], "iadd_flag", False):
             del pins_nets_buses[0].iadd_flag
             return
 
@@ -370,7 +379,7 @@ class Net(SkidlBaseObject):
         Return an iterator for stepping through the net.
         """
         # You can only iterate a Net one time.
-        return (self[i] for i in [0,]) # Return generator expr.
+        return (self[i] for i in [0])  # Return generator expr.
 
     def is_implicit(self):
         """Return true if the net name is implicit."""
@@ -411,12 +420,18 @@ class Net(SkidlBaseObject):
             """
 
             if isinstance(self, NCNet):
-                log_and_raise(logger, ValueError, "Can't merge with a no-connect net {}!".format(
-                    self.name))
+                log_and_raise(
+                    logger,
+                    ValueError,
+                    "Can't merge with a no-connect net {}!".format(self.name),
+                )
 
             if isinstance(net, NCNet):
-                log_and_raise(logger, ValueError, "Can't merge with a no-connect net {}!".format(
-                    net.name))
+                log_and_raise(
+                    logger,
+                    ValueError,
+                    "Can't merge with a no-connect net {}!".format(net.name),
+                )
 
             # No need to do anything if merging a net with itself.
             if self == net:
@@ -469,24 +484,38 @@ class Net(SkidlBaseObject):
                 if pn.circuit == self.circuit:
                     merge(pn)
                 else:
-                    log_and_raise(logger, ValueError,
-                        "Can't attach nets in different circuits ({}, {})!"
-                                  .format(pn.circuit.name, self.circuit.name))
+                    log_and_raise(
+                        logger,
+                        ValueError,
+                        "Can't attach nets in different circuits ({}, {})!".format(
+                            pn.circuit.name, self.circuit.name
+                        ),
+                    )
             elif isinstance(pn, Pin):
                 if not pn.part or pn.part.circuit == self.circuit:
                     if not pn.part:
                         logger.warning(
                             "Attaching non-part Pin {} to a Net {}.".format(
-                                pn.name, self.name))
+                                pn.name, self.name
+                            )
+                        )
                     connect_pin(pn)
                 else:
-                    log_and_raise(logger, ValueError,
-                        "Can't attach a part to a net in different circuits ({}, {})!"
-                                  .format(pn.part.circuit.name, self.circuit.name))
+                    log_and_raise(
+                        logger,
+                        ValueError,
+                        "Can't attach a part to a net in different circuits ({}, {})!".format(
+                            pn.part.circuit.name, self.circuit.name
+                        ),
+                    )
             else:
-                log_and_raise(logger, TypeError,
-                    'Cannot attach non-Pin/non-Net {} to Net {}.'.format(
-                        type(pn), self.name))
+                log_and_raise(
+                    logger,
+                    TypeError,
+                    "Cannot attach non-Pin/non-Net {} to Net {}.".format(
+                        type(pn), self.name
+                    ),
+                )
 
         # Add the net to the global netlist. (It won't be added again
         # if it's already there.)
@@ -519,10 +548,10 @@ class Net(SkidlBaseObject):
                 return nets[0]  # One net, return it.
             if len(nets) == 2:
                 # Two nets, return the best of them.
-                name0 = getattr(nets[0], 'name')
-                name1 = getattr(nets[1], 'name')
-                fixed0 = getattr(nets[0], 'fixed_name', False)
-                fixed1 = getattr(nets[1], 'fixed_name', False)
+                name0 = getattr(nets[0], "name")
+                name1 = getattr(nets[1], "name")
+                fixed0 = getattr(nets[0], "fixed_name", False)
+                fixed1 = getattr(nets[1], "fixed_name", False)
                 if not name1:
                     return nets[0]
                 if not name0:
@@ -532,9 +561,13 @@ class Net(SkidlBaseObject):
                 if fixed1 and not fixed0:
                     return nets[1]
                 if fixed0 and fixed1:
-                    log_and_raise(logger, ValueError,
-                        'Cannot merge two nets with fixed names: {} and {}.'
-                                  .format(name0, name1))
+                    log_and_raise(
+                        logger,
+                        ValueError,
+                        "Cannot merge two nets with fixed names: {} and {}.".format(
+                            name0, name1
+                        ),
+                    )
                 if nets[1].is_implicit():
 
                     return nets[0]
@@ -542,22 +575,23 @@ class Net(SkidlBaseObject):
                     return nets[1]
                 if name0 != name1:
                     logger.warning(
-                        'Merging two named nets ({name0} and {name1}) into {name0}.'.
-                        format(**locals()))
+                        "Merging two named nets ({name0} and {name1}) into {name0}.".format(
+                            **locals()
+                        )
+                    )
                 return nets[0]
 
             # More than two nets, so bisect the list into two smaller lists and
             # recursively find the best name from each list and then return the
             # best name of those two.
             mid_point = len(nets) // 2
-            return select_name([
-                select_name(nets[0:mid_point]),
-                select_name(nets[mid_point:])
-            ])
+            return select_name(
+                [select_name(nets[0:mid_point]), select_name(nets[mid_point:])]
+            )
 
         # Assign the same name to all the nets that are connected to this net.
         nets = self.get_nets()
-        selected_name = getattr(select_name(nets), 'name')
+        selected_name = getattr(select_name(nets), "name")
         for net in nets:
             # Assign the name directly to each net. Using the name property
             # would cause the names to be changed so they were unique.
@@ -615,12 +649,16 @@ class Net(SkidlBaseObject):
             return
 
         try:
-            gen_func = getattr(self, '_gen_netlist_net_{}'.format(tool))
+            gen_func = getattr(self, "_gen_netlist_net_{}".format(tool))
             return gen_func()
         except AttributeError:
-            log_and_raise(logger, ValueError,
-                "Can't generate netlist in an unknown ECAD tool format ({})."
-                          .format(tool))
+            log_and_raise(
+                logger,
+                ValueError,
+                "Can't generate netlist in an unknown ECAD tool format ({}).".format(
+                    tool
+                ),
+            )
 
     def generate_xml_net(self, tool=None):
         """
@@ -642,24 +680,27 @@ class Net(SkidlBaseObject):
             return
 
         try:
-            gen_func = getattr(self, '_gen_xml_net_{}'.format(tool))
+            gen_func = getattr(self, "_gen_xml_net_{}".format(tool))
             return gen_func()
         except AttributeError:
-            log_and_raise(logger, ValueError,
-                "Can't generate XML in an unknown ECAD tool format ({})."
-                          .format(tool))
+            log_and_raise(
+                logger,
+                ValueError,
+                "Can't generate XML in an unknown ECAD tool format ({}).".format(tool),
+            )
 
     def ERC(self, *args, **kwargs):
         """Run class-wide and local ERC functions on this net."""
 
-        exec_function_list(self, 'erc_list', *args, **kwargs)
+        exec_function_list(self, "erc_list", *args, **kwargs)
 
     def __str__(self):
         """Return a list of the pins on this net as a string."""
         self.test_validity()
         pins = self.get_pins()
-        return self.name + ': ' + ', '.join(
-            [p.__str__() for p in sorted(pins, key=str)])
+        return (
+            self.name + ": " + ", ".join([p.__str__() for p in sorted(pins, key=str)])
+        )
 
     __repr__ = __str__
 
@@ -695,8 +736,7 @@ class Net(SkidlBaseObject):
 
         # Now name the object with the given name or some variation
         # of it that doesn't collide with anything else in the list.
-        self._name = get_unique_name(self.circuit.nets, 'name', NET_PREFIX,
-                                     name)
+        self._name = get_unique_name(self.circuit.nets, "name", NET_PREFIX, name)
 
     @name.deleter
     def name(self):
@@ -717,7 +757,7 @@ class Net(SkidlBaseObject):
         existing net class of a net.
         """
         self.test_validity()
-        return getattr(self, '_netclass', None)
+        return getattr(self, "_netclass", None)
 
     @netclass.setter
     def netclass(self, netclass):
@@ -734,16 +774,26 @@ class Net(SkidlBaseObject):
         # A net class can only be assigned if there is no existing net class
         # or if the existing net class matches the net class parameter (in
         # which case this is redundant).
-        nets = self.get_nets() # Get all interconnected subnets.
-        netclasses = set([getattr(n,'_netclass',None) for n in nets])
+        nets = self.get_nets()  # Get all interconnected subnets.
+        netclasses = set([getattr(n, "_netclass", None) for n in nets])
         netclasses.discard(None)
         if len(netclasses) == 0:
             pass
         elif len(netclasses) == 1:
             if netclass not in netclasses:
-                log_and_raise(logger, ValueError, "Can't assign net class {netclass.name} to net {self.name} that's already assigned net class {netclasses}".format(**locals()))
+                log_and_raise(
+                    logger,
+                    ValueError,
+                    "Can't assign net class {netclass.name} to net {self.name} that's already assigned net class {netclasses}".format(
+                        **locals()
+                    ),
+                )
         else:
-            log_and_raise(logger, ValueError, "Too many netclasses assigned to net {self.name}".format(**locals()))
+            log_and_raise(
+                logger,
+                ValueError,
+                "Too many netclasses assigned to net {self.name}".format(**locals()),
+            )
 
         for n in nets:
             n._netclass = netclass
@@ -751,7 +801,7 @@ class Net(SkidlBaseObject):
     @netclass.deleter
     def netclass(self):
         self.test_validity()
-        nets = self.get_nets() # Get all interconnected subnets.
+        nets = self.get_nets()  # Get all interconnected subnets.
         for n in nets:
             try:
                 del self._netclass
@@ -768,14 +818,14 @@ class Net(SkidlBaseObject):
         maximum drive value of the pins currently on the net.
         """
         self.test_validity()
-        nets = self.get_nets() # Get all interconnected subnets.
+        nets = self.get_nets()  # Get all interconnected subnets.
         max_drive = max(nets, key=lambda n: n._drive)._drive
         return max_drive
 
     @drive.setter
     def drive(self, drive):
         self.test_validity()
-        nets = self.get_nets() # Get all interconnected subnets.
+        nets = self.get_nets()  # Get all interconnected subnets.
         max_drive = max(nets, key=lambda n: n._drive)._drive
         max_drive = max(drive, max_drive)
         for n in nets:
@@ -784,7 +834,7 @@ class Net(SkidlBaseObject):
     @drive.deleter
     def drive(self):
         self.test_validity()
-        nets = self.get_nets() # Get all interconnected subnets.
+        nets = self.get_nets()  # Get all interconnected subnets.
         for n in nets:
             del n._drive
 
@@ -800,8 +850,11 @@ class Net(SkidlBaseObject):
     def test_validity(self):
         if self.valid:
             return
-        log_and_raise(logger, ValueError, 'Net {} is no longer valid. Do not use it!'.format(
-            self.name))
+        log_and_raise(
+            logger,
+            ValueError,
+            "Net {} is no longer valid. Do not use it!".format(self.name),
+        )
 
     def __bool__(self):
         """Any valid Net is True"""
@@ -835,9 +888,10 @@ class NCNet(Net):
         from .Pin import Pin
 
         super(NCNet, self).__init__(
-            name=name, circuit=circuit, *pins_nets_buses, **attribs)
+            name=name, circuit=circuit, *pins_nets_buses, **attribs
+        )
         self._drive = Pin.drives.NOCONNECT
-        self.do_erc = False # No need to do ERC on no-connect nets.
+        self.do_erc = False  # No need to do ERC on no-connect nets.
 
     def generate_netlist_net(self, tool=None):
         """NO_CONNECT nets don't generate anything for netlists."""
@@ -847,7 +901,7 @@ class NCNet(Net):
         if tool is None:
             tool = skidl.get_default_tool()
 
-        return ''
+        return ""
 
     @property
     def drive(self):

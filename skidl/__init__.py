@@ -17,5 +17,5 @@ The script can also
 check the resulting circuitry for electrical rule violations.
 """
 
-from .skidl import *
 from .netlist_to_skidl import *
+from .skidl import *

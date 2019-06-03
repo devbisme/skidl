@@ -25,26 +25,22 @@
 Handles parts.
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
-from __future__ import division
-from __future__ import absolute_import
+from __future__ import absolute_import, division, print_function, unicode_literals
 
-from builtins import super
-from builtins import str
-from builtins import int
-from builtins import range
-from builtins import dict
-from builtins import zip
+from builtins import dict, int, range, str, super, zip
+from copy import copy
 
+from .baseobj import SkidlBaseObject
+from .defines import *
+from .erc import dflt_part_erc
 from .py_2_3 import *  # pylint: disable=wildcard-import
+from .utilities import *
 
 try:
     import __builtin__ as builtins
 except ImportError:
     import builtins
 
-from copy import copy
 
 try:
     from PySpice.Unit.Unit import UnitValue
@@ -53,12 +49,6 @@ except ImportError:
     # to replicate a class from PySpice.
     class UnitValue:
         pass
-
-
-from .defines import *
-from .erc import dflt_part_erc
-from .baseobj import SkidlBaseObject
-from .utilities import *
 
 
 class Part(SkidlBaseObject):
@@ -97,15 +87,17 @@ class Part(SkidlBaseObject):
     # Set the default ERC functions for all Part instances.
     erc_list = [dflt_part_erc]
 
-    def __init__(self,
-                 lib=None,
-                 name=None,
-                 dest=NETLIST,
-                 tool=None,
-                 connections=None,
-                 part_defn=None,
-                 circuit=None,
-                 **attribs):
+    def __init__(
+        self,
+        lib=None,
+        name=None,
+        dest=NETLIST,
+        tool=None,
+        connections=None,
+        part_defn=None,
+        circuit=None,
+        **attribs
+    ):
 
         import skidl
         from .SchLib import SchLib
@@ -118,13 +110,14 @@ class Part(SkidlBaseObject):
 
         # Setup some part attributes that might be overwritten later on.
         self.do_erc = True  # Allow part to be included in ERC.
-        self.unit = {
-        }  # Dictionary for storing subunits of the part, if desired.
+        self.unit = {}  # Dictionary for storing subunits of the part, if desired.
         self.pins = []  # Start with no pins, but a place to store them.
-        self.name = name  # Assign initial part name. (Must come after circuit is assigned.)
-        self.description = ''  # Make sure there is a description, even if empty.
-        self._ref = ''  # Provide a member for holding a reference.
-        self.ref_prefix = ''  # Provide a member for holding the part reference prefix.
+        self.name = (
+            name
+        )  # Assign initial part name. (Must come after circuit is assigned.)
+        self.description = ""  # Make sure there is a description, even if empty.
+        self._ref = ""  # Provide a member for holding a reference.
+        self.ref_prefix = ""  # Provide a member for holding the part reference prefix.
         self.tool = tool  # Initial type of part (SKIDL, KICAD, etc.)
         self.circuit = None  # Part starts off unassociated with any circuit.
 
@@ -139,8 +132,10 @@ class Part(SkidlBaseObject):
                 except FileNotFoundError as e:
                     if skidl.QUERY_BACKUP_LIB:
                         logger.warning(
-                            'Could not load KiCad schematic library "{}", falling back to backup library.'
-                            .format(libname))
+                            'Could not load KiCad schematic library "{}", falling back to backup library.'.format(
+                                libname
+                            )
+                        )
                         lib = skidl.load_backup_lib()
                         if not lib:
                             raise e
@@ -157,7 +152,7 @@ class Part(SkidlBaseObject):
             self.associate_pins()
 
             # Store the library name of this part.
-            self.lib = getattr(lib, 'filename', None)
+            self.lib = getattr(lib, "filename", None)
 
         # Otherwise, create a Part from a part definition. If the part is
         # destined for a library, then just get its name. If it's going into
@@ -172,9 +167,11 @@ class Part(SkidlBaseObject):
             pass
 
         else:
-            log_and_raise(logger, ValueError,
-                "Can't make a part without a library & part name or a part definition."
-                          )
+            log_and_raise(
+                logger,
+                ValueError,
+                "Can't make a part without a library & part name or a part definition.",
+            )
 
         # If the part is going to be an element in a circuit, then add it to the
         # the circuit and make any indicated pin/net connections.
@@ -226,17 +223,17 @@ class Part(SkidlBaseObject):
             circuit = builtins.default_circuit
 
         search_params = (
-            ('ref', text, True),
-            ('name', text, True),
-            ('aliases', text, True),
-            ('description', text, False),
+            ("ref", text, True),
+            ("name", text, True),
+            ("aliases", text, True),
+            ("description", text, False),
         )
 
         parts = []
         for attr, name, do_str_match in search_params:
             parts.extend(
-                filter_list(
-                    circuit.parts, do_str_match=do_str_match, **{attr: name}))
+                filter_list(circuit.parts, do_str_match=do_str_match, **{attr: name})
+            )
 
         return parts
 
@@ -269,11 +266,15 @@ class Part(SkidlBaseObject):
 
         # Get the function to parse the part description.
         try:
-            parse_func = getattr(self, '_parse_lib_part_{}'.format(self.tool))
+            parse_func = getattr(self, "_parse_lib_part_{}".format(self.tool))
         except AttributeError:
-            log_and_raise(logger, ValueError,
-                "Can't create a part with an unknown ECAD tool file format: {}."
-                          .format(self.tool))
+            log_and_raise(
+                logger,
+                ValueError,
+                "Can't create a part with an unknown ECAD tool file format: {}.".format(
+                    self.tool
+                ),
+            )
 
         # Parse the part description.
         parse_func(just_get_name)
@@ -330,13 +331,21 @@ class Part(SkidlBaseObject):
 
         # Check that a valid number of copies is requested.
         if not isinstance(num_copies, int):
-            log_and_raise(logger, ValueError,
-                "Can't make a non-integer number ({}) of copies of a part!".
-                          format(num_copies))
+            log_and_raise(
+                logger,
+                ValueError,
+                "Can't make a non-integer number ({}) of copies of a part!".format(
+                    num_copies
+                ),
+            )
         if num_copies < 0:
-            log_and_raise(logger, ValueError,
-                "Can't make a negative number ({}) of copies of a part!".
-                          format(num_copies))
+            log_and_raise(
+                logger,
+                ValueError,
+                "Can't make a negative number ({}) of copies of a part!".format(
+                    num_copies
+                ),
+            )
 
         # Now make copies of the part one-by-one.
         copies = []
@@ -348,8 +357,7 @@ class Part(SkidlBaseObject):
             # Remove any existing Pin and PartUnit attributes so new ones
             # can be made in the copy without generating warning messages.
             rmv_attrs = [
-                k for k, v in cpy.__dict__.items()
-                if isinstance(v, (Pin, PartUnit))
+                k for k, v in cpy.__dict__.items() if isinstance(v, (Pin, PartUnit))
             ]
             for attr in rmv_attrs:
                 delattr(cpy, attr)
@@ -404,9 +412,13 @@ class Part(SkidlBaseObject):
                     try:
                         v = v[i]
                     except IndexError:
-                        log_and_raise(logger, ValueError,
-                            "{} copies of part {} were requested, but too few elements in attribute {}!"
-                                      .format(num_copies, self.name, k))
+                        log_and_raise(
+                            logger,
+                            ValueError,
+                            "{} copies of part {} were requested, but too few elements in attribute {}!".format(
+                                num_copies, self.name, k
+                            ),
+                        )
                 setattr(cpy, k, v)
 
             # Add the part copy to the list of copies.
@@ -435,7 +447,7 @@ class Part(SkidlBaseObject):
             # Create attributes so pin can be accessed by name or number such
             # as part.ENBL or part.p5.
             add_unique_attr(self, pin.name, pin)
-            add_unique_attr(self, 'p' + str(pin.num), pin)
+            add_unique_attr(self, "p" + str(pin.num), pin)
         return self
 
     __iadd__ = add_pins
@@ -473,10 +485,10 @@ class Part(SkidlBaseObject):
         # If no pin identifiers were given, then use a wildcard that will
         # select all pins.
         if not pin_ids:
-            pin_ids = ['.*']
+            pin_ids = [".*"]
 
         # Determine the minimum and maximum pin ids if they don't already exist.
-        if 'min_pin' not in dir(self) or 'max_pin' not in dir(self):
+        if "min_pin" not in dir(self) or "max_pin" not in dir(self):
             self.min_pin, self.max_pin = self._find_min_max_pins()
 
         # Go through the list of pin IDs one-by-one.
@@ -485,22 +497,23 @@ class Part(SkidlBaseObject):
 
             # Does pin ID (either integer or string) match a pin number...
             tmp_pins = filter_list(
-                self.pins, num=str(p_id), do_str_match=True, **criteria)
+                self.pins, num=str(p_id), do_str_match=True, **criteria
+            )
             if tmp_pins:
                 pins.extend(tmp_pins)
                 continue
 
             # OK, assume it's not a pin number but a pin name. Look for an
             # exact match.
-            tmp_pins = filter_list(
-                self.pins, name=p_id, do_str_match=True, **criteria)
+            tmp_pins = filter_list(self.pins, name=p_id, do_str_match=True, **criteria)
             if tmp_pins:
                 pins.extend(tmp_pins)
                 continue
 
             # OK, now check pin aliases for an exact match.
             tmp_pins = filter_list(
-                self.pins, aliases=p_id, do_str_match=True, **criteria)
+                self.pins, aliases=p_id, do_str_match=True, **criteria
+            )
             if tmp_pins:
                 pins.extend(tmp_pins)
                 continue
@@ -508,7 +521,7 @@ class Part(SkidlBaseObject):
             # OK, pin ID is not a pin number and doesn't exactly match a pin
             # name or alias. Does it match a substring within a pin name?
             try:
-                p_id_re = ''.join(['.*', p_id, '.*'])
+                p_id_re = "".join([".*", p_id, ".*"])
             except TypeError:
                 # This will happen if the p_id is a number and not a string.
                 # Skip this and the next block because p_id_re can't be made.
@@ -562,14 +575,13 @@ class Part(SkidlBaseObject):
 
         # If the iadd_flag is set, then it's OK that we got
         # here and don't issue an error. Also, delete the flag.
-        if getattr(pins_nets_buses[0], 'iadd_flag', False):
+        if getattr(pins_nets_buses[0], "iadd_flag", False):
             del pins_nets_buses[0].iadd_flag
             return
 
         # No iadd_flag or it wasn't set. This means a direct assignment
         # was made to the pin, which is not allowed.
-        log_and_raise(logger, TypeError,
-                      "Can't assign to a part! Use the += operator.")
+        log_and_raise(logger, TypeError, "Can't assign to a part! Use the += operator.")
 
     def is_connected(self):
         """
@@ -605,8 +617,11 @@ class Part(SkidlBaseObject):
         """
         from .Circuit import Circuit
 
-        return not isinstance(
-            self.circuit, Circuit) or not self.is_connected() or not self.pins
+        return (
+            not isinstance(self.circuit, Circuit)
+            or not self.is_connected()
+            or not self.pins
+        )
 
     def set_pin_alias(self, alias, *pin_ids, **criteria):
         """
@@ -637,8 +652,7 @@ class Part(SkidlBaseObject):
             add_unique_attr(self, alias, pin)
         else:
             # Error: either 0 or multiple pins were found.
-            log_and_raise(logger, ValueError,
-                          'Cannot set alias for {}'.format(pin_ids))
+            log_and_raise(logger, ValueError, "Cannot set alias for {}".format(pin_ids))
 
     def make_unit(self, label, *pin_ids, **criteria):
         """
@@ -661,11 +675,13 @@ class Part(SkidlBaseObject):
         """
 
         # Warn if the unit label collides with any of the part's pin names.
-        collisions = self.get_pins('^' + label + '$')  # Look for exact match.
+        collisions = self.get_pins("^" + label + "$")  # Look for exact match.
         if collisions:
             logger.warning(
-                "Using a label ({}) for a unit of {} that matches one or more of it's pin names ({})!"
-                .format(label, self.erc_desc(), collisions))
+                "Using a label ({}) for a unit of {} that matches one or more of it's pin names ({})!".format(
+                    label, self.erc_desc(), collisions
+                )
+            )
 
         # Create the part unit.
         self.unit[label] = PartUnit(self, *pin_ids, **criteria)
@@ -676,8 +692,7 @@ class Part(SkidlBaseObject):
         """Create a network from the pins of a part."""
         from .Network import Network
 
-        ntwk = Network(
-            self[:])  # An error will occur if part has more than 2 pins.
+        ntwk = Network(self[:])  # An error will occur if part has more than 2 pins.
         return ntwk
 
     def __and__(self, obj):
@@ -714,16 +729,35 @@ class Part(SkidlBaseObject):
         # Get all the component attributes and subtract all the ones that
         # should not appear under "fields" in the netlist or XML.
         # Also, skip all the Pin and PartUnit attributes.
-        fields = set([
-            k for k, v in self.__dict__.items()
-            if not isinstance(v, (Pin, PartUnit))
-        ])
-        non_fields = set([
-            'name', 'min_pin', 'max_pin', 'hierarchy', '_value', '_ref',
-            'ref_prefix', 'unit', 'num_units', 'part_defn', 'definition',
-            'fields', 'draw', 'lib', 'fplist', 'do_erc', 'aliases', 'tool',
-            'pins', 'footprint', 'circuit', 'skidl_trace'
-        ])
+        fields = set(
+            [k for k, v in self.__dict__.items() if not isinstance(v, (Pin, PartUnit))]
+        )
+        non_fields = set(
+            [
+                "name",
+                "min_pin",
+                "max_pin",
+                "hierarchy",
+                "_value",
+                "_ref",
+                "ref_prefix",
+                "unit",
+                "num_units",
+                "part_defn",
+                "definition",
+                "fields",
+                "draw",
+                "lib",
+                "fplist",
+                "do_erc",
+                "aliases",
+                "tool",
+                "pins",
+                "footprint",
+                "circuit",
+                "skidl_trace",
+            ]
+        )
         return list(fields - non_fields)
 
     def generate_netlist_component(self, tool=None):
@@ -740,11 +774,15 @@ class Part(SkidlBaseObject):
             tool = skidl.get_default_tool()
 
         try:
-            gen_func = getattr(self, '_gen_netlist_comp_{}'.format(tool))
+            gen_func = getattr(self, "_gen_netlist_comp_{}".format(tool))
         except AttributeError:
-            log_and_raise(logger, ValueError,
-                "Can't generate netlist in an unknown ECAD tool format ({}).".
-                          format(tool))
+            log_and_raise(
+                logger,
+                ValueError,
+                "Can't generate netlist in an unknown ECAD tool format ({}).".format(
+                    tool
+                ),
+            )
 
         return gen_func()
 
@@ -762,17 +800,19 @@ class Part(SkidlBaseObject):
             tool = skidl.get_default_tool()
 
         try:
-            gen_func = getattr(self, '_gen_xml_comp_{}'.format(tool))
+            gen_func = getattr(self, "_gen_xml_comp_{}".format(tool))
         except AttributeError:
-            log_and_raise(logger, ValueError,
-                "Can't generate XML in an unknown ECAD tool format ({}).".
-                          format(tool))
+            log_and_raise(
+                logger,
+                ValueError,
+                "Can't generate XML in an unknown ECAD tool format ({}).".format(tool),
+            )
 
         return gen_func()
 
     def ERC(self, *args, **kwargs):
         """Run class-wide and local ERC functions on this part."""
-        exec_function_list(self, 'erc_list', *args, **kwargs)
+        exec_function_list(self, "erc_list", *args, **kwargs)
 
     def erc_desc(self):
         """Create description of part for ERC and other error reporting."""
@@ -780,21 +820,31 @@ class Part(SkidlBaseObject):
 
     def __str__(self):
         """Return a description of the pins on this part as a string."""
-        return '\n {name} ({aliases}): {desc}\n    {pins}'.format(
+        return "\n {name} ({aliases}): {desc}\n    {pins}".format(
             name=self.name,
-            aliases=', '.join(getattr(self, 'aliases', '')),
+            aliases=", ".join(getattr(self, "aliases", "")),
             desc=self.description,
-            pins='\n    '.join([p.__str__() for p in self.pins]))
+            pins="\n    ".join([p.__str__() for p in self.pins]),
+        )
 
     __repr__ = __str__
 
     def export(self):
         """Return a string to recreate a Part object."""
         keys = self._get_fields()
-        keys.extend(('ref_prefix', 'num_units', 'fplist', 'do_erc', 'aliases',
-                     'pin', 'footprint'))
+        keys.extend(
+            (
+                "ref_prefix",
+                "num_units",
+                "fplist",
+                "do_erc",
+                "aliases",
+                "pin",
+                "footprint",
+            )
+        )
         attribs = []
-        attribs.append("'{}':{}".format('name', repr(self.name)))
+        attribs.append("'{}':{}".format("name", repr(self.name)))
         attribs.append("'dest':TEMPLATE")
         attribs.append("'tool':SKIDL")
         for k in keys:
@@ -803,10 +853,10 @@ class Part(SkidlBaseObject):
                 attribs.append("'{}':{}".format(k, repr(v)))
         if self.pins:
             pin_strs = [p.export() for p in self.pins]
-            attribs.append("'pins':[{}]".format(','.join(pin_strs)))
+            attribs.append("'pins':[{}]".format(",".join(pin_strs)))
 
         # Return the string after removing all the non-ascii stuff (like ohm symbols).
-        return 'Part(**{{ {} }})'.format(', '.join(attribs))
+        return "Part(**{{ {} }})".format(", ".join(attribs))
 
     @property
     def ref(self):
@@ -827,8 +877,7 @@ class Part(SkidlBaseObject):
 
         # Now name the object with the given reference or some variation
         # of it that doesn't collide with anything else in the list.
-        self._ref = get_unique_name(self.circuit.parts, 'ref', self.ref_prefix,
-                                    r)
+        self._ref = get_unique_name(self.circuit.parts, "ref", self.ref_prefix, r)
         return
 
     @ref.deleter
@@ -900,15 +949,16 @@ class SkidlPart(Part):
 
     from .defines import SKIDL, TEMPLATE
 
-    def __init__(self,
-                 lib=None,
-                 name=None,
-                 dest=TEMPLATE,
-                 tool=SKIDL,
-                 connections=None,
-                 **attribs):
-        super(SkidlPart, self).__init__(lib, name, dest, tool, connections,
-                                        attribs)
+    def __init__(
+        self,
+        lib=None,
+        name=None,
+        dest=TEMPLATE,
+        tool=SKIDL,
+        connections=None,
+        **attribs
+    ):
+        super(SkidlPart, self).__init__(lib, name, dest, tool, connections, attribs)
 
 
 ##############################################################################
@@ -966,7 +1016,7 @@ class PartUnit(Part):
 
         # Get new pins selected from the parent.
         if not pin_ids:
-            pin_ids = ['.*']  # Empty list matches everything.
+            pin_ids = [".*"]  # Empty list matches everything.
         new_pins = to_list(self.parent.get_pins(*pin_ids, **criteria))
 
         # Remove None if that's gotten into the list.
@@ -977,7 +1027,7 @@ class PartUnit(Part):
 
         # Add attributes for accessing the new pins.
         for pin in new_pins:
-            add_unique_attr(self, 'p' + str(pin.num), pin)
+            add_unique_attr(self, "p" + str(pin.num), pin)
             add_unique_attr(self, pin.name, pin)
 
         # Add new pins to existing pins of the unit, removing duplicates.

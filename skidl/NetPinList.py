@@ -25,15 +25,15 @@
 Specialized list for handling nets, pins, and buses.
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
-from __future__ import division
-from __future__ import absolute_import
+from __future__ import absolute_import, division, print_function, unicode_literals
 
 from builtins import range
+
 from future import standard_library
-standard_library.install_aliases()
+
 from .utilities import *
+
+standard_library.install_aliases()
 
 
 class NetPinList(list):
@@ -47,15 +47,21 @@ class NetPinList(list):
             if isinstance(item, (Pin, Net)):
                 nets_pins.append(item)
             else:
-                log_and_raise(logger, ValueError,
-                              "Can't make connections to a {} ({}).".format(
-                                type(item), item.__name__))
+                log_and_raise(
+                    logger,
+                    ValueError,
+                    "Can't make connections to a {} ({}).".format(
+                        type(item), item.__name__
+                    ),
+                )
 
         if len(nets_pins) != len(self):
             if Net in [type(item) for item in self] or len(nets_pins) > 1:
-                log_and_raise(logger, ValueError,
-                              "Connection mismatch {} != {}!".format(
-                                len(self), len(nets_pins)))
+                log_and_raise(
+                    logger,
+                    ValueError,
+                    "Connection mismatch {} != {}!".format(len(self), len(nets_pins)),
+                )
 
             # If just a single net is to be connected, make a list out of it that's
             # just as long as the list of pins to connect to. This will connect
@@ -76,8 +82,7 @@ class NetPinList(list):
         """Create a network from a list of pins and nets."""
         from .Network import Network
 
-        return Network(
-            *self)  # An error will occur if list has more than 2 items.
+        return Network(*self)  # An error will occur if list has more than 2 items.
 
     def __and__(self, obj):
         """Attach a NetPinList and another part/pin/net in serial."""

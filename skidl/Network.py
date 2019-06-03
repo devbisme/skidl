@@ -25,15 +25,15 @@
 Object for for handling series and parallel networks of two-pin parts, nets, and pins.
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
-from __future__ import division
-from __future__ import absolute_import
+from __future__ import absolute_import, division, print_function, unicode_literals
 
 from builtins import range
+
 from future import standard_library
-standard_library.install_aliases()
+
 from .utilities import *
+
+standard_library.install_aliases()
 
 
 class Network(list):
@@ -42,13 +42,15 @@ class Network(list):
         super(Network, self).__init__()
         for obj in objs:
             try:
-                ntwk = obj.create_network(
-                )  # Create a Network from each object.
+                ntwk = obj.create_network()  # Create a Network from each object.
             except AttributeError:
-                log_and_raise(logger, TypeError,
+                log_and_raise(
+                    logger,
+                    TypeError,
                     "Can't create a network from a {} object ({}).".format(
-                        type(obj), obj.__name__))
-
+                        type(obj), obj.__name__
+                    ),
+                )
 
             # Add the in & out ports of the object network to this network.
             self.extend(ntwk)
@@ -58,9 +60,11 @@ class Network(list):
             # have zero, in which case it is just an empty container waiting to
             # have ports added to it.
             if len(self) > 2:
-                log_and_raise(logger, ValueError,
-                              "A Network object can't have more than two nodes.")
-
+                log_and_raise(
+                    logger,
+                    ValueError,
+                    "A Network object can't have more than two nodes.",
+                )
 
     def __and__(self, obj):
         """Combine two networks by placing them in series."""
@@ -69,10 +73,13 @@ class Network(list):
         try:
             ntwk = obj.create_network()
         except AttributeError:
-            log_and_raise(logger, TypeError,
+            log_and_raise(
+                logger,
+                TypeError,
                 "Unable to create a Network from a {} object ({}).".format(
-                    type(obj), obj.__name__))
-
+                    type(obj), obj.__name__
+                ),
+            )
 
         # Attach the output of the first network to the input of the second.
         # (Use -1 index to get the output port instead of 1 because the network
@@ -95,9 +102,13 @@ class Network(list):
         try:
             ntwk = obj.create_network()
         except AttributeError:
-            log_and_raise(logger, TypeError,
+            log_and_raise(
+                logger,
+                TypeError,
                 "Unable to create a Network from a {} object ({}).".format(
-                    type(obj), obj.__name__))
+                    type(obj), obj.__name__
+                ),
+            )
 
         # Attach the inputs of both networks and the outputs of both networks to
         # place them in parallel.

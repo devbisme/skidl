@@ -1,29 +1,34 @@
 import pytest
+
 from skidl import *
+
 from .setup_teardown import *
+
 
 def test_iters_1():
     """Test bus iterator."""
     b_size = 4
-    b = Bus('chplx', b_size)
+    b = Bus("chplx", b_size)
     for hi in b:
         for lo in b:
             if hi != lo:
-                led = Part('device','LED')
-                hi += led['A']
-                lo += led['K']
+                led = Part("device", "LED")
+                hi += led["A"]
+                lo += led["K"]
     for l in b:
-        assert(len(l) == 2 * (b_size-1))
+        assert len(l) == 2 * (b_size - 1)
+
 
 def test_iters_2():
     """Test pin iterator."""
-    q = Part('device','Q_NPN_CEB')
+    q = Part("device", "Q_NPN_CEB")
     s = 0
     for p1 in q:
         for p2 in q:
             if p1 != p2:
                 s += 1
-    assert(s == len(q) * (len(q)-1))
+    assert s == len(q) * (len(q) - 1)
+
 
 def test_iters_3():
     """Test net iterator."""
@@ -31,8 +36,8 @@ def test_iters_3():
     for hi in b:
         for lo in b:
             if hi != lo:
-                led = Part('device','LED')
-                hi += led['A']
-                lo += led['K']
+                led = Part("device", "LED")
+                hi += led["A"]
+                lo += led["K"]
     for l in b:
-        assert(len(l) == 0)
+        assert len(l) == 0

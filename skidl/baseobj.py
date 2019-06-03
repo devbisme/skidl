@@ -26,19 +26,18 @@
 Base object for Circuit, Interface, Part, Net, Bus, Pin objects.
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
-from __future__ import division
-from __future__ import absolute_import
-from builtins import str
-from future import standard_library
-standard_library.install_aliases()
+from __future__ import absolute_import, division, print_function, unicode_literals
 
 import re
+from builtins import str
+
+from future import standard_library
 
 from .Alias import Alias
 from .Note import Note
 from .utilities import *
+
+standard_library.install_aliases()
 
 
 class SkidlBaseObject(object):
@@ -50,7 +49,7 @@ class SkidlBaseObject(object):
         try:
             return self._aliases
         except AttributeError:
-            return Alias([]) # No aliases, so just return an empty list.
+            return Alias([])  # No aliases, so just return an empty list.
 
     @aliases.setter
     def aliases(self, name_or_list):
@@ -70,7 +69,7 @@ class SkidlBaseObject(object):
         try:
             return self._notes
         except AttributeError:
-            return Note([]) # No notes, so just return empty list.
+            return Note([])  # No notes, so just return empty list.
 
     @notes.setter
     def notes(self, text_or_notes):

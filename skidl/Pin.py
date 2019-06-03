@@ -25,23 +25,21 @@
 Handles part pins.
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
-from __future__ import division
-from __future__ import absolute_import
+from __future__ import absolute_import, division, print_function, unicode_literals
 
-from builtins import super
-from builtins import range
-from future import standard_library
-standard_library.install_aliases()
+from builtins import range, super
+from collections import defaultdict
 from copy import copy
 from enum import IntEnum
-from collections import defaultdict
 
-from .utilities import *
-from .baseobj import SkidlBaseObject
+from future import standard_library
+
 from .Alias import *
-from .Circuit import OK, WARNING, ERROR
+from .baseobj import SkidlBaseObject
+from .Circuit import ERROR, OK, WARNING
+from .utilities import *
+
+standard_library.install_aliases()
 
 
 class Pin(SkidlBaseObject):
@@ -59,9 +57,24 @@ class Pin(SkidlBaseObject):
     """
 
     # Various types of pins.
-    types = IntEnum('types', ('INPUT', 'OUTPUT', 'BIDIR', 'TRISTATE', 'PASSIVE',
-                    'UNSPEC', 'PWRIN', 'PWROUT', 'OPENCOLL', 'OPENEMIT', 'PULLUP', 'PULLDN',
-                    'NOCONNECT'))
+    types = IntEnum(
+        "types",
+        (
+            "INPUT",
+            "OUTPUT",
+            "BIDIR",
+            "TRISTATE",
+            "PASSIVE",
+            "UNSPEC",
+            "PWRIN",
+            "PWROUT",
+            "OPENCOLL",
+            "OPENEMIT",
+            "PULLUP",
+            "PULLDN",
+            "NOCONNECT",
+        ),
+    )
 
     @classmethod
     def add_type(cls, pin_type):
@@ -71,7 +84,7 @@ class Pin(SkidlBaseObject):
         Args:
             pin_type: A string identifying the pin type.
         """
-        cls.types = IntEnum('types', [m.name for m in cls.types] + [pin_type])
+        cls.types = IntEnum("types", [m.name for m in cls.types] + [pin_type])
 
     # Various drive levels a pin can output:
     #   NOCONNECT: NC pin drive.
@@ -84,8 +97,19 @@ class Pin(SkidlBaseObject):
     #   POWER: A power supply or ground line.
     # The order of these is important! The first entry has the weakest
     # drive and the drive increases for each successive entry.
-    drives = IntEnum('drives', ('NOCONNECT', 'NONE', 'PASSIVE', 'PULLUPDN',
-                    'ONESIDE', 'TRISTATE', 'PUSHPULL', 'POWER'))
+    drives = IntEnum(
+        "drives",
+        (
+            "NOCONNECT",
+            "NONE",
+            "PASSIVE",
+            "PULLUPDN",
+            "ONESIDE",
+            "TRISTATE",
+            "PUSHPULL",
+            "POWER",
+        ),
+    )
 
     # Information about the various types of pins:
     #   function: A string describing the pin's function.
@@ -94,95 +118,95 @@ class Pin(SkidlBaseObject):
     #   rcv_max: The maximum amount of drive the pin can receive and still function.
     pin_info = {
         types.INPUT: {
-            'function': 'INPUT',
-            'func_str': 'INPUT',
-            'drive': drives.NONE,
-            'max_rcv': drives.POWER,
-            'min_rcv': drives.PASSIVE,
+            "function": "INPUT",
+            "func_str": "INPUT",
+            "drive": drives.NONE,
+            "max_rcv": drives.POWER,
+            "min_rcv": drives.PASSIVE,
         },
         types.OUTPUT: {
-            'function': 'OUTPUT',
-            'func_str': 'OUTPUT',
-            'drive': drives.PUSHPULL,
-            'max_rcv': drives.PASSIVE,
-            'min_rcv': drives.NONE,
+            "function": "OUTPUT",
+            "func_str": "OUTPUT",
+            "drive": drives.PUSHPULL,
+            "max_rcv": drives.PASSIVE,
+            "min_rcv": drives.NONE,
         },
         types.BIDIR: {
-            'function': 'BIDIRECTIONAL',
-            'func_str': 'BIDIR',
-            'drive': drives.TRISTATE,
-            'max_rcv': drives.POWER,
-            'min_rcv': drives.NONE,
+            "function": "BIDIRECTIONAL",
+            "func_str": "BIDIR",
+            "drive": drives.TRISTATE,
+            "max_rcv": drives.POWER,
+            "min_rcv": drives.NONE,
         },
         types.TRISTATE: {
-            'function': 'TRISTATE',
-            'func_str': 'TRISTATE',
-            'drive': drives.TRISTATE,
-            'max_rcv': drives.TRISTATE,
-            'min_rcv': drives.NONE,
+            "function": "TRISTATE",
+            "func_str": "TRISTATE",
+            "drive": drives.TRISTATE,
+            "max_rcv": drives.TRISTATE,
+            "min_rcv": drives.NONE,
         },
         types.PASSIVE: {
-            'function': 'PASSIVE',
-            'func_str': 'PASSIVE',
-            'drive': drives.PASSIVE,
-            'max_rcv': drives.POWER,
-            'min_rcv': drives.NONE,
+            "function": "PASSIVE",
+            "func_str": "PASSIVE",
+            "drive": drives.PASSIVE,
+            "max_rcv": drives.POWER,
+            "min_rcv": drives.NONE,
         },
         types.PULLUP: {
-            'function': 'PULLUP',
-            'func_str': 'PULLUP',
-            'drive': drives.PULLUPDN,
-            'max_rcv': drives.POWER,
-            'min_rcv': drives.NONE,
+            "function": "PULLUP",
+            "func_str": "PULLUP",
+            "drive": drives.PULLUPDN,
+            "max_rcv": drives.POWER,
+            "min_rcv": drives.NONE,
         },
         types.PULLDN: {
-            'function': 'PULLDN',
-            'func_str': 'PULLDN',
-            'drive': drives.PULLUPDN,
-            'max_rcv': drives.POWER,
-            'min_rcv': drives.NONE,
+            "function": "PULLDN",
+            "func_str": "PULLDN",
+            "drive": drives.PULLUPDN,
+            "max_rcv": drives.POWER,
+            "min_rcv": drives.NONE,
         },
         types.UNSPEC: {
-            'function': 'UNSPECIFIED',
-            'func_str': 'UNSPEC',
-            'drive': drives.NONE,
-            'max_rcv': drives.POWER,
-            'min_rcv': drives.NONE,
+            "function": "UNSPECIFIED",
+            "func_str": "UNSPEC",
+            "drive": drives.NONE,
+            "max_rcv": drives.POWER,
+            "min_rcv": drives.NONE,
         },
         types.PWRIN: {
-            'function': 'POWER-IN',
-            'func_str': 'PWRIN',
-            'drive': drives.NONE,
-            'max_rcv': drives.POWER,
-            'min_rcv': drives.POWER,
+            "function": "POWER-IN",
+            "func_str": "PWRIN",
+            "drive": drives.NONE,
+            "max_rcv": drives.POWER,
+            "min_rcv": drives.POWER,
         },
         types.PWROUT: {
-            'function': 'POWER-OUT',
-            'func_str': 'PWROUT',
-            'drive': drives.POWER,
-            'max_rcv': drives.PASSIVE,
-            'min_rcv': drives.NONE,
+            "function": "POWER-OUT",
+            "func_str": "PWROUT",
+            "drive": drives.POWER,
+            "max_rcv": drives.PASSIVE,
+            "min_rcv": drives.NONE,
         },
         types.OPENCOLL: {
-            'function': 'OPEN-COLLECTOR',
-            'func_str': 'OPENCOLL',
-            'drive': drives.ONESIDE,
-            'max_rcv': drives.TRISTATE,
-            'min_rcv': drives.NONE,
+            "function": "OPEN-COLLECTOR",
+            "func_str": "OPENCOLL",
+            "drive": drives.ONESIDE,
+            "max_rcv": drives.TRISTATE,
+            "min_rcv": drives.NONE,
         },
         types.OPENEMIT: {
-            'function': 'OPEN-EMITTER',
-            'func_str': 'OPENEMIT',
-            'drive': drives.ONESIDE,
-            'max_rcv': drives.TRISTATE,
-            'min_rcv': drives.NONE,
+            "function": "OPEN-EMITTER",
+            "func_str": "OPENEMIT",
+            "drive": drives.ONESIDE,
+            "max_rcv": drives.TRISTATE,
+            "min_rcv": drives.NONE,
         },
         types.NOCONNECT: {
-            'function': 'NO-CONNECT',
-            'func_str': 'NOCONNECT',
-            'drive': drives.NOCONNECT,
-            'max_rcv': drives.NOCONNECT,
-            'min_rcv': drives.NOCONNECT,
+            "function": "NO-CONNECT",
+            "func_str": "NOCONNECT",
+            "drive": drives.NOCONNECT,
+            "max_rcv": drives.NOCONNECT,
+            "min_rcv": drives.NOCONNECT,
         },
     }
 
@@ -192,10 +216,10 @@ class Pin(SkidlBaseObject):
 
         self.nets = []
         self.part = None
-        self.name = ''
-        self.num = ''
+        self.name = ""
+        self.num = ""
         self.do_erc = True
-        self.func = self.types.UNSPEC # Pin function defaults to unspecified.
+        self.func = self.types.UNSPEC  # Pin function defaults to unspecified.
 
         # Attach additional attributes to the pin.
         for k, v in attribs.items():
@@ -229,13 +253,21 @@ class Pin(SkidlBaseObject):
 
         # Check that a valid number of copies is requested.
         if not isinstance(num_copies, int):
-            log_and_raise(logger, ValueError,
-                "Can't make a non-integer number ({}) of copies of a pin!".
-                          format(num_copies))
+            log_and_raise(
+                logger,
+                ValueError,
+                "Can't make a non-integer number ({}) of copies of a pin!".format(
+                    num_copies
+                ),
+            )
         if num_copies < 0:
-            log_and_raise(logger, ValueError,
+            log_and_raise(
+                logger,
+                ValueError,
                 "Can't make a negative number ({}) of copies of a pin!".format(
-                    num_copies))
+                    num_copies
+                ),
+            )
 
         copies = []
         for _ in range(num_copies):
@@ -291,7 +323,9 @@ class Pin(SkidlBaseObject):
         if indices is None or len(indices) == 0:
             return None
         if len(indices) > 1:
-            log_and_raise(logger, ValueError, "Can't index a pin with multiple indices.")
+            log_and_raise(
+                logger, ValueError, "Can't index a pin with multiple indices."
+            )
         if indices[0] != 0:
             log_and_raise(logger, ValueError, "Can't use a non-zero index for a pin.")
         return self
@@ -319,7 +353,7 @@ class Pin(SkidlBaseObject):
 
         # If the iadd_flag is set, then it's OK that we got
         # here and don't issue an error. Also, delete the flag.
-        if getattr(pins_nets_buses[0], 'iadd_flag', False):
+        if getattr(pins_nets_buses[0], "iadd_flag", False):
             del pins_nets_buses[0].iadd_flag
             return
 
@@ -332,7 +366,7 @@ class Pin(SkidlBaseObject):
         Return an iterator for stepping through the pin.
         """
         # You can only iterate a Pin one time.
-        return (self for i in [0,]) # Return generator expr.
+        return (self for i in [0])  # Return generator expr.
 
     def is_connected(self):
         """Return true if a pin is connected to a net (but not a no-connect net)."""
@@ -354,13 +388,21 @@ class Pin(SkidlBaseObject):
             return True
         if set([Net, NCNet]) == net_types:
             # Can't be connected to both normal and no-connect nets!
-            log_and_raise(logger, ValueError,
-                '{} is connected to both normal and no-connect nets!'.format(
-                    self.erc_desc()))
+            log_and_raise(
+                logger,
+                ValueError,
+                "{} is connected to both normal and no-connect nets!".format(
+                    self.erc_desc()
+                ),
+            )
         # This is just strange...
-        log_and_raise(logger, ValueError,
+        log_and_raise(
+            logger,
+            ValueError,
             "{} is connected to something strange: {}.".format(
-            self.erc_desc(), self.nets))
+                self.erc_desc(), self.nets
+            ),
+        )
 
     def is_attached(self, pin_net_bus):
         """Return true if this pin is attached to the given pin, net or bus."""
@@ -381,8 +423,11 @@ class Pin(SkidlBaseObject):
                 if self.net.is_attached(net):
                     return True
             return False
-        log_and_raise(logger, ValueError,
-            "Pins can't be attached to {}!".format(type(pin_net_bus)))
+        log_and_raise(
+            logger,
+            ValueError,
+            "Pins can't be attached to {}!".format(type(pin_net_bus)),
+        )
 
     def connect(self, *pins_nets_buses):
         """
@@ -425,9 +470,13 @@ class Pin(SkidlBaseObject):
                 # Connecting pin-to-net, so just connect the pin to the net.
                 pn += self
             else:
-                log_and_raise(logger, TypeError,
-                    'Cannot attach non-Pin/non-Net {} to {}.'.format(
-                    type(pn), self.erc_desc()))
+                log_and_raise(
+                    logger,
+                    TypeError,
+                    "Cannot attach non-Pin/non-Net {} to {}.".format(
+                        type(pn), self.erc_desc()
+                    ),
+                )
 
         # Set the flag to indicate this result came from the += operator.
         self.iadd_flag = True  # pylint: disable=attribute-defined-outside-init
@@ -500,13 +549,17 @@ class Pin(SkidlBaseObject):
 
         # Otherwise, generate an error or warning message.
         if not erc_msg:
-            erc_msg = ' '.join((self.pin_info[self.func]['function'],
-                                'connected to',
-                                other_pin.pin_info[other_pin.func]['function']))
+            erc_msg = " ".join(
+                (
+                    self.pin_info[self.func]["function"],
+                    "connected to",
+                    other_pin.pin_info[other_pin.func]["function"],
+                )
+            )
         n = self.net.name
         p1 = self.erc_desc()
         p2 = other_pin.erc_desc()
-        msg = 'Pin conflict on net {n}, {p1} <==> {p2} ({erc_msg})'.format(**locals())
+        msg = "Pin conflict on net {n}, {p1} <==> {p2} ({erc_msg})".format(**locals())
         if erc_result == WARNING:
             erc_logger.warning(msg)
         else:
@@ -518,36 +571,37 @@ class Pin(SkidlBaseObject):
             part=self.part.erc_desc(),
             num=self.num,
             name=self.name,
-            func=Pin.pin_info[self.func]['function'])
+            func=Pin.pin_info[self.func]["function"],
+        )
         return desc
 
     def __str__(self):
         """Return a description of this pin as a string."""
-        ref = getattr(self.part, 'ref', '???')
-        num = getattr(self, 'num', '???')
-        names = [getattr(self, 'name', '???')]
+        ref = getattr(self.part, "ref", "???")
+        num = getattr(self, "num", "???")
+        names = [getattr(self, "name", "???")]
         names.extend(self.aliases)
-        names = ','.join(names)
-        func = Pin.pin_info[self.func]['function']
-        return 'Pin {ref}/{num}/{names}/{func}'.format(**locals())
+        names = ",".join(names)
+        func = Pin.pin_info[self.func]["function"]
+        return "Pin {ref}/{num}/{names}/{func}".format(**locals())
 
     __repr__ = __str__
 
     def export(self):
         """Return a string to recreate a Pin object."""
         attribs = []
-        for k in ['num', 'name', 'func', 'do_erc']:
+        for k in ["num", "name", "func", "do_erc"]:
             v = getattr(self, k, None)
             if v:
-                if k == 'func':
+                if k == "func":
                     # Assign the pin function using the actual name of the
                     # function, not its numerical value (in case that changes
                     # in the future if more pin functions are added).
-                    v = 'Pin.types.' + Pin.pin_info[v]['func_str']
+                    v = "Pin.types." + Pin.pin_info[v]["func_str"]
                 else:
                     v = repr(v)
-                attribs.append('{}={}'.format(k, v))
-        return 'Pin({})'.format(','.join(attribs))
+                attribs.append("{}={}".format(k, v))
+        return "Pin({})".format(",".join(attribs))
 
     @property
     def net(self):
@@ -570,7 +624,7 @@ class Pin(SkidlBaseObject):
             return self._drive
         except AttributeError:
             # Drive unspecified, so use default drive for this type of pin.
-            return self.pin_info[self.func]['drive']
+            return self.pin_info[self.func]["drive"]
 
     @drive.setter
     def drive(self, drive):
@@ -612,51 +666,60 @@ class PhantomPin(Pin):
 # Create the pin conflict matrix as a defaultdict of defaultdicts which
 # returns OK if the given element is not in the matrix. This would indicate
 # the pin types used to index that element have no contention if connected.
-conflict_matrix = defaultdict(lambda: defaultdict(lambda: [OK,'']))
+conflict_matrix = defaultdict(lambda: defaultdict(lambda: [OK, ""]))
 
 # Add the non-OK pin connections to the matrix.
-conflict_matrix[Pin.types.OUTPUT][Pin.types.OUTPUT]       = [ERROR  , '']
-conflict_matrix[Pin.types.TRISTATE][Pin.types.OUTPUT]     = [WARNING, '']
-conflict_matrix[Pin.types.UNSPEC][Pin.types.INPUT]        = [WARNING, '']
-conflict_matrix[Pin.types.UNSPEC][Pin.types.OUTPUT]       = [WARNING, '']
-conflict_matrix[Pin.types.UNSPEC][Pin.types.BIDIR]        = [WARNING, '']
-conflict_matrix[Pin.types.UNSPEC][Pin.types.TRISTATE]     = [WARNING, '']
-conflict_matrix[Pin.types.UNSPEC][Pin.types.PASSIVE]      = [WARNING, '']
-conflict_matrix[Pin.types.UNSPEC][Pin.types.PULLUP]       = [WARNING, '']
-conflict_matrix[Pin.types.UNSPEC][Pin.types.PULLDN]       = [WARNING, '']
-conflict_matrix[Pin.types.UNSPEC][Pin.types.UNSPEC]       = [WARNING, '']
-conflict_matrix[Pin.types.PWRIN][Pin.types.TRISTATE]      = [WARNING, '']
-conflict_matrix[Pin.types.PWRIN][Pin.types.UNSPEC]        = [WARNING, '']
-conflict_matrix[Pin.types.PWROUT][Pin.types.OUTPUT]       = [ERROR  , '']
-conflict_matrix[Pin.types.PWROUT][Pin.types.BIDIR]        = [WARNING, '']
-conflict_matrix[Pin.types.PWROUT][Pin.types.TRISTATE]     = [ERROR  , '']
-conflict_matrix[Pin.types.PWROUT][Pin.types.UNSPEC]       = [WARNING, '']
-conflict_matrix[Pin.types.PWROUT][Pin.types.PWROUT]       = [ERROR  , '']
-conflict_matrix[Pin.types.OPENCOLL][Pin.types.OUTPUT]     = [ERROR  , '']
-conflict_matrix[Pin.types.OPENCOLL][Pin.types.TRISTATE]   = [ERROR  , '']
-conflict_matrix[Pin.types.OPENCOLL][Pin.types.UNSPEC]     = [WARNING, '']
-conflict_matrix[Pin.types.OPENCOLL][Pin.types.PWROUT]     = [ERROR  , '']
-conflict_matrix[Pin.types.OPENEMIT][Pin.types.OUTPUT]     = [ERROR  , '']
-conflict_matrix[Pin.types.OPENEMIT][Pin.types.BIDIR]      = [WARNING, '']
-conflict_matrix[Pin.types.OPENEMIT][Pin.types.TRISTATE]   = [WARNING, '']
-conflict_matrix[Pin.types.OPENEMIT][Pin.types.UNSPEC]     = [WARNING, '']
-conflict_matrix[Pin.types.OPENEMIT][Pin.types.PWROUT]     = [ERROR  , '']
-conflict_matrix[Pin.types.NOCONNECT][Pin.types.INPUT]     = [ERROR  , '']
-conflict_matrix[Pin.types.NOCONNECT][Pin.types.OUTPUT]    = [ERROR  , '']
-conflict_matrix[Pin.types.NOCONNECT][Pin.types.BIDIR]     = [ERROR  , '']
-conflict_matrix[Pin.types.NOCONNECT][Pin.types.TRISTATE]  = [ERROR  , '']
-conflict_matrix[Pin.types.NOCONNECT][Pin.types.PASSIVE]   = [ERROR  , '']
-conflict_matrix[Pin.types.NOCONNECT][Pin.types.PULLUP]    = [ERROR  , '']
-conflict_matrix[Pin.types.NOCONNECT][Pin.types.PULLDN]    = [ERROR  , '']
-conflict_matrix[Pin.types.NOCONNECT][Pin.types.UNSPEC]    = [ERROR  , '']
-conflict_matrix[Pin.types.NOCONNECT][Pin.types.PWRIN]     = [ERROR  , '']
-conflict_matrix[Pin.types.NOCONNECT][Pin.types.PWROUT]    = [ERROR  , '']
-conflict_matrix[Pin.types.NOCONNECT][Pin.types.OPENCOLL]  = [ERROR  , '']
-conflict_matrix[Pin.types.NOCONNECT][Pin.types.OPENEMIT]  = [ERROR  , '']
-conflict_matrix[Pin.types.NOCONNECT][Pin.types.NOCONNECT] = [ERROR  , '']
-conflict_matrix[Pin.types.PULLUP][Pin.types.PULLUP]       = [WARNING, 'Multiple pull-ups connected.']
-conflict_matrix[Pin.types.PULLDN][Pin.types.PULLDN]       = [WARNING, 'Multiple pull-downs connected.']
-conflict_matrix[Pin.types.PULLUP][Pin.types.PULLDN]       = [ERROR, 'Pull-up connected to pull-down.']
+conflict_matrix[Pin.types.OUTPUT][Pin.types.OUTPUT] = [ERROR, ""]
+conflict_matrix[Pin.types.TRISTATE][Pin.types.OUTPUT] = [WARNING, ""]
+conflict_matrix[Pin.types.UNSPEC][Pin.types.INPUT] = [WARNING, ""]
+conflict_matrix[Pin.types.UNSPEC][Pin.types.OUTPUT] = [WARNING, ""]
+conflict_matrix[Pin.types.UNSPEC][Pin.types.BIDIR] = [WARNING, ""]
+conflict_matrix[Pin.types.UNSPEC][Pin.types.TRISTATE] = [WARNING, ""]
+conflict_matrix[Pin.types.UNSPEC][Pin.types.PASSIVE] = [WARNING, ""]
+conflict_matrix[Pin.types.UNSPEC][Pin.types.PULLUP] = [WARNING, ""]
+conflict_matrix[Pin.types.UNSPEC][Pin.types.PULLDN] = [WARNING, ""]
+conflict_matrix[Pin.types.UNSPEC][Pin.types.UNSPEC] = [WARNING, ""]
+conflict_matrix[Pin.types.PWRIN][Pin.types.TRISTATE] = [WARNING, ""]
+conflict_matrix[Pin.types.PWRIN][Pin.types.UNSPEC] = [WARNING, ""]
+conflict_matrix[Pin.types.PWROUT][Pin.types.OUTPUT] = [ERROR, ""]
+conflict_matrix[Pin.types.PWROUT][Pin.types.BIDIR] = [WARNING, ""]
+conflict_matrix[Pin.types.PWROUT][Pin.types.TRISTATE] = [ERROR, ""]
+conflict_matrix[Pin.types.PWROUT][Pin.types.UNSPEC] = [WARNING, ""]
+conflict_matrix[Pin.types.PWROUT][Pin.types.PWROUT] = [ERROR, ""]
+conflict_matrix[Pin.types.OPENCOLL][Pin.types.OUTPUT] = [ERROR, ""]
+conflict_matrix[Pin.types.OPENCOLL][Pin.types.TRISTATE] = [ERROR, ""]
+conflict_matrix[Pin.types.OPENCOLL][Pin.types.UNSPEC] = [WARNING, ""]
+conflict_matrix[Pin.types.OPENCOLL][Pin.types.PWROUT] = [ERROR, ""]
+conflict_matrix[Pin.types.OPENEMIT][Pin.types.OUTPUT] = [ERROR, ""]
+conflict_matrix[Pin.types.OPENEMIT][Pin.types.BIDIR] = [WARNING, ""]
+conflict_matrix[Pin.types.OPENEMIT][Pin.types.TRISTATE] = [WARNING, ""]
+conflict_matrix[Pin.types.OPENEMIT][Pin.types.UNSPEC] = [WARNING, ""]
+conflict_matrix[Pin.types.OPENEMIT][Pin.types.PWROUT] = [ERROR, ""]
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.INPUT] = [ERROR, ""]
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.OUTPUT] = [ERROR, ""]
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.BIDIR] = [ERROR, ""]
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.TRISTATE] = [ERROR, ""]
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.PASSIVE] = [ERROR, ""]
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.PULLUP] = [ERROR, ""]
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.PULLDN] = [ERROR, ""]
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.UNSPEC] = [ERROR, ""]
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.PWRIN] = [ERROR, ""]
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.PWROUT] = [ERROR, ""]
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.OPENCOLL] = [ERROR, ""]
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.OPENEMIT] = [ERROR, ""]
+conflict_matrix[Pin.types.NOCONNECT][Pin.types.NOCONNECT] = [ERROR, ""]
+conflict_matrix[Pin.types.PULLUP][Pin.types.PULLUP] = [
+    WARNING,
+    "Multiple pull-ups connected.",
+]
+conflict_matrix[Pin.types.PULLDN][Pin.types.PULLDN] = [
+    WARNING,
+    "Multiple pull-downs connected.",
+]
+conflict_matrix[Pin.types.PULLUP][Pin.types.PULLDN] = [
+    ERROR,
+    "Pull-up connected to pull-down.",
+]
 
 # Fill-in the other half of the symmetrical contention matrix by looking
 # for entries that != OK at position (r,c) and copying them to position

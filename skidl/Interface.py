@@ -25,21 +25,21 @@
 Handles interfaces for subsystems with complicated I/O.
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
-from __future__ import division
-from __future__ import absolute_import
+from __future__ import absolute_import, division, print_function, unicode_literals
+
 from builtins import str
+
 from future import standard_library
+
+from .baseobj import SkidlBaseObject
+from .utilities import *
+
 standard_library.install_aliases()
 
 try:
     import __builtin__ as builtins
 except ImportError:
     import builtins
-
-from .baseobj import SkidlBaseObject
-from .utilities import *
 
 
 class Interface(SkidlBaseObject):
@@ -72,7 +72,7 @@ class Interface(SkidlBaseObject):
     def ERC(self, *args, **kwargs):
         """Run class-wide and local ERC functions on this interface."""
 
-        exec_function_list(self, 'erc_list', *args, **kwargs)
+        exec_function_list(self, "erc_list", *args, **kwargs)
 
     @property
     def name(self):
@@ -92,8 +92,7 @@ class Interface(SkidlBaseObject):
 
         # Now name the object with the given name or some variation
         # of it that doesn't collide with anything else in the list.
-        self._name = get_unique_name(self.circuit.interfaces, 'name',
-                                     self.prefix, name)
+        self._name = get_unique_name(self.circuit.interfaces, "name", self.prefix, name)
 
     @name.deleter
     def name(self):

@@ -26,17 +26,16 @@
 ERC functions for Circuit, Part, Pin, Net, Bus, Interface objects.
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
-from __future__ import division
-from __future__ import absolute_import
-from builtins import str
-from future import standard_library
-standard_library.install_aliases()
+from __future__ import absolute_import, division, print_function, unicode_literals
 
 import sys
+from builtins import str
+
+from future import standard_library
 
 from .utilities import erc_logger
+
+standard_library.install_aliases()
 
 
 def dflt_circuit_erc(circuit):
@@ -66,12 +65,14 @@ def dflt_circuit_erc(circuit):
         intfc.ERC()
 
     if (erc_logger.error.count, erc_logger.warning.count) == (0, 0):
-        sys.stderr.write('\nNo ERC errors or warnings found.\n\n')
+        sys.stderr.write("\nNo ERC errors or warnings found.\n\n")
     else:
-        sys.stderr.write('\n{} warnings found during ERC.\n'.format(
-            erc_logger.warning.count))
-        sys.stderr.write('{} errors found during ERC.\n\n'.format(
-            erc_logger.error.count))
+        sys.stderr.write(
+            "\n{} warnings found during ERC.\n".format(erc_logger.warning.count)
+        )
+        sys.stderr.write(
+            "{} errors found during ERC.\n\n".format(erc_logger.error.count)
+        )
 
 
 def dflt_part_erc(part):
@@ -95,15 +96,17 @@ def dflt_part_erc(part):
         # Error if a pin is unconnected but not of type NOCONNECT.
         if pin.net is None:
             if pin.func != Pin.types.NOCONNECT:
-                erc_logger.warning(
-                    'Unconnected pin: {p}.'.format(p=pin.erc_desc()))
+                erc_logger.warning("Unconnected pin: {p}.".format(p=pin.erc_desc()))
 
         # Error if a no-connect pin is connected to a net.
         elif pin.net.drive != Pin.drives.NOCONNECT:
             if pin.func == Pin.types.NOCONNECT:
                 erc_logger.warning(
-                    'Incorrectly connected pin: {p} should not be connected to a net ({n}).'.
-                    format(p=pin.erc_desc(), n=pin.net.name))
+                    "Incorrectly connected pin: {p} should not be connected to a net ({n}).".format(
+                        p=pin.erc_desc(), n=pin.net.name
+                    )
+                )
+
 
 def dflt_net_erc(net):
     """
@@ -122,10 +125,13 @@ def dflt_net_erc(net):
     pins = net.get_pins()
     num_pins = len(pins)
     if num_pins == 0:
-        erc_logger.warning('No pins attached to net {n}.'.format(n=net.name))
+        erc_logger.warning("No pins attached to net {n}.".format(n=net.name))
     elif num_pins == 1:
-        erc_logger.warning('Only one pin ({p}) attached to net {n}.'.format(
-            p=pins[0].erc_desc(), n=net.name))
+        erc_logger.warning(
+            "Only one pin ({p}) attached to net {n}.".format(
+                p=pins[0].erc_desc(), n=net.name
+            )
+        )
     else:
         # Multiple pins on the net, so check for conflicts.
         for i in range(num_pins):
@@ -139,9 +145,11 @@ def dflt_net_erc(net):
     net_drive = max([p.drive for p in pins] + [net.drive])
 
     if net_drive <= Pin.drives.NONE:
-        erc_logger.warning('No drivers for net {n}'.format(n=net.name))
+        erc_logger.warning("No drivers for net {n}".format(n=net.name))
     for p in pins:
-        if Pin.pin_info[p.func]['min_rcv'] > net_drive:
+        if Pin.pin_info[p.func]["min_rcv"] > net_drive:
             erc_logger.warning(
-                'Insufficient drive current on net {n} for pin {p}'.format(
-                    n=net.name, p=p.erc_desc()))
+                "Insufficient drive current on net {n} for pin {p}".format(
+                    n=net.name, p=p.erc_desc()
+                )
+            )

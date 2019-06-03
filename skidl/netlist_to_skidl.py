@@ -24,31 +24,30 @@
 Convert a netlist into an equivalent SKiDL program.
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
-from __future__ import division
-from __future__ import absolute_import
-from builtins import int
-from future import standard_library
-standard_library.install_aliases()
+from __future__ import absolute_import, division, print_function, unicode_literals
 
 import re
+from builtins import int
 from collections import defaultdict
+
+from future import standard_library
 from kinparse import parse_netlist
+
+standard_library.install_aliases()
 
 
 def netlist_to_skidl(netlist_src):
 
-    tab = ' ' * 4
+    tab = " " * 4
 
     def legalize(name):
         """Make a string into a legal python variable name."""
-        return re.sub('[^a-zA-Z0-9_]', '_', name)
+        return re.sub("[^a-zA-Z0-9_]", "_", name)
 
     def comp_key(comp):
         """Create an ID key from component's major characteristics."""
         chars = [c for c in [comp.lib, comp.name, comp.footprint] if len(c)]
-        return legalize('_'.join(chars))
+        return legalize("_".join(chars))
 
     def template_comp_to_skidl(template_comp):
         """Instantiate a component that will be used as a template."""
@@ -58,8 +57,7 @@ def netlist_to_skidl(netlist_src):
         name = comp_key(template_comp)  # python variable name for template.
         lib = template_comp.lib
         part = template_comp.name
-        tmpl = "{ltab}{name} = Part('{lib}', '{part}', dest=TEMPLATE".format(
-                **locals())
+        tmpl = "{ltab}{name} = Part('{lib}', '{part}', dest=TEMPLATE".format(**locals())
         footprint = template_comp.footprint
         if len(footprint):
             tmpl += ", footprint='{footprint}'".format(**locals())
@@ -68,7 +66,8 @@ def netlist_to_skidl(netlist_src):
         # Set attributes of template using the component fields.
         for fld in template_comp.fields:
             tmpl += "{ltab}setattr({name}, '{fld.name}', '{fld.value}')\n".format(
-                **locals())
+                **locals()
+            )
 
         return tmpl
 
@@ -81,10 +80,7 @@ def netlist_to_skidl(netlist_src):
         template_comp = template_comps[template_comp_name]
 
         # Get the fields for the template.
-        template_comp_fields = {
-            fld.name: fld.value
-            for fld in template_comp.fields
-        }
+        template_comp_fields = {fld.name: fld.value for fld in template_comp.fields}
 
         # Create a legal python variable for storing the instantiated component.
         ref = comp.ref
@@ -98,9 +94,10 @@ def netlist_to_skidl(netlist_src):
 
         # Set the fields of the instantiated component if they differ from the values in the template.
         for fld in comp.fields:
-            if fld.value != template_comp_fields.get(fld.name, ''):
+            if fld.value != template_comp_fields.get(fld.name, ""):
                 inst += "{ltab}setattr({legal_ref}, '{fld.name}', '{fld.value}')\n".format(
-                    **locals())
+                    **locals()
+                )
 
         return inst
 
@@ -113,7 +110,7 @@ def netlist_to_skidl(netlist_src):
             comp = legalize(pin.ref)  # Name of Python variable storing component.
             pin_num = pin.num  # Pin number of component attached to net.
             pins.append("{comp}['{pin_num}']".format(**locals()))
-        pins = ', '.join(pins)  # String the pins into an argument list.
+        pins = ", ".join(pins)  # String the pins into an argument list.
 
         ltab = tab
 
@@ -133,40 +130,44 @@ def netlist_to_skidl(netlist_src):
 
         ltab = tab
 
-        section_div = '#' + '=' * 79
-        section_comment = "\n\n{ltab}{section_div}\n{ltab}# {section_desc}\n{ltab}{section_div}\n\n"
+        section_div = "#" + "=" * 79
+        section_comment = (
+            "\n\n{ltab}{section_div}\n{ltab}# {section_desc}\n{ltab}{section_div}\n\n"
+        )
 
-        skidl = ''
-        skidl += '# -*- coding: utf-8 -*-\n\n'
-        skidl += 'from skidl import *\n\n\n'
+        skidl = ""
+        skidl += "# -*- coding: utf-8 -*-\n\n"
+        skidl += "from skidl import *\n\n\n"
         circuit_name = legalize(ntlst.source)
-        skidl += 'def {circuit_name}():'.format(**locals())
+        skidl += "def {circuit_name}():".format(**locals())
 
-        section_desc = 'Component templates.'
+        section_desc = "Component templates."
         skidl += section_comment.format(**locals())
         comp_templates = {comp_key(comp): comp for comp in ntlst.parts}
         template_statements = sorted(
-            [template_comp_to_skidl(c) for c in list(comp_templates.values())])
-        skidl += '\n'.join(template_statements)
+            [template_comp_to_skidl(c) for c in list(comp_templates.values())]
+        )
+        skidl += "\n".join(template_statements)
 
-        section_desc = 'Component instantiations.'
+        section_desc = "Component instantiations."
         skidl += section_comment.format(**locals())
         comp_inst_statements = sorted(
-            [comp_to_skidl(c, comp_templates) for c in ntlst.parts])
-        skidl += '\n'.join(comp_inst_statements)
+            [comp_to_skidl(c, comp_templates) for c in ntlst.parts]
+        )
+        skidl += "\n".join(comp_inst_statements)
 
-        section_desc = 'Net interconnections between instantiated components.'
+        section_desc = "Net interconnections between instantiated components."
         skidl += section_comment.format(**locals())
         net_statements = sorted([net_to_skidl(n) for n in ntlst.nets])
-        skidl += '\n'.join(net_statements)
+        skidl += "\n".join(net_statements)
 
-        ltab = ''
-        section_desc = 'Instantiate the circuit and generate the netlist.'
+        ltab = ""
+        section_desc = "Instantiate the circuit and generate the netlist."
         skidl += section_comment.format(**locals())
         ltab = tab
         skidl += 'if __name__ == "__main__":\n'
-        skidl += '{ltab}{circuit_name}()\n'.format(**locals())
-        skidl += '{ltab}generate_netlist()\n'.format(**locals())
+        skidl += "{ltab}{circuit_name}()\n".format(**locals())
+        skidl += "{ltab}generate_netlist()\n".format(**locals())
 
         return skidl
 
