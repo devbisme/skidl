@@ -599,7 +599,7 @@ class Circuit(SkidlBaseObject):
                 xlabel = None
             dot.node(n.name, shape=net_shape, xlabel=xlabel)
             for pin in n.pins:
-                dot.edge(pin.part.ref, n.name, arrowhead="none")
+                dot.edge(pin.part.ref, n.name, arrowhead="none", taillabel=pin.name)
 
         for p in sorted(self.parts, key=lambda p: p.ref.lower()):
             xlabel = None
