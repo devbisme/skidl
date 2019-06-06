@@ -387,7 +387,7 @@ class Net(SkidlBaseObject):
         from .defines import NET_PREFIX, BUS_PREFIX
 
         self.test_validity()
-        prefix_re = "({}|{})*".format(re.escape(NET_PREFIX), re.escape(BUS_PREFIX))
+        prefix_re = "({}|{})+".format(re.escape(NET_PREFIX), re.escape(BUS_PREFIX))
         return re.match(prefix_re, self.name)
 
     def connect(self, *pins_nets_buses):
