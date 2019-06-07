@@ -557,6 +557,8 @@ class Circuit(SkidlBaseObject):
         splines=None,
         show_values=True,
         show_anon=False,
+        split_nets=["GND"],
+        split_parts_ref=[],
     ):
         """
         Returns a graphviz graph as graphviz object and can also write it to a file/stream.
@@ -573,6 +575,8 @@ class Circuit(SkidlBaseObject):
             splines: Style for the edges, try 'ortho' for a schematic like feel
             show_values: Show values as external labels on part nodes
             show_anon: Show anonymous net names
+            split_nets: splits up the plot for the given list of net names
+            split_parts_ref: splits up the plot for all pins for the given list of part refs
 
         Returns:
             graphviz.Digraph
@@ -593,13 +597,36 @@ class Circuit(SkidlBaseObject):
         # try and keep things in the same order
         nets.sort(key=lambda n: n.name.lower())
 
-        for n in nets:
+        for i, n in enumerate(nets):
             xlabel = n.name
             if not show_anon and n.is_implicit():
                 xlabel = None
-            dot.node(n.name, shape=net_shape, xlabel=xlabel)
-            for pin in n.pins:
-                dot.edge(pin.part.ref, n.name, arrowhead="none", taillabel=pin.name)
+            if n.name not in split_nets:
+                dot.node(n.name, shape=net_shape, xlabel=xlabel)
+
+            for j, pin in enumerate(n.pins):
+                net_ref = n.name
+                pin_part_ref = pin.part.ref
+
+                if n.name in split_nets:
+                    net_ref += str(j)
+                    dot.node(net_ref, shape=net_shape, xlabel=xlabel)
+                if pin.part.ref in split_parts_ref and n.name not in split_nets:
+                    label = pin.part.ref + ":" + pin.name
+
+                    # add label to part
+                    net_ref_part = "%s_%i_%i" % (net_ref, i, j)
+                    dot.node(net_ref_part, shape=net_shape, xlabel=label)
+                    dot.edge(pin_part_ref, net_ref_part, arrowhead="none")
+
+                    # add label to splited net
+                    pin_part_ref = "%s_%i_%i" % (pin_part_ref, i, j)
+                    dot.node(pin_part_ref, shape=net_shape, xlabel=label)
+                    dot.edge(pin_part_ref, net_ref, arrowhead="none")
+                else:
+                    dot.edge(
+                        pin_part_ref, net_ref, arrowhead="none", taillabel=pin.name
+                    )
 
         for p in sorted(self.parts, key=lambda p: p.ref.lower()):
             xlabel = None
