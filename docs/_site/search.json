@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "SKiDL at KiCon 2019",
+		  "category"   : "blog",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/skidl-kicon-2019",
+		  "date"       : "2019-06-12 09:27:24 -0400",
+		  "shortdate"  : "June 12, 2019"
+		} ,
+	
+		{
 		  "title"      : "Sweetening SKiDL",
 		  "category"   : "blog",
 		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/sweetening-skidl",

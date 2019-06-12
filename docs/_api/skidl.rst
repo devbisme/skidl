@@ -67,6 +67,14 @@ skidl.Network module
     :undoc-members:
     :show-inheritance:
 
+skidl.Note module
+-----------------
+
+.. automodule:: skidl.Note
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 skidl.Part module
 -----------------
 
@@ -91,10 +99,34 @@ skidl.SchLib module
     :undoc-members:
     :show-inheritance:
 
+skidl.baseobj module
+--------------------
+
+.. automodule:: skidl.baseobj
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 skidl.defines module
 --------------------
 
 .. automodule:: skidl.defines
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+skidl.erc module
+----------------
+
+.. automodule:: skidl.erc
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+skidl.netclass module
+---------------------
+
+.. automodule:: skidl.netclass
     :members:
     :undoc-members:
     :show-inheritance:

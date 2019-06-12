@@ -1,0 +1,37 @@
+---
+layout: post
+title: SKiDL at KiCon 2019
+date: 2019-06-12T09:27:24-04:00
+author:
+    name: Dave Vandenbout
+    photo: devb-pic.jpg
+    email: devb@xess.com
+    description: Relax, I do this stuff for a living.
+category: blog
+permalink: blog/skidl-kicon-2019
+---
+
+At the recent [KiCon 2019](https://kicad-kicon.com/), I gave a [talk](https://www.youtube.com/watch?v=WErQYI2A36M)
+about SKiDL that's a good introduction to the language and why I created it.
+It's about 27 minutes in length if you can stand it.
+
+I got a lot of great feedback after my talk.
+Almost everybody mentioned that they want to generate schematics from their SKiDL code.
+There were several reasons for this:
+
+* To verify that their SKiDL code did what they expected.
+* For design reviews.
+* Their PCB fabricator/assembler requires a schematic.
+* For guidance during bench testing.
+
+I don't agree that a schematic is necessary for all of these, but certainly
+it helps for some of them.
+So I'll be investigating techniques to improve SKiDL's rudimentary
+schematic output.
+(I've also gotten help from a Github contributor who recently submitted some
+[pull requests](https://github.com/xesscorp/skidl/pulls?q=is%3Apr+author%3Aweimens)
+that addressed this.)
+
+After you watch my SKiDL video,
+there's a bunch of other great KiCon talks in this
+[list](https://www.youtube.com/channel/UCkJRycUz2CylxpiP-zMePow).
