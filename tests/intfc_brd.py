@@ -101,6 +101,6 @@ port[6] += pic32["RA4"]  # PPS: SDO1 output.
 ERC()
 generate_netlist()
 
-dot = generate_graph(split_parts_ref=['U2'], split_nets=['GND','+3.3V','VUSB'])
-dot.format = 'svg'
+dot = generate_graph(split_parts_ref=["U2"], split_nets=["GND", "+3.3V", "VUSB"])
+dot.format = "svg"
 dot.render()
