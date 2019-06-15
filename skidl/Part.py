@@ -159,7 +159,7 @@ class Part(SkidlBaseObject):
         # a netlist, then parse the entire part definition.
         elif part_defn:
             self.part_defn = part_defn
-            self.parse(just_get_name=(dest != NETLIST))
+            self.parse(get_name_only=(dest != NETLIST))
 
         # If the part is destined for a SKiDL library, then it will be defined
         # by the additional attribute values that are passed.
@@ -255,12 +255,12 @@ class Part(SkidlBaseObject):
             # This happens if the part has no integer-labeled pins.
             return 0, 0
 
-    def parse(self, just_get_name=False):
+    def parse(self, get_name_only=False):
         """
         Create a part from its stored part definition.
 
         Args:
-            just_get_name: When true, just get the name and aliases for the
+            get_name_only: When true, just get the name and aliases for the
                 part. Leave the rest unparsed.
         """
 
@@ -277,7 +277,7 @@ class Part(SkidlBaseObject):
             )
 
         # Parse the part description.
-        parse_func(just_get_name)
+        parse_func(get_name_only)
 
     def associate_pins(self):
         """

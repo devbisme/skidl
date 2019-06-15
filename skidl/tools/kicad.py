@@ -126,7 +126,7 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
                 part_desc["keywords"] = " ".join(line.split()[1:])
             elif line.startswith("$ENDCMP"):
                 try:
-                    part = self.get_part_by_name(part_desc["name"], silent=True)
+                    part = self.get_part_by_name(part_desc["name"], silent=True, get_name_only=True)
                 except Exception:
                     pass
                 else:
@@ -137,7 +137,7 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
                 pass
 
 
-def _parse_lib_part_(self, just_get_name=False):
+def _parse_lib_part_(self, get_name_only=False):
     """
     Create a Part using a part definition from a KiCad schematic library.
 
@@ -148,7 +148,7 @@ def _parse_lib_part_(self, just_get_name=False):
     Args:
         part_defn: A list of strings that define the part (usually read from a
             schematic library file). Can also be None.
-        just_get_name: If true, scan the part definition until the
+        get_name_only: If true, scan the part definition until the
             name and aliases are found. The rest of the definition
             will be parsed if the part is actually used.
     """
@@ -290,17 +290,19 @@ def _parse_lib_part_(self, just_get_name=False):
     }
     self.fplist = []
 
+    # Regular expression for non-quoted and quoted text pieces.
+    unqu = r'[^\s"]+'  # Word without spaces or double-quotes.
+    qu = r'(?<!\\)".*?(?<!\\)"'  # Quoted string, possibly with escaped quotes.
+    srch = "|".join([unqu + qu, qu, unqu])
+    srch = re.compile(srch)
+
     # Go through the part definition line-by-line.
     for line in self.part_defn:
 
         # Split the line into words.
-
         line = line.replace("\n", "")
 
         # Extract all the non-quoted and quoted text pieces, accounting for escaped quotes.
-        unqu = r'[^\s"]+'  # Word without spaces or double-quotes.
-        qu = r'(?<!\\)".*?(?<!\\)"'  # Quoted string, possibly with escaped quotes.
-        srch = "|".join([unqu + qu, qu, unqu])
         line = re.findall(srch, line)  # Replace line with list of pieces of line.
 
         # The first word indicates the type of part definition data that will follow.
@@ -318,8 +320,8 @@ def _parse_lib_part_(self, just_get_name=False):
             self.name = self.definition["name"]
 
             # To handle libraries quickly, just get the name and
-            # aliases and only parse the rest of the part definition later.
-            if just_get_name:
+            # aliases and parse the rest of the part definition later.
+            if get_name_only:
                 if self.aliases:
                     # Name found, aliases already found so we're done.
                     return
@@ -327,11 +329,10 @@ def _parse_lib_part_(self, just_get_name=False):
                 # (The majority of parts don't have aliases.)
                 for ln in self.part_defn:
                     if re.match(r"^\s*ALIAS\s", ln):
-                        # Break and keep parsing defn if aliases are present.
-                        break
-                else:
-                    # No aliases found, so part name is all that's needed.
-                    return
+                        # Found aliases, so store them.
+                        self.aliases = re.findall(srch, ln)[1:]
+                        return
+                return
 
         # End the parsing of the part definition.
         elif line[0] == "ENDDEF":
@@ -350,10 +351,7 @@ def _parse_lib_part_(self, just_get_name=False):
 
         # Create a list of part aliases.
         elif line[0] == "ALIAS":
-            self.aliases = [alias for alias in line[1:]]
-            if just_get_name and self.name:
-                # Aliases found, name already found so we're done.
-                return
+            self.aliases = line[1:]
 
         # Start the list of part footprints.
         elif line[0] == "$FPLIST":

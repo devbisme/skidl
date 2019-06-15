@@ -145,7 +145,9 @@ class SchLib(object):
                 pass
         return parts
 
-    def get_part_by_name(self, name, allow_multiples=False, silent=False):
+    def get_part_by_name(
+        self, name, allow_multiples=False, silent=False, get_name_only=False
+    ):
         """
         Return a Part with the given name or alias from the part list.
 
@@ -182,7 +184,7 @@ class SchLib(object):
 
             # Return the entire list if multiples are allowed.
             if allow_multiples:
-                parts = [p.parse() for p in parts]
+                parts = [p.parse(get_name_only) for p in parts]
 
             # Just return the first part from the list if multiples are not
             # allowed and issue a warning.
@@ -194,11 +196,11 @@ class SchLib(object):
                         )
                     )
                 parts = parts[0]
-                parts.parse()
+                parts.parse(get_name_only)
 
         # Only a single matching part was found, so return that.
         else:
-            parts.parse()
+            parts.parse(get_name_only)
 
         # Return the library part or parts that were found.
         return parts

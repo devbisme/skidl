@@ -87,7 +87,7 @@ def search(term, tool=None):
                         lib.get_parts(use_backup_lib=False, **{category: term})
                     ):
                         # Parse the part to instantiate the complete object.
-                        part.parse()
+                        part.parse(get_name_only=True)
                         # Store the library name and part object.
                         parts.add((lib_file, part))
 
