@@ -604,7 +604,7 @@ class Circuit(SkidlBaseObject):
             if n.name not in split_nets:
                 dot.node(n.name, shape=net_shape, xlabel=xlabel)
 
-            for j, pin in enumerate(n.pins):
+            for j, pin in enumerate(n.get_pins()):
                 net_ref = n.name
                 pin_part_ref = pin.part.ref
 
