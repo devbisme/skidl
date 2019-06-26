@@ -126,7 +126,9 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
                 part_desc["keywords"] = " ".join(line.split()[1:])
             elif line.startswith("$ENDCMP"):
                 try:
-                    part = self.get_part_by_name(part_desc["name"], silent=True, get_name_only=True)
+                    part = self.get_part_by_name(
+                        part_desc["name"], silent=True, get_name_only=True
+                    )
                 except Exception:
                     pass
                 else:
