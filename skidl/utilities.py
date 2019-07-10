@@ -604,7 +604,7 @@ def explode(bus_str):
     end_num = int(bus.group(3))
     dir = [1, -1][int(begin_num > end_num)]  # Bus indexes increasing or decreasing?
     bus_pin_nums = range(begin_num, end_num + dir, dir)
-    non_num = "[^0-9]"
+    non_num = "([^0-9]|$)"
     return [bus_name + str(n) + non_num for n in bus_pin_nums]
 
 
