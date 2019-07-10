@@ -596,16 +596,18 @@ def explode(bus_str):
         list with the original input string if it's not a valid bus expression.
     """
 
-    bus = re.match(r"^([A-Za-z_]+)\[([0-9]+):([0-9]+)\]$", bus_str)
+#    bus = re.match(r"^([A-Za-z_]+)\[([0-9]+):([0-9]+)\]$", bus_str)
+    bus = re.match(r"^(.+)\[([0-9]+):([0-9]+)\](.*)$", bus_str)
     if not bus:
         return [bus_str]  # Not a valid bus expression, so return input string.
-    bus_name = bus.group(1)
+    beg_bus_name = bus.group(1)
     begin_num = int(bus.group(2))
     end_num = int(bus.group(3))
+    end_bus_name = bus.group(4)
     dir = [1, -1][int(begin_num > end_num)]  # Bus indexes increasing or decreasing?
     bus_pin_nums = range(begin_num, end_num + dir, dir)
     non_num = "([^0-9]|$)"
-    return [bus_name + str(n) + non_num for n in bus_pin_nums]
+    return [beg_bus_name + str(n) + end_bus_name + non_num for n in bus_pin_nums]
 
 
 def find_num_copies(**attribs):
