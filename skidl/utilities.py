@@ -606,8 +606,8 @@ def explode(bus_str):
     end_bus_name = bus.group(4)
     dir = [1, -1][int(begin_num > end_num)]  # Bus indexes increasing or decreasing?
     bus_pin_nums = range(begin_num, end_num + dir, dir)
-    non_num = "([^0-9]|$)"
-    return [beg_bus_name + str(n) + end_bus_name + non_num for n in bus_pin_nums]
+    non_num = "(?=[^0-9]|$)"
+    return [beg_bus_name + str(n) + non_num + end_bus_name for n in bus_pin_nums]
 
 
 def find_num_copies(**attribs):
