@@ -596,7 +596,6 @@ def explode(bus_str):
         list with the original input string if it's not a valid bus expression.
     """
 
-#    bus = re.match(r"^([A-Za-z_]+)\[([0-9]+):([0-9]+)\]$", bus_str)
     bus = re.match(r"^(.+)\[([0-9]+):([0-9]+)\](.*)$", bus_str)
     if not bus:
         return [bus_str]  # Not a valid bus expression, so return input string.
@@ -606,6 +605,9 @@ def explode(bus_str):
     end_bus_name = bus.group(4)
     dir = [1, -1][int(begin_num > end_num)]  # Bus indexes increasing or decreasing?
     bus_pin_nums = range(begin_num, end_num + dir, dir)
+    # The character following a bus index must be non-numeric so that "B1" does
+    # not also match "B11". This must also be a look-ahead assertion so it
+    # doesn't consume any of the string.
     non_num = "(?=[^0-9]|$)"
     return [beg_bus_name + str(n) + non_num + end_bus_name for n in bus_pin_nums]
 
