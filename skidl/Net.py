@@ -46,6 +46,9 @@ except ImportError:
     import builtins
 
 
+Traversal = collections.namedtuple("Traversal", ["nets", "pins"])
+
+
 class Net(SkidlBaseObject):
     """
     Lists of connected pins are stored as nets using this class.
@@ -132,6 +135,11 @@ class Net(SkidlBaseObject):
     def _traverse(self):
         """Return all the nets and pins attached to this net, including itself."""
 
+        try:
+            return self.traversal  # Return pre-existing traversal.
+        except AttributeError:
+            pass # Compute the traversal if it's not available.
+
         from .Pin import PhantomPin
 
         self.test_validity()
@@ -160,10 +168,8 @@ class Net(SkidlBaseObject):
         # Remove any phantom pins that may have existed for tieing nets together.
         pins = set([p for p in pins if not isinstance(p, PhantomPin)])
 
-        traversal = collections.namedtuple("Traversal", ["nets", "pins"])
-        traversal.nets = list(nets)
-        traversal.pins = list(pins)
-        return traversal
+        self.traversal = Traversal(nets=list(nets), pins=list(pins))
+        return self.traversal
 
     def get_pins(self):
         """Return a list of pins attached to this net."""
@@ -517,6 +523,13 @@ class Net(SkidlBaseObject):
                     ),
                 )
 
+        # If something has been connected to a net, then remove any existing traversal
+        # so it will be recomputed the next time it is needed.
+        try:
+            del self.traversal
+        except AttributeError:
+            pass  # No traversal to delete.
+
         # Add the net to the global netlist. (It won't be added again
         # if it's already there.)
         self.circuit += self
@@ -534,7 +547,14 @@ class Net(SkidlBaseObject):
         try:
             self.pins.remove(pin)
         except ValueError:
-            pass
+            return  # Pin wasn't in the list, so abort.
+
+        # If a pin has been disconnected from a net, then remove any existing traversal
+        # so it will be recomputed the next time it is needed.
+        try:
+            del self.traversal
+        except AttributeError:
+            pass  # No traversal to delete.
 
     def merge_names(self):
         """For multi-segment nets, select a common name for all the segments."""
@@ -727,6 +747,7 @@ class Net(SkidlBaseObject):
 
     @name.setter
     def name(self, name):
+
         from .defines import NET_PREFIX
 
         self.test_validity()
