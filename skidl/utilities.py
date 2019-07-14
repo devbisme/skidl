@@ -377,11 +377,9 @@ def get_unique_name(lst, attrib, prefix, initial=None):
         initial = prefix + str(initial)
 
     # Now determine if there are any items in the list with the same name.
-    filter_dict = {attrib: re.escape(initial)}
-    sub_list = filter_list(lst, **filter_dict)
-
     # If the name is unique, then return it.
-    if not sub_list:
+    unique_names = set([getattr(l,attrib,None) for l in lst])
+    if initial not in unique_names:
         return initial
 
     # Otherwise, determine how many copies of the name are in the list and
