@@ -345,29 +345,29 @@ def get_unique_name(lst, attrib, prefix, initial=None):
         A string containing the unique name.
     """
 
+    # Get the unique names used in the list.
+    unique_names = set([getattr(l,attrib,None) for l in lst])
+
     # If the initial name is None, then create a name based on the prefix
     # and the smallest unused number that's available for that prefix.
     if not initial:
 
-        # Get list entries with the prefix followed by a number, e.g.: C55
-        filter_dict = {attrib: re.escape(prefix) + r"\d+"}
-        sub_list = filter_list(lst, **filter_dict)
-
-        # If entries were found, then find the smallest available number.
-        if sub_list:
-            # Get the list of names.
-            names = [getattr(item, attrib) for item in sub_list]
-            # Remove the prefix from each name, leaving only the numbers.
-            l = len(prefix)
-            nums = set([int(n[l:]) for n in names])
-            stop = max(nums) + 1
-            # Generate a list of the unused numbers in the range [1,stop]
-            # and select the minimum value.
-            n = min(set(range(1, stop + 1)) - nums)
-
-        # If no entries were found, start counting from 1.
-        else:
-            n = 1
+        n = 1
+        while True:
+            name = prefix + str(n)
+            step = 1
+            while name in unique_names:
+                n += step
+                step *= 2
+                name = prefix + str(n)
+            if step in (1, 2):
+                break
+            while (name not in unique_names) and (step > 1):
+                step //= 2
+                n -= step
+                name = prefix + str(n)
+            if step == 1:
+                break
 
         # The initial name is the prefix plus the number.
         initial = prefix + str(n)
@@ -378,7 +378,6 @@ def get_unique_name(lst, attrib, prefix, initial=None):
 
     # Now determine if there are any items in the list with the same name.
     # If the name is unique, then return it.
-    unique_names = set([getattr(l,attrib,None) for l in lst])
     if initial not in unique_names:
         return initial
 
