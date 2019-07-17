@@ -107,22 +107,18 @@ class Net(SkidlBaseObject):
         self.do_erc = True
         self._drive = Pin.drives.NONE
         self.pins = []
-        self._name = None
         self.circuit = None
         self.code = None  # This is the net number used in a KiCad netlist file.
 
-        # Set the Circuit object for the net first because setting the net name
-        # requires a lookup of existing names in the circuit.
+        # Set the net name directly to the passed-in name without any adjustment.
+        # The net name will be adjusted when it is added to the circuit which 
+        # may already have a net with the same name.
+        self._name = name
+
         # Add the net to the passed-in circuit or to the default circuit.
         if circuit is None:
             circuit = builtins.default_circuit
         circuit += self
-
-        # Set the net name *after* the net is assigned to a circuit so the
-        # net can be assigned a unique name that doesn't conflict with existing
-        # nets names in the circuit.
-        if name:
-            self.name = name
 
         # Attach whatever pins were given.
         self.connect(pins_nets_buses)
