@@ -345,51 +345,57 @@ def get_unique_name(lst, attrib, prefix, initial=None):
         A string containing the unique name.
     """
 
+    name = initial
+
     # Get the unique names used in the list.
     unique_names = set([getattr(l,attrib,None) for l in lst])
 
     # If the initial name is None, then create a name based on the prefix
     # and the smallest unused number that's available for that prefix.
-    if not initial:
+    if not name:
 
-        n = 1
+        # Do a binary search for a unique name formed from the prefix + number.
+        n = 1  # Starting number to append to the prefix.
         while True:
-            name = prefix + str(n)
+            # Step forward in larger and larger increments looking for a name
+            # that isn't in the list.
             step = 1
-            while name in unique_names:
+            while prefix + str(n) in unique_names:
                 n += step
                 step *= 2
-                name = prefix + str(n)
+            # If the step is 1, then the first name tried was available, so take it.
+            # If the step is two, the next sequential name after the first name tried
+            # was available, so take that.
             if step in (1, 2):
+                name = prefix + str(n)
                 break
-            while (name not in unique_names) and (step > 1):
+            # For larger step sizes, there may be non-existent names preceding
+            # the current value of n. So search backward starting with a large step
+            # and making it smaller and smaller until an existing name is found.
+            while (prefix + str(n) not in unique_names) and (step > 1):
                 step //= 2
                 n -= step
-                name = prefix + str(n)
-            if step == 1:
-                break
-
-        # The initial name is the prefix plus the number.
-        initial = prefix + str(n)
+            # Go back to the start of the loop and search forward from this value
+            # of n looking for an unused slot.
 
     # If the initial name is just a number, then prepend the prefix to it.
-    elif isinstance(initial, int):
-        initial = prefix + str(initial)
+    elif isinstance(name, int):
+        name = prefix + str(name)
 
     # Now determine if there are any items in the list with the same name.
     # If the name is unique, then return it.
-    if initial not in unique_names:
-        return initial
+    if name not in unique_names:
+        return name
 
     # Otherwise, determine how many copies of the name are in the list and
     # append a number to make this name unique.
-    filter_dict = {attrib: re.escape(initial) + r"_\d+"}
+    filter_dict = {attrib: re.escape(name) + r"_\d+"}
     n = len(filter_list(lst, **filter_dict))
-    initial = initial + "_" + str(n + 1)
+    name = name + "_" + str(n + 1)
 
     # Recursively call this routine using the newly-generated name to
     # make sure it's unique. Eventually, a unique name will be returned.
-    return get_unique_name(lst, attrib, prefix, initial)
+    return get_unique_name(lst, attrib, prefix, name)
 
 
 def fullmatch(regex, string, flags=0):

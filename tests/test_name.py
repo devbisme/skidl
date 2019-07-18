@@ -38,3 +38,24 @@ def test_name_3():
     net_names = [n.name for n in default_circuit.nets]
     unique_net_names = set(net_names)
     assert len(unique_net_names) == len(net_names)
+
+
+def test_name_4():
+    l = 30
+    for _ in range(l):
+        n = Net()
+    assert len(default_circuit.nets) == l + 1  # Account for NC net.
+
+
+def test_name_5():
+    from random import shuffle
+
+    l = 30
+    lst = list(range(100))
+    k = 10
+    shuffle(lst)
+    for i in lst[:k]:
+        n = Net(i)
+    for _ in range(l):
+        n = Net()
+    assert len(default_circuit.nets) == l + k + 1  # Account for NC net.
