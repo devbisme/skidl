@@ -111,7 +111,7 @@ class Net(SkidlBaseObject):
         self.code = None  # This is the net number used in a KiCad netlist file.
 
         # Set the net name directly to the passed-in name without any adjustment.
-        # The net name will be adjusted when it is added to the circuit which 
+        # The net name will be adjusted when it is added to the circuit which
         # may already have a net with the same name.
         self._name = name
 
@@ -134,7 +134,7 @@ class Net(SkidlBaseObject):
         try:
             return self.traversal  # Return pre-existing traversal.
         except AttributeError:
-            pass # Compute the traversal if it's not available.
+            pass  # Compute the traversal if it's not available.
 
         from .Pin import PhantomPin
 

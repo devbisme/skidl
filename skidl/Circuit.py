@@ -135,7 +135,9 @@ class Circuit(SkidlBaseObject):
                     part.ref = part.ref  # This adjusts the part reference if necessary.
 
                     part.hierarchy = self.hierarchy  # Store hierarchy of part.
-                    part.skidl_trace = get_skidl_trace() # Store part instantiation trace.
+                    part.skidl_trace = (
+                        get_skidl_trace()
+                    )  # Store part instantiation trace.
 
                     self.parts.append(part)
                 else:
@@ -181,7 +183,7 @@ class Circuit(SkidlBaseObject):
                     # Add the net to this circuit.
                     net.circuit = self  # Record the Circuit object the net belongs to.
                     net.name = net.name
-                    net.hierarchy = self.hierarchy # Store hierarchy of net.
+                    net.hierarchy = self.hierarchy  # Store hierarchy of net.
 
                     self.nets.append(net)
 
@@ -229,7 +231,7 @@ class Circuit(SkidlBaseObject):
                     # Add the bus to this circuit.
                     bus.circuit = self
                     bus.name = bus.name
-                    bus.hierarchy = self.hierarchy # Store hierarchy of the bus.
+                    bus.hierarchy = self.hierarchy  # Store hierarchy of the bus.
 
                     self.buses.append(bus)
                     for net in bus.nets:
@@ -274,7 +276,9 @@ class Circuit(SkidlBaseObject):
                     # Add the interface to this circuit.
                     interface.circuit = self
                     interface.name = interface.name
-                    interface.hierarchy = self.hierarchy # Store hierarchy of the interface.
+                    interface.hierarchy = (
+                        self.hierarchy
+                    )  # Store hierarchy of the interface.
 
                     self.interfaces.append(interface)
 

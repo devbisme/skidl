@@ -28,6 +28,7 @@ Utility functions used by the rest of SKiDL.
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+import collections
 import inspect
 import logging
 import os
@@ -35,7 +36,6 @@ import os.path
 import re
 import sys
 import traceback
-import collections
 from builtins import dict, int, object, open, range, str, super, zip
 from contextlib import contextmanager
 
@@ -375,6 +375,7 @@ def flatten(nested_list):
 name_heap = set([None])
 prefix_counts = collections.Counter()
 
+
 def reset_get_unique_name():
     """Reset the heaps that store previously-assigned names."""
     global name_heap, prefix_counts
@@ -418,7 +419,7 @@ def get_unique_name(lst, attrib, prefix, initial=None):
             return name
 
     # Get the unique names used in the list.
-    unique_names = set([getattr(l,attrib,None) for l in lst])
+    unique_names = set([getattr(l, attrib, None) for l in lst])
 
     # If the initial name is None, then create a name based on the prefix
     # and the smallest unused number that's available for that prefix.
