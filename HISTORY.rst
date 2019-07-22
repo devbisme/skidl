@@ -19,6 +19,12 @@ ______________________
 * Added a notes property to allow attachment of user notes to Parts, Pins, Nets, etc.
 * Added net class to net objects for specifying net-specific design rules in PCBNEW.
 * Ignore multiple pins with the same number in symbols with DeMorgan equivalents.
+* Fixed problem with non-ASCII chars (e.g. Ohms) in strings.
+* Sped-up part/net naming using heap/cache, binary search, sets.
+* Sped-up by storing net traversals to avoid recomputation.
+* Fixed processing of slices in things like sdram['A[0:15]'].
+* Sped-up part_search() by eliminating unnecessary part parsing.
+* Improved schematic generation with graphviz.
 
 
 0.0.26 (2019-01-25)
