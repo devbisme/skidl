@@ -28,7 +28,6 @@ Handles complete circuits made of parts and nets.
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-import inspect
 import os.path
 import time
 from builtins import range, str
@@ -108,6 +107,9 @@ class Circuit(SkidlBaseObject):
         self.level = 0
         self.context = [("top",)]
 
+        # Clear the name heap for nets and parts.
+        reset_get_unique_name()
+
         # Clear out the no-connect net and set the global no-connect if it's
         # tied to this circuit.
         self.NC = NCNet(
@@ -129,49 +131,13 @@ class Circuit(SkidlBaseObject):
                         part.circuit -= part
 
                     # Add the part to this circuit.
-                    part.circuit = (
-                        self
-                    )  # Record the Circuit object the part belongs to.
+                    part.circuit = self  # Record the Circuit object for this part.
                     part.ref = part.ref  # This adjusts the part reference if necessary.
-                    part.hierarchy = (
-                        self.hierarchy
-                    )  # Tag the part with its hierarchy position.
 
-                    # To determine where this part was created, trace the function
-                    # calls that led to this part and place into a field
-                    # but strip off all the calls to internal SKiDL functions.
-                    call_stack = inspect.stack()  # Get function call stack.
-                    # Use the function at the top of the stack to
-                    # determine the location of the SKiDL library functions.
-                    try:
-                        skidl_dir, _ = os.path.split(call_stack[0].filename)
-                    except AttributeError:
-                        skidl_dir, _ = os.path.split(call_stack[0][1])
-                    # Record file_name#line_num starting from the bottom of the stack
-                    # and terminate as soon as a function is found that's in the
-                    # SKiDL library (no use recording internal calls).
-                    skidl_trace = []
-                    for frame in reversed(call_stack):
-                        try:
-                            filename = frame.filename
-                            lineno = frame.lineno
-                        except AttributeError:
-                            filename = frame[1]
-                            lineno = frame[2]
-                        if os.path.split(filename)[0] == skidl_dir:
-                            # Found function in SKiDL library, so trace is complete.
-                            break
-                        # Get the absolute path to the file containing the function
-                        # and the line number of the call in the file. Append these
-                        # to the trace.
-                        filepath = os.path.abspath(filename)
-                        skidl_trace.append("#".join((filepath, str(lineno))))
-                    # Store the function call trace into a part field.
-                    if skidl_trace:
-                        part.skidl_trace = ";".join(skidl_trace)
+                    part.hierarchy = self.hierarchy  # Store hierarchy of part.
+                    part.skidl_trace = get_skidl_trace() # Store part instantiation trace.
 
                     self.parts.append(part)
-
                 else:
                     log_and_raise(
                         logger,
@@ -215,9 +181,8 @@ class Circuit(SkidlBaseObject):
                     # Add the net to this circuit.
                     net.circuit = self  # Record the Circuit object the net belongs to.
                     net.name = net.name
-                    net.hierarchy = (
-                        self.hierarchy
-                    )  # Tag the net with its hierarchy position.
+                    net.hierarchy = self.hierarchy # Store hierarchy of net.
+
                     self.nets.append(net)
 
                 else:
@@ -264,9 +229,8 @@ class Circuit(SkidlBaseObject):
                     # Add the bus to this circuit.
                     bus.circuit = self
                     bus.name = bus.name
-                    bus.hierarchy = (
-                        self.hierarchy
-                    )  # Tag the bus with its hierarchy position.
+                    bus.hierarchy = self.hierarchy # Store hierarchy of the bus.
+
                     self.buses.append(bus)
                     for net in bus.nets:
                         self += net
@@ -280,7 +244,7 @@ class Circuit(SkidlBaseObject):
                     bus.hierarchy = None
                     self.buses.remove(bus)
                     for net in bus.nets:
-                        self.nets.remove(net)
+                        self -= net
                 else:
                     logger.warning(
                         "Removing non-existent bus {} from this circuit.".format(
@@ -310,9 +274,8 @@ class Circuit(SkidlBaseObject):
                     # Add the interface to this circuit.
                     interface.circuit = self
                     interface.name = interface.name
-                    interface.hierarchy = (
-                        self.hierarchy
-                    )  # Tag the bus with its hierarchy position.
+                    interface.hierarchy = self.hierarchy # Store hierarchy of the interface.
+
                     self.interfaces.append(interface)
 
     def rmv_interfaces(self, *interfaces):

@@ -35,6 +35,7 @@ import os.path
 import re
 import sys
 import traceback
+import collections
 from builtins import dict, int, object, open, range, str, super, zip
 from contextlib import contextmanager
 
@@ -172,6 +173,48 @@ logger = create_logger("skidl")
 erc_logger = create_logger("ERC_Logger", "ERC ", ".erc")
 
 ###############################################################################
+
+
+def get_skidl_trace():
+    """
+    Return a string containing the source line trace where a SKiDL object was instantiated.
+    """
+
+    # To determine where this object was created, trace the function
+    # calls that led to it and place into a field
+    # but strip off all the calls to internal SKiDL functions.
+
+    call_stack = inspect.stack()  # Get function call stack.
+
+    # Use the function at the top of the stack to
+    # determine the location of the SKiDL library functions.
+    try:
+        skidl_dir, _ = os.path.split(call_stack[0].filename)
+    except AttributeError:
+        skidl_dir, _ = os.path.split(call_stack[0][1])
+
+    # Record file_name#line_num starting from the bottom of the stack
+    # and terminate as soon as a function is found that's in the
+    # SKiDL library (no use recording internal calls).
+    skidl_trace = []
+    for frame in reversed(call_stack):
+        try:
+            filename = frame.filename
+            lineno = frame.lineno
+        except AttributeError:
+            filename = frame[1]
+            lineno = frame[2]
+        if os.path.split(filename)[0] == skidl_dir:
+            # Found function in SKiDL library, so trace is complete.
+            break
+
+        # Get the absolute path to the file containing the function
+        # and the line number of the call in the file. Append these
+        # to the trace.
+        filepath = os.path.abspath(filename)
+        skidl_trace.append("#".join((filepath, str(lineno))))
+
+    return ";".join(skidl_trace)
 
 
 def is_binary_file(filename):
@@ -328,6 +371,17 @@ def flatten(nested_list):
     return lst
 
 
+# Store names that have been previously assigned.
+name_heap = set([None])
+prefix_counts = collections.Counter()
+
+def reset_get_unique_name():
+    """Reset the heaps that store previously-assigned names."""
+    global name_heap, prefix_counts
+    name_heap = set([None])
+    prefix_counts = collections.Counter()
+
+
 def get_unique_name(lst, attrib, prefix, initial=None):
     """
     Return a name that doesn't collide with another in a list.
@@ -346,6 +400,22 @@ def get_unique_name(lst, attrib, prefix, initial=None):
     """
 
     name = initial
+
+    # Fast processing for names that haven't been seen before.
+    # This speeds up the most common cases for finding a new name, but doesn't
+    # really hurt the less common cases.
+    if not name:
+        name = prefix + str(prefix_counts[prefix] + 1)
+        if name not in name_heap:
+            name_heap.add(name)
+            prefix_counts[prefix] += 1
+            return name
+    else:
+        if isinstance(name, int):
+            name = prefix + str(name)
+        if name not in name_heap:
+            name_heap.add(name)
+            return name
 
     # Get the unique names used in the list.
     unique_names = set([getattr(l,attrib,None) for l in lst])
@@ -378,6 +448,9 @@ def get_unique_name(lst, attrib, prefix, initial=None):
             # Go back to the start of the loop and search forward from this value
             # of n looking for an unused slot.
 
+            # Bump prefix counter to the newest index.
+            prefix_counts[prefix] = n
+
     # If the initial name is just a number, then prepend the prefix to it.
     elif isinstance(name, int):
         name = prefix + str(name)
@@ -385,6 +458,7 @@ def get_unique_name(lst, attrib, prefix, initial=None):
     # Now determine if there are any items in the list with the same name.
     # If the name is unique, then return it.
     if name not in unique_names:
+        name_heap.add(name)
         return name
 
     # Otherwise, determine how many copies of the name are in the list and
