@@ -33,6 +33,7 @@ requirements = [
     'enum34; python_version < "3.0"',
     #'PySpice; python_version >= "3.0"',
     "graphviz",
+    "wxpython",
 ]
 
 test_requirements = [
@@ -50,7 +51,10 @@ setup(
     #    packages=['skidl',],
     packages=setuptools.find_packages(exclude=["tests"]),
     entry_points={
-        "console_scripts": ["netlist_to_skidl = skidl.netlist_to_skidl_main:main"]
+        "console_scripts": [
+            "netlist_to_skidl = skidl.netlist_to_skidl_main:main",
+            "skidl_part_search = skidl.skidl_part_search:main",
+        ]
     },
     package_dir={"skidl": "skidl"},
     include_package_data=True,
