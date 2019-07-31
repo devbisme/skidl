@@ -575,14 +575,18 @@ class Pin(SkidlBaseObject):
         )
         return desc
 
-    def __str__(self):
-        """Return a description of this pin as a string."""
-        ref = getattr(self.part, "ref", "???")
+    def get_pin_info(self):
         num = getattr(self, "num", "???")
         names = [getattr(self, "name", "???")]
         names.extend(self.aliases)
         names = ",".join(names)
         func = Pin.pin_info[self.func]["function"]
+        return num, names, func
+
+    def __str__(self):
+        """Return a description of this pin as a string."""
+        ref = getattr(self.part, "ref", "???")
+        num, names, func = self.get_pin_info()
         return "Pin {ref}/{num}/{names}/{func}".format(**locals())
 
     __repr__ = __str__

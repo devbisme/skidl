@@ -30,6 +30,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 import os.path
 import time
+import re
 from builtins import dict, int, range, str, zip
 from random import randint
 
@@ -124,16 +125,19 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
                 part_desc["description"] = " ".join(line.split()[1:])
             elif line.startswith("K"):
                 part_desc["keywords"] = " ".join(line.split()[1:])
+            elif line.startswith("F"):
+                part_desc["datasheet"] = " ".join(line.split()[1:])
             elif line.startswith("$ENDCMP"):
                 try:
                     part = self.get_part_by_name(
-                        part_desc["name"], silent=True, get_name_only=True
+                        re.escape(part_desc["name"]), silent=True, get_name_only=True
                     )
-                except Exception:
+                except Exception as e:
                     pass
                 else:
                     part.description = part_desc.get("description", "")
                     part.keywords = part_desc.get("keywords", "")
+                    part.datasheet = part_desc.get("datasheet", "")
                 part_desc = {}
             else:
                 pass

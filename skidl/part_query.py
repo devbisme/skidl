@@ -38,75 +38,88 @@ from .utilities import *
 
 standard_library.install_aliases()
 
+def search_libraries(term, tool=None):
+    """Return a list of (lib, part) sequences that match a regex term."""
+
+    import skidl
+    from .SchLib import SchLib
+
+    if tool is None:
+        tool = skidl.get_default_tool()
+
+    term = ".*" + term + ".*"  # Use the given term as a substring.
+
+    def mk_list(l):
+        """Make a list out of whatever is given."""
+        if isinstance(l, (list, tuple)):
+            return l
+        if not l:
+            return []
+        return [l]
+
+    # Gather all the lib files from all the directories in the search paths.
+    lib_files = list()
+    for lib_dir in skidl.lib_search_paths[tool]:
+
+        # Get all the library files in the search path.
+        try:
+            files = os.listdir(lib_dir)
+        except (FileNotFoundError, OSError):
+            logger.warning("Could not open directory '{}'".format(lib_dir))
+            files = []
+
+        files = [(lib_dir, l) for l in files if l.endswith(skidl.lib_suffixes[tool])]
+        lib_files.extend(files)
+
+    num_lib_files = len(lib_files)
+
+    # Now search through the lib files for parts that match the search term.
+    for idx, (lib_dir, lib_file) in enumerate(lib_files):
+
+        # If just entered a new lib file, yield the name of the file and
+        # where it is within the total number of files to search.
+        # (This is used for progress indicators.)
+        yield "LIB", lib_file, idx+1, num_lib_files
+
+        # Parse the lib file to create a part library.
+        lib = SchLib(
+            os.path.join(lib_dir, lib_file), tool=tool
+        )  # Open the library file.
+
+        # Search the current library for parts with the given term in
+        # each of the these categories.
+        for category in ["name", "aliases", "description", "keywords"]:
+            for part in mk_list(
+                # Get any matching parts from the library file.
+                lib.get_parts(use_backup_lib=False, **{category:term})
+            ):
+                # Parse the part to instantiate the complete object.
+                part.parse(get_name_only=True)
+
+                # Yield the part and its containing library.
+                yield "PART", lib_file, part
+
 
 def search(term, tool=None):
     """
     Print a list of components with the regex term within their name, alias, description or keywords.
     """
 
-    import skidl
-    from .SchLib import SchLib
+    lib_parts = search_libraries(term, tool)  # Search for parts with that substring.
 
-    def search_libraries(term, tool):
-        """Search for a regex term in part libraries."""
-
-        # Set of parts and their containing libraries found with the term.
-        parts = set()
-
-        for lib_dir in skidl.lib_search_paths[tool]:
-
-            # Get all the library files in the search path.
-            try:
-                lib_files = os.listdir(lib_dir)
-            except (FileNotFoundError, OSError):
-                logger.warning("Could not open directory '{}'".format(lib_dir))
-                lib_files = list()  # Empty list since library directory was not found.
-
-            lib_files = [l for l in lib_files if l.endswith(skidl.lib_suffixes[tool])]
-
-            for lib_file in lib_files:
-
-                print(" " * 79, "\rSearching {} ...".format(lib_file), end="\r")
-
-                lib = SchLib(
-                    os.path.join(lib_dir, lib_file), tool=tool
-                )  # Open the library file.
-
-                def mk_list(l):
-                    """Make a list out of whatever is given."""
-                    if isinstance(l, (list, tuple)):
-                        return l
-                    if not l:
-                        return []
-                    return [l]
-
-                # Search the current library for parts with the given term in
-                # each of the these categories.
-                for category in ["name", "aliases", "description", "keywords"]:
-                    for part in mk_list(
-                        lib.get_parts(use_backup_lib=False, **{category: term})
-                    ):
-                        # Parse the part to instantiate the complete object.
-                        part.parse(get_name_only=True)
-                        # Store the library name and part object.
-                        parts.add((lib_file, part))
-
-                print(" " * 79, end="\r")
-
-        # Return the list of parts and their containing libraries.
-        return list(parts)
-
-    if tool is None:
-        tool = skidl.get_default_tool()
-
-    term = ".*" + term + ".*"  # Use the given term as a substring.
-    parts = search_libraries(term, tool)  # Search for parts with that substring.
+    parts = set()
+    for seq in lib_parts:
+        if seq[0] == "LIB":
+            print(" " * 79, "\rSearching {} ...".format(seq[1]), end="\r")
+        elif seq[0] == "PART":
+            parts.add(seq[1:3])
+    print(" " * 79, end="\r")
 
     # Print each part name sorted by the library where it was found.
-    for lib_file, p in sorted(parts, key=lambda p: p[0]):
+    for lib_file, part in sorted(list(parts), key=lambda p: p[0]):
         print(
             "{}: {} ({})".format(
-                lib_file, getattr(p, "name", "???"), getattr(p, "description", "???")
+                lib_file, getattr(part, "name", "???"), getattr(part, "description", "???")
             )
         )
 
