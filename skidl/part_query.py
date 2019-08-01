@@ -38,6 +38,7 @@ from .utilities import *
 
 standard_library.install_aliases()
 
+
 def search_libraries(term, tool=None):
     """Return a list of (lib, part) sequences that match a regex term."""
 
@@ -79,7 +80,7 @@ def search_libraries(term, tool=None):
         # If just entered a new lib file, yield the name of the file and
         # where it is within the total number of files to search.
         # (This is used for progress indicators.)
-        yield "LIB", lib_file, idx+1, num_lib_files
+        yield "LIB", lib_file, idx + 1, num_lib_files
 
         # Parse the lib file to create a part library.
         lib = SchLib(
@@ -91,7 +92,7 @@ def search_libraries(term, tool=None):
         for category in ["name", "aliases", "description", "keywords"]:
             for part in mk_list(
                 # Get any matching parts from the library file.
-                lib.get_parts(use_backup_lib=False, **{category:term})
+                lib.get_parts(use_backup_lib=False, **{category: term})
             ):
                 # Parse the part to instantiate the complete object.
                 part.parse(get_name_only=True)
@@ -119,7 +120,9 @@ def search(term, tool=None):
     for lib_file, part in sorted(list(parts), key=lambda p: p[0]):
         print(
             "{}: {} ({})".format(
-                lib_file, getattr(part, "name", "???"), getattr(part, "description", "???")
+                lib_file,
+                getattr(part, "name", "???"),
+                getattr(part, "description", "???"),
             )
         )
 

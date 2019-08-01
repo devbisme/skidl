@@ -29,8 +29,8 @@ Handler for reading Kicad libraries and generating netlists.
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 import os.path
-import time
 import re
+import time
 from builtins import dict, int, range, str, zip
 from random import randint
 
