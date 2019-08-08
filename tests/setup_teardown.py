@@ -23,7 +23,7 @@ def setup_function(f):
         }
     )
 
-    set_default_tool(INITIAL_DEFAULT_TOOL)
+    set_default_tool(KICAD)
     set_query_backup_lib(INITIAL_QUERY_BACKUP_LIB)
 
 

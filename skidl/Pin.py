@@ -77,37 +77,35 @@ class Pin(SkidlBaseObject):
     )
 
     @classmethod
-    def add_type(cls, pin_type):
+    def add_type(cls, *pin_types):
         """
-        Add a new pin type identifier to the list of pin types.
+        Add new pin type identifiers to the list of pin types.
 
         Args:
-            pin_type: A string identifying the pin type.
+            pin_types: Strings identifying zero or more pin types.
         """
-        cls.types = IntEnum("types", [m.name for m in cls.types] + [pin_type])
+        cls.types = IntEnum("types", [m.name for m in cls.types] + list(pin_types))
 
-    # Various drive levels a pin can output:
-    #   NOCONNECT: NC pin drive.
-    #   NONE: No drive capability (like an input pin).
-    #   PASSIVE: Small drive capability, but less than a pull-up or pull-down.
-    #   PULLUPDN: Pull-up or pull-down capability.
-    #   ONESIDE: Can pull high (open-emitter) or low (open-collector).
-    #   TRISTATE: Can pull high/low and be in high-impedance state.
-    #   PUSHPULL: Can actively drive high or low.
-    #   POWER: A power supply or ground line.
+        # Also add the pin types as attributes of the Pin class so
+        # existing SKiDL part libs will still work (e.g. Pin.INPUT
+        # still works as well as the newer Pin.types.INPUT).
+        for m in cls.types:
+            setattr(cls, m.name, m.value)
+
+    # Various drive levels a pin can output.
     # The order of these is important! The first entry has the weakest
     # drive and the drive increases for each successive entry.
     drives = IntEnum(
         "drives",
         (
-            "NOCONNECT",
-            "NONE",
-            "PASSIVE",
-            "PULLUPDN",
-            "ONESIDE",
-            "TRISTATE",
-            "PUSHPULL",
-            "POWER",
+            "NOCONNECT",  #  NC pin drive.
+            "NONE",  # No drive capability (like an input pin).
+            "PASSIVE",  # Small drive capability, but less than a pull-up or pull-down.
+            "PULLUPDN",  # Pull-up or pull-down capability.
+            "ONESIDE",  # Can pull high (open-emitter) or low (open-collector).
+            "TRISTATE",  # Can pull high/low and be in high-impedance state.
+            "PUSHPULL",  # Can actively drive high or low.
+            "POWER",  # A power supply or ground line.
         ),
     )
 
@@ -666,6 +664,10 @@ class PhantomPin(Pin):
 
 ##############################################################################
 
+
+# This will make all the Pin.drive members into attributes of the Pin class
+# so things like Pin.INPUT will work as well as Pin.types.INPUT.
+Pin.add_type()
 
 # Create the pin conflict matrix as a defaultdict of defaultdicts which
 # returns OK if the given element is not in the matrix. This would indicate

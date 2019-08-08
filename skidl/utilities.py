@@ -227,6 +227,29 @@ def is_binary_file(filename):
         return False
 
 
+def merge_dicts(dct, merge_dct):
+    """ 
+    Dict merge that recurses through both dicts and updates keys.
+
+    Args:
+        dct: The dict that will be updated.
+        merge_dct: The dict whose values will be inserted into dct.
+
+    Returns:
+        Nothing.
+    """
+
+    for k, v in merge_dct.items():
+        if (
+            k in dct
+            and isinstance(dct[k], dict)
+            and isinstance(merge_dct[k], collections.Mapping)
+        ):
+            merge_dicts(dct[k], merge_dct[k])
+        else:
+            dct[k] = merge_dct[k]
+
+
 def find_and_open_file(
     filename, paths=None, ext=None, allow_failure=False, exclude_binary=False, descend=0
 ):

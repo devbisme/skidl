@@ -22,8 +22,11 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
+import json
+import os
 from builtins import open
 
 from . import tools  # Import EDA tool-specific stuff.
@@ -44,40 +47,77 @@ from .py_2_3 import *  # pylint: disable=wildcard-import
 from .SchLib import *
 from .utilities import *  # pylint: disable=wildcard-import
 
+
+class SkidlCfg(dict):
+    """Class for holding SKiDL configuration."""
+
+    CFG_FILE_NAME = ".skidlcfg"
+
+    def __init__(self, *dirs):
+        super(SkidlCfg, self).__init__()
+        self.load(*dirs)
+
+    def load(self, *dirs):
+        """Load SKiDL configuration from JSON files in given dirs."""
+        for dir in dirs:
+            path = os.path.join(dir, self.CFG_FILE_NAME)
+            path = os.path.expanduser(path)
+            path = os.path.abspath(path)
+            try:
+                with open(path) as cfg_fp:
+                    merge_dicts(self, json.load(cfg_fp))
+            except (FileNotFoundError, IOError):
+                pass
+
+    def store(self, dir="."):
+        """Store SKiDL configuration as JSON in directory as .skidlcfg file."""
+        path = os.path.join(dir, self.CFG_FILE_NAME)
+        path = os.path.expanduser(path)
+        path = os.path.abspath(path)
+        with open(path, "w") as cfg_fp:
+            json.dump(self, cfg_fp, indent=4)
+
+
 ###############################################################################
 # Globals that are used by everything else.
 ###############################################################################
 
-# Supported ECAD tools.
-DEFAULT_TOOL = INITIAL_DEFAULT_TOOL = KICAD
+# Get SKiDL configuration.
+skidl_cfg = SkidlCfg("/etc", "~", ".")
 
+# If no configuration files were found, set some default lib search paths.
+if "lib_search_paths" not in skidl_cfg:
+    skidl_cfg["lib_search_paths"] = {KICAD: ["."], SKIDL: ["."], SPICE: ["."]}
 
+    # Add the location of the default KiCad part libraries.
+    try:
+        skidl_cfg["lib_search_paths"][KICAD].append(os.environ["KICAD_SYMBOL_DIR"])
+    except KeyError:
+        logger.warning(
+            "KICAD_SYMBOL_DIR environment variable is missing, so the default KiCad symbol libraries won't be searched."
+        )
+
+    # Add the location of the default SKiDL part libraries.
+    default_skidl_libs = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), "libs"
+    )
+    skidl_cfg["lib_search_paths"][SKIDL].append(default_skidl_libs)
+
+# Shortcut to library search paths.
+lib_search_paths = skidl_cfg["lib_search_paths"]
+
+# Set default toolset being used with SKiDL.
 def set_default_tool(tool):
     """Set the ECAD tool that will be used by default."""
-    global DEFAULT_TOOL
-    DEFAULT_TOOL = tool
+    skidl_cfg["default_tool"] = tool
 
 
 def get_default_tool():
-    return DEFAULT_TOOL
+    return skidl_cfg["default_tool"]
 
 
-# These are the paths to search for part libraries of the ECAD tools.
-# Start off with a path that allows absolute file names, and then searches
-# within the current directory.
-lib_search_paths = {KICAD: ["", "."], SKIDL: ["", "."], SPICE: ["", "."]}
-
-# Add the location of the default KiCad schematic part libs to the search path.
-try:
-    lib_search_paths[KICAD].append(os.environ["KICAD_SYMBOL_DIR"])
-except KeyError:
-    logger.warning(
-        "KICAD_SYMBOL_DIR environment variable is missing, so the default KiCad symbol libraries won't be searched."
-    )
-
-# Add the location of the default SKiDL part libraries.
-default_skidl_libs = os.path.join(os.path.dirname(os.path.abspath(__file__)), "libs")
-lib_search_paths[SKIDL].append(default_skidl_libs)
+if "default_tool" not in skidl_cfg:
+    set_default_tool(KICAD)
 
 # Make the various EDA tool library suffixes globally available.
 lib_suffixes = tools.lib_suffixes
