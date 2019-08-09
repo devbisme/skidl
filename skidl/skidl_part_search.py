@@ -1,17 +1,21 @@
 ﻿from __future__ import print_function
+
+import os
 import re
 
 import wx
 import wx.grid
 import wx.lib.agw.hyperlink as hl
+import wx.lib.expando
 
-from skidl import search_libraries
+from skidl import search_libraries, lib_search_paths, KICAD, skidl_cfg
 
 APP_TITLE = "SKiDL Part Search"
 
 APP_EXIT = 1
-SHOW_HELP = 4
-SHOW_ABOUT = 5
+SHOW_HELP = 3
+SHOW_ABOUT = 4
+SEARCH_PATH = 5
 SEARCH_PARTS = 6
 COPY_PART = 7
 
@@ -19,6 +23,70 @@ APP_SIZE = (600, 500)
 BTN_SIZE = (50, -1)
 SPACING = 10
 TEXT_BOX_WIDTH = 200
+CELL_BCK_COLOUR = wx.Colour(255, 255, 255)
+
+
+class TextEntryDialog(wx.Dialog):
+    def __init__(self, parent, title, caption, tip=None):
+        style = wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER
+        super(TextEntryDialog, self).__init__(parent, -1, title, style=style)
+        text = wx.StaticText(self, -1, caption)
+        self.input = wx.lib.expando.ExpandoTextCtrl(
+            self, size=(int(0.75 * parent.GetSize()[0]), -1),
+            style=wx.TE_PROCESS_ENTER
+        )
+        self.input.Bind(wx.EVT_TEXT_ENTER, self.OnEnter)
+        if tip:
+            self.input.SetToolTip(wx.ToolTip(tip))
+        buttons = self.CreateButtonSizer(wx.OK | wx.CANCEL)
+        sizer = wx.BoxSizer(wx.VERTICAL)
+        sizer.Add(text, 0, wx.ALL, 5)
+        sizer.Add(self.input, 1, wx.EXPAND | wx.ALL, 5)
+        sizer.Add(buttons, 0, wx.EXPAND | wx.ALL, 5)
+        self.SetSizerAndFit(sizer)
+
+    def OnEnter(self, event):
+        """End modal if enter is hit in input text control."""
+        self.EndModal(wx.ID_OK)
+
+    def SetValue(self, value):
+        self.input.SetValue(value.strip().rstrip())
+        self.input.SetFocus()
+        self.input.SetInsertionPointEnd()
+        self.Fit()
+
+    def GetValue(self):
+        return self.input.GetValue().strip().rstrip()
+
+
+class MyGrid(wx.grid.Grid):
+    def __init__(self, parent, headers, bck_colour):
+        super(MyGrid, self).__init__()
+        self.Create(parent)
+        self.CreateGrid(
+            numRows=10, numCols=len(headers), selmode=wx.grid.Grid.SelectRows
+        )
+        self.HideRowLabels()
+        self.EnableEditing(False)
+        for col, lbl in enumerate(headers):
+            self.SetColLabelValue(col, lbl)
+        self.SetDefaultCellBackgroundColour(parent.GetBackgroundColour())
+        self.BackgroundColour = bck_colour
+        self.ColourGridBackground()
+
+    def Resize(self, numRows):
+        self.ClearGrid()
+        num_rows_chg = numRows - self.GetNumberRows()
+        if num_rows_chg < 0:
+            self.DeleteRows(0, -num_rows_chg, True)
+        elif num_rows_chg > 0:
+            self.AppendRows(num_rows_chg)
+        self.ColourGridBackground()
+
+    def ColourGridBackground(self):
+        for r in range(self.GetNumberRows()):
+            for c in range(self.GetNumberCols()):
+                self.SetCellBackgroundColour(r, c, self.BackgroundColour)
 
 
 class SkidlPartSearch(wx.Frame):
@@ -80,16 +148,9 @@ class SkidlPartSearch(wx.Frame):
         search_btn.SetToolTip(tip)
 
         # Table (grid) for holding libs and parts that match search string.
-        self.found_parts = wx.grid.Grid()
-        self.found_parts.Create(search_panel)
-        self.found_parts.CreateGrid(
-            numRows=10, numCols=2, selmode=wx.grid.Grid.SelectRows
-        )
-        self.found_parts.HideRowLabels()
-        self.found_parts.EnableEditing(False)
-        self.found_parts.SetColLabelValue(0, "Library")
-        self.found_parts.SetColLabelValue(1, "Part")
+        self.found_parts = MyGrid(search_panel, ("Library", "Part"), CELL_BCK_COLOUR)
         self.found_parts.Bind(wx.grid.EVT_GRID_SELECT_CELL, self.OnSelectCell)
+        self.found_parts.Bind(wx.grid.EVT_GRID_CELL_LEFT_DCLICK, self.OnCopy)
 
         # Button to copy selected lib/part to clipboard.
         copy_btn = wx.Button(search_panel, label="Copy", size=BTN_SIZE)
@@ -120,9 +181,9 @@ class SkidlPartSearch(wx.Frame):
         vbox = wx.BoxSizer(wx.VERTICAL)
         part_panel.SetSizer(vbox)
 
-        # Text box for displaying discription of part highlighted in grid.
+        # Text box for displaying description of part highlighted in grid.
         vbox.Add(
-            wx.StaticText(part_panel, label="Part Description"),
+            wx.StaticText(part_panel, label="Part Description/Keywords"),
             proportion=0,
             flag=wx.ALL,
             border=SPACING,
@@ -160,16 +221,7 @@ class SkidlPartSearch(wx.Frame):
             flag=wx.ALL,
             border=SPACING,
         )
-        self.pin_info = wx.grid.Grid()
-        self.pin_info.Create(part_panel)
-        self.pin_info.CreateGrid(
-            numRows=SPACING, numCols=3, selmode=wx.grid.Grid.SelectRows
-        )
-        self.pin_info.HideRowLabels()
-        self.pin_info.EnableEditing(False)
-        self.pin_info.SetColLabelValue(0, "Pin")
-        self.pin_info.SetColLabelValue(1, "Name")
-        self.pin_info.SetColLabelValue(2, "Type")
+        self.pin_info = MyGrid(part_panel, ("Pin", "Name", "Type"), CELL_BCK_COLOUR)
         vbox.Add(self.pin_info, proportion=1, flag=wx.ALL | wx.EXPAND, border=SPACING)
 
         return part_panel
@@ -191,11 +243,14 @@ class SkidlPartSearch(wx.Frame):
         srchMenu = wx.Menu()
         menuBar.Append(srchMenu, "&Search")
 
+        srchPathItem = wx.MenuItem(srchMenu, SEARCH_PATH, "Set search path...\tCtrl+P")
+        srchMenu.Append(srchPathItem)
+        self.Bind(wx.EVT_MENU, self.OnSearchPath, id=SEARCH_PATH)
         srchMenuItem = wx.MenuItem(srchMenu, SEARCH_PARTS, "Search\tCtrl+F")
         srchMenu.Append(srchMenuItem)
+        self.Bind(wx.EVT_MENU, self.OnSearch, id=SEARCH_PARTS)
         copyMenuItem = wx.MenuItem(srchMenu, COPY_PART, "Copy\tCtrl+C")
         srchMenu.Append(copyMenuItem)
-        self.Bind(wx.EVT_MENU, self.OnSearch, id=SEARCH_PARTS)
         self.Bind(wx.EVT_MENU, self.OnCopy, id=COPY_PART)
 
         # Help menu containing help and about buttons.
@@ -211,14 +266,26 @@ class SkidlPartSearch(wx.Frame):
 
         self.SetMenuBar(menuBar)
 
+    def OnSearchPath(self, event):
+        dlg = TextEntryDialog(
+            self, title="Set Part Search Path", caption="Part Search Path",
+            tip="Enter semicolon-separated list of directories in which to search for parts."
+        )
+        dlg.Center()
+        dlg.SetValue(";".join(lib_search_paths[KICAD]))
+        if dlg.ShowModal() == wx.ID_OK:
+            lib_search_paths[KICAD] = dlg.GetValue().split(";")
+            skidl_cfg.store()  # Stores updated lib search path in file.
+        dlg.Destroy()
+
     def OnSearch(self, event):
         # Scan libraries looking for parts that match search string.
-        self.lib_parts = set()
-        lib_part_iter = search_libraries(self.search_text.GetLineText(0))
         progress = wx.ProgressDialog(
             "Searching Part Libraries", "Loading parts from libraries."
         )
-        for lib_part in lib_part_iter:
+        self.lib_parts = set()
+        search_text = self.search_text.GetLineText(0)
+        for lib_part in search_libraries(search_text):
             if lib_part[0] == "LIB":
                 lib_name = lib_part[1]
                 lib_idx = lib_part[2]
@@ -226,30 +293,23 @@ class SkidlPartSearch(wx.Frame):
                 progress.SetRange(total_num_libs)
                 progress.Update(lib_idx, "Reading library {}...".format(lib_name))
             elif lib_part[0] == "PART":
-                lib_name = lib_part[1]
-                part = lib_part[2]
-                self.lib_parts.add((lib_name, part))
+                self.lib_parts.add(lib_part[1:])
 
         # Sort parts by libraries and part names.
         self.lib_parts = sorted(
-            list(self.lib_parts), key=lambda x: "/".join([x[0], x[1].name])
+            list(self.lib_parts), key=lambda x: "/".join([x[0], x[2]])
         )
 
         # place libraries and parts into a table.
         grid = self.found_parts
 
         # Clear any existing grid cells and add/sub rows to hold search results.
-        grid.ClearGrid()
-        num_rows_chg = len(self.lib_parts) - grid.GetNumberRows()
-        if num_rows_chg < 0:
-            grid.DeleteRows(0, -num_rows_chg, True)
-        elif num_rows_chg > 0:
-            grid.AppendRows(num_rows_chg)
+        grid.Resize(len(self.lib_parts))
 
         # Places libs and part names into table.
-        for row, (lib, part) in enumerate(self.lib_parts):
+        for row, (lib, part, part_name) in enumerate(self.lib_parts):
             grid.SetCellValue(row, 0, lib)
-            grid.SetCellValue(row, 1, part.name)
+            grid.SetCellValue(row, 1, part_name)
 
         # Size the columns for their new contents.
         grid.AutoSizeColumns()
@@ -273,9 +333,13 @@ class SkidlPartSearch(wx.Frame):
             part.parse()  # Instantiate pins.
 
             # Show the part description.
-            part_desc = self.part_desc
-            part_desc.Remove(0, part_desc.GetLastPosition())
-            part_desc.WriteText(part.description)
+            self.part_desc.Remove(0, self.part_desc.GetLastPosition())
+            desc = part.description
+            # if part.aliases:
+            #     desc += "\nAliases: " + ", ".join(list(part.aliases))
+            if part.keywords:
+                desc += "\nKeywords: " + part.keywords
+            self.part_desc.WriteText(desc)
 
             # Display the link to the part datasheet.
             self.datasheet_link.SetURL(part.datasheet)
@@ -284,12 +348,7 @@ class SkidlPartSearch(wx.Frame):
             grid = self.pin_info
 
             # Clear any existing pin data and add/sub rows to hold results.
-            grid.ClearGrid()
-            num_rows_chg = len(part) - grid.GetNumberRows()
-            if num_rows_chg < 0:
-                grid.DeleteRows(0, -num_rows_chg, True)
-            elif num_rows_chg > 0:
-                grid.AppendRows(num_rows_chg)
+            grid.Resize(len(part))
 
             # Sort pins by pin number.
             pins = sorted(part, key=lambda p: natural_sort_key(p.get_pin_info()[0]))
@@ -334,6 +393,8 @@ class SkidlPartSearch(wx.Frame):
                 wx.TheClipboard.Flush()
             else:
                 Feedback("Unable to open clipboard!", "Error")
+
+            # Place only one part on the clipboard.
             return
 
     def Feedback(self, msg, label):

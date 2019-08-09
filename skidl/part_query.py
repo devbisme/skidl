@@ -98,7 +98,11 @@ def search_libraries(term, tool=None):
                 part.parse(get_name_only=True)
 
                 # Yield the part and its containing library.
-                yield "PART", lib_file, part
+                yield "PART", lib_file, part, part.name
+
+                # Also return aliases.
+                for alias in list(part.aliases):
+                    yield "PART", lib_file, part, alias
 
 
 def search(term, tool=None):
@@ -106,22 +110,20 @@ def search(term, tool=None):
     Print a list of components with the regex term within their name, alias, description or keywords.
     """
 
-    lib_parts = search_libraries(term, tool)  # Search for parts with that substring.
-
     parts = set()
-    for seq in lib_parts:
-        if seq[0] == "LIB":
-            print(" " * 79, "\rSearching {} ...".format(seq[1]), end="\r")
-        elif seq[0] == "PART":
-            parts.add(seq[1:3])
+    for part in search_libraries(term, tool):
+        if part[0] == "LIB":
+            print(" " * 79, "\rSearching {} ...".format(part[1]), end="\r")
+        elif part[0] == "PART":
+            parts.add(part[1:4])
     print(" " * 79, end="\r")
 
     # Print each part name sorted by the library where it was found.
-    for lib_file, part in sorted(list(parts), key=lambda p: p[0]):
+    for lib_file, part, part_name in sorted(list(parts), key=lambda p: p[0]):
         print(
             "{}: {} ({})".format(
                 lib_file,
-                getattr(part, "name", "???"),
+                part_name,
                 getattr(part, "description", "???"),
             )
         )
