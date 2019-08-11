@@ -1,5 +1,6 @@
 ﻿from __future__ import print_function
 
+import collections
 import os
 import re
 
@@ -8,7 +9,7 @@ import wx.grid
 import wx.lib.agw.hyperlink as hl
 import wx.lib.expando
 
-from skidl import search_libraries, lib_search_paths, KICAD, skidl_cfg
+from skidl import KICAD, lib_search_paths, search_libraries, skidl_cfg
 
 APP_TITLE = "SKiDL Part Search"
 
@@ -26,14 +27,17 @@ TEXT_BOX_WIDTH = 200
 CELL_BCK_COLOUR = wx.Colour(255, 255, 255)
 
 
+# Named tuple for parts found by library search.
+LibPart = collections.namedtuple("LibPart", "lib_name part part_name")
+
+
 class TextEntryDialog(wx.Dialog):
     def __init__(self, parent, title, caption, tip=None):
         style = wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER
-        super(TextEntryDialog, self).__init__(parent, -1, title, style=style)
+        super(self.__class__, self).__init__(parent, -1, title, style=style)
         text = wx.StaticText(self, -1, caption)
         self.input = wx.lib.expando.ExpandoTextCtrl(
-            self, size=(int(0.75 * parent.GetSize()[0]), -1),
-            style=wx.TE_PROCESS_ENTER
+            self, size=(int(0.75 * parent.GetSize()[0]), -1), style=wx.TE_PROCESS_ENTER
         )
         self.input.Bind(wx.EVT_TEXT_ENTER, self.OnEnter)
         if tip:
@@ -46,7 +50,7 @@ class TextEntryDialog(wx.Dialog):
         self.SetSizerAndFit(sizer)
 
     def OnEnter(self, event):
-        """End modal if enter is hit in input text control."""
+        """End modal if enter is pressed in input text control."""
         self.EndModal(wx.ID_OK)
 
     def SetValue(self, value):
@@ -61,7 +65,7 @@ class TextEntryDialog(wx.Dialog):
 
 class MyGrid(wx.grid.Grid):
     def __init__(self, parent, headers, bck_colour):
-        super(MyGrid, self).__init__()
+        super(self.__class__, self).__init__()
         self.Create(parent)
         self.CreateGrid(
             numRows=10, numCols=len(headers), selmode=wx.grid.Grid.SelectRows
@@ -91,7 +95,7 @@ class MyGrid(wx.grid.Grid):
 
 class SkidlPartSearch(wx.Frame):
     def __init__(self, *args, **kwargs):
-        super(SkidlPartSearch, self).__init__(*args, **kwargs)
+        super(self.__class__, self).__init__(*args, **kwargs)
 
         self.InitUI()
 
@@ -268,13 +272,17 @@ class SkidlPartSearch(wx.Frame):
 
     def OnSearchPath(self, event):
         dlg = TextEntryDialog(
-            self, title="Set Part Search Path", caption="Part Search Path",
-            tip="Enter semicolon-separated list of directories in which to search for parts."
+            self,
+            title="Set Part Search Path",
+            caption="Part Search Path",
+            tip="Enter {sep}-separated list of directories in which to search for parts.".format(
+                sep=os.pathsep
+            ),
         )
         dlg.Center()
-        dlg.SetValue(";".join(lib_search_paths[KICAD]))
+        dlg.SetValue(os.pathsep.join(lib_search_paths[KICAD]))
         if dlg.ShowModal() == wx.ID_OK:
-            lib_search_paths[KICAD] = dlg.GetValue().split(";")
+            lib_search_paths[KICAD] = dlg.GetValue().split(os.pathsep)
             skidl_cfg.store()  # Stores updated lib search path in file.
         dlg.Destroy()
 
@@ -287,17 +295,16 @@ class SkidlPartSearch(wx.Frame):
         search_text = self.search_text.GetLineText(0)
         for lib_part in search_libraries(search_text):
             if lib_part[0] == "LIB":
-                lib_name = lib_part[1]
-                lib_idx = lib_part[2]
-                total_num_libs = lib_part[3]
-                progress.SetRange(total_num_libs)
+                lib_name, lib_idx, num_libs = lib_part[1:4]
+                progress.SetRange(num_libs)
                 progress.Update(lib_idx, "Reading library {}...".format(lib_name))
             elif lib_part[0] == "PART":
-                self.lib_parts.add(lib_part[1:])
+                self.lib_parts.add(LibPart(*lib_part[1:]))
 
         # Sort parts by libraries and part names.
         self.lib_parts = sorted(
-            list(self.lib_parts), key=lambda x: "/".join([x[0], x[2]])
+            list(self.lib_parts),
+            key=lambda x: "/".join([x.lib_name, x.part_name]),
         )
 
         # place libraries and parts into a table.
@@ -307,9 +314,9 @@ class SkidlPartSearch(wx.Frame):
         grid.Resize(len(self.lib_parts))
 
         # Places libs and part names into table.
-        for row, (lib, part, part_name) in enumerate(self.lib_parts):
-            grid.SetCellValue(row, 0, lib)
-            grid.SetCellValue(row, 1, part_name)
+        for row, lib_part in enumerate(self.lib_parts):
+            grid.SetCellValue(row, 0, lib_part.lib_name)
+            grid.SetCellValue(row, 1, lib_part.part_name)
 
         # Size the columns for their new contents.
         grid.AutoSizeColumns()
@@ -329,7 +336,7 @@ class SkidlPartSearch(wx.Frame):
         # Only process the part in the first selected row and ignore the rest.
         for row in selection:
             # Fully instantiate the selected part.
-            part = self.lib_parts[row][1]
+            part = self.lib_parts[row].part
             part.parse()  # Instantiate pins.
 
             # Show the part description.

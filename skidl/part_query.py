@@ -38,6 +38,9 @@ from .utilities import *
 
 standard_library.install_aliases()
 
+# TODO: Use push-down automata to parse nested parenthetical expression
+#       of AND/OR clauses for use in advanced part searching.
+#       https://stackoverflow.com/questions/4284991/parsing-nested-parentheses-in-python-grab-content-by-level
 
 def search_libraries(term, tool=None):
     """Return a list of (lib, part) sequences that match a regex term."""
