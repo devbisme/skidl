@@ -23,13 +23,14 @@
 # THE SOFTWARE.
 
 """
-Functions for finding/displaying parts.
+Functions for finding/displaying parts and footprints.
 """
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 import os
 import os.path
+import re
 
 from future import standard_library
 
@@ -42,7 +43,8 @@ standard_library.install_aliases()
 #       of AND/OR clauses for use in advanced part searching.
 #       https://stackoverflow.com/questions/4284991/parsing-nested-parentheses-in-python-grab-content-by-level
 
-def search_libraries(term, tool=None):
+
+def search_parts_iter(term, tool=None):
     """Return a list of (lib, part) sequences that match a regex term."""
 
     import skidl
@@ -108,13 +110,13 @@ def search_libraries(term, tool=None):
                     yield "PART", lib_file, part, alias
 
 
-def search(term, tool=None):
+def search_parts(term, tool=None):
     """
-    Print a list of components with the regex term within their name, alias, description or keywords.
+    Print a list of parts with the regex term within their name, alias, description or keywords.
     """
 
     parts = set()
-    for part in search_libraries(term, tool):
+    for part in search_libraries_iter(term, tool):
         if part[0] == "LIB":
             print(" " * 79, "\rSearching {} ...".format(part[1]), end="\r")
         elif part[0] == "PART":
@@ -125,14 +127,12 @@ def search(term, tool=None):
     for lib_file, part, part_name in sorted(list(parts), key=lambda p: p[0]):
         print(
             "{}: {} ({})".format(
-                lib_file,
-                part_name,
-                getattr(part, "description", "???"),
+                lib_file, part_name, getattr(part, "description", "???")
             )
         )
 
 
-def show(lib, part_name, tool=None):
+def show_part(lib, part_name, tool=None):
     """
     Print the I/O pins for a given part in a library.
 
@@ -155,3 +155,151 @@ def show(lib, part_name, tool=None):
         return Part(lib, re.escape(part_name), tool=tool, dest=TEMPLATE)
     except Exception:
         return None
+
+
+footprint_cache = dict()
+
+
+def search_footprints_iter(term, tool=None, cache_invalid=True):
+    """Return a list of (lib, footprint) sequences that match a regex term."""
+
+    global footprint_cache
+
+    import skidl
+
+    if tool is None:
+        tool = skidl.get_default_tool()
+
+    term = ".*" + term + ".*"  # Use the given term as a substring.
+
+    # If the cache isn't valid, then make it valid by gathering all the
+    # footprint files from  all the directories in the search paths.
+    if cache_invalid:
+        footprint_cache = dict()
+        for path in skidl.footprint_search_paths[tool]:
+            for dir, _, file_names in os.walk(path):
+
+                # Skip directories without .pretty extension.
+                if not dir.lower().endswith(".pretty"):
+                    continue
+
+                # Get name of library by stripping .pretty extension.
+                lib_name = os.path.basename(dir)
+
+                # Skip libraries having the same name that were already
+                # handled in previous search path directories.
+                if lib_name in footprint_cache:
+                    continue
+
+                # Create a dict containing the path to this library
+                # and another dict for storing the contents of each
+                # footprint file in the library.
+                footprint_cache[lib_name] = {"path": dir, "modules": {}}
+
+                # Create dict entries for the modules in the footprint lib directory.
+                modules = footprint_cache[lib_name]["modules"]
+                for file_name in file_names:
+                    if file_name.lower().endswith(".kicad_mod"):
+                        module_name = os.path.splitext(file_name)[0]
+                        modules[module_name] = None  # Don't read file, yet.
+
+    # Get the number of footprint libraries to be searched..
+    num_fp_libs = len(footprint_cache)
+
+    # Now search through the libraries for footprints that match the search term.
+    for idx, fp_lib in enumerate(footprint_cache):
+
+        # If just entered a new library, yield the name of the lib and
+        # where it is within the total number of libs to search.
+        # (This is used for progress indicators.)
+        yield "LIB", fp_lib, idx + 1, num_fp_libs
+
+        # Get path to library directory and dict of footprint modules.
+        path = footprint_cache[fp_lib]["path"]
+        modules = footprint_cache[fp_lib]["modules"]
+
+        # Search each module in the library.
+        for module_name in modules:
+
+            # If the cache isn't valid, then read each footprint file and store
+            # it's contents in the cache.
+            if cache_invalid:
+                file = os.path.join(path, module_name + ".kicad_mod")
+                with open(file, "r") as fp:
+                    # Remove any linefeeds that would interfere with fullmatch() later on.
+                    modules[module_name] = [l.rstrip() for l in fp.readlines()]
+
+            # Get the contents of the footprint file from the cache.
+            module_text = tuple(modules[module_name])
+
+            # Return a hit if the search term matches the footprint name or
+            # something in the footprint description or tag fields.
+
+            if fullmatch(term, module_name, flags=re.IGNORECASE):
+                yield "MODULE", fp_lib, module_text, module_name
+                continue
+
+            for line in module_text:
+                if ("(descr " in line or "(tags " in line) and fullmatch(
+                    term, line, flags=re.IGNORECASE
+                ):
+                    yield "MODULE", fp_lib, module_text, module_name
+                    break
+
+
+def search_footprints(term, tool=None):
+    """
+    Print a list of footprints with the regex term within their description/tags.
+    """
+
+    footprints = []
+    for fp in search_footprints_iter(term, tool):
+        if fp[0] == "LIB":
+            print(" " * 79, "\rSearching {} ...".format(fp[1]), end="\r")
+        elif fp[0] == "MODULE":
+            footprints.append(fp[1:4])
+    print(" " * 79, end="\r")
+
+    # Print each module name sorted by the library where it was found.
+    for lib_file, module_text, module_name in sorted(
+        footprints, key=lambda f: (f[0], f[2])
+    ):
+        descr = "???"
+        tags = "???"
+        for line in module_text:
+            try:
+                descr = line.split("(descr ")[1].rsplit(")", 1)[0]
+            except IndexError:
+                pass
+            try:
+                tags = line.split("(tags ")[1].rsplit(")", 1)[0]
+            except IndexError:
+                pass
+        print("{}: {} ({} - {})".format(lib_file, module_name, descr, tags))
+
+
+def show_footprint(lib, module_name, tool=None):
+    """
+    Print the pads for a given module in a library.
+
+    Args:
+        lib: The name of a library.
+        module_name: The name of the footprint in the library.
+        tool: The ECAD tool format for the library.
+
+    Returns:
+        A Part object.
+    """
+
+    import skidl
+
+    if tool is None:
+        tool = skidl.get_default_tool()
+
+    os.environ["KISYSMOD"] = os.pathsep.join(skidl.footprint_search_paths[tool])
+    return pym.Module.from_library(lib, module_name)
+
+
+# Define some shortcuts.
+search = search_parts
+show = show_part

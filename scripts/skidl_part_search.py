@@ -1,4 +1,32 @@
-﻿from __future__ import print_function
+﻿# -*- coding: utf-8 -*-
+
+# MIT license
+#
+# Copyright (C) 2018 by XESS Corp.
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+
+"""
+GUI for finding/displaying parts.
+"""
+
+from __future__ import print_function
 
 import collections
 import os
@@ -9,7 +37,7 @@ import wx.grid
 import wx.lib.agw.hyperlink as hl
 import wx.lib.expando
 
-from skidl import KICAD, lib_search_paths, search_libraries, skidl_cfg
+from skidl import KICAD, lib_search_paths, search_parts_iter, skidl_cfg
 
 APP_TITLE = "SKiDL Part Search"
 
@@ -116,8 +144,8 @@ class SkidlPartSearch(wx.Frame):
         main_panel.SetSizer(hbox)
 
         # Subpanel for search text box and lib/part table.
-        search_panel = self.InitSearchPanel(main_panel)
-        hbox.Add(search_panel, proportion=1, flag=wx.ALL | wx.EXPAND, border=SPACING)
+        self.search_panel = self.InitSearchPanel(main_panel)
+        hbox.Add(self.search_panel, proportion=1, flag=wx.ALL | wx.EXPAND, border=SPACING)
 
         # Divider.
         hbox.Add(
@@ -128,8 +156,8 @@ class SkidlPartSearch(wx.Frame):
         )
 
         # Subpanel for part/pin data.
-        part_panel = self.InitPartPanel(main_panel)
-        hbox.Add(part_panel, proportion=1, flag=wx.ALL | wx.EXPAND, border=0)
+        self.part_panel = self.InitPartPanel(main_panel)
+        hbox.Add(self.part_panel, proportion=1, flag=wx.ALL | wx.EXPAND, border=0)
 
     def InitSearchPanel(self, parent):
         # Subpanel for search text box and lib/part table.
@@ -209,6 +237,8 @@ class SkidlPartSearch(wx.Frame):
         self.datasheet_link = hl.HyperLinkCtrl(part_panel, label="Datasheet", URL="")
         self.datasheet_link.EnableRollover(True)
         vbox.Add(self.datasheet_link, proportion=0, flag=wx.ALL, border=SPACING)
+        # Hide the inactive link *after* adding it to the sizer so it's placed correctly.
+        self.datasheet_link.Hide()
 
         # Divider.
         vbox.Add(
@@ -293,7 +323,7 @@ class SkidlPartSearch(wx.Frame):
         )
         self.lib_parts = set()
         search_text = self.search_text.GetLineText(0)
-        for lib_part in search_libraries(search_text):
+        for lib_part in search_parts_iter(search_text):
             if lib_part[0] == "LIB":
                 lib_name, lib_idx, num_libs = lib_part[1:4]
                 progress.SetRange(num_libs)
@@ -350,6 +380,12 @@ class SkidlPartSearch(wx.Frame):
 
             # Display the link to the part datasheet.
             self.datasheet_link.SetURL(part.datasheet)
+            if part.datasheet:
+                self.datasheet_link.Show()
+            else:
+                self.datasheet_link.Hide()
+            # Re-layout the panel to account for link hide/show.
+            self.part_panel.Layout()
 
             # Place pin data into a table.
             grid = self.pin_info

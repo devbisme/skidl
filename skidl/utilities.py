@@ -331,10 +331,28 @@ def num_to_chars(num):
     return s
 
 
+def rmv_quotes(s):
+    """Remove starting and ending quotes from a string."""
+    if not isinstance(s, basestring):
+        return s
+
+    mtch = re.match(r'^\s*"(.*)"\s*$', s)
+    if mtch:
+        try:
+            s = s.decode(mtch.group(1))
+        except AttributeError:
+            s = mtch.group(1)
+
+    return s
+
+
 def add_quotes(s):
     """Return string with added quotes if it contains whitespace or parens."""
     if not isinstance(s, basestring):
         return s
+
+    # Remove quotes if string already has them.
+    s = rmv_quotes(s)
 
     if re.search(r"[\s()]", s):
         try:

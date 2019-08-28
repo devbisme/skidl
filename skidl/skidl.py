@@ -106,6 +106,14 @@ if "lib_search_paths" not in skidl_cfg:
 # Shortcut to library search paths.
 lib_search_paths = skidl_cfg["lib_search_paths"]
 
+# If no configuration files were found, set some default footprint search paths.
+if "footprint_search_paths" not in skidl_cfg:
+    skidl_cfg["footprint_search_paths"] = {KICAD: ["."], SKIDL: ["."], SPICE: ["."]}
+    skidl_cfg["footprint_search_paths"][KICAD].append(os.environ["KISYSMOD"])
+
+# Shortcut to footprint search paths.
+footprint_search_paths = skidl_cfg["footprint_search_paths"]
+
 # Set default toolset being used with SKiDL.
 def set_default_tool(tool):
     """Set the ECAD tool that will be used by default."""
