@@ -157,6 +157,7 @@ def show_part(lib, part_name, tool=None):
         return None
 
 
+# Cache for storing footprints read from .kicad_mod files.
 footprint_cache = dict()
 
 
@@ -173,11 +174,16 @@ def search_footprints_iter(term, tool=None, cache_invalid=True):
     term = ".*" + term + ".*"  # Use the given term as a substring.
 
     # If the cache isn't valid, then make it valid by gathering all the
-    # footprint files from  all the directories in the search paths.
+    # footprint files from all the directories in the search paths.
     if cache_invalid:
         footprint_cache = dict()
         for path in skidl.footprint_search_paths[tool]:
-            for dir, _, file_names in os.walk(path):
+            for dir, subdirs, file_names in os.walk(path):
+
+                # Don't visit hidden directories like .git.
+                if os.path.basename(dir).startswith("."):
+                    del subdirs[:]  # Don't visit any subdirs either.
+                    continue
 
                 # Skip directories without .pretty extension.
                 if not dir.lower().endswith(".pretty"):
@@ -226,8 +232,14 @@ def search_footprints_iter(term, tool=None, cache_invalid=True):
             if cache_invalid:
                 file = os.path.join(path, module_name + ".kicad_mod")
                 with open(file, "r") as fp:
-                    # Remove any linefeeds that would interfere with fullmatch() later on.
-                    modules[module_name] = [l.rstrip() for l in fp.readlines()]
+                    try:
+                        # Remove any linefeeds that would interfere with fullmatch() later on.
+                        modules[module_name] = [l.rstrip() for l in fp.readlines()]
+                    except UnicodeDecodeError:
+                        try:
+                            modules[module_name] = [l.decode("utf-8").rstrip() for l in fp.readlines()]
+                        except AttributeError:
+                            modules[module_name] = ""
 
             # Get the contents of the footprint file from the cache.
             module_text = tuple(modules[module_name])

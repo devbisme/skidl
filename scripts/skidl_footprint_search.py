@@ -30,19 +30,22 @@ from __future__ import print_function
 
 import math
 import os
-import re
 import string
 from collections import defaultdict, namedtuple
 
 import pykicad.module as pym
 import wx
-import wx.grid
 import wx.lib.agw.hyperlink as hl
-import wx.lib.expando
 
+from common import *
 from footprint_painter import FootprintPainter
-from skidl import (KICAD, footprint_search_paths, rmv_quotes,
-                   search_footprints_iter, skidl_cfg)
+from skidl import (
+    KICAD,
+    footprint_search_paths,
+    rmv_quotes,
+    search_footprints_iter,
+    skidl_cfg,
+)
 
 APP_TITLE = "SKiDL Footprint Search"
 
@@ -54,75 +57,6 @@ SEARCH_FOOTPRINTS = 6
 COPY_FOOTPRINTS = 7
 PAINT_ACTUAL_SIZE_CKBX_ID = 8
 
-APP_SIZE = (600, 500)
-BTN_SIZE = (50, -1)
-SPACING = 10
-TEXT_BOX_WIDTH = 200
-CELL_BCK_COLOUR = wx.Colour(255, 255, 255)
-
-
-class TextEntryDialog(wx.Dialog):
-    def __init__(self, parent, title, caption, tip=None):
-        style = wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER
-        super(TextEntryDialog, self).__init__(parent, -1, title, style=style)
-        text = wx.StaticText(self, -1, caption)
-        self.input = wx.lib.expando.ExpandoTextCtrl(
-            self, size=(int(0.75 * parent.GetSize()[0]), -1), style=wx.TE_PROCESS_ENTER
-        )
-        self.input.Bind(wx.EVT_TEXT_ENTER, self.OnEnter)
-        if tip:
-            self.input.SetToolTip(wx.ToolTip(tip))
-        buttons = self.CreateButtonSizer(wx.OK | wx.CANCEL)
-        sizer = wx.BoxSizer(wx.VERTICAL)
-        sizer.Add(text, 0, wx.ALL, 5)
-        sizer.Add(self.input, 1, wx.EXPAND | wx.ALL, 5)
-        sizer.Add(buttons, 0, wx.EXPAND | wx.ALL, 5)
-        self.SetSizerAndFit(sizer)
-
-    def OnEnter(self, event):
-        """End modal if enter is hit in input text control."""
-        self.EndModal(wx.ID_OK)
-
-    def SetValue(self, value):
-        self.input.SetValue(value.strip().rstrip())
-        self.input.SetFocus()
-        self.input.SetInsertionPointEnd()
-        self.Fit()
-
-    def GetValue(self):
-        return self.input.GetValue().strip().rstrip()
-
-
-class MyGrid(wx.grid.Grid):
-    def __init__(self, parent, headers, bck_colour):
-        super(self.__class__, self).__init__()
-        self.Create(parent)
-        self.CreateGrid(
-            numRows=10, numCols=len(headers), selmode=wx.grid.Grid.SelectRows
-        )
-        self.HideRowLabels()
-        self.EnableEditing(False)
-        for col, lbl in enumerate(headers):
-            self.SetColLabelValue(col, lbl)
-        self.SetDefaultCellBackgroundColour(parent.GetBackgroundColour())
-        self.BackgroundColour = bck_colour
-        self.ColourGridBackground()
-        self.SetSelectionMode(wx.grid.Grid.GridSelectionModes.SelectRows)
-
-    def Resize(self, numRows):
-        self.ClearGrid()
-        num_rows_chg = numRows - self.GetNumberRows()
-        if num_rows_chg < 0:
-            self.DeleteRows(0, -num_rows_chg, True)
-        elif num_rows_chg > 0:
-            self.AppendRows(num_rows_chg)
-        self.ColourGridBackground()
-
-    def ColourGridBackground(self):
-        for r in range(self.GetNumberRows()):
-            for c in range(self.GetNumberCols()):
-                self.SetCellBackgroundColour(r, c, self.BackgroundColour)
-
 
 class FootprintPaintingPanel(wx.Panel):
     def __init__(self, parent):
@@ -130,7 +64,9 @@ class FootprintPaintingPanel(wx.Panel):
         self.footprint = None
 
         # Repaint the footprint panel whenever the "show actual size" checkbox changes.
-        self.paint_actual_size_ckbx = wx.FindWindowById(PAINT_ACTUAL_SIZE_CKBX_ID, parent)
+        self.paint_actual_size_ckbx = wx.FindWindowById(
+            PAINT_ACTUAL_SIZE_CKBX_ID, parent
+        )
         self.paint_actual_size_ckbx.Bind(wx.EVT_CHECKBOX, self.OnSize)
 
         # Repaint the footprint panel for any paint or windows resize event.
@@ -151,14 +87,18 @@ class FootprintPaintingPanel(wx.Panel):
     def OnPaint(self, event):
         if self.footprint:
             self.Refresh()  # Causes repaint of the entire footprint panel.
-            self.footprint.paint(wx.PaintDC(self), self.paint_actual_size_ckbx.GetValue())
+            self.footprint.paint(
+                wx.PaintDC(self), self.paint_actual_size_ckbx.GetValue()
+            )
         else:
             self.ClearBackground()
 
     def OnSize(self, event):
         if self.footprint:
             self.Refresh()  # Causes repaint of the entire footprint panel.
-            self.footprint.paint(wx.ClientDC(self), self.paint_actual_size_ckbx.GetValue())
+            self.footprint.paint(
+                wx.ClientDC(self), self.paint_actual_size_ckbx.GetValue()
+            )
         else:
             self.ClearBackground()
 
@@ -177,33 +117,48 @@ class SkidlFootprintSearch(wx.Frame):
         self.InitMenus()
         self.InitMainPanels()
 
+        # This flag is used to set focus on the table of found footprints
+        # after a search is completed.
+        self.focus_on_found_footprints = False
+        self.Bind(wx.EVT_IDLE, self.OnIdle)
+
         self.SetSize(APP_SIZE)
         self.SetTitle(APP_TITLE)
         self.Center()
         self.Show(True)
 
+    def OnIdle(self, event):
+        if self.focus_on_found_footprints:
+            self.found_footprints.SelectRow(0)
+            self.found_footprints.GoToCell(0, 1)
+            self.found_footprints.SetFocus()
+            self.focus_on_found_footprints = False
+            # self.SendSizeEvent()
+            # self.Refresh()
+            # self.Update()
+
     def InitMainPanels(self):
         # Main panel holds two subpanels.
-        main_panel = wx.Panel(self)
+        self.main_panel = wx.Panel(self)
         hbox = wx.BoxSizer(wx.HORIZONTAL)
-        main_panel.SetSizer(hbox)
+        self.main_panel.SetSizer(hbox)
 
         # Subpanel for search text box and footprint table.
-        self.search_panel = self.InitSearchPanel(main_panel)
+        self.search_panel = self.InitSearchPanel(self.main_panel)
         hbox.Add(
             self.search_panel, proportion=1, flag=wx.ALL | wx.EXPAND, border=SPACING
         )
 
         # Divider.
         hbox.Add(
-            wx.StaticLine(main_panel, size=(2, -1), style=wx.LI_VERTICAL),
+            wx.StaticLine(self.main_panel, size=(2, -1), style=wx.LI_VERTICAL),
             proportion=0,
             flag=wx.ALL | wx.EXPAND,
             border=0,
         )
 
         # Subpanel for footprint painting.
-        self.fp_panel = self.InitFootprintPanel(main_panel)
+        self.fp_panel = self.InitFootprintPanel(self.main_panel)
         hbox.Add(self.fp_panel, proportion=1, flag=wx.ALL | wx.EXPAND, border=0)
 
     def InitSearchPanel(self, parent):
@@ -232,6 +187,7 @@ class SkidlFootprintSearch(wx.Frame):
         self.found_footprints = MyGrid(
             search_panel, ("Library", "Footprint"), CELL_BCK_COLOUR
         )
+        self.found_footprints.Resize(10)
         self.found_footprints.Bind(wx.grid.EVT_GRID_SELECT_CELL, self.OnSelectCell)
         self.found_footprints.Bind(wx.grid.EVT_GRID_CELL_LEFT_DCLICK, self.OnCopy)
 
@@ -265,39 +221,16 @@ class SkidlFootprintSearch(wx.Frame):
         fp_panel.SetSizer(vbox)
 
         # Text box for displaying description of footprint highlighted in grid.
-        vbox.Add(
-            wx.StaticText(fp_panel, label="Footprint Description/Tags"),
-            proportion=0,
-            flag=wx.ALL,
-            border=SPACING,
-        )
-        self.fp_desc = wx.TextCtrl(
-            fp_panel,
-            size=(TEXT_BOX_WIDTH, 60),
-            style=wx.TE_READONLY | wx.TE_MULTILINE | wx.TE_NO_VSCROLL,
-        )
-        vbox.Add(self.fp_desc, proportion=0, flag=wx.ALL | wx.EXPAND, border=SPACING)
+        self.fp_desc = Description(fp_panel, "Footprint Description/Tags")
+        vbox.Add(self.fp_desc, proportion=0, flag=wx.ALL, border=0)
+        # Hide the inactive description *after* adding it to the sizer so it's placed correctly.
+        self.fp_desc.Hide()
 
         # Hyperlink for highlighted part datasheet.
-        vbox.Add(
-            wx.StaticLine(fp_panel, size=(-1, 2), style=wx.LI_HORIZONTAL),
-            proportion=0,
-            flag=wx.ALL | wx.EXPAND,
-            border=5,
-        )
-        self.datasheet_link = hl.HyperLinkCtrl(fp_panel, label="Datasheet", URL="")
-        self.datasheet_link.EnableRollover(True)
-        vbox.Add(self.datasheet_link, proportion=0, flag=wx.ALL, border=SPACING)
+        self.datasheet_link = HyperLink(fp_panel, label="Datasheet")
+        vbox.Add(self.datasheet_link, proportion=0, flag=wx.ALL, border=0)
         # Hide the inactive link *after* adding it to the sizer so it's placed correctly.
         self.datasheet_link.Hide()
-
-        # Divider.
-        vbox.Add(
-            wx.StaticLine(fp_panel, size=(-1, 2), style=wx.LI_HORIZONTAL),
-            proportion=0,
-            flag=wx.ALL | wx.EXPAND,
-            border=5,
-        )
 
         # Footprint painting.
         painting_title_panel = wx.Panel(fp_panel)
@@ -309,15 +242,21 @@ class SkidlFootprintSearch(wx.Frame):
             flag=wx.ALL,
             border=0,
         )
-        hbox.AddSpacer(3*SPACING)
-        self.actual_size_ckbx = wx.CheckBox(painting_title_panel, id=PAINT_ACTUAL_SIZE_CKBX_ID, label="Show actual size")
+        hbox.AddSpacer(3 * SPACING)
+        self.actual_size_ckbx = wx.CheckBox(
+            painting_title_panel, id=PAINT_ACTUAL_SIZE_CKBX_ID, label="Show actual size"
+        )
         self.actual_size_ckbx.SetToolTip(
-            wx.ToolTip('Check to display actual size of footprint.'))
+            wx.ToolTip("Check to display actual size of footprint.")
+        )
         hbox.Add(self.actual_size_ckbx, proportion=0, flag=wx.ALL, border=0)
         vbox.Add(painting_title_panel, proportion=0, flag=wx.ALL, border=SPACING)
         self.fp_painting_panel = FootprintPaintingPanel(fp_panel)
         vbox.Add(
-            self.fp_painting_panel, proportion=1, flag=wx.ALL | wx.EXPAND, border=SPACING
+            self.fp_painting_panel,
+            proportion=1,
+            flag=wx.ALL | wx.EXPAND,
+            border=SPACING,
         )
 
         return fp_panel
@@ -342,9 +281,11 @@ class SkidlFootprintSearch(wx.Frame):
         srchPathItem = wx.MenuItem(srchMenu, SEARCH_PATH, "Set search path...\tCtrl+P")
         srchMenu.Append(srchPathItem)
         self.Bind(wx.EVT_MENU, self.OnSearchPath, id=SEARCH_PATH)
+
         srchMenuItem = wx.MenuItem(srchMenu, SEARCH_FOOTPRINTS, "Search\tCtrl+F")
         srchMenu.Append(srchMenuItem)
         self.Bind(wx.EVT_MENU, self.OnSearch, id=SEARCH_FOOTPRINTS)
+
         copyMenuItem = wx.MenuItem(srchMenu, COPY_FOOTPRINTS, "Copy\tCtrl+C")
         srchMenu.Append(copyMenuItem)
         self.Bind(wx.EVT_MENU, self.OnCopy, id=COPY_FOOTPRINTS)
@@ -387,9 +328,11 @@ class SkidlFootprintSearch(wx.Frame):
         progress = wx.ProgressDialog(
             "Searching Footprint Libraries", "Loading footprints from libraries."
         )
-        self.footprints = set()
+        self.footprints = []
         search_text = self.search_text.GetLineText(0)
-        for lib_module in search_footprints_iter(search_text, cache_invalid=self.cache_invalid):
+        for lib_module in search_footprints_iter(
+            search_text, cache_invalid=self.cache_invalid
+        ):
             if lib_module[0] == "LIB":
                 lib_name = lib_module[1]
                 lib_idx = lib_module[2]
@@ -399,15 +342,10 @@ class SkidlFootprintSearch(wx.Frame):
                     lib_idx, "Reading footprint library {}...".format(lib_name)
                 )
             elif lib_module[0] == "MODULE":
-                self.footprints.add(lib_module[1:])
+                self.footprints.append(lib_module[1:])
 
         # Cache should be valid after running a search, so use it for further searches.
         self.cache_invalid = False
-
-        # Sort parts by libraries and part names.
-        self.footprints = sorted(
-            list(self.footprints), key=lambda x: "/".join([x[0], x[2]])
-        )
 
         # place libraries and parts into a table.
         grid = self.found_footprints
@@ -420,81 +358,89 @@ class SkidlFootprintSearch(wx.Frame):
             grid.SetCellValue(row, 0, lib)
             grid.SetCellValue(row, 1, module_name)
 
+        # Initially sort table by footprint library in ascending order.
+        grid.SortTable(0, 1)
+
         # Size the columns for their new contents.
         grid.AutoSizeColumns()
 
+        # Cause refresh.
         self.search_panel.Layout()
 
-        grid.SelectRow(0)
-        #grid.GoToCell(0, 1) # Causes program to hang!
+        # Focus on the first footprint in the list.
+        self.focus_on_found_footprints = True
 
     def OnSelectCell(self, event):
         # When a row of the footprint table is selected, display the data for that footprint.
 
-        def natural_sort_key(s, _nsre=re.compile("([0-9]+)")):
-            return [
-                int(text) if text.isdigit() else text.lower() for text in _nsre.split(s)
-            ]
-
-        # Get any selected rows in the lib/part table plus wherever the cell cursor is.
-        selection = [event.GetRow()]
-        #selection = self.found_footprints.GetSelectedRows()
-        #selection.append(self.found_footprints.GetGridCursorRow())
-
-        # Only process the footprint in the first selected row and ignore the rest.
-        for row in selection:
-
-            module_text = self.footprints[row][1]
-            try:
-                module = pym.Module.parse("\n".join(module_text))
-            except Exception as e:
-                self.Feedback("Error while parsing {}:{}".format(self.footprints[row][0], self.footprints[row][2]), "Error")
-                continue
-
-            descr = "???"
-            tags = "???"
-            for line in module_text:
-                try:
-                    descr = line.split("(descr ")[1].rsplit(")", 1)[0]
-                    descr = rmv_quotes(descr)
-                except IndexError:
-                    pass
-                try:
-                    tags = line.split("(tags ")[1].rsplit(")", 1)[0]
-                    tags = rmv_quotes(tags)
-                except IndexError:
-                    pass
-
-            # Show the part description.
-            self.fp_desc.Remove(0, self.fp_desc.GetLastPosition())
-            desc = descr[:]
-            if tags != "???":
-                desc += "\nTags: " + rmv_quotes(tags)
-            self.fp_desc.WriteText(desc)
-
-            # Display the link to the footprint datasheet.
-            try:
-                # Extract link-like text from the description.
-                url = re.search("(?P<url>https?://[^\s]+)", descr).group("url")
-                # Often, the link has punctuation at the end that should be removed.
-                url = url.rstrip(string.punctuation)
-            except AttributeError:
-                # No URL found so hide the hyperlink.
-                self.datasheet_link.SetURL(None)
-                self.datasheet_link.Hide()
-            else:
-                # URL was found, so set the hyperlink and show it.
-                self.datasheet_link.SetURL(url)
-                self.datasheet_link.Show()
-
-            # Set the footprint that will be displayed.
-            self.fp_painting_panel.footprint = module
-
-            # Re-layout the panel to account for link hide/show.
+        def clear_fp_panel():
+            # Clear the footprint panel desc, link, and painting.
+            self.fp_desc.SetDescription("")
+            self.datasheet_link.SetURL(None)
+            self.fp_painting_panel.footprint = None
             self.fp_panel.Layout()
+            self.fp_painting_panel.Hide()
 
-            # Return after processing only one footprint.
+        # Get the selected row in the lib/part table and translate it to the row in the data table.
+        row = self.found_footprints.GetDataRow(event.GetRow())
+
+        try:
+            module_text = self.footprints[row][1]
+        except (AttributeError, IndexError):
+            clear_fp_panel()
+            return  # Nothing in the footprints table.
+
+        try:
+            module = pym.Module.parse("\n".join(module_text))
+        except Exception as e:
+            clear_fp_panel()
+            self.Feedback(
+                "Error while parsing {}:{}".format(
+                    self.footprints[row][0], self.footprints[row][2]
+                ),
+                "Error",
+            )
             return
+
+        descr = "???"
+        tags = "???"
+        for line in module_text:
+            try:
+                descr = line.split("(descr ")[1].rsplit(")", 1)[0]
+                descr = rmv_quotes(descr)
+            except IndexError:
+                pass
+            try:
+                tags = line.split("(tags ")[1].rsplit(")", 1)[0]
+                tags = rmv_quotes(tags)
+            except IndexError:
+                pass
+
+        # Show the part description.
+        desc = descr[:]
+        if tags != "???":
+            desc += "\nTags: " + rmv_quotes(tags)
+        self.fp_desc.SetDescription(desc)
+
+        # Display the link to the footprint datasheet.
+        try:
+            # Extract link-like text from the description.
+            url = re.search("(?P<url>https?://[^\s]+)", descr).group("url")
+        except AttributeError:
+            # No URL found so hide the hyperlink.
+            self.datasheet_link.SetURL(None)
+        else:
+            # URL was found, so set the hyperlink and show it.
+            # Often, the link has punctuation at the end that should be removed.
+            url = url.rstrip(string.punctuation)
+            self.datasheet_link.SetURL(url)
+
+        # Set the footprint that will be displayed.
+        self.fp_painting_panel.footprint = module
+        self.fp_painting_panel.Show()
+
+        # Re-layout the panel to account for link hide/show.
+        self.fp_panel.Layout()
 
     def OnCopy(self, event):
         # Copy the selected footprint onto the clipboard.
@@ -562,8 +508,10 @@ MIT License
 
 def main():
 
+#    import wx.lib.inspection
     ex = wx.App()
     SkidlFootprintSearch(None)
+#    wx.lib.inspection.InspectionTool().Show()
     ex.MainLoop()
 
 

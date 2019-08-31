@@ -323,7 +323,7 @@ class FootprintPainter(object):
                 for lyr_nm in attr["layers"]:
                     layers[lyr_nm].add_pad_polygon(pts)
             elif attr["shape"] == "circle":
-                r = w
+                r = w / 2
                 pts = self.circle_pts(cx, cy, r, tm)
                 for lyr_nm in attr["layers"]:
                     layers[lyr_nm].add_pad_circle(pts)

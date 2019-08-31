@@ -33,10 +33,9 @@ import os
 import re
 
 import wx
-import wx.grid
 import wx.lib.agw.hyperlink as hl
-import wx.lib.expando
 
+from common import *
 from skidl import KICAD, lib_search_paths, search_parts_iter, skidl_cfg
 
 APP_TITLE = "SKiDL Part Search"
@@ -48,77 +47,9 @@ SEARCH_PATH = 5
 SEARCH_PARTS = 6
 COPY_PART = 7
 
-APP_SIZE = (600, 500)
-BTN_SIZE = (50, -1)
-SPACING = 10
-TEXT_BOX_WIDTH = 200
-CELL_BCK_COLOUR = wx.Colour(255, 255, 255)
-
 
 # Named tuple for parts found by library search.
 LibPart = collections.namedtuple("LibPart", "lib_name part part_name")
-
-
-class TextEntryDialog(wx.Dialog):
-    def __init__(self, parent, title, caption, tip=None):
-        style = wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER
-        super(self.__class__, self).__init__(parent, -1, title, style=style)
-        text = wx.StaticText(self, -1, caption)
-        self.input = wx.lib.expando.ExpandoTextCtrl(
-            self, size=(int(0.75 * parent.GetSize()[0]), -1), style=wx.TE_PROCESS_ENTER
-        )
-        self.input.Bind(wx.EVT_TEXT_ENTER, self.OnEnter)
-        if tip:
-            self.input.SetToolTip(wx.ToolTip(tip))
-        buttons = self.CreateButtonSizer(wx.OK | wx.CANCEL)
-        sizer = wx.BoxSizer(wx.VERTICAL)
-        sizer.Add(text, 0, wx.ALL, 5)
-        sizer.Add(self.input, 1, wx.EXPAND | wx.ALL, 5)
-        sizer.Add(buttons, 0, wx.EXPAND | wx.ALL, 5)
-        self.SetSizerAndFit(sizer)
-
-    def OnEnter(self, event):
-        """End modal if enter is pressed in input text control."""
-        self.EndModal(wx.ID_OK)
-
-    def SetValue(self, value):
-        self.input.SetValue(value.strip().rstrip())
-        self.input.SetFocus()
-        self.input.SetInsertionPointEnd()
-        self.Fit()
-
-    def GetValue(self):
-        return self.input.GetValue().strip().rstrip()
-
-
-class MyGrid(wx.grid.Grid):
-    def __init__(self, parent, headers, bck_colour):
-        super(self.__class__, self).__init__()
-        self.Create(parent)
-        self.CreateGrid(
-            numRows=10, numCols=len(headers), selmode=wx.grid.Grid.SelectRows
-        )
-        self.HideRowLabels()
-        self.EnableEditing(False)
-        for col, lbl in enumerate(headers):
-            self.SetColLabelValue(col, lbl)
-        self.SetDefaultCellBackgroundColour(parent.GetBackgroundColour())
-        self.BackgroundColour = bck_colour
-        self.ColourGridBackground()
-
-    def Resize(self, numRows):
-        self.ClearGrid()
-        num_rows_chg = numRows - self.GetNumberRows()
-        if num_rows_chg < 0:
-            self.DeleteRows(0, -num_rows_chg, True)
-        elif num_rows_chg > 0:
-            self.AppendRows(num_rows_chg)
-        self.ColourGridBackground()
-
-    def ColourGridBackground(self):
-        for r in range(self.GetNumberRows()):
-            for c in range(self.GetNumberCols()):
-                self.SetCellBackgroundColour(r, c, self.BackgroundColour)
 
 
 class SkidlPartSearch(wx.Frame):
@@ -132,10 +63,25 @@ class SkidlPartSearch(wx.Frame):
         self.InitMenus()
         self.InitMainPanels()
 
+        # This flag is used to set focus on the table of found parts
+        # after a search is completed.
+        self.focus_on_found_parts = False
+        self.Bind(wx.EVT_IDLE, self.OnIdle)
+
         self.SetSize(APP_SIZE)
         self.SetTitle(APP_TITLE)
         self.Center()
         self.Show(True)
+
+    def OnIdle(self, EnvironmentError):
+        if self.focus_on_found_parts:
+            self.found_parts.SelectRow(0)
+            self.found_parts.GoToCell(0, 1)
+            self.found_parts.SetFocus()
+            self.focus_on_found_parts = False
+            # self.SendSizeEvent()
+            # self.Refresh()
+            # self.Update()
 
     def InitMainPanels(self):
         # Main panel holds two subpanels.
@@ -145,7 +91,9 @@ class SkidlPartSearch(wx.Frame):
 
         # Subpanel for search text box and lib/part table.
         self.search_panel = self.InitSearchPanel(main_panel)
-        hbox.Add(self.search_panel, proportion=1, flag=wx.ALL | wx.EXPAND, border=SPACING)
+        hbox.Add(
+            self.search_panel, proportion=1, flag=wx.ALL | wx.EXPAND, border=SPACING
+        )
 
         # Divider.
         hbox.Add(
@@ -181,6 +129,7 @@ class SkidlPartSearch(wx.Frame):
 
         # Table (grid) for holding libs and parts that match search string.
         self.found_parts = MyGrid(search_panel, ("Library", "Part"), CELL_BCK_COLOUR)
+        self.found_parts.Resize(10)
         self.found_parts.Bind(wx.grid.EVT_GRID_SELECT_CELL, self.OnSelectCell)
         self.found_parts.Bind(wx.grid.EVT_GRID_CELL_LEFT_DCLICK, self.OnCopy)
 
@@ -256,6 +205,9 @@ class SkidlPartSearch(wx.Frame):
             border=SPACING,
         )
         self.pin_info = MyGrid(part_panel, ("Pin", "Name", "Type"), CELL_BCK_COLOUR)
+        self.pin_info.Resize(10)
+        self.pin_info.SetSortFunc(0, natural_sort_key)  # Natural sort pin numbers.
+        self.pin_info.SetSortFunc(1, natural_sort_key)  # Natural sort pin names.
         vbox.Add(self.pin_info, proportion=1, flag=wx.ALL | wx.EXPAND, border=SPACING)
 
         return part_panel
@@ -333,8 +285,7 @@ class SkidlPartSearch(wx.Frame):
 
         # Sort parts by libraries and part names.
         self.lib_parts = sorted(
-            list(self.lib_parts),
-            key=lambda x: "/".join([x.lib_name, x.part_name]),
+            list(self.lib_parts), key=lambda x: "/".join([x.lib_name, x.part_name])
         )
 
         # place libraries and parts into a table.
@@ -348,66 +299,66 @@ class SkidlPartSearch(wx.Frame):
             grid.SetCellValue(row, 0, lib_part.lib_name)
             grid.SetCellValue(row, 1, lib_part.part_name)
 
+        # Initially sort table by part library in ascending order.
+        grid.SortTable(0, 1)
+
         # Size the columns for their new contents.
         grid.AutoSizeColumns()
+
+        # Focus on the first part in the list.
+        self.focus_on_found_parts = True
 
     def OnSelectCell(self, event):
         # When a row of the lib/part table is selected, display the data for that part.
 
-        def natural_sort_key(s, _nsre=re.compile("([0-9]+)")):
-            return [
-                int(text) if text.isdigit() else text.lower() for text in _nsre.split(s)
-            ]
+        # Get the selected row in the lib/part table and translate it to the row in the data table.
+        row = self.found_parts.GetDataRow(event.GetRow())
 
-        # Get any selected rows in the lib/part table plus wherever the cell cursor is.
-        selection = self.found_parts.GetSelectedRows()
-        selection.append(self.found_parts.GetGridCursorRow())
-
-        # Only process the part in the first selected row and ignore the rest.
-        for row in selection:
-            # Fully instantiate the selected part.
+        # Fully instantiate the selected part.
+        try:
             part = self.lib_parts[row].part
-            part.parse()  # Instantiate pins.
+        except (AttributeError, IndexError):
+            return  # Nothing in the lib_parts table.
 
-            # Show the part description.
-            self.part_desc.Remove(0, self.part_desc.GetLastPosition())
-            desc = part.description
-            # if part.aliases:
-            #     desc += "\nAliases: " + ", ".join(list(part.aliases))
-            if part.keywords:
-                desc += "\nKeywords: " + part.keywords
-            self.part_desc.WriteText(desc)
+        part.parse()  # Instantiate pins.
 
-            # Display the link to the part datasheet.
+        # Show the part description.
+        self.part_desc.Remove(0, self.part_desc.GetLastPosition())
+        desc = part.description
+        # if part.aliases:
+        #     desc += "\nAliases: " + ", ".join(list(part.aliases))
+        if part.keywords:
+            desc += "\nKeywords: " + part.keywords
+        self.part_desc.WriteText(desc)
+
+        # Display the link to the part datasheet.
+        self.datasheet_link.SetURL(part.datasheet)
+        if part.datasheet and part.datasheet not in ("~",):
             self.datasheet_link.SetURL(part.datasheet)
-            if part.datasheet:
-                self.datasheet_link.Show()
-            else:
-                self.datasheet_link.Hide()
-            # Re-layout the panel to account for link hide/show.
-            self.part_panel.Layout()
+            self.datasheet_link.Show()
+        else:
+            self.datasheet_link.Hide()
+        # Re-layout the panel to account for link hide/show.
+        self.part_panel.Layout()
 
-            # Place pin data into a table.
-            grid = self.pin_info
+        # Place pin data into a table.
+        grid = self.pin_info
 
-            # Clear any existing pin data and add/sub rows to hold results.
-            grid.Resize(len(part))
+        # Clear any existing pin data and add/sub rows to hold results.
+        grid.Resize(len(part))
 
-            # Sort pins by pin number.
-            pins = sorted(part, key=lambda p: natural_sort_key(p.get_pin_info()[0]))
+        # Sort pins by pin number.
+        pins = sorted(part, key=lambda p: natural_sort_key(p.get_pin_info()[0]))
 
-            # Place pin data into the table.
-            for row, pin in enumerate(pins):
-                num, names, func = pin.get_pin_info()
-                grid.SetCellValue(row, 0, num)
-                grid.SetCellValue(row, 1, names)
-                grid.SetCellValue(row, 2, func)
+        # Place pin data into the table.
+        for row, pin in enumerate(pins):
+            num, names, func = pin.get_pin_info()
+            grid.SetCellValue(row, 0, num)
+            grid.SetCellValue(row, 1, names)
+            grid.SetCellValue(row, 2, func)
 
-            # Size the columns for their new contents.
-            grid.AutoSizeColumns()
-
-            # Return after processing only one part.
-            return
+        # Size the columns for their new contents.
+        grid.AutoSizeColumns()
 
     def OnCopy(self, event):
         # Copy the lib/part for the selected part onto the clipboard.
