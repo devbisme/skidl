@@ -84,28 +84,28 @@ class SkidlPartSearch(wx.Frame):
             # self.Update()
 
     def InitMainPanels(self):
-        # Main panel holds two subpanels.
-        main_panel = wx.Panel(self)
-        hbox = wx.BoxSizer(wx.HORIZONTAL)
-        main_panel.SetSizer(hbox)
+        # Create main splitter window to hold both subpanels.
+        self.main_panel = wx.SplitterWindow(self)
 
         # Subpanel for search text box and lib/part table.
-        self.search_panel = self.InitSearchPanel(main_panel)
-        hbox.Add(
-            self.search_panel, proportion=1, flag=wx.ALL | wx.EXPAND, border=SPACING
-        )
-
-        # Divider.
-        hbox.Add(
-            wx.StaticLine(main_panel, size=(2, -1), style=wx.LI_VERTICAL),
-            proportion=0,
-            flag=wx.ALL | wx.EXPAND,
-            border=0,
-        )
+        self.search_panel = self.InitSearchPanel(self.main_panel)
 
         # Subpanel for part/pin data.
-        self.part_panel = self.InitPartPanel(main_panel)
-        hbox.Add(self.part_panel, proportion=1, flag=wx.ALL | wx.EXPAND, border=0)
+        self.part_panel = self.InitPartPanel(self.main_panel)
+
+        # Split subpanels left/right.
+        self.main_panel.SplitVertically(self.search_panel, self.part_panel, sashPosition=0)
+        self.main_panel.SetSashGravity(0.5)  # Both subpanels expand/contract equally.
+        self.main_panel.SetMinimumPaneSize((APP_SIZE[0] - 3*SPACING) / 2)
+
+        # Create sizer with border around splitter. 
+        sizer = wx.BoxSizer(wx.HORIZONTAL)
+        sizer.Add(self.main_panel, 1, wx.ALL|wx.EXPAND, border=SPACING)
+        self.SetSizer(sizer)
+
+        # Keep border same color as background of main splitter window.
+        self.SetBackgroundColour(self.main_panel.GetBackgroundColour())
+
 
     def InitSearchPanel(self, parent):
         # Subpanel for search text box and lib/part table.
@@ -163,39 +163,16 @@ class SkidlPartSearch(wx.Frame):
         part_panel.SetSizer(vbox)
 
         # Text box for displaying description of part highlighted in grid.
-        vbox.Add(
-            wx.StaticText(part_panel, label="Part Description/Keywords"),
-            proportion=0,
-            flag=wx.ALL,
-            border=SPACING,
-        )
-        self.part_desc = wx.TextCtrl(
-            part_panel,
-            size=(TEXT_BOX_WIDTH, 60),
-            style=wx.TE_READONLY | wx.TE_MULTILINE | wx.TE_NO_VSCROLL,
-        )
-        vbox.Add(self.part_desc, proportion=0, flag=wx.ALL | wx.EXPAND, border=SPACING)
+        self.part_desc = Description(part_panel, "Part Description/Tags")
+        vbox.Add(self.part_desc, proportion=0, flag=wx.ALL, border=0)
+        # Hide the inactive description *after* adding it to the sizer so it's placed correctly.
+        self.part_desc.Hide()
 
         # Hyperlink for highlighted part datasheet.
-        vbox.Add(
-            wx.StaticLine(part_panel, size=(-1, 2), style=wx.LI_HORIZONTAL),
-            proportion=0,
-            flag=wx.ALL | wx.EXPAND,
-            border=5,
-        )
-        self.datasheet_link = hl.HyperLinkCtrl(part_panel, label="Datasheet", URL="")
-        self.datasheet_link.EnableRollover(True)
-        vbox.Add(self.datasheet_link, proportion=0, flag=wx.ALL, border=SPACING)
+        self.datasheet_link = HyperLink(part_panel, label="Datasheet")
+        vbox.Add(self.datasheet_link, proportion=0, flag=wx.ALL, border=0)
         # Hide the inactive link *after* adding it to the sizer so it's placed correctly.
         self.datasheet_link.Hide()
-
-        # Divider.
-        vbox.Add(
-            wx.StaticLine(part_panel, size=(-1, 2), style=wx.LI_HORIZONTAL),
-            proportion=0,
-            flag=wx.ALL | wx.EXPAND,
-            border=5,
-        )
 
         # Table (grid) of part pin numbers, names, I/O types.
         vbox.Add(
@@ -232,9 +209,11 @@ class SkidlPartSearch(wx.Frame):
         srchPathItem = wx.MenuItem(srchMenu, SEARCH_PATH, "Set search path...\tCtrl+P")
         srchMenu.Append(srchPathItem)
         self.Bind(wx.EVT_MENU, self.OnSearchPath, id=SEARCH_PATH)
+
         srchMenuItem = wx.MenuItem(srchMenu, SEARCH_PARTS, "Search\tCtrl+F")
         srchMenu.Append(srchMenuItem)
         self.Bind(wx.EVT_MENU, self.OnSearch, id=SEARCH_PARTS)
+        
         copyMenuItem = wx.MenuItem(srchMenu, COPY_PART, "Copy\tCtrl+C")
         srchMenu.Append(copyMenuItem)
         self.Bind(wx.EVT_MENU, self.OnCopy, id=COPY_PART)
@@ -269,19 +248,32 @@ class SkidlPartSearch(wx.Frame):
         dlg.Destroy()
 
     def OnSearch(self, event):
-        # Scan libraries looking for parts that match search string.
+
+        # Setup indicators to show progress while scanning libraries.
+        wx.BeginBusyCursor()
         progress = wx.ProgressDialog(
-            "Searching Part Libraries", "Loading parts from libraries."
+            "Searching Part Libraries", "Loading parts from libraries.",
+            style=wx.PD_CAN_ABORT | wx.PD_AUTO_HIDE
         )
+
+        # Scan libraries looking for parts that match search string.
         self.lib_parts = set()
         search_text = self.search_text.GetLineText(0)
         for lib_part in search_parts_iter(search_text):
             if lib_part[0] == "LIB":
                 lib_name, lib_idx, num_libs = lib_part[1:4]
                 progress.SetRange(num_libs)
-                progress.Update(lib_idx, "Reading library {}...".format(lib_name))
+                if not progress.Update(lib_idx, "Reading library {}...".format(lib_name)):
+                    # Cancel button was pressed, so abort.
+                    progress.Destroy()
+                    wx.EndBusyCursor()
+                    return
             elif lib_part[0] == "PART":
                 self.lib_parts.add(LibPart(*lib_part[1:]))
+
+        # Remove progress indicators after search is done.
+        progress.Destroy()
+        wx.EndBusyCursor()
 
         # Sort parts by libraries and part names.
         self.lib_parts = sorted(
@@ -323,13 +315,12 @@ class SkidlPartSearch(wx.Frame):
         part.parse()  # Instantiate pins.
 
         # Show the part description.
-        self.part_desc.Remove(0, self.part_desc.GetLastPosition())
         desc = part.description
         # if part.aliases:
         #     desc += "\nAliases: " + ", ".join(list(part.aliases))
         if part.keywords:
             desc += "\nKeywords: " + part.keywords
-        self.part_desc.WriteText(desc)
+        self.part_desc.SetDescription(desc)
 
         # Display the link to the part datasheet.
         self.datasheet_link.SetURL(part.datasheet)
@@ -391,13 +382,8 @@ class SkidlPartSearch(wx.Frame):
             # Place only one part on the clipboard.
             return
 
-    def Feedback(self, msg, label):
-        dlg = wx.MessageDialog(self, msg, label, wx.OK)
-        dlg.ShowModal()
-        dlg.Destroy()
-
     def ShowHelp(self, e):
-        self.Feedback(
+        Feedback(
             """
 1. Enter text to search for in the part descriptions.
 2. Start the search by pressing Return or clicking on the Search button.
@@ -410,7 +396,7 @@ class SkidlPartSearch(wx.Frame):
         )
 
     def ShowAbout(self, e):
-        self.Feedback(
+        Feedback(
             APP_TITLE
             + """
 (c) 2019 XESS Corp.

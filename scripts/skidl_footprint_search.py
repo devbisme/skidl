@@ -138,28 +138,29 @@ class SkidlFootprintSearch(wx.Frame):
             # self.Update()
 
     def InitMainPanels(self):
-        # Main panel holds two subpanels.
-        self.main_panel = wx.Panel(self)
-        hbox = wx.BoxSizer(wx.HORIZONTAL)
-        self.main_panel.SetSizer(hbox)
+        # Create main splitter window to hold both subpanels.
+        self.main_panel = wx.SplitterWindow(self)
 
-        # Subpanel for search text box and footprint table.
+        # Subpanel for search text box and lib/part table.
         self.search_panel = self.InitSearchPanel(self.main_panel)
-        hbox.Add(
-            self.search_panel, proportion=1, flag=wx.ALL | wx.EXPAND, border=SPACING
-        )
 
-        # Divider.
-        hbox.Add(
-            wx.StaticLine(self.main_panel, size=(2, -1), style=wx.LI_VERTICAL),
-            proportion=0,
-            flag=wx.ALL | wx.EXPAND,
-            border=0,
-        )
-
-        # Subpanel for footprint painting.
+        # Subpanel for part/pin data.
         self.fp_panel = self.InitFootprintPanel(self.main_panel)
-        hbox.Add(self.fp_panel, proportion=1, flag=wx.ALL | wx.EXPAND, border=0)
+
+        # Split subpanels left/right.
+        self.main_panel.SplitVertically(
+            self.search_panel, self.fp_panel, sashPosition=0
+        )
+        self.main_panel.SetSashGravity(0.5)  # Both subpanels expand/contract equally.
+        self.main_panel.SetMinimumPaneSize((APP_SIZE[0] - 3 * SPACING) / 2)
+
+        # Create sizer with border around splitter.
+        sizer = wx.BoxSizer(wx.HORIZONTAL)
+        sizer.Add(self.main_panel, 1, wx.ALL | wx.EXPAND, border=SPACING)
+        self.SetSizer(sizer)
+
+        # Keep border same color as background of main splitter window.
+        self.SetBackgroundColour(self.main_panel.GetBackgroundColour())
 
     def InitSearchPanel(self, parent):
         # Subpanel for search text box and footprint table.
@@ -226,7 +227,7 @@ class SkidlFootprintSearch(wx.Frame):
         # Hide the inactive description *after* adding it to the sizer so it's placed correctly.
         self.fp_desc.Hide()
 
-        # Hyperlink for highlighted part datasheet.
+        # Hyperlink for highlighted footprint datasheet.
         self.datasheet_link = HyperLink(fp_panel, label="Datasheet")
         vbox.Add(self.datasheet_link, proportion=0, flag=wx.ALL, border=0)
         # Hide the inactive link *after* adding it to the sizer so it's placed correctly.
@@ -317,17 +318,19 @@ class SkidlFootprintSearch(wx.Frame):
         if dlg.ShowModal() == wx.ID_OK:
             footprint_search_paths[KICAD] = dlg.GetValue().split(os.pathsep)
             skidl_cfg.store()  # Stores updated search path in file.
-
-            # Invalidate footprint cache after changing footprint search path.
-            self.cache_invalid = True
-
+            self.cache_invalid = True # Changing search path invalidates cache.
         dlg.Destroy()
 
     def OnSearch(self, event):
-        # Scan libraries looking for footprints that match search string.
+
+        # Setup indicators to show progress while scanning libraries.
+        wx.BeginBusyCursor()
         progress = wx.ProgressDialog(
-            "Searching Footprint Libraries", "Loading footprints from libraries."
+            "Searching Footprint Libraries", "Loading footprints from libraries.",
+            style=wx.PD_CAN_ABORT | wx.PD_AUTO_HIDE
         )
+
+        # Scan libraries looking for footprints that match search string.
         self.footprints = []
         search_text = self.search_text.GetLineText(0)
         for lib_module in search_footprints_iter(
@@ -338,11 +341,19 @@ class SkidlFootprintSearch(wx.Frame):
                 lib_idx = lib_module[2]
                 total_num_libs = lib_module[3]
                 progress.SetRange(total_num_libs)
-                progress.Update(
+                if not progress.Update(
                     lib_idx, "Reading footprint library {}...".format(lib_name)
-                )
+                ):
+                    # Cancel button was pressed, so abort.
+                    progress.Destroy()
+                    wx.EndBusyCursor()
+                    return
             elif lib_module[0] == "MODULE":
                 self.footprints.append(lib_module[1:])
+
+        # Remove progress indicators after search is done.
+        progress.Destroy()
+        wx.EndBusyCursor()
 
         # Cache should be valid after running a search, so use it for further searches.
         self.cache_invalid = False
@@ -384,26 +395,35 @@ class SkidlFootprintSearch(wx.Frame):
         # Get the selected row in the lib/part table and translate it to the row in the data table.
         row = self.found_footprints.GetDataRow(event.GetRow())
 
+        # Get the text describing the footprint structure.
         try:
             module_text = self.footprints[row][1]
         except (AttributeError, IndexError):
+            # No text, so hide footprint panel and return.
             clear_fp_panel()
-            return  # Nothing in the footprints table.
+            return
 
+        # Parse the footprint text.
         try:
+            wx.BeginBusyCursor()
             module = pym.Module.parse("\n".join(module_text))
         except Exception as e:
+            # Parsing error, so hide the footprint panel and return.
+            wx.EndBusyCursor()
             clear_fp_panel()
-            self.Feedback(
+            Feedback(
                 "Error while parsing {}:{}".format(
                     self.footprints[row][0], self.footprints[row][2]
                 ),
                 "Error",
             )
             return
+        finally:
+            wx.EndBusyCursor()
 
-        descr = "???"
-        tags = "???"
+        # Get the footprint description and tags if they exist.
+        descr = ""
+        tags = ""
         for line in module_text:
             try:
                 descr = line.split("(descr ")[1].rsplit(")", 1)[0]
@@ -413,14 +433,12 @@ class SkidlFootprintSearch(wx.Frame):
             try:
                 tags = line.split("(tags ")[1].rsplit(")", 1)[0]
                 tags = rmv_quotes(tags)
+                tags = "\nTags: " + tags
             except IndexError:
                 pass
 
-        # Show the part description.
-        desc = descr[:]
-        if tags != "???":
-            desc += "\nTags: " + rmv_quotes(tags)
-        self.fp_desc.SetDescription(desc)
+        # Show the footprint description.
+        self.fp_desc.SetDescription(descr + tags)
 
         # Display the link to the footprint datasheet.
         try:
@@ -473,13 +491,8 @@ class SkidlFootprintSearch(wx.Frame):
             # Place only one footprint on the clipboard.
             return
 
-    def Feedback(self, msg, label):
-        dlg = wx.MessageDialog(self, msg, label, wx.OK)
-        dlg.ShowModal()
-        dlg.Destroy()
-
     def ShowHelp(self, e):
-        self.Feedback(
+        Feedback(
             """
 1. Enter text to search for in the footprint descriptions.
 2. Start the search by pressing Return or clicking on the Search button.
@@ -492,7 +505,7 @@ class SkidlFootprintSearch(wx.Frame):
         )
 
     def ShowAbout(self, e):
-        self.Feedback(
+        Feedback(
             APP_TITLE
             + """
 (c) 2019 XESS Corp.

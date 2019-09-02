@@ -47,6 +47,12 @@ def natural_sort_key(s, _nsre=re.compile("([0-9]+)")):
     return [int(text) if text.isdigit() else text.lower() for text in _nsre.split(s)]
 
 
+def Feedback(msg, label):
+    dlg = wx.MessageDialog(None, msg, label, wx.OK)
+    dlg.ShowModal()
+    dlg.Destroy()
+
+
 class Description(wx.Panel):
     def __init__(self, parent, label):
         super(self.__class__, self).__init__(parent)
