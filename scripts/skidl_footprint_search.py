@@ -234,24 +234,26 @@ class SkidlFootprintSearch(wx.Frame):
         self.datasheet_link.Hide()
 
         # Footprint painting.
-        painting_title_panel = wx.Panel(fp_panel)
+        self.painting_title_panel = wx.Panel(fp_panel)
         hbox = wx.BoxSizer(wx.HORIZONTAL)
-        painting_title_panel.SetSizer(hbox)
+        self.painting_title_panel.SetSizer(hbox)
         hbox.Add(
-            wx.StaticText(painting_title_panel, label="Footprint"),
+            wx.StaticText(self.painting_title_panel, label="Footprint"),
             proportion=0,
             flag=wx.ALL,
             border=0,
         )
         hbox.AddSpacer(3 * SPACING)
         self.actual_size_ckbx = wx.CheckBox(
-            painting_title_panel, id=PAINT_ACTUAL_SIZE_CKBX_ID, label="Show actual size"
+            self.painting_title_panel, id=PAINT_ACTUAL_SIZE_CKBX_ID, label="Show actual size"
         )
         self.actual_size_ckbx.SetToolTip(
             wx.ToolTip("Check to display actual size of footprint.")
         )
         hbox.Add(self.actual_size_ckbx, proportion=0, flag=wx.ALL, border=0)
-        vbox.Add(painting_title_panel, proportion=0, flag=wx.ALL, border=SPACING)
+        vbox.Add(self.painting_title_panel, proportion=0, flag=wx.ALL, border=SPACING)
+        self.painting_title_panel.Hide
+
         self.fp_painting_panel = FootprintPaintingPanel(fp_panel)
         vbox.Add(
             self.fp_painting_panel,
@@ -388,9 +390,10 @@ class SkidlFootprintSearch(wx.Frame):
             # Clear the footprint panel desc, link, and painting.
             self.fp_desc.SetDescription("")
             self.datasheet_link.SetURL(None)
+            self.painting_title_panel.Hide()
             self.fp_painting_panel.footprint = None
-            self.fp_panel.Layout()
             self.fp_painting_panel.Hide()
+            self.fp_panel.Layout()
 
         # Get the selected row in the lib/part table and translate it to the row in the data table.
         row = self.found_footprints.GetDataRow(event.GetRow())
@@ -418,8 +421,7 @@ class SkidlFootprintSearch(wx.Frame):
                 "Error",
             )
             return
-        finally:
-            wx.EndBusyCursor()
+        wx.EndBusyCursor()
 
         # Get the footprint description and tags if they exist.
         descr = ""
@@ -454,6 +456,7 @@ class SkidlFootprintSearch(wx.Frame):
             self.datasheet_link.SetURL(url)
 
         # Set the footprint that will be displayed.
+        self.painting_title_panel.Show()
         self.fp_painting_panel.footprint = module
         self.fp_painting_panel.Show()
 
