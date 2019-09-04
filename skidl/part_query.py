@@ -43,8 +43,21 @@ standard_library.install_aliases()
 #       of AND/OR clauses for use in advanced part searching.
 #       https://stackoverflow.com/questions/4284991/parsing-nested-parentheses-in-python-grab-content-by-level
 
+def parse_search_terms(terms):
+    """
+    Return a regular expression for a sequence of search terms.
 
-def search_parts_iter(term, tool=None):
+    Substitute a zero-width lookahead assertion (?= ) for each term. Thus,
+    the "abc def" would become "(?=.*abc)(?=.*def)" and would match any string
+    containing both "abc" and "def". Or "abc (def|ghi)" would become
+    "(?=.*abc)((?=.*def)|(?=.*ghi))" and would match any string containing
+    "abc" and "def" or "ghi". Quoted terms can be used for phrases containing
+    whitespace.
+    """
+    return re.sub(r"(([^()|\"\s]+)|(\".*?\"))\s*", r"(?=.*\1)", terms).replace('"','') + ".*"
+
+
+def search_parts_iter(terms, tool=None):
     """Return a list of (lib, part) sequences that match a regex term."""
 
     import skidl
@@ -53,7 +66,7 @@ def search_parts_iter(term, tool=None):
     if tool is None:
         tool = skidl.get_default_tool()
 
-    term = ".*" + term + ".*"  # Use the given term as a substring.
+    terms = parse_search_terms(terms)
 
     def mk_list(l):
         """Make a list out of whatever is given."""
@@ -79,7 +92,7 @@ def search_parts_iter(term, tool=None):
 
     num_lib_files = len(lib_files)
 
-    # Now search through the lib files for parts that match the search term.
+    # Now search through the lib files for parts that match the search terms.
     for idx, (lib_dir, lib_file) in enumerate(lib_files):
 
         # If just entered a new lib file, yield the name of the file and
@@ -92,12 +105,12 @@ def search_parts_iter(term, tool=None):
             os.path.join(lib_dir, lib_file), tool=tool
         )  # Open the library file.
 
-        # Search the current library for parts with the given term in
+        # Search the current library for parts with the given terms in
         # each of the these categories.
         for category in ["name", "aliases", "description", "keywords"]:
             for part in mk_list(
                 # Get any matching parts from the library file.
-                lib.get_parts(use_backup_lib=False, **{category: term})
+                lib.get_parts(use_backup_lib=False, **{category: terms})
             ):
                 # Parse the part to instantiate the complete object.
                 part.parse(get_name_only=True)
@@ -110,13 +123,13 @@ def search_parts_iter(term, tool=None):
                     yield "PART", lib_file, part, alias
 
 
-def search_parts(term, tool=None):
+def search_parts(terms, tool=None):
     """
-    Print a list of parts with the regex term within their name, alias, description or keywords.
+    Print a list of parts with the regex terms within their name, alias, description or keywords.
     """
 
     parts = set()
-    for part in search_libraries_iter(term, tool):
+    for part in search_parts_iter(terms, tool):
         if part[0] == "LIB":
             print(" " * 79, "\rSearching {} ...".format(part[1]), end="\r")
         elif part[0] == "PART":
@@ -161,7 +174,7 @@ def show_part(lib, part_name, tool=None):
 footprint_cache = dict()
 
 
-def search_footprints_iter(term, tool=None, cache_invalid=True):
+def search_footprints_iter(terms, tool=None, cache_invalid=True):
     """Return a list of (lib, footprint) sequences that match a regex term."""
 
     global footprint_cache
@@ -171,7 +184,7 @@ def search_footprints_iter(term, tool=None, cache_invalid=True):
     if tool is None:
         tool = skidl.get_default_tool()
 
-    term = ".*" + term + ".*"  # Use the given term as a substring.
+    terms = parse_search_terms(terms)
 
     # If the cache isn't valid, then make it valid by gathering all the
     # footprint files from all the directories in the search paths.
@@ -212,7 +225,7 @@ def search_footprints_iter(term, tool=None, cache_invalid=True):
     # Get the number of footprint libraries to be searched..
     num_fp_libs = len(footprint_cache)
 
-    # Now search through the libraries for footprints that match the search term.
+    # Now search through the libraries for footprints that match the search terms.
     for idx, fp_lib in enumerate(footprint_cache):
 
         # If just entered a new library, yield the name of the lib and
@@ -244,28 +257,28 @@ def search_footprints_iter(term, tool=None, cache_invalid=True):
             # Get the contents of the footprint file from the cache.
             module_text = tuple(modules[module_name])
 
-            # Return a hit if the search term matches the footprint name or
+            # Return a hit if the search terms matches the footprint name or
             # something in the footprint description or tag fields.
 
-            if fullmatch(term, module_name, flags=re.IGNORECASE):
+            if fullmatch(terms, module_name, flags=re.IGNORECASE):
                 yield "MODULE", fp_lib, module_text, module_name
                 continue
 
             for line in module_text:
                 if ("(descr " in line or "(tags " in line) and fullmatch(
-                    term, line, flags=re.IGNORECASE
+                    terms, line, flags=re.IGNORECASE
                 ):
                     yield "MODULE", fp_lib, module_text, module_name
                     break
 
 
-def search_footprints(term, tool=None):
+def search_footprints(terms, tool=None):
     """
     Print a list of footprints with the regex term within their description/tags.
     """
 
     footprints = []
-    for fp in search_footprints_iter(term, tool):
+    for fp in search_footprints_iter(terms, tool):
         if fp[0] == "LIB":
             print(" " * 79, "\rSearching {} ...".format(fp[1]), end="\r")
         elif fp[0] == "MODULE":
