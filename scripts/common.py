@@ -32,8 +32,6 @@ import wx
 import wx.grid
 import wx.lib.agw.hyperlink as hl
 import wx.lib.expando
-import wx.lib.agw.hyperlink as hl
-
 
 APP_SIZE = (600, 500)
 BTN_SIZE = (50, -1)
@@ -69,7 +67,7 @@ class Description(wx.Panel):
 
         self.desc = wx.TextCtrl(
             self,
-#            size=(TEXT_BOX_WIDTH, 60),
+            #            size=(TEXT_BOX_WIDTH, 60),
             size=(10000, 60),
             style=wx.TE_READONLY | wx.TE_MULTILINE | wx.TE_NO_VSCROLL,
         )
@@ -89,7 +87,6 @@ class Description(wx.Panel):
         else:
             self.desc.WriteText(description)
             self.Show()
-
 
 
 class HyperLink(wx.Panel):

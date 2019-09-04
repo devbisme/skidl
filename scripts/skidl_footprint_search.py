@@ -245,7 +245,9 @@ class SkidlFootprintSearch(wx.Frame):
         )
         hbox.AddSpacer(3 * SPACING)
         self.actual_size_ckbx = wx.CheckBox(
-            self.painting_title_panel, id=PAINT_ACTUAL_SIZE_CKBX_ID, label="Show actual size"
+            self.painting_title_panel,
+            id=PAINT_ACTUAL_SIZE_CKBX_ID,
+            label="Show actual size",
         )
         self.actual_size_ckbx.SetToolTip(
             wx.ToolTip("Check to display actual size of footprint.")
@@ -320,7 +322,7 @@ class SkidlFootprintSearch(wx.Frame):
         if dlg.ShowModal() == wx.ID_OK:
             footprint_search_paths[KICAD] = dlg.GetValue().split(os.pathsep)
             skidl_cfg.store()  # Stores updated search path in file.
-            self.cache_invalid = True # Changing search path invalidates cache.
+            self.cache_invalid = True  # Changing search path invalidates cache.
         dlg.Destroy()
 
     def OnSearch(self, event):
@@ -328,8 +330,9 @@ class SkidlFootprintSearch(wx.Frame):
         # Setup indicators to show progress while scanning libraries.
         wx.BeginBusyCursor()
         progress = wx.ProgressDialog(
-            "Searching Footprint Libraries", "Loading footprints from libraries.",
-            style=wx.PD_CAN_ABORT | wx.PD_AUTO_HIDE
+            "Searching Footprint Libraries",
+            "Loading footprints from libraries.",
+            style=wx.PD_CAN_ABORT | wx.PD_AUTO_HIDE,
         )
 
         # Scan libraries looking for footprints that match search string.
@@ -524,10 +527,10 @@ MIT License
 
 def main():
 
-#    import wx.lib.inspection
+    #    import wx.lib.inspection
     ex = wx.App()
     SkidlFootprintSearch(None)
-#    wx.lib.inspection.InspectionTool().Show()
+    #    wx.lib.inspection.InspectionTool().Show()
     ex.MainLoop()
 
 

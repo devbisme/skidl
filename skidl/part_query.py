@@ -43,6 +43,7 @@ standard_library.install_aliases()
 #       of AND/OR clauses for use in advanced part searching.
 #       https://stackoverflow.com/questions/4284991/parsing-nested-parentheses-in-python-grab-content-by-level
 
+
 def parse_search_terms(terms):
     """
     Return a regular expression for a sequence of search terms.
@@ -54,7 +55,10 @@ def parse_search_terms(terms):
     "abc" and "def" or "ghi". Quoted terms can be used for phrases containing
     whitespace.
     """
-    return re.sub(r"(([^()|\"\s]+)|(\".*?\"))\s*", r"(?=.*\1)", terms).replace('"','') + ".*"
+    return (
+        re.sub(r"(([^()|\"\s]+)|(\".*?\"))\s*", r"(?=.*\1)", terms).replace('"', "")
+        + ".*"
+    )
 
 
 def search_parts_iter(terms, tool=None):
@@ -250,7 +254,9 @@ def search_footprints_iter(terms, tool=None, cache_invalid=True):
                         modules[module_name] = [l.rstrip() for l in fp.readlines()]
                     except UnicodeDecodeError:
                         try:
-                            modules[module_name] = [l.decode("utf-8").rstrip() for l in fp.readlines()]
+                            modules[module_name] = [
+                                l.decode("utf-8").rstrip() for l in fp.readlines()
+                            ]
                         except AttributeError:
                             modules[module_name] = ""
 

@@ -25,6 +25,8 @@ ______________________
 * Fixed processing of slices in things like sdram['A[0:15]'].
 * Sped-up part_search() by eliminating unnecessary part parsing.
 * Improved schematic generation with graphviz.
+* Search now allows AND/OR of parenthesized terms.
+* New GUI for searching for parts and footprints.
 
 
 0.0.26 (2019-01-25)

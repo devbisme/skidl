@@ -94,18 +94,19 @@ class SkidlPartSearch(wx.Frame):
         self.part_panel = self.InitPartPanel(self.main_panel)
 
         # Split subpanels left/right.
-        self.main_panel.SplitVertically(self.search_panel, self.part_panel, sashPosition=0)
+        self.main_panel.SplitVertically(
+            self.search_panel, self.part_panel, sashPosition=0
+        )
         self.main_panel.SetSashGravity(0.5)  # Both subpanels expand/contract equally.
-        self.main_panel.SetMinimumPaneSize((APP_SIZE[0] - 3*SPACING) / 2)
+        self.main_panel.SetMinimumPaneSize((APP_SIZE[0] - 3 * SPACING) / 2)
 
-        # Create sizer with border around splitter. 
+        # Create sizer with border around splitter.
         sizer = wx.BoxSizer(wx.HORIZONTAL)
-        sizer.Add(self.main_panel, 1, wx.ALL|wx.EXPAND, border=SPACING)
+        sizer.Add(self.main_panel, 1, wx.ALL | wx.EXPAND, border=SPACING)
         self.SetSizer(sizer)
 
         # Keep border same color as background of main splitter window.
         self.SetBackgroundColour(self.main_panel.GetBackgroundColour())
-
 
     def InitSearchPanel(self, parent):
         # Subpanel for search text box and lib/part table.
@@ -213,7 +214,7 @@ class SkidlPartSearch(wx.Frame):
         srchMenuItem = wx.MenuItem(srchMenu, SEARCH_PARTS, "Search\tCtrl+F")
         srchMenu.Append(srchMenuItem)
         self.Bind(wx.EVT_MENU, self.OnSearch, id=SEARCH_PARTS)
-        
+
         copyMenuItem = wx.MenuItem(srchMenu, COPY_PART, "Copy\tCtrl+C")
         srchMenu.Append(copyMenuItem)
         self.Bind(wx.EVT_MENU, self.OnCopy, id=COPY_PART)
@@ -252,8 +253,9 @@ class SkidlPartSearch(wx.Frame):
         # Setup indicators to show progress while scanning libraries.
         wx.BeginBusyCursor()
         progress = wx.ProgressDialog(
-            "Searching Part Libraries", "Loading parts from libraries.",
-            style=wx.PD_CAN_ABORT | wx.PD_AUTO_HIDE
+            "Searching Part Libraries",
+            "Loading parts from libraries.",
+            style=wx.PD_CAN_ABORT | wx.PD_AUTO_HIDE,
         )
 
         # Scan libraries looking for parts that match search string.
@@ -263,7 +265,9 @@ class SkidlPartSearch(wx.Frame):
             if lib_part[0] == "LIB":
                 lib_name, lib_idx, num_libs = lib_part[1:4]
                 progress.SetRange(num_libs)
-                if not progress.Update(lib_idx, "Reading library {}...".format(lib_name)):
+                if not progress.Update(
+                    lib_idx, "Reading library {}...".format(lib_name)
+                ):
                     # Cancel button was pressed, so abort.
                     progress.Destroy()
                     wx.EndBusyCursor()
