@@ -27,6 +27,8 @@ ______________________
 * Improved schematic generation with graphviz.
 * Search now allows AND/OR of parenthesized terms.
 * New GUI for searching for parts and footprints.
+* KiCad library component field values are now stored in a dict in Part indexed by the field name or F0, F1, F2... 
+* KiCad library component field values are also stored as Part attributes using the field name or F0, F1, F2...
 
 
 0.0.26 (2019-01-25)

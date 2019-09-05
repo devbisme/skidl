@@ -319,6 +319,7 @@ def _parse_lib_part_(self, get_name_only=False):
             # Use an empty string for any missing values so every key will be
             # associated with something.
             values = line[1:] + ["" for _ in range(len(key_list) - len(line[1:]))]
+            values = [rmv_quotes(v) for v in values]  # Remove any quotes from values.
 
         # Create a dictionary of part definition keywords and values.
         if line[0] == "DEF":
@@ -346,14 +347,23 @@ def _parse_lib_part_(self, get_name_only=False):
 
         # Create a dictionary of F0 part field keywords and values.
         elif line[0] == "F0":
-            self.fields = []
-            self.fields.append(dict(list(zip(_F0_KEYS, values))))
+            self.fields = {}
+            field_dict = dict(list(zip(_F0_KEYS, values)))
+            # Add the field name and its value as an attribute to the part.
+            add_unique_attr(self, "F0", field_dict["reference"])
+            self.fields["F0"] = field_dict["reference"]
 
         # Create a dictionary of the other part field keywords and values.
         elif line[0][0] == "F":
             # Make a list of field values with empty strings for missing fields.
             values = line[1:] + ["" for _ in range(len(_FN_KEYS) - len(line[1:]))]
-            self.fields.append(dict(list(zip(_FN_KEYS, values))))
+            values = [rmv_quotes(v) for v in values]  # Remove any quotes from values.
+            field_dict = dict(list(zip(_FN_KEYS, values)))
+            # If no field name at end of line, use the field identifier F1, F2, ...
+            field_dict["fieldname"] = field_dict["fieldname"] or line[0]
+            # Add the field name and its value as an attribute to the part.
+            add_unique_attr(self, field_dict["fieldname"], field_dict["name"], check_dup=True)
+            self.fields[field_dict["fieldname"]] = field_dict["name"]
 
         # Create a list of part aliases.
         elif line[0] == "ALIAS":

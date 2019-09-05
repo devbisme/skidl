@@ -314,11 +314,11 @@ def find_and_open_file(
         )
 
 
-def add_unique_attr(obj, name, value):
+def add_unique_attr(obj, name, value, check_dup=False):
     """Create an attribute if the attribute name isn't already used."""
     setattr(obj, name, getattr(obj, name, value))
-    # if id(getattr(obj, name)) != id(value):
-    # logger.warn('Unable to create attribute {name} of type {typ1} because one already exists of type {typ2} in {obj}'.format(name=name, typ1=type(value), typ2=type(getattr(obj,name)), obj=str(obj)))
+    if check_dup and id(getattr(obj, name)) != id(value):
+        logger.warn('Unable to create attribute {name} of type {typ1} because one already exists of type {typ2} in {obj}'.format(name=name, typ1=type(value), typ2=type(getattr(obj,name)), obj=str(obj)))
 
 
 def num_to_chars(num):
@@ -340,7 +340,7 @@ def rmv_quotes(s):
     if mtch:
         try:
             s = s.decode(mtch.group(1))
-        except AttributeError:
+        except (AttributeError, LookupError):
             s = mtch.group(1)
 
     return s
