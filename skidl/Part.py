@@ -195,9 +195,9 @@ class Part(SkidlBaseObject):
                 for pin, net in connections.items():
                     net += self[pin]
 
-            # Add any other passed-in attributes to the part.
-            for k, v in attribs.items():
-                setattr(self, k, v)
+        # Add any other passed-in attributes to the part.
+        for k, v in attribs.items():
+            setattr(self, k, v)
 
     @classmethod
     def get(cls, text, circuit=None):

@@ -96,8 +96,19 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
             # the Part object and add it to the part list. Be sure to
             # indicate that the Part object is being added to a library
             # and not to a schematic netlist.
+            # Also, add null attributes in case a DCM file is not
+            # available for this part.
             if line.startswith("ENDDEF"):
-                self.add_parts(Part(part_defn=part_defn, tool=KICAD, dest=LIBRARY))
+                self.add_parts(
+                    Part(
+                        part_defn=part_defn,
+                        tool=KICAD,
+                        dest=LIBRARY,
+                        keywords="",
+                        datasheet="",
+                        description="",
+                    )
+                )
 
                 # Clear the part definition in preparation for the next one.
                 part_defn = []
@@ -362,7 +373,9 @@ def _parse_lib_part_(self, get_name_only=False):
             # If no field name at end of line, use the field identifier F1, F2, ...
             field_dict["fieldname"] = field_dict["fieldname"] or line[0]
             # Add the field name and its value as an attribute to the part.
-            add_unique_attr(self, field_dict["fieldname"], field_dict["name"], check_dup=True)
+            add_unique_attr(
+                self, field_dict["fieldname"], field_dict["name"], check_dup=True
+            )
             self.fields[field_dict["fieldname"]] = field_dict["name"]
 
         # Create a list of part aliases.

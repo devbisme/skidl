@@ -156,8 +156,9 @@ class MyGrid(wx.grid.Grid):
         )
         self.HideRowLabels()
         self.EnableEditing(False)
+        self.spacing = "  "  # Two spaces for sorting indicator.
         for col, lbl in enumerate(headers):
-            self.SetColLabelValue(col, lbl)
+            self.SetColLabelValue(col, self.spacing + lbl + self.spacing)
         self.SetDefaultCellBackgroundColour(parent.GetBackgroundColour())
         self.BackgroundColour = bck_colour
         self.ColourGridBackground()
@@ -192,16 +193,16 @@ class MyGrid(wx.grid.Grid):
         old_dir = self.sorting["dir"]
         if old_dir != 0:
             self.SetColLabelValue(
-                old_col, self.GetColLabelValue(old_col)[: -len(ascending)]
+                old_col, self.GetColLabelValue(old_col)[: -len(ascending)] + self.spacing
             )
         if new_dir > 0:
             self.sorting["dir"] = 1
-            lbl = self.GetColLabelValue(new_col) + ascending
-            self.SetColLabelValue(new_col, lbl)
+            new_lbl = self.GetColLabelValue(new_col)[: -len(ascending)] + ascending
+            self.SetColLabelValue(new_col, new_lbl)
         elif new_dir < 0:
             self.sorting["dir"] = -1
-            lbl = self.GetColLabelValue(new_col) + descending
-            self.SetColLabelValue(new_col, lbl)
+            new_lbl = self.GetColLabelValue(new_col)[: -len(descending)] + descending
+            self.SetColLabelValue(new_col, new_lbl)
         self.sorting["col"] = new_col
 
     def SetSortFunc(self, col, func):
