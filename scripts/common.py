@@ -165,7 +165,6 @@ class MyGrid(wx.grid.Grid):
         self.SetSelectionMode(wx.grid.Grid.GridSelectionModes.SelectRows)
         self.Bind(wx.grid.EVT_GRID_LABEL_LEFT_DCLICK, self.SortColumn)
         self.SetLabelFont(self.GetLabelFont().MakeBold())
-        # self.SetLabelFont(self.GetLabelFont().MakeLarger())
         self.sorting = {"col": 0, "dir": 0}
         self.sort_funcs = [lambda x: x] * len(headers)
 

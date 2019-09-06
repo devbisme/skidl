@@ -127,6 +127,14 @@ class SkidlFootprintSearch(wx.Frame):
         self.Center()
         self.Show(True)
 
+        # Using a SplitterWindow shows a corrupted scrollbar area for
+        # the default found_parts table. To eliminate that, draw the table large
+        # enough to need a scrollbar, and then draw it at its default size.
+        self.found_footprints.Resize(200)  # Draw it large to create scrollbar.
+        self.Update()
+        self.found_footprints.Resize(10)  # Draw it small to remove scrollbar.
+        self.Update()
+
     def OnIdle(self, event):
         if self.focus_on_found_footprints:
             self.found_footprints.SelectRow(0)
