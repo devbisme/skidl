@@ -2,7 +2,7 @@
 
 # MIT license
 #
-# Copyright (C) 2018 by XESS Corp.
+# Copyright (C) 2019 by XESS Corp.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -58,7 +58,7 @@ class AppFrame(wx.Frame):
 
         self.panel = PartSearchPanel(self)
         box = wx.BoxSizer(wx.VERTICAL)
-        box.Add(self.panel, proportion=1, flag=wx.ALL|wx.EXPAND, border=SPACING)
+        box.Add(self.panel, proportion=1, flag=wx.ALL | wx.EXPAND, border=SPACING)
         self.SetSizer(box)
 
         # Keep border same color as background of panel.
@@ -66,25 +66,10 @@ class AppFrame(wx.Frame):
 
         self.InitMenus()
 
-        # This flag is used to set focus on the table of found parts
-        # after a search is completed.
-        self.panel.focus_on_found_parts = False
-        self.Bind(wx.EVT_IDLE, self.OnIdle)
-
         self.SetSize(APP_SIZE)
         self.SetTitle(APP_TITLE)
         self.Center()
         self.Show(True)
-
-    def OnIdle(self, EnvironmentError):
-        if self.panel.focus_on_found_parts:
-            self.panel.found_parts.SelectRow(0)
-            self.panel.found_parts.GoToCell(0, 1)
-            self.panel.found_parts.SetFocus()
-            self.panel.focus_on_found_parts = False
-            # self.SendSizeEvent()
-            # self.Refresh()
-            # self.Update()
 
     def InitMenus(self):
 
@@ -105,7 +90,7 @@ class AppFrame(wx.Frame):
 
         srchPathItem = wx.MenuItem(srchMenu, SEARCH_PATH, "Set search path...\tCtrl+P")
         srchMenu.Append(srchPathItem)
-        self.Bind(wx.EVT_MENU, self.panel.OnSearchPath, id=SEARCH_PATH)
+        self.Bind(wx.EVT_MENU, self.OnSearchPath, id=SEARCH_PATH)
 
         srchMenuItem = wx.MenuItem(srchMenu, SEARCH_PARTS, "Search\tCtrl+F")
         srchMenu.Append(srchMenuItem)
@@ -128,13 +113,29 @@ class AppFrame(wx.Frame):
 
         self.SetMenuBar(menuBar)
 
+    def OnSearchPath(self, event):
+        dlg = TextEntryDialog(
+            self,
+            title="Set Part Search Path",
+            caption="Part Search Path",
+            tip="Enter {sep}-separated list of directories in which to search for parts.".format(
+                sep=os.pathsep
+            ),
+        )
+        dlg.Center()
+        dlg.SetValue(os.pathsep.join(lib_search_paths[KICAD]))
+        if dlg.ShowModal() == wx.ID_OK:
+            lib_search_paths[KICAD] = dlg.GetValue().split(os.pathsep)
+            skidl_cfg.store()  # Stores updated lib search path in file.
+        dlg.Destroy()
+
     def ShowHelp(self, e):
         Feedback(
             """
 1. Enter text to search for in the part descriptions.
 2. Start the search by pressing Return or clicking on the Search button.
-3. Matching parts will appear in the lib/part table in the left-hand pane.
-4. Select a row in the lib/part table to display part info in the right-hand pane.
+3. Matching parts will appear in the Library/Part table in the left-hand pane.
+4. Select a row in the Library/Part table to display part info in the right-hand pane.
 5. Click the Copy button to place the selected library and part on the clipboard.
 6. Paste the clipboard contents into your SKiDL code.
             """,
@@ -155,8 +156,8 @@ MIT License
     def OnQuit(self, e):
         self.Close()
 
-class PartSearchPanel(wx.SplitterWindow):
 
+class PartSearchPanel(wx.SplitterWindow):
     def __init__(self, *args, **kwargs):
         super(self.__class__, self).__init__(*args, **kwargs)
 
@@ -167,11 +168,14 @@ class PartSearchPanel(wx.SplitterWindow):
         self.part_panel = self.InitPartPanel(self)
 
         # Split subpanels left/right.
-        self.SplitVertically(
-            self.search_panel, self.part_panel, sashPosition=0
-        )
+        self.SplitVertically(self.search_panel, self.part_panel, sashPosition=0)
         self.SetSashGravity(0.5)  # Both subpanels expand/contract equally.
         self.SetMinimumPaneSize((APP_SIZE[0] - 3 * SPACING) / 2)
+
+        # This flag is used to set focus on the table of found parts
+        # after a search is completed.
+        self.focus_on_found_parts = False
+        self.Bind(wx.EVT_IDLE, self.OnIdle)
 
         # Using a SplitterWindow shows a corrupted scrollbar area for
         # the default found_parts table. To eliminate that, draw the table large
@@ -180,6 +184,15 @@ class PartSearchPanel(wx.SplitterWindow):
         self.Update()
         self.found_parts.Resize(10)  # Draw it small to remove scrollbar.
         self.Update()
+
+    def OnIdle(self, EnvironmentError):
+        if self.focus_on_found_parts:
+            # Once a search is done, place the cursor on the first entry
+            # in the new table of found parts.
+            self.found_parts.SelectRow(0)
+            self.found_parts.GoToCell(0, 1)
+            self.found_parts.SetFocus()
+            self.focus_on_found_parts = False
 
     def InitSearchPanel(self, parent):
         # Subpanel for search text box and lib/part table.
@@ -262,22 +275,6 @@ class PartSearchPanel(wx.SplitterWindow):
         vbox.Add(self.pin_info, proportion=1, flag=wx.ALL | wx.EXPAND, border=SPACING)
 
         return part_panel
-
-    def OnSearchPath(self, event):
-        dlg = TextEntryDialog(
-            self,
-            title="Set Part Search Path",
-            caption="Part Search Path",
-            tip="Enter {sep}-separated list of directories in which to search for parts.".format(
-                sep=os.pathsep
-            ),
-        )
-        dlg.Center()
-        dlg.SetValue(os.pathsep.join(lib_search_paths[KICAD]))
-        if dlg.ShowModal() == wx.ID_OK:
-            lib_search_paths[KICAD] = dlg.GetValue().split(os.pathsep)
-            skidl_cfg.store()  # Stores updated lib search path in file.
-        dlg.Destroy()
 
     def OnSearch(self, event):
 
