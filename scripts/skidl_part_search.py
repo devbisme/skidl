@@ -56,11 +56,14 @@ class AppFrame(wx.Frame):
     def __init__(self, *args, **kwargs):
         super(self.__class__, self).__init__(*args, **kwargs)
 
-        self.InitUI()
-
-    def InitUI(self):
-
         self.panel = PartSearchPanel(self)
+        box = wx.BoxSizer(wx.VERTICAL)
+        box.Add(self.panel, proportion=1, flag=wx.ALL|wx.EXPAND, border=SPACING)
+        self.SetSizer(box)
+
+        # Keep border same color as background of panel.
+        self.SetBackgroundColour(self.panel.GetBackgroundColour())
+
         self.InitMenus()
 
         # This flag is used to set focus on the table of found parts
@@ -72,14 +75,6 @@ class AppFrame(wx.Frame):
         self.SetTitle(APP_TITLE)
         self.Center()
         self.Show(True)
-
-        # Using a SplitterWindow shows a corrupted scrollbar area for
-        # the default found_parts table. To eliminate that, draw the table large
-        # enough to need a scrollbar, and then draw it at its default size.
-        self.panel.found_parts.Resize(200)  # Draw it large to create scrollbar.
-        self.Update()
-        self.panel.found_parts.Resize(10)  # Draw it small to remove scrollbar.
-        self.Update()
 
     def OnIdle(self, EnvironmentError):
         if self.panel.focus_on_found_parts:
@@ -178,13 +173,13 @@ class PartSearchPanel(wx.SplitterWindow):
         self.SetSashGravity(0.5)  # Both subpanels expand/contract equally.
         self.SetMinimumPaneSize((APP_SIZE[0] - 3 * SPACING) / 2)
 
-        # Create sizer with border around splitter.
-        # sizer = wx.BoxSizer(wx.HORIZONTAL)
-        # sizer.Add(self, 1, wx.ALL | wx.EXPAND, border=SPACING)
-        # self.SetSizer(sizer)
-
-        # Keep border same color as background of main splitter window.
-        self.SetBackgroundColour(self.GetBackgroundColour())
+        # Using a SplitterWindow shows a corrupted scrollbar area for
+        # the default found_parts table. To eliminate that, draw the table large
+        # enough to need a scrollbar, and then draw it at its default size.
+        self.found_parts.Resize(200)  # Draw it large to create scrollbar.
+        self.Update()
+        self.found_parts.Resize(10)  # Draw it small to remove scrollbar.
+        self.Update()
 
     def InitSearchPanel(self, parent):
         # Subpanel for search text box and lib/part table.
