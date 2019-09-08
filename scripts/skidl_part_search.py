@@ -30,10 +30,8 @@ from __future__ import print_function
 
 import collections
 import os
-import re
 
 import wx
-import wx.lib.agw.hyperlink as hl
 
 from common import *
 from skidl import KICAD, lib_search_paths, search_parts_iter, skidl_cfg
@@ -411,9 +409,9 @@ class PartSearchPanel(wx.SplitterWindow):
 
 def main():
 
-    ex = wx.App()
+    app = wx.App()
     AppFrame(None)
-    ex.MainLoop()
+    app.MainLoop()
 
 
 if __name__ == "__main__":

@@ -28,14 +28,11 @@ GUI for finding/displaying footprints.
 
 from __future__ import print_function
 
-import math
 import os
 import string
-from collections import defaultdict, namedtuple
 
 import pykicad.module as pym
 import wx
-import wx.lib.agw.hyperlink as hl
 
 from common import *
 from footprint_painter import FootprintPainter
@@ -56,6 +53,112 @@ SEARCH_PATH = 5
 SEARCH_FOOTPRINTS = 6
 COPY_FOOTPRINTS = 7
 PAINT_ACTUAL_SIZE_CKBX_ID = 8
+
+
+class AppFrame(wx.Frame):
+    def __init__(self, *args, **kwargs):
+        super(self.__class__, self).__init__(*args, **kwargs)
+
+        self.panel = FootprintSearchPanel(self)
+        box = wx.BoxSizer(wx.VERTICAL)
+        box.Add(self.panel, proportion=1, flag=wx.ALL | wx.EXPAND, border=SPACING)
+        self.SetSizer(box)
+
+        # Keep border same color as background of panel.
+        self.SetBackgroundColour(self.panel.GetBackgroundColour())
+
+        self.InitMenus()
+
+        self.SetSize(APP_SIZE)
+        self.SetTitle(APP_TITLE)
+        self.Center()
+        self.Show(True)
+
+    def InitMenus(self):
+
+        # Top menu.
+        menuBar = wx.MenuBar()
+
+        # File submenu containing quit button.
+        fileMenu = wx.Menu()
+        menuBar.Append(fileMenu, "&File")
+
+        quitMenuItem = wx.MenuItem(fileMenu, APP_EXIT, "Quit\tCtrl+Q")
+        fileMenu.Append(quitMenuItem)
+        self.Bind(wx.EVT_MENU, self.OnQuit, id=APP_EXIT)
+
+        # Search submenu containing search and copy buttons.
+        srchMenu = wx.Menu()
+        menuBar.Append(srchMenu, "&Search")
+
+        srchPathItem = wx.MenuItem(srchMenu, SEARCH_PATH, "Set search path...\tCtrl+P")
+        srchMenu.Append(srchPathItem)
+        self.Bind(wx.EVT_MENU, self.OnSearchPath, id=SEARCH_PATH)
+
+        srchMenuItem = wx.MenuItem(srchMenu, SEARCH_FOOTPRINTS, "Search\tCtrl+F")
+        srchMenu.Append(srchMenuItem)
+        self.Bind(wx.EVT_MENU, self.panel.OnSearch, id=SEARCH_FOOTPRINTS)
+
+        copyMenuItem = wx.MenuItem(srchMenu, COPY_FOOTPRINTS, "Copy\tCtrl+C")
+        srchMenu.Append(copyMenuItem)
+        self.Bind(wx.EVT_MENU, self.panel.OnCopy, id=COPY_FOOTPRINTS)
+
+        # Help menu containing help and about buttons.
+        helpMenu = wx.Menu()
+        menuBar.Append(helpMenu, "&Help")
+
+        helpMenuItem = wx.MenuItem(helpMenu, SHOW_HELP, "Help\tCtrl+H")
+        helpMenu.Append(helpMenuItem)
+        aboutMenuItem = wx.MenuItem(helpMenu, SHOW_ABOUT, "About App\tCtrl+A")
+        helpMenu.Append(aboutMenuItem)
+        self.Bind(wx.EVT_MENU, self.ShowHelp, id=SHOW_HELP)
+        self.Bind(wx.EVT_MENU, self.ShowAbout, id=SHOW_ABOUT)
+
+        self.SetMenuBar(menuBar)
+
+    def OnSearchPath(self, event):
+        dlg = TextEntryDialog(
+            self,
+            title="Set Footprint Search Path",
+            caption="Footprint Search Path",
+            tip="Enter {sep}-separated list of directories in which to search for footprints.".format(
+                sep=os.pathsep
+            ),
+        )
+        dlg.Center()
+        dlg.SetValue(os.pathsep.join(footprint_search_paths[KICAD]))
+        if dlg.ShowModal() == wx.ID_OK:
+            footprint_search_paths[KICAD] = dlg.GetValue().split(os.pathsep)
+            skidl_cfg.store()  # Stores updated search path in file.
+            self.cache_invalid = True  # Changing search path invalidates cache.
+        dlg.Destroy()
+
+    def ShowHelp(self, e):
+        Feedback(
+            """
+1. Enter text to search for in the footprint descriptions.
+2. Start the search by pressing Return or clicking on the Search button.
+3. Matching footprints will appear in the table in the left-hand pane.
+4. Select a row in the table to display footprint info in the right-hand pane.
+5. Click the Copy button to place the selected footprint on the clipboard.
+6. Paste the clipboard contents into your SKiDL code.
+            """,
+            "Help",
+        )
+
+    def ShowAbout(self, e):
+        Feedback(
+            APP_TITLE
+            + """
+(c) 2019 XESS Corp.
+https://github.com/xesscorp/skidl
+MIT License
+            """,
+            "About",
+        )
+
+    def OnQuit(self, e):
+        self.Close()
 
 
 class FootprintPaintingPanel(wx.Panel):
@@ -103,37 +206,37 @@ class FootprintPaintingPanel(wx.Panel):
             self.ClearBackground()
 
 
-class SkidlFootprintSearch(wx.Frame):
+class FootprintSearchPanel(wx.SplitterWindow):
     def __init__(self, *args, **kwargs):
         super(self.__class__, self).__init__(*args, **kwargs)
 
         # No valid footprint cache upon startup.
         self.cache_invalid = True
 
-        self.InitUI()
+        # Subpanel for search text box and lib/part table.
+        self.search_panel = self.InitSearchPanel(self)
 
-    def InitUI(self):
+        # Subpanel for part/pin data.
+        self.fp_panel = self.InitFootprintPanel(self)
 
-        self.InitMenus()
-        self.InitMainPanels()
+        # Split subpanels left/right.
+        self.SplitVertically(self.search_panel, self.fp_panel, sashPosition=0)
+        self.SetSashGravity(0.5)  # Both subpanels expand/contract equally.
+        self.SetMinimumPaneSize((APP_SIZE[0] - 3 * SPACING) / 2)
 
         # This flag is used to set focus on the table of found footprints
         # after a search is completed.
         self.focus_on_found_footprints = False
         self.Bind(wx.EVT_IDLE, self.OnIdle)
 
-        self.SetSize(APP_SIZE)
-        self.SetTitle(APP_TITLE)
-        self.Center()
-        self.Show(True)
-
         # Using a SplitterWindow shows a corrupted scrollbar area for
-        # the default found_parts table. To eliminate that, draw the table large
+        # the default found_footprints table. To eliminate that, draw the table large
         # enough to need a scrollbar, and then draw it at its default size.
         self.found_footprints.Resize(200)  # Draw it large to create scrollbar.
         self.Update()
         self.found_footprints.Resize(10)  # Draw it small to remove scrollbar.
         self.Update()
+
 
     def OnIdle(self, event):
         if self.focus_on_found_footprints:
@@ -141,34 +244,6 @@ class SkidlFootprintSearch(wx.Frame):
             self.found_footprints.GoToCell(0, 1)
             self.found_footprints.SetFocus()
             self.focus_on_found_footprints = False
-            # self.SendSizeEvent()
-            # self.Refresh()
-            # self.Update()
-
-    def InitMainPanels(self):
-        # Create main splitter window to hold both subpanels.
-        self.main_panel = wx.SplitterWindow(self)
-
-        # Subpanel for search text box and lib/part table.
-        self.search_panel = self.InitSearchPanel(self.main_panel)
-
-        # Subpanel for part/pin data.
-        self.fp_panel = self.InitFootprintPanel(self.main_panel)
-
-        # Split subpanels left/right.
-        self.main_panel.SplitVertically(
-            self.search_panel, self.fp_panel, sashPosition=0
-        )
-        self.main_panel.SetSashGravity(0.5)  # Both subpanels expand/contract equally.
-        self.main_panel.SetMinimumPaneSize((APP_SIZE[0] - 3 * SPACING) / 2)
-
-        # Create sizer with border around splitter.
-        sizer = wx.BoxSizer(wx.HORIZONTAL)
-        sizer.Add(self.main_panel, 1, wx.ALL | wx.EXPAND, border=SPACING)
-        self.SetSizer(sizer)
-
-        # Keep border same color as background of main splitter window.
-        self.SetBackgroundColour(self.main_panel.GetBackgroundColour())
 
     def InitSearchPanel(self, parent):
         # Subpanel for search text box and footprint table.
@@ -273,65 +348,6 @@ class SkidlFootprintSearch(wx.Frame):
         )
 
         return fp_panel
-
-    def InitMenus(self):
-
-        # Top menu.
-        menuBar = wx.MenuBar()
-
-        # File submenu containing quit button.
-        fileMenu = wx.Menu()
-        menuBar.Append(fileMenu, "&File")
-
-        quitMenuItem = wx.MenuItem(fileMenu, APP_EXIT, "Quit\tCtrl+Q")
-        fileMenu.Append(quitMenuItem)
-        self.Bind(wx.EVT_MENU, self.OnQuit, id=APP_EXIT)
-
-        # Search submenu containing search and copy buttons.
-        srchMenu = wx.Menu()
-        menuBar.Append(srchMenu, "&Search")
-
-        srchPathItem = wx.MenuItem(srchMenu, SEARCH_PATH, "Set search path...\tCtrl+P")
-        srchMenu.Append(srchPathItem)
-        self.Bind(wx.EVT_MENU, self.OnSearchPath, id=SEARCH_PATH)
-
-        srchMenuItem = wx.MenuItem(srchMenu, SEARCH_FOOTPRINTS, "Search\tCtrl+F")
-        srchMenu.Append(srchMenuItem)
-        self.Bind(wx.EVT_MENU, self.OnSearch, id=SEARCH_FOOTPRINTS)
-
-        copyMenuItem = wx.MenuItem(srchMenu, COPY_FOOTPRINTS, "Copy\tCtrl+C")
-        srchMenu.Append(copyMenuItem)
-        self.Bind(wx.EVT_MENU, self.OnCopy, id=COPY_FOOTPRINTS)
-
-        # Help menu containing help and about buttons.
-        helpMenu = wx.Menu()
-        menuBar.Append(helpMenu, "&Help")
-
-        helpMenuItem = wx.MenuItem(helpMenu, SHOW_HELP, "Help\tCtrl+H")
-        helpMenu.Append(helpMenuItem)
-        aboutMenuItem = wx.MenuItem(helpMenu, SHOW_ABOUT, "About App\tCtrl+A")
-        helpMenu.Append(aboutMenuItem)
-        self.Bind(wx.EVT_MENU, self.ShowHelp, id=SHOW_HELP)
-        self.Bind(wx.EVT_MENU, self.ShowAbout, id=SHOW_ABOUT)
-
-        self.SetMenuBar(menuBar)
-
-    def OnSearchPath(self, event):
-        dlg = TextEntryDialog(
-            self,
-            title="Set Footprint Search Path",
-            caption="Footprint Search Path",
-            tip="Enter {sep}-separated list of directories in which to search for footprints.".format(
-                sep=os.pathsep
-            ),
-        )
-        dlg.Center()
-        dlg.SetValue(os.pathsep.join(footprint_search_paths[KICAD]))
-        if dlg.ShowModal() == wx.ID_OK:
-            footprint_search_paths[KICAD] = dlg.GetValue().split(os.pathsep)
-            skidl_cfg.store()  # Stores updated search path in file.
-            self.cache_invalid = True  # Changing search path invalidates cache.
-        dlg.Destroy()
 
     def OnSearch(self, event):
 
@@ -499,41 +515,14 @@ class SkidlFootprintSearch(wx.Frame):
         else:
             Feedback("Unable to open clipboard!", "Error")
 
-    def ShowHelp(self, e):
-        Feedback(
-            """
-1. Enter text to search for in the footprint descriptions.
-2. Start the search by pressing Return or clicking on the Search button.
-3. Matching footprints will appear in the table in the left-hand pane.
-4. Select a row in the table to display footprint info in the right-hand pane.
-5. Click the Copy button to place the selected footprint on the clipboard.
-6. Paste the clipboard contents into your SKiDL code.
-            """,
-            "Help",
-        )
-
-    def ShowAbout(self, e):
-        Feedback(
-            APP_TITLE
-            + """
-(c) 2019 XESS Corp.
-https://github.com/xesscorp/skidl
-MIT License
-            """,
-            "About",
-        )
-
-    def OnQuit(self, e):
-        self.Close()
-
 
 def main():
 
     #    import wx.lib.inspection
-    ex = wx.App()
-    SkidlFootprintSearch(None)
+    app = wx.App()
+    AppFrame(None)
     #    wx.lib.inspection.InspectionTool().Show()
-    ex.MainLoop()
+    app.MainLoop()
 
 
 if __name__ == "__main__":
