@@ -366,33 +366,27 @@ class SkidlPartSearch(wx.Frame):
     def OnCopy(self, event):
         # Copy the lib/part for the selected part onto the clipboard.
 
-        # Get any selected rows in the lib/part table plus wherever the cell cursor is.
-        selection = self.found_parts.GetSelectedRows()
-        selection.append(self.found_parts.GetGridCursorRow())
+        # Get the cell where the cursor is.
+        row = self.found_parts.GetGridCursorRow()
 
-        # Only process the part in the first selected row and ignore the rest.
-        for row in selection:
-            # Deselect all rows but the first.
-            self.found_parts.SelectRow(row)
+        # Deselect all rows but the first.
+        self.found_parts.SelectRow(row)
 
-            # Create a SKiDL part instantiation.
-            lib = self.found_parts.GetCellValue(row, 0)
-            part = self.found_parts.GetCellValue(row, 1)
-            part_inst = "Part(lib='{lib}', name='{part}')".format(lib=lib, part=part)
+        # Create a SKiDL part instantiation.
+        lib = self.found_parts.GetCellValue(row, 0)
+        part = self.found_parts.GetCellValue(row, 1)
+        part_inst = "Part(lib='{lib}', name='{part}')".format(lib=lib, part=part)
 
-            # Make a data object to hold the SKiDL part instantiation.
-            dataObj = wx.TextDataObject()
-            dataObj.SetText(part_inst)
+        # Make a data object to hold the SKiDL part instantiation.
+        dataObj = wx.TextDataObject()
+        dataObj.SetText(part_inst)
 
-            # Place the SKiDL part instantiation on the clipboard.
-            if wx.TheClipboard.Open():
-                wx.TheClipboard.SetData(dataObj)
-                wx.TheClipboard.Flush()
-            else:
-                Feedback("Unable to open clipboard!", "Error")
-
-            # Place only one part on the clipboard.
-            return
+        # Place the SKiDL part instantiation on the clipboard.
+        if wx.TheClipboard.Open():
+            wx.TheClipboard.SetData(dataObj)
+            wx.TheClipboard.Flush()
+        else:
+            Feedback("Unable to open clipboard!", "Error")
 
     def ShowHelp(self, e):
         Feedback(

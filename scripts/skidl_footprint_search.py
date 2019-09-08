@@ -406,7 +406,7 @@ class SkidlFootprintSearch(wx.Frame):
             self.fp_painting_panel.Hide()
             self.fp_panel.Layout()
 
-        # Get the selected row in the lib/part table and translate it to the row in the data table.
+        # Get the selected row in the lib/footprint table and translate it to the row in the data table.
         row = self.found_footprints.GetDataRow(event.GetRow())
 
         # Get the text describing the footprint structure.
@@ -475,35 +475,29 @@ class SkidlFootprintSearch(wx.Frame):
         self.fp_panel.Layout()
 
     def OnCopy(self, event):
-        # Copy the selected footprint onto the clipboard.
+        # Copy the lib/footprint for the selected footprint onto the clipboard.
 
-        # Get any selected rows in the footprint table plus wherever the cell cursor is.
-        selection = self.found_footprints.GetSelectedRows()
-        selection.append(self.found_footprints.GetGridCursorRow())
+        # Get the cell where the cursor is.
+        row = self.found_footprints.GetGridCursorRow()
 
-        # Only process the footprint in the first selected row and ignore the rest.
-        for row in selection:
-            # Deselect all rows but the first.
-            self.found_footprints.SelectRow(row)
+        # Deselect all rows but the first.
+        self.found_footprints.SelectRow(row)
 
-            # Create a SKiDL footprint instantiation.
-            file = self.found_footprints.GetCellValue(row, 0)
-            fp = self.found_footprints.GetCellValue(row, 1)
-            fp_inst = "footprint='{file}:{fp}')".format(**locals())
+        # Create a SKiDL part instantiation.
+        lib = self.found_footprints.GetCellValue(row, 0)
+        footprint = self.found_footprints.GetCellValue(row, 1)
+        footprint_inst = "footprint='{lib}:{footprint}'".format(**locals())
 
-            # Make a data object to hold the SKiDL footprint instantiation.
-            dataObj = wx.TextDataObject()
-            dataObj.SetText(fp_inst)
+        # Make a data object to hold the SKiDL part instantiation.
+        dataObj = wx.TextDataObject()
+        dataObj.SetText(footprint_inst)
 
-            # Place the SKiDL footprint instantiation on the clipboard.
-            if wx.TheClipboard.Open():
-                wx.TheClipboard.SetData(dataObj)
-                wx.TheClipboard.Flush()
-            else:
-                Feedback("Unable to open clipboard!", "Error")
-
-            # Place only one footprint on the clipboard.
-            return
+        # Place the SKiDL part instantiation on the clipboard.
+        if wx.TheClipboard.Open():
+            wx.TheClipboard.SetData(dataObj)
+            wx.TheClipboard.Flush()
+        else:
+            Feedback("Unable to open clipboard!", "Error")
 
     def ShowHelp(self, e):
         Feedback(
