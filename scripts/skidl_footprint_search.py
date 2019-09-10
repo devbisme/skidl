@@ -214,10 +214,10 @@ class FootprintSearchPanel(wx.SplitterWindow):
         self.cache_invalid = True
 
         # Subpanel for search text box and lib/part table.
-        self.search_panel = self.InitSearchPanel(self)
+        self.search_panel = add_border(self.InitSearchPanel(self), wx.RIGHT)
 
         # Subpanel for part/pin data.
-        self.fp_panel = self.InitFootprintPanel(self)
+        self.fp_panel = add_border(self.InitFootprintPanel(self), wx.LEFT)
 
         # Split subpanels left/right.
         self.SplitVertically(self.search_panel, self.fp_panel, sashPosition=0)
@@ -227,6 +227,11 @@ class FootprintSearchPanel(wx.SplitterWindow):
         # This flag is used to set focus on the table of found footprints
         # after a search is completed.
         self.focus_on_found_footprints = False
+
+        # This flag is used to refresh the table of found footprints and
+        # the footprint info.
+        self.do_refresh = False
+
         self.Bind(wx.EVT_IDLE, self.OnIdle)
 
         # Using a SplitterWindow shows a corrupted scrollbar area for
@@ -244,6 +249,10 @@ class FootprintSearchPanel(wx.SplitterWindow):
             self.found_footprints.GoToCell(0, 1)
             self.found_footprints.SetFocus()
             self.focus_on_found_footprints = False
+        if self.do_refresh:
+            self.search_panel.SendSizeEvent()
+            self.fp_panel.SendSizeEvent()
+            self.do_refresh = False
 
     def InitSearchPanel(self, parent):
         # Subpanel for search text box and footprint table.
@@ -410,6 +419,9 @@ class FootprintSearchPanel(wx.SplitterWindow):
         # Focus on the first footprint in the list.
         self.focus_on_found_footprints = True
 
+        # Make sure the found footprints and footprint info tables refresh.
+        # self.do_refresh = True
+
     def OnSelectCell(self, event):
         # When a row of the footprint table is selected, display the data for that footprint.
 
@@ -484,11 +496,14 @@ class FootprintSearchPanel(wx.SplitterWindow):
 
         # Set the footprint that will be displayed.
         self.painting_title_panel.Show()
-        self.fp_painting_panel.footprint = module
         self.fp_painting_panel.Show()
+        self.fp_painting_panel.footprint = module
 
         # Re-layout the panel to account for link hide/show.
         self.fp_panel.Layout()
+
+        # Make sure the found footprints and footprint info tables refresh.
+        # self.do_refresh = True
 
     def OnCopy(self, event):
         # Copy the lib/footprint for the selected footprint onto the clipboard.
@@ -518,10 +533,10 @@ class FootprintSearchPanel(wx.SplitterWindow):
 
 def main():
 
-    #    import wx.lib.inspection
+    # import wx.lib.inspection
     app = wx.App()
     AppFrame(None)
-    #    wx.lib.inspection.InspectionTool().Show()
+    # wx.lib.inspection.InspectionTool().Show()
     app.MainLoop()
 
 

@@ -2,7 +2,7 @@
 
 # MIT license
 #
-# Copyright (C) 2018 by XESS Corp.
+# Copyright (C) 2019 by XESS Corp.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -21,6 +21,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
+
 
 """
 GUI components in common with multiple apps.
@@ -43,6 +44,37 @@ CELL_BCK_COLOUR = wx.Colour(255, 255, 255)
 def natural_sort_key(s, _nsre=re.compile("([0-9]+)")):
     """For sorting pin numbers or names."""
     return [int(text) if text.isdigit() else text.lower() for text in _nsre.split(s)]
+
+
+def add_border(window, location):
+    """Add border line to a window."""
+
+    bordered_window = wx.Panel(window.GetParent())
+    window.Reparent(bordered_window)
+
+    if location in (wx.TOP, wx.BOTTOM):
+        border = wx.StaticLine(bordered_window, size=(10000, 2))
+        box = wx.BoxSizer(wx.VERTICAL)
+    else:
+        border = wx.StaticLine(bordered_window, size=(2, 10000))
+        box = wx.BoxSizer(wx.HORIZONTAL)
+
+    if location  == wx.TOP:
+        box.Add(border, proportion=0, flag=wx.BOTTOM, border=SPACING)
+        box.Add(window, proportion=1, flag=wx.ALL|wx.EXPAND, border=0)
+    elif location == wx.LEFT:
+        box.Add(border, proportion=0, flag=wx.RIGHT, border=SPACING)
+        box.Add(window, proportion=1, flag=wx.ALL|wx.EXPAND, border=0)
+    elif location == wx.BOTTOM:
+        box.Add(window, proportion=1, flag=wx.ALL|wx.EXPAND, border=0)
+        box.Add(border, proportion=0, flag=wx.TOP, border=SPACING)
+    else:
+        box.Add(window, proportion=1, flag=wx.ALL|wx.EXPAND, border=0)
+        box.Add(border, proportion=0, flag=wx.LEFT, border=SPACING)
+
+    bordered_window.SetSizer(box)
+
+    return bordered_window
 
 
 def Feedback(msg, label):
@@ -192,7 +224,8 @@ class MyGrid(wx.grid.Grid):
         old_dir = self.sorting["dir"]
         if old_dir != 0:
             self.SetColLabelValue(
-                old_col, self.GetColLabelValue(old_col)[: -len(ascending)] + self.spacing
+                old_col,
+                self.GetColLabelValue(old_col)[: -len(ascending)] + self.spacing,
             )
         if new_dir > 0:
             self.sorting["dir"] = 1

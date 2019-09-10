@@ -160,10 +160,10 @@ class PartSearchPanel(wx.SplitterWindow):
         super(self.__class__, self).__init__(*args, **kwargs)
 
         # Subpanel for search text box and lib/part table.
-        self.search_panel = self.InitSearchPanel(self)
+        self.search_panel = add_border(self.InitSearchPanel(self), wx.RIGHT)
 
         # Subpanel for part/pin data.
-        self.part_panel = self.InitPartPanel(self)
+        self.part_panel = add_border(self.InitPartPanel(self), wx.LEFT)
 
         # Split subpanels left/right.
         self.SplitVertically(self.search_panel, self.part_panel, sashPosition=0)
@@ -173,6 +173,11 @@ class PartSearchPanel(wx.SplitterWindow):
         # This flag is used to set focus on the table of found parts
         # after a search is completed.
         self.focus_on_found_parts = False
+
+        # This flag is used to refresh the table of found parts and
+        # the table of pin info.
+        self.do_refresh = False
+
         self.Bind(wx.EVT_IDLE, self.OnIdle)
 
         # Using a SplitterWindow shows a corrupted scrollbar area for
@@ -184,6 +189,8 @@ class PartSearchPanel(wx.SplitterWindow):
         self.Update()
 
     def OnIdle(self, EnvironmentError):
+        # Perform some delayed actions when the event processor is idle.
+
         if self.focus_on_found_parts:
             # Once a search is done, place the cursor on the first entry
             # in the new table of found parts.
@@ -191,6 +198,10 @@ class PartSearchPanel(wx.SplitterWindow):
             self.found_parts.GoToCell(0, 1)
             self.found_parts.SetFocus()
             self.focus_on_found_parts = False
+        if self.do_refresh:
+            self.search_panel.SendSizeEvent()
+            self.part_panel.SendSizeEvent()
+            self.do_refresh = False
 
     def InitSearchPanel(self, parent):
         # Subpanel for search text box and lib/part table.
@@ -330,6 +341,9 @@ class PartSearchPanel(wx.SplitterWindow):
         # Focus on the first part in the list.
         self.focus_on_found_parts = True
 
+        # Make sure the found parts and part info tables refresh.
+        # self.do_refresh = True
+
     def OnSelectCell(self, event):
         # When a row of the lib/part table is selected, display the data for that part.
 
@@ -381,6 +395,9 @@ class PartSearchPanel(wx.SplitterWindow):
         # Size the columns for their new contents.
         grid.AutoSizeColumns()
 
+        # Make sure the found parts and part info tables refresh.
+        # self.do_refresh = True
+
     def OnCopy(self, event):
         # Copy the lib/part for the selected part onto the clipboard.
 
@@ -409,8 +426,10 @@ class PartSearchPanel(wx.SplitterWindow):
 
 def main():
 
+    # import wx.lib.inspection
     app = wx.App()
     AppFrame(None)
+    # wx.lib.inspection.InspectionTool().Show()
     app.MainLoop()
 
 
