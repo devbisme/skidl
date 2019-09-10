@@ -85,6 +85,25 @@ class CountCalls(object):
         self.count = 0
 
 
+class TriggerDict(dict):
+    """This dict triggers a function when one of its entries changes."""
+
+    def __init__(self, *args, **kwargs):
+        super(self.__class__, self).__init__(*args, **kwargs)
+
+        # Create a dict of functions that will be run if their associated
+        # key entries change. The functions arguments will be the main
+        # TriggerDict, the key, and the new value to be stored.
+        self.trigger_funcs = dict()
+
+    def __setitem__(self, k, v):
+        if k in self.trigger_funcs:
+            if v != self[k]:
+                print("Running trigger func!")
+                self.trigger_funcs[k](self, k, v)
+        super(self.__class__, self).__setitem__(k, v)
+
+
 def scriptinfo():
     """
     Returns a dictionary with information about the running top level Python
@@ -318,7 +337,11 @@ def add_unique_attr(obj, name, value, check_dup=False):
     """Create an attribute if the attribute name isn't already used."""
     setattr(obj, name, getattr(obj, name, value))
     if check_dup and id(getattr(obj, name)) != id(value):
-        logger.warn('Unable to create attribute {name} of type {typ1} because one already exists of type {typ2} in {obj}'.format(name=name, typ1=type(value), typ2=type(getattr(obj,name)), obj=str(obj)))
+        logger.warn(
+            "Unable to create attribute {name} of type {typ1} because one already exists of type {typ2} in {obj}".format(
+                name=name, typ1=type(value), typ2=type(getattr(obj, name)), obj=str(obj)
+            )
+        )
 
 
 def num_to_chars(num):

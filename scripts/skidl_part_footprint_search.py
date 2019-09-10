@@ -28,19 +28,20 @@ GUI for finding/displaying parts and footprints.
 
 from __future__ import print_function
 
+import os
 import wx
 
 from common import *
 from skidl_part_search import PartSearchPanel
 from skidl_footprint_search import FootprintSearchPanel
+from skidl import KICAD, lib_search_paths, footprint_search_paths, skidl_cfg
 
 APP_TITLE = "SKiDL Part/Footprint Search"
 APP_EXIT = 1
 SHOW_HELP = 3
 SHOW_ABOUT = 4
-SEARCH_PATH = 5
-SEARCH_PARTS = 6
-COPY_PART = 7
+PART_SEARCH_PATH = 5
+FOOTPRINT_SEARCH_PATH = 6
 
 
 class AppFrame(wx.Frame):
@@ -79,17 +80,13 @@ class AppFrame(wx.Frame):
         srchMenu = wx.Menu()
         menuBar.Append(srchMenu, "&Search")
 
-        srchPathItem = wx.MenuItem(srchMenu, SEARCH_PATH, "Set search path...\tCtrl+P")
-        srchMenu.Append(srchPathItem)
-        self.Bind(wx.EVT_MENU, self.OnSearchPath, id=SEARCH_PATH)
+        partSrchPathItem = wx.MenuItem(srchMenu, PART_SEARCH_PATH, "Set part search path...\tCtrl+P")
+        srchMenu.Append(partSrchPathItem)
+        self.Bind(wx.EVT_MENU, self.OnPartSearchPath, id=PART_SEARCH_PATH)
 
-        srchMenuItem = wx.MenuItem(srchMenu, SEARCH_PARTS, "Search\tCtrl+F")
-        srchMenu.Append(srchMenuItem)
-        #self.Bind(wx.EVT_MENU, self.panel.OnSearch, id=SEARCH_PARTS)
-
-        copyMenuItem = wx.MenuItem(srchMenu, COPY_PART, "Copy\tCtrl+C")
-        srchMenu.Append(copyMenuItem)
-        #self.Bind(wx.EVT_MENU, self.panel.OnCopy, id=COPY_PART)
+        footprintSrchPathItem = wx.MenuItem(srchMenu, FOOTPRINT_SEARCH_PATH, "Set footprint search path...\tCtrl+F")
+        srchMenu.Append(footprintSrchPathItem)
+        self.Bind(wx.EVT_MENU, self.OnFootprintSearchPath, id=FOOTPRINT_SEARCH_PATH)
 
         # Help menu containing help and about buttons.
         helpMenu = wx.Menu()
@@ -104,7 +101,7 @@ class AppFrame(wx.Frame):
 
         self.SetMenuBar(menuBar)
 
-    def OnSearchPath(self, event):
+    def OnPartSearchPath(self, event):
         dlg = TextEntryDialog(
             self,
             title="Set Part Search Path",
@@ -118,6 +115,22 @@ class AppFrame(wx.Frame):
         if dlg.ShowModal() == wx.ID_OK:
             lib_search_paths[KICAD] = dlg.GetValue().split(os.pathsep)
             skidl_cfg.store()  # Stores updated lib search path in file.
+        dlg.Destroy()
+
+    def OnFootprintSearchPath(self, event):
+        dlg = TextEntryDialog(
+            self,
+            title="Set Footprint Search Path",
+            caption="Footprint Search Path",
+            tip="Enter {sep}-separated list of directories in which to search for footprints.".format(
+                sep=os.pathsep
+            ),
+        )
+        dlg.Center()
+        dlg.SetValue(os.pathsep.join(footprint_search_paths[KICAD]))
+        if dlg.ShowModal() == wx.ID_OK:
+            footprint_search_paths[KICAD] = dlg.GetValue().split(os.pathsep)
+            skidl_cfg.store()  # Stores updated search path in file.
         dlg.Destroy()
 
     def ShowHelp(self, e):

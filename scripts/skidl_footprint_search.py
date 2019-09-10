@@ -130,7 +130,6 @@ class AppFrame(wx.Frame):
         if dlg.ShowModal() == wx.ID_OK:
             footprint_search_paths[KICAD] = dlg.GetValue().split(os.pathsep)
             skidl_cfg.store()  # Stores updated search path in file.
-            self.cache_invalid = True  # Changing search path invalidates cache.
         dlg.Destroy()
 
     def ShowHelp(self, e):
@@ -210,9 +209,6 @@ class FootprintSearchPanel(wx.SplitterWindow):
     def __init__(self, *args, **kwargs):
         super(self.__class__, self).__init__(*args, **kwargs)
 
-        # No valid footprint cache upon startup.
-        self.cache_invalid = True
-
         # Subpanel for search text box and lib/part table.
         self.search_panel = add_border(self.InitSearchPanel(self), wx.RIGHT)
 
@@ -228,10 +224,6 @@ class FootprintSearchPanel(wx.SplitterWindow):
         # after a search is completed.
         self.focus_on_found_footprints = False
 
-        # This flag is used to refresh the table of found footprints and
-        # the footprint info.
-        self.do_refresh = False
-
         self.Bind(wx.EVT_IDLE, self.OnIdle)
 
         # Using a SplitterWindow shows a corrupted scrollbar area for
@@ -242,17 +234,12 @@ class FootprintSearchPanel(wx.SplitterWindow):
         self.found_footprints.Resize(10)  # Draw it small to remove scrollbar.
         self.Update()
 
-
     def OnIdle(self, event):
         if self.focus_on_found_footprints:
             self.found_footprints.SelectRow(0)
             self.found_footprints.GoToCell(0, 1)
             self.found_footprints.SetFocus()
             self.focus_on_found_footprints = False
-        if self.do_refresh:
-            self.search_panel.SendSizeEvent()
-            self.fp_panel.SendSizeEvent()
-            self.do_refresh = False
 
     def InitSearchPanel(self, parent):
         # Subpanel for search text box and footprint table.
@@ -371,9 +358,7 @@ class FootprintSearchPanel(wx.SplitterWindow):
         # Scan libraries looking for footprints that match search string.
         self.footprints = []
         search_text = self.search_text.GetLineText(0)
-        for lib_module in search_footprints_iter(
-            search_text, cache_invalid=self.cache_invalid
-        ):
+        for lib_module in search_footprints_iter(search_text):
             if lib_module[0] == "LIB":
                 lib_name = lib_module[1]
                 lib_idx = lib_module[2]
@@ -392,9 +377,6 @@ class FootprintSearchPanel(wx.SplitterWindow):
         # Remove progress indicators after search is done.
         progress.Destroy()
         wx.EndBusyCursor()
-
-        # Cache should be valid after running a search, so use it for further searches.
-        self.cache_invalid = False
 
         # place libraries and parts into a table.
         grid = self.found_footprints
@@ -418,9 +400,6 @@ class FootprintSearchPanel(wx.SplitterWindow):
 
         # Focus on the first footprint in the list.
         self.focus_on_found_footprints = True
-
-        # Make sure the found footprints and footprint info tables refresh.
-        # self.do_refresh = True
 
     def OnSelectCell(self, event):
         # When a row of the footprint table is selected, display the data for that footprint.
@@ -501,9 +480,6 @@ class FootprintSearchPanel(wx.SplitterWindow):
 
         # Re-layout the panel to account for link hide/show.
         self.fp_panel.Layout()
-
-        # Make sure the found footprints and footprint info tables refresh.
-        # self.do_refresh = True
 
     def OnCopy(self, event):
         # Copy the lib/footprint for the selected footprint onto the clipboard.

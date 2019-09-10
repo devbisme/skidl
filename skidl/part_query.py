@@ -174,11 +174,17 @@ def show_part(lib, part_name, tool=None):
         return None
 
 
+class FootprintCache(dict):
+    """Dict for storing footprints from all directories."""
+    def __init__(self, *args, **kwargs):
+        super(self.__class__, self).__init__(*args, **kwargs)
+        self.valid = False  # Cache starts off empty, hence invalid.
+
 # Cache for storing footprints read from .kicad_mod files.
-footprint_cache = dict()
+footprint_cache = FootprintCache()
 
 
-def search_footprints_iter(terms, tool=None, cache_invalid=True):
+def search_footprints_iter(terms, tool=None):
     """Return a list of (lib, footprint) sequences that match a regex term."""
 
     global footprint_cache
@@ -192,8 +198,8 @@ def search_footprints_iter(terms, tool=None, cache_invalid=True):
 
     # If the cache isn't valid, then make it valid by gathering all the
     # footprint files from all the directories in the search paths.
-    if cache_invalid:
-        footprint_cache = dict()
+    if not footprint_cache.valid:
+        footprint_cache.clear()
         for path in skidl.footprint_search_paths[tool]:
             for dir, subdirs, file_names in os.walk(path):
 
@@ -246,7 +252,7 @@ def search_footprints_iter(terms, tool=None, cache_invalid=True):
 
             # If the cache isn't valid, then read each footprint file and store
             # it's contents in the cache.
-            if cache_invalid:
+            if not footprint_cache.valid:
                 file = os.path.join(path, module_name + ".kicad_mod")
                 with open(file, "r") as fp:
                     try:
@@ -265,7 +271,6 @@ def search_footprints_iter(terms, tool=None, cache_invalid=True):
 
             # Return a hit if the search terms matches the footprint name or
             # something in the footprint description or tag fields.
-
             if fullmatch(terms, module_name, flags=re.IGNORECASE):
                 yield "MODULE", fp_lib, module_text, module_name
                 continue
@@ -276,6 +281,9 @@ def search_footprints_iter(terms, tool=None, cache_invalid=True):
                 ):
                     yield "MODULE", fp_lib, module_text, module_name
                     break
+
+    # At the end, all modules have been scanned and the footprint cache is valid.
+    footprint_cache.valid = True
 
 
 def search_footprints(terms, tool=None):

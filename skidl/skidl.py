@@ -110,6 +110,15 @@ if "footprint_search_paths" not in skidl_cfg:
     skidl_cfg["footprint_search_paths"] = {KICAD: ["."], SKIDL: ["."], SPICE: ["."]}
     skidl_cfg["footprint_search_paths"][KICAD].append(os.environ["KISYSMOD"])
 
+# Cause the footprint cache to be invalidated if the footprint search path changes.
+def invalidate_footprint_cache(self, k, v):
+    print("Trigger function running")
+    footprint_cache.valid = False
+
+
+skidl_cfg["footprint_search_paths"] = TriggerDict(skidl_cfg["footprint_search_paths"])
+skidl_cfg["footprint_search_paths"].trigger_funcs[KICAD] = invalidate_footprint_cache
+
 # Shortcut to footprint search paths.
 footprint_search_paths = skidl_cfg["footprint_search_paths"]
 
