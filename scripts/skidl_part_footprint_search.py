@@ -29,12 +29,13 @@ GUI for finding/displaying parts and footprints.
 from __future__ import print_function
 
 import os
+
 import wx
 
 from common import *
-from skidl_part_search import PartSearchPanel
+from skidl import KICAD, footprint_search_paths, lib_search_paths, skidl_cfg
 from skidl_footprint_search import FootprintSearchPanel
-from skidl import KICAD, lib_search_paths, footprint_search_paths, skidl_cfg
+from skidl_part_search import PartSearchPanel
 
 APP_TITLE = "SKiDL Part/Footprint Search"
 APP_EXIT = 1
@@ -80,11 +81,15 @@ class AppFrame(wx.Frame):
         srchMenu = wx.Menu()
         menuBar.Append(srchMenu, "&Search")
 
-        partSrchPathItem = wx.MenuItem(srchMenu, PART_SEARCH_PATH, "Set part search path...\tCtrl+P")
+        partSrchPathItem = wx.MenuItem(
+            srchMenu, PART_SEARCH_PATH, "Set part search path...\tCtrl+P"
+        )
         srchMenu.Append(partSrchPathItem)
         self.Bind(wx.EVT_MENU, self.OnPartSearchPath, id=PART_SEARCH_PATH)
 
-        footprintSrchPathItem = wx.MenuItem(srchMenu, FOOTPRINT_SEARCH_PATH, "Set footprint search path...\tCtrl+F")
+        footprintSrchPathItem = wx.MenuItem(
+            srchMenu, FOOTPRINT_SEARCH_PATH, "Set footprint search path...\tCtrl+F"
+        )
         srchMenu.Append(footprintSrchPathItem)
         self.Bind(wx.EVT_MENU, self.OnFootprintSearchPath, id=FOOTPRINT_SEARCH_PATH)
 
@@ -161,7 +166,6 @@ MIT License
         self.Close()
 
 
-
 class PartFootprintSearchPanel(wx.SplitterWindow):
     def __init__(self, *args, **kwargs):
         super(self.__class__, self).__init__(*args, **kwargs)
@@ -176,8 +180,10 @@ class PartFootprintSearchPanel(wx.SplitterWindow):
         self.SplitHorizontally(self.part_panel, self.footprint_panel, sashPosition=0)
         self.SetSashGravity(0.5)  # Both subpanels expand/contract equally.
 
+
 def main():
     import wx.lib.inspection
+
     app = wx.App()
     AppFrame(None)
     wx.lib.inspection.InspectionTool().Show()

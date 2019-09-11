@@ -59,18 +59,18 @@ def add_border(window, location):
         border = wx.StaticLine(bordered_window, size=(2, -1))
         box = wx.BoxSizer(wx.HORIZONTAL)
 
-    if location  == wx.TOP:
-        box.Add(border, proportion=0, flag=wx.BOTTOM|wx.EXPAND, border=SPACING)
-        box.Add(window, proportion=1, flag=wx.ALL|wx.EXPAND, border=0)
+    if location == wx.TOP:
+        box.Add(border, proportion=0, flag=wx.BOTTOM | wx.EXPAND, border=SPACING)
+        box.Add(window, proportion=1, flag=wx.ALL | wx.EXPAND, border=0)
     elif location == wx.LEFT:
-        box.Add(border, proportion=0, flag=wx.RIGHT|wx.EXPAND, border=SPACING)
-        box.Add(window, proportion=1, flag=wx.ALL|wx.EXPAND, border=0)
+        box.Add(border, proportion=0, flag=wx.RIGHT | wx.EXPAND, border=SPACING)
+        box.Add(window, proportion=1, flag=wx.ALL | wx.EXPAND, border=0)
     elif location == wx.BOTTOM:
-        box.Add(window, proportion=1, flag=wx.ALL|wx.EXPAND, border=0)
-        box.Add(border, proportion=0, flag=wx.TOP|wx.EXPAND, border=SPACING)
+        box.Add(window, proportion=1, flag=wx.ALL | wx.EXPAND, border=0)
+        box.Add(border, proportion=0, flag=wx.TOP | wx.EXPAND, border=SPACING)
     else:
-        box.Add(window, proportion=1, flag=wx.ALL|wx.EXPAND, border=0)
-        box.Add(border, proportion=0, flag=wx.LEFT|wx.EXPAND, border=SPACING)
+        box.Add(window, proportion=1, flag=wx.ALL | wx.EXPAND, border=0)
+        box.Add(border, proportion=0, flag=wx.LEFT | wx.EXPAND, border=SPACING)
 
     bordered_window.SetSizer(box)
 

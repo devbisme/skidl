@@ -176,9 +176,11 @@ def show_part(lib, part_name, tool=None):
 
 class FootprintCache(dict):
     """Dict for storing footprints from all directories."""
+
     def __init__(self, *args, **kwargs):
         super(self.__class__, self).__init__(*args, **kwargs)
         self.valid = False  # Cache starts off empty, hence invalid.
+
 
 # Cache for storing footprints read from .kicad_mod files.
 footprint_cache = FootprintCache()
