@@ -69,10 +69,10 @@ class AppFrame(wx.Frame):
 
         self.InitMenus()
 
-        self.SetSize(APP_SIZE)
         self.SetTitle(APP_TITLE)
         self.Center()
         self.Show(True)
+        self.Fit()
 
     def InitMenus(self):
 
@@ -218,7 +218,7 @@ class FootprintSearchPanel(wx.SplitterWindow):
         # Split subpanels left/right.
         self.SplitVertically(self.search_panel, self.fp_panel, sashPosition=0)
         self.SetSashGravity(0.5)  # Both subpanels expand/contract equally.
-        self.SetMinimumPaneSize((APP_SIZE[0] - 3 * SPACING) / 2)
+        self.SetMinimumPaneSize(MINIMUM_PANE_SIZE)
 
         # This flag is used to set focus on the table of found footprints
         # after a search is completed.

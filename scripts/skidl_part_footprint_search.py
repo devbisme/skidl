@@ -58,10 +58,10 @@ class AppFrame(wx.Frame):
 
         self.InitMenus()
 
-        #self.SetSize(APP_SIZE)
         self.SetTitle(APP_TITLE)
         self.Center()
         self.Show(True)
+        self.Fit()
 
     def InitMenus(self):
 
@@ -175,13 +175,12 @@ class PartFootprintSearchPanel(wx.SplitterWindow):
         # Split subpanels left/right.
         self.SplitHorizontally(self.part_panel, self.footprint_panel, sashPosition=0)
         self.SetSashGravity(0.5)  # Both subpanels expand/contract equally.
-        #self.SetMinimumPaneSize((APP_SIZE[0] - 3 * SPACING) / 2)
 
 def main():
-    # import wx.lib.inspection
+    import wx.lib.inspection
     app = wx.App()
     AppFrame(None)
-    # wx.lib.inspection.InspectionTool().Show()
+    wx.lib.inspection.InspectionTool().Show()
     app.MainLoop()
 
 

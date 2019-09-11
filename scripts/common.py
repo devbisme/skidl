@@ -34,7 +34,7 @@ import wx.grid
 import wx.lib.agw.hyperlink as hl
 import wx.lib.expando
 
-APP_SIZE = (600, 500)
+MINIMUM_PANE_SIZE = 300
 BTN_SIZE = (50, -1)
 SPACING = 10
 TEXT_BOX_WIDTH = 200
@@ -53,24 +53,24 @@ def add_border(window, location):
     window.Reparent(bordered_window)
 
     if location in (wx.TOP, wx.BOTTOM):
-        border = wx.StaticLine(bordered_window, size=(10000, 2))
+        border = wx.StaticLine(bordered_window, size=(-1, 2))
         box = wx.BoxSizer(wx.VERTICAL)
     else:
-        border = wx.StaticLine(bordered_window, size=(2, 10000))
+        border = wx.StaticLine(bordered_window, size=(2, -1))
         box = wx.BoxSizer(wx.HORIZONTAL)
 
     if location  == wx.TOP:
-        box.Add(border, proportion=0, flag=wx.BOTTOM, border=SPACING)
+        box.Add(border, proportion=0, flag=wx.BOTTOM|wx.EXPAND, border=SPACING)
         box.Add(window, proportion=1, flag=wx.ALL|wx.EXPAND, border=0)
     elif location == wx.LEFT:
-        box.Add(border, proportion=0, flag=wx.RIGHT, border=SPACING)
+        box.Add(border, proportion=0, flag=wx.RIGHT|wx.EXPAND, border=SPACING)
         box.Add(window, proportion=1, flag=wx.ALL|wx.EXPAND, border=0)
     elif location == wx.BOTTOM:
         box.Add(window, proportion=1, flag=wx.ALL|wx.EXPAND, border=0)
-        box.Add(border, proportion=0, flag=wx.TOP, border=SPACING)
+        box.Add(border, proportion=0, flag=wx.TOP|wx.EXPAND, border=SPACING)
     else:
         box.Add(window, proportion=1, flag=wx.ALL|wx.EXPAND, border=0)
-        box.Add(border, proportion=0, flag=wx.LEFT, border=SPACING)
+        box.Add(border, proportion=0, flag=wx.LEFT|wx.EXPAND, border=SPACING)
 
     bordered_window.SetSizer(box)
 
