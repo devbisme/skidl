@@ -67,6 +67,7 @@ FSILK_BRUSH = wx.BRUSHSTYLE_SOLID
 BSILK_BRUSH = wx.BRUSHSTYLE_SOLID
 DRILL_BRUSH = wx.BRUSHSTYLE_SOLID
 
+# Color & brush for each layer.
 layer_style = {
     "B.Cu": (BCU_COLOUR, BCU_BRUSH),
     "F.Cu": (FCU_COLOUR, FCU_BRUSH),
@@ -92,13 +93,15 @@ BBox = namedtuple("BBox", "x0 y0 x1 y1")
 
 
 class Layer(object):
-    """Footprint PCB layer."""
+    """Stores graphic primitives for a layer and draws them."""
 
     def __init__(self, colour=wx.Colour(63, 63, 63), style=wx.BRUSHSTYLE_SOLID):
         self.set_fill(colour, style)
         self.clear()  # Creates all the empty graphic element lists.
 
     def set_fill(self, colour, style=wx.BRUSHSTYLE_SOLID):
+        """Set layer color and fill style."""
+
         self.colour = colour
         if isinstance(colour, wx.Colour):
             self.brush = wx.Brush(colour, style)
@@ -108,69 +111,73 @@ class Layer(object):
             raise NotImplementedError
 
     def clear(self):
+        """Clear all graphic primitives."""
+
         self.pad_polygons = []
         self.pad_circles = []
         self.lines = []
         self.circles = []
 
     def add_pad_polygon(self, polygon):
+        """Add list of polygon points to the layer."""
         self.pad_polygons.append(polygon)
 
     def add_pad_circle(self, circle):
+        """Add center & radius of a pad disk to the layer."""
         self.pad_circles.append(circle)
 
     def add_line(self, line):
+        """Add start & end points for a line segment to the layer."""
         self.lines.append(line)
 
     def add_circle(self, circle):
+        """Add center & radius of a circle to the layer."""
         self.circles.append(circle)
 
     def paint(self, dc):
+        """Paint the graphic primitives into the device context."""
+
+        # For filled polygons, use a transparent pen and the layer brush style.
         dc.SetPen(wx.Pen(wx.Colour(0, 0, 0), style=wx.PENSTYLE_TRANSPARENT))
         dc.SetBrush(self.brush)
         dc.DrawPolygonList(self.pad_polygons)
+
+        # For pad circles, use a transparent pen and the layer brush style.
         for pad_circle in self.pad_circles:
             circ = list(pad_circle)[:]
             circ[2] = max(circ[2], 2)  # no circle gets painted with radius<2.
             dc.DrawCircle(*circ)
+
+        # For lines, use the layer color.
         pen = wx.Pen(self.colour)
         for line in self.lines:
-            pen.SetWidth(max(line[0], 1))
+            pen.SetWidth(max(line[0], 1))  # Set pen width.
             dc.SetPen(pen)
             dc.DrawLine(*line[1:])
+
+        # For circles, use the layer color.
         for circle in self.circles:
-            pen.SetWidth(max(circle[0], 1))
+            pen.SetWidth(max(circle[0], 1))  # Set pen width.
             dc.SetPen(pen)
-            circ = list(circle[1:])
-            circ[2] = max(circ[2], 2)  # no circle gets painted with radius<2.
+            circ = list(circle[1:])  # Get circle center and radius.
+            circ[2] = max(
+                circ[2], 2
+            )  # Radius must be greater than 2 or no circle is drawn.
             dc.DrawCircle(*circ)
-
-
-class Layers(defaultdict):
-    """Collection of footprint layers."""
-
-    def __init__(self, *args, **kwargs):
-        super(self.__class__, self).__init__(Layer)
-
-    def clear(self):
-        for layer in self.values():
-            layer.clear()
-
-    def paint(self, dc):
-        for layer in self.values():
-            layer.paint(dc)
 
 
 class FootprintPainter(object):
     """Footprint painted within a device context."""
 
-    def __init__(self, fp, dc):
-        self.footprint = fp  # Set footprint data.
+    def __init__(self, footprint_, dc):
+        self.footprint = footprint_  # Set footprint data.
         self.bbox = None  # Clear the bbox so it will be calculated.
         self.paint(dc)  # This will calculate the footprint bbox.
 
     @staticmethod
     def rect_pts(cx, cy, w, h, rot, tm):
+        """Compute the scaled/translated/rotated endpoints for a rectangle."""
+
         cx, cy, w, h = [m * PRESCALE for m in [cx, cy, w, h]]
         h2, w2 = h / 2, w / 2
         pts = ((-w2, -h2), (-w2, h2), (w2, h2), (w2, -h2))
@@ -181,6 +188,8 @@ class FootprintPainter(object):
 
     @staticmethod
     def trapezoid_pts(cx, cy, w, h, dw, dh, rot, tm):
+        """Compute the scaled/translated/rotated endpoints for a trapezoid."""
+
         cx, cy, w, h, dw, dh = [m * PRESCALE for m in [cx, cy, w, h, dw, dh]]
         h2, w2, dw2, dh2 = h / 2, w / 2, dw / 2, dh / 2
         pts = (
@@ -196,6 +205,8 @@ class FootprintPainter(object):
 
     @staticmethod
     def circle_pts(cx, cy, r, tm):
+        """Compute the scaled/translated/rotated center & radius for a circle."""
+
         cx, cy, r = [m * PRESCALE for m in [cx, cy, r]]
         cx, cy = tm.TransformPoint(cx, cy)
         r, _ = tm.TransformDistance(r, 0)
@@ -203,6 +214,8 @@ class FootprintPainter(object):
 
     @staticmethod
     def line_pts(w, x0, y0, x1, y1, tm):
+        """Compute the scaled/translated/rotated endpoints for a line segment."""
+
         w, x0, y0, x1, y1 = [m * PRESCALE for m in [w, x0, y0, x1, y1]]
         w, _ = tm.TransformDistance(w, 0)
         x0, y0 = tm.TransformPoint(x0, y0)
@@ -211,12 +224,17 @@ class FootprintPainter(object):
 
     @staticmethod
     def roundrect_pts(cx, cy, w, h, r, rot, tm):
-        # Two overlapped rectangles with corners cut out.
+        """Compute the scaled/translated/rotated endpoints for a rounded rectangle."""
+
+        # Build a rounded rectangle from two overlapping rectangles with
+        # four circles to cover the corners.
+
+        # Overlap two rectangles to create a larger rectangle with the corners cut out.
         rects = []
         rects.append(FootprintPainter.rect_pts(cx, cy, w, h - 2 * r, rot, tm))
         rects.append(FootprintPainter.rect_pts(cx, cy, w - 2 * r, h, rot, tm))
 
-        # Four circles to fill-in corners.
+        # Add four circles to fill-in corners.
         circles = []
         # Matrix for rotating circle centers and translating by pad center.
         tmp_tm = wx.AffineMatrix2D()
@@ -234,10 +252,13 @@ class FootprintPainter(object):
         # Circle at SW corner cutout.
         ccx, ccy = tmp_tm.TransformPoint(-w / 2 + r, -h / 2 + r)
         circles.append(FootprintPainter.circle_pts(ccx, ccy, r, tm))
+
         return rects, circles
 
     @staticmethod
     def mk_bmp(w, h, colour, pctg):
+        """Make a bitmap pattern."""
+
         sz = len(colour)
         n = w * h * sz
         buff = bytearray(n)
@@ -258,6 +279,8 @@ class FootprintPainter(object):
         return bmp
 
     def paint(self, dc, paint_actual_size=False):
+        """Paint the footprint into the device context."""
+
         bbox = self.bbox
         if bbox:
             # The bbox for the footprint exists, so set the
@@ -285,15 +308,18 @@ class FootprintPainter(object):
         else:
             # No bbox, so this must be first time the footprint is being painted.
             # Therefore, paint it without scaling to determine the physical dimensions.
-            # This will be used later to scale it to the panel display.
+            # These will be used later to scale it to the panel display.
             tm = wx.AffineMatrix2D()  # Identity matrix so no scaling.
 
-        layers = Layers()
+        # Initialize device context for drawing.
         dc.SetBackground(wx.Brush(FP_BCK_COLOUR))
         dc.Clear()
-        fp = self.footprint
 
-        for pad in fp.pads:
+        # Create layer dictionary for storing graphics on each layer.
+        layers = defaultdict(Layer)
+
+        # Draw the footprint's pad primitives.
+        for pad in self.footprint.pads:
             attr = pad.attributes
 
             # Process the pad.
@@ -301,7 +327,7 @@ class FootprintPainter(object):
             cx, cy, rot = (attr["at"] + [0])[0:3]
             rot = -rot
 
-            # Apply the offset from the drill.
+            # Apply the offset of the pad from the drill.
             try:
                 offset_x, offset_y = attr["drill"].attributes["offset"]
             except (AttributeError, KeyError, TypeError):
@@ -383,7 +409,8 @@ class FootprintPainter(object):
                     pts = self.circle_pts(cx, cy, r, tm)
                     layers[lyr_nm].add_pad_circle(pts)
 
-        for line in fp.lines:
+        # Draw the footprint's linee primitives.
+        for line in self.footprint.lines:
             attr = line.attributes
             w = attr["width"]
             x0, y0 = attr["start"]
@@ -392,7 +419,8 @@ class FootprintPainter(object):
             lyr_nm = attr["layer"]
             layers[lyr_nm].add_line(pts)
 
-        for circle in fp.circles:
+        # Draw the footprint's circle primitives.
+        for circle in self.footprint.circles:
             attr = circle.attributes
             w = attr["width"]
             cx, cy = attr["center"]
@@ -403,33 +431,39 @@ class FootprintPainter(object):
             lyr_nm = attr["layer"]
             layers[lyr_nm].add_circle((w, cx, cy, r))
 
+        # Draw each layer, starting from the bottom layers that will be overwritten by the top layers.
         for lyr_nm in (
-            "B.Cu",
-            "F.Cu",
-            "F&B.Cu",
-            "*.Cu",
-            "B.Fab",
-            "F.Fab",
-            "F&B.Fab",
-            "*.Fab",
-            "B.CrtYd",
-            "F.CrtYd",
-            "F&B.CrtYd",
-            "*.CrtYd",
             "B.SilkS",
-            "F.SilkS",
+            "B.Fab",
+            "B.CrtYd",
+            "B.Cu",
+            "F&B.Cu",
+            "F.Cu",
+            "*.Cu",
+            "F&B.CrtYd",
+            "F.CrtYd",
+            "*.CrtYd",
+            "F&B.Fab",
+            "F.Fab",
+            "*.Fab",
             "F&B.SilkS",
+            "F.SilkS",
             "*.SilkS",
             "Drill",
         ):
-            layers[lyr_nm].set_fill(*layer_style[lyr_nm])
-            layers[lyr_nm].paint(dc)
+            layers[lyr_nm].set_fill(*layer_style[lyr_nm])  # Set layer color and fill.
+            layers[lyr_nm].paint(dc)  # Draw items for that layer.
 
         # layers['F.Mask'].set_fill(FMASK_COLOUR, wx.BRUSHSTYLE_CROSS_HATCH)
         # bmp = self.mk_bmp(4,4,(0,255,0), 1.0/16)
         # layers['F.Paste'].set_fill(bmp)
 
         if not self.bbox:
+            # Calculate the bounding box if it hasn't been set, yet.
+            # In this case, the transformation matrix will be an identity matrix,
+            # so the bbox will contain the physical size of the footprint.
+            # This will be scaled for the given device context when this function
+            # is called again.
             self.bbox = BBox(*dc.GetBoundingBox())
 
             # make the bbox a little bigger to put some margin along each side.

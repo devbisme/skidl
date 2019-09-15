@@ -104,14 +104,18 @@ class AppFrame(wx.Frame):
 
         helpMenuItem = wx.MenuItem(helpMenu, SHOW_HELP, "Help\tCtrl+H")
         helpMenu.Append(helpMenuItem)
+
         aboutMenuItem = wx.MenuItem(helpMenu, SHOW_ABOUT, "About App\tCtrl+A")
         helpMenu.Append(aboutMenuItem)
+
         self.Bind(wx.EVT_MENU, self.ShowHelp, id=SHOW_HELP)
         self.Bind(wx.EVT_MENU, self.ShowAbout, id=SHOW_ABOUT)
 
         self.SetMenuBar(menuBar)
 
     def OnSearchPath(self, event):
+        # Update search path for parts.
+
         dlg = TextEntryDialog(
             self,
             title="Set Part Search Path",
@@ -157,16 +161,21 @@ MIT License
 
 class PartSearchPanel(wx.SplitterWindow):
     def __init__(self, *args, **kwargs):
+        kwargs["id"] = PART_PANEL_ID
         super(self.__class__, self).__init__(*args, **kwargs)
 
         # Subpanel for search text box and lib/part table.
-        self.search_panel = add_border(self.InitSearchPanel(self), wx.RIGHT)
+        self.search_panel = self.InitSearchPanel(self)
 
         # Subpanel for part/pin data.
-        self.part_panel = add_border(self.InitPartPanel(self), wx.LEFT)
+        self.part_panel = self.InitPartPanel(self)
 
         # Split subpanels left/right.
-        self.SplitVertically(self.search_panel, self.part_panel, sashPosition=0)
+        self.SplitVertically(
+            add_border(self.search_panel, wx.RIGHT),
+            add_border(self.part_panel, wx.LEFT),
+            sashPosition=0,
+        )
         self.SetSashGravity(0.5)  # Both subpanels expand/contract equally.
         self.SetMinimumPaneSize(MINIMUM_PANE_SIZE)
 
@@ -175,6 +184,9 @@ class PartSearchPanel(wx.SplitterWindow):
         self.focus_on_found_parts = False
 
         self.Bind(wx.EVT_IDLE, self.OnIdle)
+
+        # Bind event for passing data from footprint panel to part panel.
+        self.Bind(EVT_SEND_FOOTPRINT, self.OnFootprint)
 
         # Using a SplitterWindow shows a corrupted scrollbar area for
         # the default found_parts table. To eliminate that, draw the table large
@@ -337,7 +349,7 @@ class PartSearchPanel(wx.SplitterWindow):
         # When a row of the lib/part table is selected, display the data for that part.
 
         # Get the selected row in the lib/part table and translate it to the row in the data table.
-        row = self.found_parts.GetDataRow(event.GetRow())
+        row = self.found_parts.GetDataRowIndex(event.GetRow())
 
         # Fully instantiate the selected part.
         try:
@@ -384,6 +396,12 @@ class PartSearchPanel(wx.SplitterWindow):
         # Size the columns for their new contents.
         grid.AutoSizeColumns()
 
+        # Create search string for part footprint.
+        num_pins = len(part.pins)
+        footprint_search_terms = '"#pads={} "'.format(num_pins)
+        evt = SendSearchTermsEvent(search_terms=footprint_search_terms)
+        wx.PostEvent(wx.FindWindowById(FOOTPRINT_PANEL_ID), evt)
+
     def OnCopy(self, event):
         # Copy the lib/part for the selected part onto the clipboard.
 
@@ -393,10 +411,36 @@ class PartSearchPanel(wx.SplitterWindow):
         # Deselect all rows but the first.
         self.found_parts.SelectRow(row)
 
-        # Create a SKiDL part instantiation.
+        # Create a SKiDL part instantiation without a footprint.
         lib = self.found_parts.GetCellValue(row, 0)
         part = self.found_parts.GetCellValue(row, 1)
-        part_inst = "Part(lib='{lib}', name='{part}')".format(lib=lib, part=part)
+        self.part_inst = "Part(lib='{lib}', name='{part}')".format(lib=lib, part=part)
+
+        # Make a data object to hold the SKiDL part instantiation.
+        dataObj = wx.TextDataObject()
+        dataObj.SetText(self.part_inst)
+
+        # Place the SKiDL part instantiation on the clipboard.
+        if wx.TheClipboard.Open():
+            wx.TheClipboard.SetData(dataObj)
+            wx.TheClipboard.Flush()
+        else:
+            Feedback("Unable to open clipboard!", "Error")
+
+        # Request the footprint panel to return whatever footprint is selected.
+        # The footprint panel will respond with an event containing the footprint.
+        evt = RequestFootprintEvent()
+        wx.PostEvent(wx.FindWindowById(FOOTPRINT_PANEL_ID), evt)
+
+    def OnFootprint(self, evt):
+        # Receive the selected footprint from the footprint panel and
+        # place a lib/part with a footprint onto the clipboard.
+
+        # Remove the end parenthesis of the non-footprint part instance
+        # and append the footprint selected in the footprint panel.
+        part_inst = "{part_inst}, {footprint})".format(
+            part_inst=self.part_inst[:-1], footprint=evt.footprint
+        )
 
         # Make a data object to hold the SKiDL part instantiation.
         dataObj = wx.TextDataObject()

@@ -99,14 +99,18 @@ class AppFrame(wx.Frame):
 
         helpMenuItem = wx.MenuItem(helpMenu, SHOW_HELP, "Help\tCtrl+H")
         helpMenu.Append(helpMenuItem)
+
         aboutMenuItem = wx.MenuItem(helpMenu, SHOW_ABOUT, "About App\tCtrl+A")
         helpMenu.Append(aboutMenuItem)
+
         self.Bind(wx.EVT_MENU, self.ShowHelp, id=SHOW_HELP)
         self.Bind(wx.EVT_MENU, self.ShowAbout, id=SHOW_ABOUT)
 
         self.SetMenuBar(menuBar)
 
     def OnPartSearchPath(self, event):
+        # Update search path for parts.
+
         dlg = TextEntryDialog(
             self,
             title="Set Part Search Path",
@@ -123,6 +127,8 @@ class AppFrame(wx.Frame):
         dlg.Destroy()
 
     def OnFootprintSearchPath(self, event):
+        # Update search path for footprints.
+
         dlg = TextEntryDialog(
             self,
             title="Set Footprint Search Path",
@@ -182,11 +188,11 @@ class PartFootprintSearchPanel(wx.SplitterWindow):
 
 
 def main():
-    import wx.lib.inspection
+    # import wx.lib.inspection
 
     app = wx.App()
     AppFrame(None)
-    wx.lib.inspection.InspectionTool().Show()
+    # wx.lib.inspection.InspectionTool().Show()
     app.MainLoop()
 
 

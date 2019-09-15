@@ -49,16 +49,15 @@ def parse_search_terms(terms):
     Return a regular expression for a sequence of search terms.
 
     Substitute a zero-width lookahead assertion (?= ) for each term. Thus,
-    the "abc def" would become "(?=.*abc)(?=.*def)" and would match any string
+    the "abc def" would become "(?=.*(abc))(?=.*(def))" and would match any string
     containing both "abc" and "def". Or "abc (def|ghi)" would become
-    "(?=.*abc)((?=.*def)|(?=.*ghi))" and would match any string containing
+    "(?=.*(abc))((?=.*(def|ghi))" and would match any string containing
     "abc" and "def" or "ghi". Quoted terms can be used for phrases containing
-    whitespace.
+    whitespace. Place the quote-delimited RE before the RE for sequences of 
+    non-white chars to prevent the initial portion of a quoted string from being
+    gathered up as a non-white character sequence.
     """
-    return (
-        re.sub(r"(([^()|\"\s]+)|(\".*?\"))\s*", r"(?=.*\1)", terms).replace('"', "")
-        + ".*"
-    )
+    return re.sub(r"((\".*?\")|(\S+))\s*", r"(?=.*(\1))", terms).replace('"', "") + ".*"
 
 
 def search_parts_iter(terms, tool=None):
@@ -271,15 +270,26 @@ def search_footprints_iter(terms, tool=None):
             # Get the contents of the footprint file from the cache.
             module_text = tuple(modules[module_name])
 
-            # Return a hit if the search terms matches the footprint name or
-            # something in the footprint description or tag fields.
-            if fullmatch(terms, module_name, flags=re.IGNORECASE):
+            # Count the pads so it can be added to the text being searched.
+            # A set is used so pads with the same num/name are only counted once.
+            # Place the pad count before everything else so the space that
+            # terminates it won't be stripped off later. This is necessary
+            # so (for example) "#pads=20 " won't match "#pads=208".
+            num_pads = len(
+                set(re.findall("\(\s*pad\s+([^\s)]+)", " ".join(module_text)))
+            )
+            num_pads_str = "#pads={} ".format(num_pads)
+
+            # Return a hit if the search terms matches the footprint name.
+            if fullmatch(terms, num_pads_str + module_name, flags=re.IGNORECASE):
                 yield "MODULE", fp_lib, module_text, module_name
                 continue
 
+            # Return a hit if the search terms match something in the footprint
+            # description or tag fields.
             for line in module_text:
                 if ("(descr " in line or "(tags " in line) and fullmatch(
-                    terms, line, flags=re.IGNORECASE
+                    terms, num_pads_str + line, flags=re.IGNORECASE
                 ):
                     yield "MODULE", fp_lib, module_text, module_name
                     break

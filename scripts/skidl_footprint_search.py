@@ -54,6 +54,8 @@ SEARCH_FOOTPRINTS = 6
 COPY_FOOTPRINTS = 7
 PAINT_ACTUAL_SIZE_CKBX_ID = 8
 
+footprint_search_text_id = 0
+
 
 class AppFrame(wx.Frame):
     def __init__(self, *args, **kwargs):
@@ -109,14 +111,18 @@ class AppFrame(wx.Frame):
 
         helpMenuItem = wx.MenuItem(helpMenu, SHOW_HELP, "Help\tCtrl+H")
         helpMenu.Append(helpMenuItem)
+
         aboutMenuItem = wx.MenuItem(helpMenu, SHOW_ABOUT, "About App\tCtrl+A")
         helpMenu.Append(aboutMenuItem)
+
         self.Bind(wx.EVT_MENU, self.ShowHelp, id=SHOW_HELP)
         self.Bind(wx.EVT_MENU, self.ShowAbout, id=SHOW_ABOUT)
 
         self.SetMenuBar(menuBar)
 
     def OnSearchPath(self, event):
+        # Update search path for footprints.
+
         dlg = TextEntryDialog(
             self,
             title="Set Footprint Search Path",
@@ -207,16 +213,21 @@ class FootprintPaintingPanel(wx.Panel):
 
 class FootprintSearchPanel(wx.SplitterWindow):
     def __init__(self, *args, **kwargs):
+        kwargs["id"] = FOOTPRINT_PANEL_ID
         super(self.__class__, self).__init__(*args, **kwargs)
 
         # Subpanel for search text box and lib/part table.
-        self.search_panel = add_border(self.InitSearchPanel(self), wx.RIGHT)
+        self.search_panel = self.InitSearchPanel(self)
 
         # Subpanel for part/pin data.
-        self.fp_panel = add_border(self.InitFootprintPanel(self), wx.LEFT)
+        self.fp_panel = self.InitFootprintPanel(self)
 
         # Split subpanels left/right.
-        self.SplitVertically(self.search_panel, self.fp_panel, sashPosition=0)
+        self.SplitVertically(
+            add_border(self.search_panel, wx.RIGHT),
+            add_border(self.fp_panel, wx.LEFT),
+            sashPosition=0,
+        )
         self.SetSashGravity(0.5)  # Both subpanels expand/contract equally.
         self.SetMinimumPaneSize(MINIMUM_PANE_SIZE)
 
@@ -225,6 +236,12 @@ class FootprintSearchPanel(wx.SplitterWindow):
         self.focus_on_found_footprints = False
 
         self.Bind(wx.EVT_IDLE, self.OnIdle)
+
+        # Bind event for passing footprint search terms from part to footprint panel.
+        self.Bind(EVT_SEND_SEARCH_TERMS, self.OnSearchTerms)
+
+        # Bind event for requesting footprint to be sent from footprint to part panel.
+        self.Bind(EVT_REQUEST_FOOTPRINT, self.OnCopy)
 
         # Using a SplitterWindow shows a corrupted scrollbar area for
         # the default found_footprints table. To eliminate that, draw the table large
@@ -240,6 +257,11 @@ class FootprintSearchPanel(wx.SplitterWindow):
             self.found_footprints.GoToCell(0, 1)
             self.found_footprints.SetFocus()
             self.focus_on_found_footprints = False
+
+    def OnSearchTerms(self, event):
+        # Handle data sent from Part panel to Footprint panel.
+        self.search_text.Clear()
+        self.search_text.WriteText(event.search_terms)
 
     def InitSearchPanel(self, parent):
         # Subpanel for search text box and footprint table.
@@ -414,7 +436,7 @@ class FootprintSearchPanel(wx.SplitterWindow):
             self.fp_panel.Layout()
 
         # Get the selected row in the lib/footprint table and translate it to the row in the data table.
-        row = self.found_footprints.GetDataRow(event.GetRow())
+        row = self.found_footprints.GetDataRowIndex(event.GetRow())
 
         # Get the text describing the footprint structure.
         try:
@@ -483,6 +505,7 @@ class FootprintSearchPanel(wx.SplitterWindow):
 
     def OnCopy(self, event):
         # Copy the lib/footprint for the selected footprint onto the clipboard.
+        print("Footprint OnCopy")
 
         # Get the cell where the cursor is.
         row = self.found_footprints.GetGridCursorRow()
@@ -505,6 +528,10 @@ class FootprintSearchPanel(wx.SplitterWindow):
             wx.TheClipboard.Flush()
         else:
             Feedback("Unable to open clipboard!", "Error")
+
+        # Create search string for part footprint.
+        evt = SendFootprintEvent(footprint=footprint_inst)
+        wx.PostEvent(wx.FindWindowById(PART_PANEL_ID), evt)
 
 
 def main():
