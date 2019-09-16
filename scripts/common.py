@@ -99,6 +99,10 @@ def add_border(window, location):
         border = wx.StaticLine(bordered_window, size=(2, -1))
         box = wx.BoxSizer(wx.HORIZONTAL)
 
+    tip = wx.ToolTip("Drag sash to resize panes.")
+    tip.SetDelay(0)
+    border.SetToolTip(tip)
+
     if location == wx.TOP:
         box.Add(border, proportion=0, flag=wx.BOTTOM | wx.EXPAND, border=SPACING)
         box.Add(window, proportion=1, flag=wx.ALL | wx.EXPAND, border=0)
@@ -284,8 +288,11 @@ class MyGrid(wx.grid.Grid):
         # Set sorting function for each column.
         self.sort_funcs = [lambda x: x] * len(headers)
 
-        # Set event that trigger sorting of the table rows.
+        # Set event that triggers sorting of the table rows.
         self.Bind(wx.grid.EVT_GRID_LABEL_LEFT_DCLICK, self.OnSort)
+
+        # Set event that copies selected cells to the clipboard.
+        self.Bind(wx.grid.EVT_GRID_CELL_RIGHT_CLICK, self.OnCopy)
 
     def Resize(self, numRows=0):
         """Clear the table and resize the number of rows."""
@@ -298,6 +305,7 @@ class MyGrid(wx.grid.Grid):
             self.DeleteRows(0, -num_rows_chg, True)
         elif num_rows_chg > 0:
             self.AppendRows(num_rows_chg)
+        self.SetSortingIndicator(0, 0) # No sorting at the start.
         self.ColourGridBackground()
 
         # Create a list of row indices that will be sorted along with the
@@ -391,7 +399,45 @@ class MyGrid(wx.grid.Grid):
             sort_dir = 1
         else:
             # If the same sorting column was selected, then toggle the sorting direction.
-            sort_dir = -self.sorting["dir"]
+            sort_dir = -self.sorting["dir"] or 1  # If dir==0, then set it to 1.
 
         # Sor the data in the table of cells.
         self.SortTable(sort_col, sort_dir)
+
+    def OnCopy(self, event):
+        num_rows = self.GetNumberRows()
+        num_cols = self.GetNumberCols()
+        cells = []
+        for cell in self.GetSelectedCells():
+            cells.append((cell[0], cell[1]))
+        for selrow in self.GetSelectedRows():
+            for c in range(num_cols):
+                cells.append((selrow, c))
+        for selcol in self.GetSelectedCols():
+            for r in range(num_rows):
+                cells.append((r, selcol))
+        for topleft, bottomright in zip(self.GetSelectionBlockTopLeft(), self.GetSelectionBlockBottomRight()):
+            for r in range(topleft[0], bottomright[0]+1):
+                for c in range(topleft[1], bottomright[1]+1):
+                    cells.append((r, c))
+
+        cells.sort()
+
+        prev_row = cells[0][0]  # First row in cell coords.
+        vals = ""
+        for row, col in cells:
+            if row != prev_row:
+                vals += "\n"
+            vals += '"' + str(self.GetCellValue(row, col)) + '"' + ', '
+            prev_row = row
+
+        # Make a data object to hold the cell values.
+        dataObj = wx.TextDataObject()
+        dataObj.SetText(vals[:-2])  # Strip off last ", "
+
+        # Place the cell values on the clipboard.
+        if wx.TheClipboard.Open():
+            wx.TheClipboard.SetData(dataObj)
+            wx.TheClipboard.Flush()
+        else:
+            Feedback("Unable to open clipboard!", "Error")

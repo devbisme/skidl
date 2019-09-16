@@ -159,11 +159,25 @@ class AppFrame(wx.Frame):
     def ShowHelp(self, e):
         Feedback(
             """
-1. Enter part keywords to search for in the part search box.
-3. Matching parts will appear in the Library/Part table.
-4. Select a row in the Library/Part table to display part info.
-5. Click the Copy button to place the selected library and part on the clipboard.
-6. Paste the clipboard contents into your SKiDL code.
+1. Enter keywords/regex in the part search box.
+2. Matching parts will appear in the Library/Part table.
+3. Select a row in the Library/Part table to display part info.
+4. Enter keywords/regex in the footprint search box.
+5. Matching footprints will appear in the Library/Footprint table.
+6. Select a row in the Library/Footprint table to display the footprint.
+7. a) Click the Copy button in the Part Search panel to copy 
+      the part & footprint to the clipboard, -OR-
+   b) Click the Copy button in the Footprint Search panel to copy
+      the footprint to the clipboard, -OR-
+   c) Deselect (ctrl-click) the footprint row and click the
+      Copy button in the Part Search panel to copy just
+      the part to the clipboard.
+8. Paste the clipboard contents into your SKiDL code.
+
+General:
+* Drag sashes to resize individual panels.
+* Double-click column headers to sort table contents.
+* 
             """,
             "Help",
         )

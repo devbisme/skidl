@@ -281,10 +281,12 @@ class PartSearchPanel(wx.SplitterWindow):
             flag=wx.ALL,
             border=SPACING,
         )
-        self.pin_info = MyGrid(part_panel, ("Pin", "Name", "Type"), CELL_BCK_COLOUR)
+        self.pin_info = MyGrid(part_panel, ("Pin", "Name", "Type", "Unit"), CELL_BCK_COLOUR)
+        self.pin_info.SetSelectionMode(wx.grid.Grid.GridSelectionModes.SelectCells)
         self.pin_info.Resize(10)
         self.pin_info.SetSortFunc(0, natural_sort_key)  # Natural sort pin numbers.
         self.pin_info.SetSortFunc(1, natural_sort_key)  # Natural sort pin names.
+        self.pin_info.SetSortFunc(3, natural_sort_key)  # Natural sort list of units.
         vbox.Add(self.pin_info, proportion=1, flag=wx.ALL | wx.EXPAND, border=SPACING)
 
         return part_panel
@@ -387,11 +389,19 @@ class PartSearchPanel(wx.SplitterWindow):
         pins = sorted(part, key=lambda p: natural_sort_key(p.get_pin_info()[0]))
 
         # Place pin data into the table.
+        unit_pins = dict()
+        for lbl, u in part.unit.items():
+            unit_pins[lbl] = [p.num for p in u.pins]
         for row, pin in enumerate(pins):
             num, names, func = pin.get_pin_info()
+            units = []
+            for lbl in part.unit:
+                if num in unit_pins[lbl]:
+                    units.append(lbl)
             grid.SetCellValue(row, 0, num)
             grid.SetCellValue(row, 1, names)
             grid.SetCellValue(row, 2, func)
+            grid.SetCellValue(row, 3, ",".join(units))
 
         # Size the columns for their new contents.
         grid.AutoSizeColumns()
