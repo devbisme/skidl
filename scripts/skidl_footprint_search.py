@@ -42,6 +42,7 @@ from skidl import (
     rmv_quotes,
     search_footprints_iter,
     skidl_cfg,
+    natural_sort_key,
 )
 
 APP_TITLE = "SKiDL Footprint Search"
@@ -355,7 +356,6 @@ class FootprintSearchPanel(wx.SplitterWindow):
         )
         hbox.Add(self.actual_size_ckbx, proportion=0, flag=wx.ALL, border=0)
         vbox.Add(self.painting_title_panel, proportion=0, flag=wx.ALL, border=SPACING)
-        self.painting_title_panel.Hide
 
         self.fp_painting_panel = FootprintPaintingPanel(fp_panel)
         vbox.Add(
@@ -430,12 +430,14 @@ class FootprintSearchPanel(wx.SplitterWindow):
             # Clear the footprint panel desc, link, and painting.
             self.fp_desc.SetDescription("")
             self.datasheet_link.SetURL(None)
-            self.painting_title_panel.Hide()
+            #self.painting_title_panel.Hide()
             self.fp_painting_panel.footprint = None
-            self.fp_painting_panel.Hide()
+            #self.fp_painting_panel.Hide()
             self.fp_panel.Layout()
 
         # Get the selected row in the lib/footprint table and translate it to the row in the data table.
+        self.found_footprints.ClearSelection()
+        self.found_footprints.SelectRow(event.GetRow())
         row = self.found_footprints.GetDataRowIndex(event.GetRow())
 
         # Get the text describing the footprint structure.
@@ -505,10 +507,13 @@ class FootprintSearchPanel(wx.SplitterWindow):
 
     def OnCopy(self, event):
         # Copy the lib/footprint for the selected footprint onto the clipboard.
-        print("Footprint OnCopy")
 
         # Get the cell where the cursor is.
-        row = self.found_footprints.GetGridCursorRow()
+        # row = self.found_footprints.GetGridCursorRow()
+        try:
+            row = self.found_footprints.GetSelectedRows()[0]
+        except (IndexError, TypeError):
+            return
 
         # Deselect all rows but the first.
         self.found_footprints.SelectRow(row)

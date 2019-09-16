@@ -37,7 +37,7 @@ import wx.lib.newevent
 
 MINIMUM_PANE_SIZE = 300
 BTN_SIZE = (50, -1)
-SPACING = 10
+SPACING = 5
 TEXT_BOX_WIDTH = 200
 CELL_BCK_COLOUR = wx.Colour(255, 255, 255)  # Table cell background color.
 
@@ -55,9 +55,35 @@ SendFootprintEvent, EVT_SEND_FOOTPRINT = wx.lib.newevent.NewEvent()
 SendSearchTermsEvent, EVT_SEND_SEARCH_TERMS = wx.lib.newevent.NewEvent()
 
 
-def natural_sort_key(s, _nsre=re.compile("([0-9]+)")):
-    """Sorting function for pin numbers or names."""
-    return [int(text) if text.isdigit() else text.lower() for text in _nsre.split(s)]
+def box_it(window, title_text):
+    panel = wx.Panel(window.GetParent())
+    window.Reparent(panel)
+    sbox = wx.StaticBox(panel, label=title_text)
+    box = wx.StaticBoxSizer(sbox, wx.VERTICAL)
+    box.Add(window, proportion=1, flag=wx.ALL | wx.EXPAND, border=0)
+    panel.SetSizer(box)
+    return panel
+
+
+def add_title(window, title_text, location):
+    """Add title to top/bottom of a window."""
+
+    titled_window = wx.Panel(window.GetParent())
+    window.Reparent(titled_window)
+
+    title = wx.StaticText(titled_window, label=title_text)
+    box = wx.BoxSizer(wx.VERTICAL)
+
+    if location == wx.TOP:
+        box.Add(title, proportion=0, flag=wx.BOTTOM | wx.EXPAND, border=SPACING)
+        box.Add(window, proportion=1, flag=wx.ALL | wx.EXPAND, border=0)
+    else:
+        box.Add(window, proportion=1, flag=wx.ALL | wx.EXPAND, border=0)
+        box.Add(title, proportion=0, flag=wx.TOP | wx.EXPAND, border=SPACING)
+
+    titled_window.SetSizer(box)
+
+    return titled_window
 
 
 def add_border(window, location):

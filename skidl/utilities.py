@@ -66,6 +66,11 @@ def norecurse(f):
     return func
 
 
+def natural_sort_key(s, _nsre=re.compile("([0-9]+)")):
+    """Sorting function for pin numbers or names."""
+    return [int(text) if text.isdigit() else text.lower() for text in _nsre.split(s)]
+
+
 class CountCalls(object):
     """Decorator for counting the number of times a function is called.
 
@@ -99,7 +104,6 @@ class TriggerDict(dict):
     def __setitem__(self, k, v):
         if k in self.trigger_funcs:
             if v != self[k]:
-                print("Running trigger func!")
                 self.trigger_funcs[k](self, k, v)
         super(self.__class__, self).__setitem__(k, v)
 

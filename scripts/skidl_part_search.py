@@ -34,7 +34,7 @@ import os
 import wx
 
 from common import *
-from skidl import KICAD, lib_search_paths, search_parts_iter, skidl_cfg
+from skidl import KICAD, lib_search_paths, search_parts_iter, skidl_cfg, natural_sort_key
 
 APP_TITLE = "SKiDL Part Search"
 

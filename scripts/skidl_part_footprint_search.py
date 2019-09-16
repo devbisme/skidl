@@ -33,7 +33,7 @@ import os
 import wx
 
 from common import *
-from skidl import KICAD, footprint_search_paths, lib_search_paths, skidl_cfg
+from skidl import KICAD, footprint_search_paths, footprint_cache, lib_search_paths, SchLib, skidl_cfg
 from skidl_footprint_search import FootprintSearchPanel
 from skidl_part_search import PartSearchPanel
 
@@ -43,6 +43,7 @@ SHOW_HELP = 3
 SHOW_ABOUT = 4
 PART_SEARCH_PATH = 5
 FOOTPRINT_SEARCH_PATH = 6
+REFRESH = 7
 
 
 class AppFrame(wx.Frame):
@@ -92,6 +93,12 @@ class AppFrame(wx.Frame):
         )
         srchMenu.Append(footprintSrchPathItem)
         self.Bind(wx.EVT_MENU, self.OnFootprintSearchPath, id=FOOTPRINT_SEARCH_PATH)
+
+        refreshItem = wx.MenuItem(
+            srchMenu, REFRESH, "Refresh part + footprint paths"
+        )
+        srchMenu.Append(refreshItem)
+        self.Bind(wx.EVT_MENU, self.OnRefresh, id=REFRESH)
 
         # Help menu containing help and about buttons.
         helpMenu = wx.Menu()
@@ -144,13 +151,17 @@ class AppFrame(wx.Frame):
             skidl_cfg.store()  # Stores updated search path in file.
         dlg.Destroy()
 
+    def OnRefresh(self, event):
+        SchLib.reset()
+        footprint_cache.reset()
+
+
     def ShowHelp(self, e):
         Feedback(
             """
-1. Enter text to search for in the part descriptions.
-2. Start the search by pressing Return or clicking on the Search button.
-3. Matching parts will appear in the Library/Part table in the left-hand pane.
-4. Select a row in the Library/Part table to display part info in the right-hand pane.
+1. Enter part keywords to search for in the part search box.
+3. Matching parts will appear in the Library/Part table.
+4. Select a row in the Library/Part table to display part info.
 5. Click the Copy button to place the selected library and part on the clipboard.
 6. Paste the clipboard contents into your SKiDL code.
             """,
@@ -177,14 +188,17 @@ class PartFootprintSearchPanel(wx.SplitterWindow):
         super(self.__class__, self).__init__(*args, **kwargs)
 
         # Subpanel for part search panel.
-        self.part_panel = add_border(PartSearchPanel(self), wx.BOTTOM)
+        self.part_panel = add_border(add_title(PartSearchPanel(self), "Part Search", wx.TOP), wx.BOTTOM)
+        # self.part_panel = box_it(PartSearchPanel(self), "Part Search")
 
         # Subpanel for footprint search.
-        self.footprint_panel = add_border(FootprintSearchPanel(self), wx.TOP)
+        self.footprint_panel = add_border(add_title(FootprintSearchPanel(self), "Footprint Search", wx.TOP), wx.TOP)
+        # self.footprint_panel = box_it(FootprintSearchPanel(self), "Footprint Search")
 
-        # Split subpanels left/right.
+        # Split subpanels top/bottom.
         self.SplitHorizontally(self.part_panel, self.footprint_panel, sashPosition=0)
         self.SetSashGravity(0.5)  # Both subpanels expand/contract equally.
+        self.Update()
 
 
 def main():

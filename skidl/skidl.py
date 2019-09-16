@@ -112,8 +112,7 @@ if "footprint_search_paths" not in skidl_cfg:
 
 # Cause the footprint cache to be invalidated if the footprint search path changes.
 def invalidate_footprint_cache(self, k, v):
-    print("Trigger function running")
-    footprint_cache.valid = False
+    footprint_cache.reset()
 
 
 skidl_cfg["footprint_search_paths"] = TriggerDict(skidl_cfg["footprint_search_paths"])
