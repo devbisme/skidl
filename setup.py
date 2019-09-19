@@ -34,6 +34,7 @@ requirements = [
     #'PySpice; python_version >= "3.0"',
     "graphviz",
     "wxpython",
+    "pykicad",
 ]
 
 test_requirements = [
