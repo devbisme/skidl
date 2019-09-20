@@ -275,6 +275,8 @@ def search_footprints_iter(terms, tool=None):
             module_text = tuple(modules[module_name])
 
             # Count the pads so it can be added to the text being searched.
+            # Join all the module text lines, search for the number of
+            # occurrences of "(pad", and then count them.
             # A set is used so pads with the same num/name are only counted once.
             # Place the pad count before everything else so the space that
             # terminates it won't be stripped off later. This is necessary
@@ -284,19 +286,16 @@ def search_footprints_iter(terms, tool=None):
             )
             num_pads_str = "#pads={} ".format(num_pads)
 
-            # Return a hit if the search terms matches the footprint name.
-            if fullmatch(terms, num_pads_str + module_name, flags=re.IGNORECASE):
-                yield "MODULE", fp_lib, module_text, module_name
-                continue
-
-            # Return a hit if the search terms match something in the footprint
-            # description or tag fields.
+            # Create a string with the module name, library name, number of pads,
+            # description and tags.
+            search_text = " ".join([num_pads_str, fp_lib, module_name])
             for line in module_text:
-                if ("(descr " in line or "(tags " in line) and fullmatch(
-                    terms, num_pads_str + line, flags=re.IGNORECASE
-                ):
-                    yield "MODULE", fp_lib, module_text, module_name
-                    break
+                if "(descr " in line or "(tags " in line:
+                    search_text += " ".join([search_text, line])
+
+            # Search the string for a match with the search terms.
+            if fullmatch(terms, search_text, flags=re.IGNORECASE):
+                yield "MODULE", fp_lib, module_text, module_name
 
     # At the end, all modules have been scanned and the footprint cache is valid.
     footprint_cache.valid = True

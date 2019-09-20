@@ -290,8 +290,10 @@ class FootprintPainter(object):
                 scale_x = dc.GetPPI().GetWidth() * 1.0 / (25.4 * PRESCALE)
                 scale_y = dc.GetPPI().GetHeight() * 1.0 / (25.4 * PRESCALE)
             else:
-                scale_x = panel_w / (bbox.x1 - bbox.x0)
-                scale_y = panel_h / (bbox.y1 - bbox.y0)
+                panel_w = panel_w or 100  # Prevent division by zero.
+                panel_h = panel_h or 100  # Prevent division by zero.
+                scale_x = float(panel_w) / (bbox.x1 - bbox.x0)
+                scale_y = float(panel_h) / (bbox.y1 - bbox.y0)
             scale = min(scale_x, scale_y)
 
             # Compute translation to place footprint center at center of panel.
@@ -409,7 +411,7 @@ class FootprintPainter(object):
                     pts = self.circle_pts(cx, cy, r, tm)
                     layers[lyr_nm].add_pad_circle(pts)
 
-        # Draw the footprint's linee primitives.
+        # Draw the footprint's line primitives.
         for line in self.footprint.lines:
             attr = line.attributes
             w = attr["width"]

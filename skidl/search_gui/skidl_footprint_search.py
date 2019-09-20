@@ -426,43 +426,41 @@ class FootprintSearchPanel(wx.SplitterWindow):
     def OnSelectCell(self, event):
         # When a row of the footprint table is selected, display the data for that footprint.
 
-        def clear_fp_panel():
-            # Clear the footprint panel desc, link, and painting.
-            self.fp_desc.SetDescription("")
-            self.datasheet_link.SetURL(None)
-            # self.painting_title_panel.Hide()
-            self.fp_painting_panel.footprint = None
-            # self.fp_painting_panel.Hide()
-            self.fp_panel.Layout()
+        # Ths is a null footprint that just paints an "X" (cross) when there's no valid footprint.
+        null_module_text = [
+                "(module NULL",
+                "(fp_line (start 0.0 0.0) (end 1.0 1.0) (layer F.Fab) (width 0.01))",
+                "(fp_line (start 1.0 0.0) (end 0.0 1.0) (layer F.Fab) (width 0.01))",
+                ")",
+        ]
 
         # Get the selected row in the lib/footprint table and translate it to the row in the data table.
         self.found_footprints.ClearSelection()
         self.found_footprints.SelectRow(event.GetRow())
         row = self.found_footprints.GetDataRowIndex(event.GetRow())
 
+
         # Get the text describing the footprint structure.
         try:
             module_text = self.footprints[row][1]
         except (AttributeError, IndexError):
-            # No text, so hide footprint panel and return.
-            clear_fp_panel()
-            return
+            # No module text, so use the null module.
+            module_text = null_module_text
 
         # Parse the footprint text.
         try:
             wx.BeginBusyCursor()
             module = pym.Module.parse("\n".join(module_text))
         except Exception as e:
-            # Parsing error, so hide the footprint panel and return.
-            wx.EndBusyCursor()
-            clear_fp_panel()
+            # Parsing error, use the null module.
             Feedback(
                 "Error while parsing {}:{}".format(
                     self.footprints[row][0], self.footprints[row][2]
                 ),
                 "Error",
             )
-            return
+            module_text = null_module_text
+            module = pym.Module.parse("\n".join(module_text))
         wx.EndBusyCursor()
 
         # Get the footprint description and tags if they exist.
@@ -470,16 +468,18 @@ class FootprintSearchPanel(wx.SplitterWindow):
         tags = ""
         for line in module_text:
             try:
+                # Get the text following "(descr ".
                 descr = line.split("(descr ")[1].rsplit(")", 1)[0]
                 descr = rmv_quotes(descr)
             except IndexError:
-                pass
+                pass  # This line didn't have "(descr " in it.
             try:
+                # Get the text following "(tags ".
                 tags = line.split("(tags ")[1].rsplit(")", 1)[0]
                 tags = rmv_quotes(tags)
                 tags = "\nTags: " + tags
             except IndexError:
-                pass
+                pass  # This line didn't have "(tags " in it.
 
         # Show the footprint description.
         self.fp_desc.SetDescription(descr + tags)

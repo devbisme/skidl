@@ -305,7 +305,6 @@ def _parse_lib_part_(self, get_name_only=False):
         "texts": [],
         "pins": {},  # Use pin number as key to detect duplicates.
     }
-    self.fplist = []
 
     # Regular expression for non-quoted and quoted text pieces.
     unqu = r'[^\s"]+'  # Word without spaces or double-quotes.
@@ -402,7 +401,7 @@ def _parse_lib_part_(self, get_name_only=False):
         else:
             # If the footprint list is being built, then add this line to it.
             if building_fplist:
-                self.fplist.append(line[0])
+                self.fplist.append(line[0].strip().rstrip())  # Remove begin & end whitespace.
 
             # Else if the drawing primitives are being gathered, process the
             # current line to see what type of primitive is in play.
