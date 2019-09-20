@@ -33,8 +33,14 @@ import os
 
 import wx
 
-from common import *
-from skidl import KICAD, lib_search_paths, search_parts_iter, skidl_cfg, natural_sort_key
+from skidl import (
+    KICAD,
+    lib_search_paths,
+    natural_sort_key,
+    search_parts_iter,
+    skidl_cfg,
+)
+from skidl.search_gui.common import *
 
 APP_TITLE = "SKiDL Part Search"
 
@@ -236,7 +242,7 @@ class PartSearchPanel(wx.SplitterWindow):
         # Button to copy selected lib/part to clipboard.
         copy_btn = wx.Button(search_panel, label="Copy", size=BTN_SIZE)
         copy_btn.Bind(wx.EVT_BUTTON, self.OnCopy)
-        tip = wx.ToolTip("Copy the selected library and part to the clipboard.")
+        tip = wx.ToolTip("Copy the selected part to the clipboard.")
         copy_btn.SetToolTip(tip)
 
         # Grid for arranging text box, grid and buttons.
@@ -281,7 +287,9 @@ class PartSearchPanel(wx.SplitterWindow):
             flag=wx.ALL,
             border=SPACING,
         )
-        self.pin_info = MyGrid(part_panel, ("Pin", "Name", "Type", "Unit"), CELL_BCK_COLOUR)
+        self.pin_info = MyGrid(
+            part_panel, ("Pin", "Name", "Type", "Unit"), CELL_BCK_COLOUR
+        )
         self.pin_info.SetSelectionMode(wx.grid.Grid.GridSelectionModes.SelectCells)
         self.pin_info.Resize(10)
         self.pin_info.SetSortFunc(0, natural_sort_key)  # Natural sort pin numbers.

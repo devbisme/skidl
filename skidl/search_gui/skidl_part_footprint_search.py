@@ -32,10 +32,17 @@ import os
 
 import wx
 
-from common import *
-from skidl import KICAD, footprint_search_paths, footprint_cache, lib_search_paths, SchLib, skidl_cfg
-from skidl_footprint_search import FootprintSearchPanel
-from skidl_part_search import PartSearchPanel
+from skidl import (
+    KICAD,
+    SchLib,
+    footprint_cache,
+    footprint_search_paths,
+    lib_search_paths,
+    skidl_cfg,
+)
+from skidl.search_gui.common import *
+from skidl.search_gui.skidl_footprint_search import FootprintSearchPanel
+from skidl.search_gui.skidl_part_search import PartSearchPanel
 
 APP_TITLE = "SKiDL Part/Footprint Search"
 APP_EXIT = 1
@@ -94,9 +101,7 @@ class AppFrame(wx.Frame):
         srchMenu.Append(footprintSrchPathItem)
         self.Bind(wx.EVT_MENU, self.OnFootprintSearchPath, id=FOOTPRINT_SEARCH_PATH)
 
-        refreshItem = wx.MenuItem(
-            srchMenu, REFRESH, "Refresh part + footprint paths"
-        )
+        refreshItem = wx.MenuItem(srchMenu, REFRESH, "Refresh part + footprint paths")
         srchMenu.Append(refreshItem)
         self.Bind(wx.EVT_MENU, self.OnRefresh, id=REFRESH)
 
@@ -155,7 +160,6 @@ class AppFrame(wx.Frame):
         SchLib.reset()
         footprint_cache.reset()
 
-
     def ShowHelp(self, e):
         Feedback(
             """
@@ -202,11 +206,15 @@ class PartFootprintSearchPanel(wx.SplitterWindow):
         super(self.__class__, self).__init__(*args, **kwargs)
 
         # Subpanel for part search panel.
-        self.part_panel = add_border(add_title(PartSearchPanel(self), "Part Search", wx.TOP), wx.BOTTOM)
+        self.part_panel = add_border(
+            add_title(PartSearchPanel(self), "Part Search", wx.TOP), wx.BOTTOM
+        )
         # self.part_panel = box_it(PartSearchPanel(self), "Part Search")
 
         # Subpanel for footprint search.
-        self.footprint_panel = add_border(add_title(FootprintSearchPanel(self), "Footprint Search", wx.TOP), wx.TOP)
+        self.footprint_panel = add_border(
+            add_title(FootprintSearchPanel(self), "Footprint Search", wx.TOP), wx.TOP
+        )
         # self.footprint_panel = box_it(FootprintSearchPanel(self), "Footprint Search")
 
         # Split subpanels top/bottom.

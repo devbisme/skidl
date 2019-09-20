@@ -55,7 +55,10 @@ setup(
         "console_scripts": [
             "netlist_to_skidl = skidl.netlist_to_skidl_main:main",
             "skidl_part_search = skidl.skidl_part_search:main",
-        ]
+        ],
+        "gui_scripts": [
+            "SKiDL_Part_FP_Search = skidl.search_gui.skidl_part_footprint_search:main"
+        ],
     },
     package_dir={"skidl": "skidl"},
     include_package_data=True,

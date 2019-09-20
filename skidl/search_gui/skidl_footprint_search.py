@@ -34,16 +34,16 @@ import string
 import pykicad.module as pym
 import wx
 
-from common import *
-from footprint_painter import FootprintPainter
 from skidl import (
     KICAD,
     footprint_search_paths,
+    natural_sort_key,
     rmv_quotes,
     search_footprints_iter,
     skidl_cfg,
-    natural_sort_key,
 )
+from skidl.search_gui.common import *
+from skidl.search_gui.footprint_painter import FootprintPainter
 
 APP_TITLE = "SKiDL Footprint Search"
 
@@ -430,9 +430,9 @@ class FootprintSearchPanel(wx.SplitterWindow):
             # Clear the footprint panel desc, link, and painting.
             self.fp_desc.SetDescription("")
             self.datasheet_link.SetURL(None)
-            #self.painting_title_panel.Hide()
+            # self.painting_title_panel.Hide()
             self.fp_painting_panel.footprint = None
-            #self.fp_painting_panel.Hide()
+            # self.fp_painting_panel.Hide()
             self.fp_panel.Layout()
 
         # Get the selected row in the lib/footprint table and translate it to the row in the data table.

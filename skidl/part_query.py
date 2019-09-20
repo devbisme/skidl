@@ -178,7 +178,7 @@ class FootprintCache(dict):
 
     def __init__(self, *args, **kwargs):
         super(self.__class__, self).__init__(*args, **kwargs)
-        self.reset() # Cache starts off empty, hence invalid.
+        self.reset()  # Cache starts off empty, hence invalid.
 
     def reset(self):
         self.clear()  # Clear out cache.
