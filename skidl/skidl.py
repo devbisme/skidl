@@ -76,6 +76,22 @@ class SkidlCfg(dict):
         with open(path, "w") as cfg_fp:
             json.dump(self, cfg_fp, indent=4)
 
+def get_kicad_lib_tbl_dir():
+    """Get the path to where the global fp-lib-table file is found."""
+
+    paths = (
+        "$HOME/.config/kicad",
+        "~/.config/kicad",
+        "%APPDATA%/kicad",
+        "$HOME/Library/Preferences/kicad",
+        "~/Library/Preferences/kicad",
+    )
+    for path in paths:
+        path = os.path.normpath(os.path.expanduser(os.path.expandvars(path)))
+        if os.path.lexists(path):
+            return path
+    return ""
+
 
 ###############################################################################
 # Globals that are used by everything else.
@@ -107,8 +123,8 @@ lib_search_paths = skidl_cfg["lib_search_paths"]
 
 # If no configuration files were found, set some default footprint search paths.
 if "footprint_search_paths" not in skidl_cfg:
-    skidl_cfg["footprint_search_paths"] = {KICAD: ["."], SKIDL: ["."], SPICE: ["."]}
-    skidl_cfg["footprint_search_paths"][KICAD].append(os.environ["KISYSMOD"])
+    dir = get_kicad_lib_tbl_dir()
+    skidl_cfg["footprint_search_paths"] = {KICAD: [dir], SKIDL: [dir], SPICE: [dir]}
 
 # Cause the footprint cache to be invalidated if the footprint search path changes.
 def invalidate_footprint_cache(self, k, v):

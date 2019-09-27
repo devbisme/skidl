@@ -462,9 +462,12 @@ class PartSearchPanel(wx.SplitterWindow):
 
         # Remove the end parenthesis of the non-footprint part instance
         # and append the footprint selected in the footprint panel.
-        part_inst = "{part_inst}, {footprint})".format(
-            part_inst=self.part_inst[:-1], footprint=evt.footprint
-        )
+        try:
+            part_inst = "{part_inst}, {footprint})".format(
+                part_inst=self.part_inst[:-1], footprint=evt.footprint
+            )
+        except AttributeError:
+            return  # No part was copied.
 
         # Make a data object to hold the SKiDL part instantiation.
         dataObj = wx.TextDataObject()

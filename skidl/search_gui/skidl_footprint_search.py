@@ -128,7 +128,7 @@ class AppFrame(wx.Frame):
             self,
             title="Set Footprint Search Path",
             caption="Footprint Search Path",
-            tip="Enter {sep}-separated list of directories in which to search for footprints.".format(
+            tip="Enter {sep}-separated list of directories in which to search for fp-lib-table file.".format(
                 sep=os.pathsep
             ),
         )

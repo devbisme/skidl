@@ -184,6 +184,77 @@ class FootprintCache(dict):
         self.clear()  # Clear out cache.
         self.valid = False  # Cache is empty, hence invalid.
 
+    def load(self, fp_tbl_filename):
+        """Load cache with footprints from libraries in fp-lib-table file."""
+
+        # Read contents of footprint library file into a single string.
+        try:
+            with open(fp_tbl_filename) as fp:
+                tbl = fp.read()
+        except FileNotFoundError:
+            return
+
+        # Get individual "(lib ...)" entries from the string.
+        libs = re.findall(
+            r"\(\s*lib\s* .*? \)\)", tbl, flags=re.IGNORECASE | re.VERBOSE | re.DOTALL
+        )
+
+        # Add the footprint modules found in each enabled KiCad libray.
+        for lib in libs:
+
+            # Skip disabled libraries.
+            disabled = re.findall(
+                r"\(\s*disabled\s*\)", lib, flags=re.IGNORECASE | re.VERBOSE
+            )
+            if disabled:
+                continue
+
+            # Skip non-KiCad libraries (primarily git repos).
+            type_ = re.findall(
+                r'(?:\(\s*type\s*) ("[^"]*?"|[^)]*?) (?:\s*\))',
+                lib,
+                flags=re.IGNORECASE | re.VERBOSE,
+            )[0]
+            if type_.lower() != "kicad":
+                continue
+
+            # Get the library directory and nickname.
+            uri = re.findall(
+                r'(?:\(\s*uri\s*) ("[^"]*?"|[^)]*?) (?:\s*\))',
+                lib,
+                flags=re.IGNORECASE | re.VERBOSE,
+            )[0]
+            nickname = re.findall(
+                r'(?:\(\s*name\s*) ("[^"]*?"|[^)]*?) (?:\s*\))',
+                lib,
+                flags=re.IGNORECASE | re.VERBOSE,
+            )[0]
+
+            # Remove any quotes around the URI or nickname.
+            uri = rmv_quotes(uri)
+            nickname = rmv_quotes(nickname)
+
+            # Expand variables and ~ in the URI.
+            uri = os.path.expandvars(os.path.expanduser(uri))
+
+            # Get a list of all the footprint module files in the top-level of the library URI.
+            filenames = [
+                fn
+                for fn in os.listdir(uri)
+                if os.path.isfile(fn) and fn.lower().endswith(".kicad_mod")
+            ]
+
+            # Create an entry in the cache for this nickname. (This will overwrite
+            # any previous nickname entry, so make sure to scan fp-lib-tables in order of
+            # increasing priority.) Each entry contains the path to the directory containing
+            # the footprint module and a dictionary of the modules keyed by the module name
+            # with an associated value containing the module file contents (which starts off
+            # as None).
+            self[nickname] = {
+                "path": uri,
+                "modules": {os.path.splitext(fn)[0]: None for fn in filenames},
+            }
+
 
 # Cache for storing footprints read from .kicad_mod files.
 footprint_cache = FootprintCache()
@@ -191,8 +262,6 @@ footprint_cache = FootprintCache()
 
 def search_footprints_iter(terms, tool=None):
     """Return a list of (lib, footprint) sequences that match a regex term."""
-
-    global footprint_cache
 
     import skidl
 
@@ -206,36 +275,7 @@ def search_footprints_iter(terms, tool=None):
     if not footprint_cache.valid:
         footprint_cache.clear()
         for path in skidl.footprint_search_paths[tool]:
-            for dir, subdirs, file_names in os.walk(path):
-
-                # Don't visit hidden directories like .git.
-                if os.path.basename(dir).startswith("."):
-                    del subdirs[:]  # Don't visit any subdirs either.
-                    continue
-
-                # Skip directories without .pretty extension.
-                if not dir.lower().endswith(".pretty"):
-                    continue
-
-                # Get name of library by stripping .pretty extension.
-                lib_name = os.path.basename(dir)
-
-                # Skip libraries having the same name that were already
-                # handled in previous search path directories.
-                if lib_name in footprint_cache:
-                    continue
-
-                # Create a dict containing the path to this library
-                # and another dict for storing the contents of each
-                # footprint file in the library.
-                footprint_cache[lib_name] = {"path": dir, "modules": {}}
-
-                # Create dict entries for the modules in the footprint lib directory.
-                modules = footprint_cache[lib_name]["modules"]
-                for file_name in file_names:
-                    if file_name.lower().endswith(".kicad_mod"):
-                        module_name = os.path.splitext(file_name)[0]
-                        modules[module_name] = None  # Don't read file, yet.
+            footprint_cache.load(os.path.join(path, "fp-lib-table"))
 
     # Get the number of footprint libraries to be searched..
     num_fp_libs = len(footprint_cache)

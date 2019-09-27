@@ -7,10 +7,10 @@ from .setup_teardown import *
 
 def test_index_slicing_1():
     mcu = Part("GameteSnapEDA", "STM32F767ZGT6")
-    assert len(mcu["\(FMC_D[0:15]\)"]) == 16
-    assert len(mcu["\(FMC_D[15:0]\)"]) == 16
-    assert len(mcu["FMC_D[0:15]\)"]) == 16
-    assert len(mcu["FMC_D[15:0]\)"]) == 16
+    assert len(mcu[r"\(FMC_D[0:15]\)"]) == 16
+    assert len(mcu[r"\(FMC_D[15:0]\)"]) == 16
+    assert len(mcu[r"FMC_D[0:15]\)"]) == 16
+    assert len(mcu[r"FMC_D[15:0]\)"]) == 16
     assert len(mcu["FMC_D[0:15]"]) == 16
     assert len(mcu["FMC_D[15:0]"]) == 16
 
