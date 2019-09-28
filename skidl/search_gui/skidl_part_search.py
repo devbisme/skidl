@@ -245,13 +245,22 @@ class PartSearchPanel(wx.SplitterWindow):
         tip = wx.ToolTip("Copy the selected part to the clipboard.")
         copy_btn.SetToolTip(tip)
 
+        # Checkbox for enabling creation of a TEMPLATE-type part.
+        self.template_ckbx = wx.CheckBox(
+            search_panel,
+            # id=TEMPLATE_CKBX_ID,
+            label="Tmplt",
+        )
+        tip = wx.ToolTip("Check to create a part TEMPLATE instead of a part INSTANCE.")
+        self.template_ckbx.SetToolTip(tip)
+
         # Grid for arranging text box, grid and buttons.
         fgs = wx.FlexGridSizer(rows=2, cols=2, vgap=SPACING, hgap=SPACING)
         fgs.AddMany(
             [
                 search_btn,
                 (self.search_text, 1, wx.EXPAND),
-                copy_btn,
+                stack_it(copy_btn, self.template_ckbx),  # Copy & template buttons stacked together.
                 (self.found_parts, 1, wx.EXPAND),
             ]
         )
@@ -438,7 +447,11 @@ class PartSearchPanel(wx.SplitterWindow):
         # Create a SKiDL part instantiation without a footprint.
         lib = self.found_parts.GetCellValue(row, 0)
         part = self.found_parts.GetCellValue(row, 1)
-        self.part_inst = "Part(lib='{lib}', name='{part}')".format(lib=lib, part=part)
+        if self.template_ckbx.IsChecked():
+            s = "Part(lib='{lib}', name='{part}', dest=TEMPLATE)"
+        else:
+            s = "Part(lib='{lib}', name='{part}')"
+        self.part_inst = s.format(**locals())
 
         # Make a data object to hold the SKiDL part instantiation.
         dataObj = wx.TextDataObject()

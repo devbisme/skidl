@@ -67,6 +67,23 @@ def box_it(window, title_text):
     return panel
 
 
+def stack_it(*windows):
+    """Stack windows vertically."""
+
+    stack = wx.Panel(windows[0].GetParent())
+    for window in windows:
+        window.Reparent(stack)
+
+    sizer = wx.BoxSizer(wx.VERTICAL)
+    for window in windows[:-1]:
+        sizer.Add(window, proportion=1, flag=wx.BOTTOM | wx.EXPAND, border=SPACING)
+    sizer.Add(windows[-1], proportion=1, flag=wx.ALL | wx.EXPAND, border=0)
+
+    stack.SetSizer(sizer)
+
+    return stack
+
+
 def add_title(window, title_text, location):
     """Add title to top/bottom of a window."""
 
