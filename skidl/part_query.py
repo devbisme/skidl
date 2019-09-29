@@ -108,22 +108,20 @@ def search_parts_iter(terms, tool=None):
             os.path.join(lib_dir, lib_file), tool=tool
         )  # Open the library file.
 
-        # Search the current library for parts with the given terms in
-        # each of the these categories.
-        for category in ["name", "aliases", "description", "keywords"]:
-            for part in mk_list(
-                # Get any matching parts from the library file.
-                lib.get_parts(use_backup_lib=False, **{category: terms})
-            ):
-                # Parse the part to instantiate the complete object.
-                part.parse(get_name_only=True)
+        # Search the current library for parts with the given terms.
+        for part in mk_list(
+            # Get any matching parts from the library file.
+            lib.get_parts(use_backup_lib=False, search_text=terms)
+        ):
+            # Parse the part to instantiate the complete object.
+            part.parse(get_name_only=True)
 
-                # Yield the part and its containing library.
-                yield "PART", lib_file, part, part.name
+            # Yield the part and its containing library.
+            yield "PART", lib_file, part, part.name
 
-                # Also return aliases.
-                for alias in list(part.aliases):
-                    yield "PART", lib_file, part, alias
+            # Also return aliases.
+            for alias in list(part.aliases):
+                yield "PART", lib_file, part, alias
 
 
 def search_parts(terms, tool=None):
@@ -241,7 +239,8 @@ class FootprintCache(dict):
             filenames = [
                 fn
                 for fn in os.listdir(uri)
-                if os.path.isfile(fn) and fn.lower().endswith(".kicad_mod")
+                if os.path.isfile(os.path.join(uri, fn))
+                and fn.lower().endswith(".kicad_mod")
             ]
 
             # Create an entry in the cache for this nickname. (This will overwrite

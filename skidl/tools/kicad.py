@@ -87,10 +87,16 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
             # Initialize the part definition with the first line.
             # This will also signal that succeeding lines should be added.
             part_defn = [line]
+            part_name = line.split()[1]  # Get the part name.
+            part_aliases = []
 
         # If gathering the part definition has begun, then continue adding lines.
         elif part_defn:
             part_defn.append(line)
+
+            # Get aliases to add to search text.
+            if line.startswith("ALIAS"):
+                part_aliases = line.split()[1:]
 
             # If the current line ends this part definition, then create
             # the Part object and add it to the part list. Be sure to
@@ -104,6 +110,9 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
                         part_defn=part_defn,
                         tool=KICAD,
                         dest=LIBRARY,
+                        filename=filename,
+                        name=part_name,
+                        aliases=part_aliases,
                         keywords="",
                         datasheet="",
                         description="",
@@ -114,44 +123,50 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
                 part_defn = []
 
     # Now add information from any associated DCM file.
-    filename = os.path.splitext(filename)[0]  # Strip any extension.
-    f, _ = find_and_open_file(filename, lib_search_paths_, ".dcm", allow_failure=True)
-    if not f:
-        return
+    base_fn = os.path.splitext(filename)[0]  # Strip any extension.
+    f, _ = find_and_open_file(base_fn, lib_search_paths_, ".dcm", allow_failure=True)
+    if f:
+        part_desc = {}
+        for line in f:
 
-    part_desc = {}
-    for line in f:
-
-        # Skip over comments.
-        if line.startswith("#"):
-            pass
-
-        # Look for the start of a part description.
-        elif line.startswith("$CMP"):
-            part_desc["name"] = line.split()[-1]
-
-        # If gathering the part definition has begun, then continue adding lines.
-        elif part_desc:
-            if line.startswith("D"):
-                part_desc["description"] = " ".join(line.split()[1:])
-            elif line.startswith("K"):
-                part_desc["keywords"] = " ".join(line.split()[1:])
-            elif line.startswith("F"):
-                part_desc["datasheet"] = " ".join(line.split()[1:])
-            elif line.startswith("$ENDCMP"):
-                try:
-                    part = self.get_part_by_name(
-                        re.escape(part_desc["name"]), silent=True, get_name_only=True
-                    )
-                except Exception as e:
-                    pass
-                else:
-                    part.description = part_desc.get("description", "")
-                    part.keywords = part_desc.get("keywords", "")
-                    part.datasheet = part_desc.get("datasheet", "")
-                part_desc = {}
-            else:
+            # Skip over comments.
+            if line.startswith("#"):
                 pass
+
+            # Look for the start of a part description.
+            elif line.startswith("$CMP"):
+                part_desc["name"] = line.split()[-1]
+
+            # If gathering the part definition has begun, then continue adding lines.
+            elif part_desc:
+                if line.startswith("D"):
+                    part_desc["description"] = " ".join(line.split()[1:])
+                elif line.startswith("K"):
+                    part_desc["keywords"] = " ".join(line.split()[1:])
+                elif line.startswith("F"):
+                    part_desc["datasheet"] = " ".join(line.split()[1:])
+                elif line.startswith("$ENDCMP"):
+                    try:
+                        part = self.get_part_by_name(
+                            re.escape(part_desc["name"]),
+                            silent=True,
+                            get_name_only=True,
+                        )
+                    except Exception as e:
+                        pass
+                    else:
+                        part.description = part_desc.get("description", "")
+                        part.keywords = part_desc.get("keywords", "")
+                        part.datasheet = part_desc.get("datasheet", "")
+                    part_desc = {}
+                else:
+                    pass
+
+    # Create text string to be used when searching for parts.
+    for part in self.parts:
+        search_text_pieces = [part.filename, part.name, part.description, part.keywords]
+        search_text_pieces.extend(part.aliases)
+        part.search_text = " ".join(search_text_pieces)
 
 
 def _parse_lib_part_(self, get_name_only=False):
@@ -401,7 +416,9 @@ def _parse_lib_part_(self, get_name_only=False):
         else:
             # If the footprint list is being built, then add this line to it.
             if building_fplist:
-                self.fplist.append(line[0].strip().rstrip())  # Remove begin & end whitespace.
+                self.fplist.append(
+                    line[0].strip().rstrip()
+                )  # Remove begin & end whitespace.
 
             # Else if the drawing primitives are being gathered, process the
             # current line to see what type of primitive is in play.
