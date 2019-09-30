@@ -166,7 +166,9 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
     for part in self.parts:
         search_text_pieces = [part.filename, part.name, part.description, part.keywords]
         search_text_pieces.extend(part.aliases)
-        part.search_text = " ".join(search_text_pieces)
+        # Join the various text pieces by newlines so the ^ and $ special characters
+        # can be used to detect the start and end of a piece of text during RE searches.
+        part.search_text = "\n".join(search_text_pieces)
 
 
 def _parse_lib_part_(self, get_name_only=False):

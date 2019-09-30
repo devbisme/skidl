@@ -613,7 +613,7 @@ def filter_list(lst, **criteria):
                     # value matches the current criterium, then break from the
                     # criteria loop and extract this item.
                     for val in attr_val:
-                        if compare_func(str(v), str(val), flags=re.IGNORECASE):
+                        if compare_func(str(v), str(val), flags=re.IGNORECASE | re.MULTILINE | re.DOTALL):
                             # One of the list of values matched, so break from this
                             # loop and do not execute the break in the
                             # loop's else clause.
@@ -628,7 +628,7 @@ def filter_list(lst, **criteria):
                     # If the attribute value from the item in the list is a scalar,
                     # see if the value matches the current criterium. If it doesn't,
                     # then break from the criteria loop and don't extract this item.
-                    if not compare_func(str(v), str(attr_val), flags=re.IGNORECASE):
+                    if not compare_func(str(v), str(attr_val), flags=re.IGNORECASE | re.MULTILINE | re.DOTALL):
                         break
 
             else:
