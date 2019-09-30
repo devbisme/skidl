@@ -427,10 +427,10 @@ class PartSearchPanel(wx.SplitterWindow):
         # First, search for any of the footprints in the fplist of the part.
         fp_srch_terms = "|".join(part.fplist)
         fp_srch_terms = re.sub("[*?]", ".\g<0>", fp_srch_terms)
-        # If no footprints in fplist, then use the number of pins in the part.
-        if not part.fplist:
-            num_pins = len(part.pins)
-            fp_srch_terms = '"#pads={} "'.format(num_pins)
+        # Use the number of pins in the part to refine the search.
+        num_pins = len(part.pins)
+        fp_srch_terms = " ".join((fp_srch_terms, '^#pads={}$'.format(num_pins)))
+
         # Send the string of search terms to the footprint search panel.
         evt = SendSearchTermsEvent(search_terms=fp_srch_terms)
         wx.PostEvent(wx.FindWindowById(FOOTPRINT_PANEL_ID), evt)

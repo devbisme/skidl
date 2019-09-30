@@ -323,17 +323,17 @@ def search_footprints_iter(terms, tool=None):
             num_pads = len(
                 set(re.findall("\(\s*pad\s+([^\s)]+)", " ".join(module_text)))
             )
-            num_pads_str = "#pads={} ".format(num_pads)
+            num_pads_str = "#pads={}".format(num_pads)
 
             # Create a string with the module name, library name, number of pads,
             # description and tags.
-            search_text = " ".join([num_pads_str, fp_lib, module_name])
+            search_text = "\n".join([num_pads_str, fp_lib, module_name])
             for line in module_text:
                 if "(descr " in line or "(tags " in line:
-                    search_text += " ".join([search_text, line])
+                    search_text = "\n".join([search_text, line])
 
             # Search the string for a match with the search terms.
-            if fullmatch(terms, search_text, flags=re.IGNORECASE):
+            if fullmatch(terms, search_text, flags=re.IGNORECASE | re.MULTILINE | re.DOTALL):
                 yield "MODULE", fp_lib, module_text, module_name
 
     # At the end, all modules have been scanned and the footprint cache is valid.
