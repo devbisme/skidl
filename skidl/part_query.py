@@ -57,7 +57,7 @@ def parse_search_terms(terms):
     non-white chars to prevent the initial portion of a quoted string from being
     gathered up as a non-white character sequence.
     """
-    return re.sub(r"((\".*?\")|(\S+))\s*", r"(?=.*(\1))", terms).replace('"', "") + ".*"
+    return re.sub(r"((\".*?\")|(\S+))\s*", r"(?=.*(\1))", terms.strip().rstrip()).replace('"', "") + ".*"
 
 
 def search_parts_iter(terms, tool=None):

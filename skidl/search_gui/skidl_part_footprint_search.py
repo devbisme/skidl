@@ -44,7 +44,7 @@ from skidl.search_gui.common import *
 from skidl.search_gui.skidl_footprint_search import FootprintSearchPanel
 from skidl.search_gui.skidl_part_search import PartSearchPanel
 
-APP_TITLE = "SKiDL Part/Footprint Search"
+APP_TITLE = "zyc: SKiDL Part/Footprint Search"
 APP_EXIT = 1
 SHOW_HELP = 3
 SHOW_ABOUT = 4
