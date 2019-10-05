@@ -7,7 +7,7 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="https://xesscorp.github.io/skidl/docs/_site/feed.xml" />
 <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/" />
-<updated>2019-10-05T11:09:57-04:00</updated>
+<updated>2019-10-05T11:43:11-04:00</updated>
 <id>https://xesscorp.github.io/skidl/docs/_site/</id>
 <author>
   <name>XESS Corp.</name>
@@ -121,7 +121,8 @@ And the problem of finding, choosing, and entering a footprint hasn’t been add
 
 &lt;p&gt;What was needed was a nice, light-weight tool combining both part &lt;em&gt;and&lt;/em&gt; footprint selection capabilities
 that delivered the result as text strings to enter into SKiDL code.
-So I built it: &lt;code class=&quot;highlighter-rouge&quot;&gt;zyc&lt;/code&gt;.&lt;/p&gt;
+So I built it: &lt;code class=&quot;highlighter-rouge&quot;&gt;zyc&lt;/code&gt;.
+(If you prefer a video tour of &lt;code class=&quot;highlighter-rouge&quot;&gt;zyc&lt;/code&gt;, then &lt;a href=&quot;https://youtu.be/YmRXruDYu3w&quot;&gt;here&lt;/a&gt; it is.)&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/the-worst-part-of-skidl/zyc.png&quot; width=&quot;600&quot; alt=&quot;zyc part &amp;amp; footprint assigner.&quot; /&gt;&lt;/p&gt;
 
