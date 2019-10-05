@@ -45,6 +45,569 @@ but, right now, the description on the homepage about how to use SKiDL is much b
 <div class="section" id="subpackages">
 <h4>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h4>
 <div class="toctree-wrapper compound">
+<span id="document-skidl.search_gui"></span><div class="section" id="skidl-search-gui-package">
+<h5>skidl.search_gui package<a class="headerlink" href="#skidl-search-gui-package" title="Permalink to this headline">¶</a></h5>
+<div class="section" id="submodules">
+<h6>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h6>
+</div>
+<div class="section" id="module-skidl.search_gui.common">
+<span id="skidl-search-gui-common-module"></span><h6>skidl.search_gui.common module<a class="headerlink" href="#module-skidl.search_gui.common" title="Permalink to this headline">¶</a></h6>
+<p>GUI components in common with multiple apps.</p>
+<dl class="function">
+<dt id="skidl.search_gui.common.box_it">
+<code class="descclassname">skidl.search_gui.common.</code><code class="descname">box_it</code><span class="sig-paren">(</span><em>window</em>, <em>title_text</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.box_it" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="skidl.search_gui.common.stack_it">
+<code class="descclassname">skidl.search_gui.common.</code><code class="descname">stack_it</code><span class="sig-paren">(</span><em>*windows</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.stack_it" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stack windows vertically.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.search_gui.common.add_title">
+<code class="descclassname">skidl.search_gui.common.</code><code class="descname">add_title</code><span class="sig-paren">(</span><em>window</em>, <em>title_text</em>, <em>location</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.add_title" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add title to top/bottom of a window.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.search_gui.common.add_border">
+<code class="descclassname">skidl.search_gui.common.</code><code class="descname">add_border</code><span class="sig-paren">(</span><em>window</em>, <em>location</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.add_border" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add border line to one side of a window.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.search_gui.common.Feedback">
+<code class="descclassname">skidl.search_gui.common.</code><code class="descname">Feedback</code><span class="sig-paren">(</span><em>msg</em>, <em>label</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.Feedback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show a dialog with a message and an OK button.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="skidl.search_gui.common.Description">
+<em class="property">class </em><code class="descclassname">skidl.search_gui.common.</code><code class="descname">Description</code><span class="sig-paren">(</span><em>parent</em>, <em>label</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.Description" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wx._core.Panel</span></code></p>
+<p>Class for showing a text description in a TextCtrl box.</p>
+<dl class="method">
+<dt id="skidl.search_gui.common.Description.SetDescription">
+<code class="descname">SetDescription</code><span class="sig-paren">(</span><em>description</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.Description.SetDescription" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the description shown in the text box.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="skidl.search_gui.common.HyperLink">
+<em class="property">class </em><code class="descclassname">skidl.search_gui.common.</code><code class="descname">HyperLink</code><span class="sig-paren">(</span><em>parent</em>, <em>label</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.HyperLink" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wx._core.Panel</span></code></p>
+<p>Class for showing a clickable hyperlink.</p>
+<dl class="method">
+<dt id="skidl.search_gui.common.HyperLink.SetURL">
+<code class="descname">SetURL</code><span class="sig-paren">(</span><em>url</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.HyperLink.SetURL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the URL for the clickable hyperlink.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="skidl.search_gui.common.TextEntryDialog">
+<em class="property">class </em><code class="descclassname">skidl.search_gui.common.</code><code class="descname">TextEntryDialog</code><span class="sig-paren">(</span><em>parent</em>, <em>title</em>, <em>caption</em>, <em>tip=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.TextEntryDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wx._core.Dialog</span></code></p>
+<p>Class for entering text in a dialog window.</p>
+<dl class="method">
+<dt id="skidl.search_gui.common.TextEntryDialog.OnEnter">
+<code class="descname">OnEnter</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.TextEntryDialog.OnEnter" title="Permalink to this definition">¶</a></dt>
+<dd><p>End modal if enter is hit in input text control.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.common.TextEntryDialog.SetValue">
+<code class="descname">SetValue</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.TextEntryDialog.SetValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the initial value shown in the text box.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.common.TextEntryDialog.GetValue">
+<code class="descname">GetValue</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.TextEntryDialog.GetValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the value entered in the text box.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="skidl.search_gui.common.MyGrid">
+<em class="property">class </em><code class="descclassname">skidl.search_gui.common.</code><code class="descname">MyGrid</code><span class="sig-paren">(</span><em>parent</em>, <em>headers</em>, <em>bck_colour</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.MyGrid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wx._grid.Grid</span></code></p>
+<p>Class for displaying tabular data about parts, pins, footprints.</p>
+<dl class="attribute">
+<dt id="skidl.search_gui.common.MyGrid.DEFAULT_NUM_ROWS">
+<code class="descname">DEFAULT_NUM_ROWS</code><em class="property"> = 10</em><a class="headerlink" href="#skidl.search_gui.common.MyGrid.DEFAULT_NUM_ROWS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.search_gui.common.MyGrid.SPACER">
+<code class="descname">SPACER</code><em class="property"> = '  '</em><a class="headerlink" href="#skidl.search_gui.common.MyGrid.SPACER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.search_gui.common.MyGrid.ASCENDING">
+<code class="descname">ASCENDING</code><em class="property"> = ' ▲'</em><a class="headerlink" href="#skidl.search_gui.common.MyGrid.ASCENDING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.search_gui.common.MyGrid.DESCENDING">
+<code class="descname">DESCENDING</code><em class="property"> = ' ▼'</em><a class="headerlink" href="#skidl.search_gui.common.MyGrid.DESCENDING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.common.MyGrid.Resize">
+<code class="descname">Resize</code><span class="sig-paren">(</span><em>numRows=0</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.MyGrid.Resize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear the table and resize the number of rows.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.common.MyGrid.ColourGridBackground">
+<code class="descname">ColourGridBackground</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.MyGrid.ColourGridBackground" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the background color of all the cells in the table.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.common.MyGrid.SetSortingIndicator">
+<code class="descname">SetSortingIndicator</code><span class="sig-paren">(</span><em>new_col</em>, <em>new_dir</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.MyGrid.SetSortingIndicator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the sorting indicator for a given table column.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.common.MyGrid.SetSortFunc">
+<code class="descname">SetSortFunc</code><span class="sig-paren">(</span><em>col</em>, <em>func</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.MyGrid.SetSortFunc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the sorting function for a particular table column.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.common.MyGrid.SortTable">
+<code class="descname">SortTable</code><span class="sig-paren">(</span><em>sort_col</em>, <em>sort_dir</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.MyGrid.SortTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sort the table rows based on the values in a particular column.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.common.MyGrid.GetDataRowIndex">
+<code class="descname">GetDataRowIndex</code><span class="sig-paren">(</span><em>tbl_row</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.MyGrid.GetDataRowIndex" title="Permalink to this definition">¶</a></dt>
+<dd><p>For a given row in the table of cells, return the index of the row
+in the original set of data used to create the table.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.common.MyGrid.OnSort">
+<code class="descname">OnSort</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.MyGrid.OnSort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sort the table based on which column header is clicked.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.common.MyGrid.OnCopy">
+<code class="descname">OnCopy</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.MyGrid.OnCopy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-skidl.search_gui.footprint_painter">
+<span id="skidl-search-gui-footprint-painter-module"></span><h6>skidl.search_gui.footprint_painter module<a class="headerlink" href="#module-skidl.search_gui.footprint_painter" title="Permalink to this headline">¶</a></h6>
+<p>Class for painting a PCB footprint.</p>
+<dl class="class">
+<dt id="skidl.search_gui.footprint_painter.BBox">
+<em class="property">class </em><code class="descclassname">skidl.search_gui.footprint_painter.</code><code class="descname">BBox</code><span class="sig-paren">(</span><em>x0</em>, <em>y0</em>, <em>x1</em>, <em>y1</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.footprint_painter.BBox" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<dl class="attribute">
+<dt id="skidl.search_gui.footprint_painter.BBox.x0">
+<code class="descname">x0</code><a class="headerlink" href="#skidl.search_gui.footprint_painter.BBox.x0" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.search_gui.footprint_painter.BBox.x1">
+<code class="descname">x1</code><a class="headerlink" href="#skidl.search_gui.footprint_painter.BBox.x1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.search_gui.footprint_painter.BBox.y0">
+<code class="descname">y0</code><a class="headerlink" href="#skidl.search_gui.footprint_painter.BBox.y0" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.search_gui.footprint_painter.BBox.y1">
+<code class="descname">y1</code><a class="headerlink" href="#skidl.search_gui.footprint_painter.BBox.y1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="skidl.search_gui.footprint_painter.Layer">
+<em class="property">class </em><code class="descclassname">skidl.search_gui.footprint_painter.</code><code class="descname">Layer</code><span class="sig-paren">(</span><em>colour=wx.Colour(63</em>, <em>63</em>, <em>63</em>, <em>255)</em>, <em>style=100</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.footprint_painter.Layer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Stores graphic primitives for a layer and draws them.</p>
+<dl class="method">
+<dt id="skidl.search_gui.footprint_painter.Layer.set_fill">
+<code class="descname">set_fill</code><span class="sig-paren">(</span><em>colour</em>, <em>style=100</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.footprint_painter.Layer.set_fill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set layer color and fill style.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.footprint_painter.Layer.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.footprint_painter.Layer.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear all graphic primitives.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.footprint_painter.Layer.add_pad_polygon">
+<code class="descname">add_pad_polygon</code><span class="sig-paren">(</span><em>polygon</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.footprint_painter.Layer.add_pad_polygon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add list of polygon points to the layer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.footprint_painter.Layer.add_pad_circle">
+<code class="descname">add_pad_circle</code><span class="sig-paren">(</span><em>circle</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.footprint_painter.Layer.add_pad_circle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add center &amp; radius of a pad disk to the layer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.footprint_painter.Layer.add_line">
+<code class="descname">add_line</code><span class="sig-paren">(</span><em>line</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.footprint_painter.Layer.add_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add start &amp; end points for a line segment to the layer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.footprint_painter.Layer.add_circle">
+<code class="descname">add_circle</code><span class="sig-paren">(</span><em>circle</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.footprint_painter.Layer.add_circle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add center &amp; radius of a circle to the layer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.footprint_painter.Layer.paint">
+<code class="descname">paint</code><span class="sig-paren">(</span><em>dc</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.footprint_painter.Layer.paint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Paint the graphic primitives into the device context.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="skidl.search_gui.footprint_painter.FootprintPainter">
+<em class="property">class </em><code class="descclassname">skidl.search_gui.footprint_painter.</code><code class="descname">FootprintPainter</code><span class="sig-paren">(</span><em>footprint_</em>, <em>dc</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.footprint_painter.FootprintPainter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Footprint painted within a device context.</p>
+<dl class="staticmethod">
+<dt id="skidl.search_gui.footprint_painter.FootprintPainter.rect_pts">
+<em class="property">static </em><code class="descname">rect_pts</code><span class="sig-paren">(</span><em>cx</em>, <em>cy</em>, <em>w</em>, <em>h</em>, <em>rot</em>, <em>tm</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.footprint_painter.FootprintPainter.rect_pts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the scaled/translated/rotated endpoints for a rectangle.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="skidl.search_gui.footprint_painter.FootprintPainter.trapezoid_pts">
+<em class="property">static </em><code class="descname">trapezoid_pts</code><span class="sig-paren">(</span><em>cx</em>, <em>cy</em>, <em>w</em>, <em>h</em>, <em>dw</em>, <em>dh</em>, <em>rot</em>, <em>tm</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.footprint_painter.FootprintPainter.trapezoid_pts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the scaled/translated/rotated endpoints for a trapezoid.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="skidl.search_gui.footprint_painter.FootprintPainter.circle_pts">
+<em class="property">static </em><code class="descname">circle_pts</code><span class="sig-paren">(</span><em>cx</em>, <em>cy</em>, <em>r</em>, <em>tm</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.footprint_painter.FootprintPainter.circle_pts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the scaled/translated/rotated center &amp; radius for a circle.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="skidl.search_gui.footprint_painter.FootprintPainter.line_pts">
+<em class="property">static </em><code class="descname">line_pts</code><span class="sig-paren">(</span><em>w</em>, <em>x0</em>, <em>y0</em>, <em>x1</em>, <em>y1</em>, <em>tm</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.footprint_painter.FootprintPainter.line_pts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the scaled/translated/rotated endpoints for a line segment.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="skidl.search_gui.footprint_painter.FootprintPainter.roundrect_pts">
+<em class="property">static </em><code class="descname">roundrect_pts</code><span class="sig-paren">(</span><em>cx</em>, <em>cy</em>, <em>w</em>, <em>h</em>, <em>r</em>, <em>rot</em>, <em>tm</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.footprint_painter.FootprintPainter.roundrect_pts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the scaled/translated/rotated endpoints for a rounded rectangle.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="skidl.search_gui.footprint_painter.FootprintPainter.mk_bmp">
+<em class="property">static </em><code class="descname">mk_bmp</code><span class="sig-paren">(</span><em>w</em>, <em>h</em>, <em>colour</em>, <em>pctg</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.footprint_painter.FootprintPainter.mk_bmp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a bitmap pattern.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.footprint_painter.FootprintPainter.paint">
+<code class="descname">paint</code><span class="sig-paren">(</span><em>dc</em>, <em>paint_actual_size=False</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.footprint_painter.FootprintPainter.paint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Paint the footprint into the device context.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-skidl.search_gui.skidl_footprint_search">
+<span id="skidl-search-gui-skidl-footprint-search-module"></span><h6>skidl.search_gui.skidl_footprint_search module<a class="headerlink" href="#module-skidl.search_gui.skidl_footprint_search" title="Permalink to this headline">¶</a></h6>
+<p>GUI for finding/displaying footprints.</p>
+<dl class="class">
+<dt id="skidl.search_gui.skidl_footprint_search.AppFrame">
+<em class="property">class </em><code class="descclassname">skidl.search_gui.skidl_footprint_search.</code><code class="descname">AppFrame</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_footprint_search.AppFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wx._core.Frame</span></code></p>
+<dl class="method">
+<dt id="skidl.search_gui.skidl_footprint_search.AppFrame.InitMenus">
+<code class="descname">InitMenus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_footprint_search.AppFrame.InitMenus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_footprint_search.AppFrame.OnSearchPath">
+<code class="descname">OnSearchPath</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_footprint_search.AppFrame.OnSearchPath" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_footprint_search.AppFrame.ShowHelp">
+<code class="descname">ShowHelp</code><span class="sig-paren">(</span><em>e</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_footprint_search.AppFrame.ShowHelp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_footprint_search.AppFrame.ShowAbout">
+<code class="descname">ShowAbout</code><span class="sig-paren">(</span><em>e</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_footprint_search.AppFrame.ShowAbout" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_footprint_search.AppFrame.OnQuit">
+<code class="descname">OnQuit</code><span class="sig-paren">(</span><em>e</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_footprint_search.AppFrame.OnQuit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="skidl.search_gui.skidl_footprint_search.FootprintPaintingPanel">
+<em class="property">class </em><code class="descclassname">skidl.search_gui.skidl_footprint_search.</code><code class="descname">FootprintPaintingPanel</code><span class="sig-paren">(</span><em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_footprint_search.FootprintPaintingPanel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wx._core.Panel</span></code></p>
+<dl class="attribute">
+<dt id="skidl.search_gui.skidl_footprint_search.FootprintPaintingPanel.footprint">
+<code class="descname">footprint</code><a class="headerlink" href="#skidl.search_gui.skidl_footprint_search.FootprintPaintingPanel.footprint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_footprint_search.FootprintPaintingPanel.OnPaint">
+<code class="descname">OnPaint</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_footprint_search.FootprintPaintingPanel.OnPaint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_footprint_search.FootprintPaintingPanel.OnSize">
+<code class="descname">OnSize</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_footprint_search.FootprintPaintingPanel.OnSize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="skidl.search_gui.skidl_footprint_search.FootprintSearchPanel">
+<em class="property">class </em><code class="descclassname">skidl.search_gui.skidl_footprint_search.</code><code class="descname">FootprintSearchPanel</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_footprint_search.FootprintSearchPanel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wx._core.SplitterWindow</span></code></p>
+<dl class="method">
+<dt id="skidl.search_gui.skidl_footprint_search.FootprintSearchPanel.OnIdle">
+<code class="descname">OnIdle</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_footprint_search.FootprintSearchPanel.OnIdle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_footprint_search.FootprintSearchPanel.OnSearchTerms">
+<code class="descname">OnSearchTerms</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_footprint_search.FootprintSearchPanel.OnSearchTerms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_footprint_search.FootprintSearchPanel.InitSearchPanel">
+<code class="descname">InitSearchPanel</code><span class="sig-paren">(</span><em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_footprint_search.FootprintSearchPanel.InitSearchPanel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_footprint_search.FootprintSearchPanel.InitFootprintPanel">
+<code class="descname">InitFootprintPanel</code><span class="sig-paren">(</span><em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_footprint_search.FootprintSearchPanel.InitFootprintPanel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_footprint_search.FootprintSearchPanel.OnSearch">
+<code class="descname">OnSearch</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_footprint_search.FootprintSearchPanel.OnSearch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_footprint_search.FootprintSearchPanel.OnSelectCell">
+<code class="descname">OnSelectCell</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_footprint_search.FootprintSearchPanel.OnSelectCell" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_footprint_search.FootprintSearchPanel.OnCopy">
+<code class="descname">OnCopy</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_footprint_search.FootprintSearchPanel.OnCopy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.search_gui.skidl_footprint_search.main">
+<code class="descclassname">skidl.search_gui.skidl_footprint_search.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_footprint_search.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-skidl.search_gui.skidl_part_footprint_search">
+<span id="skidl-search-gui-skidl-part-footprint-search-module"></span><h6>skidl.search_gui.skidl_part_footprint_search module<a class="headerlink" href="#module-skidl.search_gui.skidl_part_footprint_search" title="Permalink to this headline">¶</a></h6>
+<p>GUI for finding/displaying parts and footprints.</p>
+<dl class="class">
+<dt id="skidl.search_gui.skidl_part_footprint_search.AppFrame">
+<em class="property">class </em><code class="descclassname">skidl.search_gui.skidl_part_footprint_search.</code><code class="descname">AppFrame</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_footprint_search.AppFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wx._core.Frame</span></code></p>
+<dl class="method">
+<dt id="skidl.search_gui.skidl_part_footprint_search.AppFrame.InitMenus">
+<code class="descname">InitMenus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_footprint_search.AppFrame.InitMenus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_part_footprint_search.AppFrame.OnPartSearchPath">
+<code class="descname">OnPartSearchPath</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_footprint_search.AppFrame.OnPartSearchPath" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_part_footprint_search.AppFrame.OnFootprintSearchPath">
+<code class="descname">OnFootprintSearchPath</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_footprint_search.AppFrame.OnFootprintSearchPath" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_part_footprint_search.AppFrame.OnRefresh">
+<code class="descname">OnRefresh</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_footprint_search.AppFrame.OnRefresh" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_part_footprint_search.AppFrame.ShowHelp">
+<code class="descname">ShowHelp</code><span class="sig-paren">(</span><em>e</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_footprint_search.AppFrame.ShowHelp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_part_footprint_search.AppFrame.ShowAbout">
+<code class="descname">ShowAbout</code><span class="sig-paren">(</span><em>e</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_footprint_search.AppFrame.ShowAbout" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_part_footprint_search.AppFrame.OnQuit">
+<code class="descname">OnQuit</code><span class="sig-paren">(</span><em>e</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_footprint_search.AppFrame.OnQuit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="skidl.search_gui.skidl_part_footprint_search.PartFootprintSearchPanel">
+<em class="property">class </em><code class="descclassname">skidl.search_gui.skidl_part_footprint_search.</code><code class="descname">PartFootprintSearchPanel</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_footprint_search.PartFootprintSearchPanel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wx._core.SplitterWindow</span></code></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.search_gui.skidl_part_footprint_search.main">
+<code class="descclassname">skidl.search_gui.skidl_part_footprint_search.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_footprint_search.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-skidl.search_gui.skidl_part_search">
+<span id="skidl-search-gui-skidl-part-search-module"></span><h6>skidl.search_gui.skidl_part_search module<a class="headerlink" href="#module-skidl.search_gui.skidl_part_search" title="Permalink to this headline">¶</a></h6>
+<p>GUI for finding/displaying parts.</p>
+<dl class="class">
+<dt id="skidl.search_gui.skidl_part_search.LibPart">
+<em class="property">class </em><code class="descclassname">skidl.search_gui.skidl_part_search.</code><code class="descname">LibPart</code><span class="sig-paren">(</span><em>lib_name</em>, <em>part</em>, <em>part_name</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_search.LibPart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<dl class="attribute">
+<dt id="skidl.search_gui.skidl_part_search.LibPart.lib_name">
+<code class="descname">lib_name</code><a class="headerlink" href="#skidl.search_gui.skidl_part_search.LibPart.lib_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.search_gui.skidl_part_search.LibPart.part">
+<code class="descname">part</code><a class="headerlink" href="#skidl.search_gui.skidl_part_search.LibPart.part" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.search_gui.skidl_part_search.LibPart.part_name">
+<code class="descname">part_name</code><a class="headerlink" href="#skidl.search_gui.skidl_part_search.LibPart.part_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="skidl.search_gui.skidl_part_search.AppFrame">
+<em class="property">class </em><code class="descclassname">skidl.search_gui.skidl_part_search.</code><code class="descname">AppFrame</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_search.AppFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wx._core.Frame</span></code></p>
+<dl class="method">
+<dt id="skidl.search_gui.skidl_part_search.AppFrame.InitMenus">
+<code class="descname">InitMenus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_search.AppFrame.InitMenus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_part_search.AppFrame.OnSearchPath">
+<code class="descname">OnSearchPath</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_search.AppFrame.OnSearchPath" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_part_search.AppFrame.ShowHelp">
+<code class="descname">ShowHelp</code><span class="sig-paren">(</span><em>e</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_search.AppFrame.ShowHelp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_part_search.AppFrame.ShowAbout">
+<code class="descname">ShowAbout</code><span class="sig-paren">(</span><em>e</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_search.AppFrame.ShowAbout" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_part_search.AppFrame.OnQuit">
+<code class="descname">OnQuit</code><span class="sig-paren">(</span><em>e</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_search.AppFrame.OnQuit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="skidl.search_gui.skidl_part_search.PartSearchPanel">
+<em class="property">class </em><code class="descclassname">skidl.search_gui.skidl_part_search.</code><code class="descname">PartSearchPanel</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_search.PartSearchPanel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wx._core.SplitterWindow</span></code></p>
+<dl class="method">
+<dt id="skidl.search_gui.skidl_part_search.PartSearchPanel.OnIdle">
+<code class="descname">OnIdle</code><span class="sig-paren">(</span><em>EnvironmentError</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_search.PartSearchPanel.OnIdle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_part_search.PartSearchPanel.InitSearchPanel">
+<code class="descname">InitSearchPanel</code><span class="sig-paren">(</span><em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_search.PartSearchPanel.InitSearchPanel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_part_search.PartSearchPanel.InitPartPanel">
+<code class="descname">InitPartPanel</code><span class="sig-paren">(</span><em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_search.PartSearchPanel.InitPartPanel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_part_search.PartSearchPanel.OnSearch">
+<code class="descname">OnSearch</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_search.PartSearchPanel.OnSearch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_part_search.PartSearchPanel.OnSelectCell">
+<code class="descname">OnSelectCell</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_search.PartSearchPanel.OnSelectCell" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_part_search.PartSearchPanel.OnCopy">
+<code class="descname">OnCopy</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_search.PartSearchPanel.OnCopy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_part_search.PartSearchPanel.OnFootprint">
+<code class="descname">OnFootprint</code><span class="sig-paren">(</span><em>evt</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_search.PartSearchPanel.OnFootprint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.search_gui.skidl_part_search.main">
+<code class="descclassname">skidl.search_gui.skidl_part_search.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_search.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-skidl.search_gui">
+<span id="module-contents"></span><h6>Module contents<a class="headerlink" href="#module-skidl.search_gui" title="Permalink to this headline">¶</a></h6>
+</div>
+</div>
 <span id="document-skidl.tools"></span><div class="section" id="skidl-tools-package">
 <h5>skidl.tools package<a class="headerlink" href="#skidl-tools-package" title="Permalink to this headline">¶</a></h5>
 <div class="section" id="submodules">
@@ -541,6 +1104,24 @@ is found, the name for this interface is adjusted to make it unique.</p>
 <span id="skidl-net-module"></span><h4>skidl.Net module<a class="headerlink" href="#module-skidl.Net" title="Permalink to this headline">¶</a></h4>
 <p>Handles nets.</p>
 <dl class="class">
+<dt id="skidl.Net.Traversal">
+<em class="property">class </em><code class="descclassname">skidl.Net.</code><code class="descname">Traversal</code><span class="sig-paren">(</span><em>nets</em>, <em>pins</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Traversal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<dl class="attribute">
+<dt id="skidl.Net.Traversal.nets">
+<code class="descname">nets</code><a class="headerlink" href="#skidl.Net.Traversal.nets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.Net.Traversal.pins">
+<code class="descname">pins</code><a class="headerlink" href="#skidl.Net.Traversal.pins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="skidl.Net.Net">
 <em class="property">class </em><code class="descclassname">skidl.Net.</code><code class="descname">Net</code><span class="sig-paren">(</span><em>name=None</em>, <em>circuit=None</em>, <em>*pins_nets_buses</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Net" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#skidl.baseobj.SkidlBaseObject" title="skidl.baseobj.SkidlBaseObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">skidl.baseobj.SkidlBaseObject</span></code></a></p>
@@ -934,11 +1515,11 @@ reference, name, alias, or their description.</p>
 
 <dl class="method">
 <dt id="skidl.Part.Part.parse">
-<code class="descname">parse</code><span class="sig-paren">(</span><em>just_get_name=False</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.parse" title="Permalink to this definition">¶</a></dt>
+<code class="descname">parse</code><span class="sig-paren">(</span><em>get_name_only=False</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.parse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a part from its stored part definition.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>just_get_name</strong> – When true, just get the name and aliases for the
+<dd class="field-odd"><p><strong>get_name_only</strong> – When true, just get the name and aliases for the
 part. Leave the rest unparsed.</p>
 </dd>
 </dl>
@@ -1168,11 +1749,11 @@ it unique.</p>
 <p>A class for storing a SKiDL definition of a schematic part. It’s identical
 to its Part superclass except:</p>
 <blockquote>
-<div><p><a href="#id1"><span class="problematic" id="id2">*</span></a>) The tool defaults to SKIDL.
-<a href="#id3"><span class="problematic" id="id4">*</span></a>) The destination defaults to TEMPLATE so that it’s easier to start</p>
-<blockquote>
-<div><p>a part and then add pins to it without it being added to the netlist.</p>
-</div></blockquote>
+<div><ul class="simple">
+<li><p>The tool defaults to SKIDL.</p></li>
+<li><p>The destination defaults to TEMPLATE so that it’s easier to start
+a part and then add pins to it without it being added to the netlist.</p></li>
+</ul>
 </div></blockquote>
 <dl class="attribute">
 <dt id="skidl.Part.SkidlPart.SKIDL">
@@ -1337,11 +1918,11 @@ pin must have in order to be selected.</p>
 
 <dl class="classmethod">
 <dt id="skidl.Pin.Pin.add_type">
-<em class="property">classmethod </em><code class="descname">add_type</code><span class="sig-paren">(</span><em>pin_type</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.Pin.add_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add a new pin type identifier to the list of pin types.</p>
+<em class="property">classmethod </em><code class="descname">add_type</code><span class="sig-paren">(</span><em>*pin_types</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.Pin.add_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add new pin type identifiers to the list of pin types.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>pin_type</strong> – A string identifying the pin type.</p>
+<dd class="field-odd"><p><strong>pin_types</strong> – Strings identifying zero or more pin types.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1489,6 +2070,11 @@ lists/tuples of them.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="skidl.Pin.Pin.get_pin_info">
+<code class="descname">get_pin_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.Pin.get_pin_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="skidl.Pin.Pin.export">
 <code class="descname">export</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.Pin.export" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a string to recreate a Pin object.</p>
@@ -1511,6 +2097,71 @@ lists/tuples of them.</p>
 <code class="descname">drive</code><a class="headerlink" href="#skidl.Pin.Pin.drive" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get, set and delete the drive strength of this pin.</p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.Pin.Pin.BIDIR">
+<code class="descname">BIDIR</code><em class="property"> = 3</em><a class="headerlink" href="#skidl.Pin.Pin.BIDIR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.Pin.Pin.INPUT">
+<code class="descname">INPUT</code><em class="property"> = 1</em><a class="headerlink" href="#skidl.Pin.Pin.INPUT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.Pin.Pin.NOCONNECT">
+<code class="descname">NOCONNECT</code><em class="property"> = 13</em><a class="headerlink" href="#skidl.Pin.Pin.NOCONNECT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.Pin.Pin.OPENCOLL">
+<code class="descname">OPENCOLL</code><em class="property"> = 9</em><a class="headerlink" href="#skidl.Pin.Pin.OPENCOLL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.Pin.Pin.OPENEMIT">
+<code class="descname">OPENEMIT</code><em class="property"> = 10</em><a class="headerlink" href="#skidl.Pin.Pin.OPENEMIT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.Pin.Pin.OUTPUT">
+<code class="descname">OUTPUT</code><em class="property"> = 2</em><a class="headerlink" href="#skidl.Pin.Pin.OUTPUT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.Pin.Pin.PASSIVE">
+<code class="descname">PASSIVE</code><em class="property"> = 5</em><a class="headerlink" href="#skidl.Pin.Pin.PASSIVE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.Pin.Pin.PULLDN">
+<code class="descname">PULLDN</code><em class="property"> = 12</em><a class="headerlink" href="#skidl.Pin.Pin.PULLDN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.Pin.Pin.PULLUP">
+<code class="descname">PULLUP</code><em class="property"> = 11</em><a class="headerlink" href="#skidl.Pin.Pin.PULLUP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.Pin.Pin.PWRIN">
+<code class="descname">PWRIN</code><em class="property"> = 7</em><a class="headerlink" href="#skidl.Pin.Pin.PWRIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.Pin.Pin.PWROUT">
+<code class="descname">PWROUT</code><em class="property"> = 8</em><a class="headerlink" href="#skidl.Pin.Pin.PWROUT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.Pin.Pin.TRISTATE">
+<code class="descname">TRISTATE</code><em class="property"> = 4</em><a class="headerlink" href="#skidl.Pin.Pin.TRISTATE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.Pin.Pin.UNSPEC">
+<code class="descname">UNSPEC</code><em class="property"> = 6</em><a class="headerlink" href="#skidl.Pin.Pin.UNSPEC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -1584,7 +2235,7 @@ of the attribute.</p>
 
 <dl class="method">
 <dt id="skidl.SchLib.SchLib.get_part_by_name">
-<code class="descname">get_part_by_name</code><span class="sig-paren">(</span><em>name</em>, <em>allow_multiples=False</em>, <em>silent=False</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.SchLib.SchLib.get_part_by_name" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_part_by_name</code><span class="sig-paren">(</span><em>name</em>, <em>allow_multiples=False</em>, <em>silent=False</em>, <em>get_name_only=False</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.SchLib.SchLib.get_part_by_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a Part with the given name or alias from the part list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1675,6 +2326,28 @@ only be SKIDL.</p></li>
 </dd></dl>
 
 </div>
+<div class="section" id="module-skidl.namedlist">
+<span id="skidl-namedlist-module"></span><h4>skidl.namedlist module<a class="headerlink" href="#module-skidl.namedlist" title="Permalink to this headline">¶</a></h4>
+<p>List of named objects for Interface, Part, Net, Bus, Pin objects.
+These lists are actually dictionaries so an object with a given name
+can be accessed very quickly without searching through all the objects.</p>
+<dl class="class">
+<dt id="skidl.namedlist.NamedList">
+<em class="property">class </em><code class="descclassname">skidl.namedlist.</code><code class="descname">NamedList</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.namedlist.NamedList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
+<dl class="method">
+<dt id="skidl.namedlist.NamedList.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.namedlist.NamedList.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.namedlist.NamedList.sub">
+<code class="descname">sub</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.namedlist.NamedList.sub" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-skidl.netclass">
 <span id="skidl-netclass-module"></span><h4>skidl.netclass module<a class="headerlink" href="#module-skidl.netclass" title="Permalink to this headline">¶</a></h4>
 <p>Class for PCBNEW net classes.</p>
@@ -1705,11 +2378,103 @@ only be SKIDL.</p></li>
 </div>
 <div class="section" id="module-skidl.part_query">
 <span id="skidl-part-query-module"></span><h4>skidl.part_query module<a class="headerlink" href="#module-skidl.part_query" title="Permalink to this headline">¶</a></h4>
-<p>Functions for finding/displaying parts.</p>
+<p>Functions for finding/displaying parts and footprints.</p>
+<dl class="function">
+<dt id="skidl.part_query.parse_search_terms">
+<code class="descclassname">skidl.part_query.</code><code class="descname">parse_search_terms</code><span class="sig-paren">(</span><em>terms</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.part_query.parse_search_terms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a regular expression for a sequence of search terms.</p>
+<p>Substitute a zero-width lookahead assertion (?= ) for each term. Thus,
+the “abc def” would become “(?=.*(abc))(?=.*(def))” and would match any string
+containing both “abc” and “def”. Or “abc (def|ghi)” would become
+“(?=.*(abc))((?=.*(def|ghi))” and would match any string containing
+“abc” and “def” or “ghi”. Quoted terms can be used for phrases containing
+whitespace. Place the quote-delimited RE before the RE for sequences of
+non-white chars to prevent the initial portion of a quoted string from being
+gathered up as a non-white character sequence.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.part_query.search_parts_iter">
+<code class="descclassname">skidl.part_query.</code><code class="descname">search_parts_iter</code><span class="sig-paren">(</span><em>terms</em>, <em>tool=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.part_query.search_parts_iter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of (lib, part) sequences that match a regex term.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.part_query.search_parts">
+<code class="descclassname">skidl.part_query.</code><code class="descname">search_parts</code><span class="sig-paren">(</span><em>terms</em>, <em>tool=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.part_query.search_parts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print a list of parts with the regex terms within their name, alias, description or keywords.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.part_query.show_part">
+<code class="descclassname">skidl.part_query.</code><code class="descname">show_part</code><span class="sig-paren">(</span><em>lib</em>, <em>part_name</em>, <em>tool=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.part_query.show_part" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the I/O pins for a given part in a library.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lib</strong> – Either a SchLib object or the name of a library.</p></li>
+<li><p><strong>part_name</strong> – The name of the part in the library.</p></li>
+<li><p><strong>tool</strong> – The ECAD tool format for the library.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A Part object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="skidl.part_query.FootprintCache">
+<em class="property">class </em><code class="descclassname">skidl.part_query.</code><code class="descname">FootprintCache</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.part_query.FootprintCache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
+<p>Dict for storing footprints from all directories.</p>
+<dl class="method">
+<dt id="skidl.part_query.FootprintCache.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.part_query.FootprintCache.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.part_query.FootprintCache.load">
+<code class="descname">load</code><span class="sig-paren">(</span><em>fp_tbl_filename</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.part_query.FootprintCache.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load cache with footprints from libraries in fp-lib-table file.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.part_query.search_footprints_iter">
+<code class="descclassname">skidl.part_query.</code><code class="descname">search_footprints_iter</code><span class="sig-paren">(</span><em>terms</em>, <em>tool=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.part_query.search_footprints_iter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of (lib, footprint) sequences that match a regex term.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.part_query.search_footprints">
+<code class="descclassname">skidl.part_query.</code><code class="descname">search_footprints</code><span class="sig-paren">(</span><em>terms</em>, <em>tool=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.part_query.search_footprints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print a list of footprints with the regex term within their description/tags.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.part_query.show_footprint">
+<code class="descclassname">skidl.part_query.</code><code class="descname">show_footprint</code><span class="sig-paren">(</span><em>lib</em>, <em>module_name</em>, <em>tool=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.part_query.show_footprint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the pads for a given module in a library.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lib</strong> – The name of a library.</p></li>
+<li><p><strong>module_name</strong> – The name of the footprint in the library.</p></li>
+<li><p><strong>tool</strong> – The ECAD tool format for the library.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A Part object.</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="function">
 <dt id="skidl.part_query.search">
-<code class="descclassname">skidl.part_query.</code><code class="descname">search</code><span class="sig-paren">(</span><em>term</em>, <em>tool=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.part_query.search" title="Permalink to this definition">¶</a></dt>
-<dd><p>Print a list of components with the regex term within their name, alias, description or keywords.</p>
+<code class="descclassname">skidl.part_query.</code><code class="descname">search</code><span class="sig-paren">(</span><em>terms</em>, <em>tool=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.part_query.search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print a list of parts with the regex terms within their name, alias, description or keywords.</p>
 </dd></dl>
 
 <dl class="function">
@@ -1744,6 +2509,41 @@ only be SKIDL.</p></li>
 </div>
 <div class="section" id="module-skidl.skidl">
 <span id="skidl-skidl-module"></span><h4>skidl.skidl module<a class="headerlink" href="#module-skidl.skidl" title="Permalink to this headline">¶</a></h4>
+<dl class="class">
+<dt id="skidl.skidl.SkidlCfg">
+<em class="property">class </em><code class="descclassname">skidl.skidl.</code><code class="descname">SkidlCfg</code><span class="sig-paren">(</span><em>*dirs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.SkidlCfg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
+<p>Class for holding SKiDL configuration.</p>
+<dl class="attribute">
+<dt id="skidl.skidl.SkidlCfg.CFG_FILE_NAME">
+<code class="descname">CFG_FILE_NAME</code><em class="property"> = '.skidlcfg'</em><a class="headerlink" href="#skidl.skidl.SkidlCfg.CFG_FILE_NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.skidl.SkidlCfg.load">
+<code class="descname">load</code><span class="sig-paren">(</span><em>*dirs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.SkidlCfg.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load SKiDL configuration from JSON files in given dirs.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.skidl.SkidlCfg.store">
+<code class="descname">store</code><span class="sig-paren">(</span><em>dir='.'</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.SkidlCfg.store" title="Permalink to this definition">¶</a></dt>
+<dd><p>Store SKiDL configuration as JSON in directory as .skidlcfg file.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.skidl.get_kicad_lib_tbl_dir">
+<code class="descclassname">skidl.skidl.</code><code class="descname">get_kicad_lib_tbl_dir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.get_kicad_lib_tbl_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the path to where the global fp-lib-table file is found.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.skidl.invalidate_footprint_cache">
+<code class="descclassname">skidl.skidl.</code><code class="descname">invalidate_footprint_cache</code><span class="sig-paren">(</span><em>self</em>, <em>k</em>, <em>v</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.invalidate_footprint_cache" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="function">
 <dt id="skidl.skidl.set_default_tool">
 <code class="descclassname">skidl.skidl.</code><code class="descname">set_default_tool</code><span class="sig-paren">(</span><em>tool</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.set_default_tool" title="Permalink to this definition">¶</a></dt>
@@ -1792,6 +2592,12 @@ only be SKIDL.</p></li>
 </dl>
 </dd></dl>
 
+<dl class="function">
+<dt id="skidl.utilities.natural_sort_key">
+<code class="descclassname">skidl.utilities.</code><code class="descname">natural_sort_key</code><span class="sig-paren">(</span><em>s</em>, <em>_nsre=re.compile('([0-9]+)')</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.utilities.natural_sort_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sorting function for pin numbers or names.</p>
+</dd></dl>
+
 <dl class="class">
 <dt id="skidl.utilities.CountCalls">
 <em class="property">class </em><code class="descclassname">skidl.utilities.</code><code class="descname">CountCalls</code><span class="sig-paren">(</span><em>func</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.utilities.CountCalls" title="Permalink to this definition">¶</a></dt>
@@ -1804,6 +2610,13 @@ making it easy to track if and how many errors/warnings were issued.</p>
 <code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.utilities.CountCalls.reset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+</dd></dl>
+
+<dl class="class">
+<dt id="skidl.utilities.TriggerDict">
+<em class="property">class </em><code class="descclassname">skidl.utilities.</code><code class="descname">TriggerDict</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.utilities.TriggerDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
+<p>This dict triggers a function when one of its entries changes.</p>
 </dd></dl>
 
 <dl class="function">
@@ -1837,9 +2650,32 @@ If compiled by PyInstaller, <cite>source</cite> contains no meaningful informati
 </dd></dl>
 
 <dl class="function">
+<dt id="skidl.utilities.get_skidl_trace">
+<code class="descclassname">skidl.utilities.</code><code class="descname">get_skidl_trace</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.utilities.get_skidl_trace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a string containing the source line trace where a SKiDL object was instantiated.</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="skidl.utilities.is_binary_file">
 <code class="descclassname">skidl.utilities.</code><code class="descname">is_binary_file</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.utilities.is_binary_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return true if a file contains binary (non-text) characters.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.utilities.merge_dicts">
+<code class="descclassname">skidl.utilities.</code><code class="descname">merge_dicts</code><span class="sig-paren">(</span><em>dct</em>, <em>merge_dct</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.utilities.merge_dicts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dict merge that recurses through both dicts and updates keys.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dct</strong> – The dict that will be updated.</p></li>
+<li><p><strong>merge_dct</strong> – The dict whose values will be inserted into dct.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Nothing.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
@@ -1864,7 +2700,7 @@ subdirectories without limit.</p></li>
 
 <dl class="function">
 <dt id="skidl.utilities.add_unique_attr">
-<code class="descclassname">skidl.utilities.</code><code class="descname">add_unique_attr</code><span class="sig-paren">(</span><em>obj</em>, <em>name</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.utilities.add_unique_attr" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">skidl.utilities.</code><code class="descname">add_unique_attr</code><span class="sig-paren">(</span><em>obj</em>, <em>name</em>, <em>value</em>, <em>check_dup=False</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.utilities.add_unique_attr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create an attribute if the attribute name isn’t already used.</p>
 </dd></dl>
 
@@ -1872,6 +2708,12 @@ subdirectories without limit.</p></li>
 <dt id="skidl.utilities.num_to_chars">
 <code class="descclassname">skidl.utilities.</code><code class="descname">num_to_chars</code><span class="sig-paren">(</span><em>num</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.utilities.num_to_chars" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a string like ‘AB’ when given a number like 28.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.utilities.rmv_quotes">
+<code class="descclassname">skidl.utilities.</code><code class="descname">rmv_quotes</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.utilities.rmv_quotes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove starting and ending quotes from a string.</p>
 </dd></dl>
 
 <dl class="function">
@@ -1916,6 +2758,12 @@ subdirectories without limit.</p></li>
 <dt id="skidl.utilities.flatten">
 <code class="descclassname">skidl.utilities.</code><code class="descname">flatten</code><span class="sig-paren">(</span><em>nested_list</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.utilities.flatten" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a flattened list of items from a nested list.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.utilities.reset_get_unique_name">
+<code class="descclassname">skidl.utilities.</code><code class="descname">reset_get_unique_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.utilities.reset_get_unique_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset the heaps that store previously-assigned names.</p>
 </dd></dl>
 
 <dl class="function">
@@ -2079,9 +2927,8 @@ object, or a filename to open.</p></li>
 <li><p><strong>inst</strong> – Instance of a class.</p></li>
 <li><p><strong>list_name</strong> – String containing the attribute name of the list of
 class-wide and local functions.</p></li>
-<li><p><strong>**kwargs</strong> (<em>*args</em><em>,</em>) – <p>Arbitary argument lists to pass to the functions
-that are executed. (All functions get the same arguments.)</p>
-</p></li>
+<li><p><strong>kwargs</strong> (<em>args</em><em>,</em>) – Arbitary argument lists to pass to the functions
+that are executed. (All functions get the same arguments.)</p></li>
 </ul>
 </dd>
 </dl>

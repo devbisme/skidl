@@ -6,6 +6,7 @@ Subpackages
 
 .. toctree::
 
+    skidl.search_gui
     skidl.tools
 
 Submodules
@@ -119,6 +120,14 @@ skidl.erc module
 ----------------
 
 .. automodule:: skidl.erc
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+skidl.namedlist module
+----------------------
+
+.. automodule:: skidl.namedlist
     :members:
     :undoc-members:
     :show-inheritance:

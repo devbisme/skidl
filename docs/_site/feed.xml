@@ -7,13 +7,347 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="https://xesscorp.github.io/skidl/docs/_site/feed.xml" />
 <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/" />
-<updated>2019-06-12T10:04:15-04:00</updated>
+<updated>2019-10-05T10:36:12-04:00</updated>
 <id>https://xesscorp.github.io/skidl/docs/_site/</id>
 <author>
   <name>XESS Corp.</name>
   <uri>https://xesscorp.github.io/skidl/docs/_site/</uri>
   <email>skidl@xess.com</email>
 </author>
+
+
+<entry>
+  <title type="html"><![CDATA[The Worst Part of SKiDL]]></title>
+  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/worst-part-of-skidl"/>
+  <id>https://xesscorp.github.io/skidl/docs/_site/blog/the-worst-part-of-skidl</id>
+  <published>2019-09-30T12:10:08-04:00</published>
+  <updated>2019-09-30T12:10:08-04:00</updated>
+  <author>
+    <name>XESS Corp.</name>
+    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
+    <email>skidl@xess.com</email>
+  </author>
+  
+  <content type="html">
+  
+    &lt;p&gt;I created SKiDL to replace the manual tedium of drawing schematics with the
+advantages of modern programming languages: iteration, abstraction, hierarchy,
+and modularization.
+But one thing always stood out as a problem:&lt;/p&gt;
+
+&lt;p&gt;parts. Parts! PARTS!! &lt;em&gt;PARTS!!!&lt;/em&gt; &lt;strong&gt;PARTS!!!!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Here’s a snippet of SKiDL code to show what I mean.
+It instantiates a PIC10 microcontroller and connects it to some nets:&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;uc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Part&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lib&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'MCU_Microchip_PIC10.lib'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'PIC10F202-IMC'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;footprint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Package_DFN_QFN:DFN-8-1EP_2x3mm_P0.5mm_EP0.61x2.2mm'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;uc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'vdd, vss'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'VCC'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'GND'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;uc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'gp[0:3]'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Bus&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'GP'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;OK, how did I know &lt;code class=&quot;highlighter-rouge&quot;&gt;PIC10F202-IMC&lt;/code&gt; would call up the particular part I needed?
+And how did I know it was in the &lt;code class=&quot;highlighter-rouge&quot;&gt;MCU_Microchip_PIC10.lib&lt;/code&gt; library?
+And the names of the I/O pins: where did those come from?&lt;/p&gt;
+
+&lt;p&gt;Obviously, all this information is available in KiCad, somewhere, but it’s scattered
+around in various schematic symbol and PCB footprint libraries.
+First, you need to know which file contains the part you want and that’s not always easy
+because some libraries are just a grab-bag of components someone threw together.
+Then you have to extract the part and I/O pin names from the file which is formatted
+for machines to read, not humans.
+Last but not least, you have to re-type all that stuff into your code.&lt;/p&gt;
+
+&lt;p&gt;Traditional schematic editors (like KiCad’s EESCHEMA) have a number of tools that
+try to make this easier.
+First, there’s a &lt;em&gt;symbol chooser&lt;/em&gt; that let’s you scroll through a list of
+available libraries and parts and select the one you need.
+To make the list of parts more manageable, a &lt;em&gt;filter&lt;/em&gt; field can be
+used so only those parts containing a particular text string will show up.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/the-worst-part-of-skidl/symbol_chooser.png&quot; width=&quot;600&quot; alt=&quot;EESCHEMA schematic symbol chooser.&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Once you’ve selected a part, placing its symbol in the schematic will provide
+named pins where graphical signal nets can be attached. So that handles the I/O problem.&lt;/p&gt;
+
+&lt;p&gt;Finally, after your schematic is finished, there’s a &lt;em&gt;footprint assigner&lt;/em&gt; where you can
+select and assign a physical footprint to go with each part symbol.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/the-worst-part-of-skidl/cvpcb.png&quot; width=&quot;600&quot; alt=&quot;EESCHEMA part footprint assigner.&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;These integrated, schematic-based tools aren’t available when using SKiDL.
+A kludgy way to do something similar is to pull up the KiCad symbol editor and use it
+to find parts and their I/O pin names, and then use the footprint editor to scroll through possible footprints
+that are compatible. Then you have to extract the part, I/O, and footprint strings from these windows and type them
+into your SKiDL code. As I said: &lt;em&gt;kludgy&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;To make things easier, I created a simple command that runs in
+the Python interpreter and finds parts matching a string or regular expression.
+Here’s an example of using it to find the microcontroller part discussed above:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;skidl&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;skidl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'PIC10'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;MCU_Microchip_PIC10&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PIC10F220&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IMC&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;512&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;W&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Flash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;24&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;B&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SRAM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DFN8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;MCU_Microchip_PIC10&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PIC10F202&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IOT&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;512&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;W&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Flash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;24&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;B&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SRAM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SOT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;23&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;MCU_Microchip_PIC10&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PIC10F202&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IMC&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;512&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;W&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Flash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;24&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;B&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SRAM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DFN8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;MCU_Microchip_PIC10&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PIC10F222&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IOT&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;512&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;W&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Flash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;24&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;B&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SRAM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SOT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;23&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;MCU_Microchip_PIC10&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PIC10F220&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IP&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;512&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;W&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Flash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;24&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;B&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SRAM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PDIP8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;MCU_Microchip_PIC10&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PIC10F222&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IP&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;512&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;W&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Flash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;24&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;B&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SRAM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PDIP8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Then I added another command to display the device I/O pins for a specific part:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;skidl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'mcu_microchip_pic10.lib'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'pic10f202-imc'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+ &lt;span class=&quot;n&quot;&gt;PIC10F200&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IMC&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PIC10F202&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IMC&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;512&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;W&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Flash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;24&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;B&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SRAM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DFN8&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Pin&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;VDD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;POWER&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IN&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Pin&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GP2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BIDIRECTIONAL&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Pin&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GP1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BIDIRECTIONAL&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Pin&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GP0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BIDIRECTIONAL&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Pin&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;VSS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;POWER&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IN&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Pin&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GP3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;INPUT&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;These commands find the part library, name, and I/O, but you’re still required to type all that
+back into your SKiDL code.
+And the problem of finding, choosing, and entering a footprint hasn’t been addressed.&lt;/p&gt;
+
+&lt;p&gt;What was needed was a nice, light-weight tool combining both part &lt;em&gt;and&lt;/em&gt; footprint selection capabilities
+that delivered the result as text strings to enter into SKiDL code.
+So I built it: &lt;code class=&quot;highlighter-rouge&quot;&gt;zyc&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/the-worst-part-of-skidl/zyc.png&quot; width=&quot;600&quot; alt=&quot;zyc part &amp;amp; footprint assigner.&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;zyc&lt;/code&gt; has two, cooperating panes: a part is searched for and selected in the top pane, and then the
+same is done for a footprint in the bottom pane. Then you can paste a SKiDL &lt;code class=&quot;highlighter-rouge&quot;&gt;Part(...)&lt;/code&gt; instantiation
+with the part and footprint into a code editing window.&lt;/p&gt;
+
+&lt;p&gt;To use &lt;code class=&quot;highlighter-rouge&quot;&gt;zyc&lt;/code&gt;, start off by typing some search terms describing the part you want
+into the upper text-entry box (1) and hit &lt;code class=&quot;highlighter-rouge&quot;&gt;RETURN&lt;/code&gt; or click the &lt;code class=&quot;highlighter-rouge&quot;&gt;Search&lt;/code&gt; button (2).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/the-worst-part-of-skidl/zyc-part-search-terms.png&quot; width=&quot;600&quot; alt=&quot;Entering part search terms in zyc.&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;zyc&lt;/code&gt; will scan through all the available parts looking for your search terms in the library names and
+the part names, aliases, descriptions, and keywords. (This initial search takes 20-30 seconds, but
+any further searches are quick because the part data gets cached.)
+The search terms can contain one or more text strings and/or regular expressions (REs).
+Any matching parts are displayed in the Library/Part table (1).
+Clicking on a row in the table (2) displays the part’s description and keywords (3), datasheet hyperlink (4), and
+I/O pin table (5) on the right-side of the pane.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/the-worst-part-of-skidl/zyc-part-search-results.png&quot; width=&quot;600&quot; alt=&quot;zyc part search results.&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Selecting a part also loads the footprint search text-entry box (6) with an initial set of search terms formed from
+the part’s list of recommended footprints plus the number of part pins.
+You can edit these search terms and add more to modify the footprint search.
+(Which is handy because, in this case, the number of pins is wrong since the pin list only contains
+six entries but the actual number of pins is eight. So I’ll just remove it.)
+Then press the &lt;code class=&quot;highlighter-rouge&quot;&gt;Search&lt;/code&gt; button (7) to scan through all the footprints for matching terms.
+(As with parts, the initial footprint search takes 20-30 seconds but further searches are fast
+because of caching.)&lt;/p&gt;
+
+&lt;p&gt;The footprints that match the search terms appear in the Library/Footprint table (1).
+In this case, there is only one.
+Selecting it makes the footprint description appear (2) as well as a drawing of the footprint (3).
+(If a hyperlink for the package datasheet was available, that would show up as well.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/the-worst-part-of-skidl/zyc-fp-search-results.png&quot; width=&quot;600&quot; alt=&quot;zyc footprint search results.&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Once a part and footprint are selected, you can click on the &lt;code class=&quot;highlighter-rouge&quot;&gt;Copy&lt;/code&gt; button in the upper panel (1)
+to place a &lt;code class=&quot;highlighter-rouge&quot;&gt;Part(...)&lt;/code&gt; instantiation on the clipboard.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/the-worst-part-of-skidl/zyc-part-fp-copy.png&quot; width=&quot;600&quot; alt=&quot;zyc footprint search results.&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Then you can go anywhere (such as your code editor) and paste the clipboard contents to get the part
+instantiation:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;uc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Part&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lib&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'MCU_Microchip_PIC10.lib'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'PIC10F202-IMC'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;footprint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Package_DFN_QFN:DFN-8-1EP_2x3mm_P0.5mm_EP0.61x2.2mm'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;If you check the &lt;code class=&quot;highlighter-rouge&quot;&gt;Tmplt&lt;/code&gt; box (2) and then click the &lt;code class=&quot;highlighter-rouge&quot;&gt;Copy&lt;/code&gt; button, a part template (instead of an instance)
+gets placed on the clipboard and appears as follows:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;uc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Part&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lib&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'MCU_Microchip_PIC10.lib'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'PIC10F202-IMC'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TEMPLATE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;footprint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Package_DFN_QFN:DFN-8-1EP_2x3mm_P0.5mm_EP0.61x2.2mm'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;To make it easier to connect the pins, &lt;code class=&quot;highlighter-rouge&quot;&gt;zyc&lt;/code&gt; lets you select the names from the pin list column (1).
+Right-clicking on the table copies whatever is selected to the clipboard.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/the-worst-part-of-skidl/zyc-pin-copy.png&quot; width=&quot;600&quot; alt=&quot;zyc part pin copy.&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Then the pin names can be pasted it into the code editor:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;uc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Part&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lib&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'MCU_Microchip_PIC10.lib'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'PIC10F202-IMC'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;footprint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Package_DFN_QFN:DFN-8-1EP_2x3mm_P0.5mm_EP0.61x2.2mm'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;&quot;VDD&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;GP2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;GP1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;GP0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;VSS&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;GP3&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now you can use the strings to connect the microcontroller pins to various nets:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;uc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Part&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lib&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'MCU_Microchip_PIC10.lib'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'PIC10F202-IMC'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;footprint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Package_DFN_QFN:DFN-8-1EP_2x3mm_P0.5mm_EP0.61x2.2mm'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;uc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;VDD&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;VSS&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'VCC'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'GND'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;uc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;GP0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;GP1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;GP2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;GP3&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Bus&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'GP'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;zyc&lt;/code&gt; lets you double-click on any table column header to re-sort the table
+based on the contents of that column.
+This can be useful in grouping pins by their names, functions, or part units
+before selecting and pasting them.
+Using an FPGA as an example, double-clicking the &lt;code class=&quot;highlighter-rouge&quot;&gt;Unit&lt;/code&gt; column (1)
+orders the table so you can select all the I/O pins in one of its banks (2).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/the-worst-part-of-skidl/zyc-pin-sort.png&quot; width=&quot;600&quot; alt=&quot;zyc part pin sort.&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Then the pins can be pasted:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s&quot;&gt;&quot;IO_0_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_0_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_25_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_25_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L1N_T0_AD0N_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L1N_T0_D01_DIN_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L1P_T0_AD0P_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L1P_T0_D00_MOSI_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L2N_T0_AD8N_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L2N_T0_D03_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L2P_T0_AD8P_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L2P_T0_D02_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L3N_T0_DQS_AD1N_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L3N_T0_DQS_EMCCLK_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L3P_T0_DQS_AD1P_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L3P_T0_DQS_PUDC_B_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L4N_T0_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L4N_T0_D05_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L4P_T0_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L4P_T0_D04_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L5N_T0_AD9N_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L5N_T0_D07_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L5P_T0_AD9P_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L5P_T0_D06_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L6N_T0_D08_VREF_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L6N_T0_VREF_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L6P_T0_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L6P_T0_FCS_B_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L7N_T1_AD2N_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L7N_T1_D10_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L7P_T1_AD2P_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L7P_T1_D09_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L8N_T1_AD10N_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L8N_T1_D12_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L8P_T1_AD10P_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L8P_T1_D11_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L9N_T1_DQS_AD3N_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L9N_T1_DQS_D13_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L9P_T1_DQS_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L9P_T1_DQS_AD3P_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L10N_T1_AD11N_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L10N_T1_D15_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L10P_T1_AD11P_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L10P_T1_D14_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L11N_T1_SRCC_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L11N_T1_SRCC_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L11P_T1_SRCC_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L11P_T1_SRCC_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L12N_T1_MRCC_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L12N_T1_MRCC_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L12P_T1_MRCC_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L12P_T1_MRCC_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L13N_T2_MRCC_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L13N_T2_MRCC_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L13P_T2_MRCC_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L13P_T2_MRCC_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L14N_T2_SRCC_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L14N_T2_SRCC_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L14P_T2_SRCC_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L14P_T2_SRCC_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L15N_T2_DQS_ADV_B_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L15N_T2_DQS_DOUT_CSO_B_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L15P_T2_DQS_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L15P_T2_DQS_RDWR_B_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L16N_T2_A15_D31_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L16N_T2_A27_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L16P_T2_A28_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L16P_T2_CSI_B_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L17N_T2_A13_D29_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L17N_T2_A25_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L17P_T2_A14_D30_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L17P_T2_A26_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L18N_T2_A11_D27_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L18N_T2_A23_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L18P_T2_A12_D28_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L18P_T2_A24_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L19N_T3_A09_D25_VREF_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L19N_T3_A21_VREF_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L19P_T3_A10_D26_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L19P_T3_A22_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L20N_T3_A07_D23_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L20N_T3_A19_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L20P_T3_A08_D24_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L20P_T3_A20_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L21N_T3_DQS_A06_D22_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L21N_T3_DQS_A18_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L21P_T3_DQS_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L21P_T3_DQS_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L22N_T3_A04_D20_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L22N_T3_A16_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L22P_T3_A05_D21_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L22P_T3_A17_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L23N_T3_A02_D18_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L23N_T3_FWE_B_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L23P_T3_A03_D19_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L23P_T3_FOE_B_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L24N_T3_A00_D16_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L24N_T3_RS0_15&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L24P_T3_A01_D17_14&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+&lt;span class=&quot;s&quot;&gt;&quot;IO_L24P_T3_RS1_15&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This is definitely something that would be difficult to type manually without making a mistake!&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;zyc&lt;/code&gt; requires minimal setup.
+By default, it will use the &lt;code class=&quot;highlighter-rouge&quot;&gt;KICAD_SYMBOL_DIR&lt;/code&gt; environment variable to look for part libraries,
+and it will look for the global footprint library table (&lt;code class=&quot;highlighter-rouge&quot;&gt;fp_lib_table&lt;/code&gt;) in the default location
+where KiCad installs it on various OSes.
+You can also add or change the directories that are searched for part libraries (1) or for
+&lt;code class=&quot;highlighter-rouge&quot;&gt;fp_lib_table&lt;/code&gt; files (2) using the menu items below:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/the-worst-part-of-skidl/zyc-path-setup.png&quot; width=&quot;600&quot; alt=&quot;zyc path setup.&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It may happen that you change some part libraries or add more footprint files while &lt;code class=&quot;highlighter-rouge&quot;&gt;zyc&lt;/code&gt; is
+running. If so, you’ll want to refresh the part and footprint caches (3).&lt;/p&gt;
+
+&lt;p&gt;If you want to try &lt;code class=&quot;highlighter-rouge&quot;&gt;zyc&lt;/code&gt;, you can install it from the Github repo:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;% &lt;/span&gt;pip install git+https://github.com/xesscorp/skidl
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;To run it, just enter &lt;code class=&quot;highlighter-rouge&quot;&gt;zyc&lt;/code&gt; at the command line.&lt;/p&gt;
+
+
+  
+  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/worst-part-of-skidl&quot;&gt;The Worst Part of SKiDL&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on September 30, 2019.&lt;/p&gt;</content>
+</entry>
 
 
 <entry>
