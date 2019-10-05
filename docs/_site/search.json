@@ -3,7 +3,7 @@
 		{
 		  "title"      : "The Worst Part of SKiDL",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/worst-part-of-skidl",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/worst-part-of-skidl",
 		  "date"       : "2019-09-30 12:10:08 -0400",
 		  "shortdate"  : "September 30, 2019"
 		} ,
@@ -11,7 +11,7 @@
 		{
 		  "title"      : "SKiDL at KiCon 2019",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/skidl-kicon-2019",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/skidl-kicon-2019",
 		  "date"       : "2019-06-12 09:27:24 -0400",
 		  "shortdate"  : "June 12, 2019"
 		} ,
@@ -19,7 +19,7 @@
 		{
 		  "title"      : "Sweetening SKiDL",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/sweetening-skidl",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/sweetening-skidl",
 		  "date"       : "2018-09-03 19:59:47 -0400",
 		  "shortdate"  : "September 03, 2018"
 		} ,
@@ -27,7 +27,7 @@
 		{
 		  "title"      : "Others Use It, Too!",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/others-use-it-too",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/others-use-it-too",
 		  "date"       : "2018-07-29 10:26:18 -0400",
 		  "shortdate"  : "July 29, 2018"
 		} ,
@@ -35,7 +35,7 @@
 		{
 		  "title"      : "Reusability Ain&#39;t What It Used To Be",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/reuse-leds",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/reuse-leds",
 		  "date"       : "2018-05-15 23:00:23 -0400",
 		  "shortdate"  : "May 15, 2018"
 		} ,
@@ -43,7 +43,7 @@
 		{
 		  "title"      : "Spice Simulation",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/spice-simulation",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/spice-simulation",
 		  "date"       : "2018-02-07 10:23:43 -0500",
 		  "shortdate"  : "February 07, 2018"
 		} ,
@@ -51,7 +51,7 @@
 		{
 		  "title"      : "An Arduino With SKiDL",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/an-arduino-with-skidl",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/an-arduino-with-skidl",
 		  "date"       : "2017-03-31 23:06:41 -0400",
 		  "shortdate"  : "March 31, 2017"
 		} ,
@@ -59,7 +59,7 @@
 		{
 		  "title"      : "Two Easy Pieces",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/two-easy-pieces",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/two-easy-pieces",
 		  "date"       : "2017-03-02 16:45:58 -0500",
 		  "shortdate"  : "March 02, 2017"
 		} ,
@@ -67,7 +67,7 @@
 		{
 		  "title"      : "Don&#39;t Replicate, Automate!",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/dont-replicate-automate",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/dont-replicate-automate",
 		  "date"       : "2017-02-17 09:00:01 -0500",
 		  "shortdate"  : "February 17, 2017"
 		} ,
@@ -75,7 +75,7 @@
 		{
 		  "title"      : "A Taste of Hierarchy",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/a-taste-of-hierarchy",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/a-taste-of-hierarchy",
 		  "date"       : "2017-02-03 16:51:58 -0500",
 		  "shortdate"  : "February 03, 2017"
 		} ,
@@ -83,7 +83,7 @@
 		{
 		  "title"      : "Names, Not Numbers",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/names-not-numbers",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/names-not-numbers",
 		  "date"       : "2017-01-25 09:35:28 -0500",
 		  "shortdate"  : "January 25, 2017"
 		} ,
@@ -91,7 +91,7 @@
 		{
 		  "title"      : "Building a USB-to-JTAG Interface Using SKiDL",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/building-a-usb-to-jtag-interface-using-skidl",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/building-a-usb-to-jtag-interface-using-skidl",
 		  "date"       : "2017-01-18 22:40:48 -0500",
 		  "shortdate"  : "January 18, 2017"
 		} 
