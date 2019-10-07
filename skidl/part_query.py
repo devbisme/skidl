@@ -57,7 +57,12 @@ def parse_search_terms(terms):
     non-white chars to prevent the initial portion of a quoted string from being
     gathered up as a non-white character sequence.
     """
-    return re.sub(r"((\".*?\")|(\S+))\s*", r"(?=.*(\1))", terms.strip().rstrip()).replace('"', "") + ".*"
+    return (
+        re.sub(r"((\".*?\")|(\S+))\s*", r"(?=.*(\1))", terms.strip().rstrip()).replace(
+            '"', ""
+        )
+        + ".*"
+    )
 
 
 def search_parts_iter(terms, tool=None):
@@ -333,7 +338,9 @@ def search_footprints_iter(terms, tool=None):
                     search_text = "\n".join([search_text, line])
 
             # Search the string for a match with the search terms.
-            if fullmatch(terms, search_text, flags=re.IGNORECASE | re.MULTILINE | re.DOTALL):
+            if fullmatch(
+                terms, search_text, flags=re.IGNORECASE | re.MULTILINE | re.DOTALL
+            ):
                 yield "MODULE", fp_lib, module_text, module_name
 
     # At the end, all modules have been scanned and the footprint cache is valid.

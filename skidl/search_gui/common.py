@@ -36,9 +36,7 @@ import wx.lib.expando
 import wx.lib.newevent
 
 MINIMUM_PANE_SIZE = 300
-BTN_SIZE = (50, -1)
 SPACING = 5
-TEXT_BOX_WIDTH = 200
 CELL_BCK_COLOUR = wx.Colour(255, 255, 255)  # Table cell background color.
 TITLE_BCK_COLOUR = wx.Colour(128, 128, 128)
 TITLE_FG_COLOUR = wx.Colour(200, 200, 200)
@@ -170,10 +168,7 @@ class Description(wx.Panel):
         )
 
         self.desc = wx.TextCtrl(
-            self,
-            #            size=(TEXT_BOX_WIDTH, 60),
-            size=(10000, 60),
-            style=wx.TE_READONLY | wx.TE_MULTILINE | wx.TE_NO_VSCROLL,
+            self, size=(10000, 60), style=wx.TE_READONLY | wx.TE_MULTILINE
         )
         vbox.Add(self.desc, proportion=0, flag=wx.ALL, border=SPACING)
 

@@ -116,7 +116,7 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
                         keywords="",
                         datasheet="",
                         description="",
-                        search_text = "",
+                        search_text="",
                     )
                 )
 

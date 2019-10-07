@@ -220,15 +220,13 @@ class PartSearchPanel(wx.SplitterWindow):
         search_panel.SetSizer(vbox)
 
         # Text box for part search string.
-        self.search_text = wx.TextCtrl(
-            search_panel, size=(TEXT_BOX_WIDTH, -1), style=wx.TE_PROCESS_ENTER
-        )
+        self.search_text = wx.TextCtrl(search_panel, style=wx.TE_PROCESS_ENTER)
         self.search_text.Bind(wx.EVT_TEXT_ENTER, self.OnSearch)
         tip = wx.ToolTip("Enter text or regular expression to select parts.")
         self.search_text.SetToolTip(tip)
 
         # Button to initiate search for parts containing search string.
-        search_btn = wx.Button(search_panel, label="Search", size=BTN_SIZE)
+        search_btn = wx.Button(search_panel, label="Search")
         search_btn.Bind(wx.EVT_BUTTON, self.OnSearch)
         tip = wx.ToolTip("Search for parts containing the text or regular expression.")
         search_btn.SetToolTip(tip)
@@ -240,7 +238,7 @@ class PartSearchPanel(wx.SplitterWindow):
         self.found_parts.Bind(wx.grid.EVT_GRID_CELL_LEFT_DCLICK, self.OnCopy)
 
         # Button to copy selected lib/part to clipboard.
-        copy_btn = wx.Button(search_panel, label="Copy", size=BTN_SIZE)
+        copy_btn = wx.Button(search_panel, label="Copy")
         copy_btn.Bind(wx.EVT_BUTTON, self.OnCopy)
         tip = wx.ToolTip("Copy the selected part to the clipboard.")
         copy_btn.SetToolTip(tip)
@@ -260,7 +258,9 @@ class PartSearchPanel(wx.SplitterWindow):
             [
                 search_btn,
                 (self.search_text, 1, wx.EXPAND),
-                stack_it(copy_btn, self.template_ckbx),  # Copy & template buttons stacked together.
+                stack_it(
+                    copy_btn, self.template_ckbx
+                ),  # Copy & template buttons stacked together.
                 (self.found_parts, 1, wx.EXPAND),
             ]
         )
@@ -429,7 +429,7 @@ class PartSearchPanel(wx.SplitterWindow):
         fp_srch_terms = re.sub("[*?]", ".\g<0>", fp_srch_terms)
         # Use the number of pins in the part to refine the search.
         num_pins = len(part.pins)
-        fp_srch_terms = " ".join((fp_srch_terms, '^#pads={}$'.format(num_pins)))
+        fp_srch_terms = " ".join((fp_srch_terms, "^#pads={}$".format(num_pins)))
 
         # Send the string of search terms to the footprint search panel.
         evt = SendSearchTermsEvent(search_terms=fp_srch_terms)

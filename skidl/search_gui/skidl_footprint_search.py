@@ -271,15 +271,13 @@ class FootprintSearchPanel(wx.SplitterWindow):
         search_panel.SetSizer(vbox)
 
         # Text box for footprint search string.
-        self.search_text = wx.TextCtrl(
-            search_panel, size=(TEXT_BOX_WIDTH, -1), style=wx.TE_PROCESS_ENTER
-        )
+        self.search_text = wx.TextCtrl(search_panel, style=wx.TE_PROCESS_ENTER)
         self.search_text.Bind(wx.EVT_TEXT_ENTER, self.OnSearch)
         tip = wx.ToolTip("Enter text or regular expression to select footprints.")
         self.search_text.SetToolTip(tip)
 
         # Button to initiate search for footprints containing search string.
-        search_btn = wx.Button(search_panel, label="Search", size=BTN_SIZE)
+        search_btn = wx.Button(search_panel, label="Search")
         search_btn.Bind(wx.EVT_BUTTON, self.OnSearch)
         tip = wx.ToolTip(
             "Search for footprints containing the text or regular expression."
@@ -295,7 +293,7 @@ class FootprintSearchPanel(wx.SplitterWindow):
         self.found_footprints.Bind(wx.grid.EVT_GRID_CELL_LEFT_DCLICK, self.OnCopy)
 
         # Button to copy selected footprint to clipboard.
-        copy_btn = wx.Button(search_panel, label="Copy", size=BTN_SIZE)
+        copy_btn = wx.Button(search_panel, label="Copy")
         copy_btn.Bind(wx.EVT_BUTTON, self.OnCopy)
         tip = wx.ToolTip("Copy the selected footprint to the clipboard.")
         copy_btn.SetToolTip(tip)
@@ -428,17 +426,16 @@ class FootprintSearchPanel(wx.SplitterWindow):
 
         # Ths is a null footprint that just paints an "X" (cross) when there's no valid footprint.
         null_module_text = [
-                "(module NULL",
-                "(fp_line (start 0.0 0.0) (end 1.0 1.0) (layer F.Fab) (width 0.01))",
-                "(fp_line (start 1.0 0.0) (end 0.0 1.0) (layer F.Fab) (width 0.01))",
-                ")",
+            "(module NULL",
+            "(fp_line (start 0.0 0.0) (end 1.0 1.0) (layer F.Fab) (width 0.01))",
+            "(fp_line (start 1.0 0.0) (end 0.0 1.0) (layer F.Fab) (width 0.01))",
+            ")",
         ]
 
         # Get the selected row in the lib/footprint table and translate it to the row in the data table.
         self.found_footprints.ClearSelection()
         self.found_footprints.SelectRow(event.GetRow())
         row = self.found_footprints.GetDataRowIndex(event.GetRow())
-
 
         # Get the text describing the footprint structure.
         try:

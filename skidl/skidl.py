@@ -76,6 +76,7 @@ class SkidlCfg(dict):
         with open(path, "w") as cfg_fp:
             json.dump(self, cfg_fp, indent=4)
 
+
 def get_kicad_lib_tbl_dir():
     """Get the path to where the global fp-lib-table file is found."""
 
