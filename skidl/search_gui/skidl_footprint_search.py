@@ -285,9 +285,7 @@ class FootprintSearchPanel(wx.SplitterWindow):
         search_btn.SetToolTip(tip)
 
         # Table (grid) for holding footprints that match search string.
-        self.found_footprints = MyGrid(
-            search_panel, ("Library", "Footprint"), CELL_BCK_COLOUR
-        )
+        self.found_footprints = MyGrid(search_panel, ("Library", "Footprint"))
         self.found_footprints.Resize(10)
         self.found_footprints.Bind(wx.grid.EVT_GRID_SELECT_CELL, self.OnSelectCell)
         self.found_footprints.Bind(wx.grid.EVT_GRID_CELL_LEFT_DCLICK, self.OnCopy)

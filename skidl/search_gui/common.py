@@ -37,10 +37,6 @@ import wx.lib.newevent
 
 MINIMUM_PANE_SIZE = 300
 SPACING = 5
-CELL_BCK_COLOUR = wx.Colour(255, 255, 255)  # Table cell background color.
-TITLE_BCK_COLOUR = wx.Colour(128, 128, 128)
-TITLE_FG_COLOUR = wx.Colour(200, 200, 200)
-
 
 # IDs for part and footprint panels.
 PART_PANEL_ID = wx.NewId()
@@ -53,6 +49,12 @@ RequestFootprintEvent, EVT_REQUEST_FOOTPRINT = wx.lib.newevent.NewEvent()
 SendFootprintEvent, EVT_SEND_FOOTPRINT = wx.lib.newevent.NewEvent()
 # Send search terms from part panel to footprint panel.
 SendSearchTermsEvent, EVT_SEND_SEARCH_TERMS = wx.lib.newevent.NewEvent()
+
+
+def is_dark_mode():
+    window_colour = wx.SystemSettings.GetColour(wx.SYS_COLOUR_WINDOW)
+    luminance = sum([c * f for c, f in zip(window_colour, [0.299, 0.587, 0.114])])
+    return luminance < 0.5
 
 
 def box_it(window, title_text):
@@ -91,8 +93,14 @@ def add_title(window, title_text, location):
     title = wx.StaticText(
         titled_window, label=title_text, style=wx.ALIGN_CENTRE_HORIZONTAL
     )
-    title.SetBackgroundColour(TITLE_BCK_COLOUR)
-    title.SetForegroundColour(TITLE_FG_COLOUR)
+
+    if is_dark_mode():
+        title.SetBackgroundColour(wx.Colour(128, 128, 128))
+        title.SetForegroundColour(wx.Colour(55, 55, 55))
+    else:
+        title.SetBackgroundColour(wx.Colour(128, 128, 128))
+        title.SetForegroundColour(wx.Colour(200, 200, 200))
+
     title.SetFont(title.GetFont().MakeLarger().MakeBold().MakeItalic())
     box = wx.BoxSizer(wx.VERTICAL)
 
@@ -276,7 +284,7 @@ class MyGrid(wx.grid.Grid):
     ASCENDING = " ▲"  # Indicator that column is sorted in ascending order.
     DESCENDING = " ▼"  # Indicator that column is sorted in descending order.
 
-    def __init__(self, parent, headers, bck_colour):
+    def __init__(self, parent, headers):
 
         # Create grid with a column for each header label.
         super(self.__class__, self).__init__()
@@ -288,10 +296,17 @@ class MyGrid(wx.grid.Grid):
         )
 
         # Set table attributes.
+        if is_dark_mode():
+            # Set cell background and cursor colors for dark mode.
+            self.BackgroundColour = wx.Colour(20, 20, 20)
+            self.SetCellHighlightColour(wx.Colour(235, 235, 235))
+        else:
+            # Set cell background and cursor colors for light mode.
+            self.BackgroundColour = wx.Colour(255, 255, 255)
+            self.SetCellHighlightColour(wx.Colour(20, 20, 20))
         self.HideRowLabels()  # Hide row labels 1, 2, 3...
         self.EnableEditing(False)  # User can't edit values in table.
         self.SetDefaultCellBackgroundColour(parent.GetBackgroundColour())
-        self.BackgroundColour = bck_colour
         self.ColourGridBackground()
         self.SetSelectionMode(wx.grid.Grid.GridSelectionModes.SelectRows)
         self.SetLabelFont(self.GetLabelFont().MakeBold())

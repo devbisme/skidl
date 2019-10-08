@@ -232,7 +232,7 @@ class PartSearchPanel(wx.SplitterWindow):
         search_btn.SetToolTip(tip)
 
         # Table (grid) for holding libs and parts that match search string.
-        self.found_parts = MyGrid(search_panel, ("Library", "Part"), CELL_BCK_COLOUR)
+        self.found_parts = MyGrid(search_panel, ("Library", "Part"))
         self.found_parts.Resize(10)
         self.found_parts.Bind(wx.grid.EVT_GRID_SELECT_CELL, self.OnSelectCell)
         self.found_parts.Bind(wx.grid.EVT_GRID_CELL_LEFT_DCLICK, self.OnCopy)
@@ -296,9 +296,7 @@ class PartSearchPanel(wx.SplitterWindow):
             flag=wx.ALL,
             border=SPACING,
         )
-        self.pin_info = MyGrid(
-            part_panel, ("Pin", "Name", "Type", "Unit"), CELL_BCK_COLOUR
-        )
+        self.pin_info = MyGrid(part_panel, ("Pin", "Name", "Type", "Unit"))
         self.pin_info.SetSelectionMode(wx.grid.Grid.GridSelectionModes.SelectCells)
         self.pin_info.Resize(10)
         self.pin_info.SetSortFunc(0, natural_sort_key)  # Natural sort pin numbers.
