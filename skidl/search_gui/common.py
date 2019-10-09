@@ -54,7 +54,7 @@ SendSearchTermsEvent, EVT_SEND_SEARCH_TERMS = wx.lib.newevent.NewEvent()
 def is_dark_mode():
     window_colour = wx.SystemSettings.GetColour(wx.SYS_COLOUR_WINDOW)
     luminance = sum([c * f for c, f in zip(window_colour, [0.299, 0.587, 0.114])])
-    return luminance < 0.5
+    return luminance < 128
 
 
 def box_it(window, title_text):
