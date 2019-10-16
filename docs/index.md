@@ -33,8 +33,29 @@ The resulting Python program performs electrical rules checking
 for common mistakes and outputs a netlist that serves as input to
 a PCB layout tool.
 
-## Features
+First, let's look at a "normal" design flow in [KiCad](https://kicad-pcb.org):
 
+![Schematic-based PCB design flow](images/schematic-process-flow.png)
+
+Here, you start off in a *schematic editor* (for KiCad, that's EESCHEMA) and
+draw a schematic. From that, EESCHEMA generates
+a *netlist file* that lists what components are used and how their pins are interconnected.
+Then you'll use a *PCB layout tool* (like KiCad's PCBNEW) to arrange the part footprints
+and draw the wire traces that connect the pins as specified in the netlist.
+Once that is done, PCBNEW outputs a set of *Gerber files* that are sent to a
+*PCB fabricator* who will create a physical PCB.
+
+In the SKiDL-based design flow, you use a *text editor* to create a *Python code file*
+that employs the SKiDL library to describe interconnections of components.
+This code file is executed by a *Python interpreter* and a netlist file is output.
+From there, the design flow is identical to the schematic-based one.
+
+![Schematic-based PCB design flow](images/skidl-process-flow.png)
+
+So, why would you *want* to use SKiDL?
+Here are some of the features SKiDL brings to electronic design:
+
+* Requires only a text editor and Python.
 * Has a powerful, flexible syntax (because it *is* Python).
 * Permits compact descriptions of electronic circuits (think about *not* tracing
   signals through a multi-page schematic).
@@ -72,11 +93,15 @@ vin += r1[1]      # Connect the input to the upper resistor.
 gnd += r2[2]      # Connect the lower resistor to ground.
 vout += r1[2], r2[1] # Output comes from the connection of the two resistors.
 
+# Or you could do it with a single line of code:
+# vin && r1 && vout && r2 && gnd
+
+# Output the netlist to a file.
 generate_netlist()
 ```
 
-And this is the netlist output that can be fed to a program like KiCad's `PCBNEW` to
-create the physical PCB:
+And this is the netlist output that is passed to `PCBNEW` to
+do the PCB layout:
 
 ```text
 (export (version D)                                                                                    
@@ -1707,7 +1732,7 @@ Here are a few things you can't do (and will get warned about):
 
 # Converting Existing Designs to SKiDL
 
-If you have an existing schematic-based design, you can convert it to SKiDL as follows:
+You can convert an existing schematic-based design to SKiDL like this:
 
 1. Generate a netlist file for your design using whatever procedure your ECAD
    system provides. For this discussion, call the netlist file `my_design.net`.

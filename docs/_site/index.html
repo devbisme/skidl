@@ -150,9 +150,30 @@ The resulting Python program performs electrical rules checking
 for common mistakes and outputs a netlist that serves as input to
 a PCB layout tool.</p>
 
-<h2 id="features">Features</h2>
+<p>First, let’s look at a “normal” design flow in <a href="https://kicad-pcb.org">KiCad</a>:</p>
+
+<p><img src="images/schematic-process-flow.png" alt="Schematic-based PCB design flow" /></p>
+
+<p>Here, you start off in a <em>schematic editor</em> (for KiCad, that’s EESCHEMA) and
+draw a schematic. From that, EESCHEMA generates
+a <em>netlist file</em> that lists what components are used and how their pins are interconnected.
+Then you’ll use a <em>PCB layout tool</em> (like KiCad’s PCBNEW) to arrange the part footprints
+and draw the wire traces that connect the pins as specified in the netlist.
+Once that is done, PCBNEW outputs a set of <em>Gerber files</em> that are sent to a
+<em>PCB fabricator</em> who will create a physical PCB.</p>
+
+<p>In the SKiDL-based design flow, you use a <em>text editor</em> to create a <em>Python code file</em>
+that employs the SKiDL library to describe interconnections of components.
+This code file is executed by a <em>Python interpreter</em> and a netlist file is output.
+From there, the design flow is identical to the schematic-based one.</p>
+
+<p><img src="images/skidl-process-flow.png" alt="Schematic-based PCB design flow" /></p>
+
+<p>So, why would you <em>want</em> to use SKiDL?
+Here are some of the features SKiDL brings to electronic design:</p>
 
 <ul>
+  <li>Requires only a text editor and Python.</li>
   <li>Has a powerful, flexible syntax (because it <em>is</em> Python).</li>
   <li>Permits compact descriptions of electronic circuits (think about <em>not</em> tracing
 signals through a multi-page schematic).</li>
@@ -190,12 +211,16 @@ takes an input voltage, divides it by three, and outputs it:</p>
 <span class="n">gnd</span> <span class="o">+=</span> <span class="n">r2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>      <span class="c"># Connect the lower resistor to ground.</span>
 <span class="n">vout</span> <span class="o">+=</span> <span class="n">r1</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">r2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c"># Output comes from the connection of the two resistors.</span>
 
+<span class="c"># Or you could do it with a single line of code:</span>
+<span class="c"># vin &amp;&amp; r1 &amp;&amp; vout &amp;&amp; r2 &amp;&amp; gnd</span>
+
+<span class="c"># Output the netlist to a file.</span>
 <span class="n">generate_netlist</span><span class="p">()</span>
 </code></pre>
 </div>
 
-<p>And this is the netlist output that can be fed to a program like KiCad’s <code class="highlighter-rouge">PCBNEW</code> to
-create the physical PCB:</p>
+<p>And this is the netlist output that is passed to <code class="highlighter-rouge">PCBNEW</code> to
+do the PCB layout:</p>
 
 <div class="language-text highlighter-rouge"><pre class="highlight"><code>(export (version D)                                                                                    
   (design                                                                                              
@@ -1897,7 +1922,7 @@ it can’t be moved to a different Circuit object.</p>
 
 <h1 id="converting-existing-designs-to-skidl">Converting Existing Designs to SKiDL</h1>
 
-<p>If you have an existing schematic-based design, you can convert it to SKiDL as follows:</p>
+<p>You can convert an existing schematic-based design to SKiDL like this:</p>
 
 <ol>
   <li>
