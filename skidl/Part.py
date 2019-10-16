@@ -756,6 +756,8 @@ class Part(SkidlBaseObject):
                 "footprint",
                 "circuit",
                 "skidl_trace",
+                "search_text",
+                "filename",
             ]
         )
         return list(fields - non_fields)
