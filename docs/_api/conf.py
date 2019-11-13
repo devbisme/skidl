@@ -42,13 +42,13 @@ import skidl.pckg_info as pckg_info
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.napoleon', 'sphinx.ext.viewcode', 'sphinx.ext.githubpages']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.napoleon', 'sphinx.ext.viewcode', 'sphinx.ext.githubpages', 'recommonmark']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
 # The suffix of source filenames.
-source_suffix = '.rst'
+source_suffix = {'.rst': 'restructuredtext', '.md': 'markdown'}
 
 # The encoding of source files.
 #source_encoding = 'utf-8-sig'
@@ -59,7 +59,7 @@ master_doc = 'api'
 
 # General information about the project.
 project = u'skidl'
-copyright = u'2016-2018, XESS Corp.'
+copyright = u'2016-2019, XESS Corp.'
 
 # The version info for the project you're documenting, acts as replacement
 # for |version| and |release|, also used in various other places throughout
@@ -281,3 +281,6 @@ texinfo_documents = [
 
 # autodoc options.
 autodoc_member_order = 'bysource'
+autoclass_content = "both"
+autodoc_default_flags = {"members", "undoc-members", "private-members", "special-members"}
+autodoc_default_options = {"exclude-members": "__dict__, __module__, __weakref__"}

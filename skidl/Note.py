@@ -23,7 +23,7 @@
 # THE SOFTWARE.
 
 """
-User-specified notes for Circuit, Part, Pin, Net, Bus, Interface objects.
+Supports user-specified notes that can be attached to other SKiDL objects.
 """
 
 from __future__ import absolute_import, division, print_function, unicode_literals
@@ -36,12 +36,29 @@ standard_library.install_aliases()
 
 
 class Note(list):
+    """Stores one or more strings as notes."""
+
     def __init__(self, *notes):
+        """Create a note.
+
+        Args:
+            notes: Either a string or an iterable containing multiple strings.
+
+        Returns:
+            A Note object containing note strings.
+        """
         super(Note, self).__init__()
         self.__iadd__(*notes)
 
     def __iadd__(self, *notes):
-        """Add new notes."""
+        """Add new notes to a Note object.
+
+        Args:
+            notes: Either a string or an iterable containing multiple strings.
+
+        Returns:
+            A Note object containing note strings.
+        """
         for note in notes:
             if isinstance(note, (tuple, list, set)):
                 self.extend(note)
@@ -50,4 +67,9 @@ class Note(list):
         return self
 
     def __str__(self):
+        """Return notes as a concatenated set of strings.
+
+        Returns:
+            A string made up of the concatenated notes in the object joined by newlines.
+        """
         return "\n".join(self)

@@ -7,6 +7,7 @@ SKiDL API
 .. toctree::
    :maxdepth: 4
 
+   overview
    modules
 
 
