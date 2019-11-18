@@ -40,7 +40,9 @@ Features
 As a very simple example (and you can see more examples in the 
 `SKiDL blog <https://xesscorp.github.io/skidl/docs/_site/blog/>`_),
 the SKiDL program below describes a circuit that
-takes an input voltage, divides it by three, and outputs it::
+takes an input voltage, divides it by three, and outputs it:
+
+.. code-block:: python
 
     from skidl import *
 
