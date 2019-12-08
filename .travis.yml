@@ -3,21 +3,25 @@ language: python
 matrix:
   include:
     - python: 2.7
+      os: osx
       name: "Test Python 2.7"
       env: TOXENV=py27
       install: pip install tox
       script: tox
     - python: 3.6
+      os: osx
       name: "Test Python 3.6"
       env: TOXENV=py36
       install: pip install tox
       script: tox
     - python: 3.7
+      os: osx
       name: "Test Python 3.7"
       env: TOXENV=py37
       install: pip install tox
       script: tox
     - python: 3.6
+      os: linux
       name: "Check formatting"
       install: pip install black isort
       script:
