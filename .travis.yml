@@ -18,9 +18,7 @@ matrix:
         - sudo apt-get update
         - sudo apt-get install -y build-essential
         - sudo apt-get install -y python3-dev libgtk-3-dev libjpeg-dev libtiff-dev \
-                libgstreamer-plugins-base1.0-dev libnotify-dev \
-                libwebkit2gtk-4.0-dev libxtst-dev \
-                libglu1-mesa-dev
+                libnotify-dev libxtst-dev
       script:
         - tox
     - python: 3.7
