@@ -38,6 +38,14 @@ matrix:
         - sudo apt-get install -y build-essential python3-dev libgtk-3-dev
       install: pip install tox
       script: tox -vvvvv
+    - python: pypy3
+      name: "Test PyPy3"
+      env: TOXENV=pypy3
+      before_install:
+        - sudo apt-get update
+        - sudo apt-get install -y build-essential python3-dev libgtk-3-dev
+      install: pip install tox
+      script: tox -vvvvv
     - python: 3.6
       name: "Check formatting"
       install: pip install black isort
