@@ -113,8 +113,8 @@ class Part(SkidlBaseObject):
         self.unit = {}  # Dictionary for storing subunits of the part, if desired.
         self.pins = []  # Start with no pins, but a place to store them.
         self.name = (
-            name
-        )  # Assign initial part name. (Must come after circuit is assigned.)
+            name  # Assign initial part name. (Must come after circuit is assigned.)
+        )
         self.description = ""  # Make sure there is a description, even if empty.
         self._ref = ""  # Provide a member for holding a reference.
         self.ref_prefix = ""  # Provide a member for holding the part reference prefix.
