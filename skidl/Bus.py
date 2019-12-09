@@ -121,8 +121,8 @@ class Bus(SkidlBaseObject):
 
         # Add the bus to the circuit.
         self.circuit = (
-            None
-        )  # Bus won't get added if it's already seen as part of circuit.
+            None  # Bus won't get added if it's already seen as part of circuit.
+        )
         attribs[
             "circuit"
         ] += self  # Add bus to circuit. This also sets self.circuit again.
