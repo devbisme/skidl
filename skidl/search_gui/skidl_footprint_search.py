@@ -33,7 +33,6 @@ import string
 
 import pykicad.module as pym
 import wx
-
 from skidl import (
     KICAD,
     footprint_search_paths,

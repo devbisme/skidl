@@ -31,7 +31,6 @@ from __future__ import print_function
 import os
 
 import wx
-
 from skidl import (
     KICAD,
     SchLib,

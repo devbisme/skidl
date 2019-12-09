@@ -32,7 +32,6 @@ import collections
 import os
 
 import wx
-
 from skidl import (
     KICAD,
     lib_search_paths,

@@ -5,18 +5,39 @@ matrix:
     - python: 2.7
       name: "Test Python 2.7"
       env: TOXENV=py27
+      before_install:
+        - sudo apt-get update
+        - sudo apt-get install -y build-essential python-dev libgtk-3-dev      
       install: pip install tox
-      script: tox
+      script: tox -vvvvv
     - python: 3.6
       name: "Test Python 3.6"
       env: TOXENV=py36
+      before_install:
+        # Install neccessary Linux dependencies to build wxPython from source.
+        - sudo apt-get update
+        - sudo apt-get install -y build-essential python3-dev libgtk-3-dev
       install: pip install tox
-      script: tox
+      script:
+        # Pass -vvv to pip through tox because wxPython can take ~20min to build and
+        # Travis CI thinks that the build has stalled unless build progress is output.
+        - tox -vvvvv
     - python: 3.7
       name: "Test Python 3.7"
       env: TOXENV=py37
+      before_install:
+        - sudo apt-get update
+        - sudo apt-get install -y build-essential python3-dev libgtk-3-dev
       install: pip install tox
-      script: tox
+      script: tox -vvvvv
+    - python: 3.8
+      name: "Test Python 3.8"
+      env: TOXENV=py38
+      before_install:
+        - sudo apt-get update
+        - sudo apt-get install -y build-essential python3-dev libgtk-3-dev
+      install: pip install tox
+      script: tox -vvvvv
     - python: 3.6
       name: "Check formatting"
       install: pip install black isort
