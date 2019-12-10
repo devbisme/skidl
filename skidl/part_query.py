@@ -326,7 +326,7 @@ def search_footprints_iter(terms, tool=None):
             # terminates it won't be stripped off later. This is necessary
             # so (for example) "#pads=20 " won't match "#pads=208".
             num_pads = len(
-                set(re.findall("\(\s*pad\s+([^\s)]+)", " ".join(module_text)))
+                set(re.findall(r"\(\s*pad\s+([^\s)]+)", " ".join(module_text)))
             )
             num_pads_str = "#pads={}".format(num_pads)
 
