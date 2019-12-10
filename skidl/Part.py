@@ -51,6 +51,53 @@ except ImportError:
         pass
 
 
+class PinNumberSearch(object):
+    """
+    A class for restricting part pin indexing to only pin numbers
+    while ignoring pin names.
+    """
+
+    def __init__(self, part):
+        # Store the part this object belongs to.
+        self.part = part
+
+    def get_pins(self, *pin_ids, **criteria):
+        # Add criteria that restricts pin searching to only numbers.
+        criteria["only_search_numbers"] = True
+
+        # Now search the part for pin numbers matching the pin_ids.
+        return self.part.get_pins(*pin_ids, **criteria)
+
+    # Get pin numbers from a part using brackets, e.g. [1,5:9].
+    __getitem__ = get_pins
+
+    def __setitem__(self, ids, *pins_nets_buses):
+        self.part.__setitem__(ids, *pins_nets_buses)
+
+
+class PinNameSearch(object):
+    """
+    A class for restricting part pin indexing to only pin names
+    while ignoring pin numbers.
+    """
+
+    def __init__(self, part):
+        self.part = part
+
+    def get_pins(self, *pin_ids, **criteria):
+        # Add criteria that restricts pin searching to only names.
+        criteria["only_search_names"] = True
+
+        # Now search the part for pin names matching the pin_ids.
+        return self.part.get_pins(*pin_ids, **criteria)
+
+    # Get pin names from a part using brackets, e.g. ['A1, A2, A3'].
+    __getitem__ = get_pins
+
+    def __setitem__(self, ids, *pins_nets_buses):
+        self.part.__setitem__(ids, *pins_nets_buses)
+
+
 class Part(SkidlBaseObject):
     """
     A class for storing a definition of a schematic part.
@@ -112,9 +159,9 @@ class Part(SkidlBaseObject):
         self.do_erc = True  # Allow part to be included in ERC.
         self.unit = {}  # Dictionary for storing subunits of the part, if desired.
         self.pins = []  # Start with no pins, but a place to store them.
-        self.name = (
-            name  # Assign initial part name. (Must come after circuit is assigned.)
-        )
+        self.p = PinNumberSearch(self)  # Does pin search using only pin numbers.
+        self.n = PinNameSearch(self)  # Does pin search using only pin names.
+        self.name = name  # Assign initial part name.
         self.description = ""  # Make sure there is a description, even if empty.
         self._ref = ""  # Provide a member for holding a reference.
         self.ref_prefix = ""  # Provide a member for holding the part reference prefix.
@@ -375,6 +422,10 @@ class Part(SkidlBaseObject):
             # Make sure all the pins have a reference to this new part copy.
             cpy.associate_pins()
 
+            # Make new objects for searching the copy's pin numbers and names.
+            cpy.p = PinNumberSearch(cpy)
+            cpy.n = PinNameSearch(cpy)
+
             # Make copies of the units in the new part copy.
             for label in self.unit:
                 # Get the pin numbers from the unit in the original.
@@ -482,6 +533,10 @@ class Part(SkidlBaseObject):
         from .NetPinList import NetPinList
         from .Alias import Alias
 
+        # Extract restrictions on searching for only pin names or numbers.
+        only_search_numbers = criteria.pop("only_search_numbers", False)
+        only_search_names = criteria.pop("only_search_names", False)
+
         # If no pin identifiers were given, then use a wildcard that will
         # select all pins.
         if not pin_ids:
@@ -495,59 +550,59 @@ class Part(SkidlBaseObject):
         pins = NetPinList()
         for p_id in expand_indices(self.min_pin, self.max_pin, *pin_ids):
 
-            # Does pin ID (either integer or string) match a pin number...
-            tmp_pins = filter_list(
-                self.pins, num=str(p_id), do_str_match=True, **criteria
-            )
-            if tmp_pins:
-                pins.extend(tmp_pins)
-                continue
-
-            # OK, assume it's not a pin number but a pin name. Look for an
-            # exact match.
-            tmp_pins = filter_list(self.pins, name=p_id, do_str_match=True, **criteria)
-            if tmp_pins:
-                pins.extend(tmp_pins)
-                continue
-
-            # OK, now check pin aliases for an exact match.
-            tmp_pins = filter_list(
-                self.pins, aliases=p_id, do_str_match=True, **criteria
-            )
-            if tmp_pins:
-                pins.extend(tmp_pins)
-                continue
-
-            # OK, pin ID is not a pin number and doesn't exactly match a pin
-            # name or alias. Does it match a substring within a pin name?
-            try:
-                p_id_re = "".join([".*", p_id, ".*"])
-            except TypeError:
-                # This will happen if the p_id is a number and not a string.
-                # Skip this and the next block because p_id_re can't be made.
-                continue
-            else:
-                # The p_id is a string, so now check the pin names.
-                tmp_pins = filter_list(self.pins, name=p_id_re, **criteria)
+            # If only names are being searched, the search of pin numbers is skipped.
+            if not only_search_names:
+                # Does pin ID (either integer or string) match a pin number...
+                tmp_pins = filter_list(
+                    self.pins, num=str(p_id), do_str_match=True, **criteria
+                )
                 if tmp_pins:
                     pins.extend(tmp_pins)
                     continue
 
-            # Pin ID didn't match a substring in the pin names, so now check
-            # the pin aliases.
-            p_id_re_alias = Alias(p_id_re)
-            tmp_pins = filter_list(self.pins, aliases=p_id_re_alias, **criteria)
-            if tmp_pins:
-                pins.extend(tmp_pins)
-                continue
+            # if only numbers are being searched, then search of pin names is skipped.
+            if not only_search_numbers:
+                # OK, assume it's not a pin number but a pin name. Look for an
+                # exact match.
+                tmp_pins = filter_list(
+                    self.pins, name=p_id, do_str_match=True, **criteria
+                )
+                if tmp_pins:
+                    pins.extend(tmp_pins)
+                    continue
+
+                # OK, now check pin aliases for an exact match.
+                tmp_pins = filter_list(
+                    self.pins, aliases=p_id, do_str_match=True, **criteria
+                )
+                if tmp_pins:
+                    pins.extend(tmp_pins)
+                    continue
+
+                # OK, pin ID is not a pin number and doesn't exactly match a pin
+                # name or alias. Does it match a substring within a pin name?
+                try:
+                    p_id_re = "".join([".*", p_id, ".*"])
+                except TypeError:
+                    # This will happen if the p_id is a number and not a string.
+                    # Skip this and the next block because p_id_re can't be made.
+                    continue
+                else:
+                    # The p_id is a string, so now check the pin names.
+                    tmp_pins = filter_list(self.pins, name=p_id_re, **criteria)
+                    if tmp_pins:
+                        pins.extend(tmp_pins)
+                        continue
+
+                # Pin ID didn't match a substring in the pin names, so now check
+                # the pin aliases.
+                p_id_re_alias = Alias(p_id_re)
+                tmp_pins = filter_list(self.pins, aliases=p_id_re_alias, **criteria)
+                if tmp_pins:
+                    pins.extend(tmp_pins)
+                    continue
 
         return list_or_scalar(pins)
-
-    def __iter__(self):
-        """
-        Return an iterator for stepping thru individual pins of the part.
-        """
-        return (p for p in self.pins)  # Return generator expr.
 
     # Get pins from a part using brackets, e.g. [1,5:9,'A[0-9]+'].
     __getitem__ = get_pins
@@ -582,6 +637,12 @@ class Part(SkidlBaseObject):
         # No iadd_flag or it wasn't set. This means a direct assignment
         # was made to the pin, which is not allowed.
         log_and_raise(logger, TypeError, "Can't assign to a part! Use the += operator.")
+
+    def __iter__(self):
+        """
+        Return an iterator for stepping thru individual pins of the part.
+        """
+        return (p for p in self.pins)  # Return generator expr.
 
     def is_connected(self):
         """
@@ -758,6 +819,8 @@ class Part(SkidlBaseObject):
                 "skidl_trace",
                 "search_text",
                 "filename",
+                "p",
+                "n",
             ]
         )
         return list(fields - non_fields)
@@ -851,8 +914,7 @@ class Part(SkidlBaseObject):
         attribs.append("'tool':SKIDL")
         for k in keys:
             v = getattr(self, k, None)
-            if v:
-                attribs.append("'{}':{}".format(k, repr(v)))
+            attribs.append("'{}':{}".format(k, repr(v)))
         if self.pins:
             pin_strs = [p.export() for p in self.pins]
             attribs.append("'pins':[{}]".format(",".join(pin_strs)))
