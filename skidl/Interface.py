@@ -31,69 +31,16 @@ from builtins import str
 
 from future import standard_library
 
-from .baseobj import SkidlBaseObject
-from .utilities import *
-
 standard_library.install_aliases()
 
-try:
-    import __builtin__ as builtins
-except ImportError:
-    import builtins
 
-
-class Interface(SkidlBaseObject):
+class Interface(object):
     """
-    An Interface bundles a group of signals into a single entity with each
-    signal becoming an attribute.
+    An Interface bundles a group of nets/buses into a single entity with each
+    net/bus becoming an attribute.
     """
 
-    # Set the default ERC functions for all Interface instances.
-    erc_list = []
+    def __init__(self, **kwargs):
 
-    def __init__(self, prefix, circuit=None):
-
-        super(Interface, self).__init__()
-
-        self.circuit = None  # New interface is not a member of any circuit.
-        self._name = None  # New interface has no assigned name.
-        self.prefix = prefix  # Prefix string for this particular interface.
-
-        # Set the Circuit object for the interface first because setting the
-        # interface name requires a lookup of existing names in the circuit.
-        # Add the interface to the passed-in circuit or to the default circuit.
-        if circuit is None:
-            circuit = builtins.default_circuit
-        circuit += self  # Add the interface to the circuit. Also assigns name.
-
-    def is_movable(self):
-        return True
-
-    def ERC(self, *args, **kwargs):
-        """Run class-wide and local ERC functions on this interface."""
-
-        exec_function_list(self, "erc_list", *args, **kwargs)
-
-    @property
-    def name(self):
-        """
-        Get, set and delete the name of this interface.
-
-        When setting the name, if another interface with the same name
-        is found, the name for this interface is adjusted to make it unique.
-        """
-        return self._name
-
-    @name.setter
-    def name(self, name):
-        # Remove the existing name so it doesn't cause a collision if the
-        # object is renamed with its existing name.
-        self._name = None
-
-        # Now name the object with the given name or some variation
-        # of it that doesn't collide with anything else in the list.
-        self._name = get_unique_name(self.circuit.interfaces, "name", self.prefix, name)
-
-    @name.deleter
-    def name(self):
-        del self._name
+        for k, v in kwargs.items():
+            self.__setattr__(k, v)
