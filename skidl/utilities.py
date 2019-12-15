@@ -759,10 +759,19 @@ def explode(bus_str):
     end_bus_name = bus.group(4)
     dir = [1, -1][int(begin_num > end_num)]  # Bus indexes increasing or decreasing?
     bus_pin_nums = range(begin_num, end_num + dir, dir)
-    # The character following a bus index must be non-numeric so that "B1" does
-    # not also match "B11". This must also be a look-ahead assertion so it
-    # doesn't consume any of the string.
-    non_num = "(?=[^0-9]|$)"
+    # I'm leaving this in here so I don't do it again:
+    #
+    ## The character following a bus index must be non-numeric so that "B1" does
+    ## not also match "B11". This must also be a look-ahead assertion so it
+    ## doesn't consume any of the string.
+    # non_num = "(?=[^0-9]|$)"
+    #
+    # This caused problems because the bus lines that were output were regular
+    # expressions. This bypassed the regular string matching, so something like
+    # "A1(?=[^0-9]|$)" would match both "A1" and "BA1" in an SDRAM and cause
+    # problems when you used "sdram['A[12:0]']" as it would find fifteen matching
+    # pins instead of 13.
+    non_num = ""
     return [beg_bus_name + str(n) + non_num + end_bus_name for n in bus_pin_nums]
 
 
