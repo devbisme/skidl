@@ -3,17 +3,17 @@
 History
 -------
 
-0.0.27 (2019-XX-XX)
+0.0.27 (2019-12-16)
 ______________________
 
 * Prevent changing the name of net 0 when generating a SPICE netlist.
 * Fixed Pin, Net, Bus and Part iterators so they'll work in nested loops.
 * Part units are automatically added when a part is parsed.
 * Files are now opened for reading using latin_1 encoding to allow special symbols used by KiCad.
-* Part pins can now be aliased directly, e.g. `uc[5].alias = 'gp0'`.
+* Part pins can now be aliased directly, e.g. `uc[5].aliases += 'gp0'`.
 * Added class method get() to Part to allow finding a part based on name, reference, description.
 * Refactored ERC functions to allow user-extensibility.
-* Created a base object for Circuit, Part, Pin, Net, Bus and Interface objects.
+* Created a base object for Circuit, Part, Pin, Net, and Bus objects.
 * Added an aliases property to the SKiDL base object so all its children could be aliased.
 * Updated to perform simulations with ngspice version 30.
 * Added a notes property to allow attachment of user notes to Parts, Pins, Nets, etc.
@@ -70,6 +70,7 @@ ______________________
 * Bus, Pin, and Net objects now have iterators.
 * Corrected initialization of KiCad library search paths.
 
+********************************************************************
 
 0.0.21 (2018-04-30)
 ______________________

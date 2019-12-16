@@ -37,6 +37,10 @@ but, right now, the description on the homepage about how to use SKiDL is much b
 <div class="section" id="skidl-api">
 <h1>SKiDL API<a class="headerlink" href="#skidl-api" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
+<span id="document-overview"></span><div class="section" id="overview-of-how-skidl-works">
+<h2>Overview of How SKiDL Works<a class="headerlink" href="#overview-of-how-skidl-works" title="Permalink to this headline">¶</a></h2>
+<p>This is an <em>overview</em> of how SKiDL works.</p>
+</div>
 <span id="document-modules"></span><div class="section" id="skidl">
 <h2>skidl<a class="headerlink" href="#skidl" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
@@ -53,6 +57,11 @@ but, right now, the description on the homepage about how to use SKiDL is much b
 <div class="section" id="module-skidl.search_gui.common">
 <span id="skidl-search-gui-common-module"></span><h6>skidl.search_gui.common module<a class="headerlink" href="#module-skidl.search_gui.common" title="Permalink to this headline">¶</a></h6>
 <p>GUI components in common with multiple apps.</p>
+<dl class="function">
+<dt id="skidl.search_gui.common.is_dark_mode">
+<code class="descclassname">skidl.search_gui.common.</code><code class="descname">is_dark_mode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.is_dark_mode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="function">
 <dt id="skidl.search_gui.common.box_it">
 <code class="descclassname">skidl.search_gui.common.</code><code class="descname">box_it</code><span class="sig-paren">(</span><em>window</em>, <em>title_text</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.box_it" title="Permalink to this definition">¶</a></dt>
@@ -88,6 +97,12 @@ but, right now, the description on the homepage about how to use SKiDL is much b
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wx._core.Panel</span></code></p>
 <p>Class for showing a text description in a TextCtrl box.</p>
 <dl class="method">
+<dt id="skidl.search_gui.common.Description.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>parent</em>, <em>label</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.Description.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="skidl.search_gui.common.Description.SetDescription">
 <code class="descname">SetDescription</code><span class="sig-paren">(</span><em>description</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.Description.SetDescription" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the description shown in the text box.</p>
@@ -101,6 +116,12 @@ but, right now, the description on the homepage about how to use SKiDL is much b
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wx._core.Panel</span></code></p>
 <p>Class for showing a clickable hyperlink.</p>
 <dl class="method">
+<dt id="skidl.search_gui.common.HyperLink.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>parent</em>, <em>label</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.HyperLink.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="skidl.search_gui.common.HyperLink.SetURL">
 <code class="descname">SetURL</code><span class="sig-paren">(</span><em>url</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.HyperLink.SetURL" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the URL for the clickable hyperlink.</p>
@@ -113,6 +134,12 @@ but, right now, the description on the homepage about how to use SKiDL is much b
 <em class="property">class </em><code class="descclassname">skidl.search_gui.common.</code><code class="descname">TextEntryDialog</code><span class="sig-paren">(</span><em>parent</em>, <em>title</em>, <em>caption</em>, <em>tip=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.TextEntryDialog" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wx._core.Dialog</span></code></p>
 <p>Class for entering text in a dialog window.</p>
+<dl class="method">
+<dt id="skidl.search_gui.common.TextEntryDialog.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>parent</em>, <em>title</em>, <em>caption</em>, <em>tip=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.TextEntryDialog.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="skidl.search_gui.common.TextEntryDialog.OnEnter">
 <code class="descname">OnEnter</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.TextEntryDialog.OnEnter" title="Permalink to this definition">¶</a></dt>
@@ -135,7 +162,7 @@ but, right now, the description on the homepage about how to use SKiDL is much b
 
 <dl class="class">
 <dt id="skidl.search_gui.common.MyGrid">
-<em class="property">class </em><code class="descclassname">skidl.search_gui.common.</code><code class="descname">MyGrid</code><span class="sig-paren">(</span><em>parent</em>, <em>headers</em>, <em>bck_colour</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.MyGrid" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">skidl.search_gui.common.</code><code class="descname">MyGrid</code><span class="sig-paren">(</span><em>parent</em>, <em>headers</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.MyGrid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wx._grid.Grid</span></code></p>
 <p>Class for displaying tabular data about parts, pins, footprints.</p>
 <dl class="attribute">
@@ -157,6 +184,12 @@ but, right now, the description on the homepage about how to use SKiDL is much b
 <dt id="skidl.search_gui.common.MyGrid.DESCENDING">
 <code class="descname">DESCENDING</code><em class="property"> = ' ▼'</em><a class="headerlink" href="#skidl.search_gui.common.MyGrid.DESCENDING" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.common.MyGrid.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>parent</em>, <em>headers</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.common.MyGrid.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="skidl.search_gui.common.MyGrid.Resize">
@@ -216,6 +249,63 @@ in the original set of data used to create the table.</p>
 <dt id="skidl.search_gui.footprint_painter.BBox">
 <em class="property">class </em><code class="descclassname">skidl.search_gui.footprint_painter.</code><code class="descname">BBox</code><span class="sig-paren">(</span><em>x0</em>, <em>y0</em>, <em>x1</em>, <em>y1</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.footprint_painter.BBox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<p>Create new instance of BBox(x0, y0, x1, y1)</p>
+<dl class="method">
+<dt id="skidl.search_gui.footprint_painter.BBox.__getnewargs__">
+<code class="descname">__getnewargs__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.footprint_painter.BBox.__getnewargs__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self as a plain tuple.  Used by copy and pickle.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="skidl.search_gui.footprint_painter.BBox.__new__">
+<em class="property">static </em><code class="descname">__new__</code><span class="sig-paren">(</span><em>_cls</em>, <em>x0</em>, <em>y0</em>, <em>x1</em>, <em>y1</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.footprint_painter.BBox.__new__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create new instance of BBox(x0, y0, x1, y1)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.footprint_painter.BBox.__repr__">
+<code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.footprint_painter.BBox.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a nicely formatted representation string</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.search_gui.footprint_painter.BBox.__slots__">
+<code class="descname">__slots__</code><em class="property"> = ()</em><a class="headerlink" href="#skidl.search_gui.footprint_painter.BBox.__slots__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.footprint_painter.BBox._asdict">
+<code class="descname">_asdict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.footprint_painter.BBox._asdict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new OrderedDict which maps field names to their values.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.search_gui.footprint_painter.BBox._field_defaults">
+<code class="descname">_field_defaults</code><em class="property"> = {}</em><a class="headerlink" href="#skidl.search_gui.footprint_painter.BBox._field_defaults" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.search_gui.footprint_painter.BBox._fields">
+<code class="descname">_fields</code><em class="property"> = ('x0', 'y0', 'x1', 'y1')</em><a class="headerlink" href="#skidl.search_gui.footprint_painter.BBox._fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.search_gui.footprint_painter.BBox._fields_defaults">
+<code class="descname">_fields_defaults</code><em class="property"> = {}</em><a class="headerlink" href="#skidl.search_gui.footprint_painter.BBox._fields_defaults" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="skidl.search_gui.footprint_painter.BBox._make">
+<em class="property">classmethod </em><code class="descname">_make</code><span class="sig-paren">(</span><em>iterable</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.footprint_painter.BBox._make" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a new BBox object from a sequence or iterable</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.footprint_painter.BBox._replace">
+<code class="descname">_replace</code><span class="sig-paren">(</span><em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.footprint_painter.BBox._replace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new BBox object replacing specified fields with new values</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="skidl.search_gui.footprint_painter.BBox.x0">
 <code class="descname">x0</code><a class="headerlink" href="#skidl.search_gui.footprint_painter.BBox.x0" title="Permalink to this definition">¶</a></dt>
@@ -247,6 +337,12 @@ in the original set of data used to create the table.</p>
 <em class="property">class </em><code class="descclassname">skidl.search_gui.footprint_painter.</code><code class="descname">Layer</code><span class="sig-paren">(</span><em>colour=wx.Colour(63</em>, <em>63</em>, <em>63</em>, <em>255)</em>, <em>style=100</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.footprint_painter.Layer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Stores graphic primitives for a layer and draws them.</p>
+<dl class="method">
+<dt id="skidl.search_gui.footprint_painter.Layer.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>colour=wx.Colour(63</em>, <em>63</em>, <em>63</em>, <em>255)</em>, <em>style=100</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.footprint_painter.Layer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="skidl.search_gui.footprint_painter.Layer.set_fill">
 <code class="descname">set_fill</code><span class="sig-paren">(</span><em>colour</em>, <em>style=100</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.footprint_painter.Layer.set_fill" title="Permalink to this definition">¶</a></dt>
@@ -296,6 +392,12 @@ in the original set of data used to create the table.</p>
 <em class="property">class </em><code class="descclassname">skidl.search_gui.footprint_painter.</code><code class="descname">FootprintPainter</code><span class="sig-paren">(</span><em>footprint_</em>, <em>dc</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.footprint_painter.FootprintPainter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Footprint painted within a device context.</p>
+<dl class="method">
+<dt id="skidl.search_gui.footprint_painter.FootprintPainter.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>footprint_</em>, <em>dc</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.footprint_painter.FootprintPainter.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
 <dl class="staticmethod">
 <dt id="skidl.search_gui.footprint_painter.FootprintPainter.rect_pts">
 <em class="property">static </em><code class="descname">rect_pts</code><span class="sig-paren">(</span><em>cx</em>, <em>cy</em>, <em>w</em>, <em>h</em>, <em>rot</em>, <em>tm</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.footprint_painter.FootprintPainter.rect_pts" title="Permalink to this definition">¶</a></dt>
@@ -349,6 +451,12 @@ in the original set of data used to create the table.</p>
 <em class="property">class </em><code class="descclassname">skidl.search_gui.skidl_footprint_search.</code><code class="descname">AppFrame</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_footprint_search.AppFrame" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wx._core.Frame</span></code></p>
 <dl class="method">
+<dt id="skidl.search_gui.skidl_footprint_search.AppFrame.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_footprint_search.AppFrame.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="skidl.search_gui.skidl_footprint_search.AppFrame.InitMenus">
 <code class="descname">InitMenus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_footprint_search.AppFrame.InitMenus" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -379,6 +487,12 @@ in the original set of data used to create the table.</p>
 <dt id="skidl.search_gui.skidl_footprint_search.FootprintPaintingPanel">
 <em class="property">class </em><code class="descclassname">skidl.search_gui.skidl_footprint_search.</code><code class="descname">FootprintPaintingPanel</code><span class="sig-paren">(</span><em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_footprint_search.FootprintPaintingPanel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wx._core.Panel</span></code></p>
+<dl class="method">
+<dt id="skidl.search_gui.skidl_footprint_search.FootprintPaintingPanel.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_footprint_search.FootprintPaintingPanel.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="skidl.search_gui.skidl_footprint_search.FootprintPaintingPanel.footprint">
 <code class="descname">footprint</code><a class="headerlink" href="#skidl.search_gui.skidl_footprint_search.FootprintPaintingPanel.footprint" title="Permalink to this definition">¶</a></dt>
@@ -400,6 +514,12 @@ in the original set of data used to create the table.</p>
 <dt id="skidl.search_gui.skidl_footprint_search.FootprintSearchPanel">
 <em class="property">class </em><code class="descclassname">skidl.search_gui.skidl_footprint_search.</code><code class="descname">FootprintSearchPanel</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_footprint_search.FootprintSearchPanel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wx._core.SplitterWindow</span></code></p>
+<dl class="method">
+<dt id="skidl.search_gui.skidl_footprint_search.FootprintSearchPanel.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_footprint_search.FootprintSearchPanel.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="skidl.search_gui.skidl_footprint_search.FootprintSearchPanel.OnIdle">
 <code class="descname">OnIdle</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_footprint_search.FootprintSearchPanel.OnIdle" title="Permalink to this definition">¶</a></dt>
@@ -451,6 +571,12 @@ in the original set of data used to create the table.</p>
 <em class="property">class </em><code class="descclassname">skidl.search_gui.skidl_part_footprint_search.</code><code class="descname">AppFrame</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_footprint_search.AppFrame" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wx._core.Frame</span></code></p>
 <dl class="method">
+<dt id="skidl.search_gui.skidl_part_footprint_search.AppFrame.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_footprint_search.AppFrame.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="skidl.search_gui.skidl_part_footprint_search.AppFrame.InitMenus">
 <code class="descname">InitMenus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_footprint_search.AppFrame.InitMenus" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -491,6 +617,12 @@ in the original set of data used to create the table.</p>
 <dt id="skidl.search_gui.skidl_part_footprint_search.PartFootprintSearchPanel">
 <em class="property">class </em><code class="descclassname">skidl.search_gui.skidl_part_footprint_search.</code><code class="descname">PartFootprintSearchPanel</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_footprint_search.PartFootprintSearchPanel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wx._core.SplitterWindow</span></code></p>
+<dl class="method">
+<dt id="skidl.search_gui.skidl_part_footprint_search.PartFootprintSearchPanel.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_footprint_search.PartFootprintSearchPanel.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="function">
@@ -506,6 +638,63 @@ in the original set of data used to create the table.</p>
 <dt id="skidl.search_gui.skidl_part_search.LibPart">
 <em class="property">class </em><code class="descclassname">skidl.search_gui.skidl_part_search.</code><code class="descname">LibPart</code><span class="sig-paren">(</span><em>lib_name</em>, <em>part</em>, <em>part_name</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_search.LibPart" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<p>Create new instance of LibPart(lib_name, part, part_name)</p>
+<dl class="method">
+<dt id="skidl.search_gui.skidl_part_search.LibPart.__getnewargs__">
+<code class="descname">__getnewargs__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_search.LibPart.__getnewargs__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self as a plain tuple.  Used by copy and pickle.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="skidl.search_gui.skidl_part_search.LibPart.__new__">
+<em class="property">static </em><code class="descname">__new__</code><span class="sig-paren">(</span><em>_cls</em>, <em>lib_name</em>, <em>part</em>, <em>part_name</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_search.LibPart.__new__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create new instance of LibPart(lib_name, part, part_name)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_part_search.LibPart.__repr__">
+<code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_search.LibPart.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a nicely formatted representation string</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.search_gui.skidl_part_search.LibPart.__slots__">
+<code class="descname">__slots__</code><em class="property"> = ()</em><a class="headerlink" href="#skidl.search_gui.skidl_part_search.LibPart.__slots__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_part_search.LibPart._asdict">
+<code class="descname">_asdict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_search.LibPart._asdict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new OrderedDict which maps field names to their values.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.search_gui.skidl_part_search.LibPart._field_defaults">
+<code class="descname">_field_defaults</code><em class="property"> = {}</em><a class="headerlink" href="#skidl.search_gui.skidl_part_search.LibPart._field_defaults" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.search_gui.skidl_part_search.LibPart._fields">
+<code class="descname">_fields</code><em class="property"> = ('lib_name', 'part', 'part_name')</em><a class="headerlink" href="#skidl.search_gui.skidl_part_search.LibPart._fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.search_gui.skidl_part_search.LibPart._fields_defaults">
+<code class="descname">_fields_defaults</code><em class="property"> = {}</em><a class="headerlink" href="#skidl.search_gui.skidl_part_search.LibPart._fields_defaults" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="skidl.search_gui.skidl_part_search.LibPart._make">
+<em class="property">classmethod </em><code class="descname">_make</code><span class="sig-paren">(</span><em>iterable</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_search.LibPart._make" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a new LibPart object from a sequence or iterable</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.search_gui.skidl_part_search.LibPart._replace">
+<code class="descname">_replace</code><span class="sig-paren">(</span><em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_search.LibPart._replace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new LibPart object replacing specified fields with new values</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="skidl.search_gui.skidl_part_search.LibPart.lib_name">
 <code class="descname">lib_name</code><a class="headerlink" href="#skidl.search_gui.skidl_part_search.LibPart.lib_name" title="Permalink to this definition">¶</a></dt>
@@ -530,6 +719,12 @@ in the original set of data used to create the table.</p>
 <dt id="skidl.search_gui.skidl_part_search.AppFrame">
 <em class="property">class </em><code class="descclassname">skidl.search_gui.skidl_part_search.</code><code class="descname">AppFrame</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_search.AppFrame" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wx._core.Frame</span></code></p>
+<dl class="method">
+<dt id="skidl.search_gui.skidl_part_search.AppFrame.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_search.AppFrame.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="skidl.search_gui.skidl_part_search.AppFrame.InitMenus">
 <code class="descname">InitMenus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_search.AppFrame.InitMenus" title="Permalink to this definition">¶</a></dt>
@@ -561,6 +756,12 @@ in the original set of data used to create the table.</p>
 <dt id="skidl.search_gui.skidl_part_search.PartSearchPanel">
 <em class="property">class </em><code class="descclassname">skidl.search_gui.skidl_part_search.</code><code class="descname">PartSearchPanel</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_search.PartSearchPanel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">wx._core.SplitterWindow</span></code></p>
+<dl class="method">
+<dt id="skidl.search_gui.skidl_part_search.PartSearchPanel.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_search.PartSearchPanel.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="skidl.search_gui.skidl_part_search.PartSearchPanel.OnIdle">
 <code class="descname">OnIdle</code><span class="sig-paren">(</span><em>EnvironmentError</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.search_gui.skidl_part_search.PartSearchPanel.OnIdle" title="Permalink to this definition">¶</a></dt>
@@ -616,18 +817,148 @@ in the original set of data used to create the table.</p>
 <div class="section" id="module-skidl.tools.kicad">
 <span id="skidl-tools-kicad-module"></span><h6>skidl.tools.kicad module<a class="headerlink" href="#module-skidl.tools.kicad" title="Permalink to this headline">¶</a></h6>
 <p>Handler for reading Kicad libraries and generating netlists.</p>
+<dl class="function">
+<dt id="skidl.tools.kicad._load_sch_lib_">
+<code class="descclassname">skidl.tools.kicad.</code><code class="descname">_load_sch_lib_</code><span class="sig-paren">(</span><em>self</em>, <em>filename=None</em>, <em>lib_search_paths_=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.kicad._load_sch_lib_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the parts from a KiCad schematic library file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> – The name of the KiCad schematic library file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.tools.kicad._parse_lib_part_">
+<code class="descclassname">skidl.tools.kicad.</code><code class="descname">_parse_lib_part_</code><span class="sig-paren">(</span><em>self</em>, <em>get_name_only=False</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.kicad._parse_lib_part_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a Part using a part definition from a KiCad schematic library.</p>
+<p>This method was written based on the code from
+<a class="reference external" href="https://github.com/KiCad/kicad-library-utils/tree/master/schlib">https://github.com/KiCad/kicad-library-utils/tree/master/schlib</a>.
+It’s covered by GPL3.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>part_defn</strong> – A list of strings that define the part (usually read from a
+schematic library file). Can also be None.</p></li>
+<li><p><strong>get_name_only</strong> – If true, scan the part definition until the
+name and aliases are found. The rest of the definition
+will be parsed if the part is actually used.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.tools.kicad._gen_netlist_">
+<code class="descclassname">skidl.tools.kicad.</code><code class="descname">_gen_netlist_</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.kicad._gen_netlist_" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="skidl.tools.kicad._gen_netlist_comp_">
+<code class="descclassname">skidl.tools.kicad.</code><code class="descname">_gen_netlist_comp_</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.kicad._gen_netlist_comp_" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="skidl.tools.kicad._gen_netlist_net_">
+<code class="descclassname">skidl.tools.kicad.</code><code class="descname">_gen_netlist_net_</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.kicad._gen_netlist_net_" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="skidl.tools.kicad._gen_xml_">
+<code class="descclassname">skidl.tools.kicad.</code><code class="descname">_gen_xml_</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.kicad._gen_xml_" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="skidl.tools.kicad._gen_xml_comp_">
+<code class="descclassname">skidl.tools.kicad.</code><code class="descname">_gen_xml_comp_</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.kicad._gen_xml_comp_" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="skidl.tools.kicad._gen_xml_net_">
+<code class="descclassname">skidl.tools.kicad.</code><code class="descname">_gen_xml_net_</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.kicad._gen_xml_net_" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 <div class="section" id="module-skidl.tools.skidl">
 <span id="skidl-tools-skidl-module"></span><h6>skidl.tools.skidl module<a class="headerlink" href="#module-skidl.tools.skidl" title="Permalink to this headline">¶</a></h6>
 <p>Handler for reading SKiDL libraries and generating netlists.</p>
+<dl class="function">
+<dt id="skidl.tools.skidl._load_sch_lib_">
+<code class="descclassname">skidl.tools.skidl.</code><code class="descname">_load_sch_lib_</code><span class="sig-paren">(</span><em>self</em>, <em>filename=None</em>, <em>lib_search_paths_=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.skidl._load_sch_lib_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the parts from a SKiDL schematic library file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> – The name of the SKiDL schematic library file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.tools.skidl._parse_lib_part_">
+<code class="descclassname">skidl.tools.skidl.</code><code class="descname">_parse_lib_part_</code><span class="sig-paren">(</span><em>self</em>, <em>get_name_only=False</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.skidl._parse_lib_part_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a Part using a part definition from a SKiDL library.</p>
+</dd></dl>
+
 </div>
 <div class="section" id="module-skidl.tools.spice">
 <span id="skidl-tools-spice-module"></span><h6>skidl.tools.spice module<a class="headerlink" href="#module-skidl.tools.spice" title="Permalink to this headline">¶</a></h6>
 <p>Handler for reading SPICE libraries.</p>
 <dl class="function">
+<dt id="skidl.tools.spice._load_sch_lib_">
+<code class="descclassname">skidl.tools.spice.</code><code class="descname">_load_sch_lib_</code><span class="sig-paren">(</span><em>self</em>, <em>filename=None</em>, <em>lib_search_paths_=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice._load_sch_lib_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the .subckt I/O from a SPICE library file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – The name of the SPICE library file.</p></li>
+<li><p><strong>lib_search_paths</strong> – List of directories to search for the file.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.tools.spice._parse_lib_part_">
+<code class="descclassname">skidl.tools.spice.</code><code class="descname">_parse_lib_part_</code><span class="sig-paren">(</span><em>self</em>, <em>get_name_only=False</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice._parse_lib_part_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a Part using a part definition from a SPICE library.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.tools.spice._mk_subckt_part">
+<code class="descclassname">skidl.tools.spice.</code><code class="descname">_mk_subckt_part</code><span class="sig-paren">(</span><em>defn='XXX'</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice._mk_subckt_part" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="skidl.tools.spice._gen_netlist_">
+<code class="descclassname">skidl.tools.spice.</code><code class="descname">_gen_netlist_</code><span class="sig-paren">(</span><em>self</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice._gen_netlist_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a PySpice Circuit generated from a SKiDL circuit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>title</strong> – String containing the title for the PySpice circuit.</p></li>
+<li><p><strong>libs</strong> – String or list of strings containing the paths to directories
+containing SPICE models.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="skidl.tools.spice.node">
 <code class="descclassname">skidl.tools.spice.</code><code class="descname">node</code><span class="sig-paren">(</span><em>net_or_pin</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice.node" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="function">
+<dt id="skidl.tools.spice._get_spice_ref">
+<code class="descclassname">skidl.tools.spice.</code><code class="descname">_get_spice_ref</code><span class="sig-paren">(</span><em>part</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice._get_spice_ref" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a SPICE reference ID for the part.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.tools.spice._get_kwargs">
+<code class="descclassname">skidl.tools.spice.</code><code class="descname">_get_kwargs</code><span class="sig-paren">(</span><em>part</em>, <em>kw</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice._get_kwargs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dict of keyword arguments to PySpice element constructor.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="skidl.tools.spice.add_part_to_circuit">
@@ -641,6 +972,12 @@ in the original set of data used to create the table.</p>
 </ul>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.tools.spice._get_net_names">
+<code class="descclassname">skidl.tools.spice.</code><code class="descname">_get_net_names</code><span class="sig-paren">(</span><em>part</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice._get_net_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of net names attached to the pins of a part.</p>
 </dd></dl>
 
 <dl class="function">
@@ -686,6 +1023,40 @@ in the original set of data used to create the table.</p>
 <dd class="field-odd"><p><strong>aliases</strong> – A single string or a list of strings.</p>
 </dd>
 </dl>
+<dl class="method">
+<dt id="skidl.Alias.Alias.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*aliases</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Alias.Alias.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Alias.Alias.__iadd__">
+<code class="descname">__iadd__</code><span class="sig-paren">(</span><em>*aliases</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Alias.Alias.__iadd__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add new aliases.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Alias.Alias.__str__">
+<code class="descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Alias.Alias.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the aliases as a delimited string.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Alias.Alias.__eq__">
+<code class="descname">__eq__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Alias.Alias.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return true if both lists of aliases have at least one alias in common.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>other</strong> – The Alias object which self will be compared to.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.Alias.Alias.__hash__">
+<code class="descname">__hash__</code><em class="property"> = None</em><a class="headerlink" href="#skidl.Alias.Alias.__hash__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>
@@ -725,6 +1096,12 @@ the Net object.</p>
 <dt id="skidl.Bus.Bus.fetch">
 <em class="property">classmethod </em><code class="descname">fetch</code><span class="sig-paren">(</span><em>name</em>, <em>*args</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Bus.Bus.fetch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the bus with the given name from a circuit, or create it if not found.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Bus.Bus.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>name</em>, <em>*args</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Bus.Bus.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="method">
@@ -782,6 +1159,89 @@ the Net object.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="skidl.Bus.Bus.__call__">
+<code class="descname">__call__</code><span class="sig-paren">(</span><em>num_copies=None</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Bus.Bus.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make zero or more copies of this bus.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num_copies</strong> – Number of copies to make of this bus.</p>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><p><strong>attribs</strong> – Name/value pairs for setting attributes for the copy.</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of Bus copies or a Bus if num_copies==1.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Exception if the requested number of copies is a non-integer</strong><strong> or </strong><strong>negative.</strong> – </p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>An instance of a bus can be copied just by calling it like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>  <span class="c1"># Create a bus.</span>
+<span class="n">b_copy</span> <span class="o">=</span> <span class="n">b</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>   <span class="c1"># Get two copies of the bus.</span>
+</pre></div>
+</div>
+<p>You can also use the multiplication operator to make copies:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>  <span class="c1"># Create an array of buses.</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Bus.Bus.__mul__">
+<code class="descname">__mul__</code><span class="sig-paren">(</span><em>num_copies</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Bus.Bus.__mul__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.Bus.Bus.__rmul__">
+<code class="descname">__rmul__</code><span class="sig-paren">(</span><em>num_copies</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Bus.Bus.__rmul__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.Bus.Bus.__getitem__">
+<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>*ids</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Bus.Bus.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a bus made up of the nets at the given indices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ids</strong> – A list of indices of bus lines. These can be individual
+numbers, net names, nested lists, or slices.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A bus if the indices are valid, otherwise None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Bus.Bus.__setitem__">
+<code class="descname">__setitem__</code><span class="sig-paren">(</span><em>ids</em>, <em>*pins_nets_buses</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Bus.Bus.__setitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>You can’t assign to bus lines. You must use the += operator.</p>
+<p>This method is a work-around that allows the use of the += for making
+connections to bus lines while prohibiting direct assignment. Python
+processes something like my_bus[7:0] += 8 * Pin() as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">Bus</span><span class="o">.</span><span class="fm">__getitem__</span> <span class="ow">is</span> <span class="n">called</span> <span class="k">with</span> <span class="s1">&#39;7:0&#39;</span> <span class="k">as</span> <span class="n">the</span> <span class="n">index</span><span class="o">.</span> <span class="n">This</span>
+   <span class="n">returns</span> <span class="n">a</span> <span class="n">NetPinList</span> <span class="n">of</span> <span class="n">eight</span> <span class="n">nets</span> <span class="kn">from</span> <span class="nn">my_bus.</span>
+<span class="mf">2.</span> <span class="n">The</span> <span class="n">NetPinList</span><span class="o">.</span><span class="fm">__iadd__</span> <span class="n">method</span> <span class="ow">is</span> <span class="n">passed</span> <span class="n">the</span> <span class="n">NetPinList</span> <span class="ow">and</span>
+   <span class="n">the</span> <span class="n">thing</span> <span class="n">to</span> <span class="n">connect</span> <span class="n">to</span> <span class="n">the</span> <span class="n">it</span> <span class="p">(</span><span class="n">eight</span> <span class="n">pins</span> <span class="ow">in</span> <span class="n">this</span> <span class="n">case</span><span class="p">)</span><span class="o">.</span> <span class="n">This</span>
+   <span class="n">method</span> <span class="n">makes</span> <span class="n">the</span> <span class="n">actual</span> <span class="n">connection</span> <span class="n">to</span> <span class="n">the</span> <span class="n">part</span> <span class="n">pin</span> <span class="ow">or</span> <span class="n">pins</span><span class="o">.</span> <span class="n">Then</span>
+   <span class="n">it</span> <span class="n">creates</span> <span class="n">an</span> <span class="n">iadd_flag</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">the</span> <span class="nb">object</span> <span class="n">it</span> <span class="n">returns</span><span class="o">.</span>
+<span class="mf">3.</span> <span class="n">Finally</span><span class="p">,</span> <span class="n">Bus</span><span class="o">.</span><span class="fm">__setitem__</span> <span class="ow">is</span> <span class="n">called</span><span class="o">.</span> <span class="n">If</span> <span class="n">the</span> <span class="n">iadd_flag</span> <span class="n">attribute</span>
+   <span class="ow">is</span> <span class="n">true</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">passed</span> <span class="n">argument</span><span class="p">,</span> <span class="n">then</span> <span class="fm">__setitem__</span> <span class="n">was</span> <span class="n">entered</span>
+   <span class="k">as</span> <span class="n">part</span> <span class="n">of</span> <span class="n">processing</span> <span class="n">the</span> <span class="o">+=</span> <span class="n">operator</span><span class="o">.</span> <span class="n">If</span> <span class="n">there</span> <span class="ow">is</span> <span class="n">no</span>
+   <span class="n">iadd_flag</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">then</span> <span class="fm">__setitem__</span> <span class="n">was</span> <span class="n">entered</span> <span class="k">as</span> <span class="n">a</span> <span class="n">result</span>
+   <span class="n">of</span> <span class="n">using</span> <span class="n">a</span> <span class="n">direct</span> <span class="n">assignment</span><span class="p">,</span> <span class="n">which</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">allowed</span><span class="o">.</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Bus.Bus.__iter__">
+<code class="descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Bus.Bus.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterator for stepping thru individual lines of the bus.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="skidl.Bus.Bus.is_movable">
 <code class="descname">is_movable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Bus.Bus.is_movable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return true if the bus is movable to another circuit.</p>
@@ -811,6 +1271,29 @@ lists/tuples of them.</p>
 </div>
 </dd></dl>
 
+<dl class="method">
+<dt id="skidl.Bus.Bus.__iadd__">
+<code class="descname">__iadd__</code><span class="sig-paren">(</span><em>*pins_nets_buses</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Bus.Bus.__iadd__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the bus after connecting one or more nets, pins, or buses.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pins_nets_buses</strong> – One or more Pin, Net or Bus objects or
+lists/tuples of them.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The updated bus with the new connections.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>You can connect nets or pins to a bus like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">()</span>       <span class="c1"># Create a pin.</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>       <span class="c1"># Create a net.</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c1"># Create a two-wire bus.</span>
+<span class="n">b</span> <span class="o">+=</span> <span class="n">p</span><span class="p">,</span><span class="n">n</span>        <span class="c1"># Connect pin and net to B[0] and B[1].</span>
+</pre></div>
+</div>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="skidl.Bus.Bus.name">
 <code class="descname">name</code><a class="headerlink" href="#skidl.Bus.Bus.name" title="Permalink to this definition">¶</a></dt>
@@ -819,10 +1302,40 @@ lists/tuples of them.</p>
 is found, the name for this bus is adjusted to make it unique.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="skidl.Bus.Bus.__str__">
+<code class="descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Bus.Bus.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of the nets in this bus as a string.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Bus.Bus.__repr__">
+<code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Bus.Bus.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of the nets in this bus as a string.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Bus.Bus.__len__">
+<code class="descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Bus.Bus.__len__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the number of nets in this bus.</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="skidl.Bus.Bus.width">
 <code class="descname">width</code><a class="headerlink" href="#skidl.Bus.Bus.width" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return width of a Bus, which is the same as using the len() operator.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Bus.Bus.__bool__">
+<code class="descname">__bool__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Bus.Bus.__bool__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Any valid Bus is True</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Bus.Bus.__nonzero__">
+<code class="descname">__nonzero__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Bus.Bus.__nonzero__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Any valid Bus is True</p>
 </dd></dl>
 
 </dd></dl>
@@ -879,6 +1392,12 @@ SubCircuits at the current time it is read.</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="skidl.Circuit.Circuit.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Circuit.Circuit.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="skidl.Circuit.Circuit.reset">
 <code class="descname">reset</code><span class="sig-paren">(</span><em>init=False</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Circuit.Circuit.reset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clear any circuitry and cached part libraries and start over.</p>
@@ -927,18 +1446,6 @@ SubCircuits at the current time it is read.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="skidl.Circuit.Circuit.add_interfaces">
-<code class="descname">add_interfaces</code><span class="sig-paren">(</span><em>*interfaces</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Circuit.Circuit.add_interfaces" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add some Interface objects to the circuit. Assign an interface name if necessary.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="skidl.Circuit.Circuit.rmv_interfaces">
-<code class="descname">rmv_interfaces</code><span class="sig-paren">(</span><em>*interfaces</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Circuit.Circuit.rmv_interfaces" title="Permalink to this definition">¶</a></dt>
-<dd><p>Remove some interfaces from the circuit.</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="skidl.Circuit.Circuit.add_stuff">
 <code class="descname">add_stuff</code><span class="sig-paren">(</span><em>*stuff</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Circuit.Circuit.add_stuff" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add Parts, Nets, Buses, and Interfaces to the circuit.</p>
@@ -947,6 +1454,18 @@ SubCircuits at the current time it is read.</p>
 <dl class="method">
 <dt id="skidl.Circuit.Circuit.rmv_stuff">
 <code class="descname">rmv_stuff</code><span class="sig-paren">(</span><em>*stuff</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Circuit.Circuit.rmv_stuff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove Parts, Nets, Buses, and Interfaces from the circuit.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Circuit.Circuit.__iadd__">
+<code class="descname">__iadd__</code><span class="sig-paren">(</span><em>*stuff</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Circuit.Circuit.__iadd__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add Parts, Nets, Buses, and Interfaces to the circuit.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Circuit.Circuit.__isub__">
+<code class="descname">__isub__</code><span class="sig-paren">(</span><em>*stuff</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Circuit.Circuit.__isub__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove Parts, Nets, Buses, and Interfaces from the circuit.</p>
 </dd></dl>
 
@@ -960,6 +1479,12 @@ SubCircuits at the current time it is read.</p>
 <dt id="skidl.Circuit.Circuit.ERC">
 <code class="descname">ERC</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Circuit.Circuit.ERC" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run class-wide and local ERC functions on this circuit.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Circuit.Circuit._merge_net_names">
+<code class="descname">_merge_net_names</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Circuit.Circuit._merge_net_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select a single name for each multi-segment net.</p>
 </dd></dl>
 
 <dl class="method">
@@ -1039,6 +1564,31 @@ file will be used.</p>
 </dl>
 </dd></dl>
 
+<dl class="method">
+<dt id="skidl.Circuit.Circuit._gen_netlist_kicad">
+<code class="descname">_gen_netlist_kicad</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Circuit.Circuit._gen_netlist_kicad" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.Circuit.Circuit._gen_netlist_spice">
+<code class="descname">_gen_netlist_spice</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Circuit.Circuit._gen_netlist_spice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a PySpice Circuit generated from a SKiDL circuit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>title</strong> – String containing the title for the PySpice circuit.</p></li>
+<li><p><strong>libs</strong> – String or list of strings containing the paths to directories
+containing SPICE models.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Circuit.Circuit._gen_xml_kicad">
+<code class="descname">_gen_xml_kicad</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Circuit.Circuit._gen_xml_kicad" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="function">
@@ -1069,32 +1619,14 @@ file will be used.</p>
 <p>Handles interfaces for subsystems with complicated I/O.</p>
 <dl class="class">
 <dt id="skidl.Interface.Interface">
-<em class="property">class </em><code class="descclassname">skidl.Interface.</code><code class="descname">Interface</code><span class="sig-paren">(</span><em>prefix</em>, <em>circuit=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Interface.Interface" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#skidl.baseobj.SkidlBaseObject" title="skidl.baseobj.SkidlBaseObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">skidl.baseobj.SkidlBaseObject</span></code></a></p>
-<p>An Interface bundles a group of signals into a single entity with each
-signal becoming an attribute.</p>
-<dl class="attribute">
-<dt id="skidl.Interface.Interface.erc_list">
-<code class="descname">erc_list</code><em class="property"> = []</em><a class="headerlink" href="#skidl.Interface.Interface.erc_list" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<em class="property">class </em><code class="descclassname">skidl.Interface.</code><code class="descname">Interface</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Interface.Interface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>An Interface bundles a group of nets/buses into a single entity with each
+net/bus becoming an attribute.</p>
 <dl class="method">
-<dt id="skidl.Interface.Interface.is_movable">
-<code class="descname">is_movable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Interface.Interface.is_movable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="skidl.Interface.Interface.ERC">
-<code class="descname">ERC</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Interface.Interface.ERC" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run class-wide and local ERC functions on this interface.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="skidl.Interface.Interface.name">
-<code class="descname">name</code><a class="headerlink" href="#skidl.Interface.Interface.name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get, set and delete the name of this interface.</p>
-<p>When setting the name, if another interface with the same name
-is found, the name for this interface is adjusted to make it unique.</p>
+<dt id="skidl.Interface.Interface.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Interface.Interface.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 </dd></dl>
@@ -1107,6 +1639,63 @@ is found, the name for this interface is adjusted to make it unique.</p>
 <dt id="skidl.Net.Traversal">
 <em class="property">class </em><code class="descclassname">skidl.Net.</code><code class="descname">Traversal</code><span class="sig-paren">(</span><em>nets</em>, <em>pins</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Traversal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<p>Create new instance of Traversal(nets, pins)</p>
+<dl class="method">
+<dt id="skidl.Net.Traversal.__getnewargs__">
+<code class="descname">__getnewargs__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Traversal.__getnewargs__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self as a plain tuple.  Used by copy and pickle.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="skidl.Net.Traversal.__new__">
+<em class="property">static </em><code class="descname">__new__</code><span class="sig-paren">(</span><em>_cls</em>, <em>nets</em>, <em>pins</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Traversal.__new__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create new instance of Traversal(nets, pins)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Net.Traversal.__repr__">
+<code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Traversal.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a nicely formatted representation string</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.Net.Traversal.__slots__">
+<code class="descname">__slots__</code><em class="property"> = ()</em><a class="headerlink" href="#skidl.Net.Traversal.__slots__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.Net.Traversal._asdict">
+<code class="descname">_asdict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Traversal._asdict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new OrderedDict which maps field names to their values.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.Net.Traversal._field_defaults">
+<code class="descname">_field_defaults</code><em class="property"> = {}</em><a class="headerlink" href="#skidl.Net.Traversal._field_defaults" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.Net.Traversal._fields">
+<code class="descname">_fields</code><em class="property"> = ('nets', 'pins')</em><a class="headerlink" href="#skidl.Net.Traversal._fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.Net.Traversal._fields_defaults">
+<code class="descname">_fields_defaults</code><em class="property"> = {}</em><a class="headerlink" href="#skidl.Net.Traversal._fields_defaults" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="skidl.Net.Traversal._make">
+<em class="property">classmethod </em><code class="descname">_make</code><span class="sig-paren">(</span><em>iterable</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Traversal._make" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a new Traversal object from a sequence or iterable</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Net.Traversal._replace">
+<code class="descname">_replace</code><span class="sig-paren">(</span><em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Traversal._replace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new Traversal object replacing specified fields with new values</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="skidl.Net.Traversal.nets">
 <code class="descname">nets</code><a class="headerlink" href="#skidl.Net.Traversal.nets" title="Permalink to this definition">¶</a></dt>
@@ -1156,6 +1745,18 @@ the Net object.</p>
 <dt id="skidl.Net.Net.fetch">
 <em class="property">classmethod </em><code class="descname">fetch</code><span class="sig-paren">(</span><em>name</em>, <em>*args</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Net.fetch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the net with the given name from a circuit, or create it if not found.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Net.Net.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>name=None</em>, <em>circuit=None</em>, <em>*pins_nets_buses</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Net.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Net.Net._traverse">
+<code class="descname">_traverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Net._traverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all the nets and pins attached to this net, including itself.</p>
 </dd></dl>
 
 <dl class="method">
@@ -1215,6 +1816,89 @@ attached to it.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="skidl.Net.Net.__call__">
+<code class="descname">__call__</code><span class="sig-paren">(</span><em>num_copies=None</em>, <em>circuit=None</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Net.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make zero or more copies of this net.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num_copies</strong> – Number of copies to make of this net.</p>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><p><strong>attribs</strong> – Name/value pairs for setting attributes for the copy.</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of Net copies or a Net if num_copies==1.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Exception if the requested number of copies is a non-integer</strong><strong> or </strong><strong>negative.</strong> – </p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>An instance of a net can be copied just by calling it like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>    <span class="c1"># Create a net.</span>
+<span class="n">n_copy</span> <span class="o">=</span> <span class="n">n</span><span class="p">()</span>    <span class="c1"># Copy the net.</span>
+</pre></div>
+</div>
+<p>You can also use the multiplication operator to make copies:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>  <span class="c1"># Create an array of nets.</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Net.Net.__mul__">
+<code class="descname">__mul__</code><span class="sig-paren">(</span><em>num_copies</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Net.__mul__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.Net.Net.__rmul__">
+<code class="descname">__rmul__</code><span class="sig-paren">(</span><em>num_copies</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Net.__rmul__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.Net.Net.__getitem__">
+<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>*ids</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Net.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the net if the indices resolve to a single index of 0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ids</strong> – A list of indices. These can be individual
+numbers, net names, nested lists, or slices.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The net, otherwise None or raises an Exception.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Net.Net.__setitem__">
+<code class="descname">__setitem__</code><span class="sig-paren">(</span><em>ids</em>, <em>*pins_nets_buses</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Net.__setitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>You can’t assign to Nets. You must use the += operator.</p>
+<p>This method is a work-around that allows the use of the += for making
+connections to nets while prohibiting direct assignment. Python
+processes something like net[0] += Pin() as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">Net</span><span class="o">.</span><span class="fm">__getitem__</span> <span class="ow">is</span> <span class="n">called</span> <span class="k">with</span> <span class="s1">&#39;0&#39;</span> <span class="k">as</span> <span class="n">the</span> <span class="n">index</span><span class="o">.</span> <span class="n">This</span>
+   <span class="n">returns</span> <span class="n">a</span> <span class="n">single</span> <span class="n">Net</span><span class="o">.</span>
+<span class="mf">2.</span> <span class="n">The</span> <span class="n">Net</span><span class="o">.</span><span class="fm">__iadd__</span> <span class="n">method</span> <span class="ow">is</span> <span class="n">passed</span> <span class="n">the</span> <span class="n">net</span> <span class="ow">and</span>
+   <span class="n">the</span> <span class="n">thing</span> <span class="n">to</span> <span class="n">connect</span> <span class="n">to</span> <span class="n">it</span> <span class="p">(</span><span class="n">a</span> <span class="n">Pin</span> <span class="ow">in</span> <span class="n">this</span> <span class="n">case</span><span class="p">)</span><span class="o">.</span> <span class="n">This</span>
+   <span class="n">method</span> <span class="n">makes</span> <span class="n">the</span> <span class="n">actual</span> <span class="n">connection</span> <span class="n">to</span> <span class="n">the</span> <span class="n">pin</span><span class="o">.</span> <span class="n">Then</span>
+   <span class="n">it</span> <span class="n">creates</span> <span class="n">an</span> <span class="n">iadd_flag</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">the</span> <span class="nb">object</span> <span class="n">it</span> <span class="n">returns</span><span class="o">.</span>
+<span class="mf">3.</span> <span class="n">Finally</span><span class="p">,</span> <span class="n">Net</span><span class="o">.</span><span class="fm">__setitem__</span> <span class="ow">is</span> <span class="n">called</span><span class="o">.</span> <span class="n">If</span> <span class="n">the</span> <span class="n">iadd_flag</span> <span class="n">attribute</span>
+   <span class="ow">is</span> <span class="n">true</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">passed</span> <span class="n">argument</span><span class="p">,</span> <span class="n">then</span> <span class="fm">__setitem__</span> <span class="n">was</span> <span class="n">entered</span>
+   <span class="k">as</span> <span class="n">part</span> <span class="n">of</span> <span class="n">processing</span> <span class="n">the</span> <span class="o">+=</span> <span class="n">operator</span><span class="o">.</span> <span class="n">If</span> <span class="n">there</span> <span class="ow">is</span> <span class="n">no</span>
+   <span class="n">iadd_flag</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">then</span> <span class="fm">__setitem__</span> <span class="n">was</span> <span class="n">entered</span> <span class="k">as</span> <span class="n">a</span> <span class="n">result</span>
+   <span class="n">of</span> <span class="n">using</span> <span class="n">a</span> <span class="n">direct</span> <span class="n">assignment</span><span class="p">,</span> <span class="n">which</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">allowed</span><span class="o">.</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Net.Net.__iter__">
+<code class="descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Net.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterator for stepping through the net.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="skidl.Net.Net.is_implicit">
 <code class="descname">is_implicit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Net.is_implicit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return true if the net name is implicit.</p>
@@ -1223,6 +1907,28 @@ attached to it.</p>
 <dl class="method">
 <dt id="skidl.Net.Net.connect">
 <code class="descname">connect</code><span class="sig-paren">(</span><em>*pins_nets_buses</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Net.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the net after connecting other pins, nets, and buses to it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>*pins_nets_buses</strong> – One or more Pin, Net, or Bus objects or
+lists/tuples of them to be connected to this net.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The updated net with the new connections.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Connections to nets can also be made using the += operator like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">atmega</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;atmel&#39;</span><span class="p">,</span> <span class="s1">&#39;ATMEGA16U2&#39;</span><span class="p">)</span>
+<span class="n">net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>
+<span class="n">net</span> <span class="o">+=</span> <span class="n">atmega</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Connects pin 1 of chip to the net.</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Net.Net.__iadd__">
+<code class="descname">__iadd__</code><span class="sig-paren">(</span><em>*pins_nets_buses</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Net.__iadd__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the net after connecting other pins, nets, and buses to it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1261,6 +1967,30 @@ lists/tuples of them to be connected to this net.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="skidl.Net.Net.__and__">
+<code class="descname">__and__</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Net.__and__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attach a net and another part/pin/net in serial.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Net.Net.__rand__">
+<code class="descname">__rand__</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Net.__rand__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attach a net and another part/pin/net in serial.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Net.Net.__or__">
+<code class="descname">__or__</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Net.__or__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attach a net and another part/pin/net in parallel.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Net.Net.__ror__">
+<code class="descname">__ror__</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Net.__ror__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attach a net and another part/pin/net in parallel.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="skidl.Net.Net.generate_netlist_net">
 <code class="descname">generate_netlist_net</code><span class="sig-paren">(</span><em>tool=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Net.generate_netlist_net" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate the net information for inclusion in a netlist.</p>
@@ -1286,6 +2016,24 @@ lists/tuples of them to be connected to this net.</p>
 <dt id="skidl.Net.Net.ERC">
 <code class="descname">ERC</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Net.ERC" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run class-wide and local ERC functions on this net.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Net.Net.__str__">
+<code class="descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Net.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of the pins on this net as a string.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Net.Net.__repr__">
+<code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Net.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of the pins on this net as a string.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Net.Net.__len__">
+<code class="descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Net.__len__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the number of pins attached to this net.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -1332,6 +2080,28 @@ maximum drive value of the pins currently on the net.</p>
 <code class="descname">test_validity</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Net.test_validity" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="skidl.Net.Net.__bool__">
+<code class="descname">__bool__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Net.__bool__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Any valid Net is True</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Net.Net.__nonzero__">
+<code class="descname">__nonzero__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Net.__nonzero__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Any valid Net is True</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Net.Net._gen_netlist_net_kicad">
+<code class="descname">_gen_netlist_net_kicad</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Net._gen_netlist_net_kicad" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.Net.Net._gen_xml_net_kicad">
+<code class="descname">_gen_xml_net_kicad</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Net._gen_xml_net_kicad" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -1359,6 +2129,12 @@ the object.</p>
 </dd>
 </dl>
 <dl class="method">
+<dt id="skidl.Net.NCNet.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>name=None</em>, <em>circuit=None</em>, <em>*pins_nets_buses</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.NCNet.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="skidl.Net.NCNet.generate_netlist_net">
 <code class="descname">generate_netlist_net</code><span class="sig-paren">(</span><em>tool=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.NCNet.generate_netlist_net" title="Permalink to this definition">¶</a></dt>
 <dd><p>NO_CONNECT nets don’t generate anything for netlists.</p>
@@ -1383,9 +2159,39 @@ The drive strength cannot be deleted.</p>
 <em class="property">class </em><code class="descclassname">skidl.NetPinList.</code><code class="descname">NetPinList</code><a class="headerlink" href="#skidl.NetPinList.NetPinList" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
 <dl class="method">
+<dt id="skidl.NetPinList.NetPinList.__iadd__">
+<code class="descname">__iadd__</code><span class="sig-paren">(</span><em>*nets_pins_buses</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.NetPinList.NetPinList.__iadd__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement self+=value.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="skidl.NetPinList.NetPinList.create_network">
 <code class="descname">create_network</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.NetPinList.NetPinList.create_network" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a network from a list of pins and nets.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.NetPinList.NetPinList.__and__">
+<code class="descname">__and__</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.NetPinList.NetPinList.__and__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attach a NetPinList and another part/pin/net in serial.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.NetPinList.NetPinList.__rand__">
+<code class="descname">__rand__</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.NetPinList.NetPinList.__rand__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attach a NetPinList and another part/pin/net in serial.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.NetPinList.NetPinList.__or__">
+<code class="descname">__or__</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.NetPinList.NetPinList.__or__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attach a NetPinList and another part/pin/net in parallel.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.NetPinList.NetPinList.__ror__">
+<code class="descname">__ror__</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.NetPinList.NetPinList.__ror__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attach a NetPinList and another part/pin/net in parallel.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -1409,6 +2215,31 @@ The drive strength cannot be deleted.</p>
 <dt id="skidl.Network.Network">
 <em class="property">class </em><code class="descclassname">skidl.Network.</code><code class="descname">Network</code><span class="sig-paren">(</span><em>*objs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Network.Network" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
+<p>Create a Network object from a list of pins, nets, and parts.</p>
+<dl class="method">
+<dt id="skidl.Network.Network.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*objs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Network.Network.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a Network object from a list of pins, nets, and parts.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Network.Network.__and__">
+<code class="descname">__and__</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Network.Network.__and__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Combine two networks by placing them in series.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Network.Network.__rand__">
+<code class="descname">__rand__</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Network.Network.__rand__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Combine two networks by placing them in series. (Reverse-ordered operation.)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Network.Network.__or__">
+<code class="descname">__or__</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Network.Network.__or__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Combine two networks by placing them in parallel.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="skidl.Network.Network.create_network">
 <code class="descname">create_network</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Network.Network.create_network" title="Permalink to this definition">¶</a></dt>
@@ -1420,17 +2251,124 @@ The drive strength cannot be deleted.</p>
 </div>
 <div class="section" id="module-skidl.Note">
 <span id="skidl-note-module"></span><h4>skidl.Note module<a class="headerlink" href="#module-skidl.Note" title="Permalink to this headline">¶</a></h4>
-<p>User-specified notes for Circuit, Part, Pin, Net, Bus, Interface objects.</p>
+<p>Supports user-specified notes that can be attached to other SKiDL objects.</p>
 <dl class="class">
 <dt id="skidl.Note.Note">
 <em class="property">class </em><code class="descclassname">skidl.Note.</code><code class="descname">Note</code><span class="sig-paren">(</span><em>*notes</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Note.Note" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
+<p>Stores one or more strings as notes.</p>
+<p>Create a note.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>notes</strong> – Either a string or an iterable containing multiple strings.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A Note object containing note strings.</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="skidl.Note.Note.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*notes</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Note.Note.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a note.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>notes</strong> – Either a string or an iterable containing multiple strings.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A Note object containing note strings.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Note.Note.__iadd__">
+<code class="descname">__iadd__</code><span class="sig-paren">(</span><em>*notes</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Note.Note.__iadd__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add new notes to a Note object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>notes</strong> – Either a string or an iterable containing multiple strings.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A Note object containing note strings.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Note.Note.__str__">
+<code class="descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Note.Note.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return notes as a concatenated set of strings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A string made up of the concatenated notes in the object joined by newlines.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </div>
 <div class="section" id="module-skidl.Part">
 <span id="skidl-part-module"></span><h4>skidl.Part module<a class="headerlink" href="#module-skidl.Part" title="Permalink to this headline">¶</a></h4>
 <p>Handles parts.</p>
+<dl class="class">
+<dt id="skidl.Part.PinNumberSearch">
+<em class="property">class </em><code class="descclassname">skidl.Part.</code><code class="descname">PinNumberSearch</code><span class="sig-paren">(</span><em>part</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.PinNumberSearch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class for restricting part pin indexing to only pin numbers
+while ignoring pin names.</p>
+<dl class="method">
+<dt id="skidl.Part.PinNumberSearch.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>part</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.PinNumberSearch.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.PinNumberSearch.get_pins">
+<code class="descname">get_pins</code><span class="sig-paren">(</span><em>*pin_ids</em>, <em>**criteria</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.PinNumberSearch.get_pins" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.PinNumberSearch.__getitem__">
+<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>*pin_ids</em>, <em>**criteria</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.PinNumberSearch.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.PinNumberSearch.__setitem__">
+<code class="descname">__setitem__</code><span class="sig-paren">(</span><em>ids</em>, <em>*pins_nets_buses</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.PinNumberSearch.__setitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="skidl.Part.PinNameSearch">
+<em class="property">class </em><code class="descclassname">skidl.Part.</code><code class="descname">PinNameSearch</code><span class="sig-paren">(</span><em>part</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.PinNameSearch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class for restricting part pin indexing to only pin names
+while ignoring pin numbers.</p>
+<dl class="method">
+<dt id="skidl.Part.PinNameSearch.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>part</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.PinNameSearch.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.PinNameSearch.get_pins">
+<code class="descname">get_pins</code><span class="sig-paren">(</span><em>*pin_ids</em>, <em>**criteria</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.PinNameSearch.get_pins" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.PinNameSearch.__getitem__">
+<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>*pin_ids</em>, <em>**criteria</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.PinNameSearch.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.PinNameSearch.__setitem__">
+<code class="descname">__setitem__</code><span class="sig-paren">(</span><em>ids</em>, <em>*pins_nets_buses</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.PinNameSearch.__setitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <dl class="class">
 <dt id="skidl.Part.Part">
 <em class="property">class </em><code class="descclassname">skidl.Part.</code><code class="descname">Part</code><span class="sig-paren">(</span><em>lib=None</em>, <em>name=None</em>, <em>dest='NETLIST'</em>, <em>tool=None</em>, <em>connections=None</em>, <em>part_defn=None</em>, <em>circuit=None</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part" title="Permalink to this definition">¶</a></dt>
@@ -1493,6 +2431,12 @@ named ‘manf_num’ for the part and assign it the value ‘LM4808MP-8’.</p>
 <code class="descname">erc_list</code><em class="property"> = [&lt;function dflt_part_erc&gt;]</em><a class="headerlink" href="#skidl.Part.Part.erc_list" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="skidl.Part.Part.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>lib=None</em>, <em>name=None</em>, <em>dest='NETLIST'</em>, <em>tool=None</em>, <em>connections=None</em>, <em>part_defn=None</em>, <em>circuit=None</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
 <dl class="classmethod">
 <dt id="skidl.Part.Part.get">
 <em class="property">classmethod </em><code class="descname">get</code><span class="sig-paren">(</span><em>text</em>, <em>circuit=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.get" title="Permalink to this definition">¶</a></dt>
@@ -1511,6 +2455,12 @@ then the parts in the default_circuit will be searched.</p>
 reference, name, alias, or their description.</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.Part._find_min_max_pins">
+<code class="descname">_find_min_max_pins</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part._find_min_max_pins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the minimum and maximum pin numbers for the part.</p>
 </dd></dl>
 
 <dl class="method">
@@ -1567,8 +2517,59 @@ connections.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="skidl.Part.Part.__call__">
+<code class="descname">__call__</code><span class="sig-paren">(</span><em>num_copies=None</em>, <em>dest='NETLIST'</em>, <em>circuit=None</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make zero or more copies of this part while maintaining all pin/net
+connections.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_copies</strong> – Number of copies to make of this part.</p></li>
+<li><p><strong>dest</strong> – Indicates where the copy is destined for (e.g., NETLIST).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><p><strong>attribs</strong> – Name/value pairs for setting attributes for the copy.</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of Part copies or a single Part if num_copies==1.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Exception if the requested number of copies is a non-integer</strong><strong> or </strong><strong>negative.</strong> – </p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>An instance of a part can be copied just by calling it like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;device&#39;</span><span class="p">,</span><span class="s1">&#39;R&#39;</span><span class="p">)</span>    <span class="c1"># Get a resistor.</span>
+<span class="n">res_copy</span> <span class="o">=</span> <span class="n">res</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;1K&#39;</span><span class="p">)</span>  <span class="c1"># Copy the resistor and set resistance value.</span>
+</pre></div>
+</div>
+<p>You can also use the multiplication operator to make copies:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cap</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;device&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">)</span>   <span class="c1"># Get a capacitor</span>
+<span class="n">caps</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">cap</span>             <span class="c1"># Make an array with 10 copies of it.</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.Part.__mul__">
+<code class="descname">__mul__</code><span class="sig-paren">(</span><em>num_copies</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.__mul__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.Part.__rmul__">
+<code class="descname">__rmul__</code><span class="sig-paren">(</span><em>num_copies</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.__rmul__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="skidl.Part.Part.add_pins">
 <code class="descname">add_pins</code><span class="sig-paren">(</span><em>*pins</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.add_pins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add one or more pins to a part.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.Part.__iadd__">
+<code class="descname">__iadd__</code><span class="sig-paren">(</span><em>*pins</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.__iadd__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add one or more pins to a part.</p>
 </dd></dl>
 
@@ -1600,6 +2601,64 @@ Or None if no match was found.</p>
 <span class="n">net</span> <span class="o">+=</span> <span class="n">atmega</span><span class="p">[</span><span class="s1">&#39;RESET&#39;</span><span class="p">]</span>  <span class="c1"># Connects reset pin to the net.</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.Part.__getitem__">
+<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>*pin_ids</em>, <em>**criteria</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of part pins selected by pin numbers or names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pin_ids</strong> – A list of strings containing pin names, numbers,
+regular expressions, slices, lists or tuples. If empty,
+then it will select all pins.</p>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><p><strong>criteria</strong> – Key/value pairs that specify attribute values the
+pins must have in order to be selected.</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of pins matching the given IDs and satisfying all the criteria,
+or just a single Pin object if only a single match was found.
+Or None if no match was found.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Pins can be selected from a part by using brackets like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">atmega</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;atmel&#39;</span><span class="p">,</span> <span class="s1">&#39;ATMEGA16U2&#39;</span><span class="p">)</span>
+<span class="n">net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>
+<span class="n">atmega</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">net</span>  <span class="c1"># Connects pin 1 of chip to the net.</span>
+<span class="n">net</span> <span class="o">+=</span> <span class="n">atmega</span><span class="p">[</span><span class="s1">&#39;RESET&#39;</span><span class="p">]</span>  <span class="c1"># Connects reset pin to the net.</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.Part.__setitem__">
+<code class="descname">__setitem__</code><span class="sig-paren">(</span><em>ids</em>, <em>*pins_nets_buses</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.__setitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>You can’t assign to the pins of parts. You must use the += operator.</p>
+<p>This method is a work-around that allows the use of the += for making
+connections to pins while prohibiting direct assignment. Python
+processes something like my_part[‘GND’] += gnd as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">Part</span><span class="o">.</span><span class="fm">__getitem__</span> <span class="ow">is</span> <span class="n">called</span> <span class="k">with</span> <span class="s1">&#39;GND&#39;</span> <span class="k">as</span> <span class="n">the</span> <span class="n">index</span><span class="o">.</span> <span class="n">This</span>
+   <span class="n">returns</span> <span class="n">a</span> <span class="n">single</span> <span class="n">Pin</span> <span class="ow">or</span> <span class="n">a</span> <span class="n">NetPinList</span><span class="o">.</span>
+<span class="mf">2.</span> <span class="n">The</span> <span class="n">Pin</span><span class="o">.</span><span class="fm">__iadd__</span> <span class="ow">or</span> <span class="n">NetPinList</span><span class="o">.</span><span class="fm">__iadd__</span> <span class="n">method</span> <span class="ow">is</span> <span class="n">passed</span>
+   <span class="n">the</span> <span class="n">thing</span> <span class="n">to</span> <span class="n">connect</span> <span class="n">to</span> <span class="n">the</span> <span class="n">pin</span> <span class="p">(</span><span class="n">gnd</span> <span class="ow">in</span> <span class="n">this</span> <span class="n">case</span><span class="p">)</span><span class="o">.</span> <span class="n">This</span> <span class="n">method</span>
+   <span class="n">makes</span> <span class="n">the</span> <span class="n">actual</span> <span class="n">connection</span> <span class="n">to</span> <span class="n">the</span> <span class="n">part</span> <span class="n">pin</span> <span class="ow">or</span> <span class="n">pins</span><span class="o">.</span> <span class="n">Then</span> <span class="n">it</span>
+   <span class="n">creates</span> <span class="n">an</span> <span class="n">iadd_flag</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">the</span> <span class="nb">object</span> <span class="n">it</span> <span class="n">returns</span><span class="o">.</span>
+<span class="mf">3.</span> <span class="n">Finally</span><span class="p">,</span> <span class="n">Part</span><span class="o">.</span><span class="fm">__setitem__</span> <span class="ow">is</span> <span class="n">called</span><span class="o">.</span> <span class="n">If</span> <span class="n">the</span> <span class="n">iadd_flag</span> <span class="n">attribute</span>
+   <span class="ow">is</span> <span class="n">true</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">passed</span> <span class="n">argument</span><span class="p">,</span> <span class="n">then</span> <span class="fm">__setitem__</span> <span class="n">was</span> <span class="n">entered</span>
+   <span class="k">as</span> <span class="n">part</span> <span class="n">of</span> <span class="n">processing</span> <span class="n">the</span> <span class="o">+=</span> <span class="n">operator</span><span class="o">.</span> <span class="n">If</span> <span class="n">there</span> <span class="ow">is</span> <span class="n">no</span>
+   <span class="n">iadd_flag</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">then</span> <span class="fm">__setitem__</span> <span class="n">was</span> <span class="n">entered</span> <span class="k">as</span> <span class="n">a</span> <span class="n">result</span>
+   <span class="n">of</span> <span class="n">using</span> <span class="n">a</span> <span class="n">direct</span> <span class="n">assignment</span><span class="p">,</span> <span class="n">which</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">allowed</span><span class="o">.</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.Part.__iter__">
+<code class="descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterator for stepping thru individual pins of the part.</p>
 </dd></dl>
 
 <dl class="method">
@@ -1680,6 +2739,36 @@ pin must have in order to be selected.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="skidl.Part.Part.__and__">
+<code class="descname">__and__</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.__and__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attach a part and another part/pin/net in serial.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.Part.__rand__">
+<code class="descname">__rand__</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.__rand__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attach a part and another part/pin/net in serial.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.Part.__or__">
+<code class="descname">__or__</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.__or__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attach a part and another part/pin/net in parallel.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.Part.__ror__">
+<code class="descname">__ror__</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.__ror__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attach a part and another part/pin/net in parallel.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.Part._get_fields">
+<code class="descname">_get_fields</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part._get_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of component field names.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="skidl.Part.Part.generate_netlist_component">
 <code class="descname">generate_netlist_component</code><span class="sig-paren">(</span><em>tool=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.generate_netlist_component" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate the part information for inclusion in a netlist.</p>
@@ -1714,6 +2803,18 @@ pin must have in order to be selected.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="skidl.Part.Part.__str__">
+<code class="descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a description of the pins on this part as a string.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.Part.__repr__">
+<code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a description of the pins on this part as a string.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="skidl.Part.Part.export">
 <code class="descname">export</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.export" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a string to recreate a Part object.</p>
@@ -1740,6 +2841,66 @@ it unique.</p>
 <dd><p>Get, set and delete the part footprint.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="skidl.Part.Part.__bool__">
+<code class="descname">__bool__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.__bool__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Any valid Part is True</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.Part.__nonzero__">
+<code class="descname">__nonzero__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.__nonzero__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Any valid Part is True</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.Part.__len__">
+<code class="descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.__len__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the number of pins in this part.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.Part._gen_netlist_comp_kicad">
+<code class="descname">_gen_netlist_comp_kicad</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part._gen_netlist_comp_kicad" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.Part._gen_xml_comp_kicad">
+<code class="descname">_gen_xml_comp_kicad</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part._gen_xml_comp_kicad" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.Part._parse_lib_part_kicad">
+<code class="descname">_parse_lib_part_kicad</code><span class="sig-paren">(</span><em>get_name_only=False</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part._parse_lib_part_kicad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a Part using a part definition from a KiCad schematic library.</p>
+<p>This method was written based on the code from
+<a class="reference external" href="https://github.com/KiCad/kicad-library-utils/tree/master/schlib">https://github.com/KiCad/kicad-library-utils/tree/master/schlib</a>.
+It’s covered by GPL3.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>part_defn</strong> – A list of strings that define the part (usually read from a
+schematic library file). Can also be None.</p></li>
+<li><p><strong>get_name_only</strong> – If true, scan the part definition until the
+name and aliases are found. The rest of the definition
+will be parsed if the part is actually used.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.Part._parse_lib_part_skidl">
+<code class="descname">_parse_lib_part_skidl</code><span class="sig-paren">(</span><em>get_name_only=False</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part._parse_lib_part_skidl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a Part using a part definition from a SKiDL library.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.Part._parse_lib_part_spice">
+<code class="descname">_parse_lib_part_spice</code><span class="sig-paren">(</span><em>get_name_only=False</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part._parse_lib_part_spice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a Part using a part definition from a SPICE library.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -1748,13 +2909,14 @@ it unique.</p>
 <dd><p>Bases: <a class="reference internal" href="#skidl.Part.Part" title="skidl.Part.Part"><code class="xref py py-class docutils literal notranslate"><span class="pre">skidl.Part.Part</span></code></a></p>
 <p>A class for storing a SKiDL definition of a schematic part. It’s identical
 to its Part superclass except:</p>
-<blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li><p>The tool defaults to SKIDL.</p></li>
-<li><p>The destination defaults to TEMPLATE so that it’s easier to start
-a part and then add pins to it without it being added to the netlist.</p></li>
+<li><dl class="simple">
+<dt>The destination defaults to TEMPLATE so that it’s easier to start</dt><dd><p>a part and then add pins to it without it being added to the netlist.</p>
+</dd>
+</dl>
+</li>
 </ul>
-</div></blockquote>
 <dl class="attribute">
 <dt id="skidl.Part.SkidlPart.SKIDL">
 <code class="descname">SKIDL</code><em class="property"> = 'skidl'</em><a class="headerlink" href="#skidl.Part.SkidlPart.SKIDL" title="Permalink to this definition">¶</a></dt>
@@ -1764,6 +2926,12 @@ a part and then add pins to it without it being added to the netlist.</p></li>
 <dt id="skidl.Part.SkidlPart.TEMPLATE">
 <code class="descname">TEMPLATE</code><em class="property"> = 'TEMPLATE'</em><a class="headerlink" href="#skidl.Part.SkidlPart.TEMPLATE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.SkidlPart.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>lib=None</em>, <em>name=None</em>, <em>dest='TEMPLATE'</em>, <em>tool='skidl'</em>, <em>connections=None</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.SkidlPart.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -1798,6 +2966,12 @@ pin must have in order to be selected.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lm358a</span> <span class="o">=</span> <span class="n">PartUnit</span><span class="p">(</span><span class="n">lm358</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
+<dl class="method">
+<dt id="skidl.Part.PartUnit.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>part</em>, <em>*pin_ids</em>, <em>**criteria</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.PartUnit.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="skidl.Part.PartUnit.add_pins_from_parent">
 <code class="descname">add_pins_from_parent</code><span class="sig-paren">(</span><em>*pin_ids</em>, <em>**criteria</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.PartUnit.add_pins_from_parent" title="Permalink to this definition">¶</a></dt>
@@ -1980,6 +3154,12 @@ pin must have in order to be selected.</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="skidl.Pin.Pin.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.Pin.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="skidl.Pin.Pin.copy">
 <code class="descname">copy</code><span class="sig-paren">(</span><em>num_copies=None</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.Pin.copy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return copy or list of copies of a pin including any net connection.</p>
@@ -2000,6 +3180,79 @@ pin must have in order to be selected.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="skidl.Pin.Pin.__call__">
+<code class="descname">__call__</code><span class="sig-paren">(</span><em>num_copies=None</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.Pin.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return copy or list of copies of a pin including any net connection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num_copies</strong> – Number of copies to make of pin.</p>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><p><strong>attribs</strong> – Name/value pairs for setting attributes for the pin.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>An instance of a pin can be copied just by calling it like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">()</span>     <span class="c1"># Create a pin.</span>
+<span class="n">p_copy</span> <span class="o">=</span> <span class="n">p</span><span class="p">()</span>  <span class="c1"># This is a copy of the pin.</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Pin.Pin.__mul__">
+<code class="descname">__mul__</code><span class="sig-paren">(</span><em>num_copies</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.Pin.__mul__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.Pin.Pin.__rmul__">
+<code class="descname">__rmul__</code><span class="sig-paren">(</span><em>num_copies</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.Pin.__rmul__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.Pin.Pin.__getitem__">
+<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>*ids</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.Pin.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the pin if the indices resolve to a single index of 0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ids</strong> – A list of indices. These can be individual
+numbers, net names, nested lists, or slices.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The pin, otherwise None or raises an Exception.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Pin.Pin.__setitem__">
+<code class="descname">__setitem__</code><span class="sig-paren">(</span><em>ids</em>, <em>*pins_nets_buses</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.Pin.__setitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>You can’t assign to Pins. You must use the += operator.</p>
+<p>This method is a work-around that allows the use of the += for making
+connections to pins while prohibiting direct assignment. Python
+processes something like net[0] += Net() as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">Pin</span><span class="o">.</span><span class="fm">__getitem__</span> <span class="ow">is</span> <span class="n">called</span> <span class="k">with</span> <span class="s1">&#39;0&#39;</span> <span class="k">as</span> <span class="n">the</span> <span class="n">index</span><span class="o">.</span> <span class="n">This</span>
+   <span class="n">returns</span> <span class="n">a</span> <span class="n">single</span> <span class="n">Pin</span><span class="o">.</span>
+<span class="mf">2.</span> <span class="n">The</span> <span class="n">Pin</span><span class="o">.</span><span class="fm">__iadd__</span> <span class="n">method</span> <span class="ow">is</span> <span class="n">passed</span> <span class="n">the</span> <span class="n">pin</span> <span class="ow">and</span>
+   <span class="n">the</span> <span class="n">thing</span> <span class="n">to</span> <span class="n">connect</span> <span class="n">to</span> <span class="n">it</span> <span class="p">(</span><span class="n">a</span> <span class="n">Net</span> <span class="ow">in</span> <span class="n">this</span> <span class="n">case</span><span class="p">)</span><span class="o">.</span> <span class="n">This</span>
+   <span class="n">method</span> <span class="n">makes</span> <span class="n">the</span> <span class="n">actual</span> <span class="n">connection</span> <span class="n">to</span> <span class="n">the</span> <span class="n">net</span><span class="o">.</span> <span class="n">Then</span>
+   <span class="n">it</span> <span class="n">creates</span> <span class="n">an</span> <span class="n">iadd_flag</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">the</span> <span class="nb">object</span> <span class="n">it</span> <span class="n">returns</span><span class="o">.</span>
+<span class="mf">3.</span> <span class="n">Finally</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="fm">__setitem__</span> <span class="ow">is</span> <span class="n">called</span><span class="o">.</span> <span class="n">If</span> <span class="n">the</span> <span class="n">iadd_flag</span> <span class="n">attribute</span>
+   <span class="ow">is</span> <span class="n">true</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">passed</span> <span class="n">argument</span><span class="p">,</span> <span class="n">then</span> <span class="fm">__setitem__</span> <span class="n">was</span> <span class="n">entered</span>
+   <span class="k">as</span> <span class="n">part</span> <span class="n">of</span> <span class="n">processing</span> <span class="n">the</span> <span class="o">+=</span> <span class="n">operator</span><span class="o">.</span> <span class="n">If</span> <span class="n">there</span> <span class="ow">is</span> <span class="n">no</span>
+   <span class="n">iadd_flag</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">then</span> <span class="fm">__setitem__</span> <span class="n">was</span> <span class="n">entered</span> <span class="k">as</span> <span class="n">a</span> <span class="n">result</span>
+   <span class="n">of</span> <span class="n">using</span> <span class="n">a</span> <span class="n">direct</span> <span class="n">assignment</span><span class="p">,</span> <span class="n">which</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">allowed</span><span class="o">.</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Pin.Pin.__iter__">
+<code class="descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.Pin.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterator for stepping through the pin.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="skidl.Pin.Pin.is_connected">
 <code class="descname">is_connected</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.Pin.is_connected" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return true if a pin is connected to a net (but not a no-connect net).</p>
@@ -2014,6 +3267,28 @@ pin must have in order to be selected.</p>
 <dl class="method">
 <dt id="skidl.Pin.Pin.connect">
 <code class="descname">connect</code><span class="sig-paren">(</span><em>*pins_nets_buses</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.Pin.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the pin after connecting it to one or more nets or pins.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pins_nets_buses</strong> – One or more Pin, Net or Bus objects or
+lists/tuples of them.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The updated pin with the new connections.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>You can connect nets or pins to a pin like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">()</span>     <span class="c1"># Create a pin.</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>     <span class="c1"># Create a net.</span>
+<span class="n">p</span> <span class="o">+=</span> <span class="n">net</span>      <span class="c1"># Connect the net to the pin.</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Pin.Pin.__iadd__">
+<code class="descname">__iadd__</code><span class="sig-paren">(</span><em>*pins_nets_buses</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.Pin.__iadd__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the pin after connecting it to one or more nets or pins.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -2058,6 +3333,30 @@ lists/tuples of them.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="skidl.Pin.Pin.__and__">
+<code class="descname">__and__</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.Pin.__and__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attach a pin and another part/pin/net in serial.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Pin.Pin.__rand__">
+<code class="descname">__rand__</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.Pin.__rand__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attach a pin and another part/pin/net in serial.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Pin.Pin.__or__">
+<code class="descname">__or__</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.Pin.__or__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attach a pin and another part/pin/net in parallel.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Pin.Pin.__ror__">
+<code class="descname">__ror__</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.Pin.__ror__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attach a pin and another part/pin/net in parallel.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="skidl.Pin.Pin.chk_conflict">
 <code class="descname">chk_conflict</code><span class="sig-paren">(</span><em>other_pin</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.Pin.chk_conflict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check for electrical rule conflicts between this pin and another.</p>
@@ -2073,6 +3372,18 @@ lists/tuples of them.</p>
 <dt id="skidl.Pin.Pin.get_pin_info">
 <code class="descname">get_pin_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.Pin.get_pin_info" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.Pin.Pin.__str__">
+<code class="descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.Pin.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a description of this pin as a string.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Pin.Pin.__repr__">
+<code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.Pin.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a description of this pin as a string.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="skidl.Pin.Pin.export">
@@ -2096,6 +3407,18 @@ lists/tuples of them.</p>
 <dt id="skidl.Pin.Pin.drive">
 <code class="descname">drive</code><a class="headerlink" href="#skidl.Pin.Pin.drive" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get, set and delete the drive strength of this pin.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Pin.Pin.__bool__">
+<code class="descname">__bool__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.Pin.__bool__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Any valid Pin is True.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Pin.Pin.__nonzero__">
+<code class="descname">__nonzero__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.Pin.__nonzero__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Any valid Pin is True.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -2171,6 +3494,12 @@ lists/tuples of them.</p>
 <dd><p>Bases: <a class="reference internal" href="#skidl.Pin.Pin" title="skidl.Pin.Pin"><code class="xref py py-class docutils literal notranslate"><span class="pre">skidl.Pin.Pin</span></code></a></p>
 <p>A pin type that exists solely to tie two pinless nets together.
 It will not participate in generating any netlists.</p>
+<dl class="method">
+<dt id="skidl.Pin.PhantomPin.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.PhantomPin.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -2205,6 +3534,18 @@ It will not participate in generating any netlists.</p>
 <dd class="field-even"><p><strong>attribs</strong> – Key/value pairs of attributes to add to the library.</p>
 </dd>
 </dl>
+<p>Load the parts from a library file.</p>
+<dl class="attribute">
+<dt id="skidl.SchLib.SchLib._cache">
+<code class="descname">_cache</code><em class="property"> = {}</em><a class="headerlink" href="#skidl.SchLib.SchLib._cache" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.SchLib.SchLib.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>filename=None</em>, <em>tool=None</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.SchLib.SchLib.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the parts from a library file.</p>
+</dd></dl>
+
 <dl class="classmethod">
 <dt id="skidl.SchLib.SchLib.reset">
 <em class="property">classmethod </em><code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.SchLib.SchLib.reset" title="Permalink to this definition">¶</a></dt>
@@ -2214,6 +3555,12 @@ It will not participate in generating any netlists.</p>
 <dl class="method">
 <dt id="skidl.SchLib.SchLib.add_parts">
 <code class="descname">add_parts</code><span class="sig-paren">(</span><em>*parts</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.SchLib.SchLib.add_parts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add one or more parts to a library.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.SchLib.SchLib.__iadd__">
+<code class="descname">__iadd__</code><span class="sig-paren">(</span><em>*parts</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.SchLib.SchLib.__iadd__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add one or more parts to a library.</p>
 </dd></dl>
 
@@ -2254,6 +3601,38 @@ a warning if there were more than one.</p></li>
 </dd></dl>
 
 <dl class="method">
+<dt id="skidl.SchLib.SchLib.__getitem__">
+<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>name</em>, <em>allow_multiples=False</em>, <em>silent=False</em>, <em>get_name_only=False</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.SchLib.SchLib.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a Part with the given name or alias from the part list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – The part name or alias to search for in the library.</p></li>
+<li><p><strong>allow_multiples</strong> – If true, return a list of parts matching the name.
+If false, return only the first matching part and issue
+a warning if there were more than one.</p></li>
+<li><p><strong>silent</strong> – If true, don’t issue errors or warnings.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A single Part or a list of Parts that match all the criteria.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.SchLib.SchLib.__str__">
+<code class="descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.SchLib.SchLib.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of the part names in this library as a string.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.SchLib.SchLib.__repr__">
+<code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.SchLib.SchLib.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of the part names in this library as a string.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="skidl.SchLib.SchLib.export">
 <code class="descname">export</code><span class="sig-paren">(</span><em>libname</em>, <em>file_=None</em>, <em>tool=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.SchLib.SchLib.export" title="Permalink to this definition">¶</a></dt>
 <dd><p>Export a library into a file.</p>
@@ -2272,6 +3651,48 @@ only be SKIDL.</p></li>
 </dl>
 </dd></dl>
 
+<dl class="method">
+<dt id="skidl.SchLib.SchLib.__len__">
+<code class="descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.SchLib.SchLib.__len__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return number of parts in library.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.SchLib.SchLib._load_sch_lib_kicad">
+<code class="descname">_load_sch_lib_kicad</code><span class="sig-paren">(</span><em>filename=None</em>, <em>lib_search_paths_=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.SchLib.SchLib._load_sch_lib_kicad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the parts from a KiCad schematic library file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> – The name of the KiCad schematic library file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.SchLib.SchLib._load_sch_lib_skidl">
+<code class="descname">_load_sch_lib_skidl</code><span class="sig-paren">(</span><em>filename=None</em>, <em>lib_search_paths_=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.SchLib.SchLib._load_sch_lib_skidl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the parts from a SKiDL schematic library file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> – The name of the SKiDL schematic library file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.SchLib.SchLib._load_sch_lib_spice">
+<code class="descname">_load_sch_lib_spice</code><span class="sig-paren">(</span><em>filename=None</em>, <em>lib_search_paths_=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.SchLib.SchLib._load_sch_lib_spice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the .subckt I/O from a SPICE library file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – The name of the SPICE library file.</p></li>
+<li><p><strong>lib_search_paths</strong> – List of directories to search for the file.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -2282,6 +3703,12 @@ only be SKIDL.</p></li>
 <dt id="skidl.baseobj.SkidlBaseObject">
 <em class="property">class </em><code class="descclassname">skidl.baseobj.</code><code class="descname">SkidlBaseObject</code><a class="headerlink" href="#skidl.baseobj.SkidlBaseObject" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="skidl.baseobj.SkidlBaseObject.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.baseobj.SkidlBaseObject.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="skidl.baseobj.SkidlBaseObject.aliases">
 <code class="descname">aliases</code><a class="headerlink" href="#skidl.baseobj.SkidlBaseObject.aliases" title="Permalink to this definition">¶</a></dt>
@@ -2336,6 +3763,12 @@ can be accessed very quickly without searching through all the objects.</p>
 <em class="property">class </em><code class="descclassname">skidl.namedlist.</code><code class="descname">NamedList</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.namedlist.NamedList" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
 <dl class="method">
+<dt id="skidl.namedlist.NamedList.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.namedlist.NamedList.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="skidl.namedlist.NamedList.add">
 <code class="descname">add</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.namedlist.NamedList.add" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -2343,6 +3776,16 @@ can be accessed very quickly without searching through all the objects.</p>
 <dl class="method">
 <dt id="skidl.namedlist.NamedList.sub">
 <code class="descname">sub</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.namedlist.NamedList.sub" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.namedlist.NamedList.__iadd__">
+<code class="descname">__iadd__</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.namedlist.NamedList.__iadd__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.namedlist.NamedList.__isub__">
+<code class="descname">__isub__</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.namedlist.NamedList.__isub__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2355,6 +3798,12 @@ can be accessed very quickly without searching through all the objects.</p>
 <dt id="skidl.netclass.NetClass">
 <em class="property">class </em><code class="descclassname">skidl.netclass.</code><code class="descname">NetClass</code><span class="sig-paren">(</span><em>name</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.netclass.NetClass" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="skidl.netclass.NetClass.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>name</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.netclass.NetClass.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -2388,9 +3837,7 @@ the “abc def” would become “(?=.*(abc))(?=.*(def))” and would match any 
 containing both “abc” and “def”. Or “abc (def|ghi)” would become
 “(?=.*(abc))((?=.*(def|ghi))” and would match any string containing
 “abc” and “def” or “ghi”. Quoted terms can be used for phrases containing
-whitespace. Place the quote-delimited RE before the RE for sequences of
-non-white chars to prevent the initial portion of a quoted string from being
-gathered up as a non-white character sequence.</p>
+whitespace.</p>
 </dd></dl>
 
 <dl class="function">
@@ -2428,6 +3875,12 @@ gathered up as a non-white character sequence.</p>
 <em class="property">class </em><code class="descclassname">skidl.part_query.</code><code class="descname">FootprintCache</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.part_query.FootprintCache" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
 <p>Dict for storing footprints from all directories.</p>
+<dl class="method">
+<dt id="skidl.part_query.FootprintCache.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.part_query.FootprintCache.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="skidl.part_query.FootprintCache.reset">
 <code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.part_query.FootprintCache.reset" title="Permalink to this definition">¶</a></dt>
@@ -2503,9 +3956,8 @@ gathered up as a non-white character sequence.</p>
 <span id="skidl-py-2-3-module"></span><h4>skidl.py_2_3 module<a class="headerlink" href="#module-skidl.py_2_3" title="Permalink to this headline">¶</a></h4>
 <p>Some definitions to make stuff work with both Python 2 &amp; 3.</p>
 </div>
-<div class="section" id="module-skidl.pyspice">
-<span id="skidl-pyspice-module"></span><h4>skidl.pyspice module<a class="headerlink" href="#module-skidl.pyspice" title="Permalink to this headline">¶</a></h4>
-<p>Import this file to reconfigure SKiDL for doing SPICE simulations.</p>
+<div class="section" id="skidl-pyspice-module">
+<h4>skidl.pyspice module<a class="headerlink" href="#skidl-pyspice-module" title="Permalink to this headline">¶</a></h4>
 </div>
 <div class="section" id="module-skidl.skidl">
 <span id="skidl-skidl-module"></span><h4>skidl.skidl module<a class="headerlink" href="#module-skidl.skidl" title="Permalink to this headline">¶</a></h4>
@@ -2518,6 +3970,12 @@ gathered up as a non-white character sequence.</p>
 <dt id="skidl.skidl.SkidlCfg.CFG_FILE_NAME">
 <code class="descname">CFG_FILE_NAME</code><em class="property"> = '.skidlcfg'</em><a class="headerlink" href="#skidl.skidl.SkidlCfg.CFG_FILE_NAME" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.skidl.SkidlCfg.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*dirs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.SkidlCfg.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="skidl.skidl.SkidlCfg.load">
@@ -2606,6 +4064,18 @@ gathered up as a non-white character sequence.</p>
 <p>This is used for counting errors and warnings passed to logging functions,
 making it easy to track if and how many errors/warnings were issued.</p>
 <dl class="method">
+<dt id="skidl.utilities.CountCalls.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>func</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.utilities.CountCalls.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.utilities.CountCalls.__call__">
+<code class="descname">__call__</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.utilities.CountCalls.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call self as a function.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="skidl.utilities.CountCalls.reset">
 <code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.utilities.CountCalls.reset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -2617,6 +4087,18 @@ making it easy to track if and how many errors/warnings were issued.</p>
 <em class="property">class </em><code class="descclassname">skidl.utilities.</code><code class="descname">TriggerDict</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.utilities.TriggerDict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
 <p>This dict triggers a function when one of its entries changes.</p>
+<dl class="method">
+<dt id="skidl.utilities.TriggerDict.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.utilities.TriggerDict.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.utilities.TriggerDict.__setitem__">
+<code class="descname">__setitem__</code><span class="sig-paren">(</span><em>k</em>, <em>v</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.utilities.TriggerDict.__setitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set self[key] to value.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="function">
@@ -2991,6 +4473,7 @@ check the resulting circuitry for electrical rule violations.</p>
         <div class="sidebar">
           <h3>Table of Contents</h3>
           <ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html#document-overview">Overview of How SKiDL Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html#document-modules">skidl</a></li>
 </ul>
 

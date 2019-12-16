@@ -43,12 +43,15 @@ a *netlist file* that lists what components are used and how their pins are inte
 Then you'll use a *PCB layout tool* (like KiCad's PCBNEW) to arrange the part footprints
 and draw the wire traces that connect the pins as specified in the netlist.
 Once that is done, PCBNEW outputs a set of *Gerber files* that are sent to a
-*PCB fabricator* who will create a physical PCB.
+*PCB fabricator* who will create a physical PCB and ship it to you.
+Then you'll post a picture of them on Twitter and promptly dump them
+in a drawer for a few years because you got bored with the project.
 
 In the SKiDL-based design flow, you use a *text editor* to create a *Python code file*
 that employs the SKiDL library to describe interconnections of components.
 This code file is executed by a *Python interpreter* and a netlist file is output.
-From there, the design flow is identical to the schematic-based one.
+From there, the design flow is identical to the schematic-based one
+(including dumping the PCBs in a drawer).
 
 ![Schematic-based PCB design flow](images/skidl-process-flow.png)
 
@@ -198,6 +201,8 @@ from skidl import *
 
 ## Finding Parts
 
+### Command-line Searching
+
 SKiDL provides a convenience function for searching for parts called
 (naturally) `search`.
 For example, if you needed an operational amplifier, then the following command would
@@ -241,6 +246,50 @@ use a regular expression like the following:
 linear.lib: LM358 (Dual Rail-to-rail CMOS Operational Amplifier)
 ```
 
+If you give `search` multiple terms, then it will only find parts that contain *all*
+those terms:
+
+```terminal
+>>> search('opamp low-noise dip-8')
+
+Amplifier_Operational.lib: NE5534 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
+Amplifier_Operational.lib: LT1012 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
+Amplifier_Operational.lib: SA5534 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
+Amplifier_Operational.lib: LM301 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
+Amplifier_Operational.lib: LM201 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
+Amplifier_Operational.lib: LM101 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
+Amplifier_Operational.lib: AD797 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
+```
+
+You can also use the `|` character to find parts that contain at least one of a set
+of choices:
+
+```terminal
+>>> search('opamp (low-noise|dip-8)')
+
+Amplifier_Audio.lib: LM386 (Low Voltage Audio Power Amplifier, DIP-8/SOIC-8/SSOP-8)
+Amplifier_Operational.lib: TLV2371P (Rail-to-Rail Input/Output Operational Amplifier, PDIP-8)
+Amplifier_Operational.lib: MAX4239ASA (Ultra-Low Offset/Drift, Low-Noise, Precision Amplifiers, SOIC-8)
+Amplifier_Operational.lib: LM4250 (Programmable Operational Amplifier, DIP-8/SOIC-8)
+Amplifier_Operational.lib: LF256 (Single JFET-Input Operational Amplifiers, DIP-8/SOIC-8)
+Amplifier_Operational.lib: MAX4239AUT (Ultra-Low Offset/Drift, Low-Noise, Precision Amplifiers, SOT-23-6)
+Amplifier_Operational.lib: LM6361 (Single High Speed Operational Amplifier, DIP-8/SOIC-8)
+Amplifier_Operational.lib: LF257 (Single JFET-Input Operational Amplifiers, DIP-8/SOIC-8)
+Amplifier_Operational.lib: AD8603 (Zero-Drift, Precision, Low-Noise, Rail-to-Rail Output, 36-V Operational Amplifier, TSOT-23-5)
+...
+```
+
+If you need to search for a string containing spaces, just enclose it in quotes:
+
+```terminal
+>>> search('opamp "high performance"')
+
+Amplifier_Operational.lib: OP77 (Single SoundPlus High Performance Audio Operational Amplifiers, DIP-8/SOIC-8)
+Amplifier_Operational.lib: LT1363 (Single SoundPlus High Performance Audio Operational Amplifiers, DIP-8/SOIC-8)
+Amplifier_Operational.lib: OP07 (Single SoundPlus High Performance Audio Operational Amplifiers, DIP-8/SOIC-8)
+Amplifier_Operational.lib: OPA134 (Single SoundPlus High Performance Audio Operational Amplifiers, DIP-8/SOIC-8)
+```
+
 Once you have the part name and library, you can see the part's pin numbers, names
 and their functions using the `show` function:
 
@@ -258,13 +307,33 @@ LM358: Dual Rail-to-rail CMOS Operational Amplifier
     Pin None/7/~/OUTPUT
 ```
 
-`show` looks for exact matches of the part name in a library, so the following
+`show` looks for *exact matches* of the part name in a library, so the following
 command raises an error:
 
 ```terminal
 >>> show('linear', 'lm35')
 ERROR: Unable to find part lm35 in library linear.
 ```
+
+In addition to searching for parts, you can also search for footprints using the
+`search_footprints` command. It works similarly to the `search` command:
+
+```terminal
+>>> search_footprints('QFN-48')
+
+Package_DFN_QFN: QFN-48-1EP_5x5mm_P0.35mm_EP3.7x3.7mm ("QFN, 48 Pin (https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf#page=38), generated with kicad-footprint-generator ipc_dfn_qfn_generator.py" - "QFN DFN_QFN")
+Package_DFN_QFN: QFN-48-1EP_5x5mm_P0.35mm_EP3.7x3.7mm_ThermalVias ("QFN, 48 Pin (https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf#page=38), generated with kicad-footprint-generator ipc_dfn_qfn_generator.py" - "QFN DFN_QFN")
+Package_DFN_QFN: QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm ("QFN, 48 Pin (https://static.dev.sifive.com/SiFive-FE310-G000-datasheet-v1p5.pdf#page=20), generated with kicad-footprint-generator ipc_dfn_qfn_generator.py" - "QFN DFN_QFN")
+Package_DFN_QFN: QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm_ThermalVias ("QFN, 48 Pin (https://static.dev.sifive.com/SiFive-FE310-G000-datasheet-v1p5.pdf#page=20), generated with kicad-footprint-generator ipc_dfn_qfn_generator.py" - "QFN DFN_QFN")
+...
+```
+
+### Zyc: A GUI Search Tool
+
+If you want to avoid using command-line tools for part/footprint searches, then you
+might like to try the `zyc` utility.
+It lets you search for parts and footprints using a GUI.
+You can read more about it [here](https://xesscorp.github.io/skidl/docs/_site/blog/worst-part-of-skidl).
 
 
 ## Instantiating Parts
@@ -611,7 +680,7 @@ a netlist. You can also add any other attribute:
 
 ```py
 my_part.manf = 'Atmel'
-my_part.setattr('manf#', 'ATTINY4-TSHR'
+my_part.setattr('manf#', 'ATTINY4-TSHR')
 ```
 
 It's also possible to set the attributes during the part creation:
@@ -678,25 +747,31 @@ Pin ???/1/my_pin/TRISTATE
 
 ## Finding SKiDL Objects
 
-Sometimes you may want to access a bus or net that's already been created.
+Sometimes you may want to access a bus, net, or part that's already been created.
 In such an instance, you can use the `get()` class method:
 
 ```py
 n = Net.get('Fred')  # Find the existing Net object named 'Fred'.
 b = Bus.get('A')     # Find the existing Bus object named 'A'.
+p = Part.get('AS6C1616')  # Find all parts with this part name.
 ```
 
 If a net or bus is found with the exact name that was given, then that SKiDL
 object is returned (no wild-card searches using regular expressions are allowed).
 If the search is unsuccessful, `None` is returned.
 
+For parts, the search is performed using string matching on part names,
+references (e.g., `R4`), and aliases.
+In addition, regular expression matching is used to search within the
+part descriptions, so you could search for all parts with "ram" in their description.
+
 There may be other times when you want to access a particular bus or net and,
-if it doesn't exist, then create it.
+if it doesn't exist, then create it (this is not possible with parts).
 The `fetch()` class method is used for this:
 
 ```py
 n = Net.fetch('Fred')  # Find the existing Net object named 'Fred' or create it if not found.
-b = Bus.fetch('A',8)   # Find the existing Bus object named 'A' or create it if not found.
+b = Bus.fetch('A', 8)  # Find the existing Bus object named 'A' or create it if not found.
 ```
 
 Note that with the `Bus.fetch()` method, you also have to provide the arguments to
@@ -712,6 +787,7 @@ some copies of it:
 ```terminal
 >>> r1 = Part('device', 'R', value=500)
 >>> r2 = r1.copy()                         # Make a single copy of the resistor.
+>>> r2_lst = r1.copy(1)                    # Make a single copy, but return it in a list.
 >>> r3 = r1.copy(value='1K')               # Make a single copy, but give it a different value.
 >>> r4 = r1(value='1K')                    # You can also call the object directly to make copies.
 >>> r5, r6, r7 = r1(3)                     # Make 3 copies of the resistor.
@@ -730,6 +806,8 @@ This is done like so:
 
 
 ## Accessing Part Pins and Bus Lines
+
+### Accessing Part Pins
 
 You can access the pins on a part or the individual nets of a bus
 using numbers, slices, strings, and regular expressions, either singly or in any combination.
@@ -853,14 +931,62 @@ For example, this would get every bidirectional pin of the processor:
 [Pin U1/1/ICSPDAT/AN0/GP0/BIDIRECTIONAL, Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL, Pin U1/4/T0CKI/FOSC4/GP2/BIDIRECTIONAL]
 ```
 
-Accessing the individual nets of a bus works similarly to accessing part pins:
+Since you can access part pins by number or by name using strings or regular expressions, it's worth
+discussing how SKiDL decides which one to select.
+When given a pin index, SKiDL prioritizes the search for the corresponding pins like so:
+
+1. If one or more pin numbers match the index, then those pins are returned and the search stops.
+2. If one or more pin names match the index using standard string matching, then those pins are returned and the search stops.
+3. If one or more pin aliases match the index using standard string matching, then those pins are returned and the search stops.
+4. If one or more pin names match the index using it as a regular expression, then those pins are returned and the search stops.
+5. If one or more pin aliases match the index using it as a regular expression, then those pins are returned and the search stops.
+
+It should also be mentioned that when using the index as a regular expression,
+SKiDL surrounds it with `.*` so it will match anywhere within a pin name or alias.
+Hence, if an index of `D1` did not exactly match any pin number, name or alias, then it would become
+`.*D1.*` and would match *any* pin with `D1` in its name.
+You can stop this by placing start and end characters in the index like so: `^D1$` will match only `D1`.
+
+Finally, since SKiDL prioritizes pin number matches over name matches,
+what happens when you want to use a pin whose name is the same as the pin number
+of another pin?
+For example, a memory chip in a BGA would have pin numbers `A1`, `A2`, `A3`, ... but might
+also have other pins used for addresses named `A1`, `A2`, `A3`, ... .
+SKiDL provides the `p` and `n` part attributes so you can specifically target either
+pin numbers or names:
+
+```py
+ram['A1, A2, A3']    # Selects pin numbers A1, A2 and A3 if the part is a BGA.
+ram.p['A1, A2, A3']  # Use the p attribute to specifically select pin numbers A1, A2 and A3.
+ram.n['A1, A2, A3']  # Use the n attribute to specifically select pin names A1, A2 and A3.
+```
+
+If you want to access part pins algorithmically in a loop, it can be done as follows:
+
+```py
+for p in pic10.get_pins():
+  <do something with p>
+```
+
+The same thing could also be done using a `Part` object as an iterator:
+
+```py
+for p in pic10:
+  <do something with p>
+```
+
+
+
+### Accessing Bus Lines
+
+Accessing the individual lines of a bus works similarly to accessing part pins:
 
 ```terminal
 >>> a = Net('NET_A')  # Create a named net.
 >>> b = Bus('BUS_B', 8, a)  # Create a nine-bit bus.
 >>> b
 BUS_B:
-        BUS_B0:  # Note how the individual nets of the bus are named.
+        BUS_B0:  # Note how the individual lines of the bus are named.
         BUS_B1:
         BUS_B2:
         BUS_B3:
@@ -869,15 +995,33 @@ BUS_B:
         BUS_B6:
         BUS_B7:
         NET_A:   # The last net retains its original name.
->>> b[0]  # Get the first net of the bus.
+
+>>> b[0]  # Get the first line of the bus.
 BUS_B0:
+
 >>> b[4,8]  # Get the fifth and ninth bus lines.
 [BUS_B4: , NET_A: ]
+
 >>> b[3:0]  # Get the first four bus lines in reverse order.
 [BUS_B3: , BUS_B2: , BUS_B1: , BUS_B0: ]
+
 >>> b['BUS_B.*']  # Get all the bus lines except the last one.
 [BUS_B0: , BUS_B1: , BUS_B2: , BUS_B3: , BUS_B4: , BUS_B5: , BUS_B6: , BUS_B7: ]
+
 >>> b['NET_A']  # Get the last bus line.
+NET_A:
+
+>>> for line in b:  # Access lines in bus using bus as an iterator.
+...:    print(line)
+...:
+BUS_B0:
+BUS_B1:
+BUS_B2:
+BUS_B3:
+BUS_B4:
+BUS_B5:
+BUS_B6:
+BUS_B7:
 NET_A:
 ```
 
@@ -887,7 +1031,7 @@ NET_A:
 Pins, nets, parts and buses can all be connected together in various ways, but
 the primary rule of SKiDL connections is:
 
-> > **The `+=` operator is the only way to make connections!**
+> **The `+=` operator is the only way to make connections!**
 
 At times you'll mistakenly try to make connections using the 
 assignment operator (`=`). In many cases, SKiDL warns you if you do that,
@@ -1037,12 +1181,13 @@ Exception
 ## Making Parallel and Serial Networks
 
 The previous section showed some general-purpose techniques for connecting parts,
-but SKiDL also has some specialized syntax for wiring two-pin components
-in parallel or serial.
+but SKiDL also has some
+[specialized syntax](https://xesscorp.github.io/skidl/docs/_site/blog/sweetening-skidl)
+for wiring two-pin components in parallel or serial.
 For example, here is a network of four resistors connected in series
 between power and ground:
 
-```terminal
+```py
 vcc, gnd = Net('VCC'), Net('GND')
 r1, r2, r3, r4 = Part('device', 'R', dest=TEMPLATE) * 4
 ser_ntwk = vcc & r1 & r2 & r3 & r4 & gnd
@@ -1050,14 +1195,14 @@ ser_ntwk = vcc & r1 & r2 & r3 & r4 & gnd
 
 It's also possible to connect the resistors in parallel between power and ground:
 
-```terminal
+```py
 par_ntwk = vcc & (r1 | r2 | r3 | r4) & gnd
 ```
 
 Or you can do something like placing pairs of resistors in series and then paralleling
 those combinations like this:
 
-```terminal
+```py
 combo_ntwk = vcc & ((r1 & r2) | (r3 & r4)) & gnd
 ```
 
@@ -1065,7 +1210,7 @@ The examples above work with *non-polarized* components, but what about parts
 like diodes? In that case, you have to specify the pins *explicitly* with the
 first pin connected to the preceding part and the second pin to the following part:
 
-```terminal
+```py
 d1 = Part('device', 'D')
 polar_ntwk = vcc & r1 & d1['A,K'] & gnd  # Diode anode connected to resistor and cathode to ground.
 ```
@@ -1073,7 +1218,7 @@ polar_ntwk = vcc & r1 & d1['A,K'] & gnd  # Diode anode connected to resistor and
 Explicitly listing the pins also lets you use multi-pin parts with networks.
 For example, here's an NPN-transistor amplifier:
 
-```terminal
+```py
 q1 = Part('device', 'Q_NPN_ECB')
 ntwk_ce = vcc & r1 & q1['C,E'] & gnd  # VCC through load resistor to collector and emitter attached to ground.
 ntwk_b = r2 & q1['B']  # Resistor attached to base.
@@ -1085,13 +1230,39 @@ For instance, how do you apply an input to the transistor circuit and then conne
 to the output?
 One way is by inserting nets inside the networks:
 
-```terminal
+```py
 inp, outp = Net('INPUT'), Net('OUTPUT')
 ntwk_ce = vcc & r1 & outp & q1['C,E'] & gnd  # Connect net outp to the junction of the resistor and transistor collector.
 ntwk_b = inp & r2 & q1['B']  # Connect net inp to the resistor driving the transistor base.
 ```
 
 After that's done, the `inp` and `outp` nets can be connected to other points in the circuit.
+
+
+## Aliases
+
+Aliases let you assign a more descriptive name to a part, pin, net, or bus without
+affecting the original name.
+This is probably most useful in assigning names to pins to describe their functions.
+
+```py
+r = Part('device', 'R')
+r[1] += vcc  # Connect one end of resistor to VCC net.
+r[2].aliases += "pullup"  # Add the alias "pullup" to the other end of the resistor.
+
+uc['RESET'] += r['pullup']  # Connect the pullup resistor to the reset pin of a microcontroller.
+```
+
+To see the assigned aliases, just use the `aliases` attribute:
+
+```terminal
+>>> r = Part('device', 'R')
+>>> r.aliases += "resistor"
+>>> r.aliases += "pullup resistor"
+>>> r.aliases
+
+{'pullup resistor', 'resistor'}
+```
 
 
 ## Units Within Parts
@@ -1114,12 +1285,12 @@ Each resistor could be assigned to a unit as follows:
  R_Pack02 (): 2 Resistor network, parallel topology, DIP package
     Pin RN1/4/R1.2/PASSIVE
     Pin RN1/1/R1.1/PASSIVE
+
 >>> rn.make_unit('B', 2, 3)  # Now make a unit called 'B' for the second resistor.
 
  R_Pack02 (): 2 Resistor network, parallel topology, DIP package
     Pin RN1/2/R2.1/PASSIVE
     Pin RN1/3/R2.2/PASSIVE
->>> rn.unit['A'][1, 4] += Net(), Net()
 ```
 
 Once the units are defined, you can use them just like any part:
@@ -1136,21 +1307,10 @@ In order to get around this inconvenience, you could assign *aliases* to each
 pin like this:
 
 ```terminal
->>> rn = Part('device', 'R_Pack02')
->>> rn.make_unit('A', 1, 4)
-
- R_Pack02 (): 2 Resistor network, parallel topology, DIP package
-    Pin RN1/4/R1.2/PASSIVE
-    Pin RN1/1/R1.1/PASSIVE
->>> rn.make_unit('B', 2, 3)
-
- R_Pack02 (): 2 Resistor network, parallel topology, DIP package
-    Pin RN1/3/R2.2/PASSIVE
-    Pin RN1/2/R2.1/PASSIVE
->>> rn.unit['A'].set_pin_alias('L',1) # Alias 'L' of pin 1 on left-side of package.
->>> rn.unit['A'].set_pin_alias('R',4) # Alias 'R' of pin 4 on right-side of package.
->>> rn.unit['B'].set_pin_alias('L',2) # Alias 'L' of pin 2 on left-side.
->>> rn.unit['B'].set_pin_alias('R',3) # Alias 'R' of pin 3 on right-side.
+>>> rn[1].aliases += 'L' # Alias 'L' of pin 1 on left-side of package.
+>>> rn[4].aliases += 'R' # Alias 'R' of pin 4 on right-side of package.
+>>> rn[2].aliases += 'L' # Alias 'L' of pin 2 on left-side.
+>>> rn[3].aliases += 'R' # Alias 'R' of pin 3 on right-side.
 ```
 
 Now the same connections can be made using the pin aliases:
@@ -1171,6 +1331,37 @@ using their names as attributes:
 >>> rn.A['L,R'] += Net(), Net()  # Connect resistor A to two nets.
 >>> rn.B['L,R'] += rn.A['L,R']   # Connect resistor B in parallel with resistor A.
 ```
+
+
+## Part Fields
+
+Parts typically have *field* that store additional information such as
+manufacturer identifiers.
+Every `Part` object stores this information in a dictionary called `fields`:
+
+```terminal
+>> lm35 = Part('Sensor_Temperature', 'LM35-D')
+>> lm35.fields
+
+{'F0': 'U',
+ 'F1': 'LM35-D',
+ 'F2': 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm',
+ 'F3': ''}
+
+>>> lm35.fields['F1']
+
+'LM35-D'
+```
+
+Fields can also be accessed as attributes of the part:
+
+```terminal
+>>> lm35.F1
+
+'LM35-D'
+```
+
+New fields can be added just by adding new keys and values to the `fields` dictionary.
 
 
 ## Hierarchy
@@ -1356,6 +1547,45 @@ And here's the resulting netlist:
       (node (ref R5) (pin 2))
       (node (ref R6) (pin 1))))
 )
+```
+
+
+## Interfaces
+
+Passing nets between hierarchically-organized modules can lead to long
+lists of arguments.
+To make the code easier to write and understand, SKiDL supports *interfaces* which are simply containers that
+encapsulate a number of `Bus`, `Net`, or `Pin` objects.
+For example, here is an interface for a memory:
+
+```py
+mem_intfc = Interface(
+  rd = Net('MEM_RD#'),
+  wr = Net('MEM_WR#'),
+  addr = Bus('MEM_ADDR', 20),
+  data = Bus('MEM_DATA', 16)
+)
+```
+
+Then this interface can be passed to a module that implements a RAM memory
+and a microcontroller that uses it:
+
+```py
+mem_module(mem_intfc)
+uc_module(clk, mem_intfc, io_intfc)
+```
+
+Inside the `mem_module`, the interface signals are connected to a RAM chip:
+
+```py
+@subcircuit
+def mem_module(intfc):
+  ram = Part('Memory_RAM', 'AS6C1616')
+  ram['A[0:19]'] += intfc.addr
+  ram['DQ[0:15]'] += intfc.data
+  ram['WE#'] += intfc.wr
+  ram['OE#'] += intfc.rd
+  ...
 ```
 
 
@@ -1615,6 +1845,26 @@ Traceback (most recent call last):
     raise Exception
 Exception
 ```
+
+**Iterators:**
+  In addition to supporting indexing, `Pin`, `Net` and `Bus` objects can also be used
+  as iterators.
+
+```terminal
+>>> bus = Bus('bus', 8)
+>>> for line in bus:
+    ...:     print(line)
+    ...:
+bus0:
+bus1:
+bus2:
+bus3:
+bus4:
+bus5:
+bus6:
+bus7:
+```
+
 
 **Width**:
     `Bus`, `Net`, and `Pin` objects all support the `width` property.

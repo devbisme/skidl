@@ -1446,18 +1446,6 @@ SubCircuits at the current time it is read.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="skidl.Circuit.Circuit.add_interfaces">
-<code class="descname">add_interfaces</code><span class="sig-paren">(</span><em>*interfaces</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Circuit.Circuit.add_interfaces" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add some Interface objects to the circuit. Assign an interface name if necessary.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="skidl.Circuit.Circuit.rmv_interfaces">
-<code class="descname">rmv_interfaces</code><span class="sig-paren">(</span><em>*interfaces</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Circuit.Circuit.rmv_interfaces" title="Permalink to this definition">¶</a></dt>
-<dd><p>Remove some interfaces from the circuit.</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="skidl.Circuit.Circuit.add_stuff">
 <code class="descname">add_stuff</code><span class="sig-paren">(</span><em>*stuff</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Circuit.Circuit.add_stuff" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add Parts, Nets, Buses, and Interfaces to the circuit.</p>
@@ -1631,38 +1619,14 @@ containing SPICE models.</p></li>
 <p>Handles interfaces for subsystems with complicated I/O.</p>
 <dl class="class">
 <dt id="skidl.Interface.Interface">
-<em class="property">class </em><code class="descclassname">skidl.Interface.</code><code class="descname">Interface</code><span class="sig-paren">(</span><em>prefix</em>, <em>circuit=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Interface.Interface" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#skidl.baseobj.SkidlBaseObject" title="skidl.baseobj.SkidlBaseObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">skidl.baseobj.SkidlBaseObject</span></code></a></p>
-<p>An Interface bundles a group of signals into a single entity with each
-signal becoming an attribute.</p>
-<dl class="attribute">
-<dt id="skidl.Interface.Interface.erc_list">
-<code class="descname">erc_list</code><em class="property"> = []</em><a class="headerlink" href="#skidl.Interface.Interface.erc_list" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<em class="property">class </em><code class="descclassname">skidl.Interface.</code><code class="descname">Interface</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Interface.Interface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>An Interface bundles a group of nets/buses into a single entity with each
+net/bus becoming an attribute.</p>
 <dl class="method">
 <dt id="skidl.Interface.Interface.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>prefix</em>, <em>circuit=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Interface.Interface.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Interface.Interface.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="skidl.Interface.Interface.is_movable">
-<code class="descname">is_movable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Interface.Interface.is_movable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="skidl.Interface.Interface.ERC">
-<code class="descname">ERC</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Interface.Interface.ERC" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run class-wide and local ERC functions on this interface.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="skidl.Interface.Interface.name">
-<code class="descname">name</code><a class="headerlink" href="#skidl.Interface.Interface.name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get, set and delete the name of this interface.</p>
-<p>When setting the name, if another interface with the same name
-is found, the name for this interface is adjusted to make it unique.</p>
 </dd></dl>
 
 </dd></dl>
@@ -2348,6 +2312,64 @@ The drive strength cannot be deleted.</p>
 <span id="skidl-part-module"></span><h4>skidl.Part module<a class="headerlink" href="#module-skidl.Part" title="Permalink to this headline">¶</a></h4>
 <p>Handles parts.</p>
 <dl class="class">
+<dt id="skidl.Part.PinNumberSearch">
+<em class="property">class </em><code class="descclassname">skidl.Part.</code><code class="descname">PinNumberSearch</code><span class="sig-paren">(</span><em>part</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.PinNumberSearch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class for restricting part pin indexing to only pin numbers
+while ignoring pin names.</p>
+<dl class="method">
+<dt id="skidl.Part.PinNumberSearch.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>part</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.PinNumberSearch.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.PinNumberSearch.get_pins">
+<code class="descname">get_pins</code><span class="sig-paren">(</span><em>*pin_ids</em>, <em>**criteria</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.PinNumberSearch.get_pins" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.PinNumberSearch.__getitem__">
+<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>*pin_ids</em>, <em>**criteria</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.PinNumberSearch.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.PinNumberSearch.__setitem__">
+<code class="descname">__setitem__</code><span class="sig-paren">(</span><em>ids</em>, <em>*pins_nets_buses</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.PinNumberSearch.__setitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="skidl.Part.PinNameSearch">
+<em class="property">class </em><code class="descclassname">skidl.Part.</code><code class="descname">PinNameSearch</code><span class="sig-paren">(</span><em>part</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.PinNameSearch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class for restricting part pin indexing to only pin names
+while ignoring pin numbers.</p>
+<dl class="method">
+<dt id="skidl.Part.PinNameSearch.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>part</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.PinNameSearch.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.PinNameSearch.get_pins">
+<code class="descname">get_pins</code><span class="sig-paren">(</span><em>*pin_ids</em>, <em>**criteria</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.PinNameSearch.get_pins" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.PinNameSearch.__getitem__">
+<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>*pin_ids</em>, <em>**criteria</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.PinNameSearch.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.PinNameSearch.__setitem__">
+<code class="descname">__setitem__</code><span class="sig-paren">(</span><em>ids</em>, <em>*pins_nets_buses</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.PinNameSearch.__setitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="skidl.Part.Part">
 <em class="property">class </em><code class="descclassname">skidl.Part.</code><code class="descname">Part</code><span class="sig-paren">(</span><em>lib=None</em>, <em>name=None</em>, <em>dest='NETLIST'</em>, <em>tool=None</em>, <em>connections=None</em>, <em>part_defn=None</em>, <em>circuit=None</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#skidl.baseobj.SkidlBaseObject" title="skidl.baseobj.SkidlBaseObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">skidl.baseobj.SkidlBaseObject</span></code></a></p>
@@ -2582,12 +2604,6 @@ Or None if no match was found.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="skidl.Part.Part.__iter__">
-<code class="descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.__iter__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return an iterator for stepping thru individual pins of the part.</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="skidl.Part.Part.__getitem__">
 <code class="descname">__getitem__</code><span class="sig-paren">(</span><em>*pin_ids</em>, <em>**criteria</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.__getitem__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return list of part pins selected by pin numbers or names.</p>
@@ -2637,6 +2653,12 @@ processes something like my_part[‘GND’] += gnd as follows:</p>
    <span class="n">of</span> <span class="n">using</span> <span class="n">a</span> <span class="n">direct</span> <span class="n">assignment</span><span class="p">,</span> <span class="n">which</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">allowed</span><span class="o">.</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.Part.__iter__">
+<code class="descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterator for stepping thru individual pins of the part.</p>
 </dd></dl>
 
 <dl class="method">
@@ -2887,13 +2909,14 @@ will be parsed if the part is actually used.</p></li>
 <dd><p>Bases: <a class="reference internal" href="#skidl.Part.Part" title="skidl.Part.Part"><code class="xref py py-class docutils literal notranslate"><span class="pre">skidl.Part.Part</span></code></a></p>
 <p>A class for storing a SKiDL definition of a schematic part. It’s identical
 to its Part superclass except:</p>
-<blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li><p>The tool defaults to SKIDL.</p></li>
-<li><p>The destination defaults to TEMPLATE so that it’s easier to start
-a part and then add pins to it without it being added to the netlist.</p></li>
+<li><dl class="simple">
+<dt>The destination defaults to TEMPLATE so that it’s easier to start</dt><dd><p>a part and then add pins to it without it being added to the netlist.</p>
+</dd>
+</dl>
+</li>
 </ul>
-</div></blockquote>
 <dl class="attribute">
 <dt id="skidl.Part.SkidlPart.SKIDL">
 <code class="descname">SKIDL</code><em class="property"> = 'skidl'</em><a class="headerlink" href="#skidl.Part.SkidlPart.SKIDL" title="Permalink to this definition">¶</a></dt>
@@ -3814,9 +3837,7 @@ the “abc def” would become “(?=.*(abc))(?=.*(def))” and would match any 
 containing both “abc” and “def”. Or “abc (def|ghi)” would become
 “(?=.*(abc))((?=.*(def|ghi))” and would match any string containing
 “abc” and “def” or “ghi”. Quoted terms can be used for phrases containing
-whitespace. Place the quote-delimited RE before the RE for sequences of
-non-white chars to prevent the initial portion of a quoted string from being
-gathered up as a non-white character sequence.</p>
+whitespace.</p>
 </dd></dl>
 
 <dl class="function">
