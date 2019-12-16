@@ -10,6 +10,7 @@ def test_pin_names_1():
     assert codec["ain"] == codec.n["ain"]
     assert codec[1:4] == codec.p[1:4]
 
+
 def test_pin_names_2():
     codec = Part("xess.lib", "ak4520a")
     codec[4].name = "A1"
@@ -21,4 +22,3 @@ def test_pin_names_2():
     assert codec.p["A1"] is codec.n["A2"]
     assert codec["A1"] is codec.n["A2"]
     assert codec["A1"] is codec.p["A1"]
-

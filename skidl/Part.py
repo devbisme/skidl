@@ -1006,9 +1006,10 @@ class SkidlPart(Part):
     """
     A class for storing a SKiDL definition of a schematic part. It's identical
     to its Part superclass except:
-        + The tool defaults to SKIDL.
-        + The destination defaults to TEMPLATE so that it's easier to start
-          a part and then add pins to it without it being added to the netlist.
+    
+    + The tool defaults to SKIDL.
+    + The destination defaults to TEMPLATE so that it's easier to start
+        a part and then add pins to it without it being added to the netlist.
     """
 
     from .defines import SKIDL, TEMPLATE
