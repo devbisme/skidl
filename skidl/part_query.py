@@ -56,7 +56,7 @@ def parse_search_terms(terms):
     whitespace.
     """
 
-    # Place the quote-delimited RE before the RE for sequences of 
+    # Place the quote-delimited RE before the RE for sequences of
     # non-white chars to prevent the initial portion of a quoted string from being
     # gathered up as a non-white character sequence.
     return (
