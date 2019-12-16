@@ -53,10 +53,12 @@ def parse_search_terms(terms):
     containing both "abc" and "def". Or "abc (def|ghi)" would become
     "(?=.*(abc))((?=.*(def|ghi))" and would match any string containing
     "abc" and "def" or "ghi". Quoted terms can be used for phrases containing
-    whitespace. Place the quote-delimited RE before the RE for sequences of 
-    non-white chars to prevent the initial portion of a quoted string from being
-    gathered up as a non-white character sequence.
+    whitespace.
     """
+
+    # Place the quote-delimited RE before the RE for sequences of 
+    # non-white chars to prevent the initial portion of a quoted string from being
+    # gathered up as a non-white character sequence.
     return (
         re.sub(r"((\".*?\")|(\S+))\s*", r"(?=.*(\1))", terms.strip().rstrip()).replace(
             '"', ""
