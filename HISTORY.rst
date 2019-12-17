@@ -3,6 +3,12 @@
 History
 -------
 
+0.0.28 (2019-12-17)
+______________________
+
+* The ``zyc`` utility was split into a separate repository and placed on PyPi.
+* Fixed slicing of grouped part pins so things like ``ram['A[1]']`` won't grab ``A1``, ``A10``, ``A11``, etc. 
+
 0.0.27 (2019-12-16)
 ______________________
 
