@@ -160,12 +160,15 @@ a <em>netlist file</em> that lists what components are used and how their pins a
 Then you’ll use a <em>PCB layout tool</em> (like KiCad’s PCBNEW) to arrange the part footprints
 and draw the wire traces that connect the pins as specified in the netlist.
 Once that is done, PCBNEW outputs a set of <em>Gerber files</em> that are sent to a
-<em>PCB fabricator</em> who will create a physical PCB.</p>
+<em>PCB fabricator</em> who will create a physical PCB and ship it to you.
+Then you’ll post a picture of them on Twitter and promptly dump them
+in a drawer for a few years because you got bored with the project.</p>
 
 <p>In the SKiDL-based design flow, you use a <em>text editor</em> to create a <em>Python code file</em>
 that employs the SKiDL library to describe interconnections of components.
 This code file is executed by a <em>Python interpreter</em> and a netlist file is output.
-From there, the design flow is identical to the schematic-based one.</p>
+From there, the design flow is identical to the schematic-based one
+(including dumping the PCBs in a drawer).</p>
 
 <p><img src="images/skidl-process-flow.png" alt="Schematic-based PCB design flow" /></p>
 
@@ -315,6 +318,8 @@ executed as a Python script.</p>
 
 <h2 id="finding-parts">Finding Parts</h2>
 
+<h3 id="command-line-searching">Command-line Searching</h3>
+
 <p>SKiDL provides a convenience function for searching for parts called
 (naturally) <code class="highlighter-rouge">search</code>.
 For example, if you needed an operational amplifier, then the following command would
@@ -358,6 +363,50 @@ linear.lib: LM358 (Dual Rail-to-rail CMOS Operational Amplifier)
 </code></pre>
 </div>
 
+<p>If you give <code class="highlighter-rouge">search</code> multiple terms, then it will only find parts that contain <em>all</em>
+those terms:</p>
+
+<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; search('opamp low-noise dip-8')
+
+Amplifier_Operational.lib: NE5534 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
+Amplifier_Operational.lib: LT1012 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
+Amplifier_Operational.lib: SA5534 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
+Amplifier_Operational.lib: LM301 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
+Amplifier_Operational.lib: LM201 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
+Amplifier_Operational.lib: LM101 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
+Amplifier_Operational.lib: AD797 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
+</code></pre>
+</div>
+
+<p>You can also use the <code class="highlighter-rouge">|</code> character to find parts that contain at least one of a set
+of choices:</p>
+
+<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; search('opamp (low-noise|dip-8)')
+
+Amplifier_Audio.lib: LM386 (Low Voltage Audio Power Amplifier, DIP-8/SOIC-8/SSOP-8)
+Amplifier_Operational.lib: TLV2371P (Rail-to-Rail Input/Output Operational Amplifier, PDIP-8)
+Amplifier_Operational.lib: MAX4239ASA (Ultra-Low Offset/Drift, Low-Noise, Precision Amplifiers, SOIC-8)
+Amplifier_Operational.lib: LM4250 (Programmable Operational Amplifier, DIP-8/SOIC-8)
+Amplifier_Operational.lib: LF256 (Single JFET-Input Operational Amplifiers, DIP-8/SOIC-8)
+Amplifier_Operational.lib: MAX4239AUT (Ultra-Low Offset/Drift, Low-Noise, Precision Amplifiers, SOT-23-6)
+Amplifier_Operational.lib: LM6361 (Single High Speed Operational Amplifier, DIP-8/SOIC-8)
+Amplifier_Operational.lib: LF257 (Single JFET-Input Operational Amplifiers, DIP-8/SOIC-8)
+Amplifier_Operational.lib: AD8603 (Zero-Drift, Precision, Low-Noise, Rail-to-Rail Output, 36-V Operational Amplifier, TSOT-23-5)
+...
+</code></pre>
+</div>
+
+<p>If you need to search for a string containing spaces, just enclose it in quotes:</p>
+
+<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; search('opamp "high performance"')
+
+Amplifier_Operational.lib: OP77 (Single SoundPlus High Performance Audio Operational Amplifiers, DIP-8/SOIC-8)
+Amplifier_Operational.lib: LT1363 (Single SoundPlus High Performance Audio Operational Amplifiers, DIP-8/SOIC-8)
+Amplifier_Operational.lib: OP07 (Single SoundPlus High Performance Audio Operational Amplifiers, DIP-8/SOIC-8)
+Amplifier_Operational.lib: OPA134 (Single SoundPlus High Performance Audio Operational Amplifiers, DIP-8/SOIC-8)
+</code></pre>
+</div>
+
 <p>Once you have the part name and library, you can see the part’s pin numbers, names
 and their functions using the <code class="highlighter-rouge">show</code> function:</p>
 
@@ -375,13 +424,33 @@ LM358: Dual Rail-to-rail CMOS Operational Amplifier
 </code></pre>
 </div>
 
-<p><code class="highlighter-rouge">show</code> looks for exact matches of the part name in a library, so the following
+<p><code class="highlighter-rouge">show</code> looks for <em>exact matches</em> of the part name in a library, so the following
 command raises an error:</p>
 
 <div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; show('linear', 'lm35')
 ERROR: Unable to find part lm35 in library linear.
 </code></pre>
 </div>
+
+<p>In addition to searching for parts, you can also search for footprints using the
+<code class="highlighter-rouge">search_footprints</code> command. It works similarly to the <code class="highlighter-rouge">search</code> command:</p>
+
+<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; search_footprints('QFN-48')
+
+Package_DFN_QFN: QFN-48-1EP_5x5mm_P0.35mm_EP3.7x3.7mm ("QFN, 48 Pin (https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf#page=38), generated with kicad-footprint-generator ipc_dfn_qfn_generator.py" - "QFN DFN_QFN")
+Package_DFN_QFN: QFN-48-1EP_5x5mm_P0.35mm_EP3.7x3.7mm_ThermalVias ("QFN, 48 Pin (https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf#page=38), generated with kicad-footprint-generator ipc_dfn_qfn_generator.py" - "QFN DFN_QFN")
+Package_DFN_QFN: QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm ("QFN, 48 Pin (https://static.dev.sifive.com/SiFive-FE310-G000-datasheet-v1p5.pdf#page=20), generated with kicad-footprint-generator ipc_dfn_qfn_generator.py" - "QFN DFN_QFN")
+Package_DFN_QFN: QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm_ThermalVias ("QFN, 48 Pin (https://static.dev.sifive.com/SiFive-FE310-G000-datasheet-v1p5.pdf#page=20), generated with kicad-footprint-generator ipc_dfn_qfn_generator.py" - "QFN DFN_QFN")
+...
+</code></pre>
+</div>
+
+<h3 id="zyc-a-gui-search-tool">Zyc: A GUI Search Tool</h3>
+
+<p>If you want to avoid using command-line tools for part/footprint searches, then you
+might like to try the <code class="highlighter-rouge">zyc</code> utility.
+It lets you search for parts and footprints using a GUI.
+You can read more about it <a href="https://xesscorp.github.io/skidl/docs/_site/blog/worst-part-of-skidl">here</a>.</p>
 
 <h2 id="instantiating-parts">Instantiating Parts</h2>
 
@@ -722,7 +791,7 @@ but you can override it:</p>
 a netlist. You can also add any other attribute:</p>
 
 <div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">my_part</span><span class="o">.</span><span class="n">manf</span> <span class="o">=</span> <span class="s">'Atmel'</span>
-<span class="n">my_part</span><span class="o">.</span><span class="nb">setattr</span><span class="p">(</span><span class="s">'manf#'</span><span class="p">,</span> <span class="s">'ATTINY4-TSHR'</span>
+<span class="n">my_part</span><span class="o">.</span><span class="nb">setattr</span><span class="p">(</span><span class="s">'manf#'</span><span class="p">,</span> <span class="s">'ATTINY4-TSHR'</span><span class="p">)</span>
 </code></pre>
 </div>
 
@@ -789,11 +858,12 @@ Pin ???/1/my_pin/TRISTATE
 
 <h2 id="finding-skidl-objects">Finding SKiDL Objects</h2>
 
-<p>Sometimes you may want to access a bus or net that’s already been created.
+<p>Sometimes you may want to access a bus, net, or part that’s already been created.
 In such an instance, you can use the <code class="highlighter-rouge">get()</code> class method:</p>
 
 <div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">n</span> <span class="o">=</span> <span class="n">Net</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'Fred'</span><span class="p">)</span>  <span class="c"># Find the existing Net object named 'Fred'.</span>
 <span class="n">b</span> <span class="o">=</span> <span class="n">Bus</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'A'</span><span class="p">)</span>     <span class="c"># Find the existing Bus object named 'A'.</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'AS6C1616'</span><span class="p">)</span>  <span class="c"># Find all parts with this part name.</span>
 </code></pre>
 </div>
 
@@ -801,12 +871,17 @@ In such an instance, you can use the <code class="highlighter-rouge">get()</code
 object is returned (no wild-card searches using regular expressions are allowed).
 If the search is unsuccessful, <code class="highlighter-rouge">None</code> is returned.</p>
 
+<p>For parts, the search is performed using string matching on part names,
+references (e.g., <code class="highlighter-rouge">R4</code>), and aliases.
+In addition, regular expression matching is used to search within the
+part descriptions, so you could search for all parts with “ram” in their description.</p>
+
 <p>There may be other times when you want to access a particular bus or net and,
-if it doesn’t exist, then create it.
+if it doesn’t exist, then create it (this is not possible with parts).
 The <code class="highlighter-rouge">fetch()</code> class method is used for this:</p>
 
 <div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">n</span> <span class="o">=</span> <span class="n">Net</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s">'Fred'</span><span class="p">)</span>  <span class="c"># Find the existing Net object named 'Fred' or create it if not found.</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">Bus</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s">'A'</span><span class="p">,</span><span class="mi">8</span><span class="p">)</span>   <span class="c"># Find the existing Bus object named 'A' or create it if not found.</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">Bus</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s">'A'</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>  <span class="c"># Find the existing Bus object named 'A' or create it if not found.</span>
 </code></pre>
 </div>
 
@@ -821,6 +896,7 @@ some copies of it:</p>
 
 <div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; r1 = Part('device', 'R', value=500)
 &gt;&gt;&gt; r2 = r1.copy()                         # Make a single copy of the resistor.
+&gt;&gt;&gt; r2_lst = r1.copy(1)                    # Make a single copy, but return it in a list.
 &gt;&gt;&gt; r3 = r1.copy(value='1K')               # Make a single copy, but give it a different value.
 &gt;&gt;&gt; r4 = r1(value='1K')                    # You can also call the object directly to make copies.
 &gt;&gt;&gt; r5, r6, r7 = r1(3)                     # Make 3 copies of the resistor.
@@ -839,6 +915,8 @@ This is done like so:</p>
 </div>
 
 <h2 id="accessing-part-pins-and-bus-lines">Accessing Part Pins and Bus Lines</h2>
+
+<h3 id="accessing-part-pins">Accessing Part Pins</h3>
 
 <p>You can access the pins on a part or the individual nets of a bus
 using numbers, slices, strings, and regular expressions, either singly or in any combination.</p>
@@ -962,13 +1040,61 @@ For example, this would get every bidirectional pin of the processor:</p>
 </code></pre>
 </div>
 
-<p>Accessing the individual nets of a bus works similarly to accessing part pins:</p>
+<p>Since you can access part pins by number or by name using strings or regular expressions, it’s worth
+discussing how SKiDL decides which one to select.
+When given a pin index, SKiDL prioritizes the search for the corresponding pins like so:</p>
+
+<ol>
+  <li>If one or more pin numbers match the index, then those pins are returned and the search stops.</li>
+  <li>If one or more pin names match the index using standard string matching, then those pins are returned and the search stops.</li>
+  <li>If one or more pin aliases match the index using standard string matching, then those pins are returned and the search stops.</li>
+  <li>If one or more pin names match the index using it as a regular expression, then those pins are returned and the search stops.</li>
+  <li>If one or more pin aliases match the index using it as a regular expression, then those pins are returned and the search stops.</li>
+</ol>
+
+<p>It should also be mentioned that when using the index as a regular expression,
+SKiDL surrounds it with <code class="highlighter-rouge">.*</code> so it will match anywhere within a pin name or alias.
+Hence, if an index of <code class="highlighter-rouge">D1</code> did not exactly match any pin number, name or alias, then it would become
+<code class="highlighter-rouge">.*D1.*</code> and would match <em>any</em> pin with <code class="highlighter-rouge">D1</code> in its name.
+You can stop this by placing start and end characters in the index like so: <code class="highlighter-rouge">^D1$</code> will match only <code class="highlighter-rouge">D1</code>.</p>
+
+<p>Finally, since SKiDL prioritizes pin number matches over name matches,
+what happens when you want to use a pin whose name is the same as the pin number
+of another pin?
+For example, a memory chip in a BGA would have pin numbers <code class="highlighter-rouge">A1</code>, <code class="highlighter-rouge">A2</code>, <code class="highlighter-rouge">A3</code>, … but might
+also have other pins used for addresses named <code class="highlighter-rouge">A1</code>, <code class="highlighter-rouge">A2</code>, <code class="highlighter-rouge">A3</code>, … .
+SKiDL provides the <code class="highlighter-rouge">p</code> and <code class="highlighter-rouge">n</code> part attributes so you can specifically target either
+pin numbers or names:</p>
+
+<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">ram</span><span class="p">[</span><span class="s">'A1, A2, A3'</span><span class="p">]</span>    <span class="c"># Selects pin numbers A1, A2 and A3 if the part is a BGA.</span>
+<span class="n">ram</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="s">'A1, A2, A3'</span><span class="p">]</span>  <span class="c"># Use the p attribute to specifically select pin numbers A1, A2 and A3.</span>
+<span class="n">ram</span><span class="o">.</span><span class="n">n</span><span class="p">[</span><span class="s">'A1, A2, A3'</span><span class="p">]</span>  <span class="c"># Use the n attribute to specifically select pin names A1, A2 and A3.</span>
+</code></pre>
+</div>
+
+<p>If you want to access part pins algorithmically in a loop, it can be done as follows:</p>
+
+<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pic10</span><span class="o">.</span><span class="n">get_pins</span><span class="p">():</span>
+  <span class="o">&lt;</span><span class="n">do</span> <span class="n">something</span> <span class="k">with</span> <span class="n">p</span><span class="o">&gt;</span>
+</code></pre>
+</div>
+
+<p>The same thing could also be done using a <code class="highlighter-rouge">Part</code> object as an iterator:</p>
+
+<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pic10</span><span class="p">:</span>
+  <span class="o">&lt;</span><span class="n">do</span> <span class="n">something</span> <span class="k">with</span> <span class="n">p</span><span class="o">&gt;</span>
+</code></pre>
+</div>
+
+<h3 id="accessing-bus-lines">Accessing Bus Lines</h3>
+
+<p>Accessing the individual lines of a bus works similarly to accessing part pins:</p>
 
 <div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; a = Net('NET_A')  # Create a named net.
 &gt;&gt;&gt; b = Bus('BUS_B', 8, a)  # Create a nine-bit bus.
 &gt;&gt;&gt; b
 BUS_B:
-        BUS_B0:  # Note how the individual nets of the bus are named.
+        BUS_B0:  # Note how the individual lines of the bus are named.
         BUS_B1:
         BUS_B2:
         BUS_B3:
@@ -977,15 +1103,33 @@ BUS_B:
         BUS_B6:
         BUS_B7:
         NET_A:   # The last net retains its original name.
-&gt;&gt;&gt; b[0]  # Get the first net of the bus.
+
+&gt;&gt;&gt; b[0]  # Get the first line of the bus.
 BUS_B0:
+
 &gt;&gt;&gt; b[4,8]  # Get the fifth and ninth bus lines.
 [BUS_B4: , NET_A: ]
+
 &gt;&gt;&gt; b[3:0]  # Get the first four bus lines in reverse order.
 [BUS_B3: , BUS_B2: , BUS_B1: , BUS_B0: ]
+
 &gt;&gt;&gt; b['BUS_B.*']  # Get all the bus lines except the last one.
 [BUS_B0: , BUS_B1: , BUS_B2: , BUS_B3: , BUS_B4: , BUS_B5: , BUS_B6: , BUS_B7: ]
+
 &gt;&gt;&gt; b['NET_A']  # Get the last bus line.
+NET_A:
+
+&gt;&gt;&gt; for line in b:  # Access lines in bus using bus as an iterator.
+...:    print(line)
+...:
+BUS_B0:
+BUS_B1:
+BUS_B2:
+BUS_B3:
+BUS_B4:
+BUS_B5:
+BUS_B6:
+BUS_B7:
 NET_A:
 </code></pre>
 </div>
@@ -996,9 +1140,7 @@ NET_A:
 the primary rule of SKiDL connections is:</p>
 
 <blockquote>
-  <blockquote>
-    <p><strong>The <code class="highlighter-rouge">+=</code> operator is the only way to make connections!</strong></p>
-  </blockquote>
+  <p><strong>The <code class="highlighter-rouge">+=</code> operator is the only way to make connections!</strong></p>
 </blockquote>
 
 <p>At times you’ll mistakenly try to make connections using the 
@@ -1148,27 +1290,28 @@ Exception
 <h2 id="making-parallel-and-serial-networks">Making Parallel and Serial Networks</h2>
 
 <p>The previous section showed some general-purpose techniques for connecting parts,
-but SKiDL also has some specialized syntax for wiring two-pin components
-in parallel or serial.
+but SKiDL also has some
+<a href="https://xesscorp.github.io/skidl/docs/_site/blog/sweetening-skidl">specialized syntax</a>
+for wiring two-pin components in parallel or serial.
 For example, here is a network of four resistors connected in series
 between power and ground:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>vcc, gnd = Net('VCC'), Net('GND')
-r1, r2, r3, r4 = Part('device', 'R', dest=TEMPLATE) * 4
-ser_ntwk = vcc &amp; r1 &amp; r2 &amp; r3 &amp; r4 &amp; gnd
+<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">vcc</span><span class="p">,</span> <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'VCC'</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s">'GND'</span><span class="p">)</span>
+<span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">r3</span><span class="p">,</span> <span class="n">r4</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'device'</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span>
+<span class="n">ser_ntwk</span> <span class="o">=</span> <span class="n">vcc</span> <span class="o">&amp;</span> <span class="n">r1</span> <span class="o">&amp;</span> <span class="n">r2</span> <span class="o">&amp;</span> <span class="n">r3</span> <span class="o">&amp;</span> <span class="n">r4</span> <span class="o">&amp;</span> <span class="n">gnd</span>
 </code></pre>
 </div>
 
 <p>It’s also possible to connect the resistors in parallel between power and ground:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>par_ntwk = vcc &amp; (r1 | r2 | r3 | r4) &amp; gnd
+<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">par_ntwk</span> <span class="o">=</span> <span class="n">vcc</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">r1</span> <span class="o">|</span> <span class="n">r2</span> <span class="o">|</span> <span class="n">r3</span> <span class="o">|</span> <span class="n">r4</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">gnd</span>
 </code></pre>
 </div>
 
 <p>Or you can do something like placing pairs of resistors in series and then paralleling
 those combinations like this:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>combo_ntwk = vcc &amp; ((r1 &amp; r2) | (r3 &amp; r4)) &amp; gnd
+<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">combo_ntwk</span> <span class="o">=</span> <span class="n">vcc</span> <span class="o">&amp;</span> <span class="p">((</span><span class="n">r1</span> <span class="o">&amp;</span> <span class="n">r2</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">r3</span> <span class="o">&amp;</span> <span class="n">r4</span><span class="p">))</span> <span class="o">&amp;</span> <span class="n">gnd</span>
 </code></pre>
 </div>
 
@@ -1176,17 +1319,17 @@ those combinations like this:</p>
 like diodes? In that case, you have to specify the pins <em>explicitly</em> with the
 first pin connected to the preceding part and the second pin to the following part:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>d1 = Part('device', 'D')
-polar_ntwk = vcc &amp; r1 &amp; d1['A,K'] &amp; gnd  # Diode anode connected to resistor and cathode to ground.
+<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">d1</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'device'</span><span class="p">,</span> <span class="s">'D'</span><span class="p">)</span>
+<span class="n">polar_ntwk</span> <span class="o">=</span> <span class="n">vcc</span> <span class="o">&amp;</span> <span class="n">r1</span> <span class="o">&amp;</span> <span class="n">d1</span><span class="p">[</span><span class="s">'A,K'</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">gnd</span>  <span class="c"># Diode anode connected to resistor and cathode to ground.</span>
 </code></pre>
 </div>
 
 <p>Explicitly listing the pins also lets you use multi-pin parts with networks.
 For example, here’s an NPN-transistor amplifier:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>q1 = Part('device', 'Q_NPN_ECB')
-ntwk_ce = vcc &amp; r1 &amp; q1['C,E'] &amp; gnd  # VCC through load resistor to collector and emitter attached to ground.
-ntwk_b = r2 &amp; q1['B']  # Resistor attached to base.
+<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">q1</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'device'</span><span class="p">,</span> <span class="s">'Q_NPN_ECB'</span><span class="p">)</span>
+<span class="n">ntwk_ce</span> <span class="o">=</span> <span class="n">vcc</span> <span class="o">&amp;</span> <span class="n">r1</span> <span class="o">&amp;</span> <span class="n">q1</span><span class="p">[</span><span class="s">'C,E'</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">gnd</span>  <span class="c"># VCC through load resistor to collector and emitter attached to ground.</span>
+<span class="n">ntwk_b</span> <span class="o">=</span> <span class="n">r2</span> <span class="o">&amp;</span> <span class="n">q1</span><span class="p">[</span><span class="s">'B'</span><span class="p">]</span>  <span class="c"># Resistor attached to base.</span>
 </code></pre>
 </div>
 
@@ -1196,13 +1339,38 @@ For instance, how do you apply an input to the transistor circuit and then conne
 to the output?
 One way is by inserting nets inside the networks:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>inp, outp = Net('INPUT'), Net('OUTPUT')
-ntwk_ce = vcc &amp; r1 &amp; outp &amp; q1['C,E'] &amp; gnd  # Connect net outp to the junction of the resistor and transistor collector.
-ntwk_b = inp &amp; r2 &amp; q1['B']  # Connect net inp to the resistor driving the transistor base.
+<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'INPUT'</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s">'OUTPUT'</span><span class="p">)</span>
+<span class="n">ntwk_ce</span> <span class="o">=</span> <span class="n">vcc</span> <span class="o">&amp;</span> <span class="n">r1</span> <span class="o">&amp;</span> <span class="n">outp</span> <span class="o">&amp;</span> <span class="n">q1</span><span class="p">[</span><span class="s">'C,E'</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">gnd</span>  <span class="c"># Connect net outp to the junction of the resistor and transistor collector.</span>
+<span class="n">ntwk_b</span> <span class="o">=</span> <span class="n">inp</span> <span class="o">&amp;</span> <span class="n">r2</span> <span class="o">&amp;</span> <span class="n">q1</span><span class="p">[</span><span class="s">'B'</span><span class="p">]</span>  <span class="c"># Connect net inp to the resistor driving the transistor base.</span>
 </code></pre>
 </div>
 
 <p>After that’s done, the <code class="highlighter-rouge">inp</code> and <code class="highlighter-rouge">outp</code> nets can be connected to other points in the circuit.</p>
+
+<h2 id="aliases">Aliases</h2>
+
+<p>Aliases let you assign a more descriptive name to a part, pin, net, or bus without
+affecting the original name.
+This is probably most useful in assigning names to pins to describe their functions.</p>
+
+<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">r</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'device'</span><span class="p">,</span> <span class="s">'R'</span><span class="p">)</span>
+<span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vcc</span>  <span class="c"># Connect one end of resistor to VCC net.</span>
+<span class="n">r</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">aliases</span> <span class="o">+=</span> <span class="s">"pullup"</span>  <span class="c"># Add the alias "pullup" to the other end of the resistor.</span>
+
+<span class="n">uc</span><span class="p">[</span><span class="s">'RESET'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">r</span><span class="p">[</span><span class="s">'pullup'</span><span class="p">]</span>  <span class="c"># Connect the pullup resistor to the reset pin of a microcontroller.</span>
+</code></pre>
+</div>
+
+<p>To see the assigned aliases, just use the <code class="highlighter-rouge">aliases</code> attribute:</p>
+
+<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; r = Part('device', 'R')
+&gt;&gt;&gt; r.aliases += "resistor"
+&gt;&gt;&gt; r.aliases += "pullup resistor"
+&gt;&gt;&gt; r.aliases
+
+{'pullup resistor', 'resistor'}
+</code></pre>
+</div>
 
 <h2 id="units-within-parts">Units Within Parts</h2>
 
@@ -1223,12 +1391,12 @@ Each resistor could be assigned to a unit as follows:</p>
  R_Pack02 (): 2 Resistor network, parallel topology, DIP package
     Pin RN1/4/R1.2/PASSIVE
     Pin RN1/1/R1.1/PASSIVE
+
 &gt;&gt;&gt; rn.make_unit('B', 2, 3)  # Now make a unit called 'B' for the second resistor.
 
  R_Pack02 (): 2 Resistor network, parallel topology, DIP package
     Pin RN1/2/R2.1/PASSIVE
     Pin RN1/3/R2.2/PASSIVE
-&gt;&gt;&gt; rn.unit['A'][1, 4] += Net(), Net()
 </code></pre>
 </div>
 
@@ -1245,21 +1413,10 @@ to change the unit names <em>and the pins numbers!</em>.
 In order to get around this inconvenience, you could assign <em>aliases</em> to each
 pin like this:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; rn = Part('device', 'R_Pack02')
-&gt;&gt;&gt; rn.make_unit('A', 1, 4)
-
- R_Pack02 (): 2 Resistor network, parallel topology, DIP package
-    Pin RN1/4/R1.2/PASSIVE
-    Pin RN1/1/R1.1/PASSIVE
-&gt;&gt;&gt; rn.make_unit('B', 2, 3)
-
- R_Pack02 (): 2 Resistor network, parallel topology, DIP package
-    Pin RN1/3/R2.2/PASSIVE
-    Pin RN1/2/R2.1/PASSIVE
-&gt;&gt;&gt; rn.unit['A'].set_pin_alias('L',1) # Alias 'L' of pin 1 on left-side of package.
-&gt;&gt;&gt; rn.unit['A'].set_pin_alias('R',4) # Alias 'R' of pin 4 on right-side of package.
-&gt;&gt;&gt; rn.unit['B'].set_pin_alias('L',2) # Alias 'L' of pin 2 on left-side.
-&gt;&gt;&gt; rn.unit['B'].set_pin_alias('R',3) # Alias 'R' of pin 3 on right-side.
+<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; rn[1].aliases += 'L' # Alias 'L' of pin 1 on left-side of package.
+&gt;&gt;&gt; rn[4].aliases += 'R' # Alias 'R' of pin 4 on right-side of package.
+&gt;&gt;&gt; rn[2].aliases += 'L' # Alias 'L' of pin 2 on left-side.
+&gt;&gt;&gt; rn[3].aliases += 'R' # Alias 'R' of pin 3 on right-side.
 </code></pre>
 </div>
 
@@ -1281,6 +1438,36 @@ using their names as attributes:</p>
 &gt;&gt;&gt; rn.B['L,R'] += rn.A['L,R']   # Connect resistor B in parallel with resistor A.
 </code></pre>
 </div>
+
+<h2 id="part-fields">Part Fields</h2>
+
+<p>Parts typically have <em>field</em> that store additional information such as
+manufacturer identifiers.
+Every <code class="highlighter-rouge">Part</code> object stores this information in a dictionary called <code class="highlighter-rouge">fields</code>:</p>
+
+<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt; lm35 = Part('Sensor_Temperature', 'LM35-D')
+&gt;&gt; lm35.fields
+
+{'F0': 'U',
+ 'F1': 'LM35-D',
+ 'F2': 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm',
+ 'F3': ''}
+
+&gt;&gt;&gt; lm35.fields['F1']
+
+'LM35-D'
+</code></pre>
+</div>
+
+<p>Fields can also be accessed as attributes of the part:</p>
+
+<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; lm35.F1
+
+'LM35-D'
+</code></pre>
+</div>
+
+<p>New fields can be added just by adding new keys and values to the <code class="highlighter-rouge">fields</code> dictionary.</p>
 
 <h2 id="hierarchy">Hierarchy</h2>
 
@@ -1464,6 +1651,44 @@ It’s just the simplest example I could use to show hierarchy.)</p>
       (node (ref R5) (pin 2))
       (node (ref R6) (pin 1))))
 )
+</code></pre>
+</div>
+
+<h2 id="interfaces">Interfaces</h2>
+
+<p>Passing nets between hierarchically-organized modules can lead to long
+lists of arguments.
+To make the code easier to write and understand, SKiDL supports <em>interfaces</em> which are simply containers that
+encapsulate a number of <code class="highlighter-rouge">Bus</code>, <code class="highlighter-rouge">Net</code>, or <code class="highlighter-rouge">Pin</code> objects.
+For example, here is an interface for a memory:</p>
+
+<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">mem_intfc</span> <span class="o">=</span> <span class="n">Interface</span><span class="p">(</span>
+  <span class="n">rd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'MEM_RD#'</span><span class="p">),</span>
+  <span class="n">wr</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'MEM_WR#'</span><span class="p">),</span>
+  <span class="n">addr</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s">'MEM_ADDR'</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+  <span class="n">data</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s">'MEM_DATA'</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre>
+</div>
+
+<p>Then this interface can be passed to a module that implements a RAM memory
+and a microcontroller that uses it:</p>
+
+<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">mem_module</span><span class="p">(</span><span class="n">mem_intfc</span><span class="p">)</span>
+<span class="n">uc_module</span><span class="p">(</span><span class="n">clk</span><span class="p">,</span> <span class="n">mem_intfc</span><span class="p">,</span> <span class="n">io_intfc</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>Inside the <code class="highlighter-rouge">mem_module</code>, the interface signals are connected to a RAM chip:</p>
+
+<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="nd">@subcircuit</span>
+<span class="k">def</span> <span class="nf">mem_module</span><span class="p">(</span><span class="n">intfc</span><span class="p">):</span>
+  <span class="n">ram</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'Memory_RAM'</span><span class="p">,</span> <span class="s">'AS6C1616'</span><span class="p">)</span>
+  <span class="n">ram</span><span class="p">[</span><span class="s">'A[0:19]'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">intfc</span><span class="o">.</span><span class="n">addr</span>
+  <span class="n">ram</span><span class="p">[</span><span class="s">'DQ[0:15]'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">intfc</span><span class="o">.</span><span class="n">data</span>
+  <span class="n">ram</span><span class="p">[</span><span class="s">'WE#'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">intfc</span><span class="o">.</span><span class="n">wr</span>
+  <span class="n">ram</span><span class="p">[</span><span class="s">'OE#'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">intfc</span><span class="o">.</span><span class="n">rd</span>
+  <span class="o">...</span>
 </code></pre>
 </div>
 
@@ -1800,6 +2025,25 @@ Traceback (most recent call last):
   File "C:\xesscorp\KiCad\tools\skidl\skidl\Pin.py", line 251, in __getitem__
     raise Exception
 Exception
+</code></pre>
+</div>
+
+<p><strong>Iterators:</strong>
+  In addition to supporting indexing, <code class="highlighter-rouge">Pin</code>, <code class="highlighter-rouge">Net</code> and <code class="highlighter-rouge">Bus</code> objects can also be used
+  as iterators.</p>
+
+<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; bus = Bus('bus', 8)
+&gt;&gt;&gt; for line in bus:
+    ...:     print(line)
+    ...:
+bus0:
+bus1:
+bus2:
+bus3:
+bus4:
+bus5:
+bus6:
+bus7:
 </code></pre>
 </div>
 

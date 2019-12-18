@@ -58,6 +58,16 @@ callback([
   {
     "text": "The Worst Part of SKiDL",
     "href": "https://xesscorp.github.io/skidl/docs/_site/blog/worst-part-of-skidl"
+  } ,
+
+  {
+    "text": "Version 0.0.27 Released!",
+    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/Release_0_0_27"
+  } ,
+
+  {
+    "text": "Version 0.0.28 Released!",
+    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/Release_0_0_28"
   } 
 
 ])

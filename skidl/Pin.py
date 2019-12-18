@@ -90,7 +90,7 @@ class Pin(SkidlBaseObject):
         # existing SKiDL part libs will still work (e.g. Pin.INPUT
         # still works as well as the newer Pin.types.INPUT).
         for m in cls.types:
-            setattr(cls, m.name, m.value)
+            setattr(cls, m.name, m)
 
     # Various drive levels a pin can output.
     # The order of these is important! The first entry has the weakest

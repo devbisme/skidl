@@ -260,51 +260,6 @@ class Circuit(SkidlBaseObject):
                     "Can't remove unmovable bus {} from this circuit.".format(bus.name),
                 )
 
-    def add_interfaces(self, *interfaces):
-        """Add some Interface objects to the circuit. Assign an interface name if necessary."""
-        for interface in interfaces:
-            # Add the interface to this circuit if the interface is movable and
-            # it's not already in this circuit.
-            if interface.circuit != self:
-                if interface.is_movable():
-
-                    # Remove the interface from the circuit it's already in, but skip
-                    # this if the interface isn't already in a Circuit.
-                    if isinstance(interface.circuit, Circuit):
-                        interface.circuit -= interface
-
-                    # Add the interface to this circuit.
-                    interface.circuit = self
-                    interface.name = interface.name
-                    interface.hierarchy = (
-                        self.hierarchy
-                    )  # Store hierarchy of the interface.
-
-                    self.interfaces.append(interface)
-
-    def rmv_interfaces(self, *interfaces):
-        """Remove some interfaces from the circuit."""
-        for interface in interfaces:
-            if interface.is_movable():
-                if interface.circuit == self and interface in self.interfaces:
-                    interface.circuit = None
-                    interface.hierarchy = None
-                    self.interfaces.remove(interface)
-                else:
-                    logger.warning(
-                        "Removing non-existent interface {} from this circuit.".format(
-                            interface.name
-                        )
-                    )
-            else:
-                log_and_raise(
-                    logger,
-                    ValueError,
-                    "Can't remove unmovable interface {} from this circuit.".format(
-                        interface.name
-                    ),
-                )
-
     def add_stuff(self, *stuff):
         """Add Parts, Nets, Buses, and Interfaces to the circuit."""
 
@@ -320,8 +275,6 @@ class Circuit(SkidlBaseObject):
                 self.add_nets(thing)
             elif isinstance(thing, Bus):
                 self.add_buses(thing)
-            elif isinstance(thing, Interface):
-                self.add_interfaces(thing)
             else:
                 log_and_raise(
                     logger,
@@ -345,8 +298,6 @@ class Circuit(SkidlBaseObject):
                 self.rmv_nets(thing)
             elif isinstance(thing, Bus):
                 self.rmv_buses(thing)
-            elif isinstance(thing, Interface):
-                self.rmv_interfaces(thing)
             else:
                 log_and_raise(
                     logger,

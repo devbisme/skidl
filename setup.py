@@ -6,7 +6,7 @@ import sys
 
 import setuptools
 
-__version__ = "0.0.27"
+__version__ = "0.0.28"
 __author__ = "XESS Corp."
 __email__ = "info@xess.com"
 
@@ -33,8 +33,6 @@ requirements = [
     'enum34; python_version < "3.0"',
     #'PySpice; python_version >= "3.0"',
     "graphviz",
-    "wxpython",
-    "pykicad",
 ]
 
 test_requirements = [
@@ -52,8 +50,7 @@ setup(
     #    packages=['skidl',],
     packages=setuptools.find_packages(exclude=["tests"]),
     entry_points={
-        "console_scripts": ["netlist_to_skidl = skidl.netlist_to_skidl_main:main"],
-        "gui_scripts": ["zyc = skidl.search_gui.skidl_part_footprint_search:main"],
+        "console_scripts": ["netlist_to_skidl = skidl.netlist_to_skidl_main:main"]
     },
     package_dir={"skidl": "skidl"},
     include_package_data=True,

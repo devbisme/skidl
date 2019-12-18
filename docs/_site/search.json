@@ -1,6 +1,22 @@
 [
 	
 		{
+		  "title"      : "Version 0.0.28 Released!",
+		  "category"   : "blog",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/Release_0_0_28",
+		  "date"       : "2019-12-17 07:57:17 -0500",
+		  "shortdate"  : "December 17, 2019"
+		} ,
+	
+		{
+		  "title"      : "Version 0.0.27 Released!",
+		  "category"   : "blog",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/Release_0_0_27",
+		  "date"       : "2019-12-16 07:57:17 -0500",
+		  "shortdate"  : "December 16, 2019"
+		} ,
+	
+		{
 		  "title"      : "The Worst Part of SKiDL",
 		  "category"   : "blog",
 		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/worst-part-of-skidl",

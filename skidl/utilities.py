@@ -759,11 +759,25 @@ def explode(bus_str):
     end_bus_name = bus.group(4)
     dir = [1, -1][int(begin_num > end_num)]  # Bus indexes increasing or decreasing?
     bus_pin_nums = range(begin_num, end_num + dir, dir)
+
+    # If the bus string starts with an alpha, then require that any match in the
+    # string must be preceded by a non-alpha or the start of the string.
+    # But if the string starts with a non-alpha, then whatever precedes the
+    # match in the string is ignored.
+    if beg_bus_name[0:1].isalpha():
+        non_alphanum = "((?<=[^0-9a-zA-Z])|^)"
+    else:
+        non_alphanum = ""
+
     # The character following a bus index must be non-numeric so that "B1" does
     # not also match "B11". This must also be a look-ahead assertion so it
     # doesn't consume any of the string.
     non_num = "(?=[^0-9]|$)"
-    return [beg_bus_name + str(n) + non_num + end_bus_name for n in bus_pin_nums]
+
+    return [
+        non_alphanum + beg_bus_name + str(n) + non_num + end_bus_name
+        for n in bus_pin_nums
+    ]
 
 
 def find_num_copies(**attribs):

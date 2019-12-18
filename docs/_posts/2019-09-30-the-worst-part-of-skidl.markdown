@@ -102,7 +102,7 @@ And the problem of finding, choosing, and entering a footprint hasn't been addre
 
 What was needed was a nice, light-weight tool combining both part *and* footprint selection capabilities
 that delivered the result as text strings to enter into SKiDL code.
-So I built it: `zyc`.
+So I built it: [`zyc`](https://pypi.org/project/zyc/).
 (If you prefer a video tour of `zyc`, then [here](https://youtu.be/YmRXruDYu3w) it is.)
 
 {% img {{site.url}}/images/the-worst-part-of-skidl/zyc.png 600 "zyc part & footprint assigner." %}

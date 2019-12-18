@@ -6,7 +6,6 @@ Subpackages
 
 .. toctree::
 
-    skidl.search_gui
     skidl.tools
 
 Submodules
