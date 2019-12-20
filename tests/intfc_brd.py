@@ -90,7 +90,7 @@ prg_hdr["PGC"] += pic32["PGEC1"]
 prg_hdr["PGD"] += pic32["PGED1"]
 
 # Port for attachment of FPGA programming pins.
-port = Part("conn", "CONN_01x06", footprint="Pin_Headers:Pin_Header_Straight_1x06")
+port = Part("Conn", "CONN_01x06", footprint="Pin_Headers:Pin_Header_Straight_1x06")
 port.ref = "JTAG"
 port[1, 2] += vusb, gnd
 port[3] += pic32["SCK1"]  # SCK1 output.
