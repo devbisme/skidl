@@ -60,7 +60,7 @@ class Bus(SkidlBaseObject):
         ::
 
             n = Net()
-            led1 = Part('device', 'LED')
+            led1 = Part("Device", 'LED')
             b = Bus('B', 8, n, led1['K'])
     """
 

@@ -84,14 +84,14 @@ from skidl import *
 vdd = Net('+3.3V')
 gnd = Net('GND')
 
-bypcap1  = Part('device', 'C', value='0.1uF', footprint='Capacitors_SMD:C_0603')
+bypcap1  = Part("Device", 'C', value='0.1uF', footprint='Capacitors_SMD:C_0603')
 bypcap1[1,2]  += vdd, gnd
-bypcap2  = Part('device', 'C', value='0.1uF', footprint='Capacitors_SMD:C_0603')
+bypcap2  = Part("Device", 'C', value='0.1uF', footprint='Capacitors_SMD:C_0603')
 bypcap2[1,2]  += vdd, gnd
 ...
-bypcap19 = Part('device', 'C', value='0.1uF', footprint='Capacitors_SMD:C_0603')
+bypcap19 = Part("Device", 'C', value='0.1uF', footprint='Capacitors_SMD:C_0603')
 bypcap19[1,2] += vdd, gnd
-bypcap20 = Part('device', 'C', value='0.1uF', footprint='Capacitors_SMD:C_0603')
+bypcap20 = Part("Device", 'C', value='0.1uF', footprint='Capacitors_SMD:C_0603')
 bypcap20[1,2] += vdd, gnd
 ```
 
@@ -105,7 +105,7 @@ vdd = Net('+3.3V')
 gnd = Net('GND')
 
 for _ in range(20):
-    bypcap = Part('device', 'C', value='0.1uF', footprint='Capacitors_SMD:C_0603')
+    bypcap = Part("Device", 'C', value='0.1uF', footprint='Capacitors_SMD:C_0603')
     bypcap[1,2] += vdd, gnd
 ```
 
@@ -128,7 +128,7 @@ fpga = Part('xilinx', 'XC3S200AN/FT256')  # Create a XILINX FPGA.
 num_gnd_pins = len(fpga['GND'])  # Get a list of ground pins and count them.
 
 for _ in range(num_gnd_pins):
-    bypcap = Part('device', 'C', value='0.1uF', footprint='Capacitors_SMD:C_0603')
+    bypcap = Part("Device", 'C', value='0.1uF', footprint='Capacitors_SMD:C_0603')
     bypcap[1,2] += vdd, gnd
 ```
 
@@ -144,7 +144,7 @@ def add_bypass_caps(chip, vdd, gnd):
     '''Add bypass capacitors between vdd and gnd to a chip, one for each ground pin.'''
     num_gnd_pins = len(chip['GND'])
     for _ in range(num_gnd_pins):
-        bypcap = Part('device', 'C', value='0.1uF', footprint='Capacitors_SMD:C_0603')
+        bypcap = Part("Device", 'C', value='0.1uF', footprint='Capacitors_SMD:C_0603')
         bypcap[1,2] += vdd, gnd
 
 vdd = Net('+3.3V')
@@ -166,7 +166,7 @@ def add_bypass_caps(chip, vdd, gnd):
     '''Add bypass capacitors between vdd and gnd to a chip, one for each ground pin.'''
     num_gnd_pins = len(chip['GND'])
     for _ in range(num_gnd_pins):
-        bypcap = Part('device', 'C', value='0.1uF', footprint='Capacitors_SMD:C_0603')
+        bypcap = Part("Device", 'C', value='0.1uF', footprint='Capacitors_SMD:C_0603')
         bypcap[1,2] += vdd, gnd
 
 class PartWithBypassCaps(Part):

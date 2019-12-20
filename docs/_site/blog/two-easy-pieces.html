@@ -168,7 +168,7 @@ here’s what I came up with:</p>
 <span class="n">cathodes</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s">'k'</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span> <span class="c"># 16-bit cathode bus, but only use k[1]..k[15].</span>
 
 <span class="c"># Create an LED template that will be copied for each LED needed.</span>
-<span class="n">led</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'device'</span><span class="p">,</span> <span class="s">'D'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Diodes_SMD:D_0603'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
+<span class="n">led</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'D'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Diodes_SMD:D_0603'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
 
 <span class="c"># Connect the 60 second LEDs to the anodes and cathodes.</span>
 <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">anodes</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]:</span>             <span class="c"># Connect LEDs between anodes 1, 2, 3, 4.</span>

@@ -87,7 +87,7 @@ from skidl import *
 vin, vout, gnd = Net('VI'), Net('VO'), Net('GND')
 
 # Create two resistors.
-r1, r2 = 2 * Part('device', 'R', TEMPLATE, footprint='Resistor_SMD.pretty:R_0805_2012Metric')
+r1, r2 = 2 * Part("Device", 'R', TEMPLATE, footprint='Resistor_SMD.pretty:R_0805_2012Metric')
 r1.value = '1K'   # Set upper resistor value.
 r2.value = '500'  # Set lower resistor value.
 
@@ -341,7 +341,7 @@ You can read more about it [here](https://xesscorp.github.io/skidl/docs/_site/bl
 The part library and name are used to instantiate a part as follows:
 
 ```terminal
->>> resistor = Part('device','R')
+>>> resistor = Part("Device",'R')
 ```
 
 You can customize the resistor by setting its attributes:
@@ -355,7 +355,7 @@ You can customize the resistor by setting its attributes:
 You can also combine the setting of attributes with the creation of the part:
 
 ```terminal
->>> resistor = Part('device', 'R', value='1K')
+>>> resistor = Part("Device", 'R', value='1K')
 >>> resistor.value
 '1K'
 ```
@@ -385,7 +385,7 @@ But you can easily change it:
 Now what happens if we create another resistor?:
 
 ```terminal
->>> another_res = Part('device','R')   
+>>> another_res = Part("Device",'R')   
 >>> another_res.ref                        
 'R1'
 ```
@@ -418,8 +418,8 @@ First, start by creating two resistors (note that I've also added the
 `footprint` attribute that describes the physical package for the resistors):
 
 ```py
->>> rup = Part('device', 'R', value='1K', footprint='Resistor_SMD.pretty:R_0805_2012Metric')                            
->>> rlow = Part('device', 'R', value='500', footprint='Resistor_SMD.pretty:R_0805_2012Metric')                          
+>>> rup = Part("Device", 'R', value='1K', footprint='Resistor_SMD.pretty:R_0805_2012Metric')                            
+>>> rlow = Part("Device", 'R', value='500', footprint='Resistor_SMD.pretty:R_0805_2012Metric')                          
 >>> rup.ref, rlow.ref                                                
 ('R1', 'R2')                                                         
 >>> rup.value, rlow.value                                            
@@ -785,7 +785,7 @@ copy an existing object. Here are some examples of creating a resistor and then 
 some copies of it:
 
 ```terminal
->>> r1 = Part('device', 'R', value=500)
+>>> r1 = Part("Device", 'R', value=500)
 >>> r2 = r1.copy()                         # Make a single copy of the resistor.
 >>> r2_lst = r1.copy(1)                    # Make a single copy, but return it in a list.
 >>> r3 = r1.copy(value='1K')               # Make a single copy, but give it a different value.
@@ -800,7 +800,7 @@ doesn't actually get included in the netlist for the circuitry.
 This is done like so:
 
 ```terminal
->>> r_template = Part('device', 'R', dest=TEMPLATE)  # Create a resistor just for copying.
+>>> r_template = Part("Device", 'R', dest=TEMPLATE)  # Create a resistor just for copying.
 >>> r1 = r_template(value='1K')  # Make copy that becomes part of the actual circuitry.
 ```
 
@@ -1189,7 +1189,7 @@ between power and ground:
 
 ```py
 vcc, gnd = Net('VCC'), Net('GND')
-r1, r2, r3, r4 = Part('device', 'R', dest=TEMPLATE) * 4
+r1, r2, r3, r4 = Part("Device", 'R', dest=TEMPLATE) * 4
 ser_ntwk = vcc & r1 & r2 & r3 & r4 & gnd
 ```
 
@@ -1211,7 +1211,7 @@ like diodes? In that case, you have to specify the pins *explicitly* with the
 first pin connected to the preceding part and the second pin to the following part:
 
 ```py
-d1 = Part('device', 'D')
+d1 = Part("Device", 'D')
 polar_ntwk = vcc & r1 & d1['A,K'] & gnd  # Diode anode connected to resistor and cathode to ground.
 ```
 
@@ -1219,7 +1219,7 @@ Explicitly listing the pins also lets you use multi-pin parts with networks.
 For example, here's an NPN-transistor amplifier:
 
 ```py
-q1 = Part('device', 'Q_NPN_ECB')
+q1 = Part("Device", 'Q_NPN_ECB')
 ntwk_ce = vcc & r1 & q1['C,E'] & gnd  # VCC through load resistor to collector and emitter attached to ground.
 ntwk_b = r2 & q1['B']  # Resistor attached to base.
 ```
@@ -1246,7 +1246,7 @@ affecting the original name.
 This is probably most useful in assigning names to pins to describe their functions.
 
 ```py
-r = Part('device', 'R')
+r = Part("Device", 'R')
 r[1] += vcc  # Connect one end of resistor to VCC net.
 r[2].aliases += "pullup"  # Add the alias "pullup" to the other end of the resistor.
 
@@ -1256,7 +1256,7 @@ uc['RESET'] += r['pullup']  # Connect the pullup resistor to the reset pin of a 
 To see the assigned aliases, just use the `aliases` attribute:
 
 ```terminal
->>> r = Part('device', 'R')
+>>> r = Part("Device", 'R')
 >>> r.aliases += "resistor"
 >>> r.aliases += "pullup resistor"
 >>> r.aliases
@@ -1279,7 +1279,7 @@ one attached between pins 1 and 4, and the other bewtween pins 2 and 3.
 Each resistor could be assigned to a unit as follows:
 
 ```terminal
->>> rn = Part('device', 'R_Pack02')
+>>> rn = Part("Device", 'R_Pack02')
 >>> rn.make_unit('A', 1, 4)  # Make a unit called 'A' for the first resistor.
 
  R_Pack02 (): 2 Resistor network, parallel topology, DIP package
@@ -1383,8 +1383,8 @@ import sys
 @subcircuit
 def vdiv(inp, outp):
     """Divide inp voltage by 3 and place it on outp net."""
-    rup = Part('device', 'R', value='1K', footprint='Resistor_SMD.pretty:R_0805_2012Metric')
-    rlo = Part('device','R', value='500', footprint='Resistor_SMD.pretty:R_0805_2012Metric')
+    rup = Part("Device", 'R', value='1K', footprint='Resistor_SMD.pretty:R_0805_2012Metric')
+    rlo = Part("Device",'R', value='500', footprint='Resistor_SMD.pretty:R_0805_2012Metric')
     rup[1,2] += inp, outp
     rlo[1,2] += outp, gnd
 
@@ -1450,8 +1450,8 @@ import sys
 @subcircuit
 def vdiv(inp, outp):
     """Divide inp voltage by 3 and place it on outp net."""
-    rup = Part('device', 'R', value='1K', footprint='Resistor_SMD.pretty:R_0805_2012Metric')
-    rlo = Part('device','R', value='500', footprint='Resistor_SMD.pretty:R_0805_2012Metric')
+    rup = Part("Device", 'R', value='1K', footprint='Resistor_SMD.pretty:R_0805_2012Metric')
+    rlo = Part("Device",'R', value='500', footprint='Resistor_SMD.pretty:R_0805_2012Metric')
     rup[1,2] += inp, outp
     rlo[1,2] += outp, gnd
 
@@ -1618,7 +1618,7 @@ lib_search_paths[KICAD].append('C:\\my\\kicad\\libs')
 You can convert a KiCad library into the SKiDL format by exporting it:
 
 ```py
-kicad_lib = SchLib('device', tool=KICAD)       # Open a KiCad library.
+kicad_lib = SchLib("Device", tool=KICAD)       # Open a KiCad library.
 kicad_lib.export('my_skidl_lib')               # Export it into a file in SKiDL format.
 skidl_lib = SchLib('my_skidl_lib', tool=SKIDL) # Create a SKiDL library object from the new file.
 if len(skidl_lib) == len(kicad_lib):
@@ -1917,7 +1917,7 @@ But you can create other `Circuit` objects:
 and then you can create parts, nets and buses and add them to your new circuit:
 
 ```terminal
->>> my_circuit += Part('device','R')  # Add a resistor to the circuit.
+>>> my_circuit += Part("Device",'R')  # Add a resistor to the circuit.
 >>> my_circuit += Net('GND')          # Add a net.
 >>> my_circuit += Bus('byte_bus', 8)  # Add a bus.
 ```
@@ -1931,7 +1931,7 @@ by using the `circuit` parameter of the object constructors:
 
 ```terminal
 >>> my_circuit = Circuit()
->>> p = Part('device', 'R', circuit = my_circuit)
+>>> p = Part("Device", 'R', circuit = my_circuit)
 >>> n = Net('GND', circuit = my_circuit)
 >>> b = Bus('byte_bus', 8, circuit = my_circuit)
 ```

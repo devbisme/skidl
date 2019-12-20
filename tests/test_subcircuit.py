@@ -8,7 +8,7 @@ from .setup_teardown import *
 def test_subcircuit_1():
     class Resistor(Part):
         def __init__(self, value, ref=None, footprint="Resistors_SMD:R_0805"):
-            super().__init__("device", "R", value=value, ref=ref, footprint=footprint)
+            super().__init__("Device", "R", value=value, ref=ref, footprint=footprint)
 
     @subcircuit
     def resdiv():
@@ -19,7 +19,7 @@ def test_subcircuit_1():
         r1 = Resistor("1k")
         r2 = Resistor("500")
 
-        cap = Part("device", "C", dest=TEMPLATE)
+        cap = Part("Device", "C", dest=TEMPLATE)
         c1 = cap()
         c2 = cap(value="1uF")
 
@@ -44,7 +44,7 @@ def test_subcircuit_1():
 def test_subcircuit_2():
     class Resistor(Part):
         def __init__(self, value, ref=None, footprint="Resistors_SMD:R_0805"):
-            super().__init__("device", "R", value=value, ref=ref, footprint=footprint)
+            super().__init__("Device", "R", value=value, ref=ref, footprint=footprint)
 
     @subcircuit
     def resdiv_1():
@@ -55,7 +55,7 @@ def test_subcircuit_2():
         r1 = Resistor("1k")
         r2 = Resistor("500")
 
-        cap = Part("device", "C", dest=TEMPLATE)
+        cap = Part("Device", "C", dest=TEMPLATE)
         c1 = cap()
         c2 = cap(value="1uF")
 
@@ -77,7 +77,7 @@ def test_subcircuit_2():
         r1 = Resistor("1k")
         r2 = Resistor("500")
 
-        cap = Part("device", "C", dest=TEMPLATE)
+        cap = Part("Device", "C", dest=TEMPLATE)
         c1 = cap()
         c2 = cap(value="1uF")
 

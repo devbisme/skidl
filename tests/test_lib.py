@@ -25,11 +25,11 @@ def test_lib_import_1():
 
 
 def test_lib_import_2():
-    lib = SchLib("device")
+    lib = SchLib("Device")
 
 
 def test_lib_export_1():
-    lib = SchLib("device")
+    lib = SchLib("Device")
     lib.export("my_device", tool=SKIDL)
     my_lib = SchLib("my_device", tool=SKIDL)
     assert len(lib) == len(my_lib)
@@ -57,9 +57,9 @@ def test_lib_creation_1():
 
 
 def test_backup_1():
-    a = Part("device", "R", footprint="null")
-    b = Part("device", "C", footprint="null")
-    c = Part("device", "L", footprint="null")
+    a = Part("Device", "R", footprint="null")
+    b = Part("Device", "C", footprint="null")
+    c = Part("Device", "L", footprint="null")
     generate_netlist(do_backup=True)  # This creates the backup parts library.
     default_circuit.reset()
     set_query_backup_lib(True)  # FIXME: this is already True by default!
@@ -69,9 +69,9 @@ def test_backup_1():
 
 
 def test_backup_2():
-    a = Part("device", "R", footprint="null")
-    b = Part("device", "C", footprint="null")
-    c = Part("device", "L", footprint="null")
+    a = Part("Device", "R", footprint="null")
+    b = Part("Device", "C", footprint="null")
+    c = Part("Device", "L", footprint="null")
     a & b & c  # Place parts in series.
     num_pins_per_net_1 = {net.name: len(net) for net in default_circuit.get_nets()}
     generate_netlist(do_backup=True)  # This creates the backup parts library.
@@ -81,19 +81,19 @@ def test_backup_2():
 
 
 def test_lib_1():
-    lib_kicad = SchLib("device")
-    lib_kicad.export("device")
+    lib_kicad = SchLib("Device")
+    lib_kicad.export("Device")
     SchLib.reset()
-    lib_skidl = SchLib("device", tool=SKIDL)
+    lib_skidl = SchLib("Device", tool=SKIDL)
     assert len(lib_kicad) == len(lib_skidl)
     SchLib.reset()
     set_default_tool(SKIDL)
     set_query_backup_lib(False)
-    a = Part("device", "R")
+    a = Part("Device", "R")
     assert a.tool == SKIDL
-    b = Part("device", "L")
+    b = Part("Device", "L")
     assert b.tool == SKIDL
-    c = Part("device", "C")
+    c = Part("Device", "C")
     assert c.tool == SKIDL
 
 

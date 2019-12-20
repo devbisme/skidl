@@ -4,7 +4,7 @@ from skidl import *
 vin, vout, gnd = Net("VI"), Net("VO"), Net("GND")
 
 # Create two resistors.
-r1, r2 = 2 * Part("device", "R", TEMPLATE, footprint="Resistors_SMD:R_0805")
+r1, r2 = 2 * Part("Device", "R", TEMPLATE, footprint="Resistors_SMD:R_0805")
 r1.value = "1K"  # Set upper resistor value.
 r2.value = "500"  # Set lower resistor value.
 

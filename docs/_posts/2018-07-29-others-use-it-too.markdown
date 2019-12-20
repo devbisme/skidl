@@ -69,8 +69,8 @@ header[1].net.drive = skidl.POWER
 header[2].net.drive = skidl.POWER
 
 decoupling_caps = []
-decoupling_caps.append(skidl.Part('device', 'C', footprint='gsg-modules:0805'))
-decoupling_caps.append(skidl.Part('device', 'C', footprint='gsg-modules:0603'))
+decoupling_caps.append(skidl.Part("Device", 'C', footprint='gsg-modules:0805'))
+decoupling_caps.append(skidl.Part("Device", 'C', footprint='gsg-modules:0603'))
 for i in range(2):
 	decoupling_caps[i][1] += vcc
 	decoupling_caps[i][2] += gnd
@@ -100,13 +100,13 @@ The SKiDL code is partitioned into sections for each major component:
 from skidl import *
 
 def bypass(sig, val = '0.1uF'):
-    c1 = Part('device', 'C', value = val, footprint = 'Capacitors_SMD:C_0402')
+    c1 = Part("Device", 'C', value = val, footprint = 'Capacitors_SMD:C_0402')
     c1[1] += sig
     c1[2] += gnd
 
 def divider(ratio, hi, low, res):
-    r1 = Part('device', 'R', value = '500K', footprint = 'Resistors_SMD:R_0402')
-    r2 = Part('device', 'R', value = '500K', footprint = 'Resistors_SMD:R_0402')
+    r1 = Part("Device", 'R', value = '500K', footprint = 'Resistors_SMD:R_0402')
+    r2 = Part("Device", 'R', value = '500K', footprint = 'Resistors_SMD:R_0402')
     r1[1] += hi
     r1[2] += r2[1], res
     r2[2] += low
@@ -135,7 +135,7 @@ d1 = Part('adafruit', 'JD-T1800', footprint = 'JD-T1800')
 v33a += u1.pin('VDD')
 gnd += u1['^GND$']
 divider(2.4 / 6, v5, gnd, u1['P1.5'])
-resetpullup = Part('device', 'R', value = '1K', footprint = 'Resistors_SMD:R_0402')
+resetpullup = Part("Device", 'R', value = '1K', footprint = 'Resistors_SMD:R_0402')
 resetpullup[1] += u1.pin('RSTb/C2CK')
 v33a += resetpullup[2]
 
@@ -165,8 +165,8 @@ v33b += u3.pin('VO')
 
 ################## U4: current sensor ############# 
 
-rsense = Part('device', 'R', value = '.1', footprint = 'Resistors_SMD:R_0805')
-rgain = Part('device', 'R', value = '2K4', footprint = 'Resistors_SMD:R_0402')
+rsense = Part("Device", 'R', value = '.1', footprint = 'Resistors_SMD:R_0805')
+rgain = Part("Device", 'R', value = '2K4', footprint = 'Resistors_SMD:R_0402')
 rgain[1] += u4.pin('OUT'), u1['P1.6']
 rgain[2] += gnd
 v5 += u4.pin('Vs+'), rsense[1]
@@ -203,7 +203,7 @@ u1['P1.[12]'] += d1['DATA']
 u1['P1.3'] += d1['CS']
 u1['P1.4'] += d1['RS/DC']
 v33a += d1['LEDA']
-ledres = Part('device', 'R', value = '22', footprint = 'Resistors_SMD:R_0402')
+ledres = Part("Device", 'R', value = '22', footprint = 'Resistors_SMD:R_0402')
 ledres[1] += d1['LEDK']
 gnd += ledres[2]
 v33a += d1['RESET']
@@ -227,7 +227,7 @@ bypass(v5, '10uF')
 bypass(v33b)
 
 if 0:
-    r1, r2 = 2 * Part('device', 'R', TEMPLATE)  # Create two resistors.
+    r1, r2 = 2 * Part("Device", 'R', TEMPLATE)  # Create two resistors.
     r1.value, r1.footprint = '1K',  'Resistors_SMD:R_0805'  # Set resistor values
     r2.value, r2.footprint = '500', 'Resistors_SMD:R_0805'  # and footprints.
     r1[1] += vin      # Connect the input to the first resistor.

@@ -8,7 +8,7 @@ from .setup_teardown import *
 def test_subcircuit_1():
     class Resistor(Part):
         def __init__(self, value, ref=None, footprint="Resistors_SMD:R_0805"):
-            super().__init__("device", "R", value=value, ref=ref, footprint=footprint)
+            super().__init__("Device", "R", value=value, ref=ref, footprint=footprint)
 
     @subcircuit
     def resdiv():
@@ -19,7 +19,7 @@ def test_subcircuit_1():
         r1 = Resistor("1k")
         r2 = Resistor("500")
 
-        cap = Part("device", "C", dest=TEMPLATE)
+        cap = Part("Device", "C", dest=TEMPLATE)
         c1 = cap()
         c2 = cap(value="1uF")
 
@@ -66,7 +66,7 @@ def test_subcircuit_1():
 def test_subcircuit_2():
     class Resistor(Part):
         def __init__(self, value, ref=None, footprint="Resistors_SMD:R_0805"):
-            super().__init__("device", "R", value=value, ref=ref, footprint=footprint)
+            super().__init__("Device", "R", value=value, ref=ref, footprint=footprint)
 
     @subcircuit
     def resdiv_1():
@@ -77,7 +77,7 @@ def test_subcircuit_2():
         r1 = Resistor("1k")
         r2 = Resistor("500")
 
-        cap = Part("device", "C", dest=TEMPLATE)
+        cap = Part("Device", "C", dest=TEMPLATE)
         c1 = cap()
         c2 = cap(value="1uF")
         c1[1] += NC
@@ -101,7 +101,7 @@ def test_subcircuit_2():
         r1 = Resistor("1k")
         r2 = Resistor("500")
 
-        cap = Part("device", "C", dest=TEMPLATE)
+        cap = Part("Device", "C", dest=TEMPLATE)
         c1 = cap()
         c2 = cap(value="1uF")
 
@@ -152,7 +152,7 @@ def test_subcircuit_2():
 def test_circuit_add_rmv_1():
     circuit1 = Circuit()
     circuit2 = Circuit()
-    r1 = Part("device", "R")
+    r1 = Part("Device", "R")
     n1 = Net("N1")
     circuit1 += r1
     circuit1 += n1
@@ -174,7 +174,7 @@ def test_circuit_add_rmv_1():
 def test_circuit_add_rmv_2():
     circuit1 = Circuit()
     circuit2 = Circuit()
-    r1 = Part("device", "R")
+    r1 = Part("Device", "R")
     bus = Bus("B", 8)
     circuit1 += bus
     assert len(circuit1.nets) == len(bus) + 1  # Add 1 for NC
@@ -186,8 +186,8 @@ def test_circuit_add_rmv_2():
 
 def test_circuit_add_rmv_3():
     circuit = Circuit()
-    r = Part("device", "R")
-    c = Part("device", "C")
+    r = Part("Device", "R")
+    c = Part("Device", "C")
     n = Net("N")
     bus = Bus("B", 8)
     circuit += r, c, bus, n

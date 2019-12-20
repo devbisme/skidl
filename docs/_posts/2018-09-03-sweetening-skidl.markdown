@@ -42,7 +42,7 @@ For example, here is a network of four series resistors using the standard
 SKiDL syntax:
 
 ```py
-r1, r2, r3, r4 = Part('device', 'R', dest=TEMPLATE) * 4
+r1, r2, r3, r4 = Part("Device", 'R', dest=TEMPLATE) * 4
 r1[2] += r2[1]
 r2[2] += r3[1]
 r3[2] += r4[1]
@@ -51,7 +51,7 @@ r3[2] += r4[1]
 This is the same thing using the new `&` operator:
 
 ```py
-r1, r2, r3, r4 = Part('device', 'R', dest=TEMPLATE) * 4
+r1, r2, r3, r4 = Part("Device", 'R', dest=TEMPLATE) * 4
 ser_ntwk = r1 & r2 & r3 & r4
 ```
 
@@ -103,7 +103,7 @@ second pin to the following part like so:
 
 ```py
 vcc = Net('VCC')
-d1 = Part('device', 'D')
+d1 = Part("Device", 'D')
 polar_ntwk = vcc & r1 & d1['A,K'] & gnd  # Diode anode connected to resistor and cathode to ground.
 ```
 
@@ -117,7 +117,7 @@ and another for applying the input to the base.
 
 ```py
 inp, outp = Net('INPUT'), Net('OUTPUT')
-q1 = Part('device', 'Q_NPN_ECB')
+q1 = Part("Device", 'Q_NPN_ECB')
 ntwk_ce = vcc & r1 & outp & q1['C,E'] & gnd  # Connect net outp to the junction of the resistor and transistor collector.
 ntwk_b = inp & r2 & q1['B']  # Connect net inp to the resistor driving the transistor base.
 ```
@@ -187,7 +187,7 @@ You can also use attribute references with pin *numbers* by prefixing the number
 with `p`:
 
 ```terminal
->>> r = Part('device', 'R')
+>>> r = Part("Device", 'R')
 >>> r
 
  R (): Resistor

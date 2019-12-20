@@ -53,7 +53,7 @@ It's divided into three sections:
 For example, here is the definition of a template for a diode:
 
 ```py
-device_D = Part('device', 'D', dest=TEMPLATE)
+device_D = Part("Device", 'D', dest=TEMPLATE)
 setattr(device_D, 'Characteristics', 'DIODE GEN PURP 100V 300MA SOD123')
 setattr(device_D, 'Description', 'ATMEGA328P ICSP Reset Voltage Spike Protection')
 setattr(device_D, 'MFN', 'Diodes Inc')

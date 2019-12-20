@@ -2,8 +2,8 @@ from skidl import *
 
 @SubCircuit
 def osc(osc1, osc2, gnd, 
-        crystal = Part('device', 'Crystal', footprint='Crystal:Crystal_HC49-U_Vertical', dest=TEMPLATE), 
-        cap = Part('device', 'C', value='10pf', footprint='Capacitors_SMD:C_0603', dest=TEMPLATE) ):
+        crystal = Part("Device", 'Crystal', footprint='Crystal:Crystal_HC49-U_Vertical', dest=TEMPLATE), 
+        cap = Part("Device", 'C', value='10pf', footprint='Capacitors_SMD:C_0603', dest=TEMPLATE) ):
     '''Attach a crystal and two caps to the osc1 and osc2 nets.'''
     xtal = crystal(1)                  # Instantiate the crystal from the template.
     num_xtal_pins = len(xtal['.*'])    # Get the number of pins on the crystal.
@@ -29,8 +29,8 @@ vusb.drive = POWER
 vdd = Net('+3.3V')
 
 # Some common parts used as templates.
-cap = Part('device', 'C', footprint='Capacitors_SMD:C_0603', dest=TEMPLATE)
-res = Part('device', 'R', footprint='Resistors_SMD:R_0603', dest=TEMPLATE)
+cap = Part("Device", 'C', footprint='Capacitors_SMD:C_0603', dest=TEMPLATE)
+res = Part("Device", 'R', footprint='Resistors_SMD:R_0603', dest=TEMPLATE)
 
 # Regulate +5V VUSB down to +3.3V for VDD.
 vreg = Part(xess_lib, 'TPS793XX', footprint='TO_SOT_Packages_SMD:SOT-23-5')
@@ -78,7 +78,7 @@ shld_res[1] += usb_conn['shield']
 gnd += shld_cap[2], shld_res[2]
 
 # LED with current-limiting resistor driven by microcontroller pin.
-led = Part('device', 'led', footprint='Diodes_SMD:D_0603')
+led = Part("Device", 'led', footprint='Diodes_SMD:D_0603')
 led_curr_limit = res(value='1K')
 led_curr_limit[1, 2] += pic32['RB4'], led['A']
 led['K'] += gnd

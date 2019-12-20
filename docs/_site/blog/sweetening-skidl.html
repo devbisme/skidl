@@ -173,7 +173,7 @@ to connect two-pin components in <em>series or parallel</em>, respectively.
 For example, here is a network of four series resistors using the standard
 SKiDL syntax:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">r3</span><span class="p">,</span> <span class="n">r4</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'device'</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span>
+<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">r3</span><span class="p">,</span> <span class="n">r4</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span>
 <span class="n">r1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">r2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">r2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">r3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">r3</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">r4</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
@@ -182,7 +182,7 @@ SKiDL syntax:</p>
 
 <p>This is the same thing using the new <code class="highlighter-rouge">&amp;</code> operator:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">r3</span><span class="p">,</span> <span class="n">r4</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'device'</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span>
+<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">r3</span><span class="p">,</span> <span class="n">r4</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span>
 <span class="n">ser_ntwk</span> <span class="o">=</span> <span class="n">r1</span> <span class="o">&amp;</span> <span class="n">r2</span> <span class="o">&amp;</span> <span class="n">r3</span> <span class="o">&amp;</span> <span class="n">r4</span>
 </code></pre>
 </div>
@@ -234,7 +234,7 @@ pins <em>explicitly</em> with the first pin connected to the preceding part and 
 second pin to the following part like so:</p>
 
 <div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">vcc</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'VCC'</span><span class="p">)</span>
-<span class="n">d1</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'device'</span><span class="p">,</span> <span class="s">'D'</span><span class="p">)</span>
+<span class="n">d1</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'D'</span><span class="p">)</span>
 <span class="n">polar_ntwk</span> <span class="o">=</span> <span class="n">vcc</span> <span class="o">&amp;</span> <span class="n">r1</span> <span class="o">&amp;</span> <span class="n">d1</span><span class="p">[</span><span class="s">'A,K'</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">gnd</span>  <span class="c"># Diode anode connected to resistor and cathode to ground.</span>
 </code></pre>
 </div>
@@ -248,7 +248,7 @@ the transistor’s collector and emitter,
 and another for applying the input to the base.</p>
 
 <div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'INPUT'</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s">'OUTPUT'</span><span class="p">)</span>
-<span class="n">q1</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'device'</span><span class="p">,</span> <span class="s">'Q_NPN_ECB'</span><span class="p">)</span>
+<span class="n">q1</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'Q_NPN_ECB'</span><span class="p">)</span>
 <span class="n">ntwk_ce</span> <span class="o">=</span> <span class="n">vcc</span> <span class="o">&amp;</span> <span class="n">r1</span> <span class="o">&amp;</span> <span class="n">outp</span> <span class="o">&amp;</span> <span class="n">q1</span><span class="p">[</span><span class="s">'C,E'</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">gnd</span>  <span class="c"># Connect net outp to the junction of the resistor and transistor collector.</span>
 <span class="n">ntwk_b</span> <span class="o">=</span> <span class="n">inp</span> <span class="o">&amp;</span> <span class="n">r2</span> <span class="o">&amp;</span> <span class="n">q1</span><span class="p">[</span><span class="s">'B'</span><span class="p">]</span>  <span class="c"># Connect net inp to the resistor driving the transistor base.</span>
 </code></pre>
@@ -316,7 +316,7 @@ If it’s not, you’ll have to use array indexing.</p>
 <p>You can also use attribute references with pin <em>numbers</em> by prefixing the number
 with <code class="highlighter-rouge">p</code>:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; r = Part('device', 'R')
+<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; r = Part("Device", 'R')
 &gt;&gt;&gt; r
 
  R (): Resistor

@@ -62,7 +62,7 @@ from skidl import *
 gnd = Net('GND')  # Ground reference.
 vin = Net('VI')   # Input voltage to the divider.
 vout = Net('VO')  # Output voltage from the divider.
-r1, r2 = 2 * Part('device', 'R', TEMPLATE)  # Create two resistors.
+r1, r2 = 2 * Part("Device", 'R', TEMPLATE)  # Create two resistors.
 r1.value, r1.footprint = '1K',  'Resistors_SMD:R_0805'  # Set resistor values
 r2.value, r2.footprint = '500', 'Resistors_SMD:R_0805'  # and footprints.
 r1[1] += vin      # Connect the input to the first resistor.
@@ -226,7 +226,7 @@ ERROR: Unable to find part lm35 in library linear.
 The part library and name are used to instantiate a part as follows:
 
 {% highlight terminal %}
->>> resistor = Part('device','R')
+>>> resistor = Part("Device",'R')
 {% endhighlight %}
 
 You can customize the resistor by setting its attributes:
@@ -240,7 +240,7 @@ You can customize the resistor by setting its attributes:
 You can also combine the setting of attributes with the creation of the part:
 
 {% highlight terminal %}
->>> resistor = Part('device', 'R', value='1K')
+>>> resistor = Part("Device", 'R', value='1K')
 >>> resistor.value
 '1K'
 {% endhighlight %}
@@ -270,7 +270,7 @@ But you can easily change it:
 Now what happens if we create another resistor?:
 
 {% highlight terminal %}
->>> another_res = Part('device','R')   
+>>> another_res = Part("Device",'R')   
 >>> another_res.ref                        
 'R1'
 {% endhighlight %}
@@ -303,8 +303,8 @@ First, start by creating two resistors (note that I've also added the
 `footprint` attribute that describes the physical package for the resistors):
 
 {% highlight python %}
->>> rup = Part('device', 'R', value='1K', footprint='Resistors_SMD:R_0805')                            
->>> rlow = Part('device', 'R', value='500', footprint='Resistors_SMD:R_0805')                          
+>>> rup = Part("Device", 'R', value='1K', footprint='Resistors_SMD:R_0805')                            
+>>> rlow = Part("Device", 'R', value='500', footprint='Resistors_SMD:R_0805')                          
 >>> rup.ref, rlow.ref                                                
 ('R1', 'R2')                                                         
 >>> rup.value, rlow.value                                            
@@ -607,7 +607,7 @@ copy an existing object. Here are some examples of creating a resistor and then 
 some copies of it:
 
 {% highlight terminal %}
->>> r1 = Part('device', 'R', value=500)
+>>> r1 = Part("Device", 'R', value=500)
 >>> r2 = r1.copy()                         # Make a single copy of the resistor.
 >>> r3 = r1.copy(value='1K')               # Make a single copy, but give it a different value.
 >>> r4 = r1(value='1K')                    # You can also call the object directly to make copies.
@@ -621,7 +621,7 @@ doesn't actually get included in the netlist for the circuitry.
 This is done like so:
 
 {% highlight terminal %}
->>> r_template = Part('device', 'R', dest=TEMPLATE)  # Create a resistor just for copying.
+>>> r_template = Part("Device", 'R', dest=TEMPLATE)  # Create a resistor just for copying.
 >>> r1 = r_template(value='1K')  # Make copy that becomes part of the actual circuitry.
 {% endhighlight %}
 
@@ -912,8 +912,8 @@ import sys
 @SubCircuit
 def vdiv(inp, outp):
     """Divide inp voltage by 3 and place it on outp net."""
-    rup = Part('device', 'R', value='1K', footprint='Resistors_SMD:R_0805')
-    rlo = Part('device','R', value='500', footprint='Resistors_SMD:R_0805')
+    rup = Part("Device", 'R', value='1K', footprint='Resistors_SMD:R_0805')
+    rlo = Part("Device",'R', value='500', footprint='Resistors_SMD:R_0805')
     rup[1,2] += inp, outp
     rlo[1,2] += outp, gnd
 
@@ -970,8 +970,8 @@ import sys
 @SubCircuit
 def vdiv(inp, outp):
     """Divide inp voltage by 3 and place it on outp net."""
-    rup = Part('device', 'R', value='1K', footprint='Resistors_SMD:R_0805')
-    rlo = Part('device','R', value='500', footprint='Resistors_SMD:R_0805')
+    rup = Part("Device", 'R', value='1K', footprint='Resistors_SMD:R_0805')
+    rlo = Part("Device",'R', value='500', footprint='Resistors_SMD:R_0805')
     rup[1,2] += inp, outp
     rlo[1,2] += outp, gnd
 
@@ -1075,7 +1075,7 @@ lib_search_paths[KICAD].append('C:\\my\\kicad\\libs')
 You can also convert a KiCad library into the SKiDL format by exporting it:
 
 {% highlight python %}
-kicad_lib = SchLib('device', tool=KICAD)       # Open a KiCad library.
+kicad_lib = SchLib("Device", tool=KICAD)       # Open a KiCad library.
 kicad_lib.export('my_skidl_lib')               # Export it into a file in SKiDL format.
 skidl_lib = SchLib('my_skidl_lib', tool=SKIDL) # Create a SKiDL library object from the new file.
 if len(skidl_lib) == len(kicad_lib):

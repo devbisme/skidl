@@ -105,7 +105,7 @@ After that, it's just a matter of connecting the right pins depending upon how m
 Now if you call the `osc` function with a two-pin crystal, it will work correctly:
 
 ``` py
-crystal = Part('device', 'Crystal', footprint='Crystal:Crystal_HC49-U_Vertical', dest=TEMPLATE)
+crystal = Part("Device", 'Crystal', footprint='Crystal:Crystal_HC49-U_Vertical', dest=TEMPLATE)
 osc(*pic32['OSC1, OSC2'], gnd, crystal, cap)
 ```
 
@@ -116,8 +116,8 @@ Python default parameters come to the rescue!
 ``` py
 @SubCircuit
 def osc(osc1, osc2, gnd, 
-        crystal = Part('device', 'Crystal', footprint='Crystal:Crystal_HC49-U_Vertical', dest=TEMPLATE), 
-        cap = Part('device','C',value='10pf', footprint='Capacitors_SMD:C_0603', dest=TEMPLATE) ):
+        crystal = Part("Device", 'Crystal', footprint='Crystal:Crystal_HC49-U_Vertical', dest=TEMPLATE), 
+        cap = Part("Device",'C',value='10pf', footprint='Capacitors_SMD:C_0603', dest=TEMPLATE) ):
     '''Attach a crystal and two caps to the osc1 and osc2 nets.'''
     xtal = crystal(1)                  # Instantiate the crystal from the template.
     num_xtal_pins = len(xtal['.*'])    # Get the number of pins on the crystal.

@@ -12,7 +12,7 @@ def test_iters_1():
     for hi in b:
         for lo in b:
             if hi != lo:
-                led = Part("device", "LED")
+                led = Part("Device", "LED")
                 hi += led["A"]
                 lo += led["K"]
     for l in b:
@@ -21,7 +21,7 @@ def test_iters_1():
 
 def test_iters_2():
     """Test pin iterator."""
-    q = Part("device", "Q_NPN_CEB")
+    q = Part("Device", "Q_NPN_CEB")
     s = 0
     for p1 in q:
         for p2 in q:
@@ -36,7 +36,7 @@ def test_iters_3():
     for hi in b:
         for lo in b:
             if hi != lo:
-                led = Part("device", "LED")
+                led = Part("Device", "LED")
                 hi += led["A"]
                 lo += led["K"]
     for l in b:

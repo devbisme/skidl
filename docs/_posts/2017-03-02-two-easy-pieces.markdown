@@ -38,7 +38,7 @@ anodes = Bus('a', 6)    # 6-bit anode bus, but only use a[1]..a[5].
 cathodes = Bus('k', 16) # 16-bit cathode bus, but only use k[1]..k[15].
 
 # Create an LED template that will be copied for each LED needed.
-led = Part('device', 'D', footprint='Diodes_SMD:D_0603', dest=TEMPLATE)
+led = Part("Device", 'D', footprint='Diodes_SMD:D_0603', dest=TEMPLATE)
 
 # Connect the 60 second LEDs to the anodes and cathodes.
 for a in anodes[1:4]:             # Connect LEDs between anodes 1, 2, 3, 4.

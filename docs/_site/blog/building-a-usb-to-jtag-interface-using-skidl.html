@@ -192,8 +192,8 @@ different footprint, for instance) then I only need to make the change here to
 have it take effect globally.</p>
 
 <div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="c"># Some common parts used as templates.</span>
-<span class="n">res</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'device'</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Resistors_SMD:R_0603'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
-<span class="n">cap</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'device'</span><span class="p">,</span> <span class="s">'C'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Capacitors_SMD:C_0603'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Resistors_SMD:R_0603'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
+<span class="n">cap</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'C'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Capacitors_SMD:C_0603'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
 </code></pre>
 </div>
 
@@ -357,7 +357,7 @@ Once again, note the use of the <code class="highlighter-rouge">A</code> (anode)
 instead of pin numbers in order to more clearly show design intent.</p>
 
 <div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="c"># LED with current-limiting resistor driven by microcontroller pin.</span>
-<span class="n">led</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'device'</span><span class="p">,</span> <span class="s">'led'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Diodes_SMD:D_0603'</span><span class="p">)</span>
+<span class="n">led</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'led'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Diodes_SMD:D_0603'</span><span class="p">)</span>
 <span class="n">led_curr_limit</span> <span class="o">=</span> <span class="n">res</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s">'1K'</span><span class="p">)</span>
 <span class="n">led_curr_limit</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pic32</span><span class="p">[</span><span class="s">'RB4'</span><span class="p">],</span> <span class="n">led</span><span class="p">[</span><span class="s">'A'</span><span class="p">]</span>
 <span class="n">led</span><span class="p">[</span><span class="s">'K'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">gnd</span>

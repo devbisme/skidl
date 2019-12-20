@@ -25,8 +25,8 @@ current limiting resistors:
 def leds(inp0, inp1, inp2, inp3, gnd):
 
     # Create four LEDs and resistors.
-    leds = 4 * Part('device', 'LED', footprint='KiCad/LEDs.pretty:LED_0603', dest=TEMPLATE)
-    rs = 4 * Part('device', 'R', value='330', footprint='KiCad/Resistors_SMD.pretty:R_0603', dest=TEMPLATE)
+    leds = 4 * Part("Device", 'LED', footprint='KiCad/LEDs.pretty:LED_0603', dest=TEMPLATE)
+    rs = 4 * Part("Device", 'R', value='330', footprint='KiCad/Resistors_SMD.pretty:R_0603', dest=TEMPLATE)
 
     # Connect anodes (+) of LEDs to inputs.
     leds[0]['A'] += inp0
@@ -55,8 +55,8 @@ number of lines in the input bus and instantiating the required number of compon
 def leds(inps, gnd):
 
     # Use the width of the input bus to set the number of LEDs and resistors.
-    leds = inps.width * Part('device', 'LED', footprint='KiCad/LEDs.pretty:LED_0603', dest=TEMPLATE)
-    rs = inps.width * Part('device', 'R', value='330', footprint='KiCad/Resistors_SMD.pretty:R_0603', dest=TEMPLATE)
+    leds = inps.width * Part("Device", 'LED', footprint='KiCad/LEDs.pretty:LED_0603', dest=TEMPLATE)
+    rs = inps.width * Part("Device", 'R', value='330', footprint='KiCad/Resistors_SMD.pretty:R_0603', dest=TEMPLATE)
 
     # Zip the inputs, LEDs, and resistors together so there is one input
     # associated with each LED and resistor. Then, connect them together.
@@ -87,8 +87,8 @@ def leds(anodes, cathodes):
     # determine the number of LEDs.
     width = max(anodes.width, cathodes.width)
 
-    leds = width * Part('device', 'LED', footprint='KiCad/LEDs.pretty:LED_0603', dest=TEMPLATE)
-    rs = width * Part('device', 'R', value='330', footprint='KiCad/Resistors_SMD.pretty:R_0603', dest=TEMPLATE)
+    leds = width * Part("Device", 'LED', footprint='KiCad/LEDs.pretty:LED_0603', dest=TEMPLATE)
+    rs = width * Part("Device", 'R', value='330', footprint='KiCad/Resistors_SMD.pretty:R_0603', dest=TEMPLATE)
 
     # Zip the LEDs and resistors together so there is one LED associated with
     # each resistor. Then, connect them together.
@@ -151,13 +151,13 @@ def leds(anodes, cathodes):
 
     width = max(anodes.width, cathodes.width)
 
-    leds = width * Part('device', 'LED', footprint='KiCad/LEDs.pretty:LED_0603', dest=TEMPLATE)
+    leds = width * Part("Device", 'LED', footprint='KiCad/LEDs.pretty:LED_0603', dest=TEMPLATE)
 
     # Get various types of resistors.
-    R   = Part('device', 'R',        value='330', footprint='KiCad/Resistors_SMD.pretty:R_0603', dest=TEMPLATE)
-    RN2 = Part('device', 'R_Pack02', value='330', footprint='xesscorp/xess.pretty:CTS_742C043', dest=TEMPLATE)
-    RN4 = Part('device', 'R_Pack04', value='330', footprint='xesscorp/xess.pretty:CTS_742C083', dest=TEMPLATE)
-    RN8 = Part('device', 'R_Pack08', value='330', footprint='xesscorp/xess.pretty:CTS_742C163', dest=TEMPLATE)
+    R   = Part("Device", 'R',        value='330', footprint='KiCad/Resistors_SMD.pretty:R_0603', dest=TEMPLATE)
+    RN2 = Part("Device", 'R_Pack02', value='330', footprint='xesscorp/xess.pretty:CTS_742C043', dest=TEMPLATE)
+    RN4 = Part("Device", 'R_Pack04', value='330', footprint='xesscorp/xess.pretty:CTS_742C083', dest=TEMPLATE)
+    RN8 = Part("Device", 'R_Pack08', value='330', footprint='xesscorp/xess.pretty:CTS_742C163', dest=TEMPLATE)
 
     # Store the resistor types such that their position in the list corresponds
     # to their use for a specific number of resistors. For example, RN4 is at
@@ -249,17 +249,17 @@ default if you don't:
 
 ```py
 def leds(anodes, cathodes,
-        led_type = Part('device', 'LED', footprint='KiCad/LEDs.pretty:LED_0603', dest=TEMPLATE),
+        led_type = Part("Device", 'LED', footprint='KiCad/LEDs.pretty:LED_0603', dest=TEMPLATE),
         r_types = [
             None,
-            Part('device', 'R',        value='330', footprint='KiCad/Resistors_SMD.pretty:R_0603', dest=TEMPLATE),
-            Part('device', 'R_Pack02', value='330', footprint='xesscorp/xess.pretty:CTS_742C043', dest=TEMPLATE),
-            Part('device', 'R_Pack04', value='330', footprint='xesscorp/xess.pretty:CTS_742C083', dest=TEMPLATE),
-            Part('device', 'R_Pack04', value='330', footprint='xesscorp/xess.pretty:CTS_742C083', dest=TEMPLATE),
-            Part('device', 'R_Pack04', value='330', footprint='xesscorp/xess.pretty:CTS_742C083', dest=TEMPLATE),
-            Part('device', 'R_Pack08', value='330', footprint='xesscorp/xess.pretty:CTS_742C163', dest=TEMPLATE),
-            Part('device', 'R_Pack08', value='330', footprint='xesscorp/xess.pretty:CTS_742C163', dest=TEMPLATE),
-            Part('device', 'R_Pack08', value='330', footprint='xesscorp/xess.pretty:CTS_742C163', dest=TEMPLATE),
+            Part("Device", 'R',        value='330', footprint='KiCad/Resistors_SMD.pretty:R_0603', dest=TEMPLATE),
+            Part("Device", 'R_Pack02', value='330', footprint='xesscorp/xess.pretty:CTS_742C043', dest=TEMPLATE),
+            Part("Device", 'R_Pack04', value='330', footprint='xesscorp/xess.pretty:CTS_742C083', dest=TEMPLATE),
+            Part("Device", 'R_Pack04', value='330', footprint='xesscorp/xess.pretty:CTS_742C083', dest=TEMPLATE),
+            Part("Device", 'R_Pack04', value='330', footprint='xesscorp/xess.pretty:CTS_742C083', dest=TEMPLATE),
+            Part("Device", 'R_Pack08', value='330', footprint='xesscorp/xess.pretty:CTS_742C163', dest=TEMPLATE),
+            Part("Device", 'R_Pack08', value='330', footprint='xesscorp/xess.pretty:CTS_742C163', dest=TEMPLATE),
+            Part("Device", 'R_Pack08', value='330', footprint='xesscorp/xess.pretty:CTS_742C163', dest=TEMPLATE),
         ],
     ):
 

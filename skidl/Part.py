@@ -354,12 +354,12 @@ class Part(SkidlBaseObject):
         Notes:
             An instance of a part can be copied just by calling it like so::
 
-                res = Part('device','R')    # Get a resistor.
+                res = Part("Device",'R')    # Get a resistor.
                 res_copy = res(value='1K')  # Copy the resistor and set resistance value.
 
             You can also use the multiplication operator to make copies::
 
-                cap = Part('device', 'C')   # Get a capacitor
+                cap = Part("Device", 'C')   # Get a capacitor
                 caps = 10 * cap             # Make an array with 10 copies of it.
         """
 

@@ -8,7 +8,7 @@ from .setup_teardown import *
 def test_subclass_1():
     class Resistor(Part):
         def __init__(self, value, ref=None, footprint="Resistors_SMD:R_0805"):
-            super().__init__("device", "R", value=value, ref=ref, footprint=footprint)
+            super().__init__("Device", "R", value=value, ref=ref, footprint=footprint)
 
     gnd = Net("GND")  # Ground reference.
     vin = Net("VI")  # Input voltage to the divider.

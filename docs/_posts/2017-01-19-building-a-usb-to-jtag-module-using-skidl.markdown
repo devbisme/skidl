@@ -60,8 +60,8 @@ have it take effect globally.
 
 ``` py
 # Some common parts used as templates.
-res = Part('device', 'R', footprint='Resistors_SMD:R_0603', dest=TEMPLATE)
-cap = Part('device', 'C', footprint='Capacitors_SMD:C_0603', dest=TEMPLATE)
+res = Part("Device", 'R', footprint='Resistors_SMD:R_0603', dest=TEMPLATE)
+cap = Part("Device", 'C', footprint='Capacitors_SMD:C_0603', dest=TEMPLATE)
 ```
 
 I start the actual circuit design by defining three nets that distribute power
@@ -225,7 +225,7 @@ instead of pin numbers in order to more clearly show design intent.
 
 ``` py
 # LED with current-limiting resistor driven by microcontroller pin.
-led = Part('device', 'led', footprint='Diodes_SMD:D_0603')
+led = Part("Device", 'led', footprint='Diodes_SMD:D_0603')
 led_curr_limit = res(value='1K')
 led_curr_limit[1, 2] += pic32['RB4'], led['A']
 led['K'] += gnd

@@ -322,7 +322,7 @@ the Net object.</p>
 </dl>
 <p class="rubric">Example</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>
-<span class="n">led1</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;device&#39;</span><span class="p">,</span> <span class="s1">&#39;LED&#39;</span><span class="p">)</span>
+<span class="n">led1</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s1">&#39;LED&#39;</span><span class="p">)</span>
 <span class="n">b</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">led1</span><span class="p">[</span><span class="s1">&#39;K&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
@@ -1751,12 +1751,12 @@ connections.</p>
 </dl>
 <p class="rubric">Notes</p>
 <p>An instance of a part can be copied just by calling it like so:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;device&#39;</span><span class="p">,</span><span class="s1">&#39;R&#39;</span><span class="p">)</span>    <span class="c1"># Get a resistor.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span><span class="s1">&#39;R&#39;</span><span class="p">)</span>    <span class="c1"># Get a resistor.</span>
 <span class="n">res_copy</span> <span class="o">=</span> <span class="n">res</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;1K&#39;</span><span class="p">)</span>  <span class="c1"># Copy the resistor and set resistance value.</span>
 </pre></div>
 </div>
 <p>You can also use the multiplication operator to make copies:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cap</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;device&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">)</span>   <span class="c1"># Get a capacitor</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cap</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">)</span>   <span class="c1"># Get a capacitor</span>
 <span class="n">caps</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">cap</span>             <span class="c1"># Make an array with 10 copies of it.</span>
 </pre></div>
 </div>
@@ -1786,12 +1786,12 @@ connections.</p>
 </dl>
 <p class="rubric">Notes</p>
 <p>An instance of a part can be copied just by calling it like so:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;device&#39;</span><span class="p">,</span><span class="s1">&#39;R&#39;</span><span class="p">)</span>    <span class="c1"># Get a resistor.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span><span class="s1">&#39;R&#39;</span><span class="p">)</span>    <span class="c1"># Get a resistor.</span>
 <span class="n">res_copy</span> <span class="o">=</span> <span class="n">res</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;1K&#39;</span><span class="p">)</span>  <span class="c1"># Copy the resistor and set resistance value.</span>
 </pre></div>
 </div>
 <p>You can also use the multiplication operator to make copies:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cap</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;device&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">)</span>   <span class="c1"># Get a capacitor</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cap</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">)</span>   <span class="c1"># Get a capacitor</span>
 <span class="n">caps</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">cap</span>             <span class="c1"># Make an array with 10 copies of it.</span>
 </pre></div>
 </div>
