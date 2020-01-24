@@ -42,21 +42,21 @@ _POS_OUT_PORT_ALIASES = ['+o', 'o+', 'output_plus', 'plus_output']
 _NEG_OUT_PORT_ALIASES = ['-o', 'o-', 'output_minus', 'minus_output']
 
 pyspice_lib = SchLib(tool=SKIDL).add_parts(*[
-    Part(
-        name='A',
-        dest=TEMPLATE,
-        tool=SKIDL,
-        keywords='XSPICE',
-        description='XSPICE code module',
-        ref_prefix='A',
-        pyspice={
-            'name': 'A',
-            'kw': {'model':'model',},
-            'add': add_part_to_circuit,
-        },
-        num_units=1,
-        do_erc=True,
-        pins=[]),
+    # Part(
+    #     name='A',
+    #     dest=TEMPLATE,
+    #     tool=SKIDL,
+    #     keywords='XSPICE',
+    #     description='XSPICE code module',
+    #     ref_prefix='A',
+    #     pyspice={
+    #         'name': 'A',
+    #         'kw': {'model':'model',},
+    #         'add': add_part_to_circuit,
+    #     },
+    #     num_units=1,
+    #     do_erc=True,
+    #     pins=[]),
     Part(
         name='B',
         aliases=['behavsrc', 'BEHAVSRC', 'behavioralsource', 'BEHAVIORALSOURCE',],
