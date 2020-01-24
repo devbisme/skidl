@@ -38,7 +38,7 @@ lint:
 	flake8 skidl tests
 
 test:
-	python setup.py test
+	pytest tests
 
 test-all:
 	tox

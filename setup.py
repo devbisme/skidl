@@ -6,7 +6,7 @@ import sys
 
 import setuptools
 
-__version__ = "0.0.28"
+__version__ = "0.0.29"
 __author__ = "XESS Corp."
 __email__ = "info@xess.com"
 

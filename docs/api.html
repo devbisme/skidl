@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>skidl 0.0.28 documentation</title>
+    <title>skidl 0.0.29 documentation</title>
     <link rel="stylesheet" href="static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="static/documentation_options.js"></script>
@@ -18,7 +18,7 @@
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
-          href="api.html#document-api">skidl 0.0.28 documentation</a></div>
+          href="api.html#document-api">skidl 0.0.29 documentation</a></div>
         <div class="rel" role="navigation" aria-label="related navigation">
         </div>
        </div>
@@ -201,6 +201,12 @@ containing SPICE models.</p></li>
 </dd></dl>
 
 <dl class="function">
+<dt id="skidl.tools.spice.not_implemented">
+<code class="descclassname">skidl.tools.spice.</code><code class="descname">not_implemented</code><span class="sig-paren">(</span><em>part</em>, <em>circuit</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice.not_implemented" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unable to add a particular SPICE part to a circuit.</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="skidl.tools.spice.add_part_to_circuit">
 <code class="descclassname">skidl.tools.spice.</code><code class="descname">add_part_to_circuit</code><span class="sig-paren">(</span><em>part</em>, <em>circuit</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice.add_part_to_circuit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a part to a PySpice Circuit object.</p>
@@ -234,10 +240,70 @@ containing SPICE models.</p></li>
 </dl>
 </dd></dl>
 
+<dl class="class">
+<dt id="skidl.tools.spice.PinList">
+<em class="property">class </em><code class="descclassname">skidl.tools.spice.</code><code class="descname">PinList</code><span class="sig-paren">(</span><em>num</em>, <em>name</em>, <em>part</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice.PinList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
+<p>A list of Pin objects that’s meant to look something like a Pin to a Part.
+This is used for vector I/O of XSPICE parts.</p>
+<dl class="method">
+<dt id="skidl.tools.spice.PinList.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>num</em>, <em>name</em>, <em>part</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice.PinList.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.tools.spice.PinList.__getitem__">
+<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice.PinList.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a Pin from the list. Add Pin objects to the list if they don’t exist.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.tools.spice.PinList.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice.PinList.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a copy of a PinList for use when a Part is copied.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.tools.spice.PinList.disconnect">
+<code class="descname">disconnect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice.PinList.disconnect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disconnect all the pins in the list.</p>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="function">
-<dt id="skidl.tools.spice.not_implemented">
-<code class="descclassname">skidl.tools.spice.</code><code class="descname">not_implemented</code><span class="sig-paren">(</span><em>part</em>, <em>circuit</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice.not_implemented" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="skidl.tools.spice.add_xspice_to_circuit">
+<code class="descclassname">skidl.tools.spice.</code><code class="descname">add_xspice_to_circuit</code><span class="sig-paren">(</span><em>part</em>, <em>circuit</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice.add_xspice_to_circuit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an XSPICE part to a PySpice Circuit object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>part</strong> – SKiDL Part object.</p></li>
+<li><p><strong>circuit</strong> – PySpice Circuit object.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="skidl.tools.spice.XspiceModel">
+<em class="property">class </em><code class="descclassname">skidl.tools.spice.</code><code class="descname">XspiceModel</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice.XspiceModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Object to hold the parameters for an XSPICE model.</p>
+<dl class="method">
+<dt id="skidl.tools.spice.XspiceModel.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice.XspiceModel.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.tools.spice.A">
+<code class="descclassname">skidl.tools.spice.</code><code class="descname">A</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice.A" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function creates an XSPICE part. It replaces the A part in the pyspice_sklib.py file.</p>
+</dd></dl>
 
 </div>
 <div class="section" id="module-skidl.tools">
