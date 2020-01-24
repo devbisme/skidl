@@ -223,18 +223,13 @@ class Part(SkidlBaseObject):
         # If the part is going to be an element in a circuit, then add it to the
         # the circuit and make any indicated pin/net connections.
         if dest != LIBRARY:
+            # If no Circuit object is given, then use the default Circuit that always exists.
+            circuit = circuit or default_circuit
             if dest == NETLIST:
-                # If no Circuit object is given, then use the default Circuit that always exists.
-                # Always set circuit first because naming the part requires a lookup
-                # of existing names in the circuit.
-                if not circuit:
-                    circuit = default_circuit  # pylint: disable=undefined-variable
                 circuit += self
             elif dest == TEMPLATE:
                 # If this is just a part template, don't add the part to the circuit.
                 # Just place the reference to the Circuit object in the template.
-                if not circuit:
-                    self.circuit = default_circuit  # pylint: disable=undefined-variable
                 self.circuit = circuit
 
             # Add any net/pin connections to this part that were passed as arguments.
