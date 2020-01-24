@@ -406,11 +406,13 @@ class PinList(list):
         cpy = PinList(self.num, self.name, self.part)
         for pin in self:
             cpy += pin.copy()
+        return cpy
 
     def disconnect(self):
         """Disconnect all the pins in the list."""
         for pin in self:
             pin.disconnect()
+
 
 def add_xspice_to_circuit(part, circuit):
     """
