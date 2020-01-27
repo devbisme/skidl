@@ -115,8 +115,8 @@ class Part(SkidlBaseObject):
         dest: String that indicates where the part is destined for (e.g., LIBRARY).
         tool: The format for the library file or part definition (e.g., KICAD).
         connections: A dictionary with part pin names/numbers as keys and the
-            names of nets to which they will be connected as values. For example:
-            { 'IN-':'a_in', 'IN+':'GND', '1':'AMPED_OUTPUT', '14':'VCC', '7':'GND' }
+            nets to which they will be connected as values. For example:
+            { 'IN-':a_in, 'IN+':gnd, '1':AMPED_OUTPUT, '14':vcc, '7':gnd }
         part_defn: A list of strings that define the part (usually read from a
             schematic library file).
         circuit: The Circuit object this Part belongs to.
@@ -237,9 +237,43 @@ class Part(SkidlBaseObject):
                 for pin, net in connections.items():
                     net += self[pin]
 
+        # Add any XSPICE I/O as pins.
+        self.add_xspice_io(attribs.pop("io", []))
+
         # Add any other passed-in attributes to the part.
         for k, v in attribs.items():
             setattr(self, k, v)
+
+
+    def add_xspice_io(self, io):
+        """
+        Add XSPICE I/O to the pins of a part.
+        """
+        from .Pin import Pin, PinList
+
+        if not io:
+            return
+
+        if isinstance(io, basestring):
+            io = [io]  # Change a string into a list with a single string element.
+        # Join all the pin name arguments into a comma-separated string and then split them into a list.
+        ios = ",".join(io).split(INDEX_SEPARATOR)
+
+        # Add a pin to the part for each pin name.
+        for i, arg in enumerate(ios):
+            arg = arg.strip()  # Strip any spaces that may have been between pin names.
+
+            # If [pin_name] or pin_name[], then add a PinList to the part. Don't use
+            # part.add_pins() because it will flatten the PinList and add nothing since
+            # the PinList is empty.
+            if arg[0] + arg[-1] == "[]":
+                self.pins.append(PinList(num=i, name=arg[1:-1], part=self))
+            elif arg[-2:] == "[]":
+                self.pins.append(PinList(num=i, name=arg[0:-2], part=self))
+            else:
+                # Add a simple, non-vector pin.
+                self.add_pins(Pin(num=i, name=arg))
+
 
     @classmethod
     def get(cls, text, circuit=None):
@@ -328,7 +362,7 @@ class Part(SkidlBaseObject):
         for p in self.pins:
             p.part = self
 
-    def copy(self, num_copies=None, dest=NETLIST, circuit=None, **attribs):
+    def copy(self, num_copies=None, dest=NETLIST, circuit=None, io=None, **attribs):
         """
         Make zero or more copies of this part while maintaining all pin/net
         connections.
@@ -336,6 +370,8 @@ class Part(SkidlBaseObject):
         Args:
             num_copies: Number of copies to make of this part.
             dest: Indicates where the copy is destined for (e.g., NETLIST).
+            circuit: The circuit this part should be added to.
+            io: XSPICE I/O names.
 
         Keyword Args:
             attribs: Name/value pairs for setting attributes for the copy.
@@ -451,6 +487,9 @@ class Part(SkidlBaseObject):
                     self.circuit += cpy
                 else:
                     builtins.default_circuit += cpy
+
+            # Add any XSPICE I/O as pins to the part.
+            cpy.add_xspice_io(io)
 
             # Enter any new attributes.
             for k, v in attribs.items():

@@ -33,7 +33,7 @@ from builtins import dict, int, range, str, zip
 from ..defines import *
 from ..Net import Net
 from ..Part import Part
-from ..Pin import Pin
+from ..Pin import Pin, PinList
 from ..py_2_3 import *
 from ..utilities import *
 
@@ -192,6 +192,17 @@ def _mk_subckt_part(defn="XXX"):
     return part
 
 
+class XspiceModel:
+    """
+    Object to hold the parameters for an XSPICE model.
+    """
+
+    def __init__(self, *args, **kwargs):
+        self.name = args[0]
+        self.args = args
+        self.kwargs = kwargs
+
+
 def _gen_netlist_(self, **kwargs):
     """
     Return a PySpice Circuit generated from a SKiDL circuit.
@@ -219,21 +230,18 @@ def _gen_netlist_(self, **kwargs):
     lib_dirs.discard(None)
     spice_libs = [SpiceLibrary(dir) for dir in lib_dirs]
     for model in models:
-        for spice_lib in spice_libs:
-            try:
-                includes.add(spice_lib[model])
-            except KeyError:
-                pass
-            else:
-                break
+        if isinstance(model, XspiceModel):
+            circuit.model(*model.args, **model.kwargs)
         else:
-            logger.error("Unknown SPICE model: {}".format(model))
-
-    # Add any XSPICE models used by the parts.
-    models = set([getattr(part, "xspice_model", None) for part in self.parts])
-    models.discard(None)
-    for model in models:
-        circuit.model(*model.args, **model.kwargs)
+            for spice_lib in spice_libs:
+                try:
+                    includes.add(spice_lib[model])
+                except KeyError:
+                    pass
+                else:
+                    break
+            else:
+                logger.error("Unknown SPICE model: {}".format(model))
 
     # Add any subckt libraries used by the parts.
     part_names = set(
@@ -378,42 +386,6 @@ def add_subcircuit_to_circuit(part, circuit):
     getattr(circuit, part.pyspice["name"])(*args)
 
 
-class PinList(list):
-    """
-    A list of Pin objects that's meant to look something like a Pin to a Part.
-    This is used for vector I/O of XSPICE parts.
-    """
-
-    def __init__(self, num, name, part):
-        super(PinList, self).__init__()
-        # The list needs the following attributes to behave like a Pin.
-        self.num = num
-        self.name = name
-        self.part = part
-
-    def __getitem__(self, i):
-        """
-        Get a Pin from the list. Add Pin objects to the list if they don't exist.
-        """
-        if i >= len(self):
-            self.extend([Pin(num=j, part=self.part) for j in range(len(self), i + 1)])
-        return super(PinList, self).__getitem__(i)
-
-    def copy(self):
-        """
-        Return a copy of a PinList for use when a Part is copied.
-        """
-        cpy = PinList(self.num, self.name, self.part)
-        for pin in self:
-            cpy += pin.copy()
-        return cpy
-
-    def disconnect(self):
-        """Disconnect all the pins in the list."""
-        for pin in self:
-            pin.disconnect()
-
-
 def add_xspice_to_circuit(part, circuit):
     """
     Add an XSPICE part to a PySpice Circuit object.
@@ -433,69 +405,12 @@ def add_xspice_to_circuit(part, circuit):
             args.append(node(pin))
         elif isinstance(pin, PinList):
             # Add pins from a pin vector.
-            args.append("[" + ",".join([node(p) for p in pin]) + "]")
+            args.append("[" + " ".join([node(p) for p in pin]) + "]")
         else:
             logger.error("Illegal XSPICE argument: {}".format(pin))
 
     # The XSPICE model name should be the only keyword argument.
-    kwargs = {"model": part.xspice_model.name}
+    kwargs = {"model": part.model.name}
 
     # Add the part to the PySpice circuit.
     getattr(circuit, part.pyspice["name"])(*args, **kwargs)
-
-
-class XspiceModel:
-    """
-    Object to hold the parameters for an XSPICE model.
-    """
-
-    def __init__(self, *args, **kwargs):
-        self.name = args[0]
-        self.args = args
-        self.kwargs = kwargs
-
-
-def A(*args, **kwargs):
-    """
-    This function creates an XSPICE part. It replaces the A part in the pyspice_sklib.py file.
-    """
-    part = Part(
-        name="A",
-        aliases=["xspice", "XSPICE"],
-        # dest=TEMPLATE,
-        tool=SKIDL,
-        keywords="XSPICE",
-        description="XSPICE code module",
-        ref_prefix="A",
-        pyspice={
-            "name": "A",
-            "kw": {"xspice_model": "model"},
-            "add": add_xspice_to_circuit,  # The function that adds this part to the PySpice circuit.
-        },
-        num_units=1,
-        do_erc=True,
-        pins=[],
-    )
-
-    # Join all the pin name arguments into a comma-separated string and then split them back out.
-    args = ",".join(args).split(INDEX_SEPARATOR)
-
-    # Add a pin to the part for each pin name.
-    for i, arg in enumerate(args):
-        arg = arg.strip()  # Strip any spaces that may have been between pin names.
-
-        # If [pin_name] or pin_name[], then add a PinList to the part. Don't use
-        # part.add_pins() because it will flatten the PinList and add nothing since
-        # the PinList is empty.
-        if arg[0] + arg[-1] == "[]":
-            part.pins.append(PinList(num=i, name=arg[1:-1], part=part))
-        elif arg[-2:] == "[]":
-            part.pins.append(PinList(num=i, name=arg[0:-2], part=part))
-        else:
-            # Add a simple, non-vector pin.
-            part.add_pins(Pin(num=i, name=arg))
-
-    # Store the XspiceModel.
-    part.xspice_model = kwargs["model"]
-
-    return part

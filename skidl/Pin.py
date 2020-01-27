@@ -665,6 +665,45 @@ class PhantomPin(Pin):
 ##############################################################################
 
 
+class PinList(list):
+    """
+    A list of Pin objects that's meant to look something like a Pin to a Part.
+    This is used for vector I/O of XSPICE parts.
+    """
+
+    def __init__(self, num, name, part):
+        super(PinList, self).__init__()
+        # The list needs the following attributes to behave like a Pin.
+        self.num = num
+        self.name = name
+        self.part = part
+
+    def __getitem__(self, i):
+        """
+        Get a Pin from the list. Add Pin objects to the list if they don't exist.
+        """
+        if i >= len(self):
+            self.extend([Pin(num=j, part=self.part) for j in range(len(self), i + 1)])
+        return super(PinList, self).__getitem__(i)
+
+    def copy(self):
+        """
+        Return a copy of a PinList for use when a Part is copied.
+        """
+        cpy = PinList(self.num, self.name, self.part)
+        for pin in self:
+            cpy += pin.copy()
+        return cpy
+
+    def disconnect(self):
+        """Disconnect all the pins in the list."""
+        for pin in self:
+            pin.disconnect()
+
+
+##############################################################################
+
+
 # This will make all the Pin.drive members into attributes of the Pin class
 # so things like Pin.INPUT will work as well as Pin.types.INPUT.
 Pin.add_type()
