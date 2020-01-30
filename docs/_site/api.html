@@ -168,6 +168,19 @@ will be parsed if the part is actually used.</p></li>
 <code class="descclassname">skidl.tools.spice.</code><code class="descname">_mk_subckt_part</code><span class="sig-paren">(</span><em>defn='XXX'</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice._mk_subckt_part" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="class">
+<dt id="skidl.tools.spice.XspiceModel">
+<em class="property">class </em><code class="descclassname">skidl.tools.spice.</code><code class="descname">XspiceModel</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice.XspiceModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Object to hold the parameters for an XSPICE model.</p>
+<dl class="method">
+<dt id="skidl.tools.spice.XspiceModel.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice.XspiceModel.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="function">
 <dt id="skidl.tools.spice._gen_netlist_">
 <code class="descclassname">skidl.tools.spice.</code><code class="descname">_gen_netlist_</code><span class="sig-paren">(</span><em>self</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice._gen_netlist_" title="Permalink to this definition">¶</a></dt>
@@ -240,38 +253,6 @@ containing SPICE models.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="class">
-<dt id="skidl.tools.spice.PinList">
-<em class="property">class </em><code class="descclassname">skidl.tools.spice.</code><code class="descname">PinList</code><span class="sig-paren">(</span><em>num</em>, <em>name</em>, <em>part</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice.PinList" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
-<p>A list of Pin objects that’s meant to look something like a Pin to a Part.
-This is used for vector I/O of XSPICE parts.</p>
-<dl class="method">
-<dt id="skidl.tools.spice.PinList.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>num</em>, <em>name</em>, <em>part</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice.PinList.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="skidl.tools.spice.PinList.__getitem__">
-<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice.PinList.__getitem__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get a Pin from the list. Add Pin objects to the list if they don’t exist.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="skidl.tools.spice.PinList.copy">
-<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice.PinList.copy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a copy of a PinList for use when a Part is copied.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="skidl.tools.spice.PinList.disconnect">
-<code class="descname">disconnect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice.PinList.disconnect" title="Permalink to this definition">¶</a></dt>
-<dd><p>Disconnect all the pins in the list.</p>
-</dd></dl>
-
-</dd></dl>
-
 <dl class="function">
 <dt id="skidl.tools.spice.add_xspice_to_circuit">
 <code class="descclassname">skidl.tools.spice.</code><code class="descname">add_xspice_to_circuit</code><span class="sig-paren">(</span><em>part</em>, <em>circuit</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice.add_xspice_to_circuit" title="Permalink to this definition">¶</a></dt>
@@ -284,25 +265,6 @@ This is used for vector I/O of XSPICE parts.</p>
 </ul>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="class">
-<dt id="skidl.tools.spice.XspiceModel">
-<em class="property">class </em><code class="descclassname">skidl.tools.spice.</code><code class="descname">XspiceModel</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice.XspiceModel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Object to hold the parameters for an XSPICE model.</p>
-<dl class="method">
-<dt id="skidl.tools.spice.XspiceModel.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice.XspiceModel.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="skidl.tools.spice.A">
-<code class="descclassname">skidl.tools.spice.</code><code class="descname">A</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.spice.A" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function creates an XSPICE part. It replaces the A part in the pyspice_sklib.py file.</p>
 </dd></dl>
 
 </div>
@@ -1719,8 +1681,8 @@ the part defined by the part definition.</p></li>
 <li><p><strong>dest</strong> – String that indicates where the part is destined for (e.g., LIBRARY).</p></li>
 <li><p><strong>tool</strong> – The format for the library file or part definition (e.g., KICAD).</p></li>
 <li><p><strong>connections</strong> – A dictionary with part pin names/numbers as keys and the
-names of nets to which they will be connected as values. For example:
-{ ‘IN-‘:’a_in’, ‘IN+’:’GND’, ‘1’:’AMPED_OUTPUT’, ‘14’:’VCC’, ‘7’:’GND’ }</p></li>
+nets to which they will be connected as values. For example:
+{ ‘IN-‘:a_in, ‘IN+’:gnd, ‘1’:AMPED_OUTPUT, ‘14’:vcc, ‘7’:gnd }</p></li>
 <li><p><strong>part_defn</strong> – A list of strings that define the part (usually read from a
 schematic library file).</p></li>
 <li><p><strong>circuit</strong> – The Circuit object this Part belongs to.</p></li>
@@ -1747,6 +1709,12 @@ named ‘manf_num’ for the part and assign it the value ‘LM4808MP-8’.</p>
 <dt id="skidl.Part.Part.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>lib=None</em>, <em>name=None</em>, <em>dest='NETLIST'</em>, <em>tool=None</em>, <em>connections=None</em>, <em>part_defn=None</em>, <em>circuit=None</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Part.Part.add_xspice_io">
+<code class="descname">add_xspice_io</code><span class="sig-paren">(</span><em>io</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.add_xspice_io" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add XSPICE I/O to the pins of a part.</p>
 </dd></dl>
 
 <dl class="classmethod">
@@ -1795,7 +1763,7 @@ part. Leave the rest unparsed.</p>
 
 <dl class="method">
 <dt id="skidl.Part.Part.copy">
-<code class="descname">copy</code><span class="sig-paren">(</span><em>num_copies=None</em>, <em>dest='NETLIST'</em>, <em>circuit=None</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.copy" title="Permalink to this definition">¶</a></dt>
+<code class="descname">copy</code><span class="sig-paren">(</span><em>num_copies=None</em>, <em>dest='NETLIST'</em>, <em>circuit=None</em>, <em>io=None</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.copy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make zero or more copies of this part while maintaining all pin/net
 connections.</p>
 <dl class="field-list simple">
@@ -1803,6 +1771,8 @@ connections.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>num_copies</strong> – Number of copies to make of this part.</p></li>
 <li><p><strong>dest</strong> – Indicates where the copy is destined for (e.g., NETLIST).</p></li>
+<li><p><strong>circuit</strong> – The circuit this part should be added to.</p></li>
+<li><p><strong>io</strong> – XSPICE I/O names.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Keyword Arguments</dt>
@@ -1830,7 +1800,7 @@ connections.</p>
 
 <dl class="method">
 <dt id="skidl.Part.Part.__call__">
-<code class="descname">__call__</code><span class="sig-paren">(</span><em>num_copies=None</em>, <em>dest='NETLIST'</em>, <em>circuit=None</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.__call__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__call__</code><span class="sig-paren">(</span><em>num_copies=None</em>, <em>dest='NETLIST'</em>, <em>circuit=None</em>, <em>io=None</em>, <em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.__call__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make zero or more copies of this part while maintaining all pin/net
 connections.</p>
 <dl class="field-list simple">
@@ -1838,6 +1808,8 @@ connections.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>num_copies</strong> – Number of copies to make of this part.</p></li>
 <li><p><strong>dest</strong> – Indicates where the copy is destined for (e.g., NETLIST).</p></li>
+<li><p><strong>circuit</strong> – The circuit this part should be added to.</p></li>
+<li><p><strong>io</strong> – XSPICE I/O names.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Keyword Arguments</dt>
@@ -2810,6 +2782,38 @@ It will not participate in generating any netlists.</p>
 <dt id="skidl.Pin.PhantomPin.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>**attribs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.PhantomPin.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="skidl.Pin.PinList">
+<em class="property">class </em><code class="descclassname">skidl.Pin.</code><code class="descname">PinList</code><span class="sig-paren">(</span><em>num</em>, <em>name</em>, <em>part</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.PinList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
+<p>A list of Pin objects that’s meant to look something like a Pin to a Part.
+This is used for vector I/O of XSPICE parts.</p>
+<dl class="method">
+<dt id="skidl.Pin.PinList.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>num</em>, <em>name</em>, <em>part</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.PinList.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Pin.PinList.__getitem__">
+<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.PinList.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a Pin from the list. Add Pin objects to the list if they don’t exist.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Pin.PinList.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.PinList.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a copy of a PinList for use when a Part is copied.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.Pin.PinList.disconnect">
+<code class="descname">disconnect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Pin.PinList.disconnect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disconnect all the pins in the list.</p>
 </dd></dl>
 
 </dd></dl>

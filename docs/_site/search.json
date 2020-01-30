@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "xspice capability",
+		  "category"   : "blog",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/xspice-capability",
+		  "date"       : "2020-01-30 09:01:10 -0500",
+		  "shortdate"  : "January 30, 2020"
+		} ,
+	
+		{
 		  "title"      : "Version 0.0.28 Released!",
 		  "category"   : "blog",
 		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/Release_0_0_28",

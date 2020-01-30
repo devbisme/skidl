@@ -836,7 +836,7 @@ def opened(f_or_fn, mode):
        mode: The mode to open the file in.
     """
     if isinstance(f_or_fn, basestring):
-        with open(f_or_fn, mode, encoding="latin_1") as f:
+        with open(f_or_fn, mode, encoding="utf-8") as f:
             yield f
     elif hasattr(f_or_fn, "fileno"):
         if mode.replace("+", "") == f_or_fn.mode.replace("+", ""):

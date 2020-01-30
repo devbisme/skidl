@@ -3,7 +3,7 @@
 History
 -------
 
-0.0.29 (2020-01-24)
+0.0.29 (2020-01-30)
 ______________________
 
 * Added XSPICE parts capability to SPICE simulations. 

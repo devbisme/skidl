@@ -68,6 +68,11 @@ callback([
   {
     "text": "Version 0.0.28 Released!",
     "href": "https://xesscorp.github.io/skidl/docs/_site/blog/Release_0_0_28"
+  } ,
+
+  {
+    "text": "xspice capability",
+    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/xspice-capability"
   } 
 
 ])
