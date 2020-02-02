@@ -402,7 +402,11 @@ def add_xspice_to_circuit(part, circuit):
     for pin in part.pins:
         if isinstance(pin, Pin):
             # Add a non-vector pin.
-            args.append(node(pin))
+            # permit no-connect pins
+            if pin.name.lower() == "null":
+                args.append("NULL")
+            else:
+                args.append(node(pin))
         elif isinstance(pin, PinList):
             # Add pins from a pin vector.
             args.append("[" + " ".join([node(p) for p in pin]) + "]")
