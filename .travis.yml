@@ -11,8 +11,7 @@ matrix:
       name: "Test Python 3.6"
       env: TOXENV=py36
       install: pip install tox
-      script:
-        - tox
+      script: tox
     - python: 3.7
       name: "Test Python 3.7"
       env: TOXENV=py37
