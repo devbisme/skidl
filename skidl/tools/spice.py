@@ -291,6 +291,18 @@ def node(net_or_pin):
         return net_or_pin.net.name
 
 
+def _xspice_node(net_or_pin):
+    print(net_or_pin, net_or_pin.is_connected())
+    if isinstance(net_or_pin, Net):
+        return net_or_pin.name
+    if isinstance(net_or_pin, Pin):
+        if net_or_pin.is_connected():
+            return net_or_pin.net.name
+        else:
+            # For XSPICE parts, unconnected pins are connected to NULL node.
+            return "NULL"
+
+
 def _get_spice_ref(part):
     """Return a SPICE reference ID for the part."""
     if part.ref.startswith(part.ref_prefix):
@@ -401,8 +413,8 @@ def add_xspice_to_circuit(part, circuit):
     # Add the pins to the argument list.
     for pin in part.pins:
         if isinstance(pin, Pin):
-            # Add a non-vector pin.
-            args.append(node(pin))
+            # Add a non-vector pin. Use _xspice_node() in case pin is unconnected.
+            args.append(_xspice_node(pin))
         elif isinstance(pin, PinList):
             # Add pins from a pin vector.
             args.append("[" + " ".join([node(p) for p in pin]) + "]")

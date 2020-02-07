@@ -237,7 +237,7 @@ class Part(SkidlBaseObject):
                 for pin, net in connections.items():
                     net += self[pin]
 
-        # Add any XSPICE I/O as pins.
+        # Add any XSPICE I/O as pins. (This only happens with SPICE simulations.)
         self.add_xspice_io(attribs.pop("io", []))
 
         # Add any other passed-in attributes to the part.
@@ -256,6 +256,7 @@ class Part(SkidlBaseObject):
 
         if isinstance(io, basestring):
             io = [io]  # Change a string into a list with a single string element.
+
         # Join all the pin name arguments into a comma-separated string and then split them into a list.
         ios = ",".join(io).split(INDEX_SEPARATOR)
 

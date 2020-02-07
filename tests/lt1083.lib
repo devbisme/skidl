@@ -1,0 +1,485 @@
+* Copyright © Linear Technology Corp. 2012.  All rights reserved.
+*
+.subckt LT1083-12 1 2 3
+Q1 N003 2 N006 0 N temp=27
+Q3 3 N002 2 0 NP
+I2 3 N003 55µ
+Q7 3 N003 N004 0 NA
+Q12 2 N004 N002 0 PA
+I1 N004 2 100µ
+D1 N002 3 D
+G1 N002 3 3 2 table( 10 0 20 2.8m 35 3m)
+R3 3 N002 100K
+G3 3 N002 3 2 table(0.95,0m 0.969,0.5m 1,1m 1.06,1.5m 1.16,2m 1.34,2.5m 1.64,3m)
+R4 N002 N006 1Meg
+C3 3 N004 500p Rser=5K
+D3 N003 3 D
+R7 3 N003 150Meg
+R8 2 N006 242
+R9 N006 1 2.074K
+D2 3 2 2mA
+.model 2mA D(Ron=250 Roff=100 Ilimit=2m)
+.model D D(Ron=1 Roff=1T)
+.model N NPN(BF=125 Cjc=40p Re=9.87K)
+.model NA NPN(BF=125)
+.model PA PNP(BF=80)
+.model NP NPN(BF=3K)
+.ends LT1083-12
+*
+.subckt LT1083-5 1 2 3
+Q1 N003 2 N006 0 N temp=27
+Q3 3 N002 2 0 NP
+I2 3 N003 55µ
+Q7 3 N003 N004 0 NA
+Q12 2 N004 N002 0 PA
+I1 N004 2 100µ
+D1 N002 3 D
+G1 N002 3 3 2 table( 10 0 20 2.8m 35 3m)
+R3 3 N002 100K
+G3 3 N002 3 2 table(0.95,0m 0.969,0.5m 1,1m 1.06,1.5m 1.16,2m 1.34,2.5m 1.64,3m)
+R4 N002 N006 1Meg
+C3 3 N004 500p Rser=5K
+D3 N003 3 D
+R7 3 N003 150Meg
+R8 2 N006 242
+R9 N006 1 730
+D2 3 2 2mA
+.model 2mA D(Ron=250 Roff=100 Ilimit=2m)
+.model D D(Ron=1 Roff=1T)
+.model N NPN(BF=125 Cjc=40p Re=9.87K)
+.model NA NPN(BF=125)
+.model PA PNP(BF=80)
+.model NP NPN(BF=3K)
+.ends LT1083-5
+*
+.subckt LT1083 1 2 3
+Q1 N003 2 1 0 N temp=27
+Q3 3 N002 2 0 NP
+I2 3 N003 55µ
+Q7 3 N003 N004 0 NA
+Q12 2 N004 N002 0 PA
+I1 N004 2 100µ
+D1 N002 3 D
+G1 N002 3 3 2 table( 10 0 20 2.8m 35 3m)
+R3 3 N002 100K
+G3 3 N002 3 2 table(0.95,0m 0.969,0.5m 1,1m 1.06,1.5m 1.16,2m 1.34,2.5m 1.64,3m)
+R4 N002 1 1Meg
+C3 3 N004 500p Rser=5K
+D3 N003 3 D
+R7 3 N003 150Meg
+D2 3 2 2mA
+.model 2mA D(Ron=250 Roff=100 Ilimit=2m)
+.model D D(Ron=1 Roff=1T)
+.model N NPN(BF=125 Cjc=40p Re=9.87K)
+.model NA NPN(BF=125)
+.model PA PNP(BF=80)
+.model NP NPN(BF=3K)
+.ends LT1083
+*
+.subckt LT1084-12 1 2 3
+Q1 N003 2 N006 0 N temp=27
+Q3 3 N002 2 0 NP
+I2 3 N003 55µ
+Q7 3 N003 N004 0 NA
+Q12 2 N004 N002 0 PA
+I1 N004 2 100µ
+D1 N002 3 D
+G1 N002 3 3 2 table( 10 0 20 2.8m 35 3m)
+R3 3 N002 100K
+G3 3 N002 3 2 table(0.95,0m 0.969,0.5m 1,1m 1.06,1.5m 1.16,2m 1.34,2.5m 1.64,3m)
+R4 N002 N006 1Meg
+C3 3 N004 500p Rser=5K
+D3 N003 3 D
+R7 3 N003 150Meg
+D2 3 2 2mA
+R8 2 N006 242
+R9 N006 1 2.076K
+.model D D(Ron=1 Roff=1T)
+.model N NPN(BF=125 Cjc=40p Re=9.87K)
+.model NA NPN(BF=125)
+.model PA PNP(BF=80)
+.model NP NPN(BF=2K)
+.model 2mA D(Ron=250 Roff=100 Ilimit=2m)
+.ends LT1084-12
+*
+.subckt LT1084-3.3 1 2 3
+Q1 N003 2 N006 0 N temp=27
+Q3 3 N002 2 0 NP
+I2 3 N003 55µ
+Q7 3 N003 N004 0 NA
+Q12 2 N004 N002 0 PA
+I1 N004 2 100µ
+D1 N002 3 D
+G1 N002 3 3 2 table( 10 0 20 2.8m 35 3m)
+R3 3 N002 100K
+G3 3 N002 3 2 table(0.95,0m 0.969,0.5m 1,1m 1.06,1.5m 1.16,2m 1.34,2.5m 1.64,3m)
+R4 N002 N006 1Meg
+C3 3 N004 500p Rser=5K
+D3 N003 3 D
+R7 3 N003 150Meg
+D2 3 2 2mA
+R8 2 N006 242
+R9 N006 1 397
+.model D D(Ron=1 Roff=1T)
+.model N NPN(BF=125 Cjc=40p Re=9.87K)
+.model NA NPN(BF=125)
+.model PA PNP(BF=80)
+.model NP NPN(BF=2K)
+.model 2mA D(Ron=250 Roff=100 Ilimit=2m)
+.ends LT1084-3.3
+*
+.subckt LT1084-5 1 2 3
+Q1 N003 2 N006 0 N temp=27
+Q3 3 N002 2 0 NP
+I2 3 N003 55µ
+Q7 3 N003 N004 0 NA
+Q12 2 N004 N002 0 PA
+I1 N004 2 100µ
+D1 N002 3 D
+G1 N002 3 3 2 table( 10 0 20 2.8m 35 3m)
+R3 3 N002 100K
+G3 3 N002 3 2 table(0.95,0m 0.969,0.5m 1,1m 1.06,1.5m 1.16,2m 1.34,2.5m 1.64,3m)
+R4 N002 N006 1Meg
+C3 3 N004 500p Rser=5K
+D3 N003 3 D
+R7 3 N003 150Meg
+D2 3 2 2mA
+R8 2 N006 242
+R9 N006 1 725
+.model D D(Ron=1 Roff=1T)
+.model N NPN(BF=125 Cjc=40p Re=9.87K)
+.model NA NPN(BF=125)
+.model PA PNP(BF=80)
+.model NP NPN(BF=2K)
+.model 2mA D(Ron=250 Roff=100 Ilimit=2m)
+.ends LT1084-5
+*
+.subckt LT1084 1 2 3
+Q1 N003 2 1 0 N temp=27
+Q3 3 N002 2 0 NP
+I2 3 N003 55µ
+Q7 3 N003 N004 0 NA
+Q12 2 N004 N002 0 PA
+I1 N004 2 100µ
+D1 N002 3 D
+G1 N002 3 3 2 table( 10 0 20 2.8m 35 3m)
+R3 3 N002 100K
+G3 3 N002 3 2 table(0.95,0m 0.969,0.5m 1,1m 1.06,1.5m 1.16,2m 1.34,2.5m 1.64,3m)
+R4 N002 1 1Meg
+C3 3 N004 500p Rser=5K
+D3 N003 3 D
+R7 3 N003 150Meg
+D2 3 2 2mA
+.model D D(Ron=1 Roff=1T)
+.model N NPN(BF=125 Cjc=40p Re=9.87K)
+.model NA NPN(BF=125)
+.model PA PNP(BF=80)
+.model NP NPN(BF=2K)
+.model 2mA D(Ron=250 Roff=100 Ilimit=2m)
+.ends LT1084
+*
+.subckt LT1085-12 1 2 3
+Q1 N003 2 N006 0 N temp=27
+Q3 3 N002 2 0 NP
+I2 3 N003 55µ
+Q7 3 N003 N004 0 NA
+Q12 2 N004 N002 0 PA
+I1 N004 2 100µ
+D1 N002 3 D
+G1 N002 3 3 2 table( 10 0 20 2.8m 35 3m)
+R3 3 N002 100K
+G3 3 N002 3 2 table(0.95,0m 0.969,0.5m 1,1m 1.06,1.5m 1.16,2m 1.34,2.5m 1.64,3m)
+R4 N002 N006 1Meg
+C3 3 N004 500p Rser=5K
+D3 N003 3 D
+R7 3 N003 150Meg
+D2 3 2 2mA
+R2 2 N006 242
+R8 N006 1 2.076K
+.model D D(Ron=1 Roff=1T)
+.model N NPN(BF=125 Cjc=40p Re=9.87K)
+.model NA NPN(BF=125)
+.model PA PNP(BF=80)
+.model NP NPN(BF=1.2K)
+.model 2mA D(Ron=250 Roff=100 Ilimit=2m)
+.ends LT1085-12
+*
+.subckt LT1085-3.3 1 2 3
+Q1 N003 2 N006 0 N temp=27
+Q3 3 N002 2 0 NP
+I2 3 N003 55µ
+Q7 3 N003 N004 0 NA
+Q12 2 N004 N002 0 PA
+I1 N004 2 100µ
+D1 N002 3 D
+G1 N002 3 3 2 table( 10 0 20 2.8m 35 3m)
+R3 3 N002 100K
+G3 3 N002 3 2 table(0.95,0m 0.969,0.5m 1,1m 1.06,1.5m 1.16,2m 1.34,2.5m 1.64,3m)
+R4 N002 N006 1Meg
+C3 3 N004 500p Rser=5K
+D3 N003 3 D
+R7 3 N003 150Meg
+D2 3 2 2mA
+R2 2 N006 242
+R8 N006 1 397
+.model D D(Ron=1 Roff=1T)
+.model N NPN(BF=125 Cjc=40p Re=9.87K)
+.model NA NPN(BF=125)
+.model PA PNP(BF=80)
+.model NP NPN(BF=1.2K)
+.model 2mA D(Ron=250 Roff=100 Ilimit=2m)
+.ends LT1085-3.3
+*
+.subckt LT1085-3.6 1 2 3
+Q1 N003 2 N006 0 N temp=27
+Q3 3 N002 2 0 NP
+I2 3 N003 55µ
+Q7 3 N003 N004 0 NA
+Q12 2 N004 N002 0 PA
+I1 N004 2 100µ
+D1 N002 3 D
+G1 N002 3 3 2 table( 10 0 20 2.8m 35 3m)
+R3 3 N002 100K
+G3 3 N002 3 2 table(0.95,0m 0.969,0.5m 1,1m 1.06,1.5m 1.16,2m 1.34,2.5m 1.64,3m)
+R4 N002 N006 1Meg
+C3 3 N004 500p Rser=5K
+D3 N003 3 D
+R7 3 N003 150Meg
+D2 3 2 2mA
+R2 2 N006 242
+R8 N006 1 455
+.model D D(Ron=1 Roff=1T)
+.model N NPN(BF=125 Cjc=40p Re=9.87K)
+.model NA NPN(BF=125)
+.model PA PNP(BF=80)
+.model NP NPN(BF=1.2K)
+.model 2mA D(Ron=250 Roff=100 Ilimit=2m)
+.ends LT1085-3.6
+*
+.subckt LT1085-5 1 2 3
+Q1 N003 2 N006 0 N temp=27
+Q3 3 N002 2 0 NP
+I2 3 N003 55µ
+Q7 3 N003 N004 0 NA
+Q12 2 N004 N002 0 PA
+I1 N004 2 100µ
+D1 N002 3 D
+G1 N002 3 3 2 table( 10 0 20 2.8m 35 3m)
+R3 3 N002 100K
+G3 3 N002 3 2 table(0.95,0m 0.969,0.5m 1,1m 1.06,1.5m 1.16,2m 1.34,2.5m 1.64,3m)
+R4 N002 N006 1Meg
+C3 3 N004 500p Rser=5K
+D3 N003 3 D
+R7 3 N003 150Meg
+D2 3 2 2mA
+R2 2 N006 242
+R8 N006 1 725
+.model D D(Ron=1 Roff=1T)
+.model N NPN(BF=125 Cjc=40p Re=9.87K)
+.model NA NPN(BF=125)
+.model PA PNP(BF=80)
+.model NP NPN(BF=1.2K)
+.model 2mA D(Ron=250 Roff=100 Ilimit=2m)
+.ends LT1085-5
+*
+.subckt LT1085 1 2 3
+Q1 N003 2 1 0 N temp=27
+Q3 3 N002 2 0 NP
+I2 3 N003 55µ
+Q7 3 N003 N004 0 NA
+Q12 2 N004 N002 0 PA
+I1 N004 2 100µ
+D1 N002 3 D
+G1 N002 3 3 2 table( 10 0 20 2.8m 35 3m)
+R3 3 N002 100K
+G3 3 N002 3 2 table(0.95,0m 0.969,0.5m 1,1m 1.06,1.5m 1.16,2m 1.34,2.5m 1.64,3m)
+R4 N002 1 1Meg
+C3 3 N004 500p Rser=5K
+D3 N003 3 D
+R7 3 N003 150Meg
+D2 3 2 2mA
+.model D D(Ron=1 Roff=1T)
+.model N NPN(BF=125 Cjc=40p Re=9.87K)
+.model NA NPN(BF=125)
+.model PA PNP(BF=80)
+.model NP NPN(BF=1.2K)
+.model 2mA D(Ron=250 Roff=100 Ilimit=2m)
+.ends LT1085
+*
+.subckt LT1086-12 1 2 3
+Q1 N002 2 N001 0 N temp=27
+R2 N001 N005 9.87K
+Q3 3 N007 2 0 NP
+I2 3 N002 55µ
+Q7 3 N002 N006 0 NA
+Q12 2 N006 N007 0 PA
+I1 N006 2 100µ
+D1 N007 3 D
+G1 N007 3 3 2 table( 10 0 20 2.8m 35 3m)
+R3 3 N007 100K
+G3 3 N007 3 2 table(0.95,0m 0.969,0.5m 1,1m 1.06,1.5m 1.16,2m 1.34,2.5m 1.64,3m)
+R4 N007 N005 1Meg
+I4 3 2 1.5m load
+C3 3 N006 500p Rser=5K
+D3 N002 3 D
+R7 3 N002 150Meg
+R8 2 N005 242
+R5 1 N005 2.075K
+.model N NPN(BF=125 Cjc=40p)
+.model NP NPN(BF=600)
+.model D D(Ron=1 Roff=1T)
+.model PA PNP(BF=80)
+.model NA NPN(BF=125)
+.ends LT1086-12
+*
+.subckt LT1086-2.85 1 2 3
+Q1 N002 2 N001 0 N temp=27
+R2 N001 N005 9.87K
+Q3 3 N007 2 0 NP
+I2 3 N002 55µ
+Q7 3 N002 N006 0 NA
+Q12 2 N006 N007 0 PA
+I1 N006 2 100µ
+D1 N007 3 D
+G1 N007 3 3 2 table( 10 0 20 2.8m 35 3m)
+R3 3 N007 100K
+G3 3 N007 3 2 table(0.95,0m 0.969,0.5m 1,1m 1.06,1.5m 1.16,2m 1.34,2.5m 1.64,3m)
+R4 N007 N005 1Meg
+I4 3 2 1.5m load
+C3 3 N006 500p Rser=5K
+D3 N002 3 D
+R7 3 N002 150Meg
+R8 2 N005 242
+R5 1 N005 310.1
+.model N NPN(BF=125 Cjc=40p)
+.model NP NPN(BF=600)
+.model D D(Ron=1 Roff=1T)
+.model PA PNP(BF=80)
+.model NA NPN(BF=125)
+.ends LT1086-2.85
+*
+.subckt LT1086-3.3 1 2 3
+Q1 N002 2 N001 0 N temp=27
+R2 N001 N005 9.87K
+Q3 3 N007 2 0 NP
+I2 3 N002 55µ
+Q7 3 N002 N006 0 NA
+Q12 2 N006 N007 0 PA
+I1 N006 2 100µ
+D1 N007 3 D
+G1 N007 3 3 2 table( 10 0 20 2.8m 35 3m)
+R3 3 N007 100K
+G3 3 N007 3 2 table(0.95,0m 0.969,0.5m 1,1m 1.06,1.5m 1.16,2m 1.34,2.5m 1.64,3m)
+R4 N007 N005 1Meg
+I4 3 2 1.5m load
+C3 3 N006 500p Rser=5K
+D3 N002 3 D
+R7 3 N002 150Meg
+R8 2 N005 242
+R5 1 N005 397
+.model N NPN(BF=125 Cjc=40p)
+.model NP NPN(BF=600)
+.model D D(Ron=1 Roff=1T)
+.model PA PNP(BF=80)
+.model NA NPN(BF=125)
+.ends LT1086-3.3
+*
+.subckt LT1086-3.6 1 2 3
+Q1 N002 2 N001 0 N temp=27
+R2 N001 N005 9.87K
+Q3 3 N007 2 0 NP
+I2 3 N002 55µ
+Q7 3 N002 N006 0 NA
+Q12 2 N006 N007 0 PA
+I1 N006 2 100µ
+D1 N007 3 D
+G1 N007 3 3 2 table( 10 0 20 2.8m 35 3m)
+R3 3 N007 100K
+G3 3 N007 3 2 table(0.95,0m 0.969,0.5m 1,1m 1.06,1.5m 1.16,2m 1.34,2.5m 1.64,3m)
+R4 N007 N005 1Meg
+I4 3 2 1.5m load
+C3 3 N006 500p Rser=5K
+D3 N002 3 D
+R7 3 N002 150Meg
+R8 2 N005 242
+R5 1 N005 455
+.model N NPN(BF=125 Cjc=40p)
+.model NP NPN(BF=600)
+.model D D(Ron=1 Roff=1T)
+.model PA PNP(BF=80)
+.model NA NPN(BF=125)
+.ends LT1086-3.6
+*
+.subckt LT1086-5 1 2 3
+Q1 N002 2 N001 0 N temp=27
+R2 N001 N005 9.87K
+Q3 3 N007 2 0 NP
+I2 3 N002 55µ
+Q7 3 N002 N006 0 NA
+Q12 2 N006 N007 0 PA
+I1 N006 2 100µ
+D1 N007 3 D
+G1 N007 3 3 2 table( 10 0 20 2.8m 35 3m)
+R3 3 N007 100K
+G3 3 N007 3 2 table(0.95,0m 0.969,0.5m 1,1m 1.06,1.5m 1.16,2m 1.34,2.5m 1.64,3m)
+R4 N007 N005 1Meg
+I4 3 2 1.5m load
+C3 3 N006 500p Rser=5K
+D3 N002 3 D
+R7 3 N002 150Meg
+R8 2 N005 242
+R5 1 N005 725
+.model N NPN(BF=125 Cjc=40p)
+.model NP NPN(BF=600)
+.model D D(Ron=1 Roff=1T)
+.model PA PNP(BF=80)
+.model NA NPN(BF=125)
+.ends LT1086-5
+*
+.subckt LT1086 1 2 3
+Q1 N002 2 N001 0 N temp=27
+R2 N001 1 9.87K
+Q3 3 N007 2 0 NP
+I2 3 N002 55µ
+Q7 3 N002 N006 0 NA
+Q12 2 N006 N007 0 PA
+I1 N006 2 100µ
+D1 N007 3 D
+G1 N007 3 3 2 table( 10 0 20 2.8m 35 3m)
+R3 3 N007 100K
+G3 3 N007 3 2 table(0.95,0m 0.969,0.5m 1,1m 1.06,1.5m 1.16,2m 1.34,2.5m 1.64,3m)
+R4 N007 1 1Meg
+I4 3 2 2m load
+C3 3 N006 500p Rser=5K
+D3 N002 3 D
+R7 3 N002 150Meg
+.model N NPN(BF=125 Cjc=40p)
+.model NP NPN(BF=600)
+.model D D(Ron=1 Roff=1T)
+.model PA PNP(BF=80)
+.model NA NPN(BF=125)
+.ends LT1086
+*
+.subckt LT1086H 1 2 3
+Q1 N002 3 N001 0 N temp=27
+R2 N001 2 9.87K
+Q3 1 N007 3 0 NP
+I2 1 N002 55µ
+Q7 1 N002 N006 0 NA
+Q12 3 N006 N007 0 PA
+I1 N006 3 100µ
+D1 N007 1 D
+G1 N007 1 1 3 table( 10 0 20 2.8m 35 3m)
+R3 1 N007 100K
+G3 1 N007 1 3 table(0.95,0m 0.969,0.5m 1,1m 1.06,1.5m 1.16,2m 1.34,2.5m 1.64,3m)
+R4 N007 2 1Meg
+I4 1 3 2m load
+C3 1 N006 500p Rser=5K
+D3 N002 1 D
+R7 1 N002 150Meg
+.model N NPN(BF=125 Cjc=40p)
+.model NP NPN(BF=300)
+.model D D(Ron=1 Roff=1T)
+.model PA PNP(BF=80)
+.model NA NPN(BF=125)
+.ends LT1086H

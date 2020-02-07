@@ -15,7 +15,7 @@ adc = Part(
         fall_delay=1e-9 @ u_s,
     ),
 )
-buf = A(
+buf_tmp = A(
     io=["buf_in, buf_out"],
     model=XspiceModel(
         "buf",
@@ -24,12 +24,18 @@ buf = A(
         fall_delay=1e-9 @ u_s,
         input_load=1e-12 @ u_s,
     ),
+    dest=TEMPLATE,
 )
+buf = buf_tmp()
 dac = A(
     io=["dig_in[]", "anlg_out[]"],
     model=XspiceModel("dac", "dac_bridge", out_low=1.0 @ u_V, out_high=3.3 @ u_V),
 )
 r = R(value=1 @ u_kOhm)
+
+# Create an unconnected buffer to test NULL connections.
+buf2 = buf_tmp()
+buf2.buf_in += NC
 
 # Connections: sine wave -> ADC -> buffer -> DAC.
 vin["p, n"] += adc["anlg_in"][0], gnd  # Attach to first pin in ADC anlg_in vector of pins.
@@ -44,6 +50,9 @@ waveforms = sim.transient(step_time=0.1 @ u_ns, end_time=50 @ u_ns)
 time = waveforms.time
 vin = waveforms[node(vin["p"])]
 vout = waveforms[node(r["p"])]
+
+import sys
+sys.exit()
 
 print('{:^7s}{:^7s}'.format('vin', 'vout'))
 print('='*15)

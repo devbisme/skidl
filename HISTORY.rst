@@ -6,7 +6,8 @@ History
 0.0.29 (2020-01-30)
 ______________________
 
-* Added XSPICE parts capability to SPICE simulations. 
+* Added XSPICE parts capability to SPICE simulations.
+* Unconnected XSPICE ports now are set to NULL in SPICE node lists.
 
 
 0.0.28 (2019-12-17)
