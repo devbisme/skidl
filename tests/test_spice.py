@@ -105,4 +105,3 @@ def test_xspice_1():
     print("=" * 15)
     for v1, v2 in zip(vin.as_ndarray(), vout.as_ndarray()):
         print("{:6.2f} {:6.2f}".format(v1, v2))
-
