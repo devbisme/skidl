@@ -33,6 +33,7 @@ def test_lib_export_1():
     # my_lib = SchLib('my_lt1083', tool=SKIDL)
     # assert len(lib) == len(my_lib)
 
+
 def test_xspice_1():
     set_default_tool(SPICE)
     # Component declarations showing various XSPICE styles.
@@ -64,12 +65,12 @@ def test_xspice_1():
         dest=TEMPLATE,
     )
     buf = buf_tmp()
-    
+
     dac = A(
         io=["dig_in[]", "anlg_out[]"],
         model=XspiceModel("dac", "dac_bridge", out_low=1.0 @ u_V, out_high=3.3 @ u_V),
     )
-    
+
     r = R(value=1 @ u_kOhm)
 
     # Create a part with no connections to test NULL SPICE connections.
@@ -77,10 +78,20 @@ def test_xspice_1():
     buf2["buf_in"] += NC
 
     # Connections: sine wave -> ADC -> buffer -> DAC.
-    vin["p, n"] += adc["anlg_in"][0], gnd  # Attach to first pin in ADC anlg_in vector of pins.
-    adc["dig_out"][0] += buf["buf_in"]  # Attach first pin of ADC dig_out vector to buffer.
-    buf["buf_out"] += dac["dig_in"][0]  # Attach buffer output to first pin of DAC dig_in vector of pins.
-    r["p,n"] += dac["anlg_out"][0], gnd  # Attach first pin of DAC anlg_out vector to load resistor.
+    vin["p, n"] += (
+        adc["anlg_in"][0],
+        gnd,
+    )  # Attach to first pin in ADC anlg_in vector of pins.
+    adc["dig_out"][0] += buf[
+        "buf_in"
+    ]  # Attach first pin of ADC dig_out vector to buffer.
+    buf["buf_out"] += dac["dig_in"][
+        0
+    ]  # Attach buffer output to first pin of DAC dig_in vector of pins.
+    r["p,n"] += (
+        dac["anlg_out"][0],
+        gnd,
+    )  # Attach first pin of DAC anlg_out vector to load resistor.
 
     circ = generate_netlist()
     print(circ)
@@ -90,7 +101,8 @@ def test_xspice_1():
     vin = waveforms[node(vin["p"])]
     vout = waveforms[node(r["p"])]
 
-    print('{:^7s}{:^7s}'.format('vin', 'vout'))
-    print('='*15)
+    print("{:^7s}{:^7s}".format("vin", "vout"))
+    print("=" * 15)
     for v1, v2 in zip(vin.as_ndarray(), vout.as_ndarray()):
-        print('{:6.2f} {:6.2f}'.format(v1, v2))
+        print("{:6.2f} {:6.2f}".format(v1, v2))
+

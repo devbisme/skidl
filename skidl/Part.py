@@ -244,7 +244,6 @@ class Part(SkidlBaseObject):
         for k, v in attribs.items():
             setattr(self, k, v)
 
-
     def add_xspice_io(self, io):
         """
         Add XSPICE I/O to the pins of a part.
@@ -274,7 +273,6 @@ class Part(SkidlBaseObject):
             else:
                 # Add a simple, non-vector pin.
                 self.add_pins(Pin(num=i, name=arg))
-
 
     @classmethod
     def get(cls, text, circuit=None):
