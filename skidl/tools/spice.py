@@ -31,6 +31,7 @@ import os.path
 from builtins import dict, int, range, str, zip
 
 from ..defines import *
+from ..logger import logger
 from ..Net import Net
 from ..Part import Part
 from ..Pin import Pin, PinList

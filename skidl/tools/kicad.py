@@ -35,6 +35,7 @@ from builtins import dict, int, range, str, zip
 from random import randint
 
 from ..defines import *
+from ..logger import logger
 from ..pckg_info import __version__
 from ..py_2_3 import *
 from ..utilities import *

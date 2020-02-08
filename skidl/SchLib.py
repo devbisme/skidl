@@ -32,6 +32,7 @@ from builtins import str
 
 from future import standard_library
 
+from .logger import logger
 from .utilities import *
 
 standard_library.install_aliases()

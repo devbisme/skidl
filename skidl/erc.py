@@ -33,7 +33,7 @@ from builtins import str
 
 from future import standard_library
 
-from .utilities import erc_logger
+from .logger import erc_logger
 
 standard_library.install_aliases()
 

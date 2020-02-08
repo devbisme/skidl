@@ -34,6 +34,7 @@ from .Bus import *
 from .Circuit import *
 from .defines import *
 from .Interface import *
+from .logger import logger
 from .Net import *
 from .netclass import *
 from .NetPinList import *

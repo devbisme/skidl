@@ -37,6 +37,7 @@ from future import standard_library
 from .Alias import *
 from .baseobj import SkidlBaseObject
 from .Circuit import ERROR, OK, WARNING
+from .logger import logger, erc_logger
 from .utilities import *
 
 standard_library.install_aliases()

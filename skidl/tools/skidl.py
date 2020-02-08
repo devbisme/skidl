@@ -31,6 +31,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 from builtins import str
 
 from ..defines import SKIDL
+from ..logger import logger
 from ..py_2_3 import *  # pylint: disable=wildcard-import
 
 tool_name = SKIDL
@@ -45,10 +46,10 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
         filename: The name of the SKiDL schematic library file.
     """
 
-    from ..skidl import lib_suffixes
+    from ..skidl import lib_suffixes, logger
     from ..SchLib import SchLib
     from ..defines import SKIDL
-    from ..utilities import find_and_open_file, logger
+    from ..utilities import find_and_open_file
 
     try:
         f, _ = find_and_open_file(filename, lib_search_paths_, lib_suffixes[SKIDL])

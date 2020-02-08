@@ -39,6 +39,7 @@ from future import standard_library
 from .baseobj import SkidlBaseObject
 from .erc import dflt_circuit_erc
 from .pckg_info import __version__
+from .logger import logger, erc_logger
 from .utilities import *
 
 standard_library.install_aliases()
@@ -106,6 +107,7 @@ class Circuit(SkidlBaseObject):
         self.hierarchy = "top"
         self.level = 0
         self.context = [("top",)]
+        self.no_files = False  # Allow creation of files for netlists, ERC, libs, etc.
 
         # Clear the name heap for nets and parts.
         reset_get_unique_name()
@@ -404,8 +406,9 @@ class Circuit(SkidlBaseObject):
                 )
             )
 
-        with opened(file_ or (get_script_name() + ".net"), "w") as f:
-            f.write(str(netlist))
+        if not self.no_files:
+            with opened(file_ or (get_script_name() + ".net"), "w") as f:
+                f.write(str(netlist))
 
         if do_backup:
             self.backup_parts()  # Create a new backup lib for the circuit parts.
@@ -460,8 +463,9 @@ class Circuit(SkidlBaseObject):
                 "{} errors found during XML generation.\n\n".format(logger.error.count)
             )
 
-        with opened(file_ or (get_script_name() + ".xml"), "w") as f:
-            f.write(netlist)
+        if not self.no_files:
+            with opened(file_ or (get_script_name() + ".xml"), "w") as f:
+                f.write(netlist)
 
         return netlist
 
@@ -552,8 +556,10 @@ class Circuit(SkidlBaseObject):
                 xlabel = p.value
             dot.node(p.ref, shape=part_shape, xlabel=xlabel)
 
-        if file_ is not None:
-            dot.save(file_)
+        if not self.no_files:
+            if file_ is not None:
+                dot.save(file_)
+
         return dot
 
     def backup_parts(self, file_=None):
@@ -577,7 +583,9 @@ class Circuit(SkidlBaseObject):
             lib += p
         if not file_:
             file_ = skidl.BACKUP_LIB_FILE_NAME
-        lib.export(libname=skidl.BACKUP_LIB_NAME, file_=file_)
+
+        if not self.no_files:
+            lib.export(libname=skidl.BACKUP_LIB_NAME, file_=file_)
 
 
 __func_name_cntr = defaultdict(int)

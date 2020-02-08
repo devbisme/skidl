@@ -30,7 +30,6 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 import collections
 import inspect
-import logging
 import os
 import os.path
 import re
@@ -69,25 +68,6 @@ def norecurse(f):
 def natural_sort_key(s, _nsre=re.compile("([0-9]+)")):
     """Sorting function for pin numbers or names."""
     return [int(text) if text.isdigit() else text.lower() for text in _nsre.split(s)]
-
-
-class CountCalls(object):
-    """Decorator for counting the number of times a function is called.
-
-    This is used for counting errors and warnings passed to logging functions,
-    making it easy to track if and how many errors/warnings were issued.
-    """
-
-    def __init__(self, func):
-        self.func = func
-        self.count = 0
-
-    def __call__(self, *args, **kwargs):
-        self.count += 1
-        return self.func(*args, **kwargs)
-
-    def reset(self):
-        self.count = 0
 
 
 class TriggerDict(dict):
@@ -158,44 +138,6 @@ def scriptinfo():
 def get_script_name():
     """Return the name of the top-level script."""
     return os.path.splitext(scriptinfo()["name"])[0]
-
-
-def create_logger(title, log_msg_id="", log_file_suffix=".log"):
-    """
-    Create a logger, usually for run-time errors or ERC violations.
-    """
-
-    logger = logging.getLogger(title)
-
-    # Errors & warnings always appear on the terminal.
-    handler = logging.StreamHandler(sys.stderr)
-    handler.setLevel(logging.WARNING)
-    handler.setFormatter(logging.Formatter(log_msg_id + "%(levelname)s: %(message)s"))
-    logger.addHandler(handler)
-
-    # Errors and warnings are stored in a log file with the top-level script's name.
-    handler = logging.StreamHandler(open(get_script_name() + log_file_suffix, "w"))
-    handler.setLevel(logging.WARNING)
-    handler.setFormatter(logging.Formatter(log_msg_id + "%(levelname)s: %(message)s"))
-    logger.addHandler(handler)
-
-    # Set logger to trigger on info, warning, and error messages.
-    logger.setLevel(logging.INFO)
-
-    # Augment the logger's functions to count the number of errors and warnings.
-    logger.error = CountCalls(logger.error)
-    logger.warning = CountCalls(logger.warning)
-
-    return logger
-
-
-###############################################################################
-# Set up loggers for runtime messages and ERC reports.
-
-logger = create_logger("skidl")
-erc_logger = create_logger("ERC_Logger", "ERC ", ".erc")
-
-###############################################################################
 
 
 def get_skidl_trace():
@@ -290,6 +232,8 @@ def find_and_open_file(
                  subdirectories without limit.
     """
 
+    from .logger import logger
+
     # If no paths are given, then just check the current directory.
     if not paths:
         paths = ["."]
@@ -339,6 +283,8 @@ def find_and_open_file(
 
 def add_unique_attr(obj, name, value, check_dup=False):
     """Create an attribute if the attribute name isn't already used."""
+    from .logger import logger
+
     setattr(obj, name, getattr(obj, name, value))
     if check_dup and id(getattr(obj, name)) != id(value):
         logger.warn(
@@ -675,6 +621,8 @@ def expand_indices(slice_min, slice_max, *indices):
         A linear list of all the indices made up only of numbers and strings.
     """
 
+    from .logger import logger
+
     def expand_slice(slc):
         """Expand slice notation."""
 
@@ -798,6 +746,9 @@ def find_num_copies(**attribs):
         lengths that are greater than 1. (All attribute values must be scalars
         or lists/tuples of the same length.)
     """
+
+    from .logger import logger
+
     num_copies = set()
     for k, v in attribs.items():
         if isinstance(v, (list, tuple)):

@@ -34,6 +34,7 @@ from .baseobj import SkidlBaseObject
 from .defines import *
 from .erc import dflt_part_erc
 from .py_2_3 import *  # pylint: disable=wildcard-import
+from .logger import logger
 from .utilities import *
 
 try:
