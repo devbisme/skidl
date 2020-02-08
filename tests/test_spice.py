@@ -12,7 +12,7 @@ from skidl.pyspice import *  # isort:skip
 
 
 def test_lib_import_1():
-    # lib_search_paths[SPICE].append(r"C:\Program Files (x86)\LTC\LTspiceIV\lib")
+    lib_search_paths[SPICE].append(r"./SpiceLib/lib")
     lib = SchLib("lt1083", tool=SPICE)
     assert len(lib) > 0
     for p in lib.get_parts():
