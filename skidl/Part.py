@@ -33,8 +33,8 @@ from copy import copy
 from .baseobj import SkidlBaseObject
 from .defines import *
 from .erc import dflt_part_erc
-from .py_2_3 import *  # pylint: disable=wildcard-import
 from .logger import logger
+from .py_2_3 import *  # pylint: disable=wildcard-import
 from .utilities import *
 
 try:

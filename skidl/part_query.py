@@ -34,8 +34,8 @@ import re
 
 from future import standard_library
 
-from .py_2_3 import *  # pylint: disable=wildcard-import
 from .logger import logger
+from .py_2_3 import *  # pylint: disable=wildcard-import
 from .utilities import *
 
 standard_library.install_aliases()

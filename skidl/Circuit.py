@@ -38,8 +38,8 @@ from future import standard_library
 
 from .baseobj import SkidlBaseObject
 from .erc import dflt_circuit_erc
+from .logger import erc_logger, logger
 from .pckg_info import __version__
-from .logger import logger, erc_logger
 from .utilities import *
 
 standard_library.install_aliases()

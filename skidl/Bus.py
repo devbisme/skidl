@@ -34,8 +34,8 @@ from future import standard_library
 
 from .baseobj import SkidlBaseObject
 from .defines import *
-from .utilities import *
 from .logger import logger
+from .utilities import *
 
 standard_library.install_aliases()
 
