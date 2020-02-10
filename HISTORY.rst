@@ -8,6 +8,7 @@ ______________________
 
 * Added XSPICE parts capability to SPICE simulations.
 * Unconnected XSPICE ports now are set to NULL in SPICE node lists.
+* Added no_files() function to disable output to files of netlists, ERCs, logs, backup libs.
 
 
 0.0.28 (2019-12-17)
