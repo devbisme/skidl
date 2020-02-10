@@ -125,8 +125,8 @@ lib_search_paths = skidl_cfg["lib_search_paths"]
 
 # If no configuration files were found, set some default footprint search paths.
 if "footprint_search_paths" not in skidl_cfg:
-    dir = get_kicad_lib_tbl_dir()
-    skidl_cfg["footprint_search_paths"] = {KICAD: [dir], SKIDL: [dir], SPICE: [dir]}
+    dir_ = get_kicad_lib_tbl_dir()
+    skidl_cfg["footprint_search_paths"] = {KICAD: [dir_], SKIDL: [dir_], SPICE: [dir_]}
 
 # Cause the footprint cache to be invalidated if the footprint search path changes.
 def invalidate_footprint_cache(self, k, v):
@@ -224,3 +224,10 @@ backup_parts = default_circuit.backup_parts  # pylint: disable=undefined-variabl
 
 # Define a tag for nets that convey power (e.g., VCC or GND).
 POWER = Pin.drives.POWER
+
+
+def no_files(circuit=default_circuit):
+    """Prevent creation of output files (netlists, ERC, logs) by this Circuit object."""
+    circuit.no_files = True
+    erc_logger.stop_file_output()
+    logger.stop_file_output()

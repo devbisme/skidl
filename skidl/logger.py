@@ -27,6 +27,7 @@ Logging for generic messages and ERC.
 """
 
 import logging
+import os
 import sys
 
 from .utilities import get_script_name
@@ -51,11 +52,55 @@ class CountCalls(object):
         self.count = 0
 
 
+class SkidlLogFileHandler(logging.FileHandler):
+    """Logger that outputs messages to a file."""
+
+    def __init__(self, *args, **kwargs):
+        try:
+            self.filename = kwargs["filename"]
+        except KeyError:
+            self.filename = args[0]
+        super(self.__class__, self).__init__(*args, **kwargs)
+
+    def remove_log_file(self):
+        if self.filename:
+            os.remove(self.filename)
+        self.filename = None
+
+
+class SkidlLogger(logging.getLoggerClass()):
+    """SKiDL logger that can stop output to log files and delete them."""
+
+    def __init__(self, *args, **kwargs):
+        super(self.__class__, self).__init__(*args, **kwargs)
+        self.log_file_handlers = []
+
+    def addHandler(self, handler):
+        if isinstance(handler, SkidlLogFileHandler):
+            # Store handlers that output to files so they can be accessed later.
+            self.log_file_handlers.append(handler)
+        super(self.__class__, self).addHandler(handler)
+
+    def removeHandler(self, handler):
+        if handler in self.log_file_handlers:
+            # Remove log files when a log file handler is removed.
+            handler.remove_log_file()
+            # Remove handler from list of log file handlers.
+            self.log_file_handlers.remove(handler)
+        super(self.__class__, self).removeHandler(handler)
+
+    def stop_file_output(self):
+        # Stop file outputs for all log file handlers of this logger.
+        for handler in self.log_file_handlers[:]:
+            self.removeHandler(handler)
+
+
 def _create_logger(title, log_msg_id="", log_file_suffix=".log"):
     """
     Create a logger, usually for run-time errors or ERC violations.
     """
 
+    logging.setLoggerClass(SkidlLogger)
     logger = logging.getLogger(title)
 
     # Errors & warnings always appear on the terminal.
@@ -65,7 +110,7 @@ def _create_logger(title, log_msg_id="", log_file_suffix=".log"):
     logger.addHandler(handler)
 
     # Errors and warnings are stored in a log file with the top-level script's name.
-    handler = logging.StreamHandler(open(get_script_name() + log_file_suffix, "w"))
+    handler = SkidlLogFileHandler(get_script_name() + log_file_suffix, mode="w")
     handler.setLevel(logging.WARNING)
     handler.setFormatter(logging.Formatter(log_msg_id + "%(levelname)s: %(message)s"))
     logger.addHandler(handler)
@@ -81,7 +126,7 @@ def _create_logger(title, log_msg_id="", log_file_suffix=".log"):
 
 
 ###############################################################################
-# Set up loggers for runtime messages and ERC reports.
+# Set up global loggers for runtime messages and ERC reports.
 
 logger = _create_logger("skidl")
 erc_logger = _create_logger("ERC_Logger", "ERC ", ".erc")

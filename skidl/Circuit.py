@@ -339,6 +339,9 @@ class Circuit(SkidlBaseObject):
         erc_logger.error.reset()
         erc_logger.warning.reset()
 
+        if self.no_files:
+            erc_logger.stop_file_output()
+
         exec_function_list(self, "erc_list", *args, **kwargs)
 
     def _merge_net_names(self):
