@@ -31,16 +31,30 @@ from builtins import str
 
 from future import standard_library
 
+from .baseobj import SkidlBaseObject
+
 standard_library.install_aliases()
 
 
-class Interface(object):
+class Interface(dict, SkidlBaseObject):
     """
     An Interface bundles a group of nets/buses into a single entity with each
-    net/bus becoming an attribute.
+    net/bus becoming an attribute.  An Interface is also usable as a dict
+    where the attribute names serve as keys. This means the ** operator works
+    on an Interface.
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, *args, **kwargs):
+        dict.__init__(self, *args, **kwargs)
+        for k, v in self.items():
+            dict.__setattr__(self, k, v)
 
-        for k, v in kwargs.items():
-            self.__setattr__(k, v)
+    def __setattr__(self, key, value):
+        """Sets attribute and also a dict entry with a key using the attribute name."""
+        dict.__setitem__(self, key, value)
+        dict.__setattr__(self, key, value)
+
+    def __setitem__(self, key, value):
+        """Sets dict entry and also creates attribute with the same name as the dict key."""
+        dict.__setitem__(self, key, value)
+        dict.__setattr__(self, key, value)
