@@ -32,6 +32,9 @@ from builtins import range
 from future import standard_library
 
 from .logger import logger
+from .Net import Net
+from .Network import Network
+from .Pin import Pin
 from .utilities import *
 
 standard_library.install_aliases()
@@ -39,9 +42,6 @@ standard_library.install_aliases()
 
 class NetPinList(list):
     def __iadd__(self, *nets_pins_buses):
-
-        from .Net import Net
-        from .Pin import Pin
 
         nets_pins = []
         for item in expand_buses(flatten(nets_pins_buses)):
@@ -81,31 +81,26 @@ class NetPinList(list):
 
     def create_network(self):
         """Create a network from a list of pins and nets."""
-        from .Network import Network
 
         return Network(*self)  # An error will occur if list has more than 2 items.
 
     def __and__(self, obj):
         """Attach a NetPinList and another part/pin/net in serial."""
-        from .Network import Network
 
         return Network(self) & obj
 
     def __rand__(self, obj):
         """Attach a NetPinList and another part/pin/net in serial."""
-        from .Network import Network
 
         return obj & Network(self)
 
     def __or__(self, obj):
         """Attach a NetPinList and another part/pin/net in parallel."""
-        from .Network import Network
 
         return Network(self) | obj
 
     def __ror__(self, obj):
         """Attach a NetPinList and another part/pin/net in parallel."""
-        from .Network import Network
 
         return obj | Network(self)
 
