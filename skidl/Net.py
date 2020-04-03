@@ -165,7 +165,13 @@ class Net(SkidlBaseObject):
         # Remove any phantom pins that may have existed for tieing nets together.
         pins = set([p for p in pins if not isinstance(p, PhantomPin)])
 
+        # Store the traversal.
         self.traversal = Traversal(nets=list(nets), pins=list(pins))
+
+        # Every net connected to this one should have the same traversal.
+        for n in self.traversal.nets:
+            n.traversal = self.traversal
+
         return self.traversal
 
     def get_pins(self):
@@ -520,12 +526,13 @@ class Net(SkidlBaseObject):
                     ),
                 )
 
-        # If something has been connected to a net, then remove any existing traversal
-        # so it will be recomputed the next time it is needed.
+        # If something has been connected to a net, then recompute its traversal so the
+        # correct number of connected pins and nets is recorded.
         try:
             del self.traversal
         except AttributeError:
             pass  # No traversal to delete.
+        self._traverse()
 
         # Add the net to the global netlist. (It won't be added again
         # if it's already there.)
