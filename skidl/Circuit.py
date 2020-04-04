@@ -104,6 +104,7 @@ class Circuit(SkidlBaseObject):
         self.netclasses = {}
         self.buses = []
         self.interfaces = []
+        self.packages = []
         self.hierarchy = "top"
         self.level = 0
         self.context = [("top",)]
@@ -262,6 +263,13 @@ class Circuit(SkidlBaseObject):
                     "Can't remove unmovable bus {} from this circuit.".format(bus.name),
                 )
 
+    def add_packages(self, *packages):
+        self.packages.extend(packages)
+
+    def rmv_packages(self, *packages):
+        for package in packages:
+            self.packages.remove(package)
+
     def add_stuff(self, *stuff):
         """Add Parts, Nets, Buses, and Interfaces to the circuit."""
 
@@ -269,6 +277,7 @@ class Circuit(SkidlBaseObject):
         from .Net import Net
         from .Bus import Bus
         from .Interface import Interface
+        from .Package import Package
 
         for thing in flatten(stuff):
             if isinstance(thing, Part):
@@ -277,6 +286,8 @@ class Circuit(SkidlBaseObject):
                 self.add_nets(thing)
             elif isinstance(thing, Bus):
                 self.add_buses(thing)
+            elif isinstance(thing, Package):
+                self.add_packages(thing)
             else:
                 log_and_raise(
                     logger,
@@ -292,6 +303,7 @@ class Circuit(SkidlBaseObject):
         from .Bus import Bus
         from .Part import Part
         from .Interface import Interface
+        from .Package import Package
 
         for thing in flatten(stuff):
             if isinstance(thing, Part):
@@ -300,6 +312,8 @@ class Circuit(SkidlBaseObject):
                 self.rmv_nets(thing)
             elif isinstance(thing, Bus):
                 self.rmv_buses(thing)
+            elif isinstance(thing, Package):
+                self.rmv_packages(thing)
             else:
                 log_and_raise(
                     logger,
@@ -331,6 +345,15 @@ class Circuit(SkidlBaseObject):
                 # so it is also distinct.
                 distinct_nets.append(net)
         return distinct_nets
+
+    def instantiate_packages(self):
+        """Run the package executables to instantiate their circuitry."""
+        for package in self.packages:
+            package.subcircuit(**package.interface)
+
+        # Once all the packages have been instantiated, erase them so they
+        # can't be instantiated again to avoid duplicating circuitry.
+        self.packages = []
 
     def ERC(self, *args, **kwargs):
         """Run class-wide and local ERC functions on this circuit."""

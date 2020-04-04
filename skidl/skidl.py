@@ -40,9 +40,11 @@ from .netclass import *
 from .NetPinList import *
 from .Network import *
 from .Note import *
+from .Package import *
 from .Part import *
 from .part_query import *
 from .Pin import *
+from .ProtoNet import *
 from .py_2_3 import *  # pylint: disable=wildcard-import
 from .SchLib import *
 from .utilities import *  # pylint: disable=wildcard-import
