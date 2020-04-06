@@ -39,6 +39,7 @@ from future import standard_library
 from .baseobj import SkidlBaseObject
 from .erc import dflt_circuit_erc
 from .logger import erc_logger, logger
+from .scriptinfo import *
 from .pckg_info import __version__
 from .utilities import *
 

@@ -30,7 +30,7 @@ import logging
 import os
 import sys
 
-from .utilities import get_script_name
+from .scriptinfo import get_script_name
 
 
 class CountCalls(object):
