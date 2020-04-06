@@ -710,14 +710,11 @@ def expand_buses(pins_nets_buses):
     Take list of pins, nets, and buses and return a list of only pins and nets.
     """
 
-    from .Bus import Bus
-
+    # This relies on the fact that a bus is an iterable of its nets,
+    # and pins/nets return an iterable containing only a single pin/net.
     pins_nets = []
     for pnb in pins_nets_buses:
-        if isinstance(pnb, Bus):
-            pins_nets.extend(pnb.get_nets())
-        else:
-            pins_nets.append(pnb)
+        pins_nets.extend(pnb)
     return pins_nets
 
 
