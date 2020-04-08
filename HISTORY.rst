@@ -3,6 +3,12 @@
 History
 -------
 
+0.0.30 (2020-XX-XX)
+______________________
+
+* Added @package decorator to make subcircuits act like Parts..
+
+
 0.0.29 (2020-01-30)
 ______________________
 

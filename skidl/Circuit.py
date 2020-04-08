@@ -37,10 +37,16 @@ import graphviz
 from future import standard_library
 
 from .baseobj import SkidlBaseObject
+from .Bus import Bus
+from .defines import *
 from .erc import dflt_circuit_erc
+from .Interface import Interface
 from .logger import erc_logger, logger
-from .scriptinfo import *
+from .Net import NCNet, Net
+from .Part import Part
 from .pckg_info import __version__
+from .SchLib import SchLib
+from .scriptinfo import *
 from .utilities import *
 
 standard_library.install_aliases()
@@ -49,9 +55,6 @@ try:
     import __builtin__ as builtins
 except ImportError:
     import builtins
-
-
-OK, WARNING, ERROR = range(3)
 
 
 class Circuit(SkidlBaseObject):
@@ -84,8 +87,6 @@ class Circuit(SkidlBaseObject):
     def reset(self, init=False):
         """Clear any circuitry and cached part libraries and start over."""
 
-        from .SchLib import SchLib
-
         # Clear circuitry.
         self.mini_reset(init)
 
@@ -96,8 +97,6 @@ class Circuit(SkidlBaseObject):
 
     def mini_reset(self, init=False):
         """Clear any circuitry but don't erase any loaded part libraries."""
-
-        from .Net import NCNet
 
         self.name = ""
         self.parts = []
@@ -274,10 +273,6 @@ class Circuit(SkidlBaseObject):
     def add_stuff(self, *stuff):
         """Add Parts, Nets, Buses, and Interfaces to the circuit."""
 
-        from .Part import Part
-        from .Net import Net
-        from .Bus import Bus
-        from .Interface import Interface
         from .Package import Package
 
         for thing in flatten(stuff):
@@ -300,10 +295,6 @@ class Circuit(SkidlBaseObject):
     def rmv_stuff(self, *stuff):
         """Remove Parts, Nets, Buses, and Interfaces from the circuit."""
 
-        from .Net import Net
-        from .Bus import Bus
-        from .Part import Part
-        from .Interface import Interface
         from .Package import Package
 
         for thing in flatten(stuff):
@@ -388,14 +379,14 @@ class Circuit(SkidlBaseObject):
             A netlist.
         """
 
+        from . import skidl
+
         # Reset the counters to clear any warnings/errors from previous run.
         logger.error.reset()
         logger.warning.reset()
 
         # Before anything else, clean-up names for multi-segment nets.
         self._merge_net_names()
-
-        import skidl
 
         # Extract arguments:
         #     Get EDA tool the netlist will be generated for.
@@ -456,14 +447,14 @@ class Circuit(SkidlBaseObject):
             A string containing the netlist.
         """
 
+        from . import skidl
+
         # Reset the counters to clear any warnings/errors from previous run.
         logger.error.reset()
         logger.warning.reset()
 
         # Before anything else, clean-up names for multi-segment nets.
         self._merge_net_names()
-
-        import skidl
 
         if tool is None:
             tool = skidl.get_default_tool()
@@ -602,10 +593,9 @@ class Circuit(SkidlBaseObject):
             Nothing.
         """
 
-        import skidl
-        from .defines import SKIDL
+        from . import skidl
 
-        lib = skidl.SchLib(tool=SKIDL)  # Create empty library.
+        lib = SchLib(tool=SKIDL)  # Create empty library.
         for p in self.parts:
             lib += p
         if not file_:

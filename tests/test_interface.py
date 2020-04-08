@@ -22,17 +22,18 @@ def test_interface_1():
 
         vin += r1[1], c1[1]  # Connect the input to the first resistor.
         gnd += r2[2], c2[2]  # Connect the second resistor to ground.
-        vout += r1[2], c1[2], r2[1], c2[1]   # Output comes from the connection of the two resistors.
+        vout += (
+            r1[2],
+            c1[2],
+            r2[1],
+            c2[1],
+        )  # Output comes from the connection of the two resistors.
 
-    intfc = Interface(
-        gnd = Net("GND"),
-        vin = Net("VI"),
-        vout = Net("VO"),
-    )
+    intfc = Interface(gnd=Net("GND"), vin=Net("VI"), vout=Net("VO"),)
 
     resdiv(**intfc)
     resdiv(**intfc)
-    
+
     assert len(default_circuit.parts) == 8
     assert len(default_circuit.get_nets()) == 3
     assert len(default_circuit.buses) == 2
@@ -45,12 +46,12 @@ def test_interface_1():
     assert len(intfc.vin) == 4
     assert len(intfc.vout) == 8
 
-    assert len(intfc['gnd']) == 4
-    assert len(intfc['vin']) == 4
-    assert len(intfc['vout']) == 8
+    assert len(intfc["gnd"]) == 4
+    assert len(intfc["vin"]) == 4
+    assert len(intfc["vout"]) == 8
 
     intfc.gnd += Pin()
-    intfc['vin'] += Pin()
+    intfc["vin"] += Pin()
 
     assert len(Net.fetch("GND")) == 5
     assert len(Net.fetch("VI")) == 5
@@ -60,6 +61,6 @@ def test_interface_1():
     assert len(intfc.vin) == 5
     assert len(intfc.vout) == 8
 
-    assert len(intfc['gnd']) == 5
-    assert len(intfc['vin']) == 5
-    assert len(intfc['vout']) == 8
+    assert len(intfc["gnd"]) == 5
+    assert len(intfc["vin"]) == 5
+    assert len(intfc["vout"]) == 8

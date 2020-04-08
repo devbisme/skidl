@@ -35,7 +35,6 @@ from future import standard_library
 
 from .Alias import Alias
 from .Note import Note
-from .utilities import *
 
 standard_library.install_aliases()
 

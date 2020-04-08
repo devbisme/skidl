@@ -46,7 +46,6 @@ except ImportError:
 
 
 class Package(SkidlBaseObject):
-
     def __init__(self):
         pass
 
@@ -56,6 +55,7 @@ class Package(SkidlBaseObject):
         pckg.interface.update(kwargs)
         circuit += pckg
         return pckg.interface
+
 
 def package(f):
     code = f.__code__

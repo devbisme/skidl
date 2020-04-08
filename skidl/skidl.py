@@ -29,25 +29,16 @@ import os
 from builtins import open
 
 from . import tools  # Import EDA tool-specific stuff.
-from .Alias import *
-from .Bus import *
-from .Circuit import *
+from .Circuit import Circuit
 from .defines import *
-from .Interface import *
-from .logger import logger, get_script_name
-from .Net import *
-from .netclass import *
-from .NetPinList import *
-from .Network import *
-from .Note import *
-from .Package import *
-from .Part import *
-from .part_query import *
-from .Pin import *
-from .ProtoNet import *
-from .py_2_3 import *  # pylint: disable=wildcard-import
-from .SchLib import *
-from .utilities import *  # pylint: disable=wildcard-import
+from .logger import erc_logger, get_script_name, logger
+from .Pin import Pin
+from .utilities import *
+
+try:
+    import __builtin__ as builtins
+except ImportError:
+    import builtins
 
 
 class SkidlCfg(dict):

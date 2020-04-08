@@ -32,9 +32,13 @@ from builtins import range, str
 
 from future import standard_library
 
+from .Alias import Alias
 from .baseobj import SkidlBaseObject
 from .defines import *
 from .logger import logger
+from .Net import Net
+from .NetPinList import NetPinList
+from .Pin import Pin
 from .utilities import *
 
 standard_library.install_aliases()
@@ -68,8 +72,6 @@ class Bus(SkidlBaseObject):
     @classmethod
     def get(cls, name, circuit=None):
         """Get the bus with the given name from a circuit, or return None."""
-
-        from .Alias import Alias
 
         if not circuit:
             circuit = builtins.default_circuit
@@ -137,10 +139,6 @@ class Bus(SkidlBaseObject):
 
     def insert(self, index, *objects):
         """Insert objects into bus starting at indexed position."""
-
-        from .Net import Net
-        from .Bus import Bus
-        from .Pin import Pin
 
         for obj in flatten(objects):
             if isinstance(obj, int):
@@ -296,8 +294,6 @@ class Bus(SkidlBaseObject):
             A bus if the indices are valid, otherwise None.
         """
 
-        from .NetPinList import NetPinList
-
         # Use the indices to get the nets from the bus.
         nets = []
         for ident in expand_indices(0, len(self) - 1, ids):
@@ -389,8 +385,6 @@ class Bus(SkidlBaseObject):
                 b = Bus('B', 2) # Create a two-wire bus.
                 b += p,n        # Connect pin and net to B[0] and B[1].
         """
-
-        from .NetPinList import NetPinList
 
         nets = NetPinList(self.nets)
         nets += pins_nets_buses

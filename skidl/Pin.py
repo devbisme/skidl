@@ -36,7 +36,7 @@ from future import standard_library
 
 from .Alias import *
 from .baseobj import SkidlBaseObject
-from .Circuit import ERROR, OK, WARNING
+from .defines import *
 from .logger import erc_logger, logger
 from .utilities import *
 
@@ -535,7 +535,6 @@ class Pin(SkidlBaseObject):
 
     def chk_conflict(self, other_pin):
         """Check for electrical rule conflicts between this pin and another."""
-        from .Circuit import OK, ERROR, WARNING
 
         if not self.do_erc or not other_pin.do_erc:
             return

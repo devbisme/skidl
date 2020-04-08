@@ -36,9 +36,9 @@ from random import randint
 
 from ..defines import *
 from ..logger import logger
-from ..scriptinfo import scriptinfo
 from ..pckg_info import __version__
 from ..py_2_3 import *
+from ..scriptinfo import scriptinfo
 from ..utilities import *
 
 tool_name = KICAD

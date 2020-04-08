@@ -35,6 +35,10 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 from future import standard_library
 
 standard_library.install_aliases()
+
+
+OK, WARNING, ERROR = range(3)
+
 NETLIST, LIBRARY, TEMPLATE = ["NETLIST", "LIBRARY", "TEMPLATE"]
 
 # Prefixes for implicit nets and buses.
