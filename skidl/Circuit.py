@@ -341,10 +341,10 @@ class Circuit(SkidlBaseObject):
     def instantiate_packages(self):
         """Run the package executables to instantiate their circuitry."""
         for package in self.packages:
-            package.subcircuit(**package.interface)
+            package.subcircuit(**package)
 
-        # Once all the packages have been instantiated, erase them so they
-        # can't be instantiated again to avoid duplicating circuitry.
+        # Avoid duplicating circuitry by deleting packages after they've
+        # been instantiated once.
         self.packages = []
 
     def ERC(self, *args, **kwargs):
@@ -380,6 +380,8 @@ class Circuit(SkidlBaseObject):
         """
 
         from . import skidl
+
+        self.instantiate_packages()
 
         # Reset the counters to clear any warnings/errors from previous run.
         logger.error.reset()

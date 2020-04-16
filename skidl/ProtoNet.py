@@ -42,7 +42,7 @@ standard_library.install_aliases()
 
 class ProtoNet(object):
     def __init__(self, name=None):
-        self._name = name
+        self.name = name
 
     def __iadd__(self, *nets_pins_buses):
 
@@ -69,10 +69,17 @@ class ProtoNet(object):
                 ),
             )
         elif sz == 1:
-            n = Net(self._name)
+            n = Net(self.name)
             n += nets_pins[0]
             return n
         else:
-            b = Bus(self._name, sz)
+            b = Bus(self.name, sz)
             b += nets_pins
             return b
+
+    def __iter__(self):
+        """
+        Return an iterator for stepping through the ProtoNet.
+        """
+        # You can only iterate a ProtoNet one time.
+        return (self for _ in [self])  # Return generator expr.
