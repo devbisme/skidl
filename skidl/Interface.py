@@ -32,6 +32,8 @@ from builtins import str
 from future import standard_library
 
 from .baseobj import SkidlBaseObject
+from .ProtoNet import ProtoNet
+from .utilities import *
 
 standard_library.install_aliases()
 
@@ -56,5 +58,76 @@ class Interface(dict, SkidlBaseObject):
 
     def __setitem__(self, key, value):
         """Sets dict entry and also creates attribute with the same name as the dict key."""
-        dict.__setitem__(self, key, value)
-        dict.__setattr__(self, key, value)
+        if from_iadd(value):
+            # If interface items are being changed as a result of += operator...
+            for v in to_list(value):
+                # Look for interface key name attached to each value.
+                # Only ProtoNets should have them because they need to be
+                # changed to a Net or Bus once they are connected to something.
+                key = getattr(v, "intfc_key", None)
+                if key:
+                    # Set the ProtoNet in the interface entry with key to its new Net or Bus value.
+                    dict.__setitem__(self, key, v)
+                    dict.__setattr__(self, key, v)
+            # The interface key and += flag in the values are no longer needed.
+            rmv_attr(value, "intfc_key")
+            rmv_attr(value, "iadd_flag")
+        else:
+            # This is for a straight assignment of value to key.
+            dict.__setitem__(self, key, value)
+            dict.__setattr__(self, key, value)
+
+    def get_io(self, *io_ids):
+        """
+        Return list of I/O selected by names.
+
+        Args:
+            io_ids: A list of strings containing names, numbers,
+                regular expressions, slices, lists or tuples. If empty,
+                then it will select all pins.
+
+        Returns:
+            A list of ios matching the given IDs,
+            or just a single object if only a single match was found.
+            Or None if no match was found.
+        """
+
+        from .NetPinList import NetPinList
+
+        # If no I/O identifiers were given, then use a wildcard that will
+        # select all of them.
+        if not io_ids:
+            io_ids = [".*"]
+
+        # Determine the minimum and maximum I/Os if they don't already exist.
+        min_io = 0
+        max_io = len(self.keys())
+
+        # Go through the list of I/Os one-by-one.
+        ios = NetPinList()
+        for io_id in expand_indices(min_io, max_io, *io_ids):
+            try:
+                # Look for an exact match of the ID.
+                io = dict.__getitem__(self, io_id)
+                if isinstance(io, ProtoNet):
+                    # Store the key for this ProtoNet I/O so we'll know where to update it later.
+                    io.intfc_key = io_id
+                ios.append(io)
+            except KeyError:
+                # OK, I/O id is doesn't exactly match a name. Does it match a substring
+                # within an I/O name? Store the I/Os in a named tuple with a 'name'
+                # attribute to filter_list can be used to find matches.
+                from collections import namedtuple
+                IO_Net = namedtuple("IO", "name, net")
+                io_nets = [IO_Net(k, v) for k, v in self.items()]
+                io_id_re = "".join([".*", io_id, ".*"])
+                for io in filter_list(io_nets, name=io_id_re):
+                    if isinstance(io.net, ProtoNet):
+                        # Store the key for this ProtoNet I/O so we'll know where to update it later.
+                        io.net.intfc_key = io_id
+                    ios.append(io.net)
+
+        return list_or_scalar(ios)
+
+    # Get I/Os from an interface using brackets, e.g. ['A, B'].
+    __getitem__ = get_io

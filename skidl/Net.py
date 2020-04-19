@@ -419,6 +419,7 @@ class Net(SkidlBaseObject):
         """
 
         from .Pin import Pin, PhantomPin
+        from .ProtoNet import ProtoNet
 
         def merge(net):
             """
@@ -489,7 +490,9 @@ class Net(SkidlBaseObject):
 
         # Go through all the pins and/or nets and connect them to this net.
         for pn in expand_buses(flatten(pins_nets_buses)):
-            if isinstance(pn, Net):
+            if isinstance(pn, ProtoNet):
+                pn += self
+            elif isinstance(pn, Net):
                 if pn.circuit == self.circuit:
                     merge(pn)
                 else:

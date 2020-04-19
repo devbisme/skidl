@@ -285,6 +285,25 @@ def flatten(nested_list):
     return lst
 
 
+def from_iadd(objs):
+    """Return True if one or more objects have attribute iadd_flag set to True."""
+    return any([getattr(e, "iadd_flag", False) for e in to_list(objs)])
+
+
+def rmv_attr(objs, attr):
+    """Remove an attribute from a list of objects."""
+    for o in to_list(objs):
+        try:
+            delattr(o, attr)
+        except AttributeError:
+            pass
+
+
+def clr_iadd(objs):
+    """Delete iadd_flag attribute from a list of objects."""
+    rmv_attr(objs, "iadd_flag")
+
+
 # Store names that have been previously assigned.
 name_heap = set([None])
 prefix_counts = collections.Counter()

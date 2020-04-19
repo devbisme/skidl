@@ -35,14 +35,23 @@ from .Bus import Bus
 from .logger import logger
 from .Net import Net
 from .Pin import Pin
+from .Network import Network
 from .utilities import *
 
 standard_library.install_aliases()
 
+try:
+    import __builtin__ as builtins
+except ImportError:
+    import builtins
+
 
 class ProtoNet(object):
-    def __init__(self, name=None):
+    def __init__(self, name=None, circuit=None):
         self.name = name
+        if not circuit:
+            circuit = builtins.default_circuit
+        self.circuit = circuit
 
     def __iadd__(self, *nets_pins_buses):
 
@@ -69,13 +78,51 @@ class ProtoNet(object):
                 ),
             )
         elif sz == 1:
-            n = Net(self.name)
+            n = Net(self.name, circuit=self.circuit)
+            n.iadd_flag = True
+            try:
+                n.intfc_key = self.intfc_key
+            except AttributeError:
+                pass
             n += nets_pins[0]
             return n
         else:
-            b = Bus(self.name, sz)
+            b = Bus(self.name, sz, circuit=self.circuit)
+            b.iadd_flag = True
+            try:
+                b.intfc_key = self.intfc_key
+            except AttributeError:
+                pass
             b += nets_pins
             return b
+
+    def create_network(self):
+        """Create a network from a single ProtoNet."""
+
+        self += Net()  # Turn ProtoNet into a Net.
+        ntwk = Network()
+        ntwk.append(self)
+        return ntwk
+
+    def __and__(self, obj):
+        """Attach a net and another part/pin/net in serial."""
+
+        return Network(self) & obj
+
+    def __rand__(self, obj):
+        """Attach a net and another part/pin/net in serial."""
+
+        return obj & Network(self)
+
+    def __or__(self, obj):
+        """Attach a net and another part/pin/net in parallel."""
+
+        return Network(self) | obj
+
+    def __ror__(self, obj):
+        """Attach a net and another part/pin/net in parallel."""
+
+        return obj | Network(self)
 
     def __iter__(self):
         """
