@@ -6,7 +6,10 @@ History
 0.0.30 (2020-XX-XX)
 ______________________
 
-* Added @package decorator to make subcircuits act like Parts..
+* Added @package decorator to make subcircuits act like Parts.
+* Interfaces now work like dictionaries so the ** operator works as expected.
+* Interface I/O can now be accessed using brackets ([]) and via attributes (e.g., intfc.a).
+* Added tee() function for creating T-junctions in networks.
 
 
 0.0.29 (2020-01-30)

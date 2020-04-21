@@ -65,3 +65,14 @@ def test_ntwk_6():
     q1 = Part("Device", "Q_NPN_EBC")
     with pytest.raises(ValueError):
         (r1 | r2) & q1
+
+
+def test_ntwk_7():
+    """Test tee() function."""
+    r1, r2, r3, r4, r5 = Part("Device", "R", dest=TEMPLATE) * 5
+    vi, gnd = Net("VI"), Net("GND")
+    ntwk = vi & r1 & r2 & tee(r3 & r4 & gnd) & r5 & gnd
+    assert len(r3[1].get_nets()[0]) == 3
+    assert len(r2[2].get_nets()[0]) == 3
+    assert len(r5[1].get_nets()[0]) == 3
+    assert len(gnd.get_pins()) == 2
