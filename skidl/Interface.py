@@ -119,6 +119,7 @@ class Interface(dict, SkidlBaseObject):
                 # within an I/O name? Store the I/Os in a named tuple with a 'name'
                 # attribute to filter_list can be used to find matches.
                 from collections import namedtuple
+
                 IO_Net = namedtuple("IO", "name, net")
                 io_nets = [IO_Net(k, v) for k, v in self.items()]
                 io_id_re = "".join([".*", io_id, ".*"])

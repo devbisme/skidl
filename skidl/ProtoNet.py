@@ -33,8 +33,8 @@ from future import standard_library
 
 from .logger import logger
 from .Net import Net
-from .Pin import Pin
 from .Network import Network
+from .Pin import Pin
 from .utilities import *
 
 standard_library.install_aliases()
@@ -54,7 +54,7 @@ class ProtoNet(object):
 
     def __iadd__(self, *nets_pins_buses):
         from .Bus import Bus
-    
+
         nets_pins = []
         for item in expand_buses(flatten(nets_pins_buses)):
             if isinstance(item, (Pin, Net)):
@@ -77,26 +77,19 @@ class ProtoNet(object):
                     self.__class__.__name__
                 ),
             )
-        elif sz == 1:
-            n = Net(self.name, circuit=self.circuit)
-            n.iadd_flag = True
-            try:
-                n.intfc_key = self.intfc_key
-                self.intfc[self.intfc_key] = n
-            except AttributeError:
-                pass
-            n += nets_pins[0]
-            return n
         else:
-            b = Bus(self.name, sz, circuit=self.circuit)
-            b.iadd_flag = True
+            if sz == 1:
+                cnct = Net(self.name, circuit=self.circuit)
+            else:
+                cnct = Bus(self.name, sz, circuit=self.circuit)
+            cnct.iadd_flag = True
             try:
-                b.intfc_key = self.intfc_key
-                self.intfc[self.intfc_key] = b
+                cnct.intfc_key = self.intfc_key
+                self.intfc[self.intfc_key] = cnct
             except AttributeError:
                 pass
-            b += nets_pins
-            return b
+            cnct += nets_pins
+            return cnct
 
     def __len__(self):
         # ProtoNets never have attached pins because then they would become Nets.

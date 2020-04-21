@@ -47,7 +47,7 @@ except ImportError:
 class Package(Interface):
     def __init__(self, **kwargs):
         # Don't use update(). It doesn't seem to call __setitem__.
-        for k,v in kwargs.items():
+        for k, v in kwargs.items():
             self[k] = v  # Use __setitem__ so both dict item and attribute are created.
 
     def __call__(self, *args, **kwargs):
@@ -58,10 +58,12 @@ class Package(Interface):
 
         pckg = Package(**self.copy())  # Create a shallow copy of the package.
         # Don't use update(). It doesn't seem to call __setitem__.
-        for k,v in kwargs.items():
+        for k, v in kwargs.items():
             pckg[k] = v  # Use __setitem__ so both dict item and attribute are created.
         pckg.subcircuit = self.subcircuit  # Assign subcircuit creation function.
-        del pckg['subcircuit']  # Remove creation function so it's not passed as a parameter. 
+        del pckg[
+            "subcircuit"
+        ]  # Remove creation function so it's not passed as a parameter.
         circuit += pckg  # Add package to circuit.
 
         return pckg
@@ -82,6 +84,6 @@ def package(subcirc_func):
 
     # Remove the subcircuit key from the dict so it won't be passed to subcirc_f().
     pckg.subcircuit = subcircuit(subcirc_func)
-    del pckg['subcircuit']
+    del pckg["subcircuit"]
 
     return pckg
