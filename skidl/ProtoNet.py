@@ -31,7 +31,6 @@ from builtins import range
 
 from future import standard_library
 
-from .Bus import Bus
 from .logger import logger
 from .Net import Net
 from .Pin import Pin
@@ -54,7 +53,8 @@ class ProtoNet(object):
         self.circuit = circuit
 
     def __iadd__(self, *nets_pins_buses):
-
+        from .Bus import Bus
+    
         nets_pins = []
         for item in expand_buses(flatten(nets_pins_buses)):
             if isinstance(item, (Pin, Net)):
@@ -82,6 +82,7 @@ class ProtoNet(object):
             n.iadd_flag = True
             try:
                 n.intfc_key = self.intfc_key
+                self.intfc[self.intfc_key] = n
             except AttributeError:
                 pass
             n += nets_pins[0]
@@ -91,10 +92,15 @@ class ProtoNet(object):
             b.iadd_flag = True
             try:
                 b.intfc_key = self.intfc_key
+                self.intfc[self.intfc_key] = b
             except AttributeError:
                 pass
             b += nets_pins
             return b
+
+    def __len__(self):
+        # ProtoNets never have attached pins because then they would become Nets.
+        return 0
 
     def create_network(self):
         """Create a network from a single ProtoNet."""

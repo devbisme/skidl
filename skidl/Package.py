@@ -28,7 +28,7 @@ Package a subcircuit so it can be used like a Part.
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 from builtins import range
-from copy import deepcopy
+from copy import copy
 
 from future import standard_library
 
@@ -46,7 +46,9 @@ except ImportError:
 
 class Package(Interface):
     def __init__(self, **kwargs):
-        self.update(kwargs)  # Package is Interface is dict, so update works.
+        # Don't use update(). It doesn't seem to call __setitem__.
+        for k,v in kwargs.items():
+            self[k] = v  # Use __setitem__ so both dict item and attribute are created.
 
     def __call__(self, *args, **kwargs):
         """Create a copy of a package."""
@@ -54,8 +56,10 @@ class Package(Interface):
         # Get circuit that will contain the package subcircuitry.
         circuit = kwargs.pop("circuit", default_circuit)
 
-        pckg = Package(**self)  # Create a shallow copy of the package.
-        pckg.update(kwargs)  # Add any passed-in parameters.
+        pckg = Package(**self.copy())  # Create a shallow copy of the package.
+        # Don't use update(). It doesn't seem to call __setitem__.
+        for k,v in kwargs.items():
+            pckg[k] = v  # Use __setitem__ so both dict item and attribute are created.
         pckg.subcircuit = self.subcircuit  # Assign subcircuit creation function.
         del pckg['subcircuit']  # Remove creation function so it's not passed as a parameter. 
         circuit += pckg  # Add package to circuit.

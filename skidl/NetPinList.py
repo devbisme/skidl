@@ -35,6 +35,7 @@ from .logger import logger
 from .Net import Net
 from .Network import Network
 from .Pin import Pin
+from .ProtoNet import ProtoNet
 from .utilities import *
 
 standard_library.install_aliases()
@@ -45,7 +46,7 @@ class NetPinList(list):
 
         nets_pins = []
         for item in expand_buses(flatten(nets_pins_buses)):
-            if isinstance(item, (Pin, Net)):
+            if isinstance(item, (Pin, Net, ProtoNet)):
                 nets_pins.append(item)
             else:
                 log_and_raise(
@@ -72,7 +73,10 @@ class NetPinList(list):
 
         # Connect the nets to the nets in the bus.
         for i, np in enumerate(nets_pins):
-            self[i] += np
+            if isinstance(np, ProtoNet):
+                np += self[i]
+            else:
+                self[i] += np
 
         # Set the flag to indicate this result came from the += operator.
         self.iadd_flag = True  # pylint: disable=attribute-defined-outside-init

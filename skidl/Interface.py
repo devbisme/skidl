@@ -101,7 +101,7 @@ class Interface(dict, SkidlBaseObject):
 
         # Determine the minimum and maximum I/Os if they don't already exist.
         min_io = 0
-        max_io = len(self.keys())
+        max_io = len(self)
 
         # Go through the list of I/Os one-by-one.
         ios = NetPinList()
@@ -112,6 +112,7 @@ class Interface(dict, SkidlBaseObject):
                 if isinstance(io, ProtoNet):
                     # Store the key for this ProtoNet I/O so we'll know where to update it later.
                     io.intfc_key = io_id
+                    io.intfc = self
                 ios.append(io)
             except KeyError:
                 # OK, I/O id is doesn't exactly match a name. Does it match a substring
@@ -124,7 +125,8 @@ class Interface(dict, SkidlBaseObject):
                 for io in filter_list(io_nets, name=io_id_re):
                     if isinstance(io.net, ProtoNet):
                         # Store the key for this ProtoNet I/O so we'll know where to update it later.
-                        io.net.intfc_key = io_id
+                        io.net.intfc_key = io.name
+                        io.net.intfc = self
                     ios.append(io.net)
 
         return list_or_scalar(ios)

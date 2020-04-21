@@ -104,3 +104,50 @@ def test_package_2():
     assert len(rc_rc_2["gnd"]) == 4
     assert len(rc_rc_2["vin"]) == 3
     assert len(rc_rc_2["vout"]) == 2
+
+def test_package_3():
+    @package
+    def f(a,b):
+        pass
+    
+    ff = f()
+    b = Bus('B',2)
+    b += Pin(),Pin()
+    b += ff['']
+    b[0] += Pin()
+    assert len(ff.a) == 2
+    assert len(ff.b) == 1
+    assert len(ff['a']) == 2
+    assert len(ff['b']) == 1
+
+def test_package_4():
+    @package
+    def f(a,b):
+        pass
+    
+    ff = f()
+    b = Bus('B',2)
+    b += Pin(),Pin()
+    ff[''] += b
+    b[0] += Pin()
+    assert len(ff.a) == 2
+    assert len(ff.b) == 1
+    assert len(ff['a']) == 2
+    assert len(ff['b']) == 1
+
+def test_package_5():
+    @package
+    def f(a,b,c):
+        pass
+    
+    ff = f()
+    b = Bus('B',2)
+    b += Pin(),Pin()
+    ff['a,b'] += b
+    b[0] += Pin()
+    assert len(ff.a) == 2
+    assert len(ff.b) == 1
+    assert len(ff.c) == 0
+    assert len(ff['a']) == 2
+    assert len(ff['b']) == 1
+    assert len(ff['c']) == 0
