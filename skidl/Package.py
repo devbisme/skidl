@@ -32,6 +32,7 @@ from copy import copy
 
 from future import standard_library
 
+from .defines import *
 from .Circuit import subcircuit
 from .Interface import Interface
 from .ProtoNet import ProtoNet
@@ -56,15 +57,20 @@ class Package(Interface):
         # Get circuit that will contain the package subcircuitry.
         circuit = kwargs.pop("circuit", default_circuit)
 
+        # See if this package should be instantiated into the netlist or used as a template.
+        dest = kwargs.pop("dest", NETLIST)
+
         pckg = Package(**self.copy())  # Create a shallow copy of the package.
         # Don't use update(). It doesn't seem to call __setitem__.
         for k, v in kwargs.items():
             pckg[k] = v  # Use __setitem__ so both dict item and attribute are created.
         pckg.subcircuit = self.subcircuit  # Assign subcircuit creation function.
-        del pckg[
-            "subcircuit"
-        ]  # Remove creation function so it's not passed as a parameter.
-        circuit += pckg  # Add package to circuit.
+        # Remove creation function so it's not passed as a parameter.
+        del pckg["subcircuit"]
+
+        # Add package to circuit only if it's supposed to be instantiated.
+        if dest == NETLIST:
+            circuit += pckg
 
         return pckg
 
