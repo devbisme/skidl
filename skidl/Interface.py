@@ -31,6 +31,7 @@ from builtins import str
 
 from future import standard_library
 
+from .Alias import Alias
 from .baseobj import SkidlBaseObject
 from .ProtoNet import ProtoNet
 from .utilities import *
@@ -129,6 +130,19 @@ class Interface(dict, SkidlBaseObject):
                         io.net.intfc_key = io.name
                         io.net.intfc = self
                     ios.append(io.net)
+
+                # No match found on I/O names, so search I/O aliases.
+                if not ios:
+                    for io_name, io_net in self.items():
+                        try:
+                            if io_id in io_net.aliases:
+                                if isinstance(io_net, ProtoNet):
+                                    # Store the key for this ProtoNet I/O so we'll know where to update it later.
+                                    io_net.intfc_key = io_name
+                                    io_net.intfc = self
+                                ios.append(io_net)
+                        except AttributeError:
+                            pass  # Ignore stuff without an aliases attribute.
 
         return list_or_scalar(ios)
 

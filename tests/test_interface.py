@@ -31,6 +31,9 @@ def test_interface_1():
 
     intfc = Interface(gnd=Net("GND"), vin=Net("VI"), vout=Net("VO"),)
 
+    intfc.gnd.aliases += "GND"
+    intfc.gnd.aliases += "GNDA"
+
     resdiv(**intfc)
     resdiv(**intfc)
 
@@ -64,3 +67,6 @@ def test_interface_1():
     assert len(intfc["gnd"]) == 5
     assert len(intfc["vin"]) == 5
     assert len(intfc["vout"]) == 8
+
+    assert len(intfc["GND"]) == 5
+    assert len(intfc["GNDA"]) == 5

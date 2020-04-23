@@ -154,3 +154,60 @@ def test_package_5():
     assert len(ff["a"]) == 2
     assert len(ff["b"]) == 1
     assert len(ff["c"]) == 0
+
+
+def test_package_6():
+    @package
+    def reg_adj(VI, VO, GND, bom, output_voltage):
+        """Create voltage regulator with adjustable output."""
+
+        # Create adjustable regulator chip and connect to input and output.
+        reg = bom["reg"]()
+        reg["VI"] += VI
+        reg["VO"] += VO
+
+        # Create resistor divider and attach between output, adjust pin and ground.
+        rh = bom["r"]()
+        rl = bom["r"]()
+        r_total = 1000
+        rl.value = (1.25 / output_voltage) * r_total
+        rh.value = r_total - float(rl.value)
+        vout & rh & reg["ADJ"] & rl & GND
+
+    @package
+    def vreg(vin, vout, gnd, bom):
+        """Create voltage regulator with filtering caps."""
+
+        # Create regulator and attach to input, output and ground.
+        reg = bom["reg"]()
+        reg["VI, VO, GND"] += vin, vout, gnd
+
+        # Attach filtering capacitors on input and output.
+        cin, cout = bom["c"](2)
+        vin & cin & gnd
+        vout & cout & gnd
+
+    @package
+    def vreg_adj(vin, vout, gnd, bom, output_voltage=3.0):
+        """Create adjustable voltage regulator with filtering caps."""
+        bom2 = copy(bom)
+        bom2["reg"] = reg_adj(bom=bom, output_voltage=output_voltage, dest=TEMPLATE)
+        vreg(vin=vin, vout=vout, gnd=gnd, bom=bom2)
+
+    vin, vout, gnd = Net("VIN"), Net("VOUT"), Net("GND")
+    reg = Part("xess.lib", "1117", dest=TEMPLATE)
+    reg.GND.aliases += "ADJ"
+    reg.IN.aliases += "VI"
+    reg.OUT.aliases += "VO"
+    bom = {
+        "r": Part("Device", "R", dest=TEMPLATE),
+        "c": Part("Device", "C", dest=TEMPLATE),
+        "reg": reg,
+    }
+    vr = vreg_adj(bom=bom)
+    vr["vin, vout, gnd"] += vin, vout, gnd
+    default_circuit.instantiate_packages()
+    # generate_netlist()
+    assert len(vin) == 2
+    assert len(gnd) == 3
+    assert len(vout) == 3

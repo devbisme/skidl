@@ -31,6 +31,7 @@ from builtins import range
 
 from future import standard_library
 
+from .baseobj import SkidlBaseObject
 from .logger import logger
 from .Net import Net
 from .Network import Network
@@ -45,7 +46,7 @@ except ImportError:
     import builtins
 
 
-class ProtoNet(object):
+class ProtoNet(SkidlBaseObject):
     def __init__(self, name=None, circuit=None):
         self.name = name
         if not circuit:

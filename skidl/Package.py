@@ -32,8 +32,8 @@ from copy import copy
 
 from future import standard_library
 
-from .defines import *
 from .Circuit import subcircuit
+from .defines import *
 from .Interface import Interface
 from .ProtoNet import ProtoNet
 
@@ -90,7 +90,9 @@ def package(subcirc_func):
 
     # Set any default values for the parameters.
     if getattr(subcirc_func, "__defaults__", None):
-        for arg_name, dflt_value in zip(reversed(arg_names), reversed(subcirc_func.__defaults__)):
+        for arg_name, dflt_value in zip(
+            reversed(arg_names), reversed(subcirc_func.__defaults__)
+        ):
             pckg[arg_name] = dflt_value
     if getattr(subcirc_func, "__kwdefaults__", None):
         for arg_name, dflt_value in subcirc_func.__kwdefaults__:

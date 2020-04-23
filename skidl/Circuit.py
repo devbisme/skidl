@@ -350,6 +350,9 @@ class Circuit(SkidlBaseObject):
     def ERC(self, *args, **kwargs):
         """Run class-wide and local ERC functions on this circuit."""
 
+        # Generate circuitry for any packages that were instantiated.
+        self.instantiate_packages()
+
         # Reset the counters to clear any warnings/errors from previous ERC run.
         erc_logger.error.reset()
         erc_logger.warning.reset()
@@ -381,6 +384,7 @@ class Circuit(SkidlBaseObject):
 
         from . import skidl
 
+        # Generate circuitry for any packages that were instantiated.
         self.instantiate_packages()
 
         # Reset the counters to clear any warnings/errors from previous run.
@@ -450,6 +454,9 @@ class Circuit(SkidlBaseObject):
         """
 
         from . import skidl
+
+        # Generate circuitry for any packages that were instantiated.
+        self.instantiate_packages()
 
         # Reset the counters to clear any warnings/errors from previous run.
         logger.error.reset()
@@ -524,6 +531,9 @@ class Circuit(SkidlBaseObject):
             graphviz.Digraph
         """
 
+        # Generate circuitry for any packages that were instantiated.
+        self.instantiate_packages()
+
         # Reset the counters to clear any warnings/errors from previous run.
         logger.error.reset()
         logger.warning.reset()
@@ -596,6 +606,9 @@ class Circuit(SkidlBaseObject):
         """
 
         from . import skidl
+
+        # Generate circuitry for any packages that were instantiated.
+        self.instantiate_packages()
 
         lib = SchLib(tool=SKIDL)  # Create empty library.
         for p in self.parts:
