@@ -7,8 +7,10 @@ History
 ______________________
 
 * Added @package decorator to make subcircuits act like Parts.
+* Default arguments for package subcircuits now work.
 * Interfaces now work like dictionaries so the ** operator works as expected.
 * Interface I/O can now be accessed using brackets ([]) and via attributes (e.g., intfc.a).
+* Interface I/O can now be assigned aliases.
 * Added tee() function for creating T-junctions in networks.
 
 
