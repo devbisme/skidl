@@ -27,7 +27,7 @@ Object for for handling series and parallel networks of two-pin parts, nets, and
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-from builtins import range
+from builtins import range, super
 
 from future import standard_library
 
@@ -40,7 +40,7 @@ standard_library.install_aliases()
 class Network(list):
     def __init__(self, *objs):
         """Create a Network object from a list of pins, nets, and parts."""
-        super(Network, self).__init__()
+        super().__init__()
         for obj in objs:
             try:
                 ntwk = obj.create_network()  # Create a Network from each object.

@@ -28,7 +28,7 @@ Supports user-specified notes that can be attached to other SKiDL objects.
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-from builtins import str
+from builtins import str, super
 
 from future import standard_library
 
@@ -47,7 +47,7 @@ class Note(list):
         Returns:
             A Note object containing note strings.
         """
-        super(Note, self).__init__()
+        super().__init__()
         self.__iadd__(*notes)
 
     def __iadd__(self, *notes):

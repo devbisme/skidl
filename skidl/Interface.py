@@ -2,7 +2,7 @@
 
 # MIT license
 #
-# Copyright (C) 2018 by XESS Corp.
+# Copyright (C) 2020 by XESS Corp.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -49,7 +49,7 @@ class Interface(dict, SkidlBaseObject):
 
     def __init__(self, *args, **kwargs):
         dict.__init__(self, *args, **kwargs)
-        for k, v in self.items():
+        for k, v in list(self.items()):
             dict.__setattr__(self, k, v)
 
     def __setattr__(self, key, value):
@@ -122,7 +122,7 @@ class Interface(dict, SkidlBaseObject):
                 from collections import namedtuple
 
                 IO_Net = namedtuple("IO", "name, net")
-                io_nets = [IO_Net(k, v) for k, v in self.items()]
+                io_nets = [IO_Net(k, v) for k, v in list(self.items())]
                 io_id_re = "".join([".*", io_id, ".*"])
                 for io in filter_list(io_nets, name=io_id_re):
                     if isinstance(io.net, ProtoNet):
@@ -133,7 +133,7 @@ class Interface(dict, SkidlBaseObject):
 
                 # No match found on I/O names, so search I/O aliases.
                 if not ios:
-                    for io_name, io_net in self.items():
+                    for io_name, io_net in list(self.items()):
                         try:
                             if io_id in io_net.aliases:
                                 if isinstance(io_net, ProtoNet):

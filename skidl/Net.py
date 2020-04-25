@@ -102,7 +102,7 @@ class Net(SkidlBaseObject):
     def __init__(self, name=None, circuit=None, *pins_nets_buses, **attribs):
         from .Pin import Pin
 
-        super(Net, self).__init__()
+        super().__init__()
 
         self._valid = True  # Make net valid before doing anything else.
         self.do_erc = True
@@ -126,7 +126,7 @@ class Net(SkidlBaseObject):
         del self.iadd_flag  # Remove the += flag inserted by connect().
 
         # Attach additional attributes to the net.
-        for k, v in attribs.items():
+        for k, v in list(attribs.items()):
             setattr(self, k, v)
 
     def _traverse(self):
@@ -295,7 +295,7 @@ class Net(SkidlBaseObject):
             circuit += cpy
 
             # Add other attributes to the net copy.
-            for k, v in attribs.items():
+            for k, v in list(attribs.items()):
                 if isinstance(v, (list, tuple)):
                     try:
                         v = v[i]
@@ -915,9 +915,7 @@ class NCNet(Net):
     def __init__(self, name=None, circuit=None, *pins_nets_buses, **attribs):
         from .Pin import Pin
 
-        super(NCNet, self).__init__(
-            name=name, circuit=circuit, *pins_nets_buses, **attribs
-        )
+        super().__init__(name=name, circuit=circuit, *pins_nets_buses, **attribs)
         self._drive = Pin.drives.NOCONNECT
         self.do_erc = False  # No need to do ERC on no-connect nets.
 

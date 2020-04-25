@@ -30,7 +30,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 import os.path
 import time
-from builtins import range, str
+from builtins import range, str, super
 from collections import defaultdict
 
 import graphviz
@@ -75,13 +75,13 @@ class Circuit(SkidlBaseObject):
     erc_list = [dflt_circuit_erc]
 
     def __init__(self, **kwargs):
-        super(Circuit, self).__init__()
+        super().__init__()
 
         """Initialize the Circuit object."""
         self.reset(init=True)
 
         # Set passed-in attributes for the circuit.
-        for k, v in kwargs.items():
+        for k, v in list(kwargs.items()):
             setattr(self, k, v)
 
     def reset(self, init=False):

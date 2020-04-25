@@ -19,6 +19,7 @@ check the resulting circuitry for electrical rule violations.
 
 from . import tools
 from .Alias import *
+from .AttrDict import *
 from .Bus import *
 from .Circuit import *
 from .defines import *

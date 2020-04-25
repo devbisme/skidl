@@ -23,17 +23,19 @@
 # THE SOFTWARE.
 
 """
-Base object for Circuit, Interface, Part, Net, Bus, Pin objects.
+Base object for Circuit, Interface, Package, Part, Net, Bus, Pin objects.
 """
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 import re
-from builtins import str
+from builtins import object, str, super
+from copy import deepcopy
 
 from future import standard_library
 
 from .Alias import Alias
+from .AttrDict import AttrDict
 from .Note import Note
 
 standard_library.install_aliases()
@@ -41,7 +43,14 @@ standard_library.install_aliases()
 
 class SkidlBaseObject(object):
     def __init__(self):
-        pass
+        self.fields = AttrDict(attr_obj=self)
+
+    def __setattr__(self, key, value):
+        super().__setattr__(key, value)
+
+        # Whenever an attribute is changed, then also sync it with the fields dict
+        # in case it is mirroring one of the dict entries.
+        self.fields.sync(key)
 
     @property
     def aliases(self):
@@ -82,3 +91,16 @@ class SkidlBaseObject(object):
             del self._notes
         except AttributeError:
             pass
+
+    def copy(self):
+        cpy = SkidlBaseObject()
+        cpy.fields = deepcopy(self.fields)
+        try:
+            cpy.aliases = deepcopy(self.aliases)
+        except AttributeError:
+            pass
+        try:
+            cpy.notes = deepcopy(self.notes)
+        except AttributeError:
+            pass
+        return cpy

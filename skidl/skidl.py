@@ -26,7 +26,9 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 import json
 import os
-from builtins import open
+from builtins import open, super
+
+from future import standard_library
 
 from . import tools  # Import EDA tool-specific stuff.
 from .Circuit import Circuit
@@ -34,6 +36,9 @@ from .defines import *
 from .logger import erc_logger, get_script_name, logger
 from .Pin import Pin
 from .utilities import *
+
+standard_library.install_aliases()
+
 
 try:
     import __builtin__ as builtins
@@ -47,7 +52,7 @@ class SkidlCfg(dict):
     CFG_FILE_NAME = ".skidlcfg"
 
     def __init__(self, *dirs):
-        super(SkidlCfg, self).__init__()
+        super().__init__()
         self.load(*dirs)
 
     def load(self, *dirs):

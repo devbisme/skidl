@@ -28,7 +28,7 @@ Handles buses.
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-from builtins import range, str
+from builtins import range, str, super
 
 from future import standard_library
 
@@ -101,7 +101,7 @@ class Bus(SkidlBaseObject):
 
     def __init__(self, name, *args, **attribs):
 
-        super(Bus, self).__init__()
+        super().__init__()
 
         # Define the member storing the nets so it's present, but it starts empty.
         self.nets = []
@@ -115,7 +115,7 @@ class Bus(SkidlBaseObject):
 
         # Attach additional attributes to the bus. (The Circuit object also gets
         # set here.)
-        for k, v in attribs.items():
+        for k, v in list(attribs.items()):
             setattr(self, k, v)
 
         # The bus name is set after the circuit is assigned so the name can be
@@ -251,7 +251,7 @@ class Bus(SkidlBaseObject):
             cpy = Bus(self.name, self)
 
             # Attach additional attributes to the bus.
-            for k, v in attribs.items():
+            for k, v in list(attribs.items()):
                 if isinstance(v, (list, tuple)):
                     try:
                         v = v[i]

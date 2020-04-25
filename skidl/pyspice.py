@@ -10,19 +10,39 @@
 """
 Import this file to reconfigure SKiDL for doing SPICE simulations.
 """
+from __future__ import (
+    __future__,
+    absolute_import,
+    division,
+    from,
+    import,
+    print_function,
+    unicode_literals,
+)
 
-from skidl import *
+from future import (
+    ImportError:,
+    PySpice,
+    PySpice.Unit,
+    SchLib,
+    "pyspice",
+    .libs.pyspice_sklib,
+    .skidl,
+    .tools.spice,
+    =,
+    _splib,
+    else:,
+    except,
+    from,
+    import,
+    pass,
+    standard_library,
+    standard_library.install_aliases,
+    tool=SKIDL,
+    try:,
+)
 
-# PySpice only works with Python 3, so don't set up SPICE simulation for Python 2.
-try:
-    from PySpice import *
-    from PySpice.Unit import *
-    from .libs.pyspice_sklib import *
-    from .tools.spice import *
-except ImportError:
-    pass
-else:
-    _splib = SchLib("pyspice", tool=SKIDL)  # Read-in the SPICE part library.
+from future import *  # PySpice only works with Python 3, so don't set up SPICE simulation for Python 2.; Read-in the SPICE part library.
 
     set_default_tool(SPICE)  # Set the library format for reading SKiDL libraries.
 

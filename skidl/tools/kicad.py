@@ -377,10 +377,8 @@ def _parse_lib_part_(self, get_name_only=False):
 
         # Create a dictionary of F0 part field keywords and values.
         elif line[0] == "F0":
-            self.fields = {}
             field_dict = dict(list(zip(_F0_KEYS, values)))
             # Add the field name and its value as an attribute to the part.
-            add_unique_attr(self, "F0", field_dict["reference"])
             self.fields["F0"] = field_dict["reference"]
 
         # Create a dictionary of the other part field keywords and values.
@@ -392,9 +390,6 @@ def _parse_lib_part_(self, get_name_only=False):
             # If no field name at end of line, use the field identifier F1, F2, ...
             field_dict["fieldname"] = field_dict["fieldname"] or line[0]
             # Add the field name and its value as an attribute to the part.
-            add_unique_attr(
-                self, field_dict["fieldname"], field_dict["name"], check_dup=True
-            )
             self.fields[field_dict["fieldname"]] = field_dict["name"]
 
         # Create a list of part aliases.
@@ -611,8 +606,8 @@ def _gen_netlist_comp_(self):
     tstamps = hierarchy
 
     fields = ""
-    for fld_name in self._get_fields():
-        fld_value = add_quotes(self.__dict__[fld_name])
+    for fld_name, fld_value in self.fields.items():
+        fld_value = add_quotes(fld_value)
         if fld_value:
             fld_name = add_quotes(fld_name)
             fields += "\n        (field (name {fld_name}) {fld_value})".format(
@@ -699,10 +694,11 @@ def _gen_xml_comp_(self):
     name = self.name  # pylint: disable=unused-variable
 
     fields = ""
-    for fld_name in self._get_fields():
-        fld_value = self.__dict__[fld_name]
+    for fld_name, fld_value in self.fields.items():
+        fld_value = add_quotes(fld_value)
         if fld_value:
-            fields += '\n        <field name="{fld_name}">{fld_value}</field>'.format(
+            fld_name = add_quotes(fld_name)
+            fields += "\n        (field (name {fld_name}) {fld_value})".format(
                 **locals()
             )
     if fields:

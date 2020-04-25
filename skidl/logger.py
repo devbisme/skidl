@@ -25,12 +25,18 @@
 """
 Logging for generic messages and ERC.
 """
+from __future__ import absolute_import, division, print_function, unicode_literals
 
 import logging
 import os
 import sys
+from builtins import object, super
+
+from future import standard_library
 
 from .scriptinfo import get_script_name
+
+standard_library.install_aliases()
 
 
 class CountCalls(object):
@@ -60,7 +66,7 @@ class SkidlLogFileHandler(logging.FileHandler):
             self.filename = kwargs["filename"]
         except KeyError:
             self.filename = args[0]
-        super(self.__class__, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def remove_log_file(self):
         if self.filename:
@@ -72,14 +78,14 @@ class SkidlLogger(logging.getLoggerClass()):
     """SKiDL logger that can stop output to log files and delete them."""
 
     def __init__(self, *args, **kwargs):
-        super(self.__class__, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.log_file_handlers = []
 
     def addHandler(self, handler):
         if isinstance(handler, SkidlLogFileHandler):
             # Store handlers that output to files so they can be accessed later.
             self.log_file_handlers.append(handler)
-        super(self.__class__, self).addHandler(handler)
+        super().addHandler(handler)
 
     def removeHandler(self, handler):
         if handler in self.log_file_handlers:
@@ -87,7 +93,7 @@ class SkidlLogger(logging.getLoggerClass()):
             handler.remove_log_file()
             # Remove handler from list of log file handlers.
             self.log_file_handlers.remove(handler)
-        super(self.__class__, self).removeHandler(handler)
+        super().removeHandler(handler)
 
     def stop_file_output(self):
         # Stop file outputs for all log file handlers of this logger.

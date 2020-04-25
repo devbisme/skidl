@@ -34,7 +34,7 @@ import os.path
 import re
 import sys
 import traceback
-from builtins import dict, int, object, open, range, str, super, zip
+from builtins import chr, dict, int, object, open, range, str, super, zip
 from contextlib import contextmanager
 
 from .py_2_3 import *
@@ -68,7 +68,7 @@ class TriggerDict(dict):
     """This dict triggers a function when one of its entries changes."""
 
     def __init__(self, *args, **kwargs):
-        super(self.__class__, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         # Create a dict of functions that will be run if their associated
         # key entries change. The functions arguments will be the main
@@ -79,7 +79,7 @@ class TriggerDict(dict):
         if k in self.trigger_funcs:
             if v != self[k]:
                 self.trigger_funcs[k](self, k, v)
-        super(self.__class__, self).__setitem__(k, v)
+        super().__setitem__(k, v)
 
 
 def is_binary_file(filename):
@@ -104,7 +104,7 @@ def merge_dicts(dct, merge_dct):
         Nothing.
     """
 
-    for k, v in merge_dct.items():
+    for k, v in list(merge_dct.items()):
         if (
             k in dct
             and isinstance(dct[k], dict)
@@ -185,13 +185,22 @@ def add_unique_attr(obj, name, value, check_dup=False):
     """Create an attribute if the attribute name isn't already used."""
     from .logger import logger
 
-    setattr(obj, name, getattr(obj, name, value))
-    if check_dup and id(getattr(obj, name)) != id(value):
-        logger.warn(
-            "Unable to create attribute {name} of type {typ1} because one already exists of type {typ2} in {obj}".format(
-                name=name, typ1=type(value), typ2=type(getattr(obj, name)), obj=str(obj)
+    try:
+        getattr(obj, name)
+        if check_dup:
+            logger.warn(
+                "Unable to create attribute {name} of type {typ1} because one already exists of type {typ2} in {obj}".format(
+                    name=name,
+                    typ1=type(value),
+                    typ2=type(getattr(obj, name)),
+                    obj=str(obj),
+                )
             )
-        )
+        else:
+            setattr(obj, name, value)
+
+    except AttributeError:
+        setattr(obj, name, value)
 
 
 def num_to_chars(num):
@@ -461,7 +470,7 @@ def filter_list(lst, **criteria):
         # Compare an item's attributes to each of the criteria.
         # Break out of the criteria loop and don't add the item to the extract
         # list if *any* of the item's attributes *does not* match.
-        for k, v in criteria.items():
+        for k, v in list(criteria.items()):
 
             try:
                 attr_val = getattr(item, k)
@@ -574,7 +583,7 @@ def expand_indices(slice_min, slice_max, *indices):
             stop += step
 
         # Create the sequence of indices.
-        return range(start, stop, step)
+        return list(range(start, stop, step))
 
     # Expand each index and add it to the list.
     ids = []
@@ -625,7 +634,7 @@ def explode(bus_str):
     end_num = int(bus.group(3))
     end_bus_name = bus.group(4)
     dir = [1, -1][int(begin_num > end_num)]  # Bus indexes increasing or decreasing?
-    bus_pin_nums = range(begin_num, end_num + dir, dir)
+    bus_pin_nums = list(range(begin_num, end_num + dir, dir))
 
     # If the bus string starts with an alpha, then require that any match in the
     # string must be preceded by a non-alpha or the start of the string.
@@ -669,7 +678,7 @@ def find_num_copies(**attribs):
     from .logger import logger
 
     num_copies = set()
-    for k, v in attribs.items():
+    for k, v in list(attribs.items()):
         if isinstance(v, (list, tuple)):
             num_copies.add(len(v))
         else:

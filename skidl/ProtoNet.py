@@ -27,7 +27,7 @@ Prototype of a net which can become a Net or a Bus depending upon what is connec
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-from builtins import range
+from builtins import range, super
 
 from future import standard_library
 
@@ -48,6 +48,7 @@ except ImportError:
 
 class ProtoNet(SkidlBaseObject):
     def __init__(self, name=None, circuit=None):
+        super().__init__()
         self.name = name
         if not circuit:
             circuit = builtins.default_circuit

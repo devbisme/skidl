@@ -24,7 +24,7 @@
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-from builtins import str
+from builtins import object, str
 
 from future import standard_library
 
@@ -50,7 +50,7 @@ class NetClass(object):
         self.name = name
 
         # Assign the other attributes to this object.
-        for k, v in attribs.items():
+        for k, v in list(attribs.items()):
             setattr(self, k, v)
 
         # Is this net class already defined?

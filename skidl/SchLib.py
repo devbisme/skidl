@@ -28,7 +28,7 @@ Handles schematic libraries for various ECAD tools.
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-from builtins import str
+from builtins import object, str
 
 from future import standard_library
 
@@ -72,7 +72,7 @@ class SchLib(object):
         self.parts = []
 
         # Attach attributes to the library.
-        for k, v in attribs.items():
+        for k, v in list(attribs.items()):
             setattr(self, k, v)
 
         # If no filename, create an empty library.
@@ -244,7 +244,9 @@ class SchLib(object):
         if not file_:
             file_ = libname + skidl.lib_suffixes[tool]
 
-        export_str = "from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE\n\n"
+        export_str = (
+            "from skidl import Pin, Part, AttrDict, Alias, SchLib, SKIDL, TEMPLATE\n\n"
+        )
         export_str += "SKIDL_lib_version = '0.0.1'\n\n"
         part_export_str = ",".join([p.export() for p in self.parts])
         export_str += "{} = SchLib(tool=SKIDL).add_parts(*[{}])".format(

@@ -27,7 +27,7 @@ Package a subcircuit so it can be used like a Part.
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-from builtins import range
+from builtins import range, zip
 from copy import copy
 
 from future import standard_library
@@ -40,7 +40,7 @@ from .ProtoNet import ProtoNet
 standard_library.install_aliases()
 
 try:
-    import __builtin__ as builtins
+    import builtins as builtins
 except ImportError:
     import builtins
 
@@ -48,7 +48,7 @@ except ImportError:
 class Package(Interface):
     def __init__(self, **kwargs):
         # Don't use update(). It doesn't seem to call __setitem__.
-        for k, v in kwargs.items():
+        for k, v in list(kwargs.items()):
             self[k] = v  # Use __setitem__ so both dict item and attribute are created.
 
     def __call__(self, *args, **kwargs):
@@ -62,7 +62,7 @@ class Package(Interface):
 
         pckg = Package(**self.copy())  # Create a shallow copy of the package.
         # Don't use update(). It doesn't seem to call __setitem__.
-        for k, v in kwargs.items():
+        for k, v in list(kwargs.items()):
             pckg[k] = v  # Use __setitem__ so both dict item and attribute are created.
         pckg.subcircuit = self.subcircuit  # Assign subcircuit creation function.
         # Remove creation function so it's not passed as a parameter.

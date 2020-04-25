@@ -32,12 +32,14 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 #   NETLIST: The part will become part of a circuit netlist.
 #   LIBRARY: The part will be placed in the part list for a library.
 #   TEMPLATE: The part will be used as a template to be copied from.
+from builtins import range
+
 from future import standard_library
 
 standard_library.install_aliases()
 
 
-OK, WARNING, ERROR = range(3)
+OK, WARNING, ERROR = list(range(3))
 
 NETLIST, LIBRARY, TEMPLATE = ["NETLIST", "LIBRARY", "TEMPLATE"]
 

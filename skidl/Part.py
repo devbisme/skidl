@@ -27,8 +27,10 @@ Handles parts.
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-from builtins import dict, int, range, str, super, zip
+from builtins import dict, int, object, range, str, super, zip
 from copy import copy
+
+from future import standard_library
 
 from .baseobj import SkidlBaseObject
 from .defines import *
@@ -36,6 +38,9 @@ from .erc import dflt_part_erc
 from .logger import logger
 from .py_2_3 import *  # pylint: disable=wildcard-import
 from .utilities import *
+
+standard_library.install_aliases()
+
 
 try:
     import __builtin__ as builtins
@@ -48,7 +53,7 @@ try:
 except ImportError:
     # PySpice is not supported in Python 2, so need to make a dummy class
     # to replicate a class from PySpice.
-    class UnitValue:
+    class UnitValue(object):
         pass
 
 
@@ -149,9 +154,8 @@ class Part(SkidlBaseObject):
 
         import skidl
         from .SchLib import SchLib
-        from .defines import TEMPLATE, NETLIST, LIBRARY, SKIDL
 
-        super(Part, self).__init__()
+        super().__init__()
 
         if tool is None:
             tool = skidl.get_default_tool()
@@ -196,6 +200,9 @@ class Part(SkidlBaseObject):
             # Overwrite self with the new part.
             self.__dict__.update(part.__dict__)
 
+            # Replace the fields with a copy that points to self.
+            self.fields = part.fields.copy(attr_obj=self)
+
             # Make sure all the pins have a valid reference to this part.
             self.associate_pins()
 
@@ -235,14 +242,14 @@ class Part(SkidlBaseObject):
 
             # Add any net/pin connections to this part that were passed as arguments.
             if isinstance(connections, dict):
-                for pin, net in connections.items():
+                for pin, net in list(connections.items()):
                     net += self[pin]
 
         # Add any XSPICE I/O as pins. (This only happens with SPICE simulations.)
         self.add_xspice_io(attribs.pop("io", []))
 
         # Add any other passed-in attributes to the part.
-        for k, v in attribs.items():
+        for k, v in list(attribs.items()):
             setattr(self, k, v)
 
     def add_xspice_io(self, io):
@@ -435,7 +442,9 @@ class Part(SkidlBaseObject):
             # Remove any existing Pin and PartUnit attributes so new ones
             # can be made in the copy without generating warning messages.
             rmv_attrs = [
-                k for k, v in cpy.__dict__.items() if isinstance(v, (Pin, PartUnit))
+                k
+                for k, v in list(cpy.__dict__.items())
+                if isinstance(v, (Pin, PartUnit))
             ]
             for attr in rmv_attrs:
                 delattr(cpy, attr)
@@ -444,6 +453,7 @@ class Part(SkidlBaseObject):
             # original into the copy, so create independent copies of the pins.
             cpy.pins = []
             cpy += [p.copy() for p in self.pins]  # Add pin and its attribute.
+
             # If the part copy is intended as a template, then disconnect its pins
             # from any circuit nets.
             if dest == TEMPLATE:
@@ -456,6 +466,9 @@ class Part(SkidlBaseObject):
             # Make new objects for searching the copy's pin numbers and names.
             cpy.p = PinNumberSearch(cpy)
             cpy.n = PinNameSearch(cpy)
+
+            # Copy the part fields from the original but linked to attributes in the copy.
+            cpy.fields = self.fields.copy(attr_obj=cpy)
 
             # Make copies of the units in the new part copy.
             for label in self.unit:
@@ -492,7 +505,7 @@ class Part(SkidlBaseObject):
             cpy.add_xspice_io(io)
 
             # Enter any new attributes.
-            for k, v in attribs.items():
+            for k, v in list(attribs.items()):
                 if isinstance(v, (list, tuple)):
                     try:
                         v = v[i]
@@ -825,7 +838,11 @@ class Part(SkidlBaseObject):
         # should not appear under "fields" in the netlist or XML.
         # Also, skip all the Pin and PartUnit attributes.
         fields = set(
-            [k for k, v in self.__dict__.items() if not isinstance(v, (Pin, PartUnit))]
+            [
+                k
+                for k, v in list(self.__dict__.items())
+                if not isinstance(v, (Pin, PartUnit))
+            ]
         )
         non_fields = set(
             [
@@ -1057,7 +1074,7 @@ class SkidlPart(Part):
         connections=None,
         **attribs
     ):
-        super(SkidlPart, self).__init__(lib, name, dest, tool, connections, attribs)
+        super().__init__(lib, name, dest, tool, connections, attribs)
 
 
 ##############################################################################
@@ -1092,12 +1109,16 @@ class PartUnit(Part):
     """
 
     def __init__(self, part, *pin_ids, **criteria):
+
+        # Don't use super() for this.
+        SkidlBaseObject.__init__(self)
+
         # Remember the part that this unit belongs to.
         self.parent = part
 
         # Give the PartUnit the same information as the Part it is generated
         # from so it can act the same way, just with fewer pins.
-        for k, v in part.__dict__.items():
+        for k, v in list(part.__dict__.items()):
             self.__dict__[k] = v
 
         # Don't associate any units from the parent with this unit itself.

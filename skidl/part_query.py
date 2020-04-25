@@ -31,6 +31,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 import os
 import os.path
 import re
+from builtins import open, super
 
 from future import standard_library
 
@@ -183,7 +184,7 @@ class FootprintCache(dict):
     """Dict for storing footprints from all directories."""
 
     def __init__(self, *args, **kwargs):
-        super(self.__class__, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.reset()  # Cache starts off empty, hence invalid.
 
     def reset(self):

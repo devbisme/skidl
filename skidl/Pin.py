@@ -211,7 +211,7 @@ class Pin(SkidlBaseObject):
 
     def __init__(self, **attribs):
 
-        super(Pin, self).__init__()
+        super().__init__()
 
         self.nets = []
         self.part = None
@@ -221,7 +221,7 @@ class Pin(SkidlBaseObject):
         self.func = self.types.UNSPEC  # Pin function defaults to unspecified.
 
         # Attach additional attributes to the pin.
-        for k, v in attribs.items():
+        for k, v in list(attribs.items()):
             setattr(self, k, v)
 
     def copy(self, num_copies=None, **attribs):
@@ -285,7 +285,7 @@ class Pin(SkidlBaseObject):
             cpy.aliases = self.aliases
 
             # Attach additional attributes to the pin.
-            for k, v in attribs.items():
+            for k, v in list(attribs.items()):
                 setattr(cpy, k, v)
 
             copies.append(cpy)
@@ -659,7 +659,7 @@ class PhantomPin(Pin):
     """
 
     def __init__(self, **attribs):
-        super(PhantomPin, self).__init__(**attribs)
+        super().__init__(**attribs)
         self.nets = []
         self.part = None
         self.do_erc = False
@@ -675,7 +675,7 @@ class PinList(list):
     """
 
     def __init__(self, num, name, part):
-        super(PinList, self).__init__()
+        super().__init__()
         # The list needs the following attributes to behave like a Pin.
         self.num = num
         self.name = name
@@ -687,7 +687,7 @@ class PinList(list):
         """
         if i >= len(self):
             self.extend([Pin(num=j, part=self.part) for j in range(len(self), i + 1)])
-        return super(PinList, self).__getitem__(i)
+        return super().__getitem__(i)
 
     def copy(self):
         """
@@ -774,5 +774,5 @@ conflict_matrix[Pin.types.PULLUP][Pin.types.PULLDN] = [
 # (c,r).
 cols = list(conflict_matrix.keys())
 for c in cols:
-    for r in conflict_matrix[c].keys():
+    for r in list(conflict_matrix[c].keys()):
         conflict_matrix[r][c] = conflict_matrix[c][r]
