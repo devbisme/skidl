@@ -172,9 +172,8 @@ The netlist file is called <code class="highlighter-rouge">Arduino_Uno_R3_From_S
 
 <p>Step #2 - converting the Arduino netlist into a SKiDL script - is even easier:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>netlist_to_skidl -i Arduino_Uno_R3_From_Scratch.net<span class="sb">`</span>
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>netlist_to_skidl <span class="nt">-i</span> Arduino_Uno_R3_From_Scratch.net<span class="sb">`</span>
+</code></pre></div></div>
 
 <p>That’s it!
 You can look inside <code class="highlighter-rouge">Arduino_Uno_R3_From_Scratch.py</code> and see the SKiDL code for the Arduino board.
@@ -189,7 +188,7 @@ are attached to form connections.</li>
 
 <p>For example, here is the definition of a template for a diode:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">device_D</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'D'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">device_D</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'D'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
 <span class="nb">setattr</span><span class="p">(</span><span class="n">device_D</span><span class="p">,</span> <span class="s">'Characteristics'</span><span class="p">,</span> <span class="s">'DIODE GEN PURP 100V 300MA SOD123'</span><span class="p">)</span>
 <span class="nb">setattr</span><span class="p">(</span><span class="n">device_D</span><span class="p">,</span> <span class="s">'Description'</span><span class="p">,</span> <span class="s">'ATMEGA328P ICSP Reset Voltage Spike Protection'</span><span class="p">)</span>
 <span class="nb">setattr</span><span class="p">(</span><span class="n">device_D</span><span class="p">,</span> <span class="s">'MFN'</span><span class="p">,</span> <span class="s">'Diodes Inc'</span><span class="p">)</span>
@@ -198,13 +197,12 @@ are attached to form connections.</li>
 <span class="nb">setattr</span><span class="p">(</span><span class="n">device_D</span><span class="p">,</span> <span class="s">'Source'</span><span class="p">,</span> <span class="s">'ANY'</span><span class="p">)</span>
 <span class="nb">setattr</span><span class="p">(</span><span class="n">device_D</span><span class="p">,</span> <span class="s">'Critical'</span><span class="p">,</span> <span class="s">'N'</span><span class="p">)</span>
 <span class="nb">setattr</span><span class="p">(</span><span class="n">device_D</span><span class="p">,</span> <span class="s">'Subsystem'</span><span class="p">,</span> <span class="s">'328P_Sub'</span><span class="p">)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Further down in the script, this template is instantiated three times to create
 three different parts, each with slightly different characteristics:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">D1</span> <span class="o">=</span> <span class="n">device_D</span><span class="p">(</span><span class="n">ref</span><span class="o">=</span><span class="s">'D1'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">'DIODE'</span><span class="p">)</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">D1</span> <span class="o">=</span> <span class="n">device_D</span><span class="p">(</span><span class="n">ref</span><span class="o">=</span><span class="s">'D1'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">'DIODE'</span><span class="p">)</span>
 <span class="nb">setattr</span><span class="p">(</span><span class="n">D1</span><span class="p">,</span> <span class="s">'Characteristics'</span><span class="p">,</span> <span class="s">'1A, 1000V, SILICON, SIGNAL DIODE, ROHS COMPLIANT, COMPACT, PLASTIC, CASE 403D-02, SMA, 2 PIN'</span><span class="p">)</span>
 <span class="nb">setattr</span><span class="p">(</span><span class="n">D1</span><span class="p">,</span> <span class="s">'Description'</span><span class="p">,</span> <span class="s">'Reverse Voltage Protection Diode'</span><span class="p">)</span>
 <span class="nb">setattr</span><span class="p">(</span><span class="n">D1</span><span class="p">,</span> <span class="s">'MFN'</span><span class="p">,</span> <span class="s">'ON Semi'</span><span class="p">)</span>
@@ -217,12 +215,11 @@ three different parts, each with slightly different characteristics:</p>
 <span class="nb">setattr</span><span class="p">(</span><span class="n">D4</span><span class="p">,</span> <span class="s">'Subsystem'</span><span class="p">,</span> <span class="s">'16U2_Sub'</span><span class="p">)</span>
 
 <span class="n">D7</span> <span class="o">=</span> <span class="n">device_D</span><span class="p">(</span><span class="n">ref</span><span class="o">=</span><span class="s">'D7'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">'1N4148W-7-F'</span><span class="p">)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Finally, connections of these diodes to nets are defined:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">net__32</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'Vin'</span><span class="p">)</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">net__32</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'Vin'</span><span class="p">)</span>
 <span class="n">net__32</span> <span class="o">+=</span> <span class="n">C1</span><span class="p">[</span><span class="s">'1'</span><span class="p">],</span> <span class="n">P1</span><span class="p">[</span><span class="s">'8'</span><span class="p">],</span> <span class="n">D1</span><span class="p">[</span><span class="s">'1'</span><span class="p">],</span> <span class="n">R2</span><span class="p">[</span><span class="s">'2'</span><span class="p">],</span> <span class="n">U1</span><span class="p">[</span><span class="s">'3'</span><span class="p">]</span>
 
 <span class="n">net__29</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'5V_LDO'</span><span class="p">)</span>
@@ -236,8 +233,7 @@ three different parts, each with slightly different characteristics:</p>
 
 <span class="n">net__5</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'/ATMEGA328P/328P_RESET'</span><span class="p">)</span>
 <span class="n">net__5</span> <span class="o">+=</span> <span class="n">D7</span><span class="p">[</span><span class="s">'1'</span><span class="p">],</span> <span class="n">U5</span><span class="p">[</span><span class="s">'1'</span><span class="p">],</span> <span class="n">SW1</span><span class="p">[</span><span class="s">'4'</span><span class="p">],</span> <span class="n">P1</span><span class="p">[</span><span class="s">'3'</span><span class="p">],</span> <span class="n">R16</span><span class="p">[</span><span class="s">'1'</span><span class="p">],</span> <span class="n">R13</span><span class="p">[</span><span class="s">'2'</span><span class="p">],</span> <span class="n">SW1</span><span class="p">[</span><span class="s">'3'</span><span class="p">],</span> <span class="n">ICSP2</span><span class="p">[</span><span class="s">'5'</span><span class="p">]</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>You can see the entire Arduino SKiDL script <a href="https://gist.github.com/xesscorp/00d48e7ee31fedad00d6b07b9ddd0189">here</a>.</p>
 

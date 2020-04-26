@@ -149,7 +149,7 @@ I learned one thing there: air conditioning is pretty good stuff. (We should do 
 all day, except with real blocks.
 But here’s what the <em>real</em> reality is:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Pick up brick, apply mortar, place, tap down, remove excess mortar.
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Pick up brick, apply mortar, place, tap down, remove excess mortar.
 
 Pick up brick, apply mortar, place, tap down, remove excess mortar.
 
@@ -162,8 +162,7 @@ Wall after wall.
 Job after job. 
 
 Until you die. Of the heat.
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>One day, I graduated and went to work as an electrical engineer.
 Big plus: air conditioning! (We should do more of it.)
@@ -183,7 +182,7 @@ relatively small chip with around a dozen ground pins:</p>
 
 <p>And here’s the design process:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Click on capacitor symbol. Drag &amp; drop. Attach power. Attach ground.
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Click on capacitor symbol. Drag &amp; drop. Attach power. Attach ground.
 
 Click on capacitor symbol. Drag &amp; drop. Attach power. Attach ground.
 
@@ -196,8 +195,7 @@ Page after page.
 Design after design.
 
 Until you die. Of boredom.
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>As I discovered with bricklaying, that’s no way to live.
 This particular problem is caused by the manual nature of graphical schematic editors:
@@ -213,7 +211,7 @@ bypass capacitors to a chip.</p>
 <p>Assume I have a chip with a bunch of ground pins, say twenty.
 With SKiDL, I could create the bypass caps like this:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="n">vdd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'+3.3V'</span><span class="p">)</span>
 <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'GND'</span><span class="p">)</span>
@@ -227,13 +225,12 @@ With SKiDL, I could create the bypass caps like this:</p>
 <span class="n">bypcap19</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vdd</span><span class="p">,</span> <span class="n">gnd</span>
 <span class="n">bypcap20</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'C'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">'0.1uF'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Capacitors_SMD:C_0603'</span><span class="p">)</span>
 <span class="n">bypcap20</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vdd</span><span class="p">,</span> <span class="n">gnd</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Servicable, but not very readable.
 Let’s recast it as a loop:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="n">vdd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'+3.3V'</span><span class="p">)</span>
 <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'GND'</span><span class="p">)</span>
@@ -241,8 +238,7 @@ Let’s recast it as a loop:</p>
 <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
     <span class="n">bypcap</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'C'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">'0.1uF'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Capacitors_SMD:C_0603'</span><span class="p">)</span>
     <span class="n">bypcap</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vdd</span><span class="p">,</span> <span class="n">gnd</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>That little <code class="highlighter-rouge">for</code> loop will instantiate twenty caps and connect each one to power and ground.
 Boom! Easy.</p>
@@ -253,26 +249,25 @@ Too much work; SKiDL should figure that out for me.
 How about if SKiDL counts the number of ground pins on a chip and uses that
 to set the loop bound like this:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="n">vdd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'+3.3V'</span><span class="p">)</span>
 <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'GND'</span><span class="p">)</span>
 
-<span class="n">fpga</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'xilinx'</span><span class="p">,</span> <span class="s">'XC3S200AN/FT256'</span><span class="p">)</span>  <span class="c"># Create a XILINX FPGA.</span>
-<span class="n">num_gnd_pins</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">fpga</span><span class="p">[</span><span class="s">'GND'</span><span class="p">])</span>  <span class="c"># Get a list of ground pins and count them.</span>
-
+<span class="n">fpga</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'xilinx'</span><span class="p">,</span> <span class="s">'XC3S200AN/FT256'</span><span class="p">)</span>  <span class="c1"># Create a XILINX FPGA.
+</span><span class="n">num_gnd_pins</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">fpga</span><span class="p">[</span><span class="s">'GND'</span><span class="p">])</span>  <span class="c1"># Get a list of ground pins and count them.
+</span>
 <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_gnd_pins</span><span class="p">):</span>
     <span class="n">bypcap</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'C'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">'0.1uF'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Capacitors_SMD:C_0603'</span><span class="p">)</span>
     <span class="n">bypcap</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vdd</span><span class="p">,</span> <span class="n">gnd</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Better, but I really don’t want to type out that loop for every chip that needs bypass caps.
 Luckily, programming languages have functions to encapsulate code that’s used multiple times.
 SKiDL is a programming language, so it must have them too!
 Let’s encapsulate the bypass cap instantiation loop in one:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="k">def</span> <span class="nf">add_bypass_caps</span><span class="p">(</span><span class="n">chip</span><span class="p">,</span> <span class="n">vdd</span><span class="p">,</span> <span class="n">gnd</span><span class="p">):</span>
     <span class="s">'''Add bypass capacitors between vdd and gnd to a chip, one for each ground pin.'''</span>
@@ -285,16 +280,15 @@ Let’s encapsulate the bypass cap instantiation loop in one:</p>
 <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'GND'</span><span class="p">)</span>
 
 <span class="n">fpga</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'xilinx'</span><span class="p">,</span> <span class="s">'XC3S200AN/FT256'</span><span class="p">)</span>
-<span class="n">add_bypass_caps</span><span class="p">(</span><span class="n">fpga</span><span class="p">,</span> <span class="n">vdd</span><span class="p">,</span> <span class="n">gnd</span><span class="p">)</span>  <span class="c"># Call function to add the bypass caps.</span>
-</code></pre>
-</div>
+<span class="n">add_bypass_caps</span><span class="p">(</span><span class="n">fpga</span><span class="p">,</span> <span class="n">vdd</span><span class="p">,</span> <span class="n">gnd</span><span class="p">)</span>  <span class="c1"># Call function to add the bypass caps.
+</span></code></pre></div></div>
 
 <p>That’s good; now all that’s needed is a function call.
 But maybe I don’t want to do <em>even that much.</em>
 Instead, I could create a subclass of the <code class="highlighter-rouge">Part</code> class that adds the bypass caps
 when I first instantiate the chip:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="k">def</span> <span class="nf">add_bypass_caps</span><span class="p">(</span><span class="n">chip</span><span class="p">,</span> <span class="n">vdd</span><span class="p">,</span> <span class="n">gnd</span><span class="p">):</span>
     <span class="s">'''Add bypass capacitors between vdd and gnd to a chip, one for each ground pin.'''</span>
@@ -306,16 +300,15 @@ when I first instantiate the chip:</p>
 <span class="k">class</span> <span class="nc">PartWithBypassCaps</span><span class="p">(</span><span class="n">Part</span><span class="p">):</span>
     <span class="s">'''A subclass of Part that adds bypass caps to the part that's created.'''</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">vdd</span><span class="p">,</span> <span class="n">gnd</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">Part</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c"># Normal part creation.</span>
-        <span class="n">add_bypass_caps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vdd</span><span class="p">,</span> <span class="n">gnd</span><span class="p">)</span>       <span class="c"># Add bypass caps.</span>
-
+        <span class="n">Part</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># Normal part creation.
+</span>        <span class="n">add_bypass_caps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vdd</span><span class="p">,</span> <span class="n">gnd</span><span class="p">)</span>       <span class="c1"># Add bypass caps.
+</span>
 <span class="n">vdd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'+3.3V'</span><span class="p">)</span>
 <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'GND'</span><span class="p">)</span>
 
-<span class="c"># Instantiate the chip and also get all the bypass caps automatically.</span>
-<span class="n">fpga</span> <span class="o">=</span> <span class="n">PartWithBypassCaps</span><span class="p">(</span><span class="s">'xilinx'</span><span class="p">,</span> <span class="s">'XC3S200AN/FT256'</span><span class="p">,</span> <span class="n">gnd</span><span class="o">=</span><span class="n">gnd</span><span class="p">,</span> <span class="n">vdd</span><span class="o">=</span><span class="n">vdd</span><span class="p">)</span>
-</code></pre>
-</div>
+<span class="c1"># Instantiate the chip and also get all the bypass caps automatically.
+</span><span class="n">fpga</span> <span class="o">=</span> <span class="n">PartWithBypassCaps</span><span class="p">(</span><span class="s">'xilinx'</span><span class="p">,</span> <span class="s">'XC3S200AN/FT256'</span><span class="p">,</span> <span class="n">gnd</span><span class="o">=</span><span class="n">gnd</span><span class="p">,</span> <span class="n">vdd</span><span class="o">=</span><span class="n">vdd</span><span class="p">)</span>
+</code></pre></div></div>
 
 <p>So I’ve gone from explicitly instantiating each bypass capacitor,
 to using a loop, then a function, and finally ended up with a

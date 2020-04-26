@@ -1178,7 +1178,7 @@ Exception
 ```
 
 
-## Making Parallel and Serial Networks
+## Making Serial, Parallel, and Tee Networks
 
 The previous section showed some general-purpose techniques for connecting parts,
 but SKiDL also has some
@@ -1237,6 +1237,22 @@ ntwk_b = inp & r2 & q1['B']  # Connect net inp to the resistor driving the trans
 ```
 
 After that's done, the `inp` and `outp` nets can be connected to other points in the circuit.
+
+Not all networks are composed of parts in series or parallel, for example the
+[*Pi matching network*](https://www.eeweb.com/tools/pi-match).
+This can be described using the `tee()` function like so:
+
+```py
+inp, outp, gnd = Net('INPUT'), Net('OUTPUT'), Net('GND')
+l1 = Part('Device', 'L')
+c1, c2 = Part('Device', 'C', dest=TEMPLATE) * 2
+pi_ntwk = inp & tee(c1 & gnd) & l1 & tee(c2 & gnd) & outp
+```
+
+The `tee` function takes any network as its argument and returns the first node of
+that network to be connected into the higher-level network.
+The network passed to `tee` can be arbitrarily complex, including any
+combination of parts, `&`'s, `|`'s, and `tee`'s.
 
 
 ## Aliases

@@ -151,10 +151,9 @@ That circuit used a PIC32MX microcontroller in a 28-pin SSOP package:</p>
 
 <p>and the corresponding SKiDL code was:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">pic32</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">pic32_lib</span><span class="p">,</span> <span class="s">'pic32MX2</span><span class="err">\</span><span class="s">*0F</span><span class="err">\</span><span class="s">*</span><span class="err">\</span><span class="s">*</span><span class="err">\</span><span class="s">*B-SSOP28-SOIC28-SPDIP28'</span><span class="p">,</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pic32</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">pic32_lib</span><span class="p">,</span> <span class="s">'pic32MX2</span><span class="err">\</span><span class="s">*0F</span><span class="err">\</span><span class="s">*</span><span class="err">\</span><span class="s">*</span><span class="err">\</span><span class="s">*B-SSOP28-SOIC28-SPDIP28'</span><span class="p">,</span>
              <span class="n">footprint</span><span class="o">=</span><span class="s">'Housings_SSOP:SSOP-28_5.3x10.2mm_Pitch0.65mm'</span><span class="p">)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>I wanted to try using the same processor, but housed in a smaller QFN package:</p>
 
@@ -162,35 +161,31 @@ That circuit used a PIC32MX microcontroller in a 28-pin SSOP package:</p>
 
 <p>To do that, I changed the SKiDL code to reference a different part and footprint like this:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">pic32</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">pic32_lib</span><span class="p">,</span> <span class="s">'pic32MX2</span><span class="err">\</span><span class="s">*0F</span><span class="err">\</span><span class="s">*</span><span class="err">\</span><span class="s">*</span><span class="err">\</span><span class="s">*B-QFN28'</span><span class="p">,</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pic32</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">pic32_lib</span><span class="p">,</span> <span class="s">'pic32MX2</span><span class="err">\</span><span class="s">*0F</span><span class="err">\</span><span class="s">*</span><span class="err">\</span><span class="s">*</span><span class="err">\</span><span class="s">*B-QFN28'</span><span class="p">,</span>
              <span class="n">footprint</span><span class="o">=</span><span class="s">'Housings_DFN_QFN:QFN-28-1EP_6x6mm_Pitch0.65mm'</span><span class="p">)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>That’s it! No other changes were needed because I wrote my SKiDL code to use
 pin <em>names</em> instead of pin <em>numbers</em>.
 For example, I connected the 12 MHz crystal to the microcontroller <code class="highlighter-rouge">OSC1</code> and <code class="highlighter-rouge">OSC2</code>
 pins like this:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">pic32</span><span class="p">[</span><span class="s">'OSC1, OSC2'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">xtal</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pic32</span><span class="p">[</span><span class="s">'OSC1, OSC2'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">xtal</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</code></pre></div></div>
 
 <p>This works for either version of the microcontroller because they both have
 pins named <code class="highlighter-rouge">OSC1</code> and <code class="highlighter-rouge">OSC2</code>.
 But, if I had made the crystal connections for the microcontroller in the 28-pin SSOP
 using pin numbers:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">pic32</span><span class="p">[</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">]</span> <span class="o">+=</span> <span class="n">xtal</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c"># OSC1==9, OSC2==10 for 28-pin SSOP version.</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pic32</span><span class="p">[</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">]</span> <span class="o">+=</span> <span class="n">xtal</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># OSC1==9, OSC2==10 for 28-pin SSOP version.
+</span></code></pre></div></div>
 
 <p>then I would have had to change the code when I switched to the QFN packaged version
 of the microcontroller:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">pic32</span><span class="p">[</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">]</span> <span class="o">+=</span> <span class="n">xtal</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c"># OSC1==6, OSC2=7 for 28-pin QFN version.</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pic32</span><span class="p">[</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">]</span> <span class="o">+=</span> <span class="n">xtal</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># OSC1==6, OSC2=7 for 28-pin QFN version.
+</span></code></pre></div></div>
 
 <p>Multiply this by the number of pins a device has (which can be over a thousand
 for modern-day parts like FPGAs), and you can see how using pin names
@@ -199,21 +194,18 @@ design change.</p>
 
 <p>For the new board, I also changed from using a mini USB connector:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">usb_conn</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">xess_lib</span><span class="p">,</span> <span class="s">'USBB'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'XESS:UX60SC-MB-5ST'</span><span class="p">)</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">usb_conn</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">xess_lib</span><span class="p">,</span> <span class="s">'USBB'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'XESS:UX60SC-MB-5ST'</span><span class="p">)</span>
+</code></pre></div></div>
 
 <p>to a micro connector:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">usb_conn</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">xess_lib</span><span class="p">,</span> <span class="s">'USB-MicroB'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'XESS:USB-microB-1'</span><span class="p">)</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">usb_conn</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">xess_lib</span><span class="p">,</span> <span class="s">'USB-MicroB'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'XESS:USB-microB-1'</span><span class="p">)</span>
+</code></pre></div></div>
 
 <p>Once again, using pin names meant I didn’t have to touch the rest of the code:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">usb_conn</span><span class="p">[</span><span class="s">'D</span><span class="err">\</span><span class="s">+, D-, VCC, GND, NC'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pic32</span><span class="p">[</span><span class="s">'D</span><span class="err">\</span><span class="s">+, D-'</span><span class="p">],</span> <span class="n">vusb</span><span class="p">,</span> <span class="n">gnd</span><span class="p">,</span> <span class="n">NC</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">usb_conn</span><span class="p">[</span><span class="s">'D</span><span class="err">\</span><span class="s">+, D-, VCC, GND, NC'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pic32</span><span class="p">[</span><span class="s">'D</span><span class="err">\</span><span class="s">+, D-'</span><span class="p">],</span> <span class="n">vusb</span><span class="p">,</span> <span class="n">gnd</span><span class="p">,</span> <span class="n">NC</span>
+</code></pre></div></div>
 
 <p>After the changes to the SKiDL script were done, I just ran it and imported the
 netlist into KiCad’s <code class="highlighter-rouge">PCBNEW</code> layout program.

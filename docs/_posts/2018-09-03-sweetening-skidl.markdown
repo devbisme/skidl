@@ -13,14 +13,14 @@ permalink: blog/sweetening-skidl
 
 I've added a bit of syntactic sugar to SKiDL over the past few months:
 
-* [Series and parallel network constructors](#series-and-parallel-network-constructors),
-* [Bussed part pins](#bussed-part-pins), and
-* [Accessing part pins as attributes](#accessing-part-pins-as-attributes).
+- [Series, Parallel, and Tee Network Constructors](#series-parallel-and-tee-network-constructors)
+- [Bussed Part Pins](#bussed-part-pins)
+- [Accessing Part Pins as Attributes](#accessing-part-pins-as-attributes)
  
 It doesn't change what SKiDL does, but does make it easier to do it.
 
 
-### Series and Parallel Network Constructors
+### Series, Parallel, and Tee Network Constructors
 
 Last year, I had a [discussion](https://github.com/xesscorp/skidl/issues/26) with
 [kasbah](https://github.com/kasbah) on the SKiDL Github about his suggestion
@@ -42,7 +42,7 @@ For example, here is a network of four series resistors using the standard
 SKiDL syntax:
 
 ```py
-r1, r2, r3, r4 = Part("Device", 'R', dest=TEMPLATE) * 4
+r1, r2, r3, r4 = Part('Device', 'R', dest=TEMPLATE) * 4
 r1[2] += r2[1]
 r2[2] += r3[1]
 r3[2] += r4[1]
@@ -51,7 +51,7 @@ r3[2] += r4[1]
 This is the same thing using the new `&` operator:
 
 ```py
-r1, r2, r3, r4 = Part("Device", 'R', dest=TEMPLATE) * 4
+r1, r2, r3, r4 = Part('Device', 'R', dest=TEMPLATE) * 4
 ser_ntwk = r1 & r2 & r3 & r4
 ```
 
@@ -103,7 +103,7 @@ second pin to the following part like so:
 
 ```py
 vcc = Net('VCC')
-d1 = Part("Device", 'D')
+d1 = Part('Device', 'D')
 polar_ntwk = vcc & r1 & d1['A,K'] & gnd  # Diode anode connected to resistor and cathode to ground.
 ```
 
@@ -117,12 +117,31 @@ and another for applying the input to the base.
 
 ```py
 inp, outp = Net('INPUT'), Net('OUTPUT')
-q1 = Part("Device", 'Q_NPN_ECB')
+q1 = Part('Device', 'Q_NPN_ECB')
 ntwk_ce = vcc & r1 & outp & q1['C,E'] & gnd  # Connect net outp to the junction of the resistor and transistor collector.
 ntwk_b = inp & r2 & q1['B']  # Connect net inp to the resistor driving the transistor base.
 ```
 
 ![Transistor Amplifier]({{site.url}}/images/sweetening-skidl/trans_ntwk.png)
+
+Not all networks are composed of parts in series or parallel.
+For example, here's a [*Pi matching network*](https://www.eeweb.com/tools/pi-match):
+
+![Pi Matching Network]({{site.url}}/images/sweetening-skidl/pi_ntwk.png)
+
+This could be described using the `tee()` function like so:
+
+```py
+inp, outp, gnd = Net('INPUT'), Net('OUTPUT'), Net('GND')
+l1 = Part('Device', 'L')
+c1, c2 = Part('Device', 'C', dest=TEMPLATE) * 2
+pi_ntwk = inp & tee(c1 & gnd) & l1 & tee(c2 & gnd) & outp
+```
+
+The `tee` function takes any network as its argument and returns the first node of
+that network to be connected into the higher-level network.
+The network passed to `tee` can be arbitrarily complex, including any
+combination of parts, `&`'s, `|`'s, and `tee`'s.
 
 
 ### Bussed Part Pins

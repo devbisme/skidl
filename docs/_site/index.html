@@ -199,33 +199,32 @@ for outputing the correct netlist format).</li>
 <p>As a very simple example, the SKiDL program below describes a circuit that
 takes an input voltage, divides it by three, and outputs it:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="c"># Create input &amp; output voltages and ground reference.</span>
-<span class="n">vin</span><span class="p">,</span> <span class="n">vout</span><span class="p">,</span> <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'VI'</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s">'VO'</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s">'GND'</span><span class="p">)</span>
+<span class="c1"># Create input &amp; output voltages and ground reference.
+</span><span class="n">vin</span><span class="p">,</span> <span class="n">vout</span><span class="p">,</span> <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'VI'</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s">'VO'</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s">'GND'</span><span class="p">)</span>
 
-<span class="c"># Create two resistors.</span>
-<span class="n">r1</span><span class="p">,</span> <span class="n">r2</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="n">TEMPLATE</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Resistor_SMD.pretty:R_0805_2012Metric'</span><span class="p">)</span>
-<span class="n">r1</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s">'1K'</span>   <span class="c"># Set upper resistor value.</span>
-<span class="n">r2</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s">'500'</span>  <span class="c"># Set lower resistor value.</span>
-
-<span class="c"># Connect the nets and resistors.</span>
-<span class="n">vin</span> <span class="o">+=</span> <span class="n">r1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>      <span class="c"># Connect the input to the upper resistor.</span>
-<span class="n">gnd</span> <span class="o">+=</span> <span class="n">r2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>      <span class="c"># Connect the lower resistor to ground.</span>
-<span class="n">vout</span> <span class="o">+=</span> <span class="n">r1</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">r2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c"># Output comes from the connection of the two resistors.</span>
-
-<span class="c"># Or you could do it with a single line of code:</span>
-<span class="c"># vin &amp;&amp; r1 &amp;&amp; vout &amp;&amp; r2 &amp;&amp; gnd</span>
-
-<span class="c"># Output the netlist to a file.</span>
-<span class="n">generate_netlist</span><span class="p">()</span>
-</code></pre>
-</div>
+<span class="c1"># Create two resistors.
+</span><span class="n">r1</span><span class="p">,</span> <span class="n">r2</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="n">TEMPLATE</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Resistor_SMD.pretty:R_0805_2012Metric'</span><span class="p">)</span>
+<span class="n">r1</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s">'1K'</span>   <span class="c1"># Set upper resistor value.
+</span><span class="n">r2</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s">'500'</span>  <span class="c1"># Set lower resistor value.
+</span>
+<span class="c1"># Connect the nets and resistors.
+</span><span class="n">vin</span> <span class="o">+=</span> <span class="n">r1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>      <span class="c1"># Connect the input to the upper resistor.
+</span><span class="n">gnd</span> <span class="o">+=</span> <span class="n">r2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>      <span class="c1"># Connect the lower resistor to ground.
+</span><span class="n">vout</span> <span class="o">+=</span> <span class="n">r1</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">r2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># Output comes from the connection of the two resistors.
+</span>
+<span class="c1"># Or you could do it with a single line of code:
+# vin &amp;&amp; r1 &amp;&amp; vout &amp;&amp; r2 &amp;&amp; gnd
+</span>
+<span class="c1"># Output the netlist to a file.
+</span><span class="n">generate_netlist</span><span class="p">()</span>
+</code></pre></div></div>
 
 <p>And this is the netlist output that is passed to <code class="highlighter-rouge">PCBNEW</code> to
 do the PCB layout:</p>
 
-<div class="language-text highlighter-rouge"><pre class="highlight"><code>(export (version D)                                                                                    
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(export (version D)                                                                                    
   (design                                                                                              
     (source "C:\xesscorp\KiCad\tools\skidl\tests\vdiv.py")                                             
     (date "09/14/2018 08:49 PM")                                                                       
@@ -256,31 +255,27 @@ do the PCB layout:</p>
       (node (ref R1) (pin 2))                                                                          
       (node (ref R2) (pin 1))))                                                                        
 )                                                                                                      
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h1 id="installation">Installation</h1>
 
 <p>SKiDL is pure Python so it’s easy to install:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>pip install skidl
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>pip <span class="nb">install </span>skidl
+</code></pre></div></div>
 
 <p>To give SKiDL some part libraries to work with,
 you’ll also need to install <a href="http://kicad-pcb.org/">KiCad</a>.
 Then, you’ll need to set an environment variable so SKiDL can find the libraries.
 For Windows, do this:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>set KICAD_SYMBOL_DIR=C:\Program Files\KiCad\share\kicad\kicad-symbols
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>set KICAD_SYMBOL_DIR=C:\Program Files\KiCad\share\kicad\kicad-symbols
+</code></pre></div></div>
 
 <p>And for linux-type OSes, define the environment variable in your <code class="highlighter-rouge">.bashrc</code> like so:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>export KICAD_SYMBOL_DIR="/Library/Application Support/kicad/kicad-symbols"
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export KICAD_SYMBOL_DIR="/Library/Application Support/kicad/kicad-symbols"
+</code></pre></div></div>
 
 <p><strong>These paths are OS-dependent</strong>, so launch KiCAD and click <code class="highlighter-rouge">Preferences-&gt;Configure Paths</code>
 to reveal the needed paths.</p>
@@ -306,15 +301,13 @@ executed as a Python script.</p>
 
 <p>To use skidl in a project, just place the following at the top of your file:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">skidl</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">skidl</span>
+</code></pre></div></div>
 
 <p>But for this tutorial, I’ll just import everything:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+</code></pre></div></div>
 
 <h2 id="finding-parts">Finding Parts</h2>
 
@@ -325,49 +318,46 @@ executed as a Python script.</p>
 For example, if you needed an operational amplifier, then the following command would
 pull up some likely candidates:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; search('opamp')
-linear.lib: LT1492
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> search<span class="o">(</span><span class="s1">'opamp'</span><span class="o">)</span>
+<span class="go">linear.lib: LT1492
 linear.lib: MCP601SN (2.7V to 6.0V Single Supply CMOS Operational Amplifier, SO-8)
 linear.lib: LM321 (Low Power Single Operational Amplifier)
 linear.lib: MCP601R (2.7V to 6.0V Single Supply CMOS Operational Amplifier, SOT-23-5)
 linear.lib: LM555N (Dual Op amp, rail-to-rail, 8MHz, MSOP8, SOIC8)
-...
-linear.lib: MCP603ST (2.7V to 6.0V Single Supply CMOS Operational Amplifier, with Chip Select, TSSOP-8)
+</span><span class="c">...
+</span><span class="go">linear.lib: MCP603ST (2.7V to 6.0V Single Supply CMOS Operational Amplifier, with Chip Select, TSSOP-8)
 linear.lib: NE5534 (Low-Noise High-Speed Audio Operational Amplifier)
 linear.lib: LT1493
 linear.lib: MCP601P (2.7V to 6.0V Single Supply CMOS Operational Amplifier, DIP-8)
 linear.lib: MCP601ST (2.7V to 6.0V Single Supply CMOS Operational Amplifier, TSSOP-8)
-</code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p><code class="highlighter-rouge">search</code> accepts a regular expression and scans for it <em>anywhere</em> within the
 name, description and keywords of all the parts in the library path.
 (You can read more about how SKiDL handles libraries <a href="#libraries">here</a>.)
 So the following search pulls up several candidates:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; search('lm35')
-dc-dc.lib: LM3578 (Switching Regulator (adjustable))
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> search<span class="o">(</span><span class="s1">'lm35'</span><span class="o">)</span>
+<span class="go">dc-dc.lib: LM3578 (Switching Regulator (adjustable))
 linear.lib: LM358 (Dual Rail-to-rail CMOS Operational Amplifier)
 regul.lib: LM350T (3A 33V Adjustable Linear Regulator, TO-220)
 sensors.lib: LM35-LP (Precision centigrade temperature sensor, TO-92 package)
 sensors.lib: LM35-D (Precision centigrade temperature sensor, SOIC-8 package)
 sensors.lib: LM35-NEB (Precision centigrade temperature sensor, TO-220 package)
-</code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>If you want to restrict the search to a specific part, then
 use a regular expression like the following:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; search('^lm358$')
-linear.lib: LM358 (Dual Rail-to-rail CMOS Operational Amplifier)
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> search<span class="o">(</span><span class="s1">'^lm358$'</span><span class="o">)</span>
+<span class="go">linear.lib: LM358 (Dual Rail-to-rail CMOS Operational Amplifier)
+</span></code></pre></div></div>
 
 <p>If you give <code class="highlighter-rouge">search</code> multiple terms, then it will only find parts that contain <em>all</em>
 those terms:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; search('opamp low-noise dip-8')
-
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> search<span class="o">(</span><span class="s1">'opamp low-noise dip-8'</span><span class="o">)</span>
+<span class="go">
 Amplifier_Operational.lib: NE5534 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
 Amplifier_Operational.lib: LT1012 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
 Amplifier_Operational.lib: SA5534 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
@@ -375,14 +365,13 @@ Amplifier_Operational.lib: LM301 (Single Low-Noise Operational Amplifiers, DIP-8
 Amplifier_Operational.lib: LM201 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
 Amplifier_Operational.lib: LM101 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
 Amplifier_Operational.lib: AD797 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
-</code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>You can also use the <code class="highlighter-rouge">|</code> character to find parts that contain at least one of a set
 of choices:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; search('opamp (low-noise|dip-8)')
-
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> search<span class="o">(</span><span class="s1">'opamp (low-noise|dip-8)'</span><span class="o">)</span>
+<span class="go">
 Amplifier_Audio.lib: LM386 (Low Voltage Audio Power Amplifier, DIP-8/SOIC-8/SSOP-8)
 Amplifier_Operational.lib: TLV2371P (Rail-to-Rail Input/Output Operational Amplifier, PDIP-8)
 Amplifier_Operational.lib: MAX4239ASA (Ultra-Low Offset/Drift, Low-Noise, Precision Amplifiers, SOIC-8)
@@ -392,26 +381,24 @@ Amplifier_Operational.lib: MAX4239AUT (Ultra-Low Offset/Drift, Low-Noise, Precis
 Amplifier_Operational.lib: LM6361 (Single High Speed Operational Amplifier, DIP-8/SOIC-8)
 Amplifier_Operational.lib: LF257 (Single JFET-Input Operational Amplifiers, DIP-8/SOIC-8)
 Amplifier_Operational.lib: AD8603 (Zero-Drift, Precision, Low-Noise, Rail-to-Rail Output, 36-V Operational Amplifier, TSOT-23-5)
-...
-</code></pre>
-</div>
+</span><span class="c">...
+</span></code></pre></div></div>
 
 <p>If you need to search for a string containing spaces, just enclose it in quotes:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; search('opamp "high performance"')
-
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> search<span class="o">(</span><span class="s1">'opamp "high performance"'</span><span class="o">)</span>
+<span class="go">
 Amplifier_Operational.lib: OP77 (Single SoundPlus High Performance Audio Operational Amplifiers, DIP-8/SOIC-8)
 Amplifier_Operational.lib: LT1363 (Single SoundPlus High Performance Audio Operational Amplifiers, DIP-8/SOIC-8)
 Amplifier_Operational.lib: OP07 (Single SoundPlus High Performance Audio Operational Amplifiers, DIP-8/SOIC-8)
 Amplifier_Operational.lib: OPA134 (Single SoundPlus High Performance Audio Operational Amplifiers, DIP-8/SOIC-8)
-</code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>Once you have the part name and library, you can see the part’s pin numbers, names
 and their functions using the <code class="highlighter-rouge">show</code> function:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; show('linear', 'lm358')
-
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> show<span class="o">(</span><span class="s1">'linear'</span>, <span class="s1">'lm358'</span><span class="o">)</span>
+<span class="go">
 LM358: Dual Rail-to-rail CMOS Operational Amplifier
     Pin None/4/V-/POWER-IN
     Pin None/8/V+/POWER-IN
@@ -421,29 +408,26 @@ LM358: Dual Rail-to-rail CMOS Operational Amplifier
     Pin None/5/+/INPUT
     Pin None/6/-/INPUT
     Pin None/7/~/OUTPUT
-</code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p><code class="highlighter-rouge">show</code> looks for <em>exact matches</em> of the part name in a library, so the following
 command raises an error:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; show('linear', 'lm35')
-ERROR: Unable to find part lm35 in library linear.
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> show<span class="o">(</span><span class="s1">'linear'</span>, <span class="s1">'lm35'</span><span class="o">)</span>
+<span class="go">ERROR: Unable to find part lm35 in library linear.
+</span></code></pre></div></div>
 
 <p>In addition to searching for parts, you can also search for footprints using the
 <code class="highlighter-rouge">search_footprints</code> command. It works similarly to the <code class="highlighter-rouge">search</code> command:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; search_footprints('QFN-48')
-
-Package_DFN_QFN: QFN-48-1EP_5x5mm_P0.35mm_EP3.7x3.7mm ("QFN, 48 Pin (https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf#page=38), generated with kicad-footprint-generator ipc_dfn_qfn_generator.py" - "QFN DFN_QFN")
-Package_DFN_QFN: QFN-48-1EP_5x5mm_P0.35mm_EP3.7x3.7mm_ThermalVias ("QFN, 48 Pin (https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf#page=38), generated with kicad-footprint-generator ipc_dfn_qfn_generator.py" - "QFN DFN_QFN")
-Package_DFN_QFN: QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm ("QFN, 48 Pin (https://static.dev.sifive.com/SiFive-FE310-G000-datasheet-v1p5.pdf#page=20), generated with kicad-footprint-generator ipc_dfn_qfn_generator.py" - "QFN DFN_QFN")
-Package_DFN_QFN: QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm_ThermalVias ("QFN, 48 Pin (https://static.dev.sifive.com/SiFive-FE310-G000-datasheet-v1p5.pdf#page=20), generated with kicad-footprint-generator ipc_dfn_qfn_generator.py" - "QFN DFN_QFN")
-...
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> search_footprints<span class="o">(</span><span class="s1">'QFN-48'</span><span class="o">)</span>
+<span class="go">
+</span><span class="gp">Package_DFN_QFN: QFN-48-1EP_5x5mm_P0.35mm_EP3.7x3.7mm ("QFN, 48 Pin (https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf#</span><span class="nv">page</span><span class="o">=</span>38<span class="o">)</span>, generated with kicad-footprint-generator ipc_dfn_qfn_generator.py<span class="s2">" - "</span>QFN DFN_QFN<span class="s2">")
+</span><span class="gp">Package_DFN_QFN: QFN-48-1EP_5x5mm_P0.35mm_EP3.7x3.7mm_ThermalVias ("QFN, 48 Pin (https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf#</span><span class="s2">page=38), generated with kicad-footprint-generator ipc_dfn_qfn_generator.py"</span> - <span class="s2">"QFN DFN_QFN"</span><span class="o">)</span>
+<span class="gp">Package_DFN_QFN: QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm ("QFN, 48 Pin (https://static.dev.sifive.com/SiFive-FE310-G000-datasheet-v1p5.pdf#</span><span class="nv">page</span><span class="o">=</span>20<span class="o">)</span>, generated with kicad-footprint-generator ipc_dfn_qfn_generator.py<span class="s2">" - "</span>QFN DFN_QFN<span class="s2">")
+</span><span class="gp">Package_DFN_QFN: QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm_ThermalVias ("QFN, 48 Pin (https://static.dev.sifive.com/SiFive-FE310-G000-datasheet-v1p5.pdf#</span><span class="s2">page=20), generated with kicad-footprint-generator ipc_dfn_qfn_generator.py"</span> - <span class="s2">"QFN DFN_QFN"</span><span class="o">)</span>
+<span class="c">...
+</span></code></pre></div></div>
 
 <h3 id="zyc-a-gui-search-tool">Zyc: A GUI Search Tool</h3>
 
@@ -456,25 +440,22 @@ You can read more about it <a href="https://xesscorp.github.io/skidl/docs/_site/
 
 <p>The part library and name are used to instantiate a part as follows:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; resistor = Part("Device",'R')
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> resistor <span class="o">=</span> Part<span class="o">(</span><span class="s2">"Device"</span>,<span class="s1">'R'</span><span class="o">)</span>
+</code></pre></div></div>
 
 <p>You can customize the resistor by setting its attributes:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; resistor.value = '1K' 
-&gt;&gt;&gt; resistor.value        
-'1K'                      
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> resistor.value <span class="o">=</span> <span class="s1">'1K'</span> 
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> resistor.value        
+<span class="go">'1K'                      
+</span></code></pre></div></div>
 
 <p>You can also combine the setting of attributes with the creation of the part:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; resistor = Part("Device", 'R', value='1K')
-&gt;&gt;&gt; resistor.value
-'1K'
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> resistor <span class="o">=</span> Part<span class="o">(</span><span class="s2">"Device"</span>, <span class="s1">'R'</span>, <span class="nv">value</span><span class="o">=</span><span class="s1">'1K'</span><span class="o">)</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> resistor.value
+<span class="go">'1K'
+</span></code></pre></div></div>
 
 <p>You can use any valid Python name for a part attribute, but <code class="highlighter-rouge">ref</code>, <code class="highlighter-rouge">value</code>,
 and <code class="highlighter-rouge">footprint</code> are necessary in order to generate the final netlist
@@ -484,36 +465,32 @@ but simple strings are probably the most useful.</p>
 <p>The <code class="highlighter-rouge">ref</code> attribute holds the <em>reference</em> for the part. It’s set automatically
 when you create the part:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; resistor.ref
-'R1'
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> resistor.ref
+<span class="go">'R1'
+</span></code></pre></div></div>
 
 <p>Since this was the first resistor we created, it has the honor of being named <code class="highlighter-rouge">R1</code>.
 But you can easily change it:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; resistor.ref = 'R5'
-&gt;&gt;&gt; resistor.ref
-'R5'
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> resistor.ref <span class="o">=</span> <span class="s1">'R5'</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> resistor.ref
+<span class="go">'R5'
+</span></code></pre></div></div>
 
 <p>Now what happens if we create another resistor?:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; another_res = Part("Device",'R')   
-&gt;&gt;&gt; another_res.ref                        
-'R1'
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> another_res <span class="o">=</span> Part<span class="o">(</span><span class="s2">"Device"</span>,<span class="s1">'R'</span><span class="o">)</span>   
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> another_res.ref                        
+<span class="go">'R1'
+</span></code></pre></div></div>
 
 <p>Since the <code class="highlighter-rouge">R1</code> reference was now available, the new resistor got it.
 What if we tried renaming the first resistor back to <code class="highlighter-rouge">R1</code>:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; resistor.ref = 'R1'
-&gt;&gt;&gt; resistor.ref
-'R1_1'
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> resistor.ref <span class="o">=</span> <span class="s1">'R1'</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> resistor.ref
+<span class="go">'R1_1'
+</span></code></pre></div></div>
 
 <p>Since the <code class="highlighter-rouge">R1</code> reference was already taken, SKiDL tried to give us
 something close to what we wanted.
@@ -532,68 +509,61 @@ shown in the introduction.</p>
 <p>First, start by creating two resistors (note that I’ve also added the
 <code class="highlighter-rouge">footprint</code> attribute that describes the physical package for the resistors):</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">rup</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">'1K'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Resistor_SMD.pretty:R_0805_2012Metric'</span><span class="p">)</span>                            
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">rup</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">'1K'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Resistor_SMD.pretty:R_0805_2012Metric'</span><span class="p">)</span>                            
 <span class="o">&gt;&gt;&gt;</span> <span class="n">rlow</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">'500'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Resistor_SMD.pretty:R_0805_2012Metric'</span><span class="p">)</span>                          
 <span class="o">&gt;&gt;&gt;</span> <span class="n">rup</span><span class="o">.</span><span class="n">ref</span><span class="p">,</span> <span class="n">rlow</span><span class="o">.</span><span class="n">ref</span>                                                
 <span class="p">(</span><span class="s">'R1'</span><span class="p">,</span> <span class="s">'R2'</span><span class="p">)</span>                                                         
 <span class="o">&gt;&gt;&gt;</span> <span class="n">rup</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">rlow</span><span class="o">.</span><span class="n">value</span>                                            
 <span class="p">(</span><span class="s">'1K'</span><span class="p">,</span> <span class="s">'500'</span><span class="p">)</span>     
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>To bring the voltage that will be divided into the circuit, let’s create a net:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; v_in = Net('VIN')
-&gt;&gt;&gt; v_in.name
-'VIN'
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> v_in <span class="o">=</span> Net<span class="o">(</span><span class="s1">'VIN'</span><span class="o">)</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> v_in.name
+<span class="go">'VIN'
+</span></code></pre></div></div>
 
 <p>Now attach the net to one of the pins of the <code class="highlighter-rouge">rup</code> resistor
 (resistors are bidirectional which means it doesn’t matter which pin, so pick pin 1):</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; rup[1] += v_in
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> rup[1] +<span class="o">=</span> v_in
+</code></pre></div></div>
 
 <p>You can verify that the net is attached to pin 1 of the resistor like this:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; rup[1].net
-VIN: Pin R1/1/~/PASSIVE
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> rup[1].net
+<span class="go">VIN: Pin R1/1/~/PASSIVE
+</span></code></pre></div></div>
 
 <p>Next, create a ground reference net and attach it to <code class="highlighter-rouge">rlow</code>:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; gnd = Net('GND')
-&gt;&gt;&gt; rlow[1] += gnd
-&gt;&gt;&gt; rlow[1].net
-GND: Pin R2/1/~/PASSIVE
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> gnd <span class="o">=</span> Net<span class="o">(</span><span class="s1">'GND'</span><span class="o">)</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> rlow[1] +<span class="o">=</span> gnd
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> rlow[1].net
+<span class="go">GND: Pin R2/1/~/PASSIVE
+</span></code></pre></div></div>
 
 <p>Finally, the divided voltage has to come out of the circuit on a net.
 This can be done in several ways.
 The first way is to define the output net and then attach the unconnected
 pins of both resistors to it:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; v_out = Net('VO')
-&gt;&gt;&gt; v_out += rup[2], rlow[2]
-&gt;&gt;&gt; rup[2].net, rlow[2].net
-(VO: Pin R1/2/~/PASSIVE, Pin R2/2/~/PASSIVE, VO: Pin R1/2/~/PASSIVE, Pin R2/2/~/PASSIVE)
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> v_out <span class="o">=</span> Net<span class="o">(</span><span class="s1">'VO'</span><span class="o">)</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> v_out +<span class="o">=</span> rup[2], rlow[2]
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> rup[2].net, rlow[2].net
+<span class="go">(VO: Pin R1/2/~/PASSIVE, Pin R2/2/~/PASSIVE, VO: Pin R1/2/~/PASSIVE, Pin R2/2/~/PASSIVE)
+</span></code></pre></div></div>
 
 <p>An alternate method is to connect the resistors and then attach their
 junction to the output net:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; rup[2] += rlow[2]
-&gt;&gt;&gt; v_out = Net('VO')
-&gt;&gt;&gt; v_out += rlow[2]
-&gt;&gt;&gt; rup[2].net, rlow[2].net
-(VO: Pin R1/2/~/PASSIVE, Pin R2/2/~/PASSIVE, VO: Pin R1/2/~/PASSIVE, Pin R2/2/~/PASSIVE)
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> rup[2] +<span class="o">=</span> rlow[2]
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> v_out <span class="o">=</span> Net<span class="o">(</span><span class="s1">'VO'</span><span class="o">)</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> v_out +<span class="o">=</span> rlow[2]
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> rup[2].net, rlow[2].net
+<span class="go">(VO: Pin R1/2/~/PASSIVE, Pin R2/2/~/PASSIVE, VO: Pin R1/2/~/PASSIVE, Pin R2/2/~/PASSIVE)
+</span></code></pre></div></div>
 
 <p>Either way works! Sometimes pin-to-pin connections are easier when you’re
 just wiring two devices together, while the pin-to-net connection method
@@ -604,12 +574,11 @@ excels when three or more pins have a common connection.</p>
 <p>Once the parts are wired together, you can do simple electrical rules checking
 like this:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; ERC()                           
-                                    
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> ERC<span class="o">()</span>                           
+<span class="go">                                    
 2 warnings found during ERC.        
 0 errors found during ERC.          
-</code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>Since this is an interactive session, the ERC warnings and errors are stored 
 in the file <code class="highlighter-rouge">skidl.erc</code>. (Normally, your SKiDL circuit description is stored
@@ -617,38 +586,35 @@ as a Python script such as <code class="highlighter-rouge">my_circuit.py</code> 
 dump its messages to <code class="highlighter-rouge">my_circuit.erc</code>.)
 The ERC messages are:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>WARNING: Only one pin (PASSIVE pin 1/~ of R/R1) attached to net VIN.
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">WARNING: Only one pin (PASSIVE pin 1/~ of R/R1) attached to net VIN.
 WARNING: Only one pin (PASSIVE pin 1/~ of R/R2) attached to net GND.
-</code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>These messages are generated because the <code class="highlighter-rouge">VIN</code> and <code class="highlighter-rouge">GND</code> nets each have only
 a single pin on them and this usually indicates a problem.
 But it’s OK for this simple example, so the ERC can be turned off for
 these two nets to prevent the spurious messages:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; v_in.do_erc = False
-&gt;&gt;&gt; gnd.do_erc = False
-&gt;&gt;&gt; ERC()
-
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> v_in.do_erc <span class="o">=</span> False
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> gnd.do_erc <span class="o">=</span> False
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> ERC<span class="o">()</span>
+<span class="go">
 No ERC errors or warnings found.
-</code></pre>
-</div>
+</span></code></pre></div></div>
 
 <h2 id="generating-a-netlist">Generating a Netlist</h2>
 
 <p>The end goal of using SKiDL is to generate a netlist that can be used
 with a layout tool to generate a PCB. The netlist is output as follows:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; generate_netlist()
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> generate_netlist<span class="o">()</span>
+</code></pre></div></div>
 
 <p>Like the ERC output, the netlist shown below is stored in the file <code class="highlighter-rouge">skidl.net</code>.
 But if your SKiDL circuit description is in the <code class="highlighter-rouge">my_circuit.py</code> file, 
 then the netlist will be stored in <code class="highlighter-rouge">my_circuit.net</code>.</p>
 
-<div class="language-text highlighter-rouge"><pre class="highlight"><code>(export (version D)
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(export (version D)
   (design
     (source "C:\xesscorp\KiCad\tools\skidl\skidl\skidl.py")
     (date "08/12/2016 10:05 PM")
@@ -699,14 +665,12 @@ then the netlist will be stored in <code class="highlighter-rouge">my_circuit.ne
       (node (ref R2) (pin 1))))
 )
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>You can also generate the netlist in XML format:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; generate_xml()
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> generate_xml<span class="o">()</span>
+</code></pre></div></div>
 
 <p>This is useful in a KiCad environment where the XML file is used as the
 input to BOM-generation tools.</p>
@@ -748,9 +712,8 @@ newly-created nets, or both.</p>
 
 <p>Here’s the most common way to create a part in your circuit:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">my_part</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'some_library'</span><span class="p">,</span> <span class="s">'some_part_name'</span><span class="p">)</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_part</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'some_library'</span><span class="p">,</span> <span class="s">'some_part_name'</span><span class="p">)</span>
+</code></pre></div></div>
 
 <p>When this is processed, the current directory will be checked for a file
 called <code class="highlighter-rouge">some_library.lib</code> which will be opened and scanned for a part with the
@@ -764,17 +727,15 @@ stored in the <code class="highlighter-rouge">skidl.lib_search_paths_kicad</code
 directory to search for parts. You can also search any file for a part by 
 using a full file name:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">my_part</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'C:/my_libs/my_great_parts.lib'</span><span class="p">,</span> <span class="s">'my_super_regulator'</span><span class="p">)</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_part</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'C:/my_libs/my_great_parts.lib'</span><span class="p">,</span> <span class="s">'my_super_regulator'</span><span class="p">)</span>
+</code></pre></div></div>
 
 <p>You’re also not restricted to getting an exact match on the part name: you can
 use a <em>regular expression</em> instead. For example, this will find a part
 with “358” anywhere in a part name or alias:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">my_part</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'some_library'</span><span class="p">,</span> <span class="s">'.*358.*'</span><span class="p">)</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_part</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'some_library'</span><span class="p">,</span> <span class="s">'.*358.*'</span><span class="p">)</span>
+</code></pre></div></div>
 
 <p>If the regular expression matches more than one part, then you’ll only get the
 first match and a warning that multiple parts were found.</p>
@@ -783,89 +744,79 @@ first match and a warning that multiple parts were found.</p>
 object. As was shown previously, the <code class="highlighter-rouge">ref</code> attribute will already be set
 but you can override it:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">my_part</span><span class="o">.</span><span class="n">ref</span> <span class="o">=</span> <span class="s">'U5'</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_part</span><span class="o">.</span><span class="n">ref</span> <span class="o">=</span> <span class="s">'U5'</span>
+</code></pre></div></div>
 
 <p>In addition, the <code class="highlighter-rouge">value</code> and <code class="highlighter-rouge">footprint</code> attributes are required for generating
 a netlist. You can also add any other attribute:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">my_part</span><span class="o">.</span><span class="n">manf</span> <span class="o">=</span> <span class="s">'Atmel'</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_part</span><span class="o">.</span><span class="n">manf</span> <span class="o">=</span> <span class="s">'Atmel'</span>
 <span class="n">my_part</span><span class="o">.</span><span class="nb">setattr</span><span class="p">(</span><span class="s">'manf#'</span><span class="p">,</span> <span class="s">'ATTINY4-TSHR'</span><span class="p">)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>It’s also possible to set the attributes during the part creation:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">my_part</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'some_lib'</span><span class="p">,</span> <span class="s">'some_part'</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="s">'U5'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Package_TO_SOT_SMD.pretty:SOT-23-6'</span><span class="p">,</span> <span class="n">manf</span><span class="o">=</span><span class="s">'Atmel'</span><span class="p">)</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_part</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'some_lib'</span><span class="p">,</span> <span class="s">'some_part'</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="s">'U5'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Package_TO_SOT_SMD.pretty:SOT-23-6'</span><span class="p">,</span> <span class="n">manf</span><span class="o">=</span><span class="s">'Atmel'</span><span class="p">)</span>
+</code></pre></div></div>
 
 <p>Creating nets is also simple:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">my_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>              <span class="c"># An unnamed net.</span>
-<span class="n">my_other_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'Fred'</span><span class="p">)</span>  <span class="c"># A named net.</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>              <span class="c1"># An unnamed net.
+</span><span class="n">my_other_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'Fred'</span><span class="p">)</span>  <span class="c1"># A named net.
+</span></code></pre></div></div>
 
 <p>As with parts, SKiDL will alter the name you assign to a net if it collides with another net
 having the same name.</p>
 
 <p>You can create a bus of a certain width like this:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">my_bus</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s">'bus_name'</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>  <span class="c"># Create a byte-wide bus.</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_bus</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s">'bus_name'</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>  <span class="c1"># Create a byte-wide bus.
+</span></code></pre></div></div>
 
 <p>(All buses must be named, but SKiDL will look for and correct colliding
 bus names.)</p>
 
 <p>You can also create a bus from existing nets, or buses, or the pins of parts:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">my_part</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'linear'</span><span class="p">,</span> <span class="s">'LM358'</span><span class="p">)</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_part</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'linear'</span><span class="p">,</span> <span class="s">'LM358'</span><span class="p">)</span>
 <span class="n">a_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>
 <span class="n">b_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>
-<span class="n">bus_nets</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s">'net_bus'</span><span class="p">,</span> <span class="n">a_net</span><span class="p">,</span> <span class="n">b_net</span><span class="p">)</span>            <span class="c"># A 2-bit bus.</span>
-<span class="n">bus_pins</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s">'pin_bus'</span><span class="p">,</span> <span class="n">my_part</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">my_part</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>  <span class="c"># A 2-bit bus.</span>
-<span class="n">bus_buses</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s">'bus_bus'</span><span class="p">,</span> <span class="n">my_bus</span><span class="p">)</span>                 <span class="c"># An 8-bit bus.</span>
-</code></pre>
-</div>
+<span class="n">bus_nets</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s">'net_bus'</span><span class="p">,</span> <span class="n">a_net</span><span class="p">,</span> <span class="n">b_net</span><span class="p">)</span>            <span class="c1"># A 2-bit bus.
+</span><span class="n">bus_pins</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s">'pin_bus'</span><span class="p">,</span> <span class="n">my_part</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">my_part</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>  <span class="c1"># A 2-bit bus.
+</span><span class="n">bus_buses</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s">'bus_bus'</span><span class="p">,</span> <span class="n">my_bus</span><span class="p">)</span>                 <span class="c1"># An 8-bit bus.
+</span></code></pre></div></div>
 
 <p>Finally, you can mix-and-match any combination of widths, nets, buses or part pins:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">bus_mixed</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s">'mongrel'</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">a_net</span><span class="p">,</span> <span class="n">my_bus</span><span class="p">,</span> <span class="n">my_part</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>  <span class="c"># 8+1+8+1 = 18-bit bus.</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">bus_mixed</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s">'mongrel'</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">a_net</span><span class="p">,</span> <span class="n">my_bus</span><span class="p">,</span> <span class="n">my_part</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>  <span class="c1"># 8+1+8+1 = 18-bit bus.
+</span></code></pre></div></div>
 
 <p>Finally, you can modify an existing bus by inserting or extending it with any combination
 of widths, nets, buses or pins:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">bus</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s">'A'</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>   <span class="c"># Eight-bit bus.</span>
-<span class="n">bus</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">Bus</span><span class="p">(</span><span class="s">'I'</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>  <span class="c"># Insert 3-bit bus before bus line bus[4].</span>
-<span class="n">bus</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">Pin</span><span class="p">(),</span> <span class="n">Net</span><span class="p">())</span> <span class="c"># Extend bus with another 5-bit bus, a pin, and a net.</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">bus</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s">'A'</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>   <span class="c1"># Eight-bit bus.
+</span><span class="n">bus</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">Bus</span><span class="p">(</span><span class="s">'I'</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>  <span class="c1"># Insert 3-bit bus before bus line bus[4].
+</span><span class="n">bus</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">Pin</span><span class="p">(),</span> <span class="n">Net</span><span class="p">())</span> <span class="c1"># Extend bus with another 5-bit bus, a pin, and a net.
+</span></code></pre></div></div>
 
 <p>The final object you can create is a <code class="highlighter-rouge">Pin</code>. You’ll probably never do this
 (except in interactive sessions), and it’s probably a mistake if
 you ever do do it, but here’s how to do it:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; p = Pin(num=1, name='my_pin', func=Pin.TRISTATE)
-&gt;&gt;&gt; p
-Pin ???/1/my_pin/TRISTATE
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> p <span class="o">=</span> Pin<span class="o">(</span><span class="nv">num</span><span class="o">=</span>1, <span class="nv">name</span><span class="o">=</span><span class="s1">'my_pin'</span>, <span class="nv">func</span><span class="o">=</span>Pin.TRISTATE<span class="o">)</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> p
+<span class="go">Pin ???/1/my_pin/TRISTATE
+</span></code></pre></div></div>
 
 <h2 id="finding-skidl-objects">Finding SKiDL Objects</h2>
 
 <p>Sometimes you may want to access a bus, net, or part that’s already been created.
 In such an instance, you can use the <code class="highlighter-rouge">get()</code> class method:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">n</span> <span class="o">=</span> <span class="n">Net</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'Fred'</span><span class="p">)</span>  <span class="c"># Find the existing Net object named 'Fred'.</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">Bus</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'A'</span><span class="p">)</span>     <span class="c"># Find the existing Bus object named 'A'.</span>
-<span class="n">p</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'AS6C1616'</span><span class="p">)</span>  <span class="c"># Find all parts with this part name.</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">n</span> <span class="o">=</span> <span class="n">Net</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'Fred'</span><span class="p">)</span>  <span class="c1"># Find the existing Net object named 'Fred'.
+</span><span class="n">b</span> <span class="o">=</span> <span class="n">Bus</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'A'</span><span class="p">)</span>     <span class="c1"># Find the existing Bus object named 'A'.
+</span><span class="n">p</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'AS6C1616'</span><span class="p">)</span>  <span class="c1"># Find all parts with this part name.
+</span></code></pre></div></div>
 
 <p>If a net or bus is found with the exact name that was given, then that SKiDL
 object is returned (no wild-card searches using regular expressions are allowed).
@@ -880,10 +831,9 @@ part descriptions, so you could search for all parts with “ram” in their des
 if it doesn’t exist, then create it (this is not possible with parts).
 The <code class="highlighter-rouge">fetch()</code> class method is used for this:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">n</span> <span class="o">=</span> <span class="n">Net</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s">'Fred'</span><span class="p">)</span>  <span class="c"># Find the existing Net object named 'Fred' or create it if not found.</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">Bus</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s">'A'</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>  <span class="c"># Find the existing Bus object named 'A' or create it if not found.</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">n</span> <span class="o">=</span> <span class="n">Net</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s">'Fred'</span><span class="p">)</span>  <span class="c1"># Find the existing Net object named 'Fred' or create it if not found.
+</span><span class="n">b</span> <span class="o">=</span> <span class="n">Bus</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s">'A'</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>  <span class="c1"># Find the existing Bus object named 'A' or create it if not found.
+</span></code></pre></div></div>
 
 <p>Note that with the <code class="highlighter-rouge">Bus.fetch()</code> method, you also have to provide the arguments to
 build the bus (such as its width) in case it doesn’t exist.</p>
@@ -894,25 +844,23 @@ build the bus (such as its width) in case it doesn’t exist.</p>
 copy an existing object. Here are some examples of creating a resistor and then making
 some copies of it:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; r1 = Part("Device", 'R', value=500)
-&gt;&gt;&gt; r2 = r1.copy()                         # Make a single copy of the resistor.
-&gt;&gt;&gt; r2_lst = r1.copy(1)                    # Make a single copy, but return it in a list.
-&gt;&gt;&gt; r3 = r1.copy(value='1K')               # Make a single copy, but give it a different value.
-&gt;&gt;&gt; r4 = r1(value='1K')                    # You can also call the object directly to make copies.
-&gt;&gt;&gt; r5, r6, r7 = r1(3)                     # Make 3 copies of the resistor.
-&gt;&gt;&gt; r8, r9, r10 = r1(value=[110,220,330])  # Make 3 copies, each with a different value.
-&gt;&gt;&gt; r11, r12 = 2 * r1                      # Make copies using the '*' operator.
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> r1 <span class="o">=</span> Part<span class="o">(</span><span class="s2">"Device"</span>, <span class="s1">'R'</span>, <span class="nv">value</span><span class="o">=</span>500<span class="o">)</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> r2 <span class="o">=</span> r1.copy<span class="o">()</span>                         <span class="c"># Make a single copy of the resistor.</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> r2_lst <span class="o">=</span> r1.copy<span class="o">(</span>1<span class="o">)</span>                    <span class="c"># Make a single copy, but return it in a list.</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> r3 <span class="o">=</span> r1.copy<span class="o">(</span><span class="nv">value</span><span class="o">=</span><span class="s1">'1K'</span><span class="o">)</span>               <span class="c"># Make a single copy, but give it a different value.</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> r4 <span class="o">=</span> r1<span class="o">(</span><span class="nv">value</span><span class="o">=</span><span class="s1">'1K'</span><span class="o">)</span>                    <span class="c"># You can also call the object directly to make copies.</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> r5, r6, r7 <span class="o">=</span> r1<span class="o">(</span>3<span class="o">)</span>                     <span class="c"># Make 3 copies of the resistor.</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> r8, r9, r10 <span class="o">=</span> r1<span class="o">(</span><span class="nv">value</span><span class="o">=[</span>110,220,330]<span class="o">)</span>  <span class="c"># Make 3 copies, each with a different value.</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> r11, r12 <span class="o">=</span> 2 <span class="k">*</span> r1                      <span class="c"># Make copies using the '*' operator.</span>
+</code></pre></div></div>
 
 <p>In some cases it’s clearer to create parts by copying a <em>template part</em> that
 doesn’t actually get included in the netlist for the circuitry.
 This is done like so:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; r_template = Part("Device", 'R', dest=TEMPLATE)  # Create a resistor just for copying.
-&gt;&gt;&gt; r1 = r_template(value='1K')  # Make copy that becomes part of the actual circuitry.
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> r_template <span class="o">=</span> Part<span class="o">(</span><span class="s2">"Device"</span>, <span class="s1">'R'</span>, <span class="nv">dest</span><span class="o">=</span>TEMPLATE<span class="o">)</span>  <span class="c"># Create a resistor just for copying.</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> r1 <span class="o">=</span> r_template<span class="o">(</span><span class="nv">value</span><span class="o">=</span><span class="s1">'1K'</span><span class="o">)</span>  <span class="c"># Make copy that becomes part of the actual circuitry.</span>
+</code></pre></div></div>
 
 <h2 id="accessing-part-pins-and-bus-lines">Accessing Part Pins and Bus Lines</h2>
 
@@ -923,9 +871,9 @@ using numbers, slices, strings, and regular expressions, either singly or in any
 
 <p>Suppose you have a PIC10 processor in a six-pin package:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; pic10 = Part('microchip_pic10mcu', 'pic10f220-i/ot')
-&gt;&gt;&gt; pic10
-
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10 <span class="o">=</span> Part<span class="o">(</span><span class="s1">'microchip_pic10mcu'</span>, <span class="s1">'pic10f220-i/ot'</span><span class="o">)</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10
+<span class="go">
 PIC10F220-I/OT: PIC10F222, 512W Flash, 24B SRAM, SOT-23-6
     Pin U1/1/ICSPDAT/AN0/GP0/BIDIRECTIONAL
     Pin U1/2/VSS/POWER-IN
@@ -933,37 +881,33 @@ PIC10F220-I/OT: PIC10F222, 512W Flash, 24B SRAM, SOT-23-6
     Pin U1/4/T0CKI/FOSC4/GP2/BIDIRECTIONAL
     Pin U1/5/VDD/POWER-IN
     Pin U1/6/Vpp/~MCLR~/GP3/INPUT
-</code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>The most natural way to access one of its pins is to give the pin number
 in brackets:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; pic10[3]
-Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10[3]
+<span class="go">Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL
+</span></code></pre></div></div>
 
 <p>(If you have a part in a BGA package with pins numbers like <code class="highlighter-rouge">C11</code>, then
 you’ll have to enter the pin number as a quoted string like ‘<code class="highlighter-rouge">C11</code>’.)</p>
 
 <p>You can also get several pins at once in a list:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; pic10[3,1,6]
-[Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL, Pin U1/1/ICSPDAT/AN0/GP0/BIDIRECTIONAL, Pin U1/6/Vpp/~MCLR~/GP3/INPUT]
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10[3,1,6]
+<span class="go">[Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL, Pin U1/1/ICSPDAT/AN0/GP0/BIDIRECTIONAL, Pin U1/6/Vpp/~MCLR~/GP3/INPUT]
+</span></code></pre></div></div>
 
 <p>You can even use Python slice notation:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; pic10[2:4]  # Get pins 2 through 4.
-[Pin U1/2/VSS/POWER-IN, Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL, Pin U1/4/T0CKI/FOSC4/GP2/BIDIRECTIONAL]
-&gt;&gt;&gt; pic10[4:2]  # Get pins 4 through 2.
-[Pin U1/4/T0CKI/FOSC4/GP2/BIDIRECTIONAL, Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL, Pin U1/2/VSS/POWER-IN]
-&gt;&gt;&gt; pic10[:]    # Get all the pins.
-[Pin U1/1/ICSPDAT/AN0/GP0/BIDIRECTIONAL, Pin U1/2/VSS/POWER-IN, Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL, Pin U1/4/T0CKI/FOSC4/GP2/BIDIRECTIONAL, Pin U1/5/VDD/POWER-IN, Pin U1/6/Vpp/~MCLR~/GP3/INPUT]
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10[2:4]  <span class="c"># Get pins 2 through 4.</span>
+<span class="go">[Pin U1/2/VSS/POWER-IN, Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL, Pin U1/4/T0CKI/FOSC4/GP2/BIDIRECTIONAL]
+</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10[4:2]  <span class="c"># Get pins 4 through 2.</span>
+<span class="go">[Pin U1/4/T0CKI/FOSC4/GP2/BIDIRECTIONAL, Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL, Pin U1/2/VSS/POWER-IN]
+</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10[:]    <span class="c"># Get all the pins.</span>
+<span class="go">[Pin U1/1/ICSPDAT/AN0/GP0/BIDIRECTIONAL, Pin U1/2/VSS/POWER-IN, Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL, Pin U1/4/T0CKI/FOSC4/GP2/BIDIRECTIONAL, Pin U1/5/VDD/POWER-IN, Pin U1/6/Vpp/~MCLR~/GP3/INPUT]
+</span></code></pre></div></div>
 
 <p>(It’s important to note that the slice notation used by SKiDL for parts is slightly
 different than standard Python. In Python, a slice <code class="highlighter-rouge">n:m</code> would fetch indices
@@ -976,69 +920,61 @@ do it this way. We’ll see…)</p>
 <p>In addition to the bracket notation, you can also get a single pin using an attribute name
 that begins with a ‘<code class="highlighter-rouge">p</code>’ followed by the pin number:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; pic10.p2
-Pin U1/2/VSS/POWER-IN
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10.p2
+<span class="go">Pin U1/2/VSS/POWER-IN
+</span></code></pre></div></div>
 
 <p>Instead of pin numbers, sometimes it makes the design intent more clear to 
 access pins by their names.
 For example, it’s more obvious that a voltage supply net is being
 attached to the power pin of the processor when it’s expressed like this:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">pic10</span><span class="p">[</span><span class="s">'VDD'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">supply_5V</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pic10</span><span class="p">[</span><span class="s">'VDD'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">supply_5V</span>
+</code></pre></div></div>
 
 <p>Like pin numbers, pin names can also be used as attributes to access the pin:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; pic10.VDD
-Pin U1/5/VDD/POWER-IN
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10.VDD
+<span class="go">Pin U1/5/VDD/POWER-IN
+</span></code></pre></div></div>
 
 <p>You can use multiple names or regular expressions to get more than one pin:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; pic10['VDD','VSS']
-[Pin U1/5/VDD/POWER-IN, Pin U1/2/VSS/POWER-IN]
-&gt;&gt;&gt; pic10['.*gp[1-3]']
-[Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL, Pin U1/4/T0CKI/FOSC4/GP2/BIDIRECTIONAL, Pin U1/6/Vpp/~MCLR~/GP3/INPUT]
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10[<span class="s1">'VDD'</span>,<span class="s1">'VSS'</span><span class="o">]</span>
+<span class="go">[Pin U1/5/VDD/POWER-IN, Pin U1/2/VSS/POWER-IN]
+</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10[<span class="s1">'.*gp[1-3]'</span><span class="o">]</span>
+<span class="go">[Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL, Pin U1/4/T0CKI/FOSC4/GP2/BIDIRECTIONAL, Pin U1/6/Vpp/~MCLR~/GP3/INPUT]
+</span></code></pre></div></div>
 
 <p>It can be tedious and error prone entering all the quote marks if you’re accessing
 many pin names. SKiDL lets you enter a single, comma-delimited string of
 pin names:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; pic10['.*GP0, .*GP1, .*GP2']
-[Pin U1/1/ICSPDAT/AN0/GP0/BIDIRECTIONAL, Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL, Pin U1/4/T0CKI/FOSC4/GP2/BIDIRECTIONAL]
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10[<span class="s1">'.*GP0, .*GP1, .*GP2'</span><span class="o">]</span>
+<span class="go">[Pin U1/1/ICSPDAT/AN0/GP0/BIDIRECTIONAL, Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL, Pin U1/4/T0CKI/FOSC4/GP2/BIDIRECTIONAL]
+</span></code></pre></div></div>
 
 <p>Some parts have sequentially-numbered sets of pins like the address and data buses of a RAM.
 SKiDL lets you access these pins using a slice-like notation in a string like so:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; ram = Part('memory', 'sram_512ko')
-&gt;&gt;&gt; ram['D[0:7]']
-[Pin U1/13/D0/TRISTATE, Pin U1/14/D1/TRISTATE, Pin U1/15/D2/TRISTATE, Pin U1/17/D3/TRISTATE, Pin U1/18/D4/TRISTATE, Pin U1/19/D5/TRISTATE, Pin U1/20/D6/TRISTATE, Pin U1/21/D7/TRISTATE]
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> ram <span class="o">=</span> Part<span class="o">(</span><span class="s1">'memory'</span>, <span class="s1">'sram_512ko'</span><span class="o">)</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> ram[<span class="s1">'D[0:7]'</span><span class="o">]</span>
+<span class="go">[Pin U1/13/D0/TRISTATE, Pin U1/14/D1/TRISTATE, Pin U1/15/D2/TRISTATE, Pin U1/17/D3/TRISTATE, Pin U1/18/D4/TRISTATE, Pin U1/19/D5/TRISTATE, Pin U1/20/D6/TRISTATE, Pin U1/21/D7/TRISTATE]
+</span></code></pre></div></div>
 
 <p>Or you can access the pins in the reverse order:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; ram = Part('memory', 'sram_512ko')
-&gt;&gt;&gt; ram['D[7:0]']
-[Pin U2/21/D7/TRISTATE, Pin U2/20/D6/TRISTATE, Pin U2/19/D5/TRISTATE, Pin U2/18/D4/TRISTATE, Pin U2/17/D3/TRISTATE, Pin U2/15/D2/TRISTATE, Pin U2/14/D1/TRISTATE, Pin U2/13/D0/TRISTATE]
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> ram <span class="o">=</span> Part<span class="o">(</span><span class="s1">'memory'</span>, <span class="s1">'sram_512ko'</span><span class="o">)</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> ram[<span class="s1">'D[7:0]'</span><span class="o">]</span>
+<span class="go">[Pin U2/21/D7/TRISTATE, Pin U2/20/D6/TRISTATE, Pin U2/19/D5/TRISTATE, Pin U2/18/D4/TRISTATE, Pin U2/17/D3/TRISTATE, Pin U2/15/D2/TRISTATE, Pin U2/14/D1/TRISTATE, Pin U2/13/D0/TRISTATE]
+</span></code></pre></div></div>
 
 <p><code class="highlighter-rouge">Part</code> objects also provide the <code class="highlighter-rouge">get_pins()</code> function which can select pins in even more ways.
 For example, this would get every bidirectional pin of the processor:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; pic10.get_pins(func=Pin.BIDIR)
-[Pin U1/1/ICSPDAT/AN0/GP0/BIDIRECTIONAL, Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL, Pin U1/4/T0CKI/FOSC4/GP2/BIDIRECTIONAL]
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10.get_pins<span class="o">(</span><span class="nv">func</span><span class="o">=</span>Pin.BIDIR<span class="o">)</span>
+<span class="go">[Pin U1/1/ICSPDAT/AN0/GP0/BIDIRECTIONAL, Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL, Pin U1/4/T0CKI/FOSC4/GP2/BIDIRECTIONAL]
+</span></code></pre></div></div>
 
 <p>Since you can access part pins by number or by name using strings or regular expressions, it’s worth
 discussing how SKiDL decides which one to select.
@@ -1066,61 +1002,58 @@ also have other pins used for addresses named <code class="highlighter-rouge">A1
 SKiDL provides the <code class="highlighter-rouge">p</code> and <code class="highlighter-rouge">n</code> part attributes so you can specifically target either
 pin numbers or names:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">ram</span><span class="p">[</span><span class="s">'A1, A2, A3'</span><span class="p">]</span>    <span class="c"># Selects pin numbers A1, A2 and A3 if the part is a BGA.</span>
-<span class="n">ram</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="s">'A1, A2, A3'</span><span class="p">]</span>  <span class="c"># Use the p attribute to specifically select pin numbers A1, A2 and A3.</span>
-<span class="n">ram</span><span class="o">.</span><span class="n">n</span><span class="p">[</span><span class="s">'A1, A2, A3'</span><span class="p">]</span>  <span class="c"># Use the n attribute to specifically select pin names A1, A2 and A3.</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ram</span><span class="p">[</span><span class="s">'A1, A2, A3'</span><span class="p">]</span>    <span class="c1"># Selects pin numbers A1, A2 and A3 if the part is a BGA.
+</span><span class="n">ram</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="s">'A1, A2, A3'</span><span class="p">]</span>  <span class="c1"># Use the p attribute to specifically select pin numbers A1, A2 and A3.
+</span><span class="n">ram</span><span class="o">.</span><span class="n">n</span><span class="p">[</span><span class="s">'A1, A2, A3'</span><span class="p">]</span>  <span class="c1"># Use the n attribute to specifically select pin names A1, A2 and A3.
+</span></code></pre></div></div>
 
 <p>If you want to access part pins algorithmically in a loop, it can be done as follows:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pic10</span><span class="o">.</span><span class="n">get_pins</span><span class="p">():</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pic10</span><span class="o">.</span><span class="n">get_pins</span><span class="p">():</span>
   <span class="o">&lt;</span><span class="n">do</span> <span class="n">something</span> <span class="k">with</span> <span class="n">p</span><span class="o">&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>The same thing could also be done using a <code class="highlighter-rouge">Part</code> object as an iterator:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pic10</span><span class="p">:</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pic10</span><span class="p">:</span>
   <span class="o">&lt;</span><span class="n">do</span> <span class="n">something</span> <span class="k">with</span> <span class="n">p</span><span class="o">&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="accessing-bus-lines">Accessing Bus Lines</h3>
 
 <p>Accessing the individual lines of a bus works similarly to accessing part pins:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; a = Net('NET_A')  # Create a named net.
-&gt;&gt;&gt; b = Bus('BUS_B', 8, a)  # Create a nine-bit bus.
-&gt;&gt;&gt; b
-BUS_B:
-        BUS_B0:  # Note how the individual lines of the bus are named.
-        BUS_B1:
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> a <span class="o">=</span> Net<span class="o">(</span><span class="s1">'NET_A'</span><span class="o">)</span>  <span class="c"># Create a named net.</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> b <span class="o">=</span> Bus<span class="o">(</span><span class="s1">'BUS_B'</span>, 8, a<span class="o">)</span>  <span class="c"># Create a nine-bit bus.</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> b
+<span class="go">BUS_B:
+</span><span class="gp">        BUS_B0:  #</span><span class="w"> </span>Note how the individual lines of the bus are named.
+<span class="go">        BUS_B1:
         BUS_B2:
         BUS_B3:
         BUS_B4:
         BUS_B5:
         BUS_B6:
         BUS_B7:
-        NET_A:   # The last net retains its original name.
+</span><span class="gp">        NET_A:   #</span><span class="w"> </span>The last net retains its original name.
+<span class="go">
+</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> b[0]  <span class="c"># Get the first line of the bus.</span>
+<span class="go">BUS_B0:
 
-&gt;&gt;&gt; b[0]  # Get the first line of the bus.
-BUS_B0:
+</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> b[4,8]  <span class="c"># Get the fifth and ninth bus lines.</span>
+<span class="go">[BUS_B4: , NET_A: ]
 
-&gt;&gt;&gt; b[4,8]  # Get the fifth and ninth bus lines.
-[BUS_B4: , NET_A: ]
+</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> b[3:0]  <span class="c"># Get the first four bus lines in reverse order.</span>
+<span class="go">[BUS_B3: , BUS_B2: , BUS_B1: , BUS_B0: ]
 
-&gt;&gt;&gt; b[3:0]  # Get the first four bus lines in reverse order.
-[BUS_B3: , BUS_B2: , BUS_B1: , BUS_B0: ]
+</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> b[<span class="s1">'BUS_B.*'</span><span class="o">]</span>  <span class="c"># Get all the bus lines except the last one.</span>
+<span class="go">[BUS_B0: , BUS_B1: , BUS_B2: , BUS_B3: , BUS_B4: , BUS_B5: , BUS_B6: , BUS_B7: ]
 
-&gt;&gt;&gt; b['BUS_B.*']  # Get all the bus lines except the last one.
-[BUS_B0: , BUS_B1: , BUS_B2: , BUS_B3: , BUS_B4: , BUS_B5: , BUS_B6: , BUS_B7: ]
+</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> b[<span class="s1">'NET_A'</span><span class="o">]</span>  <span class="c"># Get the last bus line.</span>
+<span class="go">NET_A:
 
-&gt;&gt;&gt; b['NET_A']  # Get the last bus line.
-NET_A:
-
-&gt;&gt;&gt; for line in b:  # Access lines in bus using bus as an iterator.
-...:    print(line)
+</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> <span class="k">for </span>line <span class="k">in </span>b:  <span class="c"># Access lines in bus using bus as an iterator.</span>
+<span class="go">...:    print(line)
 ...:
 BUS_B0:
 BUS_B1:
@@ -1131,8 +1064,7 @@ BUS_B5:
 BUS_B6:
 BUS_B7:
 NET_A:
-</code></pre>
-</div>
+</span></code></pre></div></div>
 
 <h2 id="making-connections">Making Connections</h2>
 
@@ -1189,74 +1121,68 @@ the number of things being connected:</p>
 
 <p>As a first example, let’s connect a net to a pin on a part:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; pic10 = Part('microchip_pic10mcu','pic10f220-i/ot')  # Get a part.
-&gt;&gt;&gt; io = Net('IO_NET')    # Create a net.
-&gt;&gt;&gt; pic10['.*GP0'] += io  # Connect the net to a part pin.
-&gt;&gt;&gt; io                    # Show the pins connected to the net.
-IO_NET: Pin U1/1/ICSPDAT/AN0/GP0/BIDIRECTIONAL
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10 <span class="o">=</span> Part<span class="o">(</span><span class="s1">'microchip_pic10mcu'</span>,<span class="s1">'pic10f220-i/ot'</span><span class="o">)</span>  <span class="c"># Get a part.</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> io <span class="o">=</span> Net<span class="o">(</span><span class="s1">'IO_NET'</span><span class="o">)</span>    <span class="c"># Create a net.</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10[<span class="s1">'.*GP0'</span><span class="o">]</span> +<span class="o">=</span> io  <span class="c"># Connect the net to a part pin.</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> io                    <span class="c"># Show the pins connected to the net.</span>
+<span class="go">IO_NET: Pin U1/1/ICSPDAT/AN0/GP0/BIDIRECTIONAL
+</span></code></pre></div></div>
 
 <p>You can do the same operation in reverse by connecting the part pin to the net
 with the same result:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; pic10 = Part('microchip_pic10mcu','pic10f220-i/ot')
-&gt;&gt;&gt; io = Net('IO_NET')
-&gt;&gt;&gt; io += pic10['.*GP0']  # Connect a part pin to the net.
-&gt;&gt;&gt; io
-IO_NET: Pin U1/1/ICSPDAT/AN0/GP0/BIDIRECTIONAL
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10 <span class="o">=</span> Part<span class="o">(</span><span class="s1">'microchip_pic10mcu'</span>,<span class="s1">'pic10f220-i/ot'</span><span class="o">)</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> io <span class="o">=</span> Net<span class="o">(</span><span class="s1">'IO_NET'</span><span class="o">)</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> io +<span class="o">=</span> pic10[<span class="s1">'.*GP0'</span><span class="o">]</span>  <span class="c"># Connect a part pin to the net.</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> io
+<span class="go">IO_NET: Pin U1/1/ICSPDAT/AN0/GP0/BIDIRECTIONAL
+</span></code></pre></div></div>
 
 <p>You can also connect a pin directly to another pin.
 In this case, an <em>implicit net</em> will be created between the pins that you can
 access using the <code class="highlighter-rouge">net</code> attribute of either part pin:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; pic10['.*GP1'] += pic10['.*GP2']  # Connect two pins together.
-&gt;&gt;&gt; pic10['.*GP1'].net     # Show the net connected to the pin.
-N$1: Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL, Pin U1/4/T0CKI/FOSC4/GP2/BIDIRECTIONAL
-&gt;&gt;&gt; pic10['.*GP2'].net     # Show the net connected to the other pin. Same thing!
-N$1: Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL, Pin U1/4/T0CKI/FOSC4/GP2/BIDIRECTIONAL
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10[<span class="s1">'.*GP1'</span><span class="o">]</span> +<span class="o">=</span> pic10[<span class="s1">'.*GP2'</span><span class="o">]</span>  <span class="c"># Connect two pins together.</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10[<span class="s1">'.*GP1'</span><span class="o">]</span>.net     <span class="c"># Show the net connected to the pin.</span>
+<span class="gp">N$</span>1: Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL, Pin U1/4/T0CKI/FOSC4/GP2/BIDIRECTIONAL
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10[<span class="s1">'.*GP2'</span><span class="o">]</span>.net     <span class="c"># Show the net connected to the other pin. Same thing!</span>
+<span class="gp">N$</span>1: Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL, Pin U1/4/T0CKI/FOSC4/GP2/BIDIRECTIONAL
+</code></pre></div></div>
 
 <p>You can connect multiple pins together, all at once:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; pic10[1] += pic10[2,3,6]
-&gt;&gt;&gt; pic10[1].net
-N$1: Pin U1/1/ICSPDAT/AN0/GP0/BIDIRECTIONAL, Pin U1/2/VSS/POWER-IN, Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL, Pin U1/6/Vpp/~MCLR~/GP3/INPUT
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10[1] +<span class="o">=</span> pic10[2,3,6]
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10[1].net
+<span class="gp">N$</span>1: Pin U1/1/ICSPDAT/AN0/GP0/BIDIRECTIONAL, Pin U1/2/VSS/POWER-IN, Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL, Pin U1/6/Vpp/~MCLR~/GP3/INPUT
+</code></pre></div></div>
 
 <p>Or you can do it incrementally:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; pic10[1] += pic10[2]
-&gt;&gt;&gt; pic10[1] += pic10[3]
-&gt;&gt;&gt; pic10[1] += pic10[6]
-&gt;&gt;&gt; pic10[1].net
-N$1: Pin U1/1/ICSPDAT/AN0/GP0/BIDIRECTIONAL, Pin U1/2/VSS/POWER-IN, Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL, Pin U1/6/Vpp/~MCLR~/GP3/INPUT
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10[1] +<span class="o">=</span> pic10[2]
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10[1] +<span class="o">=</span> pic10[3]
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10[1] +<span class="o">=</span> pic10[6]
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10[1].net
+<span class="gp">N$</span>1: Pin U1/1/ICSPDAT/AN0/GP0/BIDIRECTIONAL, Pin U1/2/VSS/POWER-IN, Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL, Pin U1/6/Vpp/~MCLR~/GP3/INPUT
+</code></pre></div></div>
 
 <p>If you connect pins on separate nets together, then all the pins are merged onto the same net:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; pic10[1] += pic10[2]  # Put pins 1 &amp; 2 on one net.
-&gt;&gt;&gt; pic10[1].net
-N$1: Pin U1/1/ICSPDAT/AN0/GP0/BIDIRECTIONAL, Pin U1/2/VSS/POWER-IN
-&gt;&gt;&gt; pic10[3] += pic10[4]  # Put pins 3 &amp; 4 on another net.
-&gt;&gt;&gt; pic10[3].net
-N$2: Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL, Pin U1/4/T0CKI/FOSC4/GP2/BIDIRECTIONAL
-&gt;&gt;&gt; pic10[1] += pic10[4]  # Connect two pins from different nets.
-&gt;&gt;&gt; pic10[3].net          # Now all the pins are on the same net!
-N$2: Pin U1/1/ICSPDAT/AN0/GP0/BIDIRECTIONAL, Pin U1/2/VSS/POWER-IN, Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL, Pin U1/4/T0CKI/FOSC4/GP2/BIDIRECTIONAL
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10[1] +<span class="o">=</span> pic10[2]  <span class="c"># Put pins 1 &amp; 2 on one net.</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10[1].net
+<span class="gp">N$</span>1: Pin U1/1/ICSPDAT/AN0/GP0/BIDIRECTIONAL, Pin U1/2/VSS/POWER-IN
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10[3] +<span class="o">=</span> pic10[4]  <span class="c"># Put pins 3 &amp; 4 on another net.</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10[3].net
+<span class="gp">N$</span>2: Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL, Pin U1/4/T0CKI/FOSC4/GP2/BIDIRECTIONAL
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10[1] +<span class="o">=</span> pic10[4]  <span class="c"># Connect two pins from different nets.</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10[3].net          <span class="c"># Now all the pins are on the same net!</span>
+<span class="gp">N$</span>2: Pin U1/1/ICSPDAT/AN0/GP0/BIDIRECTIONAL, Pin U1/2/VSS/POWER-IN, Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL, Pin U1/4/T0CKI/FOSC4/GP2/BIDIRECTIONAL
+</code></pre></div></div>
 
 <p>Here’s an example of connecting a three-bit bus to three pins on a part:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; pic10 = Part('microchip_pic10mcu','pic10f220-i/ot')
-&gt;&gt;&gt; pic10
-
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10 <span class="o">=</span> Part<span class="o">(</span><span class="s1">'microchip_pic10mcu'</span>,<span class="s1">'pic10f220-i/ot'</span><span class="o">)</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10
+<span class="go">
 PIC10F220-I/OT: PIC10F222, 512W Flash, 24B SRAM, SOT-23-6
     Pin U1/1/ICSPDAT/AN0/GP0/BIDIRECTIONAL
     Pin U1/2/VSS/POWER-IN
@@ -1264,30 +1190,28 @@ PIC10F220-I/OT: PIC10F222, 512W Flash, 24B SRAM, SOT-23-6
     Pin U1/4/T0CKI/FOSC4/GP2/BIDIRECTIONAL
     Pin U1/5/VDD/POWER-IN
     Pin U1/6/Vpp/~MCLR~/GP3/INPUT
-&gt;&gt;&gt; b = Bus('GP', 3)        # Create a 3-bit bus.
-&gt;&gt;&gt; pic10[4,3,1] += b[2:0]  # Connect bus to part pins, one-to-one.
-&gt;&gt;&gt; b
-GP:
+</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> b <span class="o">=</span> Bus<span class="o">(</span><span class="s1">'GP'</span>, 3<span class="o">)</span>        <span class="c"># Create a 3-bit bus.</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10[4,3,1] +<span class="o">=</span> b[2:0]  <span class="c"># Connect bus to part pins, one-to-one.</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> b
+<span class="go">GP:
         GP0: Pin U1/1/ICSPDAT/AN0/GP0/BIDIRECTIONAL
         GP1: Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL
         GP2: Pin U1/4/T0CKI/FOSC4/GP2/BIDIRECTIONAL
-</code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>But SKiDL will warn you if there aren’t the same number of things to
 connect on each side:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; pic10[4,3,1] += b[1:0]  # Too few bus lines for the pins!
-ERROR: Connection mismatch 3 != 2!
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10[4,3,1] +<span class="o">=</span> b[1:0]  <span class="c"># Too few bus lines for the pins!</span>
+<span class="go">ERROR: Connection mismatch 3 != 2!
 Traceback (most recent call last):
-  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
-  File "c:\xesscorp\kicad\tools\skidl\skidl\skidl.py", line 3330, in __iadd__
+</span><span class="gp">  File "&lt;stdin&gt;</span><span class="s2">", line 1, in &lt;module&gt;
+</span><span class="go">  File "c:\xesscorp\kicad\tools\skidl\skidl\skidl.py", line 3330, in __iadd__
     raise Exception
 Exception
-</code></pre>
-</div>
+</span></code></pre></div></div>
 
-<h2 id="making-parallel-and-serial-networks">Making Parallel and Serial Networks</h2>
+<h2 id="making-serial-parallel-and-tee-networks">Making Serial, Parallel, and Tee Networks</h2>
 
 <p>The previous section showed some general-purpose techniques for connecting parts,
 but SKiDL also has some
@@ -1296,42 +1220,37 @@ for wiring two-pin components in parallel or serial.
 For example, here is a network of four resistors connected in series
 between power and ground:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">vcc</span><span class="p">,</span> <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'VCC'</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s">'GND'</span><span class="p">)</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vcc</span><span class="p">,</span> <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'VCC'</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s">'GND'</span><span class="p">)</span>
 <span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">r3</span><span class="p">,</span> <span class="n">r4</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span>
 <span class="n">ser_ntwk</span> <span class="o">=</span> <span class="n">vcc</span> <span class="o">&amp;</span> <span class="n">r1</span> <span class="o">&amp;</span> <span class="n">r2</span> <span class="o">&amp;</span> <span class="n">r3</span> <span class="o">&amp;</span> <span class="n">r4</span> <span class="o">&amp;</span> <span class="n">gnd</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>It’s also possible to connect the resistors in parallel between power and ground:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">par_ntwk</span> <span class="o">=</span> <span class="n">vcc</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">r1</span> <span class="o">|</span> <span class="n">r2</span> <span class="o">|</span> <span class="n">r3</span> <span class="o">|</span> <span class="n">r4</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">gnd</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">par_ntwk</span> <span class="o">=</span> <span class="n">vcc</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">r1</span> <span class="o">|</span> <span class="n">r2</span> <span class="o">|</span> <span class="n">r3</span> <span class="o">|</span> <span class="n">r4</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">gnd</span>
+</code></pre></div></div>
 
 <p>Or you can do something like placing pairs of resistors in series and then paralleling
 those combinations like this:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">combo_ntwk</span> <span class="o">=</span> <span class="n">vcc</span> <span class="o">&amp;</span> <span class="p">((</span><span class="n">r1</span> <span class="o">&amp;</span> <span class="n">r2</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">r3</span> <span class="o">&amp;</span> <span class="n">r4</span><span class="p">))</span> <span class="o">&amp;</span> <span class="n">gnd</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">combo_ntwk</span> <span class="o">=</span> <span class="n">vcc</span> <span class="o">&amp;</span> <span class="p">((</span><span class="n">r1</span> <span class="o">&amp;</span> <span class="n">r2</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">r3</span> <span class="o">&amp;</span> <span class="n">r4</span><span class="p">))</span> <span class="o">&amp;</span> <span class="n">gnd</span>
+</code></pre></div></div>
 
 <p>The examples above work with <em>non-polarized</em> components, but what about parts
 like diodes? In that case, you have to specify the pins <em>explicitly</em> with the
 first pin connected to the preceding part and the second pin to the following part:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">d1</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'D'</span><span class="p">)</span>
-<span class="n">polar_ntwk</span> <span class="o">=</span> <span class="n">vcc</span> <span class="o">&amp;</span> <span class="n">r1</span> <span class="o">&amp;</span> <span class="n">d1</span><span class="p">[</span><span class="s">'A,K'</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">gnd</span>  <span class="c"># Diode anode connected to resistor and cathode to ground.</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">d1</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'D'</span><span class="p">)</span>
+<span class="n">polar_ntwk</span> <span class="o">=</span> <span class="n">vcc</span> <span class="o">&amp;</span> <span class="n">r1</span> <span class="o">&amp;</span> <span class="n">d1</span><span class="p">[</span><span class="s">'A,K'</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">gnd</span>  <span class="c1"># Diode anode connected to resistor and cathode to ground.
+</span></code></pre></div></div>
 
 <p>Explicitly listing the pins also lets you use multi-pin parts with networks.
 For example, here’s an NPN-transistor amplifier:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">q1</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'Q_NPN_ECB'</span><span class="p">)</span>
-<span class="n">ntwk_ce</span> <span class="o">=</span> <span class="n">vcc</span> <span class="o">&amp;</span> <span class="n">r1</span> <span class="o">&amp;</span> <span class="n">q1</span><span class="p">[</span><span class="s">'C,E'</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">gnd</span>  <span class="c"># VCC through load resistor to collector and emitter attached to ground.</span>
-<span class="n">ntwk_b</span> <span class="o">=</span> <span class="n">r2</span> <span class="o">&amp;</span> <span class="n">q1</span><span class="p">[</span><span class="s">'B'</span><span class="p">]</span>  <span class="c"># Resistor attached to base.</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">q1</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'Q_NPN_ECB'</span><span class="p">)</span>
+<span class="n">ntwk_ce</span> <span class="o">=</span> <span class="n">vcc</span> <span class="o">&amp;</span> <span class="n">r1</span> <span class="o">&amp;</span> <span class="n">q1</span><span class="p">[</span><span class="s">'C,E'</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">gnd</span>  <span class="c1"># VCC through load resistor to collector and emitter attached to ground.
+</span><span class="n">ntwk_b</span> <span class="o">=</span> <span class="n">r2</span> <span class="o">&amp;</span> <span class="n">q1</span><span class="p">[</span><span class="s">'B'</span><span class="p">]</span>  <span class="c1"># Resistor attached to base.
+</span></code></pre></div></div>
 
 <p>That’s all well and good, but how do you connect to internal points in these networks where
 the interesting things are happening?
@@ -1339,13 +1258,27 @@ For instance, how do you apply an input to the transistor circuit and then conne
 to the output?
 One way is by inserting nets inside the networks:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'INPUT'</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s">'OUTPUT'</span><span class="p">)</span>
-<span class="n">ntwk_ce</span> <span class="o">=</span> <span class="n">vcc</span> <span class="o">&amp;</span> <span class="n">r1</span> <span class="o">&amp;</span> <span class="n">outp</span> <span class="o">&amp;</span> <span class="n">q1</span><span class="p">[</span><span class="s">'C,E'</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">gnd</span>  <span class="c"># Connect net outp to the junction of the resistor and transistor collector.</span>
-<span class="n">ntwk_b</span> <span class="o">=</span> <span class="n">inp</span> <span class="o">&amp;</span> <span class="n">r2</span> <span class="o">&amp;</span> <span class="n">q1</span><span class="p">[</span><span class="s">'B'</span><span class="p">]</span>  <span class="c"># Connect net inp to the resistor driving the transistor base.</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'INPUT'</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s">'OUTPUT'</span><span class="p">)</span>
+<span class="n">ntwk_ce</span> <span class="o">=</span> <span class="n">vcc</span> <span class="o">&amp;</span> <span class="n">r1</span> <span class="o">&amp;</span> <span class="n">outp</span> <span class="o">&amp;</span> <span class="n">q1</span><span class="p">[</span><span class="s">'C,E'</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">gnd</span>  <span class="c1"># Connect net outp to the junction of the resistor and transistor collector.
+</span><span class="n">ntwk_b</span> <span class="o">=</span> <span class="n">inp</span> <span class="o">&amp;</span> <span class="n">r2</span> <span class="o">&amp;</span> <span class="n">q1</span><span class="p">[</span><span class="s">'B'</span><span class="p">]</span>  <span class="c1"># Connect net inp to the resistor driving the transistor base.
+</span></code></pre></div></div>
 
 <p>After that’s done, the <code class="highlighter-rouge">inp</code> and <code class="highlighter-rouge">outp</code> nets can be connected to other points in the circuit.</p>
+
+<p>Not all networks are composed of parts in series or parallel, for example the
+<a href="https://www.eeweb.com/tools/pi-match"><em>Pi matching network</em></a>.
+This can be described using the <code class="highlighter-rouge">tee()</code> function like so:</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">,</span> <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'INPUT'</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s">'OUTPUT'</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s">'GND'</span><span class="p">)</span>
+<span class="n">l1</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'Device'</span><span class="p">,</span> <span class="s">'L'</span><span class="p">)</span>
+<span class="n">c1</span><span class="p">,</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'Device'</span><span class="p">,</span> <span class="s">'C'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="n">pi_ntwk</span> <span class="o">=</span> <span class="n">inp</span> <span class="o">&amp;</span> <span class="n">tee</span><span class="p">(</span><span class="n">c1</span> <span class="o">&amp;</span> <span class="n">gnd</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">l1</span> <span class="o">&amp;</span> <span class="n">tee</span><span class="p">(</span><span class="n">c2</span> <span class="o">&amp;</span> <span class="n">gnd</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">outp</span>
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">tee</code> function takes any network as its argument and returns the first node of
+that network to be connected into the higher-level network.
+The network passed to <code class="highlighter-rouge">tee</code> can be arbitrarily complex, including any
+combination of parts, <code class="highlighter-rouge">&amp;</code>’s, <code class="highlighter-rouge">|</code>’s, and <code class="highlighter-rouge">tee</code>’s.</p>
 
 <h2 id="aliases">Aliases</h2>
 
@@ -1353,24 +1286,22 @@ One way is by inserting nets inside the networks:</p>
 affecting the original name.
 This is probably most useful in assigning names to pins to describe their functions.</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">r</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'R'</span><span class="p">)</span>
-<span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vcc</span>  <span class="c"># Connect one end of resistor to VCC net.</span>
-<span class="n">r</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">aliases</span> <span class="o">+=</span> <span class="s">"pullup"</span>  <span class="c"># Add the alias "pullup" to the other end of the resistor.</span>
-
-<span class="n">uc</span><span class="p">[</span><span class="s">'RESET'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">r</span><span class="p">[</span><span class="s">'pullup'</span><span class="p">]</span>  <span class="c"># Connect the pullup resistor to the reset pin of a microcontroller.</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">r</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'R'</span><span class="p">)</span>
+<span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vcc</span>  <span class="c1"># Connect one end of resistor to VCC net.
+</span><span class="n">r</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">aliases</span> <span class="o">+=</span> <span class="s">"pullup"</span>  <span class="c1"># Add the alias "pullup" to the other end of the resistor.
+</span>
+<span class="n">uc</span><span class="p">[</span><span class="s">'RESET'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">r</span><span class="p">[</span><span class="s">'pullup'</span><span class="p">]</span>  <span class="c1"># Connect the pullup resistor to the reset pin of a microcontroller.
+</span></code></pre></div></div>
 
 <p>To see the assigned aliases, just use the <code class="highlighter-rouge">aliases</code> attribute:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; r = Part("Device", 'R')
-&gt;&gt;&gt; r.aliases += "resistor"
-&gt;&gt;&gt; r.aliases += "pullup resistor"
-&gt;&gt;&gt; r.aliases
-
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> r <span class="o">=</span> Part<span class="o">(</span><span class="s2">"Device"</span>, <span class="s1">'R'</span><span class="o">)</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> r.aliases +<span class="o">=</span> <span class="s2">"resistor"</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> r.aliases +<span class="o">=</span> <span class="s2">"pullup resistor"</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> r.aliases
+<span class="go">
 {'pullup resistor', 'resistor'}
-</code></pre>
-</div>
+</span></code></pre></div></div>
 
 <h2 id="units-within-parts">Units Within Parts</h2>
 
@@ -1385,27 +1316,25 @@ For example, a four-pin <em>resistor network</em> might contain two resistors:
 one attached between pins 1 and 4, and the other bewtween pins 2 and 3.
 Each resistor could be assigned to a unit as follows:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; rn = Part("Device", 'R_Pack02')
-&gt;&gt;&gt; rn.make_unit('A', 1, 4)  # Make a unit called 'A' for the first resistor.
-
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> rn <span class="o">=</span> Part<span class="o">(</span><span class="s2">"Device"</span>, <span class="s1">'R_Pack02'</span><span class="o">)</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> rn.make_unit<span class="o">(</span><span class="s1">'A'</span>, 1, 4<span class="o">)</span>  <span class="c"># Make a unit called 'A' for the first resistor.</span>
+<span class="go">
  R_Pack02 (): 2 Resistor network, parallel topology, DIP package
     Pin RN1/4/R1.2/PASSIVE
     Pin RN1/1/R1.1/PASSIVE
 
-&gt;&gt;&gt; rn.make_unit('B', 2, 3)  # Now make a unit called 'B' for the second resistor.
-
+</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> rn.make_unit<span class="o">(</span><span class="s1">'B'</span>, 2, 3<span class="o">)</span>  <span class="c"># Now make a unit called 'B' for the second resistor.</span>
+<span class="go">
  R_Pack02 (): 2 Resistor network, parallel topology, DIP package
     Pin RN1/2/R2.1/PASSIVE
     Pin RN1/3/R2.2/PASSIVE
-</code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>Once the units are defined, you can use them just like any part:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; rn.unit['A'][1,4] += Net(), Net()  # Connect resistor A to two nets.
-&gt;&gt;&gt; rn.unit['B'][2,3] += rn.unit['A'][1,4]  # Connect resistor B in parallel with resistor A.
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> rn.unit[<span class="s1">'A'</span><span class="o">][</span>1,4] +<span class="o">=</span> Net<span class="o">()</span>, Net<span class="o">()</span>  <span class="c"># Connect resistor A to two nets.</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> rn.unit[<span class="s1">'B'</span><span class="o">][</span>2,3] +<span class="o">=</span> rn.unit[<span class="s1">'A'</span><span class="o">][</span>1,4]  <span class="c"># Connect resistor B in parallel with resistor A.</span>
+</code></pre></div></div>
 
 <p>Now this isn’t all that useful because you still have to remember which pins
 are assigned to each unit, and if you wanted to swap the resistors you would have
@@ -1413,19 +1342,17 @@ to change the unit names <em>and the pins numbers!</em>.
 In order to get around this inconvenience, you could assign <em>aliases</em> to each
 pin like this:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; rn[1].aliases += 'L' # Alias 'L' of pin 1 on left-side of package.
-&gt;&gt;&gt; rn[4].aliases += 'R' # Alias 'R' of pin 4 on right-side of package.
-&gt;&gt;&gt; rn[2].aliases += 'L' # Alias 'L' of pin 2 on left-side.
-&gt;&gt;&gt; rn[3].aliases += 'R' # Alias 'R' of pin 3 on right-side.
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> rn[1].aliases +<span class="o">=</span> <span class="s1">'L'</span> <span class="c"># Alias 'L' of pin 1 on left-side of package.</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> rn[4].aliases +<span class="o">=</span> <span class="s1">'R'</span> <span class="c"># Alias 'R' of pin 4 on right-side of package.</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> rn[2].aliases +<span class="o">=</span> <span class="s1">'L'</span> <span class="c"># Alias 'L' of pin 2 on left-side.</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> rn[3].aliases +<span class="o">=</span> <span class="s1">'R'</span> <span class="c"># Alias 'R' of pin 3 on right-side.</span>
+</code></pre></div></div>
 
 <p>Now the same connections can be made using the pin aliases:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; rn.unit['A']['L,R'] += Net(), Net()  # Connect resistor A to two nets.
-&gt;&gt;&gt; rn.unit['B']['L,R'] += rn.unit['A']['L,R']  # Connect resistor B in parallel with resistor A.
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> rn.unit[<span class="s1">'A'</span><span class="o">][</span><span class="s1">'L,R'</span><span class="o">]</span> +<span class="o">=</span> Net<span class="o">()</span>, Net<span class="o">()</span>  <span class="c"># Connect resistor A to two nets.</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> rn.unit[<span class="s1">'B'</span><span class="o">][</span><span class="s1">'L,R'</span><span class="o">]</span> +<span class="o">=</span> rn.unit[<span class="s1">'A'</span><span class="o">][</span><span class="s1">'L,R'</span><span class="o">]</span>  <span class="c"># Connect resistor B in parallel with resistor A.</span>
+</code></pre></div></div>
 
 <p>In this case, if you wanted to swap the A and B resistors, you only need to change
 their unit labels.
@@ -1434,10 +1361,9 @@ The pin aliases don’t need to be altered.</p>
 <p>If you find the <code class="highlighter-rouge">unit[...]</code> notation cumbersome, units can also be accessed by
 using their names as attributes:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; rn.A['L,R'] += Net(), Net()  # Connect resistor A to two nets.
-&gt;&gt;&gt; rn.B['L,R'] += rn.A['L,R']   # Connect resistor B in parallel with resistor A.
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> rn.A[<span class="s1">'L,R'</span><span class="o">]</span> +<span class="o">=</span> Net<span class="o">()</span>, Net<span class="o">()</span>  <span class="c"># Connect resistor A to two nets.</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> rn.B[<span class="s1">'L,R'</span><span class="o">]</span> +<span class="o">=</span> rn.A[<span class="s1">'L,R'</span><span class="o">]</span>   <span class="c"># Connect resistor B in parallel with resistor A.</span>
+</code></pre></div></div>
 
 <h2 id="part-fields">Part Fields</h2>
 
@@ -1445,27 +1371,25 @@ using their names as attributes:</p>
 manufacturer identifiers.
 Every <code class="highlighter-rouge">Part</code> object stores this information in a dictionary called <code class="highlighter-rouge">fields</code>:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt; lm35 = Part('Sensor_Temperature', 'LM35-D')
-&gt;&gt; lm35.fields
-
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;</span> lm35 <span class="o">=</span> Part<span class="o">(</span><span class="s1">'Sensor_Temperature'</span>, <span class="s1">'LM35-D'</span><span class="o">)</span>
+<span class="gp">&gt;</span><span class="o">&gt;</span> lm35.fields
+<span class="go">
 {'F0': 'U',
  'F1': 'LM35-D',
  'F2': 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm',
  'F3': ''}
 
-&gt;&gt;&gt; lm35.fields['F1']
-
+</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> lm35.fields[<span class="s1">'F1'</span><span class="o">]</span>
+<span class="go">
 'LM35-D'
-</code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>Fields can also be accessed as attributes of the part:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; lm35.F1
-
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> lm35.F1
+<span class="go">
 'LM35-D'
-</code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>New fields can be added just by adding new keys and values to the <code class="highlighter-rouge">fields</code> dictionary.</p>
 
@@ -1479,12 +1403,12 @@ so there’s almost nothing new to learn.</p>
 
 <p>As an example, here’s the voltage divider as a module:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
-<span class="c"># Define the voltage divider module. The @subcircuit decorator </span>
-<span class="c"># handles some skidl housekeeping that needs to be done.</span>
-<span class="nd">@subcircuit</span>
+<span class="c1"># Define the voltage divider module. The @subcircuit decorator 
+# handles some skidl housekeeping that needs to be done.
+</span><span class="o">@</span><span class="n">subcircuit</span>
 <span class="k">def</span> <span class="nf">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">):</span>
     <span class="s">"""Divide inp voltage by 3 and place it on outp net."""</span>
     <span class="n">rup</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">'1K'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Resistor_SMD.pretty:R_0805_2012Metric'</span><span class="p">)</span>
@@ -1492,16 +1416,15 @@ so there’s almost nothing new to learn.</p>
     <span class="n">rup</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">inp</span><span class="p">,</span> <span class="n">outp</span>
     <span class="n">rlo</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">outp</span><span class="p">,</span> <span class="n">gnd</span>
 
-<span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'GND'</span><span class="p">)</span>         <span class="c"># GLobal ground net.</span>
-<span class="n">input_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'IN'</span><span class="p">)</span>    <span class="c"># Net with the voltage to be divided.</span>
-<span class="n">output_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'OUT'</span><span class="p">)</span>  <span class="c"># Net with the divided voltage.</span>
-
-<span class="c"># Instantiate the voltage divider and connect it to the input &amp; output nets.</span>
-<span class="n">vdiv</span><span class="p">(</span><span class="n">input_net</span><span class="p">,</span> <span class="n">output_net</span><span class="p">)</span>
+<span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'GND'</span><span class="p">)</span>         <span class="c1"># GLobal ground net.
+</span><span class="n">input_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'IN'</span><span class="p">)</span>    <span class="c1"># Net with the voltage to be divided.
+</span><span class="n">output_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'OUT'</span><span class="p">)</span>  <span class="c1"># Net with the divided voltage.
+</span>
+<span class="c1"># Instantiate the voltage divider and connect it to the input &amp; output nets.
+</span><span class="n">vdiv</span><span class="p">(</span><span class="n">input_net</span><span class="p">,</span> <span class="n">output_net</span><span class="p">)</span>
 
 <span class="n">generate_netlist</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>For the most part, <code class="highlighter-rouge">vdiv</code> is just a standard Python function:
 it accepts inputs, it performs operations on them, and it could return
@@ -1511,7 +1434,7 @@ Other than the <code class="highlighter-rouge">@subcircuit</code> decorator that
 
 <p>Here’s the netlist that’s generated:</p>
 
-<div class="language-text highlighter-rouge"><pre class="highlight"><code>(export (version D)
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(export (version D)
   (design
     (source "C:\TEMP\skidl tests\hier_example.py")
     (date "04/20/2017 09:39 AM")
@@ -1540,18 +1463,17 @@ Other than the <code class="highlighter-rouge">@subcircuit</code> decorator that
       (node (ref R1) (pin 2))
       (node (ref R2) (pin 1))))
 )
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>For an example of a multi-level hierarchy, the <code class="highlighter-rouge">multi_vdiv</code> module shown below
 can use the <code class="highlighter-rouge">vdiv</code> module to divide a voltage multiple times:</p>
 
 <p><a name="multilevel_hierarchy_example"></a></p>
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
-<span class="c"># Define the voltage divider module.</span>
-<span class="nd">@subcircuit</span>
+<span class="c1"># Define the voltage divider module.
+</span><span class="o">@</span><span class="n">subcircuit</span>
 <span class="k">def</span> <span class="nf">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">):</span>
     <span class="s">"""Divide inp voltage by 3 and place it on outp net."""</span>
     <span class="n">rup</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">'1K'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'Resistor_SMD.pretty:R_0805_2012Metric'</span><span class="p">)</span>
@@ -1559,23 +1481,22 @@ can use the <code class="highlighter-rouge">vdiv</code> module to divide a volta
     <span class="n">rup</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">inp</span><span class="p">,</span> <span class="n">outp</span>
     <span class="n">rlo</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">outp</span><span class="p">,</span> <span class="n">gnd</span>
 
-<span class="nd">@subcircuit</span>
+<span class="o">@</span><span class="n">subcircuit</span>
 <span class="k">def</span> <span class="nf">multi_vdiv</span><span class="p">(</span><span class="n">repeat</span><span class="p">,</span> <span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">):</span>
     <span class="s">"""Divide inp voltage by 3 ** repeat and place it on outp net."""</span>
     <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">repeat</span><span class="p">):</span>
-        <span class="n">out_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>     <span class="c"># Create an output net for the current stage.</span>
-        <span class="n">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">out_net</span><span class="p">)</span>  <span class="c"># Instantiate a divider stage.</span>
-        <span class="n">inp</span> <span class="o">=</span> <span class="n">out_net</span>       <span class="c"># The output net becomes the input net for the next stage.</span>
-    <span class="n">outp</span> <span class="o">+=</span> <span class="n">out_net</span>         <span class="c"># Connect the output from the last stage to the module output net.</span>
-
-<span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'GND'</span><span class="p">)</span>         <span class="c"># GLobal ground net.</span>
-<span class="n">input_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'IN'</span><span class="p">)</span>    <span class="c"># Net with the voltage to be divided.</span>
-<span class="n">output_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'OUT'</span><span class="p">)</span>  <span class="c"># Net with the divided voltage.</span>
-<span class="n">multi_vdiv</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">input_net</span><span class="p">,</span> <span class="n">output_net</span><span class="p">)</span>  <span class="c"># Run the input through 3 voltage dividers.</span>
-
+        <span class="n">out_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>     <span class="c1"># Create an output net for the current stage.
+</span>        <span class="n">vdiv</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">out_net</span><span class="p">)</span>  <span class="c1"># Instantiate a divider stage.
+</span>        <span class="n">inp</span> <span class="o">=</span> <span class="n">out_net</span>       <span class="c1"># The output net becomes the input net for the next stage.
+</span>    <span class="n">outp</span> <span class="o">+=</span> <span class="n">out_net</span>         <span class="c1"># Connect the output from the last stage to the module output net.
+</span>
+<span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'GND'</span><span class="p">)</span>         <span class="c1"># GLobal ground net.
+</span><span class="n">input_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'IN'</span><span class="p">)</span>    <span class="c1"># Net with the voltage to be divided.
+</span><span class="n">output_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'OUT'</span><span class="p">)</span>  <span class="c1"># Net with the divided voltage.
+</span><span class="n">multi_vdiv</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">input_net</span><span class="p">,</span> <span class="n">output_net</span><span class="p">)</span>  <span class="c1"># Run the input through 3 voltage dividers.
+</span>
 <span class="n">generate_netlist</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>(For the EE’s out there: <em>yes, I know cascading three simple voltage dividers
 will not multiplicatively scale the input voltage because of the
@@ -1584,7 +1505,7 @@ It’s just the simplest example I could use to show hierarchy.)</p>
 
 <p>And here’s the resulting netlist:</p>
 
-<div class="language-text highlighter-rouge"><pre class="highlight"><code>(export (version D)
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(export (version D)
   (design
     (source "C:\TEMP\skidl tests\multi_hier_example.py")
     (date "04/20/2017 09:43 AM")
@@ -1651,8 +1572,7 @@ It’s just the simplest example I could use to show hierarchy.)</p>
       (node (ref R5) (pin 2))
       (node (ref R6) (pin 1))))
 )
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="interfaces">Interfaces</h2>
 
@@ -1662,26 +1582,24 @@ To make the code easier to write and understand, SKiDL supports <em>interfaces</
 encapsulate a number of <code class="highlighter-rouge">Bus</code>, <code class="highlighter-rouge">Net</code>, or <code class="highlighter-rouge">Pin</code> objects.
 For example, here is an interface for a memory:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">mem_intfc</span> <span class="o">=</span> <span class="n">Interface</span><span class="p">(</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mem_intfc</span> <span class="o">=</span> <span class="n">Interface</span><span class="p">(</span>
   <span class="n">rd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'MEM_RD#'</span><span class="p">),</span>
   <span class="n">wr</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'MEM_WR#'</span><span class="p">),</span>
   <span class="n">addr</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s">'MEM_ADDR'</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
   <span class="n">data</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s">'MEM_DATA'</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
 <span class="p">)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Then this interface can be passed to a module that implements a RAM memory
 and a microcontroller that uses it:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">mem_module</span><span class="p">(</span><span class="n">mem_intfc</span><span class="p">)</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mem_module</span><span class="p">(</span><span class="n">mem_intfc</span><span class="p">)</span>
 <span class="n">uc_module</span><span class="p">(</span><span class="n">clk</span><span class="p">,</span> <span class="n">mem_intfc</span><span class="p">,</span> <span class="n">io_intfc</span><span class="p">)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Inside the <code class="highlighter-rouge">mem_module</code>, the interface signals are connected to a RAM chip:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="nd">@subcircuit</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="n">subcircuit</span>
 <span class="k">def</span> <span class="nf">mem_module</span><span class="p">(</span><span class="n">intfc</span><span class="p">):</span>
   <span class="n">ram</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'Memory_RAM'</span><span class="p">,</span> <span class="s">'AS6C1616'</span><span class="p">)</span>
   <span class="n">ram</span><span class="p">[</span><span class="s">'A[0:19]'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">intfc</span><span class="o">.</span><span class="n">addr</span>
@@ -1689,8 +1607,7 @@ and a microcontroller that uses it:</p>
   <span class="n">ram</span><span class="p">[</span><span class="s">'WE#'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">intfc</span><span class="o">.</span><span class="n">wr</span>
   <span class="n">ram</span><span class="p">[</span><span class="s">'OE#'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">intfc</span><span class="o">.</span><span class="n">rd</span>
   <span class="o">...</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="libraries">Libraries</h2>
 
@@ -1707,48 +1624,44 @@ environment variable), so if that’s all you need then you’re all set.</p>
 
 <p>You can set the default library format you want to use in your SKiDL script like so:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">set_default_tool</span><span class="p">(</span><span class="n">KICAD</span><span class="p">)</span>  <span class="c"># KiCad is the default library format.</span>
-<span class="n">set_default_tool</span><span class="p">(</span><span class="n">SKIDL</span><span class="p">)</span>  <span class="c"># Now SKiDL is the default library format.</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">set_default_tool</span><span class="p">(</span><span class="n">KICAD</span><span class="p">)</span>  <span class="c1"># KiCad is the default library format.
+</span><span class="n">set_default_tool</span><span class="p">(</span><span class="n">SKIDL</span><span class="p">)</span>  <span class="c1"># Now SKiDL is the default library format.
+</span></code></pre></div></div>
 
 <p>You can select the directories where SKiDL looks for parts using the 
 <code class="highlighter-rouge">lib_search_paths</code> dictionary:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">lib_search_paths</span><span class="p">[</span><span class="n">SKIDL</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s">'.'</span><span class="p">,</span> <span class="s">'..'</span><span class="p">,</span> <span class="s">'C:</span><span class="se">\\</span><span class="s">temp'</span><span class="p">]</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lib_search_paths</span><span class="p">[</span><span class="n">SKIDL</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s">'.'</span><span class="p">,</span> <span class="s">'..'</span><span class="p">,</span> <span class="s">'C:</span><span class="se">\\</span><span class="s">temp'</span><span class="p">]</span>
 <span class="n">lib_search_paths</span><span class="p">[</span><span class="n">KICAD</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">'C:</span><span class="se">\\</span><span class="s">my</span><span class="se">\\</span><span class="s">kicad</span><span class="se">\\</span><span class="s">libs'</span><span class="p">)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>You can convert a KiCad library into the SKiDL format by exporting it:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">kicad_lib</span> <span class="o">=</span> <span class="n">SchLib</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="n">KICAD</span><span class="p">)</span>       <span class="c"># Open a KiCad library.</span>
-<span class="n">kicad_lib</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="s">'my_skidl_lib'</span><span class="p">)</span>               <span class="c"># Export it into a file in SKiDL format.</span>
-<span class="n">skidl_lib</span> <span class="o">=</span> <span class="n">SchLib</span><span class="p">(</span><span class="s">'my_skidl_lib'</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="n">SKIDL</span><span class="p">)</span> <span class="c"># Create a SKiDL library object from the new file.</span>
-<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">skidl_lib</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">kicad_lib</span><span class="p">):</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">kicad_lib</span> <span class="o">=</span> <span class="n">SchLib</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="n">KICAD</span><span class="p">)</span>       <span class="c1"># Open a KiCad library.
+</span><span class="n">kicad_lib</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="s">'my_skidl_lib'</span><span class="p">)</span>               <span class="c1"># Export it into a file in SKiDL format.
+</span><span class="n">skidl_lib</span> <span class="o">=</span> <span class="n">SchLib</span><span class="p">(</span><span class="s">'my_skidl_lib'</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="n">SKIDL</span><span class="p">)</span> <span class="c1"># Create a SKiDL library object from the new file.
+</span><span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">skidl_lib</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">kicad_lib</span><span class="p">):</span>
     <span class="k">print</span><span class="p">(</span><span class="s">'As expected, both libraries have the same number of parts!'</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="k">print</span><span class="p">(</span><span class="s">'Something went wrong!'</span><span class="p">)</span>
-<span class="n">diode</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">skidl_lib</span><span class="p">,</span> <span class="s">'D'</span><span class="p">)</span>                   <span class="c"># Instantiate a diode from the SKiDL library.</span>
-</code></pre>
-</div>
+<span class="n">diode</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">skidl_lib</span><span class="p">,</span> <span class="s">'D'</span><span class="p">)</span>                   <span class="c1"># Instantiate a diode from the SKiDL library.
+</span></code></pre></div></div>
 
 <p>You can make ad-hoc libraries just by creating a SchLib object and adding
 Part objects to it:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">my_lib</span> <span class="o">=</span> <span class="n">SchLib</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">'my_lib'</span><span class="p">)</span>                      <span class="c"># Create an empty library object.</span>
-<span class="n">my_part</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">'R'</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="n">SKIDL</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span> <span class="c"># Create an empty part object template.</span>
-<span class="n">my_part</span><span class="o">.</span><span class="n">ref_prefix</span> <span class="o">=</span> <span class="s">'R'</span>                            <span class="c"># Set the part reference prefix.</span>
-<span class="n">my_part</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="s">'resistor'</span>                    <span class="c"># Set the part's description field.</span>
-<span class="n">my_part</span><span class="o">.</span><span class="n">keywords</span> <span class="o">=</span> <span class="s">'res resistor'</span>                   <span class="c"># Set the part's keywords.</span>
-<span class="n">my_part</span> <span class="o">+=</span> <span class="n">Pin</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">Pin</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">)</span>             <span class="c"># Add a pin to the part.</span>
-<span class="n">my_part</span> <span class="o">+=</span> <span class="n">Pin</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">Pin</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">)</span>             <span class="c"># Add another pin to the part.</span>
-<span class="n">my_lib</span> <span class="o">+=</span> <span class="n">my_part</span>                                   <span class="c"># Add the part to the library.</span>
-
-<span class="n">new_resistor</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">my_lib</span><span class="p">,</span> <span class="s">'R'</span><span class="p">)</span>                    <span class="c"># Instantiate the part from the library.</span>
-<span class="n">my_lib</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="s">'my_lib'</span><span class="p">)</span>                             <span class="c"># Save the library in a file my_lib.py.</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_lib</span> <span class="o">=</span> <span class="n">SchLib</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">'my_lib'</span><span class="p">)</span>                      <span class="c1"># Create an empty library object.
+</span><span class="n">my_part</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">'R'</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="n">SKIDL</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span> <span class="c1"># Create an empty part object template.
+</span><span class="n">my_part</span><span class="o">.</span><span class="n">ref_prefix</span> <span class="o">=</span> <span class="s">'R'</span>                            <span class="c1"># Set the part reference prefix.
+</span><span class="n">my_part</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="s">'resistor'</span>                    <span class="c1"># Set the part's description field.
+</span><span class="n">my_part</span><span class="o">.</span><span class="n">keywords</span> <span class="o">=</span> <span class="s">'res resistor'</span>                   <span class="c1"># Set the part's keywords.
+</span><span class="n">my_part</span> <span class="o">+=</span> <span class="n">Pin</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">Pin</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">)</span>             <span class="c1"># Add a pin to the part.
+</span><span class="n">my_part</span> <span class="o">+=</span> <span class="n">Pin</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">Pin</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">)</span>             <span class="c1"># Add another pin to the part.
+</span><span class="n">my_lib</span> <span class="o">+=</span> <span class="n">my_part</span>                                   <span class="c1"># Add the part to the library.
+</span>
+<span class="n">new_resistor</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">my_lib</span><span class="p">,</span> <span class="s">'R'</span><span class="p">)</span>                    <span class="c1"># Instantiate the part from the library.
+</span><span class="n">my_lib</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="s">'my_lib'</span><span class="p">)</span>                             <span class="c1"># Save the library in a file my_lib.py.
+</span></code></pre></div></div>
 
 <p>Always create a part intended for a library as a template so you don’t inadvertently
 add it to the circuit netlist.
@@ -1883,9 +1796,9 @@ category. Here they are.</p>
 <p>Sometimes you will use a part, but you won’t use every pin.
 The ERC will complain about those unconnected pins:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; pic10 = Part('microchip_pic10mcu','pic10f220-i/ot')
-&gt;&gt;&gt; ERC()
-ERC WARNING: Unconnected pin: BIDIRECTIONAL pin 1/ICSPDAT/AN0/GP0 of PIC10F220-I/OT/U1.
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10 <span class="o">=</span> Part<span class="o">(</span><span class="s1">'microchip_pic10mcu'</span>,<span class="s1">'pic10f220-i/ot'</span><span class="o">)</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> ERC<span class="o">()</span>
+<span class="go">ERC WARNING: Unconnected pin: BIDIRECTIONAL pin 1/ICSPDAT/AN0/GP0 of PIC10F220-I/OT/U1.
 ERC WARNING: Unconnected pin: POWER-IN pin 2/VSS of PIC10F220-I/OT/U1.
 ERC WARNING: Unconnected pin: BIDIRECTIONAL pin 3/ICSPCLK/AN1/GP1 of PIC10F220-I/OT/U1.
 ERC WARNING: Unconnected pin: BIDIRECTIONAL pin 4/T0CKI/FOSC4/GP2 of PIC10F220-I/OT/U1.
@@ -1894,34 +1807,31 @@ ERC WARNING: Unconnected pin: INPUT pin 6/Vpp/~MCLR~/GP3 of PIC10F220-I/OT/U1.
 
 6 warnings found during ERC.
 0 errors found during ERC.
-</code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>If you have pins that you intentionally want to leave unconnected, then
 attach them to the special-purpose <code class="highlighter-rouge">NC</code> (no-connect) net and the warnings will
 be supressed:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; pic10[1,3,4] += NC
-&gt;&gt;&gt; ERC()
-ERC WARNING: Unconnected pin: POWER-IN pin 2/VSS of PIC10F220-I/OT/U1.
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10[1,3,4] +<span class="o">=</span> NC
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> ERC<span class="o">()</span>
+<span class="go">ERC WARNING: Unconnected pin: POWER-IN pin 2/VSS of PIC10F220-I/OT/U1.
 ERC WARNING: Unconnected pin: POWER-IN pin 5/VDD of PIC10F220-I/OT/U1.
 ERC WARNING: Unconnected pin: INPUT pin 6/Vpp/~MCLR~/GP3 of PIC10F220-I/OT/U1.
 
 3 warnings found during ERC.
 0 errors found during ERC.
-</code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>In fact, if you have a part with many pins that are not going to be used,
 you can start off by attaching all the pins to the <code class="highlighter-rouge">NC</code> net.
 After that, you can attach the pins you’re using to normal nets and they
 will be removed from the <code class="highlighter-rouge">NC</code> net:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">my_part</span><span class="p">[:]</span> <span class="o">+=</span> <span class="n">NC</span>  <span class="c"># Connect every pin to NC net.</span>
-<span class="o">...</span>
-<span class="n">my_part</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">+=</span> <span class="n">Net</span><span class="p">()</span>  <span class="c"># Pin 5 is no longer unconnected.</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_part</span><span class="p">[:]</span> <span class="o">+=</span> <span class="n">NC</span>  <span class="c1"># Connect every pin to NC net.
+</span><span class="o">...</span>
+<span class="n">my_part</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">+=</span> <span class="n">Net</span><span class="p">()</span>  <span class="c1"># Pin 5 is no longer unconnected.
+</span></code></pre></div></div>
 
 <p>The <code class="highlighter-rouge">NC</code> net is the only net for which this happens.
 For all other nets, connecting two or more nets to the same pin
@@ -1942,28 +1852,26 @@ using its <code class="highlighter-rouge">drive</code> attribute. As a simple ex
 a net to the power supply input of a processor and then running
 the ERC:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; pic10 = Part('microchip_pic10mcu','pic10f220-i/ot')
-&gt;&gt;&gt; a = Net()
-&gt;&gt;&gt; pic10['VDD'] += a
-&gt;&gt;&gt; ERC()
-...
-ERC WARNING: Insufficient drive current on net N$1 for pin POWER-IN pin 5/VDD of PIC10F220-I/OT/U1
-...
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10 <span class="o">=</span> Part<span class="o">(</span><span class="s1">'microchip_pic10mcu'</span>,<span class="s1">'pic10f220-i/ot'</span><span class="o">)</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> a <span class="o">=</span> Net<span class="o">()</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10[<span class="s1">'VDD'</span><span class="o">]</span> +<span class="o">=</span> a
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> ERC<span class="o">()</span>
+<span class="c">...
+</span><span class="gp">ERC WARNING: Insufficient drive current on net N$</span>1 <span class="k">for </span>pin POWER-IN pin 5/VDD of PIC10F220-I/OT/U1
+<span class="c">...
+</span></code></pre></div></div>
 
 <p>This issue is fixed by changing the <code class="highlighter-rouge">drive</code> attribute of the net:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; pic10 = Part('microchip_pic10mcu','pic10f220-i/ot')
-&gt;&gt;&gt; a = Net()
-&gt;&gt;&gt; pic10['VDD'] += a
-&gt;&gt;&gt; a.drive = POWER
-&gt;&gt;&gt; ERC()
-...
-(Insufficient drive warning is no longer present.)
-...
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10 <span class="o">=</span> Part<span class="o">(</span><span class="s1">'microchip_pic10mcu'</span>,<span class="s1">'pic10f220-i/ot'</span><span class="o">)</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> a <span class="o">=</span> Net<span class="o">()</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10[<span class="s1">'VDD'</span><span class="o">]</span> +<span class="o">=</span> a
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> a.drive <span class="o">=</span> POWER
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> ERC<span class="o">()</span>
+<span class="c">...
+</span><span class="go">(Insufficient drive warning is no longer present.)
+</span><span class="c">...
+</span></code></pre></div></div>
 
 <p>You can set the <code class="highlighter-rouge">drive</code> attribute at any time to any defined level, but <code class="highlighter-rouge">POWER</code>
 is probably the only setting you’ll use.
@@ -1975,18 +1883,17 @@ This is equivalent to attaching power flags to nets in some ECAD packages like K
 This is sometimes useful when you are using an output pin of a part to power
 another part.</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; pic10_a = Part('microchip_pic10mcu','pic10f220-I/OT')
-&gt;&gt;&gt; pic10_b = Part('microchip_pic10mcu','pic10f220-I/OT')
-&gt;&gt;&gt; pic10_b['VDD'] += pic10_a[1]  # Power pic10_b from output pin of pic10_a.
-&gt;&gt;&gt; ERC()
-ERC WARNING: Insufficient drive current on net N$1 for pin POWER-IN pin 5/VDD of PIC10F220-I/OT/U2
-... &lt;additional unconnected pin warnings&gt; ...
-
-&gt;&gt;&gt; pic10_a[1].drive = POWER  # Change drive level of pic10_a output pin.
-&gt;&gt;&gt; ERC()
-... &lt;unconnected pin warnings, but insufficient drive warning is gone&gt; ...
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10_a <span class="o">=</span> Part<span class="o">(</span><span class="s1">'microchip_pic10mcu'</span>,<span class="s1">'pic10f220-I/OT'</span><span class="o">)</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10_b <span class="o">=</span> Part<span class="o">(</span><span class="s1">'microchip_pic10mcu'</span>,<span class="s1">'pic10f220-I/OT'</span><span class="o">)</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10_b[<span class="s1">'VDD'</span><span class="o">]</span> +<span class="o">=</span> pic10_a[1]  <span class="c"># Power pic10_b from output pin of pic10_a.</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> ERC<span class="o">()</span>
+<span class="gp">ERC WARNING: Insufficient drive current on net N$</span>1 <span class="k">for </span>pin POWER-IN pin 5/VDD of PIC10F220-I/OT/U2
+<span class="gp">... &lt;additional unconnected pin warnings&gt;</span><span class="w"> </span>...
+<span class="go">
+</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> pic10_a[1].drive <span class="o">=</span> POWER  <span class="c"># Change drive level of pic10_a output pin.</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> ERC<span class="o">()</span>
+<span class="gp">... &lt;unconnected pin warnings, but insufficient drive warning is gone&gt;</span><span class="w"> </span>...
+</code></pre></div></div>
 
 <h3 id="pin-net-bus-equivalencies">Pin, Net, Bus Equivalencies</h3>
 
@@ -1999,42 +1906,40 @@ are defined for each object:</p>
     This can be useful when trying to select an active connection from a set of
     candidates using the <code class="highlighter-rouge">or</code> operator:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; a = Net('A')
-&gt;&gt;&gt; b = Bus('B', 8)
-&gt;&gt;&gt; c = Pin()
-&gt;&gt;&gt; d = a or b or c
-&gt;&gt;&gt; d
-A:
-&gt;&gt;&gt; type(d)
-&lt;class 'skidl.Net.Net'&gt;
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> a <span class="o">=</span> Net<span class="o">(</span><span class="s1">'A'</span><span class="o">)</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> b <span class="o">=</span> Bus<span class="o">(</span><span class="s1">'B'</span>, 8<span class="o">)</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> c <span class="o">=</span> Pin<span class="o">()</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> d <span class="o">=</span> a or b or c
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> d
+<span class="go">A:
+</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> <span class="nb">type</span><span class="o">(</span>d<span class="o">)</span>
+<span class="gp">&lt;class 'skidl.Net.Net'&gt;</span><span class="w">
+</span></code></pre></div></div>
 
 <p><strong>Indexing</strong>:
     Normally, indices can only be used with a Bus object to select one or more bus lines.
     But <code class="highlighter-rouge">Pin</code> and <code class="highlighter-rouge">Net</code> objects can also be indexed as long as the index evaluates to zero:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; a = Net('A')
-&gt;&gt;&gt; c = Pin()
-&gt;&gt;&gt; a[0] += c[0]
-WARNING: Attaching non-part Pin  to a Net A.
-&gt;&gt;&gt; a[0] += c[1]
-ERROR: Can't use a non-zero index for a pin.
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> a <span class="o">=</span> Net<span class="o">(</span><span class="s1">'A'</span><span class="o">)</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> c <span class="o">=</span> Pin<span class="o">()</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> a[0] +<span class="o">=</span> c[0]
+<span class="go">WARNING: Attaching non-part Pin  to a Net A.
+</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> a[0] +<span class="o">=</span> c[1]
+<span class="go">ERROR: Can't use a non-zero index for a pin.
 Traceback (most recent call last):
-  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
-  File "C:\xesscorp\KiCad\tools\skidl\skidl\Pin.py", line 251, in __getitem__
+</span><span class="gp">  File "&lt;stdin&gt;</span><span class="s2">", line 1, in &lt;module&gt;
+</span><span class="go">  File "C:\xesscorp\KiCad\tools\skidl\skidl\Pin.py", line 251, in __getitem__
     raise Exception
 Exception
-</code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p><strong>Iterators:</strong>
   In addition to supporting indexing, <code class="highlighter-rouge">Pin</code>, <code class="highlighter-rouge">Net</code> and <code class="highlighter-rouge">Bus</code> objects can also be used
   as iterators.</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; bus = Bus('bus', 8)
-&gt;&gt;&gt; for line in bus:
-    ...:     print(line)
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> bus <span class="o">=</span> Bus<span class="o">(</span><span class="s1">'bus'</span>, 8<span class="o">)</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> <span class="k">for </span>line <span class="k">in </span>bus:
+<span class="go">    ...:     print(line)
     ...:
 bus0:
 bus1:
@@ -2044,25 +1949,23 @@ bus4:
 bus5:
 bus6:
 bus7:
-</code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p><strong>Width</strong>:
     <code class="highlighter-rouge">Bus</code>, <code class="highlighter-rouge">Net</code>, and <code class="highlighter-rouge">Pin</code> objects all support the <code class="highlighter-rouge">width</code> property.
     For a <code class="highlighter-rouge">Bus</code> object, <code class="highlighter-rouge">width</code> returns the number of bus lines it contains.
     For a <code class="highlighter-rouge">Net</code> or <code class="highlighter-rouge">Pin</code> object, <code class="highlighter-rouge">width</code> always returns 1.</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; a = Net('A')
-&gt;&gt;&gt; b = Bus('B', 8)
-&gt;&gt;&gt; c = Pin()
-&gt;&gt;&gt; a.width
-1
-&gt;&gt;&gt; b.width
-8
-&gt;&gt;&gt; c.width
-1
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> a <span class="o">=</span> Net<span class="o">(</span><span class="s1">'A'</span><span class="o">)</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> b <span class="o">=</span> Bus<span class="o">(</span><span class="s1">'B'</span>, 8<span class="o">)</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> c <span class="o">=</span> Pin<span class="o">()</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> a.width
+<span class="go">1
+</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> b.width
+<span class="go">8
+</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> c.width
+<span class="go">1
+</span></code></pre></div></div>
 
 <h3 id="selectively-supressing-erc-messages">Selectively Supressing ERC Messages</h3>
 
@@ -2071,11 +1974,10 @@ even though you know it’s correct.
 SKiDL provides flags that allow you to turn off the ERC for selected nets, pins,
 and parts like so:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">my_net</span><span class="o">.</span><span class="n">do_erc</span> <span class="o">=</span> <span class="bp">False</span>      <span class="c"># Turns of ERC for this particular net.</span>
-<span class="n">my_part</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">do_erc</span> <span class="o">=</span> <span class="bp">False</span>  <span class="c"># Turns off ERC for this pin of this part.</span>
-<span class="n">my_part</span><span class="o">.</span><span class="n">do_erc</span> <span class="o">=</span> <span class="bp">False</span>     <span class="c"># Turns off ERC for all the pins of this part.</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_net</span><span class="o">.</span><span class="n">do_erc</span> <span class="o">=</span> <span class="bp">False</span>      <span class="c1"># Turns of ERC for this particular net.
+</span><span class="n">my_part</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">do_erc</span> <span class="o">=</span> <span class="bp">False</span>  <span class="c1"># Turns off ERC for this pin of this part.
+</span><span class="n">my_part</span><span class="o">.</span><span class="n">do_erc</span> <span class="o">=</span> <span class="bp">False</span>     <span class="c1"># Turns off ERC for all the pins of this part.
+</span></code></pre></div></div>
 
 <h1 id="going-really-deep">Going Really Deep</h1>
 
@@ -2090,17 +1992,15 @@ some of the avant-garde circuit designers out there.</p>
 called <code class="highlighter-rouge">default_circuit</code> (which, of course, you never noticed).
 But you can create other <code class="highlighter-rouge">Circuit</code> objects:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; my_circuit = Circuit()
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> my_circuit <span class="o">=</span> Circuit<span class="o">()</span>
+</code></pre></div></div>
 
 <p>and then you can create parts, nets and buses and add them to your new circuit:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; my_circuit += Part("Device",'R')  # Add a resistor to the circuit.
-&gt;&gt;&gt; my_circuit += Net('GND')          # Add a net.
-&gt;&gt;&gt; my_circuit += Bus('byte_bus', 8)  # Add a bus.
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> my_circuit +<span class="o">=</span> Part<span class="o">(</span><span class="s2">"Device"</span>,<span class="s1">'R'</span><span class="o">)</span>  <span class="c"># Add a resistor to the circuit.</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> my_circuit +<span class="o">=</span> Net<span class="o">(</span><span class="s1">'GND'</span><span class="o">)</span>          <span class="c"># Add a net.</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> my_circuit +<span class="o">=</span> Bus<span class="o">(</span><span class="s1">'byte_bus'</span>, 8<span class="o">)</span>  <span class="c"># Add a bus.</span>
+</code></pre></div></div>
 
 <p>In addition to the <code class="highlighter-rouge">+=</code> operator, you can also use the methods <code class="highlighter-rouge">add_parts</code>, <code class="highlighter-rouge">add_nets</code>, and <code class="highlighter-rouge">add_buses</code>.
 (There’s also the much less-used <code class="highlighter-rouge">-=</code> operator for removing parts, nets or buses
@@ -2109,28 +2009,26 @@ from a circuit along with the <code class="highlighter-rouge">rmv_parts</code>, 
 <p>You can also place parts, nets, and buses directly into a Circuit object
 by using the <code class="highlighter-rouge">circuit</code> parameter of the object constructors:</p>
 
-<div class="language-terminal highlighter-rouge"><pre class="highlight"><code>&gt;&gt;&gt; my_circuit = Circuit()
-&gt;&gt;&gt; p = Part("Device", 'R', circuit = my_circuit)
-&gt;&gt;&gt; n = Net('GND', circuit = my_circuit)
-&gt;&gt;&gt; b = Bus('byte_bus', 8, circuit = my_circuit)
-</code></pre>
-</div>
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="o">&gt;&gt;</span> my_circuit <span class="o">=</span> Circuit<span class="o">()</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> p <span class="o">=</span> Part<span class="o">(</span><span class="s2">"Device"</span>, <span class="s1">'R'</span>, circuit <span class="o">=</span> my_circuit<span class="o">)</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> n <span class="o">=</span> Net<span class="o">(</span><span class="s1">'GND'</span>, circuit <span class="o">=</span> my_circuit<span class="o">)</span>
+<span class="gp">&gt;</span><span class="o">&gt;&gt;</span> b <span class="o">=</span> Bus<span class="o">(</span><span class="s1">'byte_bus'</span>, 8, circuit <span class="o">=</span> my_circuit<span class="o">)</span>
+</code></pre></div></div>
 
 <p>Hierarchical circuits also work with Circuit objects.
 In the previous <a href="#multilevel_hierarchy_example">multi-level hierarchy example</a>,
 the subcircuit could be instantiated into a Circuit object like this:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">my_circuit</span> <span class="o">=</span> <span class="n">Circuit</span><span class="p">()</span>   <span class="c"># New Circuit object.</span>
-
-<span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'GND'</span><span class="p">)</span>         <span class="c"># GLobal ground net.</span>
-<span class="n">input_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'IN'</span><span class="p">)</span>    <span class="c"># Net with the voltage to be divided.</span>
-<span class="n">output_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'OUT'</span><span class="p">)</span>  <span class="c"># Net with the divided voltage.</span>
-<span class="n">my_circuit</span> <span class="o">+=</span> <span class="n">gnd</span><span class="p">,</span> <span class="n">input_net</span><span class="p">,</span> <span class="n">output_net</span>  <span class="c"># Move the nets to the new circuit.</span>
-
-<span class="c"># Instantiate the multi-level hierarchical subcircuit into the new Circuit object.</span>
-<span class="n">multi_vdiv</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">input_net</span><span class="p">,</span> <span class="n">output_net</span><span class="p">,</span> <span class="n">circuit</span> <span class="o">=</span> <span class="n">my_circuit</span><span class="p">)</span>
-</code></pre>
-</div>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_circuit</span> <span class="o">=</span> <span class="n">Circuit</span><span class="p">()</span>   <span class="c1"># New Circuit object.
+</span>
+<span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'GND'</span><span class="p">)</span>         <span class="c1"># GLobal ground net.
+</span><span class="n">input_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'IN'</span><span class="p">)</span>    <span class="c1"># Net with the voltage to be divided.
+</span><span class="n">output_net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'OUT'</span><span class="p">)</span>  <span class="c1"># Net with the divided voltage.
+</span><span class="n">my_circuit</span> <span class="o">+=</span> <span class="n">gnd</span><span class="p">,</span> <span class="n">input_net</span><span class="p">,</span> <span class="n">output_net</span>  <span class="c1"># Move the nets to the new circuit.
+</span>
+<span class="c1"># Instantiate the multi-level hierarchical subcircuit into the new Circuit object.
+</span><span class="n">multi_vdiv</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">input_net</span><span class="p">,</span> <span class="n">output_net</span><span class="p">,</span> <span class="n">circuit</span> <span class="o">=</span> <span class="n">my_circuit</span><span class="p">)</span>
+</code></pre></div></div>
 
 <p>The actual <code class="highlighter-rouge">circuit</code> parameter is not passed on to the subcircuit.
 It’s extracted and any elements created in the subcircuit are sent there instead of
@@ -2141,13 +2039,12 @@ default circuit as the target of its operations.)</p>
 <p>You can do all the same operations on a Circuit object that are supported on the 
 default circuit, such as:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="c"># Check the circuit for errors.</span>
-<span class="n">my_circuit</span><span class="o">.</span><span class="n">ERC</span><span class="p">()</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Check the circuit for errors.
+</span><span class="n">my_circuit</span><span class="o">.</span><span class="n">ERC</span><span class="p">()</span>
 
-<span class="c"># Generate the netlist from the new Circuit object.</span>
-<span class="n">my_circuit</span><span class="o">.</span><span class="n">generate_netlist</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
-</code></pre>
-</div>
+<span class="c1"># Generate the netlist from the new Circuit object.
+</span><span class="n">my_circuit</span><span class="o">.</span><span class="n">generate_netlist</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
+</code></pre></div></div>
 
 <p>Naturally, the presence of multiple, independent circuits creates the possibility of 
 new types of errors.
@@ -2176,9 +2073,8 @@ system provides. For this discussion, call the netlist file <code class="highlig
   <li>
     <p>Convert the netlist file into a SKiDL program using the following command:</p>
 
-    <div class="language-terminal highlighter-rouge"><pre class="highlight"><code> netlist_to_skidl -i my_design.net -o my_design.py -w
-</code></pre>
-    </div>
+    <div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go"> netlist_to_skidl -i my_design.net -o my_design.py -w
+</span></code></pre></div>    </div>
   </li>
 </ol>
 

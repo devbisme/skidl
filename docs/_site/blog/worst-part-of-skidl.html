@@ -152,14 +152,13 @@ But one thing always stood out as a problem:</p>
 <p>Here’s a snippet of SKiDL code to show what I mean.
 It instantiates a PIC10 microcontroller and connects it to some nets:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="n">uc</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">lib</span><span class="o">=</span><span class="s">'MCU_Microchip_PIC10.lib'</span><span class="p">,</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uc</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">lib</span><span class="o">=</span><span class="s">'MCU_Microchip_PIC10.lib'</span><span class="p">,</span>
           <span class="n">name</span><span class="o">=</span><span class="s">'PIC10F202-IMC'</span><span class="p">,</span>
           <span class="n">footprint</span><span class="o">=</span><span class="s">'Package_DFN_QFN:DFN-8-1EP_2x3mm_P0.5mm_EP0.61x2.2mm'</span><span class="p">)</span>
 
 <span class="n">uc</span><span class="p">[</span><span class="s">'vdd, vss'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'VCC'</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s">'GND'</span><span class="p">)</span>
 <span class="n">uc</span><span class="p">[</span><span class="s">'gp[0:3]'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">Bus</span><span class="p">(</span><span class="s">'GP'</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>OK, how did I know <code class="highlighter-rouge">PIC10F202-IMC</code> would call up the particular part I needed?
 And how did I know it was in the <code class="highlighter-rouge">MCU_Microchip_PIC10.lib</code> library?
@@ -200,7 +199,7 @@ into your SKiDL code. As I said: <em>kludgy</em>.</p>
 the Python interpreter and finds parts matching a string or regular expression.
 Here’s an example of using it to find the microcontroller part discussed above:</p>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">skidl</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">skidl</span>
 
 <span class="o">&gt;&gt;&gt;</span> <span class="n">skidl</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">'PIC10'</span><span class="p">)</span>
 <span class="n">MCU_Microchip_PIC10</span><span class="o">.</span><span class="n">lib</span><span class="p">:</span> <span class="n">PIC10F220</span><span class="o">-</span><span class="n">IMC</span> <span class="p">(</span><span class="mi">512</span><span class="n">W</span> <span class="n">Flash</span><span class="p">,</span> <span class="mi">24</span><span class="n">B</span> <span class="n">SRAM</span><span class="p">,</span> <span class="n">DFN8</span><span class="p">)</span>
@@ -210,12 +209,11 @@ Here’s an example of using it to find the microcontroller part discussed above
 <span class="n">MCU_Microchip_PIC10</span><span class="o">.</span><span class="n">lib</span><span class="p">:</span> <span class="n">PIC10F222</span><span class="o">-</span><span class="n">IOT</span> <span class="p">(</span><span class="mi">512</span><span class="n">W</span> <span class="n">Flash</span><span class="p">,</span> <span class="mi">24</span><span class="n">B</span> <span class="n">SRAM</span><span class="p">,</span> <span class="n">SOT</span><span class="o">-</span><span class="mi">23</span><span class="o">-</span><span class="mi">6</span><span class="p">)</span>
 <span class="n">MCU_Microchip_PIC10</span><span class="o">.</span><span class="n">lib</span><span class="p">:</span> <span class="n">PIC10F220</span><span class="o">-</span><span class="n">IP</span> <span class="p">(</span><span class="mi">512</span><span class="n">W</span> <span class="n">Flash</span><span class="p">,</span> <span class="mi">24</span><span class="n">B</span> <span class="n">SRAM</span><span class="p">,</span> <span class="n">PDIP8</span><span class="p">)</span>
 <span class="n">MCU_Microchip_PIC10</span><span class="o">.</span><span class="n">lib</span><span class="p">:</span> <span class="n">PIC10F222</span><span class="o">-</span><span class="n">IP</span> <span class="p">(</span><span class="mi">512</span><span class="n">W</span> <span class="n">Flash</span><span class="p">,</span> <span class="mi">24</span><span class="n">B</span> <span class="n">SRAM</span><span class="p">,</span> <span class="n">PDIP8</span><span class="p">)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Then I added another command to display the device I/O pins for a specific part:</p>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">skidl</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s">'mcu_microchip_pic10.lib'</span><span class="p">,</span> <span class="s">'pic10f202-imc'</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">skidl</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s">'mcu_microchip_pic10.lib'</span><span class="p">,</span> <span class="s">'pic10f202-imc'</span><span class="p">)</span>
 
  <span class="n">PIC10F200</span><span class="o">-</span><span class="n">IMC</span> <span class="p">(</span><span class="n">PIC10F202</span><span class="o">-</span><span class="n">IMC</span><span class="p">):</span> <span class="mi">512</span><span class="n">W</span> <span class="n">Flash</span><span class="p">,</span> <span class="mi">24</span><span class="n">B</span> <span class="n">SRAM</span><span class="p">,</span> <span class="n">DFN8</span>
     <span class="n">Pin</span> <span class="bp">None</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">VDD</span><span class="o">/</span><span class="n">POWER</span><span class="o">-</span><span class="n">IN</span>
@@ -224,8 +222,7 @@ Here’s an example of using it to find the microcontroller part discussed above
     <span class="n">Pin</span> <span class="bp">None</span><span class="o">/</span><span class="mi">5</span><span class="o">/</span><span class="n">GP0</span><span class="o">/</span><span class="n">BIDIRECTIONAL</span>
     <span class="n">Pin</span> <span class="bp">None</span><span class="o">/</span><span class="mi">7</span><span class="o">/</span><span class="n">VSS</span><span class="o">/</span><span class="n">POWER</span><span class="o">-</span><span class="n">IN</span>
     <span class="n">Pin</span> <span class="bp">None</span><span class="o">/</span><span class="mi">8</span><span class="o">/</span><span class="n">GP3</span><span class="o">/</span><span class="n">INPUT</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>These commands find the part library, name, and I/O, but you’re still required to type all that
 back into your SKiDL code.
@@ -281,18 +278,16 @@ to place a <code class="highlighter-rouge">Part(...)</code> instantiation on the
 <p>Then you can go anywhere (such as your code editor) and paste the clipboard contents to get the part
 instantiation:</p>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">uc</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">lib</span><span class="o">=</span><span class="s">'MCU_Microchip_PIC10.lib'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">'PIC10F202-IMC'</span><span class="p">,</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uc</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">lib</span><span class="o">=</span><span class="s">'MCU_Microchip_PIC10.lib'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">'PIC10F202-IMC'</span><span class="p">,</span>
           <span class="n">footprint</span><span class="o">=</span><span class="s">'Package_DFN_QFN:DFN-8-1EP_2x3mm_P0.5mm_EP0.61x2.2mm'</span><span class="p">)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>If you check the <code class="highlighter-rouge">Tmplt</code> box (2) and then click the <code class="highlighter-rouge">Copy</code> button, a part template (instead of an instance)
 gets placed on the clipboard and appears as follows:</p>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">uc</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">lib</span><span class="o">=</span><span class="s">'MCU_Microchip_PIC10.lib'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">'PIC10F202-IMC'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">,</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uc</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">lib</span><span class="o">=</span><span class="s">'MCU_Microchip_PIC10.lib'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">'PIC10F202-IMC'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">,</span>
           <span class="n">footprint</span><span class="o">=</span><span class="s">'Package_DFN_QFN:DFN-8-1EP_2x3mm_P0.5mm_EP0.61x2.2mm'</span><span class="p">)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>To make it easier to connect the pins, <code class="highlighter-rouge">zyc</code> lets you select the names from the pin list column (1).
 Right-clicking on the table copies whatever is selected to the clipboard.</p>
@@ -301,7 +296,7 @@ Right-clicking on the table copies whatever is selected to the clipboard.</p>
 
 <p>Then the pin names can be pasted it into the code editor:</p>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">uc</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">lib</span><span class="o">=</span><span class="s">'MCU_Microchip_PIC10.lib'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">'PIC10F202-IMC'</span><span class="p">,</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uc</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">lib</span><span class="o">=</span><span class="s">'MCU_Microchip_PIC10.lib'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">'PIC10F202-IMC'</span><span class="p">,</span>
           <span class="n">footprint</span><span class="o">=</span><span class="s">'Package_DFN_QFN:DFN-8-1EP_2x3mm_P0.5mm_EP0.61x2.2mm'</span><span class="p">)</span>
 <span class="s">"VDD"</span><span class="p">,</span> 
 <span class="s">"GP2"</span><span class="p">,</span> 
@@ -309,17 +304,15 @@ Right-clicking on the table copies whatever is selected to the clipboard.</p>
 <span class="s">"GP0"</span><span class="p">,</span> 
 <span class="s">"VSS"</span><span class="p">,</span> 
 <span class="s">"GP3"</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Now you can use the strings to connect the microcontroller pins to various nets:</p>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">uc</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">lib</span><span class="o">=</span><span class="s">'MCU_Microchip_PIC10.lib'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">'PIC10F202-IMC'</span><span class="p">,</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uc</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">lib</span><span class="o">=</span><span class="s">'MCU_Microchip_PIC10.lib'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">'PIC10F202-IMC'</span><span class="p">,</span>
           <span class="n">footprint</span><span class="o">=</span><span class="s">'Package_DFN_QFN:DFN-8-1EP_2x3mm_P0.5mm_EP0.61x2.2mm'</span><span class="p">)</span>
 <span class="n">uc</span><span class="p">[</span><span class="s">"VDD"</span><span class="p">,</span> <span class="s">"VSS"</span><span class="p">]</span> <span class="o">+=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'VCC'</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s">'GND'</span><span class="p">)</span>
 <span class="n">uc</span><span class="p">[</span><span class="s">"GP0"</span><span class="p">,</span> <span class="s">"GP1"</span><span class="p">,</span> <span class="s">"GP2"</span><span class="p">,</span> <span class="s">"GP3"</span><span class="p">]</span> <span class="o">+=</span> <span class="n">Bus</span><span class="p">(</span><span class="s">'GP'</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><code class="highlighter-rouge">zyc</code> lets you double-click on any table column header to re-sort the table
 based on the contents of that column.
@@ -332,7 +325,7 @@ orders the table so you can select all the I/O pins in one of its banks (2).</p>
 
 <p>Then the pins can be pasted:</p>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="s">"IO_0_14"</span><span class="p">,</span> 
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"IO_0_14"</span><span class="p">,</span> 
 <span class="s">"IO_0_15"</span><span class="p">,</span> 
 <span class="s">"IO_25_14"</span><span class="p">,</span> 
 <span class="s">"IO_25_15"</span><span class="p">,</span> 
@@ -432,8 +425,7 @@ orders the table so you can select all the I/O pins in one of its banks (2).</p>
 <span class="s">"IO_L24N_T3_RS0_15"</span><span class="p">,</span> 
 <span class="s">"IO_L24P_T3_A01_D17_14"</span><span class="p">,</span> 
 <span class="s">"IO_L24P_T3_RS1_15"</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>This is definitely something that would be difficult to type manually without making a mistake!</p>
 
@@ -451,9 +443,8 @@ running. If so, you’ll want to refresh the part and footprint caches (3).</p>
 
 <p>If you want to try <code class="highlighter-rouge">zyc</code>, you can install it from the Github repo:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">% </span>pip install git+https://github.com/xesscorp/skidl
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>% pip <span class="nb">install </span>git+https://github.com/xesscorp/skidl
+</code></pre></div></div>
 
 <p>To run it, just enter <code class="highlighter-rouge">zyc</code> at the command line.</p>
 

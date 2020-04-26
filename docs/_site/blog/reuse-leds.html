@@ -151,25 +151,24 @@ I’ll demonstrate the evolution from a specific to a general SKiDL design using
 <p>Here’s a simple SKiDL module that instantiates four common-cathode LEDs with
 current limiting resistors:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">leds</span><span class="p">(</span><span class="n">inp0</span><span class="p">,</span> <span class="n">inp1</span><span class="p">,</span> <span class="n">inp2</span><span class="p">,</span> <span class="n">inp3</span><span class="p">,</span> <span class="n">gnd</span><span class="p">):</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">leds</span><span class="p">(</span><span class="n">inp0</span><span class="p">,</span> <span class="n">inp1</span><span class="p">,</span> <span class="n">inp2</span><span class="p">,</span> <span class="n">inp3</span><span class="p">,</span> <span class="n">gnd</span><span class="p">):</span>
 
-    <span class="c"># Create four LEDs and resistors.</span>
-    <span class="n">leds</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'LED'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'KiCad/LEDs.pretty:LED_0603'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
+    <span class="c1"># Create four LEDs and resistors.
+</span>    <span class="n">leds</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'LED'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'KiCad/LEDs.pretty:LED_0603'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
     <span class="n">rs</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">'330'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'KiCad/Resistors_SMD.pretty:R_0603'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
 
-    <span class="c"># Connect anodes (+) of LEDs to inputs.</span>
-    <span class="n">leds</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s">'A'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">inp0</span>
+    <span class="c1"># Connect anodes (+) of LEDs to inputs.
+</span>    <span class="n">leds</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s">'A'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">inp0</span>
     <span class="n">leds</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s">'A'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">inp1</span>
     <span class="n">leds</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="s">'A'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">inp2</span>
     <span class="n">leds</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="s">'A'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">inp3</span>
 
-    <span class="c"># Connect current-limiting resistors between LED cathodes (-) and ground.</span>
-    <span class="n">rs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">leds</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s">'K'</span><span class="p">],</span> <span class="n">gnd</span>
+    <span class="c1"># Connect current-limiting resistors between LED cathodes (-) and ground.
+</span>    <span class="n">rs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">leds</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s">'K'</span><span class="p">],</span> <span class="n">gnd</span>
     <span class="n">rs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">leds</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s">'K'</span><span class="p">],</span> <span class="n">gnd</span>
     <span class="n">rs</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">leds</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="s">'K'</span><span class="p">],</span> <span class="n">gnd</span>
     <span class="n">rs</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">leds</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="s">'K'</span><span class="p">],</span> <span class="n">gnd</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>This module is simple, to-the-point, and limited to four LEDs.
 But sometimes you’ll want more than that, other times, less.
@@ -180,19 +179,18 @@ The next module adds that flexibility.</p>
 <p>The module below supports any number of common-cathode LEDs by querying the
 number of lines in the input bus and instantiating the required number of components:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">leds</span><span class="p">(</span><span class="n">inps</span><span class="p">,</span> <span class="n">gnd</span><span class="p">):</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">leds</span><span class="p">(</span><span class="n">inps</span><span class="p">,</span> <span class="n">gnd</span><span class="p">):</span>
 
-    <span class="c"># Use the width of the input bus to set the number of LEDs and resistors.</span>
-    <span class="n">leds</span> <span class="o">=</span> <span class="n">inps</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'LED'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'KiCad/LEDs.pretty:LED_0603'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
+    <span class="c1"># Use the width of the input bus to set the number of LEDs and resistors.
+</span>    <span class="n">leds</span> <span class="o">=</span> <span class="n">inps</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'LED'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'KiCad/LEDs.pretty:LED_0603'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
     <span class="n">rs</span> <span class="o">=</span> <span class="n">inps</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">'330'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'KiCad/Resistors_SMD.pretty:R_0603'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
 
-    <span class="c"># Zip the inputs, LEDs, and resistors together so there is one input</span>
-    <span class="c"># associated with each LED and resistor. Then, connect them together.</span>
-    <span class="k">for</span> <span class="n">inp</span><span class="p">,</span> <span class="n">led</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">inps</span><span class="p">,</span> <span class="n">leds</span><span class="p">,</span> <span class="n">rs</span><span class="p">):</span>
-        <span class="n">led</span><span class="p">[</span><span class="s">'A'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">inp</span>          <span class="c"># Connect an LED anode to an input.</span>
-        <span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">led</span><span class="p">[</span><span class="s">'K'</span><span class="p">],</span> <span class="n">gnd</span>  <span class="c"># Connect a resistor between the LED cathode and ground.</span>
-</code></pre>
-</div>
+    <span class="c1"># Zip the inputs, LEDs, and resistors together so there is one input
+</span>    <span class="c1"># associated with each LED and resistor. Then, connect them together.
+</span>    <span class="k">for</span> <span class="n">inp</span><span class="p">,</span> <span class="n">led</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">inps</span><span class="p">,</span> <span class="n">leds</span><span class="p">,</span> <span class="n">rs</span><span class="p">):</span>
+        <span class="n">led</span><span class="p">[</span><span class="s">'A'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">inp</span>          <span class="c1"># Connect an LED anode to an input.
+</span>        <span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">led</span><span class="p">[</span><span class="s">'K'</span><span class="p">],</span> <span class="n">gnd</span>  <span class="c1"># Connect a resistor between the LED cathode and ground.
+</span></code></pre></div></div>
 
 <p>This is more flexible, but a bit less clear and still limited to building
 common-cathode LEDs (where the LEDs are turned on by raising their inputs
@@ -207,49 +205,47 @@ The next module adds that capability.</p>
 by allowing either the anode or the cathode inputs to be a bus controlling the
 individual LEDs while the other input is the common terminal:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">leds</span><span class="p">(</span><span class="n">anodes</span><span class="p">,</span> <span class="n">cathodes</span><span class="p">):</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">leds</span><span class="p">(</span><span class="n">anodes</span><span class="p">,</span> <span class="n">cathodes</span><span class="p">):</span>
 
-    <span class="c"># Either the anode will be connected to VCC or the cathode will be connected</span>
-    <span class="c"># to ground and will have a width of 1. The width of the other input bus will</span>
-    <span class="c"># determine the number of LEDs.</span>
-    <span class="n">width</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">anodes</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">cathodes</span><span class="o">.</span><span class="n">width</span><span class="p">)</span>
+    <span class="c1"># Either the anode will be connected to VCC or the cathode will be connected
+</span>    <span class="c1"># to ground and will have a width of 1. The width of the other input bus will
+</span>    <span class="c1"># determine the number of LEDs.
+</span>    <span class="n">width</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">anodes</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">cathodes</span><span class="o">.</span><span class="n">width</span><span class="p">)</span>
 
     <span class="n">leds</span> <span class="o">=</span> <span class="n">width</span> <span class="o">*</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'LED'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'KiCad/LEDs.pretty:LED_0603'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
     <span class="n">rs</span> <span class="o">=</span> <span class="n">width</span> <span class="o">*</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">'330'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'KiCad/Resistors_SMD.pretty:R_0603'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
 
-    <span class="c"># Zip the LEDs and resistors together so there is one LED associated with</span>
-    <span class="c"># each resistor. Then, connect them together.</span>
-    <span class="k">for</span> <span class="n">led</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">leds</span><span class="p">,</span> <span class="n">rs</span><span class="p">):</span>
+    <span class="c1"># Zip the LEDs and resistors together so there is one LED associated with
+</span>    <span class="c1"># each resistor. Then, connect them together.
+</span>    <span class="k">for</span> <span class="n">led</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">leds</span><span class="p">,</span> <span class="n">rs</span><span class="p">):</span>
         <span class="n">led</span><span class="p">[</span><span class="s">'K'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
-    <span class="c"># Now connect the anodes inputs to the LED anodes. If anodes is a single wire,</span>
-    <span class="c"># then all the LED anodes will connect to it (common anode). But if the anodes</span>
-    <span class="c"># input is a multi-wire bus, each LED anode will connect to its own bus line.</span>
-    <span class="n">anodes</span> <span class="o">+=</span> <span class="p">[</span><span class="n">led</span><span class="p">[</span><span class="s">'A'</span><span class="p">]</span> <span class="k">for</span> <span class="n">led</span> <span class="ow">in</span> <span class="n">leds</span><span class="p">]</span>
+    <span class="c1"># Now connect the anodes inputs to the LED anodes. If anodes is a single wire,
+</span>    <span class="c1"># then all the LED anodes will connect to it (common anode). But if the anodes
+</span>    <span class="c1"># input is a multi-wire bus, each LED anode will connect to its own bus line.
+</span>    <span class="n">anodes</span> <span class="o">+=</span> <span class="p">[</span><span class="n">led</span><span class="p">[</span><span class="s">'A'</span><span class="p">]</span> <span class="k">for</span> <span class="n">led</span> <span class="ow">in</span> <span class="n">leds</span><span class="p">]</span>
 
-    <span class="c"># Finally, connect the cathodes input to the other end of the resistors.</span>
-    <span class="c"># If cathodes is a single wire, then all the LED cathodes will connect to</span>
-    <span class="c"># it through their current limiting resistors (common cathode). But if</span>
-    <span class="c"># the cathodes input is a multi-wire bus, each LED cathode will connect</span>
-    <span class="c"># to its own bus line.</span>
-    <span class="n">cathodes</span> <span class="o">+=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rs</span><span class="p">]</span>
-</code></pre>
-</div>
+    <span class="c1"># Finally, connect the cathodes input to the other end of the resistors.
+</span>    <span class="c1"># If cathodes is a single wire, then all the LED cathodes will connect to
+</span>    <span class="c1"># it through their current limiting resistors (common cathode). But if
+</span>    <span class="c1"># the cathodes input is a multi-wire bus, each LED cathode will connect
+</span>    <span class="c1"># to its own bus line.
+</span>    <span class="n">cathodes</span> <span class="o">+=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rs</span><span class="p">]</span>
+</code></pre></div></div>
 
 <p>As a test of the module, I attached three, common-cathode LEDs to a PIC18F
 microcontroller unit like this:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
     <span class="n">v3_3</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'+3.3V'</span><span class="p">)</span>
     <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'GND'</span><span class="p">)</span>
     <span class="n">mcu</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'MCU_Microchip_pic18'</span><span class="p">,</span> <span class="s">'pic18f2450-IML'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'xesscorp/xess.pretty:QFN-28'</span><span class="p">)</span>
     <span class="n">mcu</span><span class="p">[</span><span class="s">'VDD'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">v3_3</span>
     <span class="n">mcu</span><span class="p">[</span><span class="s">'VSS'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">gnd</span>
-    <span class="n">leds</span><span class="p">(</span><span class="n">mcu</span><span class="p">[</span><span class="s">'RA2, RA3, RA4'</span><span class="p">],</span> <span class="n">gnd</span><span class="p">)</span>  <span class="c"># Attach 3 common-cathode LEDs.</span>
-    <span class="n">ERC</span><span class="p">()</span>
+    <span class="n">leds</span><span class="p">(</span><span class="n">mcu</span><span class="p">[</span><span class="s">'RA2, RA3, RA4'</span><span class="p">],</span> <span class="n">gnd</span><span class="p">)</span>  <span class="c1"># Attach 3 common-cathode LEDs.
+</span>    <span class="n">ERC</span><span class="p">()</span>
     <span class="n">generate_netlist</span><span class="p">()</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>And here’s a layout for the netlist that was generated:</p>
 
@@ -273,88 +269,86 @@ the number of components and reduce assembly costs.</p>
 <p>The following code iteratively packs the resistors into one or more arrays
 until all the inputs are connected:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">leds</span><span class="p">(</span><span class="n">anodes</span><span class="p">,</span> <span class="n">cathodes</span><span class="p">):</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">leds</span><span class="p">(</span><span class="n">anodes</span><span class="p">,</span> <span class="n">cathodes</span><span class="p">):</span>
 
     <span class="n">width</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">anodes</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">cathodes</span><span class="o">.</span><span class="n">width</span><span class="p">)</span>
 
     <span class="n">leds</span> <span class="o">=</span> <span class="n">width</span> <span class="o">*</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'LED'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'KiCad/LEDs.pretty:LED_0603'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
 
-    <span class="c"># Get various types of resistors.</span>
-    <span class="n">R</span>   <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span>        <span class="n">value</span><span class="o">=</span><span class="s">'330'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'KiCad/Resistors_SMD.pretty:R_0603'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
+    <span class="c1"># Get various types of resistors.
+</span>    <span class="n">R</span>   <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'R'</span><span class="p">,</span>        <span class="n">value</span><span class="o">=</span><span class="s">'330'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'KiCad/Resistors_SMD.pretty:R_0603'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
     <span class="n">RN2</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'R_Pack02'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">'330'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'xesscorp/xess.pretty:CTS_742C043'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
     <span class="n">RN4</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'R_Pack04'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">'330'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'xesscorp/xess.pretty:CTS_742C083'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
     <span class="n">RN8</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'R_Pack08'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s">'330'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'xesscorp/xess.pretty:CTS_742C163'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
 
-    <span class="c"># Store the resistor types such that their position in the list corresponds</span>
-    <span class="c"># to their use for a specific number of resistors. For example, RN4 is at</span>
-    <span class="c"># list index 5 so it would be selected if five resistors were needed.</span>
-    <span class="c"># (Of course, a four-resistor array would still leave one resistor to be</span>
-    <span class="c"># assigned to some other array.)</span>
-    <span class="c">#            0   1   2    3    4    5    6    7    8</span>
-    <span class="n">r_types</span> <span class="o">=</span> <span class="p">[</span><span class="bp">None</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">RN2</span><span class="p">,</span> <span class="n">RN4</span><span class="p">,</span> <span class="n">RN4</span><span class="p">,</span> <span class="n">RN4</span><span class="p">,</span> <span class="n">RN8</span><span class="p">,</span> <span class="n">RN8</span><span class="p">,</span> <span class="n">RN8</span><span class="p">]</span>
+    <span class="c1"># Store the resistor types such that their position in the list corresponds
+</span>    <span class="c1"># to their use for a specific number of resistors. For example, RN4 is at
+</span>    <span class="c1"># list index 5 so it would be selected if five resistors were needed.
+</span>    <span class="c1"># (Of course, a four-resistor array would still leave one resistor to be
+</span>    <span class="c1"># assigned to some other array.)
+</span>    <span class="c1">#            0   1   2    3    4    5    6    7    8
+</span>    <span class="n">r_types</span> <span class="o">=</span> <span class="p">[</span><span class="bp">None</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">RN2</span><span class="p">,</span> <span class="n">RN4</span><span class="p">,</span> <span class="n">RN4</span><span class="p">,</span> <span class="n">RN4</span><span class="p">,</span> <span class="n">RN8</span><span class="p">,</span> <span class="n">RN8</span><span class="p">,</span> <span class="n">RN8</span><span class="p">]</span>
 
-    <span class="c"># The bus width indicates the number of LEDs (and, hence, the number of</span>
-    <span class="c"># resistors) that are needed. Pick the best resistor array and subtract its</span>
-    <span class="c"># size from the number of resistors that are needed. If more resistors are</span>
-    <span class="c"># still required, repeat the loop until the number drops to zero.</span>
-    <span class="n">r_needed</span> <span class="o">=</span> <span class="n">width</span>  <span class="c"># The number of resistors that are currently needed.</span>
-    <span class="n">rs</span> <span class="o">=</span> <span class="p">[]</span>           <span class="c"># Store the selected resistors here.</span>
-    <span class="n">left_pins</span> <span class="o">=</span> <span class="p">[]</span>    <span class="c"># List of pins on the left side of the selected resistors.</span>
-    <span class="n">right_pins</span> <span class="o">=</span> <span class="p">[]</span>   <span class="c"># List of pins on the right side of the selected resistors.</span>
-
-    <span class="k">while</span> <span class="n">r_needed</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c"># Loop as long as resistors are needed.</span>
-
-        <span class="c"># Pick the best resistor for the current number of resistors that are needed.</span>
-        <span class="c"># If the needed number is larger than the list of resistors, then pick</span>
-        <span class="c"># the largest available resistor array (which will be at the end of the list).</span>
-        <span class="k">try</span><span class="p">:</span>
+    <span class="c1"># The bus width indicates the number of LEDs (and, hence, the number of
+</span>    <span class="c1"># resistors) that are needed. Pick the best resistor array and subtract its
+</span>    <span class="c1"># size from the number of resistors that are needed. If more resistors are
+</span>    <span class="c1"># still required, repeat the loop until the number drops to zero.
+</span>    <span class="n">r_needed</span> <span class="o">=</span> <span class="n">width</span>  <span class="c1"># The number of resistors that are currently needed.
+</span>    <span class="n">rs</span> <span class="o">=</span> <span class="p">[]</span>           <span class="c1"># Store the selected resistors here.
+</span>    <span class="n">left_pins</span> <span class="o">=</span> <span class="p">[]</span>    <span class="c1"># List of pins on the left side of the selected resistors.
+</span>    <span class="n">right_pins</span> <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># List of pins on the right side of the selected resistors.
+</span>
+    <span class="k">while</span> <span class="n">r_needed</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># Loop as long as resistors are needed.
+</span>
+        <span class="c1"># Pick the best resistor for the current number of resistors that are needed.
+</span>        <span class="c1"># If the needed number is larger than the list of resistors, then pick
+</span>        <span class="c1"># the largest available resistor array (which will be at the end of the list).
+</span>        <span class="k">try</span><span class="p">:</span>
             <span class="n">r_type</span> <span class="o">=</span> <span class="n">r_types</span><span class="p">[</span><span class="n">r_needed</span><span class="p">]</span>
         <span class="k">except</span> <span class="nb">IndexError</span><span class="p">:</span>
-            <span class="n">r_type</span> <span class="o">=</span> <span class="n">r_types</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c"># Pick the largest resistor array.</span>
-
-        <span class="n">r</span> <span class="o">=</span> <span class="n">r_type</span><span class="p">()</span>  <span class="c"># Instantiate the selected resistor.</span>
-        <span class="n">rs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>  <span class="c"># Add the resistor to the list of selected resistors.</span>
-
-        <span class="n">num_pins</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span>  <span class="c"># Number of pins on the selected resistor's package.</span>
-        <span class="n">num_resistors</span> <span class="o">=</span> <span class="n">num_pins</span> <span class="o">//</span> <span class="mi">2</span>  <span class="c"># Each resistor takes up two pins on the package.</span>
-
-        <span class="c"># Store the pins on the left and right sides of the resistor.</span>
-        <span class="c"># The pins increase from 1 ... num_pins/2 on the left side, and decrease from</span>
-        <span class="c"># num_pins ... num_pins/2+1 on the right side. This keeps the left and</span>
-        <span class="c"># right pins of each resistor in the package aligned between the lists.</span>
-        <span class="n">left_pins</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span> <span class="n">r</span><span class="p">[</span>       <span class="mi">1</span><span class="p">:</span><span class="n">num_pins</span><span class="o">//</span><span class="mi">2</span>  <span class="p">])</span>
+            <span class="n">r_type</span> <span class="o">=</span> <span class="n">r_types</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Pick the largest resistor array.
+</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">r_type</span><span class="p">()</span>  <span class="c1"># Instantiate the selected resistor.
+</span>        <span class="n">rs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>  <span class="c1"># Add the resistor to the list of selected resistors.
+</span>
+        <span class="n">num_pins</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span>  <span class="c1"># Number of pins on the selected resistor's package.
+</span>        <span class="n">num_resistors</span> <span class="o">=</span> <span class="n">num_pins</span> <span class="o">//</span> <span class="mi">2</span>  <span class="c1"># Each resistor takes up two pins on the package.
+</span>
+        <span class="c1"># Store the pins on the left and right sides of the resistor.
+</span>        <span class="c1"># The pins increase from 1 ... num_pins/2 on the left side, and decrease from
+</span>        <span class="c1"># num_pins ... num_pins/2+1 on the right side. This keeps the left and
+</span>        <span class="c1"># right pins of each resistor in the package aligned between the lists.
+</span>        <span class="n">left_pins</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span> <span class="n">r</span><span class="p">[</span>       <span class="mi">1</span><span class="p">:</span><span class="n">num_pins</span><span class="o">//</span><span class="mi">2</span>  <span class="p">])</span>
         <span class="n">right_pins</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="n">num_pins</span><span class="p">:</span><span class="n">num_pins</span><span class="o">//</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
 
-        <span class="c"># Subtract the resistors in the selected package from the number that</span>
-        <span class="c"># are needed and loop until that number goes to zero.</span>
-        <span class="n">r_needed</span> <span class="o">-=</span> <span class="n">num_resistors</span>
+        <span class="c1"># Subtract the resistors in the selected package from the number that
+</span>        <span class="c1"># are needed and loop until that number goes to zero.
+</span>        <span class="n">r_needed</span> <span class="o">-=</span> <span class="n">num_resistors</span>
 
-    <span class="c"># The number of resistors needed may not fit exactly into the number of </span>
-    <span class="c"># resistors selected (e.g., an eight-resistor array might be used when seven</span>
-    <span class="c"># resistors are needed). Therefore, trim the pin lists to the number of</span>
-    <span class="c"># resistors that are needed. (This may leave some pins on the last-selected</span>
-    <span class="c"># array unconnected.) Also, put them on buses so they'll be easy to connect to.</span>
-    <span class="n">left_pins</span>  <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s">''</span><span class="p">,</span> <span class="n">left_pins</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">width</span><span class="p">])</span>
+    <span class="c1"># The number of resistors needed may not fit exactly into the number of 
+</span>    <span class="c1"># resistors selected (e.g., an eight-resistor array might be used when seven
+</span>    <span class="c1"># resistors are needed). Therefore, trim the pin lists to the number of
+</span>    <span class="c1"># resistors that are needed. (This may leave some pins on the last-selected
+</span>    <span class="c1"># array unconnected.) Also, put them on buses so they'll be easy to connect to.
+</span>    <span class="n">left_pins</span>  <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s">''</span><span class="p">,</span> <span class="n">left_pins</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">width</span><span class="p">])</span>
     <span class="n">right_pins</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s">''</span><span class="p">,</span> <span class="n">right_pins</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">width</span><span class="p">])</span>
 
-    <span class="n">anodes</span> <span class="o">+=</span> <span class="p">[</span><span class="n">led</span><span class="p">[</span><span class="s">'A'</span><span class="p">]</span> <span class="k">for</span> <span class="n">led</span> <span class="ow">in</span> <span class="n">leds</span><span class="p">]</span>     <span class="c"># Connect LED anodes to anode inputs.</span>
-    <span class="n">left_pins</span> <span class="o">+=</span> <span class="p">[</span><span class="n">led</span><span class="p">[</span><span class="s">'K'</span><span class="p">]</span> <span class="k">for</span> <span class="n">led</span> <span class="ow">in</span> <span class="n">leds</span><span class="p">]</span>  <span class="c"># Connect LED cathodes to left side of resistors.</span>
-    <span class="n">cathodes</span> <span class="o">+=</span> <span class="n">right_pins</span>                   <span class="c"># Connect right side of resistors to cathode inputs.</span>
-</code></pre>
-</div>
+    <span class="n">anodes</span> <span class="o">+=</span> <span class="p">[</span><span class="n">led</span><span class="p">[</span><span class="s">'A'</span><span class="p">]</span> <span class="k">for</span> <span class="n">led</span> <span class="ow">in</span> <span class="n">leds</span><span class="p">]</span>     <span class="c1"># Connect LED anodes to anode inputs.
+</span>    <span class="n">left_pins</span> <span class="o">+=</span> <span class="p">[</span><span class="n">led</span><span class="p">[</span><span class="s">'K'</span><span class="p">]</span> <span class="k">for</span> <span class="n">led</span> <span class="ow">in</span> <span class="n">leds</span><span class="p">]</span>  <span class="c1"># Connect LED cathodes to left side of resistors.
+</span>    <span class="n">cathodes</span> <span class="o">+=</span> <span class="n">right_pins</span>                   <span class="c1"># Connect right side of resistors to cathode inputs.
+</span></code></pre></div></div>
 
 <p>Now I’ll test the module by attaching five, common-anode LEDs to a microcontroller as follows:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code>    <span class="n">v3_3</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'+3.3V'</span><span class="p">)</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">v3_3</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'+3.3V'</span><span class="p">)</span>
     <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s">'GND'</span><span class="p">)</span>
     <span class="n">mcu</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">'MCU_Microchip_pic18'</span><span class="p">,</span> <span class="s">'pic18f2450-IML'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'xesscorp/xess.pretty:QFN-28'</span><span class="p">)</span>
     <span class="n">mcu</span><span class="p">[</span><span class="s">'VDD'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">v3_3</span>
     <span class="n">mcu</span><span class="p">[</span><span class="s">'VSS'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">gnd</span>
-    <span class="n">leds</span><span class="p">(</span><span class="n">v3_3</span><span class="p">,</span> <span class="n">mcu</span><span class="p">[</span><span class="s">'RA[2:6]'</span><span class="p">])</span>  <span class="c"># Attach 5 common-anode LEDs.</span>
-    <span class="n">ERC</span><span class="p">()</span>
+    <span class="n">leds</span><span class="p">(</span><span class="n">v3_3</span><span class="p">,</span> <span class="n">mcu</span><span class="p">[</span><span class="s">'RA[2:6]'</span><span class="p">])</span>  <span class="c1"># Attach 5 common-anode LEDs.
+</span>    <span class="n">ERC</span><span class="p">()</span>
     <span class="n">generate_netlist</span><span class="p">()</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>From the layout, you can see the five current-limiting resistors have been packed into a four-resistor
 array and an additional discrete resistor:</p>
@@ -373,7 +367,7 @@ This is the last limitation I’ll address in this post.</p>
 your own choices for components, but it will use the hard-coded components by
 default if you don’t:</p>
 
-<div class="language-py highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">leds</span><span class="p">(</span><span class="n">anodes</span><span class="p">,</span> <span class="n">cathodes</span><span class="p">,</span>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">leds</span><span class="p">(</span><span class="n">anodes</span><span class="p">,</span> <span class="n">cathodes</span><span class="p">,</span>
         <span class="n">led_type</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s">"Device"</span><span class="p">,</span> <span class="s">'LED'</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s">'KiCad/LEDs.pretty:LED_0603'</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">),</span>
         <span class="n">r_types</span> <span class="o">=</span> <span class="p">[</span>
             <span class="bp">None</span><span class="p">,</span>
@@ -392,55 +386,54 @@ default if you don’t:</p>
 
     <span class="n">leds</span> <span class="o">=</span> <span class="n">width</span> <span class="o">*</span> <span class="n">led_type</span>
 
-    <span class="c"># The bus width indicates the number of LEDs (and, hence, the number of</span>
-    <span class="c"># resistors) that are needed. Pick the best resistor array and subtract its</span>
-    <span class="c"># size from the number of resistors that are needed. If more resistors are</span>
-    <span class="c"># still required, repeat the loop until the number drops to zero.</span>
-    <span class="n">r_needed</span> <span class="o">=</span> <span class="n">width</span>  <span class="c"># The number of resistors that are currently needed.</span>
-    <span class="n">rs</span> <span class="o">=</span> <span class="p">[]</span>           <span class="c"># Store the selected resistors here.</span>
-    <span class="n">left_pins</span> <span class="o">=</span> <span class="p">[]</span>    <span class="c"># List of pins on the left side of the selected resistors.</span>
-    <span class="n">right_pins</span> <span class="o">=</span> <span class="p">[]</span>   <span class="c"># List of pins on the right side of the selected resistors.</span>
-
-    <span class="k">while</span> <span class="n">r_needed</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c"># Loop as long as resistors are needed.</span>
-
-        <span class="c"># Pick the best resistor for the current number of resistors that are needed.</span>
-        <span class="c"># If the needed number is larger than the list of resistors, then pick</span>
-        <span class="c"># the largest available resistor array (which will be at the end of the list).</span>
-        <span class="k">try</span><span class="p">:</span>
+    <span class="c1"># The bus width indicates the number of LEDs (and, hence, the number of
+</span>    <span class="c1"># resistors) that are needed. Pick the best resistor array and subtract its
+</span>    <span class="c1"># size from the number of resistors that are needed. If more resistors are
+</span>    <span class="c1"># still required, repeat the loop until the number drops to zero.
+</span>    <span class="n">r_needed</span> <span class="o">=</span> <span class="n">width</span>  <span class="c1"># The number of resistors that are currently needed.
+</span>    <span class="n">rs</span> <span class="o">=</span> <span class="p">[]</span>           <span class="c1"># Store the selected resistors here.
+</span>    <span class="n">left_pins</span> <span class="o">=</span> <span class="p">[]</span>    <span class="c1"># List of pins on the left side of the selected resistors.
+</span>    <span class="n">right_pins</span> <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># List of pins on the right side of the selected resistors.
+</span>
+    <span class="k">while</span> <span class="n">r_needed</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># Loop as long as resistors are needed.
+</span>
+        <span class="c1"># Pick the best resistor for the current number of resistors that are needed.
+</span>        <span class="c1"># If the needed number is larger than the list of resistors, then pick
+</span>        <span class="c1"># the largest available resistor array (which will be at the end of the list).
+</span>        <span class="k">try</span><span class="p">:</span>
             <span class="n">r_type</span> <span class="o">=</span> <span class="n">r_types</span><span class="p">[</span><span class="n">r_needed</span><span class="p">]</span>
         <span class="k">except</span> <span class="nb">IndexError</span><span class="p">:</span>
-            <span class="n">r_type</span> <span class="o">=</span> <span class="n">r_types</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c"># Pick the largest resistor array.</span>
-
-        <span class="n">r</span> <span class="o">=</span> <span class="n">r_type</span><span class="p">()</span>  <span class="c"># Instantiate the selected resistor.</span>
-        <span class="n">rs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>  <span class="c"># Add the resistor to the list of selected resistors.</span>
-
-        <span class="n">num_pins</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span>  <span class="c"># Number of pins on the selected resistor's package.</span>
-        <span class="n">num_resistors</span> <span class="o">=</span> <span class="n">num_pins</span> <span class="o">//</span> <span class="mi">2</span>  <span class="c"># Each resistor takes up two pins on the package.</span>
-
-        <span class="c"># Store the pins on the left and right sides of the resistor.</span>
-        <span class="c"># The pins increase from 1 ... num_pins/2 on the left side, and decrease from</span>
-        <span class="c"># num_pins ... num_pins/2+1 on the right side. This keeps the left and</span>
-        <span class="c"># right pin of each resistor in the package aligned between the lists.</span>
-        <span class="n">left_pins</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span> <span class="n">r</span><span class="p">[</span>       <span class="mi">1</span><span class="p">:</span><span class="n">num_pins</span><span class="o">//</span><span class="mi">2</span>  <span class="p">])</span>
+            <span class="n">r_type</span> <span class="o">=</span> <span class="n">r_types</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Pick the largest resistor array.
+</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">r_type</span><span class="p">()</span>  <span class="c1"># Instantiate the selected resistor.
+</span>        <span class="n">rs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>  <span class="c1"># Add the resistor to the list of selected resistors.
+</span>
+        <span class="n">num_pins</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span>  <span class="c1"># Number of pins on the selected resistor's package.
+</span>        <span class="n">num_resistors</span> <span class="o">=</span> <span class="n">num_pins</span> <span class="o">//</span> <span class="mi">2</span>  <span class="c1"># Each resistor takes up two pins on the package.
+</span>
+        <span class="c1"># Store the pins on the left and right sides of the resistor.
+</span>        <span class="c1"># The pins increase from 1 ... num_pins/2 on the left side, and decrease from
+</span>        <span class="c1"># num_pins ... num_pins/2+1 on the right side. This keeps the left and
+</span>        <span class="c1"># right pin of each resistor in the package aligned between the lists.
+</span>        <span class="n">left_pins</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span> <span class="n">r</span><span class="p">[</span>       <span class="mi">1</span><span class="p">:</span><span class="n">num_pins</span><span class="o">//</span><span class="mi">2</span>  <span class="p">])</span>
         <span class="n">right_pins</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="n">num_pins</span><span class="p">:</span><span class="n">num_pins</span><span class="o">//</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
 
-        <span class="c"># Subtract the resistors in the selected package from the number that</span>
-        <span class="c"># are needed and loop until that number goes to zero.</span>
-        <span class="n">r_needed</span> <span class="o">-=</span> <span class="n">num_resistors</span>
+        <span class="c1"># Subtract the resistors in the selected package from the number that
+</span>        <span class="c1"># are needed and loop until that number goes to zero.
+</span>        <span class="n">r_needed</span> <span class="o">-=</span> <span class="n">num_resistors</span>
 
-    <span class="c"># The number of resistors needed may not fit exactly into the number of </span>
-    <span class="c"># resistors selected (e.g., an eight-resistor array might be used when seven</span>
-    <span class="c"># resistors are needed). Therefore, trim the pin lists to the number of</span>
-    <span class="c"># resistors that are needed. (This may leave some pins on the last-selected</span>
-    <span class="c"># array unconnected.) Also, put them on buses so they'll be easy to connect to.</span>
-    <span class="n">left_pins</span>  <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s">''</span><span class="p">,</span> <span class="n">left_pins</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">width</span><span class="p">])</span>
+    <span class="c1"># The number of resistors needed may not fit exactly into the number of 
+</span>    <span class="c1"># resistors selected (e.g., an eight-resistor array might be used when seven
+</span>    <span class="c1"># resistors are needed). Therefore, trim the pin lists to the number of
+</span>    <span class="c1"># resistors that are needed. (This may leave some pins on the last-selected
+</span>    <span class="c1"># array unconnected.) Also, put them on buses so they'll be easy to connect to.
+</span>    <span class="n">left_pins</span>  <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s">''</span><span class="p">,</span> <span class="n">left_pins</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">width</span><span class="p">])</span>
     <span class="n">right_pins</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s">''</span><span class="p">,</span> <span class="n">right_pins</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">width</span><span class="p">])</span>
 
-    <span class="n">anodes</span> <span class="o">+=</span> <span class="p">[</span><span class="n">led</span><span class="p">[</span><span class="s">'A'</span><span class="p">]</span> <span class="k">for</span> <span class="n">led</span> <span class="ow">in</span> <span class="n">leds</span><span class="p">]</span>     <span class="c"># Connect LED anodes to anode inputs.</span>
-    <span class="n">left_pins</span> <span class="o">+=</span> <span class="p">[</span><span class="n">led</span><span class="p">[</span><span class="s">'K'</span><span class="p">]</span> <span class="k">for</span> <span class="n">led</span> <span class="ow">in</span> <span class="n">leds</span><span class="p">]</span>  <span class="c"># Connect LED cathodes to left side of resistors.</span>
-    <span class="n">cathodes</span> <span class="o">+=</span> <span class="n">right_pins</span>                   <span class="c"># Connect right side of resistors to cathode inputs.</span>
-</code></pre>
-</div>
+    <span class="n">anodes</span> <span class="o">+=</span> <span class="p">[</span><span class="n">led</span><span class="p">[</span><span class="s">'A'</span><span class="p">]</span> <span class="k">for</span> <span class="n">led</span> <span class="ow">in</span> <span class="n">leds</span><span class="p">]</span>     <span class="c1"># Connect LED anodes to anode inputs.
+</span>    <span class="n">left_pins</span> <span class="o">+=</span> <span class="p">[</span><span class="n">led</span><span class="p">[</span><span class="s">'K'</span><span class="p">]</span> <span class="k">for</span> <span class="n">led</span> <span class="ow">in</span> <span class="n">leds</span><span class="p">]</span>  <span class="c1"># Connect LED cathodes to left side of resistors.
+</span>    <span class="n">cathodes</span> <span class="o">+=</span> <span class="n">right_pins</span>                   <span class="c1"># Connect right side of resistors to cathode inputs.
+</span></code></pre></div></div>
 
 <h3 id="postmortem">Postmortem</h3>
 
