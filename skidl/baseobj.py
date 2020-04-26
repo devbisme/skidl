@@ -46,11 +46,16 @@ class SkidlBaseObject(object):
         self.fields = AttrDict(attr_obj=self)
 
     def __setattr__(self, key, value):
-        super().__setattr__(key, value)
+        if key == "fields":
+            # Whatever is assigned to the fields attribute is cast to an AttrDict.
+            super().__setattr__(key, AttrDict(attr_obj=self, **value))
 
-        # Whenever an attribute is changed, then also sync it with the fields dict
-        # in case it is mirroring one of the dict entries.
-        self.fields.sync(key)
+        else:
+            super().__setattr__(key, value)
+
+            # Whenever an attribute is changed, then also sync it with the fields dict
+            # in case it is mirroring one of the dict entries.
+            self.fields.sync(key)
 
     @property
     def aliases(self):

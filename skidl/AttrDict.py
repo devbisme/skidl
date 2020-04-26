@@ -46,6 +46,7 @@ class AttrDict(dict):
         attr_obj: The object whose attributes will mirror the entries in
             the dictionary. If not specified, then the attributes of the
             dict will be used.
+        **kwargs: Key/value pairs that will be entered into the dict.
     """
 
     def __init__(self, *args, **kwargs):
@@ -65,11 +66,8 @@ class AttrDict(dict):
     __setattr__ = _setattr_setitem
     __setitem__ = _setattr_setitem
 
-    def __repr__(self):
-        return "AttrDict({})".format(dict.__repr__(self))
-
     def copy(self, attr_obj):
-        """Copy and set the object whose attributes will mirror the copy dict entires."""
+        """Copy and set the object whose attributes will mirror the copy dict entries."""
         cpy = AttrDict(attr_obj=attr_obj)
         for k, v in self.items():
             cpy[k] = copy(v)

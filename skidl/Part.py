@@ -32,6 +32,7 @@ from copy import copy
 
 from future import standard_library
 
+from .AttrDict import AttrDict
 from .baseobj import SkidlBaseObject
 from .defines import *
 from .erc import dflt_part_erc
