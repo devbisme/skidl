@@ -172,7 +172,7 @@ def test_package_6():
         r_total = 1000
         rl.value = (1.25 / output_voltage) * r_total
         rh.value = r_total - float(rl.value)
-        vout & rh & reg["ADJ"] & rl & GND
+        VO & rh & reg["ADJ"] & rl & GND
 
     @package
     def vreg(vin, vout, gnd, bom):
@@ -211,3 +211,71 @@ def test_package_6():
     assert len(vin) == 2
     assert len(gnd) == 3
     assert len(vout) == 3
+
+
+def test_package_7():
+    """Test multiple packages for independence."""
+
+    @package
+    def reg_adj(VI, VO, GND, bom, output_voltage):
+        """Create voltage regulator with adjustable output."""
+
+        # Create adjustable regulator chip and connect to input and output.
+        reg = bom["reg"]()
+        reg["VI"] += VI
+        reg["VO"] += VO
+
+        # Create resistor divider and attach between output, adjust pin and ground.
+        rh = bom["r"]()
+        rl = bom["r"]()
+        r_total = 1000
+        rl.value = (1.25 / output_voltage) * r_total
+        rh.value = r_total - float(rl.value)
+        VO & rh & reg["ADJ"] & rl & GND
+
+    @package
+    def vreg(vin, vout, gnd, bom):
+        """Create voltage regulator with filtering caps."""
+
+        # Create regulator and attach to input, output and ground.
+        reg = bom["reg"]()
+        reg["VI, VO, GND"] += vin, vout, gnd
+
+        # Attach filtering capacitors on input and output.
+        cin, cout = bom["c"](2)
+        vin & cin & gnd
+        vout & cout & gnd
+
+    @package
+    def vreg_adj(vin, vout, gnd, bom, output_voltage=3.0):
+        """Create adjustable voltage regulator with filtering caps."""
+        bom2 = copy(bom)
+        bom2["reg"] = reg_adj(bom=bom, output_voltage=output_voltage, dest=TEMPLATE)
+        vreg(vin=vin, vout=vout, gnd=gnd, bom=bom2)
+
+    vin, vout1, vout2, gnd = Net("VIN"), Net("VOUT1"), Net("VOUT2"), Net("GND")
+    reg = Part("xess.lib", "1117", dest=TEMPLATE)
+    reg.GND.aliases += "ADJ"
+    reg.IN.aliases += "VI"
+    reg.OUT.aliases += "VO"
+    bom = {
+        "r": Part("Device", "R", dest=TEMPLATE),
+        "c": Part("Device", "C", dest=TEMPLATE),
+        "reg": reg,
+    }
+    vr1 = vreg_adj(bom=bom)
+    vr2 = vreg_adj(bom=bom)
+    vr1["vin, vout, gnd"] += vin, vout1, gnd
+    vr2["vin, vout, gnd"] += vin, vout2, gnd
+    default_circuit.instantiate_packages()
+    u1 = Part.get("U1")[0]
+    u2 = Part.get("U2")[0]
+    u1.F2 = 'U1-F2'
+    u2.F2 = 'U2-F2'
+    assert u1.F2 == 'U1-F2'
+    assert u2.F2 == 'U2-F2'
+    assert len(default_circuit.parts) == 10
+    assert len(vout1.get_pins()) == 3
+    assert len(vout2.get_pins()) == 3
+    assert len(vin.get_pins()) == 4
+    assert len(gnd.get_pins()) == 6
