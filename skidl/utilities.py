@@ -530,7 +530,7 @@ def filter_list(lst, **criteria):
     return extract
 
 
-def expand_indices(slice_min, slice_max, *indices):
+def expand_indices(slice_min, slice_max, *indices, match_substring=False):
     """
     Expand a list of indices into a list of integers and strings.
 
@@ -598,7 +598,7 @@ def expand_indices(slice_min, slice_max, *indices):
                 # If the id is a valid bus expression, then the exploded bus lines
                 # are added to the list of ids. If not, the original id is
                 # added to the list.
-                ids.extend(explode(id.strip()))
+                ids.extend(explode(id.strip(), match_substring=match_substring))
         else:
             log_and_raise(
                 logger, TypeError, "Unknown type in index: {}.".format(type(indx))
@@ -608,7 +608,7 @@ def expand_indices(slice_min, slice_max, *indices):
     return ids
 
 
-def explode(bus_str):
+def explode(bus_str, match_substring=False):
     """
     Explode a bus into its separate lines.
 
@@ -640,15 +640,21 @@ def explode(bus_str):
     # string must be preceded by a non-alpha or the start of the string.
     # But if the string starts with a non-alpha, then whatever precedes the
     # match in the string is ignored.
-    if beg_bus_name[0:1].isalpha():
-        non_alphanum = "((?<=[^0-9a-zA-Z])|^)"
+    if match_substring:
+        if beg_bus_name[0:1].isalpha():
+            non_alphanum = "((?<=[^0-9a-zA-Z])|^)"
+        else:
+            non_alphanum = ""
     else:
         non_alphanum = ""
 
     # The character following a bus index must be non-numeric so that "B1" does
     # not also match "B11". This must also be a look-ahead assertion so it
     # doesn't consume any of the string.
-    non_num = "(?=[^0-9]|$)"
+    if match_substring:
+        non_num = "(?=[^0-9]|$)"
+    else:
+        non_num = ""
 
     return [
         non_alphanum + beg_bus_name + str(n) + non_num + end_bus_name

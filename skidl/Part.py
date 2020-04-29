@@ -173,6 +173,7 @@ class Part(SkidlBaseObject):
         self.ref_prefix = ""  # Provide a member for holding the part reference prefix.
         self.tool = tool  # Initial type of part (SKIDL, KICAD, etc.)
         self.circuit = None  # Part starts off unassociated with any circuit.
+        self.match_pin_substring = False  # Select pins only with an exact match of their name. 
 
         # Create a Part from a library entry.
         if lib:
@@ -585,10 +586,14 @@ class Part(SkidlBaseObject):
         only_search_numbers = criteria.pop("only_search_numbers", False)
         only_search_names = criteria.pop("only_search_names", False)
 
+        # Extract permission to search for substring matches in pin names/aliases.
+        match_substring = criteria.pop("match_substring", False) or self.match_pin_substring
+
         # If no pin identifiers were given, then use a wildcard that will
         # select all pins.
         if not pin_ids:
             pin_ids = [".*"]
+            match_substring = ".*"  # Also turn on pin substring matching so .* works.
 
         # Determine the minimum and maximum pin ids if they don't already exist.
         if "min_pin" not in dir(self) or "max_pin" not in dir(self):
@@ -596,7 +601,7 @@ class Part(SkidlBaseObject):
 
         # Go through the list of pin IDs one-by-one.
         pins = NetPinList()
-        for p_id in expand_indices(self.min_pin, self.max_pin, *pin_ids):
+        for p_id in expand_indices(self.min_pin, self.max_pin, *pin_ids, match_substring=match_substring):
 
             # If only names are being searched, the search of pin numbers is skipped.
             if not only_search_names:
@@ -610,8 +615,18 @@ class Part(SkidlBaseObject):
 
             # if only numbers are being searched, then search of pin names is skipped.
             if not only_search_numbers:
-                # OK, assume it's not a pin number but a pin name. Look for an
-                # exact match.
+                # OK, assume it's not a pin number but a pin name or alias.
+                # Look for an exact match.
+
+                # Check pin aliases for an exact match.
+                tmp_pins = filter_list(
+                    self.pins, aliases=p_id, do_str_match=True, **criteria
+                )
+                if tmp_pins:
+                    pins.extend(tmp_pins)
+                    continue
+
+                # Check pin names for an exact match.
                 tmp_pins = filter_list(
                     self.pins, name=p_id, do_str_match=True, **criteria
                 )
@@ -619,13 +634,9 @@ class Part(SkidlBaseObject):
                     pins.extend(tmp_pins)
                     continue
 
-                # OK, now check pin aliases for an exact match.
-                tmp_pins = filter_list(
-                    self.pins, aliases=p_id, do_str_match=True, **criteria
-                )
-                if tmp_pins:
-                    pins.extend(tmp_pins)
-                    continue
+                if not match_substring:
+                    # Skip search of pin names/aliases for a matching substring.
+                    continue 
 
                 # OK, pin ID is not a pin number and doesn't exactly match a pin
                 # name or alias. Does it match a substring within a pin name?
@@ -635,17 +646,16 @@ class Part(SkidlBaseObject):
                     # This will happen if the p_id is a number and not a string.
                     # Skip this and the next block because p_id_re can't be made.
                     continue
-                else:
-                    # The p_id is a string, so now check the pin names.
-                    tmp_pins = filter_list(self.pins, name=p_id_re, **criteria)
-                    if tmp_pins:
-                        pins.extend(tmp_pins)
-                        continue
 
-                # Pin ID didn't match a substring in the pin names, so now check
-                # the pin aliases.
+                # Check pin aliases for a substring match.
                 p_id_re_alias = Alias(p_id_re)
                 tmp_pins = filter_list(self.pins, aliases=p_id_re_alias, **criteria)
+                if tmp_pins:
+                    pins.extend(tmp_pins)
+                    continue
+
+                # Check the pin names for a substring match.
+                tmp_pins = filter_list(self.pins, name=p_id_re, **criteria)
                 if tmp_pins:
                     pins.extend(tmp_pins)
                     continue
