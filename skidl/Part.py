@@ -634,14 +634,15 @@ class Part(SkidlBaseObject):
                     pins.extend(tmp_pins)
                     continue
 
-                if not match_substring:
-                    # Skip search of pin names/aliases for a matching substring.
-                    continue 
+                wildcard = ".*" if match_substring else ""
+                # if not match_substring:
+                #     # Skip search of pin names/aliases for a matching substring.
+                #     continue 
 
                 # OK, pin ID is not a pin number and doesn't exactly match a pin
                 # name or alias. Does it match a substring within a pin name?
                 try:
-                    p_id_re = "".join([".*", p_id, ".*"])
+                    p_id_re = "".join([wildcard, p_id, wildcard])
                 except TypeError:
                     # This will happen if the p_id is a number and not a string.
                     # Skip this and the next block because p_id_re can't be made.
