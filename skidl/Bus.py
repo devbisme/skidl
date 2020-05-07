@@ -296,7 +296,7 @@ class Bus(SkidlBaseObject):
 
         # Use the indices to get the nets from the bus.
         nets = []
-        for ident in expand_indices(0, len(self) - 1, ids):
+        for ident in expand_indices(0, len(self) - 1, False, *ids):
             if isinstance(ident, int):
                 nets.append(self.nets[ident])
             elif isinstance(ident, basestring):

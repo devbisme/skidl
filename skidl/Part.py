@@ -601,7 +601,7 @@ class Part(SkidlBaseObject):
 
         # Go through the list of pin IDs one-by-one.
         pins = NetPinList()
-        for p_id in expand_indices(self.min_pin, self.max_pin, *pin_ids, match_substring=match_substring):
+        for p_id in expand_indices(self.min_pin, self.max_pin, match_substring, *pin_ids):
 
             # If only names are being searched, the search of pin numbers is skipped.
             if not only_search_names:

@@ -530,7 +530,7 @@ def filter_list(lst, **criteria):
     return extract
 
 
-def expand_indices(slice_min, slice_max, *indices, match_substring=False):
+def expand_indices(slice_min, slice_max, match_substring, *indices):
     """
     Expand a list of indices into a list of integers and strings.
 
@@ -543,6 +543,7 @@ def expand_indices(slice_min, slice_max, *indices, match_substring=False):
     Args:
         slice_min: The minimum possible index.
         slice_max: The maximum possible index (used for slice indices).
+        match_substring: If true, 
         indices: A list of indices made up of numbers, slices, text strings.
 
     Returns:
@@ -629,6 +630,8 @@ def explode(bus_str, match_substring=False):
     bus = re.match(r"^(.+)\[([0-9]+):([0-9]+)\](.*)$", bus_str)
     if not bus:
         return [bus_str]  # Not a valid bus expression, so return input string.
+
+    # What follows must be a bus expression.
     beg_bus_name = bus.group(1)
     begin_num = int(bus.group(2))
     end_num = int(bus.group(3))

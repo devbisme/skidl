@@ -341,7 +341,7 @@ class Net(SkidlBaseObject):
         """
 
         # Resolve the indices.
-        indices = list(set(expand_indices(0, self.width - 1, ids)))
+        indices = list(set(expand_indices(0, self.width - 1, False, *ids)))
         if indices is None or len(indices) == 0:
             return None
         if len(indices) > 1:

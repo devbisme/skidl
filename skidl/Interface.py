@@ -106,7 +106,7 @@ class Interface(dict, SkidlBaseObject):
 
         # Go through the list of I/Os one-by-one.
         ios = NetPinList()
-        for io_id in expand_indices(min_io, max_io, *io_ids):
+        for io_id in expand_indices(min_io, max_io, False, *io_ids):
             try:
                 # Look for an exact match of the ID.
                 io = dict.__getitem__(self, io_id)
