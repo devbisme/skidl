@@ -716,11 +716,6 @@ class Net(SkidlBaseObject):
                 "Can't generate XML in an unknown ECAD tool format ({}).".format(tool),
             )
 
-    def ERC(self, *args, **kwargs):
-        """Run class-wide and local ERC functions on this net."""
-
-        exec_function_list(self, "erc_list", *args, **kwargs)
-
     def __str__(self):
         """Return a list of the pins on this net as a string."""
         self.test_validity()

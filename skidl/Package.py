@@ -40,7 +40,7 @@ from .ProtoNet import ProtoNet
 standard_library.install_aliases()
 
 try:
-    import builtins as builtins
+    import __builtins__ as builtins
 except ImportError:
     import builtins
 
@@ -84,6 +84,7 @@ def package(subcirc_func):
     code = subcirc_func.__code__
     num_args = code.co_argcount
     arg_names = code.co_varnames[:num_args]
+
     # By default, set parameters to a package to be ProtoNets.
     for arg_name in arg_names:
         pckg[arg_name] = ProtoNet(arg_name)
@@ -98,7 +99,7 @@ def package(subcirc_func):
         for arg_name, dflt_value in subcirc_func.__kwdefaults__:
             pckg[arg_name] = dflt_value
 
-    # Remove the subcircuit key from the dict so it won't be passed to subcirc_f().
+    # Remove the subcircuit key from the dict so it won't be passed to subcirc_func().
     pckg.subcircuit = subcircuit(subcirc_func)
     del pckg["subcircuit"]
 

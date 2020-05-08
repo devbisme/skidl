@@ -56,13 +56,9 @@ def dflt_circuit_erc(circuit):
     for name in net_names:
         Net.get(name, circuit=circuit).ERC()
 
-    # Check the parts for errors.
-    for part in circuit.parts:
-        part.ERC()
-
-    # Check interfaces for errors.
-    for intfc in circuit.interfaces:
-        intfc.ERC()
+    # Check parts, interfaces & packages for errors:
+    for piece in circuit.parts + circuit.interfaces + circuit.packages:
+        piece.ERC()
 
     if (erc_logger.error.count, erc_logger.warning.count) == (0, 0):
         sys.stderr.write("\nNo ERC errors or warnings found.\n\n")

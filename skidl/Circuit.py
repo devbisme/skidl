@@ -360,7 +360,7 @@ class Circuit(SkidlBaseObject):
         if self.no_files:
             erc_logger.stop_file_output()
 
-        exec_function_list(self, "erc_list", *args, **kwargs)
+        super().ERC(*args, **kwargs)
 
     def _merge_net_names(self):
         """Select a single name for each multi-segment net."""

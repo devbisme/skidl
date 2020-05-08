@@ -938,10 +938,6 @@ class Part(SkidlBaseObject):
 
         return gen_func()
 
-    def ERC(self, *args, **kwargs):
-        """Run class-wide and local ERC functions on this part."""
-        exec_function_list(self, "erc_list", *args, **kwargs)
-
     def erc_desc(self):
         """Create description of part for ERC and other error reporting."""
         return "{p.name}/{p.ref}".format(p=self)
