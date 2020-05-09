@@ -37,7 +37,7 @@ from future import standard_library
 from .Alias import Alias
 from .AttrDict import AttrDict
 from .Note import Note
-from .utilities import exec_function_list
+from .utilities import exec_function_list, eval_stmnt_list
 
 standard_library.install_aliases()
 
@@ -115,3 +115,7 @@ class SkidlBaseObject(object):
         """Run ERC functions on this object."""
 
         exec_function_list(self, "erc_list", *args, **kwargs)
+
+    def ERC_asserts(self, *args, **kwargs):
+        """Run ERC assertions on this object."""
+        eval_stmnt_list(self, "erc_assertion_list")

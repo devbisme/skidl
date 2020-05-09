@@ -216,3 +216,38 @@ def test_all_pin_funcs_1():
     ERC()
     assert erc_logger.warning.count == 109  # 35 from pin conflicts.
     assert erc_logger.error.count == 43  # 43 from pin conflicts.
+
+
+def test_assert_1():
+
+    res = Part(
+        tool=SKIDL,
+        name="res",
+        ref_prefix="R",
+        dest=TEMPLATE,
+        pins=[Pin(num=1, func=Pin.types.PASSIVE), Pin(num=2, func=Pin.types.PASSIVE)],
+    )
+    r1 = res(value="1K")
+    r2 = res(value="500")
+
+    cap = Part(
+        tool=SKIDL,
+        name="cap",
+        ref_prefix="C",
+        dest=TEMPLATE,
+        pins=[Pin(num=1, func=Pin.types.PASSIVE), Pin(num=2, func=Pin.types.NOCONNECT)],
+    )
+    c1 = cap()
+    c2 = cap(value="1uF")
+
+    gnd = Net("GND")  # Ground reference.
+    vin = Net("VI")  # Input voltage to the divider.
+    vout = Net("VO")  # Output voltage from the divider.
+
+    # add_erc_assertion(default_circuit, "len(gnd)==1")
+    # add_erc_assertion(default_circuit, compile("len(gnd)==0", "<stdin>", "eval"), globals(), locals())
+    add_erc_assertion(default_circuit, "len(gnd)==1")
+
+    ERC()
+    assert erc_logger.warning.count == 12
+    assert erc_logger.error.count == 0

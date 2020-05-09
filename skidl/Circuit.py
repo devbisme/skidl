@@ -108,6 +108,7 @@ class Circuit(SkidlBaseObject):
         self.hierarchy = "top"
         self.level = 0
         self.context = [("top",)]
+        self.erc_assertion_list = []
         self.no_files = False  # Allow creation of files for netlists, ERC, libs, etc.
 
         # Clear the name heap for nets and parts.
@@ -359,8 +360,9 @@ class Circuit(SkidlBaseObject):
 
         if self.no_files:
             erc_logger.stop_file_output()
-
+            
         super().ERC(*args, **kwargs)
+        super().ERC_asserts()
 
     def _merge_net_names(self):
         """Select a single name for each multi-segment net."""
