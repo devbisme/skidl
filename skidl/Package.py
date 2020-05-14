@@ -87,7 +87,10 @@ def package(subcirc_func):
 
     # By default, set parameters to a package to be ProtoNets.
     for arg_name in arg_names:
-        pckg[arg_name] = ProtoNet(arg_name)
+        pn = ProtoNet(arg_name)
+        pn.intfc = pckg
+        pn.intfc_key = arg_name
+        pckg[arg_name] = pn
 
     # Set any default values for the parameters.
     if getattr(subcirc_func, "__defaults__", None):

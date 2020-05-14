@@ -70,8 +70,7 @@ class Interface(dict, SkidlBaseObject):
                     # Set the ProtoNet in the interface entry with key to its new Net or Bus value.
                     dict.__setitem__(self, key, v)
                     dict.__setattr__(self, key, v)
-            # The interface key and += flag in the values are no longer needed.
-            rmv_attr(value, "intfc_key")
+            # The += flag in the values are no longer needed.
             rmv_attr(value, "iadd_flag")
         else:
             # This is for a straight assignment of value to key.
@@ -148,3 +147,11 @@ class Interface(dict, SkidlBaseObject):
 
     # Get I/Os from an interface using brackets, e.g. ['A, B'].
     __getitem__ = get_io
+
+    def __getattribute__(self, key):
+        value = dict.__getattribute__(self, key)
+        if isinstance(value, ProtoNet):
+            # If the retrieved attribute is a ProtoNet, record where it came from.
+            value.intfc_key = key
+            value.intfc = self
+        return value

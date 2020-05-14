@@ -23,6 +23,7 @@ from .AttrDict import *
 from .Bus import *
 from .Circuit import *
 from .defines import *
+from .erc import *
 from .Interface import *
 from .logger import *
 from .Net import *

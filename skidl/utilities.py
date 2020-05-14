@@ -29,16 +29,16 @@ Utility functions used by the rest of SKiDL.
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 import collections
-from collections import namedtuple
-import inspect
 import os
 import os.path
 import re
 import sys
 import traceback
 from builtins import chr, dict, int, object, open, range, str, super, zip
+from collections import namedtuple
 from contextlib import contextmanager
 
+from .defines import *
 from .py_2_3 import *
 
 """Separator for strings containing multiple indices."""
@@ -755,80 +755,6 @@ def expand_buses(pins_nets_buses):
     for pnb in pins_nets_buses:
         pins_nets.extend(pnb)
     return pins_nets
-
-
-# Tuple for storing assertion code object with its global & local dicts.
-EvalTuple = namedtuple("EvalTuple", "stmnt globals locals")
-
-
-def eval_stmnt_list(inst, list_name):
-    """
-    Evaluate class-wide and local statements on a class instance.
-
-    Args:
-        inst: Instance of a class.
-        list_name: String containing the attribute name of the list of
-            class-wide and local code objects.
-    """
-
-    # Evaluate class-wide statements on this instance.
-    if list_name in inst.__class__.__dict__:
-        for evtpl in inst.__class__.__dict__[list_name]:
-            assert eval(evtpl.stmnt, evtpl.globals, evtpl.locals)
-
-    # Now evaluate any statements for this particular instance.
-    if list_name in inst.__dict__:
-        for evtpl in inst.__dict__[list_name]:
-            assert eval(evtpl.stmnt, evtpl.globals, evtpl.locals)
-
-
-def exec_function_list(inst, list_name, *args, **kwargs):
-    """
-    Execute class-wide and local functions on a class instance.
-
-    Args:
-        inst: Instance of a class.
-        list_name: String containing the attribute name of the list of
-            class-wide and local functions.
-        args, kwargs: Arbitary argument lists to pass to the functions
-            that are executed. (All functions get the same arguments.) 
-    """
-
-    # Execute the class-wide functions on this instance.
-    if list_name in inst.__class__.__dict__:
-        for f in inst.__class__.__dict__[list_name]:
-            f(inst, *args, **kwargs)
-
-    # Now execute any instance functions for this particular instance.
-    if list_name in inst.__dict__:
-        for f in inst.__dict__[list_name]:
-            f(inst, *args, **kwargs)
-
-
-def add_to_exec_or_eval_list(class_or_inst, list_name, func):
-    """Append a function to a function list of a class or class instance."""
-
-    if list_name not in class_or_inst.__dict__:
-        setattr(class_or_inst, list_name, [])
-    getattr(class_or_inst, list_name).append(func)
-
-
-def add_erc_function(class_or_inst, func):
-    """Add an ERC function to a class or class instance."""
-
-    add_to_exec_or_eval_list(class_or_inst, "erc_list", func)
-
-
-def add_erc_assertion(class_or_inst, assertion):
-    """Add an ERC assertion to a class or class instance."""
-
-    assertion_code = compile(assertion, "<stdin>", "eval")
-    assertion_frame = inspect.stack()[1].frame
-    add_to_exec_or_eval_list(
-        class_or_inst,
-        "erc_assertion_list",
-        EvalTuple(assertion_code, assertion_frame.f_globals, assertion_frame.f_locals),
-    )
 
 
 def log_and_raise(logger_in, exc_class, message):

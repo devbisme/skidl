@@ -173,7 +173,7 @@ class Part(SkidlBaseObject):
         self.ref_prefix = ""  # Provide a member for holding the part reference prefix.
         self.tool = tool  # Initial type of part (SKIDL, KICAD, etc.)
         self.circuit = None  # Part starts off unassociated with any circuit.
-        self.match_pin_substring = False  # Select pins only with an exact match of their name. 
+        self.match_pin_substring = False  # Only select pins with exact name matches.
 
         # Create a Part from a library entry.
         if lib:
@@ -587,7 +587,9 @@ class Part(SkidlBaseObject):
         only_search_names = criteria.pop("only_search_names", False)
 
         # Extract permission to search for substring matches in pin names/aliases.
-        match_substring = criteria.pop("match_substring", False) or self.match_pin_substring
+        match_substring = (
+            criteria.pop("match_substring", False) or self.match_pin_substring
+        )
 
         # If no pin identifiers were given, then use a wildcard that will
         # select all pins.
@@ -601,7 +603,9 @@ class Part(SkidlBaseObject):
 
         # Go through the list of pin IDs one-by-one.
         pins = NetPinList()
-        for p_id in expand_indices(self.min_pin, self.max_pin, match_substring, *pin_ids):
+        for p_id in expand_indices(
+            self.min_pin, self.max_pin, match_substring, *pin_ids
+        ):
 
             # If only names are being searched, the search of pin numbers is skipped.
             if not only_search_names:
@@ -634,13 +638,14 @@ class Part(SkidlBaseObject):
                     pins.extend(tmp_pins)
                     continue
 
+                # If matching a substring within a pin name is enabled, then
+                # create wildcards to match the beginning/ending surrounding a
+                # substring. Remove these wildcards if substring matching is disabled.
                 wildcard = ".*" if match_substring else ""
-                # if not match_substring:
-                #     # Skip search of pin names/aliases for a matching substring.
-                #     continue 
 
                 # OK, pin ID is not a pin number and doesn't exactly match a pin
                 # name or alias. Does it match a substring within a pin name?
+                # Or does it match as a regex?
                 try:
                     p_id_re = "".join([wildcard, p_id, wildcard])
                 except TypeError:

@@ -27,11 +27,11 @@ Routines for getting information about a script.
 """
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-from builtins import str
 import inspect
 import os
 import sys
 import traceback
+from builtins import str
 
 
 def scriptinfo():

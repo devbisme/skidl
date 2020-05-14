@@ -360,9 +360,18 @@ class Circuit(SkidlBaseObject):
 
         if self.no_files:
             erc_logger.stop_file_output()
-            
+
         super().ERC(*args, **kwargs)
-        super().ERC_asserts()
+
+        if (erc_logger.error.count, erc_logger.warning.count) == (0, 0):
+            sys.stderr.write("\nNo ERC errors or warnings found.\n\n")
+        else:
+            sys.stderr.write(
+                "\n{} warnings found during ERC.\n".format(erc_logger.warning.count)
+            )
+            sys.stderr.write(
+                "{} errors found during ERC.\n\n".format(erc_logger.error.count)
+            )
 
     def _merge_net_names(self):
         """Select a single name for each multi-segment net."""

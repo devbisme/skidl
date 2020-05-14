@@ -11,6 +11,9 @@ ______________________
 * Interface I/O can now be accessed using brackets ([]) and via attributes (e.g., intfc.a).
 * Interface I/O can now be assigned aliases.
 * Added tee() function for creating T-junctions in networks.
+* Custom ERCs can now be added using the `erc_assert` function.
+* Aliases take precedence over default pin names.
+* Substring matching in pin names can be enabled/disabled (off by default).
 
 
 0.0.29 (2020-01-30)

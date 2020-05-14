@@ -270,12 +270,91 @@ def test_package_7():
     default_circuit.instantiate_packages()
     u1 = Part.get("U1")[0]
     u2 = Part.get("U2")[0]
-    u1.F2 = 'U1-F2'
-    u2.F2 = 'U2-F2'
-    assert u1.F2 == 'U1-F2'
-    assert u2.F2 == 'U2-F2'
+    u1.F2 = "U1-F2"
+    u2.F2 = "U2-F2"
+    assert u1.F2 == "U1-F2"
+    assert u2.F2 == "U2-F2"
     assert len(default_circuit.parts) == 10
     assert len(vout1.get_pins()) == 3
     assert len(vout2.get_pins()) == 3
     assert len(vin.get_pins()) == 4
     assert len(gnd.get_pins()) == 6
+
+
+def test_package_8():
+    r = Part("Device", "R", dest=TEMPLATE)
+
+    @package
+    def r_sub(neta, netb):
+        neta & r() & netb
+
+    rr = r_sub()
+    vcc, gnd = Net("VCC"), Net("GND")
+    rr.neta += vcc
+    gnd += rr.netb
+    default_circuit.instantiate_packages()
+    assert len(gnd) == 1
+    assert len(vcc) == 1
+
+
+def test_package_9():
+
+    r = Part("Device", "R", dest=TEMPLATE)
+    c = Part("Device", "C", dest=TEMPLATE)
+
+    @subcircuit
+    def sub1(my_vin, my_gnd):
+        r1 = r()
+        c1 = c()
+        my_vin & r1 & c1 & my_gnd
+
+    @package
+    def sub2(my_vin1, my_vin2, my_gnd):
+        sub1(my_vin1, my_gnd)
+        sub1(my_vin2, my_gnd)
+
+    vin1, vin2, gnd = Net("VIN1"), Net("VIN2"), Net("GND")
+    sub = sub2()
+    vin1 += sub.my_vin1
+    sub.my_vin2 += vin2
+    sub.my_gnd += gnd
+    r1 = r()
+    vin1 & r1 & gnd
+
+    default_circuit.instantiate_packages()
+
+    assert len(gnd) == 3
+    assert len(vin1) == 2
+    assert len(vin2) == 1
+
+
+def test_package_10():
+
+    r = Part("Device", "R", dest=TEMPLATE)
+    c = Part("Device", "C", dest=TEMPLATE)
+
+    @package
+    def sub1(my_vin, my_gnd):
+        r1 = r()
+        c1 = c()
+        my_vin & r1 & c1 & my_gnd
+
+    @subcircuit
+    def sub2(my_vin1, my_vin2, my_gnd):
+        s1 = sub1()
+        s2 = sub1()
+        s1.my_vin += my_vin1
+        my_vin2 += s2.my_vin
+        my_gnd += s1.my_gnd
+        s2.my_gnd += my_gnd
+
+    vin1, vin2, gnd = Net("VIN1"), Net("VIN2"), Net("GND")
+    sub = sub2(vin1, vin2, gnd)
+    r1 = r()
+    vin1 & r1 & gnd
+
+    default_circuit.instantiate_packages()
+    
+    assert len(gnd) == 3
+    assert len(vin1) == 2
+    assert len(vin2) == 1
