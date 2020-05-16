@@ -2,77 +2,82 @@ callback([
 
   {
     "text": "Building a USB-to-JTAG Interface Using SKiDL",
-    "href": "http://localhost:4000/blog/building-a-usb-to-jtag-interface-using-skidl"
+    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/building-a-usb-to-jtag-interface-using-skidl"
   } ,
 
   {
     "text": "Names, Not Numbers",
-    "href": "http://localhost:4000/blog/names-not-numbers"
+    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/names-not-numbers"
   } ,
 
   {
     "text": "A Taste of Hierarchy",
-    "href": "http://localhost:4000/blog/a-taste-of-hierarchy"
+    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/a-taste-of-hierarchy"
   } ,
 
   {
     "text": "Don't Replicate, Automate!",
-    "href": "http://localhost:4000/blog/dont-replicate-automate"
+    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/dont-replicate-automate"
   } ,
 
   {
     "text": "Two Easy Pieces",
-    "href": "http://localhost:4000/blog/two-easy-pieces"
+    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/two-easy-pieces"
   } ,
 
   {
     "text": "An Arduino With SKiDL",
-    "href": "http://localhost:4000/blog/an-arduino-with-skidl"
+    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/an-arduino-with-skidl"
   } ,
 
   {
     "text": "Spice Simulation",
-    "href": "http://localhost:4000/blog/spice-simulation"
+    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/spice-simulation"
   } ,
 
   {
     "text": "Reusability Ain't What It Used To Be",
-    "href": "http://localhost:4000/blog/reuse-leds"
+    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/reuse-leds"
   } ,
 
   {
     "text": "Others Use It, Too!",
-    "href": "http://localhost:4000/blog/others-use-it-too"
+    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/others-use-it-too"
   } ,
 
   {
     "text": "Sweetening SKiDL",
-    "href": "http://localhost:4000/blog/sweetening-skidl"
+    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/sweetening-skidl"
   } ,
 
   {
     "text": "SKiDL at KiCon 2019",
-    "href": "http://localhost:4000/blog/skidl-kicon-2019"
+    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/skidl-kicon-2019"
   } ,
 
   {
     "text": "The Worst Part of SKiDL",
-    "href": "http://localhost:4000/blog/worst-part-of-skidl"
+    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/worst-part-of-skidl"
   } ,
 
   {
     "text": "Version 0.0.27 Released!",
-    "href": "http://localhost:4000/blog/Release_0_0_27"
+    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/Release_0_0_27"
   } ,
 
   {
     "text": "Version 0.0.28 Released!",
-    "href": "http://localhost:4000/blog/Release_0_0_28"
+    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/Release_0_0_28"
   } ,
 
   {
     "text": "xspice capability",
-    "href": "http://localhost:4000/blog/xspice-capability"
+    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/xspice-capability"
+  } ,
+
+  {
+    "text": "Version 0.0.30 Released!",
+    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/Release_0_0_30"
   } 
 
 ])

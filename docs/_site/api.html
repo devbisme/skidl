@@ -1034,6 +1034,12 @@ Or None if no match was found.</p>
 </dl>
 </dd></dl>
 
+<dl class="method">
+<dt id="skidl.Interface.Interface.__getattribute__">
+<code class="sig-name descname">__getattribute__</code><span class="sig-paren">(</span><em class="sig-param">key</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Interface.Interface.__getattribute__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return getattr(self, name).</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -1418,12 +1424,6 @@ lists/tuples of them to be connected to this net.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="skidl.Net.Net.ERC">
-<code class="sig-name descname">ERC</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Net.ERC" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run class-wide and local ERC functions on this net.</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="skidl.Net.Net.__str__">
 <code class="sig-name descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Net.Net.__str__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of the pins on this net as a string.</p>
@@ -1760,12 +1760,6 @@ vi—r1—r2-+-r5—gnd</p>
 <div class="section" id="module-skidl.Part">
 <span id="skidl-part-module"></span><h4>skidl.Part module<a class="headerlink" href="#module-skidl.Part" title="Permalink to this headline">¶</a></h4>
 <p>Handles parts.</p>
-<dl class="class">
-<dt id="skidl.Part.UnitValue">
-<em class="property">class </em><code class="sig-prename descclassname">skidl.Part.</code><code class="sig-name descname">UnitValue</code><a class="headerlink" href="#skidl.Part.UnitValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-</dd></dl>
-
 <dl class="class">
 <dt id="skidl.Part.PinNumberSearch">
 <em class="property">class </em><code class="sig-prename descclassname">skidl.Part.</code><code class="sig-name descname">PinNumberSearch</code><span class="sig-paren">(</span><em class="sig-param">part</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.PinNumberSearch" title="Permalink to this definition">¶</a></dt>
@@ -2253,12 +2247,6 @@ pin must have in order to be selected.</p>
 <dd class="field-odd"><p><strong>tool</strong> – The format for the XML file (e.g., KICAD).</p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="skidl.Part.Part.ERC">
-<code class="sig-name descname">ERC</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.Part.Part.ERC" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run class-wide and local ERC functions on this part.</p>
 </dd></dl>
 
 <dl class="method">
@@ -3289,6 +3277,12 @@ only be SKIDL.</p></li>
 <code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.baseobj.SkidlBaseObject.copy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="skidl.baseobj.SkidlBaseObject.ERC">
+<code class="sig-name descname">ERC</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.baseobj.SkidlBaseObject.ERC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run ERC on this object.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -3320,6 +3314,173 @@ only be SKIDL.</p></li>
 <dt id="skidl.erc.dflt_net_erc">
 <code class="sig-prename descclassname">skidl.erc.</code><code class="sig-name descname">dflt_net_erc</code><span class="sig-paren">(</span><em class="sig-param">net</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.erc.dflt_net_erc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Do electrical rules check on a net in the schematic.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="skidl.erc.EvalTuple">
+<em class="property">class </em><code class="sig-prename descclassname">skidl.erc.</code><code class="sig-name descname">EvalTuple</code><span class="sig-paren">(</span><em class="sig-param">stmnt</em>, <em class="sig-param">fail_msg</em>, <em class="sig-param">severity</em>, <em class="sig-param">filename</em>, <em class="sig-param">lineno</em>, <em class="sig-param">function</em>, <em class="sig-param">globals</em>, <em class="sig-param">locals</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.erc.EvalTuple" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<p>Create new instance of EvalTuple(stmnt, fail_msg, severity, filename, lineno, function, globals, locals)</p>
+<dl class="method">
+<dt id="skidl.erc.EvalTuple.__getnewargs__">
+<code class="sig-name descname">__getnewargs__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.erc.EvalTuple.__getnewargs__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self as a plain tuple.  Used by copy and pickle.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.erc.EvalTuple.__new__">
+<em class="property">static </em><code class="sig-name descname">__new__</code><span class="sig-paren">(</span><em class="sig-param">_cls</em>, <em class="sig-param">stmnt</em>, <em class="sig-param">fail_msg</em>, <em class="sig-param">severity</em>, <em class="sig-param">filename</em>, <em class="sig-param">lineno</em>, <em class="sig-param">function</em>, <em class="sig-param">globals</em>, <em class="sig-param">locals</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.erc.EvalTuple.__new__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create new instance of EvalTuple(stmnt, fail_msg, severity, filename, lineno, function, globals, locals)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.erc.EvalTuple.__repr__">
+<code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.erc.EvalTuple.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a nicely formatted representation string</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.erc.EvalTuple.__slots__">
+<code class="sig-name descname">__slots__</code><em class="property"> = ()</em><a class="headerlink" href="#skidl.erc.EvalTuple.__slots__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.erc.EvalTuple._asdict">
+<code class="sig-name descname">_asdict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#skidl.erc.EvalTuple._asdict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new OrderedDict which maps field names to their values.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.erc.EvalTuple._field_defaults">
+<code class="sig-name descname">_field_defaults</code><em class="property"> = {}</em><a class="headerlink" href="#skidl.erc.EvalTuple._field_defaults" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.erc.EvalTuple._fields">
+<code class="sig-name descname">_fields</code><em class="property"> = ('stmnt', 'fail_msg', 'severity', 'filename', 'lineno', 'function', 'globals', 'locals')</em><a class="headerlink" href="#skidl.erc.EvalTuple._fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="skidl.erc.EvalTuple._fields_defaults">
+<code class="sig-name descname">_fields_defaults</code><em class="property"> = {}</em><a class="headerlink" href="#skidl.erc.EvalTuple._fields_defaults" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.erc.EvalTuple._make">
+<em class="property">classmethod </em><code class="sig-name descname">_make</code><span class="sig-paren">(</span><em class="sig-param">iterable</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.erc.EvalTuple._make" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a new EvalTuple object from a sequence or iterable</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.erc.EvalTuple._replace">
+<code class="sig-name descname">_replace</code><span class="sig-paren">(</span><em class="sig-param">**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.erc.EvalTuple._replace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new EvalTuple object replacing specified fields with new values</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.erc.EvalTuple.fail_msg">
+<em class="property">property </em><code class="sig-name descname">fail_msg</code><a class="headerlink" href="#skidl.erc.EvalTuple.fail_msg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.erc.EvalTuple.filename">
+<em class="property">property </em><code class="sig-name descname">filename</code><a class="headerlink" href="#skidl.erc.EvalTuple.filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.erc.EvalTuple.function">
+<em class="property">property </em><code class="sig-name descname">function</code><a class="headerlink" href="#skidl.erc.EvalTuple.function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 5</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.erc.EvalTuple.globals">
+<em class="property">property </em><code class="sig-name descname">globals</code><a class="headerlink" href="#skidl.erc.EvalTuple.globals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 6</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.erc.EvalTuple.lineno">
+<em class="property">property </em><code class="sig-name descname">lineno</code><a class="headerlink" href="#skidl.erc.EvalTuple.lineno" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 4</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.erc.EvalTuple.locals">
+<em class="property">property </em><code class="sig-name descname">locals</code><a class="headerlink" href="#skidl.erc.EvalTuple.locals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 7</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.erc.EvalTuple.severity">
+<em class="property">property </em><code class="sig-name descname">severity</code><a class="headerlink" href="#skidl.erc.EvalTuple.severity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.erc.EvalTuple.stmnt">
+<em class="property">property </em><code class="sig-name descname">stmnt</code><a class="headerlink" href="#skidl.erc.EvalTuple.stmnt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.erc.eval_stmnt_list">
+<code class="sig-prename descclassname">skidl.erc.</code><code class="sig-name descname">eval_stmnt_list</code><span class="sig-paren">(</span><em class="sig-param">inst</em>, <em class="sig-param">list_name</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.erc.eval_stmnt_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate class-wide and local statements on a class instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inst</strong> – Instance of a class.</p></li>
+<li><p><strong>list_name</strong> – String containing the attribute name of the list of
+class-wide and local code objects.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.erc.exec_function_list">
+<code class="sig-prename descclassname">skidl.erc.</code><code class="sig-name descname">exec_function_list</code><span class="sig-paren">(</span><em class="sig-param">inst</em>, <em class="sig-param">list_name</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.erc.exec_function_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute class-wide and local functions on a class instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inst</strong> – Instance of a class.</p></li>
+<li><p><strong>list_name</strong> – String containing the attribute name of the list of
+class-wide and local functions.</p></li>
+<li><p><strong>kwargs</strong> (<em>args</em><em>,</em>) – Arbitary argument lists to pass to the functions
+that are executed. (All functions get the same arguments.)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.erc.add_to_exec_or_eval_list">
+<code class="sig-prename descclassname">skidl.erc.</code><code class="sig-name descname">add_to_exec_or_eval_list</code><span class="sig-paren">(</span><em class="sig-param">class_or_inst</em>, <em class="sig-param">list_name</em>, <em class="sig-param">func</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.erc.add_to_exec_or_eval_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Append a function to a function list of a class or class instance.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.erc.add_erc_function">
+<code class="sig-prename descclassname">skidl.erc.</code><code class="sig-name descname">add_erc_function</code><span class="sig-paren">(</span><em class="sig-param">class_or_inst</em>, <em class="sig-param">func</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.erc.add_erc_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an ERC function to a class or class instance.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.erc.add_erc_assertion">
+<code class="sig-prename descclassname">skidl.erc.</code><code class="sig-name descname">add_erc_assertion</code><span class="sig-paren">(</span><em class="sig-param">assertion</em>, <em class="sig-param">fail_msg='FAILED'</em>, <em class="sig-param">severity=2</em>, <em class="sig-param">class_or_inst=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.erc.add_erc_assertion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an ERC assertion to a class or class instance.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="skidl.erc.erc_assert">
+<code class="sig-prename descclassname">skidl.erc.</code><code class="sig-name descname">erc_assert</code><span class="sig-paren">(</span><em class="sig-param">assertion</em>, <em class="sig-param">fail_msg='FAILED'</em>, <em class="sig-param">severity=2</em>, <em class="sig-param">class_or_inst=None</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.erc.erc_assert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an ERC assertion to a class or class instance.</p>
 </dd></dl>
 
 </div>
@@ -3409,8 +3570,43 @@ making it easy to track if and how many errors/warnings were issued.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="skidl-namedlist-module">
-<h4>skidl.namedlist module<a class="headerlink" href="#skidl-namedlist-module" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="module-skidl.namedlist">
+<span id="skidl-namedlist-module"></span><h4>skidl.namedlist module<a class="headerlink" href="#module-skidl.namedlist" title="Permalink to this headline">¶</a></h4>
+<p>List of named objects for Interface, Part, Net, Bus, Pin objects.
+These lists are actually dictionaries so an object with a given name
+can be accessed very quickly without searching through all the objects.</p>
+<dl class="class">
+<dt id="skidl.namedlist.NamedList">
+<em class="property">class </em><code class="sig-prename descclassname">skidl.namedlist.</code><code class="sig-name descname">NamedList</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.namedlist.NamedList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
+<dl class="method">
+<dt id="skidl.namedlist.NamedList.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.namedlist.NamedList.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="skidl.namedlist.NamedList.add">
+<code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param">item</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.namedlist.NamedList.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.namedlist.NamedList.sub">
+<code class="sig-name descname">sub</code><span class="sig-paren">(</span><em class="sig-param">item</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.namedlist.NamedList.sub" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.namedlist.NamedList.__iadd__">
+<code class="sig-name descname">__iadd__</code><span class="sig-paren">(</span><em class="sig-param">item</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.namedlist.NamedList.__iadd__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="skidl.namedlist.NamedList.__isub__">
+<code class="sig-name descname">__isub__</code><span class="sig-paren">(</span><em class="sig-param">item</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.namedlist.NamedList.__isub__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-skidl.netclass">
 <span id="skidl-netclass-module"></span><h4>skidl.netclass module<a class="headerlink" href="#module-skidl.netclass" title="Permalink to this headline">¶</a></h4>
@@ -3577,8 +3773,9 @@ whitespace.</p>
 <span id="skidl-py-2-3-module"></span><h4>skidl.py_2_3 module<a class="headerlink" href="#module-skidl.py_2_3" title="Permalink to this headline">¶</a></h4>
 <p>Some definitions to make stuff work with both Python 2 &amp; 3.</p>
 </div>
-<div class="section" id="skidl-pyspice-module">
-<h4>skidl.pyspice module<a class="headerlink" href="#skidl-pyspice-module" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="module-skidl.pyspice">
+<span id="skidl-pyspice-module"></span><h4>skidl.pyspice module<a class="headerlink" href="#module-skidl.pyspice" title="Permalink to this headline">¶</a></h4>
+<p>Import this file to reconfigure SKiDL for doing SPICE simulations.</p>
 </div>
 <div class="section" id="module-skidl.scriptinfo">
 <span id="skidl-scriptinfo-module"></span><h4>skidl.scriptinfo module<a class="headerlink" href="#module-skidl.scriptinfo" title="Permalink to this headline">¶</a></h4>
@@ -3924,7 +4121,7 @@ object.</p>
 
 <dl class="function">
 <dt id="skidl.utilities.expand_indices">
-<code class="sig-prename descclassname">skidl.utilities.</code><code class="sig-name descname">expand_indices</code><span class="sig-paren">(</span><em class="sig-param">slice_min</em>, <em class="sig-param">slice_max</em>, <em class="sig-param">*indices</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.utilities.expand_indices" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">skidl.utilities.</code><code class="sig-name descname">expand_indices</code><span class="sig-paren">(</span><em class="sig-param">slice_min</em>, <em class="sig-param">slice_max</em>, <em class="sig-param">match_substring</em>, <em class="sig-param">*indices</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.utilities.expand_indices" title="Permalink to this definition">¶</a></dt>
 <dd><p>Expand a list of indices into a list of integers and strings.</p>
 <p>This function takes the indices used to select pins of parts and
 lines of buses and returns a flat list of numbers and strings.
@@ -3936,6 +4133,7 @@ final list.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>slice_min</strong> – The minimum possible index.</p></li>
 <li><p><strong>slice_max</strong> – The maximum possible index (used for slice indices).</p></li>
+<li><p><strong>match_substring</strong> – If true,</p></li>
 <li><p><strong>indices</strong> – A list of indices made up of numbers, slices, text strings.</p></li>
 </ul>
 </dd>
@@ -3947,7 +4145,7 @@ final list.</p>
 
 <dl class="function">
 <dt id="skidl.utilities.explode">
-<code class="sig-prename descclassname">skidl.utilities.</code><code class="sig-name descname">explode</code><span class="sig-paren">(</span><em class="sig-param">bus_str</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.utilities.explode" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">skidl.utilities.</code><code class="sig-name descname">explode</code><span class="sig-paren">(</span><em class="sig-param">bus_str</em>, <em class="sig-param">match_substring=False</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.utilities.explode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Explode a bus into its separate lines.</p>
 <p>This function takes a bus expression like “ADDR[0:3]” and returns
 “ADDR0,ADDR1,ADDR2,ADDR3”. It also works if the order is reversed,
@@ -4008,35 +4206,6 @@ object, or a filename to open.</p></li>
 <dt id="skidl.utilities.expand_buses">
 <code class="sig-prename descclassname">skidl.utilities.</code><code class="sig-name descname">expand_buses</code><span class="sig-paren">(</span><em class="sig-param">pins_nets_buses</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.utilities.expand_buses" title="Permalink to this definition">¶</a></dt>
 <dd><p>Take list of pins, nets, and buses and return a list of only pins and nets.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="skidl.utilities.exec_function_list">
-<code class="sig-prename descclassname">skidl.utilities.</code><code class="sig-name descname">exec_function_list</code><span class="sig-paren">(</span><em class="sig-param">inst</em>, <em class="sig-param">list_name</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.utilities.exec_function_list" title="Permalink to this definition">¶</a></dt>
-<dd><p>Execute class-wide and local functions on a class instance.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>inst</strong> – Instance of a class.</p></li>
-<li><p><strong>list_name</strong> – String containing the attribute name of the list of
-class-wide and local functions.</p></li>
-<li><p><strong>kwargs</strong> (<em>args</em><em>,</em>) – Arbitary argument lists to pass to the functions
-that are executed. (All functions get the same arguments.)</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="skidl.utilities.add_to_function_list">
-<code class="sig-prename descclassname">skidl.utilities.</code><code class="sig-name descname">add_to_function_list</code><span class="sig-paren">(</span><em class="sig-param">class_or_inst</em>, <em class="sig-param">list_name</em>, <em class="sig-param">func</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.utilities.add_to_function_list" title="Permalink to this definition">¶</a></dt>
-<dd><p>Append a function to a function list of a class or class instance.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="skidl.utilities.add_erc_function">
-<code class="sig-prename descclassname">skidl.utilities.</code><code class="sig-name descname">add_erc_function</code><span class="sig-paren">(</span><em class="sig-param">class_or_inst</em>, <em class="sig-param">func</em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.utilities.add_erc_function" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add an ERC function to a class or class instance.</p>
 </dd></dl>
 
 <dl class="function">
