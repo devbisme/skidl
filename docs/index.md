@@ -15,13 +15,47 @@ create a finished circuit board.
 
 ### Contents
 
-* [Introduction](#introduction)
-* [Installation](#installation)
-* [Basic Usage](#basic-usage)
-* [Going Deeper](#going-deeper)
-* [Going Really Deep](#going-really-deep)
-* [Converting Existing Designs to SKiDL](#converting-existing-designs-to-skidl)
-* [SPICE Simulations](#spice-simulations)
+- [TL;DR](#tldr)
+    - [Contents](#contents)
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Basic Usage](#basic-usage)
+  - [Accessing SKiDL](#accessing-skidl)
+  - [Finding Parts](#finding-parts)
+    - [Command-line Searching](#command-line-searching)
+    - [Zyc: A GUI Search Tool](#zyc-a-gui-search-tool)
+  - [Instantiating Parts](#instantiating-parts)
+  - [Connecting Pins](#connecting-pins)
+  - [Checking for Errors](#checking-for-errors)
+  - [Generating a Netlist](#generating-a-netlist)
+- [Going Deeper](#going-deeper)
+  - [Basic SKiDL Objects: Parts, Pins, Nets, Buses](#basic-skidl-objects-parts-pins-nets-buses)
+  - [Creating SKiDL Objects](#creating-skidl-objects)
+  - [Finding SKiDL Objects](#finding-skidl-objects)
+  - [Copying SKiDL Objects](#copying-skidl-objects)
+  - [Accessing Part Pins and Bus Lines](#accessing-part-pins-and-bus-lines)
+    - [Accessing Part Pins](#accessing-part-pins)
+    - [Accessing Bus Lines](#accessing-bus-lines)
+  - [Making Connections](#making-connections)
+  - [Making Serial, Parallel, and Tee Networks](#making-serial-parallel-and-tee-networks)
+  - [Aliases](#aliases)
+  - [Units Within Parts](#units-within-parts)
+  - [Part Fields](#part-fields)
+  - [Hierarchy](#hierarchy)
+    - [Subcircuits](#subcircuits)
+    - [Packages](#packages)
+  - [Interfaces](#interfaces)
+  - [Libraries](#libraries)
+  - [Doodads](#doodads)
+    - [No Connects](#no-connects)
+    - [Net and Pin Drive Levels](#net-and-pin-drive-levels)
+    - [Pin, Net, Bus Equivalencies](#pin-net-bus-equivalencies)
+    - [Selectively Supressing ERC Messages](#selectively-supressing-erc-messages)
+    - [Customizable ERC Using `erc_assert()`](#customizable-erc-using-ercassert)
+- [Going Really Deep](#going-really-deep)
+  - [Circuit Objects](#circuit-objects)
+- [Converting Existing Designs to SKiDL](#converting-existing-designs-to-skidl)
+- [SPICE Simulations](#spice-simulations)
 
 
 
@@ -931,29 +965,38 @@ For example, this would get every bidirectional pin of the processor:
 [Pin U1/1/ICSPDAT/AN0/GP0/BIDIRECTIONAL, Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL, Pin U1/4/T0CKI/FOSC4/GP2/BIDIRECTIONAL]
 ```
 
-Since you can access part pins by number or by name using strings or regular expressions, it's worth
+Since you can access pins by number or by name using strings or regular expressions, it's worth
 discussing how SKiDL decides which one to select.
-When given a pin index, SKiDL prioritizes the search for the corresponding pins like so:
+When given a pin index, SKiDL stops searching and returns the matching pins as soon as one of the following conditions succeeds:
 
-1. If one or more pin numbers match the index, then those pins are returned and the search stops.
-2. If one or more pin names match the index using standard string matching, then those pins are returned and the search stops.
-3. If one or more pin aliases match the index using standard string matching, then those pins are returned and the search stops.
-4. If one or more pin names match the index using it as a regular expression, then those pins are returned and the search stops.
-5. If one or more pin aliases match the index using it as a regular expression, then those pins are returned and the search stops.
+1. One or more pin numbers match the index.
+2. One or more pin aliases match the index using standard string matching.
+3. One or more pin names match the index using standard string matching.
+4. One or more pin aliases match the index using regular expression matching.
+5. One or more pin names match the index using regular expression matching.
 
-It should also be mentioned that when using the index as a regular expression,
-SKiDL surrounds it with `.*` so it will match anywhere within a pin name or alias.
-Hence, if an index of `D1` did not exactly match any pin number, name or alias, then it would become
-`.*D1.*` and would match *any* pin with `D1` in its name.
-You can stop this by placing start and end characters in the index like so: `^D1$` will match only `D1`.
+Some parts (like microcontrollers) have long pin names that list every function a pin
+supports (e.g. `ICSPCLK/AN1/GP1`).
+Employing the complete pin name is tedious to enter correctly and
+obfuscates the particular function that is being accessed.
+The pertinent substring of the pin name can be used if it is surrounded by *wildcards*
+(e.g., `pic10['.*AN1.*']`), but that's still a bit difficult to read.
+Therefore, a substring matching feature can be enabled on a per-part basis
+that implicitly surrounds the index with `.*` so it will match anywhere within a pin name or alias.
+
+```py
+>>> pic10.match_pin_substring = True
+>>> pic10['AN1']
+Pin Pin U1/3/ICSPCLK/AN1/GP1/BIDIRECTIONAL
+```
 
 Finally, since SKiDL prioritizes pin number matches over name matches,
-what happens when you want to use a pin whose name is the same as the pin number
+what happens when you use a name that is the same as the number
 of another pin?
 For example, a memory chip in a BGA would have pin numbers `A1`, `A2`, `A3`, ... but might
-also have other pins used for addresses named `A1`, `A2`, `A3`, ... .
-SKiDL provides the `p` and `n` part attributes so you can specifically target either
-pin numbers or names:
+also have address pins named `A1`, `A2`, `A3`, ... .
+In order to specifically target either pin numbers or names,
+SKiDL provides the `p` and `n` part attributes:
 
 ```py
 ram['A1, A2, A3']    # Selects pin numbers A1, A2 and A3 if the part is a BGA.
@@ -974,7 +1017,6 @@ The same thing could also be done using a `Part` object as an iterator:
 for p in pic10:
   <do something with p>
 ```
-
 
 
 ### Accessing Bus Lines
@@ -1029,7 +1071,7 @@ NET_A:
 ## Making Connections
 
 Pins, nets, parts and buses can all be connected together in various ways, but
-the primary rule of SKiDL connections is:
+the **primary rule** of SKiDL connections is:
 
 > **The `+=` operator is the only way to make connections!**
 
@@ -1382,6 +1424,10 @@ New fields can be added just by adding new keys and values to the `fields` dicti
 
 ## Hierarchy
 
+SKiDL supports two equivalent implementations of hierarchy: *subcircuits* and *packages*.
+
+### Subcircuits
+
 SKiDL supports the encapsulation of parts, nets and buses into modules
 that can be replicated to reduce the design effort, and can be used in
 other modules to create a functional hierarchy.
@@ -1394,29 +1440,28 @@ As an example, here's the voltage divider as a module:
 from skidl import *
 import sys
 
+# Define a global resistor template.
+r = Part('Device', 'R', footprint='Resistor_SMD.pretty:R_0805_2012Metric', dest=TEMPLATE)
+
 # Define the voltage divider module. The @subcircuit decorator 
-# handles some skidl housekeeping that needs to be done.
+# handles some SKiDL housekeeping that needs to be done.
 @subcircuit
 def vdiv(inp, outp):
     """Divide inp voltage by 3 and place it on outp net."""
-    rup = Part("Device", 'R', value='1K', footprint='Resistor_SMD.pretty:R_0805_2012Metric')
-    rlo = Part("Device",'R', value='500', footprint='Resistor_SMD.pretty:R_0805_2012Metric')
-    rup[1,2] += inp, outp
-    rlo[1,2] += outp, gnd
+    inp & r(value='1K') & outp & r(value='500') & gnd
 
-gnd = Net('GND')         # GLobal ground net.
-input_net = Net('IN')    # Net with the voltage to be divided.
-output_net = Net('OUT')  # Net with the divided voltage.
+# Declare the input, output and ground nets.
+input_net, output_net, gnd = Net('IN'), Net('OUT'), Net('GND')
 
 # Instantiate the voltage divider and connect it to the input & output nets.
 vdiv(input_net, output_net)
 
-generate_netlist(sys.stdout)
+generate_netlist(file_=sys.stdout)
 ```
 
 For the most part, `vdiv` is just a standard Python function:
 it accepts inputs, it performs operations on them, and it could return
-outputs (but in this case, it doesn't need to).
+results (but in this case, it doesn't need to).
 Other than the `@subcircuit` decorator that appears before the function definition,
 `vdiv` is just a Python function and it can do anything that a Python function can do.
 
@@ -1458,111 +1503,116 @@ For an example of a multi-level hierarchy, the `multi_vdiv` module shown below
 can use the `vdiv` module to divide a voltage multiple times:
 
 <a name="multilevel_hierarchy_example"></a>
+
 ```py
 from skidl import *
 import sys
 
-# Define the voltage divider module.
+r = Part('Device', 'R', footprint='Resistor_SMD.pretty:R_0805_2012Metric', dest=TEMPLATE)
+
 @subcircuit
 def vdiv(inp, outp):
-    """Divide inp voltage by 3 and place it on outp net."""
-    rup = Part("Device", 'R', value='1K', footprint='Resistor_SMD.pretty:R_0805_2012Metric')
-    rlo = Part("Device",'R', value='500', footprint='Resistor_SMD.pretty:R_0805_2012Metric')
-    rup[1,2] += inp, outp
-    rlo[1,2] += outp, gnd
+    inp & r(value='1K') & outp & r(value='500') & gnd
+
+input_net, output_net, gnd = Net('IN'), Net('OUT'), Net('GND')
 
 @subcircuit
 def multi_vdiv(repeat, inp, outp):
-    """Divide inp voltage by 3 ** repeat and place it on outp net."""
+    """Divide inp voltage by 3 * repeat and place it on outp net."""
     for _ in range(repeat):
         out_net = Net()     # Create an output net for the current stage.
         vdiv(inp, out_net)  # Instantiate a divider stage.
         inp = out_net       # The output net becomes the input net for the next stage.
     outp += out_net         # Connect the output from the last stage to the module output net.
 
-gnd = Net('GND')         # GLobal ground net.
-input_net = Net('IN')    # Net with the voltage to be divided.
-output_net = Net('OUT')  # Net with the divided voltage.
+
+input_net, output_net, gnd = Net('IN'), Net('OUT'), Net('GND')
+
 multi_vdiv(3, input_net, output_net)  # Run the input through 3 voltage dividers.
 
-generate_netlist(sys.stdout)
+generate_netlist(file_=sys.stdout)
 ```
 
-(For the EE's out there: *yes, I know cascading three simple voltage dividers
+(For the EE's out there: yes, I *know* cascading three simple voltage dividers
 will not multiplicatively scale the input voltage because of the
-input and output impedances of each stage!*
+input and output impedances of each stage!
 It's just the simplest example I could use to show hierarchy.)
 
-And here's the resulting netlist:
+Subcircuits can also be *configurable* (after all, they're just functions).
+The ratio of the voltage divider could be set with a parameter:
 
-```text
-(export (version D)
-  (design
-    (source "C:\TEMP\skidl tests\multi_hier_example.py")
-    (date "04/20/2017 09:43 AM")
-    (tool "SKiDL (0.0.12)"))
-  (components
-    (comp (ref R1)
-      (value 1K)
-      (footprint Resistor_SMD.pretty:R_0805_2012Metric)
-      (fields
-        (field (name keywords) "r res resistor")
-        (field (name description) Resistor))
-      (libsource (lib device) (part R)))
-    (comp (ref R2)
-      (value 500)
-      (footprint Resistor_SMD.pretty:R_0805_2012Metric)
-      (fields
-        (field (name keywords) "r res resistor")
-        (field (name description) Resistor))
-      (libsource (lib device) (part R)))
-    (comp (ref R3)
-      (value 1K)
-      (footprint Resistor_SMD.pretty:R_0805_2012Metric)
-      (fields
-        (field (name keywords) "r res resistor")
-        (field (name description) Resistor))
-      (libsource (lib device) (part R)))
-    (comp (ref R4)
-      (value 500)
-      (footprint Resistor_SMD.pretty:R_0805_2012Metric)
-      (fields
-        (field (name keywords) "r res resistor")
-        (field (name description) Resistor))
-      (libsource (lib device) (part R)))
-    (comp (ref R5)
-      (value 1K)
-      (footprint Resistor_SMD.pretty:R_0805_2012Metric)
-      (fields
-        (field (name keywords) "r res resistor")
-        (field (name description) Resistor))
-      (libsource (lib device) (part R)))
-    (comp (ref R6)
-      (value 500)
-      (footprint Resistor_SMD.pretty:R_0805_2012Metric)
-      (fields
-        (field (name keywords) "r res resistor")
-        (field (name description) Resistor))
-      (libsource (lib device) (part R))))
-  (nets
-    (net (code 0) (name GND)
-      (node (ref R2) (pin 2))
-      (node (ref R4) (pin 2))
-      (node (ref R6) (pin 2)))
-    (net (code 1) (name IN)
-      (node (ref R1) (pin 1)))
-    (net (code 2) (name N$1)
-      (node (ref R1) (pin 2))
-      (node (ref R2) (pin 1))
-      (node (ref R3) (pin 1)))
-    (net (code 3) (name N$2)
-      (node (ref R3) (pin 2))
-      (node (ref R4) (pin 1))
-      (node (ref R5) (pin 1)))
-    (net (code 4) (name OUT)
-      (node (ref R5) (pin 2))
-      (node (ref R6) (pin 1))))
-)
+```py
+# Pass the division ratio as a parameter.
+@subcircuit
+def vdiv(inp, outp, ratio):
+    inp & r(value=1000) & outp & r(value=1000*ratio/(1-ratio)) & gnd
+
+...
+
+# Instantiate the voltage divider with a ratio of 1/3.
+vdiv(inp, outp, ratio=0.33)
+```
+
+
+### Packages
+
+The `@subcircuit` decorator lets you create a hierarchical circuit where the
+subcircuits are instantiated using function calls with arguments.
+The `@package` decorator is an alternative that *packages* a subcircuit into
+a `Part`-like object with its own input and output pins that can be connected
+to other components.
+In essence, you've encapsulated a subcircuit into its own package with I/O pins.
+
+```py
+from skidl import *
+import sys
+
+r = Part('Device', 'R', footprint='Resistor_SMD.pretty:R_0805_2012Metric', dest=TEMPLATE)
+
+# Define the voltage divider module. The @package decorator 
+# creates an interface that acts like I/O pins.
+@package
+def vdiv(inp, outp):
+    inp & r(value='1K') & outp & r(value='500') & gnd
+
+input_net, output_net, gnd = Net('IN'), Net('OUT'), Net('GND')
+
+# Instantiate the voltage divider as a package.
+divider = vdiv()
+
+# Now connect the I/O pins of the instantiated package to the input & output nets.
+divider.inp += input_net
+divider.outp += output_net
+
+generate_netlist(file_=sys.stdout)
+```
+
+Subcircuits defined with `@package` are also customizable via parameters:
+
+```py
+from skidl import *
+import sys
+
+r = Part('Device', 'R', footprint='Resistor_SMD.pretty:R_0805_2012Metric', dest=TEMPLATE)
+
+# Voltage divider with a parameterized division ratio.
+@package
+def vdiv(inp, outp, ratio):
+    inp & r(value=1000) & outp & r(value=1000*ratio/(1-ratio)) & gnd
+
+input_net, output_net, gnd = Net('IN'), Net('OUT'), Net('GND')
+
+# Instantiate the voltage divider with a ratio of 1/3.
+divider = vdiv(ratio=1.0/3)
+
+divider.inp += input_net
+divider.outp += output_net
+
+# You can also override the division ratio. Note that a standard
+# assignment operator is used instead of += because ratio is not an I/O pin.
+divider.ratio = 0.5
+
+generate_netlist(file_=sys.stdout)
 ```
 
 
@@ -1570,8 +1620,8 @@ And here's the resulting netlist:
 
 Passing nets between hierarchically-organized modules can lead to long
 lists of arguments.
-To make the code easier to write and understand, SKiDL supports *interfaces* which are simply containers that
-encapsulate a number of `Bus`, `Net`, or `Pin` objects.
+To make the code easier to write and understand, SKiDL supports *interfaces*
+which are simply dictionaries that encapsulate a number of `Bus`, `Net`, or `Pin` objects.
 For example, here is an interface for a memory:
 
 ```py
@@ -1600,7 +1650,7 @@ def mem_module(intfc):
   ram['A[0:19]'] += intfc.addr
   ram['DQ[0:15]'] += intfc.data
   ram['WE#'] += intfc.wr
-  ram['OE#'] += intfc.rd
+  ram['OE#'] += intfc['rd']  # Interface members are also accessible using []'s.
   ...
 ```
 
@@ -1911,6 +1961,62 @@ my_net.do_erc = False      # Turns of ERC for this particular net.
 my_part[5].do_erc = False  # Turns off ERC for this pin of this part.
 my_part.do_erc = False     # Turns off ERC for all the pins of this part.
 ```
+
+### Customizable ERC Using `erc_assert()`
+
+SKiDL's default ERC will find commonplace design errors, but sometimes
+you'll have special requirements.
+The `erc_assert` function can be used to check these.
+
+```py
+from skidl import *
+import sys
+
+# Function to check the number of inputs on a net.
+def get_fanout(net):
+    fanout = 0
+    for pin in net.get_pins():
+        if pin.func in (Pin.INPUT, Pin.BIDIR):
+            fanout += 1
+    return fanout
+
+net1, net2 = Net('IN1'), Net('IN2')
+
+# Place some assertions on the fanout of each net.
+# Note that the assertions are passed as strings.
+erc_assert('get_fanout(net1) < 5', 'failed on net1')
+erc_assert('get_fanout(net2) < 5', 'failed on net2')
+
+# Attach some pins to the nets.
+net1 += Pin(func=Pin.OUTPUT)
+net2 += Pin(func=Pin.OUTPUT)
+net1 += Pin(func=Pin.INPUT) * 4  # This net passes the assertion.
+net2 += Pin(func=Pin.INPUT) * 5  # This net fails because of too much fanout.
+
+# When the ERC runs, it will also run any erc_assert statements.
+ERC()
+```
+
+When you run this code, the ERC will output the following:
+
+```terminal
+ERC ERROR: get_fanout(input_net2) < 5 failed on net2 in <ipython-input-114-5b71f80eb001>:16:<module>.
+
+0 warnings found during ERC.
+1 errors found during ERC.
+```
+
+You might ask: "Why not just use the standard Python `assert` statement?"
+The reason is that an assertion is evaluated as soon as the `assert` statement is encountered
+and might be evaluated incorrectly if the nets or other circuit objects are not yet
+completely defined.
+But the statement passed to the `erc_assert` function isn't evaluated until all the 
+various parts have been connected and `ERC()` is called
+(that's why the statement is passed as a string).
+Note in the code above that when the `erc_assert` function is called, no pins
+are even attached to the `net1` or `net2` nets, yet.
+The `erc_assert` function just places the statements to be checked into a queue
+that gets evaluated when `ERC()` is run.
 
 
 # Going Really Deep
