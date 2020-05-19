@@ -9,6 +9,7 @@ from .setup_teardown import *
 
 def test_part_unit_1():
     vreg = Part("xess.lib", "1117")
+    vreg.match_pin_regex = True
     vreg.make_unit("A", 1, 2)
     vreg.make_unit("B", 3)
     vreg.A.match_pin_substring = True
@@ -19,6 +20,7 @@ def test_part_unit_1():
 
 def test_part_unit_2():
     vreg = Part("xess.lib", "1117")
+    vreg.match_pin_regex = True
     vreg.make_unit("A", 1, 2)
     vreg.make_unit("A", 3)
     assert len((vreg.unit["A"][".*"],)) == 1
