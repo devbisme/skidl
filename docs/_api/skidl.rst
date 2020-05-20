@@ -155,14 +155,6 @@ skidl.logger module
    :undoc-members:
    :show-inheritance:
 
-skidl.namedlist module
-----------------------
-
-.. automodule:: skidl.namedlist
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 skidl.netclass module
 ---------------------
 
