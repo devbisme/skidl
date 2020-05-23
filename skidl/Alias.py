@@ -69,4 +69,4 @@ class Alias(set):
         Args:
             other: The Alias object which self will be compared to.
         """
-        return bool(self.intersection(other))
+        return bool(self.intersection(Alias(other)))
