@@ -532,7 +532,7 @@ def filter_list(lst, **criteria):
     return extract
 
 
-def expand_indices(slice_min, slice_max, match_substring, *indices):
+def expand_indices(slice_min, slice_max, match_regex, *indices):
     """
     Expand a list of indices into a list of integers and strings.
 
@@ -545,7 +545,7 @@ def expand_indices(slice_min, slice_max, match_substring, *indices):
     Args:
         slice_min: The minimum possible index.
         slice_max: The maximum possible index (used for slice indices).
-        match_substring: If true, 
+        match_regex: If true, 
         indices: A list of indices made up of numbers, slices, text strings.
 
     Returns:
@@ -622,7 +622,7 @@ def expand_indices(slice_min, slice_max, match_substring, *indices):
         # string must be preceded by a non-alpha or the start of the string.
         # But if the string starts with a non-alpha, then whatever precedes the
         # match in the string is ignored.
-        if match_substring:
+        if match_regex:
             if beg_bus_name[0:1].isalpha():
                 non_alphanum = "((?<=[^0-9a-zA-Z])|^)"
             else:
@@ -633,7 +633,7 @@ def expand_indices(slice_min, slice_max, match_substring, *indices):
         # The character following a bus index must be non-numeric so that "B1" does
         # not also match "B11". This must also be a look-ahead assertion so it
         # doesn't consume any of the string.
-        if match_substring:
+        if match_regex:
             non_num = "(?=[^0-9]|$)"
         else:
             non_num = ""

@@ -173,7 +173,6 @@ class Part(SkidlBaseObject):
         self.ref_prefix = ""  # Provide a member for holding the part reference prefix.
         self.tool = tool  # Initial type of part (SKIDL, KICAD, etc.)
         self.circuit = None  # Part starts off unassociated with any circuit.
-        self.match_pin_substring = False  # Only select pins with exact name matches.
         self.match_pin_regex = False  # Don't allow regex matches of pin names.
 
         # Create a Part from a library entry.
@@ -587,19 +586,13 @@ class Part(SkidlBaseObject):
         only_search_numbers = criteria.pop("only_search_numbers", False)
         only_search_names = criteria.pop("only_search_names", False)
 
-        # Extract permission to search for substring matches in pin names/aliases.
-        match_substring = (
-            criteria.pop("match_substring", False) or self.match_pin_substring
-        )
-        match_regex = (
-            criteria.pop("match_regex", False) or self.match_pin_regex
-        )
+        # Extract permission to search for regex matches in pin names/aliases.
+        match_regex = criteria.pop("match_regex", False) or self.match_pin_regex
 
         # If no pin identifiers were given, then use a wildcard that will
         # select all pins.
         if not pin_ids:
             pin_ids = [".*"]
-            match_substring = True  # Also turn on pin substring matching so .* works.
             match_regex = True
 
         # Determine the minimum and maximum pin ids if they don't already exist.
@@ -608,9 +601,7 @@ class Part(SkidlBaseObject):
 
         # Go through the list of pin IDs one-by-one.
         pins = NetPinList()
-        for p_id in expand_indices(
-            self.min_pin, self.max_pin, match_substring, *pin_ids
-        ):
+        for p_id in expand_indices(self.min_pin, self.max_pin, match_regex, *pin_ids):
 
             # If only names are being searched, the search of pin numbers is skipped.
             if not only_search_names:
@@ -643,41 +634,27 @@ class Part(SkidlBaseObject):
                     pins.extend(tmp_pins)
                     continue
 
-                # Skip matching for substrings or using regex if they're not enabled.
-                if not match_substring and not match_regex:
+                # Skip regex matching if not enabled.
+                if not match_regex:
                     continue
-
-                # If matching a substring within a pin name is enabled, then
-                # create wildcards to match the beginning/ending surrounding a
-                # substring. Remove these wildcards if substring matching is disabled.
-                wildcard = ".*" if match_substring else ""
 
                 # OK, pin ID is not a pin number and doesn't exactly match a pin
-                # name or alias. Does it match a substring within a pin name?
-                # Or does it match as a regex?
-                try:
-                    p_id_re = p_id if match_regex else re.escape(p_id)
-                    p_id_re = "".join([wildcard, p_id_re, wildcard])
-                except TypeError:
-                    # This will happen if the p_id is a number and not a string.
-                    # Skip this and the next block because p_id_re can't be made.
-                    continue
+                # name or alias. Does it match as a regex?
+                p_id_re = p_id
 
-                # Check pin aliases for a substring match.
-                p_id_re_alias = Alias(p_id_re)
-                tmp_pins = filter_list(self.pins, aliases=p_id_re_alias, **criteria)
+                # Check pin aliases for a regex match.
+                tmp_pins = filter_list(self.pins, aliases=Alias(p_id_re), **criteria)
                 if tmp_pins:
                     pins.extend(tmp_pins)
                     continue
 
-                # Check the pin names for a substring match.
+                # Check the pin names for a regex match.
                 tmp_pins = filter_list(self.pins, name=p_id_re, **criteria)
                 if tmp_pins:
                     pins.extend(tmp_pins)
                     continue
 
         return list_or_scalar(pins)
-
 
     # Get pins from a part using brackets, e.g. [1,5:9,'A[0-9]+'].
     __getitem__ = get_pins

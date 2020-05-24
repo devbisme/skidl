@@ -25,11 +25,11 @@ def test_alias_2():
 def test_alias_3():
     vreg = Part("xess.lib", "1117")
     vreg.match_pin_regex = True
-    vreg[1].aliases = "my_alias"
-    vreg[2].aliases = "my_alias"
+    vreg[1].aliases = "my_alias_+"
+    vreg[2].aliases = "my_alias_+"
     vreg[2].aliases += "my_other_alias"
-    assert len(vreg["my_alias"]) == 2
+    assert len(vreg["my_alias_+"]) == 2
     assert len((vreg["my_other_alias"],)) == 1
     assert len(vreg[".*"]) == 4
     with pytest.raises(NotImplementedError):
-        vreg["my_alias"].aliases = "new_alias"
+        vreg["my_alias_+"].aliases = "new_alias"
