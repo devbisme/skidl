@@ -428,6 +428,22 @@ class Pin(SkidlBaseObject):
             "Pins can't be attached to {}!".format(type(pin_net_bus)),
         )
 
+    def split(self, divider):
+        """Use chars in divider to pplit a pin name and add substrings to aliases."""
+
+        # First character in the divider will be used to split the name.
+        splitchar = divider[0]
+
+        # Change every other character in the divider to the splitting character.
+        trmap = {ord(c): ord(splitchar) for c in divider}
+
+        # Change each divider character in the pin name to the splitting character,
+        # then split the name and add each substring to the list of pin aliases.
+        self.aliases += self.name.translate(trmap).split(splitchar)
+
+        # Remove any empty aliases.
+        self.aliases.clean()
+
     def connect(self, *pins_nets_buses):
         """
         Return the pin after connecting it to one or more nets or pins.

@@ -790,6 +790,11 @@ class Part(SkidlBaseObject):
             # Error: either 0 or multiple pins were found.
             log_and_raise(logger, ValueError, "Cannot set alias for {}".format(pin_ids))
 
+    def split_pin_names(self, divider):
+        """Use chars in divider to split pin names and add as aliases to each pin."""
+        for pin in self:
+            pin.split(divider)
+
     def make_unit(self, label, *pin_ids, **criteria):
         """
         Create a PartUnit from a set of pins in a Part object.

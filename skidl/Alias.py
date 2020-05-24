@@ -70,3 +70,8 @@ class Alias(set):
             other: The Alias object which self will be compared to.
         """
         return bool(self.intersection(Alias(other)))
+
+    def clean(self):
+        """Remove any empty aliases."""
+        self.discard(None)
+        self.discard("")
