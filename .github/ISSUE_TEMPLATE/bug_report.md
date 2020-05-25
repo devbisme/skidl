@@ -25,6 +25,7 @@ If applicable, add screenshots to help explain your problem.
 
 **Desktop (please complete the following information):**
  - OS [type & version]
+ - Python version
  - SKiDL version [e.g. 22]
 
 **Additional context**
