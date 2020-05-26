@@ -354,7 +354,7 @@ def test_package_10():
     vin1 & r1 & gnd
 
     default_circuit.instantiate_packages()
-    
+
     assert len(gnd) == 3
     assert len(vin1) == 2
     assert len(vin2) == 1
