@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "Good Things Come In Packages!",
+		  "category"   : "blog",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/package-decorator",
+		  "date"       : "2020-05-27 11:01:10 -0400",
+		  "shortdate"  : "May 27, 2020"
+		} ,
+	
+		{
 		  "title"      : "New SKiDL Forum!",
 		  "category"   : "blog",
 		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/skidl-forum",
