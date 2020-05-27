@@ -83,6 +83,11 @@ callback([
   {
     "text": "New SKiDL Forum!",
     "href": "https://xesscorp.github.io/skidl/docs/_site/blog/skidl-forum"
+  } ,
+
+  {
+    "text": "Good Things Come In Packages!",
+    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/package-decorator"
   } 
 
 ])
