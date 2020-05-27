@@ -81,9 +81,9 @@ class ProtoNet(SkidlBaseObject):
             )
         else:
             if sz == 1:
-                cnct = Net(self.name, circuit=self.circuit)
+                cnct = Net(None, circuit=self.circuit)
             else:
-                cnct = Bus(self.name, sz, circuit=self.circuit)
+                cnct = Bus(None, sz, circuit=self.circuit)
             cnct.iadd_flag = True
             try:
                 cnct.intfc_key = self.intfc_key
