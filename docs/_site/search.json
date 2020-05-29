@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "Customized ERC!",
+		  "category"   : "blog",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/custom-erc",
+		  "date"       : "2020-05-29 11:01:10 -0400",
+		  "shortdate"  : "May 29, 2020"
+		} ,
+	
+		{
 		  "title"      : "Good Things Come In Packages!",
 		  "category"   : "blog",
 		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/package-decorator",

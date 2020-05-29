@@ -88,6 +88,11 @@ callback([
   {
     "text": "Good Things Come In Packages!",
     "href": "https://xesscorp.github.io/skidl/docs/_site/blog/package-decorator"
+  } ,
+
+  {
+    "text": "Customized ERC!",
+    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/custom-erc"
   } 
 
 ])
