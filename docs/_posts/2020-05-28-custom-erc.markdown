@@ -60,6 +60,12 @@ net2 += Pin(func=Pin.INPUT) * 5  # This net fails because of too much fanout.
 # When the ERC runs, it will also evaluate any erc_assert statements.
 ERC()
 ```
+```terminal
+ERC ERROR: get_fanout(net2) < 5 failed on net2 in <ipython-input-20-766848d35dca>:16:<module>.
+
+0 warnings found during ERC.
+1 errors found during ERC.
+```
 
 You might ask: “Why not just use the standard Python `assert` statement?”
 The reason is that a standard assertion is evaluated as soon as the `assert` statement
@@ -115,6 +121,16 @@ net2 += Pin(func=Pin.INPUT) * 5
 
 ERC()
 ```
+```terminal
+IN2 fanout of 5 >= 5.
+> <ipython-input-18-800a83e11624>(22)check_fanout()
+-> return False  # Return False to trigger the erc_assert().
+(Pdb) c
+ERC ERROR: check_fanout(net2, 5) FAILED in <ipython-input-18-800a83e11624>:30:<module>.
+
+0 warnings found during ERC.
+1 errors found during ERC.
+```
 
 You can detect if a subcircuit is being used correctly by embedding calls to
 `erc_assert()` to check inputs, outputs, and internal circuitry:
@@ -146,10 +162,19 @@ net1, net2 = Net('IN1'), Net('IN2')
 # Instantiating the subcircuit automatically checks the input nets.
 some_circuit(net1, net2)
 
-net1 += Pin(func=Pin.OUTPUT)  # No pullup -> this net fails.
+net1 += Pin(func=Pin.OUTPUT)
+net1 += Pin(func=Pin.INPUT)  # No pullup -> this net fails.
+net2 += Pin(func=Pin.OUTPUT)
 net2 += Pin(func=Pin.PULLUP)
 
 ERC()
+```
+```terminal
+No pullup on net IN1
+ERC ERROR: has_pullup(in1) FAILED in <ipython-input-16-6e72ef7d46c8>:15:some_circuit.
+
+0 warnings found during ERC.
+1 errors found during ERC.
 ```
 
 You can even use the `erc_assert()` function to add global checks
@@ -158,28 +183,37 @@ that scan the entire circuit for violations of custom rules:
 ```py
 from skidl import *
 
-# Global function that checks all the nets in the circuit to
-# make sure none have both a pull-up and pull-down pin attached.
+# Global function that checks all the nets in the circuit and
+# flags nets which have pullups when they shouldn't.
 def my_erc():
     erc_result = True
     for net in default_circuit.get_nets():
-        pin_types = [pin.func for pin in net.get_pins()]
-        if Pin.PULLUP in pin_types and pin.PULLDN in pin_types:
-            print(f'Pull-up & pull-down both attached to {net.name}.')
+        if getattr(net, 'disallow_pullups', False) == True:
+            pin_types = [pin.func for pin in net.get_pins()]
+            if Pin.PULLUP in pin_types:
+                print(f'Pull-up not allowed on {net.name}.')
             erc_result = False
     return erc_result
 
 net1, net2 = Net('IN1'), Net('IN2')
 
-net1 += Pin(func=Pin.PULLUP)
-net1 += Pin(func=Pin.PULLDN)  # This net will fail my_erc().
+net1.disallow_pullups = True  # Don't allow pullups on this net.
+net1 += Pin(func=Pin.INPUT)
+net1 += Pin(func=Pin.PULLUP) # This net will fail ERC. 
 net2 += Pin(func=Pin.INPUT)
-net2 += Pin(func=Pin.OUTPUT)
+net2 += Pin(func=Pin.PULLUP)
 
 # Call your own customized global ERC.
 erc_assert('my_erc()')
 
 ERC()
+```
+```terminal
+Pull-up not allowed on IN1.
+ERC ERROR: my_erc() FAILED in <ipython-input-12-888102e7799c>:24:<module>.
+
+0 warnings found during ERC.
+1 errors found during ERC.
 ```
 
 That's about it for the `erc_assert()` function.
