@@ -80,10 +80,12 @@ class ProtoNet(SkidlBaseObject):
                 ),
             )
         else:
+            # Create implicitly-named net/bus so the name will be overridden
+            # by whatever connects to it.
             if sz == 1:
-                cnct = Net(None, circuit=self.circuit)
+                cnct = Net(name=None, circuit=self.circuit)
             else:
-                cnct = Bus(None, sz, circuit=self.circuit)
+                cnct = Bus(name=None, sz, circuit=self.circuit)
             cnct.iadd_flag = True
             try:
                 cnct.intfc_key = self.intfc_key
