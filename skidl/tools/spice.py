@@ -193,15 +193,21 @@ def _mk_subckt_part(defn="XXX"):
     return part
 
 
+# Classes for device and xspice models.
+
 class XspiceModel:
     """
     Object to hold the parameters for an XSPICE model.
     """
 
     def __init__(self, *args, **kwargs):
-        self.name = args[0]
+        self.name = args[0]  # The name to reference the model by.
         self.args = args
         self.kwargs = kwargs
+
+# DeviceModel and XspiceModel are the same.
+# WARNING: DeviceModel overlaps a class in PySpice!
+DeviceModel = XspiceModel
 
 
 def _gen_netlist_(self, **kwargs):
@@ -231,7 +237,7 @@ def _gen_netlist_(self, **kwargs):
     lib_dirs.discard(None)
     spice_libs = [SpiceLibrary(dir) for dir in lib_dirs]
     for model in models:
-        if isinstance(model, XspiceModel):
+        if isinstance(model, (XspiceModel, DeviceModel)):
             circuit.model(*model.args, **model.kwargs)
         else:
             for spice_lib in spice_libs:
@@ -365,11 +371,18 @@ def add_part_to_circuit(part, circuit):
         circuit: PySpice Circuit object.
     """
 
-    # Positional arguments start with the device reference.
+    # The device reference is always the first positional argument.
     args = [_get_spice_ref(part)]
 
     # Get keyword arguments.
     kwargs = _get_kwargs(part, part.pyspice["kw"])
+
+    # Convert model argument if it exists and it's not a string.
+    try:
+        kwargs["model"] = part.model.name
+    except (KeyError, AttributeError):
+        # Don't change model kw param if it doesn't exist or is a string.
+        pass
 
     # Add the part to the PySpice circuit.
     getattr(circuit, part.pyspice["name"])(*args, **kwargs)
@@ -389,7 +402,7 @@ def add_subcircuit_to_circuit(part, circuit):
         circuit: PySpice Circuit object.
     """
 
-    # Positional arguments start with the device reference.
+    # The device reference is always the first positional argument.
     args = [_get_spice_ref(part)]
 
     args.append(part.name)
@@ -408,7 +421,7 @@ def add_xspice_to_circuit(part, circuit):
         circuit: PySpice Circuit object.
     """
 
-    # Positional arguments start with the device reference.
+    # The device reference is always the first positional argument.
     args = [_get_spice_ref(part)]
 
     # Add the pins to the argument list.
