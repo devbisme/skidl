@@ -130,6 +130,35 @@ class SkidlBaseObject(object):
         eval_stmnt_list(self, "erc_assertion_list")
 
 
+    def add_erc_function(self, func):
+        """Add an ERC function to a class or class instance."""
+
+        self.erc_list.append(func)
+
+
+    def add_erc_assertion(self, assertion, fail_msg="FAILED", severity=ERROR):
+        """Add an ERC assertion to a class or class instance."""
+
+        # Tuple for storing assertion code object with its global & local dicts.
+        EvalTuple = namedtuple(
+            "EvalTuple", "stmnt fail_msg severity filename lineno function globals locals"
+        )
+
+        assertion_frame, filename, lineno, function, _, _ = inspect.stack()[1]
+        self.erc_assertion_list.append(
+            EvalTuple(
+                assertion,
+                fail_msg,
+                severity,
+                filename,
+                lineno,
+                function,
+                assertion_frame.f_globals,
+                assertion_frame.f_locals,
+            )
+        )
+
+
 def eval_stmnt_list(inst, list_name):
     """
     Evaluate class-wide and local statements on a class instance.
@@ -187,36 +216,3 @@ def exec_function_list(inst, list_name, *args, **kwargs):
     if list_name in inst.__dict__:
         for f in inst.__dict__[list_name]:
             f(inst, *args, **kwargs)
-
-
-def add_erc_function(class_or_inst, func):
-    """Add an ERC function to a class or class instance."""
-
-    getattr(class_or_inst, "erc_list").append(func)
-
-
-def add_erc_assertion(assertion, fail_msg="FAILED", severity=ERROR, class_or_inst=None):
-    """Add an ERC assertion to a class or class instance."""
-
-    # Tuple for storing assertion code object with its global & local dicts.
-    EvalTuple = namedtuple(
-        "EvalTuple", "stmnt fail_msg severity filename lineno function globals locals"
-    )
-
-    cls_or_inst = class_or_inst or default_circuit
-    assertion_frame, filename, lineno, function, _, _ = inspect.stack()[1]
-    getattr(cls_or_inst, "erc_assertion_list").append(
-        EvalTuple(
-            assertion,
-            fail_msg,
-            severity,
-            filename,
-            lineno,
-            function,
-            assertion_frame.f_globals,
-            assertion_frame.f_locals,
-        )
-    )
-
-
-erc_assert = add_erc_assertion
