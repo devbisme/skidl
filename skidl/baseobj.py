@@ -31,18 +31,27 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 import re
 from builtins import object, str, super
 from copy import deepcopy
+from collections import namedtuple
+import inspect
 
 from future import standard_library
 
 from .Alias import Alias
 from .AttrDict import AttrDict
-from .erc import eval_stmnt_list, exec_function_list
+from .defines import *
+# from .erc import eval_stmnt_list, exec_function_list
+from .logger import erc_logger
 from .Note import Note
 
 standard_library.install_aliases()
 
 
 class SkidlBaseObject(object):
+
+    # These are fallback lists so every object will have them to reference.
+    erc_list = list()
+    erc_assertion_list = list()
+
     def __init__(self):
         self.fields = AttrDict(attr_obj=self)
 
@@ -119,3 +128,95 @@ class SkidlBaseObject(object):
 
         # Run ERC assertions.
         eval_stmnt_list(self, "erc_assertion_list")
+
+
+def eval_stmnt_list(inst, list_name):
+    """
+    Evaluate class-wide and local statements on a class instance.
+
+    Args:
+        inst: Instance of a class.
+        list_name: String containing the attribute name of the list of
+            class-wide and local code objects.
+    """
+
+    def erc_report(evtpl):
+        log_msg = "{evtpl.stmnt} {evtpl.fail_msg} in {evtpl.filename}:{evtpl.lineno}:{evtpl.function}.".format(
+            evtpl=evtpl
+        )
+        if evtpl.severity == ERROR:
+            erc_logger.error(log_msg)
+        elif evtpl.severity == WARNING:
+            erc_logger.warning(log_msg)
+
+    # Evaluate class-wide statements on this instance.
+    if list_name in inst.__class__.__dict__:
+        for evtpl in inst.__class__.__dict__[list_name]:
+            try:
+                assert eval(evtpl.stmnt, evtpl.globals, evtpl.locals)
+            except AssertionError:
+                erc_report(evtpl)
+
+    # Now evaluate any statements for this particular instance.
+    if list_name in inst.__dict__:
+        for evtpl in inst.__dict__[list_name]:
+            try:
+                assert eval(evtpl.stmnt, evtpl.globals, evtpl.locals)
+            except AssertionError:
+                erc_report(evtpl)
+
+
+def exec_function_list(inst, list_name, *args, **kwargs):
+    """
+    Execute class-wide and local ERC functions on a class instance.
+
+    Args:
+        inst: Instance of a class.
+        list_name: String containing the attribute name of the list of
+            class-wide and local functions.
+        args, kwargs: Arbitary argument lists to pass to the functions
+            that are executed. (All functions get the same arguments.) 
+    """
+
+    # Execute the class-wide functions on this instance.
+    if list_name in inst.__class__.__dict__:
+        for f in inst.__class__.__dict__[list_name]:
+            f(inst, *args, **kwargs)
+
+    # Now execute any instance functions for this particular instance.
+    if list_name in inst.__dict__:
+        for f in inst.__dict__[list_name]:
+            f(inst, *args, **kwargs)
+
+
+def add_erc_function(class_or_inst, func):
+    """Add an ERC function to a class or class instance."""
+
+    getattr(class_or_inst, "erc_list").append(func)
+
+
+def add_erc_assertion(assertion, fail_msg="FAILED", severity=ERROR, class_or_inst=None):
+    """Add an ERC assertion to a class or class instance."""
+
+    # Tuple for storing assertion code object with its global & local dicts.
+    EvalTuple = namedtuple(
+        "EvalTuple", "stmnt fail_msg severity filename lineno function globals locals"
+    )
+
+    cls_or_inst = class_or_inst or default_circuit
+    assertion_frame, filename, lineno, function, _, _ = inspect.stack()[1]
+    getattr(cls_or_inst, "erc_assertion_list").append(
+        EvalTuple(
+            assertion,
+            fail_msg,
+            severity,
+            filename,
+            lineno,
+            function,
+            assertion_frame.f_globals,
+            assertion_frame.f_locals,
+        )
+    )
+
+
+erc_assert = add_erc_assertion
