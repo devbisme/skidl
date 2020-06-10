@@ -124,10 +124,10 @@ class SkidlBaseObject(object):
         """Run ERC on this object."""
 
         # Run ERC functions.
-        exec_function_list(self, "erc_list", *args, **kwargs)
+        self.exec_function_list(*args, **kwargs)
 
         # Run ERC assertions.
-        eval_stmnt_list(self, "erc_assertion_list")
+        self.eval_assertions()
 
 
     def add_erc_function(self, func):
@@ -158,61 +158,36 @@ class SkidlBaseObject(object):
             )
         )
 
+    def eval_assertions(self):
+        """
+        Evaluate assertions for this object.
+        """
 
-def eval_stmnt_list(inst, list_name):
-    """
-    Evaluate class-wide and local statements on a class instance.
+        def erc_report(evtpl):
+            log_msg = "{evtpl.stmnt} {evtpl.fail_msg} in {evtpl.filename}:{evtpl.lineno}:{evtpl.function}.".format(
+                evtpl=evtpl
+            )
+            if evtpl.severity == ERROR:
+                erc_logger.error(log_msg)
+            elif evtpl.severity == WARNING:
+                erc_logger.warning(log_msg)
 
-    Args:
-        inst: Instance of a class.
-        list_name: String containing the attribute name of the list of
-            class-wide and local code objects.
-    """
-
-    def erc_report(evtpl):
-        log_msg = "{evtpl.stmnt} {evtpl.fail_msg} in {evtpl.filename}:{evtpl.lineno}:{evtpl.function}.".format(
-            evtpl=evtpl
-        )
-        if evtpl.severity == ERROR:
-            erc_logger.error(log_msg)
-        elif evtpl.severity == WARNING:
-            erc_logger.warning(log_msg)
-
-    # Evaluate class-wide statements on this instance.
-    if list_name in inst.__class__.__dict__:
-        for evtpl in inst.__class__.__dict__[list_name]:
-            try:
-                assert eval(evtpl.stmnt, evtpl.globals, evtpl.locals)
-            except AssertionError:
-                erc_report(evtpl)
-
-    # Now evaluate any statements for this particular instance.
-    if list_name in inst.__dict__:
-        for evtpl in inst.__dict__[list_name]:
+        for evtpl in self.erc_assertion_list:
             try:
                 assert eval(evtpl.stmnt, evtpl.globals, evtpl.locals)
             except AssertionError:
                 erc_report(evtpl)
 
 
-def exec_function_list(inst, list_name, *args, **kwargs):
-    """
-    Execute class-wide and local ERC functions on a class instance.
+    def exec_function_list(self, *args, **kwargs):
+        """
+        Execute ERC functions on a class instance.
 
-    Args:
-        inst: Instance of a class.
-        list_name: String containing the attribute name of the list of
-            class-wide and local functions.
-        args, kwargs: Arbitary argument lists to pass to the functions
-            that are executed. (All functions get the same arguments.) 
-    """
+        Args:
+            args, kwargs: Arbitary argument lists to pass to the functions
+                that are executed. (All functions get the same arguments.) 
+        """
 
-    # Execute the class-wide functions on this instance.
-    if list_name in inst.__class__.__dict__:
-        for f in inst.__class__.__dict__[list_name]:
-            f(inst, *args, **kwargs)
-
-    # Now execute any instance functions for this particular instance.
-    if list_name in inst.__dict__:
-        for f in inst.__dict__[list_name]:
-            f(inst, *args, **kwargs)
+        # Execute any instance functions for this particular instance.
+        for f in self.erc_list:
+            f(self, *args, **kwargs)
