@@ -80,6 +80,9 @@ class Circuit(SkidlBaseObject):
         """Initialize the Circuit object."""
         self.reset(init=True)
 
+        # Each circuit instance has an individual set of assertions.
+        erc_assertion_list = list()
+
         # Set passed-in attributes for the circuit.
         for k, v in list(kwargs.items()):
             setattr(self, k, v)

@@ -28,10 +28,7 @@ ERC functions for Circuit, Part, Pin, Net, Bus, Interface objects.
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-import inspect
-import sys
-from builtins import range, str
-from collections import namedtuple
+from builtins import range
 
 from future import standard_library
 

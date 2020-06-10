@@ -66,7 +66,7 @@ class Net(SkidlBaseObject):
             the Net object.
     """
 
-    # Set the default ERC functions for all Part instances.
+    # Set the default ERC functions for all Net instances.
     erc_list = [dflt_net_erc]
 
     @classmethod

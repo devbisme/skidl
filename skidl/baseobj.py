@@ -124,10 +124,10 @@ class SkidlBaseObject(object):
         """Run ERC on this object."""
 
         # Run ERC functions.
-        self.exec_function_list(*args, **kwargs)
+        self._exec_erc_functions(*args, **kwargs)
 
         # Run ERC assertions.
-        self.eval_assertions()
+        self._eval_erc_assertions()
 
 
     def add_erc_function(self, func):
@@ -158,7 +158,7 @@ class SkidlBaseObject(object):
             )
         )
 
-    def eval_assertions(self):
+    def _eval_erc_assertions(self):
         """
         Evaluate assertions for this object.
         """
@@ -173,13 +173,11 @@ class SkidlBaseObject(object):
                 erc_logger.warning(log_msg)
 
         for evtpl in self.erc_assertion_list:
-            try:
-                assert eval(evtpl.stmnt, evtpl.globals, evtpl.locals)
-            except AssertionError:
+            if eval(evtpl.stmnt, evtpl.globals, evtpl.locals) == False:
                 erc_report(evtpl)
 
 
-    def exec_function_list(self, *args, **kwargs):
+    def _exec_erc_functions(self, *args, **kwargs):
         """
         Execute ERC functions on a class instance.
 

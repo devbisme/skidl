@@ -47,6 +47,9 @@ class Interface(dict, SkidlBaseObject):
     on an Interface.
     """
 
+    # Set the default ERC functions for all Interface instances.
+    erc_list = []
+
     def __init__(self, *args, **kwargs):
         dict.__init__(self, *args, **kwargs)
         for k, v in list(self.items()):
