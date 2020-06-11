@@ -886,6 +886,11 @@ class Part(SkidlBaseObject):
         )
         return list(fields - non_fields)
 
+    def _value_to_str(self):
+        """Return value of part as a string."""
+        value = getattr(self, "value", getattr(self, "name", self.ref_prefix))
+        return str(value)
+
     def generate_netlist_component(self, tool=None):
         """
         Generate the part information for inclusion in a netlist.
@@ -898,6 +903,9 @@ class Part(SkidlBaseObject):
 
         if tool is None:
             tool = skidl.get_default_tool()
+
+        # Create part value as a string so including it in netlist isn't a problem.
+        self.value_str = self._value_to_str()
 
         try:
             gen_func = getattr(self, "_gen_netlist_comp_{}".format(tool))
@@ -924,6 +932,9 @@ class Part(SkidlBaseObject):
 
         if tool is None:
             tool = skidl.get_default_tool()
+
+        # Create part value as a string so including it in XML isn't a problem.
+        self.value_str = self._value_to_str()
 
         try:
             gen_func = getattr(self, "_gen_xml_comp_{}".format(tool))

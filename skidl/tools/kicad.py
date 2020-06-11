@@ -574,16 +574,7 @@ def _gen_netlist_(self):
 def _gen_netlist_comp_(self):
     ref = add_quotes(self.ref)
 
-    try:
-        value = self.value
-        if not value:
-            value = self.name
-    except AttributeError:
-        try:
-            value = self.name
-        except AttributeError:
-            value = self.ref_prefix
-    value = add_quotes(value)
+    value = add_quotes(self.value_str)
 
     try:
         footprint = self.footprint
@@ -673,16 +664,7 @@ def _gen_xml_(self):
 
 def _gen_xml_comp_(self):
     ref = self.ref
-
-    try:
-        value = self.value
-        if not value:
-            value = self.name
-    except AttributeError:
-        try:
-            value = self.name
-        except AttributeError:
-            value = self.ref_prefix
+    value = self.value_str
 
     try:
         footprint = self.footprint  # pylint: disable=unused-variable
