@@ -1152,8 +1152,6 @@ class PartUnit(Part):
         """
 
         # Get new pins selected from the parent.
-        if not pin_ids:
-            pin_ids = [".*"]  # Empty list matches everything.
         new_pins = to_list(self.parent.get_pins(*pin_ids, **criteria))
 
         # Remove None if that's gotten into the list.
