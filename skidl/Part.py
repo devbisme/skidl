@@ -1056,6 +1056,25 @@ class Part(SkidlBaseObject):
         """Delete the part footprint."""
         del self._foot
 
+    @property
+    def match_pin_regex(self):
+        """Get, set and delete the enable/disable of pin regular-expression matching."""
+        return self._match_pin_regex
+
+    @match_pin_regex.setter
+    def match_pin_regex(self, flag):
+        """Set the regex matching flag."""
+        self._match_pin_regex = flag
+
+        # Also set flag for units of the part.
+        for unit in self.unit.values():
+            unit._match_pin_regex = flag
+
+    @match_pin_regex.deleter
+    def match_pin_regex(self):
+        """Delete the regex matching flag."""
+        del self._match_pin_regex
+
     def __bool__(self):
         """Any valid Part is True"""
         return True
