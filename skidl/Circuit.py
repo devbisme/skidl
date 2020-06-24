@@ -32,6 +32,8 @@ import os.path
 import time
 from builtins import range, str, super
 from collections import defaultdict
+import json
+import subprocess
 
 import graphviz
 from future import standard_library
@@ -44,6 +46,7 @@ from .Interface import Interface
 from .logger import erc_logger, logger
 from .Net import NCNet, Net
 from .Part import Part
+from .Pin import Pin
 from .pckg_info import __version__
 from .SchLib import SchLib
 from .scriptinfo import *
@@ -476,7 +479,7 @@ class Circuit(SkidlBaseObject):
         logger.error.reset()
         logger.warning.reset()
 
-        # Before anything else, clean-up names for multi-segment nets.
+        # Clean-up names for multi-segment nets.
         self._merge_net_names()
 
         if tool is None:
@@ -509,6 +512,229 @@ class Circuit(SkidlBaseObject):
                 f.write(netlist)
 
         return netlist
+
+    def generate_skin(self):
+        part_svg = {}
+        for part in self.parts:
+            part_svg[part.name] = part.generate_svg_component()
+        part_svg = "\n".join(part_svg.values())
+        head_svg = """
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:s="https://github.com/nturley/netlistsvg">
+  <s:properties
+    constants="false"
+    splitsAndJoins="false"
+    genericsLaterals="true">
+    <s:layoutEngine
+        org.eclipse.elk.layered.spacing.nodeNodeBetweenLayers="5"
+        org.eclipse.elk.layered.compaction.postCompaction.strategy="4"
+        org.eclipse.elk.spacing.nodeNode= "100"
+        org.eclipse.elk.direction="DOWN"/>
+  </s:properties>
+<style>
+svg {
+  stroke: #000;
+  fill: none;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+text {
+  fill: #000;
+  stroke: none;
+  font-size: 10px;
+  font-weight: bold;
+  font-family: "Courier New", monospace;
+}
+.pin_text_up {
+  text-anchor: middle;
+}
+.pin_text_down {
+  text-anchor: middle;
+}
+.pin_text_right {
+  text-anchor: end;
+}
+.pin_text_left {
+  text-anchor: start;
+}
+.nodelabel {
+  text-anchor: middle;
+}
+.inputPortLabel {
+  text-anchor: end;
+}
+.splitjoinBody {
+  fill: #000;
+}
+.symbol {
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.detail {
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  fill: #000;
+}
+.fill {
+  fill: #000;
+}
+</style>
+
+<!-- power -->
+<g s:type="vcc" s:width="20" s:height="30" transform="translate(5,20)">
+  <s:alias val="vcc" />
+  <text x="10" y="-4" class="nodelabel $cell_id" s:attribute="name">name</text>
+  <path d="M0,0 H20 L10,15 Z M10,15 V30" class="$cell_id"/>
+  <g s:x="10" s:y="30" s:pid="A" s:position="bottom"/>
+</g>
+
+<g s:type="vee" s:width="20" s:height="30" transform="translate(40,35)">
+	  <s:alias val="vee" />
+	  <text x="10" y="10" class="nodelabel $cell_id" s:attribute="name">name</text>
+	  <path d="M0,0 H20 L10,-15 Z M10,-15 V-30" class="$cell_id"/>
+	  <g s:x="10" s:y="-30" s:pid="A" s:position="top"/>
+	</g>
+
+<g s:type="gnd" s:width="20" s:height="30" transform="translate(80,35)">
+  <s:alias val="gnd"/>
+  <text x="30" y="20" class="nodelabel $cell_id" s:attribute="name">name</text>
+  <path d="M0,0 H20 M3,5 H17 M7,10 H13 M10,0 V-15" class="$cell_id"/>
+  <g s:x="10" s:y="-15" s:pid="A" s:position="top"/>
+</g>
+<!-- power -->
+
+<!-- signal -->
+<g s:type="inputExt" s:width="30" s:height="20" transform="translate(0,0)">
+  <text x="15" y="-4" class="$cell_id" s:attribute="ref">input</text>
+  <s:alias val="$_inputExt_"/>
+  <path d="M0,0 V20 H15 L30,10 15,0 Z" class="$cell_id"/>
+  <g s:x="30" s:y="10" s:pid="Y" s:position="right"/>
+</g>
+
+<g s:type="outputExt" s:width="30" s:height="20" transform="translate(0,0)">
+  <text x="15" y="-4" class="$cell_id" s:attribute="ref">output</text>
+  <s:alias val="$_outputExt_"/>
+  <path d="M30,0 V20 H15 L0,10 15,0 Z" class="$cell_id"/>
+  <g s:x="0" s:y="10" s:pid="A" s:position="left"/>
+</g>
+<!-- signal -->
+
+"""
+
+        tail_svg ="""
+<!-- builtin -->
+<g s:type="generic" s:width="30" s:height="40" transform="translate(0,0)">
+  <text x="15" y="-4" class="nodelabel $cell_id" s:attribute="ref">generic</text>
+  <rect width="30" height="40" x="0" y="0" s:generic="body" class="$cell_id"/>
+  <g transform="translate(30,10)"
+     s:x="30" s:y="10" s:pid="out0" s:position="right">
+    <text x="5" y="-4" class="$cell_id">out0</text>
+  </g>
+  <g transform="translate(30,30)"
+     s:x="30" s:y="30" s:pid="out1" s:position="right">
+    <text x="5" y="-4" class="$cell_id">out1</text>
+  </g>
+  <g transform="translate(0,10)"
+     s:x="0" s:y="10" s:pid="in0" s:position="left">
+      <text x="-3" y="-4" class="inputPortLabel $cell_id">in0</text>
+  </g>
+  <g transform="translate(0,30)"
+     s:x="0" s:y="30" s:pid="in1" s:position="left">
+    <text x="-3" y="-4" class="inputPortLabel $cell_id">in1</text>
+  </g>
+</g>
+<!-- builtin -->
+
+</svg>
+"""        
+        return head_svg + part_svg + tail_svg
+
+    def generate_schematic(self, file_=None, tool=None):
+        """
+        Return a dictionary that can be displayed by netlistsvg.
+        """
+
+        from . import skidl
+
+        # Generate circuitry for any packages that were instantiated.
+        self.instantiate_packages()
+
+        # Reset the counters to clear any warnings/errors from previous run.
+        logger.error.reset()
+        logger.warning.reset()
+
+        # Clean-up names for multi-segment nets.
+        self._merge_net_names()
+
+        # Assign each net a unique integer identifier. Interconnected nets
+        # all get the same number.
+        net_nums = {}
+        for num, net in enumerate(self.nets, 1):
+            for n in net.get_nets():
+                if n.name not in net_nums:
+                    net_nums[n.name] = num
+
+        ports = {}
+        for net in self.nets:
+            if not net.is_implicit():
+                ports[net.name] = {
+                    "direction": "input",
+                    "bits": [net_nums[net.name],],
+                }
+
+        pin_dir = {
+            Pin.types.INPUT: "input",
+            Pin.types.OUTPUT: "output",
+            Pin.types.BIDIR: "output",
+            Pin.types.TRISTATE: "output",
+            Pin.types.PASSIVE: "input",
+            Pin.types.PULLUP: "output",
+            Pin.types.PULLDN: "output",
+            Pin.types.UNSPEC: "input",
+            Pin.types.PWRIN: "input",
+            Pin.types.PWROUT: "output",
+            Pin.types.OPENCOLL: "output",
+            Pin.types.OPENEMIT: "output",
+            Pin.types.NOCONNECT: "input",
+        }
+
+        cells = {}
+        for part in self.parts:
+            connections = {
+                pin.num: [net_nums[pin.net.name],] for pin in part.get_pins()
+            }
+            port_directions = {
+                pin.num: pin_dir[pin.func] for pin in part.get_pins()
+            }
+            cells[part.ref] = {
+                "type": part.name,
+                "port_directions": port_directions,
+                "connections": connections,
+            }
+
+        schematic_json = {"modules": {self.name: {"ports": ports, "cells": cells,}}}
+
+        if not self.no_files:
+            file_basename = file_ or get_script_name()
+            json_file = file_basename + ".json"
+            svg_file = file_basename + ".svg"
+            with opened(json_file, "w") as f:
+                f.write(
+                    json.dumps(
+                        schematic_json, sort_keys=True, indent=2, separators=(",", ": ")
+                    )
+                )
+            skin_file = file_basename + "_skin.svg"
+            with opened(skin_file, "w") as f:
+                f.write(self.generate_skin())
+            subprocess.call(
+                "netlistsvg {json_file} --skin {skin_file} -o {svg_file}".format(
+                    **locals()),
+                shell=True,
+            )
+
+        return schematic_json
 
     def generate_graph(
         self,

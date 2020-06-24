@@ -69,6 +69,7 @@ for module in os.listdir(directory):
         (Circuit.Circuit, "_gen_xml_"),
         (Part.Part, "_gen_xml_comp_"),
         (Net.Net, "_gen_xml_net_"),
+        (Part.Part, "_gen_svg_comp_"),
     ):
         try:
             setattr(class_, method + tool_name, getattr(mod, method))

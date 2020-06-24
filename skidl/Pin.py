@@ -429,7 +429,7 @@ class Pin(SkidlBaseObject):
         )
 
     def split(self, divider):
-        """Use chars in divider to pplit a pin name and add substrings to aliases."""
+        """Use chars in divider to split a pin name and add substrings to aliases."""
 
         # First character in the divider will be used to split the name.
         splitchar = divider[0]

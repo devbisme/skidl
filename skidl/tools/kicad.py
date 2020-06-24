@@ -32,8 +32,10 @@ import os.path
 import re
 import time
 from builtins import dict, int, range, str, zip
+from collections import namedtuple
 from random import randint
 
+from ..Coord import *
 from ..defines import *
 from ..logger import logger
 from ..pckg_info import __version__
@@ -709,3 +711,145 @@ def _gen_xml_net_(self):
         txt += '\n      <node ref="{part_ref}" pin="{pin_num}"/>'.format(**locals())
     txt += "\n    </net>"
     return txt
+
+
+def _gen_svg_comp_(self):
+    scale = 0.15
+
+    PinDir = namedtuple("PinDir", "vector side text_dir text_rotation")
+    pin_dir_tbl = {
+        "U": PinDir(Point(0, -1), "bottom", "pin_text_up", -90),
+        "D": PinDir(Point(0, 1), "top", "pin_text_down", -90),
+        "L": PinDir(Point(-1, 0), "right", "pin_text_right", 0),
+        "R": PinDir(Point(1, 0), "left", "pin_text_left", 0),
+    }
+
+    bbox = BBox()
+    svg = ['<g s:type="{}">'.format(self.name)]
+    svg.append('<s:alias val="{}"/>'.format(self.name))
+    for obj, instances in self.draw.items():
+        if obj == "arcs":
+            for arc in instances:
+                center = Point(int(arc["posx"]), -int(arc["posy"])) * scale
+                radius = int(arc["radius"]) * scale
+                start = Point(int(arc["startx"]), -int(arc["starty"])) * scale
+                end = Point(int(arc["endx"]), -int(arc["endy"])) * scale
+                start_angle = int(arc["start_angle"]) / 10
+                end_angle = int(arc["end_angle"]) / 10
+                clock_wise = int(end_angle < start_angle)
+                large_arc = int(abs(end_angle - start_angle) > 180)
+                thickness = max(int(arc["thickness"]) * scale, 1)
+                fill = "fill" if arc["fill"].lower() == "f" else ""
+                class_ = "$cell_id symbol {fill}".format(**locals())
+                radius_pt = Point(radius, radius)
+                bbox.add(center - radius_pt)
+                bbox.add(center + radius_pt)
+                svg.append(
+                    '<path d="M {start.x} {start.y} A {radius} {radius} 0 {large_arc} {clock_wise} {end.x} {end.y}" style="stroke-width: {thickness}" class="{class_}"/>'.format(
+                        **locals()
+                    )
+                )
+        elif obj == "circles":
+            for circle in instances:
+                center = Point(int(circle["posx"]), -int(circle["posy"])) * scale
+                radius = int(circle["radius"]) * scale
+                thickness = max(int(circle["thickness"]) * scale, 1)
+                fill = "fill" if circle["fill"].lower() == "f" else ""
+                class_ = "$cell_id symbol {fill}".format(**locals())
+                radius_pt = Point(radius, radius)
+                bbox.add(center - radius_pt)
+                bbox.add(center + radius_pt)
+                svg.append(
+                    '<circle cx="{center.x}" cy="{center.y}" r="{radius}" style="stroke-width:{thickness}" class="{class_}"/>'.format(
+                        **locals()
+                    )
+                )
+        elif obj == "polylines":
+            for line in instances:
+                npts = int(line["point_count"])
+                pts = [int(pt) for pt in line["points"]]
+                pts = [Point(x, -y) for x, y in zip(pts[0::2], pts[1::2])]
+                path = [
+                    '<path d="',
+                ]
+                path_op = "M"
+                for pt in pts:
+                    pt = pt * scale
+                    bbox.add(pt)
+                    path.append("{path_op} {pt.x} {pt.y} ".format(**locals()))
+                    path_op = "L"
+                path.append('" ')
+                thickness = max(int(line["thickness"]) * scale, 1)
+                fill = "fill" if line["fill"].lower() == "f" else ""
+                class_ = "$cell_id symbol {fill}".format(**locals())
+                path.append(
+                    'stroke-width="{thickness}" class="{class_}"'.format(**locals())
+                )
+                path.append("/>")
+                svg.append("".join(path))
+        elif obj == "rectangles":
+            for rect in instances:
+                start = Point(int(rect["startx"]), -int(rect["starty"]))
+                start = start * scale
+                end = Point(int(rect["endx"]), -int(rect["endy"]))
+                end = end * scale
+                bbox.add(start)
+                bbox.add(end)
+                rect_bbox = BBox()
+                rect_bbox.add(start)
+                rect_bbox.add(end)
+                thickness = max(int(rect["thickness"]) * scale, 1)
+                fill = "fill" if rect["fill"].lower() == "f" else ""
+                class_ = "$cell_id symbol {fill}".format(**locals())
+                svg.append(
+                    '<rect x="{rect_bbox.min.x}" y="{rect_bbox.min.y}" width="{rect_bbox.w}" height="{rect_bbox.h}" style="stroke-width:{thickness}" class="{class_}"/>'.format(
+                        **locals()
+                    )
+                )
+        elif obj == "texts":
+            pass
+        elif obj == "pins":
+            for pin in instances.values():
+                name = pin["name"]
+                num = pin["num"]
+                start = Point(int(pin["posx"]), -int(pin["posy"]))
+                start = start * scale
+                l = int(pin["length"]) * scale
+                dir = pin_dir_tbl[pin["direction"]].vector
+                end = start + dir * l
+                bbox.add(start)
+                bbox.add(end)
+                side = pin_dir_tbl[pin["direction"]].side
+                svg.append(
+                    '<path d="M {start.x} {start.y} L {end.x} {end.y}" class="connect $cell_id"/>'.format(
+                        **locals()
+                    )
+                )
+                svg.append(
+                    '<g s:x="{start.x}" s:y="{start.y}" s:pid="{num}" s:position="{side}"/>'.format(
+                        **locals()
+                    )
+                )
+
+                text_org = start
+                text_rotation = pin_dir_tbl[pin["direction"]].text_rotation
+                num_text_size = int(pin["num_text_size"]) * scale
+                style = "font-size:{num_text_size}".format(**locals())
+                class_ = pin_dir_tbl[pin["direction"]].text_dir
+                svg.append(
+                    '<text x="{text_org.x}" y="{text_org.y}" rotate="{text_rotation}" style="{style}" class="{class_}">{num}</text>'.format(
+                        **locals()
+                    )
+                )
+        else:
+            logger.error(
+                "Unknown graphical object {} in part symbol {}.".format(obj, self.name)
+            )
+    svg.append("</g>")
+    svg[
+        0
+    ] = '<g s:type="{self.name}" s:width="{bbox.w}" s:height="{bbox.h}" transform="translate(0,0)">'.format(
+        **locals()
+    )
+    return "\n".join(svg)
+
