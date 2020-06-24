@@ -176,6 +176,77 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
         part.search_text = "\n".join(search_text_pieces)
 
 
+# Named tuples for part DRAW primitives.
+
+DrawArc = namedtuple(
+    "DrawArc",
+    [
+        "posx",
+        "posy",
+        "radius",
+        "start_angle",
+        "end_angle",
+        "unit",
+        "convert",
+        "thickness",
+        "fill",
+        "startx",
+        "starty",
+        "endx",
+        "endy",
+    ],
+)
+
+DrawCircle = namedtuple(
+    "DrawCircle", ["posx", "posy", "radius", "unit", "convert", "thickness", "fill"]
+)
+
+DrawPoly = namedtuple(
+    "DrawPoly", ["point_count", "unit", "convert", "thickness", "points", "fill"]
+)
+
+DrawRect = namedtuple(
+    "DrawRect",
+    ["startx", "starty", "endx", "endy", "unit", "convert", "thickness", "fill",],
+)
+
+DrawText = namedtuple(
+    "DrawText",
+    [
+        "direction",
+        "posx",
+        "posy",
+        "text_size",
+        "text_type",
+        "unit",
+        "convert",
+        "text",
+        "italic",
+        "bold",
+        "hjustify",
+        "vjustify",
+    ],
+)
+
+DrawPin = namedtuple(
+    "DrawPin",
+    [
+        "name",
+        "num",
+        "posx",
+        "posy",
+        "length",
+        "direction",
+        "name_text_size",
+        "num_text_size",
+        "unit",
+        "convert",
+        "electrical_type",
+        "pin_type",
+    ],
+)
+
+
 def _parse_lib_part_(self, get_name_only=False):
     """
     Create a Part using a part definition from a KiCad schematic library.
@@ -426,56 +497,76 @@ def _parse_lib_part_(self, get_name_only=False):
             # current line to see what type of primitive is in play.
             elif building_draw:
 
+                def numberize(v):
+                    try:
+                        return int(v)
+                    except ValueError:
+                        try:
+                            return float(v)
+                        except ValueError:
+                            pass
+                    return v
+
+                values = [numberize(v) for v in values]
+
                 # Gather arcs.
                 if line[0] == "A":
-                    self.draw["arcs"].append(dict(list(zip(_ARC_KEYS, values))))
+                    self.draw["arcs"].append(DrawArc(*values))
+                    #self.draw["arcs"].append(dict(list(zip(_ARC_KEYS, values))))
 
                 # Gather circles.
                 elif line[0] == "C":
-                    self.draw["circles"].append(dict(list(zip(_CIRCLE_KEYS, values))))
+                    self.draw["circles"].append(DrawCircle(*values))
+                    #self.draw["circles"].append(dict(list(zip(_CIRCLE_KEYS, values))))
 
                 # Gather polygons.
                 elif line[0] == "P":
-                    n_points = int(line[1])
-                    points = line[5 : 5 + (2 * n_points)]
-                    values = line[1:5] + [points]
+                    n_points = values[0]
+                    points = values[4 : 4 + (2 * n_points)]
+                    values = values[0:4] + [points]
                     if len(line) > (5 + len(points)):
                         values += [line[-1]]
                     else:
                         values += [""]
-                    self.draw["polylines"].append(dict(list(zip(_POLY_KEYS, values))))
+                    self.draw["polylines"].append(DrawPoly(*values))
+                    # self.draw["polylines"].append(dict(list(zip(_POLY_KEYS, values))))
 
                 # Gather rectangles.
                 elif line[0] == "S":
-                    self.draw["rectangles"].append(dict(list(zip(_RECT_KEYS, values))))
+                    self.draw["rectangles"].append(DrawRect(*values))
+                    # self.draw["rectangles"].append(dict(list(zip(_RECT_KEYS, values))))
 
                 # Gather text.
                 elif line[0] == "T":
-                    self.draw["texts"].append(dict(list(zip(_TEXT_KEYS, values))))
+                    self.draw["texts"].append(DrawText(*values))
+                    # self.draw["texts"].append(dict(list(zip(_TEXT_KEYS, values))))
 
                 # Gather the pin symbols. This is what we really want since
                 # this defines the names, numbers and attributes of the
                 # pins associated with the part.
                 elif line[0] == "X":
                     # Get the information for this pin.
-                    pin = dict(list(zip(_PIN_KEYS, values)))
+                    values[0] = str(values[0]) # Pin number might have been changed to an integer.
+                    values[1] = str(values[1]) # Pin number might have been changed to an integer.
+                    pin = DrawPin(*values)
+                    # pin = dict(list(zip(_PIN_KEYS, values)))
                     try:
                         # See if the pin number already exists for this part.
-                        rpt_pin = self.draw["pins"][pin["num"]]
+                        rpt_pin = self.draw["pins"][pin.num]
                     except KeyError:
                         # No, this pin number is unique (so far), so store it
                         # using the pin number as the dict key.
-                        self.draw["pins"][pin["num"]] = pin
+                        self.draw["pins"][pin.num] = pin
                     else:
                         # Uh, oh: Repeated pin number! Check to see if the
                         # duplicated pins have the same I/O type and unit num.
                         if (
-                            pin["electrical_type"] != rpt_pin["electrical_type"]
-                            or pin["unit"] != rpt_pin["unit"]
+                            pin.electrical_type != rpt_pin.electrical_type
+                            or pin.unit != rpt_pin.unit
                         ):
                             logger.warning(
                                 "Non-identical pins with the same number ({}) in symbol drawing {}".format(
-                                    pin["num"], self.name
+                                    pin.num, self.name
                                 )
                             )
 
@@ -510,7 +601,7 @@ def _parse_lib_part_(self, get_name_only=False):
         # Replicate the KiCad pin fields as attributes in the Pin object.
         # Note that this update will not give the pins valid references
         # to the current part, but we'll fix that soon.
-        p.__dict__.update(kicad_pin)
+        p.__dict__.update(kicad_pin._asdict())
 
         pin_type_translation = {
             "I": Pin.types.INPUT,
@@ -527,7 +618,7 @@ def _parse_lib_part_(self, get_name_only=False):
         }
         p.func = pin_type_translation[
             p.electrical_type
-        ]  # pylint: disable=no-member, attribute-defined-outside-init
+        ]
 
         return p
 
@@ -714,7 +805,7 @@ def _gen_xml_net_(self):
 
 
 def _gen_svg_comp_(self):
-    scale = 0.15
+    scale = 0.30
 
     PinDir = namedtuple("PinDir", "vector side text_dir text_rotation")
     pin_dir_tbl = {
@@ -730,16 +821,16 @@ def _gen_svg_comp_(self):
     for obj, instances in self.draw.items():
         if obj == "arcs":
             for arc in instances:
-                center = Point(int(arc["posx"]), -int(arc["posy"])) * scale
-                radius = int(arc["radius"]) * scale
-                start = Point(int(arc["startx"]), -int(arc["starty"])) * scale
-                end = Point(int(arc["endx"]), -int(arc["endy"])) * scale
-                start_angle = int(arc["start_angle"]) / 10
-                end_angle = int(arc["end_angle"]) / 10
+                center = Point(arc.posx, -arc.posy) * scale
+                radius = arc.radius * scale
+                start = Point(arc.startx, -arc.starty) * scale
+                end = Point(arc.endx, -arc.endy) * scale
+                start_angle = arc.start_angle / 10
+                end_angle = arc.end_angle / 10
                 clock_wise = int(end_angle < start_angle)
                 large_arc = int(abs(end_angle - start_angle) > 180)
-                thickness = max(int(arc["thickness"]) * scale, 1)
-                fill = "fill" if arc["fill"].lower() == "f" else ""
+                thickness = max(arc.thickness * scale, 1)
+                fill = "fill" if arc.fill.lower() == "f" else ""
                 class_ = "$cell_id symbol {fill}".format(**locals())
                 radius_pt = Point(radius, radius)
                 bbox.add(center - radius_pt)
@@ -751,10 +842,10 @@ def _gen_svg_comp_(self):
                 )
         elif obj == "circles":
             for circle in instances:
-                center = Point(int(circle["posx"]), -int(circle["posy"])) * scale
-                radius = int(circle["radius"]) * scale
-                thickness = max(int(circle["thickness"]) * scale, 1)
-                fill = "fill" if circle["fill"].lower() == "f" else ""
+                center = Point(circle.posx, -circle.posy) * scale
+                radius = circle.radius * scale
+                thickness = max(circle.thickness * scale, 1)
+                fill = "fill" if circle.fill.lower() == "f" else ""
                 class_ = "$cell_id symbol {fill}".format(**locals())
                 radius_pt = Point(radius, radius)
                 bbox.add(center - radius_pt)
@@ -766,9 +857,9 @@ def _gen_svg_comp_(self):
                 )
         elif obj == "polylines":
             for line in instances:
-                npts = int(line["point_count"])
-                pts = [int(pt) for pt in line["points"]]
-                pts = [Point(x, -y) for x, y in zip(pts[0::2], pts[1::2])]
+                npts = line.point_count
+                #pts = [pt for pt in line.points]
+                pts = [Point(x, -y) for x, y in zip(line.points[0::2], line.points[1::2])]
                 path = [
                     '<path d="',
                 ]
@@ -779,8 +870,8 @@ def _gen_svg_comp_(self):
                     path.append("{path_op} {pt.x} {pt.y} ".format(**locals()))
                     path_op = "L"
                 path.append('" ')
-                thickness = max(int(line["thickness"]) * scale, 1)
-                fill = "fill" if line["fill"].lower() == "f" else ""
+                thickness = max(line.thickness * scale, 1)
+                fill = "fill" if line.fill.lower() == "f" else ""
                 class_ = "$cell_id symbol {fill}".format(**locals())
                 path.append(
                     'stroke-width="{thickness}" class="{class_}"'.format(**locals())
@@ -789,17 +880,17 @@ def _gen_svg_comp_(self):
                 svg.append("".join(path))
         elif obj == "rectangles":
             for rect in instances:
-                start = Point(int(rect["startx"]), -int(rect["starty"]))
+                start = Point(rect.startx, -rect.starty)
                 start = start * scale
-                end = Point(int(rect["endx"]), -int(rect["endy"]))
+                end = Point(rect.endx, -rect.endy)
                 end = end * scale
                 bbox.add(start)
                 bbox.add(end)
                 rect_bbox = BBox()
                 rect_bbox.add(start)
                 rect_bbox.add(end)
-                thickness = max(int(rect["thickness"]) * scale, 1)
-                fill = "fill" if rect["fill"].lower() == "f" else ""
+                thickness = max(rect.thickness * scale, 1)
+                fill = "fill" if rect.fill.lower() == "f" else ""
                 class_ = "$cell_id symbol {fill}".format(**locals())
                 svg.append(
                     '<rect x="{rect_bbox.min.x}" y="{rect_bbox.min.y}" width="{rect_bbox.w}" height="{rect_bbox.h}" style="stroke-width:{thickness}" class="{class_}"/>'.format(
@@ -810,16 +901,16 @@ def _gen_svg_comp_(self):
             pass
         elif obj == "pins":
             for pin in instances.values():
-                name = pin["name"]
-                num = pin["num"]
-                start = Point(int(pin["posx"]), -int(pin["posy"]))
+                name = pin.name
+                num = pin.num
+                start = Point(pin.posx, -pin.posy)
                 start = start * scale
-                l = int(pin["length"]) * scale
-                dir = pin_dir_tbl[pin["direction"]].vector
+                l = pin.length * scale
+                dir = pin_dir_tbl[pin.direction].vector
                 end = start + dir * l
                 bbox.add(start)
                 bbox.add(end)
-                side = pin_dir_tbl[pin["direction"]].side
+                side = pin_dir_tbl[pin.direction].side
                 svg.append(
                     '<path d="M {start.x} {start.y} L {end.x} {end.y}" class="connect $cell_id"/>'.format(
                         **locals()
@@ -832,10 +923,10 @@ def _gen_svg_comp_(self):
                 )
 
                 text_org = start
-                text_rotation = pin_dir_tbl[pin["direction"]].text_rotation
-                num_text_size = int(pin["num_text_size"]) * scale
+                text_rotation = pin_dir_tbl[pin.direction].text_rotation
+                num_text_size = pin.num_text_size * scale
                 style = "font-size:{num_text_size}".format(**locals())
-                class_ = pin_dir_tbl[pin["direction"]].text_dir
+                class_ = pin_dir_tbl[pin.direction].text_dir
                 svg.append(
                     '<text x="{text_org.x}" y="{text_org.y}" rotate="{text_rotation}" style="{style}" class="{class_}">{num}</text>'.format(
                         **locals()

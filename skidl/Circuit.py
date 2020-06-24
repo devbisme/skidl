@@ -701,17 +701,20 @@ text {
 
         cells = {}
         for part in self.parts:
-            connections = {
-                pin.num: [net_nums[pin.net.name],] for pin in part.get_pins()
-            }
-            port_directions = {
-                pin.num: pin_dir[pin.func] for pin in part.get_pins()
-            }
-            cells[part.ref] = {
-                "type": part.name,
-                "port_directions": port_directions,
-                "connections": connections,
-            }
+            try:
+                connections = {
+                    pin.num: [net_nums[pin.net.name],] for pin in part.get_pins()
+                }
+                port_directions = {
+                    pin.num: pin_dir[pin.func] for pin in part.get_pins()
+                }
+                cells[part.ref] = {
+                    "type": part.name,
+                    "port_directions": port_directions,
+                    "connections": connections,
+                }
+            except AttributeError:
+                breakpoint()
 
         schematic_json = {"modules": {self.name: {"ports": ports, "cells": cells,}}}
 
