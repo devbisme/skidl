@@ -50,9 +50,7 @@ class ProtoNet(SkidlBaseObject):
     def __init__(self, name=None, circuit=None):
         super().__init__()
         self.name = name
-        if not circuit:
-            circuit = builtins.default_circuit
-        self.circuit = circuit
+        self.circuit = circuit or builtins.default_circuit
 
     def __iadd__(self, *nets_pins_buses):
         from .Bus import Bus

@@ -61,6 +61,12 @@ class Package(Interface):
         dest = kwargs.pop("dest", NETLIST)
 
         pckg = Package(**self.copy())  # Create a shallow copy of the package.
+
+        # Set the circuit that the ProtoNets belong to.
+        for v in pckg.values():
+            if isinstance(v, ProtoNet):
+                v.circuit = circuit
+
         # Don't use update(). It doesn't seem to call __setitem__.
         for k, v in list(kwargs.items()):
             pckg[k] = v  # Use __setitem__ so both dict item and attribute are created.
