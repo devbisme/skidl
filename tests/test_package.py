@@ -358,3 +358,27 @@ def test_package_10():
     assert len(gnd) == 3
     assert len(vin1) == 2
     assert len(vin2) == 1
+
+
+def test_package_11():
+    @package
+    def analog_average(in1, in2, avg):
+        r1, r2 = 2 * Part("Device", "R", value="1K", dest=TEMPLATE)
+        r1[1, 2] += in1, avg
+        r2[1, 2] += in2, avg
+
+    cct = Circuit(name="My circuit")
+
+    avg1 = analog_average(circuit=cct)
+    avg2 = analog_average(circuit=cct)
+
+    in1, in2, in3, in4, out1, out2 = Net(circuit=cct) * 6
+    avg1["in1"] += in1
+    avg1.in2 += in2
+    avg1["avg"] += out1
+
+    avg2["in1"] += in3
+    avg2["in2"] += in4
+    avg2.avg += out2
+
+    cct.generate_netlist()

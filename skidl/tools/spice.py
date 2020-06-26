@@ -195,6 +195,7 @@ def _mk_subckt_part(defn="XXX"):
 
 # Classes for device and xspice models.
 
+
 class XspiceModel:
     """
     Object to hold the parameters for an XSPICE model.
@@ -204,6 +205,7 @@ class XspiceModel:
         self.name = args[0]  # The name to reference the model by.
         self.args = args
         self.kwargs = kwargs
+
 
 # DeviceModel and XspiceModel are the same.
 # WARNING: DeviceModel overlaps a class in PySpice!

@@ -345,7 +345,7 @@ class Circuit(SkidlBaseObject):
     def instantiate_packages(self):
         """Run the package executables to instantiate their circuitry."""
         for package in self.packages:
-            package.subcircuit(**package)
+            package.subcircuit(circuit=self, **package)
 
         # Avoid duplicating circuitry by deleting packages after they've
         # been instantiated once.

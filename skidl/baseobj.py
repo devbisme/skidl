@@ -28,17 +28,18 @@ Base object for Circuit, Interface, Package, Part, Net, Bus, Pin objects.
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+import inspect
 import re
 from builtins import object, str, super
-from copy import deepcopy
 from collections import namedtuple
-import inspect
+from copy import deepcopy
 
 from future import standard_library
 
 from .Alias import Alias
 from .AttrDict import AttrDict
 from .defines import *
+
 # from .erc import eval_stmnt_list, exec_function_list
 from .logger import erc_logger
 from .Note import Note
@@ -129,19 +130,18 @@ class SkidlBaseObject(object):
         # Run ERC assertions.
         self._eval_erc_assertions()
 
-
     def add_erc_function(self, func):
         """Add an ERC function to a class or class instance."""
 
         self.erc_list.append(func)
-
 
     def add_erc_assertion(self, assertion, fail_msg="FAILED", severity=ERROR):
         """Add an ERC assertion to a class or class instance."""
 
         # Tuple for storing assertion code object with its global & local dicts.
         EvalTuple = namedtuple(
-            "EvalTuple", "stmnt fail_msg severity filename lineno function globals locals"
+            "EvalTuple",
+            "stmnt fail_msg severity filename lineno function globals locals",
         )
 
         assertion_frame, filename, lineno, function, _, _ = inspect.stack()[1]
@@ -175,7 +175,6 @@ class SkidlBaseObject(object):
         for evtpl in self.erc_assertion_list:
             if eval(evtpl.stmnt, evtpl.globals, evtpl.locals) == False:
                 erc_report(evtpl)
-
 
     def _exec_erc_functions(self, *args, **kwargs):
         """
