@@ -55,7 +55,7 @@ class Package(Interface):
         """Create a copy of a package."""
 
         # Get circuit that will contain the package subcircuitry.
-        circuit = kwargs.pop("circuit", default_circuit)
+        circuit = kwargs.get("circuit", default_circuit)
 
         # See if this package should be instantiated into the netlist or used as a template.
         dest = kwargs.pop("dest", NETLIST)
