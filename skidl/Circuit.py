@@ -516,7 +516,8 @@ class Circuit(SkidlBaseObject):
     def generate_skin(self):
         part_svg = {}
         for part in self.parts:
-            part_svg[part.name] = part.generate_svg_component()
+            if part.name not in part_svg.keys():
+                part_svg[part.name] = part.generate_svg_component()
         part_svg = "\n".join(part_svg.values())
         head_svg = """
 <svg xmlns="http://www.w3.org/2000/svg"
@@ -576,33 +577,13 @@ text {
   stroke-linecap: round;
   fill: #000;
 }
-.fill {
-  fill: #000;
+.outline_fill {
+    fill: #000;
+}
+.background_fill {
+    fill: #ffc;
 }
 </style>
-
-<!-- power -->
-<g s:type="vcc" s:width="20" s:height="30" transform="translate(5,20)">
-  <s:alias val="vcc" />
-  <text x="10" y="-4" class="nodelabel $cell_id" s:attribute="name">name</text>
-  <path d="M0,0 H20 L10,15 Z M10,15 V30" class="$cell_id"/>
-  <g s:x="10" s:y="30" s:pid="A" s:position="bottom"/>
-</g>
-
-<g s:type="vee" s:width="20" s:height="30" transform="translate(40,35)">
-	  <s:alias val="vee" />
-	  <text x="10" y="10" class="nodelabel $cell_id" s:attribute="name">name</text>
-	  <path d="M0,0 H20 L10,-15 Z M10,-15 V-30" class="$cell_id"/>
-	  <g s:x="10" s:y="-30" s:pid="A" s:position="top"/>
-	</g>
-
-<g s:type="gnd" s:width="20" s:height="30" transform="translate(80,35)">
-  <s:alias val="gnd"/>
-  <text x="30" y="20" class="nodelabel $cell_id" s:attribute="name">name</text>
-  <path d="M0,0 H20 M3,5 H17 M7,10 H13 M10,0 V-15" class="$cell_id"/>
-  <g s:x="10" s:y="-15" s:pid="A" s:position="top"/>
-</g>
-<!-- power -->
 
 <!-- signal -->
 <g s:type="inputExt" s:width="30" s:height="20" transform="translate(0,0)">
@@ -701,20 +682,18 @@ text {
 
         cells = {}
         for part in self.parts:
-            try:
-                connections = {
-                    pin.num: [net_nums[pin.net.name],] for pin in part.get_pins()
-                }
-                port_directions = {
-                    pin.num: pin_dir[pin.func] for pin in part.get_pins()
-                }
-                cells[part.ref] = {
-                    "type": part.name,
-                    "port_directions": port_directions,
-                    "connections": connections,
-                }
-            except AttributeError:
-                breakpoint()
+            connections = {
+                pin.num: [net_nums[pin.net.name],] for pin in part.get_pins() if pin.net
+            }
+
+            port_directions = {
+                pin.num: pin_dir[pin.func] for pin in part.get_pins()
+            }
+            cells[part.ref] = {
+                "type": part.name,
+                "port_directions": port_directions,
+                "connections": connections,
+            }
 
         schematic_json = {"modules": {self.name: {"ports": ports, "cells": cells,}}}
 

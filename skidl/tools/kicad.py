@@ -384,20 +384,14 @@ def _parse_lib_part_(self, get_name_only=False):
     if not self.part_defn:
         return
 
-    self.fplist = []  # Footprint list.
     self.aliases = []  # Part aliases.
+    self.fplist = []  # Footprint list.
+    self.draw = []  # Drawing commands for symbol, including pins.
+
     building_fplist = False  # True when working on footprint list in defn.
     building_draw = False  # True when gathering part drawing from defn.
 
-    # Always make sure there are drawing & footprint sections, even if the part doesn't have them.
-    self.draw = {
-        "arcs": [],
-        "circles": [],
-        "polylines": [],
-        "rectangles": [],
-        "texts": [],
-        "pins": {},  # Use pin number as key to detect duplicates.
-    }
+    pins = {}  # Dict of symbol pins to check for duplicates.
 
     # Regular expression for non-quoted and quoted text pieces.
     unqu = r'[^\s"]+'  # Word without spaces or double-quotes.
@@ -511,13 +505,11 @@ def _parse_lib_part_(self, get_name_only=False):
 
                 # Gather arcs.
                 if line[0] == "A":
-                    self.draw["arcs"].append(DrawArc(*values))
-                    #self.draw["arcs"].append(dict(list(zip(_ARC_KEYS, values))))
+                    self.draw.append(DrawArc(*values))
 
                 # Gather circles.
                 elif line[0] == "C":
-                    self.draw["circles"].append(DrawCircle(*values))
-                    #self.draw["circles"].append(dict(list(zip(_CIRCLE_KEYS, values))))
+                    self.draw.append(DrawCircle(*values))
 
                 # Gather polygons.
                 elif line[0] == "P":
@@ -528,35 +520,33 @@ def _parse_lib_part_(self, get_name_only=False):
                         values += [line[-1]]
                     else:
                         values += [""]
-                    self.draw["polylines"].append(DrawPoly(*values))
-                    # self.draw["polylines"].append(dict(list(zip(_POLY_KEYS, values))))
+                    self.draw.append(DrawPoly(*values))
 
                 # Gather rectangles.
                 elif line[0] == "S":
-                    self.draw["rectangles"].append(DrawRect(*values))
-                    # self.draw["rectangles"].append(dict(list(zip(_RECT_KEYS, values))))
+                    self.draw.append(DrawRect(*values))
 
                 # Gather text.
                 elif line[0] == "T":
-                    self.draw["texts"].append(DrawText(*values))
-                    # self.draw["texts"].append(dict(list(zip(_TEXT_KEYS, values))))
+                    self.draw.append(DrawText(*values))
 
                 # Gather the pin symbols. This is what we really want since
                 # this defines the names, numbers and attributes of the
                 # pins associated with the part.
                 elif line[0] == "X":
                     # Get the information for this pin.
-                    values[0] = str(values[0]) # Pin number might have been changed to an integer.
-                    values[1] = str(values[1]) # Pin number might have been changed to an integer.
+                    values[0:2] = line[
+                        1:3
+                    ]  # Restore pin num & name in case they were made into integers.
                     pin = DrawPin(*values)
-                    # pin = dict(list(zip(_PIN_KEYS, values)))
                     try:
                         # See if the pin number already exists for this part.
-                        rpt_pin = self.draw["pins"][pin.num]
+                        rpt_pin = pins[pin.num]
                     except KeyError:
                         # No, this pin number is unique (so far), so store it
                         # using the pin number as the dict key.
-                        self.draw["pins"][pin.num] = pin
+                        self.draw.append(pin)
+                        pins[pin.num] = pin
                     else:
                         # Uh, oh: Repeated pin number! Check to see if the
                         # duplicated pins have the same I/O type and unit num.
@@ -616,13 +606,11 @@ def _parse_lib_part_(self, get_name_only=False):
             "E": Pin.types.OPENEMIT,
             "N": Pin.types.NOCONNECT,
         }
-        p.func = pin_type_translation[
-            p.electrical_type
-        ]
+        p.func = pin_type_translation[p.electrical_type]
 
         return p
 
-    self.pins = [kicad_pin_to_pin(p) for p in self.draw["pins"].values()]
+    self.pins = [kicad_pin_to_pin(p) for p in pins.values()]
 
     # Make sure all the pins have a valid reference to this part.
     self.associate_pins()
@@ -805,6 +793,22 @@ def _gen_xml_net_(self):
 
 
 def _gen_svg_comp_(self):
+
+    def draw_text(text, size, origin, rotation, hjust, vjust, scale):
+        size = size * scale
+        hjust = {-1: "start", 0: "middle", 1: "end"}[hjust]
+        vjust = {-1: 1, 0: 0.5, 1: 0}[vjust] * size
+        origin = origin * scale
+        text_origin = origin + Point(0, vjust)
+        svg = []
+        if rotation:
+            svg.append("<g>".format(**locals()))
+            # svg.append("<g transform=\"rotate({rotation} {origin.x} {origin.y})\">".format(**locals()))
+        svg.append("<text x=\"{text_origin.x}\" y=\"{text_origin.y}\" font-size=\"{size}\" text-anchor=\"{hjust}\">{text}</text>".format(**locals()))
+        if rotation:
+            svg.append("</g>")
+        return "\n".join(svg)
+
     scale = 0.30
 
     PinDir = namedtuple("PinDir", "vector side text_dir text_rotation")
@@ -815,126 +819,161 @@ def _gen_svg_comp_(self):
         "R": PinDir(Point(1, 0), "left", "pin_text_left", 0),
     }
 
+    fill_tbl = {
+        "F": "outline_fill",
+        "f": "background_fill",
+    }
+
     bbox = BBox()
     svg = ['<g s:type="{}">'.format(self.name)]
     svg.append('<s:alias val="{}"/>'.format(self.name))
-    for obj, instances in self.draw.items():
-        if obj == "arcs":
-            for arc in instances:
-                center = Point(arc.posx, -arc.posy) * scale
-                radius = arc.radius * scale
-                start = Point(arc.startx, -arc.starty) * scale
-                end = Point(arc.endx, -arc.endy) * scale
-                start_angle = arc.start_angle / 10
-                end_angle = arc.end_angle / 10
-                clock_wise = int(end_angle < start_angle)
-                large_arc = int(abs(end_angle - start_angle) > 180)
-                thickness = max(arc.thickness * scale, 1)
-                fill = "fill" if arc.fill.lower() == "f" else ""
-                class_ = "$cell_id symbol {fill}".format(**locals())
-                radius_pt = Point(radius, radius)
-                bbox.add(center - radius_pt)
-                bbox.add(center + radius_pt)
-                svg.append(
-                    '<path d="M {start.x} {start.y} A {radius} {radius} 0 {large_arc} {clock_wise} {end.x} {end.y}" style="stroke-width: {thickness}" class="{class_}"/>'.format(
-                        **locals()
-                    )
+    for obj in self.draw:
+        if isinstance(obj, DrawArc):
+            arc = obj
+            center = Point(arc.posx, -arc.posy) * scale
+            radius = arc.radius * scale
+            start = Point(arc.startx, -arc.starty) * scale
+            end = Point(arc.endx, -arc.endy) * scale
+            start_angle = arc.start_angle / 10
+            end_angle = arc.end_angle / 10
+            clock_wise = int(end_angle < start_angle)
+            large_arc = int(abs(end_angle - start_angle) > 180)
+            thickness = max(arc.thickness * scale, 1)
+            fill = fill_tbl.get(arc.fill, "")
+            class_ = "$cell_id symbol {fill}".format(**locals())
+            radius_pt = Point(radius, radius)
+            bbox.add(center - radius_pt)
+            bbox.add(center + radius_pt)
+            svg.append(
+                '<path d="M {start.x} {start.y} A {radius} {radius} 0 {large_arc} {clock_wise} {end.x} {end.y}" style="stroke-width: {thickness}" class="{class_}"/>'.format(
+                    **locals()
                 )
-        elif obj == "circles":
-            for circle in instances:
-                center = Point(circle.posx, -circle.posy) * scale
-                radius = circle.radius * scale
-                thickness = max(circle.thickness * scale, 1)
-                fill = "fill" if circle.fill.lower() == "f" else ""
-                class_ = "$cell_id symbol {fill}".format(**locals())
-                radius_pt = Point(radius, radius)
-                bbox.add(center - radius_pt)
-                bbox.add(center + radius_pt)
-                svg.append(
-                    '<circle cx="{center.x}" cy="{center.y}" r="{radius}" style="stroke-width:{thickness}" class="{class_}"/>'.format(
-                        **locals()
-                    )
+            )
+        elif isinstance(obj, DrawCircle):
+            circle = obj
+            center = Point(circle.posx, -circle.posy) * scale
+            radius = circle.radius * scale
+            thickness = max(circle.thickness * scale, 1)
+            fill = fill_tbl.get(circle.fill, "")
+            class_ = "$cell_id symbol {fill}".format(**locals())
+            radius_pt = Point(radius, radius)
+            bbox.add(center - radius_pt)
+            bbox.add(center + radius_pt)
+            svg.append(
+                '<circle cx="{center.x}" cy="{center.y}" r="{radius}" style="stroke-width:{thickness}" class="{class_}"/>'.format(
+                    **locals()
                 )
-        elif obj == "polylines":
-            for line in instances:
-                npts = line.point_count
-                #pts = [pt for pt in line.points]
-                pts = [Point(x, -y) for x, y in zip(line.points[0::2], line.points[1::2])]
-                path = [
-                    '<path d="',
-                ]
-                path_op = "M"
-                for pt in pts:
-                    pt = pt * scale
-                    bbox.add(pt)
-                    path.append("{path_op} {pt.x} {pt.y} ".format(**locals()))
-                    path_op = "L"
-                path.append('" ')
-                thickness = max(line.thickness * scale, 1)
-                fill = "fill" if line.fill.lower() == "f" else ""
-                class_ = "$cell_id symbol {fill}".format(**locals())
-                path.append(
-                    'stroke-width="{thickness}" class="{class_}"'.format(**locals())
+            )
+        elif isinstance(obj, DrawPoly):
+            poly = obj
+            pts = [Point(x, -y) for x, y in zip(poly.points[0::2], poly.points[1::2])]
+            path = [
+                '<path d="',
+            ]
+            path_op = "M"
+            for pt in pts:
+                pt = pt * scale
+                bbox.add(pt)
+                path.append("{path_op} {pt.x} {pt.y} ".format(**locals()))
+                path_op = "L"
+            path.append('" ')
+            thickness = max(poly.thickness * scale, 1)
+            fill = fill_tbl.get(poly.fill, "")
+            class_ = "$cell_id symbol {fill}".format(**locals())
+            path.append(
+                'stroke-width="{thickness}" class="{class_}"'.format(**locals())
+            )
+            path.append("/>")
+            svg.append("".join(path))
+        elif isinstance(obj, DrawRect):
+            rect = obj
+            start = Point(rect.startx, -rect.starty)
+            start = start * scale
+            end = Point(rect.endx, -rect.endy)
+            end = end * scale
+            bbox.add(start)
+            bbox.add(end)
+            rect_bbox = BBox()
+            rect_bbox.add(start)
+            rect_bbox.add(end)
+            thickness = max(rect.thickness * scale, 1)
+            fill = fill_tbl.get(rect.fill, "")
+            class_ = "$cell_id symbol {fill}".format(**locals())
+            svg.append(
+                '<rect x="{rect_bbox.min.x}" y="{rect_bbox.min.y}" width="{rect_bbox.w}" height="{rect_bbox.h}" style="stroke-width:{thickness}" class="{class_}"/>'.format(
+                    **locals()
                 )
-                path.append("/>")
-                svg.append("".join(path))
-        elif obj == "rectangles":
-            for rect in instances:
-                start = Point(rect.startx, -rect.starty)
-                start = start * scale
-                end = Point(rect.endx, -rect.endy)
-                end = end * scale
-                bbox.add(start)
-                bbox.add(end)
-                rect_bbox = BBox()
-                rect_bbox.add(start)
-                rect_bbox.add(end)
-                thickness = max(rect.thickness * scale, 1)
-                fill = "fill" if rect.fill.lower() == "f" else ""
-                class_ = "$cell_id symbol {fill}".format(**locals())
-                svg.append(
-                    '<rect x="{rect_bbox.min.x}" y="{rect_bbox.min.y}" width="{rect_bbox.w}" height="{rect_bbox.h}" style="stroke-width:{thickness}" class="{class_}"/>'.format(
-                        **locals()
-                    )
+            )
+        elif isinstance(obj, DrawText):
+            text = obj
+            text_org = Point(text.posx, -text.posy)
+            text_org = text_org * scale
+            text_rotation = text.direction
+            text_size = text.text_size * scale
+            style = "font-size: {text_size}".format(**locals())
+            class_ = "text"
+            svg.append(
+                '<text x="{text_org.x}" y="{text_org.y}" rotate="{text_rotation}" style="{style}" class="{class_}">{text.text}</text>'.format(
+                    **locals()
                 )
-        elif obj == "texts":
-            pass
-        elif obj == "pins":
-            for pin in instances.values():
-                name = pin.name
-                num = pin.num
-                start = Point(pin.posx, -pin.posy)
-                start = start * scale
-                l = pin.length * scale
-                dir = pin_dir_tbl[pin.direction].vector
-                end = start + dir * l
-                bbox.add(start)
-                bbox.add(end)
-                side = pin_dir_tbl[pin.direction].side
-                svg.append(
-                    '<path d="M {start.x} {start.y} L {end.x} {end.y}" class="connect $cell_id"/>'.format(
-                        **locals()
-                    )
-                )
-                svg.append(
-                    '<g s:x="{start.x}" s:y="{start.y}" s:pid="{num}" s:position="{side}"/>'.format(
-                        **locals()
-                    )
-                )
+            )
+        # "direction",
+        # "posx",
+        # "posy",
+        # "text_size",
+        # "text_type",
+        # "unit",
+        # "convert",
+        # "text",
+        # "italic",
+        # "bold",
+        # "hjustify",
+        # "vjustify",
 
-                text_org = start
-                text_rotation = pin_dir_tbl[pin.direction].text_rotation
-                num_text_size = pin.num_text_size * scale
-                style = "font-size:{num_text_size}".format(**locals())
-                class_ = pin_dir_tbl[pin.direction].text_dir
-                svg.append(
-                    '<text x="{text_org.x}" y="{text_org.y}" rotate="{text_rotation}" style="{style}" class="{class_}">{num}</text>'.format(
-                        **locals()
-                    )
+        elif isinstance(obj, DrawPin):
+            pin = obj
+            name = pin.name
+            num = pin.num
+            start = Point(pin.posx, -pin.posy)
+            start = start * scale
+            l = pin.length * scale
+            dir = pin_dir_tbl[pin.direction].vector
+            end = start + dir * l
+            bbox.add(start)
+            bbox.add(end)
+            side = pin_dir_tbl[pin.direction].side
+            class_ = "$cell_id connect"
+            svg.append(
+                '<path d="M {start.x} {start.y} L {end.x} {end.y}" class="{class_}"/>'.format(
+                    **locals()
                 )
+            )
+
+            # Start pin group.
+            svg.append(
+                '<g s:x="{start.x}" s:y="{start.y}" s:pid="{num}" s:position="{side}">'.format(
+                    **locals()
+                )
+            )
+
+            # Place pin name/number groups *inside* the group for the pin or else netlistsvg
+            # will have a fit if it sees the <g>...</g> for the rotated name/number.
+            text_org = start
+            text_rotation = pin_dir_tbl[pin.direction].text_rotation
+            num_text_size = pin.num_text_size * scale
+            svg.append(draw_text(str(num), num_text_size, text_org, text_rotation, 0, 0, 1.0))
+            text_org = end
+            text_rotation = pin_dir_tbl[pin.direction].text_rotation
+            name_text_size = num_text_size
+            svg.append(draw_text(str(name), name_text_size, text_org, text_rotation, 0, 0, 1.0))
+
+            svg.append("</g>")
+
         else:
             logger.error(
-                "Unknown graphical object {} in part symbol {}.".format(obj, self.name)
+                "Unknown graphical object {} in part symbol {}.".format(
+                    type(obj), self.name
+                )
             )
     svg.append("</g>")
     svg[

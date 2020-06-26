@@ -215,6 +215,7 @@ ERC = default_circuit.ERC
 erc_assert = default_circuit.add_erc_assertion
 generate_netlist = default_circuit.generate_netlist
 generate_xml = default_circuit.generate_xml
+generate_schematic = default_circuit.generate_schematic
 generate_graph = default_circuit.generate_graph
 reset = default_circuit.reset
 backup_parts = default_circuit.backup_parts
