@@ -230,17 +230,16 @@ class Part(SkidlBaseObject):
                 "Can't make a part without a library & part name or a part definition.",
             )
 
-        # If the part is going to be an element in a circuit, then add it to the
-        # the circuit and make any indicated pin/net connections.
         if dest != LIBRARY:
-            # If no Circuit object is given, then use the default Circuit that always exists.
-            circuit = circuit or default_circuit
             if dest == NETLIST:
+                # If the part is going to be an element in a circuit, then add it to the
+                # the circuit and make any indicated pin/net connections.
+                # If no Circuit object is given, then use the default Circuit that always exists.
+                circuit = circuit or default_circuit
                 circuit += self
             elif dest == TEMPLATE:
                 # If this is just a part template, don't add the part to the circuit.
-                # Just place the reference to the Circuit object in the template.
-                self.circuit = circuit
+                self.circuit = None
 
             # Add any net/pin connections to this part that were passed as arguments.
             if isinstance(connections, dict):
@@ -494,14 +493,10 @@ class Part(SkidlBaseObject):
             # source came from or else add it to the default Circuit object.
             if dest == NETLIST:
                 # Place the copied part in the explicitly-stated circuit,
-                # or else into the same circuit as the source part,
+                # or the same circuit as the original,
                 # or else into the default circuit.
-                if circuit:
-                    circuit += cpy
-                elif isinstance(self.circuit, Circuit):
-                    self.circuit += cpy
-                else:
-                    builtins.default_circuit += cpy
+                circuit = circuit or self.circuit or builtins.default_circuit
+                circuit += cpy
 
             # Add any XSPICE I/O as pins to the part.
             cpy.add_xspice_io(io)

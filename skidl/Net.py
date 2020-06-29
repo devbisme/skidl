@@ -117,8 +117,7 @@ class Net(SkidlBaseObject):
         self._name = name
 
         # Add the net to the passed-in circuit or to the default circuit.
-        if circuit is None:
-            circuit = builtins.default_circuit
+        circuit = circuit or builtins.default_circuit
         circuit += self
 
         # Attach whatever pins were given.
@@ -265,12 +264,9 @@ class Net(SkidlBaseObject):
                 "({}) of copies of a net!".format(num_copies),
             )
 
-        # If circuitis not specified, then create the copies within the circuit of the master.
-        # If the master isn't in a circuit, then use the default circuit.
-        if not circuit:
-            circuit = self.circuit
-            if not circuit:
-                circuit = builtins.default_circuit
+        # If circuit is not specified, then create the copies within circuit of the
+        # original, or in the default circuit.
+        circuit = circuit or self.circuit or builtins.default_circuit
 
         # Can't make a distinct copy of a net which already has pins on it
         # because what happens if a pin is connected to the copy? Then we have

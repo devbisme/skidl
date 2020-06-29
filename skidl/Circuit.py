@@ -83,9 +83,6 @@ class Circuit(SkidlBaseObject):
         """Initialize the Circuit object."""
         self.reset(init=True)
 
-        # Each circuit instance has an individual set of assertions.
-        erc_assertion_list = list()
-
         # Set passed-in attributes for the circuit.
         for k, v in list(kwargs.items()):
             setattr(self, k, v)
@@ -115,6 +112,7 @@ class Circuit(SkidlBaseObject):
         self.level = 0
         self.context = [("top",)]
         self.erc_assertion_list = []
+        self.circuit_stack = []  # Stack of previous default_circuits for context manager.
         self.no_files = False  # Allow creation of files for netlists, ERC, libs, etc.
 
         # Clear the name heap for nets and parts.
@@ -127,6 +125,15 @@ class Circuit(SkidlBaseObject):
         )  # Net for storing no-connects for parts in this circuit.
         if not init and self is default_circuit:
             builtins.NC = self.NC
+
+    def __enter__(self):
+        """Create a context for making this circuit the default_circuit."""
+        self.circuit_stack.append(builtins.default_circuit)
+        builtins.default_circuit = self
+        return self
+
+    def __exit__(self, type, value, traceback):
+        builtins.default_circuit = self.circuit_stack.pop()
 
     def add_parts(self, *parts):
         """Add some Part objects to the circuit."""
@@ -271,11 +278,52 @@ class Circuit(SkidlBaseObject):
                 )
 
     def add_packages(self, *packages):
-        self.packages.extend(packages)
+        for package in packages:
+            if package.circuit is None:
+                if package.is_movable():
+
+                    # Add the package to this circuit.
+                    self.packages.append(package)
+                    package.circuit = self
+                    for obj in package.values():
+                        try:
+                            if obj.is_movable():
+                                obj.circuit = self
+                        except AttributeError:
+                            pass
+            else:
+                log_and_raise(
+                    logger,
+                    ValueError,
+                    "Can't add the same package to more than one circuit.",
+                )
 
     def rmv_packages(self, *packages):
         for package in packages:
-            self.packages.remove(package)
+            if package.is_movable():
+                if package.circuit == self and package in self.packages:
+                    self.packages.remove(package)
+                    package.circuit = None
+                    for obj in package.values():
+                        try:
+                            if obj.is_movable():
+                                obj.circuit = None
+                        except AttributeError:
+                            pass
+                else:
+                    logger.warning(
+                        "Removing non-existent package {} from this circuit.".format(
+                            package.name
+                        )
+                    )
+            else:
+                log_and_raise(
+                    logger,
+                    ValueError,
+                    "Can't remove unmovable package {} from this circuit.".format(
+                        package.name
+                    ),
+                )
 
     def add_stuff(self, *stuff):
         """Add Parts, Nets, Buses, and Interfaces to the circuit."""
@@ -347,10 +395,11 @@ class Circuit(SkidlBaseObject):
 
     def instantiate_packages(self):
         """Run the package executables to instantiate their circuitry."""
-        for package in self.packages:
-            if "circuit" not in package.keys():
-                package["circuit"] = self
-            package.subcircuit(**package)
+
+        # Set default_circuit to this circuit and instantiate the packages.
+        with self:
+            for package in self.packages:
+                package.subcircuit(**package)
 
         # Avoid duplicating circuitry by deleting packages after they've
         # been instantiated once.

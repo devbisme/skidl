@@ -227,3 +227,16 @@ def test_circuit_NC_1():
     assert len(NC.pins) == 0
     assert len(circuit1.NC.pins) == 2
     assert len(circuit2.NC.pins) == 1
+
+def test_circuit_context_1():
+    circuit1 = Circuit()
+    circuit2 = Circuit()
+    res = Part(tool=SKIDL, name="res", dest=TEMPLATE, pins=[Pin(num=1), Pin(num=2)])
+    with circuit1:
+        for _ in range(3):
+            res()
+    with circuit2:
+        for _ in range(10):
+            res()
+    assert len(circuit1.parts) == 3
+    assert len(circuit2.parts) == 10
