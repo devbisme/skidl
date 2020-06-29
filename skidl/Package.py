@@ -47,6 +47,8 @@ except ImportError:
 
 class Package(Interface):
     def __init__(self, **kwargs):
+        self["circuit"] = None
+
         # Don't use update(). It doesn't seem to call __setitem__.
         for k, v in list(kwargs.items()):
             self[k] = v  # Use __setitem__ so both dict item and attribute are created.
@@ -55,7 +57,7 @@ class Package(Interface):
         """Create a copy of a package."""
 
         # Get circuit that will contain the package subcircuitry.
-        circuit = kwargs.get("circuit", default_circuit)
+        circuit = kwargs.pop("circuit", default_circuit)
 
         # See if this package should be instantiated into the netlist or used as a template.
         dest = kwargs.pop("dest", NETLIST)
@@ -70,6 +72,7 @@ class Package(Interface):
         # Don't use update(). It doesn't seem to call __setitem__.
         for k, v in list(kwargs.items()):
             pckg[k] = v  # Use __setitem__ so both dict item and attribute are created.
+
         pckg.subcircuit = self.subcircuit  # Assign subcircuit creation function.
         # Remove creation function so it's not passed as a parameter.
         del pckg["subcircuit"]
@@ -79,6 +82,16 @@ class Package(Interface):
             circuit += pckg
 
         return pckg
+
+    def is_movable(self):
+        return True
+        for obj in self.values():
+            try:
+                if not obj.is_movable():
+                    return False  # Interface is not movable if any object in it is not movable.
+            except AttributeError:
+                pass  # Objects without is_movable() are always movable.
+        return True  # Every object in the Interface that could move was movable.
 
 
 def package(subcirc_func):
@@ -93,7 +106,7 @@ def package(subcirc_func):
 
     # By default, set parameters to a package to be ProtoNets.
     for arg_name in arg_names:
-        pn = ProtoNet(arg_name)
+        pn = ProtoNet(arg_name, circuit=None)
         pn.intfc = pckg
         pn.intfc_key = arg_name
         pckg[arg_name] = pn

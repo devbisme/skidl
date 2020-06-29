@@ -131,3 +131,6 @@ class ProtoNet(SkidlBaseObject):
         """
         # You can only iterate a ProtoNet one time.
         return (self for _ in [self])  # Return generator expr.
+
+    def is_movable(self):
+        return True  # A ProtoNet is never connected, so it's always movable.

@@ -80,9 +80,6 @@ class Circuit(SkidlBaseObject):
         """Initialize the Circuit object."""
         self.reset(init=True)
 
-        # Each circuit instance has an individual set of assertions.
-        erc_assertion_list = list()
-
         # Set passed-in attributes for the circuit.
         for k, v in list(kwargs.items()):
             setattr(self, k, v)
@@ -268,11 +265,52 @@ class Circuit(SkidlBaseObject):
                 )
 
     def add_packages(self, *packages):
-        self.packages.extend(packages)
+        for package in packages:
+            if package.circuit is None:
+                if package.is_movable():
+
+                    # Add the package to this circuit.
+                    self.packages.append(package)
+                    package.circuit = self
+                    for obj in package.values():
+                        try:
+                            if obj.is_movable():
+                                obj.circuit = self
+                        except AttributeError:
+                            pass
+            else:
+                log_and_raise(
+                    logger,
+                    ValueError,
+                    "Can't add the same package to more than one circuit.",
+                )
 
     def rmv_packages(self, *packages):
         for package in packages:
-            self.packages.remove(package)
+            if package.is_movable():
+                if package.circuit == self and package in self.packages:
+                    self.packages.remove(package)
+                    package.circuit = None
+                    for obj in package.values():
+                        try:
+                            if obj.is_movable():
+                                obj.circuit = None
+                        except AttributeError:
+                            pass
+                else:
+                    logger.warning(
+                        "Removing non-existent package {} from this circuit.".format(
+                            package.name
+                        )
+                    )
+            else:
+                log_and_raise(
+                    logger,
+                    ValueError,
+                    "Can't remove unmovable package {} from this circuit.".format(
+                        package.name
+                    ),
+                )
 
     def add_stuff(self, *stuff):
         """Add Parts, Nets, Buses, and Interfaces to the circuit."""
@@ -344,6 +382,12 @@ class Circuit(SkidlBaseObject):
 
     def instantiate_packages(self):
         """Run the package executables to instantiate their circuitry."""
+
+        # Save the current default circuit and replace it with this one.
+        save_default_circuit = default_circuit
+        builtins.default_circuit = self
+        builtins.NC = self.NC
+
         for package in self.packages:
             if "circuit" not in package.keys():
                 package["circuit"] = self
@@ -352,6 +396,10 @@ class Circuit(SkidlBaseObject):
         # Avoid duplicating circuitry by deleting packages after they've
         # been instantiated once.
         self.packages = []
+
+        # Restore the default circuit and globals.
+        builtins.default_circuit = save_default_circuit
+        builtins.NC = save_default_circuit.NC
 
     def ERC(self, *args, **kwargs):
         """Run class-wide and local ERC functions on this circuit."""

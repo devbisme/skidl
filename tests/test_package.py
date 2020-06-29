@@ -430,3 +430,43 @@ def test_package_13():
     avg2["in2"] += in4
     avg2.avg += out2
     cct.generate_netlist()
+
+
+def test_package_14():
+    global default_circuit
+
+    @package
+    def analog_average(in1, in2, avg):
+        r1, r2 = 2 * Part("Device", "R", value="1K", dest=TEMPLATE)
+        r1[1, 2] += in1, avg
+        r2[1, 2] += in2, avg
+
+    cct = Circuit(name="My circuit")
+
+    global default_circuit
+
+    avg1 = analog_average()
+    default_circuit -= avg1
+    cct += avg1
+    avg2 = analog_average()
+    default_circuit -= avg2
+    cct += avg2
+
+    # in1, in2, in3, in4, out1, out2 = Net(circuit=cct) * 6
+    in1, in2, in3, in4, out1, out2 = (
+        Net("IN1", circuit=cct),
+        Net("IN2", circuit=cct),
+        Net("IN3", circuit=cct),
+        Net("IN4", circuit=cct),
+        Net("OUT1", circuit=cct),
+        Net("OUT2", circuit=cct),
+    )
+    avg1["in1"] += in1
+    avg1.in2 += in2
+    avg1["avg"] += out1
+
+    avg2["in1"] += in3
+    avg2["in2"] += in4
+    avg2.avg += out2
+
+    cct.generate_netlist()
