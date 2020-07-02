@@ -54,19 +54,19 @@ class SkidlBaseObject(object):
     erc_assertion_list = list()
 
     def __init__(self):
-        self.fields = AttrDict(attr_obj=self)
+        self.fields = {}
+
+    def __getattr__(self, key):
+        try:
+            return super().__getattribute__('fields').__getitem__(key)
+        except KeyError:
+            raise AttributeError
 
     def __setattr__(self, key, value):
-        if key == "fields":
-            # Whatever is assigned to the fields attribute is cast to an AttrDict.
-            super().__setattr__(key, AttrDict(attr_obj=self, **value))
-
-        else:
+        if key == "fields" or key not in self.fields:
             super().__setattr__(key, value)
-
-            # Whenever an attribute is changed, then also sync it with the fields dict
-            # in case it is mirroring one of the dict entries.
-            self.fields.sync(key)
+        else:
+            super().__getattribute__('fields').__setitem__(key, value)
 
     @property
     def aliases(self):

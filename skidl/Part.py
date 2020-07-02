@@ -44,7 +44,7 @@ standard_library.install_aliases()
 
 
 try:
-    import __builtin__ as builtins
+    import builtins as builtins
 except ImportError:
     import builtins
 
@@ -201,9 +201,6 @@ class Part(SkidlBaseObject):
 
             # Overwrite self with the new part.
             self.__dict__.update(part.__dict__)
-
-            # Replace the fields with a copy that points to self.
-            self.fields = part.fields.copy(attr_obj=self)
 
             # Make sure all the pins have a valid reference to this part.
             self.associate_pins()
@@ -468,8 +465,8 @@ class Part(SkidlBaseObject):
             cpy.p = PinNumberSearch(cpy)
             cpy.n = PinNameSearch(cpy)
 
-            # Copy the part fields from the original but linked to attributes in the copy.
-            cpy.fields = self.fields.copy(attr_obj=cpy)
+            # Copy the part fields from the original.
+            cpy.fields = {k:v for k,v in self.fields.items()}
 
             # Make copies of the units in the new part copy.
             for label in self.unit:
