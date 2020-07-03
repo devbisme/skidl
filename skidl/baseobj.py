@@ -58,7 +58,8 @@ class SkidlBaseObject(object):
 
     def __getattr__(self, key):
         try:
-            return super().__getattribute__("fields").__getitem__(key)
+            # Don't use super()!! It leads to long run times on Python 2.7.
+            return self.__class__.__getattribute__(self, "fields")[key]
         except KeyError:
             raise AttributeError
 
@@ -66,7 +67,7 @@ class SkidlBaseObject(object):
         if key == "fields" or key not in self.fields:
             super().__setattr__(key, value)
         else:
-            super().__getattribute__("fields").__setitem__(key, value)
+            self.fields[key] = value
 
     @property
     def aliases(self):
