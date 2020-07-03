@@ -38,26 +38,22 @@ import subprocess
 import graphviz
 from future import standard_library
 
-from .baseobj import SkidlBaseObject
-from .Bus import Bus
+from .skidlbaseobj import SkidlBaseObject
+from .bus import Bus
+from .common import *
 from .defines import *
 from .erc import dflt_circuit_erc
-from .Interface import Interface
+from .interface import Interface
 from .logger import erc_logger, logger
-from .Net import NCNet, Net
-from .Part import Part
-from .Pin import Pin
+from .net import NCNet, Net
+from .part import Part
+from .pin import Pin
 from .pckg_info import __version__
-from .SchLib import SchLib
+from .schlib import SchLib
 from .scriptinfo import *
 from .utilities import *
 
 standard_library.install_aliases()
-
-try:
-    import __builtin__ as builtins
-except ImportError:
-    import builtins
 
 
 class Circuit(SkidlBaseObject):
@@ -112,7 +108,9 @@ class Circuit(SkidlBaseObject):
         self.level = 0
         self.context = [("top",)]
         self.erc_assertion_list = []
-        self.circuit_stack = []  # Stack of previous default_circuits for context manager.
+        self.circuit_stack = (
+            []
+        )  # Stack of previous default_circuits for context manager.
         self.no_files = False  # Allow creation of files for netlists, ERC, libs, etc.
 
         # Clear the name heap for nets and parts.
@@ -328,7 +326,7 @@ class Circuit(SkidlBaseObject):
     def add_stuff(self, *stuff):
         """Add Parts, Nets, Buses, and Interfaces to the circuit."""
 
-        from .Package import Package
+        from .package import Package
 
         for thing in flatten(stuff):
             if isinstance(thing, Part):
@@ -350,7 +348,7 @@ class Circuit(SkidlBaseObject):
     def rmv_stuff(self, *stuff):
         """Remove Parts, Nets, Buses, and Interfaces from the circuit."""
 
-        from .Package import Package
+        from .package import Package
 
         for thing in flatten(stuff):
             if isinstance(thing, Part):

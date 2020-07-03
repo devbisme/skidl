@@ -38,8 +38,13 @@ from builtins import chr, dict, int, object, open, range, str, super, zip
 from collections import namedtuple
 from contextlib import contextmanager
 
+from future import standard_library
+
+from .common import *
 from .defines import *
-from .py_2_3 import *
+
+standard_library.install_aliases()
+
 
 """Separator for strings containing multiple indices."""
 INDEX_SEPARATOR = ","

@@ -31,19 +31,14 @@ from builtins import open, super
 from future import standard_library
 
 from . import tools  # Import EDA tool-specific stuff.
-from .Circuit import Circuit
+from .circuit import Circuit
+from .common import *
 from .defines import *
 from .logger import erc_logger, get_script_name, logger
-from .Pin import Pin
+from .pin import Pin
 from .utilities import *
 
 standard_library.install_aliases()
-
-
-try:
-    import __builtin__ as builtins
-except ImportError:
-    import builtins
 
 
 class SkidlCfg(dict):

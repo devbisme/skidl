@@ -25,11 +25,17 @@
 """
 This package contains the handler functions for various EDA tools.
 """
+from __future__ import absolute_import, division, print_function, unicode_literals
 
 import os
 import os.path
 
-from .. import Circuit, Net, Part, SchLib
+from future import standard_library
+
+from .. import circuit, net, part, schlib
+
+standard_library.install_aliases()
+
 
 lib_suffixes = {}
 
@@ -61,15 +67,14 @@ for module in os.listdir(directory):
 
     # Make the methods for this tool available where they are needed.
     for class_, method in (
-        (SchLib.SchLib, "_load_sch_lib_"),
-        (Part.Part, "_parse_lib_part_"),
-        (Circuit.Circuit, "_gen_netlist_"),
-        (Part.Part, "_gen_netlist_comp_"),
-        (Net.Net, "_gen_netlist_net_"),
-        (Circuit.Circuit, "_gen_xml_"),
-        (Part.Part, "_gen_xml_comp_"),
-        (Net.Net, "_gen_xml_net_"),
-        (Part.Part, "_gen_svg_comp_"),
+        (schlib.SchLib, "_load_sch_lib_"),
+        (part.Part, "_parse_lib_part_"),
+        (circuit.Circuit, "_gen_netlist_"),
+        (part.Part, "_gen_netlist_comp_"),
+        (net.Net, "_gen_netlist_net_"),
+        (circuit.Circuit, "_gen_xml_"),
+        (part.Part, "_gen_xml_comp_"),
+        (net.Net, "_gen_xml_net_"),
     ):
         try:
             setattr(class_, method + tool_name, getattr(mod, method))

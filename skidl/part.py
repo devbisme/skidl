@@ -32,21 +32,14 @@ from copy import copy
 
 from future import standard_library
 
-from .AttrDict import AttrDict
-from .baseobj import SkidlBaseObject
+from .skidlbaseobj import SkidlBaseObject
+from .common import *
 from .defines import *
 from .erc import dflt_part_erc
 from .logger import logger
-from .py_2_3 import *  # pylint: disable=wildcard-import
 from .utilities import *
 
 standard_library.install_aliases()
-
-
-try:
-    import __builtin__ as builtins
-except ImportError:
-    import builtins
 
 
 try:
@@ -154,7 +147,7 @@ class Part(SkidlBaseObject):
     ):
 
         import skidl
-        from .SchLib import SchLib
+        from .schlib import SchLib
 
         super().__init__()
 
@@ -201,9 +194,6 @@ class Part(SkidlBaseObject):
 
             # Overwrite self with the new part.
             self.__dict__.update(part.__dict__)
-
-            # Replace the fields with a copy that points to self.
-            self.fields = part.fields.copy(attr_obj=self)
 
             # Make sure all the pins have a valid reference to this part.
             self.associate_pins()
@@ -257,7 +247,7 @@ class Part(SkidlBaseObject):
         """
         Add XSPICE I/O to the pins of a part.
         """
-        from .Pin import Pin, PinList
+        from .pin import Pin, PinList
 
         if not io:
             return
@@ -301,7 +291,7 @@ class Part(SkidlBaseObject):
             reference, name, alias, or their description.
         """
 
-        from .Alias import Alias
+        from .alias import Alias
 
         if not circuit:
             circuit = builtins.default_circuit
@@ -403,8 +393,8 @@ class Part(SkidlBaseObject):
         """
 
         from .defines import NETLIST
-        from .Circuit import Circuit
-        from .Pin import Pin
+        from .circuit import Circuit
+        from .pin import Pin
 
         # If the number of copies is None, then a single copy will be made
         # and returned as a scalar (not a list). Otherwise, the number of
@@ -468,8 +458,8 @@ class Part(SkidlBaseObject):
             cpy.p = PinNumberSearch(cpy)
             cpy.n = PinNameSearch(cpy)
 
-            # Copy the part fields from the original but linked to attributes in the copy.
-            cpy.fields = self.fields.copy(attr_obj=cpy)
+            # Copy the part fields from the original.
+            cpy.fields = {k: v for k, v in self.fields.items()}
 
             # Make copies of the units in the new part copy.
             for label in self.unit:
@@ -574,8 +564,8 @@ class Part(SkidlBaseObject):
                 net += atmega['RESET']  # Connects reset pin to the net.
         """
 
-        from .NetPinList import NetPinList
-        from .Alias import Alias
+        from .netpinlist import NetPinList
+        from .alias import Alias
 
         # Extract restrictions on searching for only pin names or numbers.
         only_search_numbers = criteria.pop("only_search_numbers", False)
@@ -723,7 +713,7 @@ class Part(SkidlBaseObject):
             3) the part has no pins (which can be the case for mechanical parts,
                silkscreen logos, or other non-electrical schematic elements).
         """
-        from .Circuit import Circuit
+        from .circuit import Circuit
 
         return (
             not isinstance(self.circuit, Circuit)
@@ -748,8 +738,8 @@ class Part(SkidlBaseObject):
             Nothing.
         """
 
-        from .Alias import Alias
-        from .Pin import Pin
+        from .alias import Alias
+        from .pin import Pin
 
         pin = self.get_pins(*pin_ids, **criteria)
         if isinstance(pin, Pin):
@@ -803,32 +793,32 @@ class Part(SkidlBaseObject):
 
     def create_network(self):
         """Create a network from the pins of a part."""
-        from .Network import Network
+        from .network import Network
 
         ntwk = Network(self[:])  # An error will occur if part has more than 2 pins.
         return ntwk
 
     def __and__(self, obj):
         """Attach a part and another part/pin/net in serial."""
-        from .Network import Network
+        from .network import Network
 
         return Network(self) & obj
 
     def __rand__(self, obj):
         """Attach a part and another part/pin/net in serial."""
-        from .Network import Network
+        from .network import Network
 
         return obj & Network(self)
 
     def __or__(self, obj):
         """Attach a part and another part/pin/net in parallel."""
-        from .Network import Network
+        from .network import Network
 
         return Network(self) | obj
 
     def __ror__(self, obj):
         """Attach a part and another part/pin/net in parallel."""
-        from .Network import Network
+        from .network import Network
 
         return obj | Network(self)
 
@@ -837,7 +827,7 @@ class Part(SkidlBaseObject):
         Return a list of component field names.
         """
 
-        from .Pin import Pin
+        from .pin import Pin
 
         # Get all the component attributes and subtract all the ones that
         # should not appear under "fields" in the netlist or XML.

@@ -36,13 +36,13 @@ from copy import deepcopy
 
 from future import standard_library
 
-from .Alias import Alias
-from .AttrDict import AttrDict
+from .alias import Alias
+from .common import *
 from .defines import *
 
 # from .erc import eval_stmnt_list, exec_function_list
 from .logger import erc_logger
-from .Note import Note
+from .note import Note
 
 standard_library.install_aliases()
 
@@ -54,19 +54,20 @@ class SkidlBaseObject(object):
     erc_assertion_list = list()
 
     def __init__(self):
-        self.fields = AttrDict(attr_obj=self)
+        self.fields = {}
+
+    def __getattr__(self, key):
+        try:
+            # Don't use super()!! It leads to long run times on Python 2.7.
+            return self.__getattribute__("fields")[key]
+        except KeyError:
+            raise AttributeError
 
     def __setattr__(self, key, value):
-        if key == "fields":
-            # Whatever is assigned to the fields attribute is cast to an AttrDict.
-            super().__setattr__(key, AttrDict(attr_obj=self, **value))
-
-        else:
+        if key == "fields" or key not in self.fields:
             super().__setattr__(key, value)
-
-            # Whenever an attribute is changed, then also sync it with the fields dict
-            # in case it is mirroring one of the dict entries.
-            self.fields.sync(key)
+        else:
+            self.fields[key] = value
 
     @property
     def aliases(self):

@@ -31,19 +31,15 @@ from builtins import range, super
 
 from future import standard_library
 
-from .baseobj import SkidlBaseObject
+from .skidlbaseobj import SkidlBaseObject
+from .common import *
 from .logger import logger
-from .Net import Net
-from .Network import Network
-from .Pin import Pin
+from .net import Net
+from .network import Network
+from .pin import Pin
 from .utilities import *
 
 standard_library.install_aliases()
-
-try:
-    import __builtin__ as builtins
-except ImportError:
-    import builtins
 
 
 class ProtoNet(SkidlBaseObject):
@@ -53,7 +49,7 @@ class ProtoNet(SkidlBaseObject):
         self.circuit = circuit or builtins.default_circuit
 
     def __iadd__(self, *nets_pins_buses):
-        from .Bus import Bus
+        from .bus import Bus
 
         nets_pins = []
         for item in expand_buses(flatten(nets_pins_buses)):

@@ -33,18 +33,14 @@ from copy import copy, deepcopy
 
 from future import standard_library
 
-from .baseobj import SkidlBaseObject
+from .skidlbaseobj import SkidlBaseObject
+from .common import *
 from .defines import *
 from .erc import dflt_net_erc
 from .logger import logger
 from .utilities import *
 
 standard_library.install_aliases()
-
-try:
-    import __builtin__ as builtins
-except ImportError:
-    import builtins
 
 
 Traversal = collections.namedtuple("Traversal", ["nets", "pins"])
@@ -73,7 +69,7 @@ class Net(SkidlBaseObject):
     def get(cls, name, circuit=None):
         """Get the net with the given name from a circuit, or return None."""
 
-        from .Alias import Alias
+        from .alias import Alias
 
         if not circuit:
             circuit = builtins.default_circuit
@@ -100,7 +96,7 @@ class Net(SkidlBaseObject):
         return cls.get(name, circuit=circuit) or cls(name, *args, **attribs)
 
     def __init__(self, name=None, circuit=None, *pins_nets_buses, **attribs):
-        from .Pin import Pin
+        from .pin import Pin
 
         super().__init__()
 
@@ -136,7 +132,7 @@ class Net(SkidlBaseObject):
         except AttributeError:
             pass  # Compute the traversal if it's not available.
 
-        from .Pin import PhantomPin
+        from .pin import PhantomPin
 
         self.test_validity()
         prev_nets = set([self])
@@ -206,7 +202,7 @@ class Net(SkidlBaseObject):
         attached to it.
         """
 
-        from .Circuit import Circuit
+        from .circuit import Circuit
 
         return not isinstance(self.circuit, Circuit) or not self.pins
 
@@ -414,8 +410,8 @@ class Net(SkidlBaseObject):
                 net += atmega[1]  # Connects pin 1 of chip to the net.
         """
 
-        from .Pin import Pin, PhantomPin
-        from .ProtoNet import ProtoNet
+        from .pin import Pin, PhantomPin
+        from .protonet import ProtoNet
 
         def merge(net):
             """
@@ -622,7 +618,7 @@ class Net(SkidlBaseObject):
 
     def create_network(self):
         """Create a network from a single net."""
-        from .Network import Network
+        from .network import Network
 
         ntwk = Network()
         ntwk.append(self)
@@ -630,25 +626,25 @@ class Net(SkidlBaseObject):
 
     def __and__(self, obj):
         """Attach a net and another part/pin/net in serial."""
-        from .Network import Network
+        from .network import Network
 
         return Network(self) & obj
 
     def __rand__(self, obj):
         """Attach a net and another part/pin/net in serial."""
-        from .Network import Network
+        from .network import Network
 
         return obj & Network(self)
 
     def __or__(self, obj):
         """Attach a net and another part/pin/net in parallel."""
-        from .Network import Network
+        from .network import Network
 
         return Network(self) | obj
 
     def __ror__(self, obj):
         """Attach a net and another part/pin/net in parallel."""
-        from .Network import Network
+        from .network import Network
 
         return obj | Network(self)
 
@@ -904,7 +900,7 @@ class NCNet(Net):
     """
 
     def __init__(self, name=None, circuit=None, *pins_nets_buses, **attribs):
-        from .Pin import Pin
+        from .pin import Pin
 
         super().__init__(name=name, circuit=circuit, *pins_nets_buses, **attribs)
         self._drive = Pin.drives.NOCONNECT

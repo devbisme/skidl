@@ -35,13 +35,18 @@ from builtins import dict, int, range, str, zip
 from collections import namedtuple
 from random import randint
 
+from future import standard_library
+
+from ..common import *
 from ..Coord import *
 from ..defines import *
 from ..logger import logger
 from ..pckg_info import __version__
-from ..py_2_3 import *
 from ..scriptinfo import scriptinfo
 from ..utilities import *
+
+standard_library.install_aliases()
+
 
 tool_name = KICAD
 lib_suffix = ".lib"
@@ -56,7 +61,7 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
     """
 
     from ..skidl import lib_suffixes
-    from ..Part import Part
+    from ..part import Part
 
     # Try to open the file. Add a .lib extension if needed. If the file
     # doesn't open, then try looking in the KiCad library directory.
@@ -263,7 +268,7 @@ def _parse_lib_part_(self, get_name_only=False):
             will be parsed if the part is actually used.
     """
 
-    from ..Pin import Pin
+    from ..pin import Pin
 
     _DEF_KEYS = [
         "name",

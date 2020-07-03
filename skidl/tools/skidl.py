@@ -30,9 +30,14 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 from builtins import str
 
+from future import standard_library
+
+from ..common import *
 from ..defines import SKIDL
 from ..logger import logger
-from ..py_2_3 import *  # pylint: disable=wildcard-import
+
+standard_library.install_aliases()
+
 
 tool_name = SKIDL
 lib_suffix = "_sklib.py"
@@ -47,7 +52,7 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
     """
 
     from ..skidl import lib_suffixes, logger
-    from ..SchLib import SchLib
+    from ..schlib import SchLib
     from ..defines import SKIDL
     from ..utilities import find_and_open_file
 
