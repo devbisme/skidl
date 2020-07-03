@@ -38,7 +38,7 @@ from random import randint
 from future import standard_library
 
 from ..common import *
-from ..Coord import *
+from ..coord import *
 from ..defines import *
 from ..logger import logger
 from ..pckg_info import __version__
