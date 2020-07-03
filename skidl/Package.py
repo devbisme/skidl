@@ -33,16 +33,12 @@ from copy import copy
 from future import standard_library
 
 from .Circuit import subcircuit
+from .common import *
 from .defines import *
 from .Interface import Interface
 from .ProtoNet import ProtoNet
 
 standard_library.install_aliases()
-
-try:
-    import __builtins__ as builtins
-except ImportError:
-    import builtins
 
 
 class Package(Interface):

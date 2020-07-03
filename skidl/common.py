@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
+
 # MIT license
 #
-# Copyright (C) 2016 by XESS Corporation.
+# Copyright (C) 2020 by XESS Corp.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -21,16 +23,15 @@
 # THE SOFTWARE.
 
 """
-Some definitions to make stuff work with both Python 2 & 3.
+Stuff everyone needs.
 """
 
-from __future__ import absolute_import, division, print_function, unicode_literals
+try:
+    import __builtin__ as builtins
+except ModuleNotFoundError:
+    import builtins
 
 import sys
-
-from future import standard_library
-
-standard_library.install_aliases()
 
 USING_PYTHON2 = sys.version_info.major == 2
 USING_PYTHON3 = not USING_PYTHON2

@@ -28,13 +28,16 @@ Handler for reading SKiDL libraries and generating netlists.
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-from future import standard_library
-standard_library.install_aliases()
 from builtins import str
 
+from future import standard_library
+
+from ..common import *
 from ..defines import SKIDL
 from ..logger import logger
-from ..py_2_3 import *  # pylint: disable=wildcard-import
+
+standard_library.install_aliases()
+
 
 tool_name = SKIDL
 lib_suffix = "_sklib.py"

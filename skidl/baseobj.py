@@ -37,7 +37,7 @@ from copy import deepcopy
 from future import standard_library
 
 from .Alias import Alias
-from .AttrDict import AttrDict
+from .common import *
 from .defines import *
 
 # from .erc import eval_stmnt_list, exec_function_list
@@ -58,7 +58,7 @@ class SkidlBaseObject(object):
 
     def __getattr__(self, key):
         try:
-            return super().__getattribute__('fields').__getitem__(key)
+            return super().__getattribute__("fields").__getitem__(key)
         except KeyError:
             raise AttributeError
 
@@ -66,7 +66,7 @@ class SkidlBaseObject(object):
         if key == "fields" or key not in self.fields:
             super().__setattr__(key, value)
         else:
-            super().__getattribute__('fields').__setitem__(key, value)
+            super().__getattribute__("fields").__setitem__(key, value)
 
     @property
     def aliases(self):

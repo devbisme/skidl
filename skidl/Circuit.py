@@ -38,6 +38,7 @@ from future import standard_library
 
 from .baseobj import SkidlBaseObject
 from .Bus import Bus
+from .common import *
 from .defines import *
 from .erc import dflt_circuit_erc
 from .Interface import Interface
@@ -50,11 +51,6 @@ from .scriptinfo import *
 from .utilities import *
 
 standard_library.install_aliases()
-
-try:
-    import builtins as builtins
-except ImportError:
-    import builtins
 
 
 class Circuit(SkidlBaseObject):
@@ -109,7 +105,9 @@ class Circuit(SkidlBaseObject):
         self.level = 0
         self.context = [("top",)]
         self.erc_assertion_list = []
-        self.circuit_stack = []  # Stack of previous default_circuits for context manager.
+        self.circuit_stack = (
+            []
+        )  # Stack of previous default_circuits for context manager.
         self.no_files = False  # Allow creation of files for netlists, ERC, libs, etc.
 
         # Clear the name heap for nets and parts.

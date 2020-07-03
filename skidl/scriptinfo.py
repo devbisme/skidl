@@ -27,13 +27,15 @@ Routines for getting information about a script.
 """
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-from future import standard_library
-standard_library.install_aliases()
 import inspect
 import os
 import sys
 import traceback
 from builtins import str
+
+from future import standard_library
+
+standard_library.install_aliases()
 
 
 def scriptinfo():

@@ -34,17 +34,13 @@ from copy import copy, deepcopy
 from future import standard_library
 
 from .baseobj import SkidlBaseObject
+from .common import *
 from .defines import *
 from .erc import dflt_net_erc
 from .logger import logger
 from .utilities import *
 
 standard_library.install_aliases()
-
-try:
-    import builtins as builtins
-except ImportError:
-    import builtins
 
 
 Traversal = collections.namedtuple("Traversal", ["nets", "pins"])

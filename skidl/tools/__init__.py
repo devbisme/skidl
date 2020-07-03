@@ -25,17 +25,17 @@
 """
 This package contains the handler functions for various EDA tools.
 """
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
+from __future__ import absolute_import, division, print_function, unicode_literals
 
-from future import standard_library
-standard_library.install_aliases()
 import os
 import os.path
 
+from future import standard_library
+
 from .. import Circuit, Net, Part, SchLib
+
+standard_library.install_aliases()
+
 
 lib_suffixes = {}
 

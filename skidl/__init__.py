@@ -16,19 +16,16 @@ imported into a PCB layout tool or Spice simulator.
 The script can also
 check the resulting circuitry for electrical rule violations.
 """
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
+from __future__ import absolute_import, division, print_function, unicode_literals
 
 from future import standard_library
-standard_library.install_aliases()
+
 from . import tools
 from .Alias import *
-from .AttrDict import *
 from .baseobj import *
 from .Bus import *
 from .Circuit import *
+from .common import *
 from .defines import *
 from .erc import *
 from .Interface import *
@@ -44,7 +41,8 @@ from .Part import *
 from .part_query import *
 from .Pin import *
 from .ProtoNet import *
-from .py_2_3 import *
 from .SchLib import *
 from .skidl import *
 from .utilities import *
+
+standard_library.install_aliases()

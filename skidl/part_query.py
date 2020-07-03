@@ -35,8 +35,8 @@ from builtins import open, super
 
 from future import standard_library
 
+from .common import *
 from .logger import logger
-from .py_2_3 import *  # pylint: disable=wildcard-import
 from .utilities import *
 
 standard_library.install_aliases()

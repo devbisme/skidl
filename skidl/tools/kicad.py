@@ -28,20 +28,23 @@ Handler for reading Kicad libraries and generating netlists.
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-from future import standard_library
-standard_library.install_aliases()
 import os.path
 import re
 import time
 from builtins import dict, int, range, str, zip
 from random import randint
 
+from future import standard_library
+
+from ..common import *
 from ..defines import *
 from ..logger import logger
 from ..pckg_info import __version__
-from ..py_2_3 import *
 from ..scriptinfo import scriptinfo
 from ..utilities import *
+
+standard_library.install_aliases()
+
 
 tool_name = KICAD
 lib_suffix = ".lib"

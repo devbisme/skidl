@@ -27,19 +27,21 @@ Handler for reading SPICE libraries.
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-from builtins import object
-from future import standard_library
-standard_library.install_aliases()
 import os.path
-from builtins import dict, int, range, str, zip
+from builtins import dict, int, object, range, str, zip
 
+from future import standard_library
+
+from ..common import *
 from ..defines import *
 from ..logger import logger
 from ..Net import Net
 from ..Part import Part
 from ..Pin import Pin, PinList
-from ..py_2_3 import *
 from ..utilities import *
+
+standard_library.install_aliases()
+
 
 # PySpice may not be installed, particularly under Python 2.
 try:

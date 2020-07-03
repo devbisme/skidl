@@ -34,6 +34,7 @@ from future import standard_library
 
 from .Alias import Alias
 from .baseobj import SkidlBaseObject
+from .common import *
 from .defines import *
 from .logger import logger
 from .Net import Net
@@ -42,11 +43,6 @@ from .Pin import Pin
 from .utilities import *
 
 standard_library.install_aliases()
-
-try:
-    import builtins as builtins
-except ImportError:
-    import builtins
 
 
 class Bus(SkidlBaseObject):

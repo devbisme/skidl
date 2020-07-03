@@ -228,6 +228,7 @@ def test_circuit_NC_1():
     assert len(circuit1.NC.pins) == 2
     assert len(circuit2.NC.pins) == 1
 
+
 def test_circuit_context_1():
     circuit1 = Circuit()
     circuit2 = Circuit()

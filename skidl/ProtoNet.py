@@ -32,6 +32,7 @@ from builtins import range, super
 from future import standard_library
 
 from .baseobj import SkidlBaseObject
+from .common import *
 from .logger import logger
 from .Net import Net
 from .Network import Network
@@ -39,11 +40,6 @@ from .Pin import Pin
 from .utilities import *
 
 standard_library.install_aliases()
-
-try:
-    import builtins as builtins
-except ImportError:
-    import builtins
 
 
 class ProtoNet(SkidlBaseObject):
