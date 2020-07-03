@@ -43,7 +43,7 @@ def dflt_circuit_erc(circuit):
     Do an electrical rules check on a circuit.
     """
 
-    from .Net import Net
+    from .net import Net
 
     # Check the nets for errors:
     #   1. Merge names to get a single name for all multi-segment nets.
@@ -66,7 +66,7 @@ def dflt_part_erc(part):
     Do an electrical rules check on a part in the schematic.
     """
 
-    from .Pin import Pin
+    from .pin import Pin
 
     # Don't check this part if the flag is not true.
     if not part.do_erc:
@@ -99,7 +99,7 @@ def dflt_net_erc(net):
     Do electrical rules check on a net in the schematic.
     """
 
-    from .Pin import Pin
+    from .pin import Pin
 
     net.test_validity()
 

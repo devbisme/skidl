@@ -52,7 +52,7 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
     """
 
     from ..skidl import lib_suffixes, logger
-    from ..SchLib import SchLib
+    from ..schlib import SchLib
     from ..defines import SKIDL
     from ..utilities import find_and_open_file
 

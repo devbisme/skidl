@@ -59,7 +59,7 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
     """
 
     from ..skidl import lib_suffixes
-    from ..Part import Part
+    from ..part import Part
 
     # Try to open the file. Add a .lib extension if needed. If the file
     # doesn't open, then try looking in the KiCad library directory.
@@ -195,7 +195,7 @@ def _parse_lib_part_(self, get_name_only=False):
             will be parsed if the part is actually used.
     """
 
-    from ..Pin import Pin
+    from ..pin import Pin
 
     _DEF_KEYS = [
         "name",

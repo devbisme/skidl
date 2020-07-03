@@ -35,9 +35,9 @@ from future import standard_library
 from ..common import *
 from ..defines import *
 from ..logger import logger
-from ..Net import Net
-from ..Part import Part
-from ..Pin import Pin, PinList
+from ..net import Net
+from ..part import Part
+from ..pin import Pin, PinList
 from ..utilities import *
 
 standard_library.install_aliases()
@@ -66,8 +66,8 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
     """
 
     from ..skidl import lib_suffixes
-    from ..Part import Part
-    from ..Pin import Pin
+    from ..part import Part
+    from ..pin import Pin
 
     # Try to open the file. Add a .lib extension if needed. If the file
     # doesn't open, then try looking in the KiCad library directory.
