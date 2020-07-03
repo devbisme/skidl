@@ -59,7 +59,7 @@ class SkidlBaseObject(object):
     def __getattr__(self, key):
         try:
             # Don't use super()!! It leads to long run times on Python 2.7.
-            return self.__class__.__getattribute__(self, "fields")[key]
+            return self.__getattribute__("fields")[key]
         except KeyError:
             raise AttributeError
 
