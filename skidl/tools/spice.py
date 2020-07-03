@@ -27,6 +27,9 @@ Handler for reading SPICE libraries.
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+from builtins import object
+from future import standard_library
+standard_library.install_aliases()
 import os.path
 from builtins import dict, int, range, str, zip
 
@@ -196,7 +199,7 @@ def _mk_subckt_part(defn="XXX"):
 # Classes for device and xspice models.
 
 
-class XspiceModel:
+class XspiceModel(object):
     """
     Object to hold the parameters for an XSPICE model.
     """

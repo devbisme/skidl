@@ -28,6 +28,8 @@ Handler for reading Kicad libraries and generating netlists.
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+from future import standard_library
+standard_library.install_aliases()
 import os.path
 import re
 import time

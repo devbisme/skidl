@@ -27,6 +27,8 @@ Routines for getting information about a script.
 """
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+from future import standard_library
+standard_library.install_aliases()
 import inspect
 import os
 import sys
@@ -75,7 +77,7 @@ def scriptinfo():
     # if trc did not contain directory information,
     # the current working directory is what we need
     if not scriptdir:
-        scriptdir = os.getcwd()
+        scriptdir = os.getcwdu()
 
     scr_dict = {"name": trc, "source": trc, "dir": scriptdir}
     return scr_dict

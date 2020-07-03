@@ -41,7 +41,7 @@ standard_library.install_aliases()
 
 
 try:
-    import __builtin__ as builtins
+    import builtins as builtins
 except ImportError:
     import builtins
 

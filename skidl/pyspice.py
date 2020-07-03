@@ -10,7 +10,13 @@
 """
 Import this file to reconfigure SKiDL for doing SPICE simulations.
 """
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
 
+from future import standard_library
+standard_library.install_aliases()
 from skidl import *
 
 # PySpice only works with Python 3, so don't set up SPICE simulation for Python 2.

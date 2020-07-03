@@ -16,7 +16,13 @@ imported into a PCB layout tool or Spice simulator.
 The script can also
 check the resulting circuitry for electrical rule violations.
 """
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
 
+from future import standard_library
+standard_library.install_aliases()
 from . import tools
 from .Alias import *
 from .AttrDict import *
