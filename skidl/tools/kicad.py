@@ -186,13 +186,13 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
 DrawArc = namedtuple(
     "DrawArc",
     [
-        "posx",
-        "posy",
+        "cx",
+        "cy",
         "radius",
         "start_angle",
         "end_angle",
         "unit",
-        "convert",
+        "dmg",
         "thickness",
         "fill",
         "startx",
@@ -203,33 +203,33 @@ DrawArc = namedtuple(
 )
 
 DrawCircle = namedtuple(
-    "DrawCircle", ["posx", "posy", "radius", "unit", "convert", "thickness", "fill"]
+    "DrawCircle", ["cx", "cy", "radius", "unit", "dmg", "thickness", "fill"]
 )
 
 DrawPoly = namedtuple(
-    "DrawPoly", ["point_count", "unit", "convert", "thickness", "points", "fill"]
+    "DrawPoly", ["point_count", "unit", "dmg", "thickness", "points", "fill"]
 )
 
 DrawRect = namedtuple(
     "DrawRect",
-    ["startx", "starty", "endx", "endy", "unit", "convert", "thickness", "fill",],
+    ["x1", "y1", "x2", "y2", "unit", "dmg", "thickness", "fill",],
 )
 
 DrawText = namedtuple(
     "DrawText",
     [
-        "direction",
-        "posx",
-        "posy",
-        "text_size",
-        "text_type",
+        "angle",
+        "x",
+        "y",
+        "size",
+        "hidden",
         "unit",
-        "convert",
+        "dmg",
         "text",
         "italic",
         "bold",
-        "hjustify",
-        "vjustify",
+        "halign",
+        "valign",
     ],
 )
 
@@ -237,15 +237,15 @@ DrawPin = namedtuple(
     "DrawPin",
     [
         "name",
-        "num",
-        "posx",
-        "posy",
+        "pin",
+        "x",
+        "y",
         "length",
-        "direction",
-        "num_text_size",
-        "name_text_size",
+        "orientation",
+        "num_size",
+        "name_size",
         "unit",
-        "convert",
+        "dmg",
         "electrical_type",
         "shape",
     ],
@@ -836,7 +836,7 @@ def _gen_svg_comp_(self):
     for obj in self.draw:
         if isinstance(obj, DrawArc):
             arc = obj
-            center = Point(arc.posx, -arc.posy) * scale
+            center = Point(arc.cx, -arc.cy) * scale
             radius = arc.radius * scale
             start = Point(arc.startx, -arc.starty) * scale
             end = Point(arc.endx, -arc.endy) * scale
@@ -857,7 +857,7 @@ def _gen_svg_comp_(self):
             )
         elif isinstance(obj, DrawCircle):
             circle = obj
-            center = Point(circle.posx, -circle.posy) * scale
+            center = Point(circle.cx, -circle.cy) * scale
             radius = circle.radius * scale
             thickness = max(circle.thickness * scale, 1)
             fill = fill_tbl.get(circle.fill, "")
@@ -893,9 +893,9 @@ def _gen_svg_comp_(self):
             svg.append("".join(path))
         elif isinstance(obj, DrawRect):
             rect = obj
-            start = Point(rect.startx, -rect.starty)
+            start = Point(rect.x1, -rect.y1)
             start = start * scale
-            end = Point(rect.endx, -rect.endy)
+            end = Point(rect.x2, -rect.y2)
             end = end * scale
             bbox.add(start)
             bbox.add(end)
@@ -912,30 +912,16 @@ def _gen_svg_comp_(self):
             )
         elif isinstance(obj, DrawText):
             text = obj
-            text_org = Point(text.posx, -text.posy)
-            text_org = text_org * scale
-            text_rotation = text.direction
-            text_size = text.text_size * scale
+            origin = Point(text.x, -text.y) * scale
+            angle = text.angle
+            text_size = text.size * scale
             style = "font-size: {text_size}".format(**locals())
             class_ = "text"
             svg.append(
-                '<text x="{text_org.x}" y="{text_org.y}" rotate="{text_rotation}" style="{style}" class="{class_}">{text.text}</text>'.format(
+                '<text x="{origin.x}" y="{origin.y}" transform="rotate({angle} {origin.x} {origin.y}" style="{style}" class="{class_}">{text.text}</text>'.format(
                     **locals()
                 )
             )
-        # "direction",
-        # "posx",
-        # "posy",
-        # "text_size",
-        # "text_type",
-        # "unit",
-        # "convert",
-        # "text",
-        # "italic",
-        # "bold",
-        # "hjustify",
-        # "vjustify",
-
         elif isinstance(obj, DrawPin):
             pin = obj
             try:
@@ -945,9 +931,9 @@ def _gen_svg_comp_(self):
                 pass  # No pin shape given, so it is visible by default.
             name = pin.name
             num = pin.num
-            start = Point(pin.posx, -pin.posy) * scale
+            start = Point(pin.x, -pin.y) * scale
             l = pin.length * scale
-            dir = pin_dir_tbl[pin.direction].direction
+            dir = pin_dir_tbl[pin.orientation].direction
             end = start + dir * l
             bbox.add(start)
             bbox.add(end)
