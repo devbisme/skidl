@@ -927,23 +927,25 @@ def _gen_svg_comp_(self):
                     continue  # Skip invisible pins
             except IndexError:
                 pass  # No pin shape given, so it is visible by default.
+
+            # Start pin group.
             start = Point(pin.x, -pin.y) * scale
+            side = pin_dir_tbl[pin.orientation].side
+            svg.append(
+                '<g s:x="{start.x}" s:y="{start.y}" s:pid="{pin.num}" s:position="{side}">'.format(
+                    **locals()
+                )
+            )
+
+            # Create line for pin lead.
             l = pin.length * scale
             dir = pin_dir_tbl[pin.orientation].direction
             end = start + dir * l
             bbox.add(start)
             bbox.add(end)
-            side = pin_dir_tbl[pin.orientation].side
             class_ = "$cell_id connect"
             svg.append(
                 '<path d="M {start.x} {start.y} L {end.x} {end.y}" class="{class_}"/>'.format(
-                    **locals()
-                )
-            )
-
-            # Start pin group.
-            svg.append(
-                '<g s:x="{start.x}" s:y="{start.y}" s:pid="{pin.num}" s:position="{side}">'.format(
                     **locals()
                 )
             )
@@ -964,21 +966,22 @@ def _gen_svg_comp_(self):
                     num_offset,
                 )
             )
-            name_justify = pin_dir_tbl[pin.orientation].name_justify
-            name_size = pin.name_size * scale
-            name_offset = (
-                pin_dir_tbl[pin.orientation].name_offset * name_size * scale
-            )
-            svg.append(
-                draw_text(
-                    str(pin.name),
-                    name_size,
-                    name_justify,
-                    end,
-                    angle,
-                    name_offset,
+            if pin.name != "~":
+                name_justify = pin_dir_tbl[pin.orientation].name_justify
+                name_size = pin.name_size * scale
+                name_offset = (
+                    pin_dir_tbl[pin.orientation].name_offset * name_size * scale
                 )
-            )
+                svg.append(
+                    draw_text(
+                        str(pin.name),
+                        name_size,
+                        name_justify,
+                        end,
+                        angle,
+                        name_offset,
+                    )
+                )
 
             svg.append("</g>")
 
