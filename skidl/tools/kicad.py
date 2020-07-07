@@ -237,7 +237,7 @@ DrawPin = namedtuple(
     "DrawPin",
     [
         "name",
-        "pin",
+        "num",
         "x",
         "y",
         "length",
@@ -802,7 +802,7 @@ def _gen_svg_comp_(self):
         size = size * scale
         origin = origin * scale
         offset = offset * scale
-        return "<text font-size='{size}' text-anchor='{justify}' x='{origin.x}' y='{origin.y}' transform='rotate({rotation} {origin.x} {origin.y}) translate({offset.x} {offset.y})'>{text}</text>".format(
+        return "<text font-size='{size}' class='text' text-anchor='{justify}' x='{origin.x}' y='{origin.y}' transform='rotate({rotation} {origin.x} {origin.y}) translate({offset.x} {offset.y})'>{text}</text>".format(
             **locals()
         )
 
@@ -810,7 +810,7 @@ def _gen_svg_comp_(self):
 
     PinDir = namedtuple(
         "PinDir",
-        "direction side text_rotation num_justify name_justify num_offset name_offset",
+        "direction side angle num_justify name_justify num_offset name_offset",
     )
     pin_dir_tbl = {
         "U": PinDir(
@@ -914,14 +914,12 @@ def _gen_svg_comp_(self):
             text = obj
             origin = Point(text.x, -text.y) * scale
             angle = text.angle
-            text_size = text.size * scale
-            style = "font-size: {text_size}".format(**locals())
+            size = text.size * scale
+            style = "font-size: {size} ".format(**locals())
             class_ = "text"
-            svg.append(
-                '<text x="{origin.x}" y="{origin.y}" transform="rotate({angle} {origin.x} {origin.y}" style="{style}" class="{class_}">{text.text}</text>'.format(
-                    **locals()
-                )
-            )
+            justify = {'L':'start', 'C':'middle', 'R':'end'}[text.halign]
+            offset = {'T':Point(0, 1), 'B':Point(0, 0), 'C':Point(0, 0.5)}[text.valign] * scale
+            svg.append(draw_text(text.text, size, justify, origin, angle, offset))
         elif isinstance(obj, DrawPin):
             pin = obj
             try:
@@ -929,15 +927,13 @@ def _gen_svg_comp_(self):
                     continue  # Skip invisible pins
             except IndexError:
                 pass  # No pin shape given, so it is visible by default.
-            name = pin.name
-            num = pin.num
             start = Point(pin.x, -pin.y) * scale
             l = pin.length * scale
             dir = pin_dir_tbl[pin.orientation].direction
             end = start + dir * l
             bbox.add(start)
             bbox.add(end)
-            side = pin_dir_tbl[pin.direction].side
+            side = pin_dir_tbl[pin.orientation].side
             class_ = "$cell_id connect"
             svg.append(
                 '<path d="M {start.x} {start.y} L {end.x} {end.y}" class="{class_}"/>'.format(
@@ -947,40 +943,39 @@ def _gen_svg_comp_(self):
 
             # Start pin group.
             svg.append(
-                '<g s:x="{start.x}" s:y="{start.y}" s:pid="{num}" s:position="{side}">'.format(
+                '<g s:x="{start.x}" s:y="{start.y}" s:pid="{pin.num}" s:position="{side}">'.format(
                     **locals()
                 )
             )
 
             # Place pin name/number groups *inside* the group for the pin or else netlistsvg
             # will have a fit if it sees the <g>...</g> for the rotated name/number.
-            text_org = end
-            text_rotation = pin_dir_tbl[pin.direction].text_rotation
-            num_justify = pin_dir_tbl[pin.direction].num_justify
-            name_justify = pin_dir_tbl[pin.direction].name_justify
-            num_text_size = pin.num_text_size * scale
-            name_text_size = pin.name_text_size * scale
-            num_offset = pin_dir_tbl[pin.direction].num_offset * num_text_size * scale
-            name_offset = (
-                pin_dir_tbl[pin.direction].name_offset * name_text_size * scale
-            )
+            angle = pin_dir_tbl[pin.orientation].angle
+            num_justify = pin_dir_tbl[pin.orientation].num_justify
+            num_size = pin.num_size * scale
+            num_offset = pin_dir_tbl[pin.orientation].num_offset * num_size * scale
             svg.append(
                 draw_text(
-                    str(num),
-                    num_text_size,
+                    str(pin.num),
+                    num_size,
                     num_justify,
-                    text_org,
-                    text_rotation,
+                    end,
+                    angle,
                     num_offset,
                 )
             )
+            name_justify = pin_dir_tbl[pin.orientation].name_justify
+            name_size = pin.name_size * scale
+            name_offset = (
+                pin_dir_tbl[pin.orientation].name_offset * name_size * scale
+            )
             svg.append(
                 draw_text(
-                    str(name),
-                    name_text_size,
+                    str(pin.name),
+                    name_size,
                     name_justify,
-                    text_org,
-                    text_rotation,
+                    end,
+                    angle,
                     name_offset,
                 )
             )
