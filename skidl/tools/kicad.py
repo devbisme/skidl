@@ -808,18 +808,19 @@ def _gen_svg_comp_(self):
         "PinDir",
         "direction side angle num_justify name_justify num_offset name_offset",
     )
+    h_offset = 50
     pin_dir_tbl = {
         "U": PinDir(
-            Point(0, -1), "bottom", -90, "end", "start", Point(-1, -0.3), Point(1, 0.5)
+            Point(0, -1), "bottom", -90, "end", "start", Point(-h_offset, -0.3), Point(h_offset, 0.5)
         ),
         "D": PinDir(
-            Point(0, 1), "top", -90, "start", "end", Point(1, -0.3), Point(-1, 0.5)
+            Point(0, 1), "top", -90, "start", "end", Point(h_offset, -0.3), Point(-h_offset, 0.5)
         ),
         "L": PinDir(
-            Point(-1, 0), "right", 0, "start", "end", Point(1, -0.3), Point(-1, 0.5)
+            Point(-1, 0), "right", 0, "start", "end", Point(h_offset, -0.3), Point(-h_offset, 0.5)
         ),
         "R": PinDir(
-            Point(1, 0), "left", 0, "end", "start", Point(-1, -0.3), Point(1, 0.5)
+            Point(1, 0), "left", 0, "end", "start", Point(-h_offset, -0.3), Point(h_offset, 0.5)
         ),
     }
 
@@ -913,7 +914,7 @@ def _gen_svg_comp_(self):
             justify = {"L": "start", "C": "middle", "R": "end"}[text.halign]
             offset = {"T": Point(0, 1), "B": Point(0, 0), "C": Point(0, 0.5)}[
                 text.valign
-            ] * scale
+            ] * size * scale
             svg.append(draw_text(text.text, size, justify, origin, angle, offset))
         elif isinstance(obj, DrawPin):
             pin = obj
@@ -949,7 +950,9 @@ def _gen_svg_comp_(self):
             angle = pin_dir_tbl[pin.orientation].angle
             num_justify = pin_dir_tbl[pin.orientation].num_justify
             num_size = pin.num_size * scale
-            num_offset = pin_dir_tbl[pin.orientation].num_offset * num_size * scale
+            num_offset = pin_dir_tbl[pin.orientation].num_offset
+            num_offset.y = num_offset.y * num_size
+            num_offset = num_offset * scale
             svg.append(
                 draw_text(str(pin.num), num_size, num_justify, end, angle, num_offset)
             )
@@ -958,9 +961,9 @@ def _gen_svg_comp_(self):
             if pin.name != "~":
                 name_justify = pin_dir_tbl[pin.orientation].name_justify
                 name_size = pin.name_size * scale
-                name_offset = (
-                    pin_dir_tbl[pin.orientation].name_offset * name_size * scale
-                )
+                name_offset = pin_dir_tbl[pin.orientation].name_offset
+                name_offset.y = name_offset.y * name_size
+                name_offset = name_offset * scale
                 svg.append(
                     draw_text(
                         str(pin.name), name_size, name_justify, end, angle, name_offset
