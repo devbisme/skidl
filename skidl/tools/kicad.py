@@ -211,8 +211,7 @@ DrawPoly = namedtuple(
 )
 
 DrawRect = namedtuple(
-    "DrawRect",
-    ["x1", "y1", "x2", "y2", "unit", "dmg", "thickness", "fill",],
+    "DrawRect", ["x1", "y1", "x2", "y2", "unit", "dmg", "thickness", "fill",],
 )
 
 DrawText = namedtuple(
@@ -798,10 +797,7 @@ def _gen_xml_net_(self):
 
 
 def _gen_svg_comp_(self):
-    def draw_text(text, size, justify, origin, rotation, offset, scale=1.0):
-        size = size * scale
-        origin = origin * scale
-        offset = offset * scale
+    def draw_text(text, size, justify, origin, rotation, offset):
         return "<text font-size='{size}' class='text' text-anchor='{justify}' x='{origin.x}' y='{origin.y}' transform='rotate({rotation} {origin.x} {origin.y}) translate({offset.x} {offset.y})'>{text}</text>".format(
             **locals()
         )
@@ -816,7 +812,9 @@ def _gen_svg_comp_(self):
         "U": PinDir(
             Point(0, -1), "bottom", -90, "end", "start", Point(-1, -0.3), Point(1, 0.5)
         ),
-        "D": PinDir(Point(0, 1), "top", -90, "start", "end", Point(1, -0.3), Point(-1, 0.5)),
+        "D": PinDir(
+            Point(0, 1), "top", -90, "start", "end", Point(1, -0.3), Point(-1, 0.5)
+        ),
         "L": PinDir(
             Point(-1, 0), "right", 0, "start", "end", Point(1, -0.3), Point(-1, 0.5)
         ),
@@ -826,8 +824,8 @@ def _gen_svg_comp_(self):
     }
 
     fill_tbl = {
-        "F": "outline_fill",
-        "f": "background_fill",
+        "F": "#000",  # Black fill.
+        "f": "#ffc"   # Light-yellow fill.
     }
 
     bbox = BBox()
@@ -846,12 +844,11 @@ def _gen_svg_comp_(self):
             large_arc = int(abs(end_angle - start_angle) > 180)
             thickness = max(arc.thickness * scale, 1)
             fill = fill_tbl.get(arc.fill, "")
-            class_ = "$cell_id symbol {fill}".format(**locals())
             radius_pt = Point(radius, radius)
             bbox.add(center - radius_pt)
             bbox.add(center + radius_pt)
             svg.append(
-                '<path d="M {start.x} {start.y} A {radius} {radius} 0 {large_arc} {clock_wise} {end.x} {end.y}" style="stroke-width: {thickness}" class="{class_}"/>'.format(
+                '<path d="M {start.x} {start.y} A {radius} {radius} 0 {large_arc} {clock_wise} {end.x} {end.y}" style="stroke-width:{thickness}; fill:{fill}" class="$cell_id symbol"/>'.format(
                     **locals()
                 )
             )
@@ -861,12 +858,11 @@ def _gen_svg_comp_(self):
             radius = circle.radius * scale
             thickness = max(circle.thickness * scale, 1)
             fill = fill_tbl.get(circle.fill, "")
-            class_ = "$cell_id symbol {fill}".format(**locals())
             radius_pt = Point(radius, radius)
             bbox.add(center - radius_pt)
             bbox.add(center + radius_pt)
             svg.append(
-                '<circle cx="{center.x}" cy="{center.y}" r="{radius}" style="stroke-width:{thickness}" class="{class_}"/>'.format(
+                '<circle cx="{center.x}" cy="{center.y}" r="{radius}" style="stroke-width:{thickness}; fill:{fill}" class="$cell_id symbol"/>'.format(
                     **locals()
                 )
             )
@@ -885,9 +881,8 @@ def _gen_svg_comp_(self):
             path.append('" ')
             thickness = max(poly.thickness * scale, 1)
             fill = fill_tbl.get(poly.fill, "")
-            class_ = "$cell_id symbol {fill}".format(**locals())
             path.append(
-                'stroke-width="{thickness}" class="{class_}"'.format(**locals())
+                'style="stroke-width:{thickness}; fill:{fill}" class="$cell_id symbol"'.format(**locals())
             )
             path.append("/>")
             svg.append("".join(path))
@@ -904,9 +899,8 @@ def _gen_svg_comp_(self):
             rect_bbox.add(end)
             thickness = max(rect.thickness * scale, 1)
             fill = fill_tbl.get(rect.fill, "")
-            class_ = "$cell_id symbol {fill}".format(**locals())
             svg.append(
-                '<rect x="{rect_bbox.min.x}" y="{rect_bbox.min.y}" width="{rect_bbox.w}" height="{rect_bbox.h}" style="stroke-width:{thickness}" class="{class_}"/>'.format(
+                '<rect x="{rect_bbox.min.x}" y="{rect_bbox.min.y}" width="{rect_bbox.w}" height="{rect_bbox.h}" style="stroke-width:{thickness}; fill:{fill}" class="$cell_id symbol"/>'.format(
                     **locals()
                 )
             )
@@ -916,9 +910,10 @@ def _gen_svg_comp_(self):
             angle = text.angle
             size = text.size * scale
             style = "font-size: {size} ".format(**locals())
-            class_ = "text"
-            justify = {'L':'start', 'C':'middle', 'R':'end'}[text.halign]
-            offset = {'T':Point(0, 1), 'B':Point(0, 0), 'C':Point(0, 0.5)}[text.valign] * scale
+            justify = {"L": "start", "C": "middle", "R": "end"}[text.halign]
+            offset = {"T": Point(0, 1), "B": Point(0, 0), "C": Point(0, 0.5)}[
+                text.valign
+            ] * scale
             svg.append(draw_text(text.text, size, justify, origin, angle, offset))
         elif isinstance(obj, DrawPin):
             pin = obj
@@ -943,29 +938,23 @@ def _gen_svg_comp_(self):
             end = start + dir * l
             bbox.add(start)
             bbox.add(end)
-            class_ = "$cell_id connect"
+            # class_ = "$cell_id connect"
             svg.append(
-                '<path d="M {start.x} {start.y} L {end.x} {end.y}" class="{class_}"/>'.format(
+                '<path d="M {start.x} {start.y} L {end.x} {end.y}" class="$cell_id connec"/>'.format(
                     **locals()
                 )
             )
 
-            # Place pin name/number groups *inside* the group for the pin or else netlistsvg
-            # will have a fit if it sees the <g>...</g> for the rotated name/number.
+            # Create pin number.
             angle = pin_dir_tbl[pin.orientation].angle
             num_justify = pin_dir_tbl[pin.orientation].num_justify
             num_size = pin.num_size * scale
             num_offset = pin_dir_tbl[pin.orientation].num_offset * num_size * scale
             svg.append(
-                draw_text(
-                    str(pin.num),
-                    num_size,
-                    num_justify,
-                    end,
-                    angle,
-                    num_offset,
-                )
+                draw_text(str(pin.num), num_size, num_justify, end, angle, num_offset)
             )
+
+            # Create pin name.
             if pin.name != "~":
                 name_justify = pin_dir_tbl[pin.orientation].name_justify
                 name_size = pin.name_size * scale
@@ -974,12 +963,7 @@ def _gen_svg_comp_(self):
                 )
                 svg.append(
                     draw_text(
-                        str(pin.name),
-                        name_size,
-                        name_justify,
-                        end,
-                        angle,
-                        name_offset,
+                        str(pin.name), name_size, name_justify, end, angle, name_offset
                     )
                 )
 

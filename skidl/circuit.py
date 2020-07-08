@@ -596,18 +596,6 @@ text {
   font-weight: bold;
   font-family: "Courier New", monospace;
 }
-.pin_text_up {
-  text-anchor: middle;
-}
-.pin_text_down {
-  text-anchor: middle;
-}
-.pin_text_right {
-  text-anchor: end;
-}
-.pin_text_left {
-  text-anchor: start;
-}
 .nodelabel {
   text-anchor: middle;
 }
@@ -625,12 +613,6 @@ text {
   stroke-linejoin: round;
   stroke-linecap: round;
   fill: #000;
-}
-.outline_fill {
-    fill: #000;
-}
-.background_fill {
-    fill: #ffc;
 }
 </style>
 
@@ -650,9 +632,6 @@ text {
 </g>
 <!-- signal -->
 
-"""
-
-        tail_svg ="""
 <!-- builtin -->
 <g s:type="generic" s:width="30" s:height="40" transform="translate(0,0)">
   <text x="15" y="-4" class="nodelabel $cell_id" s:attribute="ref">generic</text>
@@ -675,10 +654,10 @@ text {
   </g>
 </g>
 <!-- builtin -->
+"""
 
-</svg>
-"""        
-        return head_svg + part_svg + tail_svg
+        tail_svg ="</svg>"        
+        return "\n".join([head_svg, part_svg, tail_svg])
 
     def generate_schematic(self, file_=None, tool=None):
         """
