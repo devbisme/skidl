@@ -565,8 +565,10 @@ class Circuit(SkidlBaseObject):
     def generate_skin(self):
         part_svg = {}
         for part in self.parts:
-            if part.name not in part_svg.keys():
-                part_svg[part.name] = part.generate_svg_component()
+            tx_ops = getattr(part, "tx_ops", "")
+            name = part.name + "_" + tx_ops
+            if name not in part_svg.keys():
+                part_svg[name] = part.generate_svg_component(tx_ops = tx_ops)
         part_svg = "\n".join(part_svg.values())
         head_svg = """
 <svg xmlns="http://www.w3.org/2000/svg"
@@ -717,10 +719,14 @@ text {
             port_directions = {
                 pin.num: pin_dir[pin.func] for pin in part.get_pins()
             }
+            tx_ops = getattr(part, "tx_ops", "")
             cells[part.ref] = {
-                "type": part.name,
+                "type": part.name + "_" + tx_ops,
                 "port_directions": port_directions,
                 "connections": connections,
+                "attributes": {
+                    "value": str(part.value),
+                }
             }
 
         schematic_json = {"modules": {self.name: {"ports": ports, "cells": cells,}}}

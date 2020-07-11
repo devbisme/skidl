@@ -932,7 +932,7 @@ class Part(SkidlBaseObject):
 
         return gen_func()
 
-    def generate_svg_component(self, tool=None):
+    def generate_svg_component(self, tx_ops="", tool=None):
         """
         Generate the SVG for displaying a part in a schematic.
         """
@@ -951,7 +951,7 @@ class Part(SkidlBaseObject):
                 "Can't generate SVG for a component in an unknown ECAD tool format({}).".format(tool),
             )
 
-        return gen_func()
+        return gen_func(tx_ops=tx_ops)
 
     def erc_desc(self):
         """Create description of part for ERC and other error reporting."""
