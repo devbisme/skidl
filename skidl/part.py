@@ -469,6 +469,7 @@ class Part(SkidlBaseObject):
 
                 # Make a unit in the part copy with the same pin numbers.
                 cpy.make_unit(label, *pin_nums)
+                cpy.unit[label].num = unit.num
 
             # Clear the part reference of the copied part so a unique reference
             # can be assigned when the part is added to the circuit.
@@ -789,6 +790,11 @@ class Part(SkidlBaseObject):
         # Create the part unit.
         self.unit[label] = PartUnit(self, *pin_ids, **criteria)
         add_unique_attr(self, label, self.unit[label])
+        try:
+            # Store the unit number in the unit if it's available.
+            self.unit[label].num = criteria["unit"]
+        except KeyError:
+            pass
         return self.unit[label]
 
     def create_network(self):

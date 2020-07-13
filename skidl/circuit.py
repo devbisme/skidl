@@ -46,7 +46,7 @@ from .erc import dflt_circuit_erc
 from .interface import Interface
 from .logger import erc_logger, logger
 from .net import NCNet, Net
-from .part import Part
+from .part import Part, PartUnit
 from .pin import Pin
 from .pckg_info import __version__
 from .schlib import SchLib
@@ -712,22 +712,31 @@ text {
 
         cells = {}
         for part in self.parts:
-            connections = {
-                pin.num: [net_nums[pin.net.name],] for pin in part.get_pins() if pin.net
-            }
-
-            port_directions = {
-                pin.num: pin_dir[pin.func] for pin in part.get_pins()
-            }
-            tx_ops = getattr(part, "tx_ops", "")
-            cells[part.ref] = {
-                "type": part.name + "_" + tx_ops,
-                "port_directions": port_directions,
-                "connections": connections,
-                "attributes": {
-                    "value": str(part.value),
+            units = part.unit.values()
+            if not units:
+                units = [part,]
+            for unit in units:
+                connections = {
+                    pin.num: [net_nums[pin.net.name],] for pin in unit.get_pins() if pin.net
                 }
-            }
+                port_directions = {
+                    pin.num: pin_dir[pin.func] for pin in unit.get_pins()
+                }
+                tx_ops = getattr(unit, "tx_ops", "")
+                if not isinstance(unit, PartUnit):
+                    ref = part.ref
+                    name = part.name + "_1_" + tx_ops
+                else:
+                    ref = part.ref + num_to_chars(unit.num)
+                    name = part.name + "_" + str(unit.num) + "_" + tx_ops 
+                cells[ref] = {
+                    "type": name,
+                    "port_directions": port_directions,
+                    "connections": connections,
+                    "attributes": {
+                        "value": str(part.value),
+                    }
+                }
 
         schematic_json = {"modules": {self.name: {"ports": ports, "cells": cells,}}}
 

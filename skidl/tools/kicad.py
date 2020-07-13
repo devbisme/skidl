@@ -183,11 +183,16 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
 
 # Named tuples for part DRAW primitives.
 
-DrawDef = namedtuple("DrawDef", "name ref zero name_offset show_nums show_names num_units lock_units power_symbol")
+DrawDef = namedtuple(
+    "DrawDef",
+    "name ref zero name_offset show_nums show_names num_units lock_units power_symbol",
+)
 
 DrawF0 = namedtuple("DrawF0", "ref x y size orientation visibility halign valign")
 
-DrawF1 = namedtuple("DrawF1", "name x y size orientation visibility halign valign fieldname")
+DrawF1 = namedtuple(
+    "DrawF1", "name x y size orientation visibility halign valign fieldname"
+)
 
 DrawArc = namedtuple(
     "DrawArc",
@@ -602,11 +607,9 @@ def _parse_lib_part_(self, get_name_only=False):
 
 def _gen_netlist_(self):
     scr_dict = scriptinfo()
-    src_file = os.path.join(
-        scr_dict["dir"], scr_dict["source"]
-    ) 
-    date = time.strftime("%m/%d/%Y %I:%M %p") 
-    tool = "SKiDL (" + __version__ + ")" 
+    src_file = os.path.join(scr_dict["dir"], scr_dict["source"])
+    date = time.strftime("%m/%d/%Y %I:%M %p")
+    tool = "SKiDL (" + __version__ + ")"
     template = (
         "(export (version D)\n"
         + "  (design\n"
@@ -639,8 +642,8 @@ def _gen_netlist_comp_(self):
         footprint = "No Footprint"
     footprint = add_quotes(footprint)
 
-    lib = add_quotes(getattr(self, "lib", "NO_LIB")) 
-    name = add_quotes(self.name) 
+    lib = add_quotes(getattr(self, "lib", "NO_LIB"))
+    name = add_quotes(self.name)
 
     # Embed the hierarchy along with a random integer into the sheetpath for each component.
     # This enables hierarchical selection in pcbnew.
@@ -677,12 +680,12 @@ def _gen_netlist_comp_(self):
 
 
 def _gen_netlist_net_(self):
-    code = add_quotes(self.code) 
-    name = add_quotes(self.name) 
+    code = add_quotes(self.code)
+    name = add_quotes(self.name)
     txt = "    (net (code {code}) (name {name})".format(**locals())
     for p in sorted(self.get_pins(), key=str):
-        part_ref = add_quotes(p.part.ref) 
-        pin_num = add_quotes(p.num) 
+        part_ref = add_quotes(p.part.ref)
+        pin_num = add_quotes(p.num)
         txt += "\n      (node (ref {part_ref}) (pin {pin_num}))".format(**locals())
     txt += ")"
     return txt
@@ -690,11 +693,9 @@ def _gen_netlist_net_(self):
 
 def _gen_xml_(self):
     scr_dict = scriptinfo()
-    src_file = os.path.join(
-        scr_dict["dir"], scr_dict["source"]
-    )
-    date = time.strftime("%m/%d/%Y %I:%M %p") 
-    tool = "SKiDL (" + __version__ + ")" 
+    src_file = os.path.join(scr_dict["dir"], scr_dict["source"])
+    date = time.strftime("%m/%d/%Y %I:%M %p")
+    tool = "SKiDL (" + __version__ + ")"
     template = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         + '<export version="D">\n'
@@ -723,13 +724,13 @@ def _gen_xml_comp_(self):
     value = self.value_str
 
     try:
-        footprint = self.footprint 
+        footprint = self.footprint
     except AttributeError:
         logger.error("No footprint for {part}/{ref}.".format(part=self.name, ref=ref))
         footprint = "No Footprint"
 
-    lib = add_quotes(getattr(self, "lib", "NO_LIB")) 
-    name = self.name 
+    lib = add_quotes(getattr(self, "lib", "NO_LIB"))
+    name = self.name
 
     fields = ""
     for fld_name, fld_value in self.fields.items():
@@ -756,132 +757,161 @@ def _gen_xml_comp_(self):
 
 
 def _gen_xml_net_(self):
-    code = self.code 
-    name = self.name 
+    code = self.code
+    name = self.name
     txt = '    <net code="{code}" name="{name}">'.format(**locals())
     for p in self.get_pins():
-        part_ref = p.part.ref 
-        pin_num = p.num 
+        part_ref = p.part.ref
+        pin_num = p.num
         txt += '\n      <node ref="{part_ref}" pin="{pin_num}"/>'.format(**locals())
     txt += "\n    </net>"
     return txt
 
 
 def _gen_svg_comp_(self, tx_ops):
+    """Generate SVG for a component."""
 
     def tx(obj, ops):
+        """Transform object according to the list of opcodes."""
+
         def H(obj):
             # Flip horizontally.
             if isinstance(obj, Point):
                 return Point(-obj.x, obj.y)
-            if isinstance(obj, (float,int)):
+            if isinstance(obj, (float, int)):
                 return 180.0 - obj
             else:
-                return {'U': 'U', 'D': 'D', 'L': 'R', 'R': 'L'}[obj]
+                return {"U": "U", "D": "D", "L": "R", "R": "L"}[obj]
+
         def V(obj):
             # Flip vertically.
             if isinstance(obj, Point):
                 return Point(obj.x, -obj.y)
-            if isinstance(obj, (float,int)):
+            if isinstance(obj, (float, int)):
                 return -obj
             else:
-                return {'U': 'D', 'D': 'U', 'L': 'L', 'R': 'R'}[obj]
+                return {"U": "D", "D": "U", "L": "L", "R": "R"}[obj]
+
         def R(obj):
             # Rotate right.
             if isinstance(obj, Point):
                 return Point(-obj.y, obj.x)
-            if isinstance(obj, (float,int)):
+            if isinstance(obj, (float, int)):
                 return obj + 90.0
-            else:            
-                return {'U': 'R', 'D': 'L', 'L': 'U', 'R': 'D'}[obj]
+            else:
+                return {"U": "R", "D": "L", "L": "U", "R": "D"}[obj]
+
         def L(obj):
             # Rotate left.
             if isinstance(obj, Point):
                 return Point(obj.y, -obj.x)
-            if isinstance(obj, (float,int)):
+            if isinstance(obj, (float, int)):
                 return obj - 90.0
-            else:            
-                return {'U': 'L', 'D': 'R', 'L': 'D', 'R': 'U'}[obj]
+            else:
+                return {"U": "L", "D": "R", "L": "D", "R": "U"}[obj]
+
+        # Each character in ops applies a geometrical transformation.
         for op in ops:
-            obj = locals()[op](obj)
+            obj = locals()[op](obj)  # op selects the H, V, L, or R subroutine.
         return obj
-            
+
     def draw_text(text, size, justify, origin, rotation, offset, extra=""):
-        return "<text font-size='{size}' class='text' text-anchor='{justify}' x='{origin.x}' y='{origin.y}' transform='rotate({rotation} {origin.x} {origin.y}) translate({offset.x} {offset.y})' {extra}>{text}</text>".format(
-            **locals()
-        )
+        return " ".join(
+            [
+                "<text",
+                "font-size='{size}'",
+                "class='text'",
+                "text-anchor='{justify}'",
+                "x='{origin.x}' y='{origin.y}'",
+                "transform='rotate({rotation} {origin.x} {origin.y}) translate({offset.x} {offset.y})'",
+                "{extra}",
+                ">",
+                "{text}",
+                "</text>",
+            ]
+        ).format(**locals())
 
     scale = 0.30  # Scale of KiCad units to SVG units.
 
-    abs_xoff = 20  # Absolute distance of name/num from end of pin.
-    rel_yoff_num = -0.1  # Relative distance of number above pin line.
-    rel_yoff_name = (
-        0.2  # Relative distance that places name midline even with pin line.
-    )
+    def make_pin_dir_tbl(abs_xoff = 20):
 
-    # Tuple for storing information about pins in each of four directions:
-    #     direction: The direction the pin line is drawn from start to end.
-    #     side: The side of the symbol the pin is on.
-    #     angle: The angle of the name/number text for the pin (usually 0, 90, 180, ...).
-    #     num_justify: Text justification of the pin number.
-    #     name_justify: Text justification of the pin name.
-    #     num_offset: (x,y) offset of the pin number w.r.t. the end of the pin.
-    #     name_offset: (x,y) offset of the pin name w.r.t. the end of the pin.
-    PinDir = namedtuple(
-        "PinDir",
-        "direction side angle num_justify name_justify num_offset name_offset",
-    )
-    pin_dir_tbl = {
-        "U": PinDir(
-            Point(0, -1),
-            "bottom",
-            -90,
-            "end",
-            "start",
-            Point(-abs_xoff, rel_yoff_num),
-            Point(abs_xoff, rel_yoff_name),
-        ),
-        "D": PinDir(
-            Point(0, 1),
-            "top",
-            -90,
-            "start",
-            "end",
-            Point(abs_xoff, rel_yoff_num),
-            Point(-abs_xoff, rel_yoff_name),
-        ),
-        "L": PinDir(
-            Point(-1, 0),
-            "right",
-            0,
-            "start",
-            "end",
-            Point(abs_xoff, rel_yoff_num),
-            Point(-abs_xoff, rel_yoff_name),
-        ),
-        "R": PinDir(
-            Point(1, 0),
-            "left",
-            0,
-            "end",
-            "start",
-            Point(-abs_xoff, rel_yoff_num),
-            Point(abs_xoff, rel_yoff_name),
-        ),
-    }
+        # abs_xoff is the absolute distance of name/num from the end of the pin.
+        rel_yoff_num = -0.1  # Relative distance of number above pin line.
+        rel_yoff_name = (
+            0.2  # Relative distance that places name midline even with pin line.
+        )
 
+        # Tuple for storing information about pins in each of four directions:
+        #     direction: The direction the pin line is drawn from start to end.
+        #     side: The side of the symbol the pin is on. (Opposite of the direction.)
+        #     angle: The angle of the name/number text for the pin (usually 0, -90.).
+        #     num_justify: Text justification of the pin number.
+        #     name_justify: Text justification of the pin name.
+        #     num_offset: (x,y) offset of the pin number w.r.t. the end of the pin.
+        #     name_offset: (x,y) offset of the pin name w.r.t. the end of the pin.
+        PinDir = namedtuple(
+            "PinDir",
+            "direction side angle num_justify name_justify num_offset name_offset",
+        )
+
+        return {
+            "U": PinDir(
+                Point(0, -1),
+                "bottom",
+                -90,
+                "end",
+                "start",
+                Point(-abs_xoff, rel_yoff_num),
+                Point(abs_xoff, rel_yoff_name),
+            ),
+            "D": PinDir(
+                Point(0, 1),
+                "top",
+                -90,
+                "start",
+                "end",
+                Point(abs_xoff, rel_yoff_num),
+                Point(-abs_xoff, rel_yoff_name),
+            ),
+            "L": PinDir(
+                Point(-1, 0),
+                "right",
+                0,
+                "start",
+                "end",
+                Point(abs_xoff, rel_yoff_num),
+                Point(-abs_xoff, rel_yoff_name),
+            ),
+            "R": PinDir(
+                Point(1, 0),
+                "left",
+                0,
+                "end",
+                "start",
+                Point(-abs_xoff, rel_yoff_num),
+                Point(abs_xoff, rel_yoff_name),
+            ),
+        }
+
+    pin_dir_tbl = make_pin_dir_tbl()
     fill_tbl = {"F": "#000", "f": "#ffc"}  # Black fill, light-yellow fill.
 
-    svg = []  # main SVG for graphical objects in the component.
-    txt_svg = []  # SVG for text objects in the component.
-    bbox = BBox()
     for obj in self.draw:
+
+        obj_svg = []
+        obj_txt_svg = []
+        obj_bbox = BBox()
 
         if isinstance(obj, DrawDef):
             def_ = obj
-            show_name = (def_.name[0] != "~")
-            show_nums = (def_.show_nums == "Y")
-            show_names = (def_.show_names == "Y")
+            show_name = def_.name[0] != "~"
+            show_nums = def_.show_nums == "Y"
+            show_names = def_.show_names == "Y"
+            # Make structures for holding info on each part unit.
+            num_units = def_.num_units
+            unit_svg = [[] for _ in range(num_units+1)]
+            unit_txt_svg = [[] for _ in range(num_units+1)]
+            unit_bbox = [BBox() for _ in range(num_units+1)]
             # namedtuple("DrawDef", "name ref zero name_offset show_nums show_names num_units lock_units power_symbol")
 
         elif isinstance(obj, DrawF0):
@@ -890,16 +920,31 @@ def _gen_svg_comp_(self, tx_ops):
                 # F0 field is not invisible.
                 origin = tx(Point(f0.x, -f0.y), tx_ops) * scale
                 orientation = f0.orientation + f0.halign
-                dir = {"HL":"L", "HC":"L", "HR":"R", "VL":"D", "VC":"D", "VR":"U"}[orientation]
+                dir = {
+                    "HL": "L",
+                    "HC": "L",
+                    "HR": "R",
+                    "VL": "D",
+                    "VC": "D",
+                    "VR": "U",
+                }[orientation]
                 dir = tx(dir, tx_ops)
                 angle = pin_dir_tbl[dir].angle
-                # angle = tx({"H":0, "V":-90}[f0.orientation], tx_ops)
                 size = f0.size * scale
                 justify = "middle" if f0.halign == "C" else pin_dir_tbl[dir].num_justify
-                # justify = {"L": "start", "C": "middle", "R": "end"}[f0.halign]
-                offset = tx({"T": Point(0, 1), "B": Point(0, 0), "C": Point(0, 0.5)}[f0.valign[0]], tx_ops) * size
+                offset = (
+                    tx(
+                        {"T": Point(0, 1), "B": Point(0, 0), "C": Point(0, 0.5)}[
+                            f0.valign[0]
+                        ],
+                        tx_ops,
+                    )
+                    * size
+                )
                 extra = 's:attribute="ref"'
-                txt_svg.append(draw_text("X", size, justify, origin, angle, offset, extra))
+                obj_txt_svg.append(
+                    draw_text("X", size, justify, origin, angle, offset, extra)
+                )
 
         elif isinstance(obj, DrawF1):
             f1 = obj
@@ -907,16 +952,31 @@ def _gen_svg_comp_(self, tx_ops):
                 # F1 field is not invisible.
                 origin = tx(Point(f1.x, -f1.y), tx_ops) * scale
                 orientation = f1.orientation + f1.halign
-                dir = {"HL":"L", "HC":"L", "HR":"R", "VL":"D", "VC":"D", "VR":"U"}[orientation]
+                dir = {
+                    "HL": "L",
+                    "HC": "L",
+                    "HR": "R",
+                    "VL": "D",
+                    "VC": "D",
+                    "VR": "U",
+                }[orientation]
                 dir = tx(dir, tx_ops)
                 angle = pin_dir_tbl[dir].angle
-                # angle = tx({"H":0, "V":-90}[f1.orientation], tx_ops)
                 size = f1.size * scale
                 justify = "middle" if f1.halign == "C" else pin_dir_tbl[dir].num_justify
-                # justify = {"L": "start", "C": "middle", "R": "end"}[f1.halign]
-                offset = tx({"T": Point(0, 1), "B": Point(0, 0), "C": Point(0, 0.5)}[f1.valign[0]], tx_ops) * size
+                offset = (
+                    tx(
+                        {"T": Point(0, 1), "B": Point(0, 0), "C": Point(0, 0.5)}[
+                            f1.valign[0]
+                        ],
+                        tx_ops,
+                    )
+                    * size
+                )
                 extra = 's:attribute="value"'
-                txt_svg.append(draw_text("X", size, justify, origin, angle, offset, extra))
+                obj_txt_svg.append(
+                    draw_text("X", size, justify, origin, angle, offset, extra)
+                )
 
         elif isinstance(obj, DrawArc):
             arc = obj
@@ -931,9 +991,9 @@ def _gen_svg_comp_(self, tx_ops):
             thickness = max(arc.thickness * scale, 1)
             fill = fill_tbl.get(arc.fill, "")
             radius_pt = Point(radius, radius)
-            bbox.add(center - radius_pt)
-            bbox.add(center + radius_pt)
-            svg.append(
+            obj_bbox.add(center - radius_pt)
+            obj_bbox.add(center + radius_pt)
+            obj_svg.append(
                 '<path d="M {start.x} {start.y} A {radius} {radius} 0 {large_arc} {clock_wise} {end.x} {end.y}" style="stroke-width:{thickness}; fill:{fill}" class="$cell_id symbol"/>'.format(
                     **locals()
                 )
@@ -946,9 +1006,9 @@ def _gen_svg_comp_(self, tx_ops):
             thickness = max(circle.thickness * scale, 1)
             fill = fill_tbl.get(circle.fill, "")
             radius_pt = Point(radius, radius)
-            bbox.add(center - radius_pt)
-            bbox.add(center + radius_pt)
-            svg.append(
+            obj_bbox.add(center - radius_pt)
+            obj_bbox.add(center + radius_pt)
+            obj_svg.append(
                 '<circle cx="{center.x}" cy="{center.y}" r="{radius}" style="stroke-width:{thickness}; fill:{fill}" class="$cell_id symbol"/>'.format(
                     **locals()
                 )
@@ -956,13 +1016,16 @@ def _gen_svg_comp_(self, tx_ops):
 
         elif isinstance(obj, DrawPoly):
             poly = obj
-            pts = [tx(Point(x, -y), tx_ops) * scale for x, y in zip(poly.points[0::2], poly.points[1::2])]
+            pts = [
+                tx(Point(x, -y), tx_ops) * scale
+                for x, y in zip(poly.points[0::2], poly.points[1::2])
+            ]
             path = [
                 '<path d="',
             ]
             path_op = "M"
             for pt in pts:
-                bbox.add(pt)
+                obj_bbox.add(pt)
                 path.append("{path_op} {pt.x} {pt.y} ".format(**locals()))
                 path_op = "L"
             path.append('" ')
@@ -974,20 +1037,20 @@ def _gen_svg_comp_(self, tx_ops):
                 )
             )
             path.append("/>")
-            svg.append("".join(path))
+            obj_svg.append("".join(path))
 
         elif isinstance(obj, DrawRect):
             rect = obj
             start = tx(Point(rect.x1, -rect.y1), tx_ops) * scale
             end = tx(Point(rect.x2, -rect.y2), tx_ops) * scale
-            bbox.add(start)
-            bbox.add(end)
+            obj_bbox.add(start)
+            obj_bbox.add(end)
             rect_bbox = BBox()
             rect_bbox.add(start)
             rect_bbox.add(end)
             thickness = max(rect.thickness * scale, 1)
             fill = fill_tbl.get(rect.fill, "")
-            svg.append(
+            obj_svg.append(
                 '<rect x="{rect_bbox.min.x}" y="{rect_bbox.min.y}" width="{rect_bbox.w}" height="{rect_bbox.h}" style="stroke-width:{thickness}; fill:{fill}" class="$cell_id symbol"/>'.format(
                     **locals()
                 )
@@ -999,10 +1062,16 @@ def _gen_svg_comp_(self, tx_ops):
             angle = tx(text.angle, tx_ops)
             size = text.size * scale
             justify = {"L": "start", "C": "middle", "R": "end"}[text.halign]
-            offset = tx({"T": Point(0, 1), "B": Point(0, 0), "C": Point(0, 0.5)}[
-                text.valign
-            ], tx_ops) * size
-            txt_svg.append(draw_text(text.text, size, justify, origin, angle, offset))
+            offset = (
+                tx(
+                    {"T": Point(0, 1), "B": Point(0, 0), "C": Point(0, 0.5)}[
+                        text.valign
+                    ],
+                    tx_ops,
+                )
+                * size
+            )
+            obj_txt_svg.append(draw_text(text.text, size, justify, origin, angle, offset))
 
         elif isinstance(obj, DrawPin):
             pin = obj
@@ -1016,7 +1085,7 @@ def _gen_svg_comp_(self, tx_ops):
             start = tx(Point(pin.x, -pin.y), tx_ops) * scale
             orientation = tx(pin.orientation, tx_ops)
             side = pin_dir_tbl[orientation].side
-            svg.append(
+            obj_svg.append(
                 '<g s:x="{start.x}" s:y="{start.y}" s:pid="{pin.num}" s:position="{side}">'.format(
                     **locals()
                 )
@@ -1026,9 +1095,9 @@ def _gen_svg_comp_(self, tx_ops):
             l = pin.length * scale
             dir = pin_dir_tbl[orientation].direction
             end = start + dir * l
-            bbox.add(start)
-            bbox.add(end)
-            svg.append(
+            obj_bbox.add(start)
+            obj_bbox.add(end)
+            obj_svg.append(
                 '<path d="M {start.x} {start.y} L {end.x} {end.y}" class="$cell_id connec"/>'.format(
                     **locals()
                 )
@@ -1043,8 +1112,10 @@ def _gen_svg_comp_(self, tx_ops):
                 num_offset = pin_dir_tbl[orientation].num_offset * scale
                 num_offset.y = num_offset.y * pin.num_size
                 # Pin nums are text, but they go into graphical SVG because they are part of a pin object.
-                svg.append(
-                    draw_text(str(pin.num), num_size, num_justify, end, angle, num_offset)
+                obj_svg.append(
+                    draw_text(
+                        str(pin.num), num_size, num_justify, end, angle, num_offset
+                    )
                 )
 
             # Create pin name.
@@ -1054,14 +1125,14 @@ def _gen_svg_comp_(self, tx_ops):
                 name_offset = pin_dir_tbl[orientation].name_offset * scale
                 name_offset.y = name_offset.y * pin.name_size
                 # Pin names are text, but they go into graphical SVG because they are part of a pin object.
-                svg.append(
+                obj_svg.append(
                     draw_text(
                         str(pin.name), name_size, name_justify, end, angle, name_offset
                     )
                 )
 
             # End pin group.
-            svg.append("</g>")
+            obj_svg.append("</g>")
 
         else:
             logger.error(
@@ -1070,15 +1141,38 @@ def _gen_svg_comp_(self, tx_ops):
                 )
             )
 
-    # Put on the header and footer of the symbol SVG.
-    svg.insert(
-        0,
-        '<g s:type="{self.name}_{tx_ops}" s:width="{bbox.w}" s:height="{bbox.h}" transform="translate(0,0)">'.format(
-            **locals()
-        ),
-    )
-    svg.extend(txt_svg)  # Append text so it always appears on top of anything else like filled rects.
-    svg.append('<s:alias val="{self.name}_{tx_ops}"/>'.format(**locals()))
-    svg.append("</g>")
-    return "\n".join(svg)
+        # Enter the current object into the SVG for the current part unit.
+        unit = getattr(obj, "unit", 0)
+        if unit == 0:
+            # Anything in unit #0 gets added to all units.
+            for svg in unit_svg:
+                svg.extend(obj_svg)
+            for txt_svg in unit_txt_svg:
+                txt_svg.extend(obj_txt_svg)
+            for bbox in unit_bbox:
+                bbox.add(obj_bbox)
+        else:
+            unit_svg[unit].extend(obj_svg)
+            unit_txt_svg[unit].extend(obj_txt_svg)
+            unit_bbox[unit].add(obj_bbox)
 
+    def pckg_unit_svg(name, unit, tx_ops):
+        """Create complete SVG with header/footer for a unit."""
+        bbox = unit_bbox[unit]
+        svg = []
+        svg.append(
+            '<g s:type="{name}_{unit}_{tx_ops}" s:width="{bbox.w}" s:height="{bbox.h}" transform="translate(0,0)">'.format(
+                **locals()
+            ),
+        )
+        svg.extend(unit_svg[unit])
+        # Text comes last so it always appears on top of anything else like filled rects.
+        svg.extend(unit_txt_svg[unit])
+        svg.append('<s:alias val="{name}_{unit}_{tx_ops}"/>'.format(**locals()))
+        svg.append("</g>")
+        return "\n".join(svg)
+
+    svg = []
+    for unit in range(1, num_units+1):
+        svg.append(pckg_unit_svg(self.name, unit, tx_ops))
+    return "\n".join(svg)
