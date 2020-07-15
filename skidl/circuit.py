@@ -581,7 +581,7 @@ class Circuit(SkidlBaseObject):
     <s:layoutEngine
         org.eclipse.elk.layered.spacing.nodeNodeBetweenLayers="5"
         org.eclipse.elk.layered.compaction.postCompaction.strategy="4"
-        org.eclipse.elk.spacing.nodeNode= "100"
+        org.eclipse.elk.spacing.nodeNode= "20"
         org.eclipse.elk.direction="DOWN"/>
   </s:properties>
 <style>
@@ -597,6 +597,12 @@ text {
   font-size: 10px;
   font-weight: bold;
   font-family: "Courier New", monospace;
+}
+.skidl_text {
+  fill: #999;
+  stroke: none;
+  font-weight: bold;
+  font-family: consolas, "Courier New", monospace;
 }
 .nodelabel {
   text-anchor: middle;

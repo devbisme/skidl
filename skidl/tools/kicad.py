@@ -769,7 +769,7 @@ def _gen_xml_net_(self):
 
 
 def _gen_svg_comp_(self, tx_ops):
-    """Generate SVG for a component."""
+    """Generate SVG for this component."""
 
     def tx(obj, ops):
         """Transform object according to the list of opcodes."""
@@ -819,11 +819,11 @@ def _gen_svg_comp_(self, tx_ops):
         return " ".join(
             [
                 "<text",
-                "font-size='{size}'",
-                "class='text'",
+                "class='skidl_text'",
                 "text-anchor='{justify}'",
                 "x='{origin.x}' y='{origin.y}'",
                 "transform='rotate({rotation} {origin.x} {origin.y}) translate({offset.x} {offset.y})'",
+                "style='font-size:{size}px'",
                 "{extra}",
                 ">",
                 "{text}",
@@ -833,7 +833,7 @@ def _gen_svg_comp_(self, tx_ops):
 
     scale = 0.30  # Scale of KiCad units to SVG units.
 
-    def make_pin_dir_tbl(abs_xoff = 20):
+    def make_pin_dir_tbl(abs_xoff=20):
 
         # abs_xoff is the absolute distance of name/num from the end of the pin.
         rel_yoff_num = -0.1  # Relative distance of number above pin line.
@@ -893,8 +893,8 @@ def _gen_svg_comp_(self, tx_ops):
             ),
         }
 
-    pin_dir_tbl = make_pin_dir_tbl()
     fill_tbl = {"F": "#000", "f": "#ffc"}  # Black fill, light-yellow fill.
+    default_thickness = 1/scale  # Default line thickness
 
     for obj in self.draw:
 
@@ -907,12 +907,14 @@ def _gen_svg_comp_(self, tx_ops):
             show_name = def_.name[0] != "~"
             show_nums = def_.show_nums == "Y"
             show_names = def_.show_names == "Y"
+            # Make pin direction table with symbol-specific name offset.
+            # pin_dir_tbl = make_pin_dir_tbl(def_.name_offset)
+            pin_dir_tbl = make_pin_dir_tbl(20)
             # Make structures for holding info on each part unit.
             num_units = def_.num_units
-            unit_svg = [[] for _ in range(num_units+1)]
-            unit_txt_svg = [[] for _ in range(num_units+1)]
-            unit_bbox = [BBox() for _ in range(num_units+1)]
-            # namedtuple("DrawDef", "name ref zero name_offset show_nums show_names num_units lock_units power_symbol")
+            unit_svg = [[] for _ in range(num_units + 1)]
+            unit_txt_svg = [[] for _ in range(num_units + 1)]
+            unit_bbox = [BBox() for _ in range(num_units + 1)]
 
         elif isinstance(obj, DrawF0):
             f0 = obj
@@ -988,30 +990,44 @@ def _gen_svg_comp_(self, tx_ops):
             end_angle = tx(arc.end_angle / 10, tx_ops)
             clock_wise = int(end_angle < start_angle)
             large_arc = int(abs(end_angle - start_angle) > 180)
-            thickness = max(arc.thickness * scale, 1)
+            thickness = (arc.thickness or default_thickness) * scale
+            # thickness = max(arc.thickness * scale, 1)
             fill = fill_tbl.get(arc.fill, "")
             radius_pt = Point(radius, radius)
             obj_bbox.add(center - radius_pt)
             obj_bbox.add(center + radius_pt)
             obj_svg.append(
-                '<path d="M {start.x} {start.y} A {radius} {radius} 0 {large_arc} {clock_wise} {end.x} {end.y}" style="stroke-width:{thickness}; fill:{fill}" class="$cell_id symbol"/>'.format(
-                    **locals()
-                )
+                " ".join(
+                    [
+                        "<path",
+                        'd="M {start.x} {start.y} A {radius} {radius} 0 {large_arc} {clock_wise} {end.x} {end.y}"',
+                        'style="stroke-width:{thickness}; fill:{fill}"',
+                        'class="$cell_id symbol"',
+                        "/>",
+                    ]
+                ).format(**locals())
             )
 
         elif isinstance(obj, DrawCircle):
             circle = obj
             center = tx(Point(circle.cx, -circle.cy), tx_ops) * scale
             radius = circle.radius * scale
-            thickness = max(circle.thickness * scale, 1)
+            thickness = (circle.thickness or default_thickness) * scale
+            # thickness = max(circle.thickness * scale, 1)
             fill = fill_tbl.get(circle.fill, "")
             radius_pt = Point(radius, radius)
             obj_bbox.add(center - radius_pt)
             obj_bbox.add(center + radius_pt)
             obj_svg.append(
-                '<circle cx="{center.x}" cy="{center.y}" r="{radius}" style="stroke-width:{thickness}; fill:{fill}" class="$cell_id symbol"/>'.format(
-                    **locals()
-                )
+                " ".join(
+                    [
+                        "<circle",
+                        'cx="{center.x}" cy="{center.y}" r="{radius}"',
+                        'style="stroke-width:{thickness}; fill:{fill}"',
+                        'class="$cell_id symbol"',
+                        "/>",
+                    ]
+                ).format(**locals())
             )
 
         elif isinstance(obj, DrawPoly):
@@ -1020,24 +1036,27 @@ def _gen_svg_comp_(self, tx_ops):
                 tx(Point(x, -y), tx_ops) * scale
                 for x, y in zip(poly.points[0::2], poly.points[1::2])
             ]
-            path = [
-                '<path d="',
-            ]
+            path = []
             path_op = "M"
             for pt in pts:
                 obj_bbox.add(pt)
-                path.append("{path_op} {pt.x} {pt.y} ".format(**locals()))
+                path.append("{path_op} {pt.x} {pt.y}".format(**locals()))
                 path_op = "L"
-            path.append('" ')
-            thickness = max(poly.thickness * scale, 1)
+            path = " ".join(path)
+            thickness = (poly.thickness or default_thickness) * scale
+            # thickness = max(poly.thickness * scale, 1)
             fill = fill_tbl.get(poly.fill, "")
-            path.append(
-                'style="stroke-width:{thickness}; fill:{fill}" class="$cell_id symbol"'.format(
-                    **locals()
-                )
+            obj_svg.append(
+                " ".join(
+                    [
+                        "<path",
+                        'd="{path}"',
+                        'style="stroke-width:{thickness}; fill:{fill}"',
+                        'class="$cell_id symbol"',
+                        "/>",
+                    ]
+                ).format(**locals())
             )
-            path.append("/>")
-            obj_svg.append("".join(path))
 
         elif isinstance(obj, DrawRect):
             rect = obj
@@ -1045,15 +1064,21 @@ def _gen_svg_comp_(self, tx_ops):
             end = tx(Point(rect.x2, -rect.y2), tx_ops) * scale
             obj_bbox.add(start)
             obj_bbox.add(end)
-            rect_bbox = BBox()
-            rect_bbox.add(start)
-            rect_bbox.add(end)
-            thickness = max(rect.thickness * scale, 1)
+            rect_bbox = BBox(start, end)
+            thickness = (rect.thickness or default_thickness) * scale
+            # thickness = max(rect.thickness * scale, 1)
             fill = fill_tbl.get(rect.fill, "")
             obj_svg.append(
-                '<rect x="{rect_bbox.min.x}" y="{rect_bbox.min.y}" width="{rect_bbox.w}" height="{rect_bbox.h}" style="stroke-width:{thickness}; fill:{fill}" class="$cell_id symbol"/>'.format(
-                    **locals()
-                )
+                " ".join(
+                    [
+                        "<rect",
+                        'x="{rect_bbox.min.x}" y="{rect_bbox.min.y}"',
+                        'width="{rect_bbox.w}" height="{rect_bbox.h}"',
+                        'style="stroke-width:{thickness}; fill:{fill}"',
+                        'class="$cell_id symbol"',
+                        "/>",
+                    ]
+                ).format(**locals())
             )
 
         elif isinstance(obj, DrawText):
@@ -1071,15 +1096,17 @@ def _gen_svg_comp_(self, tx_ops):
                 )
                 * size
             )
-            obj_txt_svg.append(draw_text(text.text, size, justify, origin, angle, offset))
+            obj_txt_svg.append(
+                draw_text(text.text, size, justify, origin, angle, offset)
+            )
 
         elif isinstance(obj, DrawPin):
             pin = obj
+
             try:
-                if pin.shape[0] == "N":
-                    continue  # Skip invisible pins
+                visible = pin.shape[0] != "N"
             except IndexError:
-                pass  # No pin shape given, so it is visible by default.
+                visible = True  # No pin shape given, so it is visible by default.
 
             # Start pin group.
             start = tx(Point(pin.x, -pin.y), tx_ops) * scale
@@ -1091,45 +1118,61 @@ def _gen_svg_comp_(self, tx_ops):
                 )
             )
 
-            # Create line for pin lead.
-            l = pin.length * scale
-            dir = pin_dir_tbl[orientation].direction
-            end = start + dir * l
-            obj_bbox.add(start)
-            obj_bbox.add(end)
-            obj_svg.append(
-                '<path d="M {start.x} {start.y} L {end.x} {end.y}" class="$cell_id connec"/>'.format(
-                    **locals()
-                )
-            )
+            if visible:
+                # Draw pin if it's not invisible.
 
-            # Create pin number.
-            # text_org = (Point(pin.x, -pin.y) + pin_dir_tbl[pin.orientation].direction * pin.length) * scale
-            if show_nums:
-                angle = pin_dir_tbl[orientation].angle
-                num_justify = pin_dir_tbl[orientation].num_justify
-                num_size = pin.num_size * scale
-                num_offset = pin_dir_tbl[orientation].num_offset * scale
-                num_offset.y = num_offset.y * pin.num_size
-                # Pin nums are text, but they go into graphical SVG because they are part of a pin object.
+                # Create line for pin lead.
+                l = pin.length * scale
+                dir = pin_dir_tbl[orientation].direction
+                end = start + dir * l
+                thickness = default_thickness * scale
+                obj_bbox.add(start)
+                obj_bbox.add(end)
                 obj_svg.append(
-                    draw_text(
-                        str(pin.num), num_size, num_justify, end, angle, num_offset
-                    )
+                    " ".join([
+                        '<path',
+                        'd="M {start.x} {start.y} L {end.x} {end.y}"',
+                        'style="stroke-width:{thickness}"',
+                        'class="$cell_id"'
+                        '/>'
+                    ]).format(**locals())
+                    # '<path d="M {start.x} {start.y} L {end.x} {end.y}" class="$cell_id"/>'.format(
+                    #     **locals()
+                    # )
                 )
 
-            # Create pin name.
-            if pin.name != "~" and show_names:
-                name_justify = pin_dir_tbl[orientation].name_justify
-                name_size = pin.name_size * scale
-                name_offset = pin_dir_tbl[orientation].name_offset * scale
-                name_offset.y = name_offset.y * pin.name_size
-                # Pin names are text, but they go into graphical SVG because they are part of a pin object.
-                obj_svg.append(
-                    draw_text(
-                        str(pin.name), name_size, name_justify, end, angle, name_offset
+                # Create pin number.
+                # text_org = (Point(pin.x, -pin.y) + pin_dir_tbl[pin.orientation].direction * pin.length) * scale
+                if show_nums:
+                    angle = pin_dir_tbl[orientation].angle
+                    num_justify = pin_dir_tbl[orientation].num_justify
+                    num_size = pin.num_size * scale
+                    num_offset = pin_dir_tbl[orientation].num_offset * scale
+                    num_offset.y = num_offset.y * pin.num_size
+                    # Pin nums are text, but they go into graphical SVG because they are part of a pin object.
+                    obj_svg.append(
+                        draw_text(
+                            str(pin.num), num_size, num_justify, end, angle, num_offset
+                        )
                     )
-                )
+
+                # Create pin name.
+                if pin.name != "~" and show_names:
+                    name_justify = pin_dir_tbl[orientation].name_justify
+                    name_size = pin.name_size * scale
+                    name_offset = pin_dir_tbl[orientation].name_offset * scale
+                    name_offset.y = name_offset.y * pin.name_size
+                    # Pin names are text, but they go into graphical SVG because they are part of a pin object.
+                    obj_svg.append(
+                        draw_text(
+                            str(pin.name),
+                            name_size,
+                            name_justify,
+                            end,
+                            angle,
+                            name_offset,
+                        )
+                    )
 
             # End pin group.
             obj_svg.append("</g>")
@@ -1141,7 +1184,7 @@ def _gen_svg_comp_(self, tx_ops):
                 )
             )
 
-        # Enter the current object into the SVG for the current part unit.
+        # Enter the current object into the SVG for this part.
         unit = getattr(obj, "unit", 0)
         if unit == 0:
             # Anything in unit #0 gets added to all units.
@@ -1156,23 +1199,49 @@ def _gen_svg_comp_(self, tx_ops):
             unit_txt_svg[unit].extend(obj_txt_svg)
             unit_bbox[unit].add(obj_bbox)
 
-    def pckg_unit_svg(name, unit, tx_ops):
-        """Create complete SVG with header/footer for a unit."""
+    # Assemble and name the SVGs for all the part units.
+    svg = []
+    for unit in range(1, num_units + 1):
         bbox = unit_bbox[unit]
-        svg = []
+
+        # Assign part unit name.
+        symbol_name = "{self.name}_{unit}_{tx_ops}".format(**locals())
+
+        # Begin SVG for part unit.
         svg.append(
-            '<g s:type="{name}_{unit}_{tx_ops}" s:width="{bbox.w}" s:height="{bbox.h}" transform="translate(0,0)">'.format(
-                **locals()
-            ),
+            " ".join([
+                '<g',
+                's:type="{symbol_name}"',
+                's:width="{bbox.w}"',
+                's:height="{bbox.h}"',
+                'transform="translate({bbox.min.x},{bbox.min.y})"',
+                '>'
+            ]).format(**locals())
         )
+
+        # Add part alias.
+        svg.append('<s:alias val="{symbol_name}"/>'.format(**locals()))
+
+        # Place a visible bounding-box around symbol for trouble-shooting.
+        show_bbox = False
+        if show_bbox:
+            svg.append(
+                " ".join([
+                    '<rect',
+                    'x="{bbox.min.x}" y="{bbox.min.y}"',
+                    'width="{bbox.w}" height="{bbox.h}"',
+                    'style="stroke-width:3; stroke:#f00"',
+                    'class="$cell_id symbol"',
+                    '/>'
+                ]).format(**locals())
+            )
+
+        # Add part unit text and graphics.
         svg.extend(unit_svg[unit])
         # Text comes last so it always appears on top of anything else like filled rects.
         svg.extend(unit_txt_svg[unit])
-        svg.append('<s:alias val="{name}_{unit}_{tx_ops}"/>'.format(**locals()))
+        
+        # Finish SVG for part unit.
         svg.append("</g>")
-        return "\n".join(svg)
 
-    svg = []
-    for unit in range(1, num_units+1):
-        svg.append(pckg_unit_svg(self.name, unit, tx_ops))
     return "\n".join(svg)
