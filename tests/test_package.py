@@ -1,5 +1,4 @@
 import pytest
-
 from skidl import *
 
 from .setup_teardown import *
@@ -279,6 +278,18 @@ def test_package_7():
     assert len(vout2.get_pins()) == 3
     assert len(vin.get_pins()) == 4
     assert len(gnd.get_pins()) == 6
+    # check decorator has not messed up docstring for subcircuits
+    assert vreg_adj.subcircuit.__name__ == "vreg_adj"
+    assert (
+        vreg_adj.subcircuit.__doc__
+        == "Create adjustable voltage regulator with filtering caps."
+    )
+    assert vreg.subcircuit.__name__ == "vreg"
+    assert vreg.subcircuit.__doc__ == "Create voltage regulator with filtering caps."
+    assert reg_adj.subcircuit.__name__ == "reg_adj"
+    assert (
+        reg_adj.subcircuit.__doc__ == "Create voltage regulator with adjustable output."
+    )
 
 
 def test_package_8():
