@@ -565,10 +565,10 @@ class Circuit(SkidlBaseObject):
     def generate_skin(self):
         part_svg = {}
         for part in self.parts:
-            tx_ops = getattr(part, "tx_ops", "")
-            name = part.name + "_" + tx_ops
+            symtx = getattr(part, "symtx", "")
+            name = part.name + "_" + symtx
             if name not in part_svg.keys():
-                part_svg[name] = part.generate_svg_component(tx_ops = tx_ops)
+                part_svg[name] = part.generate_svg_component(symtx = symtx)
         part_svg = "\n".join(part_svg.values())
         head_svg = """
 <svg xmlns="http://www.w3.org/2000/svg"
@@ -581,7 +581,7 @@ class Circuit(SkidlBaseObject):
     <s:layoutEngine
         org.eclipse.elk.layered.spacing.nodeNodeBetweenLayers="5"
         org.eclipse.elk.layered.compaction.postCompaction.strategy="4"
-        org.eclipse.elk.spacing.nodeNode= "20"
+        org.eclipse.elk.spacing.nodeNode= "50"
         org.eclipse.elk.direction="DOWN"/>
   </s:properties>
 <style>
@@ -604,6 +604,27 @@ text {
   font-weight: bold;
   font-family: consolas, "Courier New", monospace;
 }
+.pin_num_text {
+    fill: #840000;
+}
+.pin_name_text {
+    fill: #008484;
+}
+.part_text {
+    fill: #840000;
+}
+.part_ref_text {
+    fill: #008484;
+}
+.part_name_text {
+    fill: #008484;
+}
+.pen_fill {
+    fill: #840000;
+}
+.background_fill {
+    fill: #FFFFC2
+}
 .nodelabel {
   text-anchor: middle;
 }
@@ -616,6 +637,7 @@ text {
 .symbol {
   stroke-linejoin: round;
   stroke-linecap: round;
+  stroke: #840000;
 }
 .detail {
   stroke-linejoin: round;
@@ -626,16 +648,16 @@ text {
 
 <!-- signal -->
 <g s:type="inputExt" s:width="30" s:height="20" transform="translate(0,0)">
-  <text x="15" y="-4" class="$cell_id" s:attribute="ref">input</text>
+  <text x="-2" y="12" text-anchor='end' class="$cell_id pin_name_text" s:attribute="ref">input</text>
   <s:alias val="$_inputExt_"/>
-  <path d="M0,0 V20 H15 L30,10 15,0 Z" class="$cell_id"/>
+  <path d="M0,0 V20 H15 L30,10 15,0 Z" class="$cell_id symbol"/>
   <g s:x="30" s:y="10" s:pid="Y" s:position="right"/>
 </g>
 
 <g s:type="outputExt" s:width="30" s:height="20" transform="translate(0,0)">
-  <text x="15" y="-4" class="$cell_id" s:attribute="ref">output</text>
+  <text x="32" y="12" class="$cell_id pin_name_text" s:attribute="ref">output</text>
   <s:alias val="$_outputExt_"/>
-  <path d="M30,0 V20 H15 L0,10 15,0 Z" class="$cell_id"/>
+  <path d="M30,0 V20 H15 L0,10 15,0 Z" class="$cell_id symbol"/>
   <g s:x="0" s:y="10" s:pid="A" s:position="left"/>
 </g>
 <!-- signal -->
@@ -694,6 +716,8 @@ text {
 
         ports = {}
         for net in self.nets:
+            if isinstance(net, NCNet):
+                continue  # Skip no-connect nets.
             if not net.is_implicit():
                 ports[net.name] = {
                     "direction": "input",
@@ -713,11 +737,12 @@ text {
             Pin.types.PWROUT: "output",
             Pin.types.OPENCOLL: "output",
             Pin.types.OPENEMIT: "output",
-            Pin.types.NOCONNECT: "input",
+            Pin.types.NOCONNECT: "",
         }
 
         cells = {}
         for part in self.parts:
+            part_symtx = getattr(part, "symtx", "")
             units = part.unit.values()
             if not units:
                 units = [part,]
@@ -728,13 +753,16 @@ text {
                 port_directions = {
                     pin.num: pin_dir[pin.func] for pin in unit.get_pins()
                 }
-                tx_ops = getattr(unit, "tx_ops", "")
+                port_directions = {
+                    n: d for n, d in port_directions.items() if d
+                }
+                unit_symtx = part_symtx + getattr(unit, "symtx", "")
                 if not isinstance(unit, PartUnit):
                     ref = part.ref
-                    name = part.name + "_1_" + tx_ops
+                    name = part.name + "_1_" + part_symtx
                 else:
                     ref = part.ref + num_to_chars(unit.num)
-                    name = part.name + "_" + str(unit.num) + "_" + tx_ops 
+                    name = part.name + "_" + str(unit.num) + "_" + unit_symtx 
                 cells[ref] = {
                     "type": name,
                     "port_directions": port_directions,
