@@ -32,21 +32,14 @@ from copy import copy
 
 from future import standard_library
 
-from .AttrDict import AttrDict
-from .baseobj import SkidlBaseObject
+from .skidlbaseobj import SkidlBaseObject
+from .common import *
 from .defines import *
 from .erc import dflt_part_erc
 from .logger import logger
-from .py_2_3 import *  # pylint: disable=wildcard-import
 from .utilities import *
 
 standard_library.install_aliases()
-
-
-try:
-    import __builtin__ as builtins
-except ImportError:
-    import builtins
 
 
 try:
@@ -154,7 +147,7 @@ class Part(SkidlBaseObject):
     ):
 
         import skidl
-        from .SchLib import SchLib
+        from .schlib import SchLib
 
         super().__init__()
 
@@ -173,7 +166,7 @@ class Part(SkidlBaseObject):
         self.ref_prefix = ""  # Provide a member for holding the part reference prefix.
         self.tool = tool  # Initial type of part (SKIDL, KICAD, etc.)
         self.circuit = None  # Part starts off unassociated with any circuit.
-        self.match_pin_substring = False  # Only select pins with exact name matches.
+        self.match_pin_regex = False  # Don't allow regex matches of pin names.
 
         # Create a Part from a library entry.
         if lib:
@@ -202,9 +195,6 @@ class Part(SkidlBaseObject):
             # Overwrite self with the new part.
             self.__dict__.update(part.__dict__)
 
-            # Replace the fields with a copy that points to self.
-            self.fields = part.fields.copy(attr_obj=self)
-
             # Make sure all the pins have a valid reference to this part.
             self.associate_pins()
 
@@ -230,17 +220,16 @@ class Part(SkidlBaseObject):
                 "Can't make a part without a library & part name or a part definition.",
             )
 
-        # If the part is going to be an element in a circuit, then add it to the
-        # the circuit and make any indicated pin/net connections.
         if dest != LIBRARY:
-            # If no Circuit object is given, then use the default Circuit that always exists.
-            circuit = circuit or default_circuit
             if dest == NETLIST:
+                # If the part is going to be an element in a circuit, then add it to the
+                # the circuit and make any indicated pin/net connections.
+                # If no Circuit object is given, then use the default Circuit that always exists.
+                circuit = circuit or default_circuit
                 circuit += self
             elif dest == TEMPLATE:
                 # If this is just a part template, don't add the part to the circuit.
-                # Just place the reference to the Circuit object in the template.
-                self.circuit = circuit
+                self.circuit = None
 
             # Add any net/pin connections to this part that were passed as arguments.
             if isinstance(connections, dict):
@@ -258,7 +247,7 @@ class Part(SkidlBaseObject):
         """
         Add XSPICE I/O to the pins of a part.
         """
-        from .Pin import Pin, PinList
+        from .pin import Pin, PinList
 
         if not io:
             return
@@ -302,7 +291,7 @@ class Part(SkidlBaseObject):
             reference, name, alias, or their description.
         """
 
-        from .Alias import Alias
+        from .alias import Alias
 
         if not circuit:
             circuit = builtins.default_circuit
@@ -404,8 +393,8 @@ class Part(SkidlBaseObject):
         """
 
         from .defines import NETLIST
-        from .Circuit import Circuit
-        from .Pin import Pin
+        from .circuit import Circuit
+        from .pin import Pin
 
         # If the number of copies is None, then a single copy will be made
         # and returned as a scalar (not a list). Otherwise, the number of
@@ -469,8 +458,8 @@ class Part(SkidlBaseObject):
             cpy.p = PinNumberSearch(cpy)
             cpy.n = PinNameSearch(cpy)
 
-            # Copy the part fields from the original but linked to attributes in the copy.
-            cpy.fields = self.fields.copy(attr_obj=cpy)
+            # Copy the part fields from the original.
+            cpy.fields = {k: v for k, v in self.fields.items()}
 
             # Make copies of the units in the new part copy.
             for label in self.unit:
@@ -494,14 +483,10 @@ class Part(SkidlBaseObject):
             # source came from or else add it to the default Circuit object.
             if dest == NETLIST:
                 # Place the copied part in the explicitly-stated circuit,
-                # or else into the same circuit as the source part,
+                # or the same circuit as the original,
                 # or else into the default circuit.
-                if circuit:
-                    circuit += cpy
-                elif isinstance(self.circuit, Circuit):
-                    self.circuit += cpy
-                else:
-                    builtins.default_circuit += cpy
+                circuit = circuit or self.circuit or builtins.default_circuit
+                circuit += cpy
 
             # Add any XSPICE I/O as pins to the part.
             cpy.add_xspice_io(io)
@@ -579,23 +564,21 @@ class Part(SkidlBaseObject):
                 net += atmega['RESET']  # Connects reset pin to the net.
         """
 
-        from .NetPinList import NetPinList
-        from .Alias import Alias
+        from .netpinlist import NetPinList
+        from .alias import Alias
 
         # Extract restrictions on searching for only pin names or numbers.
         only_search_numbers = criteria.pop("only_search_numbers", False)
         only_search_names = criteria.pop("only_search_names", False)
 
-        # Extract permission to search for substring matches in pin names/aliases.
-        match_substring = (
-            criteria.pop("match_substring", False) or self.match_pin_substring
-        )
+        # Extract permission to search for regex matches in pin names/aliases.
+        match_regex = criteria.pop("match_regex", False) or self.match_pin_regex
 
         # If no pin identifiers were given, then use a wildcard that will
         # select all pins.
         if not pin_ids:
             pin_ids = [".*"]
-            match_substring = ".*"  # Also turn on pin substring matching so .* works.
+            match_regex = True
 
         # Determine the minimum and maximum pin ids if they don't already exist.
         if "min_pin" not in dir(self) or "max_pin" not in dir(self):
@@ -603,9 +586,7 @@ class Part(SkidlBaseObject):
 
         # Go through the list of pin IDs one-by-one.
         pins = NetPinList()
-        for p_id in expand_indices(
-            self.min_pin, self.max_pin, match_substring, *pin_ids
-        ):
+        for p_id in expand_indices(self.min_pin, self.max_pin, match_regex, *pin_ids):
 
             # If only names are being searched, the search of pin numbers is skipped.
             if not only_search_names:
@@ -638,29 +619,21 @@ class Part(SkidlBaseObject):
                     pins.extend(tmp_pins)
                     continue
 
-                # If matching a substring within a pin name is enabled, then
-                # create wildcards to match the beginning/ending surrounding a
-                # substring. Remove these wildcards if substring matching is disabled.
-                wildcard = ".*" if match_substring else ""
-
-                # OK, pin ID is not a pin number and doesn't exactly match a pin
-                # name or alias. Does it match a substring within a pin name?
-                # Or does it match as a regex?
-                try:
-                    p_id_re = "".join([wildcard, p_id, wildcard])
-                except TypeError:
-                    # This will happen if the p_id is a number and not a string.
-                    # Skip this and the next block because p_id_re can't be made.
+                # Skip regex matching if not enabled.
+                if not match_regex:
                     continue
 
-                # Check pin aliases for a substring match.
-                p_id_re_alias = Alias(p_id_re)
-                tmp_pins = filter_list(self.pins, aliases=p_id_re_alias, **criteria)
+                # OK, pin ID is not a pin number and doesn't exactly match a pin
+                # name or alias. Does it match as a regex?
+                p_id_re = p_id
+
+                # Check pin aliases for a regex match.
+                tmp_pins = filter_list(self.pins, aliases=Alias(p_id_re), **criteria)
                 if tmp_pins:
                     pins.extend(tmp_pins)
                     continue
 
-                # Check the pin names for a substring match.
+                # Check the pin names for a regex match.
                 tmp_pins = filter_list(self.pins, name=p_id_re, **criteria)
                 if tmp_pins:
                     pins.extend(tmp_pins)
@@ -740,7 +713,7 @@ class Part(SkidlBaseObject):
             3) the part has no pins (which can be the case for mechanical parts,
                silkscreen logos, or other non-electrical schematic elements).
         """
-        from .Circuit import Circuit
+        from .circuit import Circuit
 
         return (
             not isinstance(self.circuit, Circuit)
@@ -765,8 +738,8 @@ class Part(SkidlBaseObject):
             Nothing.
         """
 
-        from .Alias import Alias
-        from .Pin import Pin
+        from .alias import Alias
+        from .pin import Pin
 
         pin = self.get_pins(*pin_ids, **criteria)
         if isinstance(pin, Pin):
@@ -778,6 +751,11 @@ class Part(SkidlBaseObject):
         else:
             # Error: either 0 or multiple pins were found.
             log_and_raise(logger, ValueError, "Cannot set alias for {}".format(pin_ids))
+
+    def split_pin_names(self, divider):
+        """Use chars in divider to split pin names and add as aliases to each pin."""
+        for pin in self:
+            pin.split(divider)
 
     def make_unit(self, label, *pin_ids, **criteria):
         """
@@ -815,32 +793,32 @@ class Part(SkidlBaseObject):
 
     def create_network(self):
         """Create a network from the pins of a part."""
-        from .Network import Network
+        from .network import Network
 
         ntwk = Network(self[:])  # An error will occur if part has more than 2 pins.
         return ntwk
 
     def __and__(self, obj):
         """Attach a part and another part/pin/net in serial."""
-        from .Network import Network
+        from .network import Network
 
         return Network(self) & obj
 
     def __rand__(self, obj):
         """Attach a part and another part/pin/net in serial."""
-        from .Network import Network
+        from .network import Network
 
         return obj & Network(self)
 
     def __or__(self, obj):
         """Attach a part and another part/pin/net in parallel."""
-        from .Network import Network
+        from .network import Network
 
         return Network(self) | obj
 
     def __ror__(self, obj):
         """Attach a part and another part/pin/net in parallel."""
-        from .Network import Network
+        from .network import Network
 
         return obj | Network(self)
 
@@ -849,7 +827,7 @@ class Part(SkidlBaseObject):
         Return a list of component field names.
         """
 
-        from .Pin import Pin
+        from .pin import Pin
 
         # Get all the component attributes and subtract all the ones that
         # should not appear under "fields" in the netlist or XML.
@@ -893,6 +871,11 @@ class Part(SkidlBaseObject):
         )
         return list(fields - non_fields)
 
+    def _value_to_str(self):
+        """Return value of part as a string."""
+        value = getattr(self, "value", getattr(self, "name", self.ref_prefix))
+        return str(value)
+
     def generate_netlist_component(self, tool=None):
         """
         Generate the part information for inclusion in a netlist.
@@ -905,6 +888,9 @@ class Part(SkidlBaseObject):
 
         if tool is None:
             tool = skidl.get_default_tool()
+
+        # Create part value as a string so including it in netlist isn't a problem.
+        self.value_str = self._value_to_str()
 
         try:
             gen_func = getattr(self, "_gen_netlist_comp_{}".format(tool))
@@ -931,6 +917,9 @@ class Part(SkidlBaseObject):
 
         if tool is None:
             tool = skidl.get_default_tool()
+
+        # Create part value as a string so including it in XML isn't a problem.
+        self.value_str = self._value_to_str()
 
         try:
             gen_func = getattr(self, "_gen_xml_comp_{}".format(tool))
@@ -1052,6 +1041,25 @@ class Part(SkidlBaseObject):
         """Delete the part footprint."""
         del self._foot
 
+    @property
+    def match_pin_regex(self):
+        """Get, set and delete the enable/disable of pin regular-expression matching."""
+        return self._match_pin_regex
+
+    @match_pin_regex.setter
+    def match_pin_regex(self, flag):
+        """Set the regex matching flag."""
+        self._match_pin_regex = flag
+
+        # Also set flag for units of the part.
+        for unit in self.unit.values():
+            unit._match_pin_regex = flag
+
+    @match_pin_regex.deleter
+    def match_pin_regex(self):
+        """Delete the regex matching flag."""
+        del self._match_pin_regex
+
     def __bool__(self):
         """Any valid Part is True"""
         return True
@@ -1148,8 +1156,6 @@ class PartUnit(Part):
         """
 
         # Get new pins selected from the parent.
-        if not pin_ids:
-            pin_ids = [".*"]  # Empty list matches everything.
         new_pins = to_list(self.parent.get_pins(*pin_ids, **criteria))
 
         # Remove None if that's gotten into the list.

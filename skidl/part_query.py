@@ -35,8 +35,8 @@ from builtins import open, super
 
 from future import standard_library
 
+from .common import *
 from .logger import logger
-from .py_2_3 import *  # pylint: disable=wildcard-import
 from .utilities import *
 
 standard_library.install_aliases()
@@ -73,7 +73,7 @@ def search_parts_iter(terms, tool=None):
     """Return a list of (lib, part) sequences that match a regex term."""
 
     import skidl
-    from .SchLib import SchLib
+    from .schlib import SchLib
 
     if tool is None:
         tool = skidl.get_default_tool()
@@ -169,7 +169,7 @@ def show_part(lib, part_name, tool=None):
     """
 
     import skidl
-    from .Part import Part
+    from .part import Part
     from .defines import TEMPLATE
 
     if tool is None:

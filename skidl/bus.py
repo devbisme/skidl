@@ -32,21 +32,17 @@ from builtins import range, str, super
 
 from future import standard_library
 
-from .Alias import Alias
-from .baseobj import SkidlBaseObject
+from .alias import Alias
+from .skidlbaseobj import SkidlBaseObject
+from .common import *
 from .defines import *
 from .logger import logger
-from .Net import Net
-from .NetPinList import NetPinList
-from .Pin import Pin
+from .net import Net
+from .netpinlist import NetPinList
+from .pin import Pin
 from .utilities import *
 
 standard_library.install_aliases()
-
-try:
-    import __builtin__ as builtins
-except ImportError:
-    import builtins
 
 
 class Bus(SkidlBaseObject):

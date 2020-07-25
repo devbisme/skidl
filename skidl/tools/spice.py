@@ -28,15 +28,20 @@ Handler for reading SPICE libraries.
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 import os.path
-from builtins import dict, int, range, str, zip
+from builtins import dict, int, object, range, str, zip
 
+from future import standard_library
+
+from ..common import *
 from ..defines import *
 from ..logger import logger
-from ..Net import Net
-from ..Part import Part
-from ..Pin import Pin, PinList
-from ..py_2_3 import *
+from ..net import Net
+from ..part import Part
+from ..pin import Pin, PinList
 from ..utilities import *
+
+standard_library.install_aliases()
+
 
 # PySpice may not be installed, particularly under Python 2.
 try:
@@ -61,8 +66,8 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
     """
 
     from ..skidl import lib_suffixes
-    from ..Part import Part
-    from ..Pin import Pin
+    from ..part import Part
+    from ..pin import Pin
 
     # Try to open the file. Add a .lib extension if needed. If the file
     # doesn't open, then try looking in the KiCad library directory.
@@ -195,7 +200,8 @@ def _mk_subckt_part(defn="XXX"):
 
 # Classes for device and xspice models.
 
-class XspiceModel:
+
+class XspiceModel(object):
     """
     Object to hold the parameters for an XSPICE model.
     """
@@ -204,6 +210,7 @@ class XspiceModel:
         self.name = args[0]  # The name to reference the model by.
         self.args = args
         self.kwargs = kwargs
+
 
 # DeviceModel and XspiceModel are the same.
 # WARNING: DeviceModel overlaps a class in PySpice!

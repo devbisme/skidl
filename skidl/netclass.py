@@ -28,15 +28,11 @@ from builtins import object, str
 
 from future import standard_library
 
+from .common import *
 from .logger import logger
 from .utilities import *
 
 standard_library.install_aliases()
-
-try:
-    import __builtin__ as builtins
-except ImportError:
-    import builtins
 
 
 class NetClass(object):

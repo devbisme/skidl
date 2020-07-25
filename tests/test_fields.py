@@ -23,9 +23,6 @@ def test_fields_1():
 
     r2 = r1()
 
-    assert id(r2.fields.attr_obj) == id(r2)
-    assert id(r1.fields.attr_obj) == id(r1)
-
     assert r2.test1 == r1.test1
 
     r2.fields["test1"] = "new r2 test1 value"

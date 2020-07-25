@@ -28,10 +28,7 @@ ERC functions for Circuit, Part, Pin, Net, Bus, Interface objects.
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-import inspect
-import sys
-from builtins import range, str
-from collections import namedtuple
+from builtins import range
 
 from future import standard_library
 
@@ -46,7 +43,7 @@ def dflt_circuit_erc(circuit):
     Do an electrical rules check on a circuit.
     """
 
-    from .Net import Net
+    from .net import Net
 
     # Check the nets for errors:
     #   1. Merge names to get a single name for all multi-segment nets.
@@ -69,7 +66,7 @@ def dflt_part_erc(part):
     Do an electrical rules check on a part in the schematic.
     """
 
-    from .Pin import Pin
+    from .pin import Pin
 
     # Don't check this part if the flag is not true.
     if not part.do_erc:
@@ -102,7 +99,7 @@ def dflt_net_erc(net):
     Do electrical rules check on a net in the schematic.
     """
 
-    from .Pin import Pin
+    from .pin import Pin
 
     net.test_validity()
 
@@ -142,106 +139,3 @@ def dflt_net_erc(net):
                     n=net.name, p=p.erc_desc()
                 )
             )
-
-
-# Tuple for storing assertion code object with its global & local dicts.
-EvalTuple = namedtuple(
-    "EvalTuple", "stmnt fail_msg severity filename lineno function globals locals"
-)
-
-
-def eval_stmnt_list(inst, list_name):
-    """
-    Evaluate class-wide and local statements on a class instance.
-
-    Args:
-        inst: Instance of a class.
-        list_name: String containing the attribute name of the list of
-            class-wide and local code objects.
-    """
-
-    def erc_report(evtpl):
-        log_msg = "{evtpl.stmnt} {evtpl.fail_msg} in {evtpl.filename}:{evtpl.lineno}:{evtpl.function}.".format(
-            evtpl=evtpl
-        )
-        if evtpl.severity == ERROR:
-            erc_logger.error(log_msg)
-        elif evtpl.severity == WARNING:
-            erc_logger.warning(log_msg)
-
-    # Evaluate class-wide statements on this instance.
-    if list_name in inst.__class__.__dict__:
-        for evtpl in inst.__class__.__dict__[list_name]:
-            try:
-                assert eval(evtpl.stmnt, evtpl.globals, evtpl.locals)
-            except AssertionError:
-                erc_report(evtpl)
-
-    # Now evaluate any statements for this particular instance.
-    if list_name in inst.__dict__:
-        for evtpl in inst.__dict__[list_name]:
-            try:
-                assert eval(evtpl.stmnt, evtpl.globals, evtpl.locals)
-            except AssertionError:
-                erc_report(evtpl)
-
-
-def exec_function_list(inst, list_name, *args, **kwargs):
-    """
-    Execute class-wide and local functions on a class instance.
-
-    Args:
-        inst: Instance of a class.
-        list_name: String containing the attribute name of the list of
-            class-wide and local functions.
-        args, kwargs: Arbitary argument lists to pass to the functions
-            that are executed. (All functions get the same arguments.) 
-    """
-
-    # Execute the class-wide functions on this instance.
-    if list_name in inst.__class__.__dict__:
-        for f in inst.__class__.__dict__[list_name]:
-            f(inst, *args, **kwargs)
-
-    # Now execute any instance functions for this particular instance.
-    if list_name in inst.__dict__:
-        for f in inst.__dict__[list_name]:
-            f(inst, *args, **kwargs)
-
-
-def add_to_exec_or_eval_list(class_or_inst, list_name, func):
-    """Append a function to a function list of a class or class instance."""
-
-    if list_name not in class_or_inst.__dict__:
-        setattr(class_or_inst, list_name, [])
-    getattr(class_or_inst, list_name).append(func)
-
-
-def add_erc_function(class_or_inst, func):
-    """Add an ERC function to a class or class instance."""
-
-    add_to_exec_or_eval_list(class_or_inst, "erc_list", func)
-
-
-def add_erc_assertion(assertion, fail_msg="FAILED", severity=ERROR, class_or_inst=None):
-    """Add an ERC assertion to a class or class instance."""
-
-    cls_or_inst = class_or_inst or default_circuit
-    assertion_frame, filename, lineno, function, _, _ = inspect.stack()[1]
-    add_to_exec_or_eval_list(
-        cls_or_inst,
-        "erc_assertion_list",
-        EvalTuple(
-            assertion,
-            fail_msg,
-            severity,
-            filename,
-            lineno,
-            function,
-            assertion_frame.f_globals,
-            assertion_frame.f_locals,
-        ),
-    )
-
-
-erc_assert = add_erc_assertion

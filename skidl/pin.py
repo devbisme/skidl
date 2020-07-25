@@ -34,8 +34,8 @@ from enum import IntEnum
 
 from future import standard_library
 
-from .Alias import *
-from .baseobj import SkidlBaseObject
+from .alias import *
+from .skidlbaseobj import SkidlBaseObject
 from .defines import *
 from .logger import erc_logger, logger
 from .utilities import *
@@ -370,7 +370,7 @@ class Pin(SkidlBaseObject):
     def is_connected(self):
         """Return true if a pin is connected to a net (but not a no-connect net)."""
 
-        from .Net import Net, NCNet
+        from .net import Net, NCNet
 
         if not self.nets:
             # This pin is not connected to any nets.
@@ -406,8 +406,8 @@ class Pin(SkidlBaseObject):
     def is_attached(self, pin_net_bus):
         """Return true if this pin is attached to the given pin, net or bus."""
 
-        from .Net import Net
-        from .Pin import Pin
+        from .net import Net
+        from .pin import Pin
 
         if not self.is_connected():
             return False
@@ -428,6 +428,22 @@ class Pin(SkidlBaseObject):
             "Pins can't be attached to {}!".format(type(pin_net_bus)),
         )
 
+    def split(self, divider):
+        """Use chars in divider to pplit a pin name and add substrings to aliases."""
+
+        # First character in the divider will be used to split the name.
+        splitchar = divider[0]
+
+        # Change every other character in the divider to the splitting character.
+        trmap = {ord(c): ord(splitchar) for c in divider}
+
+        # Change each divider character in the pin name to the splitting character,
+        # then split the name and add each substring to the list of pin aliases.
+        self.aliases += self.name.translate(trmap).split(splitchar)
+
+        # Remove any empty aliases.
+        self.aliases.clean()
+
     def connect(self, *pins_nets_buses):
         """
         Return the pin after connecting it to one or more nets or pins.
@@ -447,8 +463,8 @@ class Pin(SkidlBaseObject):
                 p += net      # Connect the net to the pin.
         """
 
-        from .Net import Net
-        from .ProtoNet import ProtoNet
+        from .net import Net
+        from .protonet import ProtoNet
 
         # Go through all the pins and/or nets and connect them to this pin.
         for pn in expand_buses(flatten(pins_nets_buses)):
@@ -506,7 +522,7 @@ class Pin(SkidlBaseObject):
 
     def create_network(self):
         """Create a network from a single pin."""
-        from .Network import Network
+        from .network import Network
 
         ntwk = Network()
         ntwk.append(self)
@@ -514,25 +530,25 @@ class Pin(SkidlBaseObject):
 
     def __and__(self, obj):
         """Attach a pin and another part/pin/net in serial."""
-        from .Network import Network
+        from .network import Network
 
         return Network(self) & obj
 
     def __rand__(self, obj):
         """Attach a pin and another part/pin/net in serial."""
-        from .Network import Network
+        from .network import Network
 
         return obj & Network(self)
 
     def __or__(self, obj):
         """Attach a pin and another part/pin/net in parallel."""
-        from .Network import Network
+        from .network import Network
 
         return Network(self) | obj
 
     def __ror__(self, obj):
         """Attach a pin and another part/pin/net in parallel."""
-        from .Network import Network
+        from .network import Network
 
         return obj | Network(self)
 

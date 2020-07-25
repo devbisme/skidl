@@ -33,6 +33,10 @@ import sys
 import traceback
 from builtins import str
 
+from future import standard_library
+
+standard_library.install_aliases()
+
 
 def scriptinfo():
     """
@@ -75,7 +79,7 @@ def scriptinfo():
     # if trc did not contain directory information,
     # the current working directory is what we need
     if not scriptdir:
-        scriptdir = os.getcwd()
+        scriptdir = os.getcwdu()
 
     scr_dict = {"name": trc, "source": trc, "dir": scriptdir}
     return scr_dict

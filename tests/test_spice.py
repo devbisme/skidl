@@ -1,6 +1,6 @@
-from skidl.py_2_3 import *  # pylint: disable=wildcard-import
-
 import pytest
+
+from skidl.common import *
 
 from .setup_teardown import *
 

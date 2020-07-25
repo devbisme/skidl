@@ -31,19 +31,14 @@ from builtins import open, super
 from future import standard_library
 
 from . import tools  # Import EDA tool-specific stuff.
-from .Circuit import Circuit
+from .circuit import Circuit
+from .common import *
 from .defines import *
 from .logger import erc_logger, get_script_name, logger
-from .Pin import Pin
+from .pin import Pin
 from .utilities import *
 
 standard_library.install_aliases()
-
-
-try:
-    import __builtin__ as builtins
-except ImportError:
-    import builtins
 
 
 class SkidlCfg(dict):
@@ -211,14 +206,13 @@ builtins.default_circuit = Circuit()
 builtins.NC = default_circuit.NC  # pylint: disable=undefined-variable
 
 # Create calls to functions on whichever Circuit object is the current default.
-ERC = default_circuit.ERC  # pylint: disable=undefined-variable
-generate_netlist = (
-    default_circuit.generate_netlist
-)  # pylint: disable=undefined-variable
-generate_xml = default_circuit.generate_xml  # pylint: disable=undefined-variable
-generate_graph = default_circuit.generate_graph  # pylint: disable=undefined-variable
-reset = default_circuit.reset  # pylint: disable=undefined-variable
-backup_parts = default_circuit.backup_parts  # pylint: disable=undefined-variable
+ERC = default_circuit.ERC
+erc_assert = default_circuit.add_erc_assertion
+generate_netlist = default_circuit.generate_netlist
+generate_xml = default_circuit.generate_xml
+generate_graph = default_circuit.generate_graph
+reset = default_circuit.reset
+backup_parts = default_circuit.backup_parts
 
 # Define a tag for nets that convey power (e.g., VCC or GND).
 POWER = Pin.drives.POWER

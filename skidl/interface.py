@@ -31,9 +31,9 @@ from builtins import str
 
 from future import standard_library
 
-from .Alias import Alias
-from .baseobj import SkidlBaseObject
-from .ProtoNet import ProtoNet
+from .alias import Alias
+from .skidlbaseobj import SkidlBaseObject
+from .protonet import ProtoNet
 from .utilities import *
 
 standard_library.install_aliases()
@@ -46,6 +46,9 @@ class Interface(dict, SkidlBaseObject):
     where the attribute names serve as keys. This means the ** operator works
     on an Interface.
     """
+
+    # Set the default ERC functions for all Interface instances.
+    erc_list = []
 
     def __init__(self, *args, **kwargs):
         dict.__init__(self, *args, **kwargs)
@@ -92,7 +95,7 @@ class Interface(dict, SkidlBaseObject):
             Or None if no match was found.
         """
 
-        from .NetPinList import NetPinList
+        from .netpinlist import NetPinList
 
         # If no I/O identifiers were given, then use a wildcard that will
         # select all of them.

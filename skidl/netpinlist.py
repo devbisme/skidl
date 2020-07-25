@@ -32,10 +32,10 @@ from builtins import range
 from future import standard_library
 
 from .logger import logger
-from .Net import Net
-from .Network import Network
-from .Pin import Pin
-from .ProtoNet import ProtoNet
+from .net import Net
+from .network import Network
+from .pin import Pin
+from .protonet import ProtoNet
 from .utilities import *
 
 standard_library.install_aliases()
