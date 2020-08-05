@@ -28,6 +28,7 @@ Handles complete circuits made of parts and nets.
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+import functools
 import os.path
 import time
 from builtins import range, str, super
@@ -694,6 +695,7 @@ def SubCircuit(f):
         f: The function containing SKiDL statements that represents a subcircuit.
     """
 
+    @functools.wraps(f)
     def sub_f(*args, **kwargs):
         # Upon entry, save the reference to the current default Circuit object.
         save_default_circuit = default_circuit  # pylint: disable=undefined-variable
