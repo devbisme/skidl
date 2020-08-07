@@ -100,8 +100,18 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
                 line = line[:-1]  # Remove '+' at end of current line.
                 line += " " + f.readline()  # Append the next line.
 
-            # Create the part with the part definition.
-            part = _mk_subckt_part(line)  # Create un-filled part template.
+            # Create the un-filled part template with the part definition.
+            part = Part(part_defn=line, tool=SPICE, dest=LIBRARY)
+            part.part_defn = line
+            part.fplist = []
+            part.aliases = []
+            part.num_units = 1
+            part.ref_prefix = "X"
+            part._ref = None
+            part.filename = ""
+            part.name = ""
+            part.pins = []
+            part.pyspice = {"name": "X", "add": add_subcircuit_to_circuit}
 
             # Flesh-out the part.
             part.filename = filepath  # Store filename where this part came from.
@@ -183,21 +193,6 @@ def _parse_lib_part_(self, get_name_only=False):  # pylint: disable=unused-argum
     return self
 
 
-def _mk_subckt_part(defn="XXX"):
-    part = Part(part_defn=defn, tool=SPICE, dest=LIBRARY)
-    part.part_defn = defn
-    part.fplist = []
-    part.aliases = []
-    part.num_units = 1
-    part.ref_prefix = "X"
-    part._ref = None
-    part.filename = ""
-    part.name = ""
-    part.pins = []
-    part.pyspice = {"name": "X", "add": add_subcircuit_to_circuit}
-    return part
-
-
 # Classes for device and xspice models.
 
 
@@ -237,27 +232,41 @@ def _gen_netlist_(self, **kwargs):
     # Initialize set of libraries to include in the PySpice circuit.
     includes = set()
 
-    # Add any models used by the parts.
+    # Get the models used by the parts.
     models = set([getattr(part, "model", None) for part in self.parts])
     models.discard(None)
+
+    # Load all the parts from the given SPICE libraries.
     lib_dirs = set(flatten([kwargs.get("libs", None)]))
     lib_dirs.discard(None)
     spice_libs = [SpiceLibrary(dir) for dir in lib_dirs]
+
+    # Lookup each model and add it to the PySpice circuit.
     for model in models:
         if isinstance(model, (XspiceModel, DeviceModel)):
             circuit.model(*model.args, **model.kwargs)
         else:
             for spice_lib in spice_libs:
                 try:
+                    # Model found in library, so add it to list of includes.
                     includes.add(spice_lib[model])
                 except KeyError:
+                    # Model not found in library, so do nothing.
                     pass
                 else:
+                    # Something bad happened.
                     break
             else:
+                # Loop exhausted without finding the indicated model.
                 logger.error("Unknown SPICE model: {}".format(model))
 
-    # Add any subckt libraries used by the parts.
+    # Load all the SPICE subcircuit libraries used by the parts in the circuit.
+    lib_files = set([getattr(part, "filename", None) for part in self.parts])
+    lib_files.discard(None)
+    lib_dirs = [os.path.dirname(f) for f in lib_files]
+    spice_libs = [SpiceLibrary(dir) for dir in lib_dirs]
+
+    # Get the names of all parts in the circuit using the SPICE subcircuit libraries.
     part_names = set(
         [
             getattr(part, "name", None)
@@ -265,19 +274,21 @@ def _gen_netlist_(self, **kwargs):
             if getattr(part, "filename", None)
         ]
     )
-    lib_files = set([getattr(part, "filename", None) for part in self.parts])
-    lib_files.discard(None)
-    lib_dirs = [os.path.dirname(f) for f in lib_files]
-    spice_libs = [SpiceLibrary(dir) for dir in lib_dirs]
+
+    # Lookup all parts and add them to the list of includes.
     for part_name in part_names:
         for spice_lib in spice_libs:
             try:
+                # Part name found in library, so add it to list of includes.
                 includes.add(spice_lib[part_name])
             except KeyError:
+                # Part name not found in library, so do nothing.
                 pass
             else:
+                # Something bad happened.
                 break
         else:
+            # Loop exhausted without finding the indicated part.
             logger.error("Unknown SPICE subckt: {}".format(part_name))
 
     # Add the models and subckt libraries to the PySpice circuit.

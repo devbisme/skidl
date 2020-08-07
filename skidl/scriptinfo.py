@@ -79,7 +79,7 @@ def scriptinfo():
     # if trc did not contain directory information,
     # the current working directory is what we need
     if not scriptdir:
-        scriptdir = os.getcwdu()
+        scriptdir = os.getcwd()
 
     scr_dict = {"name": trc, "source": trc, "dir": scriptdir}
     return scr_dict
