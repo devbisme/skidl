@@ -22,6 +22,7 @@ from future import standard_library
 
 from . import tools
 from .alias import *
+from .arrange import *
 from .skidlbaseobj import *
 from .bus import *
 from .circuit import *

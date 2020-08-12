@@ -50,6 +50,10 @@ class Point:
     def __mul__(self, m):
         return Point(m * self.x, m * self.y)
 
+    def round(self):
+        self.x = int(round(self.x))
+        self.y = int(round(self.y))
+
 class BBox:
     def __init__(self, *pts):
         self.min = Point(math.inf, math.inf)
@@ -68,6 +72,10 @@ class BBox:
                 self.max.y = max(self.max.y, obj.max.y)
             else:
                 raise NotImplementedError
+
+    def round(self):
+        self.min.round()
+        self.max.round()
 
     @property
     def w(self):
