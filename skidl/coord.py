@@ -51,8 +51,12 @@ class Point:
         return Point(m * self.x, m * self.y)
 
     def round(self):
-        self.x = int(round(self.x))
-        self.y = int(round(self.y))
+        try:
+            self.x = int(round(self.x))
+            self.y = int(round(self.y))
+        except OverflowError:
+            # Point with coords set as math.inf.
+            pass
 
 class BBox:
     def __init__(self, *pts):
