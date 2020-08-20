@@ -28,13 +28,15 @@ Arrange part units for best schematic wiring.
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+import math
 import re
 from builtins import str, super
-
-from future import standard_library
-import math
 from collections import namedtuple
 from functools import reduce
+from random import randint
+
+from future import standard_library
+
 from .coord import *
 from .net import NCNet
 
@@ -102,9 +104,15 @@ class PartNet:
         # Find the set of parts having one or more pins attached to this net.
         self.parts = set()
         if not isinstance(net, NCNet):
-            # Add the part associated with each pin on the net.
+            # Add the part (or part unit) associated with each pin on the net.
             for pin in net.get_pins():
-                self.parts.add(pin.part)
+                part = pin.part
+                for name, unit in part.unit.items():
+                    if pin in unit.pins:
+                        break
+                else:
+                    unit = part
+                self.parts.add(unit)
 
     def calc_bbox(self):
         # The bounding box of a net surrounds the regions
@@ -125,17 +133,22 @@ class PartNet:
         return cst
 
 
-from random import randint
-
 class Arranger:
     def __init__(self, circuit, grid_hgt=3, grid_wid=3):
         """ 
-        Create a W x H array of regions that will store the arrangement of
-        the parts of a circuit. 
+        Create a W x H array of regions to store arrangement of circuit parts. 
         """
         self.w, self.h = grid_wid, grid_hgt
         self.regions = [[Region(x, y) for y in range(self.h)] for x in range(self.w)]
-        self.parts = circuit.parts
+        self.parts = []
+        for part in circuit.parts:
+            if part.unit:
+                # Append the units comprising a part.
+                for unit in part.unit.values():
+                    self.parts.append(unit)
+            else:
+                # Append the entire part if it isn't broken into units.
+                self.parts.append(part)
         self.nets = [PartNet(net) for net in circuit.nets if net.pins]
         self.clear()
 
@@ -179,6 +192,7 @@ class Arranger:
 
     def arrange_kl(self):
         """ Optimally arrange the parts across regions using Kernighan-Lin. """
+
         class Move:
             # Class for storing the move of a part to a region.
             def __init__(self, part, region, cost):
@@ -196,7 +210,7 @@ class Arranger:
             #      parts remain.
             #   D. Find the point in the sequence of moves where the
             #      cost reaches its lowest value. Reverse all moves
-            #      after that point. 
+            #      after that point.
 
             def find_best_move(parts):
                 # Find the best of all possible movements of parts to regions.
@@ -208,7 +222,7 @@ class Arranger:
                 for part in parts:
 
                     # Don't move a part that is fixed to a particular region.
-                    if hasattr(part, 'fix'):
+                    if hasattr(part, "fix"):
                         continue
 
                     # Save the region of the current part and remove the
@@ -225,17 +239,17 @@ class Arranger:
                             # Don't move a part to the region it's already in.
                             if self.regions[x][y] is part.region:
                                 continue
-                    
+
                             # Move part to region.
                             self.regions[x][y].add(part)
-                    
+
                             # Get cost when part is in that region.
                             cost = self.cost()
-                    
+
                             # Record move if it's the best seen so far.
                             if cost < best_move.cost:
                                 best_move = Move(part, part.region, cost)
-                    
+
                             # Remove part from the region.
                             self.regions[x][y].rmv(part)
                             assert part.region == None
@@ -245,7 +259,7 @@ class Arranger:
                     saved_region.add(part)
                     assert part in saved_region.parts
                     assert part.region == saved_region
-                
+
                 # Return the move with the lowest cost.
                 return best_move
 
@@ -254,7 +268,7 @@ class Arranger:
             beginning_cost = self.cost()
 
             # Get the list of parts that can be moved.
-            movable = [part for part in self.parts if not hasattr(part, 'fix')]
+            movable = [part for part in self.parts if not hasattr(part, "fix")]
 
             # Process all the movable parts until every one has been moved.
             moves = []
@@ -263,11 +277,11 @@ class Arranger:
                 # Find and save the best move of all the movable parts.
                 best_move = find_best_move(movable)
                 moves.append(best_move)
-                
+
                 # Move the selected part from the region where it was to its new region.
                 best_move.part.region.rmv(best_move.part)
                 best_move.region.add(best_move.part)
-                
+
                 # Remove the part from the list of removable parts once it has been moved.
                 movable.remove(best_move.part)
 
@@ -278,16 +292,18 @@ class Arranger:
             low_pt_idx = moves.index(low_pt)
 
             # Reverse all the part moves after the lowest point to their original regions.
-            for move in moves[low_pt_idx+1:]:
+            for move in moves[low_pt_idx + 1 :]:
                 move.region.rmv(move.part)  # Remove part from where it was moved.
-                beginning_arrangement[move.part].add(move.part)  # Put it back where it came from.
+                beginning_arrangement[move.part].add(
+                    move.part
+                )  # Put it back where it came from.
 
             # Recompute the cost.
             cost = self.cost()
             assert 0.99 * low_pt.cost <= cost <= 1.01 * low_pt.cost
             return cost
 
-        # Iteratively apply KL until cost doesn't go down anymore. 
+        # Iteratively apply KL until cost doesn't go down anymore.
         cost = self.cost()
         best_cost = cost + 1  # Make it higher so the following loop will run.
         while cost < best_cost:
