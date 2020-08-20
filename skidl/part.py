@@ -198,6 +198,9 @@ class Part(SkidlBaseObject):
             # Make sure all the pins have a valid reference to this part.
             self.associate_pins()
 
+            # Copy part units so all the pin and part references stay valid.
+            self.copy_units(part)
+
             # Store the library name of this part.
             self.lib = getattr(lib, "filename", None)
 
@@ -461,15 +464,8 @@ class Part(SkidlBaseObject):
             # Copy the part fields from the original.
             cpy.fields = {k: v for k, v in self.fields.items()}
 
-            # Make copies of the units in the new part copy.
-            for label in self.unit:
-                # Get the pin numbers from the unit in the original.
-                unit = self.unit[label]
-                pin_nums = [p.num for p in unit.pins]
-
-                # Make a unit in the part copy with the same pin numbers.
-                cpy.make_unit(label, *pin_nums)
-                cpy.unit[label].num = unit.num
+            # Copy part units from the original to the copy.
+            cpy.copy_units(self)
 
             # Clear the part reference of the copied part so a unique reference
             # can be assigned when the part is added to the circuit.
@@ -515,6 +511,13 @@ class Part(SkidlBaseObject):
             return copies
         return copies[0]
 
+    def validate(self):
+        """ Check that pins and units reference the correct part that owns them. """
+        for pin in self.pins:
+            assert pin.part == self
+        for unit in self.unit.values():
+            unit.validate()
+
     # Make copies with the multiplication operator or by calling the object.
     __call__ = copy
 
@@ -524,6 +527,17 @@ class Part(SkidlBaseObject):
         return self.copy(num_copies=num_copies)
 
     __rmul__ = __mul__
+
+    def copy_units(self, src):
+        """ Make copies of the units from the source part. """
+        self.unit = {} # Remove references to any existing units.
+        for label, unit in src.unit.items():
+            # Get the pin numbers from the unit in the source part.
+            pin_nums = [p.num for p in unit.pins]
+
+            # Make a unit in the part copy with the same pin numbers.
+            self.make_unit(label, *pin_nums)
+            self.unit[label].num = unit.num
 
     def add_pins(self, *pins):
         """Add one or more pins to a part."""
@@ -788,13 +802,9 @@ class Part(SkidlBaseObject):
             )
 
         # Create the part unit.
-        self.unit[label] = PartUnit(self, *pin_ids, **criteria)
+        self.unit[label] = PartUnit(self, label, *pin_ids, **criteria)
         add_unique_attr(self, label, self.unit[label])
-        try:
-            # Store the unit number in the unit if it's available.
-            self.unit[label].num = criteria["unit"]
-        except KeyError:
-            pass
+
         return self.unit[label]
 
     def create_network(self):
@@ -1156,17 +1166,26 @@ class PartUnit(Part):
             lm358a = PartUnit(lm358, 1, 2, 3)
     """
 
-    def __init__(self, part, *pin_ids, **criteria):
+    def __init__(self, parent, label, *pin_ids, **criteria):
 
         # Don't use super() for this.
         SkidlBaseObject.__init__(self)
 
         # Remember the part that this unit belongs to.
-        self.parent = part
+        self.parent = parent
+
+        # Store the part unit label.
+        self.label = label
+
+        # Store the part unit number if it's given.
+        try:
+            self.num = criteria['unit']
+        except KeyError:
+            pass
 
         # Give the PartUnit the same information as the Part it is generated
         # from so it can act the same way, just with fewer pins.
-        for k, v in list(part.__dict__.items()):
+        for k, v in list(parent.__dict__.items()):
             self.__dict__[k] = v
 
         # Don't associate any units from the parent with this unit itself.
@@ -1198,3 +1217,12 @@ class PartUnit(Part):
 
         # Add new pins to existing pins of the unit, removing duplicates.
         self.pins = list(set(self.pins + new_pins))
+
+    def validate(self):
+        """ Check that unit pins point to the parent part. """
+        for pin in self.pins:
+            assert id(pin.part) == id(self.parent)
+
+    @property
+    def ref(self):
+        return ".".join((self.parent.ref, self.label))
