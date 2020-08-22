@@ -950,7 +950,7 @@ class Part(SkidlBaseObject):
 
     def generate_svg_component(self, symtx="", tool=None):
         """
-        Generate the SVG for displaying a part in a schematic.
+        Generate the SVG for displaying a part in an SVG schematic.
         """
 
         import skidl
@@ -968,6 +968,27 @@ class Part(SkidlBaseObject):
             )
 
         return gen_func(symtx=symtx)
+
+    def generate_pinboxes(self, tool=None):
+        """
+        Generate the pinboxes for arranging parts in a schematic.
+        """
+
+        import skidl
+
+        if tool is None:
+            tool = skidl.get_default_tool()
+
+        try:
+            gen_func = getattr(self, "_gen_pinboxes_{}".format(tool))
+        except AttributeError:
+            log_and_raise(
+                logger,
+                ValueError,
+                "Can't generate pinboxes for a component in an unknown ECAD tool format({}).".format(tool),
+            )
+
+        return gen_func()
 
     def erc_desc(self):
         """Create description of part for ERC and other error reporting."""

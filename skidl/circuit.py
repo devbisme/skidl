@@ -39,6 +39,7 @@ import graphviz
 from future import standard_library
 
 from .skidlbaseobj import SkidlBaseObject
+from .arrange import Arranger
 from .bus import Bus
 from .common import *
 from .defines import *
@@ -562,7 +563,7 @@ class Circuit(SkidlBaseObject):
 
         return netlist
 
-    def generate_skin(self):
+    def generate_netlistsvg_skin(self):
         part_svg = {}
         for part in self.parts:
             symtx = getattr(part, "symtx", "")
@@ -689,7 +690,7 @@ text {
         tail_svg ="</svg>"        
         return "\n".join([head_svg, part_svg, tail_svg])
 
-    def generate_schematic(self, file_=None, tool=None):
+    def generate_svg(self, file_=None, tool=None):
         """
         Return a dictionary that can be displayed by netlistsvg.
         """
@@ -786,7 +787,7 @@ text {
                 )
             skin_file = file_basename + "_skin.svg"
             with opened(skin_file, "w") as f:
-                f.write(self.generate_skin())
+                f.write(self.generate_netlistsvg_skin())
             subprocess.call(
                 "netlistsvg {json_file} --skin {skin_file} -o {svg_file}".format(
                     **locals()),
@@ -794,6 +795,68 @@ text {
             )
 
         return schematic_json
+
+    def generate_schematic(self, file_=None, tool=None):
+        """
+        Create a schematic file.
+        """
+
+        class Router:
+
+            def __init__(self, circuit):
+                pass
+
+            def do_route(self):
+                pass
+
+        from . import skidl
+
+        # Generate circuitry for any packages that were instantiated.
+        self.instantiate_packages()
+
+        # Reset the counters to clear any warnings/errors from previous run.
+        logger.error.reset()
+        logger.warning.reset()
+
+        # Clean-up names for multi-segment nets.
+        self._merge_net_names()
+
+        if tool is None:
+            tool = skidl.get_default_tool()
+
+        w, h = 5,5
+        arranger = Arranger(self, w, h)
+        arranger.arrange_randomly()
+        arranger.arrange_kl()
+
+        for part in self.parts:
+            part.generate_pinboxes()
+
+        router = Router(self)
+        route = router.do_route()
+
+        if not self.no_files:
+            try:
+                gen_func = getattr(self, "_gen_schematic_{}".format(tool))
+                gen_func(route)
+            except KeyError:
+                log_and_raise(
+                    logger,
+                    ValueError,
+                    "Can't generate schematic in an unknown ECAD tool format ({}).".format(tool),
+                )
+
+        if (logger.error.count, logger.warning.count) == (0, 0):
+            sys.stderr.write("\nNo errors or warnings found during schematic generation.\n\n")
+        else:
+            sys.stderr.write(
+                "\n{} warnings found during schematic generation.\n".format(
+                    logger.warning.count
+                )
+            )
+            sys.stderr.write(
+                "{} errors found during schematic generation.\n\n".format(logger.error.count)
+            )
 
     def generate_graph(
         self,
