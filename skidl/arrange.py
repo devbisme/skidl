@@ -296,7 +296,7 @@ class Arranger:
 
             # Recompute the cost.
             cost = self.cost()
-            assert 0.99 * low_pt.cost <= cost <= 1.01 * low_pt.cost
+            assert math.isclose(low_pt.cost, cost, rel_tol=0.0001)
             return cost
 
         # Iteratively apply KL until cost doesn't go down anymore.
@@ -312,4 +312,4 @@ class Arranger:
         for part, region in best_arrangement.items():
             region.add(part)
 
-        assert 0.99 * best_cost <= self.cost() <= 1.01 * best_cost
+        assert math.isclose(best_cost, self.cost(), rel_tol=0.0001)
