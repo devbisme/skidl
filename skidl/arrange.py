@@ -131,8 +131,8 @@ class PartNet:
 
 class Arranger:
     def __init__(self, circuit, grid_hgt=3, grid_wid=3):
-        """ 
-        Create a W x H array of regions to store arrangement of circuit parts. 
+        """
+        Create a W x H array of regions to store arrangement of circuit parts.
         """
         self.w, self.h = grid_wid, grid_hgt
         self.regions = [[Region(x, y) for y in range(self.h)] for x in range(self.w)]
@@ -283,16 +283,19 @@ class Arranger:
 
             # Find where the cost was lowest across the sequence of moves.
             low_pt = min(moves, key=lambda mv: mv.cost)
-            if low_pt.cost >= beginning_cost:
-                return beginning_cost
             low_pt_idx = moves.index(low_pt)
+            if low_pt.cost >= beginning_cost:
+                # No improvement in cost, so put everything back the way it was.
+                low_pt_idx = -1
+                low_pt.cost = beginning_cost
 
             # Reverse all the part moves after the lowest point to their original regions.
             for move in moves[low_pt_idx + 1 :]:
-                move.region.rmv(move.part)  # Remove part from where it was moved.
-                beginning_arrangement[move.part].add(
-                    move.part
-                )  # Put it back where it came from.
+                part = move.part
+                new_region = move.region
+                original_region = beginning_arrangement[part]
+                new_region.rmv(part)
+                original_region.add(part)
 
             # Recompute the cost.
             cost = self.cost()
@@ -304,12 +307,6 @@ class Arranger:
         best_cost = cost + 1  # Make it higher so the following loop will run.
         while cost < best_cost:
             best_cost = cost
-            best_arrangement = {part: part.region for part in self.parts}
             cost = kl_iteration()
-
-        # Set the part/region arrangement to the best one found.
-        self.clear()
-        for part, region in best_arrangement.items():
-            region.add(part)
 
         assert math.isclose(best_cost, self.cost(), rel_tol=0.0001)
