@@ -80,8 +80,6 @@ class Region(Point):
         part.region = self
         return self
 
-    # __iadd__ = add_part
-
     def rmv(self, part):
         assert part in self.parts
         self.parts.remove(part)
@@ -89,8 +87,6 @@ class Region(Point):
         part.region = None
         assert part not in self.parts
         return self
-
-    # __isub__ = rmv_part
 
     def cost(self):
         # Cost of a region is the sqrt of the number of pins on the parts in it.
