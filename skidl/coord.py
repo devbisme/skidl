@@ -77,6 +77,10 @@ class BBox:
             else:
                 raise NotImplementedError
 
+    @property
+    def area(self):
+        return self.w * self.h
+
     def round(self):
         self.min.round()
         self.max.round()
