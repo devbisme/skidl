@@ -901,11 +901,16 @@ def _gen_svg_comp_(self, symtx):
     default_thickness = 1/scale  # Default line thickness = 1.
     default_pin_name_offset = 20
 
+    # Named tuple for storing component pin information.
+    PinInfo = namedtuple('PinInfo', 'x y side pid')
+
+    # Go through each graphic object that makes up the component symbol.
     for obj in self.draw:
 
-        obj_svg = []
-        obj_txt_svg = []
-        obj_bbox = BBox()
+        obj_pin_info = []  # Component pin info so they can be generated once bbox is known.
+        obj_svg = []  # Component graphic objects.
+        obj_txt_svg = []  # Component text (because it has to be drawn last).
+        obj_bbox = BBox()  # Bounding box of all the component objects.
 
         if isinstance(obj, DrawDef):
             def_ = obj
@@ -916,6 +921,7 @@ def _gen_svg_comp_(self, symtx):
             pin_dir_tbl = make_pin_dir_tbl(def_.name_offset or default_pin_name_offset)
             # Make structures for holding info on each part unit.
             num_units = def_.num_units
+            unit_pin_info = [[] for _ in range(num_units + 1)]
             unit_svg = [[] for _ in range(num_units + 1)]
             unit_txt_svg = [[] for _ in range(num_units + 1)]
             unit_bbox = [BBox() for _ in range(num_units + 1)]
@@ -1114,11 +1120,7 @@ def _gen_svg_comp_(self, symtx):
             start = tx(Point(pin.x, -pin.y), symtx) * scale
             orientation = tx(pin.orientation, symtx)
             side = pin_dir_tbl[orientation].side
-            obj_svg.append(
-                '<g s:x="{start.x}" s:y="{start.y}" s:pid="{pin.num}" s:position="{side}">'.format(
-                    **locals()
-                )
-            )
+            obj_pin_info.append(PinInfo(x=start.x, y=start.y, side=side, pid=pin.num))
 
             if visible:
                 # Draw pin if it's not invisible.
@@ -1138,13 +1140,9 @@ def _gen_svg_comp_(self, symtx):
                         'class="$cell_id symbol"'
                         '/>'
                     ]).format(**locals())
-                    # '<path d="M {start.x} {start.y} L {end.x} {end.y}" class="$cell_id"/>'.format(
-                    #     **locals()
-                    # )
                 )
 
                 # Create pin number.
-                # text_org = (Point(pin.x, -pin.y) + pin_dir_tbl[pin.orientation].direction * pin.length) * scale
                 if show_nums:
                     angle = pin_dir_tbl[orientation].angle
                     num_justify = pin_dir_tbl[orientation].num_justify
@@ -1177,9 +1175,6 @@ def _gen_svg_comp_(self, symtx):
                         )
                     )
 
-            # End pin group.
-            obj_svg.append("</g>")
-
         else:
             logger.error(
                 "Unknown graphical object {} in part symbol {}.".format(
@@ -1191,6 +1186,8 @@ def _gen_svg_comp_(self, symtx):
         unit = getattr(obj, "unit", 0)
         if unit == 0:
             # Anything in unit #0 gets added to all units.
+            for pin_info in unit_pin_info:
+                pin_info.extend(obj_pin_info)
             for svg in unit_svg:
                 svg.extend(obj_svg)
             for txt_svg in unit_txt_svg:
@@ -1198,9 +1195,12 @@ def _gen_svg_comp_(self, symtx):
             for bbox in unit_bbox:
                 bbox.add(obj_bbox)
         else:
+            unit_pin_info[unit].extend(obj_pin_info)
             unit_svg[unit].extend(obj_svg)
             unit_txt_svg[unit].extend(obj_txt_svg)
             unit_bbox[unit].add(obj_bbox)
+
+    # End of loop through all the component objects.
 
     # Assemble and name the SVGs for all the part units.
     svg = []
@@ -1217,7 +1217,6 @@ def _gen_svg_comp_(self, symtx):
                 's:type="{symbol_name}"',
                 's:width="{bbox.w}"',
                 's:height="{bbox.h}"',
-                'transform="translate({bbox.min.x},{bbox.min.y})"',
                 '>'
             ]).format(**locals())
         )
@@ -1239,10 +1238,26 @@ def _gen_svg_comp_(self, symtx):
                 ]).format(**locals())
             )
 
+        # Group text & graphics and translate so bbox.min is at (0,0).
+        org_tx, org_ty = -bbox.min.x, -bbox.min.y
+        svg.append('<g transform="translate({org_tx},{org_ty})">'.format(**locals()))
         # Add part unit text and graphics.
         svg.extend(unit_svg[unit])
         # Text comes last so it always appears on top of anything else like filled rects.
         svg.extend(unit_txt_svg[unit])
+        svg.append("</g>")
+
+        # Keep the pins out of the grouped text & graphics but adjust their coords
+        # to account for moving the bbox.
+        for pin_info in unit_pin_info[unit]:
+            x = pin_info.x + org_tx
+            y = pin_info.y + org_ty
+            side = pin_info.side
+            pid = pin_info.pid
+            pin_svg = '<g s:x="{x}" s:y="{y}" s:pid="{pid}" s:position="{side}"/>'.format(
+                    **locals()
+                )
+            svg.append(pin_svg)
         
         # Finish SVG for part unit.
         svg.append("</g>")
