@@ -145,6 +145,8 @@ class Arranger:
             else:
                 # Append the entire part if it isn't broken into units.
                 self.parts.append(part)
+        for part in self.parts:
+            part.move_box = BBox(Point(0, 0), Point(grid_wid - 1, grid_hgt - 1))
         self.nets = [PartNet(net) for net in circuit.nets if net.pins]
         self.clear()
 
@@ -180,11 +182,29 @@ class Arranger:
             if hasattr(part, "fix"):
                 x, y = part.xy
             else:
-                x = randint(0, self.w - 1)
-                y = randint(0, self.h - 1)
+                min_pt = part.move_box.min
+                max_pt = part.move_box.max
+                x = randint(min_pt.x, max_pt.x - 1)
+                y = randint(min_pt.y, max_pt.y - 1)
             self.regions[x][y].add(part)
             assert part.region == self.regions[x][y]
             assert part in self.regions[x][y].parts
+
+    def expand_grid(self, mul_hgt, mul_wid):
+        """ Expand the number of rows/columns in the grid of regions. """
+        new_regions = [
+            [Region(x, y) for y in range(self.h * mul_hgt)]
+            for x in range(self.w * mul_wid)
+        ]
+        for part in self.parts:
+            x0, y0 = part.region.x * mul_wid, part.region.y * mul_hgt
+            x1, y1 = x0 + mul_wid - 1, y0 + mul_hgt - 1
+            new_regions[x0][y0].add(part)
+            part.move_box = BBox(Point(x0, y0), Point(x1, y1))
+        del self.regions
+        self.regions = new_regions
+        self.h *= mul_hgt
+        self.w *= mul_wid
 
     def arrange_kl(self):
         """ Optimally arrange the parts across regions using Kernighan-Lin. """
@@ -229,8 +249,8 @@ class Arranger:
                     assert part not in saved_region.parts
 
                     # Move the current part to each region and store the move if cost goes down.
-                    for x in range(self.w):
-                        for y in range(self.h):
+                    for x in range(part.move_box.min.x, part.move_box.max.x + 1):
+                        for y in range(part.move_box.min.y, part.move_box.max.y + 1):
 
                             # Don't move a part to the region it's already in.
                             if self.regions[x][y] is part.region:
