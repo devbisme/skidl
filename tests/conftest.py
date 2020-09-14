@@ -10,3 +10,4 @@ sys.path.append(os.path.join(os.getcwd(), ".."))
 collect_ignore = []
 if sys.version_info[0] <= 2:
     collect_ignore.append("test_spice.py")
+    collect_ignore.append("test_package_v3.py")
