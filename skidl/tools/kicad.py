@@ -812,7 +812,7 @@ def _gen_svg_comp_(self, symtx):
 
         # Each character in ops applies a geometrical transformation.
         for op in ops:
-            obj = locals()[op](obj)  # op selects the H, V, L, or R subroutine.
+            obj = locals()[op.upper()](obj)  # op selects the H, V, L, or R subroutine.
         return obj
 
     def draw_text(text, size, justify, origin, rotation, offset, class_, extra=""):
