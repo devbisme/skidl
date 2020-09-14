@@ -114,7 +114,7 @@ def package(subcirc_func):
         ):
             pckg[arg_name] = dflt_value
     if getattr(subcirc_func, "__kwdefaults__", None):
-       for arg_name, dflt_value in subcirc_func.__kwdefaults__.items():
+        for arg_name, dflt_value in subcirc_func.__kwdefaults__.items():
             pckg[arg_name] = dflt_value
 
     # Remove the subcircuit key from the dict so it won't be passed to subcirc_func().
