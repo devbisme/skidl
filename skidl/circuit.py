@@ -33,11 +33,14 @@ import os.path
 import time
 from builtins import range, str, super
 from collections import defaultdict
+import json
+import subprocess
 
 import graphviz
 from future import standard_library
 
 from .skidlbaseobj import SkidlBaseObject
+from .arrange import Arranger
 from .bus import Bus
 from .common import *
 from .defines import *
@@ -45,7 +48,8 @@ from .erc import dflt_circuit_erc
 from .interface import Interface
 from .logger import erc_logger, logger
 from .net import NCNet, Net
-from .part import Part
+from .part import Part, PartUnit
+from .pin import Pin
 from .pckg_info import __version__
 from .schlib import SchLib
 from .scriptinfo import *
@@ -526,7 +530,7 @@ class Circuit(SkidlBaseObject):
         logger.error.reset()
         logger.warning.reset()
 
-        # Before anything else, clean-up names for multi-segment nets.
+        # Clean-up names for multi-segment nets.
         self._merge_net_names()
 
         if tool is None:
@@ -559,6 +563,348 @@ class Circuit(SkidlBaseObject):
                 f.write(netlist)
 
         return netlist
+
+    def generate_netlistsvg_skin(self):
+        """Generate the skin file of symbols for use by netlistsvg."""
+
+        # Generate the SVG for each part in the required transformations.
+        part_svg = {}
+        for part in self.parts:
+            # Get the global transformation for the part symbol.
+            global_symtx = getattr(part, "symtx", "")
+            # Get the transformation for each part unit.
+            unit_symtx = set([""])
+            for unit in part.unit.values():
+                unit_symtx.add(getattr(unit, 'symtx', ""))
+            # Each combination of global + unit transformation is one of
+            # the total transformations needed for the part.
+            total_symtx = [global_symtx + u_symtx for u_symtx in unit_symtx]
+            # Generate SVG of the part for each total transformation.
+            for symtx in total_symtx:
+                name = part.name + "_" + symtx
+                # Skip any repeats of the part.
+                if name not in part_svg.keys():
+                    part_svg[name] = part.generate_svg_component(symtx=symtx)
+        part_svg = part_svg.values()  # Just keep the SVG for the part symbols.
+
+        head_svg = [
+            '<svg xmlns="http://www.w3.org/2000/svg"'
+            '     xmlns:xlink="http://www.w3.org/1999/xlink"'
+            '     xmlns:s="https://github.com/nturley/netlistsvg">'
+            "  <s:properties"
+            '    constants="false"'
+            '    splitsAndJoins="false"'
+            '    genericsLaterals="true">'
+            "    <s:layoutEngine"
+            '        org.eclipse.elk.layered.spacing.nodeNodeBetweenLayers="5"'
+            '        org.eclipse.elk.layered.compaction.postCompaction.strategy="4"'
+            '        org.eclipse.elk.spacing.nodeNode= "50"'
+            '        org.eclipse.elk.direction="DOWN"/>'
+            "  </s:properties>"
+            "<style>"
+            "svg {"
+            "  stroke: #000;"
+            "  fill: none;"
+            "  stroke-linejoin: round;"
+            "  stroke-linecap: round;"
+            "}"
+            "text {"
+            "  fill: #000;"
+            "  stroke: none;"
+            "  font-size: 10px;"
+            "  font-weight: bold;"
+            '  font-family: "Courier New", monospace;'
+            "}"
+            ".skidl_text {"
+            "  fill: #999;"
+            "  stroke: none;"
+            "  font-weight: bold;"
+            '  font-family: consolas, "Courier New", monospace;'
+            "}"
+            ".pin_num_text {"
+            "    fill: #840000;"
+            "}"
+            ".pin_name_text {"
+            "    fill: #008484;"
+            "}"
+            ".part_text {"
+            "    fill: #840000;"
+            "}"
+            ".part_ref_text {"
+            "    fill: #008484;"
+            "}"
+            ".part_name_text {"
+            "    fill: #008484;"
+            "}"
+            ".pen_fill {"
+            "    fill: #840000;"
+            "}"
+            ".background_fill {"
+            "    fill: #FFFFC2"
+            "}"
+            ".nodelabel {"
+            "  text-anchor: middle;"
+            "}"
+            ".inputPortLabel {"
+            "  text-anchor: end;"
+            "}"
+            ".splitjoinBody {"
+            "  fill: #000;"
+            "}"
+            ".symbol {"
+            "  stroke-linejoin: round;"
+            "  stroke-linecap: round;"
+            "  stroke: #840000;"
+            "}"
+            ".detail {"
+            "  stroke-linejoin: round;"
+            "  stroke-linecap: round;"
+            "  fill: #000;"
+            "}"
+            "</style>"
+            ""
+            "<!-- signal -->"
+            '<g s:type="inputExt" s:width="30" s:height="20" transform="translate(0,0)">'
+            '  <text x="-2" y="12" text-anchor=\'end\' class="$cell_id pin_name_text" s:attribute="ref">input</text>'
+            '  <s:alias val="$_inputExt_"/>'
+            '  <path d="M0,0 V20 H15 L30,10 15,0 Z" class="$cell_id symbol"/>'
+            '  <g s:x="30" s:y="10" s:pid="Y" s:position="right"/>'
+            "</g>"
+            ""
+            '<g s:type="outputExt" s:width="30" s:height="20" transform="translate(0,0)">'
+            '  <text x="32" y="12" class="$cell_id pin_name_text" s:attribute="ref">output</text>'
+            '  <s:alias val="$_outputExt_"/>'
+            '  <path d="M30,0 V20 H15 L0,10 15,0 Z" class="$cell_id symbol"/>'
+            '  <g s:x="0" s:y="10" s:pid="A" s:position="left"/>'
+            "</g>"
+            "<!-- signal -->"
+            ""
+            "<!-- builtin -->"
+            '<g s:type="generic" s:width="30" s:height="40" transform="translate(0,0)">'
+            '  <text x="15" y="-4" class="nodelabel $cell_id" s:attribute="ref">generic</text>'
+            '  <rect width="30" height="40" x="0" y="0" s:generic="body" class="$cell_id"/>'
+            '  <g transform="translate(30,10)"'
+            '     s:x="30" s:y="10" s:pid="out0" s:position="right">'
+            '    <text x="5" y="-4" class="$cell_id">out0</text>'
+            "  </g>"
+            '  <g transform="translate(30,30)"'
+            '     s:x="30" s:y="30" s:pid="out1" s:position="right">'
+            '    <text x="5" y="-4" class="$cell_id">out1</text>'
+            "  </g>"
+            '  <g transform="translate(0,10)"'
+            '     s:x="0" s:y="10" s:pid="in0" s:position="left">'
+            '      <text x="-3" y="-4" class="inputPortLabel $cell_id">in0</text>'
+            "  </g>"
+            '  <g transform="translate(0,30)"'
+            '     s:x="0" s:y="30" s:pid="in1" s:position="left">'
+            '    <text x="-3" y="-4" class="inputPortLabel $cell_id">in1</text>'
+            "  </g>"
+            "</g>"
+            "<!-- builtin -->"
+        ]
+
+        tail_svg = [
+            "</svg>",
+        ]
+
+        return "\n".join([*head_svg, *part_svg, *tail_svg])
+
+    def generate_svg(self, file_=None, tool=None):
+        """
+        Create an SVG file displaying the circuit schematic and
+        return the dictionary that can be displayed by netlistsvg.
+        """
+
+        from . import skidl
+
+        # Generate circuitry for any packages that were instantiated.
+        self.instantiate_packages()
+
+        # Reset the counters to clear any warnings/errors from previous run.
+        logger.error.reset()
+        logger.warning.reset()
+
+        # Clean-up names for multi-segment nets.
+        self._merge_net_names()
+
+        # Assign each net a unique integer. Interconnected nets
+        # all get the same number.
+        net_nums = {}
+        for num, net in enumerate(self.nets, 1):
+            for n in net.get_nets():
+                if n.name not in net_nums:
+                    net_nums[n.name] = num
+
+        io_dict = {"i": "input", "o": "output"}
+
+        # Assign I/O ports to any named net that has a netio attribute.
+        ports = {}
+        for net in self.nets:
+            if isinstance(net, NCNet):
+                continue  # Skip no-connect nets.
+            if not net.is_implicit():
+                try:
+                    # Net I/O direction set by 1st letter of netio attribute.
+                    io = io_dict[net.netio.lower()[0]]
+                    ports[net.name] = {
+                        "direction": io,
+                        "bits": [net_nums[net.name],],
+                    }
+                except AttributeError:
+                    # Net has no netio so don't assign a port.
+                    pass
+
+        pin_dir_tbl = {
+            Pin.types.INPUT: "input",
+            Pin.types.OUTPUT: "output",
+            Pin.types.BIDIR: "output",
+            Pin.types.TRISTATE: "output",
+            Pin.types.PASSIVE: "input",
+            Pin.types.PULLUP: "output",
+            Pin.types.PULLDN: "output",
+            Pin.types.UNSPEC: "input",
+            Pin.types.PWRIN: "input",
+            Pin.types.PWROUT: "output",
+            Pin.types.OPENCOLL: "output",
+            Pin.types.OPENEMIT: "output",
+            Pin.types.NOCONNECT: "nc",
+        }
+
+        cells = {}
+        for part in self.parts:
+            part_symtx = getattr(part, "symtx", "")
+            units = part.unit.values()
+            if not units:
+                units = [
+                    part,
+                ]
+            for unit in units:
+
+                pins = unit.get_pins()
+
+                # Associate each connected pin of a part with the assigned net number.
+                connections = {
+                    pin.num: [net_nums[pin.net.name],] for pin in pins if pin.net
+                }
+
+                # Assign I/O to each part pin by either using the pin's symio
+                # attribute or by using its pin function.
+                part_pin_dirs = {
+                    pin.num: io_dict[
+                        getattr(pin, "symio", pin_dir_tbl[pin.func]).lower()[0]
+                    ]
+                    for pin in pins
+                }
+                # Remove no-connect pins.
+                part_pin_dirs = {n: d for n, d in part_pin_dirs.items() if d}
+
+                # Determine which symbol in the skin file goes with this part.
+                unit_symtx = part_symtx + getattr(unit, "symtx", "")
+                if not isinstance(unit, PartUnit):
+                    ref = part.ref
+                    name = part.name + "_1_" + part_symtx
+                else:
+                    ref = part.ref + num_to_chars(unit.num)
+                    name = part.name + "_" + str(unit.num) + "_" + unit_symtx
+
+                # Create the cell that netlistsvg uses to draw the part and connections.
+                cells[ref] = {
+                    "type": name,
+                    "port_directions": part_pin_dirs,
+                    "connections": connections,
+                    "attributes": {"value": str(part.value),},
+                }
+
+        schematic_json = {"modules": {self.name: {"ports": ports, "cells": cells,}}}
+
+        if not self.no_files:
+            file_basename = file_ or get_script_name()
+            json_file = file_basename + ".json"
+            svg_file = file_basename + ".svg"
+            with opened(json_file, "w") as f:
+                f.write(
+                    json.dumps(
+                        schematic_json, sort_keys=True, indent=2, separators=(",", ": ")
+                    )
+                )
+            skin_file = file_basename + "_skin.svg"
+            with opened(skin_file, "w") as f:
+                f.write(self.generate_netlistsvg_skin())
+            subprocess.call(
+                "netlistsvg {json_file} --skin {skin_file} -o {svg_file}".format(
+                    **locals()
+                ),
+                shell=True,
+            )
+
+        return schematic_json
+
+    def generate_schematic(self, file_=None, tool=None):
+        """
+        Create a schematic file. THIS DOES NOT WORK!
+        """
+
+        class Router:
+            def __init__(self, circuit):
+                pass
+
+            def do_route(self):
+                pass
+
+        from . import skidl
+
+        # Generate circuitry for any packages that were instantiated.
+        self.instantiate_packages()
+
+        # Reset the counters to clear any warnings/errors from previous run.
+        logger.error.reset()
+        logger.warning.reset()
+
+        # Clean-up names for multi-segment nets.
+        self._merge_net_names()
+
+        if tool is None:
+            tool = skidl.get_default_tool()
+
+        w, h = 5, 5
+        arranger = Arranger(self, w, h)
+        arranger.arrange_randomly()
+        arranger.arrange_kl()
+
+        for part in self.parts:
+            part.generate_pinboxes()
+
+        router = Router(self)
+        route = router.do_route()
+
+        if not self.no_files:
+            try:
+                gen_func = getattr(self, "_gen_schematic_{}".format(tool))
+                gen_func(route)
+            except KeyError:
+                log_and_raise(
+                    logger,
+                    ValueError,
+                    "Can't generate schematic in an unknown ECAD tool format ({}).".format(
+                        tool
+                    ),
+                )
+
+        if (logger.error.count, logger.warning.count) == (0, 0):
+            sys.stderr.write(
+                "\nNo errors or warnings found during schematic generation.\n\n"
+            )
+        else:
+            sys.stderr.write(
+                "\n{} warnings found during schematic generation.\n".format(
+                    logger.warning.count
+                )
+            )
+            sys.stderr.write(
+                "{} errors found during schematic generation.\n\n".format(
+                    logger.error.count
+                )
+            )
 
     def generate_graph(
         self,
