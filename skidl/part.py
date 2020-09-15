@@ -168,6 +168,13 @@ class Part(SkidlBaseObject):
         self.circuit = None  # Part starts off unassociated with any circuit.
         self.match_pin_regex = False  # Don't allow regex matches of pin names.
 
+        # Remove a part reference if it has been explicitly set as None.
+        # Otherwise, this causes the assigned part reference to be incremented twice:
+        # once by Circuit.add_parts() and again by setattr().
+        ref = attribs.pop('ref', None)
+        if ref:
+            attribs['ref'] = ref
+
         # Create a Part from a library entry.
         if lib:
             # If the lib argument is a string, then create a library using the
