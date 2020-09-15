@@ -51,7 +51,7 @@ create a finished circuit board.
     - [Net and Pin Drive Levels](#net-and-pin-drive-levels)
     - [Pin, Net, Bus Equivalencies](#pin-net-bus-equivalencies)
     - [Selectively Supressing ERC Messages](#selectively-supressing-erc-messages)
-    - [Customizable ERC Using `erc_assert()`](#customizable-erc-using-ercassert)
+    - [Customizable ERC Using `erc_assert()`](#customizable-erc-using-erc_assert)
 - [Going Really Deep](#going-really-deep)
   - [Circuit Objects](#circuit-objects)
 - [Converting Existing Designs to SKiDL](#converting-existing-designs-to-skidl)
