@@ -503,7 +503,13 @@ class Net(SkidlBaseObject):
                                 pn.name, self.name
                             )
                         )
-                    connect_pin(pn)
+                    connect_pin(pn )
+                elif not pn.part.circuit:
+                    logger.warning(
+                        "Attaching part template Pin {} to a Net {}.".format(
+                            pn.name, self.name
+                        )
+                    )
                 else:
                     log_and_raise(
                         logger,
