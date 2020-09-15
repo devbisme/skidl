@@ -23,3 +23,14 @@ def test_subclass_1():
 
     ERC()
     generate_netlist()
+
+def test_subclass_2():
+    
+    class CustomPart(Part):
+        pass
+
+    r1 = Part('Device', 'R')
+    r2 = CustomPart('Device', 'R')
+
+    ERC()
+    assert erc_logger.warning.count == 4
