@@ -707,7 +707,10 @@ class Circuit(SkidlBaseObject):
             "</svg>",
         ]
 
-        return "\n".join([*head_svg, *part_svg, *tail_svg])
+        total_svg = head_svg
+        total_svg.extend(part_svg)
+        total_svg.extend(tail_svg)
+        return "\n".join(total_svg)
 
     def generate_svg(self, file_=None, tool=None):
         """
