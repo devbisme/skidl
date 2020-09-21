@@ -35,6 +35,7 @@ from .circuit import Circuit
 from .common import *
 from .defines import *
 from .logger import erc_logger, get_script_name, logger
+from .part_query import footprint_cache
 from .pin import Pin
 from .utilities import *
 
