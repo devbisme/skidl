@@ -564,12 +564,24 @@ class Circuit(SkidlBaseObject):
 
         return netlist
 
-    def generate_netlistsvg_skin(self):
+    def generate_netlistsvg_skin(self, net_stubs):
         """Generate the skin file of symbols for use by netlistsvg."""
 
         # Generate the SVG for each part in the required transformations.
         part_svg = {}
         for part in self.parts:
+
+            # If this part is attached to any net stubs, give it a symbol
+            # name specifically for this part + stubs.
+            if part.attached_to(net_stubs):
+                # This part is attached to net stubs, so give it
+                # a symbol name specifically for this part + stubs.
+                symbol_name = part.name + "_" + part.ref
+            else:
+                # This part is not attached to any stubs, so give it
+                # a symbol name for this generic part symbol.
+                symbol_name = part.name
+
             # Get the global transformation for the part symbol.
             global_symtx = getattr(part, "symtx", "")
             # Get the transformation for each part unit.
@@ -579,12 +591,14 @@ class Circuit(SkidlBaseObject):
             # Each combination of global + unit transformation is one of
             # the total transformations needed for the part.
             total_symtx = [global_symtx + u_symtx for u_symtx in unit_symtx]
+            
             # Generate SVG of the part for each total transformation.
             for symtx in total_symtx:
-                name = part.name + "_" + symtx
+                name = symbol_name + "_" + symtx
                 # Skip any repeats of the part.
                 if name not in part_svg.keys():
-                    part_svg[name] = part.generate_svg_component(symtx=symtx)
+                    part_svg[name] = part.generate_svg_component(symtx=symtx, net_stubs=net_stubs)
+        
         part_svg = part_svg.values()  # Just keep the SVG for the part symbols.
 
         head_svg = [
@@ -626,6 +640,10 @@ class Circuit(SkidlBaseObject):
             "}"
             ".pin_name_text {"
             "    fill: #008484;"
+            "}"
+            ".net_name_text {"
+            "    font-style: italic;"
+            "    fill: #840084;"
             "}"
             ".part_text {"
             "    fill: #840000;"
@@ -712,7 +730,7 @@ class Circuit(SkidlBaseObject):
         total_svg.extend(tail_svg)
         return "\n".join(total_svg)
 
-    def generate_svg(self, file_=None, tool=None):
+    def generate_svg(self, file_=None, tool=None, net_stubs=None):
         """
         Create an SVG file displaying the circuit schematic and
         return the dictionary that can be displayed by netlistsvg.
@@ -730,10 +748,15 @@ class Circuit(SkidlBaseObject):
         # Clean-up names for multi-segment nets.
         self._merge_net_names()
 
-        # Assign each net a unique integer. Interconnected nets
+        # Get the list of nets which will be routed and not represented by stubs.
+        net_stubs = net_stubs or []  # If net_stubs is None, set it to empty list.
+        net_stubs = expand_buses(flatten(net_stubs))
+        routed_nets = list(set(self.nets) - set(net_stubs))
+
+        # Assign each routed net a unique integer. Interconnected nets
         # all get the same number.
         net_nums = {}
-        for num, net in enumerate(self.nets, 1):
+        for num, net in enumerate(routed_nets, 1):
             for n in net.get_nets():
                 if n.name not in net_nums:
                     net_nums[n.name] = num
@@ -775,6 +798,12 @@ class Circuit(SkidlBaseObject):
 
         cells = {}
         for part in self.parts:
+
+            if part.attached_to(net_stubs):
+                part_name = part.name + "_" + part.ref
+            else:
+                part_name = part.name
+
             part_symtx = getattr(part, "symtx", "")
             units = part.unit.values()
             if not units:
@@ -787,7 +816,7 @@ class Circuit(SkidlBaseObject):
 
                 # Associate each connected pin of a part with the assigned net number.
                 connections = {
-                    pin.num: [net_nums[pin.net.name],] for pin in pins if pin.net
+                    pin.num: [net_nums[pin.net.name],] for pin in pins if pin.net in routed_nets
                 }
 
                 # Assign I/O to each part pin by either using the pin's symio
@@ -805,10 +834,10 @@ class Circuit(SkidlBaseObject):
                 unit_symtx = part_symtx + getattr(unit, "symtx", "")
                 if not isinstance(unit, PartUnit):
                     ref = part.ref
-                    name = part.name + "_1_" + part_symtx
+                    name = part_name + "_1_" + part_symtx
                 else:
                     ref = part.ref + num_to_chars(unit.num)
-                    name = part.name + "_" + str(unit.num) + "_" + unit_symtx
+                    name = part_name + "_" + str(unit.num) + "_" + unit_symtx
 
                 # Create the cell that netlistsvg uses to draw the part and connections.
                 cells[ref] = {
@@ -832,7 +861,7 @@ class Circuit(SkidlBaseObject):
                 )
             skin_file = file_basename + "_skin.svg"
             with opened(skin_file, "w") as f:
-                f.write(self.generate_netlistsvg_skin())
+                f.write(self.generate_netlistsvg_skin(net_stubs=net_stubs))
             subprocess.call(
                 "netlistsvg {json_file} --skin {skin_file} -o {svg_file}".format(
                     **locals()

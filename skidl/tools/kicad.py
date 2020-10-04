@@ -768,8 +768,18 @@ def _gen_xml_net_(self):
     return txt
 
 
-def _gen_svg_comp_(self, symtx):
-    """Generate SVG for this component."""
+def _gen_svg_comp_(self, symtx, net_stubs=None):
+    """
+    Generate SVG for this component.
+    
+    Args:
+        self: Part object for which an SVG symbol will be created.
+        net_stubs: List of Net objects whose names will be connected to
+            part symbol pins as connection stubs.
+        symtx: String such as "HR" that indicates symbol mirroring/rotation.
+
+    Returns: SVG for the part symbol.
+"""
 
     def tx(obj, ops):
         """Transform object according to the list of opcodes."""
@@ -834,7 +844,7 @@ def _gen_svg_comp_(self, symtx):
     def make_pin_dir_tbl(abs_xoff=20):
 
         # abs_xoff is the absolute distance of name/num from the end of the pin.
-        rel_yoff_num = -0.1  # Relative distance of number above pin line.
+        rel_yoff_num = -0.15  # Relative distance of number above pin line.
         rel_yoff_name = (
             0.2  # Relative distance that places name midline even with pin line.
         )
@@ -849,7 +859,7 @@ def _gen_svg_comp_(self, symtx):
         #     name_offset: (x,y) offset of the pin name w.r.t. the end of the pin.
         PinDir = namedtuple(
             "PinDir",
-            "direction side angle num_justify name_justify num_offset name_offset",
+            "direction side angle num_justify name_justify num_offset name_offset net_offset",
         )
 
         return {
@@ -861,6 +871,7 @@ def _gen_svg_comp_(self, symtx):
                 "start",
                 Point(-abs_xoff, rel_yoff_num),
                 Point(abs_xoff, rel_yoff_name),
+                Point(abs_xoff, rel_yoff_num),
             ),
             "D": PinDir(
                 Point(0, 1),
@@ -870,6 +881,7 @@ def _gen_svg_comp_(self, symtx):
                 "end",
                 Point(abs_xoff, rel_yoff_num),
                 Point(-abs_xoff, rel_yoff_name),
+                Point(-abs_xoff, rel_yoff_num),
             ),
             "L": PinDir(
                 Point(-1, 0),
@@ -879,6 +891,7 @@ def _gen_svg_comp_(self, symtx):
                 "end",
                 Point(abs_xoff, rel_yoff_num),
                 Point(-abs_xoff, rel_yoff_name),
+                Point(-abs_xoff, rel_yoff_num),
             ),
             "R": PinDir(
                 Point(1, 0),
@@ -888,6 +901,7 @@ def _gen_svg_comp_(self, symtx):
                 "start",
                 Point(-abs_xoff, rel_yoff_num),
                 Point(abs_xoff, rel_yoff_name),
+                Point(abs_xoff, rel_yoff_num),
             ),
         }
 
@@ -903,6 +917,14 @@ def _gen_svg_comp_(self, symtx):
 
     # Named tuple for storing component pin information.
     PinInfo = namedtuple('PinInfo', 'x y side pid')
+
+    # Get maximum length of net stub name if any are needed for this part symbol.
+    net_stubs = net_stubs or []  # Empty list of stub nets if argument is None.
+    max_stub_len = 0  # If no net stubs are needed, this stays at zero.
+    for pin in self.get_pins():
+        for net in pin.get_nets():
+            if net in net_stubs:
+                max_stub_len = max(len(net.name), max_stub_len)
 
     # Go through each graphic object that makes up the component symbol.
     for obj in self.draw:
@@ -1109,6 +1131,7 @@ def _gen_svg_comp_(self, symtx):
             )
 
         elif isinstance(obj, DrawPin):
+
             pin = obj
 
             try:
@@ -1116,9 +1139,12 @@ def _gen_svg_comp_(self, symtx):
             except IndexError:
                 visible = True  # No pin shape given, so it is visible by default.
 
+
             # Start pin group.
-            start = tx(Point(pin.x, -pin.y), symtx) * scale
             orientation = tx(pin.orientation, symtx)
+            dir = pin_dir_tbl[orientation].direction
+            extension = dir * (pin.name_size * 0.5 * max_stub_len + 2 * abs(pin_dir_tbl[orientation].net_offset.x)) * scale
+            start = tx(Point(pin.x, -pin.y), symtx) * scale - extension
             side = pin_dir_tbl[orientation].side
             obj_pin_info.append(PinInfo(x=start.x, y=start.y, side=side, pid=pin.num))
 
@@ -1126,9 +1152,8 @@ def _gen_svg_comp_(self, symtx):
                 # Draw pin if it's not invisible.
 
                 # Create line for pin lead.
-                l = pin.length * scale
-                dir = pin_dir_tbl[orientation].direction
-                end = start + dir * l
+                l = dir * pin.length * scale
+                end = start + l + extension
                 thickness = default_thickness * scale
                 obj_bbox.add(start)
                 obj_bbox.add(end)
@@ -1175,6 +1200,19 @@ def _gen_svg_comp_(self, symtx):
                         )
                     )
 
+                # Create net stub name.
+                if max_stub_len:
+                    # Only do this if stub length > 0; otherwise, no stubs are needed.
+                    part_pin = self[pin.num]  # Get Pin object associated with this pin drawing object.
+                    for net in part_pin.get_nets():
+                        if net in net_stubs:
+                            net_justify = pin_dir_tbl[orientation].name_justify
+                            net_size = pin.name_size * scale  # Net name font size same as pin name font size.
+                            net_offset = pin_dir_tbl[orientation].net_offset * scale
+                            net_offset.y = net_offset.y * pin.name_size
+                            obj_svg.append(draw_text(net.name, net_size, net_justify, start, angle, net_offset, "net_name_text"))
+                            break  # Only one label is needed per stub.
+
         else:
             logger.error(
                 "Unknown graphical object {} in part symbol {}.".format(
@@ -1208,7 +1246,15 @@ def _gen_svg_comp_(self, symtx):
         bbox = unit_bbox[unit]
 
         # Assign part unit name.
-        symbol_name = "{self.name}_{unit}_{symtx}".format(**locals())
+        if max_stub_len:
+            # If net stubs are attached to symbol, then it's only to be used
+            # for a specific part. Therefore, tag the symbol name with the unique
+            # part reference so it will only be used by this part.
+            symbol_name = "{self.name}_{self.ref}_{unit}_{symtx}".format(**locals())
+        else:
+            # No net stubs means this symbol can be used for any part that
+            # also has no net stubs, so don't tag it with a specific part reference.
+            symbol_name = "{self.name}_{unit}_{symtx}".format(**locals())
 
         # Begin SVG for part unit.
         svg.append(
@@ -1224,8 +1270,19 @@ def _gen_svg_comp_(self, symtx):
         # Add part alias.
         svg.append('<s:alias val="{symbol_name}"/>'.format(**locals()))
 
+        # Group text & graphics and translate so bbox.min is at (0,0).
+        translate = bbox.min * -1
+        svg.append('<g transform="translate({translate.x},{translate.y})">'.format(**locals()))
+        # Add part unit text and graphics.
+        svg.extend(unit_svg[unit])
+        # Text comes last so it always appears on top of anything else like filled rects.
+        svg.extend(unit_txt_svg[unit])
+        svg.append("</g>")
+
         # Place a visible bounding-box around symbol for trouble-shooting.
         show_bbox = False
+        bbox.min = bbox.min + translate
+        bbox.max = bbox.max + translate
         if show_bbox:
             svg.append(
                 " ".join([
@@ -1238,23 +1295,13 @@ def _gen_svg_comp_(self, symtx):
                 ]).format(**locals())
             )
 
-        # Group text & graphics and translate so bbox.min is at (0,0).
-        org_tx, org_ty = -bbox.min.x, -bbox.min.y
-        svg.append('<g transform="translate({org_tx},{org_ty})">'.format(**locals()))
-        # Add part unit text and graphics.
-        svg.extend(unit_svg[unit])
-        # Text comes last so it always appears on top of anything else like filled rects.
-        svg.extend(unit_txt_svg[unit])
-        svg.append("</g>")
-
         # Keep the pins out of the grouped text & graphics but adjust their coords
         # to account for moving the bbox.
         for pin_info in unit_pin_info[unit]:
-            x = pin_info.x + org_tx
-            y = pin_info.y + org_ty
+            pin_pt = Point(pin_info.x, pin_info.y) + translate
             side = pin_info.side
             pid = pin_info.pid
-            pin_svg = '<g s:x="{x}" s:y="{y}" s:pid="{pid}" s:position="{side}"/>'.format(
+            pin_svg = '<g s:x="{pin_pt.x}" s:y="{pin_pt.y}" s:pid="{pid}" s:position="{side}"/>'.format(
                     **locals()
                 )
             svg.append(pin_svg)

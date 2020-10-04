@@ -725,6 +725,17 @@ class Part(SkidlBaseObject):
         # No net connections found, so return False.
         return False
 
+    def attached_to(self, nets=None):
+        """Return True if any part pin is connected to a net in the list."""
+        if not nets:
+            return False
+
+        for pin in self.get_pins():
+            for net in pin.get_nets():
+                if net in nets:
+                    return True
+        return False
+
     def is_movable(self):
         """
         Return T/F if the part can be moved from one circuit into another.
@@ -955,7 +966,7 @@ class Part(SkidlBaseObject):
 
         return gen_func()
 
-    def generate_svg_component(self, symtx="", tool=None):
+    def generate_svg_component(self, symtx="", tool=None, net_stubs=None):
         """
         Generate the SVG for displaying a part in an SVG schematic.
         """
@@ -974,7 +985,7 @@ class Part(SkidlBaseObject):
                 "Can't generate SVG for a component in an unknown ECAD tool format({}).".format(tool),
             )
 
-        return gen_func(symtx=symtx)
+        return gen_func(symtx=symtx, net_stubs=net_stubs)
 
     def generate_pinboxes(self, tool=None):
         """
