@@ -752,6 +752,7 @@ class Circuit(SkidlBaseObject):
         net_stubs = net_stubs or []  # If net_stubs is None, set it to empty list.
         net_stubs = expand_buses(flatten(net_stubs))
         routed_nets = list(set(self.nets) - set(net_stubs))
+        routed_nets = [n for n in routed_nets if not isinstance(n, NCNet)]
 
         # Assign each routed net a unique integer. Interconnected nets
         # all get the same number.
@@ -765,9 +766,7 @@ class Circuit(SkidlBaseObject):
 
         # Assign I/O ports to any named net that has a netio attribute.
         ports = {}
-        for net in self.nets:
-            if isinstance(net, NCNet):
-                continue  # Skip no-connect nets.
+        for net in routed_nets:
             if not net.is_implicit():
                 try:
                     # Net I/O direction set by 1st letter of netio attribute.
@@ -811,6 +810,9 @@ class Circuit(SkidlBaseObject):
                     part,
                 ]
             for unit in units:
+
+                if not unit.is_connected():
+                    continue  # Skip unconnected parts.
 
                 pins = unit.get_pins()
 

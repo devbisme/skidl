@@ -931,6 +931,7 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
 
         obj_pin_info = []  # Component pin info so they can be generated once bbox is known.
         obj_svg = []  # Component graphic objects.
+        obj_filled_svg = []  # Filled component graphic objects.
         obj_txt_svg = []  # Component text (because it has to be drawn last).
         obj_bbox = BBox()  # Bounding box of all the component objects.
 
@@ -945,6 +946,7 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
             num_units = def_.num_units
             unit_pin_info = [[] for _ in range(num_units + 1)]
             unit_svg = [[] for _ in range(num_units + 1)]
+            unit_filled_svg = [[] for _ in range(num_units + 1)]
             unit_txt_svg = [[] for _ in range(num_units + 1)]
             unit_bbox = [BBox() for _ in range(num_units + 1)]
 
@@ -1029,7 +1031,8 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
             radius_pt = Point(radius, radius)
             obj_bbox.add(center - radius_pt)
             obj_bbox.add(center + radius_pt)
-            obj_svg.append(
+            svg = obj_filled_svg if fill else obj_svg
+            svg.append(
                 " ".join(
                     [
                         "<path",
@@ -1050,7 +1053,8 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
             radius_pt = Point(radius, radius)
             obj_bbox.add(center - radius_pt)
             obj_bbox.add(center + radius_pt)
-            obj_svg.append(
+            svg = obj_filled_svg if fill else obj_svg
+            svg.append(
                 " ".join(
                     [
                         "<circle",
@@ -1077,7 +1081,8 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
             path = " ".join(path)
             thickness = (poly.thickness or default_thickness) * scale
             fill = fill_tbl.get(poly.fill, "")
-            obj_svg.append(
+            svg = obj_filled_svg if fill else obj_svg
+            svg.append(
                 " ".join(
                     [
                         "<path",
@@ -1098,7 +1103,8 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
             rect_bbox = BBox(start, end)
             thickness = (rect.thickness or default_thickness) * scale
             fill = fill_tbl.get(rect.fill, "")
-            obj_svg.append(
+            svg = obj_filled_svg if fill else obj_svg
+            svg.append(
                 " ".join(
                     [
                         "<rect",
@@ -1133,17 +1139,22 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
         elif isinstance(obj, DrawPin):
 
             pin = obj
+            part_pin = self[pin.num]  # Get Pin object associated with this pin drawing object.
 
             try:
                 visible = pin.shape[0] != "N"
             except IndexError:
                 visible = True  # No pin shape given, so it is visible by default.
 
-
             # Start pin group.
             orientation = tx(pin.orientation, symtx)
             dir = pin_dir_tbl[orientation].direction
-            extension = dir * (pin.name_size * 0.5 * max_stub_len + 2 * abs(pin_dir_tbl[orientation].net_offset.x)) * scale
+            if part_pin.net in [None, NC]:
+                # Unconnected pins remain at the length of the default symbol pin.
+                extension = Point(0,0)
+            else:
+                # Extend the pin if it's connected to a net.
+                extension = dir * (pin.name_size * 0.5 * max_stub_len + 2 * abs(pin_dir_tbl[orientation].net_offset.x)) * scale
             start = tx(Point(pin.x, -pin.y), symtx) * scale - extension
             side = pin_dir_tbl[orientation].side
             obj_pin_info.append(PinInfo(x=start.x, y=start.y, side=side, pid=pin.num))
@@ -1203,7 +1214,6 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
                 # Create net stub name.
                 if max_stub_len:
                     # Only do this if stub length > 0; otherwise, no stubs are needed.
-                    part_pin = self[pin.num]  # Get Pin object associated with this pin drawing object.
                     for net in part_pin.get_nets():
                         if net in net_stubs:
                             net_justify = pin_dir_tbl[orientation].name_justify
@@ -1228,6 +1238,8 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
                 pin_info.extend(obj_pin_info)
             for svg in unit_svg:
                 svg.extend(obj_svg)
+            for svg in unit_filled_svg:
+                svg.extend(obj_filled_svg)
             for txt_svg in unit_txt_svg:
                 txt_svg.extend(obj_txt_svg)
             for bbox in unit_bbox:
@@ -1235,6 +1247,7 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
         else:
             unit_pin_info[unit].extend(obj_pin_info)
             unit_svg[unit].extend(obj_svg)
+            unit_filled_svg[unit].extend(obj_filled_svg)
             unit_txt_svg[unit].extend(obj_txt_svg)
             unit_bbox[unit].add(obj_bbox)
 
@@ -1274,9 +1287,9 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
         translate = bbox.min * -1
         svg.append('<g transform="translate({translate.x},{translate.y})">'.format(**locals()))
         # Add part unit text and graphics.
-        svg.extend(unit_svg[unit])
-        # Text comes last so it always appears on top of anything else like filled rects.
-        svg.extend(unit_txt_svg[unit])
+        svg.extend(unit_filled_svg[unit])  # Filled items go on the bottom.
+        svg.extend(unit_svg[unit])  # Then unfilled items.
+        svg.extend(unit_txt_svg[unit])  # Text comes last.
         svg.append("</g>")
 
         # Place a visible bounding-box around symbol for trouble-shooting.
