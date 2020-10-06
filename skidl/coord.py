@@ -60,8 +60,9 @@ class Point:
 
 class BBox:
     def __init__(self, *pts):
-        self.min = Point(math.inf, math.inf)
-        self.max = Point(-math.inf, -math.inf)
+        inf = float('inf')
+        self.min = Point(inf, inf)
+        self.max = Point(-inf, -inf)
         self.add(*pts)
 
     def add(self, *objs):
