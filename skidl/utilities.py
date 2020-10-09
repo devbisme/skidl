@@ -131,7 +131,7 @@ def find_and_open_file(
     Args:
         filename: Base file name (e.g., "my_file").
         paths: List of paths to search for the file.
-        ext: The extension for the file (e.g., "txt").
+        ext: The extension for the file (e.g., ".txt").
         allow_failure: If false, failure to find file raises and exception.
         exclude_binary: If true, skip files that contain binary data.
         descend: If 0, don't search lower-level directories. If positive, search
@@ -141,45 +141,46 @@ def find_and_open_file(
 
     from .logger import logger
 
-    # If no paths are given, then just check the current directory.
-    if not paths:
-        paths = ["."]
+    if os.path.isabs(filename):
+        # Ignore search paths if the file already has an absolute path.
+        paths = [os.path.abspath(os.path.dirname(filename))]
+    elif not paths:
+        # If no search paths are given, use the current working directory.
+        paths = ['.']
 
-    # If the filename has no extension, then give it one.
-    if ext and not filename.endswith(ext):
-        fn_plus_ext = filename + ext
-    else:
-        fn_plus_ext = filename
+    # Remove any directory path from the file name.
+    _, filename = os.path.split(filename)
 
-    # Search the paths for the file.
+    # Get the list of file extensions to check against.
+    exts = to_list(ext)
+    base, suffix = os.path.splitext(filename)
+    exts.append(suffix)
+    exts = [re.escape(ext) for ext in exts]
+
+    # Create the regular expression for matching against the filename.
+    match_name = re.escape(base) + '(' + '|'.join(exts) + ')$'
+
+    # Search through the directory paths for a file whose name matches the regular expression.
     for path in paths:
-        if not os.path.exists(path):
-            continue  # Skip paths that don't exist.
-        abs_filename = os.path.join(path, fn_plus_ext)
-        if not exclude_binary or not is_binary_file(abs_filename):
-            try:
-                # The search stops once the file is successfully opened.
-                return open(abs_filename, encoding="latin_1"), abs_filename
-            except (IOError, FileNotFoundError, TypeError):
-                pass
-        # If file not found, look in subdirectories or go to next path.
-        if descend:
-            # Look in subdirectories.
-            dir_contents = [os.path.join(path, f) for f in os.listdir(path)]
-            subdirs = [f for f in dir_contents if os.path.isdir(f)]
-            if subdirs:
-                fp, fn = find_and_open_file(
-                    filename=filename,
-                    paths=subdirs,
-                    ext=ext,
-                    allow_failure=True,
-                    exclude_binary=exclude_binary,
-                    descend=descend - 1,
-                )
-                if fp:
-                    return fp, fn
+        # Search through the files in a particular directory path.
+        descent_ctr = descend  # Controls the descent through the path.
+        for root, dirnames, filenames in os.walk(path):
+            # Get files in the current directory whose names match the regular expression. 
+            for fn in [f for f in filenames if re.match(match_name,f)]:
+                abs_filename = os.path.join(root, fn)
+                if not exclude_binary or not is_binary_file(abs_filename):
+                    try:
+                        # Return the first file that matches the criteria.
+                        return open(abs_filename, encoding="latin_1"), abs_filename
+                    except (IOError, FileNotFoundError, TypeError):
+                        # File failed, so keep searching.
+                        pass
+            # Keep descending on this path as long as the descent counter is non-zero.
+            if descent_ctr == 0:
+                break  # Cease search of this path if the counter is zero.
+            descent_ctr -= 1  # Decrement the counter for the next directory level.
 
-    # Couldn't find the file.
+    # Couldn't find a matching file.
     if allow_failure:
         return None, None
     else:
@@ -251,6 +252,14 @@ def add_quotes(s):
 
     return s
 
+def is_iterable(x):
+    """
+    Return True if x is iterable (but not a string).
+    """
+    try:
+        return not isinstance(iter(x), type(iter('')))
+    except TypeError:
+        return False
 
 def to_list(x):
     """
