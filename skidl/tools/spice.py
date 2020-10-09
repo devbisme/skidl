@@ -52,6 +52,8 @@ try:
 except ImportError:
     pass
 
+# These aren't used here, but they are used in modules
+# that include this module.
 tool_name = SPICE
 lib_suffix = ".lib"
 

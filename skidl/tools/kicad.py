@@ -48,6 +48,8 @@ from ..utilities import *
 standard_library.install_aliases()
 
 
+# These aren't used here, but they are used in modules
+# that include this module.
 tool_name = KICAD
 lib_suffix = ".lib"
 
