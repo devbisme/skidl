@@ -27,6 +27,7 @@ def test_part_2():
     parts = Part.get(".*")
     assert len(parts) == 2
 
+
 def test_part_3():
-    r = Part('Device', 'R', ref=None)
-    assert r.ref == 'R1'
+    r = Part("Device", "R", ref=None)
+    assert r.ref == "R1"

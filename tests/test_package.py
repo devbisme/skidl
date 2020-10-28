@@ -1,4 +1,5 @@
 import pytest
+
 from skidl import *
 
 from .setup_teardown import *

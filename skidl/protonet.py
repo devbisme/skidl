@@ -31,12 +31,12 @@ from builtins import range, super
 
 from future import standard_library
 
-from .skidlbaseobj import SkidlBaseObject
 from .common import *
 from .logger import logger
 from .net import Net
 from .network import Network
 from .pin import Pin
+from .skidlbaseobj import SkidlBaseObject
 from .utilities import *
 
 standard_library.install_aliases()

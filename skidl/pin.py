@@ -35,9 +35,9 @@ from enum import IntEnum
 from future import standard_library
 
 from .alias import *
-from .skidlbaseobj import SkidlBaseObject
 from .defines import *
 from .logger import erc_logger, logger
+from .skidlbaseobj import SkidlBaseObject
 from .utilities import *
 
 standard_library.install_aliases()

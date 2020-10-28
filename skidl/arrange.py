@@ -232,7 +232,7 @@ class Arranger:
                 # Find the best of all possible movements of parts to regions.
 
                 # This stores the best move found across all parts & regions.
-                best_move = Move(None, None, float('inf'))
+                best_move = Move(None, None, float("inf"))
 
                 # Move each part to each region, looking for the best cost improvement.
                 for part in parts:

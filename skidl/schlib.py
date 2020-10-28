@@ -97,7 +97,9 @@ class SchLib(object):
                     "Unsupported ECAD tool library: {}.".format(tool),
                 )
             else:
-                load_func(filename, skidl.lib_search_paths[tool], lib_section=lib_section)
+                load_func(
+                    filename, skidl.lib_search_paths[tool], lib_section=lib_section
+                )
                 self.filename = filename
                 # Cache a reference to the library.
                 self._cache[filename] = self

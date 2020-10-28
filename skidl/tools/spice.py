@@ -217,7 +217,7 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None
                                         elif line_parts[0] == "d":
                                             part.description = " ".join(line_parts[1:])
                                 sym_file.close()
-                                
+
                                 pin_indices = list(range(len(pin_names)))
                                 for pin, name in zip(part.pins, pin_names):
                                     pin.name = name

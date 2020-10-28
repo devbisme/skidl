@@ -32,11 +32,11 @@ from copy import copy
 
 from future import standard_library
 
-from .skidlbaseobj import SkidlBaseObject
 from .common import *
 from .defines import *
 from .erc import dflt_part_erc
 from .logger import logger
+from .skidlbaseobj import SkidlBaseObject
 from .utilities import *
 
 standard_library.install_aliases()
@@ -171,9 +171,9 @@ class Part(SkidlBaseObject):
         # Remove a part reference if it has been explicitly set as None.
         # Otherwise, this causes the assigned part reference to be incremented twice:
         # once by Circuit.add_parts() and again by setattr().
-        ref = attribs.pop('ref', None)
+        ref = attribs.pop("ref", None)
         if ref:
-            attribs['ref'] = ref
+            attribs["ref"] = ref
 
         # Create a Part from a library entry.
         if lib:
@@ -537,7 +537,7 @@ class Part(SkidlBaseObject):
 
     def copy_units(self, src):
         """ Make copies of the units from the source part. """
-        self.unit = {} # Remove references to any existing units.
+        self.unit = {}  # Remove references to any existing units.
         for label, unit in src.unit.items():
             # Get the pin numbers from the unit in the source part.
             pin_nums = [p.num for p in unit.pins]
@@ -982,7 +982,9 @@ class Part(SkidlBaseObject):
             log_and_raise(
                 logger,
                 ValueError,
-                "Can't generate SVG for a component in an unknown ECAD tool format({}).".format(tool),
+                "Can't generate SVG for a component in an unknown ECAD tool format({}).".format(
+                    tool
+                ),
             )
 
         return gen_func(symtx=symtx, net_stubs=net_stubs)
@@ -1003,7 +1005,9 @@ class Part(SkidlBaseObject):
             log_and_raise(
                 logger,
                 ValueError,
-                "Can't generate pinboxes for a component in an unknown ECAD tool format({}).".format(tool),
+                "Can't generate pinboxes for a component in an unknown ECAD tool format({}).".format(
+                    tool
+                ),
             )
 
         return gen_func()
@@ -1218,7 +1222,7 @@ class PartUnit(Part):
 
         # Store the part unit number if it's given.
         try:
-            self.num = criteria['unit']
+            self.num = criteria["unit"]
         except KeyError:
             pass
 

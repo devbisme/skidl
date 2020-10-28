@@ -25,6 +25,7 @@
 import math
 from copy import copy, deepcopy
 
+
 """
 Coordinates, mostly for working with converting symbols to SVG.
 """
@@ -58,9 +59,10 @@ class Point:
             # Point with coords set as math.inf.
             pass
 
+
 class BBox:
     def __init__(self, *pts):
-        inf = float('inf')
+        inf = float("inf")
         self.min = Point(inf, inf)
         self.max = Point(-inf, -inf)
         self.add(*pts)

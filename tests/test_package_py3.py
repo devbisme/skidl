@@ -12,9 +12,8 @@ def test_package_keyword_only_args():
     def resistor(vin, gnd, *, value):
         vin & Part("Device", "R", dest=TEMPLATE, value=value) & gnd
 
-    res = resistor(value='1K')
+    res = resistor(value="1K")
     vin, gnd = Net("VI"), Net("GND")
 
     res.vin = vin
     res.gnd = gnd
-

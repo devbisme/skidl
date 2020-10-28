@@ -29,17 +29,16 @@ Handles complete circuits made of parts and nets.
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 import functools
+import json
 import os.path
+import subprocess
 import time
 from builtins import range, str, super
 from collections import defaultdict
-import json
-import subprocess
 
 import graphviz
 from future import standard_library
 
-from .skidlbaseobj import SkidlBaseObject
 from .arrange import Arranger
 from .bus import Bus
 from .common import *
@@ -49,10 +48,11 @@ from .interface import Interface
 from .logger import erc_logger, logger
 from .net import NCNet, Net
 from .part import Part, PartUnit
-from .pin import Pin
 from .pckg_info import __version__
+from .pin import Pin
 from .schlib import SchLib
 from .scriptinfo import *
+from .skidlbaseobj import SkidlBaseObject
 from .utilities import *
 
 standard_library.install_aliases()
@@ -587,18 +587,20 @@ class Circuit(SkidlBaseObject):
             # Get the transformation for each part unit.
             unit_symtx = set([""])
             for unit in part.unit.values():
-                unit_symtx.add(getattr(unit, 'symtx', ""))
+                unit_symtx.add(getattr(unit, "symtx", ""))
             # Each combination of global + unit transformation is one of
             # the total transformations needed for the part.
             total_symtx = [global_symtx + u_symtx for u_symtx in unit_symtx]
-            
+
             # Generate SVG of the part for each total transformation.
             for symtx in total_symtx:
                 name = symbol_name + "_" + symtx
                 # Skip any repeats of the part.
                 if name not in part_svg.keys():
-                    part_svg[name] = part.generate_svg_component(symtx=symtx, net_stubs=net_stubs)
-        
+                    part_svg[name] = part.generate_svg_component(
+                        symtx=symtx, net_stubs=net_stubs
+                    )
+
         part_svg = part_svg.values()  # Just keep the SVG for the part symbols.
 
         head_svg = [
@@ -818,7 +820,9 @@ class Circuit(SkidlBaseObject):
 
                 # Associate each connected pin of a part with the assigned net number.
                 connections = {
-                    pin.num: [net_nums[pin.net.name],] for pin in pins if pin.net in routed_nets
+                    pin.num: [net_nums[pin.net.name],]
+                    for pin in pins
+                    if pin.net in routed_nets
                 }
 
                 # Assign I/O to each part pin by either using the pin's symio

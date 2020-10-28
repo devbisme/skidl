@@ -33,11 +33,11 @@ from copy import copy, deepcopy
 
 from future import standard_library
 
-from .skidlbaseobj import SkidlBaseObject
 from .common import *
 from .defines import *
 from .erc import dflt_net_erc
 from .logger import logger
+from .skidlbaseobj import SkidlBaseObject
 from .utilities import *
 
 standard_library.install_aliases()
@@ -503,7 +503,7 @@ class Net(SkidlBaseObject):
                                 pn.name, self.name
                             )
                         )
-                    connect_pin(pn )
+                    connect_pin(pn)
                 elif not pn.part.circuit:
                     logger.warning(
                         "Attaching part template Pin {} to a Net {}.".format(

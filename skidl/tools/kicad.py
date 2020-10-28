@@ -907,18 +907,14 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
             ),
         }
 
-    fill_tbl = {
-        'f': 'background_fill',
-        'F': 'pen_fill',
-        'N': ''
-    }
+    fill_tbl = {"f": "background_fill", "F": "pen_fill", "N": ""}
 
     scale = 0.30  # Scale of KiCad units to SVG units.
-    default_thickness = 1/scale  # Default line thickness = 1.
+    default_thickness = 1 / scale  # Default line thickness = 1.
     default_pin_name_offset = 20
 
     # Named tuple for storing component pin information.
-    PinInfo = namedtuple('PinInfo', 'x y side pid')
+    PinInfo = namedtuple("PinInfo", "x y side pid")
 
     # Get maximum length of net stub name if any are needed for this part symbol.
     net_stubs = net_stubs or []  # Empty list of stub nets if argument is None.
@@ -931,7 +927,9 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
     # Go through each graphic object that makes up the component symbol.
     for obj in self.draw:
 
-        obj_pin_info = []  # Component pin info so they can be generated once bbox is known.
+        obj_pin_info = (
+            []
+        )  # Component pin info so they can be generated once bbox is known.
         obj_svg = []  # Component graphic objects.
         obj_filled_svg = []  # Filled component graphic objects.
         obj_txt_svg = []  # Component text (because it has to be drawn last).
@@ -1012,7 +1010,7 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
                     )
                     * size
                 )
-                class_ = 'part_name_text'
+                class_ = "part_name_text"
                 extra = 's:attribute="value"'
                 obj_txt_svg.append(
                     draw_text("X", size, justify, origin, angle, offset, class_, extra)
@@ -1135,13 +1133,17 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
                 * size
             )
             obj_txt_svg.append(
-                draw_text(text.text, size, justify, origin, angle, offset, class_="part_text")
+                draw_text(
+                    text.text, size, justify, origin, angle, offset, class_="part_text"
+                )
             )
 
         elif isinstance(obj, DrawPin):
 
             pin = obj
-            part_pin = self[pin.num]  # Get Pin object associated with this pin drawing object.
+            part_pin = self[
+                pin.num
+            ]  # Get Pin object associated with this pin drawing object.
 
             try:
                 visible = pin.shape[0] != "N"
@@ -1153,10 +1155,17 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
             dir = pin_dir_tbl[orientation].direction
             if part_pin.net in [None, NC]:
                 # Unconnected pins remain at the length of the default symbol pin.
-                extension = Point(0,0)
+                extension = Point(0, 0)
             else:
                 # Extend the pin if it's connected to a net.
-                extension = dir * (pin.name_size * 0.5 * max_stub_len + 2 * abs(pin_dir_tbl[orientation].net_offset.x)) * scale
+                extension = (
+                    dir
+                    * (
+                        pin.name_size * 0.5 * max_stub_len
+                        + 2 * abs(pin_dir_tbl[orientation].net_offset.x)
+                    )
+                    * scale
+                )
             start = tx(Point(pin.x, -pin.y), symtx) * scale - extension
             side = pin_dir_tbl[orientation].side
             obj_pin_info.append(PinInfo(x=start.x, y=start.y, side=side, pid=pin.num))
@@ -1171,13 +1180,14 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
                 obj_bbox.add(start)
                 obj_bbox.add(end)
                 obj_svg.append(
-                    " ".join([
-                        '<path',
-                        'd="M {start.x} {start.y} L {end.x} {end.y}"',
-                        'style="stroke-width:{thickness}"',
-                        'class="$cell_id symbol"'
-                        '/>'
-                    ]).format(**locals())
+                    " ".join(
+                        [
+                            "<path",
+                            'd="M {start.x} {start.y} L {end.x} {end.y}"',
+                            'style="stroke-width:{thickness}"',
+                            'class="$cell_id symbol"' "/>",
+                        ]
+                    ).format(**locals())
                 )
 
                 # Create pin number.
@@ -1190,7 +1200,13 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
                     # Pin nums are text, but they go into graphical SVG because they are part of a pin object.
                     obj_svg.append(
                         draw_text(
-                            str(pin.num), num_size, num_justify, end, angle, num_offset, "pin_num_text"
+                            str(pin.num),
+                            num_size,
+                            num_justify,
+                            end,
+                            angle,
+                            num_offset,
+                            "pin_num_text",
                         )
                     )
 
@@ -1209,7 +1225,7 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
                             end,
                             angle,
                             name_offset,
-                            "pin_name_text"
+                            "pin_name_text",
                         )
                     )
 
@@ -1219,10 +1235,22 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
                     for net in part_pin.get_nets():
                         if net in net_stubs:
                             net_justify = pin_dir_tbl[orientation].name_justify
-                            net_size = pin.name_size * scale  # Net name font size same as pin name font size.
+                            net_size = (
+                                pin.name_size * scale
+                            )  # Net name font size same as pin name font size.
                             net_offset = pin_dir_tbl[orientation].net_offset * scale
                             net_offset.y = net_offset.y * pin.name_size
-                            obj_svg.append(draw_text(net.name, net_size, net_justify, start, angle, net_offset, "net_name_text"))
+                            obj_svg.append(
+                                draw_text(
+                                    net.name,
+                                    net_size,
+                                    net_justify,
+                                    start,
+                                    angle,
+                                    net_offset,
+                                    "net_name_text",
+                                )
+                            )
                             break  # Only one label is needed per stub.
 
         else:
@@ -1273,13 +1301,15 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
 
         # Begin SVG for part unit.
         svg.append(
-            " ".join([
-                '<g',
-                's:type="{symbol_name}"',
-                's:width="{bbox.w}"',
-                's:height="{bbox.h}"',
-                '>'
-            ]).format(**locals())
+            " ".join(
+                [
+                    "<g",
+                    's:type="{symbol_name}"',
+                    's:width="{bbox.w}"',
+                    's:height="{bbox.h}"',
+                    ">",
+                ]
+            ).format(**locals())
         )
 
         # Add part alias.
@@ -1287,7 +1317,9 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
 
         # Group text & graphics and translate so bbox.min is at (0,0).
         translate = bbox.min * -1
-        svg.append('<g transform="translate({translate.x},{translate.y})">'.format(**locals()))
+        svg.append(
+            '<g transform="translate({translate.x},{translate.y})">'.format(**locals())
+        )
         # Add part unit text and graphics.
         svg.extend(unit_filled_svg[unit])  # Filled items go on the bottom.
         svg.extend(unit_svg[unit])  # Then unfilled items.
@@ -1300,14 +1332,16 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
         bbox.max = bbox.max + translate
         if show_bbox:
             svg.append(
-                " ".join([
-                    '<rect',
-                    'x="{bbox.min.x}" y="{bbox.min.y}"',
-                    'width="{bbox.w}" height="{bbox.h}"',
-                    'style="stroke-width:3; stroke:#f00"',
-                    'class="$cell_id symbol"',
-                    '/>'
-                ]).format(**locals())
+                " ".join(
+                    [
+                        "<rect",
+                        'x="{bbox.min.x}" y="{bbox.min.y}"',
+                        'width="{bbox.w}" height="{bbox.h}"',
+                        'style="stroke-width:3; stroke:#f00"',
+                        'class="$cell_id symbol"',
+                        "/>",
+                    ]
+                ).format(**locals())
             )
 
         # Keep the pins out of the grouped text & graphics but adjust their coords
@@ -1317,18 +1351,20 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
             side = pin_info.side
             pid = pin_info.pid
             pin_svg = '<g s:x="{pin_pt.x}" s:y="{pin_pt.y}" s:pid="{pid}" s:position="{side}"/>'.format(
-                    **locals()
-                )
+                **locals()
+            )
             svg.append(pin_svg)
-        
+
         # Finish SVG for part unit.
         svg.append("</g>")
 
     return "\n".join(svg)
 
+
 def _gen_pinboxes_(self):
     """ Generate bounding box and I/O pin positions for each unit in a part. """
     pass
+
 
 def _gen_schematic_(self, route):
     pass

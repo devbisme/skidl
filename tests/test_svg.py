@@ -87,7 +87,11 @@ def test_svg_3():
         if cost < best_cost:
             best_arr = arr
             best_cost = cost
-            print("///// Best arrangement cost = {best_cost:2.2f} /////".format(**locals()))
+            print(
+                "///// Best arrangement cost = {best_cost:2.2f} /////".format(
+                    **locals()
+                )
+            )
             arr = Arranger(default_circuit, w, h)
 
     best_arr.apply()
@@ -145,7 +149,11 @@ def test_svg_4():
         if cost < best_cost:
             best_arr = arr
             best_cost = cost
-            print("///// Best arrangement cost = {best_cost:2.2f} /////".format(**locals()))
+            print(
+                "///// Best arrangement cost = {best_cost:2.2f} /////".format(
+                    **locals()
+                )
+            )
             arr = Arranger(default_circuit, 3, 3)
 
     best_arr.apply()
@@ -162,7 +170,11 @@ def test_svg_4():
         if cost < best_cost:
             best_arr = arr
             best_cost = cost
-            print("///// Best arrangement cost = {best_cost:2.2f} /////".format(**locals()))
+            print(
+                "///// Best arrangement cost = {best_cost:2.2f} /////".format(
+                    **locals()
+                )
+            )
             arr = Arranger(default_circuit, 3, 3)
 
     best_arr.apply()
@@ -385,4 +397,3 @@ def test_svg_8():
     ERC()  # Run error checks.
     generate_netlist()  # Generate the netlist.
     generate_svg(net_stubs=[gnd, red, grn, blu, hsync, vsync])
-

@@ -33,13 +33,13 @@ from builtins import range, str, super
 from future import standard_library
 
 from .alias import Alias
-from .skidlbaseobj import SkidlBaseObject
 from .common import *
 from .defines import *
 from .logger import logger
 from .net import Net
 from .netpinlist import NetPinList
 from .pin import Pin
+from .skidlbaseobj import SkidlBaseObject
 from .utilities import *
 
 standard_library.install_aliases()

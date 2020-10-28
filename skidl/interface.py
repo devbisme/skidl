@@ -32,8 +32,8 @@ from builtins import str
 from future import standard_library
 
 from .alias import Alias
-from .skidlbaseobj import SkidlBaseObject
 from .protonet import ProtoNet
+from .skidlbaseobj import SkidlBaseObject
 from .utilities import *
 
 standard_library.install_aliases()

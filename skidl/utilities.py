@@ -146,7 +146,7 @@ def find_and_open_file(
         paths = [os.path.abspath(os.path.dirname(filename))]
     elif not paths:
         # If no search paths are given, use the current working directory.
-        paths = ['.']
+        paths = ["."]
 
     # Remove any directory path from the file name.
     _, filename = os.path.split(filename)
@@ -160,15 +160,15 @@ def find_and_open_file(
 
     # Create the regular expression for matching against the filename.
     exts = [re.escape(ext) for ext in exts]
-    match_name = re.escape(base) + '(' + '|'.join(exts) + ')$'
+    match_name = re.escape(base) + "(" + "|".join(exts) + ")$"
 
     # Search through the directory paths for a file whose name matches the regular expression.
     for path in paths:
         # Search through the files in a particular directory path.
         descent_ctr = descend  # Controls the descent through the path.
         for root, dirnames, filenames in os.walk(path):
-            # Get files in the current directory whose names match the regular expression. 
-            for fn in [f for f in filenames if re.match(match_name,f)]:
+            # Get files in the current directory whose names match the regular expression.
+            for fn in [f for f in filenames if re.match(match_name, f)]:
                 abs_filename = os.path.join(root, fn)
                 if not exclude_binary or not is_binary_file(abs_filename):
                     try:
@@ -254,14 +254,16 @@ def add_quotes(s):
 
     return s
 
+
 def is_iterable(x):
     """
     Return True if x is iterable (but not a string).
     """
     try:
-        return not isinstance(iter(x), type(iter('')))
+        return not isinstance(iter(x), type(iter("")))
     except TypeError:
         return False
+
 
 def to_list(x):
     """

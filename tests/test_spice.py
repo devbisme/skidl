@@ -74,8 +74,8 @@ def test_xspice_1():
     r = R(value=1 @ u_kOhm)
 
     # Create a part with no connections to test NULL SPICE connections.
-    #buf2 = buf_tmp()
-    #buf2["buf_in"] += NC
+    # buf2 = buf_tmp()
+    # buf2["buf_in"] += NC
 
     # Connections: sine wave -> ADC -> buffer -> DAC.
     vin["p, n"] += (
