@@ -38,7 +38,6 @@ from ..logger import logger
 from ..net import Net
 from ..part import Part
 from ..pin import Pin, PinList
-from ..skidl import lib_search_paths
 from ..utilities import *
 
 standard_library.install_aliases()
@@ -57,6 +56,7 @@ except ImportError:
 # that include this module.
 tool_name = SPICE
 lib_suffix = [".lib", ".spice"]
+
 
 def _gather_statement(file):
     """Return list of words in a complete statement read from a SPICE file."""
@@ -84,7 +84,7 @@ def _gather_statement(file):
     # Return any statement that was in-process when the file ended.
     if statement != "":
         yield statement.lower().split()
-            
+
 
 def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None):
     """
@@ -101,14 +101,22 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None
 
     if os.path.isdir(filename):
         # A directory was given, so just use that.
-        abs_path = os.path.abspath(filename)
+        spice_lib_path = os.path.abspath(filename)
     else:
         # A file name was given, so find the absolute file path in the search paths.
-        fp, abs_path = find_and_open_file(filename=filename, paths=lib_search_paths_, ext=lib_suffixes[SPICE], exclude_binary=True, descend=-1)
+        fp, spice_lib_path = find_and_open_file(
+            filename=filename,
+            paths=lib_search_paths_,
+            ext=lib_suffixes[SPICE],
+            exclude_binary=True,
+            descend=-1,
+        )
         fp.close()  # Close the file pointer. We just need the path to the file.
 
     # Read the Spice library from the given path.
-    spice_lib = SpiceLibrary(root_path=abs_path, recurse=True, section=lib_section)
+    spice_lib = SpiceLibrary(
+        root_path=spice_lib_path, recurse=True, section=lib_section
+    )
 
     # Get the unique set of files referenced by the subcircuits in the Spice library.
     lib_files = set([str(spice_lib[subcirc]) for subcirc in spice_lib.subcircuits])
@@ -134,9 +142,13 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None
                     part.filename = ""
                     part.name = ""
                     part.pins = []
-                    part.pyspice = {"name": "X", "add": add_subcircuit_to_circuit}
-                    part.pyspice_lib = spice_lib
-                    part.pyspice_lib_section = lib_section
+                    part.pyspice = {
+                        "name": "X",
+                        "add": add_subcircuit_to_circuit,
+                        "lib": spice_lib,
+                        "lib_path": spice_lib_path,
+                        "lib_section": lib_section,
+                    }
 
                     # Flesh-out the part.
                     # Parse the part definition.
@@ -147,11 +159,13 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None
                         part.pins = [Pin(num=p, name=p) for p in pieces[2:]]
                         part.associate_pins()
                     except IndexError:
-                        logger.warn("Misformatted SPICE subcircuit: {}".format(part.part_defn))
+                        logger.warn(
+                            "Misformatted SPICE subcircuit: {}".format(part.part_defn)
+                        )
                     else:
                         # Now find a symbol file for the part to assign names to the pins.
                         # First, check for LTSpice symbol file.
-                        sym_file, _ = find_and_open_file(
+                        sym_file, sym_file_path = find_and_open_file(
                             part.name,
                             lib_search_paths_,
                             ".asy",
@@ -163,12 +177,16 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None
                             pin_names = []
                             pin_indices = []
                             for sym_line in sym_file:
+                                if not sym_line:
+                                    continue
                                 if sym_line.lower().startswith("pinattr pinname"):
                                     pin_names.append(sym_line.split()[2])
                                 elif sym_line.lower().startswith("pinattr spiceorder"):
                                     pin_indices.append(sym_line.split()[2])
                                 elif sym_line.lower().startswith("symattr description"):
                                     part.description = " ".join(sym_line.split()[2:])
+                            sym_file.close()
+
                             # Pin names and indices should be matched by the order they
                             # appeared in the symbol file. Each index should match the
                             # order of the pins in the .subckt file.
@@ -176,7 +194,7 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None
                                 part.pins[int(index) - 1].name = name
                         else:
                             # No LTSpice symbol file, so check for PSPICE symbol file.
-                            sym_file, diag = find_and_open_file(
+                            sym_file, sym_file_path = find_and_open_file(
                                 filename,
                                 lib_search_paths_,
                                 ".slb",
@@ -188,6 +206,8 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None
                                 pin_names = []
                                 active = False
                                 for sym_line in sym_file:
+                                    if not sym_line:
+                                        continue
                                     line_parts = sym_line.lower().split()
                                     if line_parts[0] == "*symbol":
                                         active = line_parts[1] == part.name.lower()
@@ -196,21 +216,14 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None
                                             pin_names.append(line_parts[6])
                                         elif line_parts[0] == "d":
                                             part.description = " ".join(line_parts[1:])
+                                sym_file.close()
+                                
                                 pin_indices = list(range(len(pin_names)))
                                 for pin, name in zip(part.pins, pin_names):
                                     pin.name = name
 
                     # Add subcircuit part to the library.
                     self.add_parts(part)
-
-                elif statement[0] == ".include":
-                    inc_file = rmv_quotes(statement[1])
-                    
-                elif statement[0] == ".lib":
-                    pass
-
-                else:
-                    pass
 
 
 def _parse_lib_part_(self, get_name_only=False):  # pylint: disable=unused-argument
@@ -262,29 +275,39 @@ def _gen_netlist_(self, **kwargs):
     # Initialize set of libraries to include in the PySpice circuit.
     includes = set()
 
-    models = set()
-    libs = set()
+    model_paths = set()
+    lib_paths = set()
+    lib_ids = set()
     for part in self.parts:
         try:
-            model = part.model
+            pyspice = part.pyspice
         except AttributeError:
-            model = None
-        if model and model not in models:
-            models.add(model)
+            continue
+
+        model = getattr(part, "model", None)
+        if model:
             if isinstance(model, (XspiceModel, DeviceModel)):
                 circuit.model(*model.args, **model.kwargs)
             else:
-                model_file = str()
-                circuit.include(part.pyspice_lib[model])
+                path = pyspice["lib"][model]
+                if path not in model_paths:
+                    circuit.include(path)
+                    model_paths.add(path)
 
         try:
-            lib = part.pyspice_lib
-        except AttributeError:
-            lib = None
-        if lib and lib not in libs:
-            libs.add(lib)
-            lib_file = str(lib[part.name])
-            circuit.include(lib_file)
+            path, section = pyspice["lib_path"], pyspice["lib_section"]
+        except KeyError:
+            continue
+        if not section:
+            # Libraries without a section are added as include files.
+            if path not in lib_paths:
+                circuit.include(path)
+                lib_paths.add(path)
+        else:
+            lib_id = (path, section)
+            if lib_id not in lib_ids:
+                circuit.lib(*lib_id)
+                lib_ids.add(lib_id)
 
     # Add each part in the SKiDL circuit to the PySpice circuit.
     for part in sorted(self.parts, key=lambda p: str(p.ref)):
@@ -402,6 +425,16 @@ def _get_net_names(part):
     return [node(pin) for pin in part.pins if pin.is_connected()]
 
 
+class Parameters(dict):
+    """Class for holding Spice subcircuit parameters."""
+
+    def __init__(self, **params):
+        super().__init__(**params)
+
+    def __copy__(self):
+        return {k: copy(v) for k, v in self}
+
+
 def add_subcircuit_to_circuit(part, circuit):
     """
     Add a .SUBCKT part to a PySpice Circuit object.
@@ -418,7 +451,13 @@ def add_subcircuit_to_circuit(part, circuit):
     args.extend(_get_net_names(part))
 
     # Add the part to the PySpice circuit.
-    getattr(circuit, part.pyspice["name"])(*args)
+    from ..pyspice import Parameters
+
+    params = {}
+    for k, v in part.__dict__.items():
+        if isinstance(v, Parameters):
+            params = v
+    getattr(circuit, part.pyspice["name"])(*args, **params)
 
 
 def add_xspice_to_circuit(part, circuit):
