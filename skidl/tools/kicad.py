@@ -54,7 +54,7 @@ tool_name = KICAD
 lib_suffix = ".lib"
 
 
-def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
+def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None):
     """
     Load the parts from a KiCad schematic library file.
 

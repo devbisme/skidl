@@ -58,7 +58,7 @@ class SchLib(object):
     # for fast loading of libraries.
     _cache = {}
 
-    def __init__(self, filename=None, tool=None, **attribs):
+    def __init__(self, filename=None, tool=None, lib_section=None, **attribs):
         """
         Load the parts from a library file.
         """
@@ -97,7 +97,7 @@ class SchLib(object):
                     "Unsupported ECAD tool library: {}.".format(tool),
                 )
             else:
-                load_func(filename, skidl.lib_search_paths[tool])
+                load_func(filename, skidl.lib_search_paths[tool], lib_section=lib_section)
                 self.filename = filename
                 # Cache a reference to the library.
                 self._cache[filename] = self
