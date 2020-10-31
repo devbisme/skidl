@@ -63,7 +63,7 @@ class Package(Interface):
         pckg = Package(**self.copy())  # Create a shallow copy of the package.
 
         # Set the circuit that the ProtoNets belong to. Also, make copies of any
-        # implicit buses or nets that were specified as default I/Os in the 
+        # implicit buses or nets that were specified as default I/Os in the
         # package definition.
         for k, v in pckg.items():
             if isinstance(v, ProtoNet):
