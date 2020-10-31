@@ -50,6 +50,7 @@ from .net import NCNet, Net
 from .part import Part, PartUnit
 from .pckg_info import __version__
 from .pin import Pin
+from .protonet import ProtoNet
 from .schlib import SchLib
 from .scriptinfo import *
 from .skidlbaseobj import SkidlBaseObject
@@ -399,6 +400,16 @@ class Circuit(SkidlBaseObject):
         # Set default_circuit to this circuit and instantiate the packages.
         with self:
             for package in self.packages:
+                # If there are still ProtoNets attached to the package at this point,
+                # just replace them with Nets. This will allow any internal connections
+                # inside the package to be reflected on the package I/O pins.
+                # **THIS WILL PROBABLY FAIL IF THE INTERNAL CONNECTIONS ARE BUSES.**
+                # DISABLE THIS FOR NOW...
+                # for k, v in package.items():
+                #     if isinstance(v, ProtoNet):
+                #         package[k] = Net()
+
+                # Call the function to instantiate the package with its arguments.
                 package.subcircuit(**package)
 
         # Avoid duplicating circuitry by deleting packages after they've
