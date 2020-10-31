@@ -32,10 +32,12 @@ from copy import copy
 
 from future import standard_library
 
+from .bus import Bus
 from .circuit import subcircuit
 from .common import *
 from .defines import *
 from .interface import Interface
+from .net import Net
 from .protonet import ProtoNet
 
 standard_library.install_aliases()
@@ -60,10 +62,15 @@ class Package(Interface):
 
         pckg = Package(**self.copy())  # Create a shallow copy of the package.
 
-        # Set the circuit that the ProtoNets belong to.
-        for v in pckg.values():
+        # Set the circuit that the ProtoNets belong to. Also, make copies of any
+        # implicit buses or nets that were specified as default I/Os in the 
+        # package definition.
+        for k, v in pckg.items():
             if isinstance(v, ProtoNet):
                 v.circuit = circuit
+            elif isinstance(v, (Net, Bus)):
+                if v.is_implicit():
+                    pckg[k] = v.copy()
 
         # Don't use update(). It doesn't seem to call __setitem__.
         for k, v in list(kwargs.items()):
@@ -117,8 +124,10 @@ def package(subcirc_func):
         for arg_name, dflt_value in subcirc_func.__kwdefaults__.items():
             pckg[arg_name] = dflt_value
 
-    # Remove the subcircuit key from the dict so it won't be passed to subcirc_func().
+    # Create the subcircuit function that will be called to insantiate this package.
     pckg.subcircuit = subcircuit(subcirc_func)
+
+    # Remove the subcircuit key from the dict so it won't be passed to subcirc_func().
     del pckg["subcircuit"]
 
     return pckg
