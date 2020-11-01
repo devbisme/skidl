@@ -719,6 +719,12 @@ class PinList(list):
         for pin in self:
             pin.disconnect()
 
+    def is_connected(self):
+        for pin in self:
+            if pin.is_connected():
+                return True
+        return False
+
 
 ##############################################################################
 

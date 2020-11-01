@@ -31,6 +31,7 @@ def test_subclass_2():
 
     r1 = Part("Device", "R")
     r2 = CustomPart("Device", "R")
+    r1 & r2  # Make a connection so resistors don't get culled.
 
     ERC()
-    assert erc_logger.warning.count == 4
+    assert erc_logger.warning.count == 2

@@ -16,6 +16,7 @@ def test_nc_1():
     )
     r1 = res(value="1K")
     r2 = res(value="500")
+    r1 & r2  # Connection keeps resistors from being culled.
 
     cap = Part(
         tool=SKIDL,
@@ -26,13 +27,14 @@ def test_nc_1():
     )
     c1 = cap()
     c2 = cap(value="1uF")
+    c1[1] & c2[1]  # Connection keeps capacitors from being culled.
 
     gnd = Net("GND")  # Ground reference.
     vin = Net("VI")  # Input voltage to the divider.
     vout = Net("VO")  # Output voltage from the divider.
 
     ERC()
-    assert erc_logger.warning.count == 12
+    assert erc_logger.warning.count == 8
     assert erc_logger.error.count == 0
 
 
@@ -227,8 +229,10 @@ def test_assert_1():
 
     r1 = r(value="1K")
     r2 = r(value="500")
+    r1 & r2  # Keeps resistors from being culled.
     c1 = c()
     c2 = c(value="1uF")
+    c1 & c2  # Keeps capacitors from being culled.
 
     gnd = Net("GND")  # Ground reference.
     vin = Net("VI")  # Input voltage to the divider.
@@ -237,7 +241,7 @@ def test_assert_1():
     erc_assert("len(gnd)==0", "Failed test!")  # Should not fail.
 
     ERC()
-    assert erc_logger.warning.count == 14
+    assert erc_logger.warning.count == 10
     assert erc_logger.error.count == 1
 
 

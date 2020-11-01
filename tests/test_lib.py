@@ -59,6 +59,7 @@ def test_backup_1():
     a = Part("Device", "R", footprint="null")
     b = Part("Device", "C", footprint="null")
     c = Part("Device", "L", footprint="null")
+    a & b & c  # Connect device to keep them from being culled.
     generate_netlist(do_backup=True)  # This creates the backup parts library.
     default_circuit.reset()
     set_query_backup_lib(True)  # FIXME: this is already True by default!

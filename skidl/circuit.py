@@ -394,6 +394,13 @@ class Circuit(SkidlBaseObject):
                 distinct_nets.append(net)
         return distinct_nets
 
+    def _cull_unconnected_parts(self):
+        """Remove parts that aren't connected to anything."""
+
+        for part in self.parts:
+            if not part.is_connected():
+                self -= part
+
     def instantiate_packages(self):
         """Run the package executables to instantiate their circuitry."""
 
@@ -416,11 +423,14 @@ class Circuit(SkidlBaseObject):
         # been instantiated once.
         self.packages = []
 
+    def _preprocess(self):
+        self.instantiate_packages()
+        self._cull_unconnected_parts()
+
     def ERC(self, *args, **kwargs):
         """Run class-wide and local ERC functions on this circuit."""
 
-        # Generate circuitry for any packages that were instantiated.
-        self.instantiate_packages()
+        self._preprocess()
 
         # Reset the counters to clear any warnings/errors from previous ERC run.
         erc_logger.error.reset()
@@ -463,8 +473,7 @@ class Circuit(SkidlBaseObject):
 
         from . import skidl
 
-        # Generate circuitry for any packages that were instantiated.
-        self.instantiate_packages()
+        self._preprocess()
 
         # Reset the counters to clear any warnings/errors from previous run.
         logger.error.reset()
@@ -534,8 +543,7 @@ class Circuit(SkidlBaseObject):
 
         from . import skidl
 
-        # Generate circuitry for any packages that were instantiated.
-        self.instantiate_packages()
+        self._preprocess()
 
         # Reset the counters to clear any warnings/errors from previous run.
         logger.error.reset()
@@ -751,8 +759,7 @@ class Circuit(SkidlBaseObject):
 
         from . import skidl
 
-        # Generate circuitry for any packages that were instantiated.
-        self.instantiate_packages()
+        self._preprocess()
 
         # Reset the counters to clear any warnings/errors from previous run.
         logger.error.reset()
@@ -902,8 +909,7 @@ class Circuit(SkidlBaseObject):
 
         from . import skidl
 
-        # Generate circuitry for any packages that were instantiated.
-        self.instantiate_packages()
+        self._preprocess()
 
         # Reset the counters to clear any warnings/errors from previous run.
         logger.error.reset()
@@ -990,8 +996,7 @@ class Circuit(SkidlBaseObject):
             graphviz.Digraph
         """
 
-        # Generate circuitry for any packages that were instantiated.
-        self.instantiate_packages()
+        self._preprocess()
 
         # Reset the counters to clear any warnings/errors from previous run.
         logger.error.reset()
@@ -1066,8 +1071,7 @@ class Circuit(SkidlBaseObject):
 
         from . import skidl
 
-        # Generate circuitry for any packages that were instantiated.
-        self.instantiate_packages()
+        self._preprocess()
 
         lib = SchLib(tool=SKIDL)  # Create empty library.
         for p in self.parts:
