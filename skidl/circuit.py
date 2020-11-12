@@ -34,7 +34,7 @@ import os.path
 import subprocess
 import time
 from builtins import range, str, super
-from collections import defaultdict
+from collections import defaultdict, deque
 
 import graphviz
 from future import standard_library
@@ -106,7 +106,7 @@ class Circuit(SkidlBaseObject):
         self.netclasses = {}
         self.buses = []
         self.interfaces = []
-        self.packages = []
+        self.packages = deque()
         self.hierarchy = "top"
         self.level = 0
         self.context = [("top",)]
@@ -284,7 +284,7 @@ class Circuit(SkidlBaseObject):
                 if package.is_movable():
 
                     # Add the package to this circuit.
-                    self.packages.append(package)
+                    self.packages.appendleft(package)
                     package.circuit = self
                     for obj in package.values():
                         try:
@@ -394,19 +394,14 @@ class Circuit(SkidlBaseObject):
                 distinct_nets.append(net)
         return distinct_nets
 
-    def _cull_unconnected_parts(self):
-        """Remove parts that aren't connected to anything."""
-
-        for part in self.parts:
-            if not part.is_connected():
-                self -= part
-
     def instantiate_packages(self):
         """Run the package executables to instantiate their circuitry."""
 
         # Set default_circuit to this circuit and instantiate the packages.
         with self:
-            for package in self.packages:
+            while self.packages:
+                package = self.packages.pop()
+
                 # If there are still ProtoNets attached to the package at this point,
                 # just replace them with Nets. This will allow any internal connections
                 # inside the package to be reflected on the package I/O pins.
@@ -419,22 +414,32 @@ class Circuit(SkidlBaseObject):
                 # Call the function to instantiate the package with its arguments.
                 package.subcircuit(**package)
 
-        # Avoid duplicating circuitry by deleting packages after they've
-        # been instantiated once.
-        self.packages = []
+    def _cull_unconnected_parts(self):
+        """Remove parts that aren't connected to anything."""
+
+        for part in self.parts:
+            if not part.is_connected():
+                self -= part
+
+    def _merge_net_names(self):
+        """Select a single name for each multi-segment net."""
+
+        for net in self.nets:
+            net.merge_names()
 
     def _preprocess(self):
         self.instantiate_packages()
         self._cull_unconnected_parts()
+        self._merge_net_names()
 
     def ERC(self, *args, **kwargs):
         """Run class-wide and local ERC functions on this circuit."""
 
-        self._preprocess()
-
         # Reset the counters to clear any warnings/errors from previous ERC run.
         erc_logger.error.reset()
         erc_logger.warning.reset()
+
+        self._preprocess()
 
         if self.no_files:
             erc_logger.stop_file_output()
@@ -450,12 +455,6 @@ class Circuit(SkidlBaseObject):
             sys.stderr.write(
                 "{} errors found during ERC.\n\n".format(erc_logger.error.count)
             )
-
-    def _merge_net_names(self):
-        """Select a single name for each multi-segment net."""
-
-        for net in self.nets:
-            net.merge_names()
 
     def generate_netlist(self, **kwargs):
         """
@@ -473,14 +472,11 @@ class Circuit(SkidlBaseObject):
 
         from . import skidl
 
-        self._preprocess()
-
         # Reset the counters to clear any warnings/errors from previous run.
         logger.error.reset()
         logger.warning.reset()
 
-        # Before anything else, clean-up names for multi-segment nets.
-        self._merge_net_names()
+        self._preprocess()
 
         # Extract arguments:
         #     Get EDA tool the netlist will be generated for.
@@ -543,14 +539,11 @@ class Circuit(SkidlBaseObject):
 
         from . import skidl
 
-        self._preprocess()
-
         # Reset the counters to clear any warnings/errors from previous run.
         logger.error.reset()
         logger.warning.reset()
 
-        # Clean-up names for multi-segment nets.
-        self._merge_net_names()
+        self._preprocess()
 
         if tool is None:
             tool = skidl.get_default_tool()
@@ -759,14 +752,11 @@ class Circuit(SkidlBaseObject):
 
         from . import skidl
 
-        self._preprocess()
-
         # Reset the counters to clear any warnings/errors from previous run.
         logger.error.reset()
         logger.warning.reset()
 
-        # Clean-up names for multi-segment nets.
-        self._merge_net_names()
+        self._preprocess()
 
         # Get the list of nets which will be routed and not represented by stubs.
         net_stubs = net_stubs or []  # If net_stubs is None, set it to empty list.
@@ -909,14 +899,11 @@ class Circuit(SkidlBaseObject):
 
         from . import skidl
 
-        self._preprocess()
-
         # Reset the counters to clear any warnings/errors from previous run.
         logger.error.reset()
         logger.warning.reset()
 
-        # Clean-up names for multi-segment nets.
-        self._merge_net_names()
+        self._preprocess()
 
         if tool is None:
             tool = skidl.get_default_tool()
@@ -996,14 +983,11 @@ class Circuit(SkidlBaseObject):
             graphviz.Digraph
         """
 
-        self._preprocess()
-
         # Reset the counters to clear any warnings/errors from previous run.
         logger.error.reset()
         logger.warning.reset()
 
-        # Before anything else, clean-up names for multi-segment nets.
-        self._merge_net_names()
+        self._preprocess()
 
         dot = graphviz.Digraph(engine=engine)
         dot.attr(rankdir=rankdir, splines=splines)

@@ -265,19 +265,29 @@ def _gen_netlist_(self, **kwargs):
             containing SPICE models.
     """
 
+    from ..skidl import lib_search_paths
+
     if USING_PYTHON2:
         return None
+
+    # Replace any special chars in all net names because Spice won't like them.
+    # Don't use self.get_nets() because that only returns a single net from a
+    # group of attached nets so the other nets won't get renamed.
+    for net in self.nets:
+        net.replace_spec_chars_in_name()
 
     # Create an empty PySpice circuit.
     title = kwargs.pop("title", "")  # Get title and remove it from kwargs.
     circuit = PySpiceCircuit(title)
 
-    # Initialize set of libraries to include in the PySpice circuit.
-    includes = set()
+    # Default SPICE libraries will be read-in down below if needed.
+    default_libs = []
 
-    model_paths = set()
-    lib_paths = set()
-    lib_ids = set()
+    # Initialize set of libraries to include in the PySpice circuit.
+    model_paths = set()  # Paths to the model files that have been used.
+    lib_paths = set()  # Paths to the library files that have been used.
+    lib_ids = set()  # A lib_id is a tuple of the path to the lib file and a section.
+
     for part in self.parts:
         try:
             pyspice = part.pyspice
@@ -289,8 +299,28 @@ def _gen_netlist_(self, **kwargs):
             if isinstance(model, (XspiceModel, DeviceModel)):
                 circuit.model(*model.args, **model.kwargs)
             else:
-                path = pyspice["lib"][model]
-                if path not in model_paths:
+                try:
+                    path = pyspice["lib"][model]
+                except KeyError:
+                    # The part doesn't contain the library with the model, so look elsewhere.
+                    if not default_libs:
+                        # Read the default SPICE libraries.
+                        for path in lib_search_paths[SPICE]:
+                            default_libs.append(SpiceLibrary(root_path=path, recurse=True))
+
+                    # Search for the model in the default libraries.
+                    path = None
+                    for lib in default_libs:
+                        try:
+                            path = lib[model]
+                            break
+                        except KeyError:
+                            pass
+                    if path == None:
+                        logger.error("Unable to find model {} for part {}".format(model, part.ref))
+
+                # Include the model file if it hasn't been included yet.
+                if path != None and path not in model_paths:
                     circuit.include(path)
                     model_paths.add(path)
 
@@ -323,11 +353,13 @@ def _gen_netlist_(self, **kwargs):
     return circuit
 
 
-def node(net_or_pin):
-    if isinstance(net_or_pin, Net):
-        return net_or_pin.name
-    if isinstance(net_or_pin, Pin):
-        return net_or_pin.net.name
+def node(net_pin_part):
+    if isinstance(net_pin_part, Net):
+        return net_pin_part.name
+    if isinstance(net_pin_part, Pin):
+        return net_pin_part.net.name
+    if isinstance(net_pin_part, Part):
+        return net_pin_part.ref
 
 
 def _xspice_node(net_or_pin):

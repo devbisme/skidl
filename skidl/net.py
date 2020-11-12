@@ -730,6 +730,9 @@ class Net(SkidlBaseObject):
         pins = self.get_pins()
         return len(pins)
 
+    def replace_spec_chars_in_name(self):
+        self._name = re.sub(r"\W", "_", self._name)
+
     @property
     def width(self):
         """Return width of a Net, which is always 1."""

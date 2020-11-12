@@ -57,7 +57,7 @@ def dflt_circuit_erc(circuit):
         Net.get(name, circuit=circuit).ERC()
 
     # Check parts, interfaces & packages for errors:
-    for piece in circuit.parts + circuit.interfaces + circuit.packages:
+    for piece in circuit.parts + circuit.interfaces + list(circuit.packages):
         piece.ERC()
 
 

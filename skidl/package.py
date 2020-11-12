@@ -70,7 +70,8 @@ class Package(Interface):
                 v.circuit = circuit
             elif isinstance(v, (Net, Bus)):
                 if v.is_implicit():
-                    pckg[k] = v.copy()
+                    pckg[k] = v.__class__()
+                    # pckg[k] = v.copy()
 
         # Don't use update(). It doesn't seem to call __setitem__.
         for k, v in list(kwargs.items()):
