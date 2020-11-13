@@ -1460,6 +1460,7 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(
                 "name": "SinusoidalVoltageSource",
                 "kw": {
                     "dc_offset": "dc_offset",
+                    "ac_magnitude": "ac_magnitude",
                     "offset": "offset",
                     "amplitude": "amplitude",
                     "frequency": "frequency",
@@ -1501,6 +1502,7 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(
                 "name": "SinusoidalCurrentSource",
                 "kw": {
                     "dc_offset": "dc_offset",
+                    "ac_magnitude": "ac_magnitude",
                     "offset": "offset",
                     "amplitude": "amplitude",
                     "frequency": "frequency",
