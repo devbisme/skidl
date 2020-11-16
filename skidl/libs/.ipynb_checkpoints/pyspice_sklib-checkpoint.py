@@ -1461,7 +1461,6 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(
                 "kw": {
                     "dc_offset": "dc_offset",
                     "ac_magnitude": "ac_magnitude",
-                    "ac_phase": "ac_phase", 
                     "offset": "offset",
                     "amplitude": "amplitude",
                     "frequency": "frequency",
@@ -1504,7 +1503,6 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(
                 "kw": {
                     "dc_offset": "dc_offset",
                     "ac_magnitude": "ac_magnitude",
-                    "ac_phase": "ac_phase",
                     "offset": "offset",
                     "amplitude": "amplitude",
                     "frequency": "frequency",
