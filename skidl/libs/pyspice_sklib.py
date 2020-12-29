@@ -649,7 +649,11 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(
             ref_prefix="K",
             pyspice={
                 "name": "K",
-                "kw": {"ind1": "ind1", "ind2": "ind2", "coupling": "coupling"},
+                "kw": {
+                    "ind1": "inductor1",
+                    "ind2": "inductor2",
+                    "coupling": "coupling_factor",
+                },
                 "add": add_part_to_circuit,
             },
             num_units=1,
@@ -1461,7 +1465,7 @@ pyspice_lib = SchLib(tool=SKIDL).add_parts(
                 "kw": {
                     "dc_offset": "dc_offset",
                     "ac_magnitude": "ac_magnitude",
-                    "ac_phase": "ac_phase", 
+                    "ac_phase": "ac_phase",
                     "offset": "offset",
                     "amplitude": "amplitude",
                     "frequency": "frequency",
