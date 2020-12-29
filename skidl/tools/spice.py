@@ -306,7 +306,9 @@ def _gen_netlist_(self, **kwargs):
                     if not default_libs:
                         # Read the default SPICE libraries.
                         for path in lib_search_paths[SPICE]:
-                            default_libs.append(SpiceLibrary(root_path=path, recurse=True))
+                            default_libs.append(
+                                SpiceLibrary(root_path=path, recurse=True)
+                            )
 
                     # Search for the model in the default libraries.
                     path = None
@@ -317,7 +319,11 @@ def _gen_netlist_(self, **kwargs):
                         except KeyError:
                             pass
                     if path == None:
-                        logger.error("Unable to find model {} for part {}".format(model, part.ref))
+                        logger.error(
+                            "Unable to find model {} for part {}".format(
+                                model, part.ref
+                            )
+                        )
 
                 # Include the model file if it hasn't been included yet.
                 if path != None and path not in model_paths:
@@ -340,7 +346,8 @@ def _gen_netlist_(self, **kwargs):
                 lib_ids.add(lib_id)
 
     # Add each part in the SKiDL circuit to the PySpice circuit.
-    for part in sorted(self.parts, key=lambda p: str(p.ref)):
+    # TODO: Make sure self.parts is processed in order that parts were created so ngspice doesn't get references to parts before they exist.
+    for part in self.parts:
         # Add each part using its add function which will be either
         # add_part_to_circuit() or add_subcircuit_to_circuit().
         try:
