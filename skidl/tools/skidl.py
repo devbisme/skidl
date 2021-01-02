@@ -59,7 +59,7 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None
     from ..utilities import find_and_open_file
 
     try:
-        f, _ = find_and_open_file(filename, lib_search_paths_, lib_suffixes[SKIDL])
+        f, path = find_and_open_file(filename, lib_search_paths_, lib_suffixes[SKIDL])
     except FileNotFoundError as e:
         raise FileNotFoundError(
             "Unable to open SKiDL Schematic Library File {} ({})".format(
@@ -69,7 +69,9 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None
     try:
         # The SKiDL library is stored as a Python module that's executed to
         # recreate the library object.
-        vars_ = {}  # Empty dictionary for storing library object.
+        vars_ = {
+            '__file__': path,
+        }
         exec(f.read(), vars_)  # Execute and store library in dict.
 
         # Now look through the dict to find the library object.
