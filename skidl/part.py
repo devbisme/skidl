@@ -208,9 +208,6 @@ class Part(SkidlBaseObject):
             # Copy part units so all the pin and part references stay valid.
             self.copy_units(part)
 
-            # Store the library name of this part.
-            self.lib = getattr(lib, "filename", None)
-
         # Otherwise, create a Part from a part definition. If the part is
         # destined for a library, then just get its name. If it's going into
         # a netlist, then parse the entire part definition.

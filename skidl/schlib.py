@@ -120,6 +120,8 @@ class SchLib(object):
             # are in there because that's probably a different library.
             if not self.get_parts(use_backup_lib=False, name=re.escape(part.name)):
                 self.parts.append(part.copy(dest=TEMPLATE))
+                # Place a pointer to this library into the added part.
+                self.parts[-1].lib = self
         return self
 
     __iadd__ = add_parts
