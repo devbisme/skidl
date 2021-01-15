@@ -48,4 +48,4 @@ NET_PREFIX = "N$"
 BUS_PREFIX = "B$"
 
 # Supported ECAD tools.
-ALL_TOOLS = KICAD, SKIDL, SPICE = ["kicad", "skidl", "spice"]
+ALL_TOOLS = KICAD, KICAD_V6, SKIDL, SPICE = ["kicad", "kicad_v6", "skidl", "spice"]

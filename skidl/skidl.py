@@ -98,7 +98,7 @@ skidl_cfg = SkidlCfg("/etc", "~", ".")
 
 # If no configuration files were found, set some default lib search paths.
 if "lib_search_paths" not in skidl_cfg:
-    skidl_cfg["lib_search_paths"] = {KICAD: ["."], SKIDL: ["."], SPICE: ["."]}
+    skidl_cfg["lib_search_paths"] = {tool: ["."] for tool in ALL_TOOLS}
 
     # Add the location of the default KiCad part libraries.
     try:
@@ -120,7 +120,7 @@ lib_search_paths = skidl_cfg["lib_search_paths"]
 # If no configuration files were found, set some default footprint search paths.
 if "footprint_search_paths" not in skidl_cfg:
     dir_ = get_kicad_lib_tbl_dir()
-    skidl_cfg["footprint_search_paths"] = {KICAD: [dir_], SKIDL: [dir_], SPICE: [dir_]}
+    skidl_cfg["footprint_search_paths"] = {tool: [dir_] for tool in ALL_TOOLS}
 
 # Cause the footprint cache to be invalidated if the footprint search path changes.
 def invalidate_footprint_cache(self, k, v):
