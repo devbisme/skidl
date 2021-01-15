@@ -17,13 +17,8 @@ def setup_function(f):
     default_circuit.reset()
 
     lib_search_paths.clear()
-    lib_search_paths.update(
-        {
-            KICAD: [os.getcwd(), this_file_dir],
-            SKIDL: [os.getcwd(), this_file_dir, get_filename("../skidl/libs")],
-            SPICE: [os.getcwd(), this_file_dir],
-        }
-    )
+    lib_search_paths.update({tool: [os.getcwd(), this_file_dir] for tool in ALL_TOOLS})
+    lib_search_paths.update({KICAD: [os.getcwd(), get_filename("../skidl/libs")]})
 
     set_default_tool(KICAD)
     set_query_backup_lib(INITIAL_QUERY_BACKUP_LIB)

@@ -157,7 +157,6 @@ def _parse_lib_part_(self, get_name_only=False):
     self.fplist = []  # Footprint list.
     self.draw = []  # Drawing commands for symbol, including pins.
 
-
     # Populate part fields from symbol properties.
     properties = {item[1]: item[2:] for item in self.part_defn if to_list(item)[0]=="property"}
     for name, data in properties.items():
@@ -165,10 +164,8 @@ def _parse_lib_part_(self, get_name_only=False):
         for item in data[1:]:
             if to_list(item)[0] == "id":
                 self.fields["F" + str(item[1])] = value
-                print(f"F{item[1]} = {value}")
                 break
         self.fields[name] = value
-        print(f"fields={name}:{value}")
 
     self.ref_prefix = self.fields["F0"]  # Part ref prefix (e.g., 'R').
 
