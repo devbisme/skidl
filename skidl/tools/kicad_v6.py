@@ -35,6 +35,8 @@ from builtins import dict, int, range, str, zip
 from collections import namedtuple
 from random import randint
 
+from icecream import ic
+
 from future import standard_library
 
 from ..common import *
@@ -156,6 +158,33 @@ def _parse_lib_part_(self, get_name_only=False):
     self.aliases = []  # Part aliases.
     self.fplist = []  # Footprint list.
     self.draw = []  # Drawing commands for symbol, including pins.
+
+    for item in self.part_defn:
+        if to_list(item)[0] == "extends":
+            # Populate this part from another part it is extended from.
+
+            # Make a copy of the parent part from the library.
+            parent_part_name = item[1]
+            parent_part = self.lib[parent_part_name].copy(dest=TEMPLATE)
+
+            # Remove attributes of parent part that we don't want to write over this part.
+            parent_part_dict = parent_part.__dict__
+            for key in ("part_defn", "name", "aliases", "description", "datasheet", "keywords", "search_text"):
+                try:
+                    del parent_part_dict[key]
+                except KeyError:
+                    pass
+
+            # Overwrite self with the parent part.
+            self.__dict__.update(parent_part_dict)
+
+            # Make sure all the pins have a valid reference to this part.
+            self.associate_pins()
+
+            # Copy part units so all the pin and part references stay valid.
+            self.copy_units(parent_part)
+
+            break
 
     # Populate part fields from symbol properties.
     properties = {item[1]: item[2:] for item in self.part_defn if to_list(item)[0]=="property"}
