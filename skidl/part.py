@@ -556,6 +556,42 @@ class Part(SkidlBaseObject):
 
     __iadd__ = add_pins
 
+    def rmv_pins(self, *pin_ids):
+        """Remove one or more pins from a part."""
+        pins = self.pins
+        for i, pin in enumerate(pins):
+            if pin.num in pin_ids or pin.name in pin_ids:
+                del pins[i]
+
+    def swap_pins(self, pin_id1, pin_id2):
+        """Swap pin name/number between two pins of a part."""
+        pins = self.pins
+        i1, i2 = None, None
+        for i, pin in enumerate(pins):
+            pin_num_name = (pin.num, pin.name)
+            if pin_id1 in pin_num_name:
+                i1 = i
+            elif pin_id2 in pin_num_name:
+                i2 = i
+            if i1 and i2:
+                break
+        if i1 and i2:
+            pins[i1].num, pins[i1].name, pins[i2].num, pins[i2].name = pins[i2].num, pins[i2].name, pins[i1].num, pins[i1].name
+
+    def rename_pin(self, pin_id, new_pin_name):
+        """Assign a new name to a pin of a part."""
+        for pin in self.pins:
+            if pin_id in (pin.num, pin.name):
+                pin.name = new_pin_name
+                return
+
+    def renumber_pin(self, pin_id, new_pin_num):
+        "Assign a new number to a pin of a part."""
+        for pin in self.pins:
+            if pin_id in (pin.num, pin.name):
+                pin.num = new_pin_num
+                return
+
     def get_pins(self, *pin_ids, **criteria):
         """
         Return list of part pins selected by pin numbers or names.

@@ -35,8 +35,6 @@ from builtins import dict, int, range, str, zip
 from collections import namedtuple
 from random import randint
 
-from icecream import ic
-
 from future import standard_library
 
 from ..common import *
@@ -161,13 +159,13 @@ def _parse_lib_part_(self, get_name_only=False):
 
     for item in self.part_defn:
         if to_list(item)[0] == "extends":
-            # Populate this part from another part it is extended from.
+            # Populate this part (child) from another part (parent) it is extended from.
 
             # Make a copy of the parent part from the library.
             parent_part_name = item[1]
             parent_part = self.lib[parent_part_name].copy(dest=TEMPLATE)
 
-            # Remove attributes of parent part that we don't want to write over this part.
+            # Remove parent attributes that we don't want to overwrite in the child.
             parent_part_dict = parent_part.__dict__
             for key in ("part_defn", "name", "aliases", "description", "datasheet", "keywords", "search_text"):
                 try:
@@ -175,14 +173,30 @@ def _parse_lib_part_(self, get_name_only=False):
                 except KeyError:
                     pass
 
-            # Overwrite self with the parent part.
+            # Overwrite child with the parent part.
             self.__dict__.update(parent_part_dict)
 
-            # Make sure all the pins have a valid reference to this part.
+            # Make sure all the pins have a valid reference to the child.
             self.associate_pins()
 
             # Copy part units so all the pin and part references stay valid.
             self.copy_units(parent_part)
+
+            # Perform some operations on the child part.
+            for item in self.part_defn:
+                cmd = to_list(item)[0]
+                if cmd == 'del':
+                    self.rmv_pins(item[1])
+                elif cmd == 'swap':
+                    self.swap_pins(item[1], item[2])
+                elif cmd == 'renum':
+                    self.renumber_pin(item[1], item[2])
+                elif cmd == 'rename':
+                    self.rename_pin(item[1], item[2])
+                elif cmd == 'property_del':
+                    del self.fields[item[1]]
+                elif cmd == 'alternate':
+                    pass
 
             break
 
@@ -198,6 +212,7 @@ def _parse_lib_part_(self, get_name_only=False):
 
     self.ref_prefix = self.fields["F0"]  # Part ref prefix (e.g., 'R').
 
+    # Association between KiCad and SKiDL pin types.
     pin_io_type_translation = {
         "input": Pin.types.INPUT,
         "output": Pin.types.OUTPUT,
@@ -212,11 +227,29 @@ def _parse_lib_part_(self, get_name_only=False):
         "unconnected": Pin.types.NOCONNECT,
     }
 
-    units = [item for item in self.part_defn if to_list(item)[0] == 'symbol']
+    # Find all the units within a symbol. Skip the first item which is the
+    # 'symbol' marking the start of the entire part definition.
+    units = [item for item in self.part_defn[1:] if to_list(item)[0] == 'symbol']
+    self.num_units = len(units)
+
+    # Get pins and assign them to each unit as well as the entire part.
     for unit in units:
+
+        # Extract the part name, unit number, and unit type.
+        unit_name = unit[1]
+        symbol_name, unit_id, unit_type = unit_name.split("_")
+        assert symbol_name == self.name
+        unit_id = int(unit_id)
+        unit_type = int(unit_type)
+
+        # Process the pins for the current unit.
         unit_pins = [item for item in unit if to_list(item)[0]=="pin"]
         for pin in unit_pins:
-            io_type = pin[1]
+
+            # Pin electrical type immediately follows the "pin" tag.
+            pin_func = pin_io_type_translation[pin[1]]
+
+            # Find the pin name and number starting somewhere after the pin function and shape.
             pin_name = ""
             pin_number = None
             for item in pin[3:]:
@@ -225,11 +258,14 @@ def _parse_lib_part_(self, get_name_only=False):
                     pin_name = item[1]
                 elif item[0] == "number":
                     pin_number = item[1]
-            self.add_pins(Pin(name=pin_name, num=pin_number, func=pin_io_type_translation[io_type]))
 
-    # Define some shortcuts to part information.
-    # self.num_units = int(self.definition["unit_count"])  # # of units within the part.
-    self.num_units = 1
+            # Add the pins that were found to the total part. Include the unit identifier
+            # in the pin so we can find it later when the part unit is created.
+            self.add_pins(Pin(name=pin_name, num=pin_number, func=pin_func, unit=unit_id))
+
+        # Create the unit within the part.
+        unit_label = "u" + num_to_chars(unit_id)
+        unit = self.make_unit(unit_label, unit=unit_id)
 
     # Clear the part reference field directly. Don't use the setter function
     # since it will try to generate and assign a unique part reference if
@@ -238,11 +274,6 @@ def _parse_lib_part_(self, get_name_only=False):
 
     # Make sure all the pins have a valid reference to this part.
     self.associate_pins()
-
-    # Create part units if there are more than 1.
-    if self.num_units > 1:
-        for i in range(1, self.num_units + 1):
-            self.make_unit("u" + num_to_chars(i), **{"unit": i})
 
     # Part definition has been parsed, so clear it out. This prevents a
     # part from being parsed more than once.
