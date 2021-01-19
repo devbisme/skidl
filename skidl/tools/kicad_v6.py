@@ -132,6 +132,10 @@ def _parse_lib_part_(self, get_name_only=False):
             will be parsed if the part is actually used.
     """
 
+    # For info on part library format, look at:
+    # https://docs.google.com/document/d/1lyL_8FWZRouMkwqLiIt84rd2Htg4v1vz8_2MzRKHRkc/edit
+    # https://gitlab.com/kicad/code/kicad/-/blob/master/eeschema/sch_plugins/kicad/sch_sexpr_parser.cpp
+
     from ..pin import Pin
 
     def numberize(v):
@@ -235,12 +239,16 @@ def _parse_lib_part_(self, get_name_only=False):
     # Get pins and assign them to each unit as well as the entire part.
     for unit in units:
 
-        # Extract the part name, unit number, and unit type.
+        # Extract the part name, unit number, and conversion flag.
         unit_name = unit[1]
-        symbol_name, unit_id, unit_type = unit_name.split("_")
+        symbol_name, unit_id, convert_flag = unit_name.split("_")
         assert symbol_name == self.name
         unit_id = int(unit_id)
-        unit_type = int(unit_type)
+        conversion_flag = int(conversion_flag)
+
+        # Don't add this unit to the part if the conversion flag is 0.
+        if not conversion_flag:
+            continue
 
         # Process the pins for the current unit.
         unit_pins = [item for item in unit if to_list(item)[0]=="pin"]
