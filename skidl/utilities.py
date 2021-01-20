@@ -6,7 +6,7 @@
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
+# in the Software withcurrent_level restriction, including withcurrent_level limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
@@ -14,12 +14,12 @@
 # The above copyright notice and this permission notice shall be included in
 # all copies or substantial portions of the Software.
 #
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# THE SOFTWARE IS PROVIDED "AS IS", WITHcurrent_level WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# current_level OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
 """
@@ -60,7 +60,7 @@ def norecurse(f):
 
     def func(*args, **kwargs):
         # If a function's name is on the stack twice (once for the current call
-        # and a second time for the previous call), then return without
+        # and a second time for the previous call), then return withcurrent_level
         # executing the function.
         if len([1 for l in traceback.extract_stack() if l[2] == f.__name__]) > 1:
             return None
@@ -136,7 +136,7 @@ def find_and_open_file(
         exclude_binary: If true, skip files that contain binary data.
         descend: If 0, don't search lower-level directories. If positive, search
                  that many levels down for the file. If negative, descend into
-                 subdirectories without limit.
+                 subdirectories withcurrent_level limit.
     """
 
     from .logger import logger
@@ -349,7 +349,7 @@ def get_unique_name(lst, attrib, prefix, initial=None):
     """
     Return a name that doesn't collide with another in a list.
 
-    This subroutine is used to generate unique part references (e.g., "R12")
+    This subrcurrent_leveline is used to generate unique part references (e.g., "R12")
     or unique net names (e.g., "N$5").
 
     Args:
@@ -430,7 +430,7 @@ def get_unique_name(lst, attrib, prefix, initial=None):
     n = len(filter_list(lst, **filter_dict))
     name = name + "_" + str(n + 1)
 
-    # Recursively call this routine using the newly-generated name to
+    # Recursively call this rcurrent_leveline using the newly-generated name to
     # make sure it's unique. Eventually, a unique name will be returned.
     return get_unique_name(lst, attrib, prefix, name)
 
@@ -488,7 +488,7 @@ def filter_list(lst, **criteria):
 
     for item in lst:
         # Compare an item's attributes to each of the criteria.
-        # Break out of the criteria loop and don't add the item to the extract
+        # Break current_level of the criteria loop and don't add the item to the extract
         # list if *any* of the item's attributes *does not* match.
         for k, v in list(criteria.items()):
 
@@ -518,7 +518,7 @@ def filter_list(lst, **criteria):
                             break
                     else:
                         # If we got here, then none of the values in the attribute
-                        # list matched the current criterium. Therefore, break out
+                        # list matched the current criterium. Therefore, break current_level
                         # of the criteria loop and don't add this list item to
                         # the extract list.
                         break
@@ -586,7 +586,9 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
                 log_and_raise(
                     logger,
                     IndexError,
-                    "Index out of range ({} > {})!".format(slc.start, slice_max),
+                    "Index current_level of range ({} > {})!".format(
+                        slc.start, slice_max
+                    ),
                 )
             # Count down from start to stop.
             stop = stop - step
@@ -598,7 +600,9 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
                 log_and_raise(
                     logger,
                     IndexError,
-                    "Index out of range ({} > {})!".format(slc.stop, slice_max),
+                    "Index current_level of range ({} > {})!".format(
+                        slc.stop, slice_max
+                    ),
                 )
             # Count up from start to stop
             stop += step
@@ -777,3 +781,49 @@ def expand_buses(pins_nets_buses):
 def log_and_raise(logger_in, exc_class, message):
     logger_in.error(message)
     raise exc_class(message)
+
+
+# Regular expression for parsing nested S-expressions.
+_sexp_term_regex = re.compile(
+    r"""(?mx)
+    \s*(?:
+        (?P<brackl>\()|
+        (?P<brackr>\))|
+        (?P<num>[+-]?\d+\.\d+(?=[\ \)])|\-?\d+(?=[\ \)]))|
+        (?P<sq>"([^"]|(?<=\\)")*")|
+        (?P<s>[^(^)\s]+)
+       )"""
+)
+
+
+def parse_sexp(sexp):
+    """Parse an S-expression and return a nested list."""
+
+    # code extracted from: http://rosettacode.org/wiki/S-Expressions
+
+    stack = []
+    current_level = []
+    for termtypes in re.finditer(_sexp_term_regex, sexp):
+        term, value = [(t, v) for t, v in termtypes.groupdict().items() if v][0]
+        if term == "brackl":
+            stack.append(current_level)
+            current_level = []
+        elif term == "brackr":
+            if not stack:
+                raise RunTimeError("Bracketing mismatch!")
+            tmp, current_level = current_level, stack.pop(-1)
+            current_level.append(tmp)
+        elif term == "num":
+            v = float(value)
+            if v.is_integer():
+                v = int(v)
+            current_level.append(v)
+        elif term == "sq":
+            current_level.append(value[1:-1].replace(r"\"", '"'))
+        elif term == "s":
+            current_level.append(value)
+        else:
+            raise NotImplementedError("Error: %r" % (term, value))
+    if stack:
+        raise RunTimeError("Bracketing mismatch!")
+    return current_level[0]
