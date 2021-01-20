@@ -241,7 +241,7 @@ def _parse_lib_part_(self, get_name_only=False):
 
         # Extract the part name, unit number, and conversion flag.
         unit_name = unit[1]
-        symbol_name, unit_id, convert_flag = unit_name.split("_")
+        symbol_name, unit_id, conversion_flag = unit_name.split("_")
         assert symbol_name == self.name
         unit_id = int(unit_id)
         conversion_flag = int(conversion_flag)
