@@ -56,6 +56,27 @@ tool_name = KICAD_V6
 lib_suffix = ".kicad_sym"
 
 
+def split_into_symbols(libstr):
+    pieces = libstr.split("(symbol ")[1:]
+    symbol_name = "_"
+    symbol = []
+    symbols = {}
+    for piece in pieces:
+        name = piece.split(maxsplit=1)[0]
+        name = name.replace('"', '')
+        if name.startswith(symbol_name):
+            symbol.append("(symbol ")
+            symbol.append(piece)
+        else:
+            symbols[symbol_name] = "".join(symbol)
+            # symbols.append("".join(symbol))
+            symbol = ["(symbol ", piece]
+            symbol_name = name.replace('"', '')
+            symbol_name = symbol_name.split(':', maxsplit=1)[-1]
+    del symbols["_"]
+    return symbols
+
+
 def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None):
     """
     Load the parts from a KiCad schematic library file.
@@ -80,26 +101,33 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None
 
     # Parse the library and return a nested list of library parts.
     lib_sexp = ''.join(f.readlines())
-    try:
-        lib_list = parse_sexp(lib_sexp)
-    except RunTimeError:
-        raise RuntimeError(
-            "The file {} is not a KiCad V6 Schematic Library File.\n".format(filename)
-        )
+
+    parts = split_into_symbols(lib_sexp)
+
+    # try:
+    #     lib_list = parse_sexp(lib_sexp)
+    # except RunTimeError:
+    #     raise RuntimeError(
+    #         "The file {} is not a KiCad V6 Schematic Library File.\n".format(filename)
+    #     )
 
     # Extract a list of parts.
-    parts = [item for item in lib_list if item[0] == 'symbol']
+    # parts = [item for item in lib_list if item[0] == 'symbol']
+
+    def quote_extract(part, property):
+        try:
+            value = part.split(property)[1]
+        except IndexError:
+            return ""
+        return re.findall(r'"(.*?)(?<!\\)"', value)[0]
 
     # Create Part objects for each part in library.
-    for part in parts:
-        # Remove any preceding library name from the part name.
-        part_name = part[1].split(':', maxsplit=1)[-1]
+    for part_name, part_defn in parts.items():
 
         # Get part properties.
-        properties = {item[1]: item[2] for item in part if item[0]=="property"}
-        keywords=properties.get("ki_keywords", "")
-        datasheet=properties.get("Datasheet", "")
-        description=properties.get("ki_description", "")
+        keywords = quote_extract(part_defn, 'ki_keywords')
+        datasheet = quote_extract(part_defn, 'Datasheet')
+        description = quote_extract(part_defn, 'ki_description')
 
         # Join the various text pieces by newlines so the ^ and $ special characters
         # can be used to detect the start and end of a piece of text during RE searches.
@@ -108,7 +136,7 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None
         # Create a Part object and add it to the library object.
         self.add_parts(
             Part(
-                part_defn = part,
+                part_defn = part_defn,
                 tool = tool_name,
                 dest=LIBRARY,
                 filename=filename,
@@ -161,7 +189,9 @@ def _parse_lib_part_(self, get_name_only=False):
     self.fplist = []  # Footprint list.
     self.draw = []  # Drawing commands for symbol, including pins.
 
-    for item in self.part_defn:
+    part_defn = parse_sexp(self.part_defn)
+
+    for item in part_defn:
         if to_list(item)[0] == "extends":
             # Populate this part (child) from another part (parent) it is extended from.
 
@@ -187,7 +217,7 @@ def _parse_lib_part_(self, get_name_only=False):
             self.copy_units(parent_part)
 
             # Perform some operations on the child part.
-            for item in self.part_defn:
+            for item in part_defn:
                 cmd = to_list(item)[0]
                 if cmd == 'del':
                     self.rmv_pins(item[1])
@@ -205,7 +235,7 @@ def _parse_lib_part_(self, get_name_only=False):
             break
 
     # Populate part fields from symbol properties.
-    properties = {item[1]: item[2:] for item in self.part_defn if to_list(item)[0]=="property"}
+    properties = {item[1]: item[2:] for item in part_defn if to_list(item)[0]=="property"}
     for name, data in properties.items():
         value = data[0]
         for item in data[1:]:
@@ -233,7 +263,7 @@ def _parse_lib_part_(self, get_name_only=False):
 
     # Find all the units within a symbol. Skip the first item which is the
     # 'symbol' marking the start of the entire part definition.
-    units = [item for item in self.part_defn[1:] if to_list(item)[0] == 'symbol']
+    units = [item for item in part_defn[1:] if to_list(item)[0] == 'symbol']
     self.num_units = len(units)
 
     # Get pins and assign them to each unit as well as the entire part.
@@ -241,7 +271,7 @@ def _parse_lib_part_(self, get_name_only=False):
 
         # Extract the part name, unit number, and conversion flag.
         unit_name = unit[1]
-        symbol_name, unit_id, convert_flag = unit_name.split("_")
+        symbol_name, unit_id, conversion_flag = unit_name.split("_")
         assert symbol_name == self.name
         unit_id = int(unit_id)
         conversion_flag = int(conversion_flag)
