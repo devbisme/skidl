@@ -45,8 +45,6 @@ from ..pckg_info import __version__
 from ..scriptinfo import scriptinfo
 from ..utilities import *
 
-from .common_sexpr import parse_sexp
-
 standard_library.install_aliases()
 
 
