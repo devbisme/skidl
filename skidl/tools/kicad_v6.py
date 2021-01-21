@@ -54,24 +54,35 @@ tool_name = KICAD_V6
 lib_suffix = ".kicad_sym"
 
 
-def split_into_symbols(libstr):
-    pieces = libstr.split("(symbol ")[1:]
-    symbol_name = "_"
-    symbol = []
-    symbols = {}
+def _split_into_symbols(libstr):
+    """Split a KiCad V6 library and return a list of symbol strings."""
+
+    # Split using "(symbol" as delimiter and discard any preamble.
+    libstr = libstr.replace("( ", "(")
+    delimiter = "(symbol "
+    pieces = libstr.split(delimiter)[1:]
+
+    symbol_name = "_"  # Name of current symbol being assembled.
+    symbols = {}  # Symbols indexed by their names.
+
+    # Go through the pieces and assemble each symbol. 
     for piece in pieces:
+
+        # Get the symbol name immediately following the delimiter.
         name = piece.split(maxsplit=1)[0]
-        name = name.replace('"', '')
+        name = name.replace('"', '')  # Remove quotes around name.
+
         if name.startswith(symbol_name):
-            symbol.append("(symbol ")
-            symbol.append(piece)
+            # If the name starts with the same string as the
+            # current symbol, then this is a unit of the symbol.
+            # Therefore, just append the unit to the symbol.
+            symbols[symbol_name] += delimiter + piece
         else:
-            symbols[symbol_name] = "".join(symbol)
-            # symbols.append("".join(symbol))
-            symbol = ["(symbol ", piece]
-            symbol_name = name.replace('"', '')
-            symbol_name = symbol_name.split(':', maxsplit=1)[-1]
-    del symbols["_"]
+            # Otherwise, this is the start of a new symbol.
+            # Remove the library name preceding the symbol name.
+            symbol_name = name.split(':', maxsplit=1)[-1]
+            symbols[symbol_name] = delimiter + piece
+
     return symbols
 
 
@@ -100,32 +111,26 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None
     # Parse the library and return a nested list of library parts.
     lib_sexp = ''.join(f.readlines())
 
-    parts = split_into_symbols(lib_sexp)
+    parts = _split_into_symbols(lib_sexp)
 
-    # try:
-    #     lib_list = parse_sexp(lib_sexp)
-    # except RunTimeError:
-    #     raise RuntimeError(
-    #         "The file {} is not a KiCad V6 Schematic Library File.\n".format(filename)
-    #     )
-
-    # Extract a list of parts.
-    # parts = [item for item in lib_list if item[0] == 'symbol']
-
-    def quote_extract(part, property):
+    def extract_quoted_string(part, property_type):
+        """Extract quoted string from a property in a part symbol definition."""
         try:
-            value = part.split(property)[1]
+            # Quoted string follows the property type id.
+            value = part.split(property_type)[1]
         except IndexError:
+            # Property didn't exist, so return empty string.
             return ""
+        # Remove quotes and return the string.
         return re.findall(r'"(.*?)(?<!\\)"', value)[0]
 
     # Create Part objects for each part in library.
     for part_name, part_defn in parts.items():
 
         # Get part properties.
-        keywords = quote_extract(part_defn, 'ki_keywords')
-        datasheet = quote_extract(part_defn, 'Datasheet')
-        description = quote_extract(part_defn, 'ki_description')
+        keywords = extract_quoted_string(part_defn, 'ki_keywords')
+        datasheet = extract_quoted_string(part_defn, 'Datasheet')
+        description = extract_quoted_string(part_defn, 'ki_description')
 
         # Join the various text pieces by newlines so the ^ and $ special characters
         # can be used to detect the start and end of a piece of text during RE searches.
@@ -164,17 +169,6 @@ def _parse_lib_part_(self, get_name_only=False):
 
     from ..pin import Pin
 
-    def numberize(v):
-        """If possible, convert a string into a number."""
-        try:
-            return int(v)
-        except ValueError:
-            try:
-                return float(v)
-            except ValueError:
-                pass
-        return v  # Unable to convert to number. Return string.
-
     # Return if there's nothing to do (i.e., part has already been parsed).
     if not self.part_defn:
         return
@@ -187,7 +181,7 @@ def _parse_lib_part_(self, get_name_only=False):
     self.fplist = []  # Footprint list.
     self.draw = []  # Drawing commands for symbol, including pins.
 
-    part_defn = parse_sexp(self.part_defn)
+    part_defn = parse_sexp(self.part_defn, allow_underflow=True)
 
     for item in part_defn:
         if to_list(item)[0] == "extends":
@@ -268,11 +262,11 @@ def _parse_lib_part_(self, get_name_only=False):
     for unit in units:
 
         # Extract the part name, unit number, and conversion flag.
-        unit_name = unit[1]
-        symbol_name, unit_id, conversion_flag = unit_name.split("_")
+        unit_name_pieces = unit[1].split("_")  # unit name follows 'symbol'
+        symbol_name = '_'.join(unit_name_pieces[:-2])
         assert symbol_name == self.name
-        unit_id = int(unit_id)
-        conversion_flag = int(conversion_flag)
+        unit_num = int(unit_name_pieces[-2])
+        conversion_flag = int(unit_name_pieces[-1])
 
         # Don't add this unit to the part if the conversion flag is 0.
         if not conversion_flag:
@@ -297,11 +291,11 @@ def _parse_lib_part_(self, get_name_only=False):
 
             # Add the pins that were found to the total part. Include the unit identifier
             # in the pin so we can find it later when the part unit is created.
-            self.add_pins(Pin(name=pin_name, num=pin_number, func=pin_func, unit=unit_id))
+            self.add_pins(Pin(name=pin_name, num=pin_number, func=pin_func, unit=unit_num))
 
         # Create the unit within the part.
-        unit_label = "u" + num_to_chars(unit_id)
-        unit = self.make_unit(unit_label, unit=unit_id)
+        unit_label = "u" + num_to_chars(unit_num)
+        unit = self.make_unit(unit_label, unit=unit_num)
 
     # Clear the part reference field directly. Don't use the setter function
     # since it will try to generate and assign a unique part reference if
