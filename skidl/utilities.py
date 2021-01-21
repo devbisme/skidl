@@ -796,7 +796,7 @@ _sexp_term_regex = re.compile(
 )
 
 
-def parse_sexp(sexp):
+def parse_sexp(sexp, allow_underflow=False):
     """Parse an S-expression and return a nested list."""
 
     # code extracted from: http://rosettacode.org/wiki/S-Expressions
@@ -810,7 +810,10 @@ def parse_sexp(sexp):
             current_level = []
         elif term == "brackr":
             if not stack:
-                raise RunTimeError("Bracketing mismatch!")
+                if allow_underflow:
+                    return current_level[0]
+                else:
+                    raise RunTimeError("Bracketing mismatch!")
             tmp, current_level = current_level, stack.pop(-1)
             current_level.append(tmp)
         elif term == "num":
