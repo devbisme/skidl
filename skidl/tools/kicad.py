@@ -644,9 +644,8 @@ def _gen_netlist_comp_(self):
         footprint = "No Footprint"
     footprint = add_quotes(footprint)
 
-    lib = add_quotes(getattr(self, "lib"))
-    lib_filename = getattr(lib, "filename", "NO_LIB")
-    name = add_quotes(self.name)
+    lib_filename = getattr(getattr(self, "lib", ""), "filename", "NO_LIB")
+    part_name = add_quotes(self.name)
 
     # Embed the hierarchy along with a random integer into the sheetpath for each component.
     # This enables hierarchical selection in pcbnew.
@@ -675,7 +674,7 @@ def _gen_netlist_comp_(self):
         + "      (value {value})\n"
         + "      (footprint {footprint})\n"
         + "{fields}"
-        + "      (libsource (lib {lib_filename}) (part {name}))\n"
+        + "      (libsource (lib {lib_filename}) (part {part_name}))\n"
         + "      (sheetpath (names {hierarchy}) (tstamps {tstamps})))"
     )
     txt = template.format(**locals())

@@ -259,6 +259,7 @@ def _parse_lib_part_(self, get_name_only=False):
     self.num_units = len(units)
 
     # Get pins and assign them to each unit as well as the entire part.
+    unit_nums = []  # Stores unit numbers for units with pins.
     for unit in units:
 
         # Extract the part name, unit number, and conversion flag.
@@ -272,8 +273,15 @@ def _parse_lib_part_(self, get_name_only=False):
         if not conversion_flag:
             continue
 
-        # Process the pins for the current unit.
+        # Get the pins for this unit.
         unit_pins = [item for item in unit if to_list(item)[0]=="pin"]
+
+        # Save unit number if the unit has pins. Use this to create units
+        #  after the entire part is created.
+        if unit_pins:
+            unit_nums.append(unit_num)
+
+        # Process the pins for the current unit.
         for pin in unit_pins:
 
             # Pin electrical type immediately follows the "pin" tag.
@@ -293,10 +301,6 @@ def _parse_lib_part_(self, get_name_only=False):
             # in the pin so we can find it later when the part unit is created.
             self.add_pins(Pin(name=pin_name, num=pin_number, func=pin_func, unit=unit_num))
 
-        # Create the unit within the part.
-        unit_label = "u" + num_to_chars(unit_num)
-        unit = self.make_unit(unit_label, unit=unit_num)
-
     # Clear the part reference field directly. Don't use the setter function
     # since it will try to generate and assign a unique part reference if
     # passed a value of None.
@@ -304,6 +308,12 @@ def _parse_lib_part_(self, get_name_only=False):
 
     # Make sure all the pins have a valid reference to this part.
     self.associate_pins()
+
+    # Create the units now that all the part pins have been added.
+    if len(unit_nums) > 1:
+        for unit_num in unit_nums:
+            unit_label = "u" + num_to_chars(unit_num)
+            self.make_unit(unit_label, unit=unit_num)
 
     # Part definition has been parsed, so clear it out. This prevents a
     # part from being parsed more than once.
@@ -347,9 +357,8 @@ def _gen_netlist_comp_(self):
         footprint = "No Footprint"
     footprint = add_quotes(footprint)
 
-    lib = add_quotes(getattr(self, "lib"))
-    lib_filename = getattr(lib, "filename", "NO_LIB")
-    name = add_quotes(self.name)
+    lib_filename = getattr(getattr(self, "lib", ""), "filename", "NO_LIB")
+    part_name = add_quotes(self.name)
 
     # Embed the hierarchy along with a random integer into the sheetpath for each component.
     # This enables hierarchical selection in pcbnew.
@@ -378,7 +387,7 @@ def _gen_netlist_comp_(self):
         + "      (value {value})\n"
         + "      (footprint {footprint})\n"
         + "{fields}"
-        + "      (libsource (lib {lib_filename}) (part {name}))\n"
+        + "      (libsource (lib {lib_filename}) (part {part_name}))\n"
         + "      (sheetpath (names {hierarchy}) (tstamps {tstamps})))"
     )
     txt = template.format(**locals())
