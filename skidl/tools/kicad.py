@@ -51,7 +51,7 @@ standard_library.install_aliases()
 # These aren't used here, but they are used in modules
 # that include this module.
 tool_name = KICAD
-lib_suffix = ".lib"
+lib_suffix = [".kicad_sym", ".lib"]
 
 
 def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None):
@@ -63,18 +63,40 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None
     """
 
     from ..skidl import lib_suffixes
-    from ..part import Part
 
-    # Try to open the file. Add a .lib extension if needed. If the file
-    # doesn't open, then try looking in the KiCad library directory.
-    try:
-        f, _ = find_and_open_file(filename, lib_search_paths_, lib_suffixes[KICAD])
-    except FileNotFoundError as e:
+    # Try to open the file.
+    f = None  # Set to None so we'll know if no library was opened.
+    suffixes = lib_suffixes[KICAD]
+    base, suffix = os.path.splitext(filename)
+    if suffix:
+        # If an explicit file extension was given, use it instead of tool lib default extensions.
+        suffixes = [suffix]
+    for suffix in suffixes:
+        try:
+            f, _ = find_and_open_file(filename, lib_search_paths_, suffix)
+            break
+        except FileNotFoundError as e:
+            pass
+    if not f:
         raise FileNotFoundError(
-            "Unable to open KiCad Schematic Library File {} ({})".format(
-                filename, str(e)
-            )
+            "Unable to open KiCad Schematic Library File {}".format(filename)
         )
+    
+    if suffix == ".kicad_sym":
+        _load_sch_lib_kicad_v6(self, f, filename, lib_search_paths_)
+    else:
+        _load_sch_lib_kicad(self, f, filename, lib_search_paths_)
+
+
+def _load_sch_lib_kicad(self, f, filename, lib_search_paths_):
+    """
+    Load the parts from a KiCad schematic library file.
+
+    Args:
+        filename: The name of the KiCad schematic library file.
+    """
+
+    from ..part import Part
 
     # Check the file header to make sure it's a KiCad library.
     header = []
@@ -128,6 +150,7 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None
                         datasheet="",
                         description="",
                         search_text="",
+                        tool_version="kicad",
                     )
                 )
 
@@ -183,6 +206,113 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None
         part.search_text = "\n".join(search_text_pieces)
 
 
+def _split_into_symbols(libstr):
+    """Split a KiCad V6 library and return a list of symbol strings."""
+
+    # Split using "(symbol" as delimiter and discard any preamble.
+    libstr = libstr.replace("( ", "(")
+    delimiter = "(symbol "
+    pieces = libstr.split(delimiter)[1:]
+
+    symbol_name = "_"  # Name of current symbol being assembled.
+    symbols = {}  # Symbols indexed by their names.
+
+    # Go through the pieces and assemble each symbol. 
+    for piece in pieces:
+
+        # Get the symbol name immediately following the delimiter.
+        name = piece.split(maxsplit=1)[0]
+        name = name.replace('"', '')  # Remove quotes around name.
+        name1 = '_'.join(name.split('_')[:-2]) # Remove '_#_#' from subsymbols.
+
+        if name1 == symbol_name:
+        # if name.startswith(symbol_name):
+            # If the name starts with the same string as the
+            # current symbol, then this is a unit of the symbol.
+            # Therefore, just append the unit to the symbol.
+            symbols[symbol_name] += delimiter + piece
+        else:
+            # Otherwise, this is the start of a new symbol.
+            # Remove the library name preceding the symbol name.
+            symbol_name = name.split(':', maxsplit=1)[-1]
+            symbols[symbol_name] = delimiter + piece
+
+    return symbols
+
+
+def _load_sch_lib_kicad_v6(self, f, filename, lib_search_paths_):
+    """
+    Load the parts from a KiCad schematic library file.
+
+    Args:
+        filename: The name of the KiCad schematic library file.
+    """
+
+    from ..part import Part
+
+    # Parse the library and return a nested list of library parts.
+    lib_sexp = ''.join(f.readlines())
+
+    parts = _split_into_symbols(lib_sexp)
+
+    def extract_quoted_string(part, property_type):
+        """Extract quoted string from a property in a part symbol definition."""
+        try:
+            # Quoted string follows the property type id.
+            value = part.split(property_type)[1]
+        except IndexError:
+            # Property didn't exist, so return empty string.
+            return ""
+        # Remove quotes and return the string.
+        return re.findall(r'"(.*?)(?<!\\)"', value)[0]
+
+    # Create Part objects for each part in library.
+    for part_name, part_defn in parts.items():
+
+        # Get part properties.
+        keywords = extract_quoted_string(part_defn, 'ki_keywords')
+        datasheet = extract_quoted_string(part_defn, 'Datasheet')
+        description = extract_quoted_string(part_defn, 'ki_description')
+
+        # Join the various text pieces by newlines so the ^ and $ special characters
+        # can be used to detect the start and end of a piece of text during RE searches.
+        search_text = "\n".join([filename, part_name, description, keywords])
+        
+        # Create a Part object and add it to the library object.
+        self.add_parts(
+            Part(
+                part_defn = part_defn,
+                tool = tool_name,
+                dest=LIBRARY,
+                filename=filename,
+                name=part_name,
+                aliases=list(),  # No aliases in KiCad V6?
+                keywords=keywords,
+                datasheet=datasheet,
+                description=description,
+                search_text=search_text,
+                tool_version = "kicad_v6",
+            )
+        )
+
+
+
+def _parse_lib_part_(self, get_name_only=False):
+    """
+    Create a Part using a part definition from a KiCad schematic library.
+
+    Args:
+        get_name_only: If true, scan the part definition until the
+            name and aliases are found. The rest of the definition
+            will be parsed if the part is actually used.
+    """
+
+    if self.tool_version == "kicad_v6":
+        _parse_lib_part_kicad_v6(self, get_name_only)
+    else:
+        _parse_lib_part_kicad(self, get_name_only)
+
+
 # Named tuples for part DRAW primitives.
 
 DrawDef = namedtuple(
@@ -217,7 +347,7 @@ DrawPin = namedtuple(
 )
 
 
-def _parse_lib_part_(self, get_name_only=False):
+def _parse_lib_part_kicad(self, get_name_only):
     """
     Create a Part using a part definition from a KiCad schematic library.
 
@@ -226,8 +356,6 @@ def _parse_lib_part_(self, get_name_only=False):
     It's covered by GPL3.
 
     Args:
-        part_defn: A list of strings that define the part (usually read from a
-            schematic library file). Can also be None.
         get_name_only: If true, scan the part definition until the
             name and aliases are found. The rest of the definition
             will be parsed if the part is actually used.
@@ -601,6 +729,173 @@ def _parse_lib_part_(self, get_name_only=False):
     if self.num_units > 1:
         for i in range(1, self.num_units + 1):
             self.make_unit("u" + num_to_chars(i), **{"unit": i})
+
+    # Part definition has been parsed, so clear it out. This prevents a
+    # part from being parsed more than once.
+    self.part_defn = None
+
+
+def _parse_lib_part_kicad_v6(self, get_name_only):
+    """
+    Create a Part using a part definition from a KiCad V6 schematic library.
+
+    Args:
+        get_name_only: If true, scan the part definition until the
+            name and aliases are found. The rest of the definition
+            will be parsed if the part is actually used.
+    """
+
+    # For info on part library format, look at:
+    # https://docs.google.com/document/d/1lyL_8FWZRouMkwqLiIt84rd2Htg4v1vz8_2MzRKHRkc/edit
+    # https://gitlab.com/kicad/code/kicad/-/blob/master/eeschema/sch_plugins/kicad/sch_sexpr_parser.cpp
+
+    from ..pin import Pin
+
+    # Return if there's nothing to do (i.e., part has already been parsed).
+    if not self.part_defn:
+        return
+
+    # If a part def already exists, the name has already been set, so exit.
+    if get_name_only:
+        return
+
+    self.aliases = []  # Part aliases.
+    self.fplist = []  # Footprint list.
+    self.draw = []  # Drawing commands for symbol, including pins.
+
+    part_defn = parse_sexp(self.part_defn, allow_underflow=True)
+
+    for item in part_defn:
+        if to_list(item)[0] == "extends":
+            # Populate this part (child) from another part (parent) it is extended from.
+
+            # Make a copy of the parent part from the library.
+            parent_part_name = item[1]
+            parent_part = self.lib[parent_part_name].copy(dest=TEMPLATE)
+
+            # Remove parent attributes that we don't want to overwrite in the child.
+            parent_part_dict = parent_part.__dict__
+            for key in ("part_defn", "name", "aliases", "description", "datasheet", "keywords", "search_text"):
+                try:
+                    del parent_part_dict[key]
+                except KeyError:
+                    pass
+
+            # Overwrite child with the parent part.
+            self.__dict__.update(parent_part_dict)
+
+            # Make sure all the pins have a valid reference to the child.
+            self.associate_pins()
+
+            # Copy part units so all the pin and part references stay valid.
+            self.copy_units(parent_part)
+
+            # Perform some operations on the child part.
+            for item in part_defn:
+                cmd = to_list(item)[0]
+                if cmd == 'del':
+                    self.rmv_pins(item[1])
+                elif cmd == 'swap':
+                    self.swap_pins(item[1], item[2])
+                elif cmd == 'renum':
+                    self.renumber_pin(item[1], item[2])
+                elif cmd == 'rename':
+                    self.rename_pin(item[1], item[2])
+                elif cmd == 'property_del':
+                    del self.fields[item[1]]
+                elif cmd == 'alternate':
+                    pass
+
+            break
+
+    # Populate part fields from symbol properties.
+    properties = {item[1]: item[2:] for item in part_defn if to_list(item)[0]=="property"}
+    for name, data in properties.items():
+        value = data[0]
+        for item in data[1:]:
+            if to_list(item)[0] == "id":
+                self.fields["F" + str(item[1])] = value
+                break
+        self.fields[name] = value
+
+    self.ref_prefix = self.fields["F0"]  # Part ref prefix (e.g., 'R').
+
+    # Association between KiCad and SKiDL pin types.
+    pin_io_type_translation = {
+        "input": Pin.types.INPUT,
+        "output": Pin.types.OUTPUT,
+        "bidirectional": Pin.types.BIDIR,
+        "tri_state": Pin.types.TRISTATE,
+        "passive": Pin.types.PASSIVE,
+        "unspecified": Pin.types.UNSPEC,
+        "power_in": Pin.types.PWRIN,
+        "power_out": Pin.types.PWROUT,
+        "open_collector": Pin.types.OPENCOLL,
+        "open_emitter": Pin.types.OPENEMIT,
+        "unconnected": Pin.types.NOCONNECT,
+    }
+
+    # Find all the units within a symbol. Skip the first item which is the
+    # 'symbol' marking the start of the entire part definition.
+    units = [item for item in part_defn[1:] if to_list(item)[0] == 'symbol']
+    self.num_units = len(units)
+
+    # Get pins and assign them to each unit as well as the entire part.
+    unit_nums = []  # Stores unit numbers for units with pins.
+    for unit in units:
+
+        # Extract the part name, unit number, and conversion flag.
+        unit_name_pieces = unit[1].split("_")  # unit name follows 'symbol'
+        symbol_name = '_'.join(unit_name_pieces[:-2])
+        assert symbol_name == self.name
+        unit_num = int(unit_name_pieces[-2])
+        conversion_flag = int(unit_name_pieces[-1])
+
+        # Don't add this unit to the part if the conversion flag is 0.
+        if not conversion_flag:
+            continue
+
+        # Get the pins for this unit.
+        unit_pins = [item for item in unit if to_list(item)[0]=="pin"]
+
+        # Save unit number if the unit has pins. Use this to create units
+        #  after the entire part is created.
+        if unit_pins:
+            unit_nums.append(unit_num)
+
+        # Process the pins for the current unit.
+        for pin in unit_pins:
+
+            # Pin electrical type immediately follows the "pin" tag.
+            pin_func = pin_io_type_translation[pin[1]]
+
+            # Find the pin name and number starting somewhere after the pin function and shape.
+            pin_name = ""
+            pin_number = None
+            for item in pin[3:]:
+                item = to_list(item)
+                if item[0] == "name":
+                    pin_name = item[1]
+                elif item[0] == "number":
+                    pin_number = item[1]
+
+            # Add the pins that were found to the total part. Include the unit identifier
+            # in the pin so we can find it later when the part unit is created.
+            self.add_pins(Pin(name=pin_name, num=pin_number, func=pin_func, unit=unit_num))
+
+    # Clear the part reference field directly. Don't use the setter function
+    # since it will try to generate and assign a unique part reference if
+    # passed a value of None.
+    self._ref = None
+
+    # Make sure all the pins have a valid reference to this part.
+    self.associate_pins()
+
+    # Create the units now that all the part pins have been added.
+    if len(unit_nums) > 1:
+        for unit_num in unit_nums:
+            unit_label = "u" + num_to_chars(unit_num)
+            self.make_unit(unit_label, unit=unit_num)
 
     # Part definition has been parsed, so clear it out. This prevents a
     # part from being parsed more than once.

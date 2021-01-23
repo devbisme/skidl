@@ -152,11 +152,12 @@ def find_and_open_file(
     _, filename = os.path.split(filename)
 
     # Get the list of file extensions to check against.
-    exts = to_list(ext)
     base, suffix = os.path.splitext(filename)
-    if not exts:
-        # If no explicit file extensions were given, just use the extension of the given file.
-        exts.append(suffix)
+    if suffix:
+        # If an explicit file extension was given, just use that.
+        exts = [suffix]
+    else:
+        exts = to_list(ext)
 
     # Create the regular expression for matching against the filename.
     exts = [re.escape(ext) for ext in exts]

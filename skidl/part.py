@@ -213,6 +213,13 @@ class Part(SkidlBaseObject):
         # a netlist, then parse the entire part definition.
         elif part_defn:
             self.part_defn = part_defn
+
+            # If given, set the tool version before parsing the part definition.
+            # At this time, this is done to support differences between KiCad V5 and V6.
+            tool_version = attribs.pop("tool_version", None)
+            if tool_version:
+                self.tool_version = tool_version
+
             self.parse(get_name_only=(dest != NETLIST))
 
         # If the part is destined for a SKiDL library, then it will be defined
