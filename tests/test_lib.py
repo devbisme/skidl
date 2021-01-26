@@ -107,3 +107,27 @@ def test_part_from_non_existing_lib_cannot_be_instantiated():
     for tool in ALL_TOOLS:
         with pytest.raises(ValueError):
             part = Part("non-existing", "P", tool=tool)
+
+
+def test_lib_kicad_v5():
+    lib_name = "Device.lib"
+    lib_v5 = SchLib(lib_name)
+    v5_part_names = [part.name for part in lib_v5.parts]
+    with open(lib_name, "r") as fp:
+        lines = fp.readlines()
+        part_cnt = len([l for l in lines if l.startswith("ENDDEF")])
+    print(lib_name, "#parts =", part_cnt)
+    assert part_cnt == len(v5_part_names)
+    assert part_cnt == 502
+
+
+def test_lib_kicad_v6():
+    lib_name = "Device.kicad_sym"
+    lib_v6 = SchLib(lib_name)
+    v6_part_names = [part.name for part in lib_v6.parts]
+    with open(lib_name, "r") as fp:
+        parts = parse_sexp("".join(fp.readlines()))
+        part_cnt = len([part for part in parts if to_list(part)[0] == "symbol"])
+    print(lib_name, "#parts =", part_cnt)
+    assert part_cnt == len(v6_part_names)
+    assert part_cnt == 564

@@ -221,7 +221,7 @@ def _split_into_symbols(libstr):
     for piece in pieces:
 
         # Get the symbol name immediately following the delimiter.
-        name = piece.split(maxsplit=1)[0]
+        name = piece.split(None, 1)[0]
         name = name.replace('"', '')  # Remove quotes around name.
         name1 = '_'.join(name.split('_')[:-2]) # Remove '_#_#' from subsymbols.
 
@@ -234,7 +234,7 @@ def _split_into_symbols(libstr):
         else:
             # Otherwise, this is the start of a new symbol.
             # Remove the library name preceding the symbol name.
-            symbol_name = name.split(':', maxsplit=1)[-1]
+            symbol_name = name.split(':', 1)[-1]
             symbols[symbol_name] = delimiter + piece
 
     return symbols
