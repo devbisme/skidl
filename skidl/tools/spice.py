@@ -370,7 +370,6 @@ def node(net_pin_part):
 
 
 def _xspice_node(net_or_pin):
-    print(net_or_pin, net_or_pin.is_connected())
     if isinstance(net_or_pin, Net):
         return net_or_pin.name
     if isinstance(net_or_pin, Pin):
