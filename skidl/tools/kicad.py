@@ -625,7 +625,8 @@ def _gen_netlist_(self):
         netlist += "\n" + p.generate_netlist_component(KICAD)
     netlist += ")\n"
     netlist += "  (nets"
-    for code, n in enumerate(sorted(self.get_nets(), key=lambda n: str(n.name))):
+    sorted_nets = sorted(self.get_nets(), key=lambda n: str(n.name))
+    for code, n in enumerate(sorted_nets, 1):
         n.code = code
         netlist += "\n" + n.generate_netlist_net(KICAD)
     netlist += ")\n)\n"
