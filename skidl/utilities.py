@@ -362,22 +362,25 @@ def get_unique_name(lst, attrib, prefix, initial=None):
         A string containing the unique name.
     """
 
+    # Use the list id to disambiguate names of objects on different lists (e.g., parts & nets).
+    lst_id = str(id(lst))
+
     name = initial
 
     # Fast processing for names that haven't been seen before.
     # This speeds up the most common cases for finding a new name, but doesn't
     # really hurt the less common cases.
     if not name:
-        name = prefix + str(prefix_counts[prefix] + 1)
-        if name not in name_heap:
-            name_heap.add(name)
-            prefix_counts[prefix] += 1
+        name = prefix + str(prefix_counts[lst_id + prefix] + 1)
+        if lst_id + name not in name_heap:
+            name_heap.add(lst_id + name)
+            prefix_counts[lst_id + prefix] += 1
             return name
     else:
         if isinstance(name, int):
             name = prefix + str(name)
-        if name not in name_heap:
-            name_heap.add(name)
+        if lst_id + name not in name_heap:
+            name_heap.add(lst_id + name)
             return name
 
     # Get the unique names used in the list.
@@ -412,7 +415,7 @@ def get_unique_name(lst, attrib, prefix, initial=None):
             # of n looking for an unused slot.
 
             # Bump prefix counter to the newest index.
-            prefix_counts[prefix] = n
+            prefix_counts[lst_id + prefix] = n
 
     # If the initial name is just a number, then prepend the prefix to it.
     elif isinstance(name, int):
@@ -421,7 +424,7 @@ def get_unique_name(lst, attrib, prefix, initial=None):
     # Now determine if there are any items in the list with the same name.
     # If the name is unique, then return it.
     if name not in unique_names:
-        name_heap.add(name)
+        name_heap.add(lst_id + name)
         return name
 
     # Otherwise, determine how many copies of the name are in the list and
