@@ -31,31 +31,25 @@ from builtins import range, super
 
 from future import standard_library
 
-from .baseobj import SkidlBaseObject
+from .common import *
 from .logger import logger
-from .Net import Net
-from .Network import Network
-from .Pin import Pin
+from .net import Net
+from .network import Network
+from .pin import Pin
+from .skidlbaseobj import SkidlBaseObject
 from .utilities import *
 
 standard_library.install_aliases()
-
-try:
-    import __builtin__ as builtins
-except ImportError:
-    import builtins
 
 
 class ProtoNet(SkidlBaseObject):
     def __init__(self, name=None, circuit=None):
         super().__init__()
         self.name = name
-        if not circuit:
-            circuit = builtins.default_circuit
-        self.circuit = circuit
+        self.circuit = circuit or builtins.default_circuit
 
     def __iadd__(self, *nets_pins_buses):
-        from .Bus import Bus
+        from .bus import Bus
 
         nets_pins = []
         for item in expand_buses(flatten(nets_pins_buses)):
@@ -133,3 +127,6 @@ class ProtoNet(SkidlBaseObject):
         """
         # You can only iterate a ProtoNet one time.
         return (self for _ in [self])  # Return generator expr.
+
+    def is_movable(self):
+        return True  # A ProtoNet is never connected, so it's always movable.

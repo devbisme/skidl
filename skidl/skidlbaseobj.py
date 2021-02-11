@@ -28,35 +28,46 @@ Base object for Circuit, Interface, Package, Part, Net, Bus, Pin objects.
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+import inspect
 import re
 from builtins import object, str, super
+from collections import namedtuple
 from copy import deepcopy
 
 from future import standard_library
 
-from .Alias import Alias
-from .AttrDict import AttrDict
-from .erc import eval_stmnt_list, exec_function_list
-from .Note import Note
+from .alias import Alias
+from .common import *
+from .defines import *
+
+# from .erc import eval_stmnt_list, exec_function_list
+from .logger import erc_logger
+from .note import Note
 
 standard_library.install_aliases()
 
 
 class SkidlBaseObject(object):
+
+    # These are fallback lists so every object will have them to reference.
+    erc_list = list()
+    erc_assertion_list = list()
+
     def __init__(self):
-        self.fields = AttrDict(attr_obj=self)
+        self.fields = {}
+
+    def __getattr__(self, key):
+        try:
+            # Don't use super()!! It leads to long run times on Python 2.7.
+            return self.__getattribute__("fields")[key]
+        except KeyError:
+            raise AttributeError
 
     def __setattr__(self, key, value):
-        if key == "fields":
-            # Whatever is assigned to the fields attribute is cast to an AttrDict.
-            super().__setattr__(key, AttrDict(attr_obj=self, **value))
-
-        else:
+        if key == "fields" or key not in self.fields:
             super().__setattr__(key, value)
-
-            # Whenever an attribute is changed, then also sync it with the fields dict
-            # in case it is mirroring one of the dict entries.
-            self.fields.sync(key)
+        else:
+            self.fields[key] = value
 
     @property
     def aliases(self):
@@ -115,7 +126,66 @@ class SkidlBaseObject(object):
         """Run ERC on this object."""
 
         # Run ERC functions.
-        exec_function_list(self, "erc_list", *args, **kwargs)
+        self._exec_erc_functions(*args, **kwargs)
 
         # Run ERC assertions.
-        eval_stmnt_list(self, "erc_assertion_list")
+        self._eval_erc_assertions()
+
+    def add_erc_function(self, func):
+        """Add an ERC function to a class or class instance."""
+
+        self.erc_list.append(func)
+
+    def add_erc_assertion(self, assertion, fail_msg="FAILED", severity=ERROR):
+        """Add an ERC assertion to a class or class instance."""
+
+        # Tuple for storing assertion code object with its global & local dicts.
+        EvalTuple = namedtuple(
+            "EvalTuple",
+            "stmnt fail_msg severity filename lineno function globals locals",
+        )
+
+        assertion_frame, filename, lineno, function, _, _ = inspect.stack()[1]
+        self.erc_assertion_list.append(
+            EvalTuple(
+                assertion,
+                fail_msg,
+                severity,
+                filename,
+                lineno,
+                function,
+                assertion_frame.f_globals,
+                assertion_frame.f_locals,
+            )
+        )
+
+    def _eval_erc_assertions(self):
+        """
+        Evaluate assertions for this object.
+        """
+
+        def erc_report(evtpl):
+            log_msg = "{evtpl.stmnt} {evtpl.fail_msg} in {evtpl.filename}:{evtpl.lineno}:{evtpl.function}.".format(
+                evtpl=evtpl
+            )
+            if evtpl.severity == ERROR:
+                erc_logger.error(log_msg)
+            elif evtpl.severity == WARNING:
+                erc_logger.warning(log_msg)
+
+        for evtpl in self.erc_assertion_list:
+            if eval(evtpl.stmnt, evtpl.globals, evtpl.locals) == False:
+                erc_report(evtpl)
+
+    def _exec_erc_functions(self, *args, **kwargs):
+        """
+        Execute ERC functions on a class instance.
+
+        Args:
+            args, kwargs: Arbitary argument lists to pass to the functions
+                that are executed. (All functions get the same arguments.) 
+        """
+
+        # Execute any instance functions for this particular instance.
+        for f in self.erc_list:
+            f(self, *args, **kwargs)

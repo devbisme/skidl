@@ -32,20 +32,29 @@ import os.path
 import re
 import time
 from builtins import dict, int, range, str, zip
+from collections import namedtuple
 from random import randint
 
+from future import standard_library
+
+from ..common import *
+from ..coord import *
 from ..defines import *
 from ..logger import logger
 from ..pckg_info import __version__
-from ..py_2_3 import *
 from ..scriptinfo import scriptinfo
 from ..utilities import *
 
+standard_library.install_aliases()
+
+
+# These aren't used here, but they are used in modules
+# that include this module.
 tool_name = KICAD
 lib_suffix = ".lib"
 
 
-def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
+def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None):
     """
     Load the parts from a KiCad schematic library file.
 
@@ -54,7 +63,7 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
     """
 
     from ..skidl import lib_suffixes
-    from ..Part import Part
+    from ..part import Part
 
     # Try to open the file. Add a .lib extension if needed. If the file
     # doesn't open, then try looking in the KiCad library directory.
@@ -174,6 +183,40 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
         part.search_text = "\n".join(search_text_pieces)
 
 
+# Named tuples for part DRAW primitives.
+
+DrawDef = namedtuple(
+    "DrawDef",
+    "name ref zero name_offset show_nums show_names num_units lock_units power_symbol",
+)
+
+DrawF0 = namedtuple("DrawF0", "ref x y size orientation visibility halign valign")
+
+DrawF1 = namedtuple(
+    "DrawF1", "name x y size orientation visibility halign valign fieldname"
+)
+
+DrawArc = namedtuple(
+    "DrawArc",
+    "cx cy radius start_angle end_angle unit dmg thickness fill startx starty endx endy",
+)
+
+DrawCircle = namedtuple("DrawCircle", "cx cy radius unit dmg thickness fill")
+
+DrawPoly = namedtuple("DrawPoly", "point_count unit dmg thickness points fill")
+
+DrawRect = namedtuple("DrawRect", "x1 y1 x2 y2 unit dmg thickness fill")
+
+DrawText = namedtuple(
+    "DrawText", "angle x y size hidden unit dmg text italic bold halign valign"
+)
+
+DrawPin = namedtuple(
+    "DrawPin",
+    "name num x y length orientation num_size name_size unit dmg electrical_type shape",
+)
+
+
 def _parse_lib_part_(self, get_name_only=False):
     """
     Create a Part using a part definition from a KiCad schematic library.
@@ -190,7 +233,7 @@ def _parse_lib_part_(self, get_name_only=False):
             will be parsed if the part is actually used.
     """
 
-    from ..Pin import Pin
+    from ..pin import Pin
 
     _DEF_KEYS = [
         "name",
@@ -307,24 +350,29 @@ def _parse_lib_part_(self, get_name_only=False):
         "X": _PIN_KEYS,
     }
 
+    def numberize(v):
+        """If possible, convert a string into a number."""
+        try:
+            return int(v)
+        except ValueError:
+            try:
+                return float(v)
+            except ValueError:
+                pass
+        return v  # Unable to convert to number. Return string.
+
     # Return if there's nothing to do (i.e., part has already been parsed).
     if not self.part_defn:
         return
 
-    self.fplist = []  # Footprint list.
     self.aliases = []  # Part aliases.
+    self.fplist = []  # Footprint list.
+    self.draw = []  # Drawing commands for symbol, including pins.
+
     building_fplist = False  # True when working on footprint list in defn.
     building_draw = False  # True when gathering part drawing from defn.
 
-    # Always make sure there are drawing & footprint sections, even if the part doesn't have them.
-    self.draw = {
-        "arcs": [],
-        "circles": [],
-        "polylines": [],
-        "rectangles": [],
-        "texts": [],
-        "pins": {},  # Use pin number as key to detect duplicates.
-    }
+    pins = {}  # Dict of symbol pins to check for duplicates.
 
     # Regular expression for non-quoted and quoted text pieces.
     unqu = r'[^\s"]+'  # Word without spaces or double-quotes.
@@ -371,6 +419,10 @@ def _parse_lib_part_(self, get_name_only=False):
                         return
                 return
 
+            # Add DEF field to list of things to draw.
+            values = [numberize(v) for v in values]
+            self.draw.append(DrawDef(*values))
+
         # End the parsing of the part definition.
         elif line[0] == "ENDDEF":
             break
@@ -380,6 +432,9 @@ def _parse_lib_part_(self, get_name_only=False):
             field_dict = dict(list(zip(_F0_KEYS, values)))
             # Add the field name and its value as an attribute to the part.
             self.fields["F0"] = field_dict["reference"]
+            # Add F0 field to list of things to draw.
+            values = [numberize(v) for v in values]
+            self.draw.append(DrawF0(*values))
 
         # Create a dictionary of the other part field keywords and values.
         elif line[0][0] == "F":
@@ -391,6 +446,10 @@ def _parse_lib_part_(self, get_name_only=False):
             field_dict["fieldname"] = field_dict["fieldname"] or line[0]
             # Add the field name and its value as an attribute to the part.
             self.fields[field_dict["fieldname"]] = field_dict["name"]
+            # Add F1 field to list of things to draw.
+            if line[0] == "F1":
+                values = [numberize(v) for v in values]
+                self.draw.append(DrawF1(*values))
 
         # Create a list of part aliases.
         elif line[0] == "ALIAS":
@@ -424,56 +483,62 @@ def _parse_lib_part_(self, get_name_only=False):
             # current line to see what type of primitive is in play.
             elif building_draw:
 
+                values = [numberize(v) for v in values]
+
                 # Gather arcs.
                 if line[0] == "A":
-                    self.draw["arcs"].append(dict(list(zip(_ARC_KEYS, values))))
+                    self.draw.append(DrawArc(*values))
 
                 # Gather circles.
                 elif line[0] == "C":
-                    self.draw["circles"].append(dict(list(zip(_CIRCLE_KEYS, values))))
+                    self.draw.append(DrawCircle(*values))
 
                 # Gather polygons.
                 elif line[0] == "P":
-                    n_points = int(line[1])
-                    points = line[5 : 5 + (2 * n_points)]
-                    values = line[1:5] + [points]
+                    n_points = values[0]
+                    points = values[4 : 4 + (2 * n_points)]
+                    values = values[0:4] + [points]
                     if len(line) > (5 + len(points)):
                         values += [line[-1]]
                     else:
                         values += [""]
-                    self.draw["polylines"].append(dict(list(zip(_POLY_KEYS, values))))
+                    self.draw.append(DrawPoly(*values))
 
                 # Gather rectangles.
                 elif line[0] == "S":
-                    self.draw["rectangles"].append(dict(list(zip(_RECT_KEYS, values))))
+                    self.draw.append(DrawRect(*values))
 
                 # Gather text.
                 elif line[0] == "T":
-                    self.draw["texts"].append(dict(list(zip(_TEXT_KEYS, values))))
+                    self.draw.append(DrawText(*values))
 
                 # Gather the pin symbols. This is what we really want since
                 # this defines the names, numbers and attributes of the
                 # pins associated with the part.
                 elif line[0] == "X":
                     # Get the information for this pin.
-                    pin = dict(list(zip(_PIN_KEYS, values)))
+                    values[0:2] = line[
+                        1:3
+                    ]  # Restore pin num & name in case they were made into integers.
+                    pin = DrawPin(*values)
                     try:
                         # See if the pin number already exists for this part.
-                        rpt_pin = self.draw["pins"][pin["num"]]
+                        rpt_pin = pins[pin.num]
                     except KeyError:
                         # No, this pin number is unique (so far), so store it
                         # using the pin number as the dict key.
-                        self.draw["pins"][pin["num"]] = pin
+                        self.draw.append(pin)
+                        pins[pin.num] = pin
                     else:
                         # Uh, oh: Repeated pin number! Check to see if the
                         # duplicated pins have the same I/O type and unit num.
                         if (
-                            pin["electrical_type"] != rpt_pin["electrical_type"]
-                            or pin["unit"] != rpt_pin["unit"]
+                            pin.electrical_type != rpt_pin.electrical_type
+                            or pin.unit != rpt_pin.unit
                         ):
                             logger.warning(
                                 "Non-identical pins with the same number ({}) in symbol drawing {}".format(
-                                    pin["num"], self.name
+                                    pin.num, self.name
                                 )
                             )
 
@@ -508,7 +573,7 @@ def _parse_lib_part_(self, get_name_only=False):
         # Replicate the KiCad pin fields as attributes in the Pin object.
         # Note that this update will not give the pins valid references
         # to the current part, but we'll fix that soon.
-        p.__dict__.update(kicad_pin)
+        p.__dict__.update(kicad_pin._asdict())
 
         pin_type_translation = {
             "I": Pin.types.INPUT,
@@ -523,13 +588,11 @@ def _parse_lib_part_(self, get_name_only=False):
             "E": Pin.types.OPENEMIT,
             "N": Pin.types.NOCONNECT,
         }
-        p.func = pin_type_translation[
-            p.electrical_type
-        ]  # pylint: disable=no-member, attribute-defined-outside-init
+        p.func = pin_type_translation[p.electrical_type]
 
         return p
 
-    self.pins = [kicad_pin_to_pin(p) for p in self.draw["pins"].values()]
+    self.pins = [kicad_pin_to_pin(p) for p in pins.values()]
 
     # Make sure all the pins have a valid reference to this part.
     self.associate_pins()
@@ -546,11 +609,9 @@ def _parse_lib_part_(self, get_name_only=False):
 
 def _gen_netlist_(self):
     scr_dict = scriptinfo()
-    src_file = os.path.join(
-        scr_dict["dir"], scr_dict["source"]
-    )  # pylint: disable=unused-variable
-    date = time.strftime("%m/%d/%Y %I:%M %p")  # pylint: disable=unused-variable
-    tool = "SKiDL (" + __version__ + ")"  # pylint: disable=unused-variable
+    src_file = os.path.join(scr_dict["dir"], scr_dict["source"])
+    date = time.strftime("%m/%d/%Y %I:%M %p")
+    tool = "SKiDL (" + __version__ + ")"
     template = (
         "(export (version D)\n"
         + "  (design\n"
@@ -564,7 +625,8 @@ def _gen_netlist_(self):
         netlist += "\n" + p.generate_netlist_component(KICAD)
     netlist += ")\n"
     netlist += "  (nets"
-    for code, n in enumerate(sorted(self.get_nets(), key=lambda n: str(n.name))):
+    sorted_nets = sorted(self.get_nets(), key=lambda n: str(n.name))
+    for code, n in enumerate(sorted_nets, 1):
         n.code = code
         netlist += "\n" + n.generate_netlist_net(KICAD)
     netlist += ")\n)\n"
@@ -574,16 +636,7 @@ def _gen_netlist_(self):
 def _gen_netlist_comp_(self):
     ref = add_quotes(self.ref)
 
-    try:
-        value = self.value
-        if not value:
-            value = self.name
-    except AttributeError:
-        try:
-            value = self.name
-        except AttributeError:
-            value = self.ref_prefix
-    value = add_quotes(value)
+    value = add_quotes(self.value_str)
 
     try:
         footprint = self.footprint
@@ -592,8 +645,8 @@ def _gen_netlist_comp_(self):
         footprint = "No Footprint"
     footprint = add_quotes(footprint)
 
-    lib = add_quotes(getattr(self, "lib", "NO_LIB"))  # pylint: disable=unused-variable
-    name = add_quotes(self.name)  # pylint: disable=unused-variable
+    lib = add_quotes(getattr(self, "lib", "NO_LIB"))
+    name = add_quotes(self.name)
 
     # Embed the hierarchy along with a random integer into the sheetpath for each component.
     # This enables hierarchical selection in pcbnew.
@@ -630,12 +683,12 @@ def _gen_netlist_comp_(self):
 
 
 def _gen_netlist_net_(self):
-    code = add_quotes(self.code)  # pylint: disable=unused-variable
-    name = add_quotes(self.name)  # pylint: disable=unused-variable
+    code = add_quotes(self.code)
+    name = add_quotes(self.name)
     txt = "    (net (code {code}) (name {name})".format(**locals())
     for p in sorted(self.get_pins(), key=str):
-        part_ref = add_quotes(p.part.ref)  # pylint: disable=unused-variable
-        pin_num = add_quotes(p.num)  # pylint: disable=unused-variable
+        part_ref = add_quotes(p.part.ref)
+        pin_num = add_quotes(p.num)
         txt += "\n      (node (ref {part_ref}) (pin {pin_num}))".format(**locals())
     txt += ")"
     return txt
@@ -643,11 +696,9 @@ def _gen_netlist_net_(self):
 
 def _gen_xml_(self):
     scr_dict = scriptinfo()
-    src_file = os.path.join(
-        scr_dict["dir"], scr_dict["source"]
-    )  # pylint: disable=unused-variable
-    date = time.strftime("%m/%d/%Y %I:%M %p")  # pylint: disable=unused-variable
-    tool = "SKiDL (" + __version__ + ")"  # pylint: disable=unused-variable
+    src_file = os.path.join(scr_dict["dir"], scr_dict["source"])
+    date = time.strftime("%m/%d/%Y %I:%M %p")
+    tool = "SKiDL (" + __version__ + ")"
     template = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         + '<export version="D">\n'
@@ -673,25 +724,16 @@ def _gen_xml_(self):
 
 def _gen_xml_comp_(self):
     ref = self.ref
+    value = self.value_str
 
     try:
-        value = self.value
-        if not value:
-            value = self.name
-    except AttributeError:
-        try:
-            value = self.name
-        except AttributeError:
-            value = self.ref_prefix
-
-    try:
-        footprint = self.footprint  # pylint: disable=unused-variable
+        footprint = self.footprint
     except AttributeError:
         logger.error("No footprint for {part}/{ref}.".format(part=self.name, ref=ref))
         footprint = "No Footprint"
 
-    lib = add_quotes(getattr(self, "lib", "NO_LIB"))  # pylint: disable=unused-variable
-    name = self.name  # pylint: disable=unused-variable
+    lib = add_quotes(getattr(self, "lib", "NO_LIB"))
+    name = self.name
 
     fields = ""
     for fld_name, fld_value in self.fields.items():
@@ -718,12 +760,612 @@ def _gen_xml_comp_(self):
 
 
 def _gen_xml_net_(self):
-    code = self.code  # pylint: disable=unused-variable
-    name = self.name  # pylint: disable=unused-variable
+    code = self.code
+    name = self.name
     txt = '    <net code="{code}" name="{name}">'.format(**locals())
     for p in self.get_pins():
-        part_ref = p.part.ref  # pylint: disable=unused-variable
-        pin_num = p.num  # pylint: disable=unused-variable
+        part_ref = p.part.ref
+        pin_num = p.num
         txt += '\n      <node ref="{part_ref}" pin="{pin_num}"/>'.format(**locals())
     txt += "\n    </net>"
     return txt
+
+
+def _gen_svg_comp_(self, symtx, net_stubs=None):
+    """
+    Generate SVG for this component.
+    
+    Args:
+        self: Part object for which an SVG symbol will be created.
+        net_stubs: List of Net objects whose names will be connected to
+            part symbol pins as connection stubs.
+        symtx: String such as "HR" that indicates symbol mirroring/rotation.
+
+    Returns: SVG for the part symbol.
+"""
+
+    def tx(obj, ops):
+        """Transform object according to the list of opcodes."""
+
+        def H(obj):
+            # Flip horizontally.
+            if isinstance(obj, Point):
+                return Point(-obj.x, obj.y)
+            if isinstance(obj, (float, int)):
+                return 180.0 - obj
+            else:
+                return {"U": "U", "D": "D", "L": "R", "R": "L"}[obj]
+
+        def V(obj):
+            # Flip vertically.
+            if isinstance(obj, Point):
+                return Point(obj.x, -obj.y)
+            if isinstance(obj, (float, int)):
+                return -obj
+            else:
+                return {"U": "D", "D": "U", "L": "L", "R": "R"}[obj]
+
+        def R(obj):
+            # Rotate right.
+            if isinstance(obj, Point):
+                return Point(-obj.y, obj.x)
+            if isinstance(obj, (float, int)):
+                return obj + 90.0
+            else:
+                return {"U": "R", "D": "L", "L": "U", "R": "D"}[obj]
+
+        def L(obj):
+            # Rotate left.
+            if isinstance(obj, Point):
+                return Point(obj.y, -obj.x)
+            if isinstance(obj, (float, int)):
+                return obj - 90.0
+            else:
+                return {"U": "L", "D": "R", "L": "D", "R": "U"}[obj]
+
+        # Each character in ops applies a geometrical transformation.
+        for op in ops:
+            obj = locals()[op.upper()](obj)  # op selects the H, V, L, or R subroutine.
+        return obj
+
+    def draw_text(text, size, justify, origin, rotation, offset, class_, extra=""):
+        return " ".join(
+            [
+                "<text",
+                "class='{class_}'",
+                "text-anchor='{justify}'",
+                "x='{origin.x}' y='{origin.y}'",
+                "transform='rotate({rotation} {origin.x} {origin.y}) translate({offset.x} {offset.y})'",
+                "style='font-size:{size}px'",
+                "{extra}",
+                ">",
+                "{text}",
+                "</text>",
+            ]
+        ).format(**locals())
+
+    def make_pin_dir_tbl(abs_xoff=20):
+
+        # abs_xoff is the absolute distance of name/num from the end of the pin.
+        rel_yoff_num = -0.15  # Relative distance of number above pin line.
+        rel_yoff_name = (
+            0.2  # Relative distance that places name midline even with pin line.
+        )
+
+        # Tuple for storing information about pins in each of four directions:
+        #     direction: The direction the pin line is drawn from start to end.
+        #     side: The side of the symbol the pin is on. (Opposite of the direction.)
+        #     angle: The angle of the name/number text for the pin (usually 0, -90.).
+        #     num_justify: Text justification of the pin number.
+        #     name_justify: Text justification of the pin name.
+        #     num_offset: (x,y) offset of the pin number w.r.t. the end of the pin.
+        #     name_offset: (x,y) offset of the pin name w.r.t. the end of the pin.
+        PinDir = namedtuple(
+            "PinDir",
+            "direction side angle num_justify name_justify num_offset name_offset net_offset",
+        )
+
+        return {
+            "U": PinDir(
+                Point(0, -1),
+                "bottom",
+                -90,
+                "end",
+                "start",
+                Point(-abs_xoff, rel_yoff_num),
+                Point(abs_xoff, rel_yoff_name),
+                Point(abs_xoff, rel_yoff_num),
+            ),
+            "D": PinDir(
+                Point(0, 1),
+                "top",
+                -90,
+                "start",
+                "end",
+                Point(abs_xoff, rel_yoff_num),
+                Point(-abs_xoff, rel_yoff_name),
+                Point(-abs_xoff, rel_yoff_num),
+            ),
+            "L": PinDir(
+                Point(-1, 0),
+                "right",
+                0,
+                "start",
+                "end",
+                Point(abs_xoff, rel_yoff_num),
+                Point(-abs_xoff, rel_yoff_name),
+                Point(-abs_xoff, rel_yoff_num),
+            ),
+            "R": PinDir(
+                Point(1, 0),
+                "left",
+                0,
+                "end",
+                "start",
+                Point(-abs_xoff, rel_yoff_num),
+                Point(abs_xoff, rel_yoff_name),
+                Point(abs_xoff, rel_yoff_num),
+            ),
+        }
+
+    fill_tbl = {"f": "background_fill", "F": "pen_fill", "N": ""}
+
+    scale = 0.30  # Scale of KiCad units to SVG units.
+    default_thickness = 1 / scale  # Default line thickness = 1.
+    default_pin_name_offset = 20
+
+    # Named tuple for storing component pin information.
+    PinInfo = namedtuple("PinInfo", "x y side pid")
+
+    # Get maximum length of net stub name if any are needed for this part symbol.
+    net_stubs = net_stubs or []  # Empty list of stub nets if argument is None.
+    max_stub_len = 0  # If no net stubs are needed, this stays at zero.
+    for pin in self.get_pins():
+        for net in pin.get_nets():
+            if net in net_stubs:
+                max_stub_len = max(len(net.name), max_stub_len)
+
+    # Go through each graphic object that makes up the component symbol.
+    for obj in self.draw:
+
+        obj_pin_info = (
+            []
+        )  # Component pin info so they can be generated once bbox is known.
+        obj_svg = []  # Component graphic objects.
+        obj_filled_svg = []  # Filled component graphic objects.
+        obj_txt_svg = []  # Component text (because it has to be drawn last).
+        obj_bbox = BBox()  # Bounding box of all the component objects.
+
+        if isinstance(obj, DrawDef):
+            def_ = obj
+            show_name = def_.name[0] != "~"
+            show_nums = def_.show_nums == "Y"
+            show_names = def_.show_names == "Y"
+            # Make pin direction table with symbol-specific name offset.
+            pin_dir_tbl = make_pin_dir_tbl(def_.name_offset or default_pin_name_offset)
+            # Make structures for holding info on each part unit.
+            num_units = def_.num_units
+            unit_pin_info = [[] for _ in range(num_units + 1)]
+            unit_svg = [[] for _ in range(num_units + 1)]
+            unit_filled_svg = [[] for _ in range(num_units + 1)]
+            unit_txt_svg = [[] for _ in range(num_units + 1)]
+            unit_bbox = [BBox() for _ in range(num_units + 1)]
+
+        elif isinstance(obj, DrawF0):
+            f0 = obj
+            if f0.visibility != "I":
+                # F0 field is not invisible.
+                origin = tx(Point(f0.x, -f0.y), symtx) * scale
+                orientation = f0.orientation + f0.halign
+                dir = {
+                    "HL": "L",
+                    "HC": "L",
+                    "HR": "R",
+                    "VL": "D",
+                    "VC": "D",
+                    "VR": "U",
+                }[orientation]
+                dir = tx(dir, symtx)
+                angle = pin_dir_tbl[dir].angle
+                size = f0.size * scale
+                justify = "middle" if f0.halign == "C" else pin_dir_tbl[dir].num_justify
+                offset = (
+                    tx(
+                        {"T": Point(0, 1), "B": Point(0, 0), "C": Point(0, 0.5)}[
+                            f0.valign[0]
+                        ],
+                        symtx,
+                    )
+                    * size
+                )
+                class_ = "part_ref_text"
+                extra = 's:attribute="ref"'
+                obj_txt_svg.append(
+                    draw_text("X", size, justify, origin, angle, offset, class_, extra)
+                )
+
+        elif isinstance(obj, DrawF1):
+            f1 = obj
+            if f1.visibility != "I" and show_name:
+                # F1 field is not invisible.
+                origin = tx(Point(f1.x, -f1.y), symtx) * scale
+                orientation = f1.orientation + f1.halign
+                dir = {
+                    "HL": "L",
+                    "HC": "L",
+                    "HR": "R",
+                    "VL": "D",
+                    "VC": "D",
+                    "VR": "U",
+                }[orientation]
+                dir = tx(dir, symtx)
+                angle = pin_dir_tbl[dir].angle
+                size = f1.size * scale
+                justify = "middle" if f1.halign == "C" else pin_dir_tbl[dir].num_justify
+                offset = (
+                    tx(
+                        {"T": Point(0, 1), "B": Point(0, 0), "C": Point(0, 0.5)}[
+                            f1.valign[0]
+                        ],
+                        symtx,
+                    )
+                    * size
+                )
+                class_ = "part_name_text"
+                extra = 's:attribute="value"'
+                obj_txt_svg.append(
+                    draw_text("X", size, justify, origin, angle, offset, class_, extra)
+                )
+
+        elif isinstance(obj, DrawArc):
+            arc = obj
+            center = tx(Point(arc.cx, -arc.cy), symtx) * scale
+            radius = arc.radius * scale
+            start = tx(Point(arc.startx, -arc.starty), symtx) * scale
+            end = tx(Point(arc.endx, -arc.endy), symtx) * scale
+            start_angle = tx(arc.start_angle / 10, symtx)
+            end_angle = tx(arc.end_angle / 10, symtx)
+            clock_wise = int(end_angle < start_angle)
+            large_arc = int(abs(end_angle - start_angle) > 180)
+            thickness = (arc.thickness or default_thickness) * scale
+            fill = fill_tbl.get(arc.fill, "")
+            radius_pt = Point(radius, radius)
+            obj_bbox.add(center - radius_pt)
+            obj_bbox.add(center + radius_pt)
+            svg = obj_filled_svg if fill else obj_svg
+            svg.append(
+                " ".join(
+                    [
+                        "<path",
+                        'd="M {start.x} {start.y} A {radius} {radius} 0 {large_arc} {clock_wise} {end.x} {end.y}"',
+                        'style="stroke-width:{thickness}"',
+                        'class="$cell_id symbol {fill}"',
+                        "/>",
+                    ]
+                ).format(**locals())
+            )
+
+        elif isinstance(obj, DrawCircle):
+            circle = obj
+            center = tx(Point(circle.cx, -circle.cy), symtx) * scale
+            radius = circle.radius * scale
+            thickness = (circle.thickness or default_thickness) * scale
+            fill = fill_tbl.get(circle.fill, "")
+            radius_pt = Point(radius, radius)
+            obj_bbox.add(center - radius_pt)
+            obj_bbox.add(center + radius_pt)
+            svg = obj_filled_svg if fill else obj_svg
+            svg.append(
+                " ".join(
+                    [
+                        "<circle",
+                        'cx="{center.x}" cy="{center.y}" r="{radius}"',
+                        'style="stroke-width:{thickness}"',
+                        'class="$cell_id symbol {fill}"',
+                        "/>",
+                    ]
+                ).format(**locals())
+            )
+
+        elif isinstance(obj, DrawPoly):
+            poly = obj
+            pts = [
+                tx(Point(x, -y), symtx) * scale
+                for x, y in zip(poly.points[0::2], poly.points[1::2])
+            ]
+            path = []
+            path_op = "M"
+            for pt in pts:
+                obj_bbox.add(pt)
+                path.append("{path_op} {pt.x} {pt.y}".format(**locals()))
+                path_op = "L"
+            path = " ".join(path)
+            thickness = (poly.thickness or default_thickness) * scale
+            fill = fill_tbl.get(poly.fill, "")
+            svg = obj_filled_svg if fill else obj_svg
+            svg.append(
+                " ".join(
+                    [
+                        "<path",
+                        'd="{path}"',
+                        'style="stroke-width:{thickness}"',
+                        'class="$cell_id symbol {fill}"',
+                        "/>",
+                    ]
+                ).format(**locals())
+            )
+
+        elif isinstance(obj, DrawRect):
+            rect = obj
+            start = tx(Point(rect.x1, -rect.y1), symtx) * scale
+            end = tx(Point(rect.x2, -rect.y2), symtx) * scale
+            obj_bbox.add(start)
+            obj_bbox.add(end)
+            rect_bbox = BBox(start, end)
+            thickness = (rect.thickness or default_thickness) * scale
+            fill = fill_tbl.get(rect.fill, "")
+            svg = obj_filled_svg if fill else obj_svg
+            svg.append(
+                " ".join(
+                    [
+                        "<rect",
+                        'x="{rect_bbox.min.x}" y="{rect_bbox.min.y}"',
+                        'width="{rect_bbox.w}" height="{rect_bbox.h}"',
+                        'style="stroke-width:{thickness}"',
+                        'class="$cell_id symbol {fill}"',
+                        "/>",
+                    ]
+                ).format(**locals())
+            )
+
+        elif isinstance(obj, DrawText):
+            text = obj
+            origin = tx(Point(text.x, -text.y), symtx) * scale
+            angle = tx(text.angle, symtx)
+            size = text.size * scale
+            justify = {"L": "start", "C": "middle", "R": "end"}[text.halign]
+            offset = (
+                tx(
+                    {"T": Point(0, 1), "B": Point(0, 0), "C": Point(0, 0.5)}[
+                        text.valign
+                    ],
+                    symtx,
+                )
+                * size
+            )
+            obj_txt_svg.append(
+                draw_text(
+                    text.text, size, justify, origin, angle, offset, class_="part_text"
+                )
+            )
+
+        elif isinstance(obj, DrawPin):
+
+            pin = obj
+            part_pin = self[
+                pin.num
+            ]  # Get Pin object associated with this pin drawing object.
+
+            try:
+                visible = pin.shape[0] != "N"
+            except IndexError:
+                visible = True  # No pin shape given, so it is visible by default.
+
+            # Start pin group.
+            orientation = tx(pin.orientation, symtx)
+            dir = pin_dir_tbl[orientation].direction
+            if part_pin.net in [None, NC]:
+                # Unconnected pins remain at the length of the default symbol pin.
+                extension = Point(0, 0)
+            else:
+                # Extend the pin if it's connected to a net.
+                extension = (
+                    dir
+                    * (
+                        pin.name_size * 0.5 * max_stub_len
+                        + 2 * abs(pin_dir_tbl[orientation].net_offset.x)
+                    )
+                    * scale
+                )
+            start = tx(Point(pin.x, -pin.y), symtx) * scale - extension
+            side = pin_dir_tbl[orientation].side
+            obj_pin_info.append(PinInfo(x=start.x, y=start.y, side=side, pid=pin.num))
+
+            if visible:
+                # Draw pin if it's not invisible.
+
+                # Create line for pin lead.
+                l = dir * pin.length * scale
+                end = start + l + extension
+                thickness = default_thickness * scale
+                obj_bbox.add(start)
+                obj_bbox.add(end)
+                obj_svg.append(
+                    " ".join(
+                        [
+                            "<path",
+                            'd="M {start.x} {start.y} L {end.x} {end.y}"',
+                            'style="stroke-width:{thickness}"',
+                            'class="$cell_id symbol"' "/>",
+                        ]
+                    ).format(**locals())
+                )
+
+                # Create pin number.
+                if show_nums:
+                    angle = pin_dir_tbl[orientation].angle
+                    num_justify = pin_dir_tbl[orientation].num_justify
+                    num_size = pin.num_size * scale
+                    num_offset = pin_dir_tbl[orientation].num_offset * scale
+                    num_offset.y = num_offset.y * pin.num_size
+                    # Pin nums are text, but they go into graphical SVG because they are part of a pin object.
+                    obj_svg.append(
+                        draw_text(
+                            str(pin.num),
+                            num_size,
+                            num_justify,
+                            end,
+                            angle,
+                            num_offset,
+                            "pin_num_text",
+                        )
+                    )
+
+                # Create pin name.
+                if pin.name != "~" and show_names:
+                    name_justify = pin_dir_tbl[orientation].name_justify
+                    name_size = pin.name_size * scale
+                    name_offset = pin_dir_tbl[orientation].name_offset * scale
+                    name_offset.y = name_offset.y * pin.name_size
+                    # Pin names are text, but they go into graphical SVG because they are part of a pin object.
+                    obj_svg.append(
+                        draw_text(
+                            str(pin.name),
+                            name_size,
+                            name_justify,
+                            end,
+                            angle,
+                            name_offset,
+                            "pin_name_text",
+                        )
+                    )
+
+                # Create net stub name.
+                if max_stub_len:
+                    # Only do this if stub length > 0; otherwise, no stubs are needed.
+                    for net in part_pin.get_nets():
+                        if net in net_stubs:
+                            net_justify = pin_dir_tbl[orientation].name_justify
+                            net_size = (
+                                pin.name_size * scale
+                            )  # Net name font size same as pin name font size.
+                            net_offset = pin_dir_tbl[orientation].net_offset * scale
+                            net_offset.y = net_offset.y * pin.name_size
+                            obj_svg.append(
+                                draw_text(
+                                    net.name,
+                                    net_size,
+                                    net_justify,
+                                    start,
+                                    angle,
+                                    net_offset,
+                                    "net_name_text",
+                                )
+                            )
+                            break  # Only one label is needed per stub.
+
+        else:
+            logger.error(
+                "Unknown graphical object {} in part symbol {}.".format(
+                    type(obj), self.name
+                )
+            )
+
+        # Enter the current object into the SVG for this part.
+        unit = getattr(obj, "unit", 0)
+        if unit == 0:
+            # Anything in unit #0 gets added to all units.
+            for pin_info in unit_pin_info:
+                pin_info.extend(obj_pin_info)
+            for svg in unit_svg:
+                svg.extend(obj_svg)
+            for svg in unit_filled_svg:
+                svg.extend(obj_filled_svg)
+            for txt_svg in unit_txt_svg:
+                txt_svg.extend(obj_txt_svg)
+            for bbox in unit_bbox:
+                bbox.add(obj_bbox)
+        else:
+            unit_pin_info[unit].extend(obj_pin_info)
+            unit_svg[unit].extend(obj_svg)
+            unit_filled_svg[unit].extend(obj_filled_svg)
+            unit_txt_svg[unit].extend(obj_txt_svg)
+            unit_bbox[unit].add(obj_bbox)
+
+    # End of loop through all the component objects.
+
+    # Assemble and name the SVGs for all the part units.
+    svg = []
+    for unit in range(1, num_units + 1):
+        bbox = unit_bbox[unit]
+
+        # Assign part unit name.
+        if max_stub_len:
+            # If net stubs are attached to symbol, then it's only to be used
+            # for a specific part. Therefore, tag the symbol name with the unique
+            # part reference so it will only be used by this part.
+            symbol_name = "{self.name}_{self.ref}_{unit}_{symtx}".format(**locals())
+        else:
+            # No net stubs means this symbol can be used for any part that
+            # also has no net stubs, so don't tag it with a specific part reference.
+            symbol_name = "{self.name}_{unit}_{symtx}".format(**locals())
+
+        # Begin SVG for part unit.
+        svg.append(
+            " ".join(
+                [
+                    "<g",
+                    's:type="{symbol_name}"',
+                    's:width="{bbox.w}"',
+                    's:height="{bbox.h}"',
+                    ">",
+                ]
+            ).format(**locals())
+        )
+
+        # Add part alias.
+        svg.append('<s:alias val="{symbol_name}"/>'.format(**locals()))
+
+        # Group text & graphics and translate so bbox.min is at (0,0).
+        translate = bbox.min * -1
+        svg.append(
+            '<g transform="translate({translate.x},{translate.y})">'.format(**locals())
+        )
+        # Add part unit text and graphics.
+        svg.extend(unit_filled_svg[unit])  # Filled items go on the bottom.
+        svg.extend(unit_svg[unit])  # Then unfilled items.
+        svg.extend(unit_txt_svg[unit])  # Text comes last.
+        svg.append("</g>")
+
+        # Place a visible bounding-box around symbol for trouble-shooting.
+        show_bbox = False
+        bbox.min = bbox.min + translate
+        bbox.max = bbox.max + translate
+        if show_bbox:
+            svg.append(
+                " ".join(
+                    [
+                        "<rect",
+                        'x="{bbox.min.x}" y="{bbox.min.y}"',
+                        'width="{bbox.w}" height="{bbox.h}"',
+                        'style="stroke-width:3; stroke:#f00"',
+                        'class="$cell_id symbol"',
+                        "/>",
+                    ]
+                ).format(**locals())
+            )
+
+        # Keep the pins out of the grouped text & graphics but adjust their coords
+        # to account for moving the bbox.
+        for pin_info in unit_pin_info[unit]:
+            pin_pt = Point(pin_info.x, pin_info.y) + translate
+            side = pin_info.side
+            pid = pin_info.pid
+            pin_svg = '<g s:x="{pin_pt.x}" s:y="{pin_pt.y}" s:pid="{pid}" s:position="{side}"/>'.format(
+                **locals()
+            )
+            svg.append(pin_svg)
+
+        # Finish SVG for part unit.
+        svg.append("</g>")
+
+    return "\n".join(svg)
+
+
+def _gen_pinboxes_(self):
+    """ Generate bounding box and I/O pin positions for each unit in a part. """
+    pass
+
+
+def _gen_schematic_(self, route):
+    pass

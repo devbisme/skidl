@@ -47,6 +47,9 @@ links:
     icon: home
   - title: Blog
     url: /blog
+  - title: Forum
+    url: https://skidl.discourse.group/
+    external: true
   - title: API
     url: /api.html
   - title: Github

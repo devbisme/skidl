@@ -32,21 +32,17 @@ from builtins import range, str, super
 
 from future import standard_library
 
-from .Alias import Alias
-from .baseobj import SkidlBaseObject
+from .alias import Alias
+from .common import *
 from .defines import *
 from .logger import logger
-from .Net import Net
-from .NetPinList import NetPinList
-from .Pin import Pin
+from .net import Net
+from .netpinlist import NetPinList
+from .pin import Pin
+from .skidlbaseobj import SkidlBaseObject
 from .utilities import *
 
 standard_library.install_aliases()
-
-try:
-    import __builtin__ as builtins
-except ImportError:
-    import builtins
 
 
 class Bus(SkidlBaseObject):
@@ -99,7 +95,7 @@ class Bus(SkidlBaseObject):
         circuit = attribs.get("circuit", builtins.default_circuit)
         return cls.get(name, circuit=circuit) or cls(name, *args, **attribs)
 
-    def __init__(self, name, *args, **attribs):
+    def __init__(self, *args, **attribs):
 
         super().__init__()
 
@@ -109,9 +105,21 @@ class Bus(SkidlBaseObject):
         # For Bus objects, the circuit object the bus is a member of is passed
         # in with all the other attributes. If a circuit object isn't provided,
         # then the default circuit object is added to the attributes.
-        attribs["circuit"] = attribs.get(
-            "circuit", default_circuit
-        )  # pylint: disable=undefined-variable
+        attribs["circuit"] = attribs.get("circuit", default_circuit)
+
+        # Scan through the kwargs and args to see if there is a name for this bus.
+        name = attribs.pop("name", None)
+        if not name:
+            try:
+                # The first string found will be the bus name.
+                name = [a for a in args if isinstance(a, (basestring, type(None)))][0]
+                # Remove the name from the list of things to be added to the bus.
+                args = list(args)
+                args.remove(name)
+                # args = [a for a in args if a != name]
+            except IndexError:
+                # No explicit bus name found, so generate an implicit one.
+                name = None
 
         # Attach additional attributes to the bus. (The Circuit object also gets
         # set here.)
@@ -123,12 +131,8 @@ class Bus(SkidlBaseObject):
         self.name = name
 
         # Add the bus to the circuit.
-        self.circuit = (
-            None  # Bus won't get added if it's already seen as part of circuit.
-        )
-        attribs[
-            "circuit"
-        ] += self  # Add bus to circuit. This also sets self.circuit again.
+        self.circuit = None  # Make sure bus isn't seen as part of circuit.
+        attribs["circuit"] += self  # Add bus to circuit (also sets self.circuit).
 
         # Build the bus from net widths, existing nets, nets of pins, other buses.
         self.extend(args)
@@ -365,6 +369,14 @@ class Bus(SkidlBaseObject):
                 # One net not movable means the entire Bus is not movable.
                 return False
         return True  # All the nets were movable.
+
+    def is_implicit(self):
+        """Return true if the bus name is implicit."""
+
+        from .defines import NET_PREFIX, BUS_PREFIX
+
+        prefix_re = "({}|{})+".format(re.escape(NET_PREFIX), re.escape(BUS_PREFIX))
+        return re.match(prefix_re, self.name)
 
     def connect(self, *pins_nets_buses):
         """

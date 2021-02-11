@@ -38,8 +38,13 @@ from builtins import chr, dict, int, object, open, range, str, super, zip
 from collections import namedtuple
 from contextlib import contextmanager
 
+from future import standard_library
+
+from .common import *
 from .defines import *
-from .py_2_3 import *
+
+standard_library.install_aliases()
+
 
 """Separator for strings containing multiple indices."""
 INDEX_SEPARATOR = ","
@@ -126,7 +131,7 @@ def find_and_open_file(
     Args:
         filename: Base file name (e.g., "my_file").
         paths: List of paths to search for the file.
-        ext: The extension for the file (e.g., "txt").
+        ext: The extension for the file (e.g., ".txt").
         allow_failure: If false, failure to find file raises and exception.
         exclude_binary: If true, skip files that contain binary data.
         descend: If 0, don't search lower-level directories. If positive, search
@@ -136,45 +141,48 @@ def find_and_open_file(
 
     from .logger import logger
 
-    # If no paths are given, then just check the current directory.
-    if not paths:
+    if os.path.isabs(filename):
+        # Ignore search paths if the file already has an absolute path.
+        paths = [os.path.abspath(os.path.dirname(filename))]
+    elif not paths:
+        # If no search paths are given, use the current working directory.
         paths = ["."]
 
-    # If the filename has no extension, then give it one.
-    if ext and not filename.endswith(ext):
-        fn_plus_ext = filename + ext
-    else:
-        fn_plus_ext = filename
+    # Remove any directory path from the file name.
+    _, filename = os.path.split(filename)
 
-    # Search the paths for the file.
+    # Get the list of file extensions to check against.
+    exts = to_list(ext)
+    base, suffix = os.path.splitext(filename)
+    if not exts:
+        # If no explicit file extensions were given, just use the extension of the given file.
+        exts.append(suffix)
+
+    # Create the regular expression for matching against the filename.
+    exts = [re.escape(ext) for ext in exts]
+    match_name = re.escape(base) + "(" + "|".join(exts) + ")$"
+
+    # Search through the directory paths for a file whose name matches the regular expression.
     for path in paths:
-        if not os.path.exists(path):
-            continue  # Skip paths that don't exist.
-        abs_filename = os.path.join(path, fn_plus_ext)
-        if not exclude_binary or not is_binary_file(abs_filename):
-            try:
-                # The search stops once the file is successfully opened.
-                return open(abs_filename, encoding="latin_1"), abs_filename
-            except (IOError, FileNotFoundError, TypeError):
-                pass
-        # If file not found, look in subdirectories or go to next path.
-        if descend:
-            # Look in subdirectories.
-            dir_contents = [os.path.join(path, f) for f in os.listdir(path)]
-            subdirs = [f for f in dir_contents if os.path.isdir(f)]
-            if subdirs:
-                fp, fn = find_and_open_file(
-                    filename=filename,
-                    paths=subdirs,
-                    ext=ext,
-                    allow_failure=True,
-                    exclude_binary=exclude_binary,
-                    descend=descend - 1,
-                )
-                if fp:
-                    return fp, fn
+        # Search through the files in a particular directory path.
+        descent_ctr = descend  # Controls the descent through the path.
+        for root, dirnames, filenames in os.walk(path):
+            # Get files in the current directory whose names match the regular expression.
+            for fn in [f for f in filenames if re.match(match_name, f)]:
+                abs_filename = os.path.join(root, fn)
+                if not exclude_binary or not is_binary_file(abs_filename):
+                    try:
+                        # Return the first file that matches the criteria.
+                        return open(abs_filename, encoding="latin_1"), abs_filename
+                    except (IOError, FileNotFoundError, TypeError):
+                        # File failed, so keep searching.
+                        pass
+            # Keep descending on this path as long as the descent counter is non-zero.
+            if descent_ctr == 0:
+                break  # Cease search of this path if the counter is zero.
+            descent_ctr -= 1  # Decrement the counter for the next directory level.
 
-    # Couldn't find the file.
+    # Couldn't find a matching file.
     if allow_failure:
         return None, None
     else:
@@ -245,6 +253,16 @@ def add_quotes(s):
             s = '"' + s + '"'
 
     return s
+
+
+def is_iterable(x):
+    """
+    Return True if x is iterable (but not a string).
+    """
+    try:
+        return not isinstance(iter(x), type(iter("")))
+    except TypeError:
+        return False
 
 
 def to_list(x):
@@ -532,7 +550,7 @@ def filter_list(lst, **criteria):
     return extract
 
 
-def expand_indices(slice_min, slice_max, match_substring, *indices):
+def expand_indices(slice_min, slice_max, match_regex, *indices):
     """
     Expand a list of indices into a list of integers and strings.
 
@@ -545,7 +563,7 @@ def expand_indices(slice_min, slice_max, match_substring, *indices):
     Args:
         slice_min: The minimum possible index.
         slice_max: The maximum possible index (used for slice indices).
-        match_substring: If true, 
+        match_regex: If true, 
         indices: A list of indices made up of numbers, slices, text strings.
 
     Returns:
@@ -588,6 +606,61 @@ def expand_indices(slice_min, slice_max, match_substring, *indices):
         # Create the sequence of indices.
         return list(range(start, stop, step))
 
+    def explode(bus_str):
+        """
+        Explode a bus into its separate lines.
+
+        This function takes a bus expression like "ADDR[0:3]" and returns
+        "ADDR0,ADDR1,ADDR2,ADDR3". It also works if the order is reversed,
+        e.g. "ADDR[3:0]" returns "ADDR3,ADDR2,ADDR1,ADDR0". If the input
+        string is not a valid bus expression, then the string is returned
+        in a one-element list.
+
+        Args:
+            bus_str: A string containing a bus expression like "D[0:3]".
+
+        Returns:
+            A list of bus lines like ['D0', 'D1', 'D2', 'D3'] or a one-element
+            list with the original input string if it's not a valid bus expression.
+        """
+
+        bus = re.match(r"^(.+)\[([0-9]+):([0-9]+)\](.*)$", bus_str)
+        if not bus:
+            return [bus_str]  # Not a valid bus expression, so return input string.
+
+        # What follows must be a bus expression.
+        beg_bus_name = bus.group(1)
+        begin_num = int(bus.group(2))
+        end_num = int(bus.group(3))
+        end_bus_name = bus.group(4)
+        dir = [1, -1][int(begin_num > end_num)]  # Bus indexes increasing or decreasing?
+        bus_pin_nums = list(range(begin_num, end_num + dir, dir))
+
+        # If the bus string starts with an alpha, then require that any match in the
+        # string must be preceded by a non-alpha or the start of the string.
+        # But if the string starts with a non-alpha, then whatever precedes the
+        # match in the string is ignored.
+        if match_regex:
+            if beg_bus_name[0:1].isalpha():
+                non_alphanum = "((?<=[^0-9a-zA-Z])|^)"
+            else:
+                non_alphanum = ""
+        else:
+            non_alphanum = ""
+
+        # The character following a bus index must be non-numeric so that "B1" does
+        # not also match "B11". This must also be a look-ahead assertion so it
+        # doesn't consume any of the string.
+        if match_regex:
+            non_num = "(?=[^0-9]|$)"
+        else:
+            non_num = ""
+
+        return [
+            non_alphanum + beg_bus_name + str(n) + non_num + end_bus_name
+            for n in bus_pin_nums
+        ]
+
     # Expand each index and add it to the list.
     ids = []
     for indx in flatten(indices):
@@ -601,7 +674,7 @@ def expand_indices(slice_min, slice_max, match_substring, *indices):
                 # If the id is a valid bus expression, then the exploded bus lines
                 # are added to the list of ids. If not, the original id is
                 # added to the list.
-                ids.extend(explode(id.strip(), match_substring=match_substring))
+                ids.extend(explode(id.strip()))
         else:
             log_and_raise(
                 logger, TypeError, "Unknown type in index: {}.".format(type(indx))
@@ -609,62 +682,6 @@ def expand_indices(slice_min, slice_max, match_substring, *indices):
 
     # Return the completely expanded list of indices.
     return ids
-
-
-def explode(bus_str, match_substring=False):
-    """
-    Explode a bus into its separate lines.
-
-    This function takes a bus expression like "ADDR[0:3]" and returns
-    "ADDR0,ADDR1,ADDR2,ADDR3". It also works if the order is reversed,
-    e.g. "ADDR[3:0]" returns "ADDR3,ADDR2,ADDR1,ADDR0". If the input
-    string is not a valid bus expression, then the string is returned
-    in a one-element list.
-
-    Args:
-        bus_str: A string containing a bus expression like "D[0:3]".
-
-    Returns:
-        A list of bus lines like ['D0', 'D1', 'D2', 'D3'] or a one-element
-        list with the original input string if it's not a valid bus expression.
-    """
-
-    bus = re.match(r"^(.+)\[([0-9]+):([0-9]+)\](.*)$", bus_str)
-    if not bus:
-        return [bus_str]  # Not a valid bus expression, so return input string.
-
-    # What follows must be a bus expression.
-    beg_bus_name = bus.group(1)
-    begin_num = int(bus.group(2))
-    end_num = int(bus.group(3))
-    end_bus_name = bus.group(4)
-    dir = [1, -1][int(begin_num > end_num)]  # Bus indexes increasing or decreasing?
-    bus_pin_nums = list(range(begin_num, end_num + dir, dir))
-
-    # If the bus string starts with an alpha, then require that any match in the
-    # string must be preceded by a non-alpha or the start of the string.
-    # But if the string starts with a non-alpha, then whatever precedes the
-    # match in the string is ignored.
-    if match_substring:
-        if beg_bus_name[0:1].isalpha():
-            non_alphanum = "((?<=[^0-9a-zA-Z])|^)"
-        else:
-            non_alphanum = ""
-    else:
-        non_alphanum = ""
-
-    # The character following a bus index must be non-numeric so that "B1" does
-    # not also match "B11". This must also be a look-ahead assertion so it
-    # doesn't consume any of the string.
-    if match_substring:
-        non_num = "(?=[^0-9]|$)"
-    else:
-        non_num = ""
-
-    return [
-        non_alphanum + beg_bus_name + str(n) + non_num + end_bus_name
-        for n in bus_pin_nums
-    ]
 
 
 def find_num_copies(**attribs):

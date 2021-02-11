@@ -30,15 +30,22 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 from builtins import str
 
+from future import standard_library
+
+from ..common import *
 from ..defines import SKIDL
 from ..logger import logger
-from ..py_2_3 import *  # pylint: disable=wildcard-import
 
+standard_library.install_aliases()
+
+
+# These aren't used here, but they are used in modules
+# that include this module.
 tool_name = SKIDL
 lib_suffix = "_sklib.py"
 
 
-def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
+def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None):
     """
     Load the parts from a SKiDL schematic library file.
 
@@ -47,12 +54,12 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
     """
 
     from ..skidl import lib_suffixes, logger
-    from ..SchLib import SchLib
+    from ..schlib import SchLib
     from ..defines import SKIDL
     from ..utilities import find_and_open_file
 
     try:
-        f, _ = find_and_open_file(filename, lib_search_paths_, lib_suffixes[SKIDL])
+        f, path = find_and_open_file(filename, lib_search_paths_, lib_suffixes[SKIDL])
     except FileNotFoundError as e:
         raise FileNotFoundError(
             "Unable to open SKiDL Schematic Library File {} ({})".format(
@@ -62,7 +69,9 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None):
     try:
         # The SKiDL library is stored as a Python module that's executed to
         # recreate the library object.
-        vars_ = {}  # Empty dictionary for storing library object.
+        vars_ = {
+            '__file__': path,
+        }
         exec(f.read(), vars_)  # Execute and store library in dict.
 
         # Now look through the dict to find the library object.

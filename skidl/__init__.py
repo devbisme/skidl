@@ -16,28 +16,34 @@ imported into a PCB layout tool or Spice simulator.
 The script can also
 check the resulting circuitry for electrical rule violations.
 """
+from __future__ import absolute_import, division, print_function, unicode_literals
+
+from future import standard_library
 
 from . import tools
-from .Alias import *
-from .AttrDict import *
-from .Bus import *
-from .Circuit import *
+from .alias import *
+from .arrange import *
+from .bus import *
+from .circuit import *
+from .common import *
 from .defines import *
 from .erc import *
-from .Interface import *
+from .interface import *
 from .logger import *
-from .Net import *
+from .net import *
 from .netclass import *
 from .netlist_to_skidl import *
-from .NetPinList import *
-from .Network import *
-from .Note import *
-from .Package import *
-from .Part import *
+from .netpinlist import *
+from .network import *
+from .note import *
+from .package import *
+from .part import *
 from .part_query import *
-from .Pin import *
-from .ProtoNet import *
-from .py_2_3 import *
-from .SchLib import *
+from .pin import *
+from .protonet import *
+from .schlib import *
 from .skidl import *
+from .skidlbaseobj import *
 from .utilities import *
+
+standard_library.install_aliases()

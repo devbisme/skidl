@@ -93,6 +93,11 @@ callback([
   {
     "text": "Customized ERC!",
     "href": "https://xesscorp.github.io/skidl/docs/_site/blog/custom-erc"
+  } ,
+
+  {
+    "text": "Automatic Schematic!",
+    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/automatic-schematic"
   } 
 
 ])

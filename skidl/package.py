@@ -32,21 +32,21 @@ from copy import copy
 
 from future import standard_library
 
-from .Circuit import subcircuit
+from .bus import Bus
+from .circuit import subcircuit
+from .common import *
 from .defines import *
-from .Interface import Interface
-from .ProtoNet import ProtoNet
+from .interface import Interface
+from .net import Net
+from .protonet import ProtoNet
 
 standard_library.install_aliases()
-
-try:
-    import __builtins__ as builtins
-except ImportError:
-    import builtins
 
 
 class Package(Interface):
     def __init__(self, **kwargs):
+        self["circuit"] = None
+
         # Don't use update(). It doesn't seem to call __setitem__.
         for k, v in list(kwargs.items()):
             self[k] = v  # Use __setitem__ so both dict item and attribute are created.
@@ -61,9 +61,22 @@ class Package(Interface):
         dest = kwargs.pop("dest", NETLIST)
 
         pckg = Package(**self.copy())  # Create a shallow copy of the package.
+
+        # Set the circuit that the ProtoNets belong to. Also, make copies of any
+        # implicit buses or nets that were specified as default I/Os in the
+        # package definition.
+        for k, v in pckg.items():
+            if isinstance(v, ProtoNet):
+                v.circuit = circuit
+            elif isinstance(v, (Net, Bus)):
+                if v.is_implicit():
+                    pckg[k] = v.__class__()
+                    # pckg[k] = v.copy()
+
         # Don't use update(). It doesn't seem to call __setitem__.
         for k, v in list(kwargs.items()):
             pckg[k] = v  # Use __setitem__ so both dict item and attribute are created.
+
         pckg.subcircuit = self.subcircuit  # Assign subcircuit creation function.
         # Remove creation function so it's not passed as a parameter.
         del pckg["subcircuit"]
@@ -73,6 +86,16 @@ class Package(Interface):
             circuit += pckg
 
         return pckg
+
+    def is_movable(self):
+        return True
+        for obj in self.values():
+            try:
+                if not obj.is_movable():
+                    return False  # Interface is not movable if any object in it is not movable.
+            except AttributeError:
+                pass  # Objects without is_movable() are always movable.
+        return True  # Every object in the Interface that could move was movable.
 
 
 def package(subcirc_func):
@@ -87,7 +110,7 @@ def package(subcirc_func):
 
     # By default, set parameters to a package to be ProtoNets.
     for arg_name in arg_names:
-        pn = ProtoNet(arg_name)
+        pn = ProtoNet(arg_name, circuit=None)
         pn.intfc = pckg
         pn.intfc_key = arg_name
         pckg[arg_name] = pn
@@ -99,11 +122,13 @@ def package(subcirc_func):
         ):
             pckg[arg_name] = dflt_value
     if getattr(subcirc_func, "__kwdefaults__", None):
-        for arg_name, dflt_value in subcirc_func.__kwdefaults__:
+        for arg_name, dflt_value in subcirc_func.__kwdefaults__.items():
             pckg[arg_name] = dflt_value
 
-    # Remove the subcircuit key from the dict so it won't be passed to subcirc_func().
+    # Create the subcircuit function that will be called to insantiate this package.
     pckg.subcircuit = subcircuit(subcirc_func)
+
+    # Remove the subcircuit key from the dict so it won't be passed to subcirc_func().
     del pckg["subcircuit"]
 
     return pckg
