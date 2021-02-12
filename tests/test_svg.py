@@ -184,7 +184,8 @@ def test_svg_4():
 
 
 def test_svg_5():
-
+    # This test fails due to the lack of wch.lib
+    # Can it be added to the test directory?
     lib_search_paths[KICAD].append("/home/devb/xesscorp/KiCad/libraries")
     uc = Part(lib="wch.lib", name="CH551G", dest=TEMPLATE)
     uc.split_pin_names("/")
