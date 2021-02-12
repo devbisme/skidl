@@ -339,7 +339,7 @@ def test_svg_8():
     hsync = Net("HSYNC")
     vsync = Net("VSYNC")
 
-    xess_lib = r"/home/devb/xesscorp/KiCad/libraries/xess.lib"
+    xess_lib = r"xess.lib"
 
     # Two PMOD headers and a breadboard header bring in the digital red, green,
     # and blue buses along with the horizontal and vertical sync.
