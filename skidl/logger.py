@@ -70,7 +70,11 @@ class SkidlLogFileHandler(logging.FileHandler):
 
     def remove_log_file(self):
         if self.filename:
-            os.remove(self.filename)
+            f_name = self.filename     #code to close file handle before removing file.
+            self.close()               #
+                                       #import pdb; pdb.set_trace()
+            os.remove(f_name)
+                                       #os.remove(self.filename)
         self.filename = None
 
 

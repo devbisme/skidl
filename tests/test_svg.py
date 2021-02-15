@@ -184,7 +184,8 @@ def test_svg_4():
 
 
 def test_svg_5():
-
+    # This test fails due to the lack of wch.lib
+    # Can it be added to the test directory?
     lib_search_paths[KICAD].append("/home/devb/xesscorp/KiCad/libraries")
     uc = Part(lib="wch.lib", name="CH551G", dest=TEMPLATE)
     uc.split_pin_names("/")
@@ -339,7 +340,7 @@ def test_svg_8():
     hsync = Net("HSYNC")
     vsync = Net("VSYNC")
 
-    xess_lib = r"/home/devb/xesscorp/KiCad/libraries/xess.lib"
+    xess_lib = r"xess.lib"
 
     # Two PMOD headers and a breadboard header bring in the digital red, green,
     # and blue buses along with the horizontal and vertical sync.
