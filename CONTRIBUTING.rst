@@ -76,7 +76,7 @@ Ready to contribute? Here's how to set up `skidl` for local development.
 
 5. When you're done making changes, auto-format your code and check that your changes pass the tests, including testing other Python versions with tox::
 
-    $ isort -y --recursive tests skidl setup.py
+    $ isort tests skidl setup.py
     $ black skidl tests setup.py
     $ python setup.py test
     $ tox
