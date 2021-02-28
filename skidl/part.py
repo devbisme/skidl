@@ -27,8 +27,10 @@ Handles parts.
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+import re
 from builtins import dict, int, object, range, str, super, zip
 from copy import copy
+from random import randint
 
 from future import standard_library
 
@@ -107,6 +109,7 @@ class Part(SkidlBaseObject):
         value: String storing the part value (e.g., '3K3').
         footprint: String storing the PCB footprint associated with a part (e.g., SOIC-8).
         pins: List of Pin objects for this part.
+        tag: A tag string to link a part to its footprint in a pcb editor.
 
     Args:
         lib: Either a SchLib object or a schematic part library file name.
@@ -143,6 +146,7 @@ class Part(SkidlBaseObject):
         connections=None,
         part_defn=None,
         circuit=None,
+        tag=None,
         **attribs
     ):
 
@@ -230,6 +234,13 @@ class Part(SkidlBaseObject):
                 "Can't make a part without a library & part name or a part definition.",
             )
 
+        # Setup the tag for tieing the part to a footprint in a pcb editor.
+        # Use the user specified tag if present.
+        if tag is not None:
+            self.tag = tag
+        else:
+            self.tag = str(randint(0, 2 ** 64 - 1))
+
         if dest != LIBRARY:
             if dest == NETLIST:
                 # If the part is going to be an element in a circuit, then add it to the
@@ -291,8 +302,8 @@ class Part(SkidlBaseObject):
         Args:
             text: A text string that will be searched for in the list of
                 parts.
-        
-        Keyword Args: 
+
+        Keyword Args:
             circuit: The circuit whose parts will be searched. If set to None,
                 then the parts in the default_circuit will be searched.
 
@@ -482,6 +493,12 @@ class Part(SkidlBaseObject):
 
             # Copied part starts off not being in any circuit.
             cpy.circuit = None
+
+            # Reset the tag to a random generated one.  We
+            # are careful to do this after setting the circuit to
+            # None so we don't corrupt the hierarchical name index
+            # maintained in circuit.
+            del cpy.tag
 
             # If copy is destined for a netlist, then add it to the Circuit its
             # source came from or else add it to the default Circuit object.
@@ -879,6 +896,7 @@ class Part(SkidlBaseObject):
                 "min_pin",
                 "max_pin",
                 "hierarchy",
+                "_tag",
                 "_value",
                 "_ref",
                 "ref_prefix",
@@ -1056,6 +1074,38 @@ class Part(SkidlBaseObject):
         return "Part(**{{ {} }})".format(", ".join(attribs))
 
     @property
+    def hierarchical_name(self):
+        return getattr(self, "hierarchy", "") + "." + self._tag
+
+    def _tag_setter(self, tag):
+        # Remove the part's old hierarchical name from the index.
+        if self.circuit is not None:
+            self.circuit.rmv_hierarchical_name(self.hierarchical_name)
+
+        # Update the part's tag.
+        strTag = str(tag)
+        if re.compile(r"[^a-zA-Z0-9\-_]").search(strTag):
+            log_and_raise(
+                logger,
+                ValueError,
+                "Can't set part tag to {} it contains disallowed characters.".format(
+                    strTag
+                ),
+            )
+        self._tag = strTag
+
+        # Add the udpated hierarchical name back to the index.
+        if self.circuit is not None:
+            self.circuit.add_hierarchical_name(self.hierarchical_name)
+
+    def _tag_deleter(self):
+        """Delete the part tag."""
+        # Part's can't have a None tag, so set a new random tag.
+        self.tag = randint(0, 2 ** 64 - 1)
+
+    tag = property(None, _tag_setter, _tag_deleter)
+
+    @property
     def ref(self):
         """
         Get, set and delete the part reference.
@@ -1158,7 +1208,7 @@ class SkidlPart(Part):
     """
     A class for storing a SKiDL definition of a schematic part. It's identical
     to its Part superclass except:
-    
+
     + The tool defaults to SKIDL.
     + The destination defaults to TEMPLATE so that it's easier to start
         a part and then add pins to it without it being added to the netlist.
