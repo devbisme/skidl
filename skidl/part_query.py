@@ -90,6 +90,7 @@ def search_parts_iter(terms, tool=None):
 
     # Gather all the lib files from all the directories in the search paths.
     lib_files = list()
+    lib_suffixes = tuple(to_list(skidl.lib_suffixes[tool]))
     for lib_dir in skidl.lib_search_paths[tool]:
 
         # Get all the library files in the search path.
@@ -99,7 +100,7 @@ def search_parts_iter(terms, tool=None):
             logger.warning("Could not open directory '{}'".format(lib_dir))
             files = []
 
-        files = [(lib_dir, l) for l in files if l.endswith(skidl.lib_suffixes[tool])]
+        files = [(lib_dir, l) for l in files if l.endswith(lib_suffixes)]
         lib_files.extend(files)
 
     num_lib_files = len(lib_files)

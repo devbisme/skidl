@@ -208,14 +208,18 @@ class Part(SkidlBaseObject):
             # Copy part units so all the pin and part references stay valid.
             self.copy_units(part)
 
-            # Store the library name of this part.
-            self.lib = getattr(lib, "filename", None)
-
         # Otherwise, create a Part from a part definition. If the part is
         # destined for a library, then just get its name. If it's going into
         # a netlist, then parse the entire part definition.
         elif part_defn:
             self.part_defn = part_defn
+
+            # If given, set the tool version before parsing the part definition.
+            # At this time, this is done to support differences between KiCad V5 and V6.
+            tool_version = attribs.pop("tool_version", None)
+            if tool_version:
+                self.tool_version = tool_version
+
             self.parse(get_name_only=(dest != NETLIST))
 
         # If the part is destined for a SKiDL library, then it will be defined
@@ -558,6 +562,42 @@ class Part(SkidlBaseObject):
         return self
 
     __iadd__ = add_pins
+
+    def rmv_pins(self, *pin_ids):
+        """Remove one or more pins from a part."""
+        pins = self.pins
+        for i, pin in enumerate(pins):
+            if pin.num in pin_ids or pin.name in pin_ids:
+                del pins[i]
+
+    def swap_pins(self, pin_id1, pin_id2):
+        """Swap pin name/number between two pins of a part."""
+        pins = self.pins
+        i1, i2 = None, None
+        for i, pin in enumerate(pins):
+            pin_num_name = (pin.num, pin.name)
+            if pin_id1 in pin_num_name:
+                i1 = i
+            elif pin_id2 in pin_num_name:
+                i2 = i
+            if i1 and i2:
+                break
+        if i1 and i2:
+            pins[i1].num, pins[i1].name, pins[i2].num, pins[i2].name = pins[i2].num, pins[i2].name, pins[i1].num, pins[i1].name
+
+    def rename_pin(self, pin_id, new_pin_name):
+        """Assign a new name to a pin of a part."""
+        for pin in self.pins:
+            if pin_id in (pin.num, pin.name):
+                pin.name = new_pin_name
+                return
+
+    def renumber_pin(self, pin_id, new_pin_num):
+        "Assign a new number to a pin of a part."""
+        for pin in self.pins:
+            if pin_id in (pin.num, pin.name):
+                pin.num = new_pin_num
+                return
 
     def get_pins(self, *pin_ids, **criteria):
         """

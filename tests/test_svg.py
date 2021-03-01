@@ -8,10 +8,10 @@ from .setup_teardown import *
 def test_svg_1():
     """Test SVG generation."""
 
-    l1 = Part("Device", "L")
-    r1, r2 = Part("Device", "R", dest=TEMPLATE, value="200.0") * 2
-    q1 = Part("Device", "Q_NPN_CBE")
-    c1 = Part("Device", "C", value="10pF")
+    l1 = Part("Device.lib", "L")
+    r1, r2 = Part("Device.lib", "R", dest=TEMPLATE, value="200.0") * 2
+    q1 = Part("Device.lib", "Q_NPN_CBE")
+    c1 = Part("Device.lib", "C", value="10pF")
     r3 = r2(value="1K")
     vcc, vin, vout, gnd = Net("VCC"), Net("VIN"), Net("VOUT"), Net("GND")
     vcc & r1 & vin & r2 & gnd
@@ -20,7 +20,7 @@ def test_svg_1():
     vout & (l1 | c1) & gnd
     rly = Part("Relay", "TE_PCH-1xxx2M")
     rly[1, 2, 3, 5] += gnd
-    led = Part("Device", "LED_ARGB", symtx="RH")
+    led = Part("Device.lib", "LED_ARGB", symtx="RH")
     r, g, b = Net("R"), Net("G"), Net("B")
     led["A,RK,GK,BK"] += vcc, r, g, b
     Part(lib="MCU_Microchip_PIC10.lib", name="PIC10F200-IMC")
@@ -50,7 +50,7 @@ def test_svg_3():
     vcc[1] += opamp[8]
     gnd[1] += opamp[4]
 
-    r = Part("Device", "R_US", dest=TEMPLATE, tx_ops="L")
+    r = Part("Device.lib", "R_US", dest=TEMPLATE, tx_ops="L")
 
     Net("IN") & r(value="4K7", symtx="L") & opamp.uA[2] & r(
         value="4K7", symtx="L"
@@ -102,7 +102,7 @@ def test_svg_3():
 
 def test_svg_4():
     q = Part(lib="Device.lib", name="Q_PNP_CBE", dest=TEMPLATE, symtx="V")
-    r = Part("Device", "R", dest=TEMPLATE)
+    r = Part("Device.lib", "R", dest=TEMPLATE)
     gndt = Part("power", "GND")
     vcct = Part("power", "VCC")
 
@@ -201,7 +201,7 @@ def test_svg_5():
 
 
 def test_svg_6():
-    r = Part("Device", "R", dest=TEMPLATE)
+    r = Part("Device.lib", "R", dest=TEMPLATE)
     gndt = Part("power", "GND")
     vcct = Part("power", "VCC")
 

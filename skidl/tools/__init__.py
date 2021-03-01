@@ -59,8 +59,12 @@ for module in os.listdir(directory):
     mod = __import__(module_name, globals(), locals(), [], level=1)
 
     # Get some info from the imported module.
-    tool_name = getattr(mod, "tool_name")
-    lib_suffix = getattr(mod, "lib_suffix")
+    try:
+        tool_name = getattr(mod, "tool_name")
+        lib_suffix = getattr(mod, "lib_suffix")
+    except AttributeError:
+        # Don't process files without a tool name. They're probably support files.
+        continue
 
     # Store library file suffix for this tool.
     lib_suffixes[tool_name] = lib_suffix
