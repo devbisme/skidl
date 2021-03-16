@@ -116,7 +116,7 @@ class Circuit(SkidlBaseObject):
         )  # Stack of previous default_circuits for context manager.
         self.no_files = False  # Allow creation of files for netlists, ERC, libs, etc.
 
-        # Internal structure used to check for duplicate hierarchical names.
+        # Internal set used to check for duplicate hierarchical names.
         self._hierarchical_names = {self.hierarchy}
 
         # Clear the name heap for nets and parts.
@@ -152,14 +152,14 @@ class Circuit(SkidlBaseObject):
         self._hierarchical_names.add(name)
 
     def rmv_hierarchical_name(self, name):
-        """Remove an existing hierarchical name.  Throw an error if non-existant."""
+        """Remove an existing hierarchical name.  Throw an error if non-existent."""
         try:
             self._hierarchical_names.remove(name)
         except KeyError:
             log_and_raise(
                 logger,
                 ValueError,
-                "Can't remove non-existant hierarchical name {} from circuit.".format(
+                "Can't remove non-existent hierarchical name {} from circuit.".format(
                     name
                 ),
             )
@@ -182,8 +182,7 @@ class Circuit(SkidlBaseObject):
 
                     part.hierarchy = self.hierarchy  # Store hierarchy of part.
 
-                    # Check the part does not have a conflicting
-                    # hierarchical name
+                    # Check the part does not have a conflicting hierarchical name
                     self.add_hierarchical_name(part.hierarchical_name)
 
                     part.skidl_trace = (
@@ -1133,7 +1132,7 @@ def SubCircuit(f):
         # the nested subcircuit functions that were called on all the preceding levels
         # that led to this one. Also, add a distinct tag to the current
         # function name to disambiguate multiple uses of the same function.  This is
-        # either specified as an agument, or an incrementing value is used.
+        # either specified as an argument, or an incrementing value is used.
         tag = kwargs.pop("tag", None)
         if tag is None:
             tag = __func_name_cntr[f.__name__]

@@ -1117,33 +1117,39 @@ class Part(SkidlBaseObject):
     def hierarchical_name(self):
         return getattr(self, "hierarchy", "") + "." + self._tag
 
-    def _tag_setter(self, tag):
+    @property
+    def tag(self):
+        """Return the part's tag."""
+        return self._tag
+
+    @tag.setter
+    def tag(self, value):
+        """Set the part's tag."""
         # Remove the part's old hierarchical name from the index.
         if self.circuit is not None:
             self.circuit.rmv_hierarchical_name(self.hierarchical_name)
 
         # Update the part's tag.
-        strTag = str(tag)
-        if re.compile(r"[^a-zA-Z0-9\-_]").search(strTag):
+        str_tag = str(value)
+        if re.compile(r"[^a-zA-Z0-9\-_]").search(str_tag):
             log_and_raise(
                 logger,
                 ValueError,
                 "Can't set part tag to {} it contains disallowed characters.".format(
-                    strTag
+                    str_tag
                 ),
             )
-        self._tag = strTag
+        self._tag = str_tag
 
         # Add the udpated hierarchical name back to the index.
         if self.circuit is not None:
             self.circuit.add_hierarchical_name(self.hierarchical_name)
 
-    def _tag_deleter(self):
+    @tag.deleter
+    def tag(self):
         """Delete the part tag."""
         # Part's can't have a None tag, so set a new random tag.
         self.tag = randint(0, 2 ** 64 - 1)
-
-    tag = property(None, _tag_setter, _tag_deleter)
 
     @property
     def ref(self):
