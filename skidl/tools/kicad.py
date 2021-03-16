@@ -33,7 +33,6 @@ import re
 import time
 from builtins import dict, int, range, str, zip
 from collections import namedtuple
-from random import randint
 
 from future import standard_library
 
@@ -945,12 +944,7 @@ def _gen_netlist_comp_(self):
 
     # Embed the hierarchy along with a random integer into the sheetpath for each component.
     # This enables hierarchical selection in pcbnew.
-    hierarchy = add_quotes(
-        "/"
-        + getattr(self, "hierarchy", ".").replace(".", "/")
-        + "/"
-        + str(randint(0, 2 ** 64 - 1))
-    )
+    hierarchy = add_quotes("/" + self.hierarchical_name.replace(".", "/"))
     tstamps = hierarchy
 
     fields = ""
@@ -1069,7 +1063,7 @@ def _gen_xml_net_(self):
 def _gen_svg_comp_(self, symtx, net_stubs=None):
     """
     Generate SVG for this component.
-    
+
     Args:
         self: Part object for which an SVG symbol will be created.
         net_stubs: List of Net objects whose names will be connected to

@@ -116,6 +116,9 @@ class Circuit(SkidlBaseObject):
         )  # Stack of previous default_circuits for context manager.
         self.no_files = False  # Allow creation of files for netlists, ERC, libs, etc.
 
+        # Internal structure used to check for duplicate hierarchical names.
+        self._hierarchical_names = {self.hierarchy}
+
         # Clear the name heap for nets and parts.
         reset_get_unique_name()
 
@@ -136,6 +139,31 @@ class Circuit(SkidlBaseObject):
     def __exit__(self, type, value, traceback):
         builtins.default_circuit = self.circuit_stack.pop()
 
+    def add_hierarchical_name(self, name):
+        """Record a new hierarchical name.  Throw an error if it is a duplicate."""
+        if name in self._hierarchical_names:
+            log_and_raise(
+                logger,
+                ValueError,
+                "Can't add duplicate hierarchical name {} to this circuit.".format(
+                    name
+                ),
+            )
+        self._hierarchical_names.add(name)
+
+    def rmv_hierarchical_name(self, name):
+        """Remove an existing hierarchical name.  Throw an error if non-existant."""
+        try:
+            self._hierarchical_names.remove(name)
+        except KeyError:
+            log_and_raise(
+                logger,
+                ValueError,
+                "Can't remove non-existant hierarchical name {} from circuit.".format(
+                    name
+                ),
+            )
+
     def add_parts(self, *parts):
         """Add some Part objects to the circuit."""
         for part in parts:
@@ -153,6 +181,11 @@ class Circuit(SkidlBaseObject):
                     part.ref = part.ref  # This adjusts the part reference if necessary.
 
                     part.hierarchy = self.hierarchy  # Store hierarchy of part.
+
+                    # Check the part does not have a conflicting
+                    # hierarchical name
+                    self.add_hierarchical_name(part.hierarchical_name)
+
                     part.skidl_trace = (
                         get_skidl_trace()
                     )  # Store part instantiation trace.
@@ -170,6 +203,7 @@ class Circuit(SkidlBaseObject):
         for part in parts:
             if part.is_movable():
                 if part.circuit == self and part in self.parts:
+                    self.rmv_hierarchical_name(part.hierarchical_name)
                     part.circuit = None
                     part.hierarchy = None
                     self.parts.remove(part)
@@ -1097,15 +1131,15 @@ def SubCircuit(f):
 
         # Create a name for this subcircuit from the concatenated names of all
         # the nested subcircuit functions that were called on all the preceding levels
-        # that led to this one. Also, add a distinct integer to the current
-        # function name to disambiguate multiple uses of the same function.
-        circuit.hierarchy = (
-            circuit.context[-1][0]
-            + "."
-            + f.__name__
-            + str(__func_name_cntr[f.__name__])
-        )
-        __func_name_cntr[f.__name__] = __func_name_cntr[f.__name__] + 1
+        # that led to this one. Also, add a distinct tag to the current
+        # function name to disambiguate multiple uses of the same function.  This is
+        # either specified as an agument, or an incrementing value is used.
+        tag = kwargs.pop("tag", None)
+        if tag is None:
+            tag = __func_name_cntr[f.__name__]
+            __func_name_cntr[f.__name__] = __func_name_cntr[f.__name__] + 1
+        circuit.hierarchy = circuit.context[-1][0] + "." + f.__name__ + str(tag)
+        circuit.add_hierarchical_name(circuit.hierarchy)
 
         # Store the context so it can be used if this subcircuit function
         # invokes another subcircuit function within itself to add more
