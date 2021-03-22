@@ -50,7 +50,8 @@ standard_library.install_aliases()
 # These aren't used here, but they are used in modules
 # that include this module.
 tool_name = KICAD
-lib_suffix = [".kicad_sym", ".lib"]
+# lib_suffix = [".kicad_sym", ".lib"]
+lib_suffix = [".lib", ".kicad_sym"]
 
 
 def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None):
@@ -1021,8 +1022,8 @@ def _gen_xml_comp_(self):
         logger.error("No footprint for {part}/{ref}.".format(part=self.name, ref=ref))
         footprint = "No Footprint"
 
-    lib = add_quotes(getattr(self, "lib", "NO_LIB"))
-    name = self.name
+    lib_filename = getattr(getattr(self, "lib", ""), "filename", "NO_LIB")
+    part_name = add_quotes(self.name)
 
     fields = ""
     for fld_name, fld_value in self.fields.items():
@@ -1041,7 +1042,7 @@ def _gen_xml_comp_(self):
         + "      <value>{value}</value>\n"
         + "      <footprint>{footprint}</footprint>\n"
         + "{fields}"
-        + '      <libsource lib="{lib}" part="{name}"/>\n'
+        + '      <libsource lib="{lib_filename}" part="{part_name}"/>\n'
         + "    </comp>"
     )
     txt = template.format(**locals())
