@@ -462,7 +462,7 @@ class Circuit(SkidlBaseObject):
 
     def _preprocess(self):
         self.instantiate_packages()
-        self._cull_unconnected_parts()
+        # self._cull_unconnected_parts()
         self._merge_net_names()
 
     def ERC(self, *args, **kwargs):
