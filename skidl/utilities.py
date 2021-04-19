@@ -47,7 +47,7 @@ standard_library.install_aliases()
 
 
 """Separator for strings containing multiple indices."""
-INDEX_SEPARATOR = ","
+INDEX_SEPARATOR = re.compile("[, \t]+")
 
 
 def norecurse(f):
@@ -315,11 +315,6 @@ def flatten(nested_list):
     return lst
 
 
-def from_iadd(objs):
-    """Return True if one or more objects have attribute iadd_flag set to True."""
-    return any([getattr(e, "iadd_flag", False) for e in to_list(objs)])
-
-
 def rmv_attr(objs, attr):
     """Remove an attribute from a list of objects."""
     for o in to_list(objs):
@@ -327,6 +322,11 @@ def rmv_attr(objs, attr):
             delattr(o, attr)
         except AttributeError:
             pass
+
+
+def from_iadd(objs):
+    """Return True if one or more objects have attribute iadd_flag set to True."""
+    return any([getattr(e, "iadd_flag", False) for e in to_list(objs)])
 
 
 def clr_iadd(objs):
@@ -678,7 +678,7 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
             ids.append(indx)
         elif isinstance(indx, basestring):
             # String might contain multiple indices with a separator.
-            for id in indx.split(INDEX_SEPARATOR):
+            for id in re.split(INDEX_SEPARATOR, indx):
                 # If the id is a valid bus expression, then the exploded bus lines
                 # are added to the list of ids. If not, the original id is
                 # added to the list.

@@ -125,7 +125,7 @@ class Part(SkidlBaseObject):
         circuit: The Circuit object this Part belongs to.
 
     Keyword Args:
-        attribs: Name/value pairs for setting attributes for the part.
+        kwargs: Name/value pairs for setting attributes for the part.
             For example, manf_num='LM4808MP-8' would create an attribute
             named 'manf_num' for the part and assign it the value 'LM4808MP-8'.
 
@@ -146,8 +146,7 @@ class Part(SkidlBaseObject):
         connections=None,
         part_defn=None,
         circuit=None,
-        tag=None,
-        **attribs
+        **kwargs
     ):
 
         import skidl
@@ -175,9 +174,9 @@ class Part(SkidlBaseObject):
         # Remove a part reference if it has been explicitly set as None.
         # Otherwise, this causes the assigned part reference to be incremented twice:
         # once by Circuit.add_parts() and again by setattr().
-        ref = attribs.pop("ref", None)
+        ref = kwargs.pop("ref", None)
         if ref:
-            attribs["ref"] = ref
+            kwargs["ref"] = ref
 
         # Create a Part from a library entry.
         if lib:
@@ -220,7 +219,7 @@ class Part(SkidlBaseObject):
 
             # If given, set the tool version before parsing the part definition.
             # At this time, this is done to support differences between KiCad V5 and V6.
-            tool_version = attribs.pop("tool_version", None)
+            tool_version = kwargs.pop("tool_version", None)
             if tool_version:
                 self.tool_version = tool_version
 
@@ -238,8 +237,12 @@ class Part(SkidlBaseObject):
                 "Can't make a part without a library & part name or a part definition.",
             )
 
+        # Split multi-part pin names into individual pin aliases.
+        self.split_pin_names(kwargs.pop("pin_splitters", None))
+
         # Setup the tag for tieing the part to a footprint in a pcb editor.
         # Use the user specified tag if present.
+        tag = kwargs.pop("tag", None)
         if tag is not None:
             self.tag = tag
         else:
@@ -262,10 +265,10 @@ class Part(SkidlBaseObject):
                     net += self[pin]
 
         # Add any XSPICE I/O as pins. (This only happens with SPICE simulations.)
-        self.add_xspice_io(attribs.pop("io", []))
+        self.add_xspice_io(kwargs.pop("io", []))
 
         # Add any other passed-in attributes to the part.
-        for k, v in list(attribs.items()):
+        for k, v in list(kwargs.items()):
             setattr(self, k, v)
 
     def add_xspice_io(self, io):
@@ -842,10 +845,11 @@ class Part(SkidlBaseObject):
             # Error: either 0 or multiple pins were found.
             log_and_raise(logger, ValueError, "Cannot set alias for {}".format(pin_ids))
 
-    def split_pin_names(self, divider):
-        """Use chars in divider to split pin names and add as aliases to each pin."""
-        for pin in self:
-            pin.split(divider)
+    def split_pin_names(self, delimiters):
+        """Use chars in delimiters to split pin names and add as aliases to each pin."""
+        if delimiters:
+            for pin in self:
+                pin.split(delimiters)
 
     def make_unit(self, label, *pin_ids, **criteria):
         """
