@@ -64,19 +64,18 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None
 
     from ..skidl import lib_suffixes
 
-    # Try to open the file.
-    f = None  # Set to None so we'll know if no library was opened.
+    # Try to open the file using allowable suffixes for the versions of KiCAD.
     suffixes = lib_suffixes[KICAD]
     base, suffix = os.path.splitext(filename)
     if suffix:
         # If an explicit file extension was given, use it instead of tool lib default extensions.
         suffixes = [suffix]
     for suffix in suffixes:
-        try:
-            f, _ = find_and_open_file(filename, lib_search_paths_, suffix)
+        # Allow file open failure so multiple suffixes can be tried without error messages.
+        f, _ = find_and_open_file(filename, lib_search_paths_, suffix, allow_failure=True)
+        if f:
+            # Break from the loop once a library file is successfully opened.
             break
-        except FileNotFoundError as e:
-            pass
     if not f:
         raise FileNotFoundError(
             "Unable to open KiCad Schematic Library File {}".format(filename)
