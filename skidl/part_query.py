@@ -58,15 +58,15 @@ def parse_search_terms(terms):
     whitespace.
     """
 
-    # Place the quote-delimited RE before the RE for sequences of
+    # Place the quote-delimited REs before the RE for sequences of
     # non-white chars to prevent the initial portion of a quoted string from being
     # gathered up as a non-white character sequence.
-    return (
-        re.sub(r"((\".*?\")|(\S+))\s*", r"(?=.*(\1))", terms.strip().rstrip()).replace(
-            '"', ""
-        )
-        + ".*"
-    )
+    terms = terms.strip().rstrip()  # Remove leading/trailing spaces.
+    terms = re.sub(r"\s*\|\s*", r"|", terms) # Remove spaces around OR operator.
+    terms = re.sub(r"((\".*?\")|(\'.*?\')|(\S+))\s*", r"(?=.*(\1))", terms)
+    terms = re.sub(r"[\'\"]", "", terms) # Remove quotes.
+    terms = terms + '.*'
+    return terms
 
 
 def search_parts_iter(terms, tool=None):
