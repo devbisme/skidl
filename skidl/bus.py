@@ -182,10 +182,12 @@ class Bus(SkidlBaseObject):
                 )
 
         # Assign names to all the unnamed nets in the bus.
+        # Separate index from bus name if name ends with number.
+        sep = '_' if self.name[-1].isdigit() else ''
         for i, net in enumerate(self.nets):
             if net.is_implicit():
                 # Net names are the bus name with the index appended.
-                net.name = self.name + str(i)
+                net.name = self.name + sep + str(i)
 
     def get_nets(self):
         """Return the list of nets contained in this bus."""
