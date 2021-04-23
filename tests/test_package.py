@@ -268,8 +268,8 @@ def test_package_7():
     vr1["vin, vout, gnd"] += vin, vout1, gnd
     vr2["vin, vout, gnd"] += vin, vout2, gnd
     default_circuit.instantiate_packages()
-    u1 = Part.get("U1")[0]
-    u2 = Part.get("U2")[0]
+    u1 = Part.get("U1")
+    u2 = Part.get("U2")
     u1.F2 = "U1-F2"
     u2.F2 = "U2-F2"
     assert u1.F2 == "U1-F2"

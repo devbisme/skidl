@@ -315,8 +315,8 @@ class Part(SkidlBaseObject):
                 then the parts in the default_circuit will be searched.
 
         Returns:
-            A list of parts that match the text string with either their
-            reference, name, alias, or their description.
+            A list of parts or a single part that match the text string with
+            either their reference, name, alias, or their description.
         """
 
         from .alias import Alias
@@ -337,7 +337,7 @@ class Part(SkidlBaseObject):
                 filter_list(circuit.parts, do_str_match=do_str_match, **{attr: name})
             )
 
-        return parts
+        return list_or_scalar(parts)
 
     def _find_min_max_pins(self):
         """ Return the minimum and maximum pin numbers for the part. """

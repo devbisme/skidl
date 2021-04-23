@@ -20,11 +20,11 @@ def test_part_1():
 def test_part_2():
     vreg = Part("xess.lib", "1117")
     codec = Part("xess.lib", "ak4520a")
-    parts = Part.get("u1")
+    parts = to_list(Part.get("u1"))
     assert len(parts) == 1
-    parts = Part.get("ak4520a")
+    parts = to_list(Part.get("ak4520a"))
     assert len(parts) == 1
-    parts = Part.get(".*")
+    parts = to_list(Part.get(".*"))
     assert len(parts) == 2
 
 
