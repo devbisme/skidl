@@ -31,6 +31,7 @@ from builtins import range, super
 from collections import defaultdict
 from copy import copy
 from enum import IntEnum
+import re
 
 from future import standard_library
 
@@ -428,18 +429,11 @@ class Pin(SkidlBaseObject):
             "Pins can't be attached to {}!".format(type(pin_net_bus)),
         )
 
-    def split(self, divider):
+    def split_name(self, delimiters):
         """Use chars in divider to split a pin name and add substrings to aliases."""
 
-        # First character in the divider will be used to split the name.
-        splitchar = divider[0]
-
-        # Change every other character in the divider to the splitting character.
-        trmap = {ord(c): ord(splitchar) for c in divider}
-
-        # Change each divider character in the pin name to the splitting character,
-        # then split the name and add each substring to the list of pin aliases.
-        self.aliases += self.name.translate(trmap).split(splitchar)
+        # Split pin name and add subnames as aliases.
+        self.aliases += re.split('[' + delimiters + ']', self.name)
 
         # Remove any empty aliases.
         self.aliases.clean()

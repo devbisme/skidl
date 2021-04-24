@@ -837,7 +837,7 @@ class Part(SkidlBaseObject):
         pin = self.get_pins(*pin_ids, **criteria)
         if isinstance(pin, Pin):
             # Alias the single pin that was found.
-            pin.aliases = alias
+            pin.aliases += alias
             # Add the name of the aliased pin as an attribute to the part,
             # so it will act just like a pin for making connections.
             add_unique_attr(self, alias, pin)
@@ -849,7 +849,13 @@ class Part(SkidlBaseObject):
         """Use chars in delimiters to split pin names and add as aliases to each pin."""
         if delimiters:
             for pin in self:
-                pin.split(delimiters)
+
+                # Split pin name and add subnames as aliases to the pin.
+                pin.split_name(delimiters)
+
+                # Add the pin aliases as attributes to the part.
+                for alias in pin.aliases:
+                    add_unique_attr(self, alias, pin)
 
     def make_unit(self, label, *pin_ids, **criteria):
         """
