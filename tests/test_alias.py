@@ -33,3 +33,17 @@ def test_alias_3():
     assert len(vreg[".*"]) == 4
     with pytest.raises(NotImplementedError):
         vreg["my_alias_+"].aliases = "new_alias"
+
+def test_alias_4():
+    vreg = Part('xess.lib', '1117')
+    vreg[1].name = 'AB/BC|DC|ED'
+    vreg.split_pin_names('/|')
+    assert(vreg[1] is vreg.AB)
+    assert(vreg['AB'] is vreg.BC)
+    assert(vreg[1] is vreg.DC)
+    assert(vreg['DC'] is vreg.ED)
+    vreg2 = vreg()
+    assert(vreg2[1] is vreg2.AB)
+    assert(vreg2['AB'] is vreg2.BC)
+    assert(vreg2[1] is vreg2.DC)
+    assert(vreg2['DC'] is vreg2.ED)

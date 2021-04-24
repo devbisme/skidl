@@ -472,6 +472,7 @@ class Part(SkidlBaseObject):
             # original into the copy, so create independent copies of the pins.
             cpy.pins = []
             cpy += [p.copy() for p in self.pins]  # Add pin and its attribute.
+            cpy.pin_aliases_to_attributes()  # Add pin aliases as part attributes.
 
             # If the part copy is intended as a template, then disconnect its pins
             # from any circuit nets.
@@ -845,17 +846,23 @@ class Part(SkidlBaseObject):
             # Error: either 0 or multiple pins were found.
             log_and_raise(logger, ValueError, "Cannot set alias for {}".format(pin_ids))
 
+    def pin_aliases_to_attributes(self):
+        """Make each pin alias into an attribute of the part."""
+
+        for pin in self:
+            for alias in pin.aliases:
+                add_unique_attr(self, alias, pin)
+
     def split_pin_names(self, delimiters):
         """Use chars in delimiters to split pin names and add as aliases to each pin."""
+
         if delimiters:
             for pin in self:
-
                 # Split pin name and add subnames as aliases to the pin.
                 pin.split_name(delimiters)
 
-                # Add the pin aliases as attributes to the part.
-                for alias in pin.aliases:
-                    add_unique_attr(self, alias, pin)
+            # Add the pin aliases as attributes to the part.
+            self.pin_aliases_to_attributes()
 
     def make_unit(self, label, *pin_ids, **criteria):
         """

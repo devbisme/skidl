@@ -433,7 +433,7 @@ class Pin(SkidlBaseObject):
         """Use chars in divider to split a pin name and add substrings to aliases."""
 
         # Split pin name and add subnames as aliases.
-        self.aliases += re.split('[' + delimiters + ']', self.name)
+        self.aliases += re.split('[' + re.escape(delimiters) + ']', self.name)
 
         # Remove any empty aliases.
         self.aliases.clean()
