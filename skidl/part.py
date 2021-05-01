@@ -280,11 +280,12 @@ class Part(SkidlBaseObject):
         if not io:
             return
 
+        # Change a string into a list with a single string element.
         if isinstance(io, basestring):
-            io = [io]  # Change a string into a list with a single string element.
+            io = [io]
 
         # Join all the pin name arguments into a comma-separated string and then split them into a list.
-        ios = ",".join(io).split(INDEX_SEPARATOR)
+        ios = re.split(INDEX_SEPARATOR, ",".join(io))
 
         # Add a pin to the part for each pin name.
         for i, arg in enumerate(ios):
@@ -1199,6 +1200,7 @@ class Part(SkidlBaseObject):
     def value(self):
         """Get, set and delete the part value."""
         try:
+            return self._value
             if isinstance(self._value, UnitValue):
                 return self._value
             else:
