@@ -206,6 +206,7 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None
                                 pin_names = []
                                 active = False
                                 for sym_line in sym_file:
+                                    sym_line = sym_line.strip()
                                     if not sym_line:
                                         continue
                                     line_parts = sym_line.lower().split()
