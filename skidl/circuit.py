@@ -646,7 +646,7 @@ class Circuit(SkidlBaseObject):
                         symtx=symtx, net_stubs=net_stubs
                     )
 
-        part_svg = list(part_svg.values())  # Just keep the SVG for the part symbols.
+        part_svg = part_svg.values()  # Just keep the SVG for the part symbols.
 
         head_svg = [
             '<svg xmlns="http://www.w3.org/2000/svg"'
@@ -772,7 +772,10 @@ class Circuit(SkidlBaseObject):
             "</svg>",
         ]
 
-        return "\n".join(head_svg + part_svg + tail_svg)
+        total_svg = head_svg
+        total_svg.extend(part_svg)
+        total_svg.extend(tail_svg)
+        return "\n".join(total_svg)
 
     def generate_svg(self, file_=None, tool=None):
         """
