@@ -3,7 +3,7 @@
 		{
 		  "title"      : "1.0",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/one-dot-oh",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/one-dot-oh",
 		  "date"       : "2021-05-09 11:01:10 -0400",
 		  "shortdate"  : "May 09, 2021"
 		} ,
@@ -11,7 +11,7 @@
 		{
 		  "title"      : "Automatic Schematic!",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/automatic-schematic",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/automatic-schematic",
 		  "date"       : "2020-09-24 11:01:10 -0400",
 		  "shortdate"  : "September 24, 2020"
 		} ,
@@ -19,7 +19,7 @@
 		{
 		  "title"      : "Customized ERC!",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/custom-erc",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/custom-erc",
 		  "date"       : "2020-05-29 11:01:10 -0400",
 		  "shortdate"  : "May 29, 2020"
 		} ,
@@ -27,7 +27,7 @@
 		{
 		  "title"      : "Good Things Come In Packages!",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/package-decorator",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/package-decorator",
 		  "date"       : "2020-05-27 11:01:10 -0400",
 		  "shortdate"  : "May 27, 2020"
 		} ,
@@ -35,7 +35,7 @@
 		{
 		  "title"      : "New SKiDL Forum!",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/skidl-forum",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/skidl-forum",
 		  "date"       : "2020-05-20 11:01:10 -0400",
 		  "shortdate"  : "May 20, 2020"
 		} ,
@@ -43,7 +43,7 @@
 		{
 		  "title"      : "Version 0.0.30 Released!",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/Release_0_0_30",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/Release_0_0_30",
 		  "date"       : "2020-05-16 11:01:10 -0400",
 		  "shortdate"  : "May 16, 2020"
 		} ,
@@ -51,7 +51,7 @@
 		{
 		  "title"      : "xspice capability",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/xspice-capability",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/xspice-capability",
 		  "date"       : "2020-01-30 09:01:10 -0500",
 		  "shortdate"  : "January 30, 2020"
 		} ,
@@ -59,7 +59,7 @@
 		{
 		  "title"      : "Version 0.0.28 Released!",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/Release_0_0_28",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/Release_0_0_28",
 		  "date"       : "2019-12-17 07:57:17 -0500",
 		  "shortdate"  : "December 17, 2019"
 		} ,
@@ -67,7 +67,7 @@
 		{
 		  "title"      : "Version 0.0.27 Released!",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/Release_0_0_27",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/Release_0_0_27",
 		  "date"       : "2019-12-16 07:57:17 -0500",
 		  "shortdate"  : "December 16, 2019"
 		} ,
@@ -75,7 +75,7 @@
 		{
 		  "title"      : "The Worst Part of SKiDL",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/worst-part-of-skidl",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/worst-part-of-skidl",
 		  "date"       : "2019-09-30 12:10:08 -0400",
 		  "shortdate"  : "September 30, 2019"
 		} ,
@@ -83,7 +83,7 @@
 		{
 		  "title"      : "SKiDL at KiCon 2019",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/skidl-kicon-2019",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/skidl-kicon-2019",
 		  "date"       : "2019-06-12 09:27:24 -0400",
 		  "shortdate"  : "June 12, 2019"
 		} ,
@@ -91,7 +91,7 @@
 		{
 		  "title"      : "Sweetening SKiDL",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/sweetening-skidl",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/sweetening-skidl",
 		  "date"       : "2018-09-03 19:59:47 -0400",
 		  "shortdate"  : "September 03, 2018"
 		} ,
@@ -99,7 +99,7 @@
 		{
 		  "title"      : "Others Use It, Too!",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/others-use-it-too",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/others-use-it-too",
 		  "date"       : "2018-07-29 10:26:18 -0400",
 		  "shortdate"  : "July 29, 2018"
 		} ,
@@ -107,7 +107,7 @@
 		{
 		  "title"      : "Reusability Ain&#39;t What It Used To Be",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/reuse-leds",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/reuse-leds",
 		  "date"       : "2018-05-15 23:00:23 -0400",
 		  "shortdate"  : "May 15, 2018"
 		} ,
@@ -115,7 +115,7 @@
 		{
 		  "title"      : "Spice Simulation",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/spice-simulation",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/spice-simulation",
 		  "date"       : "2018-02-07 10:23:43 -0500",
 		  "shortdate"  : "February 07, 2018"
 		} ,
@@ -123,7 +123,7 @@
 		{
 		  "title"      : "An Arduino With SKiDL",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/an-arduino-with-skidl",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/an-arduino-with-skidl",
 		  "date"       : "2017-03-31 23:06:41 -0400",
 		  "shortdate"  : "March 31, 2017"
 		} ,
@@ -131,7 +131,7 @@
 		{
 		  "title"      : "Two Easy Pieces",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/two-easy-pieces",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/two-easy-pieces",
 		  "date"       : "2017-03-02 16:45:58 -0500",
 		  "shortdate"  : "March 02, 2017"
 		} ,
@@ -139,7 +139,7 @@
 		{
 		  "title"      : "Don&#39;t Replicate, Automate!",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/dont-replicate-automate",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/dont-replicate-automate",
 		  "date"       : "2017-02-17 09:00:01 -0500",
 		  "shortdate"  : "February 17, 2017"
 		} ,
@@ -147,7 +147,7 @@
 		{
 		  "title"      : "A Taste of Hierarchy",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/a-taste-of-hierarchy",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/a-taste-of-hierarchy",
 		  "date"       : "2017-02-03 16:51:58 -0500",
 		  "shortdate"  : "February 03, 2017"
 		} ,
@@ -155,7 +155,7 @@
 		{
 		  "title"      : "Names, Not Numbers",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/names-not-numbers",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/names-not-numbers",
 		  "date"       : "2017-01-25 09:35:28 -0500",
 		  "shortdate"  : "January 25, 2017"
 		} ,
@@ -163,7 +163,7 @@
 		{
 		  "title"      : "Building a USB-to-JTAG Interface Using SKiDL",
 		  "category"   : "blog",
-		  "url"        : "http://localhost:4000/blog/building-a-usb-to-jtag-interface-using-skidl",
+		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/building-a-usb-to-jtag-interface-using-skidl",
 		  "date"       : "2017-01-18 22:40:48 -0500",
 		  "shortdate"  : "January 18, 2017"
 		} 
