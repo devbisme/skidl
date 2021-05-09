@@ -16,7 +16,7 @@ advantages of modern programming languages: iteration, abstraction, hierarchy,
 and modularization.
 But one thing always stood out as a problem:
 
-parts. Parts! PARTS!! *PARTS!!!* **PARTS!!!!**
+Parts.
 
 Here's a snippet of SKiDL code to show what I mean.
 It instantiates a PIC10 microcontroller and connects it to some nets:
@@ -32,7 +32,7 @@ uc['gp[0:3]'] += Bus('GP', 4)
 
 OK, how did I know `PIC10F202-IMC` would call up the particular part I needed?
 And how did I know it was in the `MCU_Microchip_PIC10.lib` library?
-And the names of the I/O pins: where did those come from?
+And how did I get the names of the I/O pins?
 
 Obviously, all this information is available in KiCad, somewhere, but it's scattered
 around in various schematic symbol and PCB footprint libraries.

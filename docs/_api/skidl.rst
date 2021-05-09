@@ -5,128 +5,57 @@ Subpackages
 -----------
 
 .. toctree::
+   :maxdepth: 4
 
    skidl.tools
 
 Submodules
 ----------
 
-skidl.Alias module
+skidl.alias module
 ------------------
 
-.. automodule:: skidl.Alias
+.. automodule:: skidl.alias
    :members:
    :undoc-members:
    :show-inheritance:
 
-skidl.AttrDict module
----------------------
-
-.. automodule:: skidl.AttrDict
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-skidl.Bus module
-----------------
-
-.. automodule:: skidl.Bus
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-skidl.Circuit module
+skidl.arrange module
 --------------------
 
-.. automodule:: skidl.Circuit
+.. automodule:: skidl.arrange
    :members:
    :undoc-members:
    :show-inheritance:
 
-skidl.Interface module
-----------------------
-
-.. automodule:: skidl.Interface
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-skidl.Net module
+skidl.bus module
 ----------------
 
-.. automodule:: skidl.Net
+.. automodule:: skidl.bus
    :members:
    :undoc-members:
    :show-inheritance:
 
-skidl.NetPinList module
------------------------
-
-.. automodule:: skidl.NetPinList
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-skidl.Network module
+skidl.circuit module
 --------------------
 
-.. automodule:: skidl.Network
+.. automodule:: skidl.circuit
    :members:
    :undoc-members:
    :show-inheritance:
 
-skidl.Note module
------------------
-
-.. automodule:: skidl.Note
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-skidl.Package module
---------------------
-
-.. automodule:: skidl.Package
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-skidl.Part module
------------------
-
-.. automodule:: skidl.Part
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-skidl.Pin module
-----------------
-
-.. automodule:: skidl.Pin
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-skidl.ProtoNet module
----------------------
-
-.. automodule:: skidl.ProtoNet
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-skidl.SchLib module
+skidl.common module
 -------------------
 
-.. automodule:: skidl.SchLib
+.. automodule:: skidl.common
    :members:
    :undoc-members:
    :show-inheritance:
 
-skidl.baseobj module
---------------------
+skidl.coord module
+------------------
 
-.. automodule:: skidl.baseobj
+.. automodule:: skidl.coord
    :members:
    :undoc-members:
    :show-inheritance:
@@ -147,10 +76,26 @@ skidl.erc module
    :undoc-members:
    :show-inheritance:
 
+skidl.interface module
+----------------------
+
+.. automodule:: skidl.interface
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 skidl.logger module
 -------------------
 
 .. automodule:: skidl.logger
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+skidl.net module
+----------------
+
+.. automodule:: skidl.net
    :members:
    :undoc-members:
    :show-inheritance:
@@ -179,6 +124,46 @@ skidl.netlist\_to\_skidl\_main module
    :undoc-members:
    :show-inheritance:
 
+skidl.netpinlist module
+-----------------------
+
+.. automodule:: skidl.netpinlist
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+skidl.network module
+--------------------
+
+.. automodule:: skidl.network
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+skidl.note module
+-----------------
+
+.. automodule:: skidl.note
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+skidl.package module
+--------------------
+
+.. automodule:: skidl.package
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+skidl.part module
+-----------------
+
+.. automodule:: skidl.part
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 skidl.part\_query module
 ------------------------
 
@@ -195,10 +180,18 @@ skidl.pckg\_info module
    :undoc-members:
    :show-inheritance:
 
-skidl.py\_2\_3 module
+skidl.pin module
+----------------
+
+.. automodule:: skidl.pin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+skidl.protonet module
 ---------------------
 
-.. automodule:: skidl.py_2_3
+.. automodule:: skidl.protonet
    :members:
    :undoc-members:
    :show-inheritance:
@@ -207,6 +200,14 @@ skidl.pyspice module
 --------------------
 
 .. automodule:: skidl.pyspice
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+skidl.schlib module
+-------------------
+
+.. automodule:: skidl.schlib
    :members:
    :undoc-members:
    :show-inheritance:
@@ -223,6 +224,14 @@ skidl.skidl module
 ------------------
 
 .. automodule:: skidl.skidl
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+skidl.skidlbaseobj module
+-------------------------
+
+.. automodule:: skidl.skidlbaseobj
    :members:
    :undoc-members:
    :show-inheritance:

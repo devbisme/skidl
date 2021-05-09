@@ -3,6 +3,27 @@
 History
 -------
 
+1.0.0 (2021-05-09)
+______________________
+
+- Buses can now be created without names and a name will be
+  automatically assigned. Or use "name=..." to manually assign a name.
+  Or just place a string in the list of arguments and that will be used.
+- Footprint search can now process directories of footprints without the
+  need for an `fp-lib-table` file.
+- `Part` fields can now be accessed using attributes.
+- Creating fields requires use of `Part.fields[key]` instead of Part.key.
+- Added context manager for `Circuit` object so Parts/Nets can be joined
+  using a `with...` statement.
+- Adding/removing `Parts` to/from a `Circuit` can now be done using `+=` and `-=`.
+- Tags can be added to `Parts` and `Circuits` for hierarchical naming.
+- `Part` values can now be assigned arbitrary objects including units from either PySpice or Pint.
+- Multi-function pin names can now be split into a collection of shorter aliases,
+  thus reducing the need to access pins using regexes.
+- Schematics can now be automatically using the KiCad symbol graphics for the parts.
+- The library interface now handles the Skywater 130 SPICE libraries.
+
+
 0.0.30 (2020-05-16)
 ______________________
 

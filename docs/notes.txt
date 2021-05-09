@@ -15,6 +15,7 @@ Adding a new post:
 
 To rebuild website:
 
+  0. Run "python setup.py sdist" to get current version number instantiated.
   1. Go into docs/_api and run "make singlehtml".
   2. Return to docs.
   4. Run "jekyll build".
