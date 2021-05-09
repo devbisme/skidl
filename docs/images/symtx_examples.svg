@@ -1,0 +1,1258 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:s="https://github.com/nturley/netlistsvg"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1142.3"
+   height="556"
+   version="1.1"
+   id="svg332"
+   sodipodi:docname="symtx_examples.svg"
+   inkscape:version="1.0.2 (1.0.2+r75+1)">
+  <metadata
+     id="metadata338">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs336" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="2595"
+     inkscape:window-height="1666"
+     id="namedview334"
+     showgrid="false"
+     inkscape:zoom="1.0939489"
+     inkscape:cx="795.31687"
+     inkscape:cy="246.03663"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg332"
+     inkscape:document-rotation="0" />
+  <style
+     id="style2">svg {  stroke: #000;  fill: none;  stroke-linejoin: round;  stroke-linecap: round;}text {  fill: #000;  stroke: none;  font-size: 10px;  font-weight: bold;  font-family: &quot;Courier New&quot;, monospace;}.skidl_text {  fill: #999;  stroke: none;  font-weight: bold;  font-family: consolas, &quot;Courier New&quot;, monospace;}.pin_num_text {    fill: #840000;}.pin_name_text {    fill: #008484;}.net_name_text {    font-style: italic;    fill: #840084;}.part_text {    fill: #840000;}.part_ref_text {    fill: #008484;}.part_name_text {    fill: #008484;}.pen_fill {    fill: #840000;}.background_fill {    fill: #FFFFC2}.nodelabel {  text-anchor: middle;}.inputPortLabel {  text-anchor: end;}.splitjoinBody {  fill: #000;}.symbol {  stroke-linejoin: round;  stroke-linecap: round;  stroke: #840000;}.detail {  stroke-linejoin: round;  stroke-linecap: round;  fill: #000;}</style>
+  <g
+     id="g1166"
+     transform="translate(257.92145,205.68818)">
+    <g
+       s:type="Q_PNP_CBE_Q__1_"
+       s:width="150.3"
+       s:height="204.0"
+       id="cell_Q_"
+       transform="translate(-248.12012,-167.90314)">
+      <s:alias
+         val="Q_PNP_CBE_Q__1_" />
+      <g
+         transform="translate(102,102)"
+         id="g36">
+        <path
+           d="m 27,21 -6,6 -6,-12 12,6 v 0"
+           style="stroke-width:1"
+           class="cell_Q_ symbol pen_fill"
+           id="path4" />
+        <circle
+           cx="15"
+           cy="0"
+           r="33.299999"
+           style="stroke-width:3"
+           class="cell_Q_ symbol "
+           id="circle6" />
+        <path
+           d="M 7.5,-7.5 30,-30"
+           style="stroke-width:1"
+           class="cell_Q_ symbol "
+           id="path8" />
+        <path
+           d="M 7.5,7.5 30,30 v 0"
+           style="stroke-width:1"
+           class="cell_Q_ symbol "
+           id="path10" />
+        <path
+           d="m 7.5,-22.5 v 45 0"
+           style="stroke-width:6"
+           class="cell_Q_ symbol "
+           id="path12" />
+        <path
+           d="m 30,-102 v 72"
+           style="stroke-width:1"
+           class="cell_Q_ symbol"
+           id="path14" />
+        <text
+           class="pin_num_text"
+           text-anchor="start"
+           x="30"
+           y="-30"
+           transform="rotate(-90,25.875,-31.875)"
+           style="font-size:15px"
+           id="text16">1</text>
+        <text
+           class="net_name_text"
+           text-anchor="end"
+           x="30"
+           y="-102"
+           transform="rotate(-90,31.875,-97.875)"
+           style="font-size:15px"
+           id="text18">CNET</text>
+        <path
+           d="M -102,0 H 7.5"
+           style="stroke-width:1"
+           class="cell_Q_ symbol"
+           id="path20" />
+        <text
+           class="pin_num_text"
+           text-anchor="end"
+           x="7.5"
+           y="0"
+           transform="translate(-6,-2.25)"
+           style="font-size:15px"
+           id="text22">2</text>
+        <text
+           class="net_name_text"
+           text-anchor="start"
+           x="-102"
+           y="0"
+           transform="translate(6,-2.25)"
+           style="font-size:15px"
+           id="text24">BNET</text>
+        <path
+           d="M 30,102 V 30"
+           style="stroke-width:1"
+           class="cell_Q_ symbol"
+           id="path26" />
+        <text
+           class="pin_num_text"
+           text-anchor="end"
+           x="30"
+           y="30"
+           transform="rotate(-90,31.875,34.125)"
+           style="font-size:15px"
+           id="text28">3</text>
+        <text
+           class="net_name_text"
+           text-anchor="start"
+           x="30"
+           y="102"
+           transform="rotate(-90,25.875,100.125)"
+           style="font-size:15px"
+           id="text30">ENET</text>
+        <text
+           class="part_ref_text"
+           text-anchor="start"
+           x="60"
+           y="-15"
+           transform="translate(0,7.5)"
+           style="font-size:15px"
+           s:attribute="ref"
+           id="text32">Q_</text>
+        <text
+           class="part_name_text"
+           text-anchor="start"
+           x="60"
+           y="15"
+           transform="translate(0,7.5)"
+           style="font-size:15px"
+           s:attribute="value"
+           id="text34">Q_PNP_CBE</text>
+      </g>
+      <g
+         s:x="132.0"
+         s:y="0.0"
+         s:pid="1"
+         s:position="top"
+         id="g38" />
+      <g
+         s:x="0.0"
+         s:y="102.0"
+         s:pid="2"
+         s:position="left"
+         id="g40" />
+      <g
+         s:x="132.0"
+         s:y="204.0"
+         s:pid="3"
+         s:position="bottom"
+         id="g42" />
+    </g>
+    <g
+       s:type="Q_PNP_CBE_Q_H_1_H"
+       s:width="150.3"
+       s:height="204.0"
+       id="cell_Q_H"
+       transform="translate(134.8934,-167.90314)">
+      <s:alias
+         val="Q_PNP_CBE_Q_H_1_H" />
+      <g
+         transform="translate(48.3,102)"
+         id="g77">
+        <path
+           d="m -27,21 6,6 6,-12 -12,6 v 0"
+           style="stroke-width:1"
+           class="cell_Q_H symbol pen_fill"
+           id="path45" />
+        <circle
+           cx="-15"
+           cy="0"
+           r="33.299999"
+           style="stroke-width:3"
+           class="cell_Q_H symbol "
+           id="circle47" />
+        <path
+           d="M -7.5,-7.5 -30,-30"
+           style="stroke-width:1"
+           class="cell_Q_H symbol "
+           id="path49" />
+        <path
+           d="M -7.5,7.5 -30,30 v 0"
+           style="stroke-width:1"
+           class="cell_Q_H symbol "
+           id="path51" />
+        <path
+           d="m -7.5,-22.5 v 45 0"
+           style="stroke-width:6"
+           class="cell_Q_H symbol "
+           id="path53" />
+        <path
+           d="m -30,-102 v 72"
+           style="stroke-width:1"
+           class="cell_Q_H symbol"
+           id="path55" />
+        <text
+           class="pin_num_text"
+           text-anchor="start"
+           x="-30"
+           y="-30"
+           transform="rotate(-90,-34.125,-31.875)"
+           style="font-size:15px"
+           id="text57">1</text>
+        <text
+           class="net_name_text"
+           text-anchor="end"
+           x="-30"
+           y="-102"
+           transform="rotate(-90,-28.125,-97.875)"
+           style="font-size:15px"
+           id="text59">CNET</text>
+        <path
+           d="M 102,0 H -7.5"
+           style="stroke-width:1"
+           class="cell_Q_H symbol"
+           id="path61" />
+        <text
+           class="pin_num_text"
+           text-anchor="start"
+           x="-7.5"
+           y="0"
+           transform="translate(6,-2.25)"
+           style="font-size:15px"
+           id="text63">2</text>
+        <text
+           class="net_name_text"
+           text-anchor="end"
+           x="102"
+           y="0"
+           transform="translate(-6,-2.25)"
+           style="font-size:15px"
+           id="text65">BNET</text>
+        <path
+           d="M -30,102 V 30"
+           style="stroke-width:1"
+           class="cell_Q_H symbol"
+           id="path67" />
+        <text
+           class="pin_num_text"
+           text-anchor="end"
+           x="-30"
+           y="30"
+           transform="rotate(-90,-28.125,34.125)"
+           style="font-size:15px"
+           id="text69">3</text>
+        <text
+           class="net_name_text"
+           text-anchor="start"
+           x="-30"
+           y="102"
+           transform="rotate(-90,-34.125,100.125)"
+           style="font-size:15px"
+           id="text71">ENET</text>
+        <text
+           class="part_ref_text"
+           text-anchor="end"
+           x="-60"
+           y="-15"
+           transform="translate(0,7.5)"
+           style="font-size:15px"
+           s:attribute="ref"
+           id="text73">Q_H</text>
+        <text
+           class="part_name_text"
+           text-anchor="end"
+           x="-60"
+           y="15"
+           transform="translate(0,7.5)"
+           style="font-size:15px"
+           s:attribute="value"
+           id="text75">Q_PNP_CBE</text>
+      </g>
+      <g
+         s:x="18.299999999999997"
+         s:y="0.0"
+         s:pid="1"
+         s:position="top"
+         id="g79" />
+      <g
+         s:x="150.3"
+         s:y="102.0"
+         s:pid="2"
+         s:position="right"
+         id="g81" />
+      <g
+         s:x="18.299999999999997"
+         s:y="204.0"
+         s:pid="3"
+         s:position="bottom"
+         id="g83" />
+    </g>
+    <g
+       s:type="Q_PNP_CBE_Q_HR_1_HR"
+       s:width="204.0"
+       s:height="150.3"
+       id="cell_Q_HR"
+       transform="translate(340.64526,177.58689)">
+      <s:alias
+         val="Q_PNP_CBE_Q_HR_1_HR" />
+      <g
+         transform="translate(102,48.3)"
+         id="g118">
+        <path
+           d="m -21,-27 -6,6 12,6 -6,-12 v 0"
+           style="stroke-width:1"
+           class="cell_Q_HR symbol pen_fill"
+           id="path86" />
+        <circle
+           cx="0"
+           cy="-15"
+           r="33.299999"
+           style="stroke-width:3"
+           class="cell_Q_HR symbol "
+           id="circle88" />
+        <path
+           d="M 7.5,-7.5 30,-30"
+           style="stroke-width:1"
+           class="cell_Q_HR symbol "
+           id="path90" />
+        <path
+           d="M -7.5,-7.5 -30,-30 v 0"
+           style="stroke-width:1"
+           class="cell_Q_HR symbol "
+           id="path92" />
+        <path
+           d="m 22.5,-7.5 h -45 v 0"
+           style="stroke-width:6"
+           class="cell_Q_HR symbol "
+           id="path94" />
+        <path
+           d="M 102,-30 H 30"
+           style="stroke-width:1"
+           class="cell_Q_HR symbol"
+           id="path96" />
+        <text
+           class="pin_num_text"
+           text-anchor="start"
+           x="30"
+           y="-30"
+           transform="translate(6,-2.25)"
+           style="font-size:15px"
+           id="text98">1</text>
+        <text
+           class="net_name_text"
+           text-anchor="end"
+           x="102"
+           y="-30"
+           transform="translate(-6,-2.25)"
+           style="font-size:15px"
+           id="text100">CNET</text>
+        <path
+           d="M 0,102 V -7.5"
+           style="stroke-width:1"
+           class="cell_Q_HR symbol"
+           id="path102" />
+        <text
+           class="pin_num_text"
+           text-anchor="end"
+           x="0"
+           y="-7.5"
+           transform="rotate(-90,1.875,-3.375)"
+           style="font-size:15px"
+           id="text104">2</text>
+        <text
+           class="net_name_text"
+           text-anchor="start"
+           x="0"
+           y="102"
+           transform="rotate(-90,-4.125,100.125)"
+           style="font-size:15px"
+           id="text106">BNET</text>
+        <path
+           d="m -102,-30 h 72"
+           style="stroke-width:1"
+           class="cell_Q_HR symbol"
+           id="path108" />
+        <text
+           class="pin_num_text"
+           text-anchor="end"
+           x="-30"
+           y="-30"
+           transform="translate(-6,-2.25)"
+           style="font-size:15px"
+           id="text110">3</text>
+        <text
+           class="net_name_text"
+           text-anchor="start"
+           x="-102"
+           y="-30"
+           transform="translate(6,-2.25)"
+           style="font-size:15px"
+           id="text112">ENET</text>
+        <text
+           class="part_ref_text"
+           text-anchor="start"
+           x="15"
+           y="-60"
+           transform="rotate(-90,18.75,-56.25)"
+           style="font-size:15px"
+           s:attribute="ref"
+           id="text114">Q_HR</text>
+        <text
+           class="part_name_text"
+           text-anchor="start"
+           x="-15"
+           y="-60"
+           transform="rotate(-90,-11.25,-56.25)"
+           style="font-size:15px"
+           s:attribute="value"
+           id="text116">Q_PNP_CBE</text>
+      </g>
+      <g
+         s:x="204.0"
+         s:y="18.299999999999997"
+         s:pid="1"
+         s:position="right"
+         id="g120" />
+      <g
+         s:x="102.0"
+         s:y="150.3"
+         s:pid="2"
+         s:position="bottom"
+         id="g122" />
+      <g
+         s:x="0.0"
+         s:y="18.299999999999997"
+         s:pid="3"
+         s:position="left"
+         id="g124" />
+    </g>
+    <g
+       s:type="Q_PNP_CBE_Q_L_1_L"
+       s:width="204.0"
+       s:height="150.3"
+       id="cell_Q_L"
+       transform="translate(-229.21875,185.08689)">
+      <s:alias
+         val="Q_PNP_CBE_Q_L_1_L" />
+      <g
+         transform="translate(102,48.3)"
+         id="g159">
+        <path
+           d="m 21,-27 6,6 -12,6 6,-12 v 0"
+           style="stroke-width:1"
+           class="cell_Q_L symbol pen_fill"
+           id="path127" />
+        <circle
+           cx="0"
+           cy="-15"
+           r="33.299999"
+           style="stroke-width:3"
+           class="cell_Q_L symbol "
+           id="circle129" />
+        <path
+           d="M -7.5,-7.5 -30,-30"
+           style="stroke-width:1"
+           class="cell_Q_L symbol "
+           id="path131" />
+        <path
+           d="M 7.5,-7.5 30,-30 v 0"
+           style="stroke-width:1"
+           class="cell_Q_L symbol "
+           id="path133" />
+        <path
+           d="m -22.5,-7.5 h 45 v 0"
+           style="stroke-width:6"
+           class="cell_Q_L symbol "
+           id="path135" />
+        <path
+           d="m -102,-30 h 72"
+           style="stroke-width:1"
+           class="cell_Q_L symbol"
+           id="path137" />
+        <text
+           class="pin_num_text"
+           text-anchor="end"
+           x="-30"
+           y="-30"
+           transform="translate(-6,-2.25)"
+           style="font-size:15px"
+           id="text139">1</text>
+        <text
+           class="net_name_text"
+           text-anchor="start"
+           x="-102"
+           y="-30"
+           transform="translate(6,-2.25)"
+           style="font-size:15px"
+           id="text141">CNET</text>
+        <path
+           d="M 0,102 V -7.5"
+           style="stroke-width:1"
+           class="cell_Q_L symbol"
+           id="path143" />
+        <text
+           class="pin_num_text"
+           text-anchor="end"
+           x="0"
+           y="-7.5"
+           transform="rotate(-90,1.875,-3.375)"
+           style="font-size:15px"
+           id="text145">2</text>
+        <text
+           class="net_name_text"
+           text-anchor="start"
+           x="0"
+           y="102"
+           transform="rotate(-90,-4.125,100.125)"
+           style="font-size:15px"
+           id="text147">BNET</text>
+        <path
+           d="M 102,-30 H 30"
+           style="stroke-width:1"
+           class="cell_Q_L symbol"
+           id="path149" />
+        <text
+           class="pin_num_text"
+           text-anchor="start"
+           x="30"
+           y="-30"
+           transform="translate(6,-2.25)"
+           style="font-size:15px"
+           id="text151">3</text>
+        <text
+           class="net_name_text"
+           text-anchor="end"
+           x="102"
+           y="-30"
+           transform="translate(-6,-2.25)"
+           style="font-size:15px"
+           id="text153">ENET</text>
+        <text
+           class="part_ref_text"
+           text-anchor="start"
+           x="-15"
+           y="-60"
+           transform="rotate(-90,-18.75,-63.75)"
+           style="font-size:15px"
+           s:attribute="ref"
+           id="text155">Q_L</text>
+        <text
+           class="part_name_text"
+           text-anchor="start"
+           x="15"
+           y="-60"
+           transform="rotate(-90,11.25,-63.75)"
+           style="font-size:15px"
+           s:attribute="value"
+           id="text157">Q_PNP_CBE</text>
+      </g>
+      <g
+         s:x="0.0"
+         s:y="18.299999999999997"
+         s:pid="1"
+         s:position="left"
+         id="g161" />
+      <g
+         s:x="102.0"
+         s:y="150.3"
+         s:pid="2"
+         s:position="bottom"
+         id="g163" />
+      <g
+         s:x="204.0"
+         s:y="18.299999999999997"
+         s:pid="3"
+         s:position="right"
+         id="g165" />
+    </g>
+    <g
+       s:type="Q_PNP_CBE_Q_LV_1_LV"
+       s:width="204.0"
+       s:height="150.3"
+       id="cell_Q_LV"
+       transform="translate(625.57727,93.375415)">
+      <s:alias
+         val="Q_PNP_CBE_Q_LV_1_LV" />
+      <g
+         transform="translate(102,102)"
+         id="g200">
+        <path
+           d="m 21,27 6,-6 -12,-6 6,12 v 0"
+           style="stroke-width:1"
+           class="cell_Q_LV symbol pen_fill"
+           id="path168" />
+        <circle
+           cx="0"
+           cy="15"
+           r="33.299999"
+           style="stroke-width:3"
+           class="cell_Q_LV symbol "
+           id="circle170" />
+        <path
+           d="M -7.5,7.5 -30,30"
+           style="stroke-width:1"
+           class="cell_Q_LV symbol "
+           id="path172" />
+        <path
+           d="M 7.5,7.5 30,30 v 0"
+           style="stroke-width:1"
+           class="cell_Q_LV symbol "
+           id="path174" />
+        <path
+           d="m -22.5,7.5 h 45 v 0"
+           style="stroke-width:6"
+           class="cell_Q_LV symbol "
+           id="path176" />
+        <path
+           d="m -102,30 h 72"
+           style="stroke-width:1"
+           class="cell_Q_LV symbol"
+           id="path178" />
+        <text
+           class="pin_num_text"
+           text-anchor="end"
+           x="-30"
+           y="30"
+           transform="translate(-6,-2.25)"
+           style="font-size:15px"
+           id="text180">1</text>
+        <text
+           class="net_name_text"
+           text-anchor="start"
+           x="-102"
+           y="30"
+           transform="translate(6,-2.25)"
+           style="font-size:15px"
+           id="text182">CNET</text>
+        <path
+           d="M 0,-102 V 7.5"
+           style="stroke-width:1"
+           class="cell_Q_LV symbol"
+           id="path184" />
+        <text
+           class="pin_num_text"
+           text-anchor="start"
+           x="0"
+           y="7.5"
+           transform="rotate(-90,-4.125,5.625)"
+           style="font-size:15px"
+           id="text186">2</text>
+        <text
+           class="net_name_text"
+           text-anchor="end"
+           x="0"
+           y="-102"
+           transform="rotate(-90,1.875,-97.875)"
+           style="font-size:15px"
+           id="text188">BNET</text>
+        <path
+           d="M 102,30 H 30"
+           style="stroke-width:1"
+           class="cell_Q_LV symbol"
+           id="path190" />
+        <text
+           class="pin_num_text"
+           text-anchor="start"
+           x="30"
+           y="30"
+           transform="translate(6,-2.25)"
+           style="font-size:15px"
+           id="text192">3</text>
+        <text
+           class="net_name_text"
+           text-anchor="end"
+           x="102"
+           y="30"
+           transform="translate(-6,-2.25)"
+           style="font-size:15px"
+           id="text194">ENET</text>
+        <text
+           class="part_ref_text"
+           text-anchor="end"
+           x="-15"
+           y="60"
+           transform="rotate(-90,-18.75,56.25)"
+           style="font-size:15px"
+           s:attribute="ref"
+           id="text196">Q_LV</text>
+        <text
+           class="part_name_text"
+           text-anchor="end"
+           x="15"
+           y="60"
+           transform="rotate(-90,11.25,56.25)"
+           style="font-size:15px"
+           s:attribute="value"
+           id="text198">Q_PNP_CBE</text>
+      </g>
+      <g
+         s:x="0.0"
+         s:y="132.0"
+         s:pid="1"
+         s:position="left"
+         id="g202" />
+      <g
+         s:x="102.0"
+         s:y="0.0"
+         s:pid="2"
+         s:position="top"
+         id="g204" />
+      <g
+         s:x="204.0"
+         s:y="132.0"
+         s:pid="3"
+         s:position="right"
+         id="g206" />
+    </g>
+    <g
+       s:type="Q_PNP_CBE_Q_R_1_R"
+       s:width="204.0"
+       s:height="150.3"
+       id="cell_Q_R"
+       transform="translate(625.57727,-190.76325)">
+      <s:alias
+         val="Q_PNP_CBE_Q_R_1_R" />
+      <g
+         transform="translate(102,102)"
+         id="g241">
+        <path
+           d="m -21,27 -6,-6 12,-6 -6,12 v 0"
+           style="stroke-width:1"
+           class="cell_Q_R symbol pen_fill"
+           id="path209" />
+        <circle
+           cx="0"
+           cy="15"
+           r="33.299999"
+           style="stroke-width:3"
+           class="cell_Q_R symbol "
+           id="circle211" />
+        <path
+           d="M 7.5,7.5 30,30"
+           style="stroke-width:1"
+           class="cell_Q_R symbol "
+           id="path213" />
+        <path
+           d="M -7.5,7.5 -30,30 v 0"
+           style="stroke-width:1"
+           class="cell_Q_R symbol "
+           id="path215" />
+        <path
+           d="m 22.5,7.5 h -45 v 0"
+           style="stroke-width:6"
+           class="cell_Q_R symbol "
+           id="path217" />
+        <path
+           d="M 102,30 H 30"
+           style="stroke-width:1"
+           class="cell_Q_R symbol"
+           id="path219" />
+        <text
+           class="pin_num_text"
+           text-anchor="start"
+           x="30"
+           y="30"
+           transform="translate(6,-2.25)"
+           style="font-size:15px"
+           id="text221">1</text>
+        <text
+           class="net_name_text"
+           text-anchor="end"
+           x="102"
+           y="30"
+           transform="translate(-6,-2.25)"
+           style="font-size:15px"
+           id="text223">CNET</text>
+        <path
+           d="M 0,-102 V 7.5"
+           style="stroke-width:1"
+           class="cell_Q_R symbol"
+           id="path225" />
+        <text
+           class="pin_num_text"
+           text-anchor="start"
+           x="0"
+           y="7.5"
+           transform="rotate(-90,-4.125,5.625)"
+           style="font-size:15px"
+           id="text227">2</text>
+        <text
+           class="net_name_text"
+           text-anchor="end"
+           x="0"
+           y="-102"
+           transform="rotate(-90,1.875,-97.875)"
+           style="font-size:15px"
+           id="text229">BNET</text>
+        <path
+           d="m -102,30 h 72"
+           style="stroke-width:1"
+           class="cell_Q_R symbol"
+           id="path231" />
+        <text
+           class="pin_num_text"
+           text-anchor="end"
+           x="-30"
+           y="30"
+           transform="translate(-6,-2.25)"
+           style="font-size:15px"
+           id="text233">3</text>
+        <text
+           class="net_name_text"
+           text-anchor="start"
+           x="-102"
+           y="30"
+           transform="translate(6,-2.25)"
+           style="font-size:15px"
+           id="text235">ENET</text>
+        <text
+           class="part_ref_text"
+           text-anchor="end"
+           x="15"
+           y="60"
+           transform="rotate(-90,18.75,63.75)"
+           style="font-size:15px"
+           s:attribute="ref"
+           id="text237">Q_R</text>
+        <text
+           class="part_name_text"
+           text-anchor="end"
+           x="-15"
+           y="60"
+           transform="rotate(-90,-11.25,63.75)"
+           style="font-size:15px"
+           s:attribute="value"
+           id="text239">Q_PNP_CBE</text>
+      </g>
+      <g
+         s:x="204.0"
+         s:y="132.0"
+         s:pid="1"
+         s:position="right"
+         id="g243" />
+      <g
+         s:x="102.0"
+         s:y="0.0"
+         s:pid="2"
+         s:position="top"
+         id="g245" />
+      <g
+         s:x="0.0"
+         s:y="132.0"
+         s:pid="3"
+         s:position="left"
+         id="g247" />
+    </g>
+    <g
+       s:type="Q_PNP_CBE_Q_V_1_V"
+       s:width="150.3"
+       s:height="204.0"
+       id="cell_Q_V"
+       transform="translate(334.48395,-167.90314)">
+      <s:alias
+         val="Q_PNP_CBE_Q_V_1_V" />
+      <g
+         transform="translate(102,102)"
+         id="g282">
+        <path
+           d="m 27,-21 -6,-6 -6,12 12,-6 v 0"
+           style="stroke-width:1"
+           class="cell_Q_V symbol pen_fill"
+           id="path250" />
+        <circle
+           cx="15"
+           cy="0"
+           r="33.299999"
+           style="stroke-width:3"
+           class="cell_Q_V symbol "
+           id="circle252" />
+        <path
+           d="M 7.5,7.5 30,30"
+           style="stroke-width:1"
+           class="cell_Q_V symbol "
+           id="path254" />
+        <path
+           d="M 7.5,-7.5 30,-30 v 0"
+           style="stroke-width:1"
+           class="cell_Q_V symbol "
+           id="path256" />
+        <path
+           d="m 7.5,22.5 v -45 0"
+           style="stroke-width:6"
+           class="cell_Q_V symbol "
+           id="path258" />
+        <path
+           d="M 30,102 V 30"
+           style="stroke-width:1"
+           class="cell_Q_V symbol"
+           id="path260" />
+        <text
+           class="pin_num_text"
+           text-anchor="end"
+           x="30"
+           y="30"
+           transform="rotate(-90,31.875,34.125)"
+           style="font-size:15px"
+           id="text262">1</text>
+        <text
+           class="net_name_text"
+           text-anchor="start"
+           x="30"
+           y="102"
+           transform="rotate(-90,25.875,100.125)"
+           style="font-size:15px"
+           id="text264">CNET</text>
+        <path
+           d="M -102,0 H 7.5"
+           style="stroke-width:1"
+           class="cell_Q_V symbol"
+           id="path266" />
+        <text
+           class="pin_num_text"
+           text-anchor="end"
+           x="7.5"
+           y="0"
+           transform="translate(-6,-2.25)"
+           style="font-size:15px"
+           id="text268">2</text>
+        <text
+           class="net_name_text"
+           text-anchor="start"
+           x="-102"
+           y="0"
+           transform="translate(6,-2.25)"
+           style="font-size:15px"
+           id="text270">BNET</text>
+        <path
+           d="m 30,-102 v 72"
+           style="stroke-width:1"
+           class="cell_Q_V symbol"
+           id="path272" />
+        <text
+           class="pin_num_text"
+           text-anchor="start"
+           x="30"
+           y="-30"
+           transform="rotate(-90,25.875,-31.875)"
+           style="font-size:15px"
+           id="text274">3</text>
+        <text
+           class="net_name_text"
+           text-anchor="end"
+           x="30"
+           y="-102"
+           transform="rotate(-90,31.875,-97.875)"
+           style="font-size:15px"
+           id="text276">ENET</text>
+        <text
+           class="part_ref_text"
+           text-anchor="start"
+           x="60"
+           y="15"
+           transform="translate(0,-7.5)"
+           style="font-size:15px"
+           s:attribute="ref"
+           id="text278">Q_V</text>
+        <text
+           class="part_name_text"
+           text-anchor="start"
+           x="60"
+           y="-15"
+           transform="translate(0,-7.5)"
+           style="font-size:15px"
+           s:attribute="value"
+           id="text280">Q_PNP_CBE</text>
+      </g>
+      <g
+         s:x="132.0"
+         s:y="204.0"
+         s:pid="1"
+         s:position="bottom"
+         id="g284" />
+      <g
+         s:x="0.0"
+         s:y="102.0"
+         s:pid="2"
+         s:position="left"
+         id="g286" />
+      <g
+         s:x="132.0"
+         s:y="0.0"
+         s:pid="3"
+         s:position="top"
+         id="g288" />
+    </g>
+    <g
+       s:type="Q_PNP_CBE_Q_VL_1_VL"
+       s:width="204.0"
+       s:height="150.3"
+       id="cell_Q_VL"
+       transform="translate(55.713257,177.58689)">
+      <s:alias
+         val="Q_PNP_CBE_Q_VL_1_VL" />
+      <g
+         transform="translate(102,48.3)"
+         id="g323">
+        <path
+           d="m -21,-27 -6,6 12,6 -6,-12 v 0"
+           style="stroke-width:1"
+           class="cell_Q_VL symbol pen_fill"
+           id="path291" />
+        <circle
+           cx="0"
+           cy="-15"
+           r="33.299999"
+           style="stroke-width:3"
+           class="cell_Q_VL symbol "
+           id="circle293" />
+        <path
+           d="M 7.5,-7.5 30,-30"
+           style="stroke-width:1"
+           class="cell_Q_VL symbol "
+           id="path295" />
+        <path
+           d="M -7.5,-7.5 -30,-30 v 0"
+           style="stroke-width:1"
+           class="cell_Q_VL symbol "
+           id="path297" />
+        <path
+           d="m 22.5,-7.5 h -45 v 0"
+           style="stroke-width:6"
+           class="cell_Q_VL symbol "
+           id="path299" />
+        <path
+           d="M 102,-30 H 30"
+           style="stroke-width:1"
+           class="cell_Q_VL symbol"
+           id="path301" />
+        <text
+           class="pin_num_text"
+           text-anchor="start"
+           x="30"
+           y="-30"
+           transform="translate(6,-2.25)"
+           style="font-size:15px"
+           id="text303">1</text>
+        <text
+           class="net_name_text"
+           text-anchor="end"
+           x="102"
+           y="-30"
+           transform="translate(-6,-2.25)"
+           style="font-size:15px"
+           id="text305">CNET</text>
+        <path
+           d="M 0,102 V -7.5"
+           style="stroke-width:1"
+           class="cell_Q_VL symbol"
+           id="path307" />
+        <text
+           class="pin_num_text"
+           text-anchor="end"
+           x="0"
+           y="-7.5"
+           transform="rotate(-90,1.875,-3.375)"
+           style="font-size:15px"
+           id="text309">2</text>
+        <text
+           class="net_name_text"
+           text-anchor="start"
+           x="0"
+           y="102"
+           transform="rotate(-90,-4.125,100.125)"
+           style="font-size:15px"
+           id="text311">BNET</text>
+        <path
+           d="m -102,-30 h 72"
+           style="stroke-width:1"
+           class="cell_Q_VL symbol"
+           id="path313" />
+        <text
+           class="pin_num_text"
+           text-anchor="end"
+           x="-30"
+           y="-30"
+           transform="translate(-6,-2.25)"
+           style="font-size:15px"
+           id="text315">3</text>
+        <text
+           class="net_name_text"
+           text-anchor="start"
+           x="-102"
+           y="-30"
+           transform="translate(6,-2.25)"
+           style="font-size:15px"
+           id="text317">ENET</text>
+        <text
+           class="part_ref_text"
+           text-anchor="start"
+           x="15"
+           y="-60"
+           transform="rotate(-90,18.75,-56.25)"
+           style="font-size:15px"
+           s:attribute="ref"
+           id="text319">Q_VL</text>
+        <text
+           class="part_name_text"
+           text-anchor="start"
+           x="-15"
+           y="-60"
+           transform="rotate(-90,-11.25,-56.25)"
+           style="font-size:15px"
+           s:attribute="value"
+           id="text321">Q_PNP_CBE</text>
+      </g>
+      <g
+         s:x="204.0"
+         s:y="18.299999999999997"
+         s:pid="1"
+         s:position="right"
+         id="g325" />
+      <g
+         s:x="102.0"
+         s:y="150.3"
+         s:pid="2"
+         s:position="bottom"
+         id="g327" />
+      <g
+         s:x="0.0"
+         s:y="18.299999999999997"
+         s:pid="3"
+         s:position="left"
+         id="g329" />
+    </g>
+  </g>
+  <text
+     xml:space="preserve"
+     style="font-size:16px;line-height:1.25;font-family:'Arial Narrow';-inkscape-font-specification:'Arial Narrow';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle"
+     x="154.82088"
+     y="211.54718"
+     id="text1170"><tspan
+       sodipodi:role="line"
+       id="tspan1168"
+       x="154.82088"
+       y="211.54718"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:'Consolas Bold';text-align:start;text-anchor:start">symtx = ''</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:16px;line-height:1.25;font-family:'Arial Narrow';-inkscape-font-specification:'Arial Narrow';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle"
+     x="437.92636"
+     y="211.54718"
+     id="text1174"><tspan
+       sodipodi:role="line"
+       id="tspan1172"
+       x="437.92636"
+       y="211.54718"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:'Consolas Bold';text-align:start;text-anchor:start">symtx = 'H'</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:16px;line-height:1.25;font-family:'Arial Narrow';-inkscape-font-specification:'Arial Narrow';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle"
+     x="154.82088"
+     y="496.13913"
+     id="text1178"><tspan
+       sodipodi:role="line"
+       id="tspan1176"
+       x="154.82088"
+       y="496.13913"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:'Consolas Bold';text-align:start;text-anchor:start">symtx = 'L'</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:16px;line-height:1.25;font-family:'Arial Narrow';-inkscape-font-specification:'Arial Narrow';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle"
+     x="437.92636"
+     y="496.13913"
+     id="text1182"><tspan
+       sodipodi:role="line"
+       id="tspan1180"
+       x="437.92636"
+       y="496.13913"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:'Consolas Bold';text-align:start;text-anchor:start">symtx = 'VL'</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:16px;line-height:1.25;font-family:'Arial Narrow';-inkscape-font-specification:'Arial Narrow';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle"
+     x="727.81592"
+     y="496.13913"
+     id="text1186"><tspan
+       sodipodi:role="line"
+       id="tspan1184"
+       x="727.81592"
+       y="496.13913"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:'Consolas Bold';text-align:start;text-anchor:start">symtx = 'HR'</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:16px;line-height:1.25;font-family:'Arial Narrow';-inkscape-font-specification:'Arial Narrow';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle"
+     x="1024.9994"
+     y="496.13913"
+     id="text1190"><tspan
+       sodipodi:role="line"
+       id="tspan1188"
+       x="1024.9994"
+       y="496.13913"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:'Consolas Bold';text-align:start;text-anchor:start">symtx = 'LV'</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:16px;line-height:1.25;font-family:'Arial Narrow';-inkscape-font-specification:'Arial Narrow';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle"
+     x="1024.9994"
+     y="211.54718"
+     id="text1194"><tspan
+       sodipodi:role="line"
+       id="tspan1192"
+       x="1024.9994"
+       y="211.54718"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:'Consolas Bold';text-align:start;text-anchor:start">symtx = 'R'</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:16px;line-height:1.25;font-family:'Arial Narrow';-inkscape-font-specification:'Arial Narrow';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle"
+     x="727.81592"
+     y="211.54718"
+     id="text1198"><tspan
+       sodipodi:role="line"
+       id="tspan1196"
+       x="727.81592"
+       y="211.54718"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:'Consolas Bold';text-align:start;text-anchor:start">symtx = 'V'</tspan></text>
+</svg>
