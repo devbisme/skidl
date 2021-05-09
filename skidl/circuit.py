@@ -777,7 +777,7 @@ class Circuit(SkidlBaseObject):
         total_svg.extend(tail_svg)
         return "\n".join(total_svg)
 
-    def generate_svg(self, file_=None, tool=None, net_stubs=None):
+    def generate_svg(self, file_=None, tool=None):
         """
         Create an SVG file displaying the circuit schematic and
         return the dictionary that can be displayed by netlistsvg.
@@ -792,10 +792,11 @@ class Circuit(SkidlBaseObject):
         self._preprocess()
 
         # Get the list of nets which will be routed and not represented by stubs.
-        net_stubs = net_stubs or []  # If net_stubs is None, set it to empty list.
-        net_stubs = expand_buses(flatten(net_stubs))
+        # Search all nets for those set as stubs or that are no-connects.
+        net_stubs = [n for n in self.nets if getattr(n, 'stub', False) or isinstance(n, NCNet)]
+        # Also find buses that are set as stubs and add their individual nets.
+        net_stubs.extend(expand_buses([b for b in self.buses if getattr(b, 'stub', False)]))
         routed_nets = list(set(self.nets) - set(net_stubs))
-        routed_nets = [n for n in routed_nets if not isinstance(n, NCNet)]
 
         # Assign each routed net a unique integer. Interconnected nets
         # all get the same number.
@@ -981,7 +982,7 @@ class Circuit(SkidlBaseObject):
                 )
             )
 
-    def generate_graph(
+    def generate_dot(
         self,
         file_=None,
         engine="neato",
@@ -1064,7 +1065,7 @@ class Circuit(SkidlBaseObject):
         for p in sorted(self.parts, key=lambda p: p.ref.lower()):
             xlabel = None
             if show_values:
-                xlabel = p.value
+                xlabel = str(p.value)
             dot.node(p.ref, shape=part_shape, xlabel=xlabel)
 
         if not self.no_files:
@@ -1072,6 +1073,8 @@ class Circuit(SkidlBaseObject):
                 dot.save(file_)
 
         return dot
+
+    generate_graph = generate_dot  # Old method name for generating graphviz dot file.
 
     def backup_parts(self, file_=None):
         """

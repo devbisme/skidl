@@ -1074,7 +1074,7 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
 """
 
     def tx(obj, ops):
-        """Transform object according to the list of opcodes."""
+        """Transform Point, number, or direction according to the list of opcodes."""
 
         def H(obj):
             # Flip horizontally.
@@ -1211,6 +1211,8 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
     max_stub_len = 0  # If no net stubs are needed, this stays at zero.
     for pin in self.get_pins():
         for net in pin.get_nets():
+            if net in [NC, None]:
+                continue
             if net in net_stubs:
                 max_stub_len = max(len(net.name), max_stub_len)
 
@@ -1523,6 +1525,8 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
                 if max_stub_len:
                     # Only do this if stub length > 0; otherwise, no stubs are needed.
                     for net in part_pin.get_nets():
+                        if net in [NC, None]:
+                            continue
                         if net in net_stubs:
                             net_justify = pin_dir_tbl[orientation].name_justify
                             net_size = (
@@ -1617,7 +1621,7 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
         svg.append("</g>")
 
         # Place a visible bounding-box around symbol for trouble-shooting.
-        show_bbox = False
+        show_bbox = False  # TODO: change back to false.
         bbox.min = bbox.min + translate
         bbox.max = bbox.max + translate
         if show_bbox:

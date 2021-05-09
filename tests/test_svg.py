@@ -194,10 +194,10 @@ def test_svg_5():
     uc_spare = uc()
     uc_spare["UDP"] & uc_spare["UDM"]
 
-    stubs = uc1["UDM"].get_nets()
-    stubs.extend(uc1["UDP"].get_nets())
+    uc1.UDM.net.stub = True
+    uc1.UDP.net.stub = True
 
-    generate_svg(net_stubs=stubs)
+    generate_svg()
 
 
 def test_svg_6():
@@ -392,6 +392,13 @@ def test_svg_8():
     # Send the RGB buses and syncs to the VGA port circuit.
     vga_port(red, grn, blu, hsync, vsync, gnd)
 
+    gnd.stub = True
+    red.stub = True
+    grn.stub = True
+    blu.stub = True
+    hsync.stub = True
+    vsync.stub = True
+
     ERC()  # Run error checks.
     generate_netlist()  # Generate the netlist.
-    generate_svg(net_stubs=[gnd, red, grn, blu, hsync, vsync])
+    generate_svg()
