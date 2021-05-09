@@ -1211,6 +1211,7 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
     max_stub_len = 0  # If no net stubs are needed, this stays at zero.
     for pin in self.get_pins():
         for net in pin.get_nets():
+            # Don't let names for no-connect nets affect maximum stub length.
             if net in [NC, None]:
                 continue
             if net in net_stubs:
@@ -1525,6 +1526,7 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
                 if max_stub_len:
                     # Only do this if stub length > 0; otherwise, no stubs are needed.
                     for net in part_pin.get_nets():
+                        # Don't create stubs for no-connect nets.
                         if net in [NC, None]:
                             continue
                         if net in net_stubs:
@@ -1621,7 +1623,7 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
         svg.append("</g>")
 
         # Place a visible bounding-box around symbol for trouble-shooting.
-        show_bbox = False  # TODO: change back to false.
+        show_bbox = False
         bbox.min = bbox.min + translate
         bbox.max = bbox.max + translate
         if show_bbox:
