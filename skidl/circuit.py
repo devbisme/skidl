@@ -1028,6 +1028,10 @@ class Circuit(SkidlBaseObject):
         # try and keep things in the same order
         nets.sort(key=lambda n: n.name.lower())
 
+        # Add stubbed nets to split_nets:
+        split_nets = split_nets[:]  # Make a local copy.
+        split_nets.extend([n.name for n in nets if getattr(n, 'stub', False)])
+
         for i, n in enumerate(nets):
             xlabel = n.name
             if not show_anon and n.is_implicit():
