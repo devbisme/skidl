@@ -16,7 +16,7 @@ a PCB layout tool.
 
 * Free software: MIT license
 * Documentation: http://xesscorp.github.io/skidl
-* User Forum: http://skidl.discourse.group
+* User Forum: https://github.com/xesscorp/skidl/discussions
 
 Features
 --------

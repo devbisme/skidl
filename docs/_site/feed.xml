@@ -7,7 +7,7 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="https://xesscorp.github.io/skidl/docs/_site/feed.xml" />
 <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/" />
-<updated>2021-05-10T10:11:59-04:00</updated>
+<updated>2021-05-10T10:23:57-04:00</updated>
 <id>https://xesscorp.github.io/skidl/docs/_site/</id>
 <author>
   <name>XESS Corp.</name>
@@ -684,7 +684,9 @@ raise an &lt;a href=&quot;https://github.com/xesscorp/skidl/issues&quot;&gt;issu
   
   <content type="html">
   
-    &lt;p&gt;I created a &lt;a href=&quot;https://skidl.discourse.group/&quot;&gt;Discourse forum for SKiDL&lt;/a&gt;.
+    &lt;p&gt;&lt;strong&gt;FYI: The forum has &lt;a href=&quot;https://github.com/xesscorp/skidl/discussions&quot;&gt;moved&lt;/a&gt;.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;I created a &lt;a href=&quot;https://github.com/xesscorp/skidl/discussions&quot;&gt;Github Discussions forum for SKiDL&lt;/a&gt;.
 There, you can ask questions about SKiDL and post about projects you’re doing with it.
 This will probably be a more convenient channel for such things rather
 than opening issues on the SKiDL GitHub repo.&lt;/p&gt;
