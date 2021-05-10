@@ -48,7 +48,7 @@ links:
   - title: Blog
     url: /blog
   - title: Forum
-    url: https://skidl.discourse.group/
+    url: https://github.com/xesscorp/skidl/discussions
     external: true
   - title: API
     url: /api.html
