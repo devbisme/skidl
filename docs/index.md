@@ -18,6 +18,7 @@ create a finished circuit board.
 - [TL;DR](#tldr)
     - [Contents](#contents)
 - [Introduction](#introduction)
+- [Installation](#installation)
 - [Basic Usage](#basic-usage)
   - [Accessing SKiDL](#accessing-skidl)
   - [Finding Parts](#finding-parts)
@@ -174,8 +175,8 @@ do the PCB layout:
     (net (code 3) (name VO)
       (node (ref R1) (pin 2))
       (node (ref R2) (pin 1))))
-)```
-
+)
+```
 
 
 # Installation
