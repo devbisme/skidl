@@ -71,6 +71,8 @@ built from discrete transistors:
     vcc += q1["E"], q2["E"], vcct
     gnd += gndt
 
+    generate_netlist()
+
 And this is the output that can be fed to a program like KiCad's ``PCBNEW`` to
 create the physical PCB::
 
