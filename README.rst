@@ -40,59 +40,143 @@ Features
 
 As a very simple example (and you can see more examples in the 
 `SKiDL blog <https://xesscorp.github.io/skidl/docs/_site/blog/>`_),
-the SKiDL program below describes a circuit that
-takes an input voltage, divides it by three, and outputs it:
+the SKiDL program below describes a 
+`two-input AND gate <https://raw.githubusercontent.com/nturley/netlistsvg/master/doc/and.svg?sanitize=true>`_
+built from discrete transistors:
+
+.. image:: https://raw.githubusercontent.com/nturley/netlistsvg/master/doc/and.svg?sanitize=true
 
 .. code-block:: python
 
     from skidl import *
 
-    # Create input & output voltages and ground reference.
-    vin, vout, gnd = Net('VI'), Net('VO'), Net('GND')
+    # Create part templates.
+    q = Part("Device", "Q_PNP_CBE", dest=TEMPLATE)
+    r = Part("Device", "R", dest=TEMPLATE)
 
-    # Create two resistors.
-    r1, r2 = 2 * Part("Device", 'R', TEMPLATE, footprint='Resistor_SMD.pretty:R_0805_2012Metric')
-    r1.value = '1K'   # Set upper resistor value.
-    r2.value = '500'  # Set lower resistor value.
+    # Create nets.
+    gnd, vcc = Net("GND"), Net("VCC")
+    a, b, a_and_b = Net("A"), Net("B"), Net("A_AND_B")
 
-    # Connect the nets and resistors.
-    vin += r1[1]      # Connect the input to the upper resistor.
-    gnd += r2[2]      # Connect the lower resistor to ground.
-    vout += r1[2], r2[1] # Output comes from the connection of the two resistors.
+    # Instantiate parts.
+    gndt = Part("power", "GND")             # Ground terminal.
+    vcct = Part("power", "VCC")             # Power terminal.
+    q1, q2 = q(2)                           # Two trasnsistors.
+    r1, r2, r3, r4, r5 = r(5, value="10K")  # Five 10K resistors.
 
-    generate_netlist()
+    # Make connections between parts.
+    a & r1 & q1["B C"] & r4 & q2["B C"] & a_and_b & r5 & gnd
+    b & r2 & q1["B"]
+    q1["C"] & r3 & gnd
+    vcc += q1["E"], q2["E"], vcct
+    gnd += gndt
 
 And this is the output that can be fed to a program like KiCad's ``PCBNEW`` to
 create the physical PCB::
 
-    (export (version D)                                                                                    
-      (design                                                                                              
-        (source "C:\xesscorp\KiCad\tools\skidl\tests\vdiv.py")                                             
-        (date "09/14/2018 08:49 PM")                                                                       
-        (tool "SKiDL (0.0.23)"))                                                                           
-      (components                                                                                          
-        (comp (ref R1)                                                                                     
-          (value 1K)                                                                                       
-          (footprint Resistor_SMD.pretty:R_0805_2012Metric)                                                                 
-          (fields                                                                                          
-            (field (name description) Resistor)                                                            
-            (field (name keywords) "r res resistor"))                                                      
-          (libsource (lib device) (part R))                                                                
-          (sheetpath (names /top/12995167876889795071) (tstamps /top/12995167876889795071)))               
-        (comp (ref R2)                                                                                     
-          (value 500)                                                                                      
-          (footprint Resistor_SMD.pretty:R_0805_2012Metric)                                                                 
-          (fields                                                                                          
-            (field (name description) Resistor)                                                            
-            (field (name keywords) "r res resistor"))                                                      
-          (libsource (lib device) (part R))                                                                
-          (sheetpath (names /top/8869138953290924483) (tstamps /top/8869138953290924483))))                
-      (nets                                                                                                
-        (net (code 0) (name GND)                                                                           
-          (node (ref R2) (pin 2)))                                                                         
-        (net (code 1) (name VI)                                                                            
-          (node (ref R1) (pin 1)))                                                                         
-        (net (code 2) (name VO)                                                                            
-          (node (ref R1) (pin 2))                                                                          
-          (node (ref R2) (pin 1))))                                                                        
-    )                                                                                                      
+    (export (version D)
+      (design
+        (source "/media/devb/Main/xesscorp/KiCad/tools/skidl/skidl/circuit.py")
+        (date "05/11/2021 10:40 AM")
+        (tool "SKiDL (1.0.0)"))
+      (components
+        (comp (ref #PWR1)
+          (value GND)
+          (footprint "No Footprint")
+          (fields
+            (field (name F0) #PWR)
+            (field (name F1) GND))
+          (libsource (lib power) (part GND))
+          (sheetpath (names /top/16948080335112909674) (tstamps /top/16948080335112909674)))
+        (comp (ref #PWR2)
+          (value VCC)
+          (footprint "No Footprint")
+          (fields
+            (field (name F0) #PWR)
+            (field (name F1) VCC))
+          (libsource (lib power) (part VCC))
+          (sheetpath (names /top/10777333099431236833) (tstamps /top/10777333099431236833)))
+        (comp (ref Q1)
+          (value Q_PNP_CBE)
+          (footprint "No Footprint")
+          (fields
+            (field (name F0) Q)
+            (field (name F1) Q_PNP_CBE))
+          (libsource (lib Device) (part Q_PNP_CBE))
+          (sheetpath (names /top/5605641708446153824) (tstamps /top/5605641708446153824)))
+        (comp (ref Q2)
+          (value Q_PNP_CBE)
+          (footprint "No Footprint")
+          (fields
+            (field (name F0) Q)
+            (field (name F1) Q_PNP_CBE))
+          (libsource (lib Device) (part Q_PNP_CBE))
+          (sheetpath (names /top/3991298653620578089) (tstamps /top/3991298653620578089)))
+        (comp (ref R1)
+          (value 10K)
+          (footprint "No Footprint")
+          (fields
+            (field (name F0) R)
+            (field (name F1) R))
+          (libsource (lib Device) (part R))
+          (sheetpath (names /top/17650585640079795295) (tstamps /top/17650585640079795295)))
+        (comp (ref R2)
+          (value 10K)
+          (footprint "No Footprint")
+          (fields
+            (field (name F0) R)
+            (field (name F1) R))
+          (libsource (lib Device) (part R))
+          (sheetpath (names /top/11461493733231665754) (tstamps /top/11461493733231665754)))
+        (comp (ref R3)
+          (value 10K)
+          (footprint "No Footprint")
+          (fields
+            (field (name F0) R)
+            (field (name F1) R))
+          (libsource (lib Device) (part R))
+          (sheetpath (names /top/1249286041592970488) (tstamps /top/1249286041592970488)))
+        (comp (ref R4)
+          (value 10K)
+          (footprint "No Footprint")
+          (fields
+            (field (name F0) R)
+            (field (name F1) R))
+          (libsource (lib Device) (part R))
+          (sheetpath (names /top/7242640812520981502) (tstamps /top/7242640812520981502)))
+        (comp (ref R5)
+          (value 10K)
+          (footprint "No Footprint")
+          (fields
+            (field (name F0) R)
+            (field (name F1) R))
+          (libsource (lib Device) (part R))
+          (sheetpath (names /top/9932266607871614386) (tstamps /top/9932266607871614386))))
+      (nets
+        (net (code 1) (name A)
+          (node (ref R1) (pin 1)))
+        (net (code 2) (name A_AND_B)
+          (node (ref Q2) (pin 1))
+          (node (ref R5) (pin 1)))
+        (net (code 3) (name B)
+          (node (ref R2) (pin 1)))
+        (net (code 4) (name GND)
+          (node (ref #PWR1) (pin 1))
+          (node (ref R3) (pin 2))
+          (node (ref R5) (pin 2)))
+        (net (code 5) (name N$1)
+          (node (ref Q1) (pin 2))
+          (node (ref R1) (pin 2))
+          (node (ref R2) (pin 2)))
+        (net (code 6) (name N$2)
+          (node (ref Q1) (pin 1))
+          (node (ref R3) (pin 1))
+          (node (ref R4) (pin 1)))
+        (net (code 7) (name N$3)
+          (node (ref Q2) (pin 2))
+          (node (ref R4) (pin 2)))
+        (net (code 8) (name VCC)
+          (node (ref #PWR2) (pin 1))
+          (node (ref Q1) (pin 3))
+          (node (ref Q2) (pin 3))))
+    )
