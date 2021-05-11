@@ -144,6 +144,7 @@ create a finished circuit board.</p>
     </ul>
   </li>
   <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#installation">Installation</a></li>
   <li><a href="#basic-usage">Basic Usage</a>
     <ul>
       <li><a href="#accessing-skidl">Accessing SKiDL</a></li>
@@ -323,16 +324,14 @@ do the PCB layout:</p>
     (net (code 3) (name VO)
       (node (ref R1) (pin 2))
       (node (ref R2) (pin 1))))
-)```
+)
+</code></pre></div></div>
 
+<h1 id="installation">Installation</h1>
 
+<p>SKiDL is pure Python so it’s easy to install:</p>
 
-# Installation
-
-SKiDL is pure Python so it's easy to install:
-
-```bash
-$ pip install skidl
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>pip <span class="nb">install </span>skidl
 </code></pre></div></div>
 
 <p>To give SKiDL some part libraries to work with,
