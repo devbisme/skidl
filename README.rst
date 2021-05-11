@@ -38,8 +38,8 @@ Features
 * Can perform SPICE simulations (Python 3 only).
 * Takes advantage of all the benefits of the Python ecosystem (because it *is* Python).
 
-As a very simple example (and you can see more examples in the 
-`SKiDL blog <https://xesscorp.github.io/skidl/docs/_site/blog/>`_),
+As a very simple example (see more in the 
+`blog <https://xesscorp.github.io/skidl/docs/_site/blog/>`_),
 the SKiDL program below describes a 
 `two-input AND gate <https://raw.githubusercontent.com/nturley/netlistsvg/master/doc/and.svg?sanitize=true>`_
 built from discrete transistors:
@@ -61,7 +61,7 @@ built from discrete transistors:
     # Instantiate parts.
     gndt = Part("power", "GND")             # Ground terminal.
     vcct = Part("power", "VCC")             # Power terminal.
-    q1, q2 = q(2)                           # Two trasnsistors.
+    q1, q2 = q(2)                           # Two transistors.
     r1, r2, r3, r4, r5 = r(5, value="10K")  # Five 10K resistors.
 
     # Make connections between parts.
