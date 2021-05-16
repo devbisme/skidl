@@ -271,6 +271,9 @@ class Part(SkidlBaseObject):
         for k, v in list(kwargs.items()):
             setattr(self, k, v)
 
+        # If any pins were added, make sure they're associated with the part.
+        self.associate_pins()
+
     def add_xspice_io(self, io):
         """
         Add XSPICE I/O to the pins of a part.
