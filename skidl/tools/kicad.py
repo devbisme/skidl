@@ -35,13 +35,14 @@ from builtins import dict, int, range, str, zip
 from collections import namedtuple
 
 from future import standard_library
+import kinet2pcb  # For creating KiCad PCB directly from Circuit object.
 
 from ..common import *
 from ..coord import *
 from ..defines import *
 from ..logger import logger
 from ..pckg_info import __version__
-from ..scriptinfo import scriptinfo
+from ..scriptinfo import scriptinfo, get_script_name
 from ..utilities import *
 
 standard_library.install_aliases()
@@ -981,6 +982,12 @@ def _gen_netlist_net_(self):
         txt += "\n      (node (ref {part_ref}) (pin {pin_num}))".format(**locals())
     txt += ")"
     return txt
+
+
+def _gen_pcb_(self, file_):
+    """Create a KiCad PCB file directly from a Circuit object."""
+    file_ = file_ or (get_script_name() + ".kicad_pcb")
+    kinet2pcb.kinet2pcb(self, file_)
 
 
 def _gen_xml_(self):

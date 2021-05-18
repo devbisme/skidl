@@ -76,6 +76,7 @@ for module in os.listdir(directory):
         (circuit.Circuit, "_gen_netlist_"),
         (part.Part, "_gen_netlist_comp_"),
         (net.Net, "_gen_netlist_net_"),
+        (circuit.Circuit, "_gen_pcb_"),
         (circuit.Circuit, "_gen_xml_"),
         (part.Part, "_gen_xml_comp_"),
         (net.Net, "_gen_xml_net_"),

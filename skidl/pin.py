@@ -652,6 +652,11 @@ class Pin(SkidlBaseObject):
         except AttributeError:
             pass
 
+    @property
+    def ref(self):
+        """Return the reference of the part the pin belongs to."""
+        return self.part.ref
+
     def __bool__(self):
         """Any valid Pin is True."""
         return True

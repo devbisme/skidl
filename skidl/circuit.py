@@ -558,6 +558,70 @@ class Circuit(SkidlBaseObject):
 
         return netlist
 
+    def generate_pcb(self, **kwargs):
+        """
+        Create a PCB file from the circuit.
+
+        Args:
+            file_: Either a file object that can be written to, or a string
+                containing a file name, or None.
+            tool: The EDA tool the netlist will be generated for.
+            do_backup: If true, create a library with all the parts in the circuit.
+
+        Returns:
+            None.
+        """
+
+        from . import skidl
+
+        # Reset the counters to clear any warnings/errors from previous run.
+        logger.error.reset()
+        logger.warning.reset()
+
+        self._preprocess()
+
+        # Extract arguments:
+        #     Get EDA tool the netlist will be generated for.
+        #     Get file the netlist will be stored in (if any).
+        #     Get flag controlling the generation of a backup library.
+        tool = kwargs.pop("tool", skidl.get_default_tool())
+        file_ = kwargs.pop("file_", None)
+        do_backup = kwargs.pop("do_backup", True)
+
+        if not self.no_files:
+            try:
+                gen_func = getattr(self, "_gen_pcb_{}".format(tool))
+            except KeyError:
+                log_and_raise(
+                    logger,
+                    ValueError,
+                    "Can't generate PCB in an unknown ECAD tool format ({}).".format(
+                        tool
+                    ),
+                )
+            else:
+                if do_backup:
+                    self.backup_parts()  # Create a new backup lib for the circuit parts.
+                    global backup_lib  # Clear out any old backup lib so the new one
+                    backup_lib = None  #   will get reloaded when it's needed.
+                gen_func(file_)  # Generate the PCB file from the netlist.
+
+        if (logger.error.count, logger.warning.count) == (0, 0):
+            sys.stderr.write(
+                "\nNo errors or warnings found while creating PCB.\n\n"
+            )
+        else:
+            sys.stderr.write(
+                "\n{} warnings found while creating PCB.\n".format(
+                    logger.warning.count
+                )
+            )
+            sys.stderr.write(
+                "{} errors found while creating PCB.\n\n".format(
+                    logger.error.count
+                )
+            )
+
     def generate_xml(self, file_=None, tool=None):
         """
         Return netlist as an XML string and also write it to a file/stream.
