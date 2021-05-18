@@ -96,11 +96,6 @@ callback([
   } ,
 
   {
-    "text": "Automatic Schematic!",
-    "href": "https://xesscorp.github.io/skidl/docs/_site/blog/automatic-schematic"
-  } ,
-
-  {
     "text": "1.0",
     "href": "https://xesscorp.github.io/skidl/docs/_site/blog/one-dot-oh"
   } 

@@ -9,14 +9,6 @@
 		} ,
 	
 		{
-		  "title"      : "Automatic Schematic!",
-		  "category"   : "blog",
-		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/automatic-schematic",
-		  "date"       : "2020-09-24 11:01:10 -0400",
-		  "shortdate"  : "September 24, 2020"
-		} ,
-	
-		{
 		  "title"      : "Customized ERC!",
 		  "category"   : "blog",
 		  "url"        : "https://xesscorp.github.io/skidl/docs/_site/blog/custom-erc",
