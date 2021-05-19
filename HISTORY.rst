@@ -3,6 +3,12 @@
 History
 -------
 
+1.0.1 (YYYY-MM-DD)
+______________________
+
+- Added `generate_pcb()` function to create a PCB file directly from
+  a `Circuit` object. (Currently only works for KiCad.)
+
 1.0.0 (2021-05-09)
 ______________________
 
