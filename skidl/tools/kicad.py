@@ -35,7 +35,6 @@ from builtins import dict, int, range, str, zip
 from collections import namedtuple
 
 from future import standard_library
-import kinet2pcb  # For creating KiCad PCB directly from Circuit object.
 
 from ..common import *
 from ..coord import *
@@ -986,6 +985,13 @@ def _gen_netlist_net_(self):
 
 def _gen_pcb_(self, file_):
     """Create a KiCad PCB file directly from a Circuit object."""
+
+    # Keep the import in here so it doesn't get triggered unless this is used
+    # so it eases some problems with tox testing.
+    # It requires pcbnew module which may not be present or may be for the
+    # wrong Python version (2 vs. 3).
+    import kinet2pcb  # For creating KiCad PCB directly from Circuit object.
+
     file_ = file_ or (get_script_name() + ".kicad_pcb")
     kinet2pcb.kinet2pcb(self, file_)
 

@@ -123,6 +123,11 @@ class Part(SkidlBaseObject):
         part_defn: A list of strings that define the part (usually read from a
             schematic library file).
         circuit: The Circuit object this Part belongs to.
+        ref_prefix: Prefix for part references such as 'U' or 'J'.
+        ref: A specific part reference to be assigned.
+        tag: A specific tag to tie the part to its footprint in the PCB.
+        pin_splitters: String of characters that split long pin names into shorter aliases.
+        tool_version: Select between KiCad V5 and V6.
 
     Keyword Args:
         kwargs: Name/value pairs for setting attributes for the part.
@@ -146,6 +151,11 @@ class Part(SkidlBaseObject):
         connections=None,
         part_defn=None,
         circuit=None,
+        ref_prefix='U',
+        ref=None,
+        tag=None,
+        pin_splitters=None,
+        tool_version=None,
         **kwargs
     ):
 
@@ -166,17 +176,10 @@ class Part(SkidlBaseObject):
         self.name = name  # Assign initial part name.
         self.description = ""  # Make sure there is a description, even if empty.
         self._ref = ""  # Provide a member for holding a reference.
-        self.ref_prefix = ""  # Provide a member for holding the part reference prefix.
+        self.ref_prefix = ref_prefix  # Store the part reference prefix.
         self.tool = tool  # Initial type of part (SKIDL, KICAD, etc.)
         self.circuit = None  # Part starts off unassociated with any circuit.
         self.match_pin_regex = False  # Don't allow regex matches of pin names.
-
-        # Remove a part reference if it has been explicitly set as None.
-        # Otherwise, this causes the assigned part reference to be incremented twice:
-        # once by Circuit.add_parts() and again by setattr().
-        ref = kwargs.pop("ref", None)
-        if ref:
-            kwargs["ref"] = ref
 
         # Create a Part from a library entry.
         if lib:
@@ -219,7 +222,6 @@ class Part(SkidlBaseObject):
 
             # If given, set the tool version before parsing the part definition.
             # At this time, this is done to support differences between KiCad V5 and V6.
-            tool_version = kwargs.pop("tool_version", None)
             if tool_version:
                 self.tool_version = tool_version
 
@@ -238,15 +240,12 @@ class Part(SkidlBaseObject):
             )
 
         # Split multi-part pin names into individual pin aliases.
-        self.split_pin_names(kwargs.pop("pin_splitters", None))
+        self.split_pin_names(pin_splitters)
 
         # Setup the tag for tieing the part to a footprint in a pcb editor.
-        # Use the user specified tag if present.
-        tag = kwargs.pop("tag", None)
-        if tag is not None:
-            self.tag = tag
-        else:
-            self.tag = str(randint(0, 2 ** 64 - 1))
+        # Do this before adding the part to the circuit or an exception will occur
+        # because the part can't give its hierarchical name to the circuit.
+        self.tag = tag or str(randint(0, 2 ** 64 - 1))
 
         if dest != LIBRARY:
             if dest == NETLIST:
@@ -266,6 +265,10 @@ class Part(SkidlBaseObject):
 
         # Add any XSPICE I/O as pins. (This only happens with SPICE simulations.)
         self.add_xspice_io(kwargs.pop("io", []))
+
+        # Set the part reference if one was explicitly provided.
+        if ref:
+            self.ref = ref
 
         # Add any other passed-in attributes to the part.
         for k, v in list(kwargs.items()):

@@ -6,9 +6,9 @@ from .setup_teardown import *
 
 
 class Resistor(Part):
-    def __init__(self, value, ref=None, footprint="Resistors_SMD:R_0805", **kwargs):
+    def __init__(self, value, ref=None, footprint="Resistors_SMD:R_0805", tag=None, **kwargs):
         super().__init__(
-            "Device", "R", value=value, ref=ref, footprint=footprint, **kwargs
+            "Device", "R", value=value, ref=ref, footprint=footprint, tag=tag, **kwargs
         )
 
 
