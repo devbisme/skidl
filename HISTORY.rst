@@ -3,7 +3,7 @@
 History
 -------
 
-1.0.1 (YYYY-MM-DD)
+1.1.0 (YYYY-MM-DD)
 ______________________
 
 - Added `generate_pcb()` function to create a PCB file directly from

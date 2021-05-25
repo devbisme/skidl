@@ -27,7 +27,7 @@ create a finished circuit board.
   - [Instantiating Parts](#instantiating-parts)
   - [Connecting Pins](#connecting-pins)
   - [Checking for Errors](#checking-for-errors)
-  - [Generating a Netlist](#generating-a-netlist)
+  - [Generating a Netlist or PCB](#generating-a-netlist-or-pcb)
 - [Going Deeper](#going-deeper)
   - [Basic SKiDL Objects: Parts, Pins, Nets, Buses](#basic-skidl-objects-parts-pins-nets-buses)
   - [Creating SKiDL Objects](#creating-skidl-objects)
@@ -550,7 +550,7 @@ No ERC errors or warnings found.
 ```
 
 
-## Generating a Netlist
+## Generating a Netlist or PCB
 
 The end goal of using SKiDL is to generate a netlist that can be used
 with a layout tool to generate a PCB. The netlist is output as follows:
@@ -606,6 +606,12 @@ You can also generate the netlist in XML format:
 This is useful in a KiCad environment where the XML file is used as the
 input to BOM-generation tools.
 
+If you're designing with KiCad and want to skip some steps, you can go from 
+SKiDL directly to a PCB using the `generate_pcb()` function.
+This will output a `.kicad_pcb` file that you can open in PCBNEW without
+having to import the netlist.
+But you will need to have KiCad installed since this option uses its 
+`pcbnew` Python library when building the PCB.
 
 
 # Going Deeper

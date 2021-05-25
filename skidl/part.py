@@ -104,13 +104,6 @@ class Part(SkidlBaseObject):
     """
     A class for storing a definition of a schematic part.
 
-    Attributes:
-        ref: String storing the reference of a part within a schematic (e.g., 'R5').
-        value: String storing the part value (e.g., '3K3').
-        footprint: String storing the PCB footprint associated with a part (e.g., SOIC-8).
-        pins: List of Pin objects for this part.
-        tag: A tag string to link a part to its footprint in a pcb editor.
-
     Args:
         lib: Either a SchLib object or a schematic part library file name.
         name: A string with name of the part to find in the library, or to assign to

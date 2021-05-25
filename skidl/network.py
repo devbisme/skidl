@@ -129,10 +129,12 @@ def tee(ntwk):
     Create a network "tee" by returning the first terminal of a Network object.
     Then you can create tee'ed networks like so: vi & r1 & r2 & tee(r3 & r4 & gnd) & r5 & gnd
     which becomes:
-    vi---r1---r2-+-r5---gnd
-                 |
-                 |
-                 r3---r4---gnd
+
+        vi---r1---r2-+-r5---gnd
+                    |
+                    |
+                    r3---r4---gnd
+
     """
     if not isinstance(ntwk, Network):
         # Convert an object into a Network if it isn't already.
