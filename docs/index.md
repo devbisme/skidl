@@ -763,22 +763,33 @@ copy an existing object. Here are some examples of creating a resistor and then 
 some copies of it:
 
 ```terminal
->>> r1 = Part("Device", 'R', value=500)
+>>> r1 = Part('Device', 'R', value=500)    # Add a resistor to the circuit.
 >>> r2 = r1.copy()                         # Make a single copy of the resistor.
 >>> r2_lst = r1.copy(1)                    # Make a single copy, but return it in a list.
 >>> r3 = r1.copy(value='1K')               # Make a single copy, but give it a different value.
 >>> r4 = r1(value='1K')                    # You can also call the object directly to make copies.
->>> r5, r6, r7 = r1(3)                     # Make 3 copies of the resistor.
->>> r8, r9, r10 = r1(value=[110,220,330])  # Make 3 copies, each with a different value.
+>>> r5, r6, r7 = r1(3, value='1K')         # Make three copies of a 1-KOhm resistor.
+>>> r8, r9, r10 = r1(value=[110,220,330])  # Make three copies, each with a different value.
 >>> r11, r12 = 2 * r1                      # Make copies using the '*' operator.
+>>> r13, r14 = 2 * r1(value='1K')          # This actually makes three 1-KOhm resistors!!!
 ```
+
+The last example demonstrates an unexpected result when using the `*` operator:
+
+1. The resistor is called with a value of 1-KOhm, creating a copy of the resistor with that value of resistance.
+2. The `*` operator is applied to the resistor *copy*, returning two more 1-KOhm resistors. Now the original resistor has been copied *three* times.
+3. The two new resistors returned by the `*` operator are assigned to `r13` and `r14`.
+
+After these operations, the second and third copies can be referenced, but any reference to
+the first copy has been lost so it just floats around, unconnected to anything, only to raise
+errors later when the ERC is run.
 
 In some cases it's clearer to create parts by copying a *template part* that
 doesn't actually get included in the netlist for the circuitry:
 
 ```terminal
->>> r_template = Part("Device", 'R', dest=TEMPLATE)  # Create a resistor just for copying.
->>> r1 = r_template(value='1K')  # Make copy that becomes part of the actual circuitry.
+>>> rt = Part('Device', 'R', dest=TEMPLATE)  # Create a resistor just for copying. It's not added to the circuit.
+>>> r1, r2, r3 = rt(3, value='1K')           # Make three 1-KOhm copies that become part of the actual circuitry.
 ```
 
 

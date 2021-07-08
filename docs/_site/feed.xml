@@ -5,26 +5,26 @@
 
 <title type="text">SKiDL</title>
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
-<link rel="self" type="application/atom+xml" href="http://localhost:4000/feed.xml" />
-<link rel="alternate" type="text/html" href="http://localhost:4000/" />
-<updated>2021-05-25T16:59:49-04:00</updated>
-<id>http://localhost:4000/</id>
+<link rel="self" type="application/atom+xml" href="https://xesscorp.github.io/skidl/docs/_site/feed.xml" />
+<link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/" />
+<updated>2021-07-08T10:33:24-04:00</updated>
+<id>https://xesscorp.github.io/skidl/docs/_site/</id>
 <author>
   <name>XESS Corp.</name>
-  <uri>http://localhost:4000/</uri>
+  <uri>https://xesscorp.github.io/skidl/docs/_site/</uri>
   <email>skidl@xess.com</email>
 </author>
 
 
 <entry>
   <title type="html"><![CDATA[1.0]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/one-dot-oh"/>
-  <id>http://localhost:4000/blog/one-dot-oh</id>
+  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/one-dot-oh"/>
+  <id>https://xesscorp.github.io/skidl/docs/_site/blog/one-dot-oh</id>
   <published>2021-05-09T11:01:10-04:00</published>
   <updated>2021-05-09T11:01:10-04:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>http://localhost:4000</uri>
+    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
     <email>skidl@xess.com</email>
   </author>
   
@@ -54,19 +54,19 @@ And hopefully these changes will be corrective, not disruptive.&lt;/p&gt;
 &lt;p&gt;Now, on to Phase 2!&lt;/p&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/one-dot-oh&quot;&gt;1.0&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://localhost:4000&quot;&gt;SKiDL&lt;/a&gt; on May 09, 2021.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/one-dot-oh&quot;&gt;1.0&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on May 09, 2021.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Customized ERC!]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/custom-erc"/>
-  <id>http://localhost:4000/blog/custom-erc</id>
+  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/custom-erc"/>
+  <id>https://xesscorp.github.io/skidl/docs/_site/blog/custom-erc</id>
   <published>2020-05-29T11:01:10-04:00</published>
   <updated>2020-05-29T11:01:10-04:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>http://localhost:4000</uri>
+    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
     <email>skidl@xess.com</email>
   </author>
   
@@ -277,19 +277,19 @@ If you have questions or problems, please ask on the
 raise an &lt;a href=&quot;https://github.com/xesscorp/skidl/issues&quot;&gt;issue&lt;/a&gt;.&lt;/p&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/custom-erc&quot;&gt;Customized ERC!&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://localhost:4000&quot;&gt;SKiDL&lt;/a&gt; on May 29, 2020.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/custom-erc&quot;&gt;Customized ERC!&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on May 29, 2020.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Good Things Come In Packages!]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/package-decorator"/>
-  <id>http://localhost:4000/blog/package-decorator</id>
+  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/package-decorator"/>
+  <id>https://xesscorp.github.io/skidl/docs/_site/blog/package-decorator</id>
   <published>2020-05-27T11:01:10-04:00</published>
   <updated>2020-05-27T11:01:10-04:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>http://localhost:4000</uri>
+    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
     <email>skidl@xess.com</email>
   </author>
   
@@ -443,19 +443,19 @@ If you have questions or problems, please ask on the
 raise an &lt;a href=&quot;https://github.com/xesscorp/skidl/issues&quot;&gt;issue&lt;/a&gt;.&lt;/p&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/package-decorator&quot;&gt;Good Things Come In Packages!&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://localhost:4000&quot;&gt;SKiDL&lt;/a&gt; on May 27, 2020.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/package-decorator&quot;&gt;Good Things Come In Packages!&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on May 27, 2020.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[New SKiDL Forum!]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/skidl-forum"/>
-  <id>http://localhost:4000/blog/skidl-forum</id>
+  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/skidl-forum"/>
+  <id>https://xesscorp.github.io/skidl/docs/_site/blog/skidl-forum</id>
   <published>2020-05-20T11:01:10-04:00</published>
   <updated>2020-05-20T11:01:10-04:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>http://localhost:4000</uri>
+    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
     <email>skidl@xess.com</email>
   </author>
   
@@ -471,19 +471,19 @@ than opening issues on the SKiDL GitHub repo.&lt;/p&gt;
 &lt;p&gt;Give it a try and let me know what you think (&lt;strong&gt;on the forum, of course&lt;/strong&gt;)!&lt;/p&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/skidl-forum&quot;&gt;New SKiDL Forum!&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://localhost:4000&quot;&gt;SKiDL&lt;/a&gt; on May 20, 2020.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/skidl-forum&quot;&gt;New SKiDL Forum!&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on May 20, 2020.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Version 0.0.30 Released!]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/Release_0_0_30"/>
-  <id>http://localhost:4000/blog/version-0-0-30-release</id>
+  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/Release_0_0_30"/>
+  <id>https://xesscorp.github.io/skidl/docs/_site/blog/version-0-0-30-release</id>
   <published>2020-05-16T11:01:10-04:00</published>
   <updated>2020-05-16T11:01:10-04:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>http://localhost:4000</uri>
+    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
     <email>skidl@xess.com</email>
   </author>
   
@@ -502,19 +502,19 @@ It has some new features I’m excited about:&lt;/p&gt;
 &lt;p&gt;I’ll have some upcoming blog posts about these in the near future.&lt;/p&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/Release_0_0_30&quot;&gt;Version 0.0.30 Released!&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://localhost:4000&quot;&gt;SKiDL&lt;/a&gt; on May 16, 2020.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/Release_0_0_30&quot;&gt;Version 0.0.30 Released!&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on May 16, 2020.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[xspice capability]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/xspice-capability"/>
-  <id>http://localhost:4000/blog/xspice-capability</id>
+  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/xspice-capability"/>
+  <id>https://xesscorp.github.io/skidl/docs/_site/blog/xspice-capability</id>
   <published>2020-01-30T09:01:10-05:00</published>
   <updated>2020-01-30T09:01:10-05:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>http://localhost:4000</uri>
+    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
     <email>skidl@xess.com</email>
   </author>
   
@@ -525,19 +525,19 @@ That wasn’t possible since &lt;a href=&quot;https://pyspice.fabrice-salvaire.f
 So I added XSPICE parts to the &lt;a href=&quot;https://github.com/xesscorp/skidl/blob/master/examples/spice-sim-intro/spice-sim-intro.ipynb&quot;&gt;SKiDL SPICE interface&lt;/a&gt; and released it as &lt;a href=&quot;https://pypi.org/project/skidl/&quot;&gt;SKiDL 0.0.29&lt;/a&gt;.&lt;/p&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/xspice-capability&quot;&gt;xspice capability&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://localhost:4000&quot;&gt;SKiDL&lt;/a&gt; on January 30, 2020.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/xspice-capability&quot;&gt;xspice capability&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on January 30, 2020.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Version 0.0.28 Released!]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/Release_0_0_28"/>
-  <id>http://localhost:4000/blog/version-0-0-28-released</id>
+  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/Release_0_0_28"/>
+  <id>https://xesscorp.github.io/skidl/docs/_site/blog/version-0-0-28-released</id>
   <published>2019-12-17T07:57:17-05:00</published>
   <updated>2019-12-17T07:57:17-05:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>http://localhost:4000</uri>
+    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
     <email>skidl@xess.com</email>
   </author>
   
@@ -559,19 +559,19 @@ I mean it this time.
 Really.&lt;/p&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/Release_0_0_28&quot;&gt;Version 0.0.28 Released!&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://localhost:4000&quot;&gt;SKiDL&lt;/a&gt; on December 17, 2019.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/Release_0_0_28&quot;&gt;Version 0.0.28 Released!&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on December 17, 2019.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Version 0.0.27 Released!]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/Release_0_0_27"/>
-  <id>http://localhost:4000/blog/version-0-0-27-released</id>
+  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/Release_0_0_27"/>
+  <id>https://xesscorp.github.io/skidl/docs/_site/blog/version-0-0-27-released</id>
   <published>2019-12-16T07:57:17-05:00</published>
   <updated>2019-12-16T07:57:17-05:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>http://localhost:4000</uri>
+    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
     <email>skidl@xess.com</email>
   </author>
   
@@ -588,19 +588,19 @@ I didn’t quite get everything I wanted into a useable state
 release what I had to fix some existing bugs.&lt;/p&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/Release_0_0_27&quot;&gt;Version 0.0.27 Released!&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://localhost:4000&quot;&gt;SKiDL&lt;/a&gt; on December 16, 2019.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/Release_0_0_27&quot;&gt;Version 0.0.27 Released!&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on December 16, 2019.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[The Worst Part of SKiDL]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/worst-part-of-skidl"/>
-  <id>http://localhost:4000/blog/the-worst-part-of-skidl</id>
+  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/worst-part-of-skidl"/>
+  <id>https://xesscorp.github.io/skidl/docs/_site/blog/the-worst-part-of-skidl</id>
   <published>2019-09-30T12:10:08-04:00</published>
   <updated>2019-09-30T12:10:08-04:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>http://localhost:4000</uri>
+    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
     <email>skidl@xess.com</email>
   </author>
   
@@ -643,7 +643,7 @@ available libraries and parts and select the one you need.
 To make the list of parts more manageable, a &lt;em&gt;filter&lt;/em&gt; field can be
 used so only those parts containing a particular text string will show up.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/the-worst-part-of-skidl/symbol_chooser.png&quot; width=&quot;600&quot; alt=&quot;EESCHEMA schematic symbol chooser.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/the-worst-part-of-skidl/symbol_chooser.png&quot; width=&quot;600&quot; alt=&quot;EESCHEMA schematic symbol chooser.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Once you’ve selected a part, placing its symbol in the schematic will provide
 named pins where graphical signal nets can be attached. So that handles the I/O problem.&lt;/p&gt;
@@ -651,7 +651,7 @@ named pins where graphical signal nets can be attached. So that handles the I/O 
 &lt;p&gt;Finally, after your schematic is finished, there’s a &lt;em&gt;footprint assigner&lt;/em&gt; where you can
 select and assign a physical footprint to go with each part symbol.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/the-worst-part-of-skidl/cvpcb.png&quot; width=&quot;600&quot; alt=&quot;EESCHEMA part footprint assigner.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/the-worst-part-of-skidl/cvpcb.png&quot; width=&quot;600&quot; alt=&quot;EESCHEMA part footprint assigner.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;These integrated, schematic-based tools aren’t available when using SKiDL.
 A kludgy way to do something similar is to pull up the KiCad symbol editor and use it
@@ -697,7 +697,7 @@ that delivered the result as text strings to enter into SKiDL code.
 So I built it: &lt;a href=&quot;https://pypi.org/project/zyc/&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;zyc&lt;/code&gt;&lt;/a&gt;.
 (If you prefer a video tour of &lt;code class=&quot;highlighter-rouge&quot;&gt;zyc&lt;/code&gt;, then &lt;a href=&quot;https://youtu.be/YmRXruDYu3w&quot;&gt;here&lt;/a&gt; it is.)&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/the-worst-part-of-skidl/zyc.png&quot; width=&quot;600&quot; alt=&quot;zyc part &amp;amp; footprint assigner.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/the-worst-part-of-skidl/zyc.png&quot; width=&quot;600&quot; alt=&quot;zyc part &amp;amp; footprint assigner.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;zyc&lt;/code&gt; has two, cooperating panes: a part is searched for and selected in the top pane, and then the
 same is done for a footprint in the bottom pane. Then you can paste a SKiDL &lt;code class=&quot;highlighter-rouge&quot;&gt;Part(...)&lt;/code&gt; instantiation
@@ -706,7 +706,7 @@ with the part and footprint into a code editing window.&lt;/p&gt;
 &lt;p&gt;To use &lt;code class=&quot;highlighter-rouge&quot;&gt;zyc&lt;/code&gt;, start off by typing some search terms describing the part you want
 into the upper text-entry box (1) and hit &lt;code class=&quot;highlighter-rouge&quot;&gt;RETURN&lt;/code&gt; or click the &lt;code class=&quot;highlighter-rouge&quot;&gt;Search&lt;/code&gt; button (2).&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/the-worst-part-of-skidl/zyc-part-search-terms.png&quot; width=&quot;600&quot; alt=&quot;Entering part search terms in zyc.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/the-worst-part-of-skidl/zyc-part-search-terms.png&quot; width=&quot;600&quot; alt=&quot;Entering part search terms in zyc.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;zyc&lt;/code&gt; will scan through all the available parts looking for your search terms in the library names and
 the part names, aliases, descriptions, and keywords. (This initial search takes 20-30 seconds, but
@@ -716,7 +716,7 @@ Any matching parts are displayed in the Library/Part table (1).
 Clicking on a row in the table (2) displays the part’s description and keywords (3), datasheet hyperlink (4), and
 I/O pin table (5) on the right-side of the pane.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/the-worst-part-of-skidl/zyc-part-search-results.png&quot; width=&quot;600&quot; alt=&quot;zyc part search results.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/the-worst-part-of-skidl/zyc-part-search-results.png&quot; width=&quot;600&quot; alt=&quot;zyc part search results.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Selecting a part also loads the footprint search text-entry box (6) with an initial set of search terms formed from
 the part’s list of recommended footprints plus the number of part pins.
@@ -732,12 +732,12 @@ In this case, there is only one.
 Selecting it makes the footprint description appear (2) as well as a drawing of the footprint (3).
 (If a hyperlink for the package datasheet was available, that would show up as well.)&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/the-worst-part-of-skidl/zyc-fp-search-results.png&quot; width=&quot;600&quot; alt=&quot;zyc footprint search results.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/the-worst-part-of-skidl/zyc-fp-search-results.png&quot; width=&quot;600&quot; alt=&quot;zyc footprint search results.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Once a part and footprint are selected, you can click on the &lt;code class=&quot;highlighter-rouge&quot;&gt;Copy&lt;/code&gt; button in the upper panel (1)
 to place a &lt;code class=&quot;highlighter-rouge&quot;&gt;Part(...)&lt;/code&gt; instantiation on the clipboard.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/the-worst-part-of-skidl/zyc-part-fp-copy.png&quot; width=&quot;600&quot; alt=&quot;zyc footprint search results.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/the-worst-part-of-skidl/zyc-part-fp-copy.png&quot; width=&quot;600&quot; alt=&quot;zyc footprint search results.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Then you can go anywhere (such as your code editor) and paste the clipboard contents to get the part
 instantiation:&lt;/p&gt;
@@ -756,7 +756,7 @@ gets placed on the clipboard and appears as follows:&lt;/p&gt;
 &lt;p&gt;To make it easier to connect the pins, &lt;code class=&quot;highlighter-rouge&quot;&gt;zyc&lt;/code&gt; lets you select the names from the pin list column (1).
 Right-clicking on the table copies whatever is selected to the clipboard.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/the-worst-part-of-skidl/zyc-pin-copy.png&quot; width=&quot;600&quot; alt=&quot;zyc part pin copy.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/the-worst-part-of-skidl/zyc-pin-copy.png&quot; width=&quot;600&quot; alt=&quot;zyc part pin copy.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Then the pin names can be pasted it into the code editor:&lt;/p&gt;
 
@@ -785,7 +785,7 @@ before selecting and pasting them.
 Using an FPGA as an example, double-clicking the &lt;code class=&quot;highlighter-rouge&quot;&gt;Unit&lt;/code&gt; column (1)
 orders the table so you can select all the I/O pins in one of its banks (2).&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/the-worst-part-of-skidl/zyc-pin-sort.png&quot; width=&quot;600&quot; alt=&quot;zyc part pin sort.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/the-worst-part-of-skidl/zyc-pin-sort.png&quot; width=&quot;600&quot; alt=&quot;zyc part pin sort.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Then the pins can be pasted:&lt;/p&gt;
 
@@ -900,7 +900,7 @@ where KiCad installs it on various OSes.
 You can also add or change the directories that are searched for part libraries (1) or for
 &lt;code class=&quot;highlighter-rouge&quot;&gt;fp_lib_table&lt;/code&gt; files (2) using the menu items below:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/the-worst-part-of-skidl/zyc-path-setup.png&quot; width=&quot;600&quot; alt=&quot;zyc path setup.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/the-worst-part-of-skidl/zyc-path-setup.png&quot; width=&quot;600&quot; alt=&quot;zyc path setup.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;It may happen that you change some part libraries or add more footprint files while &lt;code class=&quot;highlighter-rouge&quot;&gt;zyc&lt;/code&gt; is
 running. If so, you’ll want to refresh the part and footprint caches (3).&lt;/p&gt;
@@ -914,19 +914,19 @@ running. If so, you’ll want to refresh the part and footprint caches (3).&lt;/
 
 
   
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/worst-part-of-skidl&quot;&gt;The Worst Part of SKiDL&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://localhost:4000&quot;&gt;SKiDL&lt;/a&gt; on September 30, 2019.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/worst-part-of-skidl&quot;&gt;The Worst Part of SKiDL&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on September 30, 2019.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[SKiDL at KiCon 2019]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/skidl-kicon-2019"/>
-  <id>http://localhost:4000/blog/skidl-at-kicon-2019</id>
+  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/skidl-kicon-2019"/>
+  <id>https://xesscorp.github.io/skidl/docs/_site/blog/skidl-at-kicon-2019</id>
   <published>2019-06-12T09:27:24-04:00</published>
   <updated>2019-06-12T09:27:24-04:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>http://localhost:4000</uri>
+    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
     <email>skidl@xess.com</email>
   </author>
   
@@ -960,19 +960,19 @@ there’s a bunch of other great KiCon talks in this
 &lt;a href=&quot;https://www.youtube.com/channel/UCkJRycUz2CylxpiP-zMePow&quot;&gt;list&lt;/a&gt;.&lt;/p&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/skidl-kicon-2019&quot;&gt;SKiDL at KiCon 2019&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://localhost:4000&quot;&gt;SKiDL&lt;/a&gt; on June 12, 2019.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/skidl-kicon-2019&quot;&gt;SKiDL at KiCon 2019&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on June 12, 2019.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Sweetening SKiDL]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/sweetening-skidl"/>
-  <id>http://localhost:4000/blog/sweetening-skidl</id>
+  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/sweetening-skidl"/>
+  <id>https://xesscorp.github.io/skidl/docs/_site/blog/sweetening-skidl</id>
   <published>2018-09-03T19:59:47-04:00</published>
   <updated>2018-09-03T19:59:47-04:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>http://localhost:4000</uri>
+    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
     <email>skidl@xess.com</email>
   </author>
   
@@ -1021,14 +1021,14 @@ SKiDL syntax:&lt;/p&gt;
 &lt;span class=&quot;n&quot;&gt;ser_ntwk&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r4&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/sweetening-skidl/ser_ntwk.png&quot; alt=&quot;Serial Network&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/sweetening-skidl/ser_ntwk.png&quot; alt=&quot;Serial Network&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Here are four resistors wired in parallel:&lt;/p&gt;
 
 &lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;par_ntwk&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r4&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/sweetening-skidl/par_ntwk.png&quot; alt=&quot;Parallel Network&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/sweetening-skidl/par_ntwk.png&quot; alt=&quot;Parallel Network&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Or you can do something like placing pairs of resistors in series and then paralleling
 those combinations like this:&lt;/p&gt;
@@ -1036,7 +1036,7 @@ those combinations like this:&lt;/p&gt;
 &lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;combo_ntwk&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/sweetening-skidl/combo_ntwk.png&quot; alt=&quot;Parallel+Serial Network&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/sweetening-skidl/combo_ntwk.png&quot; alt=&quot;Parallel+Serial Network&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;In addition to connecting parts, the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;|&lt;/code&gt; operators also work with nets.
 This lets you apply inputs and extract outputs by attaching nets to nodes in the network.
@@ -1047,7 +1047,7 @@ to generate an output voltage:&lt;/p&gt;
 &lt;span class=&quot;n&quot;&gt;vdiv_ntwk&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gnd&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/sweetening-skidl/vdiv_ntwk.png&quot; alt=&quot;Voltage-Divider Network&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/sweetening-skidl/vdiv_ntwk.png&quot; alt=&quot;Voltage-Divider Network&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;You could do the same thing using a single pin instead of a net.
 Here’s the voltage divider attached directly to a pin of a microcontroller:&lt;/p&gt;
@@ -1056,7 +1056,7 @@ Here’s the voltage divider attached directly to a pin of a microcontroller:&lt
 &lt;span class=&quot;n&quot;&gt;pin_ntwk&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pic10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'RA3'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gnd&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/sweetening-skidl/micro_ntwk.png&quot; alt=&quot;Voltage-Divider Network for Microcontroller&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/sweetening-skidl/micro_ntwk.png&quot; alt=&quot;Voltage-Divider Network for Microcontroller&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The examples above work with &lt;em&gt;non-polarized&lt;/em&gt; components, but what about &lt;em&gt;polarized&lt;/em&gt; parts
 like diodes and electrolytic capacitors? For those, you have to specify the 
@@ -1068,7 +1068,7 @@ second pin to the following part like so:&lt;/p&gt;
 &lt;span class=&quot;n&quot;&gt;polar_ntwk&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vcc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'A,K'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gnd&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# Diode anode connected to resistor and cathode to ground.
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/sweetening-skidl/polar_ntwk.png&quot; alt=&quot;Polar network&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/sweetening-skidl/polar_ntwk.png&quot; alt=&quot;Polar network&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Explicitly listing the pins also lets you use multi-pin parts with networks.
 For example, here’s an NPN-transistor amplifier built using two networks:
@@ -1082,12 +1082,12 @@ and another for applying the input to the base.&lt;/p&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ntwk_b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;q1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'B'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# Connect net inp to the resistor driving the transistor base.
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/sweetening-skidl/trans_ntwk.png&quot; alt=&quot;Transistor Amplifier&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/sweetening-skidl/trans_ntwk.png&quot; alt=&quot;Transistor Amplifier&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Not all networks are composed of parts in series or parallel.
 For example, here’s a &lt;a href=&quot;https://www.eeweb.com/tools/pi-match&quot;&gt;&lt;em&gt;Pi matching network&lt;/em&gt;&lt;/a&gt;:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/sweetening-skidl/pi_ntwk.png&quot; alt=&quot;Pi Matching Network&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/sweetening-skidl/pi_ntwk.png&quot; alt=&quot;Pi Matching Network&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;This could be described using the &lt;code class=&quot;highlighter-rouge&quot;&gt;tee()&lt;/code&gt; function like so:&lt;/p&gt;
 
@@ -1172,19 +1172,19 @@ with &lt;code class=&quot;highlighter-rouge&quot;&gt;p&lt;/code&gt;:&lt;/p&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/sweetening-skidl&quot;&gt;Sweetening SKiDL&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://localhost:4000&quot;&gt;SKiDL&lt;/a&gt; on September 03, 2018.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/sweetening-skidl&quot;&gt;Sweetening SKiDL&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on September 03, 2018.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Others Use It, Too!]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/others-use-it-too"/>
-  <id>http://localhost:4000/blog/others-use-it-too</id>
+  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/others-use-it-too"/>
+  <id>https://xesscorp.github.io/skidl/docs/_site/blog/others-use-it-too</id>
   <published>2018-07-29T10:26:18-04:00</published>
   <updated>2018-07-29T10:26:18-04:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>http://localhost:4000</uri>
+    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
     <email>skidl@xess.com</email>
   </author>
   
@@ -1198,7 +1198,7 @@ Here are two examples.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://github.com/mossmann/blinkenface&quot;&gt;Blinkenface&lt;/a&gt; is a version of “LED glasses”
 made with a cascaded string of APA102 RGB LEDs controlled through an SPI interface:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/others-use-it-too/blinkenface_pcb.png&quot; alt=&quot;Blinkenface PCB&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/others-use-it-too/blinkenface_pcb.png&quot; alt=&quot;Blinkenface PCB&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Th majority of Blinkenface is just a repetitive connection of one APA102 to the
 next one in line: perfect for a loop construct!
@@ -1437,19 +1437,19 @@ whatever you want.&lt;/p&gt;
 If you have used SKiDL for something, &lt;a href=&quot;mailto:skidl@xess.com&quot;&gt;drop me a line&lt;/a&gt; and let me know.&lt;/p&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/others-use-it-too&quot;&gt;Others Use It, Too!&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://localhost:4000&quot;&gt;SKiDL&lt;/a&gt; on July 29, 2018.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/others-use-it-too&quot;&gt;Others Use It, Too!&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on July 29, 2018.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Reusability Ain't What It Used To Be]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/reuse-leds"/>
-  <id>http://localhost:4000/blog/reuse-leds</id>
+  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/reuse-leds"/>
+  <id>https://xesscorp.github.io/skidl/docs/_site/blog/reuse-leds</id>
   <published>2018-05-15T23:00:23-04:00</published>
   <updated>2018-05-15T23:00:23-04:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>http://localhost:4000</uri>
+    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
     <email>skidl@xess.com</email>
   </author>
   
@@ -1562,7 +1562,7 @@ microcontroller unit like this:&lt;/p&gt;
 
 &lt;p&gt;And here’s a layout for the netlist that was generated:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/reuse-leds/leds2.png&quot; width=&quot;600&quot; alt=&quot;Common-cathode LEDs attached to PIC18F MCU.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/reuse-leds/leds2.png&quot; width=&quot;600&quot; alt=&quot;Common-cathode LEDs attached to PIC18F MCU.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;So far, so good. The module is even more general-purpose but it’s a bit cost-inefficient
 to use all those discrete resistors for limiting the LED current.
@@ -1575,9 +1575,9 @@ The next version of the module will remedy that.&lt;/p&gt;
 containing two, four, or eight independent resistors will lower
 the number of components and reduce assembly costs.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/reuse-leds/742c163.png&quot; width=&quot;200&quot; alt=&quot;An eight-resistor array.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/reuse-leds/742c163.png&quot; width=&quot;200&quot; alt=&quot;An eight-resistor array.&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/reuse-leds/resistor-pinouts.png&quot; width=&quot;600&quot; alt=&quot;Resistor pinouts.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/reuse-leds/resistor-pinouts.png&quot; width=&quot;600&quot; alt=&quot;Resistor pinouts.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The following code iteratively packs the resistors into one or more arrays
 until all the inputs are connected:&lt;/p&gt;
@@ -1666,7 +1666,7 @@ until all the inputs are connected:&lt;/p&gt;
 &lt;p&gt;From the layout, you can see the five current-limiting resistors have been packed into a four-resistor
 array and an additional discrete resistor:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/reuse-leds/leds4.png&quot; width=&quot;600&quot; alt=&quot;Common-anodes LEDs attached to PIC18F MCU.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/reuse-leds/leds4.png&quot; width=&quot;600&quot; alt=&quot;Common-anodes LEDs attached to PIC18F MCU.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Up to this point, all the components used in these modules have been hard-coded.
 While I might consider myself a great designer with impeccable taste in choosing parts,
@@ -1766,19 +1766,19 @@ with a single statement, conditional execution, iterative looping) make the
 creation of parameterized, general-purpose modules less tedious.&lt;/p&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/reuse-leds&quot;&gt;Reusability Ain't What It Used To Be&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://localhost:4000&quot;&gt;SKiDL&lt;/a&gt; on May 15, 2018.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/reuse-leds&quot;&gt;Reusability Ain't What It Used To Be&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on May 15, 2018.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Spice Simulation]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/spice-simulation"/>
-  <id>http://localhost:4000/blog/spice-simulation</id>
+  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/spice-simulation"/>
+  <id>https://xesscorp.github.io/skidl/docs/_site/blog/spice-simulation</id>
   <published>2018-02-07T10:23:43-05:00</published>
   <updated>2018-02-07T10:23:43-05:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>http://localhost:4000</uri>
+    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
     <email>skidl@xess.com</email>
   </author>
   
@@ -1789,19 +1789,19 @@ You can read about it
 &lt;a href=&quot;https://github.com/xesscorp/skidl/blob/master/examples/spice-sim-intro/spice-sim-intro.ipynb&quot;&gt;in this Jupyter notebook&lt;/a&gt;.&lt;/p&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/spice-simulation&quot;&gt;Spice Simulation&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://localhost:4000&quot;&gt;SKiDL&lt;/a&gt; on February 07, 2018.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/spice-simulation&quot;&gt;Spice Simulation&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on February 07, 2018.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[An Arduino With SKiDL]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/an-arduino-with-skidl"/>
-  <id>http://localhost:4000/blog/an-arduino-with-skidl</id>
+  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/an-arduino-with-skidl"/>
+  <id>https://xesscorp.github.io/skidl/docs/_site/blog/an-arduino-with-skidl</id>
   <published>2017-03-31T23:06:41-04:00</published>
   <updated>2017-03-31T23:06:41-04:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>http://localhost:4000</uri>
+    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
     <email>skidl@xess.com</email>
   </author>
   
@@ -1828,7 +1828,7 @@ descriptions, usage notes, etc.&lt;/li&gt;
   &lt;li&gt;It’s already done, which means I don’t have to do it.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/an-arduino-with-skidl/arduino-schematic.png&quot; width=&quot;800&quot; alt=&quot;A page of the Arduino schematic.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/an-arduino-with-skidl/arduino-schematic.png&quot; width=&quot;800&quot; alt=&quot;A page of the Arduino schematic.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;After loading the Arduino project with KiCad, the netlist for the design
 is exported by the Eeschema schematic editor using the &lt;code class=&quot;highlighter-rouge&quot;&gt;Tools =&amp;gt; Generate Netlist File...&lt;/code&gt;
@@ -1912,19 +1912,19 @@ Happy Arduino Day!&lt;/p&gt;
 &lt;p&gt;Really. I’m not joking.&lt;/p&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/an-arduino-with-skidl&quot;&gt;An Arduino With SKiDL&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://localhost:4000&quot;&gt;SKiDL&lt;/a&gt; on March 31, 2017.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/an-arduino-with-skidl&quot;&gt;An Arduino With SKiDL&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on March 31, 2017.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Two Easy Pieces]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/two-easy-pieces"/>
-  <id>http://localhost:4000/blog/two-easy-pieces</id>
+  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/two-easy-pieces"/>
+  <id>https://xesscorp.github.io/skidl/docs/_site/blog/two-easy-pieces</id>
   <published>2017-03-02T16:45:58-05:00</published>
   <updated>2017-03-02T16:45:58-05:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>http://localhost:4000</uri>
+    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
     <email>skidl@xess.com</email>
   </author>
   
@@ -1982,19 +1982,19 @@ with the command:&lt;/p&gt;
 &lt;p&gt;This stored the netlist into a file called &lt;code class=&quot;highlighter-rouge&quot;&gt;led_clock.net&lt;/code&gt;. 
 I imported the netlist into &lt;code class=&quot;highlighter-rouge&quot;&gt;PCBNEW&lt;/code&gt; which arranged the LEDs like this:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/two-easy-pieces/clock-initial-placement.png&quot; width=&quot;800&quot; alt=&quot;Initial placement of clock LEDs.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/two-easy-pieces/clock-initial-placement.png&quot; width=&quot;800&quot; alt=&quot;Initial placement of clock LEDs.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Obviously that doesn’t look much like a clock face, but DougE’s script should
 take care of that.
 I stored his script in a file called &lt;code class=&quot;highlighter-rouge&quot;&gt;place_and_route_led_clock.py&lt;/code&gt; in my top-level
 directory, and then executed it in &lt;code class=&quot;highlighter-rouge&quot;&gt;PCBNEW&lt;/code&gt;’s Python shell:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/two-easy-pieces/clock-python-shell.png&quot; width=&quot;800&quot; alt=&quot;Executing the clock LED placement script.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/two-easy-pieces/clock-python-shell.png&quot; width=&quot;800&quot; alt=&quot;Executing the clock LED placement script.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The script rearranged the LEDs and routed all the traces to create
 a clock face similar to the one above (except mine uses a smaller 0603 LED):&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/two-easy-pieces/clock-led-placement.png&quot; width=&quot;800&quot; alt=&quot;LEDs rearranged into a clock face.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/two-easy-pieces/clock-led-placement.png&quot; width=&quot;800&quot; alt=&quot;LEDs rearranged into a clock face.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;This SKiDL script is relatively simple because it uses only LEDs and the
 bus sizes are fixed for a particular clock face layout.
@@ -2007,7 +2007,7 @@ that forms a weighted sum of digital signals to create the analog
 red, green and blue signals which drive a monitor.
 The guts of the circuit are shown below:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/two-easy-pieces/vga-schematic.png&quot; width=&quot;600&quot; alt=&quot;VGA interface schematic.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/two-easy-pieces/vga-schematic.png&quot; width=&quot;600&quot; alt=&quot;VGA interface schematic.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;As it stands, this would be simple to implement in SKiDL.
 But why settle for a VGA interface with the red, green and blue color depths
@@ -2192,15 +2192,15 @@ with some connectors to build the complete VGA interface circuit:&lt;/p&gt;
 
 &lt;p&gt;Then it’s just a matter of running the script:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/two-easy-pieces/vga-python-cmd.png&quot; width=&quot;600&quot; alt=&quot;Running the VGA interface script.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/two-easy-pieces/vga-python-cmd.png&quot; width=&quot;600&quot; alt=&quot;Running the VGA interface script.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;And then importing the netlist into &lt;code class=&quot;highlighter-rouge&quot;&gt;PCBNEW&lt;/code&gt;:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/two-easy-pieces/vga-initial-placement.png&quot; width=&quot;800&quot; alt=&quot;Initial placement of VGA interface components.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/two-easy-pieces/vga-initial-placement.png&quot; width=&quot;800&quot; alt=&quot;Initial placement of VGA interface components.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;After the tedious work of placing parts and routing wires, the final VGA interface PCB layout appears:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/two-easy-pieces/vga-final.png&quot; width=&quot;800&quot; alt=&quot;Finished layout of VGA interface.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/two-easy-pieces/vga-final.png&quot; width=&quot;800&quot; alt=&quot;Finished layout of VGA interface.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Now, you could say this SKiDL script doesn’t qualify as an “easy piece”.
 There are some complications in the code, but that’s what usually happens when
@@ -2216,19 +2216,19 @@ And anyone else can use it in their designs,
 similar to how programmers insert calls to subroutine libraries into their code.&lt;/p&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/two-easy-pieces&quot;&gt;Two Easy Pieces&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://localhost:4000&quot;&gt;SKiDL&lt;/a&gt; on March 02, 2017.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/two-easy-pieces&quot;&gt;Two Easy Pieces&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on March 02, 2017.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Don't Replicate, Automate!]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/dont-replicate-automate"/>
-  <id>http://localhost:4000/blog/dont-replicate-automate</id>
+  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/dont-replicate-automate"/>
+  <id>https://xesscorp.github.io/skidl/docs/_site/blog/dont-replicate-automate</id>
   <published>2017-02-17T09:00:01-05:00</published>
   <updated>2017-02-17T09:00:01-05:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>http://localhost:4000</uri>
+    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
     <email>skidl@xess.com</email>
   </author>
   
@@ -2270,7 +2270,7 @@ placing hundreds of bypass caps.
 Here’s a section of a schematic showing just the bypass caps for a
 relatively small chip with around a dozen ground pins:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/dont-replicate-automate/bypass-caps.png&quot; alt=&quot;Schematic with bypass capacitors.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/dont-replicate-automate/bypass-caps.png&quot; alt=&quot;Schematic with bypass capacitors.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;And here’s the design process:&lt;/p&gt;
 
@@ -2416,19 +2416,19 @@ using SKiDL:&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Automation is pretty good stuff. (We should do more of it.)&lt;/strong&gt;&lt;/p&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/dont-replicate-automate&quot;&gt;Don't Replicate, Automate!&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://localhost:4000&quot;&gt;SKiDL&lt;/a&gt; on February 17, 2017.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/dont-replicate-automate&quot;&gt;Don't Replicate, Automate!&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on February 17, 2017.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[A Taste of Hierarchy]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/a-taste-of-hierarchy"/>
-  <id>http://localhost:4000/blog/a-taste-of-hierarchy</id>
+  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/a-taste-of-hierarchy"/>
+  <id>https://xesscorp.github.io/skidl/docs/_site/blog/a-taste-of-hierarchy</id>
   <published>2017-02-03T16:51:58-05:00</published>
   <updated>2017-02-03T16:51:58-05:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>http://localhost:4000</uri>
+    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
     <email>skidl@xess.com</email>
   </author>
   
@@ -2458,7 +2458,7 @@ Here’s what a SKiDL subcircuit for the crystal circuit looks like:&lt;/p&gt;
 &lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;@SubCircuit&lt;/code&gt; decorator handles some housekeeping that’s necessary to
 integrate the encapsulated circuit into the larger whole.
 That’s followed by a Python function containing SKiDL code for the subcircuit.
-(Look back at &lt;a href=&quot;http://localhost:4000/blog/building-a-usb-to-jtag-interface-using-skidl&quot;&gt;this post&lt;/a&gt;
+(Look back at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/building-a-usb-to-jtag-interface-using-skidl&quot;&gt;this post&lt;/a&gt;
 for a description of what this code does.)&lt;/p&gt;
 
 &lt;p&gt;Once the subcircuit is defined, all you need to do is call it somewhere within the
@@ -2554,7 +2554,7 @@ Python default parameters come to the rescue!&lt;/p&gt;
 &lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;osc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pic32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'OSC1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pic32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'OSC2'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gnd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Finally, here’s the &lt;a href=&quot;http://localhost:4000/files/a-taste-of-hierarchy/intfc_brd.py&quot;&gt;complete SKiDL program&lt;/a&gt; so you can see how it fits together:&lt;/p&gt;
+&lt;p&gt;Finally, here’s the &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/files/a-taste-of-hierarchy/intfc_brd.py&quot;&gt;complete SKiDL program&lt;/a&gt; so you can see how it fits together:&lt;/p&gt;
 
 &lt;figure class=&quot;code-highlight-figure&quot;&gt;&lt;div class=&quot;code-highlight&quot;&gt;&lt;pre class=&quot;code-highlight-pre&quot;&gt;&lt;div data-line=&quot;1&quot; class=&quot;code-highlight-row numbered&quot;&gt;&lt;div class=&quot;code-highlight-line&quot;&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;skidl&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
 &lt;/div&gt;&lt;/div&gt;&lt;div data-line=&quot;2&quot; class=&quot;code-highlight-row numbered&quot;&gt;&lt;div class=&quot;code-highlight-line&quot;&gt; &lt;/div&gt;&lt;/div&gt;&lt;div data-line=&quot;3&quot; class=&quot;code-highlight-row numbered&quot;&gt;&lt;div class=&quot;code-highlight-line&quot;&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SubCircuit&lt;/span&gt;
@@ -2656,30 +2656,30 @@ Python default parameters come to the rescue!&lt;/p&gt;
 &lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/figure&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/a-taste-of-hierarchy&quot;&gt;A Taste of Hierarchy&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://localhost:4000&quot;&gt;SKiDL&lt;/a&gt; on February 03, 2017.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/a-taste-of-hierarchy&quot;&gt;A Taste of Hierarchy&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on February 03, 2017.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Names, Not Numbers]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/names-not-numbers"/>
-  <id>http://localhost:4000/blog/names-not-numbers</id>
+  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/names-not-numbers"/>
+  <id>https://xesscorp.github.io/skidl/docs/_site/blog/names-not-numbers</id>
   <published>2017-01-25T09:35:28-05:00</published>
   <updated>2017-01-25T09:35:28-05:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>http://localhost:4000</uri>
+    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
     <email>skidl@xess.com</email>
   </author>
   
   <content type="html">
   
-    &lt;p&gt;In my &lt;a href=&quot;http://localhost:4000/blog/building-a-usb-to-jtag-interface-using-skidl&quot;&gt;previous post&lt;/a&gt;,
+    &lt;p&gt;In my &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/building-a-usb-to-jtag-interface-using-skidl&quot;&gt;previous post&lt;/a&gt;,
 I showed how to use SKiDL to describe the circuit for a simple USB-to-JTAG
 interface circuit.
 That circuit used a PIC32MX microcontroller in a 28-pin SSOP package:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/names-not-numbers/pic32mx-ssop28.png&quot; alt=&quot;PIC32MX in a 28-pin SSOP package.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/names-not-numbers/pic32mx-ssop28.png&quot; alt=&quot;PIC32MX in a 28-pin SSOP package.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;and the corresponding SKiDL code was:&lt;/p&gt;
 
@@ -2689,7 +2689,7 @@ That circuit used a PIC32MX microcontroller in a 28-pin SSOP package:&lt;/p&gt;
 
 &lt;p&gt;I wanted to try using the same processor, but housed in a smaller QFN package:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/names-not-numbers/pic32mx-qfn28.png&quot; alt=&quot;PIC32MX in a 28-pin QFN package.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/names-not-numbers/pic32mx-qfn28.png&quot; alt=&quot;PIC32MX in a 28-pin QFN package.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;To do that, I changed the SKiDL code to reference a different part and footprint like this:&lt;/p&gt;
 
@@ -2745,27 +2745,27 @@ At that point, it didn’t matter whether I used pin names or numbers: I still h
 to re-route the wire traces on the PCB because the physical location
 of the pins had changed. There’s no getting around that.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/names-not-numbers/pcbnew-routed.png&quot; width=&quot;800&quot; alt=&quot;Completed USB-to-JTAG board layout.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/names-not-numbers/pcbnew-routed.png&quot; width=&quot;800&quot; alt=&quot;Completed USB-to-JTAG board layout.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Here’s a side-by-side of the previous and new USB-to-JTAG boards:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/names-not-numbers/old-and-new-boards.jpg&quot; width=&quot;800&quot; alt=&quot;Old and new USB-to-JTAG boards.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/names-not-numbers/old-and-new-boards.jpg&quot; width=&quot;800&quot; alt=&quot;Old and new USB-to-JTAG boards.&quot; /&gt;&lt;/p&gt;
 
 
   
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/names-not-numbers&quot;&gt;Names, Not Numbers&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://localhost:4000&quot;&gt;SKiDL&lt;/a&gt; on January 25, 2017.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/names-not-numbers&quot;&gt;Names, Not Numbers&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on January 25, 2017.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Building a USB-to-JTAG Interface Using SKiDL]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/building-a-usb-to-jtag-interface-using-skidl"/>
-  <id>http://localhost:4000/blog/building-a-usb-to-jtag-module-using-skidl</id>
+  <link rel="alternate" type="text/html" href="https://xesscorp.github.io/skidl/docs/_site/blog/building-a-usb-to-jtag-interface-using-skidl"/>
+  <id>https://xesscorp.github.io/skidl/docs/_site/blog/building-a-usb-to-jtag-module-using-skidl</id>
   <published>2017-01-18T22:40:48-05:00</published>
   <updated>2017-01-18T22:40:48-05:00</updated>
   <author>
     <name>XESS Corp.</name>
-    <uri>http://localhost:4000</uri>
+    <uri>https://xesscorp.github.io/skidl/docs/_site</uri>
     <email>skidl@xess.com</email>
   </author>
   
@@ -2774,7 +2774,7 @@ of the pins had changed. There’s no getting around that.&lt;/p&gt;
     &lt;p&gt;This post describes using SKiDL for a USB-to-JTAG interface
 that was taken all the way from concept to physically building a device.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/usb-to-jtag/assembled_brd.png&quot; alt=&quot;Assembled USB-to-JTAG board.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/usb-to-jtag/assembled_brd.png&quot; alt=&quot;Assembled USB-to-JTAG board.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The interface is pretty simple. It’s built from the following stuff:&lt;/p&gt;
 
@@ -2791,7 +2791,7 @@ that was taken all the way from concept to physically building a device.&lt;/p&g
 
 &lt;p&gt;Here’s a block diagram to help orient you as the SKiDL code is presented.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/usb-to-jtag/block_diag.png&quot; width=&quot;400&quot; alt=&quot;USB-to-JTAG device block diagram.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/usb-to-jtag/block_diag.png&quot; width=&quot;400&quot; alt=&quot;USB-to-JTAG device block diagram.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Any SKiDL project starts as a Python file.
 In this example, I created the file &lt;code class=&quot;highlighter-rouge&quot;&gt;intfc_brd.py&lt;/code&gt;.
@@ -3293,12 +3293,12 @@ for this project.&lt;/p&gt;
 &lt;p&gt;When &lt;code class=&quot;highlighter-rouge&quot;&gt;intfc_brd.net&lt;/code&gt; is taken in by KiCad’s PCBNEW layout editor,
 the initial component arrangement looks something like this:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/usb-to-jtag/pcbnew-unplaced.png&quot; width=&quot;800&quot; alt=&quot;USB-to-JTAG board with unplaced parts.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/usb-to-jtag/pcbnew-unplaced.png&quot; width=&quot;800&quot; alt=&quot;USB-to-JTAG board with unplaced parts.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;After a suitable amount of fiddling (none of which has anything to do with SKiDL at this point),
 we get to a final PCB layout:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/usb-to-jtag/pcbnew-routed.png&quot; width=&quot;800&quot; alt=&quot;Completed USB-to-JTAG board layout.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://xesscorp.github.io/skidl/docs/_site/images/usb-to-jtag/pcbnew-routed.png&quot; width=&quot;800&quot; alt=&quot;Completed USB-to-JTAG board layout.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The layout is translated into &lt;a href=&quot;https://en.wikipedia.org/wiki/Gerber_format&quot;&gt;Gerber files&lt;/a&gt;
 that are sent for fabrication into a physical PCB.
@@ -3314,7 +3314,7 @@ SKiDL that need polishing.
 But that’s always going to be the case.&lt;/p&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/building-a-usb-to-jtag-interface-using-skidl&quot;&gt;Building a USB-to-JTAG Interface Using SKiDL&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;http://localhost:4000&quot;&gt;SKiDL&lt;/a&gt; on January 18, 2017.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site/blog/building-a-usb-to-jtag-interface-using-skidl&quot;&gt;Building a USB-to-JTAG Interface Using SKiDL&lt;/a&gt; was originally published by XESS Corp. at &lt;a href=&quot;https://xesscorp.github.io/skidl/docs/_site&quot;&gt;SKiDL&lt;/a&gt; on January 18, 2017.&lt;/p&gt;</content>
 </entry>
 
 </feed>
