@@ -247,8 +247,21 @@ class FootprintCache(dict):
             uri = rmv_quotes(uri)
             nickname = rmv_quotes(nickname)
 
-            # Expand variables and ~ in the URI.
+            # Expand environment variables and ~ in the URI.
             uri = os.path.expandvars(os.path.expanduser(uri))
+
+            # Look for unexpanded env vars and skip this loop iteration if found.
+            def get_env_vars(s):
+                """Return a list of environment variables found in a string."""
+                env_vars = []
+                for env_var_re in (r"\${([^}]*)}", r"\$(\w+)", r"%(\w+)%"):
+                    env_vars.extend(re.findall(env_var_re, s))
+                return env_vars
+
+            unexpanded_vars = get_env_vars(uri)
+            if unexpanded_vars:
+                logger.warning("There are some undefined environment variables: {}".format(' '.join(unexpanded_vars)))
+                continue
 
             # Get a list of all the footprint module files in the top-level of the library URI.
             filenames = [
