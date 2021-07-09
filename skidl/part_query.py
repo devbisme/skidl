@@ -142,7 +142,7 @@ def search_parts(terms, tool=None):
     parts = set()
     for part in search_parts_iter(terms, tool):
         if part[0] == "LIB":
-            print(" " * 79, "\rSearching {} ...".format(part[1]), end="\r")
+            print(" " * 79, "\rSearching {} ...".format(part[1]), sep="", end="\r")
         elif part[0] == "PART":
             parts.add(part[1:4])
     print(" " * 79, end="\r")
