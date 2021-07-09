@@ -606,12 +606,17 @@ You can also generate the netlist in XML format:
 This is useful in a KiCad environment where the XML file is used as the
 input to BOM-generation tools.
 
-If you're designing with KiCad and want to skip some steps, you can go from 
-SKiDL directly to a PCB using the `generate_pcb()` function.
-This will output a `.kicad_pcb` file that you can open in PCBNEW without
+If you're designing with KiCad and want to skip some steps, you can go 
+directly to a PCB like this:
+
+```terminal
+>>> generate_pcb()`
+```
+
+This outputs a `.kicad_pcb` file that you can open in PCBNEW without
 having to import the netlist.
-But you will need to have KiCad installed since this option uses its 
-`pcbnew` Python library when building the PCB.
+(Note that you will need to have KiCad installed since `generate_pcb` uses its 
+`pcbnew` Python library to create the PCB.)
 
 
 # Going Deeper
