@@ -365,7 +365,7 @@ def search_footprints(terms, tool=None):
     footprints = []
     for fp in search_footprints_iter(terms, tool):
         if fp[0] == "LIB":
-            print(" " * 79, "\rSearching {} ...".format(fp[1]), end="\r")
+            print(" " * 79, "\rSearching {} ...".format(fp[1]), sep="", end="\r")
         elif fp[0] == "MODULE":
             footprints.append(fp[1:4])
     print(" " * 79, end="\r")
