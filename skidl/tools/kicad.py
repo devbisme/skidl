@@ -72,7 +72,9 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None
         suffixes = [suffix]
     for suffix in suffixes:
         # Allow file open failure so multiple suffixes can be tried without error messages.
-        f, _ = find_and_open_file(filename, lib_search_paths_, suffix, allow_failure=True)
+        f, _ = find_and_open_file(
+            filename, lib_search_paths_, suffix, allow_failure=True
+        )
         if f:
             # Break from the loop once a library file is successfully opened.
             break
@@ -80,7 +82,7 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None
         raise FileNotFoundError(
             "Unable to open KiCad Schematic Library File {}".format(filename)
         )
-    
+
     if suffix == ".kicad_sym":
         _load_sch_lib_kicad_v6(self, f, filename, lib_search_paths_)
     else:
@@ -216,16 +218,16 @@ def _split_into_symbols(libstr):
     symbol_name = "_"  # Name of current symbol being assembled.
     symbols = {}  # Symbols indexed by their names.
 
-    # Go through the pieces and assemble each symbol. 
+    # Go through the pieces and assemble each symbol.
     for piece in pieces:
 
         # Get the symbol name immediately following the delimiter.
         name = piece.split(None, 1)[0]
-        name = name.replace('"', '')  # Remove quotes around name.
-        name1 = '_'.join(name.split('_')[:-2]) # Remove '_#_#' from subsymbols.
+        name = name.replace('"', "")  # Remove quotes around name.
+        name1 = "_".join(name.split("_")[:-2])  # Remove '_#_#' from subsymbols.
 
         if name1 == symbol_name:
-        # if name.startswith(symbol_name):
+            # if name.startswith(symbol_name):
             # If the name starts with the same string as the
             # current symbol, then this is a unit of the symbol.
             # Therefore, just append the unit to the symbol.
@@ -233,7 +235,7 @@ def _split_into_symbols(libstr):
         else:
             # Otherwise, this is the start of a new symbol.
             # Remove the library name preceding the symbol name.
-            symbol_name = name.split(':', 1)[-1]
+            symbol_name = name.split(":", 1)[-1]
             symbols[symbol_name] = delimiter + piece
 
     return symbols
@@ -250,7 +252,7 @@ def _load_sch_lib_kicad_v6(self, f, filename, lib_search_paths_):
     from ..part import Part
 
     # Parse the library and return a nested list of library parts.
-    lib_sexp = ''.join(f.readlines())
+    lib_sexp = "".join(f.readlines())
 
     parts = _split_into_symbols(lib_sexp)
 
@@ -269,19 +271,19 @@ def _load_sch_lib_kicad_v6(self, f, filename, lib_search_paths_):
     for part_name, part_defn in parts.items():
 
         # Get part properties.
-        keywords = extract_quoted_string(part_defn, 'ki_keywords')
-        datasheet = extract_quoted_string(part_defn, 'Datasheet')
-        description = extract_quoted_string(part_defn, 'ki_description')
+        keywords = extract_quoted_string(part_defn, "ki_keywords")
+        datasheet = extract_quoted_string(part_defn, "Datasheet")
+        description = extract_quoted_string(part_defn, "ki_description")
 
         # Join the various text pieces by newlines so the ^ and $ special characters
         # can be used to detect the start and end of a piece of text during RE searches.
         search_text = "\n".join([filename, part_name, description, keywords])
-        
+
         # Create a Part object and add it to the library object.
         self.add_parts(
             Part(
-                part_defn = part_defn,
-                tool = tool_name,
+                part_defn=part_defn,
+                tool=tool_name,
                 dest=LIBRARY,
                 filename=filename,
                 name=part_name,
@@ -290,10 +292,9 @@ def _load_sch_lib_kicad_v6(self, f, filename, lib_search_paths_):
                 datasheet=datasheet,
                 description=description,
                 search_text=search_text,
-                tool_version = "kicad_v6",
+                tool_version="kicad_v6",
             )
         )
-
 
 
 def _parse_lib_part_(self, get_name_only=False):
@@ -774,7 +775,15 @@ def _parse_lib_part_kicad_v6(self, get_name_only):
 
             # Remove parent attributes that we don't want to overwrite in the child.
             parent_part_dict = parent_part.__dict__
-            for key in ("part_defn", "name", "aliases", "description", "datasheet", "keywords", "search_text"):
+            for key in (
+                "part_defn",
+                "name",
+                "aliases",
+                "description",
+                "datasheet",
+                "keywords",
+                "search_text",
+            ):
                 try:
                     del parent_part_dict[key]
                 except KeyError:
@@ -792,23 +801,25 @@ def _parse_lib_part_kicad_v6(self, get_name_only):
             # Perform some operations on the child part.
             for item in part_defn:
                 cmd = to_list(item)[0]
-                if cmd == 'del':
+                if cmd == "del":
                     self.rmv_pins(item[1])
-                elif cmd == 'swap':
+                elif cmd == "swap":
                     self.swap_pins(item[1], item[2])
-                elif cmd == 'renum':
+                elif cmd == "renum":
                     self.renumber_pin(item[1], item[2])
-                elif cmd == 'rename':
+                elif cmd == "rename":
                     self.rename_pin(item[1], item[2])
-                elif cmd == 'property_del':
+                elif cmd == "property_del":
                     del self.fields[item[1]]
-                elif cmd == 'alternate':
+                elif cmd == "alternate":
                     pass
 
             break
 
     # Populate part fields from symbol properties.
-    properties = {item[1]: item[2:] for item in part_defn if to_list(item)[0]=="property"}
+    properties = {
+        item[1]: item[2:] for item in part_defn if to_list(item)[0] == "property"
+    }
     for name, data in properties.items():
         value = data[0]
         for item in data[1:]:
@@ -836,7 +847,7 @@ def _parse_lib_part_kicad_v6(self, get_name_only):
 
     # Find all the units within a symbol. Skip the first item which is the
     # 'symbol' marking the start of the entire part definition.
-    units = [item for item in part_defn[1:] if to_list(item)[0] == 'symbol']
+    units = [item for item in part_defn[1:] if to_list(item)[0] == "symbol"]
     self.num_units = len(units)
 
     # Get pins and assign them to each unit as well as the entire part.
@@ -845,7 +856,7 @@ def _parse_lib_part_kicad_v6(self, get_name_only):
 
         # Extract the part name, unit number, and conversion flag.
         unit_name_pieces = unit[1].split("_")  # unit name follows 'symbol'
-        symbol_name = '_'.join(unit_name_pieces[:-2])
+        symbol_name = "_".join(unit_name_pieces[:-2])
         assert symbol_name == self.name
         unit_num = int(unit_name_pieces[-2])
         conversion_flag = int(unit_name_pieces[-1])
@@ -855,7 +866,7 @@ def _parse_lib_part_kicad_v6(self, get_name_only):
             continue
 
         # Get the pins for this unit.
-        unit_pins = [item for item in unit if to_list(item)[0]=="pin"]
+        unit_pins = [item for item in unit if to_list(item)[0] == "pin"]
 
         # Save unit number if the unit has pins. Use this to create units
         #  after the entire part is created.
@@ -880,7 +891,9 @@ def _parse_lib_part_kicad_v6(self, get_name_only):
 
             # Add the pins that were found to the total part. Include the unit identifier
             # in the pin so we can find it later when the part unit is created.
-            self.add_pins(Pin(name=pin_name, num=pin_number, func=pin_func, unit=unit_num))
+            self.add_pins(
+                Pin(name=pin_name, num=pin_number, func=pin_func, unit=unit_num)
+            )
 
     # Clear the part reference field directly. Don't use the setter function
     # since it will try to generate and assign a unique part reference if
@@ -990,10 +1003,15 @@ def _gen_pcb_(self, file_):
     # so it eases some problems with tox testing.
     # It requires pcbnew module which may not be present or may be for the
     # wrong Python version (2 vs. 3).
-    import kinet2pcb  # For creating KiCad PCB directly from Circuit object.
-
-    file_ = file_ or (get_script_name() + ".kicad_pcb")
-    kinet2pcb.kinet2pcb(self, file_)
+    try:
+        import kinet2pcb  # For creating KiCad PCB directly from Circuit object.
+    except ImportError:
+        logger.warning(
+            "kinet2pcb module is missing. Can't generate a KiCad PCB without it."
+        )
+    else:
+        file_ = file_ or (get_script_name() + ".kicad_pcb")
+        kinet2pcb.kinet2pcb(self, file_)
 
 
 def _gen_xml_(self):
@@ -1083,8 +1101,7 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
             part symbol pins as connection stubs.
         symtx: String such as "HR" that indicates symbol mirroring/rotation.
 
-    Returns: SVG for the part symbol.
-"""
+    Returns: SVG for the part symbol."""
 
     def tx(obj, ops):
         """Transform Point, number, or direction according to the list of opcodes."""
@@ -1671,7 +1688,7 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
 
 
 def _gen_pinboxes_(self):
-    """ Generate bounding box and I/O pin positions for each unit in a part. """
+    """Generate bounding box and I/O pin positions for each unit in a part."""
     pass
 
 
