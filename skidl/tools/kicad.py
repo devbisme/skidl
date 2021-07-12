@@ -831,7 +831,7 @@ def _parse_lib_part_kicad_v6(self, get_name_only):
         "power_out": Pin.types.PWROUT,
         "open_collector": Pin.types.OPENCOLL,
         "open_emitter": Pin.types.OPENEMIT,
-        "unconnected": Pin.types.NOCONNECT,
+        "no_connect": Pin.types.NOCONNECT,
     }
 
     # Find all the units within a symbol. Skip the first item which is the
