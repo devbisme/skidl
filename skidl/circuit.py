@@ -607,19 +607,13 @@ class Circuit(SkidlBaseObject):
                 gen_func(file_)  # Generate the PCB file from the netlist.
 
         if (logger.error.count, logger.warning.count) == (0, 0):
-            sys.stderr.write(
-                "\nNo errors or warnings found while creating PCB.\n\n"
-            )
+            sys.stderr.write("\nNo errors or warnings found while creating PCB.\n\n")
         else:
             sys.stderr.write(
-                "\n{} warnings found while creating PCB.\n".format(
-                    logger.warning.count
-                )
+                "\n{} warnings found while creating PCB.\n".format(logger.warning.count)
             )
             sys.stderr.write(
-                "{} errors found while creating PCB.\n\n".format(
-                    logger.error.count
-                )
+                "{} errors found while creating PCB.\n\n".format(logger.error.count)
             )
 
     def generate_xml(self, file_=None, tool=None):
@@ -854,9 +848,13 @@ class Circuit(SkidlBaseObject):
 
         # Get the list of nets which will be routed and not represented by stubs.
         # Search all nets for those set as stubs or that are no-connects.
-        net_stubs = [n for n in self.nets if getattr(n, 'stub', False) or isinstance(n, NCNet)]
+        net_stubs = [
+            n for n in self.nets if getattr(n, "stub", False) or isinstance(n, NCNet)
+        ]
         # Also find buses that are set as stubs and add their individual nets.
-        net_stubs.extend(expand_buses([b for b in self.buses if getattr(b, 'stub', False)]))
+        net_stubs.extend(
+            expand_buses([b for b in self.buses if getattr(b, "stub", False)])
+        )
         routed_nets = list(set(self.nets) - set(net_stubs))
 
         # Assign each routed net a unique integer. Interconnected nets
@@ -878,7 +876,9 @@ class Circuit(SkidlBaseObject):
                     io = io_dict[net.netio.lower()[0]]
                     ports[net.name] = {
                         "direction": io,
-                        "bits": [net_nums[net.name],],
+                        "bits": [
+                            net_nums[net.name],
+                        ],
                     }
                 except AttributeError:
                     # Net has no netio so don't assign a port.
@@ -923,7 +923,9 @@ class Circuit(SkidlBaseObject):
 
                 # Associate each connected pin of a part with the assigned net number.
                 connections = {
-                    pin.num: [net_nums[pin.net.name],]
+                    pin.num: [
+                        net_nums[pin.net.name],
+                    ]
                     for pin in pins
                     if pin.net in routed_nets
                 }
@@ -953,29 +955,39 @@ class Circuit(SkidlBaseObject):
                     "type": name,
                     "port_directions": part_pin_dirs,
                     "connections": connections,
-                    "attributes": {"value": str(part.value),},
+                    "attributes": {
+                        "value": str(part.value),
+                    },
                 }
 
-        schematic_json = {"modules": {self.name: {"ports": ports, "cells": cells,}}}
+        schematic_json = {
+            "modules": {
+                self.name: {
+                    "ports": ports,
+                    "cells": cells,
+                }
+            }
+        }
 
         if not self.no_files:
             file_basename = file_ or get_script_name()
             json_file = file_basename + ".json"
             svg_file = file_basename + ".svg"
+
             with opened(json_file, "w") as f:
                 f.write(
                     json.dumps(
                         schematic_json, sort_keys=True, indent=2, separators=(",", ": ")
                     )
                 )
+
             skin_file = file_basename + "_skin.svg"
             with opened(skin_file, "w") as f:
                 f.write(self.generate_netlistsvg_skin(net_stubs=net_stubs))
-            subprocess.call(
-                "netlistsvg {json_file} --skin {skin_file} -o {svg_file}".format(
-                    **locals()
-                ),
-                shell=True,
+
+            subprocess.Popen(
+                ["netlistsvg", json_file, "--skin", skin_file, "-o", svg_file],
+                shell=False,
             )
 
         return schematic_json
@@ -1094,7 +1106,7 @@ class Circuit(SkidlBaseObject):
 
         # Add stubbed nets to split_nets:
         split_nets = split_nets[:]  # Make a local copy.
-        split_nets.extend([n.name for n in nets if getattr(n, 'stub', False)])
+        split_nets.extend([n.name for n in nets if getattr(n, "stub", False)])
 
         for i, n in enumerate(nets):
             xlabel = n.name
