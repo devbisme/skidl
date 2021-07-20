@@ -211,7 +211,6 @@ class Pin(SkidlBaseObject):
     }
 
     def __init__(self, **attribs):
-
         super().__init__()
 
         self.nets = []
@@ -504,6 +503,7 @@ class Pin(SkidlBaseObject):
             return
         for n in self.nets:
             n.disconnect(self)
+            n.merge_names()  # Clean-up the net after removing a pin.
         self.nets = []
 
     def get_nets(self):

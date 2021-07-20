@@ -1156,16 +1156,19 @@ class Circuit(SkidlBaseObject):
 
         from . import skidl
 
+        if self.no_files:
+            return
+
         self._preprocess()
 
         lib = SchLib(tool=SKIDL)  # Create empty library.
         for p in self.parts:
             lib += p
+
         if not file_:
             file_ = skidl.BACKUP_LIB_FILE_NAME
 
-        if not self.no_files:
-            lib.export(libname=skidl.BACKUP_LIB_NAME, file_=file_)
+        lib.export(libname=skidl.BACKUP_LIB_NAME, file_=file_)
 
 
 __func_name_cntr = defaultdict(int)
