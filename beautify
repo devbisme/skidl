@@ -1,4 +1,0 @@
-#!/usr/bin/bash
-
-isort --recursive tests skidl setup.py
-black tests skidl setup.py
