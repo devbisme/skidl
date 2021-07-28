@@ -14,7 +14,8 @@ def setup_function(f):
     global files_at_start
     files_at_start = set(os.listdir(os.getcwd()))
 
-    default_circuit.reset()
+    # Mini-reset to remove circuitry but retain any loaded libraries.
+    default_circuit.mini_reset()
 
     lib_search_paths.clear()
     lib_search_paths.update({tool: [os.getcwd(), this_file_dir] for tool in ALL_TOOLS})
