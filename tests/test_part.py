@@ -31,3 +31,12 @@ def test_part_2():
 def test_part_3():
     r = Part("Device", "R", ref=None)
     assert r.ref == "R1"
+
+
+def test_part_tmplt_1():
+    rt = PartTmplt("Device", "R", value=1000)
+    r1, r2 = rt(num_copies=2)
+    assert r1.ref == "R1"
+    assert r2.ref == "R2"
+    assert r1.value == 1000
+    assert r2.value == 1000

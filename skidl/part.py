@@ -27,6 +27,7 @@ Handles parts.
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+import functools
 import re
 from builtins import dict, int, object, range, str, super, zip
 from copy import copy
@@ -1264,6 +1265,11 @@ class Part(SkidlBaseObject):
         """Return the number of pins in this part."""
         return len(self.pins)
 
+
+##############################################################################
+
+"""Shortcut for creating a Part template."""
+PartTmplt = functools.partial(Part, dest=TEMPLATE)
 
 ##############################################################################
 
