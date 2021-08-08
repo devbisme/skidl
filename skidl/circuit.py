@@ -1120,11 +1120,51 @@ class Circuit(SkidlBaseObject):
                     else:
                         part_buff.append(all_lines[j])
 
+##############################
+# def gen_comp_schem(ci, lib="Device", x_coor=0, y_coor=0):
+            sch_part = []
+            # Line 1
+            sch_part.append("$Comp\n")
+            # Line 2
+            ind = part_buff[0].split()[1]
+            t_str = "L {}:{} {}\n".format(i.lib.filename, ind, ind)
+            sch_part.append(t_str)
+            # Line 3
+            time_hex = hex(int(time.time()))[2:]
+            t_str = "U 1 1 {}\n".format(time_hex)
+            sch_part.append(t_str)
+            # Line 4
+            t_str = "P {} {}\n".format(str((t_x * 500)), str(t_y * 500))
+            sch_part.append(t_str)
+            # Find all lines that start with F
+            for ln in part_buff:
+                if re.search("^F", ln):
+                    t_str = "F {} {} {} {} {} {} 00{} {} {}\n".format(
+                        ln[1],
+                        ln.split()[1],
+                        ln.split()[5],
+                        int(int(ln.split()[2]) + (t_x * 500)),
+                        int(int(ln.split()[3]) + t_y * 500),
+                        int(ln.split()[4]),
+                        1 if ln.split()[5] == "V" else 0,
+                        "L" if ln.split()[6] == "V" else "C",
+                        ln.split()[8],
+                    )
+                    sch_part.append(t_str)
+            t_str = "   1   {} {}\n".format(str((t_x * 500)), str(t_y * 500))
+            sch_part.append(t_str)
+            t_str = "   {}   {}  {}  {}\n".format(
+                1, 0, 0, -1
+            )  # x1 y1 x2 y2, normal is 1,0,0,-1
+            sch_part.append(t_str)
+            t_str = "$EndComp\n"
+            sch_part.append(t_str)
 
-
+            t_part_sch = "\n" + "".join(sch_part)
+#############################
 
             # Parse the library info into a schematic component
-            t_part_sch = gen_comp_schem(part_buff, i.lib.filename, t_x * 500, t_y * 500)
+            # t_part_sch = gen_comp_schem(part_buff, i.lib.filename, t_x * 500, t_y * 500)
             # Place 20 parts each row, then go to the next row
             t_x += 1
             if t_x > 19:
