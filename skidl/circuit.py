@@ -30,9 +30,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 import functools
 import json
-import numpy as np
 import os.path
-import pandas as pd
 import re
 import subprocess
 import time
@@ -42,7 +40,7 @@ from collections import defaultdict, deque
 import graphviz
 from future import standard_library
 
-from .arrange import Arranger
+# from .arrange import Arranger
 from .bus import Bus
 from .common import *
 from .defines import *
@@ -62,11 +60,10 @@ from .utilities import *
 standard_library.install_aliases()
 
 
-
 def update_schem(circuits, _file):
-    all_lines=[]
+    all_lines = []
     # Open file, copy all the lines, then close it
-    with open(_file, encoding='utf8') as f:
+    with open(_file, encoding="utf8") as f:
         all_lines = f.readlines()
     f.close()
 
@@ -78,24 +75,24 @@ def update_schem(circuits, _file):
         if re.search("^EndDescr", line):
             line_endDescr = i
             break
-    
+
     # Insert circuit below the header, then append an $EndSCHEMATC line
     out_circuit = []
-    out_circuit.append(all_lines[:line_endDescr+1])
+    out_circuit.append(all_lines[: line_endDescr + 1])
     out_circuit.append(circuits)
     out_circuit.append("$EndSCHEMATC")
 
-    with open(_file, 'w') as f:
+    with open(_file, "w") as f:
         f.truncate(0)
         for i in out_circuit:
-            print(""+"".join(i), file=f)
+            print("" + "".join(i), file=f)
 
 
-   # Turn library info into a schematic part
+# Turn library info into a schematic part
 def gen_comp_schem(ci, lib="Device", x_coor=0, y_coor=0):
     sch_part = []
     # Line 1
-    sch_part.append("$Comp\n") 
+    sch_part.append("$Comp\n")
     # Line 2
     ind = ci[0].split()[1]
     t_str = "L {}:{} {}\n".format(lib, ind, ind)
@@ -111,62 +108,27 @@ def gen_comp_schem(ci, lib="Device", x_coor=0, y_coor=0):
     for l in ci:
         if re.search("^F", l):
             t_str = "F {} {} {} {} {} {} 00{} {} {}\n".format(
-                                            l[1],
-                                            l.split()[1],
-                                            l.split()[5],
-                                            int(int(l.split()[2]) + x_coor),
-                                            int(int(l.split()[3]) + y_coor),
-                                            int(l.split()[4]),
-                                            1 if l.split()[5]=='V' else 0,
-                                            'L' if l.split()[6]=='V' else 'C',
-                                            l.split()[8],
-
+                l[1],
+                l.split()[1],
+                l.split()[5],
+                int(int(l.split()[2]) + x_coor),
+                int(int(l.split()[3]) + y_coor),
+                int(l.split()[4]),
+                1 if l.split()[5] == "V" else 0,
+                "L" if l.split()[6] == "V" else "C",
+                l.split()[8],
             )
             sch_part.append(t_str)
     t_str = "   1   {} {}\n".format(str(x_coor), str(y_coor))
     sch_part.append(t_str)
-    t_str = "   {}   {}  {}  {}\n".format(1,0,0,-1) # x1 y1 x2 y2, normal is 1,0,0,-1
+    t_str = "   {}   {}  {}  {}\n".format(
+        1, 0, 0, -1
+    )  # x1 y1 x2 y2, normal is 1,0,0,-1
     sch_part.append(t_str)
     t_str = "$EndComp\n"
     sch_part.append(t_str)
 
-    return ("\n"+"".join(sch_part))
-
-
-
-# get library information for a part
-def find_comp_info(part, lib):
-    all_lines=[]
-    # Open file, copy all the lines, then close it
-    with open(lib, encoding='utf8') as f:
-        all_lines = f.readlines()
-    f.close()
-
-    line_num=0
-    part_buff = []
-    found = False
-    # Go through each line and look for the part
-    # pattern: DEF part_name
-    # The part info ends 
-    for i in range(len(all_lines)):
-        l = all_lines[i]
-        if not found:
-            if re.search("^DEF", all_lines[i]):
-                if l.split()[1]==part:
-                    #found component
-                    found = True
-                    part_buff.append(all_lines[i])
-        else:
-            if re.search("^ENDDEF", all_lines[i]):
-                #end of component
-                part_buff.append(all_lines[i])
-                break
-            else:
-                part_buff.append(all_lines[i])
-    return part_buff
-
-
-
+    return "\n" + "".join(sch_part)
 
 class Circuit(SkidlBaseObject):
     """
@@ -1124,36 +1086,53 @@ class Circuit(SkidlBaseObject):
         if tool is None:
             tool = skidl.get_default_tool()
 
-
-        '''
-        SHANE EDITS!!!!!
-        
-        '''
-
-        t_x = 0
+        t_x = 0 # xy coordinates, will be replaced by part.loc[x,y]
         t_y = 0
-        circuit_parts=[]
+        circuit_parts = []
         # Range through the parts and append schematic entry
         for i in self.parts:
-            lib = "/usr/share/kicad/library/" + i.lib.filename+".lib"
-            ci = find_comp_info(i.name,lib ) # Get component info from library
+            lib = "/usr/share/kicad/library/" + i.lib.filename + ".lib"
+
+            all_lines = []
+            # Open file, copy all the lines, then close it
+            with open(lib, encoding="utf8") as f:
+                all_lines = f.readlines()
+            f.close()
+
+            part_buff = []
+            found = False
+            # Go through each line and look for the part
+            # pattern: DEF part_name
+            # The part info ends
+            for j in range(len(all_lines)):
+                l = all_lines[j]
+                if not found:
+                    if re.search("^DEF", all_lines[j]):
+                        if l.split()[1] == i.name:
+                            # found component
+                            found = True
+                            part_buff.append(all_lines[j])
+                else:
+                    if re.search("^ENDDEF", all_lines[j]):
+                        # end of component
+                        part_buff.append(all_lines[j])
+                        break
+                    else:
+                        part_buff.append(all_lines[j])
+
+
+
+
             # Parse the library info into a schematic component
-            t_part_sch = gen_comp_schem(ci, i.lib.filename, t_x * 500, t_y * 500)
+            t_part_sch = gen_comp_schem(part_buff, i.lib.filename, t_x * 500, t_y * 500)
             # Place 20 parts each row, then go to the next row
-            t_x+=1
-            if t_x>19:
-                t_x=0
-                t_y+=1
+            t_x += 1
+            if t_x > 19:
+                t_x = 0
+                t_y += 1
             circuit_parts.append(t_part_sch)
         # Update the target schematic
         update_schem(circuit_parts, file_)
-        
-        '''
-        
-        END SHANE EDITS
-        
-        '''
-
 
         # w, h = 5, 5
         # arranger = Arranger(self, w, h)
