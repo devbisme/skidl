@@ -92,20 +92,20 @@ def update_schem(circuits, _file):
 
 
    # Turn library info into a schematic part
-def parse_comp_info(ci, row):
+def gen_comp_schem(ci, lib="Device", x_coor=0, y_coor=0):
     sch_part = []
     # Line 1
     sch_part.append("$Comp\n") 
     # Line 2
     ind = ci[0].split()[1]
-    t_str = "L {}:{} {}\n".format(row['library'], ind, ind)
+    t_str = "L {}:{} {}\n".format(lib, ind, ind)
     sch_part.append(t_str)
     # Line 3
     time_hex = hex(int(time.time()))[2:]
     t_str = "U 1 1 {}\n".format(time_hex)
     sch_part.append(t_str)
     # Line 4
-    t_str = "P {} {}\n".format(str(row['x']), str(row['y']))
+    t_str = "P {} {}\n".format(str(x_coor), str(y_coor))
     sch_part.append(t_str)
     # Find all lines that start with F
     for l in ci:
@@ -114,8 +114,8 @@ def parse_comp_info(ci, row):
                                             l[1],
                                             l.split()[1],
                                             l.split()[5],
-                                            int(int(l.split()[2]) + row['x']),
-                                            int(int(l.split()[3]) + row['y']),
+                                            int(int(l.split()[2]) + x_coor),
+                                            int(int(l.split()[3]) + y_coor),
                                             int(l.split()[4]),
                                             1 if l.split()[5]=='V' else 0,
                                             'L' if l.split()[6]=='V' else 'C',
@@ -123,7 +123,7 @@ def parse_comp_info(ci, row):
 
             )
             sch_part.append(t_str)
-    t_str = "   1   {} {}\n".format(str(row['x']), str(row['y']))
+    t_str = "   1   {} {}\n".format(str(x_coor), str(y_coor))
     sch_part.append(t_str)
     t_str = "   {}   {}  {}  {}\n".format(1,0,0,-1) # x1 y1 x2 y2, normal is 1,0,0,-1
     sch_part.append(t_str)
@@ -1136,19 +1136,15 @@ class Circuit(SkidlBaseObject):
         # Range through the parts and append schematic entry
         for i in self.parts:
             lib = "/usr/share/kicad/library/" + i.lib.filename+".lib"
-            ci = find_comp_info(i.name,lib )
-            row = {'component':i.name, 'library':i.lib.filename}
-            row['x'] = t_x * 500
-            row['y'] = t_y * 500
+            ci = find_comp_info(i.name,lib ) # Get component info from library
+            # Parse the library info into a schematic component
+            t_part_sch = gen_comp_schem(ci, i.lib.filename, t_x * 500, t_y * 500)
             # Place 20 parts each row, then go to the next row
             t_x+=1
             if t_x>19:
                 t_x=0
                 t_y+=1
-            
-            # Parse the library infor into a schematic component
-            circuit_parts.append(parse_comp_info(ci, row))
-
+            circuit_parts.append(t_part_sch)
         # Update the target schematic
         update_schem(circuit_parts, file_)
         
