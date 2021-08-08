@@ -994,7 +994,21 @@ class Circuit(SkidlBaseObject):
 
     def generate_schematic(self, file_=None, tool=None, x_start=0, y_start=0, comp_spacing=500, ncols=10):
         """
-        Create a schematic file. THIS DOES NOT WORK!
+        Create a schematic file. THIS KINDA WORKS!  
+        
+        The target schematic file must be an already made kicad schematic.  This is where we get the header info from.
+
+        For every part in default_circuit we will:
+        1. Get info from KiCAD library
+        2. Create schematic code for the part
+        3. Append to list of kicad parts to be written into the .sch file
+        
+        Writing the .sch file:
+        1.  Read in the .sch file
+        2.  Find the end of the header
+        3.  Create new .sch file with the old header and parts buffer
+
+        Close and re-open the kicad schematic
         """
 
         class Router:
@@ -1017,51 +1031,45 @@ class Circuit(SkidlBaseObject):
 
         
         circuit_parts = []
-        num_parts=0
         # Range through the parts and append schematic entry
         for i in self.parts:
             # 1: Get part info from library
             #    a: Read in library file
             lib = "/usr/share/kicad/library/" + i.lib.filename + ".lib" # Get library path for this part
-            all_lines = []
+            lib_file = []
             with open(lib, encoding="utf8") as f:
-                all_lines = f.readlines()
+                lib_file = f.readlines()
             f.close()
 
-            #    b: Look for the specific part
+            #    b: Look for the specific part and move it's info into a buffer
             part_buff = []
             found = False
-            for j in range(len(all_lines)):
-                l = all_lines[j]
+            for j in range(len(lib_file)):
+                l = lib_file[j]
                 if not found:
-                    if re.search("^DEF", all_lines[j]):
+                    if re.search("^DEF", l):
                         if l.split()[1] == i.name:
                             found = True # found component
-                            part_buff.append(all_lines[j])
+                            part_buff.append(l)
                 else:
-                    if re.search("^ENDDEF", all_lines[j]): # end of component
-                        part_buff.append(all_lines[j])
+                    if re.search("^ENDDEF", l): # end of component
+                        part_buff.append(l)
                         break
                     else:
-                        part_buff.append(all_lines[j])
+                        part_buff.append(l)
 
             # 2: Create schematic code for part using library info
-
-            x_cor = x_start + int((len(circuit_parts))%ncols) * comp_spacing
-            y_cor = y_start + int((len(circuit_parts))/ncols) * comp_spacing
-            schPart = []
-            schPart.append("$Comp\n") # Line 1
+            schPart=["$Comp\n"]
             # Indicator
             indicator = part_buff[0].split()[1] # Line 2
             schPart.append("L {}:{} {}\n".format(i.lib.filename, indicator, indicator))
-            # schPart.append(s)
             # Time created
             time_hex = hex(int(time.time()))[2:]
             schPart.append("U 1 1 {}\n".format(time_hex))
-            # schPart.append(s)
             # Location
+            x_cor = x_start + int((len(circuit_parts))%ncols) * comp_spacing # compute x coordinate
+            y_cor = y_start + int((len(circuit_parts))/ncols) * comp_spacing # compute y coordinate
             schPart.append("P {} {}\n".format(str(x_cor), str(y_cor)))
-            # schPart.append(s)
             # Fields
             for ln in part_buff:
                 if re.search("^F", ln):
@@ -1078,36 +1086,32 @@ class Circuit(SkidlBaseObject):
                     )
                     schPart.append(s)
             schPart.append("   1   {} {}\n".format(str(x_cor), str(y_cor)))
-            # schPart.append(s)
             # Orientation
             schPart.append("   {}   {}  {}  {}\n".format(1, 0, 0, -1))  # x1 y1 x2 y2, normal is 1,0,0,-1
-            # schPart.append(s)
-            schPart.append("$EndComp\n") # End of component
-
-            circuit_parts.append("\n" + "".join(schPart)) # Append schematic part to circuit_parts buffer
+            # End of component
+            schPart.append("$EndComp\n") 
+            # Append schematic part to circuit_parts buffer
+            circuit_parts.append("\n" + "".join(schPart))
             
-        # Update the target schematic
-        all_lines = []
+        # Open the target schematic to read it's header
+        sch_file = []
         # Open file, copy all the lines, then close it
         with open(file_, encoding="utf8") as f:
-            all_lines = f.readlines()
+            sch_file = f.readlines()
         f.close()
 
         # Search for $EndDescr line number
         endDesc = 0
-        for i in range(len(all_lines)):
-            if re.search("^EndDescr", all_lines[i][1:]):
+        for i in range(len(sch_file)):
+            if re.search("^EndDescr", sch_file[i][1:]):
                 endDesc = i
                 break
 
-        # Insert circuit below the header, then append an $EndSCHEMATC line
-        out_circuit = all_lines[: endDesc + 1]
-        out_circuit.append(circuit_parts)
-        out_circuit.append("$EndSCHEMATC")
-
+        # Replace old schematic file content with new schematic file content
+        new_sch_file = [sch_file[: endDesc + 1], circuit_parts, "$EndSCHEMATC"]
         with open(file_, "w") as f:
             f.truncate(0) # Clear the file
-            for i in out_circuit:
+            for i in new_sch_file:
                 print("" + "".join(i), file=f)
 
 
