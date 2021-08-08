@@ -1020,26 +1020,24 @@ class Circuit(SkidlBaseObject):
         circuit_parts = []
         # Range through the parts and append schematic entry
         for i in self.parts:
-            lib = "/usr/share/kicad/library/" + i.lib.filename + ".lib"
+            lib = "/usr/share/kicad/library/" + i.lib.filename + ".lib" # Get library path for this part
 
+            # Open library, copy all the lines, then close it
             all_lines = []
-            # Open file, copy all the lines, then close it
             with open(lib, encoding="utf8") as f:
                 all_lines = f.readlines()
             f.close()
 
             part_buff = []
             found = False
-            # Go through each line and look for the part
-            # pattern: DEF part_name
-            # The part info ends
+            # Look for the part in the library. Append all it's info to a buffer
+            # Part library entry starts with DEF, ends with ENDDEF
             for j in range(len(all_lines)):
                 l = all_lines[j]
                 if not found:
                     if re.search("^DEF", all_lines[j]):
                         if l.split()[1] == i.name:
-                            # found component
-                            found = True
+                            found = True # found component
                             part_buff.append(all_lines[j])
                 else:
                     if re.search("^ENDDEF", all_lines[j]):
@@ -1050,24 +1048,23 @@ class Circuit(SkidlBaseObject):
                         part_buff.append(all_lines[j])
 
             # Create the schematic code for the part
-            sch_part = []
-            # Line 1
-            sch_part.append("$Comp\n")
-            # Line 2
-            ind = part_buff[0].split()[1]
-            t_str = "L {}:{} {}\n".format(i.lib.filename, ind, ind)
-            sch_part.append(t_str)
-            # Line 3
+            schPart = []
+            schPart.append("$Comp\n") # Line 1
+            # Indicator
+            indicator = part_buff[0].split()[1] # Line 2
+            s = "L {}:{} {}\n".format(i.lib.filename, indicator, indicator)
+            schPart.append(s)
+            # Time created
             time_hex = hex(int(time.time()))[2:]
-            t_str = "U 1 1 {}\n".format(time_hex)
-            sch_part.append(t_str)
-            # Line 4
-            t_str = "P {} {}\n".format(str((t_x * 500)), str(t_y * 500))
-            sch_part.append(t_str)
-            # Find all lines that start with F
+            s = "U 1 1 {}\n".format(time_hex)
+            schPart.append(s)
+            # Location
+            s = "P {} {}\n".format(str((t_x * 500)), str(t_y * 500))
+            schPart.append(s)
+            # Fields
             for ln in part_buff:
                 if re.search("^F", ln):
-                    t_str = "F {} {} {} {} {} {} 00{} {} {}\n".format(
+                    s = "F {} {} {} {} {} {} 00{} {} {}\n".format(
                         ln[1],
                         ln.split()[1],
                         ln.split()[5],
@@ -1078,17 +1075,17 @@ class Circuit(SkidlBaseObject):
                         "L" if ln.split()[6] == "V" else "C",
                         ln.split()[8],
                     )
-                    sch_part.append(t_str)
-            t_str = "   1   {} {}\n".format(str((t_x * 500)), str(t_y * 500))
-            sch_part.append(t_str)
-            t_str = "   {}   {}  {}  {}\n".format(
+                    schPart.append(s)
+            s = "   1   {} {}\n".format(str((t_x * 500)), str(t_y * 500))
+            schPart.append(s)
+            # Orientation
+            s = "   {}   {}  {}  {}\n".format(
                 1, 0, 0, -1
             )  # x1 y1 x2 y2, normal is 1,0,0,-1
-            sch_part.append(t_str)
-            sch_part.append("$EndComp\n")
+            schPart.append(s)
+            schPart.append("$EndComp\n") # End of component
 
-            t_part_sch = "\n" + "".join(sch_part)
-            circuit_parts.append(t_part_sch)
+            circuit_parts.append("\n" + "".join(schPart))
 
             # Place 20 parts each row, then go to the next row
             t_x += 1
@@ -1104,16 +1101,15 @@ class Circuit(SkidlBaseObject):
         f.close()
 
         # Search for $EndDescr
-        line_endDescr = 0
+        endDesc = 0
         for i in range(len(all_lines)):
-            line = all_lines[i][1:]
-            if re.search("^EndDescr", line):
-                line_endDescr = i
+            if re.search("^EndDescr", all_lines[i][1:]):
+                endDesc = i
                 break
 
         # Insert circuit below the header, then append an $EndSCHEMATC line
-        out_circuit = []
-        out_circuit.append(all_lines[: line_endDescr + 1])
+        # out_circuit = []
+        out_circuit = all_lines[: endDesc + 1]
         out_circuit.append(circuit_parts)
         out_circuit.append("$EndSCHEMATC")
 
