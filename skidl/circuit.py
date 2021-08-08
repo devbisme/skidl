@@ -30,7 +30,10 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 import functools
 import json
+import numpy as np
 import os.path
+import pandas as pd
+import re
 import subprocess
 import time
 from builtins import range, str, super
@@ -57,6 +60,112 @@ from .skidlbaseobj import SkidlBaseObject
 from .utilities import *
 
 standard_library.install_aliases()
+
+
+
+def update_schem(circuits, _file):
+    all_lines=[]
+    # Open file, copy all the lines, then close it
+    with open(_file, encoding='utf8') as f:
+        all_lines = f.readlines()
+    f.close()
+
+    # Search for $EndDescr
+    line_endDescr = 0
+
+    for i in range(len(all_lines)):
+        line = all_lines[i][1:]
+        if re.search("^EndDescr", line):
+            line_endDescr = i
+            break
+    
+    # Insert circuit below the header, then append an $EndSCHEMATC line
+    out_circuit = []
+    out_circuit.append(all_lines[:line_endDescr+1])
+    out_circuit.append(circuits)
+    out_circuit.append("$EndSCHEMATC")
+
+    with open(_file, 'w') as f:
+        f.truncate(0)
+        for i in out_circuit:
+            print(""+"".join(i), file=f)
+
+
+   # Turn library info into a schematic part
+def parse_comp_info(ci, row):
+    sch_part = []
+    # Line 1
+    sch_part.append("$Comp\n") 
+    # Line 2
+    ind = ci[0].split()[1]
+    t_str = "L {}:{} {}\n".format(row['library'], ind, ind)
+    sch_part.append(t_str)
+    # Line 3
+    time_hex = hex(int(time.time()))[2:]
+    t_str = "U 1 1 {}\n".format(time_hex)
+    sch_part.append(t_str)
+    # Line 4
+    t_str = "P {} {}\n".format(str(row['x']), str(row['y']))
+    sch_part.append(t_str)
+    # Find all lines that start with F
+    for l in ci:
+        if re.search("^F", l):
+            t_str = "F {} {} {} {} {} {} 00{} {} {}\n".format(
+                                            l[1],
+                                            l.split()[1],
+                                            l.split()[5],
+                                            int(int(l.split()[2]) + row['x']),
+                                            int(int(l.split()[3]) + row['y']),
+                                            int(l.split()[4]),
+                                            1 if l.split()[5]=='V' else 0,
+                                            'L' if l.split()[6]=='V' else 'C',
+                                            l.split()[8],
+
+            )
+            sch_part.append(t_str)
+    t_str = "   1   {} {}\n".format(str(row['x']), str(row['y']))
+    sch_part.append(t_str)
+    t_str = "   {}   {}  {}  {}\n".format(1,0,0,-1) # x1 y1 x2 y2, normal is 1,0,0,-1
+    sch_part.append(t_str)
+    t_str = "$EndComp\n"
+    sch_part.append(t_str)
+
+    return ("\n"+"".join(sch_part))
+
+
+
+# get library information for a part
+def find_comp_info(part, lib):
+    all_lines=[]
+    # Open file, copy all the lines, then close it
+    with open(lib, encoding='utf8') as f:
+        all_lines = f.readlines()
+    f.close()
+
+    line_num=0
+    part_buff = []
+    found = False
+    # Go through each line and look for the part
+    # pattern: DEF part_name
+    # The part info ends 
+    for i in range(len(all_lines)):
+        l = all_lines[i]
+        if not found:
+            if re.search("^DEF", all_lines[i]):
+                if l.split()[1]==part:
+                    #found component
+                    found = True
+                    part_buff.append(all_lines[i])
+        else:
+            if re.search("^ENDDEF", all_lines[i]):
+                #end of component
+                part_buff.append(all_lines[i])
+                break
+            else:
+                part_buff.append(all_lines[i])
+    return part_buff
+
+
 
 
 class Circuit(SkidlBaseObject):
@@ -1015,29 +1124,64 @@ class Circuit(SkidlBaseObject):
         if tool is None:
             tool = skidl.get_default_tool()
 
-        w, h = 5, 5
-        arranger = Arranger(self, w, h)
-        arranger.arrange_randomly()
-        arranger.arrange_kl()
 
-        for part in self.parts:
-            part.generate_pinboxes()
+        '''
+        SHANE EDITS!!!!!
+        
+        '''
 
-        router = Router(self)
-        route = router.do_route()
+        t_x = 0
+        t_y = 0
+        circuit_parts=[]
+        # Range through the parts and append schematic entry
+        for i in self.parts:
+            lib = "/usr/share/kicad/library/" + i.lib.filename+".lib"
+            ci = find_comp_info(i.name,lib )
+            row = {'component':i.name, 'library':i.lib.filename}
+            row['x'] = t_x * 500
+            row['y'] = t_y * 500
+            # Place 20 parts each row, then go to the next row
+            t_x+=1
+            if t_x>19:
+                t_x=0
+                t_y+=1
+            
+            # Parse the library infor into a schematic component
+            circuit_parts.append(parse_comp_info(ci, row))
 
-        if not self.no_files:
-            try:
-                gen_func = getattr(self, "_gen_schematic_{}".format(tool))
-                gen_func(route)
-            except KeyError:
-                log_and_raise(
-                    logger,
-                    ValueError,
-                    "Can't generate schematic in an unknown ECAD tool format ({}).".format(
-                        tool
-                    ),
-                )
+        # Update the target schematic
+        update_schem(circuit_parts, file_)
+        
+        '''
+        
+        END SHANE EDITS
+        
+        '''
+
+
+        # w, h = 5, 5
+        # arranger = Arranger(self, w, h)
+        # arranger.arrange_randomly()
+        # arranger.arrange_kl()
+
+        # for part in self.parts:
+        #     part.generate_pinboxes()
+
+        # router = Router(self)
+        # route = router.do_route()
+
+        # if not self.no_files:
+        #     try:
+        #         gen_func = getattr(self, "_gen_schematic_{}".format(tool))
+        #         gen_func(route)
+        #     except KeyError:
+        #         log_and_raise(
+        #             logger,
+        #             ValueError,
+        #             "Can't generate schematic in an unknown ECAD tool format ({}).".format(
+        #                 tool
+        #             ),
+        #         )
 
         if (logger.error.count, logger.warning.count) == (0, 0):
             sys.stderr.write(
