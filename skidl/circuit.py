@@ -1062,29 +1062,47 @@ class Circuit(SkidlBaseObject):
             schPart=["$Comp\n"]
             # Indicator
             indicator = part_buff[0].split()[1] # Line 2
-            schPart.append("L {}:{} {}\n".format(i.lib.filename, indicator, indicator))
+            ref_name = i.ref
+            schPart.append("L {}:{} {}\n".format(i.lib.filename, indicator, ref_name))
             # Time created
             time_hex = hex(int(time.time()))[2:]
             schPart.append("U 1 1 {}\n".format(time_hex))
             # Location
-            x_cor = x_start + int((len(circuit_parts))%ncols) * comp_spacing # compute x coordinate
-            y_cor = y_start + int((len(circuit_parts))/ncols) * comp_spacing # compute y coordinate
+            x_cor = i.fields['loc'][0] + x_start
+            y_cor = i.fields['loc'][1] + y_start
+            # x_cor = x_start + int((len(circuit_parts))%ncols) * comp_spacing # compute x coordinate
+            # y_cor = y_start + int((len(circuit_parts))/ncols) * comp_spacing # compute y coordinate
             schPart.append("P {} {}\n".format(str(x_cor), str(y_cor)))
             # Fields
             for ln in part_buff:
                 if re.search("^F", ln):
-                    s = "F {} {} {} {} {} {} 00{} {} {}\n".format(
-                        ln[1],
-                        ln.split()[1],
-                        ln.split()[5],
-                        int(int(ln.split()[2]) + x_cor),
-                        int(int(ln.split()[3]) + y_cor),
-                        int(ln.split()[4]),
-                        1 if ln.split()[5] == "V" else 0,
-                        "L" if ln.split()[6] == "V" else "C",
-                        ln.split()[8],
-                    )
-                    schPart.append(s)
+                    if int(ln[1])== 0:
+                        s = 'F {} "{}" {} {} {} {} 00{} {} {}\n'.format(
+                            ln[1],
+                            ref_name,
+                            ln.split()[5],
+                            int(int(ln.split()[2]) + x_cor),
+                            int(int(ln.split()[3]) + y_cor),
+                            int(ln.split()[4]),
+                            1 if ln.split()[5] == "V" else 0,
+                            "L" if ln.split()[6] == "V" else "C",
+                            ln.split()[8],
+                        )
+                        schPart.append(s)
+                    else:
+                        s = "F {} {} {} {} {} {} 00{} {} {}\n".format(
+                            ln[1],
+                            ln.split()[1],
+                            ln.split()[5],
+                            int(int(ln.split()[2]) + x_cor),
+                            int(int(ln.split()[3]) + y_cor),
+                            int(ln.split()[4]),
+                            1 if ln.split()[5] == "V" else 0,
+                            "L" if ln.split()[6] == "V" else "C",
+                            ln.split()[8],
+                        )
+                        schPart.append(s)
+
             schPart.append("   1   {} {}\n".format(str(x_cor), str(y_cor)))
             # Orientation
             schPart.append("   {}   {}  {}  {}\n".format(1, 0, 0, -1))  # x1 y1 x2 y2, normal is 1,0,0,-1
