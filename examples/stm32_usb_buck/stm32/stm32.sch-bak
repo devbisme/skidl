@@ -1,0 +1,49 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A1 33110 23386
+encoding utf-8
+Sheet 1 1
+Title "STM32 SKiDL"
+Date "2021-08-09"
+Rev "v0.1"
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Device:C_Small C2
+U 1 1 6112BA52
+P 3100 1500
+F 0 "C2" H 3110 1570 50  0000 L CNN
+F 1 "C_Small" H 3110 1420 50  0000 L CNN
+F 2 "" H 3100 1500 50  0000 C CNN
+F 3 "" H 3100 1500 50  0000 C CNN
+	1    3100 1500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C1
+U 1 1 6112BA53
+P 3000 1600
+F 0 "C1" H 3010 1670 50  0000 L CNN
+F 1 "C_Small" H 3010 1520 50  0000 L CNN
+F 2 "" H 3000 1600 50  0000 C CNN
+F 3 "" H 3000 1600 50  0000 C CNN
+	1    3000 1600
+	1    0    0    -1  
+$EndComp
+$Comp
+L MCU_ST_STM32F4:STM32F405RGTx U1
+U 1 1 61114E4E
+P 4000 2500
+F 0 "U1" H 3400 4250 50  0000 L CNN
+F 1 "STM32F405RGTx" H 4400 4250 50  0000 L CNN
+F 2 "Package_QFP:LQFP-64_10x10mm_P0.5mm" H 3400 800 50  0000 C CNN
+F 3 "" H 4000 2500 50  0000 C CNN
+	1    4000 2500
+	1    0    0    -1  
+$EndComp
+$EndSCHEMATC
