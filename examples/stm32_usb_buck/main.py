@@ -14,12 +14,12 @@ brd_en = Net('brd_en')
 _3v3 = Net('+3V3')
 gnd = Net('GND')
 
-# a = SubCircuit(sc.stm32f405r([10000,10000], _3v3, gnd))
-sc.stm32f405r([10000,10000], _3v3, gnd)
-sc.board_enable([5000, 5000], brd_sel, brd_en, _3v3, gnd)
+sc.stm32f405r([0,0], _3v3, gnd)
+sc.board_enable([2000, 2000], brd_sel, brd_en, _3v3, gnd)
 
 
 
 schematic_path = "/home/cdsfsmattner/Desktop/skidl/examples/stm32_usb_buck/stm32/stm32.sch"
 
-generate_schematic(schematic_path, x_start=3000, y_start=1500, comp_spacing = 700, ncols=10)
+
+generate_schematic(schematic_path)

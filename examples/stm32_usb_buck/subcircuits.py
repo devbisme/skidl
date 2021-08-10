@@ -10,15 +10,12 @@ def stm32f405r(c,vdd, gnd):
     # MCU
     u = Part("MCU_ST_STM32F4", 'STM32F405RGTx', footprint='LQFP-64_10x10mm_P0.5mm')
     u.fields['loc']=[x,y]
-    # u.fields['subcircuit']="stm32f405r"
 
     # VACP's
     vcap1 = Part("Device", 'C_Small', footprint='C_0603_1608Metric')
     vcap1.fields['loc']=[x-1000, y-1100]
-    # vcap1.fields['subcircuit']="stm32f405r"
     vcap2 = Part("Device", 'C_Small', footprint='C_0603_1608Metric')
     vcap2.fields['loc']=[x-900,y-1000]
-    # vcap2.fields['subcircuit']="stm32f405r"
 
 
 ############################################################################
@@ -49,7 +46,8 @@ def board_enable(c,bd_sel_ls, enabled, vcc, gnd_):
     # TODO: actual IC is SN74LVC1G86DCKR
     xor_ic = Part('74xGxx', '74AUC1G66', footprint='SOT-353_SC-70-5')
     
-    r1, r2 = 2 * Part("Device", 'R', footprint='R_0603_1608Metric', value='10k')
+    r1 = Part("Device", 'R', footprint='R_0603_1608Metric', value='10k')
+    r2 = Part("Device", 'R', footprint='R_0603_1608Metric', value='10k')
     c1 = Part("Device", 'C', footprint='C_0603_1608Metric', value='0.1uF')
     c1.fields['voltage']='100v'
     c1.fields['temp_coeff']='X7R'

@@ -9,3 +9,4 @@ $ virtualenv dev_env
 $ source dev_env/bin/activate
 $ cd ~/project_folder
 $ pip install -e .
+$ python examples/stm32_usb_buck/main.py

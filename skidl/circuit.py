@@ -67,7 +67,7 @@ def make_sch_from_skidl_part(part, x_cor, y_cor):
         lib_file = f.readlines()
     f.close()
 
-    #    b: Look for the specific part and move it's info into a buffer
+    # b: Look for the specific part and move it's info into a buffer
     part_buff = []
     found = False
     for j in range(len(lib_file)):
@@ -92,15 +92,7 @@ def make_sch_from_skidl_part(part, x_cor, y_cor):
     schPart.append("L {}:{} {}\n".format(part.lib.filename, indicator, ref_name))
     # Time created
     time_hex = hex(int(time.time()))[2:]
-    schPart.append("U 1 1 {}\n".format(time_hex))
-    # Location
-    # try:
-    #     x_cor = part.fields['loc'][0] + x_start
-    #     y_cor = part.fields['loc'][1] + y_start
-    # except:
-    #     x_cor = x_start
-    #     y_cor = y_start
-    
+    schPart.append("U 1 1 {}\n".format(time_hex))    
     schPart.append("P {} {}\n".format(str(x_cor), str(y_cor)))
     # Fields
     for ln in part_buff:
@@ -1074,7 +1066,7 @@ class Circuit(SkidlBaseObject):
 
         return schematic_json
 
-    def generate_schematic(self, file_=None, tool=None, x_start=0, y_start=0, comp_spacing=500, ncols=10):
+    def generate_schematic(self, file_=None, tool=None, sch_loc=[0,0]):
         """
         Create a schematic file. THIS KINDA WORKS!  
         
@@ -1132,22 +1124,26 @@ class Circuit(SkidlBaseObject):
         sch_header = sch_file[: endDesc + 1]
 
         sch_x_size = int(sch_size.split()[2])
-        sch_x_center = int(sch_x_size/2)
+        print(sch_loc[0])
+        sch_x_center = (int(sch_x_size/2) + int(sch_loc[0]))
+        print(sch_x_center)
         sch_y_size = int(sch_size.split()[3])
-        sch_y_center = int(sch_y_size/2)
-
-
+        sch_y_center = (int(sch_y_size/2) + int(sch_loc[1]))
+        print(sch_loc[1])
+        print(sch_y_center)
+        
         circuit_parts = []
-        # Get the different parts and hierarchies
+        # Make a dictionary of the hierarchies and their corresponding components
         subCirc = {}
         for i in self.parts:
             if i.hierarchy not in subCirc:
-                # print("New hier:"+i.hierarchy)
                 subCirc[i.hierarchy]=[i]
             else:
-                # print("New part: "+i.ref +" for hier:"+i.hierarchy)
                 subCirc[i.hierarchy].append(i)
+        
         for i in subCirc:
+            x_center = sch_x_center
+            y_center = sch_y_center
             print("Subcircuit: " + i)
             print("Parts:")
             for j in subCirc[i]:
@@ -1161,7 +1157,7 @@ class Circuit(SkidlBaseObject):
             except:
                 t_x = sch_x_center
                 t_y = sch_y_center
-            circuit_parts.append(make_sch_from_skidl_part(i,t_x,t_y ))            
+            circuit_parts.append(make_sch_from_skidl_part(i,t_x,t_y ))    
 
 
         # Replace old schematic file content with new schematic file content
@@ -1170,7 +1166,6 @@ class Circuit(SkidlBaseObject):
             f.truncate(0) # Clear the file
             for i in new_sch_file:
                 print("" + "".join(i), file=f)
-
 
 
         # w, h = 5, 5
