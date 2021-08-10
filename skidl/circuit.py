@@ -1029,10 +1029,25 @@ class Circuit(SkidlBaseObject):
         if tool is None:
             tool = skidl.get_default_tool()
 
+        # Get the different parts and hierarchies
+        subCirc = {}
+        for i in self.parts:
+            if i.hierarchy not in subCirc:
+                # print("New hier:"+i.hierarchy)
+                subCirc[i.hierarchy]=[i]
+            else:
+                # print("New part: "+i.ref +" for hier:"+i.hierarchy)
+                subCirc[i.hierarchy].append(i)
+        for i in subCirc:
+            print("Subcircuit: " + i)
+            print("Parts:")
+            for j in subCirc[i]:
+                print(j.ref)
+
+
         circuit_parts = []
         # Range through the parts and append schematic entry
         for i in self.parts:
-            print(i.fields['subcircuit'])
             # 1: Get part info from library
             #    a: Read in library file
             lib = "/usr/share/kicad/library/" + i.lib.filename + ".lib" # Get library path for this part
@@ -1068,8 +1083,12 @@ class Circuit(SkidlBaseObject):
             time_hex = hex(int(time.time()))[2:]
             schPart.append("U 1 1 {}\n".format(time_hex))
             # Location
-            x_cor = i.fields['loc'][0] + x_start
-            y_cor = i.fields['loc'][1] + y_start
+            try:
+                x_cor = i.fields['loc'][0] + x_start
+                y_cor = i.fields['loc'][1] + y_start
+            except:
+                x_cor = x_start
+                y_cor = y_start
             
             schPart.append("P {} {}\n".format(str(x_cor), str(y_cor)))
             # Fields

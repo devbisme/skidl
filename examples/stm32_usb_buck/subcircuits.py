@@ -3,35 +3,29 @@ from skidl import *
 
 # LED indicator circuit
 # c = central coordinates for the subcircuit
-@subcircuit
+@SubCircuit
 def stm32f405r(c,vdd, gnd):
     x = c[0]
     y = c[1]
     # MCU
     u = Part("MCU_ST_STM32F4", 'STM32F405RGTx', footprint='LQFP-64_10x10mm_P0.5mm')
     u.fields['loc']=[x,y]
-    u.fields['subcircuit']="stm32f405r"
+    # u.fields['subcircuit']="stm32f405r"
 
     # VACP's
     vcap1 = Part("Device", 'C_Small', footprint='C_0603_1608Metric')
     vcap1.fields['loc']=[x-1000, y-1100]
-    vcap1.fields['subcircuit']="stm32f405r"
-    vcap2 = vcap1.copy()
+    # vcap1.fields['subcircuit']="stm32f405r"
+    vcap2 = Part("Device", 'C_Small', footprint='C_0603_1608Metric')
     vcap2.fields['loc']=[x-900,y-1000]
-    vcap2.fields['subcircuit']="stm32f405r"
-
-    led_indicator([c[0],c[1]],vdd, gnd, "green", "2.2k", "stm32f405r")
-
-
-
-
+    # vcap2.fields['subcircuit']="stm32f405r"
 
 
 ############################################################################
 
 # LED indicator circuit
-@subcircuit
-def led_indicator(c, inp, outp, color, resistance, subCirc):
+@SubCircuit
+def led_indicator(c, inp, outp, color, resistance):
     x = c[0]
     y = c[1]
 
@@ -39,15 +33,19 @@ def led_indicator(c, inp, outp, color, resistance, subCirc):
     d = Part("Device", 'D', footprint='D_0603_1608Metric')
     d.fields['color'] = color
     d.fields['loc']=[x, y]
-    d.fields['subcircuit']="stm32f405r"
+    # d.fields['subcircuit']="stm32f405r"
     r = Part("Device", 'R', footprint='R_0603_1608Metric', value=resistance)
-    r.fields['loc']=[x, y+200]
-    r.fields['subcircuit']="stm32f405r"
+    r.fields['loc']=[x, y+250]
+    # r.fields['subcircuit']="stm32f405r"
     # connect parts and nets
     inp & r & d & outp
 
-@subcircuit
-def board_enable(bd_sel_ls, enabled, vcc, gnd_):
+    
+
+@SubCircuit
+def board_enable(c,bd_sel_ls, enabled, vcc, gnd_):
+    x = c[0]
+    y = c[1]
     # TODO: actual IC is SN74LVC1G86DCKR
     xor_ic = Part('74xGxx', '74AUC1G66', footprint='SOT-353_SC-70-5')
     
@@ -57,10 +55,10 @@ def board_enable(bd_sel_ls, enabled, vcc, gnd_):
     c1.fields['temp_coeff']='X7R'
 
     # Place parts
-    xor_ic.loc=(0,0)
-    r1.loc=(0,0)
-    r2.loc=(0,0)
-    c1.loc=(0,0)
+    xor_ic.fields['loc']=[x, y]
+    r1.fields['loc']=[x+300, y+300]
+    r2.fields['loc']=[x-300, y-300]
+    c1.fields['loc']=[x+500, y+500]
 
     xor_ic.p1 += bd_sel_ls
     xor_ic.p2 += r2.p1
@@ -71,10 +69,10 @@ def board_enable(bd_sel_ls, enabled, vcc, gnd_):
     r1.p2 += gnd_
     r2.p2 += gnd_
     
-    led_indicator(vcc, enabled, 'green', '5.6k')
+    # led_indicator(c*2, vcc, enabled, 'green', '5.6k')
 
 
-@subcircuit
+@SubCircuit
 def ADC_16bit_spi(fl_n, mosi_iso, miso_iso, sclk_iso, cs_iso, rst, _5v_iso, _3v3_iso, iso_gnd):
     # create parts
     ic = Part('Analog_ADC','ADS1220xPW', footprint='SSOP-16_3.9x4.9mm_P0.635mm')
@@ -161,7 +159,7 @@ def ADC_16bit_spi(fl_n, mosi_iso, miso_iso, sclk_iso, cs_iso, rst, _5v_iso, _3v3
 
 
 
-@subcircuit
+@SubCircuit
 def digital_isolator(mosi_iso, miso_iso, sclk_iso, cs_iso, mosi_l, miso_l, sclk_l, cs_l, _5v,_3v3_iso, iso_gnd, gnd_l):
     # Make parts
     ic = Part('Isolator', 'ISO7763DW', footprint='SOIC-16_W7.5mm')
@@ -202,7 +200,7 @@ def digital_isolator(mosi_iso, miso_iso, sclk_iso, cs_iso, mosi_l, miso_l, sclk_
     c2.p1 += _5v
     c2.p2 += gnd_l
     
-@subcircuit
+@SubCircuit
 def address_decode(adr_in, adr_out, enable, cs_ls, _5v, _3v3, gnd_l):
     ic = Part('74xx', '74HC4051', footprint='TSSOP-16_4.4x5mm_P0.65mm')
 
@@ -241,7 +239,7 @@ def address_decode(adr_in, adr_out, enable, cs_ls, _5v, _3v3, gnd_l):
 
 
 
-@subcircuit
+@SubCircuit
 def spi_driver(mosi_ls, sclk_ls, mosi_l, sclk_l, enable, _5v, _3v3, gnd_):
     ic = Part('74xx', '74HCT541', footprint='TSSOP-20_4.4x5mm_P0.5mm')
     r1, r2, r3, r4 = 4 * Part("Device", 'R', footprint='R_0603_1608Metric', value='10k')
@@ -282,7 +280,7 @@ def spi_driver(mosi_ls, sclk_ls, mosi_l, sclk_l, enable, _5v, _3v3, gnd_):
 
 
 
-@subcircuit
+@SubCircuit
 def bus_driver(miso_ls, miso_l, enable, _3v3, gnd_l):
     ic = Part('74xGxx', '74LVC1G125', footprint='SOT-353')
     r1 = Part("Device", 'R', footprint='R_0603_1608Metric', value='22')
@@ -314,7 +312,7 @@ def bus_driver(miso_ls, miso_l, enable, _3v3, gnd_l):
     ic.p5 += _3v3
 
 
-@subcircuit
+@SubCircuit
 def shift_register(miso_l_bd, miso, adr, enable, _5v, gnd_l):
     ic = Part('74xx', '74LS151', footprint='SOIC-16_W3.90mm')
     c1 = Part("Device", 'C', footprint='C_0603_1608Metric', value='0.1uF')
@@ -340,7 +338,7 @@ def shift_register(miso_l_bd, miso, adr, enable, _5v, gnd_l):
     ic.p16 += _5v
 
 
-@subcircuit
+@SubCircuit
 def ribbon_cable(mosi_ls, miso_ls, sclk_ls, cs_ls, adr, bd_sel_ls, gnd_l):
     rib = Part('Connector_Generic', 'Conn_01x26', footprint='PinHeader_2x26_P2.54mm_Vertical_SMD')
     r1, r2, r3 = 3 * Part("Device", 'R', footprint='R_0603_1608Metric', value='10k')

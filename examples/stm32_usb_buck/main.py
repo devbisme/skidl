@@ -7,10 +7,17 @@ for file in os.listdir("."):
     if file.endswith("sklib.py"):
         os.remove(file)
 
+
+
+brd_sel = Net('brd_sel')
+brd_en = Net('brd_en')
 _3v3 = Net('+3V3')
 gnd = Net('GND')
 
+# a = SubCircuit(sc.stm32f405r([10000,10000], _3v3, gnd))
 sc.stm32f405r([10000,10000], _3v3, gnd)
+sc.board_enable([5000, 5000], brd_sel, brd_en, _3v3, gnd)
+
 
 
 schematic_path = "/home/cdsfsmattner/Desktop/skidl/examples/stm32_usb_buck/stm32/stm32.sch"
