@@ -10,7 +10,8 @@ for file in os.listdir("."):
 _3v3 = Net('+3V3')
 gnd = Net('GND')
 
-sc.stm32f405r(_3v3, gnd,[1000,1000])
+sc.stm32f405r([10000,10000], _3v3, gnd)
+
 
 schematic_path = "/home/cdsfsmattner/Desktop/skidl/examples/stm32_usb_buck/stm32/stm32.sch"
 

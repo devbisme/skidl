@@ -4,16 +4,23 @@ from skidl import *
 # LED indicator circuit
 # c = central coordinates for the subcircuit
 @subcircuit
-def stm32f405r(vdd, gnd, c):
+def stm32f405r(c,vdd, gnd):
     x = c[0]
     y = c[1]
-    # create parts
+    # MCU
     u = Part("MCU_ST_STM32F4", 'STM32F405RGTx', footprint='LQFP-64_10x10mm_P0.5mm')
     u.fields['loc']=[x,y]
+    u.fields['subcircuit']="stm32f405r"
+
+    # VACP's
     vcap1 = Part("Device", 'C_Small', footprint='C_0603_1608Metric')
-    vcap1.fields['loc']=[x-1000, y-900]
-    vcap2 = Part("Device", 'C_Small', footprint='C_0603_1608Metric')
+    vcap1.fields['loc']=[x-1000, y-1100]
+    vcap1.fields['subcircuit']="stm32f405r"
+    vcap2 = vcap1.copy()
     vcap2.fields['loc']=[x-900,y-1000]
+    vcap2.fields['subcircuit']="stm32f405r"
+
+    led_indicator([c[0],c[1]],vdd, gnd, "green", "2.2k", "stm32f405r")
 
 
 
@@ -24,13 +31,18 @@ def stm32f405r(vdd, gnd, c):
 
 # LED indicator circuit
 @subcircuit
-def led_indicator(inp, outp, color, resistance):
+def led_indicator(c, inp, outp, color, resistance, subCirc):
+    x = c[0]
+    y = c[1]
+
     # create parts
     d = Part("Device", 'D', footprint='D_0603_1608Metric')
     d.fields['color'] = color
+    d.fields['loc']=[x, y]
+    d.fields['subcircuit']="stm32f405r"
     r = Part("Device", 'R', footprint='R_0603_1608Metric', value=resistance)
-    d.loc = (0,0)
-    r.loc = (0,0)
+    r.fields['loc']=[x, y+200]
+    r.fields['subcircuit']="stm32f405r"
     # connect parts and nets
     inp & r & d & outp
 

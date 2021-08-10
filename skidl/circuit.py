@@ -1029,10 +1029,10 @@ class Circuit(SkidlBaseObject):
         if tool is None:
             tool = skidl.get_default_tool()
 
-        
         circuit_parts = []
         # Range through the parts and append schematic entry
         for i in self.parts:
+            print(i.fields['subcircuit'])
             # 1: Get part info from library
             #    a: Read in library file
             lib = "/usr/share/kicad/library/" + i.lib.filename + ".lib" # Get library path for this part
@@ -1070,8 +1070,7 @@ class Circuit(SkidlBaseObject):
             # Location
             x_cor = i.fields['loc'][0] + x_start
             y_cor = i.fields['loc'][1] + y_start
-            # x_cor = x_start + int((len(circuit_parts))%ncols) * comp_spacing # compute x coordinate
-            # y_cor = y_start + int((len(circuit_parts))/ncols) * comp_spacing # compute y coordinate
+            
             schPart.append("P {} {}\n".format(str(x_cor), str(y_cor)))
             # Fields
             for ln in part_buff:
