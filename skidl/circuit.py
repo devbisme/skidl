@@ -59,6 +59,88 @@ from .utilities import *
 
 standard_library.install_aliases()
 
+
+def make_sch_from_skidl_part(part, x_cor, y_cor):
+    lib = "/usr/share/kicad/library/" + part.lib.filename + ".lib" # Get library path for this part
+    lib_file = []
+    with open(lib, encoding="utf8") as f:
+        lib_file = f.readlines()
+    f.close()
+
+    #    b: Look for the specific part and move it's info into a buffer
+    part_buff = []
+    found = False
+    for j in range(len(lib_file)):
+        l = lib_file[j]
+        if not found:
+            if re.search("^DEF", l):
+                if l.split()[1] == part.name:
+                    found = True # found component
+                    part_buff.append(l)
+        else:
+            if re.search("^ENDDEF", l): # end of component
+                part_buff.append(l)
+                break
+            else:
+                part_buff.append(l)
+
+    # 2: Create schematic code for part using library info
+    schPart=["$Comp\n"]
+    # Indicator
+    indicator = part_buff[0].split()[1] # Line 2
+    ref_name = part.ref
+    schPart.append("L {}:{} {}\n".format(part.lib.filename, indicator, ref_name))
+    # Time created
+    time_hex = hex(int(time.time()))[2:]
+    schPart.append("U 1 1 {}\n".format(time_hex))
+    # Location
+    # try:
+    #     x_cor = part.fields['loc'][0] + x_start
+    #     y_cor = part.fields['loc'][1] + y_start
+    # except:
+    #     x_cor = x_start
+    #     y_cor = y_start
+    
+    schPart.append("P {} {}\n".format(str(x_cor), str(y_cor)))
+    # Fields
+    for ln in part_buff:
+        if re.search("^F", ln):
+            if int(ln[1])== 0:
+                s = 'F {} "{}" {} {} {} {} 00{} {} {}\n'.format(
+                    ln[1],
+                    ref_name,
+                    ln.split()[5],
+                    int(int(ln.split()[2]) + x_cor),
+                    int(int(ln.split()[3]) + y_cor),
+                    int(ln.split()[4]),
+                    1 if ln.split()[5] == "V" else 0,
+                    "L" if ln.split()[6] == "V" else "C",
+                    ln.split()[8],
+                )
+                schPart.append(s)
+            else:
+                s = "F {} {} {} {} {} {} 00{} {} {}\n".format(
+                    ln[1],
+                    ln.split()[1],
+                    ln.split()[5],
+                    int(int(ln.split()[2]) + x_cor),
+                    int(int(ln.split()[3]) + y_cor),
+                    int(ln.split()[4]),
+                    1 if ln.split()[5] == "V" else 0,
+                    "L" if ln.split()[6] == "V" else "C",
+                    ln.split()[8],
+                )
+                schPart.append(s)
+
+    schPart.append("   1   {} {}\n".format(str(x_cor), str(y_cor)))
+    # Orientation
+    schPart.append("   {}   {}  {}  {}\n".format(1, 0, 0, -1))  # x1 y1 x2 y2, normal is 1,0,0,-1
+    # End of component
+    schPart.append("$EndComp\n") 
+    # Append schematic part to circuit_parts buffer
+    return("\n" + "".join(schPart))
+
+
 class Circuit(SkidlBaseObject):
     """
     Class object that holds the entire netlist of parts and nets.
@@ -1029,6 +1111,33 @@ class Circuit(SkidlBaseObject):
         if tool is None:
             tool = skidl.get_default_tool()
 
+
+        # Get the header file so we know where the center is
+        # Open the target schematic to read it's header
+        sch_file = []
+        # Open file, copy all the lines, then close it
+        with open(file_, encoding="utf8") as f:
+            sch_file = f.readlines()
+        f.close()
+
+        # Search for $EndDescr line number
+        endDesc = 0
+        sch_size = []
+        for i in range(len(sch_file)):
+            if re.search("^Descr", sch_file[i][1:]):
+                sch_size = sch_file[i]
+            if re.search("^EndDescr", sch_file[i][1:]):
+                endDesc = i
+                break
+        sch_header = sch_file[: endDesc + 1]
+
+        sch_x_size = int(sch_size.split()[2])
+        sch_x_center = int(sch_x_size/2)
+        sch_y_size = int(sch_size.split()[3])
+        sch_y_center = int(sch_y_size/2)
+
+
+        circuit_parts = []
         # Get the different parts and hierarchies
         subCirc = {}
         for i in self.parts:
@@ -1043,108 +1152,20 @@ class Circuit(SkidlBaseObject):
             print("Parts:")
             for j in subCirc[i]:
                 print(j.ref)
-
-
-        circuit_parts = []
+                
         # Range through the parts and append schematic entry
         for i in self.parts:
-            # 1: Get part info from library
-            #    a: Read in library file
-            lib = "/usr/share/kicad/library/" + i.lib.filename + ".lib" # Get library path for this part
-            lib_file = []
-            with open(lib, encoding="utf8") as f:
-                lib_file = f.readlines()
-            f.close()
-
-            #    b: Look for the specific part and move it's info into a buffer
-            part_buff = []
-            found = False
-            for j in range(len(lib_file)):
-                l = lib_file[j]
-                if not found:
-                    if re.search("^DEF", l):
-                        if l.split()[1] == i.name:
-                            found = True # found component
-                            part_buff.append(l)
-                else:
-                    if re.search("^ENDDEF", l): # end of component
-                        part_buff.append(l)
-                        break
-                    else:
-                        part_buff.append(l)
-
-            # 2: Create schematic code for part using library info
-            schPart=["$Comp\n"]
-            # Indicator
-            indicator = part_buff[0].split()[1] # Line 2
-            ref_name = i.ref
-            schPart.append("L {}:{} {}\n".format(i.lib.filename, indicator, ref_name))
-            # Time created
-            time_hex = hex(int(time.time()))[2:]
-            schPart.append("U 1 1 {}\n".format(time_hex))
-            # Location
             try:
-                x_cor = i.fields['loc'][0] + x_start
-                y_cor = i.fields['loc'][1] + y_start
+                t_x = i.fields['loc'][0] + sch_x_center
+                t_y =i.fields['loc'][1] + sch_y_center
             except:
-                x_cor = x_start
-                y_cor = y_start
-            
-            schPart.append("P {} {}\n".format(str(x_cor), str(y_cor)))
-            # Fields
-            for ln in part_buff:
-                if re.search("^F", ln):
-                    if int(ln[1])== 0:
-                        s = 'F {} "{}" {} {} {} {} 00{} {} {}\n'.format(
-                            ln[1],
-                            ref_name,
-                            ln.split()[5],
-                            int(int(ln.split()[2]) + x_cor),
-                            int(int(ln.split()[3]) + y_cor),
-                            int(ln.split()[4]),
-                            1 if ln.split()[5] == "V" else 0,
-                            "L" if ln.split()[6] == "V" else "C",
-                            ln.split()[8],
-                        )
-                        schPart.append(s)
-                    else:
-                        s = "F {} {} {} {} {} {} 00{} {} {}\n".format(
-                            ln[1],
-                            ln.split()[1],
-                            ln.split()[5],
-                            int(int(ln.split()[2]) + x_cor),
-                            int(int(ln.split()[3]) + y_cor),
-                            int(ln.split()[4]),
-                            1 if ln.split()[5] == "V" else 0,
-                            "L" if ln.split()[6] == "V" else "C",
-                            ln.split()[8],
-                        )
-                        schPart.append(s)
+                t_x = sch_x_center
+                t_y = sch_y_center
+            circuit_parts.append(make_sch_from_skidl_part(i,t_x,t_y ))            
 
-            schPart.append("   1   {} {}\n".format(str(x_cor), str(y_cor)))
-            # Orientation
-            schPart.append("   {}   {}  {}  {}\n".format(1, 0, 0, -1))  # x1 y1 x2 y2, normal is 1,0,0,-1
-            # End of component
-            schPart.append("$EndComp\n") 
-            # Append schematic part to circuit_parts buffer
-            circuit_parts.append("\n" + "".join(schPart))
-            
-        # Open the target schematic to read it's header
-        sch_file = []
-        # Open file, copy all the lines, then close it
-        with open(file_, encoding="utf8") as f:
-            sch_file = f.readlines()
-        f.close()
-
-        # Search for $EndDescr line number
-        endDesc = 0
-        for i in range(len(sch_file)):
-            if re.search("^EndDescr", sch_file[i][1:]):
-                endDesc = i
-                break
 
         # Replace old schematic file content with new schematic file content
-        new_sch_file = [sch_file[: endDesc + 1], circuit_parts, "$EndSCHEMATC"]
+        new_sch_file = [sch_header, circuit_parts, "$EndSCHEMATC"]
         with open(file_, "w") as f:
             f.truncate(0) # Clear the file
             for i in new_sch_file:
