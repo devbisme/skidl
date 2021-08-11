@@ -20,6 +20,8 @@ sc.board_enable([2000, 2000], brd_sel, brd_en, _3v3, gnd)
 
 
 schematic_path = "/home/cdsfsmattner/Desktop/skidl/examples/stm32_usb_buck/stm32/stm32.sch"
+netlist_path = "/home/cdsfsmattner/Desktop/skidl/examples/stm32_usb_buck/stm32/netlist.net"
 
 
-generate_schematic(schematic_path)
+generate_schematic(file_ = schematic_path)
+# generate_netlist(file_ = netlist_path)

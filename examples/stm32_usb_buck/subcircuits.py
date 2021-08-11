@@ -10,12 +10,20 @@ def stm32f405r(c,vdd, gnd):
     # MCU
     u = Part("MCU_ST_STM32F4", 'STM32F405RGTx', footprint='LQFP-64_10x10mm_P0.5mm')
     u.fields['loc']=[x,y]
+    
 
     # VACP's
+    
+    
+    
     vcap1 = Part("Device", 'C_Small', footprint='C_0603_1608Metric')
     vcap1.fields['loc']=[x-1000, y-1100]
+    vc1 = Net('vcap1')
+    vc1 += u.p31
     vcap2 = Part("Device", 'C_Small', footprint='C_0603_1608Metric')
     vcap2.fields['loc']=[x-900,y-1000]
+    vc2 = Net('vcap2')
+    vc2 += u.p47
 
 
 ############################################################################
