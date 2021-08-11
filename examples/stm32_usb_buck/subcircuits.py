@@ -19,11 +19,12 @@ def stm32f405r(c,vdd, gnd):
     vcap1 = Part("Device", 'C_Small', footprint='C_0603_1608Metric')
     vcap1.fields['loc']=[x-1000, y-1100]
     vc1 = Net('vcap1')
-    vc1 += u.p31
+    vc1 += u.p31, vcap1.p1
+
     vcap2 = Part("Device", 'C_Small', footprint='C_0603_1608Metric')
     vcap2.fields['loc']=[x-900,y-1000]
     vc2 = Net('vcap2')
-    vc2 += u.p47
+    vc2 += u.p47, vcap2.p1
 
 
 ############################################################################

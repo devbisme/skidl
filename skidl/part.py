@@ -1089,24 +1089,27 @@ class Part(SkidlBaseObject):
 
         return gen_func()
     
-    def generate_schematic(self, coordinates=[0,0]):
+    def gen_part_eeschema(self, coordinates=[0,0]):
+        """
+        Generate the eeschema code for a part
+        https://en.wikibooks.org/wiki/Kicad/file_formats#Schematic_Files_Format
+        """
+
         x = coordinates[0]
         y = coordinates[1]
-        schPart=["$Comp\n"]
-        schPart.append("L {}:{} {}\n".format(self.lib.filename, self.name, self.ref))
+        schP=["$Comp\n"]
+        schP.append("L {}:{} {}\n".format(self.lib.filename, self.name, self.ref))
         time_hex = hex(int(time.time()))[2:]
-        schPart.append("U 1 1 {}\n".format(time_hex))    
-        schPart.append("P {} {}\n".format(str(x), str(y)))
+        schP.append("U 1 1 {}\n".format(time_hex))    
+        schP.append("P {} {}\n".format(str(x), str(y)))
 
+        # Add part symbols. For now we are only adding the designator
         n_F0 = 1
         for i in range(len(self.draw)):
-            print(i)
             if re.search("^DrawF0", str(self.draw[i])):
-            # if str(i) == "DrawF0":
                 n_F0 = i
                 break
-
-        schPart.append('F 0 "{}" {} {} {} {} {} {} {}\n'.format(
+        schP.append('F 0 "{}" {} {} {} {} {} {} {}\n'.format(
                                         self.ref,
                                         self.draw[n_F0].orientation,
                                         str(self.draw[n_F0].x + x),
@@ -1116,11 +1119,10 @@ class Part(SkidlBaseObject):
                                         self.draw[n_F0].halign,
                                         self.draw[n_F0].valign
         ))
-        schPart.append("   1   {} {}\n".format(str(x), str(y)))
-        schPart.append("   {}   {}  {}  {}\n".format(1, 0, 0, -1))  # x1 y1 x2 y2, normal is 1,0,0,-1
-        schPart.append("$EndComp\n") 
-        # Append schematic self to circuit_parts buffer
-        return ("\n" + "".join(schPart))
+        schP.append("   1   {} {}\n".format(str(x), str(y)))
+        schP.append("   {}   {}  {}  {}\n".format(1, 0, 0, -1))  # x1 y1 x2 y2, normal is 1,0,0,-1
+        schP.append("$EndComp\n") 
+        return ("\n" + "".join(schP))
 
     def erc_desc(self):
         """Create description of part for ERC and other error reporting."""
