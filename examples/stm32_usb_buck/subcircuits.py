@@ -11,11 +11,7 @@ def stm32f405r(c,vdd, gnd):
     u = Part("MCU_ST_STM32F4", 'STM32F405RGTx', footprint='LQFP-64_10x10mm_P0.5mm')
     u.fields['loc']=[x,y]
     
-
     # VACP's
-    
-    
-    
     vcap1 = Part("Device", 'C_Small', footprint='C_0603_1608Metric')
     vcap1.fields['loc']=[x-1000, y-1100]
     vc1 = Net('vcap1')
@@ -49,9 +45,13 @@ def led_indicator(c, inp, outp, color, resistance):
     
 
 @SubCircuit
-def board_enable(c,bd_sel_ls, enabled, vcc, gnd_):
+def board_enable(c, vcc, gnd_):
     x = c[0]
     y = c[1]
+
+    bd_sel_ls = Net('GND')
+    n1 = Net('icp2_r2p1')
+
     # TODO: actual IC is SN74LVC1G86DCKR
     xor_ic = Part('74xGxx', '74AUC1G66', footprint='SOT-353_SC-70-5')
     
@@ -67,12 +67,11 @@ def board_enable(c,bd_sel_ls, enabled, vcc, gnd_):
     r2.fields['loc']=[x-300, y-300]
     c1.fields['loc']=[x+500, y+500]
 
-    xor_ic.p1 += bd_sel_ls
-    xor_ic.p2 += r2.p1
+    bd_sel_ls += xor_ic.p1, r1.p1
+    n1 += xor_ic.p2, r2.p1
     xor_ic.p3 += gnd_
-    xor_ic.p4 += enabled
+    # xor_ic.p4 += enabled
     xor_ic.p5 += vcc
-    r1.p1 += bd_sel_ls
     r1.p2 += gnd_
     r2.p2 += gnd_
     
