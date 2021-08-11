@@ -66,6 +66,37 @@ def make_wire(x1,y1,x2,y2):
     out.append("	{} {} {} {}\n".format(x1,y1,x2,y2))
     return ("\n" + "".join(out))
 
+def gen_nets_code(rnets, circ_parts, coord):
+    out=[]
+    for n in rnets:
+        x1 = coord[0]
+        y1 = coord[1]
+        x2 = coord[0]
+        y2 = coord[1]
+        # Get part and pin number of net connection
+        m = str(n).split() # split by spaces
+        t_part1 = (m[2].split("/"))[0]
+        t_pin1 = "p"+str((m[2].split("/"))[1])
+        t_part2 = (m[4].split("/"))[0]
+        t_pin2 = "p"+str((m[4].split("/"))[1])
+        # Go through parts and find the x/y offset
+        for i in circ_parts:
+            if i.ref == t_part1:
+                x_pin = getattr(i,t_pin1).x
+                y_pin = getattr(i,t_pin1).y
+                # Set x1/y1 based on the offset of the pin and part
+                x1 += i.fields['loc'][0] + x_pin
+                y1 += i.fields['loc'][1] - y_pin
+            if i.ref == t_part2:
+                # Set x2/y2 based on the offset of the pin and part
+                x_pin = getattr(i,t_pin2).x
+                y_pin = getattr(i,t_pin2).y
+                x2 += i.fields['loc'][0] + x_pin
+                y2 += i.fields['loc'][1] - y_pin
+        out.append(make_wire(x1,y1,x2,y2))
+    return out
+
+
 class Circuit(SkidlBaseObject):
     """
     Class object that holds the entire netlist of parts and nets.
@@ -1052,27 +1083,7 @@ class Circuit(SkidlBaseObject):
         sch_y_center = int(sch_y_size/2) + int(sch_loc[1])
         sch_y_center = sch_y_center - sch_y_center%50
 
-        
-
-
-
-        circuit_parts = [] # The most important list!!  Holds all individual circuit parts to be added
-        # Make a dictionary of the hierarchies and their corresponding parts and nets
-        # subCirc_parts = {}
-        # subCirc_nets = {}
-        # for i in self.parts:
-        #     if i.hierarchy not in subCirc_parts:
-        #         subCirc_parts[i.hierarchy]=[i]
-        #         for j in routed_nets:
-        #             if j.hierarchy == i.hierarchy:
-        #                 if j.hierarchy not in subCirc_nets:
-        #                     subCirc_nets[j.hierarchy]=j.pins
-        #                 else:
-        #                     subCirc_nets[j.hierarchy].append(j.pins)
-        #     else:
-        #         subCirc_parts[i.hierarchy].append(i)
-
-                
+        circuit_parts = [] # !! MOST IMPORTANT LIST !!  Holds all individual circuit parts to be added
         # Range through the parts and append schematic entry
         for i in self.parts:
             # See if a specific location was set
@@ -1097,43 +1108,8 @@ class Circuit(SkidlBaseObject):
         )
         routed_nets = list(set(self.nets) - set(net_stubs))
 
-        # Generate code for routed nets
-        x1 = sch_x_center
-        y1 = sch_y_center
-        x2 = sch_x_center
-        y2 = sch_y_center
-        for n in routed_nets:
-            print(n)
-            m = str(n).split() # split by spaces
-            # n = str(m[-1]).split("/") # split by '/'
-            t_part1 = (m[2].split("/"))[0]
-            t_pin1 = "p"+str((m[2].split("/"))[1])
-            t_part2 = (m[4].split("/"))[0]
-            t_pin2 = "p"+str((m[4].split("/"))[1])
-            for i in self.parts:
-                if i.ref == t_part1:
-                    x_pin = getattr(i,t_pin1).x
-                    y_pin = getattr(i,t_pin1).y
-                    x1 = sch_x_center + i.fields['loc'][0] + x_pin
-                    y1 = sch_y_center + i.fields['loc'][1] - y_pin
-                if i.ref == t_part2:
-                    x_pin = getattr(i,t_pin2).x
-                    y_pin = getattr(i,t_pin2).y
-                    x2 = sch_x_center + i.fields['loc'][0] + x_pin
-                    y2 = sch_y_center + i.fields['loc'][1] - y_pin
-            circuit_parts.append(make_wire(x1,y1,x2,y2))
-
-            # C1 net 15850 15350 15550 15350
-            # C2 net 15850 15450 15650 15450
-
-            # get pin location for part/pin 1
-            # x1 = sch_x_center + i.fields['loc'][0]
-            # y1 = sch_x_center + i.fields['loc'][1]
-            # # get pin location for part/pin 2
-            # x2 = sch_x_center + i.fields['loc'][0]
-            # y2 = sch_x_center + i.fields['loc'][1]
-            # make the net
-        # circuit_parts.append(make_wire(15550, 10450, 15850, 10450))
+        # Create the nets and add them to the circuit parts list
+        circuit_parts.extend(gen_nets_code(routed_nets, self.parts, [sch_x_center,sch_y_center]))
 
         # Replace old schematic file content with new schematic file content
         new_sch_file = [sch_header, circuit_parts, "$EndSCHEMATC"]

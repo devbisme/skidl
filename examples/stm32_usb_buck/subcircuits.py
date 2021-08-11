@@ -37,7 +37,6 @@ def led_indicator(c, inp, outp, color, resistance):
     d = Part("Device", 'D', footprint='D_0603_1608Metric')
     d.fields['color'] = color
     d.fields['loc']=[x, y]
-    # d.fields['subcircuit']="stm32f405r"
     r = Part("Device", 'R', footprint='R_0603_1608Metric', value=resistance)
     r.fields['loc']=[x-150, y-200]
     # r.fields['subcircuit']="stm32f405r"
