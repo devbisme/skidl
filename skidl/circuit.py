@@ -60,19 +60,49 @@ from .utilities import *
 standard_library.install_aliases()
 
 
-def make_wire(x1,y1,x2,y2):
-    out = []
-    out.append("Wire Wire Line\n")
-    out.append("	{} {} {} {}\n".format(x1,y1,x2,y2))
-    return ("\n" + "".join(out))
+
+def find_part_hier(p_name, hier):
+    for i in hier:
+        for p in hier[i]:
+            if p_name == p.ref:
+                return True
+    return False
+
+# Calculate the distance from one pin to another
+def calc_distance(rnet, circ_parts):
+    # Get part and pin number of net connection
+    m = str(rnet).split() # split by spaces
+    t_part1 = (m[2].split("/"))[0]
+    t_pin1 = "p"+str((m[2].split("/"))[1])
+    t_part2 = (m[4].split("/"))[0]
+    t_pin2 = "p"+str((m[4].split("/"))[1])
+    # Go through parts and find the x/y offset
+    o_coor = {}
+    for i in circ_parts:
+        if i.ref == t_part1:
+            x_pin = getattr(i,t_pin1).x
+            y_pin = getattr(i,t_pin1).y
+            # Set x1/y1 based on the offset of the pin and part
+            o_coor['x1'] = i.fields['loc'][0] + x_pin
+            o_coor['y1'] = i.fields['loc'][1] - y_pin
+            
+            if len(o_coor)>3: break
+            # x1 += i.fields['loc'][0] + x_pin
+            # y1 += i.fields['loc'][1] - y_pin
+        if i.ref == t_part2:
+            # Set x2/y2 based on the offset of the pin and part
+            x_pin = getattr(i,t_pin2).x
+            y_pin = getattr(i,t_pin2).y
+            o_coor['x2'] = i.fields['loc'][0] + x_pin
+            o_coor['y2'] = i.fields['loc'][1] - y_pin
+            if len(o_coor)>3: break
+            # x2 += i.fields['loc'][0] + x_pin
+            # y2 += i.fields['loc'][1] - y_pin
+    return o_coor
 
 def gen_nets_code(rnets, circ_parts, coord):
     out=[]
     for n in rnets:
-        x1 = coord[0]
-        y1 = coord[1]
-        x2 = coord[0]
-        y2 = coord[1]
         # Get part and pin number of net connection
         m = str(n).split() # split by spaces
         t_part1 = (m[2].split("/"))[0]
@@ -80,22 +110,36 @@ def gen_nets_code(rnets, circ_parts, coord):
         t_part2 = (m[4].split("/"))[0]
         t_pin2 = "p"+str((m[4].split("/"))[1])
         # Go through parts and find the x/y offset
+        o_coor = {}
         for i in circ_parts:
             if i.ref == t_part1:
                 x_pin = getattr(i,t_pin1).x
                 y_pin = getattr(i,t_pin1).y
                 # Set x1/y1 based on the offset of the pin and part
-                x1 += i.fields['loc'][0] + x_pin
-                y1 += i.fields['loc'][1] - y_pin
+                o_coor['x1'] = coord[0] + i.fields['loc'][0] + x_pin
+                o_coor['y1'] = coord[1] + i.fields['loc'][1] - y_pin
+                
+                if len(o_coor)>3: break
+                # x1 += i.fields['loc'][0] + x_pin
+                # y1 += i.fields['loc'][1] - y_pin
             if i.ref == t_part2:
                 # Set x2/y2 based on the offset of the pin and part
                 x_pin = getattr(i,t_pin2).x
                 y_pin = getattr(i,t_pin2).y
-                x2 += i.fields['loc'][0] + x_pin
-                y2 += i.fields['loc'][1] - y_pin
-        out.append(make_wire(x1,y1,x2,y2))
+                o_coor['x2'] = coord[0] + i.fields['loc'][0] + x_pin
+                o_coor['y2'] = coord[1] + i.fields['loc'][1] - y_pin
+                if len(o_coor)>3: break
+                # x2 += i.fields['loc'][0] + x_pin
+                # y2 += i.fields['loc'][1] - y_pin
+
+        wire = []
+        wire.append("Wire Wire Line\n")
+        wire.append("	{} {} {} {}\n".format(o_coor['x1'],o_coor['y1'], o_coor['x2'], o_coor['y2']))
+        out.append(("\n" + "".join(wire)))
     return out
 
+def cal_pin_distance():
+    print("...")
 
 class Circuit(SkidlBaseObject):
     """
@@ -1081,7 +1125,8 @@ class Circuit(SkidlBaseObject):
         sch_x_center = sch_x_center - sch_x_center%50 # Round down to the nearest 50mil
         sch_y_size = int(sch_size.split()[3])
         sch_y_center = int(sch_y_size/2) + int(sch_loc[1])
-        sch_y_center = sch_y_center - sch_y_center%50
+        sch_y_center = sch_y_center - sch_y_center%50 # Round down to the nearest 50mil
+
 
         circuit_parts = [] # !! MOST IMPORTANT LIST !!  Holds all individual circuit parts to be added
         # Range through the parts and append schematic entry
@@ -1110,6 +1155,27 @@ class Circuit(SkidlBaseObject):
 
         # Create the nets and add them to the circuit parts list
         circuit_parts.extend(gen_nets_code(routed_nets, self.parts, [sch_x_center,sch_y_center]))
+
+
+
+
+        hierarchies = {}
+        for i in self.parts:
+            if i.hierarchy not in hierarchies:
+                hierarchies[i.hierarchy] = [i]
+            else:
+                hierarchies[i.hierarchy].append(i)
+
+        for h in hierarchies:
+            print("Hier: " + str(h))
+            # for p in hierarchies[h]:
+            #     print(p.ref)
+            # determine if a net contains 2 parts in the same hierarchy
+            for n in routed_nets:
+                if n.hierarchy == h:
+                    print(str(calc_distance(n,self.parts)))
+
+
 
         # Replace old schematic file content with new schematic file content
         new_sch_file = [sch_header, circuit_parts, "$EndSCHEMATC"]

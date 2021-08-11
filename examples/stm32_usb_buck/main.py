@@ -24,3 +24,5 @@ netlist_path = "/home/cdsfsmattner/Desktop/skidl/examples/stm32_usb_buck/stm32/n
 
 generate_schematic(file_ = schematic_path)
 # generate_netlist(file_ = netlist_path)
+
+
