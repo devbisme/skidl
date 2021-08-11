@@ -66,88 +66,9 @@ standard_library.install_aliases()
 
 def make_wire(x1,y1,x2,y2):
     out = []
-    out.append("Wire Wire Line")
+    out.append("Wire Wire Line\n")
     out.append("	{} {} {} {}\n".format(x1,y1,x2,y2))
     return ("\n" + "".join(out))
-
-
-def make_sch_from_skidl_part(part, x_cor, y_cor):
-    lib = "/usr/share/kicad/library/" + part.lib.filename + ".lib" # Get library path for this part
-    lib_file = []
-    with open(lib, encoding="utf8") as f:
-        lib_file = f.readlines()
-    f.close()
-
-    # b: Look for the specific part and move it's info into a buffer
-    part_buff = []
-    found = False
-    for j in range(len(lib_file)):
-        l = lib_file[j]
-        if not found:
-            if re.search("^DEF", l):
-                if l.split()[1] == part.name:
-                    found = True # found component
-                    part_buff.append(l)
-        else:
-            if re.search("^ENDDEF", l): # end of component
-                part_buff.append(l)
-                break
-            else:
-                part_buff.append(l)
-
-    part_pins = []
-    for k in part_buff:
-        if re.search("^X", k):
-            part_pins.append(k)
-    # 2: Create schematic code for part using library info
-    schPart=["$Comp\n"]
-    # Indicator
-    indicator = part_buff[0].split()[1] # Line 2
-    ref_name = part.ref
-    schPart.append("L {}:{} {}\n".format(part.lib.filename, indicator, ref_name))
-    # Time created
-    time_hex = hex(int(time.time()))[2:]
-    schPart.append("U 1 1 {}\n".format(time_hex))    
-    print("Part: " + part.name + "X:" + str(x_cor) + "Y:" + str(y_cor))
-    schPart.append("P {} {}\n".format(str(x_cor), str(y_cor)))
-    # Fields
-    for ln in part_buff:
-        if re.search("^F", ln):
-            if int(ln[1])== 0:
-                s = 'F {} "{}" {} {} {} {} 00{} {} {}\n'.format(
-                    ln[1],
-                    ref_name,
-                    ln.split()[5],
-                    int(int(ln.split()[2]) + x_cor),
-                    int(int(ln.split()[3]) + y_cor),
-                    int(ln.split()[4]),
-                    1 if ln.split()[5] == "V" else 0,
-                    "L" if ln.split()[6] == "V" else "C",
-                    ln.split()[8],
-                )
-                schPart.append(s)
-            else:
-                s = "F {} {} {} {} {} {} 00{} {} {}\n".format(
-                    ln[1],
-                    ln.split()[1],
-                    ln.split()[5],
-                    int(int(ln.split()[2]) + x_cor),
-                    int(int(ln.split()[3]) + y_cor),
-                    int(ln.split()[4]),
-                    1 if ln.split()[5] == "V" else 0,
-                    "L" if ln.split()[6] == "V" else "C",
-                    ln.split()[8],
-                )
-                schPart.append(s)
-
-    schPart.append("   1   {} {}\n".format(str(x_cor), str(y_cor)))
-    # Orientation
-    schPart.append("   {}   {}  {}  {}\n".format(1, 0, 0, -1))  # x1 y1 x2 y2, normal is 1,0,0,-1
-    # End of component
-    schPart.append("$EndComp\n") 
-    # Append schematic part to circuit_parts buffer
-    return (("\n" + "".join(schPart)), part_pins)
-
 
 class Circuit(SkidlBaseObject):
     """
@@ -1119,7 +1040,6 @@ class Circuit(SkidlBaseObject):
         if tool is None:
             tool = skidl.get_default_tool()
 
-
         # Get the header file so we know where the center is
         # Open the target schematic to read it's header
         sch_file = []
@@ -1164,11 +1084,11 @@ class Circuit(SkidlBaseObject):
 
         # Assign each routed net a unique integer. Interconnected nets
         # all get the same number.
-        net_nums = {}
-        for num, net in enumerate(routed_nets, 1):
-            for n in net.get_nets():
-                if n.name not in net_nums:
-                    net_nums[n.name] = num
+        # net_nums = {}
+        # for num, net in enumerate(routed_nets, 1):
+        #     for n in net.get_nets():
+        #         if n.name not in net_nums:
+        #             net_nums[n.name] = num
 
 
         circuit_parts = [] # The most important list!!  Holds all individual circuit parts to be added
@@ -1187,51 +1107,53 @@ class Circuit(SkidlBaseObject):
             else:
                 subCirc_parts[i.hierarchy].append(i)
         
-        for i in subCirc_parts:
-            x_center = sch_x_center
-            y_center = sch_y_center
-            print("Subcircuit: " + i)
-            print("Parts:")
-            for j in subCirc_parts[i]:
-                print(j.ref)
+        # for i in subCirc_parts:
+        #     x_center = sch_x_center
+        #     y_center = sch_y_center
+        #     print("Subcircuit: " + i)
+        #     print("Parts:")
+        #     for j in subCirc_parts[i]:
+        #         print(j.ref)
 
                 
         all_part_pins = {}
         # Range through the parts and append schematic entry
         for i in self.parts:
+            # See if a specific location was set
             try:
                 t_x = i.fields['loc'][0] + sch_x_center
                 t_y =i.fields['loc'][1] + sch_y_center
             except:
                 t_x = sch_x_center
                 t_y = sch_y_center
-            t_part, p_pins = make_sch_from_skidl_part(i,t_x,t_y)
-            # print("pins: "+ str(p_pins))
-            circuit_parts.append(t_part) 
-            if i.ref in all_part_pins:
-                all_part_pins[i.ref].append(p_pins)
-            else:
-                all_part_pins[i.ref]=p_pins
+
+            circuit_parts.append(i.generate_schematic([t_x,t_y]))
+        #     t_part, p_pins = make_sch_from_skidl_part(i,t_x,t_y)
+        #     # print("pins: "+ str(p_pins))
+        #     circuit_parts.append(t_part) 
+        #     if i.ref in all_part_pins:
+        #         all_part_pins[i.ref].append(p_pins)
+        #     else:
+        #         all_part_pins[i.ref]=p_pins
         
-        for i in all_part_pins:
-            print("Part " + str(i) + str(all_part_pins[i]))
+        # for i in all_part_pins:
+        #     print("Part " + str(i) + str(all_part_pins[i]))
 
-        # Place nets between same hierarchy components
-        for i in subCirc_nets:
-            for j in subCirc_nets[i]:
-                print(j)
+        # # Place nets between same hierarchy components
+        # for i in subCirc_nets:
+        #     for j in subCirc_nets[i]:
+        #         print(j)
 
-        # Identify which parts need to be connected
-        for hier in subCirc_nets:
-            for n in subCirc_nets[hier]:
-                t = str(n).split()
-                u = t[1].split("/")
-
-                print(u)
+        # # Identify which parts need to be connected
+        # for hier in subCirc_nets:
+        #     for n in subCirc_nets[hier]:
+        #         t = str(n).split()
+        #         u = t[1].split("/")
+        #         print(u)
         # Calculate the start and end placement of the wire
 
         # Draw wire and add to schematic output
-        # make_wire()
+        circuit_parts.append(make_wire(15550, 10450, 15850, 10450))
 
         # Replace old schematic file content with new schematic file content
         new_sch_file = [sch_header, circuit_parts, "$EndSCHEMATC"]
