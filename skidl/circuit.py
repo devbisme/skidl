@@ -115,22 +115,22 @@ def gen_nets_code(rnets, circ_parts, coord):
                 x_pin = getattr(i,t_pin1).x
                 y_pin = getattr(i,t_pin1).y
                 # Set x1/y1 based on the offset of the pin and part
-                o_coor['x1'] = coord[0] + i.fields['loc'][0] + x_pin
-                o_coor['y1'] = coord[1] + i.fields['loc'][1] - y_pin
+                o_coor['x1'] = coord[0] + i.sch_loc[0] + x_pin
+                o_coor['y1'] = coord[1] + i.sch_loc[1] - y_pin
                 # print("Appending " + str(x_pin)+ " " + str(y_pin))
                 if len(o_coor)>3: break
-                # x1 += i.fields['loc'][0] + x_pin
-                # y1 += i.fields['loc'][1] - y_pin
+                # x1 += i.sch_loc[0] + x_pin
+                # y1 += i.sch_loc[1] - y_pin
             if i.ref == t_part2:
                 # Set x2/y2 based on the offset of the pin and part
                 x_pin = getattr(i,t_pin2).x
                 y_pin = getattr(i,t_pin2).y
-                o_coor['x2'] = coord[0] + i.fields['loc'][0] + x_pin
-                o_coor['y2'] = coord[1] + i.fields['loc'][1] - y_pin
+                o_coor['x2'] = coord[0] + i.sch_loc[0] + x_pin
+                o_coor['y2'] = coord[1] + i.sch_loc[1] - y_pin
                 # print("Appending " + str(x_pin)+ " " + str(y_pin))
                 if len(o_coor)>3: break
-                # x2 += i.fields['loc'][0] + x_pin
-                # y2 += i.fields['loc'][1] - y_pin
+                # x2 += i.sch_loc[0] + x_pin
+                # y2 += i.sch_loc[1] - y_pin
 
         wire = []
         wire.append("Wire Wire Line\n")
@@ -1102,15 +1102,12 @@ class Circuit(SkidlBaseObject):
 
         # Get the header file so we know where the center is
         # Open the target schematic to read it's header
-        sch_file = []
         # Open file, copy all the lines, then close it
         with open(file_, encoding="utf8") as f:
             sch_file = f.readlines()
         f.close()
 
         # Search for $EndDescr line number
-        endDesc = 0
-        sch_size = []
         for i in range(len(sch_file)):
             if re.search("^Descr", sch_file[i][1:]):
                 sch_size = sch_file[i]
@@ -1155,38 +1152,39 @@ class Circuit(SkidlBaseObject):
             print("Hier: " + str(h))
             pmr = 1 # number of parts moved right, try to prevent overlap until we do bounding boxes
             pml = 1 # number of part moved lefts
+            # Range through nets and look for nets with this hierarchy
             for n in routed_nets:
                 if n.hierarchy == h:
-                    dx,dy, pref = calc_distance(n,self.parts) # calculate distance of net and return list of parts
+                    dx,dy, p_ref = calc_distance(n,self.parts) # calculate distance of net and return list of parts
                     # Only move parts connected to U? parts
-                    if "U" in pref[0]:
-                        p_name = pref[1]   
-                    elif "U" in pref[1]:
-                        p_name = pref[0]
+                    if "U" in p_ref[0]:
+                        p_name = p_ref[1]   
+                    elif "U" in p_ref[1]:
+                        p_name = p_ref[0]
                     else:
                         continue
-                        # p_name = pref[1]
+                    # Look for the part,we are going to move, then modify it's sch_loc list
                     for p in range(len(self.parts)):
                         if p_name == self.parts[p].ref: # find part in self.parts
                             # found part, now move it
                             if dx > 0:
                                 # if we're moving right then move it slightly more right
-                                self.parts[p].fields['loc'][0] += dx + (200 * pmr)
+                                self.parts[p].sch_loc[0] += dx + (200 * pmr)
                                 print("Moved " + self.parts[p].ref + " right by " + str((200 * pmr)))
                                 pmr+=1
                             else:
-                                self.parts[p].fields['loc'][0] += dx - (200 * pml)
+                                self.parts[p].sch_loc[0] += dx - (200 * pml)
                                 print("Moved " + self.parts[p].ref + " left by " + str((200 * pml)))
                                 pml+=1
-                            self.parts[p].fields['loc'][1] -= dy
+                            self.parts[p].sch_loc[1] -= dy
 
 
         # Range through the parts and append schematic entry
         for i in self.parts:
             # See if a specific location was set
             try:
-                t_x = sch_x_center + i.fields['loc'][0]
-                t_y = sch_y_center + i.fields['loc'][1]
+                t_x = sch_x_center + i.sch_loc[0]
+                t_y = sch_y_center + i.sch_loc[1]
             except:
                 t_x = sch_x_center
                 t_y = sch_y_center

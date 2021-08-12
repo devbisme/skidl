@@ -9,16 +9,16 @@ def stm32f405r(c,vdd, gnd):
     y = c[1]
     # MCU
     u = Part("MCU_ST_STM32F4", 'STM32F405RGTx', footprint='LQFP-64_10x10mm_P0.5mm')
-    u.fields['loc']=[x,y]
+    u.sch_loc=[x,y]
     
     # VACP's
     vcap1 = Part("Device", 'C_Small', footprint='C_0603_1608Metric')
-    vcap1.fields['loc']=[x, y]
+    vcap1.sch_loc=[x, y]
     vc1 = Net('vcap1')
     vc1 += u.p31, vcap1.p1
 
     vcap2 = Part("Device", 'C_Small', footprint='C_0603_1608Metric')
-    vcap2.fields['loc']=[x,y]
+    vcap2.sch_loc=[x,y]
     vc2 = Net('vcap2')
     vc2 += u.p47, vcap2.p1
 
@@ -36,9 +36,9 @@ def led_indicator(c, inp, outp, color, resistance):
     # create parts
     d = Part("Device", 'D', footprint='D_0603_1608Metric')
     d.fields['color'] = color
-    d.fields['loc']=[x+1400, y+200]
+    d.sch_loc=[x+1400, y+200]
     r = Part("Device", 'R', footprint='R_0603_1608Metric', value=resistance)
-    r.fields['loc']=[x, y]
+    r.sch_loc=[x, y]
     # r.fields['subcircuit']="stm32f405r"
     # connect parts and nets
     inp & r & d & outp
@@ -75,17 +75,17 @@ def board_enable(c, vcc, gnd_):
     c1.fields['temp_coeff']='X7R'
 
     # Place parts
-    xor_ic.fields['loc']=[x, y]
-    # r_d.fields['loc']=[x-600, y+500]
-    # d.fields['loc']=[x-400, y+650]
-    # r1.fields['loc']=[x-450, y+150]
-    # r2.fields['loc']=[x+350, y+150]
-    # c1.fields['loc']=[x, y-400]
-    r_d.fields['loc']=[x, y]
-    d.fields['loc']=[x, y]
-    r1.fields['loc']=[x, y]
-    r2.fields['loc']=[x, y]
-    c1.fields['loc']=[x, y-400]
+    xor_ic.sch_loc=[x, y]
+    # r_d.sch_loc=[x-600, y+500]
+    # d.sch_loc=[x-400, y+650]
+    # r1.sch_loc=[x-450, y+150]
+    # r2.sch_loc=[x+350, y+150]
+    # c1.sch_loc=[x, y-400]
+    r_d.sch_loc=[x, y]
+    d.sch_loc=[x, y]
+    r1.sch_loc=[x, y]
+    r2.sch_loc=[x, y]
+    c1.sch_loc=[x, y-400]
 
 
     bd_sel_ls += xor_ic.p1, r1.p1

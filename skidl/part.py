@@ -150,6 +150,7 @@ class Part(SkidlBaseObject):
         ref=None,
         tag=None,
         pin_splitters=None,
+        sch_loc=[0,0],
         tool_version=None,
         **kwargs
     ):
@@ -172,6 +173,7 @@ class Part(SkidlBaseObject):
         self.description = ""  # Make sure there is a description, even if empty.
         self._ref = ""  # Provide a member for holding a reference.
         self.ref_prefix = ref_prefix  # Store the part reference prefix.
+        self.sch_loc = [0,0] # Set schematic location to 0,0
         self.tool = tool  # Initial type of part (SKIDL, KICAD, etc.)
         self.circuit = None  # Part starts off unassociated with any circuit.
         self.match_pin_regex = False  # Don't allow regex matches of pin names.
@@ -1089,40 +1091,38 @@ class Part(SkidlBaseObject):
 
         return gen_func()
     
-    def gen_part_eeschema(self, coordinates=[0,0]):
-        """
-        Generate the eeschema code for a part
-        https://en.wikibooks.org/wiki/Kicad/file_formats#Schematic_Files_Format
-        """
+    # Generate eeschema code for part from SKiDL part
+    # self: SKiDL part
+    # c[x,y]: coordinated to place the part
+    # https://en.wikibooks.org/wiki/Kicad/file_formats#Schematic_Files_Format
+    def gen_part_eeschema(self, c=[0,0]):
 
-        x = coordinates[0]
-        y = coordinates[1]
-        schP=["$Comp\n"]
-        schP.append("L {}:{} {}\n".format(self.lib.filename, self.name, self.ref))
         time_hex = hex(int(time.time()))[2:]
-        schP.append("U 1 1 {}\n".format(time_hex))    
-        schP.append("P {} {}\n".format(str(x), str(y)))
 
+        out=["$Comp\n"]
+        out.append("L {}:{} {}\n".format(self.lib.filename, self.name, self.ref))
+        out.append("U 1 1 {}\n".format(time_hex))    
+        out.append("P {} {}\n".format(str(c[0]), str(c[1])))
         # Add part symbols. For now we are only adding the designator
         n_F0 = 1
         for i in range(len(self.draw)):
             if re.search("^DrawF0", str(self.draw[i])):
                 n_F0 = i
                 break
-        schP.append('F 0 "{}" {} {} {} {} {} {} {}\n'.format(
+        out.append('F 0 "{}" {} {} {} {} {} {} {}\n'.format(
                                         self.ref,
                                         self.draw[n_F0].orientation,
-                                        str(self.draw[n_F0].x + x),
-                                        str(self.draw[n_F0].y + y),
+                                        str(self.draw[n_F0].x + c[0]),
+                                        str(self.draw[n_F0].y + c[1]),
                                         self.draw[n_F0].size,
                                         "000",
                                         self.draw[n_F0].halign,
                                         self.draw[n_F0].valign
         ))
-        schP.append("   1   {} {}\n".format(str(x), str(y)))
-        schP.append("   {}   {}  {}  {}\n".format(1, 0, 0, -1))  # x1 y1 x2 y2, normal is 1,0,0,-1
-        schP.append("$EndComp\n") 
-        return ("\n" + "".join(schP))
+        out.append("   1   {} {}\n".format(str(c[0]), str(c[1])))
+        out.append("   {}   {}  {}  {}\n".format(1, 0, 0, -1))
+        out.append("$EndComp\n") 
+        return ("\n" + "".join(out))
 
     def erc_desc(self):
         """Create description of part for ERC and other error reporting."""
