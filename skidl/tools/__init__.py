@@ -83,6 +83,7 @@ for module in os.listdir(directory):
         (part.Part, "_gen_svg_comp_"),
         (circuit.Circuit, "_gen_schematic_"),
         (part.Part, "_gen_pinboxes_"),
+        (net.Net, "_gen_eeschema_"),
     ):
         try:
             setattr(class_, method + tool_name, getattr(mod, method))

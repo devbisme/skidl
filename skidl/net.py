@@ -733,6 +733,23 @@ class Net(SkidlBaseObject):
     def replace_spec_chars_in_name(self):
         self._name = re.sub(r"\W", "_", self._name)
 
+    # Generate the eeschema code for this net
+    def gen_eeschema(self, c):
+        import skidl
+        tool = skidl.get_default_tool()
+        self.test_validity()
+
+        try:
+            gen_func = getattr(self, "_gen_eeschema_{}".format(tool))
+            return gen_func(c)
+        except AttributeError:
+            log_and_raise(
+                logger,
+                ValueError,
+                "Can't generate eeschema code for part ({}).".format(tool),
+            )
+
+
     @property
     def width(self):
         """Return width of a Net, which is always 1."""

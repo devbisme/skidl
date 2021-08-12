@@ -1694,3 +1694,20 @@ def _gen_pinboxes_(self):
 
 def _gen_schematic_(self, route):
     pass
+
+
+# Make the eeschema code that creates a wire between 2 parts
+# Takes in a net and coordinates
+def _gen_eeschema_(n, c):
+
+    x1 = c[0] + n.pins[0].part.sch_loc[0] + n.pins[0].x
+    y1 = c[1] + n.pins[0].part.sch_loc[1] - n.pins[0].y
+
+    x2 = c[0] + n.pins[1].part.sch_loc[0] + n.pins[1].x
+    y2 = c[1] + n.pins[1].part.sch_loc[1] - n.pins[1].y
+
+    wire = []
+    wire.append("Wire Wire Line\n")
+    wire.append("	{} {} {} {}\n".format(x1,y1,x2,y2))
+
+    return (("\n" + "".join(wire)))
