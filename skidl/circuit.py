@@ -1070,20 +1070,16 @@ class Circuit(SkidlBaseObject):
                         p_name = n.pins[0].ref 
                     else:
                         continue
-                    # Look for the part,we are going to move, then modify it's sch_loc list
-                    for p in range(len(self.parts)):
-                        if p_name == self.parts[p].ref: # find part in self.parts
-                            # found part, now move it
-                            if dx > 0:
-                                # if we're moving right then move it slightly more right
-                                self.parts[p].sch_loc[0] += dx + (200 * pmr)
-                                print("Moved " + self.parts[p].ref + " right by " + str((200 * pmr)))
-                                pmr+=1
-                            else:
-                                self.parts[p].sch_loc[0] += dx - (200 * pml)
-                                print("Moved " + self.parts[p].ref + " left by " + str((200 * pml)))
-                                pml+=1
-                            self.parts[p].sch_loc[1] -= dy
+                    # Find part and move it.  Only moving X-axis right now
+                    p = Part.get(p_name)
+                    if dx > 0:
+                        # if we're moving right then move it slightly more right
+                        p.sch_loc[0] += dx + (200 * pmr)
+                        pmr+=1
+                    else:
+                        p.sch_loc[0] += dx - (200 * pml)
+                        pml+=1
+                    p.sch_loc[1] -= dy
 
         # Range through the parts and append schematic entry
         for i in self.parts:
@@ -1096,11 +1092,12 @@ class Circuit(SkidlBaseObject):
             circuit_parts.append(i.gen_eeschema(sch_c))
 
         # Replace old schematic file content with new schematic file content
-        new_sch_file = [sch_header, circuit_parts, "$EndSCHEMATC"]
         with open(file_, "w") as f:
+            new_sch_file = [sch_header, circuit_parts, "$EndSCHEMATC"]
             f.truncate(0) # Clear the file
             for i in new_sch_file:
                 print("" + "".join(i), file=f)
+        f.close()
 
         # Log errors if we have any
         if (logger.error.count, logger.warning.count) == (0, 0):
