@@ -1102,15 +1102,7 @@ class Circuit(SkidlBaseObject):
 
         # Range through the parts and append schematic entry
         for i in self.parts:
-            # See if a specific location was set
-            try:
-                t_x = sch_x_center + i.sch_loc[0]
-                t_y = sch_y_center + i.sch_loc[1]
-            except:
-                t_x = sch_x_center
-                t_y = sch_y_center
-
-            circuit_parts.append(i.gen_part_eeschema([t_x,t_y]))
+            circuit_parts.append(i.gen_part_eeschema([i.sch_loc[0] + sch_x_center, i.sch_loc[1] + sch_y_center]))
         
 
          # Create the nets and add them to the circuit parts list
