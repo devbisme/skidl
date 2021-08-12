@@ -118,14 +118,6 @@ def gen_eeschema_net(rnet, coordinates):
 
     return (("\n" + "".join(wire)))
 
-# Generates code for all the nets passed in
-def gen_nets_code(rnets, circ_parts, coord):
-    out=[]
-    for n in rnets:
-        out.append(gen_eeschema_net(n, coord))
-        pn = parse_net(n)
-    return out
-
 
 class Circuit(SkidlBaseObject):
     """
@@ -1181,7 +1173,9 @@ class Circuit(SkidlBaseObject):
         
 
          # Create the nets and add them to the circuit parts list
-        circuit_parts.extend(gen_nets_code(routed_nets, self.parts, [sch_x_center,sch_y_center]))
+        for i in routed_nets:
+             circuit_parts.append(gen_eeschema_net(i, [sch_x_center,sch_y_center]))
+
         # Replace old schematic file content with new schematic file content
         new_sch_file = [sch_header, circuit_parts, "$EndSCHEMATC"]
         with open(file_, "w") as f:
