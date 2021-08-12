@@ -68,70 +68,62 @@ def find_part_hier(p_name, hier):
                 return True
     return False
 
+def parse_net(_net):
+    m = str(_net).split() # split by spaces
+    out = {}
+    out['part1'] = (m[2].split("/"))[0]
+    out['pin1'] = "p"+str((m[2].split("/"))[1])
+    out['part2'] = (m[4].split("/"))[0]
+    out['pin2'] = "p"+str((m[4].split("/"))[1])
+    return out
+
+
 # Get the coordinates between 2 parts given a net
 def get_coordinates(rnet):
-# Get part and pin number of net connection
-    m = str(rnet).split() # split by spaces
-    t_part1 = (m[2].split("/"))[0]
-    t_pin1 = "p"+str((m[2].split("/"))[1])
-    t_part2 = (m[4].split("/"))[0]
-    t_pin2 = "p"+str((m[4].split("/"))[1])
+    pn = parse_net(rnet) # parse the net to get parts/pins coordinates
     # Go through parts and find the x/y offset
     ploc = {}
     part_names = []
 
-    t_part = Part.get(t_part1)
-    ploc['x1'] =  getattr(t_part,t_pin1).x
-    ploc['y1'] = -getattr(t_part,t_pin1).y
+    t_part = Part.get(pn['part1'])
+    ploc['x1'] =  getattr(t_part, pn['pin1']).x
+    ploc['y1'] = -getattr(t_part, pn['pin1']).y
     part_names.append(t_part.ref)
 
-    t_part = Part.get(t_part2)
-    ploc['x2'] =  getattr(t_part,t_pin2).x
-    ploc['y2'] = -getattr(t_part,t_pin2).y
+    t_part = Part.get(pn['part2'])
+    ploc['x2'] =  getattr(t_part,pn['pin2']).x
+    ploc['y2'] = -getattr(t_part,pn['pin2']).y
     part_names.append(t_part.ref)
 
-    # dx = ploc['x1'] + ploc['x2']
-    # dy = ploc['y1'] - ploc['y2']
     return ploc, part_names
+
+
+def gen_eeschema_net(rnet, coordinates):
+    x_off = coordinates[0]
+    y_off = coordinates[1]
+    pn = parse_net(rnet)
+    ploc = {}
+
+    t_part = Part.get(pn['part1'])
+    ploc['x1'] = x_off + t_part.sch_loc[0] + getattr(t_part, pn['pin1']).x
+    ploc['y1'] = y_off + t_part.sch_loc[1] - getattr(t_part, pn['pin1']).y
+
+    t_part = Part.get(pn['part2'])
+    ploc['x2'] = x_off + t_part.sch_loc[0] + getattr(t_part,pn['pin2']).x
+    ploc['y2'] = y_off + t_part.sch_loc[1] - getattr(t_part,pn['pin2']).y
+
+    wire = []
+    wire.append("Wire Wire Line\n")
+    wire.append("	{} {} {} {}\n".format(ploc['x1'],ploc['y1'], ploc['x2'], ploc['y2']))
+
+    return (("\n" + "".join(wire)))
 
 # Generates code for all the nets passed in
 def gen_nets_code(rnets, circ_parts, coord):
     out=[]
     for n in rnets:
-        # Get part and pin number of net connection
-        m = str(n).split() # split by spaces
-        t_part1 = (m[2].split("/"))[0]
-        t_pin1 = "p"+str((m[2].split("/"))[1])
-        t_part2 = (m[4].split("/"))[0]
-        t_pin2 = "p"+str((m[4].split("/"))[1])
-        # Go through parts and find the x/y offset
-        o_coor = {}
-        for i in circ_parts:
-            if i.ref == t_part1:
-                x_pin = getattr(i,t_pin1).x
-                y_pin = getattr(i,t_pin1).y
-                # Set x1/y1 based on the offset of the pin and part
-                o_coor['x1'] = coord[0] + i.sch_loc[0] + x_pin
-                o_coor['y1'] = coord[1] + i.sch_loc[1] - y_pin
-                # print("Appending " + str(x_pin)+ " " + str(y_pin))
-                if len(o_coor)>3: break
-                # x1 += i.sch_loc[0] + x_pin
-                # y1 += i.sch_loc[1] - y_pin
-            if i.ref == t_part2:
-                # Set x2/y2 based on the offset of the pin and part
-                x_pin = getattr(i,t_pin2).x
-                y_pin = getattr(i,t_pin2).y
-                o_coor['x2'] = coord[0] + i.sch_loc[0] + x_pin
-                o_coor['y2'] = coord[1] + i.sch_loc[1] - y_pin
-                # print("Appending " + str(x_pin)+ " " + str(y_pin))
-                if len(o_coor)>3: break
-                # x2 += i.sch_loc[0] + x_pin
-                # y2 += i.sch_loc[1] - y_pin
-
-        wire = []
-        wire.append("Wire Wire Line\n")
-        wire.append("	{} {} {} {}\n".format(o_coor['x1'],o_coor['y1'], o_coor['x2'], o_coor['y2']))
-        out.append(("\n" + "".join(wire)))
+        out.append(gen_eeschema_net(n, coord))
+        pn = parse_net(n)
     return out
 
 
