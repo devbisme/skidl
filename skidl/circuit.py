@@ -1166,7 +1166,8 @@ class Circuit(SkidlBaseObject):
         # Look through the hierarcies
         for h in hierarchies:
             print("Hier: " + str(h))
-            pp = 1 # parts placed already, helps us to not collide with other parts
+            pmr = 1 # number of parts moved right, try to prevent overlap until we do bounding boxes
+            pml = 1 # number of part moved lefts
             for n in routed_nets:
                 if n.hierarchy == h:
                     pdiff, t_parts = calc_distance(n,self.parts)
@@ -1182,29 +1183,32 @@ class Circuit(SkidlBaseObject):
                                         # found part, now move it
                                         if dx > 0:
                                             # if we're moving right then move it slightly more right
-                                            self.parts[p].fields['loc'][0] += dx + (200 * pp)
-                                            pp+=1
+                                            self.parts[p].fields['loc'][0] += dx + (200 * pmr)
+                                            pmr+=1
                                         else:
-                                            self.parts[p].fields['loc'][0] += dx - (200 * pp)
-                                            pp+=1
+                                            self.parts[p].fields['loc'][0] += dx - (200 * pml)
+                                            pml+=1
+                                        print("move " + t_parts[1] + " towards x1/y1 by X: " + str(self.parts[p].fields['loc'][0]) + " Y: " + str(dy))
                                         self.parts[p].fields['loc'][1] -= dy
                             else:
                                 dx = pdiff['x1'] + pdiff['x2']
                                 dy = pdiff['y1'] - pdiff['y2']
                                 print("Move " + t_parts[0] + " towards x2/y2 by X: " + str(dx) + " Y: " + str(dy))
-
+                                
                                 for p in range(len(self.parts)):
                                     if t_parts[0] == self.parts[p].ref:
                                         # found part, now move it
                                         if dx > 0:
                                             # if we're moving right then move it slightly more right
-                                            self.parts[p].fields['loc'][0] += dx + 200
+                                            self.parts[p].fields['loc'][0] += dx + (200 * pmr)
+                                            pmr+=1
                                         else:
-                                            self.parts[p].fields['loc'][0] += dx - 200
+                                            self.parts[p].fields['loc'][0] += dx - (200 * pml)
+                                            pml+=1
+                                        print("move " + t_parts[0] + " towards x1/y1 by X: " + str(self.parts[p].fields['loc'][0]) + " Y: " + str(dy))
+
                                         self.parts[p].fields['loc'][1] -= dy
-                                # print("move part by: " + str(sch_x_center+dx)+ ", " + str(sch_y_center-dy))
-                                # x1 += i.fields['loc'][0] + x_pin
-                                # y1 += i.fields['loc'][1] - y_pin
+
 
 
         # Range through the parts and append schematic entry
