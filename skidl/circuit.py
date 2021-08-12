@@ -79,21 +79,17 @@ def calc_distance(rnet, circ_parts):
     # Go through parts and find the x/y offset
     ploc = {}
     part_names = []
-    for i in circ_parts:
-        if i.ref == t_part1:
-            x_pin = getattr(i,t_pin1).x
-            y_pin = getattr(i,t_pin1).y
-            ploc['x1'] =  x_pin
-            ploc['y1'] = -y_pin
-            part_names.append(i.ref)
-            if len(ploc)>3: break
-        if i.ref == t_part2:
-            x_pin = getattr(i,t_pin2).x
-            y_pin = getattr(i,t_pin2).y
-            ploc['x2'] = x_pin
-            ploc['y2'] = -y_pin
-            part_names.append(i.ref)
-            if len(ploc)>3: break
+
+    t_part = Part.get(t_part1)
+    ploc['x1'] =  getattr(t_part,t_pin1).x
+    ploc['y1'] = -getattr(t_part,t_pin1).y
+    part_names.append(t_part.ref)
+
+    t_part = Part.get(t_part2)
+    ploc['x2'] =  getattr(t_part,t_pin2).x
+    ploc['y2'] = -getattr(t_part,t_pin2).y
+    part_names.append(t_part.ref)
+
     dx = ploc['x1'] + ploc['x2']
     dy = ploc['y1'] - ploc['y2']
     return dx, dy, part_names
@@ -138,8 +134,6 @@ def gen_nets_code(rnets, circ_parts, coord):
         out.append(("\n" + "".join(wire)))
     return out
 
-def cal_pin_distance():
-    print("...")
 
 class Circuit(SkidlBaseObject):
     """
