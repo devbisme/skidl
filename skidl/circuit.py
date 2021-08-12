@@ -68,30 +68,20 @@ def find_part_hier(p_name, hier):
                 return True
     return False
 
-# Parse net and return dictionary with part1/pin1 part2/pin2
-def parse_net(_net):
-    m = str(_net).split() # split by spaces
-    out = {}
-    out[(m[2].split("/"))[0]] = "p"+str((m[2].split("/"))[1]) # add [part1_ref] = pin connected to net
-    out[(m[4].split("/"))[0]] = "p"+str((m[4].split("/"))[1]) # add [part2_ref] = pin connected to net
-    return out
-
 
 # Make the eeschema code that creates a wire between 2 parts
 def gen_eeschema_net(rnet, coordinates):
     x_off = coordinates[0]
     y_off = coordinates[1]
 
-    pn = parse_net(rnet)
+    # k = list(pn.keys())
+    p = Part.get(rnet.pins[0].ref)
+    x1 = x_off + p.sch_loc[0] + rnet.pins[0].x
+    y1 = y_off + p.sch_loc[1] - rnet.pins[0].y
 
-    k = list(pn.keys())
-    p = Part.get(k[0])
-    x1 = x_off + p.sch_loc[0] + getattr(p, pn[k[0]]).x
-    y1 = y_off + p.sch_loc[1] - getattr(p, pn[k[0]]).y
-
-    p = Part.get(k[1])
-    x2 = x_off + p.sch_loc[0] + getattr(p, pn[k[1]]).x
-    y2 = y_off + p.sch_loc[1] - getattr(p, pn[k[1]]).y
+    p = Part.get(rnet.pins[1].ref)
+    x2 = x_off + p.sch_loc[0] + rnet.pins[1].x
+    y2 = y_off + p.sch_loc[1] - rnet.pins[1].y
 
     wire = []
     wire.append("Wire Wire Line\n")
