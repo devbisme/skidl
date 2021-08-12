@@ -77,34 +77,26 @@ def calc_distance(rnet, circ_parts):
     t_part2 = (m[4].split("/"))[0]
     t_pin2 = "p"+str((m[4].split("/"))[1])
     # Go through parts and find the x/y offset
-    t_out = {}
+    ploc = {}
     part_names = []
     for i in circ_parts:
         if i.ref == t_part1:
             x_pin = getattr(i,t_pin1).x
             y_pin = getattr(i,t_pin1).y
-            # Set x1/y1 based on the offset of the pin and part
-            t_out['x1'] =  x_pin
-            t_out['y1'] = -y_pin
-            # print("Calculating " + str(x_pin)+ " " + str(y_pin))
+            ploc['x1'] =  x_pin
+            ploc['y1'] = -y_pin
             part_names.append(i.ref)
-            if len(t_out)>3: break
-            # x1 += i.fields['loc'][0] + x_pin
-            # y1 += i.fields['loc'][1] - y_pin
+            if len(ploc)>3: break
         if i.ref == t_part2:
-            # Set x2/y2 based on the offset of the pin and part
             x_pin = getattr(i,t_pin2).x
             y_pin = getattr(i,t_pin2).y
-            t_out['x2'] = x_pin
-            t_out['y2'] = -y_pin
-            # print("Calculating " + str(x_pin)+ " " + str(y_pin))
+            ploc['x2'] = x_pin
+            ploc['y2'] = -y_pin
             part_names.append(i.ref)
-            if len(t_out)>3: break
-            # x2 += i.fields['loc'][0] + x_pin
-            # y2 += i.fields['loc'][1] - y_pin
-
-        # distance from stm32 to p31 should be 700,1200 by measuring on schematic
-    return t_out, part_names
+            if len(ploc)>3: break
+    dx = ploc['x1'] + ploc['x2']
+    dy = ploc['y1'] - ploc['y2']
+    return dx, dy, part_names
 
 # Generates code for all the nets passed in
 def gen_nets_code(rnets, circ_parts, coord):
@@ -1138,8 +1130,6 @@ class Circuit(SkidlBaseObject):
 
         circuit_parts = [] # !! MOST IMPORTANT LIST !!  Holds all individual circuit parts to be added
 
-
-
         # Get the list of nets which will be routed and not represented by stubs.
         # Search all nets for those set as stubs or that are no-connects.
         net_stubs = [
@@ -1151,11 +1141,8 @@ class Circuit(SkidlBaseObject):
         )
         routed_nets = list(set(self.nets) - set(net_stubs))
 
-       
 
-
-
-
+        # Make dictionary of hierarchies and append parts from that hierarchy
         hierarchies = {}
         for i in self.parts:
             if i.hierarchy not in hierarchies:
@@ -1170,45 +1157,28 @@ class Circuit(SkidlBaseObject):
             pml = 1 # number of part moved lefts
             for n in routed_nets:
                 if n.hierarchy == h:
-                    pdiff, t_parts = calc_distance(n,self.parts)
-                    for i in range(len(t_parts)):
-                        if "U" in t_parts[i]:
-                            if i == 0:
-                                dx = pdiff['x1'] + pdiff['x2']
-                                dy = pdiff['y1'] - pdiff['y2']
-                                print("move " + t_parts[1] + " towards " + t_parts[0] + " by X: " + str(dx) + " Y: " + str(dy))
-
-                                for p in range(len(self.parts)):
-                                    if t_parts[1] == self.parts[p].ref:
-                                        # found part, now move it
-                                        if dx > 0:
-                                            # if we're moving right then move it slightly more right
-                                            self.parts[p].fields['loc'][0] += dx + (200 * pmr)
-                                            pmr+=1
-                                        else:
-                                            self.parts[p].fields['loc'][0] += dx - (200 * pml)
-                                            pml+=1
-                                        print("move " + t_parts[1] + " towards " + t_parts[0] + " by X: " + str(self.parts[p].fields['loc'][0]) + " Y: " + str(dy))
-                                        self.parts[p].fields['loc'][1] -= dy
+                    dx,dy, pref = calc_distance(n,self.parts) # calculate distance of net and return list of parts
+                    # Only move parts connected to U? parts
+                    if "U" in pref[0]:
+                        p_name = pref[1]   
+                    elif "U" in pref[1]:
+                        p_name = pref[0]
+                    else:
+                        continue
+                        # p_name = pref[1]
+                    for p in range(len(self.parts)):
+                        if p_name == self.parts[p].ref: # find part in self.parts
+                            # found part, now move it
+                            if dx > 0:
+                                # if we're moving right then move it slightly more right
+                                self.parts[p].fields['loc'][0] += dx + (200 * pmr)
+                                print("Moved " + self.parts[p].ref + " right by " + str((200 * pmr)))
+                                pmr+=1
                             else:
-                                dx = pdiff['x1'] + pdiff['x2']
-                                dy = pdiff['y1'] - pdiff['y2']
-                                print("Move " + t_parts[0] + " towards " + t_parts[1] + " by X: " + str(dx) + " Y: " + str(dy))
-                                
-                                for p in range(len(self.parts)):
-                                    if t_parts[0] == self.parts[p].ref:
-                                        # found part, now move it
-                                        if dx > 0:
-                                            # if we're moving right then move it slightly more right
-                                            self.parts[p].fields['loc'][0] += dx + (200 * pmr)
-                                            pmr+=1
-                                        else:
-                                            self.parts[p].fields['loc'][0] += dx - (200 * pml)
-                                            pml+=1
-                                        print("move " + t_parts[0] + " towards " + t_parts[1] + " by X: " + str(self.parts[p].fields['loc'][0]) + " Y: " + str(dy))
-
-                                        self.parts[p].fields['loc'][1] -= dy
-
+                                self.parts[p].fields['loc'][0] += dx - (200 * pml)
+                                print("Moved " + self.parts[p].ref + " left by " + str((200 * pml)))
+                                pml+=1
+                            self.parts[p].fields['loc'][1] -= dy
 
 
         # Range through the parts and append schematic entry
