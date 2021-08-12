@@ -995,7 +995,7 @@ class Circuit(SkidlBaseObject):
         return schematic_json
 
     # Get the eeschema center point, also returning the entire header right now
-    def get_eeschema_center(self, _file):
+    def get_schematic_center(self, _file):
         import skidl
         
 
@@ -1017,15 +1017,7 @@ class Circuit(SkidlBaseObject):
         Create a schematic file. THIS KINDA WORKS!  
         
         The target schematic file must be an already made kicad schematic.  This is where we get the header info from.
-
         """
-
-        class Router:
-            def __init__(self, circuit):
-                pass
-
-            def do_route(self):
-                pass
 
         from . import skidl
 
@@ -1038,8 +1030,7 @@ class Circuit(SkidlBaseObject):
         if tool is None:
             tool = skidl.get_default_tool()
 
-
-        sch_c, sch_header = self.get_eeschema_center(file_)
+        sch_c, sch_header = self.get_schematic_center(file_)
 
         circuit_parts = [] # !! MOST IMPORTANT LIST !!  Holds all individual circuit parts to be added
 
@@ -1053,7 +1044,6 @@ class Circuit(SkidlBaseObject):
             expand_buses([b for b in self.buses if getattr(b, "stub", False)])
         )
         routed_nets = list(set(self.nets) - set(net_stubs))
-
 
         # Make dictionary of hierarchies and append parts from that hierarchy
         hierarchies = {}
@@ -1095,15 +1085,13 @@ class Circuit(SkidlBaseObject):
                                 pml+=1
                             self.parts[p].sch_loc[1] -= dy
 
-
         # Range through the parts and append schematic entry
         for i in self.parts:
             x = i.sch_loc[0] + sch_c[0]
             y = i.sch_loc[1] + sch_c[1]
             circuit_parts.append(i.gen_part_eeschema([x, y]))
         
-
-         # Create the nets and add them to the circuit parts list
+        # Create the nets and add them to the circuit parts list
         for i in routed_nets:
             circuit_parts.append(i.gen_eeschema(sch_c))
 
@@ -1114,31 +1102,7 @@ class Circuit(SkidlBaseObject):
             for i in new_sch_file:
                 print("" + "".join(i), file=f)
 
-
-        # w, h = 5, 5
-        # arranger = Arranger(self, w, h)
-        # arranger.arrange_randomly()
-        # arranger.arrange_kl()
-
-        # for part in self.parts:
-        #     part.generate_pinboxes()
-
-        # router = Router(self)
-        # route = router.do_route()
-
-        # if not self.no_files:
-        #     try:
-        #         gen_func = getattr(self, "_gen_schematic_{}".format(tool))
-        #         gen_func(route)
-        #     except KeyError:
-        #         log_and_raise(
-        #             logger,
-        #             ValueError,
-        #             "Can't generate schematic in an unknown ECAD tool format ({}).".format(
-        #                 tool
-        #             ),
-        #         )
-
+        # Log errors if we have any
         if (logger.error.count, logger.warning.count) == (0, 0):
             sys.stderr.write(
                 "\nNo errors or warnings found during schematic generation.\n\n"
