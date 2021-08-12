@@ -81,25 +81,23 @@ def calc_distance(rnet, circ_parts):
     part_names = []
     for i in circ_parts:
         if i.ref == t_part1:
-            print(i.ref)
             x_pin = getattr(i,t_pin1).x
             y_pin = getattr(i,t_pin1).y
             # Set x1/y1 based on the offset of the pin and part
             t_out['x1'] =  x_pin
             t_out['y1'] = -y_pin
-            print("Calculating " + str(x_pin)+ " " + str(y_pin))
+            # print("Calculating " + str(x_pin)+ " " + str(y_pin))
             part_names.append(i.ref)
             if len(t_out)>3: break
             # x1 += i.fields['loc'][0] + x_pin
             # y1 += i.fields['loc'][1] - y_pin
         if i.ref == t_part2:
-            print(i.ref)
             # Set x2/y2 based on the offset of the pin and part
             x_pin = getattr(i,t_pin2).x
             y_pin = getattr(i,t_pin2).y
             t_out['x2'] = x_pin
             t_out['y2'] = -y_pin
-            print("Calculating " + str(x_pin)+ " " + str(y_pin))
+            # print("Calculating " + str(x_pin)+ " " + str(y_pin))
             part_names.append(i.ref)
             if len(t_out)>3: break
             # x2 += i.fields['loc'][0] + x_pin
@@ -122,24 +120,22 @@ def gen_nets_code(rnets, circ_parts, coord):
         o_coor = {}
         for i in circ_parts:
             if i.ref == t_part1:
-                print(i.ref)
                 x_pin = getattr(i,t_pin1).x
                 y_pin = getattr(i,t_pin1).y
                 # Set x1/y1 based on the offset of the pin and part
                 o_coor['x1'] = coord[0] + i.fields['loc'][0] + x_pin
                 o_coor['y1'] = coord[1] + i.fields['loc'][1] - y_pin
-                print("Appending " + str(x_pin)+ " " + str(y_pin))
+                # print("Appending " + str(x_pin)+ " " + str(y_pin))
                 if len(o_coor)>3: break
                 # x1 += i.fields['loc'][0] + x_pin
                 # y1 += i.fields['loc'][1] - y_pin
             if i.ref == t_part2:
-                print(i.ref)
                 # Set x2/y2 based on the offset of the pin and part
                 x_pin = getattr(i,t_pin2).x
                 y_pin = getattr(i,t_pin2).y
                 o_coor['x2'] = coord[0] + i.fields['loc'][0] + x_pin
                 o_coor['y2'] = coord[1] + i.fields['loc'][1] - y_pin
-                print("Appending " + str(x_pin)+ " " + str(y_pin))
+                # print("Appending " + str(x_pin)+ " " + str(y_pin))
                 if len(o_coor)>3: break
                 # x2 += i.fields['loc'][0] + x_pin
                 # y2 += i.fields['loc'][1] - y_pin
@@ -1183,17 +1179,16 @@ class Circuit(SkidlBaseObject):
             for n in routed_nets:
                 if n.hierarchy == h:
                     pdiff, t_parts = calc_distance(n,self.parts)
-                    # print(t_parts)
-                    # print(pdiff)
-                    # determine which part to move
                     for i in range(len(t_parts)):
                         if "U" in t_parts[i]:
                             if i == 0:
-                                print("move towards x1/y1 ")
+                                dx = pdiff['x1'] + pdiff['x2']
+                                dy = pdiff['y1'] - pdiff['y2']
+                                print("move " + t_parts[1] + " towards x1/y1 by X: " + str(dx) + " Y: " + str(dy))
                             else:
                                 dx = pdiff['x1'] + pdiff['x2']
-                                dy = pdiff['y1'] + pdiff['y2']
-                                # print("Move toward x2/y2 by X: " + str(dx) + " T: " + str(dy))
+                                dy = pdiff['y1'] - pdiff['y2']
+                                print("Move " + t_parts[0] + " towards x2/y2 by X: " + str(dx) + " Y: " + str(dy))
                                 # print("move part by: " + str(sch_x_center+dx)+ ", " + str(sch_y_center-dy))
                                 # x1 += i.fields['loc'][0] + x_pin
                                 # y1 += i.fields['loc'][1] - y_pin
