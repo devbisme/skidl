@@ -68,8 +68,8 @@ def find_part_hier(p_name, hier):
                 return True
     return False
 
-# Calculate the distance from one pin to another
-def calc_distance(rnet, circ_parts):
+# Get the coordinates between 2 parts given a net
+def get_coordinates(rnet):
 # Get part and pin number of net connection
     m = str(rnet).split() # split by spaces
     t_part1 = (m[2].split("/"))[0]
@@ -90,9 +90,9 @@ def calc_distance(rnet, circ_parts):
     ploc['y2'] = -getattr(t_part,t_pin2).y
     part_names.append(t_part.ref)
 
-    dx = ploc['x1'] + ploc['x2']
-    dy = ploc['y1'] - ploc['y2']
-    return dx, dy, part_names
+    # dx = ploc['x1'] + ploc['x2']
+    # dy = ploc['y1'] - ploc['y2']
+    return ploc, part_names
 
 # Generates code for all the nets passed in
 def gen_nets_code(rnets, circ_parts, coord):
@@ -1149,7 +1149,9 @@ class Circuit(SkidlBaseObject):
             # Range through nets and look for nets with this hierarchy
             for n in routed_nets:
                 if n.hierarchy == h:
-                    dx,dy, p_ref = calc_distance(n,self.parts) # calculate distance of net and return list of parts
+                    ploc, p_ref = get_coordinates(n) # calculate distance of net and return list of parts
+                    dx = ploc['x1'] + ploc['x2']
+                    dy = ploc['y1'] - ploc['y2']
                     # Only move parts connected to U? parts
                     if "U" in p_ref[0]:
                         p_name = p_ref[1]   
