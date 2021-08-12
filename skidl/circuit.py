@@ -994,7 +994,25 @@ class Circuit(SkidlBaseObject):
 
         return schematic_json
 
-    def generate_schematic(self, file_=None, tool=None, sch_loc=[0,0]):
+    # Get the eeschema center point, also returning the entire header right now
+    def get_eeschema_center(self, _file):
+        import skidl
+        
+
+        self._preprocess()
+        tool = skidl.get_default_tool()
+        
+        try:
+            gen_func = getattr(self, "_get_schematic_center_{}".format(tool))
+            return gen_func(_file)
+        except AttributeError:
+            log_and_raise(
+                logger,
+                ValueError,
+                "Can't get the center of the file({}).".format(tool),
+            )
+
+    def generate_schematic(self, file_=None, tool=None):
         """
         Create a schematic file. THIS KINDA WORKS!  
         
@@ -1020,30 +1038,8 @@ class Circuit(SkidlBaseObject):
         if tool is None:
             tool = skidl.get_default_tool()
 
-        # Get the header file so we know where the center is
-        # Open the target schematic to read it's header
-        # Open file, copy all the lines, then close it
-        with open(file_, encoding="utf8") as f:
-            sch_file = f.readlines()
-        f.close()
 
-        # Search for $EndDescr line number
-        for i in range(len(sch_file)):
-            if re.search("^Descr", sch_file[i][1:]):
-                sch_size = sch_file[i]
-            if re.search("^EndDescr", sch_file[i][1:]):
-                endDesc = i
-                break
-        sch_header = sch_file[: endDesc + 1]
-
-        # Calculate the center of the schematic based on header info
-        sch_x = int(sch_size.split()[2])
-        sch_x_center = (int(sch_x/2) + int(sch_loc[0]))
-        sch_x_center = sch_x_center - sch_x_center%50 # Round down to the nearest 50mil
-        sch_y_size = int(sch_size.split()[3])
-        sch_y_center = int(sch_y_size/2) + int(sch_loc[1])
-        sch_y_center = sch_y_center - sch_y_center%50 # Round down to the nearest 50mil
-
+        sch_c, sch_header = self.get_eeschema_center(file_)
 
         circuit_parts = [] # !! MOST IMPORTANT LIST !!  Holds all individual circuit parts to be added
 
@@ -1102,12 +1098,14 @@ class Circuit(SkidlBaseObject):
 
         # Range through the parts and append schematic entry
         for i in self.parts:
-            circuit_parts.append(i.gen_part_eeschema([i.sch_loc[0] + sch_x_center, i.sch_loc[1] + sch_y_center]))
+            x = i.sch_loc[0] + sch_c[0]
+            y = i.sch_loc[1] + sch_c[1]
+            circuit_parts.append(i.gen_part_eeschema([x, y]))
         
 
          # Create the nets and add them to the circuit parts list
         for i in routed_nets:
-            circuit_parts.append(i.gen_eeschema([sch_x_center,sch_y_center]))
+            circuit_parts.append(i.gen_eeschema(sch_c))
 
         # Replace old schematic file content with new schematic file content
         new_sch_file = [sch_header, circuit_parts, "$EndSCHEMATC"]
