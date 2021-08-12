@@ -76,10 +76,15 @@ def board_enable(c, vcc, gnd_):
 
     # Place parts
     xor_ic.fields['loc']=[x, y]
-    r_d.fields['loc']=[x-600, y+500]
-    d.fields['loc']=[x-400, y+650]
-    r1.fields['loc']=[x-450, y+150]
-    r2.fields['loc']=[x+350, y+150]
+    # r_d.fields['loc']=[x-600, y+500]
+    # d.fields['loc']=[x-400, y+650]
+    # r1.fields['loc']=[x-450, y+150]
+    # r2.fields['loc']=[x+350, y+150]
+    # c1.fields['loc']=[x, y-400]
+    r_d.fields['loc']=[x, y]
+    d.fields['loc']=[x, y]
+    r1.fields['loc']=[x, y]
+    r2.fields['loc']=[x, y]
     c1.fields['loc']=[x, y-400]
 
 
