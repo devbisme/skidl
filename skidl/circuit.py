@@ -77,24 +77,6 @@ def parse_net(_net):
     return out
 
 
-# Get the coordinates between 2 parts given a net
-def get_coordinates(rnet):
-    
-    # Go through parts and find the x/y offset
-    ploc = {}
-    pn = parse_net(rnet) # parse the net to get parts/pins coordinates
-    k = list(pn.keys())
-    p = Part.get(k[0])
-    ploc['x1'] =  getattr(p, pn[k[0]]).x
-    ploc['y1'] = -getattr(p, pn[k[0]]).y
-
-    p = Part.get(k[1])
-    ploc['x2'] =  getattr(p, pn[k[1]]).x
-    ploc['y2'] = -getattr(p, pn[k[1]]).y
-
-    return ploc, list(pn.keys())
-
-
 # Make the eeschema code that creates a wire between 2 parts
 def gen_eeschema_net(rnet, coordinates):
     x_off = coordinates[0]
@@ -1132,14 +1114,13 @@ class Circuit(SkidlBaseObject):
             # Range through nets and look for nets with this hierarchy
             for n in routed_nets:
                 if n.hierarchy == h:
-                    ploc, p_ref = get_coordinates(n) # calculate distance of net and return list of parts
-                    dx = ploc['x1'] + ploc['x2']
-                    dy = ploc['y1'] - ploc['y2']
+                    dx = n.pins[0].x + n.pins[1].x
+                    dy = n.pins[0].y - n.pins[1].y
                     # Only move parts connected to U? parts
-                    if "U" in p_ref[0]:
-                        p_name = p_ref[1]   
-                    elif "U" in p_ref[1]:
-                        p_name = p_ref[0]
+                    if "U" in n.pins[0].ref:
+                        p_name = n.pins[1].ref 
+                    elif "U" in n.pins[1].ref:
+                        p_name = n.pins[0].ref 
                     else:
                         continue
                     # Look for the part,we are going to move, then modify it's sch_loc list
