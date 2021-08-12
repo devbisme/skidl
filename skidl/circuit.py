@@ -1176,7 +1176,7 @@ class Circuit(SkidlBaseObject):
                             if i == 0:
                                 dx = pdiff['x1'] + pdiff['x2']
                                 dy = pdiff['y1'] - pdiff['y2']
-                                print("move " + t_parts[1] + " towards x1/y1 by X: " + str(dx) + " Y: " + str(dy))
+                                print("move " + t_parts[1] + " towards " + t_parts[0] + " by X: " + str(dx) + " Y: " + str(dy))
 
                                 for p in range(len(self.parts)):
                                     if t_parts[1] == self.parts[p].ref:
@@ -1188,12 +1188,12 @@ class Circuit(SkidlBaseObject):
                                         else:
                                             self.parts[p].fields['loc'][0] += dx - (200 * pml)
                                             pml+=1
-                                        print("move " + t_parts[1] + " towards x1/y1 by X: " + str(self.parts[p].fields['loc'][0]) + " Y: " + str(dy))
+                                        print("move " + t_parts[1] + " towards " + t_parts[0] + " by X: " + str(self.parts[p].fields['loc'][0]) + " Y: " + str(dy))
                                         self.parts[p].fields['loc'][1] -= dy
                             else:
                                 dx = pdiff['x1'] + pdiff['x2']
                                 dy = pdiff['y1'] - pdiff['y2']
-                                print("Move " + t_parts[0] + " towards x2/y2 by X: " + str(dx) + " Y: " + str(dy))
+                                print("Move " + t_parts[0] + " towards " + t_parts[1] + " by X: " + str(dx) + " Y: " + str(dy))
                                 
                                 for p in range(len(self.parts)):
                                     if t_parts[0] == self.parts[p].ref:
@@ -1205,7 +1205,7 @@ class Circuit(SkidlBaseObject):
                                         else:
                                             self.parts[p].fields['loc'][0] += dx - (200 * pml)
                                             pml+=1
-                                        print("move " + t_parts[0] + " towards x1/y1 by X: " + str(self.parts[p].fields['loc'][0]) + " Y: " + str(dy))
+                                        print("move " + t_parts[0] + " towards " + t_parts[1] + " by X: " + str(self.parts[p].fields['loc'][0]) + " Y: " + str(dy))
 
                                         self.parts[p].fields['loc'][1] -= dy
 
