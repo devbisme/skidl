@@ -68,49 +68,48 @@ def find_part_hier(p_name, hier):
                 return True
     return False
 
+# Parse net and return dictionary with part1/pin1 part2/pin2
 def parse_net(_net):
     m = str(_net).split() # split by spaces
     out = {}
-    out['part1'] = (m[2].split("/"))[0]
-    out['pin1'] = "p"+str((m[2].split("/"))[1])
-    out['part2'] = (m[4].split("/"))[0]
-    out['pin2'] = "p"+str((m[4].split("/"))[1])
+    out[(m[2].split("/"))[0]] = "p"+str((m[2].split("/"))[1]) # add [part1_ref] = pin connected to net
+    out[(m[4].split("/"))[0]] = "p"+str((m[4].split("/"))[1]) # add [part2_ref] = pin connected to net
     return out
 
 
 # Get the coordinates between 2 parts given a net
 def get_coordinates(rnet):
-    pn = parse_net(rnet) # parse the net to get parts/pins coordinates
+    
     # Go through parts and find the x/y offset
     ploc = {}
-    part_names = []
+    pn = parse_net(rnet) # parse the net to get parts/pins coordinates
+    k = list(pn.keys())
+    p = Part.get(k[0])
+    ploc['x1'] =  getattr(p, pn[k[0]]).x
+    ploc['y1'] = -getattr(p, pn[k[0]]).y
 
-    t_part = Part.get(pn['part1'])
-    ploc['x1'] =  getattr(t_part, pn['pin1']).x
-    ploc['y1'] = -getattr(t_part, pn['pin1']).y
-    part_names.append(t_part.ref)
+    p = Part.get(k[1])
+    ploc['x2'] =  getattr(p, pn[k[1]]).x
+    ploc['y2'] = -getattr(p, pn[k[1]]).y
 
-    t_part = Part.get(pn['part2'])
-    ploc['x2'] =  getattr(t_part,pn['pin2']).x
-    ploc['y2'] = -getattr(t_part,pn['pin2']).y
-    part_names.append(t_part.ref)
-
-    return ploc, part_names
+    return ploc, list(pn.keys())
 
 
+# Make the eeschema code that creates a wire between 2 parts
 def gen_eeschema_net(rnet, coordinates):
     x_off = coordinates[0]
     y_off = coordinates[1]
 
-    # t_ploc, t_parts = get_coordinates(rnet)
     pn = parse_net(rnet)
-    t_part = Part.get(pn['part1'])
-    x1 = x_off + t_part.sch_loc[0] + getattr(t_part, pn['pin1']).x
-    y1 = y_off + t_part.sch_loc[1] - getattr(t_part, pn['pin1']).y
 
-    t_part = Part.get(pn['part2'])
-    x2 = x_off + t_part.sch_loc[0] + getattr(t_part, pn['pin2']).x
-    y2 = y_off + t_part.sch_loc[1] - getattr(t_part, pn['pin2']).y
+    k = list(pn.keys())
+    p = Part.get(k[0])
+    x1 = x_off + p.sch_loc[0] + getattr(p, pn[k[0]]).x
+    y1 = y_off + p.sch_loc[1] - getattr(p, pn[k[0]]).y
+
+    p = Part.get(k[1])
+    x2 = x_off + p.sch_loc[0] + getattr(p, pn[k[1]]).x
+    y2 = y_off + p.sch_loc[1] - getattr(p, pn[k[1]]).y
 
     wire = []
     wire.append("Wire Wire Line\n")
