@@ -13,16 +13,16 @@ def stm32f405r(c,vdd, gnd):
     
     # VACP's
     vcap1 = Part("Device", 'C_Small', footprint='C_0603_1608Metric')
-    vcap1.fields['loc']=[x-1000, y-1100]
+    vcap1.fields['loc']=[x, y]
     vc1 = Net('vcap1')
     vc1 += u.p31, vcap1.p1
 
     vcap2 = Part("Device", 'C_Small', footprint='C_0603_1608Metric')
-    vcap2.fields['loc']=[x-900,y-1000]
+    vcap2.fields['loc']=[x,y]
     vc2 = Net('vcap2')
     vc2 += u.p47, vcap2.p1
 
-    led_indicator([x+1200,y+250],u.p50,gnd,'green','5.6k')
+    led_indicator([x,y],u.p50,gnd,'green','5.6k')
 
 
 ############################################################################
@@ -36,9 +36,9 @@ def led_indicator(c, inp, outp, color, resistance):
     # create parts
     d = Part("Device", 'D', footprint='D_0603_1608Metric')
     d.fields['color'] = color
-    d.fields['loc']=[x, y]
+    d.fields['loc']=[x+1200, y+200]
     r = Part("Device", 'R', footprint='R_0603_1608Metric', value=resistance)
-    r.fields['loc']=[x-150, y-200]
+    r.fields['loc']=[x, y]
     # r.fields['subcircuit']="stm32f405r"
     # connect parts and nets
     inp & r & d & outp

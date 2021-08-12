@@ -1137,17 +1137,7 @@ class Circuit(SkidlBaseObject):
 
 
         circuit_parts = [] # !! MOST IMPORTANT LIST !!  Holds all individual circuit parts to be added
-        # Range through the parts and append schematic entry
-        for i in self.parts:
-            # See if a specific location was set
-            try:
-                t_x = sch_x_center + i.fields['loc'][0]
-                t_y = sch_y_center + i.fields['loc'][1]
-            except:
-                t_x = sch_x_center
-                t_y = sch_y_center
 
-            circuit_parts.append(i.gen_part_eeschema([t_x,t_y]))
 
 
         # Get the list of nets which will be routed and not represented by stubs.
@@ -1161,8 +1151,7 @@ class Circuit(SkidlBaseObject):
         )
         routed_nets = list(set(self.nets) - set(net_stubs))
 
-        # Create the nets and add them to the circuit parts list
-        circuit_parts.extend(gen_nets_code(routed_nets, self.parts, [sch_x_center,sch_y_center]))
+       
 
 
 
@@ -1174,8 +1163,10 @@ class Circuit(SkidlBaseObject):
             else:
                 hierarchies[i.hierarchy].append(i)
 
+        # Look through the hierarcies
         for h in hierarchies:
             print("Hier: " + str(h))
+            pp = 1 # parts placed already, helps us to not collide with other parts
             for n in routed_nets:
                 if n.hierarchy == h:
                     pdiff, t_parts = calc_distance(n,self.parts)
@@ -1185,16 +1176,52 @@ class Circuit(SkidlBaseObject):
                                 dx = pdiff['x1'] + pdiff['x2']
                                 dy = pdiff['y1'] - pdiff['y2']
                                 print("move " + t_parts[1] + " towards x1/y1 by X: " + str(dx) + " Y: " + str(dy))
+
+                                for p in range(len(self.parts)):
+                                    if t_parts[1] == self.parts[p].ref:
+                                        # found part, now move it
+                                        if dx > 0:
+                                            # if we're moving right then move it slightly more right
+                                            self.parts[p].fields['loc'][0] += dx + (200 * pp)
+                                            pp+=1
+                                        else:
+                                            self.parts[p].fields['loc'][0] += dx - (200 * pp)
+                                            pp+=1
+                                        self.parts[p].fields['loc'][1] -= dy
                             else:
                                 dx = pdiff['x1'] + pdiff['x2']
                                 dy = pdiff['y1'] - pdiff['y2']
                                 print("Move " + t_parts[0] + " towards x2/y2 by X: " + str(dx) + " Y: " + str(dy))
+
+                                for p in range(len(self.parts)):
+                                    if t_parts[0] == self.parts[p].ref:
+                                        # found part, now move it
+                                        if dx > 0:
+                                            # if we're moving right then move it slightly more right
+                                            self.parts[p].fields['loc'][0] += dx + 200
+                                        else:
+                                            self.parts[p].fields['loc'][0] += dx - 200
+                                        self.parts[p].fields['loc'][1] -= dy
                                 # print("move part by: " + str(sch_x_center+dx)+ ", " + str(sch_y_center-dy))
                                 # x1 += i.fields['loc'][0] + x_pin
                                 # y1 += i.fields['loc'][1] - y_pin
-                        
+
+
+        # Range through the parts and append schematic entry
+        for i in self.parts:
+            # See if a specific location was set
+            try:
+                t_x = sch_x_center + i.fields['loc'][0]
+                t_y = sch_y_center + i.fields['loc'][1]
+            except:
+                t_x = sch_x_center
+                t_y = sch_y_center
+
+            circuit_parts.append(i.gen_part_eeschema([t_x,t_y]))
         
-        
+
+         # Create the nets and add them to the circuit parts list
+        circuit_parts.extend(gen_nets_code(routed_nets, self.parts, [sch_x_center,sch_y_center]))
         # Replace old schematic file content with new schematic file content
         new_sch_file = [sch_header, circuit_parts, "$EndSCHEMATC"]
         with open(file_, "w") as f:
