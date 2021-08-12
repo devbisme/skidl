@@ -66,10 +66,10 @@ def board_enable(c, vcc, gnd_):
     # d.fields['subcircuit']="stm32f405r"
     r_d = Part("Device", 'R', footprint='R_0603_1608Metric', value="5.6k")
     
-
+    xor_ic.p4 += d.p2 
     r_d.p1 += vcc
     r_d.p2 += d.p1
-    d.p2 += xor_ic.p4
+     
 
     c1.fields['voltage']='100v'
     c1.fields['temp_coeff']='X7R'
