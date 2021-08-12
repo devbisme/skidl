@@ -101,20 +101,20 @@ def get_coordinates(rnet):
 def gen_eeschema_net(rnet, coordinates):
     x_off = coordinates[0]
     y_off = coordinates[1]
-    pn = parse_net(rnet)
-    ploc = {}
 
+    # t_ploc, t_parts = get_coordinates(rnet)
+    pn = parse_net(rnet)
     t_part = Part.get(pn['part1'])
-    ploc['x1'] = x_off + t_part.sch_loc[0] + getattr(t_part, pn['pin1']).x
-    ploc['y1'] = y_off + t_part.sch_loc[1] - getattr(t_part, pn['pin1']).y
+    x1 = x_off + t_part.sch_loc[0] + getattr(t_part, pn['pin1']).x
+    y1 = y_off + t_part.sch_loc[1] - getattr(t_part, pn['pin1']).y
 
     t_part = Part.get(pn['part2'])
-    ploc['x2'] = x_off + t_part.sch_loc[0] + getattr(t_part,pn['pin2']).x
-    ploc['y2'] = y_off + t_part.sch_loc[1] - getattr(t_part,pn['pin2']).y
+    x2 = x_off + t_part.sch_loc[0] + getattr(t_part, pn['pin2']).x
+    y2 = y_off + t_part.sch_loc[1] - getattr(t_part, pn['pin2']).y
 
     wire = []
     wire.append("Wire Wire Line\n")
-    wire.append("	{} {} {} {}\n".format(ploc['x1'],ploc['y1'], ploc['x2'], ploc['y2']))
+    wire.append("	{} {} {} {}\n".format(x1,y1,x2,y2))
 
     return (("\n" + "".join(wire)))
 
