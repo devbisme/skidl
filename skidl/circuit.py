@@ -59,29 +59,19 @@ from .utilities import *
 
 standard_library.install_aliases()
 
-
-
-def find_part_hier(p_name, hier):
-    for i in hier:
-        for p in hier[i]:
-            if p_name == p.ref:
-                return True
-    return False
-
-
 # Make the eeschema code that creates a wire between 2 parts
-def gen_eeschema_net(rnet, coordinates):
-    x_off = coordinates[0]
-    y_off = coordinates[1]
+# Takes in a net and coordinates
+def gen_eeschema_net(rnet, c):
 
     # k = list(pn.keys())
-    p = Part.get(rnet.pins[0].ref)
-    x1 = x_off + p.sch_loc[0] + rnet.pins[0].x
-    y1 = y_off + p.sch_loc[1] - rnet.pins[0].y
+    part1 = Part.get(rnet.pins[0].ref)
+    part2 = Part.get(rnet.pins[1].ref)
 
-    p = Part.get(rnet.pins[1].ref)
-    x2 = x_off + p.sch_loc[0] + rnet.pins[1].x
-    y2 = y_off + p.sch_loc[1] - rnet.pins[1].y
+    x1 = c[0] + part1.sch_loc[0] + rnet.pins[0].x
+    y1 = c[1] + part1.sch_loc[1] - rnet.pins[0].y
+
+    x2 = c[0] + part2.sch_loc[0] + rnet.pins[1].x
+    y2 = c[1] + part2.sch_loc[1] - rnet.pins[1].y
 
     wire = []
     wire.append("Wire Wire Line\n")
