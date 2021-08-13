@@ -1061,6 +1061,7 @@ class Circuit(SkidlBaseObject):
             # Range through nets and look for nets with this hierarchy
             for n in routed_nets:
                 if n.hierarchy == h:
+                    # find the distance between the pins
                     dx = n.pins[0].x + n.pins[1].x
                     dy = n.pins[0].y - n.pins[1].y
                     # Only move parts connected to U? parts
@@ -1086,6 +1087,7 @@ class Circuit(SkidlBaseObject):
             x = i.sch_loc[0] + sch_c[0]
             y = i.sch_loc[1] + sch_c[1]
             circuit_parts.append(i.gen_part_eeschema([x, y]))
+            i.generate_bounding_box()
         
         # Create the nets and add them to the circuit parts list
         for i in routed_nets:

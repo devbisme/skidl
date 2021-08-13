@@ -1045,6 +1045,31 @@ class Part(SkidlBaseObject):
 
         return gen_func()
 
+
+    def generate_bounding_box(self, symtx="", tool=None, net_stubs=None):
+        """
+        Generate the SVG for displaying a part in an SVG schematic.
+        """
+
+        import skidl
+
+        if tool is None:
+            tool = skidl.get_default_tool()
+
+        try:
+            gen_func = getattr(self, "_generate_bounding_box_{}".format(tool))
+        except AttributeError:
+            log_and_raise(
+                logger,
+                ValueError,
+                "Can't generate SVG for a component in an unknown ECAD tool format({}).".format(
+                    tool
+                ),
+            )
+
+        return gen_func(net_stubs=net_stubs)
+
+
     def generate_svg_component(self, symtx="", tool=None, net_stubs=None):
         """
         Generate the SVG for displaying a part in an SVG schematic.

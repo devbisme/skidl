@@ -81,6 +81,7 @@ for module in os.listdir(directory):
         (part.Part, "_gen_xml_comp_"),
         (net.Net, "_gen_xml_net_"),
         (part.Part, "_gen_svg_comp_"),
+        (part.Part, "_generate_bounding_box_"),
         (circuit.Circuit, "_gen_schematic_"),
         (part.Part, "_gen_pinboxes_"),
         (net.Net, "_gen_eeschema_"),

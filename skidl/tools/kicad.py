@@ -1091,6 +1091,41 @@ def _gen_xml_net_(self):
     return txt
 
 
+def _generate_bounding_box_(self, net_stubs=None):
+    # print("Generating bounding box for: " + self.ref)
+    
+    # lower left
+    x1 = 0 
+    y1 = 0 
+    # upper left
+    x2 = 0
+    y2 = 0
+    # upper right
+    x3 = 0
+    y3 = 0
+    # lower right
+    x4 = 0
+    y4 = 0
+
+    for p in self.pins:
+        # print("Pin #: " + str(p.num) + " x: " + str(p.x) + " y: " + str(p.y))
+        # look for lower x and higher or lower y
+        if x1 > p.x:
+            x1 = p.x # found a lower value of x1
+            x2 = p.x
+        if x3 < p.x:
+            x3 = p.x
+            x4 = p.x
+        if y1 > p.y:
+            y1 = p.y
+            y3 = p.y
+        if y2 < p.y:
+            y2 = p.y
+            y4 = p.y
+    print("{} {} {} {} {} {} {} {} ".format(x1, y1, x2, y2, x3, y3, x4, y4))
+
+    
+
 def _gen_svg_comp_(self, symtx, net_stubs=None):
     """
     Generate SVG for this component.
