@@ -1087,7 +1087,9 @@ class Circuit(SkidlBaseObject):
             x = i.sch_loc[0] + sch_c[0]
             y = i.sch_loc[1] + sch_c[1]
             circuit_parts.append(i.gen_part_eeschema([x, y]))
-            i.generate_bounding_box()
+            
+            bb = i.generate_bounding_box()
+            print("Part: " + i.ref + "  x_l: {}      x_r: {}     y_d: {}     y_u:{} ".format(bb[0], bb[1], bb[2], bb[3]))
         
         # Create the nets and add them to the circuit parts list
         for i in routed_nets:

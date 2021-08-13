@@ -1108,7 +1108,7 @@ def _generate_bounding_box_(self, net_stubs=None):
         if y_u < p.y:
             y_u = p.y
 
-    bbox = ("x_l: {} x_r: {} y_d: {} y_u: {} ".format(x_l, x_r, y_d, y_u))
+    bbox = [x_l,x_r,y_d,y_u]
     return bbox
     
 
