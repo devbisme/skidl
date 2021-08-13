@@ -1053,44 +1053,48 @@ class Circuit(SkidlBaseObject):
             else:
                 hierarchies[i.hierarchy].append(i)
 
-        # Look through the hierarcies
+        # Range through the parts and append schematic entry
+        bb = {} # Dictionary to hold bounding boxes for each part
+        for i in self.parts:
+            bb[i.ref] = i.generate_bounding_box()
+        
+
+        # Range through the hierarchy and nets to find the parts which need to be moved
         for h in hierarchies:
-            print("Hier: " + str(h))
-            pmr = 1 # number of parts moved right, try to prevent overlap until we do bounding boxes
-            pml = 1 # number of part moved lefts
-            # Range through nets and look for nets with this hierarchy
+            n = 0
+            mr = 1
+            ml = 1
+            mu = 0
+            md = 0
             for n in routed_nets:
                 if n.hierarchy == h:
                     # find the distance between the pins
                     dx = n.pins[0].x + n.pins[1].x
                     dy = n.pins[0].y - n.pins[1].y
-                    # Only move parts connected to U? parts
-                    if "U" in n.pins[0].ref:
-                        p_name = n.pins[1].ref 
-                    elif "U" in n.pins[1].ref:
-                        p_name = n.pins[0].ref 
+                    # determine which part should move.  
+                    # The first part in the hierarch is the center
+                    center_part = hierarchies[h][0].ref
+                    if n.pins[0].ref == center_part:
+                        p = Part.get(n.pins[1].ref)
+                    elif n.pins[1].ref == center_part:
+                        p = Part.get(n.pins[0].ref)
                     else:
                         continue
-                    # Find part and move it.  Only moving X-axis right now
-                    p = Part.get(p_name)
                     if dx > 0:
                         # if we're moving right then move it slightly more right
-                        p.sch_loc[0] += dx + (200 * pmr)
-                        pmr+=1
+                        p.sch_loc[0] += dx + (200 * mr)
+                        mr+=1
                     else:
-                        p.sch_loc[0] += dx - (200 * pml)
-                        pml+=1
+                        p.sch_loc[0] += dx - (200 * ml)
+                        ml+=1
                     p.sch_loc[1] -= dy
 
-        # Range through the parts and append schematic entry
+        # Generatie eeschema code for parts and append to output list
         for i in self.parts:
             x = i.sch_loc[0] + sch_c[0]
             y = i.sch_loc[1] + sch_c[1]
             circuit_parts.append(i.gen_part_eeschema([x, y]))
-            
-            bb = i.generate_bounding_box()
-            print("Part: " + i.ref + "  x_l: {}      x_r: {}     y_d: {}     y_u:{} ".format(bb[0], bb[1], bb[2], bb[3]))
-        
+
         # Create the nets and add them to the circuit parts list
         for i in routed_nets:
             circuit_parts.append(i.gen_eeschema(sch_c))

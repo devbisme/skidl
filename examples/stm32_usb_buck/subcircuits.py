@@ -22,7 +22,18 @@ def stm32f405r(c,vdd, gnd):
     vc2 = Net('vcap2')
     vc2 += u.p47, vcap2.p1
 
-    led_indicator([x,y],u.p50,gnd,'green','5.6k')
+    # Indicator circuit
+    d = Part("Device", 'D', footprint='D_0603_1608Metric')
+    d.fields['color'] = 'green'
+    d.sch_loc=[x,y]
+    r = Part("Device", 'R', footprint='R_0603_1608Metric', value='5.6k')
+    r.sch_loc=[x, y]
+
+    u.p50 += r.p1
+    r.p2 += d.p1
+    d.p2 +=gnd
+
+    # led_indicator([x+500,y],u.p50,gnd,'green','5.6k')
 
 
 ############################################################################
@@ -63,7 +74,6 @@ def board_enable(c, vcc, gnd_):
     d = Part("Device", 'D', footprint='D_0603_1608Metric')
     d.fields['color'] = 'green'
     
-    # d.fields['subcircuit']="stm32f405r"
     r_d = Part("Device", 'R', footprint='R_0603_1608Metric', value="5.6k")
     
     xor_ic.p4 += d.p2 
@@ -76,17 +86,11 @@ def board_enable(c, vcc, gnd_):
 
     # Place parts
     xor_ic.sch_loc=[x, y]
-    # r_d.sch_loc=[x-600, y+500]
-    # d.sch_loc=[x-400, y+650]
-    # r1.sch_loc=[x-450, y+150]
-    # r2.sch_loc=[x+350, y+150]
-    # c1.sch_loc=[x, y-400]
     r_d.sch_loc=[x, y]
     d.sch_loc=[x, y]
     r1.sch_loc=[x, y]
     r2.sch_loc=[x, y]
     c1.sch_loc=[x, y-400]
-
 
     bd_sel_ls += xor_ic.p1, r1.p1
     n1 += xor_ic.p2, r2.p1
@@ -96,4 +100,3 @@ def board_enable(c, vcc, gnd_):
     r1.p2 += gnd_
     r2.p2 += vcc
     
-    # led_indicator(c*2, vcc, enabled, 'green', '5.6k')
