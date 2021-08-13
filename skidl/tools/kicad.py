@@ -1094,35 +1094,26 @@ def _gen_xml_net_(self):
 def _generate_bounding_box_(self, net_stubs=None):
     # print("Generating bounding box for: " + self.ref)
     
-    # lower left
-    x1 = 0 
-    y1 = 0 
-    # upper left
-    x2 = 0
-    y2 = 0
-    # upper right
-    x3 = 0
-    y3 = 0
-    # lower right
-    x4 = 0
-    y4 = 0
+
+    # dimensions of box
+    x_l = 0 # left
+    x_r = 0 # right
+    y_d = 0 # down
+    y_u = 0 # up
 
     for p in self.pins:
         # print("Pin #: " + str(p.num) + " x: " + str(p.x) + " y: " + str(p.y))
         # look for lower x and higher or lower y
-        if x1 > p.x:
-            x1 = p.x # found a lower value of x1
-            x2 = p.x
-        if x3 < p.x:
-            x3 = p.x
-            x4 = p.x
-        if y1 > p.y:
-            y1 = p.y
-            y3 = p.y
-        if y2 < p.y:
-            y2 = p.y
-            y4 = p.y
-    print("{} {} {} {} {} {} {} {} ".format(x1, y1, x2, y2, x3, y3, x4, y4))
+        if x_l > p.x:
+            x_l = p.x # found a lower value of x_l
+        if x_r < p.x:
+            x_r = p.x
+        if y_d > p.y:
+            y_d = p.y
+        if y_u < p.y:
+            y_u = p.y
+
+    print("x_l: {} x_r: {} y_d: {} y_u: {} ".format(x_l, x_r, y_d, y_u))
 
     
 
