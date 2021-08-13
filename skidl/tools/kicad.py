@@ -1091,21 +1091,16 @@ def _gen_xml_net_(self):
     return txt
 
 
+# Find the bounding box of a Part based on the furthest placement of pins
 def _generate_bounding_box_(self, net_stubs=None):
-    # print("Generating bounding box for: " + self.ref)
-    
-
-    # dimensions of box
     x_l = 0 # left
     x_r = 0 # right
     y_d = 0 # down
     y_u = 0 # up
 
     for p in self.pins:
-        # print("Pin #: " + str(p.num) + " x: " + str(p.x) + " y: " + str(p.y))
-        # look for lower x and higher or lower y
         if x_l > p.x:
-            x_l = p.x # found a lower value of x_l
+            x_l = p.x
         if x_r < p.x:
             x_r = p.x
         if y_d > p.y:
@@ -1113,8 +1108,8 @@ def _generate_bounding_box_(self, net_stubs=None):
         if y_u < p.y:
             y_u = p.y
 
-    print("x_l: {} x_r: {} y_d: {} y_u: {} ".format(x_l, x_r, y_d, y_u))
-
+    bbox = ("x_l: {} x_r: {} y_d: {} y_u: {} ".format(x_l, x_r, y_d, y_u))
+    return bbox
     
 
 def _gen_svg_comp_(self, symtx, net_stubs=None):
