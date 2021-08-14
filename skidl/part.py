@@ -1084,16 +1084,16 @@ class Part(SkidlBaseObject):
 
                 if _target_pin.orientation == 'R':
                     print("move left")
-                    self.move_part(-100, 0, _parts_list, _target_pin)
+                    self.move_part(-50, 0, _parts_list, _target_pin)
                 elif _target_pin.orientation == 'L':
                     print("move right")
-                    self.move_part(100, 0, _parts_list, _target_pin)
+                    self.move_part(50, 0, _parts_list, _target_pin)
                 elif _target_pin.orientation == 'U':
                     print("move up")
-                    self.move_part(0, -100, _parts_list, _target_pin)
+                    self.move_part(0, -50, _parts_list, _target_pin)
                 elif _target_pin.orientation == 'D':
                     print("move down")
-                    self.move_part(0, +100, _parts_list, _target_pin)
+                    self.move_part(0, 50, _parts_list, _target_pin)
             # else:
             #     print(self.ref + " x min: " + str(x1min) + " max: " + str(x1max))
             #     print(pt.ref + " x min: " + str(x2min) + " max: " + str(x2max))
