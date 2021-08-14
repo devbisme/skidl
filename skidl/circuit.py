@@ -1062,7 +1062,6 @@ class Circuit(SkidlBaseObject):
         # Range through the hierarchy and nets to find the parts which need to be moved
         for h in hierarchies:
             center_part = hierarchies[h][0].ref
-            print("Center part: " + center_part)
             for n in routed_nets:
                 if n.hierarchy == h:
                     # find the distance between the pins
@@ -1072,10 +1071,10 @@ class Circuit(SkidlBaseObject):
                     # The first part in the hierarch is the center
                     if n.pins[0].ref == center_part:
                         p = Part.get(n.pins[1].ref)
-                        p.move_part(dx, dy,self.parts, n.pins[0])
+                        p.move_part(dx, dy,self.parts, n.pins[0].orientation)
                     elif n.pins[1].ref == center_part:
                         p = Part.get(n.pins[0].ref)
-                        p.move_part(dx, dy,self.parts, n.pins[0])
+                        p.move_part(dx, dy,self.parts, n.pins[0].orientation)
                     else:
                         second_round.append(n)
 
@@ -1084,27 +1083,32 @@ class Circuit(SkidlBaseObject):
         for n in second_round:
             print(n)
             # check which part is already moved
-            if n.pins[0].sch_bb[0] != 0 and n.pins[0].sch_bb[1] != 0:
+            if (n.pins[0].part.sch_bb[0] != 0 and n.pins[0].part.sch_bb[1] != 0) and (n.pins[1].part.sch_bb[0] != 0 and n.pins[1].part.sch_bb[1] != 0):
                 third_round.append(n)
-            elif n.pins[0].sch_bb[0] != 0:
+            elif n.pins[0].part.sch_bb[0] != 0 or n.pins[0].part.sch_bb[1] != 0:
+                
+                x_ref = n.pins[0].part.sch_bb[0]
+                y_ref = n.pins[0].part.sch_bb[1]
+                x = n.pins[1].part.sch_bb[0]
+                y = n.pins[1].part.sch_bb[1]
                 # find the distance between the pins
-                dx = n.pins[0].x + n.pins[1].x
-                dy = n.pins[0].y - n.pins[1].y
+                dx = x_ref + n.pins[1].x
+                dy = y_ref - n.pins[1].y
                 p = Part.get(n.pins[1].ref)
-                p.move_part(dx, dy,self.parts, n.pins[0])
-            elif n.pins[0].sch_bb[1] != 0:
+                p.move_part(dx, dy,self.parts, n.pins[0].orientation) # we should actually look at the 
+            elif n.pins[0].part.sch_bb[1] != 0:
+                x_ref = n.pins[1].part.sch_bb[0]
+                y_ref = n.pins[1].part.sch_bb[1]
+                x = n.pins[0].part.sch_bb[0]
+                y = n.pins[0].part.sch_bb[1]
                 # find the distance between the pins
                 dx = n.pins[0].x + n.pins[1].x
                 dy = n.pins[0].y - n.pins[1].y
-                # determine which part should move.  
-                # The first part in the hierarch is the center
-                if n.pins[0].ref == center_part:
-                    p = Part.get(n.pins[1].ref)
-                    p.move_part(dx, dy,self.parts, n.pins[0])
-                elif n.pins[1].ref == center_part:
-                    p = Part.get(n.pins[0].ref)
-                    p.move_part(dx, dy,self.parts, n.pins[0])
-
+                p = Part.get(n.pins[0].ref)
+                p.move_part(dx, dy,self.parts, n.pins[0].orientation)
+            else:
+                third_round.append(n)
+        print("third round" + str(third_round))
 
         # Generatie eeschema code for parts and append to output list
         for i in self.parts:
