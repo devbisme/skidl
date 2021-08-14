@@ -1058,6 +1058,7 @@ class Circuit(SkidlBaseObject):
             i.generate_bounding_box()
         
 
+        second_round = []
         # Range through the hierarchy and nets to find the parts which need to be moved
         for h in hierarchies:
             center_part = hierarchies[h][0].ref
@@ -1076,7 +1077,35 @@ class Circuit(SkidlBaseObject):
                         p = Part.get(n.pins[0].ref)
                         p.move_part(dx, dy,self.parts, n.pins[0])
                     else:
-                        continue
+                        second_round.append(n)
+
+        # move around the rest of the parts
+        third_round = []
+        for n in second_round:
+            print(n)
+            # check which part is already moved
+            if n.pins[0].sch_bb[0] != 0 and n.pins[0].sch_bb[1] != 0:
+                third_round.append(n)
+            elif n.pins[0].sch_bb[0] != 0:
+                # find the distance between the pins
+                dx = n.pins[0].x + n.pins[1].x
+                dy = n.pins[0].y - n.pins[1].y
+                p = Part.get(n.pins[1].ref)
+                p.move_part(dx, dy,self.parts, n.pins[0])
+            elif n.pins[0].sch_bb[1] != 0:
+                # find the distance between the pins
+                dx = n.pins[0].x + n.pins[1].x
+                dy = n.pins[0].y - n.pins[1].y
+                # determine which part should move.  
+                # The first part in the hierarch is the center
+                if n.pins[0].ref == center_part:
+                    p = Part.get(n.pins[1].ref)
+                    p.move_part(dx, dy,self.parts, n.pins[0])
+                elif n.pins[1].ref == center_part:
+                    p = Part.get(n.pins[0].ref)
+                    p.move_part(dx, dy,self.parts, n.pins[0])
+
+
         # Generatie eeschema code for parts and append to output list
         for i in self.parts:
             x = i.sch_bb[0] + sch_c[0]

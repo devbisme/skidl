@@ -1059,6 +1059,9 @@ class Part(SkidlBaseObject):
         return gen_func()
 
     
+    # Move the part by dx/dy, then check to see if it's colliding with 
+    #   any other part.  If it is colliding then move the part move towards the 
+    #   direction of the pin it was moving towards
     def move_part(self, dx, dy, _parts_list, _target_pin):
         self.sch_bb[0] += dx
         self.sch_bb[1] -= dy
@@ -1077,7 +1080,9 @@ class Part(SkidlBaseObject):
             y2min = pt.sch_bb[1] - pt.sch_bb[3]
             y2max = pt.sch_bb[1] + pt.sch_bb[3]
             
-
+            # Logic to tell whether parts collide.  
+            # Note that the movement direction is opposite of what's intuitive ('R' = move left)
+            # https://stackoverflow.com/questions/20925818/algorithm-to-check-if-two-boxes-overlap
             if (x1min <= x2max) and (x2min <= x1max) and (y1min <= y2max) and (y2min <= y1max):
                 if _target_pin.orientation == 'R':
                     self.move_part(-50, 0, _parts_list, _target_pin)
