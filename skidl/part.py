@@ -1059,7 +1059,7 @@ class Part(SkidlBaseObject):
         return gen_func()
 
     
-    def move_part(self, dx, dy, _parts_list):
+    def move_part(self, dx, dy, _parts_list, _target_pin):
         self.sch_bb[0] += dx
         self.sch_bb[1] -= dy
         for pt in _parts_list:
@@ -1067,19 +1067,38 @@ class Part(SkidlBaseObject):
                 continue
             x1min = self.sch_bb[0] - self.sch_bb[2]
             x1max = self.sch_bb[0] + self.sch_bb[2]
-            print(self.ref + " x min: " + str(x1min) + " max: " + str(x1max))
+            
             x2min = pt.sch_bb[0] - pt.sch_bb[2]
             x2max = pt.sch_bb[0] + pt.sch_bb[2]
-            print(pt.ref + " x min: " + str(x2min) + " max: " + str(x2max))
+            
             y1min = self.sch_bb[1] - self.sch_bb[3]
             y1max = self.sch_bb[1] + self.sch_bb[3]
-            print(self.ref + " y min: " + str(y1min) + " max: " + str(y1max))
+            
             y2min = pt.sch_bb[1] - pt.sch_bb[3]
             y2max = pt.sch_bb[1] + pt.sch_bb[3]
-            print(pt.ref + " y min: " + str(y2min) + " max: " + str(y2max))
+            
 
             if (x1min <= x2max) and (x2min <= x1max) and (y1min <= y2max) and (y2min <= y1max):
                 print(self.ref + " overlaps with "+ pt.ref)
+                # print("move towards: " + _target_pin.orientation)
+
+                if _target_pin.orientation == 'R':
+                    print("move left")
+                    self.move_part(-100, 0, _parts_list, _target_pin)
+                elif _target_pin.orientation == 'L':
+                    print("move right")
+                    self.move_part(100, 0, _parts_list, _target_pin)
+                elif _target_pin.orientation == 'U':
+                    print("move up")
+                    self.move_part(0, -100, _parts_list, _target_pin)
+                elif _target_pin.orientation == 'D':
+                    print("move down")
+                    self.move_part(0, +100, _parts_list, _target_pin)
+            # else:
+            #     print(self.ref + " x min: " + str(x1min) + " max: " + str(x1max))
+            #     print(pt.ref + " x min: " + str(x2min) + " max: " + str(x2max))
+            #     print(self.ref + " y min: " + str(y1min) + " max: " + str(y1max))
+            #     print(pt.ref + " y min: " + str(y2min) + " max: " + str(y2max))
 
 
     def generate_svg_component(self, symtx="", tool=None, net_stubs=None):

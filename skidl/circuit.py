@@ -1060,11 +1060,6 @@ class Circuit(SkidlBaseObject):
 
         # Range through the hierarchy and nets to find the parts which need to be moved
         for h in hierarchies:
-            n = 0
-            mr = 1
-            ml = 1
-            mu = 0
-            md = 0
             for n in routed_nets:
                 if n.hierarchy == h:
                     # find the distance between the pins
@@ -1075,12 +1070,12 @@ class Circuit(SkidlBaseObject):
                     center_part = hierarchies[h][0].ref
                     if n.pins[0].ref == center_part:
                         p = Part.get(n.pins[1].ref)
-                        p.move_part(dx, dy,self.parts)
+                        p.move_part(dx, dy,self.parts, n.pins[0])
                     elif n.pins[1].ref == center_part:
                         p = Part.get(n.pins[0].ref)
-                        p.move_part(dx, dy,self.parts)
+                        p.move_part(dx, dy,self.parts, n.pins[0])
                     else:
-                        continue
+                        continue 
         # Generatie eeschema code for parts and append to output list
         for i in self.parts:
             x = i.sch_bb[0] + sch_c[0]
