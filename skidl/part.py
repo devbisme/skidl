@@ -1020,10 +1020,15 @@ class Part(SkidlBaseObject):
 
     def generate_bounding_box(self):
         for p in self.pins:
-            if self.sch_bb[2] > abs(p.x):
+            if self.sch_bb[2] < abs(p.x):
                 self.sch_bb[2] = p.x
-            if self.sch_bb[3] > abs(p.y):
+            if self.sch_bb[3] < abs(p.y):
                 self.sch_bb[3] = p.y
+        
+        if self.sch_bb[2] < 100:
+            self.sch_bb[2] = 100
+        if self.sch_bb[3] < 100:
+            self.sch_bb[3] = 100
 
 
     def generate_xml_component(self, tool=None):
@@ -1053,23 +1058,29 @@ class Part(SkidlBaseObject):
 
         return gen_func()
 
-    def check_bbox(self, _parts):
-        print("checking bbox")
-        
-    # def move_right(self, _parts, dx, dy):
-    #     self.sch_bb[0] += dx
-    #     self.sch_bb[1] -= dy
-
-    # def move_left(self, _parts, dx, dy):
-    #     self.sch_bb[0] -= dx
-    #     self.sch_bb[1] -= dy
-
-    #     self.check_bbox(_parts)
     
     def move_part(self, dx, dy, _parts_list):
         self.sch_bb[0] += dx
         self.sch_bb[1] -= dy
-        self.check_bbox(_parts_list)
+        for pt in _parts_list:
+            if pt.ref == self.ref:
+                continue
+            x1min = self.sch_bb[0] - self.sch_bb[2]
+            x1max = self.sch_bb[0] + self.sch_bb[2]
+            print(self.ref + " x min: " + str(x1min) + " max: " + str(x1max))
+            x2min = pt.sch_bb[0] - pt.sch_bb[2]
+            x2max = pt.sch_bb[0] + pt.sch_bb[2]
+            print(pt.ref + " x min: " + str(x2min) + " max: " + str(x2max))
+            y1min = self.sch_bb[1] - self.sch_bb[3]
+            y1max = self.sch_bb[1] + self.sch_bb[3]
+            print(self.ref + " y min: " + str(y1min) + " max: " + str(y1max))
+            y2min = pt.sch_bb[1] - pt.sch_bb[3]
+            y2max = pt.sch_bb[1] + pt.sch_bb[3]
+            print(pt.ref + " y min: " + str(y2min) + " max: " + str(y2max))
+
+            if (x1min <= x2max) and (x2min <= x1max) and (y1min <= y2max) and (y2min <= y1max):
+                print(self.ref + " overlaps with "+ pt.ref)
+
 
     def generate_svg_component(self, symtx="", tool=None, net_stubs=None):
         """
