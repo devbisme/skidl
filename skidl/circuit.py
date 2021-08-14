@@ -1075,19 +1075,12 @@ class Circuit(SkidlBaseObject):
                     center_part = hierarchies[h][0].ref
                     if n.pins[0].ref == center_part:
                         p = Part.get(n.pins[1].ref)
+                        p.move_part(dx, dy,self.parts)
                     elif n.pins[1].ref == center_part:
                         p = Part.get(n.pins[0].ref)
+                        p.move_part(dx, dy,self.parts)
                     else:
                         continue
-                    if dx > 0:
-                        # if we're moving right then move it slightly more right
-                        p.sch_bb[0] += dx + (200 * mr)
-                        mr+=1
-                    else:
-                        p.sch_bb[0] += dx - (200 * ml)
-                        ml+=1
-                    p.sch_bb[1] -= dy
-
         # Generatie eeschema code for parts and append to output list
         for i in self.parts:
             x = i.sch_bb[0] + sch_c[0]

@@ -1018,6 +1018,14 @@ class Part(SkidlBaseObject):
 
         return gen_func()
 
+    def generate_bounding_box(self):
+        for p in self.pins:
+            if self.sch_bb[2] > abs(p.x):
+                self.sch_bb[2] = p.x
+            if self.sch_bb[3] > abs(p.y):
+                self.sch_bb[3] = p.y
+
+
     def generate_xml_component(self, tool=None):
         """
         Generate the part information for inclusion in an XML file.
@@ -1045,30 +1053,23 @@ class Part(SkidlBaseObject):
 
         return gen_func()
 
+    def check_bbox(self, _parts):
+        print("checking bbox")
+        
+    # def move_right(self, _parts, dx, dy):
+    #     self.sch_bb[0] += dx
+    #     self.sch_bb[1] -= dy
 
-    def generate_bounding_box(self, symtx="", tool=None):
-        """
-        Generate the SVG for displaying a part in an SVG schematic.
-        """
+    # def move_left(self, _parts, dx, dy):
+    #     self.sch_bb[0] -= dx
+    #     self.sch_bb[1] -= dy
 
-        import skidl
-
-        if tool is None:
-            tool = skidl.get_default_tool()
-
-        try:
-            gen_func = getattr(self, "_generate_bounding_box_{}".format(tool))
-        except AttributeError:
-            log_and_raise(
-                logger,
-                ValueError,
-                "Can't generate SVG for a component in an unknown ECAD tool format({}).".format(
-                    tool
-                ),
-            )
-
-        return gen_func()
-
+    #     self.check_bbox(_parts)
+    
+    def move_part(self, dx, dy, _parts_list):
+        self.sch_bb[0] += dx
+        self.sch_bb[1] -= dy
+        self.check_bbox(_parts_list)
 
     def generate_svg_component(self, symtx="", tool=None, net_stubs=None):
         """

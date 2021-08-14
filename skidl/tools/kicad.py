@@ -1091,15 +1091,16 @@ def _gen_xml_net_(self):
     return txt
 
 
-# Find the bounding box of a Part based on the furthest placement of pins
-def _generate_bounding_box_(self):
+# # Find the bounding box of a Part based on the furthest placement of pins
+# def _generate_bounding_box_(self):
 
-    for p in self.pins:
-        if self.sch_bb[2] > abs(p.x):
-            self.sch_bb[2] = p.x
-        if self.sch_bb[3] > abs(p.y):
-            self.sch_bb[3] = p.y
+#     for p in self.pins:
+#         if self.sch_bb[2] > abs(p.x):
+#             self.sch_bb[2] = p.x
+#         if self.sch_bb[3] > abs(p.y):
+#             self.sch_bb[3] = p.y
     
+
 
 def _gen_svg_comp_(self, symtx, net_stubs=None):
     """
