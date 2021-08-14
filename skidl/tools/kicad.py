@@ -1092,24 +1092,13 @@ def _gen_xml_net_(self):
 
 
 # Find the bounding box of a Part based on the furthest placement of pins
-def _generate_bounding_box_(self, net_stubs=None):
-    x_l = 0 # left
-    x_r = 0 # right
-    y_d = 0 # down
-    y_u = 0 # up
+def _generate_bounding_box_(self):
 
     for p in self.pins:
-        if x_l > p.x:
-            x_l = p.x
-        if x_r < p.x:
-            x_r = p.x
-        if y_d > p.y:
-            y_d = p.y
-        if y_u < p.y:
-            y_u = p.y
-
-    bbox = [x_l,x_r,y_d,y_u]
-    return bbox
+        if self.sch_bb[2] > abs(p.x):
+            self.sch_bb[2] = p.x
+        if self.sch_bb[3] > abs(p.y):
+            self.sch_bb[3] = p.y
     
 
 def _gen_svg_comp_(self, symtx, net_stubs=None):
@@ -1747,11 +1736,11 @@ def _get_schematic_center_(self, _file):
 # Takes in a net and coordinates
 def _gen_eeschema_(n, c):
 
-    x1 = c[0] + n.pins[0].part.sch_loc[0] + n.pins[0].x
-    y1 = c[1] + n.pins[0].part.sch_loc[1] - n.pins[0].y
+    x1 = c[0] + n.pins[0].part.sch_bb[0] + n.pins[0].x
+    y1 = c[1] + n.pins[0].part.sch_bb[1] - n.pins[0].y
 
-    x2 = c[0] + n.pins[1].part.sch_loc[0] + n.pins[1].x
-    y2 = c[1] + n.pins[1].part.sch_loc[1] - n.pins[1].y
+    x2 = c[0] + n.pins[1].part.sch_bb[0] + n.pins[1].x
+    y2 = c[1] + n.pins[1].part.sch_bb[1] - n.pins[1].y
 
     wire = []
     wire.append("Wire Wire Line\n")

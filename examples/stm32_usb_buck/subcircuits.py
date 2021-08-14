@@ -9,25 +9,25 @@ def stm32f405r(c,vdd, gnd):
     y = c[1]
     # MCU
     u = Part("MCU_ST_STM32F4", 'STM32F405RGTx', footprint='LQFP-64_10x10mm_P0.5mm')
-    u.sch_loc=[x,y]
+    u.sch_bb=[x,y,0,0]
     
     # VACP's
     vcap1 = Part("Device", 'C_Small', footprint='C_0603_1608Metric')
-    vcap1.sch_loc=[x, y]
+    vcap1.sch_bb=[x,y,0,0]
     vc1 = Net('vcap1')
     vc1 += u.p31, vcap1.p1
 
     vcap2 = Part("Device", 'C_Small', footprint='C_0603_1608Metric')
-    vcap2.sch_loc=[x,y]
+    vcap2.sch_bb=[x,y,0,0]
     vc2 = Net('vcap2')
     vc2 += u.p47, vcap2.p1
 
     # Indicator circuit
     d = Part("Device", 'D', footprint='D_0603_1608Metric')
     d.fields['color'] = 'green'
-    d.sch_loc=[x,y]
+    d.sch_bb=[x,y,0,0]
     r = Part("Device", 'R', footprint='R_0603_1608Metric', value='5.6k')
-    r.sch_loc=[x, y]
+    r.sch_bb=[x,y,0,0]
 
     u.p50 += r.p1
     r.p2 += d.p1
@@ -47,9 +47,9 @@ def led_indicator(c, inp, outp, color, resistance):
     # create parts
     d = Part("Device", 'D', footprint='D_0603_1608Metric')
     d.fields['color'] = color
-    d.sch_loc=[x+1400, y+200]
+    d.sch_bb=[x+1400, y+200,0,0]
     r = Part("Device", 'R', footprint='R_0603_1608Metric', value=resistance)
-    r.sch_loc=[x, y]
+    r.sch_bb=[x,y,0,0]
     # r.fields['subcircuit']="stm32f405r"
     # connect parts and nets
     inp & r & d & outp
@@ -85,12 +85,12 @@ def board_enable(c, vcc, gnd_):
     c1.fields['temp_coeff']='X7R'
 
     # Place parts
-    xor_ic.sch_loc=[x, y]
-    r_d.sch_loc=[x, y]
-    d.sch_loc=[x, y]
-    r1.sch_loc=[x, y]
-    r2.sch_loc=[x, y]
-    c1.sch_loc=[x, y-400]
+    xor_ic.sch_bb=[x,y,0,0]
+    r_d.sch_bb=[x,y,0,0]
+    d.sch_bb=[x,y,0,0]
+    r1.sch_bb=[x,y,0,0]
+    r2.sch_bb=[x,y,0,0]
+    c1.sch_bb=[x, y-400,0,0]
 
     bd_sel_ls += xor_ic.p1, r1.p1
     n1 += xor_ic.p2, r2.p1

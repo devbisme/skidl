@@ -1054,9 +1054,8 @@ class Circuit(SkidlBaseObject):
                 hierarchies[i.hierarchy].append(i)
 
         # Range through the parts and append schematic entry
-        bb = {} # Dictionary to hold bounding boxes for each part
         for i in self.parts:
-            bb[i.ref] = i.generate_bounding_box()
+            i.generate_bounding_box()
         
 
         # Range through the hierarchy and nets to find the parts which need to be moved
@@ -1082,17 +1081,17 @@ class Circuit(SkidlBaseObject):
                         continue
                     if dx > 0:
                         # if we're moving right then move it slightly more right
-                        p.sch_loc[0] += dx + (200 * mr)
+                        p.sch_bb[0] += dx + (200 * mr)
                         mr+=1
                     else:
-                        p.sch_loc[0] += dx - (200 * ml)
+                        p.sch_bb[0] += dx - (200 * ml)
                         ml+=1
-                    p.sch_loc[1] -= dy
+                    p.sch_bb[1] -= dy
 
         # Generatie eeschema code for parts and append to output list
         for i in self.parts:
-            x = i.sch_loc[0] + sch_c[0]
-            y = i.sch_loc[1] + sch_c[1]
+            x = i.sch_bb[0] + sch_c[0]
+            y = i.sch_bb[1] + sch_c[1]
             circuit_parts.append(i.gen_part_eeschema([x, y]))
 
         # Create the nets and add them to the circuit parts list

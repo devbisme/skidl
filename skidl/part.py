@@ -150,7 +150,7 @@ class Part(SkidlBaseObject):
         ref=None,
         tag=None,
         pin_splitters=None,
-        sch_loc=[0,0],
+        sch_bb=[0,0,0,0],
         tool_version=None,
         **kwargs
     ):
@@ -173,7 +173,7 @@ class Part(SkidlBaseObject):
         self.description = ""  # Make sure there is a description, even if empty.
         self._ref = ""  # Provide a member for holding a reference.
         self.ref_prefix = ref_prefix  # Store the part reference prefix.
-        self.sch_loc = [0,0] # Set schematic location to 0,0
+        sch_bb=[0,0,0,0] # Set schematic location to x, y, height, width
         self.tool = tool  # Initial type of part (SKIDL, KICAD, etc.)
         self.circuit = None  # Part starts off unassociated with any circuit.
         self.match_pin_regex = False  # Don't allow regex matches of pin names.
@@ -1046,7 +1046,7 @@ class Part(SkidlBaseObject):
         return gen_func()
 
 
-    def generate_bounding_box(self, symtx="", tool=None, net_stubs=None):
+    def generate_bounding_box(self, symtx="", tool=None):
         """
         Generate the SVG for displaying a part in an SVG schematic.
         """
@@ -1067,7 +1067,7 @@ class Part(SkidlBaseObject):
                 ),
             )
 
-        return gen_func(net_stubs=net_stubs)
+        return gen_func()
 
 
     def generate_svg_component(self, symtx="", tool=None, net_stubs=None):
