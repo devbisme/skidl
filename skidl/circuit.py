@@ -61,8 +61,8 @@ from .tools import *
 standard_library.install_aliases()
 
 #LINE/LINE
+# https://www.jeffreythompson.org/collision-detection/line-rect.php
 def lineLine( x1,  y1,  x2,  y2,  x3,  y3,  x4,  y4):
-
   # calculate the distance to intersection point
     uA = 0.0
     uB = 0.0
@@ -72,16 +72,12 @@ def lineLine( x1,  y1,  x2,  y2,  x3,  y3,  x4,  y4):
     except:
         return False
 
-#   // if uA and uB are between 0-1, lines are colliding
+    #   // if uA and uB are between 0-1, lines are colliding
     if (uA > 0 and uA < 1 and uB > 0 and uB < 1):
-
-    # print("collision")
-    # // optionally, draw a circle where the lines meet
-    # intersectionX = x1 + (uA * (x2-x1))
-    # intersectionY = y1 + (uA * (y2-y1))
         return True
     return False
     
+# Generate a default header file
 def gen_config_header(cur_sheet_num=1, total_sheet_num=1, sheet_title="Default", revMaj=0, revMin=1, year=2021, month=8, day=15):
     header = []
     header.append("EESchema Schematic File Version 4\n")
@@ -101,50 +97,50 @@ def gen_config_header(cur_sheet_num=1, total_sheet_num=1, sheet_title="Default",
     header.append('$EndDescr\n')
     return (("" + "".join(header)))
 
+# Draw a rectangle around a hierarchy and add a label
 def draw_rect_hierarchies(hier, sch_center):
+    # find the part with the largest x1,x1,y1,y2
+    xMin = hier[0].sch_bb[0] - hier[0].sch_bb[2]
+    xMax = hier[0].sch_bb[0] + hier[0].sch_bb[2]
+    yMin = hier[0].sch_bb[1] + hier[0].sch_bb[3]
+    yMax = hier[0].sch_bb[1] - hier[0].sch_bb[3]
+    for p in hier:
+        # Get min/max dimensions of the part
+        t_xMin = p.sch_bb[0] - p.sch_bb[2]
+        t_xMax = p.sch_bb[0] + p.sch_bb[2]
+        t_yMin = p.sch_bb[1] + p.sch_bb[3]
+        t_yMax = p.sch_bb[1] - p.sch_bb[3]
+        # Check if we need to expand the rectangle
+        if t_xMin < xMin:
+            xMin = t_xMin
+        if t_xMax > xMax:
+            xMax = t_xMax
+        if t_yMax < yMax:
+            yMax = t_yMax
+        if t_yMin > yMin:
+            yMin = t_yMin
 
-            
-            # find the part with the largest x1,x1,y1,y2
-            xMin = hier[0].sch_bb[0] - hier[0].sch_bb[2]
-            xMax = hier[0].sch_bb[0] + hier[0].sch_bb[2]
-            yMin = hier[0].sch_bb[1] + hier[0].sch_bb[3]
-            yMax = hier[0].sch_bb[1] - hier[0].sch_bb[3]
-            for p in hier:
-                # Get min/max dimensions of the part
-                t_xMin = p.sch_bb[0] - p.sch_bb[2]
-                t_xMax = p.sch_bb[0] + p.sch_bb[2]
-                t_yMin = p.sch_bb[1] + p.sch_bb[3]
-                t_yMax = p.sch_bb[1] - p.sch_bb[3]
-                # Check if we need to expand the rectangle
-                if t_xMin < xMin:
-                    xMin = t_xMin
-                if t_xMax > xMax:
-                    xMax = t_xMax
-                if t_yMax < yMax:
-                    yMax = t_yMax
-                if t_yMin > yMin:
-                    yMin = t_yMin
+    xMin += sch_center[0] - 100
+    xMax += sch_center[0] + 100
+    yMin += sch_center[1] + 100
+    yMax += sch_center[1] - 400 # Make box a bit bigger on top to make room for a label
 
-            xMin += sch_center[0] - 100
-            xMax += sch_center[0] + 100
-            yMin += sch_center[1] + 100
-            yMax += sch_center[1] - 400
+    box = []
 
-            box = []
-
-            print(hier[0].hierarchy)
-            label_x = int((xMax - xMin)/4) + xMin
-            label_y = yMax + 200
-            box.append("Text Notes {} {} 0    100  ~ 20\n{}\n".format(label_x, label_y, hier[0].hierarchy[4:]))
-            box.append("Wire Notes Line\n")
-            box.append("	{} {} {} {}\n".format(xMin, yMax, xMin, yMin)) # left 
-            box.append("Wire Notes Line\n")
-            box.append("	{} {} {} {}\n".format(xMin, yMin, xMax, yMin)) # bottom 
-            box.append("Wire Notes Line\n")
-            box.append("	{} {} {} {}\n".format(xMax, yMin, xMax, yMax)) # right
-            box.append("Wire Notes Line\n")
-            box.append("	{} {} {} {}\n".format(xMax, yMax, xMin, yMax)) # top
-            return (("\n" + "".join(box)))
+    # Place label starting at 1/4 x-axis distance and 200mil down
+    label_x = int((xMax - xMin)/4) + xMin
+    label_y = yMax + 200
+    # Make the strings for the box and label
+    box.append("Text Notes {} {} 0    100  ~ 20\n{}\n".format(label_x, label_y, hier[0].hierarchy[4:]))
+    box.append("Wire Notes Line\n")
+    box.append("	{} {} {} {}\n".format(xMin, yMax, xMin, yMin)) # left 
+    box.append("Wire Notes Line\n")
+    box.append("	{} {} {} {}\n".format(xMin, yMin, xMax, yMin)) # bottom 
+    box.append("Wire Notes Line\n")
+    box.append("	{} {} {} {}\n".format(xMax, yMin, xMax, yMax)) # right
+    box.append("Wire Notes Line\n")
+    box.append("	{} {} {} {}\n".format(xMax, yMax, xMin, yMax)) # top
+    return (("\n" + "".join(box)))
 
 class Circuit(SkidlBaseObject):
     """

@@ -1717,7 +1717,7 @@ def _get_schematic_center_(self, _file):
         sch_file = f.readlines()
     f.close()
 
-    # Search for $EndDescr line number
+    # Search for $Descr line number and find the dimensions
     for i in range(len(sch_file)):
         if re.search("^Descr", sch_file[i][1:]):
             sch_size = sch_file[i]
@@ -1730,8 +1730,6 @@ def _get_schematic_center_(self, _file):
             sch_y_center = sch_y_center - sch_y_center%50 # Round down to the nearest 50mil
 
             return [sch_x_center, sch_y_center]
-
-
 
 # Make the eeschema code that creates a wire between 2 parts
 # Takes in a net and coordinates
