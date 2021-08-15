@@ -164,12 +164,6 @@ def gen_hier_sheet(title, x_start, y_start, width=1000, height=2000):
     sheet.append('$EndSheet\n')
 
     return (("" + "".join(sheet)))
-# $Sheet
-# S 6850 7100 2000 3000
-# U 611B5DE9
-# F0 "test1" 200
-# F1 "test1.sch" 200
-# $EndSheet
 
 
 
@@ -1180,25 +1174,32 @@ class Circuit(SkidlBaseObject):
         x_start = 5000
         y_start = 5000
         for i in self.parts:
-            if i.hierarchy not in hierarchies:
-                hierarchies[i.hierarchy] = [i]
-                hier_sheet = gen_hier_sheet(i.hierarchy, x_start, y_start)
+            t = i.hierarchy
+            u = t.split('.')
+            hier_name = u[1]
+            if hier_name not in hierarchies:
+                print(hier_name)
+                hierarchies[hier_name] = [i]
+
+                hier_sheet = gen_hier_sheet(hier_name, x_start, y_start)
                 circuit_parts.append(hier_sheet)
-                x_start += 1000
+                x_start += 3000
             else:
-                hierarchies[i.hierarchy].append(i)
+                hierarchies[hier_name].append(i)
 
         # Range through the parts and create bounding boxes
         for i in self.parts:
             i.generate_bounding_box()
         
-
         # Range through the hierarchy and nets to find the parts which need to be moved
         second_round = [] # list to store parts we don't place on the first pass
         for h in hierarchies:
             center_part = hierarchies[h][0].ref
             for n in routed_nets:
-                if n.hierarchy == h:
+                t = n.hierarchy
+                u = t.split('.')
+                hier_name = u[1]
+                if hier_name == h:
                     # find the distance between the pins
                     dx = n.pins[0].x + n.pins[1].x
                     dy = n.pins[0].y - n.pins[1].y
