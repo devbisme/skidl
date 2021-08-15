@@ -62,6 +62,8 @@ standard_library.install_aliases()
 
 
 def draw_rect_hierarchies(hier, sch_center):
+
+            
             # find the part with the largest x1,x1,y1,y2
             xMin = hier[0].sch_bb[0] - hier[0].sch_bb[2]
             xMax = hier[0].sch_bb[0] + hier[0].sch_bb[2]
@@ -83,21 +85,26 @@ def draw_rect_hierarchies(hier, sch_center):
                 if t_yMin > yMin:
                     yMin = t_yMin
 
-            xMin += sch_center[0]
-            xMax += sch_center[0]
-            yMin += sch_center[1]
-            yMax += sch_center[1]
+            xMin += sch_center[0] - 100
+            xMax += sch_center[0] + 100
+            yMin += sch_center[1] + 100
+            yMax += sch_center[1] - 400
 
-            wire = []
-            wire.append("Wire Notes Line\n")
-            wire.append("	{} {} {} {}\n".format(xMin, yMax, xMin, yMin)) # left 
-            wire.append("Wire Notes Line\n")
-            wire.append("	{} {} {} {}\n".format(xMin, yMin, xMax, yMin)) # bottom 
-            wire.append("Wire Notes Line\n")
-            wire.append("	{} {} {} {}\n".format(xMax, yMin, xMax, yMax)) # right
-            wire.append("Wire Notes Line\n")
-            wire.append("	{} {} {} {}\n".format(xMax, yMax, xMin, yMax)) # top
-            return (("\n" + "".join(wire)))
+            box = []
+
+            print(hier[0].hierarchy)
+            label_x = int((xMax - xMin)/4) + xMin
+            label_y = yMax + 200
+            box.append("Text Notes {} {} 0    100  ~ 20\n{}\n".format(label_x, label_y, hier[0].hierarchy[4:]))
+            box.append("Wire Notes Line\n")
+            box.append("	{} {} {} {}\n".format(xMin, yMax, xMin, yMin)) # left 
+            box.append("Wire Notes Line\n")
+            box.append("	{} {} {} {}\n".format(xMin, yMin, xMax, yMin)) # bottom 
+            box.append("Wire Notes Line\n")
+            box.append("	{} {} {} {}\n".format(xMax, yMin, xMax, yMax)) # right
+            box.append("Wire Notes Line\n")
+            box.append("	{} {} {} {}\n".format(xMax, yMax, xMin, yMax)) # top
+            return (("\n" + "".join(box)))
 
 class Circuit(SkidlBaseObject):
     """
