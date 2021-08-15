@@ -1712,6 +1712,7 @@ def _gen_hier_rect_(self):
 # Find the center of the schematic we are targeting
 # TODO: don't send back the header
 def _get_schematic_center_(self, _file):
+    sch_file = []
     with open(_file, encoding="utf8") as f:
         sch_file = f.readlines()
     f.close()
@@ -1720,20 +1721,17 @@ def _get_schematic_center_(self, _file):
     for i in range(len(sch_file)):
         if re.search("^Descr", sch_file[i][1:]):
             sch_size = sch_file[i]
-        if re.search("^EndDescr", sch_file[i][1:]):
-            endDesc = i
-            break
-    sch_header = sch_file[: endDesc + 1]
+            # Calculate the center of the schematic based on header info
+            sch_x = int(sch_size.split()[2])
+            sch_x_center = (int(sch_x/2))
+            sch_x_center = sch_x_center - sch_x_center%50 # Round down to the nearest 50mil
+            sch_y_size = int(sch_size.split()[3])
+            sch_y_center = int(sch_y_size/2)
+            sch_y_center = sch_y_center - sch_y_center%50 # Round down to the nearest 50mil
 
-    # Calculate the center of the schematic based on header info
-    sch_x = int(sch_size.split()[2])
-    sch_x_center = (int(sch_x/2))
-    sch_x_center = sch_x_center - sch_x_center%50 # Round down to the nearest 50mil
-    sch_y_size = int(sch_size.split()[3])
-    sch_y_center = int(sch_y_size/2)
-    sch_y_center = sch_y_center - sch_y_center%50 # Round down to the nearest 50mil
+            return [sch_x_center, sch_y_center]
 
-    return [sch_x_center, sch_y_center], sch_header
+
 
 # Make the eeschema code that creates a wire between 2 parts
 # Takes in a net and coordinates

@@ -14,7 +14,7 @@ _3v3 = Net('+3V3', stub=True)
 gnd = Net('GND', stub=True)
 
 sc.stm32f405r([0,0], _3v3, gnd)
-sc.board_enable([2500, 1000],_3v3, gnd)
+# sc.board_enable([2500, 1000],_3v3, gnd)
 
 
 
@@ -24,5 +24,3 @@ netlist_path = "/home/cdsfsmattner/Desktop/skidl/examples/stm32_usb_buck/stm32/n
 
 generate_schematic(file_ = schematic_path)
 # generate_netlist(file_ = netlist_path)
-
-

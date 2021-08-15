@@ -82,7 +82,24 @@ def lineLine( x1,  y1,  x2,  y2,  x3,  y3,  x4,  y4):
         return True
     return False
     
-
+def gen_config_header(cur_sheet_num=1, total_sheet_num=1, sheet_title="Default", revMaj=0, revMin=1, year=2021, month=8, day=15):
+    header = []
+    header.append("EESchema Schematic File Version 4\n")
+    header.append("EELAYER 30 0\n")
+    header.append("EELAYER END\n")
+    header.append("$Descr A1 33110 23386\n")
+    header.append("encoding utf-8\n")
+    header.append("Sheet {} {}\n".format(cur_sheet_num, total_sheet_num)) 
+    header.append('Title "{}"\n'.format(sheet_title)) 
+    header.append('Date "{}-{}-{}"\n'.format(year, month, day)) 
+    header.append('Rev "v{}.{}"\n'.format(revMaj, revMin)) 
+    header.append('Comp ""\n')
+    header.append('Comment1 ""\n')
+    header.append('Comment2 ""\n')
+    header.append('Comment3 ""\n')
+    header.append('Comment4 ""\n')
+    header.append('$EndDescr\n')
+    return (("" + "".join(header)))
 
 def draw_rect_hierarchies(hier, sch_center):
 
@@ -1116,7 +1133,7 @@ class Circuit(SkidlBaseObject):
         if tool is None:
             tool = skidl.get_default_tool()
 
-        sch_c, sch_header = self.get_schematic_center(file_)
+        sch_c = self.get_schematic_center(file_)
 
         circuit_parts = [] # !! MOST IMPORTANT LIST !!  Holds all individual circuit parts to be added
 
@@ -1222,7 +1239,7 @@ class Circuit(SkidlBaseObject):
 
         # Replace old schematic file content with new schematic file content
         with open(file_, "w") as f:
-            new_sch_file = [sch_header, circuit_parts, "$EndSCHEMATC"]
+            new_sch_file = [gen_config_header(), circuit_parts, "$EndSCHEMATC"]
             f.truncate(0) # Clear the file
             for i in new_sch_file:
                 print("" + "".join(i), file=f)
