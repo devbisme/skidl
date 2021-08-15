@@ -52,3 +52,6 @@ output/*/index.html
 uno_r3
 
 *.erc
+
+*.lib
+*.sch
