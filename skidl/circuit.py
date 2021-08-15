@@ -1012,6 +1012,24 @@ class Circuit(SkidlBaseObject):
                 "Can't get the center of the file({}).".format(tool),
             )
 
+    # Get the eeschema center point, also returning the entire header right now
+    def gen_hier_rect(self):
+        import skidl
+        
+
+        self._preprocess()
+        tool = skidl.get_default_tool()
+        
+        try:
+            gen_func = getattr(self, "_gen_hier_rect_{}".format(tool))
+            return gen_func()
+        except AttributeError:
+            log_and_raise(
+                logger,
+                ValueError,
+                "Can't get the center of the file({}).".format(tool),
+            )
+
     def generate_schematic(self, file_=None, tool=None):
         """
         Create a schematic file. THIS KINDA WORKS!  
@@ -1085,8 +1103,8 @@ class Circuit(SkidlBaseObject):
             # check which part is already moved
             if (n.pins[0].part.sch_bb[0] != 0 and n.pins[0].part.sch_bb[1] != 0) and (n.pins[1].part.sch_bb[0] != 0 and n.pins[1].part.sch_bb[1] != 0):
                 third_round.append(n)
+            # if the first part moved (x or y changed) then we will move the other part connected to this circuit
             elif n.pins[0].part.sch_bb[0] != 0 or n.pins[0].part.sch_bb[1] != 0:
-                
                 x_ref = n.pins[0].part.sch_bb[0]
                 y_ref = n.pins[0].part.sch_bb[1]
                 x = n.pins[1].part.sch_bb[0]
@@ -1119,6 +1137,57 @@ class Circuit(SkidlBaseObject):
         # Create the nets and add them to the circuit parts list
         for i in routed_nets:
             circuit_parts.append(i.gen_eeschema(sch_c))
+
+
+        # Draw boxes and label hierarchies
+
+        for h in hierarchies:
+            # find the part with the largest x1,x1,y1,y2
+            xMin = 0
+            xMax = 0
+            yMin = 0
+            yMax = 0
+            for p in hierarchies[h]:
+                # Get min/max dimensions of the part
+                t_xMin = p.sch_bb[0] - p.sch_bb[2]
+                t_xMax = p.sch_bb[0] + p.sch_bb[2]
+                t_yMin = p.sch_bb[1] + p.sch_bb[3]
+                t_yMax = p.sch_bb[1] - p.sch_bb[3]
+                # Check if we need to expand the rectangle
+                if t_xMin < xMin:
+                    xMin = t_xMin
+                if t_xMax > xMax:
+                    xMax = t_xMax
+                if t_yMin < yMax:
+                    yMax = t_yMin
+                if t_yMin > yMin:
+                    yMin = t_yMin
+
+            xMin += sch_c[0]
+            xMax += sch_c[0]
+            yMin += sch_c[1]
+            yMax += sch_c[1]
+
+            wire = []
+            wire.append("Wire Notes Line\n")
+            wire.append("	{} {} {} {}\n".format(xMin, yMax, xMin, yMin)) # left side
+            wire.append("Wire Notes Line\n")
+            wire.append("	{} {} {} {}\n".format(xMin, yMin, xMax, yMin)) # bottom side
+            wire.append("Wire Notes Line\n")
+            wire.append("	{} {} {} {}\n".format(xMax, yMin, xMax, yMax)) # right
+            wire.append("Wire Notes Line\n")
+            wire.append("	{} {} {} {}\n".format(xMax, yMax, xMin, yMax)) # top
+            circuit_parts.append(("\n" + "".join(wire)))
+
+# Wire Notes Line
+# 	1450 1300 1450 3200 
+# Wire Notes Line
+# 	1450 3200 7200 3200
+# Wire Notes Line
+# 	7200 3200 7200 1350
+# Wire Notes Line
+# 	7200 1350 1500 1350
+
 
         # Replace old schematic file content with new schematic file content
         with open(file_, "w") as f:

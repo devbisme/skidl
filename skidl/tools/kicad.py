@@ -1706,6 +1706,8 @@ def _gen_pinboxes_(self):
 def _gen_schematic_(self, route):
     pass
 
+def _gen_hier_rect_(self):
+    print("generating a hierarchical box")
 
 # Find the center of the schematic we are targeting
 # TODO: don't send back the header
