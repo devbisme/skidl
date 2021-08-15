@@ -1207,23 +1207,17 @@ class Circuit(SkidlBaseObject):
             wire = n.gen_eeschema(sch_c)
             circuit_parts.append(wire)
 
-            t_intersects = self.intersects(wire, sch_c)
-            if len(t_intersects) > 0:
-                print("Collides with " + str(t_intersects))
-
-            # box.append("	{} {} {} {}\n".format(xMin, yMax, xMin, yMin)) # left 
-            # box.append("Wire Notes Line\n")
-            # box.append("	{} {} {} {}\n".format(xMin, yMin, xMax, yMin)) # bottom 
-            # box.append("Wire Notes Line\n")
-            # box.append("	{} {} {} {}\n".format(xMax, yMin, xMax, yMax)) # right
-            # box.append("Wire Notes Line\n")
-            # box.append("	{} {} {} {}\n".format(xMax, yMax, xMin, yMax)) # top
-            
+        # Check to see if any nets are routed through a part
+        for n in routed_nets:
+            t_collision = self.net_collision(wire, sch_c)
+            if len(t_collision) > 0:
+                print("Collides with " + str(t_collision))            
 
 
         # Draw boxes and label hierarchies
-        for h in hierarchies:   
-            circuit_parts.append(draw_rect_hierarchies(hierarchies[h], sch_c))
+        for h in hierarchies:
+            hier_rect = draw_rect_hierarchies(hierarchies[h], sch_c)
+            circuit_parts.append(hier_rect)
 
 
         # Replace old schematic file content with new schematic file content
@@ -1251,7 +1245,9 @@ class Circuit(SkidlBaseObject):
                 )
             )
 
-    def intersects(self, wire,c):
+    # https://www.jeffreythompson.org/collision-detection/line-rect.php
+    # For a particular wire see if it collides with a part
+    def net_collision(self, wire,c):
 
         # check if we collide with a part
         t = wire.split("\n")
@@ -1267,19 +1263,15 @@ class Circuit(SkidlBaseObject):
             t = w[1]
             w[1] = w[3]
             w[3] = t
-
+        x1min = w[0]
+        y1min = w[1]
+        x1max = w[2]
+        y1max = w[3]
         collided_parts = []
         for pt in self.parts:
-            x1min = w[0]
-            x1max = w[2]
-            
             x2min = pt.sch_bb[0] - pt.sch_bb[2] + c[0]
-            x2max = pt.sch_bb[0] + pt.sch_bb[2] + c[0]
-            
-            y1min = w[1]
-            y1max = w[3]
-            
             y2min = pt.sch_bb[1] - pt.sch_bb[3] + c[1]
+            x2max = pt.sch_bb[0] + pt.sch_bb[2] + c[0]
             y2max = pt.sch_bb[1] + pt.sch_bb[3] + c[1]
             
             if lineLine(x1min,y1min,x1max,y1max, x2min,y2min,x2min, y2max):
