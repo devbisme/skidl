@@ -61,6 +61,44 @@ from .tools import *
 standard_library.install_aliases()
 
 
+def draw_rect_hierarchies(hier, sch_center):
+            # find the part with the largest x1,x1,y1,y2
+            xMin = 0
+            xMax = 0
+            yMin = 0
+            yMax = 0
+            for p in hier:
+                # Get min/max dimensions of the part
+                t_xMin = p.sch_bb[0] - p.sch_bb[2]
+                t_xMax = p.sch_bb[0] + p.sch_bb[2]
+                t_yMin = p.sch_bb[1] + p.sch_bb[3]
+                t_yMax = p.sch_bb[1] - p.sch_bb[3]
+                # Check if we need to expand the rectangle
+                if t_xMin < xMin:
+                    xMin = t_xMin
+                if t_xMax > xMax:
+                    xMax = t_xMax
+                if t_yMin < yMax:
+                    yMax = t_yMin
+                if t_yMin > yMin:
+                    yMin = t_yMin
+
+            xMin += sch_center[0]
+            xMax += sch_center[0]
+            yMin += sch_center[1]
+            yMax += sch_center[1]
+
+            wire = []
+            wire.append("Wire Notes Line\n")
+            wire.append("	{} {} {} {}\n".format(xMin, yMax, xMin, yMin)) # left 
+            wire.append("Wire Notes Line\n")
+            wire.append("	{} {} {} {}\n".format(xMin, yMin, xMax, yMin)) # bottom 
+            wire.append("Wire Notes Line\n")
+            wire.append("	{} {} {} {}\n".format(xMax, yMin, xMax, yMax)) # right
+            wire.append("Wire Notes Line\n")
+            wire.append("	{} {} {} {}\n".format(xMax, yMax, xMin, yMax)) # top
+            return (("\n" + "".join(wire)))
+
 class Circuit(SkidlBaseObject):
     """
     Class object that holds the entire netlist of parts and nets.
@@ -1071,13 +1109,13 @@ class Circuit(SkidlBaseObject):
             else:
                 hierarchies[i.hierarchy].append(i)
 
-        # Range through the parts and append schematic entry
+        # Range through the parts and create bounding boxes
         for i in self.parts:
             i.generate_bounding_box()
         
 
-        second_round = []
         # Range through the hierarchy and nets to find the parts which need to be moved
+        second_round = [] # list to store parts we don't place on the first pass
         for h in hierarchies:
             center_part = hierarchies[h][0].ref
             for n in routed_nets:
@@ -1097,12 +1135,11 @@ class Circuit(SkidlBaseObject):
                         second_round.append(n)
 
         # move around the rest of the parts
-        third_round = []
         for n in second_round:
             print(n)
             # check which part is already moved
             if (n.pins[0].part.sch_bb[0] != 0 and n.pins[0].part.sch_bb[1] != 0) and (n.pins[1].part.sch_bb[0] != 0 and n.pins[1].part.sch_bb[1] != 0):
-                third_round.append(n)
+                continue # TODO: make recursive function for these "rounds"
             # if the first part moved (x or y changed) then we will move the other part connected to this circuit
             elif n.pins[0].part.sch_bb[0] != 0 or n.pins[0].part.sch_bb[1] != 0:
                 x_ref = n.pins[0].part.sch_bb[0]
@@ -1125,8 +1162,8 @@ class Circuit(SkidlBaseObject):
                 p = Part.get(n.pins[0].ref)
                 p.move_part(dx, dy,self.parts, n.pins[0].orientation)
             else:
-                third_round.append(n)
-        print("third round" + str(third_round))
+                continue # TODO: make recursive function for these "rounds"
+
 
         # Generatie eeschema code for parts and append to output list
         for i in self.parts:
@@ -1135,58 +1172,13 @@ class Circuit(SkidlBaseObject):
             circuit_parts.append(i.gen_part_eeschema([x, y]))
 
         # Create the nets and add them to the circuit parts list
-        for i in routed_nets:
-            circuit_parts.append(i.gen_eeschema(sch_c))
+        for n in routed_nets:
+            circuit_parts.append(n.gen_eeschema(sch_c))
 
 
         # Draw boxes and label hierarchies
-
-        for h in hierarchies:
-            # find the part with the largest x1,x1,y1,y2
-            xMin = 0
-            xMax = 0
-            yMin = 0
-            yMax = 0
-            for p in hierarchies[h]:
-                # Get min/max dimensions of the part
-                t_xMin = p.sch_bb[0] - p.sch_bb[2]
-                t_xMax = p.sch_bb[0] + p.sch_bb[2]
-                t_yMin = p.sch_bb[1] + p.sch_bb[3]
-                t_yMax = p.sch_bb[1] - p.sch_bb[3]
-                # Check if we need to expand the rectangle
-                if t_xMin < xMin:
-                    xMin = t_xMin
-                if t_xMax > xMax:
-                    xMax = t_xMax
-                if t_yMin < yMax:
-                    yMax = t_yMin
-                if t_yMin > yMin:
-                    yMin = t_yMin
-
-            xMin += sch_c[0]
-            xMax += sch_c[0]
-            yMin += sch_c[1]
-            yMax += sch_c[1]
-
-            wire = []
-            wire.append("Wire Notes Line\n")
-            wire.append("	{} {} {} {}\n".format(xMin, yMax, xMin, yMin)) # left side
-            wire.append("Wire Notes Line\n")
-            wire.append("	{} {} {} {}\n".format(xMin, yMin, xMax, yMin)) # bottom side
-            wire.append("Wire Notes Line\n")
-            wire.append("	{} {} {} {}\n".format(xMax, yMin, xMax, yMax)) # right
-            wire.append("Wire Notes Line\n")
-            wire.append("	{} {} {} {}\n".format(xMax, yMax, xMin, yMax)) # top
-            circuit_parts.append(("\n" + "".join(wire)))
-
-# Wire Notes Line
-# 	1450 1300 1450 3200 
-# Wire Notes Line
-# 	1450 3200 7200 3200
-# Wire Notes Line
-# 	7200 3200 7200 1350
-# Wire Notes Line
-# 	7200 1350 1500 1350
+        for h in hierarchies:   
+            circuit_parts.append(draw_rect_hierarchies(hierarchies[h], sch_c))
 
 
         # Replace old schematic file content with new schematic file content
