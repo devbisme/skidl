@@ -1081,7 +1081,7 @@ class Part(SkidlBaseObject):
             y2max = pt.sch_bb[1] + pt.sch_bb[3]
             
             # Logic to tell whether parts collide.  
-            # Note that the movement direction is opposite of what's intuitive ('R' = move left)
+            # Note that the movement direction is opposite of what's intuitive ('R' = move left, 'U' = -50)
             # https://stackoverflow.com/questions/20925818/algorithm-to-check-if-two-boxes-overlap
             if (x1min <= x2max) and (x2min <= x1max) and (y1min <= y2max) and (y2min <= y1max):
                 if direction == 'R':

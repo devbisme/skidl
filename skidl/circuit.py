@@ -60,6 +60,29 @@ from .tools import *
 
 standard_library.install_aliases()
 
+#LINE/LINE
+def lineLine( x1,  y1,  x2,  y2,  x3,  y3,  x4,  y4):
+
+  # calculate the distance to intersection point
+    uA = 0.0
+    uB = 0.0
+    try:
+        uA = ((x4-x3)*(y1-y3) - (y4-y3)*(x1-x3)) / ((y4-y3)*(x2-x1) - (x4-x3)*(y2-y1))
+        uB = ((x2-x1)*(y1-y3) - (y2-y1)*(x1-x3)) / ((y4-y3)*(x2-x1) - (x4-x3)*(y2-y1))
+    except:
+        return False
+
+#   // if uA and uB are between 0-1, lines are colliding
+    if (uA > 0 and uA < 1 and uB > 0 and uB < 1):
+
+    # print("collision")
+    # // optionally, draw a circle where the lines meet
+    # intersectionX = x1 + (uA * (x2-x1))
+    # intersectionY = y1 + (uA * (y2-y1))
+        return True
+    return False
+    
+
 
 def draw_rect_hierarchies(hier, sch_center):
 
@@ -1180,7 +1203,22 @@ class Circuit(SkidlBaseObject):
 
         # Create the nets and add them to the circuit parts list
         for n in routed_nets:
-            circuit_parts.append(n.gen_eeschema(sch_c))
+            print("Net from: " + n.pins[0].ref + " to " + n.pins[1].ref)
+            wire = n.gen_eeschema(sch_c)
+            circuit_parts.append(wire)
+
+            t_intersects = self.intersects(wire, sch_c)
+            if len(t_intersects) > 0:
+                print("Collides with " + str(t_intersects))
+
+            # box.append("	{} {} {} {}\n".format(xMin, yMax, xMin, yMin)) # left 
+            # box.append("Wire Notes Line\n")
+            # box.append("	{} {} {} {}\n".format(xMin, yMin, xMax, yMin)) # bottom 
+            # box.append("Wire Notes Line\n")
+            # box.append("	{} {} {} {}\n".format(xMax, yMin, xMax, yMax)) # right
+            # box.append("Wire Notes Line\n")
+            # box.append("	{} {} {} {}\n".format(xMax, yMax, xMin, yMax)) # top
+            
 
 
         # Draw boxes and label hierarchies
@@ -1212,6 +1250,51 @@ class Circuit(SkidlBaseObject):
                     logger.error.count
                 )
             )
+
+    def intersects(self, wire,c):
+
+        # check if we collide with a part
+        t = wire.split("\n")
+        u = t[2].split() # x1 y1 x2 y2
+        v = map(int, u)
+        w = list(v)
+        # order should be x1min, x1max, y1min, y1max
+        if w[0] > w[2]:
+            t = w[0]
+            w[0] = w[2]
+            w[2] = t
+        if w[1] > w[3]:
+            t = w[1]
+            w[1] = w[3]
+            w[3] = t
+
+        collided_parts = []
+        for pt in self.parts:
+            x1min = w[0]
+            x1max = w[2]
+            
+            x2min = pt.sch_bb[0] - pt.sch_bb[2] + c[0]
+            x2max = pt.sch_bb[0] + pt.sch_bb[2] + c[0]
+            
+            y1min = w[1]
+            y1max = w[3]
+            
+            y2min = pt.sch_bb[1] - pt.sch_bb[3] + c[1]
+            y2max = pt.sch_bb[1] + pt.sch_bb[3] + c[1]
+            
+            if lineLine(x1min,y1min,x1max,y1max, x2min,y2min,x2min, y2max):
+                print(pt.ref + " collision left")
+                collided_parts.append(pt.ref)
+            elif lineLine(x1min,y1min,x1max,y1max, x2max,y2min, x2max,y2max):
+                print(pt.ref + " collision right")
+                collided_parts.append(pt.ref)
+            elif lineLine(x1min,y1min,x1max,y1max, x2min,y2min, x2max,y2min):
+                print(pt.ref + " collision top")
+                collided_parts.append(pt.ref)
+            elif lineLine(x1min,y1min,x1max,y1max, x2min,y2max, x2max,y2max):
+                print(pt.ref + " collision bottom")
+                collided_parts.append(pt.ref)
+        return collided_parts
 
     def generate_dot(
         self,

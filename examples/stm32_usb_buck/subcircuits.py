@@ -78,11 +78,11 @@ def board_enable(c, vcc, gnd_):
 
     # Place parts
     xor_ic.sch_bb=[c[0], c[1], 0, 0]
-    r_d.sch_bb=[c[0], c[1], 0, 0]
+    r_d.sch_bb=[c[0], c[1]-500, 0, 0]
     d.sch_bb=[c[0], c[1], 0, 0]
     r1.sch_bb=[c[0], c[1], 0, 0]
     r2.sch_bb=[c[0], c[1], 0, 0]
-    c1.sch_bb=[c[0], c[1], 0, 0]
+    c1.sch_bb=[c[0], c[1]+500, 0, 0]
 
     bd_sel_ls += xor_ic.p1, r1.p1
     n1 += xor_ic.p2, r2.p1
