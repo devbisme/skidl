@@ -63,10 +63,10 @@ standard_library.install_aliases()
 
 def draw_rect_hierarchies(hier, sch_center):
             # find the part with the largest x1,x1,y1,y2
-            xMin = 0
-            xMax = 0
-            yMin = 0
-            yMax = 0
+            xMin = hier[0].sch_bb[0] - hier[0].sch_bb[2]
+            xMax = hier[0].sch_bb[0] + hier[0].sch_bb[2]
+            yMin = hier[0].sch_bb[1] + hier[0].sch_bb[3]
+            yMax = hier[0].sch_bb[1] - hier[0].sch_bb[3]
             for p in hier:
                 # Get min/max dimensions of the part
                 t_xMin = p.sch_bb[0] - p.sch_bb[2]
@@ -78,8 +78,8 @@ def draw_rect_hierarchies(hier, sch_center):
                     xMin = t_xMin
                 if t_xMax > xMax:
                     xMax = t_xMax
-                if t_yMin < yMax:
-                    yMax = t_yMin
+                if t_yMax < yMax:
+                    yMax = t_yMax
                 if t_yMin > yMin:
                     yMin = t_yMin
 
