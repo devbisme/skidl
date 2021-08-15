@@ -142,6 +142,37 @@ def draw_rect_hierarchies(hier, sch_center):
     box.append("	{} {} {} {}\n".format(xMax, yMax, xMin, yMax)) # top
     return (("\n" + "".join(box)))
 
+def gen_hier_sheet(title, x_start, y_start, width=1000, height=2000):
+    print("generating hierarchical sheet")
+    # make the file if it doesn't exist
+    file_path = "stm32/"+title+".sch"
+    if not os.path.isfile(file_path):
+        f = open(file_path, "a")
+        new_sch_file = [gen_config_header(sheet_title=title), "$EndSCHEMATC"]
+        f.truncate(0) # Clear the file
+        for i in new_sch_file:
+            print("" + "".join(i), file=f)
+        f.close()
+
+    sheet = []
+    sheet.append("$Sheet\n")
+    sheet.append('S {} {} {} {}\n'.format(x_start, y_start, width, height)) 
+    time_hex = hex(int(time.time()))[2:]
+    sheet.append('U {}\n'.format(time_hex))
+    sheet.append('F0 "{}" 100\n'.format(title))
+    sheet.append('F1 "{}.sch" 100\n'.format(title))
+    sheet.append('$EndSheet\n')
+
+    return (("" + "".join(sheet)))
+# $Sheet
+# S 6850 7100 2000 3000
+# U 611B5DE9
+# F0 "test1" 200
+# F1 "test1.sch" 200
+# $EndSheet
+
+
+
 class Circuit(SkidlBaseObject):
     """
     Class object that holds the entire netlist of parts and nets.
@@ -1146,9 +1177,14 @@ class Circuit(SkidlBaseObject):
 
         # Make dictionary of hierarchies and append parts from that hierarchy
         hierarchies = {}
+        x_start = 5000
+        y_start = 5000
         for i in self.parts:
             if i.hierarchy not in hierarchies:
                 hierarchies[i.hierarchy] = [i]
+                hier_sheet = gen_hier_sheet(i.hierarchy, x_start, y_start)
+                circuit_parts.append(hier_sheet)
+                x_start += 1000
             else:
                 hierarchies[i.hierarchy].append(i)
 
