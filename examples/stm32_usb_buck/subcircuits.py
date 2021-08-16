@@ -8,7 +8,7 @@ def stm32f405r(vdd, gnd):
     # MCU
     u = Part("MCU_ST_STM32F4", 'STM32F405RGTx', footprint='LQFP-64_10x10mm_P0.5mm')
     vdd += u.p1, u.p19, u.p32, u.p48, u.p64, u.p13
-    
+
     # VACP's
     vcap1 = Part("Device", 'C_Small', footprint='C_0603_1608Metric')
     vc1 = Net('vcap1')
@@ -18,22 +18,11 @@ def stm32f405r(vdd, gnd):
     vc2 = Net('vcap2')
     vc2 += u.p47, vcap2.p1
 
-    # Indicator circuit
-    d = Part("Device", 'D', footprint='D_0603_1608Metric')
-    d.fields['color'] = 'green'
-    r = Part("Device", 'R', footprint='R_0603_1608Metric', value='5.6k')
-
-    u.p50 += r.p1
-    r.p2 += d.p1
-    d.p2 +=gnd
-
-    # led_indicator([x+500,y],u.p50,gnd,'green','5.6k')
-
+    led_indicator(u.p50,gnd, 'blue', '5.6k')
 
 ############################################################################
 
 # LED indicator circuit
-@SubCircuit
 def led_indicator(inp, outp, color, resistance):
     # create parts
     d = Part("Device", 'D', footprint='D_0603_1608Metric')

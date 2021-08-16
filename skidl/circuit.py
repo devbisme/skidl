@@ -1176,33 +1176,33 @@ class Circuit(SkidlBaseObject):
             i.generate_bounding_box()
 
         # Make dictionary of hierarchies and append parts from that hierarchy
-        new_hier = {}
+        hierchies = {}
         x_start = 5000
         y_start = 5000
         for i in self.parts:
             t = i.hierarchy
             u = t.split('.')
             hier_name = u[1]
-            if hier_name not in new_hier:
-                new_hier[hier_name] = {'parts':[i],'nets':[]}
+            if hier_name not in hierchies:
+                hierchies[hier_name] = {'parts':[i],'nets':[]}
                 hier_sheet = gen_hier_sheet(hier_name, x_start, y_start)
                 circuit_parts.append(hier_sheet)
                 x_start += 3000
             else:
-                new_hier[hier_name]['parts'].append(i)
+                hierchies[hier_name]['parts'].append(i)
 
         # get the hierarchy nets
-        for h in new_hier:
+        for h in hierchies:
             for n in self.nets:
                 if h in n.hierarchy:
-                    new_hier[h]['nets'].append(n)
+                    hierchies[h]['nets'].append(n)
 
         # Range through each hierarchy and move parts around the center part (part 0)
-        for h in new_hier:
+        for h in hierchies:
             # Move parts
-            centerPart = new_hier[h]['parts'][0].ref
+            centerPart = hierchies[h]['parts'][0].ref
             hier_circuit = []
-            for n in new_hier[h]['nets']:
+            for n in hierchies[h]['nets']:
                 # find the distance between the pins
                 dx = n.pins[0].x + n.pins[1].x
                 dy = n.pins[0].y - n.pins[1].y
@@ -1215,16 +1215,16 @@ class Circuit(SkidlBaseObject):
                     p = Part.get(n.pins[0].ref)
                     p.move_part(dx, dy,self.parts, n.pins[0].orientation)
 
-            for i in new_hier[h]['parts']:
+            for i in hierchies[h]['parts']:
                 x = i.sch_bb[0] + sch_c[0]
                 y = i.sch_bb[1] + sch_c[1]
                 hier_circuit.append(i.gen_part_eeschema([x, y]))
             # Create the nets and add them to the circuit parts list
-            for n in new_hier[h]['nets']:
+            for n in hierchies[h]['nets']:
                 print("Net from: " + n.pins[0].ref + " to " + n.pins[1].ref)
                 wire = n.gen_eeschema(sch_c)
                 hier_circuit.append(wire)
-            for n in new_hier[h]['nets']:
+            for n in hierchies[h]['nets']:
                 t_collision = self.net_collision(wire, sch_c)
                 if len(t_collision) > 0:
                     print("Collides with " + str(t_collision))  
