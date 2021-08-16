@@ -79,6 +79,7 @@ def lineLine( x1,  y1,  x2,  y2,  x3,  y3,  x4,  y4):
     
 # Generate a default header file
 def gen_config_header(cur_sheet_num=1, total_sheet_num=1, sheet_title="Default", revMaj=0, revMin=1, year=2021, month=8, day=15):
+    total_sheet_num = cur_sheet_num + 1
     header = []
     header.append("EESchema Schematic File Version 4\n")
     header.append("EELAYER 30 0\n")
@@ -1167,6 +1168,10 @@ class Circuit(SkidlBaseObject):
             expand_buses([b for b in self.buses if getattr(b, "stub", False)])
         )
         routed_nets = list(set(self.nets) - set(net_stubs))
+        
+        # Range through the parts and create bounding boxes
+        for i in self.parts:
+            i.generate_bounding_box()
 
         # Make dictionary of hierarchies and append parts from that hierarchy
         new_hier = {}
@@ -1183,106 +1188,143 @@ class Circuit(SkidlBaseObject):
 
                 hier_sheet = gen_hier_sheet(hier_name, x_start, y_start)
                 circuit_parts.append(hier_sheet)
+
                 x_start += 3000
             else:
                 hierarchies[hier_name].append(i)
                 new_hier[hier_name]['parts'].append(i)
 
+        with open(file_, "w") as f:
+            new_sch_file = [gen_config_header(), circuit_parts, "$EndSCHEMATC"]
+            f.truncate(0) # Clear the file
+            for i in new_sch_file:
+                print("" + "".join(i), file=f)
+        f.close()
+        
         # get the hierarchy nets
-
         for h in new_hier:
             for n in routed_nets:
                 if h in n.hierarchy:
                     new_hier[h]['nets'].append(n)
-        # hierarchies['nets']=[]
+
+        # Range through each hierarchy and move parts around the center part (part 0)
+        nSheets = 1
+        for h in new_hier:
+            # Move parts
+            centerPart = new_hier[h]['parts'][0].ref
+            hier_circuit = []
+            for n in new_hier[h]['nets']:
+                # find the distance between the pins
+                dx = n.pins[0].x + n.pins[1].x
+                dy = n.pins[0].y - n.pins[1].y
+                # determine which part should move.  
+                # The first part in the hierarch is the center
+                if n.pins[0].ref == centerPart:
+                    p = Part.get(n.pins[1].ref)
+                    p.move_part(dx, dy,self.parts, n.pins[0].orientation)
+                elif n.pins[1].ref == centerPart:
+                    p = Part.get(n.pins[0].ref)
+                    p.move_part(dx, dy,self.parts, n.pins[0].orientation)
+
+            for i in self.parts:
+                x = i.sch_bb[0] + sch_c[0]
+                y = i.sch_bb[1] + sch_c[1]
+                hier_circuit.append(i.gen_part_eeschema([x, y]))
+            # Create the nets and add them to the circuit parts list
+            for n in new_hier[h]['nets']:
+                print("Net from: " + n.pins[0].ref + " to " + n.pins[1].ref)
+                wire = n.gen_eeschema(sch_c)
+                hier_circuit.append(wire)
+            for n in new_hier[h]['nets']:
+                t_collision = self.net_collision(wire, sch_c)
+                if len(t_collision) > 0:
+                    print("Collides with " + str(t_collision))  
+            # Replace old schematic file content with new schematic file content
+            hier_file_name = "stm32/" + h + ".sch"
+            with open(hier_file_name, "w") as f:
+                new_sch_file = [gen_config_header(cur_sheet_num=nSheets), hier_circuit, "$EndSCHEMATC"]
+                nSheets += 1
+                f.truncate(0) # Clear the file
+                for i in new_sch_file:
+                    print("" + "".join(i), file=f)
+            f.close()
+        # # Range through the hierarchy and nets to find the parts which need to be moved
+        # second_round = [] # list to store parts we don't place on the first pass
         # for h in hierarchies:
+        #     center_part = hierarchies[h][0].ref
         #     for n in routed_nets:
         #         t = n.hierarchy
         #         u = t.split('.')
         #         hier_name = u[1]
         #         if hier_name == h:
-        #             hierarchies
-        # Range through the parts and create bounding boxes
-        for i in self.parts:
-            i.generate_bounding_box()
-        
-        # Range through the hierarchy and nets to find the parts which need to be moved
-        second_round = [] # list to store parts we don't place on the first pass
-        for h in hierarchies:
-            center_part = hierarchies[h][0].ref
-            for n in routed_nets:
-                t = n.hierarchy
-                u = t.split('.')
-                hier_name = u[1]
-                if hier_name == h:
-                    # find the distance between the pins
-                    dx = n.pins[0].x + n.pins[1].x
-                    dy = n.pins[0].y - n.pins[1].y
-                    # determine which part should move.  
-                    # The first part in the hierarch is the center
-                    if n.pins[0].ref == center_part:
-                        p = Part.get(n.pins[1].ref)
-                        p.move_part(dx, dy,self.parts, n.pins[0].orientation)
-                    elif n.pins[1].ref == center_part:
-                        p = Part.get(n.pins[0].ref)
-                        p.move_part(dx, dy,self.parts, n.pins[0].orientation)
-                    else:
-                        second_round.append(n)
+        #             # find the distance between the pins
+        #             dx = n.pins[0].x + n.pins[1].x
+        #             dy = n.pins[0].y - n.pins[1].y
+        #             # determine which part should move.  
+        #             # The first part in the hierarch is the center
+        #             if n.pins[0].ref == center_part:
+        #                 p = Part.get(n.pins[1].ref)
+        #                 p.move_part(dx, dy,self.parts, n.pins[0].orientation)
+        #             elif n.pins[1].ref == center_part:
+        #                 p = Part.get(n.pins[0].ref)
+        #                 p.move_part(dx, dy,self.parts, n.pins[0].orientation)
+        #             else:
+        #                 second_round.append(n)
 
-        # move around the rest of the parts
-        for n in second_round:
-            print(n)
-            # check which part is already moved
-            if (n.pins[0].part.sch_bb[0] != 0 and n.pins[0].part.sch_bb[1] != 0) and (n.pins[1].part.sch_bb[0] != 0 and n.pins[1].part.sch_bb[1] != 0):
-                continue # TODO: make recursive function for these "rounds"
-            # if the first part moved (x or y changed) then we will move the other part connected to this circuit
-            elif n.pins[0].part.sch_bb[0] != 0 or n.pins[0].part.sch_bb[1] != 0:
-                x_ref = n.pins[0].part.sch_bb[0]
-                y_ref = n.pins[0].part.sch_bb[1]
-                x = n.pins[1].part.sch_bb[0]
-                y = n.pins[1].part.sch_bb[1]
-                # find the distance between the pins
-                dx = x_ref + n.pins[1].x
-                dy = y_ref - n.pins[1].y
-                p = Part.get(n.pins[1].ref)
-                p.move_part(dx, dy,self.parts, n.pins[0].orientation) # we should actually look at the 
-            elif n.pins[0].part.sch_bb[1] != 0:
-                x_ref = n.pins[1].part.sch_bb[0]
-                y_ref = n.pins[1].part.sch_bb[1]
-                x = n.pins[0].part.sch_bb[0]
-                y = n.pins[0].part.sch_bb[1]
-                # find the distance between the pins
-                dx = n.pins[0].x + n.pins[1].x
-                dy = n.pins[0].y - n.pins[1].y
-                p = Part.get(n.pins[0].ref)
-                p.move_part(dx, dy,self.parts, n.pins[0].orientation)
-            else:
-                continue # TODO: make recursive function for these "rounds"
+        # # move around the rest of the parts
+        # for n in second_round:
+        #     print(n)
+        #     # check which part is already moved
+        #     if (n.pins[0].part.sch_bb[0] != 0 and n.pins[0].part.sch_bb[1] != 0) and (n.pins[1].part.sch_bb[0] != 0 and n.pins[1].part.sch_bb[1] != 0):
+        #         continue # TODO: make recursive function for these "rounds"
+        #     # if the first part moved (x or y changed) then we will move the other part connected to this circuit
+        #     elif n.pins[0].part.sch_bb[0] != 0 or n.pins[0].part.sch_bb[1] != 0:
+        #         x_ref = n.pins[0].part.sch_bb[0]
+        #         y_ref = n.pins[0].part.sch_bb[1]
+        #         x = n.pins[1].part.sch_bb[0]
+        #         y = n.pins[1].part.sch_bb[1]
+        #         # find the distance between the pins
+        #         dx = x_ref + n.pins[1].x
+        #         dy = y_ref - n.pins[1].y
+        #         p = Part.get(n.pins[1].ref)
+        #         p.move_part(dx, dy,self.parts, n.pins[0].orientation) # we should actually look at the 
+        #     elif n.pins[0].part.sch_bb[1] != 0:
+        #         x_ref = n.pins[1].part.sch_bb[0]
+        #         y_ref = n.pins[1].part.sch_bb[1]
+        #         x = n.pins[0].part.sch_bb[0]
+        #         y = n.pins[0].part.sch_bb[1]
+        #         # find the distance between the pins
+        #         dx = n.pins[0].x + n.pins[1].x
+        #         dy = n.pins[0].y - n.pins[1].y
+        #         p = Part.get(n.pins[0].ref)
+        #         p.move_part(dx, dy,self.parts, n.pins[0].orientation)
+        #     else:
+        #         continue # TODO: make recursive function for these "rounds"
 
 
         # Generatie eeschema code for parts and append to output list
-        for i in self.parts:
-            x = i.sch_bb[0] + sch_c[0]
-            y = i.sch_bb[1] + sch_c[1]
-            circuit_parts.append(i.gen_part_eeschema([x, y]))
+        # for i in self.parts:
+        #     x = i.sch_bb[0] + sch_c[0]
+        #     y = i.sch_bb[1] + sch_c[1]
+        #     circuit_parts.append(i.gen_part_eeschema([x, y]))
 
-        # Create the nets and add them to the circuit parts list
-        for n in routed_nets:
-            print("Net from: " + n.pins[0].ref + " to " + n.pins[1].ref)
-            wire = n.gen_eeschema(sch_c)
-            circuit_parts.append(wire)
+        # # Create the nets and add them to the circuit parts list
+        # for n in routed_nets:
+        #     print("Net from: " + n.pins[0].ref + " to " + n.pins[1].ref)
+        #     wire = n.gen_eeschema(sch_c)
+        #     circuit_parts.append(wire)
 
-        # Check to see if any nets are routed through a part
-        for n in routed_nets:
-            t_collision = self.net_collision(wire, sch_c)
-            if len(t_collision) > 0:
-                print("Collides with " + str(t_collision))            
+        # # Check to see if any nets are routed through a part
+        # for n in routed_nets:
+        #     t_collision = self.net_collision(wire, sch_c)
+        #     if len(t_collision) > 0:
+        #         print("Collides with " + str(t_collision))            
 
 
-        # Draw boxes and label hierarchies
-        for h in hierarchies:
-            hier_rect = draw_rect_hierarchies(hierarchies[h], sch_c)
-            circuit_parts.append(hier_rect)
+        # # Draw boxes and label hierarchies
+        # for h in hierarchies:
+        #     hier_rect = draw_rect_hierarchies(hierarchis[h], sch_c)
+        #     circuit_parts.append(hier_rect)
 
 
         # Replace old schematic file content with new schematic file content
