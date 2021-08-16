@@ -36,9 +36,9 @@ def usb_connector(_5v, gnd, dp, dm):
 
     usb_connector = Part("Connector", 'USB_B_Mini', footprint='USB_Micro-B_Molex-105017-0001')
     usb_connector.p1 += _5v
-    usb_connector.p2 += usb_protection.p3
-    usb_connector.p3 += dp
-    usb_connector.p4 += usb_protection.p6
+    usb_connector.p2 += usb_protection.p6
+    usb_connector.p3 += usb_protection.p3
+    # usb_connector.p4 += usb_protection.p6
     usb_connector.p5 += gnd
     usb_connector.p6 += gnd
 

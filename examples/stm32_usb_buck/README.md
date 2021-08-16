@@ -13,3 +13,7 @@ $ python examples/stm32_usb_buck/main.py
 
 Useful link on schematic components:
 https://resources.altium.com/p/guidelines-creating-useful-schematic-symbols
+
+
+Known Bugs:
+* All nets must be unique except stubs!  Otherwise the schematic layout tool will not properly layout parts
