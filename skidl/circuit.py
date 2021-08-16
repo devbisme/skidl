@@ -1245,7 +1245,8 @@ class Circuit(SkidlBaseObject):
         for h in hierarchies:
             centerPart = hierarchies[h]['parts'][0].ref # Center part that we place everything else around
             eeschema_code = [] # List to hold all the components we'll put the in the eeschema .sch file
-            hierarchies[h]['placed'] = []
+            hierarchies[h]['parts_placed'] = []
+            hierarchies[h]['nets_placed'] = []
             # Range through all the nets and place the 
             for n in hierarchies[h]['nets']:
                 # find the distance between the pins
@@ -1256,18 +1257,23 @@ class Circuit(SkidlBaseObject):
                 if n.pins[0].ref == centerPart:
                     p = Part.get(n.pins[1].ref)
                     p.move_part(dx, dy,hierarchies[h]['parts'], n.pins[0].orientation)
-                    hierarchies[h]['placed'].append(p.ref)
+                    hierarchies[h]['parts_placed'].append(p.ref)
+                    hierarchies[h]['nets_placed'].append(n)
                 elif n.pins[1].ref == centerPart:
                     p = Part.get(n.pins[0].ref)
                     p.move_part(dx, dy,hierarchies[h]['parts'], n.pins[1].orientation)
-                    hierarchies[h]['placed'].append(p.ref)
+                    hierarchies[h]['parts_placed'].append(p.ref)
+                    hierarchies[h]['nets_placed'].append(n)
             
             # place parts that haven't been placed yet
-            for n in hierarchies[h]['parts']:
-                if n.ref == hierarchies[h]['parts'][0].ref:
+            for p in hierarchies[h]['parts']:
+                if p.ref == hierarchies[h]['parts'][0].ref:
                     continue
-                if not(n.ref in hierarchies[h]['placed']):
-                    print("place component " + n.ref)
+                if not(p.ref in hierarchies[h]['parts_placed']):
+                    print("place component " + p.ref)
+                    for n in hierarchies[h]['nets']:
+                        if n in hierarchies[h]['nets_placed']:
+                            print("route net: " + str(n))
 
             # Add the central coordinates to the part so they're in the center
             for i in hierarchies[h]['parts']:
