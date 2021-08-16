@@ -150,7 +150,6 @@ class Part(SkidlBaseObject):
         ref=None,
         tag=None,
         pin_splitters=None,
-        sch_bb=[0,0,0,0],
         tool_version=None,
         **kwargs
     ):
@@ -173,7 +172,7 @@ class Part(SkidlBaseObject):
         self.description = ""  # Make sure there is a description, even if empty.
         self._ref = ""  # Provide a member for holding a reference.
         self.ref_prefix = ref_prefix  # Store the part reference prefix.
-        sch_bb=[0,0,0,0] # Set schematic location to x, y, height, width
+        self.sch_bb=[0,0,0,0] # Set schematic location to x, y, height, width
         self.tool = tool  # Initial type of part (SKIDL, KICAD, etc.)
         self.circuit = None  # Part starts off unassociated with any circuit.
         self.match_pin_regex = False  # Don't allow regex matches of pin names.
@@ -273,6 +272,7 @@ class Part(SkidlBaseObject):
 
         # If any pins were added, make sure they're associated with the part.
         self.associate_pins()
+        self.sch_bb=[0,0,0,0]
 
     def add_xspice_io(self, io):
         """
