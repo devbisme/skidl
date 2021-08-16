@@ -143,7 +143,6 @@ def draw_rect_hierarchies(hier, sch_center):
     return (("\n" + "".join(box)))
 
 def gen_hier_sheet(title, x_start, y_start, width=1000, height=2000):
-    print("generating hierarchical sheet")
     # make the file if it doesn't exist
     file_path = "stm32/"+title+".sch"
     if not os.path.isfile(file_path):
@@ -1170,6 +1169,7 @@ class Circuit(SkidlBaseObject):
         routed_nets = list(set(self.nets) - set(net_stubs))
 
         # Make dictionary of hierarchies and append parts from that hierarchy
+        new_hier = {}
         hierarchies = {}
         x_start = 5000
         y_start = 5000
@@ -1178,15 +1178,30 @@ class Circuit(SkidlBaseObject):
             u = t.split('.')
             hier_name = u[1]
             if hier_name not in hierarchies:
-                print(hier_name)
                 hierarchies[hier_name] = [i]
+                new_hier[hier_name] = {'parts':[i],'nets':[]}
 
                 hier_sheet = gen_hier_sheet(hier_name, x_start, y_start)
                 circuit_parts.append(hier_sheet)
                 x_start += 3000
             else:
                 hierarchies[hier_name].append(i)
+                new_hier[hier_name]['parts'].append(i)
 
+        # get the hierarchy nets
+
+        for h in new_hier:
+            for n in routed_nets:
+                if h in n.hierarchy:
+                    new_hier[h]['nets'].append(n)
+        # hierarchies['nets']=[]
+        # for h in hierarchies:
+        #     for n in routed_nets:
+        #         t = n.hierarchy
+        #         u = t.split('.')
+        #         hier_name = u[1]
+        #         if hier_name == h:
+        #             hierarchies
         # Range through the parts and create bounding boxes
         for i in self.parts:
             i.generate_bounding_box()
