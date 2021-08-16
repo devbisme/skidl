@@ -14,7 +14,7 @@ _3v3 = Net('+3V3')#, stub=True)
 gnd = Net('GND')#, stub=True)
 
 sc.stm32f405r(_3v3, gnd)
-# sc.board_enable(_3v3, gnd)
+sc.board_enable(_3v3, gnd)
 # sc.stm32f405r(_3v3, gnd)
 # sc.board_enable(_3v3, gnd)
 

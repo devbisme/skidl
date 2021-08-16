@@ -61,6 +61,49 @@ from .tools import *
 
 standard_library.install_aliases()
 
+    # https://www.jeffreythompson.org/collision-detection/line-rect.php
+    # For a particular wire see if it collides with a part
+def net_collision(parts, wire,c):
+
+    # check if we collide with a part
+    t = wire.split("\n")
+    u = t[2].split() # x1 y1 x2 y2
+    v = map(int, u)
+    w = list(v)
+    # order should be x1min, x1max, y1min, y1max
+    if w[0] > w[2]:
+        t = w[0]
+        w[0] = w[2]
+        w[2] = t
+    if w[1] > w[3]:
+        t = w[1]
+        w[1] = w[3]
+        w[3] = t
+    x1min = w[0]
+    y1min = w[1]
+    x1max = w[2]
+    y1max = w[3]
+    collided_parts = []
+    for pt in parts:
+        x2min = pt.sch_bb[0] - pt.sch_bb[2] + c[0]
+        y2min = pt.sch_bb[1] - pt.sch_bb[3] + c[1]
+        x2max = pt.sch_bb[0] + pt.sch_bb[2] + c[0]
+        y2max = pt.sch_bb[1] + pt.sch_bb[3] + c[1]
+        
+        if lineLine(x1min,y1min,x1max,y1max, x2min,y2min,x2min, y2max):
+            # print(pt.ref + " collision left")
+            collided_parts.append(pt.ref)
+        elif lineLine(x1min,y1min,x1max,y1max, x2max,y2min, x2max,y2max):
+            # print(pt.ref + " collision right")
+            collided_parts.append(pt.ref)
+        elif lineLine(x1min,y1min,x1max,y1max, x2min,y2min, x2max,y2min):
+            # print(pt.ref + " collision top")
+            collided_parts.append(pt.ref)
+        elif lineLine(x1min,y1min,x1max,y1max, x2min,y2max, x2max,y2max):
+            # print(pt.ref + " collision bottom")
+            collided_parts.append(pt.ref)
+    return collided_parts
+
 #LINE/LINE
 # https://www.jeffreythompson.org/collision-detection/line-rect.php
 def lineLine( x1,  y1,  x2,  y2,  x3,  y3,  x4,  y4):
@@ -1176,33 +1219,34 @@ class Circuit(SkidlBaseObject):
             i.generate_bounding_box()
 
         # Make dictionary of hierarchies and append parts from that hierarchy
-        hierchies = {}
+        hierarchies = {}
         x_start = 5000
         y_start = 5000
         for i in self.parts:
+            # TODO: this strategy of getting the hierarchies might not work with nested hierarchies
             t = i.hierarchy
             u = t.split('.')
             hier_name = u[1]
-            if hier_name not in hierchies:
-                hierchies[hier_name] = {'parts':[i],'nets':[]}
+            if hier_name not in hierarchies:
+                hierarchies[hier_name] = {'parts':[i],'nets':[]}
                 hier_sheet = gen_hier_sheet(hier_name, x_start, y_start)
                 circuit_parts.append(hier_sheet)
                 x_start += 3000
             else:
-                hierchies[hier_name]['parts'].append(i)
+                hierarchies[hier_name]['parts'].append(i)
 
         # get the hierarchy nets
-        for h in hierchies:
+        for h in hierarchies:
             for n in self.nets:
                 if h in n.hierarchy:
-                    hierchies[h]['nets'].append(n)
+                    hierarchies[h]['nets'].append(n)
 
         # Range through each hierarchy and move parts around the center part (part 0)
-        for h in hierchies:
-            # Move parts
-            centerPart = hierchies[h]['parts'][0].ref
-            hier_circuit = []
-            for n in hierchies[h]['nets']:
+        for h in hierarchies:
+            centerPart = hierarchies[h]['parts'][0].ref # Center part that we place everything else around
+            eeschema_code = [] # List to hold all the components we'll put the in the eeschema .sch file
+            # Range through all the nets and place the 
+            for n in hierarchies[h]['nets']:
                 # find the distance between the pins
                 dx = n.pins[0].x + n.pins[1].x
                 dy = n.pins[0].y - n.pins[1].y
@@ -1210,34 +1254,44 @@ class Circuit(SkidlBaseObject):
                 # The first part in the hierarch is the center
                 if n.pins[0].ref == centerPart:
                     p = Part.get(n.pins[1].ref)
-                    p.move_part(dx, dy,self.parts, n.pins[0].orientation)
+                    p.move_part(dx, dy,hierarchies[h]['parts'], n.pins[0].orientation)
+        
                 elif n.pins[1].ref == centerPart:
                     p = Part.get(n.pins[0].ref)
-                    p.move_part(dx, dy,self.parts, n.pins[0].orientation)
+                    p.move_part(dx, dy,hierarchies[h]['parts'], n.pins[1].orientation)
+            
+            # place parts that haven't been placed yet
+            for n in hierarchies[h]['parts']:
+                if (n.sch_bb[0]==0 or n.sch_bb[1]==0) and (n.ref != hierarchies[h]['parts'][0].ref):
+                    print("place component " + n.ref)
 
-            for i in hierchies[h]['parts']:
+            # Add the central coordinates to the part so they're in the center
+            for i in hierarchies[h]['parts']:
                 x = i.sch_bb[0] + sch_c[0]
                 y = i.sch_bb[1] + sch_c[1]
-                hier_circuit.append(i.gen_part_eeschema([x, y]))
+                part_code = i.gen_part_eeschema([x, y])
+                eeschema_code.append(part_code)
             # Create the nets and add them to the circuit parts list
-            for n in hierchies[h]['nets']:
-                print("Net from: " + n.pins[0].ref + " to " + n.pins[1].ref)
+            for n in hierarchies[h]['nets']:
+                # print("Net from: " + n.pins[0].ref + " to " + n.pins[1].ref)
                 wire = n.gen_eeschema(sch_c)
-                hier_circuit.append(wire)
-            for n in hierchies[h]['nets']:
-                t_collision = self.net_collision(wire, sch_c)
-                if len(t_collision) > 0:
-                    print("Collides with " + str(t_collision))  
-            # Replace old schematic file content with new schematic file content
+                # Look through the hierarchy nets and find collisions
+                for n in hierarchies[h]['nets']:
+                    t_collision = net_collision(hierarchies[h]['parts'], wire, sch_c)
+                    # if len(t_collision)>0:
+                        # (print("Collides with " + str(t_collision)))
+                eeschema_code.append(wire)
+            # Create the new hierarchy file
             hier_file_name = "stm32/" + h + ".sch"
             with open(hier_file_name, "w") as f:
-                new_sch_file = [gen_config_header(cur_sheet_num=nSheets), hier_circuit, "$EndSCHEMATC"]
+                new_sch_file = [gen_config_header(cur_sheet_num=nSheets), eeschema_code, "$EndSCHEMATC"]
                 nSheets += 1
                 f.truncate(0) # Clear the file
                 for i in new_sch_file:
                     print("" + "".join(i), file=f)
             f.close()
 
+        # Write data to main .sch file now that we know how many subcircuits we'll have
         with open(file_, "w") as f:
             new_sch_file = [gen_config_header(cur_sheet_num=nSheets), circuit_parts, "$EndSCHEMATC"]
             nSheets += 1
@@ -1262,49 +1316,6 @@ class Circuit(SkidlBaseObject):
                     logger.error.count
                 )
             )
-
-    # https://www.jeffreythompson.org/collision-detection/line-rect.php
-    # For a particular wire see if it collides with a part
-    def net_collision(self, wire,c):
-
-        # check if we collide with a part
-        t = wire.split("\n")
-        u = t[2].split() # x1 y1 x2 y2
-        v = map(int, u)
-        w = list(v)
-        # order should be x1min, x1max, y1min, y1max
-        if w[0] > w[2]:
-            t = w[0]
-            w[0] = w[2]
-            w[2] = t
-        if w[1] > w[3]:
-            t = w[1]
-            w[1] = w[3]
-            w[3] = t
-        x1min = w[0]
-        y1min = w[1]
-        x1max = w[2]
-        y1max = w[3]
-        collided_parts = []
-        for pt in self.parts:
-            x2min = pt.sch_bb[0] - pt.sch_bb[2] + c[0]
-            y2min = pt.sch_bb[1] - pt.sch_bb[3] + c[1]
-            x2max = pt.sch_bb[0] + pt.sch_bb[2] + c[0]
-            y2max = pt.sch_bb[1] + pt.sch_bb[3] + c[1]
-            
-            if lineLine(x1min,y1min,x1max,y1max, x2min,y2min,x2min, y2max):
-                print(pt.ref + " collision left")
-                collided_parts.append(pt.ref)
-            elif lineLine(x1min,y1min,x1max,y1max, x2max,y2min, x2max,y2max):
-                print(pt.ref + " collision right")
-                collided_parts.append(pt.ref)
-            elif lineLine(x1min,y1min,x1max,y1max, x2min,y2min, x2max,y2min):
-                print(pt.ref + " collision top")
-                collided_parts.append(pt.ref)
-            elif lineLine(x1min,y1min,x1max,y1max, x2min,y2max, x2max,y2max):
-                print(pt.ref + " collision bottom")
-                collided_parts.append(pt.ref)
-        return collided_parts
 
     def generate_dot(
         self,
