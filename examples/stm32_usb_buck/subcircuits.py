@@ -4,7 +4,7 @@ from skidl import *
 # LED indicator circuit
 # c = central coordinates for the subcircuit
 @SubCircuit
-def stm32f405r(vdd, gnd):
+def stm32f405r(vdd, gnd, _5v):
     # MCU
     u = Part("MCU_ST_STM32F4", 'STM32F405RGTx', footprint='LQFP-64_10x10mm_P0.5mm')
     vdd += u.p1, u.p19, u.p32, u.p48, u.p64, u.p13
@@ -18,15 +18,29 @@ def stm32f405r(vdd, gnd):
     vc2 = Net('vcap2')
     vc2 += u.p47, vcap2.p1
 
-    led_indicator(u.p50,gnd, 'blue', '5.6k')
+    led_indicator(u.p8,gnd, 'blue', '5.6k')
+    usb_connector(_5v, gnd, u.p44, u.p45)
 
+
+
+
+def usb_connector(_5v, gnd, dp, dm):
     usb_protection = Part("Power_Protection", 'USBLC6-4SC6', footprint='SOT-23-6')
-    usb_protection.p1 += u.p44
-    usb_protection.p2 += u.p45
+    usb_protection.p1 += dp
+    usb_protection.p2 += gnd
+    # usb_protection.p3 += 
+    usb_protection.p4 += dm
+    usb_protection.p5 += _5v
+    # usb_protection.p6 += 
+
 
     usb_connector = Part("Connector", 'USB_B_Mini', footprint='USB_Micro-B_Molex-105017-0001')
-    usb_connector.p1 += usb_protection.p1
-    usb_connector.p2 += usb_protection.p2
+    usb_connector.p1 += _5v
+    usb_connector.p2 += usb_protection.p3
+    usb_connector.p3 += dp
+    usb_connector.p4 += usb_protection.p6
+    usb_connector.p5 += gnd
+    usb_connector.p6 += gnd
 
 
 ############################################################################

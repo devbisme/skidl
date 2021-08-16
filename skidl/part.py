@@ -1062,7 +1062,11 @@ class Part(SkidlBaseObject):
     # Move the part by dx/dy, then check to see if it's colliding with 
     #   any other part.  If it is colliding then move the part move towards the 
     #   direction of the pin it was moving towards
-    def move_part(self, dx, dy, _parts_list, direction):
+    def move_part(self, dx, dy, _parts_list):
+        # Determine if the part moved left or right
+        move_dir = 'L'
+        if dx > 0:
+            move_dir = 'R'
         self.sch_bb[0] += dx
         self.sch_bb[1] -= dy
         for pt in _parts_list:
@@ -1084,14 +1088,10 @@ class Part(SkidlBaseObject):
             # Note that the movement direction is opposite of what's intuitive ('R' = move left, 'U' = -50)
             # https://stackoverflow.com/questions/20925818/algorithm-to-check-if-two-boxes-overlap
             if (x1min <= x2max) and (x2min <= x1max) and (y1min <= y2max) and (y2min <= y1max):
-                if direction == 'R':
-                    self.move_part(-50, 0, _parts_list, direction)
-                elif direction == 'L':
-                    self.move_part(50, 0, _parts_list, direction)
-                elif direction == 'U':
-                    self.move_part(0, -50, _parts_list, direction)
-                elif direction == 'D':
-                    self.move_part(0, 50, _parts_list, direction)
+                if move_dir == 'R':
+                    self.move_part(50, 0, _parts_list)
+                else:
+                    self.move_part(-50, 0, _parts_list)
 
 
     def generate_svg_component(self, symtx="", tool=None, net_stubs=None):

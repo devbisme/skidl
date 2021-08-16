@@ -1246,7 +1246,7 @@ class Circuit(SkidlBaseObject):
             centerPart = hierarchies[h]['parts'][0].ref # Center part that we place everything else around
             eeschema_code = [] # List to hold all the components we'll put the in the eeschema .sch file
             hierarchies[h]['parts_placed'] = []
-            hierarchies[h]['nets_placed'] = []
+            hierarchies[h]['nets_to_route'] = []
             # Range through all the nets and place the 
             for n in hierarchies[h]['nets']:
                 # find the distance between the pins
@@ -1254,26 +1254,44 @@ class Circuit(SkidlBaseObject):
                 dy = n.pins[0].y - n.pins[1].y
                 # determine which part should move.  
                 # The first part in the hierarch is the center
-                if n.pins[0].ref == centerPart:
+                # Make sure to only place a part once (check for it in parts_placed before trying to move a part)
+                if n.pins[0].ref == centerPart and not(n.pins[1].ref in hierarchies[h]['parts_placed']):
                     p = Part.get(n.pins[1].ref)
-                    p.move_part(dx, dy,hierarchies[h]['parts'], n.pins[0].orientation)
+                    p.move_part(dx, dy,hierarchies[h]['parts'])
                     hierarchies[h]['parts_placed'].append(p.ref)
-                    hierarchies[h]['nets_placed'].append(n)
-                elif n.pins[1].ref == centerPart:
+                elif n.pins[1].ref == centerPart and not(n.pins[0].ref in hierarchies[h]['parts_placed']):
                     p = Part.get(n.pins[0].ref)
-                    p.move_part(dx, dy,hierarchies[h]['parts'], n.pins[1].orientation)
+                    p.move_part(dx, dy,hierarchies[h]['parts'])
                     hierarchies[h]['parts_placed'].append(p.ref)
-                    hierarchies[h]['nets_placed'].append(n)
+                else:
+                    hierarchies[h]['nets_to_route'].append(n)
             
-            # place parts that haven't been placed yet
-            for p in hierarchies[h]['parts']:
-                if p.ref == hierarchies[h]['parts'][0].ref:
-                    continue
-                if not(p.ref in hierarchies[h]['parts_placed']):
-                    print("place component " + p.ref)
-                    for n in hierarchies[h]['nets']:
-                        if n in hierarchies[h]['nets_placed']:
-                            print("route net: " + str(n))
+            # 1. range through the remaining nets, 
+            # 2. find parts with one already placed components
+            # 3. place those components, only nudging left and right
+            # 4. Delete the net from the list of nets to route
+            # Schematic components should be made to have signal pins only on left & right
+            # See this article by Altium
+            # https://resources.altium.com/p/guidelines-creating-useful-schematic-symbols
+            # 2nd round parts to be nudged only left and right
+            for n in hierarchies[h]['nets_to_route']:
+                p0 = Part.get(n.pins[0].ref)
+                p1 = Part.get(n.pins[1].ref)
+                dx = n.pins[0].x + n.pins[1].x
+                dy = n.pins[0].y - n.pins[1].y
+                if p0.ref in hierarchies[h]['parts_placed']:
+                    print("place component " + p1.ref)
+                    p1.move_part(dx, dy,hierarchies[h]['parts'])
+                    hierarchies[h]['parts_placed'].append(p1.ref)
+                    hierarchies[h]['nets_to_route'].remove(n) # remove the net after we've placed this component
+                elif p1.ref in hierarchies[h]['parts_placed']:
+                    print("place component " + p0.ref)
+                    p0.move_part(dx, dy,hierarchies[h]['parts'])
+                    hierarchies[h]['parts_placed'].append(p0.ref)
+                    hierarchies[h]['nets_to_route'].remove(n) # remove the net after we've placed this component
+                
+
+            
 
             # Add the central coordinates to the part so they're in the center
             for i in hierarchies[h]['parts']:
