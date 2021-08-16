@@ -29,6 +29,7 @@ Handles complete circuits made of parts and nets.
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 import functools
+from inspect import currentframe
 import json
 import os.path
 import re
@@ -1157,7 +1158,7 @@ class Circuit(SkidlBaseObject):
         sch_c = self.get_schematic_center(file_)
 
         circuit_parts = [] # !! MOST IMPORTANT LIST !!  Holds all individual circuit parts to be added
-
+        nSheets = 1
         # Get the list of nets which will be routed and not represented by stubs.
         # Search all nets for those set as stubs or that are no-connects.
         net_stubs = [
@@ -1194,13 +1195,8 @@ class Circuit(SkidlBaseObject):
                 hierarchies[hier_name].append(i)
                 new_hier[hier_name]['parts'].append(i)
 
-        with open(file_, "w") as f:
-            new_sch_file = [gen_config_header(), circuit_parts, "$EndSCHEMATC"]
-            f.truncate(0) # Clear the file
-            for i in new_sch_file:
-                print("" + "".join(i), file=f)
-        f.close()
-        
+
+
         # get the hierarchy nets
         for h in new_hier:
             for n in routed_nets:
@@ -1208,7 +1204,7 @@ class Circuit(SkidlBaseObject):
                     new_hier[h]['nets'].append(n)
 
         # Range through each hierarchy and move parts around the center part (part 0)
-        nSheets = 1
+        
         for h in new_hier:
             # Move parts
             centerPart = new_hier[h]['parts'][0].ref
@@ -1226,7 +1222,7 @@ class Circuit(SkidlBaseObject):
                     p = Part.get(n.pins[0].ref)
                     p.move_part(dx, dy,self.parts, n.pins[0].orientation)
 
-            for i in self.parts:
+            for i in new_hier[h]['parts']:
                 x = i.sch_bb[0] + sch_c[0]
                 y = i.sch_bb[1] + sch_c[1]
                 hier_circuit.append(i.gen_part_eeschema([x, y]))
@@ -1326,14 +1322,21 @@ class Circuit(SkidlBaseObject):
         #     hier_rect = draw_rect_hierarchies(hierarchis[h], sch_c)
         #     circuit_parts.append(hier_rect)
 
-
-        # Replace old schematic file content with new schematic file content
         with open(file_, "w") as f:
-            new_sch_file = [gen_config_header(), circuit_parts, "$EndSCHEMATC"]
+            new_sch_file = [gen_config_header(cur_sheet_num=nSheets), circuit_parts, "$EndSCHEMATC"]
+            nSheets += 1
             f.truncate(0) # Clear the file
             for i in new_sch_file:
                 print("" + "".join(i), file=f)
         f.close()
+
+        # # Replace old schematic file content with new schematic file content
+        # with open(file_, "w") as f:
+        #     new_sch_file = [gen_config_header(), circuit_parts, "$EndSCHEMATC"]
+        #     f.truncate(0) # Clear the file
+        #     for i in new_sch_file:
+        #         print("" + "".join(i), file=f)
+        # f.close()
 
         # Log errors if we have any
         if (logger.error.count, logger.warning.count) == (0, 0):
