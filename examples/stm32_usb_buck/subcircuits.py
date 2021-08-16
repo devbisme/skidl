@@ -20,6 +20,15 @@ def stm32f405r(vdd, gnd):
 
     led_indicator(u.p50,gnd, 'blue', '5.6k')
 
+    usb_protection = Part("Power_Protection", 'USBLC6-4SC6', footprint='SOT-23-6')
+    usb_protection.p1 += u.p44
+    usb_protection.p2 += u.p45
+
+    usb_connector = Part("Connector", 'USB_B_Mini', footprint='USB_Micro-B_Molex-105017-0001')
+    usb_connector.p1 += usb_protection.p1
+    usb_connector.p2 += usb_protection.p2
+
+
 ############################################################################
 
 # LED indicator circuit
