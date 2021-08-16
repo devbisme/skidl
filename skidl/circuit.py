@@ -1245,6 +1245,7 @@ class Circuit(SkidlBaseObject):
         for h in hierarchies:
             centerPart = hierarchies[h]['parts'][0].ref # Center part that we place everything else around
             eeschema_code = [] # List to hold all the components we'll put the in the eeschema .sch file
+            hierarchies[h]['placed'] = []
             # Range through all the nets and place the 
             for n in hierarchies[h]['nets']:
                 # find the distance between the pins
@@ -1255,14 +1256,17 @@ class Circuit(SkidlBaseObject):
                 if n.pins[0].ref == centerPart:
                     p = Part.get(n.pins[1].ref)
                     p.move_part(dx, dy,hierarchies[h]['parts'], n.pins[0].orientation)
-        
+                    hierarchies[h]['placed'].append(p.ref)
                 elif n.pins[1].ref == centerPart:
                     p = Part.get(n.pins[0].ref)
                     p.move_part(dx, dy,hierarchies[h]['parts'], n.pins[1].orientation)
+                    hierarchies[h]['placed'].append(p.ref)
             
             # place parts that haven't been placed yet
             for n in hierarchies[h]['parts']:
-                if (n.sch_bb[0]==0 or n.sch_bb[1]==0) and (n.ref != hierarchies[h]['parts'][0].ref):
+                if n.ref == hierarchies[h]['parts'][0].ref:
+                    continue
+                if not(n.ref in hierarchies[h]['placed']):
                     print("place component " + n.ref)
 
             # Add the central coordinates to the part so they're in the center
