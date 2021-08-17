@@ -145,11 +145,11 @@ def gen_config_header(cur_sheet_num=1, total_sheet_num=1, sheet_title="Default",
 # Draw a rectangle around a hierarchy and add a label
 def draw_rect_hierarchies(hier, sch_center):
     # find the part with the largest x1,x1,y1,y2
-    xMin = hier[0].sch_bb[0] - hier[0].sch_bb[2]
-    xMax = hier[0].sch_bb[0] + hier[0].sch_bb[2]
-    yMin = hier[0].sch_bb[1] + hier[0].sch_bb[3]
-    yMax = hier[0].sch_bb[1] - hier[0].sch_bb[3]
-    for p in hier:
+    xMin = hier['parts'][0].sch_bb[0] - hier['parts'][0].sch_bb[2]
+    xMax = hier['parts'][0].sch_bb[0] + hier['parts'][0].sch_bb[2]
+    yMin = hier['parts'][0].sch_bb[1] + hier['parts'][0].sch_bb[3]
+    yMax = hier['parts'][0].sch_bb[1] - hier['parts'][0].sch_bb[3]
+    for p in hier['parts']:
         # Get min/max dimensions of the part
         t_xMin = p.sch_bb[0] - p.sch_bb[2]
         t_xMax = p.sch_bb[0] + p.sch_bb[2]
@@ -176,7 +176,7 @@ def draw_rect_hierarchies(hier, sch_center):
     label_x = int((xMax - xMin)/4) + xMin
     label_y = yMax + 200
     # Make the strings for the box and label
-    box.append("Text Notes {} {} 0    100  ~ 20\n{}\n".format(label_x, label_y, hier[0].hierarchy[4:]))
+    box.append("Text Notes {} {} 0    100  ~ 20\n{}\n".format(label_x, label_y, hier['parts'][0].hierarchy[4:]))
     box.append("Wire Notes Line\n")
     box.append("	{} {} {} {}\n".format(xMin, yMax, xMin, yMin)) # left 
     box.append("Wire Notes Line\n")
@@ -1309,6 +1309,8 @@ class Circuit(SkidlBaseObject):
                     # if len(t_collision)>0:
                         # (print("Collides with " + str(t_collision)))
                 eeschema_code.append(wire)
+            rect = draw_rect_hierarchies(hierarchies[h], sch_c)
+            eeschema_code.append(rect)
             # Create the new hierarchy file
             hier_file_name = "stm32/" + h + ".sch"
             with open(hier_file_name, "w") as f:
