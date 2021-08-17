@@ -112,12 +112,12 @@ def gen_power_part_eeschema(part, stub_name, c=[0,0]):
             if pin.net.name == stub_name:
                 # find the stub in the part
                 time_hex = hex(int(time.time()))[2:]
-                c[0] += part.sch_bb[0] + pin.x
-                c[1] += part.sch_bb[1] - pin.y
+                x = c[0] + part.sch_bb[0] + pin.x
+                y = c[1] + part.sch_bb[1] - pin.y
                 out=["$Comp\n"]
                 out.append("L power:{} #PWR?\n".format(stub_name))
                 out.append("U 1 1 {}\n".format(time_hex))    
-                out.append("P {} {}\n".format(str(c[0]), str(c[1])))
+                out.append("P {} {}\n".format(str(x), str(y)))
                 # Add part symbols. For now we are only adding the designator
                 n_F0 = 1
                 for i in range(len(part.draw)):
@@ -125,28 +125,22 @@ def gen_power_part_eeschema(part, stub_name, c=[0,0]):
                         n_F0 = i
                         break
                 out.append('F 0 "{}" {} {} {} {} {} {} {}\n'.format(
-                                                part.ref,
+                                                stub_name,
                                                 part.draw[n_F0].orientation,
-                                                str(part.draw[n_F0].x + c[0]),
-                                                str(part.draw[n_F0].y + c[1]),
-                                                part.draw[n_F0].size,
+                                                str(x + 25),
+                                                str(y + 25),
+                                                str(40),
                                                 "000",
                                                 part.draw[n_F0].halign,
                                                 part.draw[n_F0].valign
                 ))
-                out.append("   1   {} {}\n".format(str(c[0]), str(c[1])))
+                out.append("   1   {} {}\n".format(str(x), str(y)))
                 out.append("   {}   {}  {}  {}\n".format(1, 0, 0, -1))
                 out.append("$EndComp\n") 
+                print(("\n" + "".join(out)))
         except:
-            print("can't ")
+            print("can't find pin")
     return ("\n" + "".join(out))
-
-def add_stub(stub_name, pin, c):
-    print(str(stub_name))
-    print(pin)
-
-    part_code = gen_power_part_eeschema(pin.part, stub_name, [c[0], c[1]])
-    return part_code
 
 #LINE/LINE
 # https://www.jeffreythompson.org/collision-detection/line-rect.php
@@ -1362,10 +1356,10 @@ class Circuit(SkidlBaseObject):
                 for p in s.pins:
                     if p.part.hierarchy[4:] == h:
                         # print("add stub " + s._name + " to " +p.part.ref)
-                        stub = add_stub(s._name, p, sch_c)
+                        stub = gen_power_part_eeschema(p.part, s._name, sch_c)
                         eeschema_code.append(stub)
 
-
+            # Draw rectangle and label subcircuit
             rect = draw_rect_hierarchies(hierarchies[h], sch_c)
             eeschema_code.append(rect)
             # Create the new hierarchy file
