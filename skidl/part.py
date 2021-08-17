@@ -1067,8 +1067,13 @@ class Part(SkidlBaseObject):
         move_dir = 'L'
         if dx > 0:
             move_dir = 'R'
+            dy = -dy # TODO: figure out why we need to reverse the y sign when moving right...
+        # Move the part
         self.sch_bb[0] += dx
         self.sch_bb[1] -= dy
+
+        # Range through parts in the subcircuit and look for overlaps
+        # If we are overlapping then nudge the part 50mil left/right and rerun this function
         for pt in _parts_list:
             if pt.ref == self.ref:
                 continue
@@ -1084,7 +1089,7 @@ class Part(SkidlBaseObject):
             y2min = pt.sch_bb[1] - pt.sch_bb[3]
             y2max = pt.sch_bb[1] + pt.sch_bb[3]
             
-            # Logic to tell whether parts collide.  
+            # Logic to tell whether parts collide
             # Note that the movement direction is opposite of what's intuitive ('R' = move left, 'U' = -50)
             # https://stackoverflow.com/questions/20925818/algorithm-to-check-if-two-boxes-overlap
             if (x1min <= x2max) and (x2min <= x1max) and (y1min <= y2max) and (y2min <= y1max):

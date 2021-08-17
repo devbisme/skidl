@@ -19,12 +19,13 @@ def stm32f405r(vdd, gnd, _5v):
     vc2 += u.p47, vcap2.p1
 
     led_indicator(u.p8,gnd, 'blue', '5.6k')
-    usb_connector(_5v, gnd, u.p44, u.p45)
+    usb(_5v, gnd, u.p44, u.p45, False)
 
 
 
-
-def usb_connector(_5v, gnd, dp, dm):
+# Micro-B USB connector with protection and optional pull-up impedance matching resistors
+# TODO: Get the impedance match resistor logic to work
+def usb(_5v, gnd, dp, dm, imp_match):
     usb_protection = Part("Power_Protection", 'USBLC6-4SC6', footprint='SOT-23-6')
     usb_protection.p1 += dp
     usb_protection.p2 += gnd
@@ -41,6 +42,14 @@ def usb_connector(_5v, gnd, dp, dm):
     # usb_connector.p4 += usb_protection.p6
     usb_connector.p5 += gnd
     usb_connector.p6 += gnd
+
+    if imp_match:
+        rp = Part("Device", 'R', footprint='R_0603_1608Metric', value='1.5k')
+        rn = Part("Device", 'R', footprint='R_0603_1608Metric', value='1.5k')
+        rp.p1 += usb_connector.p2
+        rp.p2 += _5v
+        rn.p1 += usb_connector.p3
+        rn.p2 += _5v
 
 
 ############################################################################

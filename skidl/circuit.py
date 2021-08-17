@@ -1259,10 +1259,12 @@ class Circuit(SkidlBaseObject):
                     p = Part.get(n.pins[1].ref)
                     p.move_part(dx, dy,hierarchies[h]['parts'])
                     hierarchies[h]['parts_placed'].append(p.ref)
+                    
                 elif n.pins[1].ref == centerPart and not(n.pins[0].ref in hierarchies[h]['parts_placed']):
                     p = Part.get(n.pins[0].ref)
                     p.move_part(dx, dy,hierarchies[h]['parts'])
                     hierarchies[h]['parts_placed'].append(p.ref)
+                    
                 else:
                     hierarchies[h]['nets_to_route'].append(n)
             
@@ -1280,12 +1282,10 @@ class Circuit(SkidlBaseObject):
                 dx = n.pins[0].x + n.pins[1].x
                 dy = n.pins[0].y - n.pins[1].y
                 if p0.ref in hierarchies[h]['parts_placed']:
-                    print("place component " + p1.ref)
                     p1.move_part(dx, dy,hierarchies[h]['parts'])
                     hierarchies[h]['parts_placed'].append(p1.ref)
                     hierarchies[h]['nets_to_route'].remove(n) # remove the net after we've placed this component
                 elif p1.ref in hierarchies[h]['parts_placed']:
-                    print("place component " + p0.ref)
                     p0.move_part(dx, dy,hierarchies[h]['parts'])
                     hierarchies[h]['parts_placed'].append(p0.ref)
                     hierarchies[h]['nets_to_route'].remove(n) # remove the net after we've placed this component
