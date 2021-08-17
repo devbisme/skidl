@@ -21,7 +21,7 @@ def stm32f405r(vdd, gnd, _5v):
     led_indicator(u.p8,gnd, 'blue', '5.6k')
     usb(_5v, gnd, u.p43, u.p44, False)
     
-    gnd += vcap1.p2, vcap2.p2
+    gnd += vcap1.p2, vcap2.p2, u.p12, u.p18, u.p63
 
 
 # Micro-B USB connector with protection and optional pull-up impedance matching resistors
@@ -91,6 +91,8 @@ def board_enable(vcc, gnd_):
 
     c1.fields['voltage']='100v'
     c1.fields['temp_coeff']='X7R'
+    c1.p1 += xor_ic.p5
+    c1.p2 += gnd_
 
     bd_sel_ls += xor_ic.p1, r1.p1
     n1 += xor_ic.p2, r2.p1

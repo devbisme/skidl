@@ -109,37 +109,39 @@ def gen_power_part_eeschema(part, stub_name, c=[0,0]):
 
     for pin in part.pins:
         try:
-            if pin.net.name == stub_name:
-                # find the stub in the part
-                time_hex = hex(int(time.time()))[2:]
-                x = c[0] + part.sch_bb[0] + pin.x
-                y = c[1] + part.sch_bb[1] - pin.y
-                out=["$Comp\n"]
-                out.append("L power:{} #PWR?\n".format(stub_name))
-                out.append("U 1 1 {}\n".format(time_hex))    
-                out.append("P {} {}\n".format(str(x), str(y)))
-                # Add part symbols. For now we are only adding the designator
-                n_F0 = 1
-                for i in range(len(part.draw)):
-                    if re.search("^DrawF0", str(part.draw[i])):
-                        n_F0 = i
-                        break
-                out.append('F 0 "{}" {} {} {} {} {} {} {}\n'.format(
-                                                stub_name,
-                                                part.draw[n_F0].orientation,
-                                                str(x + 25),
-                                                str(y + 25),
-                                                str(40),
-                                                "000",
-                                                part.draw[n_F0].halign,
-                                                part.draw[n_F0].valign
-                ))
-                out.append("   1   {} {}\n".format(str(x), str(y)))
-                out.append("   {}   {}  {}  {}\n".format(1, 0, 0, -1))
-                out.append("$EndComp\n") 
-                print(("\n" + "".join(out)))
-        except:
-            print("can't find pin")
+            if not (pin.net is None):
+                if pin.net.name == stub_name:
+                    # find the stub in the part
+                    time_hex = hex(int(time.time()))[2:]
+                    x = c[0] + part.sch_bb[0] + pin.x
+                    y = c[1] + part.sch_bb[1] - pin.y
+                    out=["$Comp\n"]
+                    out.append("L power:{} #PWR?\n".format(stub_name))
+                    out.append("U 1 1 {}\n".format(time_hex))    
+                    out.append("P {} {}\n".format(str(x), str(y)))
+                    # Add part symbols. For now we are only adding the designator
+                    n_F0 = 1
+                    for i in range(len(part.draw)):
+                        if re.search("^DrawF0", str(part.draw[i])):
+                            n_F0 = i
+                            break
+                    out.append('F 0 "{}" {} {} {} {} {} {} {}\n'.format(
+                                                    stub_name,
+                                                    part.draw[n_F0].orientation,
+                                                    str(x + 25),
+                                                    str(y + 25),
+                                                    str(40),
+                                                    "000",
+                                                    part.draw[n_F0].halign,
+                                                    part.draw[n_F0].valign
+                    ))
+                    out.append("   1   {} {}\n".format(str(x), str(y)))
+                    out.append("   {}   {}  {}  {}\n".format(1, 0, 0, -1))
+                    out.append("$EndComp\n") 
+        except Exception as inst:
+            print(type(inst))
+            print(inst.args)
+            print(inst)
     return ("\n" + "".join(out))
 
 #LINE/LINE
@@ -204,10 +206,10 @@ def draw_rect_hierarchies(hier, sch_center):
             yMin = t_yMin
 
     # expand the box a bit so it looks nice
-    xMin += sch_center[0] - 100
-    xMax += sch_center[0] + 100
-    yMin += sch_center[1] + 100
-    yMax += sch_center[1] - 400 # Make box a bit bigger on top to make room for a label
+    xMin += sch_center[0] - 200
+    xMax += sch_center[0] + 200
+    yMin += sch_center[1] + 200
+    yMax += sch_center[1] - 500 # Make box a bit bigger on top to make room for a label
 
     box = []
 
@@ -1331,7 +1333,7 @@ class Circuit(SkidlBaseObject):
                     hierarchies[h]['parts_placed'].append(p0.ref)
                     hierarchies[h]['nets_to_route'].remove(n) # remove the net after we've placed this component
                 
-
+            # TODO: place any other parts that have not been addressed yet
             
 
             # Add the central coordinates to the part so they're in the center
