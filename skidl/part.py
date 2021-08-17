@@ -1178,6 +1178,8 @@ class Part(SkidlBaseObject):
         out.append("$EndComp\n") 
         return ("\n" + "".join(out))
 
+
+
     def erc_desc(self):
         """Create description of part for ERC and other error reporting."""
         return "{p.name}/{p.ref}".format(p=self)

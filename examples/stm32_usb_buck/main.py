@@ -9,9 +9,9 @@ for file in os.listdir("."):
 
 
 
-_5v_usb = Net('+3V3')#, stub=True)
-_3v3 = Net('+3V3')#, stub=True)
-gnd = Net('GND')#, stub=True)
+_5v_usb = Net('+5V', stub=True)
+_3v3 = Net('+3V3', stub=True)
+gnd = Net('GND', stub=True)
 
 sc.stm32f405r(_3v3, gnd, _5v_usb)
 sc.board_enable(_3v3, gnd)

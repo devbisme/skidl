@@ -104,6 +104,50 @@ def net_collision(parts, wire,c):
             collided_parts.append(pt.ref)
     return collided_parts
 
+
+def gen_power_part_eeschema(part, stub_name, c=[0,0]):
+
+    for pin in part.pins:
+        try:
+            if pin.net.name == stub_name:
+                # find the stub in the part
+                time_hex = hex(int(time.time()))[2:]
+                c[0] += part.sch_bb[0] + pin.x
+                c[1] += part.sch_bb[1] - pin.y
+                out=["$Comp\n"]
+                out.append("L power:{} #PWR?\n".format(stub_name))
+                out.append("U 1 1 {}\n".format(time_hex))    
+                out.append("P {} {}\n".format(str(c[0]), str(c[1])))
+                # Add part symbols. For now we are only adding the designator
+                n_F0 = 1
+                for i in range(len(part.draw)):
+                    if re.search("^DrawF0", str(part.draw[i])):
+                        n_F0 = i
+                        break
+                out.append('F 0 "{}" {} {} {} {} {} {} {}\n'.format(
+                                                part.ref,
+                                                part.draw[n_F0].orientation,
+                                                str(part.draw[n_F0].x + c[0]),
+                                                str(part.draw[n_F0].y + c[1]),
+                                                part.draw[n_F0].size,
+                                                "000",
+                                                part.draw[n_F0].halign,
+                                                part.draw[n_F0].valign
+                ))
+                out.append("   1   {} {}\n".format(str(c[0]), str(c[1])))
+                out.append("   {}   {}  {}  {}\n".format(1, 0, 0, -1))
+                out.append("$EndComp\n") 
+        except:
+            print("can't ")
+    return ("\n" + "".join(out))
+
+def add_stub(stub_name, pin, c):
+    print(str(stub_name))
+    print(pin)
+
+    part_code = gen_power_part_eeschema(pin.part, stub_name, [c[0], c[1]])
+    return part_code
+
 #LINE/LINE
 # https://www.jeffreythompson.org/collision-detection/line-rect.php
 def lineLine( x1,  y1,  x2,  y2,  x3,  y3,  x4,  y4):
@@ -1203,11 +1247,14 @@ class Circuit(SkidlBaseObject):
 
         circuit_parts = [] # !! MOST IMPORTANT LIST !!  Holds all individual circuit parts to be added
         nSheets = 1
-        # Get the list of nets which will be routed and not represented by stubs.
-        # Search all nets for those set as stubs or that are no-connects.
-        # net_stubs = [
-        #     n for n in self.nets if getattr(n, "stub", False) or isinstance(n, NCNet)
-        # ]
+
+        # Get a list of all the stubs for generation at the end
+        net_stubs = []
+        for i in self.nets:
+            if hasattr(i, 'stub'):
+                net_stubs.append(i)
+            # if i.net_stubs:
+            #     print(str(i.net_stubs))
         # # Also find buses that are set as stubs and add their individual nets.
         # net_stubs.extend(
         #     expand_buses([b for b in self.buses if getattr(b, "stub", False)])
@@ -1309,6 +1356,16 @@ class Circuit(SkidlBaseObject):
                     # if len(t_collision)>0:
                     #     (print(str(n) + "Collides with " + str(t_collision)))
                 eeschema_code.append(wire)
+
+            # Append stubs
+            for s in net_stubs:
+                for p in s.pins:
+                    if p.part.hierarchy[4:] == h:
+                        # print("add stub " + s._name + " to " +p.part.ref)
+                        stub = add_stub(s._name, p, sch_c)
+                        eeschema_code.append(stub)
+
+
             rect = draw_rect_hierarchies(hierarchies[h], sch_c)
             eeschema_code.append(rect)
             # Create the new hierarchy file
