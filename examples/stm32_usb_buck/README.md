@@ -17,3 +17,13 @@ https://resources.altium.com/p/guidelines-creating-useful-schematic-symbols
 
 Known Bugs:
 * All nets must be unique except stubs!  Otherwise the schematic layout tool will not properly layout parts
+
+Features to add:
+* Edit the schematic itself and place images
+** https://docs.kicad.org/5.0/en/pl_editor/pl_editor.pdf
+* Add images and other information to schematic
+** Link to external dashboard, perhaps with testing data
+* Generate default circuit board like https://github.com/jvestman/skimibowi
+
+TODO
+* https://github.com/xesscorp/zyc

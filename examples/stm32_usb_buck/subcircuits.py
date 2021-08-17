@@ -19,7 +19,7 @@ def stm32f405r(vdd, gnd, _5v):
     vc2 += u.p47, vcap2.p1
 
     led_indicator(u.p8,gnd, 'blue', '5.6k')
-    usb(_5v, gnd, u.p44, u.p45, False)
+    usb(_5v, gnd, u.p43, u.p44, False)
 
 
 

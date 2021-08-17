@@ -165,6 +165,7 @@ def draw_rect_hierarchies(hier, sch_center):
         if t_yMin > yMin:
             yMin = t_yMin
 
+    # expand the box a bit so it looks nice
     xMin += sch_center[0] - 100
     xMax += sch_center[0] + 100
     yMin += sch_center[1] + 100
@@ -209,7 +210,6 @@ def gen_hier_sheet(title, x_start, y_start, width=1000, height=2000):
     sheet.append('$EndSheet\n')
 
     return (("" + "".join(sheet)))
-
 
 
 class Circuit(SkidlBaseObject):
@@ -1307,7 +1307,7 @@ class Circuit(SkidlBaseObject):
                 for n in hierarchies[h]['nets']:
                     t_collision = net_collision(hierarchies[h]['parts'], wire, sch_c)
                     # if len(t_collision)>0:
-                        # (print("Collides with " + str(t_collision)))
+                    #     (print(str(n) + "Collides with " + str(t_collision)))
                 eeschema_code.append(wire)
             rect = draw_rect_hierarchies(hierarchies[h], sch_c)
             eeschema_code.append(rect)
