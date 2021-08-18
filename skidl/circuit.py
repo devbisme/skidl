@@ -1300,7 +1300,6 @@ class Circuit(SkidlBaseObject):
             hierarchies[h]['nets_to_route'] = []
             # Range through all the nets and place the 
             for n in hierarchies[h]['nets']:
-                
                 found = False
                 cp_num = 0 # central part pin # in the net
                 for pin in n.pins:
@@ -1332,21 +1331,37 @@ class Circuit(SkidlBaseObject):
             # https://resources.altium.com/p/guidelines-creating-useful-schematic-symbols
             # 2nd round parts to be nudged only left and right
             for n in hierarchies[h]['nets_to_route']:
-                p0 = Part.get(n.pins[0].ref)
-                p1 = Part.get(n.pins[1].ref)
-                dx = n.pins[0].x + n.pins[1].x
-                dy = n.pins[0].y - n.pins[1].y
-                if p0.ref in hierarchies[h]['parts_placed']:
-                    p1.move_part(dx, dy,hierarchies[h]['parts'])
-                    print("Moving part: " + p1.ref + " by  x: " + str(dx) + "  y: " + str(dy))
-                    hierarchies[h]['parts_placed'].append(p1.ref)
-                    hierarchies[h]['nets_to_route'].remove(n) # remove the net after we've placed this component
-                elif p1.ref in hierarchies[h]['parts_placed']:
-                    p0.move_part(dx, dy,hierarchies[h]['parts'])
-                    print("Moving part: " + p0.ref + " by  x: " + str(dx) + "  y: " + str(dy))
-                    hierarchies[h]['parts_placed'].append(p0.ref)
-                    hierarchies[h]['nets_to_route'].remove(n) # remove the net after we've placed this component
-                
+                # look for parts that are connected to more central parts already
+                found = False
+                fnum = 0 # track which part was placed already, and we'll place relative to that
+                for p in n.pins:
+                    if p.ref in hierarchies[h]['parts_placed']:
+                        found = True
+                        break
+                    else:
+                        fnum += 1
+                if found:
+                    for x in n.pins:
+                        if x.ref in n.pins[fnum].ref:
+                            continue
+                        dx = n.pins[fnum].x + x.x + n.pins[fnum].part.sch_bb[0]
+                        dy = n.pins[fnum].y - x.y - n.pins[fnum].part.sch_bb[1]
+                        p = Part.get(x.ref)
+                        print("Moving part: " + p.ref + " by  x: " + str(dx) + "  y: " + str(dy))
+                        p.move_part(dx, dy,hierarchies[h]['parts'])
+                        hierarchies[h]['parts_placed'].append(p.ref)
+                        hierarchies[h]['nets_to_route'].remove(n) # remove the net after we've placed this component
+                        # if p0.ref in hierarchies[h]['parts_placed']:
+                        #     p1.move_part(dx, dy,hierarchies[h]['parts'])
+                        #     print("Moving part: " + p1.ref + " by  x: " + str(dx) + "  y: " + str(dy))
+                        #     hierarchies[h]['parts_placed'].append(p1.ref)
+                        #     hierarchies[h]['nets_to_route'].remove(n) # remove the net after we've placed this component
+                        # elif p1.ref in hierarchies[h]['parts_placed']:
+                        #     p0.move_part(dx, dy,hierarchies[h]['parts'])
+                        #     print("Moving part: " + p0.ref + " by  x: " + str(dx) + "  y: " + str(dy))
+                        #     hierarchies[h]['parts_placed'].append(p0.ref)
+                        #     hierarchies[h]['nets_to_route'].remove(n) # remove the net after we've placed this component
+
             # TODO: place any other parts that have not been addressed yet
             
 
