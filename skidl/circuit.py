@@ -1387,7 +1387,7 @@ class Circuit(SkidlBaseObject):
             # Create the nets and add them to the circuit parts list
             for n in hierarchies[h]['nets']:
                 # print("Net from: " + n.pins[0].ref + " to " + n.pins[1].ref)
-                wire = n.gen_eeschema(sch_c)
+                wire = n.gen_eeschema(hierarchies[h]['parts'], sch_c)
                 # Look through the hierarchy nets and find collisions
                 for n in hierarchies[h]['nets']:
                     t_collision = det_net_wire_collision(hierarchies[h]['parts'], wire, sch_c)

@@ -734,14 +734,14 @@ class Net(SkidlBaseObject):
         self._name = re.sub(r"\W", "_", self._name)
 
     # Generate the eeschema code for this net
-    def gen_eeschema(self, c):
+    def gen_eeschema(self, parts, c):
         import skidl
         tool = skidl.get_default_tool()
         self.test_validity()
 
         try:
             gen_func = getattr(self, "_gen_wire_eeschema_{}".format(tool))
-            return gen_func(c)
+            return gen_func(parts, c)
         except AttributeError:
             log_and_raise(
                 logger,

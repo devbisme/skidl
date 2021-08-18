@@ -1736,7 +1736,7 @@ def _get_schematic_center_(self, _file):
 
 # Make the eeschema code that creates a wire between 2 parts
 # Takes in a net and coordinates
-def _gen_wire_eeschema_(n, c):
+def _gen_wire_eeschema_(n, parts, c):
 
     x1 = c[0] + n.pins[0].part.sch_bb[0] + n.pins[0].x
     y1 = c[1] + n.pins[0].part.sch_bb[1] - n.pins[0].y
