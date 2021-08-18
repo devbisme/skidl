@@ -69,6 +69,21 @@ rotation_matrix = [
                     [0,-1,-1,0]  # 270 deg x:-1600  y:  700
 ]
 
+# pin_m 
+def calc_move_part(pin_m, pin_nm, parts_list):
+    # for placing around the center we have to ADD the y-axis of the central part
+    if pin_nm.ref in parts_list[0]:
+        dx = pin_m.x + pin_nm.x + pin_nm.part.sch_bb[0]
+        dy = -pin_m.y + pin_nm.y + pin_nm.part.sch_bb[1]
+    else:
+    # for placing the rest of the parts we subtract the y-axis of the already placed part
+        dx = pin_m.x + pin_nm.x + pin_nm.part.sch_bb[0]
+        dy = -pin_m.y + pin_nm.y - pin_nm.part.sch_bb[1] 
+    p = Part.get(pin_m.part.ref)
+    print("Moving part: " + p.ref + " by  x: " + str(dx) + "  y: " + str(dy))
+    p.move_part(dx, dy,parts_list)
+
+
 def gen_power_part_eeschema(part, stub_name, c=[0,0], orientation = [1,0,0,-1]):
 
     for pin in part.pins:
@@ -1312,13 +1327,9 @@ class Circuit(SkidlBaseObject):
                     for pin in n.pins:
                         if (pin.ref in centerPart) or (pin.ref in hierarchies[h]['parts_placed']):
                             continue
-                        # find the distance between the pins
-                        dx = n.pins[cp_num].x + pin.x
-                        dy = n.pins[cp_num].y - pin.y
-                        p = Part.get(pin.ref)
-                        print("Moving part: " + p.ref + " by  x: " + str(dx) + "  y: " + str(dy))
-                        p.move_part(dx, dy,hierarchies[h]['parts'])
-                        hierarchies[h]['parts_placed'].append(p.ref)  
+                        # calculate the distance and move the pin
+                        calc_move_part(pin, n.pins[cp_num], hierarchies[h]['parts'])
+                        hierarchies[h]['parts_placed'].append(pin.ref)  
                 else:
                     hierarchies[h]['nets_to_route'].append(n)
             
@@ -1333,24 +1344,32 @@ class Circuit(SkidlBaseObject):
             for n in hierarchies[h]['nets_to_route']:
                 # look for parts that are connected to more central parts already
                 found = False
-                fnum = 0 # track which part was placed already, and we'll place relative to that
+                pplaced = "" # track which part was placed already, and we'll place relative to that
                 for p in n.pins:
                     if p.ref in hierarchies[h]['parts_placed']:
                         found = True
+                        pplaced = p.ref
+                        break
+                if not found:
+                    continue
+
+                # range through net pins and look for the part we already placed
+                # We need to find the list index of the net/part already placed
+                cp_num = 0 # central part pin # in the net
+                for pin in n.pins:
+                    if pin.ref in pplaced:
                         break
                     else:
-                        fnum += 1
-                if found:
-                    for x in n.pins:
-                        if x.ref in n.pins[fnum].ref:
-                            continue
-                        dx = n.pins[fnum].x + x.x + n.pins[fnum].part.sch_bb[0]
-                        dy = n.pins[fnum].y - x.y - n.pins[fnum].part.sch_bb[1]
-                        p = Part.get(x.ref)
-                        print("Moving part: " + p.ref + " by  x: " + str(dx) + "  y: " + str(dy))
-                        p.move_part(dx, dy,hierarchies[h]['parts'])
-                        hierarchies[h]['parts_placed'].append(p.ref)
-                        hierarchies[h]['nets_to_route'].remove(n) # remove the net after we've placed this component
+                        cp_num += 1
+
+                for pin in n.pins:
+                    # place the part if 
+                    if pin.ref in pplaced or (pin.ref in hierarchies[h]['parts_placed']):
+                        continue
+
+                    calc_move_part(pin, n.pins[cp_num], hierarchies[h]['parts'])
+                    hierarchies[h]['parts_placed'].append(pin.ref)
+                    hierarchies[h]['nets_to_route'].remove(n) # remove the net after we've placed this component
             # TODO: place any other parts that have not been addressed yet
             
 

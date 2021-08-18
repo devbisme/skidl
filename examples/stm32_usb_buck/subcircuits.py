@@ -23,17 +23,6 @@ def stm32f405r(vdd, gnd, _5v):
     
     gnd += vcap1.p2, vcap2.p2, u.p12, u.p18, u.p63
 
-    r1 = Part("Device", 'R', footprint='R_0603_1608Metric', value='1.5k')
-    r2 = Part("Device", 'R', footprint='R_0603_1608Metric', value='1.5k')
-    r3 = Part("Device", 'R', footprint='R_0603_1608Metric', value='1.5k')
-
-    # nested placement test for schematic generation
-    r1.p1 += u.p53
-    r1.p2 += r2.p1
-    r2.p2 += r3.p1
-    r3.p2 += u.p53
-
-
 # Micro-B USB connector with protection and optional pull-up impedance matching resistors
 # TODO: Get the impedance match resistor logic to work
 def usb(_5v, gnd, dp, dm, imp_match):
