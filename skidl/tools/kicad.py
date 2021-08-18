@@ -1740,7 +1740,7 @@ def _gen_wire_eeschema_(n, parts, c):
 
 # https://www.jeffreythompson.org/collision-detection/line-rect.php
 # For a particular wire see if it collides with any parts
-    def det_net_wire_collision(parts, c, x1,y1,x2,y2):
+    def det_net_wire_collision(parts, x1,y1,x2,y2):
 
         # # check if we collide with a part
         # t = wire.split("\n")
@@ -1762,10 +1762,10 @@ def _gen_wire_eeschema_(n, parts, c):
         y1max = y2
         collided_parts = []
         for pt in parts:
-            x2min = pt.sch_bb[0] - pt.sch_bb[2] + c[0]
-            y2min = pt.sch_bb[1] - pt.sch_bb[3] + c[1]
-            x2max = pt.sch_bb[0] + pt.sch_bb[2] + c[0]
-            y2max = pt.sch_bb[1] + pt.sch_bb[3] + c[1]
+            x2min = pt.sch_bb[0] - pt.sch_bb[2]
+            y2min = pt.sch_bb[1] - pt.sch_bb[3]
+            x2max = pt.sch_bb[0] + pt.sch_bb[2]
+            y2max = pt.sch_bb[1] + pt.sch_bb[3]
             
             if lineLine(x1min,y1min,x1max,y1max, x2min,y2min,x2min, y2max):
                 # print(pt.ref + " collision left")
@@ -1802,15 +1802,16 @@ def _gen_wire_eeschema_(n, parts, c):
 
 
 
-    x1 = c[0] + n.pins[0].part.sch_bb[0] + n.pins[0].x
-    y1 = c[1] + n.pins[0].part.sch_bb[1] - n.pins[0].y
+    x1 = n.pins[0].part.sch_bb[0] + n.pins[0].x
+    y1 = n.pins[0].part.sch_bb[1] - n.pins[0].y
 
-    x2 = c[0] + n.pins[1].part.sch_bb[0] + n.pins[1].x
-    y2 = c[1] + n.pins[1].part.sch_bb[1] - n.pins[1].y
+    x2 = n.pins[1].part.sch_bb[0] + n.pins[1].x
+    y2 = n.pins[1].part.sch_bb[1] - n.pins[1].y
 
-    collide = det_net_wire_collision(parts, c, x1,y1,x2,y2)
+    collide = det_net_wire_collision(parts, x1,y1,x2,y2)
     print(collide)
     
+    # TODO add the center coordinates
     wire = []
     wire.append("Wire Wire Line\n")
     wire.append("	{} {} {} {}\n".format(x1,y1,x2,y2))
