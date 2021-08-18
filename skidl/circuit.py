@@ -1351,17 +1351,6 @@ class Circuit(SkidlBaseObject):
                         p.move_part(dx, dy,hierarchies[h]['parts'])
                         hierarchies[h]['parts_placed'].append(p.ref)
                         hierarchies[h]['nets_to_route'].remove(n) # remove the net after we've placed this component
-                        # if p0.ref in hierarchies[h]['parts_placed']:
-                        #     p1.move_part(dx, dy,hierarchies[h]['parts'])
-                        #     print("Moving part: " + p1.ref + " by  x: " + str(dx) + "  y: " + str(dy))
-                        #     hierarchies[h]['parts_placed'].append(p1.ref)
-                        #     hierarchies[h]['nets_to_route'].remove(n) # remove the net after we've placed this component
-                        # elif p1.ref in hierarchies[h]['parts_placed']:
-                        #     p0.move_part(dx, dy,hierarchies[h]['parts'])
-                        #     print("Moving part: " + p0.ref + " by  x: " + str(dx) + "  y: " + str(dy))
-                        #     hierarchies[h]['parts_placed'].append(p0.ref)
-                        #     hierarchies[h]['nets_to_route'].remove(n) # remove the net after we've placed this component
-
             # TODO: place any other parts that have not been addressed yet
             
 
