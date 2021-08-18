@@ -80,7 +80,7 @@ def calc_move_part(pin_m, pin_nm, parts_list):
         dx = pin_m.x + pin_nm.x + pin_nm.part.sch_bb[0]
         dy = -pin_m.y + pin_nm.y - pin_nm.part.sch_bb[1] 
     p = Part.get(pin_m.part.ref)
-    print("Moving part: " + p.ref + " by  x: " + str(dx) + "  y: " + str(dy))
+    # print("Moving part: " + p.ref + " by  x: " + str(dx) + "  y: " + str(dy))
     p.move_part(dx, dy,parts_list)
 
 
@@ -1304,6 +1304,10 @@ class Circuit(SkidlBaseObject):
         # get the hierarchy nets
         for h in hierarchies:
             for n in self.nets:
+                # for p in n.pins:
+                #     elkjs_net = []
+                #     t = "edge {}.{} -> {}.{}".format()
+                #     elkjs_net.append(t)
                 if h in n.hierarchy:
                     hierarchies[h]['nets'].append(n)
 

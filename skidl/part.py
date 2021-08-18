@@ -1029,8 +1029,23 @@ class Part(SkidlBaseObject):
             self.sch_bb[2] = 100
         if self.sch_bb[3] < 100:
             self.sch_bb[3] = 100
+        # print("width: " + str(self.sch_bb[2]) + ", height: " + str(self.sch_bb[3]))
+        elkjs_part = []
+        elkjs_part.append("node {}".format(self.ref) + ' {\n' + '\tlayout [ size: {},{} ]\n'.format(self.sch_bb[2], self.sch_bb[3]) + '\tportConstraints: FIXED_SIDE\n')
 
-
+        for p in self.pins:
+            dir = ""
+            if p.orientation == 'R':
+                dir = "EAST"
+            elif p.orientation == 'L':
+                dir = "WEST"
+            elif p.orientation == 'U':
+                dir = "NORTH"
+            elif p.orientation == 'D':
+                dir = "SOUTH"
+            elkjs_part.append("\tport p{} ".format(p.num) + "{ \n" + "^port.side: {} \n".format(dir) + '\t\tlabel "{}"\n'.format(p.name) + "\t}\n")
+        elkjs_part.append("}")
+        print("\n" + "".join(elkjs_part))
     def generate_xml_component(self, tool=None):
         """
         Generate the part information for inclusion in an XML file.
@@ -1094,9 +1109,9 @@ class Part(SkidlBaseObject):
             # https://stackoverflow.com/questions/20925818/algorithm-to-check-if-two-boxes-overlap
             if (x1min <= x2max) and (x2min <= x1max) and (y1min <= y2max) and (y2min <= y1max):
                 if move_dir == 'R':
-                    self.move_part(50, 0, _parts_list)
+                    self.move_part(200, 0, _parts_list)
                 else:
-                    self.move_part(-50, 0, _parts_list)
+                    self.move_part(-200, 0, _parts_list)
 
 
     def generate_svg_component(self, symtx="", tool=None, net_stubs=None):
