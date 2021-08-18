@@ -1352,31 +1352,71 @@ class Circuit(SkidlBaseObject):
                             p = _Pin(num = pin.num, x = pin.x, y = pin.y)
                             pt.pins.append(p)
                         s.parts.append(pt)
-
-            for n in routed_nets:
-                # try:
-                #     if n.name == '__NOCONNECT' or n.stub:
-                #         continue
-                # except:
-                #     continue
-                t = n.hierarchy
-                u = t.split('.') # ignore 'top.'
-                hier_name = u[1]
-                net = _Net(n.name)
-                for p in n.pins:
-                    n = OrderedDict()
-                    n['ref'] = p.ref
-                    n['pin'] = p.num
-                    net.pins.append(n.copy())
-                for s in subcircuits:
-                    if s.name in hier_name:
-                        s.nets.append(net)
+        # Get the hierarchy nets
+        for n in routed_nets:
+            t = n.hierarchy
+            u = t.split('.') # ignore 'top.'
+            hier_name = u[1]
+            net = _Net(n.name)
+            for p in n.pins:
+                d = OrderedDict()
+                d['ref'] = p.ref
+                d['pin'] = p.num
+                net.pins.append(d.copy())
+            for s in subcircuits:
+                if s.name in hier_name:
+                    s.nets.append(net)
+                    print(str(net))
+                    break
                 #     hierarchies[h]['nets'].append(n)
                 # hier_sheet = gen_hier_sheet(hier_name, x_start, y_start)
                 # top_page.append(hier_sheet)
                 # x_start += 3000
             # else:
             #     hierarchies[hier_name]['parts'].append(i)
+
+
+
+
+        # # Range through each hierarchy and place parts around the center part (part 0)
+        # for h in hierarchies:
+        #     centerPart = hierarchies[h]['parts'][0].ref # Center part that we place everything else around
+        #     eeschema_code = [] # List to hold all the components we'll put the in the eeschema .sch file
+        #     hierarchies[h]['parts_placed'] = []
+        #     hierarchies[h]['nets_to_route'] = []
+        #     # Range through all the nets and place the 
+        #     for n in hierarchies[h]['nets']:
+        #         # find the distance between the pins
+        #         dx = n.pins[0].x + n.pins[1].x
+        #         dy = n.pins[0].y - n.pins[1].y
+        #         # determine which part should move.  
+        #         # The first part in the hierarch is the center
+        #         # Make sure to only place a part once (check for it in parts_placed before trying to move a part)
+        #         if n.pins[0].ref == centerPart and not(n.pins[1].ref in hierarchies[h]['parts_placed']):
+        #             p = Part.get(n.pins[1].ref)
+        #             p.move_part(dx, dy,hierarchies[h]['parts'])
+        #             hierarchies[h]['parts_placed'].append(p.ref)
+                    
+        #         elif n.pins[1].ref == centerPart and not(n.pins[0].ref in hierarchies[h]['parts_placed']):
+        #             p = Part.get(n.pins[0].ref)
+        #             p.move_part(dx, dy,hierarchies[h]['parts'])
+        #             hierarchies[h]['parts_placed'].append(p.ref)
+                    
+        #         else:
+        #             hierarchies[h]['nets_to_route'].append(n)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         # Make dictionary of hierarchies and append parts from that hierarchy
         # Also make the hierarchicalc schematics for each subcircuit and add them to the top_page[] list
