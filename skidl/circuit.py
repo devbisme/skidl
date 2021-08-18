@@ -36,7 +36,7 @@ import re
 import subprocess
 import time
 from builtins import range, str, super
-from collections import defaultdict, deque
+from collections import defaultdict, deque, OrderedDict
 
 import graphviz
 from future import standard_library
@@ -1263,7 +1263,7 @@ class Circuit(SkidlBaseObject):
         @dataclass
         class _Net:
             name: str
-            pins: List[Dict[str, int]] = field(default_factory=lambda: [{}]) # part and pin #
+            pins: List[Dict] = field(default_factory=lambda: []) # part and pin #
 
         @dataclass
         class _subcircuit:
@@ -1285,10 +1285,10 @@ class Circuit(SkidlBaseObject):
         nSheets = 1 # Keep track of the number of sheets for use in eeschema header
 
         # Get a list of all the stubs for generation at the end
-        net_stubs = []
+        stubs = []
         for i in self.nets:
             if hasattr(i, 'stub'):
-                net_stubs.append(i)
+                stubs.append(i)
 
         # Range through the parts and create bounding boxes
         for i in self.parts:
@@ -1353,7 +1353,6 @@ class Circuit(SkidlBaseObject):
                             pt.pins.append(p)
                         s.parts.append(pt)
 
-
             for n in routed_nets:
                 # try:
                 #     if n.name == '__NOCONNECT' or n.stub:
@@ -1365,9 +1364,12 @@ class Circuit(SkidlBaseObject):
                 hier_name = u[1]
                 net = _Net(n.name)
                 for p in n.pins:
-                    net.pins.append({p.ref,p.num})
+                    n = OrderedDict()
+                    n['ref'] = p.ref
+                    n['pin'] = p.num
+                    net.pins.append(n.copy())
                 for s in subcircuits:
-                    if s.name == hier_name:
+                    if s.name in hier_name:
                         s.nets.append(net)
                 #     hierarchies[h]['nets'].append(n)
                 # hier_sheet = gen_hier_sheet(hier_name, x_start, y_start)
@@ -1479,7 +1481,7 @@ class Circuit(SkidlBaseObject):
                 eeschema_code.append(wire)
 
             # Append stubs
-            for s in net_stubs:
+            for s in stubs:
                 for p in s.pins:
                     if p.part.hierarchy[4:] == h:
                         # print("add stub " + s._name + " to " +p.part.ref)
