@@ -1292,14 +1292,6 @@ class Circuit(SkidlBaseObject):
                 if h in n.hierarchy:
                     hierarchies[h]['nets'].append(n)
 
-
-       
-
-
-
-#
-#************************************************************************
-#
         # Range through each hierarchy and place parts around the center part (part 0)
         for h in hierarchies:
             centerPart = hierarchies[h]['parts'][0].ref # Center part that we place everything else around
@@ -1308,22 +1300,26 @@ class Circuit(SkidlBaseObject):
             hierarchies[h]['nets_to_route'] = []
             # Range through all the nets and place the 
             for n in hierarchies[h]['nets']:
-                # find the distance between the pins
-                dx = n.pins[0].x + n.pins[1].x
-                dy = n.pins[0].y - n.pins[1].y
-                # determine which part should move.  
-                # The first part in the hierarch is the center
-                # Make sure to only place a part once (check for it in parts_placed before trying to move a part)
-                if n.pins[0].ref == centerPart and not(n.pins[1].ref in hierarchies[h]['parts_placed']):
-                    p = Part.get(n.pins[1].ref)
-                    p.move_part(dx, dy,hierarchies[h]['parts'])
-                    hierarchies[h]['parts_placed'].append(p.ref)
-                    
-                elif n.pins[1].ref == centerPart and not(n.pins[0].ref in hierarchies[h]['parts_placed']):
-                    p = Part.get(n.pins[0].ref)
-                    p.move_part(dx, dy,hierarchies[h]['parts'])
-                    hierarchies[h]['parts_placed'].append(p.ref)
-                    
+                
+                found = False
+                cp_num = 0 # central part pin # in the net
+                for pin in n.pins:
+                    if pin.ref in centerPart:
+                        found = True
+                        break
+                    else:
+                        cp_num += 1
+                if found:
+                    for pin in n.pins:
+                        if (pin.ref in centerPart) or (pin.ref in hierarchies[h]['parts_placed']):
+                            continue
+                        # find the distance between the pins
+                        dx = n.pins[cp_num].x + pin.x
+                        dy = n.pins[cp_num].y - pin.y
+                        p = Part.get(pin.ref)
+                        print("Moving part: " + p.ref + " by  x: " + str(dx) + "  y: " + str(dy))
+                        p.move_part(dx, dy,hierarchies[h]['parts'])
+                        hierarchies[h]['parts_placed'].append(p.ref)  
                 else:
                     hierarchies[h]['nets_to_route'].append(n)
             
@@ -1342,10 +1338,12 @@ class Circuit(SkidlBaseObject):
                 dy = n.pins[0].y - n.pins[1].y
                 if p0.ref in hierarchies[h]['parts_placed']:
                     p1.move_part(dx, dy,hierarchies[h]['parts'])
+                    print("Moving part: " + p1.ref + " by  x: " + str(dx) + "  y: " + str(dy))
                     hierarchies[h]['parts_placed'].append(p1.ref)
                     hierarchies[h]['nets_to_route'].remove(n) # remove the net after we've placed this component
                 elif p1.ref in hierarchies[h]['parts_placed']:
                     p0.move_part(dx, dy,hierarchies[h]['parts'])
+                    print("Moving part: " + p0.ref + " by  x: " + str(dx) + "  y: " + str(dy))
                     hierarchies[h]['parts_placed'].append(p0.ref)
                     hierarchies[h]['nets_to_route'].remove(n) # remove the net after we've placed this component
                 

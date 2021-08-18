@@ -1067,7 +1067,7 @@ class Part(SkidlBaseObject):
         move_dir = 'L'
         if dx > 0:
             move_dir = 'R'
-            dy = -dy # TODO: figure out why we need to reverse the y sign when moving right...
+            # dy = -dy # TODO: figure out why we need to reverse the y sign when moving right...
         # Move the part
         self.sch_bb[0] += dx
         self.sch_bb[1] -= dy
