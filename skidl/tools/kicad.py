@@ -1738,16 +1738,85 @@ def _get_schematic_center_(self, _file):
 # Takes in a net and coordinates
 def _gen_wire_eeschema_(n, parts, c):
 
+# https://www.jeffreythompson.org/collision-detection/line-rect.php
+# For a particular wire see if it collides with any parts
+    def det_net_wire_collision(parts, c, x1,y1,x2,y2):
+
+        # # check if we collide with a part
+        # t = wire.split("\n")
+        # u = t[2].split() # x1 y1 x2 y2
+        # v = map(int, u)
+        # w = list(v)
+        # order should be x1min, x1max, y1min, y1max
+        if x1 > x2:
+            t = x1
+            x1 = x2
+            x2 = t
+        if y1 > y2:
+            t = y1
+            y1 = y2
+            y2 = t
+        x1min = x1
+        y1min = y1
+        x1max = x2
+        y1max = y2
+        collided_parts = []
+        for pt in parts:
+            x2min = pt.sch_bb[0] - pt.sch_bb[2] + c[0]
+            y2min = pt.sch_bb[1] - pt.sch_bb[3] + c[1]
+            x2max = pt.sch_bb[0] + pt.sch_bb[2] + c[0]
+            y2max = pt.sch_bb[1] + pt.sch_bb[3] + c[1]
+            
+            if lineLine(x1min,y1min,x1max,y1max, x2min,y2min,x2min, y2max):
+                # print(pt.ref + " collision left")
+                collided_parts.append(pt.ref)
+            elif lineLine(x1min,y1min,x1max,y1max, x2max,y2min, x2max,y2max):
+                # print(pt.ref + " collision right")
+                collided_parts.append(pt.ref)
+            elif lineLine(x1min,y1min,x1max,y1max, x2min,y2min, x2max,y2min):
+                # print(pt.ref + " collision top")
+                collided_parts.append(pt.ref)
+            elif lineLine(x1min,y1min,x1max,y1max, x2min,y2max, x2max,y2max):
+                # print(pt.ref + " collision bottom")
+                collided_parts.append(pt.ref)
+        return collided_parts
+
+
+
+    #LINE/LINE
+    # https://www.jeffreythompson.org/collision-detection/line-rect.php
+    def lineLine( x1,  y1,  x2,  y2,  x3,  y3,  x4,  y4):
+    # calculate the distance to intersection point
+        uA = 0.0
+        uB = 0.0
+        try:
+            uA = ((x4-x3)*(y1-y3) - (y4-y3)*(x1-x3)) / ((y4-y3)*(x2-x1) - (x4-x3)*(y2-y1))
+            uB = ((x2-x1)*(y1-y3) - (y2-y1)*(x1-x3)) / ((y4-y3)*(x2-x1) - (x4-x3)*(y2-y1))
+        except:
+            return False
+
+        #   // if uA and uB are between 0-1, lines are colliding
+        if (uA > 0 and uA < 1 and uB > 0 and uB < 1):
+            return True
+        return False
+
+
+
     x1 = c[0] + n.pins[0].part.sch_bb[0] + n.pins[0].x
     y1 = c[1] + n.pins[0].part.sch_bb[1] - n.pins[0].y
 
     x2 = c[0] + n.pins[1].part.sch_bb[0] + n.pins[1].x
     y2 = c[1] + n.pins[1].part.sch_bb[1] - n.pins[1].y
 
+    collide = det_net_wire_collision(parts, c, x1,y1,x2,y2)
+    print(collide)
+    
     wire = []
     wire.append("Wire Wire Line\n")
     wire.append("	{} {} {} {}\n".format(x1,y1,x2,y2))
-
-    return (("\n" + "".join(wire)))
+    out = ("\n" + "".join(wire))
+    
+    
+    return (out)
 
 
