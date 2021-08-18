@@ -740,7 +740,7 @@ class Net(SkidlBaseObject):
         self.test_validity()
 
         try:
-            gen_func = getattr(self, "_gen_eeschema_{}".format(tool))
+            gen_func = getattr(self, "_gen_wire_eeschema_{}".format(tool))
             return gen_func(c)
         except AttributeError:
             log_and_raise(

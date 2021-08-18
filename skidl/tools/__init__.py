@@ -83,7 +83,7 @@ for module in os.listdir(directory):
         (part.Part, "_gen_svg_comp_"),
         (circuit.Circuit, "_gen_schematic_"),
         (part.Part, "_gen_pinboxes_"),
-        (net.Net, "_gen_eeschema_"),
+        (net.Net, "_gen_wire_eeschema_"),
         (circuit.Circuit, "_get_schematic_center_"),
         (circuit.Circuit, "_gen_hier_rect_"),
     ):
