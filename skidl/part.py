@@ -1033,14 +1033,14 @@ class Part(SkidlBaseObject):
         elkjs_part = []
         elkjs_part.append("node {}".format(self.ref) + 
         ' {\n' + '\tlayout [ size: {},{} ]\n'.format(self.sch_bb[2], self.sch_bb[3]) + 
-        # '\tportConstraints: FIXED_SIDE\n'+
+        '\tportConstraints: FIXED_SIDE\n'+
         '')
 
         for p in self.pins:
             dir = ""
-            if p.orientation == 'R':
+            if p.orientation == 'L':
                 dir = "EAST"
-            elif p.orientation == 'L':
+            elif p.orientation == 'R':
                 dir = "WEST"
             elif p.orientation == 'U':
                 dir = "NORTH"
@@ -1048,7 +1048,7 @@ class Part(SkidlBaseObject):
                 dir = "SOUTH"
             elkjs_part.append("\tport p{} ".format(p.num) + 
             "{ \n" + 
-            # "\t\t^port.side: {} \n".format(dir) + 
+            "\t\t^port.side: {} \n".format(dir) + 
             '\t\tlabel "{}"\n'.format(p.name) + 
             "\t}\n")
         elkjs_part.append("}")
