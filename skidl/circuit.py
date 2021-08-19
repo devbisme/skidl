@@ -216,67 +216,67 @@ def gen_hier_sheet(title, x_start, y_start, width=1000, height=2000):
     return (("" + "".join(sheet)))
 
 
-# https://www.jeffreythompson.org/collision-detection/line-rect.php
-# For a particular wire see if it collides with any parts
-def det_net_wire_collision(parts, wire,c):
+# # https://www.jeffreythompson.org/collision-detection/line-rect.php
+# # For a particular wire see if it collides with any parts
+# def det_net_wire_collision(parts, wire,c):
 
-    # check if we collide with a part
-    t = wire.split("\n")
-    u = t[2].split() # x1 y1 x2 y2
-    v = map(int, u)
-    w = list(v)
-    # order should be x1min, x1max, y1min, y1max
-    if w[0] > w[2]:
-        t = w[0]
-        w[0] = w[2]
-        w[2] = t
-    if w[1] > w[3]:
-        t = w[1]
-        w[1] = w[3]
-        w[3] = t
-    x1min = w[0]
-    y1min = w[1]
-    x1max = w[2]
-    y1max = w[3]
-    collided_parts = []
-    for pt in parts:
-        x2min = pt.sch_bb[0] - pt.sch_bb[2] + c[0]
-        y2min = pt.sch_bb[1] - pt.sch_bb[3] + c[1]
-        x2max = pt.sch_bb[0] + pt.sch_bb[2] + c[0]
-        y2max = pt.sch_bb[1] + pt.sch_bb[3] + c[1]
+#     # check if we collide with a part
+#     t = wire.split("\n")
+#     u = t[2].split() # x1 y1 x2 y2
+#     v = map(int, u)
+#     w = list(v)
+#     # order should be x1min, x1max, y1min, y1max
+#     if w[0] > w[2]:
+#         t = w[0]
+#         w[0] = w[2]
+#         w[2] = t
+#     if w[1] > w[3]:
+#         t = w[1]
+#         w[1] = w[3]
+#         w[3] = t
+#     x1min = w[0]
+#     y1min = w[1]
+#     x1max = w[2]
+#     y1max = w[3]
+#     collided_parts = []
+#     for pt in parts:
+#         x2min = pt.sch_bb[0] - pt.sch_bb[2] + c[0]
+#         y2min = pt.sch_bb[1] - pt.sch_bb[3] + c[1]
+#         x2max = pt.sch_bb[0] + pt.sch_bb[2] + c[0]
+#         y2max = pt.sch_bb[1] + pt.sch_bb[3] + c[1]
         
-        if lineLine(x1min,y1min,x1max,y1max, x2min,y2min,x2min, y2max):
-            # print(pt.ref + " collision left")
-            collided_parts.append(pt.ref)
-        elif lineLine(x1min,y1min,x1max,y1max, x2max,y2min, x2max,y2max):
-            # print(pt.ref + " collision right")
-            collided_parts.append(pt.ref)
-        elif lineLine(x1min,y1min,x1max,y1max, x2min,y2min, x2max,y2min):
-            # print(pt.ref + " collision top")
-            collided_parts.append(pt.ref)
-        elif lineLine(x1min,y1min,x1max,y1max, x2min,y2max, x2max,y2max):
-            # print(pt.ref + " collision bottom")
-            collided_parts.append(pt.ref)
-    return collided_parts
+#         if lineLine(x1min,y1min,x1max,y1max, x2min,y2min,x2min, y2max):
+#             # print(pt.ref + " collision left")
+#             collided_parts.append(pt.ref)
+#         elif lineLine(x1min,y1min,x1max,y1max, x2max,y2min, x2max,y2max):
+#             # print(pt.ref + " collision right")
+#             collided_parts.append(pt.ref)
+#         elif lineLine(x1min,y1min,x1max,y1max, x2min,y2min, x2max,y2min):
+#             # print(pt.ref + " collision top")
+#             collided_parts.append(pt.ref)
+#         elif lineLine(x1min,y1min,x1max,y1max, x2min,y2max, x2max,y2max):
+#             # print(pt.ref + " collision bottom")
+#             collided_parts.append(pt.ref)
+#     return collided_parts
 
 
 
-#LINE/LINE
-# https://www.jeffreythompson.org/collision-detection/line-rect.php
-def lineLine( x1,  y1,  x2,  y2,  x3,  y3,  x4,  y4):
-  # calculate the distance to intersection point
-    uA = 0.0
-    uB = 0.0
-    try:
-        uA = ((x4-x3)*(y1-y3) - (y4-y3)*(x1-x3)) / ((y4-y3)*(x2-x1) - (x4-x3)*(y2-y1))
-        uB = ((x2-x1)*(y1-y3) - (y2-y1)*(x1-x3)) / ((y4-y3)*(x2-x1) - (x4-x3)*(y2-y1))
-    except:
-        return False
+# #LINE/LINE
+# # https://www.jeffreythompson.org/collision-detection/line-rect.php
+# def lineLine( x1,  y1,  x2,  y2,  x3,  y3,  x4,  y4):
+#   # calculate the distance to intersection point
+#     uA = 0.0
+#     uB = 0.0
+#     try:
+#         uA = ((x4-x3)*(y1-y3) - (y4-y3)*(x1-x3)) / ((y4-y3)*(x2-x1) - (x4-x3)*(y2-y1))
+#         uB = ((x2-x1)*(y1-y3) - (y2-y1)*(x1-x3)) / ((y4-y3)*(x2-x1) - (x4-x3)*(y2-y1))
+#     except:
+#         return False
 
-    #   // if uA and uB are between 0-1, lines are colliding
-    if (uA > 0 and uA < 1 and uB > 0 and uB < 1):
-        return True
-    return False
+#     #   // if uA and uB are between 0-1, lines are colliding
+#     if (uA > 0 and uA < 1 and uB > 0 and uB < 1):
+#         return True
+#     return False
 
 
 
@@ -1409,8 +1409,8 @@ class Circuit(SkidlBaseObject):
                 # print("Net from: " + n.pins[0].ref + " to " + n.pins[1].ref)
                 wire = n.gen_eeschema(hierarchies[h]['parts'], sch_c)
                 # Look through the hierarchy nets and find collisions
-                for n in hierarchies[h]['nets']:
-                    t_collision = det_net_wire_collision(hierarchies[h]['parts'], wire, sch_c)
+                # for n in hierarchies[h]['nets']:
+                    # t_collision = det_net_wire_collision(hierarchies[h]['parts'], n, sch_c)
                     # if len(t_collision)>0:
                     #     (print(str(n) + "Collides with " + str(t_collision)))
                 eeschema_code.append(wire)

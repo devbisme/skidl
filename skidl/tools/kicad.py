@@ -1761,22 +1761,37 @@ def _gen_wire_eeschema_(n, parts, c):
             y2min = pt.sch_bb[1] - pt.sch_bb[3]
             x2max = pt.sch_bb[0] + pt.sch_bb[2]
             y2max = pt.sch_bb[1] + pt.sch_bb[3]
+
+            p1 = [x1min, y1min, x1max, y2max]
+            p2 = [x2min, y2min, x2max, y2max]
             
             if lineLine(x1min,y1min,x1max,y1max, x2min,y2min,x2min, y2max):
                 # print(pt.ref + " collision left")
                 collided_parts.append(pt.ref)
+                find_orth_rout(p1, p2, pt, parts, "L")
             elif lineLine(x1min,y1min,x1max,y1max, x2max,y2min, x2max,y2max):
                 # print(pt.ref + " collision right")
                 collided_parts.append(pt.ref)
+                find_orth_rout(p1, p2, pt, parts, "R")
             elif lineLine(x1min,y1min,x1max,y1max, x2min,y2min, x2max,y2min):
                 # print(pt.ref + " collision top")
                 collided_parts.append(pt.ref)
+                find_orth_rout(p1, p2, pt, parts, "U")
             elif lineLine(x1min,y1min,x1max,y1max, x2min,y2max, x2max,y2max):
                 # print(pt.ref + " collision bottom")
                 collided_parts.append(pt.ref)
+                find_orth_rout(p1, p2, pt, parts, "D")
         return collided_parts
 
-
+    def find_orth_rout(p1, p2, pt_collided, parts, dir_collision):
+        if dir_collision == 'L':
+            print("L")
+        elif dir_collision == 'R':
+            print("R")
+        elif dir_collision == 'U':
+            print("U")
+        elif dir_collision == 'D':
+            print("D")
 
     #LINE/LINE
     # https://www.jeffreythompson.org/collision-detection/line-rect.php
@@ -1794,12 +1809,13 @@ def _gen_wire_eeschema_(n, parts, c):
         if (uA > 0 and uA < 1 and uB > 0 and uB < 1):
             intersectionX = x1 + (uA * (x2-x1))
             intersectionY = y1 + (uA * (y2-y1))
-            # print("x: " + str(intersectionX) + " y: " + str(intersectionY))
+            print("x: " + str(intersectionX) + " y: " + str(intersectionY))
             return True
         return False
 
 
 
+    # Caluclate the coordiantes of a straight line
     x1 = n.pins[0].part.sch_bb[0] + n.pins[0].x
     y1 = n.pins[0].part.sch_bb[1] - n.pins[0].y
 
@@ -1808,7 +1824,7 @@ def _gen_wire_eeschema_(n, parts, c):
 
     collide = det_net_wire_collision(parts, x1,y1,x2,y2)
     # print(n.name)
-    # print(collide)
+    print(collide)
     
 
     x1 += c[0]
