@@ -1031,7 +1031,10 @@ class Part(SkidlBaseObject):
             self.sch_bb[3] = 100
         # print("width: " + str(self.sch_bb[2]) + ", height: " + str(self.sch_bb[3]))
         elkjs_part = []
-        elkjs_part.append("node {}".format(self.ref) + ' {\n' + '\tlayout [ size: {},{} ]\n'.format(self.sch_bb[2], self.sch_bb[3]) + '\tportConstraints: FIXED_SIDE\n')
+        elkjs_part.append("node {}".format(self.ref) + 
+        ' {\n' + '\tlayout [ size: {},{} ]\n'.format(self.sch_bb[2], self.sch_bb[3]) + 
+        # '\tportConstraints: FIXED_SIDE\n'+
+        '')
 
         for p in self.pins:
             dir = ""
@@ -1043,7 +1046,11 @@ class Part(SkidlBaseObject):
                 dir = "NORTH"
             elif p.orientation == 'D':
                 dir = "SOUTH"
-            elkjs_part.append("\tport p{} ".format(p.num) + "{ \n" + "^port.side: {} \n".format(dir) + '\t\tlabel "{}"\n'.format(p.name) + "\t}\n")
+            elkjs_part.append("\tport p{} ".format(p.num) + 
+            "{ \n" + 
+            # "\t\t^port.side: {} \n".format(dir) + 
+            '\t\tlabel "{}"\n'.format(p.name) + 
+            "\t}\n")
         elkjs_part.append("}")
         print("\n" + "".join(elkjs_part))
     def generate_xml_component(self, tool=None):

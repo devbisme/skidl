@@ -1742,11 +1742,6 @@ def _gen_wire_eeschema_(n, parts, c):
 # For a particular wire see if it collides with any parts
     def det_net_wire_collision(parts, x1,y1,x2,y2):
 
-        # # check if we collide with a part
-        # t = wire.split("\n")
-        # u = t[2].split() # x1 y1 x2 y2
-        # v = map(int, u)
-        # w = list(v)
         # order should be x1min, x1max, y1min, y1max
         if x1 > x2:
             t = x1
@@ -1797,6 +1792,9 @@ def _gen_wire_eeschema_(n, parts, c):
 
         #   // if uA and uB are between 0-1, lines are colliding
         if (uA > 0 and uA < 1 and uB > 0 and uB < 1):
+            intersectionX = x1 + (uA * (x2-x1))
+            intersectionY = y1 + (uA * (y2-y1))
+            # print("x: " + str(intersectionX) + " y: " + str(intersectionY))
             return True
         return False
 
@@ -1809,8 +1807,14 @@ def _gen_wire_eeschema_(n, parts, c):
     y2 = n.pins[1].part.sch_bb[1] - n.pins[1].y
 
     collide = det_net_wire_collision(parts, x1,y1,x2,y2)
-    print(collide)
+    # print(n.name)
+    # print(collide)
     
+
+    x1 += c[0]
+    y1 += c[1]
+    x2 += c[0]
+    y2 += c[1]
     # TODO add the center coordinates
     wire = []
     wire.append("Wire Wire Line\n")

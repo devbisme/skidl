@@ -1301,15 +1301,35 @@ class Circuit(SkidlBaseObject):
             else:
                 hierarchies[hier_name]['parts'].append(i)
 
+
+
         # get the hierarchy nets
         for h in hierarchies:
             for n in self.nets:
+                if hasattr(n, 'stub'):
+                    if n.stub:
+                        pass
                 # for p in n.pins:
                 #     elkjs_net = []
                 #     t = "edge {}.{} -> {}.{}".format()
                 #     elkjs_net.append(t)
                 if h in n.hierarchy:
                     hierarchies[h]['nets'].append(n)
+       
+        for h in hierarchies:
+            for n in hierarchies[h]['nets']:
+                for p in range(len(n.pins)):
+                    try:
+                        part1 = n.pins[p].ref
+                        pin1 = n.pins[p].num
+                        part2 = n.pins[p+1].ref
+                        pin2 = n.pins[p+1].num
+                        t = "edge {}.p{} -> {}.p{}".format(part1, pin1, part2, pin2)
+                        print(t)
+                        # ("\n" + "".join(t))
+
+                    except:
+                        pass
 
         # Range through each hierarchy and place parts around the center part (part 0)
         for h in hierarchies:
