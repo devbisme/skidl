@@ -1844,13 +1844,32 @@ def _gen_wire_eeschema_(n, parts, c):
                         d_x1 = p.sch_bb[0] - p.sch_bb[2] - 100
                         d_y1 = t_y1
                         d_x2 = d_x1
-                        d_y2 = p.sch_bb[1] + p.sch_bb[3] + 100
-                        d_x3 = d_x2 + p.sch_bb[2] + 100 + 100
+                        d_y2 = p.sch_bb[1] + p.sch_bb[3] + 200
+                        # d_x3 = d_x2 + p.sch_bb[2] + 100 + 100
                         d_y3 = d_y2
                         line.insert(i+1, [d_x1,d_y1])
                         line.insert(i+2, [d_x2, d_y2])
                         line.insert(i+3, [x1, d_y3])
                         break
+                    if collide[1] == "R":
+                        # switch first and last coordinates if one is further left
+                        if x1 > x2:
+                            t = line[0]
+                            line[0] = line[-1]
+                            line[-1] = t
+
+                        # draw line down
+                        d_x1 = p.sch_bb[0] - p.sch_bb[2] - 100
+                        d_y1 = t_y1
+                        d_x2 = d_x1
+                        d_y2 = p.sch_bb[1] + p.sch_bb[3] + 100
+                        d_x3 = d_x2 - p.sch_bb[2] + 100 + 100
+                        d_y3 = d_y2
+                        line.insert(i+1, [d_x1,d_y1])
+                        line.insert(i+2, [d_x2, d_y2])
+                        line.insert(i+3, [x1, d_y3])
+                        break
+
 
 
 
