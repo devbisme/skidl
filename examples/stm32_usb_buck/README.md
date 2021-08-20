@@ -17,6 +17,7 @@ https://resources.altium.com/p/guidelines-creating-useful-schematic-symbols
 
 Known Bugs:
 * All nets must be unique except stubs!  Otherwise the schematic layout tool will not properly layout parts
+* Right side vs left side math for routing nets is different and confusing!
 
 Features to add:
 * Edit the schematic itself and place images

@@ -69,25 +69,34 @@ rotation_matrix = [
                     [0,-1,-1,0]  # 270 deg x:-1600  y:  700
 ]
 
-# pin_m 
+# pin_m = pin of moving part
+# pin_nm = pin of non-moving part
+# parts list = hierarchical parts list
 def calc_move_part(pin_m, pin_nm, parts_list):
-    # for placing around the center we have to ADD the y-axis of the central part
+    # for placing around the center we push the parts out a little further
     if pin_nm.ref in parts_list[0].ref:
-        dx = pin_m.x + pin_nm.x + pin_nm.part.sch_bb[0]
-        if dx > 0:
-            # dx += pin_nm.part.sch_bb[2]
-            dx += 300
+        
+        if pin_nm.x >= 0:
+            dx = abs(pin_m.x) + pin_nm.x + pin_nm.part.sch_bb[0]
+            # dx += pin_nm.part.sch_bb[2] 
+            # dx += pin_m.part.sch_bb[2]
+            dx += 1000 
         else:
+            dx = -(abs(pin_m.x)) + pin_nm.x + pin_nm.part.sch_bb[0]
             # dx -= pin_nm.part.sch_bb[2]
-            dx -= 300
+            dx -= 1000
         dy = -pin_m.y + pin_nm.y + pin_nm.part.sch_bb[1]
+        p = Part.get(pin_m.part.ref)
+        # print("Moving part: " + p.ref + " by  x: " + str(dx) + "  y: " + str(dy))
+        p.move_part(dx, dy,parts_list)
     else:
     # for placing the rest of the parts we subtract the y-axis of the already placed part
         dx = pin_m.x + pin_nm.x + pin_nm.part.sch_bb[0]
         dy = -pin_m.y + pin_nm.y - pin_nm.part.sch_bb[1] 
-    p = Part.get(pin_m.part.ref)
-    # print("Moving part: " + p.ref + " by  x: " + str(dx) + "  y: " + str(dy))
-    p.move_part(dx, dy,parts_list)
+        p = Part.get(pin_m.part.ref)
+        # print("Moving part: " + p.ref + " by  x: " + str(dx) + "  y: " + str(dy))
+        p.move_part(dx, dy,parts_list)
+
 
 
 def gen_power_part_eeschema(part, stub_name, c=[0,0], orientation = [1,0,0,-1]):
@@ -1343,7 +1352,7 @@ class Circuit(SkidlBaseObject):
             eeschema_code = [] # List to hold all the components we'll put the in the eeschema .sch file
             hierarchies[h]['parts_placed'] = []
             hierarchies[h]['nets_to_route'] = []
-            # Range through all the nets and place the 
+            # Range through all the nets and place the parts around center pin
             for n in hierarchies[h]['nets']:
                 found = False
                 cp_num = 0 # central part pin # in the net
