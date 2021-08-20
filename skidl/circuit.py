@@ -75,16 +75,11 @@ rotation_matrix = [
 def calc_move_part(pin_m, pin_nm, parts_list):
     # for placing around the center we push the parts out a little further
     if pin_nm.ref in parts_list[0].ref:
-        
+        dx = pin_nm.x + pin_nm.part.sch_bb[0]
         if pin_nm.x >= 0:
-            dx = abs(pin_m.x) + pin_nm.x + pin_nm.part.sch_bb[0]
-            # dx += pin_nm.part.sch_bb[2] 
-            # dx += pin_m.part.sch_bb[2]
-            dx += 1000 
+            dx = abs(pin_m.x) + 400
         else:
-            dx = -(abs(pin_m.x)) + pin_nm.x + pin_nm.part.sch_bb[0]
-            # dx -= pin_nm.part.sch_bb[2]
-            dx -= 1000
+            dx = -(abs(pin_m.x)) - 400
         dy = -pin_m.y + pin_nm.y + pin_nm.part.sch_bb[1]
         p = Part.get(pin_m.part.ref)
         # print("Moving part: " + p.ref + " by  x: " + str(dx) + "  y: " + str(dy))
@@ -185,10 +180,10 @@ def draw_rect_hierarchies(hier, sch_center):
             yMin = t_yMin
 
     # expand the box a bit so it looks nice
-    xMin += sch_center[0] - 200
-    xMax += sch_center[0] + 200
-    yMin += sch_center[1] + 200
-    yMax += sch_center[1] - 500 # Make box a bit bigger on top to make room for a label
+    xMin += sch_center[0] - 500
+    xMax += sch_center[0] + 500
+    yMin += sch_center[1] + 500
+    yMax += sch_center[1] - 700 # Make box a bit bigger on top to make room for a label
 
     box = []
 
