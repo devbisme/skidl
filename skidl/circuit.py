@@ -75,9 +75,11 @@ def calc_move_part(pin_m, pin_nm, parts_list):
     if pin_nm.ref in parts_list[0].ref:
         dx = pin_m.x + pin_nm.x + pin_nm.part.sch_bb[0]
         if dx > 0:
-            dx += 500
+            # dx += pin_nm.part.sch_bb[2]
+            dx += 300
         else:
-            dx -= 500
+            # dx -= pin_nm.part.sch_bb[2]
+            dx -= 300
         dy = -pin_m.y + pin_nm.y + pin_nm.part.sch_bb[1]
     else:
     # for placing the rest of the parts we subtract the y-axis of the already placed part

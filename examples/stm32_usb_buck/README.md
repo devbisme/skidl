@@ -27,6 +27,8 @@ Features to add:
 
 TODO
 * https://github.com/xesscorp/zyc
+* Try to implement Rect/Point logic
+** https://wiki.python.org/moin/PointsAndRectangles
 
 
 
