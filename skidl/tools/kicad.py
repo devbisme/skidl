@@ -1766,32 +1766,14 @@ def _gen_wire_eeschema_(n, parts, c):
             p2 = [x2min, y2min, x2max, y2max]
             
             if lineLine(x1min,y1min,x1max,y1max, x2min,y2min,x2min, y2max):
-                # print(pt.ref + " collision left")
-                collided_parts.append(pt.ref)
-                find_orth_rout(p1, p2, pt, parts, "L")
+                return [pt.ref, "L"]
             elif lineLine(x1min,y1min,x1max,y1max, x2max,y2min, x2max,y2max):
-                # print(pt.ref + " collision right")
-                collided_parts.append(pt.ref)
-                find_orth_rout(p1, p2, pt, parts, "R")
+                return [pt.ref, "R"]
             elif lineLine(x1min,y1min,x1max,y1max, x2min,y2min, x2max,y2min):
-                # print(pt.ref + " collision top")
-                collided_parts.append(pt.ref)
-                find_orth_rout(p1, p2, pt, parts, "U")
+               return [pt.ref, "U"]
             elif lineLine(x1min,y1min,x1max,y1max, x2min,y2max, x2max,y2max):
-                # print(pt.ref + " collision bottom")
-                collided_parts.append(pt.ref)
-                find_orth_rout(p1, p2, pt, parts, "D")
-        return collided_parts
-
-    def find_orth_rout(p1, p2, pt_collided, parts, dir_collision):
-        if dir_collision == 'L':
-            print("L")
-        elif dir_collision == 'R':
-            print("R")
-        elif dir_collision == 'U':
-            print("U")
-        elif dir_collision == 'D':
-            print("D")
+                return [pt.ref, "D"]
+        return []
 
     #LINE/LINE
     # https://www.jeffreythompson.org/collision-detection/line-rect.php
@@ -1809,9 +1791,10 @@ def _gen_wire_eeschema_(n, parts, c):
         if (uA > 0 and uA < 1 and uB > 0 and uB < 1):
             intersectionX = x1 + (uA * (x2-x1))
             intersectionY = y1 + (uA * (y2-y1))
-            print("x: " + str(intersectionX) + " y: " + str(intersectionY))
+            print("Collision at:  X: " + str(intersectionX) + " Y: " + str(intersectionY))
             return True
         return False
+
 
 
     # Caluclate the coordiantes of a straight line
@@ -1824,12 +1807,6 @@ def _gen_wire_eeschema_(n, parts, c):
     line = [[x1,y1], [x2,y2]]
 
 
-    # if x1 == x2:
-    #     print("normal on y-axis")
-
-    # elif y1 == y2:
-    #     print("normal on x-axis")
-    # else:
     if not(x1 == x2) and not(y1==y2):
         print("not normal")
         # insert a point to make the lines normal on the x axis
@@ -1840,11 +1817,43 @@ def _gen_wire_eeschema_(n, parts, c):
         # print(str(line))
 
         
+    for i in range(len(line)-1):
+        # print("check first line segment for collision")
+        t_x1 = line[i][0]
+        t_y1 = line[i][1]
+        t_x2 = line[i+1][0]
+        t_y2 = line[i+1][1]
 
-    collide = det_net_wire_collision(parts, x1,y1,x2,y2)
-    # print(n.name)
-    # if len(collide)>0:
-    #     print(collide)
+        collide = det_net_wire_collision(parts, t_x1,t_y1,t_x2,t_y2)
+        # print(n.name)
+        if len(collide)>0:
+            print(collide)
+        
+        # first draw downward line, x stays the same
+            # find the part in our list of parts
+            for p in parts:
+                if p.ref == collide[0]:
+                    if collide[1] == "L":
+                        # draw line down
+                        d_x1 = p.sch_bb[0] - p.sch_bb[2] - 100
+                        d_y1 = t_y1
+                        d_x2 = d_x1
+                        d_y2 = p.sch_bb[1] + p.sch_bb[3] + 100
+                        d_x3 = d_x2 + p.sch_bb[2] + 100 + 100
+                        d_y3 = d_y2
+                        line.insert(i, [d_x1,d_y1])
+                        line.insert(i+1, [d_x2, d_y2])
+                        line.insert(i+2, [x1, d_y3])
+                        break
+
+
+
+
+
+        # 2nd draw horizontal line, y stays the same
+
+        # third draw 
+
 
     # if len(collide) > 0:
     #     print("find anothe route...")
@@ -1866,7 +1875,7 @@ def _gen_wire_eeschema_(n, parts, c):
         t_wire.append("Wire Wire Line\n")
         t_wire.append("	{} {} {} {}\n".format(t_x1,t_y1,t_x2,t_y2))
         t_out = "\n"+"".join(t_wire)
-        print(t_out)
+        # print(t_out)
     # print(str(line))
 
     wire = []
