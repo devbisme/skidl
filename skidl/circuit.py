@@ -80,14 +80,30 @@ def calc_move_part(pin_m, pin_nm, parts_list):
         if len(pin_m.part.pins) <= 2:
             print(pin_m.part.ref + " is a 2 pin part")
             power_conn = False
+            rotate = 0
             for p in pin_m.part.pins:
                 if 'gnd' in p.net.name.lower():
                     power_conn = True
-                    print("part: " + p.part.ref + " pin: " + p.num + " is connected to ground, facing " + p.orientation)
-
+                    print("part: " + p.part.ref + " pin: " + str(p.num) + " is connected to ground, facing " + p.orientation)
+                    if p.orientation == 'U':
+                        break # pin is facing down, break
+                    if p.orientation == 'D':
+                        rotate = 180
+                    if p.orientation == 'L':
+                        rotate = 90
+                    if p.orientation == 'R':
+                        rotate = -90
                 elif p.nets[0].name == '+5V' or p.nets[0].name == '+3V3' or p.nets[0].name == 'GND':
                     power_conn = True
-                    print("other connection is power connection")
+                    print("part: " + p.part.ref + " pin: " + str(p.num) + " is connected to " + p.net.name +  ", facing " + p.orientation)
+                    if p.orientation == 'D':
+                        break # pin is facing down, break
+                    if p.orientation == 'U':
+                        rotate = 180
+                    if p.orientation == 'L':
+                        rotate = 90
+                    if p.orientation == 'R':
+                        rotate = -90
             if not power_conn:
                 print("Part not connected to power net")
         # dx = pin_nm.x + pin_nm.part.sch_bb[0] # pointless, should always be 0,0 here
