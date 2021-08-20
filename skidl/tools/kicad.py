@@ -1814,7 +1814,6 @@ def _gen_wire_eeschema_(n, parts, c):
         return False
 
 
-
     # Caluclate the coordiantes of a straight line
     x1 = n.pins[0].part.sch_bb[0] + n.pins[0].x
     y1 = n.pins[0].part.sch_bb[1] - n.pins[0].y
@@ -1822,22 +1821,60 @@ def _gen_wire_eeschema_(n, parts, c):
     x2 = n.pins[1].part.sch_bb[0] + n.pins[1].x
     y2 = n.pins[1].part.sch_bb[1] - n.pins[1].y
 
+    line = [[x1,y1], [x2,y2]]
+
+
+    # if x1 == x2:
+    #     print("normal on y-axis")
+
+    # elif y1 == y2:
+    #     print("normal on x-axis")
+    # else:
+    if not(x1 == x2) and not(y1==y2):
+        print("not normal")
+        # insert a point to make the lines normal on the x axis
+        #  y's must be equal
+        x_t = x1
+        y_t = y2
+        line.insert(1,[x_t,y_t])
+        # print(str(line))
+
+        
+
     collide = det_net_wire_collision(parts, x1,y1,x2,y2)
     # print(n.name)
-    print(collide)
+    # if len(collide)>0:
+    #     print(collide)
+
+    # if len(collide) > 0:
+    #     print("find anothe route...")
+
     
 
     x1 += c[0]
     y1 += c[1]
     x2 += c[0]
     y2 += c[1]
+    t_wire = []
     # TODO add the center coordinates
+    for i in range(len(line)-1):
+        # print(line[i])
+        t_x1 = line[i][0] + c[0]
+        t_y1 = line[i][1] + c[1]
+        t_x2 = line[i+1][0] + c[0]
+        t_y2 = line[i+1][1] + c[1]
+        t_wire.append("Wire Wire Line\n")
+        t_wire.append("	{} {} {} {}\n".format(t_x1,t_y1,t_x2,t_y2))
+        t_out = "\n"+"".join(t_wire)
+        print(t_out)
+    # print(str(line))
+
     wire = []
     wire.append("Wire Wire Line\n")
     wire.append("	{} {} {} {}\n".format(x1,y1,x2,y2))
     out = ("\n" + "".join(wire))
     
     
-    return (out)
+    return (t_out)
 
 
