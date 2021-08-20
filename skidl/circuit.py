@@ -73,19 +73,22 @@ rotation_matrix = [
 # pin_nm = pin of non-moving part
 # parts list = hierarchical parts list
 def calc_move_part(pin_m, pin_nm, parts_list):
-    # for placing around the center we push the parts out a little further
+    # For placing parts around central part we have special logic
+    #   * Push parts further out 
     if pin_nm.ref in parts_list[0].ref:
-        dx = pin_nm.x + pin_nm.part.sch_bb[0]
+        # dx = pin_nm.x + pin_nm.part.sch_bb[0] # pointless, should always be 0,0 here
+        dx = pin_nm.x # we move at least the x distance of central part's pin
+        # if we are moving right then add on the moving part's pin's x coordinates and a buffer (400 for now)
+        # if we're moving left then subtract this same value
         if pin_nm.x >= 0:
-            dx = abs(pin_m.x) + 400
+            dx += (abs(pin_m.x) + 400)
         else:
-            dx = -(abs(pin_m.x)) - 400
+            dx -= (abs(pin_m.x) + 400)
         dy = -pin_m.y + pin_nm.y + pin_nm.part.sch_bb[1]
         p = Part.get(pin_m.part.ref)
         # print("Moving part: " + p.ref + " by  x: " + str(dx) + "  y: " + str(dy))
         p.move_part(dx, dy,parts_list)
     else:
-    # for placing the rest of the parts we subtract the y-axis of the already placed part
         dx = pin_m.x + pin_nm.x + pin_nm.part.sch_bb[0]
         dy = -pin_m.y + pin_nm.y - pin_nm.part.sch_bb[1] 
         p = Part.get(pin_m.part.ref)
@@ -1356,12 +1359,15 @@ class Circuit(SkidlBaseObject):
                         found = True
                         break
                     else:
-                        cp_num += 1
+                        cp_num += 1 # not this part, increment the counter
                 if found:
+                    # Place parts with pins connected to this net that we haven't placed and aren't central parts
+                    # for each pin in the net check if it's a pin of the central part or 
+                    #  a pin of a part we already placed.  Don't try to place those parts again.
                     for pin in n.pins:
                         if (pin.ref in centerPart) or (pin.ref in hierarchies[h]['parts_placed']):
                             continue
-                        # calculate the distance and move the pin
+                        # calculate the distance and move the part
                         calc_move_part(pin, n.pins[cp_num], hierarchies[h]['parts'])
                         hierarchies[h]['parts_placed'].append(pin.ref)  
                 else:
