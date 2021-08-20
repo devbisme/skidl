@@ -76,6 +76,20 @@ def calc_move_part(pin_m, pin_nm, parts_list):
     # For placing parts around central part we have special logic
     #   * Push parts further out 
     if pin_nm.ref in parts_list[0].ref:
+        # check if the moving part is a 2 pin passive that needs to be rotated to GND or POWER
+        if len(pin_m.part.pins) <= 2:
+            print(pin_m.part.ref + " is a 2 pin part")
+            power_conn = False
+            for p in pin_m.part.pins:
+                if 'gnd' in p.net.name.lower():
+                    power_conn = True
+                    print("part: " + p.part.ref + " pin: " + p.num + " is connected to ground, facing " + p.orientation)
+
+                elif p.nets[0].name == '+5V' or p.nets[0].name == '+3V3' or p.nets[0].name == 'GND':
+                    power_conn = True
+                    print("other connection is power connection")
+            if not power_conn:
+                print("Part not connected to power net")
         # dx = pin_nm.x + pin_nm.part.sch_bb[0] # pointless, should always be 0,0 here
         dx = pin_nm.x # we move at least the x distance of central part's pin
         # if we are moving right then add on the moving part's pin's x coordinates and a buffer (400 for now)
@@ -1411,7 +1425,16 @@ class Circuit(SkidlBaseObject):
                     hierarchies[h]['parts_placed'].append(pin.ref)
                     hierarchies[h]['nets_to_route'].remove(n) # remove the net after we've placed this component
             # TODO: place any other parts that have not been addressed yet
-            
+            # for now we just place them down and away from the main circuit
+            offset_x = 0
+            offset_y = hierarchies[h]['parts'][0].sch_bb[1] + hierarchies[h]['parts'][0].sch_bb[3] + 500
+            for p in hierarchies[h]['parts']:
+                if p.ref == hierarchies[h]['parts'][0].ref:
+                    continue
+                if p.sch_bb[0] == 0 and p.sch_bb[1] ==0 :
+                    p.sch_bb[0] += offset_x
+                    p.sch_bb[1] += offset_y
+                    offset_x += 300
 
             # Add the central coordinates to the part so they're in the center
             for i in hierarchies[h]['parts']:

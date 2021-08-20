@@ -18,6 +18,13 @@ def stm32f405r(vdd, gnd, _5v):
     vc2 = Net('vcap2')
     vc2 += u.p47, vcap2.p1
 
+    c1 = Part("Device", 'C_Small', footprint='C_0603_1608Metric')
+    c1.p1 += u.p14
+    c1.p2 += gnd
+
+    r1 = Part("Device", 'R', footprint='R_0603_1608Metric', value='1.5k')
+    r1.p1 += u.p17
+    r1.p2 += gnd
     led_indicator(u.p8,gnd, 'blue', '5.6k')
     usb(_5v, gnd, u.p43, u.p44, False)
     
@@ -68,7 +75,7 @@ def led_indicator(inp, outp, color, resistance):
 
 @SubCircuit
 def board_enable(vcc, gnd_):
-    bd_sel_ls = Net('GND')
+    bd_sel_ls = Net('bd_sel_ls')
     n1 = Net('icp2_r2p1')
 
     # TODO: actual IC is SN74LVC1G86DCKR
@@ -90,7 +97,7 @@ def board_enable(vcc, gnd_):
 
     c1.fields['voltage']='100v'
     c1.fields['temp_coeff']='X7R'
-    c1.p1 += xor_ic.p5
+    c1.p1 += vcc
     c1.p2 += gnd_
 
     bd_sel_ls += xor_ic.p1, r1.p1
