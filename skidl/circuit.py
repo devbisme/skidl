@@ -112,8 +112,7 @@ def move_part(pin_m, pin_nm, parts_list):
                     _part = Part.get(pin_m.part.ref)
                     for i in range(int(rotate/90)):
                         rotate_part_90_cw(_part)
-        # dx = pin_nm.x + pin_nm.part.sch_bb[0] # pointless, should always be 0,0 here
-        dx = pin_nm.x # we move at least the x distance of central part's pin
+        dx = pin_nm.x + pin_nm.part.sch_bb[0]# we move at least the x distance of central part's pin
         # if we are moving right then add on the moving part's pin's x coordinates and a buffer (400 for now)
         # if we're moving left then subtract this same value
         if pin_nm.x >= 0:
@@ -338,7 +337,6 @@ def gen_hier_sheet(title, x_start, y_start, width=1000, height=2000):
 
 
 def gen_net_wire(n, parts, c):
-
 # For a particular wire see if it collides with any parts
     def det_net_wire_collision(parts, x1,y1,x2,y2):
 
@@ -391,7 +389,6 @@ def gen_net_wire(n, parts, c):
             print("Collision at:  X: " + str(intersectionX) + " Y: " + str(intersectionY))
             return True
         return False
-
 
 
     # Caluclate the coordiantes of a straight line between the 2 pins that need to connect

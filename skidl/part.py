@@ -1072,7 +1072,6 @@ class Part(SkidlBaseObject):
         self.sch_bb[0] += dx
         self.sch_bb[1] -= dy
 
-        # print(self.ref + " x: " + str(self.sch_bb[0]) + " Y: " + str(self.sch_bb[1]))
         # Range through parts in the subcircuit and look for overlaps
         # If we are overlapping then nudge the part 50mil left/right and rerun this function
         for pt in _parts_list:
@@ -1089,7 +1088,6 @@ class Part(SkidlBaseObject):
             
             y2min = pt.sch_bb[1] - pt.sch_bb[3]
             y2max = pt.sch_bb[1] + pt.sch_bb[3]
-            # print(self.ref + " x: " + str(self.sch_bb[0]) + " Y: " + str(self.sch_bb[1]))
             # Logic to tell whether parts collide
             # Note that the movement direction is opposite of what's intuitive ('R' = move left, 'U' = -50)
             # https://stackoverflow.com/questions/20925818/algorithm-to-check-if-two-boxes-overlap
@@ -1098,7 +1096,6 @@ class Part(SkidlBaseObject):
                     self.move_part(200, 0, _parts_list)
                 else:
                     self.move_part(-200, 0, _parts_list)
-        # print(self.ref + " x: " + str(self.sch_bb[0]) + " Y: " + str(self.sch_bb[1]))
 
 
     def generate_svg_component(self, symtx="", tool=None, net_stubs=None):
