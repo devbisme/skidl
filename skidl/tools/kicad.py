@@ -1755,15 +1755,12 @@ def _gen_wire_eeschema_(n, parts, c):
         y1min = y1
         x1max = x2
         y1max = y2
-        collided_parts = []
+
         for pt in parts:
             x2min = pt.sch_bb[0] - pt.sch_bb[2]
             y2min = pt.sch_bb[1] - pt.sch_bb[3]
             x2max = pt.sch_bb[0] + pt.sch_bb[2]
             y2max = pt.sch_bb[1] + pt.sch_bb[3]
-
-            p1 = [x1min, y1min, x1max, y2max]
-            p2 = [x2min, y2min, x2max, y2max]
             
             if lineLine(x1min,y1min,x1max,y1max, x2min,y2min,x2min, y2max):
                 return [pt.ref, "L"]
@@ -1827,87 +1824,69 @@ def _gen_wire_eeschema_(n, parts, c):
         # since we are only going left/right with nets/rectangles the strategy to route
         # around a rectangle is basically making a 'U' shape around it
         if len(collide)>0:
-            # first draw downward line, x stays the same
-            # find the part in our list of parts
-            for p in parts:
-                if p.ref == collide[0]:
-                    if collide[1] == "L":
-                        if n.pins[1].part.sch_bb[0]<0 or n.pins[0].part.sch_bb[0]<0:
-                            print("left side of U1")
+            collided_part = Part.get(collide[0])
+            collided_side = collide[1]
+            
+            if collided_side == "L":
+                # if we collided on the left 
+                if n.pins[1].part.sch_bb[0]<0 or n.pins[0].part.sch_bb[0]<0:
+                    print("left side of U1")
 
-                            # switch first and last coordinates if one is further left
-                            if x1 > x2:
-                                t = line[0]
-                                line[0] = line[-1]
-                                line[-1] = t
+                    # switch first and last coordinates if one is further left
+                    if x1 > x2:
+                        t = line[0]
+                        line[0] = line[-1]
+                        line[-1] = t
 
-                            # draw line down
-                            d_x1 = p.sch_bb[0] - p.sch_bb[2] - 100
-                            d_y1 = t_y1
-                            d_x2 = d_x1
-                            d_y2 = p.sch_bb[1] + p.sch_bb[3] + 200
-                            # d_x3 = d_x2 + p.sch_bb[2] + 100 + 100
-                            d_y3 = d_y2
-                            line.insert(i+1, [d_x1,d_y1])
-                            line.insert(i+2, [d_x2, d_y2])
-                            line.insert(i+3, [x1, d_y3])
+                    # draw line down
+                    d_x1 = collided_part.sch_bb[0] - collided_part.sch_bb[2] - 100
+                    d_y1 = t_y1
+                    d_x2 = d_x1
+                    d_y2 = collided_part.sch_bb[1] + collided_part.sch_bb[3] + 200
+                    # d_x3 = d_x2 + collided_part.sch_bb[2] + 100 + 100
+                    d_y3 = d_y2
+                    line.insert(i+1, [d_x1,d_y1])
+                    line.insert(i+2, [d_x2, d_y2])
+                    line.insert(i+3, [x1, d_y3])
 
-                        else:
-                            print("right side of U1")
-                             # switch first and last coordinates if one is further left
-                            if x1 < x2:
-                                t = line[0]
-                                line[0] = line[-1]
-                                line[-1] = t
-                            # draw line down
-                            d_x1 = p.sch_bb[0] + p.sch_bb[2] + 100
-                            d_y1 = t_y1
-                            d_x2 = d_x1
-                            d_y2 = p.sch_bb[1] + p.sch_bb[3] + 200
-                            # d_x3 = d_x2 + p.sch_bb[2] + 100 + 100
-                            d_y3 = d_y2
-                            line.insert(i+1, [d_x1,d_y1])
-                            line.insert(i+2, [d_x2, d_y2])
-                            line.insert(i+3, [x2, d_y3])
-                        break
-                    if collide[1] == "R":
+                else:
+                    print("right side of U1")
                         # switch first and last coordinates if one is further left
-                        if x1 > x2:
-                            t = line[0]
-                            line[0] = line[-1]
-                            line[-1] = t
+                    if x1 < x2:
+                        t = line[0]
+                        line[0] = line[-1]
+                        line[-1] = t
+                    # draw line down
+                    d_x1 = collided_part.sch_bb[0] + collided_part.sch_bb[2] + 100
+                    d_y1 = t_y1
+                    d_x2 = d_x1
+                    d_y2 = collided_part.sch_bb[1] + collided_part.sch_bb[3] + 200
+                    # d_x3 = d_x2 + collided_part.sch_bb[2] + 100 + 100
+                    d_y3 = d_y2
+                    line.insert(i+1, [d_x1,d_y1])
+                    line.insert(i+2, [d_x2, d_y2])
+                    line.insert(i+3, [x2, d_y3])
+                break
+            if collided_side == "R":
+                # switch first and last coordinates if one is further left
+                if x1 > x2:
+                    t = line[0]
+                    line[0] = line[-1]
+                    line[-1] = t
 
-                        # draw line down
-                        d_x1 = p.sch_bb[0] - p.sch_bb[2] - 100
-                        d_y1 = t_y1
-                        d_x2 = d_x1
-                        d_y2 = p.sch_bb[1] + p.sch_bb[3] + 100
-                        d_x3 = d_x2 - p.sch_bb[2] + 100 + 100
-                        d_y3 = d_y2
-                        line.insert(i+1, [d_x1,d_y1])
-                        line.insert(i+2, [d_x2, d_y2])
-                        line.insert(i+3, [x1, d_y3])
-                        break
+                # draw line down
+                d_x1 = collided_part.sch_bb[0] - collided_part.sch_bb[2] - 100
+                d_y1 = t_y1
+                d_x2 = d_x1
+                d_y2 = collided_part.sch_bb[1] + collided_part.sch_bb[3] + 100
+                d_x3 = d_x2 - collided_part.sch_bb[2] + 100 + 100
+                d_y3 = d_y2
+                line.insert(i+1, [d_x1,d_y1])
+                line.insert(i+2, [d_x2, d_y2])
+                line.insert(i+3, [x1, d_y3])
+                break
 
 
-
-
-
-
-        # 2nd draw horizontal line, y stays the same
-
-        # third draw 
-
-
-    # if len(collide) > 0:
-    #     print("find anothe route...")
-
-    
-
-    # x1 += c[0]
-    # y1 += c[1]
-    # x2 += c[0]
-    # y2 += c[1]
     t_wire = []
     # TODO add the center coordinates
     for i in range(len(line)-1):
@@ -1918,15 +1897,7 @@ def _gen_wire_eeschema_(n, parts, c):
         t_y2 = line[i+1][1] + c[1]
         t_wire.append("Wire Wire Line\n")
         t_wire.append("	{} {} {} {}\n".format(t_x1,t_y1,t_x2,t_y2))
-        t_out = "\n"+"".join(t_wire)
-        # print(t_out)
-    # print(str(line))
-
-    wire = []
-    wire.append("Wire Wire Line\n")
-    wire.append("	{} {} {} {}\n".format(x1,y1,x2,y2))
-    out = ("\n" + "".join(wire))
-    
+        t_out = "\n"+"".join(t_wire)    
     
     return (t_out)
 
