@@ -1501,15 +1501,24 @@ class Circuit(SkidlBaseObject):
 
         # Dictionary that will hold parts and nets info for each hierarchy
         hierarchies = {}
+        t_hierarchies = {}
         # 1. Sort parts into hierarchies
         for i in self.parts:
             # TODO: test with nested hierarchies
             t = i.hierarchy
             t_hier = t.split('.')
             v = [x for x in t_hier if 'top' not in x]
+            # skip if this is the top hierarchy
             if len(v)==0:
                 continue
-            print(v)
+
+            for n in v:
+                if n not in t_hierarchies:
+                    t_hierarchies[n] = {'parts':[i],'nets':[]}
+                else:
+                    t_hierarchies[n]['parts'].append(i)
+
+            # print(v)
             # check for new top level hierarchy
             if v[0] not in hierarchies:
                 # make new top level hierarchy
@@ -1521,7 +1530,8 @@ class Circuit(SkidlBaseObject):
                 #        hierarchies[hier_name]['parts'].append(i) 
                 # else:
                     hierarchies[v[0]]['parts'].append(i)
-
+        for h in (t_hierarchies):
+            print(h)
         # 2. Sort nets into hierarchies
         for h in hierarchies:
             for n in self.nets:
