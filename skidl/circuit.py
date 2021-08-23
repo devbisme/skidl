@@ -136,7 +136,7 @@ def rotate_part_90_cw(part):
     part.sch_bb[2] = new_width
     part.sch_bb[3] = new_height
 
-
+    # range through the pins and rotate them
     for p in part.pins:
         new_y = -p.x
         new_x = p.y
@@ -150,11 +150,6 @@ def rotate_part_90_cw(part):
             p.orientation = 'D'
         elif p.orientation == 'L':
             p.orientation = 'U'
-
-        print("PIN" + str(p.num) + "  x: " + str(p.x) + " pin y: " + str(p.y))
-        new_x = p.x + part.sch_bb[2]
-        new_y = p.y + part.sch_bb[3]
-        print("new x: " + str(new_x) + " y: " + str(new_y))
 
 def gen_power_part_eeschema(part, stub_name, c=[0,0], orientation = [1,0,0,-1]):
 
@@ -288,71 +283,9 @@ def gen_hier_sheet(title, x_start, y_start, width=1000, height=2000):
     return (("" + "".join(sheet)))
 
 
-# # https://www.jeffreythompson.org/collision-detection/line-rect.php
-# # For a particular wire see if it collides with any parts
-# def det_net_wire_collision(parts, wire,c):
-
-#     # check if we collide with a part
-#     t = wire.split("\n")
-#     u = t[2].split() # x1 y1 x2 y2
-#     v = map(int, u)
-#     w = list(v)
-#     # order should be x1min, x1max, y1min, y1max
-#     if w[0] > w[2]:
-#         t = w[0]
-#         w[0] = w[2]
-#         w[2] = t
-#     if w[1] > w[3]:
-#         t = w[1]
-#         w[1] = w[3]
-#         w[3] = t
-#     x1min = w[0]
-#     y1min = w[1]
-#     x1max = w[2]
-#     y1max = w[3]
-#     collided_parts = []
-#     for pt in parts:
-#         x2min = pt.sch_bb[0] - pt.sch_bb[2] + c[0]
-#         y2min = pt.sch_bb[1] - pt.sch_bb[3] + c[1]
-#         x2max = pt.sch_bb[0] + pt.sch_bb[2] + c[0]
-#         y2max = pt.sch_bb[1] + pt.sch_bb[3] + c[1]
-        
-#         if lineLine(x1min,y1min,x1max,y1max, x2min,y2min,x2min, y2max):
-#             # print(pt.ref + " collision left")
-#             collided_parts.append(pt.ref)
-#         elif lineLine(x1min,y1min,x1max,y1max, x2max,y2min, x2max,y2max):
-#             # print(pt.ref + " collision right")
-#             collided_parts.append(pt.ref)
-#         elif lineLine(x1min,y1min,x1max,y1max, x2min,y2min, x2max,y2min):
-#             # print(pt.ref + " collision top")
-#             collided_parts.append(pt.ref)
-#         elif lineLine(x1min,y1min,x1max,y1max, x2min,y2max, x2max,y2max):
-#             # print(pt.ref + " collision bottom")
-#             collided_parts.append(pt.ref)
-#     return collided_parts
-
-
-
-# #LINE/LINE
-# # https://www.jeffreythompson.org/collision-detection/line-rect.php
-# def lineLine( x1,  y1,  x2,  y2,  x3,  y3,  x4,  y4):
-#   # calculate the distance to intersection point
-#     uA = 0.0
-#     uB = 0.0
-#     try:
-#         uA = ((x4-x3)*(y1-y3) - (y4-y3)*(x1-x3)) / ((y4-y3)*(x2-x1) - (x4-x3)*(y2-y1))
-#         uB = ((x2-x1)*(y1-y3) - (y2-y1)*(x1-x3)) / ((y4-y3)*(x2-x1) - (x4-x3)*(y2-y1))
-#     except:
-#         return False
-
-#     #   // if uA and uB are between 0-1, lines are colliding
-#     if (uA > 0 and uA < 1 and uB > 0 and uB < 1):
-#         return True
-#     return False
 
 def gen_net_wire(n, parts, c):
 
-# https://www.jeffreythompson.org/collision-detection/line-rect.php
 # For a particular wire see if it collides with any parts
     def det_net_wire_collision(parts, x1,y1,x2,y2):
 
@@ -1519,8 +1452,6 @@ class Circuit(SkidlBaseObject):
         # Make dictionary of hierarchies and append parts from that hierarchy
         # Also make the hierarchicalc schematics for each subcircuit and add them to the top_page[] list
         hierarchies = {}
-        x_start = 5000
-        y_start = 5000
         for i in self.parts:
             # TODO: this strategy of getting the hierarchies might not work with nested hierarchies
             t = i.hierarchy
@@ -1528,9 +1459,6 @@ class Circuit(SkidlBaseObject):
             hier_name = u[1]
             if hier_name not in hierarchies:
                 hierarchies[hier_name] = {'parts':[i],'nets':[]}
-                hier_sheet = gen_hier_sheet(hier_name, x_start, y_start)
-                top_page.append(hier_sheet)
-                x_start += 3000
             else:
                 hierarchies[hier_name]['parts'].append(i)
 
@@ -1674,6 +1602,14 @@ class Circuit(SkidlBaseObject):
                 for i in new_sch_file:
                     print("" + "".join(i), file=f)
             f.close()
+
+
+        x_start = 5000
+        y_start = 5000
+        for h in hierarchies:
+            hier_sheet = gen_hier_sheet(h, x_start, y_start)
+            top_page.append(hier_sheet)
+            x_start += 3000
 
         # Write data to main .sch file now that we know how many subcircuits we'll have
         with open(file_, "w") as f:
