@@ -80,11 +80,12 @@ def calc_move_part(pin_m, pin_nm, parts_list):
         if len(pin_m.part.pins) <= 2:
             print(pin_m.part.ref + " is a 2 pin part")
             power_conn = False
-            rotate = 0
+            
             for p in pin_m.part.pins:
+                rotate = 0
                 if 'gnd' in p.net.name.lower():
                     power_conn = True
-                    print("part: " + p.part.ref + " pin: " + str(p.num) + " is connected to ground, facing " + p.orientation)
+                    # print("part: " + p.part.ref + " pin: " + str(p.num) + " is connected to ground, facing " + p.orientation)
                     if p.orientation == 'U':
                         break # pin is facing down, break
                     if p.orientation == 'D':
@@ -95,7 +96,7 @@ def calc_move_part(pin_m, pin_nm, parts_list):
                         rotate = -90
                 elif p.nets[0].name == '+5V' or p.nets[0].name == '+3V3' or p.nets[0].name == 'GND':
                     power_conn = True
-                    print("part: " + p.part.ref + " pin: " + str(p.num) + " is connected to " + p.net.name +  ", facing " + p.orientation)
+                    # print("part: " + p.part.ref + " pin: " + str(p.num) + " is connected to " + p.net.name +  ", facing " + p.orientation)
                     if p.orientation == 'D':
                         break # pin is facing down, break
                     if p.orientation == 'U':
@@ -104,8 +105,51 @@ def calc_move_part(pin_m, pin_nm, parts_list):
                         rotate = 90
                     if p.orientation == 'R':
                         rotate = -90
+                if rotate != 0:
+                    print("we need to rotate by " + str(rotate))
+                   # for now we'll just assume they are in the starting orientation of 100-1
+                    if rotate == 90:
+                        _part = Part.get(pin_m.part.ref)
+                        _part.orientation = [0,1,1,0]
+                        x = _partsch_bb[0]
+                        y = _part.sch_bb[1]
+                        width = _part.sch_bb[2]
+                        height = _part.sch_bb[3]
+
+                        _part.sch_bb[0] = y
+                        _part.sch_bb[1] = x
+                        _part.sch_bb[2] = height
+                        _part.sch_bb[3] = width
+
+                        # TODO change the pins location as well
+                    elif rotate == 180:
+                        print("rotating by 180")
+                        _part = Part.get(pin_m.part.ref)
+                        _part.orientation = [-1,0,0,1]
+                        x = _part.sch_bb[0]
+                        y = _part.sch_bb[1]
+                        width = _part.sch_bb[2]
+                        height = _part.sch_bb[3]
+
+                        _part.sch_bb[0] = -x
+                        _part.sch_bb[1] = y
+                        _part.sch_bb[2] = height
+                        _part.sch_bb[3] = width
+
+                        # TODO change the pin locations
+                        # does changing pin location on the part also change it on the pin we're doing math on?
+                        if _part.pins[pin_m.num].orientation == 'D':
+                            _part.pins[pin_m.num].orientation = #opposite
+                            _part.pins[pin_m.num].x = #something
+                            _part.pins[pin_m.num].y = # something
+                        elif _part.pins[pin_m.num].orientation == 'U':
+                            _part.pins[pin_m.num].orientation = #opposite
+                            _part.pins[pin_m.num].x = #something
+                            _part.pins[pin_m.num].y = # something
             if not power_conn:
                 print("Part not connected to power net")
+            
+            
         # dx = pin_nm.x + pin_nm.part.sch_bb[0] # pointless, should always be 0,0 here
         dx = pin_nm.x # we move at least the x distance of central part's pin
         # if we are moving right then add on the moving part's pin's x coordinates and a buffer (400 for now)

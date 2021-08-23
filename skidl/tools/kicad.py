@@ -1797,7 +1797,7 @@ def _gen_wire_eeschema_(n, parts, c):
 
 
 
-    # Caluclate the coordiantes of a straight line
+    # Caluclate the coordiantes of a straight line between the 2 pins that need to connect
     x1 = n.pins[0].part.sch_bb[0] + n.pins[0].x
     y1 = n.pins[0].part.sch_bb[1] - n.pins[0].y
 
@@ -1807,29 +1807,27 @@ def _gen_wire_eeschema_(n, parts, c):
     line = [[x1,y1], [x2,y2]]
 
 
+    # Check if the line is orthogonal by checking if we are horizontally or vertically aligned
     if not(x1 == x2) and not(y1==y2):
-        print("not normal")
-        # insert a point to make the lines normal on the x axis
+        # if the line is not orthogonal then insert a point to make it orthogonal
         #  y's must be equal
         x_t = x1
         y_t = y2
         line.insert(1,[x_t,y_t])
-        # print(str(line))
 
-        
+    # check each line segment for a collision
     for i in range(len(line)-1):
-        # print("check first line segment for collision")
         t_x1 = line[i][0]
         t_y1 = line[i][1]
         t_x2 = line[i+1][0]
         t_y2 = line[i+1][1]
 
         collide = det_net_wire_collision(parts, t_x1,t_y1,t_x2,t_y2)
-        # print(n.name)
+        # if we see a collision then draw the net around the rectangle
+        # since we are only going left/right with nets/rectangles the strategy to route
+        # around a rectangle is basically making a 'U' shape around it
         if len(collide)>0:
-            print(collide)
-        
-        # first draw downward line, x stays the same
+            # first draw downward line, x stays the same
             # find the part in our list of parts
             for p in parts:
                 if p.ref == collide[0]:
