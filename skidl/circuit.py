@@ -31,6 +31,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 import functools
 from inspect import currentframe
 import json
+import math
 import os.path
 import re
 import subprocess
@@ -106,50 +107,39 @@ def calc_move_part(pin_m, pin_nm, parts_list):
                     if p.orientation == 'R':
                         rotate = -90
                 if rotate != 0:
+                    _part = Part.get(pin_m.part.ref)
+                    rotate_part_90_cw(_part)
+                    rotate_part_90_cw(_part)
                     print("we need to rotate by " + str(rotate))
-                   # for now we'll just assume they are in the starting orientation of 100-1
-                    if rotate == 90:
-                        _part = Part.get(pin_m.part.ref)
-                        _part.orientation = [0,1,1,0]
-                        x = _partsch_bb[0]
-                        y = _part.sch_bb[1]
-                        width = _part.sch_bb[2]
-                        height = _part.sch_bb[3]
+                #    # for now we'll just assume they are in the starting orientation of 100-1
+                #     if rotate == 90:
+                        
+                #         _part.orientation = [0,1,1,0]
+                #         x = _part.sch_bb[0]
+                #         y = _part.sch_bb[1]
+                #         width = _part.sch_bb[2]
+                #         height = _part.sch_bb[3]
 
-                        _part.sch_bb[0] = y
-                        _part.sch_bb[1] = x
-                        _part.sch_bb[2] = height
-                        _part.sch_bb[3] = width
+                #         _part.sch_bb[0] = y
+                #         _part.sch_bb[1] = x
+                #         _part.sch_bb[2] = height
+                #         _part.sch_bb[3] = width
 
-                        # TODO change the pins location as well
-                    elif rotate == 180:
-                        print("rotating by 180")
-                        _part = Part.get(pin_m.part.ref)
-                        _part.orientation = [-1,0,0,1]
-                        x = _part.sch_bb[0]
-                        y = _part.sch_bb[1]
-                        width = _part.sch_bb[2]
-                        height = _part.sch_bb[3]
+                #         # TODO change the pins location as well
+                #     elif rotate == 180:
+                #         print("rotating by 180")
+                #         _part.orientation = [-1,0,0,1]
+                #         x = _part.sch_bb[0]
+                #         y = _part.sch_bb[1]
+                #         width = _part.sch_bb[2]
+                #         height = _part.sch_bb[3]
 
-                        _part.sch_bb[0] = -x
-                        _part.sch_bb[1] = y
-                        _part.sch_bb[2] = height
-                        _part.sch_bb[3] = width
-
-                        # TODO change the pin locations
-                        # does changing pin location on the part also change it on the pin we're doing math on?
-                        # if _part.pins[pin_m.num].orientation == 'D':
-                        #     _part.pins[pin_m.num].orientation = #opposite
-                        #     _part.pins[pin_m.num].x = #something
-                        #     _part.pins[pin_m.num].y = # something
-                        # elif _part.pins[pin_m.num].orientation == 'U':
-                        #     _part.pins[pin_m.num].orientation = #opposite
-                        #     _part.pins[pin_m.num].x = #something
-                        #     _part.pins[pin_m.num].y = # something
-            if not power_conn:
-                print("Part not connected to power net")
-            
-            
+                #         _part.sch_bb[0] = -x
+                #         _part.sch_bb[1] = y
+                #         _part.sch_bb[2] = height
+                #         _part.sch_bb[3] = width
+            # if not power_conn:
+            #     print("Part not connected to power net")
         # dx = pin_nm.x + pin_nm.part.sch_bb[0] # pointless, should always be 0,0 here
         dx = pin_nm.x # we move at least the x distance of central part's pin
         # if we are moving right then add on the moving part's pin's x coordinates and a buffer (400 for now)
@@ -169,7 +159,33 @@ def calc_move_part(pin_m, pin_nm, parts_list):
         # print("Moving part: " + p.ref + " by  x: " + str(dx) + "  y: " + str(dy))
         p.move_part(dx, dy,parts_list)
 
+# Rotating the part CW 90 switches the x/y axis and makes the new height negative
+# https://stackoverflow.com/questions/2285936/easiest-way-to-rotate-a-rectangle
+def rotate_part_90_cw(part):
+    # new_height = -part.sch_bb[2]
+    # new_width = part.sch_bb[3]
+    # part.sch_bb[2] = new_width
+    # part.sch_bb[3] = new_height
 
+
+    for p in part.pins:
+        new_y = -p.x
+        new_x = p.y
+        p.x = new_x
+        p.y = new_y
+        if p.orientation == 'D':
+            p.orientation = 'L'
+        elif p.orientation == 'U':
+            p.orientation = 'R'
+        elif p.orientation == 'R':
+            p.orientation = 'D'
+        elif p.orientation == 'L':
+            p.orientation = 'U'
+
+        print("PIN" + str(p.num) + "  x: " + str(p.x) + " pin y: " + str(p.y))
+        new_x = p.x + part.sch_bb[2]
+        new_y = p.y + part.sch_bb[3]
+        print("new x: " + str(new_x) + " y: " + str(new_y))
 
 def gen_power_part_eeschema(part, stub_name, c=[0,0], orientation = [1,0,0,-1]):
 
@@ -365,7 +381,7 @@ def gen_hier_sheet(title, x_start, y_start, width=1000, height=2000):
 #         return True
 #     return False
 
-def gen_wire_eeschema(n, parts, c):
+def gen_net_wire(n, parts, c):
 
 # https://www.jeffreythompson.org/collision-detection/line-rect.php
 # For a particular wire see if it collides with any parts
@@ -459,8 +475,6 @@ def gen_wire_eeschema(n, parts, c):
             if collided_side == "L":
                 # if we collided on the left 
                 if n.pins[1].part.sch_bb[0]<0 or n.pins[0].part.sch_bb[0]<0:
-                    print("left side of U1")
-
                     # switch first and last coordinates if one is further left
                     if x1 > x2:
                         t = line[0]
@@ -1668,14 +1682,7 @@ class Circuit(SkidlBaseObject):
             
             # Create the nets and add them to the circuit parts list
             for n in hierarchies[h]['nets']:
-                # print("Net from: " + n.pins[0].ref + " to " + n.pins[1].ref)
-                # wire = n.gen_eeschema(, sch_c)
-                wire = gen_wire_eeschema(n,hierarchies[h]['parts'], sch_c)
-                # Look through the hierarchy nets and find collisions
-                # for n in hierarchies[h]['nets']:
-                    # t_collision = det_net_wire_collision(hierarchies[h]['parts'], n, sch_c)
-                    # if len(t_collision)>0:
-                    #     (print(str(n) + "Collides with " + str(t_collision)))
+                wire = gen_net_wire(n,hierarchies[h]['parts'], sch_c)
                 eeschema_code.append(wire)
 
             # Append stubs
