@@ -151,8 +151,11 @@ def rotate_part_90_cw(part):
         elif p.orientation == 'L':
             p.orientation = 'U'
 
+# Generate elkjs code that can create an auto diagram with this website:
+# https://rtsys.informatik.uni-kiel.de/elklive/elkgraph.html
 def gen_elkjs_code(parts, nets):
     elkjs_code = []
+    # range through parts and append code for each part
     for pt in parts:
         elkjs_part = []
         elkjs_part.append("node {}".format(pt.ref) + 
@@ -177,8 +180,8 @@ def gen_elkjs_code(parts, nets):
             "\t}\n")
         elkjs_part.append("}")
         elkjs_code.append("\n" + "".join(elkjs_part))
-        # print("\n" + "".join(elkjs_part))
 
+    # range through nets 
     for n in nets:
         for p in range(len(n.pins)):
             try:
@@ -1496,7 +1499,6 @@ class Circuit(SkidlBaseObject):
         for i in self.parts:
             i.generate_bounding_box()
 
-
         # Make dictionary of hierarchies and append parts from that hierarchy
         # Also make the hierarchicalc schematics for each subcircuit and add them to the top_page[] list
         hierarchies = {}
@@ -1510,8 +1512,6 @@ class Circuit(SkidlBaseObject):
             else:
                 hierarchies[hier_name]['parts'].append(i)
 
-
-
         # get the hierarchy nets
         for h in hierarchies:
             for n in self.nets:
@@ -1520,21 +1520,6 @@ class Circuit(SkidlBaseObject):
                         pass
                 if h in n.hierarchy:
                     hierarchies[h]['nets'].append(n)
-       
-        # for h in hierarchies:
-        #     for n in hierarchies[h]['nets']:
-        #         for p in range(len(n.pins)):
-        #             try:
-        #                 part1 = n.pins[p].ref
-        #                 pin1 = n.pins[p].num
-        #                 part2 = n.pins[p+1].ref
-        #                 pin2 = n.pins[p+1].num
-        #                 t = "edge {}.p{} -> {}.p{}".format(part1, pin1, part2, pin2)
-        #                 print(t)
-        #                 # ("\n" + "".join(t))
-
-        #             except:
-        #                 pass
 
         # Range through each hierarchy and place parts around the center part (part 0)
         for h in hierarchies:
@@ -1646,7 +1631,6 @@ class Circuit(SkidlBaseObject):
                 for i in new_sch_file:
                     print("" + "".join(i), file=f)
             f.close()
-
 
         # Generate hierarchical sheets for top sheet
         x_start = 5000
