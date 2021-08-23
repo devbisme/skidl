@@ -400,15 +400,6 @@ def gen_net_wire(n, parts, c):
 
     line = [[x1,y1], [x2,y2]]
 
-
-    # Check if the line is orthogonal by checking if we are horizontally or vertically aligned
-    if not(x1 == x2) and not(y1==y2):
-        # if the line is not orthogonal then insert a point to make it orthogonal
-        #  y's must be equal
-        x_t = x1
-        y_t = y2
-        line.insert(1,[x_t,y_t])
-
     # check each line segment for a collision
     for i in range(len(line)-1):
         t_x1 = line[i][0]
@@ -425,7 +416,7 @@ def gen_net_wire(n, parts, c):
             collided_side = collide[1]
             
             if collided_side == "L":
-                # if we collided on the left 
+                # check if we collided on the left or right side of the central part
                 if n.pins[1].part.sch_bb[0]<0 or n.pins[0].part.sch_bb[0]<0:
                     # switch first and last coordinates if one is further left
                     if x1 > x2:
