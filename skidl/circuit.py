@@ -151,6 +151,54 @@ def rotate_part_90_cw(part):
         elif p.orientation == 'L':
             p.orientation = 'U'
 
+def gen_elkjs_code(parts, nets):
+    elkjs_code = []
+    for pt in parts:
+        elkjs_part = []
+        elkjs_part.append("node {}".format(pt.ref) + 
+        ' {\n' + '\tlayout [ size: {},{} ]\n'.format(pt.sch_bb[2], pt.sch_bb[3]) + 
+        '\tportConstraints: FIXED_SIDE\n'+
+        '')
+
+        for p in pt.pins:
+            dir = ""
+            if p.orientation == 'L':
+                dir = "EAST"
+            elif p.orientation == 'R':
+                dir = "WEST"
+            elif p.orientation == 'U':
+                dir = "NORTH"
+            elif p.orientation == 'D':
+                dir = "SOUTH"
+            elkjs_part.append("\tport p{} ".format(p.num) + 
+            "{ \n" + 
+            "\t\t^port.side: {} \n".format(dir) + 
+            '\t\tlabel "{}"\n'.format(p.name) + 
+            "\t}\n")
+        elkjs_part.append("}")
+        elkjs_code.append("\n" + "".join(elkjs_part))
+        # print("\n" + "".join(elkjs_part))
+
+    for n in nets:
+        for p in range(len(n.pins)):
+            try:
+                part1 = n.pins[p].ref
+                pin1 = n.pins[p].num
+                part2 = n.pins[p+1].ref
+                pin2 = n.pins[p+1].num
+                t = "edge {}.p{} -> {}.p{}\n".format(part1, pin1, part2, pin2)
+                elkjs_code.append(t)
+            except:
+                pass
+    
+    # open file to save elkjs code
+    file_path = "stm32/elkjs.txt"
+    f = open(file_path, "a")
+    f.truncate(0) # Clear the file
+    for i in elkjs_code:
+        print("" + "".join(i), file=f)
+    f.close()
+
 def gen_power_part_eeschema(part, stub_name, c=[0,0], orientation = [1,0,0,-1]):
 
     for pin in part.pins:
@@ -1470,27 +1518,23 @@ class Circuit(SkidlBaseObject):
                 if hasattr(n, 'stub'):
                     if n.stub:
                         pass
-                # for p in n.pins:
-                #     elkjs_net = []
-                #     t = "edge {}.{} -> {}.{}".format()
-                #     elkjs_net.append(t)
                 if h in n.hierarchy:
                     hierarchies[h]['nets'].append(n)
        
-        for h in hierarchies:
-            for n in hierarchies[h]['nets']:
-                for p in range(len(n.pins)):
-                    try:
-                        part1 = n.pins[p].ref
-                        pin1 = n.pins[p].num
-                        part2 = n.pins[p+1].ref
-                        pin2 = n.pins[p+1].num
-                        t = "edge {}.p{} -> {}.p{}".format(part1, pin1, part2, pin2)
-                        print(t)
-                        # ("\n" + "".join(t))
+        # for h in hierarchies:
+        #     for n in hierarchies[h]['nets']:
+        #         for p in range(len(n.pins)):
+        #             try:
+        #                 part1 = n.pins[p].ref
+        #                 pin1 = n.pins[p].num
+        #                 part2 = n.pins[p+1].ref
+        #                 pin2 = n.pins[p+1].num
+        #                 t = "edge {}.p{} -> {}.p{}".format(part1, pin1, part2, pin2)
+        #                 print(t)
+        #                 # ("\n" + "".join(t))
 
-                    except:
-                        pass
+        #             except:
+        #                 pass
 
         # Range through each hierarchy and place parts around the center part (part 0)
         for h in hierarchies:
@@ -1604,12 +1648,16 @@ class Circuit(SkidlBaseObject):
             f.close()
 
 
+        # Generate hierarchical sheets for top sheet
         x_start = 5000
         y_start = 5000
         for h in hierarchies:
             hier_sheet = gen_hier_sheet(h, x_start, y_start)
             top_page.append(hier_sheet)
             x_start += 3000
+
+        # Generate the elksjs code
+        gen_elkjs_code(self.parts, self.nets)
 
         # Write data to main .sch file now that we know how many subcircuits we'll have
         with open(file_, "w") as f:

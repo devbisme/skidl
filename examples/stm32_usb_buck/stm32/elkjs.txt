@@ -1,0 +1,449 @@
+
+node U1 {
+	layout [ size: 700,1800 ]
+	portConstraints: FIXED_SIDE
+	port p60 { 
+		^port.side: WEST 
+		label "BOOT0"
+	}
+	port p7 { 
+		^port.side: WEST 
+		label "NRST"
+	}
+	port p14 { 
+		^port.side: EAST 
+		label "PA0"
+	}
+	port p15 { 
+		^port.side: EAST 
+		label "PA1"
+	}
+	port p43 { 
+		^port.side: EAST 
+		label "PA10"
+	}
+	port p44 { 
+		^port.side: EAST 
+		label "PA11"
+	}
+	port p45 { 
+		^port.side: EAST 
+		label "PA12"
+	}
+	port p46 { 
+		^port.side: EAST 
+		label "PA13"
+	}
+	port p49 { 
+		^port.side: EAST 
+		label "PA14"
+	}
+	port p50 { 
+		^port.side: EAST 
+		label "PA15"
+	}
+	port p16 { 
+		^port.side: EAST 
+		label "PA2"
+	}
+	port p17 { 
+		^port.side: EAST 
+		label "PA3"
+	}
+	port p20 { 
+		^port.side: EAST 
+		label "PA4"
+	}
+	port p21 { 
+		^port.side: EAST 
+		label "PA5"
+	}
+	port p22 { 
+		^port.side: EAST 
+		label "PA6"
+	}
+	port p23 { 
+		^port.side: EAST 
+		label "PA7"
+	}
+	port p41 { 
+		^port.side: EAST 
+		label "PA8"
+	}
+	port p42 { 
+		^port.side: EAST 
+		label "PA9"
+	}
+	port p26 { 
+		^port.side: EAST 
+		label "PB0"
+	}
+	port p27 { 
+		^port.side: EAST 
+		label "PB1"
+	}
+	port p29 { 
+		^port.side: EAST 
+		label "PB10"
+	}
+	port p30 { 
+		^port.side: EAST 
+		label "PB11"
+	}
+	port p33 { 
+		^port.side: EAST 
+		label "PB12"
+	}
+	port p34 { 
+		^port.side: EAST 
+		label "PB13"
+	}
+	port p35 { 
+		^port.side: EAST 
+		label "PB14"
+	}
+	port p36 { 
+		^port.side: EAST 
+		label "PB15"
+	}
+	port p28 { 
+		^port.side: EAST 
+		label "PB2"
+	}
+	port p55 { 
+		^port.side: EAST 
+		label "PB3"
+	}
+	port p56 { 
+		^port.side: EAST 
+		label "PB4"
+	}
+	port p57 { 
+		^port.side: EAST 
+		label "PB5"
+	}
+	port p58 { 
+		^port.side: EAST 
+		label "PB6"
+	}
+	port p59 { 
+		^port.side: EAST 
+		label "PB7"
+	}
+	port p61 { 
+		^port.side: EAST 
+		label "PB8"
+	}
+	port p62 { 
+		^port.side: EAST 
+		label "PB9"
+	}
+	port p8 { 
+		^port.side: WEST 
+		label "PC0"
+	}
+	port p9 { 
+		^port.side: WEST 
+		label "PC1"
+	}
+	port p51 { 
+		^port.side: WEST 
+		label "PC10"
+	}
+	port p52 { 
+		^port.side: WEST 
+		label "PC11"
+	}
+	port p53 { 
+		^port.side: WEST 
+		label "PC12"
+	}
+	port p2 { 
+		^port.side: WEST 
+		label "PC13"
+	}
+	port p3 { 
+		^port.side: WEST 
+		label "PC14"
+	}
+	port p4 { 
+		^port.side: WEST 
+		label "PC15"
+	}
+	port p10 { 
+		^port.side: WEST 
+		label "PC2"
+	}
+	port p11 { 
+		^port.side: WEST 
+		label "PC3"
+	}
+	port p24 { 
+		^port.side: WEST 
+		label "PC4"
+	}
+	port p25 { 
+		^port.side: WEST 
+		label "PC5"
+	}
+	port p37 { 
+		^port.side: WEST 
+		label "PC6"
+	}
+	port p38 { 
+		^port.side: WEST 
+		label "PC7"
+	}
+	port p39 { 
+		^port.side: WEST 
+		label "PC8"
+	}
+	port p40 { 
+		^port.side: WEST 
+		label "PC9"
+	}
+	port p54 { 
+		^port.side: WEST 
+		label "PD2"
+	}
+	port p5 { 
+		^port.side: WEST 
+		label "PH0"
+	}
+	port p6 { 
+		^port.side: WEST 
+		label "PH1"
+	}
+	port p1 { 
+		^port.side: SOUTH 
+		label "VBAT"
+	}
+	port p31 { 
+		^port.side: WEST 
+		label "VCAP_1"
+	}
+	port p47 { 
+		^port.side: WEST 
+		label "VCAP_2"
+	}
+	port p19 { 
+		^port.side: SOUTH 
+		label "VDD"
+	}
+	port p32 { 
+		^port.side: SOUTH 
+		label "VDD"
+	}
+	port p48 { 
+		^port.side: SOUTH 
+		label "VDD"
+	}
+	port p64 { 
+		^port.side: SOUTH 
+		label "VDD"
+	}
+	port p13 { 
+		^port.side: SOUTH 
+		label "VDDA"
+	}
+	port p18 { 
+		^port.side: NORTH 
+		label "VSS"
+	}
+	port p63 { 
+		^port.side: NORTH 
+		label "VSS"
+	}
+	port p12 { 
+		^port.side: NORTH 
+		label "VSSA"
+	}
+}
+
+node C1 {
+	layout [ size: 100,100 ]
+	portConstraints: FIXED_SIDE
+	port p1 { 
+		^port.side: SOUTH 
+		label "~"
+	}
+	port p2 { 
+		^port.side: NORTH 
+		label "~"
+	}
+}
+
+node C2 {
+	layout [ size: 100,100 ]
+	portConstraints: FIXED_SIDE
+	port p1 { 
+		^port.side: SOUTH 
+		label "~"
+	}
+	port p2 { 
+		^port.side: NORTH 
+		label "~"
+	}
+}
+
+node C3 {
+	layout [ size: 100,100 ]
+	portConstraints: FIXED_SIDE
+	port p1 { 
+		^port.side: SOUTH 
+		label "~"
+	}
+	port p2 { 
+		^port.side: NORTH 
+		label "~"
+	}
+}
+
+node R1 {
+	layout [ size: 100,150 ]
+	portConstraints: FIXED_SIDE
+	port p1 { 
+		^port.side: SOUTH 
+		label "~"
+	}
+	port p2 { 
+		^port.side: NORTH 
+		label "~"
+	}
+}
+
+node D1 {
+	layout [ size: 150,100 ]
+	portConstraints: FIXED_SIDE
+	port p1 { 
+		^port.side: WEST 
+		label "K"
+	}
+	port p2 { 
+		^port.side: EAST 
+		label "A"
+	}
+}
+
+node R2 {
+	layout [ size: 100,150 ]
+	portConstraints: FIXED_SIDE
+	port p1 { 
+		^port.side: SOUTH 
+		label "~"
+	}
+	port p2 { 
+		^port.side: NORTH 
+		label "~"
+	}
+}
+
+node U2 {
+	layout [ size: 400,400 ]
+	portConstraints: FIXED_SIDE
+	port p1 { 
+		^port.side: WEST 
+		label "I/O1"
+	}
+	port p2 { 
+		^port.side: NORTH 
+		label "GND"
+	}
+	port p3 { 
+		^port.side: WEST 
+		label "I/O2"
+	}
+	port p4 { 
+		^port.side: EAST 
+		label "I/O3"
+	}
+	port p5 { 
+		^port.side: SOUTH 
+		label "VBUS"
+	}
+	port p6 { 
+		^port.side: EAST 
+		label "I/O4"
+	}
+}
+
+node J1 {
+	layout [ size: 300,100 ]
+	portConstraints: FIXED_SIDE
+	port p1 { 
+		^port.side: EAST 
+		label "VBUS"
+	}
+	port p2 { 
+		^port.side: EAST 
+		label "D-"
+	}
+	port p3 { 
+		^port.side: EAST 
+		label "D+"
+	}
+	port p4 { 
+		^port.side: EAST 
+		label "ID"
+	}
+	port p5 { 
+		^port.side: NORTH 
+		label "GND"
+	}
+	port p6 { 
+		^port.side: NORTH 
+		label "Shield"
+	}
+}
+edge U2.p5 -> J1.p1
+
+edge U1.p1 -> U1.p19
+
+edge U1.p19 -> U1.p32
+
+edge U1.p32 -> U1.p48
+
+edge U1.p48 -> U1.p64
+
+edge U1.p64 -> U1.p13
+
+edge C3.p2 -> R1.p2
+
+edge R1.p2 -> D1.p2
+
+edge D1.p2 -> U2.p2
+
+edge U2.p2 -> J1.p5
+
+edge J1.p5 -> J1.p6
+
+edge J1.p6 -> C1.p2
+
+edge C1.p2 -> C2.p2
+
+edge C2.p2 -> U1.p12
+
+edge U1.p12 -> U1.p18
+
+edge U1.p18 -> U1.p63
+
+edge U1.p31 -> C1.p1
+
+edge U1.p47 -> C2.p1
+
+edge C3.p1 -> U1.p14
+
+edge R1.p1 -> U1.p17
+
+edge U1.p8 -> R2.p1
+
+edge R2.p2 -> D1.p1
+
+edge U2.p1 -> U1.p43
+
+edge U2.p4 -> U1.p44
+
+edge J1.p2 -> U2.p6
+
+edge J1.p3 -> U2.p3
+
