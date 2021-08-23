@@ -108,38 +108,8 @@ def calc_move_part(pin_m, pin_nm, parts_list):
                         rotate = -90
                 if rotate != 0:
                     _part = Part.get(pin_m.part.ref)
-                    rotate_part_90_cw(_part)
-                    rotate_part_90_cw(_part)
-                    print("we need to rotate by " + str(rotate))
-                #    # for now we'll just assume they are in the starting orientation of 100-1
-                #     if rotate == 90:
-                        
-                #         _part.orientation = [0,1,1,0]
-                #         x = _part.sch_bb[0]
-                #         y = _part.sch_bb[1]
-                #         width = _part.sch_bb[2]
-                #         height = _part.sch_bb[3]
-
-                #         _part.sch_bb[0] = y
-                #         _part.sch_bb[1] = x
-                #         _part.sch_bb[2] = height
-                #         _part.sch_bb[3] = width
-
-                #         # TODO change the pins location as well
-                #     elif rotate == 180:
-                #         print("rotating by 180")
-                #         _part.orientation = [-1,0,0,1]
-                #         x = _part.sch_bb[0]
-                #         y = _part.sch_bb[1]
-                #         width = _part.sch_bb[2]
-                #         height = _part.sch_bb[3]
-
-                #         _part.sch_bb[0] = -x
-                #         _part.sch_bb[1] = y
-                #         _part.sch_bb[2] = height
-                #         _part.sch_bb[3] = width
-            # if not power_conn:
-            #     print("Part not connected to power net")
+                    for i in range(int(rotate/90)):
+                        rotate_part_90_cw(_part)
         # dx = pin_nm.x + pin_nm.part.sch_bb[0] # pointless, should always be 0,0 here
         dx = pin_nm.x # we move at least the x distance of central part's pin
         # if we are moving right then add on the moving part's pin's x coordinates and a buffer (400 for now)
@@ -150,22 +120,21 @@ def calc_move_part(pin_m, pin_nm, parts_list):
             dx -= (abs(pin_m.x) + 400)
         dy = -pin_m.y + pin_nm.y + pin_nm.part.sch_bb[1]
         p = Part.get(pin_m.part.ref)
-        # print("Moving part: " + p.ref + " by  x: " + str(dx) + "  y: " + str(dy))
         p.move_part(dx, dy,parts_list)
     else:
         dx = pin_m.x + pin_nm.x + pin_nm.part.sch_bb[0]
         dy = -pin_m.y + pin_nm.y - pin_nm.part.sch_bb[1] 
         p = Part.get(pin_m.part.ref)
-        # print("Moving part: " + p.ref + " by  x: " + str(dx) + "  y: " + str(dy))
         p.move_part(dx, dy,parts_list)
 
 # Rotating the part CW 90 switches the x/y axis and makes the new height negative
 # https://stackoverflow.com/questions/2285936/easiest-way-to-rotate-a-rectangle
 def rotate_part_90_cw(part):
-    # new_height = -part.sch_bb[2]
-    # new_width = part.sch_bb[3]
-    # part.sch_bb[2] = new_width
-    # part.sch_bb[3] = new_height
+    # switch the height and width
+    new_height = part.sch_bb[2]
+    new_width = part.sch_bb[3]
+    part.sch_bb[2] = new_width
+    part.sch_bb[3] = new_height
 
 
     for p in part.pins:
