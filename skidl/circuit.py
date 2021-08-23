@@ -79,7 +79,7 @@ def move_part(pin_m, pin_nm, parts_list):
     if pin_nm.ref in parts_list[0].ref:
         # check if the moving part is a 2 pin passive that needs to be rotated to GND or POWER
         if len(pin_m.part.pins) <= 2:
-            print(pin_m.part.ref + " is a 2 pin part")
+            # print(pin_m.part.ref + " is a 2 pin part")
             power_conn = False
             
             for p in pin_m.part.pins:
@@ -386,7 +386,7 @@ def gen_net_wire(n, parts, c):
         if (uA > 0 and uA < 1 and uB > 0 and uB < 1):
             intersectionX = x1 + (uA * (x2-x1))
             intersectionY = y1 + (uA * (y2-y1))
-            print("Collision at:  X: " + str(intersectionX) + " Y: " + str(intersectionY))
+            # print("Collision at:  X: " + str(intersectionX) + " Y: " + str(intersectionY))
             return True
         return False
 
@@ -400,7 +400,6 @@ def gen_net_wire(n, parts, c):
 
     line = [[x1,y1], [x2,y2]]
 
-    # check each line segment for a collision
     for i in range(len(line)-1):
         t_x1 = line[i][0]
         t_y1 = line[i][1]
@@ -427,16 +426,28 @@ def gen_net_wire(n, parts, c):
                     # draw line down
                     d_x1 = collided_part.sch_bb[0] - collided_part.sch_bb[2] - 100
                     d_y1 = t_y1
+                    # check for collisions before adding the line
+                    t_col = det_net_wire_collision(parts, t_x1, t_y1, d_x1, d_y1)
+                    if len(t_col)>0:
+                        print("start x: " + str(t_x1) + " y: " + str(t_y1) + "  end x: " + str(d_x1) + " y: " + str(d_y1) + "\ncollision with: " + str(t_col))
+
                     d_x2 = d_x1
                     d_y2 = collided_part.sch_bb[1] + collided_part.sch_bb[3] + 200
+                    t_col = det_net_wire_collision(parts, d_x1, d_y1, d_x2, d_y2)
+                    if len(t_col)>0:
+                        print("start x: " + str(d_x1) + " y: " + str(d_y1) + "  end x: " + str(d_x2) + " y: " + str(d_y2) + "\ncollision with: " + str(t_col))
+
                     # d_x3 = d_x2 + collided_part.sch_bb[2] + 100 + 100
                     d_y3 = d_y2
+                    t_col = det_net_wire_collision(parts, d_x2, d_y2, x1, d_y3)
+                    if len(t_col)>0:
+                        print("start x: " + str(d_x2) + " y: " + str(d_y2) + "  end x: " + str(x1) + " y: " + str(d_y3) + "\ncollision with: " + str(t_col))
                     line.insert(i+1, [d_x1,d_y1])
                     line.insert(i+2, [d_x2, d_y2])
                     line.insert(i+3, [x1, d_y3])
 
                 else:
-                    print("right side of U1")
+                    # print("right side of U1")
                         # switch first and last coordinates if one is further left
                     if x1 < x2:
                         t = line[0]
@@ -445,10 +456,26 @@ def gen_net_wire(n, parts, c):
                     # draw line down
                     d_x1 = collided_part.sch_bb[0] + collided_part.sch_bb[2] + 100
                     d_y1 = t_y1
+                    # check for collisions before adding the line
+                    t_col = det_net_wire_collision(parts, t_x1, t_y1, d_x1, d_y1)
+                    if len(t_col)>0:
+                        print("start x: " + str(t_x1) + " y: " + str(t_y1) + "  end x: " + str(d_x1) + " y: " + str(d_y1) + "\ncollision with: " + str(t_col))
+
+
+
                     d_x2 = d_x1
                     d_y2 = collided_part.sch_bb[1] + collided_part.sch_bb[3] + 200
+
+                    t_col = det_net_wire_collision(parts, d_x1, d_y1, d_x2, d_y2)
+                    if len(t_col)>0:
+                        print("start x: " + str(d_x1) + " y: " + str(d_y1) + "  end x: " + str(d_x2) + " y: " + str(d_y2) + "\ncollision with: " + str(t_col))
+
                     # d_x3 = d_x2 + collided_part.sch_bb[2] + 100 + 100
                     d_y3 = d_y2
+                    t_col = det_net_wire_collision(parts, d_x2, d_y2, x1, d_y3)
+                    if len(t_col)>0:
+                        print("start x: " + str(d_x2) + " y: " + str(d_y2) + "  end x: " + str(x1) + " y: " + str(d_y3) + "\ncollision with: " + str(t_col))
+
                     line.insert(i+1, [d_x1,d_y1])
                     line.insert(i+2, [d_x2, d_y2])
                     line.insert(i+3, [x2, d_y3])
@@ -463,10 +490,22 @@ def gen_net_wire(n, parts, c):
                 # draw line down
                 d_x1 = collided_part.sch_bb[0] - collided_part.sch_bb[2] - 100
                 d_y1 = t_y1
+                t_col = det_net_wire_collision(parts, t_x1, t_y1, d_x1, d_y1)
+                if len(t_col)>0:
+                    print("start x: " + str(t_x1) + " y: " + str(t_y1) + "  end x: " + str(d_x1) + " y: " + str(d_y1) + "\ncollision with: " + str(t_col))
+
                 d_x2 = d_x1
                 d_y2 = collided_part.sch_bb[1] + collided_part.sch_bb[3] + 100
+                t_col = det_net_wire_collision(parts, d_x1, d_y1, d_x2, d_y2)
+                if len(t_col)>0:
+                    print("start x: " + str(d_x1) + " y: " + str(d_y1) + "  end x: " + str(d_x2) + " y: " + str(d_y2) + "\ncollision with: " + str(t_col))
+
                 d_x3 = d_x2 - collided_part.sch_bb[2] + 100 + 100
                 d_y3 = d_y2
+                t_col = det_net_wire_collision(parts, d_x2, d_y2, x1, d_y3)
+                if len(t_col)>0:
+                    print("start x: " + str(d_x2) + " y: " + str(d_y2) + "  end x: " + str(x1) + " y: " + str(d_y3) + "\ncollision with: " + str(t_col))
+
                 line.insert(i+1, [d_x1,d_y1])
                 line.insert(i+2, [d_x2, d_y2])
                 line.insert(i+3, [x1, d_y3])
