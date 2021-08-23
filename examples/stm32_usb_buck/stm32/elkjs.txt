@@ -395,6 +395,96 @@ node J1 {
 		label "Shield"
 	}
 }
+
+node U3 {
+	layout [ size: 250,150 ]
+	portConstraints: FIXED_SIDE
+	port p1 { 
+		^port.side: WEST 
+		label "~"
+	}
+	port p2 { 
+		^port.side: EAST 
+		label "~"
+	}
+	port p3 { 
+		^port.side: SOUTH 
+		label "GND"
+	}
+	port p4 { 
+		^port.side: WEST 
+		label "~"
+	}
+	port p5 { 
+		^port.side: NORTH 
+		label "VCC"
+	}
+}
+
+node R3 {
+	layout [ size: 100,150 ]
+	portConstraints: FIXED_SIDE
+	port p1 { 
+		^port.side: SOUTH 
+		label "~"
+	}
+	port p2 { 
+		^port.side: NORTH 
+		label "~"
+	}
+}
+
+node R4 {
+	layout [ size: 100,150 ]
+	portConstraints: FIXED_SIDE
+	port p1 { 
+		^port.side: NORTH 
+		label "~"
+	}
+	port p2 { 
+		^port.side: SOUTH 
+		label "~"
+	}
+}
+
+node C4 {
+	layout [ size: 100,150 ]
+	portConstraints: FIXED_SIDE
+	port p1 { 
+		^port.side: SOUTH 
+		label "~"
+	}
+	port p2 { 
+		^port.side: NORTH 
+		label "~"
+	}
+}
+
+node D2 {
+	layout [ size: 150,100 ]
+	portConstraints: FIXED_SIDE
+	port p1 { 
+		^port.side: WEST 
+		label "K"
+	}
+	port p2 { 
+		^port.side: EAST 
+		label "A"
+	}
+}
+
+node R5 {
+	layout [ size: 100,150 ]
+	portConstraints: FIXED_SIDE
+	port p1 { 
+		^port.side: SOUTH 
+		label "~"
+	}
+	port p2 { 
+		^port.side: NORTH 
+		label "~"
+	}
+}
 edge U2.p5 -> J1.p1
 
 edge U1.p1 -> U1.p19
@@ -406,6 +496,14 @@ edge U1.p32 -> U1.p48
 edge U1.p48 -> U1.p64
 
 edge U1.p64 -> U1.p13
+
+edge U1.p13 -> R5.p1
+
+edge R5.p1 -> C4.p1
+
+edge C4.p1 -> U3.p5
+
+edge U3.p5 -> R4.p2
 
 edge C3.p2 -> R1.p2
 
@@ -427,6 +525,12 @@ edge U1.p12 -> U1.p18
 
 edge U1.p18 -> U1.p63
 
+edge U1.p63 -> C4.p2
+
+edge C4.p2 -> U3.p3
+
+edge U3.p3 -> R3.p2
+
 edge U1.p31 -> C1.p1
 
 edge U1.p47 -> C2.p1
@@ -446,4 +550,12 @@ edge U2.p4 -> U1.p44
 edge J1.p2 -> U2.p6
 
 edge J1.p3 -> U2.p3
+
+edge U3.p1 -> R3.p1
+
+edge U3.p2 -> R4.p1
+
+edge U3.p4 -> D2.p2
+
+edge R5.p2 -> D2.p1
 
