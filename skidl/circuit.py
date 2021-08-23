@@ -461,22 +461,10 @@ def gen_net_wire(n, parts, c):
                 # draw line down
                 d_x1 = collided_part.sch_bb[0] - collided_part.sch_bb[2] - 100
                 d_y1 = t_y1
-                t_col = det_net_wire_collision(parts, t_x1, t_y1, d_x1, d_y1)
-                if len(t_col)>0:
-                    print("start x: " + str(t_x1) + " y: " + str(t_y1) + "  end x: " + str(d_x1) + " y: " + str(d_y1) + "\ncollision with: " + str(t_col))
-
                 d_x2 = d_x1
                 d_y2 = collided_part.sch_bb[1] + collided_part.sch_bb[3] + 100
-                t_col = det_net_wire_collision(parts, d_x1, d_y1, d_x2, d_y2)
-                if len(t_col)>0:
-                    print("start x: " + str(d_x1) + " y: " + str(d_y1) + "  end x: " + str(d_x2) + " y: " + str(d_y2) + "\ncollision with: " + str(t_col))
-
                 d_x3 = d_x2 - collided_part.sch_bb[2] + 100 + 100
                 d_y3 = d_y2
-                t_col = det_net_wire_collision(parts, d_x2, d_y2, x1, d_y3)
-                if len(t_col)>0:
-                    print("start x: " + str(d_x2) + " y: " + str(d_y2) + "  end x: " + str(x1) + " y: " + str(d_y3) + "\ncollision with: " + str(t_col))
-
                 line.insert(i+1, [d_x1,d_y1])
                 line.insert(i+2, [d_x2, d_y2])
                 line.insert(i+3, [x1, d_y3])
