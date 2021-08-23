@@ -396,6 +396,32 @@ node J1 {
 	}
 }
 
+node D2 {
+	layout [ size: 150,100 ]
+	portConstraints: FIXED_SIDE
+	port p1 { 
+		^port.side: WEST 
+		label "K"
+	}
+	port p2 { 
+		^port.side: EAST 
+		label "A"
+	}
+}
+
+node R3 {
+	layout [ size: 100,150 ]
+	portConstraints: FIXED_SIDE
+	port p1 { 
+		^port.side: SOUTH 
+		label "~"
+	}
+	port p2 { 
+		^port.side: NORTH 
+		label "~"
+	}
+}
+
 node U3 {
 	layout [ size: 250,150 ]
 	portConstraints: FIXED_SIDE
@@ -421,7 +447,7 @@ node U3 {
 	}
 }
 
-node R3 {
+node R4 {
 	layout [ size: 100,150 ]
 	portConstraints: FIXED_SIDE
 	port p1 { 
@@ -434,7 +460,7 @@ node R3 {
 	}
 }
 
-node R4 {
+node R5 {
 	layout [ size: 100,150 ]
 	portConstraints: FIXED_SIDE
 	port p1 { 
@@ -460,7 +486,7 @@ node C4 {
 	}
 }
 
-node D2 {
+node D3 {
 	layout [ size: 150,100 ]
 	portConstraints: FIXED_SIDE
 	port p1 { 
@@ -473,7 +499,33 @@ node D2 {
 	}
 }
 
-node R5 {
+node R6 {
+	layout [ size: 100,150 ]
+	portConstraints: FIXED_SIDE
+	port p1 { 
+		^port.side: SOUTH 
+		label "~"
+	}
+	port p2 { 
+		^port.side: NORTH 
+		label "~"
+	}
+}
+
+node D4 {
+	layout [ size: 150,100 ]
+	portConstraints: FIXED_SIDE
+	port p1 { 
+		^port.side: WEST 
+		label "K"
+	}
+	port p2 { 
+		^port.side: EAST 
+		label "A"
+	}
+}
+
+node R7 {
 	layout [ size: 100,150 ]
 	portConstraints: FIXED_SIDE
 	port p1 { 
@@ -487,6 +539,8 @@ node R5 {
 }
 edge U2.p5 -> J1.p1
 
+edge J1.p1 -> R3.p1
+
 edge U1.p1 -> U1.p19
 
 edge U1.p19 -> U1.p32
@@ -497,13 +551,13 @@ edge U1.p48 -> U1.p64
 
 edge U1.p64 -> U1.p13
 
-edge U1.p13 -> R5.p1
+edge U1.p13 -> R6.p1
 
-edge R5.p1 -> C4.p1
+edge R6.p1 -> C4.p1
 
 edge C4.p1 -> U3.p5
 
-edge U3.p5 -> R4.p2
+edge U3.p5 -> R5.p2
 
 edge C3.p2 -> R1.p2
 
@@ -515,7 +569,9 @@ edge U2.p2 -> J1.p5
 
 edge J1.p5 -> J1.p6
 
-edge J1.p6 -> C1.p2
+edge J1.p6 -> D2.p2
+
+edge D2.p2 -> C1.p2
 
 edge C1.p2 -> C2.p2
 
@@ -527,9 +583,11 @@ edge U1.p18 -> U1.p63
 
 edge U1.p63 -> C4.p2
 
-edge C4.p2 -> U3.p3
+edge C4.p2 -> D4.p2
 
-edge U3.p3 -> R3.p2
+edge D4.p2 -> U3.p3
+
+edge U3.p3 -> R4.p2
 
 edge U1.p31 -> C1.p1
 
@@ -551,11 +609,17 @@ edge J1.p2 -> U2.p6
 
 edge J1.p3 -> U2.p3
 
-edge U3.p1 -> R3.p1
+edge R3.p2 -> D2.p1
 
-edge U3.p2 -> R4.p1
+edge U3.p1 -> R4.p1
 
-edge U3.p4 -> D2.p2
+edge R4.p1 -> R7.p1
 
-edge R5.p2 -> D2.p1
+edge U3.p2 -> R5.p1
+
+edge U3.p4 -> D3.p2
+
+edge R6.p2 -> D3.p1
+
+edge R7.p2 -> D4.p1
 

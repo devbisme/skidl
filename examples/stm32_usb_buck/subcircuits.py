@@ -32,6 +32,7 @@ def stm32f405r(vdd, gnd, _5v):
 
 # Micro-B USB connector with protection and optional pull-up impedance matching resistors
 # TODO: Get the impedance match resistor logic to work
+@SubCircuit
 def usb(_5v, gnd, dp, dm, imp_match):
     usb_protection = Part("Power_Protection", 'USBLC6-4SC6', footprint='SOT-23-6')
     usb_protection.p1 += dp
@@ -50,6 +51,8 @@ def usb(_5v, gnd, dp, dm, imp_match):
     usb_connector.p5 += gnd
     usb_connector.p6 += gnd
 
+    led_indicator(usb_connector.p1,gnd, 'blue', '5.6k')
+    
     if imp_match:
         rp = Part("Device", 'R', footprint='R_0603_1608Metric', value='1.5k')
         rn = Part("Device", 'R', footprint='R_0603_1608Metric', value='1.5k')
@@ -62,6 +65,7 @@ def usb(_5v, gnd, dp, dm, imp_match):
 ############################################################################
 
 # LED indicator circuit
+@SubCircuit
 def led_indicator(inp, outp, color, resistance):
     # create parts
     d = Part("Device", 'D', footprint='D_0603_1608Metric')
@@ -101,6 +105,7 @@ def board_enable(vcc, gnd_):
     c1.p2 += gnd_
 
     bd_sel_ls += xor_ic.p1, r1.p1
+    led_indicator(xor_ic.p1,gnd_, 'green', '5.6k')
     n1 += xor_ic.p2, r2.p1
     xor_ic.p3 += gnd_
     # xor_ic.p4 += enabled

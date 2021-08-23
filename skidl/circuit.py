@@ -390,7 +390,6 @@ def gen_net_wire(n, parts, c):
             return True
         return False
 
-
     # Caluclate the coordiantes of a straight line between the 2 pins that need to connect
     x1 = n.pins[0].part.sch_bb[0] + n.pins[0].x
     y1 = n.pins[0].part.sch_bb[1] - n.pins[0].y
@@ -1507,9 +1506,11 @@ class Circuit(SkidlBaseObject):
             # TODO: test with nested hierarchies
             t = i.hierarchy
             u = t.split('.') # ignore 'top.'
+            print(u)
             hier_name = u[1]
             if hier_name not in hierarchies:
                 hierarchies[hier_name] = {'parts':[i],'nets':[]}
+                
             else:
                 hierarchies[hier_name]['parts'].append(i)
 
