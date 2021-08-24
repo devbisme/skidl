@@ -1480,6 +1480,7 @@ class Circuit(SkidlBaseObject):
         for i in self.parts:
             i.generate_bounding_box()
 
+        hier_parts = {}
         # Dictionary that will hold parts and nets info for each hierarchy
         hierarchies = {}
         # 1. Sort parts into hierarchies
@@ -1497,16 +1498,42 @@ class Circuit(SkidlBaseObject):
             if hier_list[0] not in hierarchies:
                 # make new top level hierarchy
                 hierarchies[hier_list[0]] = {'parts':[i],'nets':[]}
+                hier_parts[hier_list[0]] = {'parts':[i], 'placed':[i]}
             else:
                 hierarchies[hier_list[0]]['parts'].append(i)
-        # 2. Sort nets into hierarchies
+                hier_parts[hier_list[0]]['parts'].append(i)
+
+
+
+        # make sure all component pins are labelled with the appropriate net
         for h in hierarchies:
-            for n in self.nets:
-                if hasattr(n, 'stub'):
-                    if n.stub:
-                        pass
-                if h in n.hierarchy:
-                    hierarchies[h]['nets'].append(n)
+            for pt in hierarchies[h]['parts']:
+                for pin in pt.pins:
+                    if hasattr(pin, 'label'):
+                        for n in pin.nets:
+                            for p in n.pins:
+                                if p.ref in pin.ref:
+                                    continue
+                                else:
+                                    p.label = pin.label
+                                    print(p.ref + " label: " + p.label)
+
+        # def make_Hlabel(x,y,orientation,net_label):
+        #     t_orient = 0
+        #     if orientation == 'L': 
+        #         pass
+        #     elif orientation == 'D': 
+        #         t_orient = 1
+        #     elif orientation == 'R': 
+        #         t_orient = 2
+        #     elif orientation == 'U': 
+        #         t_orient = 3
+        #     label = "Text HLabel {} {} {}     50  UnSpc ~ 0\n {}".format(x,y,t_orient, net_label)
+        #     return label
+
+
+        
+
 
         # 3. Range through each hierarchy and place parts around the center part (part 0) as determined by 
         #       net pin connections
@@ -1594,6 +1621,11 @@ class Circuit(SkidlBaseObject):
                 part_code = i.gen_part_eeschema([x, y])
                 eeschema_code.append(part_code)
             
+
+
+
+
+
             # Create the nets and add them to the circuit parts list
             for n in hierarchies[h]['nets']:
                 wire = gen_net_wire(n,hierarchies[h]['parts'], sch_c)
@@ -1607,6 +1639,27 @@ class Circuit(SkidlBaseObject):
                         stub = gen_power_part_eeschema(p.part, s._name, sch_c)
                         eeschema_code.append(stub)
 
+            def make_Hlabel(x,y,orientation,net_label):
+                t_orient = 0
+                if orientation == 'R':
+                    pass
+                elif orientation == 'U': 
+                    t_orient = 1
+                elif orientation == 'L':
+                    t_orient = 2
+                elif orientation == 'D':
+                    t_orient = 3
+                # label = "Text HLabel {} {} {}     50  UnSpc ~ 0\n{}\n".format(x,y,t_orient, net_label)
+                out = "\nText HLabel {} {} {}    50   UnSpc ~ 0\n{}\n".format(x,y,t_orient, net_label)
+                return out
+        # add labels to pins if they have them
+        # for h in hierarchies:
+            for pt in hierarchies[h]['parts']:
+                for pin in pt.pins:
+                    if hasattr(pin, 'label'):
+                        x_coord = pin.x
+                        eeschema_code.append(make_Hlabel(pin.x + pin.part.sch_bb[0] + sch_c[0], pin.y + pin.part.sch_bb[1]+sch_c[1], pin.orientation, pin.label))
+
             # Draw rectangle and label subcircuit
             rect = draw_rect_hierarchies(hierarchies[h], sch_c)
             eeschema_code.append(rect)
@@ -1619,6 +1672,9 @@ class Circuit(SkidlBaseObject):
                 for i in new_sch_file:
                     print("" + "".join(i), file=f)
             f.close()
+
+
+
 
         # Generate hierarchical sheets for top sheet
         x_start = 5000

@@ -1,4 +1,43 @@
 
+node R1 {
+	layout [ size: 100,150 ]
+	portConstraints: FIXED_SIDE
+	port p1 { 
+		^port.side: SOUTH 
+		label "~"
+	}
+	port p2 { 
+		^port.side: NORTH 
+		label "~"
+	}
+}
+
+node C1 {
+	layout [ size: 100,100 ]
+	portConstraints: FIXED_SIDE
+	port p1 { 
+		^port.side: SOUTH 
+		label "~"
+	}
+	port p2 { 
+		^port.side: NORTH 
+		label "~"
+	}
+}
+
+node D1 {
+	layout [ size: 150,100 ]
+	portConstraints: FIXED_SIDE
+	port p1 { 
+		^port.side: WEST 
+		label "K"
+	}
+	port p2 { 
+		^port.side: EAST 
+		label "A"
+	}
+}
+
 node U1 {
 	layout [ size: 700,1800 ]
 	portConstraints: FIXED_SIDE
@@ -260,19 +299,6 @@ node U1 {
 	}
 }
 
-node C1 {
-	layout [ size: 100,100 ]
-	portConstraints: FIXED_SIDE
-	port p1 { 
-		^port.side: SOUTH 
-		label "~"
-	}
-	port p2 { 
-		^port.side: NORTH 
-		label "~"
-	}
-}
-
 node C2 {
 	layout [ size: 100,100 ]
 	portConstraints: FIXED_SIDE
@@ -299,20 +325,7 @@ node C3 {
 	}
 }
 
-node R1 {
-	layout [ size: 100,150 ]
-	portConstraints: FIXED_SIDE
-	port p1 { 
-		^port.side: SOUTH 
-		label "~"
-	}
-	port p2 { 
-		^port.side: NORTH 
-		label "~"
-	}
-}
-
-node D1 {
+node D2 {
 	layout [ size: 150,100 ]
 	portConstraints: FIXED_SIDE
 	port p1 { 
@@ -395,211 +408,13 @@ node J1 {
 		label "Shield"
 	}
 }
+edge C2.p1 -> U1.p31
 
-node D2 {
-	layout [ size: 150,100 ]
-	portConstraints: FIXED_SIDE
-	port p1 { 
-		^port.side: WEST 
-		label "K"
-	}
-	port p2 { 
-		^port.side: EAST 
-		label "A"
-	}
-}
-
-node R3 {
-	layout [ size: 100,150 ]
-	portConstraints: FIXED_SIDE
-	port p1 { 
-		^port.side: SOUTH 
-		label "~"
-	}
-	port p2 { 
-		^port.side: NORTH 
-		label "~"
-	}
-}
-
-node U3 {
-	layout [ size: 250,150 ]
-	portConstraints: FIXED_SIDE
-	port p1 { 
-		^port.side: WEST 
-		label "~"
-	}
-	port p2 { 
-		^port.side: EAST 
-		label "~"
-	}
-	port p3 { 
-		^port.side: SOUTH 
-		label "GND"
-	}
-	port p4 { 
-		^port.side: WEST 
-		label "~"
-	}
-	port p5 { 
-		^port.side: NORTH 
-		label "VCC"
-	}
-}
-
-node R4 {
-	layout [ size: 100,150 ]
-	portConstraints: FIXED_SIDE
-	port p1 { 
-		^port.side: SOUTH 
-		label "~"
-	}
-	port p2 { 
-		^port.side: NORTH 
-		label "~"
-	}
-}
-
-node R5 {
-	layout [ size: 100,150 ]
-	portConstraints: FIXED_SIDE
-	port p1 { 
-		^port.side: NORTH 
-		label "~"
-	}
-	port p2 { 
-		^port.side: SOUTH 
-		label "~"
-	}
-}
-
-node C4 {
-	layout [ size: 100,150 ]
-	portConstraints: FIXED_SIDE
-	port p1 { 
-		^port.side: SOUTH 
-		label "~"
-	}
-	port p2 { 
-		^port.side: NORTH 
-		label "~"
-	}
-}
-
-node D3 {
-	layout [ size: 150,100 ]
-	portConstraints: FIXED_SIDE
-	port p1 { 
-		^port.side: WEST 
-		label "K"
-	}
-	port p2 { 
-		^port.side: EAST 
-		label "A"
-	}
-}
-
-node R6 {
-	layout [ size: 100,150 ]
-	portConstraints: FIXED_SIDE
-	port p1 { 
-		^port.side: SOUTH 
-		label "~"
-	}
-	port p2 { 
-		^port.side: NORTH 
-		label "~"
-	}
-}
-
-node D4 {
-	layout [ size: 150,100 ]
-	portConstraints: FIXED_SIDE
-	port p1 { 
-		^port.side: WEST 
-		label "K"
-	}
-	port p2 { 
-		^port.side: EAST 
-		label "A"
-	}
-}
-
-node R7 {
-	layout [ size: 100,150 ]
-	portConstraints: FIXED_SIDE
-	port p1 { 
-		^port.side: SOUTH 
-		label "~"
-	}
-	port p2 { 
-		^port.side: NORTH 
-		label "~"
-	}
-}
-edge U2.p5 -> J1.p1
-
-edge J1.p1 -> R3.p1
-
-edge U1.p1 -> U1.p19
-
-edge U1.p19 -> U1.p32
-
-edge U1.p32 -> U1.p48
-
-edge U1.p48 -> U1.p64
-
-edge U1.p64 -> U1.p13
-
-edge U1.p13 -> R6.p1
-
-edge R6.p1 -> C4.p1
-
-edge C4.p1 -> U3.p5
-
-edge U3.p5 -> R5.p2
-
-edge C3.p2 -> R1.p2
-
-edge R1.p2 -> D1.p2
-
-edge D1.p2 -> U2.p2
-
-edge U2.p2 -> J1.p5
-
-edge J1.p5 -> J1.p6
-
-edge J1.p6 -> D2.p2
-
-edge D2.p2 -> C1.p2
-
-edge C1.p2 -> C2.p2
-
-edge C2.p2 -> U1.p12
-
-edge U1.p12 -> U1.p18
-
-edge U1.p18 -> U1.p63
-
-edge U1.p63 -> C4.p2
-
-edge C4.p2 -> D4.p2
-
-edge D4.p2 -> U3.p3
-
-edge U3.p3 -> R4.p2
-
-edge U1.p31 -> C1.p1
-
-edge U1.p47 -> C2.p1
-
-edge C3.p1 -> U1.p14
-
-edge R1.p1 -> U1.p17
+edge C3.p1 -> U1.p47
 
 edge U1.p8 -> R2.p1
 
-edge R2.p2 -> D1.p1
+edge R2.p2 -> D2.p1
 
 edge U2.p1 -> U1.p43
 
@@ -608,18 +423,4 @@ edge U2.p4 -> U1.p44
 edge J1.p2 -> U2.p6
 
 edge J1.p3 -> U2.p3
-
-edge R3.p2 -> D2.p1
-
-edge U3.p1 -> R4.p1
-
-edge R4.p1 -> R7.p1
-
-edge U3.p2 -> R5.p1
-
-edge U3.p4 -> D3.p2
-
-edge R6.p2 -> D3.p1
-
-edge R7.p2 -> D4.p1
 
