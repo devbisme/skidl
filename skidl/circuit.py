@@ -1466,7 +1466,6 @@ class Circuit(SkidlBaseObject):
             tool = skidl.get_default_tool()
 
 
-        # sch_c = self.get_schematic_center(file_) # Get the center of the schematic
         sch_c = [8250,5850]
         top_page = [] # List that will be populated with hierarchical schematics
         nSheets = 1 # Keep track of the number of sheets for use in eeschema header
@@ -1477,7 +1476,7 @@ class Circuit(SkidlBaseObject):
             if hasattr(i, 'stub'):
                 stubs.append(i)
 
-        # Range through the parts and create bounding boxes
+        # Range through the parts and create bounding boxes based on the furthest distance of pins
         for i in self.parts:
             i.generate_bounding_box()
 
