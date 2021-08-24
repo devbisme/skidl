@@ -1502,7 +1502,10 @@ class Circuit(SkidlBaseObject):
 
             for n in v:
                 if n not in t_hierarchies:
-                    t_hierarchies[n] = {'parts':[i],'nets':[]}
+                    if v.index(n) == 0:
+                        t_hierarchies[n] = {'parts':[i],'nets':[], 'subcircuits':{}}
+                    # else:
+                    #     if n in t_hierarchies[]['subcircuits']:
                 else:
                     t_hierarchies[n]['parts'].append(i)
 
