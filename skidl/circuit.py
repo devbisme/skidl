@@ -250,7 +250,7 @@ def gen_config_header(cur_sheet_num=1, total_sheet_num=1, sheet_title="Default",
     header.append("EESchema Schematic File Version 4\n")
     header.append("EELAYER 30 0\n")
     header.append("EELAYER END\n")
-    header.append("$Descr A1 33110 23386\n")
+    header.append("$Descr A3 16535 11693\n")
     header.append("encoding utf-8\n")
     header.append("Sheet {} {}\n".format(cur_sheet_num, total_sheet_num)) 
     header.append('Title "{}"\n'.format(sheet_title)) 
@@ -1420,24 +1420,6 @@ class Circuit(SkidlBaseObject):
         return schematic_json
 
     # Get the eeschema center point, also returning the entire header right now
-    def get_schematic_center(self, _file):
-        import skidl
-        
-
-        self._preprocess()
-        tool = skidl.get_default_tool()
-        
-        try:
-            gen_func = getattr(self, "_get_schematic_center_{}".format(tool))
-            return gen_func(_file)
-        except AttributeError:
-            log_and_raise(
-                logger,
-                ValueError,
-                "Can't get the center of the file({}).".format(tool),
-            )
-
-    # Get the eeschema center point, also returning the entire header right now
     def gen_hier_rect(self):
         import skidl
         
@@ -1466,6 +1448,10 @@ class Circuit(SkidlBaseObject):
             b. Note: each hierarchy will have it's own hierarchical schematic
         2. Sort the circuit nets by hierarchy and put into the hierarchy dictionary
         3. Range through each hierarchy and place parts
+            a. Parts are placed around the first part of the subcircuit, referred to as the central part of the subcircuit
+            b. First I place the parts directly connected to the central part
+            c. Next I place parts connected to parts placed in the first round above
+            d. The rest of the parts are placed down and away from the placed parts
         """
 
         from . import skidl
@@ -1479,7 +1465,9 @@ class Circuit(SkidlBaseObject):
         if tool is None:
             tool = skidl.get_default_tool()
 
-        sch_c = self.get_schematic_center(file_) # Get the center of the schematic
+
+        # sch_c = self.get_schematic_center(file_) # Get the center of the schematic
+        sch_c = [8250,5850]
         top_page = [] # List that will be populated with hierarchical schematics
         nSheets = 1 # Keep track of the number of sheets for use in eeschema header
 
