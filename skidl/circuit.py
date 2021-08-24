@@ -1489,7 +1489,7 @@ class Circuit(SkidlBaseObject):
 
         # Dictionary that will hold parts and nets info for each hierarchy
         hierarchies = {}
-        t_hierarchies = {}
+        # t_hierarchies = {}
         # 1. Sort parts into hierarchies
         for i in self.parts:
             # TODO: test with nested hierarchies
@@ -1501,28 +1501,22 @@ class Circuit(SkidlBaseObject):
                 continue
 
             for n in v:
-                if n not in t_hierarchies:
-                    if v.index(n) == 0:
-                        t_hierarchies[n] = {'parts':[i],'nets':[], 'subcircuits':{}}
+                if n not in hierarchies:
+                    # if v.index(n) == 0:
+                        hierarchies[n] = {'parts':[i],'nets':[], 'subcircuits':{}}
                     # else:
                     #     if n in t_hierarchies[]['subcircuits']:
                 else:
-                    t_hierarchies[n]['parts'].append(i)
+                    hierarchies[n]['parts'].append(i)
 
-            # print(v)
-            # check for new top level hierarchy
-            if v[0] not in hierarchies:
-                # make new top level hierarchy
-                hierarchies[v[0]] = {'parts':[i],'nets':[]}
-            else:
-                # if len(v)>1:
-                #     if v[1] not in hierarchies[v[0]]:
-                #     else:
-                #        hierarchies[hier_name]['parts'].append(i) 
-                # else:
-                    hierarchies[v[0]]['parts'].append(i)
-        for h in (t_hierarchies):
-            print(h)
+        # # COMMENT THE LINES BELOW BACK IN TO MAKE SCHEMATIC GENERATION WORK
+        #     if v[0] not in hierarchies:
+        #         # make new top level hierarchy
+        #         hierarchies[v[0]] = {'parts':[i],'nets':[]}
+        #     else:
+        #             hierarchies[v[0]]['parts'].append(i)
+        # for h in (t_hierarchies):
+        #     print(h)
         # 2. Sort nets into hierarchies
         for h in hierarchies:
             for n in self.nets:
