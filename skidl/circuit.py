@@ -1459,7 +1459,13 @@ class Circuit(SkidlBaseObject):
         """
         Create a schematic file. THIS KINDA WORKS!  
         
-        The target schematic file must be an already made kicad schematic.  This is where we get the header info from.
+        Algorithm description:
+
+        1. Sort the circuit parts by hierarchy and put into a dictionary
+            a. NESTED HIERARCHIES DO NOT WORK
+            b. Note: each hierarchy will have it's own hierarchical schematic
+        2. Sort the circuit nets by hierarchy and put into the hierarchy dictionary
+        3. Range through each hierarchy and place parts
         """
 
         from . import skidl
@@ -1489,40 +1495,23 @@ class Circuit(SkidlBaseObject):
 
         # Dictionary that will hold parts and nets info for each hierarchy
         hierarchies = {}
-        t_hierarchies = {}
         # 1. Sort parts into hierarchies
+        #    Parts list their hierchies and subhierarchies in '.' separated format (ie 'top.stm320.usb1.led0')
         for i in self.parts:
-            # TODO: test with nested hierarchies
-            t = i.hierarchy
-            t_hier = t.split('.')
-            v = [x for x in t_hier if 'top' not in x]
+            # TODO: get nested hierarchies working
+            pt_hier = i.hierarchy # get the hierarchy of the part
+            t_hier = pt_hier.split('.') # hierarchies are '.' separated so split the string
+            hier_list = [x for x in t_hier if 'top' not in x] # make a list of the hierarchies that aren't 'top'
             # skip if this is the top hierarchy
-            if len(v)==0:
+            if len(hier_list)==0:
                 continue
 
-            for n in v:
-                if n not in t_hierarchies:
-                    if v.index(n) == 0:
-                        t_hierarchies[n] = {'parts':[i],'nets':[], 'subcircuits':{}}
-                    # else:
-                    #     if n in t_hierarchies[]['subcircuits']:
-                else:
-                    t_hierarchies[n]['parts'].append(i)
-
-            # print(v)
             # check for new top level hierarchy
-            if v[0] not in hierarchies:
+            if hier_list[0] not in hierarchies:
                 # make new top level hierarchy
-                hierarchies[v[0]] = {'parts':[i],'nets':[]}
+                hierarchies[hier_list[0]] = {'parts':[i],'nets':[]}
             else:
-                # if len(v)>1:
-                #     if v[1] not in hierarchies[v[0]]:
-                #     else:
-                #        hierarchies[hier_name]['parts'].append(i) 
-                # else:
-                    hierarchies[v[0]]['parts'].append(i)
-        for h in (t_hierarchies):
-            print(h)
+                hierarchies[hier_list[0]]['parts'].append(i)
         # 2. Sort nets into hierarchies
         for h in hierarchies:
             for n in self.nets:

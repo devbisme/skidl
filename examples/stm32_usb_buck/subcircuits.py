@@ -65,7 +65,6 @@ def usb(_5v, gnd, dp, dm, imp_match):
 ############################################################################
 
 # LED indicator circuit
-@SubCircuit
 def led_indicator(inp, outp, color, resistance):
     # create parts
     d = Part("Device", 'D', footprint='D_0603_1608Metric')
