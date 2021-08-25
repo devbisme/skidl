@@ -1629,11 +1629,10 @@ class Circuit(SkidlBaseObject):
             #             stub = gen_power_part_eeschema(p.part, s._name, sch_c)
             #             eeschema_code.append(stub)
 
-        # add labels to pins if they have them
-        # for h in hierarchies:
+            # add labels to pins if they have them
             for pt in hierarchies[h]['parts']:
                 for pin in pt.pins:
-                    if hasattr(pin, 'label'):
+                    if len(pin.label)>0:
                         x_coord = pin.x
                         eeschema_code.append(make_Hlabel(pin.x + pin.part.sch_bb[0] + sch_c[0], pin.y + pin.part.sch_bb[1]+sch_c[1], pin.orientation, pin.label))
 
