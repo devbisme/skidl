@@ -111,7 +111,7 @@ def calc_move_part(pin_m, pin_nm, parts_list):
                         rotate = 90
                     if p.orientation == 'R':
                         rotate = -90
-                elif p.nets[0].name == '+5V' or p.nets[0].name == '+3V3':
+                elif '+5v' in p.nets[0].name.lower() or '+3v3' in p.nets[0].name.lower():
                     power_conn = True
                     # print("part: " + p.part.ref + " pin: " + str(p.num) + " is connected to " + p.net.name +  ", facing " + p.orientation)
                     if p.orientation == 'D':
@@ -219,18 +219,25 @@ def gen_elkjs_code(parts, nets):
         print("" + "".join(i), file=f)
     f.close()
 
-def gen_power_part_eeschema(part, stub_name, c=[0,0], orientation = [1,0,0,-1]):
+def gen_power_part_eeschema(part, c=[0,0], orientation = [1,0,0,-1]):
 
+    out = []
     for pin in part.pins:
         try:
             if not (pin.net is None):
-                if pin.net.name == stub_name:
+                if pin.net.netclass == 'Power':
+                    symbol_name = 'GND'
+                    if '+5v' in pin.net.name.lower():
+                        symbol_name = '+5V'
+                    elif '+3v3' in pin.net.name.lower():
+                        symbol_name = '+3V3'
+
                     # find the stub in the part
                     time_hex = hex(int(time.time()))[2:]
                     x = c[0] + part.sch_bb[0] + pin.x
                     y = c[1] + part.sch_bb[1] - pin.y
-                    out=["$Comp\n"]
-                    out.append("L power:{} #PWR?\n".format(stub_name))
+                    out.append("$Comp\n")
+                    out.append("L power:{} #PWR?\n".format(symbol_name))
                     out.append("U 1 1 {}\n".format(time_hex))    
                     out.append("P {} {}\n".format(str(x), str(y)))
                     # Add part symbols. For now we are only adding the designator
@@ -240,7 +247,7 @@ def gen_power_part_eeschema(part, stub_name, c=[0,0], orientation = [1,0,0,-1]):
                             n_F0 = i
                             break
                     out.append('F 0 "{}" {} {} {} {} {} {} {}\n'.format(
-                                                    stub_name,
+                                                    symbol_name,
                                                     part.draw[n_F0].orientation,
                                                     str(x + 25),
                                                     str(y + 25),
@@ -1700,6 +1707,15 @@ class Circuit(SkidlBaseObject):
             #     eeschema_code.append(wire)
 
             # Append stubs
+            for pt in hierarchies[h]['parts']:
+                stub = gen_power_part_eeschema(pt, sch_c)
+                if len(stub)>0:
+                    eeschema_code.append(stub)
+                # for pin in pt.pins:
+                #     if pin.net is not None:
+                #         if pin.net.netclass == 'Power':
+                #             print("put stub here")
+
             # for s in stubs:
             #     for p in s.pins:
             #         if p.part.hierarchy[4:] == h:

@@ -413,11 +413,11 @@ node R3 {
 	layout [ size: 100,150 ]
 	portConstraints: FIXED_SIDE
 	port p1 { 
-		^port.side: SOUTH 
+		^port.side: NORTH 
 		label "~"
 	}
 	port p2 { 
-		^port.side: NORTH 
+		^port.side: SOUTH 
 		label "~"
 	}
 }
@@ -426,11 +426,11 @@ node R4 {
 	layout [ size: 100,150 ]
 	portConstraints: FIXED_SIDE
 	port p1 { 
-		^port.side: SOUTH 
+		^port.side: NORTH 
 		label "~"
 	}
 	port p2 { 
-		^port.side: NORTH 
+		^port.side: SOUTH 
 		label "~"
 	}
 }
@@ -477,11 +477,11 @@ node R6 {
 	layout [ size: 100,150 ]
 	portConstraints: FIXED_SIDE
 	port p1 { 
-		^port.side: SOUTH 
+		^port.side: NORTH 
 		label "~"
 	}
 	port p2 { 
-		^port.side: NORTH 
+		^port.side: SOUTH 
 		label "~"
 	}
 }
