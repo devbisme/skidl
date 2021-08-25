@@ -1512,7 +1512,7 @@ class Circuit(SkidlBaseObject):
             # check for new top level hierarchy
             if hier_list[0] not in hierarchies:
                 # make new top level hierarchy
-                hierarchies[hier_list[0]] = {'parts':[i]}
+                hierarchies[hier_list[0]] = {'parts':[i],'groups':[]}
             else:
                 hierarchies[hier_list[0]]['parts'].append(i)
 
@@ -1523,6 +1523,37 @@ class Circuit(SkidlBaseObject):
                     for n in pin.nets:
                         for p in n.pins:
                             p.label = pin.label
+
+        # Look for parts that have pins connected that aren't labels
+        for h in hierarchies: # range through hierarchies
+            for pt in hierarchies[h]['parts']: # range through parts in the hierarchy
+                for pin in pt.pins: # range through pins in the part    
+                    if len(pin.nets)>0: #if a pin belongs to a net then we will move those parts together
+                        # ignore power nets, those will all be stubs
+                        if pin.net.netclass=='Power':
+                            continue
+                        # check if we have a label
+                        if len(pin.label) <1:
+                            group_parts = []
+                            # range through the pins in the net this pin is connected to
+                            for n in pin.net.pins:
+                                # needed exception handling for weird skidl behavior
+                                try:
+                                    # append the part name to the group if it's not there already
+                                    if not n.ref in  group_parts:
+                                        group_parts.append(n.ref)
+                                except Exception as e:
+                                    print(e)
+                            # if the part group is more than 1 then we found a 
+                            if len(group_parts)>1:
+                                if not group_parts in hierarchies[h]['groups']:
+                                    print("Net: " + pin.net.name + " parts: " + str(group_parts))
+                                    hierarchies[h]['groups'].append(group_parts)
+        # TODO: make sure that parts only belong to one group
+
+
+
+                   
 
 
         # 3. Range through each hierarchy and place parts around the center part (part 0) as determined by 
