@@ -1547,7 +1547,7 @@ class Circuit(SkidlBaseObject):
                             # if the part group is more than 1 then we found a 
                             if len(group_parts)>1:
                                 if not group_parts in hierarchies[h]['groups']:
-                                    print("Net: " + pin.net.name + " parts: " + str(group_parts))
+                                    print("Hierarchy: " +h + "  Net: " + pin.net.name + " parts: " + str(group_parts))
                                     hierarchies[h]['groups'].append(group_parts)
         # TODO: make sure that parts only belong to one group
 

@@ -9,12 +9,13 @@ d0603 = Part("Device", 'D', footprint='D_0603_1608Metric')
 # c = central coordinates for the subcircuit
 @package
 def stm32f405r(vdd, gnd, v_5v):
+    vdd.netclass = "Power"
+    gnd.netclass = "Power"
+    v_5v.netclass = "Power"
     # MCU
     u = Part("MCU_ST_STM32F4", 'STM32F405RGTx', footprint='LQFP-64_10x10mm_P0.5mm')
-    v_3v3 = Net('+3V3', stub=True, netclass='Power')
 
-    v_3v3 += u.p1, u.p19, u.p32, u.p48, u.p64, u.p13
-    v_3v3 += vdd
+    vdd += u.p1, u.p19, u.p32, u.p48, u.p64, u.p13
     u.p31.label = 'vcap1'
     u.p47.label = 'vcap2'
     u.p8.label = 'HB' #heartbeat
@@ -31,15 +32,15 @@ def stm32f405r(vdd, gnd, v_5v):
     led_indicator(u.p8, gnd, 'blue', '5.6k')
     usb(v_5v, gnd, u.p43, u.p44, False)
     
-    lgnd = Net('GND', stub=True, netclass='Power')
-    lgnd += vcap1.p2, vcap2.p2, u.p12, u.p18, u.p63
-    lgnd += gnd
+    gnd += vcap1.p2, vcap2.p2, u.p12, u.p18, u.p63
 
     # board_enable(vdd, gnd)
 
 # Micro-B USB connector with protection and optional pull-up impedance matching resistors
 # TODO: Get the impedance match resistor logic to work
 def usb(_5v, gnd, dp, dm, imp_match):
+    _5v.netclass = "Power"
+    gnd.netclass = "Power"
     usb_protection = Part("Power_Protection", 'USBLC6-4SC6', footprint='SOT-23-6')
     usb_protection.p1 += dp
     usb_protection.p2 += gnd
