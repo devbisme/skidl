@@ -110,8 +110,7 @@ def board_enable(vcc, gnd, brd_sel):
     xor_ic.p4 += d.p2 
     r_d.p1 += l_vcc
     r_d.p2 += d.p1
-     
-
+    
     c1.fields['voltage']='100v'
     c1.fields['temp_coeff']='X7R'
     c1.p1 += l_vcc

@@ -132,14 +132,14 @@ def calc_move_part(pin_m, pin_nm, parts_list):
         # if we are moving right then add on the moving part's pin's x coordinates and a buffer (400 for now)
         # if we're moving left then subtract this same value
         if pin_nm.x >= 0:
-            dx += (abs(pin_m.x) + pin_nm.part.sch_bb[0])
+            dx += (abs(pin_m.x) + pin_nm.part.sch_bb[2])
         else:
-            dx -= (abs(pin_m.x) + pin_nm.part.sch_bb[0])
+            dx -= (abs(pin_m.x) + pin_nm.part.sch_bb[2])
         dy = -pin_m.y + pin_nm.y + pin_nm.part.sch_bb[1]
         p = Part.get(pin_m.part.ref)
-        p.move_part(dx, dy,parts_list)
+        p.move_part(dx, dy, parts_list)
     else:
-        dx = pin_m.x + pin_nm.x + pin_nm.part.sch_bb[0]
+        dx = pin_m.x + pin_nm.x + pin_nm.part.sch_bb[0] + pin_nm.part.sch_bb[2]
         dy = -pin_m.y + pin_nm.y - pin_nm.part.sch_bb[1] 
         p = Part.get(pin_m.part.ref)
         p.move_part(dx, dy,parts_list)
@@ -1646,6 +1646,8 @@ class Circuit(SkidlBaseObject):
             #         move_part(pin, n.pins[cp_num], hierarchies[h]['parts'])
             #         hierarchies[h]['parts_placed'].append(pin.ref)
             #         hierarchies[h]['nets_to_route'].remove(n) # remove the net after we've placed this component
+
+
             # TODO: place any other parts that have not been addressed yet
             # for now we just place them down and away from the main circuit
             offset_x = 0
