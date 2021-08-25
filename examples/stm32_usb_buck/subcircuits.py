@@ -53,21 +53,25 @@ def usb(v_5v, gnd, dp, dm, imp_match):
     usb_protection.p1 += dp
     usb_protection.p1.label = 'USB_P'
     usb_protection.p2 += l_gnd
+    usb_protection.p3.label = 'CONN_USB_P'
     # usb_protection.p3 += 
     usb_protection.p4 += dm
-    usb_protection.p1.label = 'USB_M'
+    usb_protection.p4.label = 'USB_M'
     usb_protection.p5 += l_5v
+    usb_protection.p6.label = 'CONN_USB_M'
     # usb_protection.p6 += 
 
 
     usb_connector = Part("Connector", 'USB_B_Mini', footprint='USB_Micro-B_Molex-105017-0001')
     usb_connector.p1 += l_5v
     usb_connector.p2 += usb_protection.p6
+    # usb_connector.p2.label = 'CONN_USB_P'
     usb_connector.p3 += usb_protection.p3
+    # usb_connector.p3.label = 'CONN_USB_M'
     # usb_connector.p4 += usb_protection.p6
     usb_connector.p5 += l_gnd
     usb_connector.p6 += l_gnd
-    
+
     if imp_match:
         rp = Part("Device", 'R', footprint='R_0603_1608Metric', value='1.5k')
         rn = Part("Device", 'R', footprint='R_0603_1608Metric', value='1.5k')

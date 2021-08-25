@@ -75,11 +75,11 @@ def make_Hlabel(x,y,orientation,net_label):
     t_orient = 0
     if orientation == 'R':
         pass
-    elif orientation == 'U': 
+    elif orientation == 'D': 
         t_orient = 1
     elif orientation == 'L':
         t_orient = 2
-    elif orientation == 'D':
+    elif orientation == 'U':
         t_orient = 3
     # label = "Text HLabel {} {} {}     50  UnSpc ~ 0\n{}\n".format(x,y,t_orient, net_label)
     out = "\nText HLabel {} {} {}    50   UnSpc ~ 0\n{}\n".format(x,y,t_orient, net_label)
@@ -1573,13 +1573,13 @@ class Circuit(SkidlBaseObject):
         #       net pin connections
         for h in hierarchies:
             centerPart = hierarchies[h]['parts'][0] # Center part that we place everything else around
-
             for pin in centerPart.pins:
-
                 if pin.net is not None: # check if the pin has a net
                     if pin.net.netclass=='Power':
                         continue
                     for p in pin.net.pins:
+                        if p.part.hierarchy != ("top."+h):
+                            break
                         if p.ref == centerPart.ref:
                             continue
                         else:
@@ -1688,8 +1688,24 @@ class Circuit(SkidlBaseObject):
             for pt in hierarchies[h]['parts']:
                 for pin in pt.pins:
                     if len(pin.label)>0:
-                        x_coord = pin.x
-                        eeschema_code.append(make_Hlabel(pin.x + pin.part.sch_bb[0] + sch_c[0], pin.y + pin.part.sch_bb[1]+sch_c[1], pin.orientation, pin.label))
+                        t_x = pin.x + pin.part.sch_bb[0] + sch_c[0]
+                        t_y = 0
+                        x_offset = pt.sch_bb[0] + pin.x
+                        if x_offset < 0:
+                            if (pin.orientation == 'L'):
+                                t_y = -pin.y - pin.part.sch_bb[1] + sch_c[1]
+                            elif (pin.orientation == 'R'):
+                                t_y = -pin.y - pin.part.sch_bb[1] + sch_c[1]
+                            else:
+                                t_y = -pin.y + pin.part.sch_bb[1] + sch_c[1]
+                        else:
+                            if (pin.orientation == 'L'):
+                                t_y = -pin.y + pin.part.sch_bb[1] + sch_c[1]
+                            elif (pin.orientation == 'R'):
+                                t_y = pin.y + pin.part.sch_bb[1] + sch_c[1]
+                            else:
+                                t_y = -pin.y + pin.part.sch_bb[1] + sch_c[1] 
+                        eeschema_code.append(make_Hlabel(t_x, t_y, pin.orientation, pin.label))
 
             # Draw rectangle and label subcircuit
             rect = draw_rect_hierarchies(hierarchies[h], sch_c)
