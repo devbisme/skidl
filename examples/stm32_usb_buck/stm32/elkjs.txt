@@ -498,53 +498,25 @@ node R5 {
 		label "~"
 	}
 }
-edge U1.p13 -> R5.p1
+edge U1.p1 -> U1.p19
 
-edge R5.p1 -> C4.p1
+edge U1.p19 -> U1.p32
 
-edge C4.p1 -> U3.p5
+edge U1.p32 -> U1.p48
 
-edge U3.p5 -> R4.p2
+edge U1.p48 -> U1.p64
 
-edge U1.p64 -> R5.p1
+edge U1.p64 -> U1.p13
 
-edge R5.p1 -> C4.p1
+edge D2.p2 -> C2.p2
 
-edge C4.p1 -> U3.p5
+edge C2.p2 -> C3.p2
 
-edge U3.p5 -> R4.p2
+edge C3.p2 -> U1.p12
 
-edge U1.p48 -> R5.p1
+edge U1.p12 -> U1.p18
 
-edge R5.p1 -> C4.p1
-
-edge C4.p1 -> U3.p5
-
-edge U3.p5 -> R4.p2
-
-edge U1.p32 -> R5.p1
-
-edge R5.p1 -> C4.p1
-
-edge C4.p1 -> U3.p5
-
-edge U3.p5 -> R4.p2
-
-edge U1.p19 -> R5.p1
-
-edge R5.p1 -> C4.p1
-
-edge C4.p1 -> U3.p5
-
-edge U3.p5 -> R4.p2
-
-edge U1.p1 -> R5.p1
-
-edge R5.p1 -> C4.p1
-
-edge C4.p1 -> U3.p5
-
-edge U3.p5 -> R4.p2
+edge U1.p18 -> U1.p63
 
 edge C2.p1 -> U1.p31
 
@@ -554,6 +526,12 @@ edge U1.p8 -> R2.p1
 
 edge R2.p2 -> D2.p1
 
+edge U2.p2 -> J1.p5
+
+edge J1.p5 -> J1.p6
+
+edge U2.p5 -> J1.p1
+
 edge U2.p1 -> U1.p43
 
 edge U2.p4 -> U1.p44
@@ -561,6 +539,16 @@ edge U2.p4 -> U1.p44
 edge J1.p2 -> U2.p6
 
 edge J1.p3 -> U2.p3
+
+edge C4.p2 -> U3.p3
+
+edge U3.p3 -> R3.p2
+
+edge R5.p1 -> C4.p1
+
+edge C4.p1 -> U3.p5
+
+edge U3.p5 -> R4.p2
 
 edge U3.p1 -> R3.p1
 

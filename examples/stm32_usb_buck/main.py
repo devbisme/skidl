@@ -12,9 +12,9 @@ for file in os.listdir("."):
 
 
 
-v_5v = Net('+5V', netclass='Power')
-v_3v3 = Net('+3V3', netclass='Power')
-gnd = Net('GND', netclass='Power')
+v_5v = Net('+5V', stub=True, netclass='Power')
+v_3v3 = Net('+3V3', stub=True, netclass='Power')
+gnd = Net('GND', stub=True, netclass='Power')
 
 sc.stm32f405r(v_3v3, gnd, v_5v)
 # sc.board_enable(v_3v3, gnd)
