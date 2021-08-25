@@ -26,6 +26,7 @@ def stm32f405r(vdd, gnd, v_5v):
     u.p43.label = 'USB_P'
     u.p44.label = 'USB_M'
     u.p60.label = 'BOOT0'
+    u.p35.label = 'BD_SEL'
 
     vcap1 = Part("Device", 'C_Small', footprint='C_0603_1608Metric')
     vcap1.p1 += u.p31
@@ -35,10 +36,9 @@ def stm32f405r(vdd, gnd, v_5v):
 
     led_indicator(u.p8, l_gnd, 'blue', '5.6k')
     usb(l_5v, l_gnd, u.p43, u.p44, False)
-    board_enable(vdd, l_gnd)
+    board_enable(vdd, l_gnd, u.p35)
     l_gnd += vcap1.p2, vcap2.p2, u.p12, u.p18, u.p63
 
-    # board_enable(vdd, gnd)
 
 # Micro-B USB connector with protection and optional pull-up impedance matching resistors
 # TODO: Get the impedance match resistor logic to work
@@ -88,15 +88,12 @@ def led_indicator(inp, outp, color, resistance):
     inp & r & d & outp
 
 @SubCircuit
-def board_enable(vcc, gnd):
+def board_enable(vcc, gnd, brd_sel):
 
     l_gnd = Net('GND', stub=True, netclass='Power')
     gnd += l_gnd
     l_vcc = Net('+3v3',stub=True, netclass='Power')
     vcc += l_vcc
-
-    bd_sel_ls = Net('bd_sel_ls')
-    n1 = Net('icp2_r2p1')
 
     # TODO: actual IC is SN74LVC1G86DCKR
     xor_ic = Part('74xGxx', '74AUC1G66', footprint='SOT-353_SC-70-5')
@@ -120,9 +117,11 @@ def board_enable(vcc, gnd):
     c1.p1 += l_vcc
     c1.p2 += l_gnd
 
-    bd_sel_ls += xor_ic.p1, r1.p1
+    brd_sel += xor_ic.p1, r1.p1
+    xor_ic.p1.label = 'BD_EN'
+    r1.p1.label = 'BD_EN'
     # led_indicator(xor_ic.p1,l_gnd, 'green', '5.6k')
-    n1 += xor_ic.p2, r2.p1
+    xor_ic.p2 += r2.p1
     xor_ic.p3 += l_gnd
     # xor_ic.p4 += enabled
     xor_ic.p5 += l_vcc

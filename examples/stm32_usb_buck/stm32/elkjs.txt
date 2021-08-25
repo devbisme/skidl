@@ -550,11 +550,13 @@ edge C4.p1 -> U3.p5
 
 edge U3.p5 -> R4.p2
 
-edge U3.p1 -> R3.p1
-
-edge U3.p2 -> R4.p1
-
 edge U3.p4 -> D3.p2
 
 edge R5.p2 -> D3.p1
+
+edge U1.p35 -> U3.p1
+
+edge U3.p1 -> R3.p1
+
+edge U3.p2 -> R4.p1
 
