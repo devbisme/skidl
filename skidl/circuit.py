@@ -1508,13 +1508,13 @@ class Circuit(SkidlBaseObject):
             # skip if this is the top hierarchy
             if len(hier_list)==0:
                 continue
-
+            listToStr = '.'.join([str(elem) for elem in hier_list])
             # check for new top level hierarchy
-            if hier_list[0] not in hierarchies:
+            if listToStr not in hierarchies:
                 # make new top level hierarchy
-                hierarchies[hier_list[0]] = {'parts':[i],'groups':[]}
+                hierarchies[listToStr] = {'parts':[i],'groups':[]}
             else:
-                hierarchies[hier_list[0]]['parts'].append(i)
+                hierarchies[listToStr]['parts'].append(i)
 
         # Label all pins on matching nets
         for h in hierarchies:
@@ -1552,9 +1552,10 @@ class Circuit(SkidlBaseObject):
         # TODO: make sure that parts only belong to one group
 
         # Move groups around that are not the central part
-        dx = 500
-        dy = 500
+        
         for h in hierarchies:
+            dx = 250
+            dy = 250
             for g in hierarchies[h]['groups']:
                 if hierarchies[h]['parts'][0].ref in g:
                     continue
@@ -1562,12 +1563,10 @@ class Circuit(SkidlBaseObject):
                     # move the parts away from the central part for now
                     for pt in g:
                         t_pt = Part.get(pt)
-                        t_pt.sch_bb[0] += dx
-                        t_pt.sch_bb[1] += dy
-                dx += 500
-                dy += 500
-
-                   
+                        t_pt.sch_bb[0] += dx + hierarchies[h]['parts'][0].sch_bb[2]
+                        t_pt.sch_bb[1] += dy + hierarchies[h]['parts'][0].sch_bb[3]
+                    dx += 250
+                    dy += 250
 
 
         # 3. Range through each hierarchy and place parts around the center part (part 0) as determined by 
