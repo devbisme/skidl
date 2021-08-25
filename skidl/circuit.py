@@ -70,6 +70,22 @@ rotation_matrix = [
                     [0,-1,-1,0]  # 270 deg x:-1600  y:  700
 ]
 
+
+def make_Hlabel(x,y,orientation,net_label):
+    t_orient = 0
+    if orientation == 'R':
+        pass
+    elif orientation == 'U': 
+        t_orient = 1
+    elif orientation == 'L':
+        t_orient = 2
+    elif orientation == 'D':
+        t_orient = 3
+    # label = "Text HLabel {} {} {}     50  UnSpc ~ 0\n{}\n".format(x,y,t_orient, net_label)
+    out = "\nText HLabel {} {} {}    50   UnSpc ~ 0\n{}\n".format(x,y,t_orient, net_label)
+    return out
+
+
 # pin_m = pin of moving part
 # pin_nm = pin of non-moving part
 # parts list = hierarchical parts list
@@ -1466,7 +1482,7 @@ class Circuit(SkidlBaseObject):
             tool = skidl.get_default_tool()
 
 
-        sch_c = [8250,5850]
+        sch_c = [8250,5850] # assume A3 size, these coordinates are half of X and Y rounded to the nearest 50 mil
         top_page = [] # List that will be populated with hierarchical schematics
         nSheets = 1 # Keep track of the number of sheets for use in eeschema header
 
@@ -1480,7 +1496,6 @@ class Circuit(SkidlBaseObject):
         for i in self.parts:
             i.generate_bounding_box()
 
-        hier_parts = {}
         # Dictionary that will hold parts and nets info for each hierarchy
         hierarchies = {}
         # 1. Sort parts into hierarchies
@@ -1497,121 +1512,96 @@ class Circuit(SkidlBaseObject):
             # check for new top level hierarchy
             if hier_list[0] not in hierarchies:
                 # make new top level hierarchy
-                hierarchies[hier_list[0]] = {'parts':[i],'nets':[]}
-                hier_parts[hier_list[0]] = {'parts':[i], 'placed':[i]}
+                hierarchies[hier_list[0]] = {'parts':[i]}
             else:
                 hierarchies[hier_list[0]]['parts'].append(i)
-                hier_parts[hier_list[0]]['parts'].append(i)
 
-
-
-        # make sure all component pins are labelled with the appropriate net
+        # Label all pins on matching nets
         for h in hierarchies:
             for pt in hierarchies[h]['parts']:
                 for pin in pt.pins:
-                    if hasattr(pin, 'label'):
-                        for n in pin.nets:
-                            for p in n.pins:
-                                if p.ref in pin.ref:
-                                    continue
-                                else:
-                                    p.label = pin.label
-                                    print(p.ref + " label: " + p.label)
-
-        # def make_Hlabel(x,y,orientation,net_label):
-        #     t_orient = 0
-        #     if orientation == 'L': 
-        #         pass
-        #     elif orientation == 'D': 
-        #         t_orient = 1
-        #     elif orientation == 'R': 
-        #         t_orient = 2
-        #     elif orientation == 'U': 
-        #         t_orient = 3
-        #     label = "Text HLabel {} {} {}     50  UnSpc ~ 0\n {}".format(x,y,t_orient, net_label)
-        #     return label
-
-
-        
+                    for n in pin.nets:
+                        for p in n.pins:
+                            p.label = pin.label
 
 
         # 3. Range through each hierarchy and place parts around the center part (part 0) as determined by 
         #       net pin connections
         for h in hierarchies:
             centerPart = hierarchies[h]['parts'][0].ref # Center part that we place everything else around
-            hierarchies[h]['parts_placed'] = [] # Add key to keep track of parts we've placed
-            hierarchies[h]['nets_to_route'] = [] # Add key to keep track of nets we still need to route
-            # Range through all the hierarchy nets and place the parts around center pin
-            for n in hierarchies[h]['nets']:
-                found = False
-                cp_num = 0 # central part pin # in the net
-                for pin in n.pins:
-                    if pin.ref in centerPart:
-                        found = True
-                        break
-                    else:
-                        cp_num += 1 # not this part, increment the counter
-                if found:
-                    # Place parts with pins connected to this net that we haven't placed and aren't central parts
-                    # for each pin in the net check if it's a pin of the central part or 
-                    #  a pin of a part we already placed.  Don't try to place those parts again.
-                    for pin in n.pins:
-                        if (pin.ref in centerPart) or (pin.ref in hierarchies[h]['parts_placed']):
-                            continue
-                        # move the part based on pin location
-                        move_part(pin, n.pins[cp_num], hierarchies[h]['parts'])
-                        hierarchies[h]['parts_placed'].append(pin.ref) # append the part to the list of parts we've placed
-                else:
-                    hierarchies[h]['nets_to_route'].append(n) # append the net to list of nets we still need to place parts for
+            # hierarchies[h]['parts_placed'] = [] # Add key to keep track of parts we've placed
+            # hierarchies[h]['nets_to_route'] = [] # Add key to keep track of nets we still need to route
+            # # Range through all the hierarchy nets and place the parts around center pin
+            # for n in hierarchies[h]['nets']:
+            #     found = False
+            #     cp_num = 0 # central part pin # in the net
+            #     for pin in n.pins:
+            #         if pin.ref in centerPart:
+            #             found = True
+            #             break
+            #         else:
+            #             cp_num += 1 # not this part, increment the counter
+            #     if found:
+            #         # Place parts with pins connected to this net that we haven't placed and aren't central parts
+            #         # for each pin in the net check if it's a pin of the central part or 
+            #         #  a pin of a part we already placed.  Don't try to place those parts again.
+            #         for pin in n.pins:
+            #             if (pin.ref in centerPart) or (pin.ref in hierarchies[h]['parts_placed']):
+            #                 continue
+            #             # move the part based on pin location
+            #             move_part(pin, n.pins[cp_num], hierarchies[h]['parts'])
+            #             hierarchies[h]['parts_placed'].append(pin.ref) # append the part to the list of parts we've placed
+            #     else:
+            #         hierarchies[h]['nets_to_route'].append(n) # append the net to list of nets we still need to place parts for
 
-            # 1. range through the remaining nets, 
-            # 2. find parts with one already placed components
-            # 3. place those components, only nudging left and right
-            # 4. Delete the net from the list of nets to route
-            # Schematic components should be made to have signal pins only on left & right
-            # See this article by Altium
-            # https://resources.altium.com/p/guidelines-creating-useful-schematic-symbols
-            # 2nd round parts to be nudged only left and right
-            for n in hierarchies[h]['nets_to_route']:
-                # look for parts that are connected to more central parts already
-                found = False
-                pplaced = "" # track which part was placed already, and we'll place relative to that
-                for p in n.pins:
-                    if p.ref in hierarchies[h]['parts_placed']:
-                        found = True
-                        pplaced = p.ref
-                        break
-                if not found:
-                    continue
+            # # 1. range through the remaining nets, 
+            # # 2. find parts with one already placed components
+            # # 3. place those components, only nudging left and right
+            # # 4. Delete the net from the list of nets to route
+            # # Schematic components should be made to have signal pins only on left & right
+            # # See this article by Altium
+            # # https://resources.altium.com/p/guidelines-creating-useful-schematic-symbols
+            # # 2nd round parts to be nudged only left and right
+            # for n in hierarchies[h]['nets_to_route']:
+            #     # look for parts that are connected to more central parts already
+            #     found = False
+            #     pplaced = "" # track which part was placed already, and we'll place relative to that
+            #     for p in n.pins:
+            #         if p.ref in hierarchies[h]['parts_placed']:
+            #             found = True
+            #             pplaced = p.ref
+            #             break
+            #     if not found:
+            #         continue
 
-                # range through net pins and look for the part we already placed
-                # We need to find the list index of the net/part already placed
-                cp_num = 0 # central part pin # in the net
-                for pin in n.pins:
-                    if pin.ref in pplaced:
-                        break
-                    else:
-                        cp_num += 1
+            #     # range through net pins and look for the part we already placed
+            #     # We need to find the list index of the net/part already placed
+            #     cp_num = 0 # central part pin # in the net
+            #     for pin in n.pins:
+            #         if pin.ref in pplaced:
+            #             break
+            #         else:
+            #             cp_num += 1
 
-                for pin in n.pins:
-                    # place the part if 
-                    if pin.ref in pplaced or (pin.ref in hierarchies[h]['parts_placed']):
-                        continue
+            #     for pin in n.pins:
+            #         # place the part if 
+            #         if pin.ref in pplaced or (pin.ref in hierarchies[h]['parts_placed']):
+            #             continue
 
-                    move_part(pin, n.pins[cp_num], hierarchies[h]['parts'])
-                    hierarchies[h]['parts_placed'].append(pin.ref)
-                    hierarchies[h]['nets_to_route'].remove(n) # remove the net after we've placed this component
-            # TODO: place any other parts that have not been addressed yet
-            # for now we just place them down and away from the main circuit
-            offset_x = 0
-            offset_y = hierarchies[h]['parts'][0].sch_bb[1] + hierarchies[h]['parts'][0].sch_bb[3] + 500
-            for p in hierarchies[h]['parts']:
-                if p.ref == hierarchies[h]['parts'][0].ref:
-                    continue
-                if p.sch_bb[0] == 0 and p.sch_bb[1] ==0 :
-                    p.sch_bb[0] += offset_x
-                    p.sch_bb[1] += offset_y
-                    offset_x += 300
+            #         move_part(pin, n.pins[cp_num], hierarchies[h]['parts'])
+            #         hierarchies[h]['parts_placed'].append(pin.ref)
+            #         hierarchies[h]['nets_to_route'].remove(n) # remove the net after we've placed this component
+            # # TODO: place any other parts that have not been addressed yet
+            # # for now we just place them down and away from the main circuit
+            # offset_x = 0
+            # offset_y = hierarchies[h]['parts'][0].sch_bb[1] + hierarchies[h]['parts'][0].sch_bb[3] + 500
+            # for p in hierarchies[h]['parts']:
+            #     if p.ref == hierarchies[h]['parts'][0].ref:
+            #         continue
+            #     if p.sch_bb[0] == 0 and p.sch_bb[1] ==0 :
+            #         p.sch_bb[0] += offset_x
+            #         p.sch_bb[1] += offset_y
+            #         offset_x += 300
 
             eeschema_code = [] # List to hold all the components we'll put the in the eeschema .sch file
             # Add the central coordinates to the part so they're in the center
@@ -1627,31 +1617,18 @@ class Circuit(SkidlBaseObject):
 
 
             # Create the nets and add them to the circuit parts list
-            for n in hierarchies[h]['nets']:
-                wire = gen_net_wire(n,hierarchies[h]['parts'], sch_c)
-                eeschema_code.append(wire)
+            # for n in hierarchies[h]['nets']:
+            #     wire = gen_net_wire(n,hierarchies[h]['parts'], sch_c)
+            #     eeschema_code.append(wire)
 
             # Append stubs
-            for s in stubs:
-                for p in s.pins:
-                    if p.part.hierarchy[4:] == h:
-                        # print("add stub " + s._name + " to " +p.part.ref)
-                        stub = gen_power_part_eeschema(p.part, s._name, sch_c)
-                        eeschema_code.append(stub)
+            # for s in stubs:
+            #     for p in s.pins:
+            #         if p.part.hierarchy[4:] == h:
+            #             # print("add stub " + s._name + " to " +p.part.ref)
+            #             stub = gen_power_part_eeschema(p.part, s._name, sch_c)
+            #             eeschema_code.append(stub)
 
-            def make_Hlabel(x,y,orientation,net_label):
-                t_orient = 0
-                if orientation == 'R':
-                    pass
-                elif orientation == 'U': 
-                    t_orient = 1
-                elif orientation == 'L':
-                    t_orient = 2
-                elif orientation == 'D':
-                    t_orient = 3
-                # label = "Text HLabel {} {} {}     50  UnSpc ~ 0\n{}\n".format(x,y,t_orient, net_label)
-                out = "\nText HLabel {} {} {}    50   UnSpc ~ 0\n{}\n".format(x,y,t_orient, net_label)
-                return out
         # add labels to pins if they have them
         # for h in hierarchies:
             for pt in hierarchies[h]['parts']:

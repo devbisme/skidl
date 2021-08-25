@@ -25,10 +25,12 @@ def stm32f405r(vdd, gnd, _5v):
     vcap2 = c0603()
     vcap2.p1 += u.p47
 
-    led_indicator(u.p8,gnd, 'blue', '5.6k')
+    led_indicator(u.p8, gnd, 'blue', '5.6k')
     usb(_5v, gnd, u.p43, u.p44, False)
     
     gnd += vcap1.p2, vcap2.p2, u.p12, u.p18, u.p63
+
+    board_enable(vdd, gnd)
 
 # Micro-B USB connector with protection and optional pull-up impedance matching resistors
 # TODO: Get the impedance match resistor logic to work
@@ -60,7 +62,8 @@ def usb(_5v, gnd, dp, dm, imp_match):
     
 # LED indicator circuit
 def led_indicator(inp, outp, color, resistance):
-    d = d0603(color = color)
+    d = d0603()
+    # d.color = color
     r = r0603(value=resistance)
     inp & r & d & outp
 
@@ -92,7 +95,7 @@ def board_enable(vcc, gnd_):
     c1.p2 += gnd_
 
     bd_sel_ls += xor_ic.p1, r1.p1
-    led_indicator(xor_ic.p1,gnd_, 'green', '5.6k')
+    # led_indicator(xor_ic.p1,gnd_, 'green', '5.6k')
     n1 += xor_ic.p2, r2.p1
     xor_ic.p3 += gnd_
     # xor_ic.p4 += enabled
