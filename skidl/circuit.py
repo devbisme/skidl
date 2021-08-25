@@ -1584,6 +1584,7 @@ class Circuit(SkidlBaseObject):
                             continue
                         else:
                             calc_move_part(p, pin, hierarchies[h]['parts'])
+
         #     hierarchies[h]['parts_placed'] = [] # Add key to keep track of parts we've placed
         #     hierarchies[h]['nets_to_route'] = [] # Add key to keep track of nets we still need to route
         #     # Range through all the hierarchy nets and place the parts around center pin
@@ -1650,8 +1651,32 @@ class Circuit(SkidlBaseObject):
 
             # TODO: place any other parts that have not been addressed yet
             # for now we just place them down and away from the main circuit
+            # offset_x = 0
+            # offset_y = hierarchies[h]['parts'][0].sch_bb[1] + hierarchies[h]['parts'][0].sch_bb[3] + 500
+            for p in hierarchies[h]['parts']:
+                if p.ref == hierarchies[h]['parts'][0].ref:
+                    continue
+                if p.sch_bb[0] == 0 and p.sch_bb[1] ==0 :
+                    # part has not been moved and is not the central part, which means it needs to be moved
+                    # find a pin to pin connection where the part needs to be moved
+                    for pin in p.pins:
+                        if len(pin.label)>0:
+                            continue
+                        if pin.net is not None: # check if the pin has a net
+                            if pin.net.netclass=='Power':
+                                continue
+                            for netPin in pin.net.pins:
+                                if netPin.part.hierarchy != ("top."+h):
+                                    break
+                                if netPin.ref == hierarchies[h]['parts'][0].ref:
+                                    continue
+                                if netPin.ref == pin.ref:
+                                    continue
+                                else:
+                                    calc_move_part(pin, netPin, hierarchies[h]['parts'])
+
             offset_x = 0
-            offset_y = hierarchies[h]['parts'][0].sch_bb[1] + hierarchies[h]['parts'][0].sch_bb[3] + 500
+            offset_y = -(hierarchies[h]['parts'][0].sch_bb[1] + hierarchies[h]['parts'][0].sch_bb[3] + 500)
             for p in hierarchies[h]['parts']:
                 if p.ref == hierarchies[h]['parts'][0].ref:
                     continue
@@ -1659,6 +1684,7 @@ class Circuit(SkidlBaseObject):
                     p.sch_bb[0] += offset_x
                     p.sch_bb[1] += offset_y
                     offset_x += 300
+                    offset_x = -offset_x 
 
             eeschema_code = [] # List to hold all the components we'll put the in the eeschema .sch file
             # Add the central coordinates to the part so they're in the center
@@ -1668,11 +1694,6 @@ class Circuit(SkidlBaseObject):
                 part_code = i.gen_part_eeschema([x, y])
                 eeschema_code.append(part_code)
             
-
-
-
-
-
             # Create the nets and add them to the circuit parts list
             # for n in hierarchies[h]['nets']:
             #     wire = gen_net_wire(n,hierarchies[h]['parts'], sch_c)

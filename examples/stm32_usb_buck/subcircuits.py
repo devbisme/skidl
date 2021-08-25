@@ -35,7 +35,7 @@ def stm32f405r(vdd, gnd, v_5v):
     vcap2.p1 += u.p47
 
     led_indicator(u.p8, l_gnd, 'blue', '5.6k')
-    usb(l_5v, l_gnd, u.p43, u.p44, False)
+    usb(l_5v, l_gnd, u.p43, u.p44, True)
     board_enable(vdd, l_gnd, u.p35)
     l_gnd += vcap1.p2, vcap2.p2, u.p12, u.p18, u.p63
 
@@ -110,7 +110,7 @@ def board_enable(vcc, gnd, brd_sel):
     xor_ic.p4 += d.p2 
     r_d.p1 += l_vcc
     r_d.p2 += d.p1
-    
+
     c1.fields['voltage']='100v'
     c1.fields['temp_coeff']='X7R'
     c1.p1 += l_vcc
