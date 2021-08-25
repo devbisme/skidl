@@ -1551,7 +1551,21 @@ class Circuit(SkidlBaseObject):
                                     hierarchies[h]['groups'].append(group_parts)
         # TODO: make sure that parts only belong to one group
 
-
+        # Move groups around that are not the central part
+        dx = 500
+        dy = 500
+        for h in hierarchies:
+            for g in hierarchies[h]['groups']:
+                if hierarchies[h]['parts'][0].ref in g:
+                    continue
+                else:
+                    # move the parts away from the central part for now
+                    for pt in g:
+                        t_pt = Part.get(pt)
+                        t_pt.sch_bb[0] += dx
+                        t_pt.sch_bb[1] += dy
+                dx += 500
+                dy += 500
 
                    
 
