@@ -1025,11 +1025,14 @@ class Part(SkidlBaseObject):
             len_label = 0
             if len(p.label) > 0:
                 len_label = int((len(p.label) +1) * 50)
-            if self.sch_bb[2] < (abs(p.x) + len_label):
-                self.sch_bb[2] = abs(p.x) + len_label
-            if self.sch_bb[3] < (abs(p.y) + len_label):
-                self.sch_bb[3] = abs(p.y) + len_label
-        
+            # if self.sch_bb[2] < (abs(p.x) + len_label):
+            #     self.sch_bb[2] = abs(p.x) + len_label
+            # if self.sch_bb[3] < (abs(p.y) + len_label):
+            #     self.sch_bb[3] = abs(p.y) + len_label
+            if self.sch_bb[2] < (abs(p.x)):
+                self.sch_bb[2] = abs(p.x)
+            if self.sch_bb[3] < (abs(p.y)):
+                self.sch_bb[3] = abs(p.y)
         if self.sch_bb[2] < 100:
             self.sch_bb[2] = 100
         if self.sch_bb[3] < 100:

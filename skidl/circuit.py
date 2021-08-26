@@ -161,12 +161,6 @@ def calc_move_part(pin_m, pin_nm, parts_list):
                         _part = Part.get(pin_nm.part.ref)
                         rotate_part_90_cw(_part)
         
-        
-        
-        
-        
-        
-        
         dx = pin_nm.x + pin_nm.part.sch_bb[0]# we move at least the x distance of central part's pin
         # if we are moving right then add on the moving part's pin's x coordinates and a buffer (400 for now)
         # if we're moving left then subtract this same value
@@ -1585,7 +1579,7 @@ class Circuit(SkidlBaseObject):
             # check for new top level hierarchy
             if listToStr not in hierarchies:
                 # make new top level hierarchy
-                hierarchies[listToStr] = {'parts':[i],'groups':[]}
+                hierarchies[listToStr] = {'parts':[i],'nets_routed':[]}
             else:
                 hierarchies[listToStr]['parts'].append(i)
 
@@ -1596,51 +1590,6 @@ class Circuit(SkidlBaseObject):
                     for n in pin.nets:
                         for p in n.pins:
                             p.label = pin.label
-
-        # Look for parts that have pins connected that aren't labels
-        for h in hierarchies: # range through hierarchies
-            for pt in hierarchies[h]['parts']: # range through parts in the hierarchy
-                for pin in pt.pins: # range through pins in the part    
-                    if len(pin.nets)>0: #if a pin belongs to a net then we will move those parts together
-                        # ignore power nets, those will all be stubs
-                        if pin.net.netclass=='Power':
-                            continue
-                        # check if we have a label
-                        if len(pin.label) <1:
-                            group_parts = []
-                            # range through the pins in the net this pin is connected to
-                            for n in pin.net.pins:
-                                # needed exception handling for weird skidl behavior
-                                try:
-                                    # append the part name to the group if it's not there already
-                                    if not n.ref in  group_parts:
-                                        group_parts.append(n.ref)
-                                except Exception as e:
-                                    print(e)
-                            # if the part group is more than 1 then we found a 
-                            if len(group_parts)>1:
-                                if not group_parts in hierarchies[h]['groups']:
-                                    print("Hierarchy: " +h + "  Net: " + pin.net.name + " parts: " + str(group_parts))
-                                    hierarchies[h]['groups'].append(group_parts)
-        # TODO: make sure that parts only belong to one group
-
-        # Move groups around that are not the central part
-        
-        # for h in hierarchies:
-        #     dx = 250
-        #     dy = 250
-        #     for g in hierarchies[h]['groups']:
-        #         if hierarchies[h]['parts'][0].ref in g:
-        #             continue
-        #         else:
-        #             # move the parts away from the central part for now
-        #             for pt in g:
-        #                 t_pt = Part.get(pt)
-        #                 t_pt.sch_bb[0] += dx + hierarchies[h]['parts'][0].sch_bb[2]
-        #                 t_pt.sch_bb[1] += dy + hierarchies[h]['parts'][0].sch_bb[3]
-        #             dx += 250
-        #             dy += 250
-
 
         # 3. Range through each hierarchy and place parts around the center part (part 0) as determined by 
         #       net pin connections
@@ -1657,70 +1606,6 @@ class Circuit(SkidlBaseObject):
                             continue
                         else:
                             calc_move_part(p, pin, hierarchies[h]['parts'])
-
-        #     hierarchies[h]['parts_placed'] = [] # Add key to keep track of parts we've placed
-        #     hierarchies[h]['nets_to_route'] = [] # Add key to keep track of nets we still need to route
-        #     # Range through all the hierarchy nets and place the parts around center pin
-        #     for n in hierarchies[h]['nets']:
-        #         found = False
-        #         cp_num = 0 # central part pin # in the net
-        #         for pin in n.pins:
-        #             if pin.ref in centerPart:
-        #                 found = True
-        #                 break
-        #             else:
-        #                 cp_num += 1 # not this part, increment the counter
-        #         if found:
-        #             # Place parts with pins connected to this net that we haven't placed and aren't central parts
-        #             # for each pin in the net check if it's a pin of the central part or 
-        #             #  a pin of a part we already placed.  Don't try to place those parts again.
-        #             for pin in n.pins:
-        #                 if (pin.ref in centerPart) or (pin.ref in hierarchies[h]['parts_placed']):
-        #                     continue
-        #                 # move the part based on pin location
-        #                 move_part(pin, n.pins[cp_num], hierarchies[h]['parts'])
-        #                 hierarchies[h]['parts_placed'].append(pin.ref) # append the part to the list of parts we've placed
-        #         else:
-        #             hierarchies[h]['nets_to_route'].append(n) # append the net to list of nets we still need to place parts for
-
-            # # 1. range through the remaining nets, 
-            # # 2. find parts with one already placed components
-            # # 3. place those components, only nudging left and right
-            # # 4. Delete the net from the list of nets to route
-            # # Schematic components should be made to have signal pins only on left & right
-            # # See this article by Altium
-            # # https://resources.altium.com/p/guidelines-creating-useful-schematic-symbols
-            # # 2nd round parts to be nudged only left and right
-            # for n in hierarchies[h]['nets_to_route']:
-            #     # look for parts that are connected to more central parts already
-            #     found = False
-            #     pplaced = "" # track which part was placed already, and we'll place relative to that
-            #     for p in n.pins:
-            #         if p.ref in hierarchies[h]['parts_placed']:
-            #             found = True
-            #             pplaced = p.ref
-            #             break
-            #     if not found:
-            #         continue
-
-            #     # range through net pins and look for the part we already placed
-            #     # We need to find the list index of the net/part already placed
-            #     cp_num = 0 # central part pin # in the net
-            #     for pin in n.pins:
-            #         if pin.ref in pplaced:
-            #             break
-            #         else:
-            #             cp_num += 1
-
-            #     for pin in n.pins:
-            #         # place the part if 
-            #         if pin.ref in pplaced or (pin.ref in hierarchies[h]['parts_placed']):
-            #             continue
-
-            #         move_part(pin, n.pins[cp_num], hierarchies[h]['parts'])
-            #         hierarchies[h]['parts_placed'].append(pin.ref)
-            #         hierarchies[h]['nets_to_route'].remove(n) # remove the net after we've placed this component
-
 
             # TODO: place any other parts that have not been addressed yet
             # for now we just place them down and away from the main circuit
@@ -1783,29 +1668,15 @@ class Circuit(SkidlBaseObject):
                                 continue
                             if p.part.hierarchy != pin.part.hierarchy:
                                 sameHier = False
-                        if sameHier:        
+                        if sameHier:     
                             wire = gen_net_wire(pin.net,hierarchies[h]['parts'], sch_c)
                             eeschema_code.append(wire)
-            # for n in hierarchies[h]['nets']:
-            #     wire = gen_net_wire(n,hierarchies[h]['parts'], sch_c)
-            #     eeschema_code.append(wire)
 
             # Append stubs
             for pt in hierarchies[h]['parts']:
                 stub = gen_power_part_eeschema(pt, sch_c)
                 if len(stub)>0:
                     eeschema_code.append(stub)
-                # for pin in pt.pins:
-                #     if pin.net is not None:
-                #         if pin.net.netclass == 'Power':
-                #             print("put stub here")
-
-            # for s in stubs:
-            #     for p in s.pins:
-            #         if p.part.hierarchy[4:] == h:
-            #             # print("add stub " + s._name + " to " +p.part.ref)
-            #             stub = gen_power_part_eeschema(p.part, s._name, sch_c)
-            #             eeschema_code.append(stub)
 
             # add labels to pins if they have them
             for pt in hierarchies[h]['parts']:
@@ -1842,9 +1713,6 @@ class Circuit(SkidlBaseObject):
                 for i in new_sch_file:
                     print("" + "".join(i), file=f)
             f.close()
-
-
-
 
         # Generate hierarchical sheets for top sheet
         x_start = 5000
