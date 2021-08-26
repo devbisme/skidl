@@ -110,7 +110,7 @@ def calc_move_part(pin_m, pin_nm, parts_list):
                     if p.orientation == 'L':
                         rotate = 90
                     if p.orientation == 'R':
-                        rotate = -90
+                        rotate = 270
                 elif '+5v' in p.nets[0].name.lower() or '+3v3' in p.nets[0].name.lower():
                     power_conn = True
                     # print("part: " + p.part.ref + " pin: " + str(p.num) + " is connected to " + p.net.name +  ", facing " + p.orientation)
@@ -128,6 +128,44 @@ def calc_move_part(pin_m, pin_nm, parts_list):
                     _part = Part.get(pin_m.part.ref)
                     for i in range(int(rotate/90)):
                         rotate_part_90_cw(_part)
+        if len(pin_nm.part.pins) <= 2:
+            for p in pin_nm.part.pins:
+                rotate = 0
+                if 'gnd' in p.net.name.lower():
+                    power_conn = True
+                    # print("part: " + p.part.ref + " pin: " + str(p.num) + " is connected to ground, facing " + p.orientation)
+                    if p.orientation == 'U':
+                        break # pin is facing down, break
+                    if p.orientation == 'D':
+                        rotate = 180
+                    if p.orientation == 'L':
+                        rotate = 90
+                    if p.orientation == 'R':
+                        rotate = 270
+                elif '+5v' in p.nets[0].name.lower() or '+3v3' in p.nets[0].name.lower():
+                    power_conn = True
+                    # print("part: " + p.part.ref + " pin: " + str(p.num) + " is connected to " + p.net.name +  ", facing " + p.orientation)
+                    if p.orientation == 'D':
+                        break # pin is facing down, break
+                    if p.orientation == 'U':
+                        rotate = 180
+                    if p.orientation == 'L':
+                        rotate = 90
+                    if p.orientation == 'R':
+                        rotate = 270
+                # else:
+                #     #non-power connection
+                if rotate != 0:
+                    _part = Part.get(pin_nm.part.ref)
+                    for i in range(int(rotate/90)):
+                        rotate_part_90_cw(_part)
+        
+        
+        
+        
+        
+        
+        
         dx = pin_nm.x + pin_nm.part.sch_bb[0]# we move at least the x distance of central part's pin
         # if we are moving right then add on the moving part's pin's x coordinates and a buffer (400 for now)
         # if we're moving left then subtract this same value
@@ -444,6 +482,7 @@ def gen_net_wire(n, parts, c):
             if collided_side == "L":
                 # check if we collided on the left or right side of the central part
                 if n.pins[1].part.sch_bb[0]<0 or n.pins[0].part.sch_bb[0]<0:
+                    print("left side of U1")
                     # switch first and last coordinates if one is further left
                     if x1 > x2:
                         t = line[0]
@@ -460,9 +499,8 @@ def gen_net_wire(n, parts, c):
                     line.insert(i+1, [d_x1,d_y1])
                     line.insert(i+2, [d_x2, d_y2])
                     line.insert(i+3, [x1, d_y3])
-
                 else:
-                    # print("right side of U1")
+                    print("right side of U1")
                         # switch first and last coordinates if one is further left
                     if x1 < x2:
                         t = line[0]

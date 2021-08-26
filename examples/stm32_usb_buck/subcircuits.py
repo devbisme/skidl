@@ -81,6 +81,7 @@ def usb(v_5v, gnd, dp, dm, imp_match):
         rn.p2 += l_5v
     
 # LED indicator circuit
+@SubCircuit
 def led_indicator(inp, outp, color, resistance):
     d = d0603()
     # d.color = color
