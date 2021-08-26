@@ -293,11 +293,31 @@ def draw_rect_hierarchies(hier, sch_center):
     yMin = hier['parts'][0].sch_bb[1] + hier['parts'][0].sch_bb[3]
     yMax = hier['parts'][0].sch_bb[1] - hier['parts'][0].sch_bb[3]
     for p in hier['parts']:
+
+        x_adj_p = 0
+        x_adj_m = 0
+        y_adj_p = 0
+        y_adj_m = 0
+        for pin in p.pins:
+            if len(pin.label)>0:
+                if pin.orientation == 'U':
+                    if (len(pin.label)+1)*50 > y_adj_m:
+                        y_adj_m = (len(pin.label)+1)*50
+                elif pin.orientation == 'D':
+                    if (len(pin.label)+1)*50 > y_adj_p:
+                        y_adj_p = (len(pin.label)+1)*50
+                elif pin.orientation == 'L':
+                    if (len(pin.label)+1)*50 > x_adj_p:
+                        x_adj_p = (len(pin.label)+1)*50
+                elif pin.orientation == 'R':
+                    if (len(pin.label)+1)*50 > x_adj_m:
+                        x_adj_m = (len(pin.label)+1)*50
+
         # Get min/max dimensions of the part
-        t_xMin = p.sch_bb[0] - p.sch_bb[2]
-        t_xMax = p.sch_bb[0] + p.sch_bb[2]
-        t_yMin = p.sch_bb[1] + p.sch_bb[3]
-        t_yMax = p.sch_bb[1] - p.sch_bb[3]
+        t_xMin = p.sch_bb[0] - p.sch_bb[2] - x_adj_m
+        t_xMax = p.sch_bb[0] + p.sch_bb[2] + x_adj_p
+        t_yMin = p.sch_bb[1] + p.sch_bb[3] + y_adj_m
+        t_yMax = p.sch_bb[1] - p.sch_bb[3] - y_adj_p
         # Check if we need to expand the rectangle
         if t_xMin < xMin:
             xMin = t_xMin
@@ -309,10 +329,10 @@ def draw_rect_hierarchies(hier, sch_center):
             yMin = t_yMin
 
     # expand the box a bit so it looks nice
-    xMin += sch_center[0] - 200
-    xMax += sch_center[0] + 200
-    yMin += sch_center[1] + 200
-    yMax += sch_center[1] - 400 # Make box a bit bigger on top to make room for a label
+    xMin += sch_center[0] - 100
+    xMax += sch_center[0] + 100
+    yMin += sch_center[1] + 100
+    yMax += sch_center[1] - 300 # Make box a bit bigger on top to make room for a label
 
     box = []
 
