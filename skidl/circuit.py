@@ -205,6 +205,27 @@ def rotate_part_90_cw(part):
             p.orientation = 'D'
         elif p.orientation == 'L':
             p.orientation = 'U'
+    
+    for n in range(len(rotation_matrix)-1):
+        if rotation_matrix[n] == part.orientation:
+            if n == len(rotation_matrix):
+                part.orientation = rotation_matrix[0]
+                break
+            elif n == 0:
+                part.orientation = rotation_matrix[len(rotation_matrix)-1]
+                break
+            else:
+                part.orienation = rotation_matrix[n-1]
+                break
+
+#     rotation_matrix = [
+#                     [1,0,0,-1],  # 0   deg (standard orientation, ie x: -700 y: 1200 >> -700 left, -1200 down
+#                     [0,1,1,0],   # 90  deg x: 1200  y: -700
+#                     [-1,0,0,1],  # 180 deg x:  700  y: 1600
+#                     [0,-1,-1,0]  # 270 deg x:-1600  y:  700
+# ]
+
+    
 
 # Generate elkjs code that can create an auto diagram with this website:
 # https://rtsys.informatik.uni-kiel.de/elklive/elkgraph.html

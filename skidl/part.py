@@ -147,6 +147,7 @@ class Part(SkidlBaseObject):
         part_defn=None,
         circuit=None,
         ref_prefix='U',
+        orientation = [1,0,0,-1],
         ref=None,
         tag=None,
         pin_splitters=None,
@@ -172,6 +173,7 @@ class Part(SkidlBaseObject):
         self.description = ""  # Make sure there is a description, even if empty.
         self._ref = ""  # Provide a member for holding a reference.
         self.ref_prefix = ref_prefix  # Store the part reference prefix.
+        self.orientation = [1,0,0,-1]
         self.sch_bb=[0,0,0,0] # Set schematic location to x, y, height, width
         self.tool = tool  # Initial type of part (SKIDL, KICAD, etc.)
         self.circuit = None  # Part starts off unassociated with any circuit.
@@ -1176,7 +1178,7 @@ class Part(SkidlBaseObject):
                                         self.draw[n_F0].valign
         ))
         out.append("   1   {} {}\n".format(str(c[0]), str(c[1])))
-        out.append("   {}   {}  {}  {}\n".format(1, 0, 0, -1))
+        out.append("   {}   {}  {}  {}\n".format(self.orientation[0], self.orientation[1], self.orientation[2], self.orientation[3], ))
         out.append("$EndComp\n") 
         return ("\n" + "".join(out))
 
