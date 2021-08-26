@@ -372,10 +372,10 @@ def draw_rect_hierarchies(hier, sch_center):
             yMin = t_yMin
 
     # expand the box a bit so it looks nice
-    xMin += sch_center[0] - 500
-    xMax += sch_center[0] + 500
-    yMin += sch_center[1] + 500
-    yMax += sch_center[1] - 700 # Make box a bit bigger on top to make room for a label
+    xMin += sch_center[0] - 200
+    xMax += sch_center[0] + 200
+    yMin += sch_center[1] + 200
+    yMax += sch_center[1] - 400 # Make box a bit bigger on top to make room for a label
 
     box = []
 
@@ -1520,10 +1520,12 @@ class Circuit(SkidlBaseObject):
                 "Can't get the center of the file({}).".format(tool),
             )
 
-    def generate_schematic(self, file_=None, tool=None):
+
+    def generate_schematic(self, file_=None, tool=None, indv_hier=False):
         """
         Create a schematic file. THIS KINDA WORKS!  
         
+        indv_hier : option to show each hierarchy as a separate hierarchical schematic
         Algorithm description:
 
         1. Sort the circuit parts by hierarchy and put into a dictionary
@@ -1565,6 +1567,7 @@ class Circuit(SkidlBaseObject):
 
         # Dictionary that will hold parts and nets info for each hierarchy
         hierarchies = {}
+        hierarchy_eeschema_code = [] # list to hold all the code from each hierarchy
         # 1. Sort parts into hierarchies
         #    Parts list their hierchies and subhierarchies in '.' separated format (ie 'top.stm320.usb1.led0')
         for i in self.parts:
@@ -1704,6 +1707,8 @@ class Circuit(SkidlBaseObject):
             # Draw rectangle and label subcircuit
             rect = draw_rect_hierarchies(hierarchies[h], sch_c)
             eeschema_code.append(rect)
+
+            hierarchy_eeschema_code.append("".join(eeschema_code))
             # Create the new hierarchy file
             hier_file_name = "stm32/" + h + ".sch"
             with open(hier_file_name, "w") as f:
@@ -1727,11 +1732,16 @@ class Circuit(SkidlBaseObject):
 
         # Write data to main .sch file now that we know how many subcircuits we'll have
         with open(file_, "w") as f:
-            new_sch_file = [gen_config_header(cur_sheet_num=nSheets), top_page, "$EndSCHEMATC"]
-            nSheets += 1
             f.truncate(0) # Clear the file
-            for i in new_sch_file:
-                print("" + "".join(i), file=f)
+            if indv_hier:
+                new_sch_file = [gen_config_header(cur_sheet_num=nSheets), top_page, "$EndSCHEMATC"]
+                nSheets += 1
+                for i in new_sch_file:
+                    print("" + "".join(i), file=f)
+            else:
+                new_sch_file = [gen_config_header(cur_sheet_num=nSheets), hierarchy_eeschema_code, "$EndSCHEMATC"]
+                for i in new_sch_file:
+                        print("" + "".join(i), file=f)   
         f.close()
 
         # Log errors if we have any
