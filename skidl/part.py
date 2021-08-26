@@ -1020,10 +1020,10 @@ class Part(SkidlBaseObject):
 
     def generate_bounding_box(self):
         for p in self.pins:
-            if self.sch_bb[2] < abs(p.x):
-                self.sch_bb[2] = p.x
-            if self.sch_bb[3] < abs(p.y):
-                self.sch_bb[3] = p.y
+            if self.sch_bb[2] < abs(p.x) + int((len(p.label) +1) * 50):
+                self.sch_bb[2] = abs(p.x) + int((len(p.label) +1) * 50)
+            if self.sch_bb[3] < abs(p.y) + int((len(p.label) +1) * 50):
+                self.sch_bb[3] = abs(p.y) + int((len(p.label) +1) * 50)
         
         if self.sch_bb[2] < 100:
             self.sch_bb[2] = 100
