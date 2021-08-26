@@ -1706,7 +1706,25 @@ class Circuit(SkidlBaseObject):
                 part_code = i.gen_part_eeschema([x, y])
                 eeschema_code.append(part_code)
             
+
             # Create the nets and add them to the circuit parts list
+            # find the nets that need to be routed
+            for pt in hierarchies[h]['parts']:
+                for pin in pt.pins:
+                    if len(pin.label) > 0:
+                        continue
+                    if pin.net is not None:
+                        if pin.net.netclass == 'Power':
+                            continue
+                        sameHier = True
+                        for p in pin.net.pins:
+                            if len(p.label) > 0:
+                                continue
+                            if p.part.hierarchy != pin.part.hierarchy:
+                                sameHier = False
+                        if sameHier:        
+                            wire = gen_net_wire(pin.net,hierarchies[h]['parts'], sch_c)
+                            eeschema_code.append(wire)
             # for n in hierarchies[h]['nets']:
             #     wire = gen_net_wire(n,hierarchies[h]['parts'], sch_c)
             #     eeschema_code.append(wire)
