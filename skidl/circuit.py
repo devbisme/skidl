@@ -263,14 +263,23 @@ def gen_power_part_eeschema(part, c=[0,0], orientation = [1,0,0,-1]):
     return ("\n" + "".join(out))
 
 
+# Size options of eeschema schematic pages
+eeschema_sch_sizes = {
+    'A0':[46811, 33110],
+    'A1':[33110, 23386],
+    'A2':[23386, 16535],
+    'A3':[16535, 11693],
+    'A4':[11693, 8268]
+}
+
 # Generate a default header file
-def gen_config_header(cur_sheet_num=1, total_sheet_num=1, sheet_title="Default", revMaj=0, revMin=1, year=2021, month=8, day=15):
+def gen_config_header(cur_sheet_num=1, total_sheet_num=1, sheet_title="Default", revMaj=0, revMin=1, year=2021, month=8, day=15, size='A2'):
     total_sheet_num = cur_sheet_num + 1
     header = []
     header.append("EESchema Schematic File Version 4\n")
     header.append("EELAYER 30 0\n")
     header.append("EELAYER END\n")
-    header.append("$Descr A3 16535 11693\n")
+    header.append("$Descr {} {} {}\n".format(size, eeschema_sch_sizes[size][0], eeschema_sch_sizes[size][1]))
     header.append("encoding utf-8\n")
     header.append("Sheet {} {}\n".format(cur_sheet_num, total_sheet_num)) 
     header.append('Title "{}"\n'.format(sheet_title)) 
