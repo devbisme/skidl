@@ -1070,32 +1070,77 @@ class Part(SkidlBaseObject):
     #   any other part.  If it is colliding then move the part move towards the 
     #   direction of the pin it was moving towards
     def move_part(self, dx, dy, _parts_list):
-        # print(self.ref + " x: " + str(self.sch_bb[0]) + " Y: " + str(self.sch_bb[1]))
         # Determine if the part moved left or right
         move_dir = 'L'
         if dx > 0:
             move_dir = 'R'
-            # dy = -dy # TODO: figure out why we need to reverse the y sign when moving right...
         # Move the part
         self.sch_bb[0] += dx
         self.sch_bb[1] -= dy
 
+        # Check to see if we're colliding with any other parts
+
+        # First we need to check for a label on each pin.  
+        # If we find one then add that label's length to the collision detection
+        x_adj_p = 0
+        x_adj_m = 0
+        y_adj_p = 0
+        y_adj_m = 0
+        for pin in self.pins:
+            if len(pin.label)>0:
+                if pin.orientation == 'U':
+                    if (len(pin.label)+1)*50 > y_adj_m:
+                        y_adj_m = (len(pin.label)+1)*50
+                elif pin.orientation == 'D':
+                    if (len(pin.label)+1)*50 > y_adj_p:
+                        y_adj_p = (len(pin.label)+1)*50
+                elif pin.orientation == 'L':
+                    if (len(pin.label)+1)*50 > x_adj_p:
+                        x_adj_p = (len(pin.label)+1)*50
+                elif pin.orientation == 'R':
+                    if (len(pin.label)+1)*50 > x_adj_m:
+                        x_adj_m = (len(pin.label)+1)*50
+
         # Range through parts in the subcircuit and look for overlaps
         # If we are overlapping then nudge the part 50mil left/right and rerun this function
         for pt in _parts_list:
+            # Don't detect collisions with itself
             if pt.ref == self.ref:
                 continue
-            x1min = self.sch_bb[0] - self.sch_bb[2]
-            x1max = self.sch_bb[0] + self.sch_bb[2]
+
+            # Determine if there's a label on a pin and count that label length for detecting collisions
+            pt_x_adj_p = 0
+            pt_x_adj_m = 0
+            pt_y_adj_p = 0
+            pt_y_adj_m = 0
+            for pin in pt.pins:
+                if len(pin.label)>0:
+                    if pin.orientation == 'U':
+                        if (len(pin.label)+1)*50 > pt_y_adj_m:
+                            pt_y_adj_m = (len(pin.label)+1)*50
+                    elif pin.orientation == 'D':
+                        if (len(pin.label)+1)*50 > pt_y_adj_p:
+                            pt_y_adj_p = (len(pin.label)+1)*50
+                    elif pin.orientation == 'L':
+                        if (len(pin.label)+1)*50 > pt_x_adj_p:
+                            pt_x_adj_p = (len(pin.label)+1)*50
+                    elif pin.orientation == 'R':
+                        if (len(pin.label)+1)*50 > pt_x_adj_m:
+                            pt_x_adj_m = (len(pin.label)+1)*50
+
+
+            # Calculate the min/max for x/y in order to detect collision between rectangles
+            x1min = self.sch_bb[0] - self.sch_bb[2] - x_adj_m
+            x1max = self.sch_bb[0] + self.sch_bb[2] + x_adj_p
             
-            x2min = pt.sch_bb[0] - pt.sch_bb[2]
-            x2max = pt.sch_bb[0] + pt.sch_bb[2]
+            x2min = pt.sch_bb[0] - pt.sch_bb[2] - pt_x_adj_m
+            x2max = pt.sch_bb[0] + pt.sch_bb[2] + pt_x_adj_p
             
-            y1min = self.sch_bb[1] - self.sch_bb[3]
-            y1max = self.sch_bb[1] + self.sch_bb[3]
+            y1min = self.sch_bb[1] - self.sch_bb[3] - y_adj_m
+            y1max = self.sch_bb[1] + self.sch_bb[3] + y_adj_p
             
-            y2min = pt.sch_bb[1] - pt.sch_bb[3]
-            y2max = pt.sch_bb[1] + pt.sch_bb[3]
+            y2min = pt.sch_bb[1] - pt.sch_bb[3] - pt_y_adj_m
+            y2max = pt.sch_bb[1] + pt.sch_bb[3] + pt_y_adj_p
             # Logic to tell whether parts collide
             # Note that the movement direction is opposite of what's intuitive ('R' = move left, 'U' = -50)
             # https://stackoverflow.com/questions/20925818/algorithm-to-check-if-two-boxes-overlap

@@ -63,12 +63,7 @@ from .tools import *
 
 standard_library.install_aliases()
 
-rotation_matrix = [
-                    [1,0,0,-1],  # 0   deg (standard orientation, ie x: -700 y: 1200 >> -700 left, -1200 down
-                    [0,1,1,0],   # 90  deg x: 1200  y: -700
-                    [-1,0,0,1],  # 180 deg x:  700  y: 1600
-                    [0,-1,-1,0]  # 270 deg x:-1600  y:  700
-]
+
 
 
 def make_Hlabel(x,y,orientation,net_label):
@@ -81,7 +76,6 @@ def make_Hlabel(x,y,orientation,net_label):
         t_orient = 2
     elif orientation == 'U':
         t_orient = 3
-    # label = "Text HLabel {} {} {}     50  UnSpc ~ 0\n{}\n".format(x,y,t_orient, net_label)
     out = "\nText HLabel {} {} {}    50   UnSpc ~ 0\n{}\n".format(x,y,t_orient, net_label)
     return out
 
@@ -116,14 +110,21 @@ def rotate_2pin_part(part):
 # pin_nm = pin of non-moving part
 # parts list = hierarchical parts list
 def calc_move_part(pin_m, pin_nm, parts_list):
-        dx = pin_m.x + pin_nm.x + pin_nm.part.sch_bb[0] + pin_nm.part.sch_bb[2]
-        dy = -pin_m.y + pin_nm.y - pin_nm.part.sch_bb[1]
-        p = Part.get(pin_m.part.ref)
-        p.move_part(dx, dy,parts_list)
+
+    dx = pin_m.x + pin_nm.x + pin_nm.part.sch_bb[0] + pin_nm.part.sch_bb[2]
+    dy = -pin_m.y + pin_nm.y - pin_nm.part.sch_bb[1]
+    p = Part.get(pin_m.part.ref)
+    p.move_part(dx, dy,parts_list)
 
 # Rotating the part CW 90 switches the x/y axis and makes the new height negative
 # https://stackoverflow.com/questions/2285936/easiest-way-to-rotate-a-rectangle
 def rotate_part_90_cw(part):
+    rotation_matrix = [
+                    [1,0,0,-1],  # 0   deg (standard orientation, ie x: -700 y: 1200 >> -700 left, -1200 down
+                    [0,1,1,0],   # 90  deg x: 1200  y: -700
+                    [-1,0,0,1],  # 180 deg x:  700  y: 1600
+                    [0,-1,-1,0]  # 270 deg x:-1600  y:  700
+    ]
     # switch the height and width
     new_height = part.sch_bb[2]
     new_width = part.sch_bb[3]
@@ -157,14 +158,6 @@ def rotate_part_90_cw(part):
                 part.orientation = rotation_matrix[n+1]
                 print(part.ref + "  orienation: " + str(part.orientation))
                 break
-
-#     rotation_matrix = [
-#                     [1,0,0,-1],  # 0   deg (standard orientation, ie x: -700 y: 1200 >> -700 left, -1200 down
-#                     [0,1,1,0],   # 90  deg x: 1200  y: -700
-#                     [-1,0,0,1],  # 180 deg x:  700  y: 1600
-#                     [0,-1,-1,0]  # 270 deg x:-1600  y:  700
-# ]
-
     
 
 # Generate elkjs code that can create an auto diagram with this website:
@@ -225,7 +218,6 @@ def gen_elkjs_code(parts, nets):
     f.close()
 
 def gen_power_part_eeschema(part, c=[0,0], orientation = [1,0,0,-1]):
-
     out = []
     for pin in part.pins:
         try:
@@ -1541,9 +1533,10 @@ class Circuit(SkidlBaseObject):
         for h in hierarchies:
             for pt in hierarchies[h]['parts']:
                 for pin in pt.pins:
-                    for n in pin.nets:
-                        for p in n.pins:
-                            p.label = pin.label
+                    if len(pin.label)>0:
+                        if pin.net is not None:
+                            for p in pin.net.pins:
+                                p.label = pin.label
         # *********************  PLACE PARTS AROUND CENTRAL PART  ****************************
         # ************************************************************************************
         for h in hierarchies:
@@ -1588,7 +1581,7 @@ class Circuit(SkidlBaseObject):
                                 else:
                                     calc_move_part(pin, netPin, hierarchies[h]['parts'])
 
-            # *********************  PLACE PARTS WITH NETS TO DRAW  ******************************
+            # *********************  MOVE PARTS NOT ALREADY MOVED  ******************************
             # ************************************************************************************
             offset_x = 0
             offset_y = -(hierarchies[h]['parts'][0].sch_bb[1] + hierarchies[h]['parts'][0].sch_bb[3] + 500)
@@ -1599,17 +1592,10 @@ class Circuit(SkidlBaseObject):
                     p.move_part(offset_x, offset_y, hierarchies[h]['parts'])
                     offset_x += 200 + p.sch_bb[2]
                     offset_x = -offset_x
-            # *********************  GENERATE EESCHEMA CODE FOR PARTS  ***************************
-            # ************************************************************************************
-            eeschema_code = [] # List to hold all the components we'll put the in the eeschema .sch file
-            # Add the central coordinates to the part so they're in the center
-            for i in hierarchies[h]['parts']:
-                x = i.sch_bb[0] + sch_c[0]
-                y = i.sch_bb[1] + sch_c[1]
-                part_code = i.gen_part_eeschema([x, y])
-                eeschema_code.append(part_code)
-            
 
+
+            
+            eeschema_code = [] # List to hold all the components we'll put the in the eeschema .sch file
             # *********************  GENERATE EESCHEMA CODE FOR NETS  ****************************
             # ************************************************************************************
             for pt in hierarchies[h]['parts']:
@@ -1667,6 +1653,16 @@ class Circuit(SkidlBaseObject):
 
             # *********************  GENERATE EESCHEMA FILE FOR HIERACHY  *************************
             # *************************************************************************************
+
+            # *********************  GENERATE EESCHEMA CODE FOR PARTS  ***************************
+            # ************************************************************************************
+            # Add the central coordinates to the part so they're in the center
+            for i in hierarchies[h]['parts']:
+                x = i.sch_bb[0] + sch_c[0]
+                y = i.sch_bb[1] + sch_c[1]
+                part_code = i.gen_part_eeschema([x, y])
+                eeschema_code.append(part_code)
+
             hierarchy_eeschema_code.append("".join(eeschema_code))
             # Create the new hierarchy file
             hier_file_name = "stm32/" + h + ".sch"
