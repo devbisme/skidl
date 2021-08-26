@@ -110,7 +110,6 @@ def rotate_2pin_part(part):
 # pin_nm = pin of non-moving part
 # parts list = hierarchical parts list
 def calc_move_part(pin_m, pin_nm, parts_list):
-
     dx = pin_m.x + pin_nm.x + pin_nm.part.sch_bb[0] + pin_nm.part.sch_bb[2]
     dy = -pin_m.y + pin_nm.y - pin_nm.part.sch_bb[1]
     p = Part.get(pin_m.part.ref)
@@ -1574,15 +1573,21 @@ class Circuit(SkidlBaseObject):
                 # only move parts for pins that don't have a label
                 if len(pin.label)>0:
                     continue
-                if pin.net is not None: # check if the pin has a net
-                    if pin.net.netclass=='Power':
+                # check if the pin has a net
+                if pin.net is not None: 
+                    # don't move a part based on whether a pin is a power pin
+                    if pin.net.netclass=='Power': 
                         continue
-                    for p in pin.net.pins:
-                        if p.part.hierarchy != ("top."+h):
+                    # range through all the pins connected to the net this pin is connected to
+                    for p in pin.net.pins: 
+                        # make sure parts are in the same hierarchy before moving them
+                        if p.part.hierarchy != ("top."+h): 
                             break
-                        if p.ref == centerPart.ref:
+                        # don't move the center part
+                        if p.ref == centerPart.ref: 
                             continue
                         else:
+                            # if we pass all those checks then move the part based on the relative pin locations
                             calc_move_part(p, pin, hierarchies[h]['parts'])
 
 
@@ -1597,9 +1602,13 @@ class Circuit(SkidlBaseObject):
                     for pin in p.pins:
                         if len(pin.label)>0:
                             continue
-                        if pin.net is not None: # check if the pin has a net
+                        # check if the pin has a net
+                        if pin.net is not None: 
+                            # don't place a part based on a power net
                             if pin.net.netclass=='Power':
                                 continue
+                            # range through each pin in the net and look for a part that will need a net drawn to it
+                            # then move the part based on the relative pin locations
                             for netPin in pin.net.pins:
                                 if netPin.part.hierarchy != ("top."+h):
                                     break
