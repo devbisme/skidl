@@ -121,7 +121,7 @@ def calc_move_part(pin_m, pin_nm, parts_list):
                     if p.orientation == 'L':
                         rotate = 90
                     if p.orientation == 'R':
-                        rotate = -90
+                        rotate = 270
                 # else:
                 #     #non-power connection
                 if rotate != 0:
@@ -140,7 +140,7 @@ def calc_move_part(pin_m, pin_nm, parts_list):
         p.move_part(dx, dy, parts_list)
     else:
         dx = pin_m.x + pin_nm.x + pin_nm.part.sch_bb[0] + pin_nm.part.sch_bb[2]
-        dy = -pin_m.y + pin_nm.y - pin_nm.part.sch_bb[1] 
+        dy = -pin_m.y + pin_nm.y - pin_nm.part.sch_bb[1]
         p = Part.get(pin_m.part.ref)
         p.move_part(dx, dy,parts_list)
 
