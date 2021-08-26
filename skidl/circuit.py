@@ -174,6 +174,11 @@ def gen_elkjs_code(parts, nets):
     elkjs_code = []
     # range through parts and append code for each part
     for pt in parts:
+        try:
+            if pt.stub ==True:
+                continue
+        except Exception as e:
+            print(e)
         elkjs_part = []
         elkjs_part.append("node {}".format(pt.ref) + 
         ' {\n' + '\tlayout [ size: {},{} ]\n'.format(pt.sch_bb[2], pt.sch_bb[3]) + 
