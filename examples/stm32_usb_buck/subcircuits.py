@@ -29,15 +29,15 @@ def stm32f405r(vdd, gnd, v_5v):
     u.p35.label = 'BD_SEL'
 
     vcap1 = Part("Device", 'C_Small', footprint='C_0603_1608Metric')
-    vcap1.p1 += u.p31
+    vcap1.p2 += u.p31
 
     vcap2 = Part("Device", 'C_Small', footprint='C_0603_1608Metric')
-    vcap2.p1 += u.p47
+    vcap2.p2 += u.p47
 
     led_indicator(u.p8, l_gnd, 'blue', '5.6k')
     usb(l_5v, l_gnd, u.p43, u.p44, True)
     board_enable(vdd, l_gnd, u.p35)
-    l_gnd += vcap1.p2, vcap2.p2, u.p12, u.p18, u.p63
+    l_gnd += vcap1.p1, vcap2.p1, u.p12, u.p18, u.p63
 
 
 # Micro-B USB connector with protection and optional pull-up impedance matching resistors

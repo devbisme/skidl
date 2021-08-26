@@ -508,19 +508,19 @@ edge U1.p48 -> U1.p64
 
 edge U1.p64 -> U1.p13
 
-edge D2.p2 -> C2.p2
+edge D2.p2 -> C2.p1
 
-edge C2.p2 -> C3.p2
+edge C2.p1 -> C3.p1
 
-edge C3.p2 -> U1.p12
+edge C3.p1 -> U1.p12
 
 edge U1.p12 -> U1.p18
 
 edge U1.p18 -> U1.p63
 
-edge C2.p1 -> U1.p31
+edge C2.p2 -> U1.p31
 
-edge C3.p1 -> U1.p47
+edge C3.p2 -> U1.p47
 
 edge U1.p8 -> R2.p1
 

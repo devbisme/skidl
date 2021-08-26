@@ -86,81 +86,37 @@ def make_Hlabel(x,y,orientation,net_label):
     return out
 
 
+def rotate_2pin_part(part):
+    for p in part.pins:
+        rotate = 0
+        if 'gnd' in p.net.name.lower():
+            # print("part: " + p.part.ref + " pin: " + str(p.num) + " is connected to ground, facing " + p.orientation)
+            if p.orientation == 'U':
+                break # pin is facing down, break
+            if p.orientation == 'D':
+                rotate = 180
+            if p.orientation == 'L':
+                rotate = 90
+            if p.orientation == 'R':
+                rotate = 270
+        elif '+' in p.nets[0].name.lower():
+            # print("part: " + p.part.ref + " pin: " + str(p.num) + " is connected to " + p.net.name +  ", facing " + p.orientation)
+            if p.orientation == 'D':
+                break # pin is facing down, break
+            if p.orientation == 'U':
+                rotate = 180
+            if p.orientation == 'L':
+                rotate = 90
+            if p.orientation == 'R':
+                rotate = 270
+        if rotate != 0:
+            for i in range(int(rotate/90)):
+                rotate_part_90_cw(part)
 # pin_m = pin of moving part
 # pin_nm = pin of non-moving part
 # parts list = hierarchical parts list
 def calc_move_part(pin_m, pin_nm, parts_list):
-    # For placing parts around central part we have special logic
-    #   * Push parts further out 
-    if pin_nm.ref in parts_list[0].ref:
-        # check if the moving part is a 2 pin passive that needs to be rotated to GND or POWER
-        if len(pin_m.part.pins) <= 2:
-            # print(pin_m.part.ref + " is a 2 pin part")
-            power_conn = False
-            
-            for p in pin_m.part.pins:
-                rotate = 0
-                if 'gnd' in p.net.name.lower():
-                    power_conn = True
-                    # print("part: " + p.part.ref + " pin: " + str(p.num) + " is connected to ground, facing " + p.orientation)
-                    if p.orientation == 'U':
-                        break # pin is facing down, break
-                    if p.orientation == 'D':
-                        rotate = 180
-                    if p.orientation == 'L':
-                        rotate = 90
-                    if p.orientation == 'R':
-                        rotate = 270
-                elif '+5v' in p.nets[0].name.lower() or '+3v3' in p.nets[0].name.lower():
-                    power_conn = True
-                    # print("part: " + p.part.ref + " pin: " + str(p.num) + " is connected to " + p.net.name +  ", facing " + p.orientation)
-                    if p.orientation == 'D':
-                        break # pin is facing down, break
-                    if p.orientation == 'U':
-                        rotate = 180
-                    if p.orientation == 'L':
-                        rotate = 90
-                    if p.orientation == 'R':
-                        rotate = 270
-                # else:
-                #     #non-power connection
-                if rotate != 0:
-                    _part = Part.get(pin_m.part.ref)
-                    for i in range(int(rotate/90)):
-                        rotate_part_90_cw(_part)
-        if len(pin_nm.part.pins) <= 2:
-            for p in pin_nm.part.pins:
-                rotate = 0
-                if 'gnd' in p.net.name.lower():
-                    power_conn = True
-                    # print("part: " + p.part.ref + " pin: " + str(p.num) + " is connected to ground, facing " + p.orientation)
-                    if p.orientation == 'U':
-                        break # pin is facing down, break
-                    if p.orientation == 'D':
-                        rotate = 180
-                    if p.orientation == 'L':
-                        rotate = 90
-                    if p.orientation == 'R':
-                        rotate = 270
-                elif '+5v' in p.nets[0].name.lower() or '+3v3' in p.nets[0].name.lower():
-                    power_conn = True
-                    # print("part: " + p.part.ref + " pin: " + str(p.num) + " is connected to " + p.net.name +  ", facing " + p.orientation)
-                    if p.orientation == 'D':
-                        break # pin is facing down, break
-                    if p.orientation == 'U':
-                        rotate = 180
-                    if p.orientation == 'L':
-                        rotate = 90
-                    if p.orientation == 'R':
-                        rotate = 270
-                # else:
-                #     #non-power connection
-                if rotate != 0:
-                    
-                    for i in range(int(rotate/90)):
-                        _part = Part.get(pin_nm.part.ref)
-                        rotate_part_90_cw(_part)
-        
+    if pin_nm.ref in parts_list[0].ref:        
         dx = pin_nm.x + pin_nm.part.sch_bb[0]# we move at least the x distance of central part's pin
         # if we are moving right then add on the moving part's pin's x coordinates and a buffer (400 for now)
         # if we're moving left then subtract this same value
@@ -204,12 +160,12 @@ def rotate_part_90_cw(part):
     for n in range(len(rotation_matrix)-1):
         if rotation_matrix[n] == part.orientation:
             if n == rotation_matrix[-1]:
-                print("match " + str(n) + " of rotation matrix for part:\npart.ref  orienation: " + str(part.orientation))
+                print("match " + str(n) + " of rotation matrix for part:\n" + part.ref + "  orienation: " + str(part.orientation))
                 part.orientation = rotation_matrix[0]
                 print(part.ref + "  orienation: " + str(part.orientation))
                 break
             else:
-                print("match " + str(n) + " of rotation matrix for part:\npart.ref  orienation: " + str(part.orientation))
+                print("match " + str(n) + " of rotation matrix for part:\n" + part.ref + "  orienation: " + str(part.orientation))
                 part.orientation = rotation_matrix[n+1]
                 print(part.ref + "  orienation: " + str(part.orientation))
                 break
@@ -229,11 +185,12 @@ def gen_elkjs_code(parts, nets):
     elkjs_code = []
     # range through parts and append code for each part
     for pt in parts:
+        error = 0
         try:
             if pt.stub ==True:
                 continue
         except Exception as e:
-            print(e)
+            error+=1
         elkjs_part = []
         elkjs_part.append("node {}".format(pt.ref) + 
         ' {\n' + '\tlayout [ size: {},{} ]\n'.format(pt.sch_bb[2], pt.sch_bb[3]) + 
@@ -1587,6 +1544,10 @@ class Circuit(SkidlBaseObject):
             else:
                 hierarchies[listToStr]['parts'].append(i)
 
+        for h in hierarchies:
+            for pt in hierarchies[h]['parts']:
+                if len(pt.pins)<=2:
+                    rotate_2pin_part(pt)
         # *********************  COPY LABELS TO CONNECTED PINS  ******************************
         # ************************************************************************************
         for h in hierarchies:
@@ -1740,7 +1701,7 @@ class Circuit(SkidlBaseObject):
 
         # *********************  GENERATE ELKJS CODE  *****************************************
         # *************************************************************************************
-        gen_elkjs_code(self.parts, self.nets)
+        # gen_elkjs_code(self.parts, self.nets)
 
         # *********************  GENERATE EESCHEMA TOP PAGE  **********************************
         # *************************************************************************************
