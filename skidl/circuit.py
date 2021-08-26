@@ -156,8 +156,9 @@ def calc_move_part(pin_m, pin_nm, parts_list):
                 # else:
                 #     #non-power connection
                 if rotate != 0:
-                    _part = Part.get(pin_nm.part.ref)
+                    
                     for i in range(int(rotate/90)):
+                        _part = Part.get(pin_nm.part.ref)
                         rotate_part_90_cw(_part)
         
         
@@ -208,14 +209,15 @@ def rotate_part_90_cw(part):
     
     for n in range(len(rotation_matrix)-1):
         if rotation_matrix[n] == part.orientation:
-            if n == len(rotation_matrix):
+            if n == rotation_matrix[-1]:
+                print("match " + str(n) + " of rotation matrix for part:\npart.ref  orienation: " + str(part.orientation))
                 part.orientation = rotation_matrix[0]
-                break
-            elif n == 0:
-                part.orientation = rotation_matrix[len(rotation_matrix)-1]
+                print(part.ref + "  orienation: " + str(part.orientation))
                 break
             else:
-                part.orienation = rotation_matrix[n-1]
+                print("match " + str(n) + " of rotation matrix for part:\npart.ref  orienation: " + str(part.orientation))
+                part.orientation = rotation_matrix[n+1]
+                print(part.ref + "  orienation: " + str(part.orientation))
                 break
 
 #     rotation_matrix = [
