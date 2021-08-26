@@ -116,18 +116,6 @@ def rotate_2pin_part(part):
 # pin_nm = pin of non-moving part
 # parts list = hierarchical parts list
 def calc_move_part(pin_m, pin_nm, parts_list):
-    if pin_nm.ref in parts_list[0].ref:        
-        dx = pin_nm.x + pin_nm.part.sch_bb[0]# we move at least the x distance of central part's pin
-        # if we are moving right then add on the moving part's pin's x coordinates and a buffer (400 for now)
-        # if we're moving left then subtract this same value
-        if pin_nm.x >= 0:
-            dx += (abs(pin_m.x) + pin_nm.part.sch_bb[2])
-        else:
-            dx -= (abs(pin_m.x) + pin_nm.part.sch_bb[2])
-        dy = -pin_m.y + pin_nm.y + pin_nm.part.sch_bb[1]
-        p = Part.get(pin_m.part.ref)
-        p.move_part(dx, dy, parts_list)
-    else:
         dx = pin_m.x + pin_nm.x + pin_nm.part.sch_bb[0] + pin_nm.part.sch_bb[2]
         dy = -pin_m.y + pin_nm.y - pin_nm.part.sch_bb[1]
         p = Part.get(pin_m.part.ref)
