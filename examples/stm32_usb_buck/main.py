@@ -28,5 +28,5 @@ schematic_path = "/home/cdsfsmattner/Desktop/skidl/examples/stm32_usb_buck/stm32
 netlist_path = "/home/cdsfsmattner/Desktop/skidl/examples/stm32_usb_buck/stm32/netlist.net"
 
 
-generate_schematic(file_ = schematic_path)
+generate_schematic(file_ = schematic_path, indv_hier=True)
 # generate_netlist(file_ = netlist_path)

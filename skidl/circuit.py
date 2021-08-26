@@ -1568,7 +1568,8 @@ class Circuit(SkidlBaseObject):
         # Dictionary that will hold parts and nets info for each hierarchy
         hierarchies = {}
         hierarchy_eeschema_code = [] # list to hold all the code from each hierarchy
-        # 1. Sort parts into hierarchies
+        # *********************  SORT PARTS INTO HIERARCHIES  ********************************
+        # ************************************************************************************
         #    Parts list their hierchies and subhierarchies in '.' separated format (ie 'top.stm320.usb1.led0')
         for i in self.parts:
             # TODO: get nested hierarchies working
@@ -1586,19 +1587,22 @@ class Circuit(SkidlBaseObject):
             else:
                 hierarchies[listToStr]['parts'].append(i)
 
-        # Label all pins on matching nets
+        # *********************  COPY LABELS TO CONNECTED PINS  ******************************
+        # ************************************************************************************
         for h in hierarchies:
             for pt in hierarchies[h]['parts']:
                 for pin in pt.pins:
                     for n in pin.nets:
                         for p in n.pins:
                             p.label = pin.label
-
-        # 3. Range through each hierarchy and place parts around the center part (part 0) as determined by 
-        #       net pin connections
+        # *********************  PLACE PARTS AROUND CENTRAL PART  ****************************
+        # ************************************************************************************
         for h in hierarchies:
             centerPart = hierarchies[h]['parts'][0] # Center part that we place everything else around
             for pin in centerPart.pins:
+                # only move parts for pins that don't have a label
+                if len(pin.label)>0:
+                    continue
                 if pin.net is not None: # check if the pin has a net
                     if pin.net.netclass=='Power':
                         continue
