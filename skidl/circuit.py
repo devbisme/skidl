@@ -1614,10 +1614,9 @@ class Circuit(SkidlBaseObject):
                         else:
                             calc_move_part(p, pin, hierarchies[h]['parts'])
 
-            # TODO: place any other parts that have not been addressed yet
-            # for now we just place them down and away from the main circuit
-            # offset_x = 0
-            # offset_y = hierarchies[h]['parts'][0].sch_bb[1] + hierarchies[h]['parts'][0].sch_bb[3] + 500
+
+            # *********************  PLACE PARTS WITH NETS TO DRAW  ******************************
+            # ************************************************************************************
             for p in hierarchies[h]['parts']:
                 if p.ref == hierarchies[h]['parts'][0].ref:
                     continue
@@ -1640,17 +1639,19 @@ class Circuit(SkidlBaseObject):
                                 else:
                                     calc_move_part(pin, netPin, hierarchies[h]['parts'])
 
+            # *********************  PLACE PARTS WITH NETS TO DRAW  ******************************
+            # ************************************************************************************
             offset_x = 0
             offset_y = -(hierarchies[h]['parts'][0].sch_bb[1] + hierarchies[h]['parts'][0].sch_bb[3] + 500)
             for p in hierarchies[h]['parts']:
                 if p.ref == hierarchies[h]['parts'][0].ref:
                     continue
                 if p.sch_bb[0] == 0 and p.sch_bb[1] ==0 :
-                    p.sch_bb[0] += offset_x
-                    p.sch_bb[1] += offset_y
-                    offset_x += 300
-                    offset_x = -offset_x 
-
+                    p.move_part(offset_x, offset_y, hierarchies[h]['parts'])
+                    offset_x += 200 + p.sch_bb[2]
+                    offset_x = -offset_x
+            # *********************  GENERATE EESCHEMA CODE FOR PARTS  ***************************
+            # ************************************************************************************
             eeschema_code = [] # List to hold all the components we'll put the in the eeschema .sch file
             # Add the central coordinates to the part so they're in the center
             for i in hierarchies[h]['parts']:
