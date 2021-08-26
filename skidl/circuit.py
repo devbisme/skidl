@@ -1661,8 +1661,8 @@ class Circuit(SkidlBaseObject):
                 eeschema_code.append(part_code)
             
 
-            # Create the nets and add them to the circuit parts list
-            # find the nets that need to be routed
+            # *********************  GENERATE EESCHEMA CODE FOR NETS  ****************************
+            # ************************************************************************************
             for pt in hierarchies[h]['parts']:
                 for pin in pt.pins:
                     if len(pin.label) > 0:
@@ -1680,13 +1680,15 @@ class Circuit(SkidlBaseObject):
                             wire = gen_net_wire(pin.net,hierarchies[h]['parts'], sch_c)
                             eeschema_code.append(wire)
 
-            # Append stubs
+            # *********************  GENERATE EESCHEMA CODE FOR STUBS  ***************************
+            # ************************************************************************************
             for pt in hierarchies[h]['parts']:
                 stub = gen_power_part_eeschema(pt, sch_c)
                 if len(stub)>0:
                     eeschema_code.append(stub)
 
-            # add labels to pins if they have them
+            # *********************  GENERATE EESCHEMA CODE FOR LABELS  ***************************
+            # *************************************************************************************
             for pt in hierarchies[h]['parts']:
                 for pin in pt.pins:
                     if len(pin.label)>0:
@@ -1709,10 +1711,13 @@ class Circuit(SkidlBaseObject):
                                 t_y = -pin.y + pin.part.sch_bb[1] + sch_c[1] 
                         eeschema_code.append(make_Hlabel(t_x, t_y, pin.orientation, pin.label))
 
-            # Draw rectangle and label subcircuit
+            # *********************  DRAW RECTANGLES AROUND HIERARCHY  **************************
+            # *************************************************************************************
             rect = draw_rect_hierarchies(hierarchies[h], sch_c)
             eeschema_code.append(rect)
 
+            # *********************  GENERATE EESCHEMA FILE FOR HIERACHY  *************************
+            # *************************************************************************************
             hierarchy_eeschema_code.append("".join(eeschema_code))
             # Create the new hierarchy file
             hier_file_name = "stm32/" + h + ".sch"
@@ -1724,7 +1729,8 @@ class Circuit(SkidlBaseObject):
                     print("" + "".join(i), file=f)
             f.close()
 
-        # Generate hierarchical sheets for top sheet
+        # *********************  GENERATE HIERARCHICAL SHEETS FOR TOP PAGE  *******************
+        # *************************************************************************************
         x_start = 5000
         y_start = 5000
         for h in hierarchies:
@@ -1732,10 +1738,12 @@ class Circuit(SkidlBaseObject):
             top_page.append(hier_sheet)
             x_start += 3000
 
-        # Generate the elksjs code
+        # *********************  GENERATE ELKJS CODE  *****************************************
+        # *************************************************************************************
         gen_elkjs_code(self.parts, self.nets)
 
-        # Write data to main .sch file now that we know how many subcircuits we'll have
+        # *********************  GENERATE EESCHEMA TOP PAGE  **********************************
+        # *************************************************************************************
         with open(file_, "w") as f:
             f.truncate(0) # Clear the file
             if indv_hier:
