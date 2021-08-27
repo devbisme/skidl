@@ -1516,21 +1516,25 @@ class Circuit(SkidlBaseObject):
             tool = skidl.get_default_tool()
 
 
+        # Find the schematic size
         sch_c = 0
         for n in eeschema_sch_sizes:
             if n == sch_size:
-                sch_c = [int(eeschema_sch_sizes[n][0]/2), int(eeschema_sch_sizes[n][1]/2)]
+                x = int(eeschema_sch_sizes[n][0]/2)
+                x = 50 * round(x/50)
+                y = int(eeschema_sch_sizes[n][1]/2)
+                y = 50 * round(y/50)
+                sch_c = [x,y ]
                 print("Schematic size: " + sch_size + "  center: " + str(sch_c))
                 break
-        # sch_c = [8250,5850] # assume A3 size, these coordinates are half of X and Y rounded to the nearest 50 mil
         top_page = [] # List that will be populated with hierarchical schematics
         nSheets = 1 # Keep track of the number of sheets for use in eeschema header
 
-        # Get a list of all the stubs for generation at the end
-        stubs = []
-        for i in self.nets:
-            if hasattr(i, 'stub'):
-                stubs.append(i)
+        # # Get a list of all the stubs for generation at the end
+        # stubs = []
+        # for i in self.nets:
+        #     if hasattr(i, 'stub'):
+        #         stubs.append(i)
 
         # Range through the parts and create bounding boxes based on the furthest distance of pins
         for i in self.parts:
@@ -1635,7 +1639,7 @@ class Circuit(SkidlBaseObject):
                 if p.sch_bb[0] == 0 and p.sch_bb[1] ==0 :
                     p.move_part(offset_x, offset_y, hierarchies[h]['parts'])
                     offset_x += 200 + p.sch_bb[2]
-                    offset_x = -offset_x
+                    offset_x = -offset_x # switch which side we place them every time
             # ///////////////////////////////////////////////////////////////////////////////////   
                 
             # List to hold all the components we'll put the in the eeschema .sch file
