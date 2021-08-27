@@ -72,8 +72,6 @@ def anlg_flt(vdd, gnd, vdda):
     l_vdda = Net('+3.3VA', stub=True, netclass='Power')
     vdda += l_vdda
 
-    l1.p2 += c1.p1, c2.p1
-    l1.p2 += l_vdda
     l_vdda += c1.p1, c2.p1, l1.p2
     l_vdd += l1.p1
     l_gnd += c1.p2, c2.p2

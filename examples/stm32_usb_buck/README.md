@@ -32,27 +32,6 @@ TODO
 ** https://wiki.python.org/moin/PointsAndRectangles
 
 
-
-$Comp
-L Connector:USB_B_Micro J1
-U 1 1 611C0577
-P 18450 11650
-F 0 "J1" H 18250 12100 50  0000 L CNN
-F 1 "" H 18450 11650 50  0001 C CNN
-F 2 "" H 18450 11650 50  0001 C CNN
-F 3 "" H 18450 11650 50  0001 C CNN
-	1    18450 11650
-	1    0    0    -1  
-$EndComp
-
-$Comp
-L Connector:USB_B_Micro J1
-U 1 1 611C0577
-P 18450 11650
-F 0 "J1" H 18250 12100 50  0000 L CNN
-F 1 "" H 18450 11650 50  0001 C CNN
-F 2 "" H 18450 11650 50  0001 C CNN
-F 3 "" H 18450 11650 50  0001 C CNN
-	1    18450 11650
-	-1   0    0    -1  
-$EndComp
+To install zyc:
+pip install zyc
+pip install wxpython==4.1.1

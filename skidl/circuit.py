@@ -158,6 +158,8 @@ def rotate_2pin_part(part):
             if rotate != 0:
                 for i in range(int(rotate/90)):
                     rotate_part_90_cw(part)
+
+                    
 # pin_m = pin of moving part
 # pin_nm = pin of non-moving part
 # parts list = hierarchical parts list
@@ -418,7 +420,7 @@ def generate_hierarchical_schematic(title, x_start, y_start, size, width=1000, h
 
 
 
-def gen_net_wire(n, parts):
+def gen_net_wire(net, parts):
 # For a particular wire see if it collides with any parts
     def det_net_wire_collision(parts, x1,y1,x2,y2):
 
@@ -466,18 +468,18 @@ def gen_net_wire(n, parts):
 
         #   // if uA and uB are between 0-1, lines are colliding
         if (uA > 0 and uA < 1 and uB > 0 and uB < 1):
-            intersectionX = x1 + (uA * (x2-x1))
-            intersectionY = y1 + (uA * (y2-y1))
+            # intersectionX = x1 + (uA * (x2-x1))
+            # intersectionY = y1 + (uA * (y2-y1))
             # print("Collision at:  X: " + str(intersectionX) + " Y: " + str(intersectionY))
             return True
         return False
 
     # Caluclate the coordiantes of a straight line between the 2 pins that need to connect
-    x1 = n.pins[0].part.sch_bb[0] + n.pins[0].x
-    y1 = n.pins[0].part.sch_bb[1] - n.pins[0].y
+    x1 = net.pins[0].part.sch_bb[0] + net.pins[0].x
+    y1 = net.pins[0].part.sch_bb[1] - net.pins[0].y
 
-    x2 = n.pins[1].part.sch_bb[0] + n.pins[1].x
-    y2 = n.pins[1].part.sch_bb[1] - n.pins[1].y
+    x2 = net.pins[1].part.sch_bb[0] + net.pins[1].x
+    y2 = net.pins[1].part.sch_bb[1] - net.pins[1].y
 
     line = [[x1,y1], [x2,y2]]
 
