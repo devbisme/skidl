@@ -34,7 +34,7 @@ def stm32f405r(vdd, gnd, v_5v):
     vcap2 = Part("Device", 'C_Small', footprint='C_0603_1608Metric')
     vcap2.p2 += u.p47
     usb(l_5v, l_gnd, u.p43, u.p44, True)
-    board_enable(vdd, l_gnd, u.p35)
+    bd_en(vdd, l_gnd, u.p35)
     led(u.p8, l_gnd, 'blue', '5.6k')
     
     
@@ -90,7 +90,7 @@ def led(inp, outp, color, resistance):
     inp & r & d & outp
 
 @SubCircuit
-def board_enable(vcc, gnd, brd_sel):
+def bd_en(vcc, gnd, brd_sel):
 
     l_gnd = Net('GND', stub=True, netclass='Power')
     gnd += l_gnd

@@ -1764,11 +1764,15 @@ class Circuit(SkidlBaseObject):
             yMin = hierarchies[h]['outline_coord']['yMin'] + sch_c[1]
             yMax = hierarchies[h]['outline_coord']['yMax'] + sch_c[1]
             # Place label starting at 1/4 x-axis distance and 200mil down
-            label_x = int((xMax - xMin)/4) + xMin
+            label_x = xMin
             label_y = yMax - 200
-            subhierarchy_name = h.split('.')
+            subhierarchies = h.split('.')
+            if len(subhierarchies)>1:
+                hierName = ''.join(subhierarchies[1:])
+            else:
+                hierName = h
             # Make the strings for the box and label
-            box.append("Text Notes {} {} 0    100  ~ 20\n{}\n".format(label_x, label_y, h))
+            box.append("Text Notes {} {} 0    100  ~ 20\n{}\n".format(label_x, label_y, hierName))
             box.append("Wire Notes Line\n")
             box.append("	{} {} {} {}\n".format(xMin, yMax, xMin, yMin)) # left 
             box.append("Wire Notes Line\n")
