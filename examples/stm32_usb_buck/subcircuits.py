@@ -53,6 +53,7 @@ def stm32f405r(vdd, gnd, v_5v):
     boot_sw(l_vdd, l_gnd)
     led(u.p8, l_gnd, 'blue', '5.6k')
     anlg_flt(l_vdd, l_gnd, u.p13)
+    oscillator(l_vdd, l_gnd, u.p5, u.p6)
 
     l_vdd += u.p1, u.p19, u.p32, u.p48, u.p64, bcap.p1, fcap1.p1, fcap2.p1, fcap3.p1, fcap4.p1, fcap5.p1
     l_gnd += vcap1.p1, vcap2.p1, u.p12, u.p18, u.p63, bcap.p2, fcap1.p2, fcap2.p2, fcap3.p2, fcap4.p2, fcap5.p2
@@ -68,7 +69,6 @@ def anlg_flt(vdd, gnd, vdda):
     vdd += l_vdd
     l_gnd = Net('GND', stub=True, netclass='Power')
     gnd += l_gnd
-
     l_vdda = Net('+3.3VA', stub=True, netclass='Power')
     vdda += l_vdda
 
@@ -81,7 +81,26 @@ def anlg_flt(vdd, gnd, vdda):
 
 @SubCircuit
 def oscillator(vdd, gnd, osc_in, osc_out):
+
+    l_vdd = Net('+3V3', stub=True, netclass='Power')
+    vdd += l_vdd
+    l_gnd = Net('GND', stub=True, netclass='Power')
+    gnd += l_gnd
+
+
     print("oscillator")
+    osc = Part('Device', 'Crystal_GND24_Small', footprint = 'Oscillator_SMD_Fordahl_DFAS2-4Pin_7.3x5.1mm')
+    c1 = Part("Device", 'C_Small', footprint='C_0603_1608Metric', value='12pF')
+    c2 = Part("Device", 'C_Small', footprint='C_0603_1608Metric', value='12pF')
+    r1 = Part("Device", 'R', footprint='R_0603_1608Metric', value='47R')
+
+    osc.p1 += osc_in, c1.p1
+    l_gnd += osc.p2, osc.p4, c1.p2, c2.p2
+    osc.p3 += c2.p1
+
+    r1.p1 += osc_out
+    r1.p2 +=c2.p1
+
 
 @SubCircuit
 def boot_sw(vdd, gnd):
