@@ -474,101 +474,96 @@ def gen_net_wire(net, hierarchy):
             return True
         return False
 
-    pins_routed = []
-
+    nets_output = []
     for i in range(len(net.pins)-1):
         if net.pins[i].routed and net.pins[i+1].routed:
             continue
         else:
             net.pins[i].routed = True
             net.pins[i + 1].routed = True
-            pair = [net.pins[i].ref, net.pins[i].num, net.pins[i+1].ref, net.pins[i+1].num]
-            pins_routed.append(pair)
-    print(pins_routed)
 
+            # Caluclate the coordiantes of a straight line between the 2 pins that need to connect
+            x1 = net.pins[i].part.sch_bb[0] + net.pins[i].x
+            y1 = net.pins[i].part.sch_bb[1] - net.pins[i].y
 
-    # Caluclate the coordiantes of a straight line between the 2 pins that need to connect
-    x1 = net.pins[0].part.sch_bb[0] + net.pins[0].x
-    y1 = net.pins[0].part.sch_bb[1] - net.pins[0].y
+            x2 = net.pins[i+1].part.sch_bb[0] + net.pins[i+1].x
+            y2 = net.pins[i+1].part.sch_bb[1] - net.pins[i+1].y
 
-    x2 = net.pins[1].part.sch_bb[0] + net.pins[1].x
-    y2 = net.pins[1].part.sch_bb[1] - net.pins[1].y
+            line = [[x1,y1], [x2,y2]]
 
-    line = [[x1,y1], [x2,y2]]
+            for i in range(len(line)-1):
+                t_x1 = line[i][0]
+                t_y1 = line[i][1]
+                t_x2 = line[i+1][0]
+                t_y2 = line[i+1][1]
 
-    for i in range(len(line)-1):
-        t_x1 = line[i][0]
-        t_y1 = line[i][1]
-        t_x2 = line[i+1][0]
-        t_y2 = line[i+1][1]
+                collide = det_net_wire_collision(hierarchy['parts'], t_x1,t_y1,t_x2,t_y2)
+                # if we see a collision then draw the net around the rectangle
+                # since we are only going left/right with nets/rectangles the strategy to route
+                # around a rectangle is basically making a 'U' shape around it
+                if len(collide)>0:
+                    collided_part = Part.get(collide[0])
+                    collided_side = collide[1]
+                    
+                    if collided_side == "L":
+                        # check if we collided on the left or right side of the central part
+                        if net.pins[i+1].part.sch_bb[0]<0 or net.pins[i].part.sch_bb[0]<0:
+                            print("left side of U1")
+                            # switch first and last coordinates if one is further left
+                            if x1 > x2:
+                                t = line[0]
+                                line[0] = line[-1]
+                                line[-1] = t
 
-        collide = det_net_wire_collision(hierarchy['parts'], t_x1,t_y1,t_x2,t_y2)
-        # if we see a collision then draw the net around the rectangle
-        # since we are only going left/right with nets/rectangles the strategy to route
-        # around a rectangle is basically making a 'U' shape around it
-        if len(collide)>0:
-            collided_part = Part.get(collide[0])
-            collided_side = collide[1]
-            
-            if collided_side == "L":
-                # check if we collided on the left or right side of the central part
-                if n.pins[1].part.sch_bb[0]<0 or n.pins[0].part.sch_bb[0]<0:
-                    print("left side of U1")
-                    # switch first and last coordinates if one is further left
-                    if x1 > x2:
-                        t = line[0]
-                        line[0] = line[-1]
-                        line[-1] = t
-
-                    # draw line down
-                    d_x1 = collided_part.sch_bb[0] - collided_part.sch_bb[2] - 100
-                    d_y1 = t_y1
-                    d_x2 = d_x1
-                    d_y2 = collided_part.sch_bb[1] + collided_part.sch_bb[3] + 200
-                    # d_x3 = d_x2 + collided_part.sch_bb[2] + 100 + 100
-                    d_y3 = d_y2
-                    line.insert(i+1, [d_x1,d_y1])
-                    line.insert(i+2, [d_x2, d_y2])
-                    line.insert(i+3, [x1, d_y3])
-                else:
-                    print("right side of U1")
+                            # draw line down
+                            d_x1 = collided_part.sch_bb[0] - collided_part.sch_bb[2] - 100
+                            d_y1 = t_y1
+                            d_x2 = d_x1
+                            d_y2 = collided_part.sch_bb[1] + collided_part.sch_bb[3] + 200
+                            # d_x3 = d_x2 + collided_part.sch_bb[2] + 100 + 100
+                            d_y3 = d_y2
+                            line.insert(i+1, [d_x1,d_y1])
+                            line.insert(i+2, [d_x2, d_y2])
+                            line.insert(i+3, [x1, d_y3])
+                        else:
+                            print("right side of U1")
+                                # switch first and last coordinates if one is further left
+                            if x1 < x2:
+                                t = line[0]
+                                line[0] = line[-1]
+                                line[-1] = t
+                            # draw line down
+                            d_x1 = collided_part.sch_bb[0] + collided_part.sch_bb[2] + 100
+                            d_y1 = t_y1
+                            d_x2 = d_x1
+                            d_y2 = collided_part.sch_bb[1] + collided_part.sch_bb[3] + 200
+                            # d_x3 = d_x2 + collided_part.sch_bb[2] + 100 + 100
+                            d_y3 = d_y2
+                            line.insert(i+1, [d_x1,d_y1])
+                            line.insert(i+2, [d_x2, d_y2])
+                            line.insert(i+3, [x2, d_y3])
+                        break
+                    if collided_side == "R":
                         # switch first and last coordinates if one is further left
-                    if x1 < x2:
-                        t = line[0]
-                        line[0] = line[-1]
-                        line[-1] = t
-                    # draw line down
-                    d_x1 = collided_part.sch_bb[0] + collided_part.sch_bb[2] + 100
-                    d_y1 = t_y1
-                    d_x2 = d_x1
-                    d_y2 = collided_part.sch_bb[1] + collided_part.sch_bb[3] + 200
-                    # d_x3 = d_x2 + collided_part.sch_bb[2] + 100 + 100
-                    d_y3 = d_y2
-                    line.insert(i+1, [d_x1,d_y1])
-                    line.insert(i+2, [d_x2, d_y2])
-                    line.insert(i+3, [x2, d_y3])
-                break
-            if collided_side == "R":
-                # switch first and last coordinates if one is further left
-                if x1 > x2:
-                    t = line[0]
-                    line[0] = line[-1]
-                    line[-1] = t
+                        if x1 > x2:
+                            t = line[0]
+                            line[0] = line[-1]
+                            line[-1] = t
 
-                # draw line down
-                d_x1 = collided_part.sch_bb[0] - collided_part.sch_bb[2] - 100
-                d_y1 = t_y1
-                d_x2 = d_x1
-                d_y2 = collided_part.sch_bb[1] + collided_part.sch_bb[3] + 100
-                d_x3 = d_x2 - collided_part.sch_bb[2] + 100 + 100
-                d_y3 = d_y2
-                line.insert(i+1, [d_x1,d_y1])
-                line.insert(i+2, [d_x2, d_y2])
-                line.insert(i+3, [x1, d_y3])
-                break 
-    
-    return  line
-
+                        # draw line down
+                        d_x1 = collided_part.sch_bb[0] - collided_part.sch_bb[2] - 100
+                        d_y1 = t_y1
+                        d_x2 = d_x1
+                        d_y2 = collided_part.sch_bb[1] + collided_part.sch_bb[3] + 100
+                        d_x3 = d_x2 - collided_part.sch_bb[2] + 100 + 100
+                        d_y3 = d_y2
+                        line.insert(i+1, [d_x1,d_y1])
+                        line.insert(i+2, [d_x2, d_y2])
+                        line.insert(i+3, [x1, d_y3])
+                        break 
+            
+            nets_output.append(line)
+    return nets_output
 
 class Circuit(SkidlBaseObject):
     """
@@ -1694,7 +1689,7 @@ class Circuit(SkidlBaseObject):
                                 sameHier = False
                         if sameHier:
                             wire_lst = gen_net_wire(pin.net,hierarchies[h])
-                            hierarchies[h]['wires'].append(wire_lst)
+                            hierarchies[h]['wires'].extend(wire_lst)
             # ////////////////////////////////////////////////////////////////////////////////////
 
         # ************  CALCULATE HIERARCHY OUTLINE RECTANGLE COORDINATES   *******************
