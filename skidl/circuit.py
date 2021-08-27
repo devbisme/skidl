@@ -1773,7 +1773,7 @@ class Circuit(SkidlBaseObject):
             yMax = hierarchies[h]['outline_coord']['yMax'] + sch_c[1]
             # Place label starting at 1/4 x-axis distance and 200mil down
             label_x = xMin
-            label_y = yMax - 200
+            label_y = yMax
             subhierarchies = h.split('.')
             if len(subhierarchies)>1:
                 hierName = ''.join(subhierarchies[1:])
