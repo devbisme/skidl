@@ -1615,8 +1615,8 @@ class Circuit(SkidlBaseObject):
                             calc_move_part(p, pin, hierarchies[h]['parts'])
 
 
-            # *********************  CALCULATE PART PLACEMENT OF PARTS WITH NETS TO DRAW  ******************************
-            # ************************************************************************************
+        # *********************  CALCULATE PART PLACEMENT OF PARTS WITH NETS TO DRAW  ******************************
+        # ************************************************************************************
         for h in hierarchies:
             for p in hierarchies[h]['parts']:
                 if p.ref == hierarchies[h]['parts'][0].ref:
@@ -1644,8 +1644,8 @@ class Circuit(SkidlBaseObject):
                                 else:
                                     calc_move_part(pin, netPin, hierarchies[h]['parts'])
 
-            # *********************  MOVE PARTS NOT ALREADY MOVED  ******************************
-            # ************************************************************************************
+        # *********************  MOVE PARTS NOT ALREADY MOVED  ******************************
+        # ************************************************************************************
         for h in hierarchies:
             offset_x = 0
             offset_y = -(hierarchies[h]['parts'][0].sch_bb[1] + hierarchies[h]['parts'][0].sch_bb[3] + 500)
@@ -1656,11 +1656,11 @@ class Circuit(SkidlBaseObject):
                     p.move_part(offset_x, offset_y, hierarchies[h]['parts'])
                     offset_x += 200 + p.sch_bb[2]
                     offset_x = -offset_x # switch which side we place them every time
-            # ///////////////////////////////////////////////////////////////////////////////////   
+        # ///////////////////////////////////////////////////////////////////////////////////   
                 
             
-            # *********************  CALCULATE WIRE NET COORDINATES  ******************************
-            # ************************************************************************************
+        # *********************  CALCULATE WIRE NET COORDINATES  ******************************
+        # ************************************************************************************
         for h in hierarchies:
             for pt in hierarchies[h]['parts']:
                 for pin in pt.pins:
@@ -1695,7 +1695,7 @@ class Circuit(SkidlBaseObject):
             for h in hierarchies:
                 # split by '.' and find len to determine how nested the hierarchy is
                 split_hier = h.split('.')
-                
+
                 if len(split_hier) == 1:
                     # top sheet, don't move the components
                     subhierarchy_y = hierarchies[h]['outline_coord']['yMax']
@@ -1751,20 +1751,7 @@ class Circuit(SkidlBaseObject):
                         t_x = pin.x + pin.part.sch_bb[0] + sch_c[0]
                         t_y = 0
                         x_offset = pt.sch_bb[0] + pin.x
-                        if x_offset < 0:
-                            if (pin.orientation == 'L'):
-                                t_y = -pin.y - pin.part.sch_bb[1] + sch_c[1]
-                            elif (pin.orientation == 'R'):
-                                t_y = -pin.y - pin.part.sch_bb[1] + sch_c[1]
-                            else:
-                                t_y = -pin.y + pin.part.sch_bb[1] + sch_c[1]
-                        else:
-                            if (pin.orientation == 'L'):
-                                t_y = -pin.y + pin.part.sch_bb[1] + sch_c[1]
-                            elif (pin.orientation == 'R'):
-                                t_y = pin.y + pin.part.sch_bb[1] + sch_c[1]
-                            else:
-                                t_y = -pin.y + pin.part.sch_bb[1] + sch_c[1] 
+                        t_y = -pin.y + pin.part.sch_bb[1] + sch_c[1]
                         eeschema_code.append(make_Hlabel(t_x, t_y, pin.orientation, pin.label))
             # /////////////////////////////////////////////////////////////////////////////////// 
 
