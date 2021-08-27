@@ -148,14 +148,10 @@ def rotate_part_90_cw(part):
     for n in range(len(rotation_matrix)-1):
         if rotation_matrix[n] == part.orientation:
             if n == rotation_matrix[-1]:
-                # print("match " + str(n) + " of rotation matrix for part:\n" + part.ref + "  : " + str(part.orientation))
                 part.orientation = rotation_matrix[0]
-                # print(part.ref + "  orienation: " + str(part.orientation))
                 break
             else:
-                # print("match " + str(n) + " of rotation matrix for part:\n" + part.ref + "  orienation: " + str(part.orientation))
                 part.orientation = rotation_matrix[n+1]
-                # print(part.ref + "  orienation: " + str(part.orientation))
                 break
     
 
@@ -302,10 +298,6 @@ def hierachy_outline_rectangle(hier):
     yMax = hier['parts'][0].sch_bb[1] - hier['parts'][0].sch_bb[3]
     for p in hier['parts']:
         # adjust the outline for any labels that pins might have
-        x_adj_p = 0
-        x_adj_m = 0
-        y_adj_p = 0
-        y_adj_m = 0
 
         x_adj = 0
         y_adj = 0
@@ -1648,15 +1640,70 @@ class Circuit(SkidlBaseObject):
         # ************  CALCULATE SCHEMATIC LAYOUT OF HIERARCHIES   *******************
         # *************************************************************************************
 
+
+        def move_subhierarchy(moving_hierarchy, dx, dy, hierarchy_list, move_dir = 'L'):
+
+
+            hierarchy_list[moving_hierarchy]['outline_coord']['xMin'] += dx
+            hierarchy_list[moving_hierarchy]['outline_coord']['xMax'] += dx
+            hierarchy_list[moving_hierarchy]['outline_coord']['yMin'] += dy
+            hierarchy_list[moving_hierarchy]['outline_coord']['yMax'] += dy
+
+            print("hier: " + moving_hierarchy + " xmin:{} xmax:{} ymin:{} ymax: {}\n".format(
+                hierarchy_list[moving_hierarchy]['outline_coord']['xMin'],
+                hierarchy_list[moving_hierarchy]['outline_coord']['xMax'],
+                hierarchy_list[moving_hierarchy]['outline_coord']['yMin'],
+                hierarchy_list[moving_hierarchy]['outline_coord']['yMax'],))
+            # Check to see if we're colliding with any other parts
+
+            # Range through hierarchies and look for overlaps of outlines
+            # If we are overlapping then nudge the part 50mil left/right and rerun this function
+            for h in hierarchy_list:
+                # Don't detect collisions with itself
+                if h == moving_hierarchy:
+                    continue
+
+
+                # Calculate the min/max for x/y in order to detect collision between rectangles
+                x1min = hierarchy_list[moving_hierarchy]['outline_coord']['xMin']
+                x1max = hierarchy_list[moving_hierarchy]['outline_coord']['xMax']
+                
+                x2min = hierarchy_list[h]['outline_coord']['xMin']
+                x2max = hierarchy_list[h]['outline_coord']['xMax']
+                
+                y1min = hierarchy_list[moving_hierarchy]['outline_coord']['yMax']
+                y1max = hierarchy_list[moving_hierarchy]['outline_coord']['yMin']
+                
+                y2min = hierarchy_list[h]['outline_coord']['yMax']
+                y2max = hierarchy_list[h]['outline_coord']['yMin']
+                # Logic to tell whether parts collide
+                # Note that the movement direction is opposite of what's intuitive ('R' = move left, 'U' = -50)
+                # https://stackoverflow.com/questions/20925818/algorithm-to-check-if-two-boxes-overlap
+
+                if (x1min <= x2max) and (x2min <= x1max) and (y1min <= y2max) and (y2min <= y1max):
+
+                    print("moving hier: " + moving_hierarchy + " compared to: " + h)
+                    print("x1min: " + str(x1min) + " x2max: " + str(x2max) + "   " + str(x1min <= x2max))
+                    print("x2min: " + str(x2min) + " x1max: " + str(x1max) + "   " + str(x2min <= x1max))
+                    print("y1min: " + str(y1min) + " y2max: " + str(y2max) + "   " + str(y1min <= y2max))
+                    print("y2min: " + str(y2min) + " y1max: " + str(y1max) + "   " + str(y2min <= y1max))
+                    print("\n")
+                    if move_dir == 'R':
+                        move_subhierarchy(moving_hierarchy, 200, 0, hierarchy_list)
+                    else:
+                        move_subhierarchy(moving_hierarchy, -200, 0, hierarchy_list)
+
+
+
         if not gen_iso_hier_sch:
             subhierarchy_x = 0
             subhierarchy_y = 1000
-            subhierarchies_moved = 0
+            # subhierarchies_moved = 0
 
             for h in hierarchies:
-                print(h)
-                print("subhierarchy_x: " + str(subhierarchy_x))
-                print("subhierarchy_y: " + str(subhierarchy_y))
+                # print(h)
+                # print("subhierarchy_x: " + str(subhierarchy_x))
+                # print("subhierarchy_y: " + str(subhierarchy_y))
                 # split by '.' and find len to determine how nested the hierarchy is
                 split_hier = h.split('.')
                 # print("nested: " + str(len(split_hier)))
@@ -1666,32 +1713,8 @@ class Circuit(SkidlBaseObject):
                     subhierarchy_y = hierarchies[h]['outline_coord']['yMax']
                     continue
                 elif len(split_hier) == 2:
-                    # print("hierarchies[h]['outline_coord']['xMin'] = {}".format(hierarchies[h]['outline_coord']['xMin']))
-                    # print("hierarchies[h]['outline_coord']['xMax'] = {}".format(hierarchies[h]['outline_coord']['xMax']))
-                    # print("hierarchies[h]['outline_coord']['yMin'] = {}".format(hierarchies[h]['outline_coord']['yMin']))
-                    # print("hierarchies[h]['outline_coord']['yMax'] = {}".format(hierarchies[h]['outline_coord']['yMax']))
-                    # # for o in hierarchies[h]['outline_coord']:
-                    hierarchies[h]['outline_coord']['xMin'] -= subhierarchy_x
-                    hierarchies[h]['outline_coord']['xMax'] -= subhierarchy_x
-                    hierarchies[h]['outline_coord']['yMin'] -= subhierarchy_y
-                    hierarchies[h]['outline_coord']['yMax'] -= subhierarchy_y
-                    # print("hierarchies[h]['outline_coord']['xMin'] = {}".format(hierarchies[h]['outline_coord']['xMin']))
-                    # print("hierarchies[h]['outline_coord']['xMax'] = {}".format(hierarchies[h]['outline_coord']['xMax']))
-                    # print("hierarchies[h]['outline_coord']['yMin'] = {}".format(hierarchies[h]['outline_coord']['yMin']))
-                    # print("hierarchies[h]['outline_coord']['yMax'] = {}".format(hierarchies[h]['outline_coord']['yMax']))
-        
-                    x_width = abs(hierarchies[h]['outline_coord']['xMax'] - hierarchies[h]['outline_coord']['xMin'])
-                    for pt in hierarchies[h]['parts']:
-                        pt.sch_bb[0] -= subhierarchy_x
-                        pt.sch_bb[1] -= subhierarchy_y
-
-                    # subhierarchy_x -= 1000
-                    # subhierarchy_y -= 1000
-                    
-                    # y_width = abs(hierarchies[h]['outline_coord']['yMax'] - hierarchies[h]['outline_coord']['yMin'])
-                    # print("xWidth: " + str(x_width) + " yWidth: " + str(y_width))
-                    subhierarchy_x -= (x_width + 2000)
-                    # subhierarchy_y -= y_width
+                    print(h)
+                    move_subhierarchy(h,0, subhierarchy_y,hierarchies)
 
 
 
