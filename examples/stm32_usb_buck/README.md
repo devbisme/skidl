@@ -1,6 +1,19 @@
-I'm going to attempt to remake this video from Phil's Lab with SKiDL
+Attempting to recreate this video from Phil's Lab with SKiDL: https://www.youtube.com/watch?v=C7-8nUU6e3E
 
-https://www.youtube.com/watch?v=C7-8nUU6e3E
+
+To run the STM32 example with new schematic generation code:
+* Clone project
+* Activate the virtual environment
+* Install this repo's skidl
+* Run example
+```
+$ git clone https://github.com/shanemmattner/skidl
+$ cd skidl/examples/stm32_usb_buck
+$ source dev_env/bin/activate
+$ cd ~/skidl && pip install -e .
+$ python examples/stm32_usb_buck/main.py
+```
+* Open KiCAD to view files
 
 To locally develop a python package:
 https://stackoverflow.com/questions/52248505/how-to-locally-develop-a-python-package
@@ -16,8 +29,7 @@ https://resources.altium.com/p/guidelines-creating-useful-schematic-symbols
 
 
 Known Bugs:
-* All nets must be unique except stubs!  Otherwise the schematic layout tool will not properly layout parts
-* Right side vs left side math for routing nets is different and confusing!
+* Can't do multiple part instanciation
 
 Features to add:
 * Edit the schematic itself and place images
@@ -31,7 +43,3 @@ TODO
 * Try to implement Rect/Point logic
 ** https://wiki.python.org/moin/PointsAndRectangles
 
-
-To install zyc:
-pip install zyc
-pip install wxpython==4.1.1

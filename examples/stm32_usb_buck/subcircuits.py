@@ -161,36 +161,3 @@ def led(inp, outp, color, resistance):
     # d.color = color
     r = Part("Device", 'R', footprint='R_0603_1608Metric', value=resistance)
     inp & r & d & outp
-
-@SubCircuit
-def bd_en(vcc, gnd, brd_sel):
-
-    l_gnd = Net('GND', stub=True, netclass='Power')
-    gnd += l_gnd
-    l_vcc = Net('+3v3',stub=True, netclass='Power')
-    vcc += l_vcc
-
-    # TODO: actual IC is SN74LVC1G86DCKR
-    xor_ic = Part('74xGxx', '74AUC1G66', footprint='SOT-353_SC-70-5')
-    
-    r1 = Part("Device", 'R', footprint='R_0603_1608Metric', value='10k')
-    r2 = Part("Device", 'R', footprint='R_0603_1608Metric', value='10k')
-    c1 = Part("Device", 'C', footprint='C_0603_1608Metric', value='0.1uF')
-
-
-    c1.fields['voltage']='100v'
-    c1.fields['temp_coeff']='X7R'
-    c1.p1 += l_vcc
-    c1.p2 += l_gnd
-
-    brd_sel += xor_ic.p1, r1.p1
-    xor_ic.p1.label = 'BD_EN'
-    r1.p1.label = 'BD_EN'
-    # led(xor_ic.p1,l_gnd, 'green', '5.6k')
-    xor_ic.p2 += r2.p1
-    xor_ic.p3 += l_gnd
-    # xor_ic.p4 += enabled
-    xor_ic.p5 += l_vcc
-    r1.p2 += l_gnd
-    r2.p2 += l_vcc
-    
