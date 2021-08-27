@@ -294,7 +294,7 @@ def gen_config_header(cur_sheet_num=1, total_sheet_num=1, sheet_title="Default",
 
 
 # Draw a rectangle around a hierarchy and add a label
-def hierachy_outline_rectangle(hier, sch_center):
+def hierachy_outline_rectangle(hier):
     # find the part with the largest x1,x1,y1,y2
     xMin = hier['parts'][0].sch_bb[0] - hier['parts'][0].sch_bb[2]
     xMax = hier['parts'][0].sch_bb[0] + hier['parts'][0].sch_bb[2]
@@ -335,12 +335,6 @@ def hierachy_outline_rectangle(hier, sch_center):
             yMax = t_yMax
         if t_yMin > yMin:
             yMin = t_yMin
-
-    # expand the box a bit so it looks nice
-    xMin += sch_center[0] - 100
-    xMax += sch_center[0] + 100
-    yMin += sch_center[1] + 100
-    yMax += sch_center[1] - 300 # Make box a bit bigger on top to make room for a label
 
     # make a dictionary of the coordinates to return
     rect_coord = {
@@ -1648,7 +1642,7 @@ class Circuit(SkidlBaseObject):
             # ************  CALCULATE HIERARCHY OUTLINE RECTANGLE COORDINATES   *******************
             # *************************************************************************************
             for h in hierarchies:
-                outline_coordinates = hierachy_outline_rectangle(hierarchies[h], sch_c)
+                outline_coordinates = hierachy_outline_rectangle(hierarchies[h])
                 hierarchies[h]['outline_coord'] = outline_coordinates
             # ////////////////////////////////////////////////////////////////////////////////////
 
@@ -1661,10 +1655,10 @@ class Circuit(SkidlBaseObject):
                 # *********************  GENERATE EESCHEMA CODE FOR PARTS  ***************************
                 # ************************************************************************************
                 # Add the central coordinates to the part so they're in the center
-                for i in hierarchies[h]['parts']:
-                    x = i.sch_bb[0] + sch_c[0]
-                    y = i.sch_bb[1] + sch_c[1]
-                    part_code = i.gen_part_eeschema([x, y])
+                for pt in hierarchies[h]['parts']:
+                    x = pt.sch_bb[0] + sch_c[0]
+                    y = pt.sch_bb[1] + sch_c[1]
+                    part_code = pt.gen_part_eeschema([x, y])
                     eeschema_code.append(part_code)
                 # ////////////////////////////////////////////////////////////////////////////////////  
                 
@@ -1721,10 +1715,10 @@ class Circuit(SkidlBaseObject):
                 # *********************  GENERATE EESCHEMA HIERARCHY OUTLINE RECTANGLE  ***************************
                 # ****************************************************************************************
                 box = []
-                xMin = hierarchies[h]['outline_coord']['xMin']
-                xMax = hierarchies[h]['outline_coord']['xMax']
-                yMin = hierarchies[h]['outline_coord']['yMin']
-                yMax = hierarchies[h]['outline_coord']['yMax']
+                xMin = hierarchies[h]['outline_coord']['xMin'] + sch_c[0] + 100
+                xMax = hierarchies[h]['outline_coord']['xMax'] + sch_c[0] + 100
+                yMin = hierarchies[h]['outline_coord']['yMin'] + sch_c[1] + 100
+                yMax = hierarchies[h]['outline_coord']['yMax'] + sch_c[1] - 300
                 # Place label starting at 1/4 x-axis distance and 200mil down
                 label_x = int((xMax - xMin)/4) + xMin
                 label_y = yMax + 200
