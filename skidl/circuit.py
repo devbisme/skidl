@@ -1554,7 +1554,7 @@ class Circuit(SkidlBaseObject):
                         if pin.net is not None:
                             for p in pin.net.pins:
                                 p.label = pin.label
-        # *********************  PLACE PARTS AROUND CENTRAL PART  ****************************
+        # *********************  CALCULATE PLACE PARTS AROUND CENTRAL PART  ****************************
         # ************************************************************************************
         for h in hierarchies:
             centerPart = hierarchies[h]['parts'][0] # Center part that we place everything else around
@@ -1580,7 +1580,7 @@ class Circuit(SkidlBaseObject):
                             calc_move_part(p, pin, hierarchies[h]['parts'])
 
 
-            # *********************  PLACE PARTS WITH NETS TO DRAW  ******************************
+            # *********************  CALCULATE PART PLACEMENT OF PARTS WITH NETS TO DRAW  ******************************
             # ************************************************************************************
             for p in hierarchies[h]['parts']:
                 if p.ref == hierarchies[h]['parts'][0].ref:
@@ -1623,7 +1623,7 @@ class Circuit(SkidlBaseObject):
                 
             # List to hold all the components we'll put the in the eeschema .sch file
             eeschema_code = [] 
-            # *********************  GENERATE WIRE NET COORDINATES  ******************************
+            # *********************  CALCULATE WIRE NET COORDINATES  ******************************
             # ************************************************************************************
             for pt in hierarchies[h]['parts']:
                 for pin in pt.pins:
@@ -1641,21 +1641,13 @@ class Circuit(SkidlBaseObject):
                         if sameHier:     
                             wire_lst = gen_net_wire(pin.net,hierarchies[h]['parts'], sch_c)
                             hierarchies[h]['wires'].append(wire_lst)
-            # /////////////////////////////////////////////////////////////////////////////////// 
-            
+            # ////////////////////////////////////////////////////////////////////////////////////
 
-
-
-
-
-
-            # *********************  DRAW RECTANGLES AROUND HIERARCHY  **************************
+            # ************  CALCULATE HIERARCHY OUTLINE RECTANGLE COORDINATES   *******************
             # *************************************************************************************
             outline_coordinates = hierachy_outline_rectangle(hierarchies[h], sch_c)
             hierarchies[h]['outline_coord'] = outline_coordinates
-
-            # *********************  GENERATE EESCHEMA FILE FOR HIERACHY  *************************
-            # *************************************************************************************
+            # ////////////////////////////////////////////////////////////////////////////////////
 
             # *********************  GENERATE EESCHEMA CODE FOR PARTS  ***************************
             # ************************************************************************************
@@ -1665,6 +1657,9 @@ class Circuit(SkidlBaseObject):
                 y = i.sch_bb[1] + sch_c[1]
                 part_code = i.gen_part_eeschema([x, y])
                 eeschema_code.append(part_code)
+            # ////////////////////////////////////////////////////////////////////////////////////  
+            
+            
             # *********************  GENERATE EESCHEMA CODE FOR WIRES  ***************************
             # ************************************************************************************
             for w in hierarchies[h]['wires']:
@@ -1715,7 +1710,7 @@ class Circuit(SkidlBaseObject):
             # /////////////////////////////////////////////////////////////////////////////////// 
 
 
-            # *********************  GENERATE HIERARCHY OUTLINE RECTANGLE  ***************************
+            # *********************  GENERATE EESCHEMA HIERARCHY OUTLINE RECTANGLE  ***************************
             # ****************************************************************************************
             box = []
             xMin = hierarchies[h]['outline_coord']['xMin']
