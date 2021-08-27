@@ -519,19 +519,19 @@ def gen_net_wire(n, parts, c):
                 break
 
 
-    t_wire = []
-    # TODO add the center coordinates
-    for i in range(len(line)-1):
-        # print(line[i])
-        t_x1 = line[i][0] + c[0]
-        t_y1 = line[i][1] + c[1]
-        t_x2 = line[i+1][0] + c[0]
-        t_y2 = line[i+1][1] + c[1]
-        t_wire.append("Wire Wire Line\n")
-        t_wire.append("	{} {} {} {}\n".format(t_x1,t_y1,t_x2,t_y2))
-        t_out = "\n"+"".join(t_wire)    
+    # t_wire = []
+    # # TODO add the center coordinates
+    # for i in range(len(line)-1):
+    #     # print(line[i])
+    #     t_x1 = line[i][0] + c[0]
+    #     t_y1 = line[i][1] + c[1]
+    #     t_x2 = line[i+1][0] + c[0]
+    #     t_y2 = line[i+1][1] + c[1]
+    #     t_wire.append("Wire Wire Line\n")
+    #     t_wire.append("	{} {} {} {}\n".format(t_x1,t_y1,t_x2,t_y2))
+    #     t_out = "\n"+"".join(t_wire)    
     
-    return (t_out)
+    return  line
 
 
 class Circuit(SkidlBaseObject):
@@ -1521,9 +1521,9 @@ class Circuit(SkidlBaseObject):
         for n in eeschema_sch_sizes:
             if n == sch_size:
                 x = int(eeschema_sch_sizes[n][0]/2)
-                x = 50 * round(x/50)
+                x = 50 * round(x/50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
                 y = int(eeschema_sch_sizes[n][1]/2)
-                y = 50 * round(y/50)
+                y = 50 * round(y/50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
                 sch_c = [x,y ]
                 print("Schematic size: " + sch_size + "  center: " + str(sch_c))
                 break
@@ -1558,7 +1558,7 @@ class Circuit(SkidlBaseObject):
             # check for new top level hierarchy
             if listToStr not in hierarchies:
                 # make new top level hierarchy
-                hierarchies[listToStr] = {'parts':[i],'nets_routed':[]}
+                hierarchies[listToStr] = {'parts':[i],'wires':[]}
             else:
                 hierarchies[listToStr]['parts'].append(i)
 
@@ -1660,8 +1660,9 @@ class Circuit(SkidlBaseObject):
                             if p.part.hierarchy != pin.part.hierarchy:
                                 sameHier = False
                         if sameHier:     
-                            wire = gen_net_wire(pin.net,hierarchies[h]['parts'], sch_c)
-                            eeschema_code.append(wire)
+                            wire_lst = gen_net_wire(pin.net,hierarchies[h]['parts'], sch_c)
+                            hierarchies[h]['wires'].append(wire_lst)
+                            # eeschema_code.append(wire)
             # /////////////////////////////////////////////////////////////////////////////////// 
             
             # *********************  GENERATE EESCHEMA CODE FOR STUBS  ***************************
@@ -1717,7 +1718,20 @@ class Circuit(SkidlBaseObject):
                 part_code = i.gen_part_eeschema([x, y])
                 eeschema_code.append(part_code)
 
-            
+            for w in hierarchies[h]['wires']:
+                t_wire = []
+                # TODO add the center coordinates
+                for i in range(len(w)-1):
+                    # print(line[i])
+                    t_x1 = w[i][0] + sch_c[0]
+                    t_y1 = w[i][1] + sch_c[1]
+                    t_x2 = w[i+1][0] + sch_c[0]
+                    t_y2 = w[i+1][1] + sch_c[1]
+                    t_wire.append("Wire Wire Line\n")
+                    t_wire.append("	{} {} {} {}\n".format(t_x1,t_y1,t_x2,t_y2))
+                    t_out = "\n"+"".join(t_wire)  
+                    eeschema_code.append(t_out)
+
             # if we're creating individual hierarchy sheets then make a separate file for each one
             if gen_iso_hier_sch:
                 # Create the new hierarchy file
