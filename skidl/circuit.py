@@ -1582,6 +1582,7 @@ class Circuit(SkidlBaseObject):
 
             # *********************  CALCULATE PART PLACEMENT OF PARTS WITH NETS TO DRAW  ******************************
             # ************************************************************************************
+        for h in hierarchies:
             for p in hierarchies[h]['parts']:
                 if p.ref == hierarchies[h]['parts'][0].ref:
                     continue
@@ -1610,6 +1611,7 @@ class Circuit(SkidlBaseObject):
 
             # *********************  MOVE PARTS NOT ALREADY MOVED  ******************************
             # ************************************************************************************
+        for h in hierarchies:
             offset_x = 0
             offset_y = -(hierarchies[h]['parts'][0].sch_bb[1] + hierarchies[h]['parts'][0].sch_bb[3] + 500)
             for p in hierarchies[h]['parts']:
@@ -1621,10 +1623,10 @@ class Circuit(SkidlBaseObject):
                     offset_x = -offset_x # switch which side we place them every time
             # ///////////////////////////////////////////////////////////////////////////////////   
                 
-            # List to hold all the components we'll put the in the eeschema .sch file
-            eeschema_code = [] 
+            
             # *********************  CALCULATE WIRE NET COORDINATES  ******************************
             # ************************************************************************************
+        for h in hierarchies:
             for pt in hierarchies[h]['parts']:
                 for pin in pt.pins:
                     if len(pin.label) > 0:
@@ -1649,6 +1651,9 @@ class Circuit(SkidlBaseObject):
             hierarchies[h]['outline_coord'] = outline_coordinates
             # ////////////////////////////////////////////////////////////////////////////////////
 
+
+            # List to hold all the components we'll put the in the eeschema .sch file
+            eeschema_code = [] 
             # *********************  GENERATE EESCHEMA CODE FOR PARTS  ***************************
             # ************************************************************************************
             # Add the central coordinates to the part so they're in the center
@@ -1658,7 +1663,6 @@ class Circuit(SkidlBaseObject):
                 part_code = i.gen_part_eeschema([x, y])
                 eeschema_code.append(part_code)
             # ////////////////////////////////////////////////////////////////////////////////////  
-            
             
             # *********************  GENERATE EESCHEMA CODE FOR WIRES  ***************************
             # ************************************************************************************
