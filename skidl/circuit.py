@@ -294,7 +294,7 @@ def gen_config_header(cur_sheet_num=1, total_sheet_num=1, sheet_title="Default",
 
 
 # Draw a rectangle around a hierarchy and add a label
-def draw_rect_hierarchies(hier, sch_center):
+def hierachy_outline_rectangle(hier, sch_center):
     # find the part with the largest x1,x1,y1,y2
     xMin = hier['parts'][0].sch_bb[0] - hier['parts'][0].sch_bb[2]
     xMax = hier['parts'][0].sch_bb[0] + hier['parts'][0].sch_bb[2]
@@ -360,7 +360,7 @@ def draw_rect_hierarchies(hier, sch_center):
     return (("\n" + "".join(box)))
 
 # Generate a hierarchical schematic
-def gen_hier_sheet(title, x_start, y_start, width=1000, height=2000):
+def generate_hierarchical_schematic(title, x_start, y_start, width=1000, height=2000):
     # make the file if it doesn't exist
     file_path = "stm32/"+title+".sch"
     if not os.path.isfile(file_path):
@@ -1486,11 +1486,11 @@ class Circuit(SkidlBaseObject):
             )
 
 
-    def generate_schematic(self, file_=None, tool=None, indv_hier=False):
+    def generate_schematic(self, file_=None, tool=None, gen_iso_hier_sch=False):
         """
         Create a schematic file. THIS KINDA WORKS!  
         
-        indv_hier : option to show each hierarchy as a separate hierarchical schematic
+        gen_iso_hier_sch : option to show each hierarchy as a separate hierarchical schematic
         Algorithm description:
 
         1. Sort the circuit parts by hierarchy and put into a dictionary
@@ -1630,10 +1630,10 @@ class Circuit(SkidlBaseObject):
                     p.move_part(offset_x, offset_y, hierarchies[h]['parts'])
                     offset_x += 200 + p.sch_bb[2]
                     offset_x = -offset_x
-
-
-            
-            eeschema_code = [] # List to hold all the components we'll put the in the eeschema .sch file
+            # ///////////////////////////////////////////////////////////////////////////////////   
+                
+            # List to hold all the components we'll put the in the eeschema .sch file
+            eeschema_code = [] 
             # *********************  GENERATE EESCHEMA CODE FOR NETS  ****************************
             # ************************************************************************************
             for pt in hierarchies[h]['parts']:
@@ -1652,13 +1652,16 @@ class Circuit(SkidlBaseObject):
                         if sameHier:     
                             wire = gen_net_wire(pin.net,hierarchies[h]['parts'], sch_c)
                             eeschema_code.append(wire)
-
+            # /////////////////////////////////////////////////////////////////////////////////// 
+            
             # *********************  GENERATE EESCHEMA CODE FOR STUBS  ***************************
             # ************************************************************************************
             for pt in hierarchies[h]['parts']:
                 stub = gen_power_part_eeschema(pt, sch_c)
                 if len(stub)>0:
                     eeschema_code.append(stub)
+            # /////////////////////////////////////////////////////////////////////////////////// 
+
 
             # *********************  GENERATE EESCHEMA CODE FOR LABELS  ***************************
             # *************************************************************************************
@@ -1683,11 +1686,14 @@ class Circuit(SkidlBaseObject):
                             else:
                                 t_y = -pin.y + pin.part.sch_bb[1] + sch_c[1] 
                         eeschema_code.append(make_Hlabel(t_x, t_y, pin.orientation, pin.label))
+            # /////////////////////////////////////////////////////////////////////////////////// 
+
+
 
             # *********************  DRAW RECTANGLES AROUND HIERARCHY  **************************
             # *************************************************************************************
-            rect = draw_rect_hierarchies(hierarchies[h], sch_c)
-            eeschema_code.append(rect)
+            outline = hierachy_outline_rectangle(hierarchies[h], sch_c)
+            eeschema_code.append(outline)
 
             # *********************  GENERATE EESCHEMA FILE FOR HIERACHY  *************************
             # *************************************************************************************
@@ -1701,23 +1707,29 @@ class Circuit(SkidlBaseObject):
                 part_code = i.gen_part_eeschema([x, y])
                 eeschema_code.append(part_code)
 
-            hierarchy_eeschema_code.append("".join(eeschema_code))
-            # Create the new hierarchy file
-            hier_file_name = "stm32/" + h + ".sch"
-            with open(hier_file_name, "w") as f:
-                new_sch_file = [gen_config_header(cur_sheet_num=nSheets), eeschema_code, "$EndSCHEMATC"]
-                nSheets += 1
-                f.truncate(0) # Clear the file
-                for i in new_sch_file:
-                    print("" + "".join(i), file=f)
-            f.close()
+            
+            # if we're creating individual hierarchy sheets then make a separate file for each one
+            if gen_iso_hier_sch:
+                # Create the new hierarchy file
+                hier_file_name = "stm32/" + h + ".sch"
+                with open(hier_file_name, "w") as f:
+                    new_sch_file = [gen_config_header(cur_sheet_num=nSheets), eeschema_code, "$EndSCHEMATC"]
+                    nSheets += 1
+                    f.truncate(0) # Clear the file
+                    for i in new_sch_file:
+                        print("" + "".join(i), file=f)
+                f.close()
+            else:
+                # if we aren't making individual hierarchy sheets then we're making one big schematic, so append
+                #    the subcircuit code to a list
+                hierarchy_eeschema_code.append("".join(eeschema_code))
 
         # *********************  GENERATE HIERARCHICAL SHEETS FOR TOP PAGE  *******************
         # *************************************************************************************
         x_start = 5000
         y_start = 5000
         for h in hierarchies:
-            hier_sheet = gen_hier_sheet(h, x_start, y_start)
+            hier_sheet = generate_hierarchical_schematic(h, x_start, y_start)
             top_page.append(hier_sheet)
             x_start += 3000
 
@@ -1729,7 +1741,7 @@ class Circuit(SkidlBaseObject):
         # *************************************************************************************
         with open(file_, "w") as f:
             f.truncate(0) # Clear the file
-            if indv_hier:
+            if gen_iso_hier_sch:
                 new_sch_file = [gen_config_header(cur_sheet_num=nSheets), top_page, "$EndSCHEMATC"]
                 nSheets += 1
                 for i in new_sch_file:
