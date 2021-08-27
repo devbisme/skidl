@@ -376,7 +376,7 @@ def generate_hierarchical_schematic(title, x_start, y_start, size, width=1000, h
 
 
 
-def gen_net_wire(n, parts, c):
+def gen_net_wire(n, parts):
 # For a particular wire see if it collides with any parts
     def det_net_wire_collision(parts, x1,y1,x2,y2):
 
@@ -1641,102 +1641,108 @@ class Circuit(SkidlBaseObject):
                             if p.part.hierarchy != pin.part.hierarchy:
                                 sameHier = False
                         if sameHier:     
-                            wire_lst = gen_net_wire(pin.net,hierarchies[h]['parts'], sch_c)
+                            wire_lst = gen_net_wire(pin.net,hierarchies[h]['parts'])
                             hierarchies[h]['wires'].append(wire_lst)
             # ////////////////////////////////////////////////////////////////////////////////////
 
             # ************  CALCULATE HIERARCHY OUTLINE RECTANGLE COORDINATES   *******************
             # *************************************************************************************
-            outline_coordinates = hierachy_outline_rectangle(hierarchies[h], sch_c)
-            hierarchies[h]['outline_coord'] = outline_coordinates
+            for h in hierarchies:
+                outline_coordinates = hierachy_outline_rectangle(hierarchies[h], sch_c)
+                hierarchies[h]['outline_coord'] = outline_coordinates
             # ////////////////////////////////////////////////////////////////////////////////////
 
 
-            # List to hold all the components we'll put the in the eeschema .sch file
-            eeschema_code = [] 
-            # *********************  GENERATE EESCHEMA CODE FOR PARTS  ***************************
-            # ************************************************************************************
-            # Add the central coordinates to the part so they're in the center
-            for i in hierarchies[h]['parts']:
-                x = i.sch_bb[0] + sch_c[0]
-                y = i.sch_bb[1] + sch_c[1]
-                part_code = i.gen_part_eeschema([x, y])
-                eeschema_code.append(part_code)
-            # ////////////////////////////////////////////////////////////////////////////////////  
-            
-            # *********************  GENERATE EESCHEMA CODE FOR WIRES  ***************************
-            # ************************************************************************************
-            for w in hierarchies[h]['wires']:
-                t_wire = []
-                # TODO add the center coordinates
-                for i in range(len(w)-1):
-                    # print(line[i])
-                    t_x1 = w[i][0] + sch_c[0]
-                    t_y1 = w[i][1] + sch_c[1]
-                    t_x2 = w[i+1][0] + sch_c[0]
-                    t_y2 = w[i+1][1] + sch_c[1]
-                    t_wire.append("Wire Wire Line\n")
-                    t_wire.append("	{} {} {} {}\n".format(t_x1,t_y1,t_x2,t_y2))
-                    t_out = "\n"+"".join(t_wire)  
-                    eeschema_code.append(t_out)
-            # *********************  GENERATE EESCHEMA CODE FOR STUBS  ***************************
-            # ************************************************************************************
-            for pt in hierarchies[h]['parts']:
-                stub = gen_power_part_eeschema(pt, sch_c)
-                if len(stub)>0:
-                    eeschema_code.append(stub)
-            # /////////////////////////////////////////////////////////////////////////////////// 
+
+            #      GENERATE CODE FOR EACH HIEARCHY
+            for h in hierarchies:
+                # List to hold all the components we'll put the in the eeschema .sch file
+                eeschema_code = [] 
+                # *********************  GENERATE EESCHEMA CODE FOR PARTS  ***************************
+                # ************************************************************************************
+                # Add the central coordinates to the part so they're in the center
+                for i in hierarchies[h]['parts']:
+                    x = i.sch_bb[0] + sch_c[0]
+                    y = i.sch_bb[1] + sch_c[1]
+                    part_code = i.gen_part_eeschema([x, y])
+                    eeschema_code.append(part_code)
+                # ////////////////////////////////////////////////////////////////////////////////////  
+                
+                # *********************  GENERATE EESCHEMA CODE FOR WIRES  ***************************
+                # ************************************************************************************
+                for w in hierarchies[h]['wires']:
+                    t_wire = []
+                    # TODO add the center coordinates
+                    for i in range(len(w)-1):
+                        # print(line[i])
+                        t_x1 = w[i][0] + sch_c[0]
+                        t_y1 = w[i][1] + sch_c[1]
+                        t_x2 = w[i+1][0] + sch_c[0]
+                        t_y2 = w[i+1][1] + sch_c[1]
+                        t_wire.append("Wire Wire Line\n")
+                        t_wire.append("	{} {} {} {}\n".format(t_x1,t_y1,t_x2,t_y2))
+                        t_out = "\n"+"".join(t_wire)  
+                        eeschema_code.append(t_out)
+                # *********************  GENERATE EESCHEMA CODE FOR STUBS  ***************************
+                # ************************************************************************************
+                for pt in hierarchies[h]['parts']:
+                    stub = gen_power_part_eeschema(pt, sch_c)
+                    if len(stub)>0:
+                        eeschema_code.append(stub)
+                # /////////////////////////////////////////////////////////////////////////////////// 
 
 
-            # *********************  GENERATE EESCHEMA CODE FOR LABELS  ***************************
-            # *************************************************************************************
-            for pt in hierarchies[h]['parts']:
-                for pin in pt.pins:
-                    if len(pin.label)>0:
-                        t_x = pin.x + pin.part.sch_bb[0] + sch_c[0]
-                        t_y = 0
-                        x_offset = pt.sch_bb[0] + pin.x
-                        if x_offset < 0:
-                            if (pin.orientation == 'L'):
-                                t_y = -pin.y - pin.part.sch_bb[1] + sch_c[1]
-                            elif (pin.orientation == 'R'):
-                                t_y = -pin.y - pin.part.sch_bb[1] + sch_c[1]
+                # *********************  GENERATE EESCHEMA CODE FOR LABELS  ***************************
+                # *************************************************************************************
+                for pt in hierarchies[h]['parts']:
+                    for pin in pt.pins:
+                        if len(pin.label)>0:
+                            t_x = pin.x + pin.part.sch_bb[0] + sch_c[0]
+                            t_y = 0
+                            x_offset = pt.sch_bb[0] + pin.x
+                            if x_offset < 0:
+                                if (pin.orientation == 'L'):
+                                    t_y = -pin.y - pin.part.sch_bb[1] + sch_c[1]
+                                elif (pin.orientation == 'R'):
+                                    t_y = -pin.y - pin.part.sch_bb[1] + sch_c[1]
+                                else:
+                                    t_y = -pin.y + pin.part.sch_bb[1] + sch_c[1]
                             else:
-                                t_y = -pin.y + pin.part.sch_bb[1] + sch_c[1]
-                        else:
-                            if (pin.orientation == 'L'):
-                                t_y = -pin.y + pin.part.sch_bb[1] + sch_c[1]
-                            elif (pin.orientation == 'R'):
-                                t_y = pin.y + pin.part.sch_bb[1] + sch_c[1]
-                            else:
-                                t_y = -pin.y + pin.part.sch_bb[1] + sch_c[1] 
-                        eeschema_code.append(make_Hlabel(t_x, t_y, pin.orientation, pin.label))
-            # /////////////////////////////////////////////////////////////////////////////////// 
+                                if (pin.orientation == 'L'):
+                                    t_y = -pin.y + pin.part.sch_bb[1] + sch_c[1]
+                                elif (pin.orientation == 'R'):
+                                    t_y = pin.y + pin.part.sch_bb[1] + sch_c[1]
+                                else:
+                                    t_y = -pin.y + pin.part.sch_bb[1] + sch_c[1] 
+                            eeschema_code.append(make_Hlabel(t_x, t_y, pin.orientation, pin.label))
+                # /////////////////////////////////////////////////////////////////////////////////// 
 
 
-            # *********************  GENERATE EESCHEMA HIERARCHY OUTLINE RECTANGLE  ***************************
-            # ****************************************************************************************
-            box = []
-            xMin = hierarchies[h]['outline_coord']['xMin']
-            xMax = hierarchies[h]['outline_coord']['xMax']
-            yMin = hierarchies[h]['outline_coord']['yMin']
-            yMax = hierarchies[h]['outline_coord']['yMax']
-            # Place label starting at 1/4 x-axis distance and 200mil down
-            label_x = int((xMax - xMin)/4) + xMin
-            label_y = yMax + 200
-            # Make the strings for the box and label
-            box.append("Text Notes {} {} 0    100  ~ 20\n{}\n".format(label_x, label_y, h))
-            box.append("Wire Notes Line\n")
-            box.append("	{} {} {} {}\n".format(xMin, yMax, xMin, yMin)) # left 
-            box.append("Wire Notes Line\n")
-            box.append("	{} {} {} {}\n".format(xMin, yMin, xMax, yMin)) # bottom 
-            box.append("Wire Notes Line\n")
-            box.append("	{} {} {} {}\n".format(xMax, yMin, xMax, yMax)) # right
-            box.append("Wire Notes Line\n")
-            box.append("	{} {} {} {}\n".format(xMax, yMax, xMin, yMax)) # top
-            out = (("\n" + "".join(box)))
-            eeschema_code.append(out)
-            # ////////////////////////////////////////////////////////////////////////////////////////
+                # *********************  GENERATE EESCHEMA HIERARCHY OUTLINE RECTANGLE  ***************************
+                # ****************************************************************************************
+                box = []
+                xMin = hierarchies[h]['outline_coord']['xMin']
+                xMax = hierarchies[h]['outline_coord']['xMax']
+                yMin = hierarchies[h]['outline_coord']['yMin']
+                yMax = hierarchies[h]['outline_coord']['yMax']
+                # Place label starting at 1/4 x-axis distance and 200mil down
+                label_x = int((xMax - xMin)/4) + xMin
+                label_y = yMax + 200
+                # Make the strings for the box and label
+                box.append("Text Notes {} {} 0    100  ~ 20\n{}\n".format(label_x, label_y, h))
+                box.append("Wire Notes Line\n")
+                box.append("	{} {} {} {}\n".format(xMin, yMax, xMin, yMin)) # left 
+                box.append("Wire Notes Line\n")
+                box.append("	{} {} {} {}\n".format(xMin, yMin, xMax, yMin)) # bottom 
+                box.append("Wire Notes Line\n")
+                box.append("	{} {} {} {}\n".format(xMax, yMin, xMax, yMax)) # right
+                box.append("Wire Notes Line\n")
+                box.append("	{} {} {} {}\n".format(xMax, yMax, xMin, yMax)) # top
+                out = (("\n" + "".join(box)))
+                eeschema_code.append(out)
+                # ////////////////////////////////////////////////////////////////////////////////////////
+
+            #***************************** END GENERATING EESCHEMA CODE **********************************
 
 
 
