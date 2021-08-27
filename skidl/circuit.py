@@ -59,6 +59,7 @@ from .scriptinfo import *
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import *
 from .tools import *
+from skidl import pin
 
 
 standard_library.install_aliases()
@@ -276,7 +277,6 @@ def gen_power_part_eeschema(part, c=[0,0], orientation = [1,0,0,-1]):
                     t = pin.net.name
                     u = t.split('_')
                     symbol_name = u[0]
-                    print("power symbol name: " + symbol_name)
                     # find the stub in the part
                     time_hex = hex(int(time.time()))[2:]
                     x = c[0] + part.sch_bb[0] + pin.x
@@ -420,7 +420,7 @@ def generate_hierarchical_schematic(title, x_start, y_start, size, width=1000, h
 
 
 
-def gen_net_wire(net, parts):
+def gen_net_wire(net, hierarchy):
 # For a particular wire see if it collides with any parts
     def det_net_wire_collision(parts, x1,y1,x2,y2):
 
@@ -474,6 +474,19 @@ def gen_net_wire(net, parts):
             return True
         return False
 
+    pins_routed = []
+
+    for i in range(len(net.pins)-1):
+        if net.pins[i].routed and net.pins[i+1].routed:
+            continue
+        else:
+            net.pins[i].routed = True
+            net.pins[i + 1].routed = True
+            pair = [net.pins[i].ref, net.pins[i].num, net.pins[i+1].ref, net.pins[i+1].num]
+            pins_routed.append(pair)
+    print(pins_routed)
+
+
     # Caluclate the coordiantes of a straight line between the 2 pins that need to connect
     x1 = net.pins[0].part.sch_bb[0] + net.pins[0].x
     y1 = net.pins[0].part.sch_bb[1] - net.pins[0].y
@@ -489,7 +502,7 @@ def gen_net_wire(net, parts):
         t_x2 = line[i+1][0]
         t_y2 = line[i+1][1]
 
-        collide = det_net_wire_collision(parts, t_x1,t_y1,t_x2,t_y2)
+        collide = det_net_wire_collision(hierarchy['parts'], t_x1,t_y1,t_x2,t_y2)
         # if we see a collision then draw the net around the rectangle
         # since we are only going left/right with nets/rectangles the strategy to route
         # around a rectangle is basically making a 'U' shape around it
@@ -1679,8 +1692,8 @@ class Circuit(SkidlBaseObject):
                                 continue
                             if p.part.hierarchy != pin.part.hierarchy:
                                 sameHier = False
-                        if sameHier:     
-                            wire_lst = gen_net_wire(pin.net,hierarchies[h]['parts'])
+                        if sameHier:
+                            wire_lst = gen_net_wire(pin.net,hierarchies[h])
                             hierarchies[h]['wires'].append(wire_lst)
             # ////////////////////////////////////////////////////////////////////////////////////
 
