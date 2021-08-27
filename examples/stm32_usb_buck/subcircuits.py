@@ -26,6 +26,7 @@ def stm32f405r(vdd, gnd, v_5v):
     u.p43.label = 'USB_P'
     u.p44.label = 'USB_M'
     u.p60.label = 'BOOT0'
+    u.p7.label = 'NRST'
     u.p35.label = 'BD_SEL'
 
     vcap1 = Part("Device", 'C_Small', footprint='C_0603_1608Metric')
@@ -34,13 +35,28 @@ def stm32f405r(vdd, gnd, v_5v):
     vcap2 = Part("Device", 'C_Small', footprint='C_0603_1608Metric')
     vcap2.p2 += u.p47
     usb(l_5v, l_gnd, u.p43, u.p44, True)
-    bd_en(vdd, l_gnd, u.p35)
+    boot_sw(l_vdd, l_gnd)
+    bd_en(l_vdd, l_gnd, u.p35)
     led(u.p8, l_gnd, 'blue', '5.6k')
     
     
     l_gnd += vcap1.p1, vcap2.p1, u.p12, u.p18, u.p63
 
 
+@SubCircuit
+def boot_sw(vdd, gnd):
+    l_vdd = Net('+3V3', stub=True, netclass='Power')
+    vdd += l_vdd
+    l_gnd = Net('GND', stub=True, netclass='Power')
+    gnd += l_gnd
+    sw = Part('Switch', 'SW_SPDT', footprint='SW_SPDT_CK-JS102011SAQN')
+    r1 = Part("Device", 'R', footprint='R_0603_1608Metric', value='10k')
+    sw.p1 += l_vdd
+    sw.p2 += r1.p1
+    sw.p3 += l_gnd
+    r1.p2.label = 'BOOT0'
+
+    
 # Micro-B USB connector with protection and optional pull-up impedance matching resistors
 # TODO: Get the impedance match resistor logic to work
 @SubCircuit

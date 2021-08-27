@@ -134,29 +134,30 @@ def make_Hlabel(x,y,orientation,net_label):
 def rotate_2pin_part(part):
     for p in part.pins:
         rotate = 0
-        if 'gnd' in p.net.name.lower():
-            # print("part: " + p.part.ref + " pin: " + str(p.num) + " is connected to ground, facing " + p.orientation)
-            if p.orientation == 'U':
-                break # pin is facing down, break
-            if p.orientation == 'D':
-                rotate = 180
-            if p.orientation == 'L':
-                rotate = 90
-            if p.orientation == 'R':
-                rotate = 270
-        elif '+' in p.nets[0].name.lower():
-            # print("part: " + p.part.ref + " pin: " + str(p.num) + " is connected to " + p.net.name +  ", facing " + p.orientation)
-            if p.orientation == 'D':
-                break # pin is facing down, break
-            if p.orientation == 'U':
-                rotate = 180
-            if p.orientation == 'L':
-                rotate = 90
-            if p.orientation == 'R':
-                rotate = 270
-        if rotate != 0:
-            for i in range(int(rotate/90)):
-                rotate_part_90_cw(part)
+        if hasattr(p.net, 'name'):
+            if 'gnd' in p.net.name.lower():
+                # print("part: " + p.part.ref + " pin: " + str(p.num) + " is connected to ground, facing " + p.orientation)
+                if p.orientation == 'U':
+                    break # pin is facing down, break
+                if p.orientation == 'D':
+                    rotate = 180
+                if p.orientation == 'L':
+                    rotate = 90
+                if p.orientation == 'R':
+                    rotate = 270
+            elif '+' in p.nets[0].name.lower():
+                # print("part: " + p.part.ref + " pin: " + str(p.num) + " is connected to " + p.net.name +  ", facing " + p.orientation)
+                if p.orientation == 'D':
+                    break # pin is facing down, break
+                if p.orientation == 'U':
+                    rotate = 180
+                if p.orientation == 'L':
+                    rotate = 90
+                if p.orientation == 'R':
+                    rotate = 270
+            if rotate != 0:
+                for i in range(int(rotate/90)):
+                    rotate_part_90_cw(part)
 # pin_m = pin of moving part
 # pin_nm = pin of non-moving part
 # parts list = hierarchical parts list
