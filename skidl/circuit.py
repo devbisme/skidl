@@ -301,7 +301,7 @@ def hierachy_outline_rectangle(hier, sch_center):
     yMin = hier['parts'][0].sch_bb[1] + hier['parts'][0].sch_bb[3]
     yMax = hier['parts'][0].sch_bb[1] - hier['parts'][0].sch_bb[3]
     for p in hier['parts']:
-
+        # adjust the outline for any labels that pins might have
         x_adj_p = 0
         x_adj_m = 0
         y_adj_p = 0
@@ -342,22 +342,14 @@ def hierachy_outline_rectangle(hier, sch_center):
     yMin += sch_center[1] + 100
     yMax += sch_center[1] - 300 # Make box a bit bigger on top to make room for a label
 
-    box = []
-
-    # Place label starting at 1/4 x-axis distance and 200mil down
-    label_x = int((xMax - xMin)/4) + xMin
-    label_y = yMax + 200
-    # Make the strings for the box and label
-    box.append("Text Notes {} {} 0    100  ~ 20\n{}\n".format(label_x, label_y, hier['parts'][0].hierarchy[4:]))
-    box.append("Wire Notes Line\n")
-    box.append("	{} {} {} {}\n".format(xMin, yMax, xMin, yMin)) # left 
-    box.append("Wire Notes Line\n")
-    box.append("	{} {} {} {}\n".format(xMin, yMin, xMax, yMin)) # bottom 
-    box.append("Wire Notes Line\n")
-    box.append("	{} {} {} {}\n".format(xMax, yMin, xMax, yMax)) # right
-    box.append("Wire Notes Line\n")
-    box.append("	{} {} {} {}\n".format(xMax, yMax, xMin, yMax)) # top
-    return (("\n" + "".join(box)))
+    # make a dictionary of the coordinates to return
+    rect_coord = {
+        'xMin':xMin,
+        'xMax':xMax,
+        'yMin':yMin,
+        'yMax':yMax,
+    }
+    return rect_coord
 
 # Generate a hierarchical schematic
 def generate_hierarchical_schematic(title, x_start, y_start, size, width=1000, height=2000):
@@ -1545,7 +1537,7 @@ class Circuit(SkidlBaseObject):
             # check for new top level hierarchy
             if listToStr not in hierarchies:
                 # make new top level hierarchy
-                hierarchies[listToStr] = {'parts':[i],'wires':[]}
+                hierarchies[listToStr] = {'parts':[i],'wires':[], 'outline_coord':[]}
             else:
                 hierarchies[listToStr]['parts'].append(i)
 
@@ -1631,7 +1623,7 @@ class Circuit(SkidlBaseObject):
                 
             # List to hold all the components we'll put the in the eeschema .sch file
             eeschema_code = [] 
-            # *********************  GENERATE EESCHEMA CODE FOR NETS  ****************************
+            # *********************  GENERATE WIRE NET COORDINATES  ******************************
             # ************************************************************************************
             for pt in hierarchies[h]['parts']:
                 for pin in pt.pins:
@@ -1653,37 +1645,14 @@ class Circuit(SkidlBaseObject):
             
 
 
-            # *********************  GENERATE EESCHEMA CODE FOR LABELS  ***************************
-            # *************************************************************************************
-            for pt in hierarchies[h]['parts']:
-                for pin in pt.pins:
-                    if len(pin.label)>0:
-                        t_x = pin.x + pin.part.sch_bb[0] + sch_c[0]
-                        t_y = 0
-                        x_offset = pt.sch_bb[0] + pin.x
-                        if x_offset < 0:
-                            if (pin.orientation == 'L'):
-                                t_y = -pin.y - pin.part.sch_bb[1] + sch_c[1]
-                            elif (pin.orientation == 'R'):
-                                t_y = -pin.y - pin.part.sch_bb[1] + sch_c[1]
-                            else:
-                                t_y = -pin.y + pin.part.sch_bb[1] + sch_c[1]
-                        else:
-                            if (pin.orientation == 'L'):
-                                t_y = -pin.y + pin.part.sch_bb[1] + sch_c[1]
-                            elif (pin.orientation == 'R'):
-                                t_y = pin.y + pin.part.sch_bb[1] + sch_c[1]
-                            else:
-                                t_y = -pin.y + pin.part.sch_bb[1] + sch_c[1] 
-                        eeschema_code.append(make_Hlabel(t_x, t_y, pin.orientation, pin.label))
-            # /////////////////////////////////////////////////////////////////////////////////// 
+
 
 
 
             # *********************  DRAW RECTANGLES AROUND HIERARCHY  **************************
             # *************************************************************************************
-            outline = hierachy_outline_rectangle(hierarchies[h], sch_c)
-            eeschema_code.append(outline)
+            outline_coordinates = hierachy_outline_rectangle(hierarchies[h], sch_c)
+            hierarchies[h]['outline_coord'] = outline_coordinates
 
             # *********************  GENERATE EESCHEMA FILE FOR HIERACHY  *************************
             # *************************************************************************************
@@ -1718,6 +1687,58 @@ class Circuit(SkidlBaseObject):
                 if len(stub)>0:
                     eeschema_code.append(stub)
             # /////////////////////////////////////////////////////////////////////////////////// 
+
+
+            # *********************  GENERATE EESCHEMA CODE FOR LABELS  ***************************
+            # *************************************************************************************
+            for pt in hierarchies[h]['parts']:
+                for pin in pt.pins:
+                    if len(pin.label)>0:
+                        t_x = pin.x + pin.part.sch_bb[0] + sch_c[0]
+                        t_y = 0
+                        x_offset = pt.sch_bb[0] + pin.x
+                        if x_offset < 0:
+                            if (pin.orientation == 'L'):
+                                t_y = -pin.y - pin.part.sch_bb[1] + sch_c[1]
+                            elif (pin.orientation == 'R'):
+                                t_y = -pin.y - pin.part.sch_bb[1] + sch_c[1]
+                            else:
+                                t_y = -pin.y + pin.part.sch_bb[1] + sch_c[1]
+                        else:
+                            if (pin.orientation == 'L'):
+                                t_y = -pin.y + pin.part.sch_bb[1] + sch_c[1]
+                            elif (pin.orientation == 'R'):
+                                t_y = pin.y + pin.part.sch_bb[1] + sch_c[1]
+                            else:
+                                t_y = -pin.y + pin.part.sch_bb[1] + sch_c[1] 
+                        eeschema_code.append(make_Hlabel(t_x, t_y, pin.orientation, pin.label))
+            # /////////////////////////////////////////////////////////////////////////////////// 
+
+
+            # *********************  GENERATE HIERARCHY OUTLINE RECTANGLE  ***************************
+            # ****************************************************************************************
+            box = []
+            xMin = hierarchies[h]['outline_coord']['xMin']
+            xMax = hierarchies[h]['outline_coord']['xMax']
+            yMin = hierarchies[h]['outline_coord']['yMin']
+            yMax = hierarchies[h]['outline_coord']['yMax']
+            # Place label starting at 1/4 x-axis distance and 200mil down
+            label_x = int((xMax - xMin)/4) + xMin
+            label_y = yMax + 200
+            # Make the strings for the box and label
+            box.append("Text Notes {} {} 0    100  ~ 20\n{}\n".format(label_x, label_y, h))
+            box.append("Wire Notes Line\n")
+            box.append("	{} {} {} {}\n".format(xMin, yMax, xMin, yMin)) # left 
+            box.append("Wire Notes Line\n")
+            box.append("	{} {} {} {}\n".format(xMin, yMin, xMax, yMin)) # bottom 
+            box.append("Wire Notes Line\n")
+            box.append("	{} {} {} {}\n".format(xMax, yMin, xMax, yMax)) # right
+            box.append("Wire Notes Line\n")
+            box.append("	{} {} {} {}\n".format(xMax, yMax, xMin, yMax)) # top
+            out = (("\n" + "".join(box)))
+            eeschema_code.append(out)
+            # ////////////////////////////////////////////////////////////////////////////////////////
+
 
 
             # if we're creating individual hierarchy sheets then make a separate file for each one
