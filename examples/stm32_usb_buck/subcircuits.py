@@ -14,7 +14,7 @@ def stm32f405r(vdd, gnd, v_5v):
     vdd += l_vdd
     l_gnd = Net('GND', stub=True, netclass='Power')
     gnd += l_gnd
-    l_5v = Net('+5v5',stub=True, netclass='Power')
+    l_5v = Net('+5V',stub=True, netclass='Power')
     v_5v += l_5v
     # MCU
     u = Part("MCU_ST_STM32F4", 'STM32F405RGTx', footprint='LQFP-64_10x10mm_P0.5mm')
@@ -103,7 +103,7 @@ def boot_sw(vdd, gnd):
 def usb(v_5v, gnd, dp, dm, imp_match):
     l_gnd = Net('GND', stub=True, netclass='Power')
     gnd += l_gnd
-    l_5v = Net('+5v5',stub=True, netclass='Power')
+    l_5v = Net('+5V',stub=True, netclass='Power')
     v_5v += l_5v
 
     usb_protection = Part("Power_Protection", 'USBLC6-4SC6', footprint='SOT-23-6')

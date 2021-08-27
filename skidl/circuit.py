@@ -274,6 +274,7 @@ def gen_power_part_eeschema(part, c=[0,0], orientation = [1,0,0,-1]):
                     t = pin.net.name
                     u = t.split('_')
                     symbol_name = u[0]
+                    print("power symbol name: " + symbol_name)
                     # find the stub in the part
                     time_hex = hex(int(time.time()))[2:]
                     x = c[0] + part.sch_bb[0] + pin.x
