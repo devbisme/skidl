@@ -64,6 +64,57 @@ from .tools import *
 standard_library.install_aliases()
 
 
+def move_subhierarchy(moving_hierarchy, dx, dy, hierarchy_list, move_dir = 'L'):
+    hierarchy_list[moving_hierarchy]['outline_coord']['xMin'] += dx
+    hierarchy_list[moving_hierarchy]['outline_coord']['xMax'] += dx
+    hierarchy_list[moving_hierarchy]['outline_coord']['yMin'] += dy
+    hierarchy_list[moving_hierarchy]['outline_coord']['yMax'] += dy
+
+
+    for pt in hierarchy_list[moving_hierarchy]['parts']:
+        pt.sch_bb[0] += dx
+        pt.sch_bb[1] += dy
+    
+    for w in hierarchy_list[moving_hierarchy]['wires']:
+        w[0][0] += dx
+        w[0][1] += dy
+        w[1][0] += dx
+        w[1][1] += dy
+    # Check to see if we're colliding with any other parts
+
+    # Range through hierarchies and look for overlaps of outlines
+    # If we are overlapping then nudge the part 50mil left/right and rerun this function
+    for h in hierarchy_list:
+        # Don't detect collisions with itself
+        if h == moving_hierarchy:
+            continue
+
+
+        # Calculate the min/max for x/y in order to detect collision between rectangles
+        x1min = hierarchy_list[moving_hierarchy]['outline_coord']['xMin']
+        x1max = hierarchy_list[moving_hierarchy]['outline_coord']['xMax']
+        
+        x2min = hierarchy_list[h]['outline_coord']['xMin']
+        x2max = hierarchy_list[h]['outline_coord']['xMax']
+        
+        y1min = hierarchy_list[moving_hierarchy]['outline_coord']['yMax']
+        y1max = hierarchy_list[moving_hierarchy]['outline_coord']['yMin']
+        
+        y2min = hierarchy_list[h]['outline_coord']['yMax']
+        y2max = hierarchy_list[h]['outline_coord']['yMin']
+        # Logic to tell whether parts collide
+        # Note that the movement direction is opposite of what's intuitive ('R' = move left, 'U' = -50)
+        # https://stackoverflow.com/questions/20925818/algorithm-to-check-if-two-boxes-overlap
+
+        if (x1min <= x2max) and (x2min <= x1max) and (y1min <= y2max) and (y2min <= y1max):
+            if move_dir == 'R':
+                move_subhierarchy(moving_hierarchy, 200, 0, hierarchy_list)
+            else:
+                move_subhierarchy(moving_hierarchy, -200, 0, hierarchy_list)
+
+
+
+
 
 
 def make_Hlabel(x,y,orientation,net_label):
@@ -1639,73 +1690,12 @@ class Circuit(SkidlBaseObject):
 
         # ************  CALCULATE SCHEMATIC LAYOUT OF HIERARCHIES   *******************
         # *************************************************************************************
-
-
-        def move_subhierarchy(moving_hierarchy, dx, dy, hierarchy_list, move_dir = 'L'):
-
-
-            hierarchy_list[moving_hierarchy]['outline_coord']['xMin'] += dx
-            hierarchy_list[moving_hierarchy]['outline_coord']['xMax'] += dx
-            hierarchy_list[moving_hierarchy]['outline_coord']['yMin'] += dy
-            hierarchy_list[moving_hierarchy]['outline_coord']['yMax'] += dy
-
-
-            for pt in hierarchy_list[moving_hierarchy]['parts']:
-                pt.sch_bb[0] += dx
-                pt.sch_bb[1] += dy
-            
-            for w in hierarchies[moving_hierarchy]['wires']:
-                w[0][0] += dx
-                w[0][1] += dy
-                w[1][0] += dx
-                w[1][1] += dy
-            # Check to see if we're colliding with any other parts
-
-            # Range through hierarchies and look for overlaps of outlines
-            # If we are overlapping then nudge the part 50mil left/right and rerun this function
-            for h in hierarchy_list:
-                # Don't detect collisions with itself
-                if h == moving_hierarchy:
-                    continue
-
-
-                # Calculate the min/max for x/y in order to detect collision between rectangles
-                x1min = hierarchy_list[moving_hierarchy]['outline_coord']['xMin']
-                x1max = hierarchy_list[moving_hierarchy]['outline_coord']['xMax']
-                
-                x2min = hierarchy_list[h]['outline_coord']['xMin']
-                x2max = hierarchy_list[h]['outline_coord']['xMax']
-                
-                y1min = hierarchy_list[moving_hierarchy]['outline_coord']['yMax']
-                y1max = hierarchy_list[moving_hierarchy]['outline_coord']['yMin']
-                
-                y2min = hierarchy_list[h]['outline_coord']['yMax']
-                y2max = hierarchy_list[h]['outline_coord']['yMin']
-                # Logic to tell whether parts collide
-                # Note that the movement direction is opposite of what's intuitive ('R' = move left, 'U' = -50)
-                # https://stackoverflow.com/questions/20925818/algorithm-to-check-if-two-boxes-overlap
-
-                if (x1min <= x2max) and (x2min <= x1max) and (y1min <= y2max) and (y2min <= y1max):
-                    if move_dir == 'R':
-                        move_subhierarchy(moving_hierarchy, 200, 0, hierarchy_list)
-                    else:
-                        move_subhierarchy(moving_hierarchy, -200, 0, hierarchy_list)
-
-
-
         if not gen_iso_hier_sch:
-            subhierarchy_x = 0
             subhierarchy_y = 1000
-            # subhierarchies_moved = 0
-
             for h in hierarchies:
-                # print(h)
-                # print("subhierarchy_x: " + str(subhierarchy_x))
-                # print("subhierarchy_y: " + str(subhierarchy_y))
                 # split by '.' and find len to determine how nested the hierarchy is
                 split_hier = h.split('.')
-                # print("nested: " + str(len(split_hier)))
-
+                
                 if len(split_hier) == 1:
                     # top sheet, don't move the components
                     subhierarchy_y = hierarchies[h]['outline_coord']['yMax']
@@ -1713,9 +1703,7 @@ class Circuit(SkidlBaseObject):
                 elif len(split_hier) == 2:
                     print(h)
                     move_subhierarchy(h,0, subhierarchy_y,hierarchies)
-
-
-
+        # ////////////////////////////////////////////////////////////////////////////////////  
 
         #      GENERATE CODE FOR EACH HIEARCHY
         for h in hierarchies:
