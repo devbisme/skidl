@@ -33,10 +33,11 @@ def stm32f405r(vdd, gnd, v_5v):
 
     vcap2 = Part("Device", 'C_Small', footprint='C_0603_1608Metric')
     vcap2.p2 += u.p47
-
-    led_indicator(u.p8, l_gnd, 'blue', '5.6k')
     usb(l_5v, l_gnd, u.p43, u.p44, True)
     board_enable(vdd, l_gnd, u.p35)
+    led(u.p8, l_gnd, 'blue', '5.6k')
+    
+    
     l_gnd += vcap1.p1, vcap2.p1, u.p12, u.p18, u.p63
 
 
@@ -82,7 +83,7 @@ def usb(v_5v, gnd, dp, dm, imp_match):
     
 # LED indicator circuit
 @SubCircuit
-def led_indicator(inp, outp, color, resistance):
+def led(inp, outp, color, resistance):
     d = d0603()
     # d.color = color
     r = Part("Device", 'R', footprint='R_0603_1608Metric', value=resistance)
@@ -112,7 +113,7 @@ def board_enable(vcc, gnd, brd_sel):
     brd_sel += xor_ic.p1, r1.p1
     xor_ic.p1.label = 'BD_EN'
     r1.p1.label = 'BD_EN'
-    # led_indicator(xor_ic.p1,l_gnd, 'green', '5.6k')
+    # led(xor_ic.p1,l_gnd, 'green', '5.6k')
     xor_ic.p2 += r2.p1
     xor_ic.p3 += l_gnd
     # xor_ic.p4 += enabled

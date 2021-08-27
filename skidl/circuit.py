@@ -306,26 +306,23 @@ def hierachy_outline_rectangle(hier):
         x_adj_m = 0
         y_adj_p = 0
         y_adj_m = 0
+
+        x_adj = 0
+        y_adj = 0
         for pin in p.pins:
             if len(pin.label)>0:
-                if pin.orientation == 'U':
-                    if (len(pin.label)+1)*50 > y_adj_m:
-                        y_adj_m = (len(pin.label)+1)*50
-                elif pin.orientation == 'D':
-                    if (len(pin.label)+1)*50 > y_adj_p:
-                        y_adj_p = (len(pin.label)+1)*50
-                elif pin.orientation == 'L':
-                    if (len(pin.label)+1)*50 > x_adj_p:
-                        x_adj_p = (len(pin.label)+1)*50
-                elif pin.orientation == 'R':
-                    if (len(pin.label)+1)*50 > x_adj_m:
-                        x_adj_m = (len(pin.label)+1)*50
+                if pin.orientation == 'U' or pin.orientation == 'D':
+                    if (len(pin.label)+1)*50 > y_adj:
+                        y_adj = (len(pin.label)+1)*50
+                elif pin.orientation == 'L' or pin.orientation == 'R':
+                    if (len(pin.label)+1)*50 > x_adj:
+                        x_adj = (len(pin.label)+1)*50
 
         # Get min/max dimensions of the part
-        t_xMin = p.sch_bb[0] - p.sch_bb[2] - x_adj_m
-        t_xMax = p.sch_bb[0] + p.sch_bb[2] + x_adj_p
-        t_yMin = p.sch_bb[1] + p.sch_bb[3] + y_adj_m
-        t_yMax = p.sch_bb[1] - p.sch_bb[3] - y_adj_p
+        t_xMin = p.sch_bb[0] - (p.sch_bb[2] + x_adj)
+        t_xMax = p.sch_bb[0] + p.sch_bb[2] + x_adj
+        t_yMin = p.sch_bb[1] + p.sch_bb[3] + y_adj
+        t_yMax = p.sch_bb[1] - (p.sch_bb[3] + y_adj)
         # Check if we need to expand the rectangle
         if t_xMin < xMin:
             xMin = t_xMin
@@ -343,6 +340,7 @@ def hierachy_outline_rectangle(hier):
         'yMin':yMin,
         'yMax':yMax,
     }
+    print(rect_coord)
     return rect_coord
 
 # Generate a hierarchical schematic
@@ -1642,6 +1640,7 @@ class Circuit(SkidlBaseObject):
         # ************  CALCULATE HIERARCHY OUTLINE RECTANGLE COORDINATES   *******************
         # *************************************************************************************
         for h in hierarchies:
+            print("hierarchy " + h + " rect:")
             outline_coordinates = hierachy_outline_rectangle(hierarchies[h])
             hierarchies[h]['outline_coord'] = outline_coordinates
         # ////////////////////////////////////////////////////////////////////////////////////
@@ -1650,9 +1649,9 @@ class Circuit(SkidlBaseObject):
         # *************************************************************************************
 
         if not gen_iso_hier_sch:
-            subhierarchy_x = sch_c[0] - 1000
-            subhierarchy_y = sch_c[1] - 1000
-
+            subhierarchy_x = 0
+            subhierarchy_y = 1000
+            subhierarchies_moved = 0
 
             for h in hierarchies:
                 print(h)
@@ -1660,35 +1659,39 @@ class Circuit(SkidlBaseObject):
                 print("subhierarchy_y: " + str(subhierarchy_y))
                 # split by '.' and find len to determine how nested the hierarchy is
                 split_hier = h.split('.')
-                print("nested: " + str(len(split_hier)))
+                # print("nested: " + str(len(split_hier)))
 
                 if len(split_hier) == 1:
                     # top sheet, don't move the components
+                    subhierarchy_y = hierarchies[h]['outline_coord']['yMax']
                     continue
-                else:
-                    print("hierarchies[h]['outline_coord']['xMin'] = {}".format(hierarchies[h]['outline_coord']['xMin']))
-                    print("hierarchies[h]['outline_coord']['xMax'] = {}".format(hierarchies[h]['outline_coord']['xMax']))
-                    print("hierarchies[h]['outline_coord']['yMin'] = {}".format(hierarchies[h]['outline_coord']['yMin']))
-                    print("hierarchies[h]['outline_coord']['yMax'] = {}".format(hierarchies[h]['outline_coord']['yMax']))
+                elif len(split_hier) == 2:
+                    # print("hierarchies[h]['outline_coord']['xMin'] = {}".format(hierarchies[h]['outline_coord']['xMin']))
+                    # print("hierarchies[h]['outline_coord']['xMax'] = {}".format(hierarchies[h]['outline_coord']['xMax']))
+                    # print("hierarchies[h]['outline_coord']['yMin'] = {}".format(hierarchies[h]['outline_coord']['yMin']))
+                    # print("hierarchies[h]['outline_coord']['yMax'] = {}".format(hierarchies[h]['outline_coord']['yMax']))
                     # # for o in hierarchies[h]['outline_coord']:
                     hierarchies[h]['outline_coord']['xMin'] -= subhierarchy_x
                     hierarchies[h]['outline_coord']['xMax'] -= subhierarchy_x
                     hierarchies[h]['outline_coord']['yMin'] -= subhierarchy_y
                     hierarchies[h]['outline_coord']['yMax'] -= subhierarchy_y
-                    print("hierarchies[h]['outline_coord']['xMin'] = {}".format(hierarchies[h]['outline_coord']['xMin']))
-                    print("hierarchies[h]['outline_coord']['xMax'] = {}".format(hierarchies[h]['outline_coord']['xMax']))
-                    print("hierarchies[h]['outline_coord']['yMin'] = {}".format(hierarchies[h]['outline_coord']['yMin']))
-                    print("hierarchies[h]['outline_coord']['yMax'] = {}".format(hierarchies[h]['outline_coord']['yMax']))
+                    # print("hierarchies[h]['outline_coord']['xMin'] = {}".format(hierarchies[h]['outline_coord']['xMin']))
+                    # print("hierarchies[h]['outline_coord']['xMax'] = {}".format(hierarchies[h]['outline_coord']['xMax']))
+                    # print("hierarchies[h]['outline_coord']['yMin'] = {}".format(hierarchies[h]['outline_coord']['yMin']))
+                    # print("hierarchies[h]['outline_coord']['yMax'] = {}".format(hierarchies[h]['outline_coord']['yMax']))
         
-
+                    x_width = abs(hierarchies[h]['outline_coord']['xMax'] - hierarchies[h]['outline_coord']['xMin'])
                     for pt in hierarchies[h]['parts']:
                         pt.sch_bb[0] -= subhierarchy_x
                         pt.sch_bb[1] -= subhierarchy_y
 
-                    subhierarchy_x -= 1000
-                    subhierarchy_y -= 1000
-                    # subhierarchy_x -= (hierarchies[h]['outline_coord']['xMax'] - hierarchies[h]['outline_coord']['xMin'])
-                    # subhierarchy_y -= (hierarchies[h]['outline_coord']['yMax'] - hierarchies[h]['outline_coord']['yMin'])
+                    # subhierarchy_x -= 1000
+                    # subhierarchy_y -= 1000
+                    
+                    # y_width = abs(hierarchies[h]['outline_coord']['yMax'] - hierarchies[h]['outline_coord']['yMin'])
+                    # print("xWidth: " + str(x_width) + " yWidth: " + str(y_width))
+                    subhierarchy_x -= (x_width + 2000)
+                    # subhierarchy_y -= y_width
 
 
 
@@ -1760,13 +1763,14 @@ class Circuit(SkidlBaseObject):
             # *********************  GENERATE EESCHEMA HIERARCHY OUTLINE RECTANGLE  ***************************
             # ****************************************************************************************
             box = []
-            xMin = hierarchies[h]['outline_coord']['xMin'] + sch_c[0] + 100
+            xMin = hierarchies[h]['outline_coord']['xMin'] + sch_c[0] - 100
             xMax = hierarchies[h]['outline_coord']['xMax'] + sch_c[0] + 100
             yMin = hierarchies[h]['outline_coord']['yMin'] + sch_c[1] + 100
             yMax = hierarchies[h]['outline_coord']['yMax'] + sch_c[1] - 300
             # Place label starting at 1/4 x-axis distance and 200mil down
             label_x = int((xMax - xMin)/4) + xMin
             label_y = yMax + 200
+            subhierarchy_name = h.split('.')
             # Make the strings for the box and label
             box.append("Text Notes {} {} 0    100  ~ 20\n{}\n".format(label_x, label_y, h))
             box.append("Wire Notes Line\n")
