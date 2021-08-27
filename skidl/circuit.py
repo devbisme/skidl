@@ -1648,8 +1648,48 @@ class Circuit(SkidlBaseObject):
 
         # ************  CALCULATE SCHEMATIC LAYOUT OF HIERARCHIES   *******************
         # *************************************************************************************
+
+        subhierarchy_x = sch_c[0] - 1000
+        subhierarchy_y = sch_c[1] - 1000
+
+
         for h in hierarchies:
             print(h)
+            print("subhierarchy_x: " + str(subhierarchy_x))
+            print("subhierarchy_y: " + str(subhierarchy_y))
+            # split by '.' and find len to determine how nested the hierarchy is
+            split_hier = h.split('.')
+            print("nested: " + str(len(split_hier)))
+
+            if len(split_hier) == 1:
+                # top sheet, don't move the components
+                continue
+            else:
+                print("hierarchies[h]['outline_coord']['xMin'] = {}".format(hierarchies[h]['outline_coord']['xMin']))
+                print("hierarchies[h]['outline_coord']['xMax'] = {}".format(hierarchies[h]['outline_coord']['xMax']))
+                print("hierarchies[h]['outline_coord']['yMin'] = {}".format(hierarchies[h]['outline_coord']['yMin']))
+                print("hierarchies[h]['outline_coord']['yMax'] = {}".format(hierarchies[h]['outline_coord']['yMax']))
+                # # for o in hierarchies[h]['outline_coord']:
+                hierarchies[h]['outline_coord']['xMin'] -= subhierarchy_x
+                hierarchies[h]['outline_coord']['xMax'] -= subhierarchy_x
+                hierarchies[h]['outline_coord']['yMin'] -= subhierarchy_y
+                hierarchies[h]['outline_coord']['yMax'] -= subhierarchy_y
+                print("hierarchies[h]['outline_coord']['xMin'] = {}".format(hierarchies[h]['outline_coord']['xMin']))
+                print("hierarchies[h]['outline_coord']['xMax'] = {}".format(hierarchies[h]['outline_coord']['xMax']))
+                print("hierarchies[h]['outline_coord']['yMin'] = {}".format(hierarchies[h]['outline_coord']['yMin']))
+                print("hierarchies[h]['outline_coord']['yMax'] = {}".format(hierarchies[h]['outline_coord']['yMax']))
+    
+
+                # for pt in hierarchies[h]['parts']:
+                #     pt.sch_bb[0] -= subhierarchy_x
+                #     pt.sch_bb[1] -= subhierarchy_y
+
+                subhierarchy_x -= 1000
+                subhierarchy_y -= 1000
+                # subhierarchy_x -= (hierarchies[h]['outline_coord']['xMax'] - hierarchies[h]['outline_coord']['xMin'])
+                # subhierarchy_y -= (hierarchies[h]['outline_coord']['yMax'] - hierarchies[h]['outline_coord']['yMin'])
+
+
 
 
         #      GENERATE CODE FOR EACH HIEARCHY
@@ -1758,7 +1798,7 @@ class Circuit(SkidlBaseObject):
         else:
             # if we aren't making individual hierarchy sheets then we're making one big schematic, so append
             #    the subcircuit code to a list
-            hierarchy_eeschema_code.append("".join(eeschema_code))
+            hierarchy_eeschema_code.append("\n".join(eeschema_code))
 
 
 
@@ -1772,8 +1812,7 @@ class Circuit(SkidlBaseObject):
         with open(file_, "w") as f:
             f.truncate(0) # Clear the file
             if gen_iso_hier_sch:
-                                # *********************  GENERATE HIERARCHICAL SHEETS FOR TOP PAGE  *******************
-                # *************************************************************************************
+                # Generate hierarchical sheets for each hierarchy to be placed on the top sheet
                 x_start = 5000
                 y_start = 5000
                 top_page = [] # List that will be populated with hierarchical schematics
