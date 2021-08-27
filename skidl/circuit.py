@@ -1648,6 +1648,17 @@ class Circuit(SkidlBaseObject):
             hierarchy_list[moving_hierarchy]['outline_coord']['xMax'] += dx
             hierarchy_list[moving_hierarchy]['outline_coord']['yMin'] += dy
             hierarchy_list[moving_hierarchy]['outline_coord']['yMax'] += dy
+
+
+            for pt in hierarchy_list[moving_hierarchy]['parts']:
+                pt.sch_bb[0] += dx
+                pt.sch_bb[1] += dy
+            
+            for w in hierarchies[moving_hierarchy]['wires']:
+                w[0][0] += dx
+                w[0][1] += dy
+                w[1][0] += dx
+                w[1][1] += dy
             # Check to see if we're colliding with any other parts
 
             # Range through hierarchies and look for overlaps of outlines
