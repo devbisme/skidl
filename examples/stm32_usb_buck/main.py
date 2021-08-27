@@ -21,8 +21,8 @@ sc.stm32f405r(v_3v3, gnd, v_5v)
 
 
 schematic_path = "/home/cdsfsmattner/Desktop/skidl/examples/stm32_usb_buck/stm32/stm32.sch"
-netlist_path = "/home/cdsfsmattner/Desktop/skidl/examples/stm32_usb_buck/stm32/netlist.net"
-
-
 generate_schematic(file_ = schematic_path, gen_iso_hier_sch=False, sch_size='A3')
+
+
+# netlist_path = "/home/cdsfsmattner/Desktop/skidl/examples/stm32_usb_buck/stm32/netlist.net"
 # generate_netlist(file_ = netlist_path)
