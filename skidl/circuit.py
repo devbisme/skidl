@@ -516,20 +516,7 @@ def gen_net_wire(n, parts, c):
                 line.insert(i+1, [d_x1,d_y1])
                 line.insert(i+2, [d_x2, d_y2])
                 line.insert(i+3, [x1, d_y3])
-                break
-
-
-    # t_wire = []
-    # # TODO add the center coordinates
-    # for i in range(len(line)-1):
-    #     # print(line[i])
-    #     t_x1 = line[i][0] + c[0]
-    #     t_y1 = line[i][1] + c[1]
-    #     t_x2 = line[i+1][0] + c[0]
-    #     t_y2 = line[i+1][1] + c[1]
-    #     t_wire.append("Wire Wire Line\n")
-    #     t_wire.append("	{} {} {} {}\n".format(t_x1,t_y1,t_x2,t_y2))
-    #     t_out = "\n"+"".join(t_wire)    
+                break 
     
     return  line
 
@@ -1662,16 +1649,8 @@ class Circuit(SkidlBaseObject):
                         if sameHier:     
                             wire_lst = gen_net_wire(pin.net,hierarchies[h]['parts'], sch_c)
                             hierarchies[h]['wires'].append(wire_lst)
-                            # eeschema_code.append(wire)
             # /////////////////////////////////////////////////////////////////////////////////// 
             
-            # *********************  GENERATE EESCHEMA CODE FOR STUBS  ***************************
-            # ************************************************************************************
-            for pt in hierarchies[h]['parts']:
-                stub = gen_power_part_eeschema(pt, sch_c)
-                if len(stub)>0:
-                    eeschema_code.append(stub)
-            # /////////////////////////////////////////////////////////////////////////////////// 
 
 
             # *********************  GENERATE EESCHEMA CODE FOR LABELS  ***************************
@@ -1717,7 +1696,8 @@ class Circuit(SkidlBaseObject):
                 y = i.sch_bb[1] + sch_c[1]
                 part_code = i.gen_part_eeschema([x, y])
                 eeschema_code.append(part_code)
-
+            # *********************  GENERATE EESCHEMA CODE FOR WIRES  ***************************
+            # ************************************************************************************
             for w in hierarchies[h]['wires']:
                 t_wire = []
                 # TODO add the center coordinates
@@ -1731,6 +1711,14 @@ class Circuit(SkidlBaseObject):
                     t_wire.append("	{} {} {} {}\n".format(t_x1,t_y1,t_x2,t_y2))
                     t_out = "\n"+"".join(t_wire)  
                     eeschema_code.append(t_out)
+            # *********************  GENERATE EESCHEMA CODE FOR STUBS  ***************************
+            # ************************************************************************************
+            for pt in hierarchies[h]['parts']:
+                stub = gen_power_part_eeschema(pt, sch_c)
+                if len(stub)>0:
+                    eeschema_code.append(stub)
+            # /////////////////////////////////////////////////////////////////////////////////// 
+
 
             # if we're creating individual hierarchy sheets then make a separate file for each one
             if gen_iso_hier_sch:
