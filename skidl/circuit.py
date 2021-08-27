@@ -108,9 +108,9 @@ def move_subhierarchy(moving_hierarchy, dx, dy, hierarchy_list, move_dir = 'L'):
 
         if (x1min <= x2max) and (x2min <= x1max) and (y1min <= y2max) and (y2min <= y1max):
             if move_dir == 'R':
-                move_subhierarchy(moving_hierarchy, 200, 0, hierarchy_list)
+                move_subhierarchy(moving_hierarchy, 200, 0, hierarchy_list, move_dir = move_dir)
             else:
-                move_subhierarchy(moving_hierarchy, -200, 0, hierarchy_list)
+                move_subhierarchy(moving_hierarchy, -200, 0, hierarchy_list, move_dir = move_dir)
 
 
 
@@ -1692,16 +1692,26 @@ class Circuit(SkidlBaseObject):
         # ************  CALCULATE SCHEMATIC LAYOUT OF HIERARCHIES   *******************
         # *************************************************************************************
         if not gen_iso_hier_sch:
-            subhierarchy_y = 1000
+            for h in hierarchies:
+                # find max y of central components
+                split_hier = h.split('.')
+                if len(split_hier) == 1:
+                    subhierarchy_y = hierarchies[h]['outline_coord']['yMax']
+                    break
+            dir = 'L'
             for h in hierarchies:
                 # split by '.' and find len to determine how nested the hierarchy is
                 split_hier = h.split('.')
                 # top sheet, don't move the components
                 if len(split_hier) == 1:
-                    subhierarchy_y = hierarchies[h]['outline_coord']['yMax']
+                    subhierarchy_y += hierarchies[h]['outline_coord']['yMax']
                     continue
                 elif len(split_hier) == 2:
-                    move_subhierarchy(h,0, subhierarchy_y,hierarchies)
+                    move_subhierarchy(h,0, subhierarchy_y,hierarchies, move_dir=dir)
+                    if dir == 'L':
+                        dir = 'R'
+                    else:
+                        dir = 'L'
         # ////////////////////////////////////////////////////////////////////////////////////  
 
         #      GENERATE CODE FOR EACH HIEARCHY
