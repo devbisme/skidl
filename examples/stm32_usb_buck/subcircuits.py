@@ -52,9 +52,29 @@ def stm32f405r(vdd, gnd, v_5v):
     usb(l_5v, l_gnd, u.p43, u.p44, True)
     boot_sw(l_vdd, l_gnd)
     led(u.p8, l_gnd, 'blue', '5.6k')
+    anlg_flt(l_vdd, l_gnd, u.p13)
 
-    l_vdd += u.p1, u.p19, u.p32, u.p48, u.p64, u.p13, bcap.p1, fcap1.p1, fcap2.p1, fcap3.p1, fcap4.p1, fcap5.p1
+    l_vdd += u.p1, u.p19, u.p32, u.p48, u.p64, bcap.p1, fcap1.p1, fcap2.p1, fcap3.p1, fcap4.p1, fcap5.p1
     l_gnd += vcap1.p1, vcap2.p1, u.p12, u.p18, u.p63, bcap.p2, fcap1.p2, fcap2.p2, fcap3.p2, fcap4.p2, fcap5.p2
+
+
+# analog supply filter circuit
+@SubCircuit
+def anlg_flt(vdd, gnd, vdda):
+    c1 = Part("Device", 'C_Small', footprint='C_0603_1608Metric', value='1uF')
+    c2 = Part("Device", 'C_Small', footprint='C_0603_1608Metric', value='10nF')
+    l1 = Part("Device", 'L_Small', footprint='L_0603_1608Metric', value='29nH')
+    l_vdd = Net('+3V3', stub=True, netclass='Power')
+    vdd += l_vdd
+    l_gnd = Net('GND', stub=True, netclass='Power')
+    gnd += l_gnd
+
+    l_vdda = Net('+3V3A', stub=True, netclass='Power')
+    vdda += l_vdda
+
+    l_vdda += c1.p1, c2.p1, l1.p2
+    l_vdd += l1.p1
+    l_gnd += c1.p2, c2.p2
 
 
 @SubCircuit
