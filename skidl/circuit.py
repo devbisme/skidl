@@ -360,6 +360,14 @@ def hierachy_outline_rectangle(hier):
                 elif pin.orientation == 'L' or pin.orientation == 'R':
                     if (len(pin.label)+1)*50 > x_adj:
                         x_adj = (len(pin.label)+1)*50
+            for n in pin.nets:
+                if n.netclass == 'Power':
+                    if pin.orientation == 'U' or pin.orientation == 'D':
+                        if 100 > y_adj:
+                            y_adj = 100
+                    elif pin.orientation == 'L' or pin.orientation == 'R':
+                        if 100 > x_adj:
+                            x_adj = 100
 
         # Get min/max dimensions of the part
         t_xMin = p.sch_bb[0] - (p.sch_bb[2] + x_adj)
