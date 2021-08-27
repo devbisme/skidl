@@ -360,12 +360,12 @@ def hierachy_outline_rectangle(hier, sch_center):
     return (("\n" + "".join(box)))
 
 # Generate a hierarchical schematic
-def generate_hierarchical_schematic(title, x_start, y_start, width=1000, height=2000):
+def generate_hierarchical_schematic(title, x_start, y_start, size, width=1000, height=2000):
     # make the file if it doesn't exist
     file_path = "stm32/"+title+".sch"
     if not os.path.isfile(file_path):
         f = open(file_path, "a")
-        new_sch_file = [gen_config_header(sheet_title=title), "$EndSCHEMATC"]
+        new_sch_file = [gen_config_header(sheet_title=title, size = size ), "$EndSCHEMATC"]
         f.truncate(0) # Clear the file
         for i in new_sch_file:
             print("" + "".join(i), file=f)
@@ -1486,7 +1486,7 @@ class Circuit(SkidlBaseObject):
             )
 
 
-    def generate_schematic(self, file_=None, tool=None, gen_iso_hier_sch=False):
+    def generate_schematic(self, file_=None, tool=None, gen_iso_hier_sch=False, sch_size = 'A0'):
         """
         Create a schematic file. THIS KINDA WORKS!  
         
@@ -1516,7 +1516,13 @@ class Circuit(SkidlBaseObject):
             tool = skidl.get_default_tool()
 
 
-        sch_c = [8250,5850] # assume A3 size, these coordinates are half of X and Y rounded to the nearest 50 mil
+        sch_c = 0
+        for n in eeschema_sch_sizes:
+            if n == sch_size:
+                sch_c = [int(eeschema_sch_sizes[n][0]/2), int(eeschema_sch_sizes[n][1]/2)]
+                print("Schematic size: " + sch_size + "  center: " + str(sch_c))
+                break
+        # sch_c = [8250,5850] # assume A3 size, these coordinates are half of X and Y rounded to the nearest 50 mil
         top_page = [] # List that will be populated with hierarchical schematics
         nSheets = 1 # Keep track of the number of sheets for use in eeschema header
 
@@ -1713,7 +1719,7 @@ class Circuit(SkidlBaseObject):
                 # Create the new hierarchy file
                 hier_file_name = "stm32/" + h + ".sch"
                 with open(hier_file_name, "w") as f:
-                    new_sch_file = [gen_config_header(cur_sheet_num=nSheets), eeschema_code, "$EndSCHEMATC"]
+                    new_sch_file = [gen_config_header(cur_sheet_num=nSheets, size = sch_size), eeschema_code, "$EndSCHEMATC"]
                     nSheets += 1
                     f.truncate(0) # Clear the file
                     for i in new_sch_file:
@@ -1729,7 +1735,7 @@ class Circuit(SkidlBaseObject):
         x_start = 5000
         y_start = 5000
         for h in hierarchies:
-            hier_sheet = generate_hierarchical_schematic(h, x_start, y_start)
+            hier_sheet = generate_hierarchical_schematic(h, x_start, y_start, size = sch_c)
             top_page.append(hier_sheet)
             x_start += 3000
 
@@ -1742,12 +1748,12 @@ class Circuit(SkidlBaseObject):
         with open(file_, "w") as f:
             f.truncate(0) # Clear the file
             if gen_iso_hier_sch:
-                new_sch_file = [gen_config_header(cur_sheet_num=nSheets), top_page, "$EndSCHEMATC"]
+                new_sch_file = [gen_config_header(cur_sheet_num=nSheets, size=sch_size), top_page, "$EndSCHEMATC"]
                 nSheets += 1
                 for i in new_sch_file:
                     print("" + "".join(i), file=f)
             else:
-                new_sch_file = [gen_config_header(cur_sheet_num=nSheets), hierarchy_eeschema_code, "$EndSCHEMATC"]
+                new_sch_file = [gen_config_header(cur_sheet_num=nSheets, size = sch_size), hierarchy_eeschema_code, "$EndSCHEMATC"]
                 for i in new_sch_file:
                         print("" + "".join(i), file=f)   
         f.close()
