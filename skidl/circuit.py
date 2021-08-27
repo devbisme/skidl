@@ -1648,12 +1648,6 @@ class Circuit(SkidlBaseObject):
             hierarchy_list[moving_hierarchy]['outline_coord']['xMax'] += dx
             hierarchy_list[moving_hierarchy]['outline_coord']['yMin'] += dy
             hierarchy_list[moving_hierarchy]['outline_coord']['yMax'] += dy
-
-            print("hier: " + moving_hierarchy + " xmin:{} xmax:{} ymin:{} ymax: {}\n".format(
-                hierarchy_list[moving_hierarchy]['outline_coord']['xMin'],
-                hierarchy_list[moving_hierarchy]['outline_coord']['xMax'],
-                hierarchy_list[moving_hierarchy]['outline_coord']['yMin'],
-                hierarchy_list[moving_hierarchy]['outline_coord']['yMax'],))
             # Check to see if we're colliding with any other parts
 
             # Range through hierarchies and look for overlaps of outlines
@@ -1681,13 +1675,6 @@ class Circuit(SkidlBaseObject):
                 # https://stackoverflow.com/questions/20925818/algorithm-to-check-if-two-boxes-overlap
 
                 if (x1min <= x2max) and (x2min <= x1max) and (y1min <= y2max) and (y2min <= y1max):
-
-                    print("moving hier: " + moving_hierarchy + " compared to: " + h)
-                    print("x1min: " + str(x1min) + " x2max: " + str(x2max) + "   " + str(x1min <= x2max))
-                    print("x2min: " + str(x2min) + " x1max: " + str(x1max) + "   " + str(x2min <= x1max))
-                    print("y1min: " + str(y1min) + " y2max: " + str(y2max) + "   " + str(y1min <= y2max))
-                    print("y2min: " + str(y2min) + " y1max: " + str(y1max) + "   " + str(y2min <= y1max))
-                    print("\n")
                     if move_dir == 'R':
                         move_subhierarchy(moving_hierarchy, 200, 0, hierarchy_list)
                     else:
@@ -1786,13 +1773,13 @@ class Circuit(SkidlBaseObject):
             # *********************  GENERATE EESCHEMA HIERARCHY OUTLINE RECTANGLE  ***************************
             # ****************************************************************************************
             box = []
-            xMin = hierarchies[h]['outline_coord']['xMin'] + sch_c[0] - 100
-            xMax = hierarchies[h]['outline_coord']['xMax'] + sch_c[0] + 100
-            yMin = hierarchies[h]['outline_coord']['yMin'] + sch_c[1] + 100
-            yMax = hierarchies[h]['outline_coord']['yMax'] + sch_c[1] - 300
+            xMin = hierarchies[h]['outline_coord']['xMin'] + sch_c[0]
+            xMax = hierarchies[h]['outline_coord']['xMax'] + sch_c[0]
+            yMin = hierarchies[h]['outline_coord']['yMin'] + sch_c[1]
+            yMax = hierarchies[h]['outline_coord']['yMax'] + sch_c[1]
             # Place label starting at 1/4 x-axis distance and 200mil down
             label_x = int((xMax - xMin)/4) + xMin
-            label_y = yMax + 200
+            label_y = yMax - 200
             subhierarchy_name = h.split('.')
             # Make the strings for the box and label
             box.append("Text Notes {} {} 0    100  ~ 20\n{}\n".format(label_x, label_y, h))
