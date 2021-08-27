@@ -148,14 +148,14 @@ def rotate_part_90_cw(part):
     for n in range(len(rotation_matrix)-1):
         if rotation_matrix[n] == part.orientation:
             if n == rotation_matrix[-1]:
-                print("match " + str(n) + " of rotation matrix for part:\n" + part.ref + "  orienation: " + str(part.orientation))
+                # print("match " + str(n) + " of rotation matrix for part:\n" + part.ref + "  : " + str(part.orientation))
                 part.orientation = rotation_matrix[0]
-                print(part.ref + "  orienation: " + str(part.orientation))
+                # print(part.ref + "  orienation: " + str(part.orientation))
                 break
             else:
-                print("match " + str(n) + " of rotation matrix for part:\n" + part.ref + "  orienation: " + str(part.orientation))
+                # print("match " + str(n) + " of rotation matrix for part:\n" + part.ref + "  orienation: " + str(part.orientation))
                 part.orientation = rotation_matrix[n+1]
-                print(part.ref + "  orienation: " + str(part.orientation))
+                # print(part.ref + "  orienation: " + str(part.orientation))
                 break
     
 
@@ -1639,13 +1639,16 @@ class Circuit(SkidlBaseObject):
                             hierarchies[h]['wires'].append(wire_lst)
             # ////////////////////////////////////////////////////////////////////////////////////
 
-            # ************  CALCULATE HIERARCHY OUTLINE RECTANGLE COORDINATES   *******************
-            # *************************************************************************************
-            for h in hierarchies:
-                outline_coordinates = hierachy_outline_rectangle(hierarchies[h])
-                hierarchies[h]['outline_coord'] = outline_coordinates
-            # ////////////////////////////////////////////////////////////////////////////////////
+        # ************  CALCULATE HIERARCHY OUTLINE RECTANGLE COORDINATES   *******************
+        # *************************************************************************************
+        for h in hierarchies:
+            outline_coordinates = hierachy_outline_rectangle(hierarchies[h])
+            hierarchies[h]['outline_coord'] = outline_coordinates
+        # ////////////////////////////////////////////////////////////////////////////////////
 
+        # Layout hiearchies around a central hierarchy
+        for h in hierarchies:
+            print(h)
 
 
             #      GENERATE CODE FOR EACH HIEARCHY
