@@ -391,7 +391,6 @@ def hierachy_outline_rectangle(hier):
         'yMin':yMin,
         'yMax':yMax,
     }
-    print(rect_coord)
     return rect_coord
 
 # Generate a hierarchical schematic
@@ -1547,16 +1546,9 @@ class Circuit(SkidlBaseObject):
                 y = int(eeschema_sch_sizes[n][1]/2)
                 y = 50 * round(y/50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
                 sch_c = [x,y ]
-                print("Schematic size: " + sch_size + "  center: " + str(sch_c))
                 break
         
         nSheets = 1 # Keep track of the number of sheets for use in eeschema header
-
-        # # Get a list of all the stubs for generation at the end
-        # stubs = []
-        # for i in self.nets:
-        #     if hasattr(i, 'stub'):
-        #         stubs.append(i)
 
         # Range through the parts and create bounding boxes based on the furthest distance of pins
         for i in self.parts:
@@ -1584,10 +1576,13 @@ class Circuit(SkidlBaseObject):
             else:
                 hierarchies[listToStr]['parts'].append(i)
 
+        # ***********  ROTATE 2 PIN PARTS ATTACHED TO POWER NET  *****************************
+        # ************************************************************************************
         for h in hierarchies:
             for pt in hierarchies[h]['parts']:
                 if len(pt.pins)<=2:
                     rotate_2pin_part(pt)
+
         # *********************  COPY LABELS TO CONNECTED PINS  ******************************
         # ************************************************************************************
         for h in hierarchies:
@@ -1606,22 +1601,21 @@ class Circuit(SkidlBaseObject):
                 if len(pin.label)>0:
                     continue
                 # check if the pin has a net
-                if pin.net is not None: 
+                if pin.net is not None:
                     # don't move a part based on whether a pin is a power pin
-                    if pin.net.netclass=='Power': 
+                    if pin.net.netclass=='Power':
                         continue
                     # range through all the pins connected to the net this pin is connected to
-                    for p in pin.net.pins: 
+                    for p in pin.net.pins:
                         # make sure parts are in the same hierarchy before moving them
-                        if p.part.hierarchy != ("top."+h): 
+                        if p.part.hierarchy != ("top."+h):
                             break
                         # don't move the center part
-                        if p.ref == centerPart.ref: 
+                        if p.ref == centerPart.ref:
                             continue
                         else:
                             # if we pass all those checks then move the part based on the relative pin locations
                             calc_move_part(p, pin, hierarchies[h]['parts'])
-
 
         # *********************  CALCULATE PART PLACEMENT OF PARTS WITH NETS TO DRAW  ******************************
         # ************************************************************************************
@@ -1691,7 +1685,6 @@ class Circuit(SkidlBaseObject):
         # ************  CALCULATE HIERARCHY OUTLINE RECTANGLE COORDINATES   *******************
         # *************************************************************************************
         for h in hierarchies:
-            print("hierarchy " + h + " rect:")
             outline_coordinates = hierachy_outline_rectangle(hierarchies[h])
             hierarchies[h]['outline_coord'] = outline_coordinates
         # ////////////////////////////////////////////////////////////////////////////////////
@@ -1703,13 +1696,11 @@ class Circuit(SkidlBaseObject):
             for h in hierarchies:
                 # split by '.' and find len to determine how nested the hierarchy is
                 split_hier = h.split('.')
-
+                # top sheet, don't move the components
                 if len(split_hier) == 1:
-                    # top sheet, don't move the components
                     subhierarchy_y = hierarchies[h]['outline_coord']['yMax']
                     continue
                 elif len(split_hier) == 2:
-                    print(h)
                     move_subhierarchy(h,0, subhierarchy_y,hierarchies)
         # ////////////////////////////////////////////////////////////////////////////////////  
 
@@ -1733,7 +1724,6 @@ class Circuit(SkidlBaseObject):
                 t_wire = []
                 # TODO add the center coordinates
                 for i in range(len(w)-1):
-                    # print(line[i])
                     t_x1 = w[i][0] + sch_c[0]
                     t_y1 = w[i][1] + sch_c[1]
                     t_x2 = w[i+1][0] + sch_c[0]
@@ -1758,7 +1748,6 @@ class Circuit(SkidlBaseObject):
                     if len(pin.label)>0:
                         t_x = pin.x + pin.part.sch_bb[0] + sch_c[0]
                         t_y = 0
-                        x_offset = pt.sch_bb[0] + pin.x
                         t_y = -pin.y + pin.part.sch_bb[1] + sch_c[1]
                         eeschema_code.append(make_Hlabel(t_x, t_y, pin.orientation, pin.label))
             # /////////////////////////////////////////////////////////////////////////////////// 
