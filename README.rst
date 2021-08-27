@@ -1,35 +1,45 @@
-===============================
-skidl
-===============================
-
-.. image:: https://img.shields.io/pypi/v/skidl.svg
-        :target: https://pypi.python.org/pypi/skidl
-.. image:: https://travis-ci.com/xesscorp/skidl.svg?branch=master
-    :target: https://travis-ci.com/xesscorp/skidl
+Attempting to recreate this video from Phil's Lab with SKiDL: https://www.youtube.com/watch?v=C7-8nUU6e3E
 
 
-SKiDL is a module that allows you to compactly describe the interconnection of 
-electronic circuits and components using Python.
-The resulting Python program performs electrical rules checking
-for common mistakes and outputs a netlist that serves as input to
-a PCB layout tool.
+To run the STM32 example with new schematic generation code:
+* Clone project
+* Activate the virtual environment
+* Install this repo's skidl
+* Run example
+```
+$ git clone https://github.com/shanemmattner/skidl
+$ cd skidl/examples/stm32_usb_buck
+$ source dev_env/bin/activate
+$ cd ~/skidl && pip install -e .
+$ python examples/stm32_usb_buck/main.py
+```
+* Open KiCAD to view files
 
-* Free software: MIT license
-* Documentation: http://xesscorp.github.io/skidl
-* User Forum: https://github.com/xesscorp/skidl/discussions
+To locally develop a python package:
+https://stackoverflow.com/questions/52248505/how-to-locally-develop-a-python-package
 
-
-==================================
-This repo fork is to develop schematic generation features.
-I'm going to attempt to remake this video from Phil's Lab with SKiDL
-
-https://www.youtube.com/watch?v=C7-8nUU6e3E
-
-To test:
-* Install KiCad
-* clone repo
-* source the virtual environent
-$ source repo_dir/examples/STM32_USB_BUCK/dev_env/bin/activate
-$ cd ~/repo_dir
+$ virtualenv dev_env
+$ source dev_env/bin/activate
+$ cd ~/project_folder
 $ pip install -e .
 $ python examples/stm32_usb_buck/main.py
+
+Useful link on schematic components:
+https://resources.altium.com/p/guidelines-creating-useful-schematic-symbols
+
+
+Known Bugs:
+* Can't do multiple part instanciation
+
+Features to add:
+* Edit the schematic itself and place images
+** https://docs.kicad.org/5.0/en/pl_editor/pl_editor.pdf
+* Add images and other information to schematic
+** Link to external dashboard, perhaps with testing data
+* Generate default circuit board like https://github.com/jvestman/skimibowi
+
+TODO
+* https://github.com/xesscorp/zyc
+* Try to implement Rect/Point logic
+** https://wiki.python.org/moin/PointsAndRectangles
+
