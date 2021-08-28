@@ -11,15 +11,15 @@ for file in os.listdir("."):
 
 
 
-
+v_12v = Net('+12V', stub=True, netclass='Power')
 v_5v = Net('+5V', stub=True, netclass='Power')
 v_3v3 = Net('+3V3', stub=True, netclass='Power')
 gnd = Net('GND', stub=True, netclass='Power')
 
-sc.stm32f405r(v_3v3, gnd, v_5v)
+sc.stm32f405r(v_12v, v_5v, v_3v3, gnd)
 
-netlist_path = "/home/cdsfsmattner/Desktop/skidl/examples/stm32_usb_buck/stm32/netlist.net"
-generate_netlist(file_ = netlist_path)
+# netlist_path = "/home/cdsfsmattner/Desktop/skidl/examples/stm32_usb_buck/stm32/netlist.net"
+# generate_netlist(file_ = netlist_path)
 
 schematic_path = "/home/cdsfsmattner/Desktop/skidl/examples/stm32_usb_buck/stm32/stm32.sch"
 generate_schematic(file_ = schematic_path, gen_iso_hier_sch=False, sch_size='A3')

@@ -1517,7 +1517,7 @@ class Circuit(SkidlBaseObject):
             )
 
 
-    def generate_schematic(self, file_=None, tool=None, gen_iso_hier_sch=False, sch_size = 'A0', gen_elkjs = True):
+    def generate_schematic(self, file_=None, tool=None, gen_iso_hier_sch=False, sch_size = 'A0', gen_elkjs = False):
         """
         Create a schematic file. THIS KINDA WORKS!  
         

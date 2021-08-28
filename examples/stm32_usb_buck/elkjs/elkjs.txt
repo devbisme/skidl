@@ -404,6 +404,62 @@ node C9 {
 }
 
 node U2 {
+	layout [ size: 300,300 ]
+	portConstraints: FIXED_SIDE
+	port p1 { 
+		^port.side: NORTH 
+		label "GND"
+	}
+	port p2 { 
+		^port.side: EAST 
+		label "VO"
+	}
+	port p3 { 
+		^port.side: WEST 
+		label "VI"
+	}
+}
+
+node C10 {
+	layout [ size: 100,100 ]
+	portConstraints: FIXED_SIDE
+	port p1 { 
+		^port.side: SOUTH 
+		label "~"
+	}
+	port p2 { 
+		^port.side: NORTH 
+		label "~"
+	}
+}
+
+node C11 {
+	layout [ size: 100,100 ]
+	portConstraints: FIXED_SIDE
+	port p1 { 
+		^port.side: SOUTH 
+		label "~"
+	}
+	port p2 { 
+		^port.side: NORTH 
+		label "~"
+	}
+}
+
+node F1 {
+	layout [ size: 100,100 ]
+	portConstraints: FIXED_SIDE
+	port p1 { 
+		^port.side: SOUTH 
+		label "~"
+	}
+	port p2 { 
+		^port.side: NORTH 
+		label "~"
+	}
+}
+
+node U3 {
 	layout [ size: 400,400 ]
 	portConstraints: FIXED_SIDE
 	port p1 { 
@@ -543,7 +599,7 @@ node R5 {
 	}
 }
 
-node C10 {
+node C12 {
 	layout [ size: 100,100 ]
 	portConstraints: FIXED_SIDE
 	port p1 { 
@@ -556,7 +612,7 @@ node C10 {
 	}
 }
 
-node C11 {
+node C13 {
 	layout [ size: 100,100 ]
 	portConstraints: FIXED_SIDE
 	port p1 { 
@@ -603,7 +659,7 @@ node Y1 {
 	}
 }
 
-node C12 {
+node C14 {
 	layout [ size: 100,100 ]
 	portConstraints: FIXED_SIDE
 	port p1 { 
@@ -616,7 +672,7 @@ node C12 {
 	}
 }
 
-node C13 {
+node C15 {
 	layout [ size: 100,100 ]
 	portConstraints: FIXED_SIDE
 	port p1 { 
@@ -683,27 +739,37 @@ edge C5.p2 -> C6.p2
 
 edge C6.p2 -> C7.p2
 
+edge U2.p1 -> C10.p2
+
+edge C10.p2 -> C11.p2
+
+edge U2.p2 -> C11.p1
+
+edge F1.p2 -> U2.p3
+
+edge U2.p3 -> C10.p1
+
 edge J1.p5 -> J1.p6
 
-edge J1.p6 -> U2.p2
+edge J1.p6 -> U3.p2
 
 edge R3.p1 -> R3.p2
 
 edge R3.p2 -> J1.p1
 
-edge J1.p1 -> U2.p5
+edge J1.p1 -> U3.p5
 
 edge R2.p1 -> J1.p2
 
-edge J1.p2 -> U2.p6
+edge J1.p2 -> U3.p6
 
 edge R3.p1 -> J1.p3
 
-edge J1.p3 -> U2.p3
+edge J1.p3 -> U3.p3
 
-edge U2.p1 -> U1.p43
+edge U3.p1 -> U1.p43
 
-edge U2.p4 -> U1.p44
+edge U3.p4 -> U1.p44
 
 edge SW1.p2 -> R4.p1
 
@@ -711,27 +777,27 @@ edge U1.p8 -> R5.p1
 
 edge R5.p2 -> D2.p1
 
-edge C10.p2 -> C11.p2
+edge C12.p2 -> C13.p2
 
-edge U1.p13 -> C10.p1
+edge U1.p13 -> C12.p1
 
-edge C10.p1 -> C11.p1
+edge C12.p1 -> C13.p1
 
-edge C11.p1 -> L1.p2
+edge C13.p1 -> L1.p2
 
 edge Y1.p2 -> Y1.p4
 
-edge Y1.p4 -> C12.p2
+edge Y1.p4 -> C14.p2
 
-edge C12.p2 -> C13.p2
+edge C14.p2 -> C15.p2
 
 edge Y1.p1 -> U1.p5
 
-edge U1.p5 -> C12.p1
+edge U1.p5 -> C14.p1
 
-edge Y1.p3 -> C13.p1
+edge Y1.p3 -> C15.p1
 
-edge C13.p1 -> R6.p2
+edge C15.p1 -> R6.p2
 
 edge R6.p1 -> U1.p6
 

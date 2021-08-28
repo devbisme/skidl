@@ -8,14 +8,16 @@ d0603 = Part("Device", 'D', footprint='D_0603_1608Metric')
 # LED indicator circuit
 # c = central coordinates for the subcircuit
 @package
-def stm32f405r(vdd, gnd, v_5v):
-
+def stm32f405r(v_12v, v_5v, vdd, gnd):
+    l12v = Net('+12V',stub=True, netclass='Power')
+    v_12v += l12v
+    l_5v = Net('+5V',stub=True, netclass='Power')
+    v_5v += l_5v
     l_vdd = Net('+3V3', stub=True, netclass='Power')
     vdd += l_vdd
     l_gnd = Net('GND', stub=True, netclass='Power')
     gnd += l_gnd
-    l_5v = Net('+5V',stub=True, netclass='Power')
-    v_5v += l_5v
+
     # MCU
     u = Part("MCU_ST_STM32F4", 'STM32F405RGTx', footprint='LQFP-64_10x10mm_P0.5mm')
     # Label signal pins
@@ -49,6 +51,7 @@ def stm32f405r(vdd, gnd, v_5v):
     vcap2 = Part("Device", 'C_Small', footprint='C_0603_1608Metric', value='2.2uF')
 
     # Subcircuits
+    buck(l12v, l_vdd, l_gnd)
     usb(l_5v, l_gnd, u.p43, u.p44, imp_match = True)
     boot_sw(l_vdd, l_gnd)
     led(u.p8, l_gnd, 'blue', '5.6k')
@@ -83,6 +86,32 @@ def anlg_flt(vdd, gnd, vdda):
     l_vdd += l1.p1
     l_gnd += c1.p2, c2.p2
 
+
+@SubCircuit
+def buck(vin, vout, gnd):
+    
+    # Redeclare power nets, TODO: possible bug
+    lvin = Net('+12V', stub=True, netclass='Power')
+    vin += lvin
+    lgnd = Net('GND', stub=True, netclass='Power')
+    gnd += lgnd
+    lvout = Net('+3V3', stub=True, netclass='Power')
+    vout += lvout
+
+    reg = Part('Regulator_Linear', 'AP1117-15', footprint='SOT-223-3_TabPin2')
+    c1 = Part("Device", 'C_Small', footprint='C_0603_1608Metric', value='10uF')
+    c2 = Part("Device", 'C_Small', footprint='C_0603_1608Metric', value='10uF')
+    fuse = Part('Device', 'Polyfuse_Small', footprint='Fuse_Bourns_MF-RG300') # resetable fuse
+    pmos = Part('Device', 'Q_PMOS_DGS', footprint='SOT-23') # reverse polarity protection
+    fb = Part('Device', 'Ferrite_Bead', footprint='L_Murata_DEM35xxC') # ferrite bead
+
+    lvin += fuse.p1
+    fuse.p2 += pmos.p1
+    pmos.p2 += lgnd
+    pmos.p3 += fb.p1
+    fb.p2 += reg.p3, c1.p1
+    lvout += reg.p2, c2.p1
+    lgnd += reg.p1, c1.p2, c2.p2
 
 @SubCircuit
 def oscillator(vdd, gnd, osc_in, osc_out):
