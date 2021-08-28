@@ -6,6 +6,7 @@ To run the STM32 example with new schematic generation code:
 * Activate the virtual environment
 * Install this repo's skidl
 * Run example
+
 ```
 $ git clone https://github.com/shanemmattner/skidl
 $ cd skidl/examples/stm32_usb_buck

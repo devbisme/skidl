@@ -1218,6 +1218,21 @@ class Part(SkidlBaseObject):
                                         self.draw[n_F0].halign,
                                         self.draw[n_F0].valign
         ))
+        n_F2 = 2
+        for i in range(len(self.draw)):
+            if re.search("^DrawF2", str(self.draw[i])):
+                n_F2 = i
+                break
+        out.append('F 2 "{}" {} {} {} {} {} {} {}\n'.format(
+                                        self.footprint,
+                                        self.draw[n_F2].orientation,
+                                        str(self.draw[n_F2].x + c[0]),
+                                        str(self.draw[n_F2].y + c[1]),
+                                        self.draw[n_F2].size,
+                                        "001",
+                                        self.draw[n_F2].halign,
+                                        self.draw[n_F2].valign
+        ))
         out.append("   1   {} {}\n".format(str(c[0]), str(c[1])))
         out.append("   {}   {}  {}  {}\n".format(self.orientation[0], self.orientation[1], self.orientation[2], self.orientation[3], ))
         out.append("$EndComp\n") 
