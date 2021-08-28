@@ -260,7 +260,7 @@ def gen_elkjs_code(parts, nets):
                 pass
     
     # open file to save elkjs code
-    file_path = "stm32/elkjs.txt"
+    file_path = "elkjs/elkjs.txt"
     f = open(file_path, "a")
     f.truncate(0) # Clear the file
     for i in elkjs_code:
@@ -1517,7 +1517,7 @@ class Circuit(SkidlBaseObject):
             )
 
 
-    def generate_schematic(self, file_=None, tool=None, gen_iso_hier_sch=False, sch_size = 'A0', gen_elkjs = False):
+    def generate_schematic(self, file_=None, tool=None, gen_iso_hier_sch=False, sch_size = 'A0', gen_elkjs = True):
         """
         Create a schematic file. THIS KINDA WORKS!  
         
