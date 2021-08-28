@@ -88,6 +88,26 @@ def anlg_flt(vdd, gnd, vdda):
 
 
 @SubCircuit
+def vin_protection(vin, vout, gnd):
+    # Redeclare power nets, TODO: possible bug
+    lvin = Net('+12V', stub=True, netclass='Power')
+    vin += lvin
+    lgnd = Net('GND', stub=True, netclass='Power')
+    gnd += lgnd
+    lvout = Net('+3V3', stub=True, netclass='Power')
+    vout += lvout
+
+    fuse = Part('Device', 'Polyfuse_Small', footprint='Fuse_Bourns_MF-RG300') # resetable fuse
+    pmos = Part('Device', 'Q_PMOS_DGS', footprint='SOT-23') # reverse polarity protection
+    fb = Part('Device', 'Ferrite_Bead', footprint='L_Murata_DEM35xxC') # ferrite bead
+
+    lvin += fuse.p1
+    fuse.p2 += pmos.p1
+    pmos.p2 += lgnd
+    pmos.p3 += fb.p1
+    fb.p2 += lvout
+
+@SubCircuit
 def buck(vin, vout, gnd):
     
     # Redeclare power nets, TODO: possible bug
@@ -98,18 +118,16 @@ def buck(vin, vout, gnd):
     lvout = Net('+3V3', stub=True, netclass='Power')
     vout += lvout
 
+    vprotected = Net('v12_fused')
+    vin_protection(lvin, vprotected, lgnd)
+
+
     reg = Part('Regulator_Linear', 'AP1117-15', footprint='SOT-223-3_TabPin2')
     c1 = Part("Device", 'C_Small', footprint='C_0603_1608Metric', value='10uF')
     c2 = Part("Device", 'C_Small', footprint='C_0603_1608Metric', value='10uF')
-    fuse = Part('Device', 'Polyfuse_Small', footprint='Fuse_Bourns_MF-RG300') # resetable fuse
-    pmos = Part('Device', 'Q_PMOS_DGS', footprint='SOT-23') # reverse polarity protection
-    fb = Part('Device', 'Ferrite_Bead', footprint='L_Murata_DEM35xxC') # ferrite bead
 
-    lvin += fuse.p1
-    fuse.p2 += pmos.p1
-    pmos.p2 += lgnd
-    pmos.p3 += fb.p1
-    fb.p2 += reg.p3, c1.p1
+
+    vprotected += reg.p3, c1.p1
     lvout += reg.p2, c2.p1
     lgnd += reg.p1, c1.p2, c2.p2
 
