@@ -1701,7 +1701,15 @@ class Circuit(SkidlBaseObject):
 
         # ************  CALCULATE SCHEMATIC LAYOUT OF HIERARCHIES   *******************
         # *************************************************************************************
+        # If we are not generating each hierarchy as it's own schematic then moved hierarchies
+        #   around to fit on one page
         if not gen_iso_hier_sch:
+            # Sort the hierarchies from most nested to least
+            sort_hier_by_nesting = sorted(hierarchies.items(), key=lambda v: len(v[0].split(".")),reverse=True)
+            sorted_hier = {}
+            for i in sort_hier_by_nesting:
+                sorted_hier[i[0]]=i[1]
+
             for h in hierarchies:
                 # find max y of central components
                 split_hier = h.split('.')
