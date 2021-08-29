@@ -89,30 +89,87 @@ def move_subhierarchy(moving_hierarchy, dx, dy, hierarchy_list, move_dir = 'L'):
         # Don't detect collisions with itself
         if h == moving_hierarchy:
             continue
+        # Don't detect collisions with hierarchies outside the parents
+        mv_hr_lst = moving_hierarchy.split('.')
+        h_lst = h.split('.')
+        # check if the parent hierarchy is in the hierarchy being evaluated
+        if set(mv_hr_lst[:-1]).issubset(set(h_lst)):
+
+            # Calculate the min/max for x/y in order to detect collision between rectangles
+            x1min = hierarchy_list[moving_hierarchy]['outline_coord']['xMin']
+            x1max = hierarchy_list[moving_hierarchy]['outline_coord']['xMax']
+            
+            x2min = hierarchy_list[h]['outline_coord']['xMin']
+            x2max = hierarchy_list[h]['outline_coord']['xMax']
+            
+            y1min = hierarchy_list[moving_hierarchy]['outline_coord']['yMax']
+            y1max = hierarchy_list[moving_hierarchy]['outline_coord']['yMin']
+            
+            y2min = hierarchy_list[h]['outline_coord']['yMax']
+            y2max = hierarchy_list[h]['outline_coord']['yMin']
+            # Logic to tell whether parts collide
+            # Note that the movement direction is opposite of what's intuitive ('R' = move left, 'U' = -50)
+            # https://stackoverflow.com/questions/20925818/algorithm-to-check-if-two-boxes-overlap
+
+            if (x1min <= x2max) and (x2min <= x1max) and (y1min <= y2max) and (y2min <= y1max):
+                if move_dir == 'R':
+                    move_subhierarchy(moving_hierarchy, 200, 0, hierarchy_list, move_dir = move_dir)
+                else:
+                    move_subhierarchy(moving_hierarchy, -200, 0, hierarchy_list, move_dir = move_dir)
 
 
-        # Calculate the min/max for x/y in order to detect collision between rectangles
-        x1min = hierarchy_list[moving_hierarchy]['outline_coord']['xMin']
-        x1max = hierarchy_list[moving_hierarchy]['outline_coord']['xMax']
-        
-        x2min = hierarchy_list[h]['outline_coord']['xMin']
-        x2max = hierarchy_list[h]['outline_coord']['xMax']
-        
-        y1min = hierarchy_list[moving_hierarchy]['outline_coord']['yMax']
-        y1max = hierarchy_list[moving_hierarchy]['outline_coord']['yMin']
-        
-        y2min = hierarchy_list[h]['outline_coord']['yMax']
-        y2max = hierarchy_list[h]['outline_coord']['yMin']
-        # Logic to tell whether parts collide
-        # Note that the movement direction is opposite of what's intuitive ('R' = move left, 'U' = -50)
-        # https://stackoverflow.com/questions/20925818/algorithm-to-check-if-two-boxes-overlap
 
-        if (x1min <= x2max) and (x2min <= x1max) and (y1min <= y2max) and (y2min <= y1max):
-            if move_dir == 'R':
-                move_subhierarchy(moving_hierarchy, 200, 0, hierarchy_list, move_dir = move_dir)
-            else:
-                move_subhierarchy(moving_hierarchy, -200, 0, hierarchy_list, move_dir = move_dir)
+def move_child_into_parent_hier(moving_hierarchy, dx, dy, hierarchy_list, move_dir = 'L'):
+    hierarchy_list[moving_hierarchy]['outline_coord']['xMin'] += dx
+    hierarchy_list[moving_hierarchy]['outline_coord']['xMax'] += dx
+    hierarchy_list[moving_hierarchy]['outline_coord']['yMin'] += dy
+    hierarchy_list[moving_hierarchy]['outline_coord']['yMax'] += dy
 
+
+    for pt in hierarchy_list[moving_hierarchy]['parts']:
+        pt.sch_bb[0] += dx
+        pt.sch_bb[1] += dy
+    
+    for w in hierarchy_list[moving_hierarchy]['wires']:
+        w[0][0] += dx
+        w[0][1] += dy
+        w[1][0] += dx
+        w[1][1] += dy
+    # Check to see if we're colliding with any other parts
+
+    # Range through hierarchies and look for overlaps of outlines
+    # If we are overlapping then nudge the part 50mil left/right and rerun this function
+    for h in hierarchy_list:
+        # Don't detect collisions with itself
+        if h == moving_hierarchy:
+            continue
+        # Don't detect collisions with hierarchies outside the parents
+        mv_hr_lst = moving_hierarchy.split('.')
+        h_lst = h.split('.')
+        # check if the parent hierarchy is in the hierarchy being evaluated
+        if set(mv_hr_lst[:-1]).issubset(set(h_lst)):
+
+            # Calculate the min/max for x/y in order to detect collision between rectangles
+            x1min = hierarchy_list[moving_hierarchy]['outline_coord']['xMin']
+            x1max = hierarchy_list[moving_hierarchy]['outline_coord']['xMax']
+            
+            x2min = hierarchy_list[h]['outline_coord']['xMin']
+            x2max = hierarchy_list[h]['outline_coord']['xMax']
+            
+            y1min = hierarchy_list[moving_hierarchy]['outline_coord']['yMax']
+            y1max = hierarchy_list[moving_hierarchy]['outline_coord']['yMin']
+            
+            y2min = hierarchy_list[h]['outline_coord']['yMax']
+            y2max = hierarchy_list[h]['outline_coord']['yMin']
+            # Logic to tell whether parts collide
+            # Note that the movement direction is opposite of what's intuitive ('R' = move left, 'U' = -50)
+            # https://stackoverflow.com/questions/20925818/algorithm-to-check-if-two-boxes-overlap
+
+            if (x1min <= x2max) and (x2min <= x1max) and (y1min <= y2max) and (y2min <= y1max):
+                if move_dir == 'R':
+                    move_child_into_parent_hier(moving_hierarchy, 200, 0, hierarchy_list, move_dir = move_dir)
+                else:
+                    move_child_into_parent_hier(moving_hierarchy, -200, 0, hierarchy_list, move_dir = move_dir)
 
 
 
@@ -132,7 +189,7 @@ def make_Hlabel(x,y,orientation,net_label):
     return out
 
 
-def rotate_2pin_part(part):
+def rotate_pin_part(part):
     for p in part.pins:
         rotate = 0
         if hasattr(p.net, 'name'):
@@ -1591,7 +1648,7 @@ class Circuit(SkidlBaseObject):
         for h in hierarchies:
             for pt in hierarchies[h]['parts']:
                 if len(pt.pins)<=2:
-                    rotate_2pin_part(pt)
+                    rotate_pin_part(pt)
 
         # *********************  COPY LABELS TO CONNECTED PINS  ******************************
         # ************************************************************************************
@@ -1709,6 +1766,18 @@ class Circuit(SkidlBaseObject):
             sorted_hier = {}
             for i in sort_hier_by_nesting:
                 sorted_hier[i[0]]=i[1]
+            hierarchies = sorted_hier
+            # # Range through sorted hierarchies and "place" nested hierarchies inside the parent hierarchy
+            for h in hierarchies:
+                # split the hierarchy into it's subhierarchies
+                sub_hier = h.split('.')
+                # if there's more than 1 subhierarchy then move the current hierarchy
+                #    inside the parent
+                if len(sub_hier)>1:
+                    n = len(sub_hier)-1
+                    parent_key = ".".join(sub_hier[:n]) # parent key is the child key minus the last hierarchy in the xx.yy.zz format
+                    parent_yMax = sorted_hier[parent_key]['outline_coord']['yMax']
+                    move_child_into_parent_hier(h,0, parent_yMax, hierarchies, move_dir='L')
 
             for h in hierarchies:
                 # find max y of central components
@@ -1725,7 +1794,7 @@ class Circuit(SkidlBaseObject):
                     subhierarchy_y += hierarchies[h]['outline_coord']['yMax']
                     continue
                 elif len(split_hier) == 2:
-                    move_subhierarchy(h,0, subhierarchy_y,hierarchies, move_dir=dir)
+                    move_subhierarchy(h,sch_c[0], subhierarchy_y,hierarchies, move_dir=dir)
                     if dir == 'L':
                         dir = 'R'
                     else:
