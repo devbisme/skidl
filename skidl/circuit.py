@@ -348,15 +348,30 @@ def gen_power_part_eeschema(part, c=[0,0], orientation = [1,0,0,-1]):
                         if re.search("^DrawF0", str(part.draw[i])):
                             n_F0 = i
                             break
+                    part_orientation = part.draw[n_F0].orientation
+                    part_horizontal_align = part.draw[n_F0].halign
+                    part_vertical_align = part.draw[n_F0].valign
+
+                    # check if the pin orientation will clash with the power part
+                    if '+' in symbol_name:
+                        # voltage sources face up, so check if the pin is facing down (opposite logic y-axis)
+                        if pin.orientation == 'U':
+                            print("rotate " + symbol_name + " 180 to face down")
+                            orientation = [-1,0,0,1]
+                    elif 'gnd' in symbol_name.lower():
+                        # gnd points down so check if the pin is facing up (opposite logic y-axis)
+                        if pin.orientation == 'D':
+                            print("rotate " + symbol_name + " 180 to face up")
+                            orientation = [-1,0,0,1]
                     out.append('F 0 "{}" {} {} {} {} {} {} {}\n'.format(
                                                     symbol_name,
-                                                    part.draw[n_F0].orientation,
+                                                    part_orientation,
                                                     str(x + 25),
                                                     str(y + 25),
                                                     str(40),
                                                     "000",
-                                                    part.draw[n_F0].halign,
-                                                    part.draw[n_F0].valign
+                                                    part_horizontal_align,
+                                                    part_vertical_align
                     ))
                     out.append("   1   {} {}\n".format(str(x), str(y)))
                     out.append("   {}   {}  {}  {}\n".format(orientation[0], orientation[1], orientation[2], orientation[3]))
