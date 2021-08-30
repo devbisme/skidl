@@ -68,7 +68,7 @@ standard_library.install_aliases()
 def round_num(num, base):
     return (base * round(num/base))
 
-def move_subhierarchy(moving_hierarchy, dx, dy, hierarchy_list, move_dir = 'L'):
+def move_subhierarchy(moving_hierarchy, hierarchy_list, dx, dy, move_dir = 'L'):
     hierarchy_list[moving_hierarchy]['outline_coord']['xMin'] += dx
     hierarchy_list[moving_hierarchy]['outline_coord']['xMax'] += dx
     hierarchy_list[moving_hierarchy]['outline_coord']['yMin'] += dy
@@ -116,9 +116,9 @@ def move_subhierarchy(moving_hierarchy, dx, dy, hierarchy_list, move_dir = 'L'):
 
             if (x1min <= x2max) and (x2min <= x1max) and (y1min <= y2max) and (y2min <= y1max):
                 if move_dir == 'R':
-                    move_subhierarchy(moving_hierarchy, 200, 0, hierarchy_list, move_dir = move_dir)
+                    move_subhierarchy(moving_hierarchy, hierarchy_list, 200, 0, move_dir = move_dir)
                 else:
-                    move_subhierarchy(moving_hierarchy, -200, 0, hierarchy_list, move_dir = move_dir)
+                    move_subhierarchy(moving_hierarchy, hierarchy_list, -200, 0, move_dir = move_dir)
 
 
 
@@ -1841,16 +1841,16 @@ class Circuit(SkidlBaseObject):
                 sorted_hier[i[0]]=i[1]
             hierarchies = sorted_hier
             # # # Range through sorted hierarchies and "place" nested hierarchies inside the parent hierarchy
-            for h in hierarchies:
-                # split the hierarchy into it's subhierarchies
-                sub_hier = h.split('.')
-            #     # if there's more than 1 subhierarchy then move the current hierarchy
-            #     #    inside the parent
-                if len(sub_hier)>1:
-            #         n = len(sub_hier)-1
-            #         parent_key = ".".join(sub_hier[:n]) # parent key is the child key minus the last hierarchy in the xx.yy.zz format
-            #         parent_yMax = sorted_hier[parent_key]['outline_coord']['yMax']
-                    move_child_into_parent_hier(h,hierarchies)
+            # for h in hierarchies:
+            #     # split the hierarchy into it's subhierarchies
+            #     sub_hier = h.split('.')
+            # #     # if there's more than 1 subhierarchy then move the current hierarchy
+            # #     #    inside the parent
+            #     if len(sub_hier)>1:
+            # #         n = len(sub_hier)-1
+            # #         parent_key = ".".join(sub_hier[:n]) # parent key is the child key minus the last hierarchy in the xx.yy.zz format
+            # #         parent_yMax = sorted_hier[parent_key]['outline_coord']['yMax']
+            #         move_child_into_parent_hier(h,hierarchies)
 
             for h in hierarchies:
                 # find max y of central components
@@ -1867,7 +1867,7 @@ class Circuit(SkidlBaseObject):
                     subhierarchy_y += hierarchies[h]['outline_coord']['yMax']
                     continue
                 elif len(split_hier) == 2:
-                    move_subhierarchy(h,0, subhierarchy_y,hierarchies, move_dir=dir)
+                    move_subhierarchy(h,hierarchies, 0, subhierarchy_y, move_dir=dir)
                     if dir == 'L':
                         dir = 'R'
                     else:
