@@ -171,6 +171,11 @@ def move_child_into_parent_hier(moving_hierarchy,hierarchy_list):
     new_pYmin -= (cHieght - 100) 
     print("new pYmin: " + str(new_pYmin))
 
+    # Move the child rectangle to be below the parent rectangle
+    new_cYmin -= (cHieght - 100)
+    new_cYmax -= (cHieght - 100) 
+    print("new cYmin: " + str(new_cYmin) + " new cYmax: " + str(new_cYmax))
+
     # hierarchy_list[moving_hierarchy]['outline_coord']['xMin'] += dx
     # hierarchy_list[moving_hierarchy]['outline_coord']['xMax'] += dx
     # hierarchy_list[moving_hierarchy]['outline_coord']['yMin'] += dy
