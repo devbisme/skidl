@@ -66,10 +66,10 @@ standard_library.install_aliases()
 
 
 def move_subhierarchy(moving_hierarchy, dx, dy, hierarchy_list, move_dir = 'L'):
-    hierarchy_list[moving_hierarchy]['hBB']['xMin'] += dx
-    hierarchy_list[moving_hierarchy]['hBB']['xMax'] += dx
-    hierarchy_list[moving_hierarchy]['hBB']['yMin'] += dy
-    hierarchy_list[moving_hierarchy]['hBB']['yMax'] += dy
+    hierarchy_list[moving_hierarchy]['outline_coord']['xMin'] += dx
+    hierarchy_list[moving_hierarchy]['outline_coord']['xMax'] += dx
+    hierarchy_list[moving_hierarchy]['outline_coord']['yMin'] += dy
+    hierarchy_list[moving_hierarchy]['outline_coord']['yMax'] += dy
 
 
     for pt in hierarchy_list[moving_hierarchy]['parts']:
@@ -96,17 +96,17 @@ def move_subhierarchy(moving_hierarchy, dx, dy, hierarchy_list, move_dir = 'L'):
         if set(mv_hr_lst[:-1]).issubset(set(h_lst)):
 
             # Calculate the min/max for x/y in order to detect collision between rectangles
-            x1min = hierarchy_list[moving_hierarchy]['hBB']['xMin']
-            x1max = hierarchy_list[moving_hierarchy]['hBB']['xMax']
+            x1min = hierarchy_list[moving_hierarchy]['outline_coord']['xMin']
+            x1max = hierarchy_list[moving_hierarchy]['outline_coord']['xMax']
             
-            x2min = hierarchy_list[h]['hBB']['xMin']
-            x2max = hierarchy_list[h]['hBB']['xMax']
+            x2min = hierarchy_list[h]['outline_coord']['xMin']
+            x2max = hierarchy_list[h]['outline_coord']['xMax']
             
-            y1min = hierarchy_list[moving_hierarchy]['hBB']['yMax']
-            y1max = hierarchy_list[moving_hierarchy]['hBB']['yMin']
+            y1min = hierarchy_list[moving_hierarchy]['outline_coord']['yMax']
+            y1max = hierarchy_list[moving_hierarchy]['outline_coord']['yMin']
             
-            y2min = hierarchy_list[h]['hBB']['yMax']
-            y2max = hierarchy_list[h]['hBB']['yMin']
+            y2min = hierarchy_list[h]['outline_coord']['yMax']
+            y2max = hierarchy_list[h]['outline_coord']['yMin']
             # Logic to tell whether parts collide
             # Note that the movement direction is opposite of what's intuitive ('R' = move left, 'U' = -50)
             # https://stackoverflow.com/questions/20925818/algorithm-to-check-if-two-boxes-overlap
@@ -126,23 +126,23 @@ def isParent(hierarchy1, hierarchy2):
 
 
 def move_child_into_parent_hier(moving_hierarchy, hierarchy_list, dx, dy, move_dir = 'L'):
-    # hierarchy_list[moving_hierarchy]['hBB']['xMin'] += dx
-    # hierarchy_list[moving_hierarchy]['hBB']['xMax'] += dx
-    # hierarchy_list[moving_hierarchy]['hBB']['yMin'] += dy
-    # hierarchy_list[moving_hierarchy]['hBB']['yMax'] += dy
+    # hierarchy_list[moving_hierarchy]['outline_coord']['xMin'] += dx
+    # hierarchy_list[moving_hierarchy]['outline_coord']['xMax'] += dx
+    # hierarchy_list[moving_hierarchy]['outline_coord']['yMin'] += dy
+    # hierarchy_list[moving_hierarchy]['outline_coord']['yMax'] += dy
 
-    x1min = hierarchy_list[moving_hierarchy]['hBB']['xMin']
-    x1max = hierarchy_list[moving_hierarchy]['hBB']['xMax']
-    y1min = hierarchy_list[moving_hierarchy]['hBB']['yMin']
-    y1max = hierarchy_list[moving_hierarchy]['hBB']['yMax']
+    x1min = hierarchy_list[moving_hierarchy]['outline_coord']['xMin']
+    x1max = hierarchy_list[moving_hierarchy]['outline_coord']['xMax']
+    y1min = hierarchy_list[moving_hierarchy]['outline_coord']['yMin']
+    y1max = hierarchy_list[moving_hierarchy]['outline_coord']['yMax']
 
     # get the coordinates of the parent
     sub_hier = moving_hierarchy.split('.')
     parent_key = ".".join(sub_hier[:-1])
-    x2min = hierarchy_list[parent_key]['hBB']['xMin']
-    x2max = hierarchy_list[parent_key]['hBB']['xMax']
-    y2min = hierarchy_list[parent_key]['hBB']['yMin']
-    y2max = hierarchy_list[parent_key]['hBB']['yMax']
+    x2min = hierarchy_list[parent_key]['outline_coord']['xMin']
+    x2max = hierarchy_list[parent_key]['outline_coord']['xMax']
+    y2min = hierarchy_list[parent_key]['outline_coord']['yMin']
+    y2max = hierarchy_list[parent_key]['outline_coord']['yMax']
 
 
     # moving hierarchy is just move it's points
@@ -183,17 +183,17 @@ def move_child_into_parent_hier(moving_hierarchy, hierarchy_list, dx, dy, move_d
     #     if set(mv_hr_lst[:-1]).issubset(set(h_lst)):
 
     #         # Calculate the min/max for x/y in order to detect collision between rectangles
-    #         x1min = hierarchy_list[moving_hierarchy]['hBB']['xMin']
-    #         x1max = hierarchy_list[moving_hierarchy]['hBB']['xMax']
+    #         x1min = hierarchy_list[moving_hierarchy]['outline_coord']['xMin']
+    #         x1max = hierarchy_list[moving_hierarchy]['outline_coord']['xMax']
             
-    #         x2min = hierarchy_list[h]['hBB']['xMin']
-    #         x2max = hierarchy_list[h]['hBB']['xMax']
+    #         x2min = hierarchy_list[h]['outline_coord']['xMin']
+    #         x2max = hierarchy_list[h]['outline_coord']['xMax']
             
-    #         y1min = hierarchy_list[moving_hierarchy]['hBB']['yMax']
-    #         y1max = hierarchy_list[moving_hierarchy]['hBB']['yMin']
+    #         y1min = hierarchy_list[moving_hierarchy]['outline_coord']['yMax']
+    #         y1max = hierarchy_list[moving_hierarchy]['outline_coord']['yMin']
             
-    #         y2min = hierarchy_list[h]['hBB']['yMax']
-    #         y2max = hierarchy_list[h]['hBB']['yMin']
+    #         y2min = hierarchy_list[h]['outline_coord']['yMax']
+    #         y2max = hierarchy_list[h]['outline_coord']['yMin']
     #         # Logic to tell whether parts collide
     #         # Note that the movement direction is opposite of what's intuitive ('R' = move left, 'U' = -50)
     #         # https://stackoverflow.com/questions/20925818/algorithm-to-check-if-two-boxes-overlap
@@ -457,7 +457,6 @@ def hierachy_outline_rectangle(hier):
         x_adj = 0
         y_adj = 0
         for pin in p.pins:
-            # if the pin has a label then add the distance of the label to the outline
             if len(pin.label)>0:
                 if pin.orientation == 'U' or pin.orientation == 'D':
                     if (len(pin.label)+1)*50 > y_adj:
@@ -489,20 +488,12 @@ def hierachy_outline_rectangle(hier):
         if t_yMin > yMin:
             yMin = t_yMin
 
-    x = xMax - xMin
-    y = yMax - yMin
-    width = (xMax - xMin)/2
-    height = (yMax - yMin)/2
     # make a dictionary of the coordinates to return
     rect_coord = {
         'xMin':xMin,
         'xMax':xMax,
         'yMin':yMin,
         'yMax':yMax,
-        'x': x,
-        'y': y,
-        'width': width,
-        'height':height,
     }
     return rect_coord
 
@@ -1693,7 +1684,7 @@ class Circuit(SkidlBaseObject):
             # check for new top level hierarchy
             if listToStr not in hierarchies:
                 # make new top level hierarchy
-                hierarchies[listToStr] = {'parts':[i],'wires':[], 'hBB':[]}
+                hierarchies[listToStr] = {'parts':[i],'wires':[], 'outline_coord':[]}
             else:
                 hierarchies[listToStr]['parts'].append(i)
 
@@ -1807,7 +1798,7 @@ class Circuit(SkidlBaseObject):
         # *************************************************************************************
         for h in hierarchies:
             outline_coordinates = hierachy_outline_rectangle(hierarchies[h])
-            hierarchies[h]['hBB'] = outline_coordinates
+            hierarchies[h]['outline_coord'] = outline_coordinates
         # ////////////////////////////////////////////////////////////////////////////////////
 
         # ************  CALCULATE SCHEMATIC LAYOUT OF HIERARCHIES   *******************
@@ -1830,7 +1821,7 @@ class Circuit(SkidlBaseObject):
                 if len(sub_hier)>1:
                     n = len(sub_hier)-1
                     parent_key = ".".join(sub_hier[:n]) # parent key is the child key minus the last hierarchy in the xx.yy.zz format
-                    dy = sorted_hier[parent_key]['hBB']['yMax']
+                    dy = sorted_hier[parent_key]['outline_coord']['yMax']
                     dx = 0
                     move_child_into_parent_hier(h,hierarchies, dx, dy, move_dir='L')
 
@@ -1838,7 +1829,7 @@ class Circuit(SkidlBaseObject):
                 # find max y of central components
                 split_hier = h.split('.')
                 if len(split_hier) == 1:
-                    subhierarchy_y = hierarchies[h]['hBB']['yMax']
+                    subhierarchy_y = hierarchies[h]['outline_coord']['yMax']
                     break
             dir = 'L'
             for h in hierarchies:
@@ -1846,10 +1837,10 @@ class Circuit(SkidlBaseObject):
                 split_hier = h.split('.')
                 # top sheet, don't move the components
                 if len(split_hier) == 1:
-                    subhierarchy_y += hierarchies[h]['hBB']['yMax']
+                    subhierarchy_y += hierarchies[h]['outline_coord']['yMax']
                     continue
                 elif len(split_hier) == 2:
-                    move_subhierarchy(h,0, subhierarchy_y,hierarchies, move_dir=dir)
+                    move_subhierarchy(h,sch_c[0], subhierarchy_y,hierarchies, move_dir=dir)
                     if dir == 'L':
                         dir = 'R'
                     else:
@@ -1908,10 +1899,10 @@ class Circuit(SkidlBaseObject):
             # *********************  GENERATE EESCHEMA HIERARCHY OUTLINE RECTANGLE  ***************************
             # ****************************************************************************************
             box = []
-            xMin = hierarchies[h]['hBB']['xMin'] + sch_c[0]
-            xMax = hierarchies[h]['hBB']['xMax'] + sch_c[0]
-            yMin = hierarchies[h]['hBB']['yMin'] + sch_c[1]
-            yMax = hierarchies[h]['hBB']['yMax'] + sch_c[1]
+            xMin = hierarchies[h]['outline_coord']['xMin'] + sch_c[0]
+            xMax = hierarchies[h]['outline_coord']['xMax'] + sch_c[0]
+            yMin = hierarchies[h]['outline_coord']['yMin'] + sch_c[1]
+            yMax = hierarchies[h]['outline_coord']['yMax'] + sch_c[1]
             # Place label starting at 1/4 x-axis distance and 200mil down
             label_x = xMin
             label_y = yMax
