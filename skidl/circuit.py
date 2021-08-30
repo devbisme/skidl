@@ -65,6 +65,9 @@ from skidl import pin
 standard_library.install_aliases()
 
 
+def round_num(num, base):
+    return (base * round(num/base))
+
 def move_subhierarchy(moving_hierarchy, dx, dy, hierarchy_list, move_dir = 'L'):
     hierarchy_list[moving_hierarchy]['outline_coord']['xMin'] += dx
     hierarchy_list[moving_hierarchy]['outline_coord']['xMax'] += dx
@@ -143,9 +146,28 @@ def move_child_into_parent_hier(moving_hierarchy,hierarchy_list):
 
     pWidth = pXmax - pXmin
 
+    
+
+    # new varaibles to keep track of where we want the outlines to move
+    new_cXmin = cXmin
+    new_cXmax = cXmax
+    new_cYmin = cYmin
+    new_cYmax = cYmax
+
+    new_pXmin = pXmin
+    new_pXmax = pXmax
+    new_pYmin = pYmin
+    new_pYmax = pYmax
+
 
     if cWidth > pWidth:
-        print("parent " + parent_hier + " needs to expand width")
+        print("parent " + parent_hier + " needs to expand width by " + str(cWidth - pWidth))
+        diff = cWidth - pWidth
+        new_pXmin -= round_num(diff/2,50)
+        new_pXmax += round_num(diff/2,50)
+        print("new pXmin: " + str(new_pXmin) + "  new pXmax: " + str(new_pXmax))
+
+    
 
     # hierarchy_list[moving_hierarchy]['outline_coord']['xMin'] += dx
     # hierarchy_list[moving_hierarchy]['outline_coord']['xMax'] += dx
@@ -1644,14 +1666,15 @@ class Circuit(SkidlBaseObject):
             tool = skidl.get_default_tool()
 
 
+
         # Find the schematic size
         sch_c = 0
         for n in eeschema_sch_sizes:
             if n == sch_size:
                 x = int(eeschema_sch_sizes[n][0]/2)
-                x = 50 * round(x/50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
+                x = round_num(x,50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
                 y = int(eeschema_sch_sizes[n][1]/2)
-                y = 50 * round(y/50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
+                y = round_num(y,50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
                 sch_c = [x,y ]
                 break
         
