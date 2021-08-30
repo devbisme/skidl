@@ -1777,11 +1777,11 @@ class Circuit(SkidlBaseObject):
         #   around to fit on one page
         if not gen_iso_hier_sch:
             # Sort the hierarchies from most nested to least
-            # sort_hier_by_nesting = sorted(hierarchies.items(), key=lambda v: len(v[0].split(".")),reverse=True)
-            # sorted_hier = {}
-            # for i in sort_hier_by_nesting:
-            #     sorted_hier[i[0]]=i[1]
-            # hierarchies = sorted_hier
+            sort_hier_by_nesting = sorted(hierarchies.items(), key=lambda v: len(v[0].split(".")),reverse=True)
+            sorted_hier = {}
+            for i in sort_hier_by_nesting:
+                sorted_hier[i[0]]=i[1]
+            hierarchies = sorted_hier
             # # # Range through sorted hierarchies and "place" nested hierarchies inside the parent hierarchy
             # for h in hierarchies:
             #     # split the hierarchy into it's subhierarchies
