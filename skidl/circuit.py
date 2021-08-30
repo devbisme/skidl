@@ -124,7 +124,29 @@ def move_child_into_parent_hier(moving_hierarchy,hierarchy_list):
     t = moving_hierarchy.split('.')
     parent_hier = ".".join(t[:-1])
 
-    print("Move " + moving_hierarchy + " into parent " + parent_hier)
+    # print("Move " + moving_hierarchy + " into parent " + parent_hier)
+
+    cXmin = hierarchy_list[moving_hierarchy]['outline_coord']['xMin']
+    cXmax = hierarchy_list[moving_hierarchy]['outline_coord']['xMax']
+    cYmin = hierarchy_list[moving_hierarchy]['outline_coord']['yMin']
+    cYmax = hierarchy_list[moving_hierarchy]['outline_coord']['yMax']
+    print("child " + moving_hierarchy + " coord: " + str(hierarchy_list[moving_hierarchy]['outline_coord']))
+
+    cWidth = cXmax - cXmin
+
+
+    pXmin = hierarchy_list[parent_hier]['outline_coord']['xMin']
+    pXmax = hierarchy_list[parent_hier]['outline_coord']['xMax']
+    pYmin = hierarchy_list[parent_hier]['outline_coord']['yMin']
+    pYmax = hierarchy_list[parent_hier]['outline_coord']['yMax']
+    print("parent " + parent_hier + " coord: " + str(hierarchy_list[parent_hier]['outline_coord']))
+
+    pWidth = pXmax - pXmin
+
+
+    if cWidth > pWidth:
+        print("parent " + parent_hier + " needs to expand width")
+
     # hierarchy_list[moving_hierarchy]['outline_coord']['xMin'] += dx
     # hierarchy_list[moving_hierarchy]['outline_coord']['xMax'] += dx
     # hierarchy_list[moving_hierarchy]['outline_coord']['yMin'] += dy
@@ -361,12 +383,10 @@ def gen_power_part_eeschema(part, c=[0,0], orientation = [1,0,0,-1]):
                     if '+' in symbol_name:
                         # voltage sources face up, so check if the pin is facing down (opposite logic y-axis)
                         if pin.orientation == 'U':
-                            print("rotate " + symbol_name + " 180 to face down")
                             orientation = [-1,0,0,1]
                     elif 'gnd' in symbol_name.lower():
                         # gnd points down so check if the pin is facing up (opposite logic y-axis)
                         if pin.orientation == 'D':
-                            print("rotate " + symbol_name + " 180 to face up")
                             orientation = [-1,0,0,1]
                     out.append('F 0 "{}" {} {} {} {} {} {} {}\n'.format(
                                                     symbol_name,
