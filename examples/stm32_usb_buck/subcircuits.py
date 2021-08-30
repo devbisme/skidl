@@ -195,7 +195,7 @@ def usb(v_5v, gnd, dp, dm, imp_match):
         rn = Part("Device", 'R', footprint='R_0603_1608Metric', value='1.5k')
         rp.p1 += usb_connector.p2
         rn.p1 += usb_connector.p3
-        l_5v += rn.p1, rn.p2
+        l_5v += rp.p2, rn.p2
 
     # Connect pins and nets
     usb_protection.p1 += dp
