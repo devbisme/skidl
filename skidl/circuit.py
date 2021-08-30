@@ -134,8 +134,8 @@ def move_child_into_parent_hier(moving_hierarchy,hierarchy_list):
     cYmin = hierarchy_list[moving_hierarchy]['outline_coord']['yMin']
     cYmax = hierarchy_list[moving_hierarchy]['outline_coord']['yMax']
     print("child " + moving_hierarchy + " coord: " + str(hierarchy_list[moving_hierarchy]['outline_coord']))
-
     cWidth = cXmax - cXmin
+    cHieght =  cYmax - cYmin
 
 
     pXmin = hierarchy_list[parent_hier]['outline_coord']['xMin']
@@ -143,8 +143,8 @@ def move_child_into_parent_hier(moving_hierarchy,hierarchy_list):
     pYmin = hierarchy_list[parent_hier]['outline_coord']['yMin']
     pYmax = hierarchy_list[parent_hier]['outline_coord']['yMax']
     print("parent " + parent_hier + " coord: " + str(hierarchy_list[parent_hier]['outline_coord']))
-
     pWidth = pXmax - pXmin
+    pHeight = pYmax - pYmin
 
     
 
@@ -163,11 +163,13 @@ def move_child_into_parent_hier(moving_hierarchy,hierarchy_list):
     if cWidth > pWidth:
         print("parent " + parent_hier + " needs to expand width by " + str(cWidth - pWidth))
         diff = cWidth - pWidth
-        new_pXmin -= round_num(diff/2,50)
-        new_pXmax += round_num(diff/2,50)
+        new_pXmin -= (round_num(diff/2,50) + 100) # expand the parent a little more than what's needed to fit the subhierarchy
+        new_pXmax += (round_num(diff/2,50) + 100) # expand the parent a little more than what's needed to fit the subhierarchy
         print("new pXmin: " + str(new_pXmin) + "  new pXmax: " + str(new_pXmax))
 
-    
+    # Expand the parent hierarchy to accomodate the subhierarchy
+    new_pYmin -= (cHieght - 100) 
+    print("new pYmin: " + str(new_pYmin))
 
     # hierarchy_list[moving_hierarchy]['outline_coord']['xMin'] += dx
     # hierarchy_list[moving_hierarchy]['outline_coord']['xMax'] += dx
