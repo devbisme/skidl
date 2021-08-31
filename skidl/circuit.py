@@ -1736,7 +1736,7 @@ class Circuit(SkidlBaseObject):
                         mv_dir = 'L'
             
             # Move subhierarchies down from parents
-            for h in sorted_hier:
+            for h in reversed(sorted_hier):
                 # print(h)
                 for ht in sorted_hier:
                     t = ht.split('.')
