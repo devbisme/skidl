@@ -415,8 +415,8 @@ def gen_hierarchy_bb(hier):
     if abs(round_num(yMin, 50))> height:
         height = abs(round_num(yMin, 50)) + 100
 
-    tx = int((xMin + xMax)/2)
-    ty = int((yMin + yMax)/2)
+    tx = int((xMin + xMax)/2) + 100
+    ty = int((yMin + yMax)/2) + 50
     r_sch_bb = [tx,ty,width,height]
 
     return r_sch_bb
