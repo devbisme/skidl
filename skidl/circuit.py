@@ -1722,18 +1722,28 @@ class Circuit(SkidlBaseObject):
             #         break
             mv_dir = 'L'
             for h in sorted_hier:
-                print(h)
+                # print(h)
                 # split by '.' and find len to determine how nested the hierarchy is
                 split_hier = h.split('.')
                 # top sheet, don't move the components
                 if len(split_hier) == 1:
                     continue
-                elif len(split_hier) == 2:
+                else:
                     move_subhierarchy(h,hierarchies, 0, hierarchies[h]['sch_bb'][3], move_dir=mv_dir)
                     if 'L' in mv_dir:
                         mv_dir = 'R'
                     else:
                         mv_dir = 'L'
+            
+            # Move subhierarchies down from parents
+            for h in sorted_hier:
+                # print(h)
+                for ht in sorted_hier:
+                    t = ht.split('.')
+                    parent = ".".join(t[:-1])
+                    if parent == h:
+                        print("found parent " + parent)
+                    
         # ////////////////////////////////////////////////////////////////////////////////////  
 
         #      GENERATE CODE FOR EACH HIEARCHY
