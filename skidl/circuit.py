@@ -358,8 +358,8 @@ def gen_config_header(cur_sheet_num=1, total_sheet_num=1, sheet_title="Default",
     return (("" + "".join(header)))
 
 
-# Draw a rectangle around a hierarchy and add a label
-def hierachy_outline_rectangle(hier):
+# Generate hierarchy bounding box
+def gen_hierarchy_bb(hier):
     # find the part with the largest x1,x1,y1,y2
     xMin = hier['parts'][0].sch_bb[0] - hier['parts'][0].sch_bb[2]
     xMax = hier['parts'][0].sch_bb[0] + hier['parts'][0].sch_bb[2]
@@ -367,7 +367,6 @@ def hierachy_outline_rectangle(hier):
     yMax = hier['parts'][0].sch_bb[1] - hier['parts'][0].sch_bb[3]
     for p in hier['parts']:
         # adjust the outline for any labels that pins might have
-
         x_label = 0
         y_label = 0
         for pin in p.pins:
@@ -410,8 +409,6 @@ def hierachy_outline_rectangle(hier):
     height = abs(round_num(yMax, 50))
     if abs(round_num(yMin, 50))> height:
         height = abs(round_num(yMin, 50)) + 100
-    # width = abs(round_num((xMax - xMin), 50))
-    # height = abs(round_num((yMax - yMin), 50))
 
     r_sch_bb = [0,0,width,height]
 
@@ -505,11 +502,12 @@ def gen_net_wire(net, hierarchy):
             net.pins[i + 1].routed = True
 
             # Caluclate the coordiantes of a straight line between the 2 pins that need to connect
-            x1 = net.pins[i].part.sch_bb[0] + net.pins[i].x
-            y1 = net.pins[i].part.sch_bb[1] - net.pins[i].y
+            x1 = net.pins[i].part.sch_bb[0] + net.pins[i].x  + hierarchy['sch_bb'][0]
+            y1 = net.pins[i].part.sch_bb[1] - net.pins[i].y + hierarchy['sch_bb'][1]
 
-            x2 = net.pins[i+1].part.sch_bb[0] + net.pins[i+1].x
-            y2 = net.pins[i+1].part.sch_bb[1] - net.pins[i+1].y
+            x2 = net.pins[i+1].part.sch_bb[0] + net.pins[i+1].x + hierarchy['sch_bb'][0]
+            y2 = net.pins[i+1].part.sch_bb[1] - net.pins[i+1].y + hierarchy['sch_bb'][1]
+
 
             line = [[x1,y1], [x2,y2]]
 
@@ -1699,7 +1697,7 @@ class Circuit(SkidlBaseObject):
         # ************  CALCULATE HIERARCHY OUTLINE RECTANGLE COORDINATES   *******************
         # *************************************************************************************
         for h in hierarchies:
-            hierarchies[h]['sch_bb'] = hierachy_outline_rectangle(hierarchies[h])
+            hierarchies[h]['sch_bb'] = gen_hierarchy_bb(hierarchies[h])
         # ////////////////////////////////////////////////////////////////////////////////////
 
         # ************  CALCULATE SCHEMATIC LAYOUT OF HIERARCHIES   *******************
@@ -1720,6 +1718,7 @@ class Circuit(SkidlBaseObject):
             #         break
             dir = 'L'
             for h in sorted_hier:
+                print(h)
                 # split by '.' and find len to determine how nested the hierarchy is
                 split_hier = h.split('.')
                 # top sheet, don't move the components
