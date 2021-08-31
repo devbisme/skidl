@@ -1721,7 +1721,7 @@ class Circuit(SkidlBaseObject):
             #         subhierarchy_y = hierarchies[h]['sch_bb'][3]
             #         break
             mv_dir = 'L'
-            for h in sorted_hier:
+            for h in reversed(sorted_hier):
                 # print(h)
                 # split by '.' and find len to determine how nested the hierarchy is
                 split_hier = h.split('.')
