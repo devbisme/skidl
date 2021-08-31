@@ -108,17 +108,17 @@ def move_subhierarchy(hm, hierarchy_list, dx, dy, move_dir = 'L'):
 
             if (x1min <= x2max) and (x2min <= x1max) and (y1min <= y2max) and (y2min <= y1max):
                 delta = hierarchy_list[h]['sch_bb'][2] + hierarchy_list[hm]['sch_bb'][2] + 100
-                print(hm + " collided with " + h)
+                # print(hm + " collided with " + h)
                 # print("x1min: " +str(x1min) + " <= x2max: " + str(x2max) + 
                 # "\tx2min: " +str(x2min) + " <= x1max: " + str(x1max) +
                 # "\ty1min: " +str(y1min) + " <= y2max: " + str(y2max) +
                 # "\ty2min: " +str(y2min) + " <= y1max: " + str(y1max) +"\n")
                 
                 if move_dir == 'R':
-                    print("\n moving " + hm + " right by " + str(delta))
+                    # print("\n moving " + hm + " right by " + str(delta))
                     move_subhierarchy(hm, hierarchy_list, delta, 0, move_dir = move_dir)
                 else:
-                    print("\n moving left" + hm + " by " + str(delta))
+                    # print("\n moving left" + hm + " by " + str(delta))
                     move_subhierarchy(hm, hierarchy_list, -delta, 0, move_dir = move_dir)
 
             # move hiearchy so it's not hitting any parts in the parent hierarchy
@@ -408,11 +408,11 @@ def gen_hierarchy_bb(hier):
 
     width = abs(round_num(xMax, 50))
     if abs(round_num(xMin, 50))> width:
-        width = abs(round_num(xMin, 50)) + 200
+        width = abs(round_num(xMin, 50)) + 300
 
     height = abs(round_num(yMax, 50))
     if abs(round_num(yMin, 50))> height:
-        height = abs(round_num(yMin, 50)) + 200
+        height = abs(round_num(yMin, 50)) + 100
 
     r_sch_bb = [0,0,width,height]
 
@@ -1743,7 +1743,7 @@ class Circuit(SkidlBaseObject):
                     parent = ".".join(t[:-1])
                     if parent == h:   
                         delta = sorted_hier[h]['sch_bb'][1] + sorted_hier[h]['sch_bb'][3] - sorted_hier[ht]['sch_bb'][1] + sorted_hier[ht]['sch_bb'][3]
-                        print("found parent " + parent + "  moving " + str(delta))
+                        # print("found parent " + parent + "  moving " + str(delta))
                         sorted_hier[ht]['sch_bb'][1] += delta
 
             # redraw hierarchies around all subhierarchies
@@ -1753,30 +1753,37 @@ class Circuit(SkidlBaseObject):
                     parent = ".".join(t[:-1])
                     if parent == h:
                         # expand h to fit the current hierarchy
-                        print("expand " + h + " to fit " + ht)
+                        # print("expand " + h + " to fit " + ht)
+                        print(h + " sch_bb: \t\t" + str(sorted_hier[h]['sch_bb']))
+                        print(ht + " sch_bb: \t" + str(sorted_hier[ht]['sch_bb']))
                         x1min = sorted_hier[h]['sch_bb'][0] - sorted_hier[h]['sch_bb'][2]
                         x1max = sorted_hier[h]['sch_bb'][0] + sorted_hier[h]['sch_bb'][2]
                         y1min = sorted_hier[h]['sch_bb'][1] - sorted_hier[h]['sch_bb'][3]
                         y1max = sorted_hier[h]['sch_bb'][1] + sorted_hier[h]['sch_bb'][3]
+                        print("x1min: " + str(x1min) + " x1max: " + str(x1max) + " y1min: " + str(y1min) + " y1max: " + str(y1max))
+                        
+                        x2min = sorted_hier[ht]['sch_bb'][0] - sorted_hier[ht]['sch_bb'][2]
+                        x2max = sorted_hier[ht]['sch_bb'][0] + sorted_hier[ht]['sch_bb'][2]
+                        y2min = sorted_hier[ht]['sch_bb'][1] - sorted_hier[ht]['sch_bb'][3]
+                        y2max = sorted_hier[ht]['sch_bb'][1] + sorted_hier[ht]['sch_bb'][3]
+                        print("x2min: " + str(x2min) + " x2max: " + str(x2max) + " y2min: " + str(y2min) + " y2max: " + str(y2max))
 
-
-                        x2min = sorted_hier[ht]['sch_bb'][0] - sorted_hier[h]['sch_bb'][2]
-                        x2max = sorted_hier[ht]['sch_bb'][0] + sorted_hier[h]['sch_bb'][2]
-                        y2min = sorted_hier[ht]['sch_bb'][1] - sorted_hier[h]['sch_bb'][3]
-                        y2max = sorted_hier[ht]['sch_bb'][1] + sorted_hier[h]['sch_bb'][3]
-
-                        # if x2min < x1min:
-                        #     d = x1min - x2min
-                        #     sorted_hier[h]['sch_bb'][2] += d
-                        # if x2max > x1max:
-                        #     d = x2max - x1max
-                        #     sorted_hier[h]['sch_bb'][2] += d
-                        # if y2min < y1min:
-                        #     d = y1min - y2min
-                        #     sorted_hier[h]['sch_bb'][3] += d
-                        # if y2max > y1max:
-                        #     d = y2max - y1max
-                        #     sorted_hier[h]['sch_bb'][3] += d
+                        if x2min < x1min:
+                            d = x1min - x2min
+                            print("ADD " + str(d) + " to sch_bb[2]")
+                            sorted_hier[h]['sch_bb'][2] += abs(d) + 100
+                        if x2max > x1max:
+                            d = x2max - x1max
+                            print("ADD " + str(d) + " to sch_bb[2]")
+                            sorted_hier[h]['sch_bb'][2] += abs(d) + 100
+                        if y2min < y1min:
+                            d = y1min - y2min
+                            print("ADD " + str(d) + " to sch_bb[3]")
+                            sorted_hier[h]['sch_bb'][3] += abs(d) + 100
+                        if y2max > y1max:
+                            d = y2max - y1max
+                            print("ADD " + str(d) + " to sch_bb[3]")
+                            sorted_hier[h]['sch_bb'][3] += abs(d) + 100
         # ////////////////////////////////////////////////////////////////////////////////////  
 
         #      GENERATE CODE FOR EACH HIEARCHY
