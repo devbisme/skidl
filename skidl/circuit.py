@@ -1572,16 +1572,7 @@ class Circuit(SkidlBaseObject):
 
 
 
-        # Find the schematic size
-        sch_c = 0
-        for n in eeschema_sch_sizes:
-            if n == sch_size:
-                x = int(eeschema_sch_sizes[n][0]/2)
-                x = round_num(x,50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
-                y = int(eeschema_sch_sizes[n][1]/2)
-                y = round_num(y,50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
-                sch_c = [x,y ]
-                break
+
         
         nSheets = 1 # Keep track of the number of sheets for use in eeschema header
 
@@ -1714,12 +1705,6 @@ class Circuit(SkidlBaseObject):
             sorted_hier = {}
             for i in sort_hier_by_nesting:
                 sorted_hier[i[0]]=i[1]
-            # for h in hierarchies:
-            #     # find max y of central components
-            #     split_hier = h.split('.')
-            #     if len(split_hier) == 1:
-            #         subhierarchy_y = hierarchies[h]['sch_bb'][3]
-            #         break
             mv_dir = 'L'
             for h in reversed(sorted_hier):
                 # print(h)
@@ -1734,7 +1719,7 @@ class Circuit(SkidlBaseObject):
                         mv_dir = 'R'
                     else:
                         mv_dir = 'L'
-            
+
             # Move subhierarchies down from parents
             for h in reversed(sorted_hier):
                 # print(h)
@@ -1785,8 +1770,18 @@ class Circuit(SkidlBaseObject):
                             print("ADD " + str(d) + " to sch_bb[3]")
                             sorted_hier[h]['sch_bb'][3] += abs(d) + 100
         # ////////////////////////////////////////////////////////////////////////////////////  
-
         #      GENERATE CODE FOR EACH HIEARCHY
+        # Find the schematic size
+        sch_c = 0
+        for n in eeschema_sch_sizes:
+            if n == sch_size:
+                x = int(eeschema_sch_sizes[n][0]/2)
+                x = round_num(x,50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
+                y = int(eeschema_sch_sizes[n][1]/2)
+                y = round_num(y,50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
+                sch_c = [x,y ]
+                break
+        
         for h in hierarchies:
             # List to hold all the components we'll put the in the eeschema .sch file
             eeschema_code = [] 
@@ -1862,6 +1857,8 @@ class Circuit(SkidlBaseObject):
             xMax = hierarchies[h]['sch_bb'][0] + hierarchies[h]['sch_bb'][2] + sch_c[0]
             yMin = hierarchies[h]['sch_bb'][1] - hierarchies[h]['sch_bb'][3] + sch_c[1]
             yMax = hierarchies[h]['sch_bb'][1] + hierarchies[h]['sch_bb'][3] + sch_c[1]
+
+            # find the maximum points needed to draw
             # Place label starting at 1/4 x-axis distance and 200mil down
             label_x = xMin
             label_y = yMax
