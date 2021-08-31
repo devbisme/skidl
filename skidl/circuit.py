@@ -1745,6 +1745,38 @@ class Circuit(SkidlBaseObject):
                         delta = sorted_hier[h]['sch_bb'][1] + sorted_hier[h]['sch_bb'][3] - sorted_hier[ht]['sch_bb'][1] + sorted_hier[ht]['sch_bb'][3]
                         print("found parent " + parent + "  moving " + str(delta))
                         sorted_hier[ht]['sch_bb'][1] += delta
+
+            # redraw hierarchies around all subhierarchies
+            for h in reversed(sorted_hier):
+                for ht in sorted_hier:
+                    t = ht.split('.')
+                    parent = ".".join(t[:-1])
+                    if parent == h:
+                        # expand h to fit the current hierarchy
+                        print("expand " + h + " to fit " + ht)
+                        x1min = sorted_hier[h]['sch_bb'][0] - sorted_hier[h]['sch_bb'][2]
+                        x1max = sorted_hier[h]['sch_bb'][0] + sorted_hier[h]['sch_bb'][2]
+                        y1min = sorted_hier[h]['sch_bb'][1] - sorted_hier[h]['sch_bb'][3]
+                        y1max = sorted_hier[h]['sch_bb'][1] + sorted_hier[h]['sch_bb'][3]
+
+
+                        x2min = sorted_hier[ht]['sch_bb'][0] - sorted_hier[h]['sch_bb'][2]
+                        x2max = sorted_hier[ht]['sch_bb'][0] + sorted_hier[h]['sch_bb'][2]
+                        y2min = sorted_hier[ht]['sch_bb'][1] - sorted_hier[h]['sch_bb'][3]
+                        y2max = sorted_hier[ht]['sch_bb'][1] + sorted_hier[h]['sch_bb'][3]
+
+                        # if x2min < x1min:
+                        #     d = x1min - x2min
+                        #     sorted_hier[h]['sch_bb'][2] += d
+                        # if x2max > x1max:
+                        #     d = x2max - x1max
+                        #     sorted_hier[h]['sch_bb'][2] += d
+                        # if y2min < y1min:
+                        #     d = y1min - y2min
+                        #     sorted_hier[h]['sch_bb'][3] += d
+                        # if y2max > y1max:
+                        #     d = y2max - y1max
+                        #     sorted_hier[h]['sch_bb'][3] += d
         # ////////////////////////////////////////////////////////////////////////////////////  
 
         #      GENERATE CODE FOR EACH HIEARCHY
