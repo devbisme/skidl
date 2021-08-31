@@ -97,8 +97,8 @@ def vin_protection(vin, vout, gnd):
     lvout = Net('+3V3', stub=True, netclass='Power')
     vout += lvout
 
-    fuse = Part('Device', 'Polyfuse_Small', footprint='Fuse_Bourns_MF-RG300') # resetable fuse
     pmos = Part('Device', 'Q_PMOS_DGS', footprint='SOT-23') # reverse polarity protection
+    fuse = Part('Device', 'Polyfuse_Small', footprint='Fuse_Bourns_MF-RG300') # resetable fuse
     fb = Part('Device', 'Ferrite_Bead', footprint='L_Murata_DEM35xxC') # ferrite bead
 
     lvin += fuse.p1

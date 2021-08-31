@@ -408,11 +408,11 @@ def gen_hierarchy_bb(hier):
 
     width = abs(round_num(xMax, 50))
     if abs(round_num(xMin, 50))> width:
-        width = abs(round_num(xMin, 50)) + 100
+        width = abs(round_num(xMin, 50)) + 200
 
     height = abs(round_num(yMax, 50))
     if abs(round_num(yMin, 50))> height:
-        height = abs(round_num(yMin, 50)) + 100
+        height = abs(round_num(yMin, 50)) + 200
 
     r_sch_bb = [0,0,width,height]
 
@@ -1615,7 +1615,7 @@ class Circuit(SkidlBaseObject):
         # ************************************************************************************
         for h in hierarchies:
             for pt in hierarchies[h]['parts']:
-                if len(pt.pins)<=2:
+                if len(pt.pins)<=3:
                     rotate_pin_part(pt)
 
         # *********************  COPY LABELS TO CONNECTED PINS  ******************************
