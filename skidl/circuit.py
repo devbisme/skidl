@@ -1568,15 +1568,9 @@ class Circuit(SkidlBaseObject):
             tool = skidl.get_default_tool()
 
 
-
-
-        
-
-
-
         # Dictionary that will hold parts and nets info for each hierarchy
         hierarchies = {}
-        hierarchy_eeschema_code = [] # list to hold all the code from each hierarchy
+        
         # *********************  SORT PARTS INTO HIERARCHIES  ********************************
         # ************************************************************************************
         #    Parts list their hierchies and subhierarchies in '.' separated format (ie 'top.stm320.usb1.led0')
@@ -1771,14 +1765,15 @@ class Circuit(SkidlBaseObject):
         # ////////////////////////////////////////////////////////////////////////////////////  
         #      GENERATE CODE FOR EACH HIEARCHY
         # Find the schematic size
-        sch_c = 0
+        hierarchy_eeschema_code = [] # list to hold all the code from each hierarchy
+        sch_c = [0,0]
         for n in eeschema_sch_sizes:
             if n == sch_size:
                 x = int(eeschema_sch_sizes[n][0]/2)
                 x = round_num(x,50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
                 y = int(eeschema_sch_sizes[n][1]/2)
                 y = round_num(y,50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
-                sch_c = [x,y ]
+                sch_c = [x,y]
                 break
         
         for h in hierarchies:
