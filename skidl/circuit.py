@@ -1567,19 +1567,12 @@ class Circuit(SkidlBaseObject):
         if tool is None:
             tool = skidl.get_default_tool()
 
-
-
-
-        
-        nSheets = 1 # Keep track of the number of sheets for use in eeschema header
-
-        # Range through the parts and create bounding boxes based on the furthest distance of pins
+        # # Range through the parts and create bounding boxes based on the furthest distance of pins
         for i in self.parts:
             i.generate_bounding_box()
 
         # Dictionary that will hold parts and nets info for each hierarchy
         hierarchies = {}
-        hierarchy_eeschema_code = [] # list to hold all the code from each hierarchy
         # *********************  SORT PARTS INTO HIERARCHIES  ********************************
         # ************************************************************************************
         #    Parts list their hierchies and subhierarchies in '.' separated format (ie 'top.stm320.usb1.led0')
@@ -1615,6 +1608,7 @@ class Circuit(SkidlBaseObject):
                         if pin.net is not None:
                             for p in pin.net.pins:
                                 p.label = pin.label
+                # pt.generate_bounding_box()
         # *********************  CALCULATE PLACE PARTS AROUND CENTRAL PART  ****************************
         # ************************************************************************************
         for h in hierarchies:
@@ -1766,14 +1760,15 @@ class Circuit(SkidlBaseObject):
         # ////////////////////////////////////////////////////////////////////////////////////  
         #      GENERATE CODE FOR EACH HIEARCHY
         # Find the schematic size
-        sch_c = 0
+        hierarchy_eeschema_code = [] # list to hold all the code from each hierarchy
+        sch_c = [0,0]
         for n in eeschema_sch_sizes:
             if n == sch_size:
                 x = int(eeschema_sch_sizes[n][0]/2)
                 x = round_num(x,50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
                 y = int(eeschema_sch_sizes[n][1]/2)
                 y = round_num(y,50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
-                sch_c = [x,y ]
+                sch_c = [x,y]
                 break
         
         for h in hierarchies:
@@ -1891,7 +1886,7 @@ class Circuit(SkidlBaseObject):
         # *************************************************************************************
         with open(file_, "w") as f:
             f.truncate(0) # Clear the file
-            new_sch_file = [gen_config_header(cur_sheet_num=nSheets, size = sch_size), hierarchy_eeschema_code, "$EndSCHEMATC"]
+            new_sch_file = [gen_config_header(cur_sheet_num=1, size = sch_size), hierarchy_eeschema_code, "$EndSCHEMATC"]
             for i in new_sch_file:
                     print("" + "".join(i), file=f)   
         f.close()
