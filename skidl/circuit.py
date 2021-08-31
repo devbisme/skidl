@@ -1720,7 +1720,9 @@ class Circuit(SkidlBaseObject):
                 t = ht.split('.')
                 parent = ".".join(t[:-1])
                 if parent == h:   
-                    delta = sorted_hier[h]['sch_bb'][1] + sorted_hier[h]['sch_bb'][3] - sorted_hier[ht]['sch_bb'][1] + sorted_hier[ht]['sch_bb'][3]
+                    parent_y_min = sorted_hier[h]['sch_bb'][1] + sorted_hier[h]['sch_bb'][3]
+                    child_y_min = - sorted_hier[ht]['sch_bb'][1] + sorted_hier[ht]['sch_bb'][3]
+                    delta =  parent_y_min + child_y_min
                     # print("found parent " + parent + "  moving " + str(delta))
                     sorted_hier[ht]['sch_bb'][1] += delta
 
