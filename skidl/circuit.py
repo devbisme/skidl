@@ -75,20 +75,10 @@ def move_subhierarchy(hm, hierarchy_list, dx, dy, move_dir = 'L'):
 
     hierarchy_list[hm]['sch_bb'][0] += dx
     hierarchy_list[hm]['sch_bb'][1] -= dy
-    x1min = hierarchy_list[hm]['sch_bb'][0] - hierarchy_list[hm]['sch_bb'][2]
-    x1max = hierarchy_list[hm]['sch_bb'][0] + hierarchy_list[hm]['sch_bb'][2]
-    y1min = hierarchy_list[hm]['sch_bb'][1] - hierarchy_list[hm]['sch_bb'][3]
-    y1max = hierarchy_list[hm]['sch_bb'][1] + hierarchy_list[hm]['sch_bb'][3]
+    # TODO: move all subhierarchies
 
-    # for pt in hierarchy_list[hm]['parts']:
-    #     pt.sch_bb[0] += dx
-    #     pt.sch_bb[1] += dy
-    
-    # for w in hierarchy_list[hm]['wires']:
-    #     w[0][0] += dx
-    #     w[0][1] += dy
-    #     w[1][0] += dx
-    #     w[1][1] += dy
+
+
     # Check to see if we're colliding with any other parts
 
     # Range through hierarchies and look for overlaps of outlines
@@ -101,6 +91,11 @@ def move_subhierarchy(hm, hierarchy_list, dx, dy, move_dir = 'L'):
         h_parent = ".".join(h.split('.')[:-1])
         # check if the parent hierarchy is the same as evaluated
         if hm_parent == h_parent:
+
+            x1min = hierarchy_list[hm]['sch_bb'][0] - hierarchy_list[hm]['sch_bb'][2]
+            x1max = hierarchy_list[hm]['sch_bb'][0] + hierarchy_list[hm]['sch_bb'][2]
+            y1min = hierarchy_list[hm]['sch_bb'][1] - hierarchy_list[hm]['sch_bb'][3]
+            y1max = hierarchy_list[hm]['sch_bb'][1] + hierarchy_list[hm]['sch_bb'][3]
             # Calculate the min/max for x/y in order to detect collision between rectangles            
             x2min = hierarchy_list[h]['sch_bb'][0] - hierarchy_list[h]['sch_bb'][2]
             x2max = hierarchy_list[h]['sch_bb'][0] + hierarchy_list[h]['sch_bb'][2]
@@ -112,10 +107,19 @@ def move_subhierarchy(hm, hierarchy_list, dx, dy, move_dir = 'L'):
             # https://stackoverflow.com/questions/20925818/algorithm-to-check-if-two-boxes-overlap
 
             if (x1min <= x2max) and (x2min <= x1max) and (y1min <= y2max) and (y2min <= y1max):
+                delta = hierarchy_list[h]['sch_bb'][2] + hierarchy_list[hm]['sch_bb'][2] + 100
+                print(hm + " collided with " + h)
+                # print("x1min: " +str(x1min) + " <= x2max: " + str(x2max) + 
+                # "\tx2min: " +str(x2min) + " <= x1max: " + str(x1max) +
+                # "\ty1min: " +str(y1min) + " <= y2max: " + str(y2max) +
+                # "\ty2min: " +str(y2min) + " <= y1max: " + str(y1max) +"\n")
+                
                 if move_dir == 'R':
-                    move_subhierarchy(hm, hierarchy_list, 200, 0, move_dir = move_dir)
+                    print("\n moving " + hm + " right by " + str(delta))
+                    move_subhierarchy(hm, hierarchy_list, delta, 0, move_dir = move_dir)
                 else:
-                    move_subhierarchy(hm, hierarchy_list, -200, 0, move_dir = move_dir)
+                    print("\n moving left" + hm + " by " + str(delta))
+                    move_subhierarchy(hm, hierarchy_list, -delta, 0, move_dir = move_dir)
 
             # move hiearchy so it's not hitting any parts in the parent hierarchy
     # move all the subhierarchies
@@ -232,18 +236,18 @@ def gen_elkjs_code(parts, nets):
         '')
 
         for p in pt.pins:
-            dir = ""
+            pin_dir = ""
             if p.orientation == 'L':
-                dir = "EAST"
+                pin_dir = "EAST"
             elif p.orientation == 'R':
-                dir = "WEST"
+                pin_dir = "WEST"
             elif p.orientation == 'U':
-                dir = "NORTH"
+                pin_dir = "NORTH"
             elif p.orientation == 'D':
-                dir = "SOUTH"
+                pin_dir = "SOUTH"
             elkjs_part.append("\tport p{} ".format(p.num) + 
             "{ \n" + 
-            "\t\t^port.side: {} \n".format(dir) + 
+            "\t\t^port.side: {} \n".format(pin_dir) + 
             '\t\tlabel "{}"\n'.format(p.name) + 
             "\t}\n")
         elkjs_part.append("}")
@@ -1716,7 +1720,7 @@ class Circuit(SkidlBaseObject):
             #     if len(split_hier) == 1:
             #         subhierarchy_y = hierarchies[h]['sch_bb'][3]
             #         break
-            dir = 'L'
+            mv_dir = 'L'
             for h in sorted_hier:
                 print(h)
                 # split by '.' and find len to determine how nested the hierarchy is
@@ -1725,11 +1729,11 @@ class Circuit(SkidlBaseObject):
                 if len(split_hier) == 1:
                     continue
                 elif len(split_hier) == 2:
-                    move_subhierarchy(h,hierarchies, 0, hierarchies[h]['sch_bb'][3], move_dir=dir)
-                    if dir == 'L':
-                        dir = 'R'
+                    move_subhierarchy(h,hierarchies, 0, hierarchies[h]['sch_bb'][3], move_dir=mv_dir)
+                    if 'L' in mv_dir:
+                        mv_dir = 'R'
                     else:
-                        dir = 'L'
+                        mv_dir = 'L'
         # ////////////////////////////////////////////////////////////////////////////////////  
 
         #      GENERATE CODE FOR EACH HIEARCHY

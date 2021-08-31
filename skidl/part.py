@@ -1095,10 +1095,7 @@ class Part(SkidlBaseObject):
                         x_label_m = (len(pin.label)+1)*50
 
 
-        x1min = self.sch_bb[0] - self.sch_bb[2] - x_label_m
-        x1max = self.sch_bb[0] + self.sch_bb[2] + x_label_p
-        y1min = self.sch_bb[1] - self.sch_bb[3] - y_label_m
-        y1max = self.sch_bb[1] + self.sch_bb[3] + y_label_p
+
         # Range through parts in the subcircuit and look for overlaps
         # If we are overlapping then nudge the part 50mil left/right and rerun this function
         for pt in _parts_list:
@@ -1129,12 +1126,12 @@ class Part(SkidlBaseObject):
 
             # Calculate the min/max for x/y in order to detect collision between rectangles
 
-            
+            x1min = self.sch_bb[0] - self.sch_bb[2] - x_label_m
+            x1max = self.sch_bb[0] + self.sch_bb[2] + x_label_p
+            y1min = self.sch_bb[1] - self.sch_bb[3] - y_label_m
+            y1max = self.sch_bb[1] + self.sch_bb[3] + y_label_p
             x2min = pt.sch_bb[0] - pt.sch_bb[2] - pt_x_label_m
             x2max = pt.sch_bb[0] + pt.sch_bb[2] + pt_x_label_p
-            
-
-            
             y2min = pt.sch_bb[1] - pt.sch_bb[3] - pt_y_label_m
             y2max = pt.sch_bb[1] + pt.sch_bb[3] + pt_y_label_p
             # Logic to tell whether parts collide
