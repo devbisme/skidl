@@ -68,170 +68,57 @@ standard_library.install_aliases()
 def round_num(num, base):
     return (base * round(num/base))
 
-def move_subhierarchy(moving_hierarchy, hierarchy_list, dx, dy, move_dir = 'L'):
-    hierarchy_list[moving_hierarchy]['outline_coord']['xMin'] += dx
-    hierarchy_list[moving_hierarchy]['outline_coord']['xMax'] += dx
-    hierarchy_list[moving_hierarchy]['outline_coord']['yMin'] += dy
-    hierarchy_list[moving_hierarchy]['outline_coord']['yMax'] += dy
+# mh = hierarchy to move
+def move_subhierarchy(hm, hierarchy_list, dx, dy, move_dir = 'L'):
 
+    hm_parent = ".".join(hm.split('.')[:-1])
 
-    for pt in hierarchy_list[moving_hierarchy]['parts']:
-        pt.sch_bb[0] += dx
-        pt.sch_bb[1] += dy
+    hierarchy_list[hm]['sch_bb'][0] += dx
+    hierarchy_list[hm]['sch_bb'][1] -= dy
+    x1min = hierarchy_list[hm]['sch_bb'][0] - hierarchy_list[hm]['sch_bb'][2]
+    x1max = hierarchy_list[hm]['sch_bb'][0] + hierarchy_list[hm]['sch_bb'][2]
+    y1min = hierarchy_list[hm]['sch_bb'][1] - hierarchy_list[hm]['sch_bb'][3]
+    y1max = hierarchy_list[hm]['sch_bb'][1] + hierarchy_list[hm]['sch_bb'][3]
+
+    # for pt in hierarchy_list[hm]['parts']:
+    #     pt.sch_bb[0] += dx
+    #     pt.sch_bb[1] += dy
     
-    for w in hierarchy_list[moving_hierarchy]['wires']:
-        w[0][0] += dx
-        w[0][1] += dy
-        w[1][0] += dx
-        w[1][1] += dy
+    # for w in hierarchy_list[hm]['wires']:
+    #     w[0][0] += dx
+    #     w[0][1] += dy
+    #     w[1][0] += dx
+    #     w[1][1] += dy
     # Check to see if we're colliding with any other parts
 
     # Range through hierarchies and look for overlaps of outlines
     # If we are overlapping then nudge the part 50mil left/right and rerun this function
     for h in hierarchy_list:
         # Don't detect collisions with itself
-        if h == moving_hierarchy:
+        if h == hm:
             continue
         # Don't detect collisions with hierarchies outside the parents
-        mv_hr_lst = moving_hierarchy.split('.')
-        h_lst = h.split('.')
-        # check if the parent hierarchy is in the hierarchy being evaluated
-        if set(mv_hr_lst[:-1]).issubset(set(h_lst)):
+        h_parent = ".".join(h.split('.')[:-1])
+        # check if the parent hierarchy is the same as evaluated
+        if hm_parent == h_parent:
+            # Calculate the min/max for x/y in order to detect collision between rectangles            
+            x2min = hierarchy_list[h]['sch_bb'][0] - hierarchy_list[h]['sch_bb'][2]
+            x2max = hierarchy_list[h]['sch_bb'][0] + hierarchy_list[h]['sch_bb'][2]
+            y2min = hierarchy_list[h]['sch_bb'][1] - hierarchy_list[h]['sch_bb'][3]
+            y2max = hierarchy_list[h]['sch_bb'][1] + hierarchy_list[h]['sch_bb'][3]
 
-            # Calculate the min/max for x/y in order to detect collision between rectangles
-            x1min = hierarchy_list[moving_hierarchy]['outline_coord']['xMin']
-            x1max = hierarchy_list[moving_hierarchy]['outline_coord']['xMax']
-            
-            x2min = hierarchy_list[h]['outline_coord']['xMin']
-            x2max = hierarchy_list[h]['outline_coord']['xMax']
-            
-            y1min = hierarchy_list[moving_hierarchy]['outline_coord']['yMax']
-            y1max = hierarchy_list[moving_hierarchy]['outline_coord']['yMin']
-            
-            y2min = hierarchy_list[h]['outline_coord']['yMax']
-            y2max = hierarchy_list[h]['outline_coord']['yMin']
             # Logic to tell whether parts collide
             # Note that the movement direction is opposite of what's intuitive ('R' = move left, 'U' = -50)
             # https://stackoverflow.com/questions/20925818/algorithm-to-check-if-two-boxes-overlap
 
             if (x1min <= x2max) and (x2min <= x1max) and (y1min <= y2max) and (y2min <= y1max):
                 if move_dir == 'R':
-                    move_subhierarchy(moving_hierarchy, hierarchy_list, 200, 0, move_dir = move_dir)
+                    move_subhierarchy(hm, hierarchy_list, 200, 0, move_dir = move_dir)
                 else:
-                    move_subhierarchy(moving_hierarchy, hierarchy_list, -200, 0, move_dir = move_dir)
+                    move_subhierarchy(hm, hierarchy_list, -200, 0, move_dir = move_dir)
 
-
-
-def move_child_into_parent_hier(moving_hierarchy,hierarchy_list):
-
-    t = moving_hierarchy.split('.')
-    parent_hier = ".".join(t[:-1])
-
-    # print("Move " + moving_hierarchy + " into parent " + parent_hier)
-
-    cXmin = hierarchy_list[moving_hierarchy]['outline_coord']['xMin']
-    cXmax = hierarchy_list[moving_hierarchy]['outline_coord']['xMax']
-    cYmin = hierarchy_list[moving_hierarchy]['outline_coord']['yMin']
-    cYmax = hierarchy_list[moving_hierarchy]['outline_coord']['yMax']
-    print("child " + moving_hierarchy + " coord: " + str(hierarchy_list[moving_hierarchy]['outline_coord']))
-    cWidth = cXmax - cXmin
-    cHieght =  cYmax - cYmin
-
-
-    pXmin = hierarchy_list[parent_hier]['outline_coord']['xMin']
-    pXmax = hierarchy_list[parent_hier]['outline_coord']['xMax']
-    pYmin = hierarchy_list[parent_hier]['outline_coord']['yMin']
-    pYmax = hierarchy_list[parent_hier]['outline_coord']['yMax']
-    print("parent " + parent_hier + " coord: " + str(hierarchy_list[parent_hier]['outline_coord']))
-    pWidth = pXmax - pXmin
-    pHeight = pYmax - pYmin
-
-    
-
-    # new varaibles to keep track of where we want the outlines to move
-    new_cXmin = cXmin
-    new_cXmax = cXmax
-    new_cYmin = cYmin
-    new_cYmax = cYmax
-
-    new_pXmin = pXmin
-    new_pXmax = pXmax
-    new_pYmin = pYmin
-    new_pYmax = pYmax
-
-
-    if cWidth > pWidth:
-        print("parent " + parent_hier + " needs to expand width by " + str(cWidth - pWidth))
-        diff = cWidth - pWidth
-        new_pXmin -= (round_num(diff/2,50) + 100) # expand the parent a little more than what's needed to fit the subhierarchy
-        new_pXmax += (round_num(diff/2,50) + 100) # expand the parent a little more than what's needed to fit the subhierarchy
-        print("new pXmin: " + str(new_pXmin) + "  new pXmax: " + str(new_pXmax))
-
-    # Expand the parent hierarchy to accomodate the subhierarchy
-    new_pYmin -= (cHieght - 100) 
-    print("new pYmin: " + str(new_pYmin))
-
-    # Move the child rectangle to be below the parent rectangle
-    new_cYmin -= (cHieght - 100)
-    new_cYmax -= (cHieght - 100) 
-    print("new cYmin: " + str(new_cYmin) + " new cYmax: " + str(new_cYmax))
-
-    hierarchy_list[parent_hier]['outline_coord']['xMin'] = new_pXmin
-    hierarchy_list[parent_hier]['outline_coord']['xMax'] = new_pXmax
-
-    # hierarchy_list[moving_hierarchy]['outline_coord']['xMin'] += dx
-    # hierarchy_list[moving_hierarchy]['outline_coord']['xMax'] += dx
-    # hierarchy_list[moving_hierarchy]['outline_coord']['yMin'] += dy
-    # hierarchy_list[moving_hierarchy]['outline_coord']['yMax'] += dy
-
-
-    # for pt in hierarchy_list[moving_hierarchy]['parts']:
-    #     pt.sch_bb[0] += dx
-    #     pt.sch_bb[1] += dy
-    
-    # for w in hierarchy_list[moving_hierarchy]['wires']:
-    #     w[0][0] += dx
-    #     w[0][1] += dy
-    #     w[1][0] += dx
-    #     w[1][1] += dy
-    # # Check to see if we're colliding with any other parts
-
-    # # Range through hierarchies and look for overlaps of outlines
-    # # If we are overlapping then nudge the part 50mil left/right and rerun this function
-    # for h in hierarchy_list:
-    #     # Don't detect collisions with itself
-    #     if h == moving_hierarchy:
-    #         continue
-    #     # Don't detect collisions with hierarchies outside the parents
-    #     mv_hr_lst = moving_hierarchy.split('.')
-    #     h_lst = h.split('.')
-    #     # check if the parent hierarchy is in the hierarchy being evaluated
-    #     if set(mv_hr_lst[:-1]).issubset(set(h_lst)):
-
-    #         # Calculate the min/max for x/y in order to detect collision between rectangles
-    #         x1min = hierarchy_list[moving_hierarchy]['outline_coord']['xMin']
-    #         x1max = hierarchy_list[moving_hierarchy]['outline_coord']['xMax']
-            
-    #         x2min = hierarchy_list[h]['outline_coord']['xMin']
-    #         x2max = hierarchy_list[h]['outline_coord']['xMax']
-            
-    #         y1min = hierarchy_list[moving_hierarchy]['outline_coord']['yMax']
-    #         y1max = hierarchy_list[moving_hierarchy]['outline_coord']['yMin']
-            
-    #         y2min = hierarchy_list[h]['outline_coord']['yMax']
-    #         y2max = hierarchy_list[h]['outline_coord']['yMin']
-    #         # Logic to tell whether parts collide
-    #         # Note that the movement direction is opposite of what's intuitive ('R' = move left, 'U' = -50)
-    #         # https://stackoverflow.com/questions/20925818/algorithm-to-check-if-two-boxes-overlap
-
-    #         if (x1min <= x2max) and (x2min <= x1max) and (y1min <= y2max) and (y2min <= y1max):
-    #             if move_dir == 'R':
-    #                 move_child_into_parent_hier(moving_hierarchy, 200, 0, hierarchy_list, move_dir = move_dir)
-    #             else:
-    #                 move_child_into_parent_hier(moving_hierarchy, -200, 0, hierarchy_list, move_dir = move_dir)
-
-
-
+            # move hiearchy so it's not hitting any parts in the parent hierarchy
+    # move all the subhierarchies
 
 
 def make_Hlabel(x,y,orientation,net_label):
@@ -383,7 +270,7 @@ def gen_elkjs_code(parts, nets):
         print("" + "".join(i), file=f)
     f.close()
 
-def gen_power_part_eeschema(part, c=[0,0], orientation = [1,0,0,-1]):
+def gen_power_part_eeschema(part, orientation = [1,0,0,-1]):
     out = []
     for pin in part.pins:
         try:
@@ -395,8 +282,8 @@ def gen_power_part_eeschema(part, c=[0,0], orientation = [1,0,0,-1]):
                     symbol_name = u[0]
                     # find the stub in the part
                     time_hex = hex(int(time.time()))[2:]
-                    x = c[0] + part.sch_bb[0] + pin.x
-                    y = c[1] + part.sch_bb[1] - pin.y
+                    x = part.sch_bb[0] + pin.x
+                    y = part.sch_bb[1] - pin.y
                     out.append("$Comp\n")
                     out.append("L power:{} #PWR?\n".format(symbol_name))
                     out.append("U 1 1 {}\n".format(time_hex))    
@@ -481,30 +368,30 @@ def hierachy_outline_rectangle(hier):
     for p in hier['parts']:
         # adjust the outline for any labels that pins might have
 
-        x_adj = 0
-        y_adj = 0
+        x_label = 0
+        y_label = 0
         for pin in p.pins:
             if len(pin.label)>0:
                 if pin.orientation == 'U' or pin.orientation == 'D':
-                    if (len(pin.label)+1)*50 > y_adj:
-                        y_adj = (len(pin.label)+1)*50
+                    if (len(pin.label)+1)*50 > y_label:
+                        y_label = (len(pin.label)+1)*50
                 elif pin.orientation == 'L' or pin.orientation == 'R':
-                    if (len(pin.label)+1)*50 > x_adj:
-                        x_adj = (len(pin.label)+1)*50
+                    if (len(pin.label)+1)*50 > x_label:
+                        x_label = (len(pin.label)+1)*50
             for n in pin.nets:
                 if n.netclass == 'Power':
                     if pin.orientation == 'U' or pin.orientation == 'D':
-                        if 100 > y_adj:
-                            y_adj = 100
+                        if 100 > y_label:
+                            y_label = 100
                     elif pin.orientation == 'L' or pin.orientation == 'R':
-                        if 100 > x_adj:
-                            x_adj = 100
+                        if 100 > x_label:
+                            x_label = 100
 
         # Get min/max dimensions of the part
-        t_xMin = p.sch_bb[0] - (p.sch_bb[2] + x_adj)
-        t_xMax = p.sch_bb[0] + p.sch_bb[2] + x_adj
-        t_yMin = p.sch_bb[1] + p.sch_bb[3] + y_adj
-        t_yMax = p.sch_bb[1] - (p.sch_bb[3] + y_adj)
+        t_xMin = p.sch_bb[0] - (p.sch_bb[2] + x_label)
+        t_xMax = p.sch_bb[0] + p.sch_bb[2] + x_label
+        t_yMin = p.sch_bb[1] + p.sch_bb[3] + y_label
+        t_yMax = p.sch_bb[1] - (p.sch_bb[3] + y_label)
         # Check if we need to expand the rectangle
         if t_xMin < xMin:
             xMin = t_xMin
@@ -515,14 +402,20 @@ def hierachy_outline_rectangle(hier):
         if t_yMin > yMin:
             yMin = t_yMin
 
-    # make a dictionary of the coordinates to return
-    rect_coord = {
-        'xMin':xMin,
-        'xMax':xMax,
-        'yMin':yMin,
-        'yMax':yMax,
-    }
-    return rect_coord
+
+    width = abs(round_num(xMax, 50))
+    if abs(round_num(xMin, 50))> width:
+        width = abs(round_num(xMin, 50)) + 100
+
+    height = abs(round_num(yMax, 50))
+    if abs(round_num(yMin, 50))> height:
+        height = abs(round_num(yMin, 50)) + 100
+    # width = abs(round_num((xMax - xMin), 50))
+    # height = abs(round_num((yMax - yMin), 50))
+
+    r_sch_bb = [0,0,width,height]
+
+    return r_sch_bb
 
 # Generate a hierarchical schematic
 def generate_hierarchical_schematic(title, x_start, y_start, size, width=1000, height=2000):
@@ -633,7 +526,7 @@ def gen_net_wire(net, hierarchy):
                 if len(collide)>0:
                     collided_part = Part.get(collide[0])
                     collided_side = collide[1]
-                    
+
                     if collided_side == "L":
                         # check if we collided on the left or right side of the central part
                         if net.pins[i+1].part.sch_bb[0]<0 or net.pins[i].part.sch_bb[0]<0:
@@ -1712,7 +1605,7 @@ class Circuit(SkidlBaseObject):
             # check for new top level hierarchy
             if listToStr not in hierarchies:
                 # make new top level hierarchy
-                hierarchies[listToStr] = {'parts':[i],'wires':[], 'outline_coord':[]}
+                hierarchies[listToStr] = {'parts':[i],'wires':[], 'sch_bb':[]}
             else:
                 hierarchies[listToStr]['parts'].append(i)
 
@@ -1800,10 +1693,64 @@ class Circuit(SkidlBaseObject):
                     offset_x = -offset_x # switch which side we place them every time
         # ///////////////////////////////////////////////////////////////////////////////////   
                 
-            
-        # *********************  CALCULATE WIRE NET COORDINATES  ******************************
-        # ************************************************************************************
+
+            # ////////////////////////////////////////////////////////////////////////////////////
+
+        # ************  CALCULATE HIERARCHY OUTLINE RECTANGLE COORDINATES   *******************
+        # *************************************************************************************
         for h in hierarchies:
+            hierarchies[h]['sch_bb'] = hierachy_outline_rectangle(hierarchies[h])
+        # ////////////////////////////////////////////////////////////////////////////////////
+
+        # ************  CALCULATE SCHEMATIC LAYOUT OF HIERARCHIES   *******************
+        # *************************************************************************************
+        # If we are not generating each hierarchy as it's own schematic then moved hierarchies
+        #   around to fit on one page
+        if not gen_iso_hier_sch:
+            # Sort the hierarchies from most nested to least
+            sort_hier_by_nesting = sorted(hierarchies.items(), key=lambda v: len(v[0].split(".")),reverse=True)
+            sorted_hier = {}
+            for i in sort_hier_by_nesting:
+                sorted_hier[i[0]]=i[1]
+            # for h in hierarchies:
+            #     # find max y of central components
+            #     split_hier = h.split('.')
+            #     if len(split_hier) == 1:
+            #         subhierarchy_y = hierarchies[h]['sch_bb'][3]
+            #         break
+            dir = 'L'
+            for h in sorted_hier:
+                # split by '.' and find len to determine how nested the hierarchy is
+                split_hier = h.split('.')
+                # top sheet, don't move the components
+                if len(split_hier) == 1:
+                    continue
+                elif len(split_hier) == 2:
+                    move_subhierarchy(h,hierarchies, 0, hierarchies[h]['sch_bb'][3], move_dir=dir)
+                    if dir == 'L':
+                        dir = 'R'
+                    else:
+                        dir = 'L'
+        # ////////////////////////////////////////////////////////////////////////////////////  
+
+        #      GENERATE CODE FOR EACH HIEARCHY
+        for h in hierarchies:
+            # List to hold all the components we'll put the in the eeschema .sch file
+            eeschema_code = [] 
+            # *********************  GENERATE EESCHEMA CODE FOR PARTS  ***************************
+            # ************************************************************************************
+            # Add the central coordinates to the part so they're in the center
+            for pt in hierarchies[h]['parts']:
+                pt.sch_bb[0] += sch_c[0] + hierarchies[h]['sch_bb'][0]
+                pt.sch_bb[1] += sch_c[1] + hierarchies[h]['sch_bb'][1] 
+
+                part_code = pt.gen_part_eeschema()
+                eeschema_code.append(part_code)
+            # ////////////////////////////////////////////////////////////////////////////////////  
+            
+            # *********************  CALCULATE WIRE NET COORDINATES  ******************************
+            # ************************************************************************************
+            # for h in hierarchies:
             for pt in hierarchies[h]['parts']:
                 for pin in pt.pins:
                     if len(pin.label) > 0:
@@ -1820,84 +1767,16 @@ class Circuit(SkidlBaseObject):
                         if sameHier:
                             wire_lst = gen_net_wire(pin.net,hierarchies[h])
                             hierarchies[h]['wires'].extend(wire_lst)
-            # ////////////////////////////////////////////////////////////////////////////////////
-
-        # ************  CALCULATE HIERARCHY OUTLINE RECTANGLE COORDINATES   *******************
-        # *************************************************************************************
-        for h in hierarchies:
-            outline_coordinates = hierachy_outline_rectangle(hierarchies[h])
-            hierarchies[h]['outline_coord'] = outline_coordinates
-        # ////////////////////////////////////////////////////////////////////////////////////
-
-        # ************  CALCULATE SCHEMATIC LAYOUT OF HIERARCHIES   *******************
-        # *************************************************************************************
-        # If we are not generating each hierarchy as it's own schematic then moved hierarchies
-        #   around to fit on one page
-        if not gen_iso_hier_sch:
-            # Sort the hierarchies from most nested to least
-            sort_hier_by_nesting = sorted(hierarchies.items(), key=lambda v: len(v[0].split(".")),reverse=True)
-            sorted_hier = {}
-            for i in sort_hier_by_nesting:
-                sorted_hier[i[0]]=i[1]
-            hierarchies = sorted_hier
-            # # # Range through sorted hierarchies and "place" nested hierarchies inside the parent hierarchy
-            # for h in hierarchies:
-            #     # split the hierarchy into it's subhierarchies
-            #     sub_hier = h.split('.')
-            # #     # if there's more than 1 subhierarchy then move the current hierarchy
-            # #     #    inside the parent
-            #     if len(sub_hier)>1:
-            # #         n = len(sub_hier)-1
-            # #         parent_key = ".".join(sub_hier[:n]) # parent key is the child key minus the last hierarchy in the xx.yy.zz format
-            # #         parent_yMax = sorted_hier[parent_key]['outline_coord']['yMax']
-            #         move_child_into_parent_hier(h,hierarchies)
-
-            for h in hierarchies:
-                # find max y of central components
-                split_hier = h.split('.')
-                if len(split_hier) == 1:
-                    subhierarchy_y = hierarchies[h]['outline_coord']['yMax']
-                    break
-            dir = 'L'
-            for h in hierarchies:
-                # split by '.' and find len to determine how nested the hierarchy is
-                split_hier = h.split('.')
-                # top sheet, don't move the components
-                if len(split_hier) == 1:
-                    subhierarchy_y += hierarchies[h]['outline_coord']['yMax']
-                    continue
-                elif len(split_hier) == 2:
-                    move_subhierarchy(h,hierarchies, 0, subhierarchy_y, move_dir=dir)
-                    if dir == 'L':
-                        dir = 'R'
-                    else:
-                        dir = 'L'
-        # ////////////////////////////////////////////////////////////////////////////////////  
-
-        #      GENERATE CODE FOR EACH HIEARCHY
-        for h in hierarchies:
-            # List to hold all the components we'll put the in the eeschema .sch file
-            eeschema_code = [] 
-            # *********************  GENERATE EESCHEMA CODE FOR PARTS  ***************************
-            # ************************************************************************************
-            # Add the central coordinates to the part so they're in the center
-            for pt in hierarchies[h]['parts']:
-                x = pt.sch_bb[0] + sch_c[0]
-                y = pt.sch_bb[1] + sch_c[1]
-                part_code = pt.gen_part_eeschema([x, y])
-                eeschema_code.append(part_code)
-            # ////////////////////////////////////////////////////////////////////////////////////  
-            
-            # *********************  GENERATE EESCHEMA CODE FOR WIRES  ***************************
-            # ************************************************************************************
+                # *********************  GENERATE EESCHEMA CODE FOR WIRES  ***************************
+                # ************************************************************************************
             for w in hierarchies[h]['wires']:
                 t_wire = []
                 # TODO add the center coordinates
                 for i in range(len(w)-1):
-                    t_x1 = w[i][0] + sch_c[0]
-                    t_y1 = w[i][1] + sch_c[1]
-                    t_x2 = w[i+1][0] + sch_c[0]
-                    t_y2 = w[i+1][1] + sch_c[1]
+                    t_x1 = w[i][0] - hierarchies[h]['sch_bb'][0]
+                    t_y1 = w[i][1] - hierarchies[h]['sch_bb'][1]
+                    t_x2 = w[i+1][0] - hierarchies[h]['sch_bb'][0]
+                    t_y2 = w[i+1][1] - hierarchies[h]['sch_bb'][1]
                     t_wire.append("Wire Wire Line\n")
                     t_wire.append("	{} {} {} {}\n".format(t_x1,t_y1,t_x2,t_y2))
                     t_out = "\n"+"".join(t_wire)  
@@ -1905,7 +1784,7 @@ class Circuit(SkidlBaseObject):
             # *********************  GENERATE EESCHEMA CODE FOR STUBS  ***************************
             # ************************************************************************************
             for pt in hierarchies[h]['parts']:
-                stub = gen_power_part_eeschema(pt, sch_c)
+                stub = gen_power_part_eeschema(pt)
                 if len(stub)>0:
                     eeschema_code.append(stub)
             # /////////////////////////////////////////////////////////////////////////////////// 
@@ -1916,9 +1795,9 @@ class Circuit(SkidlBaseObject):
             for pt in hierarchies[h]['parts']:
                 for pin in pt.pins:
                     if len(pin.label)>0:
-                        t_x = pin.x + pin.part.sch_bb[0] + sch_c[0]
+                        t_x = pin.x + pin.part.sch_bb[0]
                         t_y = 0
-                        t_y = -pin.y + pin.part.sch_bb[1] + sch_c[1]
+                        t_y = -pin.y + pin.part.sch_bb[1]
                         eeschema_code.append(make_Hlabel(t_x, t_y, pin.orientation, pin.label))
             # /////////////////////////////////////////////////////////////////////////////////// 
 
@@ -1926,10 +1805,10 @@ class Circuit(SkidlBaseObject):
             # *********************  GENERATE EESCHEMA HIERARCHY OUTLINE RECTANGLE  ***************************
             # ****************************************************************************************
             box = []
-            xMin = hierarchies[h]['outline_coord']['xMin'] + sch_c[0]
-            xMax = hierarchies[h]['outline_coord']['xMax'] + sch_c[0]
-            yMin = hierarchies[h]['outline_coord']['yMin'] + sch_c[1]
-            yMax = hierarchies[h]['outline_coord']['yMax'] + sch_c[1]
+            xMin = hierarchies[h]['sch_bb'][0] - hierarchies[h]['sch_bb'][2] + sch_c[0]
+            xMax = hierarchies[h]['sch_bb'][0] + hierarchies[h]['sch_bb'][2] + sch_c[0]
+            yMin = hierarchies[h]['sch_bb'][1] - hierarchies[h]['sch_bb'][3] + sch_c[1]
+            yMax = hierarchies[h]['sch_bb'][1] + hierarchies[h]['sch_bb'][3] + sch_c[1]
             # Place label starting at 1/4 x-axis distance and 200mil down
             label_x = xMin
             label_y = yMax

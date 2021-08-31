@@ -1094,6 +1094,11 @@ class Part(SkidlBaseObject):
                     if (len(pin.label)+1)*50 > x_label_m:
                         x_label_m = (len(pin.label)+1)*50
 
+
+        x1min = self.sch_bb[0] - self.sch_bb[2] - x_label_m
+        x1max = self.sch_bb[0] + self.sch_bb[2] + x_label_p
+        y1min = self.sch_bb[1] - self.sch_bb[3] - y_label_m
+        y1max = self.sch_bb[1] + self.sch_bb[3] + y_label_p
         # Range through parts in the subcircuit and look for overlaps
         # If we are overlapping then nudge the part 50mil left/right and rerun this function
         for pt in _parts_list:
@@ -1123,14 +1128,12 @@ class Part(SkidlBaseObject):
 
 
             # Calculate the min/max for x/y in order to detect collision between rectangles
-            x1min = self.sch_bb[0] - self.sch_bb[2] - x_label_m
-            x1max = self.sch_bb[0] + self.sch_bb[2] + x_label_p
+
             
             x2min = pt.sch_bb[0] - pt.sch_bb[2] - pt_x_label_m
             x2max = pt.sch_bb[0] + pt.sch_bb[2] + pt_x_label_p
             
-            y1min = self.sch_bb[1] - self.sch_bb[3] - y_label_m
-            y1max = self.sch_bb[1] + self.sch_bb[3] + y_label_p
+
             
             y2min = pt.sch_bb[1] - pt.sch_bb[3] - pt_y_label_m
             y2max = pt.sch_bb[1] + pt.sch_bb[3] + pt_y_label_p
@@ -1194,14 +1197,14 @@ class Part(SkidlBaseObject):
     # self: SKiDL part
     # c[x,y]: coordinated to place the part
     # https://en.wikibooks.org/wiki/Kicad/file_formats#Schematic_Files_Format
-    def gen_part_eeschema(self, c=[0,0]):
+    def gen_part_eeschema(self):
 
         time_hex = hex(int(time.time()))[2:]
 
         out=["$Comp\n"]
         out.append("L {}:{} {}\n".format(self.lib.filename, self.name, self.ref))
         out.append("U 1 1 {}\n".format(time_hex))    
-        out.append("P {} {}\n".format(str(c[0]), str(c[1])))
+        out.append("P {} {}\n".format(str(self.sch_bb[0]), str(self.sch_bb[1])))
         # Add part symbols. For now we are only adding the designator
         n_F0 = 1
         for i in range(len(self.draw)):
@@ -1211,8 +1214,8 @@ class Part(SkidlBaseObject):
         out.append('F 0 "{}" {} {} {} {} {} {} {}\n'.format(
                                         self.ref,
                                         self.draw[n_F0].orientation,
-                                        str(self.draw[n_F0].x + c[0]),
-                                        str(self.draw[n_F0].y + c[1]),
+                                        str(self.draw[n_F0].x + self.sch_bb[0]),
+                                        str(self.draw[n_F0].y + self.sch_bb[1]),
                                         self.draw[n_F0].size,
                                         "000",
                                         self.draw[n_F0].halign,
@@ -1226,14 +1229,14 @@ class Part(SkidlBaseObject):
         out.append('F 2 "{}" {} {} {} {} {} {} {}\n'.format(
                                         self.footprint,
                                         self.draw[n_F2].orientation,
-                                        str(self.draw[n_F2].x + c[0]),
-                                        str(self.draw[n_F2].y + c[1]),
+                                        str(self.draw[n_F2].x + self.sch_bb[0]),
+                                        str(self.draw[n_F2].y + self.sch_bb[1]),
                                         self.draw[n_F2].size,
                                         "001",
                                         self.draw[n_F2].halign,
                                         self.draw[n_F2].valign
         ))
-        out.append("   1   {} {}\n".format(str(c[0]), str(c[1])))
+        out.append("   1   {} {}\n".format(str(self.sch_bb[0]), str(self.sch_bb[1])))
         out.append("   {}   {}  {}  {}\n".format(self.orientation[0], self.orientation[1], self.orientation[2], self.orientation[3], ))
         out.append("$EndComp\n") 
         return ("\n" + "".join(out))
