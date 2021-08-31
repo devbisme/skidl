@@ -1541,12 +1541,9 @@ class Circuit(SkidlBaseObject):
             )
 
 
-    def generate_schematic(self, file_=None, tool=None, gen_iso_hier_sch=False, sch_size = 'A0', gen_elkjs = False):
+    def generate_schematic(self, file_=None, tool=None, sch_size = 'A0', gen_elkjs = False):
         """
         Create a schematic file. THIS KINDA WORKS!  
-        
-        gen_iso_hier_sch : option to show each hierarchy as a separate hierarchical schematic
-        Algorithm description:
 
         1. Sort the circuit parts by hierarchy and put into a dictionary
             a. NESTED HIERARCHIES DO NOT WORK
@@ -1574,11 +1571,8 @@ class Circuit(SkidlBaseObject):
 
 
         
-        nSheets = 1 # Keep track of the number of sheets for use in eeschema header
 
-        # Range through the parts and create bounding boxes based on the furthest distance of pins
-        for i in self.parts:
-            i.generate_bounding_box()
+
 
         # Dictionary that will hold parts and nets info for each hierarchy
         hierarchies = {}
@@ -1620,6 +1614,11 @@ class Circuit(SkidlBaseObject):
                                 p.label = pin.label
         # *********************  CALCULATE PLACE PARTS AROUND CENTRAL PART  ****************************
         # ************************************************************************************
+
+        # Range through the parts and create bounding boxes based on the furthest distance of pins
+        for i in self.parts:
+            i.generate_bounding_box()
+
         for h in hierarchies:
             centerPart = hierarchies[h]['parts'][0] # Center part that we place everything else around
             for pin in centerPart.pins:
@@ -1699,76 +1698,76 @@ class Circuit(SkidlBaseObject):
         # *************************************************************************************
         # If we are not generating each hierarchy as it's own schematic then moved hierarchies
         #   around to fit on one page
-        if not gen_iso_hier_sch:
-            # Sort the hierarchies from most nested to least
-            sort_hier_by_nesting = sorted(hierarchies.items(), key=lambda v: len(v[0].split(".")),reverse=True)
-            sorted_hier = {}
-            for i in sort_hier_by_nesting:
-                sorted_hier[i[0]]=i[1]
-            mv_dir = 'L'
-            for h in reversed(sorted_hier):
-                # print(h)
-                # split by '.' and find len to determine how nested the hierarchy is
-                split_hier = h.split('.')
-                # top sheet, don't move the components
-                if len(split_hier) == 1:
-                    continue
+
+        # Sort the hierarchies from most nested to least
+        sort_hier_by_nesting = sorted(hierarchies.items(), key=lambda v: len(v[0].split(".")),reverse=True)
+        sorted_hier = {}
+        for i in sort_hier_by_nesting:
+            sorted_hier[i[0]]=i[1]
+        mv_dir = 'L'
+        for h in reversed(sorted_hier):
+            # print(h)
+            # split by '.' and find len to determine how nested the hierarchy is
+            split_hier = h.split('.')
+            # top sheet, don't move the components
+            if len(split_hier) == 1:
+                continue
+            else:
+                move_subhierarchy(h,hierarchies, 0, hierarchies[h]['sch_bb'][3], move_dir=mv_dir)
+                if 'L' in mv_dir:
+                    mv_dir = 'R'
                 else:
-                    move_subhierarchy(h,hierarchies, 0, hierarchies[h]['sch_bb'][3], move_dir=mv_dir)
-                    if 'L' in mv_dir:
-                        mv_dir = 'R'
-                    else:
-                        mv_dir = 'L'
+                    mv_dir = 'L'
 
-            # Move subhierarchies down from parents
-            for h in reversed(sorted_hier):
-                # print(h)
-                for ht in sorted_hier:
-                    t = ht.split('.')
-                    parent = ".".join(t[:-1])
-                    if parent == h:   
-                        delta = sorted_hier[h]['sch_bb'][1] + sorted_hier[h]['sch_bb'][3] - sorted_hier[ht]['sch_bb'][1] + sorted_hier[ht]['sch_bb'][3]
-                        # print("found parent " + parent + "  moving " + str(delta))
-                        sorted_hier[ht]['sch_bb'][1] += delta
+        # Move subhierarchies down from parents
+        for h in reversed(sorted_hier):
+            # print(h)
+            for ht in sorted_hier:
+                t = ht.split('.')
+                parent = ".".join(t[:-1])
+                if parent == h:   
+                    delta = sorted_hier[h]['sch_bb'][1] + sorted_hier[h]['sch_bb'][3] - sorted_hier[ht]['sch_bb'][1] + sorted_hier[ht]['sch_bb'][3]
+                    # print("found parent " + parent + "  moving " + str(delta))
+                    sorted_hier[ht]['sch_bb'][1] += delta
 
-            # redraw hierarchies around all subhierarchies
-            for h in reversed(sorted_hier):
-                for ht in sorted_hier:
-                    t = ht.split('.')
-                    parent = ".".join(t[:-1])
-                    if parent == h:
-                        # expand h to fit the current hierarchy
-                        # print("expand " + h + " to fit " + ht)
-                        print(h + " sch_bb: \t\t" + str(sorted_hier[h]['sch_bb']))
-                        print(ht + " sch_bb: \t" + str(sorted_hier[ht]['sch_bb']))
-                        x1min = sorted_hier[h]['sch_bb'][0] - sorted_hier[h]['sch_bb'][2]
-                        x1max = sorted_hier[h]['sch_bb'][0] + sorted_hier[h]['sch_bb'][2]
-                        y1min = sorted_hier[h]['sch_bb'][1] - sorted_hier[h]['sch_bb'][3]
-                        y1max = sorted_hier[h]['sch_bb'][1] + sorted_hier[h]['sch_bb'][3]
-                        print("x1min: " + str(x1min) + " x1max: " + str(x1max) + " y1min: " + str(y1min) + " y1max: " + str(y1max))
-                        
-                        x2min = sorted_hier[ht]['sch_bb'][0] - sorted_hier[ht]['sch_bb'][2]
-                        x2max = sorted_hier[ht]['sch_bb'][0] + sorted_hier[ht]['sch_bb'][2]
-                        y2min = sorted_hier[ht]['sch_bb'][1] - sorted_hier[ht]['sch_bb'][3]
-                        y2max = sorted_hier[ht]['sch_bb'][1] + sorted_hier[ht]['sch_bb'][3]
-                        print("x2min: " + str(x2min) + " x2max: " + str(x2max) + " y2min: " + str(y2min) + " y2max: " + str(y2max))
+        # redraw hierarchies around all subhierarchies
+        for h in reversed(sorted_hier):
+            for ht in sorted_hier:
+                t = ht.split('.')
+                parent = ".".join(t[:-1])
+                if parent == h:
+                    # expand h to fit the current hierarchy
+                    # print("expand " + h + " to fit " + ht)
+                    print(h + " sch_bb: \t\t" + str(sorted_hier[h]['sch_bb']))
+                    print(ht + " sch_bb: \t" + str(sorted_hier[ht]['sch_bb']))
+                    x1min = sorted_hier[h]['sch_bb'][0] - sorted_hier[h]['sch_bb'][2]
+                    x1max = sorted_hier[h]['sch_bb'][0] + sorted_hier[h]['sch_bb'][2]
+                    y1min = sorted_hier[h]['sch_bb'][1] - sorted_hier[h]['sch_bb'][3]
+                    y1max = sorted_hier[h]['sch_bb'][1] + sorted_hier[h]['sch_bb'][3]
+                    print("x1min: " + str(x1min) + " x1max: " + str(x1max) + " y1min: " + str(y1min) + " y1max: " + str(y1max))
+                    
+                    x2min = sorted_hier[ht]['sch_bb'][0] - sorted_hier[ht]['sch_bb'][2]
+                    x2max = sorted_hier[ht]['sch_bb'][0] + sorted_hier[ht]['sch_bb'][2]
+                    y2min = sorted_hier[ht]['sch_bb'][1] - sorted_hier[ht]['sch_bb'][3]
+                    y2max = sorted_hier[ht]['sch_bb'][1] + sorted_hier[ht]['sch_bb'][3]
+                    print("x2min: " + str(x2min) + " x2max: " + str(x2max) + " y2min: " + str(y2min) + " y2max: " + str(y2max))
 
-                        if x2min < x1min:
-                            d = x1min - x2min
-                            print("ADD " + str(d) + " to sch_bb[2]")
-                            sorted_hier[h]['sch_bb'][2] += abs(d) + 100
-                        if x2max > x1max:
-                            d = x2max - x1max
-                            print("ADD " + str(d) + " to sch_bb[2]")
-                            sorted_hier[h]['sch_bb'][2] += abs(d) + 100
-                        if y2min < y1min:
-                            d = y1min - y2min
-                            print("ADD " + str(d) + " to sch_bb[3]")
-                            sorted_hier[h]['sch_bb'][3] += abs(d) + 100
-                        if y2max > y1max:
-                            d = y2max - y1max
-                            print("ADD " + str(d) + " to sch_bb[3]")
-                            sorted_hier[h]['sch_bb'][3] += abs(d) + 100
+                    if x2min < x1min:
+                        d = x1min - x2min
+                        print("ADD " + str(d) + " to sch_bb[2]")
+                        sorted_hier[h]['sch_bb'][2] += abs(d) + 100
+                    if x2max > x1max:
+                        d = x2max - x1max
+                        print("ADD " + str(d) + " to sch_bb[2]")
+                        sorted_hier[h]['sch_bb'][2] += abs(d) + 100
+                    if y2min < y1min:
+                        d = y1min - y2min
+                        print("ADD " + str(d) + " to sch_bb[3]")
+                        sorted_hier[h]['sch_bb'][3] += abs(d) + 100
+                    if y2max > y1max:
+                        d = y2max - y1max
+                        print("ADD " + str(d) + " to sch_bb[3]")
+                        sorted_hier[h]['sch_bb'][3] += abs(d) + 100
         # ////////////////////////////////////////////////////////////////////////////////////  
         #      GENERATE CODE FOR EACH HIEARCHY
         # Find the schematic size
@@ -1883,23 +1882,9 @@ class Circuit(SkidlBaseObject):
 
         #***************************** END GENERATING EESCHEMA CODE **********************************
 
-
-
-            # if we're creating individual hierarchy sheets then make a separate file for each one
-            if gen_iso_hier_sch:
-                # Create the new hierarchy file
-                hier_file_name = "stm32/" + h + ".sch"
-                with open(hier_file_name, "w") as f:
-                    new_sch_file = [gen_config_header(cur_sheet_num=nSheets, size = sch_size), eeschema_code, "$EndSCHEMATC"]
-                    nSheets += 1
-                    f.truncate(0) # Clear the file
-                    for i in new_sch_file:
-                        print("" + "".join(i), file=f)
-                f.close()
-            else:
-                # if we aren't making individual hierarchy sheets then we're making one big schematic, so append
-                #    the subcircuit code to a list
-                hierarchy_eeschema_code.append("\n".join(eeschema_code))
+            # if we aren't making individual hierarchy sheets then we're making one big schematic, so append
+            #    the subcircuit code to a list
+            hierarchy_eeschema_code.append("\n".join(eeschema_code))
 
 
 
@@ -1912,23 +1897,10 @@ class Circuit(SkidlBaseObject):
         # *************************************************************************************
         with open(file_, "w") as f:
             f.truncate(0) # Clear the file
-            if gen_iso_hier_sch:
-                # Generate hierarchical sheets for each hierarchy to be placed on the top sheet
-                x_start = 5000
-                y_start = 5000
-                top_page = [] # List that will be populated with hierarchical schematics
-                for h in hierarchies:
-                    hier_sheet = generate_hierarchical_schematic(h, x_start, y_start, size = sch_c)
-                    top_page.append(hier_sheet)
-                    x_start += 3000
-                new_sch_file = [gen_config_header(cur_sheet_num=nSheets, size=sch_size), top_page, "$EndSCHEMATC"]
-                nSheets += 1
-                for i in new_sch_file:
-                    print("" + "".join(i), file=f)
-            else:
-                new_sch_file = [gen_config_header(cur_sheet_num=nSheets, size = sch_size), hierarchy_eeschema_code, "$EndSCHEMATC"]
-                for i in new_sch_file:
-                        print("" + "".join(i), file=f)   
+
+            new_sch_file = [gen_config_header(cur_sheet_num=1, size = sch_size), hierarchy_eeschema_code, "$EndSCHEMATC"]
+            for i in new_sch_file:
+                    print("" + "".join(i), file=f)   
         f.close()
 
         # Log errors if we have any
