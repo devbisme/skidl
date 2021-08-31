@@ -1741,9 +1741,10 @@ class Circuit(SkidlBaseObject):
                 for ht in sorted_hier:
                     t = ht.split('.')
                     parent = ".".join(t[:-1])
-                    if parent == h:
-                        print("found parent " + parent)
-                    
+                    if parent == h:   
+                        delta = sorted_hier[h]['sch_bb'][1] + sorted_hier[h]['sch_bb'][3] - sorted_hier[ht]['sch_bb'][1] + sorted_hier[ht]['sch_bb'][3]
+                        print("found parent " + parent + "  moving " + str(delta))
+                        sorted_hier[ht]['sch_bb'][1] += delta
         # ////////////////////////////////////////////////////////////////////////////////////  
 
         #      GENERATE CODE FOR EACH HIEARCHY
