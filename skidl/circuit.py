@@ -1678,9 +1678,6 @@ class Circuit(SkidlBaseObject):
                     offset_x += 200 + p.sch_bb[2]
                     offset_x = -offset_x # switch which side we place them every time
         # ///////////////////////////////////////////////////////////////////////////////////   
-                
-
-            # ////////////////////////////////////////////////////////////////////////////////////
 
         # ************  CALCULATE HIERARCHY OUTLINE RECTANGLE COORDINATES   *******************
         # *************************************************************************************
@@ -1719,11 +1716,10 @@ class Circuit(SkidlBaseObject):
             for ht in sorted_hier:
                 t = ht.split('.')
                 parent = ".".join(t[:-1])
-                if parent == h:   
+                if parent == h:
                     parent_y_min = sorted_hier[h]['sch_bb'][1] + sorted_hier[h]['sch_bb'][3]
-                    child_y_min = - sorted_hier[ht]['sch_bb'][1] + sorted_hier[ht]['sch_bb'][3]
+                    child_y_min = -sorted_hier[ht]['sch_bb'][1] + sorted_hier[ht]['sch_bb'][3]
                     delta =  parent_y_min + child_y_min
-                    # print("found parent " + parent + "  moving " + str(delta))
                     sorted_hier[ht]['sch_bb'][1] += delta
 
         # redraw hierarchies around all subhierarchies
