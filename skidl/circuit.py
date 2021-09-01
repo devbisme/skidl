@@ -421,29 +421,6 @@ def gen_hierarchy_bb(hier):
 
     return r_sch_bb
 
-# Generate a hierarchical schematic
-def generate_hierarchical_schematic(title, x_start, y_start, size, width=1000, height=2000):
-    # make the file if it doesn't exist
-    file_path = "stm32/"+title+".sch"
-    if not os.path.isfile(file_path):
-        f = open(file_path, "a")
-        new_sch_file = [gen_config_header(sheet_title=title, size = size ), "$EndSCHEMATC"]
-        f.truncate(0) # Clear the file
-        for i in new_sch_file:
-            print("" + "".join(i), file=f)
-        f.close()
-
-    sheet = []
-    sheet.append("$Sheet\n")
-    sheet.append('S {} {} {} {}\n'.format(x_start, y_start, width, height)) 
-    time_hex = hex(int(time.time()))[2:]
-    sheet.append('U {}\n'.format(time_hex))
-    sheet.append('F0 "{}" 100\n'.format(title))
-    sheet.append('F1 "{}.sch" 100\n'.format(title))
-    sheet.append('$EndSheet\n')
-
-    return (("" + "".join(sheet)))
-
 
 
 def gen_net_wire(net, hierarchy):

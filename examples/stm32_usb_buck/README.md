@@ -10,7 +10,7 @@ To run the STM32 example with new schematic generation code:
 $ git clone https://github.com/shanemmattner/skidl
 $ cd skidl/examples/stm32_usb_buck
 $ source dev_env/bin/activate
-$ cd ~/skidl && pip install -e .
+$ cd ../.. && pip install -e .
 $ python examples/stm32_usb_buck/main.py
 ```
 * Open KiCAD to view files

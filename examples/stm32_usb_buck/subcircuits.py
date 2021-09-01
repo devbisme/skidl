@@ -2,9 +2,9 @@ from skidl import *
 
 
 
-r0603 = Part("Device", 'R', footprint='R_0603_1608Metric', value='1.5k')
-c0603 = Part("Device", 'C_Small', footprint='C_0603_1608Metric')
-d0603 = Part("Device", 'D', footprint='D_0603_1608Metric')
+# r0603 = Part("Device", 'R', footprint='R_0603_1608Metric', value='1.5k')
+# c0603 = Part("Device", 'C_Small', footprint='C_0603_1608Metric')
+# d0603 = Part("Device", 'D', footprint='D_0603_1608Metric')
 # LED indicator circuit
 # c = central coordinates for the subcircuit
 @package
