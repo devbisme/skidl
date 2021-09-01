@@ -195,13 +195,17 @@ class FootprintCache(dict):
     def load(self, path):
         """Load cache with footprints from libraries in fp-lib-table file."""
 
+        # Expand any env. vars and/or user in the path.
+        path = os.path.expandvars(os.path.expanduser(path))
+
         # Read contents of footprint library file into a single string.
         try:
-            # Look for fp-lib-table file.
+            # Look for fp-lib-table file and read its entries into a table of footprint module libs.
             with open(os.path.join(path, "fp-lib-table")) as fp:
                 tbl = fp.read()
         except FileNotFoundError:
-            # fp-lib-table file was not found, so check the directory for footprints.
+            # fp-lib-table file was not found, so create a table containing the path directory
+            # as a single module lib. 
             nickname, ext = os.path.splitext(os.path.basename(path))
             tbl = '(fp_lib_table\n(lib (name {nickname})(type KiCad)(uri {path})(options "")(descr ""))\n)'.format(
                 **locals()
@@ -212,7 +216,7 @@ class FootprintCache(dict):
             r"\(\s*lib\s* .*? \)\)", tbl, flags=re.IGNORECASE | re.VERBOSE | re.DOTALL
         )
 
-        # Add the footprint modules found in each enabled KiCad libray.
+        # Add the footprint modules found in each enabled KiCad library.
         for lib in libs:
 
             # Skip disabled libraries.
