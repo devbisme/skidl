@@ -1532,8 +1532,9 @@ class Circuit(SkidlBaseObject):
         10. 10. Move siblings hierarchies away from each other
         11. Move child hierarchies down and away from parent
         12. Redraw the hierarchies to encompass any child hierarchies
-        13. Calculate nets for each hierarchy
-        14. Find the center coordinates of the schematic
+        13. Find the center coordinates of the schematic
+        14. Adjust part placement for hierachy and schematic center 
+        15. Calculate nets for each hierarchy
         15. Generate eeschema code for each hierarchy
         16. Generate elkjs code
         17. Create schematic file
@@ -1567,7 +1568,7 @@ class Circuit(SkidlBaseObject):
                 hierarchies[h_name] = {'parts':[pt],'wires':[], 'sch_bb':[]}
             else:
                 hierarchies[h_name]['parts'].append(pt)
-
+       
         # 2. Rotate parts (<=3 pins) with power nets
         for h in hierarchies:
             for pt in hierarchies[h]['parts']:
@@ -1586,6 +1587,7 @@ class Circuit(SkidlBaseObject):
         # 4. Create part bounding boxes
         for pt in self.parts:
             pt.generate_bounding_box()
+      
         # 5. For each hierarchy: Move parts with nets drawn to central part
         for h in hierarchies:
             centerPart = hierarchies[h]['parts'][0] # Center part that we place everything else around
@@ -1654,7 +1656,6 @@ class Circuit(SkidlBaseObject):
         # 8. Create bounding boxes for hierarchies
         for h in hierarchies:
             hierarchies[h]['sch_bb'] = gen_hierarchy_bb(hierarchies[h])
-        # ////////////////////////////////////////////////////////////////////////////////////
 
         # 9. Sort the hierarchies by nesting length
         sort_hier_by_nesting = sorted(hierarchies.items(), key=lambda v: len(v[0].split(".")),reverse=True)
@@ -1727,7 +1728,27 @@ class Circuit(SkidlBaseObject):
                         print("ADD " + str(d) + " to sch_bb[3]")
                         sorted_hier[h]['sch_bb'][3] += abs(d) + 100
 
-        # 13. Calculate nets
+        # 13. Find the center coordinates of the schematic
+        hierarchies = sorted_hier
+        hierarchy_eeschema_code = [] # list to hold all the code from each hierarchy
+        sch_c = [0,0]
+        for n in eeschema_sch_sizes:
+            if n == sch_size:
+                x = int(eeschema_sch_sizes[n][0]/2)
+                x = round_num(x,50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
+                y = int(eeschema_sch_sizes[n][1]/2)
+                y = round_num(y,50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
+                sch_c = [x,y]
+                break
+
+        # 14. Adjust part placement for hierachy and schematic center 
+        for h in hierarchies:
+            # a. Part code
+            for pt in hierarchies[h]['parts']:
+                pt.sch_bb[0] += sch_c[0] + hierarchies[h]['sch_bb'][0]
+                pt.sch_bb[1] += sch_c[1] + hierarchies[h]['sch_bb'][1] 
+
+        # 15. Calculate nets for each hierarchy
         for h in hierarchies:
             for pt in hierarchies[h]['parts']:
                 for pin in pt.pins:
@@ -1746,29 +1767,14 @@ class Circuit(SkidlBaseObject):
                             wire_lst = gen_net_wire(pin.net,hierarchies[h])
                             hierarchies[h]['wires'].extend(wire_lst)
 
-        # 14. Find the center coordinates of the schematic
-        hierarchy_eeschema_code = [] # list to hold all the code from each hierarchy
-        sch_c = [0,0]
-        for n in eeschema_sch_sizes:
-            if n == sch_size:
-                x = int(eeschema_sch_sizes[n][0]/2)
-                x = round_num(x,50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
-                y = int(eeschema_sch_sizes[n][1]/2)
-                y = round_num(y,50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
-                sch_c = [x,y]
-                break
-        
-        # 15. Generate eeschema code for each hierarchy
+        # 16. Generate eeschema code for each hierarchy
         for h in hierarchies:
             eeschema_code = [] 
             # a. Part code
             for pt in hierarchies[h]['parts']:
-                pt.sch_bb[0] += sch_c[0] + hierarchies[h]['sch_bb'][0]
-                pt.sch_bb[1] += sch_c[1] + hierarchies[h]['sch_bb'][1] 
-
                 part_code = pt.gen_part_eeschema()
                 eeschema_code.append(part_code)
-            
+
             # b. net wire code
             for w in hierarchies[h]['wires']:
                 t_wire = []
@@ -1824,13 +1830,11 @@ class Circuit(SkidlBaseObject):
             # append hierarchy code to the buffer list
             hierarchy_eeschema_code.append("\n".join(eeschema_code))
 
-
-
-        # 16. Generate elkjs code
+        # 17. Generate elkjs code
         if gen_elkjs:
             gen_elkjs_code(self.parts, self.nets)
 
-        # 17. Create schematic file
+        # 18. Create schematic file
         with open(file_, "w") as f:
             f.truncate(0) # Clear the file
 
