@@ -359,15 +359,19 @@ def gen_config_header(cur_sheet_num=1, total_sheet_num=1, sheet_title="Default",
 
 # Generate hierarchy bounding box
 def gen_hierarchy_bb(hier):
-    # find the part with the largest x1,x1,y1,y2
+    # find the parts with the largest xMin, xMax, yMin, yMax
+
+    # set the initial values to the central part maximums
     xMin = hier['parts'][0].sch_bb[0] - hier['parts'][0].sch_bb[2]
     xMax = hier['parts'][0].sch_bb[0] + hier['parts'][0].sch_bb[2]
     yMin = hier['parts'][0].sch_bb[1] + hier['parts'][0].sch_bb[3]
     yMax = hier['parts'][0].sch_bb[1] - hier['parts'][0].sch_bb[3]
+    # Range through the parts in the hierarchy
     for p in hier['parts']:
         # adjust the outline for any labels that pins might have
         x_label = 0
         y_label = 0
+        # Look for pins with labels or power nets attached, these will increase the length of the side
         for pin in p.pins:
             if len(pin.label)>0:
                 if pin.orientation == 'U' or pin.orientation == 'D':
@@ -1522,6 +1526,7 @@ class Circuit(SkidlBaseObject):
         6. For each hierarchy: Move parts with nets drawn to parts moved in step #5
         7. For each hierarchy: Move remaining parts
         8. Create bounding boxes for hierarchies
+        8.1 Adjust the parts to be centered on the hierarchy center
         9. Sort the hierarchies by nesting length
         10. 10. Move siblings hierarchies away from each other
         11. Move child hierarchies down and away from parent
@@ -1635,6 +1640,7 @@ class Circuit(SkidlBaseObject):
                                     calc_move_part(pin, netPin, hierarchies[h]['parts'])
 
         # 7. For each hierarchy: Move remaining parts
+        #    Parts are moved down and away, alternating placing left and right
         for h in hierarchies:
             offset_x = 0
             offset_y = -(hierarchies[h]['parts'][0].sch_bb[1] + hierarchies[h]['parts'][0].sch_bb[3] + 500)
@@ -1645,12 +1651,11 @@ class Circuit(SkidlBaseObject):
                     p.move_part(offset_x, offset_y, hierarchies[h]['parts'])
                     offset_x += 200 + p.sch_bb[2]
                     offset_x = -offset_x # switch which side we place them every time
-        # ///////////////////////////////////////////////////////////////////////////////////   
 
         # 8. Create bounding boxes for hierarchies
         for h in hierarchies:
             hierarchies[h]['sch_bb'] = gen_hierarchy_bb(hierarchies[h])
-        
+        # 8.1 Adjust the parts to be centered on the hierarchy
         for h in hierarchies:
             # a. Part code
             for pt in hierarchies[h]['parts']:
