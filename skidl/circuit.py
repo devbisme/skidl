@@ -411,7 +411,6 @@ def gen_hierarchy_bb(hier):
     ty = int((yMin + yMax)/2) + 50
     r_sch_bb = [tx,ty,width,height]
 
-    print(r_sch_bb)
     return r_sch_bb
 
 
@@ -505,7 +504,6 @@ def gen_net_wire(net, hierarchy):
                     if collided_side == "L":
                         # check if we collided on the left or right side of the central part
                         if net.pins[i+1].part.sch_bb[0]<0 or net.pins[i].part.sch_bb[0]<0:
-                            print("left side of U1")
                             # switch first and last coordinates if one is further left
                             if x1 > x2:
                                 t = line[0]
@@ -523,7 +521,6 @@ def gen_net_wire(net, hierarchy):
                             line.insert(i+2, [d_x2, d_y2])
                             line.insert(i+3, [x1, d_y3])
                         else:
-                            print("right side of U1")
                                 # switch first and last coordinates if one is further left
                             if x1 < x2:
                                 t = line[0]
@@ -1683,7 +1680,6 @@ class Circuit(SkidlBaseObject):
 
         # 11. Move child hierarchies down and away from parent
         for h in reversed(sorted_hier):
-            # print(h)
             for ht in sorted_hier:
                 t = ht.split('.')
                 parent = ".".join(t[:-1])
@@ -1693,44 +1689,43 @@ class Circuit(SkidlBaseObject):
                     delta =  parent_y_min + child_y_min
                     sorted_hier[ht]['sch_bb'][1] += delta
 
-        # 12. Redraw the hierarchies to encompass any child hierarchies
-        for h in reversed(sorted_hier):
-            for ht in sorted_hier:
-                t = ht.split('.')
-                parent = ".".join(t[:-1])
-                if parent == h:
-                    # expand h to fit the current hierarchy
-                    # print("expand " + h + " to fit " + ht)
-                    print(h + " sch_bb: \t\t" + str(sorted_hier[h]['sch_bb']))
-                    print(ht + " sch_bb: \t" + str(sorted_hier[ht]['sch_bb']))
-                    x1min = sorted_hier[h]['sch_bb'][0] - sorted_hier[h]['sch_bb'][2]
-                    x1max = sorted_hier[h]['sch_bb'][0] + sorted_hier[h]['sch_bb'][2]
-                    y1min = sorted_hier[h]['sch_bb'][1] - sorted_hier[h]['sch_bb'][3]
-                    y1max = sorted_hier[h]['sch_bb'][1] + sorted_hier[h]['sch_bb'][3]
-                    print("x1min: " + str(x1min) + " x1max: " + str(x1max) + " y1min: " + str(y1min) + " y1max: " + str(y1max))
+        # # 12. Redraw the hierarchies to encompass any child hierarchies
+        # for h in reversed(sorted_hier):
+        #     for ht in sorted_hier:
+        #         t = ht.split('.')
+        #         parent = ".".join(t[:-1])
+        #         if parent == h:
+        #             # expand h to fit the current hierarchy
+        #             print(h + " sch_bb: \t\t" + str(sorted_hier[h]['sch_bb']))
+        #             print(ht + " sch_bb: \t" + str(sorted_hier[ht]['sch_bb']))
+        #             x1min = sorted_hier[h]['sch_bb'][0] - sorted_hier[h]['sch_bb'][2]
+        #             x1max = sorted_hier[h]['sch_bb'][0] + sorted_hier[h]['sch_bb'][2]
+        #             y1min = sorted_hier[h]['sch_bb'][1] - sorted_hier[h]['sch_bb'][3]
+        #             y1max = sorted_hier[h]['sch_bb'][1] + sorted_hier[h]['sch_bb'][3]
+        #             print("x1min: " + str(x1min) + " x1max: " + str(x1max) + " y1min: " + str(y1min) + " y1max: " + str(y1max))
                     
-                    x2min = sorted_hier[ht]['sch_bb'][0] - sorted_hier[ht]['sch_bb'][2]
-                    x2max = sorted_hier[ht]['sch_bb'][0] + sorted_hier[ht]['sch_bb'][2]
-                    y2min = sorted_hier[ht]['sch_bb'][1] - sorted_hier[ht]['sch_bb'][3]
-                    y2max = sorted_hier[ht]['sch_bb'][1] + sorted_hier[ht]['sch_bb'][3]
-                    print("x2min: " + str(x2min) + " x2max: " + str(x2max) + " y2min: " + str(y2min) + " y2max: " + str(y2max))
+        #             x2min = sorted_hier[ht]['sch_bb'][0] - sorted_hier[ht]['sch_bb'][2]
+        #             x2max = sorted_hier[ht]['sch_bb'][0] + sorted_hier[ht]['sch_bb'][2]
+        #             y2min = sorted_hier[ht]['sch_bb'][1] - sorted_hier[ht]['sch_bb'][3]
+        #             y2max = sorted_hier[ht]['sch_bb'][1] + sorted_hier[ht]['sch_bb'][3]
+        #             print("x2min: " + str(x2min) + " x2max: " + str(x2max) + " y2min: " + str(y2min) + " y2max: " + str(y2max))
 
-                    if x2min < x1min:
-                        d = x1min - x2min
-                        print("ADD " + str(d) + " to sch_bb[2]")
-                        sorted_hier[h]['sch_bb'][2] += abs(d) + 100
-                    if x2max > x1max:
-                        d = x2max - x1max
-                        print("ADD " + str(d) + " to sch_bb[2]")
-                        sorted_hier[h]['sch_bb'][2] += abs(d) + 100
-                    if y2min < y1min:
-                        d = y1min - y2min
-                        print("ADD " + str(d) + " to sch_bb[3]")
-                        sorted_hier[h]['sch_bb'][3] += abs(d) + 100
-                    if y2max > y1max:
-                        d = y2max - y1max
-                        print("ADD " + str(d) + " to sch_bb[3]")
-                        sorted_hier[h]['sch_bb'][3] += abs(d) + 100
+        #             if x2min < x1min:
+        #                 d = x1min - x2min
+        #                 print("ADD " + str(d) + " to sch_bb[2]")
+        #                 sorted_hier[h]['sch_bb'][2] += abs(d) + 100
+        #             if x2max > x1max:
+        #                 d = x2max - x1max
+        #                 print("ADD " + str(d) + " to sch_bb[2]")
+        #                 sorted_hier[h]['sch_bb'][2] += abs(d) + 100
+        #             if y2min < y1min:
+        #                 d = y1min - y2min
+        #                 print("ADD " + str(d) + " to sch_bb[3]")
+        #                 sorted_hier[h]['sch_bb'][3] += abs(d) + 100
+        #             if y2max > y1max:
+        #                 d = y2max - y1max
+        #                 print("ADD " + str(d) + " to sch_bb[3]")
+        #                 sorted_hier[h]['sch_bb'][3] += abs(d) + 100
 
         # 13. Find the center coordinates of the schematic
         hierarchies = sorted_hier
