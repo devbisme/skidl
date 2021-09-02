@@ -77,21 +77,16 @@ def move_subhierarchy(hm, hierarchy_list, dx, dy, move_dir = 'L'):
     hierarchy_list[hm]['sch_bb'][1] -= dy
     # TODO: move all subhierarchies
 
-
-
-    # Check to see if we're colliding with any other parts
-
     # Range through hierarchies and look for overlaps of outlines
     # If we are overlapping then nudge the part 50mil left/right and rerun this function
     for h in hierarchy_list:
         # Don't detect collisions with itself
         if h == hm:
             continue
-        # Don't detect collisions with hierarchies outside the parents
+        # Detect collisions with sibling hierarchies
         h_parent = ".".join(h.split('.')[:-1])
         # check if the parent hierarchy is the same as evaluated
         if hm_parent == h_parent:
-
             x1min = hierarchy_list[hm]['sch_bb'][0] - hierarchy_list[hm]['sch_bb'][2]
             x1max = hierarchy_list[hm]['sch_bb'][0] + hierarchy_list[hm]['sch_bb'][2]
             y1min = hierarchy_list[hm]['sch_bb'][1] - hierarchy_list[hm]['sch_bb'][3]
@@ -1525,15 +1520,23 @@ class Circuit(SkidlBaseObject):
         """
         Create a schematic file. THIS KINDA WORKS!  
 
-        1. Sort the circuit parts by hierarchy and put into a dictionary
-            a. NESTED HIERARCHIES DO NOT WORK
-            b. Note: each hierarchy will have it's own hierarchical schematic
-        2. Sort the circuit nets by hierarchy and put into the hierarchy dictionary
-        3. Range through each hierarchy and place parts
-            a. Parts are placed around the first part of the subcircuit, referred to as the central part of the subcircuit
-            b. First I place the parts directly connected to the central part
-            c. Next I place parts connected to parts placed in the first round above
-            d. The rest of the parts are placed down and away from the placed parts
+        1. Sort parts by hierarchy
+        2. Rotate parts (<=3 pins) with power nets
+        3. Copy labels to connected pins
+        4. Create part bounding boxes for parts
+        5. For each hierarchy: Move parts with nets drawn to central part
+        6. For each hierarchy: Move parts with nets drawn to parts moved in step #5
+        7. For each hierarchy: Move remaining parts
+        8. Create bounding boxes for hierarchies
+        9. Sort the hierarchies by nesting length
+        10. 10. Move siblings hierarchies away from each other
+        11. Move child hierarchies down and away from parent
+        12. Redraw the hierarchies to encompass any child hierarchies
+        13. Calculate nets for each hierarchy
+        14. Find the center coordinates of the schematic
+        15. Generate eeschema code for each hierarchy
+        16. Generate elkjs code
+        17. Create schematic file
         """
 
         from . import skidl
@@ -1551,34 +1554,27 @@ class Circuit(SkidlBaseObject):
         # Dictionary that will hold parts and nets info for each hierarchy
         hierarchies = {}
         
-        # *********************  SORT PARTS INTO HIERARCHIES  ********************************
-        # ************************************************************************************
-        #    Parts list their hierchies and subhierarchies in '.' separated format (ie 'top.stm320.usb1.led0')
-        for i in self.parts:
-            # TODO: get nested hierarchies working
-            pt_hier = i.hierarchy # get the hierarchy of the part
-            t_hier = pt_hier.split('.') # hierarchies are '.' separated so split the string
-            hier_list = [x for x in t_hier if 'top' not in x] # make a list of the hierarchies that aren't 'top'
-            # skip if this is the top hierarchy
-            if len(hier_list)==0:
+        # 1. Sort parts by hierarchy
+        for pt in self.parts:
+            h_lst = [x for x in pt.hierarchy.split('.') if 'top' not in x] # make a list of the hierarchies that aren't 'top'
+            # skip if this is the top parent hierarchy
+            if len(h_lst)==0:
                 continue
-            listToStr = '.'.join([str(elem) for elem in hier_list]) # join the list back together, #TODO this logic is redundant with the splitting above
+            h_name = '.'.join([str(elem) for elem in h_lst]) # join the list back together, #TODO this logic is redundant with the splitting above
             # check for new top level hierarchy
-            if listToStr not in hierarchies:
+            if h_name not in hierarchies:
                 # make new top level hierarchy
-                hierarchies[listToStr] = {'parts':[i],'wires':[], 'sch_bb':[]}
+                hierarchies[h_name] = {'parts':[pt],'wires':[], 'sch_bb':[]}
             else:
-                hierarchies[listToStr]['parts'].append(i)
+                hierarchies[h_name]['parts'].append(pt)
 
-        # ***********  ROTATE 2 PIN PARTS ATTACHED TO POWER NET  *****************************
-        # ************************************************************************************
+        # 2. Rotate parts (<=3 pins) with power nets
         for h in hierarchies:
             for pt in hierarchies[h]['parts']:
                 if len(pt.pins)<=3:
                     rotate_pin_part(pt)
 
-        # *********************  COPY LABELS TO CONNECTED PINS  ******************************
-        # ************************************************************************************
+        # 3. Copy labels to connected pins
         for h in hierarchies:
             for pt in hierarchies[h]['parts']:
                 for pin in pt.pins:
@@ -1586,13 +1582,11 @@ class Circuit(SkidlBaseObject):
                         if pin.net is not None:
                             for p in pin.net.pins:
                                 p.label = pin.label
-        # *********************  MOVE PARTS CONNECTED TO CENTRAL PART  ***********************
-        # ************************************************************************************
 
-        # Range through the parts and create bounding boxes based on the furthest distance of pins
-        for i in self.parts:
-            i.generate_bounding_box()
-
+        # 4. Create part bounding boxes
+        for pt in self.parts:
+            pt.generate_bounding_box()
+        # 5. For each hierarchy: Move parts with nets drawn to central part
         for h in hierarchies:
             centerPart = hierarchies[h]['parts'][0] # Center part that we place everything else around
             for pin in centerPart.pins:
@@ -1616,8 +1610,7 @@ class Circuit(SkidlBaseObject):
                             # if we pass all those checks then move the part based on the relative pin locations
                             calc_move_part(p, pin, hierarchies[h]['parts'])
 
-        # *********************  MOVE PARTS CONNECTED TO THOSE MOVED ABOVE  ******************
-        # ************************************************************************************
+        # 6. For each hierarchy: Move parts with nets drawn to parts moved in step #5
         for h in hierarchies:
             for p in hierarchies[h]['parts']:
                 if p.ref == hierarchies[h]['parts'][0].ref:
@@ -1645,8 +1638,7 @@ class Circuit(SkidlBaseObject):
                                 else:
                                     calc_move_part(pin, netPin, hierarchies[h]['parts'])
 
-        # *********************  MOVE PARTS NOT ALREADY MOVED  ******************************
-        # These parts should only have labels and power nets attached, no wires
+        # 7. For each hierarchy: Move remaining parts
         for h in hierarchies:
             offset_x = 0
             offset_y = -(hierarchies[h]['parts'][0].sch_bb[1] + hierarchies[h]['parts'][0].sch_bb[3] + 500)
@@ -1659,26 +1651,20 @@ class Circuit(SkidlBaseObject):
                     offset_x = -offset_x # switch which side we place them every time
         # ///////////////////////////////////////////////////////////////////////////////////   
 
-        # ************  CALCULATE HIERARCHY BOUNDING BOX   ***********************************
-        # *************************************************************************************
+        # 8. Create bounding boxes for hierarchies
         for h in hierarchies:
             hierarchies[h]['sch_bb'] = gen_hierarchy_bb(hierarchies[h])
         # ////////////////////////////////////////////////////////////////////////////////////
 
-        # ************  CALCULATE SCHEMATIC LAYOUT OF HIERARCHIES   *******************
-        # *************************************************************************************
-        # If we are not generating each hierarchy as it's own schematic then moved hierarchies
-        #   around to fit on one page
-
-        # Sort the hierarchies from most nested to least
+        # 9. Sort the hierarchies by nesting length
         sort_hier_by_nesting = sorted(hierarchies.items(), key=lambda v: len(v[0].split(".")),reverse=True)
         sorted_hier = {}
-        for i in sort_hier_by_nesting:
-            sorted_hier[i[0]]=i[1]
+        for sh in sort_hier_by_nesting:
+            sorted_hier[sh[0]]=sh[1]
+
+        # 10. Move siblings hierarchies away from each other
         mv_dir = 'L'
         for h in reversed(sorted_hier):
-            # print(h)
-            # split by '.' and find len to determine how nested the hierarchy is
             split_hier = h.split('.')
             # top sheet, don't move the components
             if len(split_hier) == 1:
@@ -1690,7 +1676,7 @@ class Circuit(SkidlBaseObject):
                 else:
                     mv_dir = 'L'
 
-        # Move subhierarchies down from parents
+        # 11. Move child hierarchies down and away from parent
         for h in reversed(sorted_hier):
             # print(h)
             for ht in sorted_hier:
@@ -1702,7 +1688,7 @@ class Circuit(SkidlBaseObject):
                     delta =  parent_y_min + child_y_min
                     sorted_hier[ht]['sch_bb'][1] += delta
 
-        # redraw hierarchies around all subhierarchies
+        # 12. Redraw the hierarchies to encompass any child hierarchies
         for h in reversed(sorted_hier):
             for ht in sorted_hier:
                 t = ht.split('.')
@@ -1740,37 +1726,9 @@ class Circuit(SkidlBaseObject):
                         d = y2max - y1max
                         print("ADD " + str(d) + " to sch_bb[3]")
                         sorted_hier[h]['sch_bb'][3] += abs(d) + 100
-        # ////////////////////////////////////////////////////////////////////////////////////  
-        #      GENERATE CODE FOR EACH HIEARCHY
-        # Find the schematic size
-        hierarchy_eeschema_code = [] # list to hold all the code from each hierarchy
-        sch_c = [0,0]
-        for n in eeschema_sch_sizes:
-            if n == sch_size:
-                x = int(eeschema_sch_sizes[n][0]/2)
-                x = round_num(x,50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
-                y = int(eeschema_sch_sizes[n][1]/2)
-                y = round_num(y,50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
-                sch_c = [x,y]
-                break
-        
-        for h in hierarchies:
-            # List to hold all the components we'll put the in the eeschema .sch file
-            eeschema_code = [] 
-            # *********************  GENERATE EESCHEMA CODE FOR PARTS  ***************************
-            # ************************************************************************************
-            # Add the central coordinates to the part so they're in the center
-            for pt in hierarchies[h]['parts']:
-                pt.sch_bb[0] += sch_c[0] + hierarchies[h]['sch_bb'][0]
-                pt.sch_bb[1] += sch_c[1] + hierarchies[h]['sch_bb'][1] 
 
-                part_code = pt.gen_part_eeschema()
-                eeschema_code.append(part_code)
-            # ////////////////////////////////////////////////////////////////////////////////////  
-            
-            # *********************  CALCULATE WIRE NET COORDINATES  ******************************
-            # ************************************************************************************
-            # for h in hierarchies:
+        # 13. Calculate nets
+        for h in hierarchies:
             for pt in hierarchies[h]['parts']:
                 for pin in pt.pins:
                     if len(pin.label) > 0:
@@ -1787,11 +1745,33 @@ class Circuit(SkidlBaseObject):
                         if sameHier:
                             wire_lst = gen_net_wire(pin.net,hierarchies[h])
                             hierarchies[h]['wires'].extend(wire_lst)
-                # *********************  GENERATE EESCHEMA CODE FOR WIRES  ***************************
-                # ************************************************************************************
+
+        # 14. Find the center coordinates of the schematic
+        hierarchy_eeschema_code = [] # list to hold all the code from each hierarchy
+        sch_c = [0,0]
+        for n in eeschema_sch_sizes:
+            if n == sch_size:
+                x = int(eeschema_sch_sizes[n][0]/2)
+                x = round_num(x,50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
+                y = int(eeschema_sch_sizes[n][1]/2)
+                y = round_num(y,50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
+                sch_c = [x,y]
+                break
+        
+        # 15. Generate eeschema code for each hierarchy
+        for h in hierarchies:
+            eeschema_code = [] 
+            # a. Part code
+            for pt in hierarchies[h]['parts']:
+                pt.sch_bb[0] += sch_c[0] + hierarchies[h]['sch_bb'][0]
+                pt.sch_bb[1] += sch_c[1] + hierarchies[h]['sch_bb'][1] 
+
+                part_code = pt.gen_part_eeschema()
+                eeschema_code.append(part_code)
+            
+            # b. net wire code
             for w in hierarchies[h]['wires']:
                 t_wire = []
-                # TODO add the center coordinates
                 for i in range(len(w)-1):
                     t_x1 = w[i][0] - hierarchies[h]['sch_bb'][0]
                     t_y1 = w[i][1] - hierarchies[h]['sch_bb'][1]
@@ -1801,17 +1781,12 @@ class Circuit(SkidlBaseObject):
                     t_wire.append("	{} {} {} {}\n".format(t_x1,t_y1,t_x2,t_y2))
                     t_out = "\n"+"".join(t_wire)  
                     eeschema_code.append(t_out)
-            # *********************  GENERATE EESCHEMA CODE FOR STUBS  ***************************
-            # ************************************************************************************
+            # c. power net stubs 
             for pt in hierarchies[h]['parts']:
                 stub = gen_power_part_eeschema(pt)
                 if len(stub)>0:
                     eeschema_code.append(stub)
-            # /////////////////////////////////////////////////////////////////////////////////// 
-
-
-            # *********************  GENERATE EESCHEMA CODE FOR LABELS  ***************************
-            # *************************************************************************************
+            # d. labels
             for pt in hierarchies[h]['parts']:
                 for pin in pt.pins:
                     if len(pin.label)>0:
@@ -1819,19 +1794,13 @@ class Circuit(SkidlBaseObject):
                         t_y = 0
                         t_y = -pin.y + pin.part.sch_bb[1]
                         eeschema_code.append(make_Hlabel(t_x, t_y, pin.orientation, pin.label))
-            # /////////////////////////////////////////////////////////////////////////////////// 
-
-
-            # *********************  GENERATE EESCHEMA HIERARCHY OUTLINE RECTANGLE  ***************************
-            # ****************************************************************************************
+            # e. hierachy bounding box 
             box = []
             xMin = hierarchies[h]['sch_bb'][0] - hierarchies[h]['sch_bb'][2] + sch_c[0]
             xMax = hierarchies[h]['sch_bb'][0] + hierarchies[h]['sch_bb'][2] + sch_c[0]
-            yMin = hierarchies[h]['sch_bb'][1] - hierarchies[h]['sch_bb'][3] + sch_c[1]
-            yMax = hierarchies[h]['sch_bb'][1] + hierarchies[h]['sch_bb'][3] + sch_c[1]
+            yMin = hierarchies[h]['sch_bb'][1] + hierarchies[h]['sch_bb'][3] + sch_c[1]
+            yMax = hierarchies[h]['sch_bb'][1] - hierarchies[h]['sch_bb'][3] + sch_c[1]
 
-            # find the maximum points needed to draw
-            # Place label starting at 1/4 x-axis distance and 200mil down
             label_x = xMin
             label_y = yMax
             subhierarchies = h.split('.')
@@ -1851,23 +1820,17 @@ class Circuit(SkidlBaseObject):
             box.append("	{} {} {} {}\n".format(xMax, yMax, xMin, yMax)) # top
             out = (("\n" + "".join(box)))
             eeschema_code.append(out)
-            # ////////////////////////////////////////////////////////////////////////////////////////
 
-        #***************************** END GENERATING EESCHEMA CODE **********************************
-
-            # if we aren't making individual hierarchy sheets then we're making one big schematic, so append
-            #    the subcircuit code to a list
+            # append hierarchy code to the buffer list
             hierarchy_eeschema_code.append("\n".join(eeschema_code))
 
 
 
-        # *********************  GENERATE ELKJS CODE  *****************************************
-        # *************************************************************************************
+        # 16. Generate elkjs code
         if gen_elkjs:
             gen_elkjs_code(self.parts, self.nets)
 
-        # *********************  GENERATE EESCHEMA TOP PAGE  **********************************
-        # *************************************************************************************
+        # 17. Create schematic file
         with open(file_, "w") as f:
             f.truncate(0) # Clear the file
 
