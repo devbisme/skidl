@@ -400,20 +400,14 @@ def gen_hierarchy_bb(hier):
         if t_yMin > yMin:
             yMin = t_yMin
 
-
-
-    width = abs(round_num(xMax, 50)) + 200
-    if abs(round_num(xMin, 50))> width:
-        width = abs(round_num(xMin, 50)) + 200
-
-    height = abs(round_num(yMax, 50)) + 100
-    if abs(round_num(yMin, 50))> height:
-        height = abs(round_num(yMin, 50)) + 100
-
+    width = int(abs(xMax - xMin)/2) + 200
+    height = int(abs(yMax - yMin)/2) + 100
+    
     tx = int((xMin + xMax)/2) + 100
     ty = int((yMin + yMax)/2) + 50
     r_sch_bb = [tx,ty,width,height]
 
+    print(r_sch_bb)
     return r_sch_bb
 
 
@@ -1656,7 +1650,12 @@ class Circuit(SkidlBaseObject):
         # 8. Create bounding boxes for hierarchies
         for h in hierarchies:
             hierarchies[h]['sch_bb'] = gen_hierarchy_bb(hierarchies[h])
-
+        
+        for h in hierarchies:
+            # a. Part code
+            for pt in hierarchies[h]['parts']:
+                pt.sch_bb[0] -= hierarchies[h]['sch_bb'][0]
+                pt.sch_bb[1] -= hierarchies[h]['sch_bb'][1]
         # 9. Sort the hierarchies by nesting length
         sort_hier_by_nesting = sorted(hierarchies.items(), key=lambda v: len(v[0].split(".")),reverse=True)
         sorted_hier = {}
@@ -1746,7 +1745,7 @@ class Circuit(SkidlBaseObject):
             # a. Part code
             for pt in hierarchies[h]['parts']:
                 pt.sch_bb[0] += sch_c[0] + hierarchies[h]['sch_bb'][0]
-                pt.sch_bb[1] += sch_c[1] + hierarchies[h]['sch_bb'][1] 
+                pt.sch_bb[1] += sch_c[1] + hierarchies[h]['sch_bb'][1]
 
         # 15. Calculate nets for each hierarchy
         for h in hierarchies:
