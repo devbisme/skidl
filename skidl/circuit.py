@@ -1586,7 +1586,7 @@ class Circuit(SkidlBaseObject):
                         if pin.net is not None:
                             for p in pin.net.pins:
                                 p.label = pin.label
-        # *********************  CALCULATE PLACE PARTS AROUND CENTRAL PART  ****************************
+        # *********************  MOVE PARTS CONNECTED TO CENTRAL PART  ***********************
         # ************************************************************************************
 
         # Range through the parts and create bounding boxes based on the furthest distance of pins
@@ -1616,7 +1616,7 @@ class Circuit(SkidlBaseObject):
                             # if we pass all those checks then move the part based on the relative pin locations
                             calc_move_part(p, pin, hierarchies[h]['parts'])
 
-        # *********************  CALCULATE PART PLACEMENT OF PARTS WITH NETS TO DRAW  ******************************
+        # *********************  MOVE PARTS CONNECTED TO THOSE MOVED ABOVE  ******************
         # ************************************************************************************
         for h in hierarchies:
             for p in hierarchies[h]['parts']:
@@ -1646,7 +1646,7 @@ class Circuit(SkidlBaseObject):
                                     calc_move_part(pin, netPin, hierarchies[h]['parts'])
 
         # *********************  MOVE PARTS NOT ALREADY MOVED  ******************************
-        # ************************************************************************************
+        # These parts should only have labels and power nets attached, no wires
         for h in hierarchies:
             offset_x = 0
             offset_y = -(hierarchies[h]['parts'][0].sch_bb[1] + hierarchies[h]['parts'][0].sch_bb[3] + 500)
@@ -1659,7 +1659,7 @@ class Circuit(SkidlBaseObject):
                     offset_x = -offset_x # switch which side we place them every time
         # ///////////////////////////////////////////////////////////////////////////////////   
 
-        # ************  CALCULATE HIERARCHY OUTLINE RECTANGLE COORDINATES   *******************
+        # ************  CALCULATE HIERARCHY BOUNDING BOX   ***********************************
         # *************************************************************************************
         for h in hierarchies:
             hierarchies[h]['sch_bb'] = gen_hierarchy_bb(hierarchies[h])
