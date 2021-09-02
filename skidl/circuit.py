@@ -1687,7 +1687,7 @@ class Circuit(SkidlBaseObject):
                     parent_y_min = sorted_hier[h]['sch_bb'][1] + sorted_hier[h]['sch_bb'][3]
                     child_y_min = -sorted_hier[ht]['sch_bb'][1] + sorted_hier[ht]['sch_bb'][3]
                     delta =  parent_y_min + child_y_min
-                    sorted_hier[ht]['sch_bb'][1] += delta
+                    sorted_hier[ht]['sch_bb'][1] += delta + 300
 
         # # 12. Redraw the hierarchies to encompass any child hierarchies
         # for h in reversed(sorted_hier):
