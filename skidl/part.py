@@ -1067,6 +1067,10 @@ class Part(SkidlBaseObject):
         move_dir = 'L'
         if dx > 0:
             move_dir = 'R'
+        
+        # Round dx/dy to nearest 50
+        dx = int((50 * round(dx/50)))
+        dy = int((50 * round(dy/50)))
         # Move the part
         self.sch_bb[0] += dx
         self.sch_bb[1] -= dy

@@ -1639,14 +1639,14 @@ class Circuit(SkidlBaseObject):
         # 7. For each hierarchy: Move remaining parts
         #    Parts are moved down and away, alternating placing left and right
         for h in hierarchies:
-            offset_x = 0
+            offset_x = 1
             offset_y = -(hierarchies[h]['parts'][0].sch_bb[1] + hierarchies[h]['parts'][0].sch_bb[3] + 500)
             for p in hierarchies[h]['parts']:
                 if p.ref == hierarchies[h]['parts'][0].ref:
                     continue
                 if p.sch_bb[0] == 0 and p.sch_bb[1] ==0 :
                     p.move_part(offset_x, offset_y, hierarchies[h]['parts'])
-                    offset_x += 200 + p.sch_bb[2]
+                    # offset_x += 200 + p.sch_bb[2]
                     offset_x = -offset_x # switch which side we place them every time
 
         # 8. Create bounding boxes for hierarchies
