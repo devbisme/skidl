@@ -68,14 +68,13 @@ standard_library.install_aliases()
 def round_num(num, base):
     return (base * round(num/base))
 
-# mh = hierarchy to move
+# hm = hierarchy to move
 def move_subhierarchy(hm, hierarchy_list, dx, dy, move_dir = 'L'):
 
     hm_parent = ".".join(hm.split('.')[:-1])
 
     hierarchy_list[hm]['sch_bb'][0] += dx
     hierarchy_list[hm]['sch_bb'][1] -= dy
-    # TODO: move all subhierarchies
 
     # Range through hierarchies and look for overlaps of outlines
     # If we are overlapping then nudge the part 50mil left/right and rerun this function
@@ -102,7 +101,7 @@ def move_subhierarchy(hm, hierarchy_list, dx, dy, move_dir = 'L'):
             # https://stackoverflow.com/questions/20925818/algorithm-to-check-if-two-boxes-overlap
 
             if (x1min <= x2max) and (x2min <= x1max) and (y1min <= y2max) and (y2min <= y1max):
-                delta = hierarchy_list[h]['sch_bb'][2] + hierarchy_list[hm]['sch_bb'][2] + 100
+                # delta = hierarchy_list[h]['sch_bb'][2] + hierarchy_list[hm]['sch_bb'][2] + 100
                 # print(hm + " collided with " + h)
                 # print("x1min: " +str(x1min) + " <= x2max: " + str(x2max) + 
                 # "\tx2min: " +str(x2min) + " <= x1max: " + str(x1max) +
@@ -111,13 +110,10 @@ def move_subhierarchy(hm, hierarchy_list, dx, dy, move_dir = 'L'):
                 
                 if move_dir == 'R':
                     # print("\n moving " + hm + " right by " + str(delta))
-                    move_subhierarchy(hm, hierarchy_list, delta, 0, move_dir = move_dir)
+                    move_subhierarchy(hm, hierarchy_list, 200, 0, move_dir = move_dir)
                 else:
                     # print("\n moving left" + hm + " by " + str(delta))
-                    move_subhierarchy(hm, hierarchy_list, -delta, 0, move_dir = move_dir)
-
-            # move hiearchy so it's not hitting any parts in the parent hierarchy
-    # move all the subhierarchies
+                    move_subhierarchy(hm, hierarchy_list, -200, 0, move_dir = move_dir)
 
 
 def make_Hlabel(x,y,orientation,net_label):
@@ -1646,7 +1642,6 @@ class Circuit(SkidlBaseObject):
                     continue
                 if p.sch_bb[0] == 0 and p.sch_bb[1] ==0 :
                     p.move_part(offset_x, offset_y, hierarchies[h]['parts'])
-                    # offset_x += 200 + p.sch_bb[2]
                     offset_x = -offset_x # switch which side we place them every time
 
         # 8. Create bounding boxes for hierarchies
@@ -1686,8 +1681,13 @@ class Circuit(SkidlBaseObject):
                 if parent == h:
                     parent_y_min = sorted_hier[h]['sch_bb'][1] + sorted_hier[h]['sch_bb'][3]
                     child_y_min = -sorted_hier[ht]['sch_bb'][1] + sorted_hier[ht]['sch_bb'][3]
-                    delta =  parent_y_min + child_y_min
-                    sorted_hier[ht]['sch_bb'][1] += delta + 300
+                    delta =  parent_y_min + child_y_min + 300
+                    # sorted_hier[ht]['sch_bb'][1] += delta + 300
+                    move_subhierarchy(ht,hierarchies, 0, -delta, move_dir=mv_dir)
+                    if 'L' in mv_dir:
+                        mv_dir = 'R'
+                    else:
+                        mv_dir = 'L'
 
         # # 12. Redraw the hierarchies to encompass any child hierarchies
         # for h in reversed(sorted_hier):
