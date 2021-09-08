@@ -89,13 +89,12 @@ def anlg_flt(vdd, gnd, vdda):
 
 @SubCircuit
 def vin_protection(vin, vout, gnd):
+    
     # Redeclare power nets, TODO: possible bug
     lvin = Net('+12V', stub=True, netclass='Power')
     vin += lvin
     lgnd = Net('GND', stub=True, netclass='Power')
     gnd += lgnd
-    lvout = Net('+3V3', stub=True, netclass='Power')
-    vout += lvout
 
     pmos = Part('Device', 'Q_PMOS_DGS', footprint='SOT-23') # reverse polarity protection
     fuse = Part('Device', 'Polyfuse_Small', footprint='Fuse_Bourns_MF-RG300') # resetable fuse
@@ -105,7 +104,7 @@ def vin_protection(vin, vout, gnd):
     fuse.p2 += pmos.p1
     pmos.p2 += lgnd
     pmos.p3 += fb.p1
-    fb.p2 += lvout
+    fb.p2 += vout
 
 @SubCircuit
 def buck(vin, vout, gnd):
@@ -123,6 +122,7 @@ def buck(vin, vout, gnd):
 
 
     reg = Part('Regulator_Linear', 'AP1117-15', footprint='SOT-223-3_TabPin2')
+    reg.p3.label = "v12_fused"
     c1 = Part("Device", 'C_Small', footprint='C_0603_1608Metric', value='10uF')
     c2 = Part("Device", 'C_Small', footprint='C_0603_1608Metric', value='10uF')
 
