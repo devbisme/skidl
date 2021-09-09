@@ -1625,7 +1625,8 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
             # also has no net stubs, so don't tag it with a specific part reference.
             symbol_name = "{self.name}_{unit}_{symtx}".format(**locals())
 
-        # Begin SVG for part unit.
+        # Begin SVG for part unit. Translate it so the bbox.min is at (0,0).
+        translate = bbox.min * -1
         svg.append(
             " ".join(
                 [
@@ -1633,7 +1634,8 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
                     's:type="{symbol_name}"',
                     's:width="{bbox.w}"',
                     's:height="{bbox.h}"',
-                    ">",
+                    'transform="translate({translate.x},{translate.y})"',
+                   ">",
                 ]
             ).format(**locals())
         )
@@ -1641,21 +1643,13 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
         # Add part alias.
         svg.append('<s:alias val="{symbol_name}"/>'.format(**locals()))
 
-        # Group text & graphics and translate so bbox.min is at (0,0).
-        translate = bbox.min * -1
-        svg.append(
-            '<g transform="translate({translate.x},{translate.y})">'.format(**locals())
-        )
         # Add part unit text and graphics.
         svg.extend(unit_filled_svg[unit])  # Filled items go on the bottom.
         svg.extend(unit_svg[unit])  # Then unfilled items.
         svg.extend(unit_txt_svg[unit])  # Text comes last.
-        svg.append("</g>")
 
         # Place a visible bounding-box around symbol for trouble-shooting.
         show_bbox = False
-        bbox.min = bbox.min + translate
-        bbox.max = bbox.max + translate
         if show_bbox:
             svg.append(
                 " ".join(
@@ -1673,7 +1667,7 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
         # Keep the pins out of the grouped text & graphics but adjust their coords
         # to account for moving the bbox.
         for pin_info in unit_pin_info[unit]:
-            pin_pt = Point(pin_info.x, pin_info.y) + translate
+            pin_pt = Point(pin_info.x, pin_info.y)
             side = pin_info.side
             pid = pin_info.pid
             pin_svg = '<g s:x="{pin_pt.x}" s:y="{pin_pt.y}" s:pid="{pid}" s:position="{side}"/>'.format(
