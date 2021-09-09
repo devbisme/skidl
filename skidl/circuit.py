@@ -83,37 +83,37 @@ def move_subhierarchy(hm, hierarchy_list, dx, dy, move_dir = 'L'):
         if h == hm:
             continue
         # Detect collisions with sibling hierarchies
-        h_parent = ".".join(h.split('.')[:-1])
-        # check if the parent hierarchy is the same as evaluated
-        if hm_parent == h_parent:
-            x1min = hierarchy_list[hm]['sch_bb'][0] - hierarchy_list[hm]['sch_bb'][2]
-            x1max = hierarchy_list[hm]['sch_bb'][0] + hierarchy_list[hm]['sch_bb'][2]
-            y1min = hierarchy_list[hm]['sch_bb'][1] - hierarchy_list[hm]['sch_bb'][3]
-            y1max = hierarchy_list[hm]['sch_bb'][1] + hierarchy_list[hm]['sch_bb'][3]
-            # Calculate the min/max for x/y in order to detect collision between rectangles            
-            x2min = hierarchy_list[h]['sch_bb'][0] - hierarchy_list[h]['sch_bb'][2]
-            x2max = hierarchy_list[h]['sch_bb'][0] + hierarchy_list[h]['sch_bb'][2]
-            y2min = hierarchy_list[h]['sch_bb'][1] - hierarchy_list[h]['sch_bb'][3]
-            y2max = hierarchy_list[h]['sch_bb'][1] + hierarchy_list[h]['sch_bb'][3]
+        # h_parent = ".".join(h.split('.')[:-1])
+        # # check if the parent hierarchy is the same as evaluated
+        # if hm_parent == h_parent:
+        x1min = hierarchy_list[hm]['sch_bb'][0] - hierarchy_list[hm]['sch_bb'][2]
+        x1max = hierarchy_list[hm]['sch_bb'][0] + hierarchy_list[hm]['sch_bb'][2]
+        y1min = hierarchy_list[hm]['sch_bb'][1] - hierarchy_list[hm]['sch_bb'][3]
+        y1max = hierarchy_list[hm]['sch_bb'][1] + hierarchy_list[hm]['sch_bb'][3]
+        # Calculate the min/max for x/y in order to detect collision between rectangles            
+        x2min = hierarchy_list[h]['sch_bb'][0] - hierarchy_list[h]['sch_bb'][2]
+        x2max = hierarchy_list[h]['sch_bb'][0] + hierarchy_list[h]['sch_bb'][2]
+        y2min = hierarchy_list[h]['sch_bb'][1] - hierarchy_list[h]['sch_bb'][3]
+        y2max = hierarchy_list[h]['sch_bb'][1] + hierarchy_list[h]['sch_bb'][3]
 
-            # Logic to tell whether parts collide
-            # Note that the movement direction is opposite of what's intuitive ('R' = move left, 'U' = -50)
-            # https://stackoverflow.com/questions/20925818/algorithm-to-check-if-two-boxes-overlap
+        # Logic to tell whether parts collide
+        # Note that the movement direction is opposite of what's intuitive ('R' = move left, 'U' = -50)
+        # https://stackoverflow.com/questions/20925818/algorithm-to-check-if-two-boxes-overlap
 
-            if (x1min <= x2max) and (x2min <= x1max) and (y1min <= y2max) and (y2min <= y1max):
-                # delta = hierarchy_list[h]['sch_bb'][2] + hierarchy_list[hm]['sch_bb'][2] + 100
-                # print(hm + " collided with " + h)
-                # print("x1min: " +str(x1min) + " <= x2max: " + str(x2max) + 
-                # "\tx2min: " +str(x2min) + " <= x1max: " + str(x1max) +
-                # "\ty1min: " +str(y1min) + " <= y2max: " + str(y2max) +
-                # "\ty2min: " +str(y2min) + " <= y1max: " + str(y1max) +"\n")
-                
-                if move_dir == 'R':
-                    # print("\n moving " + hm + " right by " + str(delta))
-                    move_subhierarchy(hm, hierarchy_list, 200, 0, move_dir = move_dir)
-                else:
-                    # print("\n moving left" + hm + " by " + str(delta))
-                    move_subhierarchy(hm, hierarchy_list, -200, 0, move_dir = move_dir)
+        if (x1min <= x2max) and (x2min <= x1max) and (y1min <= y2max) and (y2min <= y1max):
+            # delta = hierarchy_list[h]['sch_bb'][2] + hierarchy_list[hm]['sch_bb'][2] + 100
+            # print(hm + " collided with " + h)
+            # print("x1min: " +str(x1min) + " <= x2max: " + str(x2max) + 
+            # "\tx2min: " +str(x2min) + " <= x1max: " + str(x1max) +
+            # "\ty1min: " +str(y1min) + " <= y2max: " + str(y2max) +
+            # "\ty2min: " +str(y2min) + " <= y1max: " + str(y1max) +"\n")
+            
+            if move_dir == 'R':
+                # print("\n moving " + hm + " right by " + str(delta))
+                move_subhierarchy(hm, hierarchy_list, 200, 0, move_dir = move_dir)
+            else:
+                # print("\n moving left" + hm + " by " + str(delta))
+                move_subhierarchy(hm, hierarchy_list, -200, 0, move_dir = move_dir)
 
 
 def make_Hlabel(x,y,orientation,net_label):
@@ -1661,20 +1661,24 @@ class Circuit(SkidlBaseObject):
 
         # 10. Move siblings hierarchies away from each other
         mv_dir = 'L'
-        for h in reversed(sorted_hier):
+        for h in sorted_hier:
             split_hier = h.split('.')
             # top sheet, don't move the components
             if len(split_hier) == 1:
                 continue
             else:
-                move_subhierarchy(h,hierarchies, 0, hierarchies[h]['sch_bb'][3], move_dir=mv_dir)
+                # get parent ymin
+                t = h.split('.')
+                parent = ".".join(t[:-1])
+                p_ymin = hierarchies[parent]['sch_bb'][1]+ hierarchies[parent]['sch_bb'][3]
+                move_subhierarchy(h,hierarchies, 0, hierarchies[h]['sch_bb'][3] - p_ymin, move_dir=mv_dir)
                 if 'L' in mv_dir:
                     mv_dir = 'R'
                 else:
                     mv_dir = 'L'
 
         # 11. Move child hierarchies down and away from parent
-        for h in reversed(sorted_hier):
+        for h in sorted_hier:
             for ht in sorted_hier:
                 t = ht.split('.')
                 parent = ".".join(t[:-1])

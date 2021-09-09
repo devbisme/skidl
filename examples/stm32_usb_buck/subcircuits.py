@@ -93,8 +93,8 @@ def vin_protection(vin, vout, gnd):
     # Redeclare power nets, TODO: possible bug
     lvin = Net('+12V', stub=True, netclass='Power')
     vin += lvin
-    lgnd = Net('GND', stub=True, netclass='Power')
-    gnd += lgnd
+    l_gnd = Net('GND', stub=True, netclass='Power')
+    gnd += l_gnd
 
     pmos = Part('Device', 'Q_PMOS_DGS', footprint='SOT-23') # reverse polarity protection
     fuse = Part('Device', 'Polyfuse_Small', footprint='Fuse_Bourns_MF-RG300') # resetable fuse
@@ -102,9 +102,11 @@ def vin_protection(vin, vout, gnd):
 
     lvin += fuse.p1
     fuse.p2 += pmos.p1
-    pmos.p2 += lgnd
+    pmos.p2 += l_gnd
     pmos.p3 += fb.p1
     fb.p2 += vout
+
+    led(fuse.p2, l_gnd, 'blue', '5.6k')
 
 @SubCircuit
 def buck(vin, vout, gnd):
@@ -112,13 +114,13 @@ def buck(vin, vout, gnd):
     # Redeclare power nets, TODO: possible bug
     lvin = Net('+12V', stub=True, netclass='Power')
     vin += lvin
-    lgnd = Net('GND', stub=True, netclass='Power')
-    gnd += lgnd
-    lvout = Net('+3V3', stub=True, netclass='Power')
-    vout += lvout
+    l_gnd = Net('GND', stub=True, netclass='Power')
+    gnd += l_gnd
+    l_vout = Net('+3V3', stub=True, netclass='Power')
+    vout += l_vout
 
     vprotected = Net('v12_fused')
-    vin_protection(lvin, vprotected, lgnd)
+    vin_protection(lvin, vprotected, l_gnd)
 
 
     reg = Part('Regulator_Linear', 'AP1117-15', footprint='SOT-223-3_TabPin2')
@@ -128,8 +130,10 @@ def buck(vin, vout, gnd):
 
 
     vprotected += reg.p3, c1.p1
-    lvout += reg.p2, c2.p1
-    lgnd += reg.p1, c1.p2, c2.p2
+    l_vout += reg.p2, c2.p1
+    l_gnd += reg.p1, c1.p2, c2.p2
+
+    led(l_vout, l_gnd, 'blue', '5.6k')
 
 @SubCircuit
 def oscillator(vdd, gnd, osc_in, osc_out):
