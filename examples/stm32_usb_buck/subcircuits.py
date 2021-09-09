@@ -107,6 +107,7 @@ def vin_protection(vin, vout, gnd):
     fb.p2 += vout
 
     led(fuse.p2, l_gnd, 'blue', '5.6k')
+    # fuse.p2.label = "PWR_IN_STATUS"
 
 @SubCircuit
 def buck(vin, vout, gnd):
@@ -211,7 +212,7 @@ def usb(v_5v, gnd, dp, dm, imp_match):
     l_gnd += usb_connector.p5, usb_connector.p6, usb_protection.p2
     
 # LED indicator circuit
-@SubCircuit
+# @SubCircuit
 def led(inp, outp, color, resistance):
     d = Part("Device", 'D', footprint='D_0603_1608Metric', value = color)
     r = Part("Device", 'R', footprint='R_0603_1608Metric', value=resistance)

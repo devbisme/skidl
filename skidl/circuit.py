@@ -1670,8 +1670,11 @@ class Circuit(SkidlBaseObject):
                 # get parent ymin
                 t = h.split('.')
                 parent = ".".join(t[:-1])
-                p_ymin = hierarchies[parent]['sch_bb'][1]+ hierarchies[parent]['sch_bb'][3]
-                move_subhierarchy(h,hierarchies, 0, hierarchies[h]['sch_bb'][3] - p_ymin, move_dir=mv_dir)
+                p_ymin = hierarchies[parent]['sch_bb'][1] + hierarchies[parent]['sch_bb'][3]
+                parent_x_min = sorted_hier[h]['sch_bb'][0] - sorted_hier[h]['sch_bb'][0]
+                child_x_min = sorted_hier[parent]['sch_bb'][0] - sorted_hier[parent]['sch_bb'][0]
+                delta_x =  parent_x_min - child_x_min 
+                move_subhierarchy(h,hierarchies, delta_x, hierarchies[h]['sch_bb'][3] - p_ymin, move_dir=mv_dir)
                 if 'L' in mv_dir:
                     mv_dir = 'R'
                 else:
@@ -1683,11 +1686,15 @@ class Circuit(SkidlBaseObject):
                 t = ht.split('.')
                 parent = ".".join(t[:-1])
                 if parent == h:
-                    parent_y_min = sorted_hier[h]['sch_bb'][1] + sorted_hier[h]['sch_bb'][3]
-                    child_y_min = -sorted_hier[ht]['sch_bb'][1] + sorted_hier[ht]['sch_bb'][3]
-                    delta =  parent_y_min + child_y_min + 300
+                    parent_y_min = sorted_hier[h]['sch_bb'][1] - sorted_hier[h]['sch_bb'][3]
+                    child_y_min = sorted_hier[ht]['sch_bb'][1] - sorted_hier[ht]['sch_bb'][3]
+                    delta_y =  -(parent_y_min + child_y_min) 
+
+                    parent_x_min = sorted_hier[h]['sch_bb'][0] - sorted_hier[h]['sch_bb'][0]
+                    child_x_min = sorted_hier[ht]['sch_bb'][0] - sorted_hier[ht]['sch_bb'][0]
+                    delta_x =  parent_x_min - child_x_min 
                     # sorted_hier[ht]['sch_bb'][1] += delta + 300
-                    move_subhierarchy(ht,hierarchies, 0, -delta, move_dir=mv_dir)
+                    move_subhierarchy(ht,hierarchies, delta_x, delta_y, move_dir=mv_dir)
                     if 'L' in mv_dir:
                         mv_dir = 'R'
                     else:
@@ -1712,7 +1719,7 @@ class Circuit(SkidlBaseObject):
             if n == sch_size:
                 x = int(eeschema_sch_sizes[n][0]/2)
                 x = round_num(x,50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
-                y = int(eeschema_sch_sizes[n][1]/2)
+                y = int(eeschema_sch_sizes[n][1]/5)
                 y = round_num(y,50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
                 sch_c = [x,y]
                 break
