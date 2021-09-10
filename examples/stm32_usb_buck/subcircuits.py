@@ -68,6 +68,7 @@ def stm32f405r(v_12v, v_5v, vdd, gnd):
     debug_header(u.p7, u.p49, u.p46, u.p55, l_vdd, l_gnd)
     header_4pin(l_vdd, pu_scl.p2, pu_sda.p2, l_gnd) # i2c header
     header_4pin(l_vdd, u.p16, u.p17, l_gnd) # uart header
+    mounting_holes(l_gnd)
 
     # Connect pins
     vcap2.p2 += u.p47
@@ -143,11 +144,22 @@ def buck(vin, vout, gnd):
     d.p1 += l_5v
     
 
+    led(l_vout, l_gnd, 'red', '5.6k')
 
     vprotected += reg.p3, c1.p1, d.p2
     l_vout += reg.p2, c2.p1
     l_gnd += reg.p1, c1.p2, c2.p2
 
+@SubCircuit
+def mounting_holes(gnd):
+    l_gnd = Net('GND', stub=True, netclass='Power')
+    gnd += l_gnd
+    h1 = Part("Mechanical", "MountingHole_Pad", footprint = "MountingHole_5mm")
+    h2 = Part("Mechanical", "MountingHole_Pad", footprint = "MountingHole_5mm")
+    h3 = Part("Mechanical", "MountingHole_Pad", footprint = "MountingHole_5mm")
+    h4 = Part("Mechanical", "MountingHole_Pad", footprint = "MountingHole_5mm")
+
+    l_gnd += h1.p1, h2.p1, h3.p1, h4.p1
 
 @SubCircuit
 def oscillator(vdd, gnd, osc_in, osc_out):

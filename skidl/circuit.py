@@ -305,6 +305,16 @@ def gen_power_part_eeschema(part, orientation = [1,0,0,-1]):
                         if pin.orientation == 'D':
                             orientation = [-1,0,0,1]
                     out.append('F 0 "{}" {} {} {} {} {} {} {}\n'.format(
+                                                    '#PWR?',
+                                                    part_orientation,
+                                                    str(x + 25),
+                                                    str(y + 25),
+                                                    str(40),
+                                                    "001",
+                                                    part_horizontal_align,
+                                                    part_vertical_align
+                    ))
+                    out.append('F 1 "{}" {} {} {} {} {} {} {}\n'.format(
                                                     symbol_name,
                                                     part_orientation,
                                                     str(x + 25),

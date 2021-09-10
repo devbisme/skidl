@@ -20,8 +20,8 @@ gnd = Net('GND', stub=True, netclass='Power')
 
 sc.stm32f405r(v_12v, v_5v, v_3v3, gnd)
 
-# netlist_path = "/home/cdsfsmattner/Desktop/skidl/examples/stm32_usb_buck/stm32/netlist.net"
-# generate_netlist(file_ = netlist_path)
+netlist_path = "/home/cdsfsmattner/Desktop/skidl/examples/stm32_usb_buck/stm32/netlist.net"
+generate_netlist(file_ = netlist_path)
 
 schematic_path = "/home/cdsfsmattner/Desktop/skidl/examples/stm32_usb_buck/stm32/stm32.sch"
 generate_schematic(file_ = schematic_path, sch_size='A2')
