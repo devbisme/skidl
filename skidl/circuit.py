@@ -1656,29 +1656,71 @@ class Circuit(SkidlBaseObject):
                 pt.sch_bb[0] -= hierarchies[h]['sch_bb'][0]
                 pt.sch_bb[1] -= hierarchies[h]['sch_bb'][1]
 
-        # 10. Move siblings hierarchies away from each other
-        mv_dir = 'L'
+
+        # start at the base hierarchy, move any child hierarchies
+            # move to the x coordinate of the parent, and y differential
+        # move children hierarchies of any hierarchies moved in the first round
+        # continue until there are no hierarchies left to move
+
+
+        # 10. Move children hierarchies away from base hierarchy
+        # find max hierarchy depth
+        max_hier_depth = 0
         for h in hierarchies:
             split_hier = h.split('.')
-            # top sheet, don't move the components
-            if len(split_hier) == 1:
-                continue
-            else:
-                # get parent ymin
-                t = h.split('.')
-                parent = ".".join(t[:-1])
+            if len(split_hier) > max_hier_depth:
+                max_hier_depth = len(split_hier)
 
-                p_ymin = hierarchies[parent]['sch_bb'][1] + hierarchies[parent]['sch_bb'][3]
-                delta_y = hierarchies[h]['sch_bb'][1] - hierarchies[h]['sch_bb'][3] - p_ymin - 200
 
-                parent_x_min = hierarchies[h]['sch_bb'][0] - hierarchies[h]['sch_bb'][0]
-                child_x_min = hierarchies[parent]['sch_bb'][0] - hierarchies[parent]['sch_bb'][0]
-                delta_x =  child_x_min - parent_x_min 
-                move_subhierarchy(h,hierarchies, delta_x, delta_y, move_dir=mv_dir)
-                if 'L' in mv_dir:
-                    mv_dir = 'R'
-                else:
-                    mv_dir = 'L'
+        for i in range(max_hier_depth):
+            mv_dir = 'L'
+            for h in hierarchies:
+                split_hier = h.split('.')
+                if len(split_hier) == i:
+                    continue
+                if len(split_hier) == i+1:
+                    # found part to place
+                    t = h.split('.')
+                    parent = ".".join(t[:-1])
+                    if len(t)-1 == 0:
+                        continue
+                    p_ymin = hierarchies[parent]['sch_bb'][1] + hierarchies[parent]['sch_bb'][3]
+                    delta_y = hierarchies[h]['sch_bb'][1] - hierarchies[h]['sch_bb'][3] - p_ymin - 200
+
+                    parent_x_min = hierarchies[h]['sch_bb'][0] - hierarchies[h]['sch_bb'][0]
+                    child_x_min = hierarchies[parent]['sch_bb'][0] - hierarchies[parent]['sch_bb'][0]
+                    delta_x =  child_x_min - parent_x_min 
+                    move_subhierarchy(h,hierarchies, delta_x, delta_y, move_dir=mv_dir)
+                    if 'L' in mv_dir:
+                        mv_dir = 'R'
+                    else:
+                        mv_dir = 'L'
+
+
+
+
+        # mv_dir = 'L'
+        # for h in hierarchies:
+        #     split_hier = h.split('.')
+        #     # top sheet, don't move the components
+        #     if len(split_hier) == 1:
+        #         continue
+        #     else:
+        #         # get parent ymin
+        #         t = h.split('.')
+        #         parent = ".".join(t[:-1])
+
+        #         p_ymin = hierarchies[parent]['sch_bb'][1] + hierarchies[parent]['sch_bb'][3]
+        #         delta_y = hierarchies[h]['sch_bb'][1] - hierarchies[h]['sch_bb'][3] - p_ymin - 200
+
+        #         parent_x_min = hierarchies[h]['sch_bb'][0] - hierarchies[h]['sch_bb'][0]
+        #         child_x_min = hierarchies[parent]['sch_bb'][0] - hierarchies[parent]['sch_bb'][0]
+        #         delta_x =  child_x_min - parent_x_min 
+        #         move_subhierarchy(h,hierarchies, delta_x, delta_y, move_dir=mv_dir)
+        #         if 'L' in mv_dir:
+        #             mv_dir = 'R'
+        #         else:
+        #             mv_dir = 'L'
 
         # 11. Move child hierarchies down and away from parent
         # for h in reversed(hierarchies):
