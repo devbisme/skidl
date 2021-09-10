@@ -70,29 +70,24 @@ def round_num(num, base):
 
 # hm = hierarchy to move
 def move_subhierarchy(hm, hierarchy_list, dx, dy, move_dir = 'L'):
-
-
-    hm_parent = ".".join(hm.split('.')[:-1])
-
+    # Move hierarchy
     hierarchy_list[hm]['sch_bb'][0] += dx
     hierarchy_list[hm]['sch_bb'][1] -= dy
 
-    print("Moved " + str(hm) + " to " + str(hierarchy_list[hm]['sch_bb'][0]) + ", " + str(hierarchy_list[hm]['sch_bb'][0]))
-    # Range through hierarchies and look for overlaps of outlines
-    # If we are overlapping then nudge the part 50mil left/right and rerun this function
+
+    # Detect collission with other hierarchies
     for h in hierarchy_list:
         # Don't detect collisions with itself
         if h == hm:
             continue
-        # Detect collisions with sibling hierarchies
-        # h_parent = ".".join(h.split('.')[:-1])
-        # # check if the parent hierarchy is the same as evaluated
-        # if hm_parent == h_parent:
+
+
+        # Calculate the min/max for x/y in order to detect collision between rectangles     
         x1min = hierarchy_list[hm]['sch_bb'][0] - hierarchy_list[hm]['sch_bb'][2]
         x1max = hierarchy_list[hm]['sch_bb'][0] + hierarchy_list[hm]['sch_bb'][2]
         y1min = hierarchy_list[hm]['sch_bb'][1] - hierarchy_list[hm]['sch_bb'][3]
-        y1max = hierarchy_list[hm]['sch_bb'][1] + hierarchy_list[hm]['sch_bb'][3]
-        # Calculate the min/max for x/y in order to detect collision between rectangles            
+        y1max = hierarchy_list[hm]['sch_bb'][1] + hierarchy_list[hm]['sch_bb'][3]  
+             
         x2min = hierarchy_list[h]['sch_bb'][0] - hierarchy_list[h]['sch_bb'][2]
         x2max = hierarchy_list[h]['sch_bb'][0] + hierarchy_list[h]['sch_bb'][2]
         y2min = hierarchy_list[h]['sch_bb'][1] - hierarchy_list[h]['sch_bb'][3]
@@ -103,18 +98,9 @@ def move_subhierarchy(hm, hierarchy_list, dx, dy, move_dir = 'L'):
         # https://stackoverflow.com/questions/20925818/algorithm-to-check-if-two-boxes-overlap
 
         if (x1min <= x2max) and (x2min <= x1max) and (y1min <= y2max) and (y2min <= y1max):
-            # delta = hierarchy_list[h]['sch_bb'][2] + hierarchy_list[hm]['sch_bb'][2] + 100
-            # print(hm + " collided with " + h)
-            # print("x1min: " +str(x1min) + " <= x2max: " + str(x2max) + 
-            # "\tx2min: " +str(x2min) + " <= x1max: " + str(x1max) +
-            # "\ty1min: " +str(y1min) + " <= y2max: " + str(y2max) +
-            # "\ty2min: " +str(y2min) + " <= y1max: " + str(y1max) +"\n")
-            
             if move_dir == 'R':
-                # print("\n moving " + hm + " right by " + str(delta))
                 move_subhierarchy(hm, hierarchy_list, 200, 0, move_dir = move_dir)
             else:
-                # print("\n moving left" + hm + " by " + str(delta))
                 move_subhierarchy(hm, hierarchy_list, -200, 0, move_dir = move_dir)
 
 
@@ -137,7 +123,6 @@ def rotate_pin_part(part):
         rotate = 0
         if hasattr(p.net, 'name'):
             if 'gnd' in p.net.name.lower():
-                # print("part: " + p.part.ref + " pin: " + str(p.num) + " is connected to ground, facing " + p.orientation)
                 if p.orientation == 'U':
                     break # pin is facing down, break
                 if p.orientation == 'D':
@@ -147,7 +132,6 @@ def rotate_pin_part(part):
                 if p.orientation == 'R':
                     rotate = 270
             elif '+' in p.nets[0].name.lower():
-                # print("part: " + p.part.ref + " pin: " + str(p.num) + " is connected to " + p.net.name +  ", facing " + p.orientation)
                 if p.orientation == 'D':
                     break # pin is facing down, break
                 if p.orientation == 'U':
@@ -1533,15 +1517,14 @@ class Circuit(SkidlBaseObject):
         8. Create bounding boxes for hierarchies
         8.1 Adjust the parts to be centered on the hierarchy center
         9. Sort the hierarchies by nesting length
-        10. 10. Move siblings hierarchies away from each other
-        11. Move child hierarchies down and away from parent
-        12. Redraw the hierarchies to encompass any child hierarchies
-        13. Find the center coordinates of the schematic
-        14. Adjust part placement for hierachy and schematic center 
-        15. Calculate nets for each hierarchy
-        15. Generate eeschema code for each hierarchy
-        16. Generate elkjs code
-        17. Create schematic file
+        10. Range through each level of hierarchies and place hierarchies under parents
+        11. Find the starting coordinates of the schematic
+        12. Adjust part placement for hierachy and starting coordinates
+        13. Calculate nets for each hierarchy
+        14. Generate eeschema code for each hierarchy
+        15. Generate elkjs code
+        16. Create schematic file
+
         """
 
         from . import skidl
@@ -1588,7 +1571,7 @@ class Circuit(SkidlBaseObject):
                             for p in pin.net.pins:
                                 p.label = pin.label
 
-        # 4. Create part bounding boxes
+        # 4. Create part bounding boxes for parts
         for pt in self.parts:
             pt.generate_bounding_box()
       
@@ -1666,14 +1649,7 @@ class Circuit(SkidlBaseObject):
                 pt.sch_bb[0] -= hierarchies[h]['sch_bb'][0]
                 pt.sch_bb[1] -= hierarchies[h]['sch_bb'][1]
 
-
-        # start at the base hierarchy, move any child hierarchies
-            # move to the x coordinate of the parent, and y differential
-        # move children hierarchies of any hierarchies moved in the first round
-        # continue until there are no hierarchies left to move
-
-
-        # 10. Move children hierarchies away from base hierarchy
+        # 10. Range through each level of hierarchies and place hierarchies under parents
         # find max hierarchy depth
         max_hier_depth = 0
         for h in hierarchies:
@@ -1681,7 +1657,6 @@ class Circuit(SkidlBaseObject):
             if len(split_hier) > max_hier_depth:
                 max_hier_depth = len(split_hier)
 
-        # Go through each depth level of hierarchies and place hierarchies under parents
         for i in range(max_hier_depth):
             mv_dir = 'L'
             for h in hierarchies:
@@ -1697,9 +1672,9 @@ class Circuit(SkidlBaseObject):
                     p_ymin = hierarchies[parent]['sch_bb'][1] + hierarchies[parent]['sch_bb'][3]
                     delta_y = hierarchies[h]['sch_bb'][1] - hierarchies[h]['sch_bb'][3] - p_ymin - 200
 
-                    parent_x_min = hierarchies[h]['sch_bb'][0] - hierarchies[h]['sch_bb'][0]
-                    child_x_min = hierarchies[parent]['sch_bb'][0] - hierarchies[parent]['sch_bb'][0]
-                    delta_x =  child_x_min - parent_x_min 
+                    # parent_x_min = hierarchies[h]['sch_bb'][0] - hierarchies[h]['sch_bb'][0]
+                    # child_x_min = hierarchies[parent]['sch_bb'][0] - hierarchies[parent]['sch_bb'][0]
+                    delta_x =  hierarchies[h]['sch_bb'][0] - hierarchies[parent]['sch_bb'][0] 
                     move_subhierarchy(h,hierarchies, delta_x, delta_y, move_dir=mv_dir)
                     if 'L' in mv_dir:
                         mv_dir = 'R'
@@ -1707,7 +1682,7 @@ class Circuit(SkidlBaseObject):
                         mv_dir = 'L'
 
 
-        # 13. Find the center coordinates of the schematic
+        # 11. Find the starting coordinates of the schematic
         hierarchy_eeschema_code = [] # list to hold all the code from each hierarchy
         sch_c = [0,0]
         for n in eeschema_sch_sizes:
@@ -1719,14 +1694,14 @@ class Circuit(SkidlBaseObject):
                 sch_c = [x,y]
                 break
 
-        # 14. Adjust part placement for hierachy and schematic center 
+        # 12. Adjust part placement for hierachy and starting coordinates
         for h in hierarchies:
             # a. Part code
             for pt in hierarchies[h]['parts']:
                 pt.sch_bb[0] += sch_c[0] + hierarchies[h]['sch_bb'][0]
                 pt.sch_bb[1] += sch_c[1] + hierarchies[h]['sch_bb'][1]
 
-        # 15. Calculate nets for each hierarchy
+        # 13. Calculate nets for each hierarchy
         for h in hierarchies:
             for pt in hierarchies[h]['parts']:
                 for pin in pt.pins:
@@ -1745,7 +1720,7 @@ class Circuit(SkidlBaseObject):
                             wire_lst = gen_net_wire(pin.net,hierarchies[h])
                             hierarchies[h]['wires'].extend(wire_lst)
 
-        # 16. Generate eeschema code for each hierarchy
+        # 14. Generate eeschema code for each hierarchy
         for h in hierarchies:
             eeschema_code = [] 
             # a. Part code
@@ -1808,11 +1783,11 @@ class Circuit(SkidlBaseObject):
             # append hierarchy code to the buffer list
             hierarchy_eeschema_code.append("\n".join(eeschema_code))
 
-        # 17. Generate elkjs code
+        # 15. Generate elkjs code
         if gen_elkjs:
             gen_elkjs_code(self.parts, self.nets)
 
-        # 18. Create schematic file
+        # 16. Create schematic file
         with open(file_, "w") as f:
             f.truncate(0) # Clear the file
 

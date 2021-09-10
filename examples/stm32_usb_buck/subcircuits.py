@@ -2,11 +2,8 @@ from skidl import *
 
 
 
-# r0603 = Part("Device", 'R', footprint='R_0603_1608Metric', value='1.5k')
-# c0603 = Part("Device", 'C_Small', footprint='C_0603_1608Metric')
-# d0603 = Part("Device", 'D', footprint='D_0603_1608Metric')
-# LED indicator circuit
-# c = central coordinates for the subcircuit
+# Generates STM32 chip with peripherals including:
+#   * 
 @package
 def stm32f405r(v_12v, v_5v, vdd, gnd):
     l_12v = Net('+12V',stub=True, netclass='Power')
