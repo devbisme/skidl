@@ -3,12 +3,14 @@ from skidl import *
 import subcircuits as sc
 
 
-
+# Delete sklib file or we get errors
 for file in os.listdir("."):
     if file.endswith("sklib.py"):
         os.remove(file)
 
-
+# clear the console so we can see the print statements easier
+clear = lambda: os.system('clear')
+clear()
 
 
 v_12v = Net('+12V', stub=True, netclass='Power')

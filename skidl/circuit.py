@@ -71,11 +71,13 @@ def round_num(num, base):
 # hm = hierarchy to move
 def move_subhierarchy(hm, hierarchy_list, dx, dy, move_dir = 'L'):
 
+
     hm_parent = ".".join(hm.split('.')[:-1])
 
     hierarchy_list[hm]['sch_bb'][0] += dx
     hierarchy_list[hm]['sch_bb'][1] -= dy
 
+    print("Moved " + str(hm) + " to " + str(hierarchy_list[hm]['sch_bb'][0]) + ", " + str(hierarchy_list[hm]['sch_bb'][0]))
     # Range through hierarchies and look for overlaps of outlines
     # If we are overlapping then nudge the part 50mil left/right and rerun this function
     for h in hierarchy_list:
@@ -1653,15 +1655,10 @@ class Circuit(SkidlBaseObject):
             for pt in hierarchies[h]['parts']:
                 pt.sch_bb[0] -= hierarchies[h]['sch_bb'][0]
                 pt.sch_bb[1] -= hierarchies[h]['sch_bb'][1]
-        # 9. Sort the hierarchies by nesting length
-        sort_hier_by_nesting = sorted(hierarchies.items(), key=lambda v: len(v[0].split(".")),reverse=True)
-        sorted_hier = {}
-        for sh in sort_hier_by_nesting:
-            sorted_hier[sh[0]]=sh[1]
 
         # 10. Move siblings hierarchies away from each other
         mv_dir = 'L'
-        for h in sorted_hier:
+        for h in hierarchies:
             split_hier = h.split('.')
             # top sheet, don't move the components
             if len(split_hier) == 1:
@@ -1670,40 +1667,43 @@ class Circuit(SkidlBaseObject):
                 # get parent ymin
                 t = h.split('.')
                 parent = ".".join(t[:-1])
+
                 p_ymin = hierarchies[parent]['sch_bb'][1] + hierarchies[parent]['sch_bb'][3]
-                parent_x_min = sorted_hier[h]['sch_bb'][0] - sorted_hier[h]['sch_bb'][0]
-                child_x_min = sorted_hier[parent]['sch_bb'][0] - sorted_hier[parent]['sch_bb'][0]
-                delta_x =  parent_x_min - child_x_min 
-                move_subhierarchy(h,hierarchies, delta_x, hierarchies[h]['sch_bb'][3] - p_ymin, move_dir=mv_dir)
+                delta_y = hierarchies[h]['sch_bb'][1] - hierarchies[h]['sch_bb'][3] - p_ymin
+
+                parent_x_min = hierarchies[h]['sch_bb'][0] - hierarchies[h]['sch_bb'][0]
+                child_x_min = hierarchies[parent]['sch_bb'][0] - hierarchies[parent]['sch_bb'][0]
+                delta_x =  child_x_min - parent_x_min 
+                move_subhierarchy(h,hierarchies, delta_x, delta_y, move_dir=mv_dir)
                 if 'L' in mv_dir:
                     mv_dir = 'R'
                 else:
                     mv_dir = 'L'
 
         # 11. Move child hierarchies down and away from parent
-        for h in sorted_hier:
-            for ht in sorted_hier:
-                t = ht.split('.')
-                parent = ".".join(t[:-1])
-                if parent == h:
-                    parent_y_min = sorted_hier[h]['sch_bb'][1] - sorted_hier[h]['sch_bb'][3]
-                    child_y_min = sorted_hier[ht]['sch_bb'][1] - sorted_hier[ht]['sch_bb'][3]
-                    delta_y =  -(parent_y_min + child_y_min) 
+        # for h in reversed(hierarchies):
+        #     for ht in hierarchies:
+        #         t = ht.split('.')
+        #         parent = ".".join(t[:-1])
+        #         if parent == h:
+        #             parent_y_min = hierarchies[h]['sch_bb'][1] - hierarchies[h]['sch_bb'][3]
+        #             child_y_min = hierarchies[ht]['sch_bb'][1] - hierarchies[ht]['sch_bb'][3]
+        #             delta_y =  -(parent_y_min + child_y_min) 
 
-                    parent_x_min = sorted_hier[h]['sch_bb'][0] - sorted_hier[h]['sch_bb'][0]
-                    child_x_min = sorted_hier[ht]['sch_bb'][0] - sorted_hier[ht]['sch_bb'][0]
-                    delta_x =  parent_x_min - child_x_min 
-                    # sorted_hier[ht]['sch_bb'][1] += delta + 300
-                    move_subhierarchy(ht,hierarchies, delta_x, delta_y, move_dir=mv_dir)
-                    if 'L' in mv_dir:
-                        mv_dir = 'R'
-                    else:
-                        mv_dir = 'L'
+        #             parent_x_min = hierarchies[h]['sch_bb'][0] - hierarchies[h]['sch_bb'][0]
+        #             child_x_min = hierarchies[ht]['sch_bb'][0] - hierarchies[ht]['sch_bb'][0]
+        #             delta_x =  child_x_min - parent_x_min 
+        #             # hierarchies[ht]['sch_bb'][1] += delta + 300
+        #             move_subhierarchy(ht,hierarchies, delta_x, delta_y, move_dir=mv_dir)
+        #             if 'L' in mv_dir:
+        #                 mv_dir = 'R'
+        #             else:
+        #                 mv_dir = 'L'
 
         # 12. Draw outline for parent hierarchies
-        # for h in reversed(sorted_hier):
+        # for h in reversed(hierarchies):
         #     h_parent = ".".join(h.split('.')[:-1])
-        #     for ht in sorted_hier:
+        #     for ht in hierarchies:
         #         if ht == h:
         #             continue
         #         t = ht.split('.')
@@ -1712,7 +1712,6 @@ class Circuit(SkidlBaseObject):
         #             print("found siblings")
 
         # 13. Find the center coordinates of the schematic
-        hierarchies = sorted_hier
         hierarchy_eeschema_code = [] # list to hold all the code from each hierarchy
         sch_c = [0,0]
         for n in eeschema_sch_sizes:
