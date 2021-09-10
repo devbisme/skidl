@@ -1671,7 +1671,7 @@ class Circuit(SkidlBaseObject):
             if len(split_hier) > max_hier_depth:
                 max_hier_depth = len(split_hier)
 
-
+        # Go through each depth level of hierarchies and place hierarchies under parents
         for i in range(max_hier_depth):
             mv_dir = 'L'
             for h in hierarchies:
@@ -1696,62 +1696,6 @@ class Circuit(SkidlBaseObject):
                     else:
                         mv_dir = 'L'
 
-
-
-
-        # mv_dir = 'L'
-        # for h in hierarchies:
-        #     split_hier = h.split('.')
-        #     # top sheet, don't move the components
-        #     if len(split_hier) == 1:
-        #         continue
-        #     else:
-        #         # get parent ymin
-        #         t = h.split('.')
-        #         parent = ".".join(t[:-1])
-
-        #         p_ymin = hierarchies[parent]['sch_bb'][1] + hierarchies[parent]['sch_bb'][3]
-        #         delta_y = hierarchies[h]['sch_bb'][1] - hierarchies[h]['sch_bb'][3] - p_ymin - 200
-
-        #         parent_x_min = hierarchies[h]['sch_bb'][0] - hierarchies[h]['sch_bb'][0]
-        #         child_x_min = hierarchies[parent]['sch_bb'][0] - hierarchies[parent]['sch_bb'][0]
-        #         delta_x =  child_x_min - parent_x_min 
-        #         move_subhierarchy(h,hierarchies, delta_x, delta_y, move_dir=mv_dir)
-        #         if 'L' in mv_dir:
-        #             mv_dir = 'R'
-        #         else:
-        #             mv_dir = 'L'
-
-        # 11. Move child hierarchies down and away from parent
-        # for h in reversed(hierarchies):
-        #     for ht in hierarchies:
-        #         t = ht.split('.')
-        #         parent = ".".join(t[:-1])
-        #         if parent == h:
-        #             parent_y_min = hierarchies[h]['sch_bb'][1] - hierarchies[h]['sch_bb'][3]
-        #             child_y_min = hierarchies[ht]['sch_bb'][1] - hierarchies[ht]['sch_bb'][3]
-        #             delta_y =  -(parent_y_min + child_y_min) 
-
-        #             parent_x_min = hierarchies[h]['sch_bb'][0] - hierarchies[h]['sch_bb'][0]
-        #             child_x_min = hierarchies[ht]['sch_bb'][0] - hierarchies[ht]['sch_bb'][0]
-        #             delta_x =  child_x_min - parent_x_min 
-        #             # hierarchies[ht]['sch_bb'][1] += delta + 300
-        #             move_subhierarchy(ht,hierarchies, delta_x, delta_y, move_dir=mv_dir)
-        #             if 'L' in mv_dir:
-        #                 mv_dir = 'R'
-        #             else:
-        #                 mv_dir = 'L'
-
-        # 12. Draw outline for parent hierarchies
-        # for h in reversed(hierarchies):
-        #     h_parent = ".".join(h.split('.')[:-1])
-        #     for ht in hierarchies:
-        #         if ht == h:
-        #             continue
-        #         t = ht.split('.')
-        #         ht_parent = ".".join(t[:-1])
-        #         if ht_parent == h_parent:
-        #             print("found siblings")
 
         # 13. Find the center coordinates of the schematic
         hierarchy_eeschema_code = [] # list to hold all the code from each hierarchy

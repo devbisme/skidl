@@ -9,8 +9,8 @@ from skidl import *
 # c = central coordinates for the subcircuit
 @package
 def stm32f405r(v_12v, v_5v, vdd, gnd):
-    l12v = Net('+12V',stub=True, netclass='Power')
-    v_12v += l12v
+    l_12v = Net('+12V',stub=True, netclass='Power')
+    v_12v += l_12v
     l_5v = Net('+5V',stub=True, netclass='Power')
     v_5v += l_5v
     l_vdd = Net('+3V3', stub=True, netclass='Power')
@@ -33,6 +33,7 @@ def stm32f405r(v_12v, v_5v, vdd, gnd):
     u.p44.label = 'USB_M'
     u.p46.label = 'SWDIO'
     u.p49.label = 'SWCLK'
+    u.p55.label = 'SWO'
     u.p58.label = 'I2C1_SCL'
     u.p59.label = 'I2C1_SDA'
     u.p60.label = 'BOOT0'
@@ -50,18 +51,28 @@ def stm32f405r(v_12v, v_5v, vdd, gnd):
     vcap1 = Part("Device", 'C_Small', footprint='C_0603_1608Metric', value='2.2uF')
     vcap2 = Part("Device", 'C_Small', footprint='C_0603_1608Metric', value='2.2uF')
 
+    # I2C pull-ups
+    pu_scl = Part("Device", 'R', footprint='R_0603_1608Metric', value="2.2k")
+    pu_sda = Part("Device", 'R', footprint='R_0603_1608Metric', value="2.2k")
+    pu_scl.p2 += u.p58
+    pu_sda.p2 += u.p59
+
     # Subcircuits
-    buck(l12v, l_vdd, l_gnd)
+    buck(l_12v, l_vdd, l_gnd)
     usb(l_5v, l_gnd, u.p43, u.p44, imp_match = True)
     boot_sw(l_vdd, l_gnd)
     led(u.p8, l_gnd, 'blue', '5.6k')
     anlg_flt(l_vdd, l_gnd, u.p13)
     oscillator(l_vdd, l_gnd, u.p5, u.p6)
+    screw_term_2(l_12v, l_gnd)
+    debug_header(u.p7, u.p49, u.p46, u.p55, l_vdd, l_gnd)
+    header_4pin(l_vdd, pu_scl.p2, pu_sda.p2, l_gnd) # i2c header
+    header_4pin(l_vdd, u.p16, u.p17, l_gnd) # uart header
 
     # Connect pins
     vcap2.p2 += u.p47
     vcap1.p2 += u.p31
-    l_vdd += u.p1, u.p19, u.p32, u.p48, u.p64, bcap.p1, fcap1.p1, fcap2.p1, fcap3.p1, fcap4.p1, fcap5.p1
+    l_vdd += u.p1, u.p19, u.p32, u.p48, u.p64, bcap.p1, fcap1.p1, fcap2.p1, fcap3.p1, fcap4.p1, fcap5.p1, pu_sda.p1, pu_scl.p1
     l_gnd += vcap1.p1, vcap2.p1, u.p12, u.p18, u.p63, bcap.p2, fcap1.p2, fcap2.p2, fcap3.p2, fcap4.p2, fcap5.p2
 
 
@@ -106,7 +117,6 @@ def vin_protection(vin, vout, gnd):
     pmos.p3 += fb.p1
     fb.p2 += vout
 
-    led(fuse.p2, l_gnd, 'blue', '5.6k')
     # fuse.p2.label = "PWR_IN_STATUS"
 
 @SubCircuit
@@ -119,6 +129,7 @@ def buck(vin, vout, gnd):
     gnd += l_gnd
     l_vout = Net('+3V3', stub=True, netclass='Power')
     vout += l_vout
+    l_5v = Net('+5V',stub=True, netclass='Power')
 
     vprotected = Net('v12_fused')
     vin_protection(lvin, vprotected, l_gnd)
@@ -128,13 +139,15 @@ def buck(vin, vout, gnd):
     reg.p3.label = "v12_fused"
     c1 = Part("Device", 'C_Small', footprint='C_0603_1608Metric', value='10uF')
     c2 = Part("Device", 'C_Small', footprint='C_0603_1608Metric', value='10uF')
+    d = Part("Device", "D_Zener_Small", footprint="D_0201_0603Metric")
+    d.p1 += l_5v
+    
 
 
-    vprotected += reg.p3, c1.p1
+    vprotected += reg.p3, c1.p1, d.p2
     l_vout += reg.p2, c2.p1
     l_gnd += reg.p1, c1.p2, c2.p2
 
-    led(l_vout, l_gnd, 'blue', '5.6k')
 
 @SubCircuit
 def oscillator(vdd, gnd, osc_in, osc_out):
@@ -217,3 +230,35 @@ def led(inp, outp, color, resistance):
     d = Part("Device", 'D', footprint='D_0603_1608Metric', value = color)
     r = Part("Device", 'R', footprint='R_0603_1608Metric', value=resistance)
     inp & r & d & outp
+
+@SubCircuit
+def screw_term_2(in1, in2):
+    t = Part("Connector", "Screw_Terminal_01x02", footprint = "TerminalBlock_Phoenix_MKDS-1,5-2_1x02_P5.00mm_Horizontal")
+    t.p1 += in1
+    t.p2 += in2
+
+@SubCircuit
+def debug_header(reset, swdclk, swdio, swo, vref, gnd):
+    t = Part("Connector", "Conn_ARM_JTAG_SWD_10", footprint = "PinSocket_2x05_P2.54mm_Vertical_SMD")
+    t.p1 += vref
+    t.p2 += swdio
+    t.p3 += gnd
+    t.p4 += swdclk
+    # t.p5 += 
+    t.p6 += swo
+    # t.p7 +=
+    # t.p8 += 
+    t.p9 += gnd
+    t.p10 += reset
+
+
+
+
+
+@SubCircuit
+def header_4pin(in1, in2, in3, in4):
+    h = Part("Connector_Generic", "Conn_01x04", footprint = "PinHeader_1x04_P2.54mm_Vertical")
+    h.p1 += in1
+    h.p2 += in2
+    h.p3 += in3
+    h.p4 += in4
