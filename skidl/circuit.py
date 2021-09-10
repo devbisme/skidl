@@ -1669,7 +1669,7 @@ class Circuit(SkidlBaseObject):
                 parent = ".".join(t[:-1])
 
                 p_ymin = hierarchies[parent]['sch_bb'][1] + hierarchies[parent]['sch_bb'][3]
-                delta_y = hierarchies[h]['sch_bb'][1] - hierarchies[h]['sch_bb'][3] - p_ymin
+                delta_y = hierarchies[h]['sch_bb'][1] - hierarchies[h]['sch_bb'][3] - p_ymin - 200
 
                 parent_x_min = hierarchies[h]['sch_bb'][0] - hierarchies[h]['sch_bb'][0]
                 child_x_min = hierarchies[parent]['sch_bb'][0] - hierarchies[parent]['sch_bb'][0]
