@@ -1,20 +1,10 @@
 from skidl import *
-
+import power_nets as pn
 
 # Generates STM32 chip with peripherals including:
 #   * 
 @package
-def stm32f405r(v_12v, v_5v, vdd, gnd):
-    l_12v = Net('+12V',stub=True, netclass='Power')
-    v_12v += l_12v
-    l_5v = Net('+5V',stub=True, netclass='Power')
-    v_5v += l_5v
-    l_vdd = Net('+3V3', stub=True, netclass='Power')
-    vdd += l_vdd
-    l_gnd = Net('GND', stub=True, netclass='Power')
-    gnd += l_gnd
-    l_vdda = Net('+3.3VA', stub=True, netclass='Power')
-
+def stm32f405r():
     # MCU
     u = Part("MCU_ST_STM32F4", 'STM32F405RGTx', footprint='LQFP-64_10x10mm_P0.5mm')
     # Label signal pins
@@ -55,23 +45,23 @@ def stm32f405r(v_12v, v_5v, vdd, gnd):
     pu_sda.p2 += u.p59
 
     # Subcircuits
-    buck(l_12v, l_vdd, l_gnd)
-    usb(l_5v, l_gnd, u.p43, u.p44, imp_match = True)
-    boot_sw(l_vdd, l_gnd)
-    led(u.p8, l_gnd, 'blue', '5.6k')
-    anlg_flt(l_vdd, l_gnd, l_vdda)
-    oscillator(l_vdd, l_gnd, u.p5, u.p6)
-    screw_term_2(l_12v, l_gnd)
-    debug_header(u.p7, u.p49, u.p46, u.p55, l_vdd, l_gnd)
-    header_4pin(l_vdd, pu_scl.p2, pu_sda.p2, l_gnd) # i2c header
-    header_4pin(l_vdd, u.p16, u.p17, l_gnd) # uart header
-    mounting_holes(l_gnd)
+    buck(pn.v_12v, pn.v_3v3, pn.gnd)
+    usb(pn.v_5v, pn.gnd, u.p43, u.p44, imp_match = True)
+    boot_sw(pn.v_3v3, pn.gnd)
+    led(u.p8, pn.gnd, 'blue', '5.6k')
+    anlg_flt(pn.vdda, pn.gnd, pn.vdda)
+    oscillator(pn.v_3v3, pn.gnd, u.p5, u.p6)
+    screw_term_2(pn.v_12v, pn.gnd)
+    debug_header(u.p7, u.p49, u.p46, u.p55, pn.v_3v3, pn.gnd)
+    header_4pin(pn.v_3v3, pu_scl.p2, pu_sda.p2, pn.gnd) # i2c header
+    header_4pin(pn.v_3v3, u.p16, u.p17, pn.gnd) # uart header
+    mounting_holes(pn.gnd)
 
     # Connect pins
     vcap2.p2 += u.p47
     vcap1.p2 += u.p31
-    l_vdd += u.p1, u.p19, u.p32, u.p48, u.p64, bcap.p1, fcap1.p1, fcap2.p1, fcap3.p1, fcap4.p1, fcap5.p1, pu_sda.p1, pu_scl.p1
-    l_gnd += vcap1.p1, vcap2.p1, u.p12, u.p18, u.p63, bcap.p2, fcap1.p2, fcap2.p2, fcap3.p2, fcap4.p2, fcap5.p2
+    pn.v_3v3 += u.p1, u.p19, u.p32, u.p48, u.p64, bcap.p1, fcap1.p1, fcap2.p1, fcap3.p1, fcap4.p1, fcap5.p1, pu_sda.p1, pu_scl.p1
+    pn.gnd += vcap1.p1, vcap2.p1, u.p12, u.p18, u.p63, bcap.p2, fcap1.p2, fcap2.p2, fcap3.p2, fcap4.p2, fcap5.p2
 
 # analog supply filter circuit
 @SubCircuit
