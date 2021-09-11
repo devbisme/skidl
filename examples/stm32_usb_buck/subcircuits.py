@@ -14,6 +14,7 @@ def stm32f405r(v_12v, v_5v, vdd, gnd):
     vdd += l_vdd
     l_gnd = Net('GND', stub=True, netclass='Power')
     gnd += l_gnd
+    l_vdda = Net('+3.3VA', stub=True, netclass='Power')
 
     # MCU
     u = Part("MCU_ST_STM32F4", 'STM32F405RGTx', footprint='LQFP-64_10x10mm_P0.5mm')
@@ -59,7 +60,7 @@ def stm32f405r(v_12v, v_5v, vdd, gnd):
     usb(l_5v, l_gnd, u.p43, u.p44, imp_match = True)
     boot_sw(l_vdd, l_gnd)
     led(u.p8, l_gnd, 'blue', '5.6k')
-    anlg_flt(l_vdd, l_gnd, u.p13)
+    anlg_flt(l_vdd, l_gnd, l_vdda)
     oscillator(l_vdd, l_gnd, u.p5, u.p6)
     screw_term_2(l_12v, l_gnd)
     debug_header(u.p7, u.p49, u.p46, u.p55, l_vdd, l_gnd)
@@ -77,60 +78,37 @@ def stm32f405r(v_12v, v_5v, vdd, gnd):
 # analog supply filter circuit
 @SubCircuit
 def anlg_flt(vdd, gnd, vdda):
-    # Redeclare power nets, TODO: possible bug
-    l_vdd = Net('+3V3', stub=True, netclass='Power')
-    vdd += l_vdd
-    l_gnd = Net('GND', stub=True, netclass='Power')
-    gnd += l_gnd
-    l_vdda = Net('+3.3VA', stub=True, netclass='Power')
-    vdda += l_vdda
-
     # Create parts
     c1 = Part("Device", 'C_Small', footprint='C_0603_1608Metric', value='1uF')
     c2 = Part("Device", 'C_Small', footprint='C_0603_1608Metric', value='10nF')
     l1 = Part("Device", 'L_Small', footprint='L_0603_1608Metric', value='29nH')
 
     # Connect pins
-    l_vdda += c1.p1, c2.p1, l1.p2
-    l_vdd += l1.p1
-    l_gnd += c1.p2, c2.p2
+    vdda += c1.p1, c2.p1, l1.p2
+    vdd += l1.p1
+    gnd += c1.p2, c2.p2
 
 
 @SubCircuit
 def vin_protection(vin, vout, gnd):
-    
-    # Redeclare power nets, TODO: possible bug
-    lvin = Net('+12V', stub=True, netclass='Power')
-    vin += lvin
-    l_gnd = Net('GND', stub=True, netclass='Power')
-    gnd += l_gnd
-
     pmos = Part('Device', 'Q_PMOS_DGS', footprint='SOT-23') # reverse polarity protection
     fuse = Part('Device', 'Polyfuse_Small', footprint='Fuse_Bourns_MF-RG300') # resetable fuse
     fb = Part('Device', 'Ferrite_Bead', footprint='L_Murata_DEM35xxC') # ferrite bead
 
-    lvin += fuse.p1
+    vin += fuse.p1
     fuse.p2 += pmos.p1
-    pmos.p2 += l_gnd
+    pmos.p2 += gnd
     pmos.p3 += fb.p1
     fb.p2 += vout
-
-    # fuse.p2.label = "PWR_IN_STATUS"
 
 @SubCircuit
 def buck(vin, vout, gnd):
     
-    # Redeclare power nets, TODO: possible bug
-    lvin = Net('+12V', stub=True, netclass='Power')
-    vin += lvin
-    l_gnd = Net('GND', stub=True, netclass='Power')
-    gnd += l_gnd
-    l_vout = Net('+3V3', stub=True, netclass='Power')
-    vout += l_vout
+
     l_5v = Net('+5V',stub=True, netclass='Power')
 
     vprotected = Net('v12_fused')
-    vin_protection(lvin, vprotected, l_gnd)
+    vin_protection(vin, vprotected, gnd)
 
 
     reg = Part('Regulator_Linear', 'AP1117-15', footprint='SOT-223-3_TabPin2')
@@ -141,11 +119,11 @@ def buck(vin, vout, gnd):
     d.p1 += l_5v
     
 
-    led(l_vout, l_gnd, 'red', '5.6k')
+    led(vout, gnd, 'red', '5.6k')
 
     vprotected += reg.p3, c1.p1, d.p2
-    l_vout += reg.p2, c2.p1
-    l_gnd += reg.p1, c1.p2, c2.p2
+    vout += reg.p2, c2.p1
+    gnd += reg.p1, c1.p2, c2.p2
 
 @SubCircuit
 def mounting_holes(gnd):
