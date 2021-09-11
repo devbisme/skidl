@@ -323,6 +323,18 @@ def gen_power_part_eeschema(part, orientation = [1,0,0,-1]):
             print(inst)
     return ("\n" + "".join(out))
 
+def gen_hier_schematic(name, x=0,y=0 ,year=2021, month=8, day=15):
+    time_hex = hex(int(time.time()))[2:]
+    t = []
+    t.append('\n$Sheet\n')
+    t.append('S {} {} {} {}\n'.format(x, y, 500, 1000 )) # upper left x/y, width, height
+    t.append('U {}\n'.format(time_hex))
+    t.append('F0 "{}" 50\n'.format(name))
+    t.append('F1 "{}.sch" 50\n'.format(name))
+    t.append('$EndSheet\n')
+    out = "".join(t)
+    return(out)
+
 
 # Size options of eeschema schematic pages
 eeschema_sch_sizes = {
@@ -1808,39 +1820,6 @@ class Circuit(SkidlBaseObject):
             gen_elkjs_code(self.parts, self.nets)
 
         # 16. Create schematic file
-
-        def gen_hier_schematic(name, x=0,y=0 ,year=2021, month=8, day=15):
-            time_hex = hex(int(time.time()))[2:]
-            t = []
-            t.append('\n$Sheet\n')
-            t.append('S {} {} {} {}\n'.format(x-50, y+50, x+50,y-50 ))
-            t.append('U {}\n'.format(time_hex))
-            t.append('F0 "{}" 50\n'.format(name))
-            t.append('F1 "{}.sch" 50\n'.format(name))
-            t.append('$EndSheet\n')
-            out = "".join(t)
-            print(out)
-            return(out)
-
-
-
-    #      header = []
-    # header.append("EESchema Schematic File Version 4\n")
-    # header.append("EELAYER 30 0\n")
-    # header.append("EELAYER END\n")
-    # header.append("$Descr {} {} {}\n".format(size, eeschema_sch_sizes[size][0], eeschema_sch_sizes[size][1]))
-    # header.append("encoding utf-8\n")
-    # header.append("Sheet {} {}\n".format(cur_sheet_num, total_sheet_num)) 
-    # header.append('Title "{}"\n'.format(sheet_title)) 
-    # header.append('Date "{}-{}-{}"\n'.format(year, month, day)) 
-    # header.append('Rev "v{}.{}"\n'.format(revMaj, revMin)) 
-    # header.append('Comp ""\n')
-    # header.append('Comment1 ""\n')
-    # header.append('Comment2 ""\n')
-    # header.append('Comment3 ""\n')
-    # header.append('Comment4 ""\n')
-    # header.append('$EndDescr\n')
-
         # make hierarchy eeschema sheets
         hier_sch = []
         x= sch_c[0]
