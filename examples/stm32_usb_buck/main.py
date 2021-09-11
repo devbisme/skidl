@@ -15,6 +15,7 @@ clear()
 
 
 sc.stm32f405r()
+sc.stm32f405r()
 
 # Generate netlist
 netlist_path = "/home/cdsfsmattner/Desktop/skidl/examples/stm32_usb_buck/stm32/netlist.net"

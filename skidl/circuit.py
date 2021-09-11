@@ -355,6 +355,7 @@ def gen_config_header(cur_sheet_num=1, total_sheet_num=1, sheet_title="Default",
     return (("" + "".join(header)))
 
 
+
 # Generate hierarchy bounding box
 def gen_hierarchy_bb(hier):
     # find the parts with the largest xMin, xMax, yMin, yMax
@@ -410,8 +411,6 @@ def gen_hierarchy_bb(hier):
     r_sch_bb = [tx,ty,width,height]
 
     return r_sch_bb
-
-
 
 def gen_net_wire(net, hierarchy):
 # For a particular wire see if it collides with any parts
@@ -1803,17 +1802,70 @@ class Circuit(SkidlBaseObject):
             else:
                 hierarchy_page[h_parent].append("\n".join(eeschema_code))
 
-        for hp in hierarchy_page:
-            print("page: " + hp)
+
         # 15. Generate elkjs code
         if gen_elkjs:
             gen_elkjs_code(self.parts, self.nets)
 
         # 16. Create schematic file
+
+        def gen_hier_schematic(name, x=0,y=0 ,year=2021, month=8, day=15):
+            time_hex = hex(int(time.time()))[2:]
+            t = []
+            t.append('\n$Sheet\n')
+            t.append('S {} {} {} {}\n'.format(x-50, y+50, x+50,y-50 ))
+            t.append('U {}\n'.format(time_hex))
+            t.append('F0 "{}" 50\n'.format(name))
+            t.append('F1 "{}.sch" 50\n'.format(name))
+            t.append('$EndSheet\n')
+            out = "".join(t)
+            print(out)
+            return(out)
+
+
+
+    #      header = []
+    # header.append("EESchema Schematic File Version 4\n")
+    # header.append("EELAYER 30 0\n")
+    # header.append("EELAYER END\n")
+    # header.append("$Descr {} {} {}\n".format(size, eeschema_sch_sizes[size][0], eeschema_sch_sizes[size][1]))
+    # header.append("encoding utf-8\n")
+    # header.append("Sheet {} {}\n".format(cur_sheet_num, total_sheet_num)) 
+    # header.append('Title "{}"\n'.format(sheet_title)) 
+    # header.append('Date "{}-{}-{}"\n'.format(year, month, day)) 
+    # header.append('Rev "v{}.{}"\n'.format(revMaj, revMin)) 
+    # header.append('Comp ""\n')
+    # header.append('Comment1 ""\n')
+    # header.append('Comment2 ""\n')
+    # header.append('Comment3 ""\n')
+    # header.append('Comment4 ""\n')
+    # header.append('$EndDescr\n')
+
+        # make hierarchy eeschema sheets
+        hier_sch = []
+        x= sch_c[0]
+        y= sch_c[1]
+        for hp in hierarchy_page:
+            t = gen_hier_schematic(hp,x,y)
+            hier_sch.append(t)
+            u = file_.split('/')[:-1]
+            dir = "/".join(u)
+            file_name = dir + "/" + hp + ".sch"
+            with open(file_name, "w") as f:
+                f.truncate(0) # Clear the file
+                new_sch_file = [gen_config_header(cur_sheet_num=1, size = sch_size), hierarchy_page[hp], "$EndSCHEMATC"]
+                for i in new_sch_file:
+                        print("" + "".join(i), file=f)   
+            f.close()
+            x += 1000
+
         # TODO: if there's multiple pages then create a top page along with the hierarchical schematics
+        # generate hierarchical schematic for each page
+        
+
         with open(file_, "w") as f:
             f.truncate(0) # Clear the file
-            new_sch_file = [gen_config_header(cur_sheet_num=1, size = sch_size), hierarchy_eeschema_code, "$EndSCHEMATC"]
+            new_sch_file = [gen_config_header(cur_sheet_num=1, size = sch_size), hier_sch, "$EndSCHEMATC"]
             for i in new_sch_file:
                     print("" + "".join(i), file=f)   
         f.close()
