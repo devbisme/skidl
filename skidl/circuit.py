@@ -1689,7 +1689,6 @@ class Circuit(SkidlBaseObject):
 
 
         # 11. Find the starting coordinates of the schematic
-        hierarchy_eeschema_code = [] # list to hold all the code from each hierarchy
         sch_c = [0,0]
         for n in eeschema_sch_sizes:
             if n == sch_size:
@@ -1726,8 +1725,15 @@ class Circuit(SkidlBaseObject):
                             wire_lst = gen_net_wire(pin.net,hierarchies[h])
                             hierarchies[h]['wires'].extend(wire_lst)
 
+
         # 14. Generate eeschema code for each hierarchy
+        # TODO: generate code for each page of hierarchies
+        hierarchy_page = {}
+        hierarchy_eeschema_code = [] # list to hold all the code from each hierarchy
         for h in hierarchies:
+
+
+
             eeschema_code = [] 
             # a. Part code
             for pt in hierarchies[h]['parts']:
@@ -1789,14 +1795,24 @@ class Circuit(SkidlBaseObject):
             # append hierarchy code to the buffer list
             hierarchy_eeschema_code.append("\n".join(eeschema_code))
 
+            # find top hierarchy
+            h_parent = h.split('.')[0]
+            if h_parent not in hierarchy_page:
+                # make new top level hierarchy
+                hierarchy_page[h_parent] = ["\n".join(eeschema_code)]
+            else:
+                hierarchy_page[h_parent].append("\n".join(eeschema_code))
+
+        for hp in hierarchy_page:
+            print("page: " + hp)
         # 15. Generate elkjs code
         if gen_elkjs:
             gen_elkjs_code(self.parts, self.nets)
 
         # 16. Create schematic file
+        # TODO: if there's multiple pages then create a top page along with the hierarchical schematics
         with open(file_, "w") as f:
             f.truncate(0) # Clear the file
-
             new_sch_file = [gen_config_header(cur_sheet_num=1, size = sch_size), hierarchy_eeschema_code, "$EndSCHEMATC"]
             for i in new_sch_file:
                     print("" + "".join(i), file=f)   
