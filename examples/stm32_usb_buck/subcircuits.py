@@ -1,7 +1,6 @@
 from skidl import *
 
 
-
 # Generates STM32 chip with peripherals including:
 #   * 
 @package
@@ -74,7 +73,6 @@ def stm32f405r(v_12v, v_5v, vdd, gnd):
     l_vdd += u.p1, u.p19, u.p32, u.p48, u.p64, bcap.p1, fcap1.p1, fcap2.p1, fcap3.p1, fcap4.p1, fcap5.p1, pu_sda.p1, pu_scl.p1
     l_gnd += vcap1.p1, vcap2.p1, u.p12, u.p18, u.p63, bcap.p2, fcap1.p2, fcap2.p2, fcap3.p2, fcap4.p2, fcap5.p2
 
-
 # analog supply filter circuit
 @SubCircuit
 def anlg_flt(vdd, gnd, vdda):
@@ -90,17 +88,17 @@ def anlg_flt(vdd, gnd, vdda):
 
 
 @SubCircuit
-def vin_protection(vin, vout, gnd):
-    pmos = Part('Device', 'Q_PMOS_DGS', footprint='SOT-23') # reverse polarity protection
-    fuse = Part('Device', 'Polyfuse_Small', footprint='Fuse_Bourns_MF-RG300') # resetable fuse
-    fb = Part('Device', 'Ferrite_Bead', footprint='L_Murata_DEM35xxC') # ferrite bead
-
-    vin += fuse.p1
-    fuse.p2 += pmos.p1
-    pmos.p2 += gnd
-    pmos.p3 += fb.p1
-    fb.p2 += vout
-
+def boot_sw(vdd, gnd):
+    # Create parts
+    sw = Part('Switch', 'SW_SPDT', footprint='SW_SPDT_CK-JS102011SAQN')
+    r1 = Part("Device", 'R', footprint='R_0603_1608Metric', value='10k')
+    r1.p2.label = 'BOOT0'
+    
+    # Connect parts
+    sw.p1 += vdd
+    sw.p2 += r1.p1
+    sw.p3 += gnd
+    
 @SubCircuit
 def buck(vin, vout, gnd):
     
@@ -126,24 +124,46 @@ def buck(vin, vout, gnd):
     gnd += reg.p1, c1.p2, c2.p2
 
 @SubCircuit
+def debug_header(reset, swdclk, swdio, swo, vref, gnd):
+    t = Part("Connector", "Conn_ARM_JTAG_SWD_10", footprint = "PinSocket_2x05_P2.54mm_Vertical_SMD")
+    t.p1 += vref
+    t.p2 += swdio
+    t.p3 += gnd
+    t.p4 += swdclk
+    # t.p5 += 
+    t.p6 += swo
+    # t.p7 +=
+    # t.p8 += 
+    t.p9 += gnd
+    t.p10 += reset
+
+@SubCircuit
+def header_4pin(in1, in2, in3, in4):
+    h = Part("Connector_Generic", "Conn_01x04", footprint = "PinHeader_1x04_P2.54mm_Vertical")
+    h.p1 += in1
+    h.p2 += in2
+    h.p3 += in3
+    h.p4 += in4
+
+# LED indicator circuit
+# @SubCircuit
+def led(inp, outp, color, resistance):
+    d = Part("Device", 'D', footprint='D_0603_1608Metric', value = color)
+    r = Part("Device", 'R', footprint='R_0603_1608Metric', value=resistance)
+    inp & r & d & outp
+
+@SubCircuit
 def mounting_holes(gnd):
-    l_gnd = Net('GND', stub=True, netclass='Power')
-    gnd += l_gnd
     h1 = Part("Mechanical", "MountingHole_Pad", footprint = "MountingHole_5mm")
     h2 = Part("Mechanical", "MountingHole_Pad", footprint = "MountingHole_5mm")
     h3 = Part("Mechanical", "MountingHole_Pad", footprint = "MountingHole_5mm")
     h4 = Part("Mechanical", "MountingHole_Pad", footprint = "MountingHole_5mm")
 
-    l_gnd += h1.p1, h2.p1, h3.p1, h4.p1
+    gnd += h1.p1, h2.p1, h3.p1, h4.p1
+
 
 @SubCircuit
 def oscillator(vdd, gnd, osc_in, osc_out):
-    # Redeclare power nets, TODO: possible bug
-    l_vdd = Net('+3V3', stub=True, netclass='Power')
-    vdd += l_vdd
-    l_gnd = Net('GND', stub=True, netclass='Power')
-    gnd += l_gnd
-
     # Create parts
     osc = Part('Device', 'Crystal_GND24_Small', footprint = 'Oscillator_SMD_Fordahl_DFAS2-4Pin_7.3x5.1mm')
     c1 = Part("Device", 'C_Small', footprint='C_0603_1608Metric', value='12pF')
@@ -155,36 +175,18 @@ def oscillator(vdd, gnd, osc_in, osc_out):
     osc.p3 += c2.p1
     r1.p1 += osc_out
     r1.p2 +=c2.p1
-    l_gnd += osc.p2, osc.p4, c1.p2, c2.p2
-
+    gnd += osc.p2, osc.p4, c1.p2, c2.p2
 
 @SubCircuit
-def boot_sw(vdd, gnd):
-    # Redeclare power nets, TODO: possible bug
-    l_vdd = Net('+3V3', stub=True, netclass='Power')
-    vdd += l_vdd
-    l_gnd = Net('GND', stub=True, netclass='Power')
-    gnd += l_gnd
-    # Create parts
-    sw = Part('Switch', 'SW_SPDT', footprint='SW_SPDT_CK-JS102011SAQN')
-    r1 = Part("Device", 'R', footprint='R_0603_1608Metric', value='10k')
-    r1.p2.label = 'BOOT0'
-    
-    # Connect parts
-    sw.p1 += l_vdd
-    sw.p2 += r1.p1
-    sw.p3 += l_gnd
-    
+def screw_term_2(in1, in2):
+    t = Part("Connector", "Screw_Terminal_01x02", footprint = "TerminalBlock_Phoenix_MKDS-1,5-2_1x02_P5.00mm_Horizontal")
+    t.p1 += in1
+    t.p2 += in2
 
-    
+
 # Micro-B USB connector with protection and optional pull-up impedance matching resistors
 @SubCircuit
 def usb(v_5v, gnd, dp, dm, imp_match):
-    # Redeclare power nets, TODO: possible bug
-    l_gnd = Net('GND', stub=True, netclass='Power')
-    gnd += l_gnd
-    l_5v = Net('+5V',stub=True, netclass='Power')
-    v_5v += l_5v
 
     # Create parts
     usb_protection = Part("Power_Protection", 'USBLC6-4SC6', footprint='SOT-23-6')
@@ -200,7 +202,7 @@ def usb(v_5v, gnd, dp, dm, imp_match):
         rn = Part("Device", 'R', footprint='R_0603_1608Metric', value='1.5k')
         rp.p1 += usb_connector.p2
         rn.p1 += usb_connector.p3
-        l_5v += rp.p2, rn.p2
+        v_5v += rp.p2, rn.p2
 
     # Connect pins and nets
     usb_protection.p1 += dp
@@ -208,44 +210,18 @@ def usb(v_5v, gnd, dp, dm, imp_match):
     usb_protection.p4 += dm        
     usb_protection.p6 += usb_connector.p2
 
-    l_5v += usb_connector.p1, usb_protection.p5
-    l_gnd += usb_connector.p5, usb_connector.p6, usb_protection.p2
-    
-# LED indicator circuit
-# @SubCircuit
-def led(inp, outp, color, resistance):
-    d = Part("Device", 'D', footprint='D_0603_1608Metric', value = color)
-    r = Part("Device", 'R', footprint='R_0603_1608Metric', value=resistance)
-    inp & r & d & outp
+    v_5v += usb_connector.p1, usb_protection.p5
+    gnd += usb_connector.p5, usb_connector.p6, usb_protection.p2
+  
 
 @SubCircuit
-def screw_term_2(in1, in2):
-    t = Part("Connector", "Screw_Terminal_01x02", footprint = "TerminalBlock_Phoenix_MKDS-1,5-2_1x02_P5.00mm_Horizontal")
-    t.p1 += in1
-    t.p2 += in2
+def vin_protection(vin, vout, gnd):
+    pmos = Part('Device', 'Q_PMOS_DGS', footprint='SOT-23') # reverse polarity protection
+    fuse = Part('Device', 'Polyfuse_Small', footprint='Fuse_Bourns_MF-RG300') # resetable fuse
+    fb = Part('Device', 'Ferrite_Bead', footprint='L_Murata_DEM35xxC') # ferrite bead
 
-@SubCircuit
-def debug_header(reset, swdclk, swdio, swo, vref, gnd):
-    t = Part("Connector", "Conn_ARM_JTAG_SWD_10", footprint = "PinSocket_2x05_P2.54mm_Vertical_SMD")
-    t.p1 += vref
-    t.p2 += swdio
-    t.p3 += gnd
-    t.p4 += swdclk
-    # t.p5 += 
-    t.p6 += swo
-    # t.p7 +=
-    # t.p8 += 
-    t.p9 += gnd
-    t.p10 += reset
-
-
-
-
-
-@SubCircuit
-def header_4pin(in1, in2, in3, in4):
-    h = Part("Connector_Generic", "Conn_01x04", footprint = "PinHeader_1x04_P2.54mm_Vertical")
-    h.p1 += in1
-    h.p2 += in2
-    h.p3 += in3
-    h.p4 += in4
+    vin += fuse.p1
+    fuse.p2 += pmos.p1
+    pmos.p2 += gnd
+    pmos.p3 += fb.p1
+    fb.p2 += vout
