@@ -45,7 +45,7 @@ def stm32f405r():
     pu_sda.p2 += u.p59
 
     # Subcircuits
-    buck(pn.v_12v, pn.v_3v3, pn.gnd)
+    buck(pn.v_12v, pn.v_3v3, pn.v_5v, pn.gnd)
     usb(pn.v_5v, pn.gnd, u.p43, u.p44, imp_match = True)
     boot_sw(pn.v_3v3, pn.gnd)
     led(u.p8, pn.gnd, 'blue', '5.6k')
@@ -90,10 +90,7 @@ def boot_sw(vdd, gnd):
     sw.p3 += gnd
     
 @SubCircuit
-def buck(vin, vout, gnd):
-    
-
-    l_5v = Net('+5V',stub=True, netclass='Power')
+def buck(vin, v_usb, vout, gnd):
 
     vprotected = Net('v12_fused')
     vin_protection(vin, vprotected, gnd)
@@ -104,7 +101,7 @@ def buck(vin, vout, gnd):
     c1 = Part("Device", 'C_Small', footprint='C_0603_1608Metric', value='10uF')
     c2 = Part("Device", 'C_Small', footprint='C_0603_1608Metric', value='10uF')
     d = Part("Device", "D_Zener_Small", footprint="D_0201_0603Metric")
-    d.p1 += l_5v
+    d.p1 += v_usb
     
 
     led(vout, gnd, 'red', '5.6k')
