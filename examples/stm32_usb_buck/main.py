@@ -21,6 +21,7 @@ gnd = Net('GND', stub=True, netclass='Power')
 
 # Generate STM32 circuit
 sc.stm32f405r(v_12v, v_5v, v_3v3, gnd)
+sc.stm32f405r(v_12v, v_5v, v_3v3, gnd)
 
 # Generate netlist
 netlist_path = "/home/cdsfsmattner/Desktop/skidl/examples/stm32_usb_buck/stm32/netlist.net"

@@ -74,11 +74,17 @@ def move_subhierarchy(hm, hierarchy_list, dx, dy, move_dir = 'L'):
     hierarchy_list[hm]['sch_bb'][0] += dx
     hierarchy_list[hm]['sch_bb'][1] -= dy
 
+    hm_parent = hm.split('.')[0]
 
     # Detect collission with other hierarchies
     for h in hierarchy_list:
         # Don't detect collisions with itself
         if h == hm:
+            continue
+
+        # Only detect collision with hierarchies on the same page
+        h_parent = h.split('.')[0]
+        if not hm_parent == h_parent:
             continue
 
 
