@@ -1699,17 +1699,19 @@ class Circuit(SkidlBaseObject):
                         mv_dir = 'L'
 
 
-        # 11. Find the starting coordinates of the schematic
-        sch_c = [0,0]
-        for n in eeschema_sch_sizes:
-            if n == sch_size:
-                x = int(eeschema_sch_sizes[n][0]/2)
-                x = round_num(x,50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
-                y = int(eeschema_sch_sizes[n][1]/5)
-                y = round_num(y,50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
-                sch_c = [x,y]
-                break
+        def calc_start_point(sch_size):
+            # 11. Find the starting coordinates of the schematic
+            c = [0,0]
+            for n in eeschema_sch_sizes:
+                if n == sch_size:
+                    x = int(eeschema_sch_sizes[n][0]/2)
+                    x = round_num(x,50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
+                    y = int(eeschema_sch_sizes[n][1]/5)
+                    y = round_num(y,50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
+                    c = [x,y]
+                    return c
 
+        sch_c = calc_start_point(sch_size)
         # 12. Adjust part placement for hierachy and starting coordinates
         for h in hierarchies:
             # a. Part code
@@ -1737,10 +1739,38 @@ class Circuit(SkidlBaseObject):
                             hierarchies[h]['wires'].extend(wire_lst)
 
 
-        # 14. Generate eeschema code for each hierarchy
-        # TODO: generate code for each page of hierarchies
-        hier_pg_eeschema_code = {}
+        # Calculate the schematic page size needed
+        def calc_page_size(page):
+            width = page[1] - page[0]
+            hieght = page[3] - page[2]
+            for i in reversed(eeschema_sch_sizes):
+                if width < eeschema_sch_sizes[i][0]:
+                    if hieght < eeschema_sch_sizes[i][1]:
+                        return i
+ 
         hier_pg_dim = {}
+        for h in hierarchies:
+            h_parent = h.split('.')[0]
+
+            xMin = hierarchies[h]['sch_bb'][0] - hierarchies[h]['sch_bb'][2]
+            xMax = hierarchies[h]['sch_bb'][0] + hierarchies[h]['sch_bb'][2]
+            yMin = hierarchies[h]['sch_bb'][1] + hierarchies[h]['sch_bb'][3]
+            yMax = hierarchies[h]['sch_bb'][1] - hierarchies[h]['sch_bb'][3]
+            if h_parent not in hier_pg_dim:
+                hier_pg_dim[h_parent] = [xMin,xMax,yMin,yMax]
+            else:
+                if xMin < hier_pg_dim[h_parent][0]:
+                    hier_pg_dim[h_parent][0] = xMin
+                if xMax > hier_pg_dim[h_parent][1]:
+                    hier_pg_dim[h_parent][1] = xMax
+                if yMin < hier_pg_dim[h_parent][2]:
+                    hier_pg_dim[h_parent][2] = yMin
+                if yMax > hier_pg_dim[h_parent][3]:
+                    hier_pg_dim[h_parent][3] = yMax
+
+
+        # 14. Generate eeschema code for each hierarchy
+        hier_pg_eeschema_code = {}
         hierarchy_eeschema_code = [] # list to hold all the code from each hierarchy
         for h in hierarchies:
             eeschema_code = [] 
@@ -1782,20 +1812,17 @@ class Circuit(SkidlBaseObject):
             yMax = hierarchies[h]['sch_bb'][1] - hierarchies[h]['sch_bb'][3] + sch_c[1]
 
             h_parent = h.split('.')[0]
-            if h_parent not in hier_pg_dim:
-                hier_pg_dim[h_parent] = [xMin,xMax,yMin,yMax]
-            else:
-                if xMin < hier_pg_dim[h_parent][0]:
-                    hier_pg_dim[h_parent][0] = xMin
-                if xMax > hier_pg_dim[h_parent][1]:
-                    hier_pg_dim[h_parent][1] = xMax
-                if yMin < hier_pg_dim[h_parent][2]:
-                    hier_pg_dim[h_parent][2] = yMin
-                if yMax > hier_pg_dim[h_parent][3]:
-                    hier_pg_dim[h_parent][3] = yMax
-
-
-
+            # if h_parent not in hier_pg_dim:
+            #     hier_pg_dim[h_parent] = [xMin,xMax,yMin,yMax]
+            # else:
+            #     if xMin < hier_pg_dim[h_parent][0]:
+            #         hier_pg_dim[h_parent][0] = xMin
+            #     if xMax > hier_pg_dim[h_parent][1]:
+            #         hier_pg_dim[h_parent][1] = xMax
+            #     if yMin < hier_pg_dim[h_parent][2]:
+            #         hier_pg_dim[h_parent][2] = yMin
+            #     if yMax > hier_pg_dim[h_parent][3]:
+            #         hier_pg_dim[h_parent][3] = yMax
             label_x = xMin
             label_y = yMax
             subhierarchies = h.split('.')
@@ -1840,17 +1867,9 @@ class Circuit(SkidlBaseObject):
 #     'A3':[16535, 11693],
 #     'A4':[11693, 8268]
 # }
-        def calc_page_size(page):
-            width = page[1] - page[0]
-            hieght = page[3] - page[2]
-            for i in reversed(eeschema_sch_sizes):
-                if width < eeschema_sch_sizes[i][0]:
-                    if hieght < eeschema_sch_sizes[i][1]:
-                        return i
+
 
         # 16. Create schematic file
-        
-        
         for hp in hier_pg_eeschema_code:
             pg_size = calc_page_size(hier_pg_dim[hp])
             u = file_.split('/')[:-1]
