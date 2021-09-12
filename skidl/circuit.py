@@ -113,8 +113,8 @@ def move_subhierarchy(hm, hierarchy_list, dx, dy, move_dir = 'L'):
             continue
 
         # Only detect collision with hierarchies on the same page
-        h_parent = h.split('.')[0]
-        if not hm_parent == h_parent:
+        root_parent = h.split('.')[0]
+        if not hm_parent == root_parent:
             continue
 
 
@@ -1581,7 +1581,7 @@ class Circuit(SkidlBaseObject):
         # Dictionary that will hold parts and nets info for each hierarchy
         hierarchies = {}
         
-        # 1. Sort parts by hierarchy
+        # 1. Sort parts into hierarchies
         for pt in self.parts:
             h_lst = [x for x in pt.hierarchy.split('.') if 'top' not in x] # make a list of the hierarchies that aren't 'top'
             # skip if this is the top parent hierarchy
@@ -1681,6 +1681,7 @@ class Circuit(SkidlBaseObject):
         # 8. Create bounding boxes for hierarchies
         for h in hierarchies:
             hierarchies[h]['sch_bb'] = gen_hierarchy_bb(hierarchies[h])
+
         # 8.1 Adjust the parts to be centered on the hierarchy
         for h in hierarchies:
             # a. Part code
@@ -1705,16 +1706,16 @@ class Circuit(SkidlBaseObject):
                 if len(split_hier) == i+1:
                     # found part to place
                     t = h.split('.')
-                    parent = ".".join(t[:-1])
+                    # Don't move hierarchy if it's the root parent
                     if len(t)-1 == 0:
                         continue
+                    parent = ".".join(t[:-1])
                     p_ymin = hierarchies[parent]['sch_bb'][1] + hierarchies[parent]['sch_bb'][3]
-                    delta_y = hierarchies[h]['sch_bb'][1] - hierarchies[h]['sch_bb'][3] - p_ymin - 200
-
-                    # parent_x_min = hierarchies[h]['sch_bb'][0] - hierarchies[h]['sch_bb'][0]
-                    # child_x_min = hierarchies[parent]['sch_bb'][0] - hierarchies[parent]['sch_bb'][0]
+                    h_ymin = hierarchies[h]['sch_bb'][1] - hierarchies[h]['sch_bb'][3]
+                    delta_y = h_ymin - p_ymin - 200 # move another 200, TODO: make logic good enough to take out magic numbers
                     delta_x =  hierarchies[h]['sch_bb'][0] - hierarchies[parent]['sch_bb'][0] 
                     move_subhierarchy(h,hierarchies, delta_x, delta_y, move_dir=mv_dir)
+                    # alternate placement directions, TODO: find better algorithm than switching sides, maybe based on connections
                     if 'L' in mv_dir:
                         mv_dir = 'R'
                     else:
@@ -1746,27 +1747,27 @@ class Circuit(SkidlBaseObject):
                             wire_lst = gen_net_wire(pin.net,hierarchies[h])
                             hierarchies[h]['wires'].extend(wire_lst)
  
-        # Calculate the maximum page dimensions needed
+        # At this point the hierarchy should be completely generated and ready for generating code
+
+        # Calculate the maximum page dimensions needed for each root hierarchy sheet
         hier_pg_dim = {}
         for h in hierarchies:
-            
-            h_parent = h.split('.')[0]
-
+            root_parent = h.split('.')[0]
             xMin = hierarchies[h]['sch_bb'][0] - hierarchies[h]['sch_bb'][2]
             xMax = hierarchies[h]['sch_bb'][0] + hierarchies[h]['sch_bb'][2]
             yMin = hierarchies[h]['sch_bb'][1] + hierarchies[h]['sch_bb'][3]
             yMax = hierarchies[h]['sch_bb'][1] - hierarchies[h]['sch_bb'][3]
-            if h_parent not in hier_pg_dim:
-                hier_pg_dim[h_parent] = [xMin,xMax,yMin,yMax]
+            if root_parent not in hier_pg_dim:
+                hier_pg_dim[root_parent] = [xMin,xMax,yMin,yMax]
             else:
-                if xMin < hier_pg_dim[h_parent][0]:
-                    hier_pg_dim[h_parent][0] = xMin
-                if xMax > hier_pg_dim[h_parent][1]:
-                    hier_pg_dim[h_parent][1] = xMax
-                if yMin < hier_pg_dim[h_parent][2]:
-                    hier_pg_dim[h_parent][2] = yMin
-                if yMax > hier_pg_dim[h_parent][3]:
-                    hier_pg_dim[h_parent][3] = yMax
+                if xMin < hier_pg_dim[root_parent][0]:
+                    hier_pg_dim[root_parent][0] = xMin
+                if xMax > hier_pg_dim[root_parent][1]:
+                    hier_pg_dim[root_parent][1] = xMax
+                if yMin < hier_pg_dim[root_parent][2]:
+                    hier_pg_dim[root_parent][2] = yMin
+                if yMax > hier_pg_dim[root_parent][3]:
+                    hier_pg_dim[root_parent][3] = yMax
 
 
         # 14. Generate eeschema code for each hierarchy
@@ -1775,8 +1776,8 @@ class Circuit(SkidlBaseObject):
             eeschema_code = [] # List to hold all the code for the hierarchy
 
             # Find starting point for part placement
-            h_parent = h.split('.')[0]
-            pg_size = calc_page_size(hier_pg_dim[h_parent])
+            root_parent = h.split('.')[0]
+            pg_size = calc_page_size(hier_pg_dim[root_parent])
             sch_start = calc_start_point(pg_size)
             
             # a. Generate part code
@@ -1819,7 +1820,7 @@ class Circuit(SkidlBaseObject):
             yMin = hierarchies[h]['sch_bb'][1] + hierarchies[h]['sch_bb'][3] + sch_start[1]
             yMax = hierarchies[h]['sch_bb'][1] - hierarchies[h]['sch_bb'][3] + sch_start[1]
 
-            h_parent = h.split('.')[0]
+            
 
             label_x = xMin
             label_y = yMax
@@ -1841,13 +1842,14 @@ class Circuit(SkidlBaseObject):
             out = (("\n" + "".join(box)))
             eeschema_code.append(out)
 
-            # find top hierarchy
-            if h_parent not in hier_pg_eeschema_code:
+            root_parent = h.split('.')[0]
+            # Append the eeschema code for this hierarchy to the appropriate page
+            if root_parent not in hier_pg_eeschema_code:
                 # make new top level hierarchy
-                hier_pg_eeschema_code[h_parent] = ["\n".join(eeschema_code)]
+                hier_pg_eeschema_code[root_parent] = ["\n".join(eeschema_code)]
 
             else:
-                hier_pg_eeschema_code[h_parent].append("\n".join(eeschema_code))
+                hier_pg_eeschema_code[root_parent].append("\n".join(eeschema_code))
 
 
         # 15. Generate elkjs code
