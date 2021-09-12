@@ -73,7 +73,7 @@ eeschema_sch_sizes = {
     'A4':[11693, 8268]
 }
 
-# Calculate the schematic page size needed
+# Calculate the schematic page size needed given xMin/Max, yMin/Max
 def calc_page_size(page):
     width = page[1] - page[0]
     height = page[3] - page[2]
@@ -1773,17 +1773,18 @@ class Circuit(SkidlBaseObject):
         hier_pg_eeschema_code = {}
         hierarchy_eeschema_code = [] # list to hold all the code from each hierarchy
         for h in hierarchies:
+            eeschema_code = [] # List to hold all the code for the hierarchy
+
+            # Find starting point for part placement
             h_parent = h.split('.')[0]
             sch_c = calc_start_point(calc_page_size(hier_pg_dim[h_parent]))
+            
+            # a. Generate part code
             for pt in hierarchies[h]['parts']:
-                pt.sch_bb[0] += sch_c[0]
-                pt.sch_bb[1] += sch_c[1]
-
-
-            eeschema_code = [] 
-            # a. Part code
-            for pt in hierarchies[h]['parts']:
-                part_code = pt.gen_part_eeschema()
+                t_pt = pt
+                t_pt.sch_bb[0] += sch_c[0]
+                t_pt.sch_bb[1] += sch_c[1]
+                part_code = t_pt.gen_part_eeschema()
                 eeschema_code.append(part_code)
 
             # b. net wire code
