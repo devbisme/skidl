@@ -346,7 +346,7 @@ eeschema_sch_sizes = {
 }
 
 # Generate a default header file
-def gen_config_header(cur_sheet_num=1, total_sheet_num=1, sheet_title="Default", revMaj=0, revMin=1, year=2021, month=8, day=15, size='A2'):
+def gen_config_header(cur_sheet_num=1, total_sheet_num=1, title="Default", revMaj=0, revMin=1, year=2021, month=8, day=15, size='A2'):
     total_sheet_num = cur_sheet_num + 1
     header = []
     header.append("EESchema Schematic File Version 4\n")
@@ -355,7 +355,7 @@ def gen_config_header(cur_sheet_num=1, total_sheet_num=1, sheet_title="Default",
     header.append("$Descr {} {} {}\n".format(size, eeschema_sch_sizes[size][0], eeschema_sch_sizes[size][1]))
     header.append("encoding utf-8\n")
     header.append("Sheet {} {}\n".format(cur_sheet_num, total_sheet_num)) 
-    header.append('Title "{}"\n'.format(sheet_title)) 
+    header.append('Title "{}"\n'.format(title)) 
     header.append('Date "{}-{}-{}"\n'.format(year, month, day)) 
     header.append('Rev "v{}.{}"\n'.format(revMaj, revMin)) 
     header.append('Comp ""\n')
@@ -1520,7 +1520,7 @@ class Circuit(SkidlBaseObject):
             )
 
 
-    def generate_schematic(self, file_=None, tool=None, sch_size = 'A0', gen_elkjs = False):
+    def generate_schematic(self, file_=None, _title="Default", tool=None, sch_size = 'A0', gen_elkjs = False):
         """
         Create a schematic file. THIS KINDA WORKS!  
 
@@ -1832,7 +1832,7 @@ class Circuit(SkidlBaseObject):
             file_name = dir + "/" + hp + ".sch"
             with open(file_name, "w") as f:
                 f.truncate(0) # Clear the file
-                new_sch_file = [gen_config_header(cur_sheet_num=1, size = sch_size), hierarchy_page[hp], "$EndSCHEMATC"]
+                new_sch_file = [gen_config_header(cur_sheet_num=1, size = sch_size, title=_title), hierarchy_page[hp], "$EndSCHEMATC"]
                 for i in new_sch_file:
                         print("" + "".join(i), file=f)   
             f.close()
@@ -1844,7 +1844,7 @@ class Circuit(SkidlBaseObject):
 
         with open(file_, "w") as f:
             f.truncate(0) # Clear the file
-            new_sch_file = [gen_config_header(cur_sheet_num=1, size = sch_size), hier_sch, "$EndSCHEMATC"]
+            new_sch_file = [gen_config_header(cur_sheet_num=1, size = sch_size, title=_title), hier_sch, "$EndSCHEMATC"]
             for i in new_sch_file:
                     print("" + "".join(i), file=f)   
         f.close()

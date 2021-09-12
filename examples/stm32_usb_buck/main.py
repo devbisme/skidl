@@ -13,7 +13,7 @@ for file in os.listdir("."):
 clear = lambda: os.system('clear')
 clear()
 
-
+# Declare the circuits
 sc.stm32f405r()
 pc.power_circuits()
 
@@ -23,7 +23,7 @@ generate_netlist(file_ = netlist_path)
 
 # Generate schematic
 schematic_path = "/home/cdsfsmattner/Desktop/skidl/examples/stm32_usb_buck/stm32/stm32.sch"
-generate_schematic(file_ = schematic_path, sch_size='A2')
+generate_schematic(file_ = schematic_path, _title="SKiDL generated schematic", sch_size='A2')
 
 
 
