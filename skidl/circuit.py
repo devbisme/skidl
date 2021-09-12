@@ -76,20 +76,21 @@ eeschema_sch_sizes = {
 # Calculate the schematic page size needed
 def calc_page_size(page):
     width = page[1] - page[0]
-    hieght = page[3] - page[2]
+    height = page[3] - page[2]
+    
+    height = int(height * 1.25)
     for i in reversed(eeschema_sch_sizes):
         if width < eeschema_sch_sizes[i][0]:
-            if hieght < eeschema_sch_sizes[i][1]:
+            if height < eeschema_sch_sizes[i][1]:
                 return i
 
 def calc_start_point(sch_size):
-    # 11. Find the starting coordinates of the schematic
     c = [0,0]
     for n in eeschema_sch_sizes:
         if n == sch_size:
             x = int(eeschema_sch_sizes[n][0]/2)
             x = round_num(x,50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
-            y = int(eeschema_sch_sizes[n][1]/5)
+            y = int(eeschema_sch_sizes[n][1]/4)
             y = round_num(y,50) # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid 
             c = [x,y]
             return c
