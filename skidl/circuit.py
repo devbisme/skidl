@@ -1739,12 +1739,10 @@ class Circuit(SkidlBaseObject):
 
         # 14. Generate eeschema code for each hierarchy
         # TODO: generate code for each page of hierarchies
-        hierarchy_page = {}
+        hier_pg_eeschema_code = {}
+        hier_pg_dim = {}
         hierarchy_eeschema_code = [] # list to hold all the code from each hierarchy
         for h in hierarchies:
-
-
-
             eeschema_code = [] 
             # a. Part code
             for pt in hierarchies[h]['parts']:
@@ -1783,6 +1781,21 @@ class Circuit(SkidlBaseObject):
             yMin = hierarchies[h]['sch_bb'][1] + hierarchies[h]['sch_bb'][3] + sch_c[1]
             yMax = hierarchies[h]['sch_bb'][1] - hierarchies[h]['sch_bb'][3] + sch_c[1]
 
+            h_parent = h.split('.')[0]
+            if h_parent not in hier_pg_dim:
+                hier_pg_dim[h_parent] = [xMin,xMax,yMin,yMax]
+            else:
+                if xMin < hier_pg_dim[h_parent][0]:
+                    hier_pg_dim[h_parent][0] = xMin
+                if xMax > hier_pg_dim[h_parent][1]:
+                    hier_pg_dim[h_parent][1] = xMax
+                if yMin < hier_pg_dim[h_parent][2]:
+                    hier_pg_dim[h_parent][2] = yMin
+                if yMax > hier_pg_dim[h_parent][3]:
+                    hier_pg_dim[h_parent][3] = yMax
+
+
+
             label_x = xMin
             label_y = yMax
             subhierarchies = h.split('.')
@@ -1807,40 +1820,58 @@ class Circuit(SkidlBaseObject):
             hierarchy_eeschema_code.append("\n".join(eeschema_code))
 
             # find top hierarchy
-            h_parent = h.split('.')[0]
-            if h_parent not in hierarchy_page:
+            if h_parent not in hier_pg_eeschema_code:
                 # make new top level hierarchy
-                hierarchy_page[h_parent] = ["\n".join(eeschema_code)]
+                hier_pg_eeschema_code[h_parent] = ["\n".join(eeschema_code)]
+
             else:
-                hierarchy_page[h_parent].append("\n".join(eeschema_code))
+                hier_pg_eeschema_code[h_parent].append("\n".join(eeschema_code))
 
 
         # 15. Generate elkjs code
         if gen_elkjs:
             gen_elkjs_code(self.parts, self.nets)
 
+
+# eeschema_sch_sizes = {
+#     'A0':[46811, 33110],
+#     'A1':[33110, 23386],
+#     'A2':[23386, 16535],
+#     'A3':[16535, 11693],
+#     'A4':[11693, 8268]
+# }
+        def calc_page_size(page):
+            width = page[1] - page[0]
+            hieght = page[3] - page[2]
+            for i in reversed(eeschema_sch_sizes):
+                if width < eeschema_sch_sizes[i][0]:
+                    if hieght < eeschema_sch_sizes[i][1]:
+                        return i
+
         # 16. Create schematic file
-        # make hierarchy eeschema sheets
-        hier_sch = []
-        x= sch_c[0]
-        y= sch_c[1]
-        for hp in hierarchy_page:
-            t = gen_hier_schematic(hp,x,y)
-            hier_sch.append(t)
+        
+        
+        for hp in hier_pg_eeschema_code:
+            pg_size = calc_page_size(hier_pg_dim[hp])
             u = file_.split('/')[:-1]
             dir = "/".join(u)
             file_name = dir + "/" + hp + ".sch"
             with open(file_name, "w") as f:
                 f.truncate(0) # Clear the file
-                new_sch_file = [gen_config_header(cur_sheet_num=1, size = sch_size, title=_title), hierarchy_page[hp], "$EndSCHEMATC"]
+                new_sch_file = [gen_config_header(cur_sheet_num=1, size = pg_size, title=_title), hier_pg_eeschema_code[hp], "$EndSCHEMATC"]
                 for i in new_sch_file:
                         print("" + "".join(i), file=f)   
             f.close()
-            x += 1000
+            
 
-        # TODO: if there's multiple pages then create a top page along with the hierarchical schematics
-        # generate hierarchical schematic for each page
-        
+
+        hier_sch = []
+        x= sch_c[0]
+        y= sch_c[1]
+        for hp in hier_pg_eeschema_code:
+            t = gen_hier_schematic(hp,x,y)
+            hier_sch.append(t)
+            x += 1000
 
         with open(file_, "w") as f:
             f.truncate(0) # Clear the file
