@@ -1771,19 +1771,19 @@ class Circuit(SkidlBaseObject):
 
         # 14. Generate eeschema code for each hierarchy
         hier_pg_eeschema_code = {}
-        hierarchy_eeschema_code = [] # list to hold all the code from each hierarchy
         for h in hierarchies:
             eeschema_code = [] # List to hold all the code for the hierarchy
 
             # Find starting point for part placement
             h_parent = h.split('.')[0]
-            sch_c = calc_start_point(calc_page_size(hier_pg_dim[h_parent]))
+            pg_size = calc_page_size(hier_pg_dim[h_parent])
+            sch_start = calc_start_point(pg_size)
             
             # a. Generate part code
             for pt in hierarchies[h]['parts']:
                 t_pt = pt
-                t_pt.sch_bb[0] += sch_c[0]
-                t_pt.sch_bb[1] += sch_c[1]
+                t_pt.sch_bb[0] += sch_start[0]
+                t_pt.sch_bb[1] += sch_start[1]
                 part_code = t_pt.gen_part_eeschema()
                 eeschema_code.append(part_code)
 
@@ -1791,10 +1791,10 @@ class Circuit(SkidlBaseObject):
             for w in hierarchies[h]['wires']:
                 t_wire = []
                 for i in range(len(w)-1):
-                    t_x1 = w[i][0] - hierarchies[h]['sch_bb'][0] + sch_c[0]
-                    t_y1 = w[i][1] - hierarchies[h]['sch_bb'][1] + sch_c[1]
-                    t_x2 = w[i+1][0] - hierarchies[h]['sch_bb'][0] + sch_c[0]
-                    t_y2 = w[i+1][1] - hierarchies[h]['sch_bb'][1] + sch_c[1]
+                    t_x1 = w[i][0] - hierarchies[h]['sch_bb'][0] + sch_start[0]
+                    t_y1 = w[i][1] - hierarchies[h]['sch_bb'][1] + sch_start[1]
+                    t_x2 = w[i+1][0] - hierarchies[h]['sch_bb'][0] + sch_start[0]
+                    t_y2 = w[i+1][1] - hierarchies[h]['sch_bb'][1] + sch_start[1]
                     t_wire.append("Wire Wire Line\n")
                     t_wire.append("	{} {} {} {}\n".format(t_x1,t_y1,t_x2,t_y2))
                     t_out = "\n"+"".join(t_wire)  
@@ -1814,10 +1814,10 @@ class Circuit(SkidlBaseObject):
                         eeschema_code.append(make_Hlabel(t_x, t_y, pin.orientation, pin.label))
             # e. hierachy bounding box 
             box = []
-            xMin = hierarchies[h]['sch_bb'][0] - hierarchies[h]['sch_bb'][2] + sch_c[0]
-            xMax = hierarchies[h]['sch_bb'][0] + hierarchies[h]['sch_bb'][2] + sch_c[0]
-            yMin = hierarchies[h]['sch_bb'][1] + hierarchies[h]['sch_bb'][3] + sch_c[1]
-            yMax = hierarchies[h]['sch_bb'][1] - hierarchies[h]['sch_bb'][3] + sch_c[1]
+            xMin = hierarchies[h]['sch_bb'][0] - hierarchies[h]['sch_bb'][2] + sch_start[0]
+            xMax = hierarchies[h]['sch_bb'][0] + hierarchies[h]['sch_bb'][2] + sch_start[0]
+            yMin = hierarchies[h]['sch_bb'][1] + hierarchies[h]['sch_bb'][3] + sch_start[1]
+            yMax = hierarchies[h]['sch_bb'][1] - hierarchies[h]['sch_bb'][3] + sch_start[1]
 
             h_parent = h.split('.')[0]
 
@@ -1841,9 +1841,6 @@ class Circuit(SkidlBaseObject):
             out = (("\n" + "".join(box)))
             eeschema_code.append(out)
 
-            # append hierarchy code to the buffer list
-            hierarchy_eeschema_code.append("\n".join(eeschema_code))
-
             # find top hierarchy
             if h_parent not in hier_pg_eeschema_code:
                 # make new top level hierarchy
@@ -1865,19 +1862,22 @@ class Circuit(SkidlBaseObject):
             file_name = dir + "/" + hp + ".sch"
             with open(file_name, "w") as f:
                 f.truncate(0) # Clear the file
-                new_sch_file = [gen_config_header(cur_sheet_num=1, size = pg_size, title=_title), hier_pg_eeschema_code[hp], "$EndSCHEMATC"]
+                new_sch_file = [gen_config_header(cur_sheet_num=1, size = pg_size, title=_title), 
+                                hier_pg_eeschema_code[hp], 
+                                "$EndSCHEMATC"]
                 for i in new_sch_file:
                         print("" + "".join(i), file=f)   
             f.close()
             
 
+        # Generate root schematic with hierarchical schematics
         hier_sch = []
-        x= 1000
-        y= 500
+        root_start = calc_start_point("A4")
+        root_start[0] = 1000
         for hp in hier_pg_eeschema_code:
-            t = gen_hier_schematic(hp,x,y)
+            t = gen_hier_schematic(hp,root_start[0],root_start[1])
             hier_sch.append(t)
-            x += 1000
+            root_start[0] += 1000
 
         with open(file_, "w") as f:
             f.truncate(0) # Clear the file
