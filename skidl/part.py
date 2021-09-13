@@ -42,6 +42,8 @@ from .logger import logger
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import *
 
+import time
+
 standard_library.install_aliases()
 
 
@@ -146,6 +148,7 @@ class Part(SkidlBaseObject):
         part_defn=None,
         circuit=None,
         ref_prefix='U',
+        orientation = [1,0,0,-1],
         ref=None,
         tag=None,
         pin_splitters=None,
@@ -171,6 +174,8 @@ class Part(SkidlBaseObject):
         self.description = ""  # Make sure there is a description, even if empty.
         self._ref = ""  # Provide a member for holding a reference.
         self.ref_prefix = ref_prefix  # Store the part reference prefix.
+        self.orientation = [1,0,0,-1]
+        self.sch_bb=[0,0,0,0] # Set schematic location to x, y, height, width
         self.tool = tool  # Initial type of part (SKIDL, KICAD, etc.)
         self.circuit = None  # Part starts off unassociated with any circuit.
         self.match_pin_regex = False  # Don't allow regex matches of pin names.
@@ -270,6 +275,7 @@ class Part(SkidlBaseObject):
 
         # If any pins were added, make sure they're associated with the part.
         self.associate_pins()
+        self.sch_bb=[0,0,0,0]
 
     def add_xspice_io(self, io):
         """
@@ -1015,6 +1021,17 @@ class Part(SkidlBaseObject):
 
         return gen_func()
 
+    def generate_bounding_box(self):
+        for p in self.pins:
+            if self.sch_bb[2] < (abs(p.x)):
+                self.sch_bb[2] = abs(p.x)
+            if self.sch_bb[3] < (abs(p.y)):
+                self.sch_bb[3] = abs(p.y)
+        if self.sch_bb[2] < 100:
+            self.sch_bb[2] = 100
+        if self.sch_bb[3] < 100:
+            self.sch_bb[3] = 100
+
     def generate_xml_component(self, tool=None):
         """
         Generate the part information for inclusion in an XML file.
@@ -1041,6 +1058,96 @@ class Part(SkidlBaseObject):
             )
 
         return gen_func()
+
+    
+    # Move the part by dx/dy, then check to see if it's colliding with 
+    #   any other part.  If it is colliding then move the part move towards the 
+    #   direction of the pin it was moving towards
+    def move_part(self, dx, dy, _parts_list):
+        # Determine if the part moved left or right
+        move_dir = 'L'
+        if dx > 0:
+            move_dir = 'R'
+        
+        # Round dx/dy to nearest 50
+        dx = int((50 * round(dx/50)))
+        dy = int((50 * round(dy/50)))
+        # Move the part
+        self.sch_bb[0] += dx
+        self.sch_bb[1] -= dy
+
+        # Check to see if we're colliding with any other parts
+
+        # First we need to check for a label on each pin.  
+        # If we find one then add that label's length to the collision detection
+        x_label_p = 0
+        x_label_m = 0
+        y_label_p = 0
+        y_label_m = 0
+        for pin in self.pins:
+            if len(pin.label)>0:
+                if pin.orientation == 'U':
+                    if (len(pin.label)+1)*50 > y_label_m:
+                        y_label_m = (len(pin.label)+1)*50
+                elif pin.orientation == 'D':
+                    if (len(pin.label)+1)*50 > y_label_p:
+                        y_label_p = (len(pin.label)+1)*50
+                elif pin.orientation == 'L':
+                    if (len(pin.label)+1)*50 > x_label_p:
+                        x_label_p = (len(pin.label)+1)*50
+                elif pin.orientation == 'R':
+                    if (len(pin.label)+1)*50 > x_label_m:
+                        x_label_m = (len(pin.label)+1)*50
+
+
+
+        # Range through parts in the subcircuit and look for overlaps
+        # If we are overlapping then nudge the part 50mil left/right and rerun this function
+        for pt in _parts_list:
+            # Don't detect collisions with itself
+            if pt.ref == self.ref:
+                continue
+
+            # Determine if there's a label on a pin and count that label length for detecting collisions
+            pt_x_label_p = 0
+            pt_x_label_m = 0
+            pt_y_label_p = 0
+            pt_y_label_m = 0
+            for pin in pt.pins:
+                if len(pin.label)>0:
+                    if pin.orientation == 'U':
+                        if (len(pin.label)+1)*50 > pt_y_label_m:
+                            pt_y_label_m = (len(pin.label)+1)*50
+                    elif pin.orientation == 'D':
+                        if (len(pin.label)+1)*50 > pt_y_label_p:
+                            pt_y_label_p = (len(pin.label)+1)*50
+                    elif pin.orientation == 'L':
+                        if (len(pin.label)+1)*50 > pt_x_label_p:
+                            pt_x_label_p = (len(pin.label)+1)*50
+                    elif pin.orientation == 'R':
+                        if (len(pin.label)+1)*50 > pt_x_label_m:
+                            pt_x_label_m = (len(pin.label)+1)*50
+
+
+            # Calculate the min/max for x/y in order to detect collision between rectangles
+
+            x1min = self.sch_bb[0] - self.sch_bb[2] - x_label_m
+            x1max = self.sch_bb[0] + self.sch_bb[2] + x_label_p
+            y1min = self.sch_bb[1] - self.sch_bb[3] - y_label_m
+            y1max = self.sch_bb[1] + self.sch_bb[3] + y_label_p
+            x2min = pt.sch_bb[0] - pt.sch_bb[2] - pt_x_label_m
+            x2max = pt.sch_bb[0] + pt.sch_bb[2] + pt_x_label_p
+            y2min = pt.sch_bb[1] - pt.sch_bb[3] - pt_y_label_m
+            y2max = pt.sch_bb[1] + pt.sch_bb[3] + pt_y_label_p
+            # Logic to tell whether parts collide
+            # Note that the movement direction is opposite of what's intuitive ('R' = move left, 'U' = -50)
+            # https://stackoverflow.com/questions/20925818/algorithm-to-check-if-two-boxes-overlap
+            if (x1min <= x2max) and (x2min <= x1max) and (y1min <= y2max) and (y2min <= y1max):
+                if move_dir == 'R':
+                    self.move_part(200, 0, _parts_list)
+                else:
+                    self.move_part(-200, 0, _parts_list)
+
 
     def generate_svg_component(self, symtx="", tool=None, net_stubs=None):
         """
@@ -1087,6 +1194,56 @@ class Part(SkidlBaseObject):
             )
 
         return gen_func()
+    
+    # Generate eeschema code for part from SKiDL part
+    # self: SKiDL part
+    # c[x,y]: coordinated to place the part
+    # https://en.wikibooks.org/wiki/Kicad/file_formats#Schematic_Files_Format
+    def gen_part_eeschema(self):
+
+        time_hex = hex(int(time.time()))[2:]
+
+        out=["$Comp\n"]
+        out.append("L {}:{} {}\n".format(self.lib.filename, self.name, self.ref))
+        out.append("U 1 1 {}\n".format(time_hex))    
+        out.append("P {} {}\n".format(str(self.sch_bb[0]), str(self.sch_bb[1])))
+        # Add part symbols. For now we are only adding the designator
+        n_F0 = 1
+        for i in range(len(self.draw)):
+            if re.search("^DrawF0", str(self.draw[i])):
+                n_F0 = i
+                break
+        out.append('F 0 "{}" {} {} {} {} {} {} {}\n'.format(
+                                        self.ref,
+                                        self.draw[n_F0].orientation,
+                                        str(self.draw[n_F0].x + self.sch_bb[0]),
+                                        str(self.draw[n_F0].y + self.sch_bb[1]),
+                                        self.draw[n_F0].size,
+                                        "000",
+                                        self.draw[n_F0].halign,
+                                        self.draw[n_F0].valign
+        ))
+        n_F2 = 2
+        for i in range(len(self.draw)):
+            if re.search("^DrawF2", str(self.draw[i])):
+                n_F2 = i
+                break
+        out.append('F 2 "{}" {} {} {} {} {} {} {}\n'.format(
+                                        self.footprint,
+                                        self.draw[n_F2].orientation,
+                                        str(self.draw[n_F2].x + self.sch_bb[0]),
+                                        str(self.draw[n_F2].y + self.sch_bb[1]),
+                                        self.draw[n_F2].size,
+                                        "001",
+                                        self.draw[n_F2].halign,
+                                        self.draw[n_F2].valign
+        ))
+        out.append("   1   {} {}\n".format(str(self.sch_bb[0]), str(self.sch_bb[1])))
+        out.append("   {}   {}  {}  {}\n".format(self.orientation[0], self.orientation[1], self.orientation[2], self.orientation[3], ))
+        out.append("$EndComp\n") 
+        return ("\n" + "".join(out))
+
+
 
     def erc_desc(self):
         """Create description of part for ERC and other error reporting."""

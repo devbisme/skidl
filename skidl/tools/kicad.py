@@ -1091,6 +1091,17 @@ def _gen_xml_net_(self):
     return txt
 
 
+# # Find the bounding box of a Part based on the furthest placement of pins
+# def _generate_bounding_box_(self):
+
+#     for p in self.pins:
+#         if self.sch_bb[2] > abs(p.x):
+#             self.sch_bb[2] = p.x
+#         if self.sch_bb[3] > abs(p.y):
+#             self.sch_bb[3] = p.y
+    
+
+
 def _gen_svg_comp_(self, symtx, net_stubs=None):
     """
     Generate SVG for this component.
@@ -1688,3 +1699,175 @@ def _gen_pinboxes_(self):
 
 def _gen_schematic_(self, route):
     pass
+
+def _gen_hier_rect_(self):
+    print("generating a hierarchical box")
+
+# Make the eeschema code that creates a wire between 2 parts
+# Takes in a net and coordinates
+def _gen_wire_eeschema_(n, parts, c):
+
+# https://www.jeffreythompson.org/collision-detection/line-rect.php
+# For a particular wire see if it collides with any parts
+    def det_net_wire_collision(parts, x1,y1,x2,y2):
+
+        # order should be x1min, x1max, y1min, y1max
+        if x1 > x2:
+            t = x1
+            x1 = x2
+            x2 = t
+        if y1 > y2:
+            t = y1
+            y1 = y2
+            y2 = t
+        x1min = x1
+        y1min = y1
+        x1max = x2
+        y1max = y2
+
+        for pt in parts:
+            x2min = pt.sch_bb[0] - pt.sch_bb[2]
+            y2min = pt.sch_bb[1] - pt.sch_bb[3]
+            x2max = pt.sch_bb[0] + pt.sch_bb[2]
+            y2max = pt.sch_bb[1] + pt.sch_bb[3]
+            
+            if lineLine(x1min,y1min,x1max,y1max, x2min,y2min,x2min, y2max):
+                return [pt.ref, "L"]
+            elif lineLine(x1min,y1min,x1max,y1max, x2max,y2min, x2max,y2max):
+                return [pt.ref, "R"]
+            elif lineLine(x1min,y1min,x1max,y1max, x2min,y2min, x2max,y2min):
+               return [pt.ref, "U"]
+            elif lineLine(x1min,y1min,x1max,y1max, x2min,y2max, x2max,y2max):
+                return [pt.ref, "D"]
+        return []
+
+    #LINE/LINE
+    # https://www.jeffreythompson.org/collision-detection/line-rect.php
+    def lineLine( x1,  y1,  x2,  y2,  x3,  y3,  x4,  y4):
+    # calculate the distance to intersection point
+        uA = 0.0
+        uB = 0.0
+        try:
+            uA = ((x4-x3)*(y1-y3) - (y4-y3)*(x1-x3)) / ((y4-y3)*(x2-x1) - (x4-x3)*(y2-y1))
+            uB = ((x2-x1)*(y1-y3) - (y2-y1)*(x1-x3)) / ((y4-y3)*(x2-x1) - (x4-x3)*(y2-y1))
+        except:
+            return False
+
+        #   // if uA and uB are between 0-1, lines are colliding
+        if (uA > 0 and uA < 1 and uB > 0 and uB < 1):
+            intersectionX = x1 + (uA * (x2-x1))
+            intersectionY = y1 + (uA * (y2-y1))
+            print("Collision at:  X: " + str(intersectionX) + " Y: " + str(intersectionY))
+            return True
+        return False
+
+
+
+    # Caluclate the coordiantes of a straight line between the 2 pins that need to connect
+    x1 = n.pins[0].part.sch_bb[0] + n.pins[0].x
+    y1 = n.pins[0].part.sch_bb[1] - n.pins[0].y
+
+    x2 = n.pins[1].part.sch_bb[0] + n.pins[1].x
+    y2 = n.pins[1].part.sch_bb[1] - n.pins[1].y
+
+    line = [[x1,y1], [x2,y2]]
+
+
+    # Check if the line is orthogonal by checking if we are horizontally or vertically aligned
+    if not(x1 == x2) and not(y1==y2):
+        # if the line is not orthogonal then insert a point to make it orthogonal
+        #  y's must be equal
+        x_t = x1
+        y_t = y2
+        line.insert(1,[x_t,y_t])
+
+    # check each line segment for a collision
+    for i in range(len(line)-1):
+        t_x1 = line[i][0]
+        t_y1 = line[i][1]
+        t_x2 = line[i+1][0]
+        t_y2 = line[i+1][1]
+
+        collide = det_net_wire_collision(parts, t_x1,t_y1,t_x2,t_y2)
+        # if we see a collision then draw the net around the rectangle
+        # since we are only going left/right with nets/rectangles the strategy to route
+        # around a rectangle is basically making a 'U' shape around it
+        if len(collide)>0:
+            collided_part = Part.get(collide[0])
+            collided_side = collide[1]
+            
+            if collided_side == "L":
+                # if we collided on the left 
+                if n.pins[1].part.sch_bb[0]<0 or n.pins[0].part.sch_bb[0]<0:
+                    print("left side of U1")
+
+                    # switch first and last coordinates if one is further left
+                    if x1 > x2:
+                        t = line[0]
+                        line[0] = line[-1]
+                        line[-1] = t
+
+                    # draw line down
+                    d_x1 = collided_part.sch_bb[0] - collided_part.sch_bb[2] - 100
+                    d_y1 = t_y1
+                    d_x2 = d_x1
+                    d_y2 = collided_part.sch_bb[1] + collided_part.sch_bb[3] + 200
+                    # d_x3 = d_x2 + collided_part.sch_bb[2] + 100 + 100
+                    d_y3 = d_y2
+                    line.insert(i+1, [d_x1,d_y1])
+                    line.insert(i+2, [d_x2, d_y2])
+                    line.insert(i+3, [x1, d_y3])
+
+                else:
+                    print("right side of U1")
+                        # switch first and last coordinates if one is further left
+                    if x1 < x2:
+                        t = line[0]
+                        line[0] = line[-1]
+                        line[-1] = t
+                    # draw line down
+                    d_x1 = collided_part.sch_bb[0] + collided_part.sch_bb[2] + 100
+                    d_y1 = t_y1
+                    d_x2 = d_x1
+                    d_y2 = collided_part.sch_bb[1] + collided_part.sch_bb[3] + 200
+                    # d_x3 = d_x2 + collided_part.sch_bb[2] + 100 + 100
+                    d_y3 = d_y2
+                    line.insert(i+1, [d_x1,d_y1])
+                    line.insert(i+2, [d_x2, d_y2])
+                    line.insert(i+3, [x2, d_y3])
+                break
+            if collided_side == "R":
+                # switch first and last coordinates if one is further left
+                if x1 > x2:
+                    t = line[0]
+                    line[0] = line[-1]
+                    line[-1] = t
+
+                # draw line down
+                d_x1 = collided_part.sch_bb[0] - collided_part.sch_bb[2] - 100
+                d_y1 = t_y1
+                d_x2 = d_x1
+                d_y2 = collided_part.sch_bb[1] + collided_part.sch_bb[3] + 100
+                d_x3 = d_x2 - collided_part.sch_bb[2] + 100 + 100
+                d_y3 = d_y2
+                line.insert(i+1, [d_x1,d_y1])
+                line.insert(i+2, [d_x2, d_y2])
+                line.insert(i+3, [x1, d_y3])
+                break
+
+
+    t_wire = []
+    # TODO add the center coordinates
+    for i in range(len(line)-1):
+        # print(line[i])
+        t_x1 = line[i][0] + c[0]
+        t_y1 = line[i][1] + c[1]
+        t_x2 = line[i+1][0] + c[0]
+        t_y2 = line[i+1][1] + c[1]
+        t_wire.append("Wire Wire Line\n")
+        t_wire.append("	{} {} {} {}\n".format(t_x1,t_y1,t_x2,t_y2))
+        t_out = "\n"+"".join(t_wire)    
+    
+    return (t_out)
+
+
