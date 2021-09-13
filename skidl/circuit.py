@@ -1812,6 +1812,7 @@ class Circuit(SkidlBaseObject):
                         t_x = pin.x + pin.part.sch_bb[0]
                         t_y = 0
                         t_y = -pin.y + pin.part.sch_bb[1]
+                        # TODO: make labels global if the label connects to a different root hierarchy
                         eeschema_code.append(make_Hlabel(t_x, t_y, pin.orientation, pin.label))
             # e. hierachy bounding box 
             box = []
