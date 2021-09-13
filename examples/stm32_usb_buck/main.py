@@ -1,7 +1,6 @@
 import os
 from skidl import *
 import stm32_circuit as stm32
-import subcircuits as sc
 import power_circuits as pc
 
 
