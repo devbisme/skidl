@@ -1,5 +1,6 @@
 from skidl import *
 
+# Connectors, terminal blocks, etc
 
 # Debug header circuit
 @SubCircuit

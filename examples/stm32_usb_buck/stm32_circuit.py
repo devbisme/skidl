@@ -1,7 +1,7 @@
 from skidl import *
 import power_nets as pn
 import utility_circuits as uc
-import connectors as c
+import connection_circuits as c
 
 # STM32 circuit, includes all subcircuitry needed
 @SubCircuit
