@@ -1,5 +1,6 @@
 import os
 from skidl import *
+import stm32_circuit as stm32
 import subcircuits as sc
 import power_circuits as pc
 
@@ -14,7 +15,7 @@ clear = lambda: os.system('clear')
 clear()
 
 # Declare the circuits
-sc.stm32f405r()
+stm32.stm32f405r()
 pc.power_circuits()
 
 # Generate netlist
