@@ -66,11 +66,15 @@ class SkidlLogFileHandler(logging.FileHandler):
             self.filename = kwargs["filename"]
         except KeyError:
             self.filename = args[0]
-        super().__init__(*args, **kwargs)
+        try:
+            super().__init__(*args, **kwargs)
+        except PermissionError as e:
+            self.filename = None  # Prevents future error when removing non-existent log file.
+            print(e)
 
     def remove_log_file(self):
         if self.filename:
-            f_name = self.filename     #code to close file handle before removing file.
+            f_name = self.filename     # Close file handle before removing file.
             self.close()
             os.remove(f_name)
         self.filename = None
