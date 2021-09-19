@@ -1242,8 +1242,46 @@ class Part(SkidlBaseObject):
         out.append("   {}   {}  {}  {}\n".format(self.orientation[0], self.orientation[1], self.orientation[2], self.orientation[3], ))
         out.append("$EndComp\n") 
         return ("\n" + "".join(out))
+    
+    # Rotating the part CW 90 switches the x/y axis and makes the new height negative
+    # https://stackoverflow.com/questions/2285936/easiest-way-to-rotate-a-rectangle
+    def rotate_90_cw(self):
+        rotation_matrix = [
+                        [1,0,0,-1],  # 0   deg (standard orientation, ie x: -700 y: 1200 >> -700 left, -1200 down
+                        [0,1,1,0],   # 90  deg x: 1200  y: -700
+                        [-1,0,0,1],  # 180 deg x:  700  y: 1600
+                        [0,-1,-1,0]  # 270 deg x:-1600  y:  700
+        ]
+        # switch the height and width
+        new_height = self.sch_bb[2]
+        new_width = self.sch_bb[3]
+        self.sch_bb[2] = new_width
+        self.sch_bb[3] = new_height
 
-
+        # range through the pins and rotate them
+        for p in self.pins:
+            new_y = -p.x
+            new_x = p.y
+            p.x = new_x
+            p.y = new_y
+            if p.orientation == 'D':
+                p.orientation = 'L'
+            elif p.orientation == 'U':
+                p.orientation = 'R'
+            elif p.orientation == 'R':
+                p.orientation = 'D'
+            elif p.orientation == 'L':
+                p.orientation = 'U'
+        
+        for n in range(len(rotation_matrix)-1):
+            if rotation_matrix[n] == self.orientation:
+                if n == rotation_matrix[-1]:
+                    self.orientation = rotation_matrix[0]
+                    break
+                else:
+                    self.orientation = rotation_matrix[n+1]
+                    break
+        
 
     def erc_desc(self):
         """Create description of part for ERC and other error reporting."""

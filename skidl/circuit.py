@@ -180,7 +180,7 @@ def rotate_pin_part(part):
                     rotate = 270
             if rotate != 0:
                 for i in range(int(rotate/90)):
-                    rotate_part_90_cw(part)
+                    part.rotate_90_cw()
 
                     
 # pin_m = pin of moving part
@@ -191,46 +191,6 @@ def calc_move_part(pin_m, pin_nm, parts_list):
     dy = -pin_m.y + pin_nm.y - pin_nm.part.sch_bb[1]
     p = Part.get(pin_m.part.ref)
     p.move_part(dx, dy,parts_list)
-
-# Rotating the part CW 90 switches the x/y axis and makes the new height negative
-# https://stackoverflow.com/questions/2285936/easiest-way-to-rotate-a-rectangle
-def rotate_part_90_cw(part):
-    rotation_matrix = [
-                    [1,0,0,-1],  # 0   deg (standard orientation, ie x: -700 y: 1200 >> -700 left, -1200 down
-                    [0,1,1,0],   # 90  deg x: 1200  y: -700
-                    [-1,0,0,1],  # 180 deg x:  700  y: 1600
-                    [0,-1,-1,0]  # 270 deg x:-1600  y:  700
-    ]
-    # switch the height and width
-    new_height = part.sch_bb[2]
-    new_width = part.sch_bb[3]
-    part.sch_bb[2] = new_width
-    part.sch_bb[3] = new_height
-
-    # range through the pins and rotate them
-    for p in part.pins:
-        new_y = -p.x
-        new_x = p.y
-        p.x = new_x
-        p.y = new_y
-        if p.orientation == 'D':
-            p.orientation = 'L'
-        elif p.orientation == 'U':
-            p.orientation = 'R'
-        elif p.orientation == 'R':
-            p.orientation = 'D'
-        elif p.orientation == 'L':
-            p.orientation = 'U'
-    
-    for n in range(len(rotation_matrix)-1):
-        if rotation_matrix[n] == part.orientation:
-            if n == rotation_matrix[-1]:
-                part.orientation = rotation_matrix[0]
-                break
-            else:
-                part.orientation = rotation_matrix[n+1]
-                break
-    
 
 # Generate elkjs code that can create an auto diagram with this website:
 # https://rtsys.informatik.uni-kiel.de/elklive/elkgraph.html
