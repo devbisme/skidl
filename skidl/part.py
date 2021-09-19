@@ -1243,6 +1243,33 @@ class Part(SkidlBaseObject):
         out.append("$EndComp\n") 
         return ("\n" + "".join(out))
     
+    def rotate_power_pins(self):
+        for p in self.pins:
+            rotate = 0
+            if hasattr(p.net, 'name'):
+                if 'gnd' in p.net.name.lower():
+                    if p.orientation == 'U':
+                        break # pin is facing down, break
+                    if p.orientation == 'D':
+                        rotate = 180
+                    if p.orientation == 'L':
+                        rotate = 90
+                    if p.orientation == 'R':
+                        rotate = 270
+                elif '+' in p.nets[0].name.lower():
+                    if p.orientation == 'D':
+                        break # pin is facing down, break
+                    if p.orientation == 'U':
+                        rotate = 180
+                    if p.orientation == 'L':
+                        rotate = 90
+                    if p.orientation == 'R':
+                        rotate = 270
+                if rotate != 0:
+                    for i in range(int(rotate/90)):
+                        self.rotate_90_cw()
+
+
     # Rotating the part CW 90 switches the x/y axis and makes the new height negative
     # https://stackoverflow.com/questions/2285936/easiest-way-to-rotate-a-rectangle
     def rotate_90_cw(self):

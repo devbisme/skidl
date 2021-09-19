@@ -155,33 +155,6 @@ def gen_label(x,y,orientation,net_label, hier_label=True):
     else:
         out = "\nText GLabel {} {} {}    50   UnSpc ~ 0\n{}\n".format(x,y,t_orient, net_label)
     return out
-
-def rotate_pin_part(part):
-    for p in part.pins:
-        rotate = 0
-        if hasattr(p.net, 'name'):
-            if 'gnd' in p.net.name.lower():
-                if p.orientation == 'U':
-                    break # pin is facing down, break
-                if p.orientation == 'D':
-                    rotate = 180
-                if p.orientation == 'L':
-                    rotate = 90
-                if p.orientation == 'R':
-                    rotate = 270
-            elif '+' in p.nets[0].name.lower():
-                if p.orientation == 'D':
-                    break # pin is facing down, break
-                if p.orientation == 'U':
-                    rotate = 180
-                if p.orientation == 'L':
-                    rotate = 90
-                if p.orientation == 'R':
-                    rotate = 270
-            if rotate != 0:
-                for i in range(int(rotate/90)):
-                    part.rotate_90_cw()
-
                     
 # pin_m = pin of moving part
 # pin_nm = pin of non-moving part
@@ -1565,7 +1538,7 @@ class Circuit(SkidlBaseObject):
         for h in circuit_hier:
             for pt in circuit_hier[h]['parts']:
                 if len(pt.pins)<=3:
-                    rotate_pin_part(pt)
+                    pt.rotate_power_pins()
 
         # 3. Copy labels to connected pins
         for h in circuit_hier:
