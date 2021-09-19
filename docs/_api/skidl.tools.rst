@@ -28,7 +28,6 @@ skidl.tools.spice module
    :undoc-members:
    :show-inheritance:
 
-
 Module contents
 ---------------
 

@@ -3,7 +3,7 @@ Setup:
   1. Place .nojekyll file at the root of the repository.
   2. Place an index.html into the root directory with redirect code to the docs/_site.
   3. Github pages can be from master or docs folder. Doesn't seem to matter.
-  4. _config.yml url should be set to url: https://xesscorp.github.io/<repo name>/docs/_site.
+  4. _config.yml url should be set to url: https://devbisme.github.io/<repo name>/docs/_site.
      (No need to change url for local server during development.)
 
 Adding a new post:

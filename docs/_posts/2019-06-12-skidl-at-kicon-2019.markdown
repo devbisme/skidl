@@ -29,7 +29,7 @@ it helps for some of them.
 So I'll be investigating techniques to improve SKiDL's rudimentary
 schematic output.
 (I've also gotten help from a Github contributor who recently submitted some
-[pull requests](https://github.com/xesscorp/skidl/pulls?q=is%3Apr+author%3Aweimens)
+[pull requests](https://github.com/devbisme/skidl/pulls?q=is%3Apr+author%3Aweimens)
 that addressed this.)
 
 After you watch my SKiDL video,

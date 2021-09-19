@@ -39,7 +39,7 @@ analog_average(in1, in2, out1)  # One instantiation of the averager.
 analog_average(in3, in4, out2)  # A second instantiation.
 ```
 
-It was [pointed out](https://github.com/xesscorp/skidl/issues/48) that this method
+It was [pointed out](https://github.com/devbisme/skidl/issues/48) that this method
 of instantiating subcircuits is quite different from what is used for parts.
 Unlike the connections to a subcircuit that are all made at a single place when the
 function is called, the connections to a part can be placed
@@ -166,4 +166,4 @@ Since it's new, it hasn't seen a lot of use and there could be unknown bugs
 lying in wait.
 If you have questions or problems, please ask on the
 [SKiDL forum](https://skidl.discourse.group/) or
-raise an [issue](https://github.com/xesscorp/skidl/issues). 
+raise an [issue](https://github.com/devbisme/skidl/issues). 

@@ -7,20 +7,20 @@ dropcap:	   true
 # Change url to your domain. Leave localhost server or blank when working locally.
 # or use the hint from http://jekyllrb.com/docs/github-pages/ to keep this the same 
 # whether working locally or remotely. Start Jekyll with: jekyll serve --baseurl ''
-url:        	 https://xesscorp.github.io/skidl/docs/_site
+url:        	 https://devbisme.github.io/skidl/docs/_site
 #url: http://127.0.0.1:4000
 
 
 # Owner/author information
 owner:
-  name:           XESS Corp.
-  avatar:         xesscorp.png
-  email:          skidl@xess.com
+  name:           Dave Vandenbout
+  avatar:         devb-pic.jpg
+  email:          devb@xess.com
   # Use the coder's toolbox at http://coderstoolbox.net/string/#!encoding=xml&action=encode&charset=us_ascii to encode your description into XML string
-  description:    Manufacturer of FPGA development boards.
+  description:    Lone developer.
   # Social networking links used in footer. Update and remove as you like.
-  twitter:        xesscorp
-  github:         xesscorp    
+  twitter:        devbisme
+  github:         devbisme    
   # For Google Authorship https://plus.google.com/authorship
   #google_plus:    https://plus.google.com/u/0/+AmeyJadiye
 
@@ -48,12 +48,12 @@ links:
   - title: Blog
     url: /blog
   - title: Forum
-    url: https://github.com/xesscorp/skidl/discussions
+    url: https://github.com/devbisme/skidl/discussions
     external: true
   - title: API
     url: /api.html
   - title: Github
-    url: "http://github.com/xesscorp/skidl"
+    url: "http://github.com/devbisme/skidl"
     external: true
   - title: About
     url: /about

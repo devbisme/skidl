@@ -22,7 +22,7 @@ It doesn't change what SKiDL does, but does make it easier to do it.
 
 ### Series, Parallel, and Tee Network Constructors
 
-Last year, I had a [discussion](https://github.com/xesscorp/skidl/issues/26) with
+Last year, I had a [discussion](https://github.com/devbisme/skidl/issues/26) with
 [kasbah](https://github.com/kasbah) on the SKiDL Github about his suggestion
 to overload the `>>` operator to wire two-pin parts in series.
 A lot of good ideas came out of that,

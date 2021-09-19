@@ -6,8 +6,8 @@ import sys
 import setuptools
 
 __version__ = "1.1.0"
-__author__ = "XESS Corp."
-__email__ = "info@xess.com"
+__author__ = "Dave Vandenbout"
+__email__ = "devb@xess.com"
 
 if "sdist" in sys.argv[1:]:
     with open("skidl/pckg_info.py", "w") as f:
@@ -46,7 +46,13 @@ setup(
     long_description=readme + "\n\n" + history,
     author=__author__,
     author_email=__email__,
-    url="https://github.com/xesscorp/skidl",
+    url="https://github.com/devbisme/skidl",
+    project_urls={
+        "Documentation": "https://devbisme.github.io/skidl",
+        "Source": "https://github.com/devbisme/skidl",
+        "Changelog": "https://github.com/devbisme/skidl/blob/master/HISTORY.rst",
+        "Tracker": "https://github.com/devbisme/skidl/issues",
+    },
     #    packages=['skidl',],
     packages=setuptools.find_packages(exclude=["tests"]),
     entry_points={
@@ -61,17 +67,15 @@ setup(
     zip_safe=False,
     keywords="skidl kicad electronic circuit schematics",
     classifiers=[
-        "Development Status :: 4 - Beta",
-        "Intended Audience :: Developers",
+        "Development Status :: 5 - Production/Stable",
+        "Intended Audience :: Manufacturing",
         "License :: OSI Approved :: MIT License",
         "Natural Language :: English",
+        "Operating System :: OS Independent",
         "Programming Language :: Python :: 2.7",
-        "Programming Language :: Python :: 3.5",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3",
         "Programming Language :: Python :: Implementation :: CPython",
-        "Programming Language :: Python :: Implementation :: PyPy",
+        "Topic :: Scientific/Engineering :: Electronic Design Automation (EDA)",
     ],
     test_suite="tests",
     tests_require=test_requirements,

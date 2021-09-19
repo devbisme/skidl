@@ -113,7 +113,7 @@ Here are some of the features SKiDL brings to electronic design:
   for outputing the correct netlist format).
 * Takes advantage of all the benefits of the Python ecosystem (because it *is* Python).
 * Free software: MIT license.
-* Open source: [https://github.com/xesscorp/skidl](https://github.com/xesscorp/skidl)
+* Open source: [https://github.com/devbisme/skidl](https://github.com/devbisme/skidl)
 
 As a very simple example, the SKiDL program below describes a circuit that
 takes an input voltage, divides it by three, and outputs it:
@@ -147,7 +147,7 @@ do the PCB layout:
 ```text
 (export (version D)
   (design
-    (source "/media/devb/Main/xesscorp/KiCad/tools/skidl/skidl/circuit.py")
+    (source "/media/devb/Main/devbisme/KiCad/tools/skidl/skidl/circuit.py")
     (date "04/21/2021 10:43 AM")
     (tool "SKiDL (0.0.31)"))
   (components
@@ -355,8 +355,8 @@ Package_DFN_QFN: QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm_ThermalVias ("QFN, 48 Pin (
 ### Zyc: A GUI Search Tool
 
 If you want to avoid using command-line tools,
-[`zyc`](https://xesscorp.github.io/zyc) lets you search for parts and footprints using a GUI.
-You can read more about it [here](https://xesscorp.github.io/skidl/docs/_site/blog/worst-part-of-skidl).
+[`zyc`](https://devbisme.github.io/zyc) lets you search for parts and footprints using a GUI.
+You can read more about it [here](https://devbisme.github.io/skidl/docs/_site/blog/worst-part-of-skidl).
 
 
 ## Instantiating Parts
@@ -566,7 +566,7 @@ then the netlist will be stored in `my_circuit.net`.
 ```text
 (export (version D)
   (design
-    (source "/media/devb/Main/xesscorp/KiCad/tools/skidl/skidl/circuit.py")
+    (source "/media/devb/Main/devbisme/KiCad/tools/skidl/skidl/circuit.py")
     (date "04/22/2021 01:50 PM")
     (tool "SKiDL (0.0.31dev)"))
   (components
@@ -1185,14 +1185,14 @@ ValueError                                Traceback (most recent call last)
 <ipython-input-83-48a1e46383fe> in <module>
 ----> 1 pic10[4,3,1] += b[1:0]
 
-/media/devb/Main/xesscorp/KiCad/tools/skidl/skidl/netpinlist.py in __iadd__(self, *nets_pins_buses)
+/media/devb/Main/devbisme/KiCad/tools/skidl/skidl/netpinlist.py in __iadd__(self, *nets_pins_buses)
      60         if len(nets_pins) != len(self):
      61             if Net in [type(item) for item in self] or len(nets_pins) > 1:
 ---> 62                 log_and_raise(
      63                     logger,
      64                     ValueError,
 
-/media/devb/Main/xesscorp/KiCad/tools/skidl/skidl/utilities.py in log_and_raise(logger_in, exc_class, message)
+/media/devb/Main/devbisme/KiCad/tools/skidl/skidl/utilities.py in log_and_raise(logger_in, exc_class, message)
     785 def log_and_raise(logger_in, exc_class, message):
     786     logger_in.error(message)
 --> 787     raise exc_class(message)
@@ -1207,7 +1207,7 @@ ValueError: Connection mismatch 3 != 2!
 
 The previous section showed some general-purpose techniques for connecting parts,
 but SKiDL also has some
-[specialized syntax](https://xesscorp.github.io/skidl/docs/_site/blog/sweetening-skidl)
+[specialized syntax](https://devbisme.github.io/skidl/docs/_site/blog/sweetening-skidl)
 for wiring two-pin components in parallel or serial.
 For example, here is a network of four resistors connected in series
 between power and ground:
@@ -1897,7 +1897,7 @@ WARNING: Attaching non-part Pin  to a Net A.
 ERROR: Can't use a non-zero index for a pin.
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
-  File "C:\xesscorp\KiCad\tools\skidl\skidl\Pin.py", line 251, in __getitem__
+  File "C:\devbisme\KiCad\tools\skidl\skidl\Pin.py", line 251, in __getitem__
     raise Exception
 Exception
 ```
@@ -2340,5 +2340,5 @@ Or do anything else that a SKiDL-based design supports.
 # SPICE Simulations
 
 You can describe a circuit using SKiDL and run a SPICE simulation on it.
-Go [here](https://github.com/xesscorp/skidl/blob/master/examples/spice-sim-intro/spice-sim-intro.ipynb)
+Go [here](https://github.com/devbisme/skidl/blob/master/examples/spice-sim-intro/spice-sim-intro.ipynb)
 to get the complete details.

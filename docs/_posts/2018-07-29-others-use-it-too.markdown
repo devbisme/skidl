@@ -261,4 +261,4 @@ So this highlights another feature of SKiDL: since it's open source, you can mod
 whatever you want.
 
 Any way, these are two examples of using SKiDL that weren't done by me.
-If you have used SKiDL for something, [drop me a line](mailto:skidl@xess.com) and let me know.
+If you have used SKiDL for something, [drop me a line](mailto:devb@xess.com) and let me know.

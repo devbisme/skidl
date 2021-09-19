@@ -24,5 +24,5 @@ SKiDL was inspired by two other projects:
 
 ### Contributors
 
-SKiDL was created by [Dave Vandenbout of XESS Corporation](mailto:devb@xess.com), who did the original implementation.
-Check the Github repo for others who have [contributed](https://github.com/xesscorp/skidl/graphs/contributors) along the way.
+SKiDL was created by [Dave Vandenbout](mailto:devb@xess.com), who did the original implementation.
+Check the Github repo for others who have [contributed](https://github.com/devbisme/skidl/graphs/contributors) along the way.

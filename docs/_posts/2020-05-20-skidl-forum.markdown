@@ -11,9 +11,9 @@ category: blog
 permalink: blog/skidl-forum
 ---
 
-**FYI: The forum has [moved](https://github.com/xesscorp/skidl/discussions).**
+**FYI: The forum has [moved](https://github.com/devbisme/skidl/discussions).**
 
-I created a [Github Discussions forum for SKiDL](https://github.com/xesscorp/skidl/discussions).
+I created a [Github Discussions forum for SKiDL](https://github.com/devbisme/skidl/discussions).
 There, you can ask questions about SKiDL and post about projects you're doing with it.
 This will probably be a more convenient channel for such things rather
 than opening issues on the SKiDL GitHub repo.

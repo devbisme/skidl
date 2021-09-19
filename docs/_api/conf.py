@@ -59,7 +59,7 @@ master_doc = 'api'
 
 # General information about the project.
 project = u'skidl'
-copyright = u'2016-2019, XESS Corp.'
+copyright = u'2016-2021, Dave Vandenbout.'
 
 # The version info for the project you're documenting, acts as replacement
 # for |version| and |release|, also used in various other places throughout

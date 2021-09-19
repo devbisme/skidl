@@ -13,9 +13,9 @@ permalink: blog/one-dot-oh
 
 Nearly a year after 0.0.30, today marks the release of SKiDL version **1.0.0**.
 But why assign such an exalted milestone to *this* release given the relative
-paucity of [new features](https://github.com/xesscorp/skidl/blob/master/HISTORY.rst#100-2021-05-09),
+paucity of [new features](https://github.com/devbisme/skidl/blob/master/HISTORY.rst#100-2021-05-09),
 most of them mundane (with the possible exception of
-[automatic generation of schematics](https://xess.com/skidl/docs/_site/index.html#svg-schematics))?
+[automatic generation of schematics](https://github.com/devbisme/skidl/docs/_site/index.html#svg-schematics))?
 
 Because I said so.
 
@@ -23,7 +23,7 @@ It's time I cut the cord and ramped down the language-evolution phase of SKiDL.
 The syntax is pretty complete and has the necessary features for compactly
 describing circuits.
 Now it's time to concentrate on building things around and on top of SKiDL.
-([zyc](https://xess.com/zyc/docs/_build/singlehtml/index.html)
+([zyc](https://devbisme.github.io/zyc)
 was an early example of doing that.)
 The added infrastructure will help new users get productive with SKiDL faster.
 And as the surrounding environment is developed, the tempo of new SKiDL releases

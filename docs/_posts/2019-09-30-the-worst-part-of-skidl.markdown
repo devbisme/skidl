@@ -321,7 +321,7 @@ running. If so, you'll want to refresh the part and footprint caches (3).
 If you want to try `zyc`, you can install it from the Github repo:
 
 ```bash
-% pip install git+https://github.com/xesscorp/skidl
+% pip install git+https://github.com/devbisme/skidl
 ```
 
 To run it, just enter `zyc` at the command line.
