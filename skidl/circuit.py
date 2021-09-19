@@ -155,7 +155,7 @@ def gen_label(x,y,orientation,net_label, hier_label=True):
     else:
         out = "\nText GLabel {} {} {}    50   UnSpc ~ 0\n{}\n".format(x,y,t_orient, net_label)
     return out
-                    
+
 # pin_m = pin of moving part
 # pin_nm = pin of non-moving part
 # parts list = hierarchical parts list
@@ -1537,17 +1537,12 @@ class Circuit(SkidlBaseObject):
         # 2. Rotate parts (<=3 pins) with power nets
         for h in circuit_hier:
             for pt in circuit_hier[h]['parts']:
-                if len(pt.pins)<=3:
-                    pt.rotate_power_pins()
+                pt.rotate_power_pins()
 
         # 3. Copy labels to connected pins
         for h in circuit_hier:
             for pt in circuit_hier[h]['parts']:
-                for pin in pt.pins:
-                    if len(pin.label)>0:
-                        if pin.net is not None:
-                            for p in pin.net.pins:
-                                p.label = pin.label
+                pt.copy_pin_labels()
 
         # 4. Create part bounding boxes for parts
         for pt in self.parts:

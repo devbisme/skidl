@@ -1243,31 +1243,45 @@ class Part(SkidlBaseObject):
         out.append("$EndComp\n") 
         return ("\n" + "".join(out))
     
+    # Copy pin labels to all connectings pins
+    #  This allows the user to only define one label and then connect pins
+    def copy_pin_labels(self):
+        for pin in self.pins:
+            if len(pin.label)>0:
+                if pin.net is not None:
+                    for p in pin.net.pins:
+                        p.label = pin.label
+    # Rotate part based on direction of power pins
+    # This function is to make sure that voltage sources face up and gnd pins
+    #    face down
+    # Only rotate parts with 3 pins or less
     def rotate_power_pins(self):
-        for p in self.pins:
-            rotate = 0
-            if hasattr(p.net, 'name'):
-                if 'gnd' in p.net.name.lower():
-                    if p.orientation == 'U':
-                        break # pin is facing down, break
-                    if p.orientation == 'D':
-                        rotate = 180
-                    if p.orientation == 'L':
-                        rotate = 90
-                    if p.orientation == 'R':
-                        rotate = 270
-                elif '+' in p.nets[0].name.lower():
-                    if p.orientation == 'D':
-                        break # pin is facing down, break
-                    if p.orientation == 'U':
-                        rotate = 180
-                    if p.orientation == 'L':
-                        rotate = 90
-                    if p.orientation == 'R':
-                        rotate = 270
-                if rotate != 0:
-                    for i in range(int(rotate/90)):
-                        self.rotate_90_cw()
+        # Only rotate parts with 3 pins or less
+        if len(self.pins)<=3:
+            for p in self.pins:
+                rotate = 0
+                if hasattr(p.net, 'name'):
+                    if 'gnd' in p.net.name.lower():
+                        if p.orientation == 'U':
+                            break # pin is facing down, break
+                        if p.orientation == 'D':
+                            rotate = 180
+                        if p.orientation == 'L':
+                            rotate = 90
+                        if p.orientation == 'R':
+                            rotate = 270
+                    elif '+' in p.nets[0].name.lower():
+                        if p.orientation == 'D':
+                            break # pin is facing down, break
+                        if p.orientation == 'U':
+                            rotate = 180
+                        if p.orientation == 'L':
+                            rotate = 90
+                        if p.orientation == 'R':
+                            rotate = 270
+                    if rotate != 0:
+                        for i in range(int(rotate/90)):
+                            self.rotate_90_cw()
 
 
     # Rotating the part CW 90 switches the x/y axis and makes the new height negative
