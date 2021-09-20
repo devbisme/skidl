@@ -1513,22 +1513,18 @@ class Circuit(SkidlBaseObject):
             return hierarchies
 
 
+        # Pre-process parts
+        for pt in self.parts:
+            # Rotate <3 pin parts that have power nets.  Pins with power pins should face up
+            # Pins with GND pins should face down
+            pt.rotate_power_pins()
+            # Copy labels from one pin to each connected pin.  This allows the user to only label
+            #   a single pin, then connect it normally, instead of having to label every pin in that net
+            pt.copy_pin_labels()
+            # Generate bounding boxes around parts
+            pt.generate_bounding_box()
         # Dictionary that will hold parts and nets info for each hierarchy
         circuit_hier = sort_parts_into_hierarchies(self.parts)
-       
-        # 2. Rotate parts (<=3 pins) with power nets
-        for h in circuit_hier:
-            for pt in circuit_hier[h]['parts']:
-                pt.rotate_power_pins()
-
-        # 3. Copy labels to connected pins
-        for h in circuit_hier:
-            for pt in circuit_hier[h]['parts']:
-                pt.copy_pin_labels()
-
-        # 4. Create part bounding boxes for parts
-        for pt in self.parts:
-            pt.generate_bounding_box()
       
         # 5. For each hierarchy: Move parts with nets drawn to central part
         for h in circuit_hier:
