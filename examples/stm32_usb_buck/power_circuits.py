@@ -6,7 +6,7 @@ import power_nets as pn
 
 @package
 def power_circuits():
-    buck(pn.v_12v, pn.v_3v3, pn.v_5v, pn.gnd)
+    buck(pn.v_12v,pn.v_5v,pn.v_3v3, pn.gnd)
     anlg_flt(pn.vdda, pn.gnd, pn.vdda)
 
 
@@ -15,7 +15,6 @@ def anlg_flt(vdd, gnd, vdda):
     c1 = Part("Device", 'C_Small', footprint='C_0603_1608Metric', value='1uF')
     c2 = Part("Device", 'C_Small', footprint='C_0603_1608Metric', value='10nF')
     l1 = Part("Device", 'L_Small', footprint='L_0603_1608Metric', value='29nH')
-
     # Connect pins
     vdda += c1.p1, c2.p1, l1.p2
     vdd += l1.p1

@@ -1242,8 +1242,87 @@ class Part(SkidlBaseObject):
         out.append("   {}   {}  {}  {}\n".format(self.orientation[0], self.orientation[1], self.orientation[2], self.orientation[3], ))
         out.append("$EndComp\n") 
         return ("\n" + "".join(out))
+    
+    # Copy pin labels to all connectings pins
+    #  This allows the user to only define one label and then connect pins
+    def copy_pin_labels(self):
+        for pin in self.pins:
+            if len(pin.label)>0:
+                if pin.net is not None:
+                    for p in pin.net.pins:
+                        p.label = pin.label
+    # Rotate part based on direction of power pins
+    # This function is to make sure that voltage sources face up and gnd pins
+    #    face down
+    # Only rotate parts with 3 pins or less
+    def rotate_power_pins(self):
+        # Only rotate parts with 3 pins or less
+        if len(self.pins)<=3:
+            for p in self.pins:
+                rotate = 0
+                if hasattr(p.net, 'name'):
+                    if 'gnd' in p.net.name.lower():
+                        if p.orientation == 'U':
+                            break # pin is facing down, break
+                        if p.orientation == 'D':
+                            rotate = 180
+                        if p.orientation == 'L':
+                            rotate = 90
+                        if p.orientation == 'R':
+                            rotate = 270
+                    elif '+' in p.nets[0].name.lower():
+                        if p.orientation == 'D':
+                            break # pin is facing down, break
+                        if p.orientation == 'U':
+                            rotate = 180
+                        if p.orientation == 'L':
+                            rotate = 90
+                        if p.orientation == 'R':
+                            rotate = 270
+                    if rotate != 0:
+                        for i in range(int(rotate/90)):
+                            self.rotate_90_cw()
 
 
+    # Rotating the part CW 90 switches the x/y axis and makes the new height negative
+    # https://stackoverflow.com/questions/2285936/easiest-way-to-rotate-a-rectangle
+    def rotate_90_cw(self):
+        rotation_matrix = [
+                        [1,0,0,-1],  # 0   deg (standard orientation, ie x: -700 y: 1200 >> -700 left, -1200 down
+                        [0,1,1,0],   # 90  deg x: 1200  y: -700
+                        [-1,0,0,1],  # 180 deg x:  700  y: 1600
+                        [0,-1,-1,0]  # 270 deg x:-1600  y:  700
+        ]
+        # switch the height and width
+        new_height = self.sch_bb[2]
+        new_width = self.sch_bb[3]
+        self.sch_bb[2] = new_width
+        self.sch_bb[3] = new_height
+
+        # range through the pins and rotate them
+        for p in self.pins:
+            new_y = -p.x
+            new_x = p.y
+            p.x = new_x
+            p.y = new_y
+            if p.orientation == 'D':
+                p.orientation = 'L'
+            elif p.orientation == 'U':
+                p.orientation = 'R'
+            elif p.orientation == 'R':
+                p.orientation = 'D'
+            elif p.orientation == 'L':
+                p.orientation = 'U'
+        
+        for n in range(len(rotation_matrix)-1):
+            if rotation_matrix[n] == self.orientation:
+                if n == rotation_matrix[-1]:
+                    self.orientation = rotation_matrix[0]
+                    break
+                else:
+                    self.orientation = rotation_matrix[n+1]
+                    break
+        
 
     def erc_desc(self):
         """Create description of part for ERC and other error reporting."""

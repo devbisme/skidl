@@ -140,7 +140,7 @@ def move_subhierarchy(hm, hierarchy_list, dx, dy, move_dir = 'L'):
                 move_subhierarchy(hm, hierarchy_list, -200, 0, move_dir = move_dir)
 
 
-def make_Hlabel(x,y,orientation,net_label):
+def gen_label(x,y,orientation,net_label, hier_label=True):
     t_orient = 0
     if orientation == 'R':
         pass
@@ -150,37 +150,12 @@ def make_Hlabel(x,y,orientation,net_label):
         t_orient = 2
     elif orientation == 'U':
         t_orient = 3
-    out = "\nText HLabel {} {} {}    50   UnSpc ~ 0\n{}\n".format(x,y,t_orient, net_label)
+    if hier_label:
+        out = "\nText HLabel {} {} {}    50   UnSpc ~ 0\n{}\n".format(x,y,t_orient, net_label)
+    else:
+        out = "\nText GLabel {} {} {}    50   UnSpc ~ 0\n{}\n".format(x,y,t_orient, net_label)
     return out
 
-
-def rotate_pin_part(part):
-    for p in part.pins:
-        rotate = 0
-        if hasattr(p.net, 'name'):
-            if 'gnd' in p.net.name.lower():
-                if p.orientation == 'U':
-                    break # pin is facing down, break
-                if p.orientation == 'D':
-                    rotate = 180
-                if p.orientation == 'L':
-                    rotate = 90
-                if p.orientation == 'R':
-                    rotate = 270
-            elif '+' in p.nets[0].name.lower():
-                if p.orientation == 'D':
-                    break # pin is facing down, break
-                if p.orientation == 'U':
-                    rotate = 180
-                if p.orientation == 'L':
-                    rotate = 90
-                if p.orientation == 'R':
-                    rotate = 270
-            if rotate != 0:
-                for i in range(int(rotate/90)):
-                    rotate_part_90_cw(part)
-
-                    
 # pin_m = pin of moving part
 # pin_nm = pin of non-moving part
 # parts list = hierarchical parts list
@@ -189,46 +164,6 @@ def calc_move_part(pin_m, pin_nm, parts_list):
     dy = -pin_m.y + pin_nm.y - pin_nm.part.sch_bb[1]
     p = Part.get(pin_m.part.ref)
     p.move_part(dx, dy,parts_list)
-
-# Rotating the part CW 90 switches the x/y axis and makes the new height negative
-# https://stackoverflow.com/questions/2285936/easiest-way-to-rotate-a-rectangle
-def rotate_part_90_cw(part):
-    rotation_matrix = [
-                    [1,0,0,-1],  # 0   deg (standard orientation, ie x: -700 y: 1200 >> -700 left, -1200 down
-                    [0,1,1,0],   # 90  deg x: 1200  y: -700
-                    [-1,0,0,1],  # 180 deg x:  700  y: 1600
-                    [0,-1,-1,0]  # 270 deg x:-1600  y:  700
-    ]
-    # switch the height and width
-    new_height = part.sch_bb[2]
-    new_width = part.sch_bb[3]
-    part.sch_bb[2] = new_width
-    part.sch_bb[3] = new_height
-
-    # range through the pins and rotate them
-    for p in part.pins:
-        new_y = -p.x
-        new_x = p.y
-        p.x = new_x
-        p.y = new_y
-        if p.orientation == 'D':
-            p.orientation = 'L'
-        elif p.orientation == 'U':
-            p.orientation = 'R'
-        elif p.orientation == 'R':
-            p.orientation = 'D'
-        elif p.orientation == 'L':
-            p.orientation = 'U'
-    
-    for n in range(len(rotation_matrix)-1):
-        if rotation_matrix[n] == part.orientation:
-            if n == rotation_matrix[-1]:
-                part.orientation = rotation_matrix[0]
-                break
-            else:
-                part.orientation = rotation_matrix[n+1]
-                break
-    
 
 # Generate elkjs code that can create an auto diagram with this website:
 # https://rtsys.informatik.uni-kiel.de/elklive/elkgraph.html
@@ -1524,24 +1459,6 @@ class Circuit(SkidlBaseObject):
 
         return schematic_json
 
-    # Get the eeschema center point, also returning the entire header right now
-    def gen_hier_rect(self):
-        import skidl
-        
-
-        self._preprocess()
-        tool = skidl.get_default_tool()
-        
-        try:
-            gen_func = getattr(self, "_gen_hier_rect_{}".format(tool))
-            return gen_func()
-        except AttributeError:
-            log_and_raise(
-                logger,
-                ValueError,
-                "Can't get the center of the file({}).".format(tool),
-            )
-
 
     def generate_schematic(self, file_=None, _title="Default", tool=None, sch_size = 'A0', gen_elkjs = False):
         """
@@ -1578,45 +1495,42 @@ class Circuit(SkidlBaseObject):
             tool = skidl.get_default_tool()
 
 
-        # Dictionary that will hold parts and nets info for each hierarchy
-        hierarchies = {}
-        
-        # 1. Sort parts into hierarchies
-        for pt in self.parts:
-            h_lst = [x for x in pt.hierarchy.split('.') if 'top' not in x] # make a list of the hierarchies that aren't 'top'
-            # skip if this is the top parent hierarchy
-            if len(h_lst)==0:
-                continue
-            h_name = '.'.join([str(elem) for elem in h_lst]) # join the list back together, #TODO this logic is redundant with the splitting above
-            # check for new top level hierarchy
-            if h_name not in hierarchies:
-                # make new top level hierarchy
-                hierarchies[h_name] = {'parts':[pt],'wires':[], 'sch_bb':[]}
-            else:
-                hierarchies[h_name]['parts'].append(pt)
-       
-        # 2. Rotate parts (<=3 pins) with power nets
-        for h in hierarchies:
-            for pt in hierarchies[h]['parts']:
-                if len(pt.pins)<=3:
-                    rotate_pin_part(pt)
 
-        # 3. Copy labels to connected pins
-        for h in hierarchies:
-            for pt in hierarchies[h]['parts']:
-                for pin in pt.pins:
-                    if len(pin.label)>0:
-                        if pin.net is not None:
-                            for p in pin.net.pins:
-                                p.label = pin.label
+        def sort_parts_into_hierarchies(circuit_parts):
+            hierarchies = {}
+            for pt in circuit_parts:
+                h_lst = [x for x in pt.hierarchy.split('.') if 'top' not in x] # make a list of the hierarchies that aren't 'top'
+                # skip if this is the top parent hierarchy
+                if len(h_lst)==0:
+                    continue
+                h_name = '.'.join([str(elem) for elem in h_lst]) # join the list back together, #TODO this logic is redundant with the splitting above
+                # check for new top level hierarchy
+                if h_name not in hierarchies:
+                    # make new top level hierarchy
+                    hierarchies[h_name] = {'parts':[pt],'wires':[], 'sch_bb':[]}
+                else:
+                    hierarchies[h_name]['parts'].append(pt)
+            return hierarchies
 
-        # 4. Create part bounding boxes for parts
+
+        # Pre-process parts
         for pt in self.parts:
+            # Rotate <3 pin parts that have power nets.  Pins with power pins should face up
+            # Pins with GND pins should face down
+            pt.rotate_power_pins()
+            # Copy labels from one pin to each connected pin.  This allows the user to only label
+            #   a single pin, then connect it normally, instead of having to label every pin in that net
+            pt.copy_pin_labels()
+            # Generate bounding boxes around parts
             pt.generate_bounding_box()
+
+
+        # Dictionary that will hold parts and nets info for each hierarchy
+        circuit_hier = sort_parts_into_hierarchies(self.parts)
       
         # 5. For each hierarchy: Move parts with nets drawn to central part
-        for h in hierarchies:
-            centerPart = hierarchies[h]['parts'][0] # Center part that we place everything else around
+        for h in circuit_hier:
+            centerPart = circuit_hier[h]['parts'][0] # Center part of hierarchy that we place everything else around
             for pin in centerPart.pins:
                 # only move parts for pins that don't have a label
                 if len(pin.label)>0:
@@ -1636,12 +1550,12 @@ class Circuit(SkidlBaseObject):
                             continue
                         else:
                             # if we pass all those checks then move the part based on the relative pin locations
-                            calc_move_part(p, pin, hierarchies[h]['parts'])
+                            calc_move_part(p, pin, circuit_hier[h]['parts'])
 
         # 6. For each hierarchy: Move parts with nets drawn to parts moved in step #5
-        for h in hierarchies:
-            for p in hierarchies[h]['parts']:
-                if p.ref == hierarchies[h]['parts'][0].ref:
+        for h in circuit_hier:
+            for p in circuit_hier[h]['parts']:
+                if p.ref == circuit_hier[h]['parts'][0].ref:
                     continue
                 if p.sch_bb[0] == 0 and p.sch_bb[1] ==0 :
                     # part has not been moved and is not the central part, which means it needs to be moved
@@ -1659,47 +1573,47 @@ class Circuit(SkidlBaseObject):
                             for netPin in pin.net.pins:
                                 if netPin.part.hierarchy != ("top."+h):
                                     break
-                                if netPin.ref == hierarchies[h]['parts'][0].ref:
+                                if netPin.ref == circuit_hier[h]['parts'][0].ref:
                                     continue
                                 if netPin.ref == pin.ref:
                                     continue
                                 else:
-                                    calc_move_part(pin, netPin, hierarchies[h]['parts'])
+                                    calc_move_part(pin, netPin, circuit_hier[h]['parts'])
 
         # 7. For each hierarchy: Move remaining parts
         #    Parts are moved down and away, alternating placing left and right
-        for h in hierarchies:
+        for h in circuit_hier:
             offset_x = 1
-            offset_y = -(hierarchies[h]['parts'][0].sch_bb[1] + hierarchies[h]['parts'][0].sch_bb[3] + 500)
-            for p in hierarchies[h]['parts']:
-                if p.ref == hierarchies[h]['parts'][0].ref:
+            offset_y = -(circuit_hier[h]['parts'][0].sch_bb[1] + circuit_hier[h]['parts'][0].sch_bb[3] + 500)
+            for p in circuit_hier[h]['parts']:
+                if p.ref == circuit_hier[h]['parts'][0].ref:
                     continue
                 if p.sch_bb[0] == 0 and p.sch_bb[1] ==0 :
-                    p.move_part(offset_x, offset_y, hierarchies[h]['parts'])
+                    p.move_part(offset_x, offset_y, circuit_hier[h]['parts'])
                     offset_x = -offset_x # switch which side we place them every time
 
         # 8. Create bounding boxes for hierarchies
-        for h in hierarchies:
-            hierarchies[h]['sch_bb'] = gen_hierarchy_bb(hierarchies[h])
+        for h in circuit_hier:
+            circuit_hier[h]['sch_bb'] = gen_hierarchy_bb(circuit_hier[h])
 
         # 8.1 Adjust the parts to be centered on the hierarchy
-        for h in hierarchies:
+        for h in circuit_hier:
             # a. Part code
-            for pt in hierarchies[h]['parts']:
-                pt.sch_bb[0] -= hierarchies[h]['sch_bb'][0]
-                pt.sch_bb[1] -= hierarchies[h]['sch_bb'][1]
+            for pt in circuit_hier[h]['parts']:
+                pt.sch_bb[0] -= circuit_hier[h]['sch_bb'][0]
+                pt.sch_bb[1] -= circuit_hier[h]['sch_bb'][1]
 
         # 10. Range through each level of hierarchies and place hierarchies under parents
         # find max hierarchy depth
         max_hier_depth = 0
-        for h in hierarchies:
+        for h in circuit_hier:
             split_hier = h.split('.')
             if len(split_hier) > max_hier_depth:
                 max_hier_depth = len(split_hier)
 
         for i in range(max_hier_depth):
             mv_dir = 'L'
-            for h in hierarchies:
+            for h in circuit_hier:
                 split_hier = h.split('.')
                 if len(split_hier) == i:
                     continue
@@ -1710,11 +1624,11 @@ class Circuit(SkidlBaseObject):
                     if len(t)-1 == 0:
                         continue
                     parent = ".".join(t[:-1])
-                    p_ymin = hierarchies[parent]['sch_bb'][1] + hierarchies[parent]['sch_bb'][3]
-                    h_ymin = hierarchies[h]['sch_bb'][1] - hierarchies[h]['sch_bb'][3]
+                    p_ymin = circuit_hier[parent]['sch_bb'][1] + circuit_hier[parent]['sch_bb'][3]
+                    h_ymin = circuit_hier[h]['sch_bb'][1] - circuit_hier[h]['sch_bb'][3]
                     delta_y = h_ymin - p_ymin - 200 # move another 200, TODO: make logic good enough to take out magic numbers
-                    delta_x =  hierarchies[h]['sch_bb'][0] - hierarchies[parent]['sch_bb'][0] 
-                    move_subhierarchy(h,hierarchies, delta_x, delta_y, move_dir=mv_dir)
+                    delta_x =  circuit_hier[h]['sch_bb'][0] - circuit_hier[parent]['sch_bb'][0] 
+                    move_subhierarchy(h,circuit_hier, delta_x, delta_y, move_dir=mv_dir)
                     # alternate placement directions, TODO: find better algorithm than switching sides, maybe based on connections
                     if 'L' in mv_dir:
                         mv_dir = 'R'
@@ -1723,14 +1637,14 @@ class Circuit(SkidlBaseObject):
 
         
         # 12. Adjust part placement for hierachy movement
-        for h in hierarchies:
-            for pt in hierarchies[h]['parts']:
-                pt.sch_bb[0] += hierarchies[h]['sch_bb'][0]
-                pt.sch_bb[1] += hierarchies[h]['sch_bb'][1]
+        for h in circuit_hier:
+            for pt in circuit_hier[h]['parts']:
+                pt.sch_bb[0] += circuit_hier[h]['sch_bb'][0]
+                pt.sch_bb[1] += circuit_hier[h]['sch_bb'][1]
 
         # 13. Calculate nets for each hierarchy
-        for h in hierarchies:
-            for pt in hierarchies[h]['parts']:
+        for h in circuit_hier:
+            for pt in circuit_hier[h]['parts']:
                 for pin in pt.pins:
                     if len(pin.label) > 0:
                         continue
@@ -1744,19 +1658,19 @@ class Circuit(SkidlBaseObject):
                             if p.part.hierarchy != pin.part.hierarchy:
                                 sameHier = False
                         if sameHier:
-                            wire_lst = gen_net_wire(pin.net,hierarchies[h])
-                            hierarchies[h]['wires'].extend(wire_lst)
+                            wire_lst = gen_net_wire(pin.net,circuit_hier[h])
+                            circuit_hier[h]['wires'].extend(wire_lst)
  
         # At this point the hierarchy should be completely generated and ready for generating code
 
         # Calculate the maximum page dimensions needed for each root hierarchy sheet
         hier_pg_dim = {}
-        for h in hierarchies:
+        for h in circuit_hier:
             root_parent = h.split('.')[0]
-            xMin = hierarchies[h]['sch_bb'][0] - hierarchies[h]['sch_bb'][2]
-            xMax = hierarchies[h]['sch_bb'][0] + hierarchies[h]['sch_bb'][2]
-            yMin = hierarchies[h]['sch_bb'][1] + hierarchies[h]['sch_bb'][3]
-            yMax = hierarchies[h]['sch_bb'][1] - hierarchies[h]['sch_bb'][3]
+            xMin = circuit_hier[h]['sch_bb'][0] - circuit_hier[h]['sch_bb'][2]
+            xMax = circuit_hier[h]['sch_bb'][0] + circuit_hier[h]['sch_bb'][2]
+            yMin = circuit_hier[h]['sch_bb'][1] + circuit_hier[h]['sch_bb'][3]
+            yMax = circuit_hier[h]['sch_bb'][1] - circuit_hier[h]['sch_bb'][3]
             if root_parent not in hier_pg_dim:
                 hier_pg_dim[root_parent] = [xMin,xMax,yMin,yMax]
             else:
@@ -1772,7 +1686,7 @@ class Circuit(SkidlBaseObject):
 
         # 14. Generate eeschema code for each hierarchy
         hier_pg_eeschema_code = {}
-        for h in hierarchies:
+        for h in circuit_hier:
             eeschema_code = [] # List to hold all the code for the hierarchy
 
             # Find starting point for part placement
@@ -1781,7 +1695,7 @@ class Circuit(SkidlBaseObject):
             sch_start = calc_start_point(pg_size)
             
             # a. Generate part code
-            for pt in hierarchies[h]['parts']:
+            for pt in circuit_hier[h]['parts']:
                 t_pt = pt
                 t_pt.sch_bb[0] += sch_start[0]
                 t_pt.sch_bb[1] += sch_start[1]
@@ -1789,37 +1703,53 @@ class Circuit(SkidlBaseObject):
                 eeschema_code.append(part_code)
 
             # b. net wire code
-            for w in hierarchies[h]['wires']:
+            for w in circuit_hier[h]['wires']:
                 t_wire = []
                 for i in range(len(w)-1):
-                    t_x1 = w[i][0] - hierarchies[h]['sch_bb'][0] + sch_start[0]
-                    t_y1 = w[i][1] - hierarchies[h]['sch_bb'][1] + sch_start[1]
-                    t_x2 = w[i+1][0] - hierarchies[h]['sch_bb'][0] + sch_start[0]
-                    t_y2 = w[i+1][1] - hierarchies[h]['sch_bb'][1] + sch_start[1]
+                    t_x1 = w[i][0] - circuit_hier[h]['sch_bb'][0] + sch_start[0]
+                    t_y1 = w[i][1] - circuit_hier[h]['sch_bb'][1] + sch_start[1]
+                    t_x2 = w[i+1][0] - circuit_hier[h]['sch_bb'][0] + sch_start[0]
+                    t_y2 = w[i+1][1] - circuit_hier[h]['sch_bb'][1] + sch_start[1]
                     t_wire.append("Wire Wire Line\n")
                     t_wire.append("	{} {} {} {}\n".format(t_x1,t_y1,t_x2,t_y2))
                     t_out = "\n"+"".join(t_wire)  
                     eeschema_code.append(t_out)
             # c. power net stubs 
-            for pt in hierarchies[h]['parts']:
+            for pt in circuit_hier[h]['parts']:
                 stub = gen_power_part_eeschema(pt)
                 if len(stub)>0:
                     eeschema_code.append(stub)
             # d. labels
-            for pt in hierarchies[h]['parts']:
+            for pt in circuit_hier[h]['parts']:
                 for pin in pt.pins:
                     if len(pin.label)>0:
                         t_x = pin.x + pin.part.sch_bb[0]
                         t_y = 0
                         t_y = -pin.y + pin.part.sch_bb[1]
                         # TODO: make labels global if the label connects to a different root hierarchy
-                        eeschema_code.append(make_Hlabel(t_x, t_y, pin.orientation, pin.label))
+                        # eeschema_code.append(gen_label(t_x, t_y, pin.orientation, pin.label))
+                        if hasattr(pin, 'net'):
+                            if hasattr(pin.net, 'pins'):
+                                for p in pin.net.pins:
+                                    if p.ref == pt:
+                                        continue
+                                    # check if the pins are in the same root hierarchy
+                                    pt_root_parent = pt.hierarchy.split('.')[0]
+                                    p_root_parent = p.part.hierarchy.split('.')[0]
+                                    if not pt_root_parent in p_root_parent:
+                                        print("global label, pt: " + pt + "  other part: " + p.part.ref)
+                                        eeschema_code.append(gen_label(t_x, t_y, pin.orientation, pin.label, hier_label=False))
+                                    else:
+                                        eeschema_code.append(gen_label(t_x, t_y, pin.orientation, pin.label, hier_label=True))
+                                continue
+                        eeschema_code.append(gen_label(t_x, t_y, pin.orientation, pin.label, hier_label=True))
+
             # e. hierachy bounding box 
             box = []
-            xMin = hierarchies[h]['sch_bb'][0] - hierarchies[h]['sch_bb'][2] + sch_start[0]
-            xMax = hierarchies[h]['sch_bb'][0] + hierarchies[h]['sch_bb'][2] + sch_start[0]
-            yMin = hierarchies[h]['sch_bb'][1] + hierarchies[h]['sch_bb'][3] + sch_start[1]
-            yMax = hierarchies[h]['sch_bb'][1] - hierarchies[h]['sch_bb'][3] + sch_start[1]
+            xMin = circuit_hier[h]['sch_bb'][0] - circuit_hier[h]['sch_bb'][2] + sch_start[0]
+            xMax = circuit_hier[h]['sch_bb'][0] + circuit_hier[h]['sch_bb'][2] + sch_start[0]
+            yMin = circuit_hier[h]['sch_bb'][1] + circuit_hier[h]['sch_bb'][3] + sch_start[1]
+            yMax = circuit_hier[h]['sch_bb'][1] - circuit_hier[h]['sch_bb'][3] + sch_start[1]
 
             
 
