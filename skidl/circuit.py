@@ -1523,12 +1523,14 @@ class Circuit(SkidlBaseObject):
             pt.copy_pin_labels()
             # Generate bounding boxes around parts
             pt.generate_bounding_box()
+
+
         # Dictionary that will hold parts and nets info for each hierarchy
         circuit_hier = sort_parts_into_hierarchies(self.parts)
       
         # 5. For each hierarchy: Move parts with nets drawn to central part
         for h in circuit_hier:
-            centerPart = circuit_hier[h]['parts'][0] # Center part that we place everything else around
+            centerPart = circuit_hier[h]['parts'][0] # Center part of hierarchy that we place everything else around
             for pin in centerPart.pins:
                 # only move parts for pins that don't have a label
                 if len(pin.label)>0:
