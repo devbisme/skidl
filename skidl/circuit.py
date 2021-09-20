@@ -1459,24 +1459,6 @@ class Circuit(SkidlBaseObject):
 
         return schematic_json
 
-    # Get the eeschema center point, also returning the entire header right now
-    def gen_hier_rect(self):
-        import skidl
-        
-
-        self._preprocess()
-        tool = skidl.get_default_tool()
-        
-        try:
-            gen_func = getattr(self, "_gen_hier_rect_{}".format(tool))
-            return gen_func()
-        except AttributeError:
-            log_and_raise(
-                logger,
-                ValueError,
-                "Can't get the center of the file({}).".format(tool),
-            )
-
 
     def generate_schematic(self, file_=None, _title="Default", tool=None, sch_size = 'A0', gen_elkjs = False):
         """
