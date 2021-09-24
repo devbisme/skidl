@@ -1,0 +1,42 @@
+<div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		{#
+		<div class="date"><a href="{{ SITEURL }}/{{ article.url }}">{{ article.locale_date }}</a></div>
+		{% if article.author and not SINGLE_AUTHOR %}
+		<span class="byline">By <a href="{{ SITEURL }}/{{ article.author.url }}">{{ article.author }}</a></span>
+		{% endif %}
+		{% if DISQUS_SITENAME %}
+			<div class="comments"><a href="{{ SITEURL }}/{{ article.url }}#disqus_thread" title="Comment on {{ article.title|striptags }}">comments</a></div>
+		{% endif %}
+		{% if article.author_gravatar %}
+		<span><a href="{{ SITEURL }}/{{ article.author.url }}"><img src="{{ article.author_gravatar }}" alt="{{ article.author }}"></img></a></span>
+		{% endif %}
+		{% if DISPLAY_CATEGORIES_ON_MENU %}
+			<span class="cat-links"><a href="{{ SITEURL }}/{{ article.category.url }}" title="View all posts in {{ article.category }}" rel="category tag">{{ article.category }}</a></span>
+		{% endif %}
+		#}
+		<span class="date"><a href="{{ SITEURL }}/{{ article.url }}">{{ article.locale_date }}</a></span>
+		{% if article.author and not SINGLE_AUTHOR %}
+		/
+		<span class="byline"><a href="{{ SITEURL }}/{{ article.author.url }}">{{ article.author }}</a></span>
+		{% endif %}
+		{% if DISPLAY_CATEGORIES_ON_MENU %}
+		/
+		<span class="cat-links"><a href="{{ SITEURL }}/{{ article.category.url }}" title="View all posts in {{ article.category }}" rel="category tag">{{ article.category }}</a></span>
+		{% endif %}
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="{{ SITEURL }}/{{ article.url }}" title="Permalink to {{ article.title|striptags }}" rel="bookmark">{{ article.title }}</a>
+		</h2>
+		<div class="entry-content">
+			{{ article.summary }}
+		</div> <!--/#entry-content-->
+		{% if article.tags %}
+    		<span class="tag-links"><strong>Tagged</strong>
+    			{% set delimiter = joiner() %}
+    			{% for tag in article.tags|sort %}{{- delimiter() }} <a href="{{ SITEURL }}/{{ tag.url }}" rel="tag">{{ tag }}</a>{% endfor %}
+    		</span>
+    	{% endif %}
+	</div> <!--/#main-->
+</div>  <!--/#post-->

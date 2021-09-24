@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}{{ article.title }} - {{ SITENAME }}{% endblock %}
+
+{% block extra_meta %}
+
+	<meta name="description" content="{{ article.summary|striptags }}">
+
+{% if PELICAN_SIMPLEGREY_TWITTER_CARD_ACCOUNT %}
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:creator" content="@{{ PELICAN_SIMPLEGREY_TWITTER_CARD_ACCOUNT }}">
+	<meta name="twitter:title" content="{{ article.title }}">
+	<meta name="twitter:description" content="{{ article.summary|striptags }}">
+	<meta name="twitter:url" content="{{ SITEURL }}/{{ article.url }}">
+{% endif %}
+{% endblock %}
+
+
+{% block content %}
+	<article class="full">
+
+		<h1>{{ article.title }}</h1>
+
+		{% include 'metadata.inc.html' %}
+
+		{{ article.content }}
+
+	</article>
+
+    <p>
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="{{ TWITTER_USERNAME }}" data-lang="en" data-size="large" data-related="{{ TWITTER_USERNAME }}">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</p>
+
+	{% if DISQUS_SITENAME %}
+	<div class="comments">
+	<h2>Comments !</h2>
+	    <div id="disqus_thread"></div>
+	    <script type="text/javascript">
+	       var disqus_identifier = "{{ article.url }}";
+	       (function() {
+	       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	       dsq.src = 'http://{{ DISQUS_SITENAME }}.disqus.com/embed.js';
+	       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	      })();
+	    </script>
+	</div>
+	{% endif %}
+
+{% endblock %}

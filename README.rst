@@ -6,8 +6,8 @@ skidl
         :target: https://pypi.python.org/pypi/skidl
 
 
-SKiDL is a module that allows you to compactly describe the interconnection of 
-electronic circuits and components using Python.
+The SKiDL Python package lets you compactly describe the interconnection of 
+electronic circuits and components.
 The resulting Python program performs electrical rules checking
 for common mistakes and outputs a netlist that serves as input to
 a PCB layout tool.

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}{{ SITENAME }} &mdash; {{ page.title|striptags }}{% endblock %}
+{% block content %}
+<div class="page type-page status-publish hentry" id="post">
+	<div class="entry-meta">
+		<!-- <div class="comments"><a href="{{ SITEURL }}/{{ page.url }}#disqus_thread" title="Comment on {{ page.title|striptags }}">Leave a comment</a></div> -->
+		<span class="cat-links"></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title"><a href="{{ SITEURL }}/{{ page.url }}" title="Permalink to {{ page.title|striptags }}" rel="bookmark">{{ page.title }}</a></h2>
+		<div class="entry-content">
+			{{ page.content }}
+		</div> <!-- /#entry-content -->
+	</div> <!-- /#main -->
+</div> <!-- /#post -->
+{% endblock %}

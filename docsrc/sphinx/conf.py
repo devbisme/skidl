@@ -7,7 +7,6 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import inspect
 import os
 import shutil
 import sys
@@ -16,24 +15,19 @@ import commonmark
 
 # -- Path setup --------------------------------------------------------------
 
-__location__ = os.path.join(
-    os.getcwd(), os.path.dirname(inspect.getfile(inspect.currentframe()))
-)
-
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-# sys.path.insert(0, os.path.join(__location__, "../.."))
 
-# Get the project root dir, which is the parent dir of this
-project_root = os.path.dirname(os.getcwd())
-skidl_root = os.path.join(project_root, '../..', 'skidl')
+# Get the root directory of the entire project.
+project_root = os.path.join(os.getcwd(), '../..')
+skidl_root = os.path.join(project_root, 'skidl')
+docs_root = os.path.join(project_root, 'docs')
 
 # Insert the project root dir as the first element in the PYTHONPATH.
 # This lets us ensure that the source package is imported, and that its
 # version is used.
-# sys.path.insert(0, project_root)
-sys.path.insert(1, skidl_root)
+sys.path.insert(0, project_root)
 
 import skidl.pckg_info as pckg_info
 
@@ -50,8 +44,8 @@ try:  # for Sphinx >= 1.7
 except ImportError:
     from sphinx import apidoc
 
-output_dir = os.path.join(__location__, "api")
-module_dir = os.path.join(__location__, "../../skidl")
+output_dir = os.path.join("rst_output")
+module_dir = skidl_root
 
 try:
     shutil.rmtree(output_dir)
@@ -129,9 +123,9 @@ def setup(app):
 
 
 # Global code that's run at the start of every code snippet.
-# doctest_global_setup = """
-# from skidl import *
-# """
+doctest_global_setup = """
+from skidl import *
+"""
 
 # The suffix of source filenames.
 source_suffix = [".rst", ".md"]
@@ -239,7 +233,7 @@ else:
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
 # pixels large.
 # html_favicon = None
-# html_favicon = "favicon.ico"
+html_favicon = "favicon.ico"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

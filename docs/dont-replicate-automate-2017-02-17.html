@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>SKiDL &mdash; Don't Replicate, Automate!</title>
+		<meta charset="utf-8" />
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="stylesheet" type="text/css" href="/skidl/theme/css/style.css" />
+		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Oswald&family=Roboto+Condensed&display=swap" rel="stylesheet">
+		<!-- <style type="text/css">
+			body.custom-background { background-color: #f5f5f5; }
+		</style> -->
+		<link rel="alternate" type="application/atom+xml"
+			title="SKiDL — Flux Atom"
+			href="/skidl/" />
+		<!--[if lte IE 8]><script src="/skidl/theme/js/html5shiv.js"></script><![endif]-->
+</head>
+
+<body class="home blog custom-background " >
+	<div id="container">
+		<div id="header">
+				<h1 id="site-title"><a href="/skidl"><img src="/skidl/images/banner.png" width="100%"></a></h1>
+				<!-- <h1 id="site-title"><a href="/skidl">SKiDL</a></h1> -->
+		</div><!-- /#banner -->
+
+		<div id="menu">
+			<div class="menu-navigation-container">
+				<ul id="menu-navigation" class="menu">
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/devbisme/skidl">Github</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/devbisme/skidl/discussions">Forum</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/skidl/category/posts.html">Blog</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/skidl/api/html/index.html">API</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/skidl/">Home</a></li>
+
+				</ul>
+			</div> <!--/#menu-navigation-container-->
+		</div><!-- /#menu -->
+
+		<div class="page-title">
+		</div>
+
+		<div id="contents">
+
+<div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<span class="date"><a href="/skidl/dont-replicate-automate-2017-02-17.html">Fri 17 February 2017</a></span>
+		/
+		<span class="byline"><a href="/skidl/author/dave-vandenbout.html">Dave Vandenbout</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/skidl/dont-replicate-automate-2017-02-17.html" title="Permalink to Don't Replicate, Automate!" rel="bookmark">Don't Replicate, Automate!</a>
+		</h2>
+		<div class="entry-content">
+			<p>I used to work during summers for a bricklayer.
+I learned one thing there: air conditioning is pretty good stuff. (We should do more of it.)</p>
+<p>Some people think bricklaying would be a great job, kind of like playing Tetris
+all day, except with real blocks.
+But here's what the <em>real</em> reality is:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">Pick</span> <span class="nv">up</span> <span class="nv">brick</span>, <span class="nv">apply</span> <span class="nv">mortar</span>, <span class="nv">place</span>, <span class="nv">tap</span> <span class="nv">down</span>, <span class="nv">remove</span> <span class="nv">excess</span> <span class="nv">mortar</span>.
+
+<span class="nv">Pick</span> <span class="nv">up</span> <span class="nv">brick</span>, <span class="nv">apply</span> <span class="nv">mortar</span>, <span class="nv">place</span>, <span class="nv">tap</span> <span class="nv">down</span>, <span class="nv">remove</span> <span class="nv">excess</span> <span class="nv">mortar</span>.
+
+<span class="nv">Pick</span> <span class="nv">up</span> <span class="nv">brick</span>, <span class="nv">apply</span> <span class="nv">mortar</span>, <span class="nv">place</span>, <span class="nv">tap</span> <span class="nv">down</span>, <span class="nv">remove</span> <span class="nv">excess</span> <span class="nv">mortar</span>.
+
+<span class="nv">Row</span> <span class="nv">after</span> <span class="nv">row</span>.
+
+<span class="nv">Wall</span> <span class="nv">after</span> <span class="nv">wall</span>.
+
+<span class="nv">Job</span> <span class="nv">after</span> <span class="nv">job</span>.
+
+<span class="k">Until</span> <span class="nv">you</span> <span class="nv">die</span>. <span class="nv">Of</span> <span class="nv">the</span> <span class="nv">heat</span>.
+</code></pre></div>
+
+<p>One day, I graduated and went to work as an electrical engineer.
+Big plus: air conditioning! (We should do more of it.)
+Big minus: there's a lot of high-tech bricklaying.</p>
+<p>Case in point: bypass capacitors.
+Electronic components need these to smooth out the ripples
+and transients on their power supply inputs.
+A general rule-of-thumb is there should be one bypass cap for each
+ground pin on a chip.
+But there are chips nowadays that have hundreds of ground pins which means
+placing hundreds of bypass caps.
+Here's a section of a schematic showing just the bypass caps for a
+relatively small chip with around a dozen ground pins:</p>
+<p><img alt="Schematic with bypass capacitors." src="/images/dont-replicate-automate/bypass-caps.png"></p>
+<p>And here's the design process:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">Click</span> <span class="nv">on</span> <span class="nv">capacitor</span> <span class="nv">symbol</span>. <span class="nv">Drag</span> <span class="o">&amp;</span> <span class="nv">drop</span>. <span class="nv">Attach</span> <span class="nv">power</span>. <span class="nv">Attach</span> <span class="nv">ground</span>.
+
+<span class="nv">Click</span> <span class="nv">on</span> <span class="nv">capacitor</span> <span class="nv">symbol</span>. <span class="nv">Drag</span> <span class="o">&amp;</span> <span class="nv">drop</span>. <span class="nv">Attach</span> <span class="nv">power</span>. <span class="nv">Attach</span> <span class="nv">ground</span>.
+
+<span class="nv">Click</span> <span class="nv">on</span> <span class="nv">capacitor</span> <span class="nv">symbol</span>. <span class="nv">Drag</span> <span class="o">&amp;</span> <span class="nv">drop</span>. <span class="nv">Attach</span> <span class="nv">power</span>. <span class="nv">Attach</span> <span class="nv">ground</span>.
+
+<span class="nv">Part</span> <span class="nv">after</span> <span class="nv">part</span>.
+
+<span class="nv">Page</span> <span class="nv">after</span> <span class="nv">page</span>.
+
+<span class="nv">Design</span> <span class="nv">after</span> <span class="nv">design</span>.
+
+<span class="k">Until</span> <span class="nv">you</span> <span class="nv">die</span>. <span class="nv">Of</span> <span class="nv">boredom</span>.
+</code></pre></div>
+
+<p>As I discovered with bricklaying, that's no way to live.
+This particular problem is caused by the manual nature of graphical schematic editors:
+they require the application of conscious thought to each repetition of common operations.
+Even if you use copy-paste to lay down multiple bypass caps, you're still repeating yourself.
+And each repetition is an opportunity for an error to creep in.</p>
+<p>That's one reason I invented SKiDL, a programming language for creating schematics.
+Unlike GUI-based tools, programming languages are great at automating repetitive stuff.
+I'll demonstrate that by writing code that automatically adds the
+bypass capacitors to a chip.</p>
+<p>Assume I have a chip with a bunch of ground pins, say twenty.
+With SKiDL, I could create the bypass caps like this:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">vdd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;+3.3V&#39;</span><span class="p">)</span>
+<span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
+
+<span class="n">bypcap1</span>  <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;0.1uF&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Capacitors_SMD:C_0603&#39;</span><span class="p">)</span>
+<span class="n">bypcap1</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>  <span class="o">+=</span> <span class="n">vdd</span><span class="p">,</span> <span class="n">gnd</span>
+<span class="n">bypcap2</span>  <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;0.1uF&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Capacitors_SMD:C_0603&#39;</span><span class="p">)</span>
+<span class="n">bypcap2</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>  <span class="o">+=</span> <span class="n">vdd</span><span class="p">,</span> <span class="n">gnd</span>
+<span class="o">...</span>
+<span class="n">bypcap19</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;0.1uF&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Capacitors_SMD:C_0603&#39;</span><span class="p">)</span>
+<span class="n">bypcap19</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vdd</span><span class="p">,</span> <span class="n">gnd</span>
+<span class="n">bypcap20</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;0.1uF&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Capacitors_SMD:C_0603&#39;</span><span class="p">)</span>
+<span class="n">bypcap20</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vdd</span><span class="p">,</span> <span class="n">gnd</span>
+</code></pre></div>
+
+<p>Servicable, but not very readable.
+Let's recast it as a loop:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">vdd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;+3.3V&#39;</span><span class="p">)</span>
+<span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+    <span class="n">bypcap</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;0.1uF&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Capacitors_SMD:C_0603&#39;</span><span class="p">)</span>
+    <span class="n">bypcap</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vdd</span><span class="p">,</span> <span class="n">gnd</span>
+</code></pre></div>
+
+<p>That little <code>for</code> loop will instantiate twenty caps and connect each one to power and ground.
+Boom! Easy.</p>
+<p>Easy, but not very general.
+I have to know how many ground pins there are on the chip and then write a loop.
+Too much work; SKiDL should figure that out for me.
+How about if SKiDL counts the number of ground pins on a chip and uses that
+to set the loop bound like this:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">vdd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;+3.3V&#39;</span><span class="p">)</span>
+<span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
+
+<span class="n">fpga</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;xilinx&#39;</span><span class="p">,</span> <span class="s1">&#39;XC3S200AN/FT256&#39;</span><span class="p">)</span>  <span class="c1"># Create a XILINX FPGA.</span>
+<span class="n">num_gnd_pins</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">fpga</span><span class="p">[</span><span class="s1">&#39;GND&#39;</span><span class="p">])</span>  <span class="c1"># Get a list of ground pins and count them.</span>
+
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_gnd_pins</span><span class="p">):</span>
+    <span class="n">bypcap</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;0.1uF&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Capacitors_SMD:C_0603&#39;</span><span class="p">)</span>
+    <span class="n">bypcap</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vdd</span><span class="p">,</span> <span class="n">gnd</span>
+</code></pre></div>
+
+<p>Better, but I really don't want to type out that loop for every chip that needs bypass caps.
+Luckily, programming languages have functions to encapsulate code that's used multiple times.
+SKiDL is a programming language, so it must have them too!
+Let's encapsulate the bypass cap instantiation loop in one:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">def</span> <span class="nf">add_bypass_caps</span><span class="p">(</span><span class="n">chip</span><span class="p">,</span> <span class="n">vdd</span><span class="p">,</span> <span class="n">gnd</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Add bypass capacitors between vdd and gnd to a chip, one for each ground pin.&#39;&#39;&#39;</span>
+    <span class="n">num_gnd_pins</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">chip</span><span class="p">[</span><span class="s1">&#39;GND&#39;</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_gnd_pins</span><span class="p">):</span>
+        <span class="n">bypcap</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;0.1uF&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Capacitors_SMD:C_0603&#39;</span><span class="p">)</span>
+        <span class="n">bypcap</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vdd</span><span class="p">,</span> <span class="n">gnd</span>
+
+<span class="n">vdd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;+3.3V&#39;</span><span class="p">)</span>
+<span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
+
+<span class="n">fpga</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;xilinx&#39;</span><span class="p">,</span> <span class="s1">&#39;XC3S200AN/FT256&#39;</span><span class="p">)</span>
+<span class="n">add_bypass_caps</span><span class="p">(</span><span class="n">fpga</span><span class="p">,</span> <span class="n">vdd</span><span class="p">,</span> <span class="n">gnd</span><span class="p">)</span>  <span class="c1"># Call function to add the bypass caps.</span>
+</code></pre></div>
+
+<p>That's good; now all that's needed is a function call.
+But maybe I don't want to do <em>even that much.</em>
+Instead, I could create a subclass of the <code>Part</code> class that adds the bypass caps
+when I first instantiate the chip:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">def</span> <span class="nf">add_bypass_caps</span><span class="p">(</span><span class="n">chip</span><span class="p">,</span> <span class="n">vdd</span><span class="p">,</span> <span class="n">gnd</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Add bypass capacitors between vdd and gnd to a chip, one for each ground pin.&#39;&#39;&#39;</span>
+    <span class="n">num_gnd_pins</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">chip</span><span class="p">[</span><span class="s1">&#39;GND&#39;</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_gnd_pins</span><span class="p">):</span>
+        <span class="n">bypcap</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;0.1uF&#39;</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Capacitors_SMD:C_0603&#39;</span><span class="p">)</span>
+        <span class="n">bypcap</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vdd</span><span class="p">,</span> <span class="n">gnd</span>
+
+<span class="k">class</span> <span class="nc">PartWithBypassCaps</span><span class="p">(</span><span class="n">Part</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;A subclass of Part that adds bypass caps to the part that&#39;s created.&#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">vdd</span><span class="p">,</span> <span class="n">gnd</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">Part</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># Normal part creation.</span>
+        <span class="n">add_bypass_caps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vdd</span><span class="p">,</span> <span class="n">gnd</span><span class="p">)</span>       <span class="c1"># Add bypass caps.</span>
+
+<span class="n">vdd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;+3.3V&#39;</span><span class="p">)</span>
+<span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
+
+<span class="c1"># Instantiate the chip and also get all the bypass caps automatically.</span>
+<span class="n">fpga</span> <span class="o">=</span> <span class="n">PartWithBypassCaps</span><span class="p">(</span><span class="s1">&#39;xilinx&#39;</span><span class="p">,</span> <span class="s1">&#39;XC3S200AN/FT256&#39;</span><span class="p">,</span> <span class="n">gnd</span><span class="o">=</span><span class="n">gnd</span><span class="p">,</span> <span class="n">vdd</span><span class="o">=</span><span class="n">vdd</span><span class="p">)</span>
+</code></pre></div>
+
+<p>So I've gone from explicitly instantiating each bypass capacitor,
+to using a loop, then a function, and finally ended up with a
+class that adds the caps implicitly.
+And that class can be used for chip after chip in design after design
+until I die. But not of boredom!</p>
+<p>Are there shortcomings in my technique?
+Of course (and I'll correct them in a future blog post), but I wanted to keep
+the code simple so it wouldn't distract from the primary point of
+using SKiDL:</p>
+<p><strong>Automation is pretty good stuff. (We should do more of it.)</strong></p>
+		</div> <!--/#entry-content-->
+	</div> <!--/#main-->
+</div>  <!--/#post-->
+
+		</div>
+
+		<div id="footer">
+			<p> </p>
+		</div><!-- /#footer -->
+	</div><!-- /#container -->
+	<div style="display:none"></div>
+</body>
+</html>
