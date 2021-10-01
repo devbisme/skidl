@@ -1,9 +1,23 @@
+# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
+
 import pytest
 
-from skidl import *
-from skidl.common import *  # pylint: disable=wildcard-import
+from skidl import (
+    ALL_TOOLS,
+    SKIDL,
+    TEMPLATE,
+    Part,
+    Pin,
+    SchLib,
+    SkidlPart,
+    generate_netlist,
+    parse_sexp,
+    set_default_tool,
+    set_query_backup_lib,
+    to_list,
+)
 
-from .setup_teardown import *
+from .setup_teardown import setup_function, teardown_function
 
 
 def test_missing_lib():

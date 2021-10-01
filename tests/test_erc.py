@@ -1,8 +1,22 @@
+# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
+
 import pytest
 
-from skidl import *
+from skidl import (
+    ERC,
+    POWER,
+    SKIDL,
+    TEMPLATE,
+    Net,
+    Part,
+    Pin,
+    erc_assert,
+    erc_logger,
+    package,
+    subcircuit,
+)
 
-from .setup_teardown import *
+from .setup_teardown import setup_function, teardown_function
 
 
 def test_nc_1():

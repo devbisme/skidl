@@ -1,8 +1,11 @@
+# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
+
+import copy
 import pytest
 
-from skidl import *
+from skidl import Circuit, Part, Net, Bus, Pin, TEMPLATE, subcircuit, package
 
-from .setup_teardown import *
+from .setup_teardown import setup_function, teardown_function
 
 
 def test_package_1():
@@ -190,7 +193,7 @@ def test_package_6():
     @package
     def vreg_adj(vin, vout, gnd, bom, output_voltage=3.0):
         """Create adjustable voltage regulator with filtering caps."""
-        bom2 = copy(bom)
+        bom2 = copy.copy(bom)
         bom2["reg"] = reg_adj(bom=bom, output_voltage=output_voltage, dest=TEMPLATE)
         vreg(vin=vin, vout=vout, gnd=gnd, bom=bom2)
 
@@ -249,7 +252,7 @@ def test_package_7():
     @package
     def vreg_adj(vin, vout, gnd, bom, output_voltage=3.0):
         """Create adjustable voltage regulator with filtering caps."""
-        bom2 = copy(bom)
+        bom2 = copy.copy(bom)
         bom2["reg"] = reg_adj(bom=bom, output_voltage=output_voltage, dest=TEMPLATE)
         vreg(vin=vin, vout=vout, gnd=gnd, bom=bom2)
 

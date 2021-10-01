@@ -1,8 +1,10 @@
+# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
+
 import pytest
 
-from skidl import *
+from skidl import Circuit, Part, Net, Bus, Pin, TEMPLATE, generate_netlist, generate_xml, ERC, SKIDL, subcircuit
 
-from .setup_teardown import *
+from .setup_teardown import setup_function, teardown_function
 
 
 def test_subcircuit_1():

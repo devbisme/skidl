@@ -1,7 +1,10 @@
-﻿import pytest
-from skidl import *
+﻿# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
 
-from .setup_teardown import *
+import pytest
+
+from skidl import Part, TEMPLATE, generate_netlist
+
+from .setup_teardown import setup_function, teardown_function
 
 
 def test_skidl_loc():

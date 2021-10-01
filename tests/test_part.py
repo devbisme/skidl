@@ -1,10 +1,8 @@
-import logging
+# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
 
-import pytest
+from skidl import Net, Part, PartTmplt, to_list
 
-from skidl import *
-
-from .setup_teardown import *
+from .setup_teardown import setup_function, teardown_function
 
 
 def test_part_1():
