@@ -2,7 +2,7 @@
 
 import pytest
 
-from skidl import Part, Net, generate_netlist, ERC, erc_logger
+from skidl import Part, Net, generate_netlist, ERC, erc_logger, super
 
 from .setup_teardown import setup_function, teardown_function
 

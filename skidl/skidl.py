@@ -26,6 +26,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 import json
 import os
+import sys
 from builtins import open, super
 
 from future import standard_library
@@ -40,6 +41,14 @@ from .pin import Pin
 from .utilities import *
 
 standard_library.install_aliases()
+
+try:
+    # Set char encoding to UTF-8 in Python 2.
+    reload(sys)  # Causes exception in Python 3.
+    sys.setdefaultencoding("utf8")
+except NameError:
+    # Do nothing with char encoding in Python 3.
+    pass
 
 
 class SkidlCfg(dict):

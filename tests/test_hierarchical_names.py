@@ -2,13 +2,15 @@
 
 import pytest
 
-from skidl import Part, Net, subcircuit, ERC, generate_netlist, generate_xml
+from skidl import Part, Net, subcircuit, ERC, generate_netlist, generate_xml, super
 
 from .setup_teardown import setup_function, teardown_function
 
 
 class Resistor(Part):
-    def __init__(self, value, ref=None, footprint="Resistors_SMD:R_0805", tag=None, **kwargs):
+    def __init__(
+        self, value, ref=None, footprint="Resistors_SMD:R_0805", tag=None, **kwargs
+    ):
         super().__init__(
             "Device", "R", value=value, ref=ref, footprint=footprint, tag=tag, **kwargs
         )

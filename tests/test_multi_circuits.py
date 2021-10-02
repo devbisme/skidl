@@ -2,7 +2,20 @@
 
 import pytest
 
-from skidl import Circuit, Part, Net, Bus, Pin, TEMPLATE, generate_netlist, generate_xml, ERC, SKIDL, subcircuit
+from skidl import (
+    Circuit,
+    Part,
+    Net,
+    Bus,
+    Pin,
+    TEMPLATE,
+    generate_netlist,
+    generate_xml,
+    ERC,
+    SKIDL,
+    subcircuit,
+    super,
+)
 
 from .setup_teardown import setup_function, teardown_function
 
