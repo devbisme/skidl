@@ -14,9 +14,8 @@ from skidl import (
     parse_sexp,
     set_default_tool,
     set_query_backup_lib,
-    to_list
+    to_list,
 )
-
 
 from .setup_teardown import setup_function, teardown_function
 

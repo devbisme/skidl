@@ -3,16 +3,16 @@
 import pytest
 
 from skidl import (
-    Circuit,
-    Part,
-    Net,
-    Bus,
-    Pin,
-    TEMPLATE,
-    generate_netlist,
-    generate_xml,
     ERC,
     SKIDL,
+    TEMPLATE,
+    Bus,
+    Circuit,
+    Net,
+    Part,
+    Pin,
+    generate_netlist,
+    generate_xml,
     subcircuit,
     super,
 )

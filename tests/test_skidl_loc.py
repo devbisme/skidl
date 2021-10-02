@@ -2,7 +2,7 @@
 
 import pytest
 
-from skidl import Part, TEMPLATE, generate_netlist
+from skidl import TEMPLATE, Part, generate_netlist
 
 from .setup_teardown import setup_function, teardown_function
 

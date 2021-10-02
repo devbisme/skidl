@@ -2,7 +2,7 @@
 
 import pytest
 
-from skidl import Interface, Part, Net, Bus, Pin, subcircuit, TEMPLATE
+from skidl import TEMPLATE, Bus, Interface, Net, Part, Pin, subcircuit
 
 from .setup_teardown import setup_function, teardown_function
 
@@ -31,7 +31,11 @@ def test_interface_1():
             c2[1],
         )  # Output comes from the connection of the two resistors.
 
-    intfc = Interface(gnd=Net("GND"), vin=Net("VI"), vout=Net("VO"),)
+    intfc = Interface(
+        gnd=Net("GND"),
+        vin=Net("VI"),
+        vout=Net("VO"),
+    )
 
     intfc.gnd.aliases += "GND"
     intfc.gnd.aliases += "GNDA"

@@ -2,7 +2,7 @@
 
 import pytest
 
-from skidl import Circuit, Part, Pin, TEMPLATE, SKIDL, subcircuit
+from skidl import SKIDL, TEMPLATE, Circuit, Part, Pin, subcircuit
 
 from .setup_teardown import setup_function, teardown_function
 

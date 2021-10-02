@@ -2,7 +2,7 @@
 
 import pytest
 
-from skidl import Part, Net, Bus
+from skidl import Bus, Net, Part
 
 from .setup_teardown import setup_function, teardown_function
 

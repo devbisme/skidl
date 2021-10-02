@@ -4,7 +4,7 @@ import pytest
 
 from skidl import netlist_to_skidl
 
-from .setup_teardown import setup_function, teardown_function, get_filename
+from .setup_teardown import get_filename, setup_function, teardown_function
 
 
 def test_parser_1():

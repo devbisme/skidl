@@ -2,7 +2,7 @@
 
 import pytest
 
-from skidl import Part, Net, package, TEMPLATE
+from skidl import TEMPLATE, Net, Part, package
 
 from .setup_teardown import setup_function, teardown_function
 
