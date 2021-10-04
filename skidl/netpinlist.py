@@ -113,6 +113,36 @@ class NetPinList(list):
         """Return width, which is the same as using the len() operator."""
         return len(self)
 
+    # Setting/clearing the do_erc flag for the list sets/clears the do_erc flags of the pins/nets in the list.
+    @property
+    def do_erc(self):
+        raise NotImplementedError
+
+    @do_erc.setter
+    def do_erc(self, on_off):
+        for pn in self:
+            pn.do_erc = on_off
+
+    @do_erc.deleter
+    def do_erc(self):
+        for pn in self:
+            del pn.do_erc
+
+    # Setting/clearing the drive strength for the list sets/clears the drive of the pins/nets in the list.
+    @property
+    def drive(self):
+        raise NotImplementedError
+
+    @do_erc.setter
+    def drive(self, strength):
+        for pn in self:
+            pn.drive = strength
+
+    @do_erc.deleter
+    def drive(self):
+        for pn in self:
+            del pn.drive
+
     # Trying to set an alias attribute on a NetPinList is an error.
     # This prevents setting an alias on a list of two or more pins that
     # might be returned by the filter_list() utility.
