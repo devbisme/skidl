@@ -39,7 +39,7 @@ from .utilities import *
 standard_library.install_aliases()
 
 
-class Interface(SkidlBaseObject, dict):
+class Interface(dict, SkidlBaseObject):
     """
     An Interface bundles a group of nets/buses into a single entity with each
     net/bus becoming an attribute.  An Interface is also usable as a dict
