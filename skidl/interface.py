@@ -32,14 +32,19 @@ from builtins import str
 from future import standard_library
 
 from .alias import Alias
+from .bus import Bus
+from .net import Net
+from .netpinlist import NetPinList
 from .protonet import ProtoNet
+from .pin import Pin
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import *
 
 standard_library.install_aliases()
 
 
-class Interface(dict, SkidlBaseObject):
+# class Interface(dict, SkidlBaseObject):
+class Interface(dict):
     """
     An Interface bundles a group of nets/buses into a single entity with each
     net/bus becoming an attribute.  An Interface is also usable as a dict
@@ -51,14 +56,41 @@ class Interface(dict, SkidlBaseObject):
     erc_list = []
 
     def __init__(self, *args, **kwargs):
+        self.circuit = kwargs.get("circuit", default_circuit)
+        kwargs["circuit"] = self.circuit
         dict.__init__(self, *args, **kwargs)
+        # SkidlBaseObject.__init__(self)
+        dict.__setattr__(self, 'match_pin_regex', False)
+        # self.match_pin_regex = False
+        dict.__setattr__(self, 'ios', [])
+        # self.ios = []
         for k, v in list(self.items()):
-            dict.__setattr__(self, k, v)
+            if isinstance(v, (Pin, Net, ProtoNet)):
+                n = Net(circuit=self.circuit)
+                n.aliases += k
+                n += v
+                self.__setattr__(k, n)
+                self.ios.append(n)
+            elif isinstance(v, (Bus, NetPinList)):
+                b = Bus(len(v), circuit=self.circuit)
+                b.aliases += k
+                b += v
+                self.__setattr__(k, b)
+                self.ios.append(b)
+                for i in range(len(v)):
+                    n = Net(circuit=self.circuit)
+                    n.aliases += k + str(i)
+                    n += b[i]
+                    self.__setattr__(k + str(i), n)
+                    self.ios.append(n)
+            elif isinstance(v, SkidlBaseObject):
+                self.__setattr__(k, v)
+                # raise Exception(f"Strange object {type(v)}")
 
-    def __setattr__(self, key, value):
-        """Sets attribute and also a dict entry with a key using the attribute name."""
-        dict.__setitem__(self, key, value)
-        dict.__setattr__(self, key, value)
+    # def __setattr__(self, key, value):
+    #     """Sets attribute and also a dict entry with a key using the attribute name."""
+    #     dict.__setitem__(self, key, value)
+    #     dict.__setattr__(self, key, value)
 
     def __setitem__(self, key, value):
         """Sets dict entry and also creates attribute with the same name as the dict key."""
@@ -79,6 +111,80 @@ class Interface(dict, SkidlBaseObject):
             # This is for a straight assignment of value to key.
             dict.__setitem__(self, key, value)
             dict.__setattr__(self, key, value)
+
+    def get_ios(self, *io_ids, **criteria):
+        """
+        Return list of part pins selected by pin numbers or names.
+
+        Args:
+            io_ids: A list of strings containing pin names, numbers,
+                regular expressions, slices, lists or tuples. If empty,
+                then it will select all pins.
+
+        Keyword Args:
+            criteria: Key/value pairs that specify attribute values the
+                pins must have in order to be selected.
+
+        Returns:
+            A list of pins matching the given IDs and satisfying all the criteria,
+            or just a single Pin object if only a single match was found.
+            Or None if no match was found.
+
+        Notes:
+            Pins can be selected from a part by using brackets like so::
+
+                atmega = Part('atmel', 'ATMEGA16U2')
+                net = Net()
+                atmega[1] += net  # Connects pin 1 of chip to the net.
+                net += atmega['RESET']  # Connects reset pin to the net.
+        """
+
+        from .netpinlist import NetPinList
+        from .alias import Alias
+
+        # Extract permission to search for regex matches in pin names/aliases.
+        match_regex = criteria.pop("match_regex", False) or self.match_pin_regex
+
+        # If no pin identifiers were given, then use a wildcard that will
+        # select all pins.
+        if not io_ids:
+            io_ids = [".*"]
+            match_regex = True
+
+        # Determine the minimum and maximum pin ids if they don't already exist.
+        if "min_pin" not in dir(self) or "max_pin" not in dir(self):
+            # self.min_pin, self.max_pin = self._find_min_max_pins()
+            self.min_pin, self.max_pin = 0, 1000
+
+        # Go through the list of IO IDs one-by-one.
+        ios = NetPinList()
+        for io_id in expand_indices(self.min_pin, self.max_pin, match_regex, *io_ids):
+
+            # Search IO names.
+
+                # Check IO aliases for an exact match.
+                tmp_ios = filter_list(
+                    self.ios, aliases=io_id, do_str_match=True, **criteria
+                )
+                if tmp_ios:
+                    ios.extend(tmp_ios)
+                    continue
+
+                # Skip regex matching if not enabled.
+                if not match_regex:
+                    continue
+
+                # OK, pin ID is not a pin number and doesn't exactly match a pin
+                # name or alias. Does it match as a regex?
+                io_id_re = io_id
+
+                # Check the IO names for a regex match.
+                tmp_ios = filter_list(self.ios, name=io_id_re, **criteria)
+                if tmp_ios:
+                    ios.extend(tmp_ios)
+                    continue
+
+        return list_or_scalar(ios)
 
     def get_io(self, *io_ids):
         """
@@ -149,7 +255,7 @@ class Interface(dict, SkidlBaseObject):
         return list_or_scalar(ios)
 
     # Get I/Os from an interface using brackets, e.g. ['A, B'].
-    __getitem__ = get_io
+    __getitem__ = get_ios
 
     def __getattribute__(self, key):
         value = dict.__getattribute__(self, key)
