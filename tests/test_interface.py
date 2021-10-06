@@ -41,7 +41,7 @@ def test_interface_1():
     intfc.gnd.aliases += "GNDA"
 
     resdiv(**intfc)
-    resdiv(**intfc)
+    resdiv(gnd=intfc.gnd, vin=intfc.vin, vout=intfc.vout)
 
     assert len(default_circuit.parts) == 8
     assert len(default_circuit.get_nets()) == 3
@@ -76,3 +76,21 @@ def test_interface_1():
 
     assert len(intfc["GND"]) == 5
     assert len(intfc["GNDA"]) == 5
+
+
+def test_interface_2():
+    mem = Part("xess", "SDRAM_16Mx16_TSOPII-54")
+    intf = Interface(a=mem["A[0:12]"], d=mem["DQ[0:15]"])
+    assert len(intf.a) == 13
+    assert len(intf["a"]) == 13
+    assert len(intf.a[0:12]) == 13
+    assert len(intf["a[0:12]"]) == 13
+    assert len(intf["a d"]) == len(intf.a) + len(intf.d)
+    intf["a d"] += Net()
+    intf.a += Net()
+    c = Net()
+    c += intf["a d"]
+    intf["a d"] += Bus(5), Net(), Bus(10), Net(), Net(), Bus(11)
+    intf["a[3:7] d[4:1]"] += Bus(5), Net(), Net(), Bus(1), Net()
+    d = Bus(6)
+    d += intf["d[4:5] a[7:4]"]
