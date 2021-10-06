@@ -44,10 +44,13 @@ standard_library.install_aliases()
 class NetPinList(list):
     def __iadd__(self, *nets_pins_buses):
 
-        nets_pins = []
+        nets_pins_a = expand_buses(self)
+        len_a = len(nets_pins_a)
+
+        nets_pins_b = []
         for item in expand_buses(flatten(nets_pins_buses)):
             if isinstance(item, (Pin, Net, ProtoNet)):
-                nets_pins.append(item)
+                nets_pins_b.append(item)
             else:
                 log_and_raise(
                     logger,
@@ -56,27 +59,34 @@ class NetPinList(list):
                         type(item), item.__name__
                     ),
                 )
+        len_b = len(nets_pins_b)
 
-        if len(nets_pins) != len(self):
-            if Net in [type(item) for item in self] or len(nets_pins) > 1:
+        if len_a != len_b:
+            if len_a > 1 and len_b > 1:
                 log_and_raise(
                     logger,
                     ValueError,
-                    "Connection mismatch {} != {}!".format(len(self), len(nets_pins)),
+                    "Connection mismatch {} != {}!".format(len_a, len_b),
                 )
 
             # If just a single net is to be connected, make a list out of it that's
             # just as long as the list of pins to connect to. This will connect
             # multiple pins to the same net.
-            if len(nets_pins) == 1:
-                nets_pins = [nets_pins[0] for _ in range(len(self))]
+            if len_b == 1:
+                nets_pins_b = [nets_pins_b[0] for _ in range(len_a)]
+                len_b = len(nets_pins_b)
+            elif len_a == 1:
+                nets_pins_a = [nets_pins_a[0] for _ in range(len_b)]
+                len_a = len(nets_pins_a)
+
+        assert len_a == len_b
 
         # Connect the nets to the nets in the bus.
-        for i, np in enumerate(nets_pins):
-            if isinstance(np, ProtoNet):
-                np += self[i]
+        for npa, npb in zip(nets_pins_a, nets_pins_b):
+            if isinstance(npb, ProtoNet):
+                npb += npa
             else:
-                self[i] += np
+                npa += npb
 
         # Set the flag to indicate this result came from the += operator.
         self.iadd_flag = True  # pylint: disable=attribute-defined-outside-init
@@ -107,6 +117,10 @@ class NetPinList(list):
         """Attach a NetPinList and another part/pin/net in parallel."""
 
         return obj | Network(self)
+
+    def __len__(self):
+        """Return the number of individual pins/nets in this interface."""
+        return len(expand_buses(self))
 
     @property
     def width(self):
