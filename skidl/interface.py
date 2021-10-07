@@ -66,19 +66,21 @@ class Interface(dict):
         # self.ios = []
         for k, v in list(self.items()):
             if isinstance(v, (Pin, Net, ProtoNet)):
-                n = Net(circuit=self.circuit)
+                cct = v.circuit
+                n = Net(circuit=cct)
                 n.aliases += k
                 n += v
                 self.__setattr__(k, n)
                 self.ios.append(n)
             elif isinstance(v, (Bus, NetPinList)):
-                b = Bus(len(v), circuit=self.circuit)
+                cct = v.circuit
+                b = Bus(len(v), circuit=cct)
                 b.aliases += k
                 b += v
                 self.__setattr__(k, b)
                 self.ios.append(b)
                 for i in range(len(v)):
-                    n = Net(circuit=self.circuit)
+                    n = Net(circuit=cct)
                     n.aliases += k + str(i)
                     n += b[i]
                     self.__setattr__(k + str(i), n)
@@ -152,13 +154,16 @@ class Interface(dict):
             match_regex = True
 
         # Determine the minimum and maximum pin ids if they don't already exist.
-        if "min_pin" not in dir(self) or "max_pin" not in dir(self):
-            # self.min_pin, self.max_pin = self._find_min_max_pins()
-            self.min_pin, self.max_pin = 0, 1000
+        # if "min_pin" not in dir(self) or "max_pin" not in dir(self):
+        #     # self.min_pin, self.max_pin = self._find_min_max_pins()
+        #     self.min_pin, self.max_pin = 0, 1000
+        min_pin=0
+        max_pin=0
 
         # Go through the list of IO IDs one-by-one.
         ios = NetPinList()
-        for io_id in expand_indices(self.min_pin, self.max_pin, match_regex, *io_ids):
+        for io_id in expand_indices(min_pin, max_pin, match_regex, *io_ids):
+        # for io_id in expand_indices(self.min_pin, self.max_pin, match_regex, *io_ids):
 
             # Search IO names.
 
