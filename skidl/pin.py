@@ -657,6 +657,11 @@ class Pin(SkidlBaseObject):
         """Return the reference of the part the pin belongs to."""
         return self.part.ref
 
+    @property
+    def circuit(self):
+        """Return the circuit of the part the pin belongs to."""
+        return self.part.circuit
+
     def __bool__(self):
         """Any valid Pin is True."""
         return True
