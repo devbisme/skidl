@@ -399,7 +399,7 @@ class Circuit(SkidlBaseObject):
                 log_and_raise(
                     logger,
                     ValueError,
-                    "Can't remove a {} from a Circuit object.".format(type(pnb)),
+                    "Can't remove a {} from a Circuit object.".format(type(thing)),
                 )
         return self
 
