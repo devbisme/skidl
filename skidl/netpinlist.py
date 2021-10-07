@@ -123,6 +123,23 @@ class NetPinList(list):
         return len(expand_buses(self))
 
     @property
+    def circuit(self):
+        """Get the circuit the pins/nets are members of."""
+        cct = set()
+        for pn in self:
+            cct.add(pn.circuit)
+        if len(cct) == 1:
+            return cct.pop()
+        log_and_raise(
+            logger,
+            ValueError,
+            "This NetPinList contains nets/pins in {} circuits.".format(
+                len(cct)
+            ),
+        )
+
+
+    @property
     def width(self):
         """Return width, which is the same as using the len() operator."""
         return len(self)
