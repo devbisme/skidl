@@ -338,7 +338,6 @@ class Circuit(SkidlBaseObject):
                 if package.circuit == self and package in self.packages:
                     self.packages.remove(package)
                     package.circuit = None
-                    del package
                     for obj in package.values():
                         try:
                             if obj.is_movable():
