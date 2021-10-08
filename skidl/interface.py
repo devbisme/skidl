@@ -43,7 +43,6 @@ from .utilities import *
 standard_library.install_aliases()
 
 
-# class Interface(dict, SkidlBaseObject):
 class Interface(dict):
     """
     An Interface bundles a group of nets/buses into a single entity with each
@@ -56,13 +55,12 @@ class Interface(dict):
     erc_list = []
 
     def __init__(self, *args, **kwargs):
-        self.circuit = kwargs.get("circuit", default_circuit)
-        kwargs["circuit"] = self.circuit
+        # self.circuit = kwargs.get("circuit", default_circuit)
+        # kwargs["circuit"] = self.circuit
         dict.__init__(self, *args, **kwargs)
-        # SkidlBaseObject.__init__(self)
         dict.__setattr__(self, 'match_pin_regex', False)
         # self.match_pin_regex = False
-        dict.__setattr__(self, 'ios', [])
+        # dict.__setattr__(self, 'ios', [])
         # self.ios = []
         for k, v in list(self.items()):
             if isinstance(v, (Pin, Net, ProtoNet)):
@@ -70,29 +68,35 @@ class Interface(dict):
                 n = Net(circuit=cct)
                 n.aliases += k
                 n += v
-                self.__setattr__(k, n)
-                self.ios.append(n)
+                # self.__setattr__(k, n)
+                setattr(self, k, n)
+                # self.ios.append(n)
             elif isinstance(v, (Bus, NetPinList)):
                 cct = v.circuit
                 b = Bus(len(v), circuit=cct)
                 b.aliases += k
                 b += v
-                self.__setattr__(k, b)
-                self.ios.append(b)
+                # self.__setattr__(k, b)
+                setattr(self, k, b)
+                # self.ios.append(b)
                 for i in range(len(v)):
                     n = Net(circuit=cct)
                     n.aliases += k + str(i)
                     n += b[i]
-                    self.__setattr__(k + str(i), n)
-                    self.ios.append(n)
+                    # self.__setattr__(k + str(i), n)
+                    setattr(self, k + str(i), n)
+                    # self.ios.append(n)
             elif isinstance(v, SkidlBaseObject):
-                self.__setattr__(k, v)
+                # self.__setattr__(k, v)
+                setattr(self, k, v)
                 # raise Exception(f"Strange object {type(v)}")
+            else:
+                dict.__setattr__(self, k, v)
 
-    # def __setattr__(self, key, value):
-    #     """Sets attribute and also a dict entry with a key using the attribute name."""
-    #     dict.__setitem__(self, key, value)
-    #     dict.__setattr__(self, key, value)
+    def __setattr__(self, key, value):
+        """Sets attribute and also a dict entry with a key using the attribute name."""
+        dict.__setitem__(self, key, value)
+        dict.__setattr__(self, key, value)
 
     def __setitem__(self, key, value):
         """Sets dict entry and also creates attribute with the same name as the dict key."""
@@ -111,8 +115,9 @@ class Interface(dict):
             rmv_attr(value, "iadd_flag")
         else:
             # This is for a straight assignment of value to key.
-            dict.__setitem__(self, key, value)
-            dict.__setattr__(self, key, value)
+            setattr(self, key, value)
+            # dict.__setitem__(self, key, value)
+            # dict.__setattr__(self, key, value)
 
     def get_ios(self, *io_ids, **criteria):
         """
@@ -141,9 +146,6 @@ class Interface(dict):
                 net += atmega['RESET']  # Connects reset pin to the net.
         """
 
-        from .netpinlist import NetPinList
-        from .alias import Alias
-
         # Extract permission to search for regex matches in pin names/aliases.
         match_regex = criteria.pop("match_regex", False) or self.match_pin_regex
 
@@ -161,103 +163,44 @@ class Interface(dict):
         max_pin=0
 
         # Go through the list of IO IDs one-by-one.
-        ios = NetPinList()
+        # ios = self.values()
+        ios = [io for io in self.values() if isinstance(io,(Net,ProtoNet,Pin,NetPinList,Bus))]
+        selected_ios = NetPinList()
         for io_id in expand_indices(min_pin, max_pin, match_regex, *io_ids):
         # for io_id in expand_indices(self.min_pin, self.max_pin, match_regex, *io_ids):
 
-            # Search IO names.
-
-                # Check IO aliases for an exact match.
-                tmp_ios = filter_list(
-                    self.ios, aliases=io_id, do_str_match=True, **criteria
-                )
-                if tmp_ios:
-                    ios.extend(tmp_ios)
-                    continue
-
-                # Skip regex matching if not enabled.
-                if not match_regex:
-                    continue
-
-                # OK, pin ID is not a pin number and doesn't exactly match a pin
-                # name or alias. Does it match as a regex?
-                io_id_re = io_id
-
-                # Check the IO names for a regex match.
-                tmp_ios = filter_list(self.ios, name=io_id_re, **criteria)
-                if tmp_ios:
-                    ios.extend(tmp_ios)
-                    continue
-
-        return list_or_scalar(ios)
-
-    def get_io(self, *io_ids):
-        """
-        Return list of I/O selected by names.
-
-        Args:
-            io_ids: A list of strings containing names, numbers,
-                regular expressions, slices, lists or tuples. If empty,
-                then it will select all pins.
-
-        Returns:
-            A list of ios matching the given IDs,
-            or just a single object if only a single match was found.
-            Or None if no match was found.
-        """
-
-        from .netpinlist import NetPinList
-
-        # If no I/O identifiers were given, then use a wildcard that will
-        # select all of them.
-        if not io_ids:
-            io_ids = [".*"]
-
-        # Determine the minimum and maximum I/Os if they don't already exist.
-        min_io = 0
-        max_io = len(self)
-
-        # Go through the list of I/Os one-by-one.
-        ios = NetPinList()
-        for io_id in expand_indices(min_io, max_io, False, *io_ids):
             try:
-                # Look for an exact match of the ID.
-                io = dict.__getitem__(self, io_id)
-                if isinstance(io, ProtoNet):
-                    # Store the key for this ProtoNet I/O so we'll know where to update it later.
-                    io.intfc_key = io_id
-                    io.intfc = self
-                ios.append(io)
+                selected_ios.append(dict.__getitem__(self, io_id))
             except KeyError:
-                # OK, I/O id is doesn't exactly match a name. Does it match a substring
-                # within an I/O name? Store the I/Os in a named tuple with a 'name'
-                # attribute to filter_list can be used to find matches.
-                from collections import namedtuple
+                pass
+            else:
+                continue
 
-                IO_Net = namedtuple("IO", "name, net")
-                io_nets = [IO_Net(k, v) for k, v in list(self.items())]
-                io_id_re = "".join([".*", io_id, ".*"])
-                for io in filter_list(io_nets, name=io_id_re):
-                    if isinstance(io.net, ProtoNet):
-                        # Store the key for this ProtoNet I/O so we'll know where to update it later.
-                        io.net.intfc_key = io.name
-                        io.net.intfc = self
-                    ios.append(io.net)
+            # Search IO aliases.
 
-                # No match found on I/O names, so search I/O aliases.
-                if not ios:
-                    for io_name, io_net in list(self.items()):
-                        try:
-                            if io_id in io_net.aliases:
-                                if isinstance(io_net, ProtoNet):
-                                    # Store the key for this ProtoNet I/O so we'll know where to update it later.
-                                    io_net.intfc_key = io_name
-                                    io_net.intfc = self
-                                ios.append(io_net)
-                        except AttributeError:
-                            pass  # Ignore stuff without an aliases attribute.
+            # Check IO aliases for an exact match.
+            tmp_ios = filter_list(
+                ios, aliases=io_id, do_str_match=True, **criteria
+            )
+            if tmp_ios:
+                selected_ios.extend(tmp_ios)
+                continue
 
-        return list_or_scalar(ios)
+            # Skip regex matching if not enabled.
+            if not match_regex:
+                continue
+
+            # OK, pin ID is not a pin number and doesn't exactly match a pin
+            # name or alias. Does it match as a regex?
+            io_id_re = io_id
+
+            # Check the IO names for a regex match.
+            tmp_ios = filter_list(ios, name=io_id_re, **criteria)
+            if tmp_ios:
+                selected_ios.extend(tmp_ios)
+                continue
+
+        return list_or_scalar(selected_ios)
 
     # Get I/Os from an interface using brackets, e.g. ['A, B'].
     __getitem__ = get_ios

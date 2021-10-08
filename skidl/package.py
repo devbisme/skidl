@@ -45,6 +45,8 @@ standard_library.install_aliases()
 
 class Package(Interface):
     def __init__(self, **kwargs):
+        super().__init__(self, **kwargs)
+
         self["circuit"] = None
 
         # Don't use update(). It doesn't seem to call __setitem__.
@@ -78,6 +80,7 @@ class Package(Interface):
             pckg[k] = v  # Use __setitem__ so both dict item and attribute are created.
 
         pckg.subcircuit = self.subcircuit  # Assign subcircuit creation function.
+        
         # Remove creation function so it's not passed as a parameter.
         del pckg["subcircuit"]
 

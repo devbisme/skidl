@@ -105,6 +105,10 @@ def test_package_2():
     assert len(rc_rc_1.vin) == 1
     assert len(rc_rc_1.vout) == 3
 
+    assert len(rc_rc_2.gnd) == 4
+    assert len(rc_rc_2.vin) == 3
+    assert len(rc_rc_2.vout) == 2
+
     assert len(rc_rc_2["gnd"]) == 4
     assert len(rc_rc_2["vin"]) == 3
     assert len(rc_rc_2["vout"]) == 2

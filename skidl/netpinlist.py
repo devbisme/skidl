@@ -31,17 +31,20 @@ from builtins import range
 
 from future import standard_library
 
+from .alias import Alias
 from .logger import logger
 from .net import Net
 from .network import Network
 from .pin import Pin
 from .protonet import ProtoNet
+from .skidlbaseobj import SkidlBaseObject
 from .utilities import *
 
 standard_library.install_aliases()
 
 
 class NetPinList(list):
+
     def __iadd__(self, *nets_pins_buses):
 
         nets_pins_a = expand_buses(self)
@@ -179,7 +182,7 @@ class NetPinList(list):
     # might be returned by the filter_list() utility.
     @property
     def aliases(self):
-        raise NotImplementedError
+        return Alias([])  # No aliases, so just return an empty list.
 
     @aliases.setter
     def aliases(self, alias):
