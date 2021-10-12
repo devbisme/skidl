@@ -55,73 +55,47 @@ class Interface(dict):
     erc_list = []
 
     def __init__(self, *args, **kwargs):
-        # self.circuit = kwargs.get("circuit", default_circuit)
-        # kwargs["circuit"] = self.circuit
         dict.__init__(self, *args, **kwargs)
-        dict.__setattr__(self, 'match_pin_regex', False)
-        # self.match_pin_regex = False
-        # dict.__setattr__(self, 'ios', [])
-        # self.ios = []
+        dict.__setattr__(self, "match_pin_regex", False)
         for k, v in list(self.items()):
             if isinstance(v, (Pin, Net, ProtoNet)):
                 cct = v.circuit
                 n = Net(circuit=cct)
                 n.aliases += k
                 n += v
-                # self.__setattr__(k, n)
                 setattr(self, k, n)
-                # self.ios.append(n)
             elif isinstance(v, (Bus, NetPinList)):
                 cct = v.circuit
                 b = Bus(len(v), circuit=cct)
                 b.aliases += k
                 b += v
-                # self.__setattr__(k, b)
                 setattr(self, k, b)
-                # self.ios.append(b)
                 for i in range(len(v)):
                     n = Net(circuit=cct)
                     n.aliases += k + str(i)
                     n += b[i]
-                    # self.__setattr__(k + str(i), n)
                     setattr(self, k + str(i), n)
-                    # self.ios.append(n)
             elif isinstance(v, SkidlBaseObject):
-                # self.__setattr__(k, v)
                 setattr(self, k, v)
-                # raise Exception(f"Strange object {type(v)}")
             else:
                 dict.__setattr__(self, k, v)
+
+    def __getattribute__(self, key):
+        value = dict.__getattribute__(self, key)
+        if isinstance(value, ProtoNet):
+            # If the retrieved attribute is a ProtoNet, record where it came from.
+            value.intfc_key = key
+            value.intfc = self
+        return value
 
     def __setattr__(self, key, value):
         """Sets attribute and also a dict entry with a key using the attribute name."""
         dict.__setitem__(self, key, value)
         dict.__setattr__(self, key, value)
 
-    def __setitem__(self, key, value):
-        """Sets dict entry and also creates attribute with the same name as the dict key."""
-        if from_iadd(value):
-            # If interface items are being changed as a result of += operator...
-            for v in to_list(value):
-                # Look for interface key name attached to each value.
-                # Only ProtoNets should have them because they need to be
-                # changed to a Net or Bus once they are connected to something.
-                key = getattr(v, "intfc_key", None)
-                if key:
-                    # Set the ProtoNet in the interface entry with key to its new Net or Bus value.
-                    dict.__setitem__(self, key, v)
-                    dict.__setattr__(self, key, v)
-            # The += flag in the values are no longer needed.
-            rmv_attr(value, "iadd_flag")
-        else:
-            # This is for a straight assignment of value to key.
-            setattr(self, key, value)
-            # dict.__setitem__(self, key, value)
-            # dict.__setattr__(self, key, value)
-
-    def get_ios(self, *io_ids, **criteria):
+    def __getitem__(self, *io_ids, **criteria):
         """
-        Return list of part pins selected by pin numbers or names.
+        Return list of part pins selected by identifiers.
 
         Args:
             io_ids: A list of strings containing pin names, numbers,
@@ -155,33 +129,28 @@ class Interface(dict):
             io_ids = [".*"]
             match_regex = True
 
-        # Determine the minimum and maximum pin ids if they don't already exist.
-        # if "min_pin" not in dir(self) or "max_pin" not in dir(self):
-        #     # self.min_pin, self.max_pin = self._find_min_max_pins()
-        #     self.min_pin, self.max_pin = 0, 1000
-        min_pin=0
-        max_pin=0
+        # An interface doesn't have pins, so set pin slice bounds to zero.
+        min_pin, max_pin = 0, 0
 
-        # Go through the list of IO IDs one-by-one.
-        # ios = self.values()
-        ios = [io for io in self.values() if isinstance(io,(Net,ProtoNet,Pin,NetPinList,Bus))]
+        # Get I/O entries.
+        io_types = (Net, ProtoNet, Pin, NetPinList, Bus)
+        ios = [io for io in self.values() if isinstance(io, io_types)]
+
+        # Go through the I/O entries and find the ones selected by the IDs.
         selected_ios = NetPinList()
         for io_id in expand_indices(min_pin, max_pin, match_regex, *io_ids):
-        # for io_id in expand_indices(self.min_pin, self.max_pin, match_regex, *io_ids):
 
+            # Look for an exact match of the I/O key name with the current ID.
             try:
+                # Add exact match to the list of selected I/Os and go to the next ID.
                 selected_ios.append(dict.__getitem__(self, io_id))
-            except KeyError:
-                pass
-            else:
                 continue
+            except KeyError:
+                # No exact match on I/O key name, so keep looking below.
+                pass
 
-            # Search IO aliases.
-
-            # Check IO aliases for an exact match.
-            tmp_ios = filter_list(
-                ios, aliases=io_id, do_str_match=True, **criteria
-            )
+            # Check I/O aliases for an exact match.
+            tmp_ios = filter_list(ios, aliases=io_id, do_str_match=True, **criteria)
             if tmp_ios:
                 selected_ios.extend(tmp_ios)
                 continue
@@ -190,25 +159,30 @@ class Interface(dict):
             if not match_regex:
                 continue
 
-            # OK, pin ID is not a pin number and doesn't exactly match a pin
-            # name or alias. Does it match as a regex?
-            io_id_re = io_id
-
-            # Check the IO names for a regex match.
-            tmp_ios = filter_list(ios, name=io_id_re, **criteria)
+            # OK, ID doesn't exactly match an I/O name or alias. Does it match as a regex?
+            tmp_ios = filter_list(ios, aliases=Alias(io_id), **criteria)
             if tmp_ios:
                 selected_ios.extend(tmp_ios)
                 continue
 
+        # Return list of I/Os that were selected by the IDs.
         return list_or_scalar(selected_ios)
 
-    # Get I/Os from an interface using brackets, e.g. ['A, B'].
-    __getitem__ = get_ios
-
-    def __getattribute__(self, key):
-        value = dict.__getattribute__(self, key)
-        if isinstance(value, ProtoNet):
-            # If the retrieved attribute is a ProtoNet, record where it came from.
-            value.intfc_key = key
-            value.intfc = self
-        return value
+    def __setitem__(self, key, value):
+        """Sets dict entry and also creates attribute with the same name as the dict key."""
+        if from_iadd(value):
+            # If interface items are being changed as a result of += operator...
+            for v in to_list(value):
+                # Look for interface key name attached to each value.
+                # Only ProtoNets should have them because they need to be
+                # changed to a Net or Bus once they are connected to something.
+                key = getattr(v, "intfc_key", None)
+                if key:
+                    # Set the ProtoNet in the interface entry with key to its new Net or Bus value.
+                    dict.__setitem__(self, key, v)
+                    dict.__setattr__(self, key, v)
+                # The += flag in the values are no longer needed.
+                rmv_attr(v, "iadd_flag")
+        else:
+            # This is for a straight assignment of value to key.
+            setattr(self, key, value)
