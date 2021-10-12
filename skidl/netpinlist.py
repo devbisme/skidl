@@ -92,7 +92,9 @@ class NetPinList(list):
                 npa += npb
 
         # Set the flag to indicate this result came from the += operator.
-        self.iadd_flag = True  # pylint: disable=attribute-defined-outside-init
+        self.iadd_flag = True
+        for n in self:
+            n.iadd_flag = True
 
         return self
 
