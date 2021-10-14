@@ -51,18 +51,18 @@ class ProtoNet(SkidlBaseObject):
     def __iadd__(self, *nets_pins_buses):
         from .bus import Bus
 
-        nets_pins = []
-        for item in expand_buses(flatten(nets_pins_buses)):
-            if isinstance(item, (Pin, Net)):
-                nets_pins.append(item)
-            else:
-                log_and_raise(
-                    logger,
-                    ValueError,
-                    "Can't make connections to a {} ({}).".format(
-                        type(item), item.__name__
-                    ),
-                )
+        # Check the stuff you want to connect to see if it's the right kind.
+        nets_pins = expand_buses(flatten(nets_pins_buses))
+        allowed_types = (Pin, Net, ProtoNet)
+        illegal = (np for np in nets_pins if type(np) not in allowed_types)
+        for np in illegal:
+            log_and_raise(
+                logger,
+                ValueError,
+                "Can't make connections to a {} ({}).".format(
+                    type(np), getattr(np, "__name__", "")
+                ),
+            )
 
         sz = len(nets_pins)
         if sz == 0:
