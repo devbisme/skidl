@@ -136,23 +136,38 @@ class Interface(dict):
         io_types = (Net, ProtoNet, Pin, NetPinList, Bus)
         ios = [io for io in self.values() if isinstance(io, io_types)]
 
+        # Use this for looking up the dict key using the id of a given I/O.
+        id_to_key = {id(v): k for k, v in self.items()}
+
         # Go through the I/O entries and find the ones selected by the IDs.
         selected_ios = NetPinList()
         for io_id in expand_indices(min_pin, max_pin, match_regex, *io_ids):
 
             # Look for an exact match of the I/O key name with the current ID.
             try:
-                # Add exact match to the list of selected I/Os and go to the next ID.
-                selected_ios.append(dict.__getitem__(self, io_id))
-                continue
+                io = dict.__getitem__(self, io_id)
             except KeyError:
                 # No exact match on I/O key name, so keep looking below.
                 pass
+            else:
+                # Add exact match to the list of selected I/Os and go to the next ID.
+                if isinstance(io, ProtoNet):
+                    # Store key for this ProtoNet I/O so we'll know where to update it later.
+                    io.intfc = self
+                    io.intfc_key = io_id
+                selected_ios.append(io)
+                continue
 
-            # Check I/O aliases for an exact match.
+            # Check I/O aliases for an exact match with the current ID.
             tmp_ios = filter_list(ios, aliases=io_id, do_str_match=True, **criteria)
+            for io in tmp_ios:
+                if isinstance(io, ProtoNet):
+                    # Store key for this ProtoNet I/O so we'll know where to update it later.
+                    io.intfc = self
+                    io.intfc_key = id_to_key[id(io)]
+                selected_ios.append(io)
             if tmp_ios:
-                selected_ios.extend(tmp_ios)
+                # Found exact match between alias and ID, so done with this ID and go to next ID.
                 continue
 
             # Skip regex matching if not enabled.
@@ -161,9 +176,12 @@ class Interface(dict):
 
             # OK, ID doesn't exactly match an I/O name or alias. Does it match as a regex?
             tmp_ios = filter_list(ios, aliases=Alias(io_id), **criteria)
-            if tmp_ios:
-                selected_ios.extend(tmp_ios)
-                continue
+            for io in tmp_ios:
+                if isinstance(io, ProtoNet):
+                    # Store key for this ProtoNet I/O so we'll know where to update it later.
+                    io.intfc = self
+                    io.intfc_key = id_to_key[id(io)]
+                selected_ios.append(io)
 
         # Return list of I/Os that were selected by the IDs.
         return list_or_scalar(selected_ios)
