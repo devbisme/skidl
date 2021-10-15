@@ -80,9 +80,7 @@ class ProtoNet(SkidlBaseObject):
                 cnct = Net(name=None, circuit=self.circuit)
             else:
                 cnct = Bus(None, sz, circuit=self.circuit)
-            cnct.iadd_flag = True
             try:
-                cnct.intfc_key = self.intfc_key
                 self.intfc[self.intfc_key] = cnct
             except AttributeError:
                 pass
