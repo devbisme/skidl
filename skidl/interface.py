@@ -59,6 +59,8 @@ class Interface(dict):
         dict.__setattr__(self, "match_pin_regex", False)
         for k, v in list(self.items()):
             if isinstance(v, ProtoNet):
+                # Store the ProtoNet directly in the Interface.
+                # It will get promoted to a Net when it gets connected to something.
                 v.aliases += k
                 setattr(self, k, v)
             elif isinstance(v, (Pin, Net)):
@@ -101,26 +103,26 @@ class Interface(dict):
         Return list of part pins selected by identifiers.
 
         Args:
-            io_ids: A list of strings containing pin names, numbers,
+            io_ids: A list of strings containing I/O names,
                 regular expressions, slices, lists or tuples. If empty,
                 then it will select all pins.
 
         Keyword Args:
             criteria: Key/value pairs that specify attribute values the
-                pins must have in order to be selected.
+                I/Os must have in order to be selected.
 
         Returns:
-            A list of pins matching the given IDs and satisfying all the criteria,
-            or just a single Pin object if only a single match was found.
+            A list of I/Os matching the given IDs and satisfying all the criteria,
+            or just a single I/O object if only a single match was found.
             Or None if no match was found.
 
         Notes:
             Pins can be selected from a part by using brackets like so::
 
-                atmega = Part('atmel', 'ATMEGA16U2')
+                intf = Interface(a=Net(), b=Net())
                 net = Net()
-                atmega[1] += net  # Connects pin 1 of chip to the net.
-                net += atmega['RESET']  # Connects reset pin to the net.
+                intf['a'] += net  # Connects I/O 'a' of interface to the net.
+                net += intf.b     # Connects the net to the 'b' I/O.
         """
 
         # Extract permission to search for regex matches in pin names/aliases.
