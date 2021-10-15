@@ -55,6 +55,8 @@ class Interface(dict):
     erc_list = []
 
     def __init__(self, *args, **kwargs):
+        # dict is used instead of super() throughout because using super()
+        # caused the tests to run forever under Python 2.7.18.
         dict.__init__(self, *args, **kwargs)
         dict.__setattr__(self, "match_pin_regex", False)
         for k, v in list(self.items()):
