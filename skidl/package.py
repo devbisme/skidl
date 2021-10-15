@@ -27,7 +27,7 @@ Package a subcircuit so it can be used like a Part.
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-from builtins import range, zip
+from builtins import zip, super
 from copy import copy
 
 from future import standard_library
@@ -45,7 +45,7 @@ standard_library.install_aliases()
 
 class Package(Interface):
     def __init__(self, **kwargs):
-        super().__init__(self, **kwargs)
+        super().__init__(**kwargs)
 
         self["circuit"] = None
 
