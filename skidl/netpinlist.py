@@ -37,7 +37,7 @@ from .net import Net
 from .network import Network
 from .pin import Pin
 from .protonet import ProtoNet
-from .skidlbaseobj import SkidlBaseObject
+# from .skidlbaseobj import SkidlBaseObject
 from .utilities import *
 
 standard_library.install_aliases()
@@ -46,22 +46,21 @@ standard_library.install_aliases()
 class NetPinList(list):
 
     def __iadd__(self, *nets_pins_buses):
-
         nets_pins_a = expand_buses(self)
         len_a = len(nets_pins_a)
 
-        nets_pins_b = []
-        for item in expand_buses(flatten(nets_pins_buses)):
-            if isinstance(item, (Pin, Net, ProtoNet)):
-                nets_pins_b.append(item)
-            else:
-                log_and_raise(
-                    logger,
-                    ValueError,
-                    "Can't make connections to a {} ({}).".format(
-                        type(item), item.__name__
-                    ),
-                )
+        # Check the stuff you want to connect to see if it's the right kind.
+        nets_pins_b = expand_buses(flatten(nets_pins_buses))
+        allowed_types = (Pin, Net, ProtoNet)
+        illegal = (np for np in nets_pins_b if not isinstance(np, allowed_types))
+        for np in illegal:
+            log_and_raise(
+                logger,
+                ValueError,
+                "Can't make connections to a {} ({}).".format(
+                    type(np), getattr(np, "__name__", "")
+                ),
+            )
         len_b = len(nets_pins_b)
 
         if len_a != len_b:
@@ -84,12 +83,27 @@ class NetPinList(list):
 
         assert len_a == len_b
 
-        # Connect the nets to the nets in the bus.
         for npa, npb in zip(nets_pins_a, nets_pins_b):
             if isinstance(npb, ProtoNet):
+                # npb is a ProtoNet so it will get replaced by a real Net by the += op.
+                # Should the new Net replace the equivalent ProtoNet in nets_pins_buses?
+                # It doesn't appear to be necessary since all tests pass, but be aware
+                # of this issue.
                 npb += npa
-            else:
+            elif isinstance(npa, ProtoNet):
+                # npa is a ProtoNet so it will get replaced by a real Net by the += op.
+                # Therefore, find the equivalent ProtoNet in self and replace it with the
+                # new Net.
+                id_npa = id(npa)
                 npa += npb
+                for i in range(len(self)):
+                    if id_npa == id(self[i]):
+                        self[i] = npa
+            else:
+                # Just regular attachment of nets and/or pins which updates the existing
+                # objects within the self and nets_pins_buses lists.
+                npa += npb
+                pass
 
         # Set the flag to indicate this result came from the += operator.
         self.iadd_flag = True
