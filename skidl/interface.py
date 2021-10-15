@@ -27,7 +27,7 @@ Handles interfaces for subsystems with complicated I/O.
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-from builtins import str
+from builtins import str, super
 
 from future import standard_library
 
@@ -58,7 +58,10 @@ class Interface(dict):
         dict.__init__(self, *args, **kwargs)
         dict.__setattr__(self, "match_pin_regex", False)
         for k, v in list(self.items()):
-            if isinstance(v, (Pin, Net, ProtoNet)):
+            if isinstance(v, ProtoNet):
+                v.aliases += k
+                setattr(self, k, v)
+            elif isinstance(v, (Pin, Net)):
                 cct = v.circuit
                 n = Net(circuit=cct)
                 n.aliases += k
