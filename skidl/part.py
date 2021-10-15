@@ -728,7 +728,7 @@ class Part(SkidlBaseObject):
     # Get pins from a part using brackets, e.g. [1,5:9,'A[0-9]+'].
     __getitem__ = get_pins
 
-    def __setitem__(self, ids, *pins_nets_buses):
+    def __setitem__(self, ids, pins_nets_buses):
         """
         You can't assign to the pins of parts. You must use the += operator.
 
@@ -751,8 +751,8 @@ class Part(SkidlBaseObject):
 
         # If the iadd_flag is set, then it's OK that we got
         # here and don't issue an error. Also, delete the flag.
-        if getattr(pins_nets_buses[0], "iadd_flag", False):
-            del pins_nets_buses[0].iadd_flag
+        if from_iadd(pins_nets_buses):
+            rmv_iadd(pins_nets_buses)
             return
 
         # No iadd_flag or it wasn't set. This means a direct assignment

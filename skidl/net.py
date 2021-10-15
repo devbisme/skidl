@@ -367,8 +367,8 @@ class Net(SkidlBaseObject):
 
         # If the iadd_flag is set, then it's OK that we got
         # here and don't issue an error. Also, delete the flag.
-        if getattr(pins_nets_buses[0], "iadd_flag", False):
-            del pins_nets_buses[0].iadd_flag
+        if from_iadd(pins_nets_buses):
+            rmv_iadd(pins_nets_buses)
             return
 
         # No iadd_flag or it wasn't set. This means a direct assignment
@@ -540,7 +540,7 @@ class Net(SkidlBaseObject):
         self.circuit += self
 
         # Set the flag to indicate this result came from the += operator.
-        self.iadd_flag = True
+        set_iadd(self, True)
 
         return self
 

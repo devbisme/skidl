@@ -268,7 +268,7 @@ def is_iterable(x):
 
 def to_list(x):
     """
-    Return x if it is already a list, or return a list if x is a scalar.
+    Return x if it is already a list, or return a list containing x if x is a scalar.
     """
     if isinstance(x, (list, tuple)):
         return x  # Already a list, so just return it.
@@ -315,21 +315,41 @@ def flatten(nested_list):
     return lst
 
 
+def set_attr(objs, attr, value):
+    """Remove an attribute from a list of objects."""
+    try:
+        for o in objs:
+            setattr(o, attr, value)
+    except TypeError:
+        setattr(obj, attr, value)
+
+
 def rmv_attr(objs, attr):
     """Remove an attribute from a list of objects."""
-    for o in to_list(objs):
-        try:
+    try:
+        for o in objs:
             delattr(o, attr)
-        except AttributeError:
-            pass
+    except TypeError:
+        delattr(obj, attr)
 
 
 def from_iadd(objs):
     """Return True if one or more objects have attribute iadd_flag set to True."""
-    return any([getattr(e, "iadd_flag", False) for e in to_list(objs)])
+    try:
+        for o in objs:
+            if getattr(o, "iadd_flag", False):
+                return True
+        return False
+    except TypeError:
+        return getattr(objs, "iadd_flag", False)
 
 
-def clr_iadd(objs):
+def set_iadd(objs, value):
+    """Set iadd_flag with T/F value for a list of objects."""
+    set_attr(objs, "iadd_flag", value)
+
+
+def rmv_iadd(objs):
     """Delete iadd_flag attribute from a list of objects."""
     rmv_attr(objs, "iadd_flag")
 

@@ -196,6 +196,8 @@ class Interface(dict):
     def __setitem__(self, key, value):
         """Sets dict entry and also creates attribute with the same name as the dict key."""
         if from_iadd(value):
+            # The += flag in the values are no longer needed.
+            rmv_iadd(value)
             # If interface items are being changed as a result of += operator...
             for v in to_list(value):
                 # Look for interface key name attached to each value.
@@ -206,8 +208,6 @@ class Interface(dict):
                     # Set the ProtoNet in the interface entry with key to its new Net or Bus value.
                     dict.__setitem__(self, key, v)
                     dict.__setattr__(self, key, v)
-                # The += flag in the values are no longer needed.
-                rmv_attr(v, "iadd_flag")
         else:
             # This is for a straight assignment of value to key.
             setattr(self, key, value)

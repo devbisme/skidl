@@ -106,9 +106,7 @@ class NetPinList(list):
                 pass
 
         # Set the flag to indicate this result came from the += operator.
-        self.iadd_flag = True
-        for n in self:
-            n.iadd_flag = True
+        set_iadd(self, True)
 
         return self
 
