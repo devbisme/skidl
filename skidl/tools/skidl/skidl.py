@@ -32,9 +32,9 @@ from builtins import str
 
 from future import standard_library
 
-from ..common import *
-from ..defines import SKIDL
-from ..logger import logger
+from ...common import *
+from ...defines import SKIDL
+from ...logger import logger
 
 standard_library.install_aliases()
 
@@ -45,7 +45,7 @@ tool_name = SKIDL
 lib_suffix = "_sklib.py"
 
 
-def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None):
+def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
     """
     Load the parts from a SKiDL schematic library file.
 
@@ -53,10 +53,10 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None
         filename: The name of the SKiDL schematic library file.
     """
 
-    from ..skidl import lib_suffixes, logger
-    from ..schlib import SchLib
-    from ..defines import SKIDL
-    from ..utilities import find_and_open_file
+    from ...skidl import lib_suffixes, logger
+    from ...schlib import SchLib
+    from ...defines import SKIDL
+    from ...utilities import find_and_open_file
 
     try:
         f, path = find_and_open_file(filename, lib_search_paths_, lib_suffixes[SKIDL])
@@ -90,7 +90,7 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None
         raise
 
 
-def _parse_lib_part_(self, get_name_only=False):  # pylint: disable=unused-argument
+def parse_lib_part(self, get_name_only=False):  # pylint: disable=unused-argument
     """
     Create a Part using a part definition from a SKiDL library.
     """

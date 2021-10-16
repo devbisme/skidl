@@ -36,13 +36,13 @@ from collections import namedtuple
 
 from future import standard_library
 
-from ..common import *
-from ..coord import *
-from ..defines import *
-from ..logger import logger
-from ..pckg_info import __version__
-from ..scriptinfo import scriptinfo, get_script_name
-from ..utilities import *
+from ...common import *
+from ...coord import *
+from ...defines import *
+from ...logger import logger
+from ...pckg_info import __version__
+from ...scriptinfo import scriptinfo, get_script_name
+from ...utilities import *
 
 standard_library.install_aliases()
 
@@ -54,7 +54,7 @@ tool_name = KICAD
 lib_suffix = [".lib", ".kicad_sym"]
 
 
-def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None):
+def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
     """
     Load the parts from a KiCad schematic library file.
 
@@ -62,7 +62,7 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None
         filename: The name of the KiCad schematic library file.
     """
 
-    from ..skidl import lib_suffixes
+    from ...skidl import lib_suffixes
 
     # Try to open the file using allowable suffixes for the versions of KiCAD.
     suffixes = lib_suffixes[KICAD]
@@ -97,7 +97,7 @@ def _load_sch_lib_kicad(self, f, filename, lib_search_paths_):
         filename: The name of the KiCad schematic library file.
     """
 
-    from ..part import Part
+    from ...part import Part
 
     # Check the file header to make sure it's a KiCad library.
     header = []
@@ -249,7 +249,7 @@ def _load_sch_lib_kicad_v6(self, f, filename, lib_search_paths_):
         filename: The name of the KiCad schematic library file.
     """
 
-    from ..part import Part
+    from ...part import Part
 
     # Parse the library and return a nested list of library parts.
     lib_sexp = "".join(f.readlines())
@@ -297,7 +297,7 @@ def _load_sch_lib_kicad_v6(self, f, filename, lib_search_paths_):
         )
 
 
-def _parse_lib_part_(self, get_name_only=False):
+def parse_lib_part(self, get_name_only=False):
     """
     Create a Part using a part definition from a KiCad schematic library.
 
@@ -361,7 +361,7 @@ def _parse_lib_part_kicad(self, get_name_only):
             will be parsed if the part is actually used.
     """
 
-    from ..pin import Pin
+    from ...pin import Pin
 
     _DEF_KEYS = [
         "name",
@@ -749,7 +749,7 @@ def _parse_lib_part_kicad_v6(self, get_name_only):
     # https://docs.google.com/document/d/1lyL_8FWZRouMkwqLiIt84rd2Htg4v1vz8_2MzRKHRkc/edit
     # https://gitlab.com/kicad/code/kicad/-/blob/master/eeschema/sch_plugins/kicad/sch_sexpr_parser.cpp
 
-    from ..pin import Pin
+    from ...pin import Pin
 
     # Return if there's nothing to do (i.e., part has already been parsed).
     if not self.part_defn:
@@ -914,7 +914,7 @@ def _parse_lib_part_kicad_v6(self, get_name_only):
     self.part_defn = None
 
 
-def _gen_netlist_(self):
+def gen_netlist(self):
     scr_dict = scriptinfo()
     src_file = os.path.join(scr_dict["dir"], scr_dict["source"])
     date = time.strftime("%m/%d/%Y %I:%M %p")
@@ -940,7 +940,7 @@ def _gen_netlist_(self):
     return netlist
 
 
-def _gen_netlist_comp_(self):
+def gen_netlist_comp(self):
     ref = add_quotes(self.ref)
 
     value = add_quotes(self.value_str)
@@ -984,7 +984,7 @@ def _gen_netlist_comp_(self):
     return txt
 
 
-def _gen_netlist_net_(self):
+def gen_netlist_net(self):
     code = add_quotes(self.code)
     name = add_quotes(self.name)
     txt = "    (net (code {code}) (name {name})".format(**locals())
@@ -996,7 +996,7 @@ def _gen_netlist_net_(self):
     return txt
 
 
-def _gen_pcb_(self, file_):
+def gen_pcb(self, file_):
     """Create a KiCad PCB file directly from a Circuit object."""
 
     # Keep the import in here so it doesn't get triggered unless this is used
@@ -1014,7 +1014,7 @@ def _gen_pcb_(self, file_):
         kinet2pcb.kinet2pcb(self, file_)
 
 
-def _gen_xml_(self):
+def gen_xml(self):
     scr_dict = scriptinfo()
     src_file = os.path.join(scr_dict["dir"], scr_dict["source"])
     date = time.strftime("%m/%d/%Y %I:%M %p")
@@ -1042,7 +1042,7 @@ def _gen_xml_(self):
     return netlist
 
 
-def _gen_xml_comp_(self):
+def gen_xml_comp(self):
     ref = self.ref
     value = self.value_str
 
@@ -1079,7 +1079,7 @@ def _gen_xml_comp_(self):
     return txt
 
 
-def _gen_xml_net_(self):
+def gen_xml_net(self):
     code = self.code
     name = self.name
     txt = '    <net code="{code}" name="{name}">'.format(**locals())
@@ -1091,7 +1091,7 @@ def _gen_xml_net_(self):
     return txt
 
 
-def _gen_svg_comp_(self, symtx, net_stubs=None):
+def gen_svg_comp(self, symtx, net_stubs=None):
     """
     Generate SVG for this component.
 
@@ -1681,10 +1681,10 @@ def _gen_svg_comp_(self, symtx, net_stubs=None):
     return "\n".join(svg)
 
 
-def _gen_pinboxes_(self):
+def gen_pinboxes(self):
     """Generate bounding box and I/O pin positions for each unit in a part."""
     pass
 
 
-def _gen_schematic_(self, route):
+def gen_schematic(self, route):
     pass

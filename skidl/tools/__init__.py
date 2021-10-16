@@ -43,16 +43,14 @@ lib_suffixes = {}
 directory = os.path.dirname(__file__)
 
 # Search for the EDA tool modules and import them.
-for module in os.listdir(directory):
+for module_name in os.listdir(directory):
 
-    # Avoid directories like __pycache__.
-    if module.startswith("__"):
+    # Only look for directories.
+    if not os.path.isdir(os.path.join(directory, module_name)):
         continue
 
-    module_name, module_ext = os.path.splitext(os.path.basename(module))
-
-    # Don't import anything but Python files.
-    if module_ext not in (".py",):
+    # Avoid directories like __pycache__.
+    if module_name.startswith("__"):
         continue
 
     # Import the module.
@@ -71,20 +69,20 @@ for module in os.listdir(directory):
 
     # Make the methods for this tool available where they are needed.
     for class_, method in (
-        (schlib.SchLib, "_load_sch_lib_"),
-        (part.Part, "_parse_lib_part_"),
-        (circuit.Circuit, "_gen_netlist_"),
-        (part.Part, "_gen_netlist_comp_"),
-        (net.Net, "_gen_netlist_net_"),
-        (circuit.Circuit, "_gen_pcb_"),
-        (circuit.Circuit, "_gen_xml_"),
-        (part.Part, "_gen_xml_comp_"),
-        (net.Net, "_gen_xml_net_"),
-        (part.Part, "_gen_svg_comp_"),
-        (circuit.Circuit, "_gen_schematic_"),
-        (part.Part, "_gen_pinboxes_"),
+        (schlib.SchLib, "load_sch_lib"),
+        (part.Part, "parse_lib_part"),
+        (circuit.Circuit, "gen_netlist"),
+        (part.Part, "gen_netlist_comp"),
+        (net.Net, "gen_netlist_net"),
+        (circuit.Circuit, "gen_pcb"),
+        (circuit.Circuit, "gen_xml"),
+        (part.Part, "gen_xml_comp"),
+        (net.Net, "gen_xml_net"),
+        (part.Part, "gen_svg_comp"),
+        (circuit.Circuit, "gen_schematic"),
+        (part.Part, "gen_pinboxes"),
     ):
         try:
-            setattr(class_, method + tool_name, getattr(mod, method))
+            setattr(class_, "_".join(("", method, tool_name)), getattr(mod, method))
         except AttributeError:
             pass  # No method implemented for this ECAD tool.

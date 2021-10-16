@@ -32,13 +32,13 @@ from builtins import dict, int, object, range, str, zip
 
 from future import standard_library
 
-from ..common import *
-from ..defines import *
-from ..logger import logger
-from ..net import Net
-from ..part import Part
-from ..pin import Pin, PinList
-from ..utilities import *
+from ...common import *
+from ...defines import *
+from ...logger import logger
+from ...net import Net
+from ...part import Part
+from ...pin import Pin, PinList
+from ...utilities import *
 
 standard_library.install_aliases()
 
@@ -86,7 +86,7 @@ def _gather_statement(file):
         yield statement.lower().split()
 
 
-def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None):
+def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
     """
     Load the .subckt I/O from a SPICE library file.
 
@@ -95,9 +95,9 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None
         lib_search_paths_ : List of directories to search for the file.
     """
 
-    from ..skidl import lib_suffixes
-    from ..part import Part
-    from ..pin import Pin
+    from ...skidl import lib_suffixes
+    from ...part import Part
+    from ...pin import Pin
 
     if os.path.isdir(filename):
         # A directory was given, so just use that.
@@ -227,7 +227,7 @@ def _load_sch_lib_(self, filename=None, lib_search_paths_=None, lib_section=None
                     self.add_parts(part)
 
 
-def _parse_lib_part_(self, get_name_only=False):  # pylint: disable=unused-argument
+def parse_lib_part(self, get_name_only=False):  # pylint: disable=unused-argument
     """
     Create a Part using a part definition from a SPICE library.
     """
@@ -256,7 +256,7 @@ class XspiceModel(object):
 DeviceModel = XspiceModel
 
 
-def _gen_netlist_(self, **kwargs):
+def gen_netlist(self, **kwargs):
     """
     Return a PySpice Circuit generated from a SKiDL circuit.
 
@@ -266,7 +266,7 @@ def _gen_netlist_(self, **kwargs):
             containing SPICE models.
     """
 
-    from ..skidl import lib_search_paths
+    from ...skidl import lib_search_paths
 
     if USING_PYTHON2:
         return None
@@ -490,7 +490,7 @@ def add_subcircuit_to_circuit(part, circuit):
     args.extend(_get_net_names(part))
 
     # Add the part to the PySpice circuit.
-    from ..pyspice import Parameters
+    from ...pyspice import Parameters
 
     params = {}
     for k, v in part.__dict__.items():
