@@ -32,8 +32,7 @@ from builtins import dict, int, object, range, str, zip
 
 from future import standard_library
 
-from ...common import *
-from ...defines import *
+from ...common import USING_PYTHON2
 from ...logger import logger
 from ...net import Net
 from ...part import Part
@@ -54,7 +53,7 @@ except ImportError:
 
 # These aren't used here, but they are used in modules
 # that include this module.
-tool_name = SPICE
+tool_name = "spice"
 lib_suffix = [".lib", ".spice"]
 
 
@@ -98,6 +97,7 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
     from ...skidl import lib_suffixes
     from ...part import Part
     from ...pin import Pin
+    from .. import SPICE
 
     if os.path.isdir(filename):
         # A directory was given, so just use that.

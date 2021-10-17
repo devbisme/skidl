@@ -36,9 +36,8 @@ import re
 from future import standard_library
 
 from .alias import *
-from .defines import *
 from .logger import erc_logger, logger
-from .skidlbaseobj import SkidlBaseObject
+from .skidlbaseobj import SkidlBaseObject, WARNING, ERROR, OK
 from .utilities import *
 
 standard_library.install_aliases()

@@ -38,10 +38,9 @@ from builtins import chr, dict, int, object, open, range, str, super, zip
 from collections import namedtuple
 from contextlib import contextmanager
 
-from future import standard_library
-
 from .common import *
-from .defines import *
+
+from future import standard_library
 
 standard_library.install_aliases()
 
@@ -226,6 +225,7 @@ def num_to_chars(num):
 
 def rmv_quotes(s):
     """Remove starting and ending quotes from a string."""
+
     if not isinstance(s, basestring):
         return s
 
@@ -241,6 +241,7 @@ def rmv_quotes(s):
 
 def add_quotes(s):
     """Return string with added quotes if it contains whitespace or parens."""
+
     if not isinstance(s, basestring):
         return s
 
@@ -770,6 +771,7 @@ def opened(f_or_fn, mode):
            object, or a filename to open.
        mode: The mode to open the file in.
     """
+
     if isinstance(f_or_fn, basestring):
         with open(f_or_fn, mode, encoding="utf-8") as f:
             yield f

@@ -29,6 +29,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 import os
 import os.path
+import sys
 
 from future import standard_library
 
@@ -36,7 +37,13 @@ from .. import circuit, net, part, schlib
 
 standard_library.install_aliases()
 
+# Reference to this module used for insertion of ECAD tool variables.
+this_module = sys.modules[__name__]
 
+# List of all supported ECAD tools.
+ALL_TOOLS = []
+
+# Dict of library sufixes for each ECAD tool.
 lib_suffixes = {}
 
 # The ECAD tool directories will be found in this directory.
@@ -63,6 +70,12 @@ for module_name in os.listdir(directory):
     except AttributeError:
         # Don't process files without a tool name. They're probably support files.
         continue
+
+    ALL_TOOLS.append(tool_name)
+
+    # Create a variable with an uppercase name that stores the tool name,
+    # so variable KICAD will store "kicad".
+    setattr(this_module, tool_name.upper(), tool_name)
 
     # Store library file suffix for this tool.
     lib_suffixes[tool_name] = lib_suffix

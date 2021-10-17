@@ -112,7 +112,7 @@ class SchLib(object):
     def add_parts(self, *parts):
         """Add one or more parts to a library."""
 
-        from .defines import TEMPLATE
+        from .part import TEMPLATE
 
         for part in flatten(parts):
             # Parts with the same name are not allowed in the library.
@@ -240,7 +240,7 @@ class SchLib(object):
             return s
 
         import skidl
-        from .defines import SKIDL
+        from .tools import SKIDL
 
         if tool is None:
             tool = SKIDL

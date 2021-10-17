@@ -31,7 +31,6 @@ from builtins import range, super
 
 from future import standard_library
 
-from .common import *
 from .logger import logger
 from .net import Net
 from .network import Network
@@ -46,7 +45,7 @@ class ProtoNet(SkidlBaseObject):
     def __init__(self, name=None, circuit=None):
         super().__init__()
         self.name = name
-        self.circuit = circuit or builtins.default_circuit
+        self.circuit = circuit or default_circuit
 
     def __iadd__(self, *nets_pins_buses):
         from .bus import Bus

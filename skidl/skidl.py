@@ -31,13 +31,12 @@ from builtins import open, super
 
 from future import standard_library
 
-from . import tools  # Import EDA tool-specific stuff.
 from .circuit import Circuit
-from .common import *
-from .defines import *
+from .common import builtins
 from .logger import erc_logger, get_script_name, logger
 from .part_query import footprint_cache
 from .pin import Pin
+from .tools import ALL_TOOLS, KICAD, SKIDL, SPICE, lib_suffixes
 from .utilities import *
 
 standard_library.install_aliases()
@@ -49,7 +48,6 @@ try:
 except NameError:
     # Do nothing with char encoding in Python 3.
     pass
-
 
 class SkidlCfg(dict):
     """Class for holding SKiDL configuration."""
@@ -155,9 +153,6 @@ def get_default_tool():
 if "default_tool" not in skidl_cfg:
     set_default_tool(KICAD)
 
-# Make the various EDA tool library suffixes globally available.
-lib_suffixes = tools.lib_suffixes
-
 # Definitions for backup library of circuit parts.
 BACKUP_LIB_NAME = get_script_name() + "_lib"
 BACKUP_LIB_FILE_NAME = BACKUP_LIB_NAME + lib_suffixes[SKIDL]
@@ -212,6 +207,7 @@ def load_backup_lib():
 
 # Create the default Circuit object that will be used unless another is explicitly created.
 builtins.default_circuit = Circuit()
+
 # NOCONNECT net for attaching pins that are intentionally left open.
 builtins.NC = default_circuit.NC  # pylint: disable=undefined-variable
 

@@ -33,8 +33,6 @@ from copy import copy, deepcopy
 
 from future import standard_library
 
-from .common import *
-from .defines import *
 from .erc import dflt_net_erc
 from .logger import logger
 from .skidlbaseobj import SkidlBaseObject
@@ -42,6 +40,8 @@ from .utilities import *
 
 standard_library.install_aliases()
 
+# Prefix for implicit nets.
+NET_PREFIX = "N$"
 
 Traversal = collections.namedtuple("Traversal", ["nets", "pins"])
 
@@ -72,7 +72,7 @@ class Net(SkidlBaseObject):
         from .alias import Alias
 
         if not circuit:
-            circuit = builtins.default_circuit
+            circuit = default_circuit
 
         search_params = (("name", name, True), ("aliases", name, True))
 
@@ -92,7 +92,7 @@ class Net(SkidlBaseObject):
     def fetch(cls, name, *args, **attribs):
         """Get the net with the given name from a circuit, or create it if not found."""
 
-        circuit = attribs.get("circuit", builtins.default_circuit)
+        circuit = attribs.get("circuit", default_circuit)
         return cls.get(name, circuit=circuit) or cls(name, *args, **attribs)
 
     def __init__(self, name=None, circuit=None, *pins_nets_buses, **attribs):
@@ -113,7 +113,7 @@ class Net(SkidlBaseObject):
         self._name = name
 
         # Add the net to the passed-in circuit or to the default circuit.
-        circuit = circuit or builtins.default_circuit
+        circuit = circuit or default_circuit
         circuit += self
 
         # Attach whatever pins were given.
@@ -262,7 +262,7 @@ class Net(SkidlBaseObject):
 
         # If circuit is not specified, then create the copies within circuit of the
         # original, or in the default circuit.
-        circuit = circuit or self.circuit or builtins.default_circuit
+        circuit = circuit or self.circuit or default_circuit
 
         # Can't make a distinct copy of a net which already has pins on it
         # because what happens if a pin is connected to the copy? Then we have
@@ -385,7 +385,7 @@ class Net(SkidlBaseObject):
     def is_implicit(self):
         """Return true if the net name is implicit."""
 
-        from .defines import NET_PREFIX, BUS_PREFIX
+        from .bus import BUS_PREFIX
 
         self.test_validity()
         prefix_re = "({}|{})+".format(re.escape(NET_PREFIX), re.escape(BUS_PREFIX))
@@ -750,8 +750,6 @@ class Net(SkidlBaseObject):
 
     @name.setter
     def name(self, name):
-
-        from .defines import NET_PREFIX
 
         self.test_validity()
         # Remove the existing name so it doesn't cause a collision if the

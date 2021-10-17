@@ -35,7 +35,6 @@ from builtins import open, super
 
 from future import standard_library
 
-from .common import *
 from .logger import logger
 from .utilities import *
 
@@ -171,7 +170,7 @@ def show_part(lib, part_name, tool=None):
 
     import skidl
     from .part import Part
-    from .defines import TEMPLATE
+    from .part import TEMPLATE
 
     if tool is None:
         tool = skidl.get_default_tool()

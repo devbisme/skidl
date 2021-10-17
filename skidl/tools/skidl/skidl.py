@@ -32,8 +32,6 @@ from builtins import str
 
 from future import standard_library
 
-from ...common import *
-from ...defines import SKIDL
 from ...logger import logger
 
 standard_library.install_aliases()
@@ -41,7 +39,7 @@ standard_library.install_aliases()
 
 # These aren't used here, but they are used in modules
 # that include this module.
-tool_name = SKIDL
+tool_name = "skidl"
 lib_suffix = "_sklib.py"
 
 
@@ -55,7 +53,7 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
 
     from ...skidl import lib_suffixes, logger
     from ...schlib import SchLib
-    from ...defines import SKIDL
+    from .. import SKIDL
     from ...utilities import find_and_open_file
 
     try:

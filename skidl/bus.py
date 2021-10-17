@@ -34,13 +34,16 @@ from future import standard_library
 
 from .alias import Alias
 from .common import *
-from .defines import *
 from .logger import logger
-from .net import Net
+from .net import Net, NET_PREFIX
 from .netpinlist import NetPinList
 from .pin import Pin
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import *
+
+# Prefix for implicit buses.
+BUS_PREFIX = "B$"
+
 
 standard_library.install_aliases()
 
@@ -183,7 +186,7 @@ class Bus(SkidlBaseObject):
 
         # Assign names to all the unnamed nets in the bus.
         # Separate index from bus name if name ends with number.
-        sep = '_' if self.name[-1].isdigit() else ''
+        sep = "_" if self.name[-1].isdigit() else ""
         for i, net in enumerate(self.nets):
             if net.is_implicit():
                 # Net names are the bus name with the index appended.
@@ -374,8 +377,6 @@ class Bus(SkidlBaseObject):
 
     def is_implicit(self):
         """Return true if the bus name is implicit."""
-
-        from .defines import NET_PREFIX, BUS_PREFIX
 
         prefix_re = "({}|{})+".format(re.escape(NET_PREFIX), re.escape(BUS_PREFIX))
         return re.match(prefix_re, self.name)

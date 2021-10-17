@@ -30,6 +30,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 from future import standard_library
 
 from skidl import *
+from .tools import SKIDL, SPICE
 
 standard_library.install_aliases()
 
@@ -38,7 +39,6 @@ try:
     from PySpice import *
     from PySpice.Unit import *
     from .libs.pyspice_sklib import *
-    from .tools.spice import *
 except ImportError:
     pass
 else:

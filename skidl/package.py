@@ -34,10 +34,9 @@ from future import standard_library
 
 from .bus import Bus
 from .circuit import subcircuit
-from .common import *
-from .defines import *
 from .interface import Interface
 from .net import Net
+from .part import NETLIST
 from .protonet import ProtoNet
 
 standard_library.install_aliases()

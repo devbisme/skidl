@@ -26,7 +26,6 @@ from .arrange import *
 from .bus import *
 from .circuit import *
 from .common import *
-from .defines import *
 from .erc import *
 from .interface import *
 from .logger import *

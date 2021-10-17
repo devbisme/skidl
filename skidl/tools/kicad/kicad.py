@@ -36,10 +36,9 @@ from collections import namedtuple
 
 from future import standard_library
 
-from ...common import *
 from ...coord import *
-from ...defines import *
 from ...logger import logger
+from ...part import TEMPLATE, LIBRARY
 from ...pckg_info import __version__
 from ...scriptinfo import scriptinfo, get_script_name
 from ...utilities import *
@@ -49,7 +48,7 @@ standard_library.install_aliases()
 
 # These aren't used here, but they are used in modules
 # that include this module.
-tool_name = KICAD
+tool_name = "kicad"
 # lib_suffix = [".kicad_sym", ".lib"]
 lib_suffix = [".lib", ".kicad_sym"]
 
@@ -63,6 +62,7 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
     """
 
     from ...skidl import lib_suffixes
+    from .. import KICAD
 
     # Try to open the file using allowable suffixes for the versions of KiCAD.
     suffixes = lib_suffixes[KICAD]
@@ -97,6 +97,7 @@ def _load_sch_lib_kicad(self, f, filename, lib_search_paths_):
         filename: The name of the KiCad schematic library file.
     """
 
+    from .. import KICAD
     from ...part import Part
 
     # Check the file header to make sure it's a KiCad library.
@@ -915,6 +916,8 @@ def _parse_lib_part_kicad_v6(self, get_name_only):
 
 
 def gen_netlist(self):
+    from .. import KICAD
+
     scr_dict = scriptinfo()
     src_file = os.path.join(scr_dict["dir"], scr_dict["source"])
     date = time.strftime("%m/%d/%Y %I:%M %p")
@@ -1015,6 +1018,8 @@ def gen_pcb(self, file_):
 
 
 def gen_xml(self):
+    from .. import KICAD
+
     scr_dict = scriptinfo()
     src_file = os.path.join(scr_dict["dir"], scr_dict["source"])
     date = time.strftime("%m/%d/%Y %I:%M %p")

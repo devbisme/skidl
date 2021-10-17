@@ -32,7 +32,6 @@ from builtins import range
 
 from future import standard_library
 
-from .defines import *
 from .logger import erc_logger
 
 standard_library.install_aliases()

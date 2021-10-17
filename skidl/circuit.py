@@ -41,8 +41,7 @@ from future import standard_library
 
 from .arrange import Arranger
 from .bus import Bus
-from .common import *
-from .defines import *
+from .common import builtins
 from .erc import dflt_circuit_erc
 from .interface import Interface
 from .logger import erc_logger, logger
@@ -132,7 +131,7 @@ class Circuit(SkidlBaseObject):
 
     def __enter__(self):
         """Create a context for making this circuit the default_circuit."""
-        self.circuit_stack.append(builtins.default_circuit)
+        self.circuit_stack.append(default_circuit)
         builtins.default_circuit = self
         return self
 
@@ -1167,6 +1166,7 @@ class Circuit(SkidlBaseObject):
         """
 
         from . import skidl
+        from .tools import SKIDL
 
         if self.no_files:
             return

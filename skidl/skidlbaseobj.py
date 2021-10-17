@@ -30,22 +30,18 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 import inspect
 import re
-from builtins import object, str, super
+from builtins import object, str, super, range
 from collections import namedtuple
 from copy import deepcopy
 
 from future import standard_library
 
 from .alias import Alias
-from .common import *
-from .defines import *
-
-# from .erc import eval_stmnt_list, exec_function_list
-from .logger import erc_logger
 from .note import Note
 
 standard_library.install_aliases()
 
+OK, WARNING, ERROR = list(range(3))
 
 class SkidlBaseObject(object):
 
@@ -163,6 +159,8 @@ class SkidlBaseObject(object):
         """
         Evaluate assertions for this object.
         """
+
+        from .logger import erc_logger
 
         def erc_report(evtpl):
             log_msg = "{evtpl.stmnt} {evtpl.fail_msg} in {evtpl.filename}:{evtpl.lineno}:{evtpl.function}.".format(

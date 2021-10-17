@@ -30,7 +30,6 @@ from builtins import object, str
 
 from future import standard_library
 
-from .common import *
 from .logger import logger
 from .utilities import *
 
@@ -42,7 +41,7 @@ class NetClass(object):
 
         # This object will belong to the default Circuit object or the one
         # that's passed as a parameter.
-        circuit = attribs.pop("circuit", builtins.default_circuit)
+        circuit = attribs.pop("circuit", default_circuit)
 
         # Assign net class name.
         self.name = name

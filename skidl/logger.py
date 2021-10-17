@@ -35,6 +35,7 @@ from builtins import object, super
 from future import standard_library
 
 from .scriptinfo import get_script_name
+from .skidlbaseobj import WARNING
 
 standard_library.install_aliases()
 

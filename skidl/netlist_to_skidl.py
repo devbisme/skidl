@@ -35,6 +35,8 @@ from collections import defaultdict
 from future import standard_library
 from kinparse import parse_netlist
 
+from .part import TEMPLATE
+
 standard_library.install_aliases()
 
 

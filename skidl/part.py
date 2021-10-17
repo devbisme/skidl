@@ -36,7 +36,6 @@ from random import randint
 from future import standard_library
 
 from .common import *
-from .defines import *
 from .erc import dflt_part_erc
 from .logger import logger
 from .skidlbaseobj import SkidlBaseObject
@@ -52,6 +51,13 @@ except ImportError:
     # to replicate a class from PySpice.
     class UnitValue(object):
         pass
+
+
+# Places where parts can be stored.
+#   NETLIST: The part will become part of a circuit netlist.
+#   LIBRARY: The part will be placed in the part list for a library.
+#   TEMPLATE: The part will be used as a template to be copied from.
+NETLIST, LIBRARY, TEMPLATE = ["NETLIST", "LIBRARY", "TEMPLATE"]
 
 
 class PinNumberSearch(object):
@@ -145,7 +151,7 @@ class Part(SkidlBaseObject):
         connections=None,
         part_defn=None,
         circuit=None,
-        ref_prefix='U',
+        ref_prefix="U",
         ref=None,
         tag=None,
         pin_splitters=None,
@@ -155,6 +161,7 @@ class Part(SkidlBaseObject):
 
         import skidl
         from .schlib import SchLib
+        from .tools import SKIDL
 
         super().__init__()
 
@@ -320,10 +327,8 @@ class Part(SkidlBaseObject):
             either their reference, name, alias, or their description.
         """
 
-        from .alias import Alias
-
         if not circuit:
-            circuit = builtins.default_circuit
+            circuit = default_circuit
 
         search_params = (
             ("ref", text, True),
@@ -341,7 +346,7 @@ class Part(SkidlBaseObject):
         return list_or_scalar(parts)
 
     def _find_min_max_pins(self):
-        """ Return the minimum and maximum pin numbers for the part. """
+        """Return the minimum and maximum pin numbers for the part."""
         pin_nums = []
         try:
             for p in self.pins:
@@ -421,7 +426,7 @@ class Part(SkidlBaseObject):
                 caps = 10 * cap             # Make an array with 10 copies of it.
         """
 
-        from .defines import NETLIST
+        from .part import NETLIST
         from .circuit import Circuit
         from .pin import Pin
 
@@ -515,7 +520,7 @@ class Part(SkidlBaseObject):
                 # Place the copied part in the explicitly-stated circuit,
                 # or the same circuit as the original,
                 # or else into the default circuit.
-                circuit = circuit or self.circuit or builtins.default_circuit
+                circuit = circuit or self.circuit or default_circuit
                 circuit += cpy
 
             # Add any XSPICE I/O as pins to the part.
@@ -545,7 +550,7 @@ class Part(SkidlBaseObject):
         return copies[0]
 
     def validate(self):
-        """ Check that pins and units reference the correct part that owns them. """
+        """Check that pins and units reference the correct part that owns them."""
         for pin in self.pins:
             assert pin.part == self
         for unit in self.unit.values():
@@ -562,7 +567,7 @@ class Part(SkidlBaseObject):
     __rmul__ = __mul__
 
     def copy_units(self, src):
-        """ Make copies of the units from the source part. """
+        """Make copies of the units from the source part."""
         self.unit = {}  # Remove references to any existing units.
         for label, unit in src.unit.items():
             # Get the pin numbers from the unit in the source part.
@@ -605,7 +610,12 @@ class Part(SkidlBaseObject):
             if i1 and i2:
                 break
         if i1 and i2:
-            pins[i1].num, pins[i1].name, pins[i2].num, pins[i2].name = pins[i2].num, pins[i2].name, pins[i1].num, pins[i1].name
+            pins[i1].num, pins[i1].name, pins[i2].num, pins[i2].name = (
+                pins[i2].num,
+                pins[i2].name,
+                pins[i1].num,
+                pins[i1].name,
+            )
 
     def rename_pin(self, pin_id, new_pin_name):
         """Assign a new name to a pin of a part."""
@@ -615,7 +625,7 @@ class Part(SkidlBaseObject):
                 return
 
     def renumber_pin(self, pin_id, new_pin_num):
-        "Assign a new number to a pin of a part."""
+        "Assign a new number to a pin of a part." ""
         for pin in self.pins:
             if pin_id in (pin.num, pin.name):
                 pin.num = new_pin_num
@@ -1284,17 +1294,19 @@ class SkidlPart(Part):
         a part and then add pins to it without it being added to the netlist.
     """
 
-    from .defines import SKIDL, TEMPLATE
 
     def __init__(
         self,
         lib=None,
         name=None,
         dest=TEMPLATE,
-        tool=SKIDL,
+        tool=None,
         connections=None,
         **attribs
     ):
+        from .tools import SKIDL
+        if not tool:
+            tool = SKIDL
         super().__init__(lib, name, dest, tool, connections, attribs)
 
 
@@ -1382,7 +1394,7 @@ class PartUnit(Part):
         self.pins = list(set(self.pins + new_pins))
 
     def validate(self):
-        """ Check that unit pins point to the parent part. """
+        """Check that unit pins point to the parent part."""
         for pin in self.pins:
             assert id(pin.part) == id(self.parent)
 
