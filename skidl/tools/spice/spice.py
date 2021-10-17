@@ -27,8 +27,8 @@ standard_library.install_aliases()
 try:
     from PySpice.Spice.Library import SpiceLibrary
     from PySpice.Spice.Netlist import (
-        Circuit as PySpiceCircuit,
-    )  # Avoid clash with Circuit class below.
+        Circuit as PySpiceCircuit,  # Avoid clash with Circuit class below.
+    )
 except ImportError:
     pass
 
@@ -75,9 +75,9 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
         lib_search_paths_ : List of directories to search for the file.
     """
 
-    from ...skidl import lib_suffixes
     from ...part import Part
     from ...pin import Pin
+    from ...skidl import lib_suffixes
     from .. import SPICE
 
     if os.path.isdir(filename):

@@ -5,7 +5,6 @@
 import math
 from copy import copy, deepcopy
 
-
 """
 Coordinates, mostly for working with converting symbols to SVG.
 """

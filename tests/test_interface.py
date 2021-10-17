@@ -6,7 +6,7 @@ import copy
 
 import pytest
 
-from skidl import TEMPLATE, Circuit, Bus, Interface, Net, Part, Pin, subcircuit
+from skidl import TEMPLATE, Bus, Circuit, Interface, Net, Part, Pin, subcircuit
 
 from .setup_teardown import setup_function, teardown_function
 
@@ -157,16 +157,15 @@ def test_interface_3():
 
 
 def test_interface_4():
-
     @subcircuit
     def rc_rc():
-    # def rc_rc(gnd, vin, vout):
+        # def rc_rc(gnd, vin, vout):
 
         gnd, vin, vout = Net(), Net(), Net()
 
         @subcircuit
         def rc():
-        # def rc(gnd, vin, vout):
+            # def rc(gnd, vin, vout):
             gnd, vin, vout = Net(), Net(), Net()
             r = Part("Device", "R")
             c = Part("Device", "C")

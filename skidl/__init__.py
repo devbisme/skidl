@@ -19,7 +19,6 @@ The script can also
 check the resulting circuitry for electrical rule violations.
 """
 from __future__ import absolute_import, division, print_function, unicode_literals
-
 from future import standard_library
 
 from . import tools

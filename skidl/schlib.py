@@ -220,6 +220,7 @@ class SchLib(object):
             return s
 
         import skidl
+
         from .tools import SKIDL
 
         if tool is None:

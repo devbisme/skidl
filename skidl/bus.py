@@ -15,7 +15,7 @@ from future import standard_library
 from .alias import Alias
 from .common import *
 from .logger import logger
-from .net import Net, NET_PREFIX
+from .net import NET_PREFIX, Net
 from .netpinlist import NetPinList
 from .pin import Pin
 from .skidlbaseobj import SkidlBaseObject

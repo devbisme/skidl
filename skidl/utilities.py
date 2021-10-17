@@ -18,9 +18,9 @@ from builtins import chr, dict, int, object, open, range, str, super, zip
 from collections import namedtuple
 from contextlib import contextmanager
 
-from .common import *
-
 from future import standard_library
+
+from .common import *
 
 standard_library.install_aliases()
 
@@ -79,7 +79,7 @@ def is_binary_file(filename):
 
 
 def merge_dicts(dct, merge_dct):
-    """ 
+    """
     Dict merge that recurses through both dicts and updates keys.
 
     Args:
@@ -559,7 +559,7 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
     """
     Expand a list of indices into a list of integers and strings.
 
-    This function takes the indices used to select pins of parts and 
+    This function takes the indices used to select pins of parts and
     lines of buses and returns a flat list of numbers and strings.
     String and integer indices are put in the list unchanged, but
     slices are expanded into a list of integers before entering the
@@ -568,7 +568,7 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
     Args:
         slice_min: The minimum possible index.
         slice_max: The maximum possible index (used for slice indices).
-        match_regex: If true, 
+        match_regex: If true,
         indices: A list of indices made up of numbers, slices, text strings.
 
     Returns:

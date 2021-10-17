@@ -38,7 +38,7 @@ standard_library.install_aliases()
 
 
 class Region(Point):
-    """ Stores an (x,y) coord and a list of the parts stored within it. """
+    """Stores an (x,y) coord and a list of the parts stored within it."""
 
     def __init__(self, x, y):
         super().__init__(x, y)
@@ -74,7 +74,7 @@ class Region(Point):
 
 
 class PartNet:
-    """ Stores the parts attached to a particular net. """
+    """Stores the parts attached to a particular net."""
 
     def __init__(self, net):
         # Find the set of parts having one or more pins attached to this net.
@@ -131,17 +131,17 @@ class Arranger:
         self.clear()
 
     def clear(self):
-        """ Clear the parts from the regions. """
+        """Clear the parts from the regions."""
         for x in range(self.w):
             for y in range(self.h):
                 self.regions[x][y].clear()
 
     def cost(self):
-        """ Compute the cost of the arrangement of parts to regions. """
+        """Compute the cost of the arrangement of parts to regions."""
         return sum([net.cost(self.regions) for net in self.nets])
 
     def apply(self):
-        """ Apply an assignment stored in regions to parts. """
+        """Apply an assignment stored in regions to parts."""
         for y in range(self.h):
             for x in range(self.w):
                 region = self.regions[x][y]
@@ -149,14 +149,14 @@ class Arranger:
                     part.region = region
 
     def prearranged(self):
-        """ Apply the (x,y) position of parts to update the regions. """
+        """Apply the (x,y) position of parts to update the regions."""
         self.clear()
         for part in self.parts:
             x, y = part.xy
             self.regions[x][y].add(part)
 
     def arrange_randomly(self):
-        """ Arrange the parts randomly across the regions. """
+        """Arrange the parts randomly across the regions."""
         self.clear()
         for part in self.parts:
             if hasattr(part, "fix"):
@@ -171,7 +171,7 @@ class Arranger:
             assert part in self.regions[x][y].parts
 
     def expand_grid(self, mul_hgt, mul_wid):
-        """ Expand the number of rows/columns in the grid of regions. """
+        """Expand the number of rows/columns in the grid of regions."""
         new_regions = [
             [Region(x, y) for y in range(self.h * mul_hgt)]
             for x in range(self.w * mul_wid)
@@ -187,7 +187,7 @@ class Arranger:
         self.w *= mul_wid
 
     def arrange_kl(self):
-        """ Optimally arrange the parts across regions using Kernighan-Lin. """
+        """Optimally arrange the parts across regions using Kernighan-Lin."""
 
         class Move:
             # Class for storing the move of a part to a region.

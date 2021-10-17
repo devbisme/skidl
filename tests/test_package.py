@@ -285,7 +285,7 @@ def test_package_7():
     vr2["vin, vout, gnd"] += vin, vout2, gnd
 
     default_circuit.instantiate_packages()
-    
+
     u1 = Part.get("U1")
     u2 = Part.get("U2")
     u1.F2 = "U1-F2"
@@ -324,7 +324,7 @@ def test_package_8():
     gnd += rr.netb
 
     default_circuit.instantiate_packages()
-    
+
     assert len(gnd) == 1
     assert len(vcc) == 1
 

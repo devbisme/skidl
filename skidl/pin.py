@@ -8,17 +8,17 @@ Handles part pins.
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+import re
 from builtins import range, super
 from collections import defaultdict
 from copy import copy
 from enum import IntEnum
-import re
 
 from future import standard_library
 
 from .alias import *
 from .logger import erc_logger, logger
-from .skidlbaseobj import SkidlBaseObject, WARNING, ERROR, OK
+from .skidlbaseobj import ERROR, OK, WARNING, SkidlBaseObject
 from .utilities import *
 
 standard_library.install_aliases()
@@ -350,7 +350,7 @@ class Pin(SkidlBaseObject):
     def is_connected(self):
         """Return true if a pin is connected to a net (but not a no-connect net)."""
 
-        from .net import Net, NCNet
+        from .net import NCNet, Net
 
         if not self.nets:
             # This pin is not connected to any nets.
@@ -412,7 +412,7 @@ class Pin(SkidlBaseObject):
         """Use chars in divider to split a pin name and add substrings to aliases."""
 
         # Split pin name and add subnames as aliases.
-        self.aliases += re.split('[' + re.escape(delimiters) + ']', self.name)
+        self.aliases += re.split("[" + re.escape(delimiters) + "]", self.name)
 
         # Remove any empty aliases.
         self.aliases.clean()

@@ -141,6 +141,7 @@ class Part(SkidlBaseObject):
     ):
 
         import skidl
+
         from .schlib import SchLib
         from .tools import SKIDL
 
@@ -407,8 +408,8 @@ class Part(SkidlBaseObject):
                 caps = 10 * cap             # Make an array with 10 copies of it.
         """
 
-        from .part import NETLIST
         from .circuit import Circuit
+        from .part import NETLIST
         from .pin import Pin
 
         # If the number of copies is None, then a single copy will be made
@@ -639,8 +640,8 @@ class Part(SkidlBaseObject):
                 net += atmega['RESET']  # Connects reset pin to the net.
         """
 
-        from .netpinlist import NetPinList
         from .alias import Alias
+        from .netpinlist import NetPinList
 
         # Extract restrictions on searching for only pin names or numbers.
         only_search_numbers = criteria.pop("only_search_numbers", False)
@@ -1275,17 +1276,11 @@ class SkidlPart(Part):
         a part and then add pins to it without it being added to the netlist.
     """
 
-
     def __init__(
-        self,
-        lib=None,
-        name=None,
-        dest=TEMPLATE,
-        tool=None,
-        connections=None,
-        **attribs
+        self, lib=None, name=None, dest=TEMPLATE, tool=None, connections=None, **attribs
     ):
         from .tools import SKIDL
+
         if not tool:
             tool = SKIDL
         super().__init__(lib, name, dest, tool, connections, attribs)

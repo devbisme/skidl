@@ -79,8 +79,10 @@ def netlist_to_skidl(netlist_src):
         # Set the fields of the instantiated component if they differ from the values in the template.
         for fld in comp.fields:
             if fld.value != template_comp_fields.get(fld.name, ""):
-                inst += "{ltab}setattr({legal_ref}, '{fld.name}', '{fld.value}')\n".format(
-                    **locals()
+                inst += (
+                    "{ltab}setattr({legal_ref}, '{fld.name}', '{fld.value}')\n".format(
+                        **locals()
+                    )
                 )
 
         return inst

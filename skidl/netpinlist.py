@@ -18,6 +18,7 @@ from .net import Net
 from .network import Network
 from .pin import Pin
 from .protonet import ProtoNet
+
 # from .skidlbaseobj import SkidlBaseObject
 from .utilities import *
 
@@ -25,7 +26,6 @@ standard_library.install_aliases()
 
 
 class NetPinList(list):
-
     def __iadd__(self, *nets_pins_buses):
         nets_pins_a = expand_buses(self)
         len_a = len(nets_pins_a)
@@ -131,11 +131,8 @@ class NetPinList(list):
         log_and_raise(
             logger,
             ValueError,
-            "This NetPinList contains nets/pins in {} circuits.".format(
-                len(cct)
-            ),
+            "This NetPinList contains nets/pins in {} circuits.".format(len(cct)),
         )
-
 
     @property
     def width(self):

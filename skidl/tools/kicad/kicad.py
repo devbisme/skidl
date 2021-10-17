@@ -18,9 +18,9 @@ from future import standard_library
 
 from ...coord import *
 from ...logger import logger
-from ...part import TEMPLATE, LIBRARY
+from ...part import LIBRARY, TEMPLATE
 from ...pckg_info import __version__
-from ...scriptinfo import scriptinfo, get_script_name
+from ...scriptinfo import get_script_name, scriptinfo
 from ...utilities import *
 
 standard_library.install_aliases()
@@ -77,8 +77,8 @@ def _load_sch_lib_kicad(self, f, filename, lib_search_paths_):
         filename: The name of the KiCad schematic library file.
     """
 
-    from .. import KICAD
     from ...part import Part
+    from .. import KICAD
 
     # Check the file header to make sure it's a KiCad library.
     header = []
@@ -1620,7 +1620,7 @@ def gen_svg_comp(self, symtx, net_stubs=None):
                     's:width="{bbox.w}"',
                     's:height="{bbox.h}"',
                     'transform="translate({translate.x},{translate.y})"',
-                   ">",
+                    ">",
                 ]
             ).format(**locals())
         )

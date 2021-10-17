@@ -29,6 +29,7 @@ except NameError:
     # Do nothing with char encoding in Python 3.
     pass
 
+
 class SkidlCfg(dict):
     """Class for holding SKiDL configuration."""
 

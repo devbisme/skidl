@@ -5,6 +5,7 @@
 """
 Logging for generic messages and ERC.
 """
+
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 import logging
@@ -50,12 +51,14 @@ class SkidlLogFileHandler(logging.FileHandler):
         try:
             super().__init__(*args, **kwargs)
         except PermissionError as e:
-            self.filename = None  # Prevents future error when removing non-existent log file.
+            self.filename = (
+                None  # Prevents future error when removing non-existent log file.
+            )
             print(e)
 
     def remove_log_file(self):
         if self.filename:
-            f_name = self.filename     # Close file handle before removing file.
+            f_name = self.filename  # Close file handle before removing file.
             self.close()
             os.remove(f_name)
         self.filename = None

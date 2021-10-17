@@ -8,7 +8,7 @@ Package a subcircuit so it can be used like a Part.
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-from builtins import zip, super
+from builtins import super, zip
 from copy import copy
 
 from future import standard_library
@@ -60,7 +60,7 @@ class Package(Interface):
             pckg[k] = v  # Use __setitem__ so both dict item and attribute are created.
 
         pckg.subcircuit = self.subcircuit  # Assign subcircuit creation function.
-        
+
         # Remove creation function so it's not passed as a parameter.
         del pckg["subcircuit"]
 

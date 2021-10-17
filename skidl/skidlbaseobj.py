@@ -10,7 +10,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 import inspect
 import re
-from builtins import object, str, super, range
+from builtins import object, range, str, super
 from collections import namedtuple
 from copy import deepcopy
 
@@ -22,6 +22,7 @@ from .note import Note
 standard_library.install_aliases()
 
 OK, WARNING, ERROR = list(range(3))
+
 
 class SkidlBaseObject(object):
 
@@ -161,7 +162,7 @@ class SkidlBaseObject(object):
 
         Args:
             args, kwargs: Arbitary argument lists to pass to the functions
-                that are executed. (All functions get the same arguments.) 
+                that are executed. (All functions get the same arguments.)
         """
 
         # Execute any instance functions for this particular instance.

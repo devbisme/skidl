@@ -391,7 +391,7 @@ class Net(SkidlBaseObject):
                 net += atmega[1]  # Connects pin 1 of chip to the net.
         """
 
-        from .pin import Pin, PhantomPin
+        from .pin import PhantomPin, Pin
         from .protonet import ProtoNet
 
         def merge(net):

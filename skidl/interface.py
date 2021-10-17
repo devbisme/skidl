@@ -16,8 +16,8 @@ from .alias import Alias
 from .bus import Bus
 from .net import Net
 from .netpinlist import NetPinList
-from .protonet import ProtoNet
 from .pin import Pin
+from .protonet import ProtoNet
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import *
 

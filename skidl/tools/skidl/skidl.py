@@ -31,10 +31,10 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
         filename: The name of the SKiDL schematic library file.
     """
 
-    from ...skidl import lib_suffixes, logger
     from ...schlib import SchLib
-    from .. import SKIDL
+    from ...skidl import lib_suffixes, logger
     from ...utilities import find_and_open_file
+    from .. import SKIDL
 
     try:
         f, path = find_and_open_file(filename, lib_search_paths_, lib_suffixes[SKIDL])
@@ -48,7 +48,7 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
         # The SKiDL library is stored as a Python module that's executed to
         # recreate the library object.
         vars_ = {
-            '__file__': path,
+            "__file__": path,
         }
         exec(f.read(), vars_)  # Execute and store library in dict.
 
