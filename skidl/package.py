@@ -6,7 +6,12 @@
 Package a subcircuit so it can be used like a Part.
 """
 
-from __future__ import absolute_import, division, print_function, unicode_literals  # isort:skip
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)  # isort:skip
 
 from builtins import super, zip
 from copy import copy

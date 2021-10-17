@@ -6,7 +6,12 @@
 Convert a netlist into an equivalent SKiDL program.
 """
 
-from __future__ import absolute_import, division, print_function, unicode_literals  # isort:skip
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)  # isort:skip
 
 import re
 from builtins import int

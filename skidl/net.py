@@ -6,7 +6,12 @@
 Handles nets.
 """
 
-from __future__ import absolute_import, division, print_function, unicode_literals  # isort:skip
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)  # isort:skip
 
 import collections
 from builtins import range, super

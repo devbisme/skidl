@@ -6,7 +6,12 @@
 Handles complete circuits made of parts and nets.
 """
 
-from __future__ import absolute_import, division, print_function, unicode_literals  # isort:skip
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)  # isort:skip
 
 import functools
 import json

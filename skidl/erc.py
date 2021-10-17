@@ -6,7 +6,12 @@
 ERC functions for Circuit, Part, Pin, Net, Bus, Interface objects.
 """
 
-from __future__ import absolute_import, division, print_function, unicode_literals  # isort:skip
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)  # isort:skip
 
 from builtins import range
 

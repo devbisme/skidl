@@ -6,7 +6,12 @@
 Handler for reading Kicad libraries and generating netlists.
 """
 
-from __future__ import absolute_import, division, print_function, unicode_literals  # isort:skip
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)  # isort:skip
 
 import os.path
 import re

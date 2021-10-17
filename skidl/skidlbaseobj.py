@@ -6,7 +6,12 @@
 Base object for Circuit, Interface, Package, Part, Net, Bus, Pin objects.
 """
 
-from __future__ import absolute_import, division, print_function, unicode_literals  # isort:skip
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)  # isort:skip
 
 import inspect
 import re
