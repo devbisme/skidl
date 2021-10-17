@@ -6,7 +6,7 @@
 Arrange part units for best schematic wiring.
 """
 
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import absolute_import, division, print_function, unicode_literals  # isort:skip
 
 import math
 import re

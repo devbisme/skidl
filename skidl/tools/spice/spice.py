@@ -6,7 +6,7 @@
 Handler for reading SPICE libraries.
 """
 
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import absolute_import, division, print_function, unicode_literals  # isort:skip
 
 import os.path
 from builtins import dict, int, object, range, str, zip

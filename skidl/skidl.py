@@ -2,7 +2,7 @@
 
 # The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
 
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import absolute_import, division, print_function, unicode_literals  # isort:skip
 
 import json
 import os

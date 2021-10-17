@@ -6,7 +6,7 @@
 Utility functions used by the rest of SKiDL.
 """
 
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import absolute_import, division, print_function, unicode_literals  # isort:skip
 
 import collections
 import os

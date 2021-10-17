@@ -6,7 +6,7 @@
 Supports user-specified notes that can be attached to other SKiDL objects.
 """
 
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import absolute_import, division, print_function, unicode_literals  # isort:skip
 
 from builtins import str, super
 

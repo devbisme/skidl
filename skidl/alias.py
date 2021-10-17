@@ -6,7 +6,7 @@
 Handles aliases for Circuit, Part, Pin, Net, Bus, Interface objects.
 """
 
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import absolute_import, division, print_function, unicode_literals  # isort:skip
 
 import re
 from builtins import str, super

@@ -5,7 +5,7 @@
 """
 Import this file to reconfigure SKiDL for doing SPICE simulations.
 """
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import absolute_import, division, print_function, unicode_literals  # isort:skip
 
 from future import standard_library
 

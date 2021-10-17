@@ -6,7 +6,7 @@
 Logging for generic messages and ERC.
 """
 
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import absolute_import, division, print_function, unicode_literals  # isort:skip
 
 import logging
 import os
