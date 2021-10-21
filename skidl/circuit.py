@@ -441,10 +441,9 @@ class Circuit(SkidlBaseObject):
     def ERC(self, *args, **kwargs):
         """Run class-wide and local ERC functions on this circuit."""
 
-        # Activate the ERC logger.
-        prev_logger = active_logger.current_logger
-        active_logger.set(erc_logger)
-
+        # Save the currently active logger and activate the ERC logger.
+        active_logger.push(erc_logger)
+            
         # Reset the counters to clear any warnings/errors from previous ERC run.
         active_logger.error.reset()
         active_logger.warning.reset()
@@ -467,7 +466,7 @@ class Circuit(SkidlBaseObject):
             )
 
         # Restore the logger that was active before the ERC.
-        active_logger.set(prev_logger)
+        active_logger.pop()
 
     def generate_netlist(self, **kwargs):
         """

@@ -15,6 +15,7 @@ from __future__ import (
 
 import logging
 import os
+import queue
 import sys
 from builtins import object, super
 
@@ -118,6 +119,7 @@ class ActiveLogger(SkidlLogger):
         Args:
             logger (SkidlLogger): Logger that will be used for current phase of operations.
         """
+        self.prev_loggers = queue.LifoQueue()
         self.set(logger)
 
     def set(self, logger):
@@ -127,7 +129,20 @@ class ActiveLogger(SkidlLogger):
             logger (SkidlLogger): Logger that will be used for current phase of operations.
         """
         self.current_logger = logger
-        self.__dict__.update(logger.__dict__)
+        self.__dict__.update(self.current_logger.__dict__)
+
+    def push(self, logger):
+        """Save the currently active logger and activate the given logger.
+
+        Args:
+            logger (SkidlLogger): Logger to be activated.
+        """
+        self.prev_loggers.put(self.current_logger)
+        self.set(logger)
+
+    def pop(self):
+        """Re-activate the previously active logger.        """
+        self.set(self.prev_loggers.get())
 
 
 def _create_logger(title, log_msg_id="", log_file_suffix=".log"):
