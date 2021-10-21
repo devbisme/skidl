@@ -22,7 +22,7 @@ from enum import IntEnum
 from future import standard_library
 
 from .alias import *
-from .logger import erc_logger, active_logger
+from .logger import active_logger
 from .skidlbaseobj import ERROR, OK, WARNING, SkidlBaseObject
 from .utilities import *
 
@@ -551,9 +551,9 @@ class Pin(SkidlBaseObject):
         p2 = other_pin.erc_desc()
         msg = "Pin conflict on net {n}, {p1} <==> {p2} ({erc_msg})".format(**locals())
         if erc_result == WARNING:
-            erc_logger.warning(msg)
+            active_logger.warning(msg)
         else:
-            erc_logger.error(msg)
+            active_logger.error(msg)
 
     def erc_desc(self):
         """Return a string describing this pin for ERC."""

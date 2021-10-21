@@ -29,7 +29,7 @@ from .bus import Bus
 from .common import builtins
 from .erc import dflt_circuit_erc
 from .interface import Interface
-from .logger import erc_logger, active_logger
+from .logger import active_logger, erc_logger
 from .net import NCNet, Net
 from .part import Part, PartUnit
 from .pckg_info import __version__
@@ -441,26 +441,33 @@ class Circuit(SkidlBaseObject):
     def ERC(self, *args, **kwargs):
         """Run class-wide and local ERC functions on this circuit."""
 
+        # Activate the ERC logger.
+        prev_logger = active_logger.current_logger
+        active_logger.set(erc_logger)
+
         # Reset the counters to clear any warnings/errors from previous ERC run.
-        erc_logger.error.reset()
-        erc_logger.warning.reset()
+        active_logger.error.reset()
+        active_logger.warning.reset()
 
         self._preprocess()
 
         if self.no_files:
-            erc_logger.stop_file_output()
+            active_logger.stop_file_output()
 
         super().ERC(*args, **kwargs)
 
-        if (erc_logger.error.count, erc_logger.warning.count) == (0, 0):
+        if (active_logger.error.count, active_logger.warning.count) == (0, 0):
             sys.stderr.write("\nNo ERC errors or warnings found.\n\n")
         else:
             sys.stderr.write(
-                "\n{} warnings found during ERC.\n".format(erc_logger.warning.count)
+                "\n{} warnings found during ERC.\n".format(active_logger.warning.count)
             )
             sys.stderr.write(
-                "{} errors found during ERC.\n\n".format(erc_logger.error.count)
+                "{} errors found during ERC.\n\n".format(active_logger.error.count)
             )
+
+        # Restore the logger that was active before the ERC.
+        active_logger.set(prev_logger)
 
     def generate_netlist(self, **kwargs):
         """

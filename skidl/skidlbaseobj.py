@@ -14,7 +14,6 @@ from __future__ import (
 )  # isort:skip
 
 import inspect
-import re
 from builtins import object, range, str, super
 from collections import namedtuple
 from copy import deepcopy
@@ -146,16 +145,16 @@ class SkidlBaseObject(object):
         Evaluate assertions for this object.
         """
 
-        from .logger import erc_logger
+        from .logger import active_logger
 
         def erc_report(evtpl):
             log_msg = "{evtpl.stmnt} {evtpl.fail_msg} in {evtpl.filename}:{evtpl.lineno}:{evtpl.function}.".format(
                 evtpl=evtpl
             )
             if evtpl.severity == ERROR:
-                erc_logger.error(log_msg)
+                active_logger.error(log_msg)
             elif evtpl.severity == WARNING:
-                erc_logger.warning(log_msg)
+                active_logger.warning(log_msg)
 
         for evtpl in self.erc_assertion_list:
             if eval(evtpl.stmnt, evtpl.globals, evtpl.locals) == False:

@@ -109,6 +109,27 @@ class SkidlLogger(logging.getLoggerClass()):
         raise exc_class(msg)
 
 
+class ActiveLogger(SkidlLogger):
+    """Currently-active logger for a given phase of operations."""
+
+    def __init__(self, logger):
+        """Create active logger.
+
+        Args:
+            logger (SkidlLogger): Logger that will be used for current phase of operations.
+        """
+        self.set(logger)
+
+    def set(self, logger):
+        """Set the active logger.
+
+        Args:
+            logger (SkidlLogger): Logger that will be used for current phase of operations.
+        """
+        self.current_logger = logger
+        self.__dict__.update(logger.__dict__)
+
+
 def _create_logger(title, log_msg_id="", log_file_suffix=".log"):
     """
     Create a logger, usually for run-time errors or ERC violations.
@@ -139,11 +160,19 @@ def _create_logger(title, log_msg_id="", log_file_suffix=".log"):
     return logger
 
 
-###############################################################################
-# Set up global loggers for runtime messages and ERC reports.
+def stop_log_file_output():
+    """Stop loggers from creating files containing log messages."""
+    rt_logger.stop_file_output()
+    erc_logger.stop_file_output()
 
+
+###############################################################################
+
+# Create loggers for runtime messages and ERC reports.
 rt_logger = _create_logger("skidl")
 erc_logger = _create_logger("ERC_Logger", "ERC ", ".erc")
-active_logger = rt_logger
+
+# Create active logger that starts off as the runtime logger.
+active_logger = ActiveLogger(rt_logger)
 
 ###############################################################################
