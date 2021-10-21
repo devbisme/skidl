@@ -22,7 +22,7 @@ from collections import namedtuple
 from future import standard_library
 
 from ...coord import *
-from ...logger import logger
+from ...logger import active_logger
 from ...part import LIBRARY, TEMPLATE
 from ...pckg_info import __version__
 from ...scriptinfo import get_script_name, scriptinfo
@@ -650,7 +650,7 @@ def _parse_lib_part_kicad(self, get_name_only):
                             pin.electrical_type != rpt_pin.electrical_type
                             or pin.unit != rpt_pin.unit
                         ):
-                            logger.warning(
+                            active_logger.warning(
                                 "Non-identical pins with the same number ({}) in symbol drawing {}".format(
                                     pin.num, self.name
                                 )
@@ -661,14 +661,14 @@ def _parse_lib_part_kicad(self, get_name_only):
                     msg = "Found something strange in {} symbol drawing: {}.".format(
                         self.name, line
                     )
-                    logger.warning(msg)
+                    active_logger.warning(msg)
 
             # Found something unknown outside the footprint list or drawing section.
             else:
                 msg = "Found something strange in {} symbol definition: {}.".format(
                     self.name, line
                 )
-                logger.warning(msg)
+                active_logger.warning(msg)
 
     # Define some shortcuts to part information.
     self.num_units = int(self.definition["unit_count"])  # # of units within the part.
@@ -936,7 +936,7 @@ def gen_netlist_comp(self):
     try:
         footprint = self.footprint
     except AttributeError:
-        logger.error("No footprint for {part}/{ref}.".format(part=self.name, ref=ref))
+        active_logger.error("No footprint for {part}/{ref}.".format(part=self.name, ref=ref))
         footprint = "No Footprint"
     footprint = add_quotes(footprint)
 
@@ -994,7 +994,7 @@ def gen_pcb(self, file_):
     try:
         import kinet2pcb  # For creating KiCad PCB directly from Circuit object.
     except ImportError:
-        logger.warning(
+        active_logger.warning(
             "kinet2pcb module is missing. Can't generate a KiCad PCB without it."
         )
     else:
@@ -1039,7 +1039,7 @@ def gen_xml_comp(self):
     try:
         footprint = self.footprint
     except AttributeError:
-        logger.error("No footprint for {part}/{ref}.".format(part=self.name, ref=ref))
+        active_logger.error("No footprint for {part}/{ref}.".format(part=self.name, ref=ref))
         footprint = "No Footprint"
 
     lib_filename = getattr(getattr(self, "lib", ""), "filename", "NO_LIB")
@@ -1570,7 +1570,7 @@ def gen_svg_comp(self, symtx, net_stubs=None):
                             break  # Only one label is needed per stub.
 
         else:
-            logger.error(
+            active_logger.error(
                 "Unknown graphical object {} in part symbol {}.".format(
                     type(obj), self.name
                 )

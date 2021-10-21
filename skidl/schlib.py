@@ -17,7 +17,7 @@ from builtins import object, str
 
 from future import standard_library
 
-from .logger import logger
+from .logger import active_logger
 from .utilities import *
 
 standard_library.install_aliases()
@@ -76,7 +76,7 @@ class SchLib(object):
                 load_func = getattr(self, "_load_sch_lib_{}".format(tool))
             except AttributeError:
                 # OK, that didn't work so well...
-                logger.raise_(
+                active_logger.raise_(
                     ValueError,
                     "Unsupported ECAD tool library: {}.".format(tool),
                 )
@@ -164,7 +164,7 @@ class SchLib(object):
                     name, getattr(self, "filename", "UNKNOWN")
                 )
                 if not silent:
-                    logger.error(message)
+                    active_logger.error(message)
                 raise ValueError(message)
 
         # Multiple parts with that name or alias exists, so return the list
@@ -179,7 +179,7 @@ class SchLib(object):
             # allowed and issue a warning.
             else:
                 if not silent:
-                    logger.warning(
+                    active_logger.warning(
                         "Found multiple parts matching {}. Selecting {}.".format(
                             name, parts[0].name
                         )

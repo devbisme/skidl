@@ -23,7 +23,7 @@ from future import standard_library
 
 from .common import *
 from .erc import dflt_part_erc
-from .logger import logger
+from .logger import active_logger
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import *
 
@@ -179,7 +179,7 @@ class Part(SkidlBaseObject):
                     lib = SchLib(filename=libname, tool=tool)
                 except FileNotFoundError as e:
                     if skidl.QUERY_BACKUP_LIB:
-                        logger.warning(
+                        active_logger.warning(
                             'Could not load KiCad schematic library "{}", falling back to backup library.'.format(
                                 libname
                             )
@@ -221,7 +221,7 @@ class Part(SkidlBaseObject):
             pass
 
         else:
-            logger.raise_(
+            active_logger.raise_(
                 ValueError,
                 "Can't make a part without a library & part name or a part definition.",
             )
@@ -362,7 +362,7 @@ class Part(SkidlBaseObject):
         try:
             parse_func = getattr(self, "_parse_lib_part_{}".format(self.tool))
         except AttributeError:
-            logger.raise_(
+            active_logger.raise_(
                 ValueError,
                 "Can't create a part with an unknown ECAD tool file format: {}.".format(
                     self.tool
@@ -426,14 +426,14 @@ class Part(SkidlBaseObject):
 
         # Check that a valid number of copies is requested.
         if not isinstance(num_copies, int):
-            logger.raise_(
+            active_logger.raise_(
                 ValueError,
                 "Can't make a non-integer number ({}) of copies of a part!".format(
                     num_copies
                 ),
             )
         if num_copies < 0:
-            logger.raise_(
+            active_logger.raise_(
                 ValueError,
                 "Can't make a negative number ({}) of copies of a part!".format(
                     num_copies
@@ -515,7 +515,7 @@ class Part(SkidlBaseObject):
                     try:
                         v = v[i]
                     except IndexError:
-                        logger.raise_(
+                        active_logger.raise_(
                             ValueError,
                             "{} copies of part {} were requested, but too few elements in attribute {}!".format(
                                 num_copies, self.name, k
@@ -749,7 +749,7 @@ class Part(SkidlBaseObject):
 
         # No iadd_flag or it wasn't set. This means a direct assignment
         # was made to the pin, which is not allowed.
-        logger.raise_(TypeError, "Can't assign to a part! Use the += operator.")
+        active_logger.raise_(TypeError, "Can't assign to a part! Use the += operator.")
 
     def __iter__(self):
         """
@@ -837,7 +837,7 @@ class Part(SkidlBaseObject):
             add_unique_attr(self, alias, pin)
         else:
             # Error: either 0 or multiple pins were found.
-            logger.raise_(ValueError, "Cannot set alias for {}".format(pin_ids))
+            active_logger.raise_(ValueError, "Cannot set alias for {}".format(pin_ids))
 
     def pin_aliases_to_attributes(self):
         """Make each pin alias into an attribute of the part."""
@@ -880,7 +880,7 @@ class Part(SkidlBaseObject):
         # Warn if the unit label collides with any of the part's pin names.
         collisions = self.get_pins("^" + label + "$")  # Look for exact match.
         if collisions:
-            logger.warning(
+            active_logger.warning(
                 "Using a label ({}) for a unit of {} that matches one or more of it's pin names ({})!".format(
                     label, self.erc_desc(), collisions
                 )
@@ -997,7 +997,7 @@ class Part(SkidlBaseObject):
         try:
             gen_func = getattr(self, "_gen_netlist_comp_{}".format(tool))
         except AttributeError:
-            logger.raise_(
+            active_logger.raise_(
                 ValueError,
                 "Can't generate netlist in an unknown ECAD tool format ({}).".format(
                     tool
@@ -1025,7 +1025,7 @@ class Part(SkidlBaseObject):
         try:
             gen_func = getattr(self, "_gen_xml_comp_{}".format(tool))
         except AttributeError:
-            logger.raise_(
+            active_logger.raise_(
                 ValueError,
                 "Can't generate XML in an unknown ECAD tool format ({}).".format(tool),
             )
@@ -1045,7 +1045,7 @@ class Part(SkidlBaseObject):
         try:
             gen_func = getattr(self, "_gen_svg_comp_{}".format(tool))
         except AttributeError:
-            logger.raise_(
+            active_logger.raise_(
                 ValueError,
                 "Can't generate SVG for a component in an unknown ECAD tool format({}).".format(
                     tool
@@ -1067,7 +1067,7 @@ class Part(SkidlBaseObject):
         try:
             gen_func = getattr(self, "_gen_pinboxes_{}".format(tool))
         except AttributeError:
-            logger.raise_(
+            active_logger.raise_(
                 ValueError,
                 "Can't generate pinboxes for a component in an unknown ECAD tool format({}).".format(
                     tool
@@ -1138,7 +1138,7 @@ class Part(SkidlBaseObject):
         # Update the part's tag.
         str_tag = str(value)
         if re.compile(r"[^a-zA-Z0-9\-_]").search(str_tag):
-            logger.raise_(
+            active_logger.raise_(
                 ValueError,
                 "Can't set part tag to {} it contains disallowed characters.".format(
                     str_tag

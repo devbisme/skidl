@@ -17,7 +17,7 @@ from builtins import str
 
 from future import standard_library
 
-from ...logger import logger
+from ...logger import active_logger
 
 standard_library.install_aliases()
 
@@ -37,7 +37,7 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
     """
 
     from ...schlib import SchLib
-    from ...skidl import lib_suffixes, logger
+    from ...skidl import lib_suffixes, active_logger
     from ...utilities import find_and_open_file
     from .. import SKIDL
 
@@ -68,8 +68,8 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
         raise ValueError("No SchLib object found in {}".format(filename))
 
     except Exception as e:
-        logger.error("Problem with {}".format(f))
-        logger.error(e)
+        active_logger.error("Problem with {}".format(f))
+        active_logger.error(e)
         raise
 
 

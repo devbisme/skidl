@@ -20,7 +20,7 @@ from copy import copy, deepcopy
 from future import standard_library
 
 from .erc import dflt_net_erc
-from .logger import logger
+from .logger import active_logger
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import *
 
@@ -176,7 +176,7 @@ class Net(SkidlBaseObject):
                 if self.is_attached(net):
                     return True
             return False
-        logger.raise_(
+        active_logger.raise_(
             TypeError, "Nets can't be attached to {}!".format(type(pin_net_bus))
         )
 
@@ -232,13 +232,13 @@ class Net(SkidlBaseObject):
 
         # Check that a valid number of copies is requested.
         if not isinstance(num_copies, int):
-            logger.raise_(
+            active_logger.raise_(
                 ValueError,
                 "Can't make a non-integer number "
                 "({}) of copies of a net!".format(num_copies),
             )
         if num_copies < 0:
-            logger.raise_(
+            active_logger.raise_(
                 ValueError,
                 "Can't make a negative number "
                 "({}) of copies of a net!".format(num_copies),
@@ -253,7 +253,7 @@ class Net(SkidlBaseObject):
         # to search for all the other copies to add the pin to those.
         # And what's the value of that?
         if self.pins:
-            logger.raise_(
+            active_logger.raise_(
                 ValueError,
                 "Can't make copies of a net that already has " "pins attached to it!",
             )
@@ -275,7 +275,7 @@ class Net(SkidlBaseObject):
                     try:
                         v = v[i]
                     except IndexError:
-                        logger.raise_(
+                        active_logger.raise_(
                             ValueError,
                             (
                                 "{} copies of net {} were requested, but too "
@@ -319,11 +319,11 @@ class Net(SkidlBaseObject):
         if indices is None or len(indices) == 0:
             return None
         if len(indices) > 1:
-            logger.raise_(
+            active_logger.raise_(
                 ValueError, "Can't index a net with multiple indices."
             )
         if indices[0] != 0:
-            logger.raise_(ValueError, "Can't use a non-zero index for a net.")
+            active_logger.raise_(ValueError, "Can't use a non-zero index for a net.")
         return self
 
     def __setitem__(self, ids, *pins_nets_buses):
@@ -355,7 +355,7 @@ class Net(SkidlBaseObject):
 
         # No iadd_flag or it wasn't set. This means a direct assignment
         # was made to the pin, which is not allowed.
-        logger.raise_(TypeError, "Can't assign to a Net! Use the += operator.")
+        active_logger.raise_(TypeError, "Can't assign to a Net! Use the += operator.")
 
     def __iter__(self):
         """
@@ -404,13 +404,13 @@ class Net(SkidlBaseObject):
             """
 
             if isinstance(self, NCNet):
-                logger.raise_(
+                active_logger.raise_(
                     ValueError,
                     "Can't merge with a no-connect net {}!".format(self.name),
                 )
 
             if isinstance(net, NCNet):
-                logger.raise_(
+                active_logger.raise_(
                     ValueError,
                     "Can't merge with a no-connect net {}!".format(net.name),
                 )
@@ -468,7 +468,7 @@ class Net(SkidlBaseObject):
                 if pn.circuit == self.circuit:
                     merge(pn)
                 else:
-                    logger.raise_(
+                    active_logger.raise_(
                         ValueError,
                         "Can't attach nets in different circuits ({}, {})!".format(
                             pn.circuit.name, self.circuit.name
@@ -477,27 +477,27 @@ class Net(SkidlBaseObject):
             elif isinstance(pn, Pin):
                 if not pn.part or pn.part.circuit == self.circuit:
                     if not pn.part:
-                        logger.warning(
+                        active_logger.warning(
                             "Attaching non-part Pin {} to a Net {}.".format(
                                 pn.name, self.name
                             )
                         )
                     connect_pin(pn)
                 elif not pn.part.circuit:
-                    logger.warning(
+                    active_logger.warning(
                         "Attaching part template Pin {} to a Net {}.".format(
                             pn.name, self.name
                         )
                     )
                 else:
-                    logger.raise_(
+                    active_logger.raise_(
                         ValueError,
                         "Can't attach a part to a net in different circuits ({}, {})!".format(
                             pn.part.circuit.name, self.circuit.name
                         ),
                     )
             else:
-                logger.raise_(
+                active_logger.raise_(
                     TypeError,
                     "Cannot attach non-Pin/non-Net {} to Net {}.".format(
                         type(pn), self.name
@@ -563,7 +563,7 @@ class Net(SkidlBaseObject):
                 if fixed1 and not fixed0:
                     return nets[1]
                 if fixed0 and fixed1:
-                    logger.raise_(
+                    active_logger.raise_(
                         ValueError,
                         "Cannot merge two nets with fixed names: {} and {}.".format(
                             name0, name1
@@ -575,7 +575,7 @@ class Net(SkidlBaseObject):
                 if nets[0].is_implicit():
                     return nets[1]
                 if name0 != name1:
-                    logger.warning(
+                    active_logger.warning(
                         "Merging two named nets ({name0} and {name1}) into {name0}.".format(
                             **locals()
                         )
@@ -653,7 +653,7 @@ class Net(SkidlBaseObject):
             gen_func = getattr(self, "_gen_netlist_net_{}".format(tool))
             return gen_func()
         except AttributeError:
-            logger.raise_(
+            active_logger.raise_(
                 ValueError,
                 "Can't generate netlist in an unknown ECAD tool format ({}).".format(
                     tool
@@ -683,7 +683,7 @@ class Net(SkidlBaseObject):
             gen_func = getattr(self, "_gen_xml_net_{}".format(tool))
             return gen_func()
         except AttributeError:
-            logger.raise_(
+            active_logger.raise_(
                 ValueError,
                 "Can't generate XML in an unknown ECAD tool format ({}).".format(tool),
             )
@@ -777,14 +777,14 @@ class Net(SkidlBaseObject):
             pass
         elif len(netclasses) == 1:
             if netclass not in netclasses:
-                logger.raise_(
+                active_logger.raise_(
                     ValueError,
                     "Can't assign net class {netclass.name} to net {self.name} that's already assigned net class {netclasses}".format(
                         **locals()
                     ),
                 )
         else:
-            logger.raise_(
+            active_logger.raise_(
                 ValueError,
                 "Too many netclasses assigned to net {self.name}".format(**locals()),
             )
@@ -844,7 +844,7 @@ class Net(SkidlBaseObject):
     def test_validity(self):
         if self.valid:
             return
-        logger.raise_(
+        active_logger.raise_(
             ValueError,
             "Net {} is no longer valid. Do not use it!".format(self.name),
         )

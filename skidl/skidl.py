@@ -18,7 +18,7 @@ from future import standard_library
 
 from .circuit import Circuit
 from .common import builtins
-from .logger import erc_logger, get_script_name, logger
+from .logger import erc_logger, get_script_name, active_logger
 from .part_query import footprint_cache
 from .pin import Pin
 from .tools import ALL_TOOLS, KICAD, SKIDL, SPICE, lib_suffixes
@@ -97,7 +97,7 @@ if "lib_search_paths" not in skidl_cfg:
     try:
         skidl_cfg["lib_search_paths"][KICAD].append(os.environ["KICAD_SYMBOL_DIR"])
     except KeyError:
-        logger.warning(
+        active_logger.warning(
             "KICAD_SYMBOL_DIR environment variable is missing, so the default KiCad symbol libraries won't be searched."
         )
 
@@ -217,4 +217,4 @@ def no_files(circuit=default_circuit):
     """Prevent creation of output files (netlists, ERC, logs) by this Circuit object."""
     circuit.no_files = True
     erc_logger.stop_file_output()
-    logger.stop_file_output()
+    active_logger.stop_file_output()

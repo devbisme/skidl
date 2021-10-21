@@ -91,7 +91,7 @@ class SkidlLogger(logging.getLoggerClass()):
         super().removeHandler(handler)
 
     def stop_file_output(self):
-        # Stop file outputs for all log file handlers of this logger.
+        """Stop file outputs for all log handlers of this logger."""
         for handler in self.log_file_handlers[:]:
             self.removeHandler(handler)
 
@@ -99,7 +99,7 @@ class SkidlLogger(logging.getLoggerClass()):
         """Issue a logging message and then raise an exception.
 
         Args:
-            exc_class (Exception class): Class of exception to raise. 
+            exc_class (Exception class): Class of exception to raise.
             msg (string): Error message.
 
         Raises:
@@ -142,7 +142,8 @@ def _create_logger(title, log_msg_id="", log_file_suffix=".log"):
 ###############################################################################
 # Set up global loggers for runtime messages and ERC reports.
 
-logger = _create_logger("skidl")
+rt_logger = _create_logger("skidl")
 erc_logger = _create_logger("ERC_Logger", "ERC ", ".erc")
+active_logger = rt_logger
 
 ###############################################################################

@@ -123,7 +123,7 @@ def find_and_open_file(
                  subdirectories withcurrent_level limit.
     """
 
-    from .logger import logger
+    from .logger import active_logger
 
     if os.path.isabs(filename):
         # Ignore search paths if the file already has an absolute path.
@@ -171,19 +171,19 @@ def find_and_open_file(
     if allow_failure:
         return None, None
     else:
-        logger.raise_(
+        active_logger.raise_(
             FileNotFoundError, "Can't open file: {}.\n".format(filename)
         )
 
 
 def add_unique_attr(obj, name, value, check_dup=False):
     """Create an attribute if the attribute name isn't already used."""
-    from .logger import logger
+    from .logger import active_logger
 
     try:
         getattr(obj, name)
         if check_dup:
-            logger.warn(
+            active_logger.warn(
                 "Unable to create attribute {name} of type {typ1} because one already exists of type {typ2} in {obj}".format(
                     name=name,
                     typ1=type(value),
@@ -580,7 +580,7 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
         A linear list of all the indices made up only of numbers and strings.
     """
 
-    from .logger import logger
+    from .logger import active_logger
 
     def expand_slice(slc):
         """Expand slice notation."""
@@ -593,7 +593,7 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
         # Do this if it's a downward slice (e.g., [7:0]).
         if start > stop:
             if slc.start and slc.start > slice_max:
-                logger.raise_(
+                active_logger.raise_(
                     IndexError,
                     "Index current_level of range ({} > {})!".format(
                         slc.start, slice_max
@@ -606,7 +606,7 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
         # Do this if it's a normal (i.e., upward) slice (e.g., [0:7]).
         else:
             if slc.stop and slc.stop > slice_max:
-                logger.raise_(
+                active_logger.raise_(
                     IndexError,
                     "Index current_level of range ({} > {})!".format(
                         slc.stop, slice_max
@@ -688,7 +688,7 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
                 # added to the list.
                 ids.extend(explode(id.strip()))
         else:
-            logger.raise_(
+            active_logger.raise_(
                 TypeError, "Unknown type in index: {}.".format(type(indx))
             )
 
@@ -715,7 +715,7 @@ def find_num_copies(**attribs):
         or lists/tuples of the same length.)
     """
 
-    from .logger import logger
+    from .logger import active_logger
 
     num_copies = set()
     for k, v in list(attribs.items()):
@@ -726,12 +726,12 @@ def find_num_copies(**attribs):
 
     num_copies = list(num_copies)
     if len(num_copies) > 2:
-        logger.raise_(
+        active_logger.raise_(
             ValueError,
             "Mismatched lengths of attributes: {}!".format(num_copies),
         )
     elif len(num_copies) > 1 and min(num_copies) > 1:
-        logger.raise_(
+        active_logger.raise_(
             ValueError,
             "Mismatched lengths of attributes: {}!".format(num_copies),
         )

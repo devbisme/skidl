@@ -19,7 +19,7 @@ from builtins import dict, int, object, range, str, zip
 from future import standard_library
 
 from ...common import USING_PYTHON2
-from ...logger import logger
+from ...logger import active_logger
 from ...net import Net
 from ...part import Part
 from ...pin import Pin, PinList
@@ -145,7 +145,7 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
                         part.pins = [Pin(num=p, name=p) for p in pieces[2:]]
                         part.associate_pins()
                     except IndexError:
-                        logger.warn(
+                        active_logger.warn(
                             "Misformatted SPICE subcircuit: {}".format(part.part_defn)
                         )
                     else:
@@ -306,7 +306,7 @@ def gen_netlist(self, **kwargs):
                         except KeyError:
                             pass
                     if path == None:
-                        logger.error(
+                        active_logger.error(
                             "Unable to find model {} for part {}".format(
                                 model, part.ref
                             )
@@ -340,7 +340,7 @@ def gen_netlist(self, **kwargs):
         try:
             add_func = part.pyspice["add"]
         except (AttributeError, KeyError):
-            logger.error("Part has no SPICE model: {}".format(part))
+            active_logger.error("Part has no SPICE model: {}".format(part))
         else:
             add_func(part, circuit)
 
@@ -405,7 +405,7 @@ def _get_kwargs(part, kw):
                 param_name = kw[pin.name]
                 kwargs.update({param_name: node(pin)})
             except KeyError:
-                logger.error(
+                active_logger.error(
                     "Part {}-{} has no {} pin: {}".format(
                         part.ref, part.name, pin.name, part
                     )
@@ -416,7 +416,7 @@ def _get_kwargs(part, kw):
 
 def not_implemented(part, circuit):
     """Unable to add a particular SPICE part to a circuit."""
-    logger.error("Function not implemented for {} - {}.".format(part.name, part.ref))
+    active_logger.error("Function not implemented for {} - {}.".format(part.name, part.ref))
 
 
 def add_part_to_circuit(part, circuit):
@@ -506,7 +506,7 @@ def add_xspice_to_circuit(part, circuit):
             # Add pins from a pin vector.
             args.append("[" + " ".join([node(p) for p in pin]) + "]")
         else:
-            logger.error("Illegal XSPICE argument: {}".format(pin))
+            active_logger.error("Illegal XSPICE argument: {}".format(pin))
 
     # The XSPICE model name should be the only keyword argument.
     kwargs = {"model": part.model.name}

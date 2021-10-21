@@ -19,7 +19,7 @@ from future import standard_library
 
 from .alias import Alias
 from .common import *
-from .logger import logger
+from .logger import active_logger
 from .net import NET_PREFIX, Net
 from .netpinlist import NetPinList
 from .pin import Pin
@@ -161,7 +161,7 @@ class Bus(SkidlBaseObject):
                     self.nets.insert(index, n)
                 index += len(obj)
             else:
-                logger.raise_(
+                active_logger.raise_(
                     ValueError,
                     "Adding illegal type of object ({}) to Bus {}.".format(
                         type(obj), self.name
@@ -182,7 +182,7 @@ class Bus(SkidlBaseObject):
 
     def get_pins(self):
         """It's an error to get the list of pins attached to all bus lines."""
-        logger.raise_("Can't get the list of pins on a bus!")
+        active_logger.raise_("Can't get the list of pins on a bus!")
 
     def copy(self, num_copies=None, **attribs):
         """
@@ -222,14 +222,14 @@ class Bus(SkidlBaseObject):
 
         # Check that a valid number of copies is requested.
         if not isinstance(num_copies, int):
-            logger.raise_(
+            active_logger.raise_(
                 ValueError,
                 "Can't make a non-integer number ({}) of copies of a bus!".format(
                     num_copies
                 ),
             )
         if num_copies < 0:
-            logger.raise_(
+            active_logger.raise_(
                 ValueError,
                 "Can't make a negative number ({}) of copies of a bus!".format(
                     num_copies
@@ -247,7 +247,7 @@ class Bus(SkidlBaseObject):
                     try:
                         v = v[i]
                     except IndexError:
-                        logger.raise_(
+                        active_logger.raise_(
                             ValueError,
                             "{} copies of bus {} were requested, but too few elements in attribute {}!".format(
                                 num_copies, self.name, k
@@ -292,7 +292,7 @@ class Bus(SkidlBaseObject):
             elif isinstance(ident, basestring):
                 nets.extend(filter_list(self.nets, name=ident))
             else:
-                logger.raise_(
+                active_logger.raise_(
                     TypeError, "Can't index bus with a {}.".format(type(ident))
                 )
 
@@ -336,7 +336,7 @@ class Bus(SkidlBaseObject):
 
         # No iadd_flag or it wasn't set. This means a direct assignment
         # was made to the pin, which is not allowed.
-        logger.raise_(TypeError, "Can't assign to a bus! Use the += operator.")
+        active_logger.raise_(TypeError, "Can't assign to a bus! Use the += operator.")
 
     def __iter__(self):
         """

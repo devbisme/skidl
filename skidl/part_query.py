@@ -20,7 +20,7 @@ from builtins import open, super
 
 from future import standard_library
 
-from .logger import logger
+from .logger import active_logger
 from .utilities import *
 
 standard_library.install_aliases()
@@ -82,7 +82,7 @@ def search_parts_iter(terms, tool=None):
         try:
             files = os.listdir(lib_dir)
         except (FileNotFoundError, OSError):
-            logger.warning("Could not open directory '{}'".format(lib_dir))
+            active_logger.warning("Could not open directory '{}'".format(lib_dir))
             files = []
 
         files = [(lib_dir, l) for l in files if l.endswith(lib_suffixes)]
@@ -249,7 +249,7 @@ class FootprintCache(dict):
 
             unexpanded_vars = get_env_vars(uri)
             if unexpanded_vars:
-                logger.warning(
+                active_logger.warning(
                     "There are some undefined environment variables: {}".format(
                         " ".join(unexpanded_vars)
                     )

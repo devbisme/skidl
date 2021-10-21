@@ -15,7 +15,7 @@ from builtins import object, str
 
 from future import standard_library
 
-from .logger import logger
+from .logger import active_logger
 from .utilities import *
 
 standard_library.install_aliases()
@@ -37,7 +37,7 @@ class NetClass(object):
 
         # Is this net class already defined?
         if circuit.netclasses.get(name) is not None:
-            logger.warning(
+            active_logger.warning(
                 "Cannot redefine existing net class {name}!".format(**locals())
             )
         else:

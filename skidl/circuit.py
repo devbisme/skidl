@@ -29,7 +29,7 @@ from .bus import Bus
 from .common import builtins
 from .erc import dflt_circuit_erc
 from .interface import Interface
-from .logger import erc_logger, logger
+from .logger import erc_logger, active_logger
 from .net import NCNet, Net
 from .part import Part, PartUnit
 from .pckg_info import __version__
@@ -126,7 +126,7 @@ class Circuit(SkidlBaseObject):
     def add_hierarchical_name(self, name):
         """Record a new hierarchical name.  Throw an error if it is a duplicate."""
         if name in self._hierarchical_names:
-            logger.raise_(
+            active_loggerraise_(
                 ValueError,
                 "Can't add duplicate hierarchical name {} to this circuit.".format(
                     name
@@ -139,7 +139,7 @@ class Circuit(SkidlBaseObject):
         try:
             self._hierarchical_names.remove(name)
         except KeyError:
-            logger.raise_(
+            active_logger.raise_(
                 ValueError,
                 "Can't remove non-existent hierarchical name {} from circuit.".format(
                     name
@@ -173,7 +173,7 @@ class Circuit(SkidlBaseObject):
 
                     self.parts.append(part)
                 else:
-                    logger.raise_(
+                    active_logger.raise_(
                         ValueError,
                         "Can't add unmovable part {} to this circuit.".format(part.ref),
                     )
@@ -188,13 +188,13 @@ class Circuit(SkidlBaseObject):
                     part.hierarchy = None
                     self.parts.remove(part)
                 else:
-                    logger.warning(
+                    active_logger.warning(
                         "Removing non-existent part {} from this circuit.".format(
                             part.ref
                         )
                     )
             else:
-                logger.raise_(
+                active_logger.raise_(
                     ValueError,
                     "Can't remove part {} from this circuit.".format(part.ref),
                 )
@@ -219,7 +219,7 @@ class Circuit(SkidlBaseObject):
                     self.nets.append(net)
 
                 else:
-                    logger.raise_(
+                    active_logger.raise_(
                         ValueError,
                         "Can't add unmovable net {} to this circuit.".format(net.name),
                     )
@@ -233,13 +233,13 @@ class Circuit(SkidlBaseObject):
                     net.hierarchy = None
                     self.nets.remove(net)
                 else:
-                    logger.warning(
+                    active_logger.warning(
                         "Removing non-existent net {} from this circuit.".format(
                             net.name
                         )
                     )
             else:
-                logger.raise_(
+                active_logger.raise_(
                     ValueError,
                     "Can't remove unmovable net {} from this circuit.".format(net.name),
                 )
@@ -277,13 +277,13 @@ class Circuit(SkidlBaseObject):
                     for net in bus.nets:
                         self -= net
                 else:
-                    logger.warning(
+                    active_logger.warning(
                         "Removing non-existent bus {} from this circuit.".format(
                             bus.name
                         )
                     )
             else:
-                logger.raise_(
+                active_logger.raise_(
                     ValueError,
                     "Can't remove unmovable bus {} from this circuit.".format(bus.name),
                 )
@@ -303,7 +303,7 @@ class Circuit(SkidlBaseObject):
                         except AttributeError:
                             pass
             else:
-                logger.raise_(
+                active_logger.raise_(
                     ValueError,
                     "Can't add the same package to more than one circuit.",
                 )
@@ -321,13 +321,13 @@ class Circuit(SkidlBaseObject):
                         except AttributeError:
                             pass
                 else:
-                    logger.warning(
+                    active_logger.active_logger.warning(
                         "Removing non-existent package {} from this circuit.".format(
                             package.name
                         )
                     )
             else:
-                logger.raise_(
+                active_logger.raise_(
                     ValueError,
                     "Can't remove unmovable package {} from this circuit.".format(
                         package.name
@@ -349,7 +349,7 @@ class Circuit(SkidlBaseObject):
             elif isinstance(thing, Package):
                 self.add_packages(thing)
             else:
-                logger.raise_(
+                active_logger.raise_(
                     ValueError,
                     "Can't add a {} to a Circuit object.".format(type(thing)),
                 )
@@ -370,7 +370,7 @@ class Circuit(SkidlBaseObject):
             elif isinstance(thing, Package):
                 self.rmv_packages(thing)
             else:
-                logger.raise_(
+                active_logger.raise_(
                     ValueError,
                     "Can't remove a {} from a Circuit object.".format(type(thing)),
                 )
@@ -479,8 +479,8 @@ class Circuit(SkidlBaseObject):
         from . import skidl
 
         # Reset the counters to clear any warnings/errors from previous run.
-        logger.error.reset()
-        logger.warning.reset()
+        active_logger.error.reset()
+        active_logger.warning.reset()
 
         self._preprocess()
 
@@ -496,26 +496,26 @@ class Circuit(SkidlBaseObject):
             gen_func = getattr(self, "_gen_netlist_{}".format(tool))
             netlist = gen_func(**kwargs)  # Pass any remaining arguments.
         except KeyError:
-            logger.raise_(
+            active_logger.raise_(
                 ValueError,
                 "Can't generate netlist in an unknown ECAD tool format ({}).".format(
                     tool
                 ),
             )
 
-        if (logger.error.count, logger.warning.count) == (0, 0):
+        if (active_logger.error.count, active_logger.warning.count) == (0, 0):
             sys.stderr.write(
                 "\nNo errors or warnings found during netlist generation.\n\n"
             )
         else:
             sys.stderr.write(
                 "\n{} warnings found during netlist generation.\n".format(
-                    logger.warning.count
+                    active_logger.warning.count
                 )
             )
             sys.stderr.write(
                 "{} errors found during netlist generation.\n\n".format(
-                    logger.error.count
+                    active_logger.error.count
                 )
             )
 
@@ -547,8 +547,8 @@ class Circuit(SkidlBaseObject):
         from . import skidl
 
         # Reset the counters to clear any warnings/errors from previous run.
-        logger.error.reset()
-        logger.warning.reset()
+        active_logger.error.reset()
+        active_logger.warning.reset()
 
         self._preprocess()
 
@@ -564,7 +564,7 @@ class Circuit(SkidlBaseObject):
             try:
                 gen_func = getattr(self, "_gen_pcb_{}".format(tool))
             except KeyError:
-                logger.raise_(
+                active_logger.raise_(
                     ValueError,
                     "Can't generate PCB in an unknown ECAD tool format ({}).".format(
                         tool
@@ -577,14 +577,14 @@ class Circuit(SkidlBaseObject):
                     backup_lib = None  #   will get reloaded when it's needed.
                 gen_func(file_)  # Generate the PCB file from the netlist.
 
-        if (logger.error.count, logger.warning.count) == (0, 0):
+        if (active_logger.error.count, active_logger.warning.count) == (0, 0):
             sys.stderr.write("\nNo errors or warnings found while creating PCB.\n\n")
         else:
             sys.stderr.write(
-                "\n{} warnings found while creating PCB.\n".format(logger.warning.count)
+                "\n{} warnings found while creating PCB.\n".format(active_logger.warning.count)
             )
             sys.stderr.write(
-                "{} errors found while creating PCB.\n\n".format(logger.error.count)
+                "{} errors found while creating PCB.\n\n".format(active_logger.error.count)
             )
 
     def generate_xml(self, file_=None, tool=None):
@@ -602,8 +602,8 @@ class Circuit(SkidlBaseObject):
         from . import skidl
 
         # Reset the counters to clear any warnings/errors from previous run.
-        logger.error.reset()
-        logger.warning.reset()
+        active_logger.error.reset()
+        active_logger.warning.reset()
 
         self._preprocess()
 
@@ -614,21 +614,21 @@ class Circuit(SkidlBaseObject):
             gen_func = getattr(self, "_gen_xml_{}".format(tool))
             netlist = gen_func()
         except KeyError:
-            logger.raise_(
+            active_logger.raise_(
                 ValueError,
                 "Can't generate XML in an unknown ECAD tool format ({}).".format(tool),
             )
 
-        if (logger.error.count, logger.warning.count) == (0, 0):
+        if (active_logger.error.count, active_logger.warning.count) == (0, 0):
             sys.stderr.write("\nNo errors or warnings found during XML generation.\n\n")
         else:
             sys.stderr.write(
                 "\n{} warnings found during XML generation.\n".format(
-                    logger.warning.count
+                    active_logger.warning.count
                 )
             )
             sys.stderr.write(
-                "{} errors found during XML generation.\n\n".format(logger.error.count)
+                "{} errors found during XML generation.\n\n".format(active_logger.error.count)
             )
 
         if not self.no_files:
@@ -811,8 +811,8 @@ class Circuit(SkidlBaseObject):
         from . import skidl
 
         # Reset the counters to clear any warnings/errors from previous run.
-        logger.error.reset()
-        logger.warning.reset()
+        active_logger.error.reset()
+        active_logger.warning.reset()
 
         self._preprocess()
 
@@ -977,8 +977,8 @@ class Circuit(SkidlBaseObject):
         from . import skidl
 
         # Reset the counters to clear any warnings/errors from previous run.
-        logger.error.reset()
-        logger.warning.reset()
+        active_logger.active_logger.active_logger.error.reset()
+        active_logger.warning.reset()
 
         self._preprocess()
 
@@ -1001,26 +1001,26 @@ class Circuit(SkidlBaseObject):
                 gen_func = getattr(self, "_gen_schematic_{}".format(tool))
                 gen_func(route)
             except KeyError:
-                logger.raise_(
+                active_logger.raise_(
                     ValueError,
                     "Can't generate schematic in an unknown ECAD tool format ({}).".format(
                         tool
                     ),
                 )
 
-        if (logger.error.count, logger.warning.count) == (0, 0):
+        if (active_logger.error.count, active_logger.warning.count) == (0, 0):
             sys.stderr.write(
                 "\nNo errors or warnings found during schematic generation.\n\n"
             )
         else:
             sys.stderr.write(
                 "\n{} warnings found during schematic generation.\n".format(
-                    logger.warning.count
+                    active_logger.warning.count
                 )
             )
             sys.stderr.write(
                 "{} errors found during schematic generation.\n\n".format(
-                    logger.error.count
+                    active_logger.error.count
                 )
             )
 
@@ -1060,8 +1060,8 @@ class Circuit(SkidlBaseObject):
         """
 
         # Reset the counters to clear any warnings/errors from previous run.
-        logger.error.reset()
-        logger.warning.reset()
+        active_logger.error.reset()
+        active_logger.warning.reset()
 
         self._preprocess()
 
