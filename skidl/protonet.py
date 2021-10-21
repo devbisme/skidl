@@ -41,8 +41,7 @@ class ProtoNet(SkidlBaseObject):
         allowed_types = (Pin, Net, ProtoNet)
         illegal = (np for np in nets_pins if type(np) not in allowed_types)
         for np in illegal:
-            log_and_raise(
-                logger,
+            logger.raise_(
                 ValueError,
                 "Can't make connections to a {} ({}).".format(
                     type(np), getattr(np, "__name__", "")
@@ -51,8 +50,7 @@ class ProtoNet(SkidlBaseObject):
 
         sz = len(nets_pins)
         if sz == 0:
-            log_and_raise(
-                logger,
+            logger.raise_(
                 ValueError,
                 "Connecting empty set of pins, nets, busses to a {}".format(
                     self.__class__.__name__

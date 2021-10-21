@@ -171,8 +171,8 @@ def find_and_open_file(
     if allow_failure:
         return None, None
     else:
-        log_and_raise(
-            logger, FileNotFoundError, "Can't open file: {}.\n".format(filename)
+        logger.raise_(
+            FileNotFoundError, "Can't open file: {}.\n".format(filename)
         )
 
 
@@ -593,8 +593,7 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
         # Do this if it's a downward slice (e.g., [7:0]).
         if start > stop:
             if slc.start and slc.start > slice_max:
-                log_and_raise(
-                    logger,
+                logger.raise_(
                     IndexError,
                     "Index current_level of range ({} > {})!".format(
                         slc.start, slice_max
@@ -607,8 +606,7 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
         # Do this if it's a normal (i.e., upward) slice (e.g., [0:7]).
         else:
             if slc.stop and slc.stop > slice_max:
-                log_and_raise(
-                    logger,
+                logger.raise_(
                     IndexError,
                     "Index current_level of range ({} > {})!".format(
                         slc.stop, slice_max
@@ -690,8 +688,8 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
                 # added to the list.
                 ids.extend(explode(id.strip()))
         else:
-            log_and_raise(
-                logger, TypeError, "Unknown type in index: {}.".format(type(indx))
+            logger.raise_(
+                TypeError, "Unknown type in index: {}.".format(type(indx))
             )
 
     # Return the completely expanded list of indices.
@@ -728,14 +726,12 @@ def find_num_copies(**attribs):
 
     num_copies = list(num_copies)
     if len(num_copies) > 2:
-        log_and_raise(
-            logger,
+        logger.raise_(
             ValueError,
             "Mismatched lengths of attributes: {}!".format(num_copies),
         )
     elif len(num_copies) > 1 and min(num_copies) > 1:
-        log_and_raise(
-            logger,
+        logger.raise_(
             ValueError,
             "Mismatched lengths of attributes: {}!".format(num_copies),
         )
@@ -787,11 +783,6 @@ def expand_buses(pins_nets_buses):
     for pnb in pins_nets_buses:
         pins_nets.extend(pnb)
     return pins_nets
-
-
-def log_and_raise(logger_in, exc_class, message):
-    logger_in.error(message)
-    raise exc_class(message)
 
 
 # Regular expression for parsing nested S-expressions.

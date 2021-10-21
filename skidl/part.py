@@ -221,8 +221,7 @@ class Part(SkidlBaseObject):
             pass
 
         else:
-            log_and_raise(
-                logger,
+            logger.raise_(
                 ValueError,
                 "Can't make a part without a library & part name or a part definition.",
             )
@@ -363,8 +362,7 @@ class Part(SkidlBaseObject):
         try:
             parse_func = getattr(self, "_parse_lib_part_{}".format(self.tool))
         except AttributeError:
-            log_and_raise(
-                logger,
+            logger.raise_(
                 ValueError,
                 "Can't create a part with an unknown ECAD tool file format: {}.".format(
                     self.tool
@@ -428,16 +426,14 @@ class Part(SkidlBaseObject):
 
         # Check that a valid number of copies is requested.
         if not isinstance(num_copies, int):
-            log_and_raise(
-                logger,
+            logger.raise_(
                 ValueError,
                 "Can't make a non-integer number ({}) of copies of a part!".format(
                     num_copies
                 ),
             )
         if num_copies < 0:
-            log_and_raise(
-                logger,
+            logger.raise_(
                 ValueError,
                 "Can't make a negative number ({}) of copies of a part!".format(
                     num_copies
@@ -519,8 +515,7 @@ class Part(SkidlBaseObject):
                     try:
                         v = v[i]
                     except IndexError:
-                        log_and_raise(
-                            logger,
+                        logger.raise_(
                             ValueError,
                             "{} copies of part {} were requested, but too few elements in attribute {}!".format(
                                 num_copies, self.name, k
@@ -754,7 +749,7 @@ class Part(SkidlBaseObject):
 
         # No iadd_flag or it wasn't set. This means a direct assignment
         # was made to the pin, which is not allowed.
-        log_and_raise(logger, TypeError, "Can't assign to a part! Use the += operator.")
+        logger.raise_(TypeError, "Can't assign to a part! Use the += operator.")
 
     def __iter__(self):
         """
@@ -842,7 +837,7 @@ class Part(SkidlBaseObject):
             add_unique_attr(self, alias, pin)
         else:
             # Error: either 0 or multiple pins were found.
-            log_and_raise(logger, ValueError, "Cannot set alias for {}".format(pin_ids))
+            logger.raise_(ValueError, "Cannot set alias for {}".format(pin_ids))
 
     def pin_aliases_to_attributes(self):
         """Make each pin alias into an attribute of the part."""
@@ -1002,8 +997,7 @@ class Part(SkidlBaseObject):
         try:
             gen_func = getattr(self, "_gen_netlist_comp_{}".format(tool))
         except AttributeError:
-            log_and_raise(
-                logger,
+            logger.raise_(
                 ValueError,
                 "Can't generate netlist in an unknown ECAD tool format ({}).".format(
                     tool
@@ -1031,8 +1025,7 @@ class Part(SkidlBaseObject):
         try:
             gen_func = getattr(self, "_gen_xml_comp_{}".format(tool))
         except AttributeError:
-            log_and_raise(
-                logger,
+            logger.raise_(
                 ValueError,
                 "Can't generate XML in an unknown ECAD tool format ({}).".format(tool),
             )
@@ -1052,8 +1045,7 @@ class Part(SkidlBaseObject):
         try:
             gen_func = getattr(self, "_gen_svg_comp_{}".format(tool))
         except AttributeError:
-            log_and_raise(
-                logger,
+            logger.raise_(
                 ValueError,
                 "Can't generate SVG for a component in an unknown ECAD tool format({}).".format(
                     tool
@@ -1075,8 +1067,7 @@ class Part(SkidlBaseObject):
         try:
             gen_func = getattr(self, "_gen_pinboxes_{}".format(tool))
         except AttributeError:
-            log_and_raise(
-                logger,
+            logger.raise_(
                 ValueError,
                 "Can't generate pinboxes for a component in an unknown ECAD tool format({}).".format(
                     tool
@@ -1147,8 +1138,7 @@ class Part(SkidlBaseObject):
         # Update the part's tag.
         str_tag = str(value)
         if re.compile(r"[^a-zA-Z0-9\-_]").search(str_tag):
-            log_and_raise(
-                logger,
+            logger.raise_(
                 ValueError,
                 "Can't set part tag to {} it contains disallowed characters.".format(
                     str_tag

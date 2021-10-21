@@ -95,6 +95,19 @@ class SkidlLogger(logging.getLoggerClass()):
         for handler in self.log_file_handlers[:]:
             self.removeHandler(handler)
 
+    def raise_(self, exc_class, msg):
+        """Issue a logging message and then raise an exception.
+
+        Args:
+            exc_class (Exception class): Class of exception to raise. 
+            msg (string): Error message.
+
+        Raises:
+            exc_class: Exception class that is raised after error message is logged.
+        """
+        self.error(msg)
+        raise exc_class(msg)
+
 
 def _create_logger(title, log_msg_id="", log_file_suffix=".log"):
     """

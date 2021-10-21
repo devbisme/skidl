@@ -40,8 +40,7 @@ class NetPinList(list):
         allowed_types = (Pin, Net, ProtoNet)
         illegal = (np for np in nets_pins_b if not isinstance(np, allowed_types))
         for np in illegal:
-            log_and_raise(
-                logger,
+            logger.raise_(
                 ValueError,
                 "Can't make connections to a {} ({}).".format(
                     type(np), getattr(np, "__name__", "")
@@ -51,8 +50,7 @@ class NetPinList(list):
 
         if len_a != len_b:
             if len_a > 1 and len_b > 1:
-                log_and_raise(
-                    logger,
+                logger.raise_(
                     ValueError,
                     "Connection mismatch {} != {}!".format(len_a, len_b),
                 )
@@ -133,8 +131,7 @@ class NetPinList(list):
             cct.add(pn.circuit)
         if len(cct) == 1:
             return cct.pop()
-        log_and_raise(
-            logger,
+        logger.raise_(
             ValueError,
             "This NetPinList contains nets/pins in {} circuits.".format(len(cct)),
         )

@@ -76,8 +76,7 @@ class SchLib(object):
                 load_func = getattr(self, "_load_sch_lib_{}".format(tool))
             except AttributeError:
                 # OK, that didn't work so well...
-                log_and_raise(
-                    logger,
+                logger.raise_(
                     ValueError,
                     "Unsupported ECAD tool library: {}.".format(tool),
                 )

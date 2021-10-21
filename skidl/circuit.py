@@ -126,8 +126,7 @@ class Circuit(SkidlBaseObject):
     def add_hierarchical_name(self, name):
         """Record a new hierarchical name.  Throw an error if it is a duplicate."""
         if name in self._hierarchical_names:
-            log_and_raise(
-                logger,
+            logger.raise_(
                 ValueError,
                 "Can't add duplicate hierarchical name {} to this circuit.".format(
                     name
@@ -140,8 +139,7 @@ class Circuit(SkidlBaseObject):
         try:
             self._hierarchical_names.remove(name)
         except KeyError:
-            log_and_raise(
-                logger,
+            logger.raise_(
                 ValueError,
                 "Can't remove non-existent hierarchical name {} from circuit.".format(
                     name
@@ -175,8 +173,7 @@ class Circuit(SkidlBaseObject):
 
                     self.parts.append(part)
                 else:
-                    log_and_raise(
-                        logger,
+                    logger.raise_(
                         ValueError,
                         "Can't add unmovable part {} to this circuit.".format(part.ref),
                     )
@@ -197,8 +194,7 @@ class Circuit(SkidlBaseObject):
                         )
                     )
             else:
-                log_and_raise(
-                    logger,
+                logger.raise_(
                     ValueError,
                     "Can't remove part {} from this circuit.".format(part.ref),
                 )
@@ -223,8 +219,7 @@ class Circuit(SkidlBaseObject):
                     self.nets.append(net)
 
                 else:
-                    log_and_raise(
-                        logger,
+                    logger.raise_(
                         ValueError,
                         "Can't add unmovable net {} to this circuit.".format(net.name),
                     )
@@ -244,8 +239,7 @@ class Circuit(SkidlBaseObject):
                         )
                     )
             else:
-                log_and_raise(
-                    logger,
+                logger.raise_(
                     ValueError,
                     "Can't remove unmovable net {} from this circuit.".format(net.name),
                 )
@@ -289,8 +283,7 @@ class Circuit(SkidlBaseObject):
                         )
                     )
             else:
-                log_and_raise(
-                    logger,
+                logger.raise_(
                     ValueError,
                     "Can't remove unmovable bus {} from this circuit.".format(bus.name),
                 )
@@ -310,8 +303,7 @@ class Circuit(SkidlBaseObject):
                         except AttributeError:
                             pass
             else:
-                log_and_raise(
-                    logger,
+                logger.raise_(
                     ValueError,
                     "Can't add the same package to more than one circuit.",
                 )
@@ -335,8 +327,7 @@ class Circuit(SkidlBaseObject):
                         )
                     )
             else:
-                log_and_raise(
-                    logger,
+                logger.raise_(
                     ValueError,
                     "Can't remove unmovable package {} from this circuit.".format(
                         package.name
@@ -358,8 +349,7 @@ class Circuit(SkidlBaseObject):
             elif isinstance(thing, Package):
                 self.add_packages(thing)
             else:
-                log_and_raise(
-                    logger,
+                logger.raise_(
                     ValueError,
                     "Can't add a {} to a Circuit object.".format(type(thing)),
                 )
@@ -380,8 +370,7 @@ class Circuit(SkidlBaseObject):
             elif isinstance(thing, Package):
                 self.rmv_packages(thing)
             else:
-                log_and_raise(
-                    logger,
+                logger.raise_(
                     ValueError,
                     "Can't remove a {} from a Circuit object.".format(type(thing)),
                 )
@@ -507,8 +496,7 @@ class Circuit(SkidlBaseObject):
             gen_func = getattr(self, "_gen_netlist_{}".format(tool))
             netlist = gen_func(**kwargs)  # Pass any remaining arguments.
         except KeyError:
-            log_and_raise(
-                logger,
+            logger.raise_(
                 ValueError,
                 "Can't generate netlist in an unknown ECAD tool format ({}).".format(
                     tool
@@ -576,8 +564,7 @@ class Circuit(SkidlBaseObject):
             try:
                 gen_func = getattr(self, "_gen_pcb_{}".format(tool))
             except KeyError:
-                log_and_raise(
-                    logger,
+                logger.raise_(
                     ValueError,
                     "Can't generate PCB in an unknown ECAD tool format ({}).".format(
                         tool
@@ -627,8 +614,7 @@ class Circuit(SkidlBaseObject):
             gen_func = getattr(self, "_gen_xml_{}".format(tool))
             netlist = gen_func()
         except KeyError:
-            log_and_raise(
-                logger,
+            logger.raise_(
                 ValueError,
                 "Can't generate XML in an unknown ECAD tool format ({}).".format(tool),
             )
@@ -1015,8 +1001,7 @@ class Circuit(SkidlBaseObject):
                 gen_func = getattr(self, "_gen_schematic_{}".format(tool))
                 gen_func(route)
             except KeyError:
-                log_and_raise(
-                    logger,
+                logger.raise_(
                     ValueError,
                     "Can't generate schematic in an unknown ECAD tool format ({}).".format(
                         tool
