@@ -18,12 +18,12 @@ imported into a PCB layout tool or Spice simulator.
 The script can also
 check the resulting circuitry for electrical rule violations.
 """
-from __future__ import (
+from __future__ import (  # isort:skip
     absolute_import,
     division,
     print_function,
     unicode_literals,
-)  # isort:skip
+)
 from future import standard_library
 
 from . import tools

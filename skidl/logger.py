@@ -6,12 +6,12 @@
 Logging for generic messages and ERC.
 """
 
-from __future__ import (
+from __future__ import (  # isort:skip
     absolute_import,
     division,
     print_function,
     unicode_literals,
-)  # isort:skip
+)
 
 import logging
 import os
@@ -141,7 +141,7 @@ class ActiveLogger(SkidlLogger):
         self.set(logger)
 
     def pop(self):
-        """Re-activate the previously active logger.        """
+        """Re-activate the previously active logger."""
         self.set(self.prev_loggers.get())
 
 

@@ -6,12 +6,12 @@
 Prototype of a net which can become a Net or a Bus depending upon what is connected to it.
 """
 
-from __future__ import (
+from __future__ import (  # isort:skip
     absolute_import,
     division,
     print_function,
     unicode_literals,
-)  # isort:skip
+)
 
 from builtins import range, super
 

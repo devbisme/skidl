@@ -6,12 +6,12 @@
 Handles complete circuits made of parts and nets.
 """
 
-from __future__ import (
+from __future__ import (  # isort:skip
     absolute_import,
     division,
     print_function,
     unicode_literals,
-)  # isort:skip
+)
 
 import functools
 import json
@@ -443,7 +443,7 @@ class Circuit(SkidlBaseObject):
 
         # Save the currently active logger and activate the ERC logger.
         active_logger.push(erc_logger)
-            
+
         # Reset the counters to clear any warnings/errors from previous ERC run.
         active_logger.error.reset()
         active_logger.warning.reset()
@@ -587,10 +587,14 @@ class Circuit(SkidlBaseObject):
             sys.stderr.write("\nNo errors or warnings found while creating PCB.\n\n")
         else:
             sys.stderr.write(
-                "\n{} warnings found while creating PCB.\n".format(active_logger.warning.count)
+                "\n{} warnings found while creating PCB.\n".format(
+                    active_logger.warning.count
+                )
             )
             sys.stderr.write(
-                "{} errors found while creating PCB.\n\n".format(active_logger.error.count)
+                "{} errors found while creating PCB.\n\n".format(
+                    active_logger.error.count
+                )
             )
 
     def generate_xml(self, file_=None, tool=None):
@@ -634,7 +638,9 @@ class Circuit(SkidlBaseObject):
                 )
             )
             sys.stderr.write(
-                "{} errors found during XML generation.\n\n".format(active_logger.error.count)
+                "{} errors found during XML generation.\n\n".format(
+                    active_logger.error.count
+                )
             )
 
         if not self.no_files:

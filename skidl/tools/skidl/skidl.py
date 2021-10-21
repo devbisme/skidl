@@ -6,12 +6,12 @@
 Handler for reading SKiDL libraries and generating netlists.
 """
 
-from __future__ import (
+from __future__ import (  # isort:skip
     absolute_import,
     division,
     print_function,
     unicode_literals,
-)  # isort:skip
+)
 
 from builtins import str
 
@@ -37,7 +37,7 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
     """
 
     from ...schlib import SchLib
-    from ...skidl import lib_suffixes, active_logger
+    from ...skidl import active_logger, lib_suffixes
     from ...utilities import find_and_open_file
     from .. import SKIDL
 

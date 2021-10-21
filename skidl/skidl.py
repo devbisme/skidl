@@ -2,12 +2,12 @@
 
 # The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
 
-from __future__ import (
+from __future__ import (  # isort:skip
     absolute_import,
     division,
     print_function,
     unicode_literals,
-)  # isort:skip
+)
 
 import json
 import os
@@ -18,7 +18,7 @@ from future import standard_library
 
 from .circuit import Circuit
 from .common import builtins
-from .logger import get_script_name, active_logger, stop_log_file_output
+from .logger import active_logger, get_script_name, stop_log_file_output
 from .part_query import footprint_cache
 from .pin import Pin
 from .tools import ALL_TOOLS, KICAD, SKIDL, SPICE, lib_suffixes

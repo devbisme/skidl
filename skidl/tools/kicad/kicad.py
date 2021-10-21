@@ -6,12 +6,12 @@
 Handler for reading Kicad libraries and generating netlists.
 """
 
-from __future__ import (
+from __future__ import (  # isort:skip
     absolute_import,
     division,
     print_function,
     unicode_literals,
-)  # isort:skip
+)
 
 import os.path
 import re
@@ -936,7 +936,9 @@ def gen_netlist_comp(self):
     try:
         footprint = self.footprint
     except AttributeError:
-        active_logger.error("No footprint for {part}/{ref}.".format(part=self.name, ref=ref))
+        active_logger.error(
+            "No footprint for {part}/{ref}.".format(part=self.name, ref=ref)
+        )
         footprint = "No Footprint"
     footprint = add_quotes(footprint)
 
@@ -1039,7 +1041,9 @@ def gen_xml_comp(self):
     try:
         footprint = self.footprint
     except AttributeError:
-        active_logger.error("No footprint for {part}/{ref}.".format(part=self.name, ref=ref))
+        active_logger.error(
+            "No footprint for {part}/{ref}.".format(part=self.name, ref=ref)
+        )
         footprint = "No Footprint"
 
     lib_filename = getattr(getattr(self, "lib", ""), "filename", "NO_LIB")

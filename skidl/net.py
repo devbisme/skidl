@@ -6,12 +6,12 @@
 Handles nets.
 """
 
-from __future__ import (
+from __future__ import (  # isort:skip
     absolute_import,
     division,
     print_function,
     unicode_literals,
-)  # isort:skip
+)
 
 import collections
 from builtins import range, super
@@ -319,9 +319,7 @@ class Net(SkidlBaseObject):
         if indices is None or len(indices) == 0:
             return None
         if len(indices) > 1:
-            active_logger.raise_(
-                ValueError, "Can't index a net with multiple indices."
-            )
+            active_logger.raise_(ValueError, "Can't index a net with multiple indices.")
         if indices[0] != 0:
             active_logger.raise_(ValueError, "Can't use a non-zero index for a net.")
         return self

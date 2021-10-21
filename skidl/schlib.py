@@ -6,12 +6,12 @@
 Handles schematic libraries for various ECAD tools.
 """
 
-from __future__ import (
+from __future__ import (  # isort:skip
     absolute_import,
     division,
     print_function,
     unicode_literals,
-)  # isort:skip
+)
 
 from builtins import object, str
 

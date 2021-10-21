@@ -6,12 +6,12 @@
 Handler for reading SPICE libraries.
 """
 
-from __future__ import (
+from __future__ import (  # isort:skip
     absolute_import,
     division,
     print_function,
     unicode_literals,
-)  # isort:skip
+)
 
 import os.path
 from builtins import dict, int, object, range, str, zip
@@ -416,7 +416,9 @@ def _get_kwargs(part, kw):
 
 def not_implemented(part, circuit):
     """Unable to add a particular SPICE part to a circuit."""
-    active_logger.error("Function not implemented for {} - {}.".format(part.name, part.ref))
+    active_logger.error(
+        "Function not implemented for {} - {}.".format(part.name, part.ref)
+    )
 
 
 def add_part_to_circuit(part, circuit):
