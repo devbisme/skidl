@@ -160,16 +160,16 @@ class Circuit(SkidlBaseObject):
 
                     # Add the part to this circuit.
                     part.circuit = self  # Record the Circuit object for this part.
-                    part.ref = part.ref  # This adjusts the part reference if necessary.
+                    part.ref = part.ref  # Adjusts the part reference if necessary.
 
-                    part.hierarchy = self.hierarchy  # Store hierarchy of part.
+                    # Store hierarchy of part.
+                    part.hierarchy = self.hierarchy
 
                     # Check the part does not have a conflicting hierarchical name
                     self.add_hierarchical_name(part.hierarchical_name)
 
-                    part.skidl_trace = (
-                        get_skidl_trace()
-                    )  # Store part instantiation trace.
+                    # Store part instantiation trace.
+                    part.skidl_trace = ";".join(get_skidl_trace())
 
                     self.parts.append(part)
                 else:
@@ -455,15 +455,7 @@ class Circuit(SkidlBaseObject):
 
         super().ERC(*args, **kwargs)
 
-        if (active_logger.error.count, active_logger.warning.count) == (0, 0):
-            sys.stderr.write("\nNo ERC errors or warnings found.\n\n")
-        else:
-            sys.stderr.write(
-                "\n{} warnings found during ERC.\n".format(active_logger.warning.count)
-            )
-            sys.stderr.write(
-                "{} errors found during ERC.\n\n".format(active_logger.error.count)
-            )
+        active_logger.report_summary("running ERC")
 
         # Restore the logger that was active before the ERC.
         active_logger.pop()
@@ -509,21 +501,7 @@ class Circuit(SkidlBaseObject):
                 ),
             )
 
-        if (active_logger.error.count, active_logger.warning.count) == (0, 0):
-            sys.stderr.write(
-                "\nNo errors or warnings found during netlist generation.\n\n"
-            )
-        else:
-            sys.stderr.write(
-                "\n{} warnings found during netlist generation.\n".format(
-                    active_logger.warning.count
-                )
-            )
-            sys.stderr.write(
-                "{} errors found during netlist generation.\n\n".format(
-                    active_logger.error.count
-                )
-            )
+        active_logger.report_summary("generating netlist")
 
         if not self.no_files:
             with opened(file_ or (get_script_name() + ".net"), "w") as f:
@@ -583,19 +561,7 @@ class Circuit(SkidlBaseObject):
                     backup_lib = None  #   will get reloaded when it's needed.
                 gen_func(file_)  # Generate the PCB file from the netlist.
 
-        if (active_logger.error.count, active_logger.warning.count) == (0, 0):
-            sys.stderr.write("\nNo errors or warnings found while creating PCB.\n\n")
-        else:
-            sys.stderr.write(
-                "\n{} warnings found while creating PCB.\n".format(
-                    active_logger.warning.count
-                )
-            )
-            sys.stderr.write(
-                "{} errors found while creating PCB.\n\n".format(
-                    active_logger.error.count
-                )
-            )
+        active_logger.report_summary("creating PCB")
 
     def generate_xml(self, file_=None, tool=None):
         """
@@ -629,19 +595,7 @@ class Circuit(SkidlBaseObject):
                 "Can't generate XML in an unknown ECAD tool format ({}).".format(tool),
             )
 
-        if (active_logger.error.count, active_logger.warning.count) == (0, 0):
-            sys.stderr.write("\nNo errors or warnings found during XML generation.\n\n")
-        else:
-            sys.stderr.write(
-                "\n{} warnings found during XML generation.\n".format(
-                    active_logger.warning.count
-                )
-            )
-            sys.stderr.write(
-                "{} errors found during XML generation.\n\n".format(
-                    active_logger.error.count
-                )
-            )
+        active_logger.report_summary("generating XML")
 
         if not self.no_files:
             with opened(file_ or (get_script_name() + ".xml"), "w") as f:
@@ -1020,21 +974,7 @@ class Circuit(SkidlBaseObject):
                     ),
                 )
 
-        if (active_logger.error.count, active_logger.warning.count) == (0, 0):
-            sys.stderr.write(
-                "\nNo errors or warnings found during schematic generation.\n\n"
-            )
-        else:
-            sys.stderr.write(
-                "\n{} warnings found during schematic generation.\n".format(
-                    active_logger.warning.count
-                )
-            )
-            sys.stderr.write(
-                "{} errors found during schematic generation.\n\n".format(
-                    active_logger.error.count
-                )
-            )
+        active_logger.report_summary("generating schematic")
 
     def generate_dot(
         self,

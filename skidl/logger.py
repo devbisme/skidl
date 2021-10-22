@@ -21,7 +21,7 @@ from builtins import object, super
 
 from future import standard_library
 
-from .scriptinfo import get_script_name
+from .scriptinfo import get_script_name, get_skidl_trace
 from .skidlbaseobj import WARNING
 
 standard_library.install_aliases()
@@ -57,14 +57,14 @@ class SkidlLogFileHandler(logging.FileHandler):
         try:
             super().__init__(*args, **kwargs)
         except PermissionError as e:
-            self.filename = (
-                None  # Prevents future error when removing non-existent log file.
-            )
+            # Prevents future error when removing non-existent log file.
+            self.filename = None
             print(e)
 
     def remove_log_file(self):
         if self.filename:
-            f_name = self.filename  # Close file handle before removing file.
+            # Close file handle before removing file.
+            f_name = self.filename
             self.close()
             os.remove(f_name)
         self.filename = None
@@ -76,6 +76,7 @@ class SkidlLogger(logging.getLoggerClass()):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.log_file_handlers = []
+        self.set_trace_depth(0)
 
     def addHandler(self, handler):
         if isinstance(handler, SkidlLogFileHandler):
@@ -96,6 +97,31 @@ class SkidlLogger(logging.getLoggerClass()):
         for handler in self.log_file_handlers[:]:
             self.removeHandler(handler)
 
+    def set_trace_depth(self, depth):
+        self.trace_depth = depth
+
+    def get_trace(self):
+        if self.trace_depth <= 0:
+            return ""
+        trace = get_skidl_trace()
+        start = len(trace) - self.trace_depth
+        return " @ [" + "=>".join(trace[start:]) + "]"
+
+    def debug(self, msg, *args, **kwargs):
+        super().debug(msg + self.get_trace(), *args, **kwargs)
+
+    def info(self, msg, *args, **kwargs):
+        super().info(msg + self.get_trace(), *args, **kwargs)
+
+    def warning(self, msg, *args, **kwargs):
+        super().warning(msg + self.get_trace(), *args, **kwargs)
+
+    def error(self, msg, *args, **kwargs):
+        super().error(msg + self.get_trace(), *args, **kwargs)
+
+    def critical(self, msg, *args, **kwargs):
+        super().critical(msg + self.get_trace(), *args, **kwargs)
+
     def raise_(self, exc_class, msg):
         """Issue a logging message and then raise an exception.
 
@@ -108,6 +134,28 @@ class SkidlLogger(logging.getLoggerClass()):
         """
         self.error(msg)
         raise exc_class(msg)
+
+    def report_summary(self, phase_desc):
+        """Report total of logged errors and warnings.
+
+        Args:
+            phase_desc (string): description of the phase of operations (e.g. "generating netlist").
+        """
+        if (self.error.count, self.warning.count) == (0, 0):
+            sys.stderr.write(
+                "\nNo errors or warnings found while {}.\n\n".format(phase_desc)
+            )
+        else:
+            sys.stderr.write(
+                "\n{} warnings found while {}.\n".format(
+                    active_logger.warning.count, phase_desc
+                )
+            )
+            sys.stderr.write(
+                "{} errors found while {}.\n\n".format(
+                    active_logger.error.count, phase_desc
+                )
+            )
 
 
 class ActiveLogger(SkidlLogger):
@@ -185,7 +233,9 @@ def stop_log_file_output():
 
 # Create loggers for runtime messages and ERC reports.
 rt_logger = _create_logger("skidl")
+rt_logger.set_trace_depth(2)
 erc_logger = _create_logger("ERC_Logger", "ERC ", ".erc")
+erc_logger.set_trace_depth(0)
 
 # Create active logger that starts off as the runtime logger.
 active_logger = ActiveLogger(rt_logger)

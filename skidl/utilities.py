@@ -183,7 +183,7 @@ def add_unique_attr(obj, name, value, check_dup=False):
     try:
         getattr(obj, name)
         if check_dup:
-            active_logger.warn(
+            active_logger.warning(
                 "Unable to create attribute {name} of type {typ1} because one already exists of type {typ2} in {obj}".format(
                     name=name,
                     typ1=type(value),

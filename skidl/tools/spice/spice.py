@@ -145,7 +145,7 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
                         part.pins = [Pin(num=p, name=p) for p in pieces[2:]]
                         part.associate_pins()
                     except IndexError:
-                        active_logger.warn(
+                        active_logger.warning(
                             "Misformatted SPICE subcircuit: {}".format(part.part_defn)
                         )
                     else:

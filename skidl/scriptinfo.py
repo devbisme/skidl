@@ -77,7 +77,7 @@ def get_script_name():
 
 def get_skidl_trace():
     """
-    Return a string containing the source line trace where a SKiDL object was instantiated.
+    Return a list containing the source line trace where a SKiDL object was instantiated.
     """
 
     # To determine where this object was created, trace the function
@@ -93,7 +93,7 @@ def get_skidl_trace():
     except AttributeError:
         skidl_dir, _ = os.path.split(call_stack[0][1])
 
-    # Record file_name#line_num starting from the bottom of the stack
+    # Record file_name:line_num starting from the bottom of the stack
     # and terminate as soon as a function is found that's in the
     # SKiDL library (no use recording internal calls).
     skidl_trace = []
@@ -112,6 +112,6 @@ def get_skidl_trace():
         # and the line number of the call in the file. Append these
         # to the trace.
         filepath = os.path.abspath(filename)
-        skidl_trace.append("#".join((filepath, str(lineno))))
+        skidl_trace.append(":".join((filepath, str(lineno))))
 
-    return ";".join(skidl_trace)
+    return skidl_trace
