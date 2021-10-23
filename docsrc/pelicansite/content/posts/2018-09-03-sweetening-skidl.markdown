@@ -47,7 +47,7 @@ r1, r2, r3, r4 = Part('Device', 'R', dest=TEMPLATE) * 4
 ser_ntwk = r1 & r2 & r3 & r4
 ```
 
-![Serial Network]({{ SITEURL }}/images/sweetening-skidl/ser_ntwk.png)
+![Serial Network](images/sweetening-skidl/ser_ntwk.png)
 
 Here are four resistors wired in parallel:
 
@@ -55,7 +55,7 @@ Here are four resistors wired in parallel:
 par_ntwk = r1 | r2 | r3 | r4
 ```
 
-![Parallel Network]({{ SITEURL }}/images/sweetening-skidl/par_ntwk.png)
+![Parallel Network](images/sweetening-skidl/par_ntwk.png)
 
 Or you can do something like placing pairs of resistors in series and then paralleling
 those combinations like this:
@@ -64,7 +64,7 @@ those combinations like this:
 combo_ntwk = (r1 & r2) | (r3 & r4)
 ```
 
-![Parallel+Serial Network]({{ SITEURL }}/images/sweetening-skidl/combo_ntwk.png)
+![Parallel+Serial Network](images/sweetening-skidl/combo_ntwk.png)
 
 In addition to connecting parts, the `&` and `|` operators also work with nets.
 This lets you apply inputs and extract outputs by attaching nets to nodes in the network.
@@ -76,7 +76,7 @@ vin, vout, gnd = Net('VI'), Net('VO'), Net('GND')
 vdiv_ntwk = vin & r1 & vout & r2 & gnd
 ```
 
-![Voltage-Divider Network]({{ SITEURL }}/images/sweetening-skidl/vdiv_ntwk.png)
+![Voltage-Divider Network](images/sweetening-skidl/vdiv_ntwk.png)
 
 You could do the same thing using a single pin instead of a net.
 Here's the voltage divider attached directly to a pin of a microcontroller:
@@ -86,7 +86,7 @@ pic10 = Part('MCU_Microchip_PIC10', 'PIC10F320-IP')
 pin_ntwk = vin & r1 & pic10['RA3'] & r2 & gnd
 ```
 
-![Voltage-Divider Network for Microcontroller]({{ SITEURL }}/images/sweetening-skidl/micro_ntwk.png)
+![Voltage-Divider Network for Microcontroller](images/sweetening-skidl/micro_ntwk.png)
 
 The examples above work with *non-polarized* components, but what about *polarized* parts
 like diodes and electrolytic capacitors? For those, you have to specify the 
@@ -99,7 +99,7 @@ d1 = Part('Device', 'D')
 polar_ntwk = vcc & r1 & d1['A,K'] & gnd  # Diode anode connected to resistor and cathode to ground.
 ```
 
-![Polar network]({{ SITEURL }}/images/sweetening-skidl/polar_ntwk.png)
+![Polar network](images/sweetening-skidl/polar_ntwk.png)
 
 Explicitly listing the pins also lets you use multi-pin parts with networks.
 For example, here's an NPN-transistor amplifier built using two networks:
@@ -114,12 +114,12 @@ ntwk_ce = vcc & r1 & outp & q1['C,E'] & gnd  # Connect net outp to the junction 
 ntwk_b = inp & r2 & q1['B']  # Connect net inp to the resistor driving the transistor base.
 ```
 
-![Transistor Amplifier]({{ SITEURL }}/images/sweetening-skidl/trans_ntwk.png)
+![Transistor Amplifier](images/sweetening-skidl/trans_ntwk.png)
 
 Not all networks are composed of parts in series or parallel.
 For example, here's a [*Pi matching network*](https://www.eeweb.com/tools/pi-match):
 
-![Pi Matching Network]({{ SITEURL }}/images/sweetening-skidl/pi_ntwk.png)
+![Pi Matching Network](images/sweetening-skidl/pi_ntwk.png)
 
 This could be described using the `tee()` function like so:
 

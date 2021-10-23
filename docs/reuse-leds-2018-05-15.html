@@ -150,7 +150,7 @@ microcontroller unit like this:</p>
 </code></pre></div>
 
 <p>And here's a layout for the netlist that was generated:</p>
-<p><img alt="Common-cathode LEDs attached to PIC18F MCU." src="/images/reuse-leds/leds2.png"></p>
+<p><img alt="Common-cathode LEDs attached to PIC18F MCU." src="images/reuse-leds/leds2.png"></p>
 <p>So far, so good. The module is even more general-purpose but it's a bit cost-inefficient
 to use all those discrete resistors for limiting the LED current.
 The next version of the module will remedy that.</p>
@@ -159,8 +159,8 @@ The next version of the module will remedy that.</p>
 <a href="https://www.ctscorp.com/wp-content/uploads/74x.pdf">Resistor arrays</a>
 containing two, four, or eight independent resistors will lower
 the number of components and reduce assembly costs.</p>
-<p><img alt="An eight-resistor array." src="/images/reuse-leds/742c163.png"></p>
-<p><img alt="Resistor pinouts." src="/images/reuse-leds/resistor-pinouts.png"></p>
+<p><img alt="An eight-resistor array." src="images/reuse-leds/742c163.png"></p>
+<p><img alt="Resistor pinouts." src="images/reuse-leds/resistor-pinouts.png"></p>
 <p>The following code iteratively packs the resistors into one or more arrays
 until all the inputs are connected:</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">leds</span><span class="p">(</span><span class="n">anodes</span><span class="p">,</span> <span class="n">cathodes</span><span class="p">):</span>
@@ -245,7 +245,7 @@ until all the inputs are connected:</p>
 
 <p>From the layout, you can see the five current-limiting resistors have been packed into a four-resistor
 array and an additional discrete resistor:</p>
-<p><img alt="Common-anodes LEDs attached to PIC18F MCU." src="/images/reuse-leds/leds4.png"></p>
+<p><img alt="Common-anodes LEDs attached to PIC18F MCU." src="images/reuse-leds/leds4.png"></p>
 <p>Up to this point, all the components used in these modules have been hard-coded.
 While I might consider myself a great designer with impeccable taste in choosing parts,
 you'll probably still want to select components that match your application.

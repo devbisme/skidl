@@ -479,7 +479,7 @@ used so only those parts containing a particular text string will show up.&lt;/p
 named pins where graphical signal nets can be attached. So that handles the I/O problem.&lt;/p&gt;
 &lt;p&gt;Finally, after your schematic is finished, there's a &lt;em&gt;footprint assigner&lt;/em&gt; where you can
 select and assign a physical footprint to go with each part symbol.&lt;/p&gt;
-&lt;p&gt;&lt;img alt="EESCHEMA part footprint assigner." src="/images/the-worst-part-of-skidl/cvpcb.png"&gt;
+&lt;p&gt;&lt;img alt="EESCHEMA part footprint assigner." src="images/the-worst-part-of-skidl/cvpcb.png"&gt;
 These integrated, schematic-based tools aren't available when using SKiDL.
 A kludgy way to do something similar is to pull up the KiCad symbol editor and use it
 to find parts and their I/O pin names, and then use the footprint editor to scroll through possible footprints
@@ -519,13 +519,13 @@ And the problem of finding, choosing, and entering a footprint hasn't been addre
 that delivered the result as text strings to enter into SKiDL code.
 So I built it: &lt;a href="https://pypi.org/project/zyc/"&gt;&lt;code&gt;zyc&lt;/code&gt;&lt;/a&gt;.
 (If you prefer a video tour of &lt;code&gt;zyc&lt;/code&gt;, then &lt;a href="https://youtu.be/YmRXruDYu3w"&gt;here&lt;/a&gt; it is.)&lt;/p&gt;
-&lt;p&gt;&lt;img alt="zyc part &amp;amp; footprint assigner." src="/images/the-worst-part-of-skidl/zyc.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="zyc part &amp;amp; footprint assigner." src="images/the-worst-part-of-skidl/zyc.png"&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;zyc&lt;/code&gt; has two, cooperating panes: a part is searched for and selected in the top pane, and then the
 same is done for a footprint in the bottom pane. Then you can paste a SKiDL &lt;code&gt;Part(...)&lt;/code&gt; instantiation
 with the part and footprint into a code editing window.&lt;/p&gt;
 &lt;p&gt;To use &lt;code&gt;zyc&lt;/code&gt;, start off by typing some search terms describing the part you want
 into the upper text-entry box (1) and hit &lt;code&gt;RETURN&lt;/code&gt; or click the &lt;code&gt;Search&lt;/code&gt; button (2).&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Entering part search terms in zyc." src="/images/the-worst-part-of-skidl/zyc-part-search-terms.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Entering part search terms in zyc." src="images/the-worst-part-of-skidl/zyc-part-search-terms.png"&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;zyc&lt;/code&gt; will scan through all the available parts looking for your search terms in the library names and
 the part names, aliases, descriptions, and keywords. (This initial search takes 20-30 seconds, but
 any further searches are quick because the part data gets cached.)
@@ -533,7 +533,7 @@ The search terms can contain one or more text strings and/or regular expressions
 Any matching parts are displayed in the Library/Part table (1).
 Clicking on a row in the table (2) displays the part's description and keywords (3), datasheet hyperlink (4), and
 I/O pin table (5) on the right-side of the pane.&lt;/p&gt;
-&lt;p&gt;&lt;img alt="zyc part search results." src="/images/the-worst-part-of-skidl/zyc-part-search-results.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="zyc part search results." src="images/the-worst-part-of-skidl/zyc-part-search-results.png"&gt;&lt;/p&gt;
 &lt;p&gt;Selecting a part also loads the footprint search text-entry box (6) with an initial set of search terms formed from
 the part's list of recommended footprints plus the number of part pins.
 You can edit these search terms and add more to modify the footprint search.
@@ -546,10 +546,10 @@ because of caching.)&lt;/p&gt;
 In this case, there is only one.
 Selecting it makes the footprint description appear (2) as well as a drawing of the footprint (3).
 (If a hyperlink for the package datasheet was available, that would show up as well.)&lt;/p&gt;
-&lt;p&gt;![zyc footprint search results.](/images/the-worst-part-of-skidl/zyc-fp-search-results.png&lt;/p&gt;
+&lt;p&gt;![zyc footprint search results.](images/the-worst-part-of-skidl/zyc-fp-search-results.png&lt;/p&gt;
 &lt;p&gt;Once a part and footprint are selected, you can click on the &lt;code&gt;Copy&lt;/code&gt; button in the upper panel (1)
 to place a &lt;code&gt;Part(...)&lt;/code&gt; instantiation on the clipboard.&lt;/p&gt;
-&lt;p&gt;&lt;img alt="zyc footprint search results." src="/images/the-worst-part-of-skidl/zyc-part-fp-copy.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="zyc footprint search results." src="images/the-worst-part-of-skidl/zyc-part-fp-copy.png"&gt;&lt;/p&gt;
 &lt;p&gt;Then you can go anywhere (such as your code editor) and paste the clipboard contents to get the part
 instantiation:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;uc&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Part&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;lib&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;MCU_Microchip_PIC10.lib&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;PIC10F202-IMC&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
@@ -564,7 +564,7 @@ gets placed on the clipboard and appears as follows:&lt;/p&gt;
 
 &lt;p&gt;To make it easier to connect the pins, &lt;code&gt;zyc&lt;/code&gt; lets you select the names from the pin list column (1).
 Right-clicking on the table copies whatever is selected to the clipboard.&lt;/p&gt;
-&lt;p&gt;&lt;img alt="zyc part pin copy." src="/images/the-worst-part-of-skidl/zyc-pin-copy.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="zyc part pin copy." src="images/the-worst-part-of-skidl/zyc-pin-copy.png"&gt;&lt;/p&gt;
 &lt;p&gt;Then the pin names can be pasted it into the code editor:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;uc&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Part&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;lib&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;MCU_Microchip_PIC10.lib&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;PIC10F202-IMC&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
           &lt;span class="n"&gt;footprint&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Package_DFN_QFN:DFN-8-1EP_2x3mm_P0.5mm_EP0.61x2.2mm&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -589,7 +589,7 @@ This can be useful in grouping pins by their names, functions, or part units
 before selecting and pasting them.
 Using an FPGA as an example, double-clicking the &lt;code&gt;Unit&lt;/code&gt; column (1)
 orders the table so you can select all the I/O pins in one of its banks (2).&lt;/p&gt;
-&lt;p&gt;&lt;img alt="zyc part pin sort." src="/images/the-worst-part-of-skidl/zyc-pin-sort.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="zyc part pin sort." src="images/the-worst-part-of-skidl/zyc-pin-sort.png"&gt;&lt;/p&gt;
 &lt;p&gt;Then the pins can be pasted:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="s2"&gt;&amp;quot;IO_0_14&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; 
 &lt;span class="s2"&gt;&amp;quot;IO_0_15&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; 
@@ -700,7 +700,7 @@ and it will look for the global footprint library table (&lt;code&gt;fp_lib_tabl
 where KiCad installs it on various OSes.
 You can also add or change the directories that are searched for part libraries (1) or for
 &lt;code&gt;fp_lib_table&lt;/code&gt; files (2) using the menu items below:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="zyc path setup." src="/images/the-worst-part-of-skidl/zyc-path-setup.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="zyc path setup." src="images/the-worst-part-of-skidl/zyc-path-setup.png"&gt;&lt;/p&gt;
 &lt;p&gt;It may happen that you change some part libraries or add more footprint files while &lt;code&gt;zyc&lt;/code&gt; is
 running. If so, you'll want to refresh the part and footprint caches (3). &lt;/p&gt;
 &lt;p&gt;If you want to try &lt;code&gt;zyc&lt;/code&gt;, you can install it from the Github repo:&lt;/p&gt;
@@ -775,18 +775,18 @@ SKiDL syntax:&lt;/p&gt;
 &lt;span class="n"&gt;ser_ntwk&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;r1&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;r2&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;r3&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;r4&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="Serial Network" src="/images/sweetening-skidl/ser_ntwk.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Serial Network" src="images/sweetening-skidl/ser_ntwk.png"&gt;&lt;/p&gt;
 &lt;p&gt;Here are four resistors wired in parallel:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;par_ntwk&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;r1&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;r2&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;r3&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;r4&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="Parallel Network" src="/images/sweetening-skidl/par_ntwk.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Parallel Network" src="images/sweetening-skidl/par_ntwk.png"&gt;&lt;/p&gt;
 &lt;p&gt;Or you can do something like placing pairs of resistors in series and then paralleling
 those combinations like this:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;combo_ntwk&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;r1&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;r2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;r3&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;r4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="Parallel+Serial Network" src="/images/sweetening-skidl/combo_ntwk.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Parallel+Serial Network" src="images/sweetening-skidl/combo_ntwk.png"&gt;&lt;/p&gt;
 &lt;p&gt;In addition to connecting parts, the &lt;code&gt;&amp;amp;&lt;/code&gt; and &lt;code&gt;|&lt;/code&gt; operators also work with nets.
 This lets you apply inputs and extract outputs by attaching nets to nodes in the network.
 To illustrate, here's a simple resistor network that divides an input voltage
@@ -795,14 +795,14 @@ to generate an output voltage:&lt;/p&gt;
 &lt;span class="n"&gt;vdiv_ntwk&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;vin&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;r1&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;vout&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;r2&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;gnd&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="Voltage-Divider Network" src="/images/sweetening-skidl/vdiv_ntwk.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Voltage-Divider Network" src="images/sweetening-skidl/vdiv_ntwk.png"&gt;&lt;/p&gt;
 &lt;p&gt;You could do the same thing using a single pin instead of a net.
 Here's the voltage divider attached directly to a pin of a microcontroller:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;pic10&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Part&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;MCU_Microchip_PIC10&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;PIC10F320-IP&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;pin_ntwk&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;vin&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;r1&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;pic10&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;RA3&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;r2&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;gnd&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="Voltage-Divider Network for Microcontroller" src="/images/sweetening-skidl/micro_ntwk.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Voltage-Divider Network for Microcontroller" src="images/sweetening-skidl/micro_ntwk.png"&gt;&lt;/p&gt;
 &lt;p&gt;The examples above work with &lt;em&gt;non-polarized&lt;/em&gt; components, but what about &lt;em&gt;polarized&lt;/em&gt; parts
 like diodes and electrolytic capacitors? For those, you have to specify the 
 pins &lt;em&gt;explicitly&lt;/em&gt; with the first pin connected to the preceding part and the
@@ -812,7 +812,7 @@ second pin to the following part like so:&lt;/p&gt;
 &lt;span class="n"&gt;polar_ntwk&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;vcc&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;r1&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;d1&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;A,K&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;gnd&lt;/span&gt;  &lt;span class="c1"&gt;# Diode anode connected to resistor and cathode to ground.&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="Polar network" src="/images/sweetening-skidl/polar_ntwk.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Polar network" src="images/sweetening-skidl/polar_ntwk.png"&gt;&lt;/p&gt;
 &lt;p&gt;Explicitly listing the pins also lets you use multi-pin parts with networks.
 For example, here's an NPN-transistor amplifier built using two networks:
 one for the carrying the amplified current through the load resistor and
@@ -824,10 +824,10 @@ and another for applying the input to the base.&lt;/p&gt;
 &lt;span class="n"&gt;ntwk_b&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;inp&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;r2&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;q1&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;B&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;  &lt;span class="c1"&gt;# Connect net inp to the resistor driving the transistor base.&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="Transistor Amplifier" src="/images/sweetening-skidl/trans_ntwk.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Transistor Amplifier" src="images/sweetening-skidl/trans_ntwk.png"&gt;&lt;/p&gt;
 &lt;p&gt;Not all networks are composed of parts in series or parallel.
 For example, here's a &lt;a href="https://www.eeweb.com/tools/pi-match"&gt;&lt;em&gt;Pi matching network&lt;/em&gt;&lt;/a&gt;:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Pi Matching Network" src="/images/sweetening-skidl/pi_ntwk.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Pi Matching Network" src="images/sweetening-skidl/pi_ntwk.png"&gt;&lt;/p&gt;
 &lt;p&gt;This could be described using the &lt;code&gt;tee()&lt;/code&gt; function like so:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;inp&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;outp&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;gnd&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Net&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;INPUT&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;Net&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;OUTPUT&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;Net&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;GND&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;l1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Part&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Device&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;L&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -903,13 +903,13 @@ Here are two examples.&lt;/p&gt;
 &lt;h3 id="blinkenface"&gt;Blinkenface&lt;/h3&gt;
 &lt;p&gt;&lt;a href="https://github.com/mossmann/blinkenface"&gt;Blinkenface&lt;/a&gt; is a version of "LED glasses"
 made with a cascaded string of APA102 RGB LEDs controlled through an SPI interface:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Blinkenface PCB" src="/images/others-use-it-too/blinkenface_pcb.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Blinkenface PCB" src="images/others-use-it-too/blinkenface_pcb.png"&gt;&lt;/p&gt;
 &lt;p&gt;Th majority of Blinkenface is just a …&lt;/p&gt;</summary><content type="html">&lt;p&gt;It helps when other people use SKiDL; then I can coast by just showing what they've done.
 Here are two examples.&lt;/p&gt;
 &lt;h3 id="blinkenface"&gt;Blinkenface&lt;/h3&gt;
 &lt;p&gt;&lt;a href="https://github.com/mossmann/blinkenface"&gt;Blinkenface&lt;/a&gt; is a version of "LED glasses"
 made with a cascaded string of APA102 RGB LEDs controlled through an SPI interface:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Blinkenface PCB" src="/images/others-use-it-too/blinkenface_pcb.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Blinkenface PCB" src="images/others-use-it-too/blinkenface_pcb.png"&gt;&lt;/p&gt;
 &lt;p&gt;Th majority of Blinkenface is just a repetitive connection of one APA102 to the
 next one in line: perfect for a loop construct!
 And that's just what's done in the associated SKiDL code:&lt;/p&gt;
@@ -972,7 +972,7 @@ you can still get the job done.
 And this gets the job done by connecting 242 LEDs in just 50 lines of code.&lt;/p&gt;
 &lt;h3 id="spidriver"&gt;SPIDriver&lt;/h3&gt;
 &lt;p&gt;The next example is an actual product: the &lt;a href="https://www.crowdsupply.com/excamera/spidriver"&gt;SPIDriver&lt;/a&gt;!&lt;/p&gt;
-&lt;p&gt;&lt;img alt="SPIDriver picture" src="https://github.com/jamesbowman/spidriver/raw/master/images/DSC_1313a.JPG"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="SPIDriver picture" src="https://github.com/jamesbowman/spidriver/raw/masterimages/DSC_1313a.JPG"&gt;&lt;/p&gt;
 &lt;p&gt;The SPIDriver has a more conventional topology than the previous example,
 consisting of a microcontroller, display, USB interface, and headers.
 The SKiDL code is partitioned into sections for each major component:&lt;/p&gt;
@@ -1235,7 +1235,7 @@ microcontroller unit like this:&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;And here's a layout for the netlist that was generated:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Common-cathode LEDs attached to PIC18F MCU." src="/images/reuse-leds/leds2.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Common-cathode LEDs attached to PIC18F MCU." src="images/reuse-leds/leds2.png"&gt;&lt;/p&gt;
 &lt;p&gt;So far, so good. The module is even more general-purpose but it's a bit cost-inefficient
 to use all those discrete resistors for limiting the LED current.
 The next version of the module will remedy that.&lt;/p&gt;
@@ -1244,8 +1244,8 @@ The next version of the module will remedy that.&lt;/p&gt;
 &lt;a href="https://www.ctscorp.com/wp-content/uploads/74x.pdf"&gt;Resistor arrays&lt;/a&gt;
 containing two, four, or eight independent resistors will lower
 the number of components and reduce assembly costs.&lt;/p&gt;
-&lt;p&gt;&lt;img alt="An eight-resistor array." src="/images/reuse-leds/742c163.png"&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Resistor pinouts." src="/images/reuse-leds/resistor-pinouts.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="An eight-resistor array." src="images/reuse-leds/742c163.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Resistor pinouts." src="images/reuse-leds/resistor-pinouts.png"&gt;&lt;/p&gt;
 &lt;p&gt;The following code iteratively packs the resistors into one or more arrays
 until all the inputs are connected:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;leds&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;anodes&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;cathodes&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
@@ -1330,7 +1330,7 @@ until all the inputs are connected:&lt;/p&gt;
 
 &lt;p&gt;From the layout, you can see the five current-limiting resistors have been packed into a four-resistor
 array and an additional discrete resistor:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Common-anodes LEDs attached to PIC18F MCU." src="/images/reuse-leds/leds4.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Common-anodes LEDs attached to PIC18F MCU." src="images/reuse-leds/leds4.png"&gt;&lt;/p&gt;
 &lt;p&gt;Up to this point, all the components used in these modules have been hard-coded.
 While I might consider myself a great designer with impeccable taste in choosing parts,
 you'll probably still want to select components that match your application.
@@ -1445,7 +1445,7 @@ There are two great features of Dan's design:&lt;/p&gt;
   descriptions, usage notes, etc.&lt;/li&gt;
 &lt;li&gt;It's already done, which means I don't have to do it.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img alt="A page of the Arduino schematic." src="/images/an-arduino-with-skidl/arduino-schematic.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="A page of the Arduino schematic." src="images/an-arduino-with-skidl/arduino-schematic.png"&gt;&lt;/p&gt;
 &lt;p&gt;After loading the Arduino project with KiCad, the netlist for the design
 is exported by the Eeschema schematic editor using the &lt;code&gt;Tools =&amp;gt; Generate Netlist File...&lt;/code&gt;
 menu command.
@@ -1565,15 +1565,15 @@ with the command:&lt;/p&gt;
 
 &lt;p&gt;This stored the netlist into a file called &lt;code&gt;led_clock.net&lt;/code&gt;. 
 I imported the netlist into &lt;code&gt;PCBNEW&lt;/code&gt; which arranged the LEDs like this:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Initial placement of clock LEDs." src="/images/two-easy-pieces/clock-initial-placement.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Initial placement of clock LEDs." src="images/two-easy-pieces/clock-initial-placement.png"&gt;&lt;/p&gt;
 &lt;p&gt;Obviously that doesn't look much like a clock face, but DougE's script should
 take care of that.
 I stored his script in a file called &lt;code&gt;place_and_route_led_clock.py&lt;/code&gt; in my top-level
 directory, and then executed it in &lt;code&gt;PCBNEW&lt;/code&gt;'s Python shell:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Executing the clock LED placement script." src="/images/two-easy-pieces/clock-python-shell.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Executing the clock LED placement script." src="images/two-easy-pieces/clock-python-shell.png"&gt;&lt;/p&gt;
 &lt;p&gt;The script rearranged the LEDs and routed all the traces to create
 a clock face similar to the one above (except mine uses a smaller 0603 LED):&lt;/p&gt;
-&lt;p&gt;&lt;img alt="LEDs rearranged into a clock face." src="/images/two-easy-pieces/clock-led-placement.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="LEDs rearranged into a clock face." src="images/two-easy-pieces/clock-led-placement.png"&gt;&lt;/p&gt;
 &lt;p&gt;This SKiDL script is relatively simple because it uses only LEDs and the
 bus sizes are fixed for a particular clock face layout.
 The next piece shows what happens when a more generalized solution is desired.&lt;/p&gt;
@@ -1582,7 +1582,7 @@ The next piece shows what happens when a more generalized solution is desired.&l
 that forms a weighted sum of digital signals to create the analog 
 red, green and blue signals which drive a monitor.
 The guts of the circuit are shown below:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="VGA interface schematic." src="/images/two-easy-pieces/vga-schematic.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="VGA interface schematic." src="images/two-easy-pieces/vga-schematic.png"&gt;&lt;/p&gt;
 &lt;p&gt;As it stands, this would be simple to implement in SKiDL.
 But why settle for a VGA interface with the red, green and blue color depths
 fixed at five bits when I could have a SKiDL script that generates any depth I want!
@@ -1762,11 +1762,11 @@ with some connectors to build the complete VGA interface circuit:&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Then it's just a matter of running the script:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Running the VGA interface script." src="/images/two-easy-pieces/vga-python-cmd.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Running the VGA interface script." src="images/two-easy-pieces/vga-python-cmd.png"&gt;&lt;/p&gt;
 &lt;p&gt;And then importing the netlist into &lt;code&gt;PCBNEW&lt;/code&gt;:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Initial placement of VGA interface components." src="/images/two-easy-pieces/vga-initial-placement.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Initial placement of VGA interface components." src="images/two-easy-pieces/vga-initial-placement.png"&gt;&lt;/p&gt;
 &lt;p&gt;After the tedious work of placing parts and routing wires, the final VGA interface PCB layout appears:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Finished layout of VGA interface." src="/images/two-easy-pieces/vga-final.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Finished layout of VGA interface." src="images/two-easy-pieces/vga-final.png"&gt;&lt;/p&gt;
 &lt;p&gt;Now, you could say this SKiDL script doesn't qualify as an "easy piece".
 There are some complications in the code, but that's what usually happens when
 you try to make a program less specific and more general.
@@ -1814,7 +1814,7 @@ But there are chips nowadays that have hundreds of ground pins which means
 placing hundreds of bypass caps.
 Here's a section of a schematic showing just the bypass caps for a
 relatively small chip with around a dozen ground pins:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Schematic with bypass capacitors." src="/images/dont-replicate-automate/bypass-caps.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Schematic with bypass capacitors." src="images/dont-replicate-automate/bypass-caps.png"&gt;&lt;/p&gt;
 &lt;p&gt;And here's the design process:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nv"&gt;Click&lt;/span&gt; &lt;span class="nv"&gt;on&lt;/span&gt; &lt;span class="nv"&gt;capacitor&lt;/span&gt; &lt;span class="nv"&gt;symbol&lt;/span&gt;. &lt;span class="nv"&gt;Drag&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="nv"&gt;drop&lt;/span&gt;. &lt;span class="nv"&gt;Attach&lt;/span&gt; &lt;span class="nv"&gt;power&lt;/span&gt;. &lt;span class="nv"&gt;Attach&lt;/span&gt; &lt;span class="nv"&gt;ground&lt;/span&gt;.
 
@@ -2170,7 +2170,7 @@ Python default parameters come to the rescue!&lt;/p&gt;
 I showed how to use SKiDL to describe the circuit for a simple USB-to-JTAG
 interface circuit.
 That circuit used a PIC32MX microcontroller in a 28-pin SSOP package:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="PIC32MX in a 28-pin SSOP package." src="/images/names-not-numbers/pic32mx-ssop28.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="PIC32MX in a 28-pin SSOP package." src="images/names-not-numbers/pic32mx-ssop28.png"&gt;&lt;/p&gt;
 &lt;p&gt;and the corresponding SKiDL code was: &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;pic32&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Part&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pic32_lib&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;pic32MX2\*0F\*\*\*B-SSOP28-SOIC28-SPDIP28&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
              &lt;span class="n"&gt;footprint&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Housings_SSOP:SSOP-28_5.3x10.2mm_Pitch0.65mm&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -2180,14 +2180,14 @@ That circuit used a PIC32MX microcontroller in a 28-pin SSOP package:&lt;/p&gt;
 I showed how to use SKiDL to describe the circuit for a simple USB-to-JTAG
 interface circuit.
 That circuit used a PIC32MX microcontroller in a 28-pin SSOP package:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="PIC32MX in a 28-pin SSOP package." src="/images/names-not-numbers/pic32mx-ssop28.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="PIC32MX in a 28-pin SSOP package." src="images/names-not-numbers/pic32mx-ssop28.png"&gt;&lt;/p&gt;
 &lt;p&gt;and the corresponding SKiDL code was: &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;pic32&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Part&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pic32_lib&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;pic32MX2\*0F\*\*\*B-SSOP28-SOIC28-SPDIP28&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
              &lt;span class="n"&gt;footprint&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Housings_SSOP:SSOP-28_5.3x10.2mm_Pitch0.65mm&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;I wanted to try using the same processor, but housed in a smaller QFN package:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="PIC32MX in a 28-pin QFN package." src="/images/names-not-numbers/pic32mx-qfn28.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="PIC32MX in a 28-pin QFN package." src="images/names-not-numbers/pic32mx-qfn28.png"&gt;&lt;/p&gt;
 &lt;p&gt;To do that, I changed the SKiDL code to reference a different part and footprint like this:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;pic32&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Part&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pic32_lib&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;pic32MX2\*0F\*\*\*B-QFN28&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
              &lt;span class="n"&gt;footprint&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Housings_DFN_QFN:QFN-28-1EP_6x6mm_Pitch0.65mm&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -2233,11 +2233,11 @@ netlist into KiCad's &lt;code&gt;PCBNEW&lt;/code&gt; layout program.
 At that point, it didn't matter whether I used pin names or numbers: I still had
 to re-route the wire traces on the PCB because the physical location
 of the pins had changed. There's no getting around that.&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Completed USB-to-JTAG board layout." src="/images/names-not-numbers/pcbnew-routed.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Completed USB-to-JTAG board layout." src="images/names-not-numbers/pcbnew-routed.png"&gt;&lt;/p&gt;
 &lt;p&gt;Here's a side-by-side of the previous and new USB-to-JTAG boards:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Old and new USB-to-JTAG boards." src="/images/names-not-numbers/old-and-new-boards.jpg"&gt;&lt;/p&gt;</content><category term="posts"></category></entry><entry><title>Building a USB-to-JTAG Interface Using SKiDL</title><link href="/skidl/building-a-usb-to-jtag-interface-using-skidl-2017-01-19.html" rel="alternate"></link><published>2017-01-19T00:00:00-05:00</published><updated>2017-01-19T00:00:00-05:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2017-01-19:/skidl/building-a-usb-to-jtag-interface-using-skidl-2017-01-19.html</id><summary type="html">&lt;p&gt;This post describes using SKiDL for a USB-to-JTAG interface
+&lt;p&gt;&lt;img alt="Old and new USB-to-JTAG boards." src="images/names-not-numbers/old-and-new-boards.jpg"&gt;&lt;/p&gt;</content><category term="posts"></category></entry><entry><title>Building a USB-to-JTAG Interface Using SKiDL</title><link href="/skidl/building-a-usb-to-jtag-interface-using-skidl-2017-01-19.html" rel="alternate"></link><published>2017-01-19T00:00:00-05:00</published><updated>2017-01-19T00:00:00-05:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2017-01-19:/skidl/building-a-usb-to-jtag-interface-using-skidl-2017-01-19.html</id><summary type="html">&lt;p&gt;This post describes using SKiDL for a USB-to-JTAG interface
 that was taken all the way from concept to physically building a device.&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Assembled USB-to-JTAG board." src="/images/usb-to-jtag/assembled_brd.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Assembled USB-to-JTAG board." src="images/usb-to-jtag/assembled_brd.png"&gt;&lt;/p&gt;
 &lt;p&gt;The interface is pretty simple. It's built from the following stuff:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;A PIC32MX220 microcontroller.&lt;/li&gt;
@@ -2245,7 +2245,7 @@ that was taken all the way from concept to physically building a device.&lt;/p&g
 &lt;li&gt;Some reset circuitry.&lt;/li&gt;
 &lt;li&gt;A six-pin Microchip programming header (for the …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;This post describes using SKiDL for a USB-to-JTAG interface
 that was taken all the way from concept to physically building a device.&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Assembled USB-to-JTAG board." src="/images/usb-to-jtag/assembled_brd.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Assembled USB-to-JTAG board." src="images/usb-to-jtag/assembled_brd.png"&gt;&lt;/p&gt;
 &lt;p&gt;The interface is pretty simple. It's built from the following stuff:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;A PIC32MX220 microcontroller.&lt;/li&gt;
@@ -2258,7 +2258,7 @@ that was taken all the way from concept to physically building a device.&lt;/p&g
 &lt;li&gt;A status LED.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Here's a block diagram to help orient you as the SKiDL code is presented.&lt;/p&gt;
-&lt;p&gt;&lt;img alt="USB-to-JTAG device block diagram." src="/images/usb-to-jtag/block_diag.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="USB-to-JTAG device block diagram." src="images/usb-to-jtag/block_diag.png"&gt;&lt;/p&gt;
 &lt;p&gt;Any SKiDL project starts as a Python file.
 In this example, I created the file &lt;code&gt;intfc_brd.py&lt;/code&gt;.
 The first line in the file imports all the functions and classes of the &lt;code&gt;skidl&lt;/code&gt; module:&lt;/p&gt;
@@ -2733,10 +2733,10 @@ for this project.&lt;/p&gt;
 
 &lt;p&gt;When &lt;code&gt;intfc_brd.net&lt;/code&gt; is taken in by KiCad's PCBNEW layout editor,
 the initial component arrangement looks something like this:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="USB-to-JTAG board with unplaced parts." src="/images/usb-to-jtag/pcbnew-unplaced.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="USB-to-JTAG board with unplaced parts." src="images/usb-to-jtag/pcbnew-unplaced.png"&gt;&lt;/p&gt;
 &lt;p&gt;After a suitable amount of fiddling (none of which has anything to do with SKiDL at this point),
 we get to a final PCB layout:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Completed USB-to-JTAG board layout." src="/images/usb-to-jtag/pcbnew-routed.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Completed USB-to-JTAG board layout." src="images/usb-to-jtag/pcbnew-routed.png"&gt;&lt;/p&gt;
 &lt;p&gt;The layout is translated into &lt;a href="https://en.wikipedia.org/wiki/Gerber_format"&gt;Gerber files&lt;/a&gt;
 that are sent for fabrication into a physical PCB.
 Parts are assembled with the PCB

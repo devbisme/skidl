@@ -57,19 +57,19 @@ $ python led_clock.py
 This stored the netlist into a file called `led_clock.net`. 
 I imported the netlist into `PCBNEW` which arranged the LEDs like this:
 
-![Initial placement of clock LEDs.]({{ SITEURL }}/images/two-easy-pieces/clock-initial-placement.png)
+![Initial placement of clock LEDs.](images/two-easy-pieces/clock-initial-placement.png)
 
 Obviously that doesn't look much like a clock face, but DougE's script should
 take care of that.
 I stored his script in a file called `place_and_route_led_clock.py` in my top-level
 directory, and then executed it in `PCBNEW`'s Python shell:
 
-![Executing the clock LED placement script.]({{ SITEURL }}/images/two-easy-pieces/clock-python-shell.png)
+![Executing the clock LED placement script.](images/two-easy-pieces/clock-python-shell.png)
 
 The script rearranged the LEDs and routed all the traces to create
 a clock face similar to the one above (except mine uses a smaller 0603 LED):
 
-![LEDs rearranged into a clock face.]({{ SITEURL }}/images/two-easy-pieces/clock-led-placement.png)
+![LEDs rearranged into a clock face.](images/two-easy-pieces/clock-led-placement.png)
 
 This SKiDL script is relatively simple because it uses only LEDs and the
 bus sizes are fixed for a particular clock face layout.
@@ -83,7 +83,7 @@ that forms a weighted sum of digital signals to create the analog
 red, green and blue signals which drive a monitor.
 The guts of the circuit are shown below:
 
-![VGA interface schematic.]({{ SITEURL }}/images/two-easy-pieces/vga-schematic.png)
+![VGA interface schematic.](images/two-easy-pieces/vga-schematic.png)
 
 As it stands, this would be simple to implement in SKiDL.
 But why settle for a VGA interface with the red, green and blue color depths
@@ -261,15 +261,15 @@ generate_netlist()   # Generate the netlist.
 
 Then it's just a matter of running the script:
 
-![Running the VGA interface script.]({{ SITEURL }}/images/two-easy-pieces/vga-python-cmd.png)
+![Running the VGA interface script.](images/two-easy-pieces/vga-python-cmd.png)
 
 And then importing the netlist into `PCBNEW`:
 
-![Initial placement of VGA interface components.]({{ SITEURL }}/images/two-easy-pieces/vga-initial-placement.png)
+![Initial placement of VGA interface components.](images/two-easy-pieces/vga-initial-placement.png)
 
 After the tedious work of placing parts and routing wires, the final VGA interface PCB layout appears:
 
-![Finished layout of VGA interface.]({{ SITEURL }}/images/two-easy-pieces/vga-final.png)
+![Finished layout of VGA interface.](images/two-easy-pieces/vga-final.png)
 
 Now, you could say this SKiDL script doesn't qualify as an "easy piece".
 There are some complications in the code, but that's what usually happens when

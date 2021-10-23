@@ -38,7 +38,7 @@ placing hundreds of bypass caps.
 Here's a section of a schematic showing just the bypass caps for a
 relatively small chip with around a dozen ground pins:
 
-![Schematic with bypass capacitors.]({{ SITEURL }}/images/dont-replicate-automate/bypass-caps.png)
+![Schematic with bypass capacitors.](images/dont-replicate-automate/bypass-caps.png)
 
 And here's the design process:
 

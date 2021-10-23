@@ -58,14 +58,14 @@
 I showed how to use SKiDL to describe the circuit for a simple USB-to-JTAG
 interface circuit.
 That circuit used a PIC32MX microcontroller in a 28-pin SSOP package:</p>
-<p><img alt="PIC32MX in a 28-pin SSOP package." src="/images/names-not-numbers/pic32mx-ssop28.png"></p>
+<p><img alt="PIC32MX in a 28-pin SSOP package." src="images/names-not-numbers/pic32mx-ssop28.png"></p>
 <p>and the corresponding SKiDL code was: </p>
 <div class="highlight"><pre><span></span><code><span class="n">pic32</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">pic32_lib</span><span class="p">,</span> <span class="s1">&#39;pic32MX2\*0F\*\*\*B-SSOP28-SOIC28-SPDIP28&#39;</span><span class="p">,</span>
              <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Housings_SSOP:SSOP-28_5.3x10.2mm_Pitch0.65mm&#39;</span><span class="p">)</span>
 </code></pre></div>
 
 <p>I wanted to try using the same processor, but housed in a smaller QFN package:</p>
-<p><img alt="PIC32MX in a 28-pin QFN package." src="/images/names-not-numbers/pic32mx-qfn28.png"></p>
+<p><img alt="PIC32MX in a 28-pin QFN package." src="images/names-not-numbers/pic32mx-qfn28.png"></p>
 <p>To do that, I changed the SKiDL code to reference a different part and footprint like this:</p>
 <div class="highlight"><pre><span></span><code><span class="n">pic32</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">pic32_lib</span><span class="p">,</span> <span class="s1">&#39;pic32MX2\*0F\*\*\*B-QFN28&#39;</span><span class="p">,</span>
              <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Housings_DFN_QFN:QFN-28-1EP_6x6mm_Pitch0.65mm&#39;</span><span class="p">)</span>
@@ -111,9 +111,9 @@ netlist into KiCad's <code>PCBNEW</code> layout program.
 At that point, it didn't matter whether I used pin names or numbers: I still had
 to re-route the wire traces on the PCB because the physical location
 of the pins had changed. There's no getting around that.</p>
-<p><img alt="Completed USB-to-JTAG board layout." src="/images/names-not-numbers/pcbnew-routed.png"></p>
+<p><img alt="Completed USB-to-JTAG board layout." src="images/names-not-numbers/pcbnew-routed.png"></p>
 <p>Here's a side-by-side of the previous and new USB-to-JTAG boards:</p>
-<p><img alt="Old and new USB-to-JTAG boards." src="/images/names-not-numbers/old-and-new-boards.jpg"></p>
+<p><img alt="Old and new USB-to-JTAG boards." src="images/names-not-numbers/old-and-new-boards.jpg"></p>
 		</div> <!--/#entry-content-->
 	</div> <!--/#main-->
 </div>  <!--/#post-->

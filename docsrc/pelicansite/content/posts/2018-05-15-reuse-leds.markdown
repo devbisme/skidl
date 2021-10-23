@@ -117,7 +117,7 @@ if __name__ == '__main__':
 
 And here's a layout for the netlist that was generated:
 
-![Common-cathode LEDs attached to PIC18F MCU.]({{ SITEURL }}/images/reuse-leds/leds2.png)
+![Common-cathode LEDs attached to PIC18F MCU.](images/reuse-leds/leds2.png)
 
 So far, so good. The module is even more general-purpose but it's a bit cost-inefficient
 to use all those discrete resistors for limiting the LED current.
@@ -131,9 +131,9 @@ Replacing discrete resistors with
 containing two, four, or eight independent resistors will lower
 the number of components and reduce assembly costs.
 
-![An eight-resistor array.]({{ SITEURL }}/images/reuse-leds/742c163.png)
+![An eight-resistor array.](images/reuse-leds/742c163.png)
 
-![Resistor pinouts.]({{ SITEURL }}/images/reuse-leds/resistor-pinouts.png)
+![Resistor pinouts.](images/reuse-leds/resistor-pinouts.png)
 
 The following code iteratively packs the resistors into one or more arrays
 until all the inputs are connected:
@@ -224,7 +224,7 @@ Now I'll test the module by attaching five, common-anode LEDs to a microcontroll
 From the layout, you can see the five current-limiting resistors have been packed into a four-resistor
 array and an additional discrete resistor:
 
-![Common-anodes LEDs attached to PIC18F MCU.]({{ SITEURL }}/images/reuse-leds/leds4.png)
+![Common-anodes LEDs attached to PIC18F MCU.](images/reuse-leds/leds4.png)
 
 Up to this point, all the components used in these modules have been hard-coded.
 While I might consider myself a great designer with impeccable taste in choosing parts,

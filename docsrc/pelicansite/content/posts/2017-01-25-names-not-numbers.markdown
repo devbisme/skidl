@@ -8,7 +8,7 @@ I showed how to use SKiDL to describe the circuit for a simple USB-to-JTAG
 interface circuit.
 That circuit used a PIC32MX microcontroller in a 28-pin SSOP package:
 
-![PIC32MX in a 28-pin SSOP package.]({{ SITEURL }}/images/names-not-numbers/pic32mx-ssop28.png)
+![PIC32MX in a 28-pin SSOP package.](images/names-not-numbers/pic32mx-ssop28.png)
 
 and the corresponding SKiDL code was: 
 
@@ -19,7 +19,7 @@ pic32 = Part(pic32_lib, 'pic32MX2\*0F\*\*\*B-SSOP28-SOIC28-SPDIP28',
 
 I wanted to try using the same processor, but housed in a smaller QFN package:
 
-![PIC32MX in a 28-pin QFN package.]({{ SITEURL }}/images/names-not-numbers/pic32mx-qfn28.png)
+![PIC32MX in a 28-pin QFN package.](images/names-not-numbers/pic32mx-qfn28.png)
 
 To do that, I changed the SKiDL code to reference a different part and footprint like this:
 
@@ -82,9 +82,9 @@ At that point, it didn't matter whether I used pin names or numbers: I still had
 to re-route the wire traces on the PCB because the physical location
 of the pins had changed. There's no getting around that.
 
-![Completed USB-to-JTAG board layout.]({{ SITEURL }}/images/names-not-numbers/pcbnew-routed.png)
+![Completed USB-to-JTAG board layout.](images/names-not-numbers/pcbnew-routed.png)
 
 Here's a side-by-side of the previous and new USB-to-JTAG boards:
 
-![Old and new USB-to-JTAG boards.]({{ SITEURL }}/images/names-not-numbers/old-and-new-boards.jpg)
+![Old and new USB-to-JTAG boards.](images/names-not-numbers/old-and-new-boards.jpg)
 

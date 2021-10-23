@@ -97,15 +97,15 @@ with the command:</p>
 
 <p>This stored the netlist into a file called <code>led_clock.net</code>. 
 I imported the netlist into <code>PCBNEW</code> which arranged the LEDs like this:</p>
-<p><img alt="Initial placement of clock LEDs." src="/images/two-easy-pieces/clock-initial-placement.png"></p>
+<p><img alt="Initial placement of clock LEDs." src="images/two-easy-pieces/clock-initial-placement.png"></p>
 <p>Obviously that doesn't look much like a clock face, but DougE's script should
 take care of that.
 I stored his script in a file called <code>place_and_route_led_clock.py</code> in my top-level
 directory, and then executed it in <code>PCBNEW</code>'s Python shell:</p>
-<p><img alt="Executing the clock LED placement script." src="/images/two-easy-pieces/clock-python-shell.png"></p>
+<p><img alt="Executing the clock LED placement script." src="images/two-easy-pieces/clock-python-shell.png"></p>
 <p>The script rearranged the LEDs and routed all the traces to create
 a clock face similar to the one above (except mine uses a smaller 0603 LED):</p>
-<p><img alt="LEDs rearranged into a clock face." src="/images/two-easy-pieces/clock-led-placement.png"></p>
+<p><img alt="LEDs rearranged into a clock face." src="images/two-easy-pieces/clock-led-placement.png"></p>
 <p>This SKiDL script is relatively simple because it uses only LEDs and the
 bus sizes are fixed for a particular clock face layout.
 The next piece shows what happens when a more generalized solution is desired.</p>
@@ -114,7 +114,7 @@ The next piece shows what happens when a more generalized solution is desired.</
 that forms a weighted sum of digital signals to create the analog 
 red, green and blue signals which drive a monitor.
 The guts of the circuit are shown below:</p>
-<p><img alt="VGA interface schematic." src="/images/two-easy-pieces/vga-schematic.png"></p>
+<p><img alt="VGA interface schematic." src="images/two-easy-pieces/vga-schematic.png"></p>
 <p>As it stands, this would be simple to implement in SKiDL.
 But why settle for a VGA interface with the red, green and blue color depths
 fixed at five bits when I could have a SKiDL script that generates any depth I want!
@@ -294,11 +294,11 @@ with some connectors to build the complete VGA interface circuit:</p>
 </code></pre></div>
 
 <p>Then it's just a matter of running the script:</p>
-<p><img alt="Running the VGA interface script." src="/images/two-easy-pieces/vga-python-cmd.png"></p>
+<p><img alt="Running the VGA interface script." src="images/two-easy-pieces/vga-python-cmd.png"></p>
 <p>And then importing the netlist into <code>PCBNEW</code>:</p>
-<p><img alt="Initial placement of VGA interface components." src="/images/two-easy-pieces/vga-initial-placement.png"></p>
+<p><img alt="Initial placement of VGA interface components." src="images/two-easy-pieces/vga-initial-placement.png"></p>
 <p>After the tedious work of placing parts and routing wires, the final VGA interface PCB layout appears:</p>
-<p><img alt="Finished layout of VGA interface." src="/images/two-easy-pieces/vga-final.png"></p>
+<p><img alt="Finished layout of VGA interface." src="images/two-easy-pieces/vga-final.png"></p>
 <p>Now, you could say this SKiDL script doesn't qualify as an "easy piece".
 There are some complications in the code, but that's what usually happens when
 you try to make a program less specific and more general.

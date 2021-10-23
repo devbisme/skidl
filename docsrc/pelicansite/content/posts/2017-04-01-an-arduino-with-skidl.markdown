@@ -20,7 +20,7 @@ There are two great features of Dan's design:
   descriptions, usage notes, etc.
 * It's already done, which means I don't have to do it.
 
-![A page of the Arduino schematic.]({{ SITEURL }}/images/an-arduino-with-skidl/arduino-schematic.png)
+![A page of the Arduino schematic.](images/an-arduino-with-skidl/arduino-schematic.png)
 
 After loading the Arduino project with KiCad, the netlist for the design
 is exported by the Eeschema schematic editor using the `Tools => Generate Netlist File...`

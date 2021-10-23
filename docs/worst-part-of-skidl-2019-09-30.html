@@ -90,7 +90,7 @@ used so only those parts containing a particular text string will show up.</p>
 named pins where graphical signal nets can be attached. So that handles the I/O problem.</p>
 <p>Finally, after your schematic is finished, there's a <em>footprint assigner</em> where you can
 select and assign a physical footprint to go with each part symbol.</p>
-<p><img alt="EESCHEMA part footprint assigner." src="/images/the-worst-part-of-skidl/cvpcb.png">
+<p><img alt="EESCHEMA part footprint assigner." src="images/the-worst-part-of-skidl/cvpcb.png">
 These integrated, schematic-based tools aren't available when using SKiDL.
 A kludgy way to do something similar is to pull up the KiCad symbol editor and use it
 to find parts and their I/O pin names, and then use the footprint editor to scroll through possible footprints
@@ -130,13 +130,13 @@ And the problem of finding, choosing, and entering a footprint hasn't been addre
 that delivered the result as text strings to enter into SKiDL code.
 So I built it: <a href="https://pypi.org/project/zyc/"><code>zyc</code></a>.
 (If you prefer a video tour of <code>zyc</code>, then <a href="https://youtu.be/YmRXruDYu3w">here</a> it is.)</p>
-<p><img alt="zyc part &amp; footprint assigner." src="/images/the-worst-part-of-skidl/zyc.png"></p>
+<p><img alt="zyc part &amp; footprint assigner." src="images/the-worst-part-of-skidl/zyc.png"></p>
 <p><code>zyc</code> has two, cooperating panes: a part is searched for and selected in the top pane, and then the
 same is done for a footprint in the bottom pane. Then you can paste a SKiDL <code>Part(...)</code> instantiation
 with the part and footprint into a code editing window.</p>
 <p>To use <code>zyc</code>, start off by typing some search terms describing the part you want
 into the upper text-entry box (1) and hit <code>RETURN</code> or click the <code>Search</code> button (2).</p>
-<p><img alt="Entering part search terms in zyc." src="/images/the-worst-part-of-skidl/zyc-part-search-terms.png"></p>
+<p><img alt="Entering part search terms in zyc." src="images/the-worst-part-of-skidl/zyc-part-search-terms.png"></p>
 <p><code>zyc</code> will scan through all the available parts looking for your search terms in the library names and
 the part names, aliases, descriptions, and keywords. (This initial search takes 20-30 seconds, but
 any further searches are quick because the part data gets cached.)
@@ -144,7 +144,7 @@ The search terms can contain one or more text strings and/or regular expressions
 Any matching parts are displayed in the Library/Part table (1).
 Clicking on a row in the table (2) displays the part's description and keywords (3), datasheet hyperlink (4), and
 I/O pin table (5) on the right-side of the pane.</p>
-<p><img alt="zyc part search results." src="/images/the-worst-part-of-skidl/zyc-part-search-results.png"></p>
+<p><img alt="zyc part search results." src="images/the-worst-part-of-skidl/zyc-part-search-results.png"></p>
 <p>Selecting a part also loads the footprint search text-entry box (6) with an initial set of search terms formed from
 the part's list of recommended footprints plus the number of part pins.
 You can edit these search terms and add more to modify the footprint search.
@@ -157,10 +157,10 @@ because of caching.)</p>
 In this case, there is only one.
 Selecting it makes the footprint description appear (2) as well as a drawing of the footprint (3).
 (If a hyperlink for the package datasheet was available, that would show up as well.)</p>
-<p>![zyc footprint search results.](/images/the-worst-part-of-skidl/zyc-fp-search-results.png</p>
+<p>![zyc footprint search results.](images/the-worst-part-of-skidl/zyc-fp-search-results.png</p>
 <p>Once a part and footprint are selected, you can click on the <code>Copy</code> button in the upper panel (1)
 to place a <code>Part(...)</code> instantiation on the clipboard.</p>
-<p><img alt="zyc footprint search results." src="/images/the-worst-part-of-skidl/zyc-part-fp-copy.png"></p>
+<p><img alt="zyc footprint search results." src="images/the-worst-part-of-skidl/zyc-part-fp-copy.png"></p>
 <p>Then you can go anywhere (such as your code editor) and paste the clipboard contents to get the part
 instantiation:</p>
 <div class="highlight"><pre><span></span><code><span class="n">uc</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">lib</span><span class="o">=</span><span class="s1">&#39;MCU_Microchip_PIC10.lib&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;PIC10F202-IMC&#39;</span><span class="p">,</span>
@@ -175,7 +175,7 @@ gets placed on the clipboard and appears as follows:</p>
 
 <p>To make it easier to connect the pins, <code>zyc</code> lets you select the names from the pin list column (1).
 Right-clicking on the table copies whatever is selected to the clipboard.</p>
-<p><img alt="zyc part pin copy." src="/images/the-worst-part-of-skidl/zyc-pin-copy.png"></p>
+<p><img alt="zyc part pin copy." src="images/the-worst-part-of-skidl/zyc-pin-copy.png"></p>
 <p>Then the pin names can be pasted it into the code editor:</p>
 <div class="highlight"><pre><span></span><code><span class="n">uc</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="n">lib</span><span class="o">=</span><span class="s1">&#39;MCU_Microchip_PIC10.lib&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;PIC10F202-IMC&#39;</span><span class="p">,</span>
           <span class="n">footprint</span><span class="o">=</span><span class="s1">&#39;Package_DFN_QFN:DFN-8-1EP_2x3mm_P0.5mm_EP0.61x2.2mm&#39;</span><span class="p">)</span>
@@ -200,7 +200,7 @@ This can be useful in grouping pins by their names, functions, or part units
 before selecting and pasting them.
 Using an FPGA as an example, double-clicking the <code>Unit</code> column (1)
 orders the table so you can select all the I/O pins in one of its banks (2).</p>
-<p><img alt="zyc part pin sort." src="/images/the-worst-part-of-skidl/zyc-pin-sort.png"></p>
+<p><img alt="zyc part pin sort." src="images/the-worst-part-of-skidl/zyc-pin-sort.png"></p>
 <p>Then the pins can be pasted:</p>
 <div class="highlight"><pre><span></span><code><span class="s2">&quot;IO_0_14&quot;</span><span class="p">,</span> 
 <span class="s2">&quot;IO_0_15&quot;</span><span class="p">,</span> 
@@ -311,7 +311,7 @@ and it will look for the global footprint library table (<code>fp_lib_table</cod
 where KiCad installs it on various OSes.
 You can also add or change the directories that are searched for part libraries (1) or for
 <code>fp_lib_table</code> files (2) using the menu items below:</p>
-<p><img alt="zyc path setup." src="/images/the-worst-part-of-skidl/zyc-path-setup.png"></p>
+<p><img alt="zyc path setup." src="images/the-worst-part-of-skidl/zyc-path-setup.png"></p>
 <p>It may happen that you change some part libraries or add more footprint files while <code>zyc</code> is
 running. If so, you'll want to refresh the part and footprint caches (3). </p>
 <p>If you want to try <code>zyc</code>, you can install it from the Github repo:</p>

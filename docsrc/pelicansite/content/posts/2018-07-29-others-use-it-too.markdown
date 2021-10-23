@@ -12,7 +12,7 @@ Here are two examples.
 [Blinkenface](https://github.com/mossmann/blinkenface) is a version of "LED glasses"
 made with a cascaded string of APA102 RGB LEDs controlled through an SPI interface:
 
-![Blinkenface PCB]({{ SITEURL }}/images/others-use-it-too/blinkenface_pcb.png)
+![Blinkenface PCB](images/others-use-it-too/blinkenface_pcb.png)
 
 Th majority of Blinkenface is just a repetitive connection of one APA102 to the
 next one in line: perfect for a loop construct!
@@ -82,7 +82,7 @@ And this gets the job done by connecting 242 LEDs in just 50 lines of code.
 
 The next example is an actual product: the [SPIDriver](https://www.crowdsupply.com/excamera/spidriver)!
 
-![SPIDriver picture](https://github.com/jamesbowman/spidriver/raw/master{{ SITEURL }}/images/DSC_1313a.JPG)
+![SPIDriver picture](https://github.com/jamesbowman/spidriver/raw/masterimages/DSC_1313a.JPG)
 
 The SPIDriver has a more conventional topology than the previous example,
 consisting of a microcontroller, display, USB interface, and headers.

@@ -89,18 +89,18 @@ SKiDL syntax:</p>
 <span class="n">ser_ntwk</span> <span class="o">=</span> <span class="n">r1</span> <span class="o">&amp;</span> <span class="n">r2</span> <span class="o">&amp;</span> <span class="n">r3</span> <span class="o">&amp;</span> <span class="n">r4</span>
 </code></pre></div>
 
-<p><img alt="Serial Network" src="/images/sweetening-skidl/ser_ntwk.png"></p>
+<p><img alt="Serial Network" src="images/sweetening-skidl/ser_ntwk.png"></p>
 <p>Here are four resistors wired in parallel:</p>
 <div class="highlight"><pre><span></span><code><span class="n">par_ntwk</span> <span class="o">=</span> <span class="n">r1</span> <span class="o">|</span> <span class="n">r2</span> <span class="o">|</span> <span class="n">r3</span> <span class="o">|</span> <span class="n">r4</span>
 </code></pre></div>
 
-<p><img alt="Parallel Network" src="/images/sweetening-skidl/par_ntwk.png"></p>
+<p><img alt="Parallel Network" src="images/sweetening-skidl/par_ntwk.png"></p>
 <p>Or you can do something like placing pairs of resistors in series and then paralleling
 those combinations like this:</p>
 <div class="highlight"><pre><span></span><code><span class="n">combo_ntwk</span> <span class="o">=</span> <span class="p">(</span><span class="n">r1</span> <span class="o">&amp;</span> <span class="n">r2</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">r3</span> <span class="o">&amp;</span> <span class="n">r4</span><span class="p">)</span>
 </code></pre></div>
 
-<p><img alt="Parallel+Serial Network" src="/images/sweetening-skidl/combo_ntwk.png"></p>
+<p><img alt="Parallel+Serial Network" src="images/sweetening-skidl/combo_ntwk.png"></p>
 <p>In addition to connecting parts, the <code>&amp;</code> and <code>|</code> operators also work with nets.
 This lets you apply inputs and extract outputs by attaching nets to nodes in the network.
 To illustrate, here's a simple resistor network that divides an input voltage
@@ -109,14 +109,14 @@ to generate an output voltage:</p>
 <span class="n">vdiv_ntwk</span> <span class="o">=</span> <span class="n">vin</span> <span class="o">&amp;</span> <span class="n">r1</span> <span class="o">&amp;</span> <span class="n">vout</span> <span class="o">&amp;</span> <span class="n">r2</span> <span class="o">&amp;</span> <span class="n">gnd</span>
 </code></pre></div>
 
-<p><img alt="Voltage-Divider Network" src="/images/sweetening-skidl/vdiv_ntwk.png"></p>
+<p><img alt="Voltage-Divider Network" src="images/sweetening-skidl/vdiv_ntwk.png"></p>
 <p>You could do the same thing using a single pin instead of a net.
 Here's the voltage divider attached directly to a pin of a microcontroller:</p>
 <div class="highlight"><pre><span></span><code><span class="n">pic10</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;MCU_Microchip_PIC10&#39;</span><span class="p">,</span> <span class="s1">&#39;PIC10F320-IP&#39;</span><span class="p">)</span>
 <span class="n">pin_ntwk</span> <span class="o">=</span> <span class="n">vin</span> <span class="o">&amp;</span> <span class="n">r1</span> <span class="o">&amp;</span> <span class="n">pic10</span><span class="p">[</span><span class="s1">&#39;RA3&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">r2</span> <span class="o">&amp;</span> <span class="n">gnd</span>
 </code></pre></div>
 
-<p><img alt="Voltage-Divider Network for Microcontroller" src="/images/sweetening-skidl/micro_ntwk.png"></p>
+<p><img alt="Voltage-Divider Network for Microcontroller" src="images/sweetening-skidl/micro_ntwk.png"></p>
 <p>The examples above work with <em>non-polarized</em> components, but what about <em>polarized</em> parts
 like diodes and electrolytic capacitors? For those, you have to specify the 
 pins <em>explicitly</em> with the first pin connected to the preceding part and the
@@ -126,7 +126,7 @@ second pin to the following part like so:</p>
 <span class="n">polar_ntwk</span> <span class="o">=</span> <span class="n">vcc</span> <span class="o">&amp;</span> <span class="n">r1</span> <span class="o">&amp;</span> <span class="n">d1</span><span class="p">[</span><span class="s1">&#39;A,K&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">gnd</span>  <span class="c1"># Diode anode connected to resistor and cathode to ground.</span>
 </code></pre></div>
 
-<p><img alt="Polar network" src="/images/sweetening-skidl/polar_ntwk.png"></p>
+<p><img alt="Polar network" src="images/sweetening-skidl/polar_ntwk.png"></p>
 <p>Explicitly listing the pins also lets you use multi-pin parts with networks.
 For example, here's an NPN-transistor amplifier built using two networks:
 one for the carrying the amplified current through the load resistor and
@@ -138,10 +138,10 @@ and another for applying the input to the base.</p>
 <span class="n">ntwk_b</span> <span class="o">=</span> <span class="n">inp</span> <span class="o">&amp;</span> <span class="n">r2</span> <span class="o">&amp;</span> <span class="n">q1</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">]</span>  <span class="c1"># Connect net inp to the resistor driving the transistor base.</span>
 </code></pre></div>
 
-<p><img alt="Transistor Amplifier" src="/images/sweetening-skidl/trans_ntwk.png"></p>
+<p><img alt="Transistor Amplifier" src="images/sweetening-skidl/trans_ntwk.png"></p>
 <p>Not all networks are composed of parts in series or parallel.
 For example, here's a <a href="https://www.eeweb.com/tools/pi-match"><em>Pi matching network</em></a>:</p>
-<p><img alt="Pi Matching Network" src="/images/sweetening-skidl/pi_ntwk.png"></p>
+<p><img alt="Pi Matching Network" src="images/sweetening-skidl/pi_ntwk.png"></p>
 <p>This could be described using the <code>tee()</code> function like so:</p>
 <div class="highlight"><pre><span></span><code><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">,</span> <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;INPUT&#39;</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;OUTPUT&#39;</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
 <span class="n">l1</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">)</span>
