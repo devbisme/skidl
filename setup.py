@@ -53,14 +53,13 @@ setup(
         "Changelog": "https://github.com/devbisme/skidl/blob/master/HISTORY.rst",
         "Tracker": "https://github.com/devbisme/skidl/issues",
     },
-    #    packages=['skidl',],
-    packages=setuptools.find_packages(exclude=["tests"]),
+    # packages=['skidl',],
+    packages=setuptools.find_packages(),
     entry_points={
         "console_scripts": ["netlist_to_skidl = skidl.netlist_to_skidl_main:main"]
     },
     package_dir={"skidl": "skidl"},
-    include_package_data=True,
-    package_data={"skidl": ["*.gif", "*.png"]},
+    include_package_data=False,
     scripts=[],
     install_requires=requirements,
     license="MIT",
