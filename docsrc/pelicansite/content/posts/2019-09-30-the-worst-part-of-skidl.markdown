@@ -41,7 +41,7 @@ available libraries and parts and select the one you need.
 To make the list of parts more manageable, a *filter* field can be
 used so only those parts containing a particular text string will show up.
 
-![EESCHEMA schematic symbol chooser.]({{ SITEURL }}/images/the-worst-part-of-skidl/symbol_chooser.png)
+![EESCHEMA schematic symbol chooser.](images/the-worst-part-of-skidl/symbol_chooser.png)
 
 Once you've selected a part, placing its symbol in the schematic will provide
 named pins where graphical signal nets can be attached. So that handles the I/O problem.
