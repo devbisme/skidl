@@ -47,42 +47,31 @@
   <h1>Source code for skidl.netpinlist</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="c1"># MIT license</span>
-<span class="c1">#</span>
-<span class="c1"># Copyright (c) 2016-2021, Dave Vandenbout.</span>
-<span class="c1">#</span>
-<span class="c1"># Permission is hereby granted, free of charge, to any person obtaining a copy</span>
-<span class="c1"># of this software and associated documentation files (the &quot;Software&quot;), to deal</span>
-<span class="c1"># in the Software without restriction, including without limitation the rights</span>
-<span class="c1"># to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
-<span class="c1"># copies of the Software, and to permit persons to whom the Software is</span>
-<span class="c1"># furnished to do so, subject to the following conditions:</span>
-<span class="c1">#</span>
-<span class="c1"># The above copyright notice and this permission notice shall be included in</span>
-<span class="c1"># all copies or substantial portions of the Software.</span>
-<span class="c1">#</span>
-<span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
-<span class="c1"># IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
-<span class="c1"># FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
-<span class="c1"># AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
-<span class="c1"># LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span>
-<span class="c1"># OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN</span>
-<span class="c1"># THE SOFTWARE.</span>
+<span class="c1"># The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.</span>
+
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Specialized list for handling nets, pins, and buses.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># isort:skip</span>
+    <span class="n">absolute_import</span><span class="p">,</span>
+    <span class="n">division</span><span class="p">,</span>
+    <span class="n">print_function</span><span class="p">,</span>
+    <span class="n">unicode_literals</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">range</span>
 
 <span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
 
-<span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">.alias</span> <span class="kn">import</span> <span class="n">Alias</span>
+<span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
 <span class="kn">from</span> <span class="nn">.net</span> <span class="kn">import</span> <span class="n">Net</span>
 <span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
 <span class="kn">from</span> <span class="nn">.pin</span> <span class="kn">import</span> <span class="n">Pin</span>
 <span class="kn">from</span> <span class="nn">.protonet</span> <span class="kn">import</span> <span class="n">ProtoNet</span>
+
+<span class="c1"># from .skidlbaseobj import SkidlBaseObject</span>
 <span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
@@ -90,43 +79,65 @@
 
 <div class="viewcode-block" id="NetPinList"><a class="viewcode-back" href="../../rst_output/skidl.netpinlist.html#skidl.netpinlist.NetPinList">[docs]</a><span class="k">class</span> <span class="nc">NetPinList</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">nets_pins_buses</span><span class="p">):</span>
+        <span class="n">nets_pins_a</span> <span class="o">=</span> <span class="n">expand_buses</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">len_a</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nets_pins_a</span><span class="p">)</span>
 
-        <span class="n">nets_pins</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">expand_buses</span><span class="p">(</span><span class="n">flatten</span><span class="p">(</span><span class="n">nets_pins_buses</span><span class="p">)):</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="p">(</span><span class="n">Pin</span><span class="p">,</span> <span class="n">Net</span><span class="p">,</span> <span class="n">ProtoNet</span><span class="p">)):</span>
-                <span class="n">nets_pins</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">log_and_raise</span><span class="p">(</span>
-                    <span class="n">logger</span><span class="p">,</span>
-                    <span class="ne">ValueError</span><span class="p">,</span>
-                    <span class="s2">&quot;Can&#39;t make connections to a </span><span class="si">{}</span><span class="s2"> (</span><span class="si">{}</span><span class="s2">).&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                        <span class="nb">type</span><span class="p">(</span><span class="n">item</span><span class="p">),</span> <span class="n">item</span><span class="o">.</span><span class="vm">__name__</span>
-                    <span class="p">),</span>
-                <span class="p">)</span>
+        <span class="c1"># Check the stuff you want to connect to see if it&#39;s the right kind.</span>
+        <span class="n">nets_pins_b</span> <span class="o">=</span> <span class="n">expand_buses</span><span class="p">(</span><span class="n">flatten</span><span class="p">(</span><span class="n">nets_pins_buses</span><span class="p">))</span>
+        <span class="n">allowed_types</span> <span class="o">=</span> <span class="p">(</span><span class="n">Pin</span><span class="p">,</span> <span class="n">Net</span><span class="p">,</span> <span class="n">ProtoNet</span><span class="p">)</span>
+        <span class="n">illegal</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span> <span class="k">for</span> <span class="n">np</span> <span class="ow">in</span> <span class="n">nets_pins_b</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">np</span><span class="p">,</span> <span class="n">allowed_types</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">np</span> <span class="ow">in</span> <span class="n">illegal</span><span class="p">:</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
+                <span class="ne">ValueError</span><span class="p">,</span>
+                <span class="s2">&quot;Can&#39;t make connections to a </span><span class="si">{}</span><span class="s2"> (</span><span class="si">{}</span><span class="s2">).&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="nb">type</span><span class="p">(</span><span class="n">np</span><span class="p">),</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">np</span><span class="p">,</span> <span class="s2">&quot;__name__&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="n">len_b</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nets_pins_b</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nets_pins</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">Net</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">type</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">]</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">nets_pins</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">log_and_raise</span><span class="p">(</span>
-                    <span class="n">logger</span><span class="p">,</span>
+        <span class="k">if</span> <span class="n">len_a</span> <span class="o">!=</span> <span class="n">len_b</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">len_a</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">len_b</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                     <span class="ne">ValueError</span><span class="p">,</span>
-                    <span class="s2">&quot;Connection mismatch </span><span class="si">{}</span><span class="s2"> != </span><span class="si">{}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">nets_pins</span><span class="p">)),</span>
+                    <span class="s2">&quot;Connection mismatch </span><span class="si">{}</span><span class="s2"> != </span><span class="si">{}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">len_a</span><span class="p">,</span> <span class="n">len_b</span><span class="p">),</span>
                 <span class="p">)</span>
 
             <span class="c1"># If just a single net is to be connected, make a list out of it that&#39;s</span>
             <span class="c1"># just as long as the list of pins to connect to. This will connect</span>
             <span class="c1"># multiple pins to the same net.</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nets_pins</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">nets_pins</span> <span class="o">=</span> <span class="p">[</span><span class="n">nets_pins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))]</span>
+            <span class="k">if</span> <span class="n">len_b</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">nets_pins_b</span> <span class="o">=</span> <span class="p">[</span><span class="n">nets_pins_b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">len_a</span><span class="p">)]</span>
+                <span class="n">len_b</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nets_pins_b</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">len_a</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">nets_pins_a</span> <span class="o">=</span> <span class="p">[</span><span class="n">nets_pins_a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">len_b</span><span class="p">)]</span>
+                <span class="n">len_a</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nets_pins_a</span><span class="p">)</span>
 
-        <span class="c1"># Connect the nets to the nets in the bus.</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">np</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">nets_pins</span><span class="p">):</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">np</span><span class="p">,</span> <span class="n">ProtoNet</span><span class="p">):</span>
-                <span class="n">np</span> <span class="o">+=</span> <span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">len_a</span> <span class="o">==</span> <span class="n">len_b</span>
+
+        <span class="k">for</span> <span class="n">npa</span><span class="p">,</span> <span class="n">npb</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">nets_pins_a</span><span class="p">,</span> <span class="n">nets_pins_b</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">npb</span><span class="p">,</span> <span class="n">ProtoNet</span><span class="p">):</span>
+                <span class="c1"># npb is a ProtoNet so it will get replaced by a real Net by the += op.</span>
+                <span class="c1"># Should the new Net replace the equivalent ProtoNet in nets_pins_buses?</span>
+                <span class="c1"># It doesn&#39;t appear to be necessary since all tests pass, but be aware</span>
+                <span class="c1"># of this issue.</span>
+                <span class="n">npb</span> <span class="o">+=</span> <span class="n">npa</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">npa</span><span class="p">,</span> <span class="n">ProtoNet</span><span class="p">):</span>
+                <span class="c1"># npa is a ProtoNet so it will get replaced by a real Net by the += op.</span>
+                <span class="c1"># Therefore, find the equivalent ProtoNet in self and replace it with the</span>
+                <span class="c1"># new Net.</span>
+                <span class="n">id_npa</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="n">npa</span><span class="p">)</span>
+                <span class="n">npa</span> <span class="o">+=</span> <span class="n">npb</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)):</span>
+                    <span class="k">if</span> <span class="n">id_npa</span> <span class="o">==</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">]):</span>
+                        <span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">npa</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span>
+                <span class="c1"># Just regular attachment of nets and/or pins which updates the existing</span>
+                <span class="c1"># objects within the self and nets_pins_buses lists.</span>
+                <span class="n">npa</span> <span class="o">+=</span> <span class="n">npb</span>
+                <span class="k">pass</span>
 
         <span class="c1"># Set the flag to indicate this result came from the += operator.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">iadd_flag</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># pylint: disable=attribute-defined-outside-init</span>
+        <span class="n">set_iadd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span>
 
@@ -155,17 +166,64 @@
 
         <span class="k">return</span> <span class="n">obj</span> <span class="o">|</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the number of individual pins/nets in this interface.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">expand_buses</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">circuit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the circuit the pins/nets are members of.&quot;&quot;&quot;</span>
+        <span class="n">cct</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">pn</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">cct</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pn</span><span class="o">.</span><span class="n">circuit</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cct</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">cct</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
+            <span class="ne">ValueError</span><span class="p">,</span>
+            <span class="s2">&quot;This NetPinList contains nets/pins in </span><span class="si">{}</span><span class="s2"> circuits.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cct</span><span class="p">)),</span>
+        <span class="p">)</span>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return width, which is the same as using the len() operator.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="c1"># Setting/clearing the do_erc flag for the list sets/clears the do_erc flags of the pins/nets in the list.</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">do_erc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="nd">@do_erc</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">do_erc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">on_off</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">pn</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">pn</span><span class="o">.</span><span class="n">do_erc</span> <span class="o">=</span> <span class="n">on_off</span>
+
+    <span class="nd">@do_erc</span><span class="o">.</span><span class="n">deleter</span>
+    <span class="k">def</span> <span class="nf">do_erc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">pn</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">pn</span><span class="o">.</span><span class="n">do_erc</span>
+
+    <span class="c1"># Setting/clearing the drive strength for the list sets/clears the drive of the pins/nets in the list.</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="nd">@do_erc</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">strength</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">pn</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">pn</span><span class="o">.</span><span class="n">drive</span> <span class="o">=</span> <span class="n">strength</span>
+
+    <span class="nd">@do_erc</span><span class="o">.</span><span class="n">deleter</span>
+    <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">pn</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">pn</span><span class="o">.</span><span class="n">drive</span>
 
     <span class="c1"># Trying to set an alias attribute on a NetPinList is an error.</span>
     <span class="c1"># This prevents setting an alias on a list of two or more pins that</span>
     <span class="c1"># might be returned by the filter_list() utility.</span>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+        <span class="k">return</span> <span class="n">Alias</span><span class="p">([])</span>  <span class="c1"># No aliases, so just return an empty list.</span>
 
     <span class="nd">@aliases</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alias</span><span class="p">):</span>

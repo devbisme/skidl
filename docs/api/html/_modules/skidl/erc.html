@@ -47,40 +47,24 @@
   <h1>Source code for skidl.erc</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="c1"># MIT license</span>
-<span class="c1">#</span>
-<span class="c1"># Copyright (c) 2016-2021, Dave Vandenbout.</span>
-<span class="c1">#</span>
-<span class="c1"># Permission is hereby granted, free of charge, to any person obtaining a copy</span>
-<span class="c1"># of this software and associated documentation files (the &quot;Software&quot;), to deal</span>
-<span class="c1"># in the Software without restriction, including without limitation the rights</span>
-<span class="c1"># to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
-<span class="c1"># copies of the Software, and to permit persons to whom the Software is</span>
-<span class="c1"># furnished to do so, subject to the following conditions:</span>
-<span class="c1">#</span>
-<span class="c1"># The above copyright notice and this permission notice shall be included in</span>
-<span class="c1"># all copies or substantial portions of the Software.</span>
-<span class="c1">#</span>
-<span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
-<span class="c1"># IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
-<span class="c1"># FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
-<span class="c1"># AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
-<span class="c1"># LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span>
-<span class="c1"># OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN</span>
-<span class="c1"># THE SOFTWARE.</span>
+<span class="c1"># The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">ERC functions for Circuit, Part, Pin, Net, Bus, Interface objects.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># isort:skip</span>
+    <span class="n">absolute_import</span><span class="p">,</span>
+    <span class="n">division</span><span class="p">,</span>
+    <span class="n">print_function</span><span class="p">,</span>
+    <span class="n">unicode_literals</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">range</span>
 
 <span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
 
-<span class="kn">from</span> <span class="nn">.defines</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">erc_logger</span>
+<span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
 
 <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
 
@@ -129,12 +113,12 @@
         <span class="c1"># Error if a pin is unconnected but not of type NOCONNECT.</span>
         <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">net</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">func</span> <span class="o">!=</span> <span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">:</span>
-                <span class="n">erc_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Unconnected pin: </span><span class="si">{p}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="n">pin</span><span class="o">.</span><span class="n">erc_desc</span><span class="p">()))</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Unconnected pin: </span><span class="si">{p}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="n">pin</span><span class="o">.</span><span class="n">erc_desc</span><span class="p">()))</span>
 
         <span class="c1"># Error if a no-connect pin is connected to a net.</span>
         <span class="k">elif</span> <span class="n">pin</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">drive</span> <span class="o">!=</span> <span class="n">Pin</span><span class="o">.</span><span class="n">drives</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">func</span> <span class="o">==</span> <span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">:</span>
-                <span class="n">erc_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
                     <span class="s2">&quot;Incorrectly connected pin: </span><span class="si">{p}</span><span class="s2"> should not be connected to a net (</span><span class="si">{n}</span><span class="s2">).&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="n">p</span><span class="o">=</span><span class="n">pin</span><span class="o">.</span><span class="n">erc_desc</span><span class="p">(),</span> <span class="n">n</span><span class="o">=</span><span class="n">pin</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">name</span>
                     <span class="p">)</span>
@@ -158,9 +142,9 @@
     <span class="n">pins</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">get_pins</span><span class="p">()</span>
     <span class="n">num_pins</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pins</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">num_pins</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">erc_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;No pins attached to net </span><span class="si">{n}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;No pins attached to net </span><span class="si">{n}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
     <span class="k">elif</span> <span class="n">num_pins</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">erc_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
             <span class="s2">&quot;Only one pin (</span><span class="si">{p}</span><span class="s2">) attached to net </span><span class="si">{n}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                 <span class="n">p</span><span class="o">=</span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">erc_desc</span><span class="p">(),</span> <span class="n">n</span><span class="o">=</span><span class="n">net</span><span class="o">.</span><span class="n">name</span>
             <span class="p">)</span>
@@ -178,10 +162,10 @@
     <span class="n">net_drive</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">drive</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pins</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">net</span><span class="o">.</span><span class="n">drive</span><span class="p">])</span>
 
     <span class="k">if</span> <span class="n">net_drive</span> <span class="o">&lt;=</span> <span class="n">Pin</span><span class="o">.</span><span class="n">drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">:</span>
-        <span class="n">erc_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;No drivers for net </span><span class="si">{n}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;No drivers for net </span><span class="si">{n}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pins</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">Pin</span><span class="o">.</span><span class="n">pin_info</span><span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">func</span><span class="p">][</span><span class="s2">&quot;min_rcv&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">net_drive</span><span class="p">:</span>
-            <span class="n">erc_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
                 <span class="s2">&quot;Insufficient drive current on net </span><span class="si">{n}</span><span class="s2"> for pin </span><span class="si">{p}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">n</span><span class="o">=</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">erc_desc</span><span class="p">()</span>
                 <span class="p">)</span>

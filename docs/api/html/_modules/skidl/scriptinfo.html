@@ -47,32 +47,17 @@
   <h1>Source code for skidl.scriptinfo</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="c1"># MIT license</span>
-<span class="c1">#</span>
-<span class="c1"># Copyright (c) 2016-2021, Dave Vandenbout.</span>
-<span class="c1">#</span>
-<span class="c1"># Permission is hereby granted, free of charge, to any person obtaining a copy</span>
-<span class="c1"># of this software and associated documentation files (the &quot;Software&quot;), to deal</span>
-<span class="c1"># in the Software without restriction, including without limitation the rights</span>
-<span class="c1"># to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
-<span class="c1"># copies of the Software, and to permit persons to whom the Software is</span>
-<span class="c1"># furnished to do so, subject to the following conditions:</span>
-<span class="c1">#</span>
-<span class="c1"># The above copyright notice and this permission notice shall be included in</span>
-<span class="c1"># all copies or substantial portions of the Software.</span>
-<span class="c1">#</span>
-<span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
-<span class="c1"># IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
-<span class="c1"># FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
-<span class="c1"># AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
-<span class="c1"># LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span>
-<span class="c1"># OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN</span>
-<span class="c1"># THE SOFTWARE.</span>
+<span class="c1"># The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Routines for getting information about a script.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># isort:skip</span>
+    <span class="n">absolute_import</span><span class="p">,</span>
+    <span class="n">division</span><span class="p">,</span>
+    <span class="n">print_function</span><span class="p">,</span>
+    <span class="n">unicode_literals</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -139,7 +124,7 @@
 
 <div class="viewcode-block" id="get_skidl_trace"><a class="viewcode-back" href="../../rst_output/skidl.scriptinfo.html#skidl.scriptinfo.get_skidl_trace">[docs]</a><span class="k">def</span> <span class="nf">get_skidl_trace</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Return a string containing the source line trace where a SKiDL object was instantiated.</span>
+<span class="sd">    Return a list containing the source line trace where a SKiDL object was instantiated.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># To determine where this object was created, trace the function</span>
@@ -155,7 +140,7 @@
     <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
         <span class="n">skidl_dir</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">call_stack</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
 
-    <span class="c1"># Record file_name#line_num starting from the bottom of the stack</span>
+    <span class="c1"># Record file_name:line_num starting from the bottom of the stack</span>
     <span class="c1"># and terminate as soon as a function is found that&#39;s in the</span>
     <span class="c1"># SKiDL library (no use recording internal calls).</span>
     <span class="n">skidl_trace</span> <span class="o">=</span> <span class="p">[]</span>
@@ -174,9 +159,9 @@
         <span class="c1"># and the line number of the call in the file. Append these</span>
         <span class="c1"># to the trace.</span>
         <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-        <span class="n">skidl_trace</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="n">filepath</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">lineno</span><span class="p">))))</span>
+        <span class="n">skidl_trace</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="n">filepath</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">lineno</span><span class="p">))))</span>
 
-    <span class="k">return</span> <span class="s2">&quot;;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">skidl_trace</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">skidl_trace</span></div>
 </pre></div>
 
             <div class="clearer"></div>

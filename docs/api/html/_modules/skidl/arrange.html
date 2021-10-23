@@ -47,33 +47,18 @@
   <h1>Source code for skidl.arrange</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="c1"># MIT license</span>
-<span class="c1">#</span>
-<span class="c1"># Copyright (c) 2016-2021, Dave Vandenbout.</span>
-<span class="c1">#</span>
-<span class="c1"># Permission is hereby granted, free of charge, to any person obtaining a copy</span>
-<span class="c1"># of this software and associated documentation files (the &quot;Software&quot;), to deal</span>
-<span class="c1"># in the Software without restriction, including without limitation the rights</span>
-<span class="c1"># to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
-<span class="c1"># copies of the Software, and to permit persons to whom the Software is</span>
-<span class="c1"># furnished to do so, subject to the following conditions:</span>
-<span class="c1">#</span>
-<span class="c1"># The above copyright notice and this permission notice shall be included in</span>
-<span class="c1"># all copies or substantial portions of the Software.</span>
-<span class="c1">#</span>
-<span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
-<span class="c1"># IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
-<span class="c1"># FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
-<span class="c1"># AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
-<span class="c1"># LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span>
-<span class="c1"># OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN</span>
-<span class="c1"># THE SOFTWARE.</span>
+<span class="c1"># The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Arrange part units for best schematic wiring.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># isort:skip</span>
+    <span class="n">absolute_import</span><span class="p">,</span>
+    <span class="n">division</span><span class="p">,</span>
+    <span class="n">print_function</span><span class="p">,</span>
+    <span class="n">unicode_literals</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">re</span>
@@ -105,7 +90,7 @@
 
 
 <div class="viewcode-block" id="Region"><a class="viewcode-back" href="../../rst_output/skidl.arrange.html#skidl.arrange.Region">[docs]</a><span class="k">class</span> <span class="nc">Region</span><span class="p">(</span><span class="n">Point</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Stores an (x,y) coord and a list of the parts stored within it. &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Stores an (x,y) coord and a list of the parts stored within it.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
@@ -141,7 +126,7 @@
 
 
 <div class="viewcode-block" id="PartNet"><a class="viewcode-back" href="../../rst_output/skidl.arrange.html#skidl.arrange.PartNet">[docs]</a><span class="k">class</span> <span class="nc">PartNet</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot; Stores the parts attached to a particular net. &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Stores the parts attached to a particular net.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">net</span><span class="p">):</span>
         <span class="c1"># Find the set of parts having one or more pins attached to this net.</span>
@@ -198,17 +183,17 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Arranger.clear"><a class="viewcode-back" href="../../rst_output/skidl.arrange.html#skidl.arrange.Arranger.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Clear the parts from the regions. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Clear the parts from the regions.&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">regions</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Arranger.cost"><a class="viewcode-back" href="../../rst_output/skidl.arrange.html#skidl.arrange.Arranger.cost">[docs]</a>    <span class="k">def</span> <span class="nf">cost</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Compute the cost of the arrangement of parts to regions. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Compute the cost of the arrangement of parts to regions.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span><span class="n">net</span><span class="o">.</span><span class="n">cost</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">regions</span><span class="p">)</span> <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="Arranger.apply"><a class="viewcode-back" href="../../rst_output/skidl.arrange.html#skidl.arrange.Arranger.apply">[docs]</a>    <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Apply an assignment stored in regions to parts. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Apply an assignment stored in regions to parts.&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">):</span>
                 <span class="n">region</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">regions</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span>
@@ -216,14 +201,14 @@
                     <span class="n">part</span><span class="o">.</span><span class="n">region</span> <span class="o">=</span> <span class="n">region</span></div>
 
 <div class="viewcode-block" id="Arranger.prearranged"><a class="viewcode-back" href="../../rst_output/skidl.arrange.html#skidl.arrange.Arranger.prearranged">[docs]</a>    <span class="k">def</span> <span class="nf">prearranged</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Apply the (x,y) position of parts to update the regions. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Apply the (x,y) position of parts to update the regions.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
             <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">xy</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">regions</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">part</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Arranger.arrange_randomly"><a class="viewcode-back" href="../../rst_output/skidl.arrange.html#skidl.arrange.Arranger.arrange_randomly">[docs]</a>    <span class="k">def</span> <span class="nf">arrange_randomly</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Arrange the parts randomly across the regions. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Arrange the parts randomly across the regions.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;fix&quot;</span><span class="p">):</span>
@@ -238,7 +223,7 @@
             <span class="k">assert</span> <span class="n">part</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">regions</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span><span class="o">.</span><span class="n">parts</span></div>
 
 <div class="viewcode-block" id="Arranger.expand_grid"><a class="viewcode-back" href="../../rst_output/skidl.arrange.html#skidl.arrange.Arranger.expand_grid">[docs]</a>    <span class="k">def</span> <span class="nf">expand_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mul_hgt</span><span class="p">,</span> <span class="n">mul_wid</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Expand the number of rows/columns in the grid of regions. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Expand the number of rows/columns in the grid of regions.&quot;&quot;&quot;</span>
         <span class="n">new_regions</span> <span class="o">=</span> <span class="p">[</span>
             <span class="p">[</span><span class="n">Region</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h</span> <span class="o">*</span> <span class="n">mul_hgt</span><span class="p">)]</span>
             <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">*</span> <span class="n">mul_wid</span><span class="p">)</span>
@@ -254,7 +239,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">*=</span> <span class="n">mul_wid</span></div>
 
 <div class="viewcode-block" id="Arranger.arrange_kl"><a class="viewcode-back" href="../../rst_output/skidl.arrange.html#skidl.arrange.Arranger.arrange_kl">[docs]</a>    <span class="k">def</span> <span class="nf">arrange_kl</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Optimally arrange the parts across regions using Kernighan-Lin. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Optimally arrange the parts across regions using Kernighan-Lin.&quot;&quot;&quot;</span>
 
         <span class="k">class</span> <span class="nc">Move</span><span class="p">:</span>
             <span class="c1"># Class for storing the move of a part to a region.</span>

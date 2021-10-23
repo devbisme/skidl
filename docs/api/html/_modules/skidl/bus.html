@@ -47,33 +47,18 @@
   <h1>Source code for skidl.bus</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="c1"># MIT license</span>
-<span class="c1">#</span>
-<span class="c1"># Copyright (c) 2016-2021, Dave Vandenbout.</span>
-<span class="c1">#</span>
-<span class="c1"># Permission is hereby granted, free of charge, to any person obtaining a copy</span>
-<span class="c1"># of this software and associated documentation files (the &quot;Software&quot;), to deal</span>
-<span class="c1"># in the Software without restriction, including without limitation the rights</span>
-<span class="c1"># to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
-<span class="c1"># copies of the Software, and to permit persons to whom the Software is</span>
-<span class="c1"># furnished to do so, subject to the following conditions:</span>
-<span class="c1">#</span>
-<span class="c1"># The above copyright notice and this permission notice shall be included in</span>
-<span class="c1"># all copies or substantial portions of the Software.</span>
-<span class="c1">#</span>
-<span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
-<span class="c1"># IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
-<span class="c1"># FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
-<span class="c1"># AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
-<span class="c1"># LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span>
-<span class="c1"># OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN</span>
-<span class="c1"># THE SOFTWARE.</span>
+<span class="c1"># The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Handles buses.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># isort:skip</span>
+    <span class="n">absolute_import</span><span class="p">,</span>
+    <span class="n">division</span><span class="p">,</span>
+    <span class="n">print_function</span><span class="p">,</span>
+    <span class="n">unicode_literals</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">range</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">super</span>
 
@@ -81,13 +66,16 @@
 
 <span class="kn">from</span> <span class="nn">.alias</span> <span class="kn">import</span> <span class="n">Alias</span>
 <span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">.defines</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">logger</span>
-<span class="kn">from</span> <span class="nn">.net</span> <span class="kn">import</span> <span class="n">Net</span>
+<span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
+<span class="kn">from</span> <span class="nn">.net</span> <span class="kn">import</span> <span class="n">NET_PREFIX</span><span class="p">,</span> <span class="n">Net</span>
 <span class="kn">from</span> <span class="nn">.netpinlist</span> <span class="kn">import</span> <span class="n">NetPinList</span>
 <span class="kn">from</span> <span class="nn">.pin</span> <span class="kn">import</span> <span class="n">Pin</span>
 <span class="kn">from</span> <span class="nn">.skidlbaseobj</span> <span class="kn">import</span> <span class="n">SkidlBaseObject</span>
 <span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># Prefix for implicit buses.</span>
+<span class="n">BUS_PREFIX</span> <span class="o">=</span> <span class="s2">&quot;B$&quot;</span>
+
 
 <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
 
@@ -220,8 +208,7 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
                 <span class="n">index</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">log_and_raise</span><span class="p">(</span>
-                    <span class="n">logger</span><span class="p">,</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                     <span class="ne">ValueError</span><span class="p">,</span>
                     <span class="s2">&quot;Adding illegal type of object (</span><span class="si">{}</span><span class="s2">) to Bus </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
@@ -230,7 +217,7 @@
 
         <span class="c1"># Assign names to all the unnamed nets in the bus.</span>
         <span class="c1"># Separate index from bus name if name ends with number.</span>
-        <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;_&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+        <span class="n">sep</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">net</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">net</span><span class="o">.</span><span class="n">is_implicit</span><span class="p">():</span>
                 <span class="c1"># Net names are the bus name with the index appended.</span>
@@ -242,7 +229,7 @@
 
 <div class="viewcode-block" id="Bus.get_pins"><a class="viewcode-back" href="../../rst_output/skidl.bus.html#skidl.bus.Bus.get_pins">[docs]</a>    <span class="k">def</span> <span class="nf">get_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;It&#39;s an error to get the list of pins attached to all bus lines.&quot;&quot;&quot;</span>
-        <span class="n">log_and_raise</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t get the list of pins on a bus!&quot;</span><span class="p">)</span></div>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span><span class="s2">&quot;Can&#39;t get the list of pins on a bus!&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Bus.copy"><a class="viewcode-back" href="../../rst_output/skidl.bus.html#skidl.bus.Bus.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_copies</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -282,16 +269,14 @@
 
         <span class="c1"># Check that a valid number of copies is requested.</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">num_copies</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-            <span class="n">log_and_raise</span><span class="p">(</span>
-                <span class="n">logger</span><span class="p">,</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                 <span class="ne">ValueError</span><span class="p">,</span>
                 <span class="s2">&quot;Can&#39;t make a non-integer number (</span><span class="si">{}</span><span class="s2">) of copies of a bus!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">num_copies</span>
                 <span class="p">),</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="n">num_copies</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">log_and_raise</span><span class="p">(</span>
-                <span class="n">logger</span><span class="p">,</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                 <span class="ne">ValueError</span><span class="p">,</span>
                 <span class="s2">&quot;Can&#39;t make a negative number (</span><span class="si">{}</span><span class="s2">) of copies of a bus!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">num_copies</span>
@@ -309,8 +294,7 @@
                     <span class="k">try</span><span class="p">:</span>
                         <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
                     <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
-                        <span class="n">log_and_raise</span><span class="p">(</span>
-                            <span class="n">logger</span><span class="p">,</span>
+                        <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                             <span class="ne">ValueError</span><span class="p">,</span>
                             <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> copies of bus </span><span class="si">{}</span><span class="s2"> were requested, but too few elements in attribute </span><span class="si">{}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                                 <span class="n">num_copies</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">k</span>
@@ -355,8 +339,8 @@
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ident</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
                 <span class="n">nets</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">filter_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">ident</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">log_and_raise</span><span class="p">(</span>
-                    <span class="n">logger</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t index bus with a </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">ident</span><span class="p">))</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
+                    <span class="ne">TypeError</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t index bus with a </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">ident</span><span class="p">))</span>
                 <span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nets</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -370,7 +354,7 @@
         <span class="c1"># Multiple nets selected, so return them as a NetPinList list.</span>
         <span class="k">return</span> <span class="n">NetPinList</span><span class="p">(</span><span class="n">nets</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="o">*</span><span class="n">pins_nets_buses</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">pins_nets_buses</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        You can&#39;t assign to bus lines. You must use the += operator.</span>
 
@@ -393,13 +377,13 @@
 
         <span class="c1"># If the iadd_flag is set, then it&#39;s OK that we got</span>
         <span class="c1"># here and don&#39;t issue an error. Also, delete the flag.</span>
-        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">pins_nets_buses</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;iadd_flag&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
-            <span class="k">del</span> <span class="n">pins_nets_buses</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">iadd_flag</span>
+        <span class="k">if</span> <span class="n">from_iadd</span><span class="p">(</span><span class="n">pins_nets_buses</span><span class="p">):</span>
+            <span class="n">rmv_iadd</span><span class="p">(</span><span class="n">pins_nets_buses</span><span class="p">)</span>
             <span class="k">return</span>
 
         <span class="c1"># No iadd_flag or it wasn&#39;t set. This means a direct assignment</span>
         <span class="c1"># was made to the pin, which is not allowed.</span>
-        <span class="n">log_and_raise</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t assign to a bus! Use the += operator.&quot;</span><span class="p">)</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t assign to a bus! Use the += operator.&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -421,8 +405,6 @@
 
 <div class="viewcode-block" id="Bus.is_implicit"><a class="viewcode-back" href="../../rst_output/skidl.bus.html#skidl.bus.Bus.is_implicit">[docs]</a>    <span class="k">def</span> <span class="nf">is_implicit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return true if the bus name is implicit.&quot;&quot;&quot;</span>
-
-        <span class="kn">from</span> <span class="nn">.defines</span> <span class="kn">import</span> <span class="n">NET_PREFIX</span><span class="p">,</span> <span class="n">BUS_PREFIX</span>
 
         <span class="n">prefix_re</span> <span class="o">=</span> <span class="s2">&quot;(</span><span class="si">{}</span><span class="s2">|</span><span class="si">{}</span><span class="s2">)+&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">NET_PREFIX</span><span class="p">),</span> <span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">BUS_PREFIX</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">prefix_re</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div>

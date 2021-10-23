@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>SKiDL - posts</title><link href="/skidl/" rel="alternate"></link><link href="/skidl/feeds/posts.atom.xml" rel="self"></link><id>/skidl/</id><updated>2021-05-09T00:00:00-04:00</updated><entry><title>1.0</title><link href="/skidl/one-dot-oh-2021-05-09.html" rel="alternate"></link><published>2021-05-09T00:00:00-04:00</published><updated>2021-05-09T00:00:00-04:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2021-05-09:/skidl/one-dot-oh-2021-05-09.html</id><summary type="html">&lt;p&gt;Nearly a year after 0.0.30, today marks the release of SKiDL version &lt;strong&gt;1.0.0&lt;/strong&gt;.
+<feed xmlns="http://www.w3.org/2005/Atom"><title>SKiDL - posts</title><link href="/skidl/" rel="alternate"></link><link href="/skidl/feeds/posts.atom.xml" rel="self"></link><id>/skidl/</id><updated>2021-10-22T00:00:00-04:00</updated><entry><title>New 1.1.0 Release</title><link href="/skidl/one-dot-one-2021-10-22.html" rel="alternate"></link><published>2021-10-22T00:00:00-04:00</published><updated>2021-10-22T00:00:00-04:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2021-10-22:/skidl/one-dot-one-2021-10-22.html</id><summary type="html">&lt;p&gt;It's been nearly half a year since the big 1.0 release.
+This release only has a few user-facing changes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A KiCad PCB file can now be created directly using the &lt;code&gt;generate_pcb()&lt;/code&gt; function instead of outputing a netlist that's imported into PCBNEW.&lt;/li&gt;
+&lt;li&gt;Part templates can be created with the &lt;code&gt;PartTmplt …&lt;/code&gt;&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;It's been nearly half a year since the big 1.0 release.
+This release only has a few user-facing changes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A KiCad PCB file can now be created directly using the &lt;code&gt;generate_pcb()&lt;/code&gt; function instead of outputing a netlist that's imported into PCBNEW.&lt;/li&gt;
+&lt;li&gt;Part templates can be created with the &lt;code&gt;PartTmplt()&lt;/code&gt; class instead of using &lt;code&gt;Part()&lt;/code&gt; with the &lt;code&gt;dest=TEMPLATE&lt;/code&gt; option.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;That doesn't seem like much - and it's not - but I've also been doing some refactoring and fixing
+so that features I said &lt;em&gt;would&lt;/em&gt; work actually &lt;em&gt;do&lt;/em&gt; work.
+(Finding such problems was one of the stated reasons for starting the &lt;a href="https://github.com/devbisme/circuitsascode"&gt;circuitsascode&lt;/a&gt; companion repository.)&lt;/p&gt;
+&lt;p&gt;I also rebuilt the website, switching from Jekyll to Pelican and finally getting the Sphinx-generated API
+documentation to look reasonable.&lt;/p&gt;
+&lt;p&gt;So I keep plugging along. For some reason.&lt;/p&gt;</content><category term="posts"></category></entry><entry><title>1.0</title><link href="/skidl/one-dot-oh-2021-05-09.html" rel="alternate"></link><published>2021-05-09T00:00:00-04:00</published><updated>2021-05-09T00:00:00-04:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2021-05-09:/skidl/one-dot-oh-2021-05-09.html</id><summary type="html">&lt;p&gt;Nearly a year after 0.0.30, today marks the release of SKiDL version &lt;strong&gt;1.0.0&lt;/strong&gt;.
 But why assign such an exalted milestone to &lt;em&gt;this&lt;/em&gt; release given the relative
 paucity of &lt;a href="https://github.com/devbisme/skidl/blob/master/HISTORY.rst#100-2021-05-09"&gt;new features&lt;/a&gt;,
 most of them mundane (with the possible exception of

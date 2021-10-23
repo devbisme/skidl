@@ -47,32 +47,18 @@
   <h1>Source code for skidl.net</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="c1"># MIT license</span>
-<span class="c1">#</span>
-<span class="c1"># Copyright (c) 2016-2021, Dave Vandenbout.</span>
-<span class="c1">#</span>
-<span class="c1"># Permission is hereby granted, free of charge, to any person obtaining a copy</span>
-<span class="c1"># of this software and associated documentation files (the &quot;Software&quot;), to deal</span>
-<span class="c1"># in the Software without restriction, including without limitation the rights</span>
-<span class="c1"># to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
-<span class="c1"># copies of the Software, and to permit persons to whom the Software is</span>
-<span class="c1"># furnished to do so, subject to the following conditions:</span>
-<span class="c1">#</span>
-<span class="c1"># The above copyright notice and this permission notice shall be included in</span>
-<span class="c1"># all copies or substantial portions of the Software.</span>
-<span class="c1">#</span>
-<span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
-<span class="c1"># IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
-<span class="c1"># FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
-<span class="c1"># AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
-<span class="c1"># LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span>
-<span class="c1"># OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN</span>
-<span class="c1"># THE SOFTWARE.</span>
+<span class="c1"># The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.</span>
+
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Handles nets.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># isort:skip</span>
+    <span class="n">absolute_import</span><span class="p">,</span>
+    <span class="n">division</span><span class="p">,</span>
+    <span class="n">print_function</span><span class="p">,</span>
+    <span class="n">unicode_literals</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">collections</span>
 <span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">range</span><span class="p">,</span> <span class="nb">super</span>
@@ -80,15 +66,15 @@
 
 <span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
 
-<span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">.defines</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">.erc</span> <span class="kn">import</span> <span class="n">dflt_net_erc</span>
-<span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
 <span class="kn">from</span> <span class="nn">.skidlbaseobj</span> <span class="kn">import</span> <span class="n">SkidlBaseObject</span>
 <span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
 
+<span class="c1"># Prefix for implicit nets.</span>
+<span class="n">NET_PREFIX</span> <span class="o">=</span> <span class="s2">&quot;N$&quot;</span>
 
 <span class="n">Traversal</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;Traversal&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;nets&quot;</span><span class="p">,</span> <span class="s2">&quot;pins&quot;</span><span class="p">])</span>
 
@@ -119,7 +105,7 @@
         <span class="kn">from</span> <span class="nn">.alias</span> <span class="kn">import</span> <span class="n">Alias</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">circuit</span><span class="p">:</span>
-            <span class="n">circuit</span> <span class="o">=</span> <span class="n">builtins</span><span class="o">.</span><span class="n">default_circuit</span>
+            <span class="n">circuit</span> <span class="o">=</span> <span class="n">default_circuit</span>
 
         <span class="n">search_params</span> <span class="o">=</span> <span class="p">((</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;aliases&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span>
 
@@ -139,7 +125,7 @@
     <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get the net with the given name from a circuit, or create it if not found.&quot;&quot;&quot;</span>
 
-        <span class="n">circuit</span> <span class="o">=</span> <span class="n">attribs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;circuit&quot;</span><span class="p">,</span> <span class="n">builtins</span><span class="o">.</span><span class="n">default_circuit</span><span class="p">)</span>
+        <span class="n">circuit</span> <span class="o">=</span> <span class="n">attribs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;circuit&quot;</span><span class="p">,</span> <span class="n">default_circuit</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">circuit</span><span class="o">=</span><span class="n">circuit</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">cls</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">circuit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">pins_nets_buses</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
@@ -160,7 +146,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
 
         <span class="c1"># Add the net to the passed-in circuit or to the default circuit.</span>
-        <span class="n">circuit</span> <span class="o">=</span> <span class="n">circuit</span> <span class="ow">or</span> <span class="n">builtins</span><span class="o">.</span><span class="n">default_circuit</span>
+        <span class="n">circuit</span> <span class="o">=</span> <span class="n">circuit</span> <span class="ow">or</span> <span class="n">default_circuit</span>
         <span class="n">circuit</span> <span class="o">+=</span> <span class="bp">self</span>
 
         <span class="c1"># Attach whatever pins were given.</span>
@@ -237,8 +223,8 @@
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_attached</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
                     <span class="k">return</span> <span class="kc">True</span>
             <span class="k">return</span> <span class="kc">False</span>
-        <span class="n">log_and_raise</span><span class="p">(</span>
-            <span class="n">logger</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="s2">&quot;Nets can&#39;t be attached to </span><span class="si">{}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">pin_net_bus</span><span class="p">))</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
+            <span class="ne">TypeError</span><span class="p">,</span> <span class="s2">&quot;Nets can&#39;t be attached to </span><span class="si">{}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">pin_net_bus</span><span class="p">))</span>
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="Net.is_movable"><a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.is_movable">[docs]</a>    <span class="k">def</span> <span class="nf">is_movable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -293,15 +279,13 @@
 
         <span class="c1"># Check that a valid number of copies is requested.</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">num_copies</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-            <span class="n">log_and_raise</span><span class="p">(</span>
-                <span class="n">logger</span><span class="p">,</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                 <span class="ne">ValueError</span><span class="p">,</span>
                 <span class="s2">&quot;Can&#39;t make a non-integer number &quot;</span>
                 <span class="s2">&quot;(</span><span class="si">{}</span><span class="s2">) of copies of a net!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_copies</span><span class="p">),</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="n">num_copies</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">log_and_raise</span><span class="p">(</span>
-                <span class="n">logger</span><span class="p">,</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                 <span class="ne">ValueError</span><span class="p">,</span>
                 <span class="s2">&quot;Can&#39;t make a negative number &quot;</span>
                 <span class="s2">&quot;(</span><span class="si">{}</span><span class="s2">) of copies of a net!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_copies</span><span class="p">),</span>
@@ -309,15 +293,14 @@
 
         <span class="c1"># If circuit is not specified, then create the copies within circuit of the</span>
         <span class="c1"># original, or in the default circuit.</span>
-        <span class="n">circuit</span> <span class="o">=</span> <span class="n">circuit</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">circuit</span> <span class="ow">or</span> <span class="n">builtins</span><span class="o">.</span><span class="n">default_circuit</span>
+        <span class="n">circuit</span> <span class="o">=</span> <span class="n">circuit</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">circuit</span> <span class="ow">or</span> <span class="n">default_circuit</span>
 
         <span class="c1"># Can&#39;t make a distinct copy of a net which already has pins on it</span>
         <span class="c1"># because what happens if a pin is connected to the copy? Then we have</span>
         <span class="c1"># to search for all the other copies to add the pin to those.</span>
         <span class="c1"># And what&#39;s the value of that?</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
-            <span class="n">log_and_raise</span><span class="p">(</span>
-                <span class="n">logger</span><span class="p">,</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                 <span class="ne">ValueError</span><span class="p">,</span>
                 <span class="s2">&quot;Can&#39;t make copies of a net that already has &quot;</span> <span class="s2">&quot;pins attached to it!&quot;</span><span class="p">,</span>
             <span class="p">)</span>
@@ -339,8 +322,7 @@
                     <span class="k">try</span><span class="p">:</span>
                         <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
                     <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
-                        <span class="n">log_and_raise</span><span class="p">(</span>
-                            <span class="n">logger</span><span class="p">,</span>
+                        <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                             <span class="ne">ValueError</span><span class="p">,</span>
                             <span class="p">(</span>
                                 <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> copies of net </span><span class="si">{}</span><span class="s2"> were requested, but too &quot;</span>
@@ -384,11 +366,9 @@
         <span class="k">if</span> <span class="n">indices</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">log_and_raise</span><span class="p">(</span>
-                <span class="n">logger</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t index a net with multiple indices.&quot;</span>
-            <span class="p">)</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t index a net with multiple indices.&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">indices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">log_and_raise</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t use a non-zero index for a net.&quot;</span><span class="p">)</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t use a non-zero index for a net.&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="o">*</span><span class="n">pins_nets_buses</span><span class="p">):</span>
@@ -414,13 +394,13 @@
 
         <span class="c1"># If the iadd_flag is set, then it&#39;s OK that we got</span>
         <span class="c1"># here and don&#39;t issue an error. Also, delete the flag.</span>
-        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">pins_nets_buses</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;iadd_flag&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
-            <span class="k">del</span> <span class="n">pins_nets_buses</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">iadd_flag</span>
+        <span class="k">if</span> <span class="n">from_iadd</span><span class="p">(</span><span class="n">pins_nets_buses</span><span class="p">):</span>
+            <span class="n">rmv_iadd</span><span class="p">(</span><span class="n">pins_nets_buses</span><span class="p">)</span>
             <span class="k">return</span>
 
         <span class="c1"># No iadd_flag or it wasn&#39;t set. This means a direct assignment</span>
         <span class="c1"># was made to the pin, which is not allowed.</span>
-        <span class="n">log_and_raise</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t assign to a Net! Use the += operator.&quot;</span><span class="p">)</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t assign to a Net! Use the += operator.&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -432,7 +412,7 @@
 <div class="viewcode-block" id="Net.is_implicit"><a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.is_implicit">[docs]</a>    <span class="k">def</span> <span class="nf">is_implicit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return true if the net name is implicit.&quot;&quot;&quot;</span>
 
-        <span class="kn">from</span> <span class="nn">.defines</span> <span class="kn">import</span> <span class="n">NET_PREFIX</span><span class="p">,</span> <span class="n">BUS_PREFIX</span>
+        <span class="kn">from</span> <span class="nn">.bus</span> <span class="kn">import</span> <span class="n">BUS_PREFIX</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">test_validity</span><span class="p">()</span>
         <span class="n">prefix_re</span> <span class="o">=</span> <span class="s2">&quot;(</span><span class="si">{}</span><span class="s2">|</span><span class="si">{}</span><span class="s2">)+&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">NET_PREFIX</span><span class="p">),</span> <span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">BUS_PREFIX</span><span class="p">))</span>
@@ -457,7 +437,7 @@
 <span class="sd">                net += atmega[1]  # Connects pin 1 of chip to the net.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="kn">from</span> <span class="nn">.pin</span> <span class="kn">import</span> <span class="n">Pin</span><span class="p">,</span> <span class="n">PhantomPin</span>
+        <span class="kn">from</span> <span class="nn">.pin</span> <span class="kn">import</span> <span class="n">PhantomPin</span><span class="p">,</span> <span class="n">Pin</span>
         <span class="kn">from</span> <span class="nn">.protonet</span> <span class="kn">import</span> <span class="n">ProtoNet</span>
 
         <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
@@ -469,15 +449,13 @@
 <span class="sd">            &quot;&quot;&quot;</span>
 
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">NCNet</span><span class="p">):</span>
-                <span class="n">log_and_raise</span><span class="p">(</span>
-                    <span class="n">logger</span><span class="p">,</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                     <span class="ne">ValueError</span><span class="p">,</span>
                     <span class="s2">&quot;Can&#39;t merge with a no-connect net </span><span class="si">{}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">),</span>
                 <span class="p">)</span>
 
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">NCNet</span><span class="p">):</span>
-                <span class="n">log_and_raise</span><span class="p">(</span>
-                    <span class="n">logger</span><span class="p">,</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                     <span class="ne">ValueError</span><span class="p">,</span>
                     <span class="s2">&quot;Can&#39;t merge with a no-connect net </span><span class="si">{}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">),</span>
                 <span class="p">)</span>
@@ -535,8 +513,7 @@
                 <span class="k">if</span> <span class="n">pn</span><span class="o">.</span><span class="n">circuit</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">circuit</span><span class="p">:</span>
                     <span class="n">merge</span><span class="p">(</span><span class="n">pn</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">log_and_raise</span><span class="p">(</span>
-                        <span class="n">logger</span><span class="p">,</span>
+                    <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                         <span class="ne">ValueError</span><span class="p">,</span>
                         <span class="s2">&quot;Can&#39;t attach nets in different circuits (</span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">)!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                             <span class="n">pn</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">name</span>
@@ -545,29 +522,27 @@
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pn</span><span class="p">,</span> <span class="n">Pin</span><span class="p">):</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">pn</span><span class="o">.</span><span class="n">part</span> <span class="ow">or</span> <span class="n">pn</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">circuit</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">circuit</span><span class="p">:</span>
                     <span class="k">if</span> <span class="ow">not</span> <span class="n">pn</span><span class="o">.</span><span class="n">part</span><span class="p">:</span>
-                        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                        <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
                             <span class="s2">&quot;Attaching non-part Pin </span><span class="si">{}</span><span class="s2"> to a Net </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                                 <span class="n">pn</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
                             <span class="p">)</span>
                         <span class="p">)</span>
                     <span class="n">connect_pin</span><span class="p">(</span><span class="n">pn</span><span class="p">)</span>
                 <span class="k">elif</span> <span class="ow">not</span> <span class="n">pn</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">circuit</span><span class="p">:</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
                         <span class="s2">&quot;Attaching part template Pin </span><span class="si">{}</span><span class="s2"> to a Net </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                             <span class="n">pn</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
                         <span class="p">)</span>
                     <span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">log_and_raise</span><span class="p">(</span>
-                        <span class="n">logger</span><span class="p">,</span>
+                    <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                         <span class="ne">ValueError</span><span class="p">,</span>
                         <span class="s2">&quot;Can&#39;t attach a part to a net in different circuits (</span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">)!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                             <span class="n">pn</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">name</span>
                         <span class="p">),</span>
                     <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">log_and_raise</span><span class="p">(</span>
-                    <span class="n">logger</span><span class="p">,</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                     <span class="ne">TypeError</span><span class="p">,</span>
                     <span class="s2">&quot;Cannot attach non-Pin/non-Net </span><span class="si">{}</span><span class="s2"> to Net </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="nb">type</span><span class="p">(</span><span class="n">pn</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
@@ -587,7 +562,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">circuit</span> <span class="o">+=</span> <span class="bp">self</span>
 
         <span class="c1"># Set the flag to indicate this result came from the += operator.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">iadd_flag</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">set_iadd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span></div>
 
@@ -633,8 +608,7 @@
                 <span class="k">if</span> <span class="n">fixed1</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">fixed0</span><span class="p">:</span>
                     <span class="k">return</span> <span class="n">nets</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
                 <span class="k">if</span> <span class="n">fixed0</span> <span class="ow">and</span> <span class="n">fixed1</span><span class="p">:</span>
-                    <span class="n">log_and_raise</span><span class="p">(</span>
-                        <span class="n">logger</span><span class="p">,</span>
+                    <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                         <span class="ne">ValueError</span><span class="p">,</span>
                         <span class="s2">&quot;Cannot merge two nets with fixed names: </span><span class="si">{}</span><span class="s2"> and </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                             <span class="n">name0</span><span class="p">,</span> <span class="n">name1</span>
@@ -646,7 +620,7 @@
                 <span class="k">if</span> <span class="n">nets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">is_implicit</span><span class="p">():</span>
                     <span class="k">return</span> <span class="n">nets</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
                 <span class="k">if</span> <span class="n">name0</span> <span class="o">!=</span> <span class="n">name1</span><span class="p">:</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
                         <span class="s2">&quot;Merging two named nets (</span><span class="si">{name0}</span><span class="s2"> and </span><span class="si">{name1}</span><span class="s2">) into </span><span class="si">{name0}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                             <span class="o">**</span><span class="nb">locals</span><span class="p">()</span>
                         <span class="p">)</span>
@@ -724,8 +698,7 @@
             <span class="n">gen_func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_gen_netlist_net_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tool</span><span class="p">))</span>
             <span class="k">return</span> <span class="n">gen_func</span><span class="p">()</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-            <span class="n">log_and_raise</span><span class="p">(</span>
-                <span class="n">logger</span><span class="p">,</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                 <span class="ne">ValueError</span><span class="p">,</span>
                 <span class="s2">&quot;Can&#39;t generate netlist in an unknown ECAD tool format (</span><span class="si">{}</span><span class="s2">).&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">tool</span>
@@ -755,8 +728,7 @@
             <span class="n">gen_func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_gen_xml_net_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tool</span><span class="p">))</span>
             <span class="k">return</span> <span class="n">gen_func</span><span class="p">()</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-            <span class="n">log_and_raise</span><span class="p">(</span>
-                <span class="n">logger</span><span class="p">,</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                 <span class="ne">ValueError</span><span class="p">,</span>
                 <span class="s2">&quot;Can&#39;t generate XML in an unknown ECAD tool format (</span><span class="si">{}</span><span class="s2">).&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tool</span><span class="p">),</span>
             <span class="p">)</span></div>
@@ -797,8 +769,6 @@
 
     <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-
-        <span class="kn">from</span> <span class="nn">.defines</span> <span class="kn">import</span> <span class="n">NET_PREFIX</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">test_validity</span><span class="p">()</span>
         <span class="c1"># Remove the existing name so it doesn&#39;t cause a collision if the</span>
@@ -852,16 +822,14 @@
             <span class="k">pass</span>
         <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">netclasses</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">netclass</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">netclasses</span><span class="p">:</span>
-                <span class="n">log_and_raise</span><span class="p">(</span>
-                    <span class="n">logger</span><span class="p">,</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                     <span class="ne">ValueError</span><span class="p">,</span>
                     <span class="s2">&quot;Can&#39;t assign net class </span><span class="si">{netclass.name}</span><span class="s2"> to net </span><span class="si">{self.name}</span><span class="s2"> that&#39;s already assigned net class </span><span class="si">{netclasses}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="o">**</span><span class="nb">locals</span><span class="p">()</span>
                     <span class="p">),</span>
                 <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">log_and_raise</span><span class="p">(</span>
-                <span class="n">logger</span><span class="p">,</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                 <span class="ne">ValueError</span><span class="p">,</span>
                 <span class="s2">&quot;Too many netclasses assigned to net </span><span class="si">{self.name}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">()),</span>
             <span class="p">)</span>
@@ -921,8 +889,7 @@
 <div class="viewcode-block" id="Net.test_validity"><a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.test_validity">[docs]</a>    <span class="k">def</span> <span class="nf">test_validity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
             <span class="k">return</span>
-        <span class="n">log_and_raise</span><span class="p">(</span>
-            <span class="n">logger</span><span class="p">,</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
             <span class="ne">ValueError</span><span class="p">,</span>
             <span class="s2">&quot;Net </span><span class="si">{}</span><span class="s2"> is no longer valid. Do not use it!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">),</span>
         <span class="p">)</span></div>

@@ -47,45 +47,30 @@
   <h1>Source code for skidl.pin</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="c1"># MIT license</span>
-<span class="c1">#</span>
-<span class="c1"># Copyright (c) 2016-2021, Dave Vandenbout.</span>
-<span class="c1">#</span>
-<span class="c1"># Permission is hereby granted, free of charge, to any person obtaining a copy</span>
-<span class="c1"># of this software and associated documentation files (the &quot;Software&quot;), to deal</span>
-<span class="c1"># in the Software without restriction, including without limitation the rights</span>
-<span class="c1"># to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
-<span class="c1"># copies of the Software, and to permit persons to whom the Software is</span>
-<span class="c1"># furnished to do so, subject to the following conditions:</span>
-<span class="c1">#</span>
-<span class="c1"># The above copyright notice and this permission notice shall be included in</span>
-<span class="c1"># all copies or substantial portions of the Software.</span>
-<span class="c1">#</span>
-<span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
-<span class="c1"># IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
-<span class="c1"># FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
-<span class="c1"># AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
-<span class="c1"># LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span>
-<span class="c1"># OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN</span>
-<span class="c1"># THE SOFTWARE.</span>
+<span class="c1"># The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.</span>
+
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Handles part pins.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># isort:skip</span>
+    <span class="n">absolute_import</span><span class="p">,</span>
+    <span class="n">division</span><span class="p">,</span>
+    <span class="n">print_function</span><span class="p">,</span>
+    <span class="n">unicode_literals</span><span class="p">,</span>
+<span class="p">)</span>
 
+<span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">range</span><span class="p">,</span> <span class="nb">super</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">copy</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">IntEnum</span>
-<span class="kn">import</span> <span class="nn">re</span>
 
 <span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
 
 <span class="kn">from</span> <span class="nn">.alias</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">.defines</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">erc_logger</span><span class="p">,</span> <span class="n">logger</span>
-<span class="kn">from</span> <span class="nn">.skidlbaseobj</span> <span class="kn">import</span> <span class="n">SkidlBaseObject</span>
+<span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
+<span class="kn">from</span> <span class="nn">.skidlbaseobj</span> <span class="kn">import</span> <span class="n">ERROR</span><span class="p">,</span> <span class="n">OK</span><span class="p">,</span> <span class="n">WARNING</span><span class="p">,</span> <span class="n">SkidlBaseObject</span>
 <span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
@@ -299,16 +284,14 @@
 
         <span class="c1"># Check that a valid number of copies is requested.</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">num_copies</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-            <span class="n">log_and_raise</span><span class="p">(</span>
-                <span class="n">logger</span><span class="p">,</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                 <span class="ne">ValueError</span><span class="p">,</span>
                 <span class="s2">&quot;Can&#39;t make a non-integer number (</span><span class="si">{}</span><span class="s2">) of copies of a pin!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">num_copies</span>
                 <span class="p">),</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="n">num_copies</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">log_and_raise</span><span class="p">(</span>
-                <span class="n">logger</span><span class="p">,</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                 <span class="ne">ValueError</span><span class="p">,</span>
                 <span class="s2">&quot;Can&#39;t make a negative number (</span><span class="si">{}</span><span class="s2">) of copies of a pin!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">num_copies</span>
@@ -369,11 +352,9 @@
         <span class="k">if</span> <span class="n">indices</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">log_and_raise</span><span class="p">(</span>
-                <span class="n">logger</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t index a pin with multiple indices.&quot;</span>
-            <span class="p">)</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t index a pin with multiple indices.&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">indices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">log_and_raise</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t use a non-zero index for a pin.&quot;</span><span class="p">)</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t use a non-zero index for a pin.&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="o">*</span><span class="n">pins_nets_buses</span><span class="p">):</span>
@@ -399,13 +380,13 @@
 
         <span class="c1"># If the iadd_flag is set, then it&#39;s OK that we got</span>
         <span class="c1"># here and don&#39;t issue an error. Also, delete the flag.</span>
-        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">pins_nets_buses</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;iadd_flag&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
-            <span class="k">del</span> <span class="n">pins_nets_buses</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">iadd_flag</span>
+        <span class="k">if</span> <span class="n">from_iadd</span><span class="p">(</span><span class="n">pins_nets_buses</span><span class="p">):</span>
+            <span class="n">rmv_iadd</span><span class="p">(</span><span class="n">pins_nets_buses</span><span class="p">)</span>
             <span class="k">return</span>
 
         <span class="c1"># No iadd_flag or it wasn&#39;t set. This means a direct assignment</span>
         <span class="c1"># was made to the pin, which is not allowed.</span>
-        <span class="n">log_and_raise</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t assign to a Net! Use the += operator.&quot;</span><span class="p">)</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t assign to a Net! Use the += operator.&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -417,7 +398,7 @@
 <div class="viewcode-block" id="Pin.is_connected"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.is_connected">[docs]</a>    <span class="k">def</span> <span class="nf">is_connected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return true if a pin is connected to a net (but not a no-connect net).&quot;&quot;&quot;</span>
 
-        <span class="kn">from</span> <span class="nn">.net</span> <span class="kn">import</span> <span class="n">Net</span><span class="p">,</span> <span class="n">NCNet</span>
+        <span class="kn">from</span> <span class="nn">.net</span> <span class="kn">import</span> <span class="n">NCNet</span><span class="p">,</span> <span class="n">Net</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">:</span>
             <span class="c1"># This pin is not connected to any nets.</span>
@@ -434,16 +415,14 @@
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">if</span> <span class="nb">set</span><span class="p">([</span><span class="n">Net</span><span class="p">,</span> <span class="n">NCNet</span><span class="p">])</span> <span class="o">==</span> <span class="n">net_types</span><span class="p">:</span>
             <span class="c1"># Can&#39;t be connected to both normal and no-connect nets!</span>
-            <span class="n">log_and_raise</span><span class="p">(</span>
-                <span class="n">logger</span><span class="p">,</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                 <span class="ne">ValueError</span><span class="p">,</span>
                 <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> is connected to both normal and no-connect nets!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">erc_desc</span><span class="p">()</span>
                 <span class="p">),</span>
             <span class="p">)</span>
         <span class="c1"># This is just strange...</span>
-        <span class="n">log_and_raise</span><span class="p">(</span>
-            <span class="n">logger</span><span class="p">,</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
             <span class="ne">ValueError</span><span class="p">,</span>
             <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> is connected to something strange: </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">erc_desc</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span>
@@ -469,8 +448,7 @@
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">is_attached</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
                     <span class="k">return</span> <span class="kc">True</span>
             <span class="k">return</span> <span class="kc">False</span>
-        <span class="n">log_and_raise</span><span class="p">(</span>
-            <span class="n">logger</span><span class="p">,</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
             <span class="ne">ValueError</span><span class="p">,</span>
             <span class="s2">&quot;Pins can&#39;t be attached to </span><span class="si">{}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">pin_net_bus</span><span class="p">)),</span>
         <span class="p">)</span></div>
@@ -479,7 +457,7 @@
         <span class="sd">&quot;&quot;&quot;Use chars in divider to split a pin name and add substrings to aliases.&quot;&quot;&quot;</span>
 
         <span class="c1"># Split pin name and add subnames as aliases.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">aliases</span> <span class="o">+=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;[&#39;</span> <span class="o">+</span> <span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">delimiters</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;]&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">aliases</span> <span class="o">+=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;[&quot;</span> <span class="o">+</span> <span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">delimiters</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;]&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
         <span class="c1"># Remove any empty aliases.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">aliases</span><span class="o">.</span><span class="n">clean</span><span class="p">()</span></div>
@@ -528,8 +506,7 @@
                 <span class="c1"># Connecting pin-to-net, so just connect the pin to the net.</span>
                 <span class="n">pn</span> <span class="o">+=</span> <span class="bp">self</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">log_and_raise</span><span class="p">(</span>
-                    <span class="n">logger</span><span class="p">,</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                     <span class="ne">TypeError</span><span class="p">,</span>
                     <span class="s2">&quot;Cannot attach non-Pin/non-Net </span><span class="si">{}</span><span class="s2"> to </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="nb">type</span><span class="p">(</span><span class="n">pn</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">erc_desc</span><span class="p">()</span>
@@ -537,7 +514,7 @@
                 <span class="p">)</span>
 
         <span class="c1"># Set the flag to indicate this result came from the += operator.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">iadd_flag</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># pylint: disable=attribute-defined-outside-init</span>
+        <span class="n">set_iadd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span></div>
 
@@ -619,9 +596,9 @@
         <span class="n">p2</span> <span class="o">=</span> <span class="n">other_pin</span><span class="o">.</span><span class="n">erc_desc</span><span class="p">()</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Pin conflict on net </span><span class="si">{n}</span><span class="s2">, </span><span class="si">{p1}</span><span class="s2"> &lt;==&gt; </span><span class="si">{p2}</span><span class="s2"> (</span><span class="si">{erc_msg}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
         <span class="k">if</span> <span class="n">erc_result</span> <span class="o">==</span> <span class="n">WARNING</span><span class="p">:</span>
-            <span class="n">erc_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">erc_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Pin.erc_desc"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.erc_desc">[docs]</a>    <span class="k">def</span> <span class="nf">erc_desc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return a string describing this pin for ERC.&quot;&quot;&quot;</span>
@@ -703,6 +680,11 @@
     <span class="k">def</span> <span class="nf">ref</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return the reference of the part the pin belongs to.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">ref</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">circuit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the circuit of the part the pin belongs to.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">circuit</span>
 
     <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Any valid Pin is True.&quot;&quot;&quot;</span>

@@ -1,0 +1,19 @@
+title: New 1.1.0 Release
+date: 2021-10-22
+author: Dave Vandenbout
+slug: one-dot-one
+
+It's been nearly half a year since the big 1.0 release.
+This release only has a few user-facing changes:
+
+* A KiCad PCB file can now be created directly using the `generate_pcb()` function instead of outputing a netlist that's imported into PCBNEW.
+* Part templates can be created with the `PartTmplt()` class instead of using `Part()` with the `dest=TEMPLATE` option.
+
+That doesn't seem like much - and it's not - but I've also been doing some refactoring and fixing
+so that features I said *would* work actually *do* work.
+(Finding such problems was one of the stated reasons for starting the [circuitsascode](https://github.com/devbisme/circuitsascode) companion repository.)
+
+I also rebuilt the website, switching from Jekyll to Pelican and finally getting the Sphinx-generated API
+documentation to look reasonable.
+
+So I keep plugging along. For some reason.

@@ -47,33 +47,18 @@
   <h1>Source code for skidl.circuit</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="c1"># MIT license</span>
-<span class="c1">#</span>
-<span class="c1"># Copyright (c) 2016-2021, Dave Vandenbout.</span>
-<span class="c1">#</span>
-<span class="c1"># Permission is hereby granted, free of charge, to any person obtaining a copy</span>
-<span class="c1"># of this software and associated documentation files (the &quot;Software&quot;), to deal</span>
-<span class="c1"># in the Software without restriction, including without limitation the rights</span>
-<span class="c1"># to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
-<span class="c1"># copies of the Software, and to permit persons to whom the Software is</span>
-<span class="c1"># furnished to do so, subject to the following conditions:</span>
-<span class="c1">#</span>
-<span class="c1"># The above copyright notice and this permission notice shall be included in</span>
-<span class="c1"># all copies or substantial portions of the Software.</span>
-<span class="c1">#</span>
-<span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
-<span class="c1"># IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
-<span class="c1"># FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
-<span class="c1"># AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
-<span class="c1"># LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span>
-<span class="c1"># OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN</span>
-<span class="c1"># THE SOFTWARE.</span>
+<span class="c1"># The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Handles complete circuits made of parts and nets.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># isort:skip</span>
+    <span class="n">absolute_import</span><span class="p">,</span>
+    <span class="n">division</span><span class="p">,</span>
+    <span class="n">print_function</span><span class="p">,</span>
+    <span class="n">unicode_literals</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">functools</span>
 <span class="kn">import</span> <span class="nn">json</span>
@@ -88,11 +73,10 @@
 
 <span class="kn">from</span> <span class="nn">.arrange</span> <span class="kn">import</span> <span class="n">Arranger</span>
 <span class="kn">from</span> <span class="nn">.bus</span> <span class="kn">import</span> <span class="n">Bus</span>
-<span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">.defines</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="n">builtins</span>
 <span class="kn">from</span> <span class="nn">.erc</span> <span class="kn">import</span> <span class="n">dflt_circuit_erc</span>
 <span class="kn">from</span> <span class="nn">.interface</span> <span class="kn">import</span> <span class="n">Interface</span>
-<span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">erc_logger</span><span class="p">,</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span><span class="p">,</span> <span class="n">erc_logger</span>
 <span class="kn">from</span> <span class="nn">.net</span> <span class="kn">import</span> <span class="n">NCNet</span><span class="p">,</span> <span class="n">Net</span>
 <span class="kn">from</span> <span class="nn">.part</span> <span class="kn">import</span> <span class="n">Part</span><span class="p">,</span> <span class="n">PartUnit</span>
 <span class="kn">from</span> <span class="nn">.pckg_info</span> <span class="kn">import</span> <span class="n">__version__</span>
@@ -179,7 +163,7 @@
 
     <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Create a context for making this circuit the default_circuit.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">circuit_stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">builtins</span><span class="o">.</span><span class="n">default_circuit</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">circuit_stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">default_circuit</span><span class="p">)</span>
         <span class="n">builtins</span><span class="o">.</span><span class="n">default_circuit</span> <span class="o">=</span> <span class="bp">self</span>
         <span class="k">return</span> <span class="bp">self</span>
 
@@ -189,8 +173,7 @@
 <div class="viewcode-block" id="Circuit.add_hierarchical_name"><a class="viewcode-back" href="../../rst_output/skidl.circuit.html#skidl.circuit.Circuit.add_hierarchical_name">[docs]</a>    <span class="k">def</span> <span class="nf">add_hierarchical_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Record a new hierarchical name.  Throw an error if it is a duplicate.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hierarchical_names</span><span class="p">:</span>
-            <span class="n">log_and_raise</span><span class="p">(</span>
-                <span class="n">logger</span><span class="p">,</span>
+            <span class="n">active_loggerraise_</span><span class="p">(</span>
                 <span class="ne">ValueError</span><span class="p">,</span>
                 <span class="s2">&quot;Can&#39;t add duplicate hierarchical name </span><span class="si">{}</span><span class="s2"> to this circuit.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">name</span>
@@ -203,8 +186,7 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_hierarchical_names</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-            <span class="n">log_and_raise</span><span class="p">(</span>
-                <span class="n">logger</span><span class="p">,</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                 <span class="ne">ValueError</span><span class="p">,</span>
                 <span class="s2">&quot;Can&#39;t remove non-existent hierarchical name </span><span class="si">{}</span><span class="s2"> from circuit.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">name</span>
@@ -225,21 +207,20 @@
 
                     <span class="c1"># Add the part to this circuit.</span>
                     <span class="n">part</span><span class="o">.</span><span class="n">circuit</span> <span class="o">=</span> <span class="bp">self</span>  <span class="c1"># Record the Circuit object for this part.</span>
-                    <span class="n">part</span><span class="o">.</span><span class="n">ref</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">ref</span>  <span class="c1"># This adjusts the part reference if necessary.</span>
+                    <span class="n">part</span><span class="o">.</span><span class="n">ref</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">ref</span>  <span class="c1"># Adjusts the part reference if necessary.</span>
 
-                    <span class="n">part</span><span class="o">.</span><span class="n">hierarchy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hierarchy</span>  <span class="c1"># Store hierarchy of part.</span>
+                    <span class="c1"># Store hierarchy of part.</span>
+                    <span class="n">part</span><span class="o">.</span><span class="n">hierarchy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hierarchy</span>
 
                     <span class="c1"># Check the part does not have a conflicting hierarchical name</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">add_hierarchical_name</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">hierarchical_name</span><span class="p">)</span>
 
-                    <span class="n">part</span><span class="o">.</span><span class="n">skidl_trace</span> <span class="o">=</span> <span class="p">(</span>
-                        <span class="n">get_skidl_trace</span><span class="p">()</span>
-                    <span class="p">)</span>  <span class="c1"># Store part instantiation trace.</span>
+                    <span class="c1"># Store part instantiation trace.</span>
+                    <span class="n">part</span><span class="o">.</span><span class="n">skidl_trace</span> <span class="o">=</span> <span class="s2">&quot;;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">get_skidl_trace</span><span class="p">())</span>
 
                     <span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">log_and_raise</span><span class="p">(</span>
-                        <span class="n">logger</span><span class="p">,</span>
+                    <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                         <span class="ne">ValueError</span><span class="p">,</span>
                         <span class="s2">&quot;Can&#39;t add unmovable part </span><span class="si">{}</span><span class="s2"> to this circuit.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">ref</span><span class="p">),</span>
                     <span class="p">)</span></div>
@@ -254,14 +235,13 @@
                     <span class="n">part</span><span class="o">.</span><span class="n">hierarchy</span> <span class="o">=</span> <span class="kc">None</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
                         <span class="s2">&quot;Removing non-existent part </span><span class="si">{}</span><span class="s2"> from this circuit.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                             <span class="n">part</span><span class="o">.</span><span class="n">ref</span>
                         <span class="p">)</span>
                     <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">log_and_raise</span><span class="p">(</span>
-                    <span class="n">logger</span><span class="p">,</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                     <span class="ne">ValueError</span><span class="p">,</span>
                     <span class="s2">&quot;Can&#39;t remove part </span><span class="si">{}</span><span class="s2"> from this circuit.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">ref</span><span class="p">),</span>
                 <span class="p">)</span></div>
@@ -286,8 +266,7 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">net</span><span class="p">)</span>
 
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">log_and_raise</span><span class="p">(</span>
-                        <span class="n">logger</span><span class="p">,</span>
+                    <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                         <span class="ne">ValueError</span><span class="p">,</span>
                         <span class="s2">&quot;Can&#39;t add unmovable net </span><span class="si">{}</span><span class="s2"> to this circuit.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">),</span>
                     <span class="p">)</span></div>
@@ -301,14 +280,13 @@
                     <span class="n">net</span><span class="o">.</span><span class="n">hierarchy</span> <span class="o">=</span> <span class="kc">None</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">net</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
                         <span class="s2">&quot;Removing non-existent net </span><span class="si">{}</span><span class="s2"> from this circuit.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                             <span class="n">net</span><span class="o">.</span><span class="n">name</span>
                         <span class="p">)</span>
                     <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">log_and_raise</span><span class="p">(</span>
-                    <span class="n">logger</span><span class="p">,</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                     <span class="ne">ValueError</span><span class="p">,</span>
                     <span class="s2">&quot;Can&#39;t remove unmovable net </span><span class="si">{}</span><span class="s2"> from this circuit.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">),</span>
                 <span class="p">)</span></div>
@@ -346,14 +324,13 @@
                     <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">bus</span><span class="o">.</span><span class="n">nets</span><span class="p">:</span>
                         <span class="bp">self</span> <span class="o">-=</span> <span class="n">net</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
                         <span class="s2">&quot;Removing non-existent bus </span><span class="si">{}</span><span class="s2"> from this circuit.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                             <span class="n">bus</span><span class="o">.</span><span class="n">name</span>
                         <span class="p">)</span>
                     <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">log_and_raise</span><span class="p">(</span>
-                    <span class="n">logger</span><span class="p">,</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                     <span class="ne">ValueError</span><span class="p">,</span>
                     <span class="s2">&quot;Can&#39;t remove unmovable bus </span><span class="si">{}</span><span class="s2"> from this circuit.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bus</span><span class="o">.</span><span class="n">name</span><span class="p">),</span>
                 <span class="p">)</span></div>
@@ -373,8 +350,7 @@
                         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
                             <span class="k">pass</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">log_and_raise</span><span class="p">(</span>
-                    <span class="n">logger</span><span class="p">,</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                     <span class="ne">ValueError</span><span class="p">,</span>
                     <span class="s2">&quot;Can&#39;t add the same package to more than one circuit.&quot;</span><span class="p">,</span>
                 <span class="p">)</span></div>
@@ -392,14 +368,13 @@
                         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
                             <span class="k">pass</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="n">active_logger</span><span class="o">.</span><span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
                         <span class="s2">&quot;Removing non-existent package </span><span class="si">{}</span><span class="s2"> from this circuit.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                             <span class="n">package</span><span class="o">.</span><span class="n">name</span>
                         <span class="p">)</span>
                     <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">log_and_raise</span><span class="p">(</span>
-                    <span class="n">logger</span><span class="p">,</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                     <span class="ne">ValueError</span><span class="p">,</span>
                     <span class="s2">&quot;Can&#39;t remove unmovable package </span><span class="si">{}</span><span class="s2"> from this circuit.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="n">package</span><span class="o">.</span><span class="n">name</span>
@@ -421,8 +396,7 @@
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">thing</span><span class="p">,</span> <span class="n">Package</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">add_packages</span><span class="p">(</span><span class="n">thing</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">log_and_raise</span><span class="p">(</span>
-                    <span class="n">logger</span><span class="p">,</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                     <span class="ne">ValueError</span><span class="p">,</span>
                     <span class="s2">&quot;Can&#39;t add a </span><span class="si">{}</span><span class="s2"> to a Circuit object.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">thing</span><span class="p">)),</span>
                 <span class="p">)</span>
@@ -443,10 +417,9 @@
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">thing</span><span class="p">,</span> <span class="n">Package</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">rmv_packages</span><span class="p">(</span><span class="n">thing</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">log_and_raise</span><span class="p">(</span>
-                    <span class="n">logger</span><span class="p">,</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                     <span class="ne">ValueError</span><span class="p">,</span>
-                    <span class="s2">&quot;Can&#39;t remove a </span><span class="si">{}</span><span class="s2"> from a Circuit object.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">pnb</span><span class="p">)),</span>
+                    <span class="s2">&quot;Can&#39;t remove a </span><span class="si">{}</span><span class="s2"> from a Circuit object.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">thing</span><span class="p">)),</span>
                 <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
@@ -515,26 +488,24 @@
 <div class="viewcode-block" id="Circuit.ERC"><a class="viewcode-back" href="../../rst_output/skidl.circuit.html#skidl.circuit.Circuit.ERC">[docs]</a>    <span class="k">def</span> <span class="nf">ERC</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Run class-wide and local ERC functions on this circuit.&quot;&quot;&quot;</span>
 
+        <span class="c1"># Save the currently active logger and activate the ERC logger.</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">erc_logger</span><span class="p">)</span>
+
         <span class="c1"># Reset the counters to clear any warnings/errors from previous ERC run.</span>
-        <span class="n">erc_logger</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-        <span class="n">erc_logger</span><span class="o">.</span><span class="n">warning</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">no_files</span><span class="p">:</span>
-            <span class="n">erc_logger</span><span class="o">.</span><span class="n">stop_file_output</span><span class="p">()</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">stop_file_output</span><span class="p">()</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">ERC</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="n">erc_logger</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">count</span><span class="p">,</span> <span class="n">erc_logger</span><span class="o">.</span><span class="n">warning</span><span class="o">.</span><span class="n">count</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">No ERC errors or warnings found.</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
-                <span class="s2">&quot;</span><span class="se">\n</span><span class="si">{}</span><span class="s2"> warnings found during ERC.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">erc_logger</span><span class="o">.</span><span class="n">warning</span><span class="o">.</span><span class="n">count</span><span class="p">)</span>
-            <span class="p">)</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
-                <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> errors found during ERC.</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">erc_logger</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">count</span><span class="p">)</span>
-            <span class="p">)</span></div>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">report_summary</span><span class="p">(</span><span class="s2">&quot;running ERC&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Restore the logger that was active before the ERC.</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Circuit.generate_netlist"><a class="viewcode-back" href="../../rst_output/skidl.circuit.html#skidl.circuit.Circuit.generate_netlist">[docs]</a>    <span class="k">def</span> <span class="nf">generate_netlist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -553,8 +524,8 @@
         <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">skidl</span>
 
         <span class="c1"># Reset the counters to clear any warnings/errors from previous run.</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">()</span>
 
@@ -570,29 +541,14 @@
             <span class="n">gen_func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_gen_netlist_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tool</span><span class="p">))</span>
             <span class="n">netlist</span> <span class="o">=</span> <span class="n">gen_func</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># Pass any remaining arguments.</span>
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-            <span class="n">log_and_raise</span><span class="p">(</span>
-                <span class="n">logger</span><span class="p">,</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                 <span class="ne">ValueError</span><span class="p">,</span>
                 <span class="s2">&quot;Can&#39;t generate netlist in an unknown ECAD tool format (</span><span class="si">{}</span><span class="s2">).&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">tool</span>
                 <span class="p">),</span>
             <span class="p">)</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">count</span><span class="p">,</span> <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="o">.</span><span class="n">count</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
-                <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">No errors or warnings found during netlist generation.</span><span class="se">\n\n</span><span class="s2">&quot;</span>
-            <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
-                <span class="s2">&quot;</span><span class="se">\n</span><span class="si">{}</span><span class="s2"> warnings found during netlist generation.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="o">.</span><span class="n">count</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
-                <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> errors found during netlist generation.</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">count</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">report_summary</span><span class="p">(</span><span class="s2">&quot;generating netlist&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">no_files</span><span class="p">:</span>
             <span class="k">with</span> <span class="n">opened</span><span class="p">(</span><span class="n">file_</span> <span class="ow">or</span> <span class="p">(</span><span class="n">get_script_name</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;.net&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -622,8 +578,8 @@
         <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">skidl</span>
 
         <span class="c1"># Reset the counters to clear any warnings/errors from previous run.</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">()</span>
 
@@ -639,8 +595,7 @@
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">gen_func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_gen_pcb_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tool</span><span class="p">))</span>
             <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-                <span class="n">log_and_raise</span><span class="p">(</span>
-                    <span class="n">logger</span><span class="p">,</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                     <span class="ne">ValueError</span><span class="p">,</span>
                     <span class="s2">&quot;Can&#39;t generate PCB in an unknown ECAD tool format (</span><span class="si">{}</span><span class="s2">).&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="n">tool</span>
@@ -653,15 +608,7 @@
                     <span class="n">backup_lib</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1">#   will get reloaded when it&#39;s needed.</span>
                 <span class="n">gen_func</span><span class="p">(</span><span class="n">file_</span><span class="p">)</span>  <span class="c1"># Generate the PCB file from the netlist.</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">count</span><span class="p">,</span> <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="o">.</span><span class="n">count</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">No errors or warnings found while creating PCB.</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
-                <span class="s2">&quot;</span><span class="se">\n</span><span class="si">{}</span><span class="s2"> warnings found while creating PCB.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="o">.</span><span class="n">count</span><span class="p">)</span>
-            <span class="p">)</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
-                <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> errors found while creating PCB.</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">count</span><span class="p">)</span>
-            <span class="p">)</span></div>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">report_summary</span><span class="p">(</span><span class="s2">&quot;creating PCB&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Circuit.generate_xml"><a class="viewcode-back" href="../../rst_output/skidl.circuit.html#skidl.circuit.Circuit.generate_xml">[docs]</a>    <span class="k">def</span> <span class="nf">generate_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -678,8 +625,8 @@
         <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">skidl</span>
 
         <span class="c1"># Reset the counters to clear any warnings/errors from previous run.</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">()</span>
 
@@ -690,23 +637,12 @@
             <span class="n">gen_func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_gen_xml_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tool</span><span class="p">))</span>
             <span class="n">netlist</span> <span class="o">=</span> <span class="n">gen_func</span><span class="p">()</span>
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-            <span class="n">log_and_raise</span><span class="p">(</span>
-                <span class="n">logger</span><span class="p">,</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                 <span class="ne">ValueError</span><span class="p">,</span>
                 <span class="s2">&quot;Can&#39;t generate XML in an unknown ECAD tool format (</span><span class="si">{}</span><span class="s2">).&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tool</span><span class="p">),</span>
             <span class="p">)</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">count</span><span class="p">,</span> <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="o">.</span><span class="n">count</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">No errors or warnings found during XML generation.</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
-                <span class="s2">&quot;</span><span class="se">\n</span><span class="si">{}</span><span class="s2"> warnings found during XML generation.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="o">.</span><span class="n">count</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
-                <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> errors found during XML generation.</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">count</span><span class="p">)</span>
-            <span class="p">)</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">report_summary</span><span class="p">(</span><span class="s2">&quot;generating XML&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">no_files</span><span class="p">:</span>
             <span class="k">with</span> <span class="n">opened</span><span class="p">(</span><span class="n">file_</span> <span class="ow">or</span> <span class="p">(</span><span class="n">get_script_name</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;.xml&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -888,8 +824,8 @@
         <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">skidl</span>
 
         <span class="c1"># Reset the counters to clear any warnings/errors from previous run.</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">()</span>
 
@@ -1054,8 +990,8 @@
         <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">skidl</span>
 
         <span class="c1"># Reset the counters to clear any warnings/errors from previous run.</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">active_logger</span><span class="o">.</span><span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">()</span>
 
@@ -1078,29 +1014,14 @@
                 <span class="n">gen_func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_gen_schematic_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tool</span><span class="p">))</span>
                 <span class="n">gen_func</span><span class="p">(</span><span class="n">route</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-                <span class="n">log_and_raise</span><span class="p">(</span>
-                    <span class="n">logger</span><span class="p">,</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                     <span class="ne">ValueError</span><span class="p">,</span>
                     <span class="s2">&quot;Can&#39;t generate schematic in an unknown ECAD tool format (</span><span class="si">{}</span><span class="s2">).&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="n">tool</span>
                     <span class="p">),</span>
                 <span class="p">)</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">count</span><span class="p">,</span> <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="o">.</span><span class="n">count</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
-                <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">No errors or warnings found during schematic generation.</span><span class="se">\n\n</span><span class="s2">&quot;</span>
-            <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
-                <span class="s2">&quot;</span><span class="se">\n</span><span class="si">{}</span><span class="s2"> warnings found during schematic generation.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="o">.</span><span class="n">count</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
-                <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> errors found during schematic generation.</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">count</span>
-                <span class="p">)</span>
-            <span class="p">)</span></div>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">report_summary</span><span class="p">(</span><span class="s2">&quot;generating schematic&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Circuit.generate_dot"><a class="viewcode-back" href="../../rst_output/skidl.circuit.html#skidl.circuit.Circuit.generate_dot">[docs]</a>    <span class="k">def</span> <span class="nf">generate_dot</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1138,8 +1059,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Reset the counters to clear any warnings/errors from previous run.</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">()</span>
 
@@ -1214,6 +1135,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">skidl</span>
+        <span class="kn">from</span> <span class="nn">.tools</span> <span class="kn">import</span> <span class="n">SKIDL</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">no_files</span><span class="p">:</span>
             <span class="k">return</span>

@@ -47,51 +47,32 @@
   <h1>Source code for skidl.skidlbaseobj</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="c1"># MIT license</span>
-<span class="c1">#</span>
-<span class="c1"># Copyright (c) 2016-2021, Dave Vandenbout.</span>
-<span class="c1">#</span>
-<span class="c1"># Permission is hereby granted, free of charge, to any person obtaining a copy</span>
-<span class="c1"># of this software and associated documentation files (the &quot;Software&quot;), to deal</span>
-<span class="c1"># in the Software without restriction, including without limitation the rights</span>
-<span class="c1"># to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
-<span class="c1"># copies of the Software, and to permit persons to whom the Software is</span>
-<span class="c1"># furnished to do so, subject to the following conditions:</span>
-<span class="c1">#</span>
-<span class="c1"># The above copyright notice and this permission notice shall be included in</span>
-<span class="c1"># all copies or substantial portions of the Software.</span>
-<span class="c1">#</span>
-<span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
-<span class="c1"># IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
-<span class="c1"># FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
-<span class="c1"># AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
-<span class="c1"># LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span>
-<span class="c1"># OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN</span>
-<span class="c1"># THE SOFTWARE.</span>
+<span class="c1"># The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Base object for Circuit, Interface, Package, Part, Net, Bus, Pin objects.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># isort:skip</span>
+    <span class="n">absolute_import</span><span class="p">,</span>
+    <span class="n">division</span><span class="p">,</span>
+    <span class="n">print_function</span><span class="p">,</span>
+    <span class="n">unicode_literals</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">inspect</span>
-<span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">object</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">super</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">object</span><span class="p">,</span> <span class="nb">range</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">super</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
 
 <span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
 
 <span class="kn">from</span> <span class="nn">.alias</span> <span class="kn">import</span> <span class="n">Alias</span>
-<span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">.defines</span> <span class="kn">import</span> <span class="o">*</span>
-
-<span class="c1"># from .erc import eval_stmnt_list, exec_function_list</span>
-<span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">erc_logger</span>
 <span class="kn">from</span> <span class="nn">.note</span> <span class="kn">import</span> <span class="n">Note</span>
 
 <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
+
+<span class="n">OK</span><span class="p">,</span> <span class="n">WARNING</span><span class="p">,</span> <span class="n">ERROR</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
 
 
 <div class="viewcode-block" id="SkidlBaseObject"><a class="viewcode-back" href="../../rst_output/skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject">[docs]</a><span class="k">class</span> <span class="nc">SkidlBaseObject</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -211,14 +192,16 @@
 <span class="sd">        Evaluate assertions for this object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
+        <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
+
         <span class="k">def</span> <span class="nf">erc_report</span><span class="p">(</span><span class="n">evtpl</span><span class="p">):</span>
             <span class="n">log_msg</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{evtpl.stmnt}</span><span class="s2"> </span><span class="si">{evtpl.fail_msg}</span><span class="s2"> in </span><span class="si">{evtpl.filename}</span><span class="s2">:</span><span class="si">{evtpl.lineno}</span><span class="s2">:</span><span class="si">{evtpl.function}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                 <span class="n">evtpl</span><span class="o">=</span><span class="n">evtpl</span>
             <span class="p">)</span>
             <span class="k">if</span> <span class="n">evtpl</span><span class="o">.</span><span class="n">severity</span> <span class="o">==</span> <span class="n">ERROR</span><span class="p">:</span>
-                <span class="n">erc_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">log_msg</span><span class="p">)</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">log_msg</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">evtpl</span><span class="o">.</span><span class="n">severity</span> <span class="o">==</span> <span class="n">WARNING</span><span class="p">:</span>
-                <span class="n">erc_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">log_msg</span><span class="p">)</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">log_msg</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">evtpl</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">erc_assertion_list</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">eval</span><span class="p">(</span><span class="n">evtpl</span><span class="o">.</span><span class="n">stmnt</span><span class="p">,</span> <span class="n">evtpl</span><span class="o">.</span><span class="n">globals</span><span class="p">,</span> <span class="n">evtpl</span><span class="o">.</span><span class="n">locals</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
@@ -230,7 +213,7 @@
 
 <span class="sd">        Args:</span>
 <span class="sd">            args, kwargs: Arbitary argument lists to pass to the functions</span>
-<span class="sd">                that are executed. (All functions get the same arguments.) </span>
+<span class="sd">                that are executed. (All functions get the same arguments.)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Execute any instance functions for this particular instance.</span>

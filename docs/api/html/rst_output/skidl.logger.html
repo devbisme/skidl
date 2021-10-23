@@ -47,6 +47,41 @@
 <span id="skidl-logger-module"></span><h1>skidl.logger module<a class="headerlink" href="#module-skidl.logger" title="Permalink to this headline">¶</a></h1>
 <p>Logging for generic messages and ERC.</p>
 <dl class="py class">
+<dt class="sig sig-object py" id="skidl.logger.ActiveLogger">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">skidl.logger.</span></span><span class="sig-name descname"><span class="pre">ActiveLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/logger.html#ActiveLogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.logger.ActiveLogger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#skidl.logger.SkidlLogger" title="skidl.logger.SkidlLogger"><code class="xref py py-class docutils literal notranslate"><span class="pre">skidl.logger.SkidlLogger</span></code></a></p>
+<p>Currently-active logger for a given phase of operations.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.logger.ActiveLogger.pop">
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/logger.html#ActiveLogger.pop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.logger.ActiveLogger.pop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Re-activate the previously active logger.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.logger.ActiveLogger.push">
+<span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/logger.html#ActiveLogger.push"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.logger.ActiveLogger.push" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the currently active logger and activate the given logger.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>logger</strong> (<a class="reference internal" href="#skidl.logger.SkidlLogger" title="skidl.logger.SkidlLogger"><em>SkidlLogger</em></a>) – Logger to be activated.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.logger.ActiveLogger.set">
+<span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/logger.html#ActiveLogger.set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.logger.ActiveLogger.set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the active logger.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>logger</strong> (<a class="reference internal" href="#skidl.logger.SkidlLogger" title="skidl.logger.SkidlLogger"><em>SkidlLogger</em></a>) – Logger that will be used for current phase of operations.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="skidl.logger.CountCalls">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">skidl.logger.</span></span><span class="sig-name descname"><span class="pre">CountCalls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/logger.html#CountCalls"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.logger.CountCalls" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
@@ -84,16 +119,106 @@ making it easy to track if and how many errors/warnings were issued.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="skidl.logger.SkidlLogger.critical">
+<span class="sig-name descname"><span class="pre">critical</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/logger.html#SkidlLogger.critical"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.logger.SkidlLogger.critical" title="Permalink to this definition">¶</a></dt>
+<dd><p>Log ‘msg % args’ with severity ‘CRITICAL’.</p>
+<p>To pass exception information, use the keyword argument exc_info with
+a true value, e.g.</p>
+<p>logger.critical(“Houston, we have a %s”, “major disaster”, exc_info=1)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.logger.SkidlLogger.debug">
+<span class="sig-name descname"><span class="pre">debug</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/logger.html#SkidlLogger.debug"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.logger.SkidlLogger.debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Log ‘msg % args’ with severity ‘DEBUG’.</p>
+<p>To pass exception information, use the keyword argument exc_info with
+a true value, e.g.</p>
+<p>logger.debug(“Houston, we have a %s”, “thorny problem”, exc_info=1)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.logger.SkidlLogger.error">
+<span class="sig-name descname"><span class="pre">error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/logger.html#SkidlLogger.error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.logger.SkidlLogger.error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Log ‘msg % args’ with severity ‘ERROR’.</p>
+<p>To pass exception information, use the keyword argument exc_info with
+a true value, e.g.</p>
+<p>logger.error(“Houston, we have a %s”, “major problem”, exc_info=1)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.logger.SkidlLogger.get_trace">
+<span class="sig-name descname"><span class="pre">get_trace</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/logger.html#SkidlLogger.get_trace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.logger.SkidlLogger.get_trace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.logger.SkidlLogger.info">
+<span class="sig-name descname"><span class="pre">info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/logger.html#SkidlLogger.info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.logger.SkidlLogger.info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Log ‘msg % args’ with severity ‘INFO’.</p>
+<p>To pass exception information, use the keyword argument exc_info with
+a true value, e.g.</p>
+<p>logger.info(“Houston, we have a %s”, “interesting problem”, exc_info=1)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.logger.SkidlLogger.raise_">
+<span class="sig-name descname"><span class="pre">raise_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exc_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/logger.html#SkidlLogger.raise_"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.logger.SkidlLogger.raise_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Issue a logging message and then raise an exception.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>exc_class</strong> (<em>Exception class</em>) – Class of exception to raise.</p></li>
+<li><p><strong>msg</strong> (<em>string</em>) – Error message.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>exc_class</strong> – Exception class that is raised after error message is logged.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="skidl.logger.SkidlLogger.removeHandler">
 <span class="sig-name descname"><span class="pre">removeHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/logger.html#SkidlLogger.removeHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.logger.SkidlLogger.removeHandler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove the specified handler from this logger.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="skidl.logger.SkidlLogger.stop_file_output">
-<span class="sig-name descname"><span class="pre">stop_file_output</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/logger.html#SkidlLogger.stop_file_output"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.logger.SkidlLogger.stop_file_output" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="skidl.logger.SkidlLogger.report_summary">
+<span class="sig-name descname"><span class="pre">report_summary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phase_desc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/logger.html#SkidlLogger.report_summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.logger.SkidlLogger.report_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Report total of logged errors and warnings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>phase_desc</strong> (<em>string</em>) – description of the phase of operations (e.g. “generating netlist”).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.logger.SkidlLogger.set_trace_depth">
+<span class="sig-name descname"><span class="pre">set_trace_depth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">depth</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/logger.html#SkidlLogger.set_trace_depth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.logger.SkidlLogger.set_trace_depth" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.logger.SkidlLogger.stop_file_output">
+<span class="sig-name descname"><span class="pre">stop_file_output</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/logger.html#SkidlLogger.stop_file_output"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.logger.SkidlLogger.stop_file_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop file outputs for all log handlers of this logger.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.logger.SkidlLogger.warning">
+<span class="sig-name descname"><span class="pre">warning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/logger.html#SkidlLogger.warning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.logger.SkidlLogger.warning" title="Permalink to this definition">¶</a></dt>
+<dd><p>Log ‘msg % args’ with severity ‘WARNING’.</p>
+<p>To pass exception information, use the keyword argument exc_info with
+a true value, e.g.</p>
+<p>logger.warning(“Houston, we have a %s”, “bit of a problem”, exc_info=1)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.logger.stop_log_file_output">
+<span class="sig-prename descclassname"><span class="pre">skidl.logger.</span></span><span class="sig-name descname"><span class="pre">stop_log_file_output</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/logger.html#stop_log_file_output"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.logger.stop_log_file_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop loggers from creating files containing log messages.</p>
 </dd></dl>
 
 </div>

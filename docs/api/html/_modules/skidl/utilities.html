@@ -47,33 +47,18 @@
   <h1>Source code for skidl.utilities</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="c1"># MIT license</span>
-<span class="c1">#</span>
-<span class="c1"># Copyright (c) 2016-2021, Dave Vandenbout.</span>
-<span class="c1">#</span>
-<span class="c1"># Permission is hereby granted, free of charge, to any person obtaining a copy</span>
-<span class="c1"># of this software and associated documentation files (the &quot;Software&quot;), to deal</span>
-<span class="c1"># in the Software withcurrent_level restriction, including withcurrent_level limitation the rights</span>
-<span class="c1"># to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
-<span class="c1"># copies of the Software, and to permit persons to whom the Software is</span>
-<span class="c1"># furnished to do so, subject to the following conditions:</span>
-<span class="c1">#</span>
-<span class="c1"># The above copyright notice and this permission notice shall be included in</span>
-<span class="c1"># all copies or substantial portions of the Software.</span>
-<span class="c1">#</span>
-<span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHcurrent_level WARRANTY OF ANY KIND, EXPRESS OR</span>
-<span class="c1"># IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
-<span class="c1"># FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
-<span class="c1"># AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
-<span class="c1"># LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span>
-<span class="c1"># current_level OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN</span>
-<span class="c1"># THE SOFTWARE.</span>
+<span class="c1"># The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Utility functions used by the rest of SKiDL.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># isort:skip</span>
+    <span class="n">absolute_import</span><span class="p">,</span>
+    <span class="n">division</span><span class="p">,</span>
+    <span class="n">print_function</span><span class="p">,</span>
+    <span class="n">unicode_literals</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">collections</span>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -88,7 +73,6 @@
 <span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
 
 <span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">.defines</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
 
@@ -147,7 +131,7 @@
 
 
 <div class="viewcode-block" id="merge_dicts"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.merge_dicts">[docs]</a><span class="k">def</span> <span class="nf">merge_dicts</span><span class="p">(</span><span class="n">dct</span><span class="p">,</span> <span class="n">merge_dct</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; </span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Dict merge that recurses through both dicts and updates keys.</span>
 
 <span class="sd">    Args:</span>
@@ -186,7 +170,7 @@
 <span class="sd">                 subdirectories withcurrent_level limit.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">logger</span>
+    <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
 
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
         <span class="c1"># Ignore search paths if the file already has an absolute path.</span>
@@ -234,19 +218,19 @@
     <span class="k">if</span> <span class="n">allow_failure</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">log_and_raise</span><span class="p">(</span>
-            <span class="n">logger</span><span class="p">,</span> <span class="ne">FileNotFoundError</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t open file: </span><span class="si">{}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
+            <span class="ne">FileNotFoundError</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t open file: </span><span class="si">{}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
         <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="add_unique_attr"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.add_unique_attr">[docs]</a><span class="k">def</span> <span class="nf">add_unique_attr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">check_dup</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Create an attribute if the attribute name isn&#39;t already used.&quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">logger</span>
+    <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">check_dup</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
                 <span class="s2">&quot;Unable to create attribute </span><span class="si">{name}</span><span class="s2"> of type </span><span class="si">{typ1}</span><span class="s2"> because one already exists of type </span><span class="si">{typ2}</span><span class="s2"> in </span><span class="si">{obj}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
                     <span class="n">typ1</span><span class="o">=</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">),</span>
@@ -273,6 +257,7 @@
 
 <div class="viewcode-block" id="rmv_quotes"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.rmv_quotes">[docs]</a><span class="k">def</span> <span class="nf">rmv_quotes</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Remove starting and ending quotes from a string.&quot;&quot;&quot;</span>
+
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">s</span>
 
@@ -288,6 +273,7 @@
 
 <div class="viewcode-block" id="add_quotes"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.add_quotes">[docs]</a><span class="k">def</span> <span class="nf">add_quotes</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Return string with added quotes if it contains whitespace or parens.&quot;&quot;&quot;</span>
+
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">s</span>
 
@@ -315,7 +301,7 @@
 
 <div class="viewcode-block" id="to_list"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.to_list">[docs]</a><span class="k">def</span> <span class="nf">to_list</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Return x if it is already a list, or return a list if x is a scalar.</span>
+<span class="sd">    Return x if it is already a list, or return a list containing x if x is a scalar.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
         <span class="k">return</span> <span class="n">x</span>  <span class="c1"># Already a list, so just return it.</span>
@@ -362,21 +348,41 @@
     <span class="k">return</span> <span class="n">lst</span></div>
 
 
+<div class="viewcode-block" id="set_attr"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.set_attr">[docs]</a><span class="k">def</span> <span class="nf">set_attr</span><span class="p">(</span><span class="n">objs</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Remove an attribute from a list of objects.&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">objs</span><span class="p">:</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="rmv_attr"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.rmv_attr">[docs]</a><span class="k">def</span> <span class="nf">rmv_attr</span><span class="p">(</span><span class="n">objs</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Remove an attribute from a list of objects.&quot;&quot;&quot;</span>
-    <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">to_list</span><span class="p">(</span><span class="n">objs</span><span class="p">):</span>
-        <span class="k">try</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">objs</span><span class="p">:</span>
             <span class="nb">delattr</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-            <span class="k">pass</span></div>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="nb">delattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="from_iadd"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.from_iadd">[docs]</a><span class="k">def</span> <span class="nf">from_iadd</span><span class="p">(</span><span class="n">objs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Return True if one or more objects have attribute iadd_flag set to True.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="nb">any</span><span class="p">([</span><span class="nb">getattr</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="s2">&quot;iadd_flag&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">to_list</span><span class="p">(</span><span class="n">objs</span><span class="p">)])</span></div>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">objs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="s2">&quot;iadd_flag&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">objs</span><span class="p">,</span> <span class="s2">&quot;iadd_flag&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="clr_iadd"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.clr_iadd">[docs]</a><span class="k">def</span> <span class="nf">clr_iadd</span><span class="p">(</span><span class="n">objs</span><span class="p">):</span>
+<div class="viewcode-block" id="set_iadd"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.set_iadd">[docs]</a><span class="k">def</span> <span class="nf">set_iadd</span><span class="p">(</span><span class="n">objs</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Set iadd_flag with T/F value for a list of objects.&quot;&quot;&quot;</span>
+    <span class="n">set_attr</span><span class="p">(</span><span class="n">objs</span><span class="p">,</span> <span class="s2">&quot;iadd_flag&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="rmv_iadd"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.rmv_iadd">[docs]</a><span class="k">def</span> <span class="nf">rmv_iadd</span><span class="p">(</span><span class="n">objs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Delete iadd_flag attribute from a list of objects.&quot;&quot;&quot;</span>
     <span class="n">rmv_attr</span><span class="p">(</span><span class="n">objs</span><span class="p">,</span> <span class="s2">&quot;iadd_flag&quot;</span><span class="p">)</span></div>
 
@@ -605,7 +611,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Expand a list of indices into a list of integers and strings.</span>
 
-<span class="sd">    This function takes the indices used to select pins of parts and </span>
+<span class="sd">    This function takes the indices used to select pins of parts and</span>
 <span class="sd">    lines of buses and returns a flat list of numbers and strings.</span>
 <span class="sd">    String and integer indices are put in the list unchanged, but</span>
 <span class="sd">    slices are expanded into a list of integers before entering the</span>
@@ -614,14 +620,14 @@
 <span class="sd">    Args:</span>
 <span class="sd">        slice_min: The minimum possible index.</span>
 <span class="sd">        slice_max: The maximum possible index (used for slice indices).</span>
-<span class="sd">        match_regex: If true, </span>
+<span class="sd">        match_regex: If true,</span>
 <span class="sd">        indices: A list of indices made up of numbers, slices, text strings.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        A linear list of all the indices made up only of numbers and strings.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">logger</span>
+    <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
 
     <span class="k">def</span> <span class="nf">expand_slice</span><span class="p">(</span><span class="n">slc</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Expand slice notation.&quot;&quot;&quot;</span>
@@ -634,8 +640,7 @@
         <span class="c1"># Do this if it&#39;s a downward slice (e.g., [7:0]).</span>
         <span class="k">if</span> <span class="n">start</span> <span class="o">&gt;</span> <span class="n">stop</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">slc</span><span class="o">.</span><span class="n">start</span> <span class="ow">and</span> <span class="n">slc</span><span class="o">.</span><span class="n">start</span> <span class="o">&gt;</span> <span class="n">slice_max</span><span class="p">:</span>
-                <span class="n">log_and_raise</span><span class="p">(</span>
-                    <span class="n">logger</span><span class="p">,</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                     <span class="ne">IndexError</span><span class="p">,</span>
                     <span class="s2">&quot;Index current_level of range (</span><span class="si">{}</span><span class="s2"> &gt; </span><span class="si">{}</span><span class="s2">)!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="n">slc</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">slice_max</span>
@@ -648,8 +653,7 @@
         <span class="c1"># Do this if it&#39;s a normal (i.e., upward) slice (e.g., [0:7]).</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">slc</span><span class="o">.</span><span class="n">stop</span> <span class="ow">and</span> <span class="n">slc</span><span class="o">.</span><span class="n">stop</span> <span class="o">&gt;</span> <span class="n">slice_max</span><span class="p">:</span>
-                <span class="n">log_and_raise</span><span class="p">(</span>
-                    <span class="n">logger</span><span class="p">,</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                     <span class="ne">IndexError</span><span class="p">,</span>
                     <span class="s2">&quot;Index current_level of range (</span><span class="si">{}</span><span class="s2"> &gt; </span><span class="si">{}</span><span class="s2">)!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="n">slc</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span> <span class="n">slice_max</span>
@@ -731,8 +735,8 @@
                 <span class="c1"># added to the list.</span>
                 <span class="n">ids</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">explode</span><span class="p">(</span><span class="nb">id</span><span class="o">.</span><span class="n">strip</span><span class="p">()))</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">log_and_raise</span><span class="p">(</span>
-                <span class="n">logger</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="s2">&quot;Unknown type in index: </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">indx</span><span class="p">))</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
+                <span class="ne">TypeError</span><span class="p">,</span> <span class="s2">&quot;Unknown type in index: </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">indx</span><span class="p">))</span>
             <span class="p">)</span>
 
     <span class="c1"># Return the completely expanded list of indices.</span>
@@ -758,7 +762,7 @@
 <span class="sd">        or lists/tuples of the same length.)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">logger</span>
+    <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
 
     <span class="n">num_copies</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">attribs</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
@@ -769,14 +773,12 @@
 
     <span class="n">num_copies</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">num_copies</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">num_copies</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
-        <span class="n">log_and_raise</span><span class="p">(</span>
-            <span class="n">logger</span><span class="p">,</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
             <span class="ne">ValueError</span><span class="p">,</span>
             <span class="s2">&quot;Mismatched lengths of attributes: </span><span class="si">{}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_copies</span><span class="p">),</span>
         <span class="p">)</span>
     <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">num_copies</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">min</span><span class="p">(</span><span class="n">num_copies</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">log_and_raise</span><span class="p">(</span>
-            <span class="n">logger</span><span class="p">,</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
             <span class="ne">ValueError</span><span class="p">,</span>
             <span class="s2">&quot;Mismatched lengths of attributes: </span><span class="si">{}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_copies</span><span class="p">),</span>
         <span class="p">)</span>
@@ -797,6 +799,7 @@
 <span class="sd">           object, or a filename to open.</span>
 <span class="sd">       mode: The mode to open the file in.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">f_or_fn</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">f_or_fn</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="k">yield</span> <span class="n">f</span>
@@ -827,11 +830,6 @@
     <span class="k">for</span> <span class="n">pnb</span> <span class="ow">in</span> <span class="n">pins_nets_buses</span><span class="p">:</span>
         <span class="n">pins_nets</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">pnb</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">pins_nets</span></div>
-
-
-<div class="viewcode-block" id="log_and_raise"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.log_and_raise">[docs]</a><span class="k">def</span> <span class="nf">log_and_raise</span><span class="p">(</span><span class="n">logger_in</span><span class="p">,</span> <span class="n">exc_class</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-    <span class="n">logger_in</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-    <span class="k">raise</span> <span class="n">exc_class</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
 
 
 <span class="c1"># Regular expression for parsing nested S-expressions.</span>

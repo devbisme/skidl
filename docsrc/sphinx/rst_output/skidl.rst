@@ -27,7 +27,6 @@ Submodules
    skidl.circuit
    skidl.common
    skidl.coord
-   skidl.defines
    skidl.erc
    skidl.interface
    skidl.logger

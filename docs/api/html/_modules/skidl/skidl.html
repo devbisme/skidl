@@ -47,46 +47,39 @@
   <h1>Source code for skidl.skidl</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="c1"># MIT license</span>
-<span class="c1">#</span>
-<span class="c1"># Copyright (c) 2016-2021, Dave Vandenbout.</span>
-<span class="c1">#</span>
-<span class="c1"># Permission is hereby granted, free of charge, to any person obtaining a copy</span>
-<span class="c1"># of this software and associated documentation files (the &quot;Software&quot;), to deal</span>
-<span class="c1"># in the Software without restriction, including without limitation the rights</span>
-<span class="c1"># to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
-<span class="c1"># copies of the Software, and to permit persons to whom the Software is</span>
-<span class="c1"># furnished to do so, subject to the following conditions:</span>
-<span class="c1">#</span>
-<span class="c1"># The above copyright notice and this permission notice shall be included in</span>
-<span class="c1"># all copies or substantial portions of the Software.</span>
-<span class="c1">#</span>
-<span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
-<span class="c1"># IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
-<span class="c1"># FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
-<span class="c1"># AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
-<span class="c1"># LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span>
-<span class="c1"># OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN</span>
-<span class="c1"># THE SOFTWARE.</span>
+<span class="c1"># The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># isort:skip</span>
+    <span class="n">absolute_import</span><span class="p">,</span>
+    <span class="n">division</span><span class="p">,</span>
+    <span class="n">print_function</span><span class="p">,</span>
+    <span class="n">unicode_literals</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">open</span><span class="p">,</span> <span class="nb">super</span>
 
 <span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
 
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">tools</span>  <span class="c1"># Import EDA tool-specific stuff.</span>
 <span class="kn">from</span> <span class="nn">.circuit</span> <span class="kn">import</span> <span class="n">Circuit</span>
-<span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">.defines</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">erc_logger</span><span class="p">,</span> <span class="n">get_script_name</span><span class="p">,</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="n">builtins</span>
+<span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span><span class="p">,</span> <span class="n">get_script_name</span><span class="p">,</span> <span class="n">stop_log_file_output</span>
 <span class="kn">from</span> <span class="nn">.part_query</span> <span class="kn">import</span> <span class="n">footprint_cache</span>
 <span class="kn">from</span> <span class="nn">.pin</span> <span class="kn">import</span> <span class="n">Pin</span>
+<span class="kn">from</span> <span class="nn">.tools</span> <span class="kn">import</span> <span class="n">ALL_TOOLS</span><span class="p">,</span> <span class="n">KICAD</span><span class="p">,</span> <span class="n">SKIDL</span><span class="p">,</span> <span class="n">SPICE</span><span class="p">,</span> <span class="n">lib_suffixes</span>
 <span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># Set char encoding to UTF-8 in Python 2.</span>
+    <span class="n">reload</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>  <span class="c1"># Causes exception in Python 3.</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">setdefaultencoding</span><span class="p">(</span><span class="s2">&quot;utf8&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
+    <span class="c1"># Do nothing with char encoding in Python 3.</span>
+    <span class="k">pass</span>
 
 
 <div class="viewcode-block" id="SkidlCfg"><a class="viewcode-back" href="../../rst_output/skidl.skidl.html#skidl.skidl.SkidlCfg">[docs]</a><span class="k">class</span> <span class="nc">SkidlCfg</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
@@ -151,7 +144,7 @@
     <span class="k">try</span><span class="p">:</span>
         <span class="n">skidl_cfg</span><span class="p">[</span><span class="s2">&quot;lib_search_paths&quot;</span><span class="p">][</span><span class="n">KICAD</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;KICAD_SYMBOL_DIR&quot;</span><span class="p">])</span>
     <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
             <span class="s2">&quot;KICAD_SYMBOL_DIR environment variable is missing, so the default KiCad symbol libraries won&#39;t be searched.&quot;</span>
         <span class="p">)</span>
 
@@ -192,9 +185,6 @@
 
 <span class="k">if</span> <span class="s2">&quot;default_tool&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">skidl_cfg</span><span class="p">:</span>
     <span class="n">set_default_tool</span><span class="p">(</span><span class="n">KICAD</span><span class="p">)</span>
-
-<span class="c1"># Make the various EDA tool library suffixes globally available.</span>
-<span class="n">lib_suffixes</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">lib_suffixes</span>
 
 <span class="c1"># Definitions for backup library of circuit parts.</span>
 <span class="n">BACKUP_LIB_NAME</span> <span class="o">=</span> <span class="n">get_script_name</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;_lib&quot;</span>
@@ -250,6 +240,7 @@
 
 <span class="c1"># Create the default Circuit object that will be used unless another is explicitly created.</span>
 <span class="n">builtins</span><span class="o">.</span><span class="n">default_circuit</span> <span class="o">=</span> <span class="n">Circuit</span><span class="p">()</span>
+
 <span class="c1"># NOCONNECT net for attaching pins that are intentionally left open.</span>
 <span class="n">builtins</span><span class="o">.</span><span class="n">NC</span> <span class="o">=</span> <span class="n">default_circuit</span><span class="o">.</span><span class="n">NC</span>  <span class="c1"># pylint: disable=undefined-variable</span>
 
@@ -272,8 +263,7 @@
 <div class="viewcode-block" id="no_files"><a class="viewcode-back" href="../../rst_output/skidl.skidl.html#skidl.skidl.no_files">[docs]</a><span class="k">def</span> <span class="nf">no_files</span><span class="p">(</span><span class="n">circuit</span><span class="o">=</span><span class="n">default_circuit</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Prevent creation of output files (netlists, ERC, logs) by this Circuit object.&quot;&quot;&quot;</span>
     <span class="n">circuit</span><span class="o">.</span><span class="n">no_files</span> <span class="o">=</span> <span class="kc">True</span>
-    <span class="n">erc_logger</span><span class="o">.</span><span class="n">stop_file_output</span><span class="p">()</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">stop_file_output</span><span class="p">()</span></div>
+    <span class="n">stop_log_file_output</span><span class="p">()</span></div>
 </pre></div>
 
             <div class="clearer"></div>
