@@ -16,4 +16,4 @@ so that features I said *would* work actually *do* work.
 I also rebuilt the website, switching from Jekyll to Pelican and finally getting the Sphinx-generated API
 documentation to look reasonable.
 
-So I keep plugging along. For some reason.
+Some days you're making the pies, others you're cleaning the grease trap...
