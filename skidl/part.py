@@ -461,7 +461,6 @@ class Part(SkidlBaseObject):
             # original into the copy, so create independent copies of the pins.
             cpy.pins = []
             cpy += [p.copy() for p in self.pins]  # Add pin and its attribute.
-            cpy.pin_aliases_to_attributes()  # Add pin aliases as part attributes.
 
             # If the part copy is intended as a template, then disconnect its pins
             # from any circuit nets.
@@ -566,8 +565,8 @@ class Part(SkidlBaseObject):
             self.pins.append(pin)
             # Create attributes so pin can be accessed by name or number such
             # as part.ENBL or part.p5.
-            add_unique_attr(self, pin.name, pin)
-            add_unique_attr(self, "p" + str(pin.num), pin)
+            pin.aliases += pin.name
+            pin.aliases += "p" + str(pin.num)
         return self
 
     __iadd__ = add_pins
@@ -720,6 +719,19 @@ class Part(SkidlBaseObject):
     # Get pins from a part using brackets, e.g. [1,5:9,'A[0-9]+'].
     __getitem__ = get_pins
 
+    def __getattr__(self, attr):
+        """Normal attribute wasn't found, so check pin aliases."""
+
+        # Look for the attribute name in the list of pin aliases.
+        pins = [pin for pin in self if pin.aliases == attr]
+
+        if pins:
+            # Return the pin/pins if one or more alias matches were found.
+            return list_or_scalar(pins)
+
+        # No pin aliases matched, so use the __getattr__ for the subclass.
+        return super().__getattr__(attr)
+
     def __setitem__(self, ids, pins_nets_buses):
         """
         You can't assign to the pins of parts. You must use the += operator.
@@ -755,7 +767,12 @@ class Part(SkidlBaseObject):
         """
         Return an iterator for stepping thru individual pins of the part.
         """
-        return (p for p in self.pins)  # Return generator expr.
+
+        # Get the list pf pins for this part but use the getattribute for the
+        # subclass to prevent infinite recursion within the __getattr__ method.
+        self_pins = super().__getattribute__('pins')
+
+        return (p for p in self_pins)  # Return generator expr.
 
     def is_connected(self):
         """
@@ -784,7 +801,7 @@ class Part(SkidlBaseObject):
         if not nets:
             return False
 
-        for pin in self.get_pins():
+        for pin in self:
             for net in pin.get_nets():
                 if net in nets:
                     return True
@@ -808,54 +825,12 @@ class Part(SkidlBaseObject):
             or not self.pins
         )
 
-    def set_pin_alias(self, alias, *pin_ids, **criteria):
-        """
-        Set the alias for a part pin.
-
-        Args:
-            alias: The alias for the pin.
-            pin_ids: A list of strings containing pin names, numbers,
-                regular expressions, slices, lists or tuples.
-
-        Keyword Args:
-            criteria: Key/value pairs that specify attribute values the
-                pin must have in order to be selected.
-
-        Returns:
-            Nothing.
-        """
-
-        from .alias import Alias
-        from .pin import Pin
-
-        pin = self.get_pins(*pin_ids, **criteria)
-        if isinstance(pin, Pin):
-            # Alias the single pin that was found.
-            pin.aliases += alias
-            # Add the name of the aliased pin as an attribute to the part,
-            # so it will act just like a pin for making connections.
-            add_unique_attr(self, alias, pin)
-        else:
-            # Error: either 0 or multiple pins were found.
-            active_logger.raise_(ValueError, "Cannot set alias for {}".format(pin_ids))
-
-    def pin_aliases_to_attributes(self):
-        """Make each pin alias into an attribute of the part."""
-
-        for pin in self:
-            for alias in pin.aliases:
-                add_unique_attr(self, alias, pin)
-
     def split_pin_names(self, delimiters):
         """Use chars in delimiters to split pin names and add as aliases to each pin."""
-
         if delimiters:
             for pin in self:
                 # Split pin name and add subnames as aliases to the pin.
                 pin.split_name(delimiters)
-
-            # Add the pin aliases as attributes to the part.
-            self.pin_aliases_to_attributes()
 
     def make_unit(self, label, *pin_ids, **criteria):
         """
@@ -878,7 +853,7 @@ class Part(SkidlBaseObject):
         """
 
         # Warn if the unit label collides with any of the part's pin names.
-        collisions = self.get_pins("^" + label + "$")  # Look for exact match.
+        collisions = [pin for pin in self if pin.aliases == label]
         if collisions:
             active_logger.warning(
                 "Using a label ({}) for a unit of {} that matches one or more of it's pin names ({})!".format(
