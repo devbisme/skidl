@@ -34,45 +34,6 @@ standard_library.install_aliases()
 INDEX_SEPARATOR = re.compile("[, \t]+")
 
 
-def norecurse(f):
-    """Decorator that keeps a function from recursively calling itself.
-
-    Parameters
-    ----------
-    f: function
-    """
-
-    def func(*args, **kwargs):
-        # If a function's name is on the stack twice (once for the current call
-        # and a second time for the previous call), then return withcurrent_level
-        # executing the function.
-        if len([1 for l in traceback.extract_stack() if l[2] == f.__name__]) > 1:
-            return None
-
-        # Otherwise, not a recursive call so execute the function and return result.
-        return f(*args, **kwargs)
-
-    return func
-
-
-class TriggerDict(dict):
-    """This dict triggers a function when one of its entries changes."""
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        # Create a dict of functions that will be run if their associated
-        # key entries change. The functions arguments will be the main
-        # TriggerDict, the key, and the new value to be stored.
-        self.trigger_funcs = dict()
-
-    def __setitem__(self, k, v):
-        if k in self.trigger_funcs:
-            if v != self[k]:
-                self.trigger_funcs[k](self, k, v)
-        super().__setitem__(k, v)
-
-
 def is_binary_file(filename):
     """Return true if a file contains binary (non-text) characters."""
     text_chars = bytearray({7, 8, 9, 10, 12, 13, 27} | set(range(0x20, 0x100)) - {0x7F})
@@ -81,121 +42,6 @@ def is_binary_file(filename):
             return bool(fp.read(1024).translate(None, text_chars))
     except (IOError, FileNotFoundError, TypeError):
         return False
-
-
-def merge_dicts(dct, merge_dct):
-    """
-    Dict merge that recurses through both dicts and updates keys.
-
-    Args:
-        dct: The dict that will be updated.
-        merge_dct: The dict whose values will be inserted into dct.
-
-    Returns:
-        Nothing.
-    """
-
-    for k, v in list(merge_dct.items()):
-        if (
-            k in dct
-            and isinstance(dct[k], dict)
-            and isinstance(merge_dct[k], collections.Mapping)
-        ):
-            merge_dicts(dct[k], merge_dct[k])
-        else:
-            dct[k] = merge_dct[k]
-
-
-def find_and_open_file(
-    filename, paths=None, ext=None, allow_failure=False, exclude_binary=False, descend=0
-):
-    """
-    Search for a file in list of paths, open it and return file pointer and full file name.
-
-    Args:
-        filename: Base file name (e.g., "my_file").
-        paths: List of paths to search for the file.
-        ext: The extension for the file (e.g., ".txt").
-        allow_failure: If false, failure to find file raises and exception.
-        exclude_binary: If true, skip files that contain binary data.
-        descend: If 0, don't search lower-level directories. If positive, search
-                 that many levels down for the file. If negative, descend into
-                 subdirectories withcurrent_level limit.
-    """
-
-    from .logger import active_logger
-
-    if os.path.isabs(filename):
-        # Ignore search paths if the file already has an absolute path.
-        paths = [os.path.abspath(os.path.dirname(filename))]
-    elif not paths:
-        # If no search paths are given, use the current working directory.
-        paths = ["."]
-
-    # Remove any directory path from the file name.
-    _, filename = os.path.split(filename)
-
-    # Get the list of file extensions to check against.
-    base, suffix = os.path.splitext(filename)
-    if suffix:
-        # If an explicit file extension was given, just use that.
-        exts = [suffix]
-    else:
-        exts = to_list(ext)
-
-    # Create the regular expression for matching against the filename.
-    exts = [re.escape(ext) for ext in exts]
-    match_name = re.escape(base) + "(" + "|".join(exts) + ")$"
-
-    # Search through the directory paths for a file whose name matches the regular expression.
-    for path in paths:
-        # Search through the files in a particular directory path.
-        descent_ctr = descend  # Controls the descent through the path.
-        for root, dirnames, filenames in os.walk(path):
-            # Get files in the current directory whose names match the regular expression.
-            for fn in [f for f in filenames if re.match(match_name, f)]:
-                abs_filename = os.path.join(root, fn)
-                if not exclude_binary or not is_binary_file(abs_filename):
-                    try:
-                        # Return the first file that matches the criteria.
-                        return open(abs_filename, encoding="latin_1"), abs_filename
-                    except (IOError, FileNotFoundError, TypeError):
-                        # File failed, so keep searching.
-                        pass
-            # Keep descending on this path as long as the descent counter is non-zero.
-            if descent_ctr == 0:
-                break  # Cease search of this path if the counter is zero.
-            descent_ctr -= 1  # Decrement the counter for the next directory level.
-
-    # Couldn't find a matching file.
-    if allow_failure:
-        return None, None
-    else:
-        active_logger.raise_(
-            FileNotFoundError, "Can't open file: {}.\n".format(filename)
-        )
-
-
-def add_unique_attr(obj, name, value, check_dup=False):
-    """Create an attribute if the attribute name isn't already used."""
-    from .logger import active_logger
-
-    try:
-        getattr(obj, name)
-        if check_dup:
-            active_logger.warning(
-                "Unable to create attribute {name} of type {typ1} because one already exists of type {typ2} in {obj}".format(
-                    name=name,
-                    typ1=type(value),
-                    typ2=type(getattr(obj, name)),
-                    obj=str(obj),
-                )
-            )
-        else:
-            setattr(obj, name, value)
-
-    except AttributeError:
-        setattr(obj, name, value)
 
 
 def num_to_chars(num):
@@ -242,14 +88,9 @@ def add_quotes(s):
     return s
 
 
-def is_iterable(x):
-    """
-    Return True if x is iterable (but not a string).
-    """
-    try:
-        return not isinstance(iter(x), type(iter("")))
-    except TypeError:
-        return False
+def cnvt_to_var_name(s):
+    """Convert a string to a legal Python variable name and return it."""
+    return re.sub(r"\W|^(?=\d)", "_", s)
 
 
 def to_list(x):
@@ -259,11 +100,6 @@ def to_list(x):
     if isinstance(x, (list, tuple)):
         return x  # Already a list, so just return it.
     return [x]  # Wasn't a list, so make it into one.
-
-
-def cnvt_to_var_name(s):
-    """Convert a string to a legal Python variable name and return it."""
-    return re.sub(r"\W|^(?=\d)", "_", s)
 
 
 def list_or_scalar(lst):
@@ -319,6 +155,28 @@ def rmv_attr(objs, attr):
         delattr(obj, attr)
 
 
+def add_unique_attr(obj, name, value, check_dup=False):
+    """Create an attribute if the attribute name isn't already used."""
+    from .logger import active_logger
+
+    try:
+        getattr(obj, name)
+        if check_dup:
+            active_logger.warning(
+                "Unable to create attribute {name} of type {typ1} because one already exists of type {typ2} in {obj}".format(
+                    name=name,
+                    typ1=type(value),
+                    typ2=type(getattr(obj, name)),
+                    obj=str(obj),
+                )
+            )
+        else:
+            setattr(obj, name, value)
+
+    except AttributeError:
+        setattr(obj, name, value)
+
+
 def from_iadd(objs):
     """Return True if one or more objects have attribute iadd_flag set to True."""
     try:
@@ -338,6 +196,29 @@ def set_iadd(objs, value):
 def rmv_iadd(objs):
     """Delete iadd_flag attribute from a list of objects."""
     rmv_attr(objs, "iadd_flag")
+
+
+def merge_dicts(dct, merge_dct):
+    """
+    Dict merge that recurses through both dicts and updates keys.
+
+    Args:
+        dct: The dict that will be updated.
+        merge_dct: The dict whose values will be inserted into dct.
+
+    Returns:
+        Nothing.
+    """
+
+    for k, v in list(merge_dct.items()):
+        if (
+            k in dct
+            and isinstance(dct[k], dict)
+            and isinstance(merge_dct[k], collections.Mapping)
+        ):
+            merge_dicts(dct[k], merge_dct[k])
+        else:
+            dct[k] = merge_dct[k]
 
 
 # Store names that have been previously assigned.
@@ -696,6 +577,19 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
     return ids
 
 
+def expand_buses(pins_nets_buses):
+    """
+    Take list of pins, nets, and buses and return a list of only pins and nets.
+    """
+
+    # This relies on the fact that a bus is an iterable of its nets,
+    # and pins/nets return an iterable containing only a single pin/net.
+    pins_nets = []
+    for pnb in pins_nets_buses:
+        pins_nets.extend(pnb)
+    return pins_nets
+
+
 def find_num_copies(**attribs):
     """
     Return the number of copies to make based on the number of attribute values.
@@ -742,47 +636,43 @@ def find_num_copies(**attribs):
         return 0  # If the list if empty.
 
 
-@contextmanager
-def opened(f_or_fn, mode):
-    """
-    Yields an opened file or file-like object.
+def norecurse(f):
+    """Decorator that keeps a function from recursively calling itself.
 
-    Args:
-       file_or_filename: Either an already opened file or file-like
-           object, or a filename to open.
-       mode: The mode to open the file in.
+    Parameters
+    ----------
+    f: function
     """
 
-    if isinstance(f_or_fn, basestring):
-        with open(f_or_fn, mode, encoding="utf-8") as f:
-            yield f
-    elif hasattr(f_or_fn, "fileno"):
-        if mode.replace("+", "") == f_or_fn.mode.replace("+", ""):
-            # same mode, can reuse file handle
-            yield f_or_fn
-        else:
-            # open in new mode
-            with os.fdopen(f_or_fn.fileno(), mode) as f:
-                yield f
-    else:
-        raise TypeError(
-            "argument must be a filename or a file-like object (is: {})".format(
-                type(f_or_fn)
-            )
-        )
+    def func(*args, **kwargs):
+        # If a function's name is on the stack twice (once for the current call
+        # and a second time for the previous call), then return withcurrent_level
+        # executing the function.
+        if len([1 for l in traceback.extract_stack() if l[2] == f.__name__]) > 1:
+            return None
+
+        # Otherwise, not a recursive call so execute the function and return result.
+        return f(*args, **kwargs)
+
+    return func
 
 
-def expand_buses(pins_nets_buses):
-    """
-    Take list of pins, nets, and buses and return a list of only pins and nets.
-    """
+class TriggerDict(dict):
+    """This dict triggers a function when one of its entries changes."""
 
-    # This relies on the fact that a bus is an iterable of its nets,
-    # and pins/nets return an iterable containing only a single pin/net.
-    pins_nets = []
-    for pnb in pins_nets_buses:
-        pins_nets.extend(pnb)
-    return pins_nets
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Create a dict of functions that will be run if their associated
+        # key entries change. The functions arguments will be the main
+        # TriggerDict, the key, and the new value to be stored.
+        self.trigger_funcs = dict()
+
+    def __setitem__(self, k, v):
+        if k in self.trigger_funcs:
+            if v != self[k]:
+                self.trigger_funcs[k](self, k, v)
+        super().__setitem__(k, v)
 
 
 # Regular expression for parsing nested S-expressions.
@@ -832,3 +722,103 @@ def parse_sexp(sexp, allow_underflow=False):
     if stack:
         raise RunTimeError("Bracketing mismatch!")
     return current_level[0]
+
+
+def find_and_open_file(
+    filename, paths=None, ext=None, allow_failure=False, exclude_binary=False, descend=0
+):
+    """
+    Search for a file in list of paths, open it and return file pointer and full file name.
+
+    Args:
+        filename: Base file name (e.g., "my_file").
+        paths: List of paths to search for the file.
+        ext: The extension for the file (e.g., ".txt").
+        allow_failure: If false, failure to find file raises and exception.
+        exclude_binary: If true, skip files that contain binary data.
+        descend: If 0, don't search lower-level directories. If positive, search
+                 that many levels down for the file. If negative, descend into
+                 subdirectories withcurrent_level limit.
+    """
+
+    from .logger import active_logger
+
+    if os.path.isabs(filename):
+        # Ignore search paths if the file already has an absolute path.
+        paths = [os.path.abspath(os.path.dirname(filename))]
+    elif not paths:
+        # If no search paths are given, use the current working directory.
+        paths = ["."]
+
+    # Remove any directory path from the file name.
+    _, filename = os.path.split(filename)
+
+    # Get the list of file extensions to check against.
+    base, suffix = os.path.splitext(filename)
+    if suffix:
+        # If an explicit file extension was given, just use that.
+        exts = [suffix]
+    else:
+        exts = to_list(ext)
+
+    # Create the regular expression for matching against the filename.
+    exts = [re.escape(ext) for ext in exts]
+    match_name = re.escape(base) + "(" + "|".join(exts) + ")$"
+
+    # Search through the directory paths for a file whose name matches the regular expression.
+    for path in paths:
+        # Search through the files in a particular directory path.
+        descent_ctr = descend  # Controls the descent through the path.
+        for root, dirnames, filenames in os.walk(path):
+            # Get files in the current directory whose names match the regular expression.
+            for fn in [f for f in filenames if re.match(match_name, f)]:
+                abs_filename = os.path.join(root, fn)
+                if not exclude_binary or not is_binary_file(abs_filename):
+                    try:
+                        # Return the first file that matches the criteria.
+                        return open(abs_filename, encoding="latin_1"), abs_filename
+                    except (IOError, FileNotFoundError, TypeError):
+                        # File failed, so keep searching.
+                        pass
+            # Keep descending on this path as long as the descent counter is non-zero.
+            if descent_ctr == 0:
+                break  # Cease search of this path if the counter is zero.
+            descent_ctr -= 1  # Decrement the counter for the next directory level.
+
+    # Couldn't find a matching file.
+    if allow_failure:
+        return None, None
+    else:
+        active_logger.raise_(
+            FileNotFoundError, "Can't open file: {}.\n".format(filename)
+        )
+
+
+@contextmanager
+def opened(f_or_fn, mode):
+    """
+    Yields an opened file or file-like object.
+
+    Args:
+       file_or_filename: Either an already opened file or file-like
+           object, or a filename to open.
+       mode: The mode to open the file in.
+    """
+
+    if isinstance(f_or_fn, basestring):
+        with open(f_or_fn, mode, encoding="utf-8") as f:
+            yield f
+    elif hasattr(f_or_fn, "fileno"):
+        if mode.replace("+", "") == f_or_fn.mode.replace("+", ""):
+            # same mode, can reuse file handle
+            yield f_or_fn
+        else:
+            # open in new mode
+            with os.fdopen(f_or_fn.fileno(), mode) as f:
+                yield f
+    else:
+        raise TypeError(
+            "argument must be a filename or a file-like object (is: {})".format(
+                type(f_or_fn)
+            )
+        )
