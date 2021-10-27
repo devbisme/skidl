@@ -15,7 +15,7 @@ from __future__ import (  # isort:skip
 
 import functools
 import re
-from builtins import dict, int, object, range, str, super, zip
+from builtins import dict, int, object, range, str, super
 from copy import copy
 from random import randint
 
@@ -719,19 +719,6 @@ class Part(SkidlBaseObject):
     # Get pins from a part using brackets, e.g. [1,5:9,'A[0-9]+'].
     __getitem__ = get_pins
 
-    def __getattr__(self, attr):
-        """Normal attribute wasn't found, so check pin aliases."""
-
-        # Look for the attribute name in the list of pin aliases.
-        pins = [pin for pin in self if pin.aliases == attr]
-
-        if pins:
-            # Return the pin/pins if one or more alias matches were found.
-            return list_or_scalar(pins)
-
-        # No pin aliases matched, so use the __getattr__ for the subclass.
-        return super().__getattr__(attr)
-
     def __setitem__(self, ids, pins_nets_buses):
         """
         You can't assign to the pins of parts. You must use the += operator.
@@ -763,14 +750,29 @@ class Part(SkidlBaseObject):
         # was made to the pin, which is not allowed.
         active_logger.raise_(TypeError, "Can't assign to a part! Use the += operator.")
 
+    def __getattr__(self, attr):
+        """Normal attribute wasn't found, so check pin aliases."""
+
+        # Look for the attribute name in the list of pin aliases.
+        pins = [pin for pin in self if pin.aliases == attr]
+
+        if pins:
+            # Return the pin/pins if one or more alias matches were found.
+            return list_or_scalar(pins)
+
+        # No pin aliases matched, so use the __getattr__ for the subclass.
+        # Don't use super(). It leads to long runtimes under Python 2.7.
+        return SkidlBaseObject.__getattr__(self, attr)
+
     def __iter__(self):
         """
         Return an iterator for stepping thru individual pins of the part.
         """
 
-        # Get the list pf pins for this part but use the getattribute for the
-        # subclass to prevent infinite recursion within the __getattr__ method.
-        self_pins = super().__getattribute__('pins')
+        # Get the list pf pins for this part using the getattribute for the
+        # basest object to prevent infinite recursion within the __getattr__ method.
+        # Don't use super() because it leads to long runtimes under Python 2.7.
+        self_pins = object.__getattribute__(self, "pins")
 
         return (p for p in self_pins)  # Return generator expr.
 
