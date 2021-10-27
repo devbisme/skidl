@@ -1333,10 +1333,10 @@ class PartUnit(Part):
         except ValueError:
             pass
 
-        # Add attributes for accessing the new pins.
+        # Add attributes (via aliases) for accessing the new pins.
         for pin in new_pins:
-            add_unique_attr(self, "p" + str(pin.num), pin)
-            add_unique_attr(self, pin.name, pin)
+            pin.aliases += pin.name
+            pin.aliases += "p" + str(pin.num)
 
         # Add new pins to existing pins of the unit, removing duplicates.
         self.pins = list(set(self.pins + new_pins))
