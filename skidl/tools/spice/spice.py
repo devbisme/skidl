@@ -21,7 +21,7 @@ from future import standard_library
 from ...common import USING_PYTHON2
 from ...logger import active_logger
 from ...net import Net
-from ...part import Part
+from ...part import Part, LIBRARY
 from ...pin import Pin, PinList
 from ...utilities import *
 
@@ -80,10 +80,8 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
         lib_search_paths_ : List of directories to search for the file.
     """
 
-    from ...part import Part
-    from ...pin import Pin
-    from ...skidl import lib_suffixes
     from .. import SPICE
+    from ...skidl import lib_suffixes
 
     if os.path.isdir(filename):
         # A directory was given, so just use that.
