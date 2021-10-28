@@ -1,38 +1,23 @@
 # -*- coding: utf-8 -*-
 
-# MIT license
-#
-# Copyright (C) 2018 by XESS Corp.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
+# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
 
 """
 Handles schematic libraries for various ECAD tools.
 """
 
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import (  # isort:skip
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from builtins import object, str
 
 from future import standard_library
 
-from .logger import logger
+from .logger import active_logger
 from .utilities import *
 
 standard_library.install_aliases()
@@ -91,8 +76,7 @@ class SchLib(object):
                 load_func = getattr(self, "_load_sch_lib_{}".format(tool))
             except AttributeError:
                 # OK, that didn't work so well...
-                log_and_raise(
-                    logger,
+                active_logger.raise_(
                     ValueError,
                     "Unsupported ECAD tool library: {}.".format(tool),
                 )
@@ -112,7 +96,7 @@ class SchLib(object):
     def add_parts(self, *parts):
         """Add one or more parts to a library."""
 
-        from .defines import TEMPLATE
+        from .part import TEMPLATE
 
         for part in flatten(parts):
             # Parts with the same name are not allowed in the library.
@@ -180,7 +164,7 @@ class SchLib(object):
                     name, getattr(self, "filename", "UNKNOWN")
                 )
                 if not silent:
-                    logger.error(message)
+                    active_logger.error(message)
                 raise ValueError(message)
 
         # Multiple parts with that name or alias exists, so return the list
@@ -195,7 +179,7 @@ class SchLib(object):
             # allowed and issue a warning.
             else:
                 if not silent:
-                    logger.warning(
+                    active_logger.warning(
                         "Found multiple parts matching {}. Selecting {}.".format(
                             name, parts[0].name
                         )
@@ -240,7 +224,8 @@ class SchLib(object):
             return s
 
         import skidl
-        from .defines import SKIDL
+
+        from .tools import SKIDL
 
         if tool is None:
             tool = SKIDL

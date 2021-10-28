@@ -13,10 +13,10 @@ vusb.drive = POWER
 vdd = Net("+3.3V")
 
 # Some common parts used as templates.
-cap = Part('Device', 'C', footprint='Capacitor_SMD:C_0603_1608Metric', dest=TEMPLATE)
-res = Part('Device', 'R', footprint='Resistor_SMD:R_0603_1608Metric', dest=TEMPLATE)
+cap = Part("Device", "C", footprint="Capacitor_SMD:C_0603_1608Metric", dest=TEMPLATE)
+res = Part("Device", "R", footprint="Resistor_SMD:R_0603_1608Metric", dest=TEMPLATE)
 # Regulate +5V VUSB down to +3.3V for VDD.
-vreg = Part(xess_lib, 'TPS793XX', footprint='Package_TO_SOT_SMD:SOT-23-5')
+vreg = Part(xess_lib, "TPS793XX", footprint="Package_TO_SOT_SMD:SOT-23-5")
 noise_cap = cap(value="0.01uf")
 vreg["IN, EN"] += vusb
 vreg["GND"] += gnd
@@ -25,8 +25,11 @@ vreg["NR"] += noise_cap[1]
 noise_cap[2] += gnd
 
 # Microcontroller.
-pic32 = Part(pic32_lib, 'PIC32MX2\*0F\*\*\*B-QFN28', 
-    footprint='Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm')
+pic32 = Part(
+    pic32_lib,
+    "PIC32MX2\*0F\*\*\*B-QFN28",
+    footprint="Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm",
+)
 pic32.split_pin_names("/")
 pic32["VSS"] += gnd
 pic32["VDD"] += vdd  # Main CPU power.
@@ -62,7 +65,7 @@ shld_res[1] += usb_conn["shield"]
 gnd += shld_cap[2], shld_res[2]
 
 # LED with current-limiting resistor driven by microcontroller pin.
-led = Part('Device', 'LED', footprint='LED_SMD:LED_0603_1608Metric')
+led = Part("Device", "LED", footprint="LED_SMD:LED_0603_1608Metric")
 led_curr_limit = res(value="1K")
 led_curr_limit[1, 2] += pic32["RB4"], led["A"]
 led["K"] += gnd
@@ -77,7 +80,9 @@ trim_cap[1][1, 2] += xtal[3], gnd
 
 # Port for attachment of device programmer.
 prg_hdr = Part(
-    pickit3_lib, "pickit3_hdr", footprint="Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Horizontal"
+    pickit3_lib,
+    "pickit3_hdr",
+    footprint="Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Horizontal",
 )
 prg_hdr.ref = "PRG"
 prg_hdr["~MCLR"] += pic32["~MCLR"]
@@ -87,7 +92,11 @@ prg_hdr["PGC"] += pic32["PGEC1"]
 prg_hdr["PGD"] += pic32["PGED1"]
 
 # Port for attachment of FPGA programming pins.
-port = Part("Conn", "CONN_01x06", footprint="Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Horizontal")
+port = Part(
+    "Conn",
+    "CONN_01x06",
+    footprint="Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Horizontal",
+)
 port.ref = "JTAG"
 port[1, 2] += vusb, gnd
 port[3] += pic32["SCK1"]  # SCK1 output.

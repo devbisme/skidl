@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+
+# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
+
 import os
 
 from skidl import *
@@ -19,7 +23,9 @@ def setup_function(f):
 
     lib_search_paths.clear()
     lib_search_paths.update({tool: [os.getcwd(), this_file_dir] for tool in ALL_TOOLS})
-    lib_search_paths.update({SKIDL: [os.getcwd(), this_file_dir, get_filename("../skidl/libs")]})
+    lib_search_paths.update(
+        {SKIDL: [os.getcwd(), this_file_dir, get_filename("../skidl/libs")]}
+    )
 
     set_default_tool(KICAD)
     set_query_backup_lib(INITIAL_QUERY_BACKUP_LIB)

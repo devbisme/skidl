@@ -1,4 +1,4 @@
-from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
+from skidl import SKIDL, TEMPLATE, Alias, Part, Pin, SchLib
 
 SKIDL_lib_version = '0.0.1'
 

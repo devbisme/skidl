@@ -1,8 +1,14 @@
+# -*- coding: utf-8 -*-
+
+# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
+
+import copy
+
 import pytest
 
-from skidl import *
+from skidl import TEMPLATE, Bus, Circuit, Net, Part, Pin, package, subcircuit
 
-from .setup_teardown import *
+from .setup_teardown import setup_function, teardown_function
 
 
 def test_package_1():
@@ -101,6 +107,10 @@ def test_package_2():
     assert len(rc_rc_1.vin) == 1
     assert len(rc_rc_1.vout) == 3
 
+    assert len(rc_rc_2.gnd) == 4
+    assert len(rc_rc_2.vin) == 3
+    assert len(rc_rc_2.vout) == 2
+
     assert len(rc_rc_2["gnd"]) == 4
     assert len(rc_rc_2["vin"]) == 3
     assert len(rc_rc_2["vout"]) == 2
@@ -116,10 +126,15 @@ def test_package_3():
     b += Pin(), Pin()
     b += ff["a,b"]
     b[0] += Pin()
-    assert len(ff.a) == 2
-    assert len(ff.b) == 1
+
+    default_circuit.instantiate_packages()
+
+    assert len(b[0]) == 2
+    assert len(b[1]) == 1
     assert len(ff["a"]) == 2
     assert len(ff["b"]) == 1
+    assert len(ff.a) == 2
+    assert len(ff.b) == 1
 
 
 def test_package_4():
@@ -190,7 +205,7 @@ def test_package_6():
     @package
     def vreg_adj(vin, vout, gnd, bom, output_voltage=3.0):
         """Create adjustable voltage regulator with filtering caps."""
-        bom2 = copy(bom)
+        bom2 = copy.copy(bom)
         bom2["reg"] = reg_adj(bom=bom, output_voltage=output_voltage, dest=TEMPLATE)
         vreg(vin=vin, vout=vout, gnd=gnd, bom=bom2)
 
@@ -206,8 +221,9 @@ def test_package_6():
     }
     vr = vreg_adj(bom=bom)
     vr["vin, vout, gnd"] += vin, vout, gnd
+
     default_circuit.instantiate_packages()
-    # generate_netlist()
+
     assert len(vin) == 2
     assert len(gnd) == 3
     assert len(vout) == 3
@@ -249,7 +265,7 @@ def test_package_7():
     @package
     def vreg_adj(vin, vout, gnd, bom, output_voltage=3.0):
         """Create adjustable voltage regulator with filtering caps."""
-        bom2 = copy(bom)
+        bom2 = copy.copy(bom)
         bom2["reg"] = reg_adj(bom=bom, output_voltage=output_voltage, dest=TEMPLATE)
         vreg(vin=vin, vout=vout, gnd=gnd, bom=bom2)
 
@@ -267,7 +283,9 @@ def test_package_7():
     vr2 = vreg_adj(bom=bom)
     vr1["vin, vout, gnd"] += vin, vout1, gnd
     vr2["vin, vout, gnd"] += vin, vout2, gnd
+
     default_circuit.instantiate_packages()
+
     u1 = Part.get("U1")
     u2 = Part.get("U2")
     u1.F2 = "U1-F2"
@@ -304,7 +322,9 @@ def test_package_8():
     vcc, gnd = Net("VCC"), Net("GND")
     rr.neta += vcc
     gnd += rr.netb
+
     default_circuit.instantiate_packages()
+
     assert len(gnd) == 1
     assert len(vcc) == 1
 

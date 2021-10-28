@@ -1,8 +1,22 @@
+# -*- coding: utf-8 -*-
+
+# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
+
 import pytest
 
-from skidl import *
+from skidl import (
+    ERC,
+    POWER,
+    TEMPLATE,
+    Bus,
+    Net,
+    Part,
+    SubCircuit,
+    generate_netlist,
+    generate_svg,
+)
 
-from .setup_teardown import *
+from .setup_teardown import setup_function, teardown_function
 
 
 def test_svg_1():
@@ -52,9 +66,13 @@ def test_svg_3():
 
     r = Part("Device.lib", "R_US", dest=TEMPLATE, tx_ops="L")
 
-    Net("IN") & r(value="4K7", symtx="L") & opamp.uA[2] & r(
-        value="4K7", symtx="L"
-    ) & opamp.uA[1]
+    (
+        Net("IN")
+        & r(value="4K7", symtx="L")
+        & opamp.uA[2]
+        & r(value="4K7", symtx="L")
+        & opamp.uA[1]
+    )
     gnd[1] += opamp.uA[3]
 
     opamp.uA[1] & r(value="10K") & gnd[1]
@@ -207,9 +225,22 @@ def test_svg_6():
 
     gnd = Net("GND")
     vcc = Net("VCC")
-    gnd & gndt & r() & r() & (
-        r(symtx="l") | r(symtx="R")
-    ) & r() & r() & r() & r() & r() & r() & r() & vcct & vcc
+    (
+        gnd
+        & gndt
+        & r()
+        & r()
+        & (r(symtx="l") | r(symtx="R"))
+        & r()
+        & r()
+        & r()
+        & r()
+        & r()
+        & r()
+        & r()
+        & vcct
+        & vcc
+    )
 
     generate_svg()
 

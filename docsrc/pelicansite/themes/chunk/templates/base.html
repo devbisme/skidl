@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="{{ DEFAULT_LANG }}">
+<head>
+		{% block head %}
+		<title>{% block title %}{{ SITENAME }}{% endblock title %}</title>
+		<meta charset="utf-8" />
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="stylesheet" type="text/css" href="{{ SITEURL }}/theme/css/style.css" />
+		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Oswald&family=Roboto+Condensed&display=swap" rel="stylesheet">
+		<!-- <style type="text/css">
+			body.custom-background { background-color: #f5f5f5; }
+		</style> -->
+		<link rel="alternate" type="application/atom+xml"
+			title="{{ SITENAME }} — Flux Atom"
+			href="{{ SITEURL }}/{{ FEED }}" />
+		{% if FEED_RSS %}
+		<link rel ="alternate" type="application/rss+xml"
+			title="{{ SITENAME }} — Flux RSS"
+			href="{{ SITEURL }}/{{ FEED_RSS }}" />
+		{% endif %}
+		<!--[if lte IE 8]><script src="{{ SITEURL }}/theme/js/html5shiv.js"></script><![endif]-->
+		{% if MINT %}
+		<script src="/mint/?js" type="text/javascript"></script>
+		{% endif %}
+		{% endblock head %}
+</head>
+
+<body class="home blog custom-background {% if SINGLE_AUTHOR %}single-author{% endif %}" >
+	<div id="container">
+		<div id="header">
+				<h1 id="site-title"><a href="{{ SITEURL }}"><img src="{{ SITEURL }}/images/banner.png" width="100%"></a></h1>
+				<!-- <h1 id="site-title"><a href="{{ SITEURL }}">{{ SITENAME }}</a></h1> -->
+				{% if SITESUBTITLE %}<h2 id="site-description">{{ SITESUBTITLE }}</h2>{% endif %}
+		</div><!-- /#banner -->
+
+		<div id="menu">
+			<div class="menu-navigation-container">
+				<ul id="menu-navigation" class="menu">
+					{% for title, link in MENUITEMS %}
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="{{ link }}">{{ title }}</a></li>
+					{% endfor %}
+					  {% for p in PAGES %}
+						<li{% if p == page %} class="active"{% endif %} class="menu-item menu-item-type-post_type menu-item-object-page"><a href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a></li>
+					  {% endfor %}
+					{% if DISPLAY_CATEGORIES_ON_MENU %}
+					  {% for cat, null in categories %}
+						<li{% if cat == category %} class="active"{% endif %} class="menu-item menu-item-type-post_type menu-item-object-page"><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a></li>
+					  {% endfor %}
+					{% endif %}
+					{% if LINKS %}
+					  {% for name, url in LINKS %}
+						<li  class="active" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="{{ url }}">{{ name }}</a></li>
+					  {% endfor %}
+					{% endif %}
+
+				</ul>
+			</div> <!--/#menu-navigation-container-->
+		</div><!-- /#menu -->
+
+		<div class="page-title">
+			{% block content_title %}{% endblock %}
+		</div>
+
+		<div id="contents">
+			{% block content %}
+			{% endblock %}
+		</div>
+
+		<div id="footer">
+			<p>{{ FOOTER_TEXT or 'Powered by <a href="http://getpelican.com">Pelican</a>, theme by <a href="http://bunnyman.info">tBunnyMan</a>.' }}</p>
+			{% if GOOGLE_ANALYTICS %}
+				<script type="text/javascript">
+					var _gaq = _gaq || [];
+					_gaq.push(['_setAccount', '{{ GOOGLE_ANALYTICS }}']);
+					_gaq.push(['_trackPageview']);
+					(function() {
+						var ga = document.createElement('script');
+						ga.type = 'text/javascript'; ga.async = true;
+						ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+						var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+					})();
+				</script>
+			{% endif %}
+			{% if DISQUS_SITENAME %}
+				{% include 'disqus_script.html' %}
+			{% endif %}
+		</div><!-- /#footer -->
+	</div><!-- /#container -->
+	<div style="display:none"></div>
+</body>
+</html>

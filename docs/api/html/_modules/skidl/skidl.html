@@ -1,0 +1,308 @@
+
+
+<!doctype html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>skidl.skidl &#8212; SKiDL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css" />
+    
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../../"><img src="../../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.skidl</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for skidl.skidl</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># isort:skip</span>
+    <span class="n">absolute_import</span><span class="p">,</span>
+    <span class="n">division</span><span class="p">,</span>
+    <span class="n">print_function</span><span class="p">,</span>
+    <span class="n">unicode_literals</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">open</span><span class="p">,</span> <span class="nb">super</span>
+
+<span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
+
+<span class="kn">from</span> <span class="nn">.circuit</span> <span class="kn">import</span> <span class="n">Circuit</span>
+<span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="n">builtins</span>
+<span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span><span class="p">,</span> <span class="n">get_script_name</span><span class="p">,</span> <span class="n">stop_log_file_output</span>
+<span class="kn">from</span> <span class="nn">.part_query</span> <span class="kn">import</span> <span class="n">footprint_cache</span>
+<span class="kn">from</span> <span class="nn">.pin</span> <span class="kn">import</span> <span class="n">Pin</span>
+<span class="kn">from</span> <span class="nn">.tools</span> <span class="kn">import</span> <span class="n">ALL_TOOLS</span><span class="p">,</span> <span class="n">KICAD</span><span class="p">,</span> <span class="n">SKIDL</span><span class="p">,</span> <span class="n">SPICE</span><span class="p">,</span> <span class="n">lib_suffixes</span>
+<span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># Set char encoding to UTF-8 in Python 2.</span>
+    <span class="n">reload</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>  <span class="c1"># Causes exception in Python 3.</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">setdefaultencoding</span><span class="p">(</span><span class="s2">&quot;utf8&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
+    <span class="c1"># Do nothing with char encoding in Python 3.</span>
+    <span class="k">pass</span>
+
+
+<div class="viewcode-block" id="SkidlCfg"><a class="viewcode-back" href="../../rst_output/skidl.skidl.html#skidl.skidl.SkidlCfg">[docs]</a><span class="k">class</span> <span class="nc">SkidlCfg</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Class for holding SKiDL configuration.&quot;&quot;&quot;</span>
+
+    <span class="n">CFG_FILE_NAME</span> <span class="o">=</span> <span class="s2">&quot;.skidlcfg&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">dirs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="o">*</span><span class="n">dirs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SkidlCfg.load"><a class="viewcode-back" href="../../rst_output/skidl.skidl.html#skidl.skidl.SkidlCfg.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">dirs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Load SKiDL configuration from JSON files in given dirs.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="nb">dir</span> <span class="ow">in</span> <span class="n">dirs</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">CFG_FILE_NAME</span><span class="p">)</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">cfg_fp</span><span class="p">:</span>
+                    <span class="n">merge_dicts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">cfg_fp</span><span class="p">))</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">FileNotFoundError</span><span class="p">,</span> <span class="ne">IOError</span><span class="p">):</span>
+                <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="SkidlCfg.store"><a class="viewcode-back" href="../../rst_output/skidl.skidl.html#skidl.skidl.SkidlCfg.store">[docs]</a>    <span class="k">def</span> <span class="nf">store</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Store SKiDL configuration as JSON in directory as .skidlcfg file.&quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">CFG_FILE_NAME</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">cfg_fp</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cfg_fp</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="get_kicad_lib_tbl_dir"><a class="viewcode-back" href="../../rst_output/skidl.skidl.html#skidl.skidl.get_kicad_lib_tbl_dir">[docs]</a><span class="k">def</span> <span class="nf">get_kicad_lib_tbl_dir</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Get the path to where the global fp-lib-table file is found.&quot;&quot;&quot;</span>
+
+    <span class="n">paths</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;$HOME/.config/kicad&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;~/.config/kicad&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;%APPDATA%/kicad&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;$HOME/Library/Preferences/kicad&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;~/Library/Preferences/kicad&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expandvars</span><span class="p">(</span><span class="n">path</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">lexists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">path</span>
+    <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
+
+
+<span class="c1">###############################################################################</span>
+<span class="c1"># Globals that are used by everything else.</span>
+<span class="c1">###############################################################################</span>
+
+<span class="c1"># Get SKiDL configuration.</span>
+<span class="n">skidl_cfg</span> <span class="o">=</span> <span class="n">SkidlCfg</span><span class="p">(</span><span class="s2">&quot;/etc&quot;</span><span class="p">,</span> <span class="s2">&quot;~&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
+
+<span class="c1"># If no configuration files were found, set some default lib search paths.</span>
+<span class="k">if</span> <span class="s2">&quot;lib_search_paths&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">skidl_cfg</span><span class="p">:</span>
+    <span class="n">skidl_cfg</span><span class="p">[</span><span class="s2">&quot;lib_search_paths&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">tool</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;.&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="n">ALL_TOOLS</span><span class="p">}</span>
+
+    <span class="c1"># Add the location of the default KiCad part libraries.</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">skidl_cfg</span><span class="p">[</span><span class="s2">&quot;lib_search_paths&quot;</span><span class="p">][</span><span class="n">KICAD</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;KICAD_SYMBOL_DIR&quot;</span><span class="p">])</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="s2">&quot;KICAD_SYMBOL_DIR environment variable is missing, so the default KiCad symbol libraries won&#39;t be searched.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Add the location of the default SKiDL part libraries.</span>
+    <span class="n">default_skidl_libs</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)),</span> <span class="s2">&quot;libs&quot;</span>
+    <span class="p">)</span>
+    <span class="n">skidl_cfg</span><span class="p">[</span><span class="s2">&quot;lib_search_paths&quot;</span><span class="p">][</span><span class="n">SKIDL</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">default_skidl_libs</span><span class="p">)</span>
+
+<span class="c1"># Shortcut to library search paths.</span>
+<span class="n">lib_search_paths</span> <span class="o">=</span> <span class="n">skidl_cfg</span><span class="p">[</span><span class="s2">&quot;lib_search_paths&quot;</span><span class="p">]</span>
+
+<span class="c1"># If no configuration files were found, set some default footprint search paths.</span>
+<span class="k">if</span> <span class="s2">&quot;footprint_search_paths&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">skidl_cfg</span><span class="p">:</span>
+    <span class="n">dir_</span> <span class="o">=</span> <span class="n">get_kicad_lib_tbl_dir</span><span class="p">()</span>
+    <span class="n">skidl_cfg</span><span class="p">[</span><span class="s2">&quot;footprint_search_paths&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">tool</span><span class="p">:</span> <span class="p">[</span><span class="n">dir_</span><span class="p">]</span> <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="n">ALL_TOOLS</span><span class="p">}</span>
+
+<span class="c1"># Cause the footprint cache to be invalidated if the footprint search path changes.</span>
+<div class="viewcode-block" id="invalidate_footprint_cache"><a class="viewcode-back" href="../../rst_output/skidl.skidl.html#skidl.skidl.invalidate_footprint_cache">[docs]</a><span class="k">def</span> <span class="nf">invalidate_footprint_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="n">footprint_cache</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span></div>
+
+
+<span class="n">skidl_cfg</span><span class="p">[</span><span class="s2">&quot;footprint_search_paths&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">TriggerDict</span><span class="p">(</span><span class="n">skidl_cfg</span><span class="p">[</span><span class="s2">&quot;footprint_search_paths&quot;</span><span class="p">])</span>
+<span class="n">skidl_cfg</span><span class="p">[</span><span class="s2">&quot;footprint_search_paths&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">trigger_funcs</span><span class="p">[</span><span class="n">KICAD</span><span class="p">]</span> <span class="o">=</span> <span class="n">invalidate_footprint_cache</span>
+
+<span class="c1"># Shortcut to footprint search paths.</span>
+<span class="n">footprint_search_paths</span> <span class="o">=</span> <span class="n">skidl_cfg</span><span class="p">[</span><span class="s2">&quot;footprint_search_paths&quot;</span><span class="p">]</span>
+
+<span class="c1"># Set default toolset being used with SKiDL.</span>
+<div class="viewcode-block" id="set_default_tool"><a class="viewcode-back" href="../../rst_output/skidl.skidl.html#skidl.skidl.set_default_tool">[docs]</a><span class="k">def</span> <span class="nf">set_default_tool</span><span class="p">(</span><span class="n">tool</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Set the ECAD tool that will be used by default.&quot;&quot;&quot;</span>
+    <span class="n">skidl_cfg</span><span class="p">[</span><span class="s2">&quot;default_tool&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tool</span></div>
+
+
+<div class="viewcode-block" id="get_default_tool"><a class="viewcode-back" href="../../rst_output/skidl.skidl.html#skidl.skidl.get_default_tool">[docs]</a><span class="k">def</span> <span class="nf">get_default_tool</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">skidl_cfg</span><span class="p">[</span><span class="s2">&quot;default_tool&quot;</span><span class="p">]</span></div>
+
+
+<span class="k">if</span> <span class="s2">&quot;default_tool&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">skidl_cfg</span><span class="p">:</span>
+    <span class="n">set_default_tool</span><span class="p">(</span><span class="n">KICAD</span><span class="p">)</span>
+
+<span class="c1"># Definitions for backup library of circuit parts.</span>
+<span class="n">BACKUP_LIB_NAME</span> <span class="o">=</span> <span class="n">get_script_name</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;_lib&quot;</span>
+<span class="n">BACKUP_LIB_FILE_NAME</span> <span class="o">=</span> <span class="n">BACKUP_LIB_NAME</span> <span class="o">+</span> <span class="n">lib_suffixes</span><span class="p">[</span><span class="n">SKIDL</span><span class="p">]</span>
+
+<span class="c1"># Boolean controls whether backup lib will be searched for missing parts.</span>
+<span class="n">QUERY_BACKUP_LIB</span> <span class="o">=</span> <span class="n">INITIAL_QUERY_BACKUP_LIB</span> <span class="o">=</span> <span class="kc">True</span>
+
+
+<div class="viewcode-block" id="set_query_backup_lib"><a class="viewcode-back" href="../../rst_output/skidl.skidl.html#skidl.skidl.set_query_backup_lib">[docs]</a><span class="k">def</span> <span class="nf">set_query_backup_lib</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Set the boolean that controls searching for the backup library.&quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">QUERY_BACKUP_LIB</span>
+    <span class="n">QUERY_BACKUP_LIB</span> <span class="o">=</span> <span class="n">val</span></div>
+
+
+<div class="viewcode-block" id="get_query_backup_lib"><a class="viewcode-back" href="../../rst_output/skidl.skidl.html#skidl.skidl.get_query_backup_lib">[docs]</a><span class="k">def</span> <span class="nf">get_query_backup_lib</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">QUERY_BACKUP_LIB</span></div>
+
+
+<span class="c1"># Backup lib for storing parts in a Circuit.</span>
+<span class="n">backup_lib</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<div class="viewcode-block" id="set_backup_lib"><a class="viewcode-back" href="../../rst_output/skidl.skidl.html#skidl.skidl.set_backup_lib">[docs]</a><span class="k">def</span> <span class="nf">set_backup_lib</span><span class="p">(</span><span class="n">lib</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Set the backup library.&quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">backup_lib</span>
+    <span class="n">backup_lib</span> <span class="o">=</span> <span class="n">lib</span></div>
+
+
+<div class="viewcode-block" id="get_backup_lib"><a class="viewcode-back" href="../../rst_output/skidl.skidl.html#skidl.skidl.get_backup_lib">[docs]</a><span class="k">def</span> <span class="nf">get_backup_lib</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">backup_lib</span></div>
+
+
+<span class="nd">@norecurse</span>
+<span class="k">def</span> <span class="nf">load_backup_lib</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Load a backup library that stores the parts used in the circuit.&quot;&quot;&quot;</span>
+
+    <span class="k">global</span> <span class="n">backup_lib</span>
+
+    <span class="c1"># Don&#39;t keep reloading the backup library once it&#39;s loaded.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">backup_lib</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># The backup library is a SKiDL lib stored as a Python module.</span>
+            <span class="n">exec</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">BACKUP_LIB_FILE_NAME</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+            <span class="c1"># Copy the backup library in the local storage to the global storage.</span>
+            <span class="n">backup_lib</span> <span class="o">=</span> <span class="nb">locals</span><span class="p">()[</span><span class="n">BACKUP_LIB_NAME</span><span class="p">]</span>
+
+        <span class="k">except</span> <span class="p">(</span><span class="ne">FileNotFoundError</span><span class="p">,</span> <span class="ne">ImportError</span><span class="p">,</span> <span class="ne">NameError</span><span class="p">,</span> <span class="ne">IOError</span><span class="p">):</span>
+            <span class="k">pass</span>
+
+    <span class="k">return</span> <span class="n">backup_lib</span>
+
+
+<span class="c1"># Create the default Circuit object that will be used unless another is explicitly created.</span>
+<span class="n">builtins</span><span class="o">.</span><span class="n">default_circuit</span> <span class="o">=</span> <span class="n">Circuit</span><span class="p">()</span>
+
+<span class="c1"># NOCONNECT net for attaching pins that are intentionally left open.</span>
+<span class="n">builtins</span><span class="o">.</span><span class="n">NC</span> <span class="o">=</span> <span class="n">default_circuit</span><span class="o">.</span><span class="n">NC</span>  <span class="c1"># pylint: disable=undefined-variable</span>
+
+<span class="c1"># Create calls to functions on whichever Circuit object is the current default.</span>
+<span class="n">ERC</span> <span class="o">=</span> <span class="n">default_circuit</span><span class="o">.</span><span class="n">ERC</span>
+<span class="n">erc_assert</span> <span class="o">=</span> <span class="n">default_circuit</span><span class="o">.</span><span class="n">add_erc_assertion</span>
+<span class="n">generate_netlist</span> <span class="o">=</span> <span class="n">default_circuit</span><span class="o">.</span><span class="n">generate_netlist</span>
+<span class="n">generate_pcb</span> <span class="o">=</span> <span class="n">default_circuit</span><span class="o">.</span><span class="n">generate_pcb</span>
+<span class="n">generate_xml</span> <span class="o">=</span> <span class="n">default_circuit</span><span class="o">.</span><span class="n">generate_xml</span>
+<span class="n">generate_schematic</span> <span class="o">=</span> <span class="n">default_circuit</span><span class="o">.</span><span class="n">generate_schematic</span>
+<span class="n">generate_svg</span> <span class="o">=</span> <span class="n">default_circuit</span><span class="o">.</span><span class="n">generate_svg</span>
+<span class="n">generate_graph</span> <span class="o">=</span> <span class="n">default_circuit</span><span class="o">.</span><span class="n">generate_graph</span>
+<span class="n">reset</span> <span class="o">=</span> <span class="n">default_circuit</span><span class="o">.</span><span class="n">reset</span>
+<span class="n">backup_parts</span> <span class="o">=</span> <span class="n">default_circuit</span><span class="o">.</span><span class="n">backup_parts</span>
+
+<span class="c1"># Define a tag for nets that convey power (e.g., VCC or GND).</span>
+<span class="n">POWER</span> <span class="o">=</span> <span class="n">Pin</span><span class="o">.</span><span class="n">drives</span><span class="o">.</span><span class="n">POWER</span>
+
+
+<div class="viewcode-block" id="no_files"><a class="viewcode-back" href="../../rst_output/skidl.skidl.html#skidl.skidl.no_files">[docs]</a><span class="k">def</span> <span class="nf">no_files</span><span class="p">(</span><span class="n">circuit</span><span class="o">=</span><span class="n">default_circuit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Prevent creation of output files (netlists, ERC, logs) by this Circuit object.&quot;&quot;&quot;</span>
+    <span class="n">circuit</span><span class="o">.</span><span class="n">no_files</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">stop_log_file_output</span><span class="p">()</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.skidl</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016-2021, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.1.2.
+    </div>
+  </body>
+</html>

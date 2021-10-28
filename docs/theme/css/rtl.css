@@ -1,0 +1,119 @@
+/* =RTL
+----------------------------------------------- */
+#contents {
+	border-left: none;
+	border-right: 1px solid #ccc;
+	margin-left: 0;
+	margin-right: 199px;
+}
+
+
+/* =Menu
+----------------------------------------------- */
+#menu {
+	text-align: left;
+}
+#menu ul {
+	padding-right: 0;
+}
+#menu li {
+	float: left;
+}
+#menu ul ul {
+	float: left;
+	position: absolute;
+		left: 0;
+		right: auto;
+}
+#menu ul ul ul {
+	left: 100%;
+	right: auto;
+}
+#menu ul ul a {
+	padding: .8em 1em .8em .5em;
+}
+
+/* =Content
+----------------------------------------------- */
+.hentry .main {
+	padding: 29px 15px 15px 5px;
+	text-align: right;
+}
+.hentry .entry-meta {
+	float: right;
+	margin: 26px -199px 0 0;
+	text-align: left;
+}
+.entry-title {
+	margin: 5px 0px 15px 0px;
+	text-align: right;
+}
+blockquote {
+	border-left: none;
+	border-right: 10px solid #36bcab;
+	text-align: justify;
+}
+.tag-links strong {
+	margin-left: 4px;
+	margin-right: none;
+}
+.entry-content table {
+	text-align: right;
+}
+
+
+/* =Post Formats
+-------------------------------------------------------------- */
+
+/* Link */
+.format-link .entry-title:after {
+	padding-right: 10px;
+}
+
+
+/* =Comments
+----------------------------------------------- */
+#comments {
+	text-align: right;
+}
+.commentlist {
+	margin-left: 0;
+	margin-right: 40px;
+	padding-right: 0;
+}
+.commentlist li {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.comment .comment-meta {
+	left: 0;
+	right: auto;
+}
+.comment img.avatar {
+	left: auto;
+	right: -40px;
+}
+#comments .bypostauthor > .comment-body .comment-meta {
+	left: 15px;
+	right: auto;
+}
+
+
+/* =Widgets
+----------------------------------------------- */
+#widgets {
+	text-align: right;
+}
+#widgets .widget {
+	float: right;
+}
+#widgets .widget:nth-child(3n+1) {
+	clear: right;
+}
+.widget ul {
+	padding-right: 20px;
+}
+/* Authors Widget */
+.widget_authors ul {
+	padding-right: 0;
+}

@@ -1,7 +1,12 @@
-﻿import pytest
-from skidl import *
+﻿# -*- coding: utf-8 -*-
 
-from .setup_teardown import *
+# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
+
+import pytest
+
+from skidl import TEMPLATE, Part, generate_netlist
+
+from .setup_teardown import setup_function, teardown_function
 
 
 def test_skidl_loc():

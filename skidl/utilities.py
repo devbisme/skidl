@@ -1,32 +1,17 @@
 # -*- coding: utf-8 -*-
 
-# MIT license
-#
-# Copyright (C) 2016 by XESS Corp.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software withcurrent_level restriction, including withcurrent_level limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHcurrent_level WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# current_level OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
+# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
 
 """
 Utility functions used by the rest of SKiDL.
 """
 
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import (  # isort:skip
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 import collections
 import os
@@ -41,52 +26,12 @@ from contextlib import contextmanager
 from future import standard_library
 
 from .common import *
-from .defines import *
 
 standard_library.install_aliases()
 
 
 """Separator for strings containing multiple indices."""
 INDEX_SEPARATOR = re.compile("[, \t]+")
-
-
-def norecurse(f):
-    """Decorator that keeps a function from recursively calling itself.
-
-    Parameters
-    ----------
-    f: function
-    """
-
-    def func(*args, **kwargs):
-        # If a function's name is on the stack twice (once for the current call
-        # and a second time for the previous call), then return withcurrent_level
-        # executing the function.
-        if len([1 for l in traceback.extract_stack() if l[2] == f.__name__]) > 1:
-            return None
-
-        # Otherwise, not a recursive call so execute the function and return result.
-        return f(*args, **kwargs)
-
-    return func
-
-
-class TriggerDict(dict):
-    """This dict triggers a function when one of its entries changes."""
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        # Create a dict of functions that will be run if their associated
-        # key entries change. The functions arguments will be the main
-        # TriggerDict, the key, and the new value to be stored.
-        self.trigger_funcs = dict()
-
-    def __setitem__(self, k, v):
-        if k in self.trigger_funcs:
-            if v != self[k]:
-                self.trigger_funcs[k](self, k, v)
-        super().__setitem__(k, v)
 
 
 def is_binary_file(filename):
@@ -97,121 +42,6 @@ def is_binary_file(filename):
             return bool(fp.read(1024).translate(None, text_chars))
     except (IOError, FileNotFoundError, TypeError):
         return False
-
-
-def merge_dicts(dct, merge_dct):
-    """ 
-    Dict merge that recurses through both dicts and updates keys.
-
-    Args:
-        dct: The dict that will be updated.
-        merge_dct: The dict whose values will be inserted into dct.
-
-    Returns:
-        Nothing.
-    """
-
-    for k, v in list(merge_dct.items()):
-        if (
-            k in dct
-            and isinstance(dct[k], dict)
-            and isinstance(merge_dct[k], collections.Mapping)
-        ):
-            merge_dicts(dct[k], merge_dct[k])
-        else:
-            dct[k] = merge_dct[k]
-
-
-def find_and_open_file(
-    filename, paths=None, ext=None, allow_failure=False, exclude_binary=False, descend=0
-):
-    """
-    Search for a file in list of paths, open it and return file pointer and full file name.
-
-    Args:
-        filename: Base file name (e.g., "my_file").
-        paths: List of paths to search for the file.
-        ext: The extension for the file (e.g., ".txt").
-        allow_failure: If false, failure to find file raises and exception.
-        exclude_binary: If true, skip files that contain binary data.
-        descend: If 0, don't search lower-level directories. If positive, search
-                 that many levels down for the file. If negative, descend into
-                 subdirectories withcurrent_level limit.
-    """
-
-    from .logger import logger
-
-    if os.path.isabs(filename):
-        # Ignore search paths if the file already has an absolute path.
-        paths = [os.path.abspath(os.path.dirname(filename))]
-    elif not paths:
-        # If no search paths are given, use the current working directory.
-        paths = ["."]
-
-    # Remove any directory path from the file name.
-    _, filename = os.path.split(filename)
-
-    # Get the list of file extensions to check against.
-    base, suffix = os.path.splitext(filename)
-    if suffix:
-        # If an explicit file extension was given, just use that.
-        exts = [suffix]
-    else:
-        exts = to_list(ext)
-
-    # Create the regular expression for matching against the filename.
-    exts = [re.escape(ext) for ext in exts]
-    match_name = re.escape(base) + "(" + "|".join(exts) + ")$"
-
-    # Search through the directory paths for a file whose name matches the regular expression.
-    for path in paths:
-        # Search through the files in a particular directory path.
-        descent_ctr = descend  # Controls the descent through the path.
-        for root, dirnames, filenames in os.walk(path):
-            # Get files in the current directory whose names match the regular expression.
-            for fn in [f for f in filenames if re.match(match_name, f)]:
-                abs_filename = os.path.join(root, fn)
-                if not exclude_binary or not is_binary_file(abs_filename):
-                    try:
-                        # Return the first file that matches the criteria.
-                        return open(abs_filename, encoding="latin_1"), abs_filename
-                    except (IOError, FileNotFoundError, TypeError):
-                        # File failed, so keep searching.
-                        pass
-            # Keep descending on this path as long as the descent counter is non-zero.
-            if descent_ctr == 0:
-                break  # Cease search of this path if the counter is zero.
-            descent_ctr -= 1  # Decrement the counter for the next directory level.
-
-    # Couldn't find a matching file.
-    if allow_failure:
-        return None, None
-    else:
-        log_and_raise(
-            logger, FileNotFoundError, "Can't open file: {}.\n".format(filename)
-        )
-
-
-def add_unique_attr(obj, name, value, check_dup=False):
-    """Create an attribute if the attribute name isn't already used."""
-    from .logger import logger
-
-    try:
-        getattr(obj, name)
-        if check_dup:
-            logger.warn(
-                "Unable to create attribute {name} of type {typ1} because one already exists of type {typ2} in {obj}".format(
-                    name=name,
-                    typ1=type(value),
-                    typ2=type(getattr(obj, name)),
-                    obj=str(obj),
-                )
-            )
-        else:
-            setattr(obj, name, value)
-
-    except AttributeError:
-        setattr(obj, name, value)
 
 
 def num_to_chars(num):
@@ -226,6 +56,7 @@ def num_to_chars(num):
 
 def rmv_quotes(s):
     """Remove starting and ending quotes from a string."""
+
     if not isinstance(s, basestring):
         return s
 
@@ -241,6 +72,7 @@ def rmv_quotes(s):
 
 def add_quotes(s):
     """Return string with added quotes if it contains whitespace or parens."""
+
     if not isinstance(s, basestring):
         return s
 
@@ -256,28 +88,18 @@ def add_quotes(s):
     return s
 
 
-def is_iterable(x):
-    """
-    Return True if x is iterable (but not a string).
-    """
-    try:
-        return not isinstance(iter(x), type(iter("")))
-    except TypeError:
-        return False
+def cnvt_to_var_name(s):
+    """Convert a string to a legal Python variable name and return it."""
+    return re.sub(r"\W|^(?=\d)", "_", s)
 
 
 def to_list(x):
     """
-    Return x if it is already a list, or return a list if x is a scalar.
+    Return x if it is already a list, or return a list containing x if x is a scalar.
     """
     if isinstance(x, (list, tuple)):
         return x  # Already a list, so just return it.
     return [x]  # Wasn't a list, so make it into one.
-
-
-def cnvt_to_var_name(s):
-    """Convert a string to a legal Python variable name and return it."""
-    return re.sub(r"\W|^(?=\d)", "_", s)
 
 
 def list_or_scalar(lst):
@@ -315,23 +137,88 @@ def flatten(nested_list):
     return lst
 
 
+def set_attr(objs, attr, value):
+    """Remove an attribute from a list of objects."""
+    try:
+        for o in objs:
+            setattr(o, attr, value)
+    except TypeError:
+        setattr(obj, attr, value)
+
+
 def rmv_attr(objs, attr):
     """Remove an attribute from a list of objects."""
-    for o in to_list(objs):
-        try:
+    try:
+        for o in objs:
             delattr(o, attr)
-        except AttributeError:
-            pass
+    except TypeError:
+        delattr(obj, attr)
+
+
+def add_unique_attr(obj, name, value, check_dup=False):
+    """Create an attribute if the attribute name isn't already used."""
+    from .logger import active_logger
+
+    try:
+        getattr(obj, name)
+        if check_dup:
+            active_logger.warning(
+                "Unable to create attribute {name} of type {typ1} because one already exists of type {typ2} in {obj}".format(
+                    name=name,
+                    typ1=type(value),
+                    typ2=type(getattr(obj, name)),
+                    obj=str(obj),
+                )
+            )
+        else:
+            setattr(obj, name, value)
+
+    except AttributeError:
+        setattr(obj, name, value)
 
 
 def from_iadd(objs):
     """Return True if one or more objects have attribute iadd_flag set to True."""
-    return any([getattr(e, "iadd_flag", False) for e in to_list(objs)])
+    try:
+        for o in objs:
+            if getattr(o, "iadd_flag", False):
+                return True
+        return False
+    except TypeError:
+        return getattr(objs, "iadd_flag", False)
 
 
-def clr_iadd(objs):
+def set_iadd(objs, value):
+    """Set iadd_flag with T/F value for a list of objects."""
+    set_attr(objs, "iadd_flag", value)
+
+
+def rmv_iadd(objs):
     """Delete iadd_flag attribute from a list of objects."""
     rmv_attr(objs, "iadd_flag")
+
+
+def merge_dicts(dct, merge_dct):
+    """
+    Dict merge that recurses through both dicts and updates keys.
+
+    Args:
+        dct: The dict that will be updated.
+        merge_dct: The dict whose values will be inserted into dct.
+
+    Returns:
+        Nothing.
+    """
+
+    for k, v in list(merge_dct.items()):
+        if (
+            k in dct
+            and isinstance(dct[k], dict)
+            and isinstance(merge_dct[k], collections.Mapping)
+        ):
+            merge_dicts(dct[k], merge_dct[k])
+        else:
+            dct[k] = merge_dct[k]
 
 
 # Store names that have been previously assigned.
@@ -558,7 +445,7 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
     """
     Expand a list of indices into a list of integers and strings.
 
-    This function takes the indices used to select pins of parts and 
+    This function takes the indices used to select pins of parts and
     lines of buses and returns a flat list of numbers and strings.
     String and integer indices are put in the list unchanged, but
     slices are expanded into a list of integers before entering the
@@ -567,14 +454,14 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
     Args:
         slice_min: The minimum possible index.
         slice_max: The maximum possible index (used for slice indices).
-        match_regex: If true, 
+        match_regex: If true,
         indices: A list of indices made up of numbers, slices, text strings.
 
     Returns:
         A linear list of all the indices made up only of numbers and strings.
     """
 
-    from .logger import logger
+    from .logger import active_logger
 
     def expand_slice(slc):
         """Expand slice notation."""
@@ -587,8 +474,7 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
         # Do this if it's a downward slice (e.g., [7:0]).
         if start > stop:
             if slc.start and slc.start > slice_max:
-                log_and_raise(
-                    logger,
+                active_logger.raise_(
                     IndexError,
                     "Index current_level of range ({} > {})!".format(
                         slc.start, slice_max
@@ -601,8 +487,7 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
         # Do this if it's a normal (i.e., upward) slice (e.g., [0:7]).
         else:
             if slc.stop and slc.stop > slice_max:
-                log_and_raise(
-                    logger,
+                active_logger.raise_(
                     IndexError,
                     "Index current_level of range ({} > {})!".format(
                         slc.stop, slice_max
@@ -684,12 +569,25 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
                 # added to the list.
                 ids.extend(explode(id.strip()))
         else:
-            log_and_raise(
-                logger, TypeError, "Unknown type in index: {}.".format(type(indx))
+            active_logger.raise_(
+                TypeError, "Unknown type in index: {}.".format(type(indx))
             )
 
     # Return the completely expanded list of indices.
     return ids
+
+
+def expand_buses(pins_nets_buses):
+    """
+    Take list of pins, nets, and buses and return a list of only pins and nets.
+    """
+
+    # This relies on the fact that a bus is an iterable of its nets,
+    # and pins/nets return an iterable containing only a single pin/net.
+    pins_nets = []
+    for pnb in pins_nets_buses:
+        pins_nets.extend(pnb)
+    return pins_nets
 
 
 def find_num_copies(**attribs):
@@ -711,7 +609,7 @@ def find_num_copies(**attribs):
         or lists/tuples of the same length.)
     """
 
-    from .logger import logger
+    from .logger import active_logger
 
     num_copies = set()
     for k, v in list(attribs.items()):
@@ -722,14 +620,12 @@ def find_num_copies(**attribs):
 
     num_copies = list(num_copies)
     if len(num_copies) > 2:
-        log_and_raise(
-            logger,
+        active_logger.raise_(
             ValueError,
             "Mismatched lengths of attributes: {}!".format(num_copies),
         )
     elif len(num_copies) > 1 and min(num_copies) > 1:
-        log_and_raise(
-            logger,
+        active_logger.raise_(
             ValueError,
             "Mismatched lengths of attributes: {}!".format(num_copies),
         )
@@ -740,51 +636,43 @@ def find_num_copies(**attribs):
         return 0  # If the list if empty.
 
 
-@contextmanager
-def opened(f_or_fn, mode):
-    """
-    Yields an opened file or file-like object.
+def norecurse(f):
+    """Decorator that keeps a function from recursively calling itself.
 
-    Args:
-       file_or_filename: Either an already opened file or file-like
-           object, or a filename to open.
-       mode: The mode to open the file in.
-    """
-    if isinstance(f_or_fn, basestring):
-        with open(f_or_fn, mode, encoding="utf-8") as f:
-            yield f
-    elif hasattr(f_or_fn, "fileno"):
-        if mode.replace("+", "") == f_or_fn.mode.replace("+", ""):
-            # same mode, can reuse file handle
-            yield f_or_fn
-        else:
-            # open in new mode
-            with os.fdopen(f_or_fn.fileno(), mode) as f:
-                yield f
-    else:
-        raise TypeError(
-            "argument must be a filename or a file-like object (is: {})".format(
-                type(f_or_fn)
-            )
-        )
-
-
-def expand_buses(pins_nets_buses):
-    """
-    Take list of pins, nets, and buses and return a list of only pins and nets.
+    Parameters
+    ----------
+    f: function
     """
 
-    # This relies on the fact that a bus is an iterable of its nets,
-    # and pins/nets return an iterable containing only a single pin/net.
-    pins_nets = []
-    for pnb in pins_nets_buses:
-        pins_nets.extend(pnb)
-    return pins_nets
+    def func(*args, **kwargs):
+        # If a function's name is on the stack twice (once for the current call
+        # and a second time for the previous call), then return withcurrent_level
+        # executing the function.
+        if len([1 for l in traceback.extract_stack() if l[2] == f.__name__]) > 1:
+            return None
+
+        # Otherwise, not a recursive call so execute the function and return result.
+        return f(*args, **kwargs)
+
+    return func
 
 
-def log_and_raise(logger_in, exc_class, message):
-    logger_in.error(message)
-    raise exc_class(message)
+class TriggerDict(dict):
+    """This dict triggers a function when one of its entries changes."""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Create a dict of functions that will be run if their associated
+        # key entries change. The functions arguments will be the main
+        # TriggerDict, the key, and the new value to be stored.
+        self.trigger_funcs = dict()
+
+    def __setitem__(self, k, v):
+        if k in self.trigger_funcs:
+            if v != self[k]:
+                self.trigger_funcs[k](self, k, v)
+        super().__setitem__(k, v)
 
 
 # Regular expression for parsing nested S-expressions.
@@ -834,3 +722,103 @@ def parse_sexp(sexp, allow_underflow=False):
     if stack:
         raise RunTimeError("Bracketing mismatch!")
     return current_level[0]
+
+
+def find_and_open_file(
+    filename, paths=None, ext=None, allow_failure=False, exclude_binary=False, descend=0
+):
+    """
+    Search for a file in list of paths, open it and return file pointer and full file name.
+
+    Args:
+        filename: Base file name (e.g., "my_file").
+        paths: List of paths to search for the file.
+        ext: The extension for the file (e.g., ".txt").
+        allow_failure: If false, failure to find file raises and exception.
+        exclude_binary: If true, skip files that contain binary data.
+        descend: If 0, don't search lower-level directories. If positive, search
+                 that many levels down for the file. If negative, descend into
+                 subdirectories withcurrent_level limit.
+    """
+
+    from .logger import active_logger
+
+    if os.path.isabs(filename):
+        # Ignore search paths if the file already has an absolute path.
+        paths = [os.path.abspath(os.path.dirname(filename))]
+    elif not paths:
+        # If no search paths are given, use the current working directory.
+        paths = ["."]
+
+    # Remove any directory path from the file name.
+    _, filename = os.path.split(filename)
+
+    # Get the list of file extensions to check against.
+    base, suffix = os.path.splitext(filename)
+    if suffix:
+        # If an explicit file extension was given, just use that.
+        exts = [suffix]
+    else:
+        exts = to_list(ext)
+
+    # Create the regular expression for matching against the filename.
+    exts = [re.escape(ext) for ext in exts]
+    match_name = re.escape(base) + "(" + "|".join(exts) + ")$"
+
+    # Search through the directory paths for a file whose name matches the regular expression.
+    for path in paths:
+        # Search through the files in a particular directory path.
+        descent_ctr = descend  # Controls the descent through the path.
+        for root, dirnames, filenames in os.walk(path):
+            # Get files in the current directory whose names match the regular expression.
+            for fn in [f for f in filenames if re.match(match_name, f)]:
+                abs_filename = os.path.join(root, fn)
+                if not exclude_binary or not is_binary_file(abs_filename):
+                    try:
+                        # Return the first file that matches the criteria.
+                        return open(abs_filename, encoding="latin_1"), abs_filename
+                    except (IOError, FileNotFoundError, TypeError):
+                        # File failed, so keep searching.
+                        pass
+            # Keep descending on this path as long as the descent counter is non-zero.
+            if descent_ctr == 0:
+                break  # Cease search of this path if the counter is zero.
+            descent_ctr -= 1  # Decrement the counter for the next directory level.
+
+    # Couldn't find a matching file.
+    if allow_failure:
+        return None, None
+    else:
+        active_logger.raise_(
+            FileNotFoundError, "Can't open file: {}.\n".format(filename)
+        )
+
+
+@contextmanager
+def opened(f_or_fn, mode):
+    """
+    Yields an opened file or file-like object.
+
+    Args:
+       file_or_filename: Either an already opened file or file-like
+           object, or a filename to open.
+       mode: The mode to open the file in.
+    """
+
+    if isinstance(f_or_fn, basestring):
+        with open(f_or_fn, mode, encoding="utf-8") as f:
+            yield f
+    elif hasattr(f_or_fn, "fileno"):
+        if mode.replace("+", "") == f_or_fn.mode.replace("+", ""):
+            # same mode, can reuse file handle
+            yield f_or_fn
+        else:
+            # open in new mode
+            with os.fdopen(f_or_fn.fileno(), mode) as f:
+                yield f
+    else:
+        raise TypeError(
+            "argument must be a filename or a file-like object (is: {})".format(
+                type(f_or_fn)
+            )
+        )

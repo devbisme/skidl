@@ -1,0 +1,238 @@
+
+
+<!doctype html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>skidl.bus module &#8212; SKiDL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../"><img src="../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.bus module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-skidl.bus">
+<span id="skidl-bus-module"></span><h1>skidl.bus module<a class="headerlink" href="#module-skidl.bus" title="Permalink to this headline">¶</a></h1>
+<p>Handles buses.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="skidl.bus.Bus">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">skidl.bus.</span></span><span class="sig-name descname"><span class="pre">Bus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/bus.html#Bus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.bus.Bus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject" title="skidl.skidlbaseobj.SkidlBaseObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">skidl.skidlbaseobj.SkidlBaseObject</span></code></a></p>
+<p>This class collects one or more nets into a group that can be indexed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – A string with the name of the bus.</p></li>
+<li><p><strong>args</strong> – A list of ints, pins, nets, buses to attach to the net.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><p><strong>attribs</strong> – A dictionary of attributes and values to attach to
+the Net object.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>
+<span class="n">led1</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s2">&quot;Device&quot;</span><span class="p">,</span> <span class="s1">&#39;LED&#39;</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">led1</span><span class="p">[</span><span class="s1">&#39;K&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.bus.Bus.connect">
+<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pins_nets_buses</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/bus.html#Bus.connect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.bus.Bus.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the bus after connecting one or more nets, pins, or buses.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pins_nets_buses</strong> – One or more Pin, Net or Bus objects or
+lists/tuples of them.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The updated bus with the new connections.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>You can connect nets or pins to a bus like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">()</span>       <span class="c1"># Create a pin.</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>       <span class="c1"># Create a net.</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c1"># Create a two-wire bus.</span>
+<span class="n">b</span> <span class="o">+=</span> <span class="n">p</span><span class="p">,</span><span class="n">n</span>        <span class="c1"># Connect pin and net to B[0] and B[1].</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.bus.Bus.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_copies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/bus.html#Bus.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.bus.Bus.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make zero or more copies of this bus.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num_copies</strong> – Number of copies to make of this bus.</p>
+</dd>
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><p><strong>attribs</strong> – Name/value pairs for setting attributes for the copy.</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of Bus copies or a Bus if num_copies==1.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Exception if the requested number of copies is a non-integer</strong><strong> or </strong><strong>negative.</strong> – </p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>An instance of a bus can be copied just by calling it like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>  <span class="c1"># Create a bus.</span>
+<span class="n">b_copy</span> <span class="o">=</span> <span class="n">b</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>   <span class="c1"># Get two copies of the bus.</span>
+</pre></div>
+</div>
+<p>You can also use the multiplication operator to make copies:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">Bus</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>  <span class="c1"># Create an array of buses.</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.bus.Bus.extend">
+<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">objects</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/bus.html#Bus.extend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.bus.Bus.extend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extend bus by appending objects to the end (MSB).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.bus.Bus.fetch">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">fetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/bus.html#Bus.fetch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.bus.Bus.fetch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the bus with the given name from a circuit, or create it if not found.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.bus.Bus.get">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/bus.html#Bus.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.bus.Bus.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the bus with the given name from a circuit, or return None.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.bus.Bus.get_nets">
+<span class="sig-name descname"><span class="pre">get_nets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/bus.html#Bus.get_nets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.bus.Bus.get_nets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the list of nets contained in this bus.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.bus.Bus.get_pins">
+<span class="sig-name descname"><span class="pre">get_pins</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/bus.html#Bus.get_pins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.bus.Bus.get_pins" title="Permalink to this definition">¶</a></dt>
+<dd><p>It’s an error to get the list of pins attached to all bus lines.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.bus.Bus.insert">
+<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">objects</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/bus.html#Bus.insert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.bus.Bus.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert objects into bus starting at indexed position.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.bus.Bus.is_implicit">
+<span class="sig-name descname"><span class="pre">is_implicit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/bus.html#Bus.is_implicit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.bus.Bus.is_implicit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return true if the bus name is implicit.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.bus.Bus.is_movable">
+<span class="sig-name descname"><span class="pre">is_movable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/bus.html#Bus.is_movable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.bus.Bus.is_movable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return true if the bus is movable to another circuit.</p>
+<p>A bus  is movable if all the nets in it are movable.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="skidl.bus.Bus.name">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#skidl.bus.Bus.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get, set and delete the name of the bus.</p>
+<p>When setting the bus name, if another bus with the same name
+is found, the name for this bus is adjusted to make it unique.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="skidl.bus.Bus.width">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">width</span></span><a class="headerlink" href="#skidl.bus.Bus.width" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return width of a Bus, which is the same as using the len() operator.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/rst_output/skidl.bus.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.bus module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016-2021, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.1.2.
+    </div>
+  </body>
+</html>

@@ -1,8 +1,12 @@
+# -*- coding: utf-8 -*-
+
+# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
+
 import pytest
 
-from skidl.common import *
+from skidl import SKIDL, SPICE, TEMPLATE, Part, generate_netlist
 
-from .setup_teardown import *
+from .setup_teardown import setup_function, teardown_function
 
 # Skip this test module if PySpice is missing.
 pexpect = pytest.importorskip("PySpice")

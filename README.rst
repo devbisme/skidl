@@ -4,19 +4,17 @@ skidl
 
 .. image:: https://img.shields.io/pypi/v/skidl.svg
         :target: https://pypi.python.org/pypi/skidl
-.. image:: https://travis-ci.com/xesscorp/skidl.svg?branch=master
-    :target: https://travis-ci.com/xesscorp/skidl
 
 
-SKiDL is a module that allows you to compactly describe the interconnection of 
-electronic circuits and components using Python.
+The SKiDL Python package lets you compactly describe the interconnection of 
+electronic circuits and components.
 The resulting Python program performs electrical rules checking
 for common mistakes and outputs a netlist that serves as input to
 a PCB layout tool.
 
 * Free software: MIT license
-* Documentation: http://xesscorp.github.io/skidl
-* User Forum: https://github.com/xesscorp/skidl/discussions
+* Documentation: http://devbisme.github.io/skidl
+* User Forum: https://github.com/devbisme/skidl/discussions
 
 Features
 --------
@@ -39,7 +37,7 @@ Features
 * Takes advantage of all the benefits of the Python ecosystem (because it *is* Python).
 
 As a very simple example (see more in the 
-`blog <https://xesscorp.github.io/skidl/docs/_site/blog/>`_),
+`blog <https://devbisme.github.io/skidl/docs/_site/blog/>`_),
 the SKiDL program below describes a 
 `two-input AND gate <https://raw.githubusercontent.com/nturley/netlistsvg/master/doc/and.svg?sanitize=true>`_
 built from discrete transistors:
@@ -78,7 +76,7 @@ create the physical PCB::
 
     (export (version D)
       (design
-        (source "/media/devb/Main/xesscorp/KiCad/tools/skidl/skidl/circuit.py")
+        (source "/media/devb/Main/devbisme/KiCad/tools/skidl/skidl/circuit.py")
         (date "05/11/2021 10:40 AM")
         (tool "SKiDL (1.0.0)"))
       (components

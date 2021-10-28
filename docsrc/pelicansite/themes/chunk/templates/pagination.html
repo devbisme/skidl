@@ -1,0 +1,17 @@
+{% if DEFAULT_PAGINATION %}
+<div class="navigation">
+	{% if articles_page.has_previous() %}
+		<div class="nav-previous">
+			{% if articles_page.previous_page_number() == 1 %}
+				<a href="{{ SITEURL }}/{{ page_name }}.html">
+			{% else %}
+				<a href="{{ SITEURL }}/{{ page_name }}{{ articles_page.previous_page_number() }}.html">
+			{% endif %}
+			<span class="meta-nav">&larr;</span> Newer posts</a>
+		</div>
+	{% endif %}
+	{% if articles_page.has_next() %}
+		<div class="nav-next"><a href="{{ SITEURL }}/{{ page_name }}{{ articles_page.next_page_number() }}.html" >Older posts <span class="meta-nav">&rarr;</span></a></div>
+	{% endif %}
+</div>
+{% endif %}

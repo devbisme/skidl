@@ -1,32 +1,17 @@
 # -*- coding: utf-8 -*-
 
-# MIT license
-#
-# Copyright (C) 2018 by XESS Corp.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
+# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
 
 """
 Handles buses.
 """
 
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import (  # isort:skip
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from builtins import range, str, super
 
@@ -34,13 +19,16 @@ from future import standard_library
 
 from .alias import Alias
 from .common import *
-from .defines import *
-from .logger import logger
-from .net import Net
+from .logger import active_logger
+from .net import NET_PREFIX, Net
 from .netpinlist import NetPinList
 from .pin import Pin
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import *
+
+# Prefix for implicit buses.
+BUS_PREFIX = "B$"
+
 
 standard_library.install_aliases()
 
@@ -173,8 +161,7 @@ class Bus(SkidlBaseObject):
                     self.nets.insert(index, n)
                 index += len(obj)
             else:
-                log_and_raise(
-                    logger,
+                active_logger.raise_(
                     ValueError,
                     "Adding illegal type of object ({}) to Bus {}.".format(
                         type(obj), self.name
@@ -183,7 +170,7 @@ class Bus(SkidlBaseObject):
 
         # Assign names to all the unnamed nets in the bus.
         # Separate index from bus name if name ends with number.
-        sep = '_' if self.name[-1].isdigit() else ''
+        sep = "_" if self.name[-1].isdigit() else ""
         for i, net in enumerate(self.nets):
             if net.is_implicit():
                 # Net names are the bus name with the index appended.
@@ -195,7 +182,7 @@ class Bus(SkidlBaseObject):
 
     def get_pins(self):
         """It's an error to get the list of pins attached to all bus lines."""
-        log_and_raise(logger, TypeError, "Can't get the list of pins on a bus!")
+        active_logger.raise_("Can't get the list of pins on a bus!")
 
     def copy(self, num_copies=None, **attribs):
         """
@@ -235,16 +222,14 @@ class Bus(SkidlBaseObject):
 
         # Check that a valid number of copies is requested.
         if not isinstance(num_copies, int):
-            log_and_raise(
-                logger,
+            active_logger.raise_(
                 ValueError,
                 "Can't make a non-integer number ({}) of copies of a bus!".format(
                     num_copies
                 ),
             )
         if num_copies < 0:
-            log_and_raise(
-                logger,
+            active_logger.raise_(
                 ValueError,
                 "Can't make a negative number ({}) of copies of a bus!".format(
                     num_copies
@@ -262,8 +247,7 @@ class Bus(SkidlBaseObject):
                     try:
                         v = v[i]
                     except IndexError:
-                        log_and_raise(
-                            logger,
+                        active_logger.raise_(
                             ValueError,
                             "{} copies of bus {} were requested, but too few elements in attribute {}!".format(
                                 num_copies, self.name, k
@@ -308,8 +292,8 @@ class Bus(SkidlBaseObject):
             elif isinstance(ident, basestring):
                 nets.extend(filter_list(self.nets, name=ident))
             else:
-                log_and_raise(
-                    logger, TypeError, "Can't index bus with a {}.".format(type(ident))
+                active_logger.raise_(
+                    TypeError, "Can't index bus with a {}.".format(type(ident))
                 )
 
         if len(nets) == 0:
@@ -323,7 +307,7 @@ class Bus(SkidlBaseObject):
         # Multiple nets selected, so return them as a NetPinList list.
         return NetPinList(nets)
 
-    def __setitem__(self, ids, *pins_nets_buses):
+    def __setitem__(self, ids, pins_nets_buses):
         """
         You can't assign to bus lines. You must use the += operator.
 
@@ -346,13 +330,13 @@ class Bus(SkidlBaseObject):
 
         # If the iadd_flag is set, then it's OK that we got
         # here and don't issue an error. Also, delete the flag.
-        if getattr(pins_nets_buses[0], "iadd_flag", False):
-            del pins_nets_buses[0].iadd_flag
+        if from_iadd(pins_nets_buses):
+            rmv_iadd(pins_nets_buses)
             return
 
         # No iadd_flag or it wasn't set. This means a direct assignment
         # was made to the pin, which is not allowed.
-        log_and_raise(logger, TypeError, "Can't assign to a bus! Use the += operator.")
+        active_logger.raise_(TypeError, "Can't assign to a bus! Use the += operator.")
 
     def __iter__(self):
         """
@@ -374,8 +358,6 @@ class Bus(SkidlBaseObject):
 
     def is_implicit(self):
         """Return true if the bus name is implicit."""
-
-        from .defines import NET_PREFIX, BUS_PREFIX
 
         prefix_re = "({}|{})+".format(re.escape(NET_PREFIX), re.escape(BUS_PREFIX))
         return re.match(prefix_re, self.name)

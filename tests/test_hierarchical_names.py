@@ -1,12 +1,18 @@
+# -*- coding: utf-8 -*-
+
+# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
+
 import pytest
 
-from skidl import *
+from skidl import ERC, Net, Part, generate_netlist, generate_xml, subcircuit, super
 
-from .setup_teardown import *
+from .setup_teardown import setup_function, teardown_function
 
 
 class Resistor(Part):
-    def __init__(self, value, ref=None, footprint="Resistors_SMD:R_0805", tag=None, **kwargs):
+    def __init__(
+        self, value, ref=None, footprint="Resistors_SMD:R_0805", tag=None, **kwargs
+    ):
         super().__init__(
             "Device", "R", value=value, ref=ref, footprint=footprint, tag=tag, **kwargs
         )

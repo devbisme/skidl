@@ -1,0 +1,870 @@
+
+
+<!doctype html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>skidl.pin &#8212; SKiDL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css" />
+    
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../../"><img src="../../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.pin</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for skidl.pin</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Handles part pins.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># isort:skip</span>
+    <span class="n">absolute_import</span><span class="p">,</span>
+    <span class="n">division</span><span class="p">,</span>
+    <span class="n">print_function</span><span class="p">,</span>
+    <span class="n">unicode_literals</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">range</span><span class="p">,</span> <span class="nb">super</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">copy</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">IntEnum</span>
+
+<span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
+
+<span class="kn">from</span> <span class="nn">.alias</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
+<span class="kn">from</span> <span class="nn">.skidlbaseobj</span> <span class="kn">import</span> <span class="n">ERROR</span><span class="p">,</span> <span class="n">OK</span><span class="p">,</span> <span class="n">WARNING</span><span class="p">,</span> <span class="n">SkidlBaseObject</span>
+<span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="Pin"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin">[docs]</a><span class="k">class</span> <span class="nc">Pin</span><span class="p">(</span><span class="n">SkidlBaseObject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class for storing data about pins for a part.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        attribs: Key/value pairs of attributes to add to the library.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        nets: The electrical nets this pin is connected to (can be &gt;1).</span>
+<span class="sd">        part: Link to the Part object this pin belongs to.</span>
+<span class="sd">        func: Pin function such as PinType.types.INPUT.</span>
+<span class="sd">        do_erc: When false, the pin is not checked for ERC violations.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Various types of pins.</span>
+    <span class="n">types</span> <span class="o">=</span> <span class="n">IntEnum</span><span class="p">(</span>
+        <span class="s2">&quot;types&quot;</span><span class="p">,</span>
+        <span class="p">(</span>
+            <span class="s2">&quot;INPUT&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;OUTPUT&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;BIDIR&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;TRISTATE&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;PASSIVE&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;UNSPEC&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;PWRIN&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;PWROUT&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;OPENCOLL&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;OPENEMIT&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;PULLUP&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;PULLDN&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;NOCONNECT&quot;</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+
+<div class="viewcode-block" id="Pin.add_type"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.add_type">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">add_type</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">pin_types</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add new pin type identifiers to the list of pin types.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            pin_types: Strings identifying zero or more pin types.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">types</span> <span class="o">=</span> <span class="n">IntEnum</span><span class="p">(</span><span class="s2">&quot;types&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">types</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">pin_types</span><span class="p">))</span>
+
+        <span class="c1"># Also add the pin types as attributes of the Pin class so</span>
+        <span class="c1"># existing SKiDL part libs will still work (e.g. Pin.INPUT</span>
+        <span class="c1"># still works as well as the newer Pin.types.INPUT).</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">types</span><span class="p">:</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span></div>
+
+    <span class="c1"># Various drive levels a pin can output.</span>
+    <span class="c1"># The order of these is important! The first entry has the weakest</span>
+    <span class="c1"># drive and the drive increases for each successive entry.</span>
+    <span class="n">drives</span> <span class="o">=</span> <span class="n">IntEnum</span><span class="p">(</span>
+        <span class="s2">&quot;drives&quot;</span><span class="p">,</span>
+        <span class="p">(</span>
+            <span class="s2">&quot;NOCONNECT&quot;</span><span class="p">,</span>  <span class="c1">#  NC pin drive.</span>
+            <span class="s2">&quot;NONE&quot;</span><span class="p">,</span>  <span class="c1"># No drive capability (like an input pin).</span>
+            <span class="s2">&quot;PASSIVE&quot;</span><span class="p">,</span>  <span class="c1"># Small drive capability, but less than a pull-up or pull-down.</span>
+            <span class="s2">&quot;PULLUPDN&quot;</span><span class="p">,</span>  <span class="c1"># Pull-up or pull-down capability.</span>
+            <span class="s2">&quot;ONESIDE&quot;</span><span class="p">,</span>  <span class="c1"># Can pull high (open-emitter) or low (open-collector).</span>
+            <span class="s2">&quot;TRISTATE&quot;</span><span class="p">,</span>  <span class="c1"># Can pull high/low and be in high-impedance state.</span>
+            <span class="s2">&quot;PUSHPULL&quot;</span><span class="p">,</span>  <span class="c1"># Can actively drive high or low.</span>
+            <span class="s2">&quot;POWER&quot;</span><span class="p">,</span>  <span class="c1"># A power supply or ground line.</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Information about the various types of pins:</span>
+    <span class="c1">#   function: A string describing the pin&#39;s function.</span>
+    <span class="c1">#   drive: The drive capability of the pin.</span>
+    <span class="c1">#   rcv_min: The minimum amount of drive the pin must receive to function.</span>
+    <span class="c1">#   rcv_max: The maximum amount of drive the pin can receive and still function.</span>
+    <span class="n">pin_info</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">types</span><span class="o">.</span><span class="n">INPUT</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;INPUT&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;INPUT&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
+            <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">POWER</span><span class="p">,</span>
+            <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">types</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;OUTPUT&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;OUTPUT&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">PUSHPULL</span><span class="p">,</span>
+            <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">,</span>
+            <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">types</span><span class="o">.</span><span class="n">BIDIR</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;BIDIRECTIONAL&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;BIDIR&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">,</span>
+            <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">POWER</span><span class="p">,</span>
+            <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">types</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;TRISTATE&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;TRISTATE&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">,</span>
+            <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">,</span>
+            <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">types</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;PASSIVE&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;PASSIVE&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">,</span>
+            <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">POWER</span><span class="p">,</span>
+            <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">types</span><span class="o">.</span><span class="n">PULLUP</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;PULLUP&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;PULLUP&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">PULLUPDN</span><span class="p">,</span>
+            <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">POWER</span><span class="p">,</span>
+            <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">types</span><span class="o">.</span><span class="n">PULLDN</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;PULLDN&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;PULLDN&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">PULLUPDN</span><span class="p">,</span>
+            <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">POWER</span><span class="p">,</span>
+            <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;UNSPECIFIED&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;UNSPEC&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
+            <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">POWER</span><span class="p">,</span>
+            <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">types</span><span class="o">.</span><span class="n">PWRIN</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;POWER-IN&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;PWRIN&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
+            <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">POWER</span><span class="p">,</span>
+            <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">POWER</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;POWER-OUT&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;PWROUT&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">POWER</span><span class="p">,</span>
+            <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">,</span>
+            <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">types</span><span class="o">.</span><span class="n">OPENCOLL</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;OPEN-COLLECTOR&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;OPENCOLL&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">ONESIDE</span><span class="p">,</span>
+            <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">,</span>
+            <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">types</span><span class="o">.</span><span class="n">OPENEMIT</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;OPEN-EMITTER&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;OPENEMIT&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">ONESIDE</span><span class="p">,</span>
+            <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">,</span>
+            <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;NO-CONNECT&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;NOCONNECT&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">,</span>
+            <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">,</span>
+            <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">nets</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">part</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">do_erc</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span>  <span class="c1"># Pin function defaults to unspecified.</span>
+
+        <span class="c1"># Attach additional attributes to the pin.</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">attribs</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Pin.copy"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_copies</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return copy or list of copies of a pin including any net connection.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            num_copies: Number of copies to make of pin.</span>
+
+<span class="sd">        Keyword Args:</span>
+<span class="sd">            attribs: Name/value pairs for setting attributes for the pin.</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">            An instance of a pin can be copied just by calling it like so::</span>
+
+<span class="sd">                p = Pin()     # Create a pin.</span>
+<span class="sd">                p_copy = p()  # This is a copy of the pin.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># If the number of copies is None, then a single copy will be made</span>
+        <span class="c1"># and returned as a scalar (not a list). Otherwise, the number of</span>
+        <span class="c1"># copies will be set by the num_copies parameter or the number of</span>
+        <span class="c1"># values supplied for each part attribute.</span>
+        <span class="n">num_copies_attribs</span> <span class="o">=</span> <span class="n">find_num_copies</span><span class="p">(</span><span class="o">**</span><span class="n">attribs</span><span class="p">)</span>
+        <span class="n">return_list</span> <span class="o">=</span> <span class="p">(</span><span class="n">num_copies</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">num_copies_attribs</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">num_copies</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">num_copies</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_copies_attribs</span><span class="p">)</span>
+
+        <span class="c1"># Check that a valid number of copies is requested.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">num_copies</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
+                <span class="ne">ValueError</span><span class="p">,</span>
+                <span class="s2">&quot;Can&#39;t make a non-integer number (</span><span class="si">{}</span><span class="s2">) of copies of a pin!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">num_copies</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">num_copies</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
+                <span class="ne">ValueError</span><span class="p">,</span>
+                <span class="s2">&quot;Can&#39;t make a negative number (</span><span class="si">{}</span><span class="s2">) of copies of a pin!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">num_copies</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="n">copies</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_copies</span><span class="p">):</span>
+
+            <span class="c1"># Make a shallow copy of the pin.</span>
+            <span class="n">cpy</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+            <span class="c1"># The copy is not on a net, yet.</span>
+            <span class="n">cpy</span><span class="o">.</span><span class="n">nets</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="c1"># Connect the new pin to the same net as the original.</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">cpy</span>
+
+            <span class="c1"># Copy the aliases for the pin if it has them.</span>
+            <span class="n">cpy</span><span class="o">.</span><span class="n">aliases</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aliases</span>
+
+            <span class="c1"># Attach additional attributes to the pin.</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">attribs</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="n">cpy</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+
+            <span class="n">copies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cpy</span><span class="p">)</span>
+
+        <span class="c1"># Return a list of the copies made or just a single copy.</span>
+        <span class="k">if</span> <span class="n">return_list</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">copies</span>
+        <span class="k">return</span> <span class="n">copies</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+
+    <span class="c1"># Make copies with the multiplication operator or by calling the object.</span>
+    <span class="fm">__call__</span> <span class="o">=</span> <span class="n">copy</span>
+
+    <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_copies</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">num_copies</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">num_copies</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">num_copies</span><span class="o">=</span><span class="n">num_copies</span><span class="p">)</span>
+
+    <span class="fm">__rmul__</span> <span class="o">=</span> <span class="fm">__mul__</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">ids</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the pin if the indices resolve to a single index of 0.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ids: A list of indices. These can be individual</span>
+<span class="sd">                numbers, net names, nested lists, or slices.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The pin, otherwise None or raises an Exception.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Resolve the indices.</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">expand_indices</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="o">*</span><span class="n">ids</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="n">indices</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t index a pin with multiple indices.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">indices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t use a non-zero index for a pin.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="o">*</span><span class="n">pins_nets_buses</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        You can&#39;t assign to Pins. You must use the += operator.</span>
+
+<span class="sd">        This method is a work-around that allows the use of the += for making</span>
+<span class="sd">        connections to pins while prohibiting direct assignment. Python</span>
+<span class="sd">        processes something like net[0] += Net() as follows::</span>
+
+<span class="sd">            1. Pin.__getitem__ is called with &#39;0&#39; as the index. This</span>
+<span class="sd">               returns a single Pin.</span>
+<span class="sd">            2. The Pin.__iadd__ method is passed the pin and</span>
+<span class="sd">               the thing to connect to it (a Net in this case). This</span>
+<span class="sd">               method makes the actual connection to the net. Then</span>
+<span class="sd">               it creates an iadd_flag attribute in the object it returns.</span>
+<span class="sd">            3. Finally, Pin.__setitem__ is called. If the iadd_flag attribute</span>
+<span class="sd">               is true in the passed argument, then __setitem__ was entered</span>
+<span class="sd">               as part of processing the += operator. If there is no</span>
+<span class="sd">               iadd_flag attribute, then __setitem__ was entered as a result</span>
+<span class="sd">               of using a direct assignment, which is not allowed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># If the iadd_flag is set, then it&#39;s OK that we got</span>
+        <span class="c1"># here and don&#39;t issue an error. Also, delete the flag.</span>
+        <span class="k">if</span> <span class="n">from_iadd</span><span class="p">(</span><span class="n">pins_nets_buses</span><span class="p">):</span>
+            <span class="n">rmv_iadd</span><span class="p">(</span><span class="n">pins_nets_buses</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="c1"># No iadd_flag or it wasn&#39;t set. This means a direct assignment</span>
+        <span class="c1"># was made to the pin, which is not allowed.</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t assign to a Net! Use the += operator.&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return an iterator for stepping through the pin.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># You can only iterate a Pin one time.</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># Return generator expr.</span>
+
+<div class="viewcode-block" id="Pin.is_connected"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.is_connected">[docs]</a>    <span class="k">def</span> <span class="nf">is_connected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return true if a pin is connected to a net (but not a no-connect net).&quot;&quot;&quot;</span>
+
+        <span class="kn">from</span> <span class="nn">.net</span> <span class="kn">import</span> <span class="n">NCNet</span><span class="p">,</span> <span class="n">Net</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">:</span>
+            <span class="c1"># This pin is not connected to any nets.</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># Get the types of things this pin is connected to.</span>
+        <span class="n">net_types</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="nb">type</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="nb">set</span><span class="p">([</span><span class="n">NCNet</span><span class="p">])</span> <span class="o">==</span> <span class="n">net_types</span><span class="p">:</span>
+            <span class="c1"># This pin is only connected to no-connect nets.</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="nb">set</span><span class="p">([</span><span class="n">Net</span><span class="p">])</span> <span class="o">==</span> <span class="n">net_types</span><span class="p">:</span>
+            <span class="c1"># This pin is only connected to normal nets.</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="nb">set</span><span class="p">([</span><span class="n">Net</span><span class="p">,</span> <span class="n">NCNet</span><span class="p">])</span> <span class="o">==</span> <span class="n">net_types</span><span class="p">:</span>
+            <span class="c1"># Can&#39;t be connected to both normal and no-connect nets!</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
+                <span class="ne">ValueError</span><span class="p">,</span>
+                <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> is connected to both normal and no-connect nets!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">erc_desc</span><span class="p">()</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="c1"># This is just strange...</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
+            <span class="ne">ValueError</span><span class="p">,</span>
+            <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> is connected to something strange: </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">erc_desc</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span>
+            <span class="p">),</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Pin.is_attached"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.is_attached">[docs]</a>    <span class="k">def</span> <span class="nf">is_attached</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin_net_bus</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return true if this pin is attached to the given pin, net or bus.&quot;&quot;&quot;</span>
+
+        <span class="kn">from</span> <span class="nn">.net</span> <span class="kn">import</span> <span class="n">Net</span>
+        <span class="kn">from</span> <span class="nn">.pin</span> <span class="kn">import</span> <span class="n">Pin</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pin_net_bus</span><span class="p">,</span> <span class="n">Pin</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">pin_net_bus</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
+                <span class="k">return</span> <span class="n">pin_net_bus</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">is_attached</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pin_net_bus</span><span class="p">,</span> <span class="n">Net</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">pin_net_bus</span><span class="o">.</span><span class="n">is_attached</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pin_net_bus</span><span class="p">,</span> <span class="n">Bus</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">pin_net_bus</span><span class="p">[:]:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">is_attached</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
+            <span class="ne">ValueError</span><span class="p">,</span>
+            <span class="s2">&quot;Pins can&#39;t be attached to </span><span class="si">{}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">pin_net_bus</span><span class="p">)),</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Pin.split_name"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.split_name">[docs]</a>    <span class="k">def</span> <span class="nf">split_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delimiters</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Use chars in divider to split a pin name and add substrings to aliases.&quot;&quot;&quot;</span>
+
+        <span class="c1"># Split pin name and add subnames as aliases.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">aliases</span> <span class="o">+=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;[&quot;</span> <span class="o">+</span> <span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">delimiters</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;]&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="c1"># Remove any empty aliases.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">aliases</span><span class="o">.</span><span class="n">clean</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Pin.connect"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.connect">[docs]</a>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">pins_nets_buses</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the pin after connecting it to one or more nets or pins.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            pins_nets_buses: One or more Pin, Net or Bus objects or</span>
+<span class="sd">                lists/tuples of them.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The updated pin with the new connections.</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">            You can connect nets or pins to a pin like so::</span>
+
+<span class="sd">                p = Pin()     # Create a pin.</span>
+<span class="sd">                n = Net()     # Create a net.</span>
+<span class="sd">                p += net      # Connect the net to the pin.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="kn">from</span> <span class="nn">.net</span> <span class="kn">import</span> <span class="n">Net</span>
+        <span class="kn">from</span> <span class="nn">.protonet</span> <span class="kn">import</span> <span class="n">ProtoNet</span>
+
+        <span class="c1"># Go through all the pins and/or nets and connect them to this pin.</span>
+        <span class="k">for</span> <span class="n">pn</span> <span class="ow">in</span> <span class="n">expand_buses</span><span class="p">(</span><span class="n">flatten</span><span class="p">(</span><span class="n">pins_nets_buses</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pn</span><span class="p">,</span> <span class="n">ProtoNet</span><span class="p">):</span>
+                <span class="n">pn</span> <span class="o">+=</span> <span class="bp">self</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pn</span><span class="p">,</span> <span class="n">Pin</span><span class="p">):</span>
+                <span class="c1"># Connecting pin-to-pin.</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
+                    <span class="c1"># If self is already connected to a net, then add the</span>
+                    <span class="c1"># other pin to the same net.</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">pn</span>
+                <span class="k">elif</span> <span class="n">pn</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
+                    <span class="c1"># If self is unconnected but the other pin is, then</span>
+                    <span class="c1"># connect self to the other pin&#39;s net.</span>
+                    <span class="n">pn</span><span class="o">.</span><span class="n">nets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="bp">self</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Neither pin is connected to a net, so create a net</span>
+                    <span class="c1"># in the same circuit as the pin and attach both to it.</span>
+                    <span class="n">Net</span><span class="p">(</span><span class="n">circuit</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">circuit</span><span class="p">)</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pn</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pn</span><span class="p">,</span> <span class="n">Net</span><span class="p">):</span>
+                <span class="c1"># Connecting pin-to-net, so just connect the pin to the net.</span>
+                <span class="n">pn</span> <span class="o">+=</span> <span class="bp">self</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
+                    <span class="ne">TypeError</span><span class="p">,</span>
+                    <span class="s2">&quot;Cannot attach non-Pin/non-Net </span><span class="si">{}</span><span class="s2"> to </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="nb">type</span><span class="p">(</span><span class="n">pn</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">erc_desc</span><span class="p">()</span>
+                    <span class="p">),</span>
+                <span class="p">)</span>
+
+        <span class="c1"># Set the flag to indicate this result came from the += operator.</span>
+        <span class="n">set_iadd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+    <span class="c1"># Connect a net to a pin using the += operator.</span>
+    <span class="fm">__iadd__</span> <span class="o">=</span> <span class="n">connect</span>
+
+<div class="viewcode-block" id="Pin.disconnect"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.disconnect">[docs]</a>    <span class="k">def</span> <span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Disconnect this pin from all nets.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">:</span>
+            <span class="n">n</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">n</span><span class="o">.</span><span class="n">merge_names</span><span class="p">()</span>  <span class="c1"># Clean-up the net after removing a pin.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nets</span> <span class="o">=</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="Pin.get_nets"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.get_nets">[docs]</a>    <span class="k">def</span> <span class="nf">get_nets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return a list containing the Net objects connected to this pin.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span></div>
+
+<div class="viewcode-block" id="Pin.get_pins"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.get_pins">[docs]</a>    <span class="k">def</span> <span class="nf">get_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return a list containing this pin.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">to_list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Pin.create_network"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.create_network">[docs]</a>    <span class="k">def</span> <span class="nf">create_network</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create a network from a single pin.&quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
+
+        <span class="n">ntwk</span> <span class="o">=</span> <span class="n">Network</span><span class="p">()</span>
+        <span class="n">ntwk</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ntwk</span></div>
+
+    <span class="k">def</span> <span class="fm">__and__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Attach a pin and another part/pin/net in serial.&quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
+
+        <span class="k">return</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">obj</span>
+
+    <span class="k">def</span> <span class="fm">__rand__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Attach a pin and another part/pin/net in serial.&quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
+
+        <span class="k">return</span> <span class="n">obj</span> <span class="o">&amp;</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Attach a pin and another part/pin/net in parallel.&quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
+
+        <span class="k">return</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">|</span> <span class="n">obj</span>
+
+    <span class="k">def</span> <span class="fm">__ror__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Attach a pin and another part/pin/net in parallel.&quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
+
+        <span class="k">return</span> <span class="n">obj</span> <span class="o">|</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Pin.chk_conflict"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.chk_conflict">[docs]</a>    <span class="k">def</span> <span class="nf">chk_conflict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other_pin</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Check for electrical rule conflicts between this pin and another.&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_erc</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">other_pin</span><span class="o">.</span><span class="n">do_erc</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="p">[</span><span class="n">erc_result</span><span class="p">,</span> <span class="n">erc_msg</span><span class="p">]</span> <span class="o">=</span> <span class="n">conflict_matrix</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">][</span><span class="n">other_pin</span><span class="o">.</span><span class="n">func</span><span class="p">]</span>
+
+        <span class="c1"># Return if the pins are compatible.</span>
+        <span class="k">if</span> <span class="n">erc_result</span> <span class="o">==</span> <span class="n">OK</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Otherwise, generate an error or warning message.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">erc_msg</span><span class="p">:</span>
+            <span class="n">erc_msg</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">pin_info</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">][</span><span class="s2">&quot;function&quot;</span><span class="p">],</span>
+                    <span class="s2">&quot;connected to&quot;</span><span class="p">,</span>
+                    <span class="n">other_pin</span><span class="o">.</span><span class="n">pin_info</span><span class="p">[</span><span class="n">other_pin</span><span class="o">.</span><span class="n">func</span><span class="p">][</span><span class="s2">&quot;function&quot;</span><span class="p">],</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">p1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">erc_desc</span><span class="p">()</span>
+        <span class="n">p2</span> <span class="o">=</span> <span class="n">other_pin</span><span class="o">.</span><span class="n">erc_desc</span><span class="p">()</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Pin conflict on net </span><span class="si">{n}</span><span class="s2">, </span><span class="si">{p1}</span><span class="s2"> &lt;==&gt; </span><span class="si">{p2}</span><span class="s2"> (</span><span class="si">{erc_msg}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">erc_result</span> <span class="o">==</span> <span class="n">WARNING</span><span class="p">:</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Pin.erc_desc"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.erc_desc">[docs]</a>    <span class="k">def</span> <span class="nf">erc_desc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return a string describing this pin for ERC.&quot;&quot;&quot;</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{func}</span><span class="s2"> pin </span><span class="si">{num}</span><span class="s2">/</span><span class="si">{name}</span><span class="s2"> of </span><span class="si">{part}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">part</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">erc_desc</span><span class="p">(),</span>
+            <span class="n">num</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">func</span><span class="o">=</span><span class="n">Pin</span><span class="o">.</span><span class="n">pin_info</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">][</span><span class="s2">&quot;function&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">desc</span></div>
+
+<div class="viewcode-block" id="Pin.get_pin_info"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.get_pin_info">[docs]</a>    <span class="k">def</span> <span class="nf">get_pin_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;num&quot;</span><span class="p">,</span> <span class="s2">&quot;???&quot;</span><span class="p">)</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;???&quot;</span><span class="p">)]</span>
+        <span class="n">names</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">aliases</span><span class="p">)</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+        <span class="n">func</span> <span class="o">=</span> <span class="n">Pin</span><span class="o">.</span><span class="n">pin_info</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">][</span><span class="s2">&quot;function&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">num</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">func</span></div>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return a description of this pin as a string.&quot;&quot;&quot;</span>
+        <span class="n">ref</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;ref&quot;</span><span class="p">,</span> <span class="s2">&quot;???&quot;</span><span class="p">)</span>
+        <span class="n">num</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_pin_info</span><span class="p">()</span>
+        <span class="k">return</span> <span class="s2">&quot;Pin </span><span class="si">{ref}</span><span class="s2">/</span><span class="si">{num}</span><span class="s2">/</span><span class="si">{names}</span><span class="s2">/</span><span class="si">{func}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+
+    <span class="fm">__repr__</span> <span class="o">=</span> <span class="fm">__str__</span>
+
+<div class="viewcode-block" id="Pin.export"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.export">[docs]</a>    <span class="k">def</span> <span class="nf">export</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return a string to recreate a Pin object.&quot;&quot;&quot;</span>
+        <span class="n">attribs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;num&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;func&quot;</span><span class="p">,</span> <span class="s2">&quot;do_erc&quot;</span><span class="p">]:</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">v</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="s2">&quot;func&quot;</span><span class="p">:</span>
+                    <span class="c1"># Assign the pin function using the actual name of the</span>
+                    <span class="c1"># function, not its numerical value (in case that changes</span>
+                    <span class="c1"># in the future if more pin functions are added).</span>
+                    <span class="n">v</span> <span class="o">=</span> <span class="s2">&quot;Pin.types.&quot;</span> <span class="o">+</span> <span class="n">Pin</span><span class="o">.</span><span class="n">pin_info</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;func_str&quot;</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">v</span> <span class="o">=</span> <span class="nb">repr</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+                <span class="n">attribs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
+        <span class="k">return</span> <span class="s2">&quot;Pin(</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">attribs</span><span class="p">))</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">net</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return one of the nets the pin is connected to.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return width of a Pin, which is always 1.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="mi">1</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get, set and delete the drive strength of this pin.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_drive</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="c1"># Drive unspecified, so use default drive for this type of pin.</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pin_info</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">][</span><span class="s2">&quot;drive&quot;</span><span class="p">]</span>
+
+    <span class="nd">@drive</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">drive</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_drive</span> <span class="o">=</span> <span class="n">drive</span>
+
+    <span class="nd">@drive</span><span class="o">.</span><span class="n">deleter</span>
+    <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_drive</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ref</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the reference of the part the pin belongs to.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">ref</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">circuit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the circuit of the part the pin belongs to.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">circuit</span>
+
+    <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Any valid Pin is True.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="n">__nonzero__</span> <span class="o">=</span> <span class="fm">__bool__</span>  <span class="c1"># Python 2 compatibility.</span></div>
+
+
+<span class="c1">##############################################################################</span>
+
+
+<div class="viewcode-block" id="PhantomPin"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.PhantomPin">[docs]</a><span class="k">class</span> <span class="nc">PhantomPin</span><span class="p">(</span><span class="n">Pin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A pin type that exists solely to tie two pinless nets together.</span>
+<span class="sd">    It will not participate in generating any netlists.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">attribs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nets</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">part</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">do_erc</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+
+<span class="c1">##############################################################################</span>
+
+
+<div class="viewcode-block" id="PinList"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.PinList">[docs]</a><span class="k">class</span> <span class="nc">PinList</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A list of Pin objects that&#39;s meant to look something like a Pin to a Part.</span>
+<span class="sd">    This is used for vector I/O of XSPICE parts.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">part</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="c1"># The list needs the following attributes to behave like a Pin.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="n">num</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">part</span> <span class="o">=</span> <span class="n">part</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get a Pin from the list. Add Pin objects to the list if they don&#39;t exist.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">Pin</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="n">j</span><span class="p">,</span> <span class="n">part</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">part</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)])</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+<div class="viewcode-block" id="PinList.copy"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.PinList.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a copy of a PinList for use when a Part is copied.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cpy</span> <span class="o">=</span> <span class="n">PinList</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">part</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">cpy</span> <span class="o">+=</span> <span class="n">pin</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">cpy</span></div>
+
+<div class="viewcode-block" id="PinList.disconnect"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.PinList.disconnect">[docs]</a>    <span class="k">def</span> <span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Disconnect all the pins in the list.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">pin</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="PinList.is_connected"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.PinList.is_connected">[docs]</a>    <span class="k">def</span> <span class="nf">is_connected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span></div></div>
+
+
+<span class="c1">##############################################################################</span>
+
+
+<span class="c1"># This will make all the Pin.drive members into attributes of the Pin class</span>
+<span class="c1"># so things like Pin.INPUT will work as well as Pin.types.INPUT.</span>
+<span class="n">Pin</span><span class="o">.</span><span class="n">add_type</span><span class="p">()</span>
+
+<span class="c1"># Create the pin conflict matrix as a defaultdict of defaultdicts which</span>
+<span class="c1"># returns OK if the given element is not in the matrix. This would indicate</span>
+<span class="c1"># the pin types used to index that element have no contention if connected.</span>
+<span class="n">conflict_matrix</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="p">[</span><span class="n">OK</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]))</span>
+
+<span class="c1"># Add the non-OK pin connections to the matrix.</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">INPUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">BIDIR</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PULLUP</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PULLDN</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PWRIN</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PWRIN</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">BIDIR</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OPENCOLL</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OPENCOLL</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OPENCOLL</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OPENCOLL</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OPENEMIT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OPENEMIT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">BIDIR</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OPENEMIT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OPENEMIT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OPENEMIT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">INPUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">BIDIR</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PULLUP</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PULLDN</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PWRIN</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OPENCOLL</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OPENEMIT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PULLUP</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PULLUP</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">WARNING</span><span class="p">,</span>
+    <span class="s2">&quot;Multiple pull-ups connected.&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PULLDN</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PULLDN</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">WARNING</span><span class="p">,</span>
+    <span class="s2">&quot;Multiple pull-downs connected.&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PULLUP</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PULLDN</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">ERROR</span><span class="p">,</span>
+    <span class="s2">&quot;Pull-up connected to pull-down.&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1"># Fill-in the other half of the symmetrical contention matrix by looking</span>
+<span class="c1"># for entries that != OK at position (r,c) and copying them to position</span>
+<span class="c1"># (c,r).</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">conflict_matrix</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">conflict_matrix</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+        <span class="n">conflict_matrix</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">conflict_matrix</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="n">r</span><span class="p">]</span>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.pin</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016-2021, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.1.2.
+    </div>
+  </body>
+</html>

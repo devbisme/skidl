@@ -1,4 +1,4 @@
-.PHONY: clean-pyc clean-build docs clean
+.PHONY: clean-pyc clean-build clean-docs docs clean
 
 help:
 	@echo "clean - remove all build, test, coverage and Python artifacts"
@@ -34,6 +34,9 @@ clean-test:
 	rm -f .coverage
 	rm -fr htmlcov/
 
+clean-docs:
+	tox -e clean
+
 lint:
 	flake8 skidl tests
 
@@ -49,19 +52,12 @@ coverage:
 	coverage html
 	open htmlcov/index.html
 
-docs:
-	rm -f docs/skidl.rst
-	rm -f docs/modules.rst
-	sphinx-apidoc -o docs/ skidl
-	$(MAKE) -C docs clean
-	$(MAKE) -C docs html
-	open docs/_build/html/index.html
+docs: clean-docs
+	tox -e docs
 
-release: clean
+release: clean, docs
 	python setup.py sdist
 	python setup.py bdist_wheel
-	cd docs/_api; make singlehtml
-	cd docs; jekyll build
 
 dist: clean
 	python setup.py sdist

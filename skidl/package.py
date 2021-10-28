@@ -1,43 +1,28 @@
 # -*- coding: utf-8 -*-
 
-# MIT license
-#
-# Copyright (C) 2020 by XESS Corp.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
+# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
+
 """
 Package a subcircuit so it can be used like a Part.
 """
 
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import (  # isort:skip
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
-from builtins import range, zip
+from builtins import super, zip
 from copy import copy
 
 from future import standard_library
 
 from .bus import Bus
 from .circuit import subcircuit
-from .common import *
-from .defines import *
 from .interface import Interface
 from .net import Net
+from .part import NETLIST
 from .protonet import ProtoNet
 
 standard_library.install_aliases()
@@ -45,6 +30,8 @@ standard_library.install_aliases()
 
 class Package(Interface):
     def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
         self["circuit"] = None
 
         # Don't use update(). It doesn't seem to call __setitem__.
@@ -78,6 +65,7 @@ class Package(Interface):
             pckg[k] = v  # Use __setitem__ so both dict item and attribute are created.
 
         pckg.subcircuit = self.subcircuit  # Assign subcircuit creation function.
+
         # Remove creation function so it's not passed as a parameter.
         del pckg["subcircuit"]
 

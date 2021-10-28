@@ -1,50 +1,31 @@
 # -*- coding: utf-8 -*-
 
-# MIT license
-#
-# Copyright (C) 2018 by XESS Corp.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
+# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
 
 """
 Base object for Circuit, Interface, Package, Part, Net, Bus, Pin objects.
 """
 
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import (  # isort:skip
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 import inspect
-import re
-from builtins import object, str, super
+from builtins import object, range, str, super
 from collections import namedtuple
 from copy import deepcopy
 
 from future import standard_library
 
 from .alias import Alias
-from .common import *
-from .defines import *
-
-# from .erc import eval_stmnt_list, exec_function_list
-from .logger import erc_logger
 from .note import Note
 
 standard_library.install_aliases()
+
+OK, WARNING, ERROR = list(range(3))
 
 
 class SkidlBaseObject(object):
@@ -164,14 +145,16 @@ class SkidlBaseObject(object):
         Evaluate assertions for this object.
         """
 
+        from .logger import active_logger
+
         def erc_report(evtpl):
             log_msg = "{evtpl.stmnt} {evtpl.fail_msg} in {evtpl.filename}:{evtpl.lineno}:{evtpl.function}.".format(
                 evtpl=evtpl
             )
             if evtpl.severity == ERROR:
-                erc_logger.error(log_msg)
+                active_logger.error(log_msg)
             elif evtpl.severity == WARNING:
-                erc_logger.warning(log_msg)
+                active_logger.warning(log_msg)
 
         for evtpl in self.erc_assertion_list:
             if eval(evtpl.stmnt, evtpl.globals, evtpl.locals) == False:
@@ -183,7 +166,7 @@ class SkidlBaseObject(object):
 
         Args:
             args, kwargs: Arbitary argument lists to pass to the functions
-                that are executed. (All functions get the same arguments.) 
+                that are executed. (All functions get the same arguments.)
         """
 
         # Execute any instance functions for this particular instance.

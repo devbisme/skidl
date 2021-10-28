@@ -1,31 +1,16 @@
 # -*- coding: utf-8 -*-
 
-# MIT license
-#
-# Copyright (C) 2019 by XESS Corp.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
+# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
 
 """
 Routines for getting information about a script.
 """
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import (  # isort:skip
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 import inspect
 import os
@@ -92,7 +77,7 @@ def get_script_name():
 
 def get_skidl_trace():
     """
-    Return a string containing the source line trace where a SKiDL object was instantiated.
+    Return a list containing the source line trace where a SKiDL object was instantiated.
     """
 
     # To determine where this object was created, trace the function
@@ -108,7 +93,7 @@ def get_skidl_trace():
     except AttributeError:
         skidl_dir, _ = os.path.split(call_stack[0][1])
 
-    # Record file_name#line_num starting from the bottom of the stack
+    # Record file_name:line_num starting from the bottom of the stack
     # and terminate as soon as a function is found that's in the
     # SKiDL library (no use recording internal calls).
     skidl_trace = []
@@ -127,6 +112,6 @@ def get_skidl_trace():
         # and the line number of the call in the file. Append these
         # to the trace.
         filepath = os.path.abspath(filename)
-        skidl_trace.append("#".join((filepath, str(lineno))))
+        skidl_trace.append(":".join((filepath, str(lineno))))
 
-    return ";".join(skidl_trace)
+    return skidl_trace

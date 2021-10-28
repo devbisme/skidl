@@ -1,10 +1,10 @@
-import logging
+# -*- coding: utf-8 -*-
 
-import pytest
+# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
 
-from skidl import *
+from skidl import Net, Part, PartTmplt, to_list
 
-from .setup_teardown import *
+from .setup_teardown import setup_function, teardown_function
 
 
 def test_part_1():

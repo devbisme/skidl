@@ -1,44 +1,29 @@
 # -*- coding: utf-8 -*-
 
-# MIT license
-#
-# Copyright (C) 2018 by XESS Corp.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
+# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
+
 """
 Handles part pins.
 """
 
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import (  # isort:skip
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
+import re
 from builtins import range, super
 from collections import defaultdict
 from copy import copy
 from enum import IntEnum
-import re
 
 from future import standard_library
 
 from .alias import *
-from .defines import *
-from .logger import erc_logger, logger
-from .skidlbaseobj import SkidlBaseObject
+from .logger import active_logger
+from .skidlbaseobj import ERROR, OK, WARNING, SkidlBaseObject
 from .utilities import *
 
 standard_library.install_aliases()
@@ -255,16 +240,14 @@ class Pin(SkidlBaseObject):
 
         # Check that a valid number of copies is requested.
         if not isinstance(num_copies, int):
-            log_and_raise(
-                logger,
+            active_logger.raise_(
                 ValueError,
                 "Can't make a non-integer number ({}) of copies of a pin!".format(
                     num_copies
                 ),
             )
         if num_copies < 0:
-            log_and_raise(
-                logger,
+            active_logger.raise_(
                 ValueError,
                 "Can't make a negative number ({}) of copies of a pin!".format(
                     num_copies
@@ -325,11 +308,9 @@ class Pin(SkidlBaseObject):
         if indices is None or len(indices) == 0:
             return None
         if len(indices) > 1:
-            log_and_raise(
-                logger, ValueError, "Can't index a pin with multiple indices."
-            )
+            active_logger.raise_(ValueError, "Can't index a pin with multiple indices.")
         if indices[0] != 0:
-            log_and_raise(logger, ValueError, "Can't use a non-zero index for a pin.")
+            active_logger.raise_(ValueError, "Can't use a non-zero index for a pin.")
         return self
 
     def __setitem__(self, ids, *pins_nets_buses):
@@ -355,13 +336,13 @@ class Pin(SkidlBaseObject):
 
         # If the iadd_flag is set, then it's OK that we got
         # here and don't issue an error. Also, delete the flag.
-        if getattr(pins_nets_buses[0], "iadd_flag", False):
-            del pins_nets_buses[0].iadd_flag
+        if from_iadd(pins_nets_buses):
+            rmv_iadd(pins_nets_buses)
             return
 
         # No iadd_flag or it wasn't set. This means a direct assignment
         # was made to the pin, which is not allowed.
-        log_and_raise(logger, TypeError, "Can't assign to a Net! Use the += operator.")
+        active_logger.raise_(TypeError, "Can't assign to a Net! Use the += operator.")
 
     def __iter__(self):
         """
@@ -373,7 +354,7 @@ class Pin(SkidlBaseObject):
     def is_connected(self):
         """Return true if a pin is connected to a net (but not a no-connect net)."""
 
-        from .net import Net, NCNet
+        from .net import NCNet, Net
 
         if not self.nets:
             # This pin is not connected to any nets.
@@ -390,16 +371,14 @@ class Pin(SkidlBaseObject):
             return True
         if set([Net, NCNet]) == net_types:
             # Can't be connected to both normal and no-connect nets!
-            log_and_raise(
-                logger,
+            active_logger.raise_(
                 ValueError,
                 "{} is connected to both normal and no-connect nets!".format(
                     self.erc_desc()
                 ),
             )
         # This is just strange...
-        log_and_raise(
-            logger,
+        active_logger.raise_(
             ValueError,
             "{} is connected to something strange: {}.".format(
                 self.erc_desc(), self.nets
@@ -425,8 +404,7 @@ class Pin(SkidlBaseObject):
                 if self.net.is_attached(net):
                     return True
             return False
-        log_and_raise(
-            logger,
+        active_logger.raise_(
             ValueError,
             "Pins can't be attached to {}!".format(type(pin_net_bus)),
         )
@@ -435,7 +413,7 @@ class Pin(SkidlBaseObject):
         """Use chars in divider to split a pin name and add substrings to aliases."""
 
         # Split pin name and add subnames as aliases.
-        self.aliases += re.split('[' + re.escape(delimiters) + ']', self.name)
+        self.aliases += re.split("[" + re.escape(delimiters) + "]", self.name)
 
         # Remove any empty aliases.
         self.aliases.clean()
@@ -484,8 +462,7 @@ class Pin(SkidlBaseObject):
                 # Connecting pin-to-net, so just connect the pin to the net.
                 pn += self
             else:
-                log_and_raise(
-                    logger,
+                active_logger.raise_(
                     TypeError,
                     "Cannot attach non-Pin/non-Net {} to {}.".format(
                         type(pn), self.erc_desc()
@@ -493,7 +470,7 @@ class Pin(SkidlBaseObject):
                 )
 
         # Set the flag to indicate this result came from the += operator.
-        self.iadd_flag = True  # pylint: disable=attribute-defined-outside-init
+        set_iadd(self, True)
 
         return self
 
@@ -575,9 +552,9 @@ class Pin(SkidlBaseObject):
         p2 = other_pin.erc_desc()
         msg = "Pin conflict on net {n}, {p1} <==> {p2} ({erc_msg})".format(**locals())
         if erc_result == WARNING:
-            erc_logger.warning(msg)
+            active_logger.warning(msg)
         else:
-            erc_logger.error(msg)
+            active_logger.error(msg)
 
     def erc_desc(self):
         """Return a string describing this pin for ERC."""
@@ -659,6 +636,11 @@ class Pin(SkidlBaseObject):
     def ref(self):
         """Return the reference of the part the pin belongs to."""
         return self.part.ref
+
+    @property
+    def circuit(self):
+        """Return the circuit of the part the pin belongs to."""
+        return self.part.circuit
 
     def __bool__(self):
         """Any valid Pin is True."""

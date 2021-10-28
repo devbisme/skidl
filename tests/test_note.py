@@ -1,14 +1,18 @@
+# -*- coding: utf-8 -*-
+
+# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
+
 import pytest
 
-from skidl import *
+from skidl import Part
 
-from .setup_teardown import *
+from .setup_teardown import setup_function, teardown_function
 
 
 def test_note_1():
     vreg = Part("xess.lib", "1117")
     vreg.notes += "This is a voltage regulator."
-    vreg[1].aliases = "pin_1"
+    vreg[1].aliases += "pin_1"
     vreg.p1.notes += "Here is a note on pin 1!"
     vreg["pin_1"].notes += "Here is another note on pin 1!"
     vreg.p2.notes = "A first note on pin 2."

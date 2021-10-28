@@ -1,45 +1,38 @@
 # -*- coding: utf-8 -*-
 
-# MIT license
-#
-# Copyright (C) 2016 by XESS Corp.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
+# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
 
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import (  # isort:skip
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 import json
 import os
+import sys
 from builtins import open, super
 
 from future import standard_library
 
-from . import tools  # Import EDA tool-specific stuff.
 from .circuit import Circuit
-from .common import *
-from .defines import *
-from .logger import erc_logger, get_script_name, logger
+from .common import builtins
+from .logger import active_logger, get_script_name, stop_log_file_output
 from .part_query import footprint_cache
 from .pin import Pin
+from .tools import ALL_TOOLS, KICAD, SKIDL, SPICE, lib_suffixes
 from .utilities import *
 
 standard_library.install_aliases()
+
+try:
+    # Set char encoding to UTF-8 in Python 2.
+    reload(sys)  # Causes exception in Python 3.
+    sys.setdefaultencoding("utf8")
+except NameError:
+    # Do nothing with char encoding in Python 3.
+    pass
 
 
 class SkidlCfg(dict):
@@ -104,7 +97,7 @@ if "lib_search_paths" not in skidl_cfg:
     try:
         skidl_cfg["lib_search_paths"][KICAD].append(os.environ["KICAD_SYMBOL_DIR"])
     except KeyError:
-        logger.warning(
+        active_logger.warning(
             "KICAD_SYMBOL_DIR environment variable is missing, so the default KiCad symbol libraries won't be searched."
         )
 
@@ -145,9 +138,6 @@ def get_default_tool():
 
 if "default_tool" not in skidl_cfg:
     set_default_tool(KICAD)
-
-# Make the various EDA tool library suffixes globally available.
-lib_suffixes = tools.lib_suffixes
 
 # Definitions for backup library of circuit parts.
 BACKUP_LIB_NAME = get_script_name() + "_lib"
@@ -203,6 +193,7 @@ def load_backup_lib():
 
 # Create the default Circuit object that will be used unless another is explicitly created.
 builtins.default_circuit = Circuit()
+
 # NOCONNECT net for attaching pins that are intentionally left open.
 builtins.NC = default_circuit.NC  # pylint: disable=undefined-variable
 
@@ -225,5 +216,4 @@ POWER = Pin.drives.POWER
 def no_files(circuit=default_circuit):
     """Prevent creation of output files (netlists, ERC, logs) by this Circuit object."""
     circuit.no_files = True
-    erc_logger.stop_file_output()
-    logger.stop_file_output()
+    stop_log_file_output()

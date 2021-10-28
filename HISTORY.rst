@@ -3,11 +3,12 @@
 History
 -------
 
-1.1.0 (YYYY-MM-DD)
+1.1.0 (2021-10-22)
 ______________________
 
 - Added `generate_pcb()` function to create a PCB file directly from
   a `Circuit` object. (Currently only works for KiCad.)
+- Added `PartTmplt` shortcut which creates a Part template using dest=TEMPLATE implicitly.
 
 1.0.0 (2021-05-09)
 ______________________

@@ -1,39 +1,23 @@
 # -*- coding: utf-8 -*-
 
-# MIT license
-#
-# Copyright (C) 2019 by XESS Corp.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
+# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
 
 """
 ERC functions for Circuit, Part, Pin, Net, Bus, Interface objects.
 """
 
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import (  # isort:skip
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 from builtins import range
 
 from future import standard_library
 
-from .defines import *
-from .logger import erc_logger
+from .logger import active_logger
 
 standard_library.install_aliases()
 
@@ -82,12 +66,12 @@ def dflt_part_erc(part):
         # Error if a pin is unconnected but not of type NOCONNECT.
         if pin.net is None:
             if pin.func != Pin.types.NOCONNECT:
-                erc_logger.warning("Unconnected pin: {p}.".format(p=pin.erc_desc()))
+                active_logger.warning("Unconnected pin: {p}.".format(p=pin.erc_desc()))
 
         # Error if a no-connect pin is connected to a net.
         elif pin.net.drive != Pin.drives.NOCONNECT:
             if pin.func == Pin.types.NOCONNECT:
-                erc_logger.warning(
+                active_logger.warning(
                     "Incorrectly connected pin: {p} should not be connected to a net ({n}).".format(
                         p=pin.erc_desc(), n=pin.net.name
                     )
@@ -111,9 +95,9 @@ def dflt_net_erc(net):
     pins = net.get_pins()
     num_pins = len(pins)
     if num_pins == 0:
-        erc_logger.warning("No pins attached to net {n}.".format(n=net.name))
+        active_logger.warning("No pins attached to net {n}.".format(n=net.name))
     elif num_pins == 1:
-        erc_logger.warning(
+        active_logger.warning(
             "Only one pin ({p}) attached to net {n}.".format(
                 p=pins[0].erc_desc(), n=net.name
             )
@@ -131,10 +115,10 @@ def dflt_net_erc(net):
     net_drive = max([p.drive for p in pins] + [net.drive])
 
     if net_drive <= Pin.drives.NONE:
-        erc_logger.warning("No drivers for net {n}".format(n=net.name))
+        active_logger.warning("No drivers for net {n}".format(n=net.name))
     for p in pins:
         if Pin.pin_info[p.func]["min_rcv"] > net_drive:
-            erc_logger.warning(
+            active_logger.warning(
                 "Insufficient drive current on net {n} for pin {p}".format(
                     n=net.name, p=p.erc_desc()
                 )

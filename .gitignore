@@ -38,6 +38,9 @@ htmlcov
 # Translations
 *.mo
 
+# Directories
+docs/
+
 # Mr Developer
 .mr.developer.cfg
 .project

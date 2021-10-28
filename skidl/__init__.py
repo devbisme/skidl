@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
+
 """SKiDL: A Python-Based Schematic Design Language
 
 This module extends Python with the ability to design electronic
@@ -16,8 +18,12 @@ imported into a PCB layout tool or Spice simulator.
 The script can also
 check the resulting circuitry for electrical rule violations.
 """
-from __future__ import absolute_import, division, print_function, unicode_literals
-
+from __future__ import (  # isort:skip
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 from future import standard_library
 
 from . import tools
@@ -26,7 +32,6 @@ from .arrange import *
 from .bus import *
 from .circuit import *
 from .common import *
-from .defines import *
 from .erc import *
 from .interface import *
 from .logger import *

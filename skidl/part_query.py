@@ -1,32 +1,17 @@
 # -*- coding: utf-8 -*-
 
-# MIT license
-#
-# Copyright (C) 2018 by XESS Corp.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
+# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
 
 """
 Functions for finding/displaying parts and footprints.
 """
 
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import (  # isort:skip
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
 
 import os
 import os.path
@@ -35,8 +20,7 @@ from builtins import open, super
 
 from future import standard_library
 
-from .common import *
-from .logger import logger
+from .logger import active_logger
 from .utilities import *
 
 standard_library.install_aliases()
@@ -62,10 +46,10 @@ def parse_search_terms(terms):
     # non-white chars to prevent the initial portion of a quoted string from being
     # gathered up as a non-white character sequence.
     terms = terms.strip().rstrip()  # Remove leading/trailing spaces.
-    terms = re.sub(r"\s*\|\s*", r"|", terms) # Remove spaces around OR operator.
+    terms = re.sub(r"\s*\|\s*", r"|", terms)  # Remove spaces around OR operator.
     terms = re.sub(r"((\".*?\")|(\'.*?\')|(\S+))\s*", r"(?=.*(\1))", terms)
-    terms = re.sub(r"[\'\"]", "", terms) # Remove quotes.
-    terms = terms + '.*'
+    terms = re.sub(r"[\'\"]", "", terms)  # Remove quotes.
+    terms = terms + ".*"
     return terms
 
 
@@ -73,6 +57,7 @@ def search_parts_iter(terms, tool=None):
     """Return a list of (lib, part) sequences that match a regex term."""
 
     import skidl
+
     from .schlib import SchLib
 
     if tool is None:
@@ -97,7 +82,7 @@ def search_parts_iter(terms, tool=None):
         try:
             files = os.listdir(lib_dir)
         except (FileNotFoundError, OSError):
-            logger.warning("Could not open directory '{}'".format(lib_dir))
+            active_logger.warning("Could not open directory '{}'".format(lib_dir))
             files = []
 
         files = [(lib_dir, l) for l in files if l.endswith(lib_suffixes)]
@@ -170,8 +155,8 @@ def show_part(lib, part_name, tool=None):
     """
 
     import skidl
-    from .part import Part
-    from .defines import TEMPLATE
+
+    from .part import TEMPLATE, Part
 
     if tool is None:
         tool = skidl.get_default_tool()
@@ -205,7 +190,7 @@ class FootprintCache(dict):
                 tbl = fp.read()
         except FileNotFoundError:
             # fp-lib-table file was not found, so create a table containing the path directory
-            # as a single module lib. 
+            # as a single module lib.
             nickname, ext = os.path.splitext(os.path.basename(path))
             tbl = '(fp_lib_table\n(lib (name {nickname})(type KiCad)(uri {path})(options "")(descr ""))\n)'.format(
                 **locals()
@@ -264,7 +249,11 @@ class FootprintCache(dict):
 
             unexpanded_vars = get_env_vars(uri)
             if unexpanded_vars:
-                logger.warning("There are some undefined environment variables: {}".format(' '.join(unexpanded_vars)))
+                active_logger.warning(
+                    "There are some undefined environment variables: {}".format(
+                        " ".join(unexpanded_vars)
+                    )
+                )
                 continue
 
             # Get a list of all the footprint module files in the top-level of the library URI.
