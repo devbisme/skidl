@@ -2,6 +2,11 @@ from skidl import *
 
 # Connectors, terminal blocks, etc
 
+
+# @SubCircuit
+# def headers(i2c_sda, i2c_scl, uart_tx, uart_rx, vdd, gnd):
+    
+
 # Debug header circuit
 @SubCircuit
 def debug_header(reset, swdclk, swdio, swo, vref, gnd):

@@ -17,9 +17,9 @@ clear()
 stm32.stm32f405r()
 pc.power_circuits()
 
-# Generate netlist
-netlist_path = "/home/cdsfsmattner/Desktop/skidl/examples/stm32_usb_buck/stm32/netlist.net"
-generate_netlist(file_ = netlist_path)
+# # Generate netlist
+# netlist_path = "/home/cdsfsmattner/Desktop/skidl/examples/stm32_usb_buck/stm32/netlist.net"
+# generate_netlist(file_ = netlist_path)
 
 # Generate schematic
 schematic_path = "/home/cdsfsmattner/Desktop/skidl/examples/stm32_usb_buck/stm32/stm32.sch"
