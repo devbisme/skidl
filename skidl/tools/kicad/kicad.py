@@ -37,6 +37,22 @@ tool_name = "kicad"
 # lib_suffix = [".kicad_sym", ".lib"]
 lib_suffix = [".lib", ".kicad_sym"]
 
+def get_kicad_lib_tbl_dir():
+    """Get the path to where the global fp-lib-table file is found."""
+
+    paths = (
+        "$HOME/.config/kicad",
+        "~/.config/kicad",
+        "%APPDATA%/kicad",
+        "$HOME/Library/Preferences/kicad",
+        "~/Library/Preferences/kicad",
+    )
+    
+    for path in paths:
+        path = os.path.normpath(os.path.expanduser(os.path.expandvars(path)))
+        if os.path.lexists(path):
+            return path
+    return ""
 
 def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
     """

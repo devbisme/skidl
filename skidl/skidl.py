@@ -9,19 +9,18 @@ from __future__ import (  # isort:skip
     unicode_literals,
 )
 
-import json
 import os
 import sys
-from builtins import open, super
+from builtins import open
 
 from future import standard_library
 
 from .circuit import Circuit
+from .config import SkidlConfig
 from .common import builtins
-from .logger import active_logger, get_script_name, stop_log_file_output
-from .part_query import footprint_cache
+from .logger import get_script_name, stop_log_file_output
 from .pin import Pin
-from .tools import ALL_TOOLS, KICAD, SKIDL, SPICE, lib_suffixes
+from .tools import KICAD, SKIDL, lib_suffixes
 from .utilities import *
 
 standard_library.install_aliases()
@@ -33,36 +32,6 @@ try:
 except NameError:
     # Do nothing with char encoding in Python 3.
     pass
-
-
-class SkidlCfg(dict):
-    """Class for holding SKiDL configuration."""
-
-    CFG_FILE_NAME = ".skidlcfg"
-
-    def __init__(self, *dirs):
-        super().__init__()
-        self.load(*dirs)
-
-    def load(self, *dirs):
-        """Load SKiDL configuration from JSON files in given dirs."""
-        for dir in dirs:
-            path = os.path.join(dir, self.CFG_FILE_NAME)
-            path = os.path.expanduser(path)
-            path = os.path.abspath(path)
-            try:
-                with open(path) as cfg_fp:
-                    merge_dicts(self, json.load(cfg_fp))
-            except (FileNotFoundError, IOError):
-                pass
-
-    def store(self, dir="."):
-        """Store SKiDL configuration as JSON in directory as .skidlcfg file."""
-        path = os.path.join(dir, self.CFG_FILE_NAME)
-        path = os.path.expanduser(path)
-        path = os.path.abspath(path)
-        with open(path, "w") as cfg_fp:
-            json.dump(self, cfg_fp, indent=4)
 
 
 def get_kicad_lib_tbl_dir():
@@ -86,44 +55,9 @@ def get_kicad_lib_tbl_dir():
 # Globals that are used by everything else.
 ###############################################################################
 
-# Get SKiDL configuration.
-skidl_cfg = SkidlCfg("/etc", "~", ".")
-
-# If no configuration files were found, set some default lib search paths.
-if "lib_search_paths" not in skidl_cfg:
-    skidl_cfg["lib_search_paths"] = {tool: ["."] for tool in ALL_TOOLS}
-
-    # Add the location of the default KiCad part libraries.
-    try:
-        skidl_cfg["lib_search_paths"][KICAD].append(os.environ["KICAD_SYMBOL_DIR"])
-    except KeyError:
-        active_logger.warning(
-            "KICAD_SYMBOL_DIR environment variable is missing, so the default KiCad symbol libraries won't be searched."
-        )
-
-    # Add the location of the default SKiDL part libraries.
-    default_skidl_libs = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), "libs"
-    )
-    skidl_cfg["lib_search_paths"][SKIDL].append(default_skidl_libs)
-
-# Shortcut to library search paths.
+# Get SKiDL configuration and set global search paths.
+skidl_cfg = SkidlConfig()
 lib_search_paths = skidl_cfg["lib_search_paths"]
-
-# If no configuration files were found, set some default footprint search paths.
-if "footprint_search_paths" not in skidl_cfg:
-    dir_ = get_kicad_lib_tbl_dir()
-    skidl_cfg["footprint_search_paths"] = {tool: [dir_] for tool in ALL_TOOLS}
-
-# Cause the footprint cache to be invalidated if the footprint search path changes.
-def invalidate_footprint_cache(self, k, v):
-    footprint_cache.reset()
-
-
-skidl_cfg["footprint_search_paths"] = TriggerDict(skidl_cfg["footprint_search_paths"])
-skidl_cfg["footprint_search_paths"].trigger_funcs[KICAD] = invalidate_footprint_cache
-
-# Shortcut to footprint search paths.
 footprint_search_paths = skidl_cfg["footprint_search_paths"]
 
 # Set default toolset being used with SKiDL.

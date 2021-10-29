@@ -26,12 +26,14 @@ from __future__ import (  # isort:skip
 )
 from future import standard_library
 
-from . import tools
+# from . import tools
+from .tools import *
 from .alias import *
 from .arrange import *
 from .bus import *
 from .circuit import *
 from .common import *
+from .config import *
 from .erc import *
 from .interface import *
 from .logger import *

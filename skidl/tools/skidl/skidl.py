@@ -17,7 +17,6 @@ from builtins import str
 
 from future import standard_library
 
-from ...logger import active_logger
 
 standard_library.install_aliases()
 
@@ -36,8 +35,9 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
         filename: The name of the SKiDL schematic library file.
     """
 
+    from ...logger import active_logger
     from ...schlib import SchLib
-    from ...skidl import active_logger, lib_suffixes
+    from ...skidl import lib_suffixes
     from ...utilities import find_and_open_file
     from .. import SKIDL
 
