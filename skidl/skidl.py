@@ -34,23 +34,6 @@ except NameError:
     pass
 
 
-def get_kicad_lib_tbl_dir():
-    """Get the path to where the global fp-lib-table file is found."""
-
-    paths = (
-        "$HOME/.config/kicad",
-        "~/.config/kicad",
-        "%APPDATA%/kicad",
-        "$HOME/Library/Preferences/kicad",
-        "~/Library/Preferences/kicad",
-    )
-    for path in paths:
-        path = os.path.normpath(os.path.expanduser(os.path.expandvars(path)))
-        if os.path.lexists(path):
-            return path
-    return ""
-
-
 ###############################################################################
 # Globals that are used by everything else.
 ###############################################################################

@@ -26,8 +26,10 @@ from __future__ import (  # isort:skip
 )
 from future import standard_library
 
-# from . import tools
+# Import tools first because imports from it's skidl subdirectory will interfere
+# if it comes after the skidl import down below. This needs to be properly fixed.
 from .tools import *
+
 from .alias import *
 from .arrange import *
 from .bus import *
