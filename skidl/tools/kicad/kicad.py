@@ -101,54 +101,49 @@ def _load_sch_lib_kicad(self, f, filename, lib_search_paths_):
     from ...part import Part
     from .. import KICAD
 
+    lib_txt = f.read()
+    part_defns = lib_txt.split("\nDEF ")
+
     # Check the file header to make sure it's a KiCad library.
-    header = []
-    header = [f.readline()]
-    if header and "EESchema-LIBRARY" not in header[0]:
-        raise RuntimeError(
+    header = part_defns.pop(0)  # Stuff before first DEF is the header.
+    if not header.startswith("EESchema-LIBRARY"):
+        active_logger.raise_(RuntimeError,
             "The file {} is not a KiCad Schematic Library File.\n".format(filename)
         )
+    
+    # Process each part.
+    for part_defn in part_defns:
 
-    # Read the definition of each part line-by-line and then create
-    # a Part object that gets stored in the part list.
-    part_defn = []
-    for line in f:
+        part_defn = part_defn.split('\n')
+        part_defn[0] = "DEF " + part_defn[0] # Add DEF back onto first line.
 
-        # Skip over comments.
-        if line.startswith("#"):
-            pass
+        # Remove comments.
+        # part_defn = re.sub("(\n?)([^#]*?)#[^#]*?\n", r"\1\2", part_defn)
+        part_defn = [line for line in part_defn if not line.startswith('#')]
 
-        # Look for the start of a part definition.
-        elif line.startswith("DEF"):
-            # Initialize the part definition with the first line.
-            # This will also signal that succeeding lines should be added.
-            part_defn = [line]
-            part_name = line.split()[1]  # Get the part name.
-            part_aliases = []
+        # Get part name.
+        part_name = part_defn[0].split()[1]
 
-        # If gathering the part definition has begun, then continue adding lines.
-        elif part_defn:
-            part_defn.append(line)
+        # Get part aliases between "ALIAS " and newline.
+        aliases = []
+        for line in part_defn:
+            if line.startswith('ALIAS '):
+                aliases = line.split()[1:]
+                break
 
-            # Get aliases to add to search text.
-            if line.startswith("ALIAS"):
-                part_aliases = line.split()[1:]
-
-            # If the current line ends this part definition, then create
-            # the Part object and add it to the part list. Be sure to
-            # indicate that the Part object is being added to a library
-            # and not to a schematic netlist.
-            # Also, add null attributes in case a DCM file is not
-            # available for this part.
-            if line.startswith("ENDDEF"):
-                self.add_parts(
+        # Create the Part object and add it to the part list. Be sure to
+        # indicate that the Part object is being added to a library
+        # and not to a schematic netlist.
+        # Also, add null attributes in case a DCM file is not
+        # available for this part.
+        self.add_parts(
                     Part(
                         part_defn=part_defn,
                         tool=KICAD,
                         dest=LIBRARY,
                         filename=filename,
                         name=part_name,
-                        aliases=part_aliases,
+                        aliases=aliases,
                         keywords="",
                         datasheet="",
                         description="",
@@ -157,15 +152,13 @@ def _load_sch_lib_kicad(self, f, filename, lib_search_paths_):
                     )
                 )
 
-                # Clear the part definition in preparation for the next one.
-                part_defn = []
-
     # Now add information from any associated DCM file.
     base_fn = os.path.splitext(filename)[0]  # Strip any extension.
     f, _ = find_and_open_file(base_fn, lib_search_paths_, ".dcm", allow_failure=True)
     if f:
         part_desc = {}
-        for line in f:
+
+        for line in f.read().split('\n'):
 
             # Skip over comments.
             if line.startswith("#"):
