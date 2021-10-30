@@ -264,6 +264,10 @@ class Part(SkidlBaseObject):
         # If any pins were added, make sure they're associated with the part.
         self.associate_pins()
 
+        # Make sure the part name is also included in the list of aliases
+        # because part searching only checks the aliases for name matches.
+        self.aliases += name
+
     def add_xspice_io(self, io):
         """
         Add XSPICE I/O to the pins of a part.
@@ -318,15 +322,15 @@ class Part(SkidlBaseObject):
 
         search_params = (
             ("ref", text, True),
-            ("name", text, True),
+            # ("name", text, True), # Redundant: name is already replicated in aliases. 
             ("aliases", text, True),
             ("description", text, False),
         )
 
         parts = []
-        for attr, name, do_str_match in search_params:
+        for attr, value, do_str_match in search_params:
             parts.extend(
-                filter_list(circuit.parts, do_str_match=do_str_match, **{attr: name})
+                filter_list(circuit.parts, do_str_match=do_str_match, **{attr: value})
             )
 
         return list_or_scalar(parts)
@@ -1159,6 +1163,20 @@ class Part(SkidlBaseObject):
     def ref(self):
         """Delete the part reference."""
         self._ref = None
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, nm):
+        self.aliases += nm
+        self._name = nm
+
+    @name.deleter
+    def name(self):
+        self.aliases.discard(self._name)
+        self._name = None
 
     @property
     def value(self):
