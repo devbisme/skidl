@@ -168,7 +168,7 @@ def _load_sch_lib_kicad(self, f, filename, lib_search_paths_):
             elif line.startswith("$CMP"):
                 part_desc["name"] = line.split()[-1]
 
-            # If gathering the part definition has begun, then continue adding lines.
+            # If gathering the part description has begun, then continue adding lines.
             elif part_desc:
                 if line.startswith("D"):
                     part_desc["description"] = " ".join(line.split()[1:])
@@ -177,15 +177,8 @@ def _load_sch_lib_kicad(self, f, filename, lib_search_paths_):
                 elif line.startswith("F"):
                     part_desc["datasheet"] = " ".join(line.split()[1:])
                 elif line.startswith("$ENDCMP"):
-                    try:
-                        part = self.get_part_by_name(
-                            re.escape(part_desc["name"]),
-                            silent=True,
-                            get_name_only=True,
-                        )
-                    except Exception as e:
-                        pass
-                    else:
+                    # Part description complete, so store it in the part(s) with matching name.
+                    for part in self.get_parts_quick(part_desc["name"]):
                         part.description = part_desc.get("description", "")
                         part.keywords = part_desc.get("keywords", "")
                         part.datasheet = part_desc.get("datasheet", "")
@@ -195,8 +188,8 @@ def _load_sch_lib_kicad(self, f, filename, lib_search_paths_):
 
     # Create text string to be used when searching for parts.
     for part in self.parts:
-        search_text_pieces = [part.filename, part.name, part.description, part.keywords]
-        search_text_pieces.extend(part.aliases)
+        search_text_pieces = [part.filename, part.description, part.keywords]
+        search_text_pieces.extend(part.aliases)  # aliases also includes part name.
         # Join the various text pieces by newlines so the ^ and $ special characters
         # can be used to detect the start and end of a piece of text during RE searches.
         part.search_text = "\n".join(search_text_pieces)
@@ -292,20 +285,20 @@ def _load_sch_lib_kicad_v6(self, f, filename, lib_search_paths_):
         )
 
 
-def parse_lib_part(self, get_name_only=False):
+def parse_lib_part(self, partial_parse=False):
     """
     Create a Part using a part definition from a KiCad schematic library.
 
     Args:
-        get_name_only: If true, scan the part definition until the
+        partial_parse: If true, scan the part definition until the
             name and aliases are found. The rest of the definition
             will be parsed if the part is actually used.
     """
 
     if self.tool_version == "kicad_v6":
-        _parse_lib_part_kicad_v6(self, get_name_only)
+        _parse_lib_part_kicad_v6(self, partial_parse)
     else:
-        _parse_lib_part_kicad(self, get_name_only)
+        _parse_lib_part_kicad(self, partial_parse)
 
 
 # Named tuples for part DRAW primitives.
@@ -342,7 +335,7 @@ DrawPin = namedtuple(
 )
 
 
-def _parse_lib_part_kicad(self, get_name_only):
+def _parse_lib_part_kicad(self, partial_parse):
     """
     Create a Part using a part definition from a KiCad schematic library.
 
@@ -351,7 +344,7 @@ def _parse_lib_part_kicad(self, get_name_only):
     It's covered by GPL3.
 
     Args:
-        get_name_only: If true, scan the part definition until the
+        partial_parse: If true, scan the part definition until the
             name and aliases are found. The rest of the definition
             will be parsed if the part is actually used.
     """
@@ -529,7 +522,7 @@ def _parse_lib_part_kicad(self, get_name_only):
 
             # To handle libraries quickly, just get the name and
             # aliases and parse the rest of the part definition later.
-            if get_name_only:
+            if partial_parse:
                 if self.aliases:
                     # Name found, aliases already found so we're done.
                     return
@@ -730,12 +723,12 @@ def _parse_lib_part_kicad(self, get_name_only):
     self.part_defn = None
 
 
-def _parse_lib_part_kicad_v6(self, get_name_only):
+def _parse_lib_part_kicad_v6(self, partial_parse):
     """
     Create a Part using a part definition from a KiCad V6 schematic library.
 
     Args:
-        get_name_only: If true, scan the part definition until the
+        partial_parse: If true, scan the part definition until the
             name and aliases are found. The rest of the definition
             will be parsed if the part is actually used.
     """
@@ -751,7 +744,7 @@ def _parse_lib_part_kicad_v6(self, get_name_only):
         return
 
     # If a part def already exists, the name has already been set, so exit.
-    if get_name_only:
+    if partial_parse:
         return
 
     self.aliases = []  # Part aliases.

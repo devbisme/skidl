@@ -109,7 +109,7 @@ def search_parts_iter(terms, tool=None):
             lib.get_parts(use_backup_lib=False, search_text=terms)
         ):
             # Parse the part to instantiate the complete object.
-            part.parse(get_name_only=True)
+            part.parse(partial_parse=True)
 
             # Return part name and aliases (everything is included in aliases).
             for alias in list(part.aliases):

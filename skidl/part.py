@@ -213,7 +213,7 @@ class Part(SkidlBaseObject):
             if tool_version:
                 self.tool_version = tool_version
 
-            self.parse(get_name_only=(dest != NETLIST))
+            self.parse(partial_parse=(dest != NETLIST))
 
         # If the part is destined for a SKiDL library, then it will be defined
         # by the additional attribute values that are passed.
@@ -353,12 +353,12 @@ class Part(SkidlBaseObject):
             # This happens if the part has no integer-labeled pins.
             return 0, 0
 
-    def parse(self, get_name_only=False):
+    def parse(self, partial_parse=False):
         """
         Create a part from its stored part definition.
 
         Args:
-            get_name_only: When true, just get the name and aliases for the
+            partial_parse: When true, just get the name and aliases for the
                 part. Leave the rest unparsed.
         """
 
@@ -374,7 +374,7 @@ class Part(SkidlBaseObject):
             )
 
         # Parse the part description.
-        parse_func(get_name_only)
+        parse_func(partial_parse)
 
     def associate_pins(self):
         """
