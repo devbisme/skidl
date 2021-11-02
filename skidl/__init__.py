@@ -28,7 +28,7 @@ from future import standard_library
 
 # Import tools first because imports from it's skidl subdirectory will interfere
 # if it comes after the skidl import down below. This needs to be properly fixed.
-from .tools import *
+from .tools import *  # isort:skip
 
 from .alias import *
 from .bus import *

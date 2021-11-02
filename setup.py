@@ -56,7 +56,7 @@ setup(
     # packages=['skidl',],
     packages=setuptools.find_packages(),
     entry_points={
-        "console_scripts": ["netlist_to_skidl = skidl.netlist_to_skidl_main:main"]
+        "console_scripts": ["netlist_to_skidl = skidl.scripts.netlist_to_skidl_main:main"]
     },
     package_dir={"skidl": "skidl"},
     include_package_data=False,
