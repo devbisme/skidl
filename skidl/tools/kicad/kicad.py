@@ -21,7 +21,7 @@ from collections import namedtuple
 
 from future import standard_library
 
-from ...coord import *
+from .coord import *
 from ...logger import active_logger
 from ...part import LIBRARY, TEMPLATE
 from ...pckg_info import __version__
