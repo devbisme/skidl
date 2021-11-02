@@ -31,7 +31,6 @@ from future import standard_library
 from .tools import *
 
 from .alias import *
-from .arrange import *
 from .bus import *
 from .circuit import *
 from .common import *

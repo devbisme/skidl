@@ -24,7 +24,6 @@ from collections import defaultdict, deque
 import graphviz
 from future import standard_library
 
-from .arrange import Arranger
 from .bus import Bus
 from .common import builtins
 from .erc import dflt_circuit_erc
@@ -933,15 +932,6 @@ class Circuit(SkidlBaseObject):
         Create a schematic file. THIS DOES NOT WORK!
         """
 
-        class Router:
-            def __init__(self, circuit):
-                pass
-
-            def do_route(self):
-                pass
-
-        from . import skidl
-
         # Reset the counters to clear any warnings/errors from previous run.
         active_logger.active_logger.active_logger.error.reset()
         active_logger.warning.reset()
@@ -950,17 +940,6 @@ class Circuit(SkidlBaseObject):
 
         if tool is None:
             tool = skidl.get_default_tool()
-
-        w, h = 5, 5
-        arranger = Arranger(self, w, h)
-        arranger.arrange_randomly()
-        arranger.arrange_kl()
-
-        for part in self.parts:
-            part.generate_pinboxes()
-
-        router = Router(self)
-        route = router.do_route()
 
         if not self.no_files:
             try:
