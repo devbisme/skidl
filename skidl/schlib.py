@@ -101,7 +101,9 @@ class SchLib(object):
 
         for part in flatten(parts):
             # Parts with the same name are not allowed in the library.
-            if not self.get_parts_by_name(part.name, be_thorough=False, allow_failure=True):
+            if not self.get_parts_by_name(
+                part.name, be_thorough=False, allow_failure=True
+            ):
                 self.parts.append(part.copy(dest=TEMPLATE))
                 # Place a pointer to this library into the added part.
                 self.parts[-1].lib = self
@@ -134,10 +136,17 @@ class SchLib(object):
         return parts
 
     def get_parts_quick(self, name):
-        """Do a quick search for a part name or alias.      """
+        """Do a quick search for a part name or alias."""
         return [prt for prt in self.parts if prt.aliases == name]
 
-    def get_parts_by_name(self, name, be_thorough=True, allow_multiples=False, allow_failure=False, partial_parse=False):
+    def get_parts_by_name(
+        self,
+        name,
+        be_thorough=True,
+        allow_multiples=False,
+        allow_failure=False,
+        partial_parse=False,
+    ):
         """
         Return a Part with the given name or alias from the part list.
 
@@ -169,13 +178,13 @@ class SchLib(object):
             )
             active_logger.raise_(ValueError, message)
 
-        if len(parts)>1 and not allow_multiples:
+        if len(parts) > 1 and not allow_multiples:
             message = "Found multiple parts matching {}. Selecting {}.".format(
                 name, parts[0].name
             )
             active_logger.warning(message)
             parts = parts[0:1]  # Just keep the first part.
-        
+
         # Do whatever parsing was requested for the found parts.
         for part in parts:
             part.parse(partial_parse)
