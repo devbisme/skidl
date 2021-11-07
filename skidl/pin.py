@@ -630,6 +630,20 @@ class Pin(SkidlBaseObject):
             pass
 
     @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, nm):
+        self.aliases += nm
+        self._name = nm
+
+    @name.deleter
+    def name(self):
+        self.aliases.discard(self._name)
+        self._name = None
+
+    @property
     def ref(self):
         """Return the reference of the part the pin belongs to."""
         return self.part.ref
@@ -660,51 +674,6 @@ class PhantomPin(Pin):
         self.nets = []
         self.part = None
         self.do_erc = False
-
-
-##############################################################################
-
-
-class PinList(list):
-    """
-    A list of Pin objects that's meant to look something like a Pin to a Part.
-    This is used for vector I/O of XSPICE parts.
-    """
-
-    def __init__(self, num, name, part):
-        super().__init__()
-        # The list needs the following attributes to behave like a Pin.
-        self.num = num
-        self.name = name
-        self.part = part
-
-    def __getitem__(self, i):
-        """
-        Get a Pin from the list. Add Pin objects to the list if they don't exist.
-        """
-        if i >= len(self):
-            self.extend([Pin(num=j, part=self.part) for j in range(len(self), i + 1)])
-        return super().__getitem__(i)
-
-    def copy(self):
-        """
-        Return a copy of a PinList for use when a Part is copied.
-        """
-        cpy = PinList(self.num, self.name, self.part)
-        for pin in self:
-            cpy += pin.copy()
-        return cpy
-
-    def disconnect(self):
-        """Disconnect all the pins in the list."""
-        for pin in self:
-            pin.disconnect()
-
-    def is_connected(self):
-        for pin in self:
-            if pin.is_connected():
-                return True
-        return False
 
 
 ##############################################################################
