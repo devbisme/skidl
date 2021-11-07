@@ -294,7 +294,6 @@ def parse_lib_part(self, partial_parse=False):
             name and aliases are found. The rest of the definition
             will be parsed if the part is actually used.
     """
-
     if self.tool_version == "kicad_v6":
         _parse_lib_part_kicad_v6(self, partial_parse)
     else:
@@ -686,10 +685,9 @@ def _parse_lib_part_kicad(self, partial_parse):
     def kicad_pin_to_pin(kicad_pin):
         p = Pin()  # Create a blank pin.
 
-        # Replicate the KiCad pin fields as attributes in the Pin object.
-        # Note that this update will not give the pins valid references
-        # to the current part, but we'll fix that soon.
-        p.__dict__.update(kicad_pin._asdict())
+        # Place the KiCad pin name, number and function fields to the Pin object.
+        p.num = kicad_pin.num
+        p.name = kicad_pin.name
 
         pin_type_translation = {
             "I": Pin.types.INPUT,
@@ -704,7 +702,7 @@ def _parse_lib_part_kicad(self, partial_parse):
             "E": Pin.types.OPENEMIT,
             "N": Pin.types.NOCONNECT,
         }
-        p.func = pin_type_translation[p.electrical_type]
+        p.func = pin_type_translation[kicad_pin.electrical_type.upper()]
 
         return p
 
