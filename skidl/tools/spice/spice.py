@@ -542,6 +542,30 @@ def add_xspice_io(part, io):
             # Add a simple, non-vector pin.
             part.add_pins(Pin(num=i, name=arg))
 
+def convert_for_spice(part, spice_part, pin_map):
+    """Convert a Part object for use with SPICE.
+
+    Args:
+        part: SKiDL Part object that will be converted for use as a SPICE component.
+        spice_part (Part): The type of SPICE Part to be converted to.
+        pin_map (dict): Dict with pin numbers/names of part as keys and num/names of spice_part pins as replacement values. 
+    """
+
+    # Give the part access to the PySpice information from the SPICE part.
+    part.pyspice = spice_part.pyspice
+
+    # Give the part the additional aliases from the SPICE part.
+    part.aliases += spice_part.aliases
+
+    # Look-up pin names/numbers to create a mapping between actual Pin objects.
+    pin_map = [[part[dst], spice_part[src]] for dst, src in pin_map.items()]
+
+    # Pull some info from the SPICE part pins into the part pins.
+    for dst_pin, src_pin in pin_map:
+        dst_pin.num = src_pin.num
+        dst_pin.name = src_pin.name
+        dst_pin.aliases += src_pin.aliases
+
 class XspicePinList(list):
     """
     A list of Pin objects that's meant to look something like a Pin to a Part.

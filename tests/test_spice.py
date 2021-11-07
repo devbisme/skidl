@@ -111,7 +111,7 @@ def test_xspice_1():
 
 
 @pytest.mark.spice
-def test_part_convert_to_spice():
+def test_part_convert_for_spice():
 
     set_default_tool(KICAD)
 
@@ -119,9 +119,9 @@ def test_part_convert_to_spice():
     r1 = Part("Device", "R", value=1 @ u_kOhm)
     r2 = Part("Device", "R", value=2 @ u_kOhm)
 
-    vcc.convert_to_spice(V, {1: "p", 2: "n"})
-    r1.convert_to_spice(R, {1: "p", 2: "n"})
-    r2.convert_to_spice(R, {1: "p", 2: "n"})
+    vcc.convert_for_spice(V, {1: "p", 2: "n"})
+    r1.convert_for_spice(R, {1: "p", 2: "n"})
+    r2.convert_for_spice(R, {1: "p", 2: "n"})
 
     vin, vout, gnd = Net("Vin"), Net("Vout"), Net("GND")
     vin.netio = "i"

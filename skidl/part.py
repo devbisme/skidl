@@ -148,7 +148,7 @@ class Part(SkidlBaseObject):
         import skidl
 
         from .schlib import SchLib
-        from .tools import SKIDL
+        from .tools import SKIDL, add_xspice_io
 
         super().__init__()
 
@@ -251,7 +251,7 @@ class Part(SkidlBaseObject):
                     net += self[pin]
 
         # Add any XSPICE I/O as pins. (This only happens with SPICE simulations.)
-        self.add_xspice_io(kwargs.pop("io", []))
+        add_xspice_io(self, kwargs.pop("io", []))
 
         # Set the part reference if one was explicitly provided.
         if ref:
@@ -267,37 +267,6 @@ class Part(SkidlBaseObject):
         # Make sure the part name is also included in the list of aliases
         # because part searching only checks the aliases for name matches.
         self.aliases += name
-
-    def add_xspice_io(self, io):
-        """
-        Add XSPICE I/O to the pins of a part.
-        """
-        from .pin import Pin, PinList
-
-        if not io:
-            return
-
-        # Change a string into a list with a single string element.
-        if isinstance(io, basestring):
-            io = [io]
-
-        # Join all the pin name arguments into a comma-separated string and then split them into a list.
-        ios = re.split(INDEX_SEPARATOR, ",".join(io))
-
-        # Add a pin to the part for each pin name.
-        for i, arg in enumerate(ios):
-            arg = arg.strip()  # Strip any spaces that may have been between pin names.
-
-            # If [pin_name] or pin_name[], then add a PinList to the part. Don't use
-            # part.add_pins() because it will flatten the PinList and add nothing since
-            # the PinList is empty.
-            if arg[0] + arg[-1] == "[]":
-                self.pins.append(PinList(num=i, name=arg[1:-1], part=self))
-            elif arg[-2:] == "[]":
-                self.pins.append(PinList(num=i, name=arg[0:-2], part=self))
-            else:
-                # Add a simple, non-vector pin.
-                self.add_pins(Pin(num=i, name=arg))
 
     @classmethod
     def get(cls, text, circuit=None):
@@ -418,6 +387,7 @@ class Part(SkidlBaseObject):
         from .circuit import Circuit
         from .part import NETLIST
         from .pin import Pin
+        from .tools import add_xspice_io
 
         # If the number of copies is None, then a single copy will be made
         # and returned as a scalar (not a list). Otherwise, the number of
@@ -510,7 +480,7 @@ class Part(SkidlBaseObject):
                 circuit += cpy
 
             # Add any XSPICE I/O as pins to the part.
-            cpy.add_xspice_io(io)
+            add_xspice_io(cpy, io)
 
             # Enter any new attributes.
             for k, v in list(attribs.items()):
@@ -1065,7 +1035,7 @@ class Part(SkidlBaseObject):
         """Return a description of the pins on this part as a string."""
         return "\n {name} ({aliases}): {desc}\n    {pins}".format(
             name=self.name,
-            aliases=", ".join(getattr(self, "aliases", "")),
+            aliases=", ".join(self.aliases),
             desc=self.description,
             pins="\n    ".join([p.__str__() for p in self.pins]),
         )
@@ -1099,6 +1069,17 @@ class Part(SkidlBaseObject):
 
         # Return the string after removing all the non-ascii stuff (like ohm symbols).
         return "Part(**{{ {} }})".format(", ".join(attribs))
+
+    def convert_for_spice(self, spice_part, pin_map):
+        """Convert a Part object for use with SPICE.
+
+        Args:
+            spice_part (Part): The type of SPICE Part to be converted to.
+            pin_map (dict): Dict with pin numbers/names of self as keys and num/names of spice_part pins as replacement values. 
+        """
+        from .tools import convert_for_spice
+
+        convert_for_spice(self, spice_part, pin_map)
 
     @property
     def hierarchical_name(self):
