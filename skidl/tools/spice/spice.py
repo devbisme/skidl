@@ -80,8 +80,8 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
         lib_search_paths_ : List of directories to search for the file.
     """
 
-    from .. import SPICE
     from ...skidl import lib_suffixes
+    from .. import SPICE
 
     if os.path.isdir(filename):
         # A directory was given, so just use that.
@@ -250,16 +250,11 @@ def gen_netlist(self, **kwargs):
             containing SPICE models.
     """
 
+    from .. import SPICE
     from ...skidl import lib_search_paths
 
     if USING_PYTHON2:
         return None
-
-    # Replace any special chars in all net names because Spice won't like them.
-    # Don't use self.get_nets() because that only returns a single net from a
-    # group of attached nets so the other nets won't get renamed.
-    for net in self.nets:
-        net.replace_spec_chars_in_name()
 
     # Create an empty PySpice circuit.
     title = kwargs.pop("title", "")  # Get title and remove it from kwargs.
@@ -347,9 +342,11 @@ def gen_netlist(self, **kwargs):
 
 def node(net_pin_part):
     if isinstance(net_pin_part, Net):
-        return net_pin_part.name
+	    # Replace any special chars in a net name because Spice doesn't like them.
+        return re.sub(r"\W", "_", net_pin_part.name)
     if isinstance(net_pin_part, Pin):
-        return net_pin_part.net.name
+	    # Replace any special chars in a net name because Spice doesn't like them.
+        return re.sub(r"\W", "_", net_pin_part.net.name)
     if isinstance(net_pin_part, Part):
         return net_pin_part.ref
 
