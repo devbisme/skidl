@@ -41,6 +41,7 @@ class Alias(set):
                     self.add(a)
             else:
                 self.add(alias)
+        self.clean()  # Remove any empty stuff that was added.
         return self
 
     def __str__(self):
