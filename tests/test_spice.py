@@ -4,16 +4,20 @@
 
 import pytest
 
-import matplotlib.pyplot as plt
+try:
+    import matplotlib.pyplot as plt
+except ModuleNotFoundError:
+    # If matplotlib is not found, it's probably because SPICE tests
+    # are not being run anyway. So just eat the exception.
+    pass
+
 from skidl import SKIDL, SPICE, TEMPLATE, Part, generate_netlist
 from skidl.pyspice import *  # isort:skip
 
 from .setup_teardown import setup_function, teardown_function
 
-# Skip this test module if PySpice is missing.
-pexpect = pytest.importorskip("PySpice")
 
-
+@pytest.mark.spice
 def test_lib_import_1():
     lib_search_paths[SPICE].append(r"./SpiceLib/lib")
     lib = SchLib("lt1083", tool=SPICE)
@@ -22,11 +26,13 @@ def test_lib_import_1():
         print(p)
 
 
+@pytest.mark.spice
 def test_lib_import_2():
     with pytest.raises(FileNotFoundError):
         lib = SchLib("lt1074", tool=SPICE)
 
 
+@pytest.mark.spice
 def test_lib_export_1():
     set_default_tool(SPICE)
     lib = SchLib("lt1083", tool=SPICE)
@@ -36,6 +42,7 @@ def test_lib_export_1():
     # assert len(lib) == len(my_lib)
 
 
+@pytest.mark.spice
 def test_xspice_1():
     set_default_tool(SPICE)
     # Component declarations showing various XSPICE styles.
@@ -103,6 +110,7 @@ def test_xspice_1():
         print("{:6.2f} {:6.2f}".format(v1, v2))
 
 
+@pytest.mark.spice
 def test_part_convert_to_spice():
 
     set_default_tool(KICAD)
@@ -139,6 +147,7 @@ def test_part_convert_to_spice():
         print("{:6.2f} {:6.2f}".format(v, i))
 
 
+@pytest.mark.spice
 def test_subcircuit_1():
     from skidl.pyspice import gnd
 
@@ -177,6 +186,7 @@ def test_subcircuit_1():
     plt.show()
 
 
+@pytest.mark.spice
 def test_model_1():
     reset()
     set_default_tool(SPICE)
@@ -246,6 +256,7 @@ def test_model_1():
     plt.show()
 
 
+@pytest.mark.spice
 def test_skywater_1():
 
     reset()
@@ -473,6 +484,7 @@ def test_skywater_1():
     oscope(waveforms, clk, *cnt)
 
 
+@pytest.mark.spice
 def test_skywater_2():
 
     reset()
@@ -518,6 +530,7 @@ def test_skywater_2():
     plt.show()
 
 
+@pytest.mark.spice
 def test_all_parts():
 
     lib_search_paths[SPICE].append("SpiceLib")
