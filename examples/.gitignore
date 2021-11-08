@@ -1,1 +1,12 @@
 *_sklib.py
+*.json
+*.net
+*.log
+*.erc
+*.svg
+*.cir
+*.out
+*.dot
+*.png
+*.kicad_prl
+*.kicad_pro
