@@ -130,7 +130,7 @@ def flatten(nested_list):
     """
     lst = []
     for item in nested_list:
-        if isinstance(item, (list, tuple)):
+        if isinstance(item, (list, tuple, set)):
             lst.extend(flatten(item))
         else:
             lst.append(item)
