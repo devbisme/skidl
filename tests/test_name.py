@@ -4,7 +4,7 @@
 
 import pytest
 
-from skidl import BUS_PREFIX, Bus, Net, Part, Pin
+from skidl import BUS_PREFIX, NET_PREFIX, Bus, Net, Part, Pin
 
 from .setup_teardown import setup_function, teardown_function
 
@@ -20,6 +20,12 @@ def test_name_1():
     assert bus1.name == "T1"
     bus1.name = "T1"
     assert bus1.name == "T1"
+    net1 = Net(None)
+    assert net1.name == NET_PREFIX + "1"
+    net1 = Net("N1")
+    assert net1.name == "N1"
+    net1.name = "N1"
+    assert net1.name == "N1"
 
 
 def test_name_2():
