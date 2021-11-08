@@ -1146,20 +1146,6 @@ class Part(SkidlBaseObject):
         self._ref = None
 
     @property
-    def name(self):
-        return self._name
-
-    @name.setter
-    def name(self, nm):
-        self.aliases += nm
-        self._name = nm
-
-    @name.deleter
-    def name(self):
-        self.aliases.discard(self._name)
-        self._name = None
-
-    @property
     def value(self):
         """Get, set and delete the part value."""
         try:

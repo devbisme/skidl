@@ -715,7 +715,7 @@ class Net(SkidlBaseObject):
         When setting the net name, if another net with the same name
         is found, the name for this net is adjusted to make it unique.
         """
-        return self._name
+        return super(Net, self).name
 
     @name.setter
     def name(self, name):
@@ -723,16 +723,16 @@ class Net(SkidlBaseObject):
         self.test_validity()
         # Remove the existing name so it doesn't cause a collision if the
         # object is renamed with its existing name.
-        self._name = None
+        del self.name
 
         # Now name the object with the given name or some variation
         # of it that doesn't collide with anything else in the list.
-        self._name = get_unique_name(self.circuit.nets, "name", NET_PREFIX, name)
+        super(Net, self.__class__).name.fset(self, get_unique_name(self.circuit.nets, "name", NET_PREFIX, name))
 
     @name.deleter
     def name(self):
         self.test_validity()
-        del self._name
+        super(Net, self.__class__).name.fdel(self)
 
     @property
     def netclass(self):

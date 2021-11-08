@@ -396,22 +396,22 @@ class Bus(SkidlBaseObject):
         When setting the bus name, if another bus with the same name
         is found, the name for this bus is adjusted to make it unique.
         """
-        return self._name
+        return super(Bus, self).name
 
     @name.setter
     def name(self, name):
         # Remove the existing name so it doesn't cause a collision if the
         # object is renamed with its existing name.
-        self._name = None
+        del self.name
 
         # Now name the object with the given name or some variation
         # of it that doesn't collide with anything else in the list.
-        self._name = get_unique_name(self.circuit.buses, "name", BUS_PREFIX, name)
+        super(Bus, self.__class__).name.fset(self, get_unique_name(self.circuit.buses, "name", BUS_PREFIX, name))
 
     @name.deleter
     def name(self):
         """Delete the bus name."""
-        del self._name
+        super(Bus, self.__class__).name.fdel(self)
 
     def __str__(self):
         """Return a list of the nets in this bus as a string."""

@@ -630,20 +630,6 @@ class Pin(SkidlBaseObject):
             pass
 
     @property
-    def name(self):
-        return self._name
-
-    @name.setter
-    def name(self, nm):
-        self.aliases += nm
-        self._name = nm
-
-    @name.deleter
-    def name(self):
-        self.aliases.discard(self._name)
-        self._name = None
-
-    @property
     def ref(self):
         """Return the reference of the part the pin belongs to."""
         return self.part.ref
