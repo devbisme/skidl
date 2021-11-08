@@ -291,7 +291,7 @@ class Part(SkidlBaseObject):
 
         search_params = (
             ("ref", text, True),
-            # ("name", text, True), # Redundant: name is already replicated in aliases. 
+            # ("name", text, True), # Redundant: name is already replicated in aliases.
             ("aliases", text, True),
             ("description", text, False),
         )
@@ -1075,7 +1075,7 @@ class Part(SkidlBaseObject):
 
         Args:
             spice_part (Part): The type of SPICE Part to be converted to.
-            pin_map (dict): Dict with pin numbers/names of self as keys and num/names of spice_part pins as replacement values. 
+            pin_map (dict): Dict with pin numbers/names of self as keys and num/names of spice_part pins as replacement values.
         """
         from .tools import convert_for_spice
 

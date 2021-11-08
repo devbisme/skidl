@@ -12,9 +12,10 @@ except ModuleNotFoundError:
     pass
 
 from skidl import SKIDL, SPICE, TEMPLATE, Part, generate_netlist
-from skidl.pyspice import *  # isort:skip
 
 from .setup_teardown import setup_function, teardown_function
+
+from skidl.pyspice import *  # isort:skip
 
 
 @pytest.mark.spice
@@ -920,6 +921,7 @@ def test_all_parts():
     plt.plot(time * 1000, ind_voltage)  # Plot capacitor charging waveform.
     plt.legend(("Source Pulses", "Inductor Voltage"), loc=(1.1, 0.5))
     plt.show()
+
 
 #
 # Can't get this one to work.

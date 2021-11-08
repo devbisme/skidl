@@ -14,9 +14,9 @@ from __future__ import (  # isort:skip
 )
 
 import collections
+import json
 import os.path
 from builtins import open, super
-import json
 
 from future import standard_library
 
@@ -24,7 +24,7 @@ from .logger import active_logger
 from .part_query import footprint_cache
 from .tools import ALL_TOOLS, KICAD, SKIDL
 from .tools.kicad import get_kicad_lib_tbl_dir
-from .utilities import merge_dicts, TriggerDict
+from .utilities import TriggerDict, merge_dicts
 
 standard_library.install_aliases()
 

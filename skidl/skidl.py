@@ -16,8 +16,8 @@ from builtins import open
 from future import standard_library
 
 from .circuit import Circuit
-from .config import SkidlConfig
 from .common import builtins
+from .config import SkidlConfig
 from .logger import get_script_name, stop_log_file_output
 from .pin import Pin
 from .tools import KICAD, SKIDL, lib_suffixes

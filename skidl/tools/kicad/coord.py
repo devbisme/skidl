@@ -97,4 +97,3 @@ class BBox:
 
     def __repr__(self):
         return "{self.__class__}({self.min}, {self.max})".format(self=self)
-

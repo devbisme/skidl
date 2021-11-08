@@ -48,8 +48,8 @@ for module_name in os.listdir(directory):
 
     # Import the module.
     mod = __import__(module_name, globals(), locals(), [], level=1)
-    for k,v in mod.__dict__.items():
-        if k.startswith('_'):
+    for k, v in mod.__dict__.items():
+        if k.startswith("_"):
             continue
         this_module.__dict__[k] = v
 

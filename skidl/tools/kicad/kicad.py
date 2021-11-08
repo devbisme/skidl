@@ -21,12 +21,12 @@ from collections import namedtuple
 
 from future import standard_library
 
-from .coord import *
 from ...logger import active_logger
 from ...part import LIBRARY, TEMPLATE
 from ...pckg_info import __version__
 from ...scriptinfo import get_script_name, scriptinfo
 from ...utilities import *
+from .coord import *
 
 standard_library.install_aliases()
 
@@ -36,6 +36,7 @@ standard_library.install_aliases()
 tool_name = "kicad"
 # lib_suffix = [".kicad_sym", ".lib"]
 lib_suffix = [".lib", ".kicad_sym"]
+
 
 def get_kicad_lib_tbl_dir():
     """Get the path to where the global fp-lib-table file is found."""
@@ -47,12 +48,13 @@ def get_kicad_lib_tbl_dir():
         "$HOME/Library/Preferences/kicad",
         "~/Library/Preferences/kicad",
     )
-    
+
     for path in paths:
         path = os.path.normpath(os.path.expanduser(os.path.expandvars(path)))
         if os.path.lexists(path):
             return path
     return ""
+
 
 def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
     """
@@ -107,19 +109,20 @@ def _load_sch_lib_kicad(self, f, filename, lib_search_paths_):
     # Check the file header to make sure it's a KiCad library.
     header = part_defns.pop(0)  # Stuff before first DEF is the header.
     if not header.startswith("EESchema-LIBRARY"):
-        active_logger.raise_(RuntimeError,
-            "The file {} is not a KiCad Schematic Library File.\n".format(filename)
+        active_logger.raise_(
+            RuntimeError,
+            "The file {} is not a KiCad Schematic Library File.\n".format(filename),
         )
-    
+
     # Process each part.
     for part_defn in part_defns:
 
-        part_defn = part_defn.split('\n')
-        part_defn[0] = "DEF " + part_defn[0] # Add DEF back onto first line.
+        part_defn = part_defn.split("\n")
+        part_defn[0] = "DEF " + part_defn[0]  # Add DEF back onto first line.
 
         # Remove comments.
         # part_defn = re.sub("(\n?)([^#]*?)#[^#]*?\n", r"\1\2", part_defn)
-        part_defn = [line for line in part_defn if not line.startswith('#')]
+        part_defn = [line for line in part_defn if not line.startswith("#")]
 
         # Get part name.
         part_name = part_defn[0].split()[1]
@@ -127,7 +130,7 @@ def _load_sch_lib_kicad(self, f, filename, lib_search_paths_):
         # Get part aliases between "ALIAS " and newline.
         aliases = []
         for line in part_defn:
-            if line.startswith('ALIAS '):
+            if line.startswith("ALIAS "):
                 aliases = line.split()[1:]
                 break
 
@@ -137,20 +140,20 @@ def _load_sch_lib_kicad(self, f, filename, lib_search_paths_):
         # Also, add null attributes in case a DCM file is not
         # available for this part.
         self.add_parts(
-                    Part(
-                        part_defn=part_defn,
-                        tool=KICAD,
-                        dest=LIBRARY,
-                        filename=filename,
-                        name=part_name,
-                        aliases=aliases,
-                        keywords="",
-                        datasheet="",
-                        description="",
-                        search_text="",
-                        tool_version="kicad",
-                    )
-                )
+            Part(
+                part_defn=part_defn,
+                tool=KICAD,
+                dest=LIBRARY,
+                filename=filename,
+                name=part_name,
+                aliases=aliases,
+                keywords="",
+                datasheet="",
+                description="",
+                search_text="",
+                tool_version="kicad",
+            )
+        )
 
     # Now add information from any associated DCM file.
     base_fn = os.path.splitext(filename)[0]  # Strip any extension.
@@ -158,7 +161,7 @@ def _load_sch_lib_kicad(self, f, filename, lib_search_paths_):
     if f:
         part_desc = {}
 
-        for line in f.read().split('\n'):
+        for line in f.read().split("\n"):
 
             # Skip over comments.
             if line.startswith("#"):

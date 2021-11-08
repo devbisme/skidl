@@ -22,7 +22,7 @@ from ...alias import Alias
 from ...common import USING_PYTHON2
 from ...logger import active_logger
 from ...net import Net
-from ...part import Part, LIBRARY
+from ...part import LIBRARY, Part
 from ...pin import Pin
 from ...utilities import *
 
@@ -251,8 +251,8 @@ def gen_netlist(self, **kwargs):
             containing SPICE models.
     """
 
-    from .. import SPICE
     from ...skidl import lib_search_paths
+    from .. import SPICE
 
     if USING_PYTHON2:
         return None
@@ -343,10 +343,10 @@ def gen_netlist(self, **kwargs):
 
 def node(net_pin_part):
     if isinstance(net_pin_part, Net):
-	    # Replace any special chars in a net name because Spice doesn't like them.
+        # Replace any special chars in a net name because Spice doesn't like them.
         return re.sub(r"\W", "_", net_pin_part.name)
     if isinstance(net_pin_part, Pin):
-	    # Replace any special chars in a net name because Spice doesn't like them.
+        # Replace any special chars in a net name because Spice doesn't like them.
         return re.sub(r"\W", "_", net_pin_part.net.name)
     if isinstance(net_pin_part, Part):
         return net_pin_part.ref
@@ -542,13 +542,14 @@ def add_xspice_io(part, io):
             # Add a simple, non-vector pin.
             part.add_pins(Pin(num=i, name=arg))
 
+
 def convert_for_spice(part, spice_part, pin_map):
     """Convert a Part object for use with SPICE.
 
     Args:
         part: SKiDL Part object that will be converted for use as a SPICE component.
         spice_part (Part): The type of SPICE Part to be converted to.
-        pin_map (dict): Dict with pin numbers/names of part as keys and num/names of spice_part pins as replacement values. 
+        pin_map (dict): Dict with pin numbers/names of part as keys and num/names of spice_part pins as replacement values.
     """
 
     # Give the part access to the PySpice information from the SPICE part.
@@ -565,6 +566,7 @@ def convert_for_spice(part, spice_part, pin_map):
         dst_pin.num = src_pin.num
         dst_pin.name = src_pin.name
         dst_pin.aliases += src_pin.aliases
+
 
 class XspicePinList(list):
     """
@@ -636,5 +638,3 @@ class XspicePinList(list):
             self._name = None
         except AttributeError:
             pass
-
-
