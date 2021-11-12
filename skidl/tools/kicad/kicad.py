@@ -87,12 +87,12 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
         )
 
     if suffix == ".kicad_sym":
-        _load_sch_lib_kicad_v6(self, f, filename, lib_search_paths_)
+        load_sch_lib_kicad_v6(self, f, filename, lib_search_paths_)
     else:
-        _load_sch_lib_kicad(self, f, filename, lib_search_paths_)
+        load_sch_lib_kicad(self, f, filename, lib_search_paths_)
 
 
-def _load_sch_lib_kicad(self, f, filename, lib_search_paths_):
+def load_sch_lib_kicad(self, f, filename, lib_search_paths_):
     """
     Load the parts from a KiCad schematic library file.
 
@@ -232,7 +232,7 @@ def _split_into_symbols(libstr):
     return symbols
 
 
-def _load_sch_lib_kicad_v6(self, f, filename, lib_search_paths_):
+def load_sch_lib_kicad_v6(self, f, filename, lib_search_paths_):
     """
     Load the parts from a KiCad schematic library file.
 
@@ -298,9 +298,9 @@ def parse_lib_part(self, partial_parse=False):
             will be parsed if the part is actually used.
     """
     if self.tool_version == "kicad_v6":
-        _parse_lib_part_kicad_v6(self, partial_parse)
+        parse_lib_part_kicad_v6(self, partial_parse)
     else:
-        _parse_lib_part_kicad(self, partial_parse)
+        parse_lib_part_kicad(self, partial_parse)
 
 
 # Named tuples for part DRAW primitives.
@@ -337,7 +337,7 @@ DrawPin = namedtuple(
 )
 
 
-def _parse_lib_part_kicad(self, partial_parse):
+def parse_lib_part_kicad(self, partial_parse):
     """
     Create a Part using a part definition from a KiCad schematic library.
 
@@ -727,7 +727,7 @@ def _parse_lib_part_kicad(self, partial_parse):
     self.part_defn = None
 
 
-def _parse_lib_part_kicad_v6(self, partial_parse):
+def parse_lib_part_kicad_v6(self, partial_parse):
     """
     Create a Part using a part definition from a KiCad V6 schematic library.
 

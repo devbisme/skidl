@@ -648,7 +648,7 @@ class Net(SkidlBaseObject):
             return
 
         try:
-            gen_func = getattr(self, "_gen_netlist_net_{}".format(tool))
+            gen_func = getattr(self, "gen_netlist_net_{}".format(tool))
             return gen_func()
         except AttributeError:
             active_logger.raise_(
@@ -678,7 +678,7 @@ class Net(SkidlBaseObject):
             return
 
         try:
-            gen_func = getattr(self, "_gen_xml_net_{}".format(tool))
+            gen_func = getattr(self, "gen_xml_net_{}".format(tool))
             return gen_func()
         except AttributeError:
             active_logger.raise_(

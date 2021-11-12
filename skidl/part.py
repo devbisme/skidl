@@ -339,7 +339,7 @@ class Part(SkidlBaseObject):
 
         # Get the function to parse the part description.
         try:
-            parse_func = getattr(self, "_parse_lib_part_{}".format(self.tool))
+            parse_func = getattr(self, "parse_lib_part_{}".format(self.tool))
         except AttributeError:
             active_logger.raise_(
                 ValueError,
@@ -952,7 +952,7 @@ class Part(SkidlBaseObject):
         self.value_str = self._value_to_str()
 
         try:
-            gen_func = getattr(self, "_gen_netlist_comp_{}".format(tool))
+            gen_func = getattr(self, "gen_netlist_comp_{}".format(tool))
         except AttributeError:
             active_logger.raise_(
                 ValueError,
@@ -991,7 +991,7 @@ class Part(SkidlBaseObject):
         self.value_str = self._value_to_str()
 
         try:
-            gen_func = getattr(self, "_gen_xml_comp_{}".format(tool))
+            gen_func = getattr(self, "gen_xml_comp_{}".format(tool))
         except AttributeError:
             active_logger.raise_(
                 ValueError,
@@ -1101,7 +1101,7 @@ class Part(SkidlBaseObject):
             tool = skidl.get_default_tool()
 
         try:
-            gen_func = getattr(self, "_gen_svg_comp_{}".format(tool))
+            gen_func = getattr(self, "gen_svg_comp_{}".format(tool))
         except AttributeError:
             active_logger.raise_(
                 ValueError,

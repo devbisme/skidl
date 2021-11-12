@@ -83,9 +83,9 @@ for module_name in os.listdir(directory):
         (net.Net, "gen_xml_net"),
         (part.Part, "gen_svg_comp"),
         (circuit.Circuit, "gen_schematic"),
-        (net.Net, "gen_wire_eeschema"),
+        # (net.Net, "gen_wire_eeschema"),
     ):
         try:
-            setattr(class_, "_".join(("", method, tool_name)), getattr(mod, method))
+            setattr(class_, method + '_' + tool_name, getattr(mod, method))
         except AttributeError:
             pass  # No method implemented for this ECAD tool.

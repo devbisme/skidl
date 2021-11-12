@@ -957,7 +957,7 @@ class Circuit(SkidlBaseObject):
         do_backup = kwargs.pop("do_backup", True)
 
         try:
-            gen_func = getattr(self, "_gen_netlist_{}".format(tool))
+            gen_func = getattr(self, "gen_netlist_{}".format(tool))
             netlist = gen_func(**kwargs)  # Pass any remaining arguments.
         except KeyError:
             active_logger.raise_(
@@ -1012,7 +1012,7 @@ class Circuit(SkidlBaseObject):
 
         if not self.no_files:
             try:
-                gen_func = getattr(self, "_gen_pcb_{}".format(tool))
+                gen_func = getattr(self, "gen_pcb_{}".format(tool))
             except KeyError:
                 active_logger.raise_(
                     ValueError,
@@ -1036,6 +1036,7 @@ class Circuit(SkidlBaseObject):
         Args:
             file_: Either a file object that can be written to, or a string
                 containing a file name, or None.
+            tool: Backend tool such as KICAD.
 
         Returns:
             A string containing the netlist.
@@ -1053,7 +1054,7 @@ class Circuit(SkidlBaseObject):
             tool = skidl.get_default_tool()
 
         try:
-            gen_func = getattr(self, "_gen_xml_{}".format(tool))
+            gen_func = getattr(self, "gen_xml_{}".format(tool))
             netlist = gen_func()
         except KeyError:
             active_logger.raise_(
@@ -1432,17 +1433,14 @@ class Circuit(SkidlBaseObject):
         if self.no_files:
             return
 
-        # if not self.no_files:
-        #     try:
-        #         gen_func = getattr(self, "_gen_schematic_{}".format(tool))
-        #         gen_func(route)
-        #     except KeyError:
-        #         active_logger.raise_(
-        #             ValueError,
-        #             "Can't generate schematic in an unknown ECAD tool format ({}).".format(
-        #                 tool
-        #             ),
-        #         )
+        # try:
+        #     gen_func = getattr(self, "gen_schematic_{}".format(tool))
+        #     netlist = gen_func()
+        # except KeyError:
+        #     active_logger.raise_(
+        #         ValueError,
+        #         "Can't generate schematic in an unknown ECAD tool format ({}).".format(tool),
+        #     )
 
         def sort_parts_into_hierarchies(circuit_parts):
             hierarchies = {}

@@ -74,7 +74,7 @@ class SchLib(object):
         else:
             try:
                 # Use the tool name to find the function for loading the library.
-                load_func = getattr(self, "_load_sch_lib_{}".format(tool))
+                load_func = getattr(self, "load_sch_lib_{}".format(tool))
             except AttributeError:
                 # OK, that didn't work so well...
                 active_logger.raise_(
