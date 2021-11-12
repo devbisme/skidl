@@ -1681,10 +1681,5 @@ def gen_svg_comp(self, symtx, net_stubs=None):
     return "\n".join(svg)
 
 
-def gen_pinboxes(self):
-    """Generate bounding box and I/O pin positions for each unit in a part."""
-    pass
-
-
 def gen_schematic(self, route):
     pass

@@ -1112,27 +1112,6 @@ class Part(SkidlBaseObject):
 
         return gen_func(symtx=symtx, net_stubs=net_stubs)
 
-    def generate_pinboxes(self, tool=None):
-        """
-        Generate the pinboxes for arranging parts in a schematic.
-        """
-
-        import skidl
-
-        if tool is None:
-            tool = skidl.get_default_tool()
-
-        try:
-            gen_func = getattr(self, "_gen_pinboxes_{}".format(tool))
-        except AttributeError:
-            active_logger.raise_(
-                ValueError,
-                "Can't generate pinboxes for a component in an unknown ECAD tool format({}).".format(
-                    tool
-                ),
-            )
-
-        return gen_func()
     
     # Generate eeschema code for part from SKiDL part
     # self: SKiDL part
