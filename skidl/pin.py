@@ -41,6 +41,7 @@ class Pin(SkidlBaseObject):
         part: Link to the Part object this pin belongs to.
         func: Pin function such as PinType.types.INPUT.
         do_erc: When false, the pin is not checked for ERC violations.
+
     """
 
     # Various types of pins.
@@ -202,6 +203,8 @@ class Pin(SkidlBaseObject):
         self.part = None
         self.name = ""
         self.num = ""
+        self.label = ""
+        self.routed = False
         self.do_erc = True
         self.func = self.types.UNSPEC  # Pin function defaults to unspecified.
 

@@ -702,6 +702,23 @@ class Net(SkidlBaseObject):
         pins = self.get_pins()
         return len(pins)
 
+    # Generate the eeschema code for this net
+    def gen_eeschema(self, parts, c):
+        import skidl
+        tool = skidl.get_default_tool()
+        self.test_validity()
+
+        try:
+            gen_func = getattr(self, "_gen_wire_eeschema_{}".format(tool))
+            return gen_func(parts, c)
+        except AttributeError:
+            log_and_raise(
+                logger,
+                ValueError,
+                "Can't generate eeschema code for part ({}).".format(tool),
+            )
+
+
     @property
     def width(self):
         """Return width of a Net, which is always 1."""
