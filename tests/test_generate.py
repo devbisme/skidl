@@ -12,6 +12,7 @@ from skidl import (
     generate_svg,
     generate_xml,
     generate_graph,
+    generate_schematic,
     generate_pcb
 )
 
@@ -50,5 +51,5 @@ def test_generate_1():
     generate_netlist()
     generate_xml()
     generate_graph()
+    generate_schematic(file_='test_generate')
     generate_pcb()
-

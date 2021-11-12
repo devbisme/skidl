@@ -6,8 +6,6 @@ import os
 
 from skidl import *
 
-no_files()
-
 this_file_dir = os.path.dirname(os.path.abspath(__file__))
 
 files_at_start = set([])

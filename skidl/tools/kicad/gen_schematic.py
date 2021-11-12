@@ -512,8 +512,6 @@ def gen_schematic(self, file_=None, _title="Default", sch_size = 'A0', gen_elkjs
 
     """
 
-    from ... import skidl
-
     def sort_parts_into_hierarchies(circuit_parts):
         hierarchies = {}
         for pt in circuit_parts:
@@ -806,35 +804,35 @@ def gen_schematic(self, file_=None, _title="Default", sch_size = 'A0', gen_elkjs
         gen_elkjs_code(self.parts, self.nets)
 
     # 16. Create schematic file
-    for hp in hier_pg_eeschema_code:
-        pg_size = calc_page_size(hier_pg_dim[hp])
-        u = file_.split('/')[:-1]
-        dir = "/".join(u)
-        file_name = dir + "/" + hp + ".sch"
-        with open(file_name, "w") as f:
+    if not self.no_files:
+
+        # Generate schematic pages for lower-levels in the hierarchy.
+        for hp in hier_pg_eeschema_code:
+            pg_size = calc_page_size(hier_pg_dim[hp])
+            u = file_.split('/')[:-1]
+            dir = "/".join(u)
+            file_name = dir + "/" + hp + ".sch"
+            with open(file_name, "w") as f:
+                f.truncate(0) # Clear the file
+                new_sch_file = [gen_config_header(cur_sheet_num=1, size = pg_size, title=_title), 
+                                hier_pg_eeschema_code[hp], 
+                                "$EndSCHEMATC"]
+                for i in new_sch_file:
+                        print("" + "".join(i), file=f)   
+        
+        # Generate root schematic with hierarchical schematics
+        hier_sch = []
+        root_start = calc_start_point("A4")
+        root_start[0] = 1000
+        for hp in hier_pg_eeschema_code:
+            t = gen_hier_schematic(hp,root_start[0],root_start[1])
+            hier_sch.append(t)
+            root_start[0] += 1000
+
+        with open(file_, "w") as f:
             f.truncate(0) # Clear the file
-            new_sch_file = [gen_config_header(cur_sheet_num=1, size = pg_size, title=_title), 
-                            hier_pg_eeschema_code[hp], 
-                            "$EndSCHEMATC"]
+            new_sch_file = [gen_config_header(cur_sheet_num=1, size = "A4", title=_title), hier_sch, "$EndSCHEMATC"]
             for i in new_sch_file:
                     print("" + "".join(i), file=f)   
-        f.close()
-        
-
-    # Generate root schematic with hierarchical schematics
-    hier_sch = []
-    root_start = calc_start_point("A4")
-    root_start[0] = 1000
-    for hp in hier_pg_eeschema_code:
-        t = gen_hier_schematic(hp,root_start[0],root_start[1])
-        hier_sch.append(t)
-        root_start[0] += 1000
-
-    with open(file_, "w") as f:
-        f.truncate(0) # Clear the file
-        new_sch_file = [gen_config_header(cur_sheet_num=1, size = "A4", title=_title), hier_sch, "$EndSCHEMATC"]
-        for i in new_sch_file:
-                print("" + "".join(i), file=f)   
-    f.close()
 
     active_logger.report_summary("generating schematic")
