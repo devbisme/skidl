@@ -834,5 +834,3 @@ def gen_schematic(self, file_=None, _title="Default", sch_size = 'A0', gen_elkjs
             new_sch_file = [gen_config_header(cur_sheet_num=1, size = "A4", title=_title), hier_sch, "$EndSCHEMATC"]
             for i in new_sch_file:
                     print("" + "".join(i), file=f)   
-
-    active_logger.report_summary("generating schematic")
