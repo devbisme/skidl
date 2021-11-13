@@ -491,7 +491,6 @@ class Circuit(SkidlBaseObject):
 
         try:
             gen_func = getattr(self, "gen_netlist_{}".format(tool))
-            netlist = gen_func(**kwargs)  # Pass any remaining arguments.
         except KeyError:
             active_logger.raise_(
                 ValueError,
@@ -499,6 +498,8 @@ class Circuit(SkidlBaseObject):
                     tool
                 ),
             )
+        else:
+            netlist = gen_func(**kwargs)  # Pass any remaining arguments.
 
         active_logger.report_summary("generating netlist")
 
@@ -588,12 +589,13 @@ class Circuit(SkidlBaseObject):
 
         try:
             gen_func = getattr(self, "gen_xml_{}".format(tool))
-            netlist = gen_func()
         except KeyError:
             active_logger.raise_(
                 ValueError,
                 "Can't generate XML in an unknown ECAD tool format ({}).".format(tool),
             )
+        else:
+            netlist = gen_func()
 
         active_logger.report_summary("generating XML")
 
@@ -943,17 +945,15 @@ class Circuit(SkidlBaseObject):
 
         tool = kwargs.pop("tool", skidl.get_default_tool())
 
-        if self.no_files:
-            return
-
         try:
             gen_func = getattr(self, "gen_schematic_{}".format(tool))
-            gen_func(**kwargs)
         except KeyError:
             active_logger.raise_(
                 ValueError,
                 "Can't generate schematic in an unknown ECAD tool format ({}).".format(tool),
             )
+        else:
+            gen_func(**kwargs)
 
         active_logger.report_summary("generating schematic")
 
