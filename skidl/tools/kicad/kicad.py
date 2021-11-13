@@ -26,7 +26,7 @@ from ...part import LIBRARY, TEMPLATE
 from ...pckg_info import __version__
 from ...scriptinfo import get_script_name, scriptinfo
 from ...utilities import *
-from .coord import *
+from .geometry import *
 
 standard_library.install_aliases()
 
