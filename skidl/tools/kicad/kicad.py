@@ -1679,7 +1679,3 @@ def gen_svg_comp(self, symtx, net_stubs=None):
         svg.append("</g>")
 
     return "\n".join(svg)
-
-
-def gen_schematic(self, route):
-    pass
