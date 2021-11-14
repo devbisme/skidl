@@ -203,8 +203,6 @@ class Pin(SkidlBaseObject):
         self.part = None
         self.name = ""
         self.num = ""
-        self.label = ""
-        self.routed = False
         self.do_erc = True
         self.func = self.types.UNSPEC  # Pin function defaults to unspecified.
 
