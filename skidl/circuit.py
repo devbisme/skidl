@@ -489,17 +489,8 @@ class Circuit(SkidlBaseObject):
         file_ = kwargs.pop("file_", None)
         do_backup = kwargs.pop("do_backup", True)
 
-        try:
-            gen_func = getattr(self, "gen_netlist_{}".format(tool))
-        except KeyError:
-            active_logger.raise_(
-                ValueError,
-                "Can't generate netlist in an unknown ECAD tool format ({}).".format(
-                    tool
-                ),
-            )
-        else:
-            netlist = gen_func(**kwargs)  # Pass any remaining arguments.
+        gen_func = get_tool_func(self, "gen_netlist", tool)
+        netlist = gen_func(**kwargs)  # Pass any remaining arguments.
 
         active_logger.report_summary("generating netlist")
 
@@ -545,21 +536,12 @@ class Circuit(SkidlBaseObject):
         do_backup = kwargs.pop("do_backup", True)
 
         if not self.no_files:
-            try:
-                gen_func = getattr(self, "gen_pcb_{}".format(tool))
-            except KeyError:
-                active_logger.raise_(
-                    ValueError,
-                    "Can't generate PCB in an unknown ECAD tool format ({}).".format(
-                        tool
-                    ),
-                )
-            else:
-                if do_backup:
-                    self.backup_parts()  # Create a new backup lib for the circuit parts.
-                    global backup_lib  # Clear out any old backup lib so the new one
-                    backup_lib = None  #   will get reloaded when it's needed.
-                gen_func(file_)  # Generate the PCB file from the netlist.
+            gen_func = get_tool_func(self, "gen_pcb", tool)
+            if do_backup:
+                self.backup_parts()  # Create a new backup lib for the circuit parts.
+                global backup_lib  # Clear out any old backup lib so the new one
+                backup_lib = None  #   will get reloaded when it's needed.
+            gen_func(file_)  # Generate the PCB file from the netlist.
 
         active_logger.report_summary("creating PCB")
 
@@ -584,18 +566,8 @@ class Circuit(SkidlBaseObject):
 
         self._preprocess()
 
-        if tool is None:
-            tool = skidl.get_default_tool()
-
-        try:
-            gen_func = getattr(self, "gen_xml_{}".format(tool))
-        except KeyError:
-            active_logger.raise_(
-                ValueError,
-                "Can't generate XML in an unknown ECAD tool format ({}).".format(tool),
-            )
-        else:
-            netlist = gen_func()
+        gen_func = get_tool_func(self, "gen_xml", tool)
+        netlist = gen_func()
 
         active_logger.report_summary("generating XML")
 
@@ -945,15 +917,8 @@ class Circuit(SkidlBaseObject):
 
         tool = kwargs.pop("tool", skidl.get_default_tool())
 
-        try:
-            gen_func = getattr(self, "gen_schematic_{}".format(tool))
-        except KeyError:
-            active_logger.raise_(
-                ValueError,
-                "Can't generate schematic in an unknown ECAD tool format ({}).".format(tool),
-            )
-        else:
-            gen_func(**kwargs)
+        gen_func = get_tool_func(self, "gen_schematic", tool)
+        gen_func(**kwargs)
 
         active_logger.report_summary("generating schematic")
 

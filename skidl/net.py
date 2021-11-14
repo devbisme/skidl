@@ -647,16 +647,8 @@ class Net(SkidlBaseObject):
         if not self.get_pins():
             return
 
-        try:
-            gen_func = getattr(self, "gen_netlist_net_{}".format(tool))
-            return gen_func()
-        except AttributeError:
-            active_logger.raise_(
-                ValueError,
-                "Can't generate netlist in an unknown ECAD tool format ({}).".format(
-                    tool
-                ),
-            )
+        gen_func = get_tool_func(self, "gen_netlist_net", tool)
+        return gen_func()
 
     def generate_xml_net(self, tool=None):
         """
@@ -677,14 +669,8 @@ class Net(SkidlBaseObject):
         if not self.get_pins():
             return
 
-        try:
-            gen_func = getattr(self, "gen_xml_net_{}".format(tool))
-            return gen_func()
-        except AttributeError:
-            active_logger.raise_(
-                ValueError,
-                "Can't generate XML in an unknown ECAD tool format ({}).".format(tool),
-            )
+        gen_func = get_tool_func(self, "gen_xml_net", tool)
+        return gen_func()
 
     def __str__(self):
         """Return a list of the pins on this net as a string."""

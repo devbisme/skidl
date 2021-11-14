@@ -338,15 +338,7 @@ class Part(SkidlBaseObject):
         """
 
         # Get the function to parse the part description.
-        try:
-            parse_func = getattr(self, "parse_lib_part_{}".format(self.tool))
-        except AttributeError:
-            active_logger.raise_(
-                ValueError,
-                "Can't create a part with an unknown ECAD tool file format: {}.".format(
-                    self.tool
-                ),
-            )
+        parse_func = get_tool_func(self, "parse_lib_part", self.tool)
 
         # Parse the part description.
         parse_func(partial_parse)
@@ -943,23 +935,10 @@ class Part(SkidlBaseObject):
             tool: The format for the netlist file (e.g., KICAD).
         """
 
-        import skidl
-
-        if tool is None:
-            tool = skidl.get_default_tool()
+        gen_func = get_tool_func(self, "gen_netlist_comp", tool)
 
         # Create part value as a string so including it in netlist isn't a problem.
         self.value_str = self._value_to_str()
-
-        try:
-            gen_func = getattr(self, "gen_netlist_comp_{}".format(tool))
-        except AttributeError:
-            active_logger.raise_(
-                ValueError,
-                "Can't generate netlist in an unknown ECAD tool format ({}).".format(
-                    tool
-                ),
-            )
 
         return gen_func()
 
@@ -982,21 +961,10 @@ class Part(SkidlBaseObject):
             tool: The format for the XML file (e.g., KICAD).
         """
 
-        import skidl
-
-        if tool is None:
-            tool = skidl.get_default_tool()
+        gen_func = get_tool_func(self, "gen_xml_comp", tool)
 
         # Create part value as a string so including it in XML isn't a problem.
         self.value_str = self._value_to_str()
-
-        try:
-            gen_func = getattr(self, "gen_xml_comp_{}".format(tool))
-        except AttributeError:
-            active_logger.raise_(
-                ValueError,
-                "Can't generate XML in an unknown ECAD tool format ({}).".format(tool),
-            )
 
         return gen_func()
 
@@ -1095,20 +1063,7 @@ class Part(SkidlBaseObject):
         Generate the SVG for displaying a part in an SVG schematic.
         """
 
-        import skidl
-
-        if tool is None:
-            tool = skidl.get_default_tool()
-
-        try:
-            gen_func = getattr(self, "gen_svg_comp_{}".format(tool))
-        except AttributeError:
-            active_logger.raise_(
-                ValueError,
-                "Can't generate SVG for a component in an unknown ECAD tool format({}).".format(
-                    tool
-                ),
-            )
+        gen_func = get_tool_func(self, "gen_svg_comp", tool)
 
         return gen_func(symtx=symtx, net_stubs=net_stubs)
 
