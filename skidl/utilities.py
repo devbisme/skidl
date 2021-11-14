@@ -177,7 +177,7 @@ def add_unique_attr(obj, name, value, check_dup=False):
         setattr(obj, name, value)
 
 def get_tool_func(obj, func_name, tool=None):
-    """Get the function for a particular tool from an object.
+    """Get the function for a particular ECAD tool from an object.
 
     Args:
         obj: The object containing the function we're looking for.
