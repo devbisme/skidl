@@ -880,31 +880,40 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
     for part in self.parts:
         circuit_hier[part.hierarchy]["parts"].append(part)
 
-    # 5. For each hierarchy: Move parts with nets drawn to central part
-    for h in circuit_hier:
-        # Center part of hierarchy that we place everything else around
-        centerPart = circuit_hier[h]["parts"][0]
-        for pin in centerPart.pins:
-            # only move parts for pins that don't have a label
-            if len(pin.label) > 0:
+    # 5. For each node in hierarchy: Move parts connected to central part with unlabeled nets.
+    for node in circuit_hier.values():
+
+        # Center part of hierarchy that everything else is placed around.
+        center_part = node["parts"][0]  # TODO: Smarter selection of center part.
+
+        # Go thru the center part's pins, moving any connected parts closer.
+        for ctr_pin in center_part.pins:
+
+            # Skip unconnected pins.
+            if not ctr_pin.is_connected():
                 continue
-            # check if the pin has a net
-            if pin.net:
-                # don't move a part based on whether a pin is a power pin
-                if pin.net.netclass == "Power":
+
+            # Don't move parts connected to labeled (stub) pins.
+            if len(ctr_pin.label) > 0:
+                continue
+
+            # Don't move parts connected thru power supply nets.
+            if ctr_pin.net.netclass == "Power":
+                continue
+
+            # Now move any parts connected to this pin.
+            for move_pin in ctr_pin.net.pins:
+
+                # Skip moving the center part.
+                if move_pin.part == center_part:
                     continue
-                # range through all the pins connected to the net this pin is connected to
-                for p in pin.net.pins:
-                    # make sure parts are in the same hierarchy before moving them
-                    # if p.part.hierarchy != ("top." + h):
-                    if p.part.hierarchy != h:
-                        break
-                    # don't move the center part
-                    if p.ref == centerPart.ref:
-                        continue
-                    else:
-                        # if we pass all those checks then move the part based on the relative pin locations
-                        calc_move_part(p, pin, circuit_hier[h]["parts"])
+
+                # Skip parts that aren't in the same node of the hierarchy as the center part.
+                if move_pin.part.hierarchy != center_part.hierarchy:
+                    continue
+
+                # OK, finally move the part connected to this pin.
+                calc_move_part(move_pin, ctr_pin, node["parts"])
 
     # 6. For each hierarchy: Move parts with nets drawn to parts moved in step #5
     for h in circuit_hier:
