@@ -13,6 +13,7 @@ from __future__ import (  # isort:skip
 import re
 import time
 from builtins import range, str
+from collections import defaultdict
 
 from future import standard_library
 
@@ -76,7 +77,7 @@ def move_subhierarchy(hm, hierarchy_list, dx, dy, move_dir="L"):
     hierarchy_list[hm]["sch_bb"][0] += dx
     hierarchy_list[hm]["sch_bb"][1] -= dy
 
-    hm_parent = hm.split(".")[0]
+    hm_parent = ".".join(hm.split(".")[0:2])
 
     # Detect collission with other hierarchies
     for h in hierarchy_list:
@@ -85,7 +86,7 @@ def move_subhierarchy(hm, hierarchy_list, dx, dy, move_dir="L"):
             continue
 
         # Only detect collision with hierarchies on the same page
-        root_parent = h.split(".")[0]
+        root_parent = ".".join(h.split(".")[0:2])
         if not hm_parent == root_parent:
             continue
 
@@ -733,8 +734,8 @@ def gen_part_eeschema(self):
     return "\n" + "".join(out)
 
 
-def copy_pin_labels(part):
-    """Copy labels from part pins to all connected pins.
+def propagate_pin_labels(part):
+    """Propagate labels from part pins to all connected pins.
 
     Args:
         part (Part): The Part object whose pin labels will be propagated.
@@ -752,7 +753,7 @@ def rotate_power_pins(part):
 
     Args:
         part (Part): The part to be rotated.
-    
+
     This function is to make sure that voltage sources face up and gnd pins
     face down. Only rotate parts with 3 pins or less.
     """
@@ -823,7 +824,7 @@ def rotate_90_cw(part):
     # remove the rollover logic.)
     for n in range(len(rotation_matrix) - 1):
         if rotation_matrix[n] == part.orientation:
-            part.orientation = rotation_matrix[n+1]
+            part.orientation = rotation_matrix[n + 1]
 
 
 def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=False):
@@ -849,45 +850,35 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
 
     """
 
-    def sort_parts_into_hierarchies(circuit_parts):
-        hierarchies = {}
-        for pt in circuit_parts:
-            # make a list of the hierarchies that aren't 'top'
-            h_lst = [x for x in pt.hierarchy.split(".") if "top" not in x]
-            # skip if this is the top parent hierarchy
-            if len(h_lst) == 0:
-                continue
-            # join the list back together, #TODO this logic is redundant with the splitting above
-            h_name = ".".join([str(elem) for elem in h_lst])
-            # check for new top level hierarchy
-            if h_name not in hierarchies:
-                # make new top level hierarchy
-                hierarchies[h_name] = {"parts": [pt], "wires": [], "sch_bb": []}
-            else:
-                hierarchies[h_name]["parts"].append(pt)
-        return hierarchies
-
     # Pre-process parts
-    for pt in self.parts:
+    for part in self.parts:
 
-        pt.orientation = [1, 0, 0, -1]
-        pt.sch_bb = [0, 0, 0, 0]  # Set schematic location to x, y, height, width
+        # Initialize part attributes used for generating schematics.
+        part.orientation = [1, 0, 0, -1]
+        part.sch_bb = [0, 0, 0, 0]  # Set schematic location to x, y, height, width
 
-        for pin in pt:
-            pin.label = getattr(pin, "label", "")
+        # Initialize pin attributes used for generating schematics.
+        for pin in part:
             pin.routed = False
+            pin.label = getattr(
+                pin, "label", ""
+            )  # Assign label if not already labeled.
 
-        # Rotate <3 pin parts that have power nets.  Pins with power pins should face up
-        # Pins with GND pins should face down
-        rotate_power_pins(pt)
+        # Rotate <3 pin parts that have power nets.  Pins with power pins should face up.
+        # Pins with GND pins should face down.
+        rotate_power_pins(part)
+
         # Copy labels from one pin to each connected pin.  This allows the user to only label
-        #   a single pin, then connect it normally, instead of having to label every pin in that net
-        copy_pin_labels(pt)
+        # a single pin, then connect it normally, instead of having to label every pin in that net
+        propagate_pin_labels(part)
+
         # Generate bounding boxes around parts
-        calc_bbox_part(pt)
+        calc_bbox_part(part)
 
     # Dictionary that will hold parts and nets info for each hierarchy
-    circuit_hier = sort_parts_into_hierarchies(self.parts)
+    circuit_hier = defaultdict(lambda: {"parts": [], "wires": [], "sch_bb": []})
+    for part in self.parts:
+        circuit_hier[part.hierarchy]["parts"].append(part)
 
     # 5. For each hierarchy: Move parts with nets drawn to central part
     for h in circuit_hier:
@@ -898,14 +889,15 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
             if len(pin.label) > 0:
                 continue
             # check if the pin has a net
-            if pin.net is not None:
+            if pin.net:
                 # don't move a part based on whether a pin is a power pin
                 if pin.net.netclass == "Power":
                     continue
                 # range through all the pins connected to the net this pin is connected to
                 for p in pin.net.pins:
                     # make sure parts are in the same hierarchy before moving them
-                    if p.part.hierarchy != ("top." + h):
+                    # if p.part.hierarchy != ("top." + h):
+                    if p.part.hierarchy != h:
                         break
                     # don't move the center part
                     if p.ref == centerPart.ref:
@@ -933,7 +925,8 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
                         # range through each pin in the net and look for a part that will need a net drawn to it
                         # then move the part based on the relative pin locations
                         for netPin in pin.net.pins:
-                            if netPin.part.hierarchy != ("top." + h):
+                            # if netPin.part.hierarchy != ("top." + h):
+                            if netPin.part.hierarchy != h:
                                 break
                             if netPin.ref == circuit_hier[h]["parts"][0].ref:
                                 continue
@@ -961,7 +954,6 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
     # 8. Create bounding boxes for hierarchies
     for h in circuit_hier:
         circuit_hier[h]["sch_bb"] = gen_hierarchy_bb(circuit_hier[h])
-
     # 8.1 Adjust the parts to be centered on the hierarchy
     for h in circuit_hier:
         # a. Part code
@@ -969,46 +961,31 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
             pt.sch_bb[0] -= circuit_hier[h]["sch_bb"][0]
             pt.sch_bb[1] -= circuit_hier[h]["sch_bb"][1]
 
-    # 10. Range through each level of hierarchies and place hierarchies under parents
-    # find max hierarchy depth
-    max_hier_depth = 0
-    for h in circuit_hier:
-        split_hier = h.split(".")
-        if len(split_hier) > max_hier_depth:
-            max_hier_depth = len(split_hier)
+    # 10. Place each sublevel undr its parent.
+    max_hier_depth = max([hier.count(".") for hier in circuit_hier])
 
-    for i in range(max_hier_depth):
+    for i in range(2, max_hier_depth + 1):
         mv_dir = "L"
         for h in circuit_hier:
-            split_hier = h.split(".")
-            if len(split_hier) == i:
+            depth = h.count(".")
+            if depth != i:
                 continue
-            if len(split_hier) == i + 1:
-                # found part to place
-                t = h.split(".")
-                # Don't move hierarchy if it's the root parent
-                if len(t) - 1 == 0:
-                    continue
-                parent = ".".join(t[:-1])
-                p_ymin = (
-                    circuit_hier[parent]["sch_bb"][1]
-                    + circuit_hier[parent]["sch_bb"][3]
-                )
-                h_ymin = circuit_hier[h]["sch_bb"][1] - circuit_hier[h]["sch_bb"][3]
-                delta_y = (
-                    h_ymin - p_ymin - 200
-                )  # move another 200, TODO: make logic good enough to take out magic numbers
-                delta_x = (
-                    circuit_hier[h]["sch_bb"][0] - circuit_hier[parent]["sch_bb"][0]
-                )
-                move_subhierarchy(h, circuit_hier, delta_x, delta_y, move_dir=mv_dir)
-                # alternate placement directions, TODO: find better algorithm than switching sides, maybe based on connections
-                if "L" in mv_dir:
-                    mv_dir = "R"
-                else:
-                    mv_dir = "L"
+            parent = ".".join(h.split(".")[:-1])
+            p_ymin = (
+                circuit_hier[parent]["sch_bb"][1] + circuit_hier[parent]["sch_bb"][3]
+            )
+            h_ymin = circuit_hier[h]["sch_bb"][1] - circuit_hier[h]["sch_bb"][3]
+            # move another 200, TODO: make logic good enough to take out magic numbers
+            delta_y = h_ymin - p_ymin - 200
+            delta_x = circuit_hier[h]["sch_bb"][0] - circuit_hier[parent]["sch_bb"][0]
+            move_subhierarchy(h, circuit_hier, delta_x, delta_y, move_dir=mv_dir)
+            # alternate placement directions, TODO: find better algorithm than switching sides, maybe based on connections
+            if "L" in mv_dir:
+                mv_dir = "R"
+            else:
+                mv_dir = "L"
 
-    # 12. Adjust part placement for hierachy movement
+    # 12. Adjust part placement for hierarchy movement
     for h in circuit_hier:
         for pt in circuit_hier[h]["parts"]:
             pt.sch_bb[0] += circuit_hier[h]["sch_bb"][0]
@@ -1038,7 +1015,8 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
     # Calculate the maximum page dimensions needed for each root hierarchy sheet
     hier_pg_dim = {}
     for h in circuit_hier:
-        root_parent = h.split(".")[0]
+        # root_parent = h.split(".")[0]
+        root_parent = ".".join(h.split(".")[0:2])
         xMin = circuit_hier[h]["sch_bb"][0] - circuit_hier[h]["sch_bb"][2]
         xMax = circuit_hier[h]["sch_bb"][0] + circuit_hier[h]["sch_bb"][2]
         yMin = circuit_hier[h]["sch_bb"][1] + circuit_hier[h]["sch_bb"][3]
@@ -1061,7 +1039,7 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
         eeschema_code = []  # List to hold all the code for the hierarchy
 
         # Find starting point for part placement
-        root_parent = h.split(".")[0]
+        root_parent = ".".join(h.split(".")[0:2])
         pg_size = calc_page_size(hier_pg_dim[root_parent])
         sch_start = calc_start_point(pg_size)
 
@@ -1085,11 +1063,13 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
                 t_wire.append("	{} {} {} {}\n".format(t_x1, t_y1, t_x2, t_y2))
                 t_out = "\n" + "".join(t_wire)
                 eeschema_code.append(t_out)
+
         # c. power net stubs
         for pt in circuit_hier[h]["parts"]:
             stub = gen_power_part_eeschema(pt)
             if len(stub) > 0:
                 eeschema_code.append(stub)
+
         # d. labels
         for pt in circuit_hier[h]["parts"]:
             for pin in pt.pins:
@@ -1138,7 +1118,7 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
                         gen_label(t_x, t_y, pin.orientation, pin.label, hier_label=True)
                     )
 
-        # e. hierachy bounding box
+        # e. hierarchy bounding box
         box = []
         xMin = (
             circuit_hier[h]["sch_bb"][0] - circuit_hier[h]["sch_bb"][2] + sch_start[0]
@@ -1160,6 +1140,7 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
             hierName = "".join(subhierarchies[1:])
         else:
             hierName = h
+
         # Make the strings for the box and label
         box.append(
             "Text Notes {} {} 0    100  ~ 20\n{}\n".format(label_x, label_y, hierName)
@@ -1175,7 +1156,7 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
         out = "\n" + "".join(box)
         eeschema_code.append(out)
 
-        root_parent = h.split(".")[0]
+        root_parent = ".".join(h.split(".")[0:2])
         # Append the eeschema code for this hierarchy to the appropriate page
         if root_parent not in hier_pg_eeschema_code:
             # make new top level hierarchy
