@@ -126,7 +126,7 @@ def calc_move_part(pin_m, pin_nm, parts_list):
     dx = pin_m.x + pin_nm.x + pin_nm.part.sch_bb[0] + pin_nm.part.sch_bb[2]
     dy = -pin_m.y + pin_nm.y - pin_nm.part.sch_bb[1]
     p = Part.get(pin_m.part.ref)
-    p.move_part(dx, dy,parts_list)
+    move_part(p, dx, dy,parts_list)
 
 # Generate elkjs code that can create an auto diagram with this website:
 # https://rtsys.informatik.uni-kiel.de/elklive/elkgraph.html
@@ -489,7 +489,7 @@ def gen_net_wire(net, hierarchy):
             nets_output.append(line)
     return nets_output
 
-def calc_bbox_comp(self):
+def calc_bbox_part(self):
     for p in self.pins:
         if self.sch_bb[2] < (abs(p.x)):
             self.sch_bb[2] = abs(p.x)
@@ -581,9 +581,9 @@ def move_part(self, dx, dy, _parts_list):
         # https://stackoverflow.com/questions/20925818/algorithm-to-check-if-two-boxes-overlap
         if (x1min <= x2max) and (x2min <= x1max) and (y1min <= y2max) and (y2min <= y1max):
             if move_dir == 'R':
-                self.move_part(200, 0, _parts_list)
+                move_part(self, 200, 0, _parts_list)
             else:
-                self.move_part(-200, 0, _parts_list)
+                move_part(self, -200, 0, _parts_list)
 
     
 # Generate eeschema code for part from SKiDL part
@@ -763,17 +763,17 @@ def gen_schematic(self, file_=None, _title="Default", sch_size = 'A0', gen_elkjs
         pt.sch_bb=[0,0,0,0] # Set schematic location to x, y, height, width
 
         for pin in pt:
-            pin.label = ""
+            pin.label = getattr(pin, "label", "")
             pin.routed = False
 
         # Rotate <3 pin parts that have power nets.  Pins with power pins should face up
         # Pins with GND pins should face down
-        pt.rotate_power_pins()
+        rotate_power_pins(pt)
         # Copy labels from one pin to each connected pin.  This allows the user to only label
         #   a single pin, then connect it normally, instead of having to label every pin in that net
-        pt.copy_pin_labels()
+        copy_pin_labels(pt)
         # Generate bounding boxes around parts
-        pt.generate_bounding_box()
+        calc_bbox_part(pt)
 
 
     # Dictionary that will hold parts and nets info for each hierarchy
@@ -840,7 +840,7 @@ def gen_schematic(self, file_=None, _title="Default", sch_size = 'A0', gen_elkjs
             if p.ref == circuit_hier[h]['parts'][0].ref:
                 continue
             if p.sch_bb[0] == 0 and p.sch_bb[1] ==0 :
-                p.move_part(offset_x, offset_y, circuit_hier[h]['parts'])
+                move_part(p, offset_x, offset_y, circuit_hier[h]['parts'])
                 offset_x = -offset_x # switch which side we place them every time
 
     # 8. Create bounding boxes for hierarchies
@@ -950,7 +950,7 @@ def gen_schematic(self, file_=None, _title="Default", sch_size = 'A0', gen_elkjs
             t_pt = pt
             t_pt.sch_bb[0] += sch_start[0]
             t_pt.sch_bb[1] += sch_start[1]
-            part_code = t_pt.gen_part_eeschema()
+            part_code = gen_part_eeschema(t_pt)
             eeschema_code.append(part_code)
 
         # b. net wire code

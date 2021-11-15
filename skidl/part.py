@@ -962,26 +962,6 @@ class Part(SkidlBaseObject):
 
         return gen_func(symtx=symtx, net_stubs=net_stubs)
 
-    def generate_bounding_box(self):
-        bbox_func = get_tool_func(self, "calc_bbox_comp")
-        return bbox_func()
-
-    def move_part(self, dx, dy, _parts_list):
-        move_func = get_tool_func(self, "move_part")
-        move_func(dx, dy, _parts_list)
-
-    def gen_part_eeschema(self):
-        gen_part_func = get_tool_func(self, "gen_part_eeschema")
-        return gen_part_func()
-
-    def copy_pin_labels(self):
-        lbl_cpy_func = get_tool_func(self, "copy_pin_labels")
-        lbl_cpy_func()
-
-    def rotate_power_pins(self):
-        rotate_func = get_tool_func(self, "rotate_power_pins")
-        rotate_func()
-
     def erc_desc(self):
         """Create description of part for ERC and other error reporting."""
         return "{p.name}/{p.ref}".format(p=self)
