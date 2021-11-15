@@ -16,6 +16,7 @@ from builtins import range, str
 
 from future import standard_library
 
+from .geometry import Point, BBox
 from ...logger import active_logger
 from ...part import Part
 from ...scriptinfo import *
@@ -732,14 +733,18 @@ def gen_part_eeschema(self):
     return "\n" + "".join(out)
 
 
-def copy_pin_labels(self):
-    # Copy pin labels to all connectings pins
-    #  This allows the user to only define one label and then connect pins
-    for pin in self.pins:
-        if len(pin.label) > 0:
-            if pin.net is not None:
-                for p in pin.net.pins:
-                    p.label = pin.label
+def copy_pin_labels(part):
+    """Copy labels from part pins to all connected pins.
+
+    Args:
+        part (Part): The Part object whose pin labels will be propagated.
+
+    This allows the user to only define one label and then connect pins.
+    """
+    for src_pin in part:
+        if len(src_pin.label) and src_pin.net:
+            for dst_pin in src_pin.net.pins:
+                dst_pin.label = src_pin.label
 
 
 def rotate_power_pins(self):
