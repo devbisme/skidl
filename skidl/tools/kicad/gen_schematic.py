@@ -747,77 +747,83 @@ def copy_pin_labels(part):
                 dst_pin.label = src_pin.label
 
 
-def rotate_power_pins(self):
-    # Rotate part based on direction of power pins
-    # This function is to make sure that voltage sources face up and gnd pins
-    #    face down
-    # Only rotate parts with 3 pins or less
-    if len(self.pins) <= 3:
-        for p in self.pins:
+def rotate_power_pins(part):
+    """Rotate a part based on the direction of its power pins.
+
+    Args:
+        part (Part): The part to be rotated.
+    
+    This function is to make sure that voltage sources face up and gnd pins
+    face down. Only rotate parts with 3 pins or less.
+    """
+
+    if len(part) <= 3:
+        for pin in part:
             rotate = 0
-            if hasattr(p.net, "name"):
-                if "gnd" in p.net.name.lower():
-                    if p.orientation == "U":
-                        break  # pin is facing down, break
-                    if p.orientation == "D":
-                        rotate = 180
-                    if p.orientation == "L":
-                        rotate = 90
-                    if p.orientation == "R":
-                        rotate = 270
-                elif "+" in p.nets[0].name.lower():
-                    if p.orientation == "D":
-                        break  # pin is facing down, break
-                    if p.orientation == "U":
-                        rotate = 180
-                    if p.orientation == "L":
-                        rotate = 90
-                    if p.orientation == "R":
-                        rotate = 270
-                if rotate != 0:
-                    for i in range(int(rotate / 90)):
-                        rotate_90_cw(self)
+            net_name = getattr(pin.net, "name", "").lower()
+            if "gnd" in net_name:
+                if pin.orientation == "U":
+                    break  # pin is already facing down, break
+                if pin.orientation == "D":
+                    rotate = 180
+                if pin.orientation == "L":
+                    rotate = 90
+                if pin.orientation == "R":
+                    rotate = 270
+            elif "+" in net_name:
+                if pin.orientation == "D":
+                    break  # pin is already facing up, break
+                if pin.orientation == "U":
+                    rotate = 180
+                if pin.orientation == "L":
+                    rotate = 90
+                if pin.orientation == "R":
+                    rotate = 270
+            if rotate != 0:
+                for i in range(int(rotate / 90)):
+                    rotate_90_cw(part)
 
 
-def rotate_90_cw(self):
-    # Rotating the part CW 90 switches the x/y axis and makes the new height negative
-    # https://stackoverflow.com/questions/2285936/easiest-way-to-rotate-a-rectangle
+def rotate_90_cw(part):
+    """Rotate a part 90-degrees clockwise.
+
+    Args:
+        part (Part): The part to be rotated.
+
+    Rotating the part CW 90 switches the x/y axis and makes the new height negative.
+    https://stackoverflow.com/questions/2285936/easiest-way-to-rotate-a-rectangle
+    """
+
     rotation_matrix = [
-        # 0 deg (standard orientation, ie x: -700 y: 1200 >> -700 left, -1200 down
-        [1, 0, 0, -1],
+        # Assume starting with x: -700 y: 1200
+        [1, 0, 0, -1],  # 0 deg x: 1200 y:-700
         [0, 1, 1, 0],  # 90 deg x: 1200  y: -700
-        [-1, 0, 0, 1],  # 180 deg x:  700  y: 1600
-        [0, -1, -1, 0],  # 270 deg x:-1600  y:  700
+        [-1, 0, 0, 1],  # 180 deg x:  700  y: 1200
+        [0, -1, -1, 0],  # 270 deg x:-1200  y:  700
+        [1, 0, 0, -1],  # Repeat first vector to simplify loop below.
     ]
+
     # switch the height and width
-    new_height = self.sch_bb[2]
-    new_width = self.sch_bb[3]
-    self.sch_bb[2] = new_width
-    self.sch_bb[3] = new_height
+    part.sch_bb[2], part.sch_bb[3] = part.sch_bb[3], part.sch_bb[2]
 
     # range through the pins and rotate them
-    for p in self.pins:
-        new_y = -p.x
-        new_x = p.y
-        p.x = new_x
-        p.y = new_y
-        if p.orientation == "D":
-            p.orientation = "L"
-        elif p.orientation == "U":
-            p.orientation = "R"
-        elif p.orientation == "R":
-            p.orientation = "D"
-        elif p.orientation == "L":
-            p.orientation = "U"
+    for pin in part:
+        pin.x, pin.y = pin.y, -pin.x
+        if pin.orientation == "D":
+            pin.orientation = "L"
+        elif pin.orientation == "U":
+            pin.orientation = "R"
+        elif pin.orientation == "R":
+            pin.orientation = "D"
+        elif pin.orientation == "L":
+            pin.orientation = "U"
 
+    # Find the part orientation and replace it with the next orientation in the array.
+    # (The first orientation in the array is repeated at the end of the array to
+    # remove the rollover logic.)
     for n in range(len(rotation_matrix) - 1):
-        if rotation_matrix[n] == self.orientation:
-            if n == rotation_matrix[-1]:
-                self.orientation = rotation_matrix[0]
-                break
-            else:
-                self.orientation = rotation_matrix[n + 1]
-                break
+        if rotation_matrix[n] == part.orientation:
+            part.orientation = rotation_matrix[n+1]
 
 
 def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=False):
