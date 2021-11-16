@@ -825,6 +825,7 @@ def rotate_90_cw(part):
     for n in range(len(rotation_matrix) - 1):
         if rotation_matrix[n] == part.orientation:
             part.orientation = rotation_matrix[n + 1]
+            break
 
 
 def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=False):
