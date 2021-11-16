@@ -26,6 +26,19 @@ from ...utilities import *
 
 standard_library.install_aliases()
 
+
+class Node(dict):
+    """Data structure for holding information about a node in the circuit hierarchy."""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self["parts"] = []
+        self["wires"] = []
+        self["sch_bb"] = []
+        self.parent = None
+        self.children = []
+
+
 """
 Generate a KiCad EESCHEMA schematic from a Circuit object.
 """
@@ -876,10 +889,21 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
         # Generate bounding boxes around parts
         calc_bbox_part(part)
 
-    # Dictionary that will hold parts and nets info for each hierarchy
-    circuit_hier = defaultdict(lambda: {"parts": [], "wires": [], "sch_bb": []})
+    # Make dict that holds part, net, and bbox info for each node in the hierarchy.
+    circuit_hier = defaultdict(lambda: Node())
     for part in self.parts:
         circuit_hier[part.hierarchy]["parts"].append(part)
+
+    # Fill-in the parent/child relationship for all the nodes in the hierarchy.
+    for node_key, node in circuit_hier.items():
+        node.node_key = node_key
+        parent_key = ".".join(node_key.split(".")[0:-1])
+        if parent_key not in circuit_hier:
+            parent = Node()
+        else:
+            parent = circuit_hier[parent_key]
+            parent.children.append(node)
+        node.parent = parent
 
     # For each node in hierarchy: Move parts connected to central part with unlabeled nets.
     for node in circuit_hier.values():
@@ -1008,30 +1032,26 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
         dir, next_dir = "L", "R"  # Direction of node movement.
 
         # Search for nodes at the current depth.
-        for h, node in circuit_hier.items():
+        for node in circuit_hier.values():
 
             # Skip nodes not at the current depth.
-            if h.count(".") != depth:
+            if node.node_key.count(".") != depth:
                 continue
 
-            # Find node parent by lopping off last section of hierarchy label.
-            parent_label = ".".join(h.split(".")[:-1])
-            parent = circuit_hier[parent_label]
-
             # Get lower Y coord of parent bounding box.
-            parent_ylow = parent["sch_bb"][1] + parent["sch_bb"][3]
+            parent_ylow = node.parent["sch_bb"][1] + node.parent["sch_bb"][3]
 
             # Get upper Y coord of node bounding box.
             node_yup = node["sch_bb"][1] - node["sch_bb"][3]
-            
+
             # Move node so its upper Y is just below parents lower Y.
-            delta_y = parent_ylow - node_yup + 200 # TODO: magic number
+            delta_y = parent_ylow - node_yup + 200  # TODO: magic number
 
             # Move node so its X coord lines up with parent X coord.
-            delta_x = parent["sch_bb"][0] - node["sch_bb"][0]
+            delta_x = node.parent["sch_bb"][0] - node["sch_bb"][0]
 
             # Move node below parent and then to the side to avoid collisions with other nodes.
-            move_subhierarchy(h, circuit_hier, delta_x, delta_y, move_dir=dir)
+            move_subhierarchy(node.node_key, circuit_hier, delta_x, delta_y, move_dir=dir)
 
             # Alternate placement directions for the next node placement.
             # TODO: find better algorithm than switching sides, maybe based on connections
@@ -1074,7 +1094,7 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
                     if net_pin.part.hierarchy != part_pin.part.hierarchy:
                         internal_net = False
                         break
-                
+
                 # Add wires for this net if the pins are all inside the node.
                 if internal_net:
                     node["wires"].extend(gen_net_wire(net, node))
@@ -1082,20 +1102,20 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
     # At this point the hierarchy should be completely generated and ready for generating code.
 
     # Calculate the maximum page dimensions needed for each root hierarchy sheet.
-    hier_pg_dim = {}
+    page_sizes = {}
     for h, node in circuit_hier.items():
         root_parent = ".".join(h.split(".")[0:2])
         x_min = node["sch_bb"][0] - node["sch_bb"][2]
         x_max = node["sch_bb"][0] + node["sch_bb"][2]
         y_min = node["sch_bb"][1] + node["sch_bb"][3]
         y_max = node["sch_bb"][1] - node["sch_bb"][3]
-        if root_parent not in hier_pg_dim:
-            hier_pg_dim[root_parent] = [x_min, x_max, y_min, y_max]
+        if root_parent not in page_sizes:
+            page_sizes[root_parent] = [x_min, x_max, y_min, y_max]
         else:
-            hier_pg_dim[root_parent][0] = min(x_min, hier_pg_dim[root_parent][0])
-            hier_pg_dim[root_parent][1] = max(x_max, hier_pg_dim[root_parent][1])
-            hier_pg_dim[root_parent][2] = min(y_min, hier_pg_dim[root_parent][2])
-            hier_pg_dim[root_parent][3] = max(y_max, hier_pg_dim[root_parent][3])
+            page_sizes[root_parent][0] = min(x_min, page_sizes[root_parent][0])
+            page_sizes[root_parent][1] = max(x_max, page_sizes[root_parent][1])
+            page_sizes[root_parent][2] = min(y_min, page_sizes[root_parent][2])
+            page_sizes[root_parent][3] = max(y_max, page_sizes[root_parent][3])
 
     # 14. Generate eeschema code for each hierarchy
     hier_pg_eeschema_code = {}
@@ -1104,7 +1124,7 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
 
         # Find starting point for part placement
         root_parent = ".".join(h.split(".")[0:2])
-        pg_size = calc_page_size(hier_pg_dim[root_parent])
+        pg_size = calc_page_size(page_sizes[root_parent])
         sch_start = calc_start_point(pg_size)
 
         # a. Generate part code
@@ -1238,7 +1258,7 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
 
         # Generate schematic pages for lower-levels in the hierarchy.
         for hp in hier_pg_eeschema_code:
-            pg_size = calc_page_size(hier_pg_dim[hp])
+            pg_size = calc_page_size(page_sizes[hp])
             u = file_.split("/")[:-1]
             dir = "/".join(u)
             file_name = dir + "/" + hp + ".sch"
