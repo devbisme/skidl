@@ -1043,24 +1043,41 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
             part.sch_bb[0] += node["sch_bb"][0]
             part.sch_bb[1] += node["sch_bb"][1]
 
-    # Collect the nets for each node.
-    for h in circuit_hier:
-        for pt in circuit_hier[h]["parts"]:
-            for pin in pt.pins:
-                if len(pin.label) > 0:
+    # Collect the internal nets for each node.
+    for node in circuit_hier.values():
+        for part in node["parts"]:
+            for part_pin in part:
+
+                # A label means net is stubbed so there won't be any explicit wires.
+                if len(part_pin.label) > 0:
                     continue
-                if pin.net is not None:
-                    if pin.net.netclass == "Power":
+
+                # No explicit wires if the pin is not connected to anything.
+                if not part_pin.is_connected():
+                    continue
+
+                net = part_pin.net
+
+                # No explicit wires for power nets.
+                if net.netclass == "Power":
+                    continue
+
+                # Determine if all the pins on this net reside in the node.
+                internal_net = True
+                for net_pin in net.pins:
+
+                    # Don't consider stubs.
+                    if len(net_pin.label) > 0:
                         continue
-                    sameHier = True
-                    for p in pin.net.pins:
-                        if len(p.label) > 0:
-                            continue
-                        if p.part.hierarchy != pin.part.hierarchy:
-                            sameHier = False
-                    if sameHier:
-                        wire_lst = gen_net_wire(pin.net, circuit_hier[h])
-                        circuit_hier[h]["wires"].extend(wire_lst)
+
+                    # If a pin is outside this node, then ignore the entire net.
+                    if net_pin.part.hierarchy != part_pin.part.hierarchy:
+                        internal_net = False
+                        break
+                
+                # Add wires for this net if the pins are all inside the node.
+                if internal_net:
+                    node["wires"].extend(gen_net_wire(net, node))
 
     # At this point the hierarchy should be completely generated and ready for generating code
 
