@@ -75,7 +75,7 @@ def move_subhierarchy(hm, hierarchy_list, dx, dy, move_dir="L"):
     # Move hierarchy
 
     hierarchy_list[hm]["sch_bb"][0] += dx
-    hierarchy_list[hm]["sch_bb"][1] -= dy
+    hierarchy_list[hm]["sch_bb"][1] += dy
 
     hm_parent = ".".join(hm.split(".")[0:2])
 
@@ -993,7 +993,7 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
     for node in circuit_hier.values():
         node["sch_bb"] = gen_hierarchy_bb(node)
 
-    # Offset the (x,y) of parts based on the (x,y) of their encapsulating node.
+    # Make the (x,y) of parts relative to the (x,y) of their encapsulating node.
     for node in circuit_hier.values():
         for part in node["parts"]:
             part.sch_bb[0] -= node["sch_bb"][0]
@@ -1024,24 +1024,26 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
             # Get upper Y coord of node bounding box.
             node_yup = node["sch_bb"][1] - node["sch_bb"][3]
             
-            # move another 200.
-            delta_y = node_yup - parent_ylow - 200 # TODO: magic number
+            # Move node so its upper Y is just below parents lower Y.
+            delta_y = parent_ylow - node_yup + 200 # TODO: magic number
 
-            delta_x = node["sch_bb"][0] - parent["sch_bb"][0]
+            # Move node so its X coord lines up with parent X coord.
+            delta_x = parent["sch_bb"][0] - node["sch_bb"][0]
 
+            # Move node below parent and then to the side to avoid collisions with other nodes.
             move_subhierarchy(h, circuit_hier, delta_x, delta_y, move_dir=dir)
 
-            # Alternate placement directions.
+            # Alternate placement directions for the next node placement.
             # TODO: find better algorithm than switching sides, maybe based on connections
             dir, next_dir = next_dir, dir
 
-    # 12. Adjust part placement for hierarchy movement
-    for h in circuit_hier:
-        for pt in circuit_hier[h]["parts"]:
-            pt.sch_bb[0] += circuit_hier[h]["sch_bb"][0]
-            pt.sch_bb[1] += circuit_hier[h]["sch_bb"][1]
+    # Adjust placement of parts based on the movement of their encapsulating node.
+    for node in circuit_hier.values():
+        for part in node["parts"]:
+            part.sch_bb[0] += node["sch_bb"][0]
+            part.sch_bb[1] += node["sch_bb"][1]
 
-    # 13. Calculate nets for each hierarchy
+    # Collect the nets for each node.
     for h in circuit_hier:
         for pt in circuit_hier[h]["parts"]:
             for pin in pt.pins:
