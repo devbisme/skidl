@@ -881,7 +881,7 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
     for part in self.parts:
         circuit_hier[part.hierarchy]["parts"].append(part)
 
-    # 5. For each node in hierarchy: Move parts connected to central part with unlabeled nets.
+    # For each node in hierarchy: Move parts connected to central part with unlabeled nets.
     for node in circuit_hier.values():
 
         # Center part of hierarchy that everything else is placed around.
@@ -919,6 +919,7 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
     # 6. For each node in hierarchy: Move parts connected to parts moved in step previous step.
     for node in circuit_hier.values():
 
+        # Get the center part for this node from the last phase.
         center_part = node["parts"][0]
 
         for mv_part in node["parts"]:
@@ -964,21 +965,28 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
                     # OK, finally move the part connected to this pin.
                     calc_move_part(move_pin, anchor_pin, node["parts"])
 
-    # 7. For each hierarchy: Move remaining parts
-    #    Parts are moved down and away, alternating placing left and right
-    for h in circuit_hier:
-        offset_x = 1
-        offset_y = -(
-            circuit_hier[h]["parts"][0].sch_bb[1]
-            + circuit_hier[h]["parts"][0].sch_bb[3]
-            + 500
-        )
-        for p in circuit_hier[h]["parts"]:
-            if p.ref == circuit_hier[h]["parts"][0].ref:
+    # Move any remaining parts in each node down & alternating left/right.
+    for node in circuit_hier.values():
+
+        # Set up part movement increments.
+        offset_x = 1  # Use fine movements to get close packing on X dim.
+        offset_y = -(node["parts"][0].sch_bb[1] + node["parts"][0].sch_bb[3] + 500)
+
+        # Get center part for this node.
+        center_part = node["parts"][0]
+
+        for part in node["parts"]:
+
+            # Skip center part.
+            if part is center_part:
                 continue
-            if p.sch_bb[0] == 0 and p.sch_bb[1] == 0:
-                move_part(p, offset_x, offset_y, circuit_hier[h]["parts"])
-                offset_x = -offset_x  # switch which side we place them every time
+
+            # Move any part that hasn't already been moved.
+            if part.sch_bb[0] == 0 and part.sch_bb[1] == 0:
+                move_part(part, offset_x, offset_y, node["parts"])
+
+                # Switch movement direction for the next unmoved part.
+                offset_x = -offset_x
 
     # 8. Create bounding boxes for hierarchies
     for h in circuit_hier:
