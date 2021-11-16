@@ -1079,32 +1079,27 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
                 if internal_net:
                     node["wires"].extend(gen_net_wire(net, node))
 
-    # At this point the hierarchy should be completely generated and ready for generating code
+    # At this point the hierarchy should be completely generated and ready for generating code.
 
-    # Calculate the maximum page dimensions needed for each root hierarchy sheet
+    # Calculate the maximum page dimensions needed for each root hierarchy sheet.
     hier_pg_dim = {}
-    for h in circuit_hier:
-        # root_parent = h.split(".")[0]
+    for h, node in circuit_hier.items():
         root_parent = ".".join(h.split(".")[0:2])
-        xMin = circuit_hier[h]["sch_bb"][0] - circuit_hier[h]["sch_bb"][2]
-        xMax = circuit_hier[h]["sch_bb"][0] + circuit_hier[h]["sch_bb"][2]
-        yMin = circuit_hier[h]["sch_bb"][1] + circuit_hier[h]["sch_bb"][3]
-        yMax = circuit_hier[h]["sch_bb"][1] - circuit_hier[h]["sch_bb"][3]
+        x_min = node["sch_bb"][0] - node["sch_bb"][2]
+        x_max = node["sch_bb"][0] + node["sch_bb"][2]
+        y_min = node["sch_bb"][1] + node["sch_bb"][3]
+        y_max = node["sch_bb"][1] - node["sch_bb"][3]
         if root_parent not in hier_pg_dim:
-            hier_pg_dim[root_parent] = [xMin, xMax, yMin, yMax]
+            hier_pg_dim[root_parent] = [x_min, x_max, y_min, y_max]
         else:
-            if xMin < hier_pg_dim[root_parent][0]:
-                hier_pg_dim[root_parent][0] = xMin
-            if xMax > hier_pg_dim[root_parent][1]:
-                hier_pg_dim[root_parent][1] = xMax
-            if yMin < hier_pg_dim[root_parent][2]:
-                hier_pg_dim[root_parent][2] = yMin
-            if yMax > hier_pg_dim[root_parent][3]:
-                hier_pg_dim[root_parent][3] = yMax
+            hier_pg_dim[root_parent][0] = min(x_min, hier_pg_dim[root_parent][0])
+            hier_pg_dim[root_parent][1] = max(x_max, hier_pg_dim[root_parent][1])
+            hier_pg_dim[root_parent][2] = min(y_min, hier_pg_dim[root_parent][2])
+            hier_pg_dim[root_parent][3] = max(y_max, hier_pg_dim[root_parent][3])
 
     # 14. Generate eeschema code for each hierarchy
     hier_pg_eeschema_code = {}
-    for h in circuit_hier:
+    for h, node in circuit_hier.items():
         eeschema_code = []  # List to hold all the code for the hierarchy
 
         # Find starting point for part placement
