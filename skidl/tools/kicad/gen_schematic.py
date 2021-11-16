@@ -856,7 +856,7 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
 
         # Initialize part attributes used for generating schematics.
         part.orientation = [1, 0, 0, -1]
-        part.sch_bb = [0, 0, 0, 0]  # Set schematic location to x, y, height, width
+        part.sch_bb = [0, 0, 0, 0]  # Set schematic location to x, y, width, height.
 
         # Initialize pin attributes used for generating schematics.
         for pin in part:
@@ -916,7 +916,7 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
                 # OK, finally move the part connected to this pin.
                 calc_move_part(move_pin, anchor_pin, node["parts"])
 
-    # 6. For each node in hierarchy: Move parts connected to parts moved in step previous step.
+    # For each node in hierarchy: Move parts connected to parts moved in step previous step.
     for node in circuit_hier.values():
 
         # Get the center part for this node from the last phase.
@@ -970,6 +970,7 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
 
         # Set up part movement increments.
         offset_x = 1  # Use fine movements to get close packing on X dim.
+        # TODO: magic number.
         offset_y = -(node["parts"][0].sch_bb[1] + node["parts"][0].sch_bb[3] + 500)
 
         # Get center part for this node.
@@ -988,39 +989,51 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
                 # Switch movement direction for the next unmoved part.
                 offset_x = -offset_x
 
-    # 8. Create bounding boxes for hierarchies
-    for h in circuit_hier:
-        circuit_hier[h]["sch_bb"] = gen_hierarchy_bb(circuit_hier[h])
-    # 8.1 Adjust the parts to be centered on the hierarchy
-    for h in circuit_hier:
-        # a. Part code
-        for pt in circuit_hier[h]["parts"]:
-            pt.sch_bb[0] -= circuit_hier[h]["sch_bb"][0]
-            pt.sch_bb[1] -= circuit_hier[h]["sch_bb"][1]
+    # Create bounding boxes for each node of the hierarchy.
+    for node in circuit_hier.values():
+        node["sch_bb"] = gen_hierarchy_bb(node)
 
-    # 10. Place each sublevel undr its parent.
-    max_hier_depth = max([hier.count(".") for hier in circuit_hier])
+    # Offset the (x,y) of parts based on the (x,y) of their encapsulating node.
+    for node in circuit_hier.values():
+        for part in node["parts"]:
+            part.sch_bb[0] -= node["sch_bb"][0]
+            part.sch_bb[1] -= node["sch_bb"][1]
 
-    for i in range(2, max_hier_depth + 1):
-        mv_dir = "L"
-        for h in circuit_hier:
-            depth = h.count(".")
-            if depth != i:
+    # Find maximum depth of node hierarchy.
+    max_node_depth = max([h.count(".") for h in circuit_hier])
+
+    # Move each node of the hierarchy underneath its parent node and left/right, depth-wise.
+    for depth in range(2, max_node_depth + 1):
+
+        dir, next_dir = "L", "R"  # Direction of node movement.
+
+        # Search for nodes at the current depth.
+        for h, node in circuit_hier.items():
+
+            # Skip nodes not at the current depth.
+            if h.count(".") != depth:
                 continue
-            parent = ".".join(h.split(".")[:-1])
-            p_ymin = (
-                circuit_hier[parent]["sch_bb"][1] + circuit_hier[parent]["sch_bb"][3]
-            )
-            h_ymin = circuit_hier[h]["sch_bb"][1] - circuit_hier[h]["sch_bb"][3]
-            # move another 200, TODO: make logic good enough to take out magic numbers
-            delta_y = h_ymin - p_ymin - 200
-            delta_x = circuit_hier[h]["sch_bb"][0] - circuit_hier[parent]["sch_bb"][0]
-            move_subhierarchy(h, circuit_hier, delta_x, delta_y, move_dir=mv_dir)
-            # alternate placement directions, TODO: find better algorithm than switching sides, maybe based on connections
-            if "L" in mv_dir:
-                mv_dir = "R"
-            else:
-                mv_dir = "L"
+
+            # Find node parent by lopping off last section of hierarchy label.
+            parent_label = ".".join(h.split(".")[:-1])
+            parent = circuit_hier[parent_label]
+
+            # Get lower Y coord of parent bounding box.
+            parent_ylow = parent["sch_bb"][1] + parent["sch_bb"][3]
+
+            # Get upper Y coord of node bounding box.
+            node_yup = node["sch_bb"][1] - node["sch_bb"][3]
+            
+            # move another 200.
+            delta_y = node_yup - parent_ylow - 200 # TODO: magic number
+
+            delta_x = node["sch_bb"][0] - parent["sch_bb"][0]
+
+            move_subhierarchy(h, circuit_hier, delta_x, delta_y, move_dir=dir)
+
+            # Alternate placement directions.
+            # TODO: find better algorithm than switching sides, maybe based on connections
+            dir, next_dir = next_dir, dir
 
     # 12. Adjust part placement for hierarchy movement
     for h in circuit_hier:
