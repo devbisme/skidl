@@ -14,6 +14,7 @@ import re
 import time
 from builtins import range, str
 from collections import defaultdict, OrderedDict
+import os.path
 
 from future import standard_library
 
@@ -752,20 +753,7 @@ def gen_node_bbox_eeschema(node, offset):
     return "\n" + "".join(box)
 
 
-def gen_hier_schematic(name, x=0, y=0, year=2021, month=8, day=15):
-    time_hex = hex(int(time.time()))[2:]
-    t = []
-    t.append("\n$Sheet\n")
-    t.append("S {} {} {} {}\n".format(x, y, 500, 1000))  # upper left x/y, width, height
-    t.append("U {}\n".format(time_hex))
-    t.append('F0 "{}" 50\n'.format(name))
-    t.append('F1 "{}.sch" 50\n'.format(name))
-    t.append("$EndSheet\n")
-    out = "".join(t)
-    return out
-
-
-def gen_config_header(
+def gen_header_eeschema(
     cur_sheet_num=1,
     total_sheet_num=1,
     title="Default",
@@ -802,7 +790,19 @@ def gen_config_header(
     header.append('Comment3 ""\n')
     header.append('Comment4 ""\n')
     header.append("$EndDescr\n")
-    return "" + "".join(header)
+    return "".join(header)
+
+
+def gen_hier_schematic(name, x=0, y=0, year=2021, month=8, day=15):
+    time_hex = hex(int(time.time()))[2:]
+    t = []
+    t.append("\n$Sheet\n")
+    t.append("S {} {} {} {}\n".format(x, y, 500, 1000))  # upper left x/y, width, height
+    t.append("U {}\n".format(time_hex))
+    t.append('F0 "{}" 50\n'.format(name))
+    t.append('F1 "{}.sch" 50\n'.format(name))
+    t.append("$EndSheet\n")
+    return "".join(t)
 
 
 def propagate_pin_labels(part):
@@ -1215,46 +1215,42 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
 
         # Add generated EESCHEMA code to the root hierarchical page for this node.
         root_parent = ".".join(node.node_key.split(".")[0:2])
+        # TODO: Collect the header, code, and footer intot he dict.
         hier_pg_eeschema_code[root_parent].append("\n".join(eeschema_code))
 
-    # 15. Generate elkjs code
-    if gen_elkjs:
-        gen_elkjs_code(self.parts, self.nets)
+    # Generate elkjs code. (Not used.)
+    # if gen_elkjs:
+    #     gen_elkjs_code(self.parts, self.nets)
 
-    # 16. Create schematic file
+    # Create schematic files.
     if not self.no_files:
 
-        # Generate schematic pages for lower-levels in the hierarchy.
-        for hp in hier_pg_eeschema_code:
-            A_size = calc_page_size(page_sizes[hp])
-            u = file_.split("/")[:-1]
-            dir = "/".join(u)
-            file_name = dir + "/" + hp + ".sch"
+        # Generate schematic files for lower-levels in the hierarchy.
+        for root_parent in hier_pg_eeschema_code:
+            A_size = calc_page_size(page_sizes[root_parent])
+            dir = os.path.dirname(file_)
+            file_name = os.path.join(dir, root_parent + ".sch")
             with open(file_name, "w") as f:
-                f.truncate(0)  # Clear the file
-                new_sch_file = [
-                    gen_config_header(cur_sheet_num=1, size=A_size, title=_title),
-                    hier_pg_eeschema_code[hp],
+                file_code = "".join((
+                    gen_header_eeschema(cur_sheet_num=1, size=A_size, title=_title),
+                    "".join(hier_pg_eeschema_code[root_parent]),
                     "$EndSCHEMATC",
-                ]
-                for i in new_sch_file:
-                    print("" + "".join(i), file=f)
+                ))
+                print(file_code, file=f)
 
-        # Generate root schematic with hierarchical schematics
+        # Generate root schematic with hierarchical schematics.
         hier_sch = []
         root_start = calc_start_point("A4")
-        root_start.x = 1000
-        for hp in hier_pg_eeschema_code:
-            t = gen_hier_schematic(hp, root_start.x, root_start.y)
+        root_start.x = 1000  # TODO: magic number.
+        for root_parent in hier_pg_eeschema_code:
+            t = gen_hier_schematic(root_parent, root_start.x, root_start.y)
             hier_sch.append(t)
-            root_start.x += 1000
+            root_start.x += 1000  # TODO: magic number.
 
         with open(file_, "w") as f:
-            f.truncate(0)  # Clear the file
-            new_sch_file = [
-                gen_config_header(cur_sheet_num=1, size="A4", title=_title),
-                hier_sch,
+            file_code = "".join((
+                gen_header_eeschema(cur_sheet_num=1, size="A4", title=_title),
+                "".join(hier_sch),
                 "$EndSCHEMATC",
-            ]
-            for i in new_sch_file:
-                print("" + "".join(i), file=f)
+            ))
+            print(file_code, file=f)
