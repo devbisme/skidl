@@ -73,15 +73,20 @@ class BBox:
             else:
                 raise NotImplementedError
 
-    @property
-    def area(self):
-        """Return area of bounding box."""
-        return self.w * self.h
-
     def round(self):
         """Round the BBox min, max points."""
         self.min.round()
         self.max.round()
+
+    def move(self, pt):
+        """Move the corner points of a bounding box."""
+        self.min += pt
+        self.max += pt
+
+    @property
+    def area(self):
+        """Return area of bounding box."""
+        return self.w * self.h
 
     @property
     def w(self):
@@ -92,6 +97,31 @@ class BBox:
     def h(self):
         """Return the bounding box height."""
         return abs(self.max.y - self.min.y)
+
+    @property
+    def ctr(self):
+        """Return center point of bounding box."""
+        return self.min + (Point(self.w, 0) + Point(0, self.h)) / 2
+
+    @property
+    def ll(self):
+        """Return lower-left point of bounding box."""
+        return Point(self.min.x, self.min.y)
+
+    @property
+    def lr(self):
+        """Return lower-right point of bounding box."""
+        return Point(self.max.x, self.min.y)
+
+    @property
+    def ul(self):
+        """Return upper-left point of bounding box."""
+        return Point(self.min.x, self.max.y)
+
+    @property
+    def ur(self):
+        """Return upper-right point of bounding box."""
+        return Point(self.max.x, self.max.y)
 
     def __repr__(self):
         return "{self.__class__}({self.min}, {self.max})".format(self=self)

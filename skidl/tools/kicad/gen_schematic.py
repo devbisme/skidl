@@ -718,6 +718,39 @@ def gen_pin_label_eeschema(pin, offset):
         label_type, x, y, orientation, pin.label
     )
 
+def gen_node_bbox_eeschema(node, offset):
+    hier_levels = node.node_key.split(".")
+    if len(hier_levels) > 1:
+        level_name = "".join(hier_levels[1:])
+    else:
+        level_name = node.node_key
+
+    x1 = node["sch_bb"][0] - node["sch_bb"][2]
+    y1 = node["sch_bb"][1] + node["sch_bb"][3]
+    x2 = node["sch_bb"][0] + node["sch_bb"][2]
+    y2 = node["sch_bb"][1] - node["sch_bb"][3]
+    bbox = BBox(Point(x1, y1), Point(x2, y2))
+    bbox.move(offset)
+
+    label_pt = bbox.ll
+
+    box = []
+
+    box.append(
+        "Text Notes {} {} 0    100  ~ 20\n{}\n".format(label_pt.x, label_pt.y, level_name)
+    )
+
+    box.append("Wire Notes Line\n")
+    box.append("	{} {} {} {}\n".format(bbox.ll.x, bbox.ll.y, bbox.lr.x, bbox.lr.y))
+    box.append("Wire Notes Line\n")
+    box.append("	{} {} {} {}\n".format(bbox.lr.x, bbox.lr.y, bbox.ur.x, bbox.ur.y))
+    box.append("Wire Notes Line\n")
+    box.append("	{} {} {} {}\n".format(bbox.ur.x, bbox.ur.y, bbox.ul.x, bbox.ul.y))
+    box.append("Wire Notes Line\n")
+    box.append("	{} {} {} {}\n".format(bbox.ul.x, bbox.ul.y, bbox.ll.x, bbox.ll.y))
+
+    return "\n" + "".join(box)
+
 
 def gen_hier_schematic(name, x=0, y=0, year=2021, month=8, day=15):
     time_hex = hex(int(time.time()))[2:]
@@ -1142,7 +1175,7 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
         page_sizes[root_parent].add(node_bbox)
 
     # Generate eeschema code for each node in the circuit hierarchy.
-    hier_pg_eeschema_code = {}
+    hier_pg_eeschema_code = defaultdict(lambda:[])
     for node in circuit_hier.values():
 
         # List to hold all the code for the hierarchy
@@ -1176,44 +1209,13 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
                 pin_label_code = gen_pin_label_eeschema(pin, offset=sch_start)
                 eeschema_code.append(pin_label_code)
 
-        # e. hierarchy bounding box
-        xMin = node["sch_bb"][0] - node["sch_bb"][2] + sch_start.x
-        xMax = node["sch_bb"][0] + node["sch_bb"][2] + sch_start.x
-        yMin = node["sch_bb"][1] + node["sch_bb"][3] + sch_start.y
-        yMax = node["sch_bb"][1] - node["sch_bb"][3] + sch_start.y
+        # Generate node bounding box.
+        bbox_code = gen_node_bbox_eeschema(node, offset=sch_start)
+        eeschema_code.append(bbox_code)
 
-        label_x = xMin
-        label_y = yMax
-        subhierarchies = node.node_key.split(".")
-        if len(subhierarchies) > 1:
-            hierName = "".join(subhierarchies[1:])
-        else:
-            hierName = node.node_key
-
-        # Make the strings for the box and label
-        box = []
-        box.append(
-            "Text Notes {} {} 0    100  ~ 20\n{}\n".format(label_x, label_y, hierName)
-        )
-        box.append("Wire Notes Line\n")
-        box.append("	{} {} {} {}\n".format(xMin, yMax, xMin, yMin))  # left
-        box.append("Wire Notes Line\n")
-        box.append("	{} {} {} {}\n".format(xMin, yMin, xMax, yMin))  # bottom
-        box.append("Wire Notes Line\n")
-        box.append("	{} {} {} {}\n".format(xMax, yMin, xMax, yMax))  # right
-        box.append("Wire Notes Line\n")
-        box.append("	{} {} {} {}\n".format(xMax, yMax, xMin, yMax))  # top
-        out = "\n" + "".join(box)
-        eeschema_code.append(out)
-
+        # Add generated EESCHEMA code to the root hierarchical page for this node.
         root_parent = ".".join(node.node_key.split(".")[0:2])
-        # Append the eeschema code for this hierarchy to the appropriate page
-        if root_parent not in hier_pg_eeschema_code:
-            # make new top level hierarchy
-            hier_pg_eeschema_code[root_parent] = ["\n".join(eeschema_code)]
-
-        else:
-            hier_pg_eeschema_code[root_parent].append("\n".join(eeschema_code))
+        hier_pg_eeschema_code[root_parent].append("\n".join(eeschema_code))
 
     # 15. Generate elkjs code
     if gen_elkjs:
