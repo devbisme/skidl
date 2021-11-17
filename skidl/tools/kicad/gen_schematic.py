@@ -26,6 +26,9 @@ from ...utilities import *
 
 standard_library.install_aliases()
 
+"""
+Generate a KiCad EESCHEMA schematic from a Circuit object.
+"""
 
 class Node(dict):
     """Data structure for holding information about a node in the circuit hierarchy."""
@@ -39,44 +42,34 @@ class Node(dict):
         self.children = []
 
 
-"""
-Generate a KiCad EESCHEMA schematic from a Circuit object.
-"""
-# Size options of eeschema schematic pages
-eeschema_sch_sizes = {
-    "A0": [46811, 33110],
-    "A1": [33110, 23386],
-    "A2": [23386, 16535],
-    "A3": [16535, 11693],
-    "A4": [11693, 8268],
+# Sizes of EESCHEMA schematic pages from smallest to largest. Dimensions in mils.
+A_sizes = {
+    "A4": BBox(Point(0,0), Point(11693, 8268)),
+    "A3": BBox(Point(0,0), Point(16535, 11693)),
+    "A2": BBox(Point(0,0), Point(23386, 16535)),
+    "A1": BBox(Point(0,0), Point(33110, 23386)),
+    "A0": BBox(Point(0,0), Point(46811, 33110)),
 }
 
 
-def calc_page_size(page):
-    # Calculate the schematic page size needed given xMin/Max, yMin/Max
+def calc_page_size(bbox):
+    """Return the A-size page needed to fit the given bounding box."""
 
-    width = page[1] - page[0]
-    height = page[3] - page[2]
-
-    height = int(height * 1.25)
-    for i in reversed(eeschema_sch_sizes):
-        if width < eeschema_sch_sizes[i][0]:
-            if height < eeschema_sch_sizes[i][1]:
-                return i
+    width = bbox.w
+    height = int(bbox.h * 1.25) # TODO: why 1.25?
+    for A_size, page in A_sizes.items():
+        if width<page.w and height<page.h:
+            return A_size
+    return "A0"  # Nothing fits, so use the largest available.
 
 
-def calc_start_point(sch_size):
-    c = [0, 0]
-    for n in eeschema_sch_sizes:
-        if n == sch_size:
-            x = int(eeschema_sch_sizes[n][0] / 2)
-            # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid
-            x = round_num(x, 50)
-            y = int(eeschema_sch_sizes[n][1] / 4)
-            # round to nearest 50 mil, DO NOT CHANGE!  otherwise parts won't play nice in eechema due to being off-grid
-            y = round_num(y, 50)
-            c = [x, y]
-            return c
+def calc_start_point(A_size):
+    """Return the center point of the given A-size page."""
+
+    page_bbox = A_sizes[A_size]
+    x = round_num(int(page_bbox.w / 2), 50)
+    y = round_num(int(page_bbox.h / 4), 50)
+    return Point(x, y)
 
 
 def round_num(num, base):
@@ -338,7 +331,8 @@ def gen_config_header(
     header.append("EELAYER END\n")
     header.append(
         "$Descr {} {} {}\n".format(
-            size, eeschema_sch_sizes[size][0], eeschema_sch_sizes[size][1]
+            size, A_sizes[size].max.x, A_sizes[size].max.y
+            # size, A_sizes[size][0], A_sizes[size][1]
         )
     )
     header.append("encoding utf-8\n")
@@ -905,7 +899,7 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
             parent.children.append(node)
         node.parent = parent
 
-    # For each node in hierarchy: Move parts connected to central part with unlabeled nets.
+    # For each node in hierarchy: Move parts connected to central part by unlabeled nets.
     for node in circuit_hier.values():
 
         # Center part of hierarchy that everything else is placed around.
@@ -1051,7 +1045,9 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
             delta_x = node.parent["sch_bb"][0] - node["sch_bb"][0]
 
             # Move node below parent and then to the side to avoid collisions with other nodes.
-            move_subhierarchy(node.node_key, circuit_hier, delta_x, delta_y, move_dir=dir)
+            move_subhierarchy(
+                node.node_key, circuit_hier, delta_x, delta_y, move_dir=dir
+            )
 
             # Alternate placement directions for the next node placement.
             # TODO: find better algorithm than switching sides, maybe based on connections
@@ -1102,60 +1098,66 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
     # At this point the hierarchy should be completely generated and ready for generating code.
 
     # Calculate the maximum page dimensions needed for each root hierarchy sheet.
-    page_sizes = {}
-    for h, node in circuit_hier.items():
-        root_parent = ".".join(h.split(".")[0:2])
+    page_sizes = defaultdict(lambda: BBox())
+    for node in circuit_hier.values():
+
         x_min = node["sch_bb"][0] - node["sch_bb"][2]
         x_max = node["sch_bb"][0] + node["sch_bb"][2]
         y_min = node["sch_bb"][1] + node["sch_bb"][3]
         y_max = node["sch_bb"][1] - node["sch_bb"][3]
-        if root_parent not in page_sizes:
-            page_sizes[root_parent] = [x_min, x_max, y_min, y_max]
-        else:
-            page_sizes[root_parent][0] = min(x_min, page_sizes[root_parent][0])
-            page_sizes[root_parent][1] = max(x_max, page_sizes[root_parent][1])
-            page_sizes[root_parent][2] = min(y_min, page_sizes[root_parent][2])
-            page_sizes[root_parent][3] = max(y_max, page_sizes[root_parent][3])
+        node_bbox = BBox(Point(x_min, y_min), Point(x_max, y_max))
 
-    # 14. Generate eeschema code for each hierarchy
+        root_parent = ".".join(node.node_key.split(".")[0:2])
+        page_sizes[root_parent].add(node_bbox)
+        # if root_parent not in page_sizes:
+        #     page_sizes[root_parent] = [x_min, x_max, y_min, y_max]
+        # else:
+        #     page_sizes[root_parent][0] = min(x_min, page_sizes[root_parent][0])
+        #     page_sizes[root_parent][1] = max(x_max, page_sizes[root_parent][1])
+        #     page_sizes[root_parent][2] = min(y_min, page_sizes[root_parent][2])
+        #     page_sizes[root_parent][3] = max(y_max, page_sizes[root_parent][3])
+
+    # Generate eeschema code for each node in the circuit hierarchy.
     hier_pg_eeschema_code = {}
-    for h, node in circuit_hier.items():
-        eeschema_code = []  # List to hold all the code for the hierarchy
+    for node in circuit_hier.values():
+
+        # List to hold all the code for the hierarchy
+        eeschema_code = []
 
         # Find starting point for part placement
-        root_parent = ".".join(h.split(".")[0:2])
-        pg_size = calc_page_size(page_sizes[root_parent])
-        sch_start = calc_start_point(pg_size)
+        root_parent = ".".join(node.node_key.split(".")[0:2])
+        A_size = calc_page_size(page_sizes[root_parent])
+        sch_start = calc_start_point(A_size)
 
         # a. Generate part code
-        for pt in circuit_hier[h]["parts"]:
+        for pt in node["parts"]:
             t_pt = pt
-            t_pt.sch_bb[0] += sch_start[0]
-            t_pt.sch_bb[1] += sch_start[1]
+            t_pt.sch_bb[0] += sch_start.x
+            t_pt.sch_bb[1] += sch_start.y
             part_code = gen_part_eeschema(t_pt)
             eeschema_code.append(part_code)
 
         # b. net wire code
-        for w in circuit_hier[h]["wires"]:
+        for w in node["wires"]:
             t_wire = []
             for i in range(len(w) - 1):
-                t_x1 = w[i][0] - circuit_hier[h]["sch_bb"][0] + sch_start[0]
-                t_y1 = w[i][1] - circuit_hier[h]["sch_bb"][1] + sch_start[1]
-                t_x2 = w[i + 1][0] - circuit_hier[h]["sch_bb"][0] + sch_start[0]
-                t_y2 = w[i + 1][1] - circuit_hier[h]["sch_bb"][1] + sch_start[1]
+                t_x1 = w[i][0] - node["sch_bb"][0] + sch_start.x
+                t_y1 = w[i][1] - node["sch_bb"][1] + sch_start.y
+                t_x2 = w[i + 1][0] - node["sch_bb"][0] + sch_start.x
+                t_y2 = w[i + 1][1] - node["sch_bb"][1] + sch_start.y
                 t_wire.append("Wire Wire Line\n")
                 t_wire.append("	{} {} {} {}\n".format(t_x1, t_y1, t_x2, t_y2))
                 t_out = "\n" + "".join(t_wire)
                 eeschema_code.append(t_out)
 
         # c. power net stubs
-        for pt in circuit_hier[h]["parts"]:
+        for pt in node["parts"]:
             stub = gen_power_part_eeschema(pt)
             if len(stub) > 0:
                 eeschema_code.append(stub)
 
         # d. labels
-        for pt in circuit_hier[h]["parts"]:
+        for pt in node["parts"]:
             for pin in pt.pins:
                 if len(pin.label) > 0:
                     t_x = pin.x + pin.part.sch_bb[0]
@@ -1204,26 +1206,18 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
 
         # e. hierarchy bounding box
         box = []
-        xMin = (
-            circuit_hier[h]["sch_bb"][0] - circuit_hier[h]["sch_bb"][2] + sch_start[0]
-        )
-        xMax = (
-            circuit_hier[h]["sch_bb"][0] + circuit_hier[h]["sch_bb"][2] + sch_start[0]
-        )
-        yMin = (
-            circuit_hier[h]["sch_bb"][1] + circuit_hier[h]["sch_bb"][3] + sch_start[1]
-        )
-        yMax = (
-            circuit_hier[h]["sch_bb"][1] - circuit_hier[h]["sch_bb"][3] + sch_start[1]
-        )
+        xMin = node["sch_bb"][0] - node["sch_bb"][2] + sch_start.x
+        xMax = node["sch_bb"][0] + node["sch_bb"][2] + sch_start.x
+        yMin = node["sch_bb"][1] + node["sch_bb"][3] + sch_start.y
+        yMax = node["sch_bb"][1] - node["sch_bb"][3] + sch_start.y
 
         label_x = xMin
         label_y = yMax
-        subhierarchies = h.split(".")
+        subhierarchies = node.node_key.split(".")
         if len(subhierarchies) > 1:
             hierName = "".join(subhierarchies[1:])
         else:
-            hierName = h
+            hierName = node.node_key
 
         # Make the strings for the box and label
         box.append(
@@ -1240,7 +1234,7 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
         out = "\n" + "".join(box)
         eeschema_code.append(out)
 
-        root_parent = ".".join(h.split(".")[0:2])
+        root_parent = ".".join(node.node_key.split(".")[0:2])
         # Append the eeschema code for this hierarchy to the appropriate page
         if root_parent not in hier_pg_eeschema_code:
             # make new top level hierarchy
@@ -1258,14 +1252,14 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
 
         # Generate schematic pages for lower-levels in the hierarchy.
         for hp in hier_pg_eeschema_code:
-            pg_size = calc_page_size(page_sizes[hp])
+            A_size = calc_page_size(page_sizes[hp])
             u = file_.split("/")[:-1]
             dir = "/".join(u)
             file_name = dir + "/" + hp + ".sch"
             with open(file_name, "w") as f:
                 f.truncate(0)  # Clear the file
                 new_sch_file = [
-                    gen_config_header(cur_sheet_num=1, size=pg_size, title=_title),
+                    gen_config_header(cur_sheet_num=1, size=A_size, title=_title),
                     hier_pg_eeschema_code[hp],
                     "$EndSCHEMATC",
                 ]
@@ -1275,11 +1269,11 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
         # Generate root schematic with hierarchical schematics
         hier_sch = []
         root_start = calc_start_point("A4")
-        root_start[0] = 1000
+        root_start.x = 1000
         for hp in hier_pg_eeschema_code:
-            t = gen_hier_schematic(hp, root_start[0], root_start[1])
+            t = gen_hier_schematic(hp, root_start.x, root_start.y)
             hier_sch.append(t)
-            root_start[0] += 1000
+            root_start.x += 1000
 
         with open(file_, "w") as f:
             f.truncate(0)  # Clear the file
