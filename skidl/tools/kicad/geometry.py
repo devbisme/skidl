@@ -17,7 +17,7 @@ class Point:
         self.y = y
 
     def __add__(self, pt):
-        """Add the x,y coords of pt from self and return the resulting Point."""
+        """Add the x,y coords of pt to self and return the resulting Point."""
         if not isinstance(pt, Point):
             pt = Point(pt, pt)
         return Point(self.x + pt.x, self.y + pt.y)

@@ -125,27 +125,6 @@ def move_subhierarchy(hm, hierarchy_list, dx, dy, move_dir="L"):
                 move_subhierarchy(hm, hierarchy_list, -200, 0, move_dir=move_dir)
 
 
-def gen_label(x, y, orientation, net_label, hier_label=True):
-    t_orient = 0
-    if orientation == "R":
-        pass
-    elif orientation == "D":
-        t_orient = 1
-    elif orientation == "L":
-        t_orient = 2
-    elif orientation == "U":
-        t_orient = 3
-    if hier_label:
-        out = "\nText HLabel {} {} {}    50   UnSpc ~ 0\n{}\n".format(
-            x, y, t_orient, net_label
-        )
-    else:
-        out = "\nText GLabel {} {} {}    50   UnSpc ~ 0\n{}\n".format(
-            x, y, t_orient, net_label
-        )
-    return out
-
-
 def calc_move_part(pin_m, pin_nm, parts_list):
     # pin_m = pin of moving part
     # pin_nm = pin of non-moving part
@@ -220,137 +199,6 @@ def gen_elkjs_code(parts, nets):
     for i in elkjs_code:
         print("" + "".join(i), file=f)
     f.close()
-
-
-def gen_power_part_eeschema(part, orientation=[1, 0, 0, -1], offset=Point(0,0)):
-    out = []
-    for pin in part.pins:
-        try:
-            if not (pin.net is None):
-                if pin.net.netclass == "Power":
-                    # strip out the '_...' section from power nets
-                    t = pin.net.name
-                    u = t.split("_")
-                    symbol_name = u[0]
-                    # find the stub in the part
-                    time_hex = hex(int(time.time()))[2:]
-                    x = part.sch_bb[0] + pin.x + offset.x
-                    y = part.sch_bb[1] - pin.y + offset.y
-                    out.append("$Comp\n")
-                    out.append("L power:{} #PWR?\n".format(symbol_name))
-                    out.append("U 1 1 {}\n".format(time_hex))
-                    out.append("P {} {}\n".format(str(x), str(y)))
-                    # Add part symbols. For now we are only adding the designator
-                    n_F0 = 1
-                    for i in range(len(part.draw)):
-                        if re.search("^DrawF0", str(part.draw[i])):
-                            n_F0 = i
-                            break
-                    part_orientation = part.draw[n_F0].orientation
-                    part_horizontal_align = part.draw[n_F0].halign
-                    part_vertical_align = part.draw[n_F0].valign
-
-                    # check if the pin orientation will clash with the power part
-                    if "+" in symbol_name:
-                        # voltage sources face up, so check if the pin is facing down (opposite logic y-axis)
-                        if pin.orientation == "U":
-                            orientation = [-1, 0, 0, 1]
-                    elif "gnd" in symbol_name.lower():
-                        # gnd points down so check if the pin is facing up (opposite logic y-axis)
-                        if pin.orientation == "D":
-                            orientation = [-1, 0, 0, 1]
-                    out.append(
-                        'F 0 "{}" {} {} {} {} {} {} {}\n'.format(
-                            "#PWR?",
-                            part_orientation,
-                            str(x + 25),
-                            str(y + 25),
-                            str(40),
-                            "001",
-                            part_horizontal_align,
-                            part_vertical_align,
-                        )
-                    )
-                    out.append(
-                        'F 1 "{}" {} {} {} {} {} {} {}\n'.format(
-                            symbol_name,
-                            part_orientation,
-                            str(x + 25),
-                            str(y + 25),
-                            str(40),
-                            "000",
-                            part_horizontal_align,
-                            part_vertical_align,
-                        )
-                    )
-                    out.append("   1   {} {}\n".format(str(x), str(y)))
-                    out.append(
-                        "   {}   {}  {}  {}\n".format(
-                            orientation[0],
-                            orientation[1],
-                            orientation[2],
-                            orientation[3],
-                        )
-                    )
-                    out.append("$EndComp\n")
-        except Exception as inst:
-            print(type(inst))
-            print(inst.args)
-            print(inst)
-    return "\n" + "".join(out)
-
-
-def gen_hier_schematic(name, x=0, y=0, year=2021, month=8, day=15):
-    time_hex = hex(int(time.time()))[2:]
-    t = []
-    t.append("\n$Sheet\n")
-    t.append("S {} {} {} {}\n".format(x, y, 500, 1000))  # upper left x/y, width, height
-    t.append("U {}\n".format(time_hex))
-    t.append('F0 "{}" 50\n'.format(name))
-    t.append('F1 "{}.sch" 50\n'.format(name))
-    t.append("$EndSheet\n")
-    out = "".join(t)
-    return out
-
-
-def gen_config_header(
-    cur_sheet_num=1,
-    total_sheet_num=1,
-    title="Default",
-    revMaj=0,
-    revMin=1,
-    year=2021,
-    month=8,
-    day=15,
-    size="A2",
-):
-    # Generate a default header file
-
-    total_sheet_num = cur_sheet_num + 1
-    header = []
-    header.append("EESchema Schematic File Version 4\n")
-    header.append("EELAYER 30 0\n")
-    header.append("EELAYER END\n")
-    header.append(
-        "$Descr {} {} {}\n".format(
-            size,
-            A_sizes[size].max.x,
-            A_sizes[size].max.y
-            # size, A_sizes[size][0], A_sizes[size][1]
-        )
-    )
-    header.append("encoding utf-8\n")
-    header.append("Sheet {} {}\n".format(cur_sheet_num, total_sheet_num))
-    header.append('Title "{}"\n'.format(title))
-    header.append('Date "{}-{}-{}"\n'.format(year, month, day))
-    header.append('Rev "v{}.{}"\n'.format(revMaj, revMin))
-    header.append('Comp ""\n')
-    header.append('Comment1 ""\n')
-    header.append('Comment2 ""\n')
-    header.append('Comment3 ""\n')
-    header.append('Comment4 ""\n')
-    header.append("$EndDescr\n")
-    return "" + "".join(header)
 
 
 def gen_hierarchy_bb(hier):
@@ -746,6 +594,7 @@ def gen_part_eeschema(self, offset):
     out.append("$EndComp\n")
     return "\n" + "".join(out)
 
+
 def gen_wire_eeschema(wire, offset):
     """Generate EESCHEMA code for a multi-segment wire.
 
@@ -757,11 +606,170 @@ def gen_wire_eeschema(wire, offset):
         string: Text to be placed into EESCHEMA file.
     """
     wire_code = []
-    pts = [Point(pt[0], pt[1])+offset for pt in wire]
+    pts = [Point(pt[0], pt[1]) + offset for pt in wire]
     for pt1, pt2 in zip(pts[:-1], pts[1:]):
         wire_code.append("Wire Wire Line\n")
         wire_code.append("	{} {} {} {}\n".format(pt1.x, pt1.y, pt2.x, pt2.y))
     return "\n" + "".join(wire_code)
+
+
+def gen_power_part_eeschema(part, orientation=[1, 0, 0, -1], offset=Point(0, 0)):
+    out = []
+    for pin in part.pins:
+        try:
+            if not (pin.net is None):
+                if pin.net.netclass == "Power":
+                    # strip out the '_...' section from power nets
+                    t = pin.net.name
+                    u = t.split("_")
+                    symbol_name = u[0]
+                    # find the stub in the part
+                    time_hex = hex(int(time.time()))[2:]
+                    x = part.sch_bb[0] + pin.x + offset.x
+                    y = part.sch_bb[1] - pin.y + offset.y
+                    out.append("$Comp\n")
+                    out.append("L power:{} #PWR?\n".format(symbol_name))
+                    out.append("U 1 1 {}\n".format(time_hex))
+                    out.append("P {} {}\n".format(str(x), str(y)))
+                    # Add part symbols. For now we are only adding the designator
+                    n_F0 = 1
+                    for i in range(len(part.draw)):
+                        if re.search("^DrawF0", str(part.draw[i])):
+                            n_F0 = i
+                            break
+                    part_orientation = part.draw[n_F0].orientation
+                    part_horizontal_align = part.draw[n_F0].halign
+                    part_vertical_align = part.draw[n_F0].valign
+
+                    # check if the pin orientation will clash with the power part
+                    if "+" in symbol_name:
+                        # voltage sources face up, so check if the pin is facing down (opposite logic y-axis)
+                        if pin.orientation == "U":
+                            orientation = [-1, 0, 0, 1]
+                    elif "gnd" in symbol_name.lower():
+                        # gnd points down so check if the pin is facing up (opposite logic y-axis)
+                        if pin.orientation == "D":
+                            orientation = [-1, 0, 0, 1]
+                    out.append(
+                        'F 0 "{}" {} {} {} {} {} {} {}\n'.format(
+                            "#PWR?",
+                            part_orientation,
+                            str(x + 25),
+                            str(y + 25),
+                            str(40),
+                            "001",
+                            part_horizontal_align,
+                            part_vertical_align,
+                        )
+                    )
+                    out.append(
+                        'F 1 "{}" {} {} {} {} {} {} {}\n'.format(
+                            symbol_name,
+                            part_orientation,
+                            str(x + 25),
+                            str(y + 25),
+                            str(40),
+                            "000",
+                            part_horizontal_align,
+                            part_vertical_align,
+                        )
+                    )
+                    out.append("   1   {} {}\n".format(str(x), str(y)))
+                    out.append(
+                        "   {}   {}  {}  {}\n".format(
+                            orientation[0],
+                            orientation[1],
+                            orientation[2],
+                            orientation[3],
+                        )
+                    )
+                    out.append("$EndComp\n")
+        except Exception as inst:
+            print(type(inst))
+            print(inst.args)
+            print(inst)
+    return "\n" + "".join(out)
+
+
+def gen_pin_label_eeschema(pin, offset):
+    if len(pin.label) == 0 or not pin.is_connected():
+        return ""
+
+    label_type = "HLabel"
+    for pn in pin.net.pins:
+        if pin.part.hierarchy.startswith(pn.part.hierarchy):
+            continue
+        if pn.part.hierarchy.startswith(pin.part.hierarchy):
+            continue
+        label_type = "GLabel"
+        break
+
+    x = pin.x + pin.part.sch_bb[0] + offset.x
+    y = -pin.y + pin.part.sch_bb[1] + offset.y
+
+    orientation = {
+        "R": 0,
+        "D": 1,
+        "L": 2,
+        "U": 3,
+    }[pin.orientation]
+
+    return "\nText {} {} {} {}    50   UnSpc ~ 0\n{}\n".format(
+        label_type, x, y, orientation, pin.label
+    )
+
+
+def gen_hier_schematic(name, x=0, y=0, year=2021, month=8, day=15):
+    time_hex = hex(int(time.time()))[2:]
+    t = []
+    t.append("\n$Sheet\n")
+    t.append("S {} {} {} {}\n".format(x, y, 500, 1000))  # upper left x/y, width, height
+    t.append("U {}\n".format(time_hex))
+    t.append('F0 "{}" 50\n'.format(name))
+    t.append('F1 "{}.sch" 50\n'.format(name))
+    t.append("$EndSheet\n")
+    out = "".join(t)
+    return out
+
+
+def gen_config_header(
+    cur_sheet_num=1,
+    total_sheet_num=1,
+    title="Default",
+    revMaj=0,
+    revMin=1,
+    year=2021,
+    month=8,
+    day=15,
+    size="A2",
+):
+    # Generate a default header file
+
+    total_sheet_num = cur_sheet_num + 1
+    header = []
+    header.append("EESchema Schematic File Version 4\n")
+    header.append("EELAYER 30 0\n")
+    header.append("EELAYER END\n")
+    header.append(
+        "$Descr {} {} {}\n".format(
+            size,
+            A_sizes[size].max.x,
+            A_sizes[size].max.y
+            # size, A_sizes[size][0], A_sizes[size][1]
+        )
+    )
+    header.append("encoding utf-8\n")
+    header.append("Sheet {} {}\n".format(cur_sheet_num, total_sheet_num))
+    header.append('Title "{}"\n'.format(title))
+    header.append('Date "{}-{}-{}"\n'.format(year, month, day))
+    header.append('Rev "v{}.{}"\n'.format(revMaj, revMin))
+    header.append('Comp ""\n')
+    header.append('Comment1 ""\n')
+    header.append('Comment2 ""\n')
+    header.append('Comment3 ""\n')
+    header.append('Comment4 ""\n')
+    header.append("$EndDescr\n")
+    return "" + "".join(header)
 
 
 def propagate_pin_labels(part):
@@ -1158,60 +1166,17 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
 
         # Generate power net stubs.
         for part in node["parts"]:
-            stub = gen_power_part_eeschema(part, offset=sch_start)
-            if len(stub) != 0:
-                eeschema_code.append(stub)
+            stub_code = gen_power_part_eeschema(part, offset=sch_start)
+            if len(stub_code) != 0:
+                eeschema_code.append(stub_code)
 
         # Generate pin labels for stubbed nets.
-        for pt in node["parts"]:
-            for pin in pt.pins:
-                if len(pin.label) > 0:
-                    t_x = pin.x + pin.part.sch_bb[0] + sch_start.x
-                    t_y = 0
-                    t_y = -pin.y + pin.part.sch_bb[1] + sch_start.y
-                    # TODO: make labels global if the label connects to a different root hierarchy
-                    # eeschema_code.append(gen_label(t_x, t_y, pin.orientation, pin.label))
-                    if hasattr(pin, "net"):
-                        if hasattr(pin.net, "pins"):
-                            for p in pin.net.pins:
-                                if p.ref == pt:
-                                    continue
-                                # check if the pins are in the same root hierarchy
-                                pt_root_parent = pt.hierarchy.split(".")[0]
-                                p_root_parent = p.part.hierarchy.split(".")[0]
-                                if not pt_root_parent in p_root_parent:
-                                    print(
-                                        "global label, pt: "
-                                        + pt
-                                        + "  other part: "
-                                        + p.part.ref
-                                    )
-                                    eeschema_code.append(
-                                        gen_label(
-                                            t_x,
-                                            t_y,
-                                            pin.orientation,
-                                            pin.label,
-                                            hier_label=False,
-                                        )
-                                    )
-                                else:
-                                    eeschema_code.append(
-                                        gen_label(
-                                            t_x,
-                                            t_y,
-                                            pin.orientation,
-                                            pin.label,
-                                            hier_label=True,
-                                        )
-                                    )
-                            continue
-                    eeschema_code.append(
-                        gen_label(t_x, t_y, pin.orientation, pin.label, hier_label=True)
-                    )
+        for part in node["parts"]:
+            for pin in part:
+                pin_label_code = gen_pin_label_eeschema(pin, offset=sch_start)
+                eeschema_code.append(pin_label_code)
 
         # e. hierarchy bounding box
-        box = []
         xMin = node["sch_bb"][0] - node["sch_bb"][2] + sch_start.x
         xMax = node["sch_bb"][0] + node["sch_bb"][2] + sch_start.x
         yMin = node["sch_bb"][1] + node["sch_bb"][3] + sch_start.y
@@ -1226,6 +1191,7 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
             hierName = node.node_key
 
         # Make the strings for the box and label
+        box = []
         box.append(
             "Text Notes {} {} 0    100  ~ 20\n{}\n".format(label_x, label_y, hierName)
         )
