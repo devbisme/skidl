@@ -222,7 +222,7 @@ def gen_elkjs_code(parts, nets):
     f.close()
 
 
-def gen_power_part_eeschema(part, orientation=[1, 0, 0, -1]):
+def gen_power_part_eeschema(part, orientation=[1, 0, 0, -1], offset=Point(0,0)):
     out = []
     for pin in part.pins:
         try:
@@ -234,8 +234,8 @@ def gen_power_part_eeschema(part, orientation=[1, 0, 0, -1]):
                     symbol_name = u[0]
                     # find the stub in the part
                     time_hex = hex(int(time.time()))[2:]
-                    x = part.sch_bb[0] + pin.x
-                    y = part.sch_bb[1] - pin.y
+                    x = part.sch_bb[0] + pin.x + offset.x
+                    y = part.sch_bb[1] - pin.y + offset.y
                     out.append("$Comp\n")
                     out.append("L power:{} #PWR?\n".format(symbol_name))
                     out.append("U 1 1 {}\n".format(time_hex))
@@ -685,7 +685,7 @@ def move_part(self, dx, dy, _parts_list):
                 move_part(self, -200, 0, _parts_list)
 
 
-def gen_part_eeschema(self):
+def gen_part_eeschema(self, offset):
     # Generate eeschema code for part from SKiDL part
     # self: SKiDL part
     # c[x,y]: coordinated to place the part
@@ -693,10 +693,12 @@ def gen_part_eeschema(self):
 
     time_hex = hex(int(time.time()))[2:]
 
+    center = Point(self.sch_bb[0], self.sch_bb[1]) + offset
+
     out = ["$Comp\n"]
     out.append("L {}:{} {}\n".format(self.lib.filename, self.name, self.ref))
     out.append("U 1 1 {}\n".format(time_hex))
-    out.append("P {} {}\n".format(str(self.sch_bb[0]), str(self.sch_bb[1])))
+    out.append("P {} {}\n".format(str(center.x), str(center.y)))
     # Add part symbols. For now we are only adding the designator
     n_F0 = 1
     for i in range(len(self.draw)):
@@ -707,8 +709,8 @@ def gen_part_eeschema(self):
         'F 0 "{}" {} {} {} {} {} {} {}\n'.format(
             self.ref,
             self.draw[n_F0].orientation,
-            str(self.draw[n_F0].x + self.sch_bb[0]),
-            str(self.draw[n_F0].y + self.sch_bb[1]),
+            str(self.draw[n_F0].x + center.x),
+            str(self.draw[n_F0].y + center.y),
             self.draw[n_F0].size,
             "000",
             self.draw[n_F0].halign,
@@ -724,15 +726,15 @@ def gen_part_eeschema(self):
         'F 2 "{}" {} {} {} {} {} {} {}\n'.format(
             self.footprint,
             self.draw[n_F2].orientation,
-            str(self.draw[n_F2].x + self.sch_bb[0]),
-            str(self.draw[n_F2].y + self.sch_bb[1]),
+            str(self.draw[n_F2].x + center.x),
+            str(self.draw[n_F2].y + center.y),
             self.draw[n_F2].size,
             "001",
             self.draw[n_F2].halign,
             self.draw[n_F2].valign,
         )
     )
-    out.append("   1   {} {}\n".format(str(self.sch_bb[0]), str(self.sch_bb[1])))
+    out.append("   1   {} {}\n".format(str(center.x), str(center.y)))
     out.append(
         "   {}   {}  {}  {}\n".format(
             self.orientation[0],
@@ -743,6 +745,23 @@ def gen_part_eeschema(self):
     )
     out.append("$EndComp\n")
     return "\n" + "".join(out)
+
+def gen_wire_eeschema(wire, offset):
+    """Generate EESCHEMA code for a multi-segment wire.
+
+    Args:
+        wire (list): List of (x,y) points for a wire.
+        offset (Point): (x,y) offset for each point in the wire.
+
+    Returns:
+        string: Text to be placed into EESCHEMA file.
+    """
+    wire_code = []
+    pts = [Point(pt[0], pt[1])+offset for pt in wire]
+    for pt1, pt2 in zip(pts[:-1], pts[1:]):
+        wire_code.append("Wire Wire Line\n")
+        wire_code.append("	{} {} {} {}\n".format(pt1.x, pt1.y, pt2.x, pt2.y))
+    return "\n" + "".join(wire_code)
 
 
 def propagate_pin_labels(part):
@@ -1126,40 +1145,30 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
         A_size = calc_page_size(page_sizes[root_parent])
         sch_start = calc_start_point(A_size)
 
-        # a. Generate part code
-        for pt in node["parts"]:
-            t_pt = pt
-            t_pt.sch_bb[0] += sch_start.x
-            t_pt.sch_bb[1] += sch_start.y
-            part_code = gen_part_eeschema(t_pt)
+        # Generate part code
+        for part in node["parts"]:
+            part_code = gen_part_eeschema(part, offset=sch_start)
             eeschema_code.append(part_code)
 
-        # b. net wire code
+        # Generate net wire code.
+        offset = sch_start - Point(node["sch_bb"][0], node["sch_bb"][1])
         for w in node["wires"]:
-            t_wire = []
-            for i in range(len(w) - 1):
-                t_x1 = w[i][0] - node["sch_bb"][0] + sch_start.x
-                t_y1 = w[i][1] - node["sch_bb"][1] + sch_start.y
-                t_x2 = w[i + 1][0] - node["sch_bb"][0] + sch_start.x
-                t_y2 = w[i + 1][1] - node["sch_bb"][1] + sch_start.y
-                t_wire.append("Wire Wire Line\n")
-                t_wire.append("	{} {} {} {}\n".format(t_x1, t_y1, t_x2, t_y2))
-                t_out = "\n" + "".join(t_wire)
-                eeschema_code.append(t_out)
+            wire_code = gen_wire_eeschema(w, offset=offset)
+            eeschema_code.append(wire_code)
 
-        # c. power net stubs
-        for pt in node["parts"]:
-            stub = gen_power_part_eeschema(pt)
-            if len(stub) > 0:
+        # Generate power net stubs.
+        for part in node["parts"]:
+            stub = gen_power_part_eeschema(part, offset=sch_start)
+            if len(stub) != 0:
                 eeschema_code.append(stub)
 
-        # d. labels
+        # Generate pin labels for stubbed nets.
         for pt in node["parts"]:
             for pin in pt.pins:
                 if len(pin.label) > 0:
-                    t_x = pin.x + pin.part.sch_bb[0]
+                    t_x = pin.x + pin.part.sch_bb[0] + sch_start.x
                     t_y = 0
-                    t_y = -pin.y + pin.part.sch_bb[1]
+                    t_y = -pin.y + pin.part.sch_bb[1] + sch_start.y
                     # TODO: make labels global if the label connects to a different root hierarchy
                     # eeschema_code.append(gen_label(t_x, t_y, pin.orientation, pin.label))
                     if hasattr(pin, "net"):
