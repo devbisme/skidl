@@ -13,7 +13,7 @@ from __future__ import (  # isort:skip
 import re
 import time
 from builtins import range, str
-from collections import defaultdict
+from collections import defaultdict, OrderedDict
 
 from future import standard_library
 
@@ -30,6 +30,7 @@ standard_library.install_aliases()
 Generate a KiCad EESCHEMA schematic from a Circuit object.
 """
 
+
 class Node(dict):
     """Data structure for holding information about a node in the circuit hierarchy."""
 
@@ -43,22 +44,23 @@ class Node(dict):
 
 
 # Sizes of EESCHEMA schematic pages from smallest to largest. Dimensions in mils.
-A_sizes = {
-    "A4": BBox(Point(0,0), Point(11693, 8268)),
-    "A3": BBox(Point(0,0), Point(16535, 11693)),
-    "A2": BBox(Point(0,0), Point(23386, 16535)),
-    "A1": BBox(Point(0,0), Point(33110, 23386)),
-    "A0": BBox(Point(0,0), Point(46811, 33110)),
-}
+A_sizes_list = [
+    ("A4", BBox(Point(0, 0), Point(11693, 8268))),
+    ("A3", BBox(Point(0, 0), Point(16535, 11693))),
+    ("A2", BBox(Point(0, 0), Point(23386, 16535))),
+    ("A1", BBox(Point(0, 0), Point(33110, 23386))),
+    ("A0", BBox(Point(0, 0), Point(46811, 33110))),
+]
+A_sizes = OrderedDict(A_sizes_list)
 
 
 def calc_page_size(bbox):
     """Return the A-size page needed to fit the given bounding box."""
 
     width = bbox.w
-    height = int(bbox.h * 1.25) # TODO: why 1.25?
+    height = int(bbox.h * 1.25)  # TODO: why 1.25?
     for A_size, page in A_sizes.items():
-        if width<page.w and height<page.h:
+        if width < page.w and height < page.h:
             return A_size
     return "A0"  # Nothing fits, so use the largest available.
 
@@ -331,7 +333,9 @@ def gen_config_header(
     header.append("EELAYER END\n")
     header.append(
         "$Descr {} {} {}\n".format(
-            size, A_sizes[size].max.x, A_sizes[size].max.y
+            size,
+            A_sizes[size].max.x,
+            A_sizes[size].max.y
             # size, A_sizes[size][0], A_sizes[size][1]
         )
     )
@@ -1109,13 +1113,6 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
 
         root_parent = ".".join(node.node_key.split(".")[0:2])
         page_sizes[root_parent].add(node_bbox)
-        # if root_parent not in page_sizes:
-        #     page_sizes[root_parent] = [x_min, x_max, y_min, y_max]
-        # else:
-        #     page_sizes[root_parent][0] = min(x_min, page_sizes[root_parent][0])
-        #     page_sizes[root_parent][1] = max(x_max, page_sizes[root_parent][1])
-        #     page_sizes[root_parent][2] = min(y_min, page_sizes[root_parent][2])
-        #     page_sizes[root_parent][3] = max(y_max, page_sizes[root_parent][3])
 
     # Generate eeschema code for each node in the circuit hierarchy.
     hier_pg_eeschema_code = {}
