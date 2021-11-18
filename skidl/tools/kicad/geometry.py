@@ -32,6 +32,10 @@ class Point:
         """Multiply the x,y coords by m."""
         return Point(m * self.x, m * self.y)
 
+    def __truediv__(self, d):
+        """Divide the x,y coords by d."""
+        return self * (1.0/d)
+
     def round(self):
         """Round the x,y coords of the Point."""
         try:
@@ -51,6 +55,8 @@ class Point:
 
     def __repr__(self):
         return "{self.__class__}({self.x}, {self.y})".format(self=self)
+
+Vector = Point
 
 
 class BBox:
@@ -78,10 +84,10 @@ class BBox:
         self.min.round()
         self.max.round()
 
-    def move(self, pt):
+    def move(self, vector):
         """Move the corner points of a bounding box."""
-        self.min += pt
-        self.max += pt
+        self.min += vector
+        self.max += vector
 
     @property
     def area(self):
@@ -101,7 +107,7 @@ class BBox:
     @property
     def ctr(self):
         """Return center point of bounding box."""
-        return self.min + (Point(self.w, 0) + Point(0, self.h)) / 2
+        return self.min + (self.max - self.min) / 2
 
     @property
     def ll(self):

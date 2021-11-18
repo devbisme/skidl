@@ -18,7 +18,7 @@ import os.path
 
 from future import standard_library
 
-from .geometry import Point, BBox
+from .geometry import Point, Vector, BBox
 from ...logger import active_logger
 from ...part import Part
 from ...scriptinfo import *
@@ -134,7 +134,7 @@ def calc_move_part(pin_m, pin_nm, parts_list):
     dx = pin_m.x + pin_nm.x + pin_nm.part.sch_bb[0] + pin_nm.part.sch_bb[2]
     dy = -pin_m.y + pin_nm.y - pin_nm.part.sch_bb[1]
     p = Part.get(pin_m.part.ref)
-    move_part(p, dx, dy, parts_list)
+    move_part(p, Vector(dx, dy), parts_list)
 
 
 def gen_elkjs_code(parts, nets):
@@ -442,24 +442,22 @@ def calc_bbox_part(part):
         part.sch_bb[3] = 100
 
 
-def move_part(self, dx, dy, _parts_list):
+def move_part(part, vector, other_parts):
+    """Move part until it doesn't collide with other parts."""
+
     # Move the part by dx/dy, then check to see if it's colliding with
     #   any other part.  If it is colliding then move the part move towards the
     #   direction of the pin it was moving towards
 
     # Determine if the part moved left or right
-    move_dir = "L"
-    if dx > 0:
-        move_dir = "R"
+    move_dir = "R" if vector.x > 0 else "L"
 
-    # Round dx/dy to nearest 50
-    dx = int((50 * round(dx / 50)))
-    dy = int((50 * round(dy / 50)))
-    # Move the part
-    self.sch_bb[0] += dx
-    self.sch_bb[1] -= dy
+    # Move the part.
+    part.bbox.move(Vector(vector.x, -vector.y))  # EESCHEMA Y direction is reversed.
+    part.sch_bb[0] = round_num(part.bbox.ctr.x)
+    part.sch_bb[1] = round_num(part.bbox.ctr.y)
 
-    # Check to see if we're colliding with any other parts
+    # Check for collisions with other parts.
 
     # First we need to check for a label on each pin.
     # If we find one then add that label's length to the collision detection
@@ -467,26 +465,28 @@ def move_part(self, dx, dy, _parts_list):
     x_label_m = 0
     y_label_p = 0
     y_label_m = 0
-    for pin in self.pins:
+    for pin in part:
         if len(pin.label) > 0:
-            if pin.orientation == "U":
-                if (len(pin.label) + 1) * 50 > y_label_m:
-                    y_label_m = (len(pin.label) + 1) * 50
-            elif pin.orientation == "D":
-                if (len(pin.label) + 1) * 50 > y_label_p:
-                    y_label_p = (len(pin.label) + 1) * 50
-            elif pin.orientation == "L":
-                if (len(pin.label) + 1) * 50 > x_label_p:
-                    x_label_p = (len(pin.label) + 1) * 50
-            elif pin.orientation == "R":
-                if (len(pin.label) + 1) * 50 > x_label_m:
-                    x_label_m = (len(pin.label) + 1) * 50
+            lbl_len = (len(pin.label) + 1) * 50
+            pin_dir = pin.orientation
+            if pin_dir == "U":
+                if lbl_len > y_label_m:
+                    y_label_m = lbl_len
+            elif pin_dir == "D":
+                if lbl_len > y_label_p:
+                    y_label_p = lbl_len
+            elif pin_dir == "L":
+                if lbl_len > x_label_p:
+                    x_label_p = lbl_len
+            elif pin_dir == "R":
+                if lbl_len > x_label_m:
+                    x_label_m = lbl_len
 
     # Range through parts in the subcircuit and look for overlaps
     # If we are overlapping then nudge the part 50mil left/right and rerun this function
-    for pt in _parts_list:
+    for pt in other_parts:
         # Don't detect collisions with itself
-        if pt.ref == self.ref:
+        if pt.ref == part.ref:
             continue
 
         # Determine if there's a label on a pin and count that label length for detecting collisions
@@ -511,10 +511,10 @@ def move_part(self, dx, dy, _parts_list):
 
         # Calculate the min/max for x/y in order to detect collision between rectangles
 
-        x1min = self.sch_bb[0] - self.sch_bb[2] - x_label_m
-        x1max = self.sch_bb[0] + self.sch_bb[2] + x_label_p
-        y1min = self.sch_bb[1] - self.sch_bb[3] - y_label_m
-        y1max = self.sch_bb[1] + self.sch_bb[3] + y_label_p
+        x1min = part.sch_bb[0] - part.sch_bb[2] - x_label_m
+        x1max = part.sch_bb[0] + part.sch_bb[2] + x_label_p
+        y1min = part.sch_bb[1] - part.sch_bb[3] - y_label_m
+        y1max = part.sch_bb[1] + part.sch_bb[3] + y_label_p
         x2min = pt.sch_bb[0] - pt.sch_bb[2] - pt_x_label_m
         x2max = pt.sch_bb[0] + pt.sch_bb[2] + pt_x_label_p
         y2min = pt.sch_bb[1] - pt.sch_bb[3] - pt_y_label_m
@@ -530,9 +530,9 @@ def move_part(self, dx, dy, _parts_list):
             and (y2min <= y1max)
         ):
             if move_dir == "R":
-                move_part(self, 200, 0, _parts_list)
+                move_part(part, Vector(200, 0), other_parts)
             else:
-                move_part(self, -200, 0, _parts_list)
+                move_part(part, Vector(-200, 0), other_parts)
 
 
 def gen_part_eeschema(self, offset):
@@ -1094,7 +1094,7 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
 
             # Move any part that hasn't already been moved.
             if part.sch_bb[0] == 0 and part.sch_bb[1] == 0:
-                move_part(part, offset_x, offset_y, node["parts"])
+                move_part(part, Point(offset_x, offset_y), node["parts"])
 
                 # Switch movement direction for the next unmoved part.
                 offset_x = -offset_x
