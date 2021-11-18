@@ -792,17 +792,26 @@ def gen_header_eeschema(
     header.append("$EndDescr\n")
     return "".join(header)
 
+def gen_footer_eeschema():
+    return "$EndSCHEMATC"
 
-def gen_hier_schematic(name, x=0, y=0, year=2021, month=8, day=15):
+def gen_hier_schematic(name, origin, year=2021, month=8, day=15):
     time_hex = hex(int(time.time()))[2:]
     t = []
     t.append("\n$Sheet\n")
-    t.append("S {} {} {} {}\n".format(x, y, 500, 1000))  # upper left x/y, width, height
+    t.append("S {} {} {} {}\n".format(origin.x, origin.y, 500, 1000))  # upper left x/y, width, height
     t.append("U {}\n".format(time_hex))
     t.append('F0 "{}" 50\n'.format(name))
     t.append('F1 "{}.sch" 50\n'.format(name))
     t.append("$EndSheet\n")
     return "".join(t)
+
+def collect_eeschema_code(code, cur_sheet_num, size, title):
+    return "".join((
+        gen_header_eeschema(cur_sheet_num=cur_sheet_num, size=size, title=title),
+        "".join(code),
+        gen_footer_eeschema()
+    ))
 
 
 def propagate_pin_labels(part):
@@ -1215,42 +1224,32 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
 
         # Add generated EESCHEMA code to the root hierarchical page for this node.
         root_parent = ".".join(node.node_key.split(".")[0:2])
-        # TODO: Collect the header, code, and footer intot he dict.
+        # TODO: Collect the header, code, and footer into the dict.
         hier_pg_eeschema_code[root_parent].append("\n".join(eeschema_code))
 
-    # Generate elkjs code. (Not used.)
-    # if gen_elkjs:
-    #     gen_elkjs_code(self.parts, self.nets)
+    # Collect the EESCHEMA code to be saved in a file for each page.
+    page_eeschema_code = {}
+    hier_eeschema_code = []
+    hier_start = calc_start_point("A4")
+    hier_start.x = 1000  # TODO: magic number.
+    for root_parent, code in hier_pg_eeschema_code.items():
+        A_size = calc_page_size(page_sizes[root_parent])
+        page_eeschema_code[root_parent] = collect_eeschema_code(code, cur_sheet_num=1, size=A_size, title=_title)
+        hier_eeschema_code.append(gen_hier_schematic(root_parent, hier_start))
+        hier_start += Point(1000, 0) # TODO: magic number.
 
-    # Create schematic files.
+    hier_eeschema_code = collect_eeschema_code(hier_eeschema_code, cur_sheet_num=1, size="A4", title=_title)
+
+    # Generate EESCHEMA schematic files.
     if not self.no_files:
 
         # Generate schematic files for lower-levels in the hierarchy.
-        for root_parent in hier_pg_eeschema_code:
-            A_size = calc_page_size(page_sizes[root_parent])
-            dir = os.path.dirname(file_)
+        dir = os.path.dirname(file_)
+        for root_parent, code in page_eeschema_code.items():
             file_name = os.path.join(dir, root_parent + ".sch")
             with open(file_name, "w") as f:
-                file_code = "".join((
-                    gen_header_eeschema(cur_sheet_num=1, size=A_size, title=_title),
-                    "".join(hier_pg_eeschema_code[root_parent]),
-                    "$EndSCHEMATC",
-                ))
-                print(file_code, file=f)
+                print(code, file=f)
 
-        # Generate root schematic with hierarchical schematics.
-        hier_sch = []
-        root_start = calc_start_point("A4")
-        root_start.x = 1000  # TODO: magic number.
-        for root_parent in hier_pg_eeschema_code:
-            t = gen_hier_schematic(root_parent, root_start.x, root_start.y)
-            hier_sch.append(t)
-            root_start.x += 1000  # TODO: magic number.
-
+        # Generate the schematic file for the top-level of the hierarchy.
         with open(file_, "w") as f:
-            file_code = "".join((
-                gen_header_eeschema(cur_sheet_num=1, size="A4", title=_title),
-                "".join(hier_sch),
-                "$EndSCHEMATC",
-            ))
-            print(file_code, file=f)
+            print(hier_eeschema_code, file=f)
