@@ -46,7 +46,7 @@ def stm32f405r():
 
     # Subcircuits
     usb(pn.v_5v, pn.gnd, u.p43, u.p44, imp_match = True)
-    boot_sw(pn.v_3v3, pn.gnd)
+    boot_sw(pn.v_3v3, pn.gnd, u.p60)
     uc.led(u.p8, pn.gnd, 'blue', '5.6k')
     oscillator(pn.v_3v3, pn.gnd, u.p5, u.p6)
     c.screw_term_2(pn.v_12v, pn.gnd)
@@ -65,15 +65,15 @@ def stm32f405r():
 
 # Boot switch circuit
 @SubCircuit
-def boot_sw(vdd, gnd):
+def boot_sw(vdd, gnd, boot):
     # Create parts
     sw = Part('Switch', 'SW_SPDT', footprint='SW_SPDT_CK-JS102011SAQN')
     r1 = Part("Device", 'R', footprint='R_0603_1608Metric', value='10k')
-    r1.p2.label = 'BOOT0'
     
     # Connect parts
     sw.p1 += vdd
     sw.p2 += r1.p1
+    boot += r1.p2
     sw.p3 += gnd
 
 # Oscillator circuit

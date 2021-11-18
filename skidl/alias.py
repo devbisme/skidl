@@ -3,7 +3,7 @@
 # The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
 
 """
-Handles aliases for Circuit, Part, Pin, Net, Bus, Interface objects.
+Handles aliases for Circuit, Part, Pin, Net, Bus objects.
 """
 
 from __future__ import (  # isort:skip
@@ -18,6 +18,8 @@ from builtins import str, super
 
 from future import standard_library
 
+from .utilities import flatten
+
 standard_library.install_aliases()
 
 
@@ -30,17 +32,16 @@ class Alias(set):
     """
 
     def __init__(self, *aliases):
-        super().__init__()
-        self.__iadd__(*aliases)
+        super().__init__(flatten(aliases))
 
     def __iadd__(self, *aliases):
         """Add new aliases."""
-        for alias in aliases:
-            if isinstance(alias, (tuple, list, set)):
-                for a in list(alias):
-                    self.add(a)
-            else:
-                self.add(alias)
+        self.update(set(flatten(aliases)))
+        self.clean()  # Remove any empty stuff that was added.
+        return self
+
+    def __isub__(self, *aliases):
+        self.difference_update(flatten(aliases))
         return self
 
     def __str__(self):

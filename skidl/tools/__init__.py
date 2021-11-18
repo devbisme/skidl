@@ -48,6 +48,10 @@ for module_name in os.listdir(directory):
 
     # Import the module.
     mod = __import__(module_name, globals(), locals(), [], level=1)
+    for k, v in mod.__dict__.items():
+        if k.startswith("_"):
+            continue
+        this_module.__dict__[k] = v
 
     # Get some info from the imported module.
     try:
@@ -79,11 +83,8 @@ for module_name in os.listdir(directory):
         (net.Net, "gen_xml_net"),
         (part.Part, "gen_svg_comp"),
         (circuit.Circuit, "gen_schematic"),
-        (part.Part, "gen_pinboxes"),
-        (net.Net, "gen_wire_eeschema"),
-        (circuit.Circuit, "gen_hier_rect"),
     ):
         try:
-            setattr(class_, "_".join(("", method, tool_name)), getattr(mod, method))
+            setattr(class_, method + '_' + tool_name, getattr(mod, method))
         except AttributeError:
             pass  # No method implemented for this ECAD tool.

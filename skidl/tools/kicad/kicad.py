@@ -21,12 +21,12 @@ from collections import namedtuple
 
 from future import standard_library
 
-from ...coord import *
 from ...logger import active_logger
 from ...part import LIBRARY, TEMPLATE
 from ...pckg_info import __version__
 from ...scriptinfo import get_script_name, scriptinfo
 from ...utilities import *
+from .geometry import *
 
 standard_library.install_aliases()
 
@@ -36,6 +36,24 @@ standard_library.install_aliases()
 tool_name = "kicad"
 # lib_suffix = [".kicad_sym", ".lib"]
 lib_suffix = [".lib", ".kicad_sym"]
+
+
+def get_kicad_lib_tbl_dir():
+    """Get the path to where the global fp-lib-table file is found."""
+
+    paths = (
+        "$HOME/.config/kicad",
+        "~/.config/kicad",
+        "%APPDATA%/kicad",
+        "$HOME/Library/Preferences/kicad",
+        "~/Library/Preferences/kicad",
+    )
+
+    for path in paths:
+        path = os.path.normpath(os.path.expanduser(os.path.expandvars(path)))
+        if os.path.lexists(path):
+            return path
+    return ""
 
 
 def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
@@ -69,12 +87,12 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
         )
 
     if suffix == ".kicad_sym":
-        _load_sch_lib_kicad_v6(self, f, filename, lib_search_paths_)
+        load_sch_lib_kicad_v6(self, f, filename, lib_search_paths_)
     else:
-        _load_sch_lib_kicad(self, f, filename, lib_search_paths_)
+        load_sch_lib_kicad(self, f, filename, lib_search_paths_)
 
 
-def _load_sch_lib_kicad(self, f, filename, lib_search_paths_):
+def load_sch_lib_kicad(self, f, filename, lib_search_paths_):
     """
     Load the parts from a KiCad schematic library file.
 
@@ -85,71 +103,65 @@ def _load_sch_lib_kicad(self, f, filename, lib_search_paths_):
     from ...part import Part
     from .. import KICAD
 
+    lib_txt = f.read()
+    part_defns = lib_txt.split("\nDEF ")
+
     # Check the file header to make sure it's a KiCad library.
-    header = []
-    header = [f.readline()]
-    if header and "EESchema-LIBRARY" not in header[0]:
-        raise RuntimeError(
-            "The file {} is not a KiCad Schematic Library File.\n".format(filename)
+    header = part_defns.pop(0)  # Stuff before first DEF is the header.
+    if not header.startswith("EESchema-LIBRARY"):
+        active_logger.raise_(
+            RuntimeError,
+            "The file {} is not a KiCad Schematic Library File.\n".format(filename),
         )
 
-    # Read the definition of each part line-by-line and then create
-    # a Part object that gets stored in the part list.
-    part_defn = []
-    for line in f:
+    # Process each part.
+    for part_defn in part_defns:
 
-        # Skip over comments.
-        if line.startswith("#"):
-            pass
+        part_defn = part_defn.split("\n")
+        part_defn[0] = "DEF " + part_defn[0]  # Add DEF back onto first line.
 
-        # Look for the start of a part definition.
-        elif line.startswith("DEF"):
-            # Initialize the part definition with the first line.
-            # This will also signal that succeeding lines should be added.
-            part_defn = [line]
-            part_name = line.split()[1]  # Get the part name.
-            part_aliases = []
+        # Remove comments.
+        # part_defn = re.sub("(\n?)([^#]*?)#[^#]*?\n", r"\1\2", part_defn)
+        part_defn = [line for line in part_defn if not line.startswith("#")]
 
-        # If gathering the part definition has begun, then continue adding lines.
-        elif part_defn:
-            part_defn.append(line)
+        # Get part name.
+        part_name = part_defn[0].split()[1]
 
-            # Get aliases to add to search text.
-            if line.startswith("ALIAS"):
-                part_aliases = line.split()[1:]
+        # Get part aliases between "ALIAS " and newline.
+        aliases = []
+        for line in part_defn:
+            if line.startswith("ALIAS "):
+                aliases = line.split()[1:]
+                break
 
-            # If the current line ends this part definition, then create
-            # the Part object and add it to the part list. Be sure to
-            # indicate that the Part object is being added to a library
-            # and not to a schematic netlist.
-            # Also, add null attributes in case a DCM file is not
-            # available for this part.
-            if line.startswith("ENDDEF"):
-                self.add_parts(
-                    Part(
-                        part_defn=part_defn,
-                        tool=KICAD,
-                        dest=LIBRARY,
-                        filename=filename,
-                        name=part_name,
-                        aliases=part_aliases,
-                        keywords="",
-                        datasheet="",
-                        description="",
-                        search_text="",
-                        tool_version="kicad",
-                    )
-                )
-
-                # Clear the part definition in preparation for the next one.
-                part_defn = []
+        # Create the Part object and add it to the part list. Be sure to
+        # indicate that the Part object is being added to a library
+        # and not to a schematic netlist.
+        # Also, add null attributes in case a DCM file is not
+        # available for this part.
+        self.add_parts(
+            Part(
+                part_defn=part_defn,
+                tool=KICAD,
+                dest=LIBRARY,
+                filename=filename,
+                name=part_name,
+                aliases=aliases,
+                keywords="",
+                datasheet="",
+                description="",
+                search_text="",
+                tool_version="kicad",
+            )
+        )
 
     # Now add information from any associated DCM file.
     base_fn = os.path.splitext(filename)[0]  # Strip any extension.
     f, _ = find_and_open_file(base_fn, lib_search_paths_, ".dcm", allow_failure=True)
     if f:
         part_desc = {}
-        for line in f:
+
+        for line in f.read().split("\n"):
 
             # Skip over comments.
             if line.startswith("#"):
@@ -159,7 +171,7 @@ def _load_sch_lib_kicad(self, f, filename, lib_search_paths_):
             elif line.startswith("$CMP"):
                 part_desc["name"] = line.split()[-1]
 
-            # If gathering the part definition has begun, then continue adding lines.
+            # If gathering the part description has begun, then continue adding lines.
             elif part_desc:
                 if line.startswith("D"):
                     part_desc["description"] = " ".join(line.split()[1:])
@@ -168,15 +180,8 @@ def _load_sch_lib_kicad(self, f, filename, lib_search_paths_):
                 elif line.startswith("F"):
                     part_desc["datasheet"] = " ".join(line.split()[1:])
                 elif line.startswith("$ENDCMP"):
-                    try:
-                        part = self.get_part_by_name(
-                            re.escape(part_desc["name"]),
-                            silent=True,
-                            get_name_only=True,
-                        )
-                    except Exception as e:
-                        pass
-                    else:
+                    # Part description complete, so store it in the part(s) with matching name.
+                    for part in self.get_parts_quick(part_desc["name"]):
                         part.description = part_desc.get("description", "")
                         part.keywords = part_desc.get("keywords", "")
                         part.datasheet = part_desc.get("datasheet", "")
@@ -186,8 +191,8 @@ def _load_sch_lib_kicad(self, f, filename, lib_search_paths_):
 
     # Create text string to be used when searching for parts.
     for part in self.parts:
-        search_text_pieces = [part.filename, part.name, part.description, part.keywords]
-        search_text_pieces.extend(part.aliases)
+        search_text_pieces = [part.filename, part.description, part.keywords]
+        search_text_pieces.extend(part.aliases)  # aliases also includes part name.
         # Join the various text pieces by newlines so the ^ and $ special characters
         # can be used to detect the start and end of a piece of text during RE searches.
         part.search_text = "\n".join(search_text_pieces)
@@ -227,7 +232,7 @@ def _split_into_symbols(libstr):
     return symbols
 
 
-def _load_sch_lib_kicad_v6(self, f, filename, lib_search_paths_):
+def load_sch_lib_kicad_v6(self, f, filename, lib_search_paths_):
     """
     Load the parts from a KiCad schematic library file.
 
@@ -283,20 +288,19 @@ def _load_sch_lib_kicad_v6(self, f, filename, lib_search_paths_):
         )
 
 
-def parse_lib_part(self, get_name_only=False):
+def parse_lib_part(self, partial_parse=False):
     """
     Create a Part using a part definition from a KiCad schematic library.
 
     Args:
-        get_name_only: If true, scan the part definition until the
+        partial_parse: If true, scan the part definition until the
             name and aliases are found. The rest of the definition
             will be parsed if the part is actually used.
     """
-
     if self.tool_version == "kicad_v6":
-        _parse_lib_part_kicad_v6(self, get_name_only)
+        parse_lib_part_kicad_v6(self, partial_parse)
     else:
-        _parse_lib_part_kicad(self, get_name_only)
+        parse_lib_part_kicad(self, partial_parse)
 
 
 # Named tuples for part DRAW primitives.
@@ -333,7 +337,7 @@ DrawPin = namedtuple(
 )
 
 
-def _parse_lib_part_kicad(self, get_name_only):
+def parse_lib_part_kicad(self, partial_parse):
     """
     Create a Part using a part definition from a KiCad schematic library.
 
@@ -342,7 +346,7 @@ def _parse_lib_part_kicad(self, get_name_only):
     It's covered by GPL3.
 
     Args:
-        get_name_only: If true, scan the part definition until the
+        partial_parse: If true, scan the part definition until the
             name and aliases are found. The rest of the definition
             will be parsed if the part is actually used.
     """
@@ -520,7 +524,7 @@ def _parse_lib_part_kicad(self, get_name_only):
 
             # To handle libraries quickly, just get the name and
             # aliases and parse the rest of the part definition later.
-            if get_name_only:
+            if partial_parse:
                 if self.aliases:
                     # Name found, aliases already found so we're done.
                     return
@@ -684,10 +688,12 @@ def _parse_lib_part_kicad(self, get_name_only):
     def kicad_pin_to_pin(kicad_pin):
         p = Pin()  # Create a blank pin.
 
-        # Replicate the KiCad pin fields as attributes in the Pin object.
-        # Note that this update will not give the pins valid references
-        # to the current part, but we'll fix that soon.
-        p.__dict__.update(kicad_pin._asdict())
+        # Place the KiCad pin name, number and function fields to the Pin object.
+        p.num = kicad_pin.num
+        p.name = kicad_pin.name
+        p.x = kicad_pin.x
+        p.y = kicad_pin.y
+        p.orientation = kicad_pin.orientation
 
         pin_type_translation = {
             "I": Pin.types.INPUT,
@@ -702,7 +708,7 @@ def _parse_lib_part_kicad(self, get_name_only):
             "E": Pin.types.OPENEMIT,
             "N": Pin.types.NOCONNECT,
         }
-        p.func = pin_type_translation[p.electrical_type]
+        p.func = pin_type_translation[kicad_pin.electrical_type.upper()]
 
         return p
 
@@ -721,12 +727,12 @@ def _parse_lib_part_kicad(self, get_name_only):
     self.part_defn = None
 
 
-def _parse_lib_part_kicad_v6(self, get_name_only):
+def parse_lib_part_kicad_v6(self, partial_parse):
     """
     Create a Part using a part definition from a KiCad V6 schematic library.
 
     Args:
-        get_name_only: If true, scan the part definition until the
+        partial_parse: If true, scan the part definition until the
             name and aliases are found. The rest of the definition
             will be parsed if the part is actually used.
     """
@@ -742,7 +748,7 @@ def _parse_lib_part_kicad_v6(self, get_name_only):
         return
 
     # If a part def already exists, the name has already been set, so exit.
-    if get_name_only:
+    if partial_parse:
         return
 
     self.aliases = []  # Part aliases.
@@ -1083,17 +1089,6 @@ def gen_xml_net(self):
         txt += '\n      <node ref="{part_ref}" pin="{pin_num}"/>'.format(**locals())
     txt += "\n    </net>"
     return txt
-
-
-# # Find the bounding box of a Part based on the furthest placement of pins
-# def _generate_bounding_box_(self):
-
-#     for p in self.pins:
-#         if self.sch_bb[2] > abs(p.x):
-#             self.sch_bb[2] = p.x
-#         if self.sch_bb[3] > abs(p.y):
-#             self.sch_bb[3] = p.y
-    
 
 
 def gen_svg_comp(self, symtx, net_stubs=None):
@@ -1684,184 +1679,3 @@ def gen_svg_comp(self, symtx, net_stubs=None):
         svg.append("</g>")
 
     return "\n".join(svg)
-
-
-def gen_pinboxes(self):
-    """Generate bounding box and I/O pin positions for each unit in a part."""
-    pass
-
-
-def gen_schematic(self, route):
-    pass
-
-def _gen_hier_rect_(self):
-    print("generating a hierarchical box")
-
-# Make the eeschema code that creates a wire between 2 parts
-# Takes in a net and coordinates
-def _gen_wire_eeschema_(n, parts, c):
-
-# https://www.jeffreythompson.org/collision-detection/line-rect.php
-# For a particular wire see if it collides with any parts
-    def det_net_wire_collision(parts, x1,y1,x2,y2):
-
-        # order should be x1min, x1max, y1min, y1max
-        if x1 > x2:
-            t = x1
-            x1 = x2
-            x2 = t
-        if y1 > y2:
-            t = y1
-            y1 = y2
-            y2 = t
-        x1min = x1
-        y1min = y1
-        x1max = x2
-        y1max = y2
-
-        for pt in parts:
-            x2min = pt.sch_bb[0] - pt.sch_bb[2]
-            y2min = pt.sch_bb[1] - pt.sch_bb[3]
-            x2max = pt.sch_bb[0] + pt.sch_bb[2]
-            y2max = pt.sch_bb[1] + pt.sch_bb[3]
-            
-            if lineLine(x1min,y1min,x1max,y1max, x2min,y2min,x2min, y2max):
-                return [pt.ref, "L"]
-            elif lineLine(x1min,y1min,x1max,y1max, x2max,y2min, x2max,y2max):
-                return [pt.ref, "R"]
-            elif lineLine(x1min,y1min,x1max,y1max, x2min,y2min, x2max,y2min):
-               return [pt.ref, "U"]
-            elif lineLine(x1min,y1min,x1max,y1max, x2min,y2max, x2max,y2max):
-                return [pt.ref, "D"]
-        return []
-
-    #LINE/LINE
-    # https://www.jeffreythompson.org/collision-detection/line-rect.php
-    def lineLine( x1,  y1,  x2,  y2,  x3,  y3,  x4,  y4):
-    # calculate the distance to intersection point
-        uA = 0.0
-        uB = 0.0
-        try:
-            uA = ((x4-x3)*(y1-y3) - (y4-y3)*(x1-x3)) / ((y4-y3)*(x2-x1) - (x4-x3)*(y2-y1))
-            uB = ((x2-x1)*(y1-y3) - (y2-y1)*(x1-x3)) / ((y4-y3)*(x2-x1) - (x4-x3)*(y2-y1))
-        except:
-            return False
-
-        #   // if uA and uB are between 0-1, lines are colliding
-        if (uA > 0 and uA < 1 and uB > 0 and uB < 1):
-            intersectionX = x1 + (uA * (x2-x1))
-            intersectionY = y1 + (uA * (y2-y1))
-            print("Collision at:  X: " + str(intersectionX) + " Y: " + str(intersectionY))
-            return True
-        return False
-
-
-
-    # Caluclate the coordiantes of a straight line between the 2 pins that need to connect
-    x1 = n.pins[0].part.sch_bb[0] + n.pins[0].x
-    y1 = n.pins[0].part.sch_bb[1] - n.pins[0].y
-
-    x2 = n.pins[1].part.sch_bb[0] + n.pins[1].x
-    y2 = n.pins[1].part.sch_bb[1] - n.pins[1].y
-
-    line = [[x1,y1], [x2,y2]]
-
-
-    # Check if the line is orthogonal by checking if we are horizontally or vertically aligned
-    if not(x1 == x2) and not(y1==y2):
-        # if the line is not orthogonal then insert a point to make it orthogonal
-        #  y's must be equal
-        x_t = x1
-        y_t = y2
-        line.insert(1,[x_t,y_t])
-
-    # check each line segment for a collision
-    for i in range(len(line)-1):
-        t_x1 = line[i][0]
-        t_y1 = line[i][1]
-        t_x2 = line[i+1][0]
-        t_y2 = line[i+1][1]
-
-        collide = det_net_wire_collision(parts, t_x1,t_y1,t_x2,t_y2)
-        # if we see a collision then draw the net around the rectangle
-        # since we are only going left/right with nets/rectangles the strategy to route
-        # around a rectangle is basically making a 'U' shape around it
-        if len(collide)>0:
-            collided_part = Part.get(collide[0])
-            collided_side = collide[1]
-            
-            if collided_side == "L":
-                # if we collided on the left 
-                if n.pins[1].part.sch_bb[0]<0 or n.pins[0].part.sch_bb[0]<0:
-                    print("left side of U1")
-
-                    # switch first and last coordinates if one is further left
-                    if x1 > x2:
-                        t = line[0]
-                        line[0] = line[-1]
-                        line[-1] = t
-
-                    # draw line down
-                    d_x1 = collided_part.sch_bb[0] - collided_part.sch_bb[2] - 100
-                    d_y1 = t_y1
-                    d_x2 = d_x1
-                    d_y2 = collided_part.sch_bb[1] + collided_part.sch_bb[3] + 200
-                    # d_x3 = d_x2 + collided_part.sch_bb[2] + 100 + 100
-                    d_y3 = d_y2
-                    line.insert(i+1, [d_x1,d_y1])
-                    line.insert(i+2, [d_x2, d_y2])
-                    line.insert(i+3, [x1, d_y3])
-
-                else:
-                    print("right side of U1")
-                        # switch first and last coordinates if one is further left
-                    if x1 < x2:
-                        t = line[0]
-                        line[0] = line[-1]
-                        line[-1] = t
-                    # draw line down
-                    d_x1 = collided_part.sch_bb[0] + collided_part.sch_bb[2] + 100
-                    d_y1 = t_y1
-                    d_x2 = d_x1
-                    d_y2 = collided_part.sch_bb[1] + collided_part.sch_bb[3] + 200
-                    # d_x3 = d_x2 + collided_part.sch_bb[2] + 100 + 100
-                    d_y3 = d_y2
-                    line.insert(i+1, [d_x1,d_y1])
-                    line.insert(i+2, [d_x2, d_y2])
-                    line.insert(i+3, [x2, d_y3])
-                break
-            if collided_side == "R":
-                # switch first and last coordinates if one is further left
-                if x1 > x2:
-                    t = line[0]
-                    line[0] = line[-1]
-                    line[-1] = t
-
-                # draw line down
-                d_x1 = collided_part.sch_bb[0] - collided_part.sch_bb[2] - 100
-                d_y1 = t_y1
-                d_x2 = d_x1
-                d_y2 = collided_part.sch_bb[1] + collided_part.sch_bb[3] + 100
-                d_x3 = d_x2 - collided_part.sch_bb[2] + 100 + 100
-                d_y3 = d_y2
-                line.insert(i+1, [d_x1,d_y1])
-                line.insert(i+2, [d_x2, d_y2])
-                line.insert(i+3, [x1, d_y3])
-                break
-
-
-    t_wire = []
-    # TODO add the center coordinates
-    for i in range(len(line)-1):
-        # print(line[i])
-        t_x1 = line[i][0] + c[0]
-        t_y1 = line[i][1] + c[1]
-        t_x2 = line[i+1][0] + c[0]
-        t_y2 = line[i+1][1] + c[1]
-        t_wire.append("Wire Wire Line\n")
-        t_wire.append("	{} {} {} {}\n".format(t_x1,t_y1,t_x2,t_y2))
-        t_out = "\n"+"".join(t_wire)    
-    
-    return (t_out)
-
-

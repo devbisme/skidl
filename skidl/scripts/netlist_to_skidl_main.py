@@ -22,8 +22,8 @@ from builtins import open
 
 from future import standard_library
 
-from .netlist_to_skidl import netlist_to_skidl
-from .pckg_info import __version__
+from ..netlist_to_skidl import netlist_to_skidl
+from ..pckg_info import __version__
 
 standard_library.install_aliases()
 
@@ -35,7 +35,7 @@ standard_library.install_aliases()
 
 def main():
     parser = argparse.ArgumentParser(
-        description="A Python package for textually describing circuit schematics."
+        description="A script for converting a KiCad netlist into SKiDL (a textual description of circuit schematics)."
     )
     parser.add_argument(
         "--version", "-v", action="version", version="skidl " + __version__

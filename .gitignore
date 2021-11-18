@@ -40,6 +40,7 @@ htmlcov
 
 # Directories
 docs/
+**/\.ipynb_checkpoints/
 
 # Mr Developer
 .mr.developer.cfg
@@ -55,8 +56,3 @@ output/*/index.html
 uno_r3
 
 *.erc
-
-*.lib
-*.sch
-*.sch-bak
-*.net

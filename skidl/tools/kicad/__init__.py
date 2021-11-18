@@ -3,3 +3,4 @@
 # The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
 
 from .kicad import *
+from .gen_schematic import *

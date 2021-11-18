@@ -17,6 +17,7 @@ from builtins import object, str
 
 from future import standard_library
 
+from .alias import Alias
 from .logger import active_logger
 from .utilities import *
 
@@ -73,7 +74,7 @@ class SchLib(object):
         else:
             try:
                 # Use the tool name to find the function for loading the library.
-                load_func = getattr(self, "_load_sch_lib_{}".format(tool))
+                load_func = getattr(self, "load_sch_lib_{}".format(tool))
             except AttributeError:
                 # OK, that didn't work so well...
                 active_logger.raise_(
@@ -100,9 +101,9 @@ class SchLib(object):
 
         for part in flatten(parts):
             # Parts with the same name are not allowed in the library.
-            # Also, do not check the backup library to see if the parts
-            # are in there because that's probably a different library.
-            if not self.get_parts(use_backup_lib=False, name=re.escape(part.name)):
+            if not self.get_parts_by_name(
+                part.name, be_thorough=False, allow_failure=True
+            ):
                 self.parts.append(part.copy(dest=TEMPLATE))
                 # Place a pointer to this library into the added part.
                 self.parts[-1].lib = self
@@ -120,12 +121,12 @@ class SchLib(object):
                 of the attribute.
 
         Returns:
-            A single Part or a list of Parts that match all the criteria.
+            A list of Parts that match all the criteria.
         """
 
         import skidl
 
-        parts = list_or_scalar(filter_list(self.parts, **criteria))
+        parts = filter_list(self.parts, **criteria)
         if not parts and use_backup_lib and skidl.QUERY_BACKUP_LIB:
             try:
                 backup_lib_ = skidl.load_backup_lib()
@@ -134,68 +135,65 @@ class SchLib(object):
                 pass
         return parts
 
-    def get_part_by_name(
-        self, name, allow_multiples=False, silent=False, get_name_only=False
+    def get_parts_quick(self, name):
+        """Do a quick search for a part name or alias."""
+        return [prt for prt in self.parts if prt.aliases == name]
+
+    def get_parts_by_name(
+        self,
+        name,
+        be_thorough=True,
+        allow_multiples=False,
+        allow_failure=False,
+        partial_parse=False,
     ):
         """
         Return a Part with the given name or alias from the part list.
 
         Args:
             name: The part name or alias to search for in the library.
+            be_thorough: Do thorough search, not just simple string matching.
             allow_multiples: If true, return a list of parts matching the name.
                 If false, return only the first matching part and issue
                 a warning if there were more than one.
-            silent: If true, don't issue errors or warnings.
+            allow_failure: Return None if no matches found. Issue no errors/warnings.
+            partial_parse: If true, don't fully parse any parts that are found.
 
         Returns:
-            A single Part or a list of Parts that match all the criteria.
+            A list of Parts that match all the criteria.
         """
 
-        # First check to see if there is a part or parts with a matching name.
-        parts = self.get_parts(name=name)
+        # Start with a simple search for the part name.
+        names = Alias(name, name.lower(), name.upper())
+        parts = self.get_parts_quick(names)
 
-        # No part with that name, so check for an alias that matches.
-        if not parts:
+        # Simple search failed, so try the more thorough search method.
+        if not parts and be_thorough:
             parts = self.get_parts(aliases=name)
 
-            # No part with that alias either, so signal an error.
-            if not parts:
-                message = "Unable to find part {} in library {}.".format(
-                    name, getattr(self, "filename", "UNKNOWN")
-                )
-                if not silent:
-                    active_logger.error(message)
-                raise ValueError(message)
+        # No parts found, so signal an error.
+        if not parts and not allow_failure:
+            message = "Unable to find part {} in library {}.".format(
+                name, getattr(self, "filename", "UNKNOWN")
+            )
+            active_logger.raise_(ValueError, message)
 
-        # Multiple parts with that name or alias exists, so return the list
-        # of parts or just the first part on the list.
-        if isinstance(parts, (list, tuple)):
+        if len(parts) > 1 and not allow_multiples:
+            message = "Found multiple parts matching {}. Selecting {}.".format(
+                name, parts[0].name
+            )
+            active_logger.warning(message)
+            parts = parts[0:1]  # Just keep the first part.
 
-            # Return the entire list if multiples are allowed.
-            if allow_multiples:
-                parts = [p.parse(get_name_only) for p in parts]
+        # Do whatever parsing was requested for the found parts.
+        for part in parts:
+            part.parse(partial_parse)
 
-            # Just return the first part from the list if multiples are not
-            # allowed and issue a warning.
-            else:
-                if not silent:
-                    active_logger.warning(
-                        "Found multiple parts matching {}. Selecting {}.".format(
-                            name, parts[0].name
-                        )
-                    )
-                parts = parts[0]
-                parts.parse(get_name_only)
-
-        # Only a single matching part was found, so return that.
-        else:
-            parts.parse(get_name_only)
-
-        # Return the library part or parts that were found.
         return parts
 
-    # Get part by name or alias using []'s.
-    __getitem__ = get_part_by_name
+    def __getitem__(self, id):
+        """Get part by name or alias."""
+        return list_or_scalar(self.get_parts_by_name(id))
 
     def __str__(self):
         """Return a list of the part names in this library as a string."""

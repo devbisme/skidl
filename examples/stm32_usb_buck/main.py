@@ -10,8 +10,8 @@ for file in os.listdir("."):
         os.remove(file)
 
 # clear the console so we can see the print statements easier
-clear = lambda: os.system('clear')
-clear()
+# clear = lambda: os.system('clear')
+# clear()
 
 # Declare the circuits
 stm32.stm32f405r()
@@ -22,8 +22,7 @@ pc.power_circuits()
 # generate_netlist(file_ = netlist_path)
 
 # Generate schematic
-schematic_path = "/home/cdsfsmattner/Desktop/skidl/examples/stm32_usb_buck/stm32/stm32.sch"
-generate_schematic(file_ = schematic_path, _title="SKiDL generated schematic", sch_size='A2')
-
-
-
+schematic_path = "./stm32.sch"
+generate_schematic(
+    file_=schematic_path, _title="SKiDL generated schematic", sch_size="A2"
+)

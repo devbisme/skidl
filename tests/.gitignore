@@ -1,4 +1,9 @@
 *.net
 *.erc
 *.log
+*.svg
+*.png
+*.json
+*.out
+*.cir
 __pycache__

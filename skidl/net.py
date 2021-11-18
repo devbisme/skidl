@@ -647,16 +647,8 @@ class Net(SkidlBaseObject):
         if not self.get_pins():
             return
 
-        try:
-            gen_func = getattr(self, "_gen_netlist_net_{}".format(tool))
-            return gen_func()
-        except AttributeError:
-            active_logger.raise_(
-                ValueError,
-                "Can't generate netlist in an unknown ECAD tool format ({}).".format(
-                    tool
-                ),
-            )
+        gen_func = get_tool_func(self, "gen_netlist_net", tool)
+        return gen_func()
 
     def generate_xml_net(self, tool=None):
         """
@@ -677,14 +669,8 @@ class Net(SkidlBaseObject):
         if not self.get_pins():
             return
 
-        try:
-            gen_func = getattr(self, "_gen_xml_net_{}".format(tool))
-            return gen_func()
-        except AttributeError:
-            active_logger.raise_(
-                ValueError,
-                "Can't generate XML in an unknown ECAD tool format ({}).".format(tool),
-            )
+        gen_func = get_tool_func(self, "gen_xml_net", tool)
+        return gen_func()
 
     def __str__(self):
         """Return a list of the pins on this net as a string."""
@@ -702,26 +688,6 @@ class Net(SkidlBaseObject):
         pins = self.get_pins()
         return len(pins)
 
-    def replace_spec_chars_in_name(self):
-        self._name = re.sub(r"\W", "_", self._name)
-
-    # Generate the eeschema code for this net
-    def gen_eeschema(self, parts, c):
-        import skidl
-        tool = skidl.get_default_tool()
-        self.test_validity()
-
-        try:
-            gen_func = getattr(self, "_gen_wire_eeschema_{}".format(tool))
-            return gen_func(parts, c)
-        except AttributeError:
-            log_and_raise(
-                logger,
-                ValueError,
-                "Can't generate eeschema code for part ({}).".format(tool),
-            )
-
-
     @property
     def width(self):
         """Return width of a Net, which is always 1."""
@@ -735,7 +701,7 @@ class Net(SkidlBaseObject):
         When setting the net name, if another net with the same name
         is found, the name for this net is adjusted to make it unique.
         """
-        return self._name
+        return super(Net, self).name
 
     @name.setter
     def name(self, name):
@@ -743,16 +709,16 @@ class Net(SkidlBaseObject):
         self.test_validity()
         # Remove the existing name so it doesn't cause a collision if the
         # object is renamed with its existing name.
-        self._name = None
+        del self.name
 
         # Now name the object with the given name or some variation
         # of it that doesn't collide with anything else in the list.
-        self._name = get_unique_name(self.circuit.nets, "name", NET_PREFIX, name)
+        super(Net, self.__class__).name.fset(self, get_unique_name(self.circuit.nets, "name", NET_PREFIX, name))
 
     @name.deleter
     def name(self):
         self.test_validity()
-        del self._name
+        super(Net, self.__class__).name.fdel(self)
 
     @property
     def netclass(self):

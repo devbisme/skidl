@@ -26,12 +26,15 @@ from __future__ import (  # isort:skip
 )
 from future import standard_library
 
-from . import tools
+# Import tools first because imports from it's skidl subdirectory will interfere
+# if it comes after the skidl import down below. This needs to be properly fixed.
+from .tools import *  # isort:skip
+
 from .alias import *
-from .arrange import *
 from .bus import *
 from .circuit import *
 from .common import *
+from .config import *
 from .erc import *
 from .interface import *
 from .logger import *
@@ -50,5 +53,6 @@ from .schlib import *
 from .skidl import *
 from .skidlbaseobj import *
 from .utilities import *
+
 
 standard_library.install_aliases()

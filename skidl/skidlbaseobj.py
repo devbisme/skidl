@@ -51,6 +51,24 @@ class SkidlBaseObject(object):
             self.fields[key] = value
 
     @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, nm):
+        del self.name  # Remove any pre-existing name.
+        self.aliases += nm
+        self._name = nm
+
+    @name.deleter
+    def name(self):
+        try:
+            self.aliases.discard(self._name)
+            self._name = None
+        except AttributeError:
+            pass
+
+    @property
     def aliases(self):
         try:
             return self._aliases

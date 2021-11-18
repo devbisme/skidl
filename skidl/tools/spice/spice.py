@@ -18,11 +18,12 @@ from builtins import dict, int, object, range, str, zip
 
 from future import standard_library
 
+from ...alias import Alias
 from ...common import USING_PYTHON2
 from ...logger import active_logger
 from ...net import Net
-from ...part import Part, LIBRARY
-from ...pin import Pin, PinList
+from ...part import LIBRARY, Part
+from ...pin import Pin
 from ...utilities import *
 
 standard_library.install_aliases()
@@ -80,8 +81,8 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
         lib_search_paths_ : List of directories to search for the file.
     """
 
-    from .. import SPICE
     from ...skidl import lib_suffixes
+    from .. import SPICE
 
     if os.path.isdir(filename):
         # A directory was given, so just use that.
@@ -211,7 +212,7 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
                     self.add_parts(part)
 
 
-def parse_lib_part(self, get_name_only=False):  # pylint: disable=unused-argument
+def parse_lib_part(self, partial_parse=False):  # pylint: disable=unused-argument
     """
     Create a Part using a part definition from a SPICE library.
     """
@@ -251,15 +252,10 @@ def gen_netlist(self, **kwargs):
     """
 
     from ...skidl import lib_search_paths
+    from .. import SPICE
 
     if USING_PYTHON2:
         return None
-
-    # Replace any special chars in all net names because Spice won't like them.
-    # Don't use self.get_nets() because that only returns a single net from a
-    # group of attached nets so the other nets won't get renamed.
-    for net in self.nets:
-        net.replace_spec_chars_in_name()
 
     # Create an empty PySpice circuit.
     title = kwargs.pop("title", "")  # Get title and remove it from kwargs.
@@ -347,9 +343,11 @@ def gen_netlist(self, **kwargs):
 
 def node(net_pin_part):
     if isinstance(net_pin_part, Net):
-        return net_pin_part.name
+        # Replace any special chars in a net name because Spice doesn't like them.
+        return re.sub(r"\W", "_", net_pin_part.name)
     if isinstance(net_pin_part, Pin):
-        return net_pin_part.net.name
+        # Replace any special chars in a net name because Spice doesn't like them.
+        return re.sub(r"\W", "_", net_pin_part.net.name)
     if isinstance(net_pin_part, Part):
         return net_pin_part.ref
 
@@ -502,7 +500,7 @@ def add_xspice_to_circuit(part, circuit):
         if isinstance(pin, Pin):
             # Add a non-vector pin. Use _xspice_node() in case pin is unconnected.
             args.append(_xspice_node(pin))
-        elif isinstance(pin, PinList):
+        elif isinstance(pin, XspicePinList):
             # Add pins from a pin vector.
             args.append("[" + " ".join([node(p) for p in pin]) + "]")
         else:
@@ -513,3 +511,130 @@ def add_xspice_to_circuit(part, circuit):
 
     # Add the part to the PySpice circuit.
     getattr(circuit, part.pyspice["name"])(*args, **kwargs)
+
+
+def add_xspice_io(part, io):
+    """
+    Add XSPICE I/O to the pins of a part.
+    """
+    if not io:
+        return
+
+    # Change a string into a list with a single string element.
+    if isinstance(io, basestring):
+        io = [io]
+
+    # Join all the pin name arguments into a comma-separated string and then split them into a list.
+    ios = re.split(INDEX_SEPARATOR, ",".join(io))
+
+    # Add a pin to the part for each pin name.
+    for i, arg in enumerate(ios):
+        arg = arg.strip()  # Strip any spaces that may have been between pin names.
+
+        # If [pin_name] or pin_name[], then add a PinList to the part. Don't use
+        # part.add_pins() because it will flatten the PinList and add nothing since
+        # the PinList is empty.
+        if arg[0] + arg[-1] == "[]":
+            part.pins.append(XspicePinList(num=i, name=arg[1:-1], part=part))
+        elif arg[-2:] == "[]":
+            part.pins.append(XspicePinList(num=i, name=arg[0:-2], part=part))
+        else:
+            # Add a simple, non-vector pin.
+            part.add_pins(Pin(num=i, name=arg))
+
+
+def convert_for_spice(part, spice_part, pin_map):
+    """Convert a Part object for use with SPICE.
+
+    Args:
+        part: SKiDL Part object that will be converted for use as a SPICE component.
+        spice_part (Part): The type of SPICE Part to be converted to.
+        pin_map (dict): Dict with pin numbers/names of part as keys and num/names of spice_part pins as replacement values.
+    """
+
+    # Give the part access to the PySpice information from the SPICE part.
+    part.pyspice = spice_part.pyspice
+
+    # Give the part the additional aliases from the SPICE part.
+    part.aliases += spice_part.aliases
+
+    # Look-up pin names/numbers to create a mapping between actual Pin objects.
+    pin_map = [[part[dst], spice_part[src]] for dst, src in pin_map.items()]
+
+    # Pull some info from the SPICE part pins into the part pins.
+    for dst_pin, src_pin in pin_map:
+        dst_pin.num = src_pin.num
+        dst_pin.name = src_pin.name
+        dst_pin.aliases += src_pin.aliases
+
+
+class XspicePinList(list):
+    """
+    A list of Pin objects that's meant to look something like a Pin to a Part.
+    This is used for vector I/O of XSPICE parts.
+    """
+
+    def __init__(self, num, name, part):
+        super().__init__()
+        # The list needs the following attributes to behave like a Pin.
+        self.aliases = Alias()
+        self.num = num
+        self.name = name
+        self.part = part
+
+    def __getitem__(self, i):
+        """
+        Get a Pin from the list. Add Pin objects to the list if they don't exist.
+        """
+        l = super().__len__()
+        if i >= l:
+            self.extend([Pin(num=j, part=self.part) for j in range(l, i + 1)])
+        return super().__getitem__(i)
+
+    def __iter__(self):
+        if super().__len__() == 0:
+            tmp = [Pin()]
+            return (p for p in tmp)
+        return (p for p in super().__iter__())  # Return generator expr.
+
+    def __len__(self):
+        l = super().__len__()
+        return l or 1
+
+    def copy(self):
+        """
+        Return a copy of a PinList for use when a Part is copied.
+        """
+        cpy = self.__class__(self.num, self.name, self.part)
+        for pin in self:
+            cpy += pin.copy()
+        return cpy
+
+    def disconnect(self):
+        """Disconnect all the pins in the list."""
+        for pin in self:
+            pin.disconnect()
+
+    def is_connected(self):
+        for pin in self:
+            if pin.is_connected():
+                return True
+        return False
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, nm):
+        del self.name  # Remove any pre-existing name.
+        self.aliases += nm
+        self._name = nm
+
+    @name.deleter
+    def name(self):
+        try:
+            self.aliases.discard(self._name)
+            self._name = None
+        except AttributeError:
+            pass

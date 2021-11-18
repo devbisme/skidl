@@ -38,7 +38,8 @@ class Package(Interface):
         for k, v in list(kwargs.items()):
             self[k] = v  # Use __setitem__ so both dict item and attribute are created.
 
-    def __call__(self, *args, **kwargs):
+    def __call__(self, **kwargs):
+        # def __call__(self, *args, **kwargs):
         """Create a copy of a package."""
 
         # Get circuit that will contain the package subcircuitry.
@@ -47,24 +48,31 @@ class Package(Interface):
         # See if this package should be instantiated into the netlist or used as a template.
         dest = kwargs.pop("dest", NETLIST)
 
-        pckg = Package(**self.copy())  # Create a shallow copy of the package.
+        # Create a blank Package object.
+        pckg = Package()
 
-        # Set the circuit that the ProtoNets belong to. Also, make copies of any
-        # implicit buses or nets that were specified as default I/Os in the
-        # package definition.
-        for k, v in pckg.items():
+        # Add I/O and anything else to the blank Package.
+        for k, v in self.items():
             if isinstance(v, ProtoNet):
-                v.circuit = circuit
+                pckg[k] = copy(v)
+                pckg[k].circuit = circuit
             elif isinstance(v, (Net, Bus)):
                 if v.is_implicit():
-                    pckg[k] = v.__class__()
-                    # pckg[k] = v.copy()
+                    pckg[k] = v.__class__(circuit=circuit)
+                else:
+                    # Should this use copy()?
+                    pckg[k] = v
+                    pckg[k].circuit = circuit
+            else:
+                pckg[k] = v
 
+        # Add passed-in attributes to the package.
         # Don't use update(). It doesn't seem to call __setitem__.
         for k, v in list(kwargs.items()):
             pckg[k] = v  # Use __setitem__ so both dict item and attribute are created.
 
-        pckg.subcircuit = self.subcircuit  # Assign subcircuit creation function.
+        # Assign subcircuit creation function.
+        pckg.subcircuit = self.subcircuit
 
         # Remove creation function so it's not passed as a parameter.
         del pckg["subcircuit"]

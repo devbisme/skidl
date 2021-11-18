@@ -139,8 +139,7 @@ class Part(SkidlBaseObject):
         connections=None,
         part_defn=None,
         circuit=None,
-        ref_prefix="U",
-        orientation = [1,0,0,-1],
+        ref_prefix='U',
         ref=None,
         tag=None,
         pin_splitters=None,
@@ -151,7 +150,7 @@ class Part(SkidlBaseObject):
         import skidl
 
         from .schlib import SchLib
-        from .tools import SKIDL
+        from .tools import SKIDL, add_xspice_io
 
         super().__init__()
 
@@ -168,8 +167,6 @@ class Part(SkidlBaseObject):
         self.description = ""  # Make sure there is a description, even if empty.
         self._ref = ""  # Provide a member for holding a reference.
         self.ref_prefix = ref_prefix  # Store the part reference prefix.
-        self.orientation = [1,0,0,-1]
-        self.sch_bb=[0,0,0,0] # Set schematic location to x, y, height, width
         self.tool = tool  # Initial type of part (SKIDL, KICAD, etc.)
         self.circuit = None  # Part starts off unassociated with any circuit.
         self.match_pin_regex = False  # Don't allow regex matches of pin names.
@@ -218,7 +215,7 @@ class Part(SkidlBaseObject):
             if tool_version:
                 self.tool_version = tool_version
 
-            self.parse(get_name_only=(dest != NETLIST))
+            self.parse(partial_parse=(dest != NETLIST))
 
         # If the part is destined for a SKiDL library, then it will be defined
         # by the additional attribute values that are passed.
@@ -256,7 +253,7 @@ class Part(SkidlBaseObject):
                     net += self[pin]
 
         # Add any XSPICE I/O as pins. (This only happens with SPICE simulations.)
-        self.add_xspice_io(kwargs.pop("io", []))
+        add_xspice_io(self, kwargs.pop("io", []))
 
         # Set the part reference if one was explicitly provided.
         if ref:
@@ -268,38 +265,10 @@ class Part(SkidlBaseObject):
 
         # If any pins were added, make sure they're associated with the part.
         self.associate_pins()
-        self.sch_bb=[0,0,0,0]
 
-    def add_xspice_io(self, io):
-        """
-        Add XSPICE I/O to the pins of a part.
-        """
-        from .pin import Pin, PinList
-
-        if not io:
-            return
-
-        # Change a string into a list with a single string element.
-        if isinstance(io, basestring):
-            io = [io]
-
-        # Join all the pin name arguments into a comma-separated string and then split them into a list.
-        ios = re.split(INDEX_SEPARATOR, ",".join(io))
-
-        # Add a pin to the part for each pin name.
-        for i, arg in enumerate(ios):
-            arg = arg.strip()  # Strip any spaces that may have been between pin names.
-
-            # If [pin_name] or pin_name[], then add a PinList to the part. Don't use
-            # part.add_pins() because it will flatten the PinList and add nothing since
-            # the PinList is empty.
-            if arg[0] + arg[-1] == "[]":
-                self.pins.append(PinList(num=i, name=arg[1:-1], part=self))
-            elif arg[-2:] == "[]":
-                self.pins.append(PinList(num=i, name=arg[0:-2], part=self))
-            else:
-                # Add a simple, non-vector pin.
-                self.add_pins(Pin(num=i, name=arg))
+        # Make sure the part name is also included in the list of aliases
+        # because part searching only checks the aliases for name matches.
+        self.aliases += name
 
     @classmethod
     def get(cls, text, circuit=None):
@@ -324,15 +293,15 @@ class Part(SkidlBaseObject):
 
         search_params = (
             ("ref", text, True),
-            ("name", text, True),
+            # ("name", text, True), # Redundant: name is already replicated in aliases.
             ("aliases", text, True),
             ("description", text, False),
         )
 
         parts = []
-        for attr, name, do_str_match in search_params:
+        for attr, value, do_str_match in search_params:
             parts.extend(
-                filter_list(circuit.parts, do_str_match=do_str_match, **{attr: name})
+                filter_list(circuit.parts, do_str_match=do_str_match, **{attr: value})
             )
 
         return list_or_scalar(parts)
@@ -355,28 +324,20 @@ class Part(SkidlBaseObject):
             # This happens if the part has no integer-labeled pins.
             return 0, 0
 
-    def parse(self, get_name_only=False):
+    def parse(self, partial_parse=False):
         """
         Create a part from its stored part definition.
 
         Args:
-            get_name_only: When true, just get the name and aliases for the
+            partial_parse: When true, just get the name and aliases for the
                 part. Leave the rest unparsed.
         """
 
         # Get the function to parse the part description.
-        try:
-            parse_func = getattr(self, "_parse_lib_part_{}".format(self.tool))
-        except AttributeError:
-            active_logger.raise_(
-                ValueError,
-                "Can't create a part with an unknown ECAD tool file format: {}.".format(
-                    self.tool
-                ),
-            )
+        parse_func = get_tool_func(self, "parse_lib_part", self.tool)
 
         # Parse the part description.
-        parse_func(get_name_only)
+        parse_func(partial_parse)
 
     def associate_pins(self):
         """
@@ -420,6 +381,7 @@ class Part(SkidlBaseObject):
         from .circuit import Circuit
         from .part import NETLIST
         from .pin import Pin
+        from .tools import add_xspice_io
 
         # If the number of copies is None, then a single copy will be made
         # and returned as a scalar (not a list). Otherwise, the number of
@@ -512,7 +474,7 @@ class Part(SkidlBaseObject):
                 circuit += cpy
 
             # Add any XSPICE I/O as pins to the part.
-            cpy.add_xspice_io(io)
+            add_xspice_io(cpy, io)
 
             # Enter any new attributes.
             for k, v in list(attribs.items()):
@@ -969,36 +931,12 @@ class Part(SkidlBaseObject):
             tool: The format for the netlist file (e.g., KICAD).
         """
 
-        import skidl
-
-        if tool is None:
-            tool = skidl.get_default_tool()
+        gen_func = get_tool_func(self, "gen_netlist_comp", tool)
 
         # Create part value as a string so including it in netlist isn't a problem.
         self.value_str = self._value_to_str()
 
-        try:
-            gen_func = getattr(self, "_gen_netlist_comp_{}".format(tool))
-        except AttributeError:
-            active_logger.raise_(
-                ValueError,
-                "Can't generate netlist in an unknown ECAD tool format ({}).".format(
-                    tool
-                ),
-            )
-
         return gen_func()
-
-    def generate_bounding_box(self):
-        for p in self.pins:
-            if self.sch_bb[2] < (abs(p.x)):
-                self.sch_bb[2] = abs(p.x)
-            if self.sch_bb[3] < (abs(p.y)):
-                self.sch_bb[3] = abs(p.y)
-        if self.sch_bb[2] < 100:
-            self.sch_bb[2] = 100
-        if self.sch_bb[3] < 100:
-            self.sch_bb[3] = 100
 
     def generate_xml_component(self, tool=None):
         """
@@ -1008,286 +946,21 @@ class Part(SkidlBaseObject):
             tool: The format for the XML file (e.g., KICAD).
         """
 
-        import skidl
-
-        if tool is None:
-            tool = skidl.get_default_tool()
+        gen_func = get_tool_func(self, "gen_xml_comp", tool)
 
         # Create part value as a string so including it in XML isn't a problem.
         self.value_str = self._value_to_str()
 
-        try:
-            gen_func = getattr(self, "_gen_xml_comp_{}".format(tool))
-        except AttributeError:
-            active_logger.raise_(
-                ValueError,
-                "Can't generate XML in an unknown ECAD tool format ({}).".format(tool),
-            )
-
         return gen_func()
-
-    
-    # Move the part by dx/dy, then check to see if it's colliding with 
-    #   any other part.  If it is colliding then move the part move towards the 
-    #   direction of the pin it was moving towards
-    def move_part(self, dx, dy, _parts_list):
-        # Determine if the part moved left or right
-        move_dir = 'L'
-        if dx > 0:
-            move_dir = 'R'
-        
-        # Round dx/dy to nearest 50
-        dx = int((50 * round(dx/50)))
-        dy = int((50 * round(dy/50)))
-        # Move the part
-        self.sch_bb[0] += dx
-        self.sch_bb[1] -= dy
-
-        # Check to see if we're colliding with any other parts
-
-        # First we need to check for a label on each pin.  
-        # If we find one then add that label's length to the collision detection
-        x_label_p = 0
-        x_label_m = 0
-        y_label_p = 0
-        y_label_m = 0
-        for pin in self.pins:
-            if len(pin.label)>0:
-                if pin.orientation == 'U':
-                    if (len(pin.label)+1)*50 > y_label_m:
-                        y_label_m = (len(pin.label)+1)*50
-                elif pin.orientation == 'D':
-                    if (len(pin.label)+1)*50 > y_label_p:
-                        y_label_p = (len(pin.label)+1)*50
-                elif pin.orientation == 'L':
-                    if (len(pin.label)+1)*50 > x_label_p:
-                        x_label_p = (len(pin.label)+1)*50
-                elif pin.orientation == 'R':
-                    if (len(pin.label)+1)*50 > x_label_m:
-                        x_label_m = (len(pin.label)+1)*50
-
-
-
-        # Range through parts in the subcircuit and look for overlaps
-        # If we are overlapping then nudge the part 50mil left/right and rerun this function
-        for pt in _parts_list:
-            # Don't detect collisions with itself
-            if pt.ref == self.ref:
-                continue
-
-            # Determine if there's a label on a pin and count that label length for detecting collisions
-            pt_x_label_p = 0
-            pt_x_label_m = 0
-            pt_y_label_p = 0
-            pt_y_label_m = 0
-            for pin in pt.pins:
-                if len(pin.label)>0:
-                    if pin.orientation == 'U':
-                        if (len(pin.label)+1)*50 > pt_y_label_m:
-                            pt_y_label_m = (len(pin.label)+1)*50
-                    elif pin.orientation == 'D':
-                        if (len(pin.label)+1)*50 > pt_y_label_p:
-                            pt_y_label_p = (len(pin.label)+1)*50
-                    elif pin.orientation == 'L':
-                        if (len(pin.label)+1)*50 > pt_x_label_p:
-                            pt_x_label_p = (len(pin.label)+1)*50
-                    elif pin.orientation == 'R':
-                        if (len(pin.label)+1)*50 > pt_x_label_m:
-                            pt_x_label_m = (len(pin.label)+1)*50
-
-
-            # Calculate the min/max for x/y in order to detect collision between rectangles
-
-            x1min = self.sch_bb[0] - self.sch_bb[2] - x_label_m
-            x1max = self.sch_bb[0] + self.sch_bb[2] + x_label_p
-            y1min = self.sch_bb[1] - self.sch_bb[3] - y_label_m
-            y1max = self.sch_bb[1] + self.sch_bb[3] + y_label_p
-            x2min = pt.sch_bb[0] - pt.sch_bb[2] - pt_x_label_m
-            x2max = pt.sch_bb[0] + pt.sch_bb[2] + pt_x_label_p
-            y2min = pt.sch_bb[1] - pt.sch_bb[3] - pt_y_label_m
-            y2max = pt.sch_bb[1] + pt.sch_bb[3] + pt_y_label_p
-            # Logic to tell whether parts collide
-            # Note that the movement direction is opposite of what's intuitive ('R' = move left, 'U' = -50)
-            # https://stackoverflow.com/questions/20925818/algorithm-to-check-if-two-boxes-overlap
-            if (x1min <= x2max) and (x2min <= x1max) and (y1min <= y2max) and (y2min <= y1max):
-                if move_dir == 'R':
-                    self.move_part(200, 0, _parts_list)
-                else:
-                    self.move_part(-200, 0, _parts_list)
-
 
     def generate_svg_component(self, symtx="", tool=None, net_stubs=None):
         """
         Generate the SVG for displaying a part in an SVG schematic.
         """
 
-        import skidl
-
-        if tool is None:
-            tool = skidl.get_default_tool()
-
-        try:
-            gen_func = getattr(self, "_gen_svg_comp_{}".format(tool))
-        except AttributeError:
-            active_logger.raise_(
-                ValueError,
-                "Can't generate SVG for a component in an unknown ECAD tool format({}).".format(
-                    tool
-                ),
-            )
+        gen_func = get_tool_func(self, "gen_svg_comp", tool)
 
         return gen_func(symtx=symtx, net_stubs=net_stubs)
-
-    def generate_pinboxes(self, tool=None):
-        """
-        Generate the pinboxes for arranging parts in a schematic.
-        """
-
-        import skidl
-
-        if tool is None:
-            tool = skidl.get_default_tool()
-
-        try:
-            gen_func = getattr(self, "_gen_pinboxes_{}".format(tool))
-        except AttributeError:
-            active_logger.raise_(
-                ValueError,
-                "Can't generate pinboxes for a component in an unknown ECAD tool format({}).".format(
-                    tool
-                ),
-            )
-
-        return gen_func()
-    
-    # Generate eeschema code for part from SKiDL part
-    # self: SKiDL part
-    # c[x,y]: coordinated to place the part
-    # https://en.wikibooks.org/wiki/Kicad/file_formats#Schematic_Files_Format
-    def gen_part_eeschema(self):
-
-        time_hex = hex(int(time.time()))[2:]
-
-        out=["$Comp\n"]
-        out.append("L {}:{} {}\n".format(self.lib.filename, self.name, self.ref))
-        out.append("U 1 1 {}\n".format(time_hex))    
-        out.append("P {} {}\n".format(str(self.sch_bb[0]), str(self.sch_bb[1])))
-        # Add part symbols. For now we are only adding the designator
-        n_F0 = 1
-        for i in range(len(self.draw)):
-            if re.search("^DrawF0", str(self.draw[i])):
-                n_F0 = i
-                break
-        out.append('F 0 "{}" {} {} {} {} {} {} {}\n'.format(
-                                        self.ref,
-                                        self.draw[n_F0].orientation,
-                                        str(self.draw[n_F0].x + self.sch_bb[0]),
-                                        str(self.draw[n_F0].y + self.sch_bb[1]),
-                                        self.draw[n_F0].size,
-                                        "000",
-                                        self.draw[n_F0].halign,
-                                        self.draw[n_F0].valign
-        ))
-        n_F2 = 2
-        for i in range(len(self.draw)):
-            if re.search("^DrawF2", str(self.draw[i])):
-                n_F2 = i
-                break
-        out.append('F 2 "{}" {} {} {} {} {} {} {}\n'.format(
-                                        self.footprint,
-                                        self.draw[n_F2].orientation,
-                                        str(self.draw[n_F2].x + self.sch_bb[0]),
-                                        str(self.draw[n_F2].y + self.sch_bb[1]),
-                                        self.draw[n_F2].size,
-                                        "001",
-                                        self.draw[n_F2].halign,
-                                        self.draw[n_F2].valign
-        ))
-        out.append("   1   {} {}\n".format(str(self.sch_bb[0]), str(self.sch_bb[1])))
-        out.append("   {}   {}  {}  {}\n".format(self.orientation[0], self.orientation[1], self.orientation[2], self.orientation[3], ))
-        out.append("$EndComp\n") 
-        return ("\n" + "".join(out))
-    
-    # Copy pin labels to all connectings pins
-    #  This allows the user to only define one label and then connect pins
-    def copy_pin_labels(self):
-        for pin in self.pins:
-            if len(pin.label)>0:
-                if pin.net is not None:
-                    for p in pin.net.pins:
-                        p.label = pin.label
-    # Rotate part based on direction of power pins
-    # This function is to make sure that voltage sources face up and gnd pins
-    #    face down
-    # Only rotate parts with 3 pins or less
-    def rotate_power_pins(self):
-        # Only rotate parts with 3 pins or less
-        if len(self.pins)<=3:
-            for p in self.pins:
-                rotate = 0
-                if hasattr(p.net, 'name'):
-                    if 'gnd' in p.net.name.lower():
-                        if p.orientation == 'U':
-                            break # pin is facing down, break
-                        if p.orientation == 'D':
-                            rotate = 180
-                        if p.orientation == 'L':
-                            rotate = 90
-                        if p.orientation == 'R':
-                            rotate = 270
-                    elif '+' in p.nets[0].name.lower():
-                        if p.orientation == 'D':
-                            break # pin is facing down, break
-                        if p.orientation == 'U':
-                            rotate = 180
-                        if p.orientation == 'L':
-                            rotate = 90
-                        if p.orientation == 'R':
-                            rotate = 270
-                    if rotate != 0:
-                        for i in range(int(rotate/90)):
-                            self.rotate_90_cw()
-
-
-    # Rotating the part CW 90 switches the x/y axis and makes the new height negative
-    # https://stackoverflow.com/questions/2285936/easiest-way-to-rotate-a-rectangle
-    def rotate_90_cw(self):
-        rotation_matrix = [
-                        [1,0,0,-1],  # 0   deg (standard orientation, ie x: -700 y: 1200 >> -700 left, -1200 down
-                        [0,1,1,0],   # 90  deg x: 1200  y: -700
-                        [-1,0,0,1],  # 180 deg x:  700  y: 1600
-                        [0,-1,-1,0]  # 270 deg x:-1600  y:  700
-        ]
-        # switch the height and width
-        new_height = self.sch_bb[2]
-        new_width = self.sch_bb[3]
-        self.sch_bb[2] = new_width
-        self.sch_bb[3] = new_height
-
-        # range through the pins and rotate them
-        for p in self.pins:
-            new_y = -p.x
-            new_x = p.y
-            p.x = new_x
-            p.y = new_y
-            if p.orientation == 'D':
-                p.orientation = 'L'
-            elif p.orientation == 'U':
-                p.orientation = 'R'
-            elif p.orientation == 'R':
-                p.orientation = 'D'
-            elif p.orientation == 'L':
-                p.orientation = 'U'
-        
-        for n in range(len(rotation_matrix)-1):
-            if rotation_matrix[n] == self.orientation:
-                if n == rotation_matrix[-1]:
-                    self.orientation = rotation_matrix[0]
-                    break
-                else:
-                    self.orientation = rotation_matrix[n+1]
-                    break
-        
 
     def erc_desc(self):
         """Create description of part for ERC and other error reporting."""
@@ -1297,7 +970,7 @@ class Part(SkidlBaseObject):
         """Return a description of the pins on this part as a string."""
         return "\n {name} ({aliases}): {desc}\n    {pins}".format(
             name=self.name,
-            aliases=", ".join(getattr(self, "aliases", "")),
+            aliases=", ".join(self.aliases),
             desc=self.description,
             pins="\n    ".join([p.__str__() for p in self.pins]),
         )
@@ -1331,6 +1004,17 @@ class Part(SkidlBaseObject):
 
         # Return the string after removing all the non-ascii stuff (like ohm symbols).
         return "Part(**{{ {} }})".format(", ".join(attribs))
+
+    def convert_for_spice(self, spice_part, pin_map):
+        """Convert a Part object for use with SPICE.
+
+        Args:
+            spice_part (Part): The type of SPICE Part to be converted to.
+            pin_map (dict): Dict with pin numbers/names of self as keys and num/names of spice_part pins as replacement values.
+        """
+        from .tools import convert_for_spice
+
+        convert_for_spice(self, spice_part, pin_map)
 
     @property
     def hierarchical_name(self):
