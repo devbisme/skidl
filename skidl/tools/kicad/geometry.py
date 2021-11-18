@@ -84,9 +84,17 @@ class BBox:
         self.min.round()
         self.max.round()
 
+    def intersects(self, bbox):
+        return (self.min.x < bbox.max.x) and (self.max.x > bbox.min.x) and (self.min.y < bbox.max.y) and (self.max.y > bbox.min.y)
+
     def move(self, vector):
         """Move the corner points of a bounding box."""
         self.min += vector
+        self.max += vector
+
+    def resize(self, vector):
+        """Expand/contract the bounding box by applying vector to its corner points."""
+        self.min -= vector
         self.max += vector
 
     @property

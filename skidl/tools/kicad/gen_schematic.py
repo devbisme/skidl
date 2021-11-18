@@ -44,162 +44,147 @@ class Node(dict):
         self.children = []
 
 
-# Sizes of EESCHEMA schematic pages from smallest to largest. Dimensions in mils.
-A_sizes_list = [
-    ("A4", BBox(Point(0, 0), Point(11693, 8268))),
-    ("A3", BBox(Point(0, 0), Point(16535, 11693))),
-    ("A2", BBox(Point(0, 0), Point(23386, 16535))),
-    ("A1", BBox(Point(0, 0), Point(33110, 23386))),
-    ("A0", BBox(Point(0, 0), Point(46811, 33110))),
-]
-A_sizes = OrderedDict(A_sizes_list)
-
-
-def calc_page_size(bbox):
-    """Return the A-size page needed to fit the given bounding box."""
-
-    width = bbox.w
-    height = int(bbox.h * 1.25)  # TODO: why 1.25?
-    for A_size, page in A_sizes.items():
-        if width < page.w and height < page.h:
-            return A_size
-    return "A0"  # Nothing fits, so use the largest available.
-
-
-def calc_start_point(A_size):
-    """Return the starting point of the given A-size page."""
-
-    page_bbox = A_sizes[A_size]
-    x = round_num(page_bbox.w / 2)
-    y = round_num(page_bbox.h / 4)
-    return Point(x, y)
-
-
 def round_num(num, base=50):
     return int(base * round(num / base))
 
 
-def move_subhierarchy(hm, hierarchy_list, dx, dy, move_dir="L"):
-    # hm = hierarchy to move
-    # Move hierarchy
+def propagate_pin_labels(part):
+    """Propagate labels from part pins to all connected pins.
 
-    hierarchy_list[hm]["sch_bb"][0] += dx
-    hierarchy_list[hm]["sch_bb"][1] += dy
+    Args:
+        part (Part): The Part object whose pin labels will be propagated.
 
-    hm_parent = ".".join(hm.split(".")[0:2])
-
-    # Detect collission with other hierarchies
-    for h in hierarchy_list:
-        # Don't detect collisions with itself
-        if h == hm:
-            continue
-
-        # Only detect collision with hierarchies on the same page
-        root_parent = ".".join(h.split(".")[0:2])
-        if not hm_parent == root_parent:
-            continue
-
-        # Calculate the min/max for x/y in order to detect collision between rectangles
-        x1min = hierarchy_list[hm]["sch_bb"][0] - hierarchy_list[hm]["sch_bb"][2]
-        x1max = hierarchy_list[hm]["sch_bb"][0] + hierarchy_list[hm]["sch_bb"][2]
-        y1min = hierarchy_list[hm]["sch_bb"][1] - hierarchy_list[hm]["sch_bb"][3]
-        y1max = hierarchy_list[hm]["sch_bb"][1] + hierarchy_list[hm]["sch_bb"][3]
-
-        x2min = hierarchy_list[h]["sch_bb"][0] - hierarchy_list[h]["sch_bb"][2]
-        x2max = hierarchy_list[h]["sch_bb"][0] + hierarchy_list[h]["sch_bb"][2]
-        y2min = hierarchy_list[h]["sch_bb"][1] - hierarchy_list[h]["sch_bb"][3]
-        y2max = hierarchy_list[h]["sch_bb"][1] + hierarchy_list[h]["sch_bb"][3]
-
-        # Logic to tell whether parts collide
-        # Note that the movement direction is opposite of what's intuitive ('R' = move left, 'U' = -50)
-        # https://stackoverflow.com/questions/20925818/algorithm-to-check-if-two-boxes-overlap
-
-        if (
-            (x1min <= x2max)
-            and (x2min <= x1max)
-            and (y1min <= y2max)
-            and (y2min <= y1max)
-        ):
-            if move_dir == "R":
-                move_subhierarchy(hm, hierarchy_list, 200, 0, move_dir=move_dir)
-            else:
-                move_subhierarchy(hm, hierarchy_list, -200, 0, move_dir=move_dir)
+    This allows the user to only define one label and then connect pins.
+    """
+    for src_pin in part:
+        if len(src_pin.label) and src_pin.net:
+            for dst_pin in src_pin.net.pins:
+                dst_pin.label = src_pin.label
 
 
-def calc_move_part(pin_m, pin_nm, parts_list):
-    # pin_m = pin of moving part
-    # pin_nm = pin of non-moving part
-    # parts list = hierarchical parts list
+def rotate_power_pins(part):
+    """Rotate a part based on the direction of its power pins.
 
-    dx = pin_m.x + pin_nm.x + pin_nm.part.sch_bb[0] + pin_nm.part.sch_bb[2]
-    dy = -pin_m.y + pin_nm.y - pin_nm.part.sch_bb[1]
-    p = Part.get(pin_m.part.ref)
-    move_part(p, Vector(dx, dy), parts_list)
+    Args:
+        part (Part): The part to be rotated.
+
+    This function is to make sure that voltage sources face up and gnd pins
+    face down. Only rotate parts with 3 pins or less.
+    """
+
+    if len(part) <= 3:
+        for pin in part:
+            rotate = 0
+            net_name = getattr(pin.net, "name", "").lower()
+            if "gnd" in net_name:
+                if pin.orientation == "U":
+                    break  # pin is already facing down, break
+                if pin.orientation == "D":
+                    rotate = 180
+                if pin.orientation == "L":
+                    rotate = 90
+                if pin.orientation == "R":
+                    rotate = 270
+            elif "+" in net_name:
+                if pin.orientation == "D":
+                    break  # pin is already facing up, break
+                if pin.orientation == "U":
+                    rotate = 180
+                if pin.orientation == "L":
+                    rotate = 90
+                if pin.orientation == "R":
+                    rotate = 270
+            if rotate != 0:
+                for i in range(int(rotate / 90)):
+                    rotate_90_cw(part)
 
 
-def gen_elkjs_code(parts, nets):
-    # Generate elkjs code that can create an auto diagram with this website:
-    # https://rtsys.informatik.uni-kiel.de/elklive/elkgraph.html
+def rotate_90_cw(part):
+    """Rotate a part 90-degrees clockwise.
 
-    elkjs_code = []
+    Args:
+        part (Part): The part to be rotated.
 
-    # range through parts and append code for each part
-    for pt in parts:
-        error = 0
-        try:
-            if pt.stub == True:
-                continue
-        except Exception as e:
-            error += 1
-        elkjs_part = []
-        elkjs_part.append(
-            "node {}".format(pt.ref)
-            + " {\n"
-            + "\tlayout [ size: {},{} ]\n".format(pt.sch_bb[2], pt.sch_bb[3])
-            + "\tportConstraints: FIXED_SIDE\n"
-            + ""
-        )
+    Rotating the part CW 90 switches the x/y axis and makes the new height negative.
+    https://stackoverflow.com/questions/2285936/easiest-way-to-rotate-a-rectangle
+    """
 
-        for p in pt.pins:
-            pin_dir = ""
-            if p.orientation == "L":
-                pin_dir = "EAST"
-            elif p.orientation == "R":
-                pin_dir = "WEST"
-            elif p.orientation == "U":
-                pin_dir = "NORTH"
-            elif p.orientation == "D":
-                pin_dir = "SOUTH"
-            elkjs_part.append(
-                "\tport p{} ".format(p.num)
-                + "{ \n"
-                + "\t\t^port.side: {} \n".format(pin_dir)
-                + '\t\tlabel "{}"\n'.format(p.name)
-                + "\t}\n"
-            )
-        elkjs_part.append("}")
-        elkjs_code.append("\n" + "".join(elkjs_part))
+    rotation_matrix = [
+        # Assume starting with x: -700 y: 1200
+        [1, 0, 0, -1],  # 0 deg x: 1200 y:-700
+        [0, 1, 1, 0],  # 90 deg x: 1200  y: -700
+        [-1, 0, 0, 1],  # 180 deg x:  700  y: 1200
+        [0, -1, -1, 0],  # 270 deg x:-1200  y:  700
+        [1, 0, 0, -1],  # Repeat first vector to simplify loop below.
+    ]
 
-    # range through nets
-    for n in nets:
-        for p in range(len(n.pins)):
-            try:
-                part1 = n.pins[p].ref
-                pin1 = n.pins[p].num
-                part2 = n.pins[p + 1].ref
-                pin2 = n.pins[p + 1].num
-                t = "edge {}.p{} -> {}.p{}\n".format(part1, pin1, part2, pin2)
-                elkjs_code.append(t)
-            except:
-                pass
+    # switch the height and width
+    part.sch_bb[2], part.sch_bb[3] = part.sch_bb[3], part.sch_bb[2]
 
-    # open file to save elkjs code
-    file_path = "elkjs/elkjs.txt"
-    f = open(file_path, "a")
-    f.truncate(0)  # Clear the file
-    for i in elkjs_code:
-        print("" + "".join(i), file=f)
-    f.close()
+    # range through the pins and rotate them
+    for pin in part:
+        pin.x, pin.y = pin.y, -pin.x
+        if pin.orientation == "D":
+            pin.orientation = "L"
+        elif pin.orientation == "U":
+            pin.orientation = "R"
+        elif pin.orientation == "R":
+            pin.orientation = "D"
+        elif pin.orientation == "L":
+            pin.orientation = "U"
+
+    # Find the part orientation and replace it with the next orientation in the array.
+    # (The first orientation in the array is repeated at the end of the array to
+    # remove the rollover logic.)
+    for n in range(len(rotation_matrix) - 1):
+        if rotation_matrix[n] == part.orientation:
+            part.orientation = rotation_matrix[n + 1]
+            break
+
+
+def bbox_to_sch_bb(bbox, sch_bb):
+    sch_bb[0] = round_num(bbox.ctr.x)
+    sch_bb[1] = round_num(bbox.ctr.y)
+    sch_bb[2] = bbox.w / 2
+    sch_bb[3] = bbox.h / 2
+
+
+def calc_bbox_part(part):
+    """Calculate the bounding box for a part."""
+
+    # Bounding box around pins.
+    part.bbox = BBox()
+    for pin in part:
+        part.bbox.add(Point(pin.x, pin.y))
+
+    # Bounding box around pins and any attached labels.
+    part.lbl_bbox = BBox()
+    part.lbl_bbox.add(part.bbox)
+    for pin in part:
+        if len(pin.label) > 0:
+            lbl_len = (len(pin.label) + 1) * 50
+            pin_dir = pin.orientation
+            x = pin.x
+            y = pin.y
+            if pin_dir == "U":
+                lbl_bbox = BBox(Point(x, y), Point(x, y - lbl_len))
+            elif pin_dir == "D":
+                lbl_bbox = BBox(Point(x, y), Point(x, y + lbl_len))
+            elif pin_dir == "L":
+                lbl_bbox = BBox(Point(x, y), Point(x + lbl_len, y))
+            elif pin_dir == "R":
+                lbl_bbox = BBox(Point(x, y), Point(x - lbl_len, y))
+            part.lbl_bbox.add(lbl_bbox)
+
+    resize_xy = Vector(0, 0)
+    if part.bbox.w < 100:
+        resize_xy.x = 100 - part.bbox.w
+    if part.bbox.h < 100:
+        resize_xy.y = 100 - part.bbox.h
+    part.bbox.resize(resize_xy)
+    part.lbl_bbox.resize(resize_xy)
+
+    bbox_to_sch_bb(part.bbox, part.sch_bb)
 
 
 def calc_node_bbox(node):
@@ -260,6 +245,92 @@ def calc_node_bbox(node):
     r_sch_bb = [tx, ty, width, height]
 
     return r_sch_bb
+
+
+def calc_move_part(moving_pin, anchor_pin, other_parts):
+
+    moving_part = moving_pin.part
+    anchor_part = anchor_pin.part
+    dx = moving_pin.x + anchor_pin.x + anchor_part.sch_bb[0] + anchor_part.sch_bb[2]
+    dy = -moving_pin.y + anchor_pin.y - anchor_part.sch_bb[1]
+    move_part(moving_part, Vector(dx, dy), other_parts)
+    # vector = Vector(anchor_pin.x, anchor_pin.y) + anchor_part.bbox.ll - Vector(moving_pin.x, moving_pin.y) - moving_part.bbox.ll
+    # move_part(moving_part, vector, other_parts)
+
+
+def move_part(part, vector, other_parts):
+    """Move part until it doesn't collide with other parts."""
+
+    # Setup the movement vector to use if the initial placement leads to collisions.
+    avoid_vec = Vector(200, 0) if vector.x > 0 else Vector(-200, 0)
+
+    vec = Vector(vector.x, -vector.y)  # EESCHEMA Y direction is reversed.
+
+    while True:
+        part.bbox.move(vec)
+        part.lbl_bbox.move(vec)
+        collision = False
+        for other_part in other_parts:
+            if other_part is part:
+                continue
+            if part.lbl_bbox.intersects(other_part.lbl_bbox):
+                collision = True
+                break
+        if not collision:
+            break
+        else:
+            vec = avoid_vec
+
+    bbox_to_sch_bb(part.bbox, part.sch_bb)
+    part.moved = True
+    return
+
+
+def move_subhierarchy(hm, hierarchy_list, dx, dy, move_dir="L"):
+    # hm = hierarchy to move
+    # Move hierarchy
+
+    hierarchy_list[hm]["sch_bb"][0] += dx
+    hierarchy_list[hm]["sch_bb"][1] += dy
+
+    hm_parent = ".".join(hm.split(".")[0:2])
+
+    # Detect collission with other hierarchies
+    for h in hierarchy_list:
+        # Don't detect collisions with itself
+        if h == hm:
+            continue
+
+        # Only detect collision with hierarchies on the same page
+        root_parent = ".".join(h.split(".")[0:2])
+        if not hm_parent == root_parent:
+            continue
+
+        # Calculate the min/max for x/y in order to detect collision between rectangles
+        x1min = hierarchy_list[hm]["sch_bb"][0] - hierarchy_list[hm]["sch_bb"][2]
+        x1max = hierarchy_list[hm]["sch_bb"][0] + hierarchy_list[hm]["sch_bb"][2]
+        y1min = hierarchy_list[hm]["sch_bb"][1] - hierarchy_list[hm]["sch_bb"][3]
+        y1max = hierarchy_list[hm]["sch_bb"][1] + hierarchy_list[hm]["sch_bb"][3]
+
+        x2min = hierarchy_list[h]["sch_bb"][0] - hierarchy_list[h]["sch_bb"][2]
+        x2max = hierarchy_list[h]["sch_bb"][0] + hierarchy_list[h]["sch_bb"][2]
+        y2min = hierarchy_list[h]["sch_bb"][1] - hierarchy_list[h]["sch_bb"][3]
+        y2max = hierarchy_list[h]["sch_bb"][1] + hierarchy_list[h]["sch_bb"][3]
+
+        # Logic to tell whether parts collide
+        # Note that the movement direction is opposite of what's intuitive ('R' = move left, 'U' = -50)
+        # https://stackoverflow.com/questions/20925818/algorithm-to-check-if-two-boxes-overlap
+
+        if (
+            (x1min <= x2max)
+            and (x2min <= x1max)
+            and (y1min <= y2max)
+            and (y2min <= y1max)
+        ):
+            if move_dir == "R":
+                move_subhierarchy(hm, hierarchy_list, 200, 0, move_dir=move_dir)
+            else:
+                move_subhierarchy(hm, hierarchy_list, -200, 0, move_dir=move_dir)
 
 
 def gen_net_wire(net, hierarchy):
@@ -425,114 +496,6 @@ def gen_net_wire(net, hierarchy):
 
             nets_output.append(line)
     return nets_output
-
-
-def calc_bbox_part(part):
-    """Calculate the bounding box for a part."""
-
-    part.bbox = BBox()
-    for pin in part:
-        part.bbox.add(Point(pin.x, pin.y))
-
-    part.sch_bb[2] = part.bbox.w / 2
-    part.sch_bb[3] = part.bbox.h / 2
-    if part.sch_bb[2] < 100:
-        part.sch_bb[2] = 100
-    if part.sch_bb[3] < 100:
-        part.sch_bb[3] = 100
-
-
-def move_part(part, vector, other_parts):
-    """Move part until it doesn't collide with other parts."""
-
-    # Move the part by dx/dy, then check to see if it's colliding with
-    #   any other part.  If it is colliding then move the part move towards the
-    #   direction of the pin it was moving towards
-
-    # Determine if the part moved left or right
-    move_dir = "R" if vector.x > 0 else "L"
-
-    # Move the part.
-    part.bbox.move(Vector(vector.x, -vector.y))  # EESCHEMA Y direction is reversed.
-    part.sch_bb[0] = round_num(part.bbox.ctr.x)
-    part.sch_bb[1] = round_num(part.bbox.ctr.y)
-
-    # Check for collisions with other parts.
-
-    # First we need to check for a label on each pin.
-    # If we find one then add that label's length to the collision detection
-    x_label_p = 0
-    x_label_m = 0
-    y_label_p = 0
-    y_label_m = 0
-    for pin in part:
-        if len(pin.label) > 0:
-            lbl_len = (len(pin.label) + 1) * 50
-            pin_dir = pin.orientation
-            if pin_dir == "U":
-                if lbl_len > y_label_m:
-                    y_label_m = lbl_len
-            elif pin_dir == "D":
-                if lbl_len > y_label_p:
-                    y_label_p = lbl_len
-            elif pin_dir == "L":
-                if lbl_len > x_label_p:
-                    x_label_p = lbl_len
-            elif pin_dir == "R":
-                if lbl_len > x_label_m:
-                    x_label_m = lbl_len
-
-    # Range through parts in the subcircuit and look for overlaps
-    # If we are overlapping then nudge the part 50mil left/right and rerun this function
-    for pt in other_parts:
-        # Don't detect collisions with itself
-        if pt.ref == part.ref:
-            continue
-
-        # Determine if there's a label on a pin and count that label length for detecting collisions
-        pt_x_label_p = 0
-        pt_x_label_m = 0
-        pt_y_label_p = 0
-        pt_y_label_m = 0
-        for pin in pt.pins:
-            if len(pin.label) > 0:
-                if pin.orientation == "U":
-                    if (len(pin.label) + 1) * 50 > pt_y_label_m:
-                        pt_y_label_m = (len(pin.label) + 1) * 50
-                elif pin.orientation == "D":
-                    if (len(pin.label) + 1) * 50 > pt_y_label_p:
-                        pt_y_label_p = (len(pin.label) + 1) * 50
-                elif pin.orientation == "L":
-                    if (len(pin.label) + 1) * 50 > pt_x_label_p:
-                        pt_x_label_p = (len(pin.label) + 1) * 50
-                elif pin.orientation == "R":
-                    if (len(pin.label) + 1) * 50 > pt_x_label_m:
-                        pt_x_label_m = (len(pin.label) + 1) * 50
-
-        # Calculate the min/max for x/y in order to detect collision between rectangles
-
-        x1min = part.sch_bb[0] - part.sch_bb[2] - x_label_m
-        x1max = part.sch_bb[0] + part.sch_bb[2] + x_label_p
-        y1min = part.sch_bb[1] - part.sch_bb[3] - y_label_m
-        y1max = part.sch_bb[1] + part.sch_bb[3] + y_label_p
-        x2min = pt.sch_bb[0] - pt.sch_bb[2] - pt_x_label_m
-        x2max = pt.sch_bb[0] + pt.sch_bb[2] + pt_x_label_p
-        y2min = pt.sch_bb[1] - pt.sch_bb[3] - pt_y_label_m
-        y2max = pt.sch_bb[1] + pt.sch_bb[3] + pt_y_label_p
-
-        # Logic to tell whether parts collide
-        # Note that the movement direction is opposite of what's intuitive ('R' = move left, 'U' = -50)
-        # https://stackoverflow.com/questions/20925818/algorithm-to-check-if-two-boxes-overlap
-        if (
-            (x1min <= x2max)
-            and (x2min <= x1max)
-            and (y1min <= y2max)
-            and (y2min <= y1max)
-        ):
-            if move_dir == "R":
-                move_part(part, Vector(200, 0), other_parts)
-            else:
-                move_part(part, Vector(-200, 0), other_parts)
 
 
 def gen_part_eeschema(self, offset):
@@ -760,15 +723,7 @@ def gen_node_bbox_eeschema(node, offset):
 
 
 def gen_header_eeschema(
-    cur_sheet_num,
-    total_sheet_num,
-    title,
-    rev_major,
-    rev_minor,
-    year,
-    month,
-    day,
-    size
+    cur_sheet_num, total_sheet_num, title, rev_major, rev_minor, year, month, day, size
 ):
     """Generate an EESCHEMA header."""
 
@@ -812,13 +767,46 @@ def gen_node_block_eeschema(node_name, position):
     t = []
     t.append("\n$Sheet\n")
     t.append(
-        "S {} {} {} {}\n".format(position.x, position.y, 500, 1000)  # TODO: magic number.
+        "S {} {} {} {}\n".format(
+            position.x, position.y, 500, 1000
+        )  # TODO: magic number.
     )  # upper left x/y, width, height
     t.append("U {}\n".format(time_hex))
     t.append('F0 "{}" 50\n'.format(node_name))
     t.append('F1 "{}.sch" 50\n'.format(node_name))
     t.append("$EndSheet\n")
     return "".join(t)
+
+
+# Sizes of EESCHEMA schematic pages from smallest to largest. Dimensions in mils.
+A_sizes_list = [
+    ("A4", BBox(Point(0, 0), Point(11693, 8268))),
+    ("A3", BBox(Point(0, 0), Point(16535, 11693))),
+    ("A2", BBox(Point(0, 0), Point(23386, 16535))),
+    ("A1", BBox(Point(0, 0), Point(33110, 23386))),
+    ("A0", BBox(Point(0, 0), Point(46811, 33110))),
+]
+A_sizes = OrderedDict(A_sizes_list)
+
+
+def get_A_size(bbox):
+    """Return the A-size page needed to fit the given bounding box."""
+
+    width = bbox.w
+    height = int(bbox.h * 1.25)  # TODO: why 1.25?
+    for A_size, page in A_sizes.items():
+        if width < page.w and height < page.h:
+            return A_size
+    return "A0"  # Nothing fits, so use the largest available.
+
+
+def get_A_size_starting_point(A_size):
+    """Return the starting point for placement in the given A-size page."""
+
+    page_bbox = A_sizes[A_size]
+    x = round_num(page_bbox.w / 2)
+    y = round_num(page_bbox.h / 4)
+    return Point(x, y)
 
 
 def collect_eeschema_code(
@@ -853,100 +841,6 @@ def collect_eeschema_code(
     )
 
 
-def propagate_pin_labels(part):
-    """Propagate labels from part pins to all connected pins.
-
-    Args:
-        part (Part): The Part object whose pin labels will be propagated.
-
-    This allows the user to only define one label and then connect pins.
-    """
-    for src_pin in part:
-        if len(src_pin.label) and src_pin.net:
-            for dst_pin in src_pin.net.pins:
-                dst_pin.label = src_pin.label
-
-
-def rotate_power_pins(part):
-    """Rotate a part based on the direction of its power pins.
-
-    Args:
-        part (Part): The part to be rotated.
-
-    This function is to make sure that voltage sources face up and gnd pins
-    face down. Only rotate parts with 3 pins or less.
-    """
-
-    if len(part) <= 3:
-        for pin in part:
-            rotate = 0
-            net_name = getattr(pin.net, "name", "").lower()
-            if "gnd" in net_name:
-                if pin.orientation == "U":
-                    break  # pin is already facing down, break
-                if pin.orientation == "D":
-                    rotate = 180
-                if pin.orientation == "L":
-                    rotate = 90
-                if pin.orientation == "R":
-                    rotate = 270
-            elif "+" in net_name:
-                if pin.orientation == "D":
-                    break  # pin is already facing up, break
-                if pin.orientation == "U":
-                    rotate = 180
-                if pin.orientation == "L":
-                    rotate = 90
-                if pin.orientation == "R":
-                    rotate = 270
-            if rotate != 0:
-                for i in range(int(rotate / 90)):
-                    rotate_90_cw(part)
-
-
-def rotate_90_cw(part):
-    """Rotate a part 90-degrees clockwise.
-
-    Args:
-        part (Part): The part to be rotated.
-
-    Rotating the part CW 90 switches the x/y axis and makes the new height negative.
-    https://stackoverflow.com/questions/2285936/easiest-way-to-rotate-a-rectangle
-    """
-
-    rotation_matrix = [
-        # Assume starting with x: -700 y: 1200
-        [1, 0, 0, -1],  # 0 deg x: 1200 y:-700
-        [0, 1, 1, 0],  # 90 deg x: 1200  y: -700
-        [-1, 0, 0, 1],  # 180 deg x:  700  y: 1200
-        [0, -1, -1, 0],  # 270 deg x:-1200  y:  700
-        [1, 0, 0, -1],  # Repeat first vector to simplify loop below.
-    ]
-
-    # switch the height and width
-    part.sch_bb[2], part.sch_bb[3] = part.sch_bb[3], part.sch_bb[2]
-
-    # range through the pins and rotate them
-    for pin in part:
-        pin.x, pin.y = pin.y, -pin.x
-        if pin.orientation == "D":
-            pin.orientation = "L"
-        elif pin.orientation == "U":
-            pin.orientation = "R"
-        elif pin.orientation == "R":
-            pin.orientation = "D"
-        elif pin.orientation == "L":
-            pin.orientation = "U"
-
-    # Find the part orientation and replace it with the next orientation in the array.
-    # (The first orientation in the array is repeated at the end of the array to
-    # remove the rollover logic.)
-    for n in range(len(rotation_matrix) - 1):
-        if rotation_matrix[n] == part.orientation:
-            part.orientation = rotation_matrix[n + 1]
-            break
-
-
 def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
     """Create a schematic file from a Circuit object."""
 
@@ -956,6 +850,7 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
         # Initialize part attributes used for generating schematics.
         part.orientation = [1, 0, 0, -1]
         part.sch_bb = [0, 0, 0, 0]  # Set schematic location to x, y, width, height.
+        part.moved = False
 
         # Initialize pin attributes used for generating schematics.
         for pin in part:
@@ -1005,7 +900,7 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
                 continue
 
             # Don't move parts connected to labeled (stub) pins.
-            if len(anchor_pin.label) > 0:
+            if len(anchor_pin.label) != 0:
                 continue
 
             # Don't move parts connected thru power supply nets.
@@ -1013,18 +908,18 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
                 continue
 
             # Now move any parts connected to this pin.
-            for move_pin in anchor_pin.net.pins:
+            for mv_pin in anchor_pin.net.pins:
 
                 # Skip moving the center part.
-                if move_pin.part == anchor_part:
+                if mv_pin.part == anchor_part:
                     continue
 
                 # Skip parts that aren't in the same node of the hierarchy as the center part.
-                if move_pin.part.hierarchy != anchor_part.hierarchy:
+                if mv_pin.part.hierarchy != anchor_part.hierarchy:
                     continue
 
                 # OK, finally move the part connected to this pin.
-                calc_move_part(move_pin, anchor_pin, node["parts"])
+                calc_move_part(mv_pin, anchor_pin, node["parts"])
 
     # For each node in hierarchy: Move parts connected to parts moved in step previous step.
     for node in circuit_hier.values():
@@ -1039,26 +934,26 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
                 continue
 
             # Skip a part that's already been moved.
-            if mv_part.sch_bb[0] != 0 or mv_part.sch_bb[1] != 0:
+            if mv_part.moved:
                 continue
 
             # Find a pin to pin connection where the part needs to be moved.
-            for move_pin in mv_part:
+            for mv_pin in mv_part:
 
                 # Skip unconnected pins.
-                if not move_pin.is_connected():
+                if not mv_pin.is_connected():
                     continue
 
                 # Don't move parts connected to labeled (stub) pins.
-                if len(move_pin.label) > 0:
+                if len(mv_pin.label) > 0:
                     continue
 
                 # Don't move parts connected thru power supply nets.
-                if move_pin.net.netclass == "Power":
+                if mv_pin.net.netclass == "Power":
                     continue
 
                 # Move this part toward parts connected to its pin.
-                for anchor_pin in move_pin.net.pins:
+                for anchor_pin in mv_pin.net.pins:
 
                     # Skip parts that aren't in the same node of the hierarchy as the moving part.
                     if anchor_pin.part.hierarchy != mv_part.hierarchy:
@@ -1073,7 +968,7 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
                         continue
 
                     # OK, finally move the part connected to this pin.
-                    calc_move_part(move_pin, anchor_pin, node["parts"])
+                    calc_move_part(mv_pin, anchor_pin, node["parts"])
 
     # Move any remaining parts in each node down & alternating left/right.
     for node in circuit_hier.values():
@@ -1093,7 +988,7 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
                 continue
 
             # Move any part that hasn't already been moved.
-            if part.sch_bb[0] == 0 and part.sch_bb[1] == 0:
+            if not part.moved:
                 move_part(part, Point(offset_x, offset_y), node["parts"])
 
                 # Switch movement direction for the next unmoved part.
@@ -1211,8 +1106,8 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
 
         # Find starting point for part placement
         root_parent = ".".join(node.node_key.split(".")[0:2])
-        A_size = calc_page_size(page_sizes[root_parent])
-        sch_start = calc_start_point(A_size)
+        A_size = get_A_size(page_sizes[root_parent])
+        sch_start = get_A_size_starting_point(A_size)
 
         # Generate part code
         for part in node["parts"]:
@@ -1249,10 +1144,10 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
     # Collect the EESCHEMA code to be saved in a file for each page.
     page_eeschema_code = {}
     hier_eeschema_code = []
-    hier_start = calc_start_point("A4")
+    hier_start = get_A_size_starting_point("A4")
     hier_start.x = 1000  # TODO: magic number.
     for root_parent, code in hier_pg_eeschema_code.items():
-        A_size = calc_page_size(page_sizes[root_parent])
+        A_size = get_A_size(page_sizes[root_parent])
         page_eeschema_code[root_parent] = collect_eeschema_code(
             code, cur_sheet_num=1, size=A_size, title=_title
         )
@@ -1276,3 +1171,68 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
         # Generate the schematic file for the top-level of the hierarchy.
         with open(file_, "w") as f:
             print(hier_eeschema_code, file=f)
+
+
+def gen_elkjs_code(parts, nets):
+    # Generate elkjs code that can create an auto diagram with this website:
+    # https://rtsys.informatik.uni-kiel.de/elklive/elkgraph.html
+
+    elkjs_code = []
+
+    # range through parts and append code for each part
+    for pt in parts:
+        error = 0
+        try:
+            if pt.stub == True:
+                continue
+        except Exception as e:
+            error += 1
+        elkjs_part = []
+        elkjs_part.append(
+            "node {}".format(pt.ref)
+            + " {\n"
+            + "\tlayout [ size: {},{} ]\n".format(pt.sch_bb[2], pt.sch_bb[3])
+            + "\tportConstraints: FIXED_SIDE\n"
+            + ""
+        )
+
+        for p in pt.pins:
+            pin_dir = ""
+            if p.orientation == "L":
+                pin_dir = "EAST"
+            elif p.orientation == "R":
+                pin_dir = "WEST"
+            elif p.orientation == "U":
+                pin_dir = "NORTH"
+            elif p.orientation == "D":
+                pin_dir = "SOUTH"
+            elkjs_part.append(
+                "\tport p{} ".format(p.num)
+                + "{ \n"
+                + "\t\t^port.side: {} \n".format(pin_dir)
+                + '\t\tlabel "{}"\n'.format(p.name)
+                + "\t}\n"
+            )
+        elkjs_part.append("}")
+        elkjs_code.append("\n" + "".join(elkjs_part))
+
+    # range through nets
+    for n in nets:
+        for p in range(len(n.pins)):
+            try:
+                part1 = n.pins[p].ref
+                pin1 = n.pins[p].num
+                part2 = n.pins[p + 1].ref
+                pin2 = n.pins[p + 1].num
+                t = "edge {}.p{} -> {}.p{}\n".format(part1, pin1, part2, pin2)
+                elkjs_code.append(t)
+            except:
+                pass
+
+    # open file to save elkjs code
+    file_path = "elkjs/elkjs.txt"
+    f = open(file_path, "a")
+    f.truncate(0)  # Clear the file
+    for i in elkjs_code:
+        print("" + "".join(i), file=f)
+    f.close()
