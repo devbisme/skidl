@@ -67,16 +67,16 @@ def calc_page_size(bbox):
 
 
 def calc_start_point(A_size):
-    """Return the center point of the given A-size page."""
+    """Return the starting point of the given A-size page."""
 
     page_bbox = A_sizes[A_size]
-    x = round_num(int(page_bbox.w / 2), 50)
-    y = round_num(int(page_bbox.h / 4), 50)
+    x = round_num(page_bbox.w / 2)
+    y = round_num(page_bbox.h / 4)
     return Point(x, y)
 
 
-def round_num(num, base):
-    return base * round(num / base)
+def round_num(num, base=50):
+    return int(base * round(num / base))
 
 
 def move_subhierarchy(hm, hierarchy_list, dx, dy, move_dir="L"):
@@ -202,19 +202,17 @@ def gen_elkjs_code(parts, nets):
     f.close()
 
 
-def gen_hierarchy_bb(hier):
-    # Generate hierarchy bounding box
-
-    # find the parts with the largest xMin, xMax, yMin, yMax
+def calc_node_bbox(node):
+    """Compute the bounding box for the node in the circuit hierarchy."""
 
     # set the initial values to the central part maximums
-    xMin = hier["parts"][0].sch_bb[0] - hier["parts"][0].sch_bb[2]
-    xMax = hier["parts"][0].sch_bb[0] + hier["parts"][0].sch_bb[2]
-    yMin = hier["parts"][0].sch_bb[1] + hier["parts"][0].sch_bb[3]
-    yMax = hier["parts"][0].sch_bb[1] - hier["parts"][0].sch_bb[3]
+    xMin = node["parts"][0].sch_bb[0] - node["parts"][0].sch_bb[2]
+    xMax = node["parts"][0].sch_bb[0] + node["parts"][0].sch_bb[2]
+    yMin = node["parts"][0].sch_bb[1] + node["parts"][0].sch_bb[3]
+    yMax = node["parts"][0].sch_bb[1] - node["parts"][0].sch_bb[3]
 
     # Range through the parts in the hierarchy
-    for p in hier["parts"]:
+    for p in node["parts"]:
 
         # adjust the outline for any labels that pins might have
         x_label = 0
@@ -429,16 +427,19 @@ def gen_net_wire(net, hierarchy):
     return nets_output
 
 
-def calc_bbox_part(self):
-    for p in self.pins:
-        if self.sch_bb[2] < (abs(p.x)):
-            self.sch_bb[2] = abs(p.x)
-        if self.sch_bb[3] < (abs(p.y)):
-            self.sch_bb[3] = abs(p.y)
-    if self.sch_bb[2] < 100:
-        self.sch_bb[2] = 100
-    if self.sch_bb[3] < 100:
-        self.sch_bb[3] = 100
+def calc_bbox_part(part):
+    """Calculate the bounding box for a part."""
+
+    part.bbox = BBox()
+    for pin in part:
+        part.bbox.add(Point(pin.x, pin.y))
+
+    part.sch_bb[2] = part.bbox.w / 2
+    part.sch_bb[3] = part.bbox.h / 2
+    if part.sch_bb[2] < 100:
+        part.sch_bb[2] = 100
+    if part.sch_bb[3] < 100:
+        part.sch_bb[3] = 100
 
 
 def move_part(self, dx, dy, _parts_list):
@@ -719,7 +720,10 @@ def gen_pin_label_eeschema(pin, offset):
         label_type, x, y, orientation, pin.label
     )
 
+
 def gen_node_bbox_eeschema(node, offset):
+    """Generate a graphic bounding box for a node in the circuit hierarchy."""
+
     hier_levels = node.node_key.split(".")
     if len(hier_levels) > 1:
         level_name = "".join(hier_levels[1:])
@@ -738,7 +742,9 @@ def gen_node_bbox_eeschema(node, offset):
     box = []
 
     box.append(
-        "Text Notes {} {} 0    100  ~ 20\n{}\n".format(label_pt.x, label_pt.y, level_name)
+        "Text Notes {} {} 0    100  ~ 20\n{}\n".format(
+            label_pt.x, label_pt.y, level_name
+        )
     )
 
     box.append("Wire Notes Line\n")
@@ -754,17 +760,17 @@ def gen_node_bbox_eeschema(node, offset):
 
 
 def gen_header_eeschema(
-    cur_sheet_num=1,
-    total_sheet_num=1,
-    title="Default",
-    revMaj=0,
-    revMin=1,
-    year=2021,
-    month=8,
-    day=15,
-    size="A2",
+    cur_sheet_num,
+    total_sheet_num,
+    title,
+    rev_major,
+    rev_minor,
+    year,
+    month,
+    day,
+    size
 ):
-    # Generate a default header file
+    """Generate an EESCHEMA header."""
 
     total_sheet_num = cur_sheet_num + 1
     header = []
@@ -783,7 +789,7 @@ def gen_header_eeschema(
     header.append("Sheet {} {}\n".format(cur_sheet_num, total_sheet_num))
     header.append('Title "{}"\n'.format(title))
     header.append('Date "{}-{}-{}"\n'.format(year, month, day))
-    header.append('Rev "v{}.{}"\n'.format(revMaj, revMin))
+    header.append('Rev "v{}.{}"\n'.format(rev_major, rev_minor))
     header.append('Comp ""\n')
     header.append('Comment1 ""\n')
     header.append('Comment2 ""\n')
@@ -792,26 +798,59 @@ def gen_header_eeschema(
     header.append("$EndDescr\n")
     return "".join(header)
 
+
 def gen_footer_eeschema():
+    """Generate an EESCHEMA footer."""
+
     return "$EndSCHEMATC"
 
-def gen_hier_schematic(name, origin, year=2021, month=8, day=15):
+
+def gen_node_block_eeschema(node_name, position):
+    """Generate a hierarchical block for a node in the circuit hierarchy."""
+
     time_hex = hex(int(time.time()))[2:]
     t = []
     t.append("\n$Sheet\n")
-    t.append("S {} {} {} {}\n".format(origin.x, origin.y, 500, 1000))  # upper left x/y, width, height
+    t.append(
+        "S {} {} {} {}\n".format(position.x, position.y, 500, 1000)  # TODO: magic number.
+    )  # upper left x/y, width, height
     t.append("U {}\n".format(time_hex))
-    t.append('F0 "{}" 50\n'.format(name))
-    t.append('F1 "{}.sch" 50\n'.format(name))
+    t.append('F0 "{}" 50\n'.format(node_name))
+    t.append('F1 "{}.sch" 50\n'.format(node_name))
     t.append("$EndSheet\n")
     return "".join(t)
 
-def collect_eeschema_code(code, cur_sheet_num, size, title):
-    return "".join((
-        gen_header_eeschema(cur_sheet_num=cur_sheet_num, size=size, title=title),
-        "".join(code),
-        gen_footer_eeschema()
-    ))
+
+def collect_eeschema_code(
+    code,
+    cur_sheet_num=1,
+    total_sheet_num=1,
+    title="Default",
+    rev_major=0,
+    rev_minor=1,
+    year=2021,
+    month=8,
+    day=15,
+    size="A2",
+):
+    """Collect EESCHEMA header, code, and footer and return as a string."""
+    return "".join(
+        (
+            gen_header_eeschema(
+                cur_sheet_num=cur_sheet_num,
+                total_sheet_num=total_sheet_num,
+                title=title,
+                rev_major=rev_major,
+                rev_minor=rev_minor,
+                year=year,
+                month=month,
+                day=day,
+                size=size,
+            ),
+            "".join(code),
+            gen_footer_eeschema(),
+        )
+    )
 
 
 def propagate_pin_labels(part):
@@ -908,28 +947,8 @@ def rotate_90_cw(part):
             break
 
 
-def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=False):
-    """
-    Create a schematic file. THIS KINDA WORKS!
-
-    1. Sort parts by hierarchy
-    2. Rotate parts (<=3 pins) with power nets
-    3. Copy labels to connected pins
-    4. Create part bounding boxes for parts
-    5. For each hierarchy: Move parts with nets drawn to central part
-    6. For each hierarchy: Move parts with nets drawn to parts moved in step #5
-    7. For each hierarchy: Move remaining parts
-    8. Create bounding boxes for hierarchies
-    8.1 Adjust the parts to be centered on the hierarchy center
-    9. Sort the hierarchies by nesting length
-    10. Range through each level of hierarchies and place hierarchies under parents
-    12. Adjust part placement for hierachy and starting coordinates
-    13. Calculate nets for each hierarchy
-    14. Generate eeschema code for each hierarchy
-    15. Generate elkjs code
-    16. Create schematic file
-
-    """
+def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
+    """Create a schematic file from a Circuit object."""
 
     # Pre-process parts
     for part in self.parts:
@@ -1082,7 +1101,7 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
 
     # Create bounding boxes for each node of the hierarchy.
     for node in circuit_hier.values():
-        node["sch_bb"] = gen_hierarchy_bb(node)
+        node["sch_bb"] = calc_node_bbox(node)
 
     # Make the (x,y) of parts relative to the (x,y) of their encapsulating node.
     for node in circuit_hier.values():
@@ -1184,7 +1203,7 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
         page_sizes[root_parent].add(node_bbox)
 
     # Generate eeschema code for each node in the circuit hierarchy.
-    hier_pg_eeschema_code = defaultdict(lambda:[])
+    hier_pg_eeschema_code = defaultdict(lambda: [])
     for node in circuit_hier.values():
 
         # List to hold all the code for the hierarchy
@@ -1234,11 +1253,15 @@ def gen_schematic(self, file_=None, _title="Default", sch_size="A0", gen_elkjs=F
     hier_start.x = 1000  # TODO: magic number.
     for root_parent, code in hier_pg_eeschema_code.items():
         A_size = calc_page_size(page_sizes[root_parent])
-        page_eeschema_code[root_parent] = collect_eeschema_code(code, cur_sheet_num=1, size=A_size, title=_title)
-        hier_eeschema_code.append(gen_hier_schematic(root_parent, hier_start))
-        hier_start += Point(1000, 0) # TODO: magic number.
+        page_eeschema_code[root_parent] = collect_eeschema_code(
+            code, cur_sheet_num=1, size=A_size, title=_title
+        )
+        hier_eeschema_code.append(gen_node_block_eeschema(root_parent, hier_start))
+        hier_start += Point(1000, 0)  # TODO: magic number.
 
-    hier_eeschema_code = collect_eeschema_code(hier_eeschema_code, cur_sheet_num=1, size="A4", title=_title)
+    hier_eeschema_code = collect_eeschema_code(
+        hier_eeschema_code, cur_sheet_num=1, size="A4", title=_title
+    )
 
     # Generate EESCHEMA schematic files.
     if not self.no_files:
