@@ -40,6 +40,9 @@ class Point:
         """Divide the x,y coords by d."""
         return self * (1.0/d)
 
+    def __round__(self, n):
+        return Point(round(self.x, n), round(self.y, n))
+
     def round(self):
         """Round the x,y coords of the Point."""
         try:
@@ -82,6 +85,9 @@ class BBox:
                 self.max = self.max.max(obj.max)
             else:
                 raise NotImplementedError
+
+    def __round__(self, n):
+        return BBox(round(self.min), round(self.max))
 
     def round(self):
         """Round the BBox min, max points."""

@@ -45,7 +45,7 @@ class Node(dict):
 
 
 def round_num(num, base=50):
-    return int(base * round(num / base))
+    return base * round(num / base)
 
 
 def propagate_pin_labels(part):
