@@ -119,7 +119,7 @@ class BBox:
     @property
     def ctr(self):
         """Return center point of bounding box."""
-        return self.min + (self.max - self.min) / 2
+        return (self.max + self.min) / 2
 
     @property
     def ll(self):

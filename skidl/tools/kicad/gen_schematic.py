@@ -511,62 +511,62 @@ def gen_net_wire(net, hierarchy):
     return nets_output
 
 
-def gen_part_eeschema(self, offset):
+def gen_part_eeschema(part, offset):
     # Generate eeschema code for part from SKiDL part
-    # self: SKiDL part
+    # part: SKiDL part
     # c[x,y]: coordinated to place the part
     # https://en.wikibooks.org/wiki/Kicad/file_formats#Schematic_Files_Format
 
     time_hex = hex(int(time.time()))[2:]
 
-    center = Point(self.sch_bb[0], self.sch_bb[1]) + offset
+    center = Point(part.sch_bb[0], part.sch_bb[1]) + offset
 
     out = ["$Comp\n"]
-    out.append("L {}:{} {}\n".format(self.lib.filename, self.name, self.ref))
+    out.append("L {}:{} {}\n".format(part.lib.filename, part.name, part.ref))
     out.append("U 1 1 {}\n".format(time_hex))
     out.append("P {} {}\n".format(str(center.x), str(center.y)))
     # Add part symbols. For now we are only adding the designator
     n_F0 = 1
-    for i in range(len(self.draw)):
-        if re.search("^DrawF0", str(self.draw[i])):
+    for i in range(len(part.draw)):
+        if re.search("^DrawF0", str(part.draw[i])):
             n_F0 = i
             break
     out.append(
         'F 0 "{}" {} {} {} {} {} {} {}\n'.format(
-            self.ref,
-            self.draw[n_F0].orientation,
-            str(self.draw[n_F0].x + center.x),
-            str(self.draw[n_F0].y + center.y),
-            self.draw[n_F0].size,
+            part.ref,
+            part.draw[n_F0].orientation,
+            str(part.draw[n_F0].x + center.x),
+            str(part.draw[n_F0].y + center.y),
+            part.draw[n_F0].size,
             "000",
-            self.draw[n_F0].halign,
-            self.draw[n_F0].valign,
+            part.draw[n_F0].halign,
+            part.draw[n_F0].valign,
         )
     )
     n_F2 = 2
-    for i in range(len(self.draw)):
-        if re.search("^DrawF2", str(self.draw[i])):
+    for i in range(len(part.draw)):
+        if re.search("^DrawF2", str(part.draw[i])):
             n_F2 = i
             break
     out.append(
         'F 2 "{}" {} {} {} {} {} {} {}\n'.format(
-            self.footprint,
-            self.draw[n_F2].orientation,
-            str(self.draw[n_F2].x + center.x),
-            str(self.draw[n_F2].y + center.y),
-            self.draw[n_F2].size,
+            part.footprint,
+            part.draw[n_F2].orientation,
+            str(part.draw[n_F2].x + center.x),
+            str(part.draw[n_F2].y + center.y),
+            part.draw[n_F2].size,
             "001",
-            self.draw[n_F2].halign,
-            self.draw[n_F2].valign,
+            part.draw[n_F2].halign,
+            part.draw[n_F2].valign,
         )
     )
     out.append("   1   {} {}\n".format(str(center.x), str(center.y)))
     out.append(
         "   {}   {}  {}  {}\n".format(
-            self.orientation[0],
-            self.orientation[1],
-            self.orientation[2],
-            self.orientation[3],
+            part.orientation[0],
+            part.orientation[1],
+            part.orientation[2],
+            part.orientation[3],
         )
     )
     out.append("$EndComp\n")
@@ -682,8 +682,11 @@ def gen_pin_label_eeschema(pin, offset):
         label_type = "GLabel"
         break
 
-    x = pin.x + pin.part.sch_bb[0] + offset.x
-    y = -pin.y + pin.part.sch_bb[1] + offset.y
+    part_origin = pin.part.bbox.ctr
+    part_origin.x = round_num(part_origin.x)
+    part_origin.y = round_num(part_origin.y)
+    x = pin.x + part_origin.x + offset.x
+    y = -pin.y + part_origin.y + offset.y
 
     orientation = {
         "R": 0,
@@ -706,12 +709,9 @@ def gen_node_bbox_eeschema(node, offset):
     else:
         level_name = node.node_key
 
-    x1 = node["sch_bb"][0] - node["sch_bb"][2]
-    y1 = node["sch_bb"][1] + node["sch_bb"][3]
-    x2 = node["sch_bb"][0] + node["sch_bb"][2]
-    y2 = node["sch_bb"][1] - node["sch_bb"][3]
-    bbox = BBox(Point(x1, y1), Point(x2, y2))
+    bbox = BBox(node.bbox.min, node.bbox.max)
     bbox.move(offset)
+    bbox.round()
 
     label_pt = bbox.ll
 
