@@ -142,22 +142,24 @@ def rotate_90_cw(part):
             break
 
 
-def bbox_to_sch_bb(bbox, sch_bb):
+def bbox_to_sch_bb(bbox):
+    sch_bb = [0,0,0,0]
     sch_bb[0] = round_num(bbox.ctr.x)
     sch_bb[1] = round_num(bbox.ctr.y)
-    sch_bb[2] = bbox.w / 2
-    sch_bb[3] = bbox.h / 2
+    sch_bb[2] = round(bbox.w / 2)
+    sch_bb[3] = round(bbox.h / 2)
+    return sch_bb
 
 
 def calc_bbox_part(part):
     """Calculate the bounding box for a part."""
 
-    # Bounding box around pins.
+    # Find bounding box around pins.
     part.bbox = BBox()
     for pin in part:
         part.bbox.add(Point(pin.x, pin.y))
 
-    # Bounding box around pins and any attached labels.
+    # Find expanded bounding box that includes any labels attached to pins.
     part.lbl_bbox = BBox()
     part.lbl_bbox.add(part.bbox)
     for pin in part:
@@ -167,15 +169,15 @@ def calc_bbox_part(part):
             x = pin.x
             y = pin.y
             if pin_dir == "U":
-                lbl_bbox = BBox(Point(x, y), Point(x, y - lbl_len))
+                part.lbl_bbox.add(Point(x, y + lbl_len))
             elif pin_dir == "D":
-                lbl_bbox = BBox(Point(x, y), Point(x, y + lbl_len))
+                part.lbl_bbox.add(Point(x, y - lbl_len))
             elif pin_dir == "L":
-                lbl_bbox = BBox(Point(x, y), Point(x + lbl_len, y))
+                part.lbl_bbox.add(Point(x + lbl_len, y))
             elif pin_dir == "R":
-                lbl_bbox = BBox(Point(x, y), Point(x - lbl_len, y))
-            part.lbl_bbox.add(lbl_bbox)
+                part.lbl_bbox.add(Point(x - lbl_len, y))
 
+    # Expand the bounding box if it's too small in either dimension.
     resize_xy = Vector(0, 0)
     if part.bbox.w < 100:
         resize_xy.x = 100 - part.bbox.w
@@ -184,78 +186,90 @@ def calc_bbox_part(part):
     part.bbox.resize(resize_xy)
     part.lbl_bbox.resize(resize_xy)
 
-    bbox_to_sch_bb(part.bbox, part.sch_bb)
+    # Update the equivalent bounding box.
+    part.sch_bb = bbox_to_sch_bb(part.bbox)
 
 
 def calc_node_bbox(node):
     """Compute the bounding box for the node in the circuit hierarchy."""
 
-    # set the initial values to the central part maximums
-    xMin = node["parts"][0].sch_bb[0] - node["parts"][0].sch_bb[2]
-    xMax = node["parts"][0].sch_bb[0] + node["parts"][0].sch_bb[2]
-    yMin = node["parts"][0].sch_bb[1] + node["parts"][0].sch_bb[3]
-    yMax = node["parts"][0].sch_bb[1] - node["parts"][0].sch_bb[3]
+    node.bbox = BBox()
+    for part in node["parts"]:
+        node.bbox.add(part.lbl_bbox)
 
-    # Range through the parts in the hierarchy
-    for p in node["parts"]:
+    node.bbox.resize(Vector(200,100))
+    node["sch_bb"] = bbox_to_sch_bb(node.bbox)
 
-        # adjust the outline for any labels that pins might have
-        x_label = 0
-        y_label = 0
 
-        # Look for pins with labels or power nets attached, these will increase the length of the side
-        for pin in p.pins:
-            if len(pin.label) > 0:
-                if pin.orientation == "U" or pin.orientation == "D":
-                    if (len(pin.label) + 1) * 50 > y_label:
-                        y_label = (len(pin.label) + 1) * 50
-                elif pin.orientation == "L" or pin.orientation == "R":
-                    if (len(pin.label) + 1) * 50 > x_label:
-                        x_label = (len(pin.label) + 1) * 50
-            for n in pin.nets:
-                if n.netclass == "Power":
-                    if pin.orientation == "U" or pin.orientation == "D":
-                        if 100 > y_label:
-                            y_label = 100
-                    elif pin.orientation == "L" or pin.orientation == "R":
-                        if 100 > x_label:
-                            x_label = 100
+# def calc_node_bbox(node):
+#     """Compute the bounding box for the node in the circuit hierarchy."""
 
-        # Get min/max dimensions of the part
-        t_xMin = p.sch_bb[0] - (p.sch_bb[2] + x_label)
-        t_xMax = p.sch_bb[0] + p.sch_bb[2] + x_label
-        t_yMin = p.sch_bb[1] + p.sch_bb[3] + y_label
-        t_yMax = p.sch_bb[1] - (p.sch_bb[3] + y_label)
+#     # set the initial values to the central part maximums
+#     xMin = node["parts"][0].sch_bb[0] - node["parts"][0].sch_bb[2]
+#     xMax = node["parts"][0].sch_bb[0] + node["parts"][0].sch_bb[2]
+#     yMin = node["parts"][0].sch_bb[1] + node["parts"][0].sch_bb[3]
+#     yMax = node["parts"][0].sch_bb[1] - node["parts"][0].sch_bb[3]
 
-        # Check if we need to expand the rectangle
-        if t_xMin < xMin:
-            xMin = t_xMin
-        if t_xMax > xMax:
-            xMax = t_xMax
-        if t_yMax < yMax:
-            yMax = t_yMax
-        if t_yMin > yMin:
-            yMin = t_yMin
+#     # Range through the parts in the hierarchy
+#     for p in node["parts"]:
 
-    width = int(abs(xMax - xMin) / 2) + 200
-    height = int(abs(yMax - yMin) / 2) + 100
+#         # adjust the outline for any labels that pins might have
+#         x_label = 0
+#         y_label = 0
 
-    tx = int((xMin + xMax) / 2) + 100
-    ty = int((yMin + yMax) / 2) + 50
-    r_sch_bb = [tx, ty, width, height]
+#         # Look for pins with labels or power nets attached, these will increase the length of the side
+#         for pin in p.pins:
+#             if len(pin.label) > 0:
+#                 if pin.orientation == "U" or pin.orientation == "D":
+#                     if (len(pin.label) + 1) * 50 > y_label:
+#                         y_label = (len(pin.label) + 1) * 50
+#                 elif pin.orientation == "L" or pin.orientation == "R":
+#                     if (len(pin.label) + 1) * 50 > x_label:
+#                         x_label = (len(pin.label) + 1) * 50
+#             for n in pin.nets:
+#                 if n.netclass == "Power":
+#                     if pin.orientation == "U" or pin.orientation == "D":
+#                         if 100 > y_label:
+#                             y_label = 100
+#                     elif pin.orientation == "L" or pin.orientation == "R":
+#                         if 100 > x_label:
+#                             x_label = 100
 
-    return r_sch_bb
+#         # Get min/max dimensions of the part
+#         t_xMin = p.sch_bb[0] - (p.sch_bb[2] + x_label)
+#         t_xMax = p.sch_bb[0] + p.sch_bb[2] + x_label
+#         t_yMin = p.sch_bb[1] + p.sch_bb[3] + y_label
+#         t_yMax = p.sch_bb[1] - (p.sch_bb[3] + y_label)
+
+#         # Check if we need to expand the rectangle
+#         if t_xMin < xMin:
+#             xMin = t_xMin
+#         if t_xMax > xMax:
+#             xMax = t_xMax
+#         if t_yMax < yMax:
+#             yMax = t_yMax
+#         if t_yMin > yMin:
+#             yMin = t_yMin
+
+#     width = int(abs(xMax - xMin) / 2) + 200
+#     height = int(abs(yMax - yMin) / 2) + 100
+
+#     tx = int((xMin + xMax) / 2) + 100
+#     ty = int((yMin + yMax) / 2) + 50
+#     r_sch_bb = [tx, ty, width, height]
+
+#     return r_sch_bb
 
 
 def calc_move_part(moving_pin, anchor_pin, other_parts):
 
     moving_part = moving_pin.part
     anchor_part = anchor_pin.part
-    dx = moving_pin.x + anchor_pin.x + anchor_part.sch_bb[0] + anchor_part.sch_bb[2]
-    dy = -moving_pin.y + anchor_pin.y - anchor_part.sch_bb[1]
+    # dx = moving_pin.x + anchor_pin.x + anchor_part.sch_bb[0] + anchor_part.sch_bb[2]
+    # dy = -moving_pin.y + anchor_pin.y - anchor_part.sch_bb[1]
+    dx = anchor_pin.x + moving_pin.x + anchor_part.bbox.max.x
+    dy = anchor_pin.y - moving_pin.y - anchor_part.bbox.ctr.y
     move_part(moving_part, Vector(dx, dy), other_parts)
-    # vector = Vector(anchor_pin.x, anchor_pin.y) + anchor_part.bbox.ll - Vector(moving_pin.x, moving_pin.y) - moving_part.bbox.ll
-    # move_part(moving_part, vector, other_parts)
 
 
 def move_part(part, vector, other_parts):
@@ -281,7 +295,7 @@ def move_part(part, vector, other_parts):
         else:
             vec = avoid_vec
 
-    bbox_to_sch_bb(part.bbox, part.sch_bb)
+    part.sch_bb = bbox_to_sch_bb(part.bbox)
     part.moved = True
     return
 
@@ -996,7 +1010,7 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
 
     # Create bounding boxes for each node of the hierarchy.
     for node in circuit_hier.values():
-        node["sch_bb"] = calc_node_bbox(node)
+        calc_node_bbox(node)
 
     # Make the (x,y) of parts relative to the (x,y) of their encapsulating node.
     for node in circuit_hier.values():
