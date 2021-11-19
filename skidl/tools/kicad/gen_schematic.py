@@ -269,7 +269,7 @@ def calc_move_part(moving_pin, anchor_pin, other_parts):
     # dy = -moving_pin.y + anchor_pin.y - anchor_part.sch_bb[1]
     dx = anchor_pin.x + moving_pin.x + anchor_part.bbox.max.x
     dy = anchor_pin.y - moving_pin.y - anchor_part.bbox.ctr.y
-    move_part(moving_part, Vector(dx, dy), other_parts)
+    move_part(moving_part, Vector(dx, -dy), other_parts)
 
 
 def move_part(part, vector, other_parts):
@@ -278,18 +278,20 @@ def move_part(part, vector, other_parts):
     # Setup the movement vector to use if the initial placement leads to collisions.
     avoid_vec = Vector(200, 0) if vector.x > 0 else Vector(-200, 0)
 
-    vec = Vector(vector.x, -vector.y)  # EESCHEMA Y direction is reversed.
+    vec = Vector(vector.x, vector.y)  # EESCHEMA Y direction is reversed.
 
     while True:
         part.bbox.move(vec)
         part.lbl_bbox.move(vec)
         collision = False
+
         for other_part in other_parts:
             if other_part is part:
                 continue
             if part.lbl_bbox.intersects(other_part.lbl_bbox):
                 collision = True
                 break
+
         if not collision:
             break
         else:
@@ -297,54 +299,51 @@ def move_part(part, vector, other_parts):
 
     part.sch_bb = bbox_to_sch_bb(part.bbox)
     part.moved = True
-    return
 
 
-def move_subhierarchy(hm, hierarchy_list, dx, dy, move_dir="L"):
-    # hm = hierarchy to move
-    # Move hierarchy
+def move_node(node, nodes, vector, move_dir):
 
-    hierarchy_list[hm]["sch_bb"][0] += dx
-    hierarchy_list[hm]["sch_bb"][1] += dy
+    # Remember where the node was.
+    old_position = node.bbox.ctr
 
-    hm_parent = ".".join(hm.split(".")[0:2])
+    # Setup the movement vector to use if the initial placement leads to collisions.
+    avoid_vec = Vector(200, 0) if move_dir=="R" else Vector(-200, 0)
 
-    # Detect collission with other hierarchies
-    for h in hierarchy_list:
-        # Don't detect collisions with itself
-        if h == hm:
-            continue
+    vec = Vector(vector.x, vector.y)  # EESCHEMA Y direction is reversed.
 
-        # Only detect collision with hierarchies on the same page
-        root_parent = ".".join(h.split(".")[0:2])
-        if not hm_parent == root_parent:
-            continue
+    # hm_parent = ".".join(hm.split(".")[0:2])
+    root_parent = ".".join(node.node_key.split(".")[0:2])
 
-        # Calculate the min/max for x/y in order to detect collision between rectangles
-        x1min = hierarchy_list[hm]["sch_bb"][0] - hierarchy_list[hm]["sch_bb"][2]
-        x1max = hierarchy_list[hm]["sch_bb"][0] + hierarchy_list[hm]["sch_bb"][2]
-        y1min = hierarchy_list[hm]["sch_bb"][1] - hierarchy_list[hm]["sch_bb"][3]
-        y1max = hierarchy_list[hm]["sch_bb"][1] + hierarchy_list[hm]["sch_bb"][3]
+    # Detect collision with other nodes.
+    while True:
+        node.bbox.move(vec)
+        collision = False
+        for other_node in nodes:
 
-        x2min = hierarchy_list[h]["sch_bb"][0] - hierarchy_list[h]["sch_bb"][2]
-        x2max = hierarchy_list[h]["sch_bb"][0] + hierarchy_list[h]["sch_bb"][2]
-        y2min = hierarchy_list[h]["sch_bb"][1] - hierarchy_list[h]["sch_bb"][3]
-        y2max = hierarchy_list[h]["sch_bb"][1] + hierarchy_list[h]["sch_bb"][3]
+            # Don't detect collisions with itself.
+            if node is other_node:
+                continue
 
-        # Logic to tell whether parts collide
-        # Note that the movement direction is opposite of what's intuitive ('R' = move left, 'U' = -50)
-        # https://stackoverflow.com/questions/20925818/algorithm-to-check-if-two-boxes-overlap
+            # Only detect collision with hierarchies on the same page.
+            other_root_parent = ".".join(other_node.node_key.split(".")[0:2])
+            if root_parent != other_root_parent:
+                continue
 
-        if (
-            (x1min <= x2max)
-            and (x2min <= x1max)
-            and (y1min <= y2max)
-            and (y2min <= y1max)
-        ):
-            if move_dir == "R":
-                move_subhierarchy(hm, hierarchy_list, 200, 0, move_dir=move_dir)
-            else:
-                move_subhierarchy(hm, hierarchy_list, -200, 0, move_dir=move_dir)
+            if node.bbox.intersects(other_node.bbox):
+                collision = True
+                break
+
+        if not collision:
+            break
+        else:
+            vec = avoid_vec
+
+    node["sch_bb"] = bbox_to_sch_bb(node.bbox)
+
+    # Move the parts in the node based on the change in the node's position.
+    chg_pos = node.bbox.ctr - old_position
+    for part in node["parts"]:
+        move_part(part, chg_pos, [])
 
 
 def gen_net_wire(net, hierarchy):
@@ -988,9 +987,9 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
     for node in circuit_hier.values():
 
         # Set up part movement increments.
-        offset_x = 1  # Use fine movements to get close packing on X dim.
+        offset_x = 50  # Use fine movements to get close packing on X dim.
         # TODO: magic number.
-        offset_y = -(node["parts"][0].sch_bb[1] + node["parts"][0].sch_bb[3] + 500)
+        offset_y = node["parts"][0].bbox.max.y + 500
 
         # Get center part for this node.
         center_part = node["parts"][0]
@@ -1011,12 +1010,6 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
     # Create bounding boxes for each node of the hierarchy.
     for node in circuit_hier.values():
         calc_node_bbox(node)
-
-    # Make the (x,y) of parts relative to the (x,y) of their encapsulating node.
-    for node in circuit_hier.values():
-        for part in node["parts"]:
-            part.sch_bb[0] -= node["sch_bb"][0]
-            part.sch_bb[1] -= node["sch_bb"][1]
 
     # Find maximum depth of node hierarchy.
     max_node_depth = max([h.count(".") for h in circuit_hier])
@@ -1046,19 +1039,14 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
             delta_x = node.parent["sch_bb"][0] - node["sch_bb"][0]
 
             # Move node below parent and then to the side to avoid collisions with other nodes.
-            move_subhierarchy(
-                node.node_key, circuit_hier, delta_x, delta_y, move_dir=dir
+            # old_pos = node.bbox.ctr
+            move_node(
+                node, circuit_hier.values(), Vector(delta_x, delta_y), move_dir=dir
             )
 
             # Alternate placement directions for the next node placement.
             # TODO: find better algorithm than switching sides, maybe based on connections
             dir, next_dir = next_dir, dir
-
-    # Adjust placement of parts based on the movement of their encapsulating node.
-    for node in circuit_hier.values():
-        for part in node["parts"]:
-            part.sch_bb[0] += node["sch_bb"][0]
-            part.sch_bb[1] += node["sch_bb"][1]
 
     # Collect the internal nets for each node.
     for node in circuit_hier.values():

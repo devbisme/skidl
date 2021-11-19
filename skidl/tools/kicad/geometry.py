@@ -32,6 +32,10 @@ class Point:
         """Multiply the x,y coords by m."""
         return Point(m * self.x, m * self.y)
 
+    def __neg__(self):
+        """Negate both coords."""
+        return Point(-self.x, -self.y)
+
     def __truediv__(self, d):
         """Divide the x,y coords by d."""
         return self * (1.0/d)
