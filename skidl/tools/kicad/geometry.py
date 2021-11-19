@@ -32,6 +32,8 @@ class Point:
         """Multiply the x,y coords by m."""
         return Point(m * self.x, m * self.y)
 
+    __rmul__ = __mul__
+
     def __neg__(self):
         """Negate both coords."""
         return Point(-self.x, -self.y)
@@ -85,6 +87,11 @@ class BBox:
                 self.max = self.max.max(obj.max)
             else:
                 raise NotImplementedError
+
+    def __mul__(self, m):
+        return BBox(m * self.min, m * self.max)
+
+    __rmul__ = __mul__
 
     def __round__(self, n):
         return BBox(round(self.min), round(self.max))
