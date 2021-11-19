@@ -143,7 +143,7 @@ def rotate_90_cw(part):
 
 
 def bbox_to_sch_bb(bbox):
-    sch_bb = [0,0,0,0]
+    sch_bb = [0, 0, 0, 0]
     sch_bb[0] = round_num(bbox.ctr.x)
     sch_bb[1] = round_num(bbox.ctr.y)
     sch_bb[2] = round(bbox.w / 2)
@@ -197,7 +197,7 @@ def calc_node_bbox(node):
     for part in node["parts"]:
         node.bbox.add(part.lbl_bbox)
 
-    node.bbox.resize(Vector(200,100))
+    node.bbox.resize(Vector(200, 100))
     node["sch_bb"] = bbox_to_sch_bb(node.bbox)
 
 
@@ -307,7 +307,7 @@ def move_node(node, nodes, vector, move_dir):
     old_position = node.bbox.ctr
 
     # Setup the movement vector to use if the initial placement leads to collisions.
-    avoid_vec = Vector(200, 0) if move_dir=="R" else Vector(-200, 0)
+    avoid_vec = Vector(200, 0) if move_dir == "R" else Vector(-200, 0)
 
     vec = Vector(vector.x, vector.y)  # EESCHEMA Y direction is reversed.
 
@@ -1026,17 +1026,13 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
             if node.node_key.count(".") != depth:
                 continue
 
-            # Get lower Y coord of parent bounding box.
-            parent_ylow = node.parent["sch_bb"][1] + node.parent["sch_bb"][3]
-
-            # Get upper Y coord of node bounding box.
-            node_yup = node["sch_bb"][1] - node["sch_bb"][3]
-
             # Move node so its upper Y is just below parents lower Y.
-            delta_y = parent_ylow - node_yup + 200  # TODO: magic number
+            delta_y = (
+                node.parent.bbox.max.y - node.bbox.min.y + 200
+            )  # TODO: magic number.
 
             # Move node so its X coord lines up with parent X coord.
-            delta_x = node.parent["sch_bb"][0] - node["sch_bb"][0]
+            delta_x = node.parent.bbox.ctr.x - node.bbox.ctr.x
 
             # Move node below parent and then to the side to avoid collisions with other nodes.
             # old_pos = node.bbox.ctr
@@ -1089,15 +1085,8 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
     # Calculate the maximum page dimensions needed for each root hierarchy sheet.
     page_sizes = defaultdict(lambda: BBox())
     for node in circuit_hier.values():
-
-        x_min = node["sch_bb"][0] - node["sch_bb"][2]
-        x_max = node["sch_bb"][0] + node["sch_bb"][2]
-        y_min = node["sch_bb"][1] + node["sch_bb"][3]
-        y_max = node["sch_bb"][1] - node["sch_bb"][3]
-        node_bbox = BBox(Point(x_min, y_min), Point(x_max, y_max))
-
         root_parent = ".".join(node.node_key.split(".")[0:2])
-        page_sizes[root_parent].add(node_bbox)
+        page_sizes[root_parent].add(node.bbox)
 
     # Generate eeschema code for each node in the circuit hierarchy.
     hier_pg_eeschema_code = defaultdict(lambda: [])
