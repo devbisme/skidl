@@ -13,7 +13,7 @@ from __future__ import (  # isort:skip
 import re
 import time
 from builtins import range, str
-from collections import defaultdict, OrderedDict
+from collections import defaultdict, OrderedDict, Counter
 import os.path
 
 from future import standard_library
@@ -48,6 +48,15 @@ def round_num(num, base=50):
     return base * round(num / base)
 
 
+def bbox_to_sch_bb(bbox):
+    sch_bb = [0, 0, 0, 0]
+    sch_bb[0] = round_num(bbox.ctr.x)
+    sch_bb[1] = round_num(bbox.ctr.y)
+    sch_bb[2] = round(bbox.w / 2)
+    sch_bb[3] = round(bbox.h / 2)
+    return sch_bb
+
+
 def propagate_pin_labels(part):
     """Propagate labels from part pins to all connected pins.
 
@@ -62,93 +71,77 @@ def propagate_pin_labels(part):
                 dst_pin.label = src_pin.label
 
 
-def rotate_power_pins(part):
+def rotate_power_pins(part, pin_cnt_threshold=10000):
     """Rotate a part based on the direction of its power pins.
 
     Args:
         part (Part): The part to be rotated.
+        pin_cnt_threshold (int): Parts with more pins than this will not be rotated.
 
     This function is to make sure that voltage sources face up and gnd pins
-    face down. Only rotate parts with 3 pins or less.
+    face down.
     """
 
-    if len(part) <= 3:
-        for pin in part:
-            rotate = 0
-            net_name = getattr(pin.net, "name", "").lower()
-            if "gnd" in net_name:
-                if pin.orientation == "U":
-                    break  # pin is already facing down, break
-                if pin.orientation == "D":
-                    rotate = 180
-                if pin.orientation == "L":
-                    rotate = 90
-                if pin.orientation == "R":
-                    rotate = 270
-            elif "+" in net_name:
-                if pin.orientation == "D":
-                    break  # pin is already facing up, break
-                if pin.orientation == "U":
-                    rotate = 180
-                if pin.orientation == "L":
-                    rotate = 90
-                if pin.orientation == "R":
-                    rotate = 270
-            if rotate != 0:
-                for i in range(int(rotate / 90)):
-                    rotate_90_cw(part)
+    # Don't rotate parts with too many pins.
+    if len(part) > pin_cnt_threshold:
+        return
+
+    # Tally what rotation would make each pwr/gnd pin point up or down.
+    rotation_tally = Counter()
+    for pin in part:
+        net_name = getattr(pin.net, "name", "").lower()
+        if "gnd" in net_name:
+            if pin.orientation == "U":
+                rotation_tally[0] += 1
+            if pin.orientation == "D":
+                rotation_tally[180] += 1
+            if pin.orientation == "L":
+                rotation_tally[90] += 1
+            if pin.orientation == "R":
+                rotation_tally[270] += 1
+        elif "+" in net_name:
+            if pin.orientation == "D":
+                rotation_tally[0] += 1
+            if pin.orientation == "U":
+                rotation_tally[180] += 1
+            if pin.orientation == "L":
+                rotation_tally[90] += 1
+            if pin.orientation == "R":
+                rotation_tally[270] += 1
+
+    # Rotate the part in the direction with the most tallies.
+    try:
+        rotation = rotation_tally.most_common()[0][0]
+    except IndexError:
+        pass
+    else:
+        if rotation != 0:
+            for i in range(int(rotation / 90)):
+                rotate_90_cw(part)
 
 
 def rotate_90_cw(part):
-    """Rotate a part 90-degrees clockwise.
+    """Rotate a part 90-degrees clockwise."""
 
-    Args:
-        part (Part): The part to be rotated.
-
-    Rotating the part CW 90 switches the x/y axis and makes the new height negative.
-    https://stackoverflow.com/questions/2285936/easiest-way-to-rotate-a-rectangle
-    """
-
-    rotation_matrix = [
-        # Assume starting with x: -700 y: 1200
-        [1, 0, 0, -1],  # 0 deg x: 1200 y:-700
-        [0, 1, 1, 0],  # 90 deg x: 1200  y: -700
-        [-1, 0, 0, 1],  # 180 deg x:  700  y: 1200
-        [0, -1, -1, 0],  # 270 deg x:-1200  y:  700
-        [1, 0, 0, -1],  # Repeat first vector to simplify loop below.
-    ]
-
-    # switch the height and width
-    part.sch_bb[2], part.sch_bb[3] = part.sch_bb[3], part.sch_bb[2]
-
-    # range through the pins and rotate them
+    # Replace the pin orientation with the 90-deg CW-rotated orientation.
+    pin_rotation_tbl = {
+        "D": "L",
+        "U": "R",
+        "R": "D",
+        "L": "U",
+    }
     for pin in part:
         pin.x, pin.y = pin.y, -pin.x
-        if pin.orientation == "D":
-            pin.orientation = "L"
-        elif pin.orientation == "U":
-            pin.orientation = "R"
-        elif pin.orientation == "R":
-            pin.orientation = "D"
-        elif pin.orientation == "L":
-            pin.orientation = "U"
+        pin.orientation = pin_rotation_tbl[pin.orientation]
 
-    # Find the part orientation and replace it with the next orientation in the array.
-    # (The first orientation in the array is repeated at the end of the array to
-    # remove the rollover logic.)
-    for n in range(len(rotation_matrix) - 1):
-        if rotation_matrix[n] == part.orientation:
-            part.orientation = rotation_matrix[n + 1]
-            break
-
-
-def bbox_to_sch_bb(bbox):
-    sch_bb = [0, 0, 0, 0]
-    sch_bb[0] = round_num(bbox.ctr.x)
-    sch_bb[1] = round_num(bbox.ctr.y)
-    sch_bb[2] = round(bbox.w / 2)
-    sch_bb[3] = round(bbox.h / 2)
-    return sch_bb
+    # Replace the part orientation with the 90-deg CW-rotated orientation.
+    part_rotation_tbl = {
+        (1, 0, 0, -1):  [0, 1, 1, 0],  # 0 => 90 deg.
+        (0, 1, 1, 0):   [-1, 0, 0, 1],  # 90 => 180 deg.
+        (-1, 0, 0, 1):  [0, -1, -1, 0],  # 180 => 270 deg.
+        (0, -1, -1, 0): [1, 0, 0, -1],  # 270 => 0 deg.
+    }
+    part.orientation = part_rotation_tbl[tuple(part.orientation)]
 
 
 def calc_part_bbox(part):
@@ -417,7 +410,7 @@ def gen_part_eeschema(part, offset):
 
     time_hex = hex(int(time.time()))[2:]
 
-    center = Point(part.sch_bb[0], part.sch_bb[1]) + offset
+    center = round_num(part.bbox.ctr) + offset
 
     out = ["$Comp\n"]
     out.append("L {}:{} {}\n".format(part.lib.filename, part.name, part.ref))
@@ -501,8 +494,8 @@ def gen_power_part_eeschema(part, orientation=[1, 0, 0, -1], offset=Point(0, 0))
                     symbol_name = u[0]
                     # find the stub in the part
                     time_hex = hex(int(time.time()))[2:]
-                    x = part.sch_bb[0] + pin.x + offset.x
-                    y = part.sch_bb[1] - pin.y + offset.y
+                    x = round_num(part.bbox.ctr.x) + pin.x + offset.x
+                    y = round_num(part.bbox.ctr.y) - pin.y + offset.y
                     out.append("$Comp\n")
                     out.append("L power:{} #PWR?\n".format(symbol_name))
                     out.append("U 1 1 {}\n".format(time_hex))
@@ -765,7 +758,7 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
             pin.routed = False
             pin.label = getattr(
                 pin, "label", ""
-            )  # Assign label if not already labeled.
+            )  # Assign empty label if not already labeled.
 
         # Rotate <3 pin parts that have power nets.  Pins with power pins should face up.
         # Pins with GND pins should face down.
@@ -1001,7 +994,7 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
             eeschema_code.append(part_code)
 
         # Generate net wire code.
-        offset = sch_start - Point(node["sch_bb"][0], node["sch_bb"][1])
+        offset = sch_start - round_num(node.bbox.ctr)
         for w in node["wires"]:
             wire_code = gen_wire_eeschema(w, offset=offset)
             eeschema_code.append(wire_code)
@@ -1077,7 +1070,7 @@ def gen_elkjs_code(parts, nets):
         elkjs_part.append(
             "node {}".format(pt.ref)
             + " {\n"
-            + "\tlayout [ size: {},{} ]\n".format(pt.sch_bb[2], pt.sch_bb[3])
+            + "\tlayout [ size: {},{} ]\n".format(pt.bbox.w, pt.bbox.h)
             + "\tportConstraints: FIXED_SIDE\n"
             + ""
         )
