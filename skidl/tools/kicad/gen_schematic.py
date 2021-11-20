@@ -18,7 +18,7 @@ import os.path
 
 from future import standard_library
 
-from .geometry import Point, Vector, BBox
+from .geometry import Point, Vector, BBox, Segment
 from ...logger import active_logger
 from ...part import Part
 from ...scriptinfo import *
@@ -151,7 +151,7 @@ def bbox_to_sch_bb(bbox):
     return sch_bb
 
 
-def calc_bbox_part(part):
+def calc_part_bbox(part):
     """Calculate the bounding box for a part."""
 
     # Find bounding box around pins.
@@ -199,66 +199,6 @@ def calc_node_bbox(node):
 
     node.bbox.resize(Vector(200, 100))
     node["sch_bb"] = bbox_to_sch_bb(node.bbox)
-
-
-# def calc_node_bbox(node):
-#     """Compute the bounding box for the node in the circuit hierarchy."""
-
-#     # set the initial values to the central part maximums
-#     xMin = node["parts"][0].sch_bb[0] - node["parts"][0].sch_bb[2]
-#     xMax = node["parts"][0].sch_bb[0] + node["parts"][0].sch_bb[2]
-#     yMin = node["parts"][0].sch_bb[1] + node["parts"][0].sch_bb[3]
-#     yMax = node["parts"][0].sch_bb[1] - node["parts"][0].sch_bb[3]
-
-#     # Range through the parts in the hierarchy
-#     for p in node["parts"]:
-
-#         # adjust the outline for any labels that pins might have
-#         x_label = 0
-#         y_label = 0
-
-#         # Look for pins with labels or power nets attached, these will increase the length of the side
-#         for pin in p.pins:
-#             if len(pin.label) > 0:
-#                 if pin.orientation == "U" or pin.orientation == "D":
-#                     if (len(pin.label) + 1) * 50 > y_label:
-#                         y_label = (len(pin.label) + 1) * 50
-#                 elif pin.orientation == "L" or pin.orientation == "R":
-#                     if (len(pin.label) + 1) * 50 > x_label:
-#                         x_label = (len(pin.label) + 1) * 50
-#             for n in pin.nets:
-#                 if n.netclass == "Power":
-#                     if pin.orientation == "U" or pin.orientation == "D":
-#                         if 100 > y_label:
-#                             y_label = 100
-#                     elif pin.orientation == "L" or pin.orientation == "R":
-#                         if 100 > x_label:
-#                             x_label = 100
-
-#         # Get min/max dimensions of the part
-#         t_xMin = p.sch_bb[0] - (p.sch_bb[2] + x_label)
-#         t_xMax = p.sch_bb[0] + p.sch_bb[2] + x_label
-#         t_yMin = p.sch_bb[1] + p.sch_bb[3] + y_label
-#         t_yMax = p.sch_bb[1] - (p.sch_bb[3] + y_label)
-
-#         # Check if we need to expand the rectangle
-#         if t_xMin < xMin:
-#             xMin = t_xMin
-#         if t_xMax > xMax:
-#             xMax = t_xMax
-#         if t_yMax < yMax:
-#             yMax = t_yMax
-#         if t_yMin > yMin:
-#             yMin = t_yMin
-
-#     width = int(abs(xMax - xMin) / 2) + 200
-#     height = int(abs(yMax - yMin) / 2) + 100
-
-#     tx = int((xMin + xMax) / 2) + 100
-#     ty = int((yMin + yMax) / 2) + 50
-#     r_sch_bb = [tx, ty, width, height]
-
-#     return r_sch_bb
 
 
 def calc_move_part(moving_pin, anchor_pin, other_parts):
@@ -347,58 +287,23 @@ def move_node(node, nodes, vector, move_dir):
 
 
 def gen_net_wire(net, hierarchy):
-    def det_net_wire_collision(parts, x1, y1, x2, y2):
-        # For a particular wire see if it collides with any parts
 
-        # order should be x1min, x1max, y1min, y1max
-        if x1 > x2:
-            x1, x2 = x2, x1
-        if y1 > y2:
-            y1, y2 = y2, y1
-        x1min = x1
-        y1min = y1
-        x1max = x2
-        y1max = y2
+    def detect_wire_part_collision(wire, parts):
 
-        for pt in parts:
-            x2min = pt.sch_bb[0] - pt.sch_bb[2]
-            y2min = pt.sch_bb[1] - pt.sch_bb[3]
-            x2max = pt.sch_bb[0] + pt.sch_bb[2]
-            y2max = pt.sch_bb[1] + pt.sch_bb[3]
+        for part in parts:
+            bbox = part.bbox
+            sides = OrderedDict()
+            sides["L"] = Segment(bbox.ul, bbox.ll)
+            sides["R"] = Segment(bbox.ur, bbox.lr)
+            sides["U"] = Segment(bbox.ll, bbox.lr)
+            sides["D"] = Segment(bbox.ul, bbox.ur)
 
-            if lineLine(x1min, y1min, x1max, y1max, x2min, y2min, x2min, y2max):
-                return [pt.ref, "L"]
-            elif lineLine(x1min, y1min, x1max, y1max, x2max, y2min, x2max, y2max):
-                return [pt.ref, "R"]
-            elif lineLine(x1min, y1min, x1max, y1max, x2min, y2min, x2max, y2min):
-                return [pt.ref, "U"]
-            elif lineLine(x1min, y1min, x1max, y1max, x2min, y2max, x2max, y2max):
-                return [pt.ref, "D"]
-        return []
+            for side_key, side in sides.items():
+                if wire.intersects(side):
+                    print("Wire/Part Collision!")
+                    return part, side_key
 
-    def lineLine(x1, y1, x2, y2, x3, y3, x4, y4):
-        # LINE/LINE
-        # https://www.jeffreythompson.org/collision-detection/line-rect.php
-        # calculate the distance to intersection point
-        uA = 0.0
-        uB = 0.0
-        try:
-            uA = ((x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3)) / (
-                (y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1)
-            )
-            uB = ((x2 - x1) * (y1 - y3) - (y2 - y1) * (x1 - x3)) / (
-                (y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1)
-            )
-        except:
-            return False
-
-        #   // if uA and uB are between 0-1, lines are colliding
-        if uA > 0 and uA < 1 and uB > 0 and uB < 1:
-            # intersectionX = x1 + (uA * (x2-x1))
-            # intersectionY = y1 + (uA * (y2-y1))
-            # print("Collision at:  X: " + str(intersectionX) + " Y: " + str(intersectionY))
-            return True
-        return False
+        return None, None # No intersections detected.
 
     nets_output = []
     for i in range(len(net.pins) - 1):
@@ -408,7 +313,7 @@ def gen_net_wire(net, hierarchy):
             net.pins[i].routed = True
             net.pins[i + 1].routed = True
 
-            # Calculate the coordiantes of a straight line between the 2 pins that need to connect
+            # Calculate the coordinates of a straight line between the 2 pins that need to connect
             x1 = net.pins[i].part.sch_bb[0] + net.pins[i].x + hierarchy["sch_bb"][0]
             y1 = net.pins[i].part.sch_bb[1] - net.pins[i].y + hierarchy["sch_bb"][1]
 
@@ -426,20 +331,13 @@ def gen_net_wire(net, hierarchy):
             line = [[x1, y1], [x2, y2]]
 
             for i in range(len(line) - 1):
-                t_x1 = line[i][0]
-                t_y1 = line[i][1]
-                t_x2 = line[i + 1][0]
-                t_y2 = line[i + 1][1]
+                segment = Segment(Point(line[i][0],line[i][1]), Point(line[i+1][0],line[i+1][1]))
+                collided_part, collided_side = detect_wire_part_collision(segment, hierarchy["parts"])
 
-                collide = det_net_wire_collision(
-                    hierarchy["parts"], t_x1, t_y1, t_x2, t_y2
-                )
                 # if we see a collision then draw the net around the rectangle
                 # since we are only going left/right with nets/rectangles the strategy to route
                 # around a rectangle is basically making a 'U' shape around it
-                if len(collide) > 0:
-                    collided_part = Part.get(collide[0])
-                    collided_side = collide[1]
+                if collided_part:
 
                     if collided_side == "L":
                         # check if we collided on the left or right side of the central part
@@ -682,11 +580,9 @@ def gen_pin_label_eeschema(pin, offset):
         label_type = "GLabel"
         break
 
-    part_origin = pin.part.bbox.ctr
-    part_origin.x = round_num(part_origin.x)
-    part_origin.y = round_num(part_origin.y)
-    x = pin.x + part_origin.x + offset.x
-    y = -pin.y + part_origin.y + offset.y
+    part_origin = round_num(pin.part.bbox.ctr) + offset
+    x = pin.x + part_origin.x
+    y = -pin.y + part_origin.y  # EESCHEMA Y direction is reversed.
 
     orientation = {
         "R": 0,
@@ -722,7 +618,6 @@ def gen_node_bbox_eeschema(node, offset):
             label_pt.x, label_pt.y, level_name
         )
     )
-
     box.append("Wire Notes Line\n")
     box.append("	{} {} {} {}\n".format(bbox.ll.x, bbox.ll.y, bbox.lr.x, bbox.lr.y))
     box.append("Wire Notes Line\n")
@@ -881,7 +776,7 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
         propagate_pin_labels(part)
 
         # Generate bounding boxes around parts
-        calc_bbox_part(part)
+        calc_part_bbox(part)
 
     # Make dict that holds part, net, and bbox info for each node in the hierarchy.
     circuit_hier = defaultdict(lambda: Node())

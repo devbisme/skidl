@@ -42,7 +42,7 @@ class Point:
         """Divide the x,y coords by d."""
         return self * (1.0/d)
 
-    def __round__(self, n):
+    def __round__(self, n=None):
         return Point(round(self.x, n), round(self.y, n))
 
     def round(self):
@@ -93,7 +93,7 @@ class BBox:
 
     __rmul__ = __mul__
 
-    def __round__(self, n):
+    def __round__(self, n=None):
         return BBox(round(self.min), round(self.max))
 
     def round(self):
@@ -156,3 +156,38 @@ class BBox:
 
     def __repr__(self):
         return "{self.__class__}({self.min}, {self.max})".format(self=self)
+
+
+class Segment:
+
+    def __init__(self, p1, p2):
+        "Create a line segment between two points."
+        self.p1 = copy(p1)
+        self.p2 = copy(p2)
+
+    def intersects(self, other):
+        """Return true if the segments intersect."""
+
+        # Given two segments:
+        #   self: p1 + (p2-p1) * t1
+        #   other: p3 + (p4-p3) * t2
+        # Look for a solution t1, t2 that solves:
+        #   p1x + (p2x-p1x)*t1 = p3x + (p4x-p3x)*t2
+        #   p1y + (p2y-p1y)*t1 = p3y + (p4y-p3y)*t2
+        # If t1 and t2 are both in range [0,1], then the two segments intersect.
+
+        p1x, p1y, p2x, p2y = self.p1.x, self.p1.y, self.p2.x, self.p2.y
+        p3x, p3y, p4x, p4y = other.p1.x, other.p1.y, other.p2.x, other.p2.y
+
+        # denom = p1x*p3y - p1x*p4y - p1y*p3x + p1y*p4x - p2x*p3y + p2x*p4y + p2y*p3x - p2y*p4x
+        # denom = p1x * (p3y - p4y) + p1y * (p4x - p3x) + p2x * (p4y - p3y) + p2y * (p3x - p4x)
+        denom = (p1x - p2x) * (p3y - p4y) + (p1y - p2y) * (p4x - p3x)
+        if math.isclose(denom, 0, abs_tol=1e-9):
+            return False
+
+        # t1 = (p1x*p3y - p1x*p4y - p1y*p3x + p1y*p4x + p3x*p4y - p3y*p4x) / denom
+        # t2 = (-p1x*p2y + p1x*p3y + p1y*p2x - p1y*p3x - p2x*p3y + p2y*p3x) / denom
+        t1 = ((p1y-p3y)*(p4x-p3x) - (p1x-p3x)*(p4y-p3y)) / denom
+        t2 = ((p1y-p3y)*(p2x-p3x) - (p1x-p3x)*(p2y-p3y)) / denom
+
+        return (0 <= t1 <= 1) and (0 <= t2 <= 1)
