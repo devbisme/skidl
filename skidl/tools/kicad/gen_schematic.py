@@ -772,23 +772,23 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
         calc_part_bbox(part)
 
     # Make dict that holds part, net, and bbox info for each node in the hierarchy.
-    circuit_hier = defaultdict(lambda: Node())
+    node_tree = defaultdict(lambda: Node())
     for part in self.parts:
-        circuit_hier[part.hierarchy]["parts"].append(part)
+        node_tree[part.hierarchy]["parts"].append(part)
 
     # Fill-in the parent/child relationship for all the nodes in the hierarchy.
-    for node_key, node in circuit_hier.items():
+    for node_key, node in node_tree.items():
         node.node_key = node_key
         parent_key = ".".join(node_key.split(".")[0:-1])
-        if parent_key not in circuit_hier:
+        if parent_key not in node_tree:
             parent = Node()
         else:
-            parent = circuit_hier[parent_key]
+            parent = node_tree[parent_key]
             parent.children.append(node)
         node.parent = parent
 
     # For each node in hierarchy: Move parts connected to central part by unlabeled nets.
-    for node in circuit_hier.values():
+    for node in node_tree.values():
 
         # Center part of hierarchy that everything else is placed around.
         anchor_part = node["parts"][0]  # TODO: Smarter selection of center part.
@@ -823,7 +823,7 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
                 calc_move_part(mv_pin, anchor_pin, node["parts"])
 
     # For each node in hierarchy: Move parts connected to parts moved in step previous step.
-    for node in circuit_hier.values():
+    for node in node_tree.values():
 
         # Get the center part for this node from the last phase.
         center_part = node["parts"][0]
@@ -872,7 +872,7 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
                     calc_move_part(mv_pin, anchor_pin, node["parts"])
 
     # Move any remaining parts in each node down & alternating left/right.
-    for node in circuit_hier.values():
+    for node in node_tree.values():
 
         # Set up part movement increments.
         offset_x = 50  # Use fine movements to get close packing on X dim.
@@ -896,11 +896,11 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
                 offset_x = -offset_x
 
     # Create bounding boxes for each node of the hierarchy.
-    for node in circuit_hier.values():
+    for node in node_tree.values():
         calc_node_bbox(node)
 
     # Find maximum depth of node hierarchy.
-    max_node_depth = max([h.count(".") for h in circuit_hier])
+    max_node_depth = max([h.count(".") for h in node_tree])
 
     # Move each node of the hierarchy underneath its parent node and left/right, depth-wise.
     for depth in range(2, max_node_depth + 1):
@@ -908,7 +908,7 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
         dir, next_dir = "L", "R"  # Direction of node movement.
 
         # Search for nodes at the current depth.
-        for node in circuit_hier.values():
+        for node in node_tree.values():
 
             # Skip nodes not at the current depth.
             if node.node_key.count(".") != depth:
@@ -925,7 +925,7 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
             # Move node below parent and then to the side to avoid collisions with other nodes.
             # old_pos = node.bbox.ctr
             move_node(
-                node, circuit_hier.values(), Vector(delta_x, delta_y), move_dir=dir
+                node, node_tree.values(), Vector(delta_x, delta_y), move_dir=dir
             )
 
             # Alternate placement directions for the next node placement.
@@ -933,7 +933,7 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
             dir, next_dir = next_dir, dir
 
     # Collect the internal nets for each node.
-    for node in circuit_hier.values():
+    for node in node_tree.values():
         for part in node["parts"]:
             for part_pin in part:
 
@@ -968,50 +968,53 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
                 if internal_net:
                     node["wires"].extend(gen_net_wire(net, node))
 
-    # At this point the hierarchy should be completely generated and ready for generating code.
+    # Now the hierarchy should be completely generated and ready for generating EESCHEMA code.
 
     # Calculate the maximum page dimensions needed for each root hierarchy sheet.
     page_sizes = defaultdict(lambda: BBox())
-    for node in circuit_hier.values():
+    for node in node_tree.values():
         root_parent = ".".join(node.node_key.split(".")[0:2])
         page_sizes[root_parent].add(node.bbox)
 
+    # Calculate the A page sizes that fit each root hierarchy sheet.
+    A_sizes = {root_parent:get_A_size(page_size) for root_parent, page_size in page_sizes.items()}
+
     # Generate eeschema code for each node in the circuit hierarchy.
     hier_pg_eeschema_code = defaultdict(lambda: [])
-    for node in circuit_hier.values():
+    for node in node_tree.values():
 
-        # List to hold all the code for the hierarchy
+        # List to hold all the EESCHEMA code for this node.
         eeschema_code = []
 
-        # Find starting point for part placement
+        # Find the starting point for placement of node parts.
         root_parent = ".".join(node.node_key.split(".")[0:2])
-        A_size = get_A_size(page_sizes[root_parent])
+        A_size = A_sizes[root_parent]
         sch_start = get_A_size_starting_point(A_size)
 
-        # Generate part code
+        # Generate EESCHEMA code for each part in the node.
         for part in node["parts"]:
             part_code = gen_part_eeschema(part, offset=sch_start)
             eeschema_code.append(part_code)
 
-        # Generate net wire code.
+        # Generate EESCHEMA wiring code between the parts in the node.
         offset = sch_start - round_num(node.bbox.ctr)
         for w in node["wires"]:
             wire_code = gen_wire_eeschema(w, offset=offset)
             eeschema_code.append(wire_code)
 
-        # Generate power net stubs.
+        # Generate power conmnections for the each part in the node.
         for part in node["parts"]:
             stub_code = gen_power_part_eeschema(part, offset=sch_start)
             if len(stub_code) != 0:
                 eeschema_code.append(stub_code)
 
-        # Generate pin labels for stubbed nets.
+        # Generate pin labels for stubbed nets on each part in the node.
         for part in node["parts"]:
             for pin in part:
                 pin_label_code = gen_pin_label_eeschema(pin, offset=sch_start)
                 eeschema_code.append(pin_label_code)
 
-        # Generate node bounding box.
+        # Generate the graphic box that surrounds the node parts.
         bbox_code = gen_node_bbox_eeschema(node, offset=sch_start)
         eeschema_code.append(bbox_code)
 
@@ -1020,13 +1023,13 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
         # TODO: Collect the header, code, and footer into the dict.
         hier_pg_eeschema_code[root_parent].append("\n".join(eeschema_code))
 
-    # Collect the EESCHEMA code to be saved in a file for each page.
+    # Collect the EESCHEMA code for each page.
     page_eeschema_code = {}
     hier_eeschema_code = []
     hier_start = get_A_size_starting_point("A4")
     hier_start.x = 1000  # TODO: magic number.
     for root_parent, code in hier_pg_eeschema_code.items():
-        A_size = get_A_size(page_sizes[root_parent])
+        A_size = A_sizes[root_parent]
         page_eeschema_code[root_parent] = collect_eeschema_code(
             code, cur_sheet_num=1, size=A_size, title=_title
         )
