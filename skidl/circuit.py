@@ -742,6 +742,19 @@ class Circuit(SkidlBaseObject):
 
         return "\n".join(head_svg + part_svg + tail_svg)
 
+    def get_net_nc_stubs(self):
+        """Get all nets/buses that are stubs or no-connects."""
+
+        # Search all nets for those set as stubs or that are no-connects.
+        stubs = [n for n in self.nets if getattr(n, "stub", False) or isinstance(n, NCNet)]
+
+        # Also find buses that are set as stubs and add their individual nets.
+        stubs.extend(
+            expand_buses([b for b in self.buses if getattr(b, "stub", False)])
+        )
+
+        return stubs
+
     def generate_svg(self, file_=None, tool=None):
         """
         Create an SVG file displaying the circuit schematic and
@@ -757,14 +770,7 @@ class Circuit(SkidlBaseObject):
         self._preprocess()
 
         # Get the list of nets which will be routed and not represented by stubs.
-        # Search all nets for those set as stubs or that are no-connects.
-        net_stubs = [
-            n for n in self.nets if getattr(n, "stub", False) or isinstance(n, NCNet)
-        ]
-        # Also find buses that are set as stubs and add their individual nets.
-        net_stubs.extend(
-            expand_buses([b for b in self.buses if getattr(b, "stub", False)])
-        )
+        net_stubs = self.get_net_nc_stubs()
         routed_nets = list(set(self.nets) - set(net_stubs))
 
         # Assign each routed net a unique integer. Interconnected nets

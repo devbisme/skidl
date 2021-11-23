@@ -23,12 +23,13 @@ def anlg_flt(vdd, gnd, vdda):
 @SubCircuit
 def buck(vin, v_usb, vout, gnd):
 
-    vprotected = Net('v12_fused')
+    vprotected = Net('v12_fused', stub=True)
     vin_protection(vin, vprotected, gnd)
 
 
     reg = Part('Regulator_Linear', 'AP1117-15', footprint='SOT-223-3_TabPin2')
-    reg.p3.label = "v12_fused"
+    # reg.p3.label = "v12_fused"
+    reg.p3 += vprotected
     c1 = Part("Device", 'C_Small', footprint='C_0603_1608Metric', value='10uF')
     c2 = Part("Device", 'C_Small', footprint='C_0603_1608Metric', value='10uF')
     d = Part("Device", "D_Zener_Small", footprint="D_0201_0603Metric")

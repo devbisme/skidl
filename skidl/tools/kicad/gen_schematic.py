@@ -20,6 +20,7 @@ from future import standard_library
 
 from .geometry import Point, Vector, BBox, Segment
 from ...logger import active_logger
+from ...net import NCNet
 from ...part import Part
 from ...scriptinfo import *
 from ...utilities import *
@@ -742,11 +743,19 @@ def collect_eeschema_code(
     )
 
 
-def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
+def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
     """Create a schematic file from a Circuit object."""
 
+    # Pre-process nets.
+    net_stubs = circuit.get_net_nc_stubs()
+    net_stubs = [net for net in net_stubs if not isinstance(net, NCNet)]
+    for net in net_stubs:
+        if net.netclass != "Power":
+            for pin in net.get_pins():
+                pin.label = net.name
+ 
     # Pre-process parts
-    for part in self.parts:
+    for part in circuit.parts:
 
         # Initialize part attributes used for generating schematics.
         part.orientation = [1, 0, 0, -1]
@@ -766,14 +775,14 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
 
         # Copy labels from one pin to each connected pin.  This allows the user to only label
         # a single pin, then connect it normally, instead of having to label every pin in that net
-        propagate_pin_labels(part)
+        # propagate_pin_labels(part)
 
         # Generate bounding boxes around parts
         calc_part_bbox(part)
 
     # Make dict that holds part, net, and bbox info for each node in the hierarchy.
     node_tree = defaultdict(lambda: Node())
-    for part in self.parts:
+    for part in circuit.parts:
         node_tree[part.hierarchy]["parts"].append(part)
 
     # Fill-in the parent/child relationship for all the nodes in the hierarchy.
@@ -1002,7 +1011,7 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
             wire_code = gen_wire_eeschema(w, offset=offset)
             eeschema_code.append(wire_code)
 
-        # Generate power conmnections for the each part in the node.
+        # Generate power connections for the each part in the node.
         for part in node["parts"]:
             stub_code = gen_power_part_eeschema(part, offset=sch_start)
             if len(stub_code) != 0:
@@ -1041,7 +1050,7 @@ def gen_schematic(self, file_=None, _title="Default", gen_elkjs=False):
     )
 
     # Generate EESCHEMA schematic files.
-    if not self.no_files:
+    if not circuit.no_files:
 
         # Generate schematic files for lower-levels in the hierarchy.
         dir = os.path.dirname(file_)

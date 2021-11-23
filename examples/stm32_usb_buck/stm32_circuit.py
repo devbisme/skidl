@@ -8,22 +8,38 @@ import connection_circuits as c
 def stm32f405r():
     u = Part("MCU_ST_STM32F4", 'STM32F405RGTx', footprint='LQFP-64_10x10mm_P0.5mm')
     # Label signal pins
-    u.p5.label = 'OSC_IN'
-    u.p6.label = 'OSC_OUT'
-    u.p7.label = 'NRST'
-    u.p8.label = 'HB' #heartbeat
-    u.p16.label = 'USART2_TX'
-    u.p17.label = 'USART2_TX'
-    u.p31.label = 'vcap1'
-    u.p47.label = 'vcap2'
-    u.p45.label = 'USB_P'
-    u.p44.label = 'USB_M'
-    u.p46.label = 'SWDIO'
-    u.p49.label = 'SWCLK'
-    u.p55.label = 'SWO'
-    u.p58.label = 'I2C1_SCL'
-    u.p59.label = 'I2C1_SDA'
-    u.p60.label = 'BOOT0'
+    # u.p5.label = 'OSC_IN'
+    # u.p6.label = 'OSC_OUT'
+    # u.p7.label = 'NRST'
+    # u.p8.label = 'HB' #heartbeat
+    # u.p16.label = 'USART2_TX'
+    # u.p17.label = 'USART2_TX'
+    # u.p31.label = 'vcap1'
+    # u.p47.label = 'vcap2'
+    # u.p45.label = 'USB_P'
+    # u.p44.label = 'USB_M'
+    # u.p46.label = 'SWDIO'
+    # u.p49.label = 'SWCLK'
+    # u.p55.label = 'SWO'
+    # u.p58.label = 'I2C1_SCL'
+    # u.p59.label = 'I2C1_SDA'
+    # u.p60.label = 'BOOT0'
+    u.p5 += Net('OSC_IN', stub=True)
+    u.p6 += Net('OSC_OUT', stub=True)
+    u.p7 += Net('NRST', stub=True)
+    u.p8 += Net('HB', stub=True)
+    u.p16 += Net('USART2_TX', stub=True)
+    u.p17 += Net('USART2_TX', stub=True)
+    u.p31 += Net('vcap1', stub=True)
+    u.p47 += Net('vcap2', stub=True)
+    u.p45 += Net('USB_P', stub=True)
+    u.p44 += Net('USB_M', stub=True)
+    u.p46 += Net('SWDIO', stub=True)
+    u.p49 += Net('SWCLK', stub=True)
+    u.p55 += Net('SWO', stub=True)
+    u.p58 += Net('I2C1_SCL', stub=True)
+    u.p59 += Net('I2C1_SDA', stub=True)
+    u.p60 += Net('BOOT0', stub=True)
 
     # Bulking cap
     bcap = Part("Device", 'C_Small', footprint='C_0603_1608Metric', value='4.7uF')
@@ -98,10 +114,10 @@ def usb(v_5v, gnd, dp, dm, imp_match):
 
     # Create parts
     usb_protection = Part("Power_Protection", 'USBLC6-4SC6', footprint='SOT-23-6')
-    usb_protection.p1.label = 'USB_P'
-    usb_protection.p3.label = 'C_USB_P' # connector USB+
-    usb_protection.p4.label = 'USB_M'
-    usb_protection.p6.label = 'C_USB_M' # connector USB-
+    usb_protection.p1 += Net.get('USB_P')
+    usb_protection.p3 += Net('C_USB_P', stub=True) # connector USB+
+    usb_protection.p4 += Net.get('USB_M')
+    usb_protection.p6 += Net('C_USB_M', stub=True) # connector USB-
 
     usb_connector = Part("Connector", 'USB_B_Mini', footprint='USB_Micro-B_Molex-105017-0001')
     # Check if we should add impedance matching pull-ups
