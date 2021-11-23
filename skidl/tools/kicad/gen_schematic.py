@@ -280,7 +280,7 @@ def move_node(node, nodes, vector, move_dir):
         move_part(part, chg_pos, [])
 
 
-def gen_net_wire(net, hierarchy):
+def gen_net_wire(net, node):
 
     def detect_wire_part_collision(wire, parts):
 
@@ -310,17 +310,17 @@ def gen_net_wire(net, hierarchy):
             pin2.routed = True
 
             # Calculate the coordinates of a straight line between the 2 pins that need to connect
-            x1 = pin1.part.sch_bb[0] + pin1.x + hierarchy["sch_bb"][0]
-            y1 = pin1.part.sch_bb[1] - pin1.y + hierarchy["sch_bb"][1]
+            x1 = pin1.part.sch_bb[0] + pin1.x + node["sch_bb"][0]
+            y1 = pin1.part.sch_bb[1] - pin1.y + node["sch_bb"][1]
 
-            x2 = pin2.part.sch_bb[0] + pin2.x + hierarchy["sch_bb"][0]
-            y2 = pin2.part.sch_bb[1] - pin2.y + hierarchy["sch_bb"][1]
+            x2 = pin2.part.sch_bb[0] + pin2.x + node["sch_bb"][0]
+            y2 = pin2.part.sch_bb[1] - pin2.y + node["sch_bb"][1]
 
             line = [[x1, y1], [x2, y2]]
 
             for i in range(len(line) - 1):
                 segment = Segment(Point(line[i][0],line[i][1]), Point(line[i+1][0],line[i+1][1]))
-                collided_part, collided_side = detect_wire_part_collision(segment, hierarchy["parts"])
+                collided_part, collided_side = detect_wire_part_collision(segment, node["parts"])
 
                 # if we see a collision then draw the net around the rectangle
                 # since we are only going left/right with nets/rectangles the strategy to route
