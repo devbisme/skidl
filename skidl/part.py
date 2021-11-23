@@ -772,7 +772,7 @@ class Part(SkidlBaseObject):
             return False
 
         for pin in self:
-            for net in pin.get_nets():
+            for net in pin.nets:
                 if net in nets:
                     return True
         return False

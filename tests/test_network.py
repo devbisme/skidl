@@ -16,9 +16,9 @@ def test_ntwk_1():
     Net("5V") & r1 & Net("OUTPUT") & q1["C,E"] & Net("GND")
     Net.fetch("5V") & r2 & q1.B & Net("INPUT")
     assert len(default_circuit.get_nets()) == 4
-    assert len(q1.C.get_nets()[0]) == 2
-    assert len(q1.B.get_nets()[0]) == 2
-    assert len(q1.E.get_nets()[0]) == 1
+    assert len(q1.C.nets[0]) == 2
+    assert len(q1.B.nets[0]) == 2
+    assert len(q1.E.nets[0]) == 1
     assert len(Net.fetch("5V")) == 2
     assert len(Net.fetch("GND")) == 1
 
@@ -29,9 +29,9 @@ def test_ntwk_2():
     d1 = Part("Device", "D")
     Net("5V") & ((r1 & d1["A,K"]) | r2) & Net("GND")
     assert len(default_circuit.get_nets()) == 3
-    assert len(d1.A.get_nets()[0]) == 2
-    assert len(d1.K.get_nets()[0]) == 2
-    assert len(r1.p2.get_nets()[0]) == 2
+    assert len(d1.A.nets[0]) == 2
+    assert len(d1.K.nets[0]) == 2
+    assert len(r1.p2.nets[0]) == 2
     assert len(Net.fetch("5V")) == 2
     assert len(Net.fetch("GND")) == 2
 
@@ -76,7 +76,7 @@ def test_ntwk_7():
     r1, r2, r3, r4, r5 = Part("Device", "R", dest=TEMPLATE) * 5
     vi, gnd = Net("VI"), Net("GND")
     ntwk = vi & r1 & r2 & tee(r3 & r4 & gnd) & r5 & gnd
-    assert len(r3[1].get_nets()[0]) == 3
-    assert len(r2[2].get_nets()[0]) == 3
-    assert len(r5[1].get_nets()[0]) == 3
+    assert len(r3[1].nets[0]) == 3
+    assert len(r2[2].nets[0]) == 3
+    assert len(r5[1].nets[0]) == 3
     assert len(gnd.pins) == 2

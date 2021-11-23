@@ -131,7 +131,7 @@ class Net(SkidlBaseObject):
             for pin in pins - prev_pins:
                 # No use visiting a pin that is not connected to a net.
                 if pin.is_connected():
-                    nets |= set(pin.get_nets())
+                    nets |= set(pin.nets)
 
             # Update the set of previously visited pins.
             prev_pins = copy(pins)
@@ -169,10 +169,14 @@ class Net(SkidlBaseObject):
         self.test_validity()
         return self._traverse().nets
 
+    @property
+    def nets(self):
+        return self.get_nets()
+
     def is_attached(self, pin_net_bus):
         """Return true if the pin, net or bus is attached to this one."""
         if isinstance(pin_net_bus, Net):
-            return pin_net_bus in self.get_nets()
+            return pin_net_bus in self.nets
         if isinstance(pin_net_bus, Pin):
             return pin_net_bus.is_attached(self)
         if isinstance(pin_net_bus, Bus):
@@ -593,7 +597,7 @@ class Net(SkidlBaseObject):
             )
 
         # Assign the same name to all the nets that are connected to this net.
-        nets = self.get_nets()
+        nets = self.nets
         selected_name = getattr(select_name(nets), "name")
         for net in nets:
             # Assign the name directly to each net. Using the name property
@@ -754,7 +758,7 @@ class Net(SkidlBaseObject):
         # A net class can only be assigned if there is no existing net class
         # or if the existing net class matches the net class parameter (in
         # which case this is redundant).
-        nets = self.get_nets()  # Get all interconnected subnets.
+        nets = self.nets  # Get all interconnected subnets.
         netclasses = set([getattr(n, "_netclass", None) for n in nets])
         netclasses.discard(None)
         if len(netclasses) == 0:
@@ -779,7 +783,7 @@ class Net(SkidlBaseObject):
     @netclass.deleter
     def netclass(self):
         self.test_validity()
-        nets = self.get_nets()  # Get all interconnected subnets.
+        nets = self.nets  # Get all interconnected subnets.
         for n in nets:
             try:
                 del self._netclass
@@ -796,14 +800,14 @@ class Net(SkidlBaseObject):
         maximum drive value of the pins currently on the net.
         """
         self.test_validity()
-        nets = self.get_nets()  # Get all interconnected subnets.
+        nets = self.nets  # Get all interconnected subnets.
         max_drive = max(nets, key=lambda n: n._drive)._drive
         return max_drive
 
     @drive.setter
     def drive(self, drive):
         self.test_validity()
-        nets = self.get_nets()  # Get all interconnected subnets.
+        nets = self.nets  # Get all interconnected subnets.
         max_drive = max(nets, key=lambda n: n._drive)._drive
         max_drive = max(drive, max_drive)
         for n in nets:
@@ -812,7 +816,7 @@ class Net(SkidlBaseObject):
     @drive.deleter
     def drive(self):
         self.test_validity()
-        nets = self.get_nets()  # Get all interconnected subnets.
+        nets = self.nets  # Get all interconnected subnets.
         for n in nets:
             del n._drive
 

@@ -89,9 +89,9 @@ def test_backup_2():
     b = Part("Device", "C", footprint="null")
     c = Part("Device", "L", footprint="null")
     a & b & c  # Place parts in series.
-    num_pins_per_net_1 = {net.name: len(net) for net in default_circuit.get_nets()}
+    num_pins_per_net_1 = {net.name: len(net) for net in default_circuit.nets}
     generate_netlist(do_backup=True)  # This creates the backup parts library.
-    num_pins_per_net_2 = {net.name: len(net) for net in default_circuit.get_nets()}
+    num_pins_per_net_2 = {net.name: len(net) for net in default_circuit.nets}
     for nm in num_pins_per_net_1:
         assert num_pins_per_net_1[nm] == num_pins_per_net_2[nm]
 

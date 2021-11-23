@@ -1240,7 +1240,7 @@ def gen_svg_comp(part, symtx, net_stubs=None):
     net_stubs = net_stubs or []  # Empty list of stub nets if argument is None.
     max_stub_len = 0  # If no net stubs are needed, this stays at zero.
     for pin in part:
-        for net in pin.get_nets():
+        for net in pin.nets:
             # Don't let names for no-connect nets affect maximum stub length.
             if net in [NC, None]:
                 continue
@@ -1555,7 +1555,7 @@ def gen_svg_comp(part, symtx, net_stubs=None):
                 # Create net stub name.
                 if max_stub_len:
                     # Only do this if stub length > 0; otherwise, no stubs are needed.
-                    for net in part_pin.get_nets():
+                    for net in part_pin.nets:
                         # Don't create stubs for no-connect nets.
                         if net in [NC, None]:
                             continue
