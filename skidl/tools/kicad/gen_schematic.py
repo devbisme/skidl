@@ -300,27 +300,21 @@ def gen_net_wire(net, hierarchy):
         return None, None # No intersections detected.
 
     nets_output = []
-    for i in range(len(net.pins) - 1):
-        if net.pins[i].routed and net.pins[i + 1].routed:
+    pins = net.get_pins()
+    pin_pairs = zip(pins[:-1], pins[1:])
+    for pin1, pin2 in pin_pairs:
+        if pin1.routed and pin2.routed:
             continue
         else:
-            net.pins[i].routed = True
-            net.pins[i + 1].routed = True
+            pin1.routed = True
+            pin2.routed = True
 
             # Calculate the coordinates of a straight line between the 2 pins that need to connect
-            x1 = net.pins[i].part.sch_bb[0] + net.pins[i].x + hierarchy["sch_bb"][0]
-            y1 = net.pins[i].part.sch_bb[1] - net.pins[i].y + hierarchy["sch_bb"][1]
+            x1 = pin1.part.sch_bb[0] + pin1.x + hierarchy["sch_bb"][0]
+            y1 = pin1.part.sch_bb[1] - pin1.y + hierarchy["sch_bb"][1]
 
-            x2 = (
-                net.pins[i + 1].part.sch_bb[0]
-                + net.pins[i + 1].x
-                + hierarchy["sch_bb"][0]
-            )
-            y2 = (
-                net.pins[i + 1].part.sch_bb[1]
-                - net.pins[i + 1].y
-                + hierarchy["sch_bb"][1]
-            )
+            x2 = pin2.part.sch_bb[0] + pin2.x + hierarchy["sch_bb"][0]
+            y2 = pin2.part.sch_bb[1] - pin2.y + hierarchy["sch_bb"][1]
 
             line = [[x1, y1], [x2, y2]]
 
@@ -335,10 +329,7 @@ def gen_net_wire(net, hierarchy):
 
                     if collided_side == "L":
                         # check if we collided on the left or right side of the central part
-                        if (
-                            net.pins[i + 1].part.sch_bb[0] < 0
-                            or net.pins[i].part.sch_bb[0] < 0
-                        ):
+                        if pin2.part.sch_bb[0] < 0 or pin1.part.sch_bb[0] < 0:
                             # switch first and last coordinates if one is further left
                             if x1 > x2:
                                 t = line[0]
