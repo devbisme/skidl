@@ -89,7 +89,7 @@ class Net(SkidlBaseObject):
         self._valid = True  # Make net valid before doing anything else.
         self.do_erc = True
         self._drive = Pin.drives.NONE
-        self.pins = []
+        self._pins = []
         self.circuit = None
         self.code = None  # This is the net number used in a KiCad netlist file.
 
@@ -124,7 +124,7 @@ class Net(SkidlBaseObject):
         prev_nets = set([self])
         nets = set([self])
         prev_pins = set([])
-        pins = set(self.pins)
+        pins = set(self._pins)
         while pins != prev_pins:
 
             # Add the nets attached to any unvisited pins.
@@ -138,7 +138,7 @@ class Net(SkidlBaseObject):
 
             # Add the pins attached to any unvisited nets.
             for net in nets - prev_nets:
-                pins |= set(net.pins)
+                pins |= set(net._pins)
 
             # Update the set of previously visited nets.
             prev_nets = copy(nets)
@@ -159,6 +159,10 @@ class Net(SkidlBaseObject):
         """Return a list of pins attached to this net."""
         self.test_validity()
         return self._traverse().pins
+
+    @property
+    def pins(self):
+        return self.get_pins()
 
     def get_nets(self):
         """Return a list of nets attached to this net, including this net."""
@@ -190,7 +194,7 @@ class Net(SkidlBaseObject):
 
         from .circuit import Circuit
 
-        return not isinstance(self.circuit, Circuit) or not self.pins
+        return not isinstance(self.circuit, Circuit) or not self._pins
 
     def copy(self, num_copies=None, circuit=None, **attribs):
         """
@@ -252,7 +256,7 @@ class Net(SkidlBaseObject):
         # because what happens if a pin is connected to the copy? Then we have
         # to search for all the other copies to add the pin to those.
         # And what's the value of that?
-        if self.pins:
+        if self._pins:
             active_logger.raise_(
                 ValueError,
                 "Can't make copies of a net that already has " "pins attached to it!",
@@ -418,20 +422,20 @@ class Net(SkidlBaseObject):
                 return
 
             # If this net has pins, just attach the other net to one of them.
-            if self.pins:
-                self.pins[0].nets.append(net)
-                net.pins.append(self.pins[0])
+            if self._pins:
+                self._pins[0].nets.append(net)
+                net._pins.append(self._pins[0])
             # If the other net has pins, attach this net to a pin on the other net.
-            elif net.pins:
-                net.pins[0].nets.append(self)
-                self.pins.append(net.pins[0])
+            elif net._pins:
+                net._pins[0].nets.append(self)
+                self._pins.append(net._pins[0])
             # If neither net has any pins, then attach a phantom pin to one net
             # and then connect the nets together.
             else:
                 p = PhantomPin()
                 connect_pin(p)
-                self.pins[0].nets.append(net)
-                net.pins.append(self.pins[0])
+                self._pins[0].nets.append(net)
+                net._pins.append(self._pins[0])
 
             # Update the drive of the merged nets. When setting the drive of a
             # net the net drive will be the maximum of its current drive or the
@@ -448,11 +452,11 @@ class Net(SkidlBaseObject):
 
         def connect_pin(pin):
             """Connect a pin to this net."""
-            if pin not in self.pins:
+            if pin not in self._pins:
                 if not pin.is_connected():
                     # Remove the pin from the no-connect net if it is attached to it.
                     pin.disconnect()
-                self.pins.append(pin)
+                self._pins.append(pin)
                 pin.nets.append(self)
             return
 
@@ -525,7 +529,7 @@ class Net(SkidlBaseObject):
     def disconnect(self, pin):
         """Remove the pin from this net but not any other nets it's attached to."""
         try:
-            self.pins.remove(pin)
+            self._pins.remove(pin)
         except ValueError:
             return  # Pin wasn't in the list, so abort.
 
@@ -644,7 +648,7 @@ class Net(SkidlBaseObject):
         self.test_validity()
 
         # Don't add anything to the netlist if no pins are on this net.
-        if not self.get_pins():
+        if not self.pins:
             return
 
         gen_func = get_tool_func(self, "gen_netlist_net", tool)
@@ -666,7 +670,7 @@ class Net(SkidlBaseObject):
         self.test_validity()
 
         # Don't add anything to the XML if no pins are on this net.
-        if not self.get_pins():
+        if not self.pins:
             return
 
         gen_func = get_tool_func(self, "gen_xml_net", tool)
@@ -675,7 +679,7 @@ class Net(SkidlBaseObject):
     def __str__(self):
         """Return a list of the pins on this net as a string."""
         self.test_validity()
-        pins = self.get_pins()
+        pins = self.pins
         return (
             self.name + ": " + ", ".join([p.__str__() for p in sorted(pins, key=str)])
         )
@@ -685,8 +689,7 @@ class Net(SkidlBaseObject):
     def __len__(self):
         """Return the number of pins attached to this net."""
         self.test_validity()
-        pins = self.get_pins()
-        return len(pins)
+        return len(self.pins)
 
     @property
     def width(self):

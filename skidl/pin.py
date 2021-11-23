@@ -492,6 +492,10 @@ class Pin(SkidlBaseObject):
         """Return a list containing this pin."""
         return to_list(self)
 
+    @property
+    def pins(self):
+        return self.get_pins()
+
     def create_network(self):
         """Create a network from a single pin."""
         from .network import Network

@@ -68,7 +68,7 @@ def propagate_pin_labels(part):
     """
     for src_pin in part:
         if len(src_pin.label) and src_pin.net:
-            for dst_pin in src_pin.net.get_pins():
+            for dst_pin in src_pin.net.pins:
                 dst_pin.label = src_pin.label
 
 
@@ -300,7 +300,7 @@ def gen_net_wire(net, node):
         return None, None # No intersections detected.
 
     nets_output = []
-    pins = net.get_pins()
+    pins = net.pins
     pin_pairs = zip(pins[:-1], pins[1:])
     for pin1, pin2 in pin_pairs:
         if pin1.routed and pin2.routed:
@@ -557,7 +557,7 @@ def gen_pin_label_eeschema(pin, offset):
         return ""
 
     label_type = "HLabel"
-    for pn in pin.net.get_pins():
+    for pn in pin.net.pins:
         if pin.part.hierarchy.startswith(pn.part.hierarchy):
             continue
         if pn.part.hierarchy.startswith(pin.part.hierarchy):
@@ -742,7 +742,7 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
     net_stubs = [net for net in net_stubs if not isinstance(net, NCNet)]
     for net in net_stubs:
         if net.netclass != "Power":
-            for pin in net.get_pins():
+            for pin in net.pins:
                 pin.label = net.name
  
     # Pre-process parts
@@ -809,7 +809,7 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
                 continue
 
             # Now move any parts connected to this pin.
-            for mv_pin in anchor_pin.net.get_pins():
+            for mv_pin in anchor_pin.net.pins:
 
                 # Skip moving the center part.
                 if mv_pin.part == anchor_part:
@@ -854,7 +854,7 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
                     continue
 
                 # Move this part toward parts connected to its pin.
-                for anchor_pin in mv_pin.net.get_pins():
+                for anchor_pin in mv_pin.net.pins:
 
                     # Skip parts that aren't in the same node of the hierarchy as the moving part.
                     if anchor_pin.part.hierarchy != mv_part.hierarchy:
@@ -953,7 +953,7 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
 
                 # Determine if all the pins on this net reside in the node.
                 internal_net = True
-                for net_pin in net.get_pins():
+                for net_pin in net.pins:
 
                     # Don't consider stubs.
                     if len(net_pin.label) > 0:

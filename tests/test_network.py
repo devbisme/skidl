@@ -79,4 +79,4 @@ def test_ntwk_7():
     assert len(r3[1].get_nets()[0]) == 3
     assert len(r2[2].get_nets()[0]) == 3
     assert len(r5[1].get_nets()[0]) == 3
-    assert len(gnd.get_pins()) == 2
+    assert len(gnd.pins) == 2

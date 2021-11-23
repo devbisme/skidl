@@ -293,10 +293,10 @@ def test_package_7():
     assert u1.F2 == "U1-F2"
     assert u2.F2 == "U2-F2"
     assert len(default_circuit.parts) == 10
-    assert len(vout1.get_pins()) == 3
-    assert len(vout2.get_pins()) == 3
-    assert len(vin.get_pins()) == 4
-    assert len(gnd.get_pins()) == 6
+    assert len(vout1.pins) == 3
+    assert len(vout2.pins) == 3
+    assert len(vin.pins) == 4
+    assert len(gnd.pins) == 6
     # check decorator has not messed up docstring for subcircuits
     assert vreg_adj.subcircuit.__name__ == "vreg_adj"
     assert (

@@ -906,7 +906,7 @@ def parse_lib_part_kicad_v6(self, partial_parse):
     self.part_defn = None
 
 
-def gen_netlist(self):
+def gen_netlist(circuit):
     from .. import KICAD
 
     scr_dict = scriptinfo()
@@ -922,11 +922,11 @@ def gen_netlist(self):
     )
     netlist = template.format(**locals())
     netlist += "  (components"
-    for p in sorted(self.parts, key=lambda p: str(p.ref)):
+    for p in sorted(circuit.parts, key=lambda p: str(p.ref)):
         netlist += "\n" + p.generate_netlist_component(KICAD)
     netlist += ")\n"
     netlist += "  (nets"
-    sorted_nets = sorted(self.get_nets(), key=lambda n: str(n.name))
+    sorted_nets = sorted(circuit.get_nets(), key=lambda n: str(n.name))
     for code, n in enumerate(sorted_nets, 1):
         n.code = code
         netlist += "\n" + n.generate_netlist_net(KICAD)
@@ -934,30 +934,30 @@ def gen_netlist(self):
     return netlist
 
 
-def gen_netlist_comp(self):
-    ref = add_quotes(self.ref)
+def gen_netlist_comp(part):
+    ref = add_quotes(part.ref)
 
-    value = add_quotes(self.value_str)
+    value = add_quotes(part.value_str)
 
     try:
-        footprint = self.footprint
+        footprint = part.footprint
     except AttributeError:
         active_logger.error(
-            "No footprint for {part}/{ref}.".format(part=self.name, ref=ref)
+            "No footprint for {part}/{ref}.".format(part=part.name, ref=ref)
         )
         footprint = "No Footprint"
     footprint = add_quotes(footprint)
 
-    lib_filename = getattr(getattr(self, "lib", ""), "filename", "NO_LIB")
-    part_name = add_quotes(self.name)
+    lib_filename = getattr(getattr(part, "lib", ""), "filename", "NO_LIB")
+    part_name = add_quotes(part.name)
 
     # Embed the hierarchy along with a random integer into the sheetpath for each component.
     # This enables hierarchical selection in pcbnew.
-    hierarchy = add_quotes("/" + self.hierarchical_name.replace(".", "/"))
+    hierarchy = add_quotes("/" + part.hierarchical_name.replace(".", "/"))
     tstamps = hierarchy
 
     fields = ""
-    for fld_name, fld_value in self.fields.items():
+    for fld_name, fld_value in part.fields.items():
         fld_value = add_quotes(fld_value)
         if fld_value:
             fld_name = add_quotes(fld_name)
@@ -980,11 +980,11 @@ def gen_netlist_comp(self):
     return txt
 
 
-def gen_netlist_net(self):
-    code = add_quotes(self.code)
-    name = add_quotes(self.name)
+def gen_netlist_net(net):
+    code = add_quotes(net.code)
+    name = add_quotes(net.name)
     txt = "    (net (code {code}) (name {name})".format(**locals())
-    for p in sorted(self.get_pins(), key=str):
+    for p in sorted(net.pins, key=str):
         part_ref = add_quotes(p.part.ref)
         pin_num = add_quotes(p.num)
         txt += "\n      (node (ref {part_ref}) (pin {pin_num}))".format(**locals())
@@ -992,7 +992,7 @@ def gen_netlist_net(self):
     return txt
 
 
-def gen_pcb(self, file_):
+def gen_pcb(circuit, file_):
     """Create a KiCad PCB file directly from a Circuit object."""
 
     # Keep the import in here so it doesn't get triggered unless this is used
@@ -1007,10 +1007,10 @@ def gen_pcb(self, file_):
         )
     else:
         file_ = file_ or (get_script_name() + ".kicad_pcb")
-        kinet2pcb.kinet2pcb(self, file_)
+        kinet2pcb.kinet2pcb(circuit, file_)
 
 
-def gen_xml(self):
+def gen_xml(circuit):
     from .. import KICAD
 
     scr_dict = scriptinfo()
@@ -1028,11 +1028,11 @@ def gen_xml(self):
     )
     netlist = template.format(**locals())
     netlist += "  <components>"
-    for p in self.parts:
+    for p in circuit.parts:
         netlist += "\n" + p.generate_xml_component(KICAD)
     netlist += "\n  </components>\n"
     netlist += "  <nets>"
-    for code, n in enumerate(self.get_nets()):
+    for code, n in enumerate(circuit.get_nets()):
         n.code = code
         netlist += "\n" + n.generate_xml_net(KICAD)
     netlist += "\n  </nets>\n"
@@ -1040,23 +1040,23 @@ def gen_xml(self):
     return netlist
 
 
-def gen_xml_comp(self):
-    ref = self.ref
-    value = self.value_str
+def gen_xml_comp(part):
+    ref = part.ref
+    value = part.value_str
 
     try:
-        footprint = self.footprint
+        footprint = part.footprint
     except AttributeError:
         active_logger.error(
-            "No footprint for {part}/{ref}.".format(part=self.name, ref=ref)
+            "No footprint for {part}/{ref}.".format(part=part.name, ref=ref)
         )
         footprint = "No Footprint"
 
-    lib_filename = getattr(getattr(self, "lib", ""), "filename", "NO_LIB")
-    part_name = add_quotes(self.name)
+    lib_filename = getattr(getattr(part, "lib", ""), "filename", "NO_LIB")
+    part_name = add_quotes(part.name)
 
     fields = ""
-    for fld_name, fld_value in self.fields.items():
+    for fld_name, fld_value in part.fields.items():
         fld_value = add_quotes(fld_value)
         if fld_value:
             fld_name = add_quotes(fld_name)
@@ -1079,11 +1079,11 @@ def gen_xml_comp(self):
     return txt
 
 
-def gen_xml_net(self):
-    code = self.code
-    name = self.name
+def gen_xml_net(net):
+    code = net.code
+    name = net.name
     txt = '    <net code="{code}" name="{name}">'.format(**locals())
-    for p in self.get_pins():
+    for p in net.pins:
         part_ref = p.part.ref
         pin_num = p.num
         txt += '\n      <node ref="{part_ref}" pin="{pin_num}"/>'.format(**locals())
@@ -1091,12 +1091,12 @@ def gen_xml_net(self):
     return txt
 
 
-def gen_svg_comp(self, symtx, net_stubs=None):
+def gen_svg_comp(part, symtx, net_stubs=None):
     """
     Generate SVG for this component.
 
     Args:
-        self: Part object for which an SVG symbol will be created.
+        part: Part object for which an SVG symbol will be created.
         net_stubs: List of Net objects whose names will be connected to
             part symbol pins as connection stubs.
         symtx: String such as "HR" that indicates symbol mirroring/rotation.
@@ -1239,7 +1239,7 @@ def gen_svg_comp(self, symtx, net_stubs=None):
     # Get maximum length of net stub name if any are needed for this part symbol.
     net_stubs = net_stubs or []  # Empty list of stub nets if argument is None.
     max_stub_len = 0  # If no net stubs are needed, this stays at zero.
-    for pin in self.get_pins():
+    for pin in part:
         for net in pin.get_nets():
             # Don't let names for no-connect nets affect maximum stub length.
             if net in [NC, None]:
@@ -1248,7 +1248,7 @@ def gen_svg_comp(self, symtx, net_stubs=None):
                 max_stub_len = max(len(net.name), max_stub_len)
 
     # Go through each graphic object that makes up the component symbol.
-    for obj in self.draw:
+    for obj in part.draw:
 
         obj_pin_info = (
             []
@@ -1464,7 +1464,7 @@ def gen_svg_comp(self, symtx, net_stubs=None):
         elif isinstance(obj, DrawPin):
 
             pin = obj
-            part_pin = self[
+            part_pin = part[
                 pin.num
             ]  # Get Pin object associated with this pin drawing object.
 
@@ -1582,7 +1582,7 @@ def gen_svg_comp(self, symtx, net_stubs=None):
         else:
             active_logger.error(
                 "Unknown graphical object {} in part symbol {}.".format(
-                    type(obj), self.name
+                    type(obj), part.name
                 )
             )
 
@@ -1619,11 +1619,11 @@ def gen_svg_comp(self, symtx, net_stubs=None):
             # If net stubs are attached to symbol, then it's only to be used
             # for a specific part. Therefore, tag the symbol name with the unique
             # part reference so it will only be used by this part.
-            symbol_name = "{self.name}_{self.ref}_{unit}_{symtx}".format(**locals())
+            symbol_name = "{part.name}_{part.ref}_{unit}_{symtx}".format(**locals())
         else:
             # No net stubs means this symbol can be used for any part that
             # also has no net stubs, so don't tag it with a specific part reference.
-            symbol_name = "{self.name}_{unit}_{symtx}".format(**locals())
+            symbol_name = "{part.name}_{unit}_{symtx}".format(**locals())
 
         # Begin SVG for part unit. Translate it so the bbox.min is at (0,0).
         translate = bbox.min * -1

@@ -386,7 +386,7 @@ class Circuit(SkidlBaseObject):
             if net is self.NC:
                 # Exclude no-connect net.
                 continue
-            if not net.get_pins():
+            if not net.pins:
                 # Exclude empty nets with no attached pins.
                 continue
             for n in distinct_nets:
@@ -989,7 +989,7 @@ class Circuit(SkidlBaseObject):
             if n.name not in split_nets:
                 dot.node(n.name, shape=net_shape, xlabel=xlabel)
 
-            for j, pin in enumerate(n.get_pins()):
+            for j, pin in enumerate(n.pins):
                 net_ref = n.name
                 pin_part_ref = pin.part.ref
 

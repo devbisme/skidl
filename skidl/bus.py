@@ -184,6 +184,10 @@ class Bus(SkidlBaseObject):
         """It's an error to get the list of pins attached to all bus lines."""
         active_logger.raise_("Can't get the list of pins on a bus!")
 
+    @property
+    def pins(self):
+        return self.get_pins()
+
     def copy(self, num_copies=None, **attribs):
         """
         Make zero or more copies of this bus.
