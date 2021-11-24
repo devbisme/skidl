@@ -19,7 +19,7 @@ import re
 import subprocess
 import time
 from builtins import range, str, super
-from collections import defaultdict, deque
+from collections import Counter, deque, defaultdict
 
 import graphviz
 from future import standard_library
@@ -27,6 +27,7 @@ from future import standard_library
 from .bus import Bus
 from .common import builtins
 from .erc import dflt_circuit_erc
+from .group import Group
 from .logger import active_logger, erc_logger
 from .net import NCNet, Net
 from .part import Part, PartUnit
@@ -83,6 +84,7 @@ class Circuit(SkidlBaseObject):
     def mini_reset(self, init=False):
         """Clear any circuitry but don't erase any loaded part libraries."""
 
+        Group.reset()
         self.name = ""
         self.parts = []
         self.nets = []
@@ -1056,79 +1058,3 @@ class Circuit(SkidlBaseObject):
             file_ = skidl.BACKUP_LIB_FILE_NAME
 
         lib.export(libname=skidl.BACKUP_LIB_NAME, file_=file_)
-
-
-__func_name_cntr = defaultdict(int)
-
-
-def SubCircuit(f):
-    """
-    A @SubCircuit decorator is used to create hierarchical circuits.
-
-    Args:
-        f: The function containing SKiDL statements that represents a subcircuit.
-    """
-
-    @functools.wraps(f)
-    def sub_f(*args, **kwargs):
-        # Upon entry, save the reference to the current default Circuit object.
-        save_default_circuit = default_circuit  # pylint: disable=undefined-variable
-
-        # If the subcircuit uses the 'circuit' argument, then set the default
-        # Circuit object to that. Otherwise, use the current default Circuit object.
-        circuit = kwargs.pop("circuit", default_circuit)
-        builtins.default_circuit = circuit
-
-        # Setup some globals needed in the subcircuit.
-        builtins.NC = default_circuit.NC  # pylint: disable=undefined-variable
-
-        # Invoking the subcircuit function creates circuitry at a level one
-        # greater than the current level. (The top level is zero.)
-        circuit.level += 1
-
-        # Create a name for this subcircuit from the concatenated names of all
-        # the nested subcircuit functions that were called on all the preceding levels
-        # that led to this one. Also, add a distinct tag to the current
-        # function name to disambiguate multiple uses of the same function.  This is
-        # either specified as an argument, or an incrementing value is used.
-        tag = kwargs.pop("tag", None)
-        if tag is None:
-            tag = __func_name_cntr[f.__name__]
-            __func_name_cntr[f.__name__] = __func_name_cntr[f.__name__] + 1
-        circuit.hierarchy = circuit.context[-1][0] + "." + f.__name__ + str(tag)
-        circuit.add_hierarchical_name(circuit.hierarchy)
-
-        # Store the context so it can be used if this subcircuit function
-        # invokes another subcircuit function within itself to add more
-        # levels of hierarchy.
-        circuit.context.append((circuit.hierarchy,))
-
-        # Call the function to create whatever circuitry it handles.
-        # The arguments to the function are usually nets to be connected to the
-        # parts instantiated in the function, but they may also be user-specific
-        # and have no effect on the mechanics of adding parts or nets although
-        # they may direct the function as to what parts and nets get created.
-        # Store any results it returns as a list. These results are user-specific
-        # and have no effect on the mechanics of adding parts or nets.
-        results = f(*args, **kwargs)
-
-        # Restore the context that existed before the subcircuitry was
-        # created. This does not remove the circuitry since it has already been
-        # added to the parts and nets lists.
-        circuit.context.pop()
-
-        # Restore the hierarchy label and level.
-        circuit.hierarchy = circuit.context[-1][0]
-        circuit.level -= 1
-
-        # Restore the default circuit and globals.
-        builtins.default_circuit = save_default_circuit
-        builtins.NC = default_circuit.NC  # pylint: disable=undefined-variable
-
-        return results
-
-    return sub_f
-
-
-# The decorator can also be called as "@subcircuit".
-subcircuit = SubCircuit

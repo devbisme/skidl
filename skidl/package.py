@@ -19,7 +19,7 @@ from copy import copy
 from future import standard_library
 
 from .bus import Bus
-from .circuit import subcircuit
+from .group import subcircuit
 from .interface import Interface
 from .net import Net
 from .part import NETLIST
