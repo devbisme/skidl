@@ -340,7 +340,8 @@ def gen_net_wire(net, node):
                             d_x1 = (
                                 collided_part.sch_bb[0] - collided_part.sch_bb[2] - 100
                             )
-                            d_y1 = t_y1
+                            d_y1 = y1
+                            # d_y1 = t_y1
                             d_x2 = d_x1
                             d_y2 = (
                                 collided_part.sch_bb[1] + collided_part.sch_bb[3] + 200
@@ -360,7 +361,8 @@ def gen_net_wire(net, node):
                             d_x1 = (
                                 collided_part.sch_bb[0] + collided_part.sch_bb[2] + 100
                             )
-                            d_y1 = t_y1
+                            d_y1 = y1
+                            # d_y1 = t_y1
                             d_x2 = d_x1
                             d_y2 = (
                                 collided_part.sch_bb[1] + collided_part.sch_bb[3] + 200
@@ -380,7 +382,8 @@ def gen_net_wire(net, node):
 
                         # draw line down
                         d_x1 = collided_part.sch_bb[0] - collided_part.sch_bb[2] - 100
-                        d_y1 = t_y1
+                        d_y1 = y1
+                        # d_y1 = t_y1
                         d_x2 = d_x1
                         d_y2 = collided_part.sch_bb[1] + collided_part.sch_bb[3] + 100
                         d_x3 = d_x2 - collided_part.sch_bb[2] + 100 + 100
