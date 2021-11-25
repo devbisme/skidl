@@ -19,7 +19,7 @@ import re
 import subprocess
 import time
 from builtins import range, str, super
-from collections import Counter, deque, defaultdict
+from collections import Counter, deque
 
 import graphviz
 from future import standard_library
@@ -84,7 +84,10 @@ class Circuit(SkidlBaseObject):
     def mini_reset(self, init=False):
         """Clear any circuitry but don't erase any loaded part libraries."""
 
-        Group.reset()
+        # Group.reset()
+
+        self.group_name_cntr = Counter()
+
         self.name = ""
         self.parts = []
         self.nets = []
@@ -127,7 +130,7 @@ class Circuit(SkidlBaseObject):
     def add_hierarchical_name(self, name):
         """Record a new hierarchical name.  Throw an error if it is a duplicate."""
         if name in self._hierarchical_names:
-            active_loggerraise_(
+            active_logger.raise_(
                 ValueError,
                 "Can't add duplicate hierarchical name {} to this circuit.".format(
                     name
@@ -146,6 +149,56 @@ class Circuit(SkidlBaseObject):
                     name
                 ),
             )
+
+    def activate(self, name, tag):
+        """Activate a new hierarchical group."""
+
+        # Create a name for this group from the concatenated names of all
+        # the nested groups that were called on all the preceding levels
+        # that led to this one. Also, add a distinct tag to the current
+        # name to disambiguate multiple uses of the same function.  This is
+        # either specified as an argument, or an incrementing value is used.
+        grp_hier_name = self.hierarchy + "." + name
+        if tag is None:
+            tag = self.group_name_cntr[grp_hier_name]
+            self.group_name_cntr[grp_hier_name] += 1
+        self.context.append((default_circuit, self.hierarchy))
+        self.hierarchy = self.hierarchy + "." + name + str(tag)
+        self.add_hierarchical_name(self.hierarchy)
+
+        # Entering the context creates circuitry at a level one
+        # greater than the current level. (The top level is zero.)
+        self.level += 1
+
+        # Save the reference to the current default Circuit object.
+        # self.save_default_circuit = default_circuit  # pylint: disable=undefined-variable
+
+        # Set the circuit to which parts and nets will be added.
+        builtins.default_circuit = self
+
+        # Setup some globals needed in this context.
+        builtins.NC = self.NC  # pylint: disable=undefined-variable
+
+        # Store the context so it can be used if this group context
+        # invokes another group context within itself to add more
+        # levels of hierarchy.
+        # self.context.append((self.hierarchy,))
+
+    def deactivate(self):
+
+        # Restore the context that existed before this context was
+        # created. This does not remove the circuitry since it has already been
+        # added to the parts and nets lists.
+        builtins.default_circuit, self.hierarchy = self.context.pop()
+        builtins.NC = default_circuit.NC
+
+        # Restore the hierarchy label and level.
+        # self.hierarchy = self.context[-1][0]
+        self.level -= 1
+
+        # Restore the default circuit and globals.
+        # builtins.default_circuit = self.save_default_circuit
+        # builtins.NC = default_circuit.NC  # pylint: disable=undefined-variable
 
     def add_parts(self, *parts):
         """Add some Part objects to the circuit."""
