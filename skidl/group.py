@@ -30,12 +30,6 @@ standard_library.install_aliases()
 class Group:
     """Class that supports hierarchical grouping of circuit parts and nets."""
 
-    # group_name_cntr = Counter()
-
-    # @classmethod
-    # def reset(cls):
-    #     cls.group_name_cntr.clear()
-
     def __init__(self, name, **kwargs):
         self.name = name
         self.circuit = kwargs.pop("circuit", default_circuit) or default_circuit
@@ -47,72 +41,10 @@ class Group:
         self.circuit.activate(self.name, self.tag)
         return self
 
-        # name = self.name
-        # circuit = self.circuit
-        # tag = self.tag
-
-        # # Create a name for this group from the concatenated names of all
-        # # the nested groups that were called on all the preceding levels
-        # # that led to this one. Also, add a distinct tag to the current
-        # # name to disambiguate multiple uses of the same function.  This is
-        # # either specified as an argument, or an incrementing value is used.
-        # grp_hier_name = circuit.hierarchy + "." + name
-        # if tag is None:
-        #     tag = self.group_name_cntr[grp_hier_name]
-        #     self.group_name_cntr[grp_hier_name] += 1
-        # circuit.hierarchy = circuit.context[-1][0] + "." + name + str(tag)
-        # circuit.add_hierarchical_name(circuit.hierarchy)
-
-        # # Upon entry to the context, save the reference to the current default Circuit object.
-        # self.save_default_circuit = default_circuit  # pylint: disable=undefined-variable
-
-        # # Set the circuit to which parts and nets will be added.
-        # builtins.default_circuit = circuit
-
-        # # Setup some globals needed in this context.
-        # builtins.NC = default_circuit.NC  # pylint: disable=undefined-variable
-
-        # # Entering the context creates circuitry at a level one
-        # # greater than the current level. (The top level is zero.)
-        # self.circuit.level += 1
-
-        # # Create a name for this subcircuit from the concatenated names of all
-        # # the nested groups that were called on all the preceding levels
-        # # that led to this one. Also, add a distinct tag to the current
-        # # name to disambiguate multiple uses of the same function.  This is
-        # # either specified as an argument, or an incrementing value is used.
-        # # if tag is None:
-        # #     tag = self.group_name_cntr[name]
-        # #     self.group_name_cntr[name] += 1
-        # # circuit.hierarchy = circuit.context[-1][0] + "." + name + str(tag)
-        # # circuit.add_hierarchical_name(circuit.hierarchy)
-
-        # # Store the context so it can be used if this group context
-        # # invokes another group context within itself to add more
-        # # levels of hierarchy.
-        # circuit.context.append((circuit.hierarchy,))
-
-        # return self
-
     def __exit__(self, type, value, traceback):
         """Exit a hierarchical grouping context."""
 
         self.circuit.deactivate()
-
-        # circuit = self.circuit
-
-        # # Restore the context that existed before this context was
-        # # created. This does not remove the circuitry since it has already been
-        # # added to the parts and nets lists.
-        # circuit.context.pop()
-
-        # # Restore the hierarchy label and level.
-        # circuit.hierarchy = circuit.context[-1][0]
-        # circuit.level -= 1
-
-        # # Restore the default circuit and globals.
-        # builtins.default_circuit = self.save_default_circuit
-        # builtins.NC = default_circuit.NC  # pylint: disable=undefined-variable
 
 
 def SubCircuit(f):
