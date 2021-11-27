@@ -40,7 +40,7 @@ class Node(dict):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self["parts"] = []
+        self.parts = []
         self["wires"] = []
         self["sch_bb"] = []
         self.parent = None
@@ -168,7 +168,7 @@ def calc_node_bbox(node):
     """Compute the bounding box for the node in the circuit hierarchy."""
 
     node.bbox = BBox()
-    for part in node["parts"]:
+    for part in node.parts:
         node.bbox.add(part.lbl_bbox)
 
     node.bbox.resize(Vector(200, 100))
@@ -256,7 +256,7 @@ def move_node(node, nodes, vector, move_dir):
 
     # Move the parts in the node based on the change in the node's position.
     chg_pos = node.bbox.ctr - old_position
-    for part in node["parts"]:
+    for part in node.parts:
         move_part(part, chg_pos, [])
 
 
@@ -299,7 +299,7 @@ def gen_net_wire(net, node):
 
             for i in range(len(line) - 1):
                 segment = Segment(Point(line[i][0],line[i][1]), Point(line[i+1][0],line[i+1][1]))
-                collided_part, collided_side = detect_wire_part_collision(segment, node["parts"])
+                collided_part, collided_side = detect_wire_part_collision(segment, node.parts)
 
                 # if we see a collision then draw the net around the rectangle
                 # since we are only going left/right with nets/rectangles the strategy to route
@@ -750,7 +750,7 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
     # Make dict that holds part, net, and bbox info for each node in the hierarchy.
     node_tree = defaultdict(lambda: Node())
     for part in circuit.parts:
-        node_tree[part.hierarchy]["parts"].append(part)
+        node_tree[part.hierarchy].parts.append(part)
 
     # Fill-in the parent/child relationship for all the nodes in the hierarchy.
     for node_key, node in node_tree.items():
@@ -768,8 +768,8 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
 
         # Find central part in this node that everything else is placed around.
         def find_central_part(node):
-            central_part = node["parts"][0]
-            for part in node["parts"][1:]:
+            central_part = node.parts[0]
+            for part in node.parts[1:]:
                 if len(part) > len(central_part):
                     central_part = part
             return central_part
@@ -803,12 +803,12 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
                     continue
 
                 # OK, finally move the part connected to this pin.
-                calc_move_part(mv_pin, anchor_pin, node["parts"])
+                calc_move_part(mv_pin, anchor_pin, node.parts)
 
     # For each node in hierarchy: Move parts connected to parts moved in step previous step.
     for node in node_tree.values():
 
-        for mv_part in node["parts"]:
+        for mv_part in node.parts:
 
             # Skip central part.
             if mv_part is node.central_part:
@@ -849,7 +849,7 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
                         continue
 
                     # OK, finally move the part connected to this pin.
-                    calc_move_part(mv_pin, anchor_pin, node["parts"])
+                    calc_move_part(mv_pin, anchor_pin, node.parts)
 
     # Move any remaining parts in each node down & alternating left/right.
     for node in node_tree.values():
@@ -857,12 +857,12 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
         # Set up part movement increments.
         offset_x = 50  # Use fine movements to get close packing on X dim.
         # TODO: magic number.
-        offset_y = node["parts"][0].bbox.max.y + 500
+        offset_y = node.parts[0].bbox.max.y + 500
 
         # Get center part for this node.
         central_part = node.central_part
 
-        for part in node["parts"]:
+        for part in node.parts:
 
             # Skip central part.
             if part is central_part:
@@ -870,7 +870,7 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
 
             # Move any part that hasn't already been moved.
             if not part.moved:
-                move_part(part, Point(offset_x, offset_y), node["parts"])
+                move_part(part, Point(offset_x, offset_y), node.parts)
 
                 # Switch movement direction for the next unmoved part.
                 offset_x = -offset_x
@@ -914,7 +914,7 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
 
     # Collect the internal nets for each node.
     for node in node_tree.values():
-        for part in node["parts"]:
+        for part in node.parts:
             for part_pin in part:
 
                 # A label means net is stubbed so there won't be any explicit wires.
@@ -972,7 +972,7 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
         sch_start = get_A_size_starting_point(A_size)
 
         # Generate EESCHEMA code for each part in the node.
-        for part in node["parts"]:
+        for part in node.parts:
             part_code = gen_part_eeschema(part, offset=sch_start)
             eeschema_code.append(part_code)
 
@@ -983,13 +983,13 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
             eeschema_code.append(wire_code)
 
         # Generate power connections for the each part in the node.
-        for part in node["parts"]:
+        for part in node.parts:
             stub_code = gen_power_part_eeschema(part, offset=sch_start)
             if len(stub_code) != 0:
                 eeschema_code.append(stub_code)
 
         # Generate pin labels for stubbed nets on each part in the node.
-        for part in node["parts"]:
+        for part in node.parts:
             for pin in part:
                 pin_label_code = gen_pin_label_eeschema(pin, offset=sch_start)
                 eeschema_code.append(pin_label_code)
