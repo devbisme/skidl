@@ -41,7 +41,7 @@ class Node(dict):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.parts = []
-        self["wires"] = []
+        self.wires = []
         self["sch_bb"] = []
         self.parent = None
         self.children = []
@@ -946,7 +946,7 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
 
                 # Add wires for this net if the pins are all inside the node.
                 if internal_net:
-                    node["wires"].extend(gen_net_wire(net, node))
+                    node.wires.extend(gen_net_wire(net, node))
 
     # Now the hierarchy should be completely generated and ready for generating EESCHEMA code.
 
@@ -978,7 +978,7 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
 
         # Generate EESCHEMA wiring code between the parts in the node.
         offset = sch_start - node.bbox.ctr.snap(GRID)
-        for w in node["wires"]:
+        for w in node.wires:
             wire_code = gen_wire_eeschema(w, offset=offset)
             eeschema_code.append(wire_code)
 
