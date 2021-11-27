@@ -2,7 +2,6 @@
 
 # The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
 
-import math
 from copy import copy, deepcopy
 
 """
@@ -40,19 +39,28 @@ class Point:
 
     def __truediv__(self, d):
         """Divide the x,y coords by d."""
-        return self * (1.0/d)
+        return Point(self.x/d, self.y/d)
+
+    def __div__(self, d):
+        """Divide the x,y coords by d."""
+        return Point(self.x/d, self.y/d)
 
     def __round__(self, n=None):
         return Point(round(self.x, n), round(self.y, n))
 
-    def round(self):
-        """Round the x,y coords of the Point."""
-        try:
-            self.x = int(round(self.x))
-            self.y = int(round(self.y))
-        except OverflowError:
-            # Point with coords set as math.inf.
-            pass
+    def snap(self, grid_spacing):
+        """Snap point x,y coords to the given grid spacing."""
+        snap_func = lambda x: grid_spacing * round(x / grid_spacing)
+        return Point(snap_func(self.x), snap_func(self.y))
+
+    # def round(self):
+    #     """Round the x,y coords of the Point."""
+    #     try:
+    #         self.x = round(self.x)
+    #         self.y = round(self.y)
+    #     except OverflowError:
+    #         # Point with coords set as math.inf.
+    #         pass
 
     def min(self, pt):
         """Return a Point with coords that are the min x,y of both points."""
@@ -96,10 +104,13 @@ class BBox:
     def __round__(self, n=None):
         return BBox(round(self.min), round(self.max))
 
-    def round(self):
-        """Round the BBox min, max points."""
-        self.min.round()
-        self.max.round()
+    def snap(self, grid_spacing):
+        return BBox(self.min.snap(grid_spacing), self.max.snap(grid_spacing))
+
+    # def round(self):
+    #     """Round the BBox min, max points."""
+    #     self.min.round()
+    #     self.max.round()
 
     def intersects(self, bbox):
         return (self.min.x < bbox.max.x) and (self.max.x > bbox.min.x) and (self.min.y < bbox.max.y) and (self.max.y > bbox.min.y)
@@ -182,12 +193,13 @@ class Segment:
         # denom = p1x*p3y - p1x*p4y - p1y*p3x + p1y*p4x - p2x*p3y + p2x*p4y + p2y*p3x - p2y*p4x
         # denom = p1x * (p3y - p4y) + p1y * (p4x - p3x) + p2x * (p4y - p3y) + p2y * (p3x - p4x)
         denom = (p1x - p2x) * (p3y - p4y) + (p1y - p2y) * (p4x - p3x)
-        if math.isclose(denom, 0, abs_tol=1e-9):
-            return False
 
-        # t1 = (p1x*p3y - p1x*p4y - p1y*p3x + p1y*p4x + p3x*p4y - p3y*p4x) / denom
-        # t2 = (-p1x*p2y + p1x*p3y + p1y*p2x - p1y*p3x - p2x*p3y + p2y*p3x) / denom
-        t1 = ((p1y-p3y)*(p4x-p3x) - (p1x-p3x)*(p4y-p3y)) / denom
-        t2 = ((p1y-p3y)*(p2x-p3x) - (p1x-p3x)*(p2y-p3y)) / denom
+        try:
+            # t1 = (p1x*p3y - p1x*p4y - p1y*p3x + p1y*p4x + p3x*p4y - p3y*p4x) / denom
+            # t2 = (-p1x*p2y + p1x*p3y + p1y*p2x - p1y*p3x - p2x*p3y + p2y*p3x) / denom
+            t1 = ((p1y-p3y)*(p4x-p3x) - (p1x-p3x)*(p4y-p3y)) / denom
+            t2 = ((p1y-p3y)*(p2x-p3x) - (p1x-p3x)*(p2y-p3y)) / denom
+        except ZeroDivisionError:
+            return False
 
         return (0 <= t1 <= 1) and (0 <= t2 <= 1)

@@ -28,6 +28,8 @@ from ...utilities import *
 
 standard_library.install_aliases()
 
+GRID = 50
+
 """
 Generate a KiCad EESCHEMA schematic from a Circuit object.
 """
@@ -45,17 +47,9 @@ class Node(dict):
         self.children = []
 
 
-def round_num(num, base=50):
-    return base * round(num / base)
-
-
 def bbox_to_sch_bb(bbox):
-    sch_bb = [0, 0, 0, 0]
-    sch_bb[0] = round_num(bbox.ctr.x)
-    sch_bb[1] = round_num(bbox.ctr.y)
-    sch_bb[2] = round(bbox.w / 2)
-    sch_bb[3] = round(bbox.h / 2)
-    return sch_bb
+    ctr = bbox.ctr.snap(GRID)
+    return [ctr.x, ctr.y, round(bbox.w/2), round(bbox.h/2)]
 
 
 def propagate_pin_labels(part):
@@ -294,7 +288,6 @@ def gen_net_wire(net, node):
 
             for side_key, side in sides.items():
                 if wire.intersects(side):
-                    print("Wire/Part Collision!")
                     return part, side_key
 
         return None, None # No intersections detected.
@@ -405,7 +398,7 @@ def gen_part_eeschema(part, offset):
 
     time_hex = hex(int(time.time()))[2:]
 
-    center = round_num(part.bbox.ctr) + offset
+    center = part.bbox.ctr.snap(GRID) + offset
 
     out = ["$Comp\n"]
     out.append("L {}:{} {}\n".format(part.lib.filename, part.name, part.ref))
@@ -489,8 +482,8 @@ def gen_power_part_eeschema(part, orientation=[1, 0, 0, -1], offset=Point(0, 0))
                     symbol_name = u[0]
                     # find the stub in the part
                     time_hex = hex(int(time.time()))[2:]
-                    x = round_num(part.bbox.ctr.x) + pin.x + offset.x
-                    y = round_num(part.bbox.ctr.y) - pin.y + offset.y
+                    pin_pt = part.bbox.ctr.snap(GRID) + offset + Point(pin.x, -pin.y)
+                    x, y = pin_pt.x, pin_pt.y
                     out.append("$Comp\n")
                     out.append("L power:{} #PWR?\n".format(symbol_name))
                     out.append("U 1 1 {}\n".format(time_hex))
@@ -568,7 +561,7 @@ def gen_pin_label_eeschema(pin, offset):
         label_type = "GLabel"
         break
 
-    part_origin = round_num(pin.part.bbox.ctr) + offset
+    part_origin = pin.part.bbox.ctr.snap(GRID) + offset
     x = pin.x + part_origin.x
     y = -pin.y + part_origin.y  # EESCHEMA Y direction is reversed.
 
@@ -595,7 +588,7 @@ def gen_node_bbox_eeschema(node, offset):
 
     bbox = BBox(node.bbox.min, node.bbox.max)
     bbox.move(offset)
-    bbox.round()
+    bbox = bbox.snap(1)
 
     label_pt = bbox.ll
 
@@ -700,9 +693,7 @@ def get_A_size_starting_point(A_size):
     """Return the starting point for placement in the given A-size page."""
 
     page_bbox = A_sizes[A_size]
-    x = round_num(page_bbox.w / 2)
-    y = round_num(page_bbox.h / 4)
-    return Point(x, y)
+    return Point(page_bbox.w / 2, page_bbox.h / 4).snap(GRID)
 
 
 def collect_eeschema_code(
@@ -1000,7 +991,7 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
             eeschema_code.append(part_code)
 
         # Generate EESCHEMA wiring code between the parts in the node.
-        offset = sch_start - round_num(node.bbox.ctr)
+        offset = sch_start - node.bbox.ctr.snap(GRID)
         for w in node["wires"]:
             wire_code = gen_wire_eeschema(w, offset=offset)
             eeschema_code.append(wire_code)
