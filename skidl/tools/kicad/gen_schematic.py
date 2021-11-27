@@ -52,20 +52,6 @@ def bbox_to_sch_bb(bbox):
     return [ctr.x, ctr.y, round(bbox.w/2), round(bbox.h/2)]
 
 
-def propagate_pin_labels(part):
-    """Propagate labels from part pins to all connected pins.
-
-    Args:
-        part (Part): The Part object whose pin labels will be propagated.
-
-    This allows the user to only define one label and then connect pins.
-    """
-    for src_pin in part:
-        if len(src_pin.label) and src_pin.net:
-            for dst_pin in src_pin.net.pins:
-                dst_pin.label = src_pin.label
-
-
 def rotate_power_pins(part, pin_cnt_threshold=10000):
     """Rotate a part based on the direction of its power pins.
 
@@ -758,10 +744,6 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
         # Pins with GND pins should face down.
         rotate_power_pins(part)
 
-        # Copy labels from one pin to each connected pin.  This allows the user to only label
-        # a single pin, then connect it normally, instead of having to label every pin in that net
-        # propagate_pin_labels(part)
-
         # Generate bounding boxes around parts
         calc_part_bbox(part)
 
@@ -784,11 +766,18 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
     # For each node in hierarchy: Move parts connected to central part by unlabeled nets.
     for node in node_tree.values():
 
-        # Center part of hierarchy that everything else is placed around.
-        anchor_part = node["parts"][0]  # TODO: Smarter selection of center part.
+        # Find central part in this node that everything else is placed around.
+        def find_central_part(node):
+            central_part = node["parts"][0]
+            for part in node["parts"][1:]:
+                if len(part) > len(central_part):
+                    central_part = part
+            return central_part
+
+        node.central_part = find_central_part(node)
 
         # Go thru the center part's pins, moving any connected parts closer.
-        for anchor_pin in anchor_part:
+        for anchor_pin in node.central_part:
 
             # Skip unconnected pins.
             if not anchor_pin.is_connected():
@@ -805,12 +794,12 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
             # Now move any parts connected to this pin.
             for mv_pin in anchor_pin.net.pins:
 
-                # Skip moving the center part.
-                if mv_pin.part == anchor_part:
+                # Skip moving the central part.
+                if mv_pin.part == node.central_part:
                     continue
 
                 # Skip parts that aren't in the same node of the hierarchy as the center part.
-                if mv_pin.part.hierarchy != anchor_part.hierarchy:
+                if mv_pin.part.hierarchy != node.central_part.hierarchy:
                     continue
 
                 # OK, finally move the part connected to this pin.
@@ -819,13 +808,10 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
     # For each node in hierarchy: Move parts connected to parts moved in step previous step.
     for node in node_tree.values():
 
-        # Get the center part for this node from the last phase.
-        center_part = node["parts"][0]
-
         for mv_part in node["parts"]:
 
-            # Skip center part.
-            if mv_part is center_part:
+            # Skip central part.
+            if mv_part is node.central_part:
                 continue
 
             # Skip a part that's already been moved.
@@ -854,8 +840,8 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
                     if anchor_pin.part.hierarchy != mv_part.hierarchy:
                         continue
 
-                    # Don't move toward the center part.
-                    if anchor_pin.part == center_part:
+                    # Don't move toward the central part.
+                    if anchor_pin.part == node.central_part:
                         continue
 
                     # Skip connections from the part to itself.
@@ -874,12 +860,12 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
         offset_y = node["parts"][0].bbox.max.y + 500
 
         # Get center part for this node.
-        center_part = node["parts"][0]
+        central_part = node.central_part
 
         for part in node["parts"]:
 
-            # Skip center part.
-            if part is center_part:
+            # Skip central part.
+            if part is central_part:
                 continue
 
             # Move any part that hasn't already been moved.
