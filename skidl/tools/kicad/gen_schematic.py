@@ -42,7 +42,7 @@ class Node(dict):
         super().__init__(*args, **kwargs)
         self.parts = []
         self.wires = []
-        self["sch_bb"] = []
+        self.sch_bb = []
         self.parent = None
         self.children = []
 
@@ -172,7 +172,7 @@ def calc_node_bbox(node):
         node.bbox.add(part.lbl_bbox)
 
     node.bbox.resize(Vector(200, 100))
-    node["sch_bb"] = bbox_to_sch_bb(node.bbox)
+    node.sch_bb = bbox_to_sch_bb(node.bbox)
 
 
 def calc_move_part(moving_pin, anchor_pin, other_parts):
@@ -252,7 +252,7 @@ def move_node(node, nodes, vector, move_dir):
         else:
             vec = avoid_vec
 
-    node["sch_bb"] = bbox_to_sch_bb(node.bbox)
+    node.sch_bb = bbox_to_sch_bb(node.bbox)
 
     # Move the parts in the node based on the change in the node's position.
     chg_pos = node.bbox.ctr - old_position
@@ -289,11 +289,11 @@ def gen_net_wire(net, node):
             pin2.routed = True
 
             # Calculate the coordinates of a straight line between the 2 pins that need to connect
-            x1 = pin1.part.sch_bb[0] + pin1.x + node["sch_bb"][0]
-            y1 = pin1.part.sch_bb[1] - pin1.y + node["sch_bb"][1]
+            x1 = pin1.part.sch_bb[0] + pin1.x + node.sch_bb[0]
+            y1 = pin1.part.sch_bb[1] - pin1.y + node.sch_bb[1]
 
-            x2 = pin2.part.sch_bb[0] + pin2.x + node["sch_bb"][0]
-            y2 = pin2.part.sch_bb[1] - pin2.y + node["sch_bb"][1]
+            x2 = pin2.part.sch_bb[0] + pin2.x + node.sch_bb[0]
+            y2 = pin2.part.sch_bb[1] - pin2.y + node.sch_bb[1]
 
             line = [[x1, y1], [x2, y2]]
 
