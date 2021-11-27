@@ -35,11 +35,12 @@ Generate a KiCad EESCHEMA schematic from a Circuit object.
 """
 
 
-class Node(dict):
+class Node:
     """Data structure for holding information about a node in the circuit hierarchy."""
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self):
+    # def __init__(self, *args, **kwargs):
+        # super().__init__(*args, **kwargs)
         self.parts = []
         self.wires = []
         self.sch_bb = []
