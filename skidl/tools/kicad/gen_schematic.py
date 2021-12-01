@@ -39,18 +39,11 @@ class Node:
     """Data structure for holding information about a node in the circuit hierarchy."""
 
     def __init__(self):
-    # def __init__(self, *args, **kwargs):
-        # super().__init__(*args, **kwargs)
         self.parts = []
         self.wires = []
-        self.sch_bb = []
         self.parent = None
         self.children = []
-
-
-def bbox_to_sch_bb(bbox):
-    ctr = bbox.ctr.snap(GRID)
-    return [ctr.x, ctr.y, round(bbox.w/2), round(bbox.h/2)]
+        self.origin = Point(0, 0)
 
 
 def rotate_power_pins(part, pin_cnt_threshold=10000):
@@ -87,9 +80,9 @@ def rotate_power_pins(part, pin_cnt_threshold=10000):
             if pin.orientation == "U":
                 rotation_tally[180] += 1
             if pin.orientation == "L":
-                rotation_tally[90] += 1
-            if pin.orientation == "R":
                 rotation_tally[270] += 1
+            if pin.orientation == "R":
+                rotation_tally[90] += 1
 
     # Rotate the part in the direction with the most tallies.
     try:
@@ -132,7 +125,7 @@ def calc_part_bbox(part):
     # Find bounding box around pins.
     part.bbox = BBox()
     for pin in part:
-        part.bbox.add(Point(pin.x, pin.y))
+        part.bbox.add(Point(pin.x, pin.y) + part.origin)
 
     # Find expanded bounding box that includes any labels attached to pins.
     part.lbl_bbox = BBox()
@@ -159,10 +152,13 @@ def calc_part_bbox(part):
     if part.bbox.h < 100:
         resize_xy.y = 100 - part.bbox.h
     part.bbox.resize(resize_xy)
-    part.lbl_bbox.resize(resize_xy)
 
-    # Update the equivalent bounding box.
-    part.sch_bb = bbox_to_sch_bb(part.bbox)
+    resize_xy = Vector(0, 0)
+    if part.lbl_bbox.w < 100:
+        resize_xy.x = 100 - part.lbl_bbox.w
+    if part.lbl_bbox.h < 100:
+        resize_xy.y = 100 - part.lbl_bbox.h
+    part.lbl_bbox.resize(resize_xy)
 
 
 def calc_node_bbox(node):
@@ -173,7 +169,6 @@ def calc_node_bbox(node):
         node.bbox.add(part.lbl_bbox)
 
     node.bbox.resize(Vector(200, 100))
-    node.sch_bb = bbox_to_sch_bb(node.bbox)
 
 
 def calc_move_part(moving_pin, anchor_pin, other_parts):
@@ -182,9 +177,11 @@ def calc_move_part(moving_pin, anchor_pin, other_parts):
     anchor_part = anchor_pin.part
     # dx = moving_pin.x + anchor_pin.x + anchor_part.sch_bb[0] + anchor_part.sch_bb[2]
     # dy = -moving_pin.y + anchor_pin.y - anchor_part.sch_bb[1]
-    dx = anchor_pin.x + moving_pin.x + anchor_part.bbox.max.x
-    dy = anchor_pin.y - moving_pin.y - anchor_part.bbox.ctr.y
-    move_part(moving_part, Vector(dx, -dy), other_parts)
+    # dx = anchor_pin.x + moving_pin.x + anchor_part.bbox.max.x
+    # dy = anchor_pin.y - moving_pin.y - anchor_part.bbox.ctr.y
+    dx = (anchor_pin.x + anchor_part.origin.x) - (moving_pin.x + moving_part.origin.x)
+    dy = (anchor_pin.y + anchor_part.origin.y) - (moving_pin.y + moving_part.origin.y)
+    move_part(moving_part, Vector(dx, dy), other_parts)
 
 
 def move_part(part, vector, other_parts):
@@ -196,6 +193,7 @@ def move_part(part, vector, other_parts):
     vec = Vector(vector.x, vector.y)  # EESCHEMA Y direction is reversed.
 
     while True:
+        part.origin += vec
         part.bbox.move(vec)
         part.lbl_bbox.move(vec)
         collision = False
@@ -212,25 +210,24 @@ def move_part(part, vector, other_parts):
         else:
             vec = avoid_vec
 
-    part.sch_bb = bbox_to_sch_bb(part.bbox)
     part.moved = True
 
 
 def move_node(node, nodes, vector, move_dir):
 
     # Remember where the node was.
-    old_position = node.bbox.ctr
+    old_position = node.origin
 
     # Setup the movement vector to use if the initial placement leads to collisions.
     avoid_vec = Vector(200, 0) if move_dir == "R" else Vector(-200, 0)
 
-    vec = Vector(vector.x, vector.y)  # EESCHEMA Y direction is reversed.
+    vec = Vector(vector.x, vector.y)
 
-    # hm_parent = ".".join(hm.split(".")[0:2])
     root_parent = ".".join(node.node_key.split(".")[0:2])
 
     # Detect collision with other nodes.
     while True:
+        node.origin += vec
         node.bbox.move(vec)
         collision = False
         for other_node in nodes:
@@ -253,10 +250,8 @@ def move_node(node, nodes, vector, move_dir):
         else:
             vec = avoid_vec
 
-    node.sch_bb = bbox_to_sch_bb(node.bbox)
-
     # Move the parts in the node based on the change in the node's position.
-    chg_pos = node.bbox.ctr - old_position
+    chg_pos = node.origin - old_position
     for part in node.parts:
         move_part(part, chg_pos, [])
 
@@ -270,8 +265,8 @@ def gen_net_wire(net, node):
             sides = OrderedDict()
             sides["L"] = Segment(bbox.ul, bbox.ll)
             sides["R"] = Segment(bbox.ur, bbox.lr)
-            sides["U"] = Segment(bbox.ll, bbox.lr)
-            sides["D"] = Segment(bbox.ul, bbox.ur)
+            sides["U"] = Segment(bbox.ul, bbox.ur)
+            sides["D"] = Segment(bbox.ll, bbox.lr)
 
             for side_key, side in sides.items():
                 if wire.intersects(side):
@@ -290,11 +285,15 @@ def gen_net_wire(net, node):
             pin2.routed = True
 
             # Calculate the coordinates of a straight line between the 2 pins that need to connect
-            x1 = pin1.part.sch_bb[0] + pin1.x + node.sch_bb[0]
-            y1 = pin1.part.sch_bb[1] - pin1.y + node.sch_bb[1]
+            x1 = int(pin1.part.origin.x + pin1.x)
+            y1 = int(pin1.part.origin.y + pin1.y)
+            # x1 = pin1.part.sch_bb[0] + pin1.x + node.sch_bb[0]
+            # y1 = pin1.part.sch_bb[1] - pin1.y + node.sch_bb[1]
 
-            x2 = pin2.part.sch_bb[0] + pin2.x + node.sch_bb[0]
-            y2 = pin2.part.sch_bb[1] - pin2.y + node.sch_bb[1]
+            x2 = int(pin2.part.origin.x + pin2.x)
+            y2 = int(pin2.part.origin.y + pin2.y)
+            # x2 = pin2.part.sch_bb[0] + pin2.x + node.sch_bb[0]
+            # y2 = pin2.part.sch_bb[1] - pin2.y + node.sch_bb[1]
 
             line = [[x1, y1], [x2, y2]]
 
@@ -305,11 +304,12 @@ def gen_net_wire(net, node):
                 # if we see a collision then draw the net around the rectangle
                 # since we are only going left/right with nets/rectangles the strategy to route
                 # around a rectangle is basically making a 'U' shape around it
-                if collided_part:
-
+                if False and collided_part: # TODO: Remove False
+                    print("collided part/wire")
                     if collided_side == "L":
                         # check if we collided on the left or right side of the central part
-                        if pin2.part.sch_bb[0] < 0 or pin1.part.sch_bb[0] < 0:
+                        if pin2.part.origin.x < 0 or pin1.part.origin.x < 0:
+                        # if pin2.part.sch_bb[0] < 0 or pin1.part.sch_bb[0] < 0:
                             # switch first and last coordinates if one is further left
                             if x1 > x2:
                                 t = line[0]
@@ -318,13 +318,15 @@ def gen_net_wire(net, node):
 
                             # draw line down
                             d_x1 = (
-                                collided_part.sch_bb[0] - collided_part.sch_bb[2] - 100
+                                collided_part.sch_bb.ul.x - 100
+                                # collided_part.sch_bb[0] - collided_part.sch_bb[2] - 100
                             )
                             d_y1 = y1
                             # d_y1 = t_y1
                             d_x2 = d_x1
                             d_y2 = (
-                                collided_part.sch_bb[1] + collided_part.sch_bb[3] + 200
+                                collided_part.sch_bb.ul.y + 200
+                                # collided_part.sch_bb[1] + collided_part.sch_bb[3] + 200
                             )
                             # d_x3 = d_x2 + collided_part.sch_bb[2] + 100 + 100
                             d_y3 = d_y2
@@ -339,13 +341,15 @@ def gen_net_wire(net, node):
                                 line[-1] = t
                             # draw line down
                             d_x1 = (
-                                collided_part.sch_bb[0] + collided_part.sch_bb[2] + 100
+                                collided_part.sch_bb.ur.x + 100
+                                # collided_part.sch_bb[0] + collided_part.sch_bb[2] + 100
                             )
                             d_y1 = y1
                             # d_y1 = t_y1
                             d_x2 = d_x1
                             d_y2 = (
-                                collided_part.sch_bb[1] + collided_part.sch_bb[3] + 200
+                                collided_part.sch_bb.ul.y + 200
+                                # collided_part.sch_bb[1] + collided_part.sch_bb[3] + 200
                             )
                             # d_x3 = d_x2 + collided_part.sch_bb[2] + 100 + 100
                             d_y3 = d_y2
@@ -361,12 +365,15 @@ def gen_net_wire(net, node):
                             line[-1] = t
 
                         # draw line down
-                        d_x1 = collided_part.sch_bb[0] - collided_part.sch_bb[2] - 100
+                        d_x1 = collided_part.sch_bb.ll.x - 100
+                        # d_x1 = collided_part.sch_bb[0] - collided_part.sch_bb[2] - 100
                         d_y1 = y1
                         # d_y1 = t_y1
                         d_x2 = d_x1
-                        d_y2 = collided_part.sch_bb[1] + collided_part.sch_bb[3] + 100
-                        d_x3 = d_x2 - collided_part.sch_bb[2] + 100 + 100
+                        d_y2 = collided_part.sch_bb.ul.y + 100
+                        # d_y2 = collided_part.sch_bb[1] + collided_part.sch_bb[3] + 100
+                        d_x3 = d_x2 - collided_part.sch_bb.w / 2 + 100 + 100
+                        # d_x3 = d_x2 - collided_part.sch_bb[2] + 100 + 100
                         d_y3 = d_y2
                         line.insert(i + 1, [d_x1, d_y1])
                         line.insert(i + 2, [d_x2, d_y2])
@@ -377,6 +384,34 @@ def gen_net_wire(net, node):
     return nets_output
 
 
+def gen_bbox_eeschema(bbox, offset, name=None):
+    bbox = round(BBox(bbox.min, bbox.max))
+    bbox.move(offset)
+    bbox = bbox.snap(1)
+
+    label_pt = bbox.ul
+
+    box = []
+
+    if name:
+        box.append(
+            "Text Notes {} {} 0    100  ~ 20\n{}\n".format(
+                label_pt.x, label_pt.y, name
+            )
+        )
+
+    box.append("Wire Notes Line\n")
+    box.append("	{} {} {} {}\n".format(bbox.ll.x, bbox.ll.y, bbox.lr.x, bbox.lr.y))
+    box.append("Wire Notes Line\n")
+    box.append("	{} {} {} {}\n".format(bbox.lr.x, bbox.lr.y, bbox.ur.x, bbox.ur.y))
+    box.append("Wire Notes Line\n")
+    box.append("	{} {} {} {}\n".format(bbox.ur.x, bbox.ur.y, bbox.ul.x, bbox.ul.y))
+    box.append("Wire Notes Line\n")
+    box.append("	{} {} {} {}\n".format(bbox.ul.x, bbox.ul.y, bbox.ll.x, bbox.ll.y))
+
+    return "\n" + "".join(box)
+
+
 def gen_part_eeschema(part, offset):
     # Generate eeschema code for part from SKiDL part
     # part: SKiDL part
@@ -385,12 +420,12 @@ def gen_part_eeschema(part, offset):
 
     time_hex = hex(int(time.time()))[2:]
 
-    center = part.bbox.ctr.snap(GRID) + offset
+    origin = round(part.origin + offset)
 
     out = ["$Comp\n"]
     out.append("L {}:{} {}\n".format(part.lib.filename, part.name, part.ref))
     out.append("U 1 1 {}\n".format(time_hex))
-    out.append("P {} {}\n".format(str(center.x), str(center.y)))
+    out.append("P {} {}\n".format(str(origin.x), str(origin.y)))
     # Add part symbols. For now we are only adding the designator
     n_F0 = 1
     for i in range(len(part.draw)):
@@ -401,8 +436,8 @@ def gen_part_eeschema(part, offset):
         'F 0 "{}" {} {} {} {} {} {} {}\n'.format(
             part.ref,
             part.draw[n_F0].orientation,
-            str(part.draw[n_F0].x + center.x),
-            str(part.draw[n_F0].y + center.y),
+            str(origin.x + part.draw[n_F0].x),
+            str(origin.y - part.draw[n_F0].y),
             part.draw[n_F0].size,
             "000",
             part.draw[n_F0].halign,
@@ -418,15 +453,15 @@ def gen_part_eeschema(part, offset):
         'F 2 "{}" {} {} {} {} {} {} {}\n'.format(
             part.footprint,
             part.draw[n_F2].orientation,
-            str(part.draw[n_F2].x + center.x),
-            str(part.draw[n_F2].y + center.y),
+            str(origin.x + part.draw[n_F2].x),
+            str(origin.y - part.draw[n_F2].y),
             part.draw[n_F2].size,
             "001",
             part.draw[n_F2].halign,
             part.draw[n_F2].valign,
         )
     )
-    out.append("   1   {} {}\n".format(str(center.x), str(center.y)))
+    out.append("   1   {} {}\n".format(str(origin.x), str(origin.y)))
     out.append(
         "   {}   {}  {}  {}\n".format(
             part.orientation[0],
@@ -436,6 +471,9 @@ def gen_part_eeschema(part, offset):
         )
     )
     out.append("$EndComp\n")
+
+    out.append(gen_bbox_eeschema(part.lbl_bbox, offset))
+
     return "\n" + "".join(out)
 
 
@@ -450,7 +488,7 @@ def gen_wire_eeschema(wire, offset):
         string: Text to be placed into EESCHEMA file.
     """
     wire_code = []
-    pts = [Point(pt[0], pt[1]) + offset for pt in wire]
+    pts = [round(Point(pt[0], pt[1])) + offset for pt in wire]
     for pt1, pt2 in zip(pts[:-1], pts[1:]):
         wire_code.append("Wire Wire Line\n")
         wire_code.append("	{} {} {} {}\n".format(pt1.x, pt1.y, pt2.x, pt2.y))
@@ -469,7 +507,7 @@ def gen_power_part_eeschema(part, orientation=[1, 0, 0, -1], offset=Point(0, 0))
                     symbol_name = u[0]
                     # find the stub in the part
                     time_hex = hex(int(time.time()))[2:]
-                    pin_pt = part.bbox.ctr.snap(GRID) + offset + Point(pin.x, -pin.y)
+                    pin_pt = round(part.origin + offset + Point(pin.x, pin.y))
                     x, y = pin_pt.x, pin_pt.y
                     out.append("$Comp\n")
                     out.append("L power:{} #PWR?\n".format(symbol_name))
@@ -548,9 +586,9 @@ def gen_pin_label_eeschema(pin, offset):
         label_type = "GLabel"
         break
 
-    part_origin = pin.part.bbox.ctr.snap(GRID) + offset
-    x = pin.x + part_origin.x
-    y = -pin.y + part_origin.y  # EESCHEMA Y direction is reversed.
+    part_origin = round(pin.part.origin + offset)
+    x = part_origin.x + pin.x
+    y = part_origin.y + pin.y
 
     orientation = {
         "R": 0,
@@ -573,29 +611,7 @@ def gen_node_bbox_eeschema(node, offset):
     else:
         level_name = node.node_key
 
-    bbox = BBox(node.bbox.min, node.bbox.max)
-    bbox.move(offset)
-    bbox = bbox.snap(1)
-
-    label_pt = bbox.ll
-
-    box = []
-
-    box.append(
-        "Text Notes {} {} 0    100  ~ 20\n{}\n".format(
-            label_pt.x, label_pt.y, level_name
-        )
-    )
-    box.append("Wire Notes Line\n")
-    box.append("	{} {} {} {}\n".format(bbox.ll.x, bbox.ll.y, bbox.lr.x, bbox.lr.y))
-    box.append("Wire Notes Line\n")
-    box.append("	{} {} {} {}\n".format(bbox.lr.x, bbox.lr.y, bbox.ur.x, bbox.ur.y))
-    box.append("Wire Notes Line\n")
-    box.append("	{} {} {} {}\n".format(bbox.ur.x, bbox.ur.y, bbox.ul.x, bbox.ul.y))
-    box.append("Wire Notes Line\n")
-    box.append("	{} {} {} {}\n".format(bbox.ul.x, bbox.ul.y, bbox.ll.x, bbox.ll.y))
-
-    return "\n" + "".join(box)
+    return gen_bbox_eeschema(node.bbox, offset, level_name)
 
 
 def gen_header_eeschema(
@@ -731,19 +747,20 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
 
         # Initialize part attributes used for generating schematics.
         part.orientation = [1, 0, 0, -1]
-        part.sch_bb = [0, 0, 0, 0]  # Set schematic location to x, y, width, height.
         part.moved = False
-
-        # Initialize pin attributes used for generating schematics.
-        for pin in part:
-            pin.routed = False
-            pin.label = getattr(
-                pin, "label", ""
-            )  # Assign empty label if not already labeled.
+        part.origin = Point(0, 0)
 
         # Rotate <3 pin parts that have power nets.  Pins with power pins should face up.
         # Pins with GND pins should face down.
         rotate_power_pins(part)
+
+        # Initialize pin attributes used for generating schematics.
+        for pin in part:
+            pin.y = -pin.y  # EESCHEMA Y-axis is inverted.
+            pin.routed = False
+            pin.label = getattr(
+                pin, "label", ""
+            )  # Assign empty label if not already labeled.
 
         # Generate bounding boxes around parts
         calc_part_bbox(part)
@@ -858,7 +875,7 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
         # Set up part movement increments.
         offset_x = 50  # Use fine movements to get close packing on X dim.
         # TODO: magic number.
-        offset_y = node.parts[0].bbox.max.y + 500
+        offset_y = node.parts[0].bbox.ll.y + 500
 
         # Get center part for this node.
         central_part = node.central_part
@@ -978,7 +995,7 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
             eeschema_code.append(part_code)
 
         # Generate EESCHEMA wiring code between the parts in the node.
-        offset = sch_start - node.bbox.ctr.snap(GRID)
+        offset = sch_start
         for w in node.wires:
             wire_code = gen_wire_eeschema(w, offset=offset)
             eeschema_code.append(wire_code)

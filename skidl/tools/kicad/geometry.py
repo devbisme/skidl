@@ -50,17 +50,8 @@ class Point:
 
     def snap(self, grid_spacing):
         """Snap point x,y coords to the given grid spacing."""
-        snap_func = lambda x: grid_spacing * round(x / grid_spacing)
+        snap_func = lambda x: int(grid_spacing * round(x / grid_spacing))
         return Point(snap_func(self.x), snap_func(self.y))
-
-    # def round(self):
-    #     """Round the x,y coords of the Point."""
-    #     try:
-    #         self.x = round(self.x)
-    #         self.y = round(self.y)
-    #     except OverflowError:
-    #         # Point with coords set as math.inf.
-    #         pass
 
     def min(self, pt):
         """Return a Point with coords that are the min x,y of both points."""
@@ -107,11 +98,6 @@ class BBox:
     def snap(self, grid_spacing):
         return BBox(self.min.snap(grid_spacing), self.max.snap(grid_spacing))
 
-    # def round(self):
-    #     """Round the BBox min, max points."""
-    #     self.min.round()
-    #     self.max.round()
-
     def intersects(self, bbox):
         return (self.min.x < bbox.max.x) and (self.max.x > bbox.min.x) and (self.min.y < bbox.max.y) and (self.max.y > bbox.min.y)
 
@@ -148,22 +134,22 @@ class BBox:
     @property
     def ll(self):
         """Return lower-left point of bounding box."""
-        return Point(self.min.x, self.min.y)
+        return Point(self.min.x, self.max.y)
 
     @property
     def lr(self):
         """Return lower-right point of bounding box."""
-        return Point(self.max.x, self.min.y)
+        return Point(self.max.x, self.max.y)
 
     @property
     def ul(self):
         """Return upper-left point of bounding box."""
-        return Point(self.min.x, self.max.y)
+        return Point(self.min.x, self.min.y)
 
     @property
     def ur(self):
         """Return upper-right point of bounding box."""
-        return Point(self.max.x, self.max.y)
+        return Point(self.max.x, self.min.y)
 
     def __repr__(self):
         return "{self.__class__}({self.min}, {self.max})".format(self=self)
