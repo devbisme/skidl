@@ -15,10 +15,13 @@ import time
 from builtins import range, str
 from collections import defaultdict, OrderedDict, Counter
 import os.path
+from types import DynamicClassAttribute
 
 from future import standard_library
 
-from .geometry import Point, Vector, BBox, Segment
+from skidl.tools.kicad.kicad import DrawText
+
+from .geometry import Point, Vector, BBox, Segment, Tx
 from ...logger import active_logger
 from ...net import NCNet
 from ...part import Part
@@ -28,12 +31,12 @@ from ...utilities import *
 
 standard_library.install_aliases()
 
-GRID = 50
-
 """
 Generate a KiCad EESCHEMA schematic from a Circuit object.
 """
 
+GRID = 50
+PIN_LABEL_FONT_SIZE = 50
 
 class Node:
     """Data structure for holding information about a node in the circuit hierarchy."""
@@ -43,7 +46,15 @@ class Node:
         self.wires = []
         self.parent = None
         self.children = []
-        self.origin = Point(0, 0)
+        self.tx = Tx()
+
+
+def rotate_part_cw_90(part):
+    """Rotate a part 90 degrees clockwise."""
+
+    # Concatenate 90 clockwise rotation to part tx.
+    tx_cw_90 = Tx(a=0, b=-1, c=1, d=0)
+    part.tx = part.tx.dot(tx_cw_90)
 
 
 def rotate_power_pins(part, pin_cnt_threshold=10000):
@@ -57,6 +68,12 @@ def rotate_power_pins(part, pin_cnt_threshold=10000):
     face down.
     """
 
+    def is_pwr(net):
+        return net_name.startswith("+")
+
+    def is_gnd(net):
+        return "gnd" in net_name.lower()
+
     # Don't rotate parts with too many pins.
     if len(part) > pin_cnt_threshold:
         return
@@ -65,7 +82,7 @@ def rotate_power_pins(part, pin_cnt_threshold=10000):
     rotation_tally = Counter()
     for pin in part:
         net_name = getattr(pin.net, "name", "").lower()
-        if "gnd" in net_name:
+        if is_gnd(net_name):
             if pin.orientation == "U":
                 rotation_tally[0] += 1
             if pin.orientation == "D":
@@ -74,7 +91,7 @@ def rotate_power_pins(part, pin_cnt_threshold=10000):
                 rotation_tally[90] += 1
             if pin.orientation == "R":
                 rotation_tally[270] += 1
-        elif "+" in net_name:
+        elif is_pwr(net_name):
             if pin.orientation == "D":
                 rotation_tally[0] += 1
             if pin.orientation == "U":
@@ -90,33 +107,8 @@ def rotate_power_pins(part, pin_cnt_threshold=10000):
     except IndexError:
         pass
     else:
-        if rotation != 0:
-            for i in range(int(rotation / 90)):
-                rotate_90_cw(part)
-
-
-def rotate_90_cw(part):
-    """Rotate a part 90-degrees clockwise."""
-
-    # Replace the pin orientation with the 90-deg CW-rotated orientation.
-    pin_rotation_tbl = {
-        "D": "L",
-        "U": "R",
-        "R": "D",
-        "L": "U",
-    }
-    for pin in part:
-        pin.x, pin.y = pin.y, -pin.x
-        pin.orientation = pin_rotation_tbl[pin.orientation]
-
-    # Replace the part orientation with the 90-deg CW-rotated orientation.
-    part_rotation_tbl = {
-        (1, 0, 0, -1):  [0, 1, 1, 0],  # 0 => 90 deg.
-        (0, 1, 1, 0):   [-1, 0, 0, 1],  # 90 => 180 deg.
-        (-1, 0, 0, 1):  [0, -1, -1, 0],  # 180 => 270 deg.
-        (0, -1, -1, 0): [1, 0, 0, -1],  # 270 => 0 deg.
-    }
-    part.orientation = part_rotation_tbl[tuple(part.orientation)]
+        for _ in range(round(rotation / 90)):
+            rotate_part_cw_90(part)
 
 
 def calc_part_bbox(part):
@@ -125,40 +117,32 @@ def calc_part_bbox(part):
     # Find bounding box around pins.
     part.bbox = BBox()
     for pin in part:
-        part.bbox.add(Point(pin.x, pin.y) + part.origin)
+        part.bbox.add(pin.pt)
+
+    # Expand the bounding box if it's too small in either dimension.
+    resize_xy = Vector(0, 0)
+    if part.bbox.w < 100:
+        resize_xy.x = (100 - part.bbox.w) / 2
+    if part.bbox.h < 100:
+        resize_xy.y = (100 - part.bbox.h) /2
+    part.bbox.resize(resize_xy)
 
     # Find expanded bounding box that includes any labels attached to pins.
     part.lbl_bbox = BBox()
     part.lbl_bbox.add(part.bbox)
     for pin in part:
-        if len(pin.label) > 0:
-            lbl_len = (len(pin.label) + 1) * 50
-            pin_dir = pin.orientation
-            x = pin.x
-            y = pin.y
-            if pin_dir == "U":
-                part.lbl_bbox.add(Point(x, y + lbl_len))
-            elif pin_dir == "D":
-                part.lbl_bbox.add(Point(x, y - lbl_len))
-            elif pin_dir == "L":
-                part.lbl_bbox.add(Point(x + lbl_len, y))
-            elif pin_dir == "R":
-                part.lbl_bbox.add(Point(x - lbl_len, y))
-
-    # Expand the bounding box if it's too small in either dimension.
-    resize_xy = Vector(0, 0)
-    if part.bbox.w < 100:
-        resize_xy.x = 100 - part.bbox.w
-    if part.bbox.h < 100:
-        resize_xy.y = 100 - part.bbox.h
-    part.bbox.resize(resize_xy)
-
-    resize_xy = Vector(0, 0)
-    if part.lbl_bbox.w < 100:
-        resize_xy.x = 100 - part.lbl_bbox.w
-    if part.lbl_bbox.h < 100:
-        resize_xy.y = 100 - part.lbl_bbox.h
-    part.lbl_bbox.resize(resize_xy)
+        # Add 1 to the label length to account for extra graphics on label.
+        lbl_len = (len(pin.label) + 1) * PIN_LABEL_FONT_SIZE
+        pin_dir = pin.orientation
+        if pin_dir == "U":
+            lbl_vector = Vector(0, -lbl_len)
+        elif pin_dir == "D":
+            lbl_vector = Vector(0, lbl_len)
+        elif pin_dir == "L":
+            lbl_vector = Vector(lbl_len, 0)
+        elif pin_dir == "R":
+            lbl_vector = Vector(-lbl_len, 0)
+        part.lbl_bbox.add(pin.pt + lbl_vector)
 
 
 def calc_node_bbox(node):
@@ -166,102 +150,127 @@ def calc_node_bbox(node):
 
     node.bbox = BBox()
     for part in node.parts:
-        node.bbox.add(part.lbl_bbox)
+        part_tx_bbox = part.lbl_bbox.dot(part.tx)
+        node.bbox.add(part_tx_bbox)
 
-    node.bbox.resize(Vector(200, 100))
+    node.bbox.resize(Vector(100, 50))
 
 
 def calc_move_part(moving_pin, anchor_pin, other_parts):
+    """Move pin to anchor pin and then move it until parts no longer collide."""
 
     moving_part = moving_pin.part
     anchor_part = anchor_pin.part
-    # dx = moving_pin.x + anchor_pin.x + anchor_part.sch_bb[0] + anchor_part.sch_bb[2]
-    # dy = -moving_pin.y + anchor_pin.y - anchor_part.sch_bb[1]
-    # dx = anchor_pin.x + moving_pin.x + anchor_part.bbox.max.x
-    # dy = anchor_pin.y - moving_pin.y - anchor_part.bbox.ctr.y
-    dx = (anchor_pin.x + anchor_part.origin.x) - (moving_pin.x + moving_part.origin.x)
-    dy = (anchor_pin.y + anchor_part.origin.y) - (moving_pin.y + moving_part.origin.y)
-    move_part(moving_part, Vector(dx, dy), other_parts)
+    vector = anchor_pin.pt.dot(anchor_part.tx) - moving_pin.pt.dot(moving_part.tx)
+    move_part(moving_part, vector, other_parts)
 
 
 def move_part(part, vector, other_parts):
     """Move part until it doesn't collide with other parts."""
 
-    # Setup the movement vector to use if the initial placement leads to collisions.
-    avoid_vec = Vector(200, 0) if vector.x > 0 else Vector(-200, 0)
+    # Make sure part moves stay on the grid.
+    vector = vector.snap(GRID)
 
-    vec = Vector(vector.x, vector.y)  # EESCHEMA Y direction is reversed.
+    # Setup the movement vector to use if the initial movement leads to collisions.
+    avoid_vector = Vector(200, 0) if vector.x > 0 else Vector(-200, 0)
+    avoid_vector = avoid_vector.snap(GRID)
 
+    # Keep moving part until no collisions occur.
     while True:
-        part.origin += vec
-        part.bbox.move(vec)
-        part.lbl_bbox.move(vec)
         collision = False
 
+        # Update the part's transformation matrix to apply movement.
+        part.tx = part.tx.dot(Tx(dx=vector.x, dy=vector.y))
+
+        # Compute the transformed bounding box for the part including the move.
+        lbl_bbox = part.lbl_bbox.dot(part.tx)
+
+        # Look for intersections with the other parts.
         for other_part in other_parts:
+
+            # Don't detect collisions with itself.
             if other_part is part:
                 continue
-            if part.lbl_bbox.intersects(other_part.lbl_bbox):
+
+            # Compute the transformed bounding box for the other part.
+            other_lbl_bbox = other_part.lbl_bbox.dot(other_part.tx)
+
+            if lbl_bbox.intersects(other_lbl_bbox):
+                # Collision found. No need to check any further.
                 collision = True
                 break
 
         if not collision:
+            # Break out of loop once the part doesn't collide with anything.
+            # The final part.tx matrix records the movements that were made.
             break
         else:
-            vec = avoid_vec
+            # After the initial move, use the avoid_vector for all further moves.
+            vector = avoid_vector
 
     part.moved = True
 
 
 def move_node(node, nodes, vector, move_dir):
+    """Move node until it doesn't collide with other nodes."""
 
-    # Remember where the node was.
-    old_position = node.origin
+    # Make sure node moves stay on the grid so the internal parts do.
+    vector = vector.snap(GRID)
 
-    # Setup the movement vector to use if the initial placement leads to collisions.
-    avoid_vec = Vector(200, 0) if move_dir == "R" else Vector(-200, 0)
-
-    vec = Vector(vector.x, vector.y)
+    # Setup the movement vector to use if the initial movement leads to collisions.
+    avoid_vector = Vector(200, 0) if move_dir == "R" else Vector(-200, 0)
+    avoid_vector = avoid_vector.snap(GRID)
 
     root_parent = ".".join(node.node_key.split(".")[0:2])
 
-    # Detect collision with other nodes.
+    # Keep moving node until no collisions occur.
     while True:
-        node.origin += vec
-        node.bbox.move(vec)
         collision = False
+
+        # Update the node's transformation matrix to apply movement.
+        node.tx = node.tx.dot(Tx(dx=vector.x, dy=vector.y))
+
+        # Compute the transformed bounding box for the node including the move.
+        node_bbox = node.bbox.dot(node.tx)
+
+        # Look for intersections with the other nodes.
         for other_node in nodes:
 
             # Don't detect collisions with itself.
             if node is other_node:
                 continue
 
-            # Only detect collision with hierarchies on the same page.
+            # Only detect collisions with nodes on the same page.
             other_root_parent = ".".join(other_node.node_key.split(".")[0:2])
             if root_parent != other_root_parent:
                 continue
 
-            if node.bbox.intersects(other_node.bbox):
+            # Compute the transformed bounding box for the other node.
+            other_bbox = other_node.bbox.dot(other_node.tx)
+
+            if node_bbox.intersects(other_bbox):
+                # Collision found. No need to check any further.
                 collision = True
                 break
 
         if not collision:
+            # Break out of loop once the node doesn't collide with anything.
+            # The final node.tx matrix records the movements that were made.
             break
         else:
-            vec = avoid_vec
-
-    # Move the parts in the node based on the change in the node's position.
-    chg_pos = node.origin - old_position
-    for part in node.parts:
-        move_part(part, chg_pos, [])
+            # After the initial move, use the avoid_vector for all further moves.
+            vector = avoid_vector
 
 
 def gen_net_wire(net, node):
+    """Generate wire segments for a net."""
 
     def detect_wire_part_collision(wire, parts):
+        """Detect collisions between a wire segment and a collection of parts."""
 
         for part in parts:
-            bbox = part.bbox
+            # bbox = part.bbox.dot(part.tx).dot(part.node.tx)
+            bbox = part.bbox.dot(part.tx)
             sides = OrderedDict()
             sides["L"] = Segment(bbox.ul, bbox.ll)
             sides["R"] = Segment(bbox.ur, bbox.lr)
@@ -275,8 +284,14 @@ def gen_net_wire(net, node):
         return None, None # No intersections detected.
 
     nets_output = []
+
+    # pins = [pin for pin in net.pins if not pin.stub and pin.part.node==node]
     pins = net.pins
-    pin_pairs = zip(pins[:-1], pins[1:])
+    try:
+        pin_pairs = zip(pins[:-1], pins[1:])
+    except IndexError:
+        return nets_output
+
     for pin1, pin2 in pin_pairs:
         if pin1.routed and pin2.routed:
             continue
@@ -284,21 +299,17 @@ def gen_net_wire(net, node):
             pin1.routed = True
             pin2.routed = True
 
-            # Calculate the coordinates of a straight line between the 2 pins that need to connect
-            x1 = int(pin1.part.origin.x + pin1.x)
-            y1 = int(pin1.part.origin.y + pin1.y)
-            # x1 = pin1.part.sch_bb[0] + pin1.x + node.sch_bb[0]
-            # y1 = pin1.part.sch_bb[1] - pin1.y + node.sch_bb[1]
+            # Calculate the coordinates of a straight line between the 2 pins that need to connect.
+            # Apply the part transformation matrix to find the absolute wire endpoint coordinates.
+            # Since all wiring is assumed to be internal to this node, don't apply the node
+            # transformation matrix.
+            pt1 = pin1.pt.dot(pin1.part.tx)
+            pt2 = pin2.pt.dot(pin2.part.tx)
 
-            x2 = int(pin2.part.origin.x + pin2.x)
-            y2 = int(pin2.part.origin.y + pin2.y)
-            # x2 = pin2.part.sch_bb[0] + pin2.x + node.sch_bb[0]
-            # y2 = pin2.part.sch_bb[1] - pin2.y + node.sch_bb[1]
-
-            line = [[x1, y1], [x2, y2]]
-
+            line = [pt1, pt2]
             for i in range(len(line) - 1):
-                segment = Segment(Point(line[i][0],line[i][1]), Point(line[i+1][0],line[i+1][1]))
+                segment = Segment(line[i], line[i+1])
+                # segment = Segment(Point(line[i][0],line[i][1]), Point(line[i+1][0],line[i+1][1]))
                 collided_part, collided_side = detect_wire_part_collision(segment, node.parts)
 
                 # if we see a collision then draw the net around the rectangle
@@ -384,12 +395,12 @@ def gen_net_wire(net, node):
     return nets_output
 
 
-def gen_bbox_eeschema(bbox, offset, name=None):
-    bbox = round(BBox(bbox.min, bbox.max))
-    bbox.move(offset)
-    bbox = bbox.snap(1)
+def gen_bbox_eeschema(bbox, tx, name=None):
+    """Generate a bounding box using graphic lines."""
 
-    label_pt = bbox.ul
+    label_pt = round(bbox.ul.dot(tx))
+
+    bbox = round(bbox.dot(tx))
 
     box = []
 
@@ -412,15 +423,24 @@ def gen_bbox_eeschema(bbox, offset, name=None):
     return "\n" + "".join(box)
 
 
-def gen_part_eeschema(part, offset):
-    # Generate eeschema code for part from SKiDL part
-    # part: SKiDL part
-    # c[x,y]: coordinated to place the part
-    # https://en.wikibooks.org/wiki/Kicad/file_formats#Schematic_Files_Format
+def gen_part_eeschema(part, tx):
+    """Generate EESCHEMA code for a part.
+
+    Args:
+        part (Part): SKiDL part.
+        tx (Tx): Transformation matrix.
+
+    Returns:
+        string: EESCHEMA code for the part.
+
+    Notes:
+        https://en.wikibooks.org/wiki/Kicad/file_formats#Schematic_Files_Format
+    """
 
     time_hex = hex(int(time.time()))[2:]
 
-    origin = round(part.origin + offset)
+    tx = part.tx.dot(tx)
+    origin = round(tx.origin)
 
     out = ["$Comp\n"]
     out.append("L {}:{} {}\n".format(part.lib.filename, part.name, part.ref))
@@ -462,40 +482,36 @@ def gen_part_eeschema(part, offset):
         )
     )
     out.append("   1   {} {}\n".format(str(origin.x), str(origin.y)))
-    out.append(
-        "   {}   {}  {}  {}\n".format(
-            part.orientation[0],
-            part.orientation[1],
-            part.orientation[2],
-            part.orientation[3],
-        )
-    )
+    out.append("   {}  {}  {}  {}\n".format(tx.a, tx.b, tx.c, tx.d))
     out.append("$EndComp\n")
 
-    out.append(gen_bbox_eeschema(part.lbl_bbox, offset))
+    # For debugging: draws a bounding box around a part.
+    # out.append(gen_bbox_eeschema(part.lbl_bbox, tx))
 
     return "\n" + "".join(out)
 
 
-def gen_wire_eeschema(wire, offset):
+def gen_wire_eeschema(wire, tx):
     """Generate EESCHEMA code for a multi-segment wire.
 
     Args:
         wire (list): List of (x,y) points for a wire.
-        offset (Point): (x,y) offset for each point in the wire.
+        tx (Point): transformation matrix for each point in the wire.
 
     Returns:
         string: Text to be placed into EESCHEMA file.
     """
+
     wire_code = []
-    pts = [round(Point(pt[0], pt[1])) + offset for pt in wire]
+    pts = [pt.dot(tx) for pt in wire]
     for pt1, pt2 in zip(pts[:-1], pts[1:]):
         wire_code.append("Wire Wire Line\n")
         wire_code.append("	{} {} {} {}\n".format(pt1.x, pt1.y, pt2.x, pt2.y))
     return "\n" + "".join(wire_code)
 
 
-def gen_power_part_eeschema(part, orientation=[1, 0, 0, -1], offset=Point(0, 0)):
+def gen_power_part_eeschema(part, tx=Tx()):
+    return "" # TODO: Remove this.
     out = []
     for pin in part.pins:
         try:
@@ -573,7 +589,39 @@ def gen_power_part_eeschema(part, orientation=[1, 0, 0, -1], offset=Point(0, 0))
     return "\n" + "".join(out)
 
 
-def gen_pin_label_eeschema(pin, offset):
+def calc_pin_dir(pin):
+    """Calculate pin direction accounting for part transformation matrix."""
+    
+    # Copy the part trans. matrix, but remove the translation vector, leaving only scaling/rotation stuff.
+    tx = pin.part.tx
+    tx = Tx(a=tx.a, b=tx.b, c=tx.c, d=tx.d)
+
+    # Use the pin orientation to compute the pin direction vector.
+    pin_vector = {
+        "U": Point(0, 1),
+        "D": Point(0, -1),
+        "L": Point(-1, 0),
+        "R": Point(1, 0),
+    }[pin.orientation]
+
+    # Rotate the direction vector using the part rotation matrix.
+    pin_vector = pin_vector.dot(tx)
+
+    # Create an integer tuple from the rotated direction vector.
+    pin_vector = (round(pin_vector.x), round(pin_vector.y))
+
+    # Return the pin orientation based on its rotated direction vector.
+    return {
+        (0, 1): "U",
+        (0, -1): "D",
+        (-1, 0): "L",
+        (1, 0): "R",
+    }[pin_vector]
+
+
+def gen_pin_label_eeschema(pin, tx):
+    """Generate net label attached to a pin."""
+
     if len(pin.label) == 0 or not pin.is_connected():
         return ""
 
@@ -586,23 +634,23 @@ def gen_pin_label_eeschema(pin, offset):
         label_type = "GLabel"
         break
 
-    part_origin = round(pin.part.origin + offset)
-    x = part_origin.x + pin.x
-    y = part_origin.y + pin.y
+    part_tx = pin.part.tx.dot(tx)
+    pt = pin.pt.dot(part_tx)
 
+    pin_dir = calc_pin_dir(pin)
     orientation = {
         "R": 0,
         "D": 1,
         "L": 2,
         "U": 3,
-    }[pin.orientation]
+    }[pin_dir]
 
     return "\nText {} {} {} {}    50   UnSpc ~ 0\n{}\n".format(
-        label_type, x, y, orientation, pin.label
+        label_type, pt.x, pt.y, orientation, pin.label
     )
 
 
-def gen_node_bbox_eeschema(node, offset):
+def gen_node_bbox_eeschema(node, tx):
     """Generate a graphic bounding box for a node in the circuit hierarchy."""
 
     hier_levels = node.node_key.split(".")
@@ -611,7 +659,7 @@ def gen_node_bbox_eeschema(node, offset):
     else:
         level_name = node.node_key
 
-    return gen_bbox_eeschema(node.bbox, offset, level_name)
+    return gen_bbox_eeschema(node.bbox, tx, level_name)
 
 
 def gen_header_eeschema(
@@ -652,10 +700,11 @@ def gen_footer_eeschema():
     return "$EndSCHEMATC"
 
 
-def gen_node_block_eeschema(node_name, position):
+def gen_node_block_eeschema(node_name, tx):
     """Generate a hierarchical block for a node in the circuit hierarchy."""
 
     time_hex = hex(int(time.time()))[2:]
+    position = tx.origin
     t = []
     t.append("\n$Sheet\n")
     t.append(
@@ -685,7 +734,7 @@ def get_A_size(bbox):
     """Return the A-size page needed to fit the given bounding box."""
 
     width = bbox.w
-    height = int(bbox.h * 1.25)  # TODO: why 1.25?
+    height = bbox.h * 1.25  # TODO: why 1.25?
     for A_size, page in A_sizes.items():
         if width < page.w and height < page.h:
             return A_size
@@ -731,14 +780,13 @@ def collect_eeschema_code(
     )
 
 
-def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
-    """Create a schematic file from a Circuit object."""
+def preprocess_parts_and_nets(circuit):
 
     # Pre-process nets.
     net_stubs = circuit.get_net_nc_stubs()
     net_stubs = [net for net in net_stubs if not isinstance(net, NCNet)]
     for net in net_stubs:
-        if net.netclass != "Power":
+        if True or net.netclass != "Power":
             for pin in net.pins:
                 pin.label = net.name
  
@@ -746,29 +794,30 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
     for part in circuit.parts:
 
         # Initialize part attributes used for generating schematics.
-        part.orientation = [1, 0, 0, -1]
         part.moved = False
-        part.origin = Point(0, 0)
-
-        # Rotate <3 pin parts that have power nets.  Pins with power pins should face up.
-        # Pins with GND pins should face down.
-        rotate_power_pins(part)
+        part.tx = Tx()
 
         # Initialize pin attributes used for generating schematics.
         for pin in part:
-            pin.y = -pin.y  # EESCHEMA Y-axis is inverted.
+            pin.pt = Point(pin.x, pin.y)
             pin.routed = False
-            pin.label = getattr(
-                pin, "label", ""
-            )  # Assign empty label if not already labeled.
+            # Assign empty label if not already labeled.
+            pin.label = getattr(pin, "label", "")
 
-        # Generate bounding boxes around parts
+        # Rotate parts.  Power pins should face up. GND pins should face down.
+        rotate_power_pins(part)
+
+        # Compute bounding boxes around parts
         calc_part_bbox(part)
+
+
+def create_node_tree(circuit):
 
     # Make dict that holds part, net, and bbox info for each node in the hierarchy.
     node_tree = defaultdict(lambda: Node())
     for part in circuit.parts:
         node_tree[part.hierarchy].parts.append(part)
+        part.node = node_tree[part.hierarchy]
 
     # Fill-in the parent/child relationship for all the nodes in the hierarchy.
     for node_key, node in node_tree.items():
@@ -780,6 +829,11 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
             parent = node_tree[parent_key]
             parent.children.append(node)
         node.parent = parent
+
+    return node_tree
+
+
+def place_parts(node_tree):
 
     # For each node in hierarchy: Move parts connected to central part by unlabeled nets.
     for node in node_tree.values():
@@ -872,13 +926,11 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
     # Move any remaining parts in each node down & alternating left/right.
     for node in node_tree.values():
 
-        # Set up part movement increments.
-        offset_x = 50  # Use fine movements to get close packing on X dim.
-        # TODO: magic number.
-        offset_y = node.parts[0].bbox.ll.y + 500
-
         # Get center part for this node.
         central_part = node.central_part
+
+        # Set up part movement increments.
+        offset = Vector(GRID, central_part.lbl_bbox.ll.y - 10*GRID)
 
         for part in node.parts:
 
@@ -888,10 +940,10 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
 
             # Move any part that hasn't already been moved.
             if not part.moved:
-                move_part(part, Point(offset_x, offset_y), node.parts)
+                move_part(part, offset, node.parts)
 
                 # Switch movement direction for the next unmoved part.
-                offset_x = -offset_x
+                offset.x = -offset.x
 
     # Create bounding boxes for each node of the hierarchy.
     for node in node_tree.values():
@@ -912,13 +964,15 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
             if node.node_key.count(".") != depth:
                 continue
 
+            node_bbox = node.bbox.dot(node.tx)
+            parent_bbox = node.parent.bbox.dot(node.parent.tx)
+
             # Move node so its upper Y is just below parents lower Y.
-            delta_y = (
-                node.parent.bbox.max.y - node.bbox.min.y + 200
-            )  # TODO: magic number.
+            # TODO: magic number.
+            delta_y = parent_bbox.min.y - node_bbox.max.y - 200
 
             # Move node so its X coord lines up with parent X coord.
-            delta_x = node.parent.bbox.ctr.x - node.bbox.ctr.x
+            delta_x = parent_bbox.ctr.x - node_bbox.ctr.x
 
             # Move node below parent and then to the side to avoid collisions with other nodes.
             # old_pos = node.bbox.ctr
@@ -929,6 +983,9 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
             # Alternate placement directions for the next node placement.
             # TODO: find better algorithm than switching sides, maybe based on connections
             dir, next_dir = next_dir, dir
+
+
+def route_nets(node_tree):
 
     # Collect the internal nets for each node.
     for node in node_tree.values():
@@ -966,16 +1023,25 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
                 if internal_net:
                     node.wires.extend(gen_net_wire(net, node))
 
-    # Now the hierarchy should be completely generated and ready for generating EESCHEMA code.
+
+def generate_eeschema(circuit, node_tree, title, filepath):
 
     # Calculate the maximum page dimensions needed for each root hierarchy sheet.
-    page_sizes = defaultdict(lambda: BBox())
+    root_page_sizes = defaultdict(lambda: BBox())
     for node in node_tree.values():
         root_parent = ".".join(node.node_key.split(".")[0:2])
-        page_sizes[root_parent].add(node.bbox)
+        root_page_sizes[root_parent].add(node.bbox.dot(node.tx))
 
     # Calculate the A page sizes that fit each root hierarchy sheet.
-    A_sizes = {root_parent:get_A_size(page_size) for root_parent, page_size in page_sizes.items()}
+    root_A_sizes = {root_parent:get_A_size(page_size) for root_parent, page_size in root_page_sizes.items()}
+
+    # Calculate transformation matrices for placing each root parent in the center of its A sheet.
+    root_page_txs = {}
+    for root_parent, A_size in root_A_sizes.items():
+        page_bbox = root_page_sizes[root_parent].dot(Tx(d=-1))
+        move = A_sizes[A_size].ctr - page_bbox.ctr
+        move = move.snap(GRID)  # Keep things on grid.
+        root_page_txs[root_parent] = Tx(d=-1).dot(Tx(dx=move.x, dy=move.y))
 
     # Generate eeschema code for each node in the circuit hierarchy.
     hier_pg_eeschema_code = defaultdict(lambda: [])
@@ -984,40 +1050,37 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
         # List to hold all the EESCHEMA code for this node.
         eeschema_code = []
 
-        # Find the starting point for placement of node parts.
+        # Find the transformation matrix for the placement of the node.
         root_parent = ".".join(node.node_key.split(".")[0:2])
-        A_size = A_sizes[root_parent]
-        sch_start = get_A_size_starting_point(A_size)
+        tx = node.tx.dot(root_page_txs[root_parent])
 
         # Generate EESCHEMA code for each part in the node.
         for part in node.parts:
-            part_code = gen_part_eeschema(part, offset=sch_start)
+            part_code = gen_part_eeschema(part, tx=tx)
             eeschema_code.append(part_code)
 
         # Generate EESCHEMA wiring code between the parts in the node.
-        offset = sch_start
         for w in node.wires:
-            wire_code = gen_wire_eeschema(w, offset=offset)
+            wire_code = gen_wire_eeschema(w, tx=tx)
             eeschema_code.append(wire_code)
 
         # Generate power connections for the each part in the node.
         for part in node.parts:
-            stub_code = gen_power_part_eeschema(part, offset=sch_start)
+            stub_code = gen_power_part_eeschema(part, tx=tx)
             if len(stub_code) != 0:
                 eeschema_code.append(stub_code)
 
         # Generate pin labels for stubbed nets on each part in the node.
         for part in node.parts:
             for pin in part:
-                pin_label_code = gen_pin_label_eeschema(pin, offset=sch_start)
+                pin_label_code = gen_pin_label_eeschema(pin, tx=tx)
                 eeschema_code.append(pin_label_code)
 
         # Generate the graphic box that surrounds the node parts.
-        bbox_code = gen_node_bbox_eeschema(node, offset=sch_start)
+        bbox_code = gen_node_bbox_eeschema(node, tx=tx)
         eeschema_code.append(bbox_code)
 
         # Add generated EESCHEMA code to the root hierarchical page for this node.
-        root_parent = ".".join(node.node_key.split(".")[0:2])
         # TODO: Collect the header, code, and footer into the dict.
         hier_pg_eeschema_code[root_parent].append("\n".join(eeschema_code))
 
@@ -1027,31 +1090,51 @@ def gen_schematic(circuit, file_=None, _title="Default", gen_elkjs=False):
     hier_start = get_A_size_starting_point("A4")
     hier_start.x = 1000  # TODO: magic number.
     for root_parent, code in hier_pg_eeschema_code.items():
-        A_size = A_sizes[root_parent]
+        A_size = root_A_sizes[root_parent]
         page_eeschema_code[root_parent] = collect_eeschema_code(
-            code, cur_sheet_num=1, size=A_size, title=_title
+            code, cur_sheet_num=1, size=A_size, title=title
         )
-        hier_eeschema_code.append(gen_node_block_eeschema(root_parent, hier_start))
+        hier_start_tx = Tx(dx=hier_start.x, dy=hier_start.y)
+        hier_eeschema_code.append(gen_node_block_eeschema(root_parent, hier_start_tx))
         hier_start += Point(1000, 0)  # TODO: magic number.
 
     hier_eeschema_code = collect_eeschema_code(
-        hier_eeschema_code, cur_sheet_num=1, size="A4", title=_title
+        hier_eeschema_code, cur_sheet_num=1, size="A4", title=title
     )
 
     # Generate EESCHEMA schematic files.
     if not circuit.no_files:
 
         # Generate schematic files for lower-levels in the hierarchy.
-        dir = os.path.dirname(file_)
+        dir = os.path.dirname(filepath)
         for root_parent, code in page_eeschema_code.items():
             file_name = os.path.join(dir, root_parent + ".sch")
             with open(file_name, "w") as f:
                 print(code, file=f)
 
         # Generate the schematic file for the top-level of the hierarchy.
-        with open(file_, "w") as f:
+        with open(filepath, "w") as f:
             print(hier_eeschema_code, file=f)
 
+
+def gen_schematic(circuit, filepath=None, title="Default", gen_elkjs=False):
+    """Create a schematic file from a Circuit object."""
+
+    preprocess_parts_and_nets(circuit)   
+
+    node_tree = create_node_tree(circuit)
+
+    place_parts(node_tree)
+
+    route_nets(node_tree)
+
+    generate_eeschema(circuit, node_tree, title, filepath)
+
+
+
+##################################################################################
+# INTRONS.
+##################################################################################
 
 def gen_elkjs_code(parts, nets):
     # Generate elkjs code that can create an auto diagram with this website:

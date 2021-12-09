@@ -2,11 +2,48 @@
 
 # The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
 
-from copy import copy, deepcopy
+from copy import copy
 
 """
-Stuff for handling geometry, mostly points and bounding boxes.
+Stuff for handling geometry:
+    transformation matrices,
+    points,
+    bounding boxes,
+    line segments.
 """
+
+
+class Tx:
+    def __init__(self, a=1, b=0, c=0, d=1, dx=0, dy=0):
+        """Create a transformation matrix.
+        tx = [ 
+               a  b  0
+               c  d  0
+               dx dy 1
+             ]
+        x' = a*x + c*y + dx
+        y' = b*x + d*y + dy
+        """
+        self.a = a
+        self.b = b
+        self.c = c
+        self.d = d
+        self.dx = dx
+        self.dy = dy
+    
+    def dot(self, tx):
+        return Tx(
+            a  = self.a * tx.a + self.b * tx.c,
+            b  = self.a * tx.b + self.b * tx.d,
+            c  = self.c * tx.a + self.d * tx.c,
+            d  = self.c * tx.b + self.d * tx.d,
+            dx = self.dx * tx.a + self.dy * tx.c + tx.dx,
+            dy = self.dx * tx.b + self.dy * tx.d + tx.dy
+        )
+
+    @property
+    def origin(self):
+        return Point(self.dx, self.dy)
 
 
 class Point:
@@ -61,6 +98,14 @@ class Point:
         """Return a Point with coords that are the max x,y of both points."""
         return Point(max(self.x, pt.x), max(self.y, pt.y))
 
+    def dot(self, tx):
+        """Apply transformation matrix to a point and return a point."""
+        return Point(
+            self.x * tx.a + self.y * tx.c + tx.dx,
+            self.x * tx.b + self.y * tx.d + tx.dy
+        )
+
+
     def __repr__(self):
         return "{self.__class__}({self.x}, {self.y})".format(self=self)
 
@@ -94,9 +139,6 @@ class BBox:
 
     def __round__(self, n=None):
         return BBox(round(self.min), round(self.max))
-
-    def snap(self, grid_spacing):
-        return BBox(self.min.snap(grid_spacing), self.max.snap(grid_spacing))
 
     def intersects(self, bbox):
         return (self.min.x < bbox.max.x) and (self.max.x > bbox.min.x) and (self.min.y < bbox.max.y) and (self.max.y > bbox.min.y)
@@ -134,22 +176,26 @@ class BBox:
     @property
     def ll(self):
         """Return lower-left point of bounding box."""
-        return Point(self.min.x, self.max.y)
+        return Point(self.min.x, self.min.y)
 
     @property
     def lr(self):
         """Return lower-right point of bounding box."""
-        return Point(self.max.x, self.max.y)
+        return Point(self.max.x, self.min.y)
 
     @property
     def ul(self):
         """Return upper-left point of bounding box."""
-        return Point(self.min.x, self.min.y)
+        return Point(self.min.x, self.max.y)
 
     @property
     def ur(self):
         """Return upper-right point of bounding box."""
-        return Point(self.max.x, self.min.y)
+        return Point(self.max.x, self.max.y)
+
+    def dot(self, tx):
+        """Apply transformation to a bounding box and return a bounding box."""
+        return BBox(self.min.dot(tx), self.max.dot(tx))
 
     def __repr__(self):
         return "{self.__class__}({self.min}, {self.max})".format(self=self)
@@ -161,6 +207,10 @@ class Segment:
         "Create a line segment between two points."
         self.p1 = copy(p1)
         self.p2 = copy(p2)
+
+    def dot(self, tx):
+        """Apply transformation matrix to a segment and return a segment."""
+        return Segment(self.p1.dot(tx), self.p2.dot(tx))
 
     def intersects(self, other):
         """Return true if the segments intersect."""
