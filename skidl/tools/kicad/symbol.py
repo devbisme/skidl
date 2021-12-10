@@ -36,9 +36,6 @@ def calc_symbol_bbox(part):
     Returns: List of BBoxes for all units in the part symbol. 
     """
 
-    def tx(obj, ops):
-        return obj
-
     def make_pin_dir_tbl(abs_xoff=20):
 
         # abs_xoff is the absolute distance of name/num from the end of the pin.
@@ -103,8 +100,6 @@ def calc_symbol_bbox(part):
             ),
         }
 
-    scale = 1
-    symtx = ""
     default_pin_name_offset = 20
 
     # Go through each graphic object that makes up the component symbol.
@@ -128,12 +123,12 @@ def calc_symbol_bbox(part):
 
         elif isinstance(obj, DrawArc):
             arc = obj
-            center = tx(Point(arc.cx, -arc.cy), symtx) * scale
-            radius = arc.radius * scale
-            start = tx(Point(arc.startx, -arc.starty), symtx) * scale
-            end = tx(Point(arc.endx, -arc.endy), symtx) * scale
-            start_angle = tx(arc.start_angle / 10, symtx)
-            end_angle = tx(arc.end_angle / 10, symtx)
+            center = Point(arc.cx, -arc.cy)
+            radius = arc.radius
+            start = Point(arc.startx, -arc.starty)
+            end = Point(arc.endx, -arc.endy)
+            start_angle = arc.start_angle / 10
+            end_angle = arc.end_angle / 10
             clock_wise = int(end_angle < start_angle)
             large_arc = int(abs(end_angle - start_angle) > 180)
             radius_pt = Point(radius, radius)
@@ -142,8 +137,8 @@ def calc_symbol_bbox(part):
 
         elif isinstance(obj, DrawCircle):
             circle = obj
-            center = tx(Point(circle.cx, -circle.cy), symtx) * scale
-            radius = circle.radius * scale
+            center = Point(circle.cx, -circle.cy)
+            radius = circle.radius
             radius_pt = Point(radius, radius)
             obj_bbox.add(center - radius_pt)
             obj_bbox.add(center + radius_pt)
@@ -151,7 +146,7 @@ def calc_symbol_bbox(part):
         elif isinstance(obj, DrawPoly):
             poly = obj
             pts = [
-                tx(Point(x, -y), symtx) * scale
+                Point(x, -y)
                 for x, y in zip(poly.points[0::2], poly.points[1::2])
             ]
             path = []
@@ -160,8 +155,8 @@ def calc_symbol_bbox(part):
 
         elif isinstance(obj, DrawRect):
             rect = obj
-            start = tx(Point(rect.x1, -rect.y1), symtx) * scale
-            end = tx(Point(rect.x2, -rect.y2), symtx) * scale
+            start = Point(rect.x1, -rect.y1)
+            end = Point(rect.x2, -rect.y2)
             obj_bbox.add(start)
             obj_bbox.add(end)
 
@@ -169,29 +164,21 @@ def calc_symbol_bbox(part):
             pass
 
         elif isinstance(obj, DrawPin):
-
             pin = obj
-            # part_pin = part[
-            #     pin.num
-            # ]  # Get Pin object associated with this pin drawing object.
 
             try:
                 visible = pin.shape[0] != "N"
             except IndexError:
                 visible = True  # No pin shape given, so it is visible by default.
 
-            # Start pin group.
-            orientation = tx(pin.orientation, symtx)
-            extension = Point(0, 0)
-            dir = pin_dir_tbl[orientation].direction
-            start = tx(Point(pin.x, -pin.y), symtx) * scale - extension
-
             if visible:
                 # Draw pin if it's not invisible.
 
                 # Create line for pin lead.
-                l = dir * pin.length * scale
-                end = start + l + extension
+                dir = pin_dir_tbl[pin.orientation].direction
+                start = Point(pin.x, -pin.y)
+                l = dir * pin.length
+                end = start + l
                 obj_bbox.add(start)
                 obj_bbox.add(end)
 
