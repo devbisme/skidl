@@ -16,7 +16,7 @@ Stuff for handling geometry:
 class Tx:
     def __init__(self, a=1, b=0, c=0, d=1, dx=0, dy=0):
         """Create a transformation matrix.
-        tx = [ 
+        tx = [
                a  b  0
                c  d  0
                dx dy 1
@@ -30,15 +30,15 @@ class Tx:
         self.d = d
         self.dx = dx
         self.dy = dy
-    
+
     def dot(self, tx):
         return Tx(
-            a  = self.a * tx.a + self.b * tx.c,
-            b  = self.a * tx.b + self.b * tx.d,
-            c  = self.c * tx.a + self.d * tx.c,
-            d  = self.c * tx.b + self.d * tx.d,
-            dx = self.dx * tx.a + self.dy * tx.c + tx.dx,
-            dy = self.dx * tx.b + self.dy * tx.d + tx.dy
+            a=self.a * tx.a + self.b * tx.c,
+            b=self.a * tx.b + self.b * tx.d,
+            c=self.c * tx.a + self.d * tx.c,
+            d=self.c * tx.b + self.d * tx.d,
+            dx=self.dx * tx.a + self.dy * tx.c + tx.dx,
+            dy=self.dx * tx.b + self.dy * tx.d + tx.dy,
         )
 
     @property
@@ -76,11 +76,11 @@ class Point:
 
     def __truediv__(self, d):
         """Divide the x,y coords by d."""
-        return Point(self.x/d, self.y/d)
+        return Point(self.x / d, self.y / d)
 
     def __div__(self, d):
         """Divide the x,y coords by d."""
-        return Point(self.x/d, self.y/d)
+        return Point(self.x / d, self.y / d)
 
     def __round__(self, n=None):
         return Point(round(self.x, n), round(self.y, n))
@@ -101,13 +101,12 @@ class Point:
     def dot(self, tx):
         """Apply transformation matrix to a point and return a point."""
         return Point(
-            self.x * tx.a + self.y * tx.c + tx.dx,
-            self.x * tx.b + self.y * tx.d + tx.dy
+            self.x * tx.a + self.y * tx.c + tx.dx, self.x * tx.b + self.y * tx.d + tx.dy
         )
-
 
     def __repr__(self):
         return "{self.__class__}({self.x}, {self.y})".format(self=self)
+
 
 Vector = Point
 
@@ -141,7 +140,12 @@ class BBox:
         return BBox(round(self.min), round(self.max))
 
     def intersects(self, bbox):
-        return (self.min.x < bbox.max.x) and (self.max.x > bbox.min.x) and (self.min.y < bbox.max.y) and (self.max.y > bbox.min.y)
+        return (
+            (self.min.x < bbox.max.x)
+            and (self.max.x > bbox.min.x)
+            and (self.min.y < bbox.max.y)
+            and (self.max.y > bbox.min.y)
+        )
 
     def move(self, vector):
         """Move the corner points of a bounding box."""
@@ -202,7 +206,6 @@ class BBox:
 
 
 class Segment:
-
     def __init__(self, p1, p2):
         "Create a line segment between two points."
         self.p1 = copy(p1)
@@ -233,8 +236,8 @@ class Segment:
         try:
             # t1 = (p1x*p3y - p1x*p4y - p1y*p3x + p1y*p4x + p3x*p4y - p3y*p4x) / denom
             # t2 = (-p1x*p2y + p1x*p3y + p1y*p2x - p1y*p3x - p2x*p3y + p2y*p3x) / denom
-            t1 = ((p1y-p3y)*(p4x-p3x) - (p1x-p3x)*(p4y-p3y)) / denom
-            t2 = ((p1y-p3y)*(p2x-p3x) - (p1x-p3x)*(p2y-p3y)) / denom
+            t1 = ((p1y - p3y) * (p4x - p3x) - (p1x - p3x) * (p4y - p3y)) / denom
+            t2 = ((p1y - p3y) * (p2x - p3x) - (p1x - p3x) * (p2y - p3y)) / denom
         except ZeroDivisionError:
             return False
 

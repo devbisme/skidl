@@ -38,6 +38,7 @@ Generate a KiCad EESCHEMA schematic from a Circuit object.
 GRID = 50
 PIN_LABEL_FONT_SIZE = 50
 
+
 class Node:
     """Data structure for holding information about a node in the circuit hierarchy."""
 
@@ -124,7 +125,7 @@ def calc_part_bbox(part):
     if part.bbox.w < 100:
         resize_xy.x = (100 - part.bbox.w) / 2
     if part.bbox.h < 100:
-        resize_xy.y = (100 - part.bbox.h) /2
+        resize_xy.y = (100 - part.bbox.h) / 2
     part.bbox.resize(resize_xy)
 
     # Find expanded bounding box that includes any labels attached to pins.
@@ -281,7 +282,7 @@ def gen_net_wire(net, node):
                 if wire.intersects(side):
                     return part, side_key
 
-        return None, None # No intersections detected.
+        return None, None  # No intersections detected.
 
     nets_output = []
 
@@ -308,19 +309,21 @@ def gen_net_wire(net, node):
 
             line = [pt1, pt2]
             for i in range(len(line) - 1):
-                segment = Segment(line[i], line[i+1])
+                segment = Segment(line[i], line[i + 1])
                 # segment = Segment(Point(line[i][0],line[i][1]), Point(line[i+1][0],line[i+1][1]))
-                collided_part, collided_side = detect_wire_part_collision(segment, node.parts)
+                collided_part, collided_side = detect_wire_part_collision(
+                    segment, node.parts
+                )
 
                 # if we see a collision then draw the net around the rectangle
                 # since we are only going left/right with nets/rectangles the strategy to route
                 # around a rectangle is basically making a 'U' shape around it
-                if False and collided_part: # TODO: Remove False
+                if False and collided_part:  # TODO: Remove False
                     print("collided part/wire")
                     if collided_side == "L":
                         # check if we collided on the left or right side of the central part
                         if pin2.part.origin.x < 0 or pin1.part.origin.x < 0:
-                        # if pin2.part.sch_bb[0] < 0 or pin1.part.sch_bb[0] < 0:
+                            # if pin2.part.sch_bb[0] < 0 or pin1.part.sch_bb[0] < 0:
                             # switch first and last coordinates if one is further left
                             if x1 > x2:
                                 t = line[0]
@@ -329,14 +332,16 @@ def gen_net_wire(net, node):
 
                             # draw line down
                             d_x1 = (
-                                collided_part.sch_bb.ul.x - 100
+                                collided_part.sch_bb.ul.x
+                                - 100
                                 # collided_part.sch_bb[0] - collided_part.sch_bb[2] - 100
                             )
                             d_y1 = y1
                             # d_y1 = t_y1
                             d_x2 = d_x1
                             d_y2 = (
-                                collided_part.sch_bb.ul.y + 200
+                                collided_part.sch_bb.ul.y
+                                + 200
                                 # collided_part.sch_bb[1] + collided_part.sch_bb[3] + 200
                             )
                             # d_x3 = d_x2 + collided_part.sch_bb[2] + 100 + 100
@@ -352,14 +357,16 @@ def gen_net_wire(net, node):
                                 line[-1] = t
                             # draw line down
                             d_x1 = (
-                                collided_part.sch_bb.ur.x + 100
+                                collided_part.sch_bb.ur.x
+                                + 100
                                 # collided_part.sch_bb[0] + collided_part.sch_bb[2] + 100
                             )
                             d_y1 = y1
                             # d_y1 = t_y1
                             d_x2 = d_x1
                             d_y2 = (
-                                collided_part.sch_bb.ul.y + 200
+                                collided_part.sch_bb.ul.y
+                                + 200
                                 # collided_part.sch_bb[1] + collided_part.sch_bb[3] + 200
                             )
                             # d_x3 = d_x2 + collided_part.sch_bb[2] + 100 + 100
@@ -406,9 +413,7 @@ def gen_bbox_eeschema(bbox, tx, name=None):
 
     if name:
         box.append(
-            "Text Notes {} {} 0    100  ~ 20\n{}\n".format(
-                label_pt.x, label_pt.y, name
-            )
+            "Text Notes {} {} 0    100  ~ 20\n{}\n".format(label_pt.x, label_pt.y, name)
         )
 
     box.append("Wire Notes Line\n")
@@ -511,7 +516,7 @@ def gen_wire_eeschema(wire, tx):
 
 
 def gen_power_part_eeschema(part, tx=Tx()):
-    return "" # TODO: Remove this.
+    return ""  # TODO: Remove this.
     out = []
     for pin in part.pins:
         try:
@@ -591,7 +596,7 @@ def gen_power_part_eeschema(part, tx=Tx()):
 
 def calc_pin_dir(pin):
     """Calculate pin direction accounting for part transformation matrix."""
-    
+
     # Copy the part trans. matrix, but remove the translation vector, leaving only scaling/rotation stuff.
     tx = pin.part.tx
     tx = Tx(a=tx.a, b=tx.b, c=tx.c, d=tx.d)
@@ -789,7 +794,7 @@ def preprocess_parts_and_nets(circuit):
         if True or net.netclass != "Power":
             for pin in net.pins:
                 pin.label = net.name
- 
+
     # Pre-process parts
     for part in circuit.parts:
 
@@ -930,7 +935,7 @@ def place_parts(node_tree):
         central_part = node.central_part
 
         # Set up part movement increments.
-        offset = Vector(GRID, central_part.lbl_bbox.ll.y - 10*GRID)
+        offset = Vector(GRID, central_part.lbl_bbox.ll.y - 10 * GRID)
 
         for part in node.parts:
 
@@ -976,9 +981,7 @@ def place_parts(node_tree):
 
             # Move node below parent and then to the side to avoid collisions with other nodes.
             # old_pos = node.bbox.ctr
-            move_node(
-                node, node_tree.values(), Vector(delta_x, delta_y), move_dir=dir
-            )
+            move_node(node, node_tree.values(), Vector(delta_x, delta_y), move_dir=dir)
 
             # Alternate placement directions for the next node placement.
             # TODO: find better algorithm than switching sides, maybe based on connections
@@ -1033,7 +1036,10 @@ def generate_eeschema(circuit, node_tree, title, filepath):
         root_page_sizes[root_parent].add(node.bbox.dot(node.tx))
 
     # Calculate the A page sizes that fit each root hierarchy sheet.
-    root_A_sizes = {root_parent:get_A_size(page_size) for root_parent, page_size in root_page_sizes.items()}
+    root_A_sizes = {
+        root_parent: get_A_size(page_size)
+        for root_parent, page_size in root_page_sizes.items()
+    }
 
     # Calculate transformation matrices for placing each root parent in the center of its A sheet.
     root_page_txs = {}
@@ -1120,7 +1126,7 @@ def generate_eeschema(circuit, node_tree, title, filepath):
 def gen_schematic(circuit, filepath=None, title="Default", gen_elkjs=False):
     """Create a schematic file from a Circuit object."""
 
-    preprocess_parts_and_nets(circuit)   
+    preprocess_parts_and_nets(circuit)
 
     node_tree = create_node_tree(circuit)
 
@@ -1131,10 +1137,10 @@ def gen_schematic(circuit, filepath=None, title="Default", gen_elkjs=False):
     generate_eeschema(circuit, node_tree, title, filepath)
 
 
-
 ##################################################################################
 # INTRONS.
 ##################################################################################
+
 
 def gen_elkjs_code(parts, nets):
     # Generate elkjs code that can create an auto diagram with this website:
