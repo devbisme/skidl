@@ -51,5 +51,5 @@ def test_generate_1():
     generate_netlist()
     generate_xml()
     generate_graph()
-    generate_schematic(file_='test_generate.sch')
+    generate_schematic(filepath='test_generate.sch')
     generate_pcb()

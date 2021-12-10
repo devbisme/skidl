@@ -22,6 +22,7 @@ from future import standard_library
 from skidl.tools.kicad.kicad import DrawText
 
 from .geometry import Point, Vector, BBox, Segment, Tx
+from .symbol import calc_symbol_bbox
 from ...logger import active_logger
 from ...net import NCNet
 from ...part import Part
@@ -116,9 +117,11 @@ def calc_part_bbox(part):
     """Calculate the bounding box for a part."""
 
     # Find bounding box around pins.
-    part.bbox = BBox()
-    for pin in part:
-        part.bbox.add(pin.pt)
+    # part.bbox = BBox()
+    # for pin in part:
+    #     part.bbox.add(pin.pt)
+
+    part.bbox = calc_symbol_bbox(part)[1]
 
     # Expand the bounding box if it's too small in either dimension.
     resize_xy = Vector(0, 0)
