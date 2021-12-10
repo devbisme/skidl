@@ -117,10 +117,6 @@ def calc_part_bbox(part):
     """Calculate the bounding box for a part."""
 
     # Find bounding box around pins.
-    # part.bbox = BBox()
-    # for pin in part:
-    #     part.bbox.add(pin.pt)
-
     part.bbox = calc_symbol_bbox(part)[1]
 
     # Expand the bounding box if it's too small in either dimension.
@@ -820,6 +816,7 @@ def preprocess_parts_and_nets(circuit):
 
 
 def create_node_tree(circuit):
+    """Return tree of hierarchical nodes containing parts."""
 
     # Make dict that holds part, net, and bbox info for each node in the hierarchy.
     node_tree = defaultdict(lambda: Node())
@@ -842,156 +839,163 @@ def create_node_tree(circuit):
 
 
 def place_parts(node_tree):
+    """Place parts within nodes and then place the nodes."""
 
-    # For each node in hierarchy: Move parts connected to central part by unlabeled nets.
-    for node in node_tree.values():
+    def place_parts_in_nodes(node_tree):
+        # For each node in hierarchy: Move parts connected to central part by unlabeled nets.
+        for node in node_tree.values():
 
-        # Find central part in this node that everything else is placed around.
-        def find_central_part(node):
-            central_part = node.parts[0]
-            for part in node.parts[1:]:
-                if len(part) > len(central_part):
-                    central_part = part
-            return central_part
+            # Find central part in this node that everything else is placed around.
+            def find_central_part(node):
+                central_part = node.parts[0]
+                for part in node.parts[1:]:
+                    if len(part) > len(central_part):
+                        central_part = part
+                return central_part
 
-        node.central_part = find_central_part(node)
+            node.central_part = find_central_part(node)
 
-        # Go thru the center part's pins, moving any connected parts closer.
-        for anchor_pin in node.central_part:
-
-            # Skip unconnected pins.
-            if not anchor_pin.is_connected():
-                continue
-
-            # Don't move parts connected to labeled (stub) pins.
-            if len(anchor_pin.label) != 0:
-                continue
-
-            # Don't move parts connected thru power supply nets.
-            if anchor_pin.net.netclass == "Power":
-                continue
-
-            # Now move any parts connected to this pin.
-            for mv_pin in anchor_pin.net.pins:
-
-                # Skip moving the central part.
-                if mv_pin.part == node.central_part:
-                    continue
-
-                # Skip parts that aren't in the same node of the hierarchy as the center part.
-                if mv_pin.part.hierarchy != node.central_part.hierarchy:
-                    continue
-
-                # OK, finally move the part connected to this pin.
-                calc_move_part(mv_pin, anchor_pin, node.parts)
-
-    # For each node in hierarchy: Move parts connected to parts moved in step previous step.
-    for node in node_tree.values():
-
-        for mv_part in node.parts:
-
-            # Skip central part.
-            if mv_part is node.central_part:
-                continue
-
-            # Skip a part that's already been moved.
-            if mv_part.moved:
-                continue
-
-            # Find a pin to pin connection where the part needs to be moved.
-            for mv_pin in mv_part:
+            # Go thru the center part's pins, moving any connected parts closer.
+            for anchor_pin in node.central_part:
 
                 # Skip unconnected pins.
-                if not mv_pin.is_connected():
+                if not anchor_pin.is_connected():
                     continue
 
                 # Don't move parts connected to labeled (stub) pins.
-                if len(mv_pin.label) > 0:
+                if len(anchor_pin.label) != 0:
                     continue
 
                 # Don't move parts connected thru power supply nets.
-                if mv_pin.net.netclass == "Power":
+                if anchor_pin.net.netclass == "Power":
                     continue
 
-                # Move this part toward parts connected to its pin.
-                for anchor_pin in mv_pin.net.pins:
+                # Now move any parts connected to this pin.
+                for mv_pin in anchor_pin.net.pins:
 
-                    # Skip parts that aren't in the same node of the hierarchy as the moving part.
-                    if anchor_pin.part.hierarchy != mv_part.hierarchy:
+                    # Skip moving the central part.
+                    if mv_pin.part == node.central_part:
                         continue
 
-                    # Don't move toward the central part.
-                    if anchor_pin.part == node.central_part:
-                        continue
-
-                    # Skip connections from the part to itself.
-                    if anchor_pin.part == mv_part:
+                    # Skip parts that aren't in the same node of the hierarchy as the center part.
+                    if mv_pin.part.hierarchy != node.central_part.hierarchy:
                         continue
 
                     # OK, finally move the part connected to this pin.
                     calc_move_part(mv_pin, anchor_pin, node.parts)
 
-    # Move any remaining parts in each node down & alternating left/right.
-    for node in node_tree.values():
-
-        # Get center part for this node.
-        central_part = node.central_part
-
-        # Set up part movement increments.
-        offset = Vector(GRID, central_part.lbl_bbox.ll.y - 10 * GRID)
-
-        for part in node.parts:
-
-            # Skip central part.
-            if part is central_part:
-                continue
-
-            # Move any part that hasn't already been moved.
-            if not part.moved:
-                move_part(part, offset, node.parts)
-
-                # Switch movement direction for the next unmoved part.
-                offset.x = -offset.x
-
-    # Create bounding boxes for each node of the hierarchy.
-    for node in node_tree.values():
-        calc_node_bbox(node)
-
-    # Find maximum depth of node hierarchy.
-    max_node_depth = max([h.count(".") for h in node_tree])
-
-    # Move each node of the hierarchy underneath its parent node and left/right, depth-wise.
-    for depth in range(2, max_node_depth + 1):
-
-        dir, next_dir = "L", "R"  # Direction of node movement.
-
-        # Search for nodes at the current depth.
+        # For each node in hierarchy: Move parts connected to parts moved in step previous step.
         for node in node_tree.values():
 
-            # Skip nodes not at the current depth.
-            if node.node_key.count(".") != depth:
-                continue
+            for mv_part in node.parts:
 
-            node_bbox = node.bbox.dot(node.tx)
-            parent_bbox = node.parent.bbox.dot(node.parent.tx)
+                # Skip central part.
+                if mv_part is node.central_part:
+                    continue
 
-            # Move node so its upper Y is just below parents lower Y.
-            # TODO: magic number.
-            delta_y = parent_bbox.min.y - node_bbox.max.y - 200
+                # Skip a part that's already been moved.
+                if mv_part.moved:
+                    continue
 
-            # Move node so its X coord lines up with parent X coord.
-            delta_x = parent_bbox.ctr.x - node_bbox.ctr.x
+                # Find a pin to pin connection where the part needs to be moved.
+                for mv_pin in mv_part:
 
-            # Move node below parent and then to the side to avoid collisions with other nodes.
-            # old_pos = node.bbox.ctr
-            move_node(node, node_tree.values(), Vector(delta_x, delta_y), move_dir=dir)
+                    # Skip unconnected pins.
+                    if not mv_pin.is_connected():
+                        continue
 
-            # Alternate placement directions for the next node placement.
-            # TODO: find better algorithm than switching sides, maybe based on connections
-            dir, next_dir = next_dir, dir
+                    # Don't move parts connected to labeled (stub) pins.
+                    if len(mv_pin.label) > 0:
+                        continue
+
+                    # Don't move parts connected thru power supply nets.
+                    if mv_pin.net.netclass == "Power":
+                        continue
+
+                    # Move this part toward parts connected to its pin.
+                    for anchor_pin in mv_pin.net.pins:
+
+                        # Skip parts that aren't in the same node of the hierarchy as the moving part.
+                        if anchor_pin.part.hierarchy != mv_part.hierarchy:
+                            continue
+
+                        # Don't move toward the central part.
+                        if anchor_pin.part == node.central_part:
+                            continue
+
+                        # Skip connections from the part to itself.
+                        if anchor_pin.part == mv_part:
+                            continue
+
+                        # OK, finally move the part connected to this pin.
+                        calc_move_part(mv_pin, anchor_pin, node.parts)
+
+        # Move any remaining parts in each node down & alternating left/right.
+        for node in node_tree.values():
+
+            # Get center part for this node.
+            central_part = node.central_part
+
+            # Set up part movement increments.
+            offset = Vector(GRID, central_part.lbl_bbox.ll.y - 10 * GRID)
+
+            for part in node.parts:
+
+                # Skip central part.
+                if part is central_part:
+                    continue
+
+                # Move any part that hasn't already been moved.
+                if not part.moved:
+                    move_part(part, offset, node.parts)
+
+                    # Switch movement direction for the next unmoved part.
+                    offset.x = -offset.x
+
+    def place_nodes(node_tree):
+        # Create bounding boxes for each node of the hierarchy.
+        for node in node_tree.values():
+            calc_node_bbox(node)
+
+        # Find maximum depth of node hierarchy.
+        max_node_depth = max([h.count(".") for h in node_tree])
+
+        # Move each node of the hierarchy underneath its parent node and left/right, depth-wise.
+        for depth in range(2, max_node_depth + 1):
+
+            dir, next_dir = "L", "R"  # Direction of node movement.
+
+            # Search for nodes at the current depth.
+            for node in node_tree.values():
+
+                # Skip nodes not at the current depth.
+                if node.node_key.count(".") != depth:
+                    continue
+
+                node_bbox = node.bbox.dot(node.tx)
+                parent_bbox = node.parent.bbox.dot(node.parent.tx)
+
+                # Move node so its upper Y is just below parents lower Y.
+                # TODO: magic number.
+                delta_y = parent_bbox.min.y - node_bbox.max.y - 200
+
+                # Move node so its X coord lines up with parent X coord.
+                delta_x = parent_bbox.ctr.x - node_bbox.ctr.x
+
+                # Move node below parent and then to the side to avoid collisions with other nodes.
+                # old_pos = node.bbox.ctr
+                move_node(node, node_tree.values(), Vector(delta_x, delta_y), move_dir=dir)
+
+                # Alternate placement directions for the next node placement.
+                # TODO: find better algorithm than switching sides, maybe based on connections
+                dir, next_dir = next_dir, dir
+
+    place_parts_in_nodes(node_tree)
+    place_nodes(node_tree)
 
 
 def route_nets(node_tree):
+    """Route wires between parts."""
 
     # Collect the internal nets for each node.
     for node in node_tree.values():
