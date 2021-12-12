@@ -40,25 +40,6 @@ GRID = 50
 PIN_LABEL_FONT_SIZE = 50
 
 
-class Node:
-    """Data structure for holding information about a node in the circuit hierarchy."""
-
-    def __init__(self):
-        self.parts = []
-        self.wires = []
-        self.parent = None
-        self.children = []
-        self.tx = Tx()
-
-
-def rotate_part_cw_90(part):
-    """Rotate a part 90 degrees clockwise."""
-
-    # Concatenate 90 clockwise rotation to part tx.
-    tx_cw_90 = Tx(a=0, b=-1, c=1, d=0)
-    part.tx = part.tx.dot(tx_cw_90)
-
-
 def rotate_power_pins(part, pin_cnt_threshold=10000):
     """Rotate a part based on the direction of its power pins.
 
@@ -109,8 +90,10 @@ def rotate_power_pins(part, pin_cnt_threshold=10000):
     except IndexError:
         pass
     else:
+        # Rotate part 90-degrees clockwise until the desired rotation is reached.
+        tx_cw_90 = Tx(a=0, b=-1, c=1, d=0)  # 90-degree trans. matrix.
         for _ in range(round(rotation / 90)):
-            rotate_part_cw_90(part)
+            part.tx = part.tx.dot(tx_cw_90)
 
 
 def calc_part_bbox(part):
@@ -145,184 +128,335 @@ def calc_part_bbox(part):
         part.lbl_bbox.add(pin.pt + lbl_vector)
 
 
-def calc_node_bbox(node):
-    """Compute the bounding box for the node in the circuit hierarchy."""
+def preprocess_parts_and_nets(circuit):
+    """Add stuff to parts & nets for doing placement and routing of schematics."""
 
-    node.bbox = BBox()
-    for part in node.parts:
-        part_tx_bbox = part.lbl_bbox.dot(part.tx)
-        node.bbox.add(part_tx_bbox)
+    # Pre-process nets.
+    net_stubs = circuit.get_net_nc_stubs()
+    net_stubs = [net for net in net_stubs if not isinstance(net, NCNet)]
+    for net in net_stubs:
+        if True or net.netclass != "Power":
+            for pin in net.pins:
+                pin.label = net.name
 
-    node.bbox.resize(Vector(100, 50))
+    # Pre-process parts
+    for part in circuit.parts:
+
+        # Initialize part attributes used for generating schematics.
+        part.moved = False
+        part.tx = Tx()
+
+        # Initialize pin attributes used for generating schematics.
+        for pin in part:
+            pin.pt = Point(pin.x, pin.y)
+            pin.routed = False
+            # Assign empty label if not already labeled.
+            pin.label = getattr(pin, "label", "")
+
+        # Rotate parts.  Power pins should face up. GND pins should face down.
+        rotate_power_pins(part)
+
+        # Compute bounding boxes around parts
+        calc_part_bbox(part)
 
 
-def calc_move_part(moving_pin, anchor_pin, other_parts):
-    """Move pin to anchor pin and then move it until parts no longer collide."""
+class Node:
+    """Data structure for holding information about a node in the circuit hierarchy."""
 
-    moving_part = moving_pin.part
-    anchor_part = anchor_pin.part
-    vector = anchor_pin.pt.dot(anchor_part.tx) - moving_pin.pt.dot(moving_part.tx)
-    move_part(moving_part, vector, other_parts)
+    def __init__(self):
+        self.parts = []
+        self.wires = []
+        self.parent = None
+        self.children = []
+        self.tx = Tx()
+
+    def calc_bbox(self):
+        """Compute the bounding box for the node in the circuit hierarchy."""
+
+        self.bbox = BBox()
+        for part in self.parts:
+            part_tx_bbox = part.lbl_bbox.dot(part.tx)
+            self.bbox.add(part_tx_bbox)
+
+        self.bbox.resize(Vector(100, 50))
+
+    def calc_move_part(self, moving_pin, anchor_pin):
+        """Move pin to anchor pin and then move it until parts in the node no longer collide."""
+
+        moving_part = moving_pin.part
+        anchor_part = anchor_pin.part
+        vector = anchor_pin.pt.dot(anchor_part.tx) - moving_pin.pt.dot(moving_part.tx)
+        self.move_part(moving_part, vector)
 
 
-def move_part(part, vector, other_parts):
-    """Move part until it doesn't collide with other parts."""
+    def move_part(self, part, vector):
+        """Move part until it doesn't collide with other parts in the node."""
 
-    # Make sure part moves stay on the grid.
-    vector = vector.snap(GRID)
+        # Make sure part moves stay on the grid.
+        vector = vector.snap(GRID)
 
-    # Setup the movement vector to use if the initial movement leads to collisions.
-    avoid_vector = Vector(200, 0) if vector.x > 0 else Vector(-200, 0)
-    avoid_vector = avoid_vector.snap(GRID)
+        # Setup the movement vector to use if the initial movement leads to collisions.
+        avoid_vector = Vector(200, 0) if vector.x > 0 else Vector(-200, 0)
+        avoid_vector = avoid_vector.snap(GRID)
 
-    # Keep moving part until no collisions occur.
-    while True:
-        collision = False
+        # Keep moving part until no collisions occur.
+        while True:
+            collision = False
 
-        # Update the part's transformation matrix to apply movement.
-        part.tx = part.tx.dot(Tx(dx=vector.x, dy=vector.y))
+            # Update the part's transformation matrix to apply movement.
+            part.tx = part.tx.dot(Tx(dx=vector.x, dy=vector.y))
 
-        # Compute the transformed bounding box for the part including the move.
-        lbl_bbox = part.lbl_bbox.dot(part.tx)
+            # Compute the transformed bounding box for the part including the move.
+            lbl_bbox = part.lbl_bbox.dot(part.tx)
 
-        # Look for intersections with the other parts.
-        for other_part in other_parts:
+            # Look for intersections with the other parts in the node.
+            for other_part in self.parts:
 
-            # Don't detect collisions with itself.
-            if other_part is part:
-                continue
+                # Don't detect collisions with itself.
+                if other_part is part:
+                    continue
 
-            # Compute the transformed bounding box for the other part.
-            other_lbl_bbox = other_part.lbl_bbox.dot(other_part.tx)
+                # Compute the transformed bounding box for the other part.
+                other_lbl_bbox = other_part.lbl_bbox.dot(other_part.tx)
 
-            if lbl_bbox.intersects(other_lbl_bbox):
-                # Collision found. No need to check any further.
-                collision = True
+                if lbl_bbox.intersects(other_lbl_bbox):
+                    # Collision found. No need to check any further.
+                    collision = True
+                    break
+
+            if not collision:
+                # Break out of loop once the part doesn't collide with anything.
+                # The final part.tx matrix records the movements that were made.
                 break
+            else:
+                # After the initial move, use the avoid_vector for all further moves.
+                vector = avoid_vector
 
-        if not collision:
-            # Break out of loop once the part doesn't collide with anything.
-            # The final part.tx matrix records the movements that were made.
-            break
-        else:
-            # After the initial move, use the avoid_vector for all further moves.
-            vector = avoid_vector
+        part.moved = True
 
-    part.moved = True
+    def place(self):
+        """Place parts within a hierarchical node."""
 
+        # Move parts connected to central part by unlabeled nets.
 
-def move_node(node, nodes, vector, move_dir):
-    """Move node until it doesn't collide with other nodes."""
+        # Find central part in this node that everything else is placed around.
+        def find_central_part(node):
+            central_part = node.parts[0]
+            for part in node.parts[1:]:
+                if len(part) > len(central_part):
+                    central_part = part
+            return central_part
 
-    # Make sure node moves stay on the grid so the internal parts do.
-    vector = vector.snap(GRID)
+        self.central_part = find_central_part(self)
 
-    # Setup the movement vector to use if the initial movement leads to collisions.
-    avoid_vector = Vector(200, 0) if move_dir == "R" else Vector(-200, 0)
-    avoid_vector = avoid_vector.snap(GRID)
+        # Go thru the center part's pins, moving any connected parts closer.
+        for anchor_pin in self.central_part:
 
-    root_parent = ".".join(node.node_key.split(".")[0:2])
-
-    # Keep moving node until no collisions occur.
-    while True:
-        collision = False
-
-        # Update the node's transformation matrix to apply movement.
-        node.tx = node.tx.dot(Tx(dx=vector.x, dy=vector.y))
-
-        # Compute the transformed bounding box for the node including the move.
-        node_bbox = node.bbox.dot(node.tx)
-
-        # Look for intersections with the other nodes.
-        for other_node in nodes:
-
-            # Don't detect collisions with itself.
-            if node is other_node:
+            # Skip unconnected pins.
+            if not anchor_pin.is_connected():
                 continue
 
-            # Only detect collisions with nodes on the same page.
-            other_root_parent = ".".join(other_node.node_key.split(".")[0:2])
-            if root_parent != other_root_parent:
+            # Don't move parts connected to labeled (stub) pins.
+            if len(anchor_pin.label) != 0:
                 continue
 
-            # Compute the transformed bounding box for the other node.
-            other_bbox = other_node.bbox.dot(other_node.tx)
+            # Don't move parts connected thru power supply nets.
+            if anchor_pin.net.netclass == "Power":
+                continue
 
-            if node_bbox.intersects(other_bbox):
-                # Collision found. No need to check any further.
-                collision = True
-                break
+            # Now move any parts connected to this pin.
+            for mv_pin in anchor_pin.net.pins:
 
-        if not collision:
-            # Break out of loop once the node doesn't collide with anything.
-            # The final node.tx matrix records the movements that were made.
-            break
-        else:
-            # After the initial move, use the avoid_vector for all further moves.
-            vector = avoid_vector
+                # Don't move the central part.
+                if mv_pin.part == self.central_part:
+                    continue
+
+                # Skip parts that aren't in the same node of the hierarchy as the center part.
+                if mv_pin.part.hierarchy != self.central_part.hierarchy:
+                    continue
+
+                # OK, finally move the part connected to this pin.
+                self.calc_move_part(mv_pin, anchor_pin)
+
+        # Move parts connected to parts moved in step previous step.
+        for mv_part in self.parts:
+
+            # Skip central part.
+            if mv_part is self.central_part:
+                continue
+
+            # Skip a part that's already been moved.
+            if mv_part.moved:
+                continue
+
+            # Find a pin to pin connection where the part needs to be moved.
+            for mv_pin in mv_part:
+
+                # Skip unconnected pins.
+                if not mv_pin.is_connected():
+                    continue
+
+                # Don't move parts connected to labeled (stub) pins.
+                if len(mv_pin.label) > 0:
+                    continue
+
+                # Don't move parts connected thru power supply nets.
+                if mv_pin.net.netclass == "Power":
+                    continue
+
+                # Move this part toward parts connected to its pin.
+                for anchor_pin in mv_pin.net.pins:
+
+                    # Skip parts that aren't in the same node of the hierarchy as the moving part.
+                    if anchor_pin.part.hierarchy != mv_part.hierarchy:
+                        continue
+
+                    # Don't move toward the central part.
+                    if anchor_pin.part == self.central_part:
+                        continue
+
+                    # Skip connections from the part to itself.
+                    if anchor_pin.part == mv_part:
+                        continue
+
+                    # OK, finally move the part connected to this pin.
+                    self.calc_move_part(mv_pin, anchor_pin)
+
+        # Move any remaining parts in the node down & alternating left/right.
+
+        # Set up part movement increments.
+        offset = Vector(GRID, self.central_part.lbl_bbox.ll.y - 10 * GRID)
+
+        for part in self.parts:
+
+            # Skip central part.
+            if part is self.central_part:
+                continue
+
+            # Move any part that hasn't already been moved.
+            if not part.moved:
+                self.move_part(part, offset)
+
+                # Switch movement direction for the next unmoved part.
+                offset.x = -offset.x
+
+        # Calculate the node bounding box once all the parts are placed.
+        self.calc_bbox()
 
 
-def gen_net_wire(net, node):
-    """Generate wire segments for a net."""
+    def wire_it(self, net):
+        """Generate wire segments for a net."""
 
-    def detect_wire_part_collision(wire, parts):
-        """Detect collisions between a wire segment and a collection of parts."""
+        def detect_wire_part_collision(wire, parts):
+            """Detect collisions between a wire segment and a collection of parts."""
 
-        for part in parts:
-            # bbox = part.bbox.dot(part.tx).dot(part.node.tx)
-            bbox = part.bbox.dot(part.tx)
-            sides = OrderedDict()
-            sides["L"] = Segment(bbox.ul, bbox.ll)
-            sides["R"] = Segment(bbox.ur, bbox.lr)
-            sides["U"] = Segment(bbox.ul, bbox.ur)
-            sides["D"] = Segment(bbox.ll, bbox.lr)
+            for part in parts:
+                # bbox = part.bbox.dot(part.tx).dot(part.node.tx)
+                bbox = part.bbox.dot(part.tx)
+                sides = OrderedDict()
+                sides["L"] = Segment(bbox.ul, bbox.ll)
+                sides["R"] = Segment(bbox.ur, bbox.lr)
+                sides["U"] = Segment(bbox.ul, bbox.ur)
+                sides["D"] = Segment(bbox.ll, bbox.lr)
 
-            for side_key, side in sides.items():
-                if wire.intersects(side):
-                    return part, side_key
+                for side_key, side in sides.items():
+                    if wire.intersects(side):
+                        return part, side_key
 
-        return None, None  # No intersections detected.
+            return None, None  # No intersections detected.
 
-    nets_output = []
+        nets_output = []
 
-    # pins = [pin for pin in net.pins if not pin.stub and pin.part.node==node]
-    pins = net.pins
-    try:
-        pin_pairs = zip(pins[:-1], pins[1:])
-    except IndexError:
-        return nets_output
+        # pins = [pin for pin in net.pins if not pin.stub and pin.part.node==node]
+        pins = net.pins
+        try:
+            pin_pairs = zip(pins[:-1], pins[1:])
+        except IndexError:
+            return nets_output
 
-    for pin1, pin2 in pin_pairs:
-        if pin1.routed and pin2.routed:
-            continue
-        else:
-            pin1.routed = True
-            pin2.routed = True
+        for pin1, pin2 in pin_pairs:
+            if pin1.routed and pin2.routed:
+                continue
+            else:
+                pin1.routed = True
+                pin2.routed = True
 
-            # Calculate the coordinates of a straight line between the 2 pins that need to connect.
-            # Apply the part transformation matrix to find the absolute wire endpoint coordinates.
-            # Since all wiring is assumed to be internal to this node, don't apply the node
-            # transformation matrix.
-            pt1 = pin1.pt.dot(pin1.part.tx)
-            pt2 = pin2.pt.dot(pin2.part.tx)
+                # Calculate the coordinates of a straight line between the 2 pins that need to connect.
+                # Apply the part transformation matrix to find the absolute wire endpoint coordinates.
+                # Since all wiring is assumed to be internal to this node, don't apply the node
+                # transformation matrix.
+                pt1 = pin1.pt.dot(pin1.part.tx)
+                pt2 = pin2.pt.dot(pin2.part.tx)
 
-            line = [pt1, pt2]
-            for i in range(len(line) - 1):
-                segment = Segment(line[i], line[i + 1])
-                # segment = Segment(Point(line[i][0],line[i][1]), Point(line[i+1][0],line[i+1][1]))
-                collided_part, collided_side = detect_wire_part_collision(
-                    segment, node.parts
-                )
+                line = [pt1, pt2]
+                for i in range(len(line) - 1):
+                    segment = Segment(line[i], line[i + 1])
+                    # segment = Segment(Point(line[i][0],line[i][1]), Point(line[i+1][0],line[i+1][1]))
+                    collided_part, collided_side = detect_wire_part_collision(
+                        segment, self.parts
+                    )
 
-                # if we see a collision then draw the net around the rectangle
-                # since we are only going left/right with nets/rectangles the strategy to route
-                # around a rectangle is basically making a 'U' shape around it
-                if False and collided_part:  # TODO: Remove False
-                    print("collided part/wire")
-                    if collided_side == "L":
-                        # check if we collided on the left or right side of the central part
-                        if pin2.part.origin.x < 0 or pin1.part.origin.x < 0:
-                            # if pin2.part.sch_bb[0] < 0 or pin1.part.sch_bb[0] < 0:
+                    # if we see a collision then draw the net around the rectangle
+                    # since we are only going left/right with nets/rectangles the strategy to route
+                    # around a rectangle is basically making a 'U' shape around it
+                    if False and collided_part:  # TODO: Remove False
+                        print("collided part/wire")
+                        if collided_side == "L":
+                            # check if we collided on the left or right side of the central part
+                            if pin2.part.origin.x < 0 or pin1.part.origin.x < 0:
+                                # if pin2.part.sch_bb[0] < 0 or pin1.part.sch_bb[0] < 0:
+                                # switch first and last coordinates if one is further left
+                                if x1 > x2:
+                                    t = line[0]
+                                    line[0] = line[-1]
+                                    line[-1] = t
+
+                                # draw line down
+                                d_x1 = (
+                                    collided_part.sch_bb.ul.x
+                                    - 100
+                                    # collided_part.sch_bb[0] - collided_part.sch_bb[2] - 100
+                                )
+                                d_y1 = y1
+                                # d_y1 = t_y1
+                                d_x2 = d_x1
+                                d_y2 = (
+                                    collided_part.sch_bb.ul.y
+                                    + 200
+                                    # collided_part.sch_bb[1] + collided_part.sch_bb[3] + 200
+                                )
+                                # d_x3 = d_x2 + collided_part.sch_bb[2] + 100 + 100
+                                d_y3 = d_y2
+                                line.insert(i + 1, [d_x1, d_y1])
+                                line.insert(i + 2, [d_x2, d_y2])
+                                line.insert(i + 3, [x1, d_y3])
+                            else:
+                                # switch first and last coordinates if one is further left
+                                if x1 < x2:
+                                    t = line[0]
+                                    line[0] = line[-1]
+                                    line[-1] = t
+                                # draw line down
+                                d_x1 = (
+                                    collided_part.sch_bb.ur.x
+                                    + 100
+                                    # collided_part.sch_bb[0] + collided_part.sch_bb[2] + 100
+                                )
+                                d_y1 = y1
+                                # d_y1 = t_y1
+                                d_x2 = d_x1
+                                d_y2 = (
+                                    collided_part.sch_bb.ul.y
+                                    + 200
+                                    # collided_part.sch_bb[1] + collided_part.sch_bb[3] + 200
+                                )
+                                # d_x3 = d_x2 + collided_part.sch_bb[2] + 100 + 100
+                                d_y3 = d_y2
+                                line.insert(i + 1, [d_x1, d_y1])
+                                line.insert(i + 2, [d_x2, d_y2])
+                                line.insert(i + 3, [x2, d_y3])
+                            break
+                        if collided_side == "R":
                             # switch first and last coordinates if one is further left
                             if x1 > x2:
                                 t = line[0]
@@ -330,79 +464,196 @@ def gen_net_wire(net, node):
                                 line[-1] = t
 
                             # draw line down
-                            d_x1 = (
-                                collided_part.sch_bb.ul.x
-                                - 100
-                                # collided_part.sch_bb[0] - collided_part.sch_bb[2] - 100
-                            )
+                            d_x1 = collided_part.sch_bb.ll.x - 100
+                            # d_x1 = collided_part.sch_bb[0] - collided_part.sch_bb[2] - 100
                             d_y1 = y1
                             # d_y1 = t_y1
                             d_x2 = d_x1
-                            d_y2 = (
-                                collided_part.sch_bb.ul.y
-                                + 200
-                                # collided_part.sch_bb[1] + collided_part.sch_bb[3] + 200
-                            )
-                            # d_x3 = d_x2 + collided_part.sch_bb[2] + 100 + 100
+                            d_y2 = collided_part.sch_bb.ul.y + 100
+                            # d_y2 = collided_part.sch_bb[1] + collided_part.sch_bb[3] + 100
+                            d_x3 = d_x2 - collided_part.sch_bb.w / 2 + 100 + 100
+                            # d_x3 = d_x2 - collided_part.sch_bb[2] + 100 + 100
                             d_y3 = d_y2
                             line.insert(i + 1, [d_x1, d_y1])
                             line.insert(i + 2, [d_x2, d_y2])
                             line.insert(i + 3, [x1, d_y3])
-                        else:
-                            # switch first and last coordinates if one is further left
-                            if x1 < x2:
-                                t = line[0]
-                                line[0] = line[-1]
-                                line[-1] = t
-                            # draw line down
-                            d_x1 = (
-                                collided_part.sch_bb.ur.x
-                                + 100
-                                # collided_part.sch_bb[0] + collided_part.sch_bb[2] + 100
-                            )
-                            d_y1 = y1
-                            # d_y1 = t_y1
-                            d_x2 = d_x1
-                            d_y2 = (
-                                collided_part.sch_bb.ul.y
-                                + 200
-                                # collided_part.sch_bb[1] + collided_part.sch_bb[3] + 200
-                            )
-                            # d_x3 = d_x2 + collided_part.sch_bb[2] + 100 + 100
-                            d_y3 = d_y2
-                            line.insert(i + 1, [d_x1, d_y1])
-                            line.insert(i + 2, [d_x2, d_y2])
-                            line.insert(i + 3, [x2, d_y3])
-                        break
-                    if collided_side == "R":
-                        # switch first and last coordinates if one is further left
-                        if x1 > x2:
-                            t = line[0]
-                            line[0] = line[-1]
-                            line[-1] = t
+                            break
 
-                        # draw line down
-                        d_x1 = collided_part.sch_bb.ll.x - 100
-                        # d_x1 = collided_part.sch_bb[0] - collided_part.sch_bb[2] - 100
-                        d_y1 = y1
-                        # d_y1 = t_y1
-                        d_x2 = d_x1
-                        d_y2 = collided_part.sch_bb.ul.y + 100
-                        # d_y2 = collided_part.sch_bb[1] + collided_part.sch_bb[3] + 100
-                        d_x3 = d_x2 - collided_part.sch_bb.w / 2 + 100 + 100
-                        # d_x3 = d_x2 - collided_part.sch_bb[2] + 100 + 100
-                        d_y3 = d_y2
-                        line.insert(i + 1, [d_x1, d_y1])
-                        line.insert(i + 2, [d_x2, d_y2])
-                        line.insert(i + 3, [x1, d_y3])
+                nets_output.append(line)
+        return nets_output
+
+    def route(self):
+        """Route nets within a node."""
+
+        for part in self.parts:
+            for part_pin in part:
+
+                # A label means net is stubbed so there won't be any explicit wires.
+                if len(part_pin.label) > 0:
+                    continue
+
+                # No explicit wires if the pin is not connected to anything.
+                if not part_pin.is_connected():
+                    continue
+
+                net = part_pin.net
+
+                # No explicit wires for power nets.
+                if net.netclass == "Power":
+                    continue
+
+                # Determine if all the pins on this net reside in the node.
+                internal_net = True
+                for net_pin in net.pins:
+
+                    # Don't consider stubs.
+                    if len(net_pin.label) > 0:
+                        continue
+
+                    # If a pin is outside this node, then ignore the entire net.
+                    if net_pin.part.hierarchy != part_pin.part.hierarchy:
+                        internal_net = False
                         break
 
-            nets_output.append(line)
-    return nets_output
+                # Add wires for this net if the pins are all inside the node.
+                if internal_net:
+                    self.wires.extend(self.wire_it(net))
+
+class NodeTree(defaultdict):
+    """Make dict that holds part, net, and bbox info for each node in the hierarchy."""
+
+    def __init__(self, circuit):
+
+        super().__init__(lambda: Node())
+
+        # Save a reference to the original circuit.
+        self.circuit = circuit
+
+        # Create a node for each hierarchical section of the circuit.
+        for part in circuit.parts:
+            # The node links to the part, and the part links to its node.
+            self[part.hierarchy].parts.append(part)
+            part.node = self[part.hierarchy]
+
+        # Fill-in the parent/child relationship for all the nodes in the hierarchy.
+        for node_key, node in self.items():
+            node.node_key = node_key
+            parent_key = ".".join(node_key.split(".")[0:-1])
+            if parent_key not in self:
+                parent = Node()
+            else:
+                parent = self[parent_key]
+                parent.children.append(node)
+            node.parent = parent
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args):
+        pass
+
+    def move_node(self, node, vector, move_dir):
+        """Move node until it doesn't collide with other nodes."""
+
+        # Make sure node moves stay on the grid so the internal parts do.
+        vector = vector.snap(GRID)
+
+        # Setup the movement vector to use if the initial movement leads to collisions.
+        avoid_vector = Vector(200, 0) if move_dir == "R" else Vector(-200, 0)
+        avoid_vector = avoid_vector.snap(GRID)
+
+        root_parent = ".".join(node.node_key.split(".")[0:2])
+
+        # Keep moving node until no collisions occur.
+        while True:
+            collision = False
+
+            # Update the node's transformation matrix to apply movement.
+            node.tx = node.tx.dot(Tx(dx=vector.x, dy=vector.y))
+
+            # Compute the transformed bounding box for the node including the move.
+            node_bbox = node.bbox.dot(node.tx)
+
+            # Look for intersections with the other nodes.
+            nodes = self.values()
+            for other_node in nodes:
+
+                # Don't detect collisions with itself.
+                if node is other_node:
+                    continue
+
+                # Only detect collisions with nodes on the same page.
+                other_root_parent = ".".join(other_node.node_key.split(".")[0:2])
+                if root_parent != other_root_parent:
+                    continue
+
+                # Compute the transformed bounding box for the other node.
+                other_bbox = other_node.bbox.dot(other_node.tx)
+
+                if node_bbox.intersects(other_bbox):
+                    # Collision found. No need to check any further.
+                    collision = True
+                    break
+
+            if not collision:
+                # Break out of loop once the node doesn't collide with anything.
+                # The final node.tx matrix records the movements that were made.
+                break
+            else:
+                # After the initial move, use the avoid_vector for all further moves.
+                vector = avoid_vector
+
+    def place(self):
+        """Place parts within nodes and then place the nodes."""
+
+        # Place parts within each individual node.
+        for node in self.values():
+            node.place()
+
+        # Find maximum depth of node hierarchy.
+        max_node_depth = max([h.count(".") for h in self])
+
+        # Move each node of the hierarchy underneath its parent node and left/right, depth-wise.
+        for depth in range(2, max_node_depth + 1):
+
+            dir, next_dir = "L", "R"  # Direction of node movement.
+
+            # Search for nodes at the current depth.
+            for node in self.values():
+
+                # Skip nodes not at the current depth.
+                if node.node_key.count(".") != depth:
+                    continue
+
+                node_bbox = node.bbox.dot(node.tx)
+                parent_bbox = node.parent.bbox.dot(node.parent.tx)
+
+                # Move node so its upper Y is just below parents lower Y.
+                # TODO: magic number.
+                delta_y = parent_bbox.min.y - node_bbox.max.y - 200
+
+                # Move node so its X coord lines up with parent X coord.
+                delta_x = parent_bbox.ctr.x - node_bbox.ctr.x
+
+                # Move node below parent and then to the side to avoid collisions with other nodes.
+                self.move_node(node, Vector(delta_x, delta_y), move_dir=dir)
+
+                # Alternate placement directions for the next node placement.
+                # TODO: find better algorithm than switching sides, maybe based on connections
+                dir, next_dir = next_dir, dir
+
+    def route(self):
+        """Route nets within each node of the tree."""
+        for node in self.values():
+            node.route()
+
+    def to_eeschema(self, title, filepath):
+        """Create EESCHEMA schematic files."""
+        generate_eeschema(self.circuit, self, title, filepath)        
 
 
-def gen_bbox_eeschema(bbox, tx, name=None):
-    """Generate a bounding box using graphic lines."""
+def bbox_to_eeschema(bbox, tx, name=None):
+    """Create a bounding box using EESCHEMA graphic lines."""
 
     label_pt = round(bbox.ul.dot(tx))
 
@@ -427,8 +678,8 @@ def gen_bbox_eeschema(bbox, tx, name=None):
     return "\n" + "".join(box)
 
 
-def gen_part_eeschema(part, tx):
-    """Generate EESCHEMA code for a part.
+def part_to_eeschema(part, tx):
+    """Create EESCHEMA code for a part.
 
     Args:
         part (Part): SKiDL part.
@@ -495,8 +746,8 @@ def gen_part_eeschema(part, tx):
     return "\n" + "".join(out)
 
 
-def gen_wire_eeschema(wire, tx):
-    """Generate EESCHEMA code for a multi-segment wire.
+def wire_to_eeschema(wire, tx):
+    """Create EESCHEMA code for a multi-segment wire.
 
     Args:
         wire (list): List of (x,y) points for a wire.
@@ -514,7 +765,7 @@ def gen_wire_eeschema(wire, tx):
     return "\n" + "".join(wire_code)
 
 
-def gen_power_part_eeschema(part, tx=Tx()):
+def power_part_to_eeschema(part, tx=Tx()):
     return ""  # TODO: Remove this.
     out = []
     for pin in part.pins:
@@ -623,8 +874,8 @@ def calc_pin_dir(pin):
     }[pin_vector]
 
 
-def gen_pin_label_eeschema(pin, tx):
-    """Generate net label attached to a pin."""
+def pin_label_to_eeschema(pin, tx):
+    """Create EESCHEMA text of net label attached to a pin."""
 
     if len(pin.label) == 0 or not pin.is_connected():
         return ""
@@ -654,8 +905,8 @@ def gen_pin_label_eeschema(pin, tx):
     )
 
 
-def gen_node_bbox_eeschema(node, tx):
-    """Generate a graphic bounding box for a node in the circuit hierarchy."""
+def node_bbox_to_eeschema(node, tx):
+    """Create a graphic bounding box for a node in the circuit hierarchy."""
 
     hier_levels = node.node_key.split(".")
     if len(hier_levels) > 1:
@@ -663,7 +914,7 @@ def gen_node_bbox_eeschema(node, tx):
     else:
         level_name = node.node_key
 
-    return gen_bbox_eeschema(node.bbox, tx, level_name)
+    return bbox_to_eeschema(node.bbox, tx, level_name)
 
 
 def gen_header_eeschema(
@@ -704,8 +955,8 @@ def gen_footer_eeschema():
     return "$EndSCHEMATC"
 
 
-def gen_node_block_eeschema(node_name, tx):
-    """Generate a hierarchical block for a node in the circuit hierarchy."""
+def node_block_to_eeschema(node_name, tx):
+    """Create an EESCHEMA hierarchical block for a node in the circuit hierarchy."""
 
     time_hex = hex(int(time.time()))[2:]
     position = tx.origin
@@ -784,256 +1035,6 @@ def collect_eeschema_code(
     )
 
 
-def preprocess_parts_and_nets(circuit):
-
-    # Pre-process nets.
-    net_stubs = circuit.get_net_nc_stubs()
-    net_stubs = [net for net in net_stubs if not isinstance(net, NCNet)]
-    for net in net_stubs:
-        if True or net.netclass != "Power":
-            for pin in net.pins:
-                pin.label = net.name
-
-    # Pre-process parts
-    for part in circuit.parts:
-
-        # Initialize part attributes used for generating schematics.
-        part.moved = False
-        part.tx = Tx()
-
-        # Initialize pin attributes used for generating schematics.
-        for pin in part:
-            pin.pt = Point(pin.x, pin.y)
-            pin.routed = False
-            # Assign empty label if not already labeled.
-            pin.label = getattr(pin, "label", "")
-
-        # Rotate parts.  Power pins should face up. GND pins should face down.
-        rotate_power_pins(part)
-
-        # Compute bounding boxes around parts
-        calc_part_bbox(part)
-
-
-def create_node_tree(circuit):
-    """Return tree of hierarchical nodes containing parts."""
-
-    # Make dict that holds part, net, and bbox info for each node in the hierarchy.
-    node_tree = defaultdict(lambda: Node())
-    for part in circuit.parts:
-        node_tree[part.hierarchy].parts.append(part)
-        part.node = node_tree[part.hierarchy]
-
-    # Fill-in the parent/child relationship for all the nodes in the hierarchy.
-    for node_key, node in node_tree.items():
-        node.node_key = node_key
-        parent_key = ".".join(node_key.split(".")[0:-1])
-        if parent_key not in node_tree:
-            parent = Node()
-        else:
-            parent = node_tree[parent_key]
-            parent.children.append(node)
-        node.parent = parent
-
-    return node_tree
-
-
-def place_parts(node_tree):
-    """Place parts within nodes and then place the nodes."""
-
-    def place_parts_in_nodes(node_tree):
-        # For each node in hierarchy: Move parts connected to central part by unlabeled nets.
-        for node in node_tree.values():
-
-            # Find central part in this node that everything else is placed around.
-            def find_central_part(node):
-                central_part = node.parts[0]
-                for part in node.parts[1:]:
-                    if len(part) > len(central_part):
-                        central_part = part
-                return central_part
-
-            node.central_part = find_central_part(node)
-
-            # Go thru the center part's pins, moving any connected parts closer.
-            for anchor_pin in node.central_part:
-
-                # Skip unconnected pins.
-                if not anchor_pin.is_connected():
-                    continue
-
-                # Don't move parts connected to labeled (stub) pins.
-                if len(anchor_pin.label) != 0:
-                    continue
-
-                # Don't move parts connected thru power supply nets.
-                if anchor_pin.net.netclass == "Power":
-                    continue
-
-                # Now move any parts connected to this pin.
-                for mv_pin in anchor_pin.net.pins:
-
-                    # Skip moving the central part.
-                    if mv_pin.part == node.central_part:
-                        continue
-
-                    # Skip parts that aren't in the same node of the hierarchy as the center part.
-                    if mv_pin.part.hierarchy != node.central_part.hierarchy:
-                        continue
-
-                    # OK, finally move the part connected to this pin.
-                    calc_move_part(mv_pin, anchor_pin, node.parts)
-
-        # For each node in hierarchy: Move parts connected to parts moved in step previous step.
-        for node in node_tree.values():
-
-            for mv_part in node.parts:
-
-                # Skip central part.
-                if mv_part is node.central_part:
-                    continue
-
-                # Skip a part that's already been moved.
-                if mv_part.moved:
-                    continue
-
-                # Find a pin to pin connection where the part needs to be moved.
-                for mv_pin in mv_part:
-
-                    # Skip unconnected pins.
-                    if not mv_pin.is_connected():
-                        continue
-
-                    # Don't move parts connected to labeled (stub) pins.
-                    if len(mv_pin.label) > 0:
-                        continue
-
-                    # Don't move parts connected thru power supply nets.
-                    if mv_pin.net.netclass == "Power":
-                        continue
-
-                    # Move this part toward parts connected to its pin.
-                    for anchor_pin in mv_pin.net.pins:
-
-                        # Skip parts that aren't in the same node of the hierarchy as the moving part.
-                        if anchor_pin.part.hierarchy != mv_part.hierarchy:
-                            continue
-
-                        # Don't move toward the central part.
-                        if anchor_pin.part == node.central_part:
-                            continue
-
-                        # Skip connections from the part to itself.
-                        if anchor_pin.part == mv_part:
-                            continue
-
-                        # OK, finally move the part connected to this pin.
-                        calc_move_part(mv_pin, anchor_pin, node.parts)
-
-        # Move any remaining parts in each node down & alternating left/right.
-        for node in node_tree.values():
-
-            # Get center part for this node.
-            central_part = node.central_part
-
-            # Set up part movement increments.
-            offset = Vector(GRID, central_part.lbl_bbox.ll.y - 10 * GRID)
-
-            for part in node.parts:
-
-                # Skip central part.
-                if part is central_part:
-                    continue
-
-                # Move any part that hasn't already been moved.
-                if not part.moved:
-                    move_part(part, offset, node.parts)
-
-                    # Switch movement direction for the next unmoved part.
-                    offset.x = -offset.x
-
-    def place_nodes(node_tree):
-        # Create bounding boxes for each node of the hierarchy.
-        for node in node_tree.values():
-            calc_node_bbox(node)
-
-        # Find maximum depth of node hierarchy.
-        max_node_depth = max([h.count(".") for h in node_tree])
-
-        # Move each node of the hierarchy underneath its parent node and left/right, depth-wise.
-        for depth in range(2, max_node_depth + 1):
-
-            dir, next_dir = "L", "R"  # Direction of node movement.
-
-            # Search for nodes at the current depth.
-            for node in node_tree.values():
-
-                # Skip nodes not at the current depth.
-                if node.node_key.count(".") != depth:
-                    continue
-
-                node_bbox = node.bbox.dot(node.tx)
-                parent_bbox = node.parent.bbox.dot(node.parent.tx)
-
-                # Move node so its upper Y is just below parents lower Y.
-                # TODO: magic number.
-                delta_y = parent_bbox.min.y - node_bbox.max.y - 200
-
-                # Move node so its X coord lines up with parent X coord.
-                delta_x = parent_bbox.ctr.x - node_bbox.ctr.x
-
-                # Move node below parent and then to the side to avoid collisions with other nodes.
-                # old_pos = node.bbox.ctr
-                move_node(node, node_tree.values(), Vector(delta_x, delta_y), move_dir=dir)
-
-                # Alternate placement directions for the next node placement.
-                # TODO: find better algorithm than switching sides, maybe based on connections
-                dir, next_dir = next_dir, dir
-
-    place_parts_in_nodes(node_tree)
-    place_nodes(node_tree)
-
-
-def route_nets(node_tree):
-    """Route wires between parts."""
-
-    # Collect the internal nets for each node.
-    for node in node_tree.values():
-        for part in node.parts:
-            for part_pin in part:
-
-                # A label means net is stubbed so there won't be any explicit wires.
-                if len(part_pin.label) > 0:
-                    continue
-
-                # No explicit wires if the pin is not connected to anything.
-                if not part_pin.is_connected():
-                    continue
-
-                net = part_pin.net
-
-                # No explicit wires for power nets.
-                if net.netclass == "Power":
-                    continue
-
-                # Determine if all the pins on this net reside in the node.
-                internal_net = True
-                for net_pin in net.pins:
-
-                    # Don't consider stubs.
-                    if len(net_pin.label) > 0:
-                        continue
-
-                    # If a pin is outside this node, then ignore the entire net.
-                    if net_pin.part.hierarchy != part_pin.part.hierarchy:
-                        internal_net = False
-                        break
-
-                # Add wires for this net if the pins are all inside the node.
-                if internal_net:
-                    node.wires.extend(gen_net_wire(net, node))
-
-
 def generate_eeschema(circuit, node_tree, title, filepath):
 
     # Calculate the maximum page dimensions needed for each root hierarchy sheet.
@@ -1069,28 +1070,28 @@ def generate_eeschema(circuit, node_tree, title, filepath):
 
         # Generate EESCHEMA code for each part in the node.
         for part in node.parts:
-            part_code = gen_part_eeschema(part, tx=tx)
+            part_code = part_to_eeschema(part, tx=tx)
             eeschema_code.append(part_code)
 
         # Generate EESCHEMA wiring code between the parts in the node.
         for w in node.wires:
-            wire_code = gen_wire_eeschema(w, tx=tx)
+            wire_code = wire_to_eeschema(w, tx=tx)
             eeschema_code.append(wire_code)
 
         # Generate power connections for the each part in the node.
         for part in node.parts:
-            stub_code = gen_power_part_eeschema(part, tx=tx)
+            stub_code = power_part_to_eeschema(part, tx=tx)
             if len(stub_code) != 0:
                 eeschema_code.append(stub_code)
 
         # Generate pin labels for stubbed nets on each part in the node.
         for part in node.parts:
             for pin in part:
-                pin_label_code = gen_pin_label_eeschema(pin, tx=tx)
+                pin_label_code = pin_label_to_eeschema(pin, tx=tx)
                 eeschema_code.append(pin_label_code)
 
         # Generate the graphic box that surrounds the node parts.
-        bbox_code = gen_node_bbox_eeschema(node, tx=tx)
+        bbox_code = node_bbox_to_eeschema(node, tx=tx)
         eeschema_code.append(bbox_code)
 
         # Add generated EESCHEMA code to the root hierarchical page for this node.
@@ -1108,7 +1109,7 @@ def generate_eeschema(circuit, node_tree, title, filepath):
             code, cur_sheet_num=1, size=A_size, title=title
         )
         hier_start_tx = Tx(dx=hier_start.x, dy=hier_start.y)
-        hier_eeschema_code.append(gen_node_block_eeschema(root_parent, hier_start_tx))
+        hier_eeschema_code.append(node_block_to_eeschema(root_parent, hier_start_tx))
         hier_start += Point(1000, 0)  # TODO: magic number.
 
     hier_eeschema_code = collect_eeschema_code(
@@ -1135,13 +1136,10 @@ def gen_schematic(circuit, filepath=None, title="Default", gen_elkjs=False):
 
     preprocess_parts_and_nets(circuit)
 
-    node_tree = create_node_tree(circuit)
-
-    place_parts(node_tree)
-
-    route_nets(node_tree)
-
-    generate_eeschema(circuit, node_tree, title, filepath)
+    with NodeTree(circuit) as node_tree:
+        node_tree.place()
+        node_tree.route()
+        node_tree.to_eeschema(title, filepath)
 
 
 ##################################################################################
