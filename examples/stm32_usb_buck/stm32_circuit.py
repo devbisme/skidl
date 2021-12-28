@@ -60,6 +60,10 @@ def stm32f405r():
     pu_scl.p2 += u.p58
     pu_sda.p2 += u.p59
 
+    # h = Part("Connector_Generic", "Conn_02x10", footprint = "PinHeader_2x10_P2.54mm_Vertical")
+    # h = Part(lib='Connector_Generic', name='Conn_02x10_Odd_Even', footprint='Connector_PinHeader_2.54mm:PinHeader_2x10_P2.54mm_Vertical_SMD')
+    # h[20:1] += pn.gnd
+
     # Subcircuits
     usb(pn.v_5v, pn.gnd, u.p43, u.p44, imp_match = True)
     boot_sw(pn.v_3v3, pn.gnd, u.p60)

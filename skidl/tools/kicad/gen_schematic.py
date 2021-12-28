@@ -10,6 +10,7 @@ from __future__ import (  # isort:skip
     unicode_literals,
 )
 
+from itertools import chain
 import re
 import time
 from builtins import range, str
@@ -97,22 +98,22 @@ def rotate_power_pins(part, pin_cnt_threshold=10000):
 
 
 def calc_part_bbox(part):
-    """Calculate the bounding box for a part."""
+    """Calculate the bare bounding box and labeled bounding box and store it in the part."""
 
-    # Find bounding box around pins.
-    part.bbox = calc_symbol_bbox(part)[1]
+    # Find part bounding box excluding any net labels on pins.
+    part.bare_bbox = calc_symbol_bbox(part)[1]
 
     # Expand the bounding box if it's too small in either dimension.
     resize_xy = Vector(0, 0)
-    if part.bbox.w < 100:
-        resize_xy.x = (100 - part.bbox.w) / 2
-    if part.bbox.h < 100:
-        resize_xy.y = (100 - part.bbox.h) / 2
-    part.bbox.resize(resize_xy)
+    if part.bare_bbox.w < 100:
+        resize_xy.x = (100 - part.bare_bbox.w) / 2
+    if part.bare_bbox.h < 100:
+        resize_xy.y = (100 - part.bare_bbox.h) / 2
+    part.bare_bbox.resize(resize_xy)
 
     # Find expanded bounding box that includes any labels attached to pins.
-    part.lbl_bbox = BBox()
-    part.lbl_bbox.add(part.bbox)
+    part.bbox = BBox()
+    part.bbox.add(part.bare_bbox)
     for pin in part:
         # Add 1 to the label length to account for extra graphics on label.
         lbl_len = (len(pin.label) + 1) * PIN_LABEL_FONT_SIZE
@@ -125,7 +126,7 @@ def calc_part_bbox(part):
             lbl_vector = Vector(lbl_len, 0)
         elif pin_dir == "R":
             lbl_vector = Vector(-lbl_len, 0)
-        part.lbl_bbox.add(pin.pt + lbl_vector)
+        part.bbox.add(pin.pt + lbl_vector)
 
 
 def preprocess_parts_and_nets(circuit):
@@ -143,7 +144,7 @@ def preprocess_parts_and_nets(circuit):
     for part in circuit.parts:
 
         # Initialize part attributes used for generating schematics.
-        part.moved = False
+        part.placed = False
         part.tx = Tx()
 
         # Initialize pin attributes used for generating schematics.
@@ -160,82 +161,158 @@ def preprocess_parts_and_nets(circuit):
         calc_part_bbox(part)
 
 
+class Sheet:
+    """Data structure for hierarchical sheets of a schematic."""
+
+    def __init__(self, node, filepath, title):
+        self.node = node
+        self.filepath = filepath
+        self.title = title
+        self.bbox = BBox(Point(0,0), Point(500,500))
+        self.tx = Tx()
+        self.placed = False
+
+    def to_eeschema(self, tx):
+
+        node = self.node
+        A_size = get_A_size(node.bbox)
+        page_bbox = node.bbox.dot(Tx(d=-1))
+        move_to_ctr = A_sizes[A_size].ctr - page_bbox.ctr
+        move_to_ctr = move_to_ctr.snap(GRID)  # Keep things on grid.
+        move_tx = Tx(d=-1).dot(Tx(dx=move_to_ctr.x, dy=move_to_ctr.y))
+        eeschema = node.to_eeschema(move_tx)
+
+        # Generate schematic files for lower-levels in the hierarchy.
+        dir = os.path.dirname(self.filepath)
+        file_name = os.path.join(dir, node.node_key + ".sch")
+        with open(file_name, "w") as f:
+            print(
+                collect_eeschema_code(
+                    eeschema,
+                    title=self.title,
+                    size=A_size,
+                ),
+                file=f)
+
+        bbox = self.bbox.dot(self.tx.dot(tx))
+        time_hex = hex(int(time.time()))[2:]
+        eeschema = []
+        eeschema.append("$Sheet")
+        eeschema.append(
+            "S {} {} {} {}".format(
+                bbox.ul.x, bbox.ul.y, bbox.w, bbox.h
+            )
+        )  # upper left x/y, width, height
+        eeschema.append("U {}".format(time_hex))
+        name = self.node.node_key.split(".")[-1]
+        eeschema.append('F0 "{}" 50'.format(name))
+        eeschema.append('F1 "{}" 50'.format(file_name))
+        eeschema.append("$EndSheet")
+        eeschema.append("")
+        return "\n".join(eeschema)
+
+
 class Node:
     """Data structure for holding information about a node in the circuit hierarchy."""
 
     def __init__(self):
-        self.parts = []
-        self.wires = []
         self.parent = None
         self.children = []
+        self.sheets = []
+        self.non_sheets = []
+        self.parts = []
+        self.wires = []
         self.tx = Tx()
+        self.bbox = BBox()
+        self.placed = False
 
     def calc_bbox(self):
         """Compute the bounding box for the node in the circuit hierarchy."""
 
-        self.bbox = BBox()
-        for part in self.parts:
-            part_tx_bbox = part.lbl_bbox.dot(part.tx)
-            self.bbox.add(part_tx_bbox)
+        # If a node has no parent, then its the root node so give it an
+        # initial bounding box that's just a starting point for placement.
+        if not self.parent:
+            self.bbox = BBox(Point(0,0), Point(0,0))
+        else:
+            self.bbox = BBox()
 
-        self.bbox.resize(Vector(100, 50))
+        # Update the bounding box with anything that's been placed.
+        for obj in chain(self.parts, self.sheets, self.non_sheets):
+            if obj.placed:
+                # Only placed parts/sheets/non_sheets contribute to the bounding box.
+                tx_bbox = obj.bbox.dot(obj.tx)
+                self.bbox.add(tx_bbox)
 
-    def calc_move_part(self, moving_pin, anchor_pin):
+        # Pad the bounding box for extra spacing when placed.
+        self.bbox.resize(Vector(100, 100))
+
+    def create_sheets(self, filepath, title, complexity_threshold=100000):
+        """Create hierarchical sheets for complex portions of the circuitry."""
+
+        self.complexity = sum((len(part) for part in self.parts))
+        slack = complexity_threshold - self.complexity
+        self.non_sheets = sorted(self.children, key=lambda child: child.complexity)
+        for child in self.non_sheets[:]:
+            if child.complexity <= slack:
+                slack -= child.complexity
+            else:
+                self.sheets.append(Sheet(child, filepath, title))
+                self.non_sheets.remove(child)
+            
+
+    def move_pin_to_pin(self, moving_pin, anchor_pin):
         """Move pin to anchor pin and then move it until parts in the node no longer collide."""
 
         moving_part = moving_pin.part
         anchor_part = anchor_pin.part
         vector = anchor_pin.pt.dot(anchor_part.tx) - moving_pin.pt.dot(moving_part.tx)
-        self.move_part(moving_part, vector)
+        self.move_part(moving_part, vector, Vector(-GRID, 0))
 
 
-    def move_part(self, part, vector):
-        """Move part until it doesn't collide with other parts in the node."""
+    def move_part(self, obj, vector, dir):
+        """Move part/sheet/non_sheet until it doesn't collide with other parts/sheets/non_sheets in the node."""
 
-        # Make sure part moves stay on the grid.
+        # Make sure object stays on the grid.
         vector = vector.snap(GRID)
 
-        # Setup the movement vector to use if the initial movement leads to collisions.
-        avoid_vector = Vector(200, 0) if vector.x > 0 else Vector(-200, 0)
-        avoid_vector = avoid_vector.snap(GRID)
-
         # Keep moving part until no collisions occur.
-        while True:
+        collision = True
+        while collision:
             collision = False
 
-            # Update the part's transformation matrix to apply movement.
-            part.tx = part.tx.dot(Tx(dx=vector.x, dy=vector.y))
+            # Update the object transformation matrix to apply movement.
+            obj.tx = obj.tx.dot(Tx(dx=vector.x, dy=vector.y))
 
-            # Compute the transformed bounding box for the part including the move.
-            lbl_bbox = part.lbl_bbox.dot(part.tx)
+            # Compute the transformed bounding box for the object including the move.
+            bbox = obj.bbox.dot(obj.tx)
 
-            # Look for intersections with the other parts in the node.
-            for other_part in self.parts:
+            # Look for intersections with the other parts/sheets/non_sheets in the node.
+            for other_obj in chain(self.parts, self.sheets, self.non_sheets):
 
                 # Don't detect collisions with itself.
-                if other_part is part:
+                if other_obj is obj:
                     continue
 
-                # Compute the transformed bounding box for the other part.
-                other_lbl_bbox = other_part.lbl_bbox.dot(other_part.tx)
+                # Don't try to avoid something that hasn't been placed yet.
+                if not other_obj.placed:
+                    continue
 
-                if lbl_bbox.intersects(other_lbl_bbox):
+                # Compute the transformed bounding box for the other object.
+                other_bbox = other_obj.bbox.dot(other_obj.tx)
+
+                if bbox.intersects(other_bbox):
                     # Collision found. No need to check any further.
                     collision = True
+                    # After the initial move, use the dir vector for all further moves.
+                    vector = dir
                     break
 
-            if not collision:
-                # Break out of loop once the part doesn't collide with anything.
-                # The final part.tx matrix records the movements that were made.
-                break
-            else:
-                # After the initial move, use the avoid_vector for all further moves.
-                vector = avoid_vector
+        # Exit the loop once the part doesn't collide with anything.
+        # The final part.tx matrix records the movements that were made.
+        obj.placed = True
 
-        part.moved = True
 
-    def place(self):
-        """Place parts within a hierarchical node."""
+    def place_parts(self):
 
         # Move parts connected to central part by unlabeled nets.
 
@@ -247,7 +324,12 @@ class Node:
                     central_part = part
             return central_part
 
+        # Return if there are no parts to place in this node.
+        if not self.parts:
+            return
+
         self.central_part = find_central_part(self)
+        self.central_part.placed = True
 
         # Go thru the center part's pins, moving any connected parts closer.
         for anchor_pin in self.central_part:
@@ -267,26 +349,23 @@ class Node:
             # Now move any parts connected to this pin.
             for mv_pin in anchor_pin.net.pins:
 
-                # Don't move the central part.
-                if mv_pin.part == self.central_part:
+                # Don't move parts that have already been moved (including the central part).
+                if mv_pin.part.placed:
                     continue
 
                 # Skip parts that aren't in the same node of the hierarchy as the center part.
-                if mv_pin.part.hierarchy != self.central_part.hierarchy:
+                if mv_pin.part not in self.parts:
+                # if mv_pin.part.hierarchy != self.central_part.hierarchy:
                     continue
 
                 # OK, finally move the part connected to this pin.
-                self.calc_move_part(mv_pin, anchor_pin)
+                self.move_pin_to_pin(mv_pin, anchor_pin)
 
         # Move parts connected to parts moved in step previous step.
         for mv_part in self.parts:
 
-            # Skip central part.
-            if mv_part is self.central_part:
-                continue
-
-            # Skip a part that's already been moved.
-            if mv_part.moved:
+            # Skip parts that have already been moved (including central part).
+            if mv_part.placed:
                 continue
 
             # Find a pin to pin connection where the part needs to be moved.
@@ -308,7 +387,8 @@ class Node:
                 for anchor_pin in mv_pin.net.pins:
 
                     # Skip parts that aren't in the same node of the hierarchy as the moving part.
-                    if anchor_pin.part.hierarchy != mv_part.hierarchy:
+                    if anchor_pin.part not in self.parts:
+                    # if anchor_pin.part.hierarchy != mv_part.hierarchy:
                         continue
 
                     # Don't move toward the central part.
@@ -320,12 +400,16 @@ class Node:
                         continue
 
                     # OK, finally move the part connected to this pin.
-                    self.calc_move_part(mv_pin, anchor_pin)
+                    self.move_pin_to_pin(mv_pin, anchor_pin)
 
         # Move any remaining parts in the node down & alternating left/right.
 
+        # Calculate the current bounding box for the node.
+        self.calc_bbox()
+
         # Set up part movement increments.
-        offset = Vector(GRID, self.central_part.lbl_bbox.ll.y - 10 * GRID)
+        start = Point(self.bbox.ctr.x, self.bbox.ll.y - 10 * GRID)
+        dir = Vector(GRID, 0)
 
         for part in self.parts:
 
@@ -334,14 +418,52 @@ class Node:
                 continue
 
             # Move any part that hasn't already been moved.
-            if not part.moved:
-                self.move_part(part, offset)
+            if not part.placed:
+                part_tx_bbox = part.bbox.dot(part.tx)
+                ctr_mv = start - Point(part_tx_bbox.ctr.x, part_tx_bbox.ul.y)
+                self.move_part(part, ctr_mv, dir)
 
                 # Switch movement direction for the next unmoved part.
-                offset.x = -offset.x
+                dir = -dir
 
-        # Calculate the node bounding box once all the parts are placed.
+        # Calculate the current bounding box for the node.
         self.calc_bbox()
+
+
+    def place_children(self):
+
+        def place_objects(objs):
+
+            # Calculate the initial node bounding box before objects are placed.
+            self.calc_bbox()
+
+            # Set up object movement increments.
+            start = Point(self.bbox.ctr.x, self.bbox.ll.y - 10 * GRID)
+            dir = Vector(GRID, 0)
+
+            for obj in objs:
+
+                # Move any object that hasn't already been moved.
+                if not obj.placed:
+                    obj_tx_bbox = obj.bbox.dot(obj.tx)
+                    ctr_mv = start - Point(obj_tx_bbox.ctr.x, obj_tx_bbox.ul.y)
+                    self.move_part(obj, ctr_mv, dir)
+
+                    # Switch movement direction for the next unmoved object.
+                    dir = -dir
+
+            # Calculate the node bounding box once the objects have been placed.
+            self.calc_bbox()
+
+        place_objects(self.non_sheets)
+        place_objects(self.sheets)
+
+
+    def place(self):
+        """Place parts within a hierarchical node."""
+
+        self.place_parts()
+        self.place_children()
 
 
     def wire_it(self, net):
@@ -483,7 +605,7 @@ class Node:
         return nets_output
 
     def route(self):
-        """Route nets within a node."""
+        """Route nets between parts of a node."""
 
         for part in self.parts:
             for part_pin in part:
@@ -519,32 +641,112 @@ class Node:
                 if internal_net:
                     self.wires.extend(self.wire_it(net))
 
+    def to_eeschema(self, tx):
+
+        # List to hold all the EESCHEMA code for this node.
+        eeschema_code = []
+
+        # Find the transformation matrix for the placement of the node.
+        tx = self.tx.dot(tx)
+
+        # Generate EESCHEMA code for each part in the node.
+        for part in self.parts:
+            part_code = part_to_eeschema(part, tx=tx)
+            eeschema_code.append(part_code)
+
+        # Generate EESCHEMA wiring code between the parts in the node.
+        for w in self.wires:
+            wire_code = wire_to_eeschema(w, tx=tx)
+            eeschema_code.append(wire_code)
+
+        # Generate power connections for the each part in the node.
+        for part in self.parts:
+            stub_code = power_part_to_eeschema(part, tx=tx)
+            if len(stub_code) != 0:
+                eeschema_code.append(stub_code)
+
+        # Generate pin labels for stubbed nets on each part in the node.
+        for part in self.parts:
+            for pin in part:
+                pin_label_code = pin_label_to_eeschema(pin, tx=tx)
+                eeschema_code.append(pin_label_code)
+
+        # Generate non-sheet portions of the node.
+        for non_sheet in self.non_sheets:
+            eeschema_code.append(non_sheet.to_eeschema(tx=tx))
+
+        # Generate hierarchical sheet boxes.
+        for sheet in self.sheets:
+            eeschema_code.append(sheet.to_eeschema(tx=tx))
+
+        # Generate the graphic box that surrounds the node.
+        bbox_code = node_bbox_to_eeschema(self, tx=tx)
+        eeschema_code.append(bbox_code)
+
+        return "\n".join(eeschema_code)
+
+
 class NodeTree(defaultdict):
     """Make dict that holds part, net, and bbox info for each node in the hierarchy."""
 
-    def __init__(self, circuit):
+    def __init__(self, circuit, filepath, title):
 
         super().__init__(lambda: Node())
 
         # Save a reference to the original circuit.
         self.circuit = circuit
 
-        # Create a node for each hierarchical section of the circuit.
+        # Create a node for each part in the circuit.
         for part in circuit.parts:
             # The node links to the part, and the part links to its node.
-            self[part.hierarchy].parts.append(part)
-            part.node = self[part.hierarchy]
+            node_key = part.hierarchy
+            node = self[node_key]  # Creates the node if it doesn't already exist.
+            node.parts.append(part)  # Add part to list of parts in node.
+            part.node = node  # Add link from part to the node it's in.
+
+        # Create any intermediary nodes in the hierarchy that might not exist
+        # because they don't contain any parts.
+        for hierarchy in list(self.keys()):
+            breadcrumbs = hierarchy.split(".")
+            while breadcrumbs:
+                node_key = ".".join(breadcrumbs)
+                node = self[node_key]  # Creates a node if it doesn't exist.
+                node.node_key = node_key
+                # Remove the last portion of the hierarchy string to get the
+                # key for the parent node.
+                breadcrumbs.pop()
 
         # Fill-in the parent/child relationship for all the nodes in the hierarchy.
         for node_key, node in self.items():
-            node.node_key = node_key
             parent_key = ".".join(node_key.split(".")[0:-1])
-            if parent_key not in self:
-                parent = Node()
-            else:
+            if parent_key:
                 parent = self[parent_key]
                 parent.children.append(node)
-            node.parent = parent
+                node.parent = parent
+            else:
+                root = node
+
+        # Create list of nodes ordered from leaves (no children) to root (no parent).
+        self.leaves2root = []
+        available_nodes = list(self.values())
+        while available_nodes:
+            for node in available_nodes:
+                add_node = True
+                # Only add a node to the list if all its children are already on the list.
+                for child in node.children:
+                    if child not in self.leaves2root:
+                        add_node = False
+                        break
+                if add_node:
+                    # Add the node to the list and remove it from the list of available nodes.
+                    self.leaves2root.append(node)
+                    available_nodes.remove(node)
+
+        # Partition circuit into sheets.
+        for node in self.leaves2root:
+            node.create_sheets(filepath, title)
+
+        self[""].sheets = [Sheet(root, filepath, title)]
 
     def __enter__(self):
         return self
@@ -552,104 +754,24 @@ class NodeTree(defaultdict):
     def __exit__(self, *args):
         pass
 
-    def move_node(self, node, vector, move_dir):
-        """Move node until it doesn't collide with other nodes."""
-
-        # Make sure node moves stay on the grid so the internal parts do.
-        vector = vector.snap(GRID)
-
-        # Setup the movement vector to use if the initial movement leads to collisions.
-        avoid_vector = Vector(200, 0) if move_dir == "R" else Vector(-200, 0)
-        avoid_vector = avoid_vector.snap(GRID)
-
-        root_parent = ".".join(node.node_key.split(".")[0:2])
-
-        # Keep moving node until no collisions occur.
-        while True:
-            collision = False
-
-            # Update the node's transformation matrix to apply movement.
-            node.tx = node.tx.dot(Tx(dx=vector.x, dy=vector.y))
-
-            # Compute the transformed bounding box for the node including the move.
-            node_bbox = node.bbox.dot(node.tx)
-
-            # Look for intersections with the other nodes.
-            nodes = self.values()
-            for other_node in nodes:
-
-                # Don't detect collisions with itself.
-                if node is other_node:
-                    continue
-
-                # Only detect collisions with nodes on the same page.
-                other_root_parent = ".".join(other_node.node_key.split(".")[0:2])
-                if root_parent != other_root_parent:
-                    continue
-
-                # Compute the transformed bounding box for the other node.
-                other_bbox = other_node.bbox.dot(other_node.tx)
-
-                if node_bbox.intersects(other_bbox):
-                    # Collision found. No need to check any further.
-                    collision = True
-                    break
-
-            if not collision:
-                # Break out of loop once the node doesn't collide with anything.
-                # The final node.tx matrix records the movements that were made.
-                break
-            else:
-                # After the initial move, use the avoid_vector for all further moves.
-                vector = avoid_vector
-
     def place(self):
         """Place parts within nodes and then place the nodes."""
 
-        # Place parts within each individual node.
-        for node in self.values():
+        # Place parts within each individual node, starting from the leaves and working to the root.
+        for node in self.leaves2root:
             node.place()
-
-        # Find maximum depth of node hierarchy.
-        max_node_depth = max([h.count(".") for h in self])
-
-        # Move each node of the hierarchy underneath its parent node and left/right, depth-wise.
-        for depth in range(2, max_node_depth + 1):
-
-            dir, next_dir = "L", "R"  # Direction of node movement.
-
-            # Search for nodes at the current depth.
-            for node in self.values():
-
-                # Skip nodes not at the current depth.
-                if node.node_key.count(".") != depth:
-                    continue
-
-                node_bbox = node.bbox.dot(node.tx)
-                parent_bbox = node.parent.bbox.dot(node.parent.tx)
-
-                # Move node so its upper Y is just below parents lower Y.
-                # TODO: magic number.
-                delta_y = parent_bbox.min.y - node_bbox.max.y - 200
-
-                # Move node so its X coord lines up with parent X coord.
-                delta_x = parent_bbox.ctr.x - node_bbox.ctr.x
-
-                # Move node below parent and then to the side to avoid collisions with other nodes.
-                self.move_node(node, Vector(delta_x, delta_y), move_dir=dir)
-
-                # Alternate placement directions for the next node placement.
-                # TODO: find better algorithm than switching sides, maybe based on connections
-                dir, next_dir = next_dir, dir
 
     def route(self):
         """Route nets within each node of the tree."""
         for node in self.values():
             node.route()
 
-    def to_eeschema(self, title, filepath):
+    def to_eeschema(self):
         """Create EESCHEMA schematic files."""
-        generate_eeschema(self.circuit, self, title, filepath)        
+        tx = Tx()
+        sheets = [sheet for node in self.values() for sheet in node.sheets]
+        for sheet in sheets:
+            sheet.to_eeschema(tx)
 
 
 def bbox_to_eeschema(bbox, tx, name=None):
@@ -663,19 +785,20 @@ def bbox_to_eeschema(bbox, tx, name=None):
 
     if name:
         box.append(
-            "Text Notes {} {} 0    100  ~ 20\n{}\n".format(label_pt.x, label_pt.y, name)
+            "Text Notes {} {} 0    100  ~ 20\n{}".format(label_pt.x, label_pt.y, name)
         )
 
-    box.append("Wire Notes Line\n")
-    box.append("	{} {} {} {}\n".format(bbox.ll.x, bbox.ll.y, bbox.lr.x, bbox.lr.y))
-    box.append("Wire Notes Line\n")
-    box.append("	{} {} {} {}\n".format(bbox.lr.x, bbox.lr.y, bbox.ur.x, bbox.ur.y))
-    box.append("Wire Notes Line\n")
-    box.append("	{} {} {} {}\n".format(bbox.ur.x, bbox.ur.y, bbox.ul.x, bbox.ul.y))
-    box.append("Wire Notes Line\n")
-    box.append("	{} {} {} {}\n".format(bbox.ul.x, bbox.ul.y, bbox.ll.x, bbox.ll.y))
+    box.append("Wire Notes Line")
+    box.append("	{} {} {} {}".format(bbox.ll.x, bbox.ll.y, bbox.lr.x, bbox.lr.y))
+    box.append("Wire Notes Line")
+    box.append("	{} {} {} {}".format(bbox.lr.x, bbox.lr.y, bbox.ur.x, bbox.ur.y))
+    box.append("Wire Notes Line")
+    box.append("	{} {} {} {}".format(bbox.ur.x, bbox.ur.y, bbox.ul.x, bbox.ul.y))
+    box.append("Wire Notes Line")
+    box.append("	{} {} {} {}".format(bbox.ul.x, bbox.ul.y, bbox.ll.x, bbox.ll.y))
+    box.append("") # For blank line at end.
 
-    return "\n" + "".join(box)
+    return "\n".join(box)
 
 
 def part_to_eeschema(part, tx):
@@ -697,18 +820,20 @@ def part_to_eeschema(part, tx):
     tx = part.tx.dot(tx)
     origin = round(tx.origin)
 
-    out = ["$Comp\n"]
-    out.append("L {}:{} {}\n".format(part.lib.filename, part.name, part.ref))
-    out.append("U 1 1 {}\n".format(time_hex))
-    out.append("P {} {}\n".format(str(origin.x), str(origin.y)))
+    eeschema = []
+    eeschema.append("$Comp")
+    eeschema.append("L {}:{} {}".format(part.lib.filename, part.name, part.ref))
+    eeschema.append("U 1 1 {}".format(time_hex))
+    eeschema.append("P {} {}".format(str(origin.x), str(origin.y)))
+
     # Add part symbols. For now we are only adding the designator
     n_F0 = 1
     for i in range(len(part.draw)):
         if re.search("^DrawF0", str(part.draw[i])):
             n_F0 = i
             break
-    out.append(
-        'F 0 "{}" {} {} {} {} {} {} {}\n'.format(
+    eeschema.append(
+        'F 0 "{}" {} {} {} {} {} {} {}'.format(
             part.ref,
             part.draw[n_F0].orientation,
             str(origin.x + part.draw[n_F0].x),
@@ -719,13 +844,14 @@ def part_to_eeschema(part, tx):
             part.draw[n_F0].valign,
         )
     )
+
     n_F2 = 2
     for i in range(len(part.draw)):
         if re.search("^DrawF2", str(part.draw[i])):
             n_F2 = i
             break
-    out.append(
-        'F 2 "{}" {} {} {} {} {} {} {}\n'.format(
+    eeschema.append(
+        'F 2 "{}" {} {} {} {} {} {} {}'.format(
             part.footprint,
             part.draw[n_F2].orientation,
             str(origin.x + part.draw[n_F2].x),
@@ -736,14 +862,17 @@ def part_to_eeschema(part, tx):
             part.draw[n_F2].valign,
         )
     )
-    out.append("   1   {} {}\n".format(str(origin.x), str(origin.y)))
-    out.append("   {}  {}  {}  {}\n".format(tx.a, tx.b, tx.c, tx.d))
-    out.append("$EndComp\n")
+
+    eeschema.append("   1   {} {}".format(str(origin.x), str(origin.y)))
+    eeschema.append("   {}  {}  {}  {}".format(tx.a, tx.b, tx.c, tx.d))
+    eeschema.append("$EndComp")
+    eeschema.append("") # For blank line at end.
 
     # For debugging: draws a bounding box around a part.
-    # out.append(gen_bbox_eeschema(part.lbl_bbox, tx))
+    # eeschema.append(bbox_to_eeschema(part.bbox, tx))
+    eeschema.append(bbox_to_eeschema(part.bare_bbox, tx))
 
-    return "\n" + "".join(out)
+    return "\n".join(eeschema)
 
 
 def wire_to_eeschema(wire, tx):
@@ -757,12 +886,13 @@ def wire_to_eeschema(wire, tx):
         string: Text to be placed into EESCHEMA file.
     """
 
-    wire_code = []
+    eeschema = []
     pts = [pt.dot(tx) for pt in wire]
     for pt1, pt2 in zip(pts[:-1], pts[1:]):
-        wire_code.append("Wire Wire Line\n")
-        wire_code.append("	{} {} {} {}\n".format(pt1.x, pt1.y, pt2.x, pt2.y))
-    return "\n" + "".join(wire_code)
+        eeschema.append("Wire Wire Line")
+        eeschema.append("	{} {} {} {}".format(pt1.x, pt1.y, pt2.x, pt2.y))
+    eeschema.append("") # For blank line at end.
+    return "\n".join(eeschema)
 
 
 def power_part_to_eeschema(part, tx=Tx()):
@@ -900,7 +1030,7 @@ def pin_label_to_eeschema(pin, tx):
         "U": 3,
     }[pin_dir]
 
-    return "\nText {} {} {} {}    50   UnSpc ~ 0\n{}\n".format(
+    return "Text {} {} {} {}    50   UnSpc ~ 0\n{}\n".format(
         label_type, pt.x, pt.y, orientation, pin.label
     )
 
@@ -924,29 +1054,31 @@ def gen_header_eeschema(
 
     total_sheet_num = cur_sheet_num + 1
     header = []
-    header.append("EESchema Schematic File Version 4\n")
-    header.append("EELAYER 30 0\n")
-    header.append("EELAYER END\n")
+    header.append("EESchema Schematic File Version 4")
+    header.append("EELAYER 30 0")
+    header.append("EELAYER END")
     header.append(
-        "$Descr {} {} {}\n".format(
+        "$Descr {} {} {}".format(
             size,
             A_sizes[size].max.x,
             A_sizes[size].max.y
             # size, A_sizes[size][0], A_sizes[size][1]
         )
     )
-    header.append("encoding utf-8\n")
-    header.append("Sheet {} {}\n".format(cur_sheet_num, total_sheet_num))
-    header.append('Title "{}"\n'.format(title))
-    header.append('Date "{}-{}-{}"\n'.format(year, month, day))
-    header.append('Rev "v{}.{}"\n'.format(rev_major, rev_minor))
-    header.append('Comp ""\n')
-    header.append('Comment1 ""\n')
-    header.append('Comment2 ""\n')
-    header.append('Comment3 ""\n')
-    header.append('Comment4 ""\n')
-    header.append("$EndDescr\n")
-    return "".join(header)
+    header.append("encoding utf-8")
+    header.append("Sheet {} {}".format(cur_sheet_num, total_sheet_num))
+    header.append('Title "{}"'.format(title))
+    header.append('Date "{}-{}-{}"'.format(year, month, day))
+    header.append('Rev "v{}.{}"'.format(rev_major, rev_minor))
+    header.append('Comp ""')
+    header.append('Comment1 ""')
+    header.append('Comment2 ""')
+    header.append('Comment3 ""')
+    header.append('Comment4 ""')
+    header.append("$EndDescr")
+    header.append("") # For blank line at end.
+
+    return "\n".join(header)
 
 
 def gen_footer_eeschema():
@@ -960,18 +1092,18 @@ def node_block_to_eeschema(node_name, tx):
 
     time_hex = hex(int(time.time()))[2:]
     position = tx.origin
-    t = []
-    t.append("\n$Sheet\n")
-    t.append(
-        "S {} {} {} {}\n".format(
+    eeschema = []
+    eeschema.append("$Sheet")
+    eeschema.append(
+        "S {} {} {} {}".format(
             position.x, position.y, 500, 1000
         )  # TODO: magic number.
     )  # upper left x/y, width, height
-    t.append("U {}\n".format(time_hex))
-    t.append('F0 "{}" 50\n'.format(node_name))
-    t.append('F1 "{}.sch" 50\n'.format(node_name))
-    t.append("$EndSheet\n")
-    return "".join(t)
+    eeschema.append("U {}".format(time_hex))
+    eeschema.append('F0 "{}" 50'.format(node_name))
+    eeschema.append('F1 "{}.sch" 50'.format(node_name))
+    eeschema.append("$EndSheet")
+    return "\n".join(eeschema)
 
 
 # Sizes of EESCHEMA schematic pages from smallest to largest. Dimensions in mils.
@@ -1016,7 +1148,7 @@ def collect_eeschema_code(
     size="A2",
 ):
     """Collect EESCHEMA header, code, and footer and return as a string."""
-    return "".join(
+    return "\n".join(
         (
             gen_header_eeschema(
                 cur_sheet_num=cur_sheet_num,
@@ -1029,106 +1161,10 @@ def collect_eeschema_code(
                 day=day,
                 size=size,
             ),
-            "".join(code),
+            code,
             gen_footer_eeschema(),
         )
     )
-
-
-def generate_eeschema(circuit, node_tree, title, filepath):
-
-    # Calculate the maximum page dimensions needed for each root hierarchy sheet.
-    root_page_sizes = defaultdict(lambda: BBox())
-    for node in node_tree.values():
-        root_parent = ".".join(node.node_key.split(".")[0:2])
-        root_page_sizes[root_parent].add(node.bbox.dot(node.tx))
-
-    # Calculate the A page sizes that fit each root hierarchy sheet.
-    root_A_sizes = {
-        root_parent: get_A_size(page_size)
-        for root_parent, page_size in root_page_sizes.items()
-    }
-
-    # Calculate transformation matrices for placing each root parent in the center of its A sheet.
-    root_page_txs = {}
-    for root_parent, A_size in root_A_sizes.items():
-        page_bbox = root_page_sizes[root_parent].dot(Tx(d=-1))
-        move = A_sizes[A_size].ctr - page_bbox.ctr
-        move = move.snap(GRID)  # Keep things on grid.
-        root_page_txs[root_parent] = Tx(d=-1).dot(Tx(dx=move.x, dy=move.y))
-
-    # Generate eeschema code for each node in the circuit hierarchy.
-    hier_pg_eeschema_code = defaultdict(lambda: [])
-    for node in node_tree.values():
-
-        # List to hold all the EESCHEMA code for this node.
-        eeschema_code = []
-
-        # Find the transformation matrix for the placement of the node.
-        root_parent = ".".join(node.node_key.split(".")[0:2])
-        tx = node.tx.dot(root_page_txs[root_parent])
-
-        # Generate EESCHEMA code for each part in the node.
-        for part in node.parts:
-            part_code = part_to_eeschema(part, tx=tx)
-            eeschema_code.append(part_code)
-
-        # Generate EESCHEMA wiring code between the parts in the node.
-        for w in node.wires:
-            wire_code = wire_to_eeschema(w, tx=tx)
-            eeschema_code.append(wire_code)
-
-        # Generate power connections for the each part in the node.
-        for part in node.parts:
-            stub_code = power_part_to_eeschema(part, tx=tx)
-            if len(stub_code) != 0:
-                eeschema_code.append(stub_code)
-
-        # Generate pin labels for stubbed nets on each part in the node.
-        for part in node.parts:
-            for pin in part:
-                pin_label_code = pin_label_to_eeschema(pin, tx=tx)
-                eeschema_code.append(pin_label_code)
-
-        # Generate the graphic box that surrounds the node parts.
-        bbox_code = node_bbox_to_eeschema(node, tx=tx)
-        eeschema_code.append(bbox_code)
-
-        # Add generated EESCHEMA code to the root hierarchical page for this node.
-        # TODO: Collect the header, code, and footer into the dict.
-        hier_pg_eeschema_code[root_parent].append("\n".join(eeschema_code))
-
-    # Collect the EESCHEMA code for each page.
-    page_eeschema_code = {}
-    hier_eeschema_code = []
-    hier_start = get_A_size_starting_point("A4")
-    hier_start.x = 1000  # TODO: magic number.
-    for root_parent, code in hier_pg_eeschema_code.items():
-        A_size = root_A_sizes[root_parent]
-        page_eeschema_code[root_parent] = collect_eeschema_code(
-            code, cur_sheet_num=1, size=A_size, title=title
-        )
-        hier_start_tx = Tx(dx=hier_start.x, dy=hier_start.y)
-        hier_eeschema_code.append(node_block_to_eeschema(root_parent, hier_start_tx))
-        hier_start += Point(1000, 0)  # TODO: magic number.
-
-    hier_eeschema_code = collect_eeschema_code(
-        hier_eeschema_code, cur_sheet_num=1, size="A4", title=title
-    )
-
-    # Generate EESCHEMA schematic files.
-    if not circuit.no_files:
-
-        # Generate schematic files for lower-levels in the hierarchy.
-        dir = os.path.dirname(filepath)
-        for root_parent, code in page_eeschema_code.items():
-            file_name = os.path.join(dir, root_parent + ".sch")
-            with open(file_name, "w") as f:
-                print(code, file=f)
-
-        # Generate the schematic file for the top-level of the hierarchy.
-        with open(filepath, "w") as f:
-            print(hier_eeschema_code, file=f)
 
 
 def gen_schematic(circuit, filepath=None, title="Default", gen_elkjs=False):
@@ -1136,10 +1172,10 @@ def gen_schematic(circuit, filepath=None, title="Default", gen_elkjs=False):
 
     preprocess_parts_and_nets(circuit)
 
-    with NodeTree(circuit) as node_tree:
+    with NodeTree(circuit, filepath, title) as node_tree:
         node_tree.place()
         node_tree.route()
-        node_tree.to_eeschema(title, filepath)
+        node_tree.to_eeschema()
 
 
 ##################################################################################
