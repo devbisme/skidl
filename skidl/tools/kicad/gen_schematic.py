@@ -168,7 +168,7 @@ class Sheet:
         self.node = node
         self.filepath = filepath
         self.title = title
-        self.bbox = BBox(Point(0,0), Point(500,500))
+        self.bbox = BBox(Point(0, 0), Point(500, 500))
         self.tx = Tx()
         self.placed = False
 
@@ -192,16 +192,15 @@ class Sheet:
                     title=self.title,
                     size=A_size,
                 ),
-                file=f)
+                file=f,
+            )
 
         bbox = self.bbox.dot(self.tx.dot(tx))
         time_hex = hex(int(time.time()))[2:]
         eeschema = []
         eeschema.append("$Sheet")
         eeschema.append(
-            "S {} {} {} {}".format(
-                bbox.ul.x, bbox.ul.y, bbox.w, bbox.h
-            )
+            "S {} {} {} {}".format(bbox.ul.x, bbox.ul.y, bbox.w, bbox.h)
         )  # upper left x/y, width, height
         eeschema.append("U {}".format(time_hex))
         name = self.node.node_key.split(".")[-1]
@@ -232,7 +231,7 @@ class Node:
         # If a node has no parent, then its the root node so give it an
         # initial bounding box that's just a starting point for placement.
         if not self.parent:
-            self.bbox = BBox(Point(0,0), Point(0,0))
+            self.bbox = BBox(Point(0, 0), Point(0, 0))
         else:
             self.bbox = BBox()
 
@@ -258,7 +257,6 @@ class Node:
             else:
                 self.sheets.append(Sheet(child, filepath, title))
                 self.non_sheets.remove(child)
-            
 
     def move_pin_to_pin(self, moving_pin, anchor_pin):
         """Move pin to anchor pin and then move it until parts in the node no longer collide."""
@@ -267,7 +265,6 @@ class Node:
         anchor_part = anchor_pin.part
         vector = anchor_pin.pt.dot(anchor_part.tx) - moving_pin.pt.dot(moving_part.tx)
         self.move_part(moving_part, vector, Vector(-GRID, 0))
-
 
     def move_part(self, obj, vector, dir):
         """Move part/sheet/non_sheet until it doesn't collide with other parts/sheets/non_sheets in the node."""
@@ -310,7 +307,6 @@ class Node:
         # Exit the loop once the part doesn't collide with anything.
         # The final part.tx matrix records the movements that were made.
         obj.placed = True
-
 
     def place_parts(self):
 
@@ -355,7 +351,7 @@ class Node:
 
                 # Skip parts that aren't in the same node of the hierarchy as the center part.
                 if mv_pin.part not in self.parts:
-                # if mv_pin.part.hierarchy != self.central_part.hierarchy:
+                    # if mv_pin.part.hierarchy != self.central_part.hierarchy:
                     continue
 
                 # OK, finally move the part connected to this pin.
@@ -388,7 +384,7 @@ class Node:
 
                     # Skip parts that aren't in the same node of the hierarchy as the moving part.
                     if anchor_pin.part not in self.parts:
-                    # if anchor_pin.part.hierarchy != mv_part.hierarchy:
+                        # if anchor_pin.part.hierarchy != mv_part.hierarchy:
                         continue
 
                     # Don't move toward the central part.
@@ -429,9 +425,7 @@ class Node:
         # Calculate the current bounding box for the node.
         self.calc_bbox()
 
-
     def place_children(self):
-
         def place_objects(objs):
 
             # Calculate the initial node bounding box before objects are placed.
@@ -458,13 +452,11 @@ class Node:
         place_objects(self.non_sheets)
         place_objects(self.sheets)
 
-
     def place(self):
         """Place parts within a hierarchical node."""
 
         self.place_parts()
         self.place_children()
-
 
     def wire_it(self, net):
         """Generate wire segments for a net."""
@@ -796,7 +788,7 @@ def bbox_to_eeschema(bbox, tx, name=None):
     box.append("	{} {} {} {}".format(bbox.ur.x, bbox.ur.y, bbox.ul.x, bbox.ul.y))
     box.append("Wire Notes Line")
     box.append("	{} {} {} {}".format(bbox.ul.x, bbox.ul.y, bbox.ll.x, bbox.ll.y))
-    box.append("") # For blank line at end.
+    box.append("")  # For blank line at end.
 
     return "\n".join(box)
 
@@ -866,7 +858,7 @@ def part_to_eeschema(part, tx):
     eeschema.append("   1   {} {}".format(str(origin.x), str(origin.y)))
     eeschema.append("   {}  {}  {}  {}".format(tx.a, tx.b, tx.c, tx.d))
     eeschema.append("$EndComp")
-    eeschema.append("") # For blank line at end.
+    eeschema.append("")  # For blank line at end.
 
     # For debugging: draws a bounding box around a part.
     # eeschema.append(bbox_to_eeschema(part.bbox, tx))
@@ -891,7 +883,7 @@ def wire_to_eeschema(wire, tx):
     for pt1, pt2 in zip(pts[:-1], pts[1:]):
         eeschema.append("Wire Wire Line")
         eeschema.append("	{} {} {} {}".format(pt1.x, pt1.y, pt2.x, pt2.y))
-    eeschema.append("") # For blank line at end.
+    eeschema.append("")  # For blank line at end.
     return "\n".join(eeschema)
 
 
@@ -1076,7 +1068,7 @@ def gen_header_eeschema(
     header.append('Comment3 ""')
     header.append('Comment4 ""')
     header.append("$EndDescr")
-    header.append("") # For blank line at end.
+    header.append("")  # For blank line at end.
 
     return "\n".join(header)
 
@@ -1095,9 +1087,7 @@ def node_block_to_eeschema(node_name, tx):
     eeschema = []
     eeschema.append("$Sheet")
     eeschema.append(
-        "S {} {} {} {}".format(
-            position.x, position.y, 500, 1000
-        )  # TODO: magic number.
+        "S {} {} {} {}".format(position.x, position.y, 500, 1000)  # TODO: magic number.
     )  # upper left x/y, width, height
     eeschema.append("U {}".format(time_hex))
     eeschema.append('F0 "{}" 50'.format(node_name))
