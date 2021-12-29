@@ -267,11 +267,13 @@ class Node:
         # Pad the bounding box for extra spacing when placed.
         self.bbox.resize(Vector(100, 100))
 
-    def create_sheets(self, filepath, title, complexity_threshold=100000):
-        """Create hierarchical sheets for complex portions of the circuitry."""
+    def create_sheets(self, filepath, title, flatness=1.0):
+        """Create hierarchical sheets for the circuitry in this node and its children."""
 
         self.complexity = sum((len(part) for part in self.parts))
-        slack = complexity_threshold - self.complexity
+
+        child_complexity = sum((child.complexity for child in self.children))
+        slack = child_complexity * flatness
         self.non_sheets = sorted(self.children, key=lambda child: child.complexity)
         for child in self.non_sheets[:]:
             if child.complexity <= slack:
@@ -704,7 +706,7 @@ class Node:
 class NodeTree(defaultdict):
     """Make dict that holds part, net, and bbox info for each node in the hierarchy."""
 
-    def __init__(self, circuit, filepath, title):
+    def __init__(self, circuit, filepath, title, flatness):
 
         super().__init__(lambda: Node())
 
@@ -759,7 +761,7 @@ class NodeTree(defaultdict):
 
         # Partition circuit into sheets.
         for node in self.leaves2root:
-            node.create_sheets(filepath, title)
+            node.create_sheets(filepath, title, flatness)
 
         self[""].sheets = [Sheet(root, filepath, title)]
 
@@ -1125,7 +1127,7 @@ def gen_schematic(circuit, filepath=None, title="Default", gen_elkjs=False):
 
     preprocess_parts_and_nets(circuit)
 
-    with NodeTree(circuit, filepath, title) as node_tree:
+    with NodeTree(circuit, filepath, title, 0.5) as node_tree:
         node_tree.place()
         node_tree.route()
         node_tree.to_eeschema()
