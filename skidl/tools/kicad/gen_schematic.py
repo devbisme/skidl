@@ -161,6 +161,28 @@ def preprocess_parts_and_nets(circuit):
         calc_part_bbox(part)
 
 
+# Sizes of EESCHEMA schematic pages from smallest to largest. Dimensions in mils.
+A_sizes_list = [
+    ("A4", BBox(Point(0, 0), Point(11693, 8268))),
+    ("A3", BBox(Point(0, 0), Point(16535, 11693))),
+    ("A2", BBox(Point(0, 0), Point(23386, 16535))),
+    ("A1", BBox(Point(0, 0), Point(33110, 23386))),
+    ("A0", BBox(Point(0, 0), Point(46811, 33110))),
+]
+A_sizes = OrderedDict(A_sizes_list)
+
+
+def get_A_size(bbox):
+    """Return the A-size page needed to fit the given bounding box."""
+
+    width = bbox.w
+    height = bbox.h * 1.25  # TODO: why 1.25?
+    for A_size, page in A_sizes.items():
+        if width < page.w and height < page.h:
+            return A_size
+    return "A0"  # Nothing fits, so use the largest available.
+
+
 class Sheet:
     """Data structure for hierarchical sheets of a schematic."""
 
@@ -672,7 +694,8 @@ class Node:
             eeschema_code.append(sheet.to_eeschema(tx=tx))
 
         # Generate the graphic box that surrounds the node.
-        bbox_code = node_bbox_to_eeschema(self, tx=tx)
+        block_name = self.node_key.split(".")[-1]
+        bbox_code = bbox_to_eeschema(self.bbox, tx, block_name)
         eeschema_code.append(bbox_code)
 
         return "\n".join(eeschema_code)
@@ -829,7 +852,7 @@ def part_to_eeschema(part, tx):
             part.ref,
             part.draw[n_F0].orientation,
             str(origin.x + part.draw[n_F0].x),
-            str(origin.y - part.draw[n_F0].y),
+            str(origin.y + part.draw[n_F0].y),
             part.draw[n_F0].size,
             "000",
             part.draw[n_F0].halign,
@@ -847,14 +870,13 @@ def part_to_eeschema(part, tx):
             part.footprint,
             part.draw[n_F2].orientation,
             str(origin.x + part.draw[n_F2].x),
-            str(origin.y - part.draw[n_F2].y),
+            str(origin.y + part.draw[n_F2].y),
             part.draw[n_F2].size,
             "001",
             part.draw[n_F2].halign,
             part.draw[n_F2].valign,
         )
     )
-
     eeschema.append("   1   {} {}".format(str(origin.x), str(origin.y)))
     eeschema.append("   {}  {}  {}  {}".format(tx.a, tx.b, tx.c, tx.d))
     eeschema.append("$EndComp")
@@ -862,7 +884,7 @@ def part_to_eeschema(part, tx):
 
     # For debugging: draws a bounding box around a part.
     # eeschema.append(bbox_to_eeschema(part.bbox, tx))
-    eeschema.append(bbox_to_eeschema(part.bare_bbox, tx))
+    # eeschema.append(bbox_to_eeschema(part.bare_bbox, tx))
 
     return "\n".join(eeschema)
 
@@ -1027,18 +1049,6 @@ def pin_label_to_eeschema(pin, tx):
     )
 
 
-def node_bbox_to_eeschema(node, tx):
-    """Create a graphic bounding box for a node in the circuit hierarchy."""
-
-    hier_levels = node.node_key.split(".")
-    if len(hier_levels) > 1:
-        level_name = "".join(hier_levels[1:])
-    else:
-        level_name = node.node_key
-
-    return bbox_to_eeschema(node.bbox, tx, level_name)
-
-
 def gen_header_eeschema(
     cur_sheet_num, total_sheet_num, title, rev_major, rev_minor, year, month, day, size
 ):
@@ -1054,7 +1064,6 @@ def gen_header_eeschema(
             size,
             A_sizes[size].max.x,
             A_sizes[size].max.y
-            # size, A_sizes[size][0], A_sizes[size][1]
         )
     )
     header.append("encoding utf-8")
@@ -1077,52 +1086,6 @@ def gen_footer_eeschema():
     """Generate an EESCHEMA footer."""
 
     return "$EndSCHEMATC"
-
-
-def node_block_to_eeschema(node_name, tx):
-    """Create an EESCHEMA hierarchical block for a node in the circuit hierarchy."""
-
-    time_hex = hex(int(time.time()))[2:]
-    position = tx.origin
-    eeschema = []
-    eeschema.append("$Sheet")
-    eeschema.append(
-        "S {} {} {} {}".format(position.x, position.y, 500, 1000)  # TODO: magic number.
-    )  # upper left x/y, width, height
-    eeschema.append("U {}".format(time_hex))
-    eeschema.append('F0 "{}" 50'.format(node_name))
-    eeschema.append('F1 "{}.sch" 50'.format(node_name))
-    eeschema.append("$EndSheet")
-    return "\n".join(eeschema)
-
-
-# Sizes of EESCHEMA schematic pages from smallest to largest. Dimensions in mils.
-A_sizes_list = [
-    ("A4", BBox(Point(0, 0), Point(11693, 8268))),
-    ("A3", BBox(Point(0, 0), Point(16535, 11693))),
-    ("A2", BBox(Point(0, 0), Point(23386, 16535))),
-    ("A1", BBox(Point(0, 0), Point(33110, 23386))),
-    ("A0", BBox(Point(0, 0), Point(46811, 33110))),
-]
-A_sizes = OrderedDict(A_sizes_list)
-
-
-def get_A_size(bbox):
-    """Return the A-size page needed to fit the given bounding box."""
-
-    width = bbox.w
-    height = bbox.h * 1.25  # TODO: why 1.25?
-    for A_size, page in A_sizes.items():
-        if width < page.w and height < page.h:
-            return A_size
-    return "A0"  # Nothing fits, so use the largest available.
-
-
-def get_A_size_starting_point(A_size):
-    """Return the starting point for placement in the given A-size page."""
-
-    page_bbox = A_sizes[A_size]
-    return Point(page_bbox.w / 2, page_bbox.h / 4).snap(GRID)
 
 
 def collect_eeschema_code(
