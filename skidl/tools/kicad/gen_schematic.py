@@ -188,46 +188,54 @@ class Sheet:
 
     def __init__(self, node, filepath, title):
         self.node = node
-        self.filepath = filepath
         self.title = title
+
+        dir = os.path.dirname(filepath)
+        self.filename = os.path.join(dir, self.node.node_key + ".sch")
+        self.filename_sz = 20
+        self.name = self.node.node_key.split(".")[-1]
+        self.name_sz = 40
+
         self.bbox = BBox(Point(0, 0), Point(500, 500))
+        self.bbox.add(Point(len("File: "+self.filename) * self.filename_sz, 0))
+        self.bbox.add(Point(len("Sheet: "+self.name) * self.name_sz, 0))
+
         self.tx = Tx()
         self.placed = False
 
     def to_eeschema(self, tx):
+        """Generate schematic files rooted in this sheet and return EESCHEMA code for a box representing this sheet."""
 
+        # Compute the page size and positioning for this sheet.
         node = self.node
         A_size = get_A_size(node.bbox)
         page_bbox = node.bbox.dot(Tx(d=-1))
         move_to_ctr = A_sizes[A_size].ctr - page_bbox.ctr
         move_to_ctr = move_to_ctr.snap(GRID)  # Keep things on grid.
         move_tx = Tx(d=-1).dot(Tx(dx=move_to_ctr.x, dy=move_to_ctr.y))
-        eeschema = node.to_eeschema(move_tx)
 
-        # Generate schematic files for lower-levels in the hierarchy.
-        dir = os.path.dirname(self.filepath)
-        file_name = os.path.join(dir, node.node_key + ".sch")
-        with open(file_name, "w") as f:
+        # Generate schematic files for lower levels of the hierarchy.
+        with open(self.filename, "w") as f:
             print(
                 collect_eeschema_code(
-                    eeschema,
+                    node.to_eeschema(move_tx),
                     title=self.title,
                     size=A_size,
                 ),
                 file=f,
             )
 
-        bbox = self.bbox.dot(self.tx.dot(tx))
-        time_hex = hex(int(time.time()))[2:]
+        # Create the hierarchical sheet box for insertion into the calling node sheet.
+        bbox = self.bbox.dot(self.tx).dot(tx)
         eeschema = []
         eeschema.append("$Sheet")
         eeschema.append(
-            "S {} {} {} {}".format(bbox.ul.x, bbox.ul.y, bbox.w, bbox.h)
+            "S {} {} {} {}".format(bbox.ll.x, bbox.ll.y, bbox.w, bbox.h)
         )  # upper left x/y, width, height
+        time_hex = hex(int(time.time()))[2:]
         eeschema.append("U {}".format(time_hex))
-        name = self.node.node_key.split(".")[-1]
-        eeschema.append('F0 "{}" 50'.format(name))
-        eeschema.append('F1 "{}" 50'.format(file_name))
+        eeschema.append('F0 "{}" {}'.format(self.name, self.name_sz))
+        eeschema.append('F1 "{}" {}'.format(self.filename, self.filename_sz))
         eeschema.append("$EndSheet")
         eeschema.append("")
         return "\n".join(eeschema)
@@ -1127,7 +1135,7 @@ def gen_schematic(circuit, filepath=None, title="Default", gen_elkjs=False):
 
     preprocess_parts_and_nets(circuit)
 
-    with NodeTree(circuit, filepath, title, 0.5) as node_tree:
+    with NodeTree(circuit, filepath, title, 0.0) as node_tree:
         node_tree.place()
         node_tree.route()
         node_tree.to_eeschema()
