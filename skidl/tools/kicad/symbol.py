@@ -59,7 +59,7 @@ def calc_symbol_bbox(part):
 
         return {
             "U": PinDir(
-                Point(0, -1),
+                Point(0, 1),
                 "bottom",
                 -90,
                 "end",
@@ -69,7 +69,7 @@ def calc_symbol_bbox(part):
                 Point(abs_xoff, rel_yoff_num),
             ),
             "D": PinDir(
-                Point(0, 1),
+                Point(0, -1),
                 "top",
                 -90,
                 "start",
@@ -106,6 +106,7 @@ def calc_symbol_bbox(part):
     for obj in part.draw:
 
         obj_bbox = BBox()  # Bounding box of all the component objects.
+        thickness = 0
 
         if isinstance(obj, DrawDef):
             def_ = obj
@@ -123,10 +124,11 @@ def calc_symbol_bbox(part):
 
         elif isinstance(obj, DrawArc):
             arc = obj
-            center = Point(arc.cx, -arc.cy)
+            center = Point(arc.cx, arc.cy)
+            thickness = arc.thickness
             radius = arc.radius
-            start = Point(arc.startx, -arc.starty)
-            end = Point(arc.endx, -arc.endy)
+            start = Point(arc.startx, arc.starty)
+            end = Point(arc.endx, arc.endy)
             start_angle = arc.start_angle / 10
             end_angle = arc.end_angle / 10
             clock_wise = int(end_angle < start_angle)
@@ -137,7 +139,8 @@ def calc_symbol_bbox(part):
 
         elif isinstance(obj, DrawCircle):
             circle = obj
-            center = Point(circle.cx, -circle.cy)
+            center = Point(circle.cx, circle.cy)
+            thickness = circle.thickness
             radius = circle.radius
             radius_pt = Point(radius, radius)
             obj_bbox.add(center - radius_pt)
@@ -145,8 +148,9 @@ def calc_symbol_bbox(part):
 
         elif isinstance(obj, DrawPoly):
             poly = obj
+            thickness = obj.thickness
             pts = [
-                Point(x, -y)
+                Point(x, y)
                 for x, y in zip(poly.points[0::2], poly.points[1::2])
             ]
             path = []
@@ -155,8 +159,9 @@ def calc_symbol_bbox(part):
 
         elif isinstance(obj, DrawRect):
             rect = obj
-            start = Point(rect.x1, -rect.y1)
-            end = Point(rect.x2, -rect.y2)
+            thickness = obj.thickness
+            start = Point(rect.x1, rect.y1)
+            end = Point(rect.x2, rect.y2)
             obj_bbox.add(start)
             obj_bbox.add(end)
 
@@ -176,7 +181,7 @@ def calc_symbol_bbox(part):
 
                 # Create line for pin lead.
                 dir = pin_dir_tbl[pin.orientation].direction
-                start = Point(pin.x, -pin.y)
+                start = Point(pin.x, pin.y)
                 l = dir * pin.length
                 end = start + l
                 obj_bbox.add(start)
@@ -188,6 +193,9 @@ def calc_symbol_bbox(part):
                     type(obj), part.name
                 )
             )
+
+        # Expand bounding box to account for object line thickness.
+        obj_bbox.resize(Vector(round(thickness/2), round(thickness/2)))
 
         # Enter the current object into the SVG for this part.
         unit = getattr(obj, "unit", 0)
