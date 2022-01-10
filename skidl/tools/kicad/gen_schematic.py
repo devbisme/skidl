@@ -23,6 +23,7 @@ from future import standard_library
 from skidl.tools.kicad.kicad import DrawText
 
 from .geometry import Point, Vector, BBox, Segment, Tx
+from .route import route
 from .symbol import calc_symbol_bbox
 from ...logger import active_logger
 from ...net import NCNet
@@ -665,6 +666,8 @@ class Node:
                 if internal_net:
                     self.wires.extend(self.wire_it(net))
 
+        route(self)  # TODO: remove debugging.
+
     def to_eeschema(self, tx):
 
         # List to hold all the EESCHEMA code for this node.
@@ -767,7 +770,7 @@ class NodeTree(defaultdict):
                     self.leaves2root.append(node)
                     available_nodes.remove(node)
 
-        # Partition circuit into sheets.
+        # Partition circuit into sheets, starting from the leaf nodes and working to the root.
         for node in self.leaves2root:
             node.create_sheets(filepath, title, flatness)
 
