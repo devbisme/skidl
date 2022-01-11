@@ -105,12 +105,12 @@ def calc_part_bbox(part):
     part.bare_bbox = calc_symbol_bbox(part)[1]
 
     # Expand the bounding box if it's too small in either dimension.
-    resize_xy = Vector(0, 0)
+    resize_wh = Vector(0, 0)
     if part.bare_bbox.w < 100:
-        resize_xy.x = (100 - part.bare_bbox.w) / 2
+        resize_wh.x = (100 - part.bare_bbox.w) / 2
     if part.bare_bbox.h < 100:
-        resize_xy.y = (100 - part.bare_bbox.h) / 2
-    part.bare_bbox.resize(resize_xy)
+        resize_wh.y = (100 - part.bare_bbox.h) / 2
+    part.bare_bbox = part.bare_bbox.resize(resize_wh)
 
     # Find expanded bounding box that includes any labels attached to pins.
     part.bbox = BBox()
@@ -274,7 +274,7 @@ class Node:
                 self.bbox.add(tx_bbox)
 
         # Pad the bounding box for extra spacing when placed.
-        self.bbox.resize(Vector(100, 100))
+        self.bbox = self.bbox.resize(Vector(100, 100))
 
     def create_sheets(self, filepath, title, flatness=1.0):
         """Create hierarchical sheets for the circuitry in this node and its children."""

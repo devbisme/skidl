@@ -147,15 +147,9 @@ class BBox:
             and (self.max.y > bbox.min.y)
         )
 
-    def move(self, vector):
-        """Move the corner points of a bounding box."""
-        self.min += vector
-        self.max += vector
-
     def resize(self, vector):
         """Expand/contract the bounding box by applying vector to its corner points."""
-        self.min -= vector
-        self.max += vector
+        return BBox(self.min - vector, self.max + vector)
 
     @property
     def area(self):
