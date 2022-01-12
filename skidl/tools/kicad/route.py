@@ -58,203 +58,127 @@ import pygame
 from pygame.locals import K_ESCAPE
 
 class Face:
-    def __init__(self, part, track, b0, b1):
+    def __init__(self, part, track, beg, end):
         self.part = part
         self.pins = []
         self.capacity = 0
         self.track = track
-        self.b0 = b0
-        self.b1 = b1
+        if beg > end:
+            beg, end = end, beg
+        self.beg = beg
+        self.end = end
         self.adjacent = set()
 
-    def split(self, b):
-        new_face = Face(self.part, self.track, b, self.b1)
-        self.b1 = b
+    def split(self, mid):
+        new_face = Face(self.part, self.track, mid, self.end)
+        self.end = mid
         return new_face
 
 def route(node):
+    """Route the wires between part pins in the node.
+
+    Args:
+        node (Node): Hierarchical node containing the parts to be connected.
+
+    Returns:
+        None
+
+    Note:
+        1. Divide the bounding box surrounding the parts into switchboxes.
+        2. Do coarse routing of nets through sequences of switchboxes.
+        3. Do detailed routing within each switchbox.
+    """
+
     if not node.parts:
         return
 
-    x_tracks = []
-    y_tracks = []
+    # Find the coords of the horiz/vert tracks that will hold the H/V faces of the routing switchboxes.
+    v_track_coord = []
+    h_track_coord = []
+
     for part in node.parts:
+        # The upper/lower/left/right of each part's bounding box define the H/V tracks. 
         bbox = round(part.bbox.dot(part.tx))
-        x_tracks.append(bbox.min.x)
-        x_tracks.append(bbox.max.x)
-        y_tracks.append(bbox.min.y)
-        y_tracks.append(bbox.max.y)
+        v_track_coord.append(bbox.min.x)
+        v_track_coord.append(bbox.max.x)
+        h_track_coord.append(bbox.min.y)
+        h_track_coord.append(bbox.max.y)
+    
+    # Create delimiting tracks for the routing area from the slightly-expanded total bounding box of the parts.
     expansion = round(Vector(node.bbox.w, node.bbox.h) / 20)
     bbox = node.bbox.resize(expansion)
-    x_tracks.append(bbox.min.x)
-    x_tracks.append(bbox.max.x)
-    y_tracks.append(bbox.min.y)
-    y_tracks.append(bbox.max.y)
-    x_tracks.sort()
-    y_tracks.sort()
+    v_track_coord.append(bbox.min.x)
+    v_track_coord.append(bbox.max.x)
+    h_track_coord.append(bbox.min.y)
+    h_track_coord.append(bbox.max.y)
 
-    # Create faces.
-    # 1. Create faces for each part BBox.
-    # 2. Create faces for surrounding BBox.
-    # 3. Create horizontal faces from each part BBox corner to next vertical face.
-    # 4. Create vertical faces from each BBox corner to next horizontal face.
-    #        If blocking face is not a part face, then start a new face and continue.
-    # 5. Go through faces looking for adjacencies.
+    # Remove any duplicate track coords and then sort them.
+    v_track_coord = list(set(v_track_coord))
+    h_track_coord = list(set(h_track_coord))
+    v_track_coord.sort()
+    h_track_coord.sort()
 
-    v_faces = [[] for _ in x_tracks]
-    h_faces = [[] for _ in y_tracks]
+    # Create an H/V track for each H/V coord containing a list for holding the faces in that track.
+    v_tracks = [[] for _ in v_track_coord]
+    h_tracks = [[] for _ in h_track_coord]
+
+    # Add routing box faces for each side of a part's bounding box.
     for part in node.parts:
         part_bbox = round(part.bbox.dot(part.tx))
-        x0 = x_tracks.index(part_bbox.min.x)
-        x1 = x_tracks.index(part_bbox.max.x)
-        y0 = y_tracks.index(part_bbox.min.y)
-        y1 = y_tracks.index(part_bbox.max.y)
-        v_faces[x0].append(Face(part, x0, y0, y1))
-        v_faces[x1].append(Face(part, x1, y0, y1))
-        h_faces[y0].append(Face(part, y0, x0, x1))
-        h_faces[y1].append(Face(part, y1, x0, x1))
+        left = v_track_coord.index(part_bbox.min.x)
+        right = v_track_coord.index(part_bbox.max.x)
+        bottom = h_track_coord.index(part_bbox.min.y)
+        top = h_track_coord.index(part_bbox.max.y)
+        v_tracks[left].append(Face(part, left, bottom, top))
+        v_tracks[right].append(Face(part, right, bottom, top))
+        h_tracks[bottom].append(Face(part, bottom, left, right))
+        h_tracks[top].append(Face(part, top, left, right))
     
-    x0 = x_tracks.index(bbox.min.x)
-    x1 = x_tracks.index(bbox.max.x)
-    y0 = y_tracks.index(bbox.min.y)
-    y1 = y_tracks.index(bbox.max.y)
-    v_faces[x0].append(Face(None, x0, y0, y1))
-    v_faces[x1].append(Face(None, x1, y0, y1))
-    h_faces[y0].append(Face(None, y0, x0, x1))
-    h_faces[y1].append(Face(None, y1, x0, x1))
+    # Add routing box faces for each side of the expanded bounding box surrounding all parts.
+    left = v_track_coord.index(bbox.min.x)
+    right = v_track_coord.index(bbox.max.x)
+    bottom = h_track_coord.index(bbox.min.y)
+    top = h_track_coord.index(bbox.max.y)
+    v_tracks[left].append(Face(None, left, bottom, top))
+    v_tracks[right].append(Face(None, right, bottom, top))
+    h_tracks[bottom].append(Face(None, bottom, left, right))
+    h_tracks[top].append(Face(None, top, left, right))
 
-    def generate_faces(h_faces, v_faces, x_tracks, y_tracks):
-        for h_faces_in_track in h_faces:
-            for h_face in h_faces_in_track[:]:
-                track = h_face.track
+    def generate_faces(h_tracks, v_tracks):
+        for h_faces in h_tracks:
+            for h_face in h_faces[:]:
+                h_track = h_face.track
+                for dir in ("L", "R"):
+                    if dir == "L":
+                        start = h_face.beg
+                        rng = range(start, -1, -1)
+                    else:
+                        start = h_face.end
+                        rng = range(start, len(v_tracks))
 
-                done = False
-                b0 = h_face.b0
-                for x in range(b0, -1, -1):
-                    if done:
-                        break
-                    for v_face in v_faces[x][:]:
-                        if v_face.track == b0 and not (v_face.b0 < track < v_face.b1):
-                            continue
-                        if v_face.b0 <= track <= v_face.b1:
-                            new_h_face = Face(None, track, x, b0)
-                            h_faces_in_track.append(new_h_face)
-                            b0 = x
-                            if v_face.b0 < track < v_face.b1:
-                                # Split the vertical face.
-                                v_faces[x].append(v_face.split(track))
-                            if v_face.part != None:
-                                done = True
-                                break
+                    done = False
+                    for v_track in rng:
+                        for v_face in v_tracks[v_track][:]:
+                            split_v_face = v_face.beg < h_track < v_face.end
+                            if v_face.track == start and not split_v_face:
+                                continue
+                            if v_face.beg <= h_track <= v_face.end:
+                                new_h_face = Face(None, h_track, start, v_track)
+                                h_faces.append(new_h_face)
+                                start = v_track
+                                if split_v_face:
+                                    # Split vertical face.
+                                    v_tracks[v_track].append(v_face.split(h_track))
+                                if v_face.part != None:
+                                    done = True
+                                    break
+                        if done:
+                            break
 
-                done = False
-                b1 = h_face.b1
-                for x in range(b1, len(x_tracks)):
-                    if done:
-                        break
-                    for v_face in v_faces[x][:]:
-                        if v_face.track == b1 and not (v_face.b0 < track < v_face.b1):
-                            continue
-                        if v_face.b0 <= track <= v_face.b1:
-                            new_h_face = Face(None, track, b1, x)
-                            h_faces_in_track.append(new_h_face)
-                            b1 = x
-                            if v_face.b0 < track < v_face.b1:
-                                # Split the vertical face.
-                                v_faces[x].append(v_face.split(track))
-                            if v_face.part != None:
-                                done = True
-                                break
+    # Generate the horizontal faces in each horizontal track. Then generate the vertical faces.
+    generate_faces(h_tracks, v_tracks)
+    generate_faces(v_tracks, h_tracks)
 
-    generate_faces(h_faces, v_faces, x_tracks, y_tracks)
-    generate_faces(v_faces, h_faces, x_tracks, y_tracks)
-
-    # # Go through the horizontal faces and create new vertical faces.
-    # for h_faces_in_track in h_faces:
-    #     for h_face in h_faces_in_track[:]:
-    #         track = h_face.track
-
-    #         done = False
-    #         b0 = h_face.b0
-    #         for x in range(b0, -1, -1):
-    #             if done:
-    #                 break
-    #             for v_face in v_faces[x][:]:
-    #                 if v_face.track == b0 and not (v_face.b0 < track < v_face.b1):
-    #                     continue
-    #                 if v_face.b0 <= track <= v_face.b1:
-    #                     new_h_face = Face(None, track, x, b0)
-    #                     h_faces_in_track.append(new_h_face)
-    #                     b0 = x
-    #                     if v_face.b0 < track < v_face.b1:
-    #                         # Split the vertical face.
-    #                         v_faces[x].append(v_face.split(track))
-    #                     if v_face.part != None:
-    #                         done = True
-    #                         break
-
-    #         done = False
-    #         b1 = h_face.b1
-    #         for x in range(b1, len(x_tracks)):
-    #             if done:
-    #                 break
-    #             for v_face in v_faces[x][:]:
-    #                 if v_face.track == b1 and not (v_face.b0 < track < v_face.b1):
-    #                     continue
-    #                 if v_face.b0 <= track <= v_face.b1:
-    #                     new_h_face = Face(None, track, b1, x)
-    #                     h_faces_in_track.append(new_h_face)
-    #                     b1 = x
-    #                     if v_face.b0 < track < v_face.b1:
-    #                         # Split the vertical face.
-    #                         v_faces[x].append(v_face.split(track))
-    #                     if v_face.part != None:
-    #                         done = True
-    #                         break
-
-    # # Go through the vertical faces and create new horizontal faces.
-    # for v_faces_in_track in v_faces:
-    #     for v_face in v_faces_in_track[:]:
-    #         track = v_face.track
-
-    #         done = False
-    #         b0 = v_face.b0
-    #         for y in range(b0, -1, -1):
-    #             if done:
-    #                 break
-    #             for h_face in h_faces[y][:]:
-    #                 if h_face.track == b0 and not (h_face.b0 < track < h_face.b1):
-    #                     continue
-    #                 if h_face.b0 <= track <= h_face.b1:
-    #                     new_v_face = Face(None, track, y, b0)
-    #                     v_faces_in_track.append(new_v_face)
-    #                     b0 = y
-    #                     if h_face.b0 < track < h_face.b1:
-    #                         # Split the horizontal face.
-    #                         h_faces[y].append(h_face.split(track))
-    #                     if h_face.part != None:
-    #                         done = True
-    #                         break
-
-    #         done = False
-    #         b1 = v_face.b1
-    #         for y in range(b1, len(y_tracks)):
-    #             if done:
-    #                 break
-    #             for h_face in h_faces[y][:]:
-    #                 if h_face.track == b1 and not (h_face.b0 < track < h_face.b1):
-    #                     continue
-    #                 if h_face.b0 <= track <= h_face.b1:
-    #                     new_v_face = Face(None, track, b1, y)
-    #                     v_faces_in_track.append(new_v_face)
-    #                     b1 = y
-    #                     if h_face.b0 < track < h_face.b1:
-    #                         # Split the horizontal face.
-    #                         h_faces[y].append(h_face.split(track))
-    #                     if h_face.part != None:
-    #                         done = True
-    #                         break
-            
     # Store number of pins on exterior part faces.
 
     def draw_init(bbox):
@@ -282,19 +206,19 @@ def route(node):
         pygame.draw.circle(scr, color, (seg.p1.x, seg.p1.y), 5)
         pygame.draw.circle(scr, color, (seg.p2.x, seg.p2.y), 5)
 
-    def draw_h_faces(faces, scr, tx):
+    def draw_h_tracks(faces, scr, tx):
         for face in faces:
-            y = y_tracks[face.track]
-            x0 = x_tracks[face.b0]
-            x1 = x_tracks[face.b1]
+            y = h_track_coord[face.track]
+            x0 = v_track_coord[face.beg]
+            x1 = v_track_coord[face.end]
             seg = Segment(Point(x0, y), Point(x1, y))
             draw_seg(seg, scr, tx)
 
-    def draw_v_faces(faces, scr, tx):
+    def draw_v_tracks(faces, scr, tx):
         for face in faces:
-            x = x_tracks[face.track]
-            y0 = y_tracks[face.b0]
-            y1 = y_tracks[face.b1]
+            x = v_track_coord[face.track]
+            y0 = h_track_coord[face.beg]
+            y1 = h_track_coord[face.end]
             seg = Segment(Point(x, y0), Point(x, y1))
             draw_seg(seg, scr, tx)
 
@@ -330,10 +254,10 @@ def route(node):
         pygame.quit()
 
     draw_scr, draw_tx = draw_init(bbox)
-    for faces in v_faces:
-        draw_v_faces(faces, draw_scr, draw_tx)
-    for faces in h_faces:
-        draw_h_faces(faces, draw_scr, draw_tx)
+    for faces in v_tracks:
+        draw_v_tracks(faces, draw_scr, draw_tx)
+    for faces in h_tracks:
+        draw_h_tracks(faces, draw_scr, draw_tx)
     # draw_channels(faces, draw_scr, draw_tx)
     draw_parts(node.parts, draw_scr, draw_tx)
     draw_end()
