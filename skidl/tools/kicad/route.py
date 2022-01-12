@@ -134,7 +134,7 @@ def route(node):
                 if done:
                     break
                 for v_face in v_faces[x][:]:
-                    if v_face.part == h_face.part:
+                    if v_face.track == b0 and not (v_face.b0 < track < v_face.b1):
                         continue
                     if v_face.b0 <= track <= v_face.b1:
                         new_h_face = Face(None, track, x, b0)
@@ -153,7 +153,7 @@ def route(node):
                 if done:
                     break
                 for v_face in v_faces[x][:]:
-                    if v_face.part == h_face.part:
+                    if v_face.track == b1 and not (v_face.b0 < track < v_face.b1):
                         continue
                     if v_face.b0 <= track <= v_face.b1:
                         new_h_face = Face(None, track, b1, x)
@@ -177,7 +177,7 @@ def route(node):
                 if done:
                     break
                 for h_face in h_faces[y][:]:
-                    if h_face.part == v_face.part:
+                    if h_face.track == b0 and not (h_face.b0 < track < h_face.b1):
                         continue
                     if h_face.b0 <= track <= h_face.b1:
                         new_v_face = Face(None, track, y, b0)
@@ -196,7 +196,7 @@ def route(node):
                 if done:
                     break
                 for h_face in h_faces[y][:]:
-                    if h_face.part == v_face.part:
+                    if h_face.track == b1 and not (h_face.b0 < track < h_face.b1):
                         continue
                     if h_face.b0 <= track <= h_face.b1:
                         new_v_face = Face(None, track, b1, y)
