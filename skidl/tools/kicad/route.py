@@ -123,91 +123,137 @@ def route(node):
     h_faces[y0].append(Face(None, y0, x0, x1))
     h_faces[y1].append(Face(None, y1, x0, x1))
 
-    # Go through the horizontal faces and create new vertical faces.
-    for h_faces_in_track in h_faces:
-        for h_face in h_faces_in_track[:]:
-            track = h_face.track
+    def generate_faces(h_faces, v_faces, x_tracks, y_tracks):
+        for h_faces_in_track in h_faces:
+            for h_face in h_faces_in_track[:]:
+                track = h_face.track
 
-            done = False
-            b0 = h_face.b0
-            for x in range(b0, -1, -1):
-                if done:
-                    break
-                for v_face in v_faces[x][:]:
-                    if v_face.track == b0 and not (v_face.b0 < track < v_face.b1):
-                        continue
-                    if v_face.b0 <= track <= v_face.b1:
-                        new_h_face = Face(None, track, x, b0)
-                        h_faces_in_track.append(new_h_face)
-                        b0 = x
-                        if v_face.b0 < track < v_face.b1:
-                            # Split the vertical face.
-                            v_faces[x].append(v_face.split(track))
-                        if v_face.part != None:
-                            done = True
-                            break
+                done = False
+                b0 = h_face.b0
+                for x in range(b0, -1, -1):
+                    if done:
+                        break
+                    for v_face in v_faces[x][:]:
+                        if v_face.track == b0 and not (v_face.b0 < track < v_face.b1):
+                            continue
+                        if v_face.b0 <= track <= v_face.b1:
+                            new_h_face = Face(None, track, x, b0)
+                            h_faces_in_track.append(new_h_face)
+                            b0 = x
+                            if v_face.b0 < track < v_face.b1:
+                                # Split the vertical face.
+                                v_faces[x].append(v_face.split(track))
+                            if v_face.part != None:
+                                done = True
+                                break
 
-            done = False
-            b1 = h_face.b1
-            for x in range(b1, len(x_tracks)):
-                if done:
-                    break
-                for v_face in v_faces[x][:]:
-                    if v_face.track == b1 and not (v_face.b0 < track < v_face.b1):
-                        continue
-                    if v_face.b0 <= track <= v_face.b1:
-                        new_h_face = Face(None, track, b1, x)
-                        h_faces_in_track.append(new_h_face)
-                        b1 = x
-                        if v_face.b0 < track < v_face.b1:
-                            # Split the vertical face.
-                            v_faces[x].append(v_face.split(track))
-                        if v_face.part != None:
-                            done = True
-                            break
+                done = False
+                b1 = h_face.b1
+                for x in range(b1, len(x_tracks)):
+                    if done:
+                        break
+                    for v_face in v_faces[x][:]:
+                        if v_face.track == b1 and not (v_face.b0 < track < v_face.b1):
+                            continue
+                        if v_face.b0 <= track <= v_face.b1:
+                            new_h_face = Face(None, track, b1, x)
+                            h_faces_in_track.append(new_h_face)
+                            b1 = x
+                            if v_face.b0 < track < v_face.b1:
+                                # Split the vertical face.
+                                v_faces[x].append(v_face.split(track))
+                            if v_face.part != None:
+                                done = True
+                                break
 
-    # Go through the vertical faces and create new horizontal faces.
-    for v_faces_in_track in v_faces:
-        for v_face in v_faces_in_track[:]:
-            track = v_face.track
+    generate_faces(h_faces, v_faces, x_tracks, y_tracks)
+    generate_faces(v_faces, h_faces, x_tracks, y_tracks)
 
-            done = False
-            b0 = v_face.b0
-            for y in range(b0, -1, -1):
-                if done:
-                    break
-                for h_face in h_faces[y][:]:
-                    if h_face.track == b0 and not (h_face.b0 < track < h_face.b1):
-                        continue
-                    if h_face.b0 <= track <= h_face.b1:
-                        new_v_face = Face(None, track, y, b0)
-                        v_faces_in_track.append(new_v_face)
-                        b0 = y
-                        if h_face.b0 < track < h_face.b1:
-                            # Split the horizontal face.
-                            h_faces[y].append(h_face.split(track))
-                        if h_face.part != None:
-                            done = True
-                            break
+    # # Go through the horizontal faces and create new vertical faces.
+    # for h_faces_in_track in h_faces:
+    #     for h_face in h_faces_in_track[:]:
+    #         track = h_face.track
 
-            done = False
-            b1 = v_face.b1
-            for y in range(b1, len(y_tracks)):
-                if done:
-                    break
-                for h_face in h_faces[y][:]:
-                    if h_face.track == b1 and not (h_face.b0 < track < h_face.b1):
-                        continue
-                    if h_face.b0 <= track <= h_face.b1:
-                        new_v_face = Face(None, track, b1, y)
-                        v_faces_in_track.append(new_v_face)
-                        b1 = y
-                        if h_face.b0 < track < h_face.b1:
-                            # Split the horizontal face.
-                            h_faces[y].append(h_face.split(track))
-                        if h_face.part != None:
-                            done = True
-                            break
+    #         done = False
+    #         b0 = h_face.b0
+    #         for x in range(b0, -1, -1):
+    #             if done:
+    #                 break
+    #             for v_face in v_faces[x][:]:
+    #                 if v_face.track == b0 and not (v_face.b0 < track < v_face.b1):
+    #                     continue
+    #                 if v_face.b0 <= track <= v_face.b1:
+    #                     new_h_face = Face(None, track, x, b0)
+    #                     h_faces_in_track.append(new_h_face)
+    #                     b0 = x
+    #                     if v_face.b0 < track < v_face.b1:
+    #                         # Split the vertical face.
+    #                         v_faces[x].append(v_face.split(track))
+    #                     if v_face.part != None:
+    #                         done = True
+    #                         break
+
+    #         done = False
+    #         b1 = h_face.b1
+    #         for x in range(b1, len(x_tracks)):
+    #             if done:
+    #                 break
+    #             for v_face in v_faces[x][:]:
+    #                 if v_face.track == b1 and not (v_face.b0 < track < v_face.b1):
+    #                     continue
+    #                 if v_face.b0 <= track <= v_face.b1:
+    #                     new_h_face = Face(None, track, b1, x)
+    #                     h_faces_in_track.append(new_h_face)
+    #                     b1 = x
+    #                     if v_face.b0 < track < v_face.b1:
+    #                         # Split the vertical face.
+    #                         v_faces[x].append(v_face.split(track))
+    #                     if v_face.part != None:
+    #                         done = True
+    #                         break
+
+    # # Go through the vertical faces and create new horizontal faces.
+    # for v_faces_in_track in v_faces:
+    #     for v_face in v_faces_in_track[:]:
+    #         track = v_face.track
+
+    #         done = False
+    #         b0 = v_face.b0
+    #         for y in range(b0, -1, -1):
+    #             if done:
+    #                 break
+    #             for h_face in h_faces[y][:]:
+    #                 if h_face.track == b0 and not (h_face.b0 < track < h_face.b1):
+    #                     continue
+    #                 if h_face.b0 <= track <= h_face.b1:
+    #                     new_v_face = Face(None, track, y, b0)
+    #                     v_faces_in_track.append(new_v_face)
+    #                     b0 = y
+    #                     if h_face.b0 < track < h_face.b1:
+    #                         # Split the horizontal face.
+    #                         h_faces[y].append(h_face.split(track))
+    #                     if h_face.part != None:
+    #                         done = True
+    #                         break
+
+    #         done = False
+    #         b1 = v_face.b1
+    #         for y in range(b1, len(y_tracks)):
+    #             if done:
+    #                 break
+    #             for h_face in h_faces[y][:]:
+    #                 if h_face.track == b1 and not (h_face.b0 < track < h_face.b1):
+    #                     continue
+    #                 if h_face.b0 <= track <= h_face.b1:
+    #                     new_v_face = Face(None, track, b1, y)
+    #                     v_faces_in_track.append(new_v_face)
+    #                     b1 = y
+    #                     if h_face.b0 < track < h_face.b1:
+    #                         # Split the horizontal face.
+    #                         h_faces[y].append(h_face.split(track))
+    #                     if h_face.part != None:
+    #                         done = True
+    #                         break
             
     # Store number of pins on exterior part faces.
 
