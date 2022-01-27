@@ -420,38 +420,39 @@ def route(node):
             pin.face.seed_pin = pin
             pin.face.dist = 0
             pin.face.prev = pin.face # Indicates terminal pin.
-            pin.frontier = [pin.face]
-            pin.visited = []
+            pin.frontier = set([pin.face])
+            pin.visited = set()
 
-        doing_routing = len(net.pins) - 1
-        while doing_routing:
+        route_cnt = len(net.pins) - 1
+        while route_cnt > 0:
             for pin in net.pins:
                 if pin.do_route:
-                    if not pin.frontier:
+
+                    try:
+                        visit_face = min(pin.frontier, key=lambda face: face.dist)
+                    except ValueError:
                         print("No route found!")
                         pin.do_route = False
-                        doing_routing -= 1
+                        route_cnt -= 1
                         continue
 
-                    doing_routing = True
-                    expand_face = min(pin.frontier, key=lambda face: face.dist)
-                    
-                    for next_face in expand_face.adjacent:
-                        if next_face in pin.visited + pin.frontier:
-                            pass
+                    pin.frontier.remove(visit_face)
+                    pin.visited.add(visit_face)
 
-                        elif getattr(next_face, "prev", False):
+                    for next_face in visit_face.adjacent - pin.visited - pin.frontier:
+
+                        if getattr(next_face, "prev", False):
                             # Found a connection! Now what?
                             # Store connection.
                             # Turn off routing for one pin.
                             other_pin = next_face.seed_pin
-                            pin.frontier.extend(other_pin.frontier)
-                            pin.visited.extend(other_pin.visited)
-                            other_pin.visited = []
-                            other_pin.frontier = []
+                            pin.frontier.update(other_pin.frontier)
+                            pin.visited.update(other_pin.visited)
+                            other_pin.visited = set()
+                            other_pin.frontier = set()
                             other_pin.do_route = False
-                            doing_routing -= 1
-                            f = expand_face
+                            route_cnt -= 1
+                            f = visit_face
                             w1 = [f,]
                             while f.prev is not f:
                                 f = f.prev
@@ -464,17 +465,14 @@ def route(node):
                             routed_wires.append(w1[::-1] + w2[:])
 
                         elif next_face.capacity > 0:
-                            pin.frontier.append(next_face)
+                            pin.frontier.add(next_face)
                             next_face.seed_pin = pin
-                            next_face.prev = expand_face
-                            next_face.dist = expand_face.dist + 1
-
-                    pin.frontier.remove(expand_face)
-                    pin.visited.append(expand_face)
+                            next_face.prev = visit_face
+                            next_face.dist = visit_face.dist + 1
 
         for pin in net.pins:
             delattr(pin, "do_route")
-            for face in set(pin.visited + pin.frontier):
+            for face in pin.visited | pin.frontier:
                 delattr(face, "dist")
                 delattr(face, "prev")
                 delattr(face, "seed_pin")
