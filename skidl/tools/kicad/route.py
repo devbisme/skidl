@@ -14,6 +14,7 @@ from __future__ import (  # isort:skip
 )
 
 from builtins import range, zip
+from enum import Enum, auto
 from collections import defaultdict
 
 from future import standard_library
@@ -55,7 +56,16 @@ standard_library.install_aliases()
 # Route from cell face.
 ###################################################################
 
-HORZ, VERT, LEFT, RIGHT = range(4)
+class Orientation(Enum):
+    HORZ = auto()
+    VERT = auto()
+    LEFT = auto()
+    RIGHT = auto()
+
+HORZ = Orientation.HORZ
+VERT = Orientation.VERT
+LEFT = Orientation.LEFT
+RIGHT = Orientation.RIGHT
 
 
 class Boundary:
@@ -63,6 +73,14 @@ class Boundary:
 
 
 boundary = Boundary()
+
+
+class Terminal:
+    """Terminal on a Face from which a net is routed within a switchbox."""
+
+    def __init__(self, net, coord):
+        self.net = net
+        self.coord = coord
 
 
 class Face:
@@ -75,34 +93,30 @@ class Face:
         elif part is not None:
             self.part.add(part)
         self.pins = []
-        self.capacity = 0
         self.track = track
         if beg > end:
             beg, end = end, beg
         self.beg = beg
         self.end = end
         self.adjacent = set()
+        self.create_terminals()
+        self.set_capacity()
 
-    def connection_pts(self):
+    def create_terminals(self):
         from .gen_schematic import GRID
+        beg = (self.beg.coord + GRID//2 + GRID) // GRID * GRID
+        end = self.end.coord - GRID//2
+        self.terminals = [Terminal(None, coord) for coord in range(beg, end, GRID)]
 
-        beg_coord = self.beg.coord
-        end_coord = self.end.coord
-        
-        def to_grid(a):
-            return int((a + GRID - 1)//GRID * GRID)
-        
-        coords = range(to_grid(beg_coord), end_coord, GRID)
-        if self.track.orientation == HORZ:
-            return [Point(coord, self.track.coord) for coord in coords]
-        else:
-            return [Point(self.track.coord, coord) for coord in coords]
+    @property
+    def connection_pts(self):
+        return [terminal.coord for terminal in self.terminals]
 
     def set_capacity(self):
         if self.part:
             self.capacity = 0
         else:
-            self.capacity = len(self.connection_pts())
+            self.capacity = len(self.connection_pts)
 
     def add_adjacency(self, adj_face):
         """Make two faces adjacent to one another."""
@@ -124,12 +138,21 @@ class Face:
         if self.beg < mid < self.end:
             new_face = Face(self.part, self.track, self.beg, mid)
             self.beg = mid
+            self.create_terminals()
             return new_face
         return None
 
     def coincides_with(self, other_face):
         """Returns True if both faces have the same beginning and ending point on the same track."""
         return (self.beg, self.end) == (other_face.beg, other_face.end)
+
+
+class Wire(list):
+    """Wire connecting pins."""
+
+    def __init__(self, *args, **kwargs):
+        self.net = kwargs.pop("net")
+        super().__init__(*args, **kwargs)
 
 
 class Track(list):
@@ -139,7 +162,7 @@ class Track(list):
         self.orientation = kwargs.pop("orientation", HORZ)
         self.coord = kwargs.pop("coord", 0)
         self.idx = kwargs.pop("idx")
-        super().__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.splits = set()
 
     def __hash__(self):
@@ -237,6 +260,104 @@ class Track(list):
             left_face.add_adjacency(lower_face)
             right_face.add_adjacency(upper_face)
             right_face.add_adjacency(lower_face)
+
+def route_globally(net):
+    """Route a net from face to face.
+
+    Args:
+        net (Net): The net to be routed
+
+    Returns:
+        List: Sequence of faces the net travels through.
+    """
+
+    routed_wires = []
+
+    net_route_cnt = 0
+    for pin in net.pins:
+        if hasattr(pin.face, "seed_pin"):
+            pin.do_route = False  # Only route one pin per face.
+        else:
+            pin.face.seed_pin = pin
+            pin.face.dist = 0
+            pin.face.prev = pin.face # Indicates terminal pin.
+            pin.frontier = set([pin.face])
+            pin.visited = set()
+            pin.do_route = True
+            net_route_cnt += 1
+
+    while net_route_cnt > 1:
+        for pin in net.pins:
+            if pin.do_route:
+
+                try:
+                    visit_face = min(pin.frontier, key=lambda face: face.dist)
+                except ValueError:
+                    print("No route found!")
+                    pin.do_route = False
+                    net_route_cnt -= 1
+                    continue
+
+                pin.frontier.remove(visit_face)
+                pin.visited.add(visit_face)
+
+                for next_face in visit_face.adjacent - pin.visited - pin.frontier:
+
+                    if hasattr(next_face, "prev"):
+                        # Found a connection with another pin on the net!
+                        # Combine faces that have been visited and on the frontier.
+                        # Turn off routing for one of the pins.
+                        # Store sequence of faces connecting the two pins.
+                        other_pin = next_face.seed_pin
+                        pin.frontier.update(other_pin.frontier)
+                        pin.visited.update(other_pin.visited)
+                        other_pin.visited = set()
+                        other_pin.frontier = set()
+                        other_pin.do_route = False
+                        net_route_cnt -= 1
+                        def get_face_path(f):
+                            path = [f,]
+                            while f.prev is not f:
+                                path.append(f.prev)
+                                f = f.prev
+                            return path
+                        wire = Wire(get_face_path(visit_face)[::-1] + get_face_path(next_face)[:], net=net)
+                        for face in wire:
+                            if face.capacity > 0:
+                                face.capacity -= 1
+                        routed_wires.append(wire)
+
+                    elif next_face.capacity > 0:
+                        pin.frontier.add(next_face)
+                        next_face.seed_pin = pin
+                        next_face.prev = visit_face
+                        next_face.dist = visit_face.dist + 1
+
+    for pin in net.pins:
+        delattr(pin, "do_route")
+        for face in pin.visited | pin.frontier:
+            delattr(face, "dist")
+            delattr(face, "prev")
+            delattr(face, "seed_pin")
+        delattr(pin, "frontier")
+        delattr(pin, "visited")
+
+    return routed_wires
+
+def rank_net(net):
+    """Rank net based on W/H of bounding box of pins and the # of pins."""
+    bbox = BBox()
+    for pin in net.pins:
+        bbox.add(pin.pt)
+    return (bbox.w + bbox.h, len(net.pins))
+
+def fix_net_switchbox_terminals():
+    pass
+
+def route_switchbox(lower_face):
+    pass
+    # Get switchbox sides.
+    # Greedy route.
 
 
 def route(node):
@@ -404,6 +525,7 @@ def route(node):
                 if face.beg.coord <= coord <= face.end.coord:
                     assert pin.part in face.part
                     pin.face = face
+                    pin.face_offset = coord - face.beg.coord # Position of pin along face.
                     face.pins.append(pin)
                     break
 
@@ -412,77 +534,40 @@ def route(node):
         for face in track:
             face.set_capacity()
 
-    routed_wires = []
-    for net in internal_nets:
+    # Do global routing of nets internal to the node.
+    internal_nets.sort(key=rank_net)
+    global_routes = [route_globally(net) for net in internal_nets]
 
-        for pin in net.pins:
-            pin.do_route = True
-            pin.face.seed_pin = pin
-            pin.face.dist = 0
-            pin.face.prev = pin.face # Indicates terminal pin.
-            pin.frontier = set([pin.face])
-            pin.visited = set()
-
-        route_cnt = len(net.pins) - 1
-        while route_cnt > 0:
-            for pin in net.pins:
-                if pin.do_route:
-
-                    try:
-                        visit_face = min(pin.frontier, key=lambda face: face.dist)
-                    except ValueError:
-                        print("No route found!")
-                        pin.do_route = False
-                        route_cnt -= 1
-                        continue
-
-                    pin.frontier.remove(visit_face)
-                    pin.visited.add(visit_face)
-
-                    for next_face in visit_face.adjacent - pin.visited - pin.frontier:
-
-                        if getattr(next_face, "prev", False):
-                            # Found a connection! Now what?
-                            # Store connection.
-                            # Turn off routing for one pin.
-                            other_pin = next_face.seed_pin
-                            pin.frontier.update(other_pin.frontier)
-                            pin.visited.update(other_pin.visited)
-                            other_pin.visited = set()
-                            other_pin.frontier = set()
-                            other_pin.do_route = False
-                            route_cnt -= 1
-                            f = visit_face
-                            w1 = [f,]
-                            while f.prev is not f:
-                                f = f.prev
-                                w1.append(f)
-                            f = next_face
-                            w2 = [f,]
-                            while f.prev is not f:
-                                f = f.prev
-                                w2.append(f)
-                            routed_wires.append(w1[::-1] + w2[:])
-
-                        elif next_face.capacity > 0:
-                            pin.frontier.add(next_face)
-                            next_face.seed_pin = pin
-                            next_face.prev = visit_face
-                            next_face.dist = visit_face.dist + 1
-
-        for pin in net.pins:
-            delattr(pin, "do_route")
-            for face in pin.visited | pin.frontier:
-                delattr(face, "dist")
-                delattr(face, "prev")
-                delattr(face, "seed_pin")
-            delattr(pin, "frontier")
-            delattr(pin, "visited")
+    # Assign terminals to routing switchbox faces.
+    for track in h_tracks + v_tracks:
+        for face in track:
+            if face.part:
+                connection_pts = face.connection_pts
+                for pin in face.pins:
+                    idx = connection_pts.index(pin.face_offset + face.beg.coord)
+                    face.terminals[idx].net = pin.net
+    for route in global_routes:
+        for wire in route:
+            for i, face in enumerate(wire[:]):
+                if face.part:
+                    for j, terminal in enumerate(face.terminals):
+                        if terminal.net == wire.net:
+                            wire[i] = (face, j) # TODO: replace with Terminal!
+                            break
+                    else:
+                        raise Exception
+                else:
+                    for j, terminal in enumerate(face.terminals[:]):
+                        if not terminal.net:
+                            wire[i] = (face, j) # TODO: replace with Terminal!
+                            face.terminals[j].net = wire.net
+                            break
+                    else:
+                        raise Exception
 
 
     import pygame
     import pygame.freetype
-    from pygame.locals import K_ESCAPE
 
     def draw_init(bbox):
         scr_bbox = BBox(Point(0, 0), Point(2000, 1500))
@@ -593,18 +678,28 @@ def route(node):
         pygame.draw.polygon(scr, (0,0,0), corners, 0)
         # draw_face(pin.face, (0,0,0), 4, 4, scr, tx)
 
-    def draw_net(net, scr, tx):
-        for pin in net.pins:
+    def terminal_pt(face, offset):
+        from .gen_schematic import GRID
+        track = face.track
+        coord = face.terminals[offset].coord
+        if track.orientation == HORZ:
+            return Point(coord, track.coord)
+        else:
+            return Point(track.coord, coord)
+
+    def draw_wire(wire, scr, tx):
+        for pin in wire.net.pins:
             draw_pin(pin, scr, tx)
 
-    def draw_wires(wires, scr, tx):
-        face_to_face = zip(wires[:-1], wires[1:])
-        for face1, face2 in face_to_face:
-            seg1 = face_seg(face1)
-            seg2 = face_seg(face2)
-            p1 = (seg1.p1 + seg1.p2) / 2
-            p2 = (seg2.p1 + seg2.p2) / 2
-            draw_seg(Segment(p1, p2), scr, tx, (0,0,0), 6, 0)
+        face_to_face = zip(wire[:-1], wire[1:])
+        for (face1, off1), (face2, off2) in face_to_face:
+            p1 = terminal_pt(face1, off1)
+            p2 = terminal_pt(face2, off2)
+            # seg1 = face_seg(face1)
+            # seg2 = face_seg(face2)
+            # p1 = (seg1.p1 + seg1.p2) / 2
+            # p2 = (seg2.p1 + seg2.p2) / 2
+            draw_seg(Segment(p1, p2), scr, tx, (0,0,0), 2, 0)
 
     def draw_end():
         pygame.display.flip()
@@ -618,14 +713,13 @@ def route(node):
 
     draw_scr, draw_tx, font = draw_init(routing_bbox)
     draw_parts(node.parts, draw_scr, draw_tx)
-    for track in h_tracks + v_tracks:
-        draw_track(track, draw_scr, draw_tx, font)
+    # for track in h_tracks + v_tracks:
+    #     draw_track(track, draw_scr, draw_tx, font)
     # for track in h_tracks + v_tracks:
     #     draw_channels(track, draw_scr, draw_tx)
-    for net in internal_nets:
-        draw_net(net, draw_scr, draw_tx)
-    for wires in routed_wires:
-        draw_wires(wires, draw_scr, draw_tx)
+    for route in global_routes:
+        for wire in route:
+            draw_wire(wire, draw_scr, draw_tx)
     draw_end()
 
     return
