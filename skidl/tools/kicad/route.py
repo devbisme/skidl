@@ -78,8 +78,9 @@ boundary = Boundary()
 class Terminal:
     """Terminal on a Face from which a net is routed within a switchbox."""
 
-    def __init__(self, net, coord):
+    def __init__(self, net, face, coord):
         self.net = net
+        self.face = face
         self.coord = coord
 
 
@@ -106,7 +107,7 @@ class Face:
         from .gen_schematic import GRID
         beg = (self.beg.coord + GRID//2 + GRID) // GRID * GRID
         end = self.end.coord - GRID//2
-        self.terminals = [Terminal(None, coord) for coord in range(beg, end, GRID)]
+        self.terminals = [Terminal(None, self, coord) for coord in range(beg, end, GRID)]
 
     @property
     def connection_pts(self):
@@ -550,17 +551,17 @@ def route(node):
         for wire in route:
             for i, face in enumerate(wire[:]):
                 if face.part:
-                    for j, terminal in enumerate(face.terminals):
+                    for terminal in face.terminals:
                         if terminal.net == wire.net:
-                            wire[i] = (face, j) # TODO: replace with Terminal!
+                            wire[i] = terminal
                             break
                     else:
                         raise Exception
                 else:
-                    for j, terminal in enumerate(face.terminals[:]):
+                    for terminal in face.terminals[:]:
                         if not terminal.net:
-                            wire[i] = (face, j) # TODO: replace with Terminal!
-                            face.terminals[j].net = wire.net
+                            wire[i] = terminal
+                            terminal.net = wire.net
                             break
                     else:
                         raise Exception
@@ -678,27 +679,21 @@ def route(node):
         pygame.draw.polygon(scr, (0,0,0), corners, 0)
         # draw_face(pin.face, (0,0,0), 4, 4, scr, tx)
 
-    def terminal_pt(face, offset):
-        from .gen_schematic import GRID
-        track = face.track
-        coord = face.terminals[offset].coord
-        if track.orientation == HORZ:
-            return Point(coord, track.coord)
-        else:
-            return Point(track.coord, coord)
-
     def draw_wire(wire, scr, tx):
         for pin in wire.net.pins:
             draw_pin(pin, scr, tx)
 
+        def terminal_pt(terminal):
+            track = terminal.face.track
+            if track.orientation == HORZ:
+                return Point(terminal.coord, track.coord)
+            else:
+                return Point(track.coord, terminal.coord)
+
         face_to_face = zip(wire[:-1], wire[1:])
-        for (face1, off1), (face2, off2) in face_to_face:
-            p1 = terminal_pt(face1, off1)
-            p2 = terminal_pt(face2, off2)
-            # seg1 = face_seg(face1)
-            # seg2 = face_seg(face2)
-            # p1 = (seg1.p1 + seg1.p2) / 2
-            # p2 = (seg2.p1 + seg2.p2) / 2
+        for terminal1, terminal2 in face_to_face:
+            p1 = terminal_pt(terminal1)
+            p2 = terminal_pt(terminal2)
             draw_seg(Segment(p1, p2), scr, tx, (0,0,0), 2, 0)
 
     def draw_end():
