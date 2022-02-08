@@ -526,8 +526,10 @@ def route(node):
                 if face.beg.coord <= coord <= face.end.coord:
                     assert pin.part in face.part
                     pin.face = face
-                    pin.face_offset = coord - face.beg.coord # Position of pin along face.
                     face.pins.append(pin)
+                    connection_pts = face.connection_pts
+                    idx = connection_pts.index(coord)
+                    face.terminals[idx].net = net
                     break
 
     # Set routing capacity of faces.
@@ -539,14 +541,7 @@ def route(node):
     internal_nets.sort(key=rank_net)
     global_routes = [route_globally(net) for net in internal_nets]
 
-    # Assign terminals to routing switchbox faces.
-    for track in h_tracks + v_tracks:
-        for face in track:
-            if face.part:
-                connection_pts = face.connection_pts
-                for pin in face.pins:
-                    idx = connection_pts.index(pin.face_offset + face.beg.coord)
-                    face.terminals[idx].net = pin.net
+    # Assign global routes to terminals in switchbox faces.
     for route in global_routes:
         for wire in route:
             for i, face in enumerate(wire[:]):
@@ -558,7 +553,7 @@ def route(node):
                     else:
                         raise Exception
                 else:
-                    for terminal in face.terminals[:]:
+                    for terminal in face.terminals:
                         if not terminal.net:
                             wire[i] = terminal
                             terminal.net = wire.net
@@ -708,8 +703,8 @@ def route(node):
 
     draw_scr, draw_tx, font = draw_init(routing_bbox)
     draw_parts(node.parts, draw_scr, draw_tx)
-    # for track in h_tracks + v_tracks:
-    #     draw_track(track, draw_scr, draw_tx, font)
+    for track in h_tracks + v_tracks:
+        draw_track(track, draw_scr, draw_tx, font)
     # for track in h_tracks + v_tracks:
     #     draw_channels(track, draw_scr, draw_tx)
     for route in global_routes:
