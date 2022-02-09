@@ -345,6 +345,73 @@ def route_globally(net):
 
     return routed_wires
 
+def assign_switchbox_terminals(global_routes):
+    """Assign global routes to terminals in switchbox faces."""
+
+    for route in global_routes:
+        for wire in route:
+            for i, face in enumerate(wire[:]):
+                if face.part:
+                    for terminal in face.terminals:
+                        if terminal.net == wire.net:
+                            wire[i] = terminal
+                            break
+                    else:
+                        raise Exception
+
+    def find_to_terminal_idx(from_terminal, to_face):
+        from_face = from_terminal.face
+        if to_face.track in (from_face.beg, from_face.end):
+            # Right-angle faces.
+            # to_face is positioned left/below w.r.t. from_face.
+            if to_face.beg == from_face.track:
+                # to_face is oriented upward/rightward w.r.t. from_face.
+                search_range = range(len(to_face.terminals))
+            elif to_face.end == from_face.track:
+                # to_face is oriented downward/leftward w.r.t. from_face.
+                search_range = range(len(to_face.terminals)-1, -1, -1)
+            else:
+                raise Exception
+        else:
+            # Parallel faces.
+            from_len = len(from_face.terminals)
+            from_idx = from_face.terminals.index(from_terminal)
+            search_range = chain(*zip_longest(range(from_idx, -1, -1), range(from_idx+1, from_len)))
+
+        for idx in search_range:
+            if idx is not None:
+                if to_face.terminals[idx].net in (None, from_terminal.net):
+                    return idx
+        raise Exception
+
+    for route in global_routes:
+        done = False
+        while not done:
+            done = True
+            for wire in route:
+                for i in range(0, len(wire)-1):
+                    face1, face2 = wire[i], wire[i+1]
+                    if isinstance(face1, Terminal) and isinstance(face2, Terminal):
+                        continue
+                    if isinstance(face1, Face) and isinstance(face2, Terminal):
+                        terminal_idx = find_to_terminal_idx(face2, face1)
+                        terminal = face1.terminals[terminal_idx]
+                        terminal.net = wire.net
+                        wire[i] = terminal
+                        done = False
+                        continue
+                    if isinstance(face1, Terminal) and isinstance(face2, Face):
+                        terminal_idx = find_to_terminal_idx(face1, face2)
+                        terminal = face2.terminals[terminal_idx]
+                        terminal.net = wire.net
+                        wire[i+1] = terminal
+                        done = False
+                        continue
+                    if isinstance(face1, Face) and isinstance(face2, Face):
+                        continue
+
+                    raise Exception
+
 def rank_net(net):
     """Rank net based on W/H of bounding box of pins and the # of pins."""
     bbox = BBox()
@@ -372,7 +439,7 @@ def route(node):
 
     Note:
         1. Divide the bounding box surrounding the parts into switchboxes.
-        2. Do coarse routing of nets through sequences of switchboxes.
+        2. Do global routing of nets through sequences of switchboxes.
         3. Do detailed routing within each switchbox.
     """
 
@@ -540,71 +607,7 @@ def route(node):
     # Do global routing of nets internal to the node.
     internal_nets.sort(key=rank_net)
     global_routes = [route_globally(net) for net in internal_nets]
-
-    # Assign global routes to terminals in switchbox faces.
-    for route in global_routes:
-        for wire in route:
-            for i, face in enumerate(wire[:]):
-                if face.part:
-                    for terminal in face.terminals:
-                        if terminal.net == wire.net:
-                            wire[i] = terminal
-                            break
-                    else:
-                        raise Exception
-
-    def find_to_terminal_idx(from_terminal, to_face):
-        from_face = from_terminal.face
-        if to_face.track in (from_face.beg, from_face.end):
-            # Right-angle faces.
-            # to_face is positioned left/below w.r.t. from_face.
-            if to_face.beg == from_face.track:
-                # to_face is oriented upward/rightward w.r.t. from_face.
-                search_range = range(len(to_face.terminals))
-            elif to_face.end == from_face.track:
-                # to_face is oriented downward/leftward w.r.t. from_face.
-                search_range = range(len(to_face.terminals)-1, -1, -1)
-            else:
-                raise Exception
-        else:
-            # Parallel faces.
-            from_len = len(from_face.terminals)
-            from_idx = from_face.terminals.index(from_terminal)
-            search_range = chain(*zip_longest(range(from_idx, -1, -1), range(from_idx+1, from_len)))
-
-        for idx in search_range:
-            if idx is not None:
-                if to_face.terminals[idx].net in (None, from_terminal.net):
-                    return idx
-        raise Exception
-
-    for route in global_routes:
-        done = False
-        while not done:
-            done = True
-            for wire in route:
-                for i in range(0, len(wire)-1):
-                    face1, face2 = wire[i], wire[i+1]
-                    if isinstance(face1, Terminal) and isinstance(face2, Terminal):
-                        continue
-                    if isinstance(face1, Face) and isinstance(face2, Terminal):
-                        terminal_idx = find_to_terminal_idx(face2, face1)
-                        terminal = face1.terminals[terminal_idx]
-                        terminal.net = wire.net
-                        wire[i] = terminal
-                        done = False
-                        continue
-                    if isinstance(face1, Terminal) and isinstance(face2, Face):
-                        terminal_idx = find_to_terminal_idx(face1, face2)
-                        terminal = face2.terminals[terminal_idx]
-                        terminal.net = wire.net
-                        wire[i+1] = terminal
-                        done = False
-                        continue
-                    if isinstance(face1, Face) and isinstance(face2, Face):
-                        continue
-
-                    raise Exception
+    assign_switchbox_terminals(global_routes)
 
 
     import pygame
