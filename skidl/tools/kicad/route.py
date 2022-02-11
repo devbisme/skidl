@@ -147,9 +147,50 @@ class Face:
         """Returns True if both faces have the same beginning and ending point on the same track."""
         return (self.beg, self.end) == (other_face.beg, other_face.end)
 
+    def get_switchbox_faces(upper_face):
+        """Get faces of switchbox.
 
-class Wire(list):
-    """Wire connecting pins."""
+        Args:
+            upper_face (Face): The upper face of the switchbox.
+
+        Raises:
+            Exception: If this is a malformed switchbox.
+
+        Returns:
+            [list]: upper, right, lower, and left Faces of switchbox.
+        """
+
+        left_face = None
+        left_track = upper_face.beg
+        for face in left_track:
+            if face.end.coord == upper_face.track.coord:
+                left_face = face
+                break
+
+        right_face = None
+        right_track = upper_face.end
+        for face in right_track:
+            if face.end.coord == upper_face.track.coord:
+                right_face = face
+                break
+
+        if left_face.beg != right_face.beg:
+            # This only happens when two parts are butted up against each other
+            # to form a non-routable switchbox inside a part bounding box.
+            raise Exception("Unroutable switchbox!")
+
+        lower_face = None
+        lower_track = left_face.beg
+        for face in lower_track:
+            if face.beg.coord == upper_face.beg.coord:
+                lower_face = face
+                break
+
+        return upper_face, right_face, lower_face, left_face
+
+
+class GlobalWire(list):
+    """Global-routing wire connecting switchbox faces and terminals."""
 
     def __init__(self, *args, **kwargs):
         self.net = kwargs.pop("net")
@@ -231,29 +272,10 @@ class Track(list):
     def add_adjacencies(self):
         for upper_face in self:
 
-            left_face = None
-            left_track = upper_face.beg
-            for face in left_track:
-                if face.end.coord == upper_face.track.coord:
-                    left_face = face
-                    break
-
-            right_face = None
-            right_track = upper_face.end
-            for face in right_track:
-                if face.end.coord == upper_face.track.coord:
-                    right_face = face
-                    break
-
-            if left_face.beg != right_face.beg:
+            try:
+                upper_face, right_face, lower_face, left_face = upper_face.get_switchbox_faces() 
+            except Exception:
                 continue
-
-            lower_face = None
-            lower_track = left_face.beg
-            for face in lower_track:
-                if face.beg.coord == upper_face.beg.coord:
-                    lower_face = face
-                    break
 
             upper_face.add_adjacency(lower_face)
             left_face.add_adjacency(right_face)
@@ -266,7 +288,7 @@ def route_globally(net):
     """Route a net from face to face.
 
     Args:
-        net (Net): The net to be routed
+        net (Net): The net to be routed.
 
     Returns:
         List: Sequence of faces the net travels through.
@@ -322,7 +344,7 @@ def route_globally(net):
                                 path.append(f.prev)
                                 f = f.prev
                             return path
-                        wire = Wire(get_face_path(visit_face)[::-1] + get_face_path(next_face)[:], net=net)
+                        wire = GlobalWire(get_face_path(visit_face)[::-1] + get_face_path(next_face)[:], net=net)
                         for face in wire:
                             if face.capacity > 0:
                                 face.capacity -= 1
