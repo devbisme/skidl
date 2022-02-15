@@ -197,7 +197,7 @@ class GlobalWire(list):
         super().__init__(*args, **kwargs)
 
 
-class Track(list):
+class GlobalTrack(list):
     """A horizontal/vertical track holding one or more faces all having the same Y/X coordinate."""
 
     def __init__(self, *args, **kwargs):
@@ -545,11 +545,11 @@ def route(node):
 
     # Create an H/V track for each H/V coord containing a list for holding the faces in that track.
     v_tracks = [
-        Track(orientation=VERT, idx=idx, coord=coord)
+        GlobalTrack(orientation=VERT, idx=idx, coord=coord)
         for idx, coord in enumerate(v_track_coord)
     ]
     h_tracks = [
-        Track(orientation=HORZ, idx=idx, coord=coord)
+        GlobalTrack(orientation=HORZ, idx=idx, coord=coord)
         for idx, coord in enumerate(h_track_coord)
     ]
 
