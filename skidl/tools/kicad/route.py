@@ -48,12 +48,6 @@ standard_library.install_aliases()
 #        Select the lowest-cost, unvisited cell face.
 #        If the cell face has already been visited by another net pin,
 #          then connect the pins by combining their face lists.
-#
-# Use net to find pins.
-# Use pin to find part.
-# Use part, pin to find cell.
-# Use pin to find cell face.
-# Route from cell face.
 ###################################################################
 
 class Orientation(Enum):
@@ -100,14 +94,47 @@ class Face:
         self.beg = beg
         self.end = end
         self.adjacent = set()
-        self.create_terminals()
-        self.set_capacity()
 
-    def create_terminals(self):
-        from .gen_schematic import GRID
-        beg = (self.beg.coord + GRID//2 + GRID) // GRID * GRID
-        end = self.end.coord - GRID//2
-        self.terminals = [Terminal(None, self, coord) for coord in range(beg, end, GRID)]
+    def create_terminals(self, internal_nets):
+        from .gen_schematic import calc_pin_dir
+        self.terminals = []
+        if self.part:
+            for part in self.part:
+                if not isinstance(part, Part):
+                    continue
+                for pin in part:
+                    assert part == pin.part
+                    if pin.net not in internal_nets:
+                        continue
+                    pt = pin.pt.dot(part.tx)
+                    dir = calc_pin_dir(pin)
+                    pin_track = {
+                        "U": part.bottom_track,
+                        "D": part.top_track,
+                        "L": part.right_track,
+                        "R": part.left_track,
+                    }[dir]
+                    if self.track is not pin_track:
+                        continue
+                    coord = {
+                        "U": pt.x,
+                        "D": pt.x,
+                        "L": pt.y,
+                        "R": pt.y,
+                    }[dir]
+                    if self.beg.coord <= coord < self.end.coord:
+                        pin.face = self
+                        self.pins.append(pin)
+                        terminal = Terminal(pin.net, self, coord)
+                        self.terminals.append(terminal)
+            self.terminals.sort(key=lambda t: t.coord)
+        else:
+            from .gen_schematic import GRID
+            beg = (self.beg.coord + GRID//2 + GRID) // GRID * GRID
+            end = self.end.coord - GRID//2
+            self.terminals = [Terminal(None, self, coord) for coord in range(beg, end, GRID)]
+
+        self.set_capacity()
 
     @property
     def connection_pts(self):
@@ -139,7 +166,7 @@ class Face:
         if self.beg < mid < self.end:
             new_face = Face(self.part, self.track, self.beg, mid)
             self.beg = mid
-            self.create_terminals()
+            # self.create_terminals()
             return new_face
         return None
 
@@ -358,12 +385,13 @@ def route_globally(net):
 
     for pin in net.pins:
         delattr(pin, "do_route")
-        for face in pin.visited | pin.frontier:
-            delattr(face, "dist")
-            delattr(face, "prev")
-            delattr(face, "seed_pin")
-        delattr(pin, "frontier")
-        delattr(pin, "visited")
+        if hasattr(pin, "frontier"):
+            for face in pin.visited | pin.frontier:
+                delattr(face, "dist")
+                delattr(face, "prev")
+                delattr(face, "seed_pin")
+            delattr(pin, "frontier")
+            delattr(pin, "visited")
 
     return routed_wires
 
@@ -588,38 +616,48 @@ def route(node):
         track.split_faces()
         track.combine_faces()
 
+    # Add terminals to all faces.
+    for track in h_tracks + v_tracks:
+        for face in track:
+            face.create_terminals(internal_nets)
+
     # Add adjacencies between faces that define routing paths within switchboxes.
     for h_track in h_tracks[1:]:
         h_track.add_adjacencies()
 
     # Associate pins with faces.
-    from .gen_schematic import calc_pin_dir
-    for net in internal_nets:
-        for pin in net.pins:
-            part = pin.part
-            pt = pin.pt.dot(part.tx)
-            dir = calc_pin_dir(pin)
-            pin_track = {
-                "U": part.bottom_track,
-                "D": part.top_track,
-                "L": part.right_track,
-                "R": part.left_track,
-            }[dir]
-            coord = {
-                "U": pt.x,
-                "D": pt.x,
-                "L": pt.y,
-                "R": pt.y,
-            }[dir]
-            for face in pin_track:
-                if face.beg.coord <= coord <= face.end.coord:
-                    assert pin.part in face.part
-                    pin.face = face
-                    face.pins.append(pin)
-                    connection_pts = face.connection_pts
-                    idx = connection_pts.index(coord)
-                    face.terminals[idx].net = net
-                    break
+    # from .gen_schematic import calc_pin_dir
+    # for net in internal_nets:
+    #     for pin in net.pins:
+    #         part = pin.part
+    #         pt = pin.pt.dot(part.tx)
+    #         dir = calc_pin_dir(pin)
+    #         pin_track = {
+    #             "U": part.bottom_track,
+    #             "D": part.top_track,
+    #             "L": part.right_track,
+    #             "R": part.left_track,
+    #         }[dir]
+    #         coord = {
+    #             "U": pt.x,
+    #             "D": pt.x,
+    #             "L": pt.y,
+    #             "R": pt.y,
+    #         }[dir]
+    #         for face in pin_track:
+    #             if face.beg.coord <= coord <= face.end.coord:
+    #                 assert pin.part in face.part
+    #                 pin.face = face
+    #                 face.pins.append(pin)
+    #                 connection_pts = face.connection_pts
+    #                 try:
+    #                     idx = connection_pts.index(coord)
+    #                 except ValueError:
+    #                     diffs = [abs(coord - pt) for pt in connection_pts]
+    #                     min_diff = min(diffs)
+    #                     idx = diffs.index(min_diff)
+    #                 face.terminals[idx].net = net
+    #                 break
 
     # Set routing capacity of faces.
     for track in h_tracks + v_tracks:
