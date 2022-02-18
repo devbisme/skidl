@@ -113,21 +113,27 @@ def calc_part_bbox(part):
     part.bare_bbox = part.bare_bbox.resize(resize_wh)
 
     # Find expanded bounding box that includes any labels attached to pins.
-    part.bbox = BBox()
-    part.bbox.add(part.bare_bbox)
+    part.lbl_bbox = BBox()
+    part.lbl_bbox.add(part.bare_bbox)
+    lbl_vectors = {
+        "U": Vector(0, -1),
+        "D": Vector(0, 1),
+        "L": Vector(1, 0),
+        "R": Vector(-1, 0),
+    }
     for pin in part:
-        # Add 1 to the label length to account for extra graphics on label.
-        lbl_len = (len(pin.label) + 1) * PIN_LABEL_FONT_SIZE
-        pin_dir = pin.orientation
-        if pin_dir == "U":
-            lbl_vector = Vector(0, -lbl_len)
-        elif pin_dir == "D":
-            lbl_vector = Vector(0, lbl_len)
-        elif pin_dir == "L":
-            lbl_vector = Vector(lbl_len, 0)
-        elif pin_dir == "R":
-            lbl_vector = Vector(-lbl_len, 0)
-        part.bbox.add(pin.pt + lbl_vector)
+        lbl_len = len(pin.label)
+        if lbl_len:
+            # Add 1 to the label length to account for extra graphics on label.
+            lbl_len = (lbl_len + 1) * PIN_LABEL_FONT_SIZE
+        lbl_vector = lbl_vectors[pin.orientation] * lbl_len
+        part.lbl_bbox.add(pin.pt + lbl_vector)
+
+    # Create a bounding box for placement by adding some space for routing signals from the part.
+    part.place_bbox = part.lbl_bbox.resize(Vector(GRID, GRID))
+
+    # Set the active bounding box to the placement version.
+    part.bbox = part.place_bbox
 
 
 def preprocess_parts_and_nets(circuit):
@@ -666,6 +672,10 @@ class Node:
                 if internal_net:
                     self.wires.extend(self.wire_it(net))
 
+        # Use the smaller lable bounding box when doing routing.
+        for part in self.parts:
+            part.bbox = part.lbl_bbox
+
         route(self)  # TODO: remove debugging.
 
     def to_eeschema(self, tx):
@@ -896,8 +906,8 @@ def part_to_eeschema(part, tx):
     eeschema.append("")  # For blank line at end.
 
     # For debugging: draws a bounding box around a part.
-    # eeschema.append(bbox_to_eeschema(part.bbox, tx))
-    # eeschema.append(bbox_to_eeschema(part.bare_bbox, tx))
+    eeschema.append(bbox_to_eeschema(part.bbox, tx))
+    #eeschema.append(bbox_to_eeschema(part.bare_bbox, tx))
 
     return "\n".join(eeschema)
 
