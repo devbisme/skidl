@@ -95,46 +95,14 @@ class Face:
         self.end = end
         self.adjacent = set()
 
-    def create_terminals(self, internal_nets):
-        from .gen_schematic import calc_pin_dir
+    def create_nonpin_terminals(self, internal_nets):
         self.terminals = []
-        if self.part:
-            for part in self.part:
-                if not isinstance(part, Part):
-                    continue
-                for pin in part:
-                    assert part == pin.part
-                    if pin.net not in internal_nets:
-                        continue
-                    pt = pin.pt.dot(part.tx)
-                    dir = calc_pin_dir(pin)
-                    pin_track = {
-                        "U": part.bottom_track,
-                        "D": part.top_track,
-                        "L": part.right_track,
-                        "R": part.left_track,
-                    }[dir]
-                    if self.track is not pin_track:
-                        continue
-                    coord = {
-                        "U": pt.x,
-                        "D": pt.x,
-                        "L": pt.y,
-                        "R": pt.y,
-                    }[dir]
-                    if self.beg.coord <= coord < self.end.coord:
-                        pin.face = self
-                        self.pins.append(pin)
-                        terminal = Terminal(pin.net, self, coord)
-                        self.terminals.append(terminal)
-            self.terminals.sort(key=lambda t: t.coord)
-        else:
+        if not self.part:
+            # Add non-pin terminals to non-part switchbox routing faces.
             from .gen_schematic import GRID
             beg = (self.beg.coord + GRID//2 + GRID) // GRID * GRID
             end = self.end.coord - GRID//2
             self.terminals = [Terminal(None, self, coord) for coord in range(beg, end, GRID)]
-
-        self.set_capacity()
 
     @property
     def connection_pts(self):
@@ -166,7 +134,6 @@ class Face:
         if self.beg < mid < self.end:
             new_face = Face(self.part, self.track, self.beg, mid)
             self.beg = mid
-            # self.create_terminals()
             return new_face
         return None
 
@@ -310,6 +277,38 @@ class GlobalTrack(list):
             left_face.add_adjacency(lower_face)
             right_face.add_adjacency(upper_face)
             right_face.add_adjacency(lower_face)
+
+def create_pin_terminals(internal_nets):
+    from .gen_schematic import calc_pin_dir
+    for net in internal_nets:
+        for pin in net.pins:
+            part = pin.part
+            pt = pin.pt.dot(part.tx)
+            dir = calc_pin_dir(pin)
+            pin_track = {
+                "U": part.bottom_track,
+                "D": part.top_track,
+                "L": part.right_track,
+                "R": part.left_track,
+            }[dir]
+            coord = {
+                "U": pt.x,
+                "D": pt.x,
+                "L": pt.y,
+                "R": pt.y,
+            }[dir]
+            for face in pin_track:
+                if part in face.part and face.beg.coord <= coord <= face.end.coord:
+                    if not getattr(pin, "face", None):
+                        # Only assign pin to face if it isn't already assigned to
+                        # another face. This handles the case where a pin is exactly
+                        # at the end coordinate and beginning coordinate of two
+                        # successive faces in the same track.
+                        pin.face = face
+                        face.pins.append(pin)
+                        terminal = Terminal(pin.net, face, coord)
+                        face.terminals.append(terminal)
+                    break
 
 def route_globally(net):
     """Route a net from face to face.
@@ -616,48 +615,17 @@ def route(node):
         track.split_faces()
         track.combine_faces()
 
-    # Add terminals to all faces.
+    # Add terminals to all non-part faces.
     for track in h_tracks + v_tracks:
         for face in track:
-            face.create_terminals(internal_nets)
+            face.create_nonpin_terminals(internal_nets)
+
+    # Add terminals to switchbox faces for all pins on internal nets.
+    create_pin_terminals(internal_nets)
 
     # Add adjacencies between faces that define routing paths within switchboxes.
     for h_track in h_tracks[1:]:
         h_track.add_adjacencies()
-
-    # Associate pins with faces.
-    # from .gen_schematic import calc_pin_dir
-    # for net in internal_nets:
-    #     for pin in net.pins:
-    #         part = pin.part
-    #         pt = pin.pt.dot(part.tx)
-    #         dir = calc_pin_dir(pin)
-    #         pin_track = {
-    #             "U": part.bottom_track,
-    #             "D": part.top_track,
-    #             "L": part.right_track,
-    #             "R": part.left_track,
-    #         }[dir]
-    #         coord = {
-    #             "U": pt.x,
-    #             "D": pt.x,
-    #             "L": pt.y,
-    #             "R": pt.y,
-    #         }[dir]
-    #         for face in pin_track:
-    #             if face.beg.coord <= coord <= face.end.coord:
-    #                 assert pin.part in face.part
-    #                 pin.face = face
-    #                 face.pins.append(pin)
-    #                 connection_pts = face.connection_pts
-    #                 try:
-    #                     idx = connection_pts.index(coord)
-    #                 except ValueError:
-    #                     diffs = [abs(coord - pt) for pt in connection_pts]
-    #                     min_diff = min(diffs)
-    #                     idx = diffs.index(min_diff)
-    #                 face.terminals[idx].net = net
-    #                 break
 
     # Set routing capacity of faces.
     for track in h_tracks + v_tracks:
