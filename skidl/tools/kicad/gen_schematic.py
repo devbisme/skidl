@@ -130,6 +130,7 @@ def calc_part_bbox(part):
         part.lbl_bbox.add(pin.pt + lbl_vector)
 
     # Create a bounding box for placement by adding some space for routing signals from the part.
+    # TODO: Resize based on #pins coming from each side of part to ensure adequate routing area.
     part.place_bbox = part.lbl_bbox.resize(Vector(GRID, GRID))
 
     # Set the active bounding box to the placement version.
