@@ -50,16 +50,17 @@ standard_library.install_aliases()
 #          then connect the pins by combining their face lists.
 ###################################################################
 
+
 class Orientation(Enum):
     HORZ = auto()
     VERT = auto()
     LEFT = auto()
     RIGHT = auto()
 
-HORZ = Orientation.HORZ
-VERT = Orientation.VERT
-LEFT = Orientation.LEFT
-RIGHT = Orientation.RIGHT
+# Put the orientation enums in global space to make using them easier.
+_g = globals()
+for orientation in Orientation:
+    _g[orientation.name] = orientation.value
 
 
 class Boundary:
@@ -100,9 +101,12 @@ class Face:
         if not self.part:
             # Add non-pin terminals to non-part switchbox routing faces.
             from .gen_schematic import GRID
-            beg = (self.beg.coord + GRID//2 + GRID) // GRID * GRID
-            end = self.end.coord - GRID//2
-            self.terminals = [Terminal(None, self, coord) for coord in range(beg, end, GRID)]
+
+            beg = (self.beg.coord + GRID // 2 + GRID) // GRID * GRID
+            end = self.end.coord - GRID // 2
+            self.terminals = [
+                Terminal(None, self, coord) for coord in range(beg, end, GRID)
+            ]
 
     @property
     def connection_pts(self):
@@ -234,9 +238,7 @@ class GlobalTrack(list):
                             ortho_track.add_split(self)
                             self.add_split(ortho_track)
                             if ortho_face.part:
-                                self.add_face(
-                                    Face(None, self, start, ortho_track)
-                                )
+                                self.add_face(Face(None, self, start, ortho_track))
                                 blocked = True
                             break
                     if blocked:
@@ -267,7 +269,12 @@ class GlobalTrack(list):
         for upper_face in self:
 
             try:
-                upper_face, right_face, lower_face, left_face = upper_face.get_switchbox_faces() 
+                (
+                    upper_face,
+                    right_face,
+                    lower_face,
+                    left_face,
+                ) = upper_face.get_switchbox_faces()
             except Exception:
                 continue
 
@@ -280,21 +287,18 @@ class GlobalTrack(list):
 
 
 class SwBoxTrack(list):
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
 
 class SwBoxColumn(list):
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
 
-
-
 def create_pin_terminals(internal_nets):
     from .gen_schematic import calc_pin_dir
+
     for net in internal_nets:
         for pin in net.pins:
             part = pin.part
@@ -325,6 +329,7 @@ def create_pin_terminals(internal_nets):
                         face.terminals.append(terminal)
                     break
 
+
 def route_globally(net):
     """Route a net from face to face.
 
@@ -344,7 +349,7 @@ def route_globally(net):
         else:
             pin.face.seed_pin = pin
             pin.face.dist = 0
-            pin.face.prev = pin.face # Indicates terminal pin.
+            pin.face.prev = pin.face  # Indicates terminal pin.
             pin.frontier = set([pin.face])
             pin.visited = set()
             pin.do_route = True
@@ -379,13 +384,21 @@ def route_globally(net):
                         other_pin.frontier = set()
                         other_pin.do_route = False
                         net_route_cnt -= 1
+
                         def get_face_path(f):
-                            path = [f,]
+                            path = [
+                                f,
+                            ]
                             while f.prev is not f:
                                 path.append(f.prev)
                                 f = f.prev
                             return path
-                        wire = GlobalWire(get_face_path(visit_face)[::-1] + get_face_path(next_face)[:], net=net)
+
+                        wire = GlobalWire(
+                            get_face_path(visit_face)[::-1]
+                            + get_face_path(next_face)[:],
+                            net=net,
+                        )
                         for face in wire:
                             if face.capacity > 0:
                                 face.capacity -= 1
@@ -408,6 +421,7 @@ def route_globally(net):
             delattr(pin, "visited")
 
     return routed_wires
+
 
 def assign_switchbox_terminals(global_routes):
     """Assign global routes to terminals in switchbox faces."""
@@ -433,14 +447,16 @@ def assign_switchbox_terminals(global_routes):
                 search_range = range(len(to_face.terminals))
             elif to_face.end == from_face.track:
                 # to_face is oriented downward/leftward w.r.t. from_face.
-                search_range = range(len(to_face.terminals)-1, -1, -1)
+                search_range = range(len(to_face.terminals) - 1, -1, -1)
             else:
                 raise Exception
         else:
             # Parallel faces.
             from_len = len(from_face.terminals)
             from_idx = from_face.terminals.index(from_terminal)
-            search_range = chain(*zip_longest(range(from_idx, -1, -1), range(from_idx+1, from_len)))
+            search_range = chain(
+                *zip_longest(range(from_idx, -1, -1), range(from_idx + 1, from_len))
+            )
 
         for idx in search_range:
             if idx is not None:
@@ -453,8 +469,8 @@ def assign_switchbox_terminals(global_routes):
         while not done:
             done = True
             for wire in route:
-                for i in range(0, len(wire)-1):
-                    face1, face2 = wire[i], wire[i+1]
+                for i in range(0, len(wire) - 1):
+                    face1, face2 = wire[i], wire[i + 1]
                     if isinstance(face1, Terminal) and isinstance(face2, Terminal):
                         continue
                     if isinstance(face1, Face) and isinstance(face2, Terminal):
@@ -468,13 +484,14 @@ def assign_switchbox_terminals(global_routes):
                         terminal_idx = find_to_terminal_idx(face1, face2)
                         terminal = face2.terminals[terminal_idx]
                         terminal.net = wire.net
-                        wire[i+1] = terminal
+                        wire[i + 1] = terminal
                         done = False
                         continue
                     if isinstance(face1, Face) and isinstance(face2, Face):
                         continue
 
                     raise Exception
+
 
 def rank_net(net):
     """Rank net based on W/H of bounding box of pins and the # of pins."""
@@ -483,8 +500,10 @@ def rank_net(net):
         bbox.add(pin.pt)
     return (bbox.w + bbox.h, len(net.pins))
 
+
 def fix_net_switchbox_terminals():
     pass
+
 
 def route_switchbox(lower_face):
     pass
@@ -604,12 +623,11 @@ def route(node):
         right_track.add_face(Face(part, right_track, bottom_track, top_track))
         bottom_track.add_face(Face(part, bottom_track, left_track, right_track))
         top_track.add_face(Face(part, top_track, left_track, right_track))
-        if isinstance(part,Part):
+        if isinstance(part, Part):
             part.left_track = left_track
             part.right_track = right_track
             part.top_track = top_track
             part.bottom_track = bottom_track
-
 
     # Add routing box faces for each side of a part's bounding box.
     for part in node.parts:
@@ -652,7 +670,6 @@ def route(node):
     global_routes = [route_globally(net) for net in internal_nets]
     assign_switchbox_terminals(global_routes)
 
-
     import pygame
     import pygame.freetype
 
@@ -679,7 +696,9 @@ def route(node):
 
         return scr, tx, font
 
-    def draw_seg(seg, scr, tx, color=(100, 100, 100), line_thickness=1, dot_thickness=3):
+    def draw_seg(
+        seg, scr, tx, color=(100, 100, 100), line_thickness=1, dot_thickness=3
+    ):
         seg = seg.dot(tx)
         pygame.draw.line(
             scr, color, (seg.p1.x, seg.p1.y), (seg.p2.x, seg.p2.y), width=line_thickness
@@ -698,7 +717,7 @@ def route(node):
             p2 = Point(track.coord, face.end.coord)
         return Segment(p1, p2)
 
-    def draw_text(txt, pt, scr, tx, font, color=(100,100,100)):
+    def draw_text(txt, pt, scr, tx, font, color=(100, 100, 100)):
         pt = pt.dot(tx)
         font.render_to(scr, (pt.x, pt.y), txt, color)
 
@@ -757,12 +776,12 @@ def route(node):
         pt = pt.dot(tx)
         sz = 5
         corners = (
-            (pt.x, pt.y+sz),
-            (pt.x+sz, pt.y),
-            (pt.x, pt.y-sz),
-            (pt.x-sz, pt.y),
+            (pt.x, pt.y + sz),
+            (pt.x + sz, pt.y),
+            (pt.x, pt.y - sz),
+            (pt.x - sz, pt.y),
         )
-        pygame.draw.polygon(scr, (0,0,0), corners, 0)
+        pygame.draw.polygon(scr, (0, 0, 0), corners, 0)
         # draw_face(pin.face, (0,0,0), 4, 4, scr, tx)
 
     def draw_wire(wire, scr, tx):
@@ -780,7 +799,7 @@ def route(node):
         for terminal1, terminal2 in face_to_face:
             p1 = terminal_pt(terminal1)
             p2 = terminal_pt(terminal2)
-            draw_seg(Segment(p1, p2), scr, tx, (0,0,0), 2, 0)
+            draw_seg(Segment(p1, p2), scr, tx, (0, 0, 0), 2, 0)
 
     def draw_end():
         pygame.display.flip()
