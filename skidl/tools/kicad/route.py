@@ -278,6 +278,21 @@ class GlobalTrack(list):
             right_face.add_adjacency(upper_face)
             right_face.add_adjacency(lower_face)
 
+
+class SwBoxTrack(list):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
+class SwBoxColumn(list):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
+
+
 def create_pin_terminals(internal_nets):
     from .gen_schematic import calc_pin_dir
     for net in internal_nets:
