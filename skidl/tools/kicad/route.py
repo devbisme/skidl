@@ -63,6 +63,10 @@ for orientation in Orientation:
     _g[orientation.name] = orientation.value
 
 
+class NoSwitchBox(Exception):
+    pass
+
+
 class Boundary:
     pass
 
@@ -118,6 +122,9 @@ class Face:
         else:
             self.capacity = len(self.connection_pts)
 
+    def has_nets(self):
+        return any((terminal.net for terminal in self.terminals))
+
     def add_adjacency(self, adj_face):
         """Make two faces adjacent to one another."""
 
@@ -145,18 +152,18 @@ class Face:
         """Returns True if both faces have the same beginning and ending point on the same track."""
         return (self.beg, self.end) == (other_face.beg, other_face.end)
 
-    def get_switchbox_faces(upper_face):
-        """Get faces of switchbox.
+class SwBoxTrack(list):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-        Args:
-            upper_face (Face): The upper face of the switchbox.
 
-        Raises:
-            Exception: If this is a malformed switchbox.
+class SwBoxColumn(list):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-        Returns:
-            [list]: upper, right, lower, and left Faces of switchbox.
-        """
+
+class SwitchBox:
+    def __init__(self, upper_face):
 
         left_face = None
         left_track = upper_face.beg
@@ -165,6 +172,9 @@ class Face:
                 left_face = face
                 break
 
+        if not left_face:
+            raise NoSwitchBox("Unroutable switchbox!")
+
         right_face = None
         right_track = upper_face.end
         for face in right_track:
@@ -172,10 +182,13 @@ class Face:
                 right_face = face
                 break
 
+        if not right_face:
+            raise NoSwitchBox("Unroutable switchbox!")
+
         if left_face.beg != right_face.beg:
             # This only happens when two parts are butted up against each other
             # to form a non-routable switchbox inside a part bounding box.
-            raise Exception("Unroutable switchbox!")
+            raise NoSwitchBox("Unroutable switchbox!")
 
         lower_face = None
         lower_track = left_face.beg
@@ -184,7 +197,26 @@ class Face:
                 lower_face = face
                 break
 
-        return upper_face, right_face, lower_face, left_face
+        if not lower_face:
+            raise NoSwitchBox("Unroutable switchbox!")
+
+        self.upper_face = upper_face
+        self.lower_face = lower_face
+        self.left_face = left_face
+        self.right_face = right_face
+
+    def has_nets(self):
+        for face in (self.upper_face, self.lower_face, self.left_face, self.right_face):
+            if face.has_nets():
+                return False
+        return True
+
+    def route(self):
+        if not self.has_nets():
+            return []
+        column_coords = [terminal.coord for face in (self.upper_face, self.lower_face) for terminal in face.terminals]
+        track_coords = [terminal.coord for face in (self.left_face, self.right_face) for terminal in face.terminals]
+        return []
 
 
 class GlobalWire(list):
@@ -269,31 +301,16 @@ class GlobalTrack(list):
         for upper_face in self:
 
             try:
-                (
-                    upper_face,
-                    right_face,
-                    lower_face,
-                    left_face,
-                ) = upper_face.get_switchbox_faces()
-            except Exception:
+                swbx = SwitchBox(upper_face)
+            except NoSwitchBox:
                 continue
 
-            upper_face.add_adjacency(lower_face)
-            left_face.add_adjacency(right_face)
-            left_face.add_adjacency(upper_face)
-            left_face.add_adjacency(lower_face)
-            right_face.add_adjacency(upper_face)
-            right_face.add_adjacency(lower_face)
-
-
-class SwBoxTrack(list):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-
-class SwBoxColumn(list):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+            swbx.upper_face.add_adjacency(swbx.lower_face)
+            swbx.left_face.add_adjacency(swbx.right_face)
+            swbx.left_face.add_adjacency(swbx.upper_face)
+            swbx.left_face.add_adjacency(swbx.lower_face)
+            swbx.right_face.add_adjacency(swbx.upper_face)
+            swbx.right_face.add_adjacency(swbx.lower_face)
 
 
 def create_pin_terminals(internal_nets):
@@ -501,15 +518,6 @@ def rank_net(net):
     return (bbox.w + bbox.h, len(net.pins))
 
 
-def fix_net_switchbox_terminals():
-    pass
-
-
-def route_switchbox(lower_face):
-    pass
-    # Get switchbox sides.
-    # Greedy route.
-
 
 def route(node):
     """Route the wires between part pins in the node.
@@ -669,6 +677,18 @@ def route(node):
     internal_nets.sort(key=rank_net)
     global_routes = [route_globally(net) for net in internal_nets]
     assign_switchbox_terminals(global_routes)
+
+    # Do detailed routing inside switchboxes.
+    detailed_routes = []
+    for h_track in h_tracks[1:]:
+        for face in h_track:
+            try:
+                swbx = SwitchBox(face)
+            except NoSwitchBox:
+                continue
+            else:
+                detailed_routes.extend(swbx.route())
+
 
     import pygame
     import pygame.freetype
