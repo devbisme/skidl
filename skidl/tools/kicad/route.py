@@ -14,6 +14,7 @@ from __future__ import (  # isort:skip
 )
 
 from builtins import range, zip
+from collections import defaultdict
 from enum import Enum, auto
 from itertools import zip_longest, chain
 
@@ -56,6 +57,7 @@ class Orientation(Enum):
     VERT = auto()
     LEFT = auto()
     RIGHT = auto()
+
 
 # Put the orientation enums in global space to make using them easier.
 _g = globals()
@@ -152,6 +154,7 @@ class Face:
         """Returns True if both faces have the same beginning and ending point on the same track."""
         return (self.beg, self.end) == (other_face.beg, other_face.end)
 
+
 class SwBoxTrack(list):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -208,14 +211,127 @@ class SwitchBox:
     def has_nets(self):
         for face in (self.upper_face, self.lower_face, self.left_face, self.right_face):
             if face.has_nets():
-                return False
-        return True
+                return True
+        return False
 
     def route(self):
         if not self.has_nets():
             return []
-        column_coords = [terminal.coord for face in (self.upper_face, self.lower_face) for terminal in face.terminals]
-        track_coords = [terminal.coord for face in (self.left_face, self.right_face) for terminal in face.terminals]
+
+        def find_net(terminals, terminal_coords, coord):
+            try:
+                return terminals[terminal_coords.index(coord)].net
+            except ValueError:
+                return None
+
+        top_coords = [terminal.coord for terminal in self.upper_face.terminals]
+        bottom_coords = [terminal.coord for terminal in self.lower_face.terminals]
+        column_coords = sorted(set(top_coords + bottom_coords))
+        top_nets = [
+            find_net(self.upper_face.terminals, top_coords, coord)
+            for coord in column_coords
+        ]
+        bottom_nets = [
+            find_net(self.lower_face.terminals, bottom_coords, coord)
+            for coord in column_coords
+        ]
+        left_coords = [terminal.coord for terminal in self.left_face.terminals]
+        right_coords = [terminal.coord for terminal in self.right_face.terminals]
+        track_coords = sorted(set(left_coords + right_coords))
+        left_nets = [
+            find_net(self.left_face.terminals, left_coords, coord)
+            for coord in track_coords
+        ]
+        right_nets = [
+            find_net(self.right_face.terminals, right_coords, coord)
+            for coord in track_coords
+        ]
+        assert len(top_nets) == len(bottom_nets)
+        assert len(left_nets) == len(right_nets)
+
+        net_end_columns = defaultdict(lambda: 0)
+        for i, net in enumerate(top_nets):
+            net_end_columns[net] = max(i, net_end_columns[net])
+        for i, net in enumerate(bottom_nets):
+            net_end_columns[net] = max(i, net_end_columns[net])
+        for net in left_nets:
+            net_end_columns[net] = max(0, net_end_columns[net])
+        max_column = len(top_nets)
+        for net in right_nets:
+            net_end_columns[net] = max(max_column, net_end_columns[net])
+        del net_end_columns[None]
+
+        def find_branch_vias(net, tracks, direction):
+            """Connect top/bottom net to nets in horizontal tracks.
+
+            Searches for the closest track with the same net followed by the
+            closest empty track. The indices of these tracks are returned.
+            If the net cannot be connected to any track, return [].
+            If the net given to connect is None, then return a list of [None].
+
+            Args:
+                net (Net): Net to be connected.
+                tracks (list): Nets on tracks
+                direction (int): Search direction for connection.
+
+            Returns:
+                list: Indices of tracks where the net can connect.
+            """
+            if net:
+                vias = []
+                if direction < 0:
+                    tracks = tracks[::-1]
+                try:
+                    vias.append(tracks.index(net))
+                except ValueError:
+                    pass
+                try:
+                    vias.append(tracks.index(None))
+                except ValueError:
+                    pass
+                if direction < 0:
+                    l = len(tracks)
+                    vias = [via - 1 - l for via in vias]
+            else:
+                vias = [None]
+            return vias
+
+        def find_tracks_with_net(net, tracks):
+            return [idx for idx, nt in enumerate(tracks) if net is nt]
+
+        def connect_splits(nets, column, tracks):
+            net_tracks = {net: find_tracks_with_net(net, tracks) for net in nets}
+            # net_intervals = {net:}
+
+
+        tracks = [left_nets[:]]
+        columns = []
+        for t_net, b_net in zip(top_nets, bottom_nets):
+            column = [b_net, *([None] * len(left_nets)) + t_net]
+            track_nets = [None, *tracks[-1], None]
+            next_track_nets = [None] * len(left_nets)
+
+            t_vias = find_branch_vias(t_net, track_nets, -1)
+            b_vias = find_branch_vias(b_net, track_nets, 1)
+            tb_vias = [(t,b) for t in t_vias for b in b_vias]
+            for t_via, b_via in tb_vias:
+                if t_via is None or b_via is None:
+                    break
+                if t_via > b_via:
+                    break
+            else:
+                raise Exception
+            if t_via:
+                next_track_nets[t_via] = t_net
+                for i in range(t_via+1, len(column)):
+                    column[i] = t_net
+            if b_via:
+                next_track_nets[b_via] = b_net
+                for i in range(b_via+1):
+                    column[i] = b_net
+
+            split_nets = set(net for net in track_nets if track_nets.count(net)>1)
+            connect_splits(split_nets, column, track_nets)
         return []
 
 
@@ -403,9 +519,7 @@ def route_globally(net):
                         net_route_cnt -= 1
 
                         def get_face_path(f):
-                            path = [
-                                f,
-                            ]
+                            path = [f]
                             while f.prev is not f:
                                 path.append(f.prev)
                                 f = f.prev
@@ -516,7 +630,6 @@ def rank_net(net):
     for pin in net.pins:
         bbox.add(pin.pt)
     return (bbox.w + bbox.h, len(net.pins))
-
 
 
 def route(node):
@@ -688,7 +801,6 @@ def route(node):
                 continue
             else:
                 detailed_routes.extend(swbx.route())
-
 
     import pygame
     import pygame.freetype
