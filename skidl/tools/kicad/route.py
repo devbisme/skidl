@@ -95,12 +95,13 @@ class Face:
         elif part is not None:
             self.part.add(part)
         self.pins = []
-        self.track = track
         if beg > end:
             beg, end = end, beg
         self.beg = beg
         self.end = end
         self.adjacent = set()
+        self.track = track
+        track.add_face(self) # Add new face to track so it isn't lost.
 
     def create_nonpin_terminals(self):
         self.terminals = []
@@ -143,12 +144,10 @@ class Face:
             adj_face.adjacent.add(self)
 
     def split(self, mid):
-        """If a point is in the middle of a face, split it and return the remainder."""
+        """If a point is in the middle of a face, split it and add remainder to track."""
         if self.beg < mid < self.end:
             new_face = Face(self.part, self.track, self.beg, mid)
             self.beg = mid
-            return new_face
-        return None
 
     def coincides_with(self, other_face):
         """Returns True if both faces have the same beginning and ending point on the same track."""
@@ -423,7 +422,7 @@ class GlobalTrack(list):
                             ortho_track.add_split(self)
                             self.add_split(ortho_track)
                             if ortho_face.part:
-                                self.add_face(Face(None, self, start, ortho_track))
+                                Face(None, self, start, ortho_track)
                                 blocked = True
                             break
                     if blocked:
@@ -435,9 +434,7 @@ class GlobalTrack(list):
     def split_faces(self):
         for split in self.splits:
             for face in self[:]:
-                new_face = face.split(split)
-                if new_face:
-                    self.append(new_face)
+                face.split(split)
 
     def combine_faces(self):
         for i, face in enumerate(self):
@@ -777,10 +774,10 @@ def route(node):
         right_track = v_tracks[v_track_coord.index(bbox.max.x)]
         bottom_track = h_tracks[h_track_coord.index(bbox.min.y)]
         top_track = h_tracks[h_track_coord.index(bbox.max.y)]
-        left_track.add_face(Face(part, left_track, bottom_track, top_track))
-        right_track.add_face(Face(part, right_track, bottom_track, top_track))
-        bottom_track.add_face(Face(part, bottom_track, left_track, right_track))
-        top_track.add_face(Face(part, top_track, left_track, right_track))
+        Face(part, left_track, bottom_track, top_track)
+        Face(part, right_track, bottom_track, top_track)
+        Face(part, bottom_track, left_track, right_track)
+        Face(part, top_track, left_track, right_track)
         if isinstance(part, Part):
             part.left_track = left_track
             part.right_track = right_track
