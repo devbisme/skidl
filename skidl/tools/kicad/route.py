@@ -102,7 +102,7 @@ class Face:
         self.end = end
         self.adjacent = set()
 
-    def create_nonpin_terminals(self, internal_nets):
+    def create_nonpin_terminals(self):
         self.terminals = []
         if not self.part:
             # Add non-pin terminals to non-part switchbox routing faces.
@@ -164,6 +164,21 @@ class SwBoxColumn(list):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+class NetInterval:
+    def __init__(self, net, beg, end):
+        self.net = net
+        if beg > end:
+            beg, end = end, beg
+        self.beg = beg
+        self.end = end
+
+    @property
+    def len(self):
+        return self.end - self.beg
+
+    def intersects(self, other):
+        return (not (self.beg > other.end or self.end < other.beg)) and (self.net is not other.net)
+
 
 class SwitchBox:
     def __init__(self, upper_face):
@@ -203,6 +218,10 @@ class SwitchBox:
         if not lower_face:
             raise NoSwitchBox("Unroutable switchbox!")
 
+        # If all four sides have a common part, then its a part bbox with no routing.
+        if upper_face.part & lower_face.part & left_face.part & right_face.part:
+            raise NoSwitchBox("Unroutable switchbox") 
+
         self.upper_face = upper_face
         self.lower_face = lower_face
         self.left_face = left_face
@@ -215,10 +234,11 @@ class SwitchBox:
         return False
 
     def route(self):
+
         if not self.has_nets():
             return []
 
-        def find_net(terminals, terminal_coords, coord):
+        def find_terminal_net(terminals, terminal_coords, coord):
             try:
                 return terminals[terminal_coords.index(coord)].net
             except ValueError:
@@ -228,22 +248,22 @@ class SwitchBox:
         bottom_coords = [terminal.coord for terminal in self.lower_face.terminals]
         column_coords = sorted(set(top_coords + bottom_coords))
         top_nets = [
-            find_net(self.upper_face.terminals, top_coords, coord)
+            find_terminal_net(self.upper_face.terminals, top_coords, coord)
             for coord in column_coords
         ]
         bottom_nets = [
-            find_net(self.lower_face.terminals, bottom_coords, coord)
+            find_terminal_net(self.lower_face.terminals, bottom_coords, coord)
             for coord in column_coords
         ]
         left_coords = [terminal.coord for terminal in self.left_face.terminals]
         right_coords = [terminal.coord for terminal in self.right_face.terminals]
         track_coords = sorted(set(left_coords + right_coords))
         left_nets = [
-            find_net(self.left_face.terminals, left_coords, coord)
+            find_terminal_net(self.left_face.terminals, left_coords, coord)
             for coord in track_coords
         ]
         right_nets = [
-            find_net(self.right_face.terminals, right_coords, coord)
+            find_terminal_net(self.right_face.terminals, right_coords, coord)
             for coord in track_coords
         ]
         assert len(top_nets) == len(bottom_nets)
@@ -259,7 +279,10 @@ class SwitchBox:
         max_column = len(top_nets)
         for net in right_nets:
             net_end_columns[net] = max(max_column, net_end_columns[net])
-        del net_end_columns[None]
+        try:
+            del net_end_columns[None]
+        except KeyError:
+            pass
 
         def find_branch_vias(net, tracks, direction):
             """Connect top/bottom net to nets in horizontal tracks.
@@ -291,7 +314,7 @@ class SwitchBox:
                     pass
                 if direction < 0:
                     l = len(tracks)
-                    vias = [via - 1 - l for via in vias]
+                    vias = [l - 1 - via for via in vias]
             else:
                 vias = [None]
             return vias
@@ -300,16 +323,32 @@ class SwitchBox:
             return [idx for idx, nt in enumerate(tracks) if net is nt]
 
         def connect_splits(nets, column, tracks):
-            net_tracks = {net: find_tracks_with_net(net, tracks) for net in nets}
-            # net_intervals = {net:}
+            # Find intervals for nets on multiple tracks.
+            net_intervals = []
+            for net in nets:
+                net_tracks = find_tracks_with_net(net, tracks)
+                for trk1, trk2 in zip(net_tracks[:-1], net_tracks[1:]):
+                    net_intervals.append(NetInterval(net, trk1, trk2))
+            # Sort interval lengths from smallest to largest.
+            net_intervals.sort(key=lambda ni: ni.len)
+            # Connect tracks for each interval if it doesn't intersect an
+            # already existing connection.
+            for net_interval in net_intervals:
+                for col_interval in column:
+                    if net_interval.intersects(col_interval):
+                        break
+                else:
+                    # No conflicts found with existing connections.
+                    print("Add split net connection to column")
+                    column.append(net_interval)
 
 
         tracks = [left_nets[:]]
         columns = []
         for t_net, b_net in zip(top_nets, bottom_nets):
-            column = [b_net, *([None] * len(left_nets)) + t_net]
-            track_nets = [None, *tracks[-1], None]
-            next_track_nets = [None] * len(left_nets)
+            column = []
+            track_nets = tracks[-1]
+            next_track_nets = [None] * len(track_nets)
 
             t_vias = find_branch_vias(t_net, track_nets, -1)
             b_vias = find_branch_vias(b_net, track_nets, 1)
@@ -323,12 +362,10 @@ class SwitchBox:
                 raise Exception
             if t_via:
                 next_track_nets[t_via] = t_net
-                for i in range(t_via+1, len(column)):
-                    column[i] = t_net
+                column.append(NetInterval(t_net, len(track_nets), t_via))
             if b_via:
                 next_track_nets[b_via] = b_net
-                for i in range(b_via+1):
-                    column[i] = b_net
+                column.append(NetInterval(b_net, 0, b_via))
 
             split_nets = set(net for net in track_nets if track_nets.count(net)>1)
             connect_splits(split_nets, column, track_nets)
@@ -772,7 +809,7 @@ def route(node):
     # Add terminals to all non-part faces.
     for track in h_tracks + v_tracks:
         for face in track:
-            face.create_nonpin_terminals(internal_nets)
+            face.create_nonpin_terminals()
 
     # Add terminals to switchbox faces for all pins on internal nets.
     create_pin_terminals(internal_nets)
@@ -801,6 +838,8 @@ def route(node):
                 continue
             else:
                 detailed_routes.extend(swbx.route())
+
+
 
     import pygame
     import pygame.freetype

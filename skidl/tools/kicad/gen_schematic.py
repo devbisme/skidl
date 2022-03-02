@@ -677,7 +677,7 @@ class Node:
         for part in self.parts:
             part.bbox = part.lbl_bbox
 
-        # route(self)  # TODO: remove debugging.
+        route(self)  # TODO: remove debugging.
 
     def to_eeschema(self, tx):
 
@@ -1149,7 +1149,7 @@ def gen_schematic(circuit, filepath=None, title="Default", gen_elkjs=False):
 
     preprocess_parts_and_nets(circuit)
 
-    with NodeTree(circuit, filepath, title, 1.0) as node_tree:
+    with NodeTree(circuit, filepath, title, 0.0) as node_tree:
         node_tree.place()
         node_tree.route()
         node_tree.to_eeschema()
