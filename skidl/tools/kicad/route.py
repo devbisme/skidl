@@ -180,12 +180,12 @@ class NetInterval:
 
 
 class SwitchBox:
-    def __init__(self, upper_face):
+    def __init__(self, top_face):
 
         left_face = None
-        left_track = upper_face.beg
+        left_track = top_face.beg
         for face in left_track:
-            if face.end.coord == upper_face.track.coord:
+            if face.end.coord == top_face.track.coord:
                 left_face = face
                 break
 
@@ -193,9 +193,9 @@ class SwitchBox:
             raise NoSwitchBox("Unroutable switchbox!")
 
         right_face = None
-        right_track = upper_face.end
+        right_track = top_face.end
         for face in right_track:
-            if face.end.coord == upper_face.track.coord:
+            if face.end.coord == top_face.track.coord:
                 right_face = face
                 break
 
@@ -207,27 +207,27 @@ class SwitchBox:
             # to form a non-routable switchbox inside a part bounding box.
             raise NoSwitchBox("Unroutable switchbox!")
 
-        lower_face = None
-        lower_track = left_face.beg
-        for face in lower_track:
-            if face.beg.coord == upper_face.beg.coord:
-                lower_face = face
+        bottom_face = None
+        bottom_track = left_face.beg
+        for face in bottom_track:
+            if face.beg.coord == top_face.beg.coord:
+                bottom_face = face
                 break
 
-        if not lower_face:
+        if not bottom_face:
             raise NoSwitchBox("Unroutable switchbox!")
 
         # If all four sides have a common part, then its a part bbox with no routing.
-        if upper_face.part & lower_face.part & left_face.part & right_face.part:
+        if top_face.part & bottom_face.part & left_face.part & right_face.part:
             raise NoSwitchBox("Unroutable switchbox") 
 
-        self.upper_face = upper_face
-        self.lower_face = lower_face
+        self.top_face = top_face
+        self.bottom_face = bottom_face
         self.left_face = left_face
         self.right_face = right_face
 
     def has_nets(self):
-        for face in (self.upper_face, self.lower_face, self.left_face, self.right_face):
+        for face in (self.top_face, self.bottom_face, self.left_face, self.right_face):
             if face.has_nets():
                 return True
         return False
@@ -243,15 +243,15 @@ class SwitchBox:
             except ValueError:
                 return None
 
-        top_coords = [terminal.coord for terminal in self.upper_face.terminals]
-        bottom_coords = [terminal.coord for terminal in self.lower_face.terminals]
+        top_coords = [terminal.coord for terminal in self.top_face.terminals]
+        bottom_coords = [terminal.coord for terminal in self.bottom_face.terminals]
         column_coords = sorted(set(top_coords + bottom_coords))
         top_nets = [
-            find_terminal_net(self.upper_face.terminals, top_coords, coord)
+            find_terminal_net(self.top_face.terminals, top_coords, coord)
             for coord in column_coords
         ]
         bottom_nets = [
-            find_terminal_net(self.lower_face.terminals, bottom_coords, coord)
+            find_terminal_net(self.bottom_face.terminals, bottom_coords, coord)
             for coord in column_coords
         ]
         left_coords = [terminal.coord for terminal in self.left_face.terminals]
@@ -448,19 +448,19 @@ class GlobalTrack(list):
                 self.remove(face)
 
     def add_adjacencies(self):
-        for upper_face in self:
+        for top_face in self:
 
             try:
-                swbx = SwitchBox(upper_face)
+                swbx = SwitchBox(top_face)
             except NoSwitchBox:
                 continue
 
-            swbx.upper_face.add_adjacency(swbx.lower_face)
+            swbx.top_face.add_adjacency(swbx.bottom_face)
             swbx.left_face.add_adjacency(swbx.right_face)
-            swbx.left_face.add_adjacency(swbx.upper_face)
-            swbx.left_face.add_adjacency(swbx.lower_face)
-            swbx.right_face.add_adjacency(swbx.upper_face)
-            swbx.right_face.add_adjacency(swbx.lower_face)
+            swbx.left_face.add_adjacency(swbx.top_face)
+            swbx.left_face.add_adjacency(swbx.bottom_face)
+            swbx.right_face.add_adjacency(swbx.top_face)
+            swbx.right_face.add_adjacency(swbx.bottom_face)
 
 
 def create_pin_terminals(internal_nets):
@@ -737,7 +737,7 @@ def route(node):
     v_track_coord = []
     h_track_coord = []
 
-    # The upper/lower/left/right of each part's bounding box define the H/V tracks.
+    # The top/bottom/left/right of each part's bounding box define the H/V tracks.
     for part in node.parts:
         bbox = round(part.bbox.dot(part.tx))
         v_track_coord.append(bbox.min.x)
