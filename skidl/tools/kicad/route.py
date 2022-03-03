@@ -226,6 +226,38 @@ class SwitchBox:
         self.left_face = left_face
         self.right_face = right_face
 
+        def find_terminal_net(terminals, terminal_coords, coord):
+            try:
+                return terminals[terminal_coords.index(coord)].net
+            except ValueError:
+                return None
+
+        top_coords = [terminal.coord for terminal in self.top_face.terminals]
+        bottom_coords = [terminal.coord for terminal in self.bottom_face.terminals]
+        self.column_coords = sorted(set(top_coords + bottom_coords))
+        self.top_nets = [
+            find_terminal_net(self.top_face.terminals, top_coords, coord)
+            for coord in self.column_coords
+        ]
+        self.bottom_nets = [
+            find_terminal_net(self.bottom_face.terminals, bottom_coords, coord)
+            for coord in self.column_coords
+        ]
+
+        left_coords = [terminal.coord for terminal in self.left_face.terminals]
+        right_coords = [terminal.coord for terminal in self.right_face.terminals]
+        self.track_coords = sorted(set(left_coords + right_coords))
+        self.left_nets = [
+            find_terminal_net(self.left_face.terminals, left_coords, coord)
+            for coord in self.track_coords
+        ]
+        self.right_nets = [
+            find_terminal_net(self.right_face.terminals, right_coords, coord)
+            for coord in self.track_coords
+        ]
+        assert len(self.top_nets) == len(self.bottom_nets)
+        assert len(self.left_nets) == len(self.right_nets)
+
     def has_nets(self):
         for face in (self.top_face, self.bottom_face, self.left_face, self.right_face):
             if face.has_nets():
@@ -236,52 +268,6 @@ class SwitchBox:
 
         if not self.has_nets():
             return []
-
-        def find_terminal_net(terminals, terminal_coords, coord):
-            try:
-                return terminals[terminal_coords.index(coord)].net
-            except ValueError:
-                return None
-
-        top_coords = [terminal.coord for terminal in self.top_face.terminals]
-        bottom_coords = [terminal.coord for terminal in self.bottom_face.terminals]
-        column_coords = sorted(set(top_coords + bottom_coords))
-        top_nets = [
-            find_terminal_net(self.top_face.terminals, top_coords, coord)
-            for coord in column_coords
-        ]
-        bottom_nets = [
-            find_terminal_net(self.bottom_face.terminals, bottom_coords, coord)
-            for coord in column_coords
-        ]
-        left_coords = [terminal.coord for terminal in self.left_face.terminals]
-        right_coords = [terminal.coord for terminal in self.right_face.terminals]
-        track_coords = sorted(set(left_coords + right_coords))
-        left_nets = [
-            find_terminal_net(self.left_face.terminals, left_coords, coord)
-            for coord in track_coords
-        ]
-        right_nets = [
-            find_terminal_net(self.right_face.terminals, right_coords, coord)
-            for coord in track_coords
-        ]
-        assert len(top_nets) == len(bottom_nets)
-        assert len(left_nets) == len(right_nets)
-
-        net_end_columns = defaultdict(lambda: 0)
-        for i, net in enumerate(top_nets):
-            net_end_columns[net] = max(i, net_end_columns[net])
-        for i, net in enumerate(bottom_nets):
-            net_end_columns[net] = max(i, net_end_columns[net])
-        for net in left_nets:
-            net_end_columns[net] = max(0, net_end_columns[net])
-        max_column = len(top_nets)
-        for net in right_nets:
-            net_end_columns[net] = max(max_column, net_end_columns[net])
-        try:
-            del net_end_columns[None]
-        except KeyError:
-            pass
 
         def find_branch_vias(net, tracks, direction):
             """Connect top/bottom net to nets in horizontal tracks.
@@ -341,10 +327,24 @@ class SwitchBox:
                     print("Add split net connection to column")
                     column.append(net_interval)
 
+        net_end_columns = defaultdict(lambda: 0)
+        for i, net in enumerate(self.top_nets):
+            net_end_columns[net] = max(i, net_end_columns[net])
+        for i, net in enumerate(self.bottom_nets):
+            net_end_columns[net] = max(i, net_end_columns[net])
+        for net in self.left_nets:
+            net_end_columns[net] = max(0, net_end_columns[net])
+        max_column = len(self.top_nets)
+        for net in self.right_nets:
+            net_end_columns[net] = max(max_column, net_end_columns[net])
+        try:
+            del net_end_columns[None]
+        except KeyError:
+            pass
 
-        tracks = [left_nets[:]]
+        tracks = [self.left_nets[:]]
         columns = []
-        for t_net, b_net in zip(top_nets, bottom_nets):
+        for t_net, b_net in zip(self.top_nets, self.bottom_nets):
             column = []
             track_nets = tracks[-1]
             next_track_nets = [None] * len(track_nets)
