@@ -335,7 +335,10 @@ class SwitchBox:
         def find_tracks_with_net(net, tracks):
             return [idx for idx, nt in enumerate(tracks) if net is nt]
 
-        def connect_splits(nets, column, tracks):
+        def connect_splits(tracks, column):
+            
+            nets = set(net for net in set(tracks) if tracks.count(net)>1)
+
             # Find intervals for nets on multiple tracks.
             net_intervals = []
             for net in nets:
@@ -378,8 +381,7 @@ class SwitchBox:
 
             connect_top_btm(t_net, b_net, track_nets, column)
 
-            split_nets = set(net for net in track_nets if track_nets.count(net)>1)
-            connect_splits(split_nets, column, track_nets)
+            connect_splits(track_nets, column)
 
             # tracks.append(extend_track_nets(track_nets, column))
             columns.append(column)
