@@ -315,6 +315,22 @@ class SwitchBox:
             else:
                 vias = [None]
             return vias
+        
+        def connect_top_btm(t_net, b_net, track_nets, column):
+            t_vias = find_branch_vias(t_net, track_nets, -1)
+            b_vias = find_branch_vias(b_net, track_nets, 1)
+            tb_vias = [(t,b) for t in t_vias for b in b_vias]
+            for t_via, b_via in tb_vias:
+                if t_via is None or b_via is None:
+                    break
+                if t_via > b_via:
+                    break
+            else:
+                raise Exception
+            if t_via:
+                column.append(NetInterval(t_net, t_via, len(track_nets)-1))
+            if b_via:
+                column.append(NetInterval(b_net, 0, b_via))
 
         def find_tracks_with_net(net, tracks):
             return [idx for idx, nt in enumerate(tracks) if net is nt]
@@ -327,7 +343,7 @@ class SwitchBox:
                 for trk1, trk2 in zip(net_tracks[:-1], net_tracks[1:]):
                     net_intervals.append(NetInterval(net, trk1, trk2))
             # Sort interval lengths from smallest to largest.
-            net_intervals.sort(key=lambda ni: ni.len)
+            net_intervals.sort(key=lambda ni: len(ni))
             # Connect tracks for each interval if it doesn't intersect an
             # already existing connection.
             for net_interval in net_intervals:
@@ -357,29 +373,17 @@ class SwitchBox:
         tracks = [self.left_nets[:]]
         columns = []
         for t_net, b_net in zip(self.top_nets, self.bottom_nets):
-            column = []
             track_nets = tracks[-1]
-            next_track_nets = [None] * len(track_nets)
+            column = []
 
-            t_vias = find_branch_vias(t_net, track_nets, -1)
-            b_vias = find_branch_vias(b_net, track_nets, 1)
-            tb_vias = [(t,b) for t in t_vias for b in b_vias]
-            for t_via, b_via in tb_vias:
-                if t_via is None or b_via is None:
-                    break
-                if t_via > b_via:
-                    break
-            else:
-                raise Exception
-            if t_via:
-                next_track_nets[t_via] = t_net
-                column.append(NetInterval(t_net, len(track_nets), t_via))
-            if b_via:
-                next_track_nets[b_via] = b_net
-                column.append(NetInterval(b_net, 0, b_via))
+            connect_top_btm(t_net, b_net, track_nets, column)
 
             split_nets = set(net for net in track_nets if track_nets.count(net)>1)
             connect_splits(split_nets, column, track_nets)
+
+            # tracks.append(extend_track_nets(track_nets, column))
+            columns.append(column)
+
         return []
 
 
