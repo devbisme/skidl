@@ -163,9 +163,9 @@ class SwBoxColumn(list):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-class NetInterval:
-    def __init__(self, net, beg, end):
-        self.net = net
+
+class Interval:
+    def __init__(self, beg, end):
         if beg > end:
             beg, end = end, beg
         self.beg = beg
@@ -175,8 +175,20 @@ class NetInterval:
     def len(self):
         return self.end - self.beg
 
+    def __len__(self):
+        return self.len
+
     def intersects(self, other):
-        return (not (self.beg > other.end or self.end < other.beg)) and (self.net is not other.net)
+        return not (self.beg > other.end or self.end < other.beg)
+
+
+class NetInterval(Interval):
+    def __init__(self, net, beg, end):
+        super().__init__(beg, end)
+        self.net = net
+
+    def intersects(self, other):
+        return super().intersects(other) and (self.net is not other.net)
 
 
 class SwitchBox:
