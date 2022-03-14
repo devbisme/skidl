@@ -103,6 +103,15 @@ class Face:
         self.track = track
         track.add_face(self) # Add new face to track so it isn't lost.
 
+    @property
+    def bbox(self):
+        bbox = BBox()
+        bbox.add(Point(self.track.coord, self.beg.coord))
+        bbox.add(Point(self.track.coord, self.end.coord))
+        if self.track.orientation == HORZ:
+            bbox = bbox.dot(Tx(a=0, b=1, c=1, d=0))
+        return bbox
+
     def create_nonpin_terminals(self):
         self.terminals = []
         if not self.part:
@@ -154,16 +163,6 @@ class Face:
         return (self.beg, self.end) == (other_face.beg, other_face.end)
 
 
-class SwBoxTrack(list):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-
-class SwBoxColumn(list):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-
 class Interval:
     def __init__(self, beg, end):
         if beg > end:
@@ -181,6 +180,10 @@ class Interval:
     def intersects(self, other):
         return not (self.beg > other.end or self.end < other.beg)
 
+    def merge(self, other):
+        if self.intersects(other):
+            return Interval(min(self.beg, other.beg), max(self.end, other.end))
+        return None
 
 class NetInterval(Interval):
     def __init__(self, net, beg, end):
@@ -189,6 +192,14 @@ class NetInterval(Interval):
 
     def intersects(self, other):
         return super().intersects(other) and (self.net is not other.net)
+
+    def merge(self, other):
+        if self.net is other.net:
+            merged_intvl = super().merge(other)
+            if merged_intvl:
+                merged_intvl.net = self.net
+            return merged_intvl
+        return None
 
 
 class SwitchBox:
@@ -270,6 +281,15 @@ class SwitchBox:
         assert len(self.top_nets) == len(self.bottom_nets)
         assert len(self.left_nets) == len(self.right_nets)
 
+    @property
+    def bbox(self):
+        bbox = BBox()
+        bbox.add(self.top_face.bbox)
+        bbox.add(self.bottom_face.bbox)
+        bbox.add(self.left_face.bbox)
+        bbox.add(self.right_face.bbox)
+        return bbox
+
     def has_nets(self):
         for face in (self.top_face, self.bottom_face, self.left_face, self.right_face):
             if face.has_nets():
@@ -281,42 +301,44 @@ class SwitchBox:
         if not self.has_nets():
             return []
 
-        def find_branch_vias(net, tracks, direction):
-            """Connect top/bottom net to nets in horizontal tracks.
+        def connect_top_btm(t_net, b_net, track_nets):
 
-            Searches for the closest track with the same net followed by the
-            closest empty track. The indices of these tracks are returned.
-            If the net cannot be connected to any track, return [].
-            If the net given to connect is None, then return a list of [None].
+            def find_branch_vias(net, tracks, direction):
+                """Connect top/bottom net to nets in horizontal tracks.
 
-            Args:
-                net (Net): Net to be connected.
-                tracks (list): Nets on tracks
-                direction (int): Search direction for connection.
+                Searches for the closest track with the same net followed by the
+                closest empty track. The indices of these tracks are returned.
+                If the net cannot be connected to any track, return [].
+                If the net given to connect is None, then return a list of [None].
 
-            Returns:
-                list: Indices of tracks where the net can connect.
-            """
-            if net:
-                vias = []
-                if direction < 0:
-                    tracks = tracks[::-1]
-                try:
-                    vias.append(tracks.index(net))
-                except ValueError:
-                    pass
-                try:
-                    vias.append(tracks.index(None))
-                except ValueError:
-                    pass
-                if direction < 0:
-                    l = len(tracks)
-                    vias = [l - 1 - via for via in vias]
-            else:
-                vias = [None]
-            return vias
+                Args:
+                    net (Net): Net to be connected.
+                    tracks (list): Nets on tracks
+                    direction (int): Search direction for connection.
+
+                Returns:
+                    list: Indices of tracks where the net can connect.
+                """
+                if net:
+                    vias = []
+                    if direction < 0:
+                        tracks = tracks[::-1]
+                    try:
+                        vias.append(tracks.index(net))
+                    except ValueError:
+                        pass
+                    try:
+                        vias.append(tracks.index(None))
+                    except ValueError:
+                        pass
+                    if direction < 0:
+                        l = len(tracks)
+                        vias = [l - 1 - via for via in vias]
+                else:
+                    vias = [None]
+                return vias
         
-        def connect_top_btm(t_net, b_net, track_nets, column):
+            column = []
             t_vias = find_branch_vias(t_net, track_nets, -1)
             b_vias = find_branch_vias(b_net, track_nets, 1)
             tb_vias = [(t,b) for t in t_vias for b in b_vias]
@@ -327,26 +349,29 @@ class SwitchBox:
                     break
             else:
                 raise Exception
-            if t_via:
+            if t_via is not None:
                 column.append(NetInterval(t_net, t_via, len(track_nets)-1))
-            if b_via:
+            if b_via is not None:
                 column.append(NetInterval(b_net, 0, b_via))
-
-        def find_tracks_with_net(net, tracks):
-            return [idx for idx, nt in enumerate(tracks) if net is nt]
+            return column
 
         def connect_splits(tracks, column):
             
-            nets = set(net for net in set(tracks) if tracks.count(net)>1)
+            # Find nets that are running on multiple tracks.
+            multi_nets = set(net for net in set(tracks) if tracks.count(net)>1)
+            multi_nets.remove(None)  # Ignore empty tracks.
 
-            # Find intervals for nets on multiple tracks.
+            # Find intervals for multi-track nets.
             net_intervals = []
-            for net in nets:
-                net_tracks = find_tracks_with_net(net, tracks)
-                for trk1, trk2 in zip(net_tracks[:-1], net_tracks[1:]):
-                    net_intervals.append(NetInterval(net, trk1, trk2))
+            for net in multi_nets:
+                net_trk_idxs = [idx for idx, nt in enumerate(tracks) if nt is net]
+                for trk1 in net_trk_idxs:
+                    for trk2 in net_trk_idxs[trk1+1:]:
+                        net_intervals.append(NetInterval(net, trk1, trk2))
+
             # Sort interval lengths from smallest to largest.
             net_intervals.sort(key=lambda ni: len(ni))
+
             # Connect tracks for each interval if it doesn't intersect an
             # already existing connection.
             for net_interval in net_intervals:
@@ -355,38 +380,259 @@ class SwitchBox:
                         break
                 else:
                     # No conflicts found with existing connections.
-                    print("Add split net connection to column")
                     column.append(net_interval)
 
-        net_end_columns = defaultdict(lambda: 0)
+            column_nets = set(intvl.net for intvl in column)
+            for net in column_nets:
+
+                # Extract intervals if the current net has more than one interval.
+                intervals = [intvl for intvl in column if intvl.net is net]
+                if len(intervals) < 2:
+                    continue
+                for intvl in intervals:
+                    column.remove(intvl)
+
+                # Merge the intervals as much as possible.
+                merged = True
+                while merged:
+                    merged = False
+                    merged_intervals = []
+
+                    # Sort intervals by their beginning coordinates.
+                    intervals.sort(key=lambda intvl: intvl.beg)
+
+                    # Try merging consecutive pairs of intervals.
+                    for intvl1, intvl2 in zip(intervals[:-1], intervals[1:]):
+                        merged_intvl = intvl1.merge(intvl2)
+                        if merged_intvl:
+                            # Replace separate intervals with merged interval.
+                            merged_intervals.append(merged_intvl)
+                            # Merging happened, so iterate through intervals again
+                            # to find more merges.
+                            merged = True
+                        else:
+                            # Intervals couldn't be merged, so keep both.
+                            merged_intervals.extend((intvl1, intvl2))
+                    
+                    # Update list of intervals to include merges and remove duplicates.
+                    intervals = list(set(merged_intervals))
+
+                # Place merged intervals back into column.
+                column.extend(set(merged_intervals))
+
+            return column
+
+        def extend_tracks(tracks, column, net_columns, column_idx):
+            # Extend track net if net has multiple column intervals or terminals in rightward columns.
+            column_nets = [intvl.net for intvl in column]
+            next_tracks = [((net not in column_nets) and net) or None for net in tracks]
+            for net in column_nets:
+                if net_columns[net] > column_idx or column_nets.count(net) > 1:
+                    intvls = [intvl for intvl in column if intvl.net is net]
+                    for intvl in intvls:
+                        for trk in range(intvl.beg, intvl.end+1):
+                            if next_tracks[trk] is None:
+                                next_tracks[trk] = net
+                                break
+            return next_tracks
+
+
+        net_columns = defaultdict(lambda: [])
         for i, net in enumerate(self.top_nets):
-            net_end_columns[net] = max(i, net_end_columns[net])
+            net_columns[net].append(i)
         for i, net in enumerate(self.bottom_nets):
-            net_end_columns[net] = max(i, net_end_columns[net])
+            net_columns[net].append(i)
         for net in self.left_nets:
-            net_end_columns[net] = max(0, net_end_columns[net])
-        max_column = len(self.top_nets)
+            net_columns[net].append(0)
+        max_column = len(self.top_nets) + 1
         for net in self.right_nets:
-            net_end_columns[net] = max(max_column, net_end_columns[net])
+            net_columns[net].append(max_column)
         try:
-            del net_end_columns[None]
+            del net_columns[None]
         except KeyError:
             pass
+        for net in net_columns:
+            net_columns[net] = max(net_columns[net])
 
         tracks = [self.left_nets[:]]
+        track_nets = tracks[0]
         columns = []
-        for t_net, b_net in zip(self.top_nets, self.bottom_nets):
-            track_nets = tracks[-1]
-            column = []
-
-            connect_top_btm(t_net, b_net, track_nets, column)
-
-            connect_splits(track_nets, column)
-
-            # tracks.append(extend_track_nets(track_nets, column))
+        for column_idx, (t_net, b_net) in enumerate(zip(self.top_nets, self.bottom_nets)):
+            column = connect_top_btm(t_net, b_net, track_nets)
+            column = connect_splits(track_nets, column)
+            track_nets = extend_tracks(track_nets, column, net_columns, column_idx)
+            tracks.append(track_nets)
             columns.append(column)
 
-        return []
+        segments = []
+
+        for col_idx, (trk1, trk2) in enumerate(zip(tracks[:-2], tracks[1:-1])):
+        # for col_idx, (trk1, trk2) in enumerate(zip(tracks[:-1], tracks[1:])):
+            beg_col_coord = self.column_coords[col_idx]
+            end_col_coord = self.column_coords[col_idx+1]
+            for trk_idx, (nt1, nt2) in enumerate(zip(trk1, trk2)):
+                if nt1 is nt2 and nt1:
+                    trk_coord = self.track_coords[trk_idx]
+                    p1 = Point(beg_col_coord, trk_coord)
+                    p2 = Point(end_col_coord, trk_coord)
+                    segments.append(Segment(p1,p2))
+
+        for idx, column in enumerate(columns):
+            col_coord = self.column_coords[idx]
+            for intvl in column:
+                beg_trk_coord = self.track_coords[intvl.beg]
+                end_trk_coord = self.track_coords[intvl.end]
+                p1 = Point(col_coord, beg_trk_coord)
+                p2 = Point(col_coord, end_trk_coord)
+                segments.append(Segment(p1, p2))
+
+        self.segments = segments
+
+        return segments
+
+    def draw_routing(self):
+
+        import pygame
+        import pygame.freetype
+
+        def draw_init(bbox):
+            scr_bbox = BBox(Point(0, 0), Point(2000, 1500))
+
+            border = max(bbox.w, bbox.h) / 20
+            bbox = bbox.resize(Vector(border, border))
+            bbox = round(bbox)
+
+            scale = min(scr_bbox.w / bbox.w, scr_bbox.h / bbox.h)
+
+            tx = Tx(a=scale, d=scale).dot(Tx(d=-1))
+            new_bbox = bbox.dot(tx)
+            move = scr_bbox.ctr - new_bbox.ctr
+            tx = tx.dot(Tx(dx=move.x, dy=move.y))
+
+            pygame.init()
+            scr = pygame.display.set_mode((scr_bbox.w, scr_bbox.h))
+
+            font = pygame.freetype.SysFont("consolas", 24)
+
+            scr.fill((255, 255, 255))
+
+            return scr, tx, font
+
+        def draw_seg(
+            seg, scr, tx, color=(100, 100, 100), line_thickness=1, dot_thickness=3
+        ):
+            seg = seg.dot(tx)
+            pygame.draw.line(
+                scr, color, (seg.p1.x, seg.p1.y), (seg.p2.x, seg.p2.y), width=line_thickness
+            )
+            pygame.draw.circle(scr, color, (seg.p1.x, seg.p1.y), dot_thickness)
+            pygame.draw.circle(scr, color, (seg.p2.x, seg.p2.y), dot_thickness)
+
+        def face_seg(face):
+            track = face.track
+            orientation = track.orientation
+            if orientation == HORZ:
+                p1 = Point(face.beg.coord, track.coord)
+                p2 = Point(face.end.coord, track.coord)
+            else:
+                p1 = Point(track.coord, face.beg.coord)
+                p2 = Point(track.coord, face.end.coord)
+            return Segment(p1, p2)
+
+        def draw_text(txt, pt, scr, tx, font, color=(100, 100, 100)):
+            pt = pt.dot(tx)
+            font.render_to(scr, (pt.x, pt.y), txt, color)
+
+        def draw_face(face, color, line_width, dot_width, scr, tx, font):
+            if len(face.part) < 0:
+                return
+            seg = face_seg(face)
+            draw_seg(face_seg(face), scr, tx, color, line_width, dot_width)
+            mid_pt = (seg.p1 + seg.p2) / 2
+            draw_text(str(face.capacity), mid_pt, scr, tx, font, color)
+
+        def draw_track(track, scr, tx, font):
+            face_colors = [(255, 0, 0), (0, 64, 0), (0, 0, 255), (0, 0, 0)]
+            for face in track:
+                if len(face.part) < 0:
+                    continue
+                face_color = face_colors[len(face.part)]
+                draw_face(face, face_color, 3, 4, scr, tx, font)
+
+        def draw_channels(track, scr, tx):
+            for face in track:
+                seg = face_seg(face)
+                p1 = (seg.p1 + seg.p2) / 2
+                for adj_face in face.adjacent:
+                    seg = face_seg(adj_face)
+                    p2 = (seg.p1 + seg.p2) / 2
+                    draw_seg(Segment(p1, p2), scr, tx, (128, 0, 128), 1, 3)
+
+        def draw_box(bbox, scr, tx):
+            bbox = bbox.dot(tx)
+            corners = (
+                bbox.min,
+                Point(bbox.min.x, bbox.max.y),
+                bbox.max,
+                Point(bbox.max.x, bbox.min.y),
+            )
+            corners = (
+                (bbox.min.x, bbox.min.y),
+                (bbox.min.x, bbox.max.y),
+                (bbox.max.x, bbox.max.y),
+                (bbox.max.x, bbox.min.y),
+            )
+            pygame.draw.polygon(scr, (192, 255, 192), corners, 0)
+
+        def draw_pin(pin, scr, tx):
+            pt = pin.pt.dot(pin.part.tx)
+            track = pin.face.track
+            pt = {
+                HORZ: Point(pt.x, track.coord),
+                VERT: Point(track.coord, pt.y),
+            }[track.orientation]
+            pt = pt.dot(tx)
+            sz = 5
+            corners = (
+                (pt.x, pt.y + sz),
+                (pt.x + sz, pt.y),
+                (pt.x, pt.y - sz),
+                (pt.x - sz, pt.y),
+            )
+            pygame.draw.polygon(scr, (0, 0, 0), corners, 0)
+
+        def draw_wire(wire, scr, tx):
+            for pin in wire.net.pins:
+                draw_pin(pin, scr, tx)
+
+            def terminal_pt(terminal):
+                track = terminal.face.track
+                if track.orientation == HORZ:
+                    return Point(terminal.coord, track.coord)
+                else:
+                    return Point(track.coord, terminal.coord)
+
+            face_to_face = zip(wire[:-1], wire[1:])
+            for terminal1, terminal2 in face_to_face:
+                p1 = terminal_pt(terminal1)
+                p2 = terminal_pt(terminal2)
+                draw_seg(Segment(p1, p2), scr, tx, (0, 0, 0), 2, 0)
+
+        def draw_end():
+            pygame.display.flip()
+
+            running = True
+            while running:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        running = False
+            pygame.quit()
+
+        scr, tx, font = draw_init(self.bbox.resize(Vector(100,100)))
+        draw_box(self.bbox, scr, tx)
+        for segment in self.segments:
+            draw_seg(segment, scr, tx)
+        draw_end()
 
 
 class GlobalWire(list):
