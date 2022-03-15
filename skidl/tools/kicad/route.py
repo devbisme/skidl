@@ -257,7 +257,8 @@ class SwitchBox:
 
         top_coords = [terminal.coord for terminal in self.top_face.terminals]
         bottom_coords = [terminal.coord for terminal in self.bottom_face.terminals]
-        self.column_coords = sorted(set(top_coords + bottom_coords))
+        lr_coords = [self.left_face.track.coord, self.right_face.track.coord]
+        self.column_coords = sorted(set(top_coords + bottom_coords + lr_coords))
         self.top_nets = [
             find_terminal_net(self.top_face.terminals, top_coords, coord)
             for coord in self.column_coords
@@ -269,7 +270,8 @@ class SwitchBox:
 
         left_coords = [terminal.coord for terminal in self.left_face.terminals]
         right_coords = [terminal.coord for terminal in self.right_face.terminals]
-        self.track_coords = sorted(set(left_coords + right_coords))
+        tb_coords = [self.top_face.track.coord, self.bottom_face.track.coord]
+        self.track_coords = sorted(set(left_coords + right_coords + tb_coords))
         self.left_nets = [
             find_terminal_net(self.left_face.terminals, left_coords, coord)
             for coord in self.track_coords
@@ -324,11 +326,11 @@ class SwitchBox:
                     if direction < 0:
                         tracks = tracks[::-1]
                     try:
-                        vias.append(tracks.index(net))
+                        vias.append(tracks[1:-1].index(net)+1)
                     except ValueError:
                         pass
                     try:
-                        vias.append(tracks.index(None))
+                        vias.append(tracks[1:-1].index(None)+1)
                     except ValueError:
                         pass
                     if direction < 0:
@@ -342,6 +344,9 @@ class SwitchBox:
             t_vias = find_branch_vias(t_net, track_nets, -1)
             b_vias = find_branch_vias(b_net, track_nets, 1)
             tb_vias = [(t,b) for t in t_vias for b in b_vias]
+            if not tb_vias:
+                # Top and/or bottom could not be connected.
+                raise Exception
             for t_via, b_via in tb_vias:
                 if t_via is None or b_via is None:
                     break
@@ -430,7 +435,7 @@ class SwitchBox:
                 if net_columns[net] > column_idx or column_nets.count(net) > 1:
                     intvls = [intvl for intvl in column if intvl.net is net]
                     for intvl in intvls:
-                        for trk in range(intvl.beg, intvl.end+1):
+                        for trk in range(max(intvl.beg,1), intvl.end+1):
                             if next_tracks[trk] is None:
                                 next_tracks[trk] = net
                                 break
@@ -444,7 +449,7 @@ class SwitchBox:
             net_columns[net].append(i)
         for net in self.left_nets:
             net_columns[net].append(0)
-        max_column = len(self.top_nets) + 1
+        max_column = len(self.top_nets) - 1
         for net in self.right_nets:
             net_columns[net].append(max_column)
         try:
@@ -456,8 +461,8 @@ class SwitchBox:
 
         tracks = [self.left_nets[:]]
         track_nets = tracks[0]
-        columns = []
-        for column_idx, (t_net, b_net) in enumerate(zip(self.top_nets, self.bottom_nets)):
+        columns = [[], ]
+        for column_idx, (t_net, b_net) in enumerate(zip(self.top_nets[1:-1], self.bottom_nets[1:-1]), start=1):
             column = connect_top_btm(t_net, b_net, track_nets)
             column = connect_splits(track_nets, column)
             track_nets = extend_tracks(track_nets, column, net_columns, column_idx)
@@ -466,25 +471,30 @@ class SwitchBox:
 
         segments = []
 
-        for col_idx, (trk1, trk2) in enumerate(zip(tracks[:-2], tracks[1:-1])):
-        # for col_idx, (trk1, trk2) in enumerate(zip(tracks[:-1], tracks[1:])):
+        # Create horizontal wiring segments.
+        for col_idx, trks in enumerate(tracks[:-1]):
             beg_col_coord = self.column_coords[col_idx]
             end_col_coord = self.column_coords[col_idx+1]
-            for trk_idx, (nt1, nt2) in enumerate(zip(trk1, trk2)):
-                if nt1 is nt2 and nt1:
+            for trk_idx, net in enumerate(trks[1:-1], start=1):
+                if net:
                     trk_coord = self.track_coords[trk_idx]
                     p1 = Point(beg_col_coord, trk_coord)
                     p2 = Point(end_col_coord, trk_coord)
-                    segments.append(Segment(p1,p2))
+                    seg = Segment(p1,p2)
+                    seg.net = net
+                    segments.append(seg)
 
-        for idx, column in enumerate(columns):
+        # Create vertical wiring segments.
+        for idx, column in enumerate(columns[1:], start=1):
             col_coord = self.column_coords[idx]
             for intvl in column:
                 beg_trk_coord = self.track_coords[intvl.beg]
                 end_trk_coord = self.track_coords[intvl.end]
                 p1 = Point(col_coord, beg_trk_coord)
                 p2 = Point(col_coord, end_trk_coord)
-                segments.append(Segment(p1, p2))
+                seg = Segment(p1, p2)
+                seg.net = intvl.net
+                segments.append(seg)
 
         self.segments = segments
 
@@ -518,15 +528,18 @@ class SwitchBox:
 
             return scr, tx, font
 
+        from random import randint
+        net_colors = defaultdict(lambda: (randint(50,200),randint(50,100), randint(50,200)))
         def draw_seg(
-            seg, scr, tx, color=(100, 100, 100), line_thickness=1, dot_thickness=3
+            seg, scr, tx, color=(100, 100, 100), line_thickness=5, dot_thickness=3
         ):
+            color = net_colors[seg.net]
             seg = seg.dot(tx)
             pygame.draw.line(
                 scr, color, (seg.p1.x, seg.p1.y), (seg.p2.x, seg.p2.y), width=line_thickness
             )
-            pygame.draw.circle(scr, color, (seg.p1.x, seg.p1.y), dot_thickness)
-            pygame.draw.circle(scr, color, (seg.p2.x, seg.p2.y), dot_thickness)
+            # pygame.draw.circle(scr, color, (seg.p1.x, seg.p1.y), dot_thickness)
+            # pygame.draw.circle(scr, color, (seg.p2.x, seg.p2.y), dot_thickness)
 
         def face_seg(face):
             track = face.track
