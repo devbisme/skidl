@@ -17,6 +17,9 @@ from builtins import range, zip
 from collections import defaultdict
 from enum import Enum, auto
 from itertools import zip_longest, chain
+from random import randint
+import pygame
+import pygame.freetype
 
 from future import standard_library
 
@@ -52,6 +55,43 @@ standard_library.install_aliases()
 ###################################################################
 
 
+def draw_start(bbox):
+    """Initialize PyGame drawing area."""
+
+    scr_bbox = BBox(Point(0, 0), Point(2000, 1500))
+
+    border = max(bbox.w, bbox.h) / 20
+    bbox = bbox.resize(Vector(border, border))
+    bbox = round(bbox)
+
+    scale = min(scr_bbox.w / bbox.w, scr_bbox.h / bbox.h)
+
+    tx = Tx(a=scale, d=scale).dot(Tx(d=-1))
+    new_bbox = bbox.dot(tx)
+    move = scr_bbox.ctr - new_bbox.ctr
+    tx = tx.dot(Tx(dx=move.x, dy=move.y))
+
+    pygame.init()
+    scr = pygame.display.set_mode((scr_bbox.w, scr_bbox.h))
+
+    font = pygame.freetype.SysFont("consolas", 24)
+
+    scr.fill((255, 255, 255))
+
+    return scr, tx, font
+
+def draw_end():
+    """Display drawing and wait for user to close PyGame window."""
+    pygame.display.flip()
+
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+    pygame.quit()
+
+
 class Orientation(Enum):
     HORZ = auto()
     VERT = auto()
@@ -83,6 +123,25 @@ class Terminal:
         self.net = net
         self.face = face
         self.coord = coord
+
+    def draw(self, scr, tx):
+        if not self.net:
+            return
+
+        if self.face.track.orientation == HORZ:
+            ctr = Point(self.coord, self.face.track.coord)
+        else:
+            ctr = Point(self.face.track.coord, self.coord)
+        ctr = ctr.dot(tx)
+        sz = 5
+        corners = (
+            (ctr.x, ctr.y + sz),
+            (ctr.x + sz, ctr.y),
+            (ctr.x, ctr.y - sz),
+            (ctr.x - sz, ctr.y),
+        )
+        color = (0,0,0)
+        pygame.draw.polygon(scr, color, corners, 0)
 
 
 class Face:
@@ -162,6 +221,21 @@ class Face:
         """Returns True if both faces have the same beginning and ending point on the same track."""
         return (self.beg, self.end) == (other_face.beg, other_face.end)
 
+    def draw(self, scr, tx):
+        p1 = Point(self.track.coord, self.beg.coord)
+        p2 = Point(self.track.coord, self.end.coord)
+        seg = Segment(p1, p2)
+        if self.track.orientation == HORZ:
+            seg = seg.dot(Tx(a=0, b=1, c=1, d=0))
+        seg = seg.dot(tx)
+        color = (128, 128, 128)
+        line_thickness = 2
+        pygame.draw.line(
+            scr, color, (seg.p1.x, seg.p1.y), (seg.p2.x, seg.p2.y), width=line_thickness
+        )
+        for terminal in self.terminals:
+            terminal.draw(scr, tx)
+
 
 class Interval:
     def __init__(self, beg, end):
@@ -184,6 +258,7 @@ class Interval:
         if self.intersects(other):
             return Interval(min(self.beg, other.beg), max(self.end, other.end))
         return None
+
 
 class NetInterval(Interval):
     def __init__(self, net, beg, end):
@@ -305,7 +380,7 @@ class SwitchBox:
 
         def connect_top_btm(t_net, b_net, track_nets):
 
-            def find_branch_vias(net, tracks, direction):
+            def find_connection(net, tracks, direction):
                 """Connect top/bottom net to nets in horizontal tracks.
 
                 Searches for the closest track with the same net followed by the
@@ -322,46 +397,56 @@ class SwitchBox:
                     list: Indices of tracks where the net can connect.
                 """
                 if net:
-                    vias = []
+                    connections = []
                     if direction < 0:
                         tracks = tracks[::-1]
                     try:
-                        vias.append(tracks[1:-1].index(net)+1)
+                        connections.append(tracks[1:-1].index(net)+1)
                     except ValueError:
                         pass
                     try:
-                        vias.append(tracks[1:-1].index(None)+1)
+                        connections.append(tracks[1:-1].index(None)+1)
                     except ValueError:
                         pass
                     if direction < 0:
                         l = len(tracks)
-                        vias = [l - 1 - via for via in vias]
+                        connections = [l - 1 - cnct for cnct in connections]
                 else:
-                    vias = [None]
-                return vias
+                    connections = [None]
+                return connections
         
             column = []
-            t_vias = find_branch_vias(t_net, track_nets, -1)
-            b_vias = find_branch_vias(b_net, track_nets, 1)
-            tb_vias = [(t,b) for t in t_vias for b in b_vias]
-            if not tb_vias:
+            t_cncts = find_connection(t_net, track_nets, -1)
+            b_cncts = find_connection(b_net, track_nets, 1)
+
+            # Test each possible pair of connections to find one that is free of interference.
+            tb_cncts = [(t,b) for t in t_cncts for b in b_cncts]
+
+            if not tb_cncts:
                 # Top and/or bottom could not be connected.
                 raise Exception
-            for t_via, b_via in tb_vias:
-                if t_via is None or b_via is None:
+            for t_cnct, b_cnct in tb_cncts:
+                if t_cnct is None or b_cnct is None:
+                    # No possible interference if at least one connection is None.
                     break
-                if t_via > b_via:
+                if t_cnct > b_cnct:
+                    # Top & bottom connections don't interfere.
                     break
             else:
                 raise Exception
-            if t_via is not None:
-                column.append(NetInterval(t_net, t_via, len(track_nets)-1))
-            if b_via is not None:
-                column.append(NetInterval(b_net, 0, b_via))
+
+            if t_cnct is not None:
+                # Connection from track to terminal on top of switchbox.
+                column.append(NetInterval(t_net, t_cnct, len(track_nets)-1))
+            if b_cnct is not None:
+                # Connection from terminal on bottom of switchbox to track.
+                column.append(NetInterval(b_net, 0, b_cnct))
+
+            # Return connection segments.
             return column
 
         def connect_splits(tracks, column):
-            
+
             # Find nets that are running on multiple tracks.
             multi_nets = set(net for net in set(tracks) if tracks.count(net)>1)
             multi_nets.remove(None)  # Ignore empty tracks.
@@ -369,9 +454,9 @@ class SwitchBox:
             # Find intervals for multi-track nets.
             net_intervals = []
             for net in multi_nets:
-                net_trk_idxs = [idx for idx, nt in enumerate(tracks) if nt is net]
-                for trk1 in net_trk_idxs:
-                    for trk2 in net_trk_idxs[trk1+1:]:
+                net_trk_idxs = [idx for idx, nt in enumerate(tracks[1:-1], 1) if nt is net]
+                for index, trk1 in enumerate(net_trk_idxs[:-1], 1):
+                    for trk2 in net_trk_idxs[index:]:
                         net_intervals.append(NetInterval(net, trk1, trk2))
 
             # Sort interval lengths from smallest to largest.
@@ -428,14 +513,27 @@ class SwitchBox:
             return column
 
         def extend_tracks(tracks, column, net_columns, column_idx):
-            # Extend track net if net has multiple column intervals or terminals in rightward columns.
+
+            # Keep extending nets in current tracks if they do not intersect intervals in the 
+            # current column with the same net.
+            next_tracks = tracks[:]
+            for intvl in column:
+                for trk_idx in range(intvl.beg, intvl.end+1):
+                    if next_tracks[trk_idx] is intvl.net:
+                        # Remove net from track since it intersects an interval with the 
+                        # same net. The net may be extended from the interval in the next phase.
+                        next_tracks[trk_idx] = None
+
+            # Extend track net if net has multiple column intervals that need further interconnection
+            # or if there are terminals in rightward columns that need connections to this net.
             column_nets = [intvl.net for intvl in column]
-            next_tracks = [((net not in column_nets) and net) or None for net in tracks]
             for net in column_nets:
-                if net_columns[net] > column_idx or column_nets.count(net) > 1:
+                num_net_intvls = column_nets.count(net) + next_tracks.count(net)
+                if net_columns[net] > column_idx or num_net_intvls > 1:
+                    # Search for an empty track to extend each interval.
                     intvls = [intvl for intvl in column if intvl.net is net]
                     for intvl in intvls:
-                        for trk in range(max(intvl.beg,1), intvl.end+1):
+                        for trk in range(max(intvl.beg,1), min(intvl.end+1, len(tracks)-1)):
                             if next_tracks[trk] is None:
                                 next_tracks[trk] = net
                                 break
@@ -500,152 +598,29 @@ class SwitchBox:
 
         return segments
 
-    def draw_routing(self):
+    def draw(self, scr=None, tx=None):
+        do_start_end = not bool(scr)
 
-        import pygame
-        import pygame.freetype
+        if do_start_end:
+            scr, tx, font = draw_start(self.bbox.resize(Vector(100,100)))
 
-        def draw_init(bbox):
-            scr_bbox = BBox(Point(0, 0), Point(2000, 1500))
+        self.top_face.draw(scr, tx)
+        self.bottom_face.draw(scr, tx)
+        self.left_face.draw(scr, tx)
+        self.right_face.draw(scr, tx)
 
-            border = max(bbox.w, bbox.h) / 20
-            bbox = bbox.resize(Vector(border, border))
-            bbox = round(bbox)
-
-            scale = min(scr_bbox.w / bbox.w, scr_bbox.h / bbox.h)
-
-            tx = Tx(a=scale, d=scale).dot(Tx(d=-1))
-            new_bbox = bbox.dot(tx)
-            move = scr_bbox.ctr - new_bbox.ctr
-            tx = tx.dot(Tx(dx=move.x, dy=move.y))
-
-            pygame.init()
-            scr = pygame.display.set_mode((scr_bbox.w, scr_bbox.h))
-
-            font = pygame.freetype.SysFont("consolas", 24)
-
-            scr.fill((255, 255, 255))
-
-            return scr, tx, font
-
-        from random import randint
         net_colors = defaultdict(lambda: (randint(50,200),randint(50,100), randint(50,200)))
-        def draw_seg(
-            seg, scr, tx, color=(100, 100, 100), line_thickness=5, dot_thickness=3
-        ):
+        def draw_seg(seg, scr, tx, color=(100, 100, 100), line_thickness=5):
             color = net_colors[seg.net]
             seg = seg.dot(tx)
             pygame.draw.line(
                 scr, color, (seg.p1.x, seg.p1.y), (seg.p2.x, seg.p2.y), width=line_thickness
             )
-            # pygame.draw.circle(scr, color, (seg.p1.x, seg.p1.y), dot_thickness)
-            # pygame.draw.circle(scr, color, (seg.p2.x, seg.p2.y), dot_thickness)
-
-        def face_seg(face):
-            track = face.track
-            orientation = track.orientation
-            if orientation == HORZ:
-                p1 = Point(face.beg.coord, track.coord)
-                p2 = Point(face.end.coord, track.coord)
-            else:
-                p1 = Point(track.coord, face.beg.coord)
-                p2 = Point(track.coord, face.end.coord)
-            return Segment(p1, p2)
-
-        def draw_text(txt, pt, scr, tx, font, color=(100, 100, 100)):
-            pt = pt.dot(tx)
-            font.render_to(scr, (pt.x, pt.y), txt, color)
-
-        def draw_face(face, color, line_width, dot_width, scr, tx, font):
-            if len(face.part) < 0:
-                return
-            seg = face_seg(face)
-            draw_seg(face_seg(face), scr, tx, color, line_width, dot_width)
-            mid_pt = (seg.p1 + seg.p2) / 2
-            draw_text(str(face.capacity), mid_pt, scr, tx, font, color)
-
-        def draw_track(track, scr, tx, font):
-            face_colors = [(255, 0, 0), (0, 64, 0), (0, 0, 255), (0, 0, 0)]
-            for face in track:
-                if len(face.part) < 0:
-                    continue
-                face_color = face_colors[len(face.part)]
-                draw_face(face, face_color, 3, 4, scr, tx, font)
-
-        def draw_channels(track, scr, tx):
-            for face in track:
-                seg = face_seg(face)
-                p1 = (seg.p1 + seg.p2) / 2
-                for adj_face in face.adjacent:
-                    seg = face_seg(adj_face)
-                    p2 = (seg.p1 + seg.p2) / 2
-                    draw_seg(Segment(p1, p2), scr, tx, (128, 0, 128), 1, 3)
-
-        def draw_box(bbox, scr, tx):
-            bbox = bbox.dot(tx)
-            corners = (
-                bbox.min,
-                Point(bbox.min.x, bbox.max.y),
-                bbox.max,
-                Point(bbox.max.x, bbox.min.y),
-            )
-            corners = (
-                (bbox.min.x, bbox.min.y),
-                (bbox.min.x, bbox.max.y),
-                (bbox.max.x, bbox.max.y),
-                (bbox.max.x, bbox.min.y),
-            )
-            pygame.draw.polygon(scr, (192, 255, 192), corners, 0)
-
-        def draw_pin(pin, scr, tx):
-            pt = pin.pt.dot(pin.part.tx)
-            track = pin.face.track
-            pt = {
-                HORZ: Point(pt.x, track.coord),
-                VERT: Point(track.coord, pt.y),
-            }[track.orientation]
-            pt = pt.dot(tx)
-            sz = 5
-            corners = (
-                (pt.x, pt.y + sz),
-                (pt.x + sz, pt.y),
-                (pt.x, pt.y - sz),
-                (pt.x - sz, pt.y),
-            )
-            pygame.draw.polygon(scr, (0, 0, 0), corners, 0)
-
-        def draw_wire(wire, scr, tx):
-            for pin in wire.net.pins:
-                draw_pin(pin, scr, tx)
-
-            def terminal_pt(terminal):
-                track = terminal.face.track
-                if track.orientation == HORZ:
-                    return Point(terminal.coord, track.coord)
-                else:
-                    return Point(track.coord, terminal.coord)
-
-            face_to_face = zip(wire[:-1], wire[1:])
-            for terminal1, terminal2 in face_to_face:
-                p1 = terminal_pt(terminal1)
-                p2 = terminal_pt(terminal2)
-                draw_seg(Segment(p1, p2), scr, tx, (0, 0, 0), 2, 0)
-
-        def draw_end():
-            pygame.display.flip()
-
-            running = True
-            while running:
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        running = False
-            pygame.quit()
-
-        scr, tx, font = draw_init(self.bbox.resize(Vector(100,100)))
-        draw_box(self.bbox, scr, tx)
         for segment in self.segments:
             draw_seg(segment, scr, tx)
-        draw_end()
+
+        if do_start_end:
+            draw_end()
 
 
 class GlobalWire(list):
@@ -1113,10 +1088,6 @@ def route(node):
             else:
                 detailed_routes.extend(swbx.route())
 
-
-
-    import pygame
-    import pygame.freetype
 
     def draw_init(bbox):
         scr_bbox = BBox(Point(0, 0), Point(2000, 1500))
