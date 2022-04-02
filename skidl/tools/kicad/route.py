@@ -277,6 +277,16 @@ class NetInterval(Interval):
         return None
 
 
+class Target:
+    def __init__(self, row, col, net):
+        self.row = row
+        self.col = col
+        self.net = net
+
+    def __lt__(self, other):
+        return (self.col, self.row, id(self.net)) < (other.col, other.row, id(other.net))
+
+
 class SwitchBox:
     def __init__(self, top_face):
 
@@ -379,10 +389,10 @@ class SwitchBox:
             return []
 
         def connect_top_btm(t_net, b_net, track_nets):
+            """Connect top/bottom net to nets in horizontal tracks."""
 
             def find_connection(net, tracks, direction):
-                """Connect top/bottom net to nets in horizontal tracks.
-
+                """
                 Searches for the closest track with the same net followed by the
                 closest empty track. The indices of these tracks are returned.
                 If the net cannot be connected to any track, return [].
@@ -414,7 +424,7 @@ class SwitchBox:
                 else:
                     connections = [None]
                 return connections
-        
+
             column = []
             t_cncts = find_connection(t_net, track_nets, -1)
             b_cncts = find_connection(b_net, track_nets, 1)
@@ -445,16 +455,28 @@ class SwitchBox:
             # Return connection segments.
             return column
 
-        def connect_splits(tracks, column):
+        def connect_splits(track_nets, column):
+
+            # Make a copy so the original isn't disturbed.
+            track_nets = track_nets[:]
+
+            # Merge column nets into track nets so top-bottom terminal nets are accounted for.
+            for intvl in column:
+                track_nets[intvl.beg] = intvl.net
+                track_nets[intvl.end] = intvl.net
+
+            # Keep top/bottom tracks clear.
+            track_nets[0] = None
+            track_nets[-1] = None
 
             # Find nets that are running on multiple tracks.
-            multi_nets = set(net for net in set(tracks) if tracks.count(net)>1)
+            multi_nets = set(net for net in set(track_nets) if track_nets.count(net)>1)
             multi_nets.remove(None)  # Ignore empty tracks.
 
             # Find intervals for multi-track nets.
             net_intervals = []
             for net in multi_nets:
-                net_trk_idxs = [idx for idx, nt in enumerate(tracks[1:-1], 1) if nt is net]
+                net_trk_idxs = [idx for idx, nt in enumerate(track_nets[1:-1], 1) if nt is net]
                 for index, trk1 in enumerate(net_trk_idxs[:-1], 1):
                     for trk2 in net_trk_idxs[index:]:
                         net_intervals.append(NetInterval(net, trk1, trk2))
@@ -482,7 +504,7 @@ class SwitchBox:
                 for intvl in intervals:
                     column.remove(intvl)
 
-                # Merge the intervals as much as possible.
+                # Merge the extracted intervals as much as possible.
                 merged = True
                 while merged:
                     merged = False
@@ -512,58 +534,130 @@ class SwitchBox:
 
             return column
 
-        def extend_tracks(tracks, column, net_columns, column_idx):
+        # Collect target nets along top, bottom, right faces of switchbox.
+        min_row = 1
+        max_row = len(self.left_nets)-2
+        max_col = len(self.top_nets)
+        targets = []
+        for col, (t_net, b_net) in enumerate(zip(self.top_nets, self.bottom_nets)):
+            if t_net is not None:
+                targets.append(Target(max_row, col, t_net))
+            if b_net is not None:
+                targets.append(Target(min_row, col, b_net))
+        for row, r_net in enumerate(self.right_nets):
+            if r_net is not None:
+                targets.append(Target(row, max_col, r_net))
+        targets.sort()
+
+        def prune_targets(targets, col):
+            return [target for target in targets if target.col > col]
+
+        def insert_target_tracks(targets, track_nets):
+            target_tracks = [None] * len(track_nets)
+            for target in targets:
+
+                # Skip target nets that aren't currently active.
+                net = target.net
+                if net not in track_nets:
+                    continue
+
+                row = target.row
+                try:
+                    row1 = track_nets[row:].index(net)
+                except ValueError:
+                    row1 = len(track_nets) # Greater than any possible value.
+                try:
+                    row2 = track_nets[row:].index(None)
+                except ValueError:
+                    row2 = len(track_nets)
+                up = min(row1, row2)
+
+                try:
+                    row1 = track_nets[row::-1].index(net)
+                except ValueError:
+                    row1 = len(track_nets)
+                try:
+                    row2 = track_nets[row::-1].index(None)
+                except ValueError:
+                    row2 = len(track_nets)
+                down = min(row1, row2)
+
+                try:
+                    if up <= down:
+                        target_tracks[row+up] = net
+                    else:
+                        target_tracks[row-down] = net
+                except IndexError:
+                    # There was no place for this target net.
+                    pass 
+
+            return [net or target for (net, target) in zip(track_nets, target_tracks)]
+
+        def extend_tracks(track_nets, column, targets):
+            rightward_nets = set(target.net for target in targets)
 
             # Keep extending nets in current tracks if they do not intersect intervals in the 
             # current column with the same net.
-            next_tracks = tracks[:]
+            next_track_nets = track_nets[:]
             for intvl in column:
                 for trk_idx in range(intvl.beg, intvl.end+1):
-                    if next_tracks[trk_idx] is intvl.net:
+                    if next_track_nets[trk_idx] is intvl.net:
                         # Remove net from track since it intersects an interval with the 
-                        # same net. The net may be extended from the interval in the next phase.
-                        next_tracks[trk_idx] = None
+                        # same net. The net may be extended from the interval in the next phase,
+                        # or it may terminate here.
+                        next_track_nets[trk_idx] = None
 
             # Extend track net if net has multiple column intervals that need further interconnection
             # or if there are terminals in rightward columns that need connections to this net.
             column_nets = [intvl.net for intvl in column]
-            for net in column_nets:
-                num_net_intvls = column_nets.count(net) + next_tracks.count(net)
-                if net_columns[net] > column_idx or num_net_intvls > 1:
-                    # Search for an empty track to extend each interval.
-                    intvls = [intvl for intvl in column if intvl.net is net]
-                    for intvl in intvls:
-                        for trk in range(max(intvl.beg,1), min(intvl.end+1, len(tracks)-1)):
-                            if next_tracks[trk] is None:
-                                next_tracks[trk] = net
-                                break
-            return next_tracks
+            for intvl in column:
+                net = intvl.net
 
+                num_net_intvls = column_nets.count(net)
+                if num_net_intvls == 1 and net not in rightward_nets:
+                    continue
 
-        net_columns = defaultdict(lambda: [])
-        for i, net in enumerate(self.top_nets):
-            net_columns[net].append(i)
-        for i, net in enumerate(self.bottom_nets):
-            net_columns[net].append(i)
-        for net in self.left_nets:
-            net_columns[net].append(0)
-        max_column = len(self.top_nets) - 1
-        for net in self.right_nets:
-            net_columns[net].append(max_column)
-        try:
-            del net_columns[None]
-        except KeyError:
-            pass
-        for net in net_columns:
-            net_columns[net] = max(net_columns[net])
+                target_row = None
+                for target in targets:
+                    if target.net is net:
+                        target_row = target.row
+                        break
 
+                beg = max(intvl.beg, 1)
+                end = min(intvl.end, len(track_nets)-2)
+                if target_row is None:
+                    row = track_nets[beg:end+1].index(None) + beg
+                else:
+                    try:
+                        down = track_nets[target_row:beg-1:-1].index(None)
+                    except ValueError:
+                        down = len(track_nets)
+                    try:
+                        up = track_nets[target_row:end+1].index(None)
+                    except ValueError:
+                        up = len(track_nets)
+                    if up < down:
+                        row = target_row + up
+                    else:
+                        row = target_row - down
+
+                next_track_nets[row] = net
+
+            return next_track_nets
+
+        # Main switchbox routing loop.
         tracks = [self.left_nets[:]]
         track_nets = tracks[0]
         columns = [[], ]
-        for column_idx, (t_net, b_net) in enumerate(zip(self.top_nets[1:-1], self.bottom_nets[1:-1]), start=1):
+        for col, (t_net, b_net) in enumerate(zip(self.top_nets[1:-1], self.bottom_nets[1:-1]), start=1):
             column = connect_top_btm(t_net, b_net, track_nets)
-            column = connect_splits(track_nets, column)
-            track_nets = extend_tracks(track_nets, column, net_columns, column_idx)
+            targets = prune_targets(targets, col)
+            augmented_track_nets = track_nets[:]
+            augmented_track_nets[0] = b_net
+            augmented_track_nets[-1] = t_net
+            augmented_track_nets = insert_target_tracks(targets, augmented_track_nets)
+            column = connect_splits(augmented_track_nets, column)
+            track_nets = extend_tracks(track_nets, column, targets)
             tracks.append(track_nets)
             columns.append(column)
 
@@ -609,7 +703,7 @@ class SwitchBox:
         self.left_face.draw(scr, tx)
         self.right_face.draw(scr, tx)
 
-        net_colors = defaultdict(lambda: (randint(50,200),randint(50,100), randint(50,200)))
+        net_colors = defaultdict(lambda: (randint(0,200),randint(0,200), randint(0,200)))
         def draw_seg(seg, scr, tx, color=(100, 100, 100), line_thickness=5):
             color = net_colors[seg.net]
             seg = seg.dot(tx)
