@@ -55,6 +55,9 @@ standard_library.install_aliases()
 ###################################################################
 
 
+net_colors = defaultdict(lambda: (randint(0,200),randint(0,200), randint(0,200)))
+
+
 def draw_start(bbox):
     """Initialize PyGame drawing area."""
 
@@ -142,6 +145,8 @@ class Terminal:
         )
         color = (0,0,0)
         pygame.draw.polygon(scr, color, corners, 0)
+        color = net_colors[self.net]
+        pygame.draw.circle(scr, color, (ctr.x, ctr.y), 10)
 
 
 class Face:
@@ -388,7 +393,7 @@ class SwitchBox:
         if not self.has_nets():
             return []
 
-        def connect_top_btm(t_net, b_net, track_nets):
+        def connect_top_btm(track_nets):
             """Connect top/bottom net to nets in horizontal tracks."""
 
             def find_connection(net, tracks, direction):
@@ -425,6 +430,8 @@ class SwitchBox:
                     connections = [None]
                 return connections
 
+            b_net = track_nets[0]
+            t_net = track_nets[-1]
             column = []
             t_cncts = find_connection(t_net, track_nets, -1)
             b_cncts = find_connection(b_net, track_nets, 1)
@@ -454,6 +461,52 @@ class SwitchBox:
 
             # Return connection segments.
             return column
+
+        def prune_targets(targets, col):
+            return [target for target in targets if target.col > col]
+
+        def net_search(net, start, track_nets):
+            large_offset = 2 * len(track_nets)
+            try:
+                up = track_nets[start:-1].index(net)
+            except ValueError:
+                up = large_offset
+            try:
+                down = track_nets[start:0:-1].index(net)
+            except ValueError:
+                down = large_offset
+            return up, down
+
+
+        def insert_targets(targets, track_nets):
+            target_track_nets = [None] * len(track_nets)
+            used_target_nets = []
+            for target in targets:
+
+                # Skip target nets that aren't currently active or have already been 
+                # placed (prevents multiple insertions of the same target net).
+                net = target.net
+                if net not in track_nets or net in used_target_nets:
+                    continue
+
+                row = target.row
+
+                net_up, net_down = net_search(net, row, track_nets)
+                empty_up, empty_down = net_search(None, row, track_nets)
+                up = min(net_up, empty_up)
+                down = min(net_down, empty_down)
+
+                try:
+                    if up <= down:
+                        target_track_nets[row+up] = net
+                    else:
+                        target_track_nets[row-down] = net
+                    used_target_nets.append(net)
+                except IndexError:
+                    # There was no place for this target net.
+                    pass 
+
+            return [net or target for (net, target) in zip(track_nets, target_track_nets)]
 
         def connect_splits(track_nets, column):
 
@@ -534,65 +587,6 @@ class SwitchBox:
 
             return column
 
-        # Collect target nets along top, bottom, right faces of switchbox.
-        min_row = 1
-        max_row = len(self.left_nets)-2
-        max_col = len(self.top_nets)
-        targets = []
-        for col, (t_net, b_net) in enumerate(zip(self.top_nets, self.bottom_nets)):
-            if t_net is not None:
-                targets.append(Target(max_row, col, t_net))
-            if b_net is not None:
-                targets.append(Target(min_row, col, b_net))
-        for row, r_net in enumerate(self.right_nets):
-            if r_net is not None:
-                targets.append(Target(row, max_col, r_net))
-        targets.sort()
-
-        def prune_targets(targets, col):
-            return [target for target in targets if target.col > col]
-
-        def insert_target_tracks(targets, track_nets):
-            target_tracks = [None] * len(track_nets)
-            for target in targets:
-
-                # Skip target nets that aren't currently active.
-                net = target.net
-                if net not in track_nets:
-                    continue
-
-                row = target.row
-                try:
-                    row1 = track_nets[row:].index(net)
-                except ValueError:
-                    row1 = len(track_nets) # Greater than any possible value.
-                try:
-                    row2 = track_nets[row:].index(None)
-                except ValueError:
-                    row2 = len(track_nets)
-                up = min(row1, row2)
-
-                try:
-                    row1 = track_nets[row::-1].index(net)
-                except ValueError:
-                    row1 = len(track_nets)
-                try:
-                    row2 = track_nets[row::-1].index(None)
-                except ValueError:
-                    row2 = len(track_nets)
-                down = min(row1, row2)
-
-                try:
-                    if up <= down:
-                        target_tracks[row+up] = net
-                    else:
-                        target_tracks[row-down] = net
-                except IndexError:
-                    # There was no place for this target net.
-                    pass 
-
-            return [net or target for (net, target) in zip(track_nets, target_tracks)]
-
         def extend_tracks(track_nets, column, targets):
             rightward_nets = set(target.net for target in targets)
 
@@ -628,14 +622,19 @@ class SwitchBox:
                 if target_row is None:
                     row = track_nets[beg:end+1].index(None) + beg
                 else:
-                    try:
-                        down = track_nets[target_row:beg-1:-1].index(None)
-                    except ValueError:
-                        down = len(track_nets)
-                    try:
-                        up = track_nets[target_row:end+1].index(None)
-                    except ValueError:
-                        up = len(track_nets)
+                    net_up, net_down = net_search(net, target_row, track_nets)
+                    empty_up, empty_down = net_search(None, target_row, track_nets)
+                    up = min(net_up, empty_up)
+                    down = min(net_down, empty_down)
+
+                    # try:
+                    #     down = track_nets[target_row:beg-1:-1].index(None)
+                    # except ValueError:
+                    #     down = len(track_nets)
+                    # try:
+                    #     up = track_nets[target_row:end+1].index(None)
+                    # except ValueError:
+                    #     up = len(track_nets)
                     if up < down:
                         row = target_row + up
                     else:
@@ -645,17 +644,31 @@ class SwitchBox:
 
             return next_track_nets
 
+        # Collect target nets along top, bottom, right faces of switchbox.
+        min_row = 1
+        max_row = len(self.left_nets)-2
+        max_col = len(self.top_nets)
+        targets = []
+        for col, (t_net, b_net) in enumerate(zip(self.top_nets, self.bottom_nets)):
+            if t_net is not None:
+                targets.append(Target(max_row, col, t_net))
+            if b_net is not None:
+                targets.append(Target(min_row, col, b_net))
+        for row, r_net in enumerate(self.right_nets):
+            if r_net is not None:
+                targets.append(Target(row, max_col, r_net))
+        targets.sort()
+
         # Main switchbox routing loop.
         tracks = [self.left_nets[:]]
         track_nets = tracks[0]
         columns = [[], ]
         for col, (t_net, b_net) in enumerate(zip(self.top_nets[1:-1], self.bottom_nets[1:-1]), start=1):
-            column = connect_top_btm(t_net, b_net, track_nets)
+            track_nets[0] = b_net
+            track_nets[-1] = t_net
+            column = connect_top_btm(track_nets)
             targets = prune_targets(targets, col)
-            augmented_track_nets = track_nets[:]
-            augmented_track_nets[0] = b_net
-            augmented_track_nets[-1] = t_net
-            augmented_track_nets = insert_target_tracks(targets, augmented_track_nets)
+            augmented_track_nets = insert_targets(targets, track_nets)
             column = connect_splits(augmented_track_nets, column)
             track_nets = extend_tracks(track_nets, column, targets)
             tracks.append(track_nets)
@@ -664,7 +677,7 @@ class SwitchBox:
         segments = []
 
         # Create horizontal wiring segments.
-        for col_idx, trks in enumerate(tracks[:-1]):
+        for col_idx, trks in enumerate(tracks):
             beg_col_coord = self.column_coords[col_idx]
             end_col_coord = self.column_coords[col_idx+1]
             for trk_idx, net in enumerate(trks[1:-1], start=1):
@@ -703,7 +716,6 @@ class SwitchBox:
         self.left_face.draw(scr, tx)
         self.right_face.draw(scr, tx)
 
-        net_colors = defaultdict(lambda: (randint(0,200),randint(0,200), randint(0,200)))
         def draw_seg(seg, scr, tx, color=(100, 100, 100), line_thickness=5):
             color = net_colors[seg.net]
             seg = seg.dot(tx)
