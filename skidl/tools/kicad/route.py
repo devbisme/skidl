@@ -522,7 +522,7 @@ class SwitchBox:
 
             # Find nets that are running on multiple tracks.
             multi_nets = set(net for net in set(track_nets) if track_nets.count(net)>1)
-            multi_nets.remove(None)  # Ignore empty tracks.
+            multi_nets.discard(None)  # Ignore empty tracks.
 
             # Find intervals for multi-track nets.
             net_intervals = []
@@ -624,13 +624,12 @@ class SwitchBox:
                         row = beg
                     else:
                         row = end
-                    # row = track_nets[beg:end+1].index(None) + beg
                 else:
                     if target_row > end:
                         target_row = end
                     elif target_row < beg:
                         target_row = beg
-                    if beg <= target_row <= end and track_nets[target_row] in (net, None):
+                    if track_nets[target_row] in (net, None):
                         row = target_row
                     elif track_nets[beg] is None:
                         row = beg
@@ -640,15 +639,6 @@ class SwitchBox:
                         row = beg
                     elif track_nets[end] is net:
                         row = end
-
-                    # net_up, net_down = net_search(net, target_row, track_nets)
-                    # empty_up, empty_down = net_search(None, target_row, track_nets)
-                    # up = min(net_up, empty_up)
-                    # down = min(net_down, empty_down)
-                    # if up < down:
-                    #     row = target_row + up
-                    # else:
-                    #     row = target_row - down
 
                 next_track_nets[row] = net
 
