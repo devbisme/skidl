@@ -257,10 +257,10 @@ class Interval:
         return self.len
 
     def intersects(self, other):
-        return not (self.beg > other.end or self.end < other.beg)
+        return not ((self.beg > other.end) or (self.end < other.beg))
 
     def merge(self, other):
-        if self.intersects(other):
+        if Interval.intersects(self,other):
             return Interval(min(self.beg, other.beg), max(self.end, other.end))
         return None
 
@@ -270,13 +270,14 @@ class NetInterval(Interval):
         super().__init__(beg, end)
         self.net = net
 
-    def intersects(self, other):
+    def obstructs(self, other):
         return super().intersects(other) and (self.net is not other.net)
 
     def merge(self, other):
         if self.net is other.net:
             merged_intvl = super().merge(other)
             if merged_intvl:
+                merged_intvl = NetInterval(self.net, merged_intvl.beg, merged_intvl.end)
                 merged_intvl.net = self.net
             return merged_intvl
         return None
@@ -477,8 +478,14 @@ class SwitchBox:
                 down = large_offset
             return up, down
 
+        def insert_column_nets(track_nets, column):
+            track_nets = track_nets[:]
+            for intvl in column:
+                track_nets[intvl.beg] = intvl.net
+                track_nets[intvl.end] = intvl.net
+            return track_nets
 
-        def insert_targets(targets, track_nets):
+        def insert_target_nets(track_nets, targets):
             target_track_nets = [None] * len(track_nets)
             used_target_nets = []
             for target in targets:
@@ -513,15 +520,6 @@ class SwitchBox:
             # Make a copy so the original isn't disturbed.
             track_nets = track_nets[:]
 
-            # Merge column nets into track nets so top-bottom terminal nets are accounted for.
-            for intvl in column:
-                track_nets[intvl.beg] = intvl.net
-                track_nets[intvl.end] = intvl.net
-
-            # Keep top/bottom tracks clear.
-            track_nets[0] = None
-            track_nets[-1] = None
-
             # Find nets that are running on multiple tracks.
             multi_nets = set(net for net in set(track_nets) if track_nets.count(net)>1)
             multi_nets.remove(None)  # Ignore empty tracks.
@@ -529,19 +527,21 @@ class SwitchBox:
             # Find intervals for multi-track nets.
             net_intervals = []
             for net in multi_nets:
-                net_trk_idxs = [idx for idx, nt in enumerate(track_nets[1:-1], 1) if nt is net]
-                for index, trk1 in enumerate(net_trk_idxs[:-1], 1):
+                net_trk_idxs = [idx for idx, nt in enumerate(track_nets) if nt is net]
+                for index, trk1 in enumerate(net_trk_idxs[:-1],1):
                     for trk2 in net_trk_idxs[index:]:
                         net_intervals.append(NetInterval(net, trk1, trk2))
 
             # Sort interval lengths from smallest to largest.
             net_intervals.sort(key=lambda ni: len(ni))
+            # Sort interval lengths from largest to smallest.
+            # net_intervals.sort(key=lambda ni: -len(ni))
 
             # Connect tracks for each interval if it doesn't intersect an
             # already existing connection.
             for net_interval in net_intervals:
                 for col_interval in column:
-                    if net_interval.intersects(col_interval):
+                    if net_interval.obstructs(col_interval):
                         break
                 else:
                     # No conflicts found with existing connections.
@@ -559,7 +559,7 @@ class SwitchBox:
 
                 # Merge the extracted intervals as much as possible.
                 merged = True
-                while merged:
+                while merged and len(intervals)>1:
                     merged = False
                     merged_intervals = []
 
@@ -620,25 +620,35 @@ class SwitchBox:
                 beg = max(intvl.beg, 1)
                 end = min(intvl.end, len(track_nets)-2)
                 if target_row is None:
-                    row = track_nets[beg:end+1].index(None) + beg
-                else:
-                    net_up, net_down = net_search(net, target_row, track_nets)
-                    empty_up, empty_down = net_search(None, target_row, track_nets)
-                    up = min(net_up, empty_up)
-                    down = min(net_down, empty_down)
-
-                    # try:
-                    #     down = track_nets[target_row:beg-1:-1].index(None)
-                    # except ValueError:
-                    #     down = len(track_nets)
-                    # try:
-                    #     up = track_nets[target_row:end+1].index(None)
-                    # except ValueError:
-                    #     up = len(track_nets)
-                    if up < down:
-                        row = target_row + up
+                    if track_nets[beg] is None:
+                        row = beg
                     else:
-                        row = target_row - down
+                        row = end
+                    # row = track_nets[beg:end+1].index(None) + beg
+                else:
+                    if target_row > end:
+                        target_row = end
+                    elif target_row < beg:
+                        target_row = beg
+                    if beg <= target_row <= end and track_nets[target_row] in (net, None):
+                        row = target_row
+                    elif track_nets[beg] is None:
+                        row = beg
+                    elif track_nets[end] is None:
+                        row = end
+                    elif track_nets[beg] is net:
+                        row = beg
+                    elif track_nets[end] is net:
+                        row = end
+
+                    # net_up, net_down = net_search(net, target_row, track_nets)
+                    # empty_up, empty_down = net_search(None, target_row, track_nets)
+                    # up = min(net_up, empty_up)
+                    # down = min(net_down, empty_down)
+                    # if up < down:
+                    #     row = target_row + up
+                    # else:
+                    #     row = target_row - down
 
                 next_track_nets[row] = net
 
@@ -667,8 +677,9 @@ class SwitchBox:
             track_nets[0] = b_net
             track_nets[-1] = t_net
             column = connect_top_btm(track_nets)
+            augmented_track_nets = insert_column_nets(track_nets, column)
             targets = prune_targets(targets, col)
-            augmented_track_nets = insert_targets(targets, track_nets)
+            augmented_track_nets = insert_target_nets(augmented_track_nets, targets)
             column = connect_splits(augmented_track_nets, column)
             track_nets = extend_tracks(track_nets, column, targets)
             tracks.append(track_nets)
