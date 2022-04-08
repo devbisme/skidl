@@ -23,6 +23,4 @@ pc.power_circuits()
 
 # Generate schematic
 schematic_path = "./stm32.sch"
-generate_schematic(
-    filepath=schematic_path, title="SKiDL generated schematic"
-)
+generate_schematic(filepath=schematic_path)

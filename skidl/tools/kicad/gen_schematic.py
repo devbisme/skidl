@@ -10,6 +10,7 @@ from __future__ import (  # isort:skip
     unicode_literals,
 )
 
+import datetime
 from itertools import chain
 import re
 import time
@@ -42,103 +43,108 @@ GRID = 50
 PIN_LABEL_FONT_SIZE = 50
 
 
-def rotate_power_pins(part, pin_cnt_threshold=10000):
-    """Rotate a part based on the direction of its power pins.
-
-    Args:
-        part (Part): The part to be rotated.
-        pin_cnt_threshold (int): Parts with more pins than this will not be rotated.
-
-    This function is to make sure that voltage sources face up and gnd pins
-    face down.
-    """
-
-    def is_pwr(net):
-        return net_name.startswith("+")
-
-    def is_gnd(net):
-        return "gnd" in net_name.lower()
-
-    # Don't rotate parts with too many pins.
-    if len(part) > pin_cnt_threshold:
-        return
-
-    # Tally what rotation would make each pwr/gnd pin point up or down.
-    rotation_tally = Counter()
-    for pin in part:
-        net_name = getattr(pin.net, "name", "").lower()
-        if is_gnd(net_name):
-            if pin.orientation == "U":
-                rotation_tally[0] += 1
-            if pin.orientation == "D":
-                rotation_tally[180] += 1
-            if pin.orientation == "L":
-                rotation_tally[90] += 1
-            if pin.orientation == "R":
-                rotation_tally[270] += 1
-        elif is_pwr(net_name):
-            if pin.orientation == "D":
-                rotation_tally[0] += 1
-            if pin.orientation == "U":
-                rotation_tally[180] += 1
-            if pin.orientation == "L":
-                rotation_tally[270] += 1
-            if pin.orientation == "R":
-                rotation_tally[90] += 1
-
-    # Rotate the part in the direction with the most tallies.
-    try:
-        rotation = rotation_tally.most_common()[0][0]
-    except IndexError:
-        pass
-    else:
-        # Rotate part 90-degrees clockwise until the desired rotation is reached.
-        tx_cw_90 = Tx(a=0, b=-1, c=1, d=0)  # 90-degree trans. matrix.
-        for _ in range(round(rotation / 90)):
-            part.tx = part.tx.dot(tx_cw_90)
-
-
-def calc_part_bbox(part):
-    """Calculate the bare bounding box and labeled bounding box and store it in the part."""
-
-    # Find part bounding box excluding any net labels on pins.
-    part.bare_bbox = calc_symbol_bbox(part)[1]
-
-    # Expand the bounding box if it's too small in either dimension.
-    resize_wh = Vector(0, 0)
-    if part.bare_bbox.w < 100:
-        resize_wh.x = (100 - part.bare_bbox.w) / 2
-    if part.bare_bbox.h < 100:
-        resize_wh.y = (100 - part.bare_bbox.h) / 2
-    part.bare_bbox = part.bare_bbox.resize(resize_wh)
-
-    # Find expanded bounding box that includes any labels attached to pins.
-    part.lbl_bbox = BBox()
-    part.lbl_bbox.add(part.bare_bbox)
-    lbl_vectors = {
-        "U": Vector(0, -1),
-        "D": Vector(0, 1),
-        "L": Vector(1, 0),
-        "R": Vector(-1, 0),
-    }
-    for pin in part:
-        lbl_len = len(pin.label)
-        if lbl_len:
-            # Add 1 to the label length to account for extra graphics on label.
-            lbl_len = (lbl_len + 1) * PIN_LABEL_FONT_SIZE
-        lbl_vector = lbl_vectors[pin.orientation] * lbl_len
-        part.lbl_bbox.add(pin.pt + lbl_vector)
-
-    # Create a bounding box for placement by adding some space for routing signals from the part.
-    # TODO: Resize based on #pins coming from each side of part to ensure adequate routing area.
-    part.place_bbox = part.lbl_bbox.resize(Vector(GRID, GRID))
-
-    # Set the active bounding box to the placement version.
-    part.bbox = part.place_bbox
+# Sizes of EESCHEMA schematic pages from smallest to largest. Dimensions in mils.
+A_sizes_list = [
+    ("A4", BBox(Point(0, 0), Point(11693, 8268))),
+    ("A3", BBox(Point(0, 0), Point(16535, 11693))),
+    ("A2", BBox(Point(0, 0), Point(23386, 16535))),
+    ("A1", BBox(Point(0, 0), Point(33110, 23386))),
+    ("A0", BBox(Point(0, 0), Point(46811, 33110))),
+]
+A_sizes = OrderedDict(A_sizes_list)
 
 
 def preprocess_parts_and_nets(circuit):
     """Add stuff to parts & nets for doing placement and routing of schematics."""
+
+    def rotate_power_pins(part, dont_rotate_pin_threshold=10000):
+        """Rotate a part based on the direction of its power pins.
+
+        This function is to make sure that voltage sources face up and gnd pins
+        face down.
+        """
+
+        def is_pwr(net):
+            return net_name.startswith("+")
+
+        def is_gnd(net):
+            return "gnd" in net_name.lower()
+
+        # Don't rotate parts with too many pins.
+        if len(part) > dont_rotate_pin_threshold:
+            return
+
+        # Tally what rotation would make each pwr/gnd pin point up or down.
+        rotation_tally = Counter()
+        for pin in part:
+            net_name = getattr(pin.net, "name", "").lower()
+            if is_gnd(net_name):
+                if pin.orientation == "U":
+                    rotation_tally[0] += 1
+                if pin.orientation == "D":
+                    rotation_tally[180] += 1
+                if pin.orientation == "L":
+                    rotation_tally[90] += 1
+                if pin.orientation == "R":
+                    rotation_tally[270] += 1
+            elif is_pwr(net_name):
+                if pin.orientation == "D":
+                    rotation_tally[0] += 1
+                if pin.orientation == "U":
+                    rotation_tally[180] += 1
+                if pin.orientation == "L":
+                    rotation_tally[270] += 1
+                if pin.orientation == "R":
+                    rotation_tally[90] += 1
+
+        # Rotate the part in the direction with the most tallies.
+        try:
+            rotation = rotation_tally.most_common()[0][0]
+        except IndexError:
+            pass
+        else:
+            # Rotate part 90-degrees clockwise until the desired rotation is reached.
+            tx_cw_90 = Tx(a=0, b=-1, c=1, d=0)  # 90-degree trans. matrix.
+            for _ in range(round(rotation / 90)):
+                part.tx = part.tx.dot(tx_cw_90)
+
+    def calc_part_bbox(part):
+        """Calculate the bare, labeled, and placement bounding boxes and store them in the part."""
+
+        # Find part bounding box excluding any net labels on pins.
+        part.bare_bbox = calc_symbol_bbox(part)[1]
+
+        # Expand the bounding box if it's too small in either dimension.
+        resize_wh = Vector(0, 0)
+        if part.bare_bbox.w < 100:
+            resize_wh.x = (100 - part.bare_bbox.w) / 2
+        if part.bare_bbox.h < 100:
+            resize_wh.y = (100 - part.bare_bbox.h) / 2
+        part.bare_bbox = part.bare_bbox.resize(resize_wh)
+
+        # Find expanded bounding box that includes any labels attached to pins.
+        part.lbl_bbox = BBox()
+        part.lbl_bbox.add(part.bare_bbox)
+        lbl_vectors = {
+            "U": Vector(0, -1),
+            "D": Vector(0, 1),
+            "L": Vector(1, 0),
+            "R": Vector(-1, 0),
+        }
+        for pin in part:
+            lbl_len = len(pin.label)
+            if lbl_len:
+                # Add 1 to the label length to account for extra graphics on label.
+                lbl_len = (lbl_len + 1) * PIN_LABEL_FONT_SIZE
+            lbl_vector = lbl_vectors[pin.orientation] * lbl_len
+            part.lbl_bbox.add(pin.pt + lbl_vector)
+
+        # Create a bounding box for placement by adding some space for routing signals from the part.
+        # TODO: Resize based on #pins coming from each side of part to ensure adequate routing area.
+        part.place_bbox = part.lbl_bbox.resize(Vector(GRID, GRID))
+
+        # Set the active bounding box to the placement version.
+        part.bbox = part.place_bbox
 
     # Pre-process nets.
     net_stubs = circuit.get_net_nc_stubs()
@@ -169,28 +175,6 @@ def preprocess_parts_and_nets(circuit):
         calc_part_bbox(part)
 
 
-# Sizes of EESCHEMA schematic pages from smallest to largest. Dimensions in mils.
-A_sizes_list = [
-    ("A4", BBox(Point(0, 0), Point(11693, 8268))),
-    ("A3", BBox(Point(0, 0), Point(16535, 11693))),
-    ("A2", BBox(Point(0, 0), Point(23386, 16535))),
-    ("A1", BBox(Point(0, 0), Point(33110, 23386))),
-    ("A0", BBox(Point(0, 0), Point(46811, 33110))),
-]
-A_sizes = OrderedDict(A_sizes_list)
-
-
-def get_A_size(bbox):
-    """Return the A-size page needed to fit the given bounding box."""
-
-    width = bbox.w
-    height = bbox.h * 1.25  # TODO: why 1.25?
-    for A_size, page in A_sizes.items():
-        if width < page.w and height < page.h:
-            return A_size
-    return "A0"  # Nothing fits, so use the largest available.
-
-
 class Sheet:
     """Data structure for hierarchical sheets of a schematic."""
 
@@ -214,6 +198,16 @@ class Sheet:
     def to_eeschema(self, tx):
         """Generate schematic files rooted in this sheet and return EESCHEMA code for a box representing this sheet."""
 
+        def get_A_size(bbox):
+            """Return the A-size page needed to fit the given bounding box."""
+
+            width = bbox.w
+            height = bbox.h * 1.25  # TODO: why 1.25?
+            for A_size, page in A_sizes.items():
+                if width < page.w and height < page.h:
+                    return A_size
+            return "A0"  # Nothing fits, so use the largest available.
+
         # Compute the page size and positioning for this sheet.
         node = self.node
         A_size = get_A_size(node.bbox)
@@ -228,25 +222,25 @@ class Sheet:
                 collect_eeschema_code(
                     node.to_eeschema(move_tx),
                     title=self.title,
-                    size=A_size,
+                    A_size=A_size,
                 ),
                 file=f,
             )
 
         # Create the hierarchical sheet box for insertion into the calling node sheet.
         bbox = self.bbox.dot(self.tx).dot(tx)
-        eeschema = []
-        eeschema.append("$Sheet")
-        eeschema.append(
-            "S {} {} {} {}".format(bbox.ll.x, bbox.ll.y, bbox.w, bbox.h)
-        )  # upper left x/y, width, height
         time_hex = hex(int(time.time()))[2:]
-        eeschema.append("U {}".format(time_hex))
-        eeschema.append('F0 "{}" {}'.format(self.name, self.name_sz))
-        eeschema.append('F1 "{}" {}'.format(self.filename, self.filename_sz))
-        eeschema.append("$EndSheet")
-        eeschema.append("")
-        return "\n".join(eeschema)
+        return "\n".join(
+            (
+            "$Sheet",
+            "S {} {} {} {}".format(bbox.ll.x, bbox.ll.y, bbox.w, bbox.h),
+            "U {}".format(time_hex),
+            'F0 "{}" {}'.format(self.name, self.name_sz),
+            'F1 "{}" {}'.format(self.filename, self.filename_sz),
+            "$EndSheet",
+            ""
+            )
+        )
 
 
 class Node:
@@ -673,7 +667,7 @@ class Node:
                 if internal_net:
                     self.wires.extend(self.wire_it(net))
 
-        # Use the smaller lable bounding box when doing routing.
+        # Use the smaller label bounding box when doing routing.
         for part in self.parts:
             part.bbox = part.lbl_bbox
 
@@ -730,6 +724,8 @@ class NodeTree(defaultdict):
 
     def __init__(self, circuit, filepath, title, flatness):
 
+        # Set up defaultdict so that if a node with the given hierarchical key doesn't exist,
+        # then a new Node object is created and added to the NodeTree.
         super().__init__(lambda: Node())
 
         # Save a reference to the original circuit.
@@ -820,24 +816,24 @@ def bbox_to_eeschema(bbox, tx, name=None):
 
     bbox = round(bbox.dot(tx))
 
-    box = []
+    graphic_box = []
 
     if name:
-        box.append(
+        graphic_box.append(
             "Text Notes {} {} 0    100  ~ 20\n{}".format(label_pt.x, label_pt.y, name)
         )
 
-    box.append("Wire Notes Line")
-    box.append("	{} {} {} {}".format(bbox.ll.x, bbox.ll.y, bbox.lr.x, bbox.lr.y))
-    box.append("Wire Notes Line")
-    box.append("	{} {} {} {}".format(bbox.lr.x, bbox.lr.y, bbox.ur.x, bbox.ur.y))
-    box.append("Wire Notes Line")
-    box.append("	{} {} {} {}".format(bbox.ur.x, bbox.ur.y, bbox.ul.x, bbox.ul.y))
-    box.append("Wire Notes Line")
-    box.append("	{} {} {} {}".format(bbox.ul.x, bbox.ul.y, bbox.ll.x, bbox.ll.y))
-    box.append("")  # For blank line at end.
+    graphic_box.append("Wire Notes Line")
+    graphic_box.append("	{} {} {} {}".format(bbox.ll.x, bbox.ll.y, bbox.lr.x, bbox.lr.y))
+    graphic_box.append("Wire Notes Line")
+    graphic_box.append("	{} {} {} {}".format(bbox.lr.x, bbox.lr.y, bbox.ur.x, bbox.ur.y))
+    graphic_box.append("Wire Notes Line")
+    graphic_box.append("	{} {} {} {}".format(bbox.ur.x, bbox.ur.y, bbox.ul.x, bbox.ul.y))
+    graphic_box.append("Wire Notes Line")
+    graphic_box.append("	{} {} {} {}".format(bbox.ul.x, bbox.ul.y, bbox.ll.x, bbox.ll.y))
+    graphic_box.append("")  # For blank line at end.
 
-    return "\n".join(box)
+    return "\n".join(graphic_box)
 
 
 def part_to_eeschema(part, tx):
@@ -1073,45 +1069,6 @@ def pin_label_to_eeschema(pin, tx):
     )
 
 
-def gen_header_eeschema(
-    cur_sheet_num, total_sheet_num, title, rev_major, rev_minor, year, month, day, size
-):
-    """Generate an EESCHEMA header."""
-
-    total_sheet_num = cur_sheet_num + 1
-    header = []
-    header.append("EESchema Schematic File Version 4")
-    header.append("EELAYER 30 0")
-    header.append("EELAYER END")
-    header.append(
-        "$Descr {} {} {}".format(
-            size,
-            A_sizes[size].max.x,
-            A_sizes[size].max.y
-        )
-    )
-    header.append("encoding utf-8")
-    header.append("Sheet {} {}".format(cur_sheet_num, total_sheet_num))
-    header.append('Title "{}"'.format(title))
-    header.append('Date "{}-{}-{}"'.format(year, month, day))
-    header.append('Rev "v{}.{}"'.format(rev_major, rev_minor))
-    header.append('Comp ""')
-    header.append('Comment1 ""')
-    header.append('Comment2 ""')
-    header.append('Comment3 ""')
-    header.append('Comment4 ""')
-    header.append("$EndDescr")
-    header.append("")  # For blank line at end.
-
-    return "\n".join(header)
-
-
-def gen_footer_eeschema():
-    """Generate an EESCHEMA footer."""
-
-    return "$EndSCHEMATC"
-
-
 def collect_eeschema_code(
     code,
     cur_sheet_num=1,
@@ -1119,107 +1076,51 @@ def collect_eeschema_code(
     title="Default",
     rev_major=0,
     rev_minor=1,
-    year=2021,
-    month=8,
-    day=15,
-    size="A2",
+    year=datetime.date.today().year,
+    month=datetime.date.today().month,
+    day=datetime.date.today().day,
+    A_size="A2",
 ):
     """Collect EESCHEMA header, code, and footer and return as a string."""
+
     return "\n".join(
         (
-            gen_header_eeschema(
-                cur_sheet_num=cur_sheet_num,
-                total_sheet_num=total_sheet_num,
-                title=title,
-                rev_major=rev_major,
-                rev_minor=rev_minor,
-                year=year,
-                month=month,
-                day=day,
-                size=size,
+            "EESchema Schematic File Version 4",
+            "EELAYER 30 0",
+            "EELAYER END",
+            
+            "$Descr {} {} {}".format(
+                A_size,
+                A_sizes[A_size].max.x,
+                A_sizes[A_size].max.y
             ),
+
+            "encoding utf-8",
+            "Sheet {} {}".format(cur_sheet_num, total_sheet_num),
+            'Title "{}"'.format(title),
+            'Date "{}-{}-{}"'.format(year, month, day),
+            'Rev "v{}.{}"'.format(rev_major, rev_minor),
+            'Comp ""',
+            'Comment1 ""',
+            'Comment2 ""',
+            'Comment3 ""',
+            'Comment4 ""',
+            "$EndDescr",
+            "",
+
             code,
-            gen_footer_eeschema(),
+
+            "$EndSCHEMATC"
         )
     )
 
 
-def gen_schematic(circuit, filepath=None, title="Default", gen_elkjs=False):
+def gen_schematic(circuit, filepath=None, title="SKiDL-Generated Schematic", flatness=0.0):
     """Create a schematic file from a Circuit object."""
 
     preprocess_parts_and_nets(circuit)
 
-    with NodeTree(circuit, filepath, title, 0.0) as node_tree:
+    with NodeTree(circuit, filepath, title, flatness) as node_tree:
         node_tree.place()
         node_tree.route()
         node_tree.to_eeschema()
-
-
-##################################################################################
-# INTRONS.
-##################################################################################
-
-
-def gen_elkjs_code(parts, nets):
-    # Generate elkjs code that can create an auto diagram with this website:
-    # https://rtsys.informatik.uni-kiel.de/elklive/elkgraph.html
-
-    elkjs_code = []
-
-    # range through parts and append code for each part
-    for pt in parts:
-        error = 0
-        try:
-            if pt.stub == True:
-                continue
-        except Exception as e:
-            error += 1
-        elkjs_part = []
-        elkjs_part.append(
-            "node {}".format(pt.ref)
-            + " {\n"
-            + "\tlayout [ size: {},{} ]\n".format(pt.bbox.w, pt.bbox.h)
-            + "\tportConstraints: FIXED_SIDE\n"
-            + ""
-        )
-
-        for p in pt.pins:
-            pin_dir = ""
-            if p.orientation == "L":
-                pin_dir = "EAST"
-            elif p.orientation == "R":
-                pin_dir = "WEST"
-            elif p.orientation == "U":
-                pin_dir = "NORTH"
-            elif p.orientation == "D":
-                pin_dir = "SOUTH"
-            elkjs_part.append(
-                "\tport p{} ".format(p.num)
-                + "{ \n"
-                + "\t\t^port.side: {} \n".format(pin_dir)
-                + '\t\tlabel "{}"\n'.format(p.name)
-                + "\t}\n"
-            )
-        elkjs_part.append("}")
-        elkjs_code.append("\n" + "".join(elkjs_part))
-
-    # range through nets
-    for n in nets:
-        for p in range(len(n.pins)):
-            try:
-                part1 = n.pins[p].ref
-                pin1 = n.pins[p].num
-                part2 = n.pins[p + 1].ref
-                pin2 = n.pins[p + 1].num
-                t = "edge {}.p{} -> {}.p{}\n".format(part1, pin1, part2, pin2)
-                elkjs_code.append(t)
-            except:
-                pass
-
-    # open file to save elkjs code
-    file_path = "elkjs/elkjs.txt"
-    f = open(file_path, "a")
-    f.truncate(0)  # Clear the file
-    for i in elkjs_code:
-        print("" + "".join(i), file=f)
-    f.close()
