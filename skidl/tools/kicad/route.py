@@ -363,6 +363,13 @@ class SwitchBox:
         right_coords = [terminal.coord for terminal in self.right_face.terminals]
         tb_coords = [self.top_face.track.coord, self.bottom_face.track.coord]
         self.track_coords = sorted(set(left_coords + right_coords + tb_coords))
+        if len(self.track_coords) == 2:
+            # This is a weird case. If the switchbox channel is too narrow to hold
+            # a routing track in the middle, then place two pseudo-tracks along the
+            # top and bottom faces to allow routing to proceed. The routed wires will
+            # end up in the top or bottom faces, but maybe that's OK.
+            self.track_coords.extend(self.track_coords)
+            self.track_coords.sort()  # Re-sort after adding top/bottom coords.
         self.left_nets = [
             find_terminal_net(self.left_face.terminals, left_coords, coord)
             for coord in self.track_coords
@@ -1226,8 +1233,8 @@ def route(node):
         pygame.draw.line(
             scr, color, (seg.p1.x, seg.p1.y), (seg.p2.x, seg.p2.y), width=line_thickness
         )
-        pygame.draw.circle(scr, color, (seg.p1.x, seg.p1.y), dot_thickness)
-        pygame.draw.circle(scr, color, (seg.p2.x, seg.p2.y), dot_thickness)
+        # pygame.draw.circle(scr, color, (seg.p1.x, seg.p1.y), dot_thickness)
+        # pygame.draw.circle(scr, color, (seg.p2.x, seg.p2.y), dot_thickness)
 
     def face_seg(face):
         track = face.track
@@ -1322,7 +1329,7 @@ def route(node):
         for terminal1, terminal2 in face_to_face:
             p1 = terminal_pt(terminal1)
             p2 = terminal_pt(terminal2)
-            draw_seg(Segment(p1, p2), scr, tx, (0, 0, 0), 2, 0)
+            draw_seg(Segment(p1, p2), scr, tx, (0, 0, 0), 1, 0)
 
     def draw_end():
         pygame.display.flip()
@@ -1336,13 +1343,15 @@ def route(node):
 
     draw_scr, draw_tx, font = draw_init(routing_bbox)
     draw_parts(node.parts, draw_scr, draw_tx)
-    for track in h_tracks + v_tracks:
-        draw_track(track, draw_scr, draw_tx, font)
+    # for track in h_tracks + v_tracks:
+    #     draw_track(track, draw_scr, draw_tx, font)
     # for track in h_tracks + v_tracks:
     #     draw_channels(track, draw_scr, draw_tx)
     for route in global_routes:
         for wire in route:
             draw_wire(wire, draw_scr, draw_tx)
+    for wire in detailed_routes:
+        draw_seg(wire, draw_scr, draw_tx, line_thickness=2)
     draw_end()
 
     return
