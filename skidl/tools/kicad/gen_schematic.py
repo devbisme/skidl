@@ -492,186 +492,16 @@ class Node:
         self.place_parts()
         self.place_children()
 
-    def wire_it(self, net):
-        """Generate wire segments for a net."""
-
-        def detect_wire_part_collision(wire, parts):
-            """Detect collisions between a wire segment and a collection of parts."""
-
-            for part in parts:
-                # bbox = part.bbox.dot(part.tx).dot(part.node.tx)
-                bbox = part.bbox.dot(part.tx)
-                sides = OrderedDict()
-                sides["L"] = Segment(bbox.ul, bbox.ll)
-                sides["R"] = Segment(bbox.ur, bbox.lr)
-                sides["U"] = Segment(bbox.ul, bbox.ur)
-                sides["D"] = Segment(bbox.ll, bbox.lr)
-
-                for side_key, side in sides.items():
-                    if wire.intersects(side):
-                        return part, side_key
-
-            return None, None  # No intersections detected.
-
-        nets_output = []
-
-        # pins = [pin for pin in net.pins if not pin.stub and pin.part.node==node]
-        pins = net.pins
-        try:
-            pin_pairs = zip(pins[:-1], pins[1:])
-        except IndexError:
-            return nets_output
-
-        for pin1, pin2 in pin_pairs:
-            if pin1.routed and pin2.routed:
-                continue
-            else:
-                pin1.routed = True
-                pin2.routed = True
-
-                # Calculate the coordinates of a straight line between the 2 pins that need to connect.
-                # Apply the part transformation matrix to find the absolute wire endpoint coordinates.
-                # Since all wiring is assumed to be internal to this node, don't apply the node
-                # transformation matrix.
-                pt1 = pin1.pt.dot(pin1.part.tx)
-                pt2 = pin2.pt.dot(pin2.part.tx)
-
-                line = [pt1, pt2]
-                for i in range(len(line) - 1):
-                    segment = Segment(line[i], line[i + 1])
-                    # segment = Segment(Point(line[i][0],line[i][1]), Point(line[i+1][0],line[i+1][1]))
-                    collided_part, collided_side = detect_wire_part_collision(
-                        segment, self.parts
-                    )
-
-                    # if we see a collision then draw the net around the rectangle
-                    # since we are only going left/right with nets/rectangles the strategy to route
-                    # around a rectangle is basically making a 'U' shape around it
-                    if False and collided_part:  # TODO: Remove False
-                        print("collided part/wire")
-                        if collided_side == "L":
-                            # check if we collided on the left or right side of the central part
-                            if pin2.part.origin.x < 0 or pin1.part.origin.x < 0:
-                                # if pin2.part.sch_bb[0] < 0 or pin1.part.sch_bb[0] < 0:
-                                # switch first and last coordinates if one is further left
-                                if x1 > x2:
-                                    t = line[0]
-                                    line[0] = line[-1]
-                                    line[-1] = t
-
-                                # draw line down
-                                d_x1 = (
-                                    collided_part.sch_bb.ul.x
-                                    - 100
-                                    # collided_part.sch_bb[0] - collided_part.sch_bb[2] - 100
-                                )
-                                d_y1 = y1
-                                # d_y1 = t_y1
-                                d_x2 = d_x1
-                                d_y2 = (
-                                    collided_part.sch_bb.ul.y
-                                    + 200
-                                    # collided_part.sch_bb[1] + collided_part.sch_bb[3] + 200
-                                )
-                                # d_x3 = d_x2 + collided_part.sch_bb[2] + 100 + 100
-                                d_y3 = d_y2
-                                line.insert(i + 1, [d_x1, d_y1])
-                                line.insert(i + 2, [d_x2, d_y2])
-                                line.insert(i + 3, [x1, d_y3])
-                            else:
-                                # switch first and last coordinates if one is further left
-                                if x1 < x2:
-                                    t = line[0]
-                                    line[0] = line[-1]
-                                    line[-1] = t
-                                # draw line down
-                                d_x1 = (
-                                    collided_part.sch_bb.ur.x
-                                    + 100
-                                    # collided_part.sch_bb[0] + collided_part.sch_bb[2] + 100
-                                )
-                                d_y1 = y1
-                                # d_y1 = t_y1
-                                d_x2 = d_x1
-                                d_y2 = (
-                                    collided_part.sch_bb.ul.y
-                                    + 200
-                                    # collided_part.sch_bb[1] + collided_part.sch_bb[3] + 200
-                                )
-                                # d_x3 = d_x2 + collided_part.sch_bb[2] + 100 + 100
-                                d_y3 = d_y2
-                                line.insert(i + 1, [d_x1, d_y1])
-                                line.insert(i + 2, [d_x2, d_y2])
-                                line.insert(i + 3, [x2, d_y3])
-                            break
-                        if collided_side == "R":
-                            # switch first and last coordinates if one is further left
-                            if x1 > x2:
-                                t = line[0]
-                                line[0] = line[-1]
-                                line[-1] = t
-
-                            # draw line down
-                            d_x1 = collided_part.sch_bb.ll.x - 100
-                            # d_x1 = collided_part.sch_bb[0] - collided_part.sch_bb[2] - 100
-                            d_y1 = y1
-                            # d_y1 = t_y1
-                            d_x2 = d_x1
-                            d_y2 = collided_part.sch_bb.ul.y + 100
-                            # d_y2 = collided_part.sch_bb[1] + collided_part.sch_bb[3] + 100
-                            d_x3 = d_x2 - collided_part.sch_bb.w / 2 + 100 + 100
-                            # d_x3 = d_x2 - collided_part.sch_bb[2] + 100 + 100
-                            d_y3 = d_y2
-                            line.insert(i + 1, [d_x1, d_y1])
-                            line.insert(i + 2, [d_x2, d_y2])
-                            line.insert(i + 3, [x1, d_y3])
-                            break
-
-                nets_output.append(line)
-        return nets_output
-
     def route(self):
         """Route nets between parts of a node."""
-
-        for part in self.parts:
-            for part_pin in part:
-
-                # A label means net is stubbed so there won't be any explicit wires.
-                if len(part_pin.label) > 0:
-                    continue
-
-                # No explicit wires if the pin is not connected to anything.
-                if not part_pin.is_connected():
-                    continue
-
-                net = part_pin.net
-
-                # No explicit wires for power nets.
-                if net.netclass == "Power":
-                    continue
-
-                # Determine if all the pins on this net reside in the node.
-                internal_net = True
-                for net_pin in net.pins:
-
-                    # Don't consider stubs.
-                    if len(net_pin.label) > 0:
-                        continue
-
-                    # If a pin is outside this node, then ignore the entire net.
-                    if net_pin.part.hierarchy != part_pin.part.hierarchy:
-                        internal_net = False
-                        break
-
-                # Add wires for this net if the pins are all inside the node.
-                if internal_net:
-                    self.wires.extend(self.wire_it(net))
 
         # Use the smaller label bounding box when doing routing.
         for part in self.parts:
             part.bbox = part.lbl_bbox
 
-        route(self)  # TODO: remove debugging.
+        detailed_routes = route(self)
+        for segment in detailed_routes:
+            self.wires.append([segment.p1, segment.p2])
 
     def to_eeschema(self, tx):
 
@@ -857,7 +687,8 @@ def part_to_eeschema(part, tx):
 
     eeschema = []
     eeschema.append("$Comp")
-    eeschema.append("L {}:{} {}".format(part.lib.filename, part.name, part.ref))
+    lib = os.path.splitext(part.lib.filename)[0]
+    eeschema.append("L {}:{} {}".format(lib, part.name, part.ref))
     eeschema.append("U 1 1 {}".format(time_hex))
     eeschema.append("P {} {}".format(str(origin.x), str(origin.y)))
 
