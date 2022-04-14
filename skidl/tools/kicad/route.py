@@ -18,8 +18,6 @@ from collections import defaultdict
 from enum import Enum, auto
 from itertools import zip_longest, chain
 from random import randint
-import pygame
-import pygame.freetype
 
 from future import standard_library
 
@@ -54,12 +52,30 @@ standard_library.install_aliases()
 #          then connect the pins by combining their face lists.
 ###################################################################
 
+# Dictionary of global symbols for this module.
+_g = globals()
 
+class Orientation(Enum):
+    HORZ = auto()
+    VERT = auto()
+    LEFT = auto()
+    RIGHT = auto()
+
+# Put the orientation enums in global space to make using them easier.
+for orientation in Orientation:
+    _g[orientation.name] = orientation.value
+
+# Dictionary for storing colors to visually distinguish routed nets.
 net_colors = defaultdict(lambda: (randint(0,200),randint(0,200), randint(0,200)))
 
 
 def draw_start(bbox):
     """Initialize PyGame drawing area."""
+
+    import pygame
+    import pygame.freetype
+
+    _g['pygame'] = pygame
 
     scr_bbox = BBox(Point(0, 0), Point(2000, 1500))
 
@@ -83,6 +99,38 @@ def draw_start(bbox):
 
     return scr, tx, font
 
+def draw_box(bbox, scr, tx, color=(192, 255, 192)):
+    bbox = bbox.dot(tx)
+    corners = (
+        bbox.min,
+        Point(bbox.min.x, bbox.max.y),
+        bbox.max,
+        Point(bbox.max.x, bbox.min.y),
+    )
+    corners = (
+        (bbox.min.x, bbox.min.y),
+        (bbox.min.x, bbox.max.y),
+        (bbox.max.x, bbox.max.y),
+        (bbox.max.x, bbox.min.y),
+    )
+    pygame.draw.polygon(scr, color, corners, 0)
+
+def draw_seg(seg, scr, tx, color=(100, 100, 100), line_thickness=5, dot_thickness=3):
+    try:
+        color = net_colors[seg.net]
+    except AttributeError:
+        color = (0, 0, 0)
+    seg = seg.dot(tx)
+    pygame.draw.line(
+        scr, color, (seg.p1.x, seg.p1.y), (seg.p2.x, seg.p2.y), width=line_thickness
+    )
+    pygame.draw.circle(scr, color, (seg.p1.x, seg.p1.y), dot_thickness)
+    pygame.draw.circle(scr, color, (seg.p2.x, seg.p2.y), dot_thickness)
+
+def draw_text(txt, pt, scr, tx, font, color=(100, 100, 100)):
+    pt = pt.dot(tx)
+    font.render_to(scr, (pt.x, pt.y), txt, color)
+
 def draw_end():
     """Display drawing and wait for user to close PyGame window."""
     pygame.display.flip()
@@ -93,19 +141,6 @@ def draw_end():
             if event.type == pygame.QUIT:
                 running = False
     pygame.quit()
-
-
-class Orientation(Enum):
-    HORZ = auto()
-    VERT = auto()
-    LEFT = auto()
-    RIGHT = auto()
-
-
-# Put the orientation enums in global space to make using them easier.
-_g = globals()
-for orientation in Orientation:
-    _g[orientation.name] = orientation.value
 
 
 class NoSwitchBox(Exception):
@@ -127,7 +162,7 @@ class Terminal:
         self.face = face
         self.coord = coord
 
-    def draw(self, scr, tx):
+    def draw(self, scr, tx, flags=[]):
         if not self.net:
             return
 
@@ -226,20 +261,30 @@ class Face:
         """Returns True if both faces have the same beginning and ending point on the same track."""
         return (self.beg, self.end) == (other_face.beg, other_face.end)
 
-    def draw(self, scr, tx):
+    @property
+    def seg(self):
         p1 = Point(self.track.coord, self.beg.coord)
         p2 = Point(self.track.coord, self.end.coord)
         seg = Segment(p1, p2)
         if self.track.orientation == HORZ:
             seg = seg.dot(Tx(a=0, b=1, c=1, d=0))
-        seg = seg.dot(tx)
+        return seg
+
+    def draw(self, scr, tx, font, flags=[]):
+        seg = self.seg.dot(tx)
         color = (128, 128, 128)
         line_thickness = 2
         pygame.draw.line(
             scr, color, (seg.p1.x, seg.p1.y), (seg.p2.x, seg.p2.y), width=line_thickness
         )
+
         for terminal in self.terminals:
             terminal.draw(scr, tx)
+
+        if "show_capacities" in flags:
+            seg = self.seg
+            mid_pt = (seg.p1 + seg.p2) / 2
+            draw_text(str(self.capacity), mid_pt, scr, tx, font, color)
 
 
 class Interval:
@@ -333,7 +378,12 @@ class SwitchBox:
 
         # If all four sides have a common part, then its a part bbox with no routing.
         if top_face.part & bottom_face.part & left_face.part & right_face.part:
-            raise NoSwitchBox("Unroutable switchbox") 
+            raise NoSwitchBox("Unroutable switchbox")
+
+        top_face.set_capacity()
+        bottom_face.set_capacity()
+        left_face.set_capacity()
+        right_face.set_capacity()
 
         self.top_face = top_face
         self.bottom_face = bottom_face
@@ -449,6 +499,7 @@ class SwitchBox:
 
             if not tb_cncts:
                 # Top and/or bottom could not be connected.
+                return column # TODO: fix!
                 raise Exception
             for t_cnct, b_cnct in tb_cncts:
                 if t_cnct is None or b_cnct is None:
@@ -456,6 +507,9 @@ class SwitchBox:
                     break
                 if t_cnct > b_cnct:
                     # Top & bottom connections don't interfere.
+                    break
+                if t_cnct == b_cnct and t_net is b_net:
+                    # Top & bottom connect to the same track but they're the same net so that's OK.
                     break
             else:
                 raise Exception
@@ -713,25 +767,43 @@ class SwitchBox:
 
         return segments
 
-    def draw(self, scr=None, tx=None):
+    def draw(self, scr=None, tx=None, font=None, flags=["draw_switchbox"]):
         do_start_end = not bool(scr)
 
         if do_start_end:
             scr, tx, font = draw_start(self.bbox.resize(Vector(100,100)))
 
-        self.top_face.draw(scr, tx)
-        self.bottom_face.draw(scr, tx)
-        self.left_face.draw(scr, tx)
-        self.right_face.draw(scr, tx)
+        if self.top_face.part:
+            for prt in (self.top_face.part):
+                if isinstance(prt, Part):
+                    draw_box(prt.bbox.dot(prt.tx), scr, tx)
 
-        def draw_seg(seg, scr, tx, color=(100, 100, 100), line_thickness=5):
-            color = net_colors[seg.net]
-            seg = seg.dot(tx)
-            pygame.draw.line(
-                scr, color, (seg.p1.x, seg.p1.y), (seg.p2.x, seg.p2.y), width=line_thickness
-            )
-        for segment in self.segments:
-            draw_seg(segment, scr, tx)
+        if "draw_switchbox" in flags:
+            self.top_face.draw(scr, tx, font, flags)
+            self.bottom_face.draw(scr, tx, font, flags)
+            self.left_face.draw(scr, tx, font, flags)
+            self.right_face.draw(scr, tx, font, flags)
+
+        try:
+            for segment in self.segments:
+                draw_seg(segment, scr, tx)
+        except AttributeError:
+            pass
+
+        def draw_channel(face1, face2):
+            seg1 = face1.seg
+            seg2 = face2.seg
+            p1 = (seg1.p1 + seg1.p2) / 2
+            p2 = (seg2.p1 + seg2.p2) / 2
+            draw_seg(Segment(p1, p2), scr, tx, (128,0,128), 1)
+
+        if "draw_channels" in flags:
+            draw_channel(self.top_face, self.bottom_face)
+            draw_channel(self.top_face, self.left_face)
+            draw_channel(self.top_face, self.right_face)
+            draw_channel(self.bottom_face, self.left_face)
+            draw_channel(self.bottom_face, self.right_face)
+            draw_channel(self.left_face, self.right_face)
 
         if do_start_end:
             draw_end()
@@ -743,6 +815,41 @@ class GlobalWire(list):
     def __init__(self, *args, **kwargs):
         self.net = kwargs.pop("net")
         super().__init__(*args, **kwargs)
+
+    def draw(self, scr, tx, flags):
+
+        def draw_pin(pin, scr, tx):
+            pt = pin.pt.dot(pin.part.tx)
+            track = pin.face.track
+            pt = {
+                HORZ: Point(pt.x, track.coord),
+                VERT: Point(track.coord, pt.y),
+            }[track.orientation]
+            pt = pt.dot(tx)
+            sz = 5
+            corners = (
+                (pt.x, pt.y + sz),
+                (pt.x + sz, pt.y),
+                (pt.x, pt.y - sz),
+                (pt.x - sz, pt.y),
+            )
+            pygame.draw.polygon(scr, (0, 0, 0), corners, 0)
+
+        for pin in self.net.pins:
+            draw_pin(pin, scr, tx)
+
+        def terminal_pt(terminal):
+            track = terminal.face.track
+            if track.orientation == HORZ:
+                return Point(terminal.coord, track.coord)
+            else:
+                return Point(track.coord, terminal.coord)
+
+        face_to_face = zip(self[:-1], self[1:])
+        for terminal1, terminal2 in face_to_face:
+            p1 = terminal_pt(terminal1)
+            p2 = terminal_pt(terminal2)
+            draw_seg(Segment(p1, p2), scr, tx, (0, 0, 0), 1, 0)
 
 
 class GlobalTrack(list):
@@ -827,6 +934,7 @@ class GlobalTrack(list):
             swbx.left_face.add_adjacency(swbx.bottom_face)
             swbx.right_face.add_adjacency(swbx.top_face)
             swbx.right_face.add_adjacency(swbx.bottom_face)
+            del swbx
 
 
 def create_pin_terminals(internal_nets):
@@ -1024,22 +1132,15 @@ def assign_switchbox_terminals(global_routes):
                     raise Exception
 
 
-def rank_net(net):
-    """Rank net based on W/H of bounding box of pins and the # of pins."""
-    bbox = BBox()
-    for pin in net.pins:
-        bbox.add(pin.pt)
-    return (bbox.w + bbox.h, len(net.pins))
 
-
-def route(node):
+def route(node, flags=["draw", "draw_switchbox"]):
     """Route the wires between part pins in the node.
 
     Args:
-        node (Node): Hierarchical node containing the parts to be connected.
+        node (Node): Hierarchical node containing the parts to be connect
 
     Returns:
-        None
+        A list of detailed wire routes.
 
     Note:
         1. Divide the bounding box surrounding the parts into switchboxes.
@@ -1049,7 +1150,7 @@ def route(node):
 
     # Exit if no parts to route.
     if not node.parts:
-        return
+        return []
 
     # Extract list of nets internal to the node for routing.
     processed_nets = []
@@ -1097,7 +1198,7 @@ def route(node):
 
     # Exit if no nets to route.
     if not internal_nets:
-        return
+        return []
 
     # Find the coords of the horiz/vert tracks that will hold the H/V faces of the routing switchboxes.
     v_track_coord = []
@@ -1187,171 +1288,38 @@ def route(node):
             face.set_capacity()
 
     # Do global routing of nets internal to the node.
+
+    def rank_net(net):
+        """Rank net based on W/H of bounding box of pins and the # of pins."""
+        bbox = BBox()
+        for pin in net.pins:
+            bbox.add(pin.pt)
+        return (bbox.w + bbox.h, len(net.pins))
+
     internal_nets.sort(key=rank_net)
     global_routes = [route_globally(net) for net in internal_nets]
     assign_switchbox_terminals(global_routes)
 
     # Do detailed routing inside switchboxes.
     detailed_routes = []
+    switchboxes = []
     for h_track in h_tracks[1:]:
         for face in h_track:
             try:
                 swbx = SwitchBox(face)
+                switchboxes.append(swbx)
             except NoSwitchBox:
                 continue
             else:
                 detailed_routes.extend(swbx.route())
 
+    if "draw" in flags:
+        draw_scr, draw_tx, draw_font = draw_start(routing_bbox)
+        for route in global_routes:
+            for wire in route:
+                wire.draw(draw_scr, draw_tx, flags)
+        for swbx in switchboxes:
+            swbx.draw(draw_scr, draw_tx, draw_font, flags)
+        draw_end()
 
-    def draw_init(bbox):
-        scr_bbox = BBox(Point(0, 0), Point(2000, 1500))
-
-        border = max(bbox.w, bbox.h) / 20
-        bbox = bbox.resize(Vector(border, border))
-        bbox = round(bbox)
-
-        scale = min(scr_bbox.w / bbox.w, scr_bbox.h / bbox.h)
-
-        tx = Tx(a=scale, d=scale).dot(Tx(d=-1))
-        new_bbox = bbox.dot(tx)
-        move = scr_bbox.ctr - new_bbox.ctr
-        tx = tx.dot(Tx(dx=move.x, dy=move.y))
-
-        pygame.init()
-        scr = pygame.display.set_mode((scr_bbox.w, scr_bbox.h))
-
-        font = pygame.freetype.SysFont("consolas", 24)
-
-        scr.fill((255, 255, 255))
-
-        return scr, tx, font
-
-    def draw_seg(
-        seg, scr, tx, color=(100, 100, 100), line_thickness=1, dot_thickness=3
-    ):
-        seg = seg.dot(tx)
-        pygame.draw.line(
-            scr, color, (seg.p1.x, seg.p1.y), (seg.p2.x, seg.p2.y), width=line_thickness
-        )
-        # pygame.draw.circle(scr, color, (seg.p1.x, seg.p1.y), dot_thickness)
-        # pygame.draw.circle(scr, color, (seg.p2.x, seg.p2.y), dot_thickness)
-
-    def face_seg(face):
-        track = face.track
-        orientation = track.orientation
-        if orientation == HORZ:
-            p1 = Point(face.beg.coord, track.coord)
-            p2 = Point(face.end.coord, track.coord)
-        else:
-            p1 = Point(track.coord, face.beg.coord)
-            p2 = Point(track.coord, face.end.coord)
-        return Segment(p1, p2)
-
-    def draw_text(txt, pt, scr, tx, font, color=(100, 100, 100)):
-        pt = pt.dot(tx)
-        font.render_to(scr, (pt.x, pt.y), txt, color)
-
-    def draw_face(face, color, line_width, dot_width, scr, tx, font):
-        if len(face.part) < 0:
-            return
-        seg = face_seg(face)
-        draw_seg(face_seg(face), scr, tx, color, line_width, dot_width)
-        mid_pt = (seg.p1 + seg.p2) / 2
-        draw_text(str(face.capacity), mid_pt, scr, tx, font, color)
-
-    def draw_track(track, scr, tx, font):
-        face_colors = [(255, 0, 0), (0, 64, 0), (0, 0, 255), (0, 0, 0)]
-        for face in track:
-            if len(face.part) < 0:
-                continue
-            face_color = face_colors[len(face.part)]
-            draw_face(face, face_color, 3, 4, scr, tx, font)
-
-    def draw_channels(track, scr, tx):
-        for face in track:
-            seg = face_seg(face)
-            p1 = (seg.p1 + seg.p2) / 2
-            for adj_face in face.adjacent:
-                seg = face_seg(adj_face)
-                p2 = (seg.p1 + seg.p2) / 2
-                draw_seg(Segment(p1, p2), scr, tx, (128, 0, 128), 1, 3)
-
-    def draw_box(bbox, scr, tx):
-        bbox = bbox.dot(tx)
-        corners = (
-            bbox.min,
-            Point(bbox.min.x, bbox.max.y),
-            bbox.max,
-            Point(bbox.max.x, bbox.min.y),
-        )
-        corners = (
-            (bbox.min.x, bbox.min.y),
-            (bbox.min.x, bbox.max.y),
-            (bbox.max.x, bbox.max.y),
-            (bbox.max.x, bbox.min.y),
-        )
-        pygame.draw.polygon(scr, (192, 255, 192), corners, 0)
-
-    def draw_parts(parts, scr, tx):
-        for part in parts:
-            draw_box(part.bbox.dot(part.tx), scr, tx)
-
-    def draw_pin(pin, scr, tx):
-        pt = pin.pt.dot(pin.part.tx)
-        track = pin.face.track
-        pt = {
-            HORZ: Point(pt.x, track.coord),
-            VERT: Point(track.coord, pt.y),
-        }[track.orientation]
-        pt = pt.dot(tx)
-        sz = 5
-        corners = (
-            (pt.x, pt.y + sz),
-            (pt.x + sz, pt.y),
-            (pt.x, pt.y - sz),
-            (pt.x - sz, pt.y),
-        )
-        pygame.draw.polygon(scr, (0, 0, 0), corners, 0)
-        # draw_face(pin.face, (0,0,0), 4, 4, scr, tx)
-
-    def draw_wire(wire, scr, tx):
-        for pin in wire.net.pins:
-            draw_pin(pin, scr, tx)
-
-        def terminal_pt(terminal):
-            track = terminal.face.track
-            if track.orientation == HORZ:
-                return Point(terminal.coord, track.coord)
-            else:
-                return Point(track.coord, terminal.coord)
-
-        face_to_face = zip(wire[:-1], wire[1:])
-        for terminal1, terminal2 in face_to_face:
-            p1 = terminal_pt(terminal1)
-            p2 = terminal_pt(terminal2)
-            draw_seg(Segment(p1, p2), scr, tx, (0, 0, 0), 1, 0)
-
-    def draw_end():
-        pygame.display.flip()
-
-        running = True
-        while running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-        pygame.quit()
-
-    draw_scr, draw_tx, font = draw_init(routing_bbox)
-    draw_parts(node.parts, draw_scr, draw_tx)
-    # for track in h_tracks + v_tracks:
-    #     draw_track(track, draw_scr, draw_tx, font)
-    # for track in h_tracks + v_tracks:
-    #     draw_channels(track, draw_scr, draw_tx)
-    for route in global_routes:
-        for wire in route:
-            draw_wire(wire, draw_scr, draw_tx)
-    for wire in detailed_routes:
-        draw_seg(wire, draw_scr, draw_tx, line_thickness=2)
-    draw_end()
-
-    return
+    return detailed_routes
