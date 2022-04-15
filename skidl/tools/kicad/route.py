@@ -147,6 +147,10 @@ class NoSwitchBox(Exception):
     pass
 
 
+class RoutingFailure(Exception):
+    pass
+
+
 class Boundary:
     pass
 
@@ -378,7 +382,7 @@ class SwitchBox:
 
         # If all four sides have a common part, then its a part bbox with no routing.
         if top_face.part & bottom_face.part & left_face.part & right_face.part:
-            raise NoSwitchBox("Unroutable switchbox")
+            raise NoSwitchBox("Part switchbox")
 
         top_face.set_capacity()
         bottom_face.set_capacity()
@@ -431,6 +435,20 @@ class SwitchBox:
         assert len(self.top_nets) == len(self.bottom_nets)
         assert len(self.left_nets) == len(self.right_nets)
 
+    def flip_xy(self):
+        """Flip X-Y of switchbox to route from top-to-bottom instead of left-to-right."""
+        self.column_coords, self.track_coords = self.track_coords, self.column_coords
+        self.top_nets, self.right_nets, = self.right_nets, self.top_nets
+        self.bottom_nets, self.left_nets = self.left_nets, self.bottom_nets
+        self.top_face, self.right_face = self.right_face, self.top_face
+        self.bottom_face, self.left_face = self.left_face, self.bottom_face
+        try:
+            for seg in self.segments:
+                seg.p1.x, seg.p1.y = seg.p1.y, seg.p1.x
+                seg.p2.x, seg.p2.y = seg.p2.y, seg.p2.x
+        except AttributeError:
+            pass
+
     @property
     def bbox(self):
         bbox = BBox()
@@ -446,10 +464,12 @@ class SwitchBox:
                 return True
         return False
 
-    def route(self):
+    def route(self, flags=[]):
+
+        self.segments = []
 
         if not self.has_nets():
-            return []
+            return self.segments
 
         def connect_top_btm(track_nets):
             """Connect top/bottom net to nets in horizontal tracks."""
@@ -499,8 +519,10 @@ class SwitchBox:
 
             if not tb_cncts:
                 # Top and/or bottom could not be connected.
-                return column # TODO: fix!
-                raise Exception
+                if "allow_routing_failure" in flags:
+                    return column
+                else:
+                    raise RoutingFailure
             for t_cnct, b_cnct in tb_cncts:
                 if t_cnct is None or b_cnct is None:
                     # No possible interference if at least one connection is None.
@@ -512,7 +534,10 @@ class SwitchBox:
                     # Top & bottom connect to the same track but they're the same net so that's OK.
                     break
             else:
-                raise Exception
+                if "allow_routing_failure" in flags:
+                    return column
+                else:
+                    raise RoutingFailure
 
             if t_cnct is not None:
                 # Connection from track to terminal on top of switchbox.
@@ -736,7 +761,10 @@ class SwitchBox:
             tracks.append(track_nets)
             columns.append(column)
 
-        segments = []
+        for track_net, right_net in zip(tracks[-1], self.right_nets):
+            if track_net is not right_net:
+                if "allow_routing_failure" not in flags:
+                    raise RoutingFailure
 
         # Create horizontal wiring segments.
         for col_idx, trks in enumerate(tracks):
@@ -749,7 +777,7 @@ class SwitchBox:
                     p2 = Point(end_col_coord, trk_coord)
                     seg = Segment(p1,p2)
                     seg.net = net
-                    segments.append(seg)
+                    self.segments.append(seg)
 
         # Create vertical wiring segments.
         for idx, column in enumerate(columns[1:], start=1):
@@ -761,11 +789,9 @@ class SwitchBox:
                 p2 = Point(col_coord, end_trk_coord)
                 seg = Segment(p1, p2)
                 seg.net = intvl.net
-                segments.append(seg)
+                self.segments.append(seg)
 
-        self.segments = segments
-
-        return segments
+        return self.segments
 
     def draw(self, scr=None, tx=None, font=None, flags=["draw_switchbox"]):
         do_start_end = not bool(scr)
@@ -1311,7 +1337,12 @@ def route(node, flags=["draw", "draw_switchbox"]):
             except NoSwitchBox:
                 continue
             else:
-                detailed_routes.extend(swbx.route())
+                try:
+                    swbx.route(flags=[])
+                except RoutingFailure:
+                    swbx.flip_xy()
+                    swbx.route(flags=["allow_routing_failure"])
+                detailed_routes.extend(swbx.segments)
 
     if "draw" in flags:
         draw_scr, draw_tx, draw_font = draw_start(routing_bbox)
