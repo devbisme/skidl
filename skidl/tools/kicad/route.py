@@ -571,15 +571,18 @@ class SwitchBox:
                 track_nets[intvl.end] = intvl.net
             return track_nets
 
-        def insert_target_nets(track_nets, targets):
+        def insert_target_nets(track_nets, targets, right_nets):
             target_track_nets = [None] * len(track_nets)
             used_target_nets = []
+
+            right_nets = [net if net in track_nets else None for net in right_nets]
+
             for target in targets:
 
                 # Skip target nets that aren't currently active or have already been 
                 # placed (prevents multiple insertions of the same target net).
                 net = target.net
-                if net not in track_nets or net in used_target_nets:
+                if net not in track_nets or net in used_target_nets or net in right_nets:
                     continue
 
                 row = target.row
@@ -599,7 +602,8 @@ class SwitchBox:
                     # There was no place for this target net.
                     pass 
 
-            return [net or target for (net, target) in zip(track_nets, target_track_nets)]
+            return [net or r_net or target for (net, r_net, target) in zip(track_nets, right_nets, target_track_nets)]
+            # return [net or target for (net, target) in zip(track_nets, target_track_nets)]
 
         def connect_splits(track_nets, column):
 
@@ -687,13 +691,15 @@ class SwitchBox:
                         # or it may terminate here.
                         next_track_nets[trk_idx] = None
 
+            flow_thru_nets = next_track_nets[:]
+
             # Extend track net if net has multiple column intervals that need further interconnection
             # or if there are terminals in rightward columns that need connections to this net.
             column_nets = [intvl.net for intvl in column]
             for intvl in column:
                 net = intvl.net
 
-                num_net_intvls = column_nets.count(net)
+                num_net_intvls = column_nets.count(net) + flow_thru_nets.count(net)
                 if num_net_intvls == 1 and net not in rightward_nets:
                     continue
 
@@ -730,6 +736,16 @@ class SwitchBox:
 
             return next_track_nets
 
+        def trim_column_intervals(column, track_nets, next_track_nets):
+            new_column = []
+            for intvl in column:
+                net = intvl.net
+                beg = intvl.beg
+                end = intvl.end
+                if net in (track_nets[beg], next_track_nets[beg]) and net in (track_nets[end], next_track_nets[end]):
+                    new_column.append(intvl)
+            return new_column
+
         # Collect target nets along top, bottom, right faces of switchbox.
         min_row = 1
         max_row = len(self.left_nets)-2
@@ -755,10 +771,11 @@ class SwitchBox:
             column = connect_top_btm(track_nets)
             augmented_track_nets = insert_column_nets(track_nets, column)
             targets = prune_targets(targets, col)
-            augmented_track_nets = insert_target_nets(augmented_track_nets, targets)
+            augmented_track_nets = insert_target_nets(augmented_track_nets, targets, self.right_nets)
             column = connect_splits(augmented_track_nets, column)
             track_nets = extend_tracks(track_nets, column, targets)
             tracks.append(track_nets)
+            column = trim_column_intervals(column, tracks[-2], tracks[-1])
             columns.append(column)
 
         for track_net, right_net in zip(tracks[-1], self.right_nets):
