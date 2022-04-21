@@ -519,6 +519,20 @@ class Face(Interval):
         self.track = track
         track.add_face(self)
 
+    def combine(self, other):
+        """Combine information from other face into this one.
+
+        Args:
+            other (Face): Other Face.
+
+        Returns:
+            None.
+        """
+
+        self.pins.extend(other.pins)
+        self.part.update(other.part)
+        self.adjacent.update(other.adjacent)
+
     @property
     def bbox(self):
         """Return the bounding box of the 1-D face segment."""
@@ -576,9 +590,87 @@ class Face(Interval):
         # another face on the same part or else wires might get routed through
         # the part bounding box.
         if not self.part.intersection(adj_face.part):
-            # OK, not parts in common between the two faces so they can be adjacent.
+            # OK, no parts in common between the two faces so they can be adjacent.
             self.adjacent.add(adj_face)
             adj_face.adjacent.add(self)
+
+    def add_adjacencies(self):
+        """Add adjacent faces of the switchbox having this face as the top face."""
+
+        # Create a temporary switchbox.
+        try:
+            swbx = SwitchBox(self)
+        except NoSwitchBox:
+            # This face doesn't belong to a valid switchbox.
+            return
+
+        # Add adjacent faces.
+        swbx.top_face.add_adjacency(swbx.bottom_face)
+        swbx.left_face.add_adjacency(swbx.right_face)
+        swbx.left_face.add_adjacency(swbx.top_face)
+        swbx.left_face.add_adjacency(swbx.bottom_face)
+        swbx.right_face.add_adjacency(swbx.top_face)
+        swbx.right_face.add_adjacency(swbx.bottom_face)
+
+        # Get rid of the temporary switchbox.
+        del swbx
+
+
+    def extend(self, orthogonal_tracks):
+        """Extend a Face along its track until it is blocked by an orthogonal face.
+
+        This is used to create Faces that form the irregular grid of switchboxes.
+
+        Args:
+            orthogonal_tracks (list): List of tracks at right-angle to this face.
+        """
+
+        # Only extend faces that compose part bounding boxes.
+        if not self.part:
+            return
+
+        # Extend the face backward from its beginning and forward from its end.
+        for dir in (0, 1):
+            if dir == 0:
+                # Search for intersecting faces from the face beginning down to 0.
+                start = self.beg
+                search = orthogonal_tracks[start.idx :: -1]
+            else:
+                # Search for intersecting faces from the face end up to max index.
+                start = self.end
+                search = orthogonal_tracks[start.idx :]
+
+            # The face extension starts off non-blocked by any orthogonal faces.
+            blocked = False
+
+            # Search for a face in a track that intersects this extension.
+            for ortho_track in search:
+                for ortho_face in ortho_track:
+
+                    # Intersection only occurs if the extending face hits the open
+                    # interval of the orthogonal face, not if it touches an endpoint.
+                    if ortho_face.beg < self.track < ortho_face.end:
+
+                        # OK, this face intersects the extension. It also means the
+                        # extending face will block the face just found, so split
+                        # each track at the intersection point.
+                        ortho_track.add_split(self.track)
+                        self.track.add_split(ortho_track)
+
+                        # If the intersecting face is also a face of a part bbox,
+                        # then the extension is blocked, so create the extended face
+                        # and stop the extension.
+                        if ortho_face.part:
+                            # This creates a face and adds it to the track.
+                            Face(None, self.track, start, ortho_track)
+                            blocked = True
+
+                        # Stop checking faces in this track after an intersection is found.
+                        break
+
+                # Stop checking any further tracks once the face extension is blocked.
+                if blocked:
+                    break
 
     def split(self, trk):
         """If a track intersects in the middle of a face, split the face into two faces."""
@@ -721,7 +813,7 @@ class GlobalWire(list):
             None.
         """
 
-        # Draw pins on net associated with wire.
+        # Draw pins on the net associated with the wire.
         for pin in self.net.pins:
             pt = pin.pt.dot(pin.part.tx)
             track = pin.face.track
@@ -742,13 +834,17 @@ class GlobalWire(list):
 class GlobalTrack(list):
 
     def __init__(self, *args, orientation=HORZ, coord=0, idx=None, **kwargs):
-        """A horizontal/vertical track holding one or more faces all having the same Y/X coordinate.
+        """A horizontal/vertical track holding zero or more faces all having the same Y/X coordinate.
+
+        These global tracks are made by extending the edges of part bounding boxes to
+        form a non-regular grid of rectangular switchboxes. These tracks are *NOT* the same
+        as the tracks used within the switchbox for the detailed routing phase.
 
         Args:
             *args: Positional args passed to list superclass __init__().
             orientation (Orientation): Orientation of track (horizontal or vertical).
             coord (int): Coordinate of track on axis orthogonal to track direction.
-            idx (int): Index of track.
+            idx (int): Index of track into a list of X or Y coords.
             **kwargs: Keyword args passed to list superclass __init__().
         """
 
@@ -756,86 +852,98 @@ class GlobalTrack(list):
         self.coord = coord
         self.idx = idx
         super().__init__(*args, **kwargs)
+
+        # This stores the orthogonal tracks that intersect this one.
         self.splits = set()
 
-    def __hash__(self):
-        return self.idx
-
     def __lt__(self, track):
+        """Used for ordering tracks."""
         return self.coord < track.coord
 
     def __gt__(self, track):
+        """Used for ordering tracks."""
         return self.coord > track.coord
 
     def extend_faces(self, orthogonal_tracks):
-        for h_face in self[:]:
-            if not h_face.part:
-                continue
-            for dir in (LEFT, RIGHT):
-                if dir == LEFT:
-                    start = h_face.beg
-                    search = orthogonal_tracks[start.idx :: -1]
-                else:
-                    start = h_face.end
-                    search = orthogonal_tracks[start.idx :]
+        """Extend the faces in a track.
 
-                blocked = False
-                for ortho_track in search:
-                    for ortho_face in ortho_track:
-                        if ortho_face.beg < self < ortho_face.end:
-                            ortho_track.add_split(self)
-                            self.add_split(ortho_track)
-                            if ortho_face.part:
-                                Face(None, self, start, ortho_track)
-                                blocked = True
-                            break
-                    if blocked:
-                        break
+        This is part of forming the irregular grid of switchboxes.
 
-    def add_split(self, track_idx):
-        self.splits.add(track_idx)
+        Args:
+            orthogonal_tracks (list): List of tracks orthogonal to this one (L/R vs. H/V).
+        """
+
+        for face in self[:]:
+            face.extend(orthogonal_tracks)
+
+    def __hash__(self):
+        """This method lets a track be inserted into a set of splits."""
+        return self.idx
+
+    def add_split(self, orthogonal_track):
+        """Store the orthogonal track that intersects this one.
+
+        Args:
+            orthogonal_track (GlobalTrack): Track intersecting this one.
+        """
+        self.splits.add(orthogonal_track)
 
     def add_face(self, face):
+        """Add a face to a track.
+
+        Args:
+            face (Face): Face to be added to track.
+        """
         self.append(face)
+
+        # The added face will also split the orthogonal tracks that define its endpoints.
         self.add_split(face.beg)
         self.add_split(face.end)
 
     def split_faces(self):
+        """Apply split tracks to all the faces in a track."""
+
         for split in self.splits:
             for face in self[:]:
+                # Apply the split track to the face. The face will only be split
+                # if the split track intersects it. Any split faces will be added
+                # to the track this face is on.
                 face.split(split)
 
-    def combine_faces(self):
-        for i, face in enumerate(self):
-            for other_face in self[i + 1 :]:
-                if face.coincides_with(other_face):
-                    other_face.part.update(face.part)
-                    face.beg = face.end
+    def remove_duplicate_faces(self):
+        """Remove duplicate faces having the same endpoints."""
+
+        # Search for pairs of faces with identical endpoints.
+        for i, first_face in enumerate(self[:]):
+            for second_face in self[i + 1 :]:
+                if first_face.coincides_with(second_face):
+                    
+                    # Update the second face with the info from the first face.
+                    second_face.combine(first_face)
+                    
+                    # Remove the first face since it's redundant.
+                    self.remove(first_face)
+
+                    # Stop searching for dups of the first face because the
+                    # equivalent of that can be done using the second face
+                    # on a later iteration.
                     break
-        for face in self[:]:
-            if face.beg == face.end:
-                self.remove(face)
 
     def add_adjacencies(self):
+        """Add adjacent faces to each face in a track."""
         for top_face in self:
-
-            try:
-                swbx = SwitchBox(top_face)
-            except NoSwitchBox:
-                continue
-
-            swbx.top_face.add_adjacency(swbx.bottom_face)
-            swbx.left_face.add_adjacency(swbx.right_face)
-            swbx.left_face.add_adjacency(swbx.top_face)
-            swbx.left_face.add_adjacency(swbx.bottom_face)
-            swbx.right_face.add_adjacency(swbx.top_face)
-            swbx.right_face.add_adjacency(swbx.bottom_face)
-            del swbx
+            top_face.add_adjacencies()
 
 
 class Target:
     def __init__(self, net, row, col):
         """A point on a switchbox face that wiring has not yet reached.
+
+        Targets are used to direct the switchbox router towards terminals that
+        need to be connected to nets. So wiring will be nudged up/down to
+        get closer to terminals along the upper/lower faces. Wiring will also
+        be nudged toward the track rows where terminals on the right face reside
+        as the router works from the left to the right.
 
         Args:
             net (Net): Target net.
@@ -1591,7 +1699,7 @@ def route(node, flags=["draw", "draw_switchbox"]):
     # Apply splits to all faces and combine coincident faces.
     for track in h_tracks + v_tracks:
         track.split_faces()
-        track.combine_faces()
+        track.remove_duplicate_faces()
 
     # Add terminals to all non-part/non-boundary faces.
     for track in h_tracks + v_tracks:
@@ -1630,7 +1738,7 @@ def route(node, flags=["draw", "draw_switchbox"]):
                         face.terminals.append(terminal)
                     break
 
-    # Add adjacencies between faces that define routing paths within switchboxes.
+    # Add adjacencies between faces that define global routing paths within switchboxes.
     for h_track in h_tracks[1:]:
         h_track.add_adjacencies()
 
