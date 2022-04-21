@@ -13,7 +13,15 @@ from __future__ import (  # isort:skip
     unicode_literals,
 )
 
-__all__ = ['route', 'Face', 'GlobalTrack', 'HORZ', 'VERT', 'SwitchBox', 'RoutingFailure']
+__all__ = [
+    "route",
+    "Face",
+    "GlobalTrack",
+    "HORZ",
+    "VERT",
+    "SwitchBox",
+    "RoutingFailure",
+]
 
 from builtins import range, zip
 from collections import defaultdict
@@ -38,10 +46,10 @@ standard_library.install_aliases()
 # assigned (x,y) position.
 #
 # The edges of each part bbox are extended form tracks that divide the
-# routing area into a set of four-sided switchboxes. Each side of a 
-# switchbox is a Face, and each Face is a member of two adjoining 
-# switchboxes (except those Faces on the boundary of the total 
-# routing area.) Each face is adjacent to the six other faces of 
+# routing area into a set of four-sided switchboxes. Each side of a
+# switchbox is a Face, and each Face is a member of two adjoining
+# switchboxes (except those Faces on the boundary of the total
+# routing area.) Each face is adjacent to the six other faces of
 # the two switchboxes it is part of.
 #
 # Each face has a capacity that indicates the number of wires that can
@@ -62,7 +70,7 @@ standard_library.install_aliases()
 # After global routing, each net has a sequence of switchbox faces
 # through which it will transit. The exact coordinate that each net
 # enters a face is then assigned to create a Terminal.
-# 
+#
 # At this point there are a set of switchboxes which have fixed terminals located
 # along their four faces. A greedy switchbox router (https://doi.org/10.1016/0167-9260(85)90029-X)
 # does the detailed routing within each switchbox.
@@ -70,7 +78,7 @@ standard_library.install_aliases()
 # The detailed wiring within all the switchboxes is combined and output
 # as the total wiring for the parts in the Node.
 #
-# 
+#
 # Use the endpoints to divide the routing area into an array of rectangles.
 # Create the faces of each rectangle, each face shared between adjacent rects.
 # Capacity of each face is its length / wiring grid, except for faces
@@ -96,9 +104,11 @@ class Orientation(Enum):
     HORZ = auto()
     VERT = auto()
 
+
 class Direction(Enum):
     LEFT = auto()
     RIGHT = auto()
+
 
 # Put the orientation/direction enums in global space to make using them easier.
 _g = globals()
@@ -109,17 +119,18 @@ for direction in Direction:
 
 
 # Dictionary for storing colors to visually distinguish routed nets.
-net_colors = defaultdict(lambda: (randint(0,200),randint(0,200), randint(0,200)))
+net_colors = defaultdict(lambda: (randint(0, 200), randint(0, 200), randint(0, 200)))
 
 
 #
 # Drawing functions to display routing for debugging purposes.
 #
 
+
 def draw_start(bbox):
     """
     Initialize PyGame drawing area.
-    
+
     Args:
         bbox: Bounding box of object to be drawn.
 
@@ -134,7 +145,7 @@ def draw_start(bbox):
     import pygame.freetype
 
     # Make pygame module available to other functions.
-    globals()['pygame'] = pygame
+    globals()["pygame"] = pygame
 
     # Screen drawing area.
     scr_bbox = BBox(Point(0, 0), Point(2000, 1500))
@@ -152,7 +163,9 @@ def draw_start(bbox):
     flip_tx = Tx(d=-1)
 
     # Compute the translation of the object center to the drawing area center
-    new_bbox = bbox.dot(scale_tx).dot(flip_tx)  # Object bbox transformed to screen coords.
+    new_bbox = bbox.dot(scale_tx).dot(
+        flip_tx
+    )  # Object bbox transformed to screen coords.
     move = scr_bbox.ctr - new_bbox.ctr  # Vector to move object ctr to drawing ctr.
     move_tx = Tx(dx=move.x, dy=move.y)
 
@@ -172,6 +185,7 @@ def draw_start(bbox):
 
     # Return drawing screen, transformation matrix, and font.
     return scr, tx, font
+
 
 def draw_box(bbox, scr, tx, color=(192, 255, 192)):
     """Draw a box in the drawing area.
@@ -195,7 +209,8 @@ def draw_box(bbox, scr, tx, color=(192, 255, 192)):
     )
     pygame.draw.polygon(scr, color, corners, 0)
 
-def draw_endpoint(pt, scr, tx, color=(100,100,100), dot_radius=10):
+
+def draw_endpoint(pt, scr, tx, color=(100, 100, 100), dot_radius=10):
     """Draw a line segment endpoint in the drawing area.
 
     Args:
@@ -206,10 +221,10 @@ def draw_endpoint(pt, scr, tx, color=(100,100,100), dot_radius=10):
         dot_Radius (int, optional): Endpoint dot radius. Defaults to 3.
     """
 
-    pt = pt.dot(tx) # Convert to drawing coords.
+    pt = pt.dot(tx)  # Convert to drawing coords.
 
     # Draw diamond for terminal.
-    sz = dot_radius/2 * tx.a  # Scale for drawing coords.
+    sz = dot_radius / 2 * tx.a  # Scale for drawing coords.
     corners = (
         (pt.x, pt.y + sz),
         (pt.x + sz, pt.y),
@@ -221,6 +236,7 @@ def draw_endpoint(pt, scr, tx, color=(100,100,100), dot_radius=10):
     # Draw dot for terminal.
     radius = dot_radius * tx.a
     pygame.draw.circle(scr, color, (pt.x, pt.y), radius)
+
 
 def draw_seg(seg, scr, tx, color=(100, 100, 100), thickness=5, dot_radius=10):
     """Draw a line segment in the drawing area.
@@ -252,6 +268,7 @@ def draw_seg(seg, scr, tx, color=(100, 100, 100), thickness=5, dot_radius=10):
         scr, color, (seg.p1.x, seg.p1.y), (seg.p2.x, seg.p2.y), width=thickness
     )
 
+
 def draw_text(txt, pt, scr, tx, font, color=(100, 100, 100)):
     """Render text in drawing area.
 
@@ -269,6 +286,7 @@ def draw_text(txt, pt, scr, tx, font, color=(100, 100, 100)):
 
     # Render text.
     font.render_to(scr, (pt.x, pt.y), txt, color)
+
 
 def draw_end():
     """Display drawing and wait for user to close PyGame window."""
@@ -291,6 +309,7 @@ class NoSwitchBox(Exception):
     Args:
         Exception (Exception): Raised when a switchbox cannot be generated for a given Face.
     """
+
     pass
 
 
@@ -300,6 +319,7 @@ class RoutingFailure(Exception):
     Args:
         Exception (Exception): Raised when terminals on a net cannot be connected.
     """
+
     pass
 
 
@@ -309,14 +329,15 @@ class Boundary:
     When a Boundary object is placed in the part attribute of a Face, it
     indicates the Face is on the outer boundary of the Node routing area.
     """
+
     pass
+
 
 # Boundary object for placing in Faces on the bounding Faces of the Node routing area.
 boundary = Boundary()
 
 
 class Terminal:
-
     def __init__(self, net, face, coord):
         """Terminal on a Face from which a net is routed within a SwitchBox.
 
@@ -455,7 +476,7 @@ class Interval:
 
     def merge(self, other):
         """Return a merged interval if the given intervals intersect, otherwise return None."""
-        if Interval.intersects(self,other):
+        if Interval.intersects(self, other):
             return Interval(min(self.beg, other.beg), max(self.end, other.end))
         return None
 
@@ -508,7 +529,7 @@ class Face(Interval):
             self.part.update(part)
         elif part is not None:
             self.part.add(part)
-        
+
         # Storage for any part pins that lie along this Face.
         self.pins = []
 
@@ -550,7 +571,7 @@ class Face(Interval):
 
     def create_nonpin_terminals(self):
         """Create non-net terminals along a non-part Face with GRID spacing."""
-        
+
         # Don't add terminals if the Face is on a part or a boundary.
         if self.part:
             self.terminals = []
@@ -558,6 +579,7 @@ class Face(Interval):
 
         # Add terminals along Face, but keep terminals off the beginning or end points.
         from .gen_schematic import GRID
+
         beg = (self.beg.coord + GRID // 2 + GRID) // GRID * GRID
         end = self.end.coord - GRID // 2
         self.terminals = [
@@ -614,7 +636,6 @@ class Face(Interval):
 
         # Get rid of the temporary switchbox.
         del swbx
-
 
     def extend(self, orthogonal_tracks):
         """Extend a Face along its track until it is blocked by an orthogonal face.
@@ -678,7 +699,7 @@ class Face(Interval):
         if self.beg < trk < self.end:
             # Add a Face from beg to trk to self.track.
             Face(self.part, self.track, self.beg, trk)
-            # Move the beginning of the original Face to trk. 
+            # Move the beginning of the original Face to trk.
             self.beg = trk
 
     def coincides_with(self, other_face):
@@ -728,7 +749,6 @@ class Face(Interval):
 
 
 class GlobalWire(list):
-
     def __init__(self, *args, net=None, **kwargs):
         """Global-routing wire connecting switchbox faces and terminals.
 
@@ -770,7 +790,7 @@ class GlobalWire(list):
 
                 # Get two sequential points of the route.
                 from_, to_ = self[i], self[i + 1]
-                
+
                 if Face in (from_, to_):
                     # If either is a Face, then the entire route hasn't been converted
                     # to Terminals so keep iterating.
@@ -791,12 +811,12 @@ class GlobalWire(list):
                 if isinstance(from_, Face) and isinstance(to_, Terminal):
                     terminal = to_.get_next_terminal(from_)
                     terminal.net = self.net
-                    self[i] = terminal # Replace from_ Face with Terminal.
+                    self[i] = terminal  # Replace from_ Face with Terminal.
                     continue
                 if isinstance(from_, Terminal) and isinstance(to_, Face):
                     terminal = from_.get_next_terminal(to_)
                     terminal.net = self.net
-                    self[i + 1] = terminal # Replace to_ Face with Terminal.
+                    self[i + 1] = terminal  # Replace to_ Face with Terminal.
                     continue
 
                 raise RoutingFailure
@@ -821,7 +841,7 @@ class GlobalWire(list):
                 HORZ: Point(pt.x, track.coord),
                 VERT: Point(track.coord, pt.y),
             }[track.orientation]
-            draw_endpoint(pt, scr, tx, color=(0,0,0), dot_radius=10)
+            draw_endpoint(pt, scr, tx, color=(0, 0, 0), dot_radius=10)
 
         # Draw global wire segment.
         face_to_face = zip(self[:-1], self[1:])
@@ -832,7 +852,6 @@ class GlobalWire(list):
 
 
 class GlobalTrack(list):
-
     def __init__(self, *args, orientation=HORZ, coord=0, idx=None, **kwargs):
         """A horizontal/vertical track holding zero or more faces all having the same Y/X coordinate.
 
@@ -894,6 +913,7 @@ class GlobalTrack(list):
         Args:
             face (Face): Face to be added to track.
         """
+        
         self.append(face)
 
         # The added face will also split the orthogonal tracks that define its endpoints.
@@ -917,10 +937,10 @@ class GlobalTrack(list):
         for i, first_face in enumerate(self[:]):
             for second_face in self[i + 1 :]:
                 if first_face.coincides_with(second_face):
-                    
+
                     # Update the second face with the info from the first face.
                     second_face.combine(first_face)
-                    
+
                     # Remove the first face since it's redundant.
                     self.remove(first_face)
 
@@ -959,7 +979,11 @@ class Target:
 
         # Targets in the left-most columns are given priority since they will be reached
         # first as the switchbox router proceeds from left-to-right.
-        return (self.col, self.row, id(self.net)) < (other.col, other.row, id(other.net))
+        return (self.col, self.row, id(self.net)) < (
+            other.col,
+            other.row,
+            id(other.net),
+        )
 
 
 class SwitchBox:
@@ -1058,7 +1082,10 @@ class SwitchBox:
     def flip_xy(self):
         """Flip X-Y of switchbox to route from top-to-bottom instead of left-to-right."""
         self.column_coords, self.track_coords = self.track_coords, self.column_coords
-        self.top_nets, self.right_nets, = self.right_nets, self.top_nets
+        self.top_nets, self.right_nets, = (
+            self.right_nets,
+            self.top_nets,
+        )
         self.bottom_nets, self.left_nets = self.left_nets, self.bottom_nets
         self.top_face, self.right_face = self.right_face, self.top_face
         self.bottom_face, self.left_face = self.left_face, self.bottom_face
@@ -1114,11 +1141,11 @@ class SwitchBox:
                     if direction < 0:
                         tracks = tracks[::-1]
                     try:
-                        connections.append(tracks[1:-1].index(net)+1)
+                        connections.append(tracks[1:-1].index(net) + 1)
                     except ValueError:
                         pass
                     try:
-                        connections.append(tracks[1:-1].index(None)+1)
+                        connections.append(tracks[1:-1].index(None) + 1)
                     except ValueError:
                         pass
                     if direction < 0:
@@ -1135,7 +1162,7 @@ class SwitchBox:
             b_cncts = find_connection(b_net, track_nets, 1)
 
             # Test each possible pair of connections to find one that is free of interference.
-            tb_cncts = [(t,b) for t in t_cncts for b in b_cncts]
+            tb_cncts = [(t, b) for t in t_cncts for b in b_cncts]
 
             if not tb_cncts:
                 # Top and/or bottom could not be connected.
@@ -1161,7 +1188,7 @@ class SwitchBox:
 
             if t_cnct is not None:
                 # Connection from track to terminal on top of switchbox.
-                column.append(NetInterval(t_net, t_cnct, len(track_nets)-1))
+                column.append(NetInterval(t_net, t_cnct, len(track_nets) - 1))
             if b_cnct is not None:
                 # Connection from terminal on bottom of switchbox to track.
                 column.append(NetInterval(b_net, 0, b_cnct))
@@ -1199,10 +1226,14 @@ class SwitchBox:
 
             for target in targets:
 
-                # Skip target nets that aren't currently active or have already been 
+                # Skip target nets that aren't currently active or have already been
                 # placed (prevents multiple insertions of the same target net).
                 net = target.net
-                if net not in track_nets or net in used_target_nets or net in right_nets:
+                if (
+                    net not in track_nets
+                    or net in used_target_nets
+                    or net in right_nets
+                ):
                     continue
 
                 row = target.row
@@ -1214,15 +1245,20 @@ class SwitchBox:
 
                 try:
                     if up <= down:
-                        target_track_nets[row+up] = net
+                        target_track_nets[row + up] = net
                     else:
-                        target_track_nets[row-down] = net
+                        target_track_nets[row - down] = net
                     used_target_nets.append(net)
                 except IndexError:
                     # There was no place for this target net.
-                    pass 
+                    pass
 
-            return [net or r_net or target for (net, r_net, target) in zip(track_nets, right_nets, target_track_nets)]
+            return [
+                net or r_net or target
+                for (net, r_net, target) in zip(
+                    track_nets, right_nets, target_track_nets
+                )
+            ]
             # return [net or target for (net, target) in zip(track_nets, target_track_nets)]
 
         def connect_splits(track_nets, column):
@@ -1231,14 +1267,16 @@ class SwitchBox:
             track_nets = track_nets[:]
 
             # Find nets that are running on multiple tracks.
-            multi_nets = set(net for net in set(track_nets) if track_nets.count(net)>1)
+            multi_nets = set(
+                net for net in set(track_nets) if track_nets.count(net) > 1
+            )
             multi_nets.discard(None)  # Ignore empty tracks.
 
             # Find intervals for multi-track nets.
             net_intervals = []
             for net in multi_nets:
                 net_trk_idxs = [idx for idx, nt in enumerate(track_nets) if nt is net]
-                for index, trk1 in enumerate(net_trk_idxs[:-1],1):
+                for index, trk1 in enumerate(net_trk_idxs[:-1], 1):
                     for trk2 in net_trk_idxs[index:]:
                         net_intervals.append(NetInterval(net, trk1, trk2))
 
@@ -1269,7 +1307,7 @@ class SwitchBox:
 
                 # Merge the extracted intervals as much as possible.
                 merged = True
-                while merged and len(intervals)>1:
+                while merged and len(intervals) > 1:
                     merged = False
                     merged_intervals = []
 
@@ -1288,7 +1326,7 @@ class SwitchBox:
                         else:
                             # Intervals couldn't be merged, so keep both.
                             merged_intervals.extend((intvl1, intvl2))
-                    
+
                     # Update list of intervals to include merges and remove duplicates.
                     intervals = list(set(merged_intervals))
 
@@ -1300,13 +1338,13 @@ class SwitchBox:
         def extend_tracks(track_nets, column, targets):
             rightward_nets = set(target.net for target in targets)
 
-            # Keep extending nets in current tracks if they do not intersect intervals in the 
+            # Keep extending nets in current tracks if they do not intersect intervals in the
             # current column with the same net.
             flow_thru_nets = track_nets[:]
             for intvl in column:
-                for trk_idx in range(intvl.beg, intvl.end+1):
+                for trk_idx in range(intvl.beg, intvl.end + 1):
                     if flow_thru_nets[trk_idx] is intvl.net:
-                        # Remove net from track since it intersects an interval with the 
+                        # Remove net from track since it intersects an interval with the
                         # same net. The net may be extended from the interval in the next phase,
                         # or it may terminate here.
                         flow_thru_nets[trk_idx] = None
@@ -1330,7 +1368,7 @@ class SwitchBox:
                         break
 
                 beg = max(intvl.beg, 1)
-                end = min(intvl.end, len(track_nets)-2)
+                end = min(intvl.end, len(track_nets) - 2)
                 if target_row is None:
                     if track_nets[beg] is None:
                         row = beg
@@ -1362,13 +1400,16 @@ class SwitchBox:
                 net = intvl.net
                 beg = intvl.beg
                 end = intvl.end
-                if net in (track_nets[beg], next_track_nets[beg]) and net in (track_nets[end], next_track_nets[end]):
+                if net in (track_nets[beg], next_track_nets[beg]) and net in (
+                    track_nets[end],
+                    next_track_nets[end],
+                ):
                     new_column.append(intvl)
             return new_column
 
         # Collect target nets along top, bottom, right faces of switchbox.
         min_row = 1
-        max_row = len(self.left_nets)-2
+        max_row = len(self.left_nets) - 2
         max_col = len(self.top_nets)
         targets = []
         for col, (t_net, b_net) in enumerate(zip(self.top_nets, self.bottom_nets)):
@@ -1384,14 +1425,20 @@ class SwitchBox:
         # Main switchbox routing loop.
         tracks = [self.left_nets[:]]
         track_nets = tracks[0]
-        columns = [[], ]
-        for col, (t_net, b_net) in enumerate(zip(self.top_nets[1:-1], self.bottom_nets[1:-1]), start=1):
+        columns = [
+            [],
+        ]
+        for col, (t_net, b_net) in enumerate(
+            zip(self.top_nets[1:-1], self.bottom_nets[1:-1]), start=1
+        ):
             track_nets[0] = b_net
             track_nets[-1] = t_net
             column = connect_top_btm(track_nets)
             augmented_track_nets = insert_column_nets(track_nets, column)
             targets = prune_targets(targets, col)
-            augmented_track_nets = insert_target_nets(augmented_track_nets, targets, self.right_nets)
+            augmented_track_nets = insert_target_nets(
+                augmented_track_nets, targets, self.right_nets
+            )
             column = connect_splits(augmented_track_nets, column)
             track_nets = extend_tracks(track_nets, column, targets)
             tracks.append(track_nets)
@@ -1406,13 +1453,13 @@ class SwitchBox:
         # Create horizontal wiring segments.
         for col_idx, trks in enumerate(tracks):
             beg_col_coord = self.column_coords[col_idx]
-            end_col_coord = self.column_coords[col_idx+1]
+            end_col_coord = self.column_coords[col_idx + 1]
             for trk_idx, net in enumerate(trks[1:-1], start=1):
                 if net:
                     trk_coord = self.track_coords[trk_idx]
                     p1 = Point(beg_col_coord, trk_coord)
                     p2 = Point(end_col_coord, trk_coord)
-                    seg = Segment(p1,p2)
+                    seg = Segment(p1, p2)
                     seg.net = net
                     self.segments.append(seg)
 
@@ -1430,14 +1477,16 @@ class SwitchBox:
 
         return self.segments
 
-    def draw(self, scr=None, tx=None, font=None, flags=["draw_switchbox", "draw_routing"]):
+    def draw(
+        self, scr=None, tx=None, font=None, flags=["draw_switchbox", "draw_routing"]
+    ):
         do_start_end = not bool(scr)
 
         if do_start_end:
-            scr, tx, font = draw_start(self.bbox.resize(Vector(100,100)))
+            scr, tx, font = draw_start(self.bbox.resize(Vector(100, 100)))
 
         if self.top_face.part:
-            for prt in (self.top_face.part):
+            for prt in self.top_face.part:
                 if isinstance(prt, Part):
                     draw_box(prt.bbox.dot(prt.tx), scr, tx)
 
@@ -1459,7 +1508,7 @@ class SwitchBox:
             seg2 = face2.seg
             p1 = (seg1.p1 + seg1.p2) / 2
             p2 = (seg2.p1 + seg2.p2) / 2
-            draw_seg(Segment(p1, p2), scr, tx, (128,0,128), 1, dot_radius=0)
+            draw_seg(Segment(p1, p2), scr, tx, (128, 0, 128), 1, dot_radius=0)
 
         if "draw_channels" in flags:
             draw_channel(self.top_face, self.bottom_face)
@@ -1708,6 +1757,7 @@ def route(node, flags=["draw", "draw_switchbox"]):
 
     # Add terminals to switchbox faces for all part pins on internal nets.
     from .gen_schematic import calc_pin_dir
+
     for net in internal_nets:
         for pin in net.pins:
             dir = calc_pin_dir(pin)
@@ -1786,7 +1836,9 @@ def route(node, flags=["draw", "draw_switchbox"]):
             for wire in route:
                 wire.draw(draw_scr, draw_tx, flags)
         for swbx in switchboxes:
-            swbx.draw(draw_scr, draw_tx, draw_font, flags=["draw_switchbox", "draw_routing"])
+            swbx.draw(
+                draw_scr, draw_tx, draw_font, flags=["draw_switchbox", "draw_routing"]
+            )
         draw_end()
 
     return detailed_routes
