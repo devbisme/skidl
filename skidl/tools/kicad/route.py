@@ -3,7 +3,7 @@
 # The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
 
 """
-Routing for schematics.
+Autorouter for generating wiring between symbols in a schematic.
 """
 
 from __future__ import (  # isort:skip
@@ -12,6 +12,8 @@ from __future__ import (  # isort:skip
     print_function,
     unicode_literals,
 )
+
+__all__ = ['route', 'Face', 'GlobalTrack', 'HORZ', 'VERT', 'SwitchBox', 'RoutingFailure']
 
 from builtins import range, zip
 from collections import defaultdict
@@ -30,9 +32,45 @@ from .geometry import *
 standard_library.install_aliases()
 
 ###################################################################
-# Routing schematic nets:
+# Overview of Schematic Autorouter
 #
-# Create a list of horizontal and vertical endpoints of the part BBoxes.
+# The input is a Node containing parts, each with a bounding box and an
+# assigned (x,y) position.
+#
+# The edges of each part bbox are extended form tracks that divide the
+# routing area into a set of four-sided switchboxes. Each side of a 
+# switchbox is a Face, and each Face is a member of two adjoining 
+# switchboxes (except those Faces on the boundary of the total 
+# routing area.) Each face is adjacent to the six other faces of 
+# the two switchboxes it is part of.
+#
+# Each face has a capacity that indicates the number of wires that can
+# cross it. The capacity is the length of the face divided by the routing
+# grid. (Faces on a part boundary have zero capacity to prevent routing
+# from entering a part.)
+#
+# Each face on a part bbox is assigned terminals associated with the I/O
+# pins of that symbol.
+#
+# After creating the faces and terminals, the global routing phase creates
+# wires that connect the part pins on the nets. Each wire passes from
+# a face of a switchbox to one of the other three faces, either directly
+# across the switchbox to the opposite face or changing direction to
+# either of the right-angle faces. The global router is basically a maze
+# router that uses the switchboxes as high-level grid squares.
+#
+# After global routing, each net has a sequence of switchbox faces
+# through which it will transit. The exact coordinate that each net
+# enters a face is then assigned to create a Terminal.
+# 
+# At this point there are a set of switchboxes which have fixed terminals located
+# along their four faces. A greedy switchbox router (https://doi.org/10.1016/0167-9260(85)90029-X)
+# does the detailed routing within each switchbox.
+#
+# The detailed wiring within all the switchboxes is combined and output
+# as the total wiring for the parts in the Node.
+#
+# 
 # Use the endpoints to divide the routing area into an array of rectangles.
 # Create the faces of each rectangle, each face shared between adjacent rects.
 # Capacity of each face is its length / wiring grid, except for faces
@@ -52,61 +90,103 @@ standard_library.install_aliases()
 #          then connect the pins by combining their face lists.
 ###################################################################
 
-# Dictionary of global symbols for this module.
-_g = globals()
 
+# Orientations and directions.
 class Orientation(Enum):
     HORZ = auto()
     VERT = auto()
+
+class Direction(Enum):
     LEFT = auto()
     RIGHT = auto()
 
-# Put the orientation enums in global space to make using them easier.
+# Put the orientation/direction enums in global space to make using them easier.
+_g = globals()
 for orientation in Orientation:
     _g[orientation.name] = orientation.value
+for direction in Direction:
+    _g[direction.name] = direction.value
+
 
 # Dictionary for storing colors to visually distinguish routed nets.
 net_colors = defaultdict(lambda: (randint(0,200),randint(0,200), randint(0,200)))
 
 
-def draw_start(bbox):
-    """Initialize PyGame drawing area."""
+#
+# Drawing functions to display routing for debugging purposes.
+#
 
+def draw_start(bbox):
+    """
+    Initialize PyGame drawing area.
+    
+    Args:
+        bbox: Bounding box of object to be drawn.
+
+    Returns:
+        scr: PyGame screen that is drawn upon.
+        tx: Matrix to transform from real coords to screen coords.
+        font: PyGame font for rendering text.
+    """
+
+    # Only import pygame if drawing is being done to avoid the startup message.
     import pygame
     import pygame.freetype
 
-    _g['pygame'] = pygame
+    # Make pygame module available to other functions.
+    globals()['pygame'] = pygame
 
+    # Screen drawing area.
     scr_bbox = BBox(Point(0, 0), Point(2000, 1500))
 
+    # Place a blank region around the object by expanding it's bounding box.
     border = max(bbox.w, bbox.h) / 20
     bbox = bbox.resize(Vector(border, border))
     bbox = round(bbox)
 
+    # Compute the scaling from real to screen coords.
     scale = min(scr_bbox.w / bbox.w, scr_bbox.h / bbox.h)
+    scale_tx = Tx(a=scale, d=scale)
 
-    tx = Tx(a=scale, d=scale).dot(Tx(d=-1))
-    new_bbox = bbox.dot(tx)
-    move = scr_bbox.ctr - new_bbox.ctr
-    tx = tx.dot(Tx(dx=move.x, dy=move.y))
+    # Flip the Y coord.
+    flip_tx = Tx(d=-1)
 
+    # Compute the translation of the object center to the drawing area center
+    new_bbox = bbox.dot(scale_tx).dot(flip_tx)  # Object bbox transformed to screen coords.
+    move = scr_bbox.ctr - new_bbox.ctr  # Vector to move object ctr to drawing ctr.
+    move_tx = Tx(dx=move.x, dy=move.y)
+
+    # The final transformation matrix will scale the object's real coords,
+    # flip the Y coord, and then move the object to the center of the drawing area.
+    tx = scale_tx.dot(flip_tx).dot(move_tx)
+
+    # Initialize drawing area.
     pygame.init()
     scr = pygame.display.set_mode((scr_bbox.w, scr_bbox.h))
 
+    # Set font for text rendering.
     font = pygame.freetype.SysFont("consolas", 24)
 
+    # Clear drawing area.
     scr.fill((255, 255, 255))
 
+    # Return drawing screen, transformation matrix, and font.
     return scr, tx, font
 
 def draw_box(bbox, scr, tx, color=(192, 255, 192)):
+    """Draw a box in the drawing area.
+
+    Args:
+        bbox (BBox): Bounding box for the box.
+        scr (PyGame screen): Screen object for PyGame drawing.
+        tx (Tx): Transformation matrix from real to screen coords.
+        color (tuple, optional): Box color. Defaults to (192, 255, 192).
+
+    Returns:
+        None.
+    """
+
     bbox = bbox.dot(tx)
-    corners = (
-        bbox.min,
-        Point(bbox.min.x, bbox.max.y),
-        bbox.max,
-        Point(bbox.max.x, bbox.min.y),
-    )
     corners = (
         (bbox.min.x, bbox.min.y),
         (bbox.min.x, bbox.max.y),
@@ -115,26 +195,88 @@ def draw_box(bbox, scr, tx, color=(192, 255, 192)):
     )
     pygame.draw.polygon(scr, color, corners, 0)
 
-def draw_seg(seg, scr, tx, color=(100, 100, 100), line_thickness=5, dot_thickness=3):
+def draw_endpoint(pt, scr, tx, color=(100,100,100), dot_radius=10):
+    """Draw a line segment endpoint in the drawing area.
+
+    Args:
+        pt (Point): A point with (x,y) coords.
+        scr (PyGame screen): Screen object for PyGame drawing.
+        tx (Tx): Transformation matrix from real to screen coords.
+        color (tuple, optional): Segment color. Defaults to (192, 255, 192).
+        dot_Radius (int, optional): Endpoint dot radius. Defaults to 3.
+    """
+
+    pt = pt.dot(tx) # Convert to drawing coords.
+
+    # Draw diamond for terminal.
+    sz = dot_radius/2 * tx.a  # Scale for drawing coords.
+    corners = (
+        (pt.x, pt.y + sz),
+        (pt.x + sz, pt.y),
+        (pt.x, pt.y - sz),
+        (pt.x - sz, pt.y),
+    )
+    pygame.draw.polygon(scr, color, corners, 0)
+
+    # Draw dot for terminal.
+    radius = dot_radius * tx.a
+    pygame.draw.circle(scr, color, (pt.x, pt.y), radius)
+
+def draw_seg(seg, scr, tx, color=(100, 100, 100), thickness=5, dot_radius=10):
+    """Draw a line segment in the drawing area.
+
+    Args:
+        seg (Segment, Interval, NetInterval): An object with two endpoints.
+        scr (PyGame screen): Screen object for PyGame drawing.
+        tx (Tx): Transformation matrix from real to screen coords.
+        color (tuple, optional): Segment color. Defaults to (192, 255, 192).
+        seg_thickness (int, optional): Segment line thickness. Defaults to 5.
+        dot_Radius (int, optional): Endpoint dot radius. Defaults to 3.
+    """
+
+    # Use net color if object has a net. Otherwise set color to black.
     try:
         color = net_colors[seg.net]
     except AttributeError:
         color = (0, 0, 0)
+
+    # draw endpoints.
+    draw_endpoint(seg.p1, scr, tx, color, dot_radius=dot_radius)
+    draw_endpoint(seg.p2, scr, tx, color, dot_radius=dot_radius)
+
+    # Transform segment coords to screen coords.
     seg = seg.dot(tx)
+
+    # Draw segment.
     pygame.draw.line(
-        scr, color, (seg.p1.x, seg.p1.y), (seg.p2.x, seg.p2.y), width=line_thickness
+        scr, color, (seg.p1.x, seg.p1.y), (seg.p2.x, seg.p2.y), width=thickness
     )
-    pygame.draw.circle(scr, color, (seg.p1.x, seg.p1.y), dot_thickness)
-    pygame.draw.circle(scr, color, (seg.p2.x, seg.p2.y), dot_thickness)
 
 def draw_text(txt, pt, scr, tx, font, color=(100, 100, 100)):
+    """Render text in drawing area.
+
+    Args:
+        txt (str): Text string to be rendered.
+        pt (Point): Real coord for start of rendered text.
+        scr (PyGame screen): Screen object for PyGame drawing.
+        tx (Tx): Transformation matrix from real to screen coords.
+        font (PyGame font): Font for rendering text.
+        color (tuple, optional): Segment color. Defaults to (100,100,100).
+    """
+
+    # Transform text starting point to screen coords.
     pt = pt.dot(tx)
+
+    # Render text.
     font.render_to(scr, (pt.x, pt.y), txt, color)
 
 def draw_end():
     """Display drawing and wait for user to close PyGame window."""
+
+    # Display drawing.
     pygame.display.flip()
 
+    # Wait for user to close PyGame window.
     running = True
     while running:
         for event in pygame.event.get():
@@ -144,171 +286,175 @@ def draw_end():
 
 
 class NoSwitchBox(Exception):
+    """Exception raised when a switchbox cannot be generated.
+
+    Args:
+        Exception (Exception): Raised when a switchbox cannot be generated for a given Face.
+    """
     pass
 
 
 class RoutingFailure(Exception):
+    """Exception raised when a net connecting terminals cannot be routed.
+
+    Args:
+        Exception (Exception): Raised when terminals on a net cannot be connected.
+    """
     pass
 
 
 class Boundary:
+    """Class for indicating a boundary.
+
+    When a Boundary object is placed in the part attribute of a Face, it
+    indicates the Face is on the outer boundary of the Node routing area.
+    """
     pass
 
-
+# Boundary object for placing in Faces on the bounding Faces of the Node routing area.
 boundary = Boundary()
 
 
 class Terminal:
-    """Terminal on a Face from which a net is routed within a switchbox."""
 
     def __init__(self, net, face, coord):
+        """Terminal on a Face from which a net is routed within a SwitchBox.
+
+        Args:
+            net (Net): Net upon which the Terminal resides.
+            face (Face): SwitchBox Face upon which the Terminal resides.
+            coord (int): Position along the Face.
+        """
+
         self.net = net
         self.face = face
         self.coord = coord
 
+    @property
+    def pt(self):
+        """Return (x,y) Point for a Terminal on a Face."""
+        track = self.face.track
+        if track.orientation == HORZ:
+            return Point(self.coord, track.coord)
+        else:
+            return Point(track.coord, self.coord)
+
+    def get_next_terminal(self, next_face):
+        """Get the next terminal from the given face that lies on the same net as this terminal.
+
+        This method assumes the terminal's face and the next face are faces of the
+        same switchbox. Hence, they're either parallel and on opposite sides, or they're
+        at right angles so they meet at a corner.
+
+        Args:
+            next_face (Face): Face to search for a terminal on the same net as this.
+
+        Raises:
+            RoutingFailure: If no terminal exists.
+
+        Returns:
+            Terminal: The terminal found on the next face.
+        """
+
+        from_face = self.face
+        if next_face.track in (from_face.beg, from_face.end):
+            # The next face bounds the interval of the terminals's face, so
+            # they're at right angles. With right angle faces, we want to
+            # select a terminal on the next face that's close to this corner
+            # because that will minimize the length of wire needed to make
+            # the connection.
+            if next_face.beg == from_face.track:
+                # next_face is oriented upward or rightward w.r.t. from_face.
+                # Start searching for a terminal from the lowest index
+                # because this is closest to the corner.
+                search_range = range(len(next_face.terminals))
+            elif next_face.end == from_face.track:
+                # next_face is oriented downward or leftward w.r.t. from_face.
+                # Start searching for a terminal from the highest index
+                # because this is closest to the corner.
+                search_range = range(len(next_face.terminals) - 1, -1, -1)
+            else:
+                raise RoutingFailure
+        else:
+            # The next face must be the parallel face on the other side of the
+            # switchbox. With parallel faces, we want to selected a terminal
+            # having close to the same position as the given terminal.
+            # So if the given terminal is at position i, then search for the
+            # next terminal on the other face at positions i, i+1, i-1, i+2, i-2...
+            from_len = len(from_face.terminals)
+            from_idx = from_face.terminals.index(self)
+            search_range = chain(
+                *zip_longest(range(from_idx, -1, -1), range(from_idx + 1, from_len))
+            )
+
+        # Use the computed search range to find a terminal on the next face that
+        # is not assigned to a net, or is already assigned to the same net as the
+        # given terminal.
+        for idx in search_range:
+            if idx is not None:
+                terminal = next_face.terminals[idx]
+                if terminal.net in (None, self.net):
+                    return terminal
+
+        # Well, something went wrong...
+        raise RoutingFailure
+
     def draw(self, scr, tx, flags=[]):
+        """Draw a Terminal.
+
+        Args:
+            scr (PyGame screen): Screen object for PyGame drawing.
+            tx (Tx): Transformation matrix from real to screen coords.
+            flags (list, optional): List of option strings. Defaults to [].
+        """
+
+        # Don't draw terminal if it isn't on a net. It's just a placeholder.
         if not self.net:
             return
 
+        # Compute the terminal (x,y) based on whether it's on a horiz or vert Face.
         if self.face.track.orientation == HORZ:
-            ctr = Point(self.coord, self.face.track.coord)
+            pt = Point(self.coord, self.face.track.coord)
         else:
-            ctr = Point(self.face.track.coord, self.coord)
-        ctr = ctr.dot(tx)
-        sz = 5
-        corners = (
-            (ctr.x, ctr.y + sz),
-            (ctr.x + sz, ctr.y),
-            (ctr.x, ctr.y - sz),
-            (ctr.x - sz, ctr.y),
-        )
-        color = (0,0,0)
-        pygame.draw.polygon(scr, color, corners, 0)
-        color = net_colors[self.net]
-        pygame.draw.circle(scr, color, (ctr.x, ctr.y), 10)
+            pt = Point(self.face.track.coord, self.coord)
 
-
-class Face:
-    """A side of a rectangle bounding a routing switchbox."""
-
-    def __init__(self, part, track, beg, end):
-        self.part = set()
-        if isinstance(part, set):
-            self.part.update(part)
-        elif part is not None:
-            self.part.add(part)
-        self.pins = []
-        if beg > end:
-            beg, end = end, beg
-        self.beg = beg
-        self.end = end
-        self.adjacent = set()
-        self.track = track
-        track.add_face(self) # Add new face to track so it isn't lost.
-
-    @property
-    def bbox(self):
-        bbox = BBox()
-        bbox.add(Point(self.track.coord, self.beg.coord))
-        bbox.add(Point(self.track.coord, self.end.coord))
-        if self.track.orientation == HORZ:
-            bbox = bbox.dot(Tx(a=0, b=1, c=1, d=0))
-        return bbox
-
-    def create_nonpin_terminals(self):
-        self.terminals = []
-        if not self.part:
-            # Add non-pin terminals to non-part switchbox routing faces.
-            from .gen_schematic import GRID
-
-            beg = (self.beg.coord + GRID // 2 + GRID) // GRID * GRID
-            end = self.end.coord - GRID // 2
-            self.terminals = [
-                Terminal(None, self, coord) for coord in range(beg, end, GRID)
-            ]
-
-    @property
-    def connection_pts(self):
-        return [terminal.coord for terminal in self.terminals]
-
-    def set_capacity(self):
-        if self.part:
-            self.capacity = 0
-        else:
-            self.capacity = len(self.connection_pts)
-
-    def has_nets(self):
-        return any((terminal.net for terminal in self.terminals))
-
-    def add_adjacency(self, adj_face):
-        """Make two faces adjacent to one another."""
-
-        # Faces on the boundary can never accept wires so they are never
-        # adjacent to any face.
-        if boundary in list(self.part) + list(adj_face.part):
-            return
-
-        # If a face is an edge of a part, then it can never be adjacent to
-        # another face on the same part or else wires might get routed through
-        # the part bounding box.
-        if not self.part.intersection(adj_face.part):
-            self.adjacent.add(adj_face)
-            adj_face.adjacent.add(self)
-
-    def split(self, mid):
-        """If a point is in the middle of a face, split it and add remainder to track."""
-        if self.beg < mid < self.end:
-            new_face = Face(self.part, self.track, self.beg, mid)
-            self.beg = mid
-
-    def coincides_with(self, other_face):
-        """Returns True if both faces have the same beginning and ending point on the same track."""
-        return (self.beg, self.end) == (other_face.beg, other_face.end)
-
-    @property
-    def seg(self):
-        p1 = Point(self.track.coord, self.beg.coord)
-        p2 = Point(self.track.coord, self.end.coord)
-        seg = Segment(p1, p2)
-        if self.track.orientation == HORZ:
-            seg = seg.dot(Tx(a=0, b=1, c=1, d=0))
-        return seg
-
-    def draw(self, scr, tx, font, flags=[]):
-        seg = self.seg.dot(tx)
-        color = (128, 128, 128)
-        line_thickness = 2
-        pygame.draw.line(
-            scr, color, (seg.p1.x, seg.p1.y), (seg.p2.x, seg.p2.y), width=line_thickness
-        )
-
-        for terminal in self.terminals:
-            terminal.draw(scr, tx)
-
-        if "show_capacities" in flags:
-            seg = self.seg
-            mid_pt = (seg.p1 + seg.p2) / 2
-            draw_text(str(self.capacity), mid_pt, scr, tx, font, color)
+        draw_endpoint(pt, scr, tx, net_colors[self.net])
 
 
 class Interval:
     def __init__(self, beg, end):
+        """Define an interval with a beginning and an end.
+
+        Args:
+            beg (GlobalTrack): Beginning track that bounds interval.
+            end (GlobalTrack): Ending track that bounds interval.
+        """
+
+        # Order beginning and end so beginning <= end.
         if beg > end:
             beg, end = end, beg
         self.beg = beg
         self.end = end
 
+    def __bool__(self):
+        """An Interval object always returns True."""
+        return True
+
     @property
     def len(self):
+        """Return the length of the interval."""
         return self.end - self.beg
 
     def __len__(self):
+        """Return the length of the interval."""
         return self.len
 
     def intersects(self, other):
+        """Return True if the intervals overlap (even if only at one point)."""
         return not ((self.beg > other.end) or (self.end < other.beg))
 
     def merge(self, other):
+        """Return a merged interval if the given intervals intersect, otherwise return None."""
         if Interval.intersects(self,other):
             return Interval(min(self.beg, other.beg), max(self.end, other.end))
         return None
@@ -316,29 +462,395 @@ class Interval:
 
 class NetInterval(Interval):
     def __init__(self, net, beg, end):
+        """Define an Interval with an associated net (useful for wire traces in a switchbox).
+
+        Args:
+            net (Net): Net associated with interval.
+            beg (GlobalTrack): Beginning track that bounds interval.
+            end (GlobalTrack): Ending track that bounds interval.
+        """
         super().__init__(beg, end)
         self.net = net
 
     def obstructs(self, other):
+        """Return True if the intervals intersect and have different nets."""
         return super().intersects(other) and (self.net is not other.net)
 
     def merge(self, other):
+        """Return a merged interval if the given intervals intersect, otherwise return None."""
         if self.net is other.net:
             merged_intvl = super().merge(other)
             if merged_intvl:
                 merged_intvl = NetInterval(self.net, merged_intvl.beg, merged_intvl.end)
-                merged_intvl.net = self.net
             return merged_intvl
         return None
 
 
+class Face(Interval):
+    """A side of a rectangle bounding a routing switchbox."""
+
+    def __init__(self, part, track, beg, end):
+        """One side of a routing switchbox.
+
+        Args:
+            part (set,Part,Boundary): Element(s) the Face is part of.
+            track (GlobalTrack): Horz/vert track the Face is on.
+            beg (GlobalTrack): Vert/horz track the Face begins at.
+            end (GlobalTrack): Vert/horz track the Face ends at.
+        """
+
+        # Initialize the interval beginning and ending defining the Face.
+        super().__init__(beg, end)
+
+        # Store Part/Boundary the Face is part of, if any.
+        self.part = set()
+        if isinstance(part, set):
+            self.part.update(part)
+        elif part is not None:
+            self.part.add(part)
+        
+        # Storage for any part pins that lie along this Face.
+        self.pins = []
+
+        # Set of Faces adjacent to this one. (Starts empty.)
+        self.adjacent = set()
+
+        # Add this new face to the track it belongs to so it isn't lost.
+        self.track = track
+        track.add_face(self)
+
+    @property
+    def bbox(self):
+        """Return the bounding box of the 1-D face segment."""
+        bbox = BBox()
+
+        # Start off assuming the Face bbox is vertical.
+        bbox.add(Point(self.track.coord, self.beg.coord))
+        bbox.add(Point(self.track.coord, self.end.coord))
+
+        # Rotate the bbox if the Face is actually horizontal.
+        if self.track.orientation == HORZ:
+            bbox = bbox.dot(Tx(a=0, b=1, c=1, d=0))
+
+        return bbox
+
+    def create_nonpin_terminals(self):
+        """Create non-net terminals along a non-part Face with GRID spacing."""
+        
+        # Don't add terminals if the Face is on a part or a boundary.
+        if self.part:
+            self.terminals = []
+            return
+
+        # Add terminals along Face, but keep terminals off the beginning or end points.
+        from .gen_schematic import GRID
+        beg = (self.beg.coord + GRID // 2 + GRID) // GRID * GRID
+        end = self.end.coord - GRID // 2
+        self.terminals = [
+            Terminal(None, self, coord) for coord in range(beg, end, GRID)
+        ]
+
+    def set_capacity(self):
+        """Set the wire routing capacity of a Face."""
+
+        if self.part:
+            # Part/boundary faces have zero capacity for wires to pass thru.
+            self.capacity = 0
+        else:
+            # Wire routing capacity for other faces is the number of terminals they have.
+            self.capacity = len(self.terminals)
+
+    def has_nets(self):
+        """Return True if any Terminal on the Face is attached to a net."""
+        return any((terminal.net for terminal in self.terminals))
+
+    def add_adjacency(self, adj_face):
+        """Make two faces adjacent to one another."""
+
+        # Faces on the boundary can never accept wires so they are never
+        # adjacent to any other face.
+        if boundary in self.part or boundary in adj_face.part:
+            return
+
+        # If a face is an edge of a part, then it can never be adjacent to
+        # another face on the same part or else wires might get routed through
+        # the part bounding box.
+        if not self.part.intersection(adj_face.part):
+            # OK, not parts in common between the two faces so they can be adjacent.
+            self.adjacent.add(adj_face)
+            adj_face.adjacent.add(self)
+
+    def split(self, trk):
+        """If a track intersects in the middle of a face, split the face into two faces."""
+
+        if self.beg < trk < self.end:
+            # Add a Face from beg to trk to self.track.
+            Face(self.part, self.track, self.beg, trk)
+            # Move the beginning of the original Face to trk. 
+            self.beg = trk
+
+    def coincides_with(self, other_face):
+        """Return True if both faces have the same beginning and ending point on the same track."""
+        return (self.beg, self.end) == (other_face.beg, other_face.end)
+
+    @property
+    def seg(self):
+        """Return a Segment that coincides with the Face."""
+
+        # Start off assuming it's a vertical face.
+        p1 = Point(self.track.coord, self.beg.coord)
+        p2 = Point(self.track.coord, self.end.coord)
+        seg = Segment(p1, p2)
+
+        # If the face is actually horizontal, then rotate the segment.
+        if self.track.orientation == HORZ:
+            seg = seg.dot(Tx(a=0, b=1, c=1, d=0))
+
+        return seg
+
+    def draw(self, scr, tx, font, flags=[]):
+        """Draw a Face in the drawing area.
+
+        Args:
+            scr (PyGame screen): Screen object for PyGame drawing.
+            tx (Tx): Transformation matrix from real to screen coords.
+            font (PyGame font): Font for rendering text.
+            flags (list, optional): List of option strings. Defaults to [].
+
+        Returns:
+            None.
+        """
+
+        # Draw a line segment for the Face.
+        color = (128, 128, 128)
+        draw_seg(self.seg, scr, tx, color, thickness=2, dot_radius=0)
+
+        # Draw the terminals on the Face.
+        for terminal in self.terminals:
+            terminal.draw(scr, tx)
+
+        if "show_capacities" in flags:
+            # Show the wiring capacity at the midpoint of the Face.
+            mid_pt = (self.seg.p1 + self.seg.p2) / 2
+            draw_text(str(self.capacity), mid_pt, scr, tx, font, color)
+
+
+class GlobalWire(list):
+
+    def __init__(self, *args, net=None, **kwargs):
+        """Global-routing wire connecting switchbox faces and terminals.
+
+        Global routes start off as a sequence of switchbox faces that the route
+        goes thru. Later, these faces are converted to terminals at fixed positions
+        on their respective faces.
+
+        Args:
+            *args: Positional args passed to list superclass __init__().
+            net (Net): The net associated with the wire.
+            **kwargs: Keyword args passed to list superclass __init__().
+        """
+        self.net = net
+        super().__init__(*args, **kwargs)
+
+    def cvt_faces_to_terminals(self):
+        """Convert face-to-face global route to switchbox terminal-to-terminal route."""
+
+        # All part faces already have terminals created from the part pins. Find all
+        # the route faces on part boundaries and convert them to pin terminals for
+        # any pins that are attached to the same net as the route.
+        for i, face in enumerate(self[:]):
+            if face.part:
+                for terminal in face.terminals:
+                    if terminal.net is self.net:
+                        self[i] = terminal
+                        # TODO: What if net goes to multiple pins on a part face?
+                        break
+                else:
+                    raise RoutingFailure
+
+        # The remaining faces on the global route are on switchboxes where a
+        # terminal point must be selected and assigned to the route net.
+        # Iterate thru the faces until they've all been converted to Terminals.
+        keep_iterating = True
+        while keep_iterating:
+            keep_iterating = False
+            for i in range(0, len(self) - 1):
+
+                # Get two sequential points of the route.
+                from_, to_ = self[i], self[i + 1]
+                
+                if Face in (from_, to_):
+                    # If either is a Face, then the entire route hasn't been converted
+                    # to Terminals so keep iterating.
+                    keep_iterating = True
+
+                if isinstance(from_, Terminal) and isinstance(to_, Terminal):
+                    # Both points are already terminals, so no need to do anything.
+                    continue
+
+                if isinstance(from_, Face) and isinstance(to_, Face):
+                    # Both points are Faces, so don't do anything and wait for one of them
+                    # to get converted to a Terminal later on.
+                    continue
+
+                # One of the points is a Terminal and the other is a Face,
+                # so use the terminal to convert the face to a terminal and
+                # assign it to the route net.
+                if isinstance(from_, Face) and isinstance(to_, Terminal):
+                    terminal = to_.get_next_terminal(from_)
+                    terminal.net = self.net
+                    self[i] = terminal # Replace from_ Face with Terminal.
+                    continue
+                if isinstance(from_, Terminal) and isinstance(to_, Face):
+                    terminal = from_.get_next_terminal(to_)
+                    terminal.net = self.net
+                    self[i + 1] = terminal # Replace to_ Face with Terminal.
+                    continue
+
+                raise RoutingFailure
+
+    def draw(self, scr, tx, flags=[]):
+        """Draw a global wire from Face-to-Face in the drawing area.
+
+        Args:
+            scr (PyGame screen): Screen object for PyGame drawing.
+            tx (Tx): Transformation matrix from real to screen coords.
+            flags (list, optional): List of option strings. Defaults to [].
+
+        Returns:
+            None.
+        """
+
+        # Draw pins on net associated with wire.
+        for pin in self.net.pins:
+            pt = pin.pt.dot(pin.part.tx)
+            track = pin.face.track
+            pt = {
+                HORZ: Point(pt.x, track.coord),
+                VERT: Point(track.coord, pt.y),
+            }[track.orientation]
+            draw_endpoint(pt, scr, tx, color=(0,0,0), dot_radius=10)
+
+        # Draw global wire segment.
+        face_to_face = zip(self[:-1], self[1:])
+        for terminal1, terminal2 in face_to_face:
+            p1 = terminal1.pt
+            p2 = terminal2.pt
+            draw_seg(Segment(p1, p2), scr, tx, (0, 0, 0), 1, 0)
+
+
+class GlobalTrack(list):
+
+    def __init__(self, *args, orientation=HORZ, coord=0, idx=None, **kwargs):
+        """A horizontal/vertical track holding one or more faces all having the same Y/X coordinate.
+
+        Args:
+            *args: Positional args passed to list superclass __init__().
+            orientation (Orientation): Orientation of track (horizontal or vertical).
+            coord (int): Coordinate of track on axis orthogonal to track direction.
+            idx (int): Index of track.
+            **kwargs: Keyword args passed to list superclass __init__().
+        """
+
+        self.orientation = orientation
+        self.coord = coord
+        self.idx = idx
+        super().__init__(*args, **kwargs)
+        self.splits = set()
+
+    def __hash__(self):
+        return self.idx
+
+    def __lt__(self, track):
+        return self.coord < track.coord
+
+    def __gt__(self, track):
+        return self.coord > track.coord
+
+    def extend_faces(self, orthogonal_tracks):
+        for h_face in self[:]:
+            if not h_face.part:
+                continue
+            for dir in (LEFT, RIGHT):
+                if dir == LEFT:
+                    start = h_face.beg
+                    search = orthogonal_tracks[start.idx :: -1]
+                else:
+                    start = h_face.end
+                    search = orthogonal_tracks[start.idx :]
+
+                blocked = False
+                for ortho_track in search:
+                    for ortho_face in ortho_track:
+                        if ortho_face.beg < self < ortho_face.end:
+                            ortho_track.add_split(self)
+                            self.add_split(ortho_track)
+                            if ortho_face.part:
+                                Face(None, self, start, ortho_track)
+                                blocked = True
+                            break
+                    if blocked:
+                        break
+
+    def add_split(self, track_idx):
+        self.splits.add(track_idx)
+
+    def add_face(self, face):
+        self.append(face)
+        self.add_split(face.beg)
+        self.add_split(face.end)
+
+    def split_faces(self):
+        for split in self.splits:
+            for face in self[:]:
+                face.split(split)
+
+    def combine_faces(self):
+        for i, face in enumerate(self):
+            for other_face in self[i + 1 :]:
+                if face.coincides_with(other_face):
+                    other_face.part.update(face.part)
+                    face.beg = face.end
+                    break
+        for face in self[:]:
+            if face.beg == face.end:
+                self.remove(face)
+
+    def add_adjacencies(self):
+        for top_face in self:
+
+            try:
+                swbx = SwitchBox(top_face)
+            except NoSwitchBox:
+                continue
+
+            swbx.top_face.add_adjacency(swbx.bottom_face)
+            swbx.left_face.add_adjacency(swbx.right_face)
+            swbx.left_face.add_adjacency(swbx.top_face)
+            swbx.left_face.add_adjacency(swbx.bottom_face)
+            swbx.right_face.add_adjacency(swbx.top_face)
+            swbx.right_face.add_adjacency(swbx.bottom_face)
+            del swbx
+
+
 class Target:
-    def __init__(self, row, col, net):
+    def __init__(self, net, row, col):
+        """A point on a switchbox face that wiring has not yet reached.
+
+        Args:
+            net (Net): Target net.
+            row (int): Track row for the target, including top or bottom faces.
+            col (int): Switchbox column for the target.
+        """
         self.row = row
         self.col = col
         self.net = net
 
     def __lt__(self, other):
+        """Used for ordering Targets in terms of priority."""
+
+        # Targets in the left-most columns are given priority since they will be reached
+        # first as the switchbox router proceeds from left-to-right.
         return (self.col, self.row, id(self.net)) < (other.col, other.row, id(other.net))
 
 
@@ -682,16 +1194,16 @@ class SwitchBox:
 
             # Keep extending nets in current tracks if they do not intersect intervals in the 
             # current column with the same net.
-            next_track_nets = track_nets[:]
+            flow_thru_nets = track_nets[:]
             for intvl in column:
                 for trk_idx in range(intvl.beg, intvl.end+1):
-                    if next_track_nets[trk_idx] is intvl.net:
+                    if flow_thru_nets[trk_idx] is intvl.net:
                         # Remove net from track since it intersects an interval with the 
                         # same net. The net may be extended from the interval in the next phase,
                         # or it may terminate here.
-                        next_track_nets[trk_idx] = None
+                        flow_thru_nets[trk_idx] = None
 
-            flow_thru_nets = next_track_nets[:]
+            next_track_nets = flow_thru_nets[:]
 
             # Extend track net if net has multiple column intervals that need further interconnection
             # or if there are terminals in rightward columns that need connections to this net.
@@ -753,12 +1265,12 @@ class SwitchBox:
         targets = []
         for col, (t_net, b_net) in enumerate(zip(self.top_nets, self.bottom_nets)):
             if t_net is not None:
-                targets.append(Target(max_row, col, t_net))
+                targets.append(Target(t_net, max_row, col))
             if b_net is not None:
-                targets.append(Target(min_row, col, b_net))
+                targets.append(Target(b_net, min_row, col))
         for row, r_net in enumerate(self.right_nets):
             if r_net is not None:
-                targets.append(Target(row, max_col, r_net))
+                targets.append(Target(r_net, row, max_col))
         targets.sort()
 
         # Main switchbox routing loop.
@@ -810,7 +1322,7 @@ class SwitchBox:
 
         return self.segments
 
-    def draw(self, scr=None, tx=None, font=None, flags=["draw_switchbox"]):
+    def draw(self, scr=None, tx=None, font=None, flags=["draw_switchbox", "draw_routing"]):
         do_start_end = not bool(scr)
 
         if do_start_end:
@@ -827,18 +1339,19 @@ class SwitchBox:
             self.left_face.draw(scr, tx, font, flags)
             self.right_face.draw(scr, tx, font, flags)
 
-        try:
-            for segment in self.segments:
-                draw_seg(segment, scr, tx)
-        except AttributeError:
-            pass
+        if "draw_routing" in flags:
+            try:
+                for segment in self.segments:
+                    draw_seg(segment, scr, tx, dot_radius=0)
+            except AttributeError:
+                pass
 
         def draw_channel(face1, face2):
             seg1 = face1.seg
             seg2 = face2.seg
             p1 = (seg1.p1 + seg1.p2) / 2
             p2 = (seg2.p1 + seg2.p2) / 2
-            draw_seg(Segment(p1, p2), scr, tx, (128,0,128), 1)
+            draw_seg(Segment(p1, p2), scr, tx, (128,0,128), 1, dot_radius=0)
 
         if "draw_channels" in flags:
             draw_channel(self.top_face, self.bottom_face)
@@ -850,168 +1363,6 @@ class SwitchBox:
 
         if do_start_end:
             draw_end()
-
-
-class GlobalWire(list):
-    """Global-routing wire connecting switchbox faces and terminals."""
-
-    def __init__(self, *args, **kwargs):
-        self.net = kwargs.pop("net")
-        super().__init__(*args, **kwargs)
-
-    def draw(self, scr, tx, flags):
-
-        def draw_pin(pin, scr, tx):
-            pt = pin.pt.dot(pin.part.tx)
-            track = pin.face.track
-            pt = {
-                HORZ: Point(pt.x, track.coord),
-                VERT: Point(track.coord, pt.y),
-            }[track.orientation]
-            pt = pt.dot(tx)
-            sz = 5
-            corners = (
-                (pt.x, pt.y + sz),
-                (pt.x + sz, pt.y),
-                (pt.x, pt.y - sz),
-                (pt.x - sz, pt.y),
-            )
-            pygame.draw.polygon(scr, (0, 0, 0), corners, 0)
-
-        for pin in self.net.pins:
-            draw_pin(pin, scr, tx)
-
-        def terminal_pt(terminal):
-            track = terminal.face.track
-            if track.orientation == HORZ:
-                return Point(terminal.coord, track.coord)
-            else:
-                return Point(track.coord, terminal.coord)
-
-        face_to_face = zip(self[:-1], self[1:])
-        for terminal1, terminal2 in face_to_face:
-            p1 = terminal_pt(terminal1)
-            p2 = terminal_pt(terminal2)
-            draw_seg(Segment(p1, p2), scr, tx, (0, 0, 0), 1, 0)
-
-
-class GlobalTrack(list):
-    """A horizontal/vertical track holding one or more faces all having the same Y/X coordinate."""
-
-    def __init__(self, *args, **kwargs):
-        self.orientation = kwargs.pop("orientation", HORZ)
-        self.coord = kwargs.pop("coord", 0)
-        self.idx = kwargs.pop("idx")
-        super().__init__(*args, **kwargs)
-        self.splits = set()
-
-    def __hash__(self):
-        return self.idx
-
-    def __lt__(self, track):
-        return self.coord < track.coord
-
-    def __gt__(self, track):
-        return self.coord > track.coord
-
-    def add_face(self, face):
-        self.append(face)
-        self.add_split(face.beg)
-        self.add_split(face.end)
-
-    def extend_faces(self, orthogonal_tracks):
-        for h_face in self[:]:
-            if not h_face.part:
-                continue
-            for dir in (LEFT, RIGHT):
-                if dir == LEFT:
-                    start = h_face.beg
-                    search = orthogonal_tracks[start.idx :: -1]
-                else:
-                    start = h_face.end
-                    search = orthogonal_tracks[start.idx :]
-
-                blocked = False
-                for ortho_track in search:
-                    for ortho_face in ortho_track:
-                        if ortho_face.beg < self < ortho_face.end:
-                            ortho_track.add_split(self)
-                            self.add_split(ortho_track)
-                            if ortho_face.part:
-                                Face(None, self, start, ortho_track)
-                                blocked = True
-                            break
-                    if blocked:
-                        break
-
-    def add_split(self, track_idx):
-        self.splits.add(track_idx)
-
-    def split_faces(self):
-        for split in self.splits:
-            for face in self[:]:
-                face.split(split)
-
-    def combine_faces(self):
-        for i, face in enumerate(self):
-            for other_face in self[i + 1 :]:
-                if face.coincides_with(other_face):
-                    other_face.part.update(face.part)
-                    face.beg = face.end
-                    break
-        for face in self[:]:
-            if face.beg == face.end:
-                self.remove(face)
-
-    def add_adjacencies(self):
-        for top_face in self:
-
-            try:
-                swbx = SwitchBox(top_face)
-            except NoSwitchBox:
-                continue
-
-            swbx.top_face.add_adjacency(swbx.bottom_face)
-            swbx.left_face.add_adjacency(swbx.right_face)
-            swbx.left_face.add_adjacency(swbx.top_face)
-            swbx.left_face.add_adjacency(swbx.bottom_face)
-            swbx.right_face.add_adjacency(swbx.top_face)
-            swbx.right_face.add_adjacency(swbx.bottom_face)
-            del swbx
-
-
-def create_pin_terminals(internal_nets):
-    from .gen_schematic import calc_pin_dir
-
-    for net in internal_nets:
-        for pin in net.pins:
-            part = pin.part
-            pt = pin.pt.dot(part.tx)
-            dir = calc_pin_dir(pin)
-            pin_track = {
-                "U": part.bottom_track,
-                "D": part.top_track,
-                "L": part.right_track,
-                "R": part.left_track,
-            }[dir]
-            coord = {
-                "U": pt.x,
-                "D": pt.x,
-                "L": pt.y,
-                "R": pt.y,
-            }[dir]
-            for face in pin_track:
-                if part in face.part and face.beg.coord <= coord <= face.end.coord:
-                    if not getattr(pin, "face", None):
-                        # Only assign pin to face if it isn't already assigned to
-                        # another face. This handles the case where a pin is exactly
-                        # at the end coordinate and beginning coordinate of two
-                        # successive faces in the same track.
-                        pin.face = face
-                        face.pins.append(pin)
-                        terminal = Terminal(pin.net, face, coord)
-                        face.terminals.append(terminal)
-                    break
 
 
 def route_globally(net):
@@ -1103,77 +1454,6 @@ def route_globally(net):
             delattr(pin, "visited")
 
     return routed_wires
-
-
-def assign_switchbox_terminals(global_routes):
-    """Assign global routes to terminals in switchbox faces."""
-
-    for route in global_routes:
-        for wire in route:
-            for i, face in enumerate(wire[:]):
-                if face.part:
-                    for terminal in face.terminals:
-                        if terminal.net == wire.net:
-                            wire[i] = terminal
-                            break
-                    else:
-                        raise Exception
-
-    def find_to_terminal_idx(from_terminal, to_face):
-        from_face = from_terminal.face
-        if to_face.track in (from_face.beg, from_face.end):
-            # Right-angle faces.
-            # to_face is positioned left/below w.r.t. from_face.
-            if to_face.beg == from_face.track:
-                # to_face is oriented upward/rightward w.r.t. from_face.
-                search_range = range(len(to_face.terminals))
-            elif to_face.end == from_face.track:
-                # to_face is oriented downward/leftward w.r.t. from_face.
-                search_range = range(len(to_face.terminals) - 1, -1, -1)
-            else:
-                raise Exception
-        else:
-            # Parallel faces.
-            from_len = len(from_face.terminals)
-            from_idx = from_face.terminals.index(from_terminal)
-            search_range = chain(
-                *zip_longest(range(from_idx, -1, -1), range(from_idx + 1, from_len))
-            )
-
-        for idx in search_range:
-            if idx is not None:
-                if to_face.terminals[idx].net in (None, from_terminal.net):
-                    return idx
-        raise Exception
-
-    for route in global_routes:
-        done = False
-        while not done:
-            done = True
-            for wire in route:
-                for i in range(0, len(wire) - 1):
-                    face1, face2 = wire[i], wire[i + 1]
-                    if isinstance(face1, Terminal) and isinstance(face2, Terminal):
-                        continue
-                    if isinstance(face1, Face) and isinstance(face2, Terminal):
-                        terminal_idx = find_to_terminal_idx(face2, face1)
-                        terminal = face1.terminals[terminal_idx]
-                        terminal.net = wire.net
-                        wire[i] = terminal
-                        done = False
-                        continue
-                    if isinstance(face1, Terminal) and isinstance(face2, Face):
-                        terminal_idx = find_to_terminal_idx(face1, face2)
-                        terminal = face2.terminals[terminal_idx]
-                        terminal.net = wire.net
-                        wire[i + 1] = terminal
-                        done = False
-                        continue
-                    if isinstance(face1, Face) and isinstance(face2, Face):
-                        continue
-
-                    raise Exception
-
 
 
 def route(node, flags=["draw", "draw_switchbox"]):
@@ -1313,13 +1593,42 @@ def route(node, flags=["draw", "draw_switchbox"]):
         track.split_faces()
         track.combine_faces()
 
-    # Add terminals to all non-part faces.
+    # Add terminals to all non-part/non-boundary faces.
     for track in h_tracks + v_tracks:
         for face in track:
             face.create_nonpin_terminals()
 
-    # Add terminals to switchbox faces for all pins on internal nets.
-    create_pin_terminals(internal_nets)
+    # Add terminals to switchbox faces for all part pins on internal nets.
+    from .gen_schematic import calc_pin_dir
+    for net in internal_nets:
+        for pin in net.pins:
+            dir = calc_pin_dir(pin)
+            part = pin.part
+            pin_track = {
+                "U": part.bottom_track,
+                "D": part.top_track,
+                "L": part.right_track,
+                "R": part.left_track,
+            }[dir]
+            pt = pin.pt.dot(part.tx)
+            coord = {
+                "U": pt.x,
+                "D": pt.x,
+                "L": pt.y,
+                "R": pt.y,
+            }[dir]
+            for face in pin_track:
+                if part in face.part and face.beg.coord <= coord <= face.end.coord:
+                    if not getattr(pin, "face", None):
+                        # Only assign pin to face if it hasn't already been assigned to
+                        # another face. This handles the case where a pin is exactly
+                        # at the end coordinate and beginning coordinate of two
+                        # successive faces in the same track.
+                        pin.face = face
+                        face.pins.append(pin)
+                        terminal = Terminal(pin.net, face, coord)
+                        face.terminals.append(terminal)
+                    break
 
     # Add adjacencies between faces that define routing paths within switchboxes.
     for h_track in h_tracks[1:]:
@@ -1341,7 +1650,9 @@ def route(node, flags=["draw", "draw_switchbox"]):
 
     internal_nets.sort(key=rank_net)
     global_routes = [route_globally(net) for net in internal_nets]
-    assign_switchbox_terminals(global_routes)
+    for route in global_routes:
+        for wire in route:
+            wire.cvt_faces_to_terminals()
 
     # Do detailed routing inside switchboxes.
     detailed_routes = []
@@ -1367,7 +1678,7 @@ def route(node, flags=["draw", "draw_switchbox"]):
             for wire in route:
                 wire.draw(draw_scr, draw_tx, flags)
         for swbx in switchboxes:
-            swbx.draw(draw_scr, draw_tx, draw_font, flags)
+            swbx.draw(draw_scr, draw_tx, draw_font, flags=["draw_switchbox", "draw_routing"])
         draw_end()
 
     return detailed_routes
