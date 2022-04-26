@@ -1545,37 +1545,66 @@ def global_router(net):
     #       iii. Deactivate one of the seed faces.
     #    d. Stop when only a single seed face remains.
 
-    routed_wires = []
-    seed_faces = set()
-    prev_faces = dict()
-    visited = dict()
-    distances = dict()
-    stops = []
+    routed_wires = [] # List of GlobalWires connecting pins on net.
+    seed_faces = set() # Faces with pins from which paths/routing originate.
+    visited = dict() # Faces visited from each seed face.
+    prev_faces = dict() # Previous face on path for each visited face.
+    # root_faces = dict() # Root/seed face for each visited face.
+    full_faces = [] # Faces with no more routing capacity.
+    distances = dict() # Distance of each visited face from its seed face.
+    stops = [] # Faces at which path-to-route conversion stops.
+    
+    # Initialize a seed face for each net pin from which the routing will grow.
     for pin in net.pins:
         seed_faces.add(pin.face)
-        visited[pin.face] = [pin.face]
-        distances[pin.face] = 0
-        stops.append(pin.face)
+        visited[pin.face] = [pin.face] # Seed face starts off as visited.
+        distances[pin.face] = 0 # Distance to seed face is 0 (of course).
+        stops.append(pin.face) # Stop path-to-route conversion at the seed face.
+
+    # Grow the routes outward from each seed face until they are all connected.
+    # The number of seed faces decreases by one as each one connects to another.
     while len(seed_faces) > 1:
+
+        # The next dict stores information during the search for the closest unvisited face.
         next = {'dist': float('inf')}
+
+        # Search for unvisited faces reachable from each seed face.
         for seed_face in seed_faces:
+
+            # Search from the faces previously visited from the current seed face.
             for visited_face in visited[seed_face]:
+
+                # Search the faces adjacent to the visited faces.
                 for adj_face in visited_face.adjacent:
+
+                    # Skip any adjacent faces that have already been visited.
                     if adj_face in visited[seed_face]:
-                        # Don't revisit an already visited face.
                         continue
-                    if adj_face.capacity <= 0:
-                        # No room to route through this face.
+
+                    # Skip any adjacent faces that have no more routing capacity.
+                    if adj_face in full_faces:
                         continue
+
+                    # Compute the distance from this face back to the seed face.
                     dist = distances[visited_face] + 1
+
+                    # Store info about this face if it is the closest seen so far.
                     if dist < next['dist']:
-                        next['dist'] = dist
-                        next['face'] = adj_face
-                        next['prev_face'] = visited_face
-                        next['seed_face'] = seed_face
-        if next['face'] in distances.keys():
-            for seed_face in seed_faces - set([next['seed_face']]):
-                if next['face'] in visited[seed_face]:
+                        next['face'] = adj_face # Store the current face.
+                        next['prev_face'] = visited_face # Last face that led to this face.
+                        next['root_face'] = seed_face # Originating root/seed leading to this face.
+                        next['dist'] = dist # Distance from root/seed to this face.
+
+        # At this point, the closest unvisited face among all the seed faces has been found.
+        # Now there are two possibilities: 1) this face which is unvisited from one seed has
+        # already been visited from another seed, or 2) this face has never been visited from
+        # any seed.
+        next_face = next['face']
+        prev_face = next['prev_face']
+        root_face = next['root_face']
+        if next_face in distances.keys():
+            for seed_face in seed_faces - set([root_face]):
+                if next_face in visited[seed_face]:
                     # OK, the next face is in the visited list for another seed face.
                     # This indicates a connection between different seed faces.
                     def get_face_path(face):
@@ -1586,21 +1615,23 @@ def global_router(net):
                             face = prev_faces[face]
                         path.append(face)
                         return path
-                    path = get_face_path(next['face'])[:] + get_face_path(next['prev_face'])[::-1]
+                    path = get_face_path(next_face)[:] + get_face_path(prev_face)[::-1]
                     wire = GlobalWire(path, net=net)
                     routed_wires.append(wire)
-                    other_seed_face = next['seed_face']
+                    other_seed_face = root_face
                     visited[seed_face].extend(visited[other_seed_face])
                     seed_faces.remove(other_seed_face)
                     break
             else:
                 raise Exception
         else:
-            next_face = next['face']
-            next_face.capacity -= 1
-            distances[next_face] = next['dist']
-            visited[next['seed_face']].append(next_face)
-            prev_faces[next_face] = next['prev_face']
+            if next_face.capacity <= 0:
+                full_faces.append(next_face)
+            else:
+                next_face.capacity -= 1
+                distances[next_face] = next['dist']
+                visited[root_face].append(next_face)
+                prev_faces[next_face] = prev_face
     return routed_wires
 
 
