@@ -791,7 +791,7 @@ class GlobalWire(list):
                 # Get two sequential points of the route.
                 from_, to_ = self[i], self[i + 1]
 
-                if Face in (from_, to_):
+                if Face in (from_.__class__, to_.__class__):
                     # If either is a Face, then the entire route hasn't been converted
                     # to Terminals so keep iterating.
                     keep_iterating = True
@@ -1522,8 +1522,8 @@ class SwitchBox:
             draw_end()
 
 
-def route_globally(net):
-    """Route a net from face to face.
+def global_router(net):
+    """Globally route a net from face to face.
 
     Args:
         net (Net): The net to be routed.
@@ -1532,19 +1532,94 @@ def route_globally(net):
         List: Sequence of faces the net travels through.
     """
 
-    routed_wires = []
+    # This maze router starts from all pins of a net simultaneously.
+    #
+    # 1. Find faces with net pins on them. These are seed faces.
+    # 2. Create a visited list for each seed face.
+    # 3. Loop:
+    #    a. Find closest non-visited face to each visited face.
+    #    b. Select the closest of the closest faces and add it to the visited face list.
+    #    c. If the added face has already been visited from another seed:
+    #       i.   Add global route.
+    #       ii.  Combine visited face lists of both seed faces.
+    #       iii. Deactivate one of the seed faces.
+    #    d. Stop when only a single seed face remains.
 
+    routed_wires = []
+    seed_faces = set()
+    prev_faces = dict()
+    visited = dict()
+    distances = dict()
+    stops = []
+    for pin in net.pins:
+        seed_faces.add(pin.face)
+        visited[pin.face] = [pin.face]
+        distances[pin.face] = 0
+        stops.append(pin.face)
+    while len(seed_faces) > 1:
+        next = {'dist': float('inf')}
+        for seed_face in seed_faces:
+            for visited_face in visited[seed_face]:
+                for adj_face in visited_face.adjacent:
+                    if adj_face in visited[seed_face]:
+                        # Don't revisit an already visited face.
+                        continue
+                    if adj_face.capacity <= 0:
+                        # No room to route through this face.
+                        continue
+                    dist = distances[visited_face] + 1
+                    if dist < next['dist']:
+                        next['dist'] = dist
+                        next['face'] = adj_face
+                        next['prev_face'] = visited_face
+                        next['seed_face'] = seed_face
+        if next['face'] in distances.keys():
+            for seed_face in seed_faces - set([next['seed_face']]):
+                if next['face'] in visited[seed_face]:
+                    # OK, the next face is in the visited list for another seed face.
+                    # This indicates a connection between different seed faces.
+                    def get_face_path(face):
+                        path = [face]
+                        while face not in stops:
+                            path.append(face)
+                            stops.append(face)
+                            face = prev_faces[face]
+                        path.append(face)
+                        return path
+                    path = get_face_path(next['face'])[:] + get_face_path(next['prev_face'])[::-1]
+                    wire = GlobalWire(path, net=net)
+                    routed_wires.append(wire)
+                    other_seed_face = next['seed_face']
+                    visited[seed_face].extend(visited[other_seed_face])
+                    seed_faces.remove(other_seed_face)
+                    break
+            else:
+                raise Exception
+        else:
+            next_face = next['face']
+            next_face.capacity -= 1
+            distances[next_face] = next['dist']
+            visited[next['seed_face']].append(next_face)
+            prev_faces[next_face] = next['prev_face']
+    return routed_wires
+
+
+    # Identify the net pins from which routes will grow and add auxiliary data.
     net_route_cnt = 0
     for pin in net.pins:
         if hasattr(pin.face, "seed_pin"):
-            pin.do_route = False  # Only route one pin per face.
+            # The global router does high-level routing of a net from face to face.
+            # If a net attaches to multiple pins on the same face, only route from
+            # one of them. Later, the switchbox router will manage the detailed
+            # routing between the pins on the same face.
+            pin.do_route = False
         else:
+            pin.do_route = True
             pin.face.seed_pin = pin
             pin.face.dist = 0
             pin.face.prev = pin.face  # Indicates terminal pin.
             pin.frontier = set([pin.face])
             pin.visited = set()
-            pin.do_route = True
             net_route_cnt += 1
 
     while net_route_cnt > 1:
@@ -1600,6 +1675,7 @@ def route_globally(net):
                         next_face.prev = visit_face
                         next_face.dist = visit_face.dist + 1
 
+    # Remove all the auxiliary data from the pin and faces.
     for pin in net.pins:
         delattr(pin, "do_route")
         if hasattr(pin, "frontier"):
@@ -1616,16 +1692,16 @@ def route_globally(net):
 def route(node, flags=["draw", "draw_switchbox"]):
     """Route the wires between part pins in the node.
 
+    Steps:
+        1. Divide the bounding box surrounding the parts into switchboxes.
+        2. Do global routing of nets through sequences of switchboxes.
+        3. Do detailed routing within each switchbox.
+
     Args:
         node (Node): Hierarchical node containing the parts to be connect
 
     Returns:
         A list of detailed wire routes.
-
-    Note:
-        1. Divide the bounding box surrounding the parts into switchboxes.
-        2. Do global routing of nets through sequences of switchboxes.
-        3. Do detailed routing within each switchbox.
     """
 
     # Exit if no parts to route.
@@ -1807,7 +1883,7 @@ def route(node, flags=["draw", "draw_switchbox"]):
         return (bbox.w + bbox.h, len(net.pins))
 
     internal_nets.sort(key=rank_net)
-    global_routes = [route_globally(net) for net in internal_nets]
+    global_routes = [global_router(net) for net in internal_nets]
     for route in global_routes:
         for wire in route:
             wire.cvt_faces_to_terminals()
