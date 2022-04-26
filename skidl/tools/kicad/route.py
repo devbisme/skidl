@@ -1536,20 +1536,20 @@ def global_router(net):
     #
     # 1. Find faces with net pins on them. These are seed faces.
     # 2. Create a visited list for each seed face.
-    # 3. Loop:
-    #    a. Find closest non-visited face to each visited face.
-    #    b. Select the closest of the closest faces and add it to the visited face list.
-    #    c. If the added face has already been visited from another seed:
-    #       i.   Add global route.
-    #       ii.  Combine visited face lists of both seed faces.
-    #       iii. Deactivate one of the seed faces.
-    #    d. Stop when only a single seed face remains.
+    # 3. Loop over the visited list of each seed face to find the
+    #    next adjacent, unvisited face that is closest to its seed face.
+    # 4. If the closest face has been previously visited from another seed,
+    #    then combine the visited list of both seeds and reduce the number
+    #    of seeds by one.
+    # 5. If the closest face has never been visited before, add it to the
+    #    seed face that owns the visited list from where it was found.
+    # 6. Continue until the only a single seed face remains (i.e. all the
+    #    pins have been connected.)
 
     routed_wires = [] # List of GlobalWires connecting pins on net.
     seed_faces = set() # Faces with pins from which paths/routing originate.
     visited = dict() # Faces visited from each seed face.
     prev_faces = dict() # Previous face on path for each visited face.
-    # root_faces = dict() # Root/seed face for each visited face.
     full_faces = [] # Faces with no more routing capacity.
     distances = dict() # Distance of each visited face from its seed face.
     stops = [] # Faces at which path-to-route conversion stops.
@@ -1595,128 +1595,84 @@ def global_router(net):
                         next['root_face'] = seed_face # Originating root/seed leading to this face.
                         next['dist'] = dist # Distance from root/seed to this face.
 
-        # At this point, the closest unvisited face among all the seed faces has been found.
-        # Now there are two possibilities: 1) this face which is unvisited from one seed has
-        # already been visited from another seed, or 2) this face has never been visited from
-        # any seed.
+        # If no new face is available to visit and there are still unconnected seeds,
+        # then the routing has failed.
+        if 'face' not in next:
+            raise RoutingFailure
+
         next_face = next['face']
         prev_face = next['prev_face']
         root_face = next['root_face']
-        if next_face in distances.keys():
+
+        # At this point, the closest unvisited face among all the seed faces has been found.
+        # Now there are two possibilities: 1) this face which is unvisited from one seed has
+        # already been visited from another seed (i.e., it already has a distance assigned),
+        # or 2) this face has never been visited from any seed.
+        if next_face in distances:
+
+            # The face was already visited from another root, 
+            # so check the seed faces to see which one it is.
             for seed_face in seed_faces - set([root_face]):
                 if next_face in visited[seed_face]:
                     # OK, the next face is in the visited list for another seed face.
                     # This indicates a connection between different seed faces.
+
                     def get_face_path(face):
+                        # Trace a path from the face back to a stopping point.
                         path = [face]
                         while face not in stops:
                             path.append(face)
+                            # Make the current face a stopping point for any future paths.
                             stops.append(face)
-                            face = prev_faces[face]
+                            face = prev_faces[face] # Get next face on path.
+                        # End the path with the face on the stop list.
                         path.append(face)
                         return path
+
+                    # Combine the path from the current face to its root with the
+                    # path from the previous face that led here back to its root
+                    # (but reversed in direction).
                     path = get_face_path(next_face)[:] + get_face_path(prev_face)[::-1]
+
+                    # Create a wire from the path.
                     wire = GlobalWire(path, net=net)
                     routed_wires.append(wire)
-                    other_seed_face = root_face
-                    visited[seed_face].extend(visited[other_seed_face])
-                    seed_faces.remove(other_seed_face)
+
+                    # Since this face exists at the collision of two growing seeds,
+                    # add the visited faces from one of the seeds to the other
+                    # seed and then remove the first seed face from any further routing.
+                    visited[seed_face].extend(visited[root_face])
+                    seed_faces.remove(root_face)
+
+                    # The original seed for the face was found and the two seeds
+                    # were combined, so there's no further need to search.
                     break
             else:
+                # The face was visited earlier from another seed face, but it wasn't found.
+                # This is an error in the program logic, so raise an exception.
+                # (Not a routing failure because this is just a programming error.)
                 raise Exception
         else:
+            # This face has never been visited before, so add it to the list of visited faces
+            # for this seed face.
             if next_face.capacity <= 0:
+                # Oops! There is no more routing capacity for this face.
+                # Add it to the list of full faces but not to the list of visited faces.
                 full_faces.append(next_face)
             else:
-                next_face.capacity -= 1
-                distances[next_face] = next['dist']
+                # Add the face to the list of visited faces for this seed face.
                 visited[root_face].append(next_face)
+
+                # Reduce the routing capacity of the visited face since another route is going thru.
+                next_face.capacity -= 1
+
+                # Store the distance of the face back to its seed face.
+                distances[next_face] = next['dist']
+
+                # Store the previous face that led to this one for use in generating paths.
                 prev_faces[next_face] = prev_face
-    return routed_wires
 
-
-    # Identify the net pins from which routes will grow and add auxiliary data.
-    net_route_cnt = 0
-    for pin in net.pins:
-        if hasattr(pin.face, "seed_pin"):
-            # The global router does high-level routing of a net from face to face.
-            # If a net attaches to multiple pins on the same face, only route from
-            # one of them. Later, the switchbox router will manage the detailed
-            # routing between the pins on the same face.
-            pin.do_route = False
-        else:
-            pin.do_route = True
-            pin.face.seed_pin = pin
-            pin.face.dist = 0
-            pin.face.prev = pin.face  # Indicates terminal pin.
-            pin.frontier = set([pin.face])
-            pin.visited = set()
-            net_route_cnt += 1
-
-    while net_route_cnt > 1:
-        for pin in net.pins:
-            if pin.do_route:
-
-                try:
-                    visit_face = min(pin.frontier, key=lambda face: face.dist)
-                except ValueError:
-                    print("No route found!")
-                    pin.do_route = False
-                    net_route_cnt -= 1
-                    continue
-
-                pin.frontier.remove(visit_face)
-                pin.visited.add(visit_face)
-
-                for next_face in visit_face.adjacent - pin.visited - pin.frontier:
-
-                    if hasattr(next_face, "prev"):
-                        # Found a connection with another pin on the net!
-                        # Combine faces that have been visited and on the frontier.
-                        # Turn off routing for one of the pins.
-                        # Store sequence of faces connecting the two pins.
-                        other_pin = next_face.seed_pin
-                        pin.frontier.update(other_pin.frontier)
-                        pin.visited.update(other_pin.visited)
-                        other_pin.visited = set()
-                        other_pin.frontier = set()
-                        other_pin.do_route = False
-                        net_route_cnt -= 1
-
-                        def get_face_path(f):
-                            path = [f]
-                            while f.prev is not f:
-                                path.append(f.prev)
-                                f = f.prev
-                            return path
-
-                        wire = GlobalWire(
-                            get_face_path(visit_face)[::-1]
-                            + get_face_path(next_face)[:],
-                            net=net,
-                        )
-                        for face in wire:
-                            if face.capacity > 0:
-                                face.capacity -= 1
-                        routed_wires.append(wire)
-
-                    elif next_face.capacity > 0:
-                        pin.frontier.add(next_face)
-                        next_face.seed_pin = pin
-                        next_face.prev = visit_face
-                        next_face.dist = visit_face.dist + 1
-
-    # Remove all the auxiliary data from the pin and faces.
-    for pin in net.pins:
-        delattr(pin, "do_route")
-        if hasattr(pin, "frontier"):
-            for face in pin.visited | pin.frontier:
-                delattr(face, "dist")
-                delattr(face, "prev")
-                delattr(face, "seed_pin")
-            delattr(pin, "frontier")
-            delattr(pin, "visited")
-
+    # Return list of GlobalWires that connect faces holding pins on the given net.
     return routed_wires
 
 
