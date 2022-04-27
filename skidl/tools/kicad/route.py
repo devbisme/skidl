@@ -1638,14 +1638,16 @@ def global_router(net):
             for seed_face in seed_faces - set([root_face]):
                 if next_face in visited[seed_face]:
                     # OK, the next face is in the visited list for another seed face.
-                    # This indicates a connection between different seed faces.
+                    # This indicates a connection between routes from different seed faces.
 
                     def get_face_path(face):
-                        # Trace a path from the face back to a stopping point.
-                        path = [face]
+                        # Trace a path from the starting face back to a stopping point.
+                        path = []
                         while face not in stops:
                             path.append(face)
-                            # Make the current face a stopping point for any future paths.
+                            # Make each face on the path a stopping point so that any
+                            # future paths that connect to it will stop without
+                            # tracing a duplicate path.
                             stops.append(face)
                             face = prev_faces[face] # Get next face on path.
                         # End the path with the face on the stop list.
@@ -1655,7 +1657,7 @@ def global_router(net):
                     # Combine the path from the current face to its root with the
                     # path from the previous face that led here back to its root
                     # (but reversed in direction).
-                    path = get_face_path(next_face)[:] + get_face_path(prev_face)[::-1]
+                    path = get_face_path(prev_face)[::-1] + get_face_path(next_face)[:]
 
                     # Create a wire from the path.
                     wire = GlobalWire(path, net=net)
