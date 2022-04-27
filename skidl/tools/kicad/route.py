@@ -507,6 +507,21 @@ class NetInterval(Interval):
         return None
 
 
+class Adjacency:
+    def __init__(self, from_face, to_face):
+        self.face = to_face
+        if from_face.track.orientation == to_face.track.orientation:
+            # Parallel faces, either both vertical or horizontal.
+            dist_a = abs(from_face.track.coord - to_face.track.coord)
+            dist_b = (from_face.length + to_face.length) / 2
+            self.dist = dist_a + dist_b / 2
+        else:
+            # Right-angle faces.
+            dist_a = from_face.length
+            dist_b = to_face.length
+            self.dist = (dist_a + dist_b) / 2
+
+
 class Face(Interval):
     """A side of a rectangle bounding a routing switchbox."""
 
@@ -553,6 +568,10 @@ class Face(Interval):
         self.pins.extend(other.pins)
         self.part.update(other.part)
         self.adjacent.update(other.adjacent)
+
+    @property
+    def length(self):
+        return self.end.coord - self.beg.coord
 
     @property
     def bbox(self):
@@ -609,12 +628,16 @@ class Face(Interval):
             return
 
         # If a face is an edge of a part, then it can never be adjacent to
-        # another face on the same part or else wires might get routed through
+        # another face on the same part or else wires might get routed over
         # the part bounding box.
-        if not self.part.intersection(adj_face.part):
-            # OK, no parts in common between the two faces so they can be adjacent.
-            self.adjacent.add(adj_face)
-            adj_face.adjacent.add(self)
+        if self.part.intersection(adj_face.part):
+            return
+
+        # OK, no parts in common between the two faces so they can be adjacent.
+        # self.adjacent.add(adj_face)
+        # adj_face.adjacent.add(self)
+        self.adjacent.add(Adjacency(self, adj_face))
+        adj_face.adjacent.add(Adjacency(adj_face, self))
 
     def add_adjacencies(self):
         """Add adjacent faces of the switchbox having this face as the top face."""
@@ -1575,22 +1598,22 @@ def global_router(net):
             for visited_face in visited[seed_face]:
 
                 # Search the faces adjacent to the visited faces.
-                for adj_face in visited_face.adjacent:
+                for adj in visited_face.adjacent:
 
                     # Skip any adjacent faces that have already been visited.
-                    if adj_face in visited[seed_face]:
+                    if adj.face in visited[seed_face]:
                         continue
 
                     # Skip any adjacent faces that have no more routing capacity.
-                    if adj_face in full_faces:
+                    if adj.face in full_faces:
                         continue
 
                     # Compute the distance from this face back to the seed face.
-                    dist = distances[visited_face] + 1
+                    dist = distances[visited_face] + adj.dist
 
                     # Store info about this face if it is the closest seen so far.
                     if dist < next['dist']:
-                        next['face'] = adj_face # Store the current face.
+                        next['face'] = adj.face # Store the current face.
                         next['prev_face'] = visited_face # Last face that led to this face.
                         next['root_face'] = seed_face # Originating root/seed leading to this face.
                         next['dist'] = dist # Distance from root/seed to this face.
