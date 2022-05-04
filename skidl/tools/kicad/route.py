@@ -521,6 +521,10 @@ class Adjacency:
             dist_b = to_face.length
             self.dist = (dist_a + dist_b) / 2
 
+        # This seems to help in reducing dogleg stubs in global routes.
+        #? Possible rounding issue in global router?
+        self.dist *= 2 # TODO: Figure out why this works!
+
 
 class Face(Interval):
     """A side of a rectangle bounding a routing switchbox."""
@@ -599,6 +603,8 @@ class Face(Interval):
         # Add terminals along Face, but keep terminals off the beginning or end points.
         from .gen_schematic import GRID
 
+        # beg = self.beg.coord
+        # end = self.end.coord + GRID
         beg = (self.beg.coord + GRID // 2 + GRID) // GRID * GRID
         end = self.end.coord - GRID // 2
         self.terminals = [
@@ -1011,10 +1017,24 @@ class Target:
 
 class SwitchBox:
     def __init__(self, top_face):
+        """Routing switchbox.
 
+        A switchbox is a rectangular region through which wires are routed.
+        It has top, bottom, left and right faces.
+
+        Args:
+            top_face (Face): The top face of the switchbox from which the other faces are found.
+
+        Raises:
+            NoSwitchBox: Exception raised if the switchbox is an 
+                unroutable region inside a part bounding box.
+        """
+
+        # Find the left face in the left track that bounds the top face.
         left_face = None
         left_track = top_face.beg
         for face in left_track:
+            # The left face will end at the track for the top face.
             if face.end.coord == top_face.track.coord:
                 left_face = face
                 break
@@ -1022,9 +1042,11 @@ class SwitchBox:
         if not left_face:
             raise NoSwitchBox("Unroutable switchbox!")
 
+        # Find the right face in the right track that bounds the top face.
         right_face = None
         right_track = top_face.end
         for face in right_track:
+            # The right face will end at the track for the top face.
             if face.end.coord == top_face.track.coord:
                 right_face = face
                 break
@@ -1032,36 +1054,53 @@ class SwitchBox:
         if not right_face:
             raise NoSwitchBox("Unroutable switchbox!")
 
+        # For a routable switchbox, the left and right faces should each
+        # begin at the same point.
         if left_face.beg != right_face.beg:
-            # This only happens when two parts are butted up against each other
+            # Inequality only happens when two parts are butted up against each other
             # to form a non-routable switchbox inside a part bounding box.
             raise NoSwitchBox("Unroutable switchbox!")
 
+        # Find the bottom face in the track where the left/right faces begin.
         bottom_face = None
         bottom_track = left_face.beg
         for face in bottom_track:
-            if face.beg.coord == top_face.beg.coord:
+            # The bottom face should begin/end in the same places as the top face.
+            if (face.beg.coord, face.end.coord) == (top_face.beg.coord, top_face.end.coord):
                 bottom_face = face
                 break
 
         if not bottom_face:
             raise NoSwitchBox("Unroutable switchbox!")
 
-        # If all four sides have a common part, then its a part bbox with no routing.
+        # If all four sides have a part in common, then the switchbox is inside 
+        # a part bbox that wires cannot be routed through.
         if top_face.part & bottom_face.part & left_face.part & right_face.part:
             raise NoSwitchBox("Part switchbox")
 
+        # Set the # of wires that can route through each side of the switchbox.
         top_face.set_capacity()
         bottom_face.set_capacity()
         left_face.set_capacity()
         right_face.set_capacity()
 
+        # Store the faces.
         self.top_face = top_face
         self.bottom_face = bottom_face
         self.left_face = left_face
         self.right_face = right_face
 
         def find_terminal_net(terminals, terminal_coords, coord):
+            """Return the net attached to a terminal at the given coordinate.
+
+            Args:
+                terminals (list): List of Terminals to search.
+                terminal_coords (list): List of integer coordinates for Terminals.
+                coord (int): Terminal coordinate to search for.
+
+            Returns:
+                Net/None: Net at given coordinate or None if no net exists.
+            """
             try:
                 return terminals[terminal_coords.index(coord)].net
             except ValueError:
@@ -1070,7 +1109,7 @@ class SwitchBox:
         top_coords = [terminal.coord for terminal in self.top_face.terminals]
         bottom_coords = [terminal.coord for terminal in self.bottom_face.terminals]
         lr_coords = [self.left_face.track.coord, self.right_face.track.coord]
-        self.column_coords = sorted(set(top_coords + bottom_coords + lr_coords))
+        self.column_coords = sorted(set(top_coords + bottom_coords))
         self.top_nets = [
             find_terminal_net(self.top_face.terminals, top_coords, coord)
             for coord in self.column_coords
@@ -1121,6 +1160,7 @@ class SwitchBox:
 
     @property
     def bbox(self):
+        """Return bounding box for a switchbox."""
         bbox = BBox()
         bbox.add(self.top_face.bbox)
         bbox.add(self.bottom_face.bbox)
@@ -1129,13 +1169,24 @@ class SwitchBox:
         return bbox
 
     def has_nets(self):
+        """Return True if switchbox has any terminals on any face with nets attached."""
         for face in (self.top_face, self.bottom_face, self.left_face, self.right_face):
             if face.has_nets():
                 return True
         return False
 
     def route(self, flags=[]):
+        """Route wires between terminals on the switchbox faces.
 
+        Args:
+            flags (list, optional): Text flags affecting operations. Defaults to [].
+
+        Raises:
+            RoutingFailure: Raised if routing could not be completed.
+
+        Returns:
+            List of Segments: List of wiring segments for switchbox routes.
+        """
         self.segments = []
 
         if not self.has_nets():
@@ -1418,17 +1469,14 @@ class SwitchBox:
             return next_track_nets
 
         def trim_column_intervals(column, track_nets, next_track_nets):
-            new_column = []
+            trk_nets = list(enumerate(zip(track_nets, next_track_nets)))
             for intvl in column:
                 net = intvl.net
                 beg = intvl.beg
                 end = intvl.end
-                if net in (track_nets[beg], next_track_nets[beg]) and net in (
-                    track_nets[end],
-                    next_track_nets[end],
-                ):
-                    new_column.append(intvl)
-            return new_column
+                trks = [i for (i, nets) in trk_nets if net in nets and beg<=i<=end]
+                intvl.beg = min(trks)
+                intvl.end = max(trks)
 
         # Collect target nets along top, bottom, right faces of switchbox.
         min_row = 1
@@ -1448,12 +1496,12 @@ class SwitchBox:
         # Main switchbox routing loop.
         tracks = [self.left_nets[:]]
         track_nets = tracks[0]
-        columns = [
-            [],
-        ]
-        for col, (t_net, b_net) in enumerate(
-            zip(self.top_nets[1:-1], self.bottom_nets[1:-1]), start=1
-        ):
+        columns = []
+        for col, (t_net, b_net) in enumerate(zip(self.top_nets, self.bottom_nets)):
+            if col==0 and not t_net and not b_net:
+                tracks.append(track_nets)
+                columns.append([])
+                continue
             track_nets[0] = b_net
             track_nets[-1] = t_net
             column = connect_top_btm(track_nets)
@@ -1464,8 +1512,8 @@ class SwitchBox:
             )
             column = connect_splits(augmented_track_nets, column)
             track_nets = extend_tracks(track_nets, column, targets)
+            trim_column_intervals(column, tracks[-1], track_nets)
             tracks.append(track_nets)
-            column = trim_column_intervals(column, tracks[-2], tracks[-1])
             columns.append(column)
 
         for track_net, right_net in zip(tracks[-1], self.right_nets):
@@ -1474,9 +1522,11 @@ class SwitchBox:
                     raise RoutingFailure
 
         # Create horizontal wiring segments.
+        # column_coords = [self.left_face.track.coord] + self.column_coords
+        column_coords = [self.left_face.track.coord] + self.column_coords + [self.right_face.track.coord]
         for col_idx, trks in enumerate(tracks):
-            beg_col_coord = self.column_coords[col_idx]
-            end_col_coord = self.column_coords[col_idx + 1]
+            beg_col_coord = column_coords[col_idx]
+            end_col_coord = column_coords[col_idx + 1]
             for trk_idx, net in enumerate(trks[1:-1], start=1):
                 if net:
                     trk_coord = self.track_coords[trk_idx]
@@ -1487,7 +1537,7 @@ class SwitchBox:
                     self.segments.append(seg)
 
         # Create vertical wiring segments.
-        for idx, column in enumerate(columns[1:], start=1):
+        for idx, column in enumerate(columns):
             col_coord = self.column_coords[idx]
             for intvl in column:
                 beg_trk_coord = self.track_coords[intvl.beg]
@@ -1630,7 +1680,7 @@ def global_router(net):
         # At this point, the closest unvisited face among all the seed faces has been found.
         # Now there are two possibilities: 1) this face which is unvisited from one seed has
         # already been visited from another seed (i.e., it already has a distance assigned),
-        # or 2) this face has never been visited from any seed.
+        # or 2) this face has never been visited from any seed before.
         if next_face in distances:
 
             # The face was already visited from another root, 
@@ -1845,7 +1895,6 @@ def route(node, flags=["draw", "draw_switchbox"]):
 
     # Add terminals to switchbox faces for all part pins on internal nets.
     from .gen_schematic import calc_pin_dir
-
     for net in internal_nets:
         for pin in net.pins:
             dir = calc_pin_dir(pin)
@@ -1870,6 +1919,12 @@ def route(node, flags=["draw", "draw_switchbox"]):
                         # another face. This handles the case where a pin is exactly
                         # at the end coordinate and beginning coordinate of two
                         # successive faces in the same track.
+
+                        #// if coord == face.beg.coord:
+                        #//     coord += 1
+                        #// elif coord == face.end.coord:
+                        #//     coord -= 1
+
                         pin.face = face
                         face.pins.append(pin)
                         terminal = Terminal(pin.net, face, coord)
@@ -1885,8 +1940,6 @@ def route(node, flags=["draw", "draw_switchbox"]):
         for face in track:
             face.set_capacity()
 
-    # Do global routing of nets internal to the node.
-
     def rank_net(net):
         """Rank net based on W/H of bounding box of pins and the # of pins."""
         bbox = BBox()
@@ -1894,8 +1947,11 @@ def route(node, flags=["draw", "draw_switchbox"]):
             bbox.add(pin.pt)
         return (bbox.w + bbox.h, len(net.pins))
 
+    # Do global routing of nets internal to the node.
     internal_nets.sort(key=rank_net)
     global_routes = [global_router(net) for net in internal_nets]
+
+    # Conver the global face-to-face routes into terminals on the switchboxes.
     for route in global_routes:
         for wire in route:
             wire.cvt_faces_to_terminals()
@@ -1918,6 +1974,7 @@ def route(node, flags=["draw", "draw_switchbox"]):
                     swbx.route(flags=["allow_routing_failure"])
                 detailed_routes.extend(swbx.segments)
 
+    # If enabled, draw the switchboxes and routing for debug purposes.
     if "draw" in flags:
         draw_scr, draw_tx, draw_font = draw_start(routing_bbox)
         for route in global_routes:
