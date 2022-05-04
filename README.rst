@@ -37,7 +37,7 @@ Features
 * Takes advantage of all the benefits of the Python ecosystem (because it *is* Python).
 
 As a very simple example (see more in the 
-`blog <https://devbisme.github.io/skidl/docs/_site/blog/>`_),
+`blog <https://devbisme.github.io/skidl/category/posts.html>`_),
 the SKiDL program below describes a 
 `two-input AND gate <https://raw.githubusercontent.com/nturley/netlistsvg/master/doc/and.svg?sanitize=true>`_
 built from discrete transistors:
