@@ -40,7 +40,8 @@ from .geometry import *
 standard_library.install_aliases()
 
 ###################################################################
-# Overview of Schematic Autorouter
+#
+# OVERVIEW OF SCHEMATIC AUTOROUTER
 #
 # The input is a Node containing parts, each with a bounding box and an
 # assigned (x,y) position.
@@ -78,24 +79,6 @@ standard_library.install_aliases()
 # The detailed wiring within all the switchboxes is combined and output
 # as the total wiring for the parts in the Node.
 #
-#
-# Use the endpoints to divide the routing area into an array of rectangles.
-# Create the faces of each rectangle, each face shared between adjacent rects.
-# Capacity of each face is its length / wiring grid, except for faces
-#    inside part boundaries which have 0 capacity.
-# Assign part pins to each face that lies on a part BBox and zero the
-#    capacity of that face.
-# For each face, store the indices of adjacent faces except for those that
-#    have zero capacity AND no part pins (i.e., faces internal to part boundaries).
-# For each net:
-#    For each pin on net:
-#        Create list of cell faces and route cost occupied by pin.
-#    While # face lists > 1:
-#        For each frontier cell face:
-#            Compute the cost to reach each adjacent, unvisited cell face.
-#        Select the lowest-cost, unvisited cell face.
-#        If the cell face has already been visited by another net pin,
-#          then connect the pins by combining their face lists.
 ###################################################################
 
 
@@ -111,11 +94,10 @@ class Direction(Enum):
 
 
 # Put the orientation/direction enums in global space to make using them easier.
-_g = globals()
 for orientation in Orientation:
-    _g[orientation.name] = orientation.value
+    globals()[orientation.name] = orientation.value
 for direction in Direction:
-    _g[direction.name] = direction.value
+    globals()[direction.name] = direction.value
 
 
 # Dictionary for storing colors to visually distinguish routed nets.
@@ -602,11 +584,8 @@ class Face(Interval):
 
         # Add terminals along Face, but keep terminals off the beginning or end points.
         from .gen_schematic import GRID
-
-        # beg = self.beg.coord
-        # end = self.end.coord + GRID
-        beg = (self.beg.coord + GRID // 2 + GRID) // GRID * GRID
-        end = self.end.coord - GRID // 2
+        beg = (self.beg.coord + GRID) // GRID * GRID 
+        end = self.end.coord
         self.terminals = [
             Terminal(None, self, coord) for coord in range(beg, end, GRID)
         ]
@@ -1106,19 +1085,8 @@ class SwitchBox:
             except ValueError:
                 return None
 
-        top_coords = [terminal.coord for terminal in self.top_face.terminals]
-        bottom_coords = [terminal.coord for terminal in self.bottom_face.terminals]
-        lr_coords = [self.left_face.track.coord, self.right_face.track.coord]
-        self.column_coords = sorted(set(top_coords + bottom_coords))
-        self.top_nets = [
-            find_terminal_net(self.top_face.terminals, top_coords, coord)
-            for coord in self.column_coords
-        ]
-        self.bottom_nets = [
-            find_terminal_net(self.bottom_face.terminals, bottom_coords, coord)
-            for coord in self.column_coords
-        ]
-
+        # Find the coordinates of all the horizontal tracks and then create
+        # a list of nets for each of the left/right faces. 
         left_coords = [terminal.coord for terminal in self.left_face.terminals]
         right_coords = [terminal.coord for terminal in self.right_face.terminals]
         tb_coords = [self.top_face.track.coord, self.bottom_face.track.coord]
@@ -1138,19 +1106,76 @@ class SwitchBox:
             find_terminal_net(self.right_face.terminals, right_coords, coord)
             for coord in self.track_coords
         ]
+
+        # Find the coordinates of all the vertical columns and then create
+        # a list of nets for each of the top/bottom faces.
+        top_coords = [terminal.coord for terminal in self.top_face.terminals]
+        bottom_coords = [terminal.coord for terminal in self.bottom_face.terminals]
+        lr_coords = [self.left_face.track.coord, self.right_face.track.coord]
+        self.column_coords = sorted(set(top_coords + bottom_coords + lr_coords))
+        self.top_nets = [
+            find_terminal_net(self.top_face.terminals, top_coords, coord)
+            for coord in self.column_coords
+        ]
+        self.bottom_nets = [
+            find_terminal_net(self.bottom_face.terminals, bottom_coords, coord)
+            for coord in self.column_coords
+        ]
+
+        self.move_corner_nets()
+
         assert len(self.top_nets) == len(self.bottom_nets)
         assert len(self.left_nets) == len(self.right_nets)
 
+    def move_corner_nets(self):
+        """
+        Move any nets at the edges of the left/right faces
+        (i.e., the corners) to the edges of the top/bottom faces.
+        This will allow these nets to be routed within the switchbox columns
+        as the routing proceeds from left to right.
+        """
+
+        if self.left_nets[0]:
+            # Move bottommost net on left face to leftmost net on bottom face. 
+            self.bottom_nets[0] = self.left_nets[0]
+            self.left_nets[0] = None
+
+        if self.left_nets[-1]:
+            # Move topmost net on left face to leftmost net on top face. 
+            self.top_nets[0] = self.left_nets[-1]
+            self.left_nets[-1] = None
+
+        if self.right_nets[0]:
+            # Move bottommost net on right face to rightmost net on bottom face. 
+            self.bottom_nets[-1] = self.right_nets[0]
+            self.right_nets[0] = None
+
+        if self.right_nets[-1]:
+            # Move topmost net on right face to rightmost net on top face. 
+            self.top_nets[-1] = self.right_nets[-1]
+            self.right_nets[-1] = None
+
     def flip_xy(self):
         """Flip X-Y of switchbox to route from top-to-bottom instead of left-to-right."""
+
+        # Flip coords of tracks and columns.
         self.column_coords, self.track_coords = self.track_coords, self.column_coords
+
+        # Flip top/right and bottom/left nets.
         self.top_nets, self.right_nets, = (
             self.right_nets,
             self.top_nets,
         )
         self.bottom_nets, self.left_nets = self.left_nets, self.bottom_nets
+
+        # Flip top/right and bottom/left faces.
         self.top_face, self.right_face = self.right_face, self.top_face
         self.bottom_face, self.left_face = self.left_face, self.bottom_face
+
+        # Move any corner nets from the new left/right faces to the new top/bottom faces.
+        self.move_corner_nets()
+
+        # Flip X/Y coords of any routed segments.
         try:
             for seg in self.segments:
                 seg.p1.x, seg.p1.y = seg.p1.y, seg.p1.x
@@ -1919,12 +1944,6 @@ def route(node, flags=["draw", "draw_switchbox"]):
                         # another face. This handles the case where a pin is exactly
                         # at the end coordinate and beginning coordinate of two
                         # successive faces in the same track.
-
-                        #// if coord == face.beg.coord:
-                        #//     coord += 1
-                        #// elif coord == face.end.coord:
-                        #//     coord -= 1
-
                         pin.face = face
                         face.pins.append(pin)
                         terminal = Terminal(pin.net, face, coord)
@@ -1951,19 +1970,18 @@ def route(node, flags=["draw", "draw_switchbox"]):
     internal_nets.sort(key=rank_net)
     global_routes = [global_router(net) for net in internal_nets]
 
-    # Conver the global face-to-face routes into terminals on the switchboxes.
+    # Convert the global face-to-face routes into terminals on the switchboxes.
     for route in global_routes:
         for wire in route:
             wire.cvt_faces_to_terminals()
 
     # Do detailed routing inside switchboxes.
     detailed_routes = []
-    switchboxes = []
+    switchboxes = [] # For debug drawing purposes.
     for h_track in h_tracks[1:]:
         for face in h_track:
             try:
                 swbx = SwitchBox(face)
-                switchboxes.append(swbx)
             except NoSwitchBox:
                 continue
             else:
@@ -1973,6 +1991,7 @@ def route(node, flags=["draw", "draw_switchbox"]):
                     swbx.flip_xy()
                     swbx.route(flags=["allow_routing_failure"])
                 detailed_routes.extend(swbx.segments)
+                switchboxes.append(swbx) # Keep around for debug drawing.
 
     # If enabled, draw the switchboxes and routing for debug purposes.
     if "draw" in flags:
