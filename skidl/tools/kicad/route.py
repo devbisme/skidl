@@ -232,11 +232,11 @@ def draw_seg(seg, scr, tx, color=(100, 100, 100), thickness=5, dot_radius=10):
         dot_Radius (int, optional): Endpoint dot radius. Defaults to 3.
     """
 
-    # Use net color if object has a net. Otherwise set color to black.
+    # Use net color if object has a net. Otherwise use input color.
     try:
         color = net_colors[seg.net]
     except AttributeError:
-        color = (0, 0, 0)
+        pass
 
     # draw endpoints.
     draw_endpoint(seg.p1, scr, tx, color, dot_radius=dot_radius)
@@ -502,10 +502,6 @@ class Adjacency:
             dist_a = from_face.length
             dist_b = to_face.length
             self.dist = (dist_a + dist_b) / 2
-
-        # This seems to help in reducing dogleg stubs in global routes.
-        #? Possible rounding issue in global router?
-        self.dist *= 2 # TODO: Figure out why this works!
 
 
 class Face(Interval):
@@ -1057,12 +1053,6 @@ class SwitchBox:
         if top_face.part & bottom_face.part & left_face.part & right_face.part:
             raise NoSwitchBox("Part switchbox")
 
-        # Set the # of wires that can route through each side of the switchbox.
-        top_face.set_capacity()
-        bottom_face.set_capacity()
-        left_face.set_capacity()
-        right_face.set_capacity()
-
         # Store the faces.
         self.top_face = top_face
         self.bottom_face = bottom_face
@@ -1121,6 +1111,13 @@ class SwitchBox:
             find_terminal_net(self.bottom_face.terminals, bottom_coords, coord)
             for coord in self.column_coords
         ]
+
+        # Remove any nets that only have a single terminal in the switchbox.
+        all_nets = self.left_nets + self.right_nets + self.top_nets + self.bottom_nets
+        for side_nets in (self.left_nets, self.right_nets, self.top_nets, self.bottom_nets):
+            for i, net in enumerate(side_nets):
+                if all_nets.count(net) <= 1:
+                    side_nets[i] = None
 
         self.move_corner_nets()
 
@@ -1218,7 +1215,7 @@ class SwitchBox:
             return self.segments
 
         def connect_top_btm(track_nets):
-            """Connect top/bottom net to nets in horizontal tracks."""
+            """Connect nets from top/bottom terminals in a column to nets in horizontal tracks of the switchbox."""
 
             def find_connection(net, tracks, direction):
                 """
@@ -1254,21 +1251,35 @@ class SwitchBox:
                     connections = [None]
                 return connections
 
+            # Stores net intervals connecting top/bottom nets to horizontal tracks.
+            column = []
+
+            # Top/bottom nets for this switchbox column. Horizontal track nets are
+            # at indexes 1..-2.
             b_net = track_nets[0]
             t_net = track_nets[-1]
-            column = []
+
+            if t_net and (t_net is b_net):
+                # If top & bottom nets are the same, just create a single net interval
+                # connecting them and that's it.
+                column.append(NetInterval(t_net, 0, len(track_nets)-1))
+                return column
+
+            # Find which tracks the top/bottom nets can connect to.
             t_cncts = find_connection(t_net, track_nets, -1)
             b_cncts = find_connection(b_net, track_nets, 1)
 
-            # Test each possible pair of connections to find one that is free of interference.
+            # Create all possible pairs of top/bottom connections.
             tb_cncts = [(t, b) for t in t_cncts for b in b_cncts]
 
             if not tb_cncts:
-                # Top and/or bottom could not be connected.
+                # No possible connections for top and/or bottom.
                 if "allow_routing_failure" in flags:
-                    return column
+                    return column # Return empty column.
                 else:
                     raise RoutingFailure
+
+            # Test each possible pair of connections to find one that is free of interference.
             for t_cnct, b_cnct in tb_cncts:
                 if t_cnct is None or b_cnct is None:
                     # No possible interference if at least one connection is None.
@@ -1648,16 +1659,16 @@ def global_router(net):
     seed_faces = set() # Faces with pins from which paths/routing originate.
     visited = dict() # Faces visited from each seed face.
     prev_faces = dict() # Previous face on path for each visited face.
-    full_faces = [] # Faces with no more routing capacity.
+    full_faces = set() # Faces with no more routing capacity.
     distances = dict() # Distance of each visited face from its seed face.
-    stops = [] # Faces at which path-to-route conversion stops.
+    stop_faces = set() # Faces at which path-to-route conversion stop.
     
     # Initialize a seed face for each net pin from which the routing will grow.
     for pin in net.pins:
         seed_faces.add(pin.face)
         visited[pin.face] = [pin.face] # Seed face starts off as visited.
         distances[pin.face] = 0 # Distance to seed face is 0 (of course).
-        stops.append(pin.face) # Stop path-to-route conversion at the seed face.
+        stop_faces.add(pin.face) # Stop path-to-route conversion at the seed face.
 
     # Grow the routes outward from each seed face until they are all connected.
     # The number of seed faces decreases by one as each one connects to another.
@@ -1718,21 +1729,42 @@ def global_router(net):
                     def get_face_path(face):
                         # Trace a path from the starting face back to a stopping point.
                         path = []
-                        while face not in stops:
+                        while face not in stop_faces:
                             path.append(face)
                             # Make each face on the path a stopping point so that any
                             # future paths that connect to it will stop without
                             # tracing a duplicate path.
-                            stops.append(face)
+                            stop_faces.add(face)
                             face = prev_faces[face] # Get next face on path.
                         # End the path with the face on the stop list.
                         path.append(face)
                         return path
 
+                    # Sometimes there is a "kink" when joining two path routes in
+                    # which the path will ping-pong between 3 faces of the same switchbox..
+                    # That means the face previous to the joining face (prev_face) is
+                    # adjacent to the face leading to the joining face on the other
+                    # path. In that case, we can just "jump over" the joining face
+                    # and eliminate the kink.
+                    try:
+                        next_next_face = prev_faces[next_face]
+                    except KeyError:
+                        pass
+                    else:
+                        if next_next_face in [adj.face for adj in prev_face.adjacent]:
+                            next_face = next_next_face
+
                     # Combine the path from the current face to its root with the
                     # path from the previous face that led here back to its root
                     # (but reversed in direction).
                     path = get_face_path(prev_face)[::-1] + get_face_path(next_face)[:]
+
+                    # Reduce the remaining capacity of the faces on the routing path.
+                    for face in path:
+                        if face.capacity > 0:
+                            face.capacity -= 1
+                            if face.capacity == 0:
+                                full_faces.add(face)
 
                     # Create a wire from the path.
                     wire = GlobalWire(path, net=net)
@@ -1758,13 +1790,10 @@ def global_router(net):
             if next_face.capacity <= 0:
                 # Oops! There is no more routing capacity for this face.
                 # Add it to the list of full faces but not to the list of visited faces.
-                full_faces.append(next_face)
+                full_faces.add(next_face)
             else:
                 # Add the face to the list of visited faces for this seed face.
                 visited[root_face].append(next_face)
-
-                # Reduce the routing capacity of the visited face since another route is going thru.
-                next_face.capacity -= 1
 
                 # Store the distance of the face back to its seed face.
                 distances[next_face] = next['dist']
@@ -2001,7 +2030,7 @@ def route(node, flags=["draw", "draw_switchbox"]):
                 wire.draw(draw_scr, draw_tx, flags)
         for swbx in switchboxes:
             swbx.draw(
-                draw_scr, draw_tx, draw_font, flags=["draw_switchbox", "draw_routing"]
+                draw_scr, draw_tx, draw_font, flags=["draw_switchbox", "draw_routing", "show_capacities"]
             )
         draw_end()
 
