@@ -27,7 +27,7 @@ from builtins import range, zip
 from collections import defaultdict
 from enum import Enum, auto
 from itertools import zip_longest, chain
-from random import randint
+from random import randint, choice
 
 from future import standard_library
 
@@ -108,6 +108,9 @@ net_colors = defaultdict(lambda: (randint(0, 200), randint(0, 200), randint(0, 2
 # Drawing functions to display routing for debugging purposes.
 #
 
+glbl_scr = None
+glbl_tx = None
+glbl_font = None
 
 def draw_start(bbox):
     """
@@ -165,11 +168,16 @@ def draw_start(bbox):
     # Clear drawing area.
     scr.fill((255, 255, 255))
 
+    global glbl_scr, glbl_tx, glbl_font
+    glbl_scr = scr
+    glbl_tx = tx
+    glbl_font = font
+
     # Return drawing screen, transformation matrix, and font.
     return scr, tx, font
 
 
-def draw_box(bbox, scr, tx, color=(192, 255, 192)):
+def draw_box(bbox, scr, tx, color=(192, 255, 192), thickness=0):
     """Draw a box in the drawing area.
 
     Args:
@@ -189,7 +197,7 @@ def draw_box(bbox, scr, tx, color=(192, 255, 192)):
         (bbox.max.x, bbox.max.y),
         (bbox.max.x, bbox.min.y),
     )
-    pygame.draw.polygon(scr, color, corners, 0)
+    pygame.draw.polygon(scr, color, corners, thickness)
 
 
 def draw_endpoint(pt, scr, tx, color=(100, 100, 100), dot_radius=10):
@@ -239,8 +247,8 @@ def draw_seg(seg, scr, tx, color=(100, 100, 100), thickness=5, dot_radius=10):
         pass
 
     # draw endpoints.
-    draw_endpoint(seg.p1, scr, tx, color, dot_radius=dot_radius)
-    draw_endpoint(seg.p2, scr, tx, color, dot_radius=dot_radius)
+    draw_endpoint(seg.p1, scr, tx, color=color, dot_radius=dot_radius)
+    draw_endpoint(seg.p2, scr, tx, color=color, dot_radius=dot_radius)
 
     # Transform segment coords to screen coords.
     seg = seg.dot(tx)
@@ -326,7 +334,7 @@ class Terminal:
         Args:
             net (Net): Net upon which the Terminal resides.
             face (Face): SwitchBox Face upon which the Terminal resides.
-            coord (int): Position along the Face.
+            coord (int): Absolute position along the track the face is in.
         """
 
         self.net = net
@@ -343,7 +351,7 @@ class Terminal:
             return Point(track.coord, self.coord)
 
     def get_next_terminal(self, next_face):
-        """Get the next terminal from the given face that lies on the same net as this terminal.
+        """Get the terminal from the next face that lies on the same net as this terminal.
 
         This method assumes the terminal's face and the next face are faces of the
         same switchbox. Hence, they're either parallel and on opposite sides, or they're
@@ -412,16 +420,15 @@ class Terminal:
         """
 
         # Don't draw terminal if it isn't on a net. It's just a placeholder.
-        if not self.net:
-            return
+        if self.net or "draw_all_terminals" in flags:
 
-        # Compute the terminal (x,y) based on whether it's on a horiz or vert Face.
-        if self.face.track.orientation == HORZ:
-            pt = Point(self.coord, self.face.track.coord)
-        else:
-            pt = Point(self.face.track.coord, self.coord)
+            # Compute the terminal (x,y) based on whether it's on a horiz or vert Face.
+            if self.face.track.orientation == HORZ:
+                pt = Point(self.coord, self.face.track.coord)
+            else:
+                pt = Point(self.face.track.coord, self.coord)
 
-        draw_endpoint(pt, scr, tx, net_colors[self.net])
+            draw_endpoint(pt, scr, tx, color=net_colors[self.net])
 
 
 class Interval:
@@ -536,6 +543,9 @@ class Face(Interval):
         # Add this new face to the track it belongs to so it isn't lost.
         self.track = track
         track.add_face(self)
+
+        # Storage for switchboxes this face is part of.
+        self.switchboxes = set()
 
     def combine(self, other):
         """Combine information from other face into this one.
@@ -710,6 +720,14 @@ class Face(Interval):
         """Return True if both faces have the same beginning and ending point on the same track."""
         return (self.beg, self.end) == (other_face.beg, other_face.end)
 
+    def has_overlap(self, other_face):
+        """Return True if the two faces overlap."""
+        return self.beg < other_face.end and self.end > other_face.beg
+
+    def audit(self):
+        """Raise exception if face is malformed."""
+        assert len(self.switchboxes) <= 2
+
     @property
     def seg(self):
         """Return a Segment that coincides with the Face."""
@@ -725,7 +743,7 @@ class Face(Interval):
 
         return seg
 
-    def draw(self, scr, tx, font, flags=[]):
+    def draw(self, scr, tx, font, color=(128, 128, 128), thickness=2, dot_radius=0, flags=[]):
         """Draw a Face in the drawing area.
 
         Args:
@@ -739,17 +757,16 @@ class Face(Interval):
         """
 
         # Draw a line segment for the Face.
-        color = (128, 128, 128)
-        draw_seg(self.seg, scr, tx, color, thickness=2, dot_radius=0)
+        draw_seg(self.seg, scr, tx, color=color, thickness=thickness, dot_radius=dot_radius)
 
         # Draw the terminals on the Face.
         for terminal in self.terminals:
-            terminal.draw(scr, tx)
+            terminal.draw(scr, tx, flags)
 
         if "show_capacities" in flags:
             # Show the wiring capacity at the midpoint of the Face.
             mid_pt = (self.seg.p1 + self.seg.p2) / 2
-            draw_text(str(self.capacity), mid_pt, scr, tx, font, color)
+            draw_text(str(self.capacity), mid_pt, scr, tx, font=font, color=color)
 
 
 class GlobalWire(list):
@@ -825,7 +842,7 @@ class GlobalWire(list):
 
                 raise RoutingFailure
 
-    def draw(self, scr, tx, flags=[]):
+    def draw(self, scr, tx, color=(0,0,0), thickness=1, dot_radius=10, flags=[]):
         """Draw a global wire from Face-to-Face in the drawing area.
 
         Args:
@@ -845,14 +862,14 @@ class GlobalWire(list):
                 HORZ: Point(pt.x, track.coord),
                 VERT: Point(track.coord, pt.y),
             }[track.orientation]
-            draw_endpoint(pt, scr, tx, color=(0, 0, 0), dot_radius=10)
+            draw_endpoint(pt, scr, tx, color=color, dot_radius=10)
 
         # Draw global wire segment.
         face_to_face = zip(self[:-1], self[1:])
         for terminal1, terminal2 in face_to_face:
             p1 = terminal1.pt
             p2 = terminal2.pt
-            draw_seg(Segment(p1, p2), scr, tx, (0, 0, 0), 1, 0)
+            draw_seg(Segment(p1, p2), scr, tx, color=color, thickness=thickness, dot_radius=0)
 
 
 class GlobalTrack(list):
@@ -938,8 +955,9 @@ class GlobalTrack(list):
         """Remove duplicate faces having the same endpoints."""
 
         # Search for pairs of faces with identical endpoints.
-        for i, first_face in enumerate(self[:]):
-            for second_face in self[i + 1 :]:
+        self_copy = self[:]
+        for i, first_face in enumerate(self_copy[:]):
+            for second_face in self_copy[i + 1 :]:
                 if first_face.coincides_with(second_face):
 
                     # Update the second face with the info from the first face.
@@ -955,8 +973,18 @@ class GlobalTrack(list):
 
     def add_adjacencies(self):
         """Add adjacent faces to each face in a track."""
+
         for top_face in self:
             top_face.add_adjacencies()
+
+    def audit(self):
+        """Raise exception if track is malformed."""
+
+        for i, first_face in enumerate(self):
+            first_face.audit()
+            for second_face in self[i+1:]:
+                if first_face.has_overlap(second_face):
+                    raise AssertionError
 
 
 class Target:
@@ -991,14 +1019,17 @@ class Target:
 
 
 class SwitchBox:
-    def __init__(self, top_face):
+    def __init__(self, top_face, left_face=None, bottom_face=None, right_face=None):
         """Routing switchbox.
 
         A switchbox is a rectangular region through which wires are routed.
         It has top, bottom, left and right faces.
 
         Args:
-            top_face (Face): The top face of the switchbox from which the other faces are found.
+            top_face (Face): The top face of the switchbox.
+            bottom_face (Face): The bottom face. Will be calculated if set to None.
+            left_face (Face): The left face. Will be calculated if set to None.
+            right_face (Face): The right face. Will be calculated if set to None.
 
         Raises:
             NoSwitchBox: Exception raised if the switchbox is an 
@@ -1006,28 +1037,26 @@ class SwitchBox:
         """
 
         # Find the left face in the left track that bounds the top face.
-        left_face = None
-        left_track = top_face.beg
-        for face in left_track:
-            # The left face will end at the track for the top face.
-            if face.end.coord == top_face.track.coord:
-                left_face = face
-                break
-
-        if not left_face:
-            raise NoSwitchBox("Unroutable switchbox!")
+        if left_face == None:
+            left_track = top_face.beg
+            for face in left_track:
+                # The left face will end at the track for the top face.
+                if face.end.coord == top_face.track.coord:
+                    left_face = face
+                    break
+            else:
+                raise NoSwitchBox("Unroutable switchbox!")
 
         # Find the right face in the right track that bounds the top face.
-        right_face = None
-        right_track = top_face.end
-        for face in right_track:
-            # The right face will end at the track for the top face.
-            if face.end.coord == top_face.track.coord:
-                right_face = face
-                break
-
-        if not right_face:
-            raise NoSwitchBox("Unroutable switchbox!")
+        if right_face == None:
+            right_track = top_face.end
+            for face in right_track:
+                # The right face will end at the track for the top face.
+                if face.end.coord == top_face.track.coord:
+                    right_face = face
+                    break
+            else:
+                raise NoSwitchBox("Unroutable switchbox!")
 
         # For a routable switchbox, the left and right faces should each
         # begin at the same point.
@@ -1037,16 +1066,15 @@ class SwitchBox:
             raise NoSwitchBox("Unroutable switchbox!")
 
         # Find the bottom face in the track where the left/right faces begin.
-        bottom_face = None
-        bottom_track = left_face.beg
-        for face in bottom_track:
-            # The bottom face should begin/end in the same places as the top face.
-            if (face.beg.coord, face.end.coord) == (top_face.beg.coord, top_face.end.coord):
-                bottom_face = face
-                break
-
-        if not bottom_face:
-            raise NoSwitchBox("Unroutable switchbox!")
+        if bottom_face == None:
+            bottom_track = left_face.beg
+            for face in bottom_track:
+                # The bottom face should begin/end in the same places as the top face.
+                if (face.beg.coord, face.end.coord) == (top_face.beg.coord, top_face.end.coord):
+                    bottom_face = face
+                    break
+            else:
+                raise NoSwitchBox("Unroutable switchbox!")
 
         # If all four sides have a part in common, then the switchbox is inside 
         # a part bbox that wires cannot be routed through.
@@ -1058,6 +1086,12 @@ class SwitchBox:
         self.bottom_face = bottom_face
         self.left_face = left_face
         self.right_face = right_face
+
+        # Each face records which switchboxes it belongs to.
+        self.top_face.switchboxes.add(self)
+        self.bottom_face.switchboxes.add(self)
+        self.left_face.switchboxes.add(self)
+        self.right_face.switchboxes.add(self)
 
         def find_terminal_net(terminals, terminal_coords, coord):
             """Return the net attached to a terminal at the given coordinate.
@@ -1121,6 +1155,20 @@ class SwitchBox:
 
         self.move_corner_nets()
 
+    @property
+    def face_list(self):
+        """Return list of switchbox faces in CCW order, starting from top face."""
+        return [self.top_face, self.left_face, self.bottom_face, self.right_face]
+
+    def audit(self):
+        """Raise exception if switchbox is malformed."""
+
+        for face in self.face_list:
+            face.audit()
+        assert self.top_face.track.orientation == HORZ
+        assert self.bottom_face.track.orientation == HORZ
+        assert self.left_face.track.orientation == VERT
+        assert self.right_face.track.orientation == VERT
         assert len(self.top_nets) == len(self.bottom_nets)
         assert len(self.left_nets) == len(self.right_nets)
 
@@ -1179,6 +1227,69 @@ class SwitchBox:
                 seg.p2.x, seg.p2.y = seg.p2.y, seg.p2.x
         except AttributeError:
             pass
+
+    def coalesce(self, switchboxes):
+        if self not in switchboxes:
+            return
+
+        switchboxes.remove(self)
+        box_lists = [[self], [self], [self], [self]]
+        active_directions = {0,1,2,3}
+        while active_directions:
+            bbox = BBox()
+            for box_list in box_lists:
+                bbox.add(box_list[0].bbox)
+            if bbox.w == bbox.h:
+                growth_directions = {0,1,2,3}
+            elif bbox.w < bbox.h:
+                growth_directions = {1,3}
+            else:
+                growth_directions = {0,2}
+            growth_directions = growth_directions & active_directions
+            if not growth_directions:
+                break
+            direction = choice(list(growth_directions))
+
+            box_list = box_lists[direction]
+            for box in box_list:
+                box_face = box.face_list[direction]
+                if box_face.part:
+                    active_directions.remove(direction)
+                    break
+                adj_box = (box_face.switchboxes - {box}).pop()
+                if adj_box not in switchboxes:
+                    active_directions.remove(direction)
+                    break
+            else:
+                for i, box in enumerate(box_list[:]):
+                    box_face = box.face_list[direction]
+                    adj_box = (box_face.switchboxes - {box}).pop()
+                    box_list[i] = adj_box
+                    switchboxes.remove(adj_box)
+                box_lists[direction-1].append(box_list[0])
+                box_lists[(direction+1)%4].insert(0, box_list[-1])
+
+        total_faces = [None, None, None, None]
+        face_lists = [[] for _ in box_lists]
+        for direction, box_list in enumerate(box_lists):
+            face_list = face_lists[direction]
+            for box in box_list:
+                face_list.append(box.face_list[direction])
+            beg = min([face.beg for face in face_list])
+            end = max([face.end for face in face_list])
+            total_face = Face(None, face_list[0].track, beg, end)
+            total_face.create_nonpin_terminals()
+            for face in face_list:
+                for terminal in face.terminals:
+                    if terminal.net:
+                        # TODO: Fix faces so net terminals override None terminals.
+                        total_face.terminals.insert(0, Terminal(terminal.net, total_face, terminal.coord))
+            total_face.set_capacity()
+            total_faces[direction] = total_face
+        total_box = SwitchBox(*total_faces)
+        # total_box.draw(glbl_scr, glbl_tx, color=(200,0,200), thickness=4, flags=["draw_switchbox", "draw_all_terminals"])
+        switchboxes.append(total_box)
+
 
     @property
     def bbox(self):
@@ -1587,7 +1698,7 @@ class SwitchBox:
         return self.segments
 
     def draw(
-        self, scr=None, tx=None, font=None, flags=["draw_switchbox", "draw_routing"]
+        self, scr=None, tx=None, font=None, color=(128, 0, 128), thickness=2, flags=["draw_switchbox", "draw_routing"]
     ):
         do_start_end = not bool(scr)
 
@@ -1595,15 +1706,16 @@ class SwitchBox:
             scr, tx, font = draw_start(self.bbox.resize(Vector(100, 100)))
 
         if self.top_face.part:
+            part_color = (180,255,180)
             for prt in self.top_face.part:
                 if isinstance(prt, Part):
-                    draw_box(prt.bbox.dot(prt.tx), scr, tx)
+                    draw_box(prt.bbox.dot(prt.tx), scr, tx, color=part_color, thickness=0)
 
         if "draw_switchbox" in flags:
-            self.top_face.draw(scr, tx, font, flags)
-            self.bottom_face.draw(scr, tx, font, flags)
-            self.left_face.draw(scr, tx, font, flags)
-            self.right_face.draw(scr, tx, font, flags)
+            self.top_face.draw(scr, tx, font, color, thickness, flags=flags)
+            self.bottom_face.draw(scr, tx, font, color, thickness, flags=flags)
+            self.left_face.draw(scr, tx, font, color, thickness, flags=flags)
+            self.right_face.draw(scr, tx, font, color, thickness, flags=flags)
 
         if "draw_routing" in flags:
             try:
@@ -1612,14 +1724,15 @@ class SwitchBox:
             except AttributeError:
                 pass
 
-        def draw_channel(face1, face2):
-            seg1 = face1.seg
-            seg2 = face2.seg
-            p1 = (seg1.p1 + seg1.p2) / 2
-            p2 = (seg2.p1 + seg2.p2) / 2
-            draw_seg(Segment(p1, p2), scr, tx, (128, 0, 128), 1, dot_radius=0)
-
         if "draw_channels" in flags:
+
+            def draw_channel(face1, face2):
+                seg1 = face1.seg
+                seg2 = face2.seg
+                p1 = (seg1.p1 + seg1.p2) / 2
+                p2 = (seg2.p1 + seg2.p2) / 2
+                draw_seg(Segment(p1, p2), scr, tx, (128, 0, 128), 1, dot_radius=0)
+
             draw_channel(self.top_face, self.bottom_face)
             draw_channel(self.top_face, self.left_face)
             draw_channel(self.top_face, self.right_face)
@@ -2004,34 +2117,61 @@ def route(node, flags=["draw", "draw_switchbox"]):
         for wire in route:
             wire.cvt_faces_to_terminals()
 
-    # Do detailed routing inside switchboxes.
-    detailed_routes = []
-    switchboxes = [] # For debug drawing purposes.
+    # Clear the any switchboxes associated with faces because we'll be making new ones.
+    for track in h_tracks + v_tracks:
+        for face in track:
+            face.switchboxes.clear()
+
+    # Create switchboxes for detailed routing.
+    switchboxes = []
     for h_track in h_tracks[1:]:
         for face in h_track:
             try:
-                swbx = SwitchBox(face)
+                switchboxes.append(SwitchBox(face))
             except NoSwitchBox:
                 continue
-            else:
-                try:
-                    swbx.route(flags=[])
-                except RoutingFailure:
-                    swbx.flip_xy()
-                    swbx.route(flags=["allow_routing_failure"])
-                detailed_routes.extend(swbx.segments)
-                switchboxes.append(swbx) # Keep around for debug drawing.
+
+    # Check the switchboxes for problems.
+    for swbx in switchboxes:
+        swbx.audit()
+
+    if "draw" in flags:
+        draw_scr, draw_tx, draw_font = draw_start(routing_bbox)
+
+    # Coalesce smaller switchboxes into larger ones with more routing area.
+    seeds = []  # List of switchboxes to coalesce.
+    switchboxes.sort(key=lambda box:box.bbox.w + box.bbox.h)
+    for swbx in switchboxes:
+        if swbx.has_nets():
+            seeds.append(swbx)
+    for seed in seeds:
+        seed.coalesce(switchboxes)
+
+    # Do detailed routing inside switchboxes.
+    detailed_routes = []
+    for swbx in switchboxes:
+        try:
+            swbx.route(flags=[])
+        except RoutingFailure:
+            swbx.flip_xy()
+            swbx.route(flags=["allow_routing_failure"])
+            swbx.flip_xy()
+        detailed_routes.extend(swbx.segments)
 
     # If enabled, draw the switchboxes and routing for debug purposes.
     if "draw" in flags:
-        draw_scr, draw_tx, draw_font = draw_start(routing_bbox)
+
         for route in global_routes:
             for wire in route:
-                wire.draw(draw_scr, draw_tx, flags)
+                wire.draw(draw_scr, draw_tx, flags=flags)
+
         for swbx in switchboxes:
             swbx.draw(
-                draw_scr, draw_tx, draw_font, flags=["draw_switchbox", "draw_routing", "show_capacities"]
+                # draw_scr, draw_tx, draw_font, flags=["draw_switchbox"]
+                # draw_scr, draw_tx, draw_font, flags=["draw_switchbox", "draw_routing", "show_capacities"]
+                draw_scr, draw_tx, draw_font, flags=["draw_switchbox", "draw_routing"]
             )
+
         draw_end()
 
     return detailed_routes
