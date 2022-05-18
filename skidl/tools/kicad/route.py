@@ -294,22 +294,17 @@ def draw_end():
 
 
 class NoSwitchBox(Exception):
-    """Exception raised when a switchbox cannot be generated.
+    """Exception raised when a switchbox cannot be generated."""
+    pass
 
-    Args:
-        Exception (Exception): Raised when a switchbox cannot be generated for a given Face.
-    """
 
+class TerminalClashException(Exception):
+    """Exception raised when trying to place two terminals at the same coord on a Face."""
     pass
 
 
 class RoutingFailure(Exception):
-    """Exception raised when a net connecting terminals cannot be routed.
-
-    Args:
-        Exception (Exception): Raised when terminals on a net cannot be connected.
-    """
-
+    """Exception raised when a net connecting terminals cannot be routed."""
     pass
 
 
@@ -537,6 +532,9 @@ class Face(Interval):
         # Storage for any part pins that lie along this Face.
         self.pins = []
 
+        # Storage for routing terminals along this face.
+        self.terminals = []
+
         # Set of Faces adjacent to this one. (Starts empty.)
         self.adjacent = set()
 
@@ -580,21 +578,42 @@ class Face(Interval):
 
         return bbox
 
+    def add_terminal(self, net, coord):
+        """Create a Terminal on the Face with a given Net at the absolute coord."""
+
+        if self.part and not net:
+            # Don't add non-pin terminals with no net to a Face on a part or boundary.
+            return
+
+        # Search for pre-existing terminal at the same coordinate.
+        for terminal in self.terminals:
+            if terminal.coord == coord:
+                # There is a pre-existing terminal at this coord.
+                if not net:
+                    # The new terminal has no net (i.e., non-pin terminal),
+                    # so just quit and don't bother to add it.
+                    return
+                elif terminal.net and terminal.net is not net:
+                    # The pre-existing and new terminals have differing nets, so
+                    # raise an exception.
+                    raise(TerminalClashException)
+                # The pre-existing terminal has no net or the same net as the new
+                # terminal, so remove it. It will be replaced with the new terminal.
+                self.terminals.remove(terminal)
+
+        # Create a new Terminal and add it to the list of terminals for this face.
+        self.terminals.append(Terminal(net, self, coord))
+
+
     def create_nonpin_terminals(self):
         """Create non-net terminals along a non-part Face with GRID spacing."""
-
-        # Don't add terminals if the Face is on a part or a boundary.
-        if self.part:
-            self.terminals = []
-            return
 
         # Add terminals along Face, but keep terminals off the beginning or end points.
         from .gen_schematic import GRID
         beg = (self.beg.coord + GRID) // GRID * GRID 
         end = self.end.coord
-        self.terminals = [
-            Terminal(None, self, coord) for coord in range(beg, end, GRID)
-        ]
+        for coord in range(beg, end, GRID):
+            self.add_terminal(None, coord)
 
     def set_capacity(self):
         """Set the wire routing capacity of a Face."""
@@ -1153,6 +1172,7 @@ class SwitchBox:
                 if all_nets.count(net) <= 1:
                     side_nets[i] = None
 
+        # Handle special case when a terminal is right on the corner of the switchbox.
         self.move_corner_nets()
 
     @property
@@ -1282,8 +1302,7 @@ class SwitchBox:
             for face in face_list:
                 for terminal in face.terminals:
                     if terminal.net:
-                        # TODO: Fix faces so net terminals override None terminals.
-                        total_face.terminals.insert(0, Terminal(terminal.net, total_face, terminal.coord))
+                        total_face.add_terminal(terminal.net, terminal.coord)
             total_face.set_capacity()
             total_faces[direction] = total_face
         total_box = SwitchBox(*total_faces)
@@ -2138,12 +2157,15 @@ def route(node, flags=["draw", "draw_switchbox"]):
     if "draw" in flags:
         draw_scr, draw_tx, draw_font = draw_start(routing_bbox)
 
-    # Coalesce smaller switchboxes into larger ones with more routing area.
+    # Sort switchboxes by their perimeter.
     seeds = []  # List of switchboxes to coalesce.
     switchboxes.sort(key=lambda box:box.bbox.w + box.bbox.h)
     for swbx in switchboxes:
         if swbx.has_nets():
             seeds.append(swbx)
+
+    # Coalesce smaller switchboxes into larger ones having more routing area.
+    # Each coalesced switchbox replaces its constituents in the switchboxes list.
     for seed in seeds:
         seed.coalesce(switchboxes)
 
@@ -2167,8 +2189,7 @@ def route(node, flags=["draw", "draw_switchbox"]):
 
         for swbx in switchboxes:
             swbx.draw(
-                # draw_scr, draw_tx, draw_font, flags=["draw_switchbox"]
-                # draw_scr, draw_tx, draw_font, flags=["draw_switchbox", "draw_routing", "show_capacities"]
+                # draw_scr, draw_tx, draw_font, flags=["draw_switchbox", "draw_routing", "show_capacities", "draw_all_terminals"]
                 draw_scr, draw_tx, draw_font, flags=["draw_switchbox", "draw_routing"]
             )
 
