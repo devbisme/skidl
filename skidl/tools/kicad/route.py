@@ -556,8 +556,10 @@ class Face(Interval):
         """
 
         self.pins.extend(other.pins)
+        self.terminals.extend(other.terminals)
         self.part.update(other.part)
         self.adjacent.update(other.adjacent)
+        self.switchboxes.update(other.switchboxes)
 
     @property
     def length(self):
@@ -1175,10 +1177,8 @@ class SwitchBox:
         # Handle special case when a terminal is right on the corner of the switchbox.
         self.move_corner_nets()
 
-    @property
-    def face_list(self):
-        """Return list of switchbox faces in CCW order, starting from top face."""
-        return [self.top_face, self.left_face, self.bottom_face, self.right_face]
+        # Storage for detailed routing.
+        self.segments = []
 
     def audit(self):
         """Raise exception if switchbox is malformed."""
@@ -1191,6 +1191,11 @@ class SwitchBox:
         assert self.right_face.track.orientation == VERT
         assert len(self.top_nets) == len(self.bottom_nets)
         assert len(self.left_nets) == len(self.right_nets)
+
+    @property
+    def face_list(self):
+        """Return list of switchbox faces in CCW order, starting from top face."""
+        return [self.top_face, self.left_face, self.bottom_face, self.right_face]
 
     def move_corner_nets(self):
         """
@@ -1227,10 +1232,7 @@ class SwitchBox:
         self.column_coords, self.track_coords = self.track_coords, self.column_coords
 
         # Flip top/right and bottom/left nets.
-        self.top_nets, self.right_nets, = (
-            self.right_nets,
-            self.top_nets,
-        )
+        self.top_nets, self.right_nets = self.right_nets, self.top_nets
         self.bottom_nets, self.left_nets = self.left_nets, self.bottom_nets
 
         # Flip top/right and bottom/left faces.
@@ -1241,12 +1243,8 @@ class SwitchBox:
         self.move_corner_nets()
 
         # Flip X/Y coords of any routed segments.
-        try:
-            for seg in self.segments:
-                seg.p1.x, seg.p1.y = seg.p1.y, seg.p1.x
-                seg.p2.x, seg.p2.y = seg.p2.y, seg.p2.x
-        except AttributeError:
-            pass
+        for seg in self.segments:
+            seg.flip_xy()
 
     def coalesce(self, switchboxes):
         if self not in switchboxes:
@@ -1724,12 +1722,6 @@ class SwitchBox:
         if do_start_end:
             scr, tx, font = draw_start(self.bbox.resize(Vector(100, 100)))
 
-        if self.top_face.part:
-            part_color = (180,255,180)
-            for prt in self.top_face.part:
-                if isinstance(prt, Part):
-                    draw_box(prt.bbox.dot(prt.tx), scr, tx, color=part_color, thickness=0)
-
         if "draw_switchbox" in flags:
             self.top_face.draw(scr, tx, font, color, thickness, flags=flags)
             self.bottom_face.draw(scr, tx, font, color, thickness, flags=flags)
@@ -1937,7 +1929,7 @@ def global_router(net):
     return routed_wires
 
 
-def route(node, flags=["draw", "draw_switchbox"]):
+def route(node, flags=["draw", "draw_switchbox", "draw_routing"]):
     """Route the wires between part pins in the node.
 
     Steps:
@@ -1947,6 +1939,9 @@ def route(node, flags=["draw", "draw_switchbox"]):
 
     Args:
         node (Node): Hierarchical node containing the parts to be connect
+        flags (list): List of text flags to control drawing of placement and
+            routing for debugging purposes. Available flags are "draw", "draw_switchbox",
+            "draw_routing", "show_capacities", "draw_all_terminals", "draw_channels".
 
     Returns:
         A list of detailed wire routes.
@@ -2154,6 +2149,7 @@ def route(node, flags=["draw", "draw_switchbox"]):
     for swbx in switchboxes:
         swbx.audit()
 
+    # Initialize drawing for debugging purposes.
     if "draw" in flags:
         draw_scr, draw_tx, draw_font = draw_start(routing_bbox)
 
@@ -2180,18 +2176,22 @@ def route(node, flags=["draw", "draw_switchbox"]):
             swbx.flip_xy()
         detailed_routes.extend(swbx.segments)
 
-    # If enabled, draw the switchboxes and routing for debug purposes.
+    # If enabled, draw the global and detailed routing for debug purposes.
     if "draw" in flags:
 
+        # Draw parts.
+        for part in node.parts:
+            part_color = (180,255,180)
+            draw_box(part.bbox.dot(part.tx), draw_scr, draw_tx, color=part_color, thickness=0)
+
+        # Draw the approximate global routing.
         for route in global_routes:
             for wire in route:
                 wire.draw(draw_scr, draw_tx, flags=flags)
 
+        # Draw the detailed routing in each switchbox.
         for swbx in switchboxes:
-            swbx.draw(
-                # draw_scr, draw_tx, draw_font, flags=["draw_switchbox", "draw_routing", "show_capacities", "draw_all_terminals"]
-                draw_scr, draw_tx, draw_font, flags=["draw_switchbox", "draw_routing"]
-            )
+            swbx.draw(draw_scr, draw_tx, draw_font, flags=flags)
 
         draw_end()
 

@@ -104,6 +104,10 @@ class Point:
             self.x * tx.a + self.y * tx.c + tx.dx, self.x * tx.b + self.y * tx.d + tx.dy
         )
 
+    def flip_xy(self):
+        """Flip X-Y coordinates of point."""
+        self.x, self.y = self.y, self.x
+
     def __repr__(self):
         return "{self.__class__}({self.x}, {self.y})".format(self=self)
 
@@ -208,6 +212,11 @@ class Segment:
     def dot(self, tx):
         """Apply transformation matrix to a segment and return a segment."""
         return Segment(self.p1.dot(tx), self.p2.dot(tx))
+
+    def flip_xy(self):
+        """Flip the X-Y coordinates of the segment."""
+        self.p1.flip_xy()
+        self.p2.flip_xy()
 
     def intersects(self, other):
         """Return true if the segments intersect."""
