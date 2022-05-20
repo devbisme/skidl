@@ -112,6 +112,7 @@ glbl_scr = None
 glbl_tx = None
 glbl_font = None
 
+
 def draw_start(bbox):
     """
     Initialize PyGame drawing area.
@@ -295,16 +296,19 @@ def draw_end():
 
 class NoSwitchBox(Exception):
     """Exception raised when a switchbox cannot be generated."""
+
     pass
 
 
 class TerminalClashException(Exception):
     """Exception raised when trying to place two terminals at the same coord on a Face."""
+
     pass
 
 
 class RoutingFailure(Exception):
     """Exception raised when a net connecting terminals cannot be routed."""
+
     pass
 
 
@@ -593,26 +597,28 @@ class Face(Interval):
                 # There is a pre-existing terminal at this coord.
                 if not net:
                     # The new terminal has no net (i.e., non-pin terminal),
-                    # so just quit and don't bother to add it.
+                    # so just quit and don't bother to add it. The pre-existing
+                    # terminal is retained.
                     return
                 elif terminal.net and terminal.net is not net:
                     # The pre-existing and new terminals have differing nets, so
                     # raise an exception.
-                    raise(TerminalClashException)
-                # The pre-existing terminal has no net or the same net as the new
-                # terminal, so remove it. It will be replaced with the new terminal.
+                    raise TerminalClashException
+                # The pre-existing and new terminals have the same net.
+                # Remove the pre-existing terminal. It will be replaced
+                # with the new terminal below.
                 self.terminals.remove(terminal)
 
         # Create a new Terminal and add it to the list of terminals for this face.
         self.terminals.append(Terminal(net, self, coord))
-
 
     def create_nonpin_terminals(self):
         """Create non-net terminals along a non-part Face with GRID spacing."""
 
         # Add terminals along Face, but keep terminals off the beginning or end points.
         from .gen_schematic import GRID
-        beg = (self.beg.coord + GRID) // GRID * GRID 
+
+        beg = (self.beg.coord + GRID) // GRID * GRID
         end = self.end.coord
         for coord in range(beg, end, GRID):
             self.add_terminal(None, coord)
@@ -764,7 +770,9 @@ class Face(Interval):
 
         return seg
 
-    def draw(self, scr, tx, font, color=(128, 128, 128), thickness=2, dot_radius=0, flags=[]):
+    def draw(
+        self, scr, tx, font, color=(128, 128, 128), thickness=2, dot_radius=0, flags=[]
+    ):
         """Draw a Face in the drawing area.
 
         Args:
@@ -778,7 +786,9 @@ class Face(Interval):
         """
 
         # Draw a line segment for the Face.
-        draw_seg(self.seg, scr, tx, color=color, thickness=thickness, dot_radius=dot_radius)
+        draw_seg(
+            self.seg, scr, tx, color=color, thickness=thickness, dot_radius=dot_radius
+        )
 
         # Draw the terminals on the Face.
         for terminal in self.terminals:
@@ -863,7 +873,7 @@ class GlobalWire(list):
 
                 raise RoutingFailure
 
-    def draw(self, scr, tx, color=(0,0,0), thickness=1, dot_radius=10, flags=[]):
+    def draw(self, scr, tx, color=(0, 0, 0), thickness=1, dot_radius=10, flags=[]):
         """Draw a global wire from Face-to-Face in the drawing area.
 
         Args:
@@ -890,7 +900,9 @@ class GlobalWire(list):
         for terminal1, terminal2 in face_to_face:
             p1 = terminal1.pt
             p2 = terminal2.pt
-            draw_seg(Segment(p1, p2), scr, tx, color=color, thickness=thickness, dot_radius=0)
+            draw_seg(
+                Segment(p1, p2), scr, tx, color=color, thickness=thickness, dot_radius=0
+            )
 
 
 class GlobalTrack(list):
@@ -955,7 +967,7 @@ class GlobalTrack(list):
         Args:
             face (Face): Face to be added to track.
         """
-        
+
         self.append(face)
 
         # The added face will also split the orthogonal tracks that define its endpoints.
@@ -1003,7 +1015,7 @@ class GlobalTrack(list):
 
         for i, first_face in enumerate(self):
             first_face.audit()
-            for second_face in self[i+1:]:
+            for second_face in self[i + 1 :]:
                 if first_face.has_overlap(second_face):
                     raise AssertionError
 
@@ -1053,7 +1065,7 @@ class SwitchBox:
             right_face (Face): The right face. Will be calculated if set to None.
 
         Raises:
-            NoSwitchBox: Exception raised if the switchbox is an 
+            NoSwitchBox: Exception raised if the switchbox is an
                 unroutable region inside a part bounding box.
         """
 
@@ -1091,13 +1103,16 @@ class SwitchBox:
             bottom_track = left_face.beg
             for face in bottom_track:
                 # The bottom face should begin/end in the same places as the top face.
-                if (face.beg.coord, face.end.coord) == (top_face.beg.coord, top_face.end.coord):
+                if (face.beg.coord, face.end.coord) == (
+                    top_face.beg.coord,
+                    top_face.end.coord,
+                ):
                     bottom_face = face
                     break
             else:
                 raise NoSwitchBox("Unroutable switchbox!")
 
-        # If all four sides have a part in common, then the switchbox is inside 
+        # If all four sides have a part in common, then the switchbox is inside
         # a part bbox that wires cannot be routed through.
         if top_face.part & bottom_face.part & left_face.part & right_face.part:
             raise NoSwitchBox("Part switchbox")
@@ -1131,7 +1146,7 @@ class SwitchBox:
                 return None
 
         # Find the coordinates of all the horizontal tracks and then create
-        # a list of nets for each of the left/right faces. 
+        # a list of nets for each of the left/right faces.
         left_coords = [terminal.coord for terminal in self.left_face.terminals]
         right_coords = [terminal.coord for terminal in self.right_face.terminals]
         tb_coords = [self.top_face.track.coord, self.bottom_face.track.coord]
@@ -1169,7 +1184,12 @@ class SwitchBox:
 
         # Remove any nets that only have a single terminal in the switchbox.
         all_nets = self.left_nets + self.right_nets + self.top_nets + self.bottom_nets
-        for side_nets in (self.left_nets, self.right_nets, self.top_nets, self.bottom_nets):
+        for side_nets in (
+            self.left_nets,
+            self.right_nets,
+            self.top_nets,
+            self.bottom_nets,
+        ):
             for i, net in enumerate(side_nets):
                 if all_nets.count(net) <= 1:
                     side_nets[i] = None
@@ -1206,22 +1226,22 @@ class SwitchBox:
         """
 
         if self.left_nets[0]:
-            # Move bottommost net on left face to leftmost net on bottom face. 
+            # Move bottommost net on left face to leftmost net on bottom face.
             self.bottom_nets[0] = self.left_nets[0]
             self.left_nets[0] = None
 
         if self.left_nets[-1]:
-            # Move topmost net on left face to leftmost net on top face. 
+            # Move topmost net on left face to leftmost net on top face.
             self.top_nets[0] = self.left_nets[-1]
             self.left_nets[-1] = None
 
         if self.right_nets[0]:
-            # Move bottommost net on right face to rightmost net on bottom face. 
+            # Move bottommost net on right face to rightmost net on bottom face.
             self.bottom_nets[-1] = self.right_nets[0]
             self.right_nets[0] = None
 
         if self.right_nets[-1]:
-            # Move topmost net on right face to rightmost net on top face. 
+            # Move topmost net on right face to rightmost net on top face.
             self.top_nets[-1] = self.right_nets[-1]
             self.right_nets[-1] = None
 
@@ -1246,76 +1266,125 @@ class SwitchBox:
         for seg in self.segments:
             seg.flip_xy()
 
-    def coalesce(self, switchboxes):
-        if self not in switchboxes:
-            return
 
+    def coalesce(self, switchboxes):
+        """Group switchboxes around a seed switchbox into a larger switchbox.
+
+        Args:
+            switchboxes (list): List of seed switchboxes that have not yet been coalesced into a larger switchbox.
+
+        Returns:
+            A coalesced switchbox or None if the seed was no longer available for coalescing.
+        """
+
+        # Abort if the switchbox is no longer a potential seed (it was already merged into a previous switchbox).
+        if self not in switchboxes:
+            return None
+
+        # Remove the switchbox from the list of seeds.
         switchboxes.remove(self)
+
+        # List the switchboxes along the top, left, bottom and right borders of the coalesced switchbox.
         box_lists = [[self], [self], [self], [self]]
-        active_directions = {0,1,2,3}
+
+        # Iteratively search to the top, left, bottom, and right for switchboxes to add.
+        active_directions = {0, 1, 2, 3}
         while active_directions:
+
+            # Grow in the shortest dimension so the coalesced switchbox stays "squarish".
             bbox = BBox()
             for box_list in box_lists:
                 bbox.add(box_list[0].bbox)
             if bbox.w == bbox.h:
-                growth_directions = {0,1,2,3}
+                # Already sqaure, so grow in any direction.
+                growth_directions = {0, 1, 2, 3}
             elif bbox.w < bbox.h:
-                growth_directions = {1,3}
+                # Taller than wide, so grow left or right.
+                growth_directions = {1, 3}
             else:
-                growth_directions = {0,2}
+                # Wider than tall, so grow up or down.
+                growth_directions = {0, 2}
+
+            # Only keep growth directions that are still active.
             growth_directions = growth_directions & active_directions
+
+            # If there is no active growth direction, then stop the growth iterations.
             if not growth_directions:
                 break
+
+            # Take a random choice of the active growth directions.
             direction = choice(list(growth_directions))
 
+            # Check the switchboxes along the growth side to see if further expansion is possible.
             box_list = box_lists[direction]
             for box in box_list:
+                # Get the face of the box from which growth will occur.
                 box_face = box.face_list[direction]
                 if box_face.part:
+                    # This box butts up against a part, so expansion in this direction is blocked.
                     active_directions.remove(direction)
                     break
+                # Get the box which will be added if expansion occurs.
+                # Every face borders two switchboxes, so the adjacent box is the other one.
                 adj_box = (box_face.switchboxes - {box}).pop()
                 if adj_box not in switchboxes:
+                    # This box cannot be added, so expansion in this direction is blocked.
                     active_directions.remove(direction)
                     break
             else:
+                # All the switchboxes along the growth side are available for expansion,
+                # so replace the current boxes in the growth side with these new ones.
                 for i, box in enumerate(box_list[:]):
+                    # Get the adjacent box for the current box on the growth side.
                     box_face = box.face_list[direction]
                     adj_box = (box_face.switchboxes - {box}).pop()
+                    # Replace the current box with the new box from the expansion.
                     box_list[i] = adj_box
+                    # Remove the newly added box from the list of available boxes for growth.
                     switchboxes.remove(adj_box)
-                box_lists[direction-1].append(box_list[0])
-                box_lists[(direction+1)%4].insert(0, box_list[-1])
 
+                # Add the first box on the growth side to the end of the list of boxes on the
+                # preceding direction: (top,left,bottom,right) if current direction is (left,bottom,right,top).
+                box_lists[direction - 1].append(box_list[0])
+
+                # Add the last box on the growth side to the start of the list of boxes on the
+                # next direction: (bottom,right,top,left) if current direction is (left,bottom,right,top).
+                box_lists[(direction + 1) % 4].insert(0, box_list[-1])
+
+        # Create new faces that bound the coalesced group of switchboxes.
         total_faces = [None, None, None, None]
-        face_lists = [[] for _ in box_lists]
         for direction, box_list in enumerate(box_lists):
-            face_list = face_lists[direction]
-            for box in box_list:
-                face_list.append(box.face_list[direction])
+
+            # Create a face that spans all the faces of the boxes along one side.
+            face_list = [box.face_list[direction] for box in box_list]
             beg = min([face.beg for face in face_list])
             end = max([face.end for face in face_list])
             total_face = Face(None, face_list[0].track, beg, end)
+
+            # Add terminals from the box faces along one side.
             total_face.create_nonpin_terminals()
             for face in face_list:
                 for terminal in face.terminals:
                     if terminal.net:
                         total_face.add_terminal(terminal.net, terminal.coord)
-            total_face.set_capacity()
-            total_faces[direction] = total_face
-        total_box = SwitchBox(*total_faces)
-        # total_box.draw(glbl_scr, glbl_tx, color=(200,0,200), thickness=4, flags=["draw_switchbox", "draw_all_terminals"])
-        switchboxes.append(total_box)
 
+            # Set the routing capacity of the new face.
+            total_face.set_capacity()
+
+            # Store the new face for this side.
+            total_faces[direction] = total_face
+
+        # Return the coalesced switchbox created from the new faces.
+        return SwitchBox(*total_faces)
 
     @property
     def bbox(self):
         """Return bounding box for a switchbox."""
         bbox = BBox()
+
+        # Only need two orthogonal sides to compute bounding box.
         bbox.add(self.top_face.bbox)
-        bbox.add(self.bottom_face.bbox)
         bbox.add(self.left_face.bbox)
-        bbox.add(self.right_face.bbox)
         return bbox
 
     def has_nets(self):
@@ -1341,6 +1410,23 @@ class SwitchBox:
 
         if not self.has_nets():
             return self.segments
+
+        def collect_targets(top_nets, bottom_nets, right_nets):
+            """Collect target nets along top, bottom, right faces of switchbox."""
+            min_row = 1
+            max_row = len(right_nets) - 2
+            max_col = len(top_nets)
+            targets = []
+            for col, (t_net, b_net) in enumerate(zip(top_nets, bottom_nets)):
+                if t_net is not None:
+                    targets.append(Target(t_net, max_row, col))
+                if b_net is not None:
+                    targets.append(Target(b_net, min_row, col))
+            for row, r_net in enumerate(right_nets):
+                if r_net is not None:
+                    targets.append(Target(r_net, row, max_col))
+            targets.sort()
+            return targets
 
         def connect_top_btm(track_nets):
             """Connect nets from top/bottom terminals in a column to nets in horizontal tracks of the switchbox."""
@@ -1390,7 +1476,7 @@ class SwitchBox:
             if t_net and (t_net is b_net):
                 # If top & bottom nets are the same, just create a single net interval
                 # connecting them and that's it.
-                column.append(NetInterval(t_net, 0, len(track_nets)-1))
+                column.append(NetInterval(t_net, 0, len(track_nets) - 1))
                 return column
 
             # Find which tracks the top/bottom nets can connect to.
@@ -1403,7 +1489,7 @@ class SwitchBox:
             if not tb_cncts:
                 # No possible connections for top and/or bottom.
                 if "allow_routing_failure" in flags:
-                    return column # Return empty column.
+                    return column  # Return empty column.
                 else:
                     raise RoutingFailure
 
@@ -1638,31 +1724,19 @@ class SwitchBox:
                 net = intvl.net
                 beg = intvl.beg
                 end = intvl.end
-                trks = [i for (i, nets) in trk_nets if net in nets and beg<=i<=end]
+                trks = [i for (i, nets) in trk_nets if net in nets and beg <= i <= end]
                 intvl.beg = min(trks)
                 intvl.end = max(trks)
 
-        # Collect target nets along top, bottom, right faces of switchbox.
-        min_row = 1
-        max_row = len(self.left_nets) - 2
-        max_col = len(self.top_nets)
-        targets = []
-        for col, (t_net, b_net) in enumerate(zip(self.top_nets, self.bottom_nets)):
-            if t_net is not None:
-                targets.append(Target(t_net, max_row, col))
-            if b_net is not None:
-                targets.append(Target(b_net, min_row, col))
-        for row, r_net in enumerate(self.right_nets):
-            if r_net is not None:
-                targets.append(Target(r_net, row, max_col))
-        targets.sort()
-
+        ########################################
         # Main switchbox routing loop.
+        ########################################
         tracks = [self.left_nets[:]]
+        targets = collect_targets(self.top_nets, self.bottom_nets, self.right_nets)
         track_nets = tracks[0]
         columns = []
         for col, (t_net, b_net) in enumerate(zip(self.top_nets, self.bottom_nets)):
-            if col==0 and not t_net and not b_net:
+            if col == 0 and not t_net and not b_net:
                 tracks.append(track_nets)
                 columns.append([])
                 continue
@@ -1687,7 +1761,11 @@ class SwitchBox:
 
         # Create horizontal wiring segments.
         # column_coords = [self.left_face.track.coord] + self.column_coords
-        column_coords = [self.left_face.track.coord] + self.column_coords + [self.right_face.track.coord]
+        column_coords = (
+            [self.left_face.track.coord]
+            + self.column_coords
+            + [self.right_face.track.coord]
+        )
         for col_idx, trks in enumerate(tracks):
             beg_col_coord = column_coords[col_idx]
             end_col_coord = column_coords[col_idx + 1]
@@ -1715,7 +1793,13 @@ class SwitchBox:
         return self.segments
 
     def draw(
-        self, scr=None, tx=None, font=None, color=(128, 0, 128), thickness=2, flags=["draw_switchbox", "draw_routing"]
+        self,
+        scr=None,
+        tx=None,
+        font=None,
+        color=(128, 0, 128),
+        thickness=2,
+        flags=["draw_switchbox", "draw_routing"],
     ):
         do_start_end = not bool(scr)
 
@@ -1779,27 +1863,27 @@ def global_router(net):
     # 6. Continue until the only a single seed face remains (i.e. all the
     #    pins have been connected.)
 
-    routed_wires = [] # List of GlobalWires connecting pins on net.
-    seed_faces = set() # Faces with pins from which paths/routing originate.
-    visited = dict() # Faces visited from each seed face.
-    prev_faces = dict() # Previous face on path for each visited face.
-    full_faces = set() # Faces with no more routing capacity.
-    distances = dict() # Distance of each visited face from its seed face.
-    stop_faces = set() # Faces at which path-to-route conversion stop.
-    
+    routed_wires = []  # List of GlobalWires connecting pins on net.
+    seed_faces = set()  # Faces with pins from which paths/routing originate.
+    visited = dict()  # Faces visited from each seed face.
+    prev_faces = dict()  # Previous face on path for each visited face.
+    full_faces = set()  # Faces with no more routing capacity.
+    distances = dict()  # Distance of each visited face from its seed face.
+    stop_faces = set()  # Faces at which path-to-route conversion stop.
+
     # Initialize a seed face for each net pin from which the routing will grow.
     for pin in net.pins:
         seed_faces.add(pin.face)
-        visited[pin.face] = [pin.face] # Seed face starts off as visited.
-        distances[pin.face] = 0 # Distance to seed face is 0 (of course).
-        stop_faces.add(pin.face) # Stop path-to-route conversion at the seed face.
+        visited[pin.face] = [pin.face]  # Seed face starts off as visited.
+        distances[pin.face] = 0  # Distance to seed face is 0 (of course).
+        stop_faces.add(pin.face)  # Stop path-to-route conversion at the seed face.
 
     # Grow the routes outward from each seed face until they are all connected.
     # The number of seed faces decreases by one as each one connects to another.
     while len(seed_faces) > 1:
 
         # The next dict stores information during the search for the closest unvisited face.
-        next = {'dist': float('inf')}
+        next = {"dist": float("inf")}
 
         # Search for unvisited faces reachable from each seed face.
         for seed_face in seed_faces:
@@ -1822,20 +1906,24 @@ def global_router(net):
                     dist = distances[visited_face] + adj.dist
 
                     # Store info about this face if it is the closest seen so far.
-                    if dist < next['dist']:
-                        next['face'] = adj.face # Store the current face.
-                        next['prev_face'] = visited_face # Last face that led to this face.
-                        next['root_face'] = seed_face # Originating root/seed leading to this face.
-                        next['dist'] = dist # Distance from root/seed to this face.
+                    if dist < next["dist"]:
+                        next["face"] = adj.face  # Store the current face.
+                        next[
+                            "prev_face"
+                        ] = visited_face  # Last face that led to this face.
+                        next[
+                            "root_face"
+                        ] = seed_face  # Originating root/seed leading to this face.
+                        next["dist"] = dist  # Distance from root/seed to this face.
 
         # If no new face is available to visit and there are still unconnected seeds,
         # then the routing has failed.
-        if 'face' not in next:
+        if "face" not in next:
             raise RoutingFailure
 
-        next_face = next['face']
-        prev_face = next['prev_face']
-        root_face = next['root_face']
+        next_face = next["face"]
+        prev_face = next["prev_face"]
+        root_face = next["root_face"]
 
         # At this point, the closest unvisited face among all the seed faces has been found.
         # Now there are two possibilities: 1) this face which is unvisited from one seed has
@@ -1843,7 +1931,7 @@ def global_router(net):
         # or 2) this face has never been visited from any seed before.
         if next_face in distances:
 
-            # The face was already visited from another root, 
+            # The face was already visited from another root,
             # so check the seed faces to see which one it is.
             for seed_face in seed_faces - set([root_face]):
                 if next_face in visited[seed_face]:
@@ -1859,7 +1947,7 @@ def global_router(net):
                             # future paths that connect to it will stop without
                             # tracing a duplicate path.
                             stop_faces.add(face)
-                            face = prev_faces[face] # Get next face on path.
+                            face = prev_faces[face]  # Get next face on path.
                         # End the path with the face on the stop list.
                         path.append(face)
                         return path
@@ -1920,7 +2008,7 @@ def global_router(net):
                 visited[root_face].append(next_face)
 
                 # Store the distance of the face back to its seed face.
-                distances[next_face] = next['dist']
+                distances[next_face] = next["dist"]
 
                 # Store the previous face that led to this one for use in generating paths.
                 prev_faces[next_face] = prev_face
@@ -2076,6 +2164,7 @@ def route(node, flags=["draw", "draw_switchbox", "draw_routing"]):
 
     # Add terminals to switchbox faces for all part pins on internal nets.
     from .gen_schematic import calc_pin_dir
+
     for net in internal_nets:
         for pin in net.pins:
             dir = calc_pin_dir(pin)
@@ -2153,17 +2242,20 @@ def route(node, flags=["draw", "draw_switchbox", "draw_routing"]):
     if "draw" in flags:
         draw_scr, draw_tx, draw_font = draw_start(routing_bbox)
 
-    # Sort switchboxes by their perimeter.
+    # Small switchboxes are more likely to fail routing so try to combine them into larger switchboxes.
+    # Use switchboxes containing nets for routing as seeds for coalescing into larger switchboxes.
     seeds = []  # List of switchboxes to coalesce.
-    switchboxes.sort(key=lambda box:box.bbox.w + box.bbox.h)
     for swbx in switchboxes:
         if swbx.has_nets():
             seeds.append(swbx)
 
+    # Sort seeds by perimeter so smaller ones are coalesced before larger ones.
+    seeds.sort(key=lambda box: box.bbox.w + box.bbox.h)
+
     # Coalesce smaller switchboxes into larger ones having more routing area.
-    # Each coalesced switchbox replaces its constituents in the switchboxes list.
-    for seed in seeds:
-        seed.coalesce(switchboxes)
+    # The smaller switchboxes are removed from the list of switchboxes.
+    switchboxes = [seed.coalesce(switchboxes) for seed in seeds]
+    switchboxes = [swbx for swbx in switchboxes if swbx]  # Remove None boxes.
 
     # Do detailed routing inside switchboxes.
     detailed_routes = []
@@ -2181,8 +2273,10 @@ def route(node, flags=["draw", "draw_switchbox", "draw_routing"]):
 
         # Draw parts.
         for part in node.parts:
-            part_color = (180,255,180)
-            draw_box(part.bbox.dot(part.tx), draw_scr, draw_tx, color=part_color, thickness=0)
+            part_color = (180, 255, 180)
+            draw_box(
+                part.bbox.dot(part.tx), draw_scr, draw_tx, color=part_color, thickness=0
+            )
 
         # Draw the approximate global routing.
         for route in global_routes:
