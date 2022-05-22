@@ -200,7 +200,7 @@ class BBox:
         return BBox(self.min.dot(tx), self.max.dot(tx))
 
     def __repr__(self):
-        return "{self.__class__}({self.min}, {self.max})".format(self=self)
+        return "{self.__class__}(Point({self.min}, {self.max}))".format(self=self)
 
 
 class Segment:
