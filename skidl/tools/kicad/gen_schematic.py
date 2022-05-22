@@ -25,6 +25,7 @@ from skidl.tools.kicad.kicad import DrawText
 
 from .geometry import Point, Vector, BBox, Segment, Tx
 from .route import route
+from .place import place
 from .symbol import calc_symbol_bbox
 from ...logger import active_logger
 from ...net import NCNet
@@ -458,6 +459,9 @@ class Node:
 
         # Calculate the current bounding box for the node.
         self.calc_bbox()
+
+        # TODO: refine placement.
+        place(self)
 
     def place_children(self):
         def place_objects(objs):
