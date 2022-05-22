@@ -13,15 +13,16 @@ from __future__ import (  # isort:skip
     unicode_literals,
 )
 
-__all__ = [
-    "route",
-    "Face",
-    "GlobalTrack",
-    "HORZ",
-    "VERT",
-    "SwitchBox",
-    "RoutingFailure",
-]
+# TODO: refine exports.
+# __all__ = [
+#     "route",
+#     "Face",
+#     "GlobalTrack",
+#     "HORZ",
+#     "VERT",
+#     "SwitchBox",
+#     "RoutingFailure",
+# ]
 
 from builtins import range, zip
 from collections import defaultdict
@@ -277,6 +278,14 @@ def draw_text(txt, pt, scr, tx, font, color=(100, 100, 100)):
 
     # Render text.
     font.render_to(scr, (pt.x, pt.y), txt, color)
+
+
+def draw_part(part, scr, tx, font):
+    tx_bbox = part.bbox.dot(part.tx)
+    (180, 255, 180)
+    draw_box(tx_bbox, scr, tx, color=(180, 255, 180), thickness=0)
+    draw_box(tx_bbox, scr, tx, color=(90, 128, 90), thickness=5)
+    draw_text(part.ref, tx_bbox.ctr, scr, tx, font)
 
 
 def draw_end():
@@ -2273,10 +2282,11 @@ def route(node, flags=["draw", "draw_switchbox", "draw_routing"]):
 
         # Draw parts.
         for part in node.parts:
-            part_color = (180, 255, 180)
-            draw_box(
-                part.bbox.dot(part.tx), draw_scr, draw_tx, color=part_color, thickness=0
-            )
+            draw_part(part, draw_scr, draw_tx, draw_font)
+            # part_color = (180, 255, 180)
+            # draw_box(
+            #     part.bbox.dot(part.tx), draw_scr, draw_tx, color=part_color, thickness=0
+            # )
 
         # Draw the approximate global routing.
         for route in global_routes:
