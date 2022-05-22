@@ -2283,10 +2283,6 @@ def route(node, flags=["draw", "draw_switchbox", "draw_routing"]):
         # Draw parts.
         for part in node.parts:
             draw_part(part, draw_scr, draw_tx, draw_font)
-            # part_color = (180, 255, 180)
-            # draw_box(
-            #     part.bbox.dot(part.tx), draw_scr, draw_tx, color=part_color, thickness=0
-            # )
 
         # Draw the approximate global routing.
         for route in global_routes:
