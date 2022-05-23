@@ -3,6 +3,7 @@
 # The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
 
 from copy import copy
+import math
 
 """
 Stuff for handling geometry:
@@ -82,6 +83,10 @@ class Point:
         """Divide the x,y coords by d."""
         return Point(self.x / d, self.y / d)
 
+    def __mul__(self, m):
+        """Multiply the x,y coords by m."""
+        return Point(self.x * m, self.y * m)
+
     def __round__(self, n=None):
         return Point(round(self.x, n), round(self.y, n))
 
@@ -103,6 +108,20 @@ class Point:
         return Point(
             self.x * tx.a + self.y * tx.c + tx.dx, self.x * tx.b + self.y * tx.d + tx.dy
         )
+
+    @property
+    def magnitude(self):
+        """Get the distance of the point from the origin."""
+        return math.sqrt(self.x**2 + self.y**2)
+
+    @property
+    def norm(self):
+        """Return a unit vector pointing from the origin to the point."""
+        try:
+            return self / self.magnitude
+        except ZeroDivisionError:
+            return Point(0, 0)
+
 
     def flip_xy(self):
         """Flip X-Y coordinates of point."""
@@ -150,6 +169,13 @@ class BBox:
             and (self.min.y < bbox.max.y)
             and (self.max.y > bbox.min.y)
         )
+
+    def intersection(self, bbox):
+        if not self.intersects(bbox):
+            return BBox(Point(0,0))
+        corner1 = self.min.max(bbox.min)
+        corner2 = self.max.min(bbox.max)
+        return BBox(corner1, corner2)
 
     def resize(self, vector):
         """Expand/contract the bounding box by applying vector to its corner points."""

@@ -22,7 +22,9 @@ from builtins import range, zip
 from collections import defaultdict
 from enum import Enum, auto
 from itertools import zip_longest, chain
+import numpy as np
 from random import randint, choice
+import time
 
 from future import standard_library
 
@@ -55,7 +57,7 @@ def draw_net(net, parts, scr, tx, font):
     for pt1, pt2 in zip(pts[:-1], pts[1:]):
         draw_seg(Segment(pt1, pt2), scr, tx, thickness=2, dot_radius=5)
 
-def part_force(part, parts, nets):
+def attractive_force(part, nets):
     anchor_pts = defaultdict(list)
     pulling_pts = defaultdict(list)
     for net in nets:
@@ -64,18 +66,55 @@ def part_force(part, parts, nets):
                 anchor_pts[net].append(pin.pt.dot(part.tx))
             else:
                 pulling_pts[net].append(pin.pt.dot(pin.part.tx))
-    force = Vector(0,0)
+    force = Vector(0, 0)
     for net in anchor_pts.keys():
         for anchor_pt in anchor_pts[net]:
             for pulling_pt in pulling_pts[net]:
                 force += pulling_pt - anchor_pt
-    return force/20
+    return force
 
-def draw_force(part, parts, nets, scr, tx, font):
-    force = part_force(part, parts, nets)
+def repulsive_force(part, parts):
+    part_bbox = part.bbox.dot(part.tx)
+    total_force = Vector(0, 0)
+    for prt in parts:
+        if prt is part:
+            continue
+        prt_bbox = prt.bbox.dot(prt.tx)
+        intersection_bbox = prt_bbox.intersection(part_bbox)
+        repulsion = math.sqrt(intersection_bbox.area)
+        force = (part_bbox.ctr - intersection_bbox.ctr).norm * repulsion
+        total_force += force
+    return total_force
+    # return total_force.norm * math.sqrt(total_force.magnitude)
+    # return math.sqrt(total_force)
+
+def total_force(part, parts, nets, alpha):
+    return alpha * attractive_force(part, nets) + (1 - alpha) * repulsive_force(part, parts)
+
+def draw_force(part, parts, nets, alpha, scr, tx, font):
+    force = total_force(part, parts, nets, alpha) * 10
     anchor = part.bbox.ctr.dot(part.tx)
     draw_seg(Segment(anchor, anchor+force), scr, tx, color=(128,0,0), thickness=5, dot_radius=0)
 
+def evolve_placement(parts, nets, scr, tx, font):
+    alpha_vals = list(np.linspace(1,0,2000))
+    alpha_vals.extend(list(np.linspace(0,0.5,1000)))
+    alpha_vals.extend(list(np.linspace(0.5,0,1000)))
+    for alpha in alpha_vals:
+        draw_clear(scr)
+        mv_txs = dict()
+        for part in parts:
+            force = total_force(part, parts, nets, alpha) / 20
+            mv_txs[part] = Tx(dx=force.x, dy=force.y)
+        # for part in parts:
+            part.tx = part.tx.dot(mv_txs[part])
+            draw_part(part, scr, tx, font)
+            draw_force(part, parts, nets, alpha, scr, tx, font)
+        for net in nets:
+            draw_net(net, parts, scr, tx, font)
+        draw_redraw()
+    print("Evolution Done!")
+        # time.sleep(0.5)
 
 def place(node, flags=["draw", "draw_switchbox", "draw_routing"]):
     """Place the parts in the node.
@@ -156,14 +195,16 @@ def place(node, flags=["draw", "draw_switchbox", "draw_routing"]):
         draw_scr, draw_tx, draw_font = draw_start(bbox)
 
         # Draw parts.
-        for part in node.parts:
-            draw_part(part, draw_scr, draw_tx, draw_font)
+        # for part in node.parts:
+        #     draw_part(part, draw_scr, draw_tx, draw_font)
 
-        for part in node.parts:
-            draw_force(part, node.parts, internal_nets, draw_scr, draw_tx, draw_font)
+        # for part in node.parts:
+        #     draw_force(part, node.parts, internal_nets, draw_scr, draw_tx, draw_font)
 
-        for net in internal_nets:
-            draw_net(net, node.parts, draw_scr, draw_tx, draw_font)
+        # for net in internal_nets:
+        #     draw_net(net, node.parts, draw_scr, draw_tx, draw_font)
+
+        evolve_placement(node.parts, internal_nets, draw_scr, draw_tx, draw_font)
 
         draw_end()
 

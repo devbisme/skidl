@@ -114,71 +114,6 @@ glbl_tx = None
 glbl_font = None
 
 
-def draw_start(bbox):
-    """
-    Initialize PyGame drawing area.
-
-    Args:
-        bbox: Bounding box of object to be drawn.
-
-    Returns:
-        scr: PyGame screen that is drawn upon.
-        tx: Matrix to transform from real coords to screen coords.
-        font: PyGame font for rendering text.
-    """
-
-    # Only import pygame if drawing is being done to avoid the startup message.
-    import pygame
-    import pygame.freetype
-
-    # Make pygame module available to other functions.
-    globals()["pygame"] = pygame
-
-    # Screen drawing area.
-    scr_bbox = BBox(Point(0, 0), Point(2000, 1500))
-
-    # Place a blank region around the object by expanding it's bounding box.
-    border = max(bbox.w, bbox.h) / 20
-    bbox = bbox.resize(Vector(border, border))
-    bbox = round(bbox)
-
-    # Compute the scaling from real to screen coords.
-    scale = min(scr_bbox.w / bbox.w, scr_bbox.h / bbox.h)
-    scale_tx = Tx(a=scale, d=scale)
-
-    # Flip the Y coord.
-    flip_tx = Tx(d=-1)
-
-    # Compute the translation of the object center to the drawing area center
-    new_bbox = bbox.dot(scale_tx).dot(
-        flip_tx
-    )  # Object bbox transformed to screen coords.
-    move = scr_bbox.ctr - new_bbox.ctr  # Vector to move object ctr to drawing ctr.
-    move_tx = Tx(dx=move.x, dy=move.y)
-
-    # The final transformation matrix will scale the object's real coords,
-    # flip the Y coord, and then move the object to the center of the drawing area.
-    tx = scale_tx.dot(flip_tx).dot(move_tx)
-
-    # Initialize drawing area.
-    pygame.init()
-    scr = pygame.display.set_mode((scr_bbox.w, scr_bbox.h))
-
-    # Set font for text rendering.
-    font = pygame.freetype.SysFont("consolas", 24)
-
-    # Clear drawing area.
-    scr.fill((255, 255, 255))
-
-    global glbl_scr, glbl_tx, glbl_font
-    glbl_scr = scr
-    glbl_tx = tx
-    glbl_font = font
-
-    # Return drawing screen, transformation matrix, and font.
-    return scr, tx, font
-
-
 def draw_box(bbox, scr, tx, color=(192, 255, 192), thickness=0):
     """Draw a box in the drawing area.
 
@@ -287,12 +222,81 @@ def draw_part(part, scr, tx, font):
     draw_box(tx_bbox, scr, tx, color=(90, 128, 90), thickness=5)
     draw_text(part.ref, tx_bbox.ctr, scr, tx, font)
 
+def draw_clear(scr):
+    scr.fill((255, 255, 255))
+
+def draw_redraw():
+    pygame.display.flip()
+
+def draw_start(bbox):
+    """
+    Initialize PyGame drawing area.
+
+    Args:
+        bbox: Bounding box of object to be drawn.
+
+    Returns:
+        scr: PyGame screen that is drawn upon.
+        tx: Matrix to transform from real coords to screen coords.
+        font: PyGame font for rendering text.
+    """
+
+    # Only import pygame if drawing is being done to avoid the startup message.
+    import pygame
+    import pygame.freetype
+
+    # Make pygame module available to other functions.
+    globals()["pygame"] = pygame
+
+    # Screen drawing area.
+    scr_bbox = BBox(Point(0, 0), Point(2000, 1500))
+
+    # Place a blank region around the object by expanding it's bounding box.
+    border = max(bbox.w, bbox.h) / 20
+    bbox = bbox.resize(Vector(border, border))
+    bbox = round(bbox)
+
+    # Compute the scaling from real to screen coords.
+    scale = min(scr_bbox.w / bbox.w, scr_bbox.h / bbox.h)
+    scale_tx = Tx(a=scale, d=scale)
+
+    # Flip the Y coord.
+    flip_tx = Tx(d=-1)
+
+    # Compute the translation of the object center to the drawing area center
+    new_bbox = bbox.dot(scale_tx).dot(
+        flip_tx
+    )  # Object bbox transformed to screen coords.
+    move = scr_bbox.ctr - new_bbox.ctr  # Vector to move object ctr to drawing ctr.
+    move_tx = Tx(dx=move.x, dy=move.y)
+
+    # The final transformation matrix will scale the object's real coords,
+    # flip the Y coord, and then move the object to the center of the drawing area.
+    tx = scale_tx.dot(flip_tx).dot(move_tx)
+
+    # Initialize drawing area.
+    pygame.init()
+    scr = pygame.display.set_mode((scr_bbox.w, scr_bbox.h))
+
+    # Set font for text rendering.
+    font = pygame.freetype.SysFont("consolas", 24)
+
+    # Clear drawing area.
+    draw_clear(scr)
+
+    global glbl_scr, glbl_tx, glbl_font
+    glbl_scr = scr
+    glbl_tx = tx
+    glbl_font = font
+
+    # Return drawing screen, transformation matrix, and font.
+    return scr, tx, font
 
 def draw_end():
     """Display drawing and wait for user to close PyGame window."""
 
     # Display drawing.
-    pygame.display.flip()
+    draw_redraw()
 
     # Wait for user to close PyGame window.
     running = True
