@@ -33,6 +33,7 @@ class Tx:
         self.dy = dy
 
     def dot(self, tx):
+        """Return the product of two transformation matrices."""
         return Tx(
             a=self.a * tx.a + self.b * tx.c,
             b=self.a * tx.b + self.b * tx.d,
@@ -44,7 +45,21 @@ class Tx:
 
     @property
     def origin(self):
+        """Return the (dx, dy) translation as a Point."""
         return Point(self.dx, self.dy)
+
+    @origin.setter
+    def origin(self, pt):
+        """Set the (dx, dy) translation from an (x,y) Point."""
+        self.dx, self.dy = pt.x, pt.y
+
+    def rot_cw_90(self):
+        """Rotate transformation 90 clock-wise around (dx, dy)."""
+        self.a, self.b, self.c, self.d = self.b, -self.a, self.d, -self.c
+
+    def flip_x(self):
+        """Flip transformation X coords around (dx, dy)."""
+        self.a, self.c = -self.a, -self.c
 
 
 class Point:
@@ -163,6 +178,7 @@ class BBox:
         return BBox(round(self.min), round(self.max))
 
     def intersects(self, bbox):
+        """Return True if the two bounding boxes intersect."""
         return (
             (self.min.x < bbox.max.x)
             and (self.max.x > bbox.min.x)
@@ -171,6 +187,7 @@ class BBox:
         )
 
     def intersection(self, bbox):
+        """Return the bounding box of the intersection between the two bounding boxes."""
         if not self.intersects(bbox):
             return BBox(Point(0,0))
         corner1 = self.min.max(bbox.min)

@@ -759,7 +759,7 @@ def wire_to_eeschema(wire, tx):
     pts = [pt.dot(tx) for pt in wire]
     for pt1, pt2 in zip(pts[:-1], pts[1:]):
         eeschema.append("Wire Wire Line")
-        eeschema.append("	{} {} {} {}".format(pt1.x, pt1.y, pt2.x, pt2.y))
+        eeschema.append("	{} {} {} {}".format(round(pt1.x), round(pt1.y), round(pt2.x), round(pt2.y)))
     eeschema.append("")  # For blank line at end.
     return "\n".join(eeschema)
 
@@ -900,7 +900,7 @@ def pin_label_to_eeschema(pin, tx):
     }[pin_dir]
 
     return "Text {} {} {} {}    50   UnSpc ~ 0\n{}\n".format(
-        label_type, pt.x, pt.y, orientation, pin.label
+        label_type, round(pt.x), round(pt.y), orientation, pin.label
     )
 
 

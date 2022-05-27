@@ -216,17 +216,50 @@ def draw_text(txt, pt, scr, tx, font, color=(100, 100, 100)):
 
 
 def draw_part(part, scr, tx, font):
+    """Draw part bounding box.
+
+    Args:
+        part (Part): Part to draw.
+        scr (PyGame screen): Screen object for PyGame drawing.
+        tx (Tx): Transformation matrix from real to screen coords.
+        font (PyGame font): Font for rendering text.
+    """
     tx_bbox = part.bbox.dot(part.tx)
     (180, 255, 180)
     draw_box(tx_bbox, scr, tx, color=(180, 255, 180), thickness=0)
     draw_box(tx_bbox, scr, tx, color=(90, 128, 90), thickness=5)
     draw_text(part.ref, tx_bbox.ctr, scr, tx, font)
 
-def draw_clear(scr):
-    scr.fill((255, 255, 255))
+def draw_net(net, parts, scr, tx, font, color=(0,0,0), thickness=2, dot_radius=5):
+    """Draw net and connected terminals.
 
-def draw_redraw():
-    pygame.display.flip()
+    Args:
+        net (Net): Net of conmnected terminals.
+        parts (list): List of parts to which net will be drawn.
+        scr (PyGame screen): Screen object for PyGame drawing.
+        tx (Tx): Transformation matrix from real to screen coords.
+        font (PyGame font): Font for rendering text.
+        color (tuple, optional): Segment color. Defaults to (0,0,0).
+        thickness (int, optional): Thickness of net line. Defaults to 2.
+        dot_radius (int, optional): Radius of terminals on net. Defaults to 5.
+    """
+    pts = []
+    for pin in net.pins:
+        part = pin.part
+        if part in parts:
+            pt = pin.pt.dot(part.tx)
+            pts.append(pt)
+    for pt1, pt2 in zip(pts[:-1], pts[1:]):
+        draw_seg(Segment(pt1, pt2), scr, tx, color=color, thickness=thickness, dot_radius=dot_radius)
+
+def draw_clear(scr, color=(255, 255, 255)):
+    """Clear drawing area.
+
+    Args:
+        scr (PyGame screen): Screen object to be cleared.
+        color (tuple, optional): Background color. Defaults to (255, 255, 255).
+    """
+    scr.fill(color)
 
 def draw_start(bbox):
     """
@@ -291,6 +324,11 @@ def draw_start(bbox):
 
     # Return drawing screen, transformation matrix, and font.
     return scr, tx, font
+
+def draw_redraw():
+    """Redraw the PyGame display.
+    """
+    pygame.display.flip()
 
 def draw_end():
     """Display drawing and wait for user to close PyGame window."""
