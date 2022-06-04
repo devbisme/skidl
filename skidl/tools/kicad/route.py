@@ -667,8 +667,6 @@ class Face(Interval):
         """Create non-net terminals along a non-part Face with GRID spacing."""
 
         # Add terminals along Face, but keep terminals off the beginning or end points.
-        from .gen_schematic import GRID
-
         beg = (self.beg.coord + GRID) // GRID * GRID
         end = self.end.coord
         for coord in range(beg, end, GRID):

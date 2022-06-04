@@ -23,6 +23,7 @@ from future import standard_library
 
 from skidl.tools.kicad.kicad import DrawText
 
+from .common import GRID, PIN_LABEL_FONT_SIZE
 from .geometry import Point, Vector, BBox, Segment, Tx
 from .route import route
 from .place import place
@@ -39,10 +40,6 @@ standard_library.install_aliases()
 """
 Generate a KiCad EESCHEMA schematic from a Circuit object.
 """
-
-GRID = 50
-PIN_LABEL_FONT_SIZE = 50
-
 
 # Sizes of EESCHEMA schematic pages from smallest to largest. Dimensions in mils.
 A_sizes_list = [

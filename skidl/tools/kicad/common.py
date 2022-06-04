@@ -20,6 +20,11 @@ from future import standard_library
 standard_library.install_aliases()
 
 
+# Constants for KiCad.
+GRID = 50
+PIN_LABEL_FONT_SIZE = 50
+
+
 
 # Named tuples for part DRAW primitives.
 
