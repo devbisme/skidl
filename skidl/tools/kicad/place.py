@@ -80,7 +80,6 @@ def snap_to_grid(part):
     Args:
         part (Part): Part to snap to grid.
     """
-    from .gen_schematic import GRID
 
     if part.pins:
         pin = part.pins[0]
@@ -92,6 +91,26 @@ def snap_to_grid(part):
     else:
         part_ctr = part.bbox.dot(part.tx).ctr
         part.tx.origin = part_ctr.snap(GRID)
+
+
+speed = 0.5
+speed_mult = 2.0
+centroid_mult = 0
+use_mass = False
+ignore_power = True
+use_fanout_1 = False
+use_fanout_2 = False
+do_snap = True
+
+
+def parts_centroid(parts):
+    bbox = BBox()
+    for part in parts:
+        bbox.add(part.bbox.dot(part.tx))
+    return bbox.ctr
+
+def gravity_force(part, centroid):
+    return centroid - part.bbox.dot(part.tx).ctr
 
 def net_force(part, nets):
     """Compute attractive force on a part from all the other parts connected to it.
@@ -125,11 +144,33 @@ def net_force(part, nets):
     # Compute the combined force of all the anchor/pulling points on each net.
     total_force = Vector(0, 0)
     for net in anchor_pts.keys():
+
+        if ignore_power:
+            if net.netclass == "Power" or "vcc" in net.name.lower() or "gnd" in net.name.lower():
+                continue
+
+        if use_fanout_1:
+            try:
+                net_force = 1 / (len(net.pins) - 1)**3
+            except ZeroDivisionError:
+                net_force = 1
+        elif use_fanout_2:
+            if len(net.pins) > 4:
+                net_force = 0
+            else:
+                net_force = 1
+        else:
+            net_force = 1
+
         for anchor_pt in anchor_pts[net]:
             for pulling_pt in pulling_pts[net]:
                 # Force from pulling to anchor point is proportional to distance.
-                total_force += pulling_pt - anchor_pt
-    return total_force
+                total_force += (pulling_pt - anchor_pt) * net_force
+
+    if use_mass:
+        return total_force / len(part.pins)
+    else:
+        return total_force
 
 def overlap_force(part, parts):
     """Compute the repulsive force on a part from overlapping other parts.
@@ -166,7 +207,7 @@ def overlap_force(part, parts):
         total_force += direction * repulsion
     return total_force
 
-def total_force(part, parts, nets, alpha):
+def total_force(part, parts, nets, centroid, alpha):
     """Compute the total of the net attractive and overlap repulsive forces on a part.
 
     Args:
@@ -178,7 +219,7 @@ def total_force(part, parts, nets, alpha):
     Returns:
         Vector: Weighted total of net attractive and overlap repulsion forces.
     """
-    return (1 - alpha) * net_force(part, nets) + alpha * overlap_force(part, parts)
+    return (1 - alpha) * (net_force(part, nets) + centroid_mult * gravity_force(part, centroid)) + alpha * overlap_force(part, parts)
 
 def adjust_orientations(parts, nets, alpha):
     for part in parts:
@@ -193,8 +234,16 @@ def adjust_orientations(parts, nets, alpha):
             part.tx.flip_x()
         part.tx = smallest_tx
 
-def evolve_placement(parts, nets, speed=1.0, scr=None, tx=None, font=None):
-    from .gen_schematic import GRID
+def push_and_pull(parts, nets, centroid, speed, scr, tx, font):
+    """Move parts under influence of attracting nets and repulsive part overlaps.
+
+    Args:
+        parts (list): List of Parts.
+        nets (list): List of nets that interconnect parts.
+        scr (PyGame screen): Screen object for PyGame debug drawing.
+        tx (Tx): Transformation matrix from real to screen coords.
+        font (PyGame font): Font for rendering text.
+    """
 
     unshuffled_parts = parts[:]
 
@@ -203,25 +252,34 @@ def evolve_placement(parts, nets, speed=1.0, scr=None, tx=None, font=None):
     for alpha in range(num_iters):
         random.shuffle(parts)
         for part in parts:
-            force = total_force(part, parts, nets, alpha/num_iters)
+            force = total_force(part, parts, nets, centroid, alpha/num_iters)
             mv_dist = force * 0.5 * speed # 0.5 is ad-hoc.
             mv_tx = Tx(dx=mv_dist.x, dy=mv_dist.y)
             part.tx = part.tx.dot(mv_tx)
         if scr:
             draw_placement(unshuffled_parts, nets, scr, tx, font)
 
-    # Snap parts to grid.
-    for part in parts:
-        snap_to_grid(part)
+def remove_overlaps(parts, nets, scr, tx, font):
+    """Remove any overlaps using horz/vert grid movements.
 
-    # Remove any overlaps caused by snapping to grid.
+    Args:
+        parts (list): List of Parts.
+        nets (list): List of nets that interconnect parts.
+        scr (PyGame screen): Screen object for PyGame debug drawing.
+        tx (Tx): Transformation matrix from real to screen coords.
+        font (PyGame font): Font for rendering text.
+    """
+
+    unshuffled_parts = parts[:]
+
     overlaps = True
     while overlaps:
         overlaps = False
         random.shuffle(parts)
         for part in parts:
             shove_force = overlap_force(part, parts)
-            if shove_force.magnitude > GRID:
+            if shove_force.magnitude > 0:
+            # if shove_force.magnitude > GRID:
                 overlaps = True
                 shove_tx = Tx()
                 if shove_force.x < 0:
@@ -236,7 +294,69 @@ def evolve_placement(parts, nets, speed=1.0, scr=None, tx=None, font=None):
         if scr:
             draw_placement(unshuffled_parts, nets, scr, tx, font)
 
-def place(node, flags=[]):
+def slip_and_slide(parts, nets, scr, tx, font):
+    """Move parts on horz/vert grid looking for improvements without causing overlaps.
+    
+    Args:
+        parts (list): List of Parts.
+        nets (list): List of nets that interconnect parts.
+        scr (PyGame screen): Screen object for PyGame debug drawing.
+        tx (Tx): Transformation matrix from real to screen coords.
+        font (PyGame font): Font for rendering text.
+    """
+
+    unshuffled_parts = parts[:]
+
+    moved = True
+    while moved:
+        moved = False
+        random.shuffle(parts)
+        for part in parts:
+            smallest_force = net_force(part, nets).magnitude
+            original_tx = part.tx
+            best_tx = original_tx
+            for dx, dy in ((-GRID, 0), (GRID, 0), (0, -GRID), (0, GRID)):
+                mv_tx = Tx(dx=dx, dy=dy)
+                part.tx = original_tx.dot(mv_tx)
+                force = net_force(part, nets).magnitude
+                if force < smallest_force:
+                    if overlap_force(part, parts).magnitude == 0:
+                        smallest_force = force
+                        best_tx = part.tx
+                        moved = True
+            part.tx = best_tx
+        if scr:
+            draw_placement(unshuffled_parts, nets, scr, tx, font)
+
+def evolve_placement(parts, nets, speed=1.0, scr=None, tx=None, font=None):
+    """Evolve part placement looking for optimum.
+    
+    Args:
+        parts (list): List of Parts.
+        nets (list): List of nets that interconnect parts.
+        scr (PyGame screen): Screen object for PyGame debug drawing.
+        tx (Tx): Transformation matrix from real to screen coords.
+        font (PyGame font): Font for rendering text.
+    """
+
+    centroid = parts_centroid(parts)
+
+    # Force-directed placement.
+    push_and_pull(parts, nets, centroid, speed, scr, tx, font)
+
+    # Snap parts to grid.
+    if do_snap:
+        for part in parts:
+            snap_to_grid(part)
+
+    # Remove part overlaps.
+    remove_overlaps(parts, nets, scr, tx, font)
+
+    # Look for local improvements.
+    slip_and_slide(parts, nets, scr, tx, font)
+
+
+def place(node, flags=["draw"]):
     """Place the parts in the node.
 
     Steps:
@@ -306,17 +426,18 @@ def place(node, flags=[]):
 
     random_placement(node.parts)
 
-    bbox = BBox()
-    for part in node.parts:
-        tx_bbox = part.bbox.dot(part.tx)
-        bbox.add(tx_bbox)
-
     # If enabled, draw the global and detailed routing for debug purposes.
     if "draw" in flags:
+        bbox = BBox()
+        for part in node.parts:
+            tx_bbox = part.bbox.dot(part.tx)
+            bbox.add(tx_bbox)
         draw_scr, draw_tx, draw_font = draw_start(bbox)
-        evolve_placement(node.parts, internal_nets, speed=1.0, scr=draw_scr, tx=draw_tx, font=draw_font)
+        evolve_placement(node.parts, internal_nets, speed=speed, scr=draw_scr, tx=draw_tx, font=draw_font)
+        evolve_placement(node.parts, internal_nets, speed=speed*speed_mult, scr=draw_scr, tx=draw_tx, font=draw_font)
         draw_end()
     else:
-        evolve_placement(node.parts, internal_nets, speed=1.0)
+        evolve_placement(node.parts, internal_nets, speed=speed)
+        evolve_placement(node.parts, internal_nets, speed=speed*speed_mult)
 
     return node
