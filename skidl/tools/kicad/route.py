@@ -2212,25 +2212,32 @@ def route(node, flags=["draw", "draw_switchbox", "draw_routing"]):
             face.create_nonpin_terminals()
 
     # Add terminals to switchbox faces for all part pins on internal nets.
-    from .gen_schematic import calc_pin_dir
-
     for net in internal_nets:
         for pin in net.pins:
-            dir = calc_pin_dir(pin)
+
+            # Find the track (top/bottom/left/right) that the pin is on.
             part = pin.part
-            pin_track = {
-                "U": part.bottom_track,
-                "D": part.top_track,
-                "L": part.right_track,
-                "R": part.left_track,
-            }[dir]
             pt = pin.pt.dot(part.tx)
-            coord = {
-                "U": pt.x,
-                "D": pt.x,
-                "L": pt.y,
-                "R": pt.y,
-            }[dir]
+            closest_dist = abs(pt.y - part.top_track.coord)
+            pin_track = part.top_track
+            coord = pt.x # Pin coord within top track.
+            dist = abs(pt.y - part.bottom_track.coord)
+            if dist < closest_dist:
+                closest_dist = dist
+                pin_track = part.bottom_track
+                coord = pt.x # Pin coord within bottom track.
+            dist = abs(pt.x - part.left_track.coord)
+            if dist < closest_dist:
+                closest_dist = dist
+                pin_track = part.left_track
+                coord = pt.y # Pin coord within left track.
+            dist = abs(pt.x - part.right_track.coord)
+            if dist < closest_dist:
+                closest_dist = dist
+                pin_track = part.right_track
+                coord = pt.y # Pin coord within right track.
+
+            # Now search for the face in the track that the pin is on.
             for face in pin_track:
                 if part in face.part and face.beg.coord <= coord <= face.end.coord:
                     if not getattr(pin, "face", None):
