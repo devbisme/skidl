@@ -119,7 +119,7 @@ electronic circuits and components using Python.
 The resulting Python program performs electrical rules checking
 for common mistakes and outputs a netlist that serves as input to
 a PCB layout tool.</p>
-<p>First, let's look at a "normal" design flow in <a href="https://kicad-pcb.org">KiCad</a>:</p>
+<p>First, let's look at a "normal" design flow in <a href="https://kicad.org">KiCad</a>:</p>
 <p><img alt="Schematic-based PCB design flow" src="images/schematic-process-flow.png"></p>
 <p>Here, you start off in a <em>schematic editor</em> (for KiCad, that's EESCHEMA) and
 draw a schematic. From that, EESCHEMA generates
@@ -222,8 +222,9 @@ do the PCB layout:</p>
 <div class="highlight"><pre><span></span><code>$ pip install skidl
 </code></pre></div>
 
-<p>To give SKiDL some part libraries to work with,
-you'll also need to install <a href="http://kicad-pcb.org/">KiCad</a>.
+<p>Please note, SKiDL does need part libraries to work with.
+You can either download those libraries alone from: https://gitlab.com/kicad/libraries/kicad-symbols OR you can install <a href="http://kicad.org/">KiCad</a>
+    and those libraries will be shipped with it.</p>
 Then, you'll need to set an environment variable so SKiDL can find the libraries.
 For Windows, do this:</p>
 <div class="highlight"><pre><span></span><code>set KICAD_SYMBOL_DIR=C:\Program Files\KiCad\share\kicad\kicad-symbols
