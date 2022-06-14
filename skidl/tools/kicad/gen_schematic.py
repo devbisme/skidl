@@ -290,14 +290,6 @@ class Node:
                 self.sheets.append(Sheet(child, filepath, title))
                 self.non_sheets.remove(child)
 
-    def move_pin_to_pin(self, moving_pin, anchor_pin):
-        """Move pin to anchor pin and then move it until parts in the node no longer collide."""
-
-        moving_part = moving_pin.part
-        anchor_part = anchor_pin.part
-        vector = anchor_pin.pt.dot(anchor_part.tx) - moving_pin.pt.dot(moving_part.tx)
-        self.move_part(moving_part, vector, Vector(-GRID, 0))
-
     def move_part(self, obj, vector, dir):
         """Move part/sheet/non_sheet until it doesn't collide with other parts/sheets/non_sheets in the node."""
 
@@ -340,126 +332,6 @@ class Node:
         # The final part.tx matrix records the movements that were made.
         obj.placed = True
 
-    def place_parts(self):
-
-        # Move parts connected to central part by unlabeled nets.
-
-        # Find central part in this node that everything else is placed around.
-        def find_central_part(node):
-            central_part = node.parts[0]
-            for part in node.parts[1:]:
-                if len(part) > len(central_part):
-                    central_part = part
-            return central_part
-
-        # Return if there are no parts to place in this node.
-        if not self.parts:
-            return
-
-        self.central_part = find_central_part(self)
-        self.central_part.placed = True
-
-        # Go thru the center part's pins, moving any connected parts closer.
-        for anchor_pin in self.central_part:
-
-            # Skip unconnected pins.
-            if not anchor_pin.is_connected():
-                continue
-
-            # Don't move parts connected to labeled (stub) pins.
-            if len(anchor_pin.label) != 0:
-                continue
-
-            # Don't move parts connected thru power supply nets.
-            if anchor_pin.net.netclass == "Power":
-                continue
-
-            # Now move any parts connected to this pin.
-            for mv_pin in anchor_pin.net.pins:
-
-                # Don't move parts that have already been moved (including the central part).
-                if mv_pin.part.placed:
-                    continue
-
-                # Skip parts that aren't in the same node of the hierarchy as the center part.
-                if mv_pin.part not in self.parts:
-                    # if mv_pin.part.hierarchy != self.central_part.hierarchy:
-                    continue
-
-                # OK, finally move the part connected to this pin.
-                self.move_pin_to_pin(mv_pin, anchor_pin)
-
-        # Move parts connected to parts moved in step previous step.
-        for mv_part in self.parts:
-
-            # Skip parts that have already been moved (including central part).
-            if mv_part.placed:
-                continue
-
-            # Find a pin to pin connection where the part needs to be moved.
-            for mv_pin in mv_part:
-
-                # Skip unconnected pins.
-                if not mv_pin.is_connected():
-                    continue
-
-                # Don't move parts connected to labeled (stub) pins.
-                if len(mv_pin.label) > 0:
-                    continue
-
-                # Don't move parts connected thru power supply nets.
-                if mv_pin.net.netclass == "Power":
-                    continue
-
-                # Move this part toward parts connected to its pin.
-                for anchor_pin in mv_pin.net.pins:
-
-                    # Skip parts that aren't in the same node of the hierarchy as the moving part.
-                    if anchor_pin.part not in self.parts:
-                        # if anchor_pin.part.hierarchy != mv_part.hierarchy:
-                        continue
-
-                    # Don't move toward the central part.
-                    if anchor_pin.part == self.central_part:
-                        continue
-
-                    # Skip connections from the part to itself.
-                    if anchor_pin.part == mv_part:
-                        continue
-
-                    # OK, finally move the part connected to this pin.
-                    self.move_pin_to_pin(mv_pin, anchor_pin)
-
-        # Move any remaining parts in the node down & alternating left/right.
-
-        # Calculate the current bounding box for the node.
-        self.calc_bbox()
-
-        # Set up part movement increments.
-        start = Point(self.bbox.ctr.x, self.bbox.ll.y - 10 * GRID)
-        dir = Vector(GRID, 0)
-
-        for part in self.parts:
-
-            # Skip central part.
-            if part is self.central_part:
-                continue
-
-            # Move any part that hasn't already been moved.
-            if not part.placed:
-                part_tx_bbox = part.bbox.dot(part.tx)
-                ctr_mv = start - Point(part_tx_bbox.ctr.x, part_tx_bbox.ul.y)
-                self.move_part(part, ctr_mv, dir)
-
-                # Switch movement direction for the next unmoved part.
-                dir = -dir
-
-        # Calculate the current bounding box for the node.
-        self.calc_bbox()
-
-        # TODO: refine placement.
-        place(self)
-
     def place_children(self):
         def place_objects(objs):
 
@@ -490,7 +362,7 @@ class Node:
     def place(self):
         """Place parts within a hierarchical node."""
 
-        self.place_parts()
+        place(self)
         self.place_children()
 
     def route(self):

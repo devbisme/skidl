@@ -460,17 +460,17 @@ class Terminal:
         # Well, something went wrong...
         raise RoutingFailure
 
-    def draw(self, scr, tx, flags=[]):
+    def draw(self, scr, tx, options=[]):
         """Draw a Terminal.
 
         Args:
             scr (PyGame screen): Screen object for PyGame drawing.
             tx (Tx): Transformation matrix from real to screen coords.
-            flags (list, optional): List of option strings. Defaults to [].
+            options (list, optional): List of option strings. Defaults to [].
         """
 
         # Don't draw terminal if it isn't on a net. It's just a placeholder.
-        if self.net or "draw_all_terminals" in flags:
+        if self.net or "draw_all_terminals" in options:
 
             # Compute the terminal (x,y) based on whether it's on a horiz or vert Face.
             if self.face.track.orientation == HORZ:
@@ -820,7 +820,7 @@ class Face(Interval):
         return seg
 
     def draw(
-        self, scr, tx, font, color=(128, 128, 128), thickness=2, dot_radius=0, flags=[]
+        self, scr, tx, font, color=(128, 128, 128), thickness=2, dot_radius=0, options=[]
     ):
         """Draw a Face in the drawing area.
 
@@ -828,7 +828,7 @@ class Face(Interval):
             scr (PyGame screen): Screen object for PyGame drawing.
             tx (Tx): Transformation matrix from real to screen coords.
             font (PyGame font): Font for rendering text.
-            flags (list, optional): List of option strings. Defaults to [].
+            options (list, optional): List of option strings. Defaults to [].
 
         Returns:
             None.
@@ -841,9 +841,9 @@ class Face(Interval):
 
         # Draw the terminals on the Face.
         for terminal in self.terminals:
-            terminal.draw(scr, tx, flags)
+            terminal.draw(scr, tx, options)
 
-        if "show_capacities" in flags:
+        if "show_capacities" in options:
             # Show the wiring capacity at the midpoint of the Face.
             mid_pt = (self.seg.p1 + self.seg.p2) / 2
             draw_text(str(self.capacity), mid_pt, scr, tx, font=font, color=color)
@@ -922,13 +922,13 @@ class GlobalWire(list):
 
                 raise RoutingFailure
 
-    def draw(self, scr, tx, color=(0, 0, 0), thickness=1, dot_radius=10, flags=[]):
+    def draw(self, scr, tx, color=(0, 0, 0), thickness=1, dot_radius=10, options=[]):
         """Draw a global wire from Face-to-Face in the drawing area.
 
         Args:
             scr (PyGame screen): Screen object for PyGame drawing.
             tx (Tx): Transformation matrix from real to screen coords.
-            flags (list, optional): List of option strings. Defaults to [].
+            options (list, optional): List of option strings. Defaults to [].
 
         Returns:
             None.
@@ -1443,11 +1443,11 @@ class SwitchBox:
                 return True
         return False
 
-    def route(self, flags=[]):
+    def route(self, options=[]):
         """Route wires between terminals on the switchbox faces.
 
         Args:
-            flags (list, optional): Text flags affecting operations. Defaults to [].
+            options (list, optional): Text options affecting operations. Defaults to [].
 
         Raises:
             RoutingFailure: Raised if routing could not be completed.
@@ -1537,7 +1537,7 @@ class SwitchBox:
 
             if not tb_cncts:
                 # No possible connections for top and/or bottom.
-                if "allow_routing_failure" in flags:
+                if "allow_routing_failure" in options:
                     return column  # Return empty column.
                 else:
                     raise RoutingFailure
@@ -1554,7 +1554,7 @@ class SwitchBox:
                     # Top & bottom connect to the same track but they're the same net so that's OK.
                     break
             else:
-                if "allow_routing_failure" in flags:
+                if "allow_routing_failure" in options:
                     return column
                 else:
                     raise RoutingFailure
@@ -1805,7 +1805,7 @@ class SwitchBox:
 
         for track_net, right_net in zip(tracks[-1], self.right_nets):
             if track_net is not right_net:
-                if "allow_routing_failure" not in flags:
+                if "allow_routing_failure" not in options:
                     raise RoutingFailure
 
         # Create horizontal wiring segments.
@@ -1848,27 +1848,27 @@ class SwitchBox:
         font=None,
         color=(128, 0, 128),
         thickness=2,
-        flags=["draw_switchbox", "draw_routing"],
+        options=["draw_switchbox", "draw_routing"],
     ):
         do_start_end = not bool(scr)
 
         if do_start_end:
             scr, tx, font = draw_start(self.bbox.resize(Vector(100, 100)))
 
-        if "draw_switchbox" in flags:
-            self.top_face.draw(scr, tx, font, color, thickness, flags=flags)
-            self.bottom_face.draw(scr, tx, font, color, thickness, flags=flags)
-            self.left_face.draw(scr, tx, font, color, thickness, flags=flags)
-            self.right_face.draw(scr, tx, font, color, thickness, flags=flags)
+        if "draw_switchbox" in options:
+            self.top_face.draw(scr, tx, font, color, thickness, options=options)
+            self.bottom_face.draw(scr, tx, font, color, thickness, options=options)
+            self.left_face.draw(scr, tx, font, color, thickness, options=options)
+            self.right_face.draw(scr, tx, font, color, thickness, options=options)
 
-        if "draw_routing" in flags:
+        if "draw_routing" in options:
             try:
                 for segment in self.segments:
                     draw_seg(segment, scr, tx, dot_radius=0)
             except AttributeError:
                 pass
 
-        if "draw_channels" in flags:
+        if "draw_channels" in options:
 
             def draw_channel(face1, face2):
                 seg1 = face1.seg
@@ -2066,7 +2066,8 @@ def global_router(net):
     return routed_wires
 
 
-def route(node, flags=["draw", "draw_switchbox", "draw_routing"]):
+def route(node, options=[]):
+# def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
     """Route the wires between part pins in the node.
 
     Steps:
@@ -2076,8 +2077,8 @@ def route(node, flags=["draw", "draw_switchbox", "draw_routing"]):
 
     Args:
         node (Node): Hierarchical node containing the parts to be connect
-        flags (list): List of text flags to control drawing of placement and
-            routing for debugging purposes. Available flags are "draw", "draw_switchbox",
+        options (list): List of text options to control drawing of placement and
+            routing for debugging purposes. Available options are "draw", "draw_switchbox",
             "draw_routing", "show_capacities", "draw_all_terminals", "draw_channels".
 
     Returns:
@@ -2295,7 +2296,7 @@ def route(node, flags=["draw", "draw_switchbox", "draw_routing"]):
         swbx.audit()
 
     # Initialize drawing for debugging purposes.
-    if "draw" in flags:
+    if "draw" in options:
         draw_scr, draw_tx, draw_font = draw_start(routing_bbox)
 
     # Small switchboxes are more likely to fail routing so try to combine them into larger switchboxes.
@@ -2317,15 +2318,15 @@ def route(node, flags=["draw", "draw_switchbox", "draw_routing"]):
     detailed_routes = []
     for swbx in switchboxes:
         try:
-            swbx.route(flags=[])
+            swbx.route(options=[])
         except RoutingFailure:
             swbx.flip_xy()
-            swbx.route(flags=["allow_routing_failure"])
+            swbx.route(options=["allow_routing_failure"])
             swbx.flip_xy()
         detailed_routes.extend(swbx.segments)
 
     # If enabled, draw the global and detailed routing for debug purposes.
-    if "draw" in flags:
+    if "draw" in options:
 
         # Draw parts.
         for part in node.parts:
@@ -2334,11 +2335,11 @@ def route(node, flags=["draw", "draw_switchbox", "draw_routing"]):
         # Draw the approximate global routing.
         for route in global_routes:
             for wire in route:
-                wire.draw(draw_scr, draw_tx, flags=flags)
+                wire.draw(draw_scr, draw_tx, options=options)
 
         # Draw the detailed routing in each switchbox.
         for swbx in switchboxes:
-            swbx.draw(draw_scr, draw_tx, draw_font, flags=flags)
+            swbx.draw(draw_scr, draw_tx, draw_font, options=options)
 
         draw_end()
 

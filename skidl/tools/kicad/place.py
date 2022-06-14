@@ -20,6 +20,7 @@ __all__ = [
 
 from builtins import range, zip
 from collections import defaultdict
+import itertools
 import math
 import random
 
@@ -43,6 +44,10 @@ standard_library.install_aliases()
 # The positions of each part are set.
 #
 ###################################################################
+
+def list_parts(parts):
+    part_refs = [part.ref for part in parts]
+    print(", ".join(part_refs))
 
 def draw_force(part, force, scr, tx, font, color=(128,0,0)):
     force *= 200
@@ -96,21 +101,13 @@ def snap_to_grid(part):
 speed = 0.5
 speed_mult = 2.0
 centroid_mult = 0
+similarity_mult = 0
 use_mass = False
 ignore_power = True
 use_fanout_1 = False
 use_fanout_2 = False
 do_snap = True
 
-
-def parts_centroid(parts):
-    bbox = BBox()
-    for part in parts:
-        bbox.add(part.bbox.dot(part.tx))
-    return bbox.ctr
-
-def gravity_force(part, centroid):
-    return centroid - part.bbox.dot(part.tx).ctr
 
 def net_force(part, nets):
     """Compute attractive force on a part from all the other parts connected to it.
@@ -172,6 +169,16 @@ def net_force(part, nets):
     else:
         return total_force
 
+def gravity_force(part, centroid):
+    return centroid - part.bbox.dot(part.tx).ctr
+
+def similarity_force(part, parts, part_similarity):
+    return 0
+    total_force = Vector(0, 0)
+    for other_part, similarity in part_similarity[part].items():
+        total_force += (other_part.anchor_pt - part.anchor_pt) * similarity
+    return total_force
+
 def overlap_force(part, parts):
     """Compute the repulsive force on a part from overlapping other parts.
 
@@ -207,7 +214,7 @@ def overlap_force(part, parts):
         total_force += direction * repulsion
     return total_force
 
-def total_force(part, parts, nets, centroid, alpha):
+def total_net_force(part, parts, nets, alpha):
     """Compute the total of the net attractive and overlap repulsive forces on a part.
 
     Args:
@@ -219,7 +226,7 @@ def total_force(part, parts, nets, centroid, alpha):
     Returns:
         Vector: Weighted total of net attractive and overlap repulsion forces.
     """
-    return (1 - alpha) * (net_force(part, nets) + centroid_mult * gravity_force(part, centroid)) + alpha * overlap_force(part, parts)
+    return (1 - alpha) * net_force(part, nets) + alpha * overlap_force(part, parts)
 
 def adjust_orientations(parts, nets, alpha):
     for part in parts:
@@ -234,7 +241,7 @@ def adjust_orientations(parts, nets, alpha):
             part.tx.flip_x()
         part.tx = smallest_tx
 
-def push_and_pull(parts, nets, centroid, speed, scr, tx, font):
+def push_and_pull(parts, nets, speed, scr, tx, font):
     """Move parts under influence of attracting nets and repulsive part overlaps.
 
     Args:
@@ -252,7 +259,7 @@ def push_and_pull(parts, nets, centroid, speed, scr, tx, font):
     for alpha in range(num_iters):
         random.shuffle(parts)
         for part in parts:
-            force = total_force(part, parts, nets, centroid, alpha/num_iters)
+            force = total_net_force(part, parts, nets, alpha/num_iters)
             mv_dist = force * 0.5 * speed # 0.5 is ad-hoc.
             mv_tx = Tx(dx=mv_dist.x, dy=mv_dist.y)
             part.tx = part.tx.dot(mv_tx)
@@ -328,21 +335,20 @@ def slip_and_slide(parts, nets, scr, tx, font):
         if scr:
             draw_placement(unshuffled_parts, nets, scr, tx, font)
 
-def evolve_placement(parts, nets, speed=1.0, scr=None, tx=None, font=None):
+def place_connected(parts, nets, speed=1.0, scr=None, tx=None, font=None):
     """Evolve part placement looking for optimum.
     
     Args:
         parts (list): List of Parts.
         nets (list): List of nets that interconnect parts.
+        speed (float): Amount of part movement per unit of force.
         scr (PyGame screen): Screen object for PyGame debug drawing.
         tx (Tx): Transformation matrix from real to screen coords.
         font (PyGame font): Font for rendering text.
     """
 
-    centroid = parts_centroid(parts)
-
     # Force-directed placement.
-    push_and_pull(parts, nets, centroid, speed, scr, tx, font)
+    push_and_pull(parts, nets, speed, scr, tx, font)
 
     # Snap parts to grid.
     if do_snap:
@@ -355,8 +361,120 @@ def evolve_placement(parts, nets, speed=1.0, scr=None, tx=None, font=None):
     # Look for local improvements.
     slip_and_slide(parts, nets, scr, tx, font)
 
+def similarity_force(part, parts, similarity):
+    """Compute attractive force on a part from all the other parts connected to it.
 
-def place(node, flags=["draw"]):
+    Args:
+        part (Part): Part affected by forces from other connected parts.
+        parts (list): List of parts to check for overlaps.
+        similarity (dict): Similarity score for any pair of parts used as keys.
+
+    Returns:
+        Vector: Force upon given part.
+    """
+
+    # These store the anchor points where each net attaches to the given part
+    # and the pulling points where each net attaches to other parts.
+    anchor_pt = part.bbox.dot(part.tx).ctr
+
+    # Compute the combined force of all the anchor/pulling points on each net.
+    total_force = Vector(0, 0)
+    for other in set(parts) - {part}:
+        pulling_pt = other.bbox.dot(other.tx).ctr
+        # Force from pulling to anchor point is proportional to part similarity and distance.
+        total_force += (pulling_pt - anchor_pt) * similarity[part][other]
+
+    return total_force
+
+def total_similarity_force(part, parts, similarity, alpha):
+    """Compute the total of the net attractive and overlap repulsive forces on a part.
+
+    Args:
+        part (Part): Part affected by forces from other overlapping parts.
+        parts (list): List of parts to check for overlaps.
+        similarity (dict): Similarity score for any pair of parts used as keys.
+        alpha (float): Proportion of the total that is the overlap force (range [0,1]).
+
+    Returns:
+        Vector: Weighted total of net attractive and overlap repulsion forces.
+    """
+    return (1 - alpha) * similarity_force(part, parts, similarity) + alpha * overlap_force(part, parts)
+
+def place_similar(parts, similarity, speed, scr, tx, font):
+    """Move parts under influence of attracting nets and repulsive part overlaps.
+
+    Args:
+        parts (list): List of Parts.
+        similarity (dict): Similarity score for any pair of parts used as keys.
+        scr (PyGame screen): Screen object for PyGame debug drawing.
+        tx (Tx): Transformation matrix from real to screen coords.
+        font (PyGame font): Font for rendering text.
+    """
+
+    unshuffled_parts = parts[:]
+
+    # Arrange parts under influence of net attractions and part overlaps.
+    num_iters = round(100 / speed)
+    for alpha in range(num_iters):
+        random.shuffle(parts)
+        for part in parts:
+            force = total_similarity_force(part, parts, similarity, alpha/num_iters)
+            mv_dist = force * 0.5 * speed # 0.5 is ad-hoc.
+            mv_tx = Tx(dx=mv_dist.x, dy=mv_dist.y)
+            part.tx = part.tx.dot(mv_tx)
+        if scr:
+            draw_placement(unshuffled_parts, [], scr, tx, font)
+
+def place_floating(parts, similarity, speed=1.0, scr=None, tx=None, font=None):
+    """Place parts unconnected to any net based on their similarity to each other.
+
+    Args:
+        parts (list): List of unconnected parts.
+        similarity (dict): Similarity score for any pair of parts used as keys.
+        speed (float): Amount of part movement per unit of force.
+        scr (PyGame screen): Screen object for PyGame debug drawing.
+        tx (Tx): Transformation matrix from real to screen coords.
+        font (PyGame font): Font for rendering text.
+    """
+
+    # Force-directed placement based on part similarity.
+    place_similar(parts, similarity, speed, scr, tx, font)
+
+    # Snap parts to grid.
+    if do_snap:
+        for part in parts:
+            snap_to_grid(part)
+
+    # Remove part overlaps.
+    remove_overlaps(parts, [], scr, tx, font)
+
+def parts_bbox(parts):
+    bbox = BBox()
+    for part in parts:
+        bbox.add(part.bbox.dot(part.tx))
+    return bbox
+
+def parts_centroid(parts):
+    return parts_bbox(parts).ctr
+
+def move_parts(parts, tx):
+    for part in parts:
+        part.tx = part.tx.dot(tx)
+
+def arrange_blocks(*blocks):
+    origin = Point(0, 0)
+    for block in blocks:
+        bbx = parts_bbox(block)
+        pt = Point(bbx.ctr.x, bbx.ul.y)
+        tx = Tx()
+        tx.origin = origin - pt
+        move_parts(block, tx)
+        bbx = parts_bbox(block)
+        origin = Point(bbx.ctr.x, bbx.ll.y)
+
+
+def place(node, options=[]):
+# def place(node, options=["draw"]):
     """Place the parts in the node.
 
     Steps:
@@ -365,8 +483,8 @@ def place(node, flags=["draw"]):
 
     Args:
         node (Node): Hierarchical node containing the parts to be placed.
-        flags (list): List of text flags to control drawing of placement
-            for debugging purposes. Available flags are "draw".
+        options (list): List of text options to control drawing of placement
+            for debugging purposes. Available options are "draw".
 
     Returns:
         The Node with the part positions set.
@@ -420,24 +538,84 @@ def place(node, flags=["draw"]):
             if is_internal(net):
                 internal_nets.append(net)
 
-    # Exit if no nets to route.
-    if not internal_nets:
-        pass
+    # Group all the parts that have some interconnection to each other.
+    # Start with groups of parts on each individual net, and then join groups that
+    # have parts in common.
+    connected_parts = [set(pin.part for pin in net.pins) for net in internal_nets]
+    for i in range(len(connected_parts) - 1):
+        group1 = connected_parts[i]
+        for j in range(i+1, len(connected_parts)):
+            group2 = connected_parts[j]
+            if group1 & group2:
+                # If part groups intersect, collect union of parts into one group
+                # and empty-out the other.
+                connected_parts[j] = connected_parts[i] | connected_parts[j]
+                connected_parts[i] = set()
+                # No need to check against this group any more since it has been
+                # unioned into a group that will be checked later in the loop.
+                break
+    # Remove any empty groups that were unioned into other groups.
+    connected_parts = [group for group in connected_parts if group]
 
-    random_placement(node.parts)
+    # Find parts that aren't connected to anything.
+    floating_parts = set(node.parts) - set(itertools.chain(*connected_parts))
 
-    # If enabled, draw the global and detailed routing for debug purposes.
-    if "draw" in flags:
-        bbox = BBox()
-        for part in node.parts:
-            tx_bbox = part.bbox.dot(part.tx)
-            bbox.add(tx_bbox)
+    for group in connected_parts:
+        group = list(group)
+        random_placement(group)
+
+        if "draw" in options:
+            # Draw the global and detailed routing for debug purposes.
+            bbox = BBox()
+            for part in group:
+                tx_bbox = part.bbox.dot(part.tx)
+                bbox.add(tx_bbox)
+            draw_scr, draw_tx, draw_font = draw_start(bbox)
+        else:
+            draw_scr, draw_tx, draw_font = None, None, None
+
+        place_connected(group, internal_nets, speed=speed, scr=draw_scr, tx=draw_tx, font=draw_font)
+        place_connected(group, internal_nets, speed=speed*speed_mult, scr=draw_scr, tx=draw_tx, font=draw_font)
+
+        if "draw" in options:
+            draw_end()
+
+    if floating_parts:
+        part_similarity = defaultdict(lambda: defaultdict(lambda: 0))
+        for part in floating_parts:
+            for other_part in floating_parts - {part}:
+                # TODO: Get similarity forces right-sized.
+                # part_similarity[part][other_part] = part.similarity(other_part)
+                part_similarity[part][other_part] = 0.1
+
+        floating_parts = list(floating_parts)
+        random_placement(floating_parts)
+
+        if "draw" in options:
+            # Draw the global and detailed routing for debug purposes.
+            bbox = BBox()
+            for part in floating_parts:
+                tx_bbox = part.bbox.dot(part.tx)
+                bbox.add(tx_bbox)
+            draw_scr, draw_tx, draw_font = draw_start(bbox)
+        else:
+            draw_scr, draw_tx, draw_font = None, None, None
+
+        place_floating(floating_parts, part_similarity, speed=speed, scr=draw_scr, tx=draw_tx, font=draw_font)
+
+        if "draw" in options:
+            draw_end()
+
+    # TODO: Is this needed?
+    all_parts = tuple(itertools.chain(*connected_parts, floating_parts))
+    for part in all_parts:
+        part.placed = True
+
+    arrange_blocks(*connected_parts, floating_parts)
+    if "draw" in options:
+        bbox = parts_bbox(all_parts)
         draw_scr, draw_tx, draw_font = draw_start(bbox)
-        evolve_placement(node.parts, internal_nets, speed=speed, scr=draw_scr, tx=draw_tx, font=draw_font)
-        evolve_placement(node.parts, internal_nets, speed=speed*speed_mult, scr=draw_scr, tx=draw_tx, font=draw_font)
+        draw_placement(all_parts, [], draw_scr, draw_tx, draw_font)
         draw_end()
-    else:
-        evolve_placement(node.parts, internal_nets, speed=speed)
-        evolve_placement(node.parts, internal_nets, speed=speed*speed_mult)
 
     return node
