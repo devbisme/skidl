@@ -17,7 +17,6 @@ import time
 from builtins import range, str
 from collections import defaultdict, OrderedDict, Counter
 import os.path
-from types import DynamicClassAttribute
 
 from future import standard_library
 
@@ -275,20 +274,57 @@ class Node:
         # Pad the bounding box for extra spacing when placed.
         self.bbox = self.bbox.resize(Vector(100, 100))
 
-    def create_sheets(self, filepath, title, flatness=1.0):
         """Create hierarchical sheets for the circuitry in this node and its children."""
+    def create_sheets(self, filepath, title, flatness=0.0):
+        """Create hierarchical sheets for the circuitry in this node and its children.
 
+        Args:
+            filepath (string): Location where schematic files will be stored.
+            title (string): Schematic title.
+            flatness (float, optional): Degree of hierarchical flattening (0=completely hierarchical, 1=totally flat). Defaults to 0.0.
+
+        Create hierarchical sheets for the node and its child nodes. Complexity (or size) of a node
+        and its children is the total number of part pins they contain. The sum of all the child sizes
+        multiplied by the flatness is the number of part pins that can be shown on the schematic
+        page before hierarchy is used. The instances of each type of child are expanded and placed
+        directly in the sheet as long as the sum of their sizes is below the slack. Otherwise, the
+        children are included using hierarchical sheets. The children are handled in order of
+        increasing size so small children are more likely to be expanded while large, complicated
+        children are included using hierarchical sheets.
+        """
+
+        # Complexity of the parts directly instantiated at this hierarchical level.
         self.complexity = sum((len(part) for part in self.parts))
 
+        # Sum the child complexities and use it to compute the number of pins that can be
+        # shown before hierarchical sheets are used.
         child_complexity = sum((child.complexity for child in self.children))
         slack = child_complexity * flatness
-        self.non_sheets = sorted(self.children, key=lambda child: child.complexity)
-        for child in self.non_sheets[:]:
-            if child.complexity <= slack:
-                slack -= child.complexity
+
+        # Group the children according to what types of modules they are by removing trailing instance ids.
+        child_types = defaultdict(list)
+        for child in self.children:
+            child_types[re.sub(r"\d+$", "", child.node_key)].append(child)
+
+        # Compute the total size of each group of children.
+        child_type_sizes = dict()
+        for child_type, children in child_types.items():
+            child_type_sizes[child_type] = sum((child.complexity for child in children))
+
+        # Sort the groups from smallest total size to largest.
+        sorted_child_type_sizes = sorted([(typ, sz) for typ,sz in child_type_sizes.items()], key=lambda item: item[1])
+
+        # Expand each instance in a group until the slack is used up.
+        for child_type, child_type_size in sorted_child_type_sizes:
+            if child_type_size <= slack:
+                # Include the circuitry of each child instance directly in the sheet.
+                self.non_sheets.extend(child_types[child_type])
+                # Reduce the slack by the sum of the child sizes.
+                slack -= child_type_size
             else:
-                self.sheets.append(Sheet(child, filepath, title))
-                self.non_sheets.remove(child)
+                # Not enough slack left. Add these children as hierarchical sheets.
+                for child in child_types[child_type]:
+                    self.sheets.append(Sheet(child, filepath, title))
 
     def move_part(self, obj, vector, dir):
         """Move part/sheet/non_sheet until it doesn't collide with other parts/sheets/non_sheets in the node."""
