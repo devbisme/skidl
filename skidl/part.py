@@ -325,6 +325,10 @@ class Part(SkidlBaseObject):
             score += 1
             if self.value == part.value:
                 score += 1
+        elif self.ref_prefix == part.ref_prefix:
+            score += 1
+            if self.value == part.value:
+                score += 1
         
         return score
 

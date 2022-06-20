@@ -20,6 +20,7 @@ __all__ = [
 
 from builtins import range, zip
 from collections import defaultdict
+import functools
 import itertools
 import math
 import random
@@ -108,6 +109,18 @@ use_fanout_1 = False
 use_fanout_2 = False
 do_snap = True
 
+def adjust_orientations(parts, nets, alpha):
+    for part in parts:
+        smallest_force = float("inf")
+        for i in range(2):
+            for j in range(4):
+                force = total_force(part, parts, nets, alpha)
+                if force.magnitude < smallest_force:
+                    smallest_force = frc.magnitude
+                    smallest_tx = copy(part.tx)
+                part.tx.rot_cw_90()
+            part.tx.flip_x()
+        part.tx = smallest_tx
 
 def net_force(part, nets):
     """Compute attractive force on a part from all the other parts connected to it.
@@ -172,13 +185,6 @@ def net_force(part, nets):
 def gravity_force(part, centroid):
     return centroid - part.bbox.dot(part.tx).ctr
 
-def similarity_force(part, parts, part_similarity):
-    return 0
-    total_force = Vector(0, 0)
-    for other_part, similarity in part_similarity[part].items():
-        total_force += (other_part.anchor_pt - part.anchor_pt) * similarity
-    return total_force
-
 def overlap_force(part, parts):
     """Compute the repulsive force on a part from overlapping other parts.
 
@@ -228,25 +234,53 @@ def total_net_force(part, parts, nets, alpha):
     """
     return (1 - alpha) * net_force(part, nets) + alpha * overlap_force(part, parts)
 
-def adjust_orientations(parts, nets, alpha):
-    for part in parts:
-        smallest_force = float("inf")
-        for i in range(2):
-            for j in range(4):
-                force = total_force(part, parts, nets, alpha)
-                if force.magnitude < smallest_force:
-                    smallest_force = frc.magnitude
-                    smallest_tx = copy(part.tx)
-                part.tx.rot_cw_90()
-            part.tx.flip_x()
-        part.tx = smallest_tx
+def similarity_force(part, parts, similarity):
+    """Compute attractive force on a part from all the other parts connected to it.
 
-def push_and_pull(parts, nets, speed, scr, tx, font):
+    Args:
+        part (Part): Part affected by forces from other connected parts.
+        parts (list): List of parts to check for overlaps.
+        similarity (dict): Similarity score for any pair of parts used as keys.
+
+    Returns:
+        Vector: Force upon given part.
+    """
+
+    # These store the anchor points where each net attaches to the given part
+    # and the pulling points where each net attaches to other parts.
+    anchor_pt = part.anchor_pt.dot(part.tx)
+
+    # Compute the combined force of all the anchor/pulling points on each net.
+    total_force = Vector(0, 0)
+    for other in set(parts) - {part}:
+        pulling_pt = other.anchor_pt.dot(other.tx)
+        # pulling_pt = other.bbox.dot(other.tx).ctr
+        # Force from pulling to anchor point is proportional to part similarity and distance.
+        total_force += (pulling_pt - anchor_pt) * similarity[part][other]
+
+    return total_force
+
+def total_similarity_force(part, parts, similarity, alpha):
+    """Compute the total of the net attractive and overlap repulsive forces on a part.
+
+    Args:
+        part (Part): Part affected by forces from other overlapping parts.
+        parts (list): List of parts to check for overlaps.
+        similarity (dict): Similarity score for any pair of parts used as keys.
+        alpha (float): Proportion of the total that is the overlap force (range [0,1]).
+
+    Returns:
+        Vector: Weighted total of net attractive and overlap repulsion forces.
+    """
+    return (1 - alpha) * similarity_force(part, parts, similarity) + alpha * overlap_force(part, parts)
+
+def push_and_pull(parts, nets, force_func, speed, scr, tx, font):
     """Move parts under influence of attracting nets and repulsive part overlaps.
 
     Args:
         parts (list): List of Parts.
         nets (list): List of nets that interconnect parts.
+        speed (float): How fast parts move under the influence of forces.
         scr (PyGame screen): Screen object for PyGame debug drawing.
         tx (Tx): Transformation matrix from real to screen coords.
         font (PyGame font): Font for rendering text.
@@ -255,14 +289,31 @@ def push_and_pull(parts, nets, speed, scr, tx, font):
     unshuffled_parts = parts[:]
 
     # Arrange parts under influence of net attractions and part overlaps.
+    prev_mobility = 0 # Stores part mobility from previous iteration.
     num_iters = round(100 / speed)
-    for alpha in range(num_iters):
-        random.shuffle(parts)
+    iter = 0
+    while iter < num_iters:
+        alpha = iter / num_iters # Attraction/repulsion weighting.
+        mobility = 0 # Stores total part movement this iteration.
+        random.shuffle(parts) # Move parts in random order.
         for part in parts:
-            force = total_net_force(part, parts, nets, alpha/num_iters)
+            force = force_func(part, alpha=alpha)
             mv_dist = force * 0.5 * speed # 0.5 is ad-hoc.
+            mobility += mv_dist.magnitude
             mv_tx = Tx(dx=mv_dist.x, dy=mv_dist.y)
             part.tx = part.tx.dot(mv_tx)
+        if mobility < prev_mobility/2:
+            # Parts aren't moving much, so make a bigger inc
+            # of iter to decrease alpha which might lead to more
+            # movement as the balance of attractive/repulsive forces
+            # changes. Also keep the previous mobility as a baseline
+            # to compare against instead of updating with the
+            # current low mobility.
+            iter += 4
+        else:
+            # Parts are moving adequately, so proceed normally.
+            iter += 1
+            prev_mobility = mobility
         if scr:
             draw_placement(unshuffled_parts, nets, scr, tx, font)
 
@@ -286,7 +337,6 @@ def remove_overlaps(parts, nets, scr, tx, font):
         for part in parts:
             shove_force = overlap_force(part, parts)
             if shove_force.magnitude > 0:
-            # if shove_force.magnitude > GRID:
                 overlaps = True
                 shove_tx = Tx()
                 if shove_force.x < 0:
@@ -335,12 +385,13 @@ def slip_and_slide(parts, nets, scr, tx, font):
         if scr:
             draw_placement(unshuffled_parts, nets, scr, tx, font)
 
-def place_connected(parts, nets, speed=1.0, scr=None, tx=None, font=None):
-    """Evolve part placement looking for optimum.
+def evolve_placement(parts, nets, force_func, speed=1.0, scr=None, tx=None, font=None):
+    """Evolve part placement looking for optimum using force function.
     
     Args:
         parts (list): List of Parts.
         nets (list): List of nets that interconnect parts.
+        force_func (function): Computes the force affecting part positions.
         speed (float): Amount of part movement per unit of force.
         scr (PyGame screen): Screen object for PyGame debug drawing.
         tx (Tx): Transformation matrix from real to screen coords.
@@ -348,7 +399,7 @@ def place_connected(parts, nets, speed=1.0, scr=None, tx=None, font=None):
     """
 
     # Force-directed placement.
-    push_and_pull(parts, nets, speed, scr, tx, font)
+    push_and_pull(parts, nets, force_func, speed, scr, tx, font)
 
     # Snap parts to grid.
     if do_snap:
@@ -360,93 +411,6 @@ def place_connected(parts, nets, speed=1.0, scr=None, tx=None, font=None):
 
     # Look for local improvements.
     slip_and_slide(parts, nets, scr, tx, font)
-
-def similarity_force(part, parts, similarity):
-    """Compute attractive force on a part from all the other parts connected to it.
-
-    Args:
-        part (Part): Part affected by forces from other connected parts.
-        parts (list): List of parts to check for overlaps.
-        similarity (dict): Similarity score for any pair of parts used as keys.
-
-    Returns:
-        Vector: Force upon given part.
-    """
-
-    # These store the anchor points where each net attaches to the given part
-    # and the pulling points where each net attaches to other parts.
-    anchor_pt = part.bbox.dot(part.tx).ctr
-
-    # Compute the combined force of all the anchor/pulling points on each net.
-    total_force = Vector(0, 0)
-    for other in set(parts) - {part}:
-        pulling_pt = other.bbox.dot(other.tx).ctr
-        # Force from pulling to anchor point is proportional to part similarity and distance.
-        total_force += (pulling_pt - anchor_pt) * similarity[part][other]
-
-    return total_force
-
-def total_similarity_force(part, parts, similarity, alpha):
-    """Compute the total of the net attractive and overlap repulsive forces on a part.
-
-    Args:
-        part (Part): Part affected by forces from other overlapping parts.
-        parts (list): List of parts to check for overlaps.
-        similarity (dict): Similarity score for any pair of parts used as keys.
-        alpha (float): Proportion of the total that is the overlap force (range [0,1]).
-
-    Returns:
-        Vector: Weighted total of net attractive and overlap repulsion forces.
-    """
-    return (1 - alpha) * similarity_force(part, parts, similarity) + alpha * overlap_force(part, parts)
-
-def place_similar(parts, similarity, speed, scr, tx, font):
-    """Move parts under influence of attracting nets and repulsive part overlaps.
-
-    Args:
-        parts (list): List of Parts.
-        similarity (dict): Similarity score for any pair of parts used as keys.
-        scr (PyGame screen): Screen object for PyGame debug drawing.
-        tx (Tx): Transformation matrix from real to screen coords.
-        font (PyGame font): Font for rendering text.
-    """
-
-    unshuffled_parts = parts[:]
-
-    # Arrange parts under influence of net attractions and part overlaps.
-    num_iters = round(100 / speed)
-    for alpha in range(num_iters):
-        random.shuffle(parts)
-        for part in parts:
-            force = total_similarity_force(part, parts, similarity, alpha/num_iters)
-            mv_dist = force * 0.5 * speed # 0.5 is ad-hoc.
-            mv_tx = Tx(dx=mv_dist.x, dy=mv_dist.y)
-            part.tx = part.tx.dot(mv_tx)
-        if scr:
-            draw_placement(unshuffled_parts, [], scr, tx, font)
-
-def place_floating(parts, similarity, speed=1.0, scr=None, tx=None, font=None):
-    """Place parts unconnected to any net based on their similarity to each other.
-
-    Args:
-        parts (list): List of unconnected parts.
-        similarity (dict): Similarity score for any pair of parts used as keys.
-        speed (float): Amount of part movement per unit of force.
-        scr (PyGame screen): Screen object for PyGame debug drawing.
-        tx (Tx): Transformation matrix from real to screen coords.
-        font (PyGame font): Font for rendering text.
-    """
-
-    # Force-directed placement based on part similarity.
-    place_similar(parts, similarity, speed, scr, tx, font)
-
-    # Snap parts to grid.
-    if do_snap:
-        for part in parts:
-            snap_to_grid(part)
-
-    # Remove part overlaps.
-    remove_overlaps(parts, [], scr, tx, font)
 
 def parts_bbox(parts):
     bbox = BBox()
@@ -466,8 +430,9 @@ def arrange_blocks(*blocks):
     for block in blocks:
         bbx = parts_bbox(block)
         pt = Point(bbx.ctr.x, bbx.ul.y)
+        pt = origin - pt
         tx = Tx()
-        tx.origin = origin - pt
+        tx.origin = pt
         move_parts(block, tx)
         bbx = parts_bbox(block)
         origin = Point(bbx.ctr.x, bbx.ll.y)
@@ -574,8 +539,9 @@ def place(node, options=[]):
         else:
             draw_scr, draw_tx, draw_font = None, None, None
 
-        place_connected(group, internal_nets, speed=speed, scr=draw_scr, tx=draw_tx, font=draw_font)
-        place_connected(group, internal_nets, speed=speed*speed_mult, scr=draw_scr, tx=draw_tx, font=draw_font)
+        force_func = functools.partial(total_net_force, parts=group, nets=internal_nets)
+        evolve_placement(group, internal_nets, force_func, speed=speed, scr=draw_scr, tx=draw_tx, font=draw_font)
+        evolve_placement(group, internal_nets, force_func, speed=speed*speed_mult, scr=draw_scr, tx=draw_tx, font=draw_font)
 
         if "draw" in options:
             draw_end()
@@ -585,8 +551,18 @@ def place(node, options=[]):
         for part in floating_parts:
             for other_part in floating_parts - {part}:
                 # TODO: Get similarity forces right-sized.
-                # part_similarity[part][other_part] = part.similarity(other_part)
-                part_similarity[part][other_part] = 0.1
+                part_similarity[part][other_part] = part.similarity(other_part) / 10
+                # part_similarity[part][other_part] = 0.1
+
+            anchor_pt = Point(-float("inf"), -float("inf"))
+            anchor_pin = None
+            tx = part.tx
+            for pin in part:
+                pt = pin.pt.dot(tx)
+                if pt.y > anchor_pt.y:
+                    anchor_pt = pt
+                    anchor_pin = pin
+            part.anchor_pt = anchor_pin.pt
 
         floating_parts = list(floating_parts)
         random_placement(floating_parts)
@@ -601,7 +577,8 @@ def place(node, options=[]):
         else:
             draw_scr, draw_tx, draw_font = None, None, None
 
-        place_floating(floating_parts, part_similarity, speed=speed, scr=draw_scr, tx=draw_tx, font=draw_font)
+        force_func = functools.partial(total_similarity_force, parts=floating_parts, similarity=part_similarity)
+        evolve_placement(floating_parts, [], force_func, speed=speed, scr=draw_scr, tx=draw_tx, font=draw_font)
 
         if "draw" in options:
             draw_end()
