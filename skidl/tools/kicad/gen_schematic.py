@@ -185,6 +185,7 @@ class Sheet:
         self.name = self.node.node_key.split(".")[-1]
         self.name_sz = 40
 
+        # TODO: Adjust size of hierarchical sheet?
         self.bbox = BBox(Point(0, 0), Point(500, 500))
         self.bbox.add(Point(len("File: "+self.filename) * self.filename_sz, 0))
         self.bbox.add(Point(len("Sheet: "+self.name) * self.name_sz, 0))
@@ -225,7 +226,7 @@ class Sheet:
             )
 
         # Create the hierarchical sheet box for insertion into the calling node sheet.
-        bbox = self.bbox.dot(self.tx).dot(tx)
+        bbox = round(self.bbox.dot(self.tx).dot(tx))
         time_hex = hex(int(time.time()))[2:]
         return "\n".join(
             (
@@ -274,7 +275,6 @@ class Node:
         # Pad the bounding box for extra spacing when placed.
         self.bbox = self.bbox.resize(Vector(100, 100))
 
-        """Create hierarchical sheets for the circuitry in this node and its children."""
     def create_sheets(self, filepath, title, flatness=0.0):
         """Create hierarchical sheets for the circuitry in this node and its children.
 
@@ -326,80 +326,14 @@ class Node:
                 for child in child_types[child_type]:
                     self.sheets.append(Sheet(child, filepath, title))
 
-    def move_part(self, obj, vector, dir):
-        """Move part/sheet/non_sheet until it doesn't collide with other parts/sheets/non_sheets in the node."""
-
-        # Make sure object stays on the grid.
-        vector = vector.snap(GRID)
-
-        # Keep moving part until no collisions occur.
-        collision = True
-        while collision:
-            collision = False
-
-            # Update the object transformation matrix to apply movement.
-            obj.tx = obj.tx.dot(Tx(dx=vector.x, dy=vector.y))
-
-            # Compute the transformed bounding box for the object including the move.
-            bbox = obj.bbox.dot(obj.tx)
-
-            # Look for intersections with the other parts/sheets/non_sheets in the node.
-            for other_obj in chain(self.parts, self.sheets, self.non_sheets):
-
-                # Don't detect collisions with itself.
-                if other_obj is obj:
-                    continue
-
-                # Don't try to avoid something that hasn't been placed yet.
-                if not other_obj.placed:
-                    continue
-
-                # Compute the transformed bounding box for the other object.
-                other_bbox = other_obj.bbox.dot(other_obj.tx)
-
-                if bbox.intersects(other_bbox):
-                    # Collision found. No need to check any further.
-                    collision = True
-                    # After the initial move, use the dir vector for all further moves.
-                    vector = dir
-                    break
-
-        # Exit the loop once the part doesn't collide with anything.
-        # The final part.tx matrix records the movements that were made.
-        obj.placed = True
-
-    def place_children(self):
-        def place_objects(objs):
-
-            # Calculate the initial node bounding box before objects are placed.
-            self.calc_bbox()
-
-            # Set up object movement increments.
-            start = Point(self.bbox.ctr.x, self.bbox.ll.y - 10 * GRID)
-            dir = Vector(GRID, 0)
-
-            for obj in objs:
-
-                # Move any object that hasn't already been moved.
-                if not obj.placed:
-                    obj_tx_bbox = obj.bbox.dot(obj.tx)
-                    ctr_mv = start - Point(obj_tx_bbox.ctr.x, obj_tx_bbox.ul.y)
-                    self.move_part(obj, ctr_mv, dir)
-
-                    # Switch movement direction for the next unmoved object.
-                    dir = -dir
-
-            # Calculate the node bounding box once the objects have been placed.
-            self.calc_bbox()
-
-        place_objects(self.non_sheets)
-        place_objects(self.sheets)
-
     def place(self):
         """Place parts within a hierarchical node."""
 
+        # Use the larger bounding box when doing placement.
+        for part in self.parts:
+            part.bbox = part.place_bbox
+
         place(self)
-        self.place_children()
 
     def route(self):
         """Route nets between parts of a node."""

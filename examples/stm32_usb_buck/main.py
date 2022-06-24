@@ -23,4 +23,4 @@ pc.power_circuits()
 
 # Generate schematic
 schematic_path = "./stm32.sch"
-generate_schematic(filepath=schematic_path, flatness=1.0)
+generate_schematic(filepath=schematic_path, flatness=0.5)

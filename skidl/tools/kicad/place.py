@@ -80,6 +80,15 @@ def random_placement(parts):
     for part in parts:
         part.tx.origin = Point(random.random() * side, random.random() * side)
 
+def get_unsnapped_pt(part):
+    try:
+        return part.pins[0].pt.dot(part.tx)
+    except AttributeError:
+        try:
+            return part.bbox.dot(part.tx).ctr
+        except AttributeError:
+            return part.ctr
+
 def snap_to_grid(part):
     """Snap part to grid.
 
@@ -87,17 +96,12 @@ def snap_to_grid(part):
         part (Part): Part to snap to grid.
     """
 
-    if part.pins:
-        pin = part.pins[0]
-        pt = pin.pt.dot(part.tx)
-        snap_pt = pt.snap(GRID)
-        snap_tx = Tx()
-        snap_tx.origin = snap_pt - pt
-        part.tx = part.tx.dot(snap_tx)
-    else:
-        part_ctr = part.bbox.dot(part.tx).ctr
-        part.tx.origin = part_ctr.snap(GRID)
-
+    pt = get_unsnapped_pt(part)
+    snap_pt = pt.snap(GRID)
+    mv = snap_pt - pt
+    snap_tx = Tx(dx=mv.x, dy=mv.y)
+    part.tx = part.tx.dot(snap_tx)
+    return
 
 speed = 0.5
 speed_mult = 2.0
@@ -286,7 +290,12 @@ def push_and_pull(parts, nets, force_func, speed, scr, tx, font):
         font (PyGame font): Font for rendering text.
     """
 
-    unshuffled_parts = parts[:]
+    if len(parts) <= 1:
+        # No need to do placement if there's less than two parts.
+        return
+
+    # Keep one part stationary to serve as an anchor for all the rest.
+    mobile_parts = parts[:-1]
 
     # Arrange parts under influence of net attractions and part overlaps.
     prev_mobility = 0 # Stores part mobility from previous iteration.
@@ -295,8 +304,8 @@ def push_and_pull(parts, nets, force_func, speed, scr, tx, font):
     while iter < num_iters:
         alpha = iter / num_iters # Attraction/repulsion weighting.
         mobility = 0 # Stores total part movement this iteration.
-        random.shuffle(parts) # Move parts in random order.
-        for part in parts:
+        random.shuffle(mobile_parts) # Move parts in random order.
+        for part in mobile_parts:
             force = force_func(part, alpha=alpha)
             mv_dist = force * 0.5 * speed # 0.5 is ad-hoc.
             mobility += mv_dist.magnitude
@@ -315,7 +324,8 @@ def push_and_pull(parts, nets, force_func, speed, scr, tx, font):
             iter += 1
             prev_mobility = mobility
         if scr:
-            draw_placement(unshuffled_parts, nets, scr, tx, font)
+            # Draw current part placement for debugging purposes.
+            draw_placement(parts, nets, scr, tx, font)
 
 def remove_overlaps(parts, nets, scr, tx, font):
     """Remove any overlaps using horz/vert grid movements.
@@ -328,13 +338,17 @@ def remove_overlaps(parts, nets, scr, tx, font):
         font (PyGame font): Font for rendering text.
     """
 
-    unshuffled_parts = parts[:]
+    if len(parts) <= 1:
+        # No need to do placement if there's less than two parts.
+        return
+
+    shuffled_parts = parts[:]
 
     overlaps = True
     while overlaps:
         overlaps = False
-        random.shuffle(parts)
-        for part in parts:
+        random.shuffle(shuffled_parts)
+        for part in shuffled_parts:
             shove_force = overlap_force(part, parts)
             if shove_force.magnitude > 0:
                 overlaps = True
@@ -349,7 +363,7 @@ def remove_overlaps(parts, nets, scr, tx, font):
                     shove_tx.dy = GRID
                 part.tx = part.tx.dot(shove_tx)
         if scr:
-            draw_placement(unshuffled_parts, nets, scr, tx, font)
+            draw_placement(parts, nets, scr, tx, font)
 
 def slip_and_slide(parts, nets, scr, tx, font):
     """Move parts on horz/vert grid looking for improvements without causing overlaps.
@@ -362,13 +376,21 @@ def slip_and_slide(parts, nets, scr, tx, font):
         font (PyGame font): Font for rendering text.
     """
 
-    unshuffled_parts = parts[:]
+    if len(parts) <= 1:
+        # No need to do placement if there's less than two parts.
+        return
+
+    if not nets:
+        # No need to do this if there are no nets attracting parts together.
+        return
+
+    shuffled_parts = parts[:]
 
     moved = True
     while moved:
         moved = False
-        random.shuffle(parts)
-        for part in parts:
+        random.shuffle(shuffled_parts)
+        for part in shuffled_parts:
             smallest_force = net_force(part, nets).magnitude
             original_tx = part.tx
             best_tx = original_tx
@@ -428,41 +450,21 @@ def move_parts(parts, tx):
 def arrange_blocks(*blocks):
     origin = Point(0, 0)
     for block in blocks:
-        bbx = parts_bbox(block)
+        bbx = block.bbox.dot(block.tx)
         pt = Point(bbx.ctr.x, bbx.ul.y)
-        pt = origin - pt
-        tx = Tx()
-        tx.origin = pt
-        move_parts(block, tx)
-        bbx = parts_bbox(block)
+        mv = origin - pt
+        block.tx = block.tx.dot(Tx(dx=mv.x, dy=mv.y))
+        bbx = block.bbox.dot(block.tx)
         origin = Point(bbx.ctr.x, bbx.ll.y)
 
+def group_parts(parts):
+    if not parts:
+        return [], [], []
 
-def place(node, options=[]):
-# def place(node, options=["draw"]):
-    """Place the parts in the node.
-
-    Steps:
-        1. ...
-        2. ...
-
-    Args:
-        node (Node): Hierarchical node containing the parts to be placed.
-        options (list): List of text options to control drawing of placement
-            for debugging purposes. Available options are "draw".
-
-    Returns:
-        The Node with the part positions set.
-    """
-
-    # Exit if no parts to route.
-    if not node.parts:
-        return node
-
-    # Extract list of nets internal to the node for routing.
+    # Extract list of nets internal to the node.
     processed_nets = []
     internal_nets = []
-    for part in node.parts:
+    for part in parts:
         for part_pin in part:
 
             # A label means net is stubbed so there won't be any explicit wires.
@@ -481,6 +483,7 @@ def place(node, options=[]):
             processed_nets.append(net)
 
             # No explicit wires for power nets.
+            # TODO: Is this necessary?
             if net.netclass == "Power":
                 continue
 
@@ -523,8 +526,11 @@ def place(node, options=[]):
     connected_parts = [group for group in connected_parts if group]
 
     # Find parts that aren't connected to anything.
-    floating_parts = set(node.parts) - set(itertools.chain(*connected_parts))
+    floating_parts = set(parts) - set(itertools.chain(*connected_parts))
 
+    return connected_parts, internal_nets, floating_parts
+
+def place_parts(connected_parts, internal_nets, floating_parts, options):
     for group in connected_parts:
         group = list(group)
         random_placement(group)
@@ -551,8 +557,8 @@ def place(node, options=[]):
         for part in floating_parts:
             for other_part in floating_parts - {part}:
                 # TODO: Get similarity forces right-sized.
-                part_similarity[part][other_part] = part.similarity(other_part) / 10
-                # part_similarity[part][other_part] = 0.1
+                # part_similarity[part][other_part] = part.similarity(other_part) / 10
+                part_similarity[part][other_part] = 0.1
 
             anchor_pt = Point(-float("inf"), -float("inf"))
             anchor_pin = None
@@ -588,11 +594,108 @@ def place(node, options=[]):
     for part in all_parts:
         part.placed = True
 
-    arrange_blocks(*connected_parts, floating_parts)
-    if "draw" in options:
-        bbox = parts_bbox(all_parts)
+    return connected_parts, floating_parts
+
+def place_blocks(connected_parts, floating_parts, non_sheets, sheets, options):
+
+    class PartBlock:
+        def __init__(self, src, bbox, anchor_pt, snap_pt):
+            self.src = src
+            self.bbox = bbox
+            self.anchor_pt = anchor_pt
+            self.snap_pt = snap_pt
+            self.tx = Tx()
+            self.ref = "REF"
+
+        def update(self):
+            """Apply the transformation matrix to the objects."""
+            for part in self.parts:
+                part.tx = part.tx.dot(self.tx)
+
+    part_blocks = []
+    for part_list in connected_parts:
+        if not part_list:
+            continue
+        bbox = BBox()
+        for part in part_list:
+            bbox.add(part.bbox.dot(part.tx))
+        snap_part = list(part_list)[0]
+        blk = PartBlock(part_list, bbox, bbox.ctr, get_unsnapped_pt(snap_part))
+        part_blocks.append(blk)
+    for part_list in (floating_parts,):
+        if not part_list:
+            continue
+        bbox = BBox()
+        for part in part_list:
+            bbox.add(part.bbox.dot(part.tx))
+        snap_part = list(part_list)[0]
+        blk = PartBlock(part_list, bbox, bbox.ctr, get_unsnapped_pt(snap_part))
+        part_blocks.append(blk)
+    for non_sht in non_sheets:
+        non_sht.calc_bbox()
+        bbox = non_sht.bbox
+        blk = PartBlock(non_sht, bbox, bbox.ctr, get_unsnapped_pt(non_sht.parts[0]))
+        part_blocks.append(blk)
+    for sht in sheets:
+        bbox = sht.bbox
+        blk = PartBlock(sht, bbox, bbox.ctr, bbox.ctr)
+        part_blocks.append(blk)
+
+    blk_attr = defaultdict(lambda: defaultdict(lambda: 0))
+    for blk in part_blocks:
+        for other_blk in part_blocks:
+            if blk is other_blk:
+                continue
+            blk_attr[blk][other_blk] = 0.1 # TODO: Replace adhoc value.
+
+    random_placement(part_blocks)
+    if 'draw' in options:
+        # Draw the global and detailed routing for debug purposes.
+        bbox = BBox()
+        for blk in part_blocks:
+            tx_bbox = blk.bbox.dot(blk.tx)
+            bbox.add(tx_bbox)
         draw_scr, draw_tx, draw_font = draw_start(bbox)
-        draw_placement(all_parts, [], draw_scr, draw_tx, draw_font)
+    else:
+        draw_scr, draw_tx, draw_font = None, None, None
+
+    force_func = functools.partial(total_similarity_force, parts=part_blocks, similarity=blk_attr)
+    evolve_placement(part_blocks, [], force_func, speed=speed, scr=draw_scr, tx=draw_tx, font=draw_font)
+
+    if 'draw' in options:
         draw_end()
+
+    for blk in part_blocks:
+        try:
+            # blk.src.tx = blk.src.tx.dot(blk.tx)
+            blk.src.tx = blk.tx
+            blk.src.placed = True
+        except AttributeError:
+            for part in blk.src:
+                part.tx = part.tx.dot(blk.tx)
+                part.placed = True
+
+
+def place(node, options=[]):
+# def place(node, options=["draw"]):
+    """Place the parts and sheets in the node.
+
+    Steps:
+        1. ...
+        2. ...
+
+    Args:
+        node (Node): Hierarchical node containing the parts to be placed.
+        options (list): List of text options to control drawing of placement
+            for debugging purposes. Available options are "draw".
+
+    Returns:
+        The Node with the part positions set.
+    """
+
+    connected_parts, internal_nets, floating_parts = group_parts(node.parts)
+    place_parts(connected_parts, internal_nets, floating_parts, options)
+    place_blocks(connected_parts, floating_parts, node.non_sheets, node.sheets, options=['draw'])
+    node.calc_bbox()
 
     return node

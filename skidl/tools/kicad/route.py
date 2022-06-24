@@ -225,7 +225,6 @@ def draw_part(part, scr, tx, font):
         font (PyGame font): Font for rendering text.
     """
     tx_bbox = part.bbox.dot(part.tx)
-    (180, 255, 180)
     draw_box(tx_bbox, scr, tx, color=(180, 255, 180), thickness=0)
     draw_box(tx_bbox, scr, tx, color=(90, 128, 90), thickness=5)
     draw_text(part.ref, tx_bbox.ctr, scr, tx, font)
