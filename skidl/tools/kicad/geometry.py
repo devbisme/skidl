@@ -189,7 +189,7 @@ class BBox:
     def intersection(self, bbox):
         """Return the bounding box of the intersection between the two bounding boxes."""
         if not self.intersects(bbox):
-            return BBox(Point(0,0))
+            return None
         corner1 = self.min.max(bbox.min)
         corner2 = self.max.min(bbox.max)
         return BBox(corner1, corner2)
