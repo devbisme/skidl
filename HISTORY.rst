@@ -3,6 +3,12 @@
 History
 -------
 
+1.2.0 (2022-XX-XX)
+______________________
+
+- If not explicitly declared, `Part` objects will load the default footprint from their symbol definition.
+
+
 1.1.0 (2021-10-22)
 ______________________
 

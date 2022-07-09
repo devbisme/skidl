@@ -568,6 +568,9 @@ def _parse_lib_part_kicad(self, partial_parse):
             if line[0] == "F1":
                 values = [numberize(v) for v in values]
                 self.draw.append(DrawF1(*values))
+            elif line[0] == "F2":
+                # Add default footprint.
+                self.footprint = self.fields["F2"]
 
         # Create a list of part aliases.
         elif line[0] == "ALIAS":
@@ -818,6 +821,12 @@ def _parse_lib_part_kicad_v6(self, partial_parse):
         self.fields[name] = value
 
     self.ref_prefix = self.fields["F0"]  # Part ref prefix (e.g., 'R').
+
+    # Add default part footprint.
+    try:
+        self.footprint = self.fields["F2"]  # Part footprint.
+    except KeyError:
+        pass # Nothing we can do if there's no default footprint.
 
     # Association between KiCad and SKiDL pin types.
     pin_io_type_translation = {
