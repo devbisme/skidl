@@ -7,6 +7,7 @@ History
 ______________________
 
 - If not explicitly declared, `Part` objects will load the default footprint from their symbol definition.
+- Added `empty_footprint_handler()` for parts without footprints that logs errors by default but can be overriden by the user.
 
 
 1.1.0 (2021-10-22)
