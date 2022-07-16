@@ -1334,3 +1334,25 @@ class PartUnit(Part):
     @property
     def ref(self):
         return ".".join((self.parent.ref, self.label))
+
+
+##############################################################################
+
+
+def default_empty_footprint_handler(part):
+    """Handle the situation of a Part with no footprint when generating netlist/PCB.
+
+    Args:
+        part (Part): The part with no footprint.
+
+    Note:
+        By default, this function logs an error message if the footprint is missing.
+        Override this function if you want to try and set some default footprint
+        for particular types of parts (such as using an 0805 footprint for a resistor).
+    """
+    
+    from .logger import active_logger
+
+    active_logger.error(
+        "No footprint for {part}/{ref}.".format(part=part.name, ref=part.ref)
+    )

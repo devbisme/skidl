@@ -16,6 +16,7 @@ from builtins import open
 from future import standard_library
 
 from .circuit import Circuit
+from .part import default_empty_footprint_handler
 from .common import builtins
 from .config import SkidlConfig
 from .logger import get_script_name, stop_log_file_output
@@ -125,6 +126,8 @@ generate_svg = default_circuit.generate_svg
 generate_graph = default_circuit.generate_graph
 reset = default_circuit.reset
 backup_parts = default_circuit.backup_parts
+
+empty_footprint_handler = default_empty_footprint_handler
 
 # Define a tag for nets that convey power (e.g., VCC or GND).
 POWER = Pin.drives.POWER

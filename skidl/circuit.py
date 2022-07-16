@@ -459,6 +459,14 @@ class Circuit(SkidlBaseObject):
         # Restore the logger that was active before the ERC.
         active_logger.pop()
 
+    def _check_for_empty_footprints(self):
+        """Make sure part footprints aren't empty before generating netlist/PCB."""
+
+        for part in self.parts:
+            if getattr(part, "footprint", "") == "":
+                import skidl
+                skidl.empty_footprint_handler(part)
+
     def generate_netlist(self, **kwargs):
         """
         Return a netlist and also write it to a file/stream.
@@ -480,6 +488,7 @@ class Circuit(SkidlBaseObject):
         active_logger.warning.reset()
 
         self._preprocess()
+        self._check_for_empty_footprints()
 
         # Extract arguments:
         #     Get EDA tool the netlist will be generated for.
@@ -534,6 +543,7 @@ class Circuit(SkidlBaseObject):
         active_logger.warning.reset()
 
         self._preprocess()
+        self._check_for_empty_footprints()
 
         # Extract arguments:
         #     Get EDA tool the netlist will be generated for.

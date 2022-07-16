@@ -945,13 +945,7 @@ def gen_netlist_comp(self):
 
     value = add_quotes(self.value_str)
 
-    try:
-        footprint = self.footprint
-    except AttributeError:
-        active_logger.error(
-            "No footprint for {part}/{ref}.".format(part=self.name, ref=ref)
-        )
-        footprint = "No Footprint"
+    footprint = getattr(self, "footprint", "")
     footprint = add_quotes(footprint)
 
     lib_filename = getattr(getattr(self, "lib", ""), "filename", "NO_LIB")
