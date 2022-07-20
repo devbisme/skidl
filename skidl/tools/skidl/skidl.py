@@ -37,11 +37,11 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
     from ...logger import active_logger
     from ...schlib import SchLib
     from ...skidl import lib_suffixes
-    from ...utilities import find_and_open_file
+    from ...utilities import find_and_read_file
     from .. import SKIDL
 
     try:
-        f, path = find_and_open_file(filename, lib_search_paths_, lib_suffixes[SKIDL])
+        contents, path = find_and_read_file(filename, lib_search_paths_, lib_suffixes[SKIDL])
     except FileNotFoundError as e:
         raise FileNotFoundError(
             "Unable to open SKiDL Schematic Library File {} ({})".format(
@@ -54,7 +54,7 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
         vars_ = {
             "__file__": path,
         }
-        exec(f.read(), vars_)  # Execute and store library in dict.
+        exec(contents, vars_)  # Execute and store library in dict.
 
         # Now look through the dict to find the library object.
         for val in vars_.values():
@@ -67,7 +67,7 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
         raise ValueError("No SchLib object found in {}".format(filename))
 
     except Exception as e:
-        active_logger.error("Problem with {}".format(f))
+        active_logger.error("Problem with {}".format(filename))
         active_logger.error(e)
         raise
 

@@ -75,7 +75,7 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
         suffixes = [suffix]
     for suffix in suffixes:
         # Allow file open failure so multiple suffixes can be tried without error messages.
-        f, _ = find_and_open_file(
+        f, _ = find_and_read_file(
             filename, lib_search_paths_, suffix, allow_failure=True
         )
         if f:
@@ -92,7 +92,7 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
         _load_sch_lib_kicad(self, f, filename, lib_search_paths_)
 
 
-def _load_sch_lib_kicad(self, f, filename, lib_search_paths_):
+def _load_sch_lib_kicad(self, lib_text, filename, lib_search_paths_):
     """
     Load the parts from a KiCad schematic library file.
 
@@ -103,8 +103,7 @@ def _load_sch_lib_kicad(self, f, filename, lib_search_paths_):
     from ...part import Part
     from .. import KICAD
 
-    lib_txt = f.read()
-    part_defns = lib_txt.split("\nDEF ")
+    part_defns = lib_text.split("\nDEF ")
 
     # Check the file header to make sure it's a KiCad library.
     header = part_defns.pop(0)  # Stuff before first DEF is the header.
@@ -157,11 +156,11 @@ def _load_sch_lib_kicad(self, f, filename, lib_search_paths_):
 
     # Now add information from any associated DCM file.
     base_fn = os.path.splitext(filename)[0]  # Strip any extension.
-    f, _ = find_and_open_file(base_fn, lib_search_paths_, ".dcm", allow_failure=True)
+    f, _ = find_and_read_file(base_fn, lib_search_paths_, ".dcm", allow_failure=True)
     if f:
         part_desc = {}
 
-        for line in f.read().split("\n"):
+        for line in f.split("\n"):
 
             # Skip over comments.
             if line.startswith("#"):
@@ -232,7 +231,7 @@ def _split_into_symbols(libstr):
     return symbols
 
 
-def _load_sch_lib_kicad_v6(self, f, filename, lib_search_paths_):
+def _load_sch_lib_kicad_v6(self, lib_sexp, filename, lib_search_paths_):
     """
     Load the parts from a KiCad schematic library file.
 
@@ -242,8 +241,8 @@ def _load_sch_lib_kicad_v6(self, f, filename, lib_search_paths_):
 
     from ...part import Part
 
-    # Parse the library and return a nested list of library parts.
-    lib_sexp = "".join(f.readlines())
+    # Remove newlines.
+    lib_sexp = lib_sexp.replace("\n", "")
 
     parts = _split_into_symbols(lib_sexp)
 

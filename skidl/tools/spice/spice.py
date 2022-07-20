@@ -89,14 +89,13 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
         spice_lib_path = os.path.abspath(filename)
     else:
         # A file name was given, so find the absolute file path in the search paths.
-        fp, spice_lib_path = find_and_open_file(
+        _, spice_lib_path = find_and_open_file(
             filename=filename,
             paths=lib_search_paths_,
             ext=lib_suffixes[SPICE],
             exclude_binary=True,
             descend=-1,
         )
-        fp.close()  # Close the file pointer. We just need the path to the file.
 
     # Read the Spice library from the given path.
     spice_lib = SpiceLibrary(
@@ -150,7 +149,7 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
                     else:
                         # Now find a symbol file for the part to assign names to the pins.
                         # First, check for LTSpice symbol file.
-                        sym_file, sym_file_path = find_and_open_file(
+                        sym_file, _ = find_and_read_file(
                             part.name,
                             lib_search_paths_,
                             ".asy",
@@ -161,7 +160,7 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
                         if sym_file:
                             pin_names = []
                             pin_indices = []
-                            for sym_line in sym_file:
+                            for sym_line in sym_file.split("\n"):
                                 if not sym_line:
                                     continue
                                 if sym_line.lower().startswith("pinattr pinname"):
@@ -170,7 +169,6 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
                                     pin_indices.append(sym_line.split()[2])
                                 elif sym_line.lower().startswith("symattr description"):
                                     part.description = " ".join(sym_line.split()[2:])
-                            sym_file.close()
 
                             # Pin names and indices should be matched by the order they
                             # appeared in the symbol file. Each index should match the
@@ -179,7 +177,7 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
                                 part.pins[int(index) - 1].name = name
                         else:
                             # No LTSpice symbol file, so check for PSPICE symbol file.
-                            sym_file, sym_file_path = find_and_open_file(
+                            sym_file, _ = find_and_read_file(
                                 filename,
                                 lib_search_paths_,
                                 ".slb",
@@ -190,7 +188,7 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
                             if sym_file:
                                 pin_names = []
                                 active = False
-                                for sym_line in sym_file:
+                                for sym_line in sym_file.split("\n"):
                                     sym_line = sym_line.strip()
                                     if not sym_line:
                                         continue
@@ -202,7 +200,6 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
                                             pin_names.append(line_parts[6])
                                         elif line_parts[0] == "d":
                                             part.description = " ".join(line_parts[1:])
-                                sym_file.close()
 
                                 pin_indices = list(range(len(pin_names)))
                                 for pin, name in zip(part.pins, pin_names):

@@ -739,18 +739,31 @@ def find_and_open_file(
         descend: If 0, don't search lower-level directories. If positive, search
                  that many levels down for the file. If negative, descend into
                  subdirectories withcurrent_level limit.
+
+    Returns:
+        File pointer and file name or None, None if file could not be opened.
     """
 
     from .logger import active_logger
+    import urllib.parse
+    import urllib.request
 
-    if os.path.isabs(filename):
-        # Ignore search paths if the file already has an absolute path.
+    def is_url(s):
+        return bool(urllib.parse.urlparse(s).scheme)
+
+    if is_url(filename):
+        # This is a URL. Use the URL path as the search path except for
+        # the ending file name. Maybe not the best thing to use, but
+        # os.path.dirname() will do this.
+        paths = [os.path.dirname(filename)]
+    elif os.path.isabs(filename):
+        # Replace search paths if the file already has an absolute path.
         paths = [os.path.abspath(os.path.dirname(filename))]
     elif not paths:
         # If no search paths are given, use the current working directory.
         paths = ["."]
 
-    # Remove any directory path from the file name.
+    # Remove any directory path from the file name. This even works with URLs.
     _, filename = os.path.split(filename)
 
     # Get the list of file extensions to check against.
@@ -762,28 +775,37 @@ def find_and_open_file(
         exts = to_list(ext)
 
     # Create the regular expression for matching against the filename.
-    exts = [re.escape(ext) for ext in exts]
+    # exts = [re.escape(ext) for ext in exts]
     match_name = re.escape(base) + "(" + "|".join(exts) + ")$"
 
     # Search through the directory paths for a file whose name matches the regular expression.
     for path in paths:
-        # Search through the files in a particular directory path.
-        descent_ctr = descend  # Controls the descent through the path.
-        for root, dirnames, filenames in os.walk(path):
-            # Get files in the current directory whose names match the regular expression.
-            for fn in [f for f in filenames if re.match(match_name, f)]:
-                abs_filename = os.path.join(root, fn)
-                if not exclude_binary or not is_binary_file(abs_filename):
-                    try:
-                        # Return the first file that matches the criteria.
-                        return open(abs_filename, encoding="latin_1"), abs_filename
-                    except (IOError, FileNotFoundError, TypeError):
-                        # File failed, so keep searching.
-                        pass
-            # Keep descending on this path as long as the descent counter is non-zero.
-            if descent_ctr == 0:
-                break  # Cease search of this path if the counter is zero.
-            descent_ctr -= 1  # Decrement the counter for the next directory level.
+        if is_url(path):
+            for ext in exts:
+                link = os.path.join(path, base + ext)
+                try:
+                    return urllib.request.urlopen(link), link
+                except urllib.error.HTTPError:
+                    # File failed, so keep searching.
+                    pass
+        else:
+            # Search through the files in a particular directory path.
+            descent_ctr = descend  # Controls the descent through the path.
+            for root, dirnames, filenames in os.walk(path):
+                # Get files in the current directory whose names match the regular expression.
+                for fn in [f for f in filenames if re.match(match_name, f)]:
+                    abs_filename = os.path.join(root, fn)
+                    if not exclude_binary or not is_binary_file(abs_filename):
+                        try:
+                            # Return the first file that matches the criteria.
+                            return open(abs_filename, encoding="latin_1"), abs_filename
+                        except (IOError, FileNotFoundError, TypeError):
+                            # File failed, so keep searching.
+                            pass
+                # Keep descending on this path as long as the descent counter is non-zero.
+                if descent_ctr == 0:
+                    break  # Cease search of this path if the counter is zero.
+                descent_ctr -= 1  # Decrement the counter for the next directory level.
 
     # Couldn't find a matching file.
     if allow_failure:
@@ -792,6 +814,37 @@ def find_and_open_file(
         active_logger.raise_(
             FileNotFoundError, "Can't open file: {}.\n".format(filename)
         )
+
+
+def find_and_read_file(
+    filename, paths=None, ext=None, allow_failure=False, exclude_binary=False, descend=0
+):
+    """Search for a file in list of paths, open it and return its contents.
+
+    Args:
+        filename: Base file name (e.g., "my_file").
+        paths: List of paths to search for the file.
+        ext: The extension for the file (e.g., ".txt").
+        allow_failure: If false, failure to find file raises and exception.
+        exclude_binary: If true, skip files that contain binary data.
+        descend: If 0, don't search lower-level directories. If positive, search
+                 that many levels down for the file. If negative, descend into
+                 subdirectories withcurrent_level limit.
+
+    Returns:
+        File contents and file name or None, None if file could not be opened.
+    """
+    fp, fn = find_and_open_file(filename, paths, ext, allow_failure, exclude_binary, descend)
+    if fp:
+        contents = fp.read()
+        fp.close()
+        try:
+            contents = contents.decode("latin_1")
+        except AttributeError:
+            # File contents were already decoded.
+            pass
+        return contents, fn
+    return None, None
 
 
 @contextmanager

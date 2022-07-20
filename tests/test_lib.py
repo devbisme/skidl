@@ -17,6 +17,8 @@ from skidl import (
     set_default_tool,
     set_query_backup_lib,
     to_list,
+    KICAD,
+    lib_search_paths,
 )
 
 from .setup_teardown import setup_function, teardown_function
@@ -147,3 +149,13 @@ def test_lib_kicad_v6():
     print(lib_name, "#parts =", part_cnt)
     assert part_cnt == len(v6_part_names)
     assert part_cnt == 564
+
+def test_lib_kicad5_repository():
+    repo_url = "https://raw.githubusercontent.com/KiCad/kicad-symbols/master/"
+    lib_search_paths[KICAD] = [repo_url]
+    lib_4xxx = SchLib("4xxx.lib")
+
+def test_lib_kicad6_repository():
+    repo_url = "https://gitlab.com/kicad/libraries/kicad-symbols/-/raw/master"
+    lib_search_paths[KICAD] = [repo_url]
+    lib_4xxx = SchLib("4xxx.kicad_sym")
