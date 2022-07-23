@@ -178,7 +178,7 @@ class Part(SkidlBaseObject):
                 try:
                     lib = SchLib(filename=libname, tool=tool)
                 except FileNotFoundError as e:
-                    if skidl.QUERY_BACKUP_LIB:
+                    if skidl.get_query_backup_lib():
                         active_logger.warning(
                             'Could not load KiCad schematic library "{}", falling back to backup library.'.format(
                                 libname
