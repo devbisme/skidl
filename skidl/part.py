@@ -295,6 +295,10 @@ class Part(SkidlBaseObject):
                 # Add a simple, non-vector pin.
                 self.add_pins(Pin(num=i, name=arg))
 
+    @property
+    def ordered_pins(self):
+        return sorted(self.pins, key=lambda p: str(getattr(p, "num", "999")).zfill(3))
+
     @classmethod
     def get(cls, text, circuit=None):
         """
