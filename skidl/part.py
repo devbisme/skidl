@@ -109,7 +109,7 @@ class SortedPinList(UserList):
         self._sort()
 
     def _sort(self):
-        self.data.sort(key=lambda p: getattr(p, "num", "999").zfill(3))
+        self.data.sort(key=lambda p: str(getattr(p, "num", "999")).zfill(3))
 
     def _wrapper(self, method, *args):
         x = getattr(super(), method)(*args)
