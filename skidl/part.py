@@ -268,6 +268,10 @@ class Part(SkidlBaseObject):
         # because part searching only checks the aliases for name matches.
         self.aliases += name
 
+    @property
+    def ordered_pins(self):
+        return sorted(self.pins)
+
     @classmethod
     def get(cls, text, circuit=None):
         """

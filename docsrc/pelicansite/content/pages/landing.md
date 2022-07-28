@@ -183,7 +183,7 @@ $ pip install skidl
 ```
 
 To give SKiDL some part libraries to work with,
-you'll also need to install [KiCad](http://kicad-pcb.org/).
+you'll also need to install [KiCad](http://kicad.org/).
 Then, you'll need to set an environment variable so SKiDL can find the libraries.
 For Windows, do this:
 

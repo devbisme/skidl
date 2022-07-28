@@ -18,6 +18,7 @@ from builtins import range, super
 from collections import defaultdict
 from copy import copy
 from enum import IntEnum
+from functools import total_ordering
 
 from future import standard_library
 
@@ -29,6 +30,7 @@ from .utilities import *
 standard_library.install_aliases()
 
 
+@total_ordering
 class Pin(SkidlBaseObject):
     """
     A class for storing data about pins for a part.
@@ -208,6 +210,23 @@ class Pin(SkidlBaseObject):
         # Attach additional attributes to the pin.
         for k, v in list(attribs.items()):
             setattr(self, k, v)
+
+    def __eq__(self, o):
+        if not isinstance(o, type(self)):
+            return NotImplemented
+        return self.part == o.part and self.num == o.num
+
+    @staticmethod
+    def _normalise_num(num):
+        num = str(num)
+        return num.zfill(5) if num[0].isdigit() else num
+
+    def __lt__(self, o):
+        if not isinstance(o, type(self)):
+            return NotImplemented
+        if self.part != o.part:
+            raise ValueError("Comparing pins on different parts not supported.")
+        return self._normalise_num(self.num) < self._normalise_num(o.num)
 
     def copy(self, num_copies=None, **attribs):
         """
