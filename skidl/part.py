@@ -297,7 +297,7 @@ class Part(SkidlBaseObject):
 
     @property
     def ordered_pins(self):
-        return sorted(self.pins, key=lambda p: str(getattr(p, "num", "999")).zfill(3))
+        return sorted(self.pins)
 
     @classmethod
     def get(cls, text, circuit=None):
