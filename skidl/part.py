@@ -16,7 +16,9 @@ from __future__ import (  # isort:skip
 import functools
 import re
 from builtins import dict, int, object, range, str, super, zip
+from collections import UserList
 from copy import copy
+from functools import partial
 from random import randint
 
 from future import standard_library
@@ -93,6 +95,28 @@ class PinNameSearch(object):
         self.part.__setitem__(ids, *pins_nets_buses)
 
 
+class SortedPinList(UserList):
+    """A list for pins which maintains sort."""
+
+    def __init__(self, o=None):
+        """Initialise a new SortedPinList."""
+        self.__setitem__ = partial(self._wrapper, "__setitem__")
+        self.__add__ = partial(self._wrapper, "__add__")
+        self.__radd__ = partial(self._wrapper, "__radd__")
+        self.__iadd__ = partial(self._wrapper, "__iadd__")
+        self.append = partial(self._wrapper, "append")
+        super().__init__(o)
+        self._sort()
+
+    def _sort(self):
+        self.data.sort(key=lambda p: getattr(p, "num", "999").zfill(3))
+
+    def _wrapper(self, method, *args):
+        x = getattr(super(), method)(*args)
+        self._sort()
+        return x
+
+
 class Part(SkidlBaseObject):
     """
     A class for storing a definition of a schematic part.
@@ -158,7 +182,8 @@ class Part(SkidlBaseObject):
         # Setup some part attributes that might be overwritten later on.
         self.do_erc = True  # Allow part to be included in ERC.
         self.unit = {}  # Dictionary for storing subunits of the part, if desired.
-        self.pins = []  # Start with no pins, but a place to store them.
+        # Start with no pins, but a place to store them.
+        self._pins = SortedPinList()
         self.p = PinNumberSearch(self)  # Does pin search using only pin numbers.
         self.n = PinNameSearch(self)  # Does pin search using only pin names.
         self.name = name  # Assign initial part name.
@@ -263,6 +288,14 @@ class Part(SkidlBaseObject):
 
         # If any pins were added, make sure they're associated with the part.
         self.associate_pins()
+
+    @property
+    def pins(self):
+        return self._pins
+
+    @pins.setter
+    def pins(self, val):
+        self._pins = SortedPinList(val)
 
     def add_xspice_io(self, io):
         """

@@ -26,3 +26,10 @@ def test_pin_names_2():
     assert codec.p["A1"] is codec.n["A2"]
     assert codec["A1"] is codec.n["A2"]
     assert codec["A1"] is codec.p["A1"]
+
+
+def test_pin_order():
+    codec = Part("xess.lib", "ak4520a")
+    p = codec.pins.pop(12)
+    codec.pins.append(p)
+    assert [int(p.num) for p in codec.pins] == list(range(1, len(codec.pins) + 1))
