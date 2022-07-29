@@ -40,9 +40,6 @@ def test_numerical_pin_order():
 
 def test_alphanumeric_pin_order():
     codec = Part("xess.lib", "ak4520a")
-    codec.pins[3].num = "A1"
-    codec.pins[5].num = "B1"
-    for _ in codec.pins[6:]:
-        codec.pins.pop()
-    assert [x.num for x in codec.ordered_pins] == ["1", "2", "3", "5", "A1", "B1"]
-    assert codec.pins != codec.ordered_pins
+    codec[3].num = "A1"
+    codec[5].num = "B1"
+    assert [p.num for p in codec.ordered_pins[-6:]] == ["25", "26", "27", "28", "A1", "B1"]

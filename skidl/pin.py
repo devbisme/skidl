@@ -14,6 +14,8 @@ from __future__ import (  # isort:skip
 )
 
 import re
+import sys
+import random
 from builtins import range, super
 from collections import defaultdict
 from copy import copy
@@ -203,30 +205,56 @@ class Pin(SkidlBaseObject):
         self.nets = []
         self.part = None
         self.name = ""
-        self.num = ""
         self.do_erc = True
         self.func = self.types.UNSPEC  # Pin function defaults to unspecified.
+
+        # Set pin number as a random integer so that calling Pin() multiple
+        # times will give pins that are distinct according to __eq__.
+        # This pin number gets overridden if the num is set in attribs.
+        self.num = random.randint(100000, sys.maxsize)
 
         # Attach additional attributes to the pin.
         for k, v in list(attribs.items()):
             setattr(self, k, v)
 
-    def __eq__(self, o):
-        if not isinstance(o, type(self)):
-            return NotImplemented
-        return self.part == o.part and self.num == o.num
+    def _normalize_num(self):
+        """Normalize pin numbers into a tuple for comparison purposes.
 
-    @staticmethod
-    def _normalise_num(num):
-        num = str(num)
-        return num.zfill(5) if num[0].isdigit() else num
+        Returns:
+            tuple: Tuple consisting of BGA row identifier and numeric column.
+                If it's not a BGA pin, then the tuple contains just a single number.
+        """
+
+        # Split the pin number into an initial alpha BGA row followed by column number.
+        n = list(re.match(r"(\D*)(.*)", str(self.num)).group(1,2))
+
+        # Uppercase the BGA row. This has no effect if it's not a BGA.
+        n[0] = n[0].upper()
+
+        # Convert the column number (or just the single pin number) to an integer if possible.
+        try:
+            n[-1] = int(n[-1])
+        except ValueError:
+            pass
+
+        # return the pin number tuple.
+        return n
 
     def __lt__(self, o):
         if not isinstance(o, type(self)):
             return NotImplemented
         if self.part != o.part:
             raise ValueError("Comparing pins on different parts not supported.")
-        return self._normalise_num(self.num) < self._normalise_num(o.num)
+        return self._normalize_num() < o._normalize_num()
+
+    def __eq__(self, o):
+        if not isinstance(o, type(self)):
+            return NotImplemented
+        return self.part == o.part and self._normalize_num() == o._normalize_num()
+
+    # Defining an __eq__ method will make Pins unhashable unless we
+    # explicitly define a hash method.
+    __hash__ = SkidlBaseObject.__hash__
 
     def copy(self, num_copies=None, **attribs):
         """
@@ -279,16 +307,16 @@ class Pin(SkidlBaseObject):
             # The copy is not on a net, yet.
             cpy.nets = []
 
+            # Attach additional attributes to the pin.
+            for k, v in list(attribs.items()):
+                setattr(cpy, k, v)
+
             # Connect the new pin to the same net as the original.
             if self.nets:
                 self.nets[0] += cpy
 
             # Copy the aliases for the pin if it has them.
             cpy.aliases = self.aliases
-
-            # Attach additional attributes to the pin.
-            for k, v in list(attribs.items()):
-                setattr(cpy, k, v)
 
             copies.append(cpy)
 

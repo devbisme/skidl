@@ -31,4 +31,5 @@ def test_alphanum_sorts():
     assert Pin(num=1) < Pin(num="a1")
     assert Pin(num="a1") < Pin(num="a2")
     assert Pin(num="a100") < Pin(num="b1")
-    assert Pin(num="a001") < Pin(num="a1")
+    assert Pin(num="a001") == Pin(num="a1")
+    assert Pin(num="AA100") > Pin(num="A1000")

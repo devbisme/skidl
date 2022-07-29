@@ -12,7 +12,7 @@ from .setup_teardown import setup_function, teardown_function
 def test_net_merge_1():
     a = Net("A")
     b = Net("B")
-    a += 5 * Pin()
+    a += Pin(), Pin(), Pin(), Pin(), Pin()
     assert len(a) == 5
     b += Pin(), Pin(), Pin()
     assert len(b) == 3

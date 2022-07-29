@@ -110,7 +110,7 @@ def test_connect_6():
 
 def test_connect_7():
     n1, n2 = 2 * Net()
-    p1, p2, p3 = 3 * Pin()
+    p1, p2, p3 = Pin(), Pin(), Pin()
     p1 += n1
     n2 += p2, p3
     p1 += p2, p3
@@ -123,27 +123,27 @@ def test_connect_7():
 
 def test_connect_8():
     n1 = Net()
-    p1, p2, p3 = 3 * Pin()
+    p1, p2, p3 = Pin(), Pin(), Pin()
     n1[0] += p1, p2, p3
     assert len(n1) == 3
 
 
 def test_connect_9():
     n1 = Net()
-    p1, p2, p3 = 3 * Pin()
+    p1, p2, p3 = Pin(), Pin(), Pin()
     n1[:] += p1, p2, p3
     assert len(n1) == 3
 
 
 def test_connect_10():
     n1 = Net()
-    p1, p2, p3 = 3 * Pin()
+    p1, p2, p3 = Pin(), Pin(), Pin()
     with pytest.raises(ValueError):
         n1[1] += p1, p2, p3
 
 
 def test_connect_11():
     n1 = Net()
-    p1, p2, p3 = 3 * Pin()
+    p1, p2, p3 = Pin(), Pin(), Pin()
     n1[:] += p1, p2, p3[:]
     assert len(n1) == 3

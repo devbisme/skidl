@@ -9,6 +9,7 @@ ______________________
 - If not explicitly declared, `Part` objects will load the default footprint from their symbol definition.
 - Added `empty_footprint_handler()` for parts without footprints that logs errors by default but can be overriden by the user.
 - Gitlab KiCad V6 symbol libraries can be used by placing `https://gitlab.com/kicad/libraries/kicad-symbols/-/raw/master` in `lib_search_paths[KICAD]`.
+- Part pins can now be sorted and retrieved in order using `ordered_pins` property.
 
 
 1.1.0 (2021-10-22)

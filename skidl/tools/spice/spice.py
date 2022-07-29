@@ -598,13 +598,16 @@ class XspicePinList(list):
         l = super().__len__()
         return l or 1
 
-    def copy(self):
+    def copy(self, **attribs):
         """
         Return a copy of a PinList for use when a Part is copied.
+
+        Args:
+            attribs(dict): Attributes to apply to copied part pins.
         """
         cpy = self.__class__(self.num, self.name, self.part)
         for pin in self:
-            cpy += pin.copy()
+            cpy += pin.copy(**attribs)
         return cpy
 
     def disconnect(self):
