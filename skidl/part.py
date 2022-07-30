@@ -690,6 +690,10 @@ class Part(SkidlBaseObject):
                     pins.extend(tmp_pins)
                     continue
 
+        # Log an error if no pins were selected using the pin ids.
+        if not pins:
+            active_logger.error("No pins found using {self.ref}[{pin_ids}]".format(**locals()))
+
         return list_or_scalar(pins)
 
     # Get pins from a part using brackets, e.g. [1,5:9,'A[0-9]+'].
