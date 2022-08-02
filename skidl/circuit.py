@@ -531,7 +531,7 @@ class Circuit(SkidlBaseObject):
                 containing a file name, or None.
             tool: The EDA tool the netlist will be generated for.
             do_backup: If true, create a library with all the parts in the circuit.
-
+            fp_libs: List of directories containing footprint libraries.
         Returns:
             None.
         """
@@ -549,9 +549,11 @@ class Circuit(SkidlBaseObject):
         #     Get EDA tool the netlist will be generated for.
         #     Get file the netlist will be stored in (if any).
         #     Get flag controlling the generation of a backup library.
+        #     Get list of footprint libraries.
         tool = kwargs.pop("tool", skidl.get_default_tool())
         file_ = kwargs.pop("file_", None)
         do_backup = kwargs.pop("do_backup", True)
+        fp_libs = kwargs.pop("fp_libs", None)
 
         if not self.no_files:
             try:
@@ -568,7 +570,9 @@ class Circuit(SkidlBaseObject):
                     self.backup_parts()  # Create a new backup lib for the circuit parts.
                     global backup_lib  # Clear out any old backup lib so the new one
                     backup_lib = None  #   will get reloaded when it's needed.
-                gen_func(file_)  # Generate the PCB file from the netlist.
+                
+                # Generate the PCB file from the netlist.
+                gen_func(file_, fp_libs=fp_libs)
 
         active_logger.report_summary("creating PCB")
 

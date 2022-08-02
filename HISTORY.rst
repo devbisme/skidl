@@ -10,7 +10,7 @@ ______________________
 - Added `empty_footprint_handler()` for parts without footprints that logs errors by default but can be overriden by the user.
 - Gitlab KiCad V6 symbol libraries can be used by placing `https://gitlab.com/kicad/libraries/kicad-symbols/-/raw/master` in `lib_search_paths[KICAD]`.
 - Part pins can now be sorted and retrieved in order using `ordered_pins` property.
-
+- `generate_pcb` now takes an optional list of footprint library directories.
 
 1.1.0 (2021-10-22)
 ______________________

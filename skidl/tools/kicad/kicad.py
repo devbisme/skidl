@@ -991,8 +991,16 @@ def gen_netlist_net(self):
     return txt
 
 
-def gen_pcb(self, file_):
-    """Create a KiCad PCB file directly from a Circuit object."""
+def gen_pcb(self, file_, fp_libs=None):
+    """Create a KiCad PCB file directly from a Circuit object.
+
+    Args:
+        file_: Either a file object that can be written to, or a string
+            containing a file name, or None.
+        fp_libs: List of directories containing footprint libraries.
+    Returns:
+        None.
+    """
 
     # Keep the import in here so it doesn't get triggered unless this is used
     # so it eases some problems with tox testing.
@@ -1006,7 +1014,7 @@ def gen_pcb(self, file_):
         )
     else:
         file_ = file_ or (get_script_name() + ".kicad_pcb")
-        kinet2pcb.kinet2pcb(self, file_)
+        kinet2pcb.kinet2pcb(self, file_, fp_libs)
 
 
 def gen_xml(self):
