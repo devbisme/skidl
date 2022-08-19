@@ -142,16 +142,14 @@ class SkidlLogger(logging.getLoggerClass()):
             phase_desc (string): description of the phase of operations (e.g. "generating netlist").
         """
         if (self.error.count, self.warning.count) == (0, 0):
-            sys.stderr.write(
-                "\nNo errors or warnings found while {}.\n\n".format(phase_desc)
-            )
+            self.info("\nNo errors or warnings found while {}.\n\n".format(phase_desc))
         else:
-            sys.stderr.write(
+            self.warning(
                 "\n{} warnings found while {}.\n".format(
                     active_logger.warning.count, phase_desc
                 )
             )
-            sys.stderr.write(
+            self.error(
                 "{} errors found while {}.\n\n".format(
                     active_logger.error.count, phase_desc
                 )
