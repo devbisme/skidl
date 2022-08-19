@@ -110,6 +110,9 @@ class SkidlLogger(logging.getLoggerClass()):
     def debug(self, msg, *args, **kwargs):
         super().debug(msg + self.get_trace(), *args, **kwargs)
 
+    def summary(self, msg, *args, **kwargs):
+        super().info(msg, *args, **kwargs)
+
     def info(self, msg, *args, **kwargs):
         super().info(msg + self.get_trace(), *args, **kwargs)
 
@@ -142,15 +145,15 @@ class SkidlLogger(logging.getLoggerClass()):
             phase_desc (string): description of the phase of operations (e.g. "generating netlist").
         """
         if (self.error.count, self.warning.count) == (0, 0):
-            self.info("\nNo errors or warnings found while {}.\n\n".format(phase_desc))
+            self.summary("No errors or warnings found while {}.\n".format(phase_desc))
         else:
-            self.warning(
-                "\n{} warnings found while {}.\n".format(
+            self.summary(
+                "{} warnings found while {}.".format(
                     active_logger.warning.count, phase_desc
                 )
             )
-            self.error(
-                "{} errors found while {}.\n\n".format(
+            self.summary(
+                "{} errors found while {}.\n".format(
                     active_logger.error.count, phase_desc
                 )
             )
@@ -201,13 +204,13 @@ def _create_logger(title, log_msg_id="", log_file_suffix=".log"):
 
     # Errors & warnings always appear on the terminal.
     handler = logging.StreamHandler(sys.stderr)
-    handler.setLevel(logging.WARNING)
+    handler.setLevel(logging.INFO)
     handler.setFormatter(logging.Formatter(log_msg_id + "%(levelname)s: %(message)s"))
     logger.addHandler(handler)
 
     # Errors and warnings are stored in a log file with the top-level script's name.
     handler = SkidlLogFileHandler(get_script_name() + log_file_suffix, mode="w")
-    handler.setLevel(logging.WARNING)
+    handler.setLevel(logging.INFO)
     handler.setFormatter(logging.Formatter(log_msg_id + "%(levelname)s: %(message)s"))
     logger.addHandler(handler)
 
