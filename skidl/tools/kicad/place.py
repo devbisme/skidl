@@ -227,33 +227,32 @@ def overlap_force(part, parts):
     for other_part in set(parts) - {part}:
         other_part_bbox = other_part.bbox.dot(other_part.tx)
 
-        # No force if parts don't overlap.
-        if part_bbox.intersects(other_part_bbox) == False:
-            continue
+        # No force unless parts overlap.
+        if part_bbox.intersects(other_part_bbox):
 
-        # Compute the movement needed to clear the bboxes in left/right/up/down directions.
-        # Move right edge of part to the left of other part's left edge.
-        mv_left = other_part_bbox.ll - part_bbox.lr
-        # Move left edge of part to the right of other part's right edge.
-        mv_right = other_part_bbox.lr - part_bbox.ll
-        # Move bottom edge of part above other part's upper edge.
-        mv_up = other_part_bbox.ul - part_bbox.ll
-        # Move upper edge of part below other part's bottom edge.
-        mv_down = other_part_bbox.ll - part_bbox.ul
+            # Compute the movement needed to clear the bboxes in left/right/up/down directions.
+            # Move right edge of part to the left of other part's left edge.
+            mv_left = other_part_bbox.ll - part_bbox.lr
+            # Move left edge of part to the right of other part's right edge.
+            mv_right = other_part_bbox.lr - part_bbox.ll
+            # Move bottom edge of part above other part's upper edge.
+            mv_up = other_part_bbox.ul - part_bbox.ll
+            # Move upper edge of part below other part's bottom edge.
+            mv_down = other_part_bbox.ll - part_bbox.ul
 
-        # Find the minimal movements in the left/right and up/down directions.
-        mv_lr = mv_left if abs(mv_left.x) < abs(mv_right.x) else mv_right
-        mv_ud = mv_up if abs(mv_up.y) < abs(mv_down.y) else mv_down
+            # Find the minimal movements in the left/right and up/down directions.
+            mv_lr = mv_left if abs(mv_left.x) < abs(mv_right.x) else mv_right
+            mv_ud = mv_up if abs(mv_up.y) < abs(mv_down.y) else mv_down
 
-        # Remove any orthogonal component of the left/right and up/down movements.
-        mv_lr.y = 0  # Remove up/down component.
-        mv_ud.x = 0  # Remove left/right component.
+            # Remove any orthogonal component of the left/right and up/down movements.
+            mv_lr.y = 0  # Remove up/down component.
+            mv_ud.x = 0  # Remove left/right component.
 
-        # Pick the smaller of the left/right and up/down movements.
-        mv = mv_lr if abs(mv_lr.x) < abs(mv_ud.y) else mv_ud
+            # Pick the smaller of the left/right and up/down movements.
+            mv = mv_lr if abs(mv_lr.x) < abs(mv_ud.y) else mv_ud
 
-        # Add movement for this part overlap to the total force.
-        total_force += mv
+            # Add movement for this part overlap to the total force.
+            total_force += mv
 
     return total_force
 
