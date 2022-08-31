@@ -20,8 +20,6 @@ import os.path
 
 from future import standard_library
 
-from skidl.tools.kicad.kicad import DrawText
-
 from .common import GRID, PIN_LABEL_FONT_SIZE
 from .geometry import Point, Vector, BBox, Segment, Tx
 from .route import route
