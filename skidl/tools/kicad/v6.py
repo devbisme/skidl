@@ -65,7 +65,8 @@ def load_sch_lib(self, f, filename, lib_search_paths_):
         filename: The name of the KiCad schematic library file.
     """
 
-    from ...part import Part
+    from ...part import Part, LIBRARY
+    from .. import KICAD
 
     # Parse the library and return a nested list of library parts.
     lib_sexp = "".join(f.readlines())
@@ -99,7 +100,7 @@ def load_sch_lib(self, f, filename, lib_search_paths_):
         self.add_parts(
             Part(
                 part_defn=part_defn,
-                tool=tool_name,
+                tool=KICAD,
                 dest=LIBRARY,
                 filename=filename,
                 name=part_name,
