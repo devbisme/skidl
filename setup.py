@@ -28,6 +28,7 @@ with open("HISTORY.rst") as history_file:
 
 requirements = [
     "future >= 0.15.0",
+    "sexpdata",
     "kinparse >= 0.1.0",
     "kinet2pcb",
     'enum34; python_version < "3.0"',

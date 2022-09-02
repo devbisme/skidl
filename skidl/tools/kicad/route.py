@@ -35,7 +35,7 @@ from future import standard_library
 from ...logger import active_logger
 from ...part import Part
 from ...utilities import *
-from .common import *
+from .common import GRID
 from .geometry import *
 
 standard_library.install_aliases()

@@ -31,7 +31,7 @@ from ...logger import active_logger
 from ...part import Part
 from ...pin import Pin
 from ...utilities import *
-from .common import *
+from .common import GRID
 from .geometry import *
 from .route import *
 

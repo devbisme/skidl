@@ -24,7 +24,7 @@ from .common import GRID, PIN_LABEL_FONT_SIZE
 from .geometry import Point, Vector, BBox, Segment, Tx
 from .route import route
 from .place import place
-from .symbol import calc_symbol_bbox
+from .v5 import calc_symbol_bbox
 from ...logger import active_logger
 from ...net import NCNet
 from ...part import Part

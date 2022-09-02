@@ -16,45 +16,12 @@ from __future__ import (  # isort:skip
 from builtins import int
 
 from future import standard_library
+import sexpdata
 
 from ...logger import active_logger
 from ...utilities import *
 
 standard_library.install_aliases()
-
-
-def _split_into_symbols(libstr):
-    """Split a KiCad V6 library and return a list of symbol strings."""
-
-    # Split using "(symbol" as delimiter and discard any preamble.
-    libstr = libstr.replace("( ", "(")
-    delimiter = "(symbol "
-    pieces = libstr.split(delimiter)[1:]
-
-    symbol_name = "_"  # Name of current symbol being assembled.
-    symbols = {}  # Symbols indexed by their names.
-
-    # Go through the pieces and assemble each symbol.
-    for piece in pieces:
-
-        # Get the symbol name immediately following the delimiter.
-        name = piece.split(None, 1)[0]
-        name = name.replace('"', "")  # Remove quotes around name.
-        name1 = "_".join(name.split("_")[:-2])  # Remove '_#_#' from subsymbols.
-
-        if name1 == symbol_name:
-            # if name.startswith(symbol_name):
-            # If the name starts with the same string as the
-            # current symbol, then this is a unit of the symbol.
-            # Therefore, just append the unit to the symbol.
-            symbols[symbol_name] += delimiter + piece
-        else:
-            # Otherwise, this is the start of a new symbol.
-            # Remove the library name preceding the symbol name.
-            symbol_name = name.split(":", 1)[-1]
-            symbols[symbol_name] = delimiter + piece
-
-    return symbols
 
 
 def load_sch_lib(self, f, filename, lib_search_paths_):
@@ -69,28 +36,36 @@ def load_sch_lib(self, f, filename, lib_search_paths_):
     from .. import KICAD
 
     # Parse the library and return a nested list of library parts.
-    lib_sexp = "".join(f.readlines())
+    lib_list = sexpdata.load(f)
 
-    parts = _split_into_symbols(lib_sexp)
-
-    def extract_quoted_string(part, property_type):
-        """Extract quoted string from a property in a part symbol definition."""
-        try:
-            # Quoted string follows the property type id.
-            value = part.split(property_type)[1]
-        except IndexError:
-            # Property didn't exist, so return empty string.
-            return ""
-        # Remove quotes and return the string.
-        return re.findall(r'"(.*?)(?<!\\)"', value)[0]
+    # Skip over the 'kicad_symbol_lib' label and extract symbols into a dictionary with
+    # symbol names as keys.
+    parts = {item[1]: item[2:] for item in lib_list[1:] if item[0].value().lower()=='symbol'}
 
     # Create Part objects for each part in library.
     for part_name, part_defn in parts.items():
 
+        properties = {}
+
+        # See if this symbol extends a previous parent symbol.
+        for item in part_defn:
+            if item[0].value().lower()=='extends':
+                # Get the properties from the parent symbol.
+                parent_part = self[item[1]]
+                if parent_part.part_defn:
+                    properties.update({item[1].lower():item[2] for item in parent_part.part_defn if item[0].value().lower()=='property'})
+                else:
+                    properties["ki_keywords"] = parent_part.keywords
+                    properties["ki_description"] = parent_part.description
+                    properties["datasheet"] = parent_part.datasheet
+
+        # Get symbol properties, primarily to get the reference id.
+        properties.update({item[1].lower():item[2] for item in part_defn if item[0].value().lower()=='property'})
+
         # Get part properties.
-        keywords = extract_quoted_string(part_defn, "ki_keywords")
-        datasheet = extract_quoted_string(part_defn, "Datasheet")
-        description = extract_quoted_string(part_defn, "ki_description")
+        keywords = properties["ki_keywords"]
+        datasheet = properties["datasheet"]
+        description = properties["ki_description"]
 
         # Join the various text pieces by newlines so the ^ and $ special characters
         # can be used to detect the start and end of a piece of text during RE searches.
@@ -125,10 +100,12 @@ def parse_lib_part(self, partial_parse):
     """
 
     # For info on part library format, look at:
+    # https://dev-docs.kicad.org/en/file-formats/sexpr-schematic/
     # https://docs.google.com/document/d/1lyL_8FWZRouMkwqLiIt84rd2Htg4v1vz8_2MzRKHRkc/edit
     # https://gitlab.com/kicad/code/kicad/-/blob/master/eeschema/sch_plugins/kicad/sch_sexpr_parser.cpp
 
     from ...pin import Pin
+    from ...part import TEMPLATE
 
     # Return if there's nothing to do (i.e., part has already been parsed).
     if not self.part_defn:
@@ -142,15 +119,12 @@ def parse_lib_part(self, partial_parse):
     self.fplist = []  # Footprint list.
     self.draw = []  # Drawing commands for symbol, including pins.
 
-    part_defn = parse_sexp(self.part_defn, allow_underflow=True)
-
-    for item in part_defn:
-        if to_list(item)[0] == "extends":
+    for item in self.part_defn:
+        if item[0].value().lower() == "extends":
             # Populate this part (child) from another part (parent) it is extended from.
 
             # Make a copy of the parent part from the library.
-            parent_part_name = item[1]
-            parent_part = self.lib[parent_part_name].copy(dest=TEMPLATE)
+            parent_part = self.lib[item[1]].copy(dest=TEMPLATE)
 
             # Remove parent attributes that we don't want to overwrite in the child.
             parent_part_dict = parent_part.__dict__
@@ -178,8 +152,8 @@ def parse_lib_part(self, partial_parse):
             self.copy_units(parent_part)
 
             # Perform some operations on the child part.
-            for item in part_defn:
-                cmd = to_list(item)[0]
+            for item in self.part_defn:
+                cmd = item[0].value().lower()
                 if cmd == "del":
                     self.rmv_pins(item[1])
                 elif cmd == "swap":
@@ -197,12 +171,12 @@ def parse_lib_part(self, partial_parse):
 
     # Populate part fields from symbol properties.
     properties = {
-        item[1]: item[2:] for item in part_defn if to_list(item)[0] == "property"
+        item[1]: item[2:] for item in self.part_defn if item[0].value().lower() == "property"
     }
     for name, data in properties.items():
         value = data[0]
         for item in data[1:]:
-            if to_list(item)[0] == "id":
+            if item[0].value().lower() == "id":
                 self.fields["F" + str(item[1])] = value
                 break
         self.fields[name] = value
@@ -226,15 +200,15 @@ def parse_lib_part(self, partial_parse):
 
     # Find all the units within a symbol. Skip the first item which is the
     # 'symbol' marking the start of the entire part definition.
-    units = [item for item in part_defn[1:] if to_list(item)[0] == "symbol"]
+    units = {item[1]:item[2:] for item in self.part_defn[1:] if item[0].value().lower() == "symbol"}
     self.num_units = len(units)
 
     # Get pins and assign them to each unit as well as the entire part.
     unit_nums = []  # Stores unit numbers for units with pins.
-    for unit in units:
+    for unit_name, unit_data in units.items():
 
         # Extract the part name, unit number, and conversion flag.
-        unit_name_pieces = unit[1].split("_")  # unit name follows 'symbol'
+        unit_name_pieces = unit_name.split("_")  # unit name follows 'symbol'
         symbol_name = "_".join(unit_name_pieces[:-2])
         assert symbol_name == self.name
         unit_num = int(unit_name_pieces[-2])
@@ -245,10 +219,10 @@ def parse_lib_part(self, partial_parse):
             continue
 
         # Get the pins for this unit.
-        unit_pins = [item for item in unit if to_list(item)[0] == "pin"]
+        unit_pins = [item for item in unit_data if item[0].value().lower() == "pin"]
 
         # Save unit number if the unit has pins. Use this to create units
-        #  after the entire part is created.
+        # after the entire part is created.
         if unit_pins:
             unit_nums.append(unit_num)
 
@@ -256,16 +230,15 @@ def parse_lib_part(self, partial_parse):
         for pin in unit_pins:
 
             # Pin electrical type immediately follows the "pin" tag.
-            pin_func = pin_io_type_translation[pin[1]]
+            pin_func = pin_io_type_translation[pin[1].value().lower()]
 
             # Find the pin name and number starting somewhere after the pin function and shape.
             pin_name = ""
             pin_number = None
             for item in pin[3:]:
-                item = to_list(item)
-                if item[0] == "name":
+                if item[0].value().lower() == "name":
                     pin_name = item[1]
-                elif item[0] == "number":
+                elif item[0].value().lower() == "number":
                     pin_number = item[1]
 
             # Add the pins that were found to the total part. Include the unit identifier
