@@ -43,6 +43,9 @@ from .tools import *
 standard_library.install_aliases()
 
 
+HIER_SEP = "."  # Separator for hierarchy labels.
+
+
 class Circuit(SkidlBaseObject):
     """
     Class object that holds the entire netlist of parts and nets.
@@ -158,7 +161,7 @@ class Circuit(SkidlBaseObject):
         # that led to this one. Also, add a distinct tag to the current
         # name to disambiguate multiple uses of the same function.  This is
         # either specified as an argument, or an incrementing value is used.
-        grp_hier_name = self.hierarchy + "." + name
+        grp_hier_name = self.hierarchy + HIER_SEP + name
         if tag is None:
             tag = self.group_name_cntr[grp_hier_name]
             self.group_name_cntr[grp_hier_name] += 1
@@ -167,7 +170,7 @@ class Circuit(SkidlBaseObject):
         self.context.append((default_circuit, self.hierarchy))
 
         # Create a new hierarchical name in the activated context.
-        self.hierarchy = self.hierarchy + "." + name + str(tag)
+        self.hierarchy = self.hierarchy + HIER_SEP + name + str(tag)
         self.add_hierarchical_name(self.hierarchy)
 
         # Setup some globals needed in this context.

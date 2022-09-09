@@ -180,7 +180,7 @@ class Sheet:
         dir = os.path.dirname(filepath)
         self.filename = os.path.join(dir, self.node.node_key + ".sch")
         self.filename_sz = 20
-        self.name = self.node.node_key.split(".")[-1]
+        self.name = self.node.node_key.split(HIER_SEP)[-1]
         self.name_sz = 40
 
         # TODO: Adjust size of hierarchical sheet?
@@ -383,7 +383,7 @@ class Node:
             eeschema_code.append(sheet.to_eeschema(tx=tx))
 
         # Generate the graphic box that surrounds the node.
-        block_name = self.node_key.split(".")[-1]
+        block_name = self.node_key.split(HIER_SEP)[-1]
         bbox_code = bbox_to_eeschema(self.bbox, tx, block_name)
         eeschema_code.append(bbox_code)
 
@@ -413,9 +413,9 @@ class NodeTree(defaultdict):
         # Create any intermediary nodes in the hierarchy that might not exist
         # because they don't contain any parts.
         for hierarchy in list(self.keys()):
-            breadcrumbs = hierarchy.split(".")
+            breadcrumbs = hierarchy.split(HIER_SEP)
             while breadcrumbs:
-                node_key = ".".join(breadcrumbs)
+                node_key = HIER_SEP.join(breadcrumbs)
                 node = self[node_key]  # Creates a node if it doesn't exist.
                 node.node_key = node_key
                 # Remove the last portion of the hierarchy string to get the
@@ -424,7 +424,7 @@ class NodeTree(defaultdict):
 
         # Fill-in the parent/child relationship for all the nodes in the hierarchy.
         for node_key, node in self.items():
-            parent_key = ".".join(node_key.split(".")[0:-1])
+            parent_key = HIER_SEP.join(node_key.split(HIER_SEP)[0:-1])
             if parent_key:
                 parent = self[parent_key]
                 parent.children.append(node)

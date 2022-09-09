@@ -153,6 +153,9 @@ def gen_netlist_comp(part):
     Returns:
         str: String containing component netlist description.
     """
+
+    from ...circuit import HIER_SEP
+    
     ref = add_quotes(part.ref)
 
     value = add_quotes(part.value_str)
@@ -171,7 +174,7 @@ def gen_netlist_comp(part):
 
     # Embed the hierarchy along with a random integer into the sheetpath for each component.
     # This enables hierarchical selection in pcbnew.
-    hierarchy = add_quotes("/" + part.hierarchical_name.replace(".", "/"))
+    hierarchy = add_quotes("/" + part.hierarchical_name.replace(HIER_SEP, "/"))
     tstamps = hierarchy
 
     fields = ""

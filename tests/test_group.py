@@ -15,6 +15,7 @@ from skidl import (
     generate_xml,
     subcircuit,
     super,
+    HIER_SEP,
 )
 
 from .setup_teardown import setup_function, teardown_function
@@ -60,7 +61,7 @@ def test_group_1():
     
     depth = 0
     for part in default_circuit.parts:
-        depth = max(depth, part.hierarchical_name.count("."))
+        depth = max(depth, part.hierarchical_name.count(HIER_SEP))
     assert depth == 5
 
     ERC()

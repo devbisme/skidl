@@ -1044,7 +1044,8 @@ class Part(SkidlBaseObject):
 
     @property
     def hierarchical_name(self):
-        return getattr(self, "hierarchy", "") + "." + self._tag
+        from .circuit import HIER_SEP
+        return getattr(self, "hierarchy", "") + HIER_SEP + self._tag
 
     @property
     def tag(self):
@@ -1294,4 +1295,5 @@ class PartUnit(Part):
 
     @property
     def ref(self):
-        return ".".join((self.parent.ref, self.label))
+        from .circuit import HIER_SEP
+        return HIER_SEP.join((self.parent.ref, self.label))
