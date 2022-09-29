@@ -642,7 +642,7 @@ def place_parts(connected_parts, internal_nets, floating_parts, options):
 
     return connected_parts, floating_parts
 
-def place_blocks(connected_parts, floating_parts, non_sheets, sheets, options):
+def place_blocks(connected_parts, floating_parts, children, options):
     """Place blocks of parts and hierarchical sheets.
 
     Args:
@@ -688,14 +688,12 @@ def place_blocks(connected_parts, floating_parts, non_sheets, sheets, options):
         snap_part = list(part_list)[0]
         blk = PartBlock(part_list, bbox, bbox.ctr, get_unsnapped_pt(snap_part))
         part_blocks.append(blk)
-    for non_sht in non_sheets:
-        non_sht.calc_bbox()
-        bbox = non_sht.bbox
-        blk = PartBlock(non_sht, bbox, bbox.ctr, get_unsnapped_pt(non_sht.parts[0]))
-        part_blocks.append(blk)
-    for sht in sheets:
-        bbox = sht.bbox
-        blk = PartBlock(sht, bbox, bbox.ctr, bbox.ctr)
+    for child in children:
+        bbox = child.calc_bbox()
+        if child.expand:
+            blk = PartBlock(child, bbox, bbox.ctr, get_unsnapped_pt(child.parts[0]))
+        else:
+            blk = PartBlock(child, bbox, bbox.ctr, bbox.ctr)
         part_blocks.append(blk)
 
     blk_attr = defaultdict(lambda: defaultdict(lambda: 0))
@@ -750,6 +748,6 @@ def place(node, options=["draw","no_keep_stubs","remove_power"]):
 
     connected_parts, internal_nets, floating_parts = group_parts(node.parts, options)
     place_parts(connected_parts, internal_nets, floating_parts, options)
-    place_blocks(connected_parts, floating_parts, node.non_sheets, node.sheets, options)
+    place_blocks(connected_parts, floating_parts, node.children.values(), options)
     node.calc_bbox()
     return node

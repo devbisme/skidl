@@ -178,7 +178,7 @@ class Sheet:
         self.title = title
 
         dir = os.path.dirname(filepath)
-        self.filename = os.path.join(dir, self.node.node_key + ".sch")
+        self.filename = os.path.join(dir, self.node.sheet_file_name + ".sch")
         self.filename_sz = 20
         self.name = self.node.node_key.split(HIER_SEP)[-1]
         self.name_sz = 40
@@ -242,16 +242,50 @@ class Sheet:
 class Node:
     """Data structure for holding information about a node in the circuit hierarchy."""
 
-    def __init__(self):
+    def __init__(self, circuit=None):
         self.parent = None
-        self.children = []
-        self.sheets = []
-        self.non_sheets = []
+        self.children = defaultdict(lambda:Node())
+        # self.sheets = []
+        # self.part_blocks = []
+        self.name = None
+        self.expand = False
         self.parts = []
         self.wires = []
         self.tx = Tx()
         self.bbox = BBox()
         self.placed = False
+        self.sheet_file_name = None
+        self.filename_sz = 20
+        self.name_sz = 40
+
+        if circuit:
+            self.add_circuit(circuit)
+
+    def add_circuit(self, circuit):
+        """Add parts in circuit to node and its children.
+
+        Args:
+            circuit (Circuit): Circuit object.
+        """
+        for part in circuit.parts:
+            self.add_part(part)
+
+    def add_part(self, part, level=0):
+        """Add a part to the node at the appropriate level of the hierarchy."""
+        
+        from ...circuit import HIER_SEP
+
+        level_names = part.hierarchy.split(HIER_SEP)
+        self.name = level_names[level]
+        self.sheet_file_name = "_".join(level_names[0:level+1])
+
+        if level == len(level_names)-1:
+            self.parts.append(part)
+            self.sheet_file_name = part.hierarchy.replace(HIER_SEP, "_")
+        else:
+            child_node = self.children[level_names[level+1]]
+            child_node.parent = self
+            child_node.add_part(part, level+1)
 
     def calc_bbox(self):
         """Compute the bounding box for the node in the circuit hierarchy."""
@@ -263,15 +297,23 @@ class Node:
         else:
             self.bbox = BBox()
 
-        # Update the bounding box with anything that's been placed.
-        for obj in chain(self.parts, self.sheets, self.non_sheets):
-            if obj.placed:
-                # Only placed parts/sheets/non_sheets contribute to the bounding box.
-                tx_bbox = obj.bbox.dot(obj.tx)
-                self.bbox.add(tx_bbox)
+        if self.expand:
+            # Update the bounding box with anything that's been placed.
+            for obj in chain(self.parts, self.children.values()):
+                if obj.placed:
+                    # Only placed parts/sheets/non_sheets contribute to the bounding box.
+                    tx_bbox = obj.bbox.dot(obj.tx)
+                    self.bbox.add(tx_bbox)
+        else:
+            # Use hierarchical bounding box if node has not been expanded.
+            self.bbox = BBox(Point(0, 0), Point(500, 500))
+            self.bbox.add(Point(len("File: "+self.sheet_file_name) * self.filename_sz, 0))
+            self.bbox.add(Point(len("Sheet: "+self.sheet_file_name) * self.name_sz, 0))
 
         # Pad the bounding box for extra spacing when placed.
         self.bbox = self.bbox.resize(Vector(100, 100))
+
+        return self.bbox
 
     def create_sheets(self, filepath, title, flatness=0.0):
         """Create hierarchical sheets for the circuitry in this node and its children.
@@ -291,46 +333,59 @@ class Node:
         children are included using hierarchical sheets.
         """
 
+        # Create sheets and compute complexity for any circuitry in hierarchical child nodes.
+        for child in self.children.values():
+            child.create_sheets(filepath, title, flatness)
+
+        print(f"Creating sheet for {self.sheet_file_name}")
+
         # Complexity of the parts directly instantiated at this hierarchical level.
         self.complexity = sum((len(part) for part in self.parts))
 
         # Sum the child complexities and use it to compute the number of pins that can be
         # shown before hierarchical sheets are used.
-        child_complexity = sum((child.complexity for child in self.children))
+        child_complexity = sum((child.complexity for child in self.children.values()))
         slack = child_complexity * flatness
 
         # Group the children according to what types of modules they are by removing trailing instance ids.
         child_types = defaultdict(list)
-        for child in self.children:
-            child_types[re.sub(r"\d+$", "", child.node_key)].append(child)
+        for child_id, child in self.children.items():
+            child_types[re.sub(r"\d+$", "", child_id)].append(child)
 
-        # Compute the total size of each group of children.
+        # Compute the total size of each type of children.
         child_type_sizes = dict()
         for child_type, children in child_types.items():
             child_type_sizes[child_type] = sum((child.complexity for child in children))
 
         # Sort the groups from smallest total size to largest.
-        sorted_child_type_sizes = sorted([(typ, sz) for typ,sz in child_type_sizes.items()], key=lambda item: item[1])
+        sorted_child_type_sizes = sorted(child_type_sizes.items(), key=lambda item: item[1])
 
         # Expand each instance in a group until the slack is used up.
         for child_type, child_type_size in sorted_child_type_sizes:
             if child_type_size <= slack:
                 # Include the circuitry of each child instance directly in the sheet.
-                self.non_sheets.extend(child_types[child_type])
+                for child in child_types[child_type]:
+                    child.expand = True
+                # self.part_blocks.extend(child_types[child_type])
                 # Reduce the slack by the sum of the child sizes.
                 slack -= child_type_size
             else:
                 # Not enough slack left. Add these children as hierarchical sheets.
                 for child in child_types[child_type]:
-                    self.sheets.append(Sheet(child, filepath, title))
+                    child.expand = False
+                # for child in child_types[child_type]:
+                #     self.sheets.append(Sheet(child, filepath, title))
 
     def place(self):
         """Place parts within a hierarchical node."""
 
         # Use the larger bounding box when doing placement.
+        for child in self.children.values():
+            child.place()
+
+        print(f"Placing parts in {self.sheet_file_name}")
         for part in self.parts:
             part.bbox = part.place_bbox
-
         place(self)
 
     def route(self):
@@ -390,69 +445,71 @@ class Node:
         return "\n".join(eeschema_code)
 
 
-class NodeTree(defaultdict):
+class NodeTree(Node):
     """Make dict that holds part, net, and bbox info for each node in the hierarchy."""
 
     def __init__(self, circuit, filepath, title, flatness):
 
         # Set up defaultdict so that if a node with the given hierarchical key doesn't exist,
         # then a new Node object is created and added to the NodeTree.
-        super().__init__(lambda: Node())
+        super().__init__(circuit)
 
-        # Save a reference to the original circuit.
-        self.circuit = circuit
+        self.create_sheets(filepath, title, flatness)
 
-        # Create a node for each part in the circuit.
-        for part in circuit.parts:
-            # The node links to the part, and the part links to its node.
-            node_key = part.hierarchy
-            node = self[node_key]  # Creates the node if it doesn't already exist.
-            node.parts.append(part)  # Add part to list of parts in node.
-            part.node = node  # Add link from part to the node it's in.
+        # # Save a reference to the original circuit.
+        # self.circuit = circuit
 
-        # Create any intermediary nodes in the hierarchy that might not exist
-        # because they don't contain any parts.
-        for hierarchy in list(self.keys()):
-            breadcrumbs = hierarchy.split(HIER_SEP)
-            while breadcrumbs:
-                node_key = HIER_SEP.join(breadcrumbs)
-                node = self[node_key]  # Creates a node if it doesn't exist.
-                node.node_key = node_key
-                # Remove the last portion of the hierarchy string to get the
-                # key for the parent node.
-                breadcrumbs.pop()
+        # # Create a node for each part in the circuit.
+        # for part in circuit.parts:
+        #     # The node links to the part, and the part links to its node.
+        #     node_key = part.hierarchy
+        #     node = self[node_key]  # Creates the node if it doesn't already exist.
+        #     node.parts.append(part)  # Add part to list of parts in node.
+        #     part.node = node  # Add link from part to the node it's in.
 
-        # Fill-in the parent/child relationship for all the nodes in the hierarchy.
-        for node_key, node in self.items():
-            parent_key = HIER_SEP.join(node_key.split(HIER_SEP)[0:-1])
-            if parent_key:
-                parent = self[parent_key]
-                parent.children.append(node)
-                node.parent = parent
-            else:
-                root = node
+        # # Create any intermediary nodes in the hierarchy that might not exist
+        # # because they don't contain any parts.
+        # for hierarchy in list(self.keys()):
+        #     breadcrumbs = hierarchy.split(HIER_SEP)
+        #     while breadcrumbs:
+        #         node_key = HIER_SEP.join(breadcrumbs)
+        #         node = self[node_key]  # Creates a node if it doesn't exist.
+        #         node.node_key = node_key
+        #         # Remove the last portion of the hierarchy string to get the
+        #         # key for the parent node.
+        #         breadcrumbs.pop()
 
-        # Create list of nodes ordered from leaves (no children) to root (no parent).
-        self.leaves2root = []
-        available_nodes = list(self.values())
-        while available_nodes:
-            for node in available_nodes:
-                add_node = True
-                # Only add a node to the list if all its children are already on the list.
-                for child in node.children:
-                    if child not in self.leaves2root:
-                        add_node = False
-                        break
-                if add_node:
-                    # Add the node to the list and remove it from the list of available nodes.
-                    self.leaves2root.append(node)
-                    available_nodes.remove(node)
+        # # Fill-in the parent/child relationship for all the nodes in the hierarchy.
+        # for node_key, node in self.items():
+        #     parent_key = HIER_SEP.join(node_key.split(HIER_SEP)[0:-1])
+        #     if parent_key:
+        #         parent = self[parent_key]
+        #         parent.children.append(node)
+        #         node.parent = parent
+        #     else:
+        #         root = node
 
-        # Partition circuit into sheets, starting from the leaf nodes and working to the root.
-        for node in self.leaves2root:
-            node.create_sheets(filepath, title, flatness)
+        # # Create list of nodes ordered from leaves (no children) to root (no parent).
+        # self.leaves2root = []
+        # available_nodes = list(self.values())
+        # while available_nodes:
+        #     for node in available_nodes:
+        #         add_node = True
+        #         # Only add a node to the list if all its children are already on the list.
+        #         for child in node.children:
+        #             if child not in self.leaves2root:
+        #                 add_node = False
+        #                 break
+        #         if add_node:
+        #             # Add the node to the list and remove it from the list of available nodes.
+        #             self.leaves2root.append(node)
+        #             available_nodes.remove(node)
 
-        self[""].sheets = [Sheet(root, filepath, title)]
+        # # Partition circuit into sheets, starting from the leaf nodes and working to the root.
+        # for node in self.leaves2root:
+        #     node.create_sheets(filepath, title, flatness)
+
+        # self[""].sheets = [Sheet(root, filepath, title)]
 
     def __enter__(self):
         return self
@@ -460,12 +517,13 @@ class NodeTree(defaultdict):
     def __exit__(self, *args):
         pass
 
-    def place(self):
-        """Place parts within nodes and then place the nodes."""
+    # def place(self):
+    #     """Place parts within nodes and then place the nodes."""
+    #     self.place()
 
         # Place parts within each individual node, starting from the leaves and working to the root.
-        for node in self.leaves2root:
-            node.place()
+        # for node in self.leaves2root:
+            # node.place()
 
     def route(self):
         """Route nets within each node of the tree."""
@@ -791,6 +849,9 @@ def gen_schematic(circuit, filepath=None, title="SKiDL-Generated Schematic", fla
     """Create a schematic file from a Circuit object."""
 
     preprocess_parts_and_nets(circuit)
+
+    n = NodeTree(circuit, filepath, title, flatness)
+    # breakpoint()
 
     with NodeTree(circuit, filepath, title, flatness) as node_tree:
         node_tree.place()
