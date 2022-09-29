@@ -337,8 +337,6 @@ class Node:
         for child in self.children.values():
             child.create_sheets(filepath, title, flatness)
 
-        print(f"Creating sheet for {self.sheet_file_name}")
-
         # Complexity of the parts directly instantiated at this hierarchical level.
         self.complexity = sum((len(part) for part in self.parts))
 
@@ -379,17 +377,19 @@ class Node:
     def place(self):
         """Place parts within a hierarchical node."""
 
-        # Use the larger bounding box when doing placement.
         for child in self.children.values():
             child.place()
 
-        print(f"Placing parts in {self.sheet_file_name}")
+        # Use the larger bounding box when doing placement.
         for part in self.parts:
             part.bbox = part.place_bbox
         place(self)
 
     def route(self):
         """Route nets between parts of a node."""
+
+        for child in self.children.values():
+            child.route()
 
         # Use the smaller label bounding box when doing routing.
         for part in self.parts:
@@ -525,10 +525,10 @@ class NodeTree(Node):
         # for node in self.leaves2root:
             # node.place()
 
-    def route(self):
-        """Route nets within each node of the tree."""
-        for node in self.values():
-            node.route()
+    # def route(self):
+    #     """Route nets within each node of the tree."""
+    #     for node in self.values():
+    #         node.route()
 
     def to_eeschema(self):
         """Create EESCHEMA schematic files."""
