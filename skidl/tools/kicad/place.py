@@ -690,7 +690,7 @@ def place_blocks(connected_parts, floating_parts, children, options):
         part_blocks.append(blk)
     for child in children:
         bbox = child.calc_bbox()
-        if child.expand:
+        if child.flattened:
             blk = PartBlock(child, bbox, bbox.ctr, get_unsnapped_pt(child.parts[0]))
         else:
             blk = PartBlock(child, bbox, bbox.ctr, bbox.ctr)
@@ -730,7 +730,8 @@ def place_blocks(connected_parts, floating_parts, children, options):
                 part.placed = True
 
 
-def place(node, options=["draw","no_keep_stubs","remove_power"]):
+def place(node, options=["no_keep_stubs","remove_power"]):
+# def place(node, options=["draw","no_keep_stubs","remove_power"]):
     """Place the parts and sheets in the node.
 
     Steps:

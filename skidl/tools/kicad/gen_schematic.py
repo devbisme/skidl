@@ -39,14 +39,6 @@ Generate a KiCad EESCHEMA schematic from a Circuit object.
 """
 
 # Sizes of EESCHEMA schematic pages from smallest to largest. Dimensions in mils.
-A_sizes_list = [
-    ("A4", BBox(Point(0, 0), Point(11693, 8268))),
-    ("A3", BBox(Point(0, 0), Point(16535, 11693))),
-    ("A2", BBox(Point(0, 0), Point(23386, 16535))),
-    ("A1", BBox(Point(0, 0), Point(33110, 23386))),
-    ("A0", BBox(Point(0, 0), Point(46811, 33110))),
-]
-A_sizes = OrderedDict(A_sizes_list)
 
 
 def preprocess_parts_and_nets(circuit):
@@ -170,96 +162,35 @@ def preprocess_parts_and_nets(circuit):
         calc_part_bbox(part)
 
 
-class Sheet:
-    """Data structure for hierarchical sheets of a schematic."""
-
-    def __init__(self, node, filepath, title):
-        self.node = node
-        self.title = title
-
-        dir = os.path.dirname(filepath)
-        self.filename = os.path.join(dir, self.node.sheet_file_name + ".sch")
-        self.filename_sz = 20
-        self.name = self.node.node_key.split(HIER_SEP)[-1]
-        self.name_sz = 40
-
-        # TODO: Adjust size of hierarchical sheet?
-        self.bbox = BBox(Point(0, 0), Point(500, 500))
-        self.bbox.add(Point(len("File: "+self.filename) * self.filename_sz, 0))
-        self.bbox.add(Point(len("Sheet: "+self.name) * self.name_sz, 0))
-
-        self.tx = Tx()
-        self.placed = False
-
-    def to_eeschema(self, tx):
-        """Generate schematic files rooted in this sheet and return EESCHEMA code for a box representing this sheet."""
-
-        def get_A_size(bbox):
-            """Return the A-size page needed to fit the given bounding box."""
-
-            width = bbox.w
-            height = bbox.h * 1.25  # TODO: why 1.25?
-            for A_size, page in A_sizes.items():
-                if width < page.w and height < page.h:
-                    return A_size
-            return "A0"  # Nothing fits, so use the largest available.
-
-        # Compute the page size and positioning for this sheet.
-        node = self.node
-        A_size = get_A_size(node.bbox)
-        page_bbox = node.bbox.dot(Tx(d=-1))
-        move_to_ctr = A_sizes[A_size].ctr - page_bbox.ctr
-        move_to_ctr = move_to_ctr.snap(GRID)  # Keep things on grid.
-        move_tx = Tx(d=-1).dot(Tx(dx=move_to_ctr.x, dy=move_to_ctr.y))
-
-        # Generate schematic files for lower levels of the hierarchy.
-        with open(self.filename, "w") as f:
-            print(
-                collect_eeschema_code(
-                    node.to_eeschema(move_tx),
-                    title=self.title,
-                    A_size=A_size,
-                ),
-                file=f,
-            )
-
-        # Create the hierarchical sheet box for insertion into the calling node sheet.
-        bbox = round(self.bbox.dot(self.tx).dot(tx))
-        time_hex = hex(int(time.time()))[2:]
-        return "\n".join(
-            (
-            "$Sheet",
-            "S {} {} {} {}".format(bbox.ll.x, bbox.ll.y, bbox.w, bbox.h),
-            "U {}".format(time_hex),
-            'F0 "{}" {}'.format(self.name, self.name_sz),
-            'F1 "{}" {}'.format(self.filename, self.filename_sz),
-            "$EndSheet",
-            ""
-            )
-        )
-
-
 class Node:
     """Data structure for holding information about a node in the circuit hierarchy."""
 
-    def __init__(self, circuit=None):
+    filename_sz = 20
+    name_sz = 40
+
+    def __init__(self, circuit=None, filepath=".", top_name="", title="", flatness=0.0):
         self.parent = None
-        self.children = defaultdict(lambda:Node())
-        # self.sheets = []
-        # self.part_blocks = []
-        self.name = None
-        self.expand = False
+        self.children = defaultdict(lambda:Node(None, filepath, top_name, title, flatness))
+        self.filepath = filepath
+        self.top_name = top_name
+        self.title = title
+        self.flatness = flatness
+        self.flattened = False
         self.parts = []
         self.wires = []
         self.tx = Tx()
         self.bbox = BBox()
         self.placed = False
         self.sheet_file_name = None
-        self.filename_sz = 20
-        self.name_sz = 40
 
         if circuit:
             self.add_circuit(circuit)
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args):
+        pass
 
     def add_circuit(self, circuit):
         """Add parts in circuit to node and its children.
@@ -277,65 +208,67 @@ class Node:
 
         level_names = part.hierarchy.split(HIER_SEP)
         self.name = level_names[level]
-        self.sheet_file_name = "_".join(level_names[0:level+1])
+        base_file_name = "_".join((self.top_name, *level_names[0:level+1]))
+        self.sheet_file_name = os.path.join(self.filepath, base_file_name) 
 
         if level == len(level_names)-1:
             self.parts.append(part)
-            self.sheet_file_name = part.hierarchy.replace(HIER_SEP, "_")
         else:
             child_node = self.children[level_names[level+1]]
             child_node.parent = self
             child_node.add_part(part, level+1)
 
+    def calc_hier_sheet_bbox(self):
+        """Return the bounding box of a hierarchical sheet."""
+        bbox = BBox(Point(0, 0), Point(500, 500))
+        bbox.add(Point(len("File: "+self.sheet_file_name) * self.filename_sz, 0))
+        bbox.add(Point(len("Sheet: "+self.sheet_file_name) * self.name_sz, 0))
+        return bbox
+
+    def calc_flattened_bbox(self):
+        """Compute bounding box for the circuitry within this node."""
+
+        # Update the bounding box with anything that's been placed.
+        bbox = BBox()
+        for obj in chain(self.parts, self.children.values()):
+            if obj.placed:
+                tx_bbox = obj.bbox.dot(obj.tx)
+                bbox.add(tx_bbox)
+        return bbox
+
     def calc_bbox(self):
         """Compute the bounding box for the node in the circuit hierarchy."""
 
-        # If a node has no parent, then its the root node so give it an
-        # initial bounding box that's just a starting point for placement.
-        if not self.parent:
-            self.bbox = BBox(Point(0, 0), Point(0, 0))
+        if self.flattened:
+            self.bbox = self.calc_flattened_bbox()
         else:
-            self.bbox = BBox()
-
-        if self.expand:
-            # Update the bounding box with anything that's been placed.
-            for obj in chain(self.parts, self.children.values()):
-                if obj.placed:
-                    # Only placed parts/sheets/non_sheets contribute to the bounding box.
-                    tx_bbox = obj.bbox.dot(obj.tx)
-                    self.bbox.add(tx_bbox)
-        else:
-            # Use hierarchical bounding box if node has not been expanded.
-            self.bbox = BBox(Point(0, 0), Point(500, 500))
-            self.bbox.add(Point(len("File: "+self.sheet_file_name) * self.filename_sz, 0))
-            self.bbox.add(Point(len("Sheet: "+self.sheet_file_name) * self.name_sz, 0))
+            # Use hierarchical bounding box if node has not been flattened.
+            self.bbox = self.calc_hier_sheet_bbox()
 
         # Pad the bounding box for extra spacing when placed.
         self.bbox = self.bbox.resize(Vector(100, 100))
 
         return self.bbox
 
-    def create_sheets(self, filepath, title, flatness=0.0):
-        """Create hierarchical sheets for the circuitry in this node and its children.
+    def flatten(self, flatness=0.0):
+        """Flatten node hierarchy according to flatness parameter.
 
         Args:
-            filepath (string): Location where schematic files will be stored.
-            title (string): Schematic title.
             flatness (float, optional): Degree of hierarchical flattening (0=completely hierarchical, 1=totally flat). Defaults to 0.0.
 
         Create hierarchical sheets for the node and its child nodes. Complexity (or size) of a node
         and its children is the total number of part pins they contain. The sum of all the child sizes
         multiplied by the flatness is the number of part pins that can be shown on the schematic
-        page before hierarchy is used. The instances of each type of child are expanded and placed
+        page before hierarchy is used. The instances of each type of child are flattened and placed
         directly in the sheet as long as the sum of their sizes is below the slack. Otherwise, the
         children are included using hierarchical sheets. The children are handled in order of
-        increasing size so small children are more likely to be expanded while large, complicated
+        increasing size so small children are more likely to be flattened while large, complicated
         children are included using hierarchical sheets.
         """
 
         # Create sheets and compute complexity for any circuitry in hierarchical child nodes.
         for child in self.children.values():
-            child.create_sheets(filepath, title, flatness)
+            child.flatten(flatness)
 
         # Complexity of the parts directly instantiated at this hierarchical level.
         self.complexity = sum((len(part) for part in self.parts))
@@ -358,21 +291,18 @@ class Node:
         # Sort the groups from smallest total size to largest.
         sorted_child_type_sizes = sorted(child_type_sizes.items(), key=lambda item: item[1])
 
-        # Expand each instance in a group until the slack is used up.
+        # Flatten each instance in a group until the slack is used up.
         for child_type, child_type_size in sorted_child_type_sizes:
             if child_type_size <= slack:
                 # Include the circuitry of each child instance directly in the sheet.
                 for child in child_types[child_type]:
-                    child.expand = True
-                # self.part_blocks.extend(child_types[child_type])
+                    child.flattened = True
                 # Reduce the slack by the sum of the child sizes.
                 slack -= child_type_size
             else:
                 # Not enough slack left. Add these children as hierarchical sheets.
                 for child in child_types[child_type]:
-                    child.expand = False
-                # for child in child_types[child_type]:
-                #     self.sheets.append(Sheet(child, filepath, title))
+                    child.flattened = False
 
     def place(self):
         """Place parts within a hierarchical node."""
@@ -399,13 +329,26 @@ class Node:
         for segment in detailed_routes:
             self.wires.append([segment.p1, segment.p2])
 
-    def to_eeschema(self, tx):
+    def to_eeschema(self, tx=Tx()):
+
+        from ...circuit import HIER_SEP
 
         # List to hold all the EESCHEMA code for this node.
         eeschema_code = []
 
-        # Find the transformation matrix for the placement of the node.
-        tx = self.tx.dot(tx)
+        if self.flattened:
+            # Find the transformation matrix for the placement of the parts in the node.
+            tx = self.tx.dot(tx)
+        else:
+            # Unflattened nodes are placed in their own sheet, so compute
+            # their bounding box as if they *were* flattened and use that to
+            # find the transformation matrix for an appropriately-sized sheet.
+            flattened_bbox = self.calc_flattened_bbox()
+            tx = calc_sheet_tx(flattened_bbox)
+
+        # Generate EESCHEMA code for each child of this node.
+        for child in self.children.values():
+            eeschema_code.append(child.to_eeschema(tx))
 
         # Generate EESCHEMA code for each part in the node.
         for part in self.parts:
@@ -429,127 +372,51 @@ class Node:
                 pin_label_code = pin_label_to_eeschema(pin, tx=tx)
                 eeschema_code.append(pin_label_code)
 
-        # Generate non-sheet portions of the node.
-        for non_sheet in self.non_sheets:
-            eeschema_code.append(non_sheet.to_eeschema(tx=tx))
-
-        # Generate hierarchical sheet boxes.
-        for sheet in self.sheets:
-            eeschema_code.append(sheet.to_eeschema(tx=tx))
-
-        # Generate the graphic box that surrounds the node.
-        block_name = self.node_key.split(HIER_SEP)[-1]
+        # Generate the graphic box that surrounds the flattened hierarchical block of this node.
+        block_name = self.name.split(HIER_SEP)[-1]
         bbox_code = bbox_to_eeschema(self.bbox, tx, block_name)
-        eeschema_code.append(bbox_code)
 
-        return "\n".join(eeschema_code)
+        # Join EESCHEMA code into one big string.
+        eeschema_code = "\n".join(eeschema_code)
+        
+        # If this node was flattened, then return the EESCHEMA code and surrounding box
+        # for inclusion in the parent node.
+        if self.flattened:
+            return "\n".join(eeschema_code, bbox_code)
 
+        # Create a hierarchical sheet file for storing this unflattened node.
+        A_size = get_A_size(flattened_bbox)
+        create_eeschema_file(self.sheet_file_name+".sch", eeschema_code, title=self.title, A_size=A_size)
 
-class NodeTree(Node):
-    """Make dict that holds part, net, and bbox info for each node in the hierarchy."""
-
-    def __init__(self, circuit, filepath, title, flatness):
-
-        # Set up defaultdict so that if a node with the given hierarchical key doesn't exist,
-        # then a new Node object is created and added to the NodeTree.
-        super().__init__(circuit)
-
-        self.create_sheets(filepath, title, flatness)
-
-        # # Save a reference to the original circuit.
-        # self.circuit = circuit
-
-        # # Create a node for each part in the circuit.
-        # for part in circuit.parts:
-        #     # The node links to the part, and the part links to its node.
-        #     node_key = part.hierarchy
-        #     node = self[node_key]  # Creates the node if it doesn't already exist.
-        #     node.parts.append(part)  # Add part to list of parts in node.
-        #     part.node = node  # Add link from part to the node it's in.
-
-        # # Create any intermediary nodes in the hierarchy that might not exist
-        # # because they don't contain any parts.
-        # for hierarchy in list(self.keys()):
-        #     breadcrumbs = hierarchy.split(HIER_SEP)
-        #     while breadcrumbs:
-        #         node_key = HIER_SEP.join(breadcrumbs)
-        #         node = self[node_key]  # Creates a node if it doesn't exist.
-        #         node.node_key = node_key
-        #         # Remove the last portion of the hierarchy string to get the
-        #         # key for the parent node.
-        #         breadcrumbs.pop()
-
-        # # Fill-in the parent/child relationship for all the nodes in the hierarchy.
-        # for node_key, node in self.items():
-        #     parent_key = HIER_SEP.join(node_key.split(HIER_SEP)[0:-1])
-        #     if parent_key:
-        #         parent = self[parent_key]
-        #         parent.children.append(node)
-        #         node.parent = parent
-        #     else:
-        #         root = node
-
-        # # Create list of nodes ordered from leaves (no children) to root (no parent).
-        # self.leaves2root = []
-        # available_nodes = list(self.values())
-        # while available_nodes:
-        #     for node in available_nodes:
-        #         add_node = True
-        #         # Only add a node to the list if all its children are already on the list.
-        #         for child in node.children:
-        #             if child not in self.leaves2root:
-        #                 add_node = False
-        #                 break
-        #         if add_node:
-        #             # Add the node to the list and remove it from the list of available nodes.
-        #             self.leaves2root.append(node)
-        #             available_nodes.remove(node)
-
-        # # Partition circuit into sheets, starting from the leaf nodes and working to the root.
-        # for node in self.leaves2root:
-        #     node.create_sheets(filepath, title, flatness)
-
-        # self[""].sheets = [Sheet(root, filepath, title)]
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, *args):
-        pass
-
-    # def place(self):
-    #     """Place parts within nodes and then place the nodes."""
-    #     self.place()
-
-        # Place parts within each individual node, starting from the leaves and working to the root.
-        # for node in self.leaves2root:
-            # node.place()
-
-    # def route(self):
-    #     """Route nets within each node of the tree."""
-    #     for node in self.values():
-    #         node.route()
-
-    def to_eeschema(self):
-        """Create EESCHEMA schematic files."""
-        tx = Tx()
-        sheets = [sheet for node in self.values() for sheet in node.sheets]
-        for sheet in sheets:
-            sheet.to_eeschema(tx)
+        # Create the hierarchical sheet for insertion into the calling node sheet.
+        bbox = round(self.bbox.dot(self.tx).dot(tx))
+        time_hex = hex(int(time.time()))[2:]
+        return "\n".join(
+            (
+            "$Sheet",
+            "S {} {} {} {}".format(bbox.ll.x, bbox.ll.y, bbox.w, bbox.h),
+            "U {}".format(time_hex),
+            'F0 "{}" {}'.format(self.name, self.name_sz),
+            'F1 "{}" {}'.format(self.sheet_file_name, self.filename_sz),
+            "$EndSheet",
+            ""
+            )
+        )
 
 
 def bbox_to_eeschema(bbox, tx, name=None):
     """Create a bounding box using EESCHEMA graphic lines."""
 
-    label_pt = round(bbox.ul.dot(tx))
-
+    # Make sure the box corners are integers.
     bbox = round(bbox.dot(tx))
 
     graphic_box = []
 
     if name:
+        # Place name at the upper-left corner of the box.
+        name_pt = bbox.ul
         graphic_box.append(
-            "Text Notes {} {} 0    100  ~ 20\n{}".format(label_pt.x, label_pt.y, name)
+            "Text Notes {} {} 0    100  ~ 20\n{}".format(name_pt.x, name_pt.y, name)
         )
 
     graphic_box.append("Wire Notes Line")
@@ -798,9 +665,37 @@ def pin_label_to_eeschema(pin, tx):
         label_type, round(pt.x), round(pt.y), orientation, pin.label
     )
 
+A_sizes_list = [
+    ("A4", BBox(Point(0, 0), Point(11693, 8268))),
+    ("A3", BBox(Point(0, 0), Point(16535, 11693))),
+    ("A2", BBox(Point(0, 0), Point(23386, 16535))),
+    ("A1", BBox(Point(0, 0), Point(33110, 23386))),
+    ("A0", BBox(Point(0, 0), Point(46811, 33110))),
+]
+A_sizes = OrderedDict(A_sizes_list)
 
-def collect_eeschema_code(
-    code,
+def get_A_size(bbox):
+    """Return the A-size page needed to fit the given bounding box."""
+
+    width = bbox.w
+    height = bbox.h * 1.25  # TODO: why 1.25?
+    for A_size, page in A_sizes.items():
+        if width < page.w and height < page.h:
+            return A_size
+    return "A0"  # Nothing fits, so use the largest available.
+
+def calc_sheet_tx(bbox):
+    """Compute the page size and positioning for this sheet."""
+    A_size = get_A_size(bbox)
+    page_bbox = bbox.dot(Tx(d=-1))
+    move_to_ctr = A_sizes[A_size].ctr - page_bbox.ctr
+    move_to_ctr = move_to_ctr.snap(GRID)  # Keep things on grid.
+    move_tx = Tx(d=-1).dot(Tx(dx=move_to_ctr.x, dy=move_to_ctr.y))
+    return move_tx
+
+def create_eeschema_file(
+    filename,
+    contents,
     cur_sheet_num=1,
     total_sheet_num=1,
     title="Default",
@@ -811,49 +706,50 @@ def collect_eeschema_code(
     day=datetime.date.today().day,
     A_size="A2",
 ):
-    """Collect EESCHEMA header, code, and footer and return as a string."""
+    """Write EESCHEMA header, contents, and footer to a file."""
 
-    return "\n".join(
-        (
-            "EESchema Schematic File Version 4",
-            "EELAYER 30 0",
-            "EELAYER END",
-            
-            "$Descr {} {} {}".format(
-                A_size,
-                A_sizes[A_size].max.x,
-                A_sizes[A_size].max.y
-            ),
+    with open(filename, "w") as f:
+        f.write("\n".join(
+            (
+                "EESchema Schematic File Version 4",
+                "EELAYER 30 0",
+                "EELAYER END",
+                
+                "$Descr {} {} {}".format(
+                    A_size,
+                    A_sizes[A_size].max.x,
+                    A_sizes[A_size].max.y
+                ),
 
-            "encoding utf-8",
-            "Sheet {} {}".format(cur_sheet_num, total_sheet_num),
-            'Title "{}"'.format(title),
-            'Date "{}-{}-{}"'.format(year, month, day),
-            'Rev "v{}.{}"'.format(rev_major, rev_minor),
-            'Comp ""',
-            'Comment1 ""',
-            'Comment2 ""',
-            'Comment3 ""',
-            'Comment4 ""',
-            "$EndDescr",
-            "",
+                "encoding utf-8",
+                "Sheet {} {}".format(cur_sheet_num, total_sheet_num),
+                'Title "{}"'.format(title),
+                'Date "{}-{}-{}"'.format(year, month, day),
+                'Rev "v{}.{}"'.format(rev_major, rev_minor),
+                'Comp ""',
+                'Comment1 ""',
+                'Comment2 ""',
+                'Comment3 ""',
+                'Comment4 ""',
+                "$EndDescr",
+                "",
 
-            code,
+                contents,
 
-            "$EndSCHEMATC"
+                "$EndSCHEMATC"
+            )
         )
     )
 
 
-def gen_schematic(circuit, filepath=None, title="SKiDL-Generated Schematic", flatness=0.0):
+def gen_schematic(circuit, filepath=".", top_name="", title="SKiDL-Generated Schematic", flatness=0.0):
     """Create a schematic file from a Circuit object."""
 
     preprocess_parts_and_nets(circuit)
 
-    n = NodeTree(circuit, filepath, title, flatness)
-    # breakpoint()
+    n = Node(circuit, filepath, top_name, title, flatness)
 
-    with NodeTree(circuit, filepath, title, flatness) as node_tree:
-        node_tree.place()
-        node_tree.route()
-        node_tree.to_eeschema()
+    with Node(circuit, filepath, top_name, title, flatness) as node:
+        node.place()
+        node.route()
+        node.to_eeschema()
