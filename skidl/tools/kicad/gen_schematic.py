@@ -21,13 +21,11 @@ import os.path
 from future import standard_library
 
 from .common import GRID, PIN_LABEL_FONT_SIZE
-from .geometry import Point, Vector, BBox, Segment, Tx
+from .geometry import Point, Vector, BBox, Tx
 from .route import route
 from .place import place
 from .v5 import calc_symbol_bbox
-from ...logger import active_logger
 from ...net import NCNet
-from ...part import Part
 from ...scriptinfo import *
 from ...utilities import *
 
@@ -181,6 +179,7 @@ class Node:
         self.tx = Tx()
         self.bbox = BBox()
         self.placed = False
+        self.sheet_name = None
         self.sheet_file_name = None
 
         if circuit:
@@ -198,8 +197,13 @@ class Node:
         Args:
             circuit (Circuit): Circuit object.
         """
+
+        # Build the circuit node hierarchy by adding the parts.
         for part in circuit.parts:
             self.add_part(part)
+
+        # Flatten the hierarchy as specified by the flatness parameter.
+        self.flatten(self.flatness)
 
     def add_part(self, part, level=0):
         """Add a part to the node at the appropriate level of the hierarchy."""
@@ -208,8 +212,8 @@ class Node:
 
         level_names = part.hierarchy.split(HIER_SEP)
         self.name = level_names[level]
-        base_file_name = "_".join((self.top_name, *level_names[0:level+1]))
-        self.sheet_file_name = os.path.join(self.filepath, base_file_name) 
+        base_file_name = "_".join((self.top_name, *level_names[0:level+1])) + ".sch"
+        self.sheet_file_name = os.path.join(self.filepath, base_file_name)
 
         if level == len(level_names)-1:
             self.parts.append(part)
@@ -218,35 +222,41 @@ class Node:
             child_node.parent = self
             child_node.add_part(part, level+1)
 
-    def calc_hier_sheet_bbox(self):
-        """Return the bounding box of a hierarchical sheet."""
+    def external_bbox(self):
+        """Return the bounding box of a hierarchical sheet as seen by its parent node."""
         bbox = BBox(Point(0, 0), Point(500, 500))
         bbox.add(Point(len("File: "+self.sheet_file_name) * self.filename_sz, 0))
-        bbox.add(Point(len("Sheet: "+self.sheet_file_name) * self.name_sz, 0))
+        bbox.add(Point(len("Sheet: "+self.name) * self.name_sz, 0))
+        bbox.resize(Vector(100,100))
+
+        # Pad the bounding box for extra spacing when placed.
+        bbox.resize(Vector(100,100))
+
         return bbox
 
-    def calc_flattened_bbox(self):
-        """Compute bounding box for the circuitry within this node."""
+    def internal_bbox(self):
+        """Return the bounding box for the circuitry contained within this node."""
 
-        # Update the bounding box with anything that's been placed.
+        # The bounding box includes anything that's been placed.
         bbox = BBox()
         for obj in chain(self.parts, self.children.values()):
             if obj.placed:
                 tx_bbox = obj.bbox.dot(obj.tx)
                 bbox.add(tx_bbox)
+
+        # Pad the bounding box for extra spacing when placed.
+        bbox.resize(Vector(100,100))
+
         return bbox
 
     def calc_bbox(self):
         """Compute the bounding box for the node in the circuit hierarchy."""
 
         if self.flattened:
-            self.bbox = self.calc_flattened_bbox()
+            self.bbox = self.internal_bbox()
         else:
             # Use hierarchical bounding box if node has not been flattened.
-            self.bbox = self.calc_hier_sheet_bbox()
-
-        # Pad the bounding box for extra spacing when placed.
-        self.bbox = self.bbox.resize(Vector(100, 100))
+            self.bbox = self.external_bbox()
 
         return self.bbox
 
@@ -329,7 +339,15 @@ class Node:
         for segment in detailed_routes:
             self.wires.append([segment.p1, segment.p2])
 
-    def to_eeschema(self, tx=Tx()):
+    def to_eeschema(self, sheet_tx=Tx()):
+        """Convert node circuitry to an EESCHEMA sheet.
+
+        Args:
+            sheet_tx (Tx, optional): Scaling/translation matrix for sheet. Defaults to Tx().
+
+        Returns:
+            str: EESCHEMA text for the node circuitry.
+        """
 
         from ...circuit import HIER_SEP
 
@@ -338,12 +356,12 @@ class Node:
 
         if self.flattened:
             # Find the transformation matrix for the placement of the parts in the node.
-            tx = self.tx.dot(tx)
+            tx = self.tx.dot(sheet_tx)
         else:
             # Unflattened nodes are placed in their own sheet, so compute
             # their bounding box as if they *were* flattened and use that to
             # find the transformation matrix for an appropriately-sized sheet.
-            flattened_bbox = self.calc_flattened_bbox()
+            flattened_bbox = self.internal_bbox()
             tx = calc_sheet_tx(flattened_bbox)
 
         # Generate EESCHEMA code for each child of this node.
@@ -372,24 +390,25 @@ class Node:
                 pin_label_code = pin_label_to_eeschema(pin, tx=tx)
                 eeschema_code.append(pin_label_code)
 
-        # Generate the graphic box that surrounds the flattened hierarchical block of this node.
-        block_name = self.name.split(HIER_SEP)[-1]
-        bbox_code = bbox_to_eeschema(self.bbox, tx, block_name)
-
         # Join EESCHEMA code into one big string.
         eeschema_code = "\n".join(eeschema_code)
         
         # If this node was flattened, then return the EESCHEMA code and surrounding box
         # for inclusion in the parent node.
         if self.flattened:
-            return "\n".join(eeschema_code, bbox_code)
+
+            # Generate the graphic box that surrounds the flattened hierarchical block of this node.
+            block_name = self.name.split(HIER_SEP)[-1]
+            bbox_code = bbox_to_eeschema(self.bbox, tx, block_name)
+
+            return "\n".join((eeschema_code, bbox_code))
 
         # Create a hierarchical sheet file for storing this unflattened node.
         A_size = get_A_size(flattened_bbox)
-        create_eeschema_file(self.sheet_file_name+".sch", eeschema_code, title=self.title, A_size=A_size)
+        create_eeschema_file(self.sheet_file_name, eeschema_code, title=self.title, A_size=A_size)
 
         # Create the hierarchical sheet for insertion into the calling node sheet.
-        bbox = round(self.bbox.dot(self.tx).dot(tx))
+        bbox = round(self.bbox.dot(self.tx).dot(sheet_tx))
         time_hex = hex(int(time.time()))[2:]
         return "\n".join(
             (

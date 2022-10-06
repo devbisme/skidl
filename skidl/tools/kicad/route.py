@@ -700,8 +700,6 @@ class Face(Interval):
             return
 
         # OK, no parts in common between the two faces so they can be adjacent.
-        # self.adjacent.add(adj_face)
-        # adj_face.adjacent.add(self)
         self.adjacent.add(Adjacency(self, adj_face))
         adj_face.adjacent.add(Adjacency(adj_face, self))
 
@@ -1126,7 +1124,7 @@ class SwitchBox:
                     left_face = face
                     break
             else:
-                raise NoSwitchBox("Unroutable switchbox!")
+                raise NoSwitchBox("Unroutable switchbox (left)!")
 
         # Find the right face in the right track that bounds the top face.
         if right_face == None:
@@ -1137,14 +1135,14 @@ class SwitchBox:
                     right_face = face
                     break
             else:
-                raise NoSwitchBox("Unroutable switchbox!")
+                raise NoSwitchBox("Unroutable switchbox (right)!")
 
         # For a routable switchbox, the left and right faces should each
         # begin at the same point.
         if left_face.beg != right_face.beg:
             # Inequality only happens when two parts are butted up against each other
             # to form a non-routable switchbox inside a part bounding box.
-            raise NoSwitchBox("Unroutable switchbox!")
+            raise NoSwitchBox("Unroutable switchbox (left-right)!")
 
         # Find the bottom face in the track where the left/right faces begin.
         if bottom_face == None:
@@ -1158,12 +1156,12 @@ class SwitchBox:
                     bottom_face = face
                     break
             else:
-                raise NoSwitchBox("Unroutable switchbox!")
+                raise NoSwitchBox("Unroutable switchbox (bottom)!")
 
         # If all four sides have a part in common, then the switchbox is inside
         # a part bbox that wires cannot be routed through.
         if top_face.part & bottom_face.part & left_face.part & right_face.part:
-            raise NoSwitchBox("Part switchbox")
+            raise NoSwitchBox("Unroutable switchbox (part)!")
 
         # Store the faces.
         self.top_face = top_face
@@ -1967,7 +1965,7 @@ def global_router(net):
         # If no new face is available to visit and there are still unconnected seeds,
         # then the routing has failed.
         if "face" not in next:
-            raise RoutingFailure
+            raise RoutingFailure("Routing failed on {}".format(net))
 
         next_face = next["face"]
         prev_face = next["prev_face"]
@@ -2065,8 +2063,8 @@ def global_router(net):
     return routed_wires
 
 
-def route(node, options=[]):
-# def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
+# def route(node, options=[]):
+def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
     """Route the wires between part pins in the node.
 
     Steps:
@@ -2149,8 +2147,7 @@ def route(node, options=[]):
         h_track_coord.append(bbox.max.y)
 
     # Create delimiting tracks for the routing area from the slightly-expanded total bounding box of the parts.
-    expansion = Vector(node.bbox.w, node.bbox.h) / 20
-    routing_bbox = round(node.bbox.resize(expansion))
+    routing_bbox = round(node.internal_bbox())
     v_track_coord.append(routing_bbox.min.x)
     v_track_coord.append(routing_bbox.max.x)
     h_track_coord.append(routing_bbox.min.y)
@@ -2259,6 +2256,16 @@ def route(node, options=[]):
     for track in h_tracks + v_tracks:
         for face in track:
             face.set_capacity()
+
+    # Draw routing tracks.
+    if "draw" in options:
+        draw_scr, draw_tx, draw_font = draw_start(routing_bbox)
+        for part in node.parts:
+            draw_part(part, draw_scr, draw_tx, draw_font)
+        for track in h_tracks + v_tracks:
+            for face in track:
+                face.draw(draw_scr, draw_tx, draw_font)
+        draw_end()
 
     def rank_net(net):
         """Rank net based on W/H of bounding box of pins and the # of pins."""
