@@ -143,7 +143,6 @@ def preprocess_parts_and_nets(circuit):
     for part in circuit.parts:
 
         # Initialize part attributes used for generating schematics.
-        part.placed = False
         part.tx = Tx()
 
         # Initialize pin attributes used for generating schematics.
@@ -182,7 +181,6 @@ class Node(Placer, Router):
         self.wires = []
         self.tx = Tx()
         self.bbox = BBox()
-        self.placed = False
 
         if circuit:
             self.add_circuit(circuit)
@@ -239,12 +237,11 @@ class Node(Placer, Router):
     def internal_bbox(self):
         """Return the bounding box for the circuitry contained within this node."""
 
-        # The bounding box includes anything that's been placed.
+        # The bounding box is determined by the arrangement of the node's parts and child nodes.
         bbox = BBox()
         for obj in chain(self.parts, self.children.values()):
-            if obj.placed:
-                tx_bbox = obj.bbox.dot(obj.tx)
-                bbox.add(tx_bbox)
+            tx_bbox = obj.bbox.dot(obj.tx)
+            bbox.add(tx_bbox)
 
         # Pad the bounding box for extra spacing when placed.
         bbox.resize(Vector(100, 100))

@@ -694,11 +694,6 @@ def place_parts(connected_parts, internal_nets, floating_parts, options):
         if "draw" in options:
             draw_end()
 
-    # TODO: Is this needed?
-    # all_parts = tuple(itertools.chain(*connected_parts, floating_parts))
-    # for part in all_parts:
-    #     part.placed = True
-
     return connected_parts, floating_parts
 
 
@@ -793,11 +788,9 @@ def place_blocks(connected_parts, floating_parts, children, options):
     for blk in part_blocks:
         try:
             blk.src.tx = blk.tx
-            blk.src.placed = True
         except AttributeError:
             for part in blk.src:
                 part.tx = part.tx.dot(blk.tx)
-                part.placed = True
 
 
 class Placer:
