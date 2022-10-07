@@ -2063,290 +2063,300 @@ def global_router(net):
     return routed_wires
 
 
-# def route(node, options=[]):
-def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
-    """Route the wires between part pins in the node.
+class Router:
+    """Mixin to add routing function to Node class."""
 
-    Steps:
-        1. Divide the bounding box surrounding the parts into switchboxes.
-        2. Do global routing of nets through sequences of switchboxes.
-        3. Do detailed routing within each switchbox.
+    # def route(node, options=[]):
+    def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
+        """Route the wires between part pins in this node and its children.
 
-    Args:
-        node (Node): Hierarchical node containing the parts to be connect
-        options (list): List of text options to control drawing of placement and
-            routing for debugging purposes. Available options are "draw", "draw_switchbox",
-            "draw_routing", "show_capacities", "draw_all_terminals", "draw_channels".
+        Steps:
+            1. Divide the bounding box surrounding the parts into switchboxes.
+            2. Do global routing of nets through sequences of switchboxes.
+            3. Do detailed routing within each switchbox.
 
-    Returns:
-        A list of detailed wire routes.
-    """
+        Args:
+            node (Node): Hierarchical node containing the parts to be connected.
+            options (list): List of text options to control drawing of placement and
+                routing for debugging purposes. Available options are "draw", "draw_switchbox",
+                "draw_routing", "show_capacities", "draw_all_terminals", "draw_channels".
+        """
 
-    # Exit if no parts to route.
-    if not node.parts:
-        return []
+        # Route children of this node.
+        for child in node.children.values():
+            child.route()
 
-    # Extract list of nets internal to the node for routing.
-    processed_nets = []
-    internal_nets = []
-    for part in node.parts:
-        for part_pin in part:
-
-            # A label means net is stubbed so there won't be any explicit wires.
-            if len(part_pin.label) > 0:
-                continue
-
-            # No explicit wires if the pin is not connected to anything.
-            if not part_pin.is_connected():
-                continue
-
-            net = part_pin.net
-
-            if net in processed_nets:
-                continue
-
-            processed_nets.append(net)
-
-            # No explicit wires for power nets.
-            if net.netclass == "Power":
-                continue
-
-            def is_internal(net):
-
-                # Determine if all the pins on this net reside in the node.
-                for net_pin in net.pins:
-
-                    # Don't consider stubs.
-                    if len(net_pin.label) > 0:
-                        continue
-
-                    # If a pin is outside this node, then the net is not internal.
-                    if net_pin.part.hierarchy != part_pin.part.hierarchy:
-                        return False
-
-                # All pins are within the node, so the net is internal.
-                return True
-
-            if is_internal(net):
-                internal_nets.append(net)
-
-    # Exit if no nets to route.
-    if not internal_nets:
-        return []
-
-    # Find the coords of the horiz/vert tracks that will hold the H/V faces of the routing switchboxes.
-    v_track_coord = []
-    h_track_coord = []
-
-    # The top/bottom/left/right of each part's bounding box define the H/V tracks.
-    for part in node.parts:
-        bbox = round(part.bbox.dot(part.tx))
-        v_track_coord.append(bbox.min.x)
-        v_track_coord.append(bbox.max.x)
-        h_track_coord.append(bbox.min.y)
-        h_track_coord.append(bbox.max.y)
-
-    # Create delimiting tracks for the routing area from the slightly-expanded total bounding box of the parts.
-    routing_bbox = round(node.internal_bbox())
-    v_track_coord.append(routing_bbox.min.x)
-    v_track_coord.append(routing_bbox.max.x)
-    h_track_coord.append(routing_bbox.min.y)
-    h_track_coord.append(routing_bbox.max.y)
-
-    # Remove any duplicate track coords and then sort them.
-    v_track_coord = list(set(v_track_coord))
-    h_track_coord = list(set(h_track_coord))
-    v_track_coord.sort()
-    h_track_coord.sort()
-
-    # Create an H/V track for each H/V coord containing a list for holding the faces in that track.
-    v_tracks = [
-        GlobalTrack(orientation=VERT, idx=idx, coord=coord)
-        for idx, coord in enumerate(v_track_coord)
-    ]
-    h_tracks = [
-        GlobalTrack(orientation=HORZ, idx=idx, coord=coord)
-        for idx, coord in enumerate(h_track_coord)
-    ]
-
-    def bbox_to_faces(part, bbox):
-        left_track = v_tracks[v_track_coord.index(bbox.min.x)]
-        right_track = v_tracks[v_track_coord.index(bbox.max.x)]
-        bottom_track = h_tracks[h_track_coord.index(bbox.min.y)]
-        top_track = h_tracks[h_track_coord.index(bbox.max.y)]
-        Face(part, left_track, bottom_track, top_track)
-        Face(part, right_track, bottom_track, top_track)
-        Face(part, bottom_track, left_track, right_track)
-        Face(part, top_track, left_track, right_track)
-        if isinstance(part, Part):
-            part.left_track = left_track
-            part.right_track = right_track
-            part.top_track = top_track
-            part.bottom_track = bottom_track
-
-    # Add routing box faces for each side of a part's bounding box.
-    for part in node.parts:
-        part_bbox = round(part.bbox.dot(part.tx))
-        bbox_to_faces(part, part_bbox)
-
-    # Add routing box faces for each side of the expanded bounding box surrounding all parts.
-    bbox_to_faces(boundary, routing_bbox)
-
-    # Extend the part faces in each horizontal track and then each vertical track.
-    for track in h_tracks:
-        track.extend_faces(v_tracks)
-    for track in v_tracks:
-        track.extend_faces(h_tracks)
-
-    # Apply splits to all faces and combine coincident faces.
-    for track in h_tracks + v_tracks:
-        track.split_faces()
-        track.remove_duplicate_faces()
-
-    # Add terminals to all non-part/non-boundary faces.
-    for track in h_tracks + v_tracks:
-        for face in track:
-            face.create_nonpin_terminals()
-
-    # Add terminals to switchbox faces for all part pins on internal nets.
-    for net in internal_nets:
-        for pin in net.pins:
-
-            # Find the track (top/bottom/left/right) that the pin is on.
-            part = pin.part
-            pt = pin.pt.dot(part.tx)
-            closest_dist = abs(pt.y - part.top_track.coord)
-            pin_track = part.top_track
-            coord = pt.x # Pin coord within top track.
-            dist = abs(pt.y - part.bottom_track.coord)
-            if dist < closest_dist:
-                closest_dist = dist
-                pin_track = part.bottom_track
-                coord = pt.x # Pin coord within bottom track.
-            dist = abs(pt.x - part.left_track.coord)
-            if dist < closest_dist:
-                closest_dist = dist
-                pin_track = part.left_track
-                coord = pt.y # Pin coord within left track.
-            dist = abs(pt.x - part.right_track.coord)
-            if dist < closest_dist:
-                closest_dist = dist
-                pin_track = part.right_track
-                coord = pt.y # Pin coord within right track.
-
-            # Now search for the face in the track that the pin is on.
-            for face in pin_track:
-                if part in face.part and face.beg.coord <= coord <= face.end.coord:
-                    if not getattr(pin, "face", None):
-                        # Only assign pin to face if it hasn't already been assigned to
-                        # another face. This handles the case where a pin is exactly
-                        # at the end coordinate and beginning coordinate of two
-                        # successive faces in the same track.
-                        pin.face = face
-                        face.pins.append(pin)
-                        terminal = Terminal(pin.net, face, coord)
-                        face.terminals.append(terminal)
-                    break
-
-    # Add adjacencies between faces that define global routing paths within switchboxes.
-    for h_track in h_tracks[1:]:
-        h_track.add_adjacencies()
-
-    # Set routing capacity of faces.
-    for track in h_tracks + v_tracks:
-        for face in track:
-            face.set_capacity()
-
-    # Draw routing tracks.
-    if "draw" in options:
-        draw_scr, draw_tx, draw_font = draw_start(routing_bbox)
+        # Use the smaller label bounding box when routing parts in this node.
         for part in node.parts:
-            draw_part(part, draw_scr, draw_tx, draw_font)
+            part.bbox = part.lbl_bbox
+
+        # Exit if no parts to route.
+        if not node.parts:
+            return []
+
+        # Extract list of nets internal to the node for routing.
+        processed_nets = []
+        internal_nets = []
+        for part in node.parts:
+            for part_pin in part:
+
+                # A label means net is stubbed so there won't be any explicit wires.
+                if len(part_pin.label) > 0:
+                    continue
+
+                # No explicit wires if the pin is not connected to anything.
+                if not part_pin.is_connected():
+                    continue
+
+                net = part_pin.net
+
+                if net in processed_nets:
+                    continue
+
+                processed_nets.append(net)
+
+                # No explicit wires for power nets.
+                if net.netclass == "Power":
+                    continue
+
+                def is_internal(net):
+
+                    # Determine if all the pins on this net reside in the node.
+                    for net_pin in net.pins:
+
+                        # Don't consider stubs.
+                        if len(net_pin.label) > 0:
+                            continue
+
+                        # If a pin is outside this node, then the net is not internal.
+                        if net_pin.part.hierarchy != part_pin.part.hierarchy:
+                            return False
+
+                    # All pins are within the node, so the net is internal.
+                    return True
+
+                if is_internal(net):
+                    internal_nets.append(net)
+
+        # Exit if no nets to route.
+        if not internal_nets:
+            return []
+
+        # Find the coords of the horiz/vert tracks that will hold the H/V faces of the routing switchboxes.
+        v_track_coord = []
+        h_track_coord = []
+
+        # The top/bottom/left/right of each part's bounding box define the H/V tracks.
+        for part in node.parts:
+            bbox = round(part.bbox.dot(part.tx))
+            v_track_coord.append(bbox.min.x)
+            v_track_coord.append(bbox.max.x)
+            h_track_coord.append(bbox.min.y)
+            h_track_coord.append(bbox.max.y)
+
+        # Create delimiting tracks for the routing area from the slightly-expanded total bounding box of the parts.
+        routing_bbox = round(node.internal_bbox())
+        v_track_coord.append(routing_bbox.min.x)
+        v_track_coord.append(routing_bbox.max.x)
+        h_track_coord.append(routing_bbox.min.y)
+        h_track_coord.append(routing_bbox.max.y)
+
+        # Remove any duplicate track coords and then sort them.
+        v_track_coord = list(set(v_track_coord))
+        h_track_coord = list(set(h_track_coord))
+        v_track_coord.sort()
+        h_track_coord.sort()
+
+        # Create an H/V track for each H/V coord containing a list for holding the faces in that track.
+        v_tracks = [
+            GlobalTrack(orientation=VERT, idx=idx, coord=coord)
+            for idx, coord in enumerate(v_track_coord)
+        ]
+        h_tracks = [
+            GlobalTrack(orientation=HORZ, idx=idx, coord=coord)
+            for idx, coord in enumerate(h_track_coord)
+        ]
+
+        def bbox_to_faces(part, bbox):
+            left_track = v_tracks[v_track_coord.index(bbox.min.x)]
+            right_track = v_tracks[v_track_coord.index(bbox.max.x)]
+            bottom_track = h_tracks[h_track_coord.index(bbox.min.y)]
+            top_track = h_tracks[h_track_coord.index(bbox.max.y)]
+            Face(part, left_track, bottom_track, top_track)
+            Face(part, right_track, bottom_track, top_track)
+            Face(part, bottom_track, left_track, right_track)
+            Face(part, top_track, left_track, right_track)
+            if isinstance(part, Part):
+                part.left_track = left_track
+                part.right_track = right_track
+                part.top_track = top_track
+                part.bottom_track = bottom_track
+
+        # Add routing box faces for each side of a part's bounding box.
+        for part in node.parts:
+            part_bbox = round(part.bbox.dot(part.tx))
+            bbox_to_faces(part, part_bbox)
+
+        # Add routing box faces for each side of the expanded bounding box surrounding all parts.
+        bbox_to_faces(boundary, routing_bbox)
+
+        # Extend the part faces in each horizontal track and then each vertical track.
+        for track in h_tracks:
+            track.extend_faces(v_tracks)
+        for track in v_tracks:
+            track.extend_faces(h_tracks)
+
+        # Apply splits to all faces and combine coincident faces.
+        for track in h_tracks + v_tracks:
+            track.split_faces()
+            track.remove_duplicate_faces()
+
+        # Add terminals to all non-part/non-boundary faces.
         for track in h_tracks + v_tracks:
             for face in track:
-                face.draw(draw_scr, draw_tx, draw_font)
-        draw_end()
+                face.create_nonpin_terminals()
 
-    def rank_net(net):
-        """Rank net based on W/H of bounding box of pins and the # of pins."""
-        bbox = BBox()
-        for pin in net.pins:
-            bbox.add(pin.pt)
-        return (bbox.w + bbox.h, len(net.pins))
+        # Add terminals to switchbox faces for all part pins on internal nets.
+        for net in internal_nets:
+            for pin in net.pins:
 
-    # Do global routing of nets internal to the node.
-    internal_nets.sort(key=rank_net)
-    global_routes = [global_router(net) for net in internal_nets]
+                # Find the track (top/bottom/left/right) that the pin is on.
+                part = pin.part
+                pt = pin.pt.dot(part.tx)
+                closest_dist = abs(pt.y - part.top_track.coord)
+                pin_track = part.top_track
+                coord = pt.x # Pin coord within top track.
+                dist = abs(pt.y - part.bottom_track.coord)
+                if dist < closest_dist:
+                    closest_dist = dist
+                    pin_track = part.bottom_track
+                    coord = pt.x # Pin coord within bottom track.
+                dist = abs(pt.x - part.left_track.coord)
+                if dist < closest_dist:
+                    closest_dist = dist
+                    pin_track = part.left_track
+                    coord = pt.y # Pin coord within left track.
+                dist = abs(pt.x - part.right_track.coord)
+                if dist < closest_dist:
+                    closest_dist = dist
+                    pin_track = part.right_track
+                    coord = pt.y # Pin coord within right track.
 
-    # Convert the global face-to-face routes into terminals on the switchboxes.
-    for route in global_routes:
-        for wire in route:
-            wire.cvt_faces_to_terminals()
+                # Now search for the face in the track that the pin is on.
+                for face in pin_track:
+                    if part in face.part and face.beg.coord <= coord <= face.end.coord:
+                        if not getattr(pin, "face", None):
+                            # Only assign pin to face if it hasn't already been assigned to
+                            # another face. This handles the case where a pin is exactly
+                            # at the end coordinate and beginning coordinate of two
+                            # successive faces in the same track.
+                            pin.face = face
+                            face.pins.append(pin)
+                            terminal = Terminal(pin.net, face, coord)
+                            face.terminals.append(terminal)
+                        break
 
-    # Clear the any switchboxes associated with faces because we'll be making new ones.
-    for track in h_tracks + v_tracks:
-        for face in track:
-            face.switchboxes.clear()
+        # Add adjacencies between faces that define global routing paths within switchboxes.
+        for h_track in h_tracks[1:]:
+            h_track.add_adjacencies()
 
-    # Create switchboxes for detailed routing.
-    switchboxes = []
-    for h_track in h_tracks[1:]:
-        for face in h_track:
-            try:
-                switchboxes.append(SwitchBox(face))
-            except NoSwitchBox:
-                continue
+        # Set routing capacity of faces.
+        for track in h_tracks + v_tracks:
+            for face in track:
+                face.set_capacity()
 
-    # Check the switchboxes for problems.
-    for swbx in switchboxes:
-        swbx.audit()
+        # Draw routing tracks.
+        if "draw" in options:
+            draw_scr, draw_tx, draw_font = draw_start(routing_bbox)
+            for part in node.parts:
+                draw_part(part, draw_scr, draw_tx, draw_font)
+            for track in h_tracks + v_tracks:
+                for face in track:
+                    face.draw(draw_scr, draw_tx, draw_font)
+            draw_end()
 
-    # Initialize drawing for debugging purposes.
-    if "draw" in options:
-        draw_scr, draw_tx, draw_font = draw_start(routing_bbox)
+        def rank_net(net):
+            """Rank net based on W/H of bounding box of pins and the # of pins."""
+            bbox = BBox()
+            for pin in net.pins:
+                bbox.add(pin.pt)
+            return (bbox.w + bbox.h, len(net.pins))
 
-    # Small switchboxes are more likely to fail routing so try to combine them into larger switchboxes.
-    # Use switchboxes containing nets for routing as seeds for coalescing into larger switchboxes.
-    seeds = []  # List of switchboxes to coalesce.
-    for swbx in switchboxes:
-        if swbx.has_nets():
-            seeds.append(swbx)
+        # Do global routing of nets internal to the node.
+        internal_nets.sort(key=rank_net)
+        global_routes = [global_router(net) for net in internal_nets]
 
-    # Sort seeds by perimeter so smaller ones are coalesced before larger ones.
-    seeds.sort(key=lambda box: box.bbox.w + box.bbox.h)
-
-    # Coalesce smaller switchboxes into larger ones having more routing area.
-    # The smaller switchboxes are removed from the list of switchboxes.
-    switchboxes = [seed.coalesce(switchboxes) for seed in seeds]
-    switchboxes = [swbx for swbx in switchboxes if swbx]  # Remove None boxes.
-
-    # Do detailed routing inside switchboxes.
-    detailed_routes = []
-    for swbx in switchboxes:
-        try:
-            swbx.route(options=[])
-        except RoutingFailure:
-            swbx.flip_xy()
-            swbx.route(options=["allow_routing_failure"])
-            swbx.flip_xy()
-        detailed_routes.extend(swbx.segments)
-
-    # If enabled, draw the global and detailed routing for debug purposes.
-    if "draw" in options:
-
-        # Draw parts.
-        for part in node.parts:
-            draw_part(part, draw_scr, draw_tx, draw_font)
-
-        # Draw the approximate global routing.
+        # Convert the global face-to-face routes into terminals on the switchboxes.
         for route in global_routes:
             for wire in route:
-                wire.draw(draw_scr, draw_tx, options=options)
+                wire.cvt_faces_to_terminals()
 
-        # Draw the detailed routing in each switchbox.
+        # Clear the any switchboxes associated with faces because we'll be making new ones.
+        for track in h_tracks + v_tracks:
+            for face in track:
+                face.switchboxes.clear()
+
+        # Create switchboxes for detailed routing.
+        switchboxes = []
+        for h_track in h_tracks[1:]:
+            for face in h_track:
+                try:
+                    switchboxes.append(SwitchBox(face))
+                except NoSwitchBox:
+                    continue
+
+        # Check the switchboxes for problems.
         for swbx in switchboxes:
-            swbx.draw(draw_scr, draw_tx, draw_font, options=options)
+            swbx.audit()
 
-        draw_end()
+        # Initialize drawing for debugging purposes.
+        if "draw" in options:
+            draw_scr, draw_tx, draw_font = draw_start(routing_bbox)
 
-    return detailed_routes
+        # Small switchboxes are more likely to fail routing so try to combine them into larger switchboxes.
+        # Use switchboxes containing nets for routing as seeds for coalescing into larger switchboxes.
+        seeds = []  # List of switchboxes to coalesce.
+        for swbx in switchboxes:
+            if swbx.has_nets():
+                seeds.append(swbx)
+
+        # Sort seeds by perimeter so smaller ones are coalesced before larger ones.
+        seeds.sort(key=lambda box: box.bbox.w + box.bbox.h)
+
+        # Coalesce smaller switchboxes into larger ones having more routing area.
+        # The smaller switchboxes are removed from the list of switchboxes.
+        switchboxes = [seed.coalesce(switchboxes) for seed in seeds]
+        switchboxes = [swbx for swbx in switchboxes if swbx]  # Remove None boxes.
+
+        # Do detailed routing inside switchboxes.
+        detailed_routes = []
+        for swbx in switchboxes:
+            try:
+                swbx.route(options=[])
+            except RoutingFailure:
+                swbx.flip_xy()
+                swbx.route(options=["allow_routing_failure"])
+                swbx.flip_xy()
+            detailed_routes.extend(swbx.segments)
+
+        # If enabled, draw the global and detailed routing for debug purposes.
+        if "draw" in options:
+
+            # Draw parts.
+            for part in node.parts:
+                draw_part(part, draw_scr, draw_tx, draw_font)
+
+            # Draw the approximate global routing.
+            for route in global_routes:
+                for wire in route:
+                    wire.draw(draw_scr, draw_tx, options=options)
+
+            # Draw the detailed routing in each switchbox.
+            for swbx in switchboxes:
+                swbx.draw(draw_scr, draw_tx, draw_font, options=options)
+
+            draw_end()
+
+        # Store wires in routes.
+        for segment in detailed_routes:
+            node.wires.append([segment.p1, segment.p2])
