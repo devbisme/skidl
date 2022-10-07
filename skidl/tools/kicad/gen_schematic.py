@@ -168,7 +168,9 @@ class Node(Placer, Router):
 
     def __init__(self, circuit=None, filepath=".", top_name="", title="", flatness=0.0):
         self.parent = None
-        self.children = defaultdict(lambda:Node(None, filepath, top_name, title, flatness))
+        self.children = defaultdict(
+            lambda: Node(None, filepath, top_name, title, flatness)
+        )
         self.filepath = filepath
         self.top_name = top_name
         self.title = title
@@ -207,30 +209,30 @@ class Node(Placer, Router):
 
     def add_part(self, part, level=0):
         """Add a part to the node at the appropriate level of the hierarchy."""
-        
+
         from ...circuit import HIER_SEP
 
         level_names = part.hierarchy.split(HIER_SEP)
         self.name = level_names[level]
-        base_file_name = "_".join((self.top_name, *level_names[0:level+1])) + ".sch"
+        base_file_name = "_".join((self.top_name, *level_names[0 : level + 1])) + ".sch"
         self.sheet_file_name = os.path.join(self.filepath, base_file_name)
 
-        if level == len(level_names)-1:
+        if level == len(level_names) - 1:
             self.parts.append(part)
         else:
-            child_node = self.children[level_names[level+1]]
+            child_node = self.children[level_names[level + 1]]
             child_node.parent = self
-            child_node.add_part(part, level+1)
+            child_node.add_part(part, level + 1)
 
     def external_bbox(self):
         """Return the bounding box of a hierarchical sheet as seen by its parent node."""
         bbox = BBox(Point(0, 0), Point(500, 500))
-        bbox.add(Point(len("File: "+self.sheet_file_name) * self.filename_sz, 0))
-        bbox.add(Point(len("Sheet: "+self.name) * self.name_sz, 0))
-        bbox.resize(Vector(100,100))
+        bbox.add(Point(len("File: " + self.sheet_file_name) * self.filename_sz, 0))
+        bbox.add(Point(len("Sheet: " + self.name) * self.name_sz, 0))
+        bbox.resize(Vector(100, 100))
 
         # Pad the bounding box for extra spacing when placed.
-        bbox.resize(Vector(100,100))
+        bbox.resize(Vector(100, 100))
 
         return bbox
 
@@ -245,7 +247,7 @@ class Node(Placer, Router):
                 bbox.add(tx_bbox)
 
         # Pad the bounding box for extra spacing when placed.
-        bbox.resize(Vector(100,100))
+        bbox.resize(Vector(100, 100))
 
         return bbox
 
@@ -299,7 +301,9 @@ class Node(Placer, Router):
             child_type_sizes[child_type] = sum((child.complexity for child in children))
 
         # Sort the groups from smallest total size to largest.
-        sorted_child_type_sizes = sorted(child_type_sizes.items(), key=lambda item: item[1])
+        sorted_child_type_sizes = sorted(
+            child_type_sizes.items(), key=lambda item: item[1]
+        )
 
         # Flatten each instance in a group until the slack is used up.
         for child_type, child_type_size in sorted_child_type_sizes:
@@ -367,7 +371,7 @@ class Node(Placer, Router):
 
         # Join EESCHEMA code into one big string.
         eeschema_code = "\n".join(eeschema_code)
-        
+
         # If this node was flattened, then return the EESCHEMA code and surrounding box
         # for inclusion in the parent node.
         if self.flattened:
@@ -380,20 +384,22 @@ class Node(Placer, Router):
 
         # Create a hierarchical sheet file for storing this unflattened node.
         A_size = get_A_size(flattened_bbox)
-        create_eeschema_file(self.sheet_file_name, eeschema_code, title=self.title, A_size=A_size)
+        create_eeschema_file(
+            self.sheet_file_name, eeschema_code, title=self.title, A_size=A_size
+        )
 
         # Create the hierarchical sheet for insertion into the calling node sheet.
         bbox = round(self.bbox.dot(self.tx).dot(sheet_tx))
         time_hex = hex(int(time.time()))[2:]
         return "\n".join(
             (
-            "$Sheet",
-            "S {} {} {} {}".format(bbox.ll.x, bbox.ll.y, bbox.w, bbox.h),
-            "U {}".format(time_hex),
-            'F0 "{}" {}'.format(self.name, self.name_sz),
-            'F1 "{}" {}'.format(self.sheet_file_name, self.filename_sz),
-            "$EndSheet",
-            ""
+                "$Sheet",
+                "S {} {} {} {}".format(bbox.ll.x, bbox.ll.y, bbox.w, bbox.h),
+                "U {}".format(time_hex),
+                'F0 "{}" {}'.format(self.name, self.name_sz),
+                'F1 "{}" {}'.format(self.sheet_file_name, self.filename_sz),
+                "$EndSheet",
+                "",
             )
         )
 
@@ -414,13 +420,21 @@ def bbox_to_eeschema(bbox, tx, name=None):
         )
 
     graphic_box.append("Wire Notes Line")
-    graphic_box.append("	{} {} {} {}".format(bbox.ll.x, bbox.ll.y, bbox.lr.x, bbox.lr.y))
+    graphic_box.append(
+        "	{} {} {} {}".format(bbox.ll.x, bbox.ll.y, bbox.lr.x, bbox.lr.y)
+    )
     graphic_box.append("Wire Notes Line")
-    graphic_box.append("	{} {} {} {}".format(bbox.lr.x, bbox.lr.y, bbox.ur.x, bbox.ur.y))
+    graphic_box.append(
+        "	{} {} {} {}".format(bbox.lr.x, bbox.lr.y, bbox.ur.x, bbox.ur.y)
+    )
     graphic_box.append("Wire Notes Line")
-    graphic_box.append("	{} {} {} {}".format(bbox.ur.x, bbox.ur.y, bbox.ul.x, bbox.ul.y))
+    graphic_box.append(
+        "	{} {} {} {}".format(bbox.ur.x, bbox.ur.y, bbox.ul.x, bbox.ul.y)
+    )
     graphic_box.append("Wire Notes Line")
-    graphic_box.append("	{} {} {} {}".format(bbox.ul.x, bbox.ul.y, bbox.ll.x, bbox.ll.y))
+    graphic_box.append(
+        "	{} {} {} {}".format(bbox.ul.x, bbox.ul.y, bbox.ll.x, bbox.ll.y)
+    )
     graphic_box.append("")  # For blank line at end.
 
     return "\n".join(graphic_box)
@@ -515,7 +529,11 @@ def wire_to_eeschema(wire, tx):
     pts = [pt.dot(tx) for pt in wire]
     for pt1, pt2 in zip(pts[:-1], pts[1:]):
         eeschema.append("Wire Wire Line")
-        eeschema.append("	{} {} {} {}".format(round(pt1.x), round(pt1.y), round(pt2.x), round(pt2.y)))
+        eeschema.append(
+            "	{} {} {} {}".format(
+                round(pt1.x), round(pt1.y), round(pt2.x), round(pt2.y)
+            )
+        )
     eeschema.append("")  # For blank line at end.
     return "\n".join(eeschema)
 
@@ -659,6 +677,8 @@ def pin_label_to_eeschema(pin, tx):
         label_type, round(pt.x), round(pt.y), orientation, pin.label
     )
 
+
+# Create bounding box for each A size sheet.
 A_sizes_list = [
     ("A4", BBox(Point(0, 0), Point(11693, 8268))),
     ("A3", BBox(Point(0, 0), Point(16535, 11693))),
@@ -667,6 +687,7 @@ A_sizes_list = [
     ("A0", BBox(Point(0, 0), Point(46811, 33110))),
 ]
 A_sizes = OrderedDict(A_sizes_list)
+
 
 def get_A_size(bbox):
     """Return the A-size page needed to fit the given bounding box."""
@@ -678,6 +699,7 @@ def get_A_size(bbox):
             return A_size
     return "A0"  # Nothing fits, so use the largest available.
 
+
 def calc_sheet_tx(bbox):
     """Compute the page size and positioning for this sheet."""
     A_size = get_A_size(bbox)
@@ -686,6 +708,7 @@ def calc_sheet_tx(bbox):
     move_to_ctr = move_to_ctr.snap(GRID)  # Keep things on grid.
     move_tx = Tx(d=-1).dot(Tx(dx=move_to_ctr.x, dy=move_to_ctr.y))
     return move_tx
+
 
 def create_eeschema_file(
     filename,
@@ -703,40 +726,37 @@ def create_eeschema_file(
     """Write EESCHEMA header, contents, and footer to a file."""
 
     with open(filename, "w") as f:
-        f.write("\n".join(
-            (
-                "EESchema Schematic File Version 4",
-                "EELAYER 30 0",
-                "EELAYER END",
-                
-                "$Descr {} {} {}".format(
-                    A_size,
-                    A_sizes[A_size].max.x,
-                    A_sizes[A_size].max.y
-                ),
-
-                "encoding utf-8",
-                "Sheet {} {}".format(cur_sheet_num, total_sheet_num),
-                'Title "{}"'.format(title),
-                'Date "{}-{}-{}"'.format(year, month, day),
-                'Rev "v{}.{}"'.format(rev_major, rev_minor),
-                'Comp ""',
-                'Comment1 ""',
-                'Comment2 ""',
-                'Comment3 ""',
-                'Comment4 ""',
-                "$EndDescr",
-                "",
-
-                contents,
-
-                "$EndSCHEMATC"
+        f.write(
+            "\n".join(
+                (
+                    "EESchema Schematic File Version 4",
+                    "EELAYER 30 0",
+                    "EELAYER END",
+                    "$Descr {} {} {}".format(
+                        A_size, A_sizes[A_size].max.x, A_sizes[A_size].max.y
+                    ),
+                    "encoding utf-8",
+                    "Sheet {} {}".format(cur_sheet_num, total_sheet_num),
+                    'Title "{}"'.format(title),
+                    'Date "{}-{}-{}"'.format(year, month, day),
+                    'Rev "v{}.{}"'.format(rev_major, rev_minor),
+                    'Comp ""',
+                    'Comment1 ""',
+                    'Comment2 ""',
+                    'Comment3 ""',
+                    'Comment4 ""',
+                    "$EndDescr",
+                    "",
+                    contents,
+                    "$EndSCHEMATC",
+                )
             )
         )
-    )
 
 
-def gen_schematic(circuit, filepath=".", top_name="", title="SKiDL-Generated Schematic", flatness=0.0):
+def gen_schematic(
+    circuit, filepath=".", top_name="", title="SKiDL-Generated Schematic", flatness=0.0
+):
     """Create a schematic file from a Circuit object."""
 
     preprocess_parts_and_nets(circuit)

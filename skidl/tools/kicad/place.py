@@ -47,14 +47,19 @@ standard_library.install_aliases()
 #
 ###################################################################
 
+
 def list_parts(parts):
     part_refs = [part.ref for part in parts]
     print(", ".join(part_refs))
 
-def draw_force(part, force, scr, tx, font, color=(128,0,0)):
+
+def draw_force(part, force, scr, tx, font, color=(128, 0, 0)):
     force *= 200
     anchor = part.bbox.ctr.dot(part.tx)
-    draw_seg(Segment(anchor, anchor+force), scr, tx, color=color, thickness=5, dot_radius=5)
+    draw_seg(
+        Segment(anchor, anchor + force), scr, tx, color=color, thickness=5, dot_radius=5
+    )
+
 
 def draw_placement(parts, nets, scr, tx, font):
     draw_clear(scr)
@@ -63,6 +68,7 @@ def draw_placement(parts, nets, scr, tx, font):
     for net in nets:
         draw_net(net, parts, scr, tx, font)
     draw_redraw()
+
 
 def random_placement(parts):
     """Randomly place parts within an appropriately-sized area.
@@ -75,11 +81,12 @@ def random_placement(parts):
     area = 0
     for part in parts:
         area += part.bbox.area
-    side = 3 * math.sqrt(area) # Multiplier is ad-hoc.
+    side = 3 * math.sqrt(area)  # Multiplier is ad-hoc.
 
     # Place parts randomly within area.
     for part in parts:
         part.tx.origin = Point(random.random() * side, random.random() * side)
+
 
 def get_unsnapped_pt(part):
     try:
@@ -89,6 +96,7 @@ def get_unsnapped_pt(part):
             return part.bbox.dot(part.tx).ctr
         except AttributeError:
             return part.ctr
+
 
 def snap_to_grid(part):
     """Snap part to grid.
@@ -105,10 +113,10 @@ def snap_to_grid(part):
     return
 
 
-
 use_mass = False
 use_fanout_1 = False
 use_fanout_2 = False
+
 
 def adjust_orientations(parts, nets, alpha):
     for part in parts:
@@ -122,6 +130,7 @@ def adjust_orientations(parts, nets, alpha):
                 part.tx.rot_cw_90()
             part.tx.flip_x()
         part.tx = smallest_tx
+
 
 def add_anchor_and_pull_pins(parts, nets):
     """Add positions of anchor and pull pins for attractive net forces between parts.
@@ -156,6 +165,7 @@ def add_anchor_and_pull_pins(parts, nets):
         part.anchor_pins = anchor_pins
         part.pull_pins = pull_pins
 
+
 def rmv_anchor_and_pull_pins(parts):
     """Remove anchor and pull pin information from Part objects.
 
@@ -166,6 +176,7 @@ def rmv_anchor_and_pull_pins(parts):
     for part in parts:
         delattr(part, "anchor_pins")
         delattr(part, "pull_pins")
+
 
 def net_force(part, nets):
     """Compute attractive force on a part from all the other parts connected to it.
@@ -187,7 +198,7 @@ def net_force(part, nets):
 
         if use_fanout_1:
             try:
-                net_frc = 1 / (len(net.pins) - 1)**3
+                net_frc = 1 / (len(net.pins) - 1) ** 3
             except ZeroDivisionError:
                 net_frc = 1
         elif use_fanout_2:
@@ -209,6 +220,7 @@ def net_force(part, nets):
         return total_force / len(part.pins)
     else:
         return total_force
+
 
 def overlap_force(part, parts):
     """Compute the repulsive force on a part from overlapping other parts.
@@ -256,6 +268,7 @@ def overlap_force(part, parts):
 
     return total_force
 
+
 def total_net_force(part, parts, nets, alpha):
     """Compute the total of the net attractive and overlap repulsive forces on a part.
 
@@ -269,6 +282,7 @@ def total_net_force(part, parts, nets, alpha):
         Vector: Weighted total of net attractive and overlap repulsion forces.
     """
     return (1 - alpha) * net_force(part, nets) + alpha * overlap_force(part, parts)
+
 
 def similarity_force(part, parts, similarity):
     """Compute attractive force on a part from all the other parts connected to it.
@@ -295,6 +309,7 @@ def similarity_force(part, parts, similarity):
 
     return total_force
 
+
 def total_similarity_force(part, parts, similarity, alpha):
     """Compute the total of the net attractive and overlap repulsive forces on a part.
 
@@ -307,7 +322,10 @@ def total_similarity_force(part, parts, similarity, alpha):
     Returns:
         Vector: Weighted total of net attractive and overlap repulsion forces.
     """
-    return (1 - alpha) * similarity_force(part, parts, similarity) + alpha * overlap_force(part, parts)
+    return (1 - alpha) * similarity_force(
+        part, parts, similarity
+    ) + alpha * overlap_force(part, parts)
+
 
 def push_and_pull(parts, nets, force_func, speed, scr, tx, font):
     """Move parts under influence of attracting nets and repulsive part overlaps.
@@ -315,7 +333,7 @@ def push_and_pull(parts, nets, force_func, speed, scr, tx, font):
     Args:
         parts (list): List of Parts.
         nets (list): List of nets that interconnect parts.
-        force_func: 
+        force_func:
         speed (float): How fast parts move under the influence of forces.
         scr (PyGame screen): Screen object for PyGame debug drawing.
         tx (Tx): Transformation matrix from real to screen coords.
@@ -330,20 +348,20 @@ def push_and_pull(parts, nets, force_func, speed, scr, tx, font):
     mobile_parts = parts[:-1]
 
     # Arrange parts under influence of net attractions and part overlaps.
-    prev_mobility = 0 # Stores part mobility from previous iteration.
+    prev_mobility = 0  # Stores part mobility from previous iteration.
     num_iters = round(100 / speed)
     iter = 0
     while iter < num_iters:
-        alpha = iter / num_iters # Attraction/repulsion weighting.
-        mobility = 0 # Stores total part movement this iteration.
-        random.shuffle(mobile_parts) # Move parts in random order.
+        alpha = iter / num_iters  # Attraction/repulsion weighting.
+        mobility = 0  # Stores total part movement this iteration.
+        random.shuffle(mobile_parts)  # Move parts in random order.
         for part in mobile_parts:
             force = force_func(part, alpha=alpha)
-            mv_dist = force * 0.5 * speed # 0.5 is ad-hoc.
+            mv_dist = force * 0.5 * speed  # 0.5 is ad-hoc.
             mobility += mv_dist.magnitude
             mv_tx = Tx(dx=mv_dist.x, dy=mv_dist.y)
             part.tx = part.tx.dot(mv_tx)
-        if mobility < prev_mobility/2:
+        if mobility < prev_mobility / 2:
             # Parts aren't moving much, so make a bigger inc
             # of iter to decrease alpha which might lead to more
             # movement as the balance of attractive/repulsive forces
@@ -358,6 +376,7 @@ def push_and_pull(parts, nets, force_func, speed, scr, tx, font):
         if scr:
             # Draw current part placement for debugging purposes.
             draw_placement(parts, nets, scr, tx, font)
+
 
 def remove_overlaps(parts, nets, scr, tx, font):
     """Remove any overlaps using horz/vert grid movements.
@@ -398,9 +417,10 @@ def remove_overlaps(parts, nets, scr, tx, font):
         if scr:
             draw_placement(parts, nets, scr, tx, font)
 
+
 def slip_and_slide(parts, nets, scr, tx, font):
     """Move parts on horz/vert grid looking for improvements without causing overlaps.
-    
+
     Args:
         parts (list): List of Parts.
         nets (list): List of nets that interconnect parts.
@@ -440,9 +460,10 @@ def slip_and_slide(parts, nets, scr, tx, font):
         if scr:
             draw_placement(parts, nets, scr, tx, font)
 
+
 def evolve_placement(parts, nets, force_func, speed, scr=None, tx=None, font=None):
     """Evolve part placement looking for optimum using force function.
-    
+
     Args:
         parts (list): List of Parts.
         nets (list): List of nets that interconnect parts.
@@ -465,6 +486,7 @@ def evolve_placement(parts, nets, force_func, speed, scr=None, tx=None, font=Non
 
     # Look for local improvements.
     slip_and_slide(parts, nets, scr, tx, font)
+
 
 def group_parts(parts, options=[]):
     if not parts:
@@ -494,7 +516,11 @@ def group_parts(parts, options=[]):
 
             # No explicit wires for power nets.
             # TODO: Is this necessary?
-            if (net.netclass == "Power" or "vcc" in net.name.lower() or "gnd" in net.name.lower()) and "remove_power" in options:
+            if (
+                net.netclass == "Power"
+                or "vcc" in net.name.lower()
+                or "gnd" in net.name.lower()
+            ) and "remove_power" in options:
                 continue
 
             def is_internal(net):
@@ -518,6 +544,7 @@ def group_parts(parts, options=[]):
 
     if "remove_high_fanout" in options:
         import statistics
+
         fanouts = [len(net) for net in internal_nets]
         try:
             fanout_mean = statistics.mean(fanouts)
@@ -526,15 +553,19 @@ def group_parts(parts, options=[]):
             pass
         else:
             fanout_threshold = fanout_mean + 2 * fanout_stdev
-            internal_nets = [net for net in internal_nets if len(net)<fanout_threshold]
+            internal_nets = [
+                net for net in internal_nets if len(net) < fanout_threshold
+            ]
 
     # Group all the parts that have some interconnection to each other.
     # Start with groups of parts on each individual net, and then join groups that
     # have parts in common.
-    connected_parts = [set(pin.part for pin in net.pins if pin.part in parts) for net in internal_nets]
+    connected_parts = [
+        set(pin.part for pin in net.pins if pin.part in parts) for net in internal_nets
+    ]
     for i in range(len(connected_parts) - 1):
         group1 = connected_parts[i]
-        for j in range(i+1, len(connected_parts)):
+        for j in range(i + 1, len(connected_parts)):
             group2 = connected_parts[j]
             if group1 & group2:
                 # If part groups intersect, collect union of parts into one group
@@ -552,8 +583,10 @@ def group_parts(parts, options=[]):
 
     return connected_parts, internal_nets, floating_parts
 
+
 speed = 0.5
 speed_mult = 2.0
+
 
 def place_parts(connected_parts, internal_nets, floating_parts, options):
     """Place individual parts.
@@ -590,8 +623,24 @@ def place_parts(connected_parts, internal_nets, floating_parts, options):
 
         # Do force-directed placement of the parts in the group.
         force_func = functools.partial(total_net_force, parts=group, nets=internal_nets)
-        evolve_placement(group, internal_nets, force_func, speed=speed, scr=draw_scr, tx=draw_tx, font=draw_font)
-        evolve_placement(group, internal_nets, force_func, speed=speed*speed_mult, scr=draw_scr, tx=draw_tx, font=draw_font)
+        evolve_placement(
+            group,
+            internal_nets,
+            force_func,
+            speed=speed,
+            scr=draw_scr,
+            tx=draw_tx,
+            font=draw_font,
+        )
+        evolve_placement(
+            group,
+            internal_nets,
+            force_func,
+            speed=speed * speed_mult,
+            scr=draw_scr,
+            tx=draw_tx,
+            font=draw_font,
+        )
 
         # Remove the anchor and pull pins from the parts.
         rmv_anchor_and_pull_pins(group)
@@ -629,8 +678,18 @@ def place_parts(connected_parts, internal_nets, floating_parts, options):
         else:
             draw_scr, draw_tx, draw_font = None, None, None
 
-        force_func = functools.partial(total_similarity_force, parts=floating_parts, similarity=part_similarity)
-        evolve_placement(floating_parts, [], force_func, speed=speed, scr=draw_scr, tx=draw_tx, font=draw_font)
+        force_func = functools.partial(
+            total_similarity_force, parts=floating_parts, similarity=part_similarity
+        )
+        evolve_placement(
+            floating_parts,
+            [],
+            force_func,
+            speed=speed,
+            scr=draw_scr,
+            tx=draw_tx,
+            font=draw_font,
+        )
 
         if "draw" in options:
             draw_end()
@@ -641,6 +700,7 @@ def place_parts(connected_parts, internal_nets, floating_parts, options):
     #     part.placed = True
 
     return connected_parts, floating_parts
+
 
 def place_blocks(connected_parts, floating_parts, children, options):
     """Place blocks of parts and hierarchical sheets.
@@ -701,10 +761,10 @@ def place_blocks(connected_parts, floating_parts, children, options):
         for other_blk in part_blocks:
             if blk is other_blk:
                 continue
-            blk_attr[blk][other_blk] = 0.1 # TODO: Replace adhoc value.
+            blk_attr[blk][other_blk] = 0.1  # TODO: Replace adhoc value.
 
     random_placement(part_blocks)
-    if 'draw' in options:
+    if "draw" in options:
         # Draw the global and detailed routing for debug purposes.
         bbox = BBox()
         for blk in part_blocks:
@@ -714,10 +774,20 @@ def place_blocks(connected_parts, floating_parts, children, options):
     else:
         draw_scr, draw_tx, draw_font = None, None, None
 
-    force_func = functools.partial(total_similarity_force, parts=part_blocks, similarity=blk_attr)
-    evolve_placement(part_blocks, [], force_func, speed=speed, scr=draw_scr, tx=draw_tx, font=draw_font)
+    force_func = functools.partial(
+        total_similarity_force, parts=part_blocks, similarity=blk_attr
+    )
+    evolve_placement(
+        part_blocks,
+        [],
+        force_func,
+        speed=speed,
+        scr=draw_scr,
+        tx=draw_tx,
+        font=draw_font,
+    )
 
-    if 'draw' in options:
+    if "draw" in options:
         draw_end()
 
     for blk in part_blocks:
@@ -733,8 +803,8 @@ def place_blocks(connected_parts, floating_parts, children, options):
 class Placer:
     """Mixin to add routing function to Node class."""
 
-    def place(node, options=["no_keep_stubs","remove_power"]):
-    # def place(node, options=["draw","no_keep_stubs","remove_power"]):
+    def place(node, options=["no_keep_stubs", "remove_power"]):
+        # def place(node, options=["draw","no_keep_stubs","remove_power"]):
         """Place the parts and children in this node.
 
         Steps:
@@ -756,7 +826,9 @@ class Placer:
             part.bbox = part.place_bbox
 
         # Place parts in this node.
-        connected_parts, internal_nets, floating_parts = group_parts(node.parts, options)
+        connected_parts, internal_nets, floating_parts = group_parts(
+            node.parts, options
+        )
         place_parts(connected_parts, internal_nets, floating_parts, options)
 
         # Place blocks of parts in this node.

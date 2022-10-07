@@ -229,7 +229,8 @@ def draw_part(part, scr, tx, font):
     draw_box(tx_bbox, scr, tx, color=(90, 128, 90), thickness=5)
     draw_text(part.ref, tx_bbox.ctr, scr, tx, font)
 
-def draw_net(net, parts, scr, tx, font, color=(0,0,0), thickness=2, dot_radius=5):
+
+def draw_net(net, parts, scr, tx, font, color=(0, 0, 0), thickness=2, dot_radius=5):
     """Draw net and connected terminals.
 
     Args:
@@ -249,7 +250,15 @@ def draw_net(net, parts, scr, tx, font, color=(0,0,0), thickness=2, dot_radius=5
             pt = pin.pt.dot(part.tx)
             pts.append(pt)
     for pt1, pt2 in zip(pts[:-1], pts[1:]):
-        draw_seg(Segment(pt1, pt2), scr, tx, color=color, thickness=thickness, dot_radius=dot_radius)
+        draw_seg(
+            Segment(pt1, pt2),
+            scr,
+            tx,
+            color=color,
+            thickness=thickness,
+            dot_radius=dot_radius,
+        )
+
 
 def draw_clear(scr, color=(255, 255, 255)):
     """Clear drawing area.
@@ -259,6 +268,7 @@ def draw_clear(scr, color=(255, 255, 255)):
         color (tuple, optional): Background color. Defaults to (255, 255, 255).
     """
     scr.fill(color)
+
 
 def draw_start(bbox):
     """
@@ -324,10 +334,11 @@ def draw_start(bbox):
     # Return drawing screen, transformation matrix, and font.
     return scr, tx, font
 
+
 def draw_redraw():
-    """Redraw the PyGame display.
-    """
+    """Redraw the PyGame display."""
     pygame.display.flip()
+
 
 def draw_end():
     """Display drawing and wait for user to close PyGame window."""
@@ -817,7 +828,14 @@ class Face(Interval):
         return seg
 
     def draw(
-        self, scr, tx, font, color=(128, 128, 128), thickness=2, dot_radius=0, options=[]
+        self,
+        scr,
+        tx,
+        font,
+        color=(128, 128, 128),
+        thickness=2,
+        dot_radius=0,
+        options=[],
     ):
         """Draw a Face in the drawing area.
 
@@ -1311,7 +1329,6 @@ class SwitchBox:
         # Flip X/Y coords of any routed segments.
         for seg in self.segments:
             seg.flip_xy()
-
 
     def coalesce(self, switchboxes):
         """Group switchboxes around a seed switchbox into a larger switchbox.
@@ -2225,22 +2242,22 @@ class Router:
                 pt = pin.pt.dot(part.tx)
                 closest_dist = abs(pt.y - part.top_track.coord)
                 pin_track = part.top_track
-                coord = pt.x # Pin coord within top track.
+                coord = pt.x  # Pin coord within top track.
                 dist = abs(pt.y - part.bottom_track.coord)
                 if dist < closest_dist:
                     closest_dist = dist
                     pin_track = part.bottom_track
-                    coord = pt.x # Pin coord within bottom track.
+                    coord = pt.x  # Pin coord within bottom track.
                 dist = abs(pt.x - part.left_track.coord)
                 if dist < closest_dist:
                     closest_dist = dist
                     pin_track = part.left_track
-                    coord = pt.y # Pin coord within left track.
+                    coord = pt.y  # Pin coord within left track.
                 dist = abs(pt.x - part.right_track.coord)
                 if dist < closest_dist:
                     closest_dist = dist
                     pin_track = part.right_track
-                    coord = pt.y # Pin coord within right track.
+                    coord = pt.y  # Pin coord within right track.
 
                 # Now search for the face in the track that the pin is on.
                 for face in pin_track:
