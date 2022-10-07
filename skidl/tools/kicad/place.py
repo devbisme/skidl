@@ -730,25 +730,37 @@ def place_blocks(connected_parts, floating_parts, children, options):
                 part.placed = True
 
 
-def place(node, options=["no_keep_stubs","remove_power"]):
-# def place(node, options=["draw","no_keep_stubs","remove_power"]):
-    """Place the parts and sheets in the node.
+class Placer:
+    """Mixin to add routing function to Node class."""
 
-    Steps:
-        1. ...
-        2. ...
+    def place(node, options=["no_keep_stubs","remove_power"]):
+    # def place(node, options=["draw","no_keep_stubs","remove_power"]):
+        """Place the parts and children in this node.
 
-    Args:
-        node (Node): Hierarchical node containing the parts to be placed.
-        options (list): List of text options to control drawing of placement
-            for debugging purposes. Available options are "draw".
+        Steps:
+            1. ...
+            2. ...
 
-    Returns:
-        The Node with the part positions set.
-    """
+        Args:
+            node (Node): Hierarchical node containing the parts and children to be placed.
+            options (list): List of text options to control drawing of placement
+                for debugging purposes. Available options are "draw".
+        """
 
-    connected_parts, internal_nets, floating_parts = group_parts(node.parts, options)
-    place_parts(connected_parts, internal_nets, floating_parts, options)
-    place_blocks(connected_parts, floating_parts, node.children.values(), options)
-    node.calc_bbox()
-    return node
+        # Place children of this node.
+        for child in node.children.values():
+            child.place()
+
+        # Use the larger bounding box when placing parts in this node.
+        for part in node.parts:
+            part.bbox = part.place_bbox
+
+        # Place parts in this node.
+        connected_parts, internal_nets, floating_parts = group_parts(node.parts, options)
+        place_parts(connected_parts, internal_nets, floating_parts, options)
+
+        # Place blocks of parts in this node.
+        place_blocks(connected_parts, floating_parts, node.children.values(), options)
+
+        # Calculate the bounding box for the node after placement of parts and children.
+        node.calc_bbox()

@@ -23,7 +23,7 @@ from future import standard_library
 from .common import GRID, PIN_LABEL_FONT_SIZE
 from .geometry import Point, Vector, BBox, Tx
 from .route import Router
-from .place import place
+from .place import Placer
 from .v5 import calc_symbol_bbox
 from ...net import NCNet
 from ...scriptinfo import *
@@ -160,7 +160,7 @@ def preprocess_parts_and_nets(circuit):
         calc_part_bbox(part)
 
 
-class Node(Router):
+class Node(Placer, Router):
     """Data structure for holding information about a node in the circuit hierarchy."""
 
     filename_sz = 20
@@ -313,31 +313,6 @@ class Node(Router):
                 # Not enough slack left. Add these children as hierarchical sheets.
                 for child in child_types[child_type]:
                     child.flattened = False
-
-    def place(self):
-        """Place parts within a hierarchical node."""
-
-        for child in self.children.values():
-            child.place()
-
-        # Use the larger bounding box when doing placement.
-        for part in self.parts:
-            part.bbox = part.place_bbox
-        place(self)
-
-    # def route(self):
-    #     """Route nets between parts of a node."""
-
-    #     for child in self.children.values():
-    #         child.route()
-
-    #     # Use the smaller label bounding box when doing routing.
-    #     for part in self.parts:
-    #         part.bbox = part.lbl_bbox
-
-    #     detailed_routes = route(self)
-    #     for segment in detailed_routes:
-    #         self.wires.append([segment.p1, segment.p2])
 
     def to_eeschema(self, sheet_tx=Tx()):
         """Convert node circuitry to an EESCHEMA sheet.
