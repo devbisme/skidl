@@ -173,6 +173,8 @@ class Node(Placer, Router):
         )
         self.filepath = filepath
         self.top_name = top_name
+        self.sheet_name = None
+        self.sheet_filename = None
         self.title = title
         self.flatness = flatness
         self.flattened = False
@@ -181,8 +183,6 @@ class Node(Placer, Router):
         self.tx = Tx()
         self.bbox = BBox()
         self.placed = False
-        self.sheet_name = None
-        self.sheet_file_name = None
 
         if circuit:
             self.add_circuit(circuit)
@@ -214,8 +214,8 @@ class Node(Placer, Router):
 
         level_names = part.hierarchy.split(HIER_SEP)
         self.name = level_names[level]
-        base_file_name = "_".join((self.top_name, *level_names[0 : level + 1])) + ".sch"
-        self.sheet_file_name = os.path.join(self.filepath, base_file_name)
+        base_filename = "_".join((self.top_name, *level_names[0 : level + 1])) + ".sch"
+        self.sheet_filename = os.path.join(self.filepath, base_filename)
 
         if level == len(level_names) - 1:
             self.parts.append(part)
@@ -227,7 +227,7 @@ class Node(Placer, Router):
     def external_bbox(self):
         """Return the bounding box of a hierarchical sheet as seen by its parent node."""
         bbox = BBox(Point(0, 0), Point(500, 500))
-        bbox.add(Point(len("File: " + self.sheet_file_name) * self.filename_sz, 0))
+        bbox.add(Point(len("File: " + self.sheet_filename) * self.filename_sz, 0))
         bbox.add(Point(len("Sheet: " + self.name) * self.name_sz, 0))
         bbox.resize(Vector(100, 100))
 
@@ -385,7 +385,7 @@ class Node(Placer, Router):
         # Create a hierarchical sheet file for storing this unflattened node.
         A_size = get_A_size(flattened_bbox)
         create_eeschema_file(
-            self.sheet_file_name, eeschema_code, title=self.title, A_size=A_size
+            self.sheet_filename, eeschema_code, title=self.title, A_size=A_size
         )
 
         # Create the hierarchical sheet for insertion into the calling node sheet.
@@ -397,7 +397,7 @@ class Node(Placer, Router):
                 "S {} {} {} {}".format(bbox.ll.x, bbox.ll.y, bbox.w, bbox.h),
                 "U {}".format(time_hex),
                 'F0 "{}" {}'.format(self.name, self.name_sz),
-                'F1 "{}" {}'.format(self.sheet_file_name, self.filename_sz),
+                'F1 "{}" {}'.format(self.sheet_filename, self.filename_sz),
                 "$EndSheet",
                 "",
             )
@@ -755,7 +755,7 @@ def create_eeschema_file(
 
 
 def gen_schematic(
-    circuit, filepath=".", top_name="", title="SKiDL-Generated Schematic", flatness=0.0
+    circuit, filepath=".", top_name=get_script_name(), title="SKiDL-Generated Schematic", flatness=0.0
 ):
     """Create a schematic file from a Circuit object."""
 

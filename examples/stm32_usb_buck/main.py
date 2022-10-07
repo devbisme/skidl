@@ -22,5 +22,4 @@ pc.power_circuits()
 # generate_netlist(file_ = netlist_path)
 
 # Generate schematic
-schematic_path = "./stm32.sch"
-generate_schematic(filepath=schematic_path, flatness=0.5)
+generate_schematic(flatness=0.5)
