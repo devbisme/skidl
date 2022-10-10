@@ -41,16 +41,13 @@ standard_library.install_aliases()
 #
 # OVERVIEW OF AUTOPLACER
 #
-# The input is a Node containing parts, each with a bounding box.
+# The input is a Node containing parts and child nodes, each with 
+# a bounding box.
 #
-# The positions of each part are set.
+# The positions of each part are set and then the block of parts
+# is arranged with the blocks of the child nodes.
 #
 ###################################################################
-
-
-def list_parts(parts):
-    part_refs = [part.ref for part in parts]
-    print(", ".join(part_refs))
 
 
 def draw_force(part, force, scr, tx, font, color=(128, 0, 0)):
@@ -349,7 +346,7 @@ def push_and_pull(parts, nets, force_func, speed, scr, tx, font):
 
     # Arrange parts under influence of net attractions and part overlaps.
     prev_mobility = 0  # Stores part mobility from previous iteration.
-    num_iters = round(100 / speed)
+    num_iters = round(50 / speed)
     iter = 0
     while iter < num_iters:
         alpha = iter / num_iters  # Attraction/repulsion weighting.
@@ -357,7 +354,7 @@ def push_and_pull(parts, nets, force_func, speed, scr, tx, font):
         random.shuffle(mobile_parts)  # Move parts in random order.
         for part in mobile_parts:
             force = force_func(part, alpha=alpha)
-            mv_dist = force * 0.5 * speed  # 0.5 is ad-hoc.
+            mv_dist = force * speed
             mobility += mv_dist.magnitude
             mv_tx = Tx(dx=mv_dist.x, dy=mv_dist.y)
             part.tx = part.tx.dot(mv_tx)
@@ -584,8 +581,9 @@ def group_parts(parts, options=[]):
     return connected_parts, internal_nets, floating_parts
 
 
-speed = 0.5
-speed_mult = 2.0
+speed = 0.25
+speed_mult = 0.85
+# speed_mult = 2.0
 
 
 def place_parts(connected_parts, internal_nets, floating_parts, options):
@@ -796,13 +794,9 @@ def place_blocks(connected_parts, floating_parts, children, options):
 class Placer:
     """Mixin to add routing function to Node class."""
 
-    def place(node, options=["no_keep_stubs", "remove_power"]):
-        # def place(node, options=["draw","no_keep_stubs","remove_power"]):
+    # def place(node, options=["no_keep_stubs", "remove_power"]):
+    def place(node, options=["draw","no_keep_stubs","remove_power"]):
         """Place the parts and children in this node.
-
-        Steps:
-            1. ...
-            2. ...
 
         Args:
             node (Node): Hierarchical node containing the parts and children to be placed.
@@ -818,10 +812,13 @@ class Placer:
         for part in node.parts:
             part.bbox = part.place_bbox
 
-        # Place parts in this node.
+        # Group parts into those that are connected by explicit nets and
+        # those that float freely connected only by stub nets.
         connected_parts, internal_nets, floating_parts = group_parts(
             node.parts, options
         )
+
+        # Place node parts.
         place_parts(connected_parts, internal_nets, floating_parts, options)
 
         # Place blocks of parts in this node.
