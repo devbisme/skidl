@@ -224,7 +224,7 @@ def draw_part(part, scr, tx, font):
         tx (Tx): Transformation matrix from real to screen coords.
         font (PyGame font): Font for rendering text.
     """
-    tx_bbox = part.bbox.dot(part.tx)
+    tx_bbox = part.lbl_bbox.dot(part.tx)
     draw_box(tx_bbox, scr, tx, color=(180, 255, 180), thickness=0)
     draw_box(tx_bbox, scr, tx, color=(90, 128, 90), thickness=5)
     draw_text(part.ref, tx_bbox.ctr, scr, tx, font)
@@ -891,7 +891,7 @@ class GlobalWire(list):
                 for terminal in face.terminals:
                     if terminal.net is self.net:
                         self[i] = terminal
-                        # TODO: What if net goes to multiple pins on a part face?
+                        # FIXME: What if net goes to multiple pins on a part face?
                         break
                 else:
                     raise RoutingFailure

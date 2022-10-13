@@ -129,9 +129,10 @@ def preprocess_parts_and_nets(circuit):
         part.place_bbox = part.lbl_bbox.resize(Vector(GRID, GRID))
 
         # Set the active bounding box to the placement version.
-        part.bbox = part.place_bbox
+        part.bbox = part.lbl_bbox
 
     # Pre-process nets.
+    # TODO: replace pin labels with stub flag.
     net_stubs = circuit.get_net_nc_stubs()
     net_stubs = [net for net in net_stubs if not isinstance(net, NCNet)]
     for net in net_stubs:
@@ -536,7 +537,7 @@ def wire_to_eeschema(wire, tx):
 
 
 def power_part_to_eeschema(part, tx=Tx()):
-    return ""  # TODO: Remove this.
+    return ""  # REMOVE: Remove this.
     out = []
     for pin in part.pins:
         try:
@@ -690,7 +691,7 @@ def get_A_size(bbox):
     """Return the A-size page needed to fit the given bounding box."""
 
     width = bbox.w
-    height = bbox.h * 1.25  # TODO: why 1.25?
+    height = bbox.h * 1.25  # HACK: why 1.25?
     for A_size, page in A_sizes.items():
         if width < page.w and height < page.h:
             return A_size
@@ -757,8 +758,6 @@ def gen_schematic(
     """Create a schematic file from a Circuit object."""
 
     preprocess_parts_and_nets(circuit)
-
-    n = Node(circuit, filepath, top_name, title, flatness)
 
     with Node(circuit, filepath, top_name, title, flatness) as node:
         node.place()
