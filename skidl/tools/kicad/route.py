@@ -2083,8 +2083,8 @@ def global_router(net):
 class Router:
     """Mixin to add routing function to Node class."""
 
-    def route(node, options=[]):
-    # def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
+    # def route(node, options=[]):
+    def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
         """Route the wires between part pins in this node and its children.
 
         Steps:
@@ -2117,8 +2117,8 @@ class Router:
         for part in node.parts:
             for part_pin in part:
 
-                # A label means net is stubbed so there won't be any explicit wires.
-                if len(part_pin.label) > 0:
+                # No explicit wire for pins connected to labeled stub nets.
+                if part_pin.stub:
                     continue
 
                 # No explicit wires if the pin is not connected to anything.
@@ -2142,7 +2142,7 @@ class Router:
                     for net_pin in net.pins:
 
                         # Don't consider stubs.
-                        if len(net_pin.label) > 0:
+                        if net_pin.stub:
                             continue
 
                         # If a pin is outside this node, then the net is not internal.
@@ -2172,7 +2172,7 @@ class Router:
             h_track_coord.append(bbox.max.y)
 
         # Create delimiting tracks for the routing area from the slightly-expanded total bounding box of the parts.
-        routing_bbox = round(node.internal_bbox())
+        routing_bbox = round(node.internal_bbox().resize(Vector(500,500))) # FIXME: ad-hoc resizing.
         v_track_coord.append(routing_bbox.min.x)
         v_track_coord.append(routing_bbox.max.x)
         h_track_coord.append(routing_bbox.min.y)

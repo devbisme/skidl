@@ -260,6 +260,8 @@ def net_force_dist_avg(part, nets):
         Vector: Force upon given part.
 
     Notes:
+        Maximum pulling force for each net can be no more than the average
+        distance from the anchor point to the pulling points.
         Seems to solve the problems of net_force_dist() and net_force_dist_min().
     """
 
@@ -271,8 +273,14 @@ def net_force_dist_avg(part, nets):
 
     for net in anchor_pins.keys():
 
+        if not anchor_pins[net] or not pull_pins[net]:
+            # Skip nets without pulling or anchor points.
+            continue
+
+        net_force = Vector(0, 0)
         dist_sum = 0
         dist_cnt = 0
+
         for anchor_pin in anchor_pins[net]:
             anchor_pt = anchor_pin.pt.dot(anchor_pin.part.tx)
             for pull_pin in pull_pins[net]:
@@ -281,11 +289,13 @@ def net_force_dist_avg(part, nets):
                 dist_sum += dist_vec.magnitude
                 dist_cnt += 1
                 # Force from pulling to anchor point is proportional to distance.
-                total_force += dist_vec
+                net_force += dist_vec
 
-    avg_dist = dist_sum / dist_cnt
-    if total_force.magnitude > avg_dist:
-        total_force *= avg_dist / total_force.magnitude
+        avg_dist = dist_sum / dist_cnt
+        if net_force.magnitude > avg_dist:
+            net_force *= avg_dist / net_force.magnitude
+
+        total_force += net_force
 
     return total_force
 
@@ -649,9 +659,9 @@ def group_parts(parts, options=[]):
     for part in parts:
         for part_pin in part:
 
-            # A label means net is stubbed so there won't be any explicit wires.
+            # No explicit wires if the pin is connected to a labeled net stub.
             if "keep_stubs" not in options:
-                if len(part_pin.label) > 0:
+                if part_pin.stub:
                     continue
 
             # No explicit wires if the pin is not connected to anything.
@@ -680,7 +690,7 @@ def group_parts(parts, options=[]):
                 for net_pin in net.pins:
 
                     # Don't consider stubs.
-                    if len(net_pin.label) > 0:
+                    if net_pin.stub:
                         continue
 
                     # If a pin is outside this node, then the net is not internal.

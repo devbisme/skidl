@@ -117,12 +117,14 @@ def preprocess_parts_and_nets(circuit):
             "R": Vector(-1, 0),
         }
         for pin in part:
-            lbl_len = len(pin.label)
-            if lbl_len:
-                # Add 1 to the label length to account for extra graphics on label.
-                lbl_len = (lbl_len + 1) * PIN_LABEL_FONT_SIZE
-            lbl_vector = lbl_vectors[pin.orientation] * lbl_len
-            part.lbl_bbox.add(pin.pt + lbl_vector)
+            if pin.stub:
+                # Pins connected to net stubs require net name labels.
+                lbl_len = len(pin.net.name)
+                if lbl_len:
+                    # Add 1 to the label length to account for extra graphics on label.
+                    lbl_len = (lbl_len + 1) * PIN_LABEL_FONT_SIZE
+                lbl_vector = lbl_vectors[pin.orientation] * lbl_len
+                part.lbl_bbox.add(pin.pt + lbl_vector)
 
         # Create a bounding box for placement by adding some space for routing signals from the part.
         # TODO: Resize based on #pins coming from each side of part to ensure adequate routing area.
@@ -132,13 +134,12 @@ def preprocess_parts_and_nets(circuit):
         part.bbox = part.lbl_bbox
 
     # Pre-process nets.
-    # TODO: replace pin labels with stub flag.
     net_stubs = circuit.get_net_nc_stubs()
     net_stubs = [net for net in net_stubs if not isinstance(net, NCNet)]
     for net in net_stubs:
-        if True or net.netclass != "Power":
+        if True or net.netclass != "Power": # FIXME: figure out what to do with power nets.
             for pin in net.pins:
-                pin.label = net.name
+                pin.stub = True
 
     # Pre-process parts
     for part in circuit.parts:
@@ -150,8 +151,6 @@ def preprocess_parts_and_nets(circuit):
         for pin in part:
             pin.pt = Point(pin.x, pin.y)
             pin.routed = False
-            # Assign empty label if not already labeled.
-            pin.label = getattr(pin, "label", "")
 
         # Rotate parts.  Power pins should face up. GND pins should face down.
         rotate_power_pins(part)
@@ -648,7 +647,8 @@ def calc_pin_dir(pin):
 def pin_label_to_eeschema(pin, tx):
     """Create EESCHEMA text of net label attached to a pin."""
 
-    if len(pin.label) == 0 or not pin.is_connected():
+    if pin.stub is False or not pin.is_connected():
+        # No label if pin is not connected or is connected to an explicit wire.
         return ""
 
     label_type = "HLabel"
@@ -672,7 +672,7 @@ def pin_label_to_eeschema(pin, tx):
     }[pin_dir]
 
     return "Text {} {} {} {}    50   UnSpc ~ 0\n{}\n".format(
-        label_type, round(pt.x), round(pt.y), orientation, pin.label
+        label_type, round(pt.x), round(pt.y), orientation, pin.net.name
     )
 
 
