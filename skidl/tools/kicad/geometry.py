@@ -177,6 +177,10 @@ class BBox:
     def __round__(self, n=None):
         return BBox(round(self.min), round(self.max))
 
+    def is_inside(self, pt):
+        """Return True if point is inside bounding box."""
+        return (self.min.x <= pt.x <= self.max.x) and (self.min.y <= pt.y <= self.max.y)
+
     def intersects(self, bbox):
         """Return True if the two bounding boxes intersect."""
         return (

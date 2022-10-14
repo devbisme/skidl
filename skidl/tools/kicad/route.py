@@ -2167,8 +2167,13 @@ class Router:
             h_track_coord.append(bbox.min.y)
             h_track_coord.append(bbox.max.y)
 
-        # Create delimiting tracks for the routing area from the slightly-expanded total bounding box of the parts.
-        routing_bbox = round(node.internal_bbox().resize(Vector(500,500))) # FIXME: ad-hoc resizing.
+        # Create delimiting tracks around the routing area. Just take the number of nets to be routed
+        # and create a channel that size around the periphery. That's guaranteed to be big enough.
+        # This is overkill but probably not worth optimizing since any excess boundary area is ignored.
+        channel_sz = len(internal_nets) * GRID
+        routing_bbox = round(
+            node.internal_bbox().resize(Vector(channel_sz, channel_sz))
+        )
         v_track_coord.append(routing_bbox.min.x)
         v_track_coord.append(routing_bbox.max.x)
         h_track_coord.append(routing_bbox.min.y)
