@@ -900,7 +900,7 @@ class GlobalWire(list):
         # terminal point must be selected and assigned to the route net.
         # Iterate thru the faces until they've all been converted to Terminals.
         keep_iterating = True
-        while keep_iterating:
+        while keep_iterating:  # FIXME: This can get stuck in infinite loop.
             keep_iterating = False
             for i in range(0, len(self) - 1):
 
@@ -2103,10 +2103,6 @@ class Router:
         for child in node.children.values():
             child.route()
 
-        # Use the smaller label bounding box when routing parts in this node.
-        for part in node.parts:
-            part.bbox = part.lbl_bbox
-
         # Exit if no parts to route.
         if not node.parts:
             return []
@@ -2163,9 +2159,9 @@ class Router:
         v_track_coord = []
         h_track_coord = []
 
-        # The top/bottom/left/right of each part's bounding box define the H/V tracks.
+        # The top/bottom/left/right of each part's labeled bounding box define the H/V tracks.
         for part in node.parts:
-            bbox = round(part.bbox.dot(part.tx))
+            bbox = round(part.lbl_bbox.dot(part.tx))
             v_track_coord.append(bbox.min.x)
             v_track_coord.append(bbox.max.x)
             h_track_coord.append(bbox.min.y)
@@ -2209,9 +2205,9 @@ class Router:
                 part.top_track = top_track
                 part.bottom_track = bottom_track
 
-        # Add routing box faces for each side of a part's bounding box.
+        # Add routing box faces for each side of a part's labeled bounding box.
         for part in node.parts:
-            part_bbox = round(part.bbox.dot(part.tx))
+            part_bbox = round(part.lbl_bbox.dot(part.tx))
             bbox_to_faces(part, part_bbox)
 
         # Add routing box faces for each side of the expanded bounding box surrounding all parts.
