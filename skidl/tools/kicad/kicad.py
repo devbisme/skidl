@@ -872,9 +872,10 @@ def _parse_lib_part_kicad_v6(self, get_name_only):
 
             # Add the pins that were found to the total part. Include the unit identifier
             # in the pin so we can find it later when the part unit is created.
-            self.add_pins(
-                Pin(name=pin_name, num=pin_number, func=pin_func, unit=unit_num)
-            )
+            if not self.get_pins(pin_number):
+                self.add_pins(
+                    Pin(name=pin_name, num=pin_number, func=pin_func, unit=unit_num)
+                )
 
     # Clear the part reference field directly. Don't use the setter function
     # since it will try to generate and assign a unique part reference if
