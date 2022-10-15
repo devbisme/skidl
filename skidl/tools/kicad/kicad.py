@@ -845,11 +845,6 @@ def _parse_lib_part_kicad_v6(self, get_name_only):
         symbol_name = "_".join(unit_name_pieces[:-2])
         assert symbol_name == self.name
         unit_num = int(unit_name_pieces[-2])
-        conversion_flag = int(unit_name_pieces[-1])
-
-        # Don't add this unit to the part if the conversion flag is 0.
-        if not conversion_flag:
-            continue
 
         # Get the pins for this unit.
         unit_pins = [item for item in unit if to_list(item)[0] == "pin"]
