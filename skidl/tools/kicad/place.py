@@ -87,6 +87,7 @@ def random_placement(parts):
 
 def get_unsnapped_pt(part):
     try:
+        # FIXME: Should this be place_pt?
         return part.pins[0].pt.dot(part.tx)
     except AttributeError:
         try:
@@ -124,6 +125,29 @@ def adjust_orientations(parts, nets, alpha):
         part.tx = smallest_tx
 
 
+def add_placement_bboxes(parts):
+    """Expand part bounding boxes to include space for subsequent routing."""
+
+    for part in parts:
+        part.place_bbox = BBox()
+        part.place_bbox.add(part.lbl_bbox)
+        padding = {"U":1, "D":1, "L":1, "R":1} # Min padding of 1 channel per side.
+        for pin in part:
+            if pin.stub is False and pin.is_connected():
+                padding[pin.orientation] += 1
+        part.place_bbox.add(part.place_bbox.max + Point(padding["L"], padding["D"]) * GRID)
+        part.place_bbox.add(part.place_bbox.min - Point(padding["R"], padding["U"]) * GRID)
+
+def rmv_placement_bboxes(parts):
+    """Remove expanded bounding boxes."""
+
+    for part in parts:
+        try:
+            del part.place_bbox
+        except AttributeError:
+            pass
+
+
 def add_anchor_and_pull_pins(parts, nets):
     """Add positions of anchor and pull pins for attractive net forces between parts.
 
@@ -131,6 +155,21 @@ def add_anchor_and_pull_pins(parts, nets):
         part (list): List of movable parts.
         nets (list): List of attractive nets between parts.
     """
+
+    def add_place_pt(part, pin):
+        """Add the point for a pin on the placement boundary of a part."""
+
+        pin.place_pt = Point(pin.pt.x, pin.pt.y)
+        if pin.orientation == "U":
+            pin.place_pt.y = part.place_bbox.min.y
+        elif pin.orientation == "D":
+            pin.place_pt.y = part.place_bbox.max.y
+        elif pin.orientation == "L":
+            pin.place_pt.x = part.place_bbox.max.x
+        elif pin.orientation == "R":
+            pin.place_pt.x = part.place_bbox.min.x
+        else:
+            raise RuntimeError("Unknown pin orientation.")
 
     for part in parts:
 
@@ -149,6 +188,7 @@ def add_anchor_and_pull_pins(parts, nets):
                     if pin.part is part:
                         # Anchor parts for this net are on the given part.
                         anchor_pins[net].append(pin)
+                        add_place_pt(part, pin)
                     elif pin.part in parts:
                         # Everything else is a pulling point, but it has to
                         # be on a part that is in the set of movable parts.
@@ -157,6 +197,17 @@ def add_anchor_and_pull_pins(parts, nets):
         # Store the anchor & pulling points in the Part object.
         part.anchor_pins = anchor_pins
         part.pull_pins = pull_pins
+
+        # Part anchor pin for floating parts.
+        try:
+            # Set anchor at top-most pin so floating part tops will align.
+            anchor_pin = max(part.pins, key=lambda pin: pin.pt.y)
+            anchor_pin.place_pt = anchor_pin.pt
+            part.anchor_pin = anchor_pin
+        except ValueError:
+            # Set anchor for part with no pins at all.
+            part.anchor_pin = Pin()
+            part.anchor_pin.place_pt = part.place_bbox.max 
 
 
 def rmv_anchor_and_pull_pins(parts):
@@ -167,8 +218,17 @@ def rmv_anchor_and_pull_pins(parts):
     """
 
     for part in parts:
-        delattr(part, "anchor_pins")
-        delattr(part, "pull_pins")
+        for pin in part:
+            try:
+                del pin.place_pt
+            except AttributeError:
+                pass
+        try:
+            del part.anchor_pin
+            del part.anchor_pins
+            del part.pull_pins
+        except AttributeError:
+            pass
 
 
 def net_force_dist(part, nets):
@@ -195,9 +255,9 @@ def net_force_dist(part, nets):
 
     for net in anchor_pins.keys():
         for anchor_pin in anchor_pins[net]:
-            anchor_pt = anchor_pin.pt.dot(anchor_pin.part.tx)
+            anchor_pt = anchor_pin.place_pt.dot(anchor_pin.part.tx)
             for pull_pin in pull_pins[net]:
-                pull_pt = pull_pin.pt.dot(pull_pin.part.tx)
+                pull_pt = pull_pin.place_pt.dot(pull_pin.part.tx)
                 dist_vec = pull_pt - anchor_pt
                 # Add force from pulling to anchor point that is proportional to distance.
                 total_force += dist_vec
@@ -234,9 +294,9 @@ def net_force_dist_min(part, nets):
 
         min_dist = float("inf")
         for anchor_pin in anchor_pins[net]:
-            anchor_pt = anchor_pin.pt.dot(anchor_pin.part.tx)
+            anchor_pt = anchor_pin.place_pt.dot(anchor_pin.part.tx)
             for pull_pin in pull_pins[net]:
-                pull_pt = pull_pin.pt.dot(pull_pin.part.tx)
+                pull_pt = pull_pin.place_pt.dot(pull_pin.part.tx)
                 dist_vec = pull_pt - anchor_pt
                 dist = dist_vec.magnitude
                 min_dist = min(dist, min_dist)
@@ -282,9 +342,9 @@ def net_force_dist_avg(part, nets):
         dist_cnt = 0
 
         for anchor_pin in anchor_pins[net]:
-            anchor_pt = anchor_pin.pt.dot(anchor_pin.part.tx)
+            anchor_pt = anchor_pin.place_pt.dot(anchor_pin.part.tx)
             for pull_pin in pull_pins[net]:
-                pull_pt = pull_pin.pt.dot(pull_pin.part.tx)
+                pull_pt = pull_pin.place_pt.dot(pull_pin.part.tx)
                 dist_vec = pull_pt - anchor_pt
                 dist_sum += dist_vec.magnitude
                 dist_cnt += 1
@@ -328,9 +388,9 @@ def net_force_fanout_1(part, nets):
             influence_factor = 1
 
         for anchor_pin in anchor_pins[net]:
-            anchor_pt = anchor_pin.pt.dot(anchor_pin.part.tx)
+            anchor_pt = anchor_pin.place_pt.dot(anchor_pin.part.tx)
             for pull_pin in pull_pins[net]:
-                pull_pt = pull_pin.pt.dot(pull_pin.part.tx)
+                pull_pt = pull_pin.place_pt.dot(pull_pin.part.tx)
                 dist_vec = pull_pt - anchor_pt
                 total_force += dist_vec * influence_factor
 
@@ -366,9 +426,9 @@ def net_force_fanout_2(part, nets):
             influence_factor = 1
 
         for anchor_pin in anchor_pins[net]:
-            anchor_pt = anchor_pin.pt.dot(anchor_pin.part.tx)
+            anchor_pt = anchor_pin.place_pt.dot(anchor_pin.part.tx)
             for pull_pin in pull_pins[net]:
-                pull_pt = pull_pin.pt.dot(pull_pin.part.tx)
+                pull_pt = pull_pin.place_pt.dot(pull_pin.part.tx)
                 dist_vec = pull_pt - anchor_pt
                 total_force += dist_vec * influence_factor
 
@@ -456,12 +516,12 @@ def similarity_force(part, parts, similarity):
 
     # These store the anchor points where each net attaches to the given part
     # and the pulling points where each net attaches to other parts.
-    anchor_pt = part.anchor_pin.pt.dot(part.tx)
+    anchor_pt = part.anchor_pin.place_pt.dot(part.tx)
 
     # Compute the combined force of all the anchor/pulling points on each net.
     total_force = Vector(0, 0)
     for other in set(parts) - {part}:
-        pull_pt = other.anchor_pin.pt.dot(other.tx)
+        pull_pt = other.anchor_pin.place_pt.dot(other.tx)
         # Force from pulling to anchor point is proportional to part similarity and distance.
         total_force += (pull_pt - anchor_pt) * similarity[part][other]
 
@@ -764,13 +824,20 @@ def place_parts(connected_parts, internal_nets, floating_parts, options):
 
     # Place each group of connected parts.
     for group in connected_parts:
+
         group = list(group)
+
+        # Add bboxes with surrounding area so parts are not butted against each other.
+        add_placement_bboxes(group)
+
+        # Set anchor and pull pins that determine attractive forces between parts.
+        add_anchor_and_pull_pins(group, internal_nets)
 
         # Randomly place connected parts.
         random_placement(group)
 
         if "draw" in options:
-            # Draw the global and detailed routing for debug purposes.
+            # Draw the placement for debug purposes.
             bbox = BBox()
             for part in group:
                 tx_bbox = part.place_bbox.dot(part.tx)
@@ -778,9 +845,6 @@ def place_parts(connected_parts, internal_nets, floating_parts, options):
             draw_scr, draw_tx, draw_font = draw_start(bbox)
         else:
             draw_scr, draw_tx, draw_font = None, None, None
-
-        # Set anchor and pull pins that determine attractive forces between parts.
-        add_anchor_and_pull_pins(group, internal_nets)
 
         # Do force-directed placement of the parts in the group.
         force_func = functools.partial(total_net_force, parts=group, nets=internal_nets)
@@ -803,34 +867,31 @@ def place_parts(connected_parts, internal_nets, floating_parts, options):
             font=draw_font,
         )
 
-        # Remove the anchor and pull pins from the parts.
-        rmv_anchor_and_pull_pins(group)
-
         if "draw" in options:
             draw_end()
+
+        # Placement done so anchor and pull pins for each part are no longer needed.
+        rmv_anchor_and_pull_pins(group)
+
+        # Placement done, so placement bounding boxes for each part are no longer needed.
+        rmv_placement_bboxes(group)
 
     # Place the floating parts.
     if floating_parts:
 
-        # For non-connected parts, do placement based on their similarity to each other.
-        part_similarity = defaultdict(lambda: defaultdict(lambda: 0))
-        for part in floating_parts:
-            for other_part in floating_parts - {part}:
-                # FIXME: Get similarity forces right-sized.
-                part_similarity[part][other_part] = part.similarity(other_part) / 10
-                # part_similarity[part][other_part] = 0.1
-
-            # Select the top-most pin in each part as the anchor point for force-directed placement.
-            tx = part.tx
-            part.anchor_pin = max(part, key=lambda pin: pin.pt.dot(tx).y)
-
         floating_parts = list(floating_parts)
+
+        # Add bboxes with surrounding area so parts are not butted against each other.
+        add_placement_bboxes(floating_parts)
+
+        # Set anchor and pull pins that determine attractive forces between similar parts.
+        add_anchor_and_pull_pins(floating_parts, internal_nets)
 
         # Randomly place the floating parts.
         random_placement(floating_parts)
 
         if "draw" in options:
-            # Draw the global and detailed routing for debug purposes.
+            # Compute the drawing area for the floating parts
             bbox = BBox()
             for part in floating_parts:
                 tx_bbox = part.place_bbox.dot(part.tx)
@@ -838,6 +899,23 @@ def place_parts(connected_parts, internal_nets, floating_parts, options):
             draw_scr, draw_tx, draw_font = draw_start(bbox)
         else:
             draw_scr, draw_tx, draw_font = None, None, None
+
+        # For non-connected parts, do placement based on their similarity to each other.
+        part_similarity = defaultdict(lambda: defaultdict(lambda: 0))
+        for part in floating_parts:
+            for other_part in floating_parts:
+
+                # Don't compute similarity of a part to itself.
+                if other_part is part:
+                    continue
+
+                # FIXME: Get similarity forces right-sized.
+                part_similarity[part][other_part] = part.similarity(other_part) / 10
+                # part_similarity[part][other_part] = 0.1
+
+            # Select the top-most pin in each part as the anchor point for force-directed placement.
+            # tx = part.tx
+            # part.anchor_pin = max(part.anchor_pins, key=lambda pin: pin.place_pt.dot(tx).y)
 
         force_func = functools.partial(
             total_similarity_force, parts=floating_parts, similarity=part_similarity
@@ -854,6 +932,12 @@ def place_parts(connected_parts, internal_nets, floating_parts, options):
 
         if "draw" in options:
             draw_end()
+
+        # Placement done so anchor and pull pins for each part are no longer needed.
+        rmv_anchor_and_pull_pins(floating_parts)
+
+        # Placement done, so placement bounding boxes for each part are no longer needed.
+        rmv_placement_bboxes(floating_parts)
 
     return connected_parts, floating_parts
 
@@ -872,11 +956,11 @@ def place_blocks(connected_parts, floating_parts, children, options):
     class PartBlock:
         def __init__(self, src, bbox, anchor_pt, snap_pt):
             self.src = src
-            self.place_bbox = bbox.resize(Vector(100, 100))
+            self.place_bbox = bbox.resize(Vector(100, 100)) # FIXME: Is this needed if place_bbox includes room for routing?
             self.lbl_bbox = bbox  # Needed for drawing during debug.
             self.anchor_pt = anchor_pt
             self.anchor_pin = Pin()
-            self.anchor_pin.pt = anchor_pt
+            self.anchor_pin.place_pt = anchor_pt
             self.snap_pt = snap_pt
             self.tx = Tx()
             self.ref = "REF"
@@ -892,7 +976,7 @@ def place_blocks(connected_parts, floating_parts, children, options):
             continue
         bbox = BBox()
         for part in part_list:
-            bbox.add(part.place_bbox.dot(part.tx))
+            bbox.add(part.lbl_bbox.dot(part.tx))
         snap_part = list(part_list)[0]
         blk = PartBlock(part_list, bbox, bbox.ctr, get_unsnapped_pt(snap_part))
         part_blocks.append(blk)
@@ -901,7 +985,7 @@ def place_blocks(connected_parts, floating_parts, children, options):
             continue
         bbox = BBox()
         for part in part_list:
-            bbox.add(part.place_bbox.dot(part.tx))
+            bbox.add(part.lbl_bbox.dot(part.tx))
         snap_part = list(part_list)[0]
         blk = PartBlock(part_list, bbox, bbox.ctr, get_unsnapped_pt(snap_part))
         part_blocks.append(blk)

@@ -94,22 +94,23 @@ def preprocess_parts_and_nets(circuit):
                 part.tx = part.tx.dot(tx_cw_90)
 
     def calc_part_bbox(part):
-        """Calculate the bare, labeled, and placement bounding boxes and store them in the part."""
+        """Calculate the labeled bounding boxes and store it in the part."""
 
         # Find part bounding box excluding any net labels on pins.
-        part.bare_bbox = calc_symbol_bbox(part)[1]
+        # FIXME: part.lbl_bbox could be substituted for part.bbox.
+        bare_bbox = calc_symbol_bbox(part)[1]
 
         # Expand the bounding box if it's too small in either dimension.
         resize_wh = Vector(0, 0)
-        if part.bare_bbox.w < 100:
-            resize_wh.x = (100 - part.bare_bbox.w) / 2
-        if part.bare_bbox.h < 100:
-            resize_wh.y = (100 - part.bare_bbox.h) / 2
-        part.bare_bbox = part.bare_bbox.resize(resize_wh)
+        if bare_bbox.w < 100:
+            resize_wh.x = (100 - bare_bbox.w) / 2
+        if bare_bbox.h < 100:
+            resize_wh.y = (100 - bare_bbox.h) / 2
+        bare_bbox = bare_bbox.resize(resize_wh)
 
         # Find expanded bounding box that includes any labels attached to pins.
         part.lbl_bbox = BBox()
-        part.lbl_bbox.add(part.bare_bbox)
+        part.lbl_bbox.add(bare_bbox)
         lbl_vectors = {
             "U": Vector(0, -1),
             "D": Vector(0, 1),
@@ -126,11 +127,7 @@ def preprocess_parts_and_nets(circuit):
                 lbl_vector = lbl_vectors[pin.orientation] * lbl_len
                 part.lbl_bbox.add(pin.pt + lbl_vector)
 
-        # Create a bounding box for placement by adding some space for routing signals from the part.
-        # TODO: Resize based on #pins coming from each side of part to ensure adequate routing area.
-        part.place_bbox = part.lbl_bbox.resize(Vector(GRID, GRID))
-
-        # Set the active bounding box to the placement version.
+        # Set the active bounding box to the labeled version.
         part.bbox = part.lbl_bbox
 
     # Pre-process nets.
@@ -506,7 +503,6 @@ def part_to_eeschema(part, tx):
 
     # For debugging: draws a bounding box around a part.
     # eeschema.append(bbox_to_eeschema(part.bbox, tx))
-    # eeschema.append(bbox_to_eeschema(part.bare_bbox, tx))
 
     return "\n".join(eeschema)
 
