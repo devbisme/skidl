@@ -68,6 +68,9 @@ class Point:
         self.x = x
         self.y = y
 
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+
     def __add__(self, pt):
         """Add the x,y coords of pt to self and return the resulting Point."""
         if not isinstance(pt, Point):

@@ -247,7 +247,7 @@ def draw_net(net, parts, scr, tx, font, color=(0, 0, 0), thickness=2, dot_radius
     for pin in net.pins:
         part = pin.part
         if part in parts:
-            pt = pin.pt.dot(part.tx)
+            pt = pin.route_pt.dot(part.tx)
             pts.append(pt)
     for pt1, pt2 in zip(pts[:-1], pts[1:]):
         draw_seg(
@@ -355,6 +355,58 @@ def draw_end():
     pygame.quit()
 
 
+def add_routing_points(node, nets):
+    """Add routing points by extending pins out to the edge of the part bounding box.
+
+    Args:
+        part (Node): Node containing list of parts.
+        nets (list): List of nets to be routed.
+    """
+
+    def add_routing_pt(part, pin):
+        """Add the point for a pin on the boundary of a part."""
+
+        pin.route_pt = Point(pin.pt.x, pin.pt.y)
+        if pin.orientation == "U":
+            pin.route_pt.y = part.lbl_bbox.min.y
+        elif pin.orientation == "D":
+            pin.route_pt.y = part.lbl_bbox.max.y
+        elif pin.orientation == "L":
+            pin.route_pt.x = part.lbl_bbox.max.x
+        elif pin.orientation == "R":
+            pin.route_pt.x = part.lbl_bbox.min.x
+        else:
+            raise RuntimeError("Unknown pin orientation.")
+
+    for part in node.parts:
+
+        # Find anchor pins on the part and pulling pins on other parts.
+        for pin in part.pins:
+            if pin.net in nets:
+
+                # Only routing points for pins on active internal nets.
+                add_routing_pt(part, pin)
+
+                # Add a wire to connect the part pin to the routing point on the bounding box periphery.
+                if pin.route_pt != pin.pt:
+                    node.wires.append([pin.pt.dot(part.tx), pin.route_pt.dot(part.tx)])
+
+
+def rmv_routing_points(node):
+    """Remove routing points from part pins.
+
+    Args:
+        parts (list): List of parts.
+    """
+
+    for part in node.parts:
+        for pin in part:
+            try:
+                del pin.route_pt
+            except AttributeError:
+                pass
+
+
 class NoSwitchBox(Exception):
     """Exception raised when a switchbox cannot be generated."""
 
@@ -402,7 +454,7 @@ class Terminal:
         self.coord = coord
 
     @property
-    def pt(self):
+    def route_pt(self):
         """Return (x,y) Point for a Terminal on a Face."""
         track = self.face.track
         if track.orientation == HORZ:
@@ -483,6 +535,7 @@ class Terminal:
         if self.net or "draw_all_terminals" in options:
 
             # Compute the terminal (x,y) based on whether it's on a horiz or vert Face.
+            # TODO: Replace with .route_pt property?
             if self.face.track.orientation == HORZ:
                 pt = Point(self.coord, self.face.track.coord)
             else:
@@ -951,7 +1004,7 @@ class GlobalWire(list):
 
         # Draw pins on the net associated with the wire.
         for pin in self.net.pins:
-            pt = pin.pt.dot(pin.part.tx)
+            pt = pin.route_pt.dot(pin.part.tx)
             track = pin.face.track
             pt = {
                 HORZ: Point(pt.x, track.coord),
@@ -962,8 +1015,8 @@ class GlobalWire(list):
         # Draw global wire segment.
         face_to_face = zip(self[:-1], self[1:])
         for terminal1, terminal2 in face_to_face:
-            p1 = terminal1.pt
-            p2 = terminal2.pt
+            p1 = terminal1.route_pt
+            p2 = terminal2.route_pt
             draw_seg(
                 Segment(p1, p2), scr, tx, color=color, thickness=thickness, dot_radius=0
             )
@@ -2155,6 +2208,9 @@ class Router:
         if not internal_nets:
             return []
 
+        # Extend routing points of part pins to the edges of their bounding boxes.
+        add_routing_points(node, internal_nets) 
+
         # Find the coords of the horiz/vert tracks that will hold the H/V faces of the routing switchboxes.
         v_track_coord = []
         h_track_coord = []
@@ -2240,7 +2296,7 @@ class Router:
 
                 # Find the track (top/bottom/left/right) that the pin is on.
                 part = pin.part
-                pt = pin.pt.dot(part.tx)
+                pt = pin.route_pt.dot(part.tx)
                 closest_dist = abs(pt.y - part.top_track.coord)
                 pin_track = part.top_track
                 coord = pt.x  # Pin coord within top track.
@@ -2297,7 +2353,7 @@ class Router:
             """Rank net based on W/H of bounding box of pins and the # of pins."""
             bbox = BBox()
             for pin in net.pins:
-                bbox.add(pin.pt)
+                bbox.add(pin.route_pt)
             return (bbox.w + bbox.h, len(net.pins))
 
         # Do global routing of nets internal to the node.
@@ -2378,3 +2434,6 @@ class Router:
         # Store wires in routes.
         for segment in detailed_routes:
             node.wires.append([segment.p1, segment.p2])
+
+        # Remove extended routing points from parts.
+        rmv_routing_points(node)

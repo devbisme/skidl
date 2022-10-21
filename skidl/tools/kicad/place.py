@@ -159,6 +159,7 @@ def add_anchor_and_pull_pins(parts, nets):
     def add_place_pt(part, pin):
         """Add the point for a pin on the placement boundary of a part."""
 
+        pin.route_pt = pin.pt # For drawing of nets during debugging.
         pin.place_pt = Point(pin.pt.x, pin.pt.y)
         if pin.orientation == "U":
             pin.place_pt.y = part.place_bbox.min.y
@@ -220,6 +221,7 @@ def rmv_anchor_and_pull_pins(parts):
     for part in parts:
         for pin in part:
             try:
+                del pin.route_pt
                 del pin.place_pt
             except AttributeError:
                 pass
@@ -1043,8 +1045,8 @@ def place_blocks(connected_parts, floating_parts, children, options):
 class Placer:
     """Mixin to add place function to Node class."""
 
-    # def place(node, options=["no_keep_stubs", "remove_power"]):
-    def place(node, options=["draw", "no_keep_stubs", "remove_power"]):
+    def place(node, options=["no_keep_stubs", "remove_power"]):
+    # def place(node, options=["draw", "no_keep_stubs", "remove_power"]):
         """Place the parts and children in this node.
 
         Args:

@@ -41,6 +41,9 @@ def stm32f405r():
     u.p59 += Net('I2C1_SDA', stub=True)
     u.p60 += Net('BOOT0', stub=True)
 
+    # Random connection to test routing points.
+    u.p11 += u.p34
+
     # Bulking cap
     bcap = Part("Device", 'C_Small', footprint='C_0603_1608Metric', value='4.7uF')
     # Decoupling caps
