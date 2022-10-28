@@ -1941,17 +1941,21 @@ def global_router(net):
 
     # This maze router assembles routes from each pin sequentially.
     #
-    # 1. Find faces with net pins on them. These are seed faces.
-    # 2. Create a visited list for each seed face.
-    # 3. Loop over the visited list of each seed face to find the
-    #    next adjacent, unvisited face that is closest to its seed face.
-    # 4. If the closest face has been previously visited from another seed,
-    #    then combine the visited list of both seeds and reduce the number
-    #    of seeds by one.
-    # 5. If the closest face has never been visited before, add it to the
-    #    seed face that owns the visited list from where it was found.
-    # 6. Continue until the only a single seed face remains (i.e. all the
-    #    pins have been connected.)
+    # 1. Find faces with net pins on them and place them on the
+    #    start_faces list..
+    # 2. Randomly select one of the start faces. Add all the other
+    #    faces to the stop_faces list.
+    # 3. Find a route from the start face to closest stop face.
+    #    This concludes the initial phase of the routing.
+    # 4. Iterate through the remaining faces on the start_faces list.
+    #        a. Randomly select a start face.
+    #        b. Set stop faces to be all the faces currently on
+    #           global routes.
+    #        c. Find a route from the start face to any face on
+    #           the global routes, thus enlarging the set of
+    #           contiguous routes while reducing the number of
+    #           unrouted start faces.
+    #        d. Add the faces on the new route to the stop_faces list.
 
     routed_wires = []  # List of GlobalWires connecting pins on net.
 
