@@ -930,7 +930,7 @@ class GlobalWire(list):
         super().__init__(*args, **kwargs)
 
     def cvt_faces_to_terminals(self):
-        """Convert face-to-face global route to switchbox terminal-to-terminal route."""
+        """Convert global face-to-face route to switchbox terminal-to-terminal route."""
 
         # All part faces already have terminals created from the part pins. Find all
         # the route faces on part boundaries and convert them to pin terminals for
@@ -943,50 +943,26 @@ class GlobalWire(list):
                         # FIXME: What if net goes to multiple pins on a part face?
                         break
                 else:
-                    raise RoutingFailure
+                    raise RuntimeError
 
-        # The remaining faces on the global route are on switchboxes where a
-        # terminal point must be selected and assigned to the route net.
-        # Iterate thru the faces until they've all been converted to Terminals.
-        keep_iterating = True
-        while keep_iterating:  # FIXME: This can get stuck in infinite loop.
-            keep_iterating = False
-            all_faces_to_terminals = True
-            for i in range(0, len(self) - 1):
+        # Proceed through all the Faces/Terminals on the GlobalWire, converting
+        # all the Faces to Terminals.
+        for i in range(len(self)-1):
 
-                # Get two sequential points of the route.
-                from_, to_ = self[i], self[i + 1]
-
-                if isinstance(from_, Terminal) and isinstance(to_, Terminal):
-                    # Both points are already terminals, so no need to do anything.
-                    continue
-
-                if isinstance(from_, Face) and isinstance(to_, Face):
-                    # Both points are Faces, so don't do anything and wait for one of them
-                    # to get converted to a Terminal later on.
-                    all_faces_to_terminals = False
-                    continue
-
-                # One of the points is a Terminal and the other is a Face,
-                # so use the terminal to convert the face to a terminal and
-                # assign it to the route net.
-                if isinstance(from_, Face) and isinstance(to_, Terminal):
-                    terminal = to_.get_next_terminal(from_)
-                    terminal.net = self.net
-                    self[i] = terminal  # Replace from_ Face with Terminal.
-                    keep_iterating = True
-                    continue
-                if isinstance(from_, Terminal) and isinstance(to_, Face):
-                    terminal = from_.get_next_terminal(to_)
-                    terminal.net = self.net
-                    self[i + 1] = terminal  # Replace to_ Face with Terminal.
-                    keep_iterating = True
-                    continue
-
+            # The current element on a GlobalWire should always be a Terminal. Use that terminal
+            # to convert the next Face on the wire to a Terminal (if it isn't one already).
+            if isinstance(self[i], Face):
+                # Logic error if the current element has not been converted to a Terminal.
                 raise RuntimeError
+            if isinstance(self[i+1], Terminal):
+                # Skip if the next element is already a Terminal.
+                continue
 
-        return all_faces_to_terminals
-
+            # Convert the next element from a Face to a Terminal. This terminal will
+            # be the current element on the next iteration.
+            next_terminal = self[i].get_next_terminal(self[i+1])
+            next_terminal.net = self.net
+            self[i+1] = next_terminal
 
     def draw(self, scr, tx, color=(0, 0, 0), thickness=1, dot_radius=10, options=[]):
         """Draw a global wire from Face-to-Face in the drawing area.
@@ -2029,31 +2005,25 @@ def global_router(net):
                     start_faces.discard(face)
                     if face.capacity > 0:
                         face.capacity -= 1
-                return GlobalWire(face_path, net=net)
+                return GlobalWire(reversed(face_path), net=net)
 
     # Select a random start face and look for a route to *any* of the other start faces.
     start_face = choice(list(start_faces))
     start_faces -= {start_face}
     stop_faces = set(start_faces)
-    try:
-        routed_wires.append(rt_srch(start_face, stop_faces))
-    except RoutingFailure:
-        raise RoutingFailure
-    else:
-        # The faces on the route that was found now become the stopping faces for any further routing.
-        stop_faces = set(routed_wires[-1])
+    routed_wires.append(rt_srch(start_face, stop_faces))
+
+    # The faces on the route that was found now become the stopping faces for any further routing.
+    stop_faces = set(routed_wires[-1])
 
     # Randomly go thru the other start faces looking for a route that connects to any existing route.
     while start_faces:
         start_face = choice(list(start_faces))
         start_faces -= {start_face}
-        try:
-            routed_wires.append(rt_srch(start_face, stop_faces))
-        except RoutingFailure:
-            raise RoutingFailure
-        else:
-            # Update the set of stopping faces.
-            stop_faces |= set(routed_wires[-1])
+        routed_wires.append(rt_srch(start_face, stop_faces))
+
+        # Update the set of stopping faces.
+        stop_faces |= set(routed_wires[-1])
 
     # Return list of GlobalWires that connect faces holding pins on the given net.
     return routed_wires
@@ -2274,8 +2244,13 @@ class Router:
                     face.draw(draw_scr, draw_tx, draw_font)
             draw_end()
 
+        # Key function for setting the order in which nets will be globally routed. 
         def rank_net(net):
             """Rank net based on W/H of bounding box of pins and the # of pins."""
+
+            # Nets with a small bounding box probably have fewer routing resources
+            # so they should be routed first.
+
             bbox = BBox()
             for pin in net.pins:
                 bbox.add(pin.route_pt)
@@ -2287,12 +2262,8 @@ class Router:
 
         # Convert the global face-to-face routes into terminals on the switchboxes.
         for route in global_routes:
-            wire_queue = collections.deque(route)
-            while wire_queue:
-                wire = wire_queue.pop()
-                if not wire.cvt_faces_to_terminals():
-                    continue
-                    wire_queue.appendleft(wire)
+            for wire in route:
+                wire.cvt_faces_to_terminals()
 
         # Clear any switchboxes associated with faces because we'll be making new ones.
         for track in h_tracks + v_tracks:
