@@ -13,16 +13,7 @@ from __future__ import (  # isort:skip
     unicode_literals,
 )
 
-# TODO: refine exports.
-# __all__ = [
-#     "route",
-#     "Face",
-#     "GlobalTrack",
-#     "HORZ",
-#     "VERT",
-#     "SwitchBox",
-#     "RoutingFailure",
-# ]
+__all__ = ["Router",]
 
 from builtins import range, zip
 from collections import defaultdict
@@ -32,11 +23,9 @@ from random import randint, choice
 
 from future import standard_library
 
-from ...logger import active_logger
 from ...part import Part
-from ...utilities import *
 from .common import GRID
-from .geometry import *
+from .geometry import Point, Vector, BBox, Tx, Segment
 
 standard_library.install_aliases()
 
@@ -529,15 +518,7 @@ class Terminal:
 
         # Don't draw terminal if it isn't on a net. It's just a placeholder.
         if self.net or "draw_all_terminals" in options:
-
-            # Compute the terminal (x,y) based on whether it's on a horiz or vert Face.
-            # TODO: Replace with .route_pt property?
-            if self.face.track.orientation == HORZ:
-                pt = Point(self.coord, self.face.track.coord)
-            else:
-                pt = Point(self.face.track.coord, self.coord)
-
-            draw_endpoint(pt, scr, tx, color=net_colors[self.net])
+            draw_endpoint(self.route_pt, scr, tx, color=net_colors[self.net])
 
 
 class Interval:
@@ -933,14 +914,13 @@ class GlobalWire(list):
         """Convert global face-to-face route to switchbox terminal-to-terminal route."""
 
         # All part faces already have terminals created from the part pins. Find all
-        # the route faces on part boundaries and convert them to pin terminals for
-        # any pins that are attached to the same net as the route.
+        # the route faces on part boundaries and convert them to pin terminals if
+        # one or more pins are attached to the same net as the route.
         for i, face in enumerate(self[:]):
             if face.part:
                 for terminal in face.terminals:
                     if terminal.net is self.net:
                         self[i] = terminal
-                        # FIXME: What if net goes to multiple pins on a part face?
                         break
                 else:
                     raise RuntimeError
