@@ -1942,7 +1942,7 @@ def global_router(net):
     # This maze router assembles routes from each pin sequentially.
     #
     # 1. Find faces with net pins on them and place them on the
-    #    start_faces list..
+    #    start_faces list.
     # 2. Randomly select one of the start faces. Add all the other
     #    faces to the stop_faces list.
     # 3. Find a route from the start face to closest stop face.
@@ -1957,63 +1957,113 @@ def global_router(net):
     #           unrouted start faces.
     #        d. Add the faces on the new route to the stop_faces list.
 
-    routed_wires = []  # List of GlobalWires connecting pins on net.
+    # List of GlobalWires connecting pins on net.
+    routed_wires = []
 
     # Faces with pins from which paths/routing originate.
     net_pin_faces = {pin.face for pin in net.pins}
     start_faces = set(net_pin_faces)
 
     def rt_srch(start_face, stop_faces):
+        """Return a minimal-distance path from the start face to one of the stop faces.
+
+        Args:
+            start_face (Face): Face from which path search begins
+            stop_faces (List): List of Faces at which search will end.
+
+        Raises:
+            RoutingFailure: No path was found.
+
+        Returns:
+            List: List of Faces from start face to one of the stop faces.
+        """
         
+        # Return empty path if no stop faces or already starting from a stop face. 
         if start_face in stop_faces or not stop_faces:
             return GlobalWire([], net=net)
 
-        start_face.dist_from_start = 0
+        # Record faces that have been visited and their distance from the start face.
         visited_faces = [start_face]
+        start_face.dist_from_start = 0
+
+        # Path searches are allowed to touch a Face on a Part if the face
+        # is one of the stop faces or if it has a Pin on the net being routed.
+        # This is necessary to allow a search to terminate on a stop face or to
+        # pass through a face with a net pin on the way to finding a connection
+        # to one of the stop faces.
         allowed_part_faces = stop_faces | net_pin_faces
         
+        # Search through faces until a path is found & returned or a routing exception occurs.
         while True:
 
+            # Set up for finding the closest unvisited face.
             closest_dist = float("inf")
             closest_face = None
+
+            # Search for the closest face adjacent to the visited faces.
             visited_faces.sort(key=lambda f: f.dist_from_start)
-            for vis_face in visited_faces:
-                if vis_face.dist_from_start > closest_dist:
+            for visited_face in visited_faces:
+
+                if visited_face.dist_from_start > closest_dist:
+                    # Visited face is already further than the current
+                    # closest face, so no use continuing search since 
+                    # any remaining visited faces are even more distant.
                     break
-                for adj in vis_face.adjacent:
+                
+                # Get the distances to the faces adjacent to this previously-visited face
+                # and update the closest face if appropriate.
+                for adj in visited_face.adjacent:
+
                     if adj.face in visited_faces:
+                        # Don't re-visit faces that have already been visited.
                         continue
+                    
                     if adj.face.part and adj.face not in allowed_part_faces:
+                        # Don't search through the face of a Part unless its a stop
+                        # face or has pins on it for the net being routed.
                         continue
+
                     if not adj.face.part and adj.face.capacity <= 0:
+                        # Don't search through a non-Part face that has had all its routing
+                        # capacity used up.
                         continue
-                    dist = vis_face.dist_from_start + adj.dist
+
+                    # Compute distance of this adjacent face to the start face.
+                    dist = visited_face.dist_from_start + adj.dist
+
                     if dist < closest_dist:
+                        # Record the closest face seen so far.
                         closest_dist = dist
                         closest_face = adj.face
-                        closest_face.prev_face = vis_face
+                        closest_face.prev_face = visited_face
 
             if not closest_face:
-                print(f"Routing failure: {net.name} {start_face.pins}\n")
-                return GlobalWire([], net=net)
-                raise RoutingFailure
+                # Exception raised if couldn't find a path from start to stop faces.
+                raise RoutingFailure("Routing failure: {net.name} {start_face.pins}".format(**locals()))
 
+            # Add the closest adjacent face to the list of visited faces.
             closest_face.dist_from_start = closest_dist
             visited_faces.append(closest_face)
 
             if closest_face in stop_faces:
+
+                # The newest, closest face is actually on the list of stop faces, so the search is done.
+                # Now search back from this face to find the path back to the start face.
                 face_path = [closest_face]
                 while face_path[-1] is not start_face:
                     face_path.append(face_path[-1].prev_face)
+
+                # Decrement the routing capacities of the path faces to account for this new routing.
                 for face in face_path:
-                    start_faces.discard(face)
                     if face.capacity > 0:
                         face.capacity -= 1
+
+                # Reverse face path to go from start-to-stop face and return it.
                 return GlobalWire(reversed(face_path), net=net)
 
     # Select a random start face and look for a route to *any* of the other start faces.
     start_face = choice(list(start_faces))
-    start_faces -= {start_face}
+    start_faces.discard(start_face)
     stop_faces = set(start_faces)
     routed_wires.append(rt_srch(start_face, stop_faces))
 
@@ -2021,9 +2071,7 @@ def global_router(net):
     stop_faces = set(routed_wires[-1])
 
     # Randomly go thru the other start faces looking for a route that connects to any existing route.
-    while start_faces:
-        start_face = choice(list(start_faces))
-        start_faces -= {start_face}
+    for start_face in start_faces:
         routed_wires.append(rt_srch(start_face, stop_faces))
 
         # Update the set of stopping faces.
