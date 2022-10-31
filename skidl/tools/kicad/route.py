@@ -116,7 +116,7 @@ def draw_box(bbox, scr, tx, color=(192, 255, 192), thickness=0):
         None.
     """
 
-    bbox = bbox.dot(tx)
+    bbox = bbox * tx
     corners = (
         (bbox.min.x, bbox.min.y),
         (bbox.min.x, bbox.max.y),
@@ -137,7 +137,7 @@ def draw_endpoint(pt, scr, tx, color=(100, 100, 100), dot_radius=10):
         dot_Radius (int, optional): Endpoint dot radius. Defaults to 3.
     """
 
-    pt = pt.dot(tx)  # Convert to drawing coords.
+    pt = pt * tx  # Convert to drawing coords.
 
     # Draw diamond for terminal.
     sz = dot_radius / 2 * tx.a  # Scale for drawing coords.
@@ -177,7 +177,7 @@ def draw_seg(seg, scr, tx, color=(100, 100, 100), thickness=5, dot_radius=10):
     draw_endpoint(seg.p2, scr, tx, color=color, dot_radius=dot_radius)
 
     # Transform segment coords to screen coords.
-    seg = seg.dot(tx)
+    seg = seg * tx
 
     # Draw segment.
     pygame.draw.line(
@@ -198,7 +198,7 @@ def draw_text(txt, pt, scr, tx, font, color=(100, 100, 100)):
     """
 
     # Transform text starting point to screen coords.
-    pt = pt.dot(tx)
+    pt = pt * tx
 
     # Render text.
     font.render_to(scr, (pt.x, pt.y), txt, color)
@@ -213,7 +213,7 @@ def draw_part(part, scr, tx, font):
         tx (Tx): Transformation matrix from real to screen coords.
         font (PyGame font): Font for rendering text.
     """
-    tx_bbox = part.lbl_bbox.dot(part.tx)
+    tx_bbox = part.lbl_bbox * part.tx
     draw_box(tx_bbox, scr, tx, color=(180, 255, 180), thickness=0)
     draw_box(tx_bbox, scr, tx, color=(90, 128, 90), thickness=5)
     draw_text(part.ref, tx_bbox.ctr, scr, tx, font)
@@ -236,7 +236,7 @@ def draw_net(net, parts, scr, tx, font, color=(0, 0, 0), thickness=2, dot_radius
     for pin in net.pins:
         part = pin.part
         if part in parts:
-            pt = pin.route_pt.dot(part.tx)
+            pt = pin.route_pt * part.tx
             pts.append(pt)
     for pt1, pt2 in zip(pts[:-1], pts[1:]):
         draw_seg(
@@ -295,15 +295,13 @@ def draw_start(bbox):
     flip_tx = Tx(d=-1)
 
     # Compute the translation of the object center to the drawing area center
-    new_bbox = bbox.dot(scale_tx).dot(
-        flip_tx
-    )  # Object bbox transformed to screen coords.
+    new_bbox = bbox * scale_tx * flip_tx  # Object bbox transformed to screen coords.
     move = scr_bbox.ctr - new_bbox.ctr  # Vector to move object ctr to drawing ctr.
     move_tx = Tx(dx=move.x, dy=move.y)
 
     # The final transformation matrix will scale the object's real coords,
     # flip the Y coord, and then move the object to the center of the drawing area.
-    tx = scale_tx.dot(flip_tx).dot(move_tx)
+    tx = scale_tx * flip_tx * move_tx
 
     # Initialize drawing area.
     pygame.init()
@@ -378,7 +376,7 @@ def add_routing_points(node, nets):
 
                 # Add a wire to connect the part pin to the routing point on the bounding box periphery.
                 if pin.route_pt != pin.pt:
-                    node.wires.append([pin.pt.dot(part.tx), pin.route_pt.dot(part.tx)])
+                    node.wires.append([pin.pt * part.tx, pin.route_pt * part.tx])
 
 
 def rmv_routing_points(node):
@@ -671,7 +669,7 @@ class Face(Interval):
 
         # Rotate the bbox if the Face is actually horizontal.
         if self.track.orientation == HORZ:
-            bbox = bbox.dot(Tx(a=0, b=1, c=1, d=0))
+            bbox = bbox * Tx(a=0, b=1, c=1, d=0)
 
         return bbox
 
@@ -853,7 +851,7 @@ class Face(Interval):
 
         # If the face is actually horizontal, then rotate the segment.
         if self.track.orientation == HORZ:
-            seg = seg.dot(Tx(a=0, b=1, c=1, d=0))
+            seg = seg * Tx(a=0, b=1, c=1, d=0)
 
         return seg
 
@@ -958,7 +956,7 @@ class GlobalWire(list):
 
         # Draw pins on the net associated with the wire.
         for pin in self.net.pins:
-            pt = pin.route_pt.dot(pin.part.tx)
+            pt = pin.route_pt * pin.part.tx
             track = pin.face.track
             pt = {
                 HORZ: Point(pt.x, track.coord),
@@ -2144,7 +2142,7 @@ class Router:
 
         # The top/bottom/left/right of each part's labeled bounding box define the H/V tracks.
         for part in node.parts:
-            bbox = round(part.lbl_bbox.dot(part.tx))
+            bbox = round(part.lbl_bbox * part.tx)
             v_track_coord.append(bbox.min.x)
             v_track_coord.append(bbox.max.x)
             h_track_coord.append(bbox.min.y)
@@ -2195,7 +2193,7 @@ class Router:
 
         # Add routing box faces for each side of a part's labeled bounding box.
         for part in node.parts:
-            part_bbox = round(part.lbl_bbox.dot(part.tx))
+            part_bbox = round(part.lbl_bbox * part.tx)
             bbox_to_faces(part, part_bbox)
 
         # Add routing box faces for each side of the expanded bounding box surrounding all parts.
@@ -2223,7 +2221,7 @@ class Router:
 
                 # Find the track (top/bottom/left/right) that the pin is on.
                 part = pin.part
-                pt = pin.route_pt.dot(part.tx)
+                pt = pin.route_pt * part.tx
                 closest_dist = abs(pt.y - part.top_track.coord)
                 pin_track = part.top_track
                 coord = pt.x  # Pin coord within top track.
@@ -2296,6 +2294,21 @@ class Router:
         for route in global_routes:
             for wire in route:
                 wire.cvt_faces_to_terminals()
+
+        # If enabled, draw the global and detailed routing for debug purposes.
+        if "draw" in options:
+            draw_scr, draw_tx, draw_font = draw_start(routing_bbox)
+
+            # Draw parts.
+            for part in node.parts:
+                draw_part(part, draw_scr, draw_tx, draw_font)
+
+            # Draw the approximate global routing.
+            for route in global_routes:
+                for wire in route:
+                    wire.draw(draw_scr, draw_tx, options=options)
+
+            draw_end()
 
         # Clear any switchboxes associated with faces because we'll be making new ones.
         for track in h_tracks + v_tracks:

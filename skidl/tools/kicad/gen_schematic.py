@@ -91,7 +91,7 @@ def preprocess_parts_and_nets(circuit):
             # Rotate part 90-degrees clockwise until the desired rotation is reached.
             tx_cw_90 = Tx(a=0, b=-1, c=1, d=0)  # 90-degree trans. matrix.
             for _ in range(round(rotation / 90)):
-                part.tx = part.tx.dot(tx_cw_90)
+                part.tx = part.tx * tx_cw_90
 
     def calc_part_bbox(part):
         """Calculate the labeled bounding boxes and store it in the part."""
@@ -237,7 +237,7 @@ class Node(Placer, Router):
         # The bounding box is determined by the arrangement of the node's parts and child nodes.
         bbox = BBox()
         for obj in chain(self.parts, self.children.values()):
-            tx_bbox = obj.bbox.dot(obj.tx)
+            tx_bbox = obj.bbox * obj.tx
             bbox.add(tx_bbox)
 
         # Pad the bounding box for extra spacing when placed.
@@ -329,7 +329,7 @@ class Node(Placer, Router):
 
         if self.flattened:
             # Find the transformation matrix for the placement of the parts in the node.
-            tx = self.tx.dot(sheet_tx)
+            tx = self.tx * sheet_tx
         else:
             # Unflattened nodes are placed in their own sheet, so compute
             # their bounding box as if they *were* flattened and use that to
@@ -383,7 +383,7 @@ class Node(Placer, Router):
         )
 
         # Create the hierarchical sheet for insertion into the calling node sheet.
-        bbox = round(self.bbox.dot(self.tx).dot(sheet_tx))
+        bbox = round(self.bbox * self.tx * sheet_tx)
         time_hex = hex(int(time.time()))[2:]
         return "\n".join(
             (
@@ -402,7 +402,7 @@ def bbox_to_eeschema(bbox, tx, name=None):
     """Create a bounding box using EESCHEMA graphic lines."""
 
     # Make sure the box corners are integers.
-    bbox = round(bbox.dot(tx))
+    bbox = round(bbox * tx)
 
     graphic_box = []
 
@@ -450,7 +450,7 @@ def part_to_eeschema(part, tx):
 
     time_hex = hex(int(time.time()))[2:]
 
-    tx = part.tx.dot(tx)
+    tx = part.tx * tx
     origin = round(tx.origin)
 
     eeschema = []
@@ -519,7 +519,7 @@ def wire_to_eeschema(wire, tx):
     """
 
     eeschema = []
-    pts = [pt.dot(tx) for pt in wire]
+    pts = [pt * tx for pt in wire]
     for pt1, pt2 in zip(pts[:-1], pts[1:]):
         eeschema.append("Wire Wire Line")
         eeschema.append(
@@ -626,7 +626,7 @@ def calc_pin_dir(pin):
     }[pin.orientation]
 
     # Rotate the direction vector using the part rotation matrix.
-    pin_vector = pin_vector.dot(tx)
+    pin_vector = pin_vector * tx
 
     # Create an integer tuple from the rotated direction vector.
     pin_vector = (round(pin_vector.x), round(pin_vector.y))
@@ -656,8 +656,8 @@ def pin_label_to_eeschema(pin, tx):
         label_type = "GLabel"
         break
 
-    part_tx = pin.part.tx.dot(tx)
-    pt = pin.pt.dot(part_tx)
+    part_tx = pin.part.tx * tx
+    pt = pin.pt * part_tx
 
     pin_dir = calc_pin_dir(pin)
     orientation = {
@@ -697,10 +697,10 @@ def get_A_size(bbox):
 def calc_sheet_tx(bbox):
     """Compute the page size and positioning for this sheet."""
     A_size = get_A_size(bbox)
-    page_bbox = bbox.dot(Tx(d=-1))
+    page_bbox = bbox * Tx(d=-1) # FIXME: Should this be reversed?
     move_to_ctr = A_sizes[A_size].ctr - page_bbox.ctr
     move_to_ctr = move_to_ctr.snap(GRID)  # Keep things on grid.
-    move_tx = Tx(d=-1).dot(Tx(dx=move_to_ctr.x, dy=move_to_ctr.y))
+    move_tx = Tx(d=-1) * Tx(dx=move_to_ctr.x, dy=move_to_ctr.y)
     return move_tx
 
 

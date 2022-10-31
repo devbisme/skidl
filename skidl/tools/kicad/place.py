@@ -52,7 +52,7 @@ standard_library.install_aliases()
 
 def draw_force(part, force, scr, tx, font, color=(128, 0, 0)):
     force *= 200
-    anchor = part.place_bbox.ctr.dot(part.tx)
+    anchor = part.place_bbox.ctr * part.tx
     draw_seg(
         Segment(anchor, anchor + force), scr, tx, color=color, thickness=5, dot_radius=5
     )
@@ -88,10 +88,10 @@ def random_placement(parts):
 def get_unsnapped_pt(part):
     try:
         # FIXME: Should this be place_pt?
-        return part.pins[0].pt.dot(part.tx)
+        return part.pins[0].pt * part.tx
     except AttributeError:
         try:
-            return part.place_bbox.dot(part.tx).ctr
+            return (part.place_bbox * part.tx).ctr
         except AttributeError:
             return part.ctr
 
@@ -107,7 +107,7 @@ def snap_to_grid(part):
     snap_pt = pt.snap(GRID)
     mv = snap_pt - pt
     snap_tx = Tx(dx=mv.x, dy=mv.y)
-    part.tx = part.tx.dot(snap_tx)
+    part.tx = part.tx * snap_tx
     return
 
 
@@ -257,9 +257,9 @@ def net_force_dist(part, nets):
 
     for net in anchor_pins.keys():
         for anchor_pin in anchor_pins[net]:
-            anchor_pt = anchor_pin.place_pt.dot(anchor_pin.part.tx)
+            anchor_pt = anchor_pin.place_pt * anchor_pin.part.tx
             for pull_pin in pull_pins[net]:
-                pull_pt = pull_pin.place_pt.dot(pull_pin.part.tx)
+                pull_pt = pull_pin.place_pt * pull_pin.part.tx
                 dist_vec = pull_pt - anchor_pt
                 # Add force from pulling to anchor point that is proportional to distance.
                 total_force += dist_vec
@@ -296,9 +296,9 @@ def net_force_dist_min(part, nets):
 
         min_dist = float("inf")
         for anchor_pin in anchor_pins[net]:
-            anchor_pt = anchor_pin.place_pt.dot(anchor_pin.part.tx)
+            anchor_pt = anchor_pin.place_pt * anchor_pin.part.tx
             for pull_pin in pull_pins[net]:
-                pull_pt = pull_pin.place_pt.dot(pull_pin.part.tx)
+                pull_pt = pull_pin.place_pt * pull_pin.part.tx
                 dist_vec = pull_pt - anchor_pt
                 dist = dist_vec.magnitude
                 min_dist = min(dist, min_dist)
@@ -344,9 +344,9 @@ def net_force_dist_avg(part, nets):
         dist_cnt = 0
 
         for anchor_pin in anchor_pins[net]:
-            anchor_pt = anchor_pin.place_pt.dot(anchor_pin.part.tx)
+            anchor_pt = anchor_pin.place_pt * anchor_pin.part.tx
             for pull_pin in pull_pins[net]:
-                pull_pt = pull_pin.place_pt.dot(pull_pin.part.tx)
+                pull_pt = pull_pin.place_pt * pull_pin.part.tx
                 dist_vec = pull_pt - anchor_pt
                 dist_sum += dist_vec.magnitude
                 dist_cnt += 1
@@ -390,9 +390,9 @@ def net_force_fanout_1(part, nets):
             influence_factor = 1
 
         for anchor_pin in anchor_pins[net]:
-            anchor_pt = anchor_pin.place_pt.dot(anchor_pin.part.tx)
+            anchor_pt = anchor_pin.place_pt * anchor_pin.part.tx
             for pull_pin in pull_pins[net]:
-                pull_pt = pull_pin.place_pt.dot(pull_pin.part.tx)
+                pull_pt = pull_pin.place_pt * pull_pin.part.tx
                 dist_vec = pull_pt - anchor_pt
                 total_force += dist_vec * influence_factor
 
@@ -428,9 +428,9 @@ def net_force_fanout_2(part, nets):
             influence_factor = 1
 
         for anchor_pin in anchor_pins[net]:
-            anchor_pt = anchor_pin.place_pt.dot(anchor_pin.part.tx)
+            anchor_pt = anchor_pin.place_pt * anchor_pin.part.tx
             for pull_pin in pull_pins[net]:
-                pull_pt = pull_pin.place_pt.dot(pull_pin.part.tx)
+                pull_pt = pull_pin.place_pt * pull_pin.part.tx
                 dist_vec = pull_pt - anchor_pt
                 total_force += dist_vec * influence_factor
 
@@ -455,9 +455,9 @@ def overlap_force(part, parts):
 
     total_force = Vector(0, 0)
 
-    part_bbox = part.place_bbox.dot(part.tx)
+    part_bbox = part.place_bbox * part.tx
     for other_part in set(parts) - {part}:
-        other_part_bbox = other_part.place_bbox.dot(other_part.tx)
+        other_part_bbox = other_part.place_bbox * other_part.tx
 
         # No force unless parts overlap.
         if part_bbox.intersects(other_part_bbox):
@@ -518,12 +518,12 @@ def similarity_force(part, parts, similarity):
 
     # These store the anchor points where each net attaches to the given part
     # and the pulling points where each net attaches to other parts.
-    anchor_pt = part.anchor_pin.place_pt.dot(part.tx)
+    anchor_pt = part.anchor_pin.place_pt * part.tx
 
     # Compute the combined force of all the anchor/pulling points on each net.
     total_force = Vector(0, 0)
     for other in set(parts) - {part}:
-        pull_pt = other.anchor_pin.place_pt.dot(other.tx)
+        pull_pt = other.anchor_pin.place_pt * other.tx
         # Force from pulling to anchor point is proportional to part similarity and distance.
         total_force += (pull_pt - anchor_pt) * similarity[part][other]
 
@@ -581,7 +581,7 @@ def push_and_pull(parts, nets, force_func, speed, scr, tx, font):
             mv_dist = force * speed
             mobility += mv_dist.magnitude
             mv_tx = Tx(dx=mv_dist.x, dy=mv_dist.y)
-            part.tx = part.tx.dot(mv_tx)
+            part.tx = part.tx * mv_tx
         if mobility < prev_mobility / 2:
             # Parts aren't moving much, so make a bigger inc
             # of iter to decrease alpha which might lead to more
@@ -635,7 +635,7 @@ def remove_overlaps(parts, nets, scr, tx, font):
                     shove_tx.dy = -GRID
                 elif shove_force.y > 0:
                     shove_tx.dy = GRID
-                part.tx = part.tx.dot(shove_tx)
+                part.tx = part.tx * shove_tx
         if scr:
             draw_placement(parts, nets, scr, tx, font)
 
@@ -672,7 +672,7 @@ def slip_and_slide(parts, nets, scr, tx, font):
             best_tx = copy(part.tx)
             for dx, dy in ((-GRID, 0), (GRID, GRID), (GRID, -GRID), (-GRID, -GRID)):
                 mv_tx = Tx(dx=dx, dy=dy)
-                part.tx = part.tx.dot(mv_tx)
+                part.tx = part.tx * mv_tx
                 force = net_force(part, nets).magnitude
                 if force < smallest_force:
                     if overlap_force(part, parts).magnitude == 0:
@@ -842,7 +842,7 @@ def place_parts(connected_parts, internal_nets, floating_parts, options):
             # Draw the placement for debug purposes.
             bbox = BBox()
             for part in group:
-                tx_bbox = part.place_bbox.dot(part.tx)
+                tx_bbox = part.place_bbox.dot * part.tx
                 bbox.add(tx_bbox)
             draw_scr, draw_tx, draw_font = draw_start(bbox)
         else:
@@ -896,7 +896,7 @@ def place_parts(connected_parts, internal_nets, floating_parts, options):
             # Compute the drawing area for the floating parts
             bbox = BBox()
             for part in floating_parts:
-                tx_bbox = part.place_bbox.dot(part.tx)
+                tx_bbox = part.place_bbox * part.tx
                 bbox.add(tx_bbox)
             draw_scr, draw_tx, draw_font = draw_start(bbox)
         else:
@@ -917,7 +917,7 @@ def place_parts(connected_parts, internal_nets, floating_parts, options):
 
             # Select the top-most pin in each part as the anchor point for force-directed placement.
             # tx = part.tx
-            # part.anchor_pin = max(part.anchor_pins, key=lambda pin: pin.place_pt.dot(tx).y)
+            # part.anchor_pin = max(part.anchor_pins, key=lambda pin: (pin.place_pt * tx).y)
 
         force_func = functools.partial(
             total_similarity_force, parts=floating_parts, similarity=part_similarity
@@ -970,7 +970,7 @@ def place_blocks(connected_parts, floating_parts, children, options):
         def update(self):
             """Apply the transformation matrix to the objects."""
             for part in self.parts:
-                part.tx = part.tx.dot(self.tx)
+                part.tx = part.tx * self.tx
 
     part_blocks = []
     for part_list in connected_parts:
@@ -978,7 +978,7 @@ def place_blocks(connected_parts, floating_parts, children, options):
             continue
         bbox = BBox()
         for part in part_list:
-            bbox.add(part.lbl_bbox.dot(part.tx))
+            bbox.add(part.lbl_bbox * part.tx)
         snap_part = list(part_list)[0]
         blk = PartBlock(part_list, bbox, bbox.ctr, get_unsnapped_pt(snap_part))
         part_blocks.append(blk)
@@ -987,7 +987,7 @@ def place_blocks(connected_parts, floating_parts, children, options):
             continue
         bbox = BBox()
         for part in part_list:
-            bbox.add(part.lbl_bbox.dot(part.tx))
+            bbox.add(part.lbl_bbox * part.tx)
         snap_part = list(part_list)[0]
         blk = PartBlock(part_list, bbox, bbox.ctr, get_unsnapped_pt(snap_part))
         part_blocks.append(blk)
@@ -1012,7 +1012,7 @@ def place_blocks(connected_parts, floating_parts, children, options):
         # Draw the global and detailed routing for debug purposes.
         bbox = BBox()
         for blk in part_blocks:
-            tx_bbox = blk.place_bbox.dot(blk.tx)
+            tx_bbox = blk.place_bbox * blk.tx
             bbox.add(tx_bbox)
         draw_scr, draw_tx, draw_font = draw_start(bbox)
     else:
@@ -1039,7 +1039,7 @@ def place_blocks(connected_parts, floating_parts, children, options):
             blk.src.tx = blk.tx
         except AttributeError:
             for part in blk.src:
-                part.tx = part.tx.dot(blk.tx)
+                part.tx = part.tx * blk.tx
 
 
 class Placer:

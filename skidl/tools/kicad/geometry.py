@@ -32,7 +32,7 @@ class Tx:
         self.dx = dx
         self.dy = dy
 
-    def dot(self, tx):
+    def __mul__(self, tx):
         """Return the product of two transformation matrices."""
         return Tx(
             a=self.a * tx.a + self.b * tx.c,
@@ -84,10 +84,19 @@ class Point:
         return Point(self.x - pt.x, self.y - pt.y)
 
     def __mul__(self, m):
-        """Multiply the x,y coords by m."""
-        return Point(m * self.x, m * self.y)
+        """Apply transformation matrix or scale factor to a point and return a point."""
+        if isinstance(m, Tx):
+            return Point(
+                self.x * m.a + self.y * m.c + m.dx, self.x * m.b + self.y * m.d + m.dy
+                )
+        else:
+            return Point(m * self.x, m * self.y)
 
-    __rmul__ = __mul__
+    def __rmul__(self, m):
+        if isinstance(m, Tx):
+            raise ValueError
+        else:
+            return self * m
 
     def __neg__(self):
         """Negate both coords."""
@@ -100,10 +109,6 @@ class Point:
     def __div__(self, d):
         """Divide the x,y coords by d."""
         return Point(self.x / d, self.y / d)
-
-    def __mul__(self, m):
-        """Multiply the x,y coords by m."""
-        return Point(self.x * m, self.y * m)
 
     def __round__(self, n=None):
         return Point(round(self.x, n), round(self.y, n))
@@ -120,12 +125,6 @@ class Point:
     def max(self, pt):
         """Return a Point with coords that are the max x,y of both points."""
         return Point(max(self.x, pt.x), max(self.y, pt.y))
-
-    def dot(self, tx):
-        """Apply transformation matrix to a point and return a point."""
-        return Point(
-            self.x * tx.a + self.y * tx.c + tx.dx, self.x * tx.b + self.y * tx.d + tx.dy
-        )
 
     @property
     def magnitude(self):
@@ -173,9 +172,7 @@ class BBox:
                 raise NotImplementedError
 
     def __mul__(self, m):
-        return BBox(m * self.min, m * self.max)
-
-    __rmul__ = __mul__
+        return BBox(self.min * m, self.max * m)
 
     def __round__(self, n=None):
         return BBox(round(self.min), round(self.max))
@@ -245,10 +242,6 @@ class BBox:
         """Return upper-right point of bounding box."""
         return Point(self.max.x, self.max.y)
 
-    def dot(self, tx):
-        """Apply transformation to a bounding box and return a bounding box."""
-        return BBox(self.min.dot(tx), self.max.dot(tx))
-
     def __repr__(self):
         return "{self.__class__}(Point({self.min}, {self.max}))".format(self=self)
 
@@ -259,9 +252,9 @@ class Segment:
         self.p1 = copy(p1)
         self.p2 = copy(p2)
 
-    def dot(self, tx):
+    def __mul__(self, m):
         """Apply transformation matrix to a segment and return a segment."""
-        return Segment(self.p1.dot(tx), self.p2.dot(tx))
+        return Segment(self.p1 * m, self.p2 * m)
 
     def flip_xy(self):
         """Flip the X-Y coordinates of the segment."""
