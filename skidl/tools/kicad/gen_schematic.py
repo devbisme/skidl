@@ -328,7 +328,7 @@ class Node(Placer, Router):
         eeschema_code = []
 
         if self.flattened:
-            # Find the transformation matrix for the placement of the parts in the node.
+            # Create the transformation matrix for the placement of the parts in the node.
             tx = self.tx * sheet_tx
         else:
             # Unflattened nodes are placed in their own sheet, so compute
@@ -697,9 +697,8 @@ def get_A_size(bbox):
 def calc_sheet_tx(bbox):
     """Compute the page size and positioning for this sheet."""
     A_size = get_A_size(bbox)
-    page_bbox = bbox * Tx(d=-1) # FIXME: Should this be reversed?
-    move_to_ctr = A_sizes[A_size].ctr - page_bbox.ctr
-    move_to_ctr = move_to_ctr.snap(GRID)  # Keep things on grid.
+    page_bbox = bbox * Tx(d=-1)
+    move_to_ctr = A_sizes[A_size].ctr.snap(GRID) - page_bbox.ctr.snap(GRID)
     move_tx = Tx(d=-1) * Tx(dx=move_to_ctr.x, dy=move_to_ctr.y)
     return move_tx
 

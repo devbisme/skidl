@@ -85,30 +85,40 @@ def random_placement(parts):
         part.tx.origin = Point(random.random() * side, random.random() * side)
 
 
-def get_unsnapped_pt(part):
-    try:
-        # FIXME: Should this be place_pt?
-        return part.pins[0].pt * part.tx
-    except AttributeError:
-        try:
-            return (part.place_bbox * part.tx).ctr
-        except AttributeError:
-            return part.ctr
-
-
-def snap_to_grid(part):
-    """Snap part to grid.
+def get_snap_pt(part_or_blk):
+    """Get the point for snapping the part or block to the grid.
 
     Args:
-        part (Part): Part to snap to grid.
+        part_or_blk (Part | PartBlock): Object with snap point.
+
+    Returns:
+        Point: Point for snapping to grid.
+    """
+    try:
+        return part_or_blk.pins[0].pt
+    except AttributeError:
+        return part_or_blk.snap_pt
+
+
+def snap_to_grid(part_or_blk):
+    """Snap Part or PartBlock to grid.
+
+    Args:
+        part (Part | PartBlk): Object to snap to grid.
     """
 
-    pt = get_unsnapped_pt(part)
+    # Get the position of the current snap point.
+    pt = get_snap_pt(part_or_blk) * part_or_blk.tx
+
+    # This is where the snap point should be on the grid.
     snap_pt = pt.snap(GRID)
+
+    # This is the required movement to get on-grid.
     mv = snap_pt - pt
+
+    # Update the object's transformation matrix.
     snap_tx = Tx(dx=mv.x, dy=mv.y)
-    part.tx = part.tx * snap_tx
-    return
+    part_or_blk.tx *= snap_tx
 
 
 def adjust_orientations(parts, nets, alpha):
@@ -980,7 +990,7 @@ def place_blocks(connected_parts, floating_parts, children, options):
         for part in part_list:
             bbox.add(part.lbl_bbox * part.tx)
         snap_part = list(part_list)[0]
-        blk = PartBlock(part_list, bbox, bbox.ctr, get_unsnapped_pt(snap_part))
+        blk = PartBlock(part_list, bbox, bbox.ctr, get_snap_pt(snap_part))
         part_blocks.append(blk)
     for part_list in (floating_parts,):
         if not part_list:
@@ -989,13 +999,13 @@ def place_blocks(connected_parts, floating_parts, children, options):
         for part in part_list:
             bbox.add(part.lbl_bbox * part.tx)
         snap_part = list(part_list)[0]
-        blk = PartBlock(part_list, bbox, bbox.ctr, get_unsnapped_pt(snap_part))
+        blk = PartBlock(part_list, bbox, bbox.ctr, get_snap_pt(snap_part))
         part_blocks.append(blk)
     for child in children:
         bbox = child.calc_bbox()
         if child.flattened:
             # FIXME: What if there are no parts in the child?
-            blk = PartBlock(child, bbox, bbox.ctr, get_unsnapped_pt(child.parts[0]))
+            blk = PartBlock(child, bbox, bbox.ctr, get_snap_pt(child.parts[0]))
         else:
             blk = PartBlock(child, bbox, bbox.ctr, bbox.ctr)
         part_blocks.append(blk)
