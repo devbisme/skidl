@@ -1964,12 +1964,12 @@ def global_router(net):
         visited_faces = [start_face]
         start_face.dist_from_start = 0
 
-        # Path searches are allowed to touch a Face on a Part if the face
-        # is one of the stop faces or if it has a Pin on the net being routed.
+        # Path searches are allowed to touch a Face on a Part if it
+        # has a Pin on the net being routed or if it is one of the stop faces. 
         # This is necessary to allow a search to terminate on a stop face or to
         # pass through a face with a net pin on the way to finding a connection
         # to one of the stop faces.
-        allowed_part_faces = stop_faces | net_pin_faces
+        unconstrained_faces = stop_faces | net_pin_faces
         
         # Search through faces until a path is found & returned or a routing exception occurs.
         while True:
@@ -1995,17 +1995,11 @@ def global_router(net):
                     if adj.face in visited_faces:
                         # Don't re-visit faces that have already been visited.
                         continue
+
+                    if adj.face not in unconstrained_faces and adj.face.capacity <= 0:
+                        # Skip faces with insufficient routing capacity.
+                        continue
                     
-                    if adj.face.part and adj.face not in allowed_part_faces:
-                        # Don't search through the face of a Part unless its a stop
-                        # face or has pins on it for the net being routed.
-                        continue
-
-                    if not adj.face.part and adj.face.capacity <= 0:
-                        # Don't search through a non-Part face that has had all its routing
-                        # capacity used up.
-                        continue
-
                     # Compute distance of this adjacent face to the start face.
                     dist = visited_face.dist_from_start + adj.dist
 
@@ -2032,7 +2026,9 @@ def global_router(net):
                     face_path.append(face_path[-1].prev_face)
 
                 # Decrement the routing capacities of the path faces to account for this new routing.
-                for face in face_path:
+                # Don't decrement the stop face because any routing through it was accounted for
+                # during a previous routing.
+                for face in face_path[:-1]:
                     if face.capacity > 0:
                         face.capacity -= 1
 
@@ -2061,8 +2057,8 @@ def global_router(net):
 class Router:
     """Mixin to add routing function to Node class."""
 
-    # def route(node, options=[]):
-    def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
+    def route(node, options=[]):
+    # def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
         """Route the wires between part pins in this node and its children.
 
         Steps:
