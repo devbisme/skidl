@@ -969,7 +969,7 @@ def place_blocks(connected_parts, floating_parts, children, options):
     """
 
     class PartBlock:
-        def __init__(self, src, bbox, anchor_pt, snap_pt):
+        def __init__(self, src, bbox, anchor_pt, snap_pt, tag):
             self.src = src
             self.place_bbox = bbox.resize(Vector(100, 100)) # FIXME: Is this needed if place_bbox includes room for routing?
             self.lbl_bbox = bbox  # Needed for drawing during debug.
@@ -979,6 +979,7 @@ def place_blocks(connected_parts, floating_parts, children, options):
             self.snap_pt = snap_pt
             self.tx = Tx()
             self.ref = "REF"
+            self.tag = tag
 
     part_blocks = []
     for part_list in (*connected_parts, floating_parts):
@@ -990,25 +991,43 @@ def place_blocks(connected_parts, floating_parts, children, options):
             bbox.add(part.lbl_bbox * part.tx)
             if not snap_pt:
                 snap_pt = get_snap_pt(part)
-        blk = PartBlock(part_list, bbox, bbox.ctr, snap_pt)
+        tag = 2 if (part_list is floating_parts) else 1
+        blk = PartBlock(part_list, bbox, bbox.ctr, snap_pt, tag)
         part_blocks.append(blk)
     for child in children:
         bbox = child.calc_bbox()
         snap_pt = child.get_snap_pt()
         if snap_pt:
-            blk = PartBlock(child, bbox, bbox.ctr, snap_pt)
+            blk = PartBlock(child, bbox, bbox.ctr, snap_pt, 3)
         else:
-            blk = PartBlock(child, bbox, bbox.ctr, bbox.ctr)
+            blk = PartBlock(child, bbox, bbox.ctr, bbox.ctr, 4)
         part_blocks.append(blk)
 
+    # Re-label blocks with sequential tags (i.e., remove gaps).
+    tags = {blk.tag for blk in part_blocks}
+    tag_tbl = {old_tag:new_tag for old_tag, new_tag in zip(tags, range(len(tags)))}
+    for blk in part_blocks:
+        blk.tag = tag_tbl[blk.tag]
+
+    # Tie the blocks together with strong links between blocks with the same tag,
+    # and weaker links between blocks with tags that differ by 1. This ties similar
+    # blocks together into "super blocks" and ties the super blocks into a linear
+    # arrangement (1 -> 2 -> 3 ->...).
     blk_attr = defaultdict(lambda: defaultdict(lambda: 0))
     for blk in part_blocks:
         for other_blk in part_blocks:
             if blk is other_blk:
                 continue
-            blk_attr[blk][other_blk] = 0.1  # FIXME: Replace adhoc value.
+            if blk.tag == other_blk.tag:
+                blk_attr[blk][other_blk] = 1
+            elif abs(blk.tag - other_blk.tag) == 1:
+                blk_attr[blk][other_blk] = 0.1
+            else:
+                blk_attr[blk][other_blk] = 0
 
+    # Start off with a random placement of part blocks.
     random_placement(part_blocks)
+
     if "draw" in options:
         # Draw the global and detailed routing for debug purposes.
         bbox = BBox()
@@ -1019,6 +1038,7 @@ def place_blocks(connected_parts, floating_parts, children, options):
     else:
         draw_scr, draw_tx, draw_font = None, None, None
 
+    # Arrange the part blocks with force-directed placement.
     force_func = functools.partial(
         total_similarity_force, parts=part_blocks, similarity=blk_attr
     )
@@ -1035,6 +1055,7 @@ def place_blocks(connected_parts, floating_parts, children, options):
     if "draw" in options:
         draw_end()
 
+    # Apply the placement moves to the part blocks.
     for blk in part_blocks:
         try:
             blk.src.tx = blk.tx
