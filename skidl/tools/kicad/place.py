@@ -977,11 +977,6 @@ def place_blocks(connected_parts, floating_parts, children, options):
             self.tx = Tx()
             self.ref = "REF"
 
-        def update(self):
-            """Apply the transformation matrix to the objects."""
-            for part in self.parts:
-                part.tx = part.tx * self.tx
-
     part_blocks = []
     for part_list in connected_parts:
         if not part_list:
