@@ -86,18 +86,21 @@ def random_placement(parts):
 
 
 def get_snap_pt(part_or_blk):
-    """Get the point for snapping the part or block to the grid.
+    """Get the point for snapping the Part or PartBlock to the grid.
 
     Args:
         part_or_blk (Part | PartBlock): Object with snap point.
 
     Returns:
-        Point: Point for snapping to grid.
+        Point: Point for snapping to grid or None if no point found.
     """
     try:
         return part_or_blk.pins[0].pt
     except AttributeError:
-        return part_or_blk.snap_pt
+        try:
+            return part_or_blk.snap_pt
+        except AttributeError:
+            return None
 
 
 def snap_to_grid(part_or_blk):
@@ -978,29 +981,22 @@ def place_blocks(connected_parts, floating_parts, children, options):
             self.ref = "REF"
 
     part_blocks = []
-    for part_list in connected_parts:
+    for part_list in (*connected_parts, floating_parts):
         if not part_list:
             continue
         bbox = BBox()
+        snap_pt = None
         for part in part_list:
             bbox.add(part.lbl_bbox * part.tx)
-        snap_part = list(part_list)[0]
-        blk = PartBlock(part_list, bbox, bbox.ctr, get_snap_pt(snap_part))
-        part_blocks.append(blk)
-    for part_list in (floating_parts,):
-        if not part_list:
-            continue
-        bbox = BBox()
-        for part in part_list:
-            bbox.add(part.lbl_bbox * part.tx)
-        snap_part = list(part_list)[0]
-        blk = PartBlock(part_list, bbox, bbox.ctr, get_snap_pt(snap_part))
+            if not snap_pt:
+                snap_pt = get_snap_pt(part)
+        blk = PartBlock(part_list, bbox, bbox.ctr, snap_pt)
         part_blocks.append(blk)
     for child in children:
         bbox = child.calc_bbox()
-        if child.flattened:
-            # FIXME: What if there are no parts in the child?
-            blk = PartBlock(child, bbox, bbox.ctr, get_snap_pt(child.parts[0]))
+        snap_pt = child.get_snap_pt()
+        if snap_pt:
+            blk = PartBlock(child, bbox, bbox.ctr, snap_pt)
         else:
             blk = PartBlock(child, bbox, bbox.ctr, bbox.ctr)
         part_blocks.append(blk)
@@ -1078,3 +1074,32 @@ class Placer:
 
         # Calculate the bounding box for the node after placement of parts and children.
         node.calc_bbox()
+
+    def get_snap_pt(node):
+        """Get a Point to use for snapping the node to the grid.
+
+        Args:
+            node (Node): The Node to which the snapping point applies.
+
+        Returns:
+            Point: The snapping point or None.
+        """
+
+        if node.flattened:
+
+            # Look for a snapping point based on one of its parts.
+            for part in node.parts:
+                snap_pt = get_snap_pt(part)
+                if snap_pt:
+                    return snap_pt
+
+            # If no part snapping point, look for one in its children.
+            for child in node.children.values():
+                if child.flattened:
+                    snap_pt = child.get_snap_pt()
+                    if snap_pt:
+                        # Apply the child transformation to its snapping point.
+                        return snap_pt * child.tx
+
+        # No snapping point if node is not flattened or no parts in it or its children.
+        return None
