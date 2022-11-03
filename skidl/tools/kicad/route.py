@@ -390,6 +390,64 @@ def rmv_routing_points(node):
                 pass
 
 
+def merge_segments(route):
+    """Merge segments in a route that run the same direction and overlap.
+
+    Args:
+        route (List): List of Segment objects.
+
+    Returns:
+        List: List of merged Segments.
+    """
+
+    merged_segs = []
+
+    # Keep only non zero-length segments.
+    route = [seg for seg in route if seg.p1 != seg.p2]
+    
+    # Merge overlapping horizontal segments with the same Y coord.
+    horz_segs = [seg for seg in route if seg.p1.y == seg.p2.y]
+
+    horz_segs_v = defaultdict(list)
+    for seg in horz_segs:
+        horz_segs_v[seg.p1.y].append(seg)
+
+    for segs in horz_segs_v.values():
+        for seg in segs:
+            if seg.p1.x > seg.p2.x:
+                seg.p1, seg.p2 = seg.p2, seg.p1
+        segs.sort(key=lambda s: s.p1.x)
+        merged_segs.append(segs[0])
+        for seg in segs[1:]:
+            if seg.p1.x <= merged_segs[-1].p2.x:
+                merged_segs[-1].p2.x = max(seg.p2.x, merged_segs[-1].p2.x)
+            else:
+                merged_segs.append(seg)
+
+    # Merge overlapping vertical segments with the same X coord.
+    vert_segs = [seg for seg in route if seg.p1.x == seg.p2.x]
+
+    assert len(route) == len(horz_segs) + len(vert_segs)
+    
+    vert_segs_h = defaultdict(list)
+    for seg in vert_segs:
+        vert_segs_h[seg.p1.x].append(seg)
+
+    for segs in vert_segs_h.values():
+        for seg in segs:
+            if seg.p1.y > seg.p2.y:
+                seg.p1, seg.p2 = seg.p2, seg.p1
+        segs.sort(key=lambda s: s.p1.y)
+        merged_segs.append(segs[0])
+        for seg in segs[1:]:
+            if seg.p1.y <= merged_segs[-1].p2.y:
+                merged_segs[-1].p2.y = max(seg.p2.y, merged_segs[-1].p2.y)
+            else:
+                merged_segs.append(seg)
+
+    return merged_segs
+
+
 class NoSwitchBox(Exception):
     """Exception raised when a switchbox cannot be generated."""
 
@@ -2352,7 +2410,8 @@ class Router:
                 swbx.route(options=["allow_routing_failure"])
                 swbx.flip_xy()
             for net, segments in swbx.segments.items():
-                detailed_routes[net].extend(segments)
+                segments = merge_segments(segments)
+                detailed_routes[net].extend(merge_segments(segments))
 
         # If enabled, draw the global and detailed routing for debug purposes.
         if "draw" in options:
