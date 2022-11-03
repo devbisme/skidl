@@ -125,15 +125,15 @@ def find_and_open_file(
 
     from .logger import active_logger
 
+    # Remove any directory path from the file name.
+    dirname, filename = os.path.split(filename)
+
     if os.path.isabs(filename):
         # Ignore search paths if the file already has an absolute path.
         paths = [os.path.abspath(os.path.dirname(filename))]
     elif not paths:
         # If no search paths are given, use the current working directory.
         paths = ["."]
-
-    # Remove any directory path from the file name.
-    _, filename = os.path.split(filename)
 
     # Get the list of file extensions to check against.
     base, suffix = os.path.splitext(filename)
@@ -149,9 +149,29 @@ def find_and_open_file(
 
     # Search through the directory paths for a file whose name matches the regular expression.
     for path in paths:
+        # if the filename exists at this exact path, use it
+        explicit_path = os.path.join(path, dirname, filename)
+        if os.path.exists(explicit_path):
+            try:
+                # Return the first file that matches the criteria.
+                return open(explicit_path, encoding="latin_1"), explicit_path
+            except (IOError, FileNotFoundError, TypeError):
+                # File failed, so keep searching.
+                pass
+
         # Search through the files in a particular directory path.
         descent_ctr = descend  # Controls the descent through the path.
-        for root, dirnames, filenames in os.walk(path):
+        for root, subdirnames, filenames in os.walk(path):
+            # if the filename exists at this exact path, use it
+            explicit_path = os.path.join(root, path, dirname, filename)
+            if os.path.exists(os.path.join(root, path, dirname, filename)):
+                try:
+                    # Return the first file that matches the criteria.
+                    return open(explicit_path, encoding="latin_1"), explicit_path
+                except (IOError, FileNotFoundError, TypeError):
+                    # File failed, so keep searching.
+                    pass
+
             # Get files in the current directory whose names match the regular expression.
             for fn in [f for f in filenames if re.match(match_name, f)]:
                 abs_filename = os.path.join(root, fn)
