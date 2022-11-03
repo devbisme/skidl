@@ -1267,7 +1267,7 @@ class SwitchBox:
         self.move_corner_nets()
 
         # Storage for detailed routing.
-        self.segments = []
+        self.segments = defaultdict(list)
 
     def audit(self):
         """Raise exception if switchbox is malformed."""
@@ -1332,8 +1332,9 @@ class SwitchBox:
         self.move_corner_nets()
 
         # Flip X/Y coords of any routed segments.
-        for seg in self.segments:
-            seg.flip_xy()
+        for segments in self.segments.values():
+            for seg in segments:
+                seg.flip_xy()
 
     def coalesce(self, switchboxes):
         """Group switchboxes around a seed switchbox into a larger switchbox.
@@ -1474,7 +1475,6 @@ class SwitchBox:
         Returns:
             List of Segments: List of wiring segments for switchbox routes.
         """
-        self.segments = []
 
         if not self.has_nets():
             return self.segments
@@ -1843,8 +1843,7 @@ class SwitchBox:
                     p1 = Point(beg_col_coord, trk_coord)
                     p2 = Point(end_col_coord, trk_coord)
                     seg = Segment(p1, p2)
-                    seg.net = net
-                    self.segments.append(seg)
+                    self.segments[net].append(seg)
 
         # Create vertical wiring segments.
         for idx, column in enumerate(columns):
@@ -1855,8 +1854,7 @@ class SwitchBox:
                 p1 = Point(col_coord, beg_trk_coord)
                 p2 = Point(col_coord, end_trk_coord)
                 seg = Segment(p1, p2)
-                seg.net = intvl.net
-                self.segments.append(seg)
+                self.segments[intvl.net].append(seg)
 
         return self.segments
 
@@ -1882,8 +1880,9 @@ class SwitchBox:
 
         if "draw_routing" in options:
             try:
-                for segment in self.segments:
-                    draw_seg(segment, scr, tx, dot_radius=0)
+                for segments in self.segments.values():
+                    for segment in segments:
+                        draw_seg(segment, scr, tx, dot_radius=0)
             except AttributeError:
                 pass
 
@@ -2057,8 +2056,8 @@ def global_router(net):
 class Router:
     """Mixin to add routing function to Node class."""
 
-    def route(node, options=[]):
-    # def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
+    # def route(node, options=[]):
+    def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
         """Route the wires between part pins in this node and its children.
 
         Steps:
@@ -2344,7 +2343,7 @@ class Router:
         switchboxes = [swbx for swbx in switchboxes if swbx]  # Remove None boxes.
 
         # Do detailed routing inside switchboxes.
-        detailed_routes = []
+        detailed_routes = defaultdict(list)
         for swbx in switchboxes:
             try:
                 swbx.route(options=[])
@@ -2352,7 +2351,8 @@ class Router:
                 swbx.flip_xy()
                 swbx.route(options=["allow_routing_failure"])
                 swbx.flip_xy()
-            detailed_routes.extend(swbx.segments)
+            for net, segments in swbx.segments.items():
+                detailed_routes[net].extend(segments)
 
         # If enabled, draw the global and detailed routing for debug purposes.
         if "draw" in options:
@@ -2373,8 +2373,11 @@ class Router:
             draw_end()
 
         # Store wires in routes.
-        for segment in detailed_routes:
-            node.wires.append([segment.p1, segment.p2])
+        # FIXME: need some junction points where wires of a net meet.
+        # FIXME: clean segments.
+        for segments in detailed_routes.values():
+            for segment in segments:
+                node.wires.append([segment.p1, segment.p2])
 
         # Remove extended routing points from parts.
         rmv_routing_points(node)
