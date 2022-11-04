@@ -449,18 +449,39 @@ def merge_segments(route):
     return merged_segs
 
 def find_junctions(route):
+    """Find junctions where segments of a net intersect.
+
+    Args:
+        route (List): List of Segment objects.
+
+    Returns:
+        List: List of Points, one for each junction.
+
+    Notes:
+        You must run merge_segments() before finding junctions
+        or else the segment endpoints might not be ordered
+        correctly with p1 < p2.
+    """
+
+    # Separate route into vertical and horizontal segments.
     horz_segs = [seg for seg in route if seg.p1.y == seg.p2.y]
     vert_segs = [seg for seg in route if seg.p1.x == seg.p2.x]
 
     junctions = []
+
+    # Check each pair of horz/vert segments for an intersection, except
+    # where they form a right-angle turn.
     for hseg in horz_segs:
-        y = hseg.p1.y
+        y = hseg.p1.y  # Horz seg Y coord.
         for vseg in vert_segs:
-            x = vseg.p1.x
-            if hseg.p1.x < x < hseg.p2.x and vseg.p1.y <= y <= vseg.p2.y:
+            x = vseg.p1.x  # Vert seg X coord.
+            if (hseg.p1.x < x < hseg.p2.x) and (vseg.p1.y <= y <= vseg.p2.y):
+                # The vert segment intersects the interior of the horz seg.
                 junctions.append(Point(x,y))
-            elif vseg.p1.y < y < vseg.p2.y and hseg.p1.x <= x <= hseg.p2.x:
+            elif (vseg.p1.y < y < vseg.p2.y) and (hseg.p1.x <= x <= hseg.p2.x):
+                # The horz segment intersects the interior of the vert seg.
                 junctions.append(Point(x,y))
+
     return junctions
 
 
@@ -2434,7 +2455,7 @@ class Router:
             # Merge colinear segments.
             segments = merge_segments(segments)
             node.wires[net] = segments
-            # Add X & T-junctions.
+            # Add X & T-junctions between segments in the same net.
             junctions = find_junctions(segments)
             node.junctions[net].extend(junctions)
             # FIXME: Remove unnecessary wire jogs.
