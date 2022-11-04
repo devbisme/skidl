@@ -376,7 +376,8 @@ def add_routing_points(node, nets):
 
                 # Add a wire to connect the part pin to the routing point on the bounding box periphery.
                 if pin.route_pt != pin.pt:
-                    node.wires.append([pin.pt * part.tx, pin.route_pt * part.tx])
+                    seg = Segment(pin.pt, pin.route_pt) * part.tx
+                    node.wires[pin.net].append(seg)
 
 
 def rmv_routing_points(node):
@@ -2114,8 +2115,8 @@ def global_router(net):
 class Router:
     """Mixin to add routing function to Node class."""
 
-    # def route(node, options=[]):
-    def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
+    def route(node, options=[]):
+    # def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
         """Route the wires between part pins in this node and its children.
 
         Steps:
@@ -2401,7 +2402,6 @@ class Router:
         switchboxes = [swbx for swbx in switchboxes if swbx]  # Remove None boxes.
 
         # Do detailed routing inside switchboxes.
-        detailed_routes = defaultdict(list)
         for swbx in switchboxes:
             try:
                 swbx.route(options=[])
@@ -2411,7 +2411,9 @@ class Router:
                 swbx.flip_xy()
             for net, segments in swbx.segments.items():
                 segments = merge_segments(segments)
-                detailed_routes[net].extend(merge_segments(segments))
+                node.wires[net].extend(merge_segments(segments))
+                # FIXME: need some junction points where wires of a net meet.
+                # FIXME: clean segments.
 
         # If enabled, draw the global and detailed routing for debug purposes.
         if "draw" in options:
@@ -2431,12 +2433,6 @@ class Router:
 
             draw_end()
 
-        # Store wires in routes.
-        # FIXME: need some junction points where wires of a net meet.
-        # FIXME: clean segments.
-        for segments in detailed_routes.values():
-            for segment in segments:
-                node.wires.append([segment.p1, segment.p2])
 
         # Remove extended routing points from parts.
         rmv_routing_points(node)

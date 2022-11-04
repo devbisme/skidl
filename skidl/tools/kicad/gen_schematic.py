@@ -175,7 +175,7 @@ class Node(Placer, Router):
         self.flatness = flatness
         self.flattened = False
         self.parts = []
-        self.wires = []
+        self.wires = defaultdict(list)
         self.tx = Tx()
         self.bbox = BBox()
 
@@ -347,8 +347,8 @@ class Node(Placer, Router):
             eeschema_code.append(part_code)
 
         # Generate EESCHEMA wiring code between the parts in the node.
-        for w in self.wires:
-            wire_code = wire_to_eeschema(w, tx=tx)
+        for net, wire in self.wires.items():
+            wire_code = wire_to_eeschema(net, wire, tx=tx)
             eeschema_code.append(wire_code)
 
         # Generate power connections for the each part in the node.
@@ -507,11 +507,12 @@ def part_to_eeschema(part, tx):
     return "\n".join(eeschema)
 
 
-def wire_to_eeschema(wire, tx):
+def wire_to_eeschema(net, wire, tx):
     """Create EESCHEMA code for a multi-segment wire.
 
     Args:
-        wire (list): List of (x,y) points for a wire.
+        net (Net): Net associated with the wire.
+        wire (list): List of Segments for a wire.
         tx (Point): transformation matrix for each point in the wire.
 
     Returns:
@@ -519,14 +520,10 @@ def wire_to_eeschema(wire, tx):
     """
 
     eeschema = []
-    pts = [pt * tx for pt in wire]
-    for pt1, pt2 in zip(pts[:-1], pts[1:]):
+    for segment in wire:
         eeschema.append("Wire Wire Line")
-        eeschema.append(
-            "	{} {} {} {}".format(
-                round(pt1.x), round(pt1.y), round(pt2.x), round(pt2.y)
-            )
-        )
+        w = round(segment * tx)
+        eeschema.append(" {} {} {} {}".format(w.p1.x, w.p1.y, w.p2.x, w.p2.y))
     eeschema.append("")  # For blank line at end.
     return "\n".join(eeschema)
 

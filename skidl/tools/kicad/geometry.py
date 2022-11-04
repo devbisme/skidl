@@ -256,6 +256,9 @@ class Segment:
         """Apply transformation matrix to a segment and return a segment."""
         return Segment(self.p1 * m, self.p2 * m)
 
+    def __round__(self):
+        return Segment(round(self.p1), round(self.p2))
+
     def flip_xy(self):
         """Flip the X-Y coordinates of the segment."""
         self.p1.flip_xy()
