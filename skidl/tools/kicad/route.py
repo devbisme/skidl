@@ -448,6 +448,21 @@ def merge_segments(route):
 
     return merged_segs
 
+def find_junctions(route):
+    horz_segs = [seg for seg in route if seg.p1.y == seg.p2.y]
+    vert_segs = [seg for seg in route if seg.p1.x == seg.p2.x]
+
+    junctions = []
+    for hseg in horz_segs:
+        y = hseg.p1.y
+        for vseg in vert_segs:
+            x = vseg.p1.x
+            if hseg.p1.x < x < hseg.p2.x and vseg.p1.y <= y <= vseg.p2.y:
+                junctions.append(Point(x,y))
+            elif vseg.p1.y < y < vseg.p2.y and hseg.p1.x <= x <= hseg.p2.x:
+                junctions.append(Point(x,y))
+    return junctions
+
 
 class NoSwitchBox(Exception):
     """Exception raised when a switchbox cannot be generated."""
@@ -2410,10 +2425,19 @@ class Router:
                 swbx.route(options=["allow_routing_failure"])
                 swbx.flip_xy()
             for net, segments in swbx.segments.items():
-                segments = merge_segments(segments)
-                node.wires[net].extend(merge_segments(segments))
-                # FIXME: need some junction points where wires of a net meet.
-                # FIXME: clean segments.
+                node.wires[net].extend(segments)
+
+        # Now clean-up the wires and add junctions.
+        for net, segments in node.wires.items():
+            # Round the wire segment endpoints to integers.
+            segments = [round(seg) for seg in segments]
+            # Merge colinear segments.
+            segments = merge_segments(segments)
+            node.wires[net] = segments
+            # Add X & T-junctions.
+            junctions = find_junctions(segments)
+            node.junctions[net].extend(junctions)
+            # FIXME: Remove unnecessary wire jogs.
 
         # If enabled, draw the global and detailed routing for debug purposes.
         if "draw" in options:

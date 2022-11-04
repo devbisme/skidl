@@ -176,6 +176,7 @@ class Node(Placer, Router):
         self.flattened = False
         self.parts = []
         self.wires = defaultdict(list)
+        self.junctions = defaultdict(list)
         self.tx = Tx()
         self.bbox = BBox()
 
@@ -350,6 +351,9 @@ class Node(Placer, Router):
         for net, wire in self.wires.items():
             wire_code = wire_to_eeschema(net, wire, tx=tx)
             eeschema_code.append(wire_code)
+        for net, junctions in self.junctions.items():
+            junction_code = junction_to_eeschema(net, junctions, tx=tx)
+            eeschema_code.append(junction_code)
 
         # Generate power connections for the each part in the node.
         for part in self.parts:
@@ -513,7 +517,7 @@ def wire_to_eeschema(net, wire, tx):
     Args:
         net (Net): Net associated with the wire.
         wire (list): List of Segments for a wire.
-        tx (Point): transformation matrix for each point in the wire.
+        tx (Tx): transformation matrix for each point in the wire.
 
     Returns:
         string: Text to be placed into EESCHEMA file.
@@ -523,7 +527,15 @@ def wire_to_eeschema(net, wire, tx):
     for segment in wire:
         eeschema.append("Wire Wire Line")
         w = round(segment * tx)
-        eeschema.append(" {} {} {} {}".format(w.p1.x, w.p1.y, w.p2.x, w.p2.y))
+        eeschema.append("  " + str(w))
+    eeschema.append("")  # For blank line at end.
+    return "\n".join(eeschema)
+
+
+def junction_to_eeschema(net, junctions, tx):
+    eeschema = []
+    for junction in junctions:
+        eeschema.append("Connection ~ {}".format(round(junction * tx)))
     eeschema.append("")  # For blank line at end.
     return "\n".join(eeschema)
 

@@ -113,6 +113,9 @@ class Point:
     def __round__(self, n=None):
         return Point(round(self.x, n), round(self.y, n))
 
+    def __str__(self):
+        return "{} {}".format(self.x, self.y)
+
     def snap(self, grid_spacing):
         """Snap point x,y coords to the given grid spacing."""
         snap_func = lambda x: int(grid_spacing * round(x / grid_spacing))
@@ -258,6 +261,9 @@ class Segment:
 
     def __round__(self):
         return Segment(round(self.p1), round(self.p2))
+
+    def __str__(self):
+        return "{} {}".format(str(self.p1), str(self.p2))
 
     def flip_xy(self):
         """Flip the X-Y coordinates of the segment."""
