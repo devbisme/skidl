@@ -856,11 +856,6 @@ def _parse_lib_part_kicad_v6(self, partial_parse):
         symbol_name = "_".join(unit_name_pieces[:-2])
         assert symbol_name == self.name
         unit_num = int(unit_name_pieces[-2])
-        conversion_flag = int(unit_name_pieces[-1])
-
-        # Don't add this unit to the part if the conversion flag is 0.
-        if not conversion_flag:
-            continue
 
         # Get the pins for this unit.
         unit_pins = [item for item in unit if to_list(item)[0] == "pin"]
@@ -888,9 +883,10 @@ def _parse_lib_part_kicad_v6(self, partial_parse):
 
             # Add the pins that were found to the total part. Include the unit identifier
             # in the pin so we can find it later when the part unit is created.
-            self.add_pins(
-                Pin(name=pin_name, num=pin_number, func=pin_func, unit=unit_num)
-            )
+            if not self.get_pins(pin_number):
+                self.add_pins(
+                    Pin(name=pin_name, num=pin_number, func=pin_func, unit=unit_num)
+                )
 
     # Clear the part reference field directly. Don't use the setter function
     # since it will try to generate and assign a unique part reference if
