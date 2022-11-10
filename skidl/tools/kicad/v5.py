@@ -488,6 +488,7 @@ def parse_lib_part(self, partial_parse):
         p.x = kicad_pin.x
         p.y = kicad_pin.y
         p.orientation = kicad_pin.orientation
+        p.unit = kicad_pin.unit
 
         pin_type_translation = {
             "I": Pin.types.INPUT,
