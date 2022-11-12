@@ -855,7 +855,7 @@ def place_parts(connected_parts, internal_nets, floating_parts, options):
             # Draw the placement for debug purposes.
             bbox = BBox()
             for part in group:
-                tx_bbox = part.place_bbox.dot * part.tx
+                tx_bbox = part.place_bbox * part.tx
                 bbox.add(tx_bbox)
             draw_scr, draw_tx, draw_font = draw_start(bbox)
         else:
