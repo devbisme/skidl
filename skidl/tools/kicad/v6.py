@@ -15,6 +15,7 @@ from __future__ import (  # isort:skip
 
 from builtins import int
 
+from collections import OrderedDict
 from future import standard_library
 import sexpdata
 
@@ -39,8 +40,10 @@ def load_sch_lib(self, f, filename, lib_search_paths_):
     lib_list = sexpdata.load(f)
 
     # Skip over the 'kicad_symbol_lib' label and extract symbols into a dictionary with
-    # symbol names as keys.
-    parts = {item[1]: item[2:] for item in lib_list[1:] if item[0].value().lower()=='symbol'}
+    # symbol names as keys. Use an ordered dictionary to keep parts in the same order as
+    # they appeared in the library file because in KiCad V6 library symbols can "extend"
+    # previous symbols which should be processed before those that extend them.
+    parts = OrderedDict([(item[1], item[2:]) for item in lib_list[1:] if item[0].value().lower()=='symbol'])
 
     # Create Part objects for each part in library.
     for part_name, part_defn in parts.items():
