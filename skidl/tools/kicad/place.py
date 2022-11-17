@@ -34,6 +34,7 @@ from ...utilities import *
 from .common import GRID
 from .geometry import *
 from .route import *
+from .debug_draw import *
 
 standard_library.install_aliases()
 
@@ -48,23 +49,6 @@ standard_library.install_aliases()
 # is arranged with the blocks of the child nodes.
 #
 ###################################################################
-
-
-def draw_force(part, force, scr, tx, font, color=(128, 0, 0)):
-    force *= 200
-    anchor = part.place_bbox.ctr * part.tx
-    draw_seg(
-        Segment(anchor, anchor + force), scr, tx, color=color, thickness=5, dot_radius=5
-    )
-
-
-def draw_placement(parts, nets, scr, tx, font):
-    draw_clear(scr)
-    for part in parts:
-        draw_part(part, scr, tx, font)
-    for net in nets:
-        draw_net(net, parts, scr, tx, font)
-    draw_redraw()
 
 
 def random_placement(parts):
@@ -1067,8 +1051,8 @@ def place_blocks(connected_parts, floating_parts, children, options):
 class Placer:
     """Mixin to add place function to Node class."""
 
-    def place(node, options=["no_keep_stubs", "remove_power"]):
-    # def place(node, options=["draw", "no_keep_stubs", "remove_power"]):
+    # def place(node, options=["no_keep_stubs", "remove_power"]):
+    def place(node, options=["draw", "no_keep_stubs", "remove_power"]):
         """Place the parts and children in this node.
 
         Args:
