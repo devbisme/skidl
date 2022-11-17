@@ -95,303 +95,6 @@ for direction in Direction:
 net_colors = defaultdict(lambda: (randint(0, 200), randint(0, 200), randint(0, 200)))
 
 
-# #
-# # Drawing functions to display routing for debugging purposes.
-# #
-
-# glbl_scr = None
-# glbl_tx = None
-# glbl_font = None
-
-
-# def draw_box(bbox, scr, tx, color=(192, 255, 192), thickness=0):
-#     """Draw a box in the drawing area.
-
-#     Args:
-#         bbox (BBox): Bounding box for the box.
-#         scr (PyGame screen): Screen object for PyGame drawing.
-#         tx (Tx): Transformation matrix from real to screen coords.
-#         color (tuple, optional): Box color. Defaults to (192, 255, 192).
-
-#     Returns:
-#         None.
-#     """
-
-#     bbox = bbox * tx
-#     corners = (
-#         (bbox.min.x, bbox.min.y),
-#         (bbox.min.x, bbox.max.y),
-#         (bbox.max.x, bbox.max.y),
-#         (bbox.max.x, bbox.min.y),
-#     )
-#     pygame.draw.polygon(scr, color, corners, thickness)
-
-
-# def draw_endpoint(pt, scr, tx, color=(100, 100, 100), dot_radius=10):
-#     """Draw a line segment endpoint in the drawing area.
-
-#     Args:
-#         pt (Point): A point with (x,y) coords.
-#         scr (PyGame screen): Screen object for PyGame drawing.
-#         tx (Tx): Transformation matrix from real to screen coords.
-#         color (tuple, optional): Segment color. Defaults to (192, 255, 192).
-#         dot_Radius (int, optional): Endpoint dot radius. Defaults to 3.
-#     """
-
-#     pt = pt * tx  # Convert to drawing coords.
-
-#     # Draw diamond for terminal.
-#     sz = dot_radius / 2 * tx.a  # Scale for drawing coords.
-#     corners = (
-#         (pt.x, pt.y + sz),
-#         (pt.x + sz, pt.y),
-#         (pt.x, pt.y - sz),
-#         (pt.x - sz, pt.y),
-#     )
-#     pygame.draw.polygon(scr, color, corners, 0)
-
-#     # Draw dot for terminal.
-#     radius = dot_radius * tx.a
-#     pygame.draw.circle(scr, color, (pt.x, pt.y), radius)
-
-
-# def draw_seg(seg, scr, tx, color=(100, 100, 100), thickness=5, dot_radius=10):
-#     """Draw a line segment in the drawing area.
-
-#     Args:
-#         seg (Segment, Interval, NetInterval): An object with two endpoints.
-#         scr (PyGame screen): Screen object for PyGame drawing.
-#         tx (Tx): Transformation matrix from real to screen coords.
-#         color (tuple, optional): Segment color. Defaults to (192, 255, 192).
-#         seg_thickness (int, optional): Segment line thickness. Defaults to 5.
-#         dot_Radius (int, optional): Endpoint dot radius. Defaults to 3.
-#     """
-
-#     # Use net color if object has a net. Otherwise use input color.
-#     try:
-#         color = net_colors[seg.net]
-#     except AttributeError:
-#         pass
-
-#     # draw endpoints.
-#     draw_endpoint(seg.p1, scr, tx, color=color, dot_radius=dot_radius)
-#     draw_endpoint(seg.p2, scr, tx, color=color, dot_radius=dot_radius)
-
-#     # Transform segment coords to screen coords.
-#     seg = seg * tx
-
-#     # Draw segment.
-#     pygame.draw.line(
-#         scr, color, (seg.p1.x, seg.p1.y), (seg.p2.x, seg.p2.y), width=thickness
-#     )
-
-
-# def draw_text(txt, pt, scr, tx, font, color=(100, 100, 100)):
-#     """Render text in drawing area.
-
-#     Args:
-#         txt (str): Text string to be rendered.
-#         pt (Point): Real coord for start of rendered text.
-#         scr (PyGame screen): Screen object for PyGame drawing.
-#         tx (Tx): Transformation matrix from real to screen coords.
-#         font (PyGame font): Font for rendering text.
-#         color (tuple, optional): Segment color. Defaults to (100,100,100).
-#     """
-
-#     # Transform text starting point to screen coords.
-#     pt = pt * tx
-
-#     # Render text.
-#     font.render_to(scr, (pt.x, pt.y), txt, color)
-
-
-# def draw_part(part, scr, tx, font):
-#     """Draw part bounding box.
-
-#     Args:
-#         part (Part): Part to draw.
-#         scr (PyGame screen): Screen object for PyGame drawing.
-#         tx (Tx): Transformation matrix from real to screen coords.
-#         font (PyGame font): Font for rendering text.
-#     """
-#     tx_bbox = part.lbl_bbox * part.tx
-#     draw_box(tx_bbox, scr, tx, color=(180, 255, 180), thickness=0)
-#     draw_box(tx_bbox, scr, tx, color=(90, 128, 90), thickness=5)
-#     draw_text(part.ref, tx_bbox.ctr, scr, tx, font)
-
-
-# def draw_net(net, parts, scr, tx, font, color=(0, 0, 0), thickness=2, dot_radius=5):
-#     """Draw net and connected terminals.
-
-#     Args:
-#         net (Net): Net of conmnected terminals.
-#         parts (list): List of parts to which net will be drawn.
-#         scr (PyGame screen): Screen object for PyGame drawing.
-#         tx (Tx): Transformation matrix from real to screen coords.
-#         font (PyGame font): Font for rendering text.
-#         color (tuple, optional): Segment color. Defaults to (0,0,0).
-#         thickness (int, optional): Thickness of net line. Defaults to 2.
-#         dot_radius (int, optional): Radius of terminals on net. Defaults to 5.
-#     """
-#     pts = []
-#     for pin in net.pins:
-#         part = pin.part
-#         if part in parts:
-#             pt = pin.route_pt * part.tx
-#             pts.append(pt)
-#     for pt1, pt2 in zip(pts[:-1], pts[1:]):
-#         draw_seg(
-#             Segment(pt1, pt2),
-#             scr,
-#             tx,
-#             color=color,
-#             thickness=thickness,
-#             dot_radius=dot_radius,
-#         )
-
-
-# def draw_clear(scr, color=(255, 255, 255)):
-#     """Clear drawing area.
-
-#     Args:
-#         scr (PyGame screen): Screen object to be cleared.
-#         color (tuple, optional): Background color. Defaults to (255, 255, 255).
-#     """
-#     scr.fill(color)
-
-
-# def draw_start(bbox):
-#     """
-#     Initialize PyGame drawing area.
-
-#     Args:
-#         bbox: Bounding box of object to be drawn.
-
-#     Returns:
-#         scr: PyGame screen that is drawn upon.
-#         tx: Matrix to transform from real coords to screen coords.
-#         font: PyGame font for rendering text.
-#     """
-
-#     # Only import pygame if drawing is being done to avoid the startup message.
-#     import pygame
-#     import pygame.freetype
-
-#     # Make pygame module available to other functions.
-#     globals()["pygame"] = pygame
-
-#     # Screen drawing area.
-#     scr_bbox = BBox(Point(0, 0), Point(2000, 1500))
-
-#     # Place a blank region around the object by expanding it's bounding box.
-#     border = max(bbox.w, bbox.h) / 20
-#     bbox = bbox.resize(Vector(border, border))
-#     bbox = bbox.round()
-
-#     # Compute the scaling from real to screen coords.
-#     scale = min(scr_bbox.w / bbox.w, scr_bbox.h / bbox.h)
-#     scale_tx = Tx(a=scale, d=scale)
-
-#     # Flip the Y coord.
-#     flip_tx = Tx(d=-1)
-
-#     # Compute the translation of the object center to the drawing area center
-#     new_bbox = bbox * scale_tx * flip_tx  # Object bbox transformed to screen coords.
-#     move = scr_bbox.ctr - new_bbox.ctr  # Vector to move object ctr to drawing ctr.
-#     move_tx = Tx(dx=move.x, dy=move.y)
-
-#     # The final transformation matrix will scale the object's real coords,
-#     # flip the Y coord, and then move the object to the center of the drawing area.
-#     tx = scale_tx * flip_tx * move_tx
-
-#     # Initialize drawing area.
-#     pygame.init()
-#     scr = pygame.display.set_mode((scr_bbox.w, scr_bbox.h))
-
-#     # Set font for text rendering.
-#     font = pygame.freetype.SysFont("consolas", 24)
-
-#     # Clear drawing area.
-#     draw_clear(scr)
-
-#     global glbl_scr, glbl_tx, glbl_font
-#     glbl_scr = scr
-#     glbl_tx = tx
-#     glbl_font = font
-
-#     # Return drawing screen, transformation matrix, and font.
-#     return scr, tx, font
-
-
-# def draw_redraw():
-#     """Redraw the PyGame display."""
-#     pygame.display.flip()
-
-
-# def draw_end():
-#     """Display drawing and wait for user to close PyGame window."""
-
-#     # Display drawing.
-#     draw_redraw()
-
-#     # Wait for user to close PyGame window.
-#     running = True
-#     while running:
-#         for event in pygame.event.get():
-#             if event.type == pygame.QUIT:
-#                 running = False
-#     pygame.quit()
-
-
-def add_routing_points(node, nets):
-    """Add routing points by extending pins out to the edge of the part bounding box.
-
-    Args:
-        part (Node): Node containing list of parts.
-        nets (list): List of nets to be routed.
-    """
-
-    def add_routing_pt(part, pin):
-        """Add the point for a pin on the boundary of a part."""
-
-        pin.route_pt = Point(pin.pt.x, pin.pt.y)
-        if pin.orientation == "U":
-            pin.route_pt.y = part.lbl_bbox.min.y
-        elif pin.orientation == "D":
-            pin.route_pt.y = part.lbl_bbox.max.y
-        elif pin.orientation == "L":
-            pin.route_pt.x = part.lbl_bbox.max.x
-        elif pin.orientation == "R":
-            pin.route_pt.x = part.lbl_bbox.min.x
-        else:
-            raise RuntimeError("Unknown pin orientation.")
-
-    for part in node.parts:
-
-        # Find anchor pins on the part and pulling pins on other parts.
-        for pin in part.pins:
-            if pin.net in nets:
-
-                # Only routing points for pins on active internal nets.
-                add_routing_pt(part, pin)
-
-                # Add a wire to connect the part pin to the routing point on the bounding box periphery.
-                if pin.route_pt != pin.pt:
-                    seg = Segment(pin.pt, pin.route_pt) * part.tx
-                    node.wires[pin.net].append(seg)
-
-
-def rmv_routing_points(node):
-    """Remove routing points from part pins in node."""
-
-    for part in node.parts:
-        for pin in part:
-            try:
-                del pin.route_pt
-            except AttributeError:
-                pass
-
-
 def merge_segments(route):
     """Merge segments in a route that run the same direction and overlap.
 
@@ -2157,31 +1860,9 @@ def global_router(net):
 class Router:
     """Mixin to add routing function to Node class."""
 
-    # def route(node, options=[]):
-    def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
-        """Route the wires between part pins in this node and its children.
+    def get_internal_nets(node):
+        """Return a list of nets internal to the node for routing."""
 
-        Steps:
-            1. Divide the bounding box surrounding the parts into switchboxes.
-            2. Do global routing of nets through sequences of switchboxes.
-            3. Do detailed routing within each switchbox.
-
-        Args:
-            node (Node): Hierarchical node containing the parts to be connected.
-            options (list): List of text options to control drawing of placement and
-                routing for debugging purposes. Available options are "draw", "draw_switchbox",
-                "draw_routing", "show_capacities", "draw_all_terminals", "draw_channels".
-        """
-
-        # Route children of this node.
-        for child in node.children.values():
-            child.route()
-
-        # Exit if no parts to route.
-        if not node.parts:
-            return []
-
-        # Extract list of nets internal to the node for routing.
         processed_nets = []
         internal_nets = []
         for part in node.parts:
@@ -2208,7 +1889,7 @@ class Router:
 
                 def is_internal(net):
 
-                    # Determine if all the pins on this net reside in the node.
+                    # A net is internal if all its pins reside in this node.
                     for net_pin in net.pins:
 
                         # Don't consider stubs.
@@ -2225,12 +1906,89 @@ class Router:
                 if is_internal(net):
                     internal_nets.append(net)
 
+        return internal_nets
+
+    def add_routing_points(node, nets):
+        """Add routing points by extending pins out to the edge of the part bounding box.
+
+        Args:
+            part (Node): Node containing list of parts.
+            nets (list): List of nets to be routed.
+        """
+
+        def add_routing_pt(part, pin):
+            """Add the point for a pin on the boundary of a part."""
+
+            pin.route_pt = Point(pin.pt.x, pin.pt.y)
+            if pin.orientation == "U":
+                pin.route_pt.y = part.lbl_bbox.min.y
+            elif pin.orientation == "D":
+                pin.route_pt.y = part.lbl_bbox.max.y
+            elif pin.orientation == "L":
+                pin.route_pt.x = part.lbl_bbox.max.x
+            elif pin.orientation == "R":
+                pin.route_pt.x = part.lbl_bbox.min.x
+            else:
+                raise RuntimeError("Unknown pin orientation.")
+
+        for part in node.parts:
+
+            # Find anchor pins on the part and pulling pins on other parts.
+            for pin in part.pins:
+                if pin.net in nets:
+
+                    # Only routing points for pins on active internal nets.
+                    add_routing_pt(part, pin)
+
+                    # Add a wire to connect the part pin to the routing point on the bounding box periphery.
+                    if pin.route_pt != pin.pt:
+                        seg = Segment(pin.pt, pin.route_pt) * part.tx
+                        node.wires[pin.net].append(seg)
+
+
+    def rmv_routing_points(node):
+        """Remove routing points from part pins in node."""
+
+        for part in node.parts:
+            for pin in part:
+                try:
+                    del pin.route_pt
+                except AttributeError:
+                    pass
+
+    def route(node, options=[]):
+    # def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
+        """Route the wires between part pins in this node and its children.
+
+        Steps:
+            1. Divide the bounding box surrounding the parts into switchboxes.
+            2. Do global routing of nets through sequences of switchboxes.
+            3. Do detailed routing within each switchbox.
+
+        Args:
+            node (Node): Hierarchical node containing the parts to be connected.
+            options (list): List of text options to control drawing of placement and
+                routing for debugging purposes. Available options are "draw", "draw_switchbox",
+                "draw_routing", "show_capacities", "draw_all_terminals", "draw_channels".
+        """
+
+        # First, recursively-route any children of this node.
+        for child in node.children.values():
+            child.route()
+
+        # Exit if no parts to route in this node.
+        if not node.parts:
+            return []
+
+        # Get all the nets that have pins solely within this node.
+        internal_nets = node.get_internal_nets()
+
         # Exit if no nets to route.
         if not internal_nets:
             return []
 
         # Extend routing points of part pins to the edges of their bounding boxes.
-        add_routing_points(node, internal_nets) 
+        node.add_routing_points(internal_nets) 
 
         # Find the coords of the horiz/vert tracks that will hold the H/V faces of the routing switchboxes.
         v_track_coord = []
@@ -2490,4 +2248,4 @@ class Router:
             draw_end()
 
         # Remove extended routing points from parts.
-        rmv_routing_points(node)
+        node.rmv_routing_points()
