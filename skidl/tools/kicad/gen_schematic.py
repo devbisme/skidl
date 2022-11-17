@@ -239,7 +239,8 @@ class Node(Placer, Router):
         level_names = part.hierarchy.split(HIER_SEP)
         self.name = level_names[level]
         base_filename = "_".join([self.top_name] + level_names[0 : level + 1]) + ".sch"
-        self.sheet_filename = os.path.join(self.filepath, base_filename)
+        self.sheet_filename = base_filename
+        # self.sheet_filename = os.path.join(self.filepath, base_filename)
 
         if level == len(level_names) - 1:
             # Add part to node at this level in the hierarchy.
@@ -418,8 +419,9 @@ class Node(Placer, Router):
 
         # Create a hierarchical sheet file for storing this unflattened node.
         A_size = get_A_size(flattened_bbox)
+        filepath = os.path.join(self.filepath, self.sheet_filename)
         create_eeschema_file(
-            self.sheet_filename, eeschema_code, title=self.title, A_size=A_size
+            filepath, eeschema_code, title=self.title, A_size=A_size
         )
 
         # Create the hierarchical sheet for insertion into the calling node sheet.

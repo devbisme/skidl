@@ -16,10 +16,19 @@ from skidl import (
 
 import os
 import os.path
+import shutil
+import sys
 
 from .setup_teardown import setup_function, teardown_function
 
-output_file_root = "./schematic_output"
+
+def create_output_dir(leaf_dir_name):
+    output_file_root = "schematic_output"
+    python_version = ".".join([str(n) for n in sys.version_info[0:3]])
+    output_dir = os.path.join(".", output_file_root, python_version, leaf_dir_name)
+    shutil.rmtree(output_dir, ignore_errors=True)
+    os.makedirs(output_dir)
+    return output_dir
 
 def test_schematic_gen_place():
     @subcircuit
@@ -55,9 +64,7 @@ def test_schematic_gen_place():
             qs[-1].C & Net("O")
 
     test()
-    output_dir = os.path.join(output_file_root, "place")
-    os.makedirs(output_dir)
-    generate_schematic(filepath=output_dir, flatness=0.5)
+    generate_schematic(filepath=create_output_dir("place"), flatness=0.5)
 
 def test_schematic_gen_simple():
     q = Part(lib="Device.lib", name="Q_PNP_CBE", footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2", dest=TEMPLATE, symtx="V")
@@ -66,9 +73,7 @@ def test_schematic_gen_simple():
     for q in qs:
         for p, n in zip(q.pins, ns):
             n += p
-    output_dir = os.path.join(output_file_root, "simple")
-    os.makedirs(output_dir)
-    generate_schematic(filepath=output_dir, flatness=1.0)
+    generate_schematic(filepath=create_output_dir("simple"), flatness=1.0)
 
 def test_schematic_gen_units():
     @subcircuit
@@ -107,9 +112,7 @@ def test_schematic_gen_units():
         q()
         test()
 
-    output_dir = os.path.join(output_file_root, "units")
-    os.makedirs(output_dir)
-    generate_schematic(filepath=output_dir, flatness=1.0)
+    generate_schematic(filepath=create_output_dir("units"), flatness=1.0)
 
 def test_schematic_gen_hier():
     with Group("A"):
@@ -141,6 +144,4 @@ def test_schematic_gen_hier():
             vcc & q1["E"]
             vcc & q2["E"]
 
-    output_dir = os.path.join(output_file_root, "hier")
-    os.makedirs(output_dir)
-    generate_schematic(filepath=output_dir, flatness=0.0)
+    generate_schematic(filepath=create_output_dir("hier"), flatness=0.0)
