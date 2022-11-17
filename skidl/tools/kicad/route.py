@@ -2156,8 +2156,8 @@ def global_router(net):
 class Router:
     """Mixin to add routing function to Node class."""
 
-    # def route(node, options=[]):
-    def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
+    def route(node, options=[]):
+    # def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
         """Route the wires between part pins in this node and its children.
 
         Steps:
