@@ -1956,39 +1956,8 @@ class Router:
                 except AttributeError:
                     pass
 
-    def route(node, options=[]):
-    # def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
-        """Route the wires between part pins in this node and its children.
-
-        Steps:
-            1. Divide the bounding box surrounding the parts into switchboxes.
-            2. Do global routing of nets through sequences of switchboxes.
-            3. Do detailed routing within each switchbox.
-
-        Args:
-            node (Node): Hierarchical node containing the parts to be connected.
-            options (list): List of text options to control drawing of placement and
-                routing for debugging purposes. Available options are "draw", "draw_switchbox",
-                "draw_routing", "show_capacities", "draw_all_terminals", "draw_channels".
-        """
-
-        # First, recursively-route any children of this node.
-        for child in node.children.values():
-            child.route()
-
-        # Exit if no parts to route in this node.
-        if not node.parts:
-            return []
-
-        # Get all the nets that have pins solely within this node.
-        internal_nets = node.get_internal_nets()
-
-        # Exit if no nets to route.
-        if not internal_nets:
-            return []
-
-        # Extend routing points of part pins to the edges of their bounding boxes.
-        node.add_routing_points(internal_nets) 
+    def create_routing_tracks(node, routing_bbox):
+        """Create horizontal & vertical global routing tracks."""
 
         # Find the coords of the horiz/vert tracks that will hold the H/V faces of the routing switchboxes.
         v_track_coord = []
@@ -2005,10 +1974,6 @@ class Router:
         # Create delimiting tracks around the routing area. Just take the number of nets to be routed
         # and create a channel that size around the periphery. That's guaranteed to be big enough.
         # This is overkill but probably not worth optimizing since any excess boundary area is ignored.
-        channel_sz = (len(internal_nets) + 1) * GRID
-        routing_bbox = (
-            node.internal_bbox().resize(Vector(channel_sz, channel_sz))
-        ).round()
         v_track_coord.append(routing_bbox.min.x)
         v_track_coord.append(routing_bbox.max.x)
         h_track_coord.append(routing_bbox.min.y)
@@ -2063,6 +2028,54 @@ class Router:
         for track in h_tracks + v_tracks:
             track.split_faces()
             track.remove_duplicate_faces()
+
+        return h_tracks, v_tracks
+
+
+    def route(node, options=[]):
+    # def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
+        """Route the wires between part pins in this node and its children.
+
+        Steps:
+            1. Divide the bounding box surrounding the parts into switchboxes.
+            2. Do global routing of nets through sequences of switchboxes.
+            3. Do detailed routing within each switchbox.
+
+        Args:
+            node (Node): Hierarchical node containing the parts to be connected.
+            options (list): List of text options to control drawing of placement and
+                routing for debugging purposes. Available options are "draw", "draw_switchbox",
+                "draw_routing", "show_capacities", "draw_all_terminals", "draw_channels".
+        """
+
+        # First, recursively-route any children of this node.
+        for child in node.children.values():
+            child.route()
+
+        # Exit if no parts to route in this node.
+        if not node.parts:
+            return []
+
+        # Get all the nets that have pins solely within this node.
+        internal_nets = node.get_internal_nets()
+
+        # Exit if no nets to route.
+        if not internal_nets:
+            return []
+
+        # Extend routing points of part pins to the edges of their bounding boxes.
+        node.add_routing_points(internal_nets)
+
+        # Create horizontal & vertical routing tracks for routing.
+
+        # Create the surrounding box that contains the entire routing area.
+        channel_sz = (len(internal_nets) + 1) * GRID
+        routing_bbox = (
+            node.internal_bbox().resize(Vector(channel_sz, channel_sz))
+        ).round()
+
+        # Create horizontal & vertical global routing tracks and faces.
+        h_tracks, v_tracks = node.create_routing_tracks(routing_bbox)
 
         # Add terminals to all non-part/non-boundary faces.
         for track in h_tracks + v_tracks:
