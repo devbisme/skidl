@@ -13,11 +13,11 @@ from __future__ import (  # isort:skip
     unicode_literals,
 )
 
-__all__ = ["Router",]
+# __all__ = ["Router",]
 
-from builtins import range, zip
+from builtins import range, zip, super
 from collections import defaultdict
-from enum import Enum, auto
+from enum import Enum
 from itertools import zip_longest, chain
 from random import randint, choice
 
@@ -74,13 +74,13 @@ standard_library.install_aliases()
 
 # Orientations and directions.
 class Orientation(Enum):
-    HORZ = auto()
-    VERT = auto()
+    HORZ = 1
+    VERT = 2
 
 
 class Direction(Enum):
-    LEFT = auto()
-    RIGHT = auto()
+    LEFT = 3
+    RIGHT = 4
 
 
 # Put the orientation/direction enums in global space to make using them easier.
@@ -285,7 +285,7 @@ def draw_start(bbox):
     # Place a blank region around the object by expanding it's bounding box.
     border = max(bbox.w, bbox.h) / 20
     bbox = bbox.resize(Vector(border, border))
-    bbox = round(bbox)
+    bbox = bbox.round()
 
     # Compute the scaling from real to screen coords.
     scale = min(scr_bbox.w / bbox.w, scr_bbox.h / bbox.h)
@@ -614,7 +614,7 @@ class Terminal:
             draw_endpoint(self.route_pt, scr, tx, color=net_colors[self.net])
 
 
-class Interval:
+class Interval(object):
     def __init__(self, beg, end):
         """Define an interval with a beginning and an end.
 
@@ -813,6 +813,7 @@ class Face(Interval):
             self.capacity = 0
         else:
             # Wire routing capacity for other faces is the number of terminals they have.
+            # FIXME: Some faces are too short and have no terminals so they block routing.
             self.capacity = len(self.terminals)
 
     def has_nets(self):
@@ -988,7 +989,7 @@ class Face(Interval):
 
 
 class GlobalWire(list):
-    def __init__(self, *args, net=None, **kwargs):
+    def __init__(self, net, *args, **kwargs):
         """Global-routing wire connecting switchbox faces and terminals.
 
         Global routes start off as a sequence of switchbox faces that the route
@@ -996,8 +997,8 @@ class GlobalWire(list):
         on their respective faces.
 
         Args:
-            *args: Positional args passed to list superclass __init__().
             net (Net): The net associated with the wire.
+            *args: Positional args passed to list superclass __init__().
             **kwargs: Keyword args passed to list superclass __init__().
         """
         self.net = net
@@ -1070,7 +1071,7 @@ class GlobalWire(list):
 
 
 class GlobalTrack(list):
-    def __init__(self, *args, orientation=HORZ, coord=0, idx=None, **kwargs):
+    def __init__(self, orientation=HORZ, coord=0, idx=None, *args, **kwargs):
         """A horizontal/vertical track holding zero or more faces all having the same Y/X coordinate.
 
         These global tracks are made by extending the edges of part bounding boxes to
@@ -1078,10 +1079,10 @@ class GlobalTrack(list):
         as the tracks used within the switchbox for the detailed routing phase.
 
         Args:
-            *args: Positional args passed to list superclass __init__().
             orientation (Orientation): Orientation of track (horizontal or vertical).
             coord (int): Coordinate of track on axis orthogonal to track direction.
             idx (int): Index of track into a list of X or Y coords.
+            *args: Positional args passed to list superclass __init__().
             **kwargs: Keyword args passed to list superclass __init__().
         """
 
@@ -1100,6 +1101,10 @@ class GlobalTrack(list):
     def __gt__(self, track):
         """Used for ordering tracks."""
         return self.coord > track.coord
+
+    def __sub__(self, other):
+        """Subtract coords of two tracks."""
+        return self.coord - other.coord
 
     def extend_faces(self, orthogonal_tracks):
         """Extend the faces in a track.
@@ -2052,7 +2057,7 @@ def global_router(net):
         
         # Return empty path if no stop faces or already starting from a stop face. 
         if start_face in stop_faces or not stop_faces:
-            return GlobalWire([], net=net)
+            return GlobalWire(net)
 
         # Record faces that have been visited and their distance from the start face.
         visited_faces = [start_face]
@@ -2105,7 +2110,7 @@ def global_router(net):
 
             if not closest_face:
                 # Exception raised if couldn't find a path from start to stop faces.
-                raise RoutingFailure("Routing failure: {net.name} {start_face.pins}".format(**locals()))
+                raise RoutingFailure("Routing failure: {net.name} {net} {start_face.pins}".format(**locals()))
 
             # Add the closest adjacent face to the list of visited faces.
             closest_face.dist_from_start = closest_dist
@@ -2127,7 +2132,7 @@ def global_router(net):
                         face.capacity -= 1
 
                 # Reverse face path to go from start-to-stop face and return it.
-                return GlobalWire(reversed(face_path), net=net)
+                return GlobalWire(net, reversed(face_path))
 
     # Select a random start face and look for a route to *any* of the other start faces.
     start_face = choice(list(start_faces))
@@ -2151,8 +2156,8 @@ def global_router(net):
 class Router:
     """Mixin to add routing function to Node class."""
 
-    def route(node, options=[]):
-    # def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
+    # def route(node, options=[]):
+    def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
         """Route the wires between part pins in this node and its children.
 
         Steps:
@@ -2232,7 +2237,7 @@ class Router:
 
         # The top/bottom/left/right of each part's labeled bounding box define the H/V tracks.
         for part in node.parts:
-            bbox = round(part.lbl_bbox * part.tx)
+            bbox = (part.lbl_bbox * part.tx).round()
             v_track_coord.append(bbox.min.x)
             v_track_coord.append(bbox.max.x)
             h_track_coord.append(bbox.min.y)
@@ -2242,9 +2247,9 @@ class Router:
         # and create a channel that size around the periphery. That's guaranteed to be big enough.
         # This is overkill but probably not worth optimizing since any excess boundary area is ignored.
         channel_sz = (len(internal_nets) + 1) * GRID
-        routing_bbox = round(
+        routing_bbox = (
             node.internal_bbox().resize(Vector(channel_sz, channel_sz))
-        )
+        ).round()
         v_track_coord.append(routing_bbox.min.x)
         v_track_coord.append(routing_bbox.max.x)
         h_track_coord.append(routing_bbox.min.y)
@@ -2283,7 +2288,7 @@ class Router:
 
         # Add routing box faces for each side of a part's labeled bounding box.
         for part in node.parts:
-            part_bbox = round(part.lbl_bbox * part.tx)
+            part_bbox = (part.lbl_bbox * part.tx).round()
             bbox_to_faces(part, part_bbox)
 
         # Add routing box faces for each side of the expanded bounding box surrounding all parts.
@@ -2393,6 +2398,11 @@ class Router:
             for part in node.parts:
                 draw_part(part, draw_scr, draw_tx, draw_font)
 
+            # Draw routing faces.
+            for track in h_tracks + v_tracks:
+                for face in track:
+                    face.draw(draw_scr, draw_tx, draw_font)
+
             # Draw the approximate global routing.
             for route in global_routes:
                 for wire in route:
@@ -2451,7 +2461,7 @@ class Router:
         # Now clean-up the wires and add junctions.
         for net, segments in node.wires.items():
             # Round the wire segment endpoints to integers.
-            segments = [round(seg) for seg in segments]
+            segments = [seg.round() for seg in segments]
             # Merge colinear segments.
             segments = merge_segments(segments)
             node.wires[net] = segments
@@ -2477,7 +2487,6 @@ class Router:
                 swbx.draw(draw_scr, draw_tx, draw_font, options=options)
 
             draw_end()
-
 
         # Remove extended routing points from parts.
         rmv_routing_points(node)

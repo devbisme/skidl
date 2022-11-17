@@ -42,6 +42,29 @@ Generate a KiCad EESCHEMA schematic from a Circuit object.
 def preprocess_parts_and_nets(circuit):
     """Add stuff to parts & nets for doing placement and routing of schematics."""
 
+    def units(part):
+        if len(part.unit) == 0:
+            return [part]
+        else:
+            return part.unit.values()
+
+    def initialize(part):
+        """Initialize part or its part units."""
+
+        # Initialize the units of the part, or the part itself if it has no units.
+        for part_unit in units(part):
+
+            # Initialize transform matrix to no translation / no rotation.
+            part_unit.tx = Tx()
+
+            # Assign pins from the parent part to the part unit.
+            part_unit.grab_pins()
+
+            # Initialize pin attributes used for generating schematics.
+            for pin in part_unit:
+                pin.pt = Point(pin.x, pin.y)
+                pin.routed = False
+
     def rotate_power_pins(part, dont_rotate_pin_threshold=10000):
         """Rotate a part based on the direction of its power pins.
 
@@ -55,80 +78,83 @@ def preprocess_parts_and_nets(circuit):
         def is_gnd(net):
             return "gnd" in net_name.lower()
 
-        # Don't rotate parts with too many pins.
-        if len(part) > dont_rotate_pin_threshold:
-            return
+        for part_unit in units(part):
 
-        # Tally what rotation would make each pwr/gnd pin point up or down.
-        rotation_tally = Counter()
-        for pin in part:
-            net_name = getattr(pin.net, "name", "").lower()
-            if is_gnd(net_name):
-                if pin.orientation == "U":
-                    rotation_tally[0] += 1
-                if pin.orientation == "D":
-                    rotation_tally[180] += 1
-                if pin.orientation == "L":
-                    rotation_tally[90] += 1
-                if pin.orientation == "R":
-                    rotation_tally[270] += 1
-            elif is_pwr(net_name):
-                if pin.orientation == "D":
-                    rotation_tally[0] += 1
-                if pin.orientation == "U":
-                    rotation_tally[180] += 1
-                if pin.orientation == "L":
-                    rotation_tally[270] += 1
-                if pin.orientation == "R":
-                    rotation_tally[90] += 1
+            # Don't rotate parts with too many pins.
+            if len(part_unit) > dont_rotate_pin_threshold:
+                return
 
-        # Rotate the part in the direction with the most tallies.
-        try:
-            rotation = rotation_tally.most_common()[0][0]
-        except IndexError:
-            pass
-        else:
-            # Rotate part 90-degrees clockwise until the desired rotation is reached.
-            tx_cw_90 = Tx(a=0, b=-1, c=1, d=0)  # 90-degree trans. matrix.
-            for _ in range(round(rotation / 90)):
-                part.tx = part.tx * tx_cw_90
+            # Tally what rotation would make each pwr/gnd pin point up or down.
+            rotation_tally = Counter()
+            for pin in part_unit:
+                net_name = getattr(pin.net, "name", "").lower()
+                if is_gnd(net_name):
+                    if pin.orientation == "U":
+                        rotation_tally[0] += 1
+                    if pin.orientation == "D":
+                        rotation_tally[180] += 1
+                    if pin.orientation == "L":
+                        rotation_tally[90] += 1
+                    if pin.orientation == "R":
+                        rotation_tally[270] += 1
+                elif is_pwr(net_name):
+                    if pin.orientation == "D":
+                        rotation_tally[0] += 1
+                    if pin.orientation == "U":
+                        rotation_tally[180] += 1
+                    if pin.orientation == "L":
+                        rotation_tally[270] += 1
+                    if pin.orientation == "R":
+                        rotation_tally[90] += 1
+
+            # Rotate the part unit in the direction with the most tallies.
+            try:
+                rotation = rotation_tally.most_common()[0][0]
+            except IndexError:
+                pass
+            else:
+                # Rotate part unit 90-degrees clockwise until the desired rotation is reached.
+                tx_cw_90 = Tx(a=0, b=-1, c=1, d=0)  # 90-degree trans. matrix.
+                for _ in range(int(round(rotation / 90))):
+                    part_unit.tx = part_unit.tx * tx_cw_90
 
     def calc_part_bbox(part):
         """Calculate the labeled bounding boxes and store it in the part."""
 
         # Find part bounding box excluding any net labels on pins.
         # FIXME: part.lbl_bbox could be substituted for part.bbox.
-        bare_bbox = calc_symbol_bbox(part)[1]
+        bare_bboxes = calc_symbol_bbox(part)[1:]
 
-        # Expand the bounding box if it's too small in either dimension.
-        resize_wh = Vector(0, 0)
-        if bare_bbox.w < 100:
-            resize_wh.x = (100 - bare_bbox.w) / 2
-        if bare_bbox.h < 100:
-            resize_wh.y = (100 - bare_bbox.h) / 2
-        bare_bbox = bare_bbox.resize(resize_wh)
+        for part_unit, bare_bbox in zip(units(part), bare_bboxes):
+            # Expand the bounding box if it's too small in either dimension.
+            resize_wh = Vector(0, 0)
+            if bare_bbox.w < 100:
+                resize_wh.x = (100 - bare_bbox.w) / 2
+            if bare_bbox.h < 100:
+                resize_wh.y = (100 - bare_bbox.h) / 2
+            bare_bbox = bare_bbox.resize(resize_wh)
 
-        # Find expanded bounding box that includes any labels attached to pins.
-        part.lbl_bbox = BBox()
-        part.lbl_bbox.add(bare_bbox)
-        lbl_vectors = {
-            "U": Vector(0, -1),
-            "D": Vector(0, 1),
-            "L": Vector(1, 0),
-            "R": Vector(-1, 0),
-        }
-        for pin in part:
-            if pin.stub:
-                # Pins connected to net stubs require net name labels.
-                lbl_len = len(pin.net.name)
-                if lbl_len:
-                    # Add 1 to the label length to account for extra graphics on label.
-                    lbl_len = (lbl_len + 1) * PIN_LABEL_FONT_SIZE
-                lbl_vector = lbl_vectors[pin.orientation] * lbl_len
-                part.lbl_bbox.add(pin.pt + lbl_vector)
+            # Find expanded bounding box that includes any labels attached to pins.
+            part_unit.lbl_bbox = BBox()
+            part_unit.lbl_bbox.add(bare_bbox)
+            lbl_vectors = {
+                "U": Vector(0, -1),
+                "D": Vector(0, 1),
+                "L": Vector(1, 0),
+                "R": Vector(-1, 0),
+            }
+            for pin in part_unit:
+                if pin.stub:
+                    # Pins connected to net stubs require net name labels.
+                    lbl_len = len(pin.net.name)
+                    if lbl_len:
+                        # Add 1 to the label length to account for extra graphics on label.
+                        lbl_len = (lbl_len + 1) * PIN_LABEL_FONT_SIZE
+                    lbl_vector = lbl_vectors[pin.orientation] * lbl_len
+                    part_unit.lbl_bbox.add(pin.pt + lbl_vector)
 
-        # Set the active bounding box to the labeled version.
-        part.bbox = part.lbl_bbox
+            # Set the active bounding box to the labeled version.
+            part_unit.bbox = part_unit.lbl_bbox
 
     # Pre-process nets.
     net_stubs = circuit.get_net_nc_stubs()
@@ -142,18 +168,20 @@ def preprocess_parts_and_nets(circuit):
     for part in circuit.parts:
 
         # Initialize part attributes used for generating schematics.
-        part.tx = Tx()
-
-        # Initialize pin attributes used for generating schematics.
-        for pin in part:
-            pin.pt = Point(pin.x, pin.y)
-            pin.routed = False
+        initialize(part)
 
         # Rotate parts.  Power pins should face up. GND pins should face down.
         rotate_power_pins(part)
 
         # Compute bounding boxes around parts
         calc_part_bbox(part)
+
+def finalize_parts_and_nets(circuit):
+    """Restore parts and nets after place & route is done."""
+
+    # Return pins from the part units to their parent part.
+    for part in circuit.parts:
+        part.grab_pins()
 
 
 class Node(Placer, Router):
@@ -210,12 +238,20 @@ class Node(Placer, Router):
 
         level_names = part.hierarchy.split(HIER_SEP)
         self.name = level_names[level]
-        base_filename = "_".join((self.top_name, *level_names[0 : level + 1])) + ".sch"
+        base_filename = "_".join([self.top_name] + level_names[0 : level + 1]) + ".sch"
         self.sheet_filename = os.path.join(self.filepath, base_filename)
 
         if level == len(level_names) - 1:
-            self.parts.append(part)
+            # Add part to node at this level in the hierarchy.
+            if not part.unit:
+                # Monolithic part so just add it to the node.
+                self.parts.append(part)
+            else:
+                # Multi-unit part so add each unit to the node.
+                for p in part.unit.values():
+                    self.parts.append(p)
         else:
+            # Add part to child node below the current hierarchical level.
             child_node = self.children[level_names[level + 1]]
             child_node.parent = self
             child_node.add_part(part, level + 1)
@@ -387,7 +423,7 @@ class Node(Placer, Router):
         )
 
         # Create the hierarchical sheet for insertion into the calling node sheet.
-        bbox = round(self.bbox * self.tx * sheet_tx)
+        bbox = (self.bbox * self.tx * sheet_tx).round()
         time_hex = hex(int(time.time()))[2:]
         return "\n".join(
             (
@@ -406,7 +442,7 @@ def bbox_to_eeschema(bbox, tx, name=None):
     """Create a bounding box using EESCHEMA graphic lines."""
 
     # Make sure the box corners are integers.
-    bbox = round(bbox * tx)
+    bbox = (bbox * tx).round()
 
     graphic_box = []
 
@@ -452,16 +488,16 @@ def part_to_eeschema(part, tx):
         https://en.wikibooks.org/wiki/Kicad/file_formats#Schematic_Files_Format
     """
 
-    time_hex = hex(int(time.time()))[2:]
-
     tx = part.tx * tx
-    origin = round(tx.origin)
+    origin = tx.origin.round()
+    time_hex = hex(int(time.time()))[2:]
+    unit_num = getattr(part, "num", 1)
 
     eeschema = []
     eeschema.append("$Comp")
     lib = os.path.splitext(part.lib.filename)[0]
     eeschema.append("L {}:{} {}".format(lib, part.name, part.ref))
-    eeschema.append("U 1 1 {}".format(time_hex))
+    eeschema.append("U {} 1 {}".format(unit_num, time_hex))
     eeschema.append("P {} {}".format(str(origin.x), str(origin.y)))
 
     # Add part symbols. For now we are only adding the designator
@@ -526,7 +562,7 @@ def wire_to_eeschema(net, wire, tx):
     eeschema = []
     for segment in wire:
         eeschema.append("Wire Wire Line")
-        w = round(segment * tx)
+        w = (segment * tx).round()
         eeschema.append("  " + str(w))
     eeschema.append("")  # For blank line at end.
     return "\n".join(eeschema)
@@ -535,7 +571,7 @@ def wire_to_eeschema(net, wire, tx):
 def junction_to_eeschema(net, junctions, tx):
     eeschema = []
     for junction in junctions:
-        eeschema.append("Connection ~ {}".format(round(junction * tx)))
+        eeschema.append("Connection ~ {}".format((junction * tx).round()))
     eeschema.append("")  # For blank line at end.
     return "\n".join(eeschema)
 
@@ -553,7 +589,7 @@ def power_part_to_eeschema(part, tx=Tx()):
                     symbol_name = u[0]
                     # find the stub in the part
                     time_hex = hex(int(time.time()))[2:]
-                    pin_pt = round(part.origin + offset + Point(pin.x, pin.y))
+                    pin_pt = (part.origin + offset + Point(pin.x, pin.y)).round()
                     x, y = pin_pt.x, pin_pt.y
                     out.append("$Comp\n")
                     out.append("L power:{} #PWR?\n".format(symbol_name))
@@ -638,7 +674,7 @@ def calc_pin_dir(pin):
     pin_vector = pin_vector * tx
 
     # Create an integer tuple from the rotated direction vector.
-    pin_vector = (round(pin_vector.x), round(pin_vector.y))
+    pin_vector = (int(round(pin_vector.x)), int(round(pin_vector.y)))
 
     # Return the pin orientation based on its rotated direction vector.
     return {
@@ -677,7 +713,7 @@ def pin_label_to_eeschema(pin, tx):
     }[pin_dir]
 
     return "Text {} {} {} {}    50   UnSpc ~ 0\n{}\n".format(
-        label_type, round(pt.x), round(pt.y), orientation, pin.net.name
+        label_type, int(round(pt.x)), int(round(pt.y)), orientation, pin.net.name
     )
 
 
@@ -767,3 +803,5 @@ def gen_schematic(
         node.place()
         node.route()
         node.to_eeschema()
+
+    finalize_parts_and_nets(circuit)

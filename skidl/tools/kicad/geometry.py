@@ -71,6 +71,9 @@ class Point:
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y
 
+    def __ne__(self, other):
+        return not (self == other)
+
     def __add__(self, pt):
         """Add the x,y coords of pt to self and return the resulting Point."""
         if not isinstance(pt, Point):
@@ -110,8 +113,8 @@ class Point:
         """Divide the x,y coords by d."""
         return Point(self.x / d, self.y / d)
 
-    def __round__(self, n=None):
-        return Point(round(self.x, n), round(self.y, n))
+    def round(self):
+        return Point(int(round(self.x)), int(round(self.y)))
 
     def __str__(self):
         return "{} {}".format(self.x, self.y)
@@ -177,8 +180,8 @@ class BBox:
     def __mul__(self, m):
         return BBox(self.min * m, self.max * m)
 
-    def __round__(self, n=None):
-        return BBox(round(self.min), round(self.max))
+    def round(self):
+        return BBox(self.min.round(), self.max.round())
 
     def is_inside(self, pt):
         """Return True if point is inside bounding box."""
@@ -259,8 +262,8 @@ class Segment:
         """Apply transformation matrix to a segment and return a segment."""
         return Segment(self.p1 * m, self.p2 * m)
 
-    def __round__(self):
-        return Segment(round(self.p1), round(self.p2))
+    def round(self):
+        return Segment(self.p1.round(), self.p2.round())
 
     def __str__(self):
         return "{} {}".format(str(self.p1), str(self.p2))

@@ -981,8 +981,7 @@ def place_blocks(connected_parts, floating_parts, children, options):
             self.ref = "REF"
             self.tag = tag
 
-    part_blocks = []
-    for part_list in (*connected_parts, floating_parts):
+    for part_list in [floating_parts,] + connected_parts:
         if not part_list:
             continue
         bbox = BBox()

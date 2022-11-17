@@ -859,9 +859,22 @@ class Part(SkidlBaseObject):
 
         # Create the part unit.
         self.unit[label] = PartUnit(self, label, *pin_ids, **criteria)
+
+        # Add a unique identifier to the unit.
         add_unique_attr(self, label, self.unit[label])
 
         return self.unit[label]
+
+    def grab_pins(self):
+        """Grab pins back from PartUnits."""
+        
+        for unit in self.unit.values():
+            unit.release_pins()
+
+    def release_pins(self):
+        """A Part can't release pins back to its PartUnits, so do nothing."""
+
+        pass
 
     def create_network(self):
         """Create a network from the pins of a part."""
@@ -1247,14 +1260,12 @@ class PartUnit(Part):
         # Store the part unit label.
         self.label = label
 
-        # Store the part unit number if it's given.
-        try:
-            self.num = criteria["unit"]
-        except KeyError:
-            pass
+        # Store the part unit number if it's given, otherwise default to 1.
+        self.num = criteria.get("unit", 1)
 
         # Give the PartUnit the same information as the Part it is generated
         # from so it can act the same way, just with fewer pins.
+        # FIXME: Do we need this if we define __getattr__ as below?
         for k, v in list(parent.__dict__.items()):
             self.__dict__[k] = v
 
@@ -1265,6 +1276,10 @@ class PartUnit(Part):
         # pins selected from the parent.
         self.pins = []
         self.add_pins_from_parent(*pin_ids, **criteria)
+
+    def __getattr__(self, key):
+        """Return attribute from parent Part if it wasn't found in the PartUnit."""
+        return getattr(self.parent, key)
 
     def add_pins_from_parent(self, *pin_ids, **criteria):
         """
@@ -1290,8 +1305,21 @@ class PartUnit(Part):
 
     def validate(self):
         """Check that unit pins point to the parent part."""
+        
         for pin in self.pins:
             assert id(pin.part) == id(self.parent)
+
+    def grab_pins(self):
+        """Grab pin from Part and assign to PartUnit."""
+        
+        for pin in self.pins:
+            pin.part = self
+
+    def release_pins(self):
+        """Return PartUnit pins to parent Part."""
+
+        for pin in self.pins:
+            pin.part = self.parent
 
     @property
     def ref(self):
