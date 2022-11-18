@@ -1748,14 +1748,14 @@ class SwitchBox:
             draw_end()
 
 
-def global_router(net):
-    """Globally route a net from face to face.
+def global_router(nets):
+    """Globally route a list of nets from face to face.
 
     Args:
-        net (Net): The net to be routed.
+        nets (list): List of Nets to be routed.
 
     Returns:
-        List: Sequence of faces the net travels through.
+        List: List of GlobalRoutes.
     """
 
     # This maze router assembles routes from each pin sequentially.
@@ -1776,13 +1776,7 @@ def global_router(net):
     #           unrouted start faces.
     #        d. Add the faces on the new route to the stop_faces list.
 
-    # List of GlobalWires connecting pins on net.
-    routed_wires = GlobalRoute()
-
-    # Faces with pins from which paths/routing originate.
-    net_pin_faces = {pin.face for pin in net.pins}
-    start_faces = set(net_pin_faces)
-
+    # Core routing function.
     def rt_srch(start_face, stop_faces):
         """Return a minimal-distance path from the start face to one of the stop faces.
 
@@ -1794,7 +1788,7 @@ def global_router(net):
             RoutingFailure: No path was found.
 
         Returns:
-            List: List of Faces from start face to one of the stop faces.
+            GlobalWire: List of Faces from start face to one of the stop faces.
         """
         
         # Return empty path if no stop faces or already starting from a stop face. 
@@ -1876,24 +1870,55 @@ def global_router(net):
                 # Reverse face path to go from start-to-stop face and return it.
                 return GlobalWire(net, reversed(face_path))
 
-    # Select a random start face and look for a route to *any* of the other start faces.
-    start_face = choice(list(start_faces))
-    start_faces.discard(start_face)
-    stop_faces = set(start_faces)
-    routed_wires.append(rt_srch(start_face, stop_faces))
+    # Key function for setting the order in which nets will be globally routed. 
+    def rank_net(net):
+        """Rank net based on W/H of bounding box of pins and the # of pins."""
 
-    # The faces on the route that was found now become the stopping faces for any further routing.
-    stop_faces = set(routed_wires[-1])
+        # Nets with a small bounding box probably have fewer routing resources
+        # so they should be routed first.
 
-    # Randomly go thru the other start faces looking for a route that connects to any existing route.
-    for start_face in start_faces:
-        routed_wires.append(rt_srch(start_face, stop_faces))
+        bbox = BBox()
+        for pin in net.pins:
+            bbox.add(pin.route_pt)
+        return (bbox.w + bbox.h, len(net.pins))
 
-        # Update the set of stopping faces.
-        stop_faces |= set(routed_wires[-1])
+    # Set order in which nets will be routed.
+    nets.sort(key=rank_net)
 
-    # Return list of GlobalWires that connect faces holding pins on the given net.
-    return routed_wires
+    # Globally route each net.
+    global_routes = []
+    
+    for net in nets:
+
+        # List for storing GlobalWires connecting pins on net.
+        global_route = GlobalRoute()
+
+        # Faces with pins from which paths/routing originate.
+        net_pin_faces = {pin.face for pin in net.pins}
+        start_faces = set(net_pin_faces)
+
+        # Select a random start face and look for a route to *any* of the other start faces.
+        start_face = choice(list(start_faces))
+        start_faces.discard(start_face)
+        stop_faces = set(start_faces)
+        initial_route = rt_srch(start_face, stop_faces)
+        global_route.append(initial_route)
+
+        # The faces on the route that was found now become the stopping faces for any further routing.
+        stop_faces = set(initial_route)
+
+        # Go thru the other start faces looking for a connection to any existing route.
+        for start_face in start_faces:
+            next_route = rt_srch(start_face, stop_faces)
+            global_route.append(next_route)
+
+            # Update the set of stopping faces with the faces on the newest route.
+            stop_faces |= set(next_route)
+
+        # Add the complete global route for this net to the list of global routes.
+        global_routes.append(global_route)
+
+    return global_routes
 
 class Router:
     """Mixin to add routing function to Node class."""
@@ -2183,21 +2208,8 @@ class Router:
                     face.draw(draw_scr, draw_tx, draw_font)
             draw_end()
 
-        # Key function for setting the order in which nets will be globally routed. 
-        def rank_net(net):
-            """Rank net based on W/H of bounding box of pins and the # of pins."""
-
-            # Nets with a small bounding box probably have fewer routing resources
-            # so they should be routed first.
-
-            bbox = BBox()
-            for pin in net.pins:
-                bbox.add(pin.route_pt)
-            return (bbox.w + bbox.h, len(net.pins))
-
         # Do global routing of nets internal to the node.
-        internal_nets.sort(key=rank_net)
-        global_routes = [global_router(net) for net in internal_nets]
+        global_routes = global_router(internal_nets)
 
         # Convert the global face-to-face routes into terminals on the switchboxes.
         for route in global_routes:
