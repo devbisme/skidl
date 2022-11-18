@@ -13,7 +13,7 @@ from __future__ import (  # isort:skip
     unicode_literals,
 )
 
-# __all__ = ["Router",]
+all__ = ["Router",]
 
 from builtins import range, zip, super
 from collections import defaultdict
@@ -1933,6 +1933,64 @@ def global_router(nets):
 
     return global_routes
 
+
+def create_switchboxes(h_tracks, v_tracks):
+
+    # Clear any switchboxes associated with faces because we'll be making new ones.
+    for track in h_tracks + v_tracks:
+        for face in track:
+            face.switchboxes.clear()
+
+    # Create switchboxes for detailed routing.
+    switchboxes = []
+    for h_track in h_tracks[1:]:
+        for face in h_track:
+            try:
+                switchboxes.append(SwitchBox(face))
+            except NoSwitchBox:
+                continue
+
+    # Check the switchboxes for problems.
+    for swbx in switchboxes:
+        swbx.audit()
+
+    # Small switchboxes are more likely to fail routing so try to combine them into larger switchboxes.
+    # Use switchboxes containing nets for routing as seeds for coalescing into larger switchboxes.
+    seeds = []  # List of switchboxes to coalesce.
+    for swbx in switchboxes:
+        if swbx.has_nets():
+            seeds.append(swbx)
+
+    # Sort seeds by perimeter so smaller ones are coalesced before larger ones.
+    seeds.sort(key=lambda box: box.bbox.w + box.bbox.h)
+
+    # Coalesce smaller switchboxes into larger ones having more routing area.
+    # The smaller switchboxes are removed from the list of switchboxes.
+    switchboxes = [seed.coalesce(switchboxes) for seed in seeds]
+    switchboxes = [swbx for swbx in switchboxes if swbx]  # Remove None boxes.
+
+    return switchboxes
+
+
+def switchbox_router(switchboxes):
+
+    wires = defaultdict(list)
+
+    # Do detailed routing inside switchboxes.
+    for swbx in switchboxes:
+        try:
+            swbx.route(options=[])
+        except RoutingFailure:
+            swbx.flip_xy()
+            swbx.route(options=["allow_routing_failure"])
+            swbx.flip_xy()
+        for net, segments in swbx.segments.items():
+            wires[net].extend(segments)
+
+    return wires
+
+
+
 class Router:
     """Mixin to add routing function to Node class."""
 
@@ -2193,9 +2251,30 @@ class Router:
         draw_end()
 
 
+    def cleanup_wires(node):
+        """Merge wire segments."""
 
-    # def route(node, options=[]):
-    def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
+        for net, segments in node.wires.items():
+            # Round the wire segment endpoints to integers.
+            segments = [seg.round() for seg in segments]
+            # Merge colinear segments.
+            segments = merge_segments(segments)
+            node.wires[net] = segments
+        # FIXME: Remove unnecessary wire jogs.
+
+
+    def add_junctions(node):
+        """Add X & T-junctions where wire segments in the same net meet."""
+
+        for net, segments in node.wires.items():
+            # Add X & T-junctions between segments in the same net.
+            junctions = find_junctions(segments)
+            node.junctions[net].extend(junctions)
+
+
+
+    def route(node, options=[]):
+    # def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
         """Route the wires between part pins in this node and its children.
 
         Steps:
@@ -2216,14 +2295,14 @@ class Router:
 
         # Exit if no parts to route in this node.
         if not node.parts:
-            return []
+            return
 
         # Get all the nets that have pins solely within this node.
         internal_nets = node.get_internal_nets()
 
         # Exit if no nets to route.
         if not internal_nets:
-            return []
+            return
 
         # Extend routing points of part pins to the edges of their bounding boxes.
         node.add_routing_points(internal_nets)
@@ -2253,64 +2332,16 @@ class Router:
         # If enabled, draw the global routing for debug purposes.
         node.debug_draw(routing_bbox, node.parts, h_tracks, v_tracks, global_routes, options=options)
 
-        # Clear any switchboxes associated with faces because we'll be making new ones.
-        for track in h_tracks + v_tracks:
-            for face in track:
-                face.switchboxes.clear()
-
-        # Create switchboxes for detailed routing.
-        switchboxes = []
-        for h_track in h_tracks[1:]:
-            for face in h_track:
-                try:
-                    switchboxes.append(SwitchBox(face))
-                except NoSwitchBox:
-                    continue
-
-        # Check the switchboxes for problems.
-        for swbx in switchboxes:
-            swbx.audit()
-
-        # Small switchboxes are more likely to fail routing so try to combine them into larger switchboxes.
-        # Use switchboxes containing nets for routing as seeds for coalescing into larger switchboxes.
-        seeds = []  # List of switchboxes to coalesce.
-        for swbx in switchboxes:
-            if swbx.has_nets():
-                seeds.append(swbx)
-
-        # Sort seeds by perimeter so smaller ones are coalesced before larger ones.
-        seeds.sort(key=lambda box: box.bbox.w + box.bbox.h)
-
-        # Coalesce smaller switchboxes into larger ones having more routing area.
-        # The smaller switchboxes are removed from the list of switchboxes.
-        switchboxes = [seed.coalesce(switchboxes) for seed in seeds]
-        switchboxes = [swbx for swbx in switchboxes if swbx]  # Remove None boxes.
-
-        # Do detailed routing inside switchboxes.
-        for swbx in switchboxes:
-            try:
-                swbx.route(options=[])
-            except RoutingFailure:
-                swbx.flip_xy()
-                swbx.route(options=["allow_routing_failure"])
-                swbx.flip_xy()
-            for net, segments in swbx.segments.items():
-                node.wires[net].extend(segments)
+        # Create detailed wiring using switchbox routing for the global routes.
+        switchboxes = create_switchboxes(h_tracks, v_tracks)
+        node.wires = switchbox_router(switchboxes)
 
         # Now clean-up the wires and add junctions.
-        for net, segments in node.wires.items():
-            # Round the wire segment endpoints to integers.
-            segments = [seg.round() for seg in segments]
-            # Merge colinear segments.
-            segments = merge_segments(segments)
-            node.wires[net] = segments
-            # Add X & T-junctions between segments in the same net.
-            junctions = find_junctions(segments)
-            node.junctions[net].extend(junctions)
-            # FIXME: Remove unnecessary wire jogs.
+        node.cleanup_wires()
+        node.add_junctions()
 
         # If enabled, draw the global and detailed routing for debug purposes.
-        node.debug_draw(routing_bbox, node.parts, h_tracks, v_tracks, global_routes, switchboxes, options=options)
+        node.debug_draw(routing_bbox, node.parts, global_routes, switchboxes, options=options)
 
         # Remove extended routing points from parts.
         node.rmv_routing_points()
