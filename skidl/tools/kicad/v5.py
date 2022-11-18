@@ -20,7 +20,7 @@ from future import standard_library
 from ...part import LIBRARY
 from ...logger import active_logger
 from ...utilities import *
-from .geometry import *
+from ...schematics.geometry import *
 
 standard_library.install_aliases()
 

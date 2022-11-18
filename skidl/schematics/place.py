@@ -27,11 +27,11 @@ import random
 
 from future import standard_library
 
-from ...logger import active_logger
-from ...part import Part
-from ...pin import Pin
-from ...utilities import *
-from .common import GRID
+from ..logger import active_logger
+from ..part import Part
+from ..pin import Pin
+from ..utilities import *
+from ..tools.kicad.common import GRID
 from .geometry import *
 from .route import *
 from .debug_draw import *
@@ -1061,7 +1061,7 @@ class Placer:
     """Mixin to add place function to Node class."""
 
     def place(node, options=["no_keep_stubs", "remove_power"]):
-        # def place(node, options=["draw", "no_keep_stubs", "remove_power"]):
+    # def place(node, options=["draw", "no_keep_stubs", "remove_power"]):
         """Place the parts and children in this node.
 
         Args:

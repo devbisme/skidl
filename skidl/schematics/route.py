@@ -26,8 +26,8 @@ from random import randint, choice
 
 from future import standard_library
 
-from ...part import Part
-from .common import GRID
+from ..part import Part
+from ..tools.kicad.common import GRID
 from .geometry import Point, Vector, BBox, Tx, Segment
 from .debug_draw import *
 
@@ -2135,14 +2135,14 @@ class Router:
             for face in track:
                 face.set_capacity()
 
-    def debug_draw(node, bbox, parts, *other_stuff, options=[]):
+    def debug_draw(node, options, bbox, parts, *other_stuff):
         """Draw routing for debugging purposes.
 
         Args:
+            options (list): List of drawing option strings.
             bbox: Bounding box of drawing area.
             node (Node): The Node being routed.
             parts (list): List of Parts.
-            options (list, optional): List of drawing option strings. Defaults to [].
         """
 
         if "draw" not in options:
@@ -2281,7 +2281,7 @@ class Router:
             node.junctions[net].extend(junctions)
 
     def route(node, options=[]):
-        # def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
+    # def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
         """Route the wires between part pins in this node and its children.
 
         Steps:
@@ -2327,7 +2327,7 @@ class Router:
         node.create_terminals(internal_nets, h_tracks, v_tracks)
 
         # Draw part outlines, routing tracks and terminals.
-        node.debug_draw(routing_bbox, node.parts, h_tracks, v_tracks, options=options)
+        node.debug_draw(options, routing_bbox, node.parts, h_tracks, v_tracks)
 
         # Do global routing of nets internal to the node.
         global_routes = global_router(internal_nets)
@@ -2338,7 +2338,7 @@ class Router:
 
         # If enabled, draw the global routing for debug purposes.
         node.debug_draw(
-            routing_bbox, node.parts, h_tracks, v_tracks, global_routes, options=options
+            options, routing_bbox, node.parts, h_tracks, v_tracks, global_routes
         )
 
         # Create detailed wiring using switchbox routing for the global routes.
@@ -2351,7 +2351,7 @@ class Router:
 
         # If enabled, draw the global and detailed routing for debug purposes.
         node.debug_draw(
-            routing_bbox, node.parts, global_routes, switchboxes, options=options
+            options, routing_bbox, node.parts, global_routes, switchboxes
         )
 
         # Remove extended routing points from parts.

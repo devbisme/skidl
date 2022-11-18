@@ -21,9 +21,9 @@ import os.path
 from future import standard_library
 
 from .common import GRID, PIN_LABEL_FONT_SIZE
-from .geometry import Point, Vector, BBox, Tx
-from .route import Router
-from .place import Placer
+from ...schematics.geometry import Point, Vector, BBox, Tx
+from ...schematics.route import Router
+from ...schematics.place import Placer
 from .v5 import calc_symbol_bbox
 from ...net import NCNet
 from ...scriptinfo import *
