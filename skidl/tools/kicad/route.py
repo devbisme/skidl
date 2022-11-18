@@ -15,6 +15,7 @@ from __future__ import (  # isort:skip
 
 __all__ = [
     "Router",
+    "RoutingFailure",
 ]
 
 from builtins import range, zip, super
@@ -2295,7 +2296,7 @@ class Router:
                 "draw_routing", "show_capacities", "draw_all_terminals", "draw_channels".
         """
 
-        # First, recursively-route any children of this node.
+        # First, recursively route any children of this node.
         for child in node.children.values():
             child.route()
 

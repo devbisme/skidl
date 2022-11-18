@@ -14,7 +14,7 @@ from __future__ import (  # isort:skip
 )
 
 __all__ = [
-    "place",
+    "Placer",
     "PlacementFailure",
 ]
 
@@ -128,12 +128,17 @@ def add_placement_bboxes(parts):
     for part in parts:
         part.place_bbox = BBox()
         part.place_bbox.add(part.lbl_bbox)
-        padding = {"U":1, "D":1, "L":1, "R":1} # Min padding of 1 channel per side.
+        padding = {"U": 1, "D": 1, "L": 1, "R": 1}  # Min padding of 1 channel per side.
         for pin in part:
             if pin.stub is False and pin.is_connected():
                 padding[pin.orientation] += 1
-        part.place_bbox.add(part.place_bbox.max + Point(padding["L"], padding["D"]) * GRID)
-        part.place_bbox.add(part.place_bbox.min - Point(padding["R"], padding["U"]) * GRID)
+        part.place_bbox.add(
+            part.place_bbox.max + Point(padding["L"], padding["D"]) * GRID
+        )
+        part.place_bbox.add(
+            part.place_bbox.min - Point(padding["R"], padding["U"]) * GRID
+        )
+
 
 def rmv_placement_bboxes(parts):
     """Remove expanded bounding boxes."""
@@ -156,7 +161,7 @@ def add_anchor_and_pull_pins(parts, nets):
     def add_place_pt(part, pin):
         """Add the point for a pin on the placement boundary of a part."""
 
-        pin.route_pt = pin.pt # For drawing of nets during debugging.
+        pin.route_pt = pin.pt  # For drawing of nets during debugging.
         pin.place_pt = Point(pin.pt.x, pin.pt.y)
         if pin.orientation == "U":
             pin.place_pt.y = part.place_bbox.min.y
@@ -205,7 +210,7 @@ def add_anchor_and_pull_pins(parts, nets):
         except ValueError:
             # Set anchor for part with no pins at all.
             part.anchor_pin = Pin()
-            part.anchor_pin.place_pt = part.place_bbox.max 
+            part.anchor_pin.place_pt = part.place_bbox.max
 
 
 def rmv_anchor_and_pull_pins(parts):
@@ -955,7 +960,9 @@ def place_blocks(connected_parts, floating_parts, children, options):
     class PartBlock:
         def __init__(self, src, bbox, anchor_pt, snap_pt, tag):
             self.src = src
-            self.place_bbox = bbox.resize(Vector(100, 100)) # FIXME: Is this needed if place_bbox includes room for routing?
+            self.place_bbox = bbox.resize(
+                Vector(100, 100)
+            )  # FIXME: Is this needed if place_bbox includes room for routing?
             self.lbl_bbox = bbox  # Needed for drawing during debug.
             self.anchor_pt = anchor_pt
             self.anchor_pin = Pin()
@@ -966,7 +973,9 @@ def place_blocks(connected_parts, floating_parts, children, options):
             self.tag = tag
 
     part_blocks = []
-    for part_list in [floating_parts,] + connected_parts:
+    for part_list in [
+        floating_parts,
+    ] + connected_parts:
         if not part_list:
             continue
         bbox = BBox()
@@ -989,7 +998,7 @@ def place_blocks(connected_parts, floating_parts, children, options):
 
     # Re-label blocks with sequential tags (i.e., remove gaps).
     tags = {blk.tag for blk in part_blocks}
-    tag_tbl = {old_tag:new_tag for old_tag, new_tag in zip(tags, range(len(tags)))}
+    tag_tbl = {old_tag: new_tag for old_tag, new_tag in zip(tags, range(len(tags)))}
     for blk in part_blocks:
         blk.tag = tag_tbl[blk.tag]
 
@@ -1052,7 +1061,7 @@ class Placer:
     """Mixin to add place function to Node class."""
 
     def place(node, options=["no_keep_stubs", "remove_power"]):
-    # def place(node, options=["draw", "no_keep_stubs", "remove_power"]):
+        # def place(node, options=["draw", "no_keep_stubs", "remove_power"]):
         """Place the parts and children in this node.
 
         Args:
@@ -1061,7 +1070,7 @@ class Placer:
                 for debugging purposes. Available options are "draw".
         """
 
-        # Place children of this node.
+        # First, recursively place children of this node.
         for child in node.children.values():
             child.place()
 
