@@ -97,101 +97,6 @@ for direction in Direction:
 net_colors = defaultdict(lambda: (randint(0, 200), randint(0, 200), randint(0, 200)))
 
 
-def merge_segments(route):
-    """Merge segments in a route that run the same direction and overlap.
-
-    Args:
-        route (List): List of Segment objects.
-
-    Returns:
-        List: List of merged Segments.
-    """
-
-    merged_segs = []
-
-    # Keep only non zero-length segments.
-    route = [seg for seg in route if seg.p1 != seg.p2]
-
-    # Merge overlapping horizontal segments with the same Y coord.
-    horz_segs = [seg for seg in route if seg.p1.y == seg.p2.y]
-
-    horz_segs_v = defaultdict(list)
-    for seg in horz_segs:
-        horz_segs_v[seg.p1.y].append(seg)
-
-    for segs in horz_segs_v.values():
-        for seg in segs:
-            if seg.p1.x > seg.p2.x:
-                seg.p1, seg.p2 = seg.p2, seg.p1
-        segs.sort(key=lambda s: s.p1.x)
-        merged_segs.append(segs[0])
-        for seg in segs[1:]:
-            if seg.p1.x <= merged_segs[-1].p2.x:
-                merged_segs[-1].p2.x = max(seg.p2.x, merged_segs[-1].p2.x)
-            else:
-                merged_segs.append(seg)
-
-    # Merge overlapping vertical segments with the same X coord.
-    vert_segs = [seg for seg in route if seg.p1.x == seg.p2.x]
-
-    assert len(route) == len(horz_segs) + len(vert_segs)
-
-    vert_segs_h = defaultdict(list)
-    for seg in vert_segs:
-        vert_segs_h[seg.p1.x].append(seg)
-
-    for segs in vert_segs_h.values():
-        for seg in segs:
-            if seg.p1.y > seg.p2.y:
-                seg.p1, seg.p2 = seg.p2, seg.p1
-        segs.sort(key=lambda s: s.p1.y)
-        merged_segs.append(segs[0])
-        for seg in segs[1:]:
-            if seg.p1.y <= merged_segs[-1].p2.y:
-                merged_segs[-1].p2.y = max(seg.p2.y, merged_segs[-1].p2.y)
-            else:
-                merged_segs.append(seg)
-
-    return merged_segs
-
-
-def find_junctions(route):
-    """Find junctions where segments of a net intersect.
-
-    Args:
-        route (List): List of Segment objects.
-
-    Returns:
-        List: List of Points, one for each junction.
-
-    Notes:
-        You must run merge_segments() before finding junctions
-        or else the segment endpoints might not be ordered
-        correctly with p1 < p2.
-    """
-
-    # Separate route into vertical and horizontal segments.
-    horz_segs = [seg for seg in route if seg.p1.y == seg.p2.y]
-    vert_segs = [seg for seg in route if seg.p1.x == seg.p2.x]
-
-    junctions = []
-
-    # Check each pair of horz/vert segments for an intersection, except
-    # where they form a right-angle turn.
-    for hseg in horz_segs:
-        y = hseg.p1.y  # Horz seg Y coord.
-        for vseg in vert_segs:
-            x = vseg.p1.x  # Vert seg X coord.
-            if (hseg.p1.x < x < hseg.p2.x) and (vseg.p1.y <= y <= vseg.p2.y):
-                # The vert segment intersects the interior of the horz seg.
-                junctions.append(Point(x, y))
-            elif (vseg.p1.y < y < vseg.p2.y) and (hseg.p1.x <= x <= hseg.p2.x):
-                # The horz segment intersects the interior of the vert seg.
-                junctions.append(Point(x, y))
-
-    return junctions
-
-
 class NoSwitchBox(Exception):
     """Exception raised when a switchbox cannot be generated."""
 
@@ -2257,7 +2162,64 @@ class Router:
         draw_end()
 
     def cleanup_wires(node):
-        """Merge wire segments."""
+        """Try to make wire segments look prettier."""
+
+        def merge_segments(route):
+            """Merge segments in a route that run the same direction and overlap.
+
+            Args:
+                route (List): List of Segment objects.
+
+            Returns:
+                List: List of merged Segments.
+            """
+
+            merged_segs = []
+
+            # Keep only non zero-length segments.
+            route = [seg for seg in route if seg.p1 != seg.p2]
+
+            # Merge overlapping horizontal segments with the same Y coord.
+            horz_segs = [seg for seg in route if seg.p1.y == seg.p2.y]
+
+            horz_segs_v = defaultdict(list)
+            for seg in horz_segs:
+                horz_segs_v[seg.p1.y].append(seg)
+
+            for segs in horz_segs_v.values():
+                for seg in segs:
+                    if seg.p1.x > seg.p2.x:
+                        seg.p1, seg.p2 = seg.p2, seg.p1
+                segs.sort(key=lambda s: s.p1.x)
+                merged_segs.append(segs[0])
+                for seg in segs[1:]:
+                    if seg.p1.x <= merged_segs[-1].p2.x:
+                        merged_segs[-1].p2.x = max(seg.p2.x, merged_segs[-1].p2.x)
+                    else:
+                        merged_segs.append(seg)
+
+            # Merge overlapping vertical segments with the same X coord.
+            vert_segs = [seg for seg in route if seg.p1.x == seg.p2.x]
+
+            vert_segs_h = defaultdict(list)
+            for seg in vert_segs:
+                vert_segs_h[seg.p1.x].append(seg)
+
+            for segs in vert_segs_h.values():
+                for seg in segs:
+                    if seg.p1.y > seg.p2.y:
+                        seg.p1, seg.p2 = seg.p2, seg.p1
+                segs.sort(key=lambda s: s.p1.y)
+                merged_segs.append(segs[0])
+                for seg in segs[1:]:
+                    if seg.p1.y <= merged_segs[-1].p2.y:
+                        merged_segs[-1].p2.y = max(seg.p2.y, merged_segs[-1].p2.y)
+                    else:
+                        merged_segs.append(seg)
+
+            assert len(route) == len(horz_segs) + len(vert_segs)
+
+            return merged_segs
 
         for net, segments in node.wires.items():
 
@@ -2274,6 +2236,42 @@ class Router:
 
     def add_junctions(node):
         """Add X & T-junctions where wire segments in the same net meet."""
+
+        def find_junctions(route):
+            """Find junctions where segments of a net intersect.
+
+            Args:
+                route (List): List of Segment objects.
+
+            Returns:
+                List: List of Points, one for each junction.
+
+            Notes:
+                You must run merge_segments() before finding junctions
+                or else the segment endpoints might not be ordered
+                correctly with p1 < p2.
+            """
+
+            # Separate route into vertical and horizontal segments.
+            horz_segs = [seg for seg in route if seg.p1.y == seg.p2.y]
+            vert_segs = [seg for seg in route if seg.p1.x == seg.p2.x]
+
+            junctions = []
+
+            # Check each pair of horz/vert segments for an intersection, except
+            # where they form a right-angle turn.
+            for hseg in horz_segs:
+                y = hseg.p1.y  # Horz seg Y coord.
+                for vseg in vert_segs:
+                    x = vseg.p1.x  # Vert seg X coord.
+                    if (hseg.p1.x < x < hseg.p2.x) and (vseg.p1.y <= y <= vseg.p2.y):
+                        # The vert segment intersects the interior of the horz seg.
+                        junctions.append(Point(x, y))
+                    elif (vseg.p1.y < y < vseg.p2.y) and (hseg.p1.x <= x <= hseg.p2.x):
+                        # The horz segment intersects the interior of the vert seg.
+                        junctions.append(Point(x, y))
+
+            return junctions
 
         for net, segments in node.wires.items():
 
