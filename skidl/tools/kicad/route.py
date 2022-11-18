@@ -13,7 +13,9 @@ from __future__ import (  # isort:skip
     unicode_literals,
 )
 
-all__ = ["Router",]
+__all__ = [
+    "Router",
+]
 
 from builtins import range, zip, super
 from collections import defaultdict
@@ -109,7 +111,7 @@ def merge_segments(route):
 
     # Keep only non zero-length segments.
     route = [seg for seg in route if seg.p1 != seg.p2]
-    
+
     # Merge overlapping horizontal segments with the same Y coord.
     horz_segs = [seg for seg in route if seg.p1.y == seg.p2.y]
 
@@ -133,7 +135,7 @@ def merge_segments(route):
     vert_segs = [seg for seg in route if seg.p1.x == seg.p2.x]
 
     assert len(route) == len(horz_segs) + len(vert_segs)
-    
+
     vert_segs_h = defaultdict(list)
     for seg in vert_segs:
         vert_segs_h[seg.p1.x].append(seg)
@@ -151,6 +153,7 @@ def merge_segments(route):
                 merged_segs.append(seg)
 
     return merged_segs
+
 
 def find_junctions(route):
     """Find junctions where segments of a net intersect.
@@ -181,10 +184,10 @@ def find_junctions(route):
             x = vseg.p1.x  # Vert seg X coord.
             if (hseg.p1.x < x < hseg.p2.x) and (vseg.p1.y <= y <= vseg.p2.y):
                 # The vert segment intersects the interior of the horz seg.
-                junctions.append(Point(x,y))
+                junctions.append(Point(x, y))
             elif (vseg.p1.y < y < vseg.p2.y) and (hseg.p1.x <= x <= hseg.p2.x):
                 # The horz segment intersects the interior of the vert seg.
-                junctions.append(Point(x,y))
+                junctions.append(Point(x, y))
 
     return junctions
 
@@ -725,22 +728,22 @@ class GlobalWire(list):
 
         # Proceed through all the Faces/Terminals on the GlobalWire, converting
         # all the Faces to Terminals.
-        for i in range(len(self)-1):
+        for i in range(len(self) - 1):
 
             # The current element on a GlobalWire should always be a Terminal. Use that terminal
             # to convert the next Face on the wire to a Terminal (if it isn't one already).
             if isinstance(self[i], Face):
                 # Logic error if the current element has not been converted to a Terminal.
                 raise RuntimeError
-            if isinstance(self[i+1], Terminal):
+            if isinstance(self[i + 1], Terminal):
                 # Skip if the next element is already a Terminal.
                 continue
 
             # Convert the next element from a Face to a Terminal. This terminal will
             # be the current element on the next iteration.
-            next_terminal = self[i].get_next_terminal(self[i+1])
+            next_terminal = self[i].get_next_terminal(self[i + 1])
             next_terminal.net = self.net
-            self[i+1] = next_terminal
+            self[i + 1] = next_terminal
 
     def draw(self, scr, tx, color=(0, 0, 0), thickness=1, dot_radius=10, options=[]):
         """Draw a global wire from Face-to-Face in the drawing area.
@@ -793,7 +796,9 @@ class GlobalRoute(list):
         for wire in self:
             wire.cvt_faces_to_terminals()
 
-    def draw(self, scr, tx, font, color=(0, 0, 0), thickness=1, dot_radius=10, options=[]):
+    def draw(
+        self, scr, tx, font, color=(0, 0, 0), thickness=1, dot_radius=10, options=[]
+    ):
         """Draw the GlobalWires of this route in the drawing area.
 
         Args:
@@ -1803,8 +1808,8 @@ def global_router(nets):
         Returns:
             GlobalWire: List of Faces from start face to one of the stop faces.
         """
-        
-        # Return empty path if no stop faces or already starting from a stop face. 
+
+        # Return empty path if no stop faces or already starting from a stop face.
         if start_face in stop_faces or not stop_faces:
             return GlobalWire(net)
 
@@ -1813,12 +1818,12 @@ def global_router(nets):
         start_face.dist_from_start = 0
 
         # Path searches are allowed to touch a Face on a Part if it
-        # has a Pin on the net being routed or if it is one of the stop faces. 
+        # has a Pin on the net being routed or if it is one of the stop faces.
         # This is necessary to allow a search to terminate on a stop face or to
         # pass through a face with a net pin on the way to finding a connection
         # to one of the stop faces.
         unconstrained_faces = stop_faces | net_pin_faces
-        
+
         # Search through faces until a path is found & returned or a routing exception occurs.
         while True:
 
@@ -1832,10 +1837,10 @@ def global_router(nets):
 
                 if visited_face.dist_from_start > closest_dist:
                     # Visited face is already further than the current
-                    # closest face, so no use continuing search since 
+                    # closest face, so no use continuing search since
                     # any remaining visited faces are even more distant.
                     break
-                
+
                 # Get the distances to the faces adjacent to this previously-visited face
                 # and update the closest face if appropriate.
                 for adj in visited_face.adjacent:
@@ -1847,7 +1852,7 @@ def global_router(nets):
                     if adj.face not in unconstrained_faces and adj.face.capacity <= 0:
                         # Skip faces with insufficient routing capacity.
                         continue
-                    
+
                     # Compute distance of this adjacent face to the start face.
                     dist = visited_face.dist_from_start + adj.dist
 
@@ -1859,7 +1864,11 @@ def global_router(nets):
 
             if not closest_face:
                 # Exception raised if couldn't find a path from start to stop faces.
-                raise RoutingFailure("Routing failure: {net.name} {net} {start_face.pins}".format(**locals()))
+                raise RoutingFailure(
+                    "Routing failure: {net.name} {net} {start_face.pins}".format(
+                        **locals()
+                    )
+                )
 
             # Add the closest adjacent face to the list of visited faces.
             closest_face.dist_from_start = closest_dist
@@ -1883,7 +1892,7 @@ def global_router(nets):
                 # Reverse face path to go from start-to-stop face and return it.
                 return GlobalWire(net, reversed(face_path))
 
-    # Key function for setting the order in which nets will be globally routed. 
+    # Key function for setting the order in which nets will be globally routed.
     def rank_net(net):
         """Rank net based on W/H of bounding box of pins and the # of pins."""
 
@@ -1990,7 +1999,6 @@ def switchbox_router(switchboxes):
     return wires
 
 
-
 class Router:
     """Mixin to add routing function to Node class."""
 
@@ -2078,7 +2086,6 @@ class Router:
                     if pin.route_pt != pin.pt:
                         seg = Segment(pin.pt, pin.route_pt) * part.tx
                         node.wires[pin.net].append(seg)
-
 
     def rmv_routing_points(node):
         """Remove routing points from part pins in node."""
@@ -2222,7 +2229,6 @@ class Router:
             for face in track:
                 face.set_capacity()
 
-
     def debug_draw(node, bbox, parts, *other_stuff, options=[]):
         """Draw routing for debugging purposes.
 
@@ -2250,31 +2256,33 @@ class Router:
 
         draw_end()
 
-
     def cleanup_wires(node):
         """Merge wire segments."""
 
         for net, segments in node.wires.items():
+
             # Round the wire segment endpoints to integers.
             segments = [seg.round() for seg in segments]
+
             # Merge colinear segments.
             segments = merge_segments(segments)
-            node.wires[net] = segments
-        # FIXME: Remove unnecessary wire jogs.
 
+            # Update the node net's wire with the cleaned version.
+            node.wires[net] = segments
+
+        # FIXME: Remove unnecessary wire jogs.
 
     def add_junctions(node):
         """Add X & T-junctions where wire segments in the same net meet."""
 
         for net, segments in node.wires.items():
+
             # Add X & T-junctions between segments in the same net.
             junctions = find_junctions(segments)
             node.junctions[net].extend(junctions)
 
-
-
     def route(node, options=[]):
-    # def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
+        # def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
         """Route the wires between part pins in this node and its children.
 
         Steps:
@@ -2330,7 +2338,9 @@ class Router:
             route.cvt_faces_to_terminals()
 
         # If enabled, draw the global routing for debug purposes.
-        node.debug_draw(routing_bbox, node.parts, h_tracks, v_tracks, global_routes, options=options)
+        node.debug_draw(
+            routing_bbox, node.parts, h_tracks, v_tracks, global_routes, options=options
+        )
 
         # Create detailed wiring using switchbox routing for the global routes.
         switchboxes = create_switchboxes(h_tracks, v_tracks)
@@ -2341,7 +2351,9 @@ class Router:
         node.add_junctions()
 
         # If enabled, draw the global and detailed routing for debug purposes.
-        node.debug_draw(routing_bbox, node.parts, global_routes, switchboxes, options=options)
+        node.debug_draw(
+            routing_bbox, node.parts, global_routes, switchboxes, options=options
+        )
 
         # Remove extended routing points from parts.
         node.rmv_routing_points()
