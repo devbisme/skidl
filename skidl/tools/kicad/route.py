@@ -793,12 +793,13 @@ class GlobalRoute(list):
         for wire in self:
             wire.cvt_faces_to_terminals()
 
-    def draw(self, scr, tx, color=(0, 0, 0), thickness=1, dot_radius=10, options=[]):
+    def draw(self, scr, tx, font, color=(0, 0, 0), thickness=1, dot_radius=10, options=[]):
         """Draw the GlobalWires of this route in the drawing area.
 
         Args:
             scr (PyGame screen): Screen object for PyGame drawing.
             tx (Tx): Transformation matrix from real to screen coords.
+            font (PyGame font): Font for rendering text.
             color (list): Three-element list of RGB integers with range [0, 255].
             thickness (int): Thickness of drawn wire in pixels.
             dot_radius (int): Radius of drawn terminal in pixels.
@@ -929,6 +930,18 @@ class GlobalTrack(list):
             for second_face in self[i + 1 :]:
                 if first_face.has_overlap(second_face):
                     raise AssertionError
+
+    def draw(self, scr, tx, font, options=[]):
+        """Draw the Faces in a track.
+
+        Args:
+            scr (_type_): _descriptio            scr (PyGame screen): Screen object for PyGame drawing.
+            tx (Tx): Transformation matrix from real to screen coords.
+            font (PyGame font): Font for rendering text.
+            options (list, optional): List of option strings. Defaults to [].
+        """
+        for face in self:
+            face.draw(scr, tx, font, options=options)
 
 
 class Target:
@@ -1887,7 +1900,7 @@ def global_router(nets):
 
     # Globally route each net.
     global_routes = []
-    
+
     for net in nets:
 
         # List for storing GlobalWires connecting pins on net.
@@ -2152,6 +2165,35 @@ class Router:
                 face.set_capacity()
 
 
+    def debug_draw(node, bbox, parts, *other_stuff, options=[]):
+        """Draw routing for debugging purposes.
+
+        Args:
+            bbox: Bounding box of drawing area.
+            node (Node): The Node being routed.
+            parts (list): List of Parts.
+            options (list, optional): List of drawing option strings. Defaults to [].
+        """
+
+        if "draw" not in options:
+            return
+
+        # Initialize drawing area.
+        draw_scr, draw_tx, draw_font = draw_start(bbox)
+
+        # Draw parts.
+        for part in parts:
+            draw_part(part, draw_scr, draw_tx, draw_font)
+
+        # Draw other stuff (global routes, switchbox routes, etc.) that has a draw() method.
+        for stuff in other_stuff:
+            for obj in stuff:
+                obj.draw(draw_scr, draw_tx, draw_font, options=options)
+
+        draw_end()
+
+
+
     # def route(node, options=[]):
     def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
         """Route the wires between part pins in this node and its children.
@@ -2199,14 +2241,7 @@ class Router:
         node.create_terminals(internal_nets, h_tracks, v_tracks)
 
         # Draw part outlines, routing tracks and terminals.
-        if "draw" in options:
-            draw_scr, draw_tx, draw_font = draw_start(routing_bbox)
-            for part in node.parts:
-                draw_part(part, draw_scr, draw_tx, draw_font)
-            for track in h_tracks + v_tracks:
-                for face in track:
-                    face.draw(draw_scr, draw_tx, draw_font)
-            draw_end()
+        node.debug_draw(routing_bbox, node.parts, h_tracks, v_tracks, options=options)
 
         # Do global routing of nets internal to the node.
         global_routes = global_router(internal_nets)
@@ -2215,24 +2250,8 @@ class Router:
         for route in global_routes:
             route.cvt_faces_to_terminals()
 
-        # If enabled, draw the global and detailed routing for debug purposes.
-        if "draw" in options:
-            draw_scr, draw_tx, draw_font = draw_start(routing_bbox)
-
-            # Draw parts.
-            for part in node.parts:
-                draw_part(part, draw_scr, draw_tx, draw_font)
-
-            # Draw routing faces.
-            for track in h_tracks + v_tracks:
-                for face in track:
-                    face.draw(draw_scr, draw_tx, draw_font)
-
-            # Draw the approximate global routing.
-            for route in global_routes:
-                route.draw(draw_scr, draw_tx, options=options)
-
-            draw_end()
+        # If enabled, draw the global routing for debug purposes.
+        node.debug_draw(routing_bbox, node.parts, h_tracks, v_tracks, global_routes, options=options)
 
         # Clear any switchboxes associated with faces because we'll be making new ones.
         for track in h_tracks + v_tracks:
@@ -2291,26 +2310,7 @@ class Router:
             # FIXME: Remove unnecessary wire jogs.
 
         # If enabled, draw the global and detailed routing for debug purposes.
-        if "draw" in options:
-
-            # Initialize drawing for debugging purposes.
-            if "draw" in options:
-                draw_scr, draw_tx, draw_font = draw_start(routing_bbox)
-
-            # Draw parts.
-            for part in node.parts:
-                draw_part(part, draw_scr, draw_tx, draw_font)
-
-            # Draw the approximate global routing.
-            for route in global_routes:
-                for wire in route:
-                    wire.draw(draw_scr, draw_tx, options=options)
-
-            # Draw the detailed routing in each switchbox.
-            for swbx in switchboxes:
-                swbx.draw(draw_scr, draw_tx, draw_font, options=options)
-
-            draw_end()
+        node.debug_draw(routing_bbox, node.parts, h_tracks, v_tracks, global_routes, switchboxes, options=options)
 
         # Remove extended routing points from parts.
         node.rmv_routing_points()
