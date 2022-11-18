@@ -748,6 +748,9 @@ class GlobalWire(list):
         Args:
             scr (PyGame screen): Screen object for PyGame drawing.
             tx (Tx): Transformation matrix from real to screen coords.
+            color (list): Three-element list of RGB integers with range [0, 255].
+            thickness (int): Thickness of drawn wire in pixels.
+            dot_radius (int): Radius of drawn terminal in pixels.
             options (list, optional): List of option strings. Defaults to [].
 
         Returns:
@@ -772,6 +775,41 @@ class GlobalWire(list):
             draw_seg(
                 Segment(p1, p2), scr, tx, color=color, thickness=thickness, dot_radius=0
             )
+
+
+class GlobalRoute(list):
+    def __init__(self, *args, **kwargs):
+        """A list containing GlobalWires that form an entire routing for a net.
+
+        Args:
+            net (Net): The net associated with the wire.
+            *args: Positional args passed to list superclass __init__().
+            **kwargs: Keyword args passed to list superclass __init__().
+        """
+        super().__init__(*args, **kwargs)
+
+    def cvt_faces_to_terminals(self):
+        """Convert GlobalWires in route to switchbox terminal-to-terminal route."""
+        for wire in self:
+            wire.cvt_faces_to_terminals()
+
+    def draw(self, scr, tx, color=(0, 0, 0), thickness=1, dot_radius=10, options=[]):
+        """Draw the GlobalWires of this route in the drawing area.
+
+        Args:
+            scr (PyGame screen): Screen object for PyGame drawing.
+            tx (Tx): Transformation matrix from real to screen coords.
+            color (list): Three-element list of RGB integers with range [0, 255].
+            thickness (int): Thickness of drawn wire in pixels.
+            dot_radius (int): Radius of drawn terminal in pixels.
+            options (list, optional): List of option strings. Defaults to [].
+
+        Returns:
+            None.
+        """
+
+        for wire in self:
+            wire.draw(scr, tx, color, thickness, dot_radius, options)
 
 
 class GlobalTrack(list):
@@ -1739,7 +1777,7 @@ def global_router(net):
     #        d. Add the faces on the new route to the stop_faces list.
 
     # List of GlobalWires connecting pins on net.
-    routed_wires = []
+    routed_wires = GlobalRoute()
 
     # Faces with pins from which paths/routing originate.
     net_pin_faces = {pin.face for pin in net.pins}
@@ -2029,53 +2067,14 @@ class Router:
             track.split_faces()
             track.remove_duplicate_faces()
 
+        # Add adjacencies between faces that define global routing paths within switchboxes.
+        for h_track in h_tracks[1:]:
+            h_track.add_adjacencies()
+
         return h_tracks, v_tracks
 
-
-    def route(node, options=[]):
-    # def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
-        """Route the wires between part pins in this node and its children.
-
-        Steps:
-            1. Divide the bounding box surrounding the parts into switchboxes.
-            2. Do global routing of nets through sequences of switchboxes.
-            3. Do detailed routing within each switchbox.
-
-        Args:
-            node (Node): Hierarchical node containing the parts to be connected.
-            options (list): List of text options to control drawing of placement and
-                routing for debugging purposes. Available options are "draw", "draw_switchbox",
-                "draw_routing", "show_capacities", "draw_all_terminals", "draw_channels".
-        """
-
-        # First, recursively-route any children of this node.
-        for child in node.children.values():
-            child.route()
-
-        # Exit if no parts to route in this node.
-        if not node.parts:
-            return []
-
-        # Get all the nets that have pins solely within this node.
-        internal_nets = node.get_internal_nets()
-
-        # Exit if no nets to route.
-        if not internal_nets:
-            return []
-
-        # Extend routing points of part pins to the edges of their bounding boxes.
-        node.add_routing_points(internal_nets)
-
-        # Create horizontal & vertical routing tracks for routing.
-
-        # Create the surrounding box that contains the entire routing area.
-        channel_sz = (len(internal_nets) + 1) * GRID
-        routing_bbox = (
-            node.internal_bbox().resize(Vector(channel_sz, channel_sz))
-        ).round()
-
-        # Create horizontal & vertical global routing tracks and faces.
-        h_tracks, v_tracks = node.create_routing_tracks(routing_bbox)
+    def create_terminals(node, internal_nets, h_tracks, v_tracks):
+        """Create terminals on the faces in the routing tracks."""
 
         # Add terminals to all non-part/non-boundary faces.
         for track in h_tracks + v_tracks:
@@ -2122,16 +2121,59 @@ class Router:
                             face.terminals.append(terminal)
                         break
 
-        # Add adjacencies between faces that define global routing paths within switchboxes.
-        for h_track in h_tracks[1:]:
-            h_track.add_adjacencies()
-
-        # Set routing capacity of faces.
+        # Set routing capacity of faces based on # of terminals on each face.
         for track in h_tracks + v_tracks:
             for face in track:
                 face.set_capacity()
 
-        # Draw routing tracks.
+
+    # def route(node, options=[]):
+    def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
+        """Route the wires between part pins in this node and its children.
+
+        Steps:
+            1. Divide the bounding box surrounding the parts into switchboxes.
+            2. Do global routing of nets through sequences of switchboxes.
+            3. Do detailed routing within each switchbox.
+
+        Args:
+            node (Node): Hierarchical node containing the parts to be connected.
+            options (list): List of text options to control drawing of placement and
+                routing for debugging purposes. Available options are "draw", "draw_switchbox",
+                "draw_routing", "show_capacities", "draw_all_terminals", "draw_channels".
+        """
+
+        # First, recursively-route any children of this node.
+        for child in node.children.values():
+            child.route()
+
+        # Exit if no parts to route in this node.
+        if not node.parts:
+            return []
+
+        # Get all the nets that have pins solely within this node.
+        internal_nets = node.get_internal_nets()
+
+        # Exit if no nets to route.
+        if not internal_nets:
+            return []
+
+        # Extend routing points of part pins to the edges of their bounding boxes.
+        node.add_routing_points(internal_nets)
+
+        # Create the surrounding box that contains the entire routing area.
+        channel_sz = (len(internal_nets) + 1) * GRID
+        routing_bbox = (
+            node.internal_bbox().resize(Vector(channel_sz, channel_sz))
+        ).round()
+
+        # Create horizontal & vertical global routing tracks and faces.
+        h_tracks, v_tracks = node.create_routing_tracks(routing_bbox)
+
+        # Create terminals on the faces in the routing tracks.
+        node.create_terminals(internal_nets, h_tracks, v_tracks)
+
+        # Draw part outlines, routing tracks and terminals.
         if "draw" in options:
             draw_scr, draw_tx, draw_font = draw_start(routing_bbox)
             for part in node.parts:
@@ -2159,8 +2201,7 @@ class Router:
 
         # Convert the global face-to-face routes into terminals on the switchboxes.
         for route in global_routes:
-            for wire in route:
-                wire.cvt_faces_to_terminals()
+            route.cvt_faces_to_terminals()
 
         # If enabled, draw the global and detailed routing for debug purposes.
         if "draw" in options:
@@ -2177,8 +2218,7 @@ class Router:
 
             # Draw the approximate global routing.
             for route in global_routes:
-                for wire in route:
-                    wire.draw(draw_scr, draw_tx, options=options)
+                route.draw(draw_scr, draw_tx, options=options)
 
             draw_end()
 
@@ -2199,10 +2239,6 @@ class Router:
         # Check the switchboxes for problems.
         for swbx in switchboxes:
             swbx.audit()
-
-        # Initialize drawing for debugging purposes.
-        if "draw" in options:
-            draw_scr, draw_tx, draw_font = draw_start(routing_bbox)
 
         # Small switchboxes are more likely to fail routing so try to combine them into larger switchboxes.
         # Use switchboxes containing nets for routing as seeds for coalescing into larger switchboxes.
@@ -2244,6 +2280,10 @@ class Router:
 
         # If enabled, draw the global and detailed routing for debug purposes.
         if "draw" in options:
+
+            # Initialize drawing for debugging purposes.
+            if "draw" in options:
+                draw_scr, draw_tx, draw_font = draw_start(routing_bbox)
 
             # Draw parts.
             for part in node.parts:
