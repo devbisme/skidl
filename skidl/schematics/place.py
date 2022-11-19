@@ -27,8 +27,6 @@ import random
 
 from future import standard_library
 
-from ..logger import active_logger
-from ..part import Part
 from ..pin import Pin
 from ..utilities import *
 from ..tools.kicad.common import GRID
