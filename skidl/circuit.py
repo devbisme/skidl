@@ -500,6 +500,27 @@ class Circuit(SkidlBaseObject):
         # Restore the logger that was active before the ERC.
         active_logger.pop()
 
+    @classmethod
+    def get_constants(self, **kwargs):
+        """
+        Return an object with attributes set to various constants for the active tool.
+
+        Args:
+            tool: The EDA tool the netlist will be generated for.
+
+        Returns:
+            An object with toll-specific constants.
+        """
+
+        from . import skidl
+
+        # Extract arguments:
+        #     Get EDA tool containing the constants.
+        tool = kwargs.pop("tool", skidl.get_default_tool())
+
+        get_func = get_tool_func(self, "get_consts", tool)
+        return get_func(self)
+
     def generate_netlist(self, **kwargs):
         """
         Return a netlist and also write it to a file/stream.

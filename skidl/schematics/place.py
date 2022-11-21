@@ -28,8 +28,8 @@ import random
 from future import standard_library
 
 from ..pin import Pin
+from ..circuit import Circuit
 from ..utilities import *
-from ..tools.kicad.common import GRID
 from .geometry import *
 from .route import *
 from .debug_draw import *
@@ -48,6 +48,10 @@ standard_library.install_aliases()
 #
 ###################################################################
 
+# Global constant placeholders defined by the particular backend tool.
+# These will get filled-in when the placement function is activated.
+GRID = 0
+BLOCK_PADDING = 0
 
 def random_placement(parts):
     """Randomly place parts within an appropriately-sized area.
@@ -959,7 +963,7 @@ def place_blocks(connected_parts, floating_parts, children, options):
         def __init__(self, src, bbox, anchor_pt, snap_pt, tag):
             self.src = src
             self.place_bbox = bbox.resize(
-                Vector(100, 100)
+                Vector(BLOCK_PADDING, BLOCK_PADDING)
             )  # FIXME: Is this needed if place_bbox includes room for routing?
             self.lbl_bbox = bbox  # Needed for drawing during debug.
             self.anchor_pt = anchor_pt
@@ -1067,6 +1071,12 @@ class Placer:
             options (list): List of text options to control drawing of placement
                 for debugging purposes. Available options are "draw".
         """
+
+        # Set the constants for the backend tool.
+        global GRID, BLOCK_PADDING
+        constants = Circuit.get_constants()
+        GRID = constants.GRID
+        BLOCK_PADDING = constants.BLOCK_PADDING
 
         # First, recursively place children of this node.
         for child in node.children.values():

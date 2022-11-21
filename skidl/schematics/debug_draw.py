@@ -24,7 +24,7 @@ from random import randint, choice
 from future import standard_library
 
 from ..part import Part
-from ..tools.kicad.common import GRID
+from ..tools.kicad.constants import GRID
 from .geometry import Point, Vector, BBox, Tx, Segment
 
 standard_library.install_aliases()

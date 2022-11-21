@@ -19,8 +19,9 @@ import os.path
 
 from future import standard_library
 
-from .common import GRID
-from ...schematics.geometry import Point, BBox, Tx
+PIN_LABEL_FONT_SIZE = 50
+from .constants import GRID, BOX_LABEL_FONT_SIZE, PIN_LABEL_FONT_SIZE
+from ...schematics.geometry import Point, BBox, Tx, Vector
 
 
 standard_library.install_aliases()
@@ -44,10 +45,10 @@ def bbox_to_eeschema(bbox, tx, name=None):
     graphic_box = []
 
     if name:
-        # Place name at the upper-left corner of the box.
+        # Place name at the lower-left corner of the box.
         name_pt = bbox.ul
         graphic_box.append(
-            "Text Notes {} {} 0    100  ~ 20\n{}".format(name_pt.x, name_pt.y, name)
+            "Text Notes {} {} 0    {}  ~ 20\n{}".format(name_pt.x, name_pt.y, BOX_LABEL_FONT_SIZE, name)
         )
 
     graphic_box.append("Wire Notes Line")
@@ -342,8 +343,8 @@ def pin_label_to_eeschema(pin, tx):
         "U": 3,
     }[pin_dir]
 
-    return "Text {} {} {} {}    50   UnSpc ~ 0\n{}\n".format(
-        label_type, int(round(pt.x)), int(round(pt.y)), orientation, pin.net.name
+    return "Text {} {} {} {}    {}   UnSpc ~ 0\n{}\n".format(
+        label_type, int(round(pt.x)), int(round(pt.y)), orientation, PIN_LABEL_FONT_SIZE, pin.net.name
     )
 
 
@@ -457,7 +458,7 @@ class Eeschema_V5:
 
             # Generate the graphic box that surrounds the flattened hierarchical block of this node.
             block_name = self.name.split(HIER_SEP)[-1]
-            bbox_code = bbox_to_eeschema(self.bbox, tx, block_name)
+            bbox_code = bbox_to_eeschema(self.bbox.resize(Vector(100,100)), tx, block_name)
 
             return "\n".join((eeschema_code, bbox_code))
 

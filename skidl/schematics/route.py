@@ -26,8 +26,8 @@ from random import randint, choice
 
 from future import standard_library
 
+from ..circuit import Circuit
 from ..part import Part
-from ..tools.kicad.common import GRID
 from .geometry import Point, Vector, BBox, Tx, Segment
 from .debug_draw import *
 
@@ -74,6 +74,11 @@ standard_library.install_aliases()
 # as the total wiring for the parts in the Node.
 #
 ###################################################################
+
+# Global constant placeholders defined by the particular backend tool.
+# These will get filled-in when the placement function is activated.
+GRID = 0
+DRAWING_BOX_RESIZE = 0
 
 
 # Orientations and directions.
@@ -1636,7 +1641,7 @@ class SwitchBox:
         do_start_end = not bool(scr)
 
         if do_start_end:
-            scr, tx, font = draw_start(self.bbox.resize(Vector(100, 100)))
+            scr, tx, font = draw_start(self.bbox.resize(Vector(DRAWING_BOX_RESIZE, DRAWING_BOX_RESIZE)))
 
         if "draw_switchbox" in options:
             self.top_face.draw(scr, tx, font, color, thickness, options=options)
@@ -2295,6 +2300,12 @@ class Router:
                 routing for debugging purposes. Available options are "draw", "draw_switchbox",
                 "draw_routing", "show_capacities", "draw_all_terminals", "draw_channels".
         """
+
+        # Set the constants for the backend tool.
+        global GRID, DRAWING_BOX_RESIZE
+        constants = Circuit.get_constants()
+        GRID = constants.GRID
+        DRAWING_BOX_RESIZE = constants.DRAWING_BOX_RESIZE
 
         # First, recursively route any children of this node.
         for child in node.children.values():

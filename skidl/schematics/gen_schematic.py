@@ -17,7 +17,7 @@ from collections import defaultdict, Counter
 
 from future import standard_library
 
-from ..tools.kicad.common import PIN_LABEL_FONT_SIZE
+from ..tools.kicad.constants import PIN_LABEL_FONT_SIZE
 from .geometry import Point, Vector, BBox, Tx
 from .route import Router
 from .place import Placer

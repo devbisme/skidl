@@ -26,6 +26,7 @@ from ...pckg_info import __version__
 from ...scriptinfo import get_script_name, scriptinfo
 from ...utilities import *
 from . import v5, v6
+from . import constants
 
 standard_library.install_aliases()
 
@@ -106,6 +107,10 @@ def parse_lib_part(part, partial_parse=False):
         v6.parse_lib_part(part, partial_parse)
     else:
         v5.parse_lib_part(part, partial_parse)
+
+def get_consts(circuit):
+    """Return an object whose attributes are constants for this tool."""
+    return constants
 
 
 def gen_netlist(circuit):
