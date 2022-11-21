@@ -1892,9 +1892,16 @@ def create_switchboxes(h_tracks, v_tracks):
     return switchboxes
 
 
-def switchbox_router(switchboxes):
+def switchbox_router(switchboxes, wires):
+    """Create detailed wiring between the terminals along the sides of each switchbox.
 
-    wires = defaultdict(list)
+    Args:
+        switchboxes (list): List of SwitchBox objects.
+        wires (dict): Dictionary of lists of GlobalWires indexed by net names.
+
+    Returns:
+        None
+    """
 
     # Do detailed routing inside switchboxes.
     for swbx in switchboxes:
@@ -1906,8 +1913,6 @@ def switchbox_router(switchboxes):
             swbx.flip_xy()
         for net, segments in swbx.segments.items():
             wires[net].extend(segments)
-
-    return wires
 
 
 class Router:
@@ -2354,7 +2359,7 @@ class Router:
 
         # Create detailed wiring using switchbox routing for the global routes.
         switchboxes = create_switchboxes(h_tracks, v_tracks)
-        node.wires = switchbox_router(switchboxes)
+        switchbox_router(switchboxes, node.wires)
 
         # Now clean-up the wires and add junctions.
         node.cleanup_wires()
