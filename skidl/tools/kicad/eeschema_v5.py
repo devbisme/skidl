@@ -20,7 +20,7 @@ import os.path
 from future import standard_library
 
 PIN_LABEL_FONT_SIZE = 50
-from .constants import GRID, BOX_LABEL_FONT_SIZE, PIN_LABEL_FONT_SIZE
+from .constants import *
 from ...schematics.geometry import Point, BBox, Tx, Vector
 
 
@@ -458,7 +458,8 @@ class Eeschema_V5:
 
             # Generate the graphic box that surrounds the flattened hierarchical block of this node.
             block_name = self.name.split(HIER_SEP)[-1]
-            bbox_code = bbox_to_eeschema(self.bbox.resize(Vector(100,100)), tx, block_name)
+            pad = Vector(BLK_INT_PAD, BLK_INT_PAD)
+            bbox_code = bbox_to_eeschema(self.bbox.resize(pad), tx, block_name)
 
             return "\n".join((eeschema_code, bbox_code))
 

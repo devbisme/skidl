@@ -51,7 +51,8 @@ standard_library.install_aliases()
 # Global constant placeholders defined by the particular backend tool.
 # These will get filled-in when the placement function is activated.
 GRID = 0
-BLOCK_PADDING = 0
+BLK_INT_PAD = 0
+BLK_EXT_PAD = 0
 
 def random_placement(parts):
     """Randomly place parts within an appropriately-sized area.
@@ -962,9 +963,7 @@ def place_blocks(connected_parts, floating_parts, children, options):
     class PartBlock:
         def __init__(self, src, bbox, anchor_pt, snap_pt, tag):
             self.src = src
-            self.place_bbox = bbox.resize(
-                Vector(BLOCK_PADDING, BLOCK_PADDING)
-            )  # FIXME: Is this needed if place_bbox includes room for routing?
+            self.place_bbox = bbox # FIXME: Is this needed if place_bbox includes room for routing?
             self.lbl_bbox = bbox  # Needed for drawing during debug.
             self.anchor_pt = anchor_pt
             self.anchor_pin = Pin()
@@ -980,18 +979,24 @@ def place_blocks(connected_parts, floating_parts, children, options):
     ] + connected_parts:
         if not part_list:
             continue
-        bbox = BBox()
         snap_pt = None
+        bbox = BBox()
         for part in part_list:
             bbox.add(part.lbl_bbox * part.tx)
             if not snap_pt:
                 snap_pt = get_snap_pt(part)
         tag = 2 if (part_list is floating_parts) else 1
+        pad = BLK_EXT_PAD
+        bbox = bbox.resize(Vector(pad, pad))
         blk = PartBlock(part_list, bbox, bbox.ctr, snap_pt, tag)
         part_blocks.append(blk)
     for child in children:
-        bbox = child.calc_bbox()
         snap_pt = child.get_snap_pt()
+        if child.flattened:
+            pad = BLK_INT_PAD + BLK_EXT_PAD
+        else:
+            pad = BLK_EXT_PAD
+        bbox = child.calc_bbox().resize(Vector(pad, pad))
         if snap_pt:
             blk = PartBlock(child, bbox, bbox.ctr, snap_pt, 3)
         else:
@@ -1073,10 +1078,11 @@ class Placer:
         """
 
         # Set the constants for the backend tool.
-        global GRID, BLOCK_PADDING
+        global GRID, BLK_INT_PAD, BLK_EXT_PAD
         constants = Circuit.get_constants()
         GRID = constants.GRID
-        BLOCK_PADDING = constants.BLOCK_PADDING
+        BLK_INT_PAD = constants.BLK_INT_PAD
+        BLK_EXT_PAD = constants.BLK_EXT_PAD
 
         # First, recursively place children of this node.
         for child in node.children.values():
