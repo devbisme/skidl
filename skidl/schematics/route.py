@@ -1677,6 +1677,67 @@ class SwitchBox:
             draw_end()
 
 
+def create_switchboxes(h_tracks, v_tracks):
+
+    # Clear any switchboxes associated with faces because we'll be making new ones.
+    for track in h_tracks + v_tracks:
+        for face in track:
+            face.switchboxes.clear()
+
+    # Create switchboxes for detailed routing.
+    switchboxes = []
+    for h_track in h_tracks[1:]:
+        for face in h_track:
+            try:
+                switchboxes.append(SwitchBox(face))
+            except NoSwitchBox:
+                continue
+
+    # Check the switchboxes for problems.
+    for swbx in switchboxes:
+        swbx.audit()
+
+    # Small switchboxes are more likely to fail routing so try to combine them into larger switchboxes.
+    # Use switchboxes containing nets for routing as seeds for coalescing into larger switchboxes.
+    seeds = []  # List of switchboxes to coalesce.
+    for swbx in switchboxes:
+        if swbx.has_nets():
+            seeds.append(swbx)
+
+    # Sort seeds by perimeter so smaller ones are coalesced before larger ones.
+    seeds.sort(key=lambda box: box.bbox.w + box.bbox.h)
+
+    # Coalesce smaller switchboxes into larger ones having more routing area.
+    # The smaller switchboxes are removed from the list of switchboxes.
+    switchboxes = [seed.coalesce(switchboxes) for seed in seeds]
+    switchboxes = [swbx for swbx in switchboxes if swbx]  # Remove None boxes.
+
+    return switchboxes
+
+
+def switchbox_router(switchboxes, wires):
+    """Create detailed wiring between the terminals along the sides of each switchbox.
+
+    Args:
+        switchboxes (list): List of SwitchBox objects to be individually routed.
+        wires (dict): Dictionary of lists of GlobalWires indexed by net names.
+
+    Returns:
+        None
+    """
+
+    # Do detailed routing inside switchboxes.
+    for swbx in switchboxes:
+        try:
+            swbx.route(options=[])
+        except RoutingFailure:
+            swbx.flip_xy()
+            swbx.route(options=["allow_routing_failure"])
+            swbx.flip_xy()
+        for net, segments in swbx.segments.items():
+            wires[net].extend(segments)
+
+
 def global_router(nets):
     """Globally route a list of nets from face to face.
 
@@ -1852,67 +1913,6 @@ def global_router(nets):
         global_routes.append(global_route)
 
     return global_routes
-
-
-def create_switchboxes(h_tracks, v_tracks):
-
-    # Clear any switchboxes associated with faces because we'll be making new ones.
-    for track in h_tracks + v_tracks:
-        for face in track:
-            face.switchboxes.clear()
-
-    # Create switchboxes for detailed routing.
-    switchboxes = []
-    for h_track in h_tracks[1:]:
-        for face in h_track:
-            try:
-                switchboxes.append(SwitchBox(face))
-            except NoSwitchBox:
-                continue
-
-    # Check the switchboxes for problems.
-    for swbx in switchboxes:
-        swbx.audit()
-
-    # Small switchboxes are more likely to fail routing so try to combine them into larger switchboxes.
-    # Use switchboxes containing nets for routing as seeds for coalescing into larger switchboxes.
-    seeds = []  # List of switchboxes to coalesce.
-    for swbx in switchboxes:
-        if swbx.has_nets():
-            seeds.append(swbx)
-
-    # Sort seeds by perimeter so smaller ones are coalesced before larger ones.
-    seeds.sort(key=lambda box: box.bbox.w + box.bbox.h)
-
-    # Coalesce smaller switchboxes into larger ones having more routing area.
-    # The smaller switchboxes are removed from the list of switchboxes.
-    switchboxes = [seed.coalesce(switchboxes) for seed in seeds]
-    switchboxes = [swbx for swbx in switchboxes if swbx]  # Remove None boxes.
-
-    return switchboxes
-
-
-def switchbox_router(switchboxes, wires):
-    """Create detailed wiring between the terminals along the sides of each switchbox.
-
-    Args:
-        switchboxes (list): List of SwitchBox objects.
-        wires (dict): Dictionary of lists of GlobalWires indexed by net names.
-
-    Returns:
-        None
-    """
-
-    # Do detailed routing inside switchboxes.
-    for swbx in switchboxes:
-        try:
-            swbx.route(options=[])
-        except RoutingFailure:
-            swbx.flip_xy()
-            swbx.route(options=["allow_routing_failure"])
-            swbx.flip_xy()
-        for net, segments in swbx.segments.items():
-            wires[net].extend(segments)
 
 
 class Router:
