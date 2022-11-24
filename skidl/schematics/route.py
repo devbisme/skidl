@@ -1638,18 +1638,34 @@ class SwitchBox:
         thickness=2,
         options=["draw_switchbox", "draw_routing"],
     ):
+        """Draw a switchbox and its routing for debugging purposes.
+
+        Args:
+            scr (PyGame screen): Screen object for PyGame drawing. Initialize PyGame if None.
+            tx (Tx): Transformation matrix from real to screen coords.
+            font (PyGame font): Font for rendering text.
+            color (tuple, optional): Switchbox boundary color. Defaults to (128, 0, 128).
+            thickness (int, optional): Switchbox boundary thickness. Defaults to 2.
+            options (list, optional): List of option strings. Defaults to ["draw_switchbox", "draw_routing"].
+        """
+
+        # If the screen object is None, then PyGame drawing is not in progress so set flag
+        # to initialize PyGame.
         do_start_end = not bool(scr)
 
         if do_start_end:
+            # Initialize PyGame.
             scr, tx, font = draw_start(self.bbox.resize(Vector(DRAWING_BOX_RESIZE, DRAWING_BOX_RESIZE)))
 
         if "draw_switchbox" in options:
+            # Draw switchbox boundary.
             self.top_face.draw(scr, tx, font, color, thickness, options=options)
             self.bottom_face.draw(scr, tx, font, color, thickness, options=options)
             self.left_face.draw(scr, tx, font, color, thickness, options=options)
             self.right_face.draw(scr, tx, font, color, thickness, options=options)
 
         if "draw_routing" in options:
+            # Draw routed wire segments.
             try:
                 for segments in self.segments.values():
                     for segment in segments:
@@ -1658,6 +1674,7 @@ class SwitchBox:
                 pass
 
         if "draw_channels" in options:
+            # Draw routing channels from midpoint of one switchbox face to midpoint of another.
 
             def draw_channel(face1, face2):
                 seg1 = face1.seg
@@ -1674,6 +1691,7 @@ class SwitchBox:
             draw_channel(self.left_face, self.right_face)
 
         if do_start_end:
+            # Terminate PyGame.
             draw_end()
 
 
@@ -1733,14 +1751,20 @@ def switchbox_router(switchboxes, wires):
         None
     """
 
-    # Do detailed routing inside switchboxes.
+    # Do detailed routing inside each switchbox.
     for swbx in switchboxes:
+
         try:
+            # Try routing switchbox from left-to-right.
             swbx.route(options=[])
+
         except RoutingFailure:
+            # Routing failed, so try routing top-to-bottom instead.
             swbx.flip_xy()
             swbx.route(options=["allow_routing_failure"])
             swbx.flip_xy()
+
+        # Add switchbox routes any existing wiring. 
         for net, segments in swbx.segments.items():
             wires[net].extend(segments)
 
