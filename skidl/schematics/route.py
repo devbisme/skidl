@@ -40,17 +40,17 @@ standard_library.install_aliases()
 # The input is a Node containing parts, each with a bounding box and an
 # assigned (x,y) position.
 #
-# The edges of each part bbox are extended form tracks that divide the
-# routing area into a set of four-sided switchboxes. Each side of a
-# switchbox is a Face, and each Face is a member of two adjoining
+# The edges of each part bbox are extended to form tracks that divide the
+# routing area into a set of four-sided, non-overlapping switchboxes. Each
+# side of a switchbox is a Face, and each Face is a member of two adjoining
 # switchboxes (except those Faces on the boundary of the total
 # routing area.) Each face is adjacent to the six other faces of
 # the two switchboxes it is part of.
 #
 # Each face has a capacity that indicates the number of wires that can
-# cross it. The capacity is the length of the face divided by the routing
-# grid. (Faces on a part boundary have zero capacity to prevent routing
-# from entering a part.)
+# cross through it. The capacity is the length of the face divided by the
+# routing grid. (Faces on a part boundary have zero capacity to prevent
+# routing from entering a part.)
 #
 # Each face on a part bbox is assigned terminals associated with the I/O
 # pins of that symbol.
@@ -67,7 +67,8 @@ standard_library.install_aliases()
 # enters a face is then assigned to create a Terminal.
 #
 # At this point there are a set of switchboxes which have fixed terminals located
-# along their four faces. A greedy switchbox router (https://doi.org/10.1016/0167-9260(85)90029-X)
+# along their four faces. A greedy switchbox router
+# (https://doi.org/10.1016/0167-9260(85)90029-X)
 # does the detailed routing within each switchbox.
 #
 # The detailed wiring within all the switchboxes is combined and output
@@ -76,7 +77,7 @@ standard_library.install_aliases()
 ###################################################################
 
 # Global constant placeholders defined by the particular backend tool.
-# These will get filled-in when the placement function is activated.
+# These will get filled-in when the routing function is activated.
 GRID = 0
 DRAWING_BOX_RESIZE = 0
 
@@ -115,6 +116,7 @@ class TerminalClashException(Exception):
     pass
 
 
+# TODO: Define child classes for different types of routing failures.
 class RoutingFailure(Exception):
     """Exception raised when a net connecting terminals cannot be routed."""
 
@@ -125,7 +127,8 @@ class Boundary:
     """Class for indicating a boundary.
 
     When a Boundary object is placed in the part attribute of a Face, it
-    indicates the Face is on the outer boundary of the Node routing area.
+    indicates the Face is on the outer boundary of the Node routing area
+    and no routes can pass through it.
     """
 
     pass
@@ -219,7 +222,7 @@ class Terminal:
         raise RoutingFailure
 
     def draw(self, scr, tx, options=[]):
-        """Draw a Terminal.
+        """Draw a Terminal for debugging purposes.
 
         Args:
             scr (PyGame screen): Screen object for PyGame drawing.
@@ -239,6 +242,8 @@ class Interval(object):
         Args:
             beg (GlobalTrack): Beginning track that bounds interval.
             end (GlobalTrack): Ending track that bounds interval.
+
+        Note: The beginning and ending Tracks are orthogonal to the Track containing the interval.
         """
 
         # Order beginning and end so beginning <= end.
@@ -288,7 +293,7 @@ class NetInterval(Interval):
         return super().intersects(other) and (self.net is not other.net)
 
     def merge(self, other):
-        """Return a merged interval if the given intervals intersect, otherwise return None."""
+        """Return a merged interval if the given intervals intersect and are on the same net, otherwise return None."""
         if self.net is other.net:
             merged_intvl = super().merge(other)
             if merged_intvl:
@@ -299,6 +304,13 @@ class NetInterval(Interval):
 
 class Adjacency:
     def __init__(self, from_face, to_face):
+        """Define an adjacency between two Faces.
+
+        Args:
+            from_face (Face): One Face.
+            to_face (Face): The other Face.
+        """
+
         self.face = to_face
         if from_face.track.orientation == to_face.track.orientation:
             # Parallel faces, either both vertical or horizontal.
@@ -306,7 +318,7 @@ class Adjacency:
             dist_b = (from_face.length + to_face.length) / 2
             self.dist = dist_a + dist_b / 2
         else:
-            # Right-angle faces.
+            # Else, orthogonal faces.
             dist_a = from_face.length
             dist_b = to_face.length
             self.dist = (dist_a + dist_b) / 2
@@ -735,7 +747,7 @@ class GlobalTrack(list):
 
         These global tracks are made by extending the edges of part bounding boxes to
         form a non-regular grid of rectangular switchboxes. These tracks are *NOT* the same
-        as the tracks used within the switchbox for the detailed routing phase.
+        as the tracks used within a switchbox for the detailed routing phase.
 
         Args:
             orientation (Orientation): Orientation of track (horizontal or vertical).
