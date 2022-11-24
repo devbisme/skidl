@@ -1678,17 +1678,27 @@ class SwitchBox:
 
 
 def create_switchboxes(h_tracks, v_tracks):
+    """Create routing switchboxes from the faces in the horz/vert tracks.
+
+    Args:
+        h_tracks (list): List of horizontal Tracks.
+        v_tracks (list): List of vertical Tracks.
+
+    Returns:
+        list: List of Switchboxes.
+    """
 
     # Clear any switchboxes associated with faces because we'll be making new ones.
     for track in h_tracks + v_tracks:
         for face in track:
             face.switchboxes.clear()
 
-    # Create switchboxes for detailed routing.
+    # For each horizontal Face, create a switchbox where it is the top face of the box.
     switchboxes = []
     for h_track in h_tracks[1:]:
         for face in h_track:
             try:
+                # Create a Switchbox with the given Face on top and add it to the list.
                 switchboxes.append(SwitchBox(face))
             except NoSwitchBox:
                 continue
@@ -1699,13 +1709,10 @@ def create_switchboxes(h_tracks, v_tracks):
 
     # Small switchboxes are more likely to fail routing so try to combine them into larger switchboxes.
     # Use switchboxes containing nets for routing as seeds for coalescing into larger switchboxes.
-    seeds = []  # List of switchboxes to coalesce.
-    for swbx in switchboxes:
-        if swbx.has_nets():
-            seeds.append(swbx)
+    seeds = [swbx for swbx in switchboxes if swbx.has_nets()]
 
     # Sort seeds by perimeter so smaller ones are coalesced before larger ones.
-    seeds.sort(key=lambda box: box.bbox.w + box.bbox.h)
+    seeds.sort(key=lambda swbx: swbx.bbox.w + swbx.bbox.h)
 
     # Coalesce smaller switchboxes into larger ones having more routing area.
     # The smaller switchboxes are removed from the list of switchboxes.
