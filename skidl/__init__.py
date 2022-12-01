@@ -26,7 +26,7 @@ from __future__ import (  # isort:skip
 )
 from future import standard_library
 
-from . import tools
+from .tools import *
 from .alias import *
 from .arrange import *
 from .bus import *

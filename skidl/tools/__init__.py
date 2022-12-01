@@ -49,6 +49,11 @@ for module_name in os.listdir(directory):
     # Import the module.
     mod = __import__(module_name, globals(), locals(), [], level=1)
 
+    # Import each non-private attribute from the module.
+    attribute_list = [attribute for attribute in dir(mod) if attribute.startswith('_') is False]
+    for attribute in attribute_list:
+        globals()[attribute] = getattr(mod, attribute)
+
     # Get some info from the imported module.
     try:
         tool_name = getattr(mod, "tool_name")
