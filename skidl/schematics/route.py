@@ -309,18 +309,26 @@ class Adjacency:
         Args:
             from_face (Face): One Face.
             to_face (Face): The other Face.
+
+        Note: The Adjacency object will be associated with the from_face object, so there's
+            no need to store from_face in the Adjacency object.
         """
 
         self.face = to_face
         if from_face.track.orientation == to_face.track.orientation:
             # Parallel faces, either both vertical or horizontal.
+            # Distance straight-across from one face to the other.
             dist_a = abs(from_face.track.coord - to_face.track.coord)
+            # Average distance parallel to the faces.
             dist_b = (from_face.length + to_face.length) / 2
+            # Compute the average distance from a terminal on one face to the other.
             self.dist = dist_a + dist_b / 2
         else:
             # Else, orthogonal faces.
+            # Compute the average face-to-face distance.
             dist_a = from_face.length
             dist_b = to_face.length
+            # Average distance of dogleg route from a terminal on one face to the other.
             self.dist = (dist_a + dist_b) / 2
 
 
