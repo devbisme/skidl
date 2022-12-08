@@ -720,7 +720,7 @@ def group_parts(parts, options=[]):
     if not parts:
         return [], [], []
 
-    # Extract list of nets internal to the node.
+    # Extract list of nets having at least one pin in the node.
     processed_nets = []
     internal_nets = []
     for part in parts:
@@ -751,24 +751,11 @@ def group_parts(parts, options=[]):
             ) and "remove_power" in options:
                 continue
 
-            def is_internal(net):
-
-                # Determine if all the pins on this net reside in the node.
-                for net_pin in net.pins:
-
-                    # Don't consider stubs.
-                    if net_pin.stub:
-                        continue
-
-                    # If a pin is outside this node, then the net is not internal.
-                    if net_pin.part.hierarchy != part_pin.part.hierarchy:
-                        return False
-
-                # All pins are within the node, so the net is internal.
-                return True
-
-            if is_internal(net):
-                internal_nets.append(net)
+            # Add net to collection if it has at least one pin within the parts for this node.
+            for net_pin in net.pins:
+                if net_pin.part in parts:
+                    internal_nets.append(net)
+                    break
 
     if "remove_high_fanout" in options:
         import statistics

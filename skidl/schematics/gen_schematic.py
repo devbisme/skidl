@@ -21,8 +21,10 @@ from ..tools.kicad.constants import PIN_LABEL_FONT_SIZE
 from .geometry import Point, Vector, BBox, Tx
 from .route import Router
 from .place import Placer
-from ..tools.kicad.v5 import calc_symbol_bbox
+from ..tools.kicad.v5 import calc_symbol_bbox, calc_hier_label_bbox
 from ..net import NCNet
+from ..part import Part
+from ..pin import Pin
 from ..scriptinfo import get_script_name
 from ..tools.kicad.eeschema_v5 import *
 
@@ -32,6 +34,8 @@ standard_library.install_aliases()
 """
 Generate a KiCad EESCHEMA schematic from a Circuit object.
 """
+
+# TODO: Handle symtx, symio, netio, attributes.
 
 
 def preprocess_parts_and_nets(circuit):
@@ -116,11 +120,12 @@ def preprocess_parts_and_nets(circuit):
     def calc_part_bbox(part):
         """Calculate the labeled bounding boxes and store it in the part."""
 
-        # Find part bounding box excluding any net labels on pins.
+        # Find part/unit bounding boxes excluding any net labels on pins.
         # FIXME: part.lbl_bbox could be substituted for part.bbox.
         bare_bboxes = calc_symbol_bbox(part)[1:]
 
         for part_unit, bare_bbox in zip(units(part), bare_bboxes):
+
             # Expand the bounding box if it's too small in either dimension.
             resize_wh = Vector(0, 0)
             if bare_bbox.w < 100:
@@ -129,24 +134,19 @@ def preprocess_parts_and_nets(circuit):
                 resize_wh.y = (100 - bare_bbox.h) / 2
             bare_bbox = bare_bbox.resize(resize_wh)
 
-            # Find expanded bounding box that includes any labels attached to pins.
+            # Find expanded bounding box that includes any hier labels attached to pins.
             part_unit.lbl_bbox = BBox()
             part_unit.lbl_bbox.add(bare_bbox)
-            lbl_vectors = {
-                "U": Vector(0, -1),
-                "D": Vector(0, 1),
-                "L": Vector(1, 0),
-                "R": Vector(-1, 0),
-            }
             for pin in part_unit:
                 if pin.stub:
-                    # Pins connected to net stubs require net name labels.
-                    lbl_len = len(pin.net.name)
-                    if lbl_len:
-                        # Add 1 to the label length to account for extra graphics on label.
-                        lbl_len = (lbl_len + 1) * PIN_LABEL_FONT_SIZE
-                    lbl_vector = lbl_vectors[pin.orientation] * lbl_len
-                    part_unit.lbl_bbox.add(pin.pt + lbl_vector)
+                    # Find bounding box for net stub label attached to pin.
+                    hlbl_bbox = calc_hier_label_bbox(pin.net.name, pin.orientation)
+                    # Move the label bbox to the pin location.
+                    tx = Tx()
+                    tx.origin = pin.pt
+                    hlbl_bbox *= tx
+                    # Update the bbox for the labelled part with this pin label.
+                    part_unit.lbl_bbox.add(hlbl_bbox)
 
             # Set the active bounding box to the labeled version.
             part_unit.bbox = part_unit.lbl_bbox
@@ -177,6 +177,26 @@ def finalize_parts_and_nets(circuit):
     # Return pins from the part units to their parent part.
     for part in circuit.parts:
         part.grab_pins()
+
+
+class NetTerminal(Part):
+    """Specialized Part with a single pin attached to a net."""
+
+    def __init__(self, net):
+        from ..skidl import SKIDL
+        super().__init__(name="NT", tool=SKIDL)
+        pin = Pin(num='1', name='~')
+        pin.pt = Point(0, 0)
+        pin.orientation = "R"
+        self.add_pins(pin)
+        pin += net
+        self.bbox = calc_hier_label_bbox(net.name, "R")
+        self.lbl_bbox = self.bbox
+        self.tx = Tx()
+
+    def to_eeschema(self, tx):
+        self.pins[0].stub = True
+        return pin_label_to_eeschema(self.pins[0], tx)
 
 
 class Node(Placer, Router, Eeschema_V5):
@@ -212,6 +232,26 @@ class Node(Placer, Router, Eeschema_V5):
     def __exit__(self, *args):
         pass
 
+    def find_node_with_part(self, part):
+        """Find the node that contains the part based on its hierarchy.
+
+        Args:
+            part (Part): The part being searched for in the node hierarchy.
+
+        Returns:
+            Node: The Node object containing the part.
+        """
+
+        from ..circuit import HIER_SEP
+
+        level_names = part.hierarchy.split(HIER_SEP)
+        node = self
+        for lvl_nm in level_names[1:]:
+            node = node.children[lvl_nm]
+        assert part in node.parts
+        return node
+
+
     def add_circuit(self, circuit):
         """Add parts in circuit to node and its children.
 
@@ -219,31 +259,68 @@ class Node(Placer, Router, Eeschema_V5):
             circuit (Circuit): Circuit object.
         """
 
+        # TODO: Add terminals for I/O nets:
+        #   1. Detect nets having pins at different levels of the hierarchy.
+        #   2. Create a terminal in each level for the net.
+        #   3. Create a bounding box for the terminal + net name.
+        #   4. Place the terminals along with the parts.
+        #   5. Route the nets between the terminals and other parts in each node.
+        #   6. Generate the schematic code for each terminal.
+
         # Build the circuit node hierarchy by adding the parts.
         for part in circuit.parts:
             self.add_part(part)
+
+        # Add terminals to nodes in the hierarchy for nets that span across nodes.
+        for net in circuit.nets:
+
+            # Search for pins in different nodes.
+            for pin1, pin2 in zip(net.pins[:-1], net.pins[1:]):
+                if pin1.part.hierarchy != pin2.part.hierarchy:
+                    # Found pins in different nodes, so break and add terminals to nodes below.
+                    break
+            else:
+                # No need for net terminal because all pins are in the same node.
+                continue
+
+            # Add a single terminal to each node that contains one or more pins of the net.
+            visited = []
+            for pin in net.pins:
+                part = pin.part
+                if part.hierarchy in visited:
+                    # Already added a terminal to this node, so don't add another.
+                    continue
+                visited.append(part.hierarchy)
+                self.find_node_with_part(part).add_terminal(net)
 
         # Flatten the hierarchy as specified by the flatness parameter.
         self.flatten(self.flatness)
 
     def add_part(self, part, level=0):
-        """Add a part to the node at the appropriate level of the hierarchy."""
+        """Add a part to the node at the appropriate level of the hierarchy.
+
+        Args:
+            part (Part): Part to be added to this node or one of its children.
+            level (int, optional): The current level (depth) of the node in the hierarchy. Defaults to 0.
+        """
 
         from ..circuit import HIER_SEP
 
         level_names = part.hierarchy.split(HIER_SEP)
+        part_level = len(level_names) - 1
+        assert part_level >= level
         self.name = level_names[level]
         base_filename = "_".join([self.top_name] + level_names[0 : level + 1]) + ".sch"
         self.sheet_filename = base_filename
-        # self.sheet_filename = os.path.join(self.filepath, base_filename)
 
-        if level == len(level_names) - 1:
+        if part_level == level:
             # Add part to node at this level in the hierarchy.
             if not part.unit:
                 # Monolithic part so just add it to the node.
                 self.parts.append(part)
             else:
                 # Multi-unit part so add each unit to the node.
+                # FIXME: Some part units might be split into other nodes.
                 for p in part.unit.values():
                     self.parts.append(p)
         else:
@@ -251,6 +328,18 @@ class Node(Placer, Router, Eeschema_V5):
             child_node = self.children[level_names[level + 1]]
             child_node.parent = self
             child_node.add_part(part, level + 1)
+
+    def add_terminal(self, net):
+        """Add a terminal for this net to the node.
+
+        Args:
+            net (Net): The net to be added to this node.
+        """
+
+        from ..circuit import HIER_SEP
+
+        nt = NetTerminal(net)
+        self.parts.append(nt)
 
     def external_bbox(self):
         """Return the bounding box of a hierarchical sheet as seen by its parent node."""

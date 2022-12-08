@@ -61,6 +61,12 @@ class Tx:
         """Flip transformation X coords around (dx, dy)."""
         self.a, self.c = -self.a, -self.c
 
+# Some common rotations.
+tx_rot_0 = Tx(a=1, b=0, c=0, d=1)
+tx_rot_90 = Tx(a=0, b=1, c=-1, d=0)
+tx_rot_180 = Tx(a=-1, b=0, c=0, d=-1)
+tx_rot_270 = Tx(a=0, b=-1, c=1, d=0)
+
 
 class Point:
     def __init__(self, x, y):
@@ -249,7 +255,7 @@ class BBox:
         return Point(self.max.x, self.max.y)
 
     def __repr__(self):
-        return "{self.__class__}(Point({self.min}, {self.max}))".format(self=self)
+        return "{self.__class__}(Point({self.min}), Point({self.max}))".format(self=self)
 
 
 class Segment:

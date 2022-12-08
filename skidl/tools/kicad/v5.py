@@ -21,6 +21,7 @@ from ...part import LIBRARY
 from ...logger import active_logger
 from ...utilities import *
 from ...schematics.geometry import *
+from .constants import PIN_LABEL_FONT_SIZE, HIER_TERM_SIZE
 
 standard_library.install_aliases()
 
@@ -1327,3 +1328,34 @@ def calc_symbol_bbox(part):
     # End of loop through all the component objects.
 
     return unit_bboxes
+
+def calc_hier_label_bbox(label, dir):
+    """Calculate the bounding box for a hierarchical label.
+
+    Args:
+        label (str): String for the label.
+        dir (str): Orientation ("U", "D", "L", "R").
+
+    Returns:
+        BBox: Bounding box for the label and hierarchical terminal.
+    """
+
+    # Rotation matrices for each direction.
+    lbl_tx = {
+        "U": tx_rot_90,  # Pin on bottom pointing upwards.
+        "D": tx_rot_270, # Pin on top pointing down.
+        "L": tx_rot_180, # Pin on right pointing left.
+        "R": tx_rot_0,   # Pin on left pointing right.
+    }
+
+    # Calculate length and height of label + hierarchical marker.
+    lbl_len = len(label) * PIN_LABEL_FONT_SIZE + HIER_TERM_SIZE
+    lbl_hgt = max(PIN_LABEL_FONT_SIZE, HIER_TERM_SIZE)
+
+    # Create bbox for label on left followed by marker on right.
+    bbox = BBox(Point(0, lbl_hgt/2), Point(-lbl_len, -lbl_hgt/2))
+
+    # Rotate the bbox in the given direction.
+    bbox *= lbl_tx[dir]
+
+    return bbox

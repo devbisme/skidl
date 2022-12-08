@@ -29,6 +29,7 @@ standard_library.install_aliases()
 __all__ = [
     "Eeschema_V5",
     "create_eeschema_file",
+    "pin_label_to_eeschema",
 ]
 
 """
@@ -143,6 +144,11 @@ def part_to_eeschema(part, tx):
     # eeschema.append(bbox_to_eeschema(part.bbox, tx))
 
     return "\n".join(eeschema)
+
+# Add method for generating EESCHEMA code to Part object.
+# FIXME: There's got to be a better way...
+from ...part import Part
+setattr(Part, "to_eeschema", part_to_eeschema)
 
 
 def wire_to_eeschema(net, wire, tx):
@@ -426,7 +432,7 @@ class Eeschema_V5:
 
         # Generate EESCHEMA code for each part in the node.
         for part in self.parts:
-            part_code = part_to_eeschema(part, tx=tx)
+            part_code = part.to_eeschema(tx=tx)
             eeschema_code.append(part_code)
 
         # Generate EESCHEMA wiring code between the parts in the node.

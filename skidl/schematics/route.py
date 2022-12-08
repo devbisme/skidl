@@ -1970,7 +1970,7 @@ class Router:
     """Mixin to add routing function to Node class."""
 
     def get_internal_nets(node):
-        """Return a list of nets internal to the node for routing."""
+        """Return a list of nets for routing that have at least one pin internal to the node."""
 
         processed_nets = []
         internal_nets = []
@@ -1996,24 +1996,11 @@ class Router:
                 if net.netclass == "Power":
                     continue
 
-                def is_internal(net):
-
-                    # A net is internal if all its pins reside in this node.
-                    for net_pin in net.pins:
-
-                        # Don't consider stubs.
-                        if net_pin.stub:
-                            continue
-
-                        # If a pin is outside this node, then the net is not internal.
-                        if net_pin.part.hierarchy != part_pin.part.hierarchy:
-                            return False
-
-                    # All pins are within the node, so the net is internal.
-                    return True
-
-                if is_internal(net):
-                    internal_nets.append(net)
+                # Add net to collection if at least one pin is on one of the parts of the node.
+                for net_pin in net.pins:
+                    if net_pin.part in node.parts:
+                        internal_nets.append(net)
+                        break
 
         return internal_nets
 
