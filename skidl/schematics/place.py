@@ -716,46 +716,32 @@ def evolve_placement(parts, nets, force_func, speed, scr=None, tx=None, font=Non
     slip_and_slide(parts, nets, scr, tx, font)
 
 
-def group_parts(parts, options=[]):
-    if not parts:
+def group_parts(node, options=[]):
+    """Group parts in the Node that are connected by internal nets
+
+    Args:
+        node (Node): Node with parts.
+        options (list, optional): List of option strings. Defaults to [].
+
+    Returns:
+        list: List of lists of Parts that are connected.
+        list: List of internal nets connecting parts.
+        list: List of Parts that are not connected to anything (floating).
+    """
+
+    if not node.parts:
         return [], [], []
 
     # Extract list of nets having at least one pin in the node.
-    processed_nets = []
-    internal_nets = []
-    for part in parts:
-        for part_pin in part:
+    internal_nets = node.get_internal_nets()
 
-            # No explicit wires if the pin is connected to a labeled net stub.
-            if "keep_stubs" not in options:
-                if part_pin.stub:
-                    continue
+    # Remove some nets according to options.
+    if "remove_power" in options:
 
-            # No explicit wires if the pin is not connected to anything.
-            if not part_pin.is_connected():
-                continue
+        def is_pwr(net):
+            return net.netclass == "Power" or "vcc" in net.name.lower() or "gnd" in net.name.lower()
 
-            net = part_pin.net
-
-            if net in processed_nets:
-                continue
-
-            processed_nets.append(net)
-
-            # No explicit wires for power nets.
-            # TODO: Is this necessary?
-            if (
-                net.netclass == "Power"
-                or "vcc" in net.name.lower()
-                or "gnd" in net.name.lower()
-            ) and "remove_power" in options:
-                continue
-
-            # Add net to collection if it has at least one pin within the parts for this node.
-            for net_pin in net.pins:
-                if net_pin.part in parts:
-                    internal_nets.append(net)
-                    break
+        internal_nets = [net for net in internal_nets if not is_pwr(net)]
 
     if "remove_high_fanout" in options:
         import statistics
@@ -773,11 +759,12 @@ def group_parts(parts, options=[]):
             ]
 
     # Group all the parts that have some interconnection to each other.
-    # Start with groups of parts on each individual net, and then join groups that
-    # have parts in common.
+    # Start with groups of parts on each individual net.
     connected_parts = [
-        set(pin.part for pin in net.pins if pin.part in parts) for net in internal_nets
+        set(pin.part for pin in net.pins if pin.part in node.parts) for net in internal_nets
     ]
+
+    # Now join groups that have parts in common.
     for i in range(len(connected_parts) - 1):
         group1 = connected_parts[i]
         for j in range(i + 1, len(connected_parts)):
@@ -787,14 +774,15 @@ def group_parts(parts, options=[]):
                 # and empty-out the other.
                 connected_parts[j] = connected_parts[i] | connected_parts[j]
                 connected_parts[i] = set()
-                # No need to check against this group any more since it has been
-                # unioned into a group that will be checked later in the loop.
+                # No need to check against group1 any more since it has been
+                # unioned into group2 that will be checked later in the loop.
                 break
+
     # Remove any empty groups that were unioned into other groups.
     connected_parts = [group for group in connected_parts if group]
 
     # Find parts that aren't connected to anything.
-    floating_parts = set(parts) - set(itertools.chain(*connected_parts))
+    floating_parts = set(node.parts) - set(itertools.chain(*connected_parts))
 
     return connected_parts, internal_nets, floating_parts
 
@@ -1054,8 +1042,8 @@ def place_blocks(connected_parts, floating_parts, children, options):
 class Placer:
     """Mixin to add place function to Node class."""
 
-    def place(node, options=["no_keep_stubs", "remove_power"]):
-    # def place(node, options=["draw", "no_keep_stubs", "remove_power"]):
+    # def place(node, options=["no_keep_stubs", "remove_power"]):
+    def place(node, options=["draw", "no_keep_stubs", "remove_power"]):
         """Place the parts and children in this node.
 
         Args:
@@ -1077,9 +1065,7 @@ class Placer:
 
         # Group parts into those that are connected by explicit nets and
         # those that float freely connected only by stub nets.
-        connected_parts, internal_nets, floating_parts = group_parts(
-            node.parts, options
-        )
+        connected_parts, internal_nets, floating_parts = group_parts(node, options)
 
         # Place node parts.
         place_parts(connected_parts, internal_nets, floating_parts, options)

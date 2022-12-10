@@ -17,7 +17,7 @@ from collections import defaultdict, Counter
 
 from future import standard_library
 
-from ..tools.kicad.constants import PIN_LABEL_FONT_SIZE
+from ..tools.kicad.constants import PIN_LABEL_FONT_SIZE, GRID
 from .geometry import Point, Vector, BBox, Tx
 from .route import Router
 from .place import Placer
@@ -180,23 +180,56 @@ def finalize_parts_and_nets(circuit):
 
 
 class NetTerminal(Part):
-    """Specialized Part with a single pin attached to a net."""
 
     def __init__(self, net):
+        """Specialized Part with a single pin attached to a net.
+
+            This is intended for attaching to nets to label them, typically when
+            the net spans across levels of hierarchical nodes.
+        """
+
+        # Create a Part.
         from ..skidl import SKIDL
-        super().__init__(name="NT", tool=SKIDL)
-        pin = Pin(num='1', name='~')
-        pin.pt = Point(0, 0)
-        pin.orientation = "R"
-        self.add_pins(pin)
-        pin += net
-        self.bbox = calc_hier_label_bbox(net.name, "R")
-        self.lbl_bbox = self.bbox
+        super().__init__(name="NT", ref_prefix="NT", tool=SKIDL)
+        
+        # Set a default transformation matrix for this part.
         self.tx = Tx()
 
+        # Add a single pin to the part.
+        pin = Pin(num='1', name='~')
+        self.add_pins(pin)
+
+        # Connect the pin to the net.
+        pin += net
+
+        # Set the pin at point (0,0) and pointing leftward toward the part body
+        # (consisting of just the net label for this type of part) so any attached routing
+        # will go to the right.
+        pin.pt = Point(0, 0)
+        pin.orientation = "L"
+        # pin.stub = False
+
+        # Calculate the bounding box, but as if the pin were pointed right so
+        # the associated label text would go to the left.
+        self.bbox = calc_hier_label_bbox(net.name, "R")
+
+        # Extend the bounding box a bit so any attached routing will come straight in.
+        self.bbox.max += Vector(GRID,0)
+        self.lbl_bbox = self.bbox
+
     def to_eeschema(self, tx):
+        """Generate the EESCHEMA code for the net terminal.
+
+        Args:
+            tx (Tx): Transformation matrix for the node containing this net terminal.
+
+        Returns:
+            str: EESCHEMA code string.
+        """
         self.pins[0].stub = True
+        self.pins[0].orientation = "R"
         return pin_label_to_eeschema(self.pins[0], tx)
+        # return pin_label_to_eeschema(self.pins[0], tx) + bbox_to_eeschema(self.bbox, self.tx * tx)
 
 
 class Node(Placer, Router, Eeschema_V5):
@@ -433,6 +466,56 @@ class Node(Placer, Router, Eeschema_V5):
                 # Not enough slack left. Add these children as hierarchical sheets.
                 for child in child_types[child_type]:
                     child.flattened = False
+
+    def get_internal_nets(self):
+        """Return a list of nets that have at least one pin on a part in this node."""
+
+        processed_nets = []
+        internal_nets = []
+        for part in self.parts:
+            for part_pin in part:
+
+                # No explicit wire for pins connected to labeled stub nets.
+                if part_pin.stub:
+                    continue
+
+                # No explicit wires if the pin is not connected to anything.
+                if not part_pin.is_connected():
+                    continue
+
+                net = part_pin.net
+
+                if net in processed_nets:
+                    continue
+
+                if getattr(net, "stub", False) is True:
+                    continue
+
+                processed_nets.append(net)
+
+                # No explicit wires for power nets.
+                if net.netclass == "Power":
+                    continue
+
+                # Add net to collection if at least one pin is on one of the parts of the node.
+                for net_pin in net.pins:
+                    if net_pin.part in self.parts:
+                        internal_nets.append(net)
+                        break
+
+        return internal_nets
+
+    def get_internal_pins(self, net):
+        """Return the pins on the net that are on parts in the node.
+
+        Args:
+            net (Net): The net whose pins are being examined.
+
+        Returns:
+            list: List of pins on the net that are on parts in this node.
+        """
+
+        return [pin for pin in net.pins if pin.stub is False and pin.part in self.parts]
 
 
 def gen_schematic(

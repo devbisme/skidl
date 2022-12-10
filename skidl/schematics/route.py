@@ -437,9 +437,22 @@ class Face(Interval):
     def create_nonpin_terminals(self):
         """Create non-net terminals along a non-part Face with GRID spacing."""
 
-        # Add terminals along Face, but keep terminals off the beginning or end points.
-        beg = (self.beg.coord + GRID) // GRID * GRID
+        # Add terminals along a Face. A terminal can be right at the start if the Face
+        # starts on a grid point, but there cannot be a terminal at the end
+        # if the Face ends on a grid point. Otherwise, there would be two terminals
+        # at exactly the same point (one at the ending point of a Face and the
+        # other at the beginning point of the next Face).
+        # FIXME: This seems to cause wiring with a lot of doglegs.
+        if self.end.coord - self.beg.coord <= GRID:
+            # Allow a terminal right at the start of the Face if the Face is small.
+            beg = (self.beg.coord + GRID - 1) // GRID * GRID
+        else:
+            # For larger faces with lengths greater than the GRID spacing,
+            # don't allow terminals right at the start of the Face.
+            beg = (self.beg.coord + GRID) // GRID * GRID
         end = self.end.coord
+
+        # Create terminals along the Face.
         for coord in range(beg, end, GRID):
             self.add_terminal(None, coord)
 
@@ -693,13 +706,15 @@ class GlobalWire(list):
 
         # Draw pins on the net associated with the wire.
         for pin in self.net.pins:
-            pt = pin.route_pt * pin.part.tx
-            track = pin.face.track
-            pt = {
-                HORZ: Point(pt.x, track.coord),
-                VERT: Point(track.coord, pt.y),
-            }[track.orientation]
-            draw_endpoint(pt, scr, tx, color=color, dot_radius=10)
+            # Only draw pins in the current node being routed which have the route_pt attribute.
+            if hasattr(pin, "route_pt"):
+                pt = pin.route_pt * pin.part.tx
+                track = pin.face.track
+                pt = {
+                    HORZ: Point(pt.x, track.coord),
+                    VERT: Point(track.coord, pt.y),
+                }[track.orientation]
+                draw_endpoint(pt, scr, tx, color=color, dot_radius=10)
 
         # Draw global wire segment.
         face_to_face = zip(self[:-1], self[1:])
@@ -1789,257 +1804,49 @@ def switchbox_router(switchboxes, wires):
             wires[net].extend(segments)
 
 
-def global_router(nets):
-    """Globally route a list of nets from face to face.
-
-    Args:
-        nets (list): List of Nets to be routed.
-
-    Returns:
-        List: List of GlobalRoutes.
-    """
-
-    # This maze router assembles routes from each pin sequentially.
-    #
-    # 1. Find faces with net pins on them and place them on the
-    #    start_faces list.
-    # 2. Randomly select one of the start faces. Add all the other
-    #    faces to the stop_faces list.
-    # 3. Find a route from the start face to closest stop face.
-    #    This concludes the initial phase of the routing.
-    # 4. Iterate through the remaining faces on the start_faces list.
-    #        a. Randomly select a start face.
-    #        b. Set stop faces to be all the faces currently on
-    #           global routes.
-    #        c. Find a route from the start face to any face on
-    #           the global routes, thus enlarging the set of
-    #           contiguous routes while reducing the number of
-    #           unrouted start faces.
-    #        d. Add the faces on the new route to the stop_faces list.
-
-    # Core routing function.
-    def rt_srch(start_face, stop_faces):
-        """Return a minimal-distance path from the start face to one of the stop faces.
-
-        Args:
-            start_face (Face): Face from which path search begins
-            stop_faces (List): List of Faces at which search will end.
-
-        Raises:
-            RoutingFailure: No path was found.
-
-        Returns:
-            GlobalWire: List of Faces from start face to one of the stop faces.
-        """
-
-        # Return empty path if no stop faces or already starting from a stop face.
-        if start_face in stop_faces or not stop_faces:
-            return GlobalWire(net)
-
-        # Record faces that have been visited and their distance from the start face.
-        visited_faces = [start_face]
-        start_face.dist_from_start = 0
-
-        # Path searches are allowed to touch a Face on a Part if it
-        # has a Pin on the net being routed or if it is one of the stop faces.
-        # This is necessary to allow a search to terminate on a stop face or to
-        # pass through a face with a net pin on the way to finding a connection
-        # to one of the stop faces.
-        unconstrained_faces = stop_faces | net_pin_faces
-
-        # Search through faces until a path is found & returned or a routing exception occurs.
-        while True:
-
-            # Set up for finding the closest unvisited face.
-            closest_dist = float("inf")
-            closest_face = None
-
-            # Search for the closest face adjacent to the visited faces.
-            visited_faces.sort(key=lambda f: f.dist_from_start)
-            for visited_face in visited_faces:
-
-                if visited_face.dist_from_start > closest_dist:
-                    # Visited face is already further than the current
-                    # closest face, so no use continuing search since
-                    # any remaining visited faces are even more distant.
-                    break
-
-                # Get the distances to the faces adjacent to this previously-visited face
-                # and update the closest face if appropriate.
-                for adj in visited_face.adjacent:
-
-                    if adj.face in visited_faces:
-                        # Don't re-visit faces that have already been visited.
-                        continue
-
-                    if adj.face not in unconstrained_faces and adj.face.capacity <= 0:
-                        # Skip faces with insufficient routing capacity.
-                        continue
-
-                    # Compute distance of this adjacent face to the start face.
-                    dist = visited_face.dist_from_start + adj.dist
-
-                    if dist < closest_dist:
-                        # Record the closest face seen so far.
-                        closest_dist = dist
-                        closest_face = adj.face
-                        closest_face.prev_face = visited_face
-
-            if not closest_face:
-                # Exception raised if couldn't find a path from start to stop faces.
-                raise RoutingFailure(
-                    "Routing failure: {net.name} {net} {start_face.pins}".format(
-                        **locals()
-                    )
-                )
-
-            # Add the closest adjacent face to the list of visited faces.
-            closest_face.dist_from_start = closest_dist
-            visited_faces.append(closest_face)
-
-            if closest_face in stop_faces:
-
-                # The newest, closest face is actually on the list of stop faces, so the search is done.
-                # Now search back from this face to find the path back to the start face.
-                face_path = [closest_face]
-                while face_path[-1] is not start_face:
-                    face_path.append(face_path[-1].prev_face)
-
-                # Decrement the routing capacities of the path faces to account for this new routing.
-                # Don't decrement the stop face because any routing through it was accounted for
-                # during a previous routing.
-                for face in face_path[:-1]:
-                    if face.capacity > 0:
-                        face.capacity -= 1
-
-                # Reverse face path to go from start-to-stop face and return it.
-                return GlobalWire(net, reversed(face_path))
-
-    # Key function for setting the order in which nets will be globally routed.
-    def rank_net(net):
-        """Rank net based on W/H of bounding box of pins and the # of pins."""
-
-        # Nets with a small bounding box probably have fewer routing resources
-        # so they should be routed first.
-
-        bbox = BBox()
-        for pin in net.pins:
-            bbox.add(pin.route_pt)
-        return (bbox.w + bbox.h, len(net.pins))
-
-    # Set order in which nets will be routed.
-    nets.sort(key=rank_net)
-
-    # Globally route each net.
-    global_routes = []
-
-    for net in nets:
-
-        # List for storing GlobalWires connecting pins on net.
-        global_route = GlobalRoute()
-
-        # Faces with pins from which paths/routing originate.
-        net_pin_faces = {pin.face for pin in net.pins}
-        start_faces = set(net_pin_faces)
-
-        # Select a random start face and look for a route to *any* of the other start faces.
-        start_face = choice(list(start_faces))
-        start_faces.discard(start_face)
-        stop_faces = set(start_faces)
-        initial_route = rt_srch(start_face, stop_faces)
-        global_route.append(initial_route)
-
-        # The faces on the route that was found now become the stopping faces for any further routing.
-        stop_faces = set(initial_route)
-
-        # Go thru the other start faces looking for a connection to any existing route.
-        for start_face in start_faces:
-            next_route = rt_srch(start_face, stop_faces)
-            global_route.append(next_route)
-
-            # Update the set of stopping faces with the faces on the newest route.
-            stop_faces |= set(next_route)
-
-        # Add the complete global route for this net to the list of global routes.
-        global_routes.append(global_route)
-
-    return global_routes
-
 
 class Router:
     """Mixin to add routing function to Node class."""
 
-    def get_internal_nets(node):
-        """Return a list of nets for routing that have at least one pin internal to the node."""
-
-        processed_nets = []
-        internal_nets = []
-        for part in node.parts:
-            for part_pin in part:
-
-                # No explicit wire for pins connected to labeled stub nets.
-                if part_pin.stub:
-                    continue
-
-                # No explicit wires if the pin is not connected to anything.
-                if not part_pin.is_connected():
-                    continue
-
-                net = part_pin.net
-
-                if net in processed_nets:
-                    continue
-
-                processed_nets.append(net)
-
-                # No explicit wires for power nets.
-                if net.netclass == "Power":
-                    continue
-
-                # Add net to collection if at least one pin is on one of the parts of the node.
-                for net_pin in net.pins:
-                    if net_pin.part in node.parts:
-                        internal_nets.append(net)
-                        break
-
-        return internal_nets
-
-    def add_routing_points(node, nets):
-        """Add routing points by extending pins out to the edge of the part bounding box.
+    def add_routing_points(self, nets):
+        """Add routing points by extending wires from pins out to the edge of the part bounding box.
 
         Args:
-            part (Node): Node containing list of parts.
             nets (list): List of nets to be routed.
         """
 
-        def add_routing_pt(part, pin):
+        def add_routing_pt(pin):
             """Add the point for a pin on the boundary of a part."""
 
+            bbox = pin.part.lbl_bbox
             pin.route_pt = Point(pin.pt.x, pin.pt.y)
             if pin.orientation == "U":
-                pin.route_pt.y = part.lbl_bbox.min.y
+                # Pin points up, so extend downward to the bottom of the bounding box.
+                pin.route_pt.y = bbox.min.y
             elif pin.orientation == "D":
-                pin.route_pt.y = part.lbl_bbox.max.y
+                # Pin points down, so extend upward to the top of the bounding box.
+                pin.route_pt.y = bbox.max.y
             elif pin.orientation == "L":
-                pin.route_pt.x = part.lbl_bbox.max.x
+                # Pin points left, so extend rightward to the right-edge of the bounding box.
+                pin.route_pt.x = bbox.max.x
             elif pin.orientation == "R":
-                pin.route_pt.x = part.lbl_bbox.min.x
+                # Pin points right, so extend leftward to the left-edge of the bounding box.
+                pin.route_pt.x = bbox.min.x
             else:
                 raise RuntimeError("Unknown pin orientation.")
 
-        for part in node.parts:
+        for net in nets:
 
-            # Find anchor pins on the part and pulling pins on other parts.
-            for pin in part.pins:
-                if pin.net in nets:
+            # Add routing points for all pins on the net that are inside this node.
+            for pin in self.get_internal_pins(net):
 
-                    # Only routing points for pins on active internal nets.
-                    add_routing_pt(part, pin)
+                # Add the point to which the wiring should be extended.
+                add_routing_pt(pin)
 
-                    # Add a wire to connect the part pin to the routing point on the bounding box periphery.
-                    if pin.route_pt != pin.pt:
-                        seg = Segment(pin.pt, pin.route_pt) * part.tx
-                        node.wires[pin.net].append(seg)
+                # Add a wire to connect the part pin to the routing point on the bounding box periphery.
+                if pin.route_pt != pin.pt:
+                    seg = Segment(pin.pt, pin.route_pt) * pin.part.tx
+                    self.wires[pin.net].append(seg)
 
     def rmv_routing_points(node):
         """Remove routing points from part pins in node."""
@@ -2140,7 +1947,7 @@ class Router:
 
         # Add terminals to switchbox faces for all part pins on internal nets.
         for net in internal_nets:
-            for pin in net.pins:
+            for pin in node.get_internal_pins(net):
 
                 # Find the track (top/bottom/left/right) that the pin is on.
                 part = pin.part
@@ -2328,7 +2135,184 @@ class Router:
             junctions = find_junctions(segments)
             node.junctions[net].extend(junctions)
 
+    def global_router(node, nets):
+        """Globally route a list of nets from face to face.
+
+        Args:
+            nets (list): List of Nets to be routed.
+
+        Returns:
+            List: List of GlobalRoutes.
+        """
+
+        # This maze router assembles routes from each pin sequentially.
+        #
+        # 1. Find faces with net pins on them and place them on the
+        #    start_faces list.
+        # 2. Randomly select one of the start faces. Add all the other
+        #    faces to the stop_faces list.
+        # 3. Find a route from the start face to closest stop face.
+        #    This concludes the initial phase of the routing.
+        # 4. Iterate through the remaining faces on the start_faces list.
+        #        a. Randomly select a start face.
+        #        b. Set stop faces to be all the faces currently on
+        #           global routes.
+        #        c. Find a route from the start face to any face on
+        #           the global routes, thus enlarging the set of
+        #           contiguous routes while reducing the number of
+        #           unrouted start faces.
+        #        d. Add the faces on the new route to the stop_faces list.
+
+        # Core routing function.
+        def rt_srch(start_face, stop_faces):
+            """Return a minimal-distance path from the start face to one of the stop faces.
+
+            Args:
+                start_face (Face): Face from which path search begins
+                stop_faces (List): List of Faces at which search will end.
+
+            Raises:
+                RoutingFailure: No path was found.
+
+            Returns:
+                GlobalWire: List of Faces from start face to one of the stop faces.
+            """
+
+            # Return empty path if no stop faces or already starting from a stop face.
+            if start_face in stop_faces or not stop_faces:
+                return GlobalWire(net)
+
+            # Record faces that have been visited and their distance from the start face.
+            visited_faces = [start_face]
+            start_face.dist_from_start = 0
+
+            # Path searches are allowed to touch a Face on a Part if it
+            # has a Pin on the net being routed or if it is one of the stop faces.
+            # This is necessary to allow a search to terminate on a stop face or to
+            # pass through a face with a net pin on the way to finding a connection
+            # to one of the stop faces.
+            unconstrained_faces = stop_faces | net_pin_faces
+
+            # Search through faces until a path is found & returned or a routing exception occurs.
+            while True:
+
+                # Set up for finding the closest unvisited face.
+                closest_dist = float("inf")
+                closest_face = None
+
+                # Search for the closest face adjacent to the visited faces.
+                visited_faces.sort(key=lambda f: f.dist_from_start)
+                for visited_face in visited_faces:
+
+                    if visited_face.dist_from_start > closest_dist:
+                        # Visited face is already further than the current
+                        # closest face, so no use continuing search since
+                        # any remaining visited faces are even more distant.
+                        break
+
+                    # Get the distances to the faces adjacent to this previously-visited face
+                    # and update the closest face if appropriate.
+                    for adj in visited_face.adjacent:
+
+                        if adj.face in visited_faces:
+                            # Don't re-visit faces that have already been visited.
+                            continue
+
+                        if adj.face not in unconstrained_faces and adj.face.capacity <= 0:
+                            # Skip faces with insufficient routing capacity.
+                            continue
+
+                        # Compute distance of this adjacent face to the start face.
+                        dist = visited_face.dist_from_start + adj.dist
+
+                        if dist < closest_dist:
+                            # Record the closest face seen so far.
+                            closest_dist = dist
+                            closest_face = adj.face
+                            closest_face.prev_face = visited_face
+
+                if not closest_face:
+                    # Exception raised if couldn't find a path from start to stop faces.
+                    raise RoutingFailure(
+                        "Routing failure: {net.name} {net} {start_face.pins}".format(
+                            **locals()
+                        )
+                    )
+
+                # Add the closest adjacent face to the list of visited faces.
+                closest_face.dist_from_start = closest_dist
+                visited_faces.append(closest_face)
+
+                if closest_face in stop_faces:
+
+                    # The newest, closest face is actually on the list of stop faces, so the search is done.
+                    # Now search back from this face to find the path back to the start face.
+                    face_path = [closest_face]
+                    while face_path[-1] is not start_face:
+                        face_path.append(face_path[-1].prev_face)
+
+                    # Decrement the routing capacities of the path faces to account for this new routing.
+                    # Don't decrement the stop face because any routing through it was accounted for
+                    # during a previous routing.
+                    for face in face_path[:-1]:
+                        if face.capacity > 0:
+                            face.capacity -= 1
+
+                    # Reverse face path to go from start-to-stop face and return it.
+                    return GlobalWire(net, reversed(face_path))
+
+        # Key function for setting the order in which nets will be globally routed.
+        def rank_net(net):
+            """Rank net based on W/H of bounding box of pins and the # of pins."""
+
+            # Nets with a small bounding box probably have fewer routing resources
+            # so they should be routed first.
+
+            bbox = BBox()
+            for pin in node.get_internal_pins(net):
+                bbox.add(pin.route_pt)
+            return (bbox.w + bbox.h, len(net.pins))
+
+        # Set order in which nets will be routed.
+        nets.sort(key=rank_net)
+
+        # Globally route each net.
+        global_routes = []
+
+        for net in nets:
+
+            # List for storing GlobalWires connecting pins on net.
+            global_route = GlobalRoute()
+
+            # Faces with pins from which paths/routing originate.
+            net_pin_faces = {pin.face for pin in node.get_internal_pins(net)}
+            start_faces = set(net_pin_faces)
+
+            # Select a random start face and look for a route to *any* of the other start faces.
+            start_face = choice(list(start_faces))
+            start_faces.discard(start_face)
+            stop_faces = set(start_faces)
+            initial_route = rt_srch(start_face, stop_faces)
+            global_route.append(initial_route)
+
+            # The faces on the route that was found now become the stopping faces for any further routing.
+            stop_faces = set(initial_route)
+
+            # Go thru the other start faces looking for a connection to any existing route.
+            for start_face in start_faces:
+                next_route = rt_srch(start_face, stop_faces)
+                global_route.append(next_route)
+
+                # Update the set of stopping faces with the faces on the newest route.
+                stop_faces |= set(next_route)
+
+            # Add the complete global route for this net to the list of global routes.
+            global_routes.append(global_route)
+
+        return global_routes
+
     def route(node, options=[]):
+    # def route(node, options=["draw"]):
     # def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
         """Route the wires between part pins in this node and its children.
 
@@ -2358,7 +2342,7 @@ class Router:
         if not node.parts:
             return
 
-        # Get all the nets that have pins solely within this node.
+        # Get all the nets that have one or more pins within this node.
         internal_nets = node.get_internal_nets()
 
         # Exit if no nets to route.
@@ -2384,7 +2368,7 @@ class Router:
         node.debug_draw(options, routing_bbox, node.parts, h_tracks, v_tracks)
 
         # Do global routing of nets internal to the node.
-        global_routes = global_router(internal_nets)
+        global_routes = node.global_router(internal_nets)
 
         # Convert the global face-to-face routes into terminals on the switchboxes.
         for route in global_routes:

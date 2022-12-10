@@ -30,6 +30,7 @@ __all__ = [
     "Eeschema_V5",
     "create_eeschema_file",
     "pin_label_to_eeschema",
+    "bbox_to_eeschema",
 ]
 
 """
