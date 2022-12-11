@@ -188,6 +188,9 @@ class NetTerminal(Part):
             the net spans across levels of hierarchical nodes.
         """
 
+        # FIXME: Unnecessary jogs in NetTerminal wiring.
+        # TODO: Net labels in other orientations than just to the left.
+
         # Create a Part.
         from ..skidl import SKIDL
         super().__init__(name="NT", ref_prefix="NT", tool=SKIDL)
@@ -292,20 +295,16 @@ class Node(Placer, Router, Eeschema_V5):
             circuit (Circuit): Circuit object.
         """
 
-        # TODO: Add terminals for I/O nets:
-        #   1. Detect nets having pins at different levels of the hierarchy.
-        #   2. Create a terminal in each level for the net.
-        #   3. Create a bounding box for the terminal + net name.
-        #   4. Place the terminals along with the parts.
-        #   5. Route the nets between the terminals and other parts in each node.
-        #   6. Generate the schematic code for each terminal.
-
         # Build the circuit node hierarchy by adding the parts.
         for part in circuit.parts:
             self.add_part(part)
 
         # Add terminals to nodes in the hierarchy for nets that span across nodes.
         for net in circuit.nets:
+
+            # Skip nets that are stubbed since there will be no wire to attach to the NetTerminal.
+            if getattr(net, "stub", False):
+                continue
 
             # Search for pins in different nodes.
             for pin1, pin2 in zip(net.pins[:-1], net.pins[1:]):
@@ -319,12 +318,22 @@ class Node(Placer, Router, Eeschema_V5):
             # Add a single terminal to each node that contains one or more pins of the net.
             visited = []
             for pin in net.pins:
+                
+                # A stubbed pin can't be used to add NetTerminal since there is no explicit wire.
+                if pin.stub:
+                    continue
+
                 part = pin.part
+
                 if part.hierarchy in visited:
                     # Already added a terminal to this node, so don't add another.
                     continue
-                visited.append(part.hierarchy)
+
+                # Add NetTerminal to the node with this part/pin.
                 self.find_node_with_part(part).add_terminal(net)
+                
+                # Record that this hierarchical node was visited.
+                visited.append(part.hierarchy)
 
         # Flatten the hierarchy as specified by the flatness parameter.
         self.flatten(self.flatness)
@@ -485,16 +494,14 @@ class Node(Placer, Router, Eeschema_V5):
 
                 net = part_pin.net
 
+                # Skip nets that have already been processed.
                 if net in processed_nets:
-                    continue
-
-                if getattr(net, "stub", False) is True:
                     continue
 
                 processed_nets.append(net)
 
-                # No explicit wires for power nets.
-                if net.netclass == "Power":
+                # Skip stubbed nets.
+                if getattr(net, "stub", False) is True:
                     continue
 
                 # Add net to collection if at least one pin is on one of the parts of the node.
@@ -514,6 +521,10 @@ class Node(Placer, Router, Eeschema_V5):
         Returns:
             list: List of pins on the net that are on parts in this node.
         """
+
+        # Skip pins on stubbed nets.
+        if getattr(net, "stub", False) is True:
+            return []
 
         return [pin for pin in net.pins if pin.stub is False and pin.part in self.parts]
 

@@ -464,7 +464,6 @@ class Face(Interval):
             self.capacity = 0
         else:
             # Wire routing capacity for other faces is the number of terminals they have.
-            # FIXME: Some faces are too short and have no terminals so they block routing.
             self.capacity = len(self.terminals)
 
     def has_nets(self):

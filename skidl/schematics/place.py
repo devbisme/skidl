@@ -1042,8 +1042,8 @@ def place_blocks(connected_parts, floating_parts, children, options):
 class Placer:
     """Mixin to add place function to Node class."""
 
-    # def place(node, options=["no_keep_stubs", "remove_power"]):
-    def place(node, options=["draw", "no_keep_stubs", "remove_power"]):
+    def place(node, options=["no_keep_stubs", "remove_power"]):
+    # def place(node, options=["draw", "no_keep_stubs", "remove_power"]):
         """Place the parts and children in this node.
 
         Args:
