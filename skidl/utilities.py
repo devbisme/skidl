@@ -748,26 +748,30 @@ def find_and_open_file(
     import urllib.parse
     import urllib.request
 
+    # Get the directory path from the file name. This even works with URLs.
+    rel_path, fnm = os.path.split(filename)
+    base, suffix = os.path.splitext(fnm)
+
     def is_url(s):
         return bool(urllib.parse.urlparse(s).scheme)
 
+    # Update the paths to search through based on the given file name.
     if is_url(filename):
         # This is a URL. Use the URL path as the search path except for
-        # the ending file name. Maybe not the best thing to use, but
-        # os.path.dirname() will do this.
-        paths = [os.path.dirname(filename)]
+        # the ending file name.
+        paths = [rel_path]
     elif os.path.isabs(filename):
         # Replace search paths if the file already has an absolute path.
-        paths = [os.path.abspath(os.path.dirname(filename))]
-    elif not paths:
-        # If no search paths are given, use the current working directory.
-        paths = ["."]
-
-    # Remove any directory path from the file name. This even works with URLs.
-    _, filename = os.path.split(filename)
+        paths = [rel_path]
+    else:
+        # filename was not a URL or absolute path, so assume it's a relative path.
+        if not paths:
+            # If no search paths are given, use the current working directory.
+            paths = ["."]
+        # append any relative path from the file name to each of the paths.
+        paths = [os.path.join(path, rel_path) for path in paths]
 
     # Get the list of file extensions to check against.
-    base, suffix = os.path.splitext(filename)
     if suffix:
         # If an explicit file extension was given, just use that.
         exts = [suffix]
