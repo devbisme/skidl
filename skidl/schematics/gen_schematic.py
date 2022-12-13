@@ -121,7 +121,7 @@ def preprocess_parts_and_nets(circuit):
         """Calculate the labeled bounding boxes and store it in the part."""
 
         # Find part/unit bounding boxes excluding any net labels on pins.
-        # FIXME: part.lbl_bbox could be substituted for part.bbox.
+        # TODO: part.lbl_bbox could be substituted for part.bbox.
         bare_bboxes = calc_symbol_bbox(part)[1:]
 
         for part_unit, bare_bbox in zip(units(part), bare_bboxes):
@@ -155,7 +155,7 @@ def preprocess_parts_and_nets(circuit):
     net_stubs = circuit.get_net_nc_stubs()
     net_stubs = [net for net in net_stubs if not isinstance(net, NCNet)]
     for net in net_stubs:
-        if True or net.netclass != "Power": # FIXME: figure out what to do with power nets.
+        if True or net.netclass != "Power": # TODO: figure out what to do with power nets.
             for pin in net.pins:
                 pin.stub = True
 

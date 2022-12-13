@@ -891,7 +891,7 @@ def place_parts(connected_parts, internal_nets, floating_parts, options):
                 if other_part is part:
                     continue
 
-                # FIXME: Get similarity forces right-sized.
+                # TODO: Get similarity forces right-sized.
                 part_similarity[part][other_part] = part.similarity(other_part) / 10
                 # part_similarity[part][other_part] = 0.1
 

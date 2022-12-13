@@ -2087,7 +2087,7 @@ class Router:
             # Update the node net's wire with the cleaned version.
             node.wires[net] = segments
 
-        # FIXME: Remove unnecessary wire jogs.
+        # TODO: Remove unnecessary wire jogs.
 
     def add_junctions(node):
         """Add X & T-junctions where wire segments in the same net meet."""
