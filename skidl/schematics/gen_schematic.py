@@ -35,7 +35,7 @@ standard_library.install_aliases()
 Generate a KiCad EESCHEMA schematic from a Circuit object.
 """
 
-# TODO: Handle symtx, symio, netio, attributes.
+# TODO: Handle symio, netio, attributes.
 
 
 def preprocess_parts_and_nets(circuit):
@@ -53,8 +53,8 @@ def preprocess_parts_and_nets(circuit):
         # Initialize the units of the part, or the part itself if it has no units.
         for part_unit in units(part):
 
-            # Initialize transform matrix to no translation / no rotation.
-            part_unit.tx = Tx()
+            # Initialize transform matrix.
+            part_unit.tx = Tx.from_symtx(getattr(part_unit, "symtx", ""))
 
             # Assign pins from the parent part to the part unit.
             part_unit.grab_pins()
@@ -70,6 +70,10 @@ def preprocess_parts_and_nets(circuit):
         This function is to make sure that voltage sources face up and gnd pins
         face down.
         """
+
+        # Don't rotate parts that are already explicitly rotated/flipped.
+        if not getattr(part, "symtx", ""):
+            return
 
         def is_pwr(net):
             return net_name.startswith("+")

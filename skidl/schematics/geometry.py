@@ -32,6 +32,29 @@ class Tx:
         self.dx = dx
         self.dy = dy
 
+    @classmethod
+    def from_symtx(cls, symtx):
+        """Return a Tx() object that implements the "HVLR" geometric operation sequence.
+
+        Args:
+            symtx (str): A string of H, V, L, R operations that are applied in sequence left-to-right.
+
+        Returns:
+            Tx: A transformation matrix that implements the sequence of geometric operations.
+        """
+        op_dict = {
+            "H": Tx(a=-1, c=0, b=0, d=1),  # Horizontal flip.
+            "V": Tx(a=1, c=0, b=0, d=-1),  # Vertical flip.
+            "L": Tx(a=0, c=-1, b=1, d=0),  # Rotatate 90 degrees left (counter-clockwise).
+            "R": Tx(a=0, c=1, b=-1, d=0),  # Rotate 90 degrees right (clockwise).
+        }
+
+        tx = Tx()
+        symtx = symtx.upper()
+        for op in symtx:
+            tx *= op_dict[op]
+        return tx
+
     def __mul__(self, tx):
         """Return the product of two transformation matrices."""
         return Tx(

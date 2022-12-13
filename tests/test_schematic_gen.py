@@ -164,3 +164,12 @@ def test_schematic_hier_connections():
             b & r2 & (q1['b'] | q2['b'])
 
     generate_schematic(filepath=create_output_dir("hier_connections"), flatness=1.0)
+
+def test_schematic_part_tx():
+    q = Part(lib="Device.lib", name="Q_PNP_CBE", footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2", dest=TEMPLATE)
+    q1 = q(symtx="")
+    q2 = q(symtx="R")
+    q3 = q(symtx="L")
+    q4 = q(symtx="H")
+    q5 = q(symtx="V")
+    generate_schematic(filepath=create_output_dir("part_tx"), flatness=1.0)
