@@ -40,3 +40,7 @@ def test_part_tmplt_1():
     assert r2.ref == "R2"
     assert r1.value == 1000
     assert r2.value == 1000
+
+def test_part_ref_prefix():
+    c = Part("Device", "C", ref_prefix="test")
+    assert c.ref == "test1"

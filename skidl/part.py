@@ -137,7 +137,7 @@ class Part(SkidlBaseObject):
         connections=None,
         part_defn=None,
         circuit=None,
-        ref_prefix="U",
+        ref_prefix="",
         ref=None,
         tag=None,
         pin_splitters=None,
@@ -162,9 +162,7 @@ class Part(SkidlBaseObject):
         self.p = PinNumberSearch(self)  # Does pin search using only pin numbers.
         self.n = PinNameSearch(self)  # Does pin search using only pin names.
         self.name = name  # Assign initial part name.
-        self.description = ""  # Make sure there is a description, even if empty.
         self._ref = ""  # Provide a member for holding a reference.
-        self.ref_prefix = ref_prefix  # Store the part reference prefix.
         self.tool = tool  # Initial type of part (SKIDL, KICAD, etc.)
         self.circuit = None  # Part starts off unassociated with any circuit.
         self.match_pin_regex = False  # Don't allow regex matches of pin names.
@@ -234,6 +232,11 @@ class Part(SkidlBaseObject):
         # because the part can't give its hierarchical name to the circuit.
         self.tag = tag or str(randint(0, 2 ** 64 - 1))
 
+        # Override the reference prefix if it was passed as a parameter.
+        # If nothing was set, default to using "U".
+        # This MUST be done before adding the part to a circuit below!
+        self.ref_prefix = ref_prefix or getattr(self, "ref_prefix", "") or "U"
+
         if dest != LIBRARY:
             if dest == NETLIST:
                 # If the part is going to be an element in a circuit, then add it to the
@@ -252,6 +255,9 @@ class Part(SkidlBaseObject):
 
         # Add any XSPICE I/O as pins. (This only happens with SPICE simulations.)
         add_xspice_io(self, kwargs.pop("io", []))
+
+        # Make sure there is a description, even if empty.
+        self.description = getattr(self, "description", "")
 
         # Set the part reference if one was explicitly provided.
         if ref:
