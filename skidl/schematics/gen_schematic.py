@@ -12,12 +12,12 @@ from __future__ import (  # isort:skip
 
 from itertools import chain
 import re
-from builtins import range
+from builtins import range, super
 from collections import defaultdict, Counter
 
 from future import standard_library
 
-from ..tools.kicad.constants import PIN_LABEL_FONT_SIZE, GRID
+from ..tools.kicad.constants import GRID
 from .geometry import Point, Vector, BBox, Tx
 from .route import Router
 from .place import Placer
@@ -26,7 +26,7 @@ from ..net import NCNet
 from ..part import Part
 from ..pin import Pin
 from ..scriptinfo import get_script_name
-from ..tools.kicad.eeschema_v5 import *
+from ..tools.kicad.eeschema_v5 import Eeschema_V5, pin_label_to_eeschema
 
 
 standard_library.install_aliases()

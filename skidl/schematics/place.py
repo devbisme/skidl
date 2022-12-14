@@ -20,6 +20,7 @@ __all__ = [
 
 from builtins import range, zip
 from collections import defaultdict
+from copy import copy
 import functools
 import itertools
 import math
@@ -29,10 +30,8 @@ from future import standard_library
 
 from ..pin import Pin
 from ..circuit import Circuit
-from ..utilities import *
-from .geometry import *
-from .route import *
-from .debug_draw import *
+from .geometry import Tx, Point, Vector, BBox
+from .debug_draw import draw_start, draw_placement, draw_end
 
 standard_library.install_aliases()
 

@@ -29,7 +29,7 @@ from future import standard_library
 from ..circuit import Circuit
 from ..part import Part
 from .geometry import Point, Vector, BBox, Tx, Segment
-from .debug_draw import *
+from .debug_draw import draw_start, draw_end, draw_part, draw_seg, draw_endpoint
 
 standard_library.install_aliases()
 
