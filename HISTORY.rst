@@ -3,6 +3,12 @@
 History
 -------
 
+1.2.0 (2022-XX-XX)
+______________________
+
+- Added ability to generate an editable schematic from a Circuit object. (Currently only works for KiCad V5.)
+
+
 1.1.0 (2021-10-22)
 ______________________
 
