@@ -92,7 +92,7 @@ def dflt_net_erc(net):
         return
 
     # Check the number of pins attached to the net.
-    pins = net.get_pins()
+    pins = net.pins
     num_pins = len(pins)
     if num_pins == 0:
         active_logger.warning("No pins attached to net {n}.".format(n=net.name))

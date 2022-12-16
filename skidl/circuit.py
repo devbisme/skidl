@@ -15,11 +15,11 @@ from __future__ import (  # isort:skip
 
 import functools
 import json
-import os.path
+import re
 import subprocess
 import time
 from builtins import range, str, super
-from collections import defaultdict, deque
+from collections import Counter, deque
 
 import graphviz
 from future import standard_library
@@ -27,19 +27,23 @@ from future import standard_library
 from .bus import Bus
 from .common import builtins
 from .erc import dflt_circuit_erc
-from .interface import Interface
+from .group import Group
 from .logger import active_logger, erc_logger
 from .net import NCNet, Net
 from .part import Part, PartUnit
 from .pckg_info import __version__
 from .pin import Pin
-from .protonet import ProtoNet
 from .schlib import SchLib
 from .scriptinfo import *
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import *
+from .tools import *
+
 
 standard_library.install_aliases()
+
+
+HIER_SEP = "."  # Separator for hierarchy labels.
 
 
 class Circuit(SkidlBaseObject):
@@ -83,6 +87,10 @@ class Circuit(SkidlBaseObject):
     def mini_reset(self, init=False):
         """Clear any circuitry but don't erase any loaded part libraries."""
 
+        # Group.reset()
+
+        self.group_name_cntr = Counter()
+
         self.name = ""
         self.parts = []
         self.nets = []
@@ -125,7 +133,7 @@ class Circuit(SkidlBaseObject):
     def add_hierarchical_name(self, name):
         """Record a new hierarchical name.  Throw an error if it is a duplicate."""
         if name in self._hierarchical_names:
-            active_loggerraise_(
+            active_logger.raise_(
                 ValueError,
                 "Can't add duplicate hierarchical name {} to this circuit.".format(
                     name
@@ -144,6 +152,39 @@ class Circuit(SkidlBaseObject):
                     name
                 ),
             )
+
+    def activate(self, name, tag):
+        """Save the previous hierarchical group and activate a new one."""
+
+        # Create a name for this group from the concatenated names of all
+        # the nested contexts that were called on all the preceding levels
+        # that led to this one. Also, add a distinct tag to the current
+        # name to disambiguate multiple uses of the same function.  This is
+        # either specified as an argument, or an incrementing value is used.
+        grp_hier_name = self.hierarchy + HIER_SEP + name
+        if tag is None:
+            tag = self.group_name_cntr[grp_hier_name]
+            self.group_name_cntr[grp_hier_name] += 1
+
+        # Save the context from which this was called.
+        self.context.append((default_circuit, self.hierarchy))
+
+        # Create a new hierarchical name in the activated context.
+        self.hierarchy = self.hierarchy + HIER_SEP + name + str(tag)
+        self.add_hierarchical_name(self.hierarchy)
+
+        # Setup some globals needed in this context.
+        builtins.default_circuit = self
+        builtins.NC = self.NC  # pylint: disable=undefined-variable
+
+    def deactivate(self):
+        """Deactivate the current hierarchical group and return to the previous one."""
+
+        # Restore the context that existed before this one was created.
+        # This does not remove the circuitry since it has already been
+        # added to the part and net lists.
+        builtins.default_circuit, self.hierarchy = self.context.pop()
+        builtins.NC = default_circuit.NC
 
     def add_parts(self, *parts):
         """Add some Part objects to the circuit."""
@@ -386,7 +427,7 @@ class Circuit(SkidlBaseObject):
             if net is self.NC:
                 # Exclude no-connect net.
                 continue
-            if not net.get_pins():
+            if not net.pins:
                 # Exclude empty nets with no attached pins.
                 continue
             for n in distinct_nets:
@@ -482,6 +523,7 @@ class Circuit(SkidlBaseObject):
         """
 
         from . import skidl
+        from .tools import tool_modules
 
         # Reset the counters to clear any warnings/errors from previous run.
         active_logger.error.reset()
@@ -498,16 +540,7 @@ class Circuit(SkidlBaseObject):
         file_ = kwargs.pop("file_", None)
         do_backup = kwargs.pop("do_backup", True)
 
-        try:
-            gen_func = getattr(self, "_gen_netlist_{}".format(tool))
-            netlist = gen_func(**kwargs)  # Pass any remaining arguments.
-        except KeyError:
-            active_logger.raise_(
-                ValueError,
-                "Can't generate netlist in an unknown ECAD tool format ({}).".format(
-                    tool
-                ),
-            )
+        netlist = tool_modules[tool].gen_netlist(self, **kwargs)
 
         active_logger.report_summary("generating netlist")
 
@@ -537,6 +570,7 @@ class Circuit(SkidlBaseObject):
         """
 
         from . import skidl
+        from .tools import tool_modules
 
         # Reset the counters to clear any warnings/errors from previous run.
         active_logger.error.reset()
@@ -556,23 +590,11 @@ class Circuit(SkidlBaseObject):
         fp_libs = kwargs.pop("fp_libs", None)
 
         if not self.no_files:
-            try:
-                gen_func = getattr(self, "_gen_pcb_{}".format(tool))
-            except KeyError:
-                active_logger.raise_(
-                    ValueError,
-                    "Can't generate PCB in an unknown ECAD tool format ({}).".format(
-                        tool
-                    ),
-                )
-            else:
-                if do_backup:
-                    self.backup_parts()  # Create a new backup lib for the circuit parts.
-                    global backup_lib  # Clear out any old backup lib so the new one
-                    backup_lib = None  #   will get reloaded when it's needed.
-                
-                # Generate the PCB file from the netlist.
-                gen_func(file_, fp_libs=fp_libs)
+            if do_backup:
+                self.backup_parts()  # Create a new backup lib for the circuit parts.
+                global backup_lib  # Clear out any old backup lib so the new one
+                backup_lib = None  #   will get reloaded when it's needed.
+            tool_modules[tool].gen_pcb(self, file_, fp_libs=fp_libs)
 
         active_logger.report_summary("creating PCB")
 
@@ -583,12 +605,14 @@ class Circuit(SkidlBaseObject):
         Args:
             file_: Either a file object that can be written to, or a string
                 containing a file name, or None.
+            tool: Backend tool such as KICAD.
 
         Returns:
             A string containing the netlist.
         """
 
         from . import skidl
+        from .tools import tool_modules
 
         # Reset the counters to clear any warnings/errors from previous run.
         active_logger.error.reset()
@@ -596,17 +620,8 @@ class Circuit(SkidlBaseObject):
 
         self._preprocess()
 
-        if tool is None:
-            tool = skidl.get_default_tool()
-
-        try:
-            gen_func = getattr(self, "_gen_xml_{}".format(tool))
-            netlist = gen_func()
-        except KeyError:
-            active_logger.raise_(
-                ValueError,
-                "Can't generate XML in an unknown ECAD tool format ({}).".format(tool),
-            )
+        tool = tool or skidl.get_default_tool()
+        netlist = tool_modules[tool].gen_xml(self)
 
         active_logger.report_summary("generating XML")
 
@@ -781,6 +796,19 @@ class Circuit(SkidlBaseObject):
 
         return "\n".join(head_svg + part_svg + tail_svg)
 
+    def get_net_nc_stubs(self):
+        """Get all nets/buses that are stubs or no-connects."""
+
+        # Search all nets for those set as stubs or that are no-connects.
+        stubs = [n for n in self.nets if getattr(n, "stub", False) or isinstance(n, NCNet)]
+
+        # Also find buses that are set as stubs and add their individual nets.
+        stubs.extend(
+            expand_buses([b for b in self.buses if getattr(b, "stub", False)])
+        )
+
+        return stubs
+
     def generate_svg(self, file_=None, tool=None):
         """
         Create an SVG file displaying the circuit schematic and
@@ -796,14 +824,7 @@ class Circuit(SkidlBaseObject):
         self._preprocess()
 
         # Get the list of nets which will be routed and not represented by stubs.
-        # Search all nets for those set as stubs or that are no-connects.
-        net_stubs = [
-            n for n in self.nets if getattr(n, "stub", False) or isinstance(n, NCNet)
-        ]
-        # Also find buses that are set as stubs and add their individual nets.
-        net_stubs.extend(
-            expand_buses([b for b in self.buses if getattr(b, "stub", False)])
-        )
+        net_stubs = self.get_net_nc_stubs()
         routed_nets = list(set(self.nets) - set(net_stubs))
 
         # Assign each routed net a unique integer. Interconnected nets
@@ -941,33 +962,25 @@ class Circuit(SkidlBaseObject):
 
         return schematic_json
 
-    def generate_schematic(self, file_=None, tool=None):
+    def generate_schematic(self, **kwargs):
         """
-        Create a schematic file. THIS DOES NOT WORK!
+        Create a schematic from a Circuit.
         """
 
+        import skidl
+        from .tools import tool_modules
+
         # Reset the counters to clear any warnings/errors from previous run.
-        active_logger.active_logger.active_logger.error.reset()
+        active_logger.error.reset()
         active_logger.warning.reset()
 
         self._preprocess()
 
-        if tool is None:
-            tool = skidl.get_default_tool()
-
-        if not self.no_files:
-            try:
-                gen_func = getattr(self, "_gen_schematic_{}".format(tool))
-                gen_func(route)
-            except KeyError:
-                active_logger.raise_(
-                    ValueError,
-                    "Can't generate schematic in an unknown ECAD tool format ({}).".format(
-                        tool
-                    ),
-                )
+        tool = kwargs.pop("tool", skidl.get_default_tool())
+        tool_modules[tool].gen_schematic(self, **kwargs)
 
         active_logger.report_summary("generating schematic")
+
 
     def generate_dot(
         self,
@@ -1029,7 +1042,7 @@ class Circuit(SkidlBaseObject):
             if n.name not in split_nets:
                 dot.node(n.name, shape=net_shape, xlabel=xlabel)
 
-            for j, pin in enumerate(n.get_pins()):
+            for j, pin in enumerate(n.pins):
                 net_ref = n.name
                 pin_part_ref = pin.part.ref
 
@@ -1096,79 +1109,3 @@ class Circuit(SkidlBaseObject):
             file_ = skidl.BACKUP_LIB_FILE_NAME
 
         lib.export(libname=skidl.BACKUP_LIB_NAME, file_=file_)
-
-
-__func_name_cntr = defaultdict(int)
-
-
-def SubCircuit(f):
-    """
-    A @SubCircuit decorator is used to create hierarchical circuits.
-
-    Args:
-        f: The function containing SKiDL statements that represents a subcircuit.
-    """
-
-    @functools.wraps(f)
-    def sub_f(*args, **kwargs):
-        # Upon entry, save the reference to the current default Circuit object.
-        save_default_circuit = default_circuit  # pylint: disable=undefined-variable
-
-        # If the subcircuit uses the 'circuit' argument, then set the default
-        # Circuit object to that. Otherwise, use the current default Circuit object.
-        circuit = kwargs.pop("circuit", default_circuit)
-        builtins.default_circuit = circuit
-
-        # Setup some globals needed in the subcircuit.
-        builtins.NC = default_circuit.NC  # pylint: disable=undefined-variable
-
-        # Invoking the subcircuit function creates circuitry at a level one
-        # greater than the current level. (The top level is zero.)
-        circuit.level += 1
-
-        # Create a name for this subcircuit from the concatenated names of all
-        # the nested subcircuit functions that were called on all the preceding levels
-        # that led to this one. Also, add a distinct tag to the current
-        # function name to disambiguate multiple uses of the same function.  This is
-        # either specified as an argument, or an incrementing value is used.
-        tag = kwargs.pop("tag", None)
-        if tag is None:
-            tag = __func_name_cntr[f.__name__]
-            __func_name_cntr[f.__name__] = __func_name_cntr[f.__name__] + 1
-        circuit.hierarchy = circuit.context[-1][0] + "." + f.__name__ + str(tag)
-        circuit.add_hierarchical_name(circuit.hierarchy)
-
-        # Store the context so it can be used if this subcircuit function
-        # invokes another subcircuit function within itself to add more
-        # levels of hierarchy.
-        circuit.context.append((circuit.hierarchy,))
-
-        # Call the function to create whatever circuitry it handles.
-        # The arguments to the function are usually nets to be connected to the
-        # parts instantiated in the function, but they may also be user-specific
-        # and have no effect on the mechanics of adding parts or nets although
-        # they may direct the function as to what parts and nets get created.
-        # Store any results it returns as a list. These results are user-specific
-        # and have no effect on the mechanics of adding parts or nets.
-        results = f(*args, **kwargs)
-
-        # Restore the context that existed before the subcircuitry was
-        # created. This does not remove the circuitry since it has already been
-        # added to the parts and nets lists.
-        circuit.context.pop()
-
-        # Restore the hierarchy label and level.
-        circuit.hierarchy = circuit.context[-1][0]
-        circuit.level -= 1
-
-        # Restore the default circuit and globals.
-        builtins.default_circuit = save_default_circuit
-        builtins.NC = default_circuit.NC  # pylint: disable=undefined-variable
-
-        return results
-
-    return sub_f
-
-
-# The decorator can also be called as "@subcircuit".
-subcircuit = SubCircuit

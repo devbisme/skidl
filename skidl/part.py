@@ -27,6 +27,8 @@ from .logger import active_logger
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import *
 
+import time
+
 standard_library.install_aliases()
 
 
@@ -314,6 +316,32 @@ class Part(SkidlBaseObject):
 
         return list_or_scalar(parts)
 
+    def similarity(self, part):
+        """Return a measure of how similar two parts are.
+
+        Args:
+            part (Part): The part to compare to for similarity.
+
+        Returns:
+            Float value for similarity (larger means more similar).
+        """
+
+        # Every part starts off somewhat similar to another.
+        score = 1
+        
+        if self.description == part.description:
+            score += 1
+        if self.name == part.name:
+            score += 1
+            if self.value == part.value:
+                score += 1
+        elif self.ref_prefix == part.ref_prefix:
+            score += 1
+            if self.value == part.value:
+                score += 1
+        
+        return score
+
     def _find_min_max_pins(self):
         """Return the minimum and maximum pin numbers for the part."""
         pin_nums = []
@@ -341,19 +369,10 @@ class Part(SkidlBaseObject):
                 part. Leave the rest unparsed.
         """
 
-        # Get the function to parse the part description.
-        try:
-            parse_func = getattr(self, "_parse_lib_part_{}".format(self.tool))
-        except AttributeError:
-            active_logger.raise_(
-                ValueError,
-                "Can't create a part with an unknown ECAD tool file format: {}.".format(
-                    self.tool
-                ),
-            )
+        from .tools import tool_modules
 
         # Parse the part description.
-        parse_func(partial_parse)
+        tool_modules[self.tool].parse_lib_part(self, partial_parse)
 
     def associate_pins(self):
         """
@@ -790,7 +809,7 @@ class Part(SkidlBaseObject):
             return False
 
         for pin in self:
-            for net in pin.get_nets():
+            for net in pin.nets:
                 if net in nets:
                     return True
         return False
@@ -851,9 +870,22 @@ class Part(SkidlBaseObject):
 
         # Create the part unit.
         self.unit[label] = PartUnit(self, label, *pin_ids, **criteria)
+
+        # Add a unique identifier to the unit.
         add_unique_attr(self, label, self.unit[label])
 
         return self.unit[label]
+
+    def grab_pins(self):
+        """Grab pins back from PartUnits."""
+        
+        for unit in self.unit.values():
+            unit.release_pins()
+
+    def release_pins(self):
+        """A Part can't release pins back to its PartUnits, so do nothing."""
+
+        pass
 
     def create_network(self):
         """Create a network from the pins of a part."""
@@ -950,24 +982,14 @@ class Part(SkidlBaseObject):
         """
 
         import skidl
+        from .tools import tool_modules
 
-        if tool is None:
-            tool = skidl.get_default_tool()
+        tool = tool or skidl.get_default_tool()
 
         # Create part value as a string so including it in netlist isn't a problem.
         self.value_str = self._value_to_str()
 
-        try:
-            gen_func = getattr(self, "_gen_netlist_comp_{}".format(tool))
-        except AttributeError:
-            active_logger.raise_(
-                ValueError,
-                "Can't generate netlist in an unknown ECAD tool format ({}).".format(
-                    tool
-                ),
-            )
-
-        return gen_func()
+        return tool_modules[tool].gen_netlist_comp(self)
 
     def generate_xml_component(self, tool=None):
         """
@@ -978,22 +1000,14 @@ class Part(SkidlBaseObject):
         """
 
         import skidl
+        from .tools import tool_modules
 
-        if tool is None:
-            tool = skidl.get_default_tool()
+        tool = tool or skidl.get_default_tool()
 
         # Create part value as a string so including it in XML isn't a problem.
         self.value_str = self._value_to_str()
 
-        try:
-            gen_func = getattr(self, "_gen_xml_comp_{}".format(tool))
-        except AttributeError:
-            active_logger.raise_(
-                ValueError,
-                "Can't generate XML in an unknown ECAD tool format ({}).".format(tool),
-            )
-
-        return gen_func()
+        return tool_modules[tool].gen_xml_comp(self)
 
     def generate_svg_component(self, symtx="", tool=None, net_stubs=None):
         """
@@ -1001,43 +1015,11 @@ class Part(SkidlBaseObject):
         """
 
         import skidl
+        from .tools import tool_modules
 
-        if tool is None:
-            tool = skidl.get_default_tool()
+        tool = tool or skidl.get_default_tool()
 
-        try:
-            gen_func = getattr(self, "_gen_svg_comp_{}".format(tool))
-        except AttributeError:
-            active_logger.raise_(
-                ValueError,
-                "Can't generate SVG for a component in an unknown ECAD tool format({}).".format(
-                    tool
-                ),
-            )
-
-        return gen_func(symtx=symtx, net_stubs=net_stubs)
-
-    def generate_pinboxes(self, tool=None):
-        """
-        Generate the pinboxes for arranging parts in a schematic.
-        """
-
-        import skidl
-
-        if tool is None:
-            tool = skidl.get_default_tool()
-
-        try:
-            gen_func = getattr(self, "_gen_pinboxes_{}".format(tool))
-        except AttributeError:
-            active_logger.raise_(
-                ValueError,
-                "Can't generate pinboxes for a component in an unknown ECAD tool format({}).".format(
-                    tool
-                ),
-            )
-
-        return gen_func()
+        return tool_modules[tool].gen_svg_comp(self, symtx=symtx, net_stubs=net_stubs)
 
     def erc_desc(self):
         """Create description of part for ERC and other error reporting."""
@@ -1095,7 +1077,8 @@ class Part(SkidlBaseObject):
 
     @property
     def hierarchical_name(self):
-        return getattr(self, "hierarchy", "") + "." + self._tag
+        from .circuit import HIER_SEP
+        return getattr(self, "hierarchy", "") + HIER_SEP + self._tag
 
     @property
     def tag(self):
@@ -1297,14 +1280,12 @@ class PartUnit(Part):
         # Store the part unit label.
         self.label = label
 
-        # Store the part unit number if it's given.
-        try:
-            self.num = criteria["unit"]
-        except KeyError:
-            pass
+        # Store the part unit number if it's given, otherwise default to 1.
+        self.num = criteria.get("unit", 1)
 
         # Give the PartUnit the same information as the Part it is generated
         # from so it can act the same way, just with fewer pins.
+        # FIXME: Do we need this if we define __getattr__ as below?
         for k, v in list(parent.__dict__.items()):
             self.__dict__[k] = v
 
@@ -1315,6 +1296,10 @@ class PartUnit(Part):
         # pins selected from the parent.
         self.pins = []
         self.add_pins_from_parent(*pin_ids, **criteria)
+
+    def __getattr__(self, key):
+        """Return attribute from parent Part if it wasn't found in the PartUnit."""
+        return getattr(self.parent, key)
 
     def add_pins_from_parent(self, *pin_ids, **criteria):
         """
@@ -1340,12 +1325,26 @@ class PartUnit(Part):
 
     def validate(self):
         """Check that unit pins point to the parent part."""
+        
         for pin in self.pins:
             assert id(pin.part) == id(self.parent)
 
+    def grab_pins(self):
+        """Grab pin from Part and assign to PartUnit."""
+        
+        for pin in self.pins:
+            pin.part = self
+
+    def release_pins(self):
+        """Return PartUnit pins to parent Part."""
+
+        for pin in self.pins:
+            pin.part = self.parent
+
     @property
     def ref(self):
-        return ".".join((self.parent.ref, self.label))
+        from .circuit import HIER_SEP
+        return HIER_SEP.join((self.parent.ref, self.label))
 
 
 ##############################################################################

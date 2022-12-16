@@ -32,6 +32,9 @@ ALL_TOOLS = []
 # Dict of library sufixes for each ECAD tool.
 lib_suffixes = {}
 
+# Dict of modules, one for each tool.
+tool_modules = {}
+
 # The ECAD tool directories will be found in this directory.
 directory = os.path.dirname(__file__)
 
@@ -48,10 +51,8 @@ for module_name in os.listdir(directory):
 
     # Import the module.
     mod = __import__(module_name, globals(), locals(), [], level=1)
-    for k, v in mod.__dict__.items():
-        if k.startswith("_"):
-            continue
-        this_module.__dict__[k] = v
+    mod_dict = {k:v for k, v in mod.__dict__.items() if not k.startswith("_")}
+    this_module.__dict__.update(mod_dict)
 
     # Get some info from the imported module.
     try:
@@ -61,6 +62,9 @@ for module_name in os.listdir(directory):
         # Don't process files without a tool name. They're probably support files.
         continue
 
+    # Add tool module to dict.
+    tool_modules[tool_name] = mod
+
     ALL_TOOLS.append(tool_name)
 
     # Create a variable with an uppercase name that stores the tool name,
@@ -69,23 +73,3 @@ for module_name in os.listdir(directory):
 
     # Store library file suffix for this tool.
     lib_suffixes[tool_name] = lib_suffix
-
-    # Make the methods for this tool available where they are needed.
-    for class_, method in (
-        (schlib.SchLib, "load_sch_lib"),
-        (part.Part, "parse_lib_part"),
-        (circuit.Circuit, "gen_netlist"),
-        (part.Part, "gen_netlist_comp"),
-        (net.Net, "gen_netlist_net"),
-        (circuit.Circuit, "gen_pcb"),
-        (circuit.Circuit, "gen_xml"),
-        (part.Part, "gen_xml_comp"),
-        (net.Net, "gen_xml_net"),
-        (part.Part, "gen_svg_comp"),
-        (circuit.Circuit, "gen_schematic"),
-        (part.Part, "gen_pinboxes"),
-    ):
-        try:
-            setattr(class_, "_".join(("", method, tool_name)), getattr(mod, method))
-        except AttributeError:
-            pass  # No method implemented for this ECAD tool.

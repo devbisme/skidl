@@ -36,6 +36,7 @@ from .circuit import *
 from .common import *
 from .config import *
 from .erc import *
+from .group import *
 from .interface import *
 from .logger import *
 from .net import *

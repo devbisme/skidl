@@ -45,6 +45,7 @@ class Pin(SkidlBaseObject):
         part: Link to the Part object this pin belongs to.
         func: Pin function such as PinType.types.INPUT.
         do_erc: When false, the pin is not checked for ERC violations.
+
     """
 
     # Various types of pins.
@@ -205,6 +206,8 @@ class Pin(SkidlBaseObject):
         self.nets = []
         self.part = None
         self.name = ""
+        self.num = ""
+        self.stub = False
         self.do_erc = True
         self.func = self.types.UNSPEC  # Pin function defaults to unspecified.
 
@@ -537,6 +540,10 @@ class Pin(SkidlBaseObject):
     def get_pins(self):
         """Return a list containing this pin."""
         return to_list(self)
+
+    @property
+    def pins(self):
+        return self.get_pins()
 
     def create_network(self):
         """Create a network from a single pin."""

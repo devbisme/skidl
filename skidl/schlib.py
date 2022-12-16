@@ -50,6 +50,7 @@ class SchLib(object):
         """
 
         import skidl
+        from .tools import tool_modules
 
         if tool is None:
             tool = skidl.get_default_tool()
@@ -74,7 +75,7 @@ class SchLib(object):
         else:
             try:
                 # Use the tool name to find the function for loading the library.
-                load_func = getattr(self, "_load_sch_lib_{}".format(tool))
+                tool_modules[tool].load_sch_lib(self, filename, skidl.lib_search_paths[tool], lib_section=lib_section)
             except AttributeError:
                 # OK, that didn't work so well...
                 active_logger.raise_(
@@ -82,9 +83,6 @@ class SchLib(object):
                     "Unsupported ECAD tool library: {}.".format(tool),
                 )
             else:
-                load_func(
-                    filename, skidl.lib_search_paths[tool], lib_section=lib_section
-                )
                 self.filename = filename
                 # Cache a reference to the library.
                 self._cache[filename] = self

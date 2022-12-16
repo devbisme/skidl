@@ -48,3 +48,8 @@ def test_part_unit_4():
     mem.A.match_pin_regex = False
     assert len(mem[".*"]) != 0
     assert mem.A[".*"] == None
+
+def test_part_unit_5():
+    # Test if #pins in units sum to the total #pins in part.
+    hdr = Part("xess", "XuLA_Hdr_80")
+    assert len(hdr) == sum([len(u) for u in hdr.unit.values()])

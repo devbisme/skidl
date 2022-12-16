@@ -13,13 +13,14 @@ from skidl import (
     SchLib,
     SkidlPart,
     generate_netlist,
-    parse_sexp,
     set_default_tool,
     set_query_backup_lib,
     to_list,
     KICAD,
     lib_search_paths,
 )
+
+import sexpdata
 
 from .setup_teardown import setup_function, teardown_function
 
@@ -91,9 +92,9 @@ def test_backup_2():
     b = Part("Device", "C", footprint="null")
     c = Part("Device", "L", footprint="null")
     a & b & c  # Place parts in series.
-    num_pins_per_net_1 = {net.name: len(net) for net in default_circuit.get_nets()}
+    num_pins_per_net_1 = {net.name: len(net) for net in default_circuit.nets}
     generate_netlist(do_backup=True)  # This creates the backup parts library.
-    num_pins_per_net_2 = {net.name: len(net) for net in default_circuit.get_nets()}
+    num_pins_per_net_2 = {net.name: len(net) for net in default_circuit.nets}
     for nm in num_pins_per_net_1:
         assert num_pins_per_net_1[nm] == num_pins_per_net_2[nm]
 
@@ -134,26 +135,40 @@ def test_lib_kicad_v5():
     with open(lib_name, "r") as fp:
         lines = fp.readlines()
         part_cnt = len([l for l in lines if l.startswith("ENDDEF")])
-    print(lib_name, "#parts =", part_cnt)
+    print("# of parts in {} = {}".format(lib_name, part_cnt))
     assert part_cnt == len(v5_part_names)
     assert part_cnt == 502
 
 
-def test_lib_kicad_v6():
+def test_lib_kicad_v6_1():
     lib_name = "Device.kicad_sym"
     lib_v6 = SchLib(lib_name)
     v6_part_names = [part.name for part in lib_v6.parts]
-    with open(lib_name, "r") as fp:
-        parts = parse_sexp("".join(fp.readlines()))
-        part_cnt = len([part for part in parts if to_list(part)[0] == "symbol"])
-    print(lib_name, "#parts =", part_cnt)
-    assert part_cnt == len(v6_part_names)
-    assert part_cnt == 564
+    nested_list = sexpdata.load(open(lib_name, "r"))
+    parts = {item[1]: item[2:] for item in nested_list[1:] if item[0].value().lower()=='symbol'}
+    print("# of parts in {} = {}".format(lib_name, len(lib_v6.parts)))
+    assert len(parts.keys()) == len(v6_part_names)
+    for name in parts.keys():
+        part = lib_v6[name]
+
+
+def test_lib_kicad_v6_2():
+    lib_name = "4xxx.kicad_sym"
+    lib_v6 = SchLib(lib_name)
+    v6_part_names = [part.name for part in lib_v6.parts]
+    nested_list = sexpdata.load(open(lib_name, "r"))
+    parts = {item[1]: item[2:] for item in nested_list[1:] if item[0].value().lower()=='symbol'}
+    print("# of parts in {} = {}".format(lib_name, len(lib_v6.parts)))
+    assert len(parts.keys()) == len(v6_part_names)
+    for name in parts.keys():
+        part = lib_v6[name]
+
 
 def test_lib_kicad5_repository():
     repo_url = "https://raw.githubusercontent.com/KiCad/kicad-symbols/master/"
     lib_search_paths[KICAD] = [repo_url]
     lib_4xxx = SchLib("4xxx.lib")
+
 
 def test_lib_kicad6_repository():
     repo_url = "https://gitlab.com/kicad/libraries/kicad-symbols/-/raw/master"

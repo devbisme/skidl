@@ -77,10 +77,10 @@ def test_bus_6():
     pin = Pin()
     bus = Bus(bus_prefix, 4, net, 3, pin, 4)
     assert len(bus) == 13
-    for i, n in enumerate(bus.get_nets()):
+    for i, n in enumerate(bus.nets):
         assert bus_prefix + str(i) == n.name
     net.name = "a"
-    for i, n in enumerate(bus.get_nets()):
+    for i, n in enumerate(bus.nets):
         if i == 4:
             assert net.name == n.name
         else:

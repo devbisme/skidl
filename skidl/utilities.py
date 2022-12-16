@@ -176,7 +176,6 @@ def add_unique_attr(obj, name, value, check_dup=False):
     except AttributeError:
         setattr(obj, name, value)
 
-
 def from_iadd(objs):
     """Return True if one or more objects have attribute iadd_flag set to True."""
     try:
@@ -673,55 +672,6 @@ class TriggerDict(dict):
             if v != self[k]:
                 self.trigger_funcs[k](self, k, v)
         super().__setitem__(k, v)
-
-
-# Regular expression for parsing nested S-expressions.
-_sexp_term_regex = re.compile(
-    r"""(?mx)
-    \s*(?:
-        (?P<brackl>\()|
-        (?P<brackr>\))|
-        (?P<num>[+-]?\d+\.\d+(?=[\ \)])|\-?\d+(?=[\ \)]))|
-        (?P<sq>"([^"]|(?<=\\)")*")|
-        (?P<s>[^(^)\s]+)
-       )"""
-)
-
-
-def parse_sexp(sexp, allow_underflow=False):
-    """Parse an S-expression and return a nested list."""
-
-    # code extracted from: http://rosettacode.org/wiki/S-Expressions
-
-    stack = []
-    current_level = []
-    for termtypes in re.finditer(_sexp_term_regex, sexp):
-        term, value = [(t, v) for t, v in termtypes.groupdict().items() if v][0]
-        if term == "brackl":
-            stack.append(current_level)
-            current_level = []
-        elif term == "brackr":
-            if not stack:
-                if allow_underflow:
-                    return current_level[0]
-                else:
-                    raise RunTimeError("Bracketing mismatch!")
-            tmp, current_level = current_level, stack.pop(-1)
-            current_level.append(tmp)
-        elif term == "num":
-            v = float(value)
-            if v.is_integer():
-                v = int(v)
-            current_level.append(v)
-        elif term == "sq":
-            current_level.append(value[1:-1].replace(r"\"", '"'))
-        elif term == "s":
-            current_level.append(value)
-        else:
-            raise NotImplementedError("Error: %r" % (term, value))
-    if stack:
-        raise RunTimeError("Bracketing mismatch!")
-    return current_level[0]
 
 
 def find_and_open_file(
