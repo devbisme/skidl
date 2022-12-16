@@ -176,33 +176,6 @@ def add_unique_attr(obj, name, value, check_dup=False):
     except AttributeError:
         setattr(obj, name, value)
 
-def get_tool_func(obj, func_name, tool=None):
-    """Get the function for a particular ECAD tool from an object.
-
-    Args:
-        obj: The object containing the function we're looking for.
-        func_name (string): Base name of the function
-        tool (string, optional): Name of the ECAD tool (e.g., "kicad"). Defaults to None.
-
-    Returns: The function.
-
-    Raises: A ValueError if no function exists for the given tool.
-    """
-
-    from skidl import get_default_tool
-    from .logger import active_logger
-
-    # If tool name not given, use the default tool.
-    tool = tool or get_default_tool()
-
-    try:
-        return getattr(obj, "{func_name}_{tool}".format(**locals()))
-    except (AttributeError, KeyError):
-        active_logger.raise_(
-            ValueError,
-            "Can't get function {func_name} for ECAD {tool}.".format(**locals()),
-        )
-
 def from_iadd(objs):
     """Return True if one or more objects have attribute iadd_flag set to True."""
     try:

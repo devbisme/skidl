@@ -47,11 +47,6 @@ standard_library.install_aliases()
 #
 ###################################################################
 
-# Global constant placeholders defined by the particular backend tool.
-# These will get filled-in when the placement function is activated.
-GRID = 0
-BLK_INT_PAD = 0
-BLK_EXT_PAD = 0
 
 def random_placement(parts):
     """Randomly place parts within an appropriately-sized area.
@@ -738,7 +733,11 @@ def group_parts(node, options=[]):
     if "remove_power" in options:
 
         def is_pwr(net):
-            return net.netclass == "Power" or "vcc" in net.name.lower() or "gnd" in net.name.lower()
+            return (
+                net.netclass == "Power"
+                or "vcc" in net.name.lower()
+                or "gnd" in net.name.lower()
+            )
 
         internal_nets = [net for net in internal_nets if not is_pwr(net)]
 
@@ -760,7 +759,8 @@ def group_parts(node, options=[]):
     # Group all the parts that have some interconnection to each other.
     # Start with groups of parts on each individual net.
     connected_parts = [
-        set(pin.part for pin in net.pins if pin.part in node.parts) for net in internal_nets
+        set(pin.part for pin in net.pins if pin.part in node.parts)
+        for net in internal_nets
     ]
 
     # Now join groups that have parts in common.
@@ -1041,8 +1041,8 @@ def place_blocks(connected_parts, floating_parts, children, options):
 class Placer:
     """Mixin to add place function to Node class."""
 
-    def place(node, options=["no_keep_stubs", "remove_power"]):
-    # def place(node, options=["draw", "no_keep_stubs", "remove_power"]):
+    def place(node, tool=None, options=["no_keep_stubs", "remove_power"]):
+        # def place(node, options=["draw", "no_keep_stubs", "remove_power"]):
         """Place the parts and children in this node.
 
         Args:
@@ -1051,12 +1051,14 @@ class Placer:
                 for debugging purposes. Available options are "draw".
         """
 
-        # Set the constants for the backend tool.
-        global GRID, BLK_INT_PAD, BLK_EXT_PAD
-        constants = Circuit.get_constants()
-        GRID = constants.GRID
-        BLK_INT_PAD = constants.BLK_INT_PAD
-        BLK_EXT_PAD = constants.BLK_EXT_PAD
+        # Inject the constants for the backend tool into this module.
+        import sys
+        import skidl
+        from skidl.tools import tool_modules
+
+        tool = tool or skidl.get_default_tool()
+        this_module = sys.modules[__name__]
+        this_module.__dict__.update(tool_modules[tool].constants.__dict__)
 
         # First, recursively place children of this node.
         for child in node.children.values():

@@ -108,10 +108,6 @@ def parse_lib_part(part, partial_parse=False):
     else:
         v5.parse_lib_part(part, partial_parse)
 
-def get_consts(circuit):
-    """Return an object whose attributes are constants for this tool."""
-    return constants
-
 
 def gen_netlist(circuit):
     """Generate a netlist from a Circuit object.

@@ -645,9 +645,9 @@ class Net(SkidlBaseObject):
         """
 
         import skidl
+        from .tools import tool_modules
 
-        if tool is None:
-            tool = skidl.get_default_tool()
+        tool = tool or skidl.get_default_tool()
 
         self.test_validity()
 
@@ -655,8 +655,7 @@ class Net(SkidlBaseObject):
         if not self.pins:
             return
 
-        gen_func = get_tool_func(self, "gen_netlist_net", tool)
-        return gen_func()
+        return tool_modules[tool].gen_netlist_net(self)
 
     def generate_xml_net(self, tool=None):
         """
@@ -667,9 +666,9 @@ class Net(SkidlBaseObject):
         """
 
         import skidl
+        from .tools import tool_modules
 
-        if tool is None:
-            tool = skidl.get_default_tool()
+        tool = tool or skidl.get_default_tool()
 
         self.test_validity()
 
@@ -677,8 +676,7 @@ class Net(SkidlBaseObject):
         if not self.pins:
             return
 
-        gen_func = get_tool_func(self, "gen_xml_net", tool)
-        return gen_func()
+        return tool_modules[tool].gen_xml_net(self)
 
     def __str__(self):
         """Return a list of the pins on this net as a string."""

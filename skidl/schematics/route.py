@@ -76,12 +76,6 @@ standard_library.install_aliases()
 #
 ###################################################################
 
-# Global constant placeholders defined by the particular backend tool.
-# These will get filled-in when the routing function is activated.
-GRID = 0
-DRAWING_BOX_RESIZE = 0
-
-
 # Orientations and directions.
 class Orientation(Enum):
     HORZ = 1
@@ -1689,7 +1683,9 @@ class SwitchBox:
 
         if do_start_end:
             # Initialize PyGame.
-            scr, tx, font = draw_start(self.bbox.resize(Vector(DRAWING_BOX_RESIZE, DRAWING_BOX_RESIZE)))
+            scr, tx, font = draw_start(
+                self.bbox.resize(Vector(DRAWING_BOX_RESIZE, DRAWING_BOX_RESIZE))
+            )
 
         if "draw_switchbox" in options:
             # Draw switchbox boundary.
@@ -1798,10 +1794,9 @@ def switchbox_router(switchboxes, wires):
             swbx.route(options=["allow_routing_failure"])
             swbx.flip_xy()
 
-        # Add switchbox routes any existing wiring. 
+        # Add switchbox routes any existing wiring.
         for net, segments in swbx.segments.items():
             wires[net].extend(segments)
-
 
 
 class Router:
@@ -2310,9 +2305,9 @@ class Router:
 
         return global_routes
 
-    def route(node, options=[]):
-    # def route(node, options=["draw"]):
-    # def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
+    def route(node, tool=None, options=[]):
+        # def route(node, options=["draw"]):
+        # def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
         """Route the wires between part pins in this node and its children.
 
         Steps:
@@ -2327,11 +2322,14 @@ class Router:
                 "draw_routing", "show_capacities", "draw_all_terminals", "draw_channels".
         """
 
-        # Set the constants for the backend tool.
-        global GRID, DRAWING_BOX_RESIZE
-        constants = Circuit.get_constants()
-        GRID = constants.GRID
-        DRAWING_BOX_RESIZE = constants.DRAWING_BOX_RESIZE
+        # Inject the constants for the backend tool into this module.
+        import sys
+        import skidl
+        from skidl.tools import tool_modules
+
+        tool = tool or skidl.get_default_tool()
+        this_module = sys.modules[__name__]
+        this_module.__dict__.update(tool_modules[tool].constants.__dict__)
 
         # First, recursively route any children of this node.
         for child in node.children.values():
@@ -2387,9 +2385,7 @@ class Router:
         node.add_junctions()
 
         # If enabled, draw the global and detailed routing for debug purposes.
-        node.debug_draw(
-            options, routing_bbox, node.parts, global_routes, switchboxes
-        )
+        node.debug_draw(options, routing_bbox, node.parts, global_routes, switchboxes)
 
         # Remove extended routing points from parts.
         node.rmv_routing_points()

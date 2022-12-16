@@ -359,11 +359,10 @@ class Part(SkidlBaseObject):
                 part. Leave the rest unparsed.
         """
 
-        # Get the function to parse the part description.
-        parse_func = get_tool_func(self, "parse_lib_part", self.tool)
+        from .tools import tool_modules
 
         # Parse the part description.
-        parse_func(partial_parse)
+        tool_modules[self.tool].parse_lib_part(self, partial_parse)
 
     def associate_pins(self):
         """
@@ -970,12 +969,15 @@ class Part(SkidlBaseObject):
             tool: The format for the netlist file (e.g., KICAD).
         """
 
-        gen_func = get_tool_func(self, "gen_netlist_comp", tool)
+        import skidl
+        from .tools import tool_modules
+
+        tool = tool or skidl.get_default_tool()
 
         # Create part value as a string so including it in netlist isn't a problem.
         self.value_str = self._value_to_str()
 
-        return gen_func()
+        return tool_modules[tool].gen_netlist_comp(self)
 
     def generate_xml_component(self, tool=None):
         """
@@ -985,21 +987,27 @@ class Part(SkidlBaseObject):
             tool: The format for the XML file (e.g., KICAD).
         """
 
-        gen_func = get_tool_func(self, "gen_xml_comp", tool)
+        import skidl
+        from .tools import tool_modules
+
+        tool = tool or skidl.get_default_tool()
 
         # Create part value as a string so including it in XML isn't a problem.
         self.value_str = self._value_to_str()
 
-        return gen_func()
+        return tool_modules[tool].gen_xml_comp(self)
 
     def generate_svg_component(self, symtx="", tool=None, net_stubs=None):
         """
         Generate the SVG for displaying a part in an SVG schematic.
         """
 
-        gen_func = get_tool_func(self, "gen_svg_comp", tool)
+        import skidl
+        from .tools import tool_modules
 
-        return gen_func(symtx=symtx, net_stubs=net_stubs)
+        tool = tool or skidl.get_default_tool()
+
+        return tool_modules[tool].gen_svg_comp(self, symtx=symtx, net_stubs=net_stubs)
 
     def erc_desc(self):
         """Create description of part for ERC and other error reporting."""

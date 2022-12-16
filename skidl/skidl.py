@@ -125,7 +125,6 @@ generate_svg = default_circuit.generate_svg
 generate_graph = default_circuit.generate_graph
 reset = default_circuit.reset
 backup_parts = default_circuit.backup_parts
-get_constants = default_circuit.get_constants
 
 # Define a tag for nets that convey power (e.g., VCC or GND).
 POWER = Pin.drives.POWER

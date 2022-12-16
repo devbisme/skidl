@@ -500,27 +500,6 @@ class Circuit(SkidlBaseObject):
         # Restore the logger that was active before the ERC.
         active_logger.pop()
 
-    @classmethod
-    def get_constants(self, **kwargs):
-        """
-        Return an object with attributes set to various constants for the active tool.
-
-        Args:
-            tool: The EDA tool the netlist will be generated for.
-
-        Returns:
-            An object with toll-specific constants.
-        """
-
-        from . import skidl
-
-        # Extract arguments:
-        #     Get EDA tool containing the constants.
-        tool = kwargs.pop("tool", skidl.get_default_tool())
-
-        get_func = get_tool_func(self, "get_consts", tool)
-        return get_func(self)
-
     def generate_netlist(self, **kwargs):
         """
         Return a netlist and also write it to a file/stream.
@@ -536,6 +515,7 @@ class Circuit(SkidlBaseObject):
         """
 
         from . import skidl
+        from .tools import tool_modules
 
         # Reset the counters to clear any warnings/errors from previous run.
         active_logger.error.reset()
@@ -551,8 +531,7 @@ class Circuit(SkidlBaseObject):
         file_ = kwargs.pop("file_", None)
         do_backup = kwargs.pop("do_backup", True)
 
-        gen_func = get_tool_func(self, "gen_netlist", tool)
-        netlist = gen_func(**kwargs)  # Pass any remaining arguments.
+        netlist = tool_modules[tool].gen_netlist(self, **kwargs)
 
         active_logger.report_summary("generating netlist")
 
@@ -582,6 +561,7 @@ class Circuit(SkidlBaseObject):
         """
 
         from . import skidl
+        from .tools import tool_modules
 
         # Reset the counters to clear any warnings/errors from previous run.
         active_logger.error.reset()
@@ -598,12 +578,11 @@ class Circuit(SkidlBaseObject):
         do_backup = kwargs.pop("do_backup", True)
 
         if not self.no_files:
-            gen_func = get_tool_func(self, "gen_pcb", tool)
             if do_backup:
                 self.backup_parts()  # Create a new backup lib for the circuit parts.
                 global backup_lib  # Clear out any old backup lib so the new one
                 backup_lib = None  #   will get reloaded when it's needed.
-            gen_func(file_)  # Generate the PCB file from the netlist.
+            tool_modules[tool].gen_pcb(self, file_)
 
         active_logger.report_summary("creating PCB")
 
@@ -621,6 +600,7 @@ class Circuit(SkidlBaseObject):
         """
 
         from . import skidl
+        from .tools import tool_modules
 
         # Reset the counters to clear any warnings/errors from previous run.
         active_logger.error.reset()
@@ -628,8 +608,8 @@ class Circuit(SkidlBaseObject):
 
         self._preprocess()
 
-        gen_func = get_tool_func(self, "gen_xml", tool)
-        netlist = gen_func()
+        tool = tool or skidl.get_default_tool()
+        netlist = tool_modules[tool].gen_xml(self)
 
         active_logger.report_summary("generating XML")
 
@@ -975,7 +955,8 @@ class Circuit(SkidlBaseObject):
         Create a schematic from a Circuit.
         """
 
-        from . import skidl
+        import skidl
+        from .tools import tool_modules
 
         # Reset the counters to clear any warnings/errors from previous run.
         active_logger.error.reset()
@@ -984,9 +965,7 @@ class Circuit(SkidlBaseObject):
         self._preprocess()
 
         tool = kwargs.pop("tool", skidl.get_default_tool())
-
-        gen_func = get_tool_func(self, "gen_schematic", tool)
-        gen_func(**kwargs)
+        tool_modules[tool].gen_schematic(self, **kwargs)
 
         active_logger.report_summary("generating schematic")
 
