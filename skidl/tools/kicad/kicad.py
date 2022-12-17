@@ -87,6 +87,7 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
             "Unable to open KiCad Schematic Library File {}".format(filename)
         )
 
+    # TODO: Find a way to use find_and_read_file() and pass the results.
     if suffix == ".kicad_sym":
         v6.load_sch_lib(lib, f, filename, lib_search_paths_)
     else:

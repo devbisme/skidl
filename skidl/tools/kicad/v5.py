@@ -38,6 +38,12 @@ def load_sch_lib(self, f, filename, lib_search_paths_):
     from .. import KICAD
 
     lib_txt = f.read()
+    try:
+        lib_txt = lib_txt.decode("latin_1")
+    except AttributeError:
+        # File contents were already decoded.
+        pass
+
     part_defns = lib_txt.split("\nDEF ")
 
     # Check the file header to make sure it's a KiCad library.
@@ -91,11 +97,12 @@ def load_sch_lib(self, f, filename, lib_search_paths_):
 
     # Now add information from any associated DCM file.
     base_fn = os.path.splitext(filename)[0]  # Strip any extension.
-    f, _ = find_and_open_file(base_fn, lib_search_paths_, ".dcm", allow_failure=True)
-    if f:
+    dcm_txt, _ = find_and_read_file(base_fn, lib_search_paths_, ".dcm", allow_failure=True)
+    if dcm_txt:
         part_desc = {}
 
-        for line in f.read().split("\n"):
+        for line in dcm_txt.split("\n"):
+        # for line in f.read().split("\n"):
 
             # Skip over comments.
             if line.startswith("#"):

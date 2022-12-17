@@ -37,7 +37,14 @@ def load_sch_lib(self, f, filename, lib_search_paths_):
     from .. import KICAD
 
     # Parse the library and return a nested list of library parts.
-    lib_list = sexpdata.load(f)
+    lib_txt = f.read()
+    try:
+        lib_txt = lib_txt.decode("latin_1")
+    except AttributeError:
+        # File contents were already decoded.
+        pass
+
+    lib_list = sexpdata.loads(lib_txt)
 
     # Skip over the 'kicad_symbol_lib' label and extract symbols into a dictionary with
     # symbol names as keys. Use an ordered dictionary to keep parts in the same order as
