@@ -197,7 +197,7 @@ def test_schematic_gen_units():
     with Group("A"):
         q = Part(lib="Device.lib", name="Q_PNP_CBE", footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2", dest=TEMPLATE, symtx="V")
         q()
-        test()
+        test()  # This enables a recursion error in test_interface_12 for reasons unknown.
 
     generate_schematic(filepath=create_output_dir("units"), flatness=1.0)
 

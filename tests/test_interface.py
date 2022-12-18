@@ -463,7 +463,13 @@ def test_interface_12():
 
     @subcircuit
     def sub1():
-        my_vin, my_gnd = 2 * Net()
+        # The following line causes a recursion error if test_schematic_gen_units() was called previously by pytest:
+        #    $ pytest test_generate.py::test_schematic_gen_units test_interface.py::test_interface_12
+        # my_vin, my_gnd = 2 * Net()
+
+        # For unknown reasons, this line "fixes" the problem noted above.
+        my_vin, my_gnd = Net(), Net()
+        
         r1 = r()
         c1 = c()
         my_vin & r1 & c1 & my_gnd
