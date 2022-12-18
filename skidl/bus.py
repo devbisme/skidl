@@ -13,18 +13,28 @@ from __future__ import (  # isort:skip
     unicode_literals,
 )
 
+import builtins
 from builtins import range, str, super
+import re
 
 from future import standard_library
 
 from .alias import Alias
-from .common import *
 from .logger import active_logger
 from .net import NET_PREFIX, Net
 from .netpinlist import NetPinList
 from .pin import Pin
 from .skidlbaseobj import SkidlBaseObject
-from .utilities import *
+from .utilities import (
+    get_unique_name,
+    flatten,
+    expand_indices,
+    find_num_copies,
+    from_iadd,
+    rmv_iadd,
+    filter_list,
+    list_or_scalar,
+)
 
 # Prefix for implicit buses.
 BUS_PREFIX = "B$"
@@ -57,8 +67,7 @@ class Bus(SkidlBaseObject):
     def get(cls, name, circuit=None):
         """Get the bus with the given name from a circuit, or return None."""
 
-        if not circuit:
-            circuit = builtins.default_circuit
+        circuit = circuit or default_circuit
 
         search_params = (
             ("name", name, True),
@@ -80,7 +89,7 @@ class Bus(SkidlBaseObject):
     def fetch(cls, name, *args, **attribs):
         """Get the bus with the given name from a circuit, or create it if not found."""
 
-        circuit = attribs.get("circuit", builtins.default_circuit)
+        circuit = attribs.get("circuit", default_circuit)
         return cls.get(name, circuit=circuit) or cls(name, *args, **attribs)
 
     def __init__(self, *args, **attribs):
@@ -410,7 +419,9 @@ class Bus(SkidlBaseObject):
 
         # Now name the object with the given name or some variation
         # of it that doesn't collide with anything else in the list.
-        super(Bus, self.__class__).name.fset(self, get_unique_name(self.circuit.buses, "name", BUS_PREFIX, name))
+        super(Bus, self.__class__).name.fset(
+            self, get_unique_name(self.circuit.buses, "name", BUS_PREFIX, name)
+        )
 
     @name.deleter
     def name(self):

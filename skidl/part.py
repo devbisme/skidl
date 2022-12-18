@@ -21,13 +21,21 @@ from random import randint
 
 from future import standard_library
 
-from .common import *
 from .erc import dflt_part_erc
 from .logger import active_logger
 from .skidlbaseobj import SkidlBaseObject
-from .utilities import *
-
-import time
+from .utilities import (
+    from_iadd,
+    rmv_iadd,
+    expand_indices,
+    filter_list,
+    get_unique_name,
+    flatten,
+    find_num_copies,
+    to_list,
+    list_or_scalar,
+    add_unique_attr,
+)
 
 standard_library.install_aliases()
 
@@ -232,7 +240,7 @@ class Part(SkidlBaseObject):
         # Setup the tag for tieing the part to a footprint in a pcb editor.
         # Do this before adding the part to the circuit or an exception will occur
         # because the part can't give its hierarchical name to the circuit.
-        self.tag = tag or str(randint(0, 2 ** 64 - 1))
+        self.tag = tag or str(randint(0, 2**64 - 1))
 
         # Override the reference prefix if it was passed as a parameter.
         # If nothing was set, default to using "U".
@@ -328,7 +336,7 @@ class Part(SkidlBaseObject):
 
         # Every part starts off somewhat similar to another.
         score = 1
-        
+
         if self.description == part.description:
             score += 1
         if self.name == part.name:
@@ -339,7 +347,7 @@ class Part(SkidlBaseObject):
             score += 1
             if self.value == part.value:
                 score += 1
-        
+
         return score
 
     def _find_min_max_pins(self):
@@ -717,7 +725,9 @@ class Part(SkidlBaseObject):
 
         # Log an error if no pins were selected using the pin ids.
         if not pins:
-            active_logger.error("No pins found using {self.ref}[{pin_ids}]".format(**locals()))
+            active_logger.error(
+                "No pins found using {self.ref}[{pin_ids}]".format(**locals())
+            )
 
         return list_or_scalar(pins)
 
@@ -878,7 +888,7 @@ class Part(SkidlBaseObject):
 
     def grab_pins(self):
         """Grab pins back from PartUnits."""
-        
+
         for unit in self.unit.values():
             unit.release_pins()
 
@@ -1078,6 +1088,7 @@ class Part(SkidlBaseObject):
     @property
     def hierarchical_name(self):
         from .circuit import HIER_SEP
+
         return getattr(self, "hierarchy", "") + HIER_SEP + self._tag
 
     @property
@@ -1111,7 +1122,7 @@ class Part(SkidlBaseObject):
     def tag(self):
         """Delete the part tag."""
         # Part's can't have a None tag, so set a new random tag.
-        self.tag = randint(0, 2 ** 64 - 1)
+        self.tag = randint(0, 2**64 - 1)
 
     @property
     def ref(self):
@@ -1325,13 +1336,13 @@ class PartUnit(Part):
 
     def validate(self):
         """Check that unit pins point to the parent part."""
-        
+
         for pin in self.pins:
             assert id(pin.part) == id(self.parent)
 
     def grab_pins(self):
         """Grab pin from Part and assign to PartUnit."""
-        
+
         for pin in self.pins:
             pin.part = self
 
@@ -1344,6 +1355,7 @@ class PartUnit(Part):
     @property
     def ref(self):
         from .circuit import HIER_SEP
+
         return HIER_SEP.join((self.parent.ref, self.label))
 
 
@@ -1361,7 +1373,7 @@ def default_empty_footprint_handler(part):
         Override this function if you want to try and set some default footprint
         for particular types of parts (such as using an 0805 footprint for a resistor).
     """
-    
+
     from .logger import active_logger
 
     active_logger.error(

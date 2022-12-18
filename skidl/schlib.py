@@ -16,10 +16,17 @@ from __future__ import (  # isort:skip
 from builtins import object, str
 
 from future import standard_library
+import re
 
 from .alias import Alias
 from .logger import active_logger
-from .utilities import *
+from .utilities import (
+    filter_list,
+    flatten,
+    list_or_scalar,
+    cnvt_to_var_name,
+    opened,
+)
 
 standard_library.install_aliases()
 

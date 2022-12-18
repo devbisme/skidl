@@ -19,10 +19,6 @@ from collections import Counter
 
 from future import standard_library
 
-from .common import builtins
-from .logger import active_logger, erc_logger
-from .utilities import *
-
 
 standard_library.install_aliases()
 

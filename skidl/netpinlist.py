@@ -23,9 +23,7 @@ from .net import Net
 from .network import Network
 from .pin import Pin
 from .protonet import ProtoNet
-
-# from .skidlbaseobj import SkidlBaseObject
-from .utilities import *
+from .utilities import  set_iadd, expand_buses, flatten
 
 standard_library.install_aliases()
 

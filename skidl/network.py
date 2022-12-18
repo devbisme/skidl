@@ -13,12 +13,11 @@ from __future__ import (  # isort:skip
     unicode_literals,
 )
 
-from builtins import range, super
+from builtins import super
 
 from future import standard_library
 
 from .logger import active_logger
-from .utilities import *
 
 standard_library.install_aliases()
 

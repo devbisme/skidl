@@ -24,10 +24,18 @@ from functools import total_ordering
 
 from future import standard_library
 
-from .alias import *
 from .logger import active_logger
 from .skidlbaseobj import ERROR, OK, WARNING, SkidlBaseObject
-from .utilities import *
+from .utilities import (
+    from_iadd,
+    set_iadd,
+    rmv_iadd,
+    expand_indices,
+    expand_buses,
+    flatten,
+    find_num_copies,
+    to_list,
+)
 
 standard_library.install_aliases()
 

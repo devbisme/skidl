@@ -34,10 +34,9 @@ from .part import Part, PartUnit
 from .pckg_info import __version__
 from .pin import Pin
 from .schlib import SchLib
-from .scriptinfo import *
+from .scriptinfo import get_skidl_trace, get_script_name
 from .skidlbaseobj import SkidlBaseObject
-from .utilities import *
-from .tools import *
+from .utilities import reset_get_unique_name, flatten, expand_buses, opened, num_to_chars
 
 
 standard_library.install_aliases()

@@ -22,4 +22,4 @@ else:
     # Python 3 doesn't have basestring,
     # Python 2 doesn't work with type(''),
     # so....
-    basestring = type("")
+    builtins.basestring = type("")

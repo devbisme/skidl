@@ -16,13 +16,14 @@ from __future__ import (  # isort:skip
 import collections
 from builtins import range, super
 from copy import copy, deepcopy
+import re
 
 from future import standard_library
 
 from .erc import dflt_net_erc
 from .logger import active_logger
 from .skidlbaseobj import SkidlBaseObject
-from .utilities import *
+from .utilities import from_iadd, set_iadd, rmv_iadd, expand_indices, filter_list, get_unique_name, expand_buses, flatten, find_num_copies
 
 standard_library.install_aliases()
 

@@ -13,21 +13,18 @@ from __future__ import (  # isort:skip
     unicode_literals,
 )
 
+from future import standard_library
+
+standard_library.install_aliases()
+
 import collections
 import os
 import os.path
 import re
-import sys
 import traceback
-from builtins import chr, dict, int, object, open, range, str, super, zip
+from builtins import chr, dict, int, open, range, str, super
 from collections import namedtuple
 from contextlib import contextmanager
-
-from future import standard_library
-
-from .common import *
-
-standard_library.install_aliases()
 
 
 """Separator for strings containing multiple indices."""

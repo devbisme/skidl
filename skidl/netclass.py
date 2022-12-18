@@ -16,7 +16,6 @@ from builtins import object, str
 from future import standard_library
 
 from .logger import active_logger
-from .utilities import *
 
 standard_library.install_aliases()
 

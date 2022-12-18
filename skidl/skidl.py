@@ -22,7 +22,7 @@ from .config import SkidlConfig
 from .logger import get_script_name, stop_log_file_output
 from .pin import Pin
 from .tools import KICAD, SKIDL, lib_suffixes
-from .utilities import *
+from .utilities import norecurse
 
 standard_library.install_aliases()
 
