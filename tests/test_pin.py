@@ -4,7 +4,7 @@
 
 import pytest
 
-from skidl import Part
+from skidl import Part, Pin
 
 from .setup_teardown import setup_function, teardown_function
 
@@ -43,3 +43,40 @@ def test_alphanumeric_pin_order():
     codec[3].num = "A1"
     codec[5].num = "B1"
     assert [p.num for p in codec.ordered_pins[-6:]] == ["25", "26", "27", "28", "A1", "B1"]
+
+
+def test_eq():
+    p1 = Pin(num=1)
+    p2 = Pin(num=1)
+    assert p1 == p2
+    assert p1 is not p2
+    p2.part = "new part"
+    assert p1 != p2
+
+
+def test_numeric_sorts():
+    assert Pin(num=1) < Pin(num=2)
+    assert Pin(num=9) < Pin(num=10) < Pin(num=11)
+    assert Pin(num="1") < Pin(num="2")
+    assert Pin(num="9") < Pin(num="10") < Pin(num="11")
+    assert Pin(num="1") < Pin(num=2)
+    assert Pin(num="9") < Pin(num=10) < Pin(num="11")
+    with pytest.raises(ValueError):
+        Pin(num=1) < Pin(num=2, part="newpart")
+
+
+def test_alphanum_sorts():
+    assert Pin(num=1) < Pin(num="a1")
+    assert Pin(num="a1") < Pin(num="a2")
+    assert Pin(num="a100") < Pin(num="b1")
+    assert Pin(num="a001") == Pin(num="a1")
+    assert Pin(num="AA100") > Pin(num="A1000")
+
+
+def test_pin_search_1():
+    codec = Part("xess.lib", "ak4520a")
+    bidir = codec.get_pins(func=Pin.BIDIR)
+    pwrin = codec.get_pins(func=Pin.PWRIN)
+    assert len(bidir) == 24
+    assert len(pwrin) == 4
+    assert len(bidir) + len(pwrin) == len(codec)
