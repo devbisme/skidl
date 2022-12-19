@@ -34,7 +34,7 @@ try:
     from PySpice.Unit import *
 
 except ImportError:
-    active_logger.raise_(NotImplementedError, "PySpice does not support Python 2, so SPICE simulation is not possible.")
+    active_logger.warning("PySpice does not support Python 2, so SPICE simulation is not possible.")
 
 else:
     from .libs.pyspice_sklib import *
