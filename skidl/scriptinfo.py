@@ -53,18 +53,17 @@ def scriptinfo():
             continue
         trc = teil[1]
 
-    # trc contains highest level calling script name
-    # check if we have been compiled
+    # trc contains highest level calling script name.
+    # Check if we have been compiled.
     if getattr(sys, "frozen", False):
         scriptdir, scriptname = os.path.split(sys.executable)
         return {"dir": scriptdir, "name": scriptname, "source": trc}
 
-    # from here on, we are in the interpreted case
+    # From here on, we are in the interpreted case
     scriptdir, trc = os.path.split(trc)
-    # if trc did not contain directory information,
+    # If trc did not contain directory information,
     # the current working directory is what we need
-    if not scriptdir:
-        scriptdir = os.getcwd()
+    scriptdir = scriptdir or os.getcwd()
 
     scr_dict = {"name": trc, "source": trc, "dir": scriptdir}
     return scr_dict

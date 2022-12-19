@@ -58,8 +58,7 @@ class Net(SkidlBaseObject):
 
         from .alias import Alias
 
-        if not circuit:
-            circuit = default_circuit
+        circuit = circuit or default_circuit
 
         search_params = (("name", name, True), ("aliases", name, True))
 

@@ -306,8 +306,7 @@ class Part(SkidlBaseObject):
             either their reference, name, alias, or their description.
         """
 
-        if not circuit:
-            circuit = default_circuit
+        circuit = circuit or default_circuit
 
         search_params = (
             ("ref", text, True),
@@ -1244,8 +1243,7 @@ class SkidlPart(Part):
     ):
         from .tools import SKIDL
 
-        if not tool:
-            tool = SKIDL
+        tool = tool or SKIDL
         super().__init__(lib, name, dest, tool, connections, attribs)
 
 
