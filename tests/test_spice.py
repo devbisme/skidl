@@ -11,7 +11,8 @@ except ModuleNotFoundError:
     # are not being run anyway. So just eat the exception.
     pass
 
-from skidl import SKIDL, SPICE, TEMPLATE, Part, generate_netlist
+from skidl.pyspice import SKIDL, SPICE, KICAD, TEMPLATE, Part, generate_netlist, reset, lib_search_paths, subcircuit, generate_svg, node, Parameters, XspiceModel
+
 
 from .setup_teardown import setup_function, teardown_function
 

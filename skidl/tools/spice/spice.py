@@ -17,14 +17,15 @@ import os.path
 from builtins import dict, int, object, range, str, zip
 
 from future import standard_library
+import re
+import sys
 
 from ...alias import Alias
-from ...common import USING_PYTHON2
 from ...logger import active_logger
 from ...net import Net
 from ...part import LIBRARY, Part
 from ...pin import Pin
-from ...utilities import *
+from ...utilities import find_and_read_file, find_and_open_file, INDEX_SEPARATOR
 
 standard_library.install_aliases()
 
@@ -251,8 +252,8 @@ def gen_netlist(self, **kwargs):
     from ...skidl import lib_search_paths
     from .. import SPICE
 
-    if USING_PYTHON2:
-        return None
+    if sys.version_info.major == 2:
+        active_logger.raise_(NotImplementedError, "PySpice does not support Python 2, so a SPICE netlist cannot be generated.")
 
     # Create an empty PySpice circuit.
     title = kwargs.pop("title", "")  # Get title and remove it from kwargs.

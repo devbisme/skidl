@@ -13,9 +13,8 @@ try:
 except ModuleNotFoundError:
     import builtins
 
-USING_PYTHON2 = sys.version_info.major == 2
 
-if USING_PYTHON2:
+if sys.version_info.major == 2:
     # Python 2 doesn't have this exception, so spoof it.
     builtins.FileNotFoundError = OSError
 else:
