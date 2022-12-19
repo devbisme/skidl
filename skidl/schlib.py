@@ -129,12 +129,13 @@ class SchLib(object):
             A list of Parts that match all the criteria.
         """
 
-        import skidl
+        from .skidl import get_query_backup_lib, load_backup_lib
 
         parts = filter_list(self.parts, **criteria)
-        if not parts and use_backup_lib and skidl.QUERY_BACKUP_LIB:
+        if not parts and use_backup_lib and get_query_backup_lib():
+        # if not parts and use_backup_lib and skidl.QUERY_BACKUP_LIB:
             try:
-                backup_lib_ = skidl.load_backup_lib()
+                backup_lib_ = load_backup_lib()
                 parts = backup_lib_.get_parts(use_backup_lib=False, **criteria)
             except AttributeError:
                 pass
@@ -226,14 +227,14 @@ class SchLib(object):
             s = re.sub(r"(Pin\()", r"\n            \1", s)
             return s
 
-        import skidl
+        import skidl.tools
 
         from .tools import SKIDL
 
         if tool is None:
             tool = SKIDL
 
-        file_ = file_ or (libname + skidl.lib_suffixes[tool])
+        file_ = file_ or (libname + skidl.tools.lib_suffixes[tool])
 
         export_str = "from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE\n\n"
         export_str += "SKIDL_lib_version = '0.0.1'\n\n"

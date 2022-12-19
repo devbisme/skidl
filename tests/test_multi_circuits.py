@@ -2,6 +2,8 @@
 
 # The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
 
+from builtins import super
+
 import pytest
 
 from skidl import (
@@ -16,7 +18,6 @@ from skidl import (
     generate_netlist,
     generate_xml,
     subcircuit,
-    super,
 )
 
 from .setup_teardown import setup_function, teardown_function

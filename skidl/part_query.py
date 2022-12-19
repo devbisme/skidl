@@ -57,7 +57,7 @@ def search_parts_iter(terms, tool=None):
     """Return a list of (lib, part) sequences that match a regex term."""
 
     import skidl
-
+    import skidl.tools
     from .schlib import SchLib
 
     if tool is None:
@@ -75,7 +75,7 @@ def search_parts_iter(terms, tool=None):
 
     # Gather all the lib files from all the directories in the search paths.
     lib_files = list()
-    lib_suffixes = tuple(to_list(skidl.lib_suffixes[tool]))
+    lib_suffixes = tuple(to_list(skidl.tools.lib_suffixes[tool]))
     for lib_dir in skidl.lib_search_paths[tool]:
 
         # Get all the library files in the search path.

@@ -4,7 +4,9 @@
 
 import pytest
 
-from skidl import BUS_PREFIX, NET_PREFIX, Bus, Net, Part, Pin
+from skidl import Bus, Net, Part, Pin
+from skidl.bus import BUS_PREFIX
+from skidl.net import NET_PREFIX
 
 from .setup_teardown import setup_function, teardown_function
 

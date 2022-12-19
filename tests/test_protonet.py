@@ -4,7 +4,8 @@
 
 import pytest
 
-from skidl import TEMPLATE, Bus, Net, Part, Pin, ProtoNet, package
+from skidl import TEMPLATE, Bus, Net, Part, Pin, package
+from skidl.protonet import ProtoNet
 
 from .setup_teardown import setup_function, teardown_function
 

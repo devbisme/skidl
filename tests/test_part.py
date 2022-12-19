@@ -2,16 +2,17 @@
 
 # The MIT License (MIT) - Copyright (c) 2016-2022 Dave Vandenbout.
 
+from builtins import super
+
 from skidl import (
     Net,
     Part,
     PartTmplt,
-    to_list,
     ERC,
     erc_logger,
     generate_netlist,
-    super,
 )
+from skidl.utilities import to_list
 
 from .setup_teardown import setup_function, teardown_function
 

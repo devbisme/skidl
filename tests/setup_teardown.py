@@ -5,6 +5,8 @@
 import os
 
 from skidl import *
+from skidl.skidl import INITIAL_QUERY_BACKUP_LIB
+from skidl.tools import ALL_TOOLS
 
 this_file_dir = os.path.dirname(os.path.abspath(__file__))
 

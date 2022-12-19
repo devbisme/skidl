@@ -26,34 +26,22 @@ from __future__ import (  # isort:skip
 )
 from future import standard_library
 
-# Import tools first because imports from it's skidl subdirectory will interfere
-# if it comes after the skidl import down below. This needs to be properly fixed.
-from .tools import *  # isort:skip
-
-from .alias import *
-from .bus import *
-from .circuit import *
-from .common import *
-from .config import *
-from .erc import *
-from .group import *
-from .interface import *
-from .logger import *
-from .net import *
-from .netclass import *
-from .netlist_to_skidl import *
-from .netpinlist import *
-from .network import *
-from .note import *
-from .package import *
-from .part import *
-from .part_query import *
-from .pin import *
-from .protonet import *
-from .schlib import *
-from .skidl import *
-from .skidlbaseobj import *
-from .utilities import *
-
+from .alias import Alias
+from .bus import Bus
+from .circuit import Circuit, HIER_SEP
+from .group import Group, SubCircuit, subcircuit
+from .interface import Interface
+from .logger import erc_logger
+from .net import Net
+from .netclass import NetClass
+from .netlist_to_skidl import netlist_to_skidl
+from .network import Network, tee
+from .package import Package, package
+from .part import Part, PartTmplt, SkidlPart, NETLIST, LIBRARY, TEMPLATE
+from .part_query import search, show, search_parts_iter, search_parts, show_part, search_footprints_iter, search_footprints, show_footprint
+from .pin import Pin
+from .schlib import SchLib
+from .skidl import lib_search_paths, footprint_search_paths, set_default_tool, get_default_tool, set_query_backup_lib, get_query_backup_lib, set_backup_lib, get_backup_lib, load_backup_lib, ERC, erc_assert, generate_netlist, generate_pcb, generate_xml, generate_schematic, generate_svg, generate_graph, reset, backup_parts, POWER, no_files
+from .tools import KICAD, SKIDL, SPICE, node
 
 standard_library.install_aliases()

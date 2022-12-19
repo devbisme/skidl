@@ -5,7 +5,6 @@
 import pytest
 
 from skidl import (
-    ALL_TOOLS,
     SKIDL,
     TEMPLATE,
     Part,
@@ -15,10 +14,10 @@ from skidl import (
     generate_netlist,
     set_default_tool,
     set_query_backup_lib,
-    to_list,
     KICAD,
     lib_search_paths,
 )
+from skidl.tools import ALL_TOOLS
 
 import sexpdata
 

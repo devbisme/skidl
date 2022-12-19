@@ -2,7 +2,7 @@
 
 # The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
 
-import pytest
+from builtins import super
 
 from skidl import (
     ERC,
@@ -14,7 +14,6 @@ from skidl import (
     generate_netlist,
     generate_xml,
     subcircuit,
-    super,
     HIER_SEP,
 )
 
