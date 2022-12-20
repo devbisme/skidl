@@ -25,6 +25,7 @@ import functools
 import itertools
 import math
 import random
+import sys
 
 from future import standard_library
 
@@ -1047,12 +1048,12 @@ class Placer:
 
         Args:
             node (Node): Hierarchical node containing the parts and children to be placed.
+            tool (str): Backend tool for schematics.
             options (list): List of text options to control drawing of placement
                 for debugging purposes. Available options are "draw".
         """
 
         # Inject the constants for the backend tool into this module.
-        import sys
         import skidl
         from skidl.tools import tool_modules
 

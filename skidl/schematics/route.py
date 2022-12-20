@@ -23,6 +23,7 @@ from collections import defaultdict
 from enum import Enum
 from itertools import zip_longest, chain
 from random import randint, choice
+import sys
 
 from future import standard_library
 
@@ -2317,13 +2318,13 @@ class Router:
 
         Args:
             node (Node): Hierarchical node containing the parts to be connected.
+            tool (str): Backend tool for schematics.
             options (list): List of text options to control drawing of placement and
                 routing for debugging purposes. Available options are "draw", "draw_switchbox",
                 "draw_routing", "show_capacities", "draw_all_terminals", "draw_channels".
         """
 
         # Inject the constants for the backend tool into this module.
-        import sys
         import skidl
         from skidl.tools import tool_modules
 
