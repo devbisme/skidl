@@ -15,17 +15,17 @@ from __future__ import (  # isort:skip
 
 # __all__ = ["Router",]
 
-from builtins import range, zip, super
+from builtins import range, super, zip
 from collections import defaultdict
 from enum import Enum
-from itertools import zip_longest, chain
-from random import randint, choice
+from itertools import chain, zip_longest
+from random import choice, randint
 
 from future import standard_library
 
 from ..part import Part
 from ..tools.kicad.constants import GRID
-from .geometry import Point, Vector, BBox, Tx, Segment
+from .geometry import BBox, Point, Segment, Tx, Vector
 
 standard_library.install_aliases()
 

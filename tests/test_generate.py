@@ -4,32 +4,33 @@
 
 import os
 import os.path
-import pytest
 import shutil
 import sys
 
-import skidl
+import pytest
 
+import skidl
 from skidl import (
     ERC,
     POWER,
     TEMPLATE,
     Bus,
+    Group,
     Net,
     Part,
-    Group,
-    subcircuit,
     SubCircuit,
+    generate_graph,
     generate_netlist,
+    generate_pcb,
+    generate_schematic,
     generate_svg,
     generate_xml,
-    generate_graph,
-    generate_schematic,
-    generate_pcb,
+    subcircuit,
 )
 from skidl.schematics.route import RoutingFailure
 
 from .setup_teardown import setup_function, teardown_function
+
 
 def _empty_footprint_handler(part):
     """Function for handling parts with no footprint.
@@ -41,18 +42,20 @@ def _empty_footprint_handler(part):
 
     if ref_prefix in ("R", "C", "L") and len(part.pins) == 2:
         # Resistor, capacitors, inductors default to 0805 SMD footprint.
-        part.footprint = 'Resistor_SMD:R_0805_2012Metric'
+        part.footprint = "Resistor_SMD:R_0805_2012Metric"
 
-    elif ref_prefix in ('Q',) and len(part.pins) == 3:
+    elif ref_prefix in ("Q",) and len(part.pins) == 3:
         # Transistors default to SOT-23 footprint.
-        part.footprint = 'Package_TO_SOT_SMD:SOT-23'
+        part.footprint = "Package_TO_SOT_SMD:SOT-23"
 
     else:
         # Everything else just gets this ridiculous footprint to avoid raising exceptions.
         part.footprint = ":"
 
+
 # Install the footprint handler for these tests.
 skidl.empty_footprint_handler = _empty_footprint_handler
+
 
 def create_output_dir(leaf_dir_name):
     output_file_root = "schematic_output"
@@ -65,10 +68,18 @@ def create_output_dir(leaf_dir_name):
 
 @pytest.mark.xfail(raises=(RoutingFailure, SyntaxError))
 def test_generate_1():
-    q = Part(lib="Device.lib", name="Q_PNP_CBE", footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2", dest=TEMPLATE, symtx="V")
-    r = Part("Device.lib", "R", footprint="Resistor_SMD:R_0805_2012Metric",dest=TEMPLATE)
-    gndt = Part("power", "GND", footprint='TestPoint:TestPoint_Pad_D4.0mm')
-    vcct = Part("power", "VCC", footprint='TestPoint:TestPoint_Pad_D4.0mm')
+    q = Part(
+        lib="Device.lib",
+        name="Q_PNP_CBE",
+        footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2",
+        dest=TEMPLATE,
+        symtx="V",
+    )
+    r = Part(
+        "Device.lib", "R", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE
+    )
+    gndt = Part("power", "GND", footprint="TestPoint:TestPoint_Pad_D4.0mm")
+    vcct = Part("power", "VCC", footprint="TestPoint:TestPoint_Pad_D4.0mm")
 
     gnd = Net("GND")
     vcc = Net("VCC")
@@ -152,8 +163,16 @@ def test_pcb_1():
 def test_schematic_gen_place():
     @subcircuit
     def test():
-        q = Part(lib="Device.lib", name="Q_PNP_CBE", footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2", dest=TEMPLATE, symtx="V")
-        r = Part("Device.lib", "R", footprint="Resistor_SMD:R_0805_2012Metric",dest=TEMPLATE)
+        q = Part(
+            lib="Device.lib",
+            name="Q_PNP_CBE",
+            footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2",
+            dest=TEMPLATE,
+            symtx="V",
+        )
+        r = Part(
+            "Device.lib", "R", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE
+        )
         vcc = Net("VCC")
         gnd = Net("GND")
 
@@ -165,8 +184,8 @@ def test_schematic_gen_place():
                 q1 = q()
                 q2 = q()
                 r1, r2, r3 = r(3, value="10K")
-                a & r1 & (q1['c,e'] | q2['c,e']) & r3 & o
-                b & r2 & (q1['b'] | q2['b'])
+                a & r1 & (q1["c,e"] | q2["c,e"]) & r3 & o
+                b & r2 & (q1["b"] | q2["b"])
 
         with Group("B:"):
             n = 5
@@ -185,9 +204,16 @@ def test_schematic_gen_place():
     test()
     generate_schematic(filepath=create_output_dir("place"), flatness=0.5)
 
+
 @pytest.mark.xfail(raises=RoutingFailure)
 def test_schematic_gen_simple():
-    q = Part(lib="Device.lib", name="Q_PNP_CBE", footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2", dest=TEMPLATE, symtx="V")
+    q = Part(
+        lib="Device.lib",
+        name="Q_PNP_CBE",
+        footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2",
+        dest=TEMPLATE,
+        symtx="V",
+    )
     qs = q(15)
     ns = [Net() for p in qs[0].pins]
     for q in qs:
@@ -195,18 +221,25 @@ def test_schematic_gen_simple():
             n += p
     generate_schematic(filepath=create_output_dir("simple"), flatness=1.0)
 
+
 @pytest.mark.xfail(raises=RoutingFailure)
 def test_schematic_gen_units():
     @subcircuit
     def test():
-        q = Part(lib="Device.lib", name="Q_PNP_CBE", footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2", dest=TEMPLATE, symtx="V")
+        q = Part(
+            lib="Device.lib",
+            name="Q_PNP_CBE",
+            footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2",
+            dest=TEMPLATE,
+            symtx="V",
+        )
         # r = Part("Device.lib", "R", footprint="Resistor_SMD:R_0805_2012Metric",dest=TEMPLATE)
         rn = Part("Device", "R_Pack05_Split", footprint=":")
-        gndt = Part("power", "GND", footprint='TestPoint:TestPoint_Pad_D4.0mm')
-        vcct = Part("power", "VCC", footprint='TestPoint:TestPoint_Pad_D4.0mm')
+        gndt = Part("power", "GND", footprint="TestPoint:TestPoint_Pad_D4.0mm")
+        vcct = Part("power", "VCC", footprint="TestPoint:TestPoint_Pad_D4.0mm")
 
-        gnd = Net("GND", stub=True, netclass='Power')
-        vcc = Net("VCC", stub=True, netclass='Power')
+        gnd = Net("GND", stub=True, netclass="Power")
+        vcc = Net("VCC", stub=True, netclass="Power")
         gnd & gndt
         vcc & vcct
         a = Net("A", netio="i")
@@ -229,23 +262,41 @@ def test_schematic_gen_units():
         vcc & q2["E"]
 
     with Group("A"):
-        q = Part(lib="Device.lib", name="Q_PNP_CBE", footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2", dest=TEMPLATE, symtx="V")
+        q = Part(
+            lib="Device.lib",
+            name="Q_PNP_CBE",
+            footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2",
+            dest=TEMPLATE,
+            symtx="V",
+        )
         q()
         test()  # This enables a recursion error in test_interface_12 for reasons unknown.
 
     generate_schematic(filepath=create_output_dir("units"), flatness=1.0)
 
+
 @pytest.mark.xfail(raises=RoutingFailure)
 def test_schematic_gen_hier():
     with Group("A"):
         with Group("B"):
-            q = Part(lib="Device.lib", name="Q_PNP_CBE", footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2", dest=TEMPLATE, symtx="V")
-            r = Part("Device.lib", "R", footprint="Resistor_SMD:R_0805_2012Metric",dest=TEMPLATE)
-            gndt = Part("power", "GND", footprint='TestPoint:TestPoint_Pad_D4.0mm')
-            vcct = Part("power", "VCC", footprint='TestPoint:TestPoint_Pad_D4.0mm')
+            q = Part(
+                lib="Device.lib",
+                name="Q_PNP_CBE",
+                footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2",
+                dest=TEMPLATE,
+                symtx="V",
+            )
+            r = Part(
+                "Device.lib",
+                "R",
+                footprint="Resistor_SMD:R_0805_2012Metric",
+                dest=TEMPLATE,
+            )
+            gndt = Part("power", "GND", footprint="TestPoint:TestPoint_Pad_D4.0mm")
+            vcct = Part("power", "VCC", footprint="TestPoint:TestPoint_Pad_D4.0mm")
 
-            gnd = Net("GND", stub=True, netclass='Power')
-            vcc = Net("VCC", stub=True, netclass='Power')
+            gnd = Net("GND", stub=True, netclass="Power")
+            vcc = Net("VCC", stub=True, netclass="Power")
             gnd & gndt
             vcc & vcct
             a = Net("A", netio="i")
@@ -268,11 +319,20 @@ def test_schematic_gen_hier():
 
     generate_schematic(filepath=create_output_dir("hier"), flatness=0.0)
 
+
 @pytest.mark.xfail(raises=RoutingFailure)
 def test_schematic_hier_connections():
 
-    r = Part("Device.lib", "R", footprint="Resistor_SMD:R_0805_2012Metric",dest=TEMPLATE)
-    q = Part(lib="Device.lib", name="Q_PNP_CBE", footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2", dest=TEMPLATE, symtx="V")
+    r = Part(
+        "Device.lib", "R", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE
+    )
+    q = Part(
+        lib="Device.lib",
+        name="Q_PNP_CBE",
+        footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2",
+        dest=TEMPLATE,
+        symtx="V",
+    )
 
     a = Net("A")
     b = Net("B")
@@ -283,14 +343,20 @@ def test_schematic_hier_connections():
             q1 = q()
             q2 = q()
             r1, r2, r3 = r(3, value="10K")
-            a & r1 & (q1['c,e'] | q2['c,e']) & r3 & o
-            b & r2 & (q1['b'] | q2['b'])
+            a & r1 & (q1["c,e"] | q2["c,e"]) & r3 & o
+            b & r2 & (q1["b"] | q2["b"])
 
     generate_schematic(filepath=create_output_dir("hier_connections"), flatness=1.0)
 
+
 @pytest.mark.xfail(raises=RoutingFailure)
 def test_schematic_part_tx():
-    q = Part(lib="Device.lib", name="Q_PNP_CBE", footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2", dest=TEMPLATE)
+    q = Part(
+        lib="Device.lib",
+        name="Q_PNP_CBE",
+        footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2",
+        dest=TEMPLATE,
+    )
     q1 = q(symtx="")
     q2 = q(symtx="R")
     q3 = q(symtx="L")
@@ -302,6 +368,8 @@ def test_schematic_part_tx():
 @pytest.mark.xfail(raises=RoutingFailure)
 def test_svg_1():
     """Test SVG generation."""
+
+    # TODO: Find out why this test regularly generates a RuntimeError in route.py::cvt_faces_to_terminals.
 
     l1 = Part("Device.lib", "L")
     r1, r2 = Part("Device.lib", "R", dest=TEMPLATE, value="200.0") * 2
@@ -575,11 +643,11 @@ def test_svg_8():
         # a resistance of vga_input_impedance.
         R = (logic_lvl - vga_analog_max) * vga_input_impedance / vga_analog_max
         # The basic weight is R * (1 + 1/2 + 1/4 + ... + 1/2**(width-1))
-        r = R * sum([1.0 / 2 ** n for n in range(depth)])
+        r = R * sum([1.0 / 2**n for n in range(depth)])
         # The most significant color bit has a weight of r. The next bit has a weight
         # of 2r. The next bit has a weight of 4r, and so on. The weights are arranged
         # in decreasing order so the least significant weight is at the start of the list.
-        weights = [str(int(r * 2 ** n)) for n in reversed(range(depth))]
+        weights = [str(int(r * 2**n)) for n in reversed(range(depth))]
 
         # Quad resistor packs are used to create weighted sums of the digital
         # signals on the red, green and blue buses. (One resistor in each pack

@@ -6,6 +6,7 @@ from builtins import super
 
 from skidl import (
     ERC,
+    HIER_SEP,
     TEMPLATE,
     Bus,
     Group,
@@ -14,14 +15,12 @@ from skidl import (
     generate_netlist,
     generate_xml,
     subcircuit,
-    HIER_SEP,
 )
 
 from .setup_teardown import setup_function, teardown_function
 
 
 def test_group_1():
-
     class Resistor(Part):
         def __init__(self, value, ref=None, footprint="Resistors_SMD:R_0805"):
             super().__init__("Device", "R", value=value, ref=ref, footprint=footprint)
@@ -57,7 +56,7 @@ def test_group_1():
     assert len(default_circuit.parts) == 12
     assert len(default_circuit.get_nets()) == 8
     assert len(default_circuit.buses) == 2
-    
+
     depth = 0
     for part in default_circuit.parts:
         depth = max(depth, part.hierarchical_name.count(HIER_SEP))

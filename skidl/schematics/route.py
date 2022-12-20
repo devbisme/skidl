@@ -18,19 +18,19 @@ __all__ = [
     "RoutingFailure",
 ]
 
-from builtins import range, zip, super
+import sys
+from builtins import range, super, zip
 from collections import defaultdict
 from enum import Enum
-from itertools import zip_longest, chain
-from random import randint, choice
-import sys
+from itertools import chain, zip_longest
+from random import choice, randint
 
 from future import standard_library
 
 from ..circuit import Circuit
 from ..part import Part
-from .geometry import Point, Vector, BBox, Tx, Segment
-from .debug_draw import draw_start, draw_end, draw_part, draw_seg, draw_endpoint
+from .debug_draw import draw_end, draw_endpoint, draw_part, draw_seg, draw_start
+from .geometry import BBox, Point, Segment, Tx, Vector
 
 standard_library.install_aliases()
 
@@ -2213,7 +2213,10 @@ class Router:
                             # Don't re-visit faces that have already been visited.
                             continue
 
-                        if adj.face not in unconstrained_faces and adj.face.capacity <= 0:
+                        if (
+                            adj.face not in unconstrained_faces
+                            and adj.face.capacity <= 0
+                        ):
                             # Skip faces with insufficient routing capacity.
                             continue
 

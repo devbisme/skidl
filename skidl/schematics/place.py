@@ -18,21 +18,21 @@ __all__ = [
     "PlacementFailure",
 ]
 
-from builtins import range, zip
-from collections import defaultdict
-from copy import copy
 import functools
 import itertools
 import math
 import random
 import sys
+from builtins import range, zip
+from collections import defaultdict
+from copy import copy
 
 from future import standard_library
 
-from ..pin import Pin
 from ..circuit import Circuit
-from .geometry import Tx, Point, Vector, BBox
-from .debug_draw import draw_start, draw_placement, draw_end
+from ..pin import Pin
+from .debug_draw import draw_end, draw_placement, draw_start
+from .geometry import BBox, Point, Tx, Vector
 
 standard_library.install_aliases()
 
@@ -938,7 +938,9 @@ def place_blocks(connected_parts, floating_parts, children, options):
     class PartBlock:
         def __init__(self, src, bbox, anchor_pt, snap_pt, tag):
             self.src = src
-            self.place_bbox = bbox # FIXME: Is this needed if place_bbox includes room for routing?
+            self.place_bbox = (
+                bbox  # FIXME: Is this needed if place_bbox includes room for routing?
+            )
             self.lbl_bbox = bbox  # Needed for drawing during debug.
             self.anchor_pt = anchor_pt
             self.anchor_pin = Pin()

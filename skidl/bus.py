@@ -14,8 +14,8 @@ from __future__ import (  # isort:skip
 )
 
 import builtins
-from builtins import range, str, super
 import re
+from builtins import range, str, super
 
 from future import standard_library
 
@@ -26,14 +26,14 @@ from .netpinlist import NetPinList
 from .pin import Pin
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import (
-    get_unique_name,
-    flatten,
     expand_indices,
-    find_num_copies,
-    from_iadd,
-    rmv_iadd,
     filter_list,
+    find_num_copies,
+    flatten,
+    from_iadd,
+    get_unique_name,
     list_or_scalar,
+    rmv_iadd,
 )
 
 # Prefix for implicit buses.

@@ -2,8 +2,8 @@
 
 # The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
 
-from copy import copy
 import math
+from copy import copy
 
 """
 Stuff for handling geometry:
@@ -45,7 +45,9 @@ class Tx:
         op_dict = {
             "H": Tx(a=-1, c=0, b=0, d=1),  # Horizontal flip.
             "V": Tx(a=1, c=0, b=0, d=-1),  # Vertical flip.
-            "L": Tx(a=0, c=-1, b=1, d=0),  # Rotatate 90 degrees left (counter-clockwise).
+            "L": Tx(
+                a=0, c=-1, b=1, d=0
+            ),  # Rotatate 90 degrees left (counter-clockwise).
             "R": Tx(a=0, c=1, b=-1, d=0),  # Rotate 90 degrees right (clockwise).
         }
 
@@ -84,6 +86,7 @@ class Tx:
         """Flip transformation X coords around (dx, dy)."""
         self.a, self.c = -self.a, -self.c
 
+
 # Some common rotations.
 tx_rot_0 = Tx(a=1, b=0, c=0, d=1)
 tx_rot_90 = Tx(a=0, b=1, c=-1, d=0)
@@ -120,7 +123,7 @@ class Point:
         if isinstance(m, Tx):
             return Point(
                 self.x * m.a + self.y * m.c + m.dx, self.x * m.b + self.y * m.d + m.dy
-                )
+            )
         else:
             return Point(m * self.x, m * self.y)
 
@@ -173,7 +176,6 @@ class Point:
             return self / self.magnitude
         except ZeroDivisionError:
             return Point(0, 0)
-
 
     def flip_xy(self):
         """Flip X-Y coordinates of point."""
@@ -278,7 +280,9 @@ class BBox:
         return Point(self.max.x, self.max.y)
 
     def __repr__(self):
-        return "{self.__class__}(Point({self.min}), Point({self.max}))".format(self=self)
+        return "{self.__class__}(Point({self.min}), Point({self.max}))".format(
+            self=self
+        )
 
 
 class Segment:

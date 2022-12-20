@@ -58,6 +58,7 @@ def search_parts_iter(terms, tool=None):
 
     import skidl
     import skidl.tools
+
     from .schlib import SchLib
 
     if tool is None:

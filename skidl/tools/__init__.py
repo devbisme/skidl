@@ -51,7 +51,7 @@ for module_name in os.listdir(directory):
 
     # Import the module.
     mod = __import__(module_name, globals(), locals(), [], level=1)
-    mod_dict = {k:v for k, v in mod.__dict__.items() if not k.startswith("_")}
+    mod_dict = {k: v for k, v in mod.__dict__.items() if not k.startswith("_")}
     this_module.__dict__.update(mod_dict)
 
     # Get some info from the imported module.

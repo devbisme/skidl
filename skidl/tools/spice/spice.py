@@ -14,18 +14,18 @@ from __future__ import (  # isort:skip
 )
 
 import os.path
+import re
+import sys
 from builtins import dict, int, object, range, str, zip
 
 from future import standard_library
-import re
-import sys
 
 from ...alias import Alias
 from ...logger import active_logger
 from ...net import Net
 from ...part import LIBRARY, Part
 from ...pin import Pin
-from ...utilities import find_and_read_file, find_and_open_file, INDEX_SEPARATOR
+from ...utilities import INDEX_SEPARATOR, find_and_open_file, find_and_read_file
 
 standard_library.install_aliases()
 
@@ -253,7 +253,10 @@ def gen_netlist(self, **kwargs):
     from .. import SPICE
 
     if sys.version_info.major == 2:
-        active_logger.raise_(NotImplementedError, "PySpice does not support Python 2, so a SPICE netlist cannot be generated.")
+        active_logger.raise_(
+            NotImplementedError,
+            "PySpice does not support Python 2, so a SPICE netlist cannot be generated.",
+        )
 
     # Create an empty PySpice circuit.
     title = kwargs.pop("title", "")  # Get title and remove it from kwargs.

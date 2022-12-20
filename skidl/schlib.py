@@ -13,20 +13,14 @@ from __future__ import (  # isort:skip
     unicode_literals,
 )
 
+import re
 from builtins import object, str
 
 from future import standard_library
-import re
 
 from .alias import Alias
 from .logger import active_logger
-from .utilities import (
-    filter_list,
-    flatten,
-    list_or_scalar,
-    cnvt_to_var_name,
-    opened,
-)
+from .utilities import cnvt_to_var_name, filter_list, flatten, list_or_scalar, opened
 
 standard_library.install_aliases()
 
@@ -57,6 +51,7 @@ class SchLib(object):
         """
 
         import skidl
+
         from .tools import tool_modules
 
         if tool is None:
@@ -82,7 +77,12 @@ class SchLib(object):
         else:
             try:
                 # Use the tool name to find the function for loading the library.
-                tool_modules[tool].load_sch_lib(self, filename, skidl.lib_search_paths[tool], lib_section=lib_section)
+                tool_modules[tool].load_sch_lib(
+                    self,
+                    filename,
+                    skidl.lib_search_paths[tool],
+                    lib_section=lib_section,
+                )
             except AttributeError:
                 # OK, that didn't work so well...
                 active_logger.raise_(
@@ -133,7 +133,7 @@ class SchLib(object):
 
         parts = filter_list(self.parts, **criteria)
         if not parts and use_backup_lib and get_query_backup_lib():
-        # if not parts and use_backup_lib and skidl.QUERY_BACKUP_LIB:
+            # if not parts and use_backup_lib and skidl.QUERY_BACKUP_LIB:
             try:
                 backup_lib_ = load_backup_lib()
                 parts = backup_lib_.get_parts(use_backup_lib=False, **criteria)

@@ -28,7 +28,7 @@ from future import standard_library
 
 from .alias import Alias
 from .bus import Bus
-from .circuit import Circuit, HIER_SEP
+from .circuit import HIER_SEP, Circuit
 from .group import Group, SubCircuit, subcircuit
 from .interface import Interface
 from .logger import erc_logger
@@ -37,11 +37,42 @@ from .netclass import NetClass
 from .netlist_to_skidl import netlist_to_skidl
 from .network import Network, tee
 from .package import Package, package
-from .part import Part, PartTmplt, SkidlPart, NETLIST, LIBRARY, TEMPLATE
-from .part_query import search, show, search_parts_iter, search_parts, show_part, search_footprints_iter, search_footprints, show_footprint
+from .part import LIBRARY, NETLIST, TEMPLATE, Part, PartTmplt, SkidlPart
+from .part_query import (
+    search,
+    search_footprints,
+    search_footprints_iter,
+    search_parts,
+    search_parts_iter,
+    show,
+    show_footprint,
+    show_part,
+)
 from .pin import Pin
 from .schlib import SchLib
-from .skidl import lib_search_paths, footprint_search_paths, set_default_tool, get_default_tool, set_query_backup_lib, get_query_backup_lib, set_backup_lib, get_backup_lib, load_backup_lib, ERC, erc_assert, generate_netlist, generate_pcb, generate_xml, generate_schematic, generate_svg, generate_graph, reset, backup_parts, POWER, no_files
+from .skidl import (
+    ERC,
+    POWER,
+    backup_parts,
+    erc_assert,
+    footprint_search_paths,
+    generate_graph,
+    generate_netlist,
+    generate_pcb,
+    generate_schematic,
+    generate_svg,
+    generate_xml,
+    get_backup_lib,
+    get_default_tool,
+    get_query_backup_lib,
+    lib_search_paths,
+    load_backup_lib,
+    no_files,
+    reset,
+    set_backup_lib,
+    set_default_tool,
+    set_query_backup_lib,
+)
 from .tools import KICAD, SKIDL, SPICE, node
 
 standard_library.install_aliases()

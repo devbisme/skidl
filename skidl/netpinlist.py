@@ -23,7 +23,7 @@ from .net import Net
 from .network import Network
 from .pin import Pin
 from .protonet import ProtoNet
-from .utilities import  set_iadd, expand_buses, flatten
+from .utilities import expand_buses, flatten, set_iadd
 
 standard_library.install_aliases()
 

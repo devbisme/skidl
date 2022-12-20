@@ -13,9 +13,9 @@ from __future__ import (  # isort:skip
     unicode_literals,
 )
 
+import random
 import re
 import sys
-import random
 from builtins import range, super
 from collections import defaultdict
 from copy import copy
@@ -27,13 +27,13 @@ from future import standard_library
 from .logger import active_logger
 from .skidlbaseobj import ERROR, OK, WARNING, SkidlBaseObject
 from .utilities import (
-    from_iadd,
-    set_iadd,
-    rmv_iadd,
-    expand_indices,
     expand_buses,
-    flatten,
+    expand_indices,
     find_num_copies,
+    flatten,
+    from_iadd,
+    rmv_iadd,
+    set_iadd,
     to_list,
 )
 
@@ -237,7 +237,7 @@ class Pin(SkidlBaseObject):
         """
 
         # Split the pin number into an initial alpha BGA row followed by column number.
-        n = list(re.match(r"(\D*)(.*)", str(self.num)).group(1,2))
+        n = list(re.match(r"(\D*)(.*)", str(self.num)).group(1, 2))
 
         # Uppercase the BGA row. This has no effect if it's not a BGA.
         n[0] = n[0].upper()

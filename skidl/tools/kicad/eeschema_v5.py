@@ -11,18 +11,17 @@ from __future__ import (  # isort:skip
 )
 
 import datetime
+import os.path
 import re
 import time
 from builtins import range, str
 from collections import OrderedDict
-import os.path
 
 from future import standard_library
 
 PIN_LABEL_FONT_SIZE = 50
+from ...schematics.geometry import BBox, Point, Tx, Vector
 from .constants import *
-from ...schematics.geometry import Point, BBox, Tx, Vector
-
 
 standard_library.install_aliases()
 
@@ -50,7 +49,9 @@ def bbox_to_eeschema(bbox, tx, name=None):
         # Place name at the lower-left corner of the box.
         name_pt = bbox.ul
         graphic_box.append(
-            "Text Notes {} {} 0    {}  ~ 20\n{}".format(name_pt.x, name_pt.y, BOX_LABEL_FONT_SIZE, name)
+            "Text Notes {} {} 0    {}  ~ 20\n{}".format(
+                name_pt.x, name_pt.y, BOX_LABEL_FONT_SIZE, name
+            )
         )
 
     graphic_box.append("Wire Notes Line")
@@ -146,9 +147,11 @@ def part_to_eeschema(part, tx):
 
     return "\n".join(eeschema)
 
+
 # Add method for generating EESCHEMA code to Part object.
 # FIXME: There's got to be a better way...
 from ...part import Part
+
 setattr(Part, "to_eeschema", part_to_eeschema)
 
 
@@ -351,7 +354,12 @@ def pin_label_to_eeschema(pin, tx):
     }[pin_dir]
 
     return "Text {} {} {} {}    {}   UnSpc ~ 0\n{}\n".format(
-        label_type, int(round(pt.x)), int(round(pt.y)), orientation, PIN_LABEL_FONT_SIZE, pin.net.name
+        label_type,
+        int(round(pt.x)),
+        int(round(pt.y)),
+        orientation,
+        PIN_LABEL_FONT_SIZE,
+        pin.net.name,
     )
 
 

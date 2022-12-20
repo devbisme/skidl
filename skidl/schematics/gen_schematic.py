@@ -10,24 +10,23 @@ from __future__ import (  # isort:skip
     unicode_literals,
 )
 
-from itertools import chain
 import re
 from builtins import range, super
-from collections import defaultdict, Counter
+from collections import Counter, defaultdict
+from itertools import chain
 
 from future import standard_library
 
-from ..tools.kicad.constants import GRID
-from .geometry import Point, Vector, BBox, Tx
-from .route import Router
-from .place import Placer
-from ..tools.kicad.v5 import calc_symbol_bbox, calc_hier_label_bbox
 from ..net import NCNet
 from ..part import Part
 from ..pin import Pin
 from ..scriptinfo import get_script_name
+from ..tools.kicad.constants import GRID
 from ..tools.kicad.eeschema_v5 import Eeschema_V5, pin_label_to_eeschema
-
+from ..tools.kicad.v5 import calc_hier_label_bbox, calc_symbol_bbox
+from .geometry import BBox, Point, Tx, Vector
+from .place import Placer
+from .route import Router
 
 standard_library.install_aliases()
 
@@ -159,7 +158,9 @@ def preprocess_parts_and_nets(circuit):
     net_stubs = circuit.get_net_nc_stubs()
     net_stubs = [net for net in net_stubs if not isinstance(net, NCNet)]
     for net in net_stubs:
-        if True or net.netclass != "Power": # TODO: figure out what to do with power nets.
+        if (
+            True or net.netclass != "Power"
+        ):  # TODO: figure out what to do with power nets.
             for pin in net.pins:
                 pin.stub = True
 
@@ -175,6 +176,7 @@ def preprocess_parts_and_nets(circuit):
         # Compute bounding boxes around parts
         calc_part_bbox(part)
 
+
 def finalize_parts_and_nets(circuit):
     """Restore parts and nets after place & route is done."""
 
@@ -184,12 +186,11 @@ def finalize_parts_and_nets(circuit):
 
 
 class NetTerminal(Part):
-
     def __init__(self, net):
         """Specialized Part with a single pin attached to a net.
 
-            This is intended for attaching to nets to label them, typically when
-            the net spans across levels of hierarchical nodes.
+        This is intended for attaching to nets to label them, typically when
+        the net spans across levels of hierarchical nodes.
         """
 
         # FIXME: Unnecessary jogs in NetTerminal wiring.
@@ -197,13 +198,14 @@ class NetTerminal(Part):
 
         # Create a Part.
         from ..skidl import SKIDL
+
         super().__init__(name="NT", ref_prefix="NT", tool=SKIDL)
-        
+
         # Set a default transformation matrix for this part.
         self.tx = Tx()
 
         # Add a single pin to the part.
-        pin = Pin(num='1', name='~')
+        pin = Pin(num="1", name="~")
         self.add_pins(pin)
 
         # Connect the pin to the net.
@@ -221,7 +223,7 @@ class NetTerminal(Part):
         self.bbox = calc_hier_label_bbox(net.name, "R")
 
         # Extend the bounding box a bit so any attached routing will come straight in.
-        self.bbox.max += Vector(GRID,0)
+        self.bbox.max += Vector(GRID, 0)
         self.lbl_bbox = self.bbox
 
     def to_eeschema(self, tx):
@@ -291,7 +293,6 @@ class Node(Placer, Router, Eeschema_V5):
         assert part in node.parts
         return node
 
-
     def add_circuit(self, circuit):
         """Add parts in circuit to node and its children.
 
@@ -322,7 +323,7 @@ class Node(Placer, Router, Eeschema_V5):
             # Add a single terminal to each node that contains one or more pins of the net.
             visited = []
             for pin in net.pins:
-                
+
                 # A stubbed pin can't be used to add NetTerminal since there is no explicit wire.
                 if pin.stub:
                     continue
@@ -335,7 +336,7 @@ class Node(Placer, Router, Eeschema_V5):
 
                 # Add NetTerminal to the node with this part/pin.
                 self.find_node_with_part(part).add_terminal(net)
-                
+
                 # Record that this hierarchical node was visited.
                 visited.append(part.hierarchy)
 
@@ -534,7 +535,11 @@ class Node(Placer, Router, Eeschema_V5):
 
 
 def gen_schematic(
-    circuit, filepath=".", top_name=get_script_name(), title="SKiDL-Generated Schematic", flatness=0.0
+    circuit,
+    filepath=".",
+    top_name=get_script_name(),
+    title="SKiDL-Generated Schematic",
+    flatness=0.0,
 ):
     """Create a schematic file from a Circuit object."""
 

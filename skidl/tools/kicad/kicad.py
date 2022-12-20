@@ -25,8 +25,7 @@ from ...logger import active_logger
 from ...pckg_info import __version__
 from ...scriptinfo import get_script_name, scriptinfo
 from ...utilities import *
-from . import v5, v6
-from . import constants
+from . import constants, v5, v6
 
 standard_library.install_aliases()
 
@@ -157,7 +156,7 @@ def gen_netlist_comp(part):
     """
 
     from ...circuit import HIER_SEP
-    
+
     ref = add_quotes(part.ref)
 
     value = add_quotes(part.value_str)

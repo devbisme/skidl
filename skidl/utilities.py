@@ -26,7 +26,6 @@ from builtins import chr, dict, int, open, range, str, super
 from collections import namedtuple
 from contextlib import contextmanager
 
-
 """Separator for strings containing multiple indices."""
 INDEX_SEPARATOR = re.compile("[, \t]+")
 
@@ -172,6 +171,7 @@ def add_unique_attr(obj, name, value, check_dup=False):
 
     except AttributeError:
         setattr(obj, name, value)
+
 
 def from_iadd(objs):
     """Return True if one or more objects have attribute iadd_flag set to True."""
@@ -691,9 +691,10 @@ def find_and_open_file(
         File pointer and file name or None, None if file could not be opened.
     """
 
-    from .logger import active_logger
     import urllib.parse
     import urllib.request
+
+    from .logger import active_logger
 
     def is_url(s):
         return bool(urllib.parse.urlparse(s).scheme)
@@ -781,7 +782,9 @@ def find_and_read_file(
     Returns:
         File contents and file name or None, None if file could not be opened.
     """
-    fp, fn = find_and_open_file(filename, paths, ext, allow_failure, exclude_binary, descend)
+    fp, fn = find_and_open_file(
+        filename, paths, ext, allow_failure, exclude_binary, descend
+    )
     if fp:
         contents = fp.read()
         fp.close()

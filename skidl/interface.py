@@ -24,7 +24,14 @@ from .netpinlist import NetPinList
 from .pin import Pin
 from .protonet import ProtoNet
 from .skidlbaseobj import SkidlBaseObject
-from .utilities import from_iadd, rmv_iadd, expand_indices, list_or_scalar, to_list, filter_list
+from .utilities import (
+    expand_indices,
+    filter_list,
+    from_iadd,
+    list_or_scalar,
+    rmv_iadd,
+    to_list,
+)
 
 standard_library.install_aliases()
 

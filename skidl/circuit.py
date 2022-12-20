@@ -34,10 +34,15 @@ from .part import Part, PartUnit
 from .pckg_info import __version__
 from .pin import Pin
 from .schlib import SchLib
-from .scriptinfo import get_skidl_trace, get_script_name
+from .scriptinfo import get_script_name, get_skidl_trace
 from .skidlbaseobj import SkidlBaseObject
-from .utilities import reset_get_unique_name, flatten, expand_buses, opened, num_to_chars
-
+from .utilities import (
+    expand_buses,
+    flatten,
+    num_to_chars,
+    opened,
+    reset_get_unique_name,
+)
 
 standard_library.install_aliases()
 
@@ -478,6 +483,7 @@ class Circuit(SkidlBaseObject):
         for part in self.parts:
             if getattr(part, "footprint", "") == "":
                 import skidl
+
                 skidl.empty_footprint_handler(part)
 
     def _preprocess(self):
@@ -798,12 +804,12 @@ class Circuit(SkidlBaseObject):
         """Get all nets/buses that are stubs or no-connects."""
 
         # Search all nets for those set as stubs or that are no-connects.
-        stubs = [n for n in self.nets if getattr(n, "stub", False) or isinstance(n, NCNet)]
+        stubs = [
+            n for n in self.nets if getattr(n, "stub", False) or isinstance(n, NCNet)
+        ]
 
         # Also find buses that are set as stubs and add their individual nets.
-        stubs.extend(
-            expand_buses([b for b in self.buses if getattr(b, "stub", False)])
-        )
+        stubs.extend(expand_buses([b for b in self.buses if getattr(b, "stub", False)]))
 
         return stubs
 
@@ -966,6 +972,7 @@ class Circuit(SkidlBaseObject):
         """
 
         import skidl
+
         from .tools import tool_modules
 
         # Reset the counters to clear any warnings/errors from previous run.
@@ -978,7 +985,6 @@ class Circuit(SkidlBaseObject):
         tool_modules[tool].gen_schematic(self, **kwargs)
 
         active_logger.report_summary("generating schematic")
-
 
     def generate_dot(
         self,

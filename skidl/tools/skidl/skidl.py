@@ -41,7 +41,9 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
     from .. import SKIDL
 
     try:
-        contents, path = find_and_read_file(filename, lib_search_paths_, lib_suffixes[SKIDL])
+        contents, path = find_and_read_file(
+            filename, lib_search_paths_, lib_suffixes[SKIDL]
+        )
     except FileNotFoundError as e:
         raise FileNotFoundError(
             "Unable to open SKiDL Schematic Library File {} ({})".format(

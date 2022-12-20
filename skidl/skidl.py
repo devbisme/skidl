@@ -16,10 +16,10 @@ from builtins import open
 from future import standard_library
 
 from .circuit import Circuit
-from .part import default_empty_footprint_handler
 from .common import builtins
 from .config import SkidlConfig
 from .logger import get_script_name, stop_log_file_output
+from .part import default_empty_footprint_handler
 from .pin import Pin
 from .tools import KICAD, SKIDL, lib_suffixes
 from .utilities import norecurse

@@ -15,16 +15,22 @@ from __future__ import (  # isort:skip
 
 from future import standard_library
 
-from .skidl import set_default_tool, generate_netlist, reset, lib_search_paths, generate_svg
-from .net import Net
-from .schlib import SchLib
-from .part import TEMPLATE, Part
-from .group import subcircuit
-from .tools.spice import node, Parameters, XspiceModel
-from .package import package
 from .bus import Bus
-from .tools import SKIDL, SPICE, KICAD
+from .group import subcircuit
 from .logger import active_logger
+from .net import Net
+from .package import package
+from .part import TEMPLATE, Part
+from .schlib import SchLib
+from .skidl import (
+    generate_netlist,
+    generate_svg,
+    lib_search_paths,
+    reset,
+    set_default_tool,
+)
+from .tools import KICAD, SKIDL, SPICE
+from .tools.spice import Parameters, XspiceModel, node
 
 standard_library.install_aliases()
 
@@ -34,7 +40,9 @@ try:
     from PySpice.Unit import *
 
 except ImportError:
-    active_logger.warning("PySpice does not support Python 2, so SPICE simulation is not possible.")
+    active_logger.warning(
+        "PySpice does not support Python 2, so SPICE simulation is not possible."
+    )
 
 else:
     from .libs.pyspice_sklib import *

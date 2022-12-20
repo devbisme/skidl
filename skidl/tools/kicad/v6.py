@@ -14,10 +14,10 @@ from __future__ import (  # isort:skip
 )
 
 from builtins import int
-
 from collections import OrderedDict
-from future import standard_library
+
 import sexpdata
+from future import standard_library
 
 from ...logger import active_logger
 from ...utilities import *
@@ -33,7 +33,7 @@ def load_sch_lib(self, f, filename, lib_search_paths_):
         filename: The name of the KiCad schematic library file.
     """
 
-    from ...part import Part, LIBRARY
+    from ...part import LIBRARY, Part
     from .. import KICAD
 
     # Parse the library and return a nested list of library parts.
@@ -50,7 +50,13 @@ def load_sch_lib(self, f, filename, lib_search_paths_):
     # symbol names as keys. Use an ordered dictionary to keep parts in the same order as
     # they appeared in the library file because in KiCad V6 library symbols can "extend"
     # previous symbols which should be processed before those that extend them.
-    parts = OrderedDict([(item[1], item[2:]) for item in lib_list[1:] if item[0].value().lower()=='symbol'])
+    parts = OrderedDict(
+        [
+            (item[1], item[2:])
+            for item in lib_list[1:]
+            if item[0].value().lower() == "symbol"
+        ]
+    )
 
     # Create Part objects for each part in library.
     for part_name, part_defn in parts.items():
@@ -59,18 +65,30 @@ def load_sch_lib(self, f, filename, lib_search_paths_):
 
         # See if this symbol extends a previous parent symbol.
         for item in part_defn:
-            if item[0].value().lower()=='extends':
+            if item[0].value().lower() == "extends":
                 # Get the properties from the parent symbol.
                 parent_part = self[item[1]]
                 if parent_part.part_defn:
-                    properties.update({item[1].lower():item[2] for item in parent_part.part_defn if item[0].value().lower()=='property'})
+                    properties.update(
+                        {
+                            item[1].lower(): item[2]
+                            for item in parent_part.part_defn
+                            if item[0].value().lower() == "property"
+                        }
+                    )
                 else:
                     properties["ki_keywords"] = parent_part.keywords
                     properties["ki_description"] = parent_part.description
                     properties["datasheet"] = parent_part.datasheet
 
         # Get symbol properties, primarily to get the reference id.
-        properties.update({item[1].lower():item[2] for item in part_defn if item[0].value().lower()=='property'})
+        properties.update(
+            {
+                item[1].lower(): item[2]
+                for item in part_defn
+                if item[0].value().lower() == "property"
+            }
+        )
 
         # Get part properties.
         keywords = properties["ki_keywords"]
@@ -114,8 +132,8 @@ def parse_lib_part(self, partial_parse):
     # https://docs.google.com/document/d/1lyL_8FWZRouMkwqLiIt84rd2Htg4v1vz8_2MzRKHRkc/edit
     # https://gitlab.com/kicad/code/kicad/-/blob/master/eeschema/sch_plugins/kicad/sch_sexpr_parser.cpp
 
-    from ...pin import Pin
     from ...part import TEMPLATE
+    from ...pin import Pin
 
     # Return if there's nothing to do (i.e., part has already been parsed).
     if not self.part_defn:
@@ -181,7 +199,9 @@ def parse_lib_part(self, partial_parse):
 
     # Populate part fields from symbol properties.
     properties = {
-        item[1]: item[2:] for item in self.part_defn if item[0].value().lower() == "property"
+        item[1]: item[2:]
+        for item in self.part_defn
+        if item[0].value().lower() == "property"
     }
     for name, data in properties.items():
         value = data[0]
@@ -210,7 +230,11 @@ def parse_lib_part(self, partial_parse):
 
     # Find all the units within a symbol. Skip the first item which is the
     # 'symbol' marking the start of the entire part definition.
-    units = {item[1]:item[2:] for item in self.part_defn[1:] if item[0].value().lower() == "symbol"}
+    units = {
+        item[1]: item[2:]
+        for item in self.part_defn[1:]
+        if item[0].value().lower() == "symbol"
+    }
     self.num_units = len(units)
 
     # Get pins and assign them to each unit as well as the entire part.

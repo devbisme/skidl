@@ -14,16 +14,26 @@ from __future__ import (  # isort:skip
 )
 
 import collections
+import re
 from builtins import range, super
 from copy import copy, deepcopy
-import re
 
 from future import standard_library
 
 from .erc import dflt_net_erc
 from .logger import active_logger
 from .skidlbaseobj import SkidlBaseObject
-from .utilities import from_iadd, set_iadd, rmv_iadd, expand_indices, filter_list, get_unique_name, expand_buses, flatten, find_num_copies
+from .utilities import (
+    expand_buses,
+    expand_indices,
+    filter_list,
+    find_num_copies,
+    flatten,
+    from_iadd,
+    get_unique_name,
+    rmv_iadd,
+    set_iadd,
+)
 
 standard_library.install_aliases()
 
@@ -645,6 +655,7 @@ class Net(SkidlBaseObject):
         """
 
         import skidl
+
         from .tools import tool_modules
 
         tool = tool or skidl.get_default_tool()
@@ -666,6 +677,7 @@ class Net(SkidlBaseObject):
         """
 
         import skidl
+
         from .tools import tool_modules
 
         tool = tool or skidl.get_default_tool()
@@ -718,7 +730,9 @@ class Net(SkidlBaseObject):
 
         # Now name the object with the given name or some variation
         # of it that doesn't collide with anything else in the list.
-        super(Net, self.__class__).name.fset(self, get_unique_name(self.circuit.nets, "name", NET_PREFIX, name))
+        super(Net, self.__class__).name.fset(
+            self, get_unique_name(self.circuit.nets, "name", NET_PREFIX, name)
+        )
 
     @name.deleter
     def name(self):

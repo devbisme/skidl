@@ -469,7 +469,7 @@ def test_interface_12():
 
         # For unknown reasons, this line "fixes" the problem noted above.
         my_vin, my_gnd = Net(), Net()
-        
+
         r1 = r()
         c1 = c()
         my_vin & r1 & c1 & my_gnd

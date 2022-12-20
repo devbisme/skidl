@@ -4,14 +4,7 @@
 
 from builtins import super
 
-from skidl import (
-    Net,
-    Part,
-    PartTmplt,
-    ERC,
-    erc_logger,
-    generate_netlist,
-)
+from skidl import ERC, Net, Part, PartTmplt, erc_logger, generate_netlist
 from skidl.utilities import to_list
 
 from .setup_teardown import setup_function, teardown_function

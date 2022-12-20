@@ -17,11 +17,11 @@ from builtins import int, range, zip
 
 from future import standard_library
 
-from ...part import LIBRARY
 from ...logger import active_logger
-from ...utilities import *
+from ...part import LIBRARY
 from ...schematics.geometry import *
-from .constants import PIN_LABEL_FONT_SIZE, HIER_TERM_SIZE
+from ...utilities import *
+from .constants import HIER_TERM_SIZE, PIN_LABEL_FONT_SIZE
 
 standard_library.install_aliases()
 
@@ -97,12 +97,14 @@ def load_sch_lib(self, f, filename, lib_search_paths_):
 
     # Now add information from any associated DCM file.
     base_fn = os.path.splitext(filename)[0]  # Strip any extension.
-    dcm_txt, _ = find_and_read_file(base_fn, lib_search_paths_, ".dcm", allow_failure=True)
+    dcm_txt, _ = find_and_read_file(
+        base_fn, lib_search_paths_, ".dcm", allow_failure=True
+    )
     if dcm_txt:
         part_desc = {}
 
         for line in dcm_txt.split("\n"):
-        # for line in f.read().split("\n"):
+            # for line in f.read().split("\n"):
 
             # Skip over comments.
             if line.startswith("#"):
@@ -1153,6 +1155,7 @@ DrawPin = namedtuple(
     "name num x y length orientation num_size name_size unit dmg electrical_type shape",
 )
 
+
 def calc_symbol_bbox(part):
     """
     Return the bounding box of the part symbol.
@@ -1160,7 +1163,7 @@ def calc_symbol_bbox(part):
     Args:
         part: Part object for which an SVG symbol will be created.
 
-    Returns: List of BBoxes for all units in the part symbol. 
+    Returns: List of BBoxes for all units in the part symbol.
     """
 
     def make_pin_dir_tbl(abs_xoff=20):
@@ -1276,10 +1279,7 @@ def calc_symbol_bbox(part):
         elif isinstance(obj, DrawPoly):
             poly = obj
             thickness = obj.thickness
-            pts = [
-                Point(x, y)
-                for x, y in zip(poly.points[0::2], poly.points[1::2])
-            ]
+            pts = [Point(x, y) for x, y in zip(poly.points[0::2], poly.points[1::2])]
             path = []
             for pt in pts:
                 obj_bbox.add(pt)
@@ -1322,7 +1322,7 @@ def calc_symbol_bbox(part):
             )
 
         # Expand bounding box to account for object line thickness.
-        obj_bbox.resize(Vector(round(thickness/2), round(thickness/2)))
+        obj_bbox.resize(Vector(round(thickness / 2), round(thickness / 2)))
 
         # Enter the current object into the SVG for this part.
         unit = getattr(obj, "unit", 0)
@@ -1335,6 +1335,7 @@ def calc_symbol_bbox(part):
     # End of loop through all the component objects.
 
     return unit_bboxes
+
 
 def calc_hier_label_bbox(label, dir):
     """Calculate the bounding box for a hierarchical label.
@@ -1350,9 +1351,9 @@ def calc_hier_label_bbox(label, dir):
     # Rotation matrices for each direction.
     lbl_tx = {
         "U": tx_rot_90,  # Pin on bottom pointing upwards.
-        "D": tx_rot_270, # Pin on top pointing down.
-        "L": tx_rot_180, # Pin on right pointing left.
-        "R": tx_rot_0,   # Pin on left pointing right.
+        "D": tx_rot_270,  # Pin on top pointing down.
+        "L": tx_rot_180,  # Pin on right pointing left.
+        "R": tx_rot_0,  # Pin on left pointing right.
     }
 
     # Calculate length and height of label + hierarchical marker.
@@ -1360,7 +1361,7 @@ def calc_hier_label_bbox(label, dir):
     lbl_hgt = max(PIN_LABEL_FONT_SIZE, HIER_TERM_SIZE)
 
     # Create bbox for label on left followed by marker on right.
-    bbox = BBox(Point(0, lbl_hgt/2), Point(-lbl_len, -lbl_hgt/2))
+    bbox = BBox(Point(0, lbl_hgt / 2), Point(-lbl_len, -lbl_hgt / 2))
 
     # Rotate the bbox in the given direction.
     bbox *= lbl_tx[dir]

@@ -3,8 +3,10 @@
 # The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
 
 import pytest
+import sexpdata
 
 from skidl import (
+    KICAD,
     SKIDL,
     TEMPLATE,
     Part,
@@ -12,14 +14,11 @@ from skidl import (
     SchLib,
     SkidlPart,
     generate_netlist,
+    lib_search_paths,
     set_default_tool,
     set_query_backup_lib,
-    KICAD,
-    lib_search_paths,
 )
 from skidl.tools import ALL_TOOLS
-
-import sexpdata
 
 from .setup_teardown import setup_function, teardown_function
 
@@ -144,7 +143,11 @@ def test_lib_kicad_v6_1():
     lib_v6 = SchLib(lib_name)
     v6_part_names = [part.name for part in lib_v6.parts]
     nested_list = sexpdata.load(open(lib_name, "r"))
-    parts = {item[1]: item[2:] for item in nested_list[1:] if item[0].value().lower()=='symbol'}
+    parts = {
+        item[1]: item[2:]
+        for item in nested_list[1:]
+        if item[0].value().lower() == "symbol"
+    }
     print("# of parts in {} = {}".format(lib_name, len(lib_v6.parts)))
     assert len(parts.keys()) == len(v6_part_names)
     for name in parts.keys():
@@ -156,7 +159,11 @@ def test_lib_kicad_v6_2():
     lib_v6 = SchLib(lib_name)
     v6_part_names = [part.name for part in lib_v6.parts]
     nested_list = sexpdata.load(open(lib_name, "r"))
-    parts = {item[1]: item[2:] for item in nested_list[1:] if item[0].value().lower()=='symbol'}
+    parts = {
+        item[1]: item[2:]
+        for item in nested_list[1:]
+        if item[0].value().lower() == "symbol"
+    }
     print("# of parts in {} = {}".format(lib_name, len(lib_v6.parts)))
     assert len(parts.keys()) == len(v6_part_names)
     for name in parts.keys():

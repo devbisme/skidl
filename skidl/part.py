@@ -25,16 +25,16 @@ from .erc import dflt_part_erc
 from .logger import active_logger
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import (
-    from_iadd,
-    rmv_iadd,
+    add_unique_attr,
     expand_indices,
     filter_list,
-    get_unique_name,
-    flatten,
     find_num_copies,
-    to_list,
+    flatten,
+    from_iadd,
+    get_unique_name,
     list_or_scalar,
-    add_unique_attr,
+    rmv_iadd,
+    to_list,
 )
 
 standard_library.install_aliases()
@@ -991,6 +991,7 @@ class Part(SkidlBaseObject):
         """
 
         import skidl
+
         from .tools import tool_modules
 
         tool = tool or skidl.get_default_tool()
@@ -1009,6 +1010,7 @@ class Part(SkidlBaseObject):
         """
 
         import skidl
+
         from .tools import tool_modules
 
         tool = tool or skidl.get_default_tool()
@@ -1024,6 +1026,7 @@ class Part(SkidlBaseObject):
         """
 
         import skidl
+
         from .tools import tool_modules
 
         tool = tool or skidl.get_default_tool()
