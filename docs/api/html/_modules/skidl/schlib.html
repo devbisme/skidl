@@ -60,12 +60,14 @@
     <span class="n">unicode_literals</span><span class="p">,</span>
 <span class="p">)</span>
 
+<span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">object</span><span class="p">,</span> <span class="nb">str</span>
 
 <span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
 
+<span class="kn">from</span> <span class="nn">.alias</span> <span class="kn">import</span> <span class="n">Alias</span>
 <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
-<span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="n">cnvt_to_var_name</span><span class="p">,</span> <span class="n">filter_list</span><span class="p">,</span> <span class="n">flatten</span><span class="p">,</span> <span class="n">list_or_scalar</span><span class="p">,</span> <span class="n">opened</span>
 
 <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
 
@@ -97,6 +99,8 @@
 
         <span class="kn">import</span> <span class="nn">skidl</span>
 
+        <span class="kn">from</span> <span class="nn">.tools</span> <span class="kn">import</span> <span class="n">tool_modules</span>
+
         <span class="k">if</span> <span class="n">tool</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">tool</span> <span class="o">=</span> <span class="n">skidl</span><span class="o">.</span><span class="n">get_default_tool</span><span class="p">()</span>
 
@@ -120,7 +124,12 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="c1"># Use the tool name to find the function for loading the library.</span>
-                <span class="n">load_func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_load_sch_lib_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tool</span><span class="p">))</span>
+                <span class="n">tool_modules</span><span class="p">[</span><span class="n">tool</span><span class="p">]</span><span class="o">.</span><span class="n">load_sch_lib</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="p">,</span>
+                    <span class="n">filename</span><span class="p">,</span>
+                    <span class="n">skidl</span><span class="o">.</span><span class="n">lib_search_paths</span><span class="p">[</span><span class="n">tool</span><span class="p">],</span>
+                    <span class="n">lib_section</span><span class="o">=</span><span class="n">lib_section</span><span class="p">,</span>
+                <span class="p">)</span>
             <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
                 <span class="c1"># OK, that didn&#39;t work so well...</span>
                 <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
@@ -128,9 +137,6 @@
                     <span class="s2">&quot;Unsupported ECAD tool library: </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tool</span><span class="p">),</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">load_func</span><span class="p">(</span>
-                    <span class="n">filename</span><span class="p">,</span> <span class="n">skidl</span><span class="o">.</span><span class="n">lib_search_paths</span><span class="p">[</span><span class="n">tool</span><span class="p">],</span> <span class="n">lib_section</span><span class="o">=</span><span class="n">lib_section</span>
-                <span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>
                 <span class="c1"># Cache a reference to the library.</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span>
@@ -147,9 +153,9 @@
 
         <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">flatten</span><span class="p">(</span><span class="n">parts</span><span class="p">):</span>
             <span class="c1"># Parts with the same name are not allowed in the library.</span>
-            <span class="c1"># Also, do not check the backup library to see if the parts</span>
-            <span class="c1"># are in there because that&#39;s probably a different library.</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_parts</span><span class="p">(</span><span class="n">use_backup_lib</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">name</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_parts_by_name</span><span class="p">(</span>
+                <span class="n">part</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">be_thorough</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">allow_failure</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">))</span>
                 <span class="c1"># Place a pointer to this library into the added part.</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lib</span> <span class="o">=</span> <span class="bp">self</span>
@@ -167,82 +173,80 @@
 <span class="sd">                of the attribute.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            A single Part or a list of Parts that match all the criteria.</span>
+<span class="sd">            A list of Parts that match all the criteria.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="kn">import</span> <span class="nn">skidl</span>
+        <span class="kn">from</span> <span class="nn">.skidl</span> <span class="kn">import</span> <span class="n">get_query_backup_lib</span><span class="p">,</span> <span class="n">load_backup_lib</span>
 
-        <span class="n">parts</span> <span class="o">=</span> <span class="n">list_or_scalar</span><span class="p">(</span><span class="n">filter_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="p">,</span> <span class="o">**</span><span class="n">criteria</span><span class="p">))</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">parts</span> <span class="ow">and</span> <span class="n">use_backup_lib</span> <span class="ow">and</span> <span class="n">skidl</span><span class="o">.</span><span class="n">QUERY_BACKUP_LIB</span><span class="p">:</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="n">filter_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="p">,</span> <span class="o">**</span><span class="n">criteria</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">parts</span> <span class="ow">and</span> <span class="n">use_backup_lib</span> <span class="ow">and</span> <span class="n">get_query_backup_lib</span><span class="p">():</span>
+            <span class="c1"># if not parts and use_backup_lib and skidl.QUERY_BACKUP_LIB:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">backup_lib_</span> <span class="o">=</span> <span class="n">skidl</span><span class="o">.</span><span class="n">load_backup_lib</span><span class="p">()</span>
+                <span class="n">backup_lib_</span> <span class="o">=</span> <span class="n">load_backup_lib</span><span class="p">()</span>
                 <span class="n">parts</span> <span class="o">=</span> <span class="n">backup_lib_</span><span class="o">.</span><span class="n">get_parts</span><span class="p">(</span><span class="n">use_backup_lib</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">criteria</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
                 <span class="k">pass</span>
         <span class="k">return</span> <span class="n">parts</span></div>
 
-<div class="viewcode-block" id="SchLib.get_part_by_name"><a class="viewcode-back" href="../../rst_output/skidl.schlib.html#skidl.schlib.SchLib.get_part_by_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_part_by_name</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">allow_multiples</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">silent</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">get_name_only</span><span class="o">=</span><span class="kc">False</span>
+<div class="viewcode-block" id="SchLib.get_parts_quick"><a class="viewcode-back" href="../../rst_output/skidl.schlib.html#skidl.schlib.SchLib.get_parts_quick">[docs]</a>    <span class="k">def</span> <span class="nf">get_parts_quick</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Do a quick search for a part name or alias.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">prt</span> <span class="k">for</span> <span class="n">prt</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parts</span> <span class="k">if</span> <span class="n">prt</span><span class="o">.</span><span class="n">aliases</span> <span class="o">==</span> <span class="n">name</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="SchLib.get_parts_by_name"><a class="viewcode-back" href="../../rst_output/skidl.schlib.html#skidl.schlib.SchLib.get_parts_by_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_parts_by_name</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">,</span>
+        <span class="n">be_thorough</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">allow_multiples</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">allow_failure</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">partial_parse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a Part with the given name or alias from the part list.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            name: The part name or alias to search for in the library.</span>
+<span class="sd">            be_thorough: Do thorough search, not just simple string matching.</span>
 <span class="sd">            allow_multiples: If true, return a list of parts matching the name.</span>
 <span class="sd">                If false, return only the first matching part and issue</span>
 <span class="sd">                a warning if there were more than one.</span>
-<span class="sd">            silent: If true, don&#39;t issue errors or warnings.</span>
+<span class="sd">            allow_failure: Return None if no matches found. Issue no errors/warnings.</span>
+<span class="sd">            partial_parse: If true, don&#39;t fully parse any parts that are found.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            A single Part or a list of Parts that match all the criteria.</span>
+<span class="sd">            A list of Parts that match all the criteria.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="c1"># First check to see if there is a part or parts with a matching name.</span>
-        <span class="n">parts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_parts</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+        <span class="c1"># Start with a simple search for the part name.</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="n">Alias</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="n">name</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_parts_quick</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
 
-        <span class="c1"># No part with that name, so check for an alias that matches.</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">parts</span><span class="p">:</span>
+        <span class="c1"># Simple search failed, so try the more thorough search method.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">parts</span> <span class="ow">and</span> <span class="n">be_thorough</span><span class="p">:</span>
             <span class="n">parts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_parts</span><span class="p">(</span><span class="n">aliases</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
 
-            <span class="c1"># No part with that alias either, so signal an error.</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">parts</span><span class="p">:</span>
-                <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Unable to find part </span><span class="si">{}</span><span class="s2"> in library </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">name</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;filename&quot;</span><span class="p">,</span> <span class="s2">&quot;UNKNOWN&quot;</span><span class="p">)</span>
-                <span class="p">)</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">silent</span><span class="p">:</span>
-                    <span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="c1"># No parts found, so signal an error.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">parts</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">allow_failure</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Unable to find part </span><span class="si">{}</span><span class="s2"> in library </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">name</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;filename&quot;</span><span class="p">,</span> <span class="s2">&quot;UNKNOWN&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
 
-        <span class="c1"># Multiple parts with that name or alias exists, so return the list</span>
-        <span class="c1"># of parts or just the first part on the list.</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parts</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">allow_multiples</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Found multiple parts matching </span><span class="si">{}</span><span class="s2">. Selecting </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">name</span><span class="p">,</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+            <span class="p">)</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+            <span class="n">parts</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Just keep the first part.</span>
 
-            <span class="c1"># Return the entire list if multiples are allowed.</span>
-            <span class="k">if</span> <span class="n">allow_multiples</span><span class="p">:</span>
-                <span class="n">parts</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">get_name_only</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">]</span>
+        <span class="c1"># Do whatever parsing was requested for the found parts.</span>
+        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">:</span>
+            <span class="n">part</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">partial_parse</span><span class="p">)</span>
 
-            <span class="c1"># Just return the first part from the list if multiples are not</span>
-            <span class="c1"># allowed and issue a warning.</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">silent</span><span class="p">:</span>
-                    <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-                        <span class="s2">&quot;Found multiple parts matching </span><span class="si">{}</span><span class="s2">. Selecting </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                            <span class="n">name</span><span class="p">,</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
-                        <span class="p">)</span>
-                    <span class="p">)</span>
-                <span class="n">parts</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-                <span class="n">parts</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">get_name_only</span><span class="p">)</span>
-
-        <span class="c1"># Only a single matching part was found, so return that.</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">parts</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">get_name_only</span><span class="p">)</span>
-
-        <span class="c1"># Return the library part or parts that were found.</span>
         <span class="k">return</span> <span class="n">parts</span></div>
 
-    <span class="c1"># Get part by name or alias using []&#39;s.</span>
-    <span class="fm">__getitem__</span> <span class="o">=</span> <span class="n">get_part_by_name</span>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get part by name or alias.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">list_or_scalar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_parts_by_name</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return a list of the part names in this library as a string.&quot;&quot;&quot;</span>
@@ -270,15 +274,14 @@
             <span class="n">s</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(Pin\()&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\n            \1&quot;</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">s</span>
 
-        <span class="kn">import</span> <span class="nn">skidl</span>
+        <span class="kn">import</span> <span class="nn">skidl.tools</span>
 
         <span class="kn">from</span> <span class="nn">.tools</span> <span class="kn">import</span> <span class="n">SKIDL</span>
 
         <span class="k">if</span> <span class="n">tool</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">tool</span> <span class="o">=</span> <span class="n">SKIDL</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">file_</span><span class="p">:</span>
-            <span class="n">file_</span> <span class="o">=</span> <span class="n">libname</span> <span class="o">+</span> <span class="n">skidl</span><span class="o">.</span><span class="n">lib_suffixes</span><span class="p">[</span><span class="n">tool</span><span class="p">]</span>
+        <span class="n">file_</span> <span class="o">=</span> <span class="n">file_</span> <span class="ow">or</span> <span class="p">(</span><span class="n">libname</span> <span class="o">+</span> <span class="n">skidl</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">lib_suffixes</span><span class="p">[</span><span class="n">tool</span><span class="p">])</span>
 
         <span class="n">export_str</span> <span class="o">=</span> <span class="s2">&quot;from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE</span><span class="se">\n\n</span><span class="s2">&quot;</span>
         <span class="n">export_str</span> <span class="o">+=</span> <span class="s2">&quot;SKIDL_lib_version = &#39;0.0.1&#39;</span><span class="se">\n\n</span><span class="s2">&quot;</span>
@@ -333,7 +336,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016-2021, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.1.2.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
     </div>
   </body>
 </html>

@@ -5,7 +5,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>skidl.pin module &#8212; SKiDL  documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css" />
@@ -43,12 +44,12 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="module-skidl.pin">
+  <section id="module-skidl.pin">
 <span id="skidl-pin-module"></span><h1>skidl.pin module<a class="headerlink" href="#module-skidl.pin" title="Permalink to this headline">¶</a></h1>
 <p>Handles part pins.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.pin.PhantomPin">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">skidl.pin.</span></span><span class="sig-name descname"><span class="pre">PhantomPin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/pin.html#PhantomPin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.pin.PhantomPin" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.pin.</span></span><span class="sig-name descname"><span class="pre">PhantomPin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/pin.html#PhantomPin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.pin.PhantomPin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#skidl.pin.Pin" title="skidl.pin.Pin"><code class="xref py py-class docutils literal notranslate"><span class="pre">skidl.pin.Pin</span></code></a></p>
 <p>A pin type that exists solely to tie two pinless nets together.
 It will not participate in generating any netlists.</p>
@@ -56,7 +57,7 @@ It will not participate in generating any netlists.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.pin.Pin">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">skidl.pin.</span></span><span class="sig-name descname"><span class="pre">Pin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/pin.html#Pin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.pin.Pin" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.pin.</span></span><span class="sig-name descname"><span class="pre">Pin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/pin.html#Pin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.pin.Pin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject" title="skidl.skidlbaseobj.SkidlBaseObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">skidl.skidlbaseobj.SkidlBaseObject</span></code></a></p>
 <p>A class for storing data about pins for a part.</p>
 <dl class="field-list simple">
@@ -90,72 +91,72 @@ It will not participate in generating any netlists.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.BIDIR">
-<span class="sig-name descname"><span class="pre">BIDIR</span></span><em class="property"> <span class="pre">=</span> <span class="pre">3</span></em><a class="headerlink" href="#skidl.pin.Pin.BIDIR" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">BIDIR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#skidl.pin.Pin.BIDIR" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.INPUT">
-<span class="sig-name descname"><span class="pre">INPUT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">1</span></em><a class="headerlink" href="#skidl.pin.Pin.INPUT" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">INPUT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#skidl.pin.Pin.INPUT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.NOCONNECT">
-<span class="sig-name descname"><span class="pre">NOCONNECT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">13</span></em><a class="headerlink" href="#skidl.pin.Pin.NOCONNECT" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">NOCONNECT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">13</span></em><a class="headerlink" href="#skidl.pin.Pin.NOCONNECT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.OPENCOLL">
-<span class="sig-name descname"><span class="pre">OPENCOLL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">9</span></em><a class="headerlink" href="#skidl.pin.Pin.OPENCOLL" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">OPENCOLL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">9</span></em><a class="headerlink" href="#skidl.pin.Pin.OPENCOLL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.OPENEMIT">
-<span class="sig-name descname"><span class="pre">OPENEMIT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">10</span></em><a class="headerlink" href="#skidl.pin.Pin.OPENEMIT" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">OPENEMIT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#skidl.pin.Pin.OPENEMIT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.OUTPUT">
-<span class="sig-name descname"><span class="pre">OUTPUT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">2</span></em><a class="headerlink" href="#skidl.pin.Pin.OUTPUT" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">OUTPUT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#skidl.pin.Pin.OUTPUT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.PASSIVE">
-<span class="sig-name descname"><span class="pre">PASSIVE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">5</span></em><a class="headerlink" href="#skidl.pin.Pin.PASSIVE" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">PASSIVE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#skidl.pin.Pin.PASSIVE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.PULLDN">
-<span class="sig-name descname"><span class="pre">PULLDN</span></span><em class="property"> <span class="pre">=</span> <span class="pre">12</span></em><a class="headerlink" href="#skidl.pin.Pin.PULLDN" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">PULLDN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">12</span></em><a class="headerlink" href="#skidl.pin.Pin.PULLDN" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.PULLUP">
-<span class="sig-name descname"><span class="pre">PULLUP</span></span><em class="property"> <span class="pre">=</span> <span class="pre">11</span></em><a class="headerlink" href="#skidl.pin.Pin.PULLUP" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">PULLUP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">11</span></em><a class="headerlink" href="#skidl.pin.Pin.PULLUP" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.PWRIN">
-<span class="sig-name descname"><span class="pre">PWRIN</span></span><em class="property"> <span class="pre">=</span> <span class="pre">7</span></em><a class="headerlink" href="#skidl.pin.Pin.PWRIN" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">PWRIN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></em><a class="headerlink" href="#skidl.pin.Pin.PWRIN" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.PWROUT">
-<span class="sig-name descname"><span class="pre">PWROUT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">8</span></em><a class="headerlink" href="#skidl.pin.Pin.PWROUT" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">PWROUT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#skidl.pin.Pin.PWROUT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.TRISTATE">
-<span class="sig-name descname"><span class="pre">TRISTATE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">4</span></em><a class="headerlink" href="#skidl.pin.Pin.TRISTATE" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">TRISTATE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#skidl.pin.Pin.TRISTATE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.UNSPEC">
-<span class="sig-name descname"><span class="pre">UNSPEC</span></span><em class="property"> <span class="pre">=</span> <span class="pre">6</span></em><a class="headerlink" href="#skidl.pin.Pin.UNSPEC" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">UNSPEC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></em><a class="headerlink" href="#skidl.pin.Pin.UNSPEC" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.pin.Pin.add_type">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">add_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pin_types</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/pin.html#Pin.add_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.pin.Pin.add_type" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pin_types</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/pin.html#Pin.add_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.pin.Pin.add_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add new pin type identifiers to the list of pin types.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -172,7 +173,7 @@ It will not participate in generating any netlists.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.pin.Pin.circuit">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">circuit</span></span><a class="headerlink" href="#skidl.pin.Pin.circuit" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">circuit</span></span><a class="headerlink" href="#skidl.pin.Pin.circuit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the circuit of the part the pin belongs to.</p>
 </dd></dl>
 
@@ -232,53 +233,53 @@ lists/tuples of them.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.pin.Pin.drive">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">drive</span></span><a class="headerlink" href="#skidl.pin.Pin.drive" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">drive</span></span><a class="headerlink" href="#skidl.pin.Pin.drive" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get, set and delete the drive strength of this pin.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.pin.Pin.drives">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">drives</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.pin.Pin.drives" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/enum.html#enum.IntEnum" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.IntEnum</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">drives</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.pin.Pin.drives" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.10/library/enum.html#enum.IntEnum" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.IntEnum</span></code></a></p>
 <p>An enumeration.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.drives.NOCONNECT">
-<span class="sig-name descname"><span class="pre">NOCONNECT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">1</span></em><a class="headerlink" href="#skidl.pin.Pin.drives.NOCONNECT" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">NOCONNECT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#skidl.pin.Pin.drives.NOCONNECT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.drives.NONE">
-<span class="sig-name descname"><span class="pre">NONE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">2</span></em><a class="headerlink" href="#skidl.pin.Pin.drives.NONE" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">NONE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#skidl.pin.Pin.drives.NONE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.drives.ONESIDE">
-<span class="sig-name descname"><span class="pre">ONESIDE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">5</span></em><a class="headerlink" href="#skidl.pin.Pin.drives.ONESIDE" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">ONESIDE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#skidl.pin.Pin.drives.ONESIDE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.drives.PASSIVE">
-<span class="sig-name descname"><span class="pre">PASSIVE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">3</span></em><a class="headerlink" href="#skidl.pin.Pin.drives.PASSIVE" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">PASSIVE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#skidl.pin.Pin.drives.PASSIVE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.drives.POWER">
-<span class="sig-name descname"><span class="pre">POWER</span></span><em class="property"> <span class="pre">=</span> <span class="pre">8</span></em><a class="headerlink" href="#skidl.pin.Pin.drives.POWER" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">POWER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#skidl.pin.Pin.drives.POWER" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.drives.PULLUPDN">
-<span class="sig-name descname"><span class="pre">PULLUPDN</span></span><em class="property"> <span class="pre">=</span> <span class="pre">4</span></em><a class="headerlink" href="#skidl.pin.Pin.drives.PULLUPDN" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">PULLUPDN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#skidl.pin.Pin.drives.PULLUPDN" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.drives.PUSHPULL">
-<span class="sig-name descname"><span class="pre">PUSHPULL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">7</span></em><a class="headerlink" href="#skidl.pin.Pin.drives.PUSHPULL" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">PUSHPULL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></em><a class="headerlink" href="#skidl.pin.Pin.drives.PUSHPULL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.drives.TRISTATE">
-<span class="sig-name descname"><span class="pre">TRISTATE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">6</span></em><a class="headerlink" href="#skidl.pin.Pin.drives.TRISTATE" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">TRISTATE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></em><a class="headerlink" href="#skidl.pin.Pin.drives.TRISTATE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -326,18 +327,23 @@ lists/tuples of them.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.pin.Pin.net">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">net</span></span><a class="headerlink" href="#skidl.pin.Pin.net" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">net</span></span><a class="headerlink" href="#skidl.pin.Pin.net" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return one of the nets the pin is connected to.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.pin_info">
-<span class="sig-name descname"><span class="pre">pin_info</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{types.INPUT:</span> <span class="pre">{'drive':</span> <span class="pre">drives.NONE,</span> <span class="pre">'func_str':</span> <span class="pre">'INPUT',</span> <span class="pre">'function':</span> <span class="pre">'INPUT',</span> <span class="pre">'max_rcv':</span> <span class="pre">drives.POWER,</span> <span class="pre">'min_rcv':</span> <span class="pre">drives.PASSIVE},</span> <span class="pre">types.OUTPUT:</span> <span class="pre">{'drive':</span> <span class="pre">drives.PUSHPULL,</span> <span class="pre">'func_str':</span> <span class="pre">'OUTPUT',</span> <span class="pre">'function':</span> <span class="pre">'OUTPUT',</span> <span class="pre">'max_rcv':</span> <span class="pre">drives.PASSIVE,</span> <span class="pre">'min_rcv':</span> <span class="pre">drives.NONE},</span> <span class="pre">types.BIDIR:</span> <span class="pre">{'drive':</span> <span class="pre">drives.TRISTATE,</span> <span class="pre">'func_str':</span> <span class="pre">'BIDIR',</span> <span class="pre">'function':</span> <span class="pre">'BIDIRECTIONAL',</span> <span class="pre">'max_rcv':</span> <span class="pre">drives.POWER,</span> <span class="pre">'min_rcv':</span> <span class="pre">drives.NONE},</span> <span class="pre">types.TRISTATE:</span> <span class="pre">{'drive':</span> <span class="pre">drives.TRISTATE,</span> <span class="pre">'func_str':</span> <span class="pre">'TRISTATE',</span> <span class="pre">'function':</span> <span class="pre">'TRISTATE',</span> <span class="pre">'max_rcv':</span> <span class="pre">drives.TRISTATE,</span> <span class="pre">'min_rcv':</span> <span class="pre">drives.NONE},</span> <span class="pre">types.PASSIVE:</span> <span class="pre">{'drive':</span> <span class="pre">drives.PASSIVE,</span> <span class="pre">'func_str':</span> <span class="pre">'PASSIVE',</span> <span class="pre">'function':</span> <span class="pre">'PASSIVE',</span> <span class="pre">'max_rcv':</span> <span class="pre">drives.POWER,</span> <span class="pre">'min_rcv':</span> <span class="pre">drives.NONE},</span> <span class="pre">types.UNSPEC:</span> <span class="pre">{'drive':</span> <span class="pre">drives.NONE,</span> <span class="pre">'func_str':</span> <span class="pre">'UNSPEC',</span> <span class="pre">'function':</span> <span class="pre">'UNSPECIFIED',</span> <span class="pre">'max_rcv':</span> <span class="pre">drives.POWER,</span> <span class="pre">'min_rcv':</span> <span class="pre">drives.NONE},</span> <span class="pre">types.PWRIN:</span> <span class="pre">{'drive':</span> <span class="pre">drives.NONE,</span> <span class="pre">'func_str':</span> <span class="pre">'PWRIN',</span> <span class="pre">'function':</span> <span class="pre">'POWER-IN',</span> <span class="pre">'max_rcv':</span> <span class="pre">drives.POWER,</span> <span class="pre">'min_rcv':</span> <span class="pre">drives.POWER},</span> <span class="pre">types.PWROUT:</span> <span class="pre">{'drive':</span> <span class="pre">drives.POWER,</span> <span class="pre">'func_str':</span> <span class="pre">'PWROUT',</span> <span class="pre">'function':</span> <span class="pre">'POWER-OUT',</span> <span class="pre">'max_rcv':</span> <span class="pre">drives.PASSIVE,</span> <span class="pre">'min_rcv':</span> <span class="pre">drives.NONE},</span> <span class="pre">types.OPENCOLL:</span> <span class="pre">{'drive':</span> <span class="pre">drives.ONESIDE,</span> <span class="pre">'func_str':</span> <span class="pre">'OPENCOLL',</span> <span class="pre">'function':</span> <span class="pre">'OPEN-COLLECTOR',</span> <span class="pre">'max_rcv':</span> <span class="pre">drives.TRISTATE,</span> <span class="pre">'min_rcv':</span> <span class="pre">drives.NONE},</span> <span class="pre">types.OPENEMIT:</span> <span class="pre">{'drive':</span> <span class="pre">drives.ONESIDE,</span> <span class="pre">'func_str':</span> <span class="pre">'OPENEMIT',</span> <span class="pre">'function':</span> <span class="pre">'OPEN-EMITTER',</span> <span class="pre">'max_rcv':</span> <span class="pre">drives.TRISTATE,</span> <span class="pre">'min_rcv':</span> <span class="pre">drives.NONE},</span> <span class="pre">types.PULLUP:</span> <span class="pre">{'drive':</span> <span class="pre">drives.PULLUPDN,</span> <span class="pre">'func_str':</span> <span class="pre">'PULLUP',</span> <span class="pre">'function':</span> <span class="pre">'PULLUP',</span> <span class="pre">'max_rcv':</span> <span class="pre">drives.POWER,</span> <span class="pre">'min_rcv':</span> <span class="pre">drives.NONE},</span> <span class="pre">types.PULLDN:</span> <span class="pre">{'drive':</span> <span class="pre">drives.PULLUPDN,</span> <span class="pre">'func_str':</span> <span class="pre">'PULLDN',</span> <span class="pre">'function':</span> <span class="pre">'PULLDN',</span> <span class="pre">'max_rcv':</span> <span class="pre">drives.POWER,</span> <span class="pre">'min_rcv':</span> <span class="pre">drives.NONE},</span> <span class="pre">types.NOCONNECT:</span> <span class="pre">{'drive':</span> <span class="pre">drives.NOCONNECT,</span> <span class="pre">'func_str':</span> <span class="pre">'NOCONNECT',</span> <span class="pre">'function':</span> <span class="pre">'NO-CONNECT',</span> <span class="pre">'max_rcv':</span> <span class="pre">drives.NOCONNECT,</span> <span class="pre">'min_rcv':</span> <span class="pre">drives.NOCONNECT}}</span></em><a class="headerlink" href="#skidl.pin.Pin.pin_info" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">pin_info</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{types.INPUT:</span> <span class="pre">{'drive':</span> <span class="pre">drives.NONE,</span> <span class="pre">'func_str':</span> <span class="pre">'INPUT',</span> <span class="pre">'function':</span> <span class="pre">'INPUT',</span> <span class="pre">'max_rcv':</span> <span class="pre">drives.POWER,</span> <span class="pre">'min_rcv':</span> <span class="pre">drives.PASSIVE},</span> <span class="pre">types.OUTPUT:</span> <span class="pre">{'drive':</span> <span class="pre">drives.PUSHPULL,</span> <span class="pre">'func_str':</span> <span class="pre">'OUTPUT',</span> <span class="pre">'function':</span> <span class="pre">'OUTPUT',</span> <span class="pre">'max_rcv':</span> <span class="pre">drives.PASSIVE,</span> <span class="pre">'min_rcv':</span> <span class="pre">drives.NONE},</span> <span class="pre">types.BIDIR:</span> <span class="pre">{'drive':</span> <span class="pre">drives.TRISTATE,</span> <span class="pre">'func_str':</span> <span class="pre">'BIDIR',</span> <span class="pre">'function':</span> <span class="pre">'BIDIRECTIONAL',</span> <span class="pre">'max_rcv':</span> <span class="pre">drives.POWER,</span> <span class="pre">'min_rcv':</span> <span class="pre">drives.NONE},</span> <span class="pre">types.TRISTATE:</span> <span class="pre">{'drive':</span> <span class="pre">drives.TRISTATE,</span> <span class="pre">'func_str':</span> <span class="pre">'TRISTATE',</span> <span class="pre">'function':</span> <span class="pre">'TRISTATE',</span> <span class="pre">'max_rcv':</span> <span class="pre">drives.TRISTATE,</span> <span class="pre">'min_rcv':</span> <span class="pre">drives.NONE},</span> <span class="pre">types.PASSIVE:</span> <span class="pre">{'drive':</span> <span class="pre">drives.PASSIVE,</span> <span class="pre">'func_str':</span> <span class="pre">'PASSIVE',</span> <span class="pre">'function':</span> <span class="pre">'PASSIVE',</span> <span class="pre">'max_rcv':</span> <span class="pre">drives.POWER,</span> <span class="pre">'min_rcv':</span> <span class="pre">drives.NONE},</span> <span class="pre">types.UNSPEC:</span> <span class="pre">{'drive':</span> <span class="pre">drives.NONE,</span> <span class="pre">'func_str':</span> <span class="pre">'UNSPEC',</span> <span class="pre">'function':</span> <span class="pre">'UNSPECIFIED',</span> <span class="pre">'max_rcv':</span> <span class="pre">drives.POWER,</span> <span class="pre">'min_rcv':</span> <span class="pre">drives.NONE},</span> <span class="pre">types.PWRIN:</span> <span class="pre">{'drive':</span> <span class="pre">drives.NONE,</span> <span class="pre">'func_str':</span> <span class="pre">'PWRIN',</span> <span class="pre">'function':</span> <span class="pre">'POWER-IN',</span> <span class="pre">'max_rcv':</span> <span class="pre">drives.POWER,</span> <span class="pre">'min_rcv':</span> <span class="pre">drives.POWER},</span> <span class="pre">types.PWROUT:</span> <span class="pre">{'drive':</span> <span class="pre">drives.POWER,</span> <span class="pre">'func_str':</span> <span class="pre">'PWROUT',</span> <span class="pre">'function':</span> <span class="pre">'POWER-OUT',</span> <span class="pre">'max_rcv':</span> <span class="pre">drives.PASSIVE,</span> <span class="pre">'min_rcv':</span> <span class="pre">drives.NONE},</span> <span class="pre">types.OPENCOLL:</span> <span class="pre">{'drive':</span> <span class="pre">drives.ONESIDE,</span> <span class="pre">'func_str':</span> <span class="pre">'OPENCOLL',</span> <span class="pre">'function':</span> <span class="pre">'OPEN-COLLECTOR',</span> <span class="pre">'max_rcv':</span> <span class="pre">drives.TRISTATE,</span> <span class="pre">'min_rcv':</span> <span class="pre">drives.NONE},</span> <span class="pre">types.OPENEMIT:</span> <span class="pre">{'drive':</span> <span class="pre">drives.ONESIDE,</span> <span class="pre">'func_str':</span> <span class="pre">'OPENEMIT',</span> <span class="pre">'function':</span> <span class="pre">'OPEN-EMITTER',</span> <span class="pre">'max_rcv':</span> <span class="pre">drives.TRISTATE,</span> <span class="pre">'min_rcv':</span> <span class="pre">drives.NONE},</span> <span class="pre">types.PULLUP:</span> <span class="pre">{'drive':</span> <span class="pre">drives.PULLUPDN,</span> <span class="pre">'func_str':</span> <span class="pre">'PULLUP',</span> <span class="pre">'function':</span> <span class="pre">'PULLUP',</span> <span class="pre">'max_rcv':</span> <span class="pre">drives.POWER,</span> <span class="pre">'min_rcv':</span> <span class="pre">drives.NONE},</span> <span class="pre">types.PULLDN:</span> <span class="pre">{'drive':</span> <span class="pre">drives.PULLUPDN,</span> <span class="pre">'func_str':</span> <span class="pre">'PULLDN',</span> <span class="pre">'function':</span> <span class="pre">'PULLDN',</span> <span class="pre">'max_rcv':</span> <span class="pre">drives.POWER,</span> <span class="pre">'min_rcv':</span> <span class="pre">drives.NONE},</span> <span class="pre">types.NOCONNECT:</span> <span class="pre">{'drive':</span> <span class="pre">drives.NOCONNECT,</span> <span class="pre">'func_str':</span> <span class="pre">'NOCONNECT',</span> <span class="pre">'function':</span> <span class="pre">'NO-CONNECT',</span> <span class="pre">'max_rcv':</span> <span class="pre">drives.NOCONNECT,</span> <span class="pre">'min_rcv':</span> <span class="pre">drives.NOCONNECT}}</span></em><a class="headerlink" href="#skidl.pin.Pin.pin_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="skidl.pin.Pin.pins">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pins</span></span><a class="headerlink" href="#skidl.pin.Pin.pins" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.pin.Pin.ref">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">ref</span></span><a class="headerlink" href="#skidl.pin.Pin.ref" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ref</span></span><a class="headerlink" href="#skidl.pin.Pin.ref" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the reference of the part the pin belongs to.</p>
 </dd></dl>
 
@@ -349,110 +355,85 @@ lists/tuples of them.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.pin.Pin.types">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">types</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.pin.Pin.types" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/enum.html#enum.IntEnum" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.IntEnum</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">types</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.pin.Pin.types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.10/library/enum.html#enum.IntEnum" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.IntEnum</span></code></a></p>
 <p>An enumeration.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.types.BIDIR">
-<span class="sig-name descname"><span class="pre">BIDIR</span></span><em class="property"> <span class="pre">=</span> <span class="pre">3</span></em><a class="headerlink" href="#skidl.pin.Pin.types.BIDIR" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">BIDIR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#skidl.pin.Pin.types.BIDIR" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.types.INPUT">
-<span class="sig-name descname"><span class="pre">INPUT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">1</span></em><a class="headerlink" href="#skidl.pin.Pin.types.INPUT" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">INPUT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#skidl.pin.Pin.types.INPUT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.types.NOCONNECT">
-<span class="sig-name descname"><span class="pre">NOCONNECT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">13</span></em><a class="headerlink" href="#skidl.pin.Pin.types.NOCONNECT" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">NOCONNECT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">13</span></em><a class="headerlink" href="#skidl.pin.Pin.types.NOCONNECT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.types.OPENCOLL">
-<span class="sig-name descname"><span class="pre">OPENCOLL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">9</span></em><a class="headerlink" href="#skidl.pin.Pin.types.OPENCOLL" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">OPENCOLL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">9</span></em><a class="headerlink" href="#skidl.pin.Pin.types.OPENCOLL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.types.OPENEMIT">
-<span class="sig-name descname"><span class="pre">OPENEMIT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">10</span></em><a class="headerlink" href="#skidl.pin.Pin.types.OPENEMIT" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">OPENEMIT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#skidl.pin.Pin.types.OPENEMIT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.types.OUTPUT">
-<span class="sig-name descname"><span class="pre">OUTPUT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">2</span></em><a class="headerlink" href="#skidl.pin.Pin.types.OUTPUT" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">OUTPUT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#skidl.pin.Pin.types.OUTPUT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.types.PASSIVE">
-<span class="sig-name descname"><span class="pre">PASSIVE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">5</span></em><a class="headerlink" href="#skidl.pin.Pin.types.PASSIVE" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">PASSIVE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#skidl.pin.Pin.types.PASSIVE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.types.PULLDN">
-<span class="sig-name descname"><span class="pre">PULLDN</span></span><em class="property"> <span class="pre">=</span> <span class="pre">12</span></em><a class="headerlink" href="#skidl.pin.Pin.types.PULLDN" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">PULLDN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">12</span></em><a class="headerlink" href="#skidl.pin.Pin.types.PULLDN" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.types.PULLUP">
-<span class="sig-name descname"><span class="pre">PULLUP</span></span><em class="property"> <span class="pre">=</span> <span class="pre">11</span></em><a class="headerlink" href="#skidl.pin.Pin.types.PULLUP" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">PULLUP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">11</span></em><a class="headerlink" href="#skidl.pin.Pin.types.PULLUP" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.types.PWRIN">
-<span class="sig-name descname"><span class="pre">PWRIN</span></span><em class="property"> <span class="pre">=</span> <span class="pre">7</span></em><a class="headerlink" href="#skidl.pin.Pin.types.PWRIN" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">PWRIN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">7</span></em><a class="headerlink" href="#skidl.pin.Pin.types.PWRIN" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.types.PWROUT">
-<span class="sig-name descname"><span class="pre">PWROUT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">8</span></em><a class="headerlink" href="#skidl.pin.Pin.types.PWROUT" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">PWROUT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#skidl.pin.Pin.types.PWROUT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.types.TRISTATE">
-<span class="sig-name descname"><span class="pre">TRISTATE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">4</span></em><a class="headerlink" href="#skidl.pin.Pin.types.TRISTATE" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">TRISTATE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#skidl.pin.Pin.types.TRISTATE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.pin.Pin.types.UNSPEC">
-<span class="sig-name descname"><span class="pre">UNSPEC</span></span><em class="property"> <span class="pre">=</span> <span class="pre">6</span></em><a class="headerlink" href="#skidl.pin.Pin.types.UNSPEC" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">UNSPEC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></em><a class="headerlink" href="#skidl.pin.Pin.types.UNSPEC" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.pin.Pin.width">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">width</span></span><a class="headerlink" href="#skidl.pin.Pin.width" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">width</span></span><a class="headerlink" href="#skidl.pin.Pin.width" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return width of a Pin, which is always 1.</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="py class">
-<dt class="sig sig-object py" id="skidl.pin.PinList">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">skidl.pin.</span></span><span class="sig-name descname"><span class="pre">PinList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">part</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/pin.html#PinList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.pin.PinList" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></p>
-<p>A list of Pin objects that’s meant to look something like a Pin to a Part.
-This is used for vector I/O of XSPICE parts.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="skidl.pin.PinList.copy">
-<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/pin.html#PinList.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.pin.PinList.copy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a copy of a PinList for use when a Part is copied.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="skidl.pin.PinList.disconnect">
-<span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/pin.html#PinList.disconnect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.pin.PinList.disconnect" title="Permalink to this definition">¶</a></dt>
-<dd><p>Disconnect all the pins in the list.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="skidl.pin.PinList.is_connected">
-<span class="sig-name descname"><span class="pre">is_connected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/pin.html#PinList.is_connected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.pin.PinList.is_connected" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
+</section>
 
 
             <div class="clearer"></div>
@@ -497,7 +478,7 @@ This is used for vector I/O of XSPICE parts.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016-2021, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.1.2.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
     </div>
   </body>
 </html>

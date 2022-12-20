@@ -64,8 +64,6 @@
 
 <span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
 
-<span class="kn">from</span> <span class="nn">...logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
-
 <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
 
 
@@ -83,13 +81,16 @@
 <span class="sd">        filename: The name of the SKiDL schematic library file.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="kn">from</span> <span class="nn">...logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
     <span class="kn">from</span> <span class="nn">...schlib</span> <span class="kn">import</span> <span class="n">SchLib</span>
-    <span class="kn">from</span> <span class="nn">...skidl</span> <span class="kn">import</span> <span class="n">active_logger</span><span class="p">,</span> <span class="n">lib_suffixes</span>
-    <span class="kn">from</span> <span class="nn">...utilities</span> <span class="kn">import</span> <span class="n">find_and_open_file</span>
+    <span class="kn">from</span> <span class="nn">...skidl</span> <span class="kn">import</span> <span class="n">lib_suffixes</span>
+    <span class="kn">from</span> <span class="nn">...utilities</span> <span class="kn">import</span> <span class="n">find_and_read_file</span>
     <span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">SKIDL</span>
 
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">f</span><span class="p">,</span> <span class="n">path</span> <span class="o">=</span> <span class="n">find_and_open_file</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">lib_search_paths_</span><span class="p">,</span> <span class="n">lib_suffixes</span><span class="p">[</span><span class="n">SKIDL</span><span class="p">])</span>
+        <span class="n">contents</span><span class="p">,</span> <span class="n">path</span> <span class="o">=</span> <span class="n">find_and_read_file</span><span class="p">(</span>
+            <span class="n">filename</span><span class="p">,</span> <span class="n">lib_search_paths_</span><span class="p">,</span> <span class="n">lib_suffixes</span><span class="p">[</span><span class="n">SKIDL</span><span class="p">]</span>
+        <span class="p">)</span>
     <span class="k">except</span> <span class="ne">FileNotFoundError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
             <span class="s2">&quot;Unable to open SKiDL Schematic Library File </span><span class="si">{}</span><span class="s2"> (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
@@ -102,7 +103,7 @@
         <span class="n">vars_</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;__file__&quot;</span><span class="p">:</span> <span class="n">path</span><span class="p">,</span>
         <span class="p">}</span>
-        <span class="n">exec</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="n">vars_</span><span class="p">)</span>  <span class="c1"># Execute and store library in dict.</span>
+        <span class="n">exec</span><span class="p">(</span><span class="n">contents</span><span class="p">,</span> <span class="n">vars_</span><span class="p">)</span>  <span class="c1"># Execute and store library in dict.</span>
 
         <span class="c1"># Now look through the dict to find the library object.</span>
         <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">vars_</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
@@ -115,12 +116,12 @@
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No SchLib object found in </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
 
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem with </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem with </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
         <span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
         <span class="k">raise</span></div>
 
 
-<div class="viewcode-block" id="parse_lib_part"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.skidl.skidl.html#skidl.tools.skidl.skidl.parse_lib_part">[docs]</a><span class="k">def</span> <span class="nf">parse_lib_part</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_name_only</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>  <span class="c1"># pylint: disable=unused-argument</span>
+<div class="viewcode-block" id="parse_lib_part"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.skidl.skidl.html#skidl.tools.skidl.skidl.parse_lib_part">[docs]</a><span class="k">def</span> <span class="nf">parse_lib_part</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">partial_parse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>  <span class="c1"># pylint: disable=unused-argument</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create a Part using a part definition from a SKiDL library.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -166,7 +167,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016-2021, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.1.2.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
     </div>
   </body>
 </html>

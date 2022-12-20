@@ -125,6 +125,7 @@ def preprocess_parts_and_nets(circuit):
 
         # Find part/unit bounding boxes excluding any net labels on pins.
         # TODO: part.lbl_bbox could be substituted for part.bbox.
+        # TODO: Part bbox should be expanded to account for reference and value labels.
         bare_bboxes = calc_symbol_bbox(part)[1:]
 
         for part_unit, bare_bbox in zip(units(part), bare_bboxes):

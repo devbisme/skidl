@@ -5,7 +5,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>skidl.utilities module &#8212; SKiDL  documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css" />
@@ -43,13 +44,13 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="module-skidl.utilities">
+  <section id="module-skidl.utilities">
 <span id="skidl-utilities-module"></span><h1>skidl.utilities module<a class="headerlink" href="#module-skidl.utilities" title="Permalink to this headline">¶</a></h1>
 <p>Utility functions used by the rest of SKiDL.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.utilities.TriggerDict">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">TriggerDict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#TriggerDict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.TriggerDict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">TriggerDict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#TriggerDict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.TriggerDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
 <p>This dict triggers a function when one of its entries changes.</p>
 </dd></dl>
 
@@ -154,6 +155,32 @@ that many levels down for the file. If negative, descend into
 subdirectories withcurrent_level limit.</p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>File pointer and file name or None, None if file could not be opened.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.utilities.find_and_read_file">
+<span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">find_and_read_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ext</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_failure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_binary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">descend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#find_and_read_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.find_and_read_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search for a file in list of paths, open it and return its contents.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – Base file name (e.g., “my_file”).</p></li>
+<li><p><strong>paths</strong> – List of paths to search for the file.</p></li>
+<li><p><strong>ext</strong> – The extension for the file (e.g., “.txt”).</p></li>
+<li><p><strong>allow_failure</strong> – If false, failure to find file raises and exception.</p></li>
+<li><p><strong>exclude_binary</strong> – If true, skip files that contain binary data.</p></li>
+<li><p><strong>descend</strong> – If 0, don’t search lower-level directories. If positive, search
+that many levels down for the file. If negative, descend into
+subdirectories withcurrent_level limit.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>File contents and file name or None, None if file could not be opened.</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -227,12 +254,6 @@ or unique net names (e.g., “N$5”).</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="skidl.utilities.is_iterable">
-<span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">is_iterable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#is_iterable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.is_iterable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return True if x is iterable (but not a string).</p>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="skidl.utilities.list_or_scalar">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">list_or_scalar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#list_or_scalar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.list_or_scalar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list if passed a multi-element list, otherwise return a single scalar.</p>
@@ -302,12 +323,6 @@ object, or a filename to open.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="skidl.utilities.parse_sexp">
-<span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">parse_sexp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sexp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_underflow</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#parse_sexp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.parse_sexp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Parse an S-expression and return a nested list.</p>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="skidl.utilities.reset_get_unique_name">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">reset_get_unique_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#reset_get_unique_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.reset_get_unique_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reset the heaps that store previously-assigned names.</p>
@@ -349,7 +364,7 @@ object, or a filename to open.</p></li>
 <dd><p>Return x if it is already a list, or return a list containing x if x is a scalar.</p>
 </dd></dl>
 
-</div>
+</section>
 
 
             <div class="clearer"></div>
@@ -394,7 +409,7 @@ object, or a filename to open.</p></li>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016-2021, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.1.2.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
     </div>
   </body>
 </html>

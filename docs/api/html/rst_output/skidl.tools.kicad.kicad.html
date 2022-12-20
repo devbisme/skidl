@@ -5,7 +5,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>skidl.tools.kicad.kicad module &#8212; SKiDL  documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css" />
@@ -43,610 +44,90 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="module-skidl.tools.kicad.kicad">
+  <section id="module-skidl.tools.kicad.kicad">
 <span id="skidl-tools-kicad-kicad-module"></span><h1>skidl.tools.kicad.kicad module<a class="headerlink" href="#module-skidl.tools.kicad.kicad" title="Permalink to this headline">¶</a></h1>
 <p>Handler for reading Kicad libraries and generating netlists.</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawArc">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">DrawArc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dmg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thickness</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">starty</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endy</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawArc" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawArc.cx">
-<span class="sig-name descname"><span class="pre">cx</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawArc.cx" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 0</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawArc.cy">
-<span class="sig-name descname"><span class="pre">cy</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawArc.cy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 1</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawArc.dmg">
-<span class="sig-name descname"><span class="pre">dmg</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawArc.dmg" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 6</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawArc.end_angle">
-<span class="sig-name descname"><span class="pre">end_angle</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawArc.end_angle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 4</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawArc.endx">
-<span class="sig-name descname"><span class="pre">endx</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawArc.endx" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 11</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawArc.endy">
-<span class="sig-name descname"><span class="pre">endy</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawArc.endy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 12</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawArc.fill">
-<span class="sig-name descname"><span class="pre">fill</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawArc.fill" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 8</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawArc.radius">
-<span class="sig-name descname"><span class="pre">radius</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawArc.radius" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 2</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawArc.start_angle">
-<span class="sig-name descname"><span class="pre">start_angle</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawArc.start_angle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 3</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawArc.startx">
-<span class="sig-name descname"><span class="pre">startx</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawArc.startx" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 9</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawArc.starty">
-<span class="sig-name descname"><span class="pre">starty</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawArc.starty" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 10</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawArc.thickness">
-<span class="sig-name descname"><span class="pre">thickness</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawArc.thickness" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 7</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawArc.unit">
-<span class="sig-name descname"><span class="pre">unit</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawArc.unit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 5</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawCircle">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">DrawCircle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dmg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thickness</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawCircle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawCircle.cx">
-<span class="sig-name descname"><span class="pre">cx</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawCircle.cx" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 0</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawCircle.cy">
-<span class="sig-name descname"><span class="pre">cy</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawCircle.cy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 1</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawCircle.dmg">
-<span class="sig-name descname"><span class="pre">dmg</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawCircle.dmg" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 4</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawCircle.fill">
-<span class="sig-name descname"><span class="pre">fill</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawCircle.fill" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 6</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawCircle.radius">
-<span class="sig-name descname"><span class="pre">radius</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawCircle.radius" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 2</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawCircle.thickness">
-<span class="sig-name descname"><span class="pre">thickness</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawCircle.thickness" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 5</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawCircle.unit">
-<span class="sig-name descname"><span class="pre">unit</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawCircle.unit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 3</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawDef">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">DrawDef</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_offset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_nums</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_units</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lock_units</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">power_symbol</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawDef" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawDef.lock_units">
-<span class="sig-name descname"><span class="pre">lock_units</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawDef.lock_units" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 7</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawDef.name">
-<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawDef.name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 0</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawDef.name_offset">
-<span class="sig-name descname"><span class="pre">name_offset</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawDef.name_offset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 3</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawDef.num_units">
-<span class="sig-name descname"><span class="pre">num_units</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawDef.num_units" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 6</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawDef.power_symbol">
-<span class="sig-name descname"><span class="pre">power_symbol</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawDef.power_symbol" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 8</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawDef.ref">
-<span class="sig-name descname"><span class="pre">ref</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawDef.ref" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 1</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawDef.show_names">
-<span class="sig-name descname"><span class="pre">show_names</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawDef.show_names" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 5</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawDef.show_nums">
-<span class="sig-name descname"><span class="pre">show_nums</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawDef.show_nums" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 4</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawDef.zero">
-<span class="sig-name descname"><span class="pre">zero</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawDef.zero" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 2</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawF0">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">DrawF0</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ref</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">visibility</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">halign</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valign</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawF0" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawF0.halign">
-<span class="sig-name descname"><span class="pre">halign</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawF0.halign" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 6</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawF0.orientation">
-<span class="sig-name descname"><span class="pre">orientation</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawF0.orientation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 4</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawF0.ref">
-<span class="sig-name descname"><span class="pre">ref</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawF0.ref" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 0</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawF0.size">
-<span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawF0.size" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 3</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawF0.valign">
-<span class="sig-name descname"><span class="pre">valign</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawF0.valign" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 7</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawF0.visibility">
-<span class="sig-name descname"><span class="pre">visibility</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawF0.visibility" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 5</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawF0.x">
-<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawF0.x" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 1</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawF0.y">
-<span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawF0.y" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 2</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawF1">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">DrawF1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">visibility</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">halign</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valign</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fieldname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawF1" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawF1.fieldname">
-<span class="sig-name descname"><span class="pre">fieldname</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawF1.fieldname" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 8</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawF1.halign">
-<span class="sig-name descname"><span class="pre">halign</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawF1.halign" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 6</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawF1.name">
-<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawF1.name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 0</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawF1.orientation">
-<span class="sig-name descname"><span class="pre">orientation</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawF1.orientation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 4</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawF1.size">
-<span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawF1.size" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 3</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawF1.valign">
-<span class="sig-name descname"><span class="pre">valign</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawF1.valign" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 7</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawF1.visibility">
-<span class="sig-name descname"><span class="pre">visibility</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawF1.visibility" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 5</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawF1.x">
-<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawF1.x" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 1</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawF1.y">
-<span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawF1.y" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 2</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawPin">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">DrawPin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dmg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">electrical_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawPin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawPin.dmg">
-<span class="sig-name descname"><span class="pre">dmg</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawPin.dmg" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 9</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawPin.electrical_type">
-<span class="sig-name descname"><span class="pre">electrical_type</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawPin.electrical_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 10</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawPin.length">
-<span class="sig-name descname"><span class="pre">length</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawPin.length" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 4</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawPin.name">
-<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawPin.name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 0</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawPin.name_size">
-<span class="sig-name descname"><span class="pre">name_size</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawPin.name_size" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 7</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawPin.num">
-<span class="sig-name descname"><span class="pre">num</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawPin.num" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 1</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawPin.num_size">
-<span class="sig-name descname"><span class="pre">num_size</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawPin.num_size" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 6</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawPin.orientation">
-<span class="sig-name descname"><span class="pre">orientation</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawPin.orientation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 5</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawPin.shape">
-<span class="sig-name descname"><span class="pre">shape</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawPin.shape" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 11</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawPin.unit">
-<span class="sig-name descname"><span class="pre">unit</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawPin.unit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 8</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawPin.x">
-<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawPin.x" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 2</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawPin.y">
-<span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawPin.y" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 3</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawPoly">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">DrawPoly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point_count</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dmg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thickness</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawPoly" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawPoly.dmg">
-<span class="sig-name descname"><span class="pre">dmg</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawPoly.dmg" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 2</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawPoly.fill">
-<span class="sig-name descname"><span class="pre">fill</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawPoly.fill" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 5</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawPoly.point_count">
-<span class="sig-name descname"><span class="pre">point_count</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawPoly.point_count" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 0</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawPoly.points">
-<span class="sig-name descname"><span class="pre">points</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawPoly.points" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 4</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawPoly.thickness">
-<span class="sig-name descname"><span class="pre">thickness</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawPoly.thickness" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 3</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawPoly.unit">
-<span class="sig-name descname"><span class="pre">unit</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawPoly.unit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 1</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawRect">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">DrawRect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dmg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thickness</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawRect" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawRect.dmg">
-<span class="sig-name descname"><span class="pre">dmg</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawRect.dmg" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 5</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawRect.fill">
-<span class="sig-name descname"><span class="pre">fill</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawRect.fill" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 7</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawRect.thickness">
-<span class="sig-name descname"><span class="pre">thickness</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawRect.thickness" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 6</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawRect.unit">
-<span class="sig-name descname"><span class="pre">unit</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawRect.unit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 4</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawRect.x1">
-<span class="sig-name descname"><span class="pre">x1</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawRect.x1" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 0</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawRect.x2">
-<span class="sig-name descname"><span class="pre">x2</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawRect.x2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 2</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawRect.y1">
-<span class="sig-name descname"><span class="pre">y1</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawRect.y1" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 1</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawRect.y2">
-<span class="sig-name descname"><span class="pre">y2</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawRect.y2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 3</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawText">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">DrawText</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dmg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">italic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bold</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">halign</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valign</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawText" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawText.angle">
-<span class="sig-name descname"><span class="pre">angle</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawText.angle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 0</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawText.bold">
-<span class="sig-name descname"><span class="pre">bold</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawText.bold" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 9</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawText.dmg">
-<span class="sig-name descname"><span class="pre">dmg</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawText.dmg" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 6</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawText.halign">
-<span class="sig-name descname"><span class="pre">halign</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawText.halign" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 10</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawText.hidden">
-<span class="sig-name descname"><span class="pre">hidden</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawText.hidden" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 4</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawText.italic">
-<span class="sig-name descname"><span class="pre">italic</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawText.italic" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 8</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawText.size">
-<span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawText.size" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 3</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawText.text">
-<span class="sig-name descname"><span class="pre">text</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawText.text" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 7</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawText.unit">
-<span class="sig-name descname"><span class="pre">unit</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawText.unit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 5</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawText.valign">
-<span class="sig-name descname"><span class="pre">valign</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawText.valign" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 11</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawText.x">
-<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawText.x" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 1</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.DrawText.y">
-<span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#skidl.tools.kicad.kicad.DrawText.y" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 2</p>
-</dd></dl>
-
-</dd></dl>
-
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.tools.kicad.kicad.gen_netlist">
-<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">gen_netlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad/kicad.html#gen_netlist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad.kicad.gen_netlist" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">gen_netlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">circuit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad/kicad.html#gen_netlist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad.kicad.gen_netlist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a netlist from a Circuit object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>circuit</strong> (<a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit" title="skidl.circuit.Circuit"><em>Circuit</em></a>) – Circuit object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>String containing netlist text.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.tools.kicad.kicad.gen_netlist_comp">
-<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">gen_netlist_comp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad/kicad.html#gen_netlist_comp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad.kicad.gen_netlist_comp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">gen_netlist_comp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">part</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad/kicad.html#gen_netlist_comp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad.kicad.gen_netlist_comp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the netlist text describing a component.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>part</strong> (<a class="reference internal" href="skidl.part.html#skidl.part.Part" title="skidl.part.Part"><em>Part</em></a>) – Part object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>String containing component netlist description.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.tools.kicad.kicad.gen_netlist_net">
-<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">gen_netlist_net</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad/kicad.html#gen_netlist_net"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad.kicad.gen_netlist_net" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">gen_netlist_net</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">net</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad/kicad.html#gen_netlist_net"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad.kicad.gen_netlist_net" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the netlist text describing a net.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>part</strong> (<a class="reference internal" href="skidl.net.html#skidl.net.Net" title="skidl.net.Net"><em>Net</em></a>) – Net object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>String containing net netlist description.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.tools.kicad.kicad.gen_pcb">
-<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">gen_pcb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad/kicad.html#gen_pcb"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad.kicad.gen_pcb" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">gen_pcb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">circuit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pcb_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fp_libs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad/kicad.html#gen_pcb"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad.kicad.gen_pcb" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a KiCad PCB file directly from a Circuit object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>circuit</strong> (<a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit" title="skidl.circuit.Circuit"><em>Circuit</em></a>) – Circuit object.</p></li>
+<li><p><strong>pcb_file</strong> – Either a file object that can be written to, or a string
+containing a file name, or None.</p></li>
+<li><p><strong>fp_libs</strong> – List of directories containing footprint libraries.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
 </dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.gen_pinboxes">
-<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">gen_pinboxes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad/kicad.html#gen_pinboxes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad.kicad.gen_pinboxes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate bounding box and I/O pin positions for each unit in a part.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.gen_schematic">
-<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">gen_schematic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">route</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad/kicad.html#gen_schematic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad.kicad.gen_schematic" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.tools.kicad.kicad.gen_svg_comp">
-<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">gen_svg_comp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symtx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_stubs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad/kicad.html#gen_svg_comp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad.kicad.gen_svg_comp" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">gen_svg_comp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">part</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symtx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_stubs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad/kicad.html#gen_svg_comp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad.kicad.gen_svg_comp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate SVG for this component.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>self</strong> – Part object for which an SVG symbol will be created.</p></li>
+<li><p><strong>part</strong> – Part object for which an SVG symbol will be created.</p></li>
+<li><p><strong>symtx</strong> – String such as “HR” that indicates symbol mirroring/rotation.</p></li>
 <li><p><strong>net_stubs</strong> – List of Net objects whose names will be connected to
 part symbol pins as connection stubs.</p></li>
-<li><p><strong>symtx</strong> – String such as “HR” that indicates symbol mirroring/rotation.</p></li>
 </ul>
 </dd>
 </dl>
@@ -655,44 +136,80 @@ part symbol pins as connection stubs.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.tools.kicad.kicad.gen_xml">
-<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">gen_xml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad/kicad.html#gen_xml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad.kicad.gen_xml" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">gen_xml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">circuit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad/kicad.html#gen_xml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad.kicad.gen_xml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the XML describing a circuit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>circuit</strong> (<a class="reference internal" href="skidl.circuit.html#skidl.circuit.Circuit" title="skidl.circuit.Circuit"><em>Circuit</em></a>) – Circuit object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>String containing the XML for the circuit.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.tools.kicad.kicad.gen_xml_comp">
-<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">gen_xml_comp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad/kicad.html#gen_xml_comp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad.kicad.gen_xml_comp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">gen_xml_comp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">part</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad/kicad.html#gen_xml_comp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad.kicad.gen_xml_comp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the XML describing a component.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>part</strong> (<a class="reference internal" href="skidl.part.html#skidl.part.Part" title="skidl.part.Part"><em>Part</em></a>) – Part object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>String containing the XML for the part.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.tools.kicad.kicad.gen_xml_net">
-<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">gen_xml_net</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad/kicad.html#gen_xml_net"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad.kicad.gen_xml_net" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">gen_xml_net</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">net</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad/kicad.html#gen_xml_net"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad.kicad.gen_xml_net" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="skidl.tools.kicad.kicad.get_kicad_lib_tbl_dir">
+<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">get_kicad_lib_tbl_dir</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad/kicad.html#get_kicad_lib_tbl_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad.kicad.get_kicad_lib_tbl_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the path to where the global fp-lib-table file is found.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="skidl.tools.kicad.kicad.load_sch_lib">
-<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">load_sch_lib</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib_search_paths_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib_section</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad/kicad.html#load_sch_lib"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad.kicad.load_sch_lib" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">load_sch_lib</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib_search_paths_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib_section</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad/kicad.html#load_sch_lib"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad.kicad.load_sch_lib" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load the parts from a KiCad schematic library file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>filename</strong> – The name of the KiCad schematic library file.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lib</strong> (<a class="reference internal" href="skidl.schlib.html#skidl.schlib.SchLib" title="skidl.schlib.SchLib"><em>SchLib</em></a>) – SKiDL library object.</p></li>
+<li><p><strong>filename</strong> – The name of the KiCad schematic library file.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.tools.kicad.kicad.parse_lib_part">
-<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">parse_lib_part</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_name_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad/kicad.html#parse_lib_part"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad.kicad.parse_lib_part" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">skidl.tools.kicad.kicad.</span></span><span class="sig-name descname"><span class="pre">parse_lib_part</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">part</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partial_parse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/kicad/kicad.html#parse_lib_part"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.kicad.kicad.parse_lib_part" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a Part using a part definition from a KiCad schematic library.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>get_name_only</strong> – If true, scan the part definition until the
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>part</strong> (<a class="reference internal" href="skidl.part.html#skidl.part.Part" title="skidl.part.Part"><em>Part</em></a>) – SKiDL Part object.</p></li>
+<li><p><strong>partial_parse</strong> – If true, scan the part definition until the
 name and aliases are found. The rest of the definition
-will be parsed if the part is actually used.</p>
+will be parsed if the part is actually used.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
+</section>
 
 
             <div class="clearer"></div>
@@ -737,7 +254,7 @@ will be parsed if the part is actually used.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016-2021, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.1.2.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
     </div>
   </body>
 </html>

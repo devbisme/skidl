@@ -139,7 +139,7 @@
         <span class="k">return</span>
 
     <span class="c1"># Check the number of pins attached to the net.</span>
-    <span class="n">pins</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">get_pins</span><span class="p">()</span>
+    <span class="n">pins</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">pins</span>
     <span class="n">num_pins</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pins</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">num_pins</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;No pins attached to net </span><span class="si">{n}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
@@ -208,7 +208,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016-2021, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.1.2.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
     </div>
   </body>
 </html>

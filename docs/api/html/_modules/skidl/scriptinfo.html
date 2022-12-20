@@ -100,18 +100,17 @@
             <span class="k">continue</span>
         <span class="n">trc</span> <span class="o">=</span> <span class="n">teil</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
-    <span class="c1"># trc contains highest level calling script name</span>
-    <span class="c1"># check if we have been compiled</span>
+    <span class="c1"># trc contains highest level calling script name.</span>
+    <span class="c1"># Check if we have been compiled.</span>
     <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="s2">&quot;frozen&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
         <span class="n">scriptdir</span><span class="p">,</span> <span class="n">scriptname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;dir&quot;</span><span class="p">:</span> <span class="n">scriptdir</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">scriptname</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="n">trc</span><span class="p">}</span>
 
-    <span class="c1"># from here on, we are in the interpreted case</span>
+    <span class="c1"># From here on, we are in the interpreted case</span>
     <span class="n">scriptdir</span><span class="p">,</span> <span class="n">trc</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">trc</span><span class="p">)</span>
-    <span class="c1"># if trc did not contain directory information,</span>
+    <span class="c1"># If trc did not contain directory information,</span>
     <span class="c1"># the current working directory is what we need</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">scriptdir</span><span class="p">:</span>
-        <span class="n">scriptdir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+    <span class="n">scriptdir</span> <span class="o">=</span> <span class="n">scriptdir</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
 
     <span class="n">scr_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">trc</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="n">trc</span><span class="p">,</span> <span class="s2">&quot;dir&quot;</span><span class="p">:</span> <span class="n">scriptdir</span><span class="p">}</span>
     <span class="k">return</span> <span class="n">scr_dict</span></div>
@@ -200,7 +199,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016-2021, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.1.2.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
     </div>
   </body>
 </html>

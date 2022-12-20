@@ -5,7 +5,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>skidl.circuit module &#8212; SKiDL  documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css" />
@@ -43,12 +44,12 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="module-skidl.circuit">
+  <section id="module-skidl.circuit">
 <span id="skidl-circuit-module"></span><h1>skidl.circuit module<a class="headerlink" href="#module-skidl.circuit" title="Permalink to this headline">¶</a></h1>
 <p>Handles complete circuits made of parts and nets.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.circuit.Circuit">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">skidl.circuit.</span></span><span class="sig-name descname"><span class="pre">Circuit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/circuit.html#Circuit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.circuit.Circuit" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.circuit.</span></span><span class="sig-name descname"><span class="pre">Circuit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/circuit.html#Circuit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.circuit.Circuit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject" title="skidl.skidlbaseobj.SkidlBaseObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">skidl.skidlbaseobj.SkidlBaseObject</span></code></a></p>
 <p>Class object that holds the entire netlist of parts and nets.</p>
 <dl class="py attribute">
@@ -92,6 +93,12 @@ SubCircuits at the current time it is read.</p>
 <dt class="sig sig-object py" id="skidl.circuit.Circuit.ERC">
 <span class="sig-name descname"><span class="pre">ERC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/circuit.html#Circuit.ERC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.circuit.Circuit.ERC" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run class-wide and local ERC functions on this circuit.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.circuit.Circuit.activate">
+<span class="sig-name descname"><span class="pre">activate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/circuit.html#Circuit.activate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.circuit.Circuit.activate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the previous hierarchical group and activate a new one.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -145,9 +152,15 @@ file will be used.</p>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.circuit.Circuit.deactivate">
+<span class="sig-name descname"><span class="pre">deactivate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/circuit.html#Circuit.deactivate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.circuit.Circuit.deactivate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deactivate the current hierarchical group and return to the previous one.</p>
+</dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.circuit.Circuit.erc_list">
-<span class="sig-name descname"><span class="pre">erc_list</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[&lt;function</span> <span class="pre">dflt_circuit_erc&gt;]</span></em><a class="headerlink" href="#skidl.circuit.Circuit.erc_list" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">erc_list</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;function</span> <span class="pre">dflt_circuit_erc&gt;]</span></em><a class="headerlink" href="#skidl.circuit.Circuit.erc_list" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -240,6 +253,7 @@ containing a file name, or None.</p></li>
 containing a file name, or None.</p></li>
 <li><p><strong>tool</strong> – The EDA tool the netlist will be generated for.</p></li>
 <li><p><strong>do_backup</strong> – If true, create a library with all the parts in the circuit.</p></li>
+<li><p><strong>fp_libs</strong> – List of directories containing footprint libraries.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -250,8 +264,8 @@ containing a file name, or None.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.circuit.Circuit.generate_schematic">
-<span class="sig-name descname"><span class="pre">generate_schematic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/circuit.html#Circuit.generate_schematic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.circuit.Circuit.generate_schematic" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a schematic file. THIS DOES NOT WORK!</p>
+<span class="sig-name descname"><span class="pre">generate_schematic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/circuit.html#Circuit.generate_schematic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.circuit.Circuit.generate_schematic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a schematic from a Circuit.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -267,13 +281,22 @@ return the dictionary that can be displayed by netlistsvg.</p>
 <dd><p>Return netlist as an XML string and also write it to a file/stream.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>file</strong> – Either a file object that can be written to, or a string
-containing a file name, or None.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> – Either a file object that can be written to, or a string
+containing a file name, or None.</p></li>
+<li><p><strong>tool</strong> – Backend tool such as KICAD.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A string containing the netlist.</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.circuit.Circuit.get_net_nc_stubs">
+<span class="sig-name descname"><span class="pre">get_net_nc_stubs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/circuit.html#Circuit.get_net_nc_stubs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.circuit.Circuit.get_net_nc_stubs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all nets/buses that are stubs or no-connects.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -337,29 +360,7 @@ containing a file name, or None.</p>
 
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="skidl.circuit.SubCircuit">
-<span class="sig-prename descclassname"><span class="pre">skidl.circuit.</span></span><span class="sig-name descname"><span class="pre">SubCircuit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/circuit.html#SubCircuit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.circuit.SubCircuit" title="Permalink to this definition">¶</a></dt>
-<dd><p>A &#64;SubCircuit decorator is used to create hierarchical circuits.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>f</strong> – The function containing SKiDL statements that represents a subcircuit.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="skidl.circuit.subcircuit">
-<span class="sig-prename descclassname"><span class="pre">skidl.circuit.</span></span><span class="sig-name descname"><span class="pre">subcircuit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.circuit.subcircuit" title="Permalink to this definition">¶</a></dt>
-<dd><p>A &#64;SubCircuit decorator is used to create hierarchical circuits.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>f</strong> – The function containing SKiDL statements that represents a subcircuit.</p>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
+</section>
 
 
             <div class="clearer"></div>
@@ -404,7 +405,7 @@ containing a file name, or None.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016-2021, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.1.2.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
     </div>
   </body>
 </html>

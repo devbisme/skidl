@@ -68,7 +68,7 @@
 <span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
 
 <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
-<span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="n">to_list</span>
 
 <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
 
@@ -104,6 +104,7 @@
     <span class="sd">&quot;&quot;&quot;Return a list of (lib, part) sequences that match a regex term.&quot;&quot;&quot;</span>
 
     <span class="kn">import</span> <span class="nn">skidl</span>
+    <span class="kn">import</span> <span class="nn">skidl.tools</span>
 
     <span class="kn">from</span> <span class="nn">.schlib</span> <span class="kn">import</span> <span class="n">SchLib</span>
 
@@ -122,7 +123,7 @@
 
     <span class="c1"># Gather all the lib files from all the directories in the search paths.</span>
     <span class="n">lib_files</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-    <span class="n">lib_suffixes</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">to_list</span><span class="p">(</span><span class="n">skidl</span><span class="o">.</span><span class="n">lib_suffixes</span><span class="p">[</span><span class="n">tool</span><span class="p">]))</span>
+    <span class="n">lib_suffixes</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">to_list</span><span class="p">(</span><span class="n">skidl</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">lib_suffixes</span><span class="p">[</span><span class="n">tool</span><span class="p">]))</span>
     <span class="k">for</span> <span class="n">lib_dir</span> <span class="ow">in</span> <span class="n">skidl</span><span class="o">.</span><span class="n">lib_search_paths</span><span class="p">[</span><span class="n">tool</span><span class="p">]:</span>
 
         <span class="c1"># Get all the library files in the search path.</span>
@@ -156,12 +157,9 @@
             <span class="n">lib</span><span class="o">.</span><span class="n">get_parts</span><span class="p">(</span><span class="n">use_backup_lib</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">search_text</span><span class="o">=</span><span class="n">terms</span><span class="p">)</span>
         <span class="p">):</span>
             <span class="c1"># Parse the part to instantiate the complete object.</span>
-            <span class="n">part</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">get_name_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">part</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">partial_parse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-            <span class="c1"># Yield the part and its containing library.</span>
-            <span class="k">yield</span> <span class="s2">&quot;PART&quot;</span><span class="p">,</span> <span class="n">lib_file</span><span class="p">,</span> <span class="n">part</span><span class="p">,</span> <span class="n">part</span><span class="o">.</span><span class="n">name</span>
-
-            <span class="c1"># Also return aliases.</span>
+            <span class="c1"># Return part name and aliases (everything is included in aliases).</span>
             <span class="k">for</span> <span class="n">alias</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">aliases</span><span class="p">):</span>
                 <span class="k">yield</span> <span class="s2">&quot;PART&quot;</span><span class="p">,</span> <span class="n">lib_file</span><span class="p">,</span> <span class="n">part</span><span class="p">,</span> <span class="n">alias</span></div>
 
@@ -504,7 +502,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016-2021, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.1.2.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
     </div>
   </body>
 </html>

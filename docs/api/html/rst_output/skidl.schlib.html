@@ -5,7 +5,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>skidl.schlib module &#8212; SKiDL  documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css" />
@@ -43,13 +44,13 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="module-skidl.schlib">
+  <section id="module-skidl.schlib">
 <span id="skidl-schlib-module"></span><h1>skidl.schlib module<a class="headerlink" href="#module-skidl.schlib" title="Permalink to this headline">¶</a></h1>
 <p>Handles schematic libraries for various ECAD tools.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.schlib.SchLib">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">skidl.schlib.</span></span><span class="sig-name descname"><span class="pre">SchLib</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib_section</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schlib.html#SchLib"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schlib.SchLib" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.schlib.</span></span><span class="sig-name descname"><span class="pre">SchLib</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib_section</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schlib.html#SchLib"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schlib.SchLib" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.10/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>A class for storing parts from a schematic component library file.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.schlib.SchLib.filename">
@@ -100,26 +101,6 @@ only be SKIDL.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="skidl.schlib.SchLib.get_part_by_name">
-<span class="sig-name descname"><span class="pre">get_part_by_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_multiples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">silent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_name_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schlib.html#SchLib.get_part_by_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schlib.SchLib.get_part_by_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a Part with the given name or alias from the part list.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> – The part name or alias to search for in the library.</p></li>
-<li><p><strong>allow_multiples</strong> – If true, return a list of parts matching the name.
-If false, return only the first matching part and issue
-a warning if there were more than one.</p></li>
-<li><p><strong>silent</strong> – If true, don’t issue errors or warnings.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A single Part or a list of Parts that match all the criteria.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="skidl.schlib.SchLib.get_parts">
 <span class="sig-name descname"><span class="pre">get_parts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">use_backup_lib</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">criteria</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schlib.html#SchLib.get_parts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schlib.SchLib.get_parts" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return parts from a library that match <em>all</em> the given criteria.</p>
@@ -130,20 +111,48 @@ the attribute name while the argument contains the desired value
 of the attribute.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A single Part or a list of Parts that match all the criteria.</p>
+<dd class="field-even"><p>A list of Parts that match all the criteria.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="skidl.schlib.SchLib.get_parts_by_name">
+<span class="sig-name descname"><span class="pre">get_parts_by_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">be_thorough</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_multiples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_failure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partial_parse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schlib.html#SchLib.get_parts_by_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schlib.SchLib.get_parts_by_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a Part with the given name or alias from the part list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – The part name or alias to search for in the library.</p></li>
+<li><p><strong>be_thorough</strong> – Do thorough search, not just simple string matching.</p></li>
+<li><p><strong>allow_multiples</strong> – If true, return a list of parts matching the name.
+If false, return only the first matching part and issue
+a warning if there were more than one.</p></li>
+<li><p><strong>allow_failure</strong> – Return None if no matches found. Issue no errors/warnings.</p></li>
+<li><p><strong>partial_parse</strong> – If true, don’t fully parse any parts that are found.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of Parts that match all the criteria.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schlib.SchLib.get_parts_quick">
+<span class="sig-name descname"><span class="pre">get_parts_quick</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schlib.html#SchLib.get_parts_quick"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schlib.SchLib.get_parts_quick" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do a quick search for a part name or alias.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="skidl.schlib.SchLib.reset">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schlib.html#SchLib.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schlib.SchLib.reset" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schlib.html#SchLib.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schlib.SchLib.reset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clear the cache of processed library files.</p>
 </dd></dl>
 
 </dd></dl>
 
-</div>
+</section>
 
 
             <div class="clearer"></div>
@@ -188,7 +197,7 @@ of the attribute.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016-2021, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.1.2.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
     </div>
   </body>
 </html>

@@ -66,7 +66,7 @@
 <span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
 
 <span class="kn">from</span> <span class="nn">.bus</span> <span class="kn">import</span> <span class="n">Bus</span>
-<span class="kn">from</span> <span class="nn">.circuit</span> <span class="kn">import</span> <span class="n">subcircuit</span>
+<span class="kn">from</span> <span class="nn">.group</span> <span class="kn">import</span> <span class="n">subcircuit</span>
 <span class="kn">from</span> <span class="nn">.interface</span> <span class="kn">import</span> <span class="n">Interface</span>
 <span class="kn">from</span> <span class="nn">.net</span> <span class="kn">import</span> <span class="n">Net</span>
 <span class="kn">from</span> <span class="nn">.part</span> <span class="kn">import</span> <span class="n">NETLIST</span>
@@ -85,7 +85,8 @@
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
             <span class="bp">self</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>  <span class="c1"># Use __setitem__ so both dict item and attribute are created.</span>
 
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># def __call__(self, *args, **kwargs):</span>
         <span class="sd">&quot;&quot;&quot;Create a copy of a package.&quot;&quot;&quot;</span>
 
         <span class="c1"># Get circuit that will contain the package subcircuitry.</span>
@@ -94,24 +95,31 @@
         <span class="c1"># See if this package should be instantiated into the netlist or used as a template.</span>
         <span class="n">dest</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;dest&quot;</span><span class="p">,</span> <span class="n">NETLIST</span><span class="p">)</span>
 
-        <span class="n">pckg</span> <span class="o">=</span> <span class="n">Package</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>  <span class="c1"># Create a shallow copy of the package.</span>
+        <span class="c1"># Create a blank Package object.</span>
+        <span class="n">pckg</span> <span class="o">=</span> <span class="n">Package</span><span class="p">()</span>
 
-        <span class="c1"># Set the circuit that the ProtoNets belong to. Also, make copies of any</span>
-        <span class="c1"># implicit buses or nets that were specified as default I/Os in the</span>
-        <span class="c1"># package definition.</span>
-        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">pckg</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="c1"># Add I/O and anything else to the blank Package.</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">ProtoNet</span><span class="p">):</span>
-                <span class="n">v</span><span class="o">.</span><span class="n">circuit</span> <span class="o">=</span> <span class="n">circuit</span>
+                <span class="n">pckg</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+                <span class="n">pckg</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">circuit</span> <span class="o">=</span> <span class="n">circuit</span>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="n">Net</span><span class="p">,</span> <span class="n">Bus</span><span class="p">)):</span>
                 <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">is_implicit</span><span class="p">():</span>
-                    <span class="n">pckg</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="vm">__class__</span><span class="p">()</span>
-                    <span class="c1"># pckg[k] = v.copy()</span>
+                    <span class="n">pckg</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">circuit</span><span class="o">=</span><span class="n">circuit</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Should this use copy()?</span>
+                    <span class="n">pckg</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+                    <span class="n">pckg</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">circuit</span> <span class="o">=</span> <span class="n">circuit</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">pckg</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
 
+        <span class="c1"># Add passed-in attributes to the package.</span>
         <span class="c1"># Don&#39;t use update(). It doesn&#39;t seem to call __setitem__.</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
             <span class="n">pckg</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>  <span class="c1"># Use __setitem__ so both dict item and attribute are created.</span>
 
-        <span class="n">pckg</span><span class="o">.</span><span class="n">subcircuit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">subcircuit</span>  <span class="c1"># Assign subcircuit creation function.</span>
+        <span class="c1"># Assign subcircuit creation function.</span>
+        <span class="n">pckg</span><span class="o">.</span><span class="n">subcircuit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">subcircuit</span>
 
         <span class="c1"># Remove creation function so it&#39;s not passed as a parameter.</span>
         <span class="k">del</span> <span class="n">pckg</span><span class="p">[</span><span class="s2">&quot;subcircuit&quot;</span><span class="p">]</span>
@@ -205,7 +213,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016-2021, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.1.2.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
     </div>
   </body>
 </html>

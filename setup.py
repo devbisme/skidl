@@ -10,7 +10,7 @@ __author__ = "Dave Vandenbout"
 __email__ = "devb@xess.com"
 
 if "sdist" in sys.argv[1:]:
-    with open("skidl/pckg_info.py", "w") as f:
+    with open("src/skidl/pckg_info.py", "w") as f:
         for name in ["__version__", "__author__", "__email__"]:
             f.write('{} = "{}"\n'.format(name, locals()[name]))
 
@@ -55,11 +55,14 @@ setup(
         "Tracker": "https://github.com/devbisme/skidl/issues",
     },
     # packages=['skidl',],
-    packages=setuptools.find_packages(),
+    # packages=setuptools.find_packages(),
+    packages=setuptools.find_packages(where="src"),
     entry_points={
-        "console_scripts": ["netlist_to_skidl = skidl.scripts.netlist_to_skidl_main:main"]
+        "console_scripts": [
+            "netlist_to_skidl = skidl.scripts.netlist_to_skidl_main:main"
+        ]
     },
-    package_dir={"skidl": "skidl"},
+    package_dir={"": "src"},
     include_package_data=False,
     scripts=[],
     install_requires=requirements,

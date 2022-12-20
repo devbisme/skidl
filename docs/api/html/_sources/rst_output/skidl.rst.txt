@@ -13,6 +13,8 @@ Subpackages
    :maxdepth: 4
 
    skidl.libs
+   skidl.schematics
+   skidl.scripts
    skidl.tools
 
 Submodules
@@ -22,18 +24,17 @@ Submodules
    :maxdepth: 4
 
    skidl.alias
-   skidl.arrange
    skidl.bus
    skidl.circuit
    skidl.common
-   skidl.coord
+   skidl.config
    skidl.erc
+   skidl.group
    skidl.interface
    skidl.logger
    skidl.net
    skidl.netclass
    skidl.netlist_to_skidl
-   skidl.netlist_to_skidl_main
    skidl.netpinlist
    skidl.network
    skidl.note
