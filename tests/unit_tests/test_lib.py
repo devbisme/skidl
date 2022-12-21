@@ -2,6 +2,7 @@
 
 # The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
 
+import os.path
 import pytest
 import sexpdata
 
@@ -19,6 +20,7 @@ from skidl import (
     set_query_backup_lib,
 )
 from skidl.tools import ALL_TOOLS
+from skidl.utilities import find_and_read_file
 
 from .setup_teardown import setup_function, teardown_function
 
@@ -130,9 +132,8 @@ def test_lib_kicad_v5():
     lib_name = "Device.lib"
     lib_v5 = SchLib(lib_name)
     v5_part_names = [part.name for part in lib_v5.parts]
-    with open(lib_name, "r") as fp:
-        lines = fp.readlines()
-        part_cnt = len([l for l in lines if l.startswith("ENDDEF")])
+    lines = find_and_read_file(lib_name, paths=lib_search_paths[KICAD])[0].split("\n")
+    part_cnt = len([l for l in lines if l.startswith("ENDDEF")])
     print("# of parts in {} = {}".format(lib_name, part_cnt))
     assert part_cnt == len(v5_part_names)
     assert part_cnt == 502
@@ -142,7 +143,8 @@ def test_lib_kicad_v6_1():
     lib_name = "Device.kicad_sym"
     lib_v6 = SchLib(lib_name)
     v6_part_names = [part.name for part in lib_v6.parts]
-    nested_list = sexpdata.load(open(lib_name, "r"))
+    sexp, _ = find_and_read_file(lib_name, paths=lib_search_paths[KICAD])
+    nested_list = sexpdata.loads(sexp)
     parts = {
         item[1]: item[2:]
         for item in nested_list[1:]
@@ -158,7 +160,8 @@ def test_lib_kicad_v6_2():
     lib_name = "4xxx.kicad_sym"
     lib_v6 = SchLib(lib_name)
     v6_part_names = [part.name for part in lib_v6.parts]
-    nested_list = sexpdata.load(open(lib_name, "r"))
+    sexp, _ = find_and_read_file(lib_name, paths=lib_search_paths[KICAD])
+    nested_list = sexpdata.loads(sexp)
     parts = {
         item[1]: item[2:]
         for item in nested_list[1:]

@@ -21,11 +21,20 @@ def setup_function(f):
     # Mini-reset to remove circuitry but retain any loaded libraries.
     default_circuit.mini_reset()
 
+    # Setup part library search paths.
     lib_search_paths.clear()
-    lib_search_paths.update({tool: [os.getcwd(), this_file_dir] for tool in ALL_TOOLS})
-    lib_search_paths.update(
-        {SKIDL: [os.getcwd(), this_file_dir, get_filename("../skidl/libs")]}
+    lib_dir = os.path.join(this_file_dir, "..", "test_data")
+    lib_search_paths.update({tool: [os.getcwd(), lib_dir] for tool in ALL_TOOLS})
+
+    skidl_lib_dir = os.path.join(this_file_dir, "../..", "src/skidl/libs")
+    lib_search_paths[SKIDL].append(skidl_lib_dir)
+
+    spice_lib_dir = os.path.join(this_file_dir, "../test_data/SpiceLib/lib")
+    lib_search_paths[SPICE].append(spice_lib_dir)
+    skywater_lib_dir = (
+        "/home/devb/tmp/skywater-pdk/libraries/sky130_fd_pr/latest/models"
     )
+    lib_search_paths[SPICE].append(skywater_lib_dir)
 
     set_default_tool(KICAD)
     set_query_backup_lib(INITIAL_QUERY_BACKUP_LIB)
@@ -42,11 +51,7 @@ def teardown_function(f):
 
 
 def get_filename(fn):
-    """
-    Resolves a filename relative to the "tests" directory.
-    """
-    abs_fn = fn if os.path.isabs(fn) else os.path.join(this_file_dir, fn)
-    return os.path.realpath(abs_fn)
+    return
 
 
 if __name__ == "__main__":

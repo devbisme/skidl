@@ -55,6 +55,7 @@ from .skidl import (
     POWER,
     backup_parts,
     erc_assert,
+    empty_footprint_handler,
     footprint_search_paths,
     generate_graph,
     generate_netlist,
