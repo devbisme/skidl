@@ -29,8 +29,6 @@ def setup_function(f):
     skidl_lib_dir = os.path.join(this_file_dir, "../..", "src/skidl/libs")
     lib_search_paths[SKIDL].append(skidl_lib_dir)
 
-    spice_lib_dir = os.path.join(this_file_dir, "../test_data/SpiceLib/lib")
-    lib_search_paths[SPICE].append(spice_lib_dir)
     skywater_lib_dir = (
         "/home/devb/tmp/skywater-pdk/libraries/sky130_fd_pr/latest/models"
     )
@@ -48,10 +46,6 @@ def teardown_function(f):
             os.remove(file)
         except Exception:
             pass
-
-
-def get_filename(fn):
-    return
 
 
 if __name__ == "__main__":
