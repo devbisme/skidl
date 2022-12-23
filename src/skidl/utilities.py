@@ -21,6 +21,7 @@ import collections
 import os
 import os.path
 import re
+import sys
 import traceback
 from builtins import chr, dict, int, open, range, str, super
 from collections import namedtuple
@@ -29,17 +30,23 @@ from contextlib import contextmanager
 """Separator for strings containing multiple indices."""
 INDEX_SEPARATOR = re.compile("[, \t]+")
 
+def export_to_all(fn):
+    """Add a function to the __all__ list of this module.
 
-def is_binary_file(filename):
-    """Return true if a file contains binary (non-text) characters."""
-    text_chars = bytearray({7, 8, 9, 10, 12, 13, 27} | set(range(0x20, 0x100)) - {0x7F})
-    try:
-        with open(filename, "rb") as fp:
-            return bool(fp.read(1024).translate(None, text_chars))
-    except (IOError, FileNotFoundError, TypeError):
-        return False
+    Args:
+        fn (function): The function to be added to the __all__ list of this module.
 
+    Returns:
+        function: The function that was passed in.
+    """
+    mod = sys.modules[fn.__module__]
+    if hasattr(mod, '__all__'):
+        mod.__all__.append(fn.__name__)
+    else:
+        mod.__all__ = [fn.__name__]
+    return fn
 
+@export_to_all
 def num_to_chars(num):
     """Return a string like 'AB' when given a number like 28."""
     num -= 1
@@ -50,6 +57,7 @@ def num_to_chars(num):
     return s
 
 
+@export_to_all
 def rmv_quotes(s):
     """Remove starting and ending quotes from a string."""
 
@@ -66,6 +74,7 @@ def rmv_quotes(s):
     return s
 
 
+@export_to_all
 def add_quotes(s):
     """Return string with added quotes if it contains whitespace or parens."""
 
@@ -84,11 +93,13 @@ def add_quotes(s):
     return s
 
 
+@export_to_all
 def cnvt_to_var_name(s):
     """Convert a string to a legal Python variable name and return it."""
     return re.sub(r"\W|^(?=\d)", "_", s)
 
 
+@export_to_all
 def to_list(x):
     """
     Return x if it is already a list, or return a list containing x if x is a scalar.
@@ -98,6 +109,7 @@ def to_list(x):
     return [x]  # Wasn't a list, so make it into one.
 
 
+@export_to_all
 def list_or_scalar(lst):
     """
     Return a list if passed a multi-element list, otherwise return a single scalar.
@@ -120,6 +132,7 @@ def list_or_scalar(lst):
     return lst  # Must have been a scalar, so return that.
 
 
+@export_to_all
 def flatten(nested_list):
     """
     Return a flattened list of items from a nested list.
@@ -134,7 +147,7 @@ def flatten(nested_list):
 
 
 def set_attr(objs, attr, value):
-    """Remove an attribute from a list of objects."""
+    """Set an attribute in a list of objects."""
     try:
         for o in objs:
             setattr(o, attr, value)
@@ -151,6 +164,7 @@ def rmv_attr(objs, attr):
         delattr(obj, attr)
 
 
+@export_to_all
 def add_unique_attr(obj, name, value, check_dup=False):
     """Create an attribute if the attribute name isn't already used."""
     from .logger import active_logger
@@ -173,6 +187,7 @@ def add_unique_attr(obj, name, value, check_dup=False):
         setattr(obj, name, value)
 
 
+@export_to_all
 def from_iadd(objs):
     """Return True if one or more objects have attribute iadd_flag set to True."""
     try:
@@ -184,16 +199,19 @@ def from_iadd(objs):
         return getattr(objs, "iadd_flag", False)
 
 
+@export_to_all
 def set_iadd(objs, value):
     """Set iadd_flag with T/F value for a list of objects."""
     set_attr(objs, "iadd_flag", value)
 
 
+@export_to_all
 def rmv_iadd(objs):
     """Delete iadd_flag attribute from a list of objects."""
     rmv_attr(objs, "iadd_flag")
 
 
+@export_to_all
 def merge_dicts(dct, merge_dct):
     """
     Dict merge that recurses through both dicts and updates keys.
@@ -222,6 +240,7 @@ name_heap = set([None])
 prefix_counts = collections.Counter()
 
 
+@export_to_all
 def reset_get_unique_name():
     """Reset the heaps that store previously-assigned names."""
     global name_heap, prefix_counts
@@ -229,6 +248,7 @@ def reset_get_unique_name():
     prefix_counts = collections.Counter()
 
 
+@export_to_all
 def get_unique_name(lst, attrib, prefix, initial=None):
     """
     Return a name that doesn't collide with another in a list.
@@ -322,11 +342,13 @@ def get_unique_name(lst, attrib, prefix, initial=None):
     return get_unique_name(lst, attrib, prefix, name)
 
 
+@export_to_all
 def fullmatch(regex, string, flags=0):
     """Emulate python-3.4 re.fullmatch()."""
     return re.match("(?:" + regex + r")\Z", string, flags=flags)
 
 
+@export_to_all
 def filter_list(lst, **criteria):
     """
     Return a list of objects whose attributes match a set of criteria.
@@ -437,6 +459,7 @@ def filter_list(lst, **criteria):
     return extract
 
 
+@export_to_all
 def expand_indices(slice_min, slice_max, match_regex, *indices):
     """
     Expand a list of indices into a list of integers and strings.
@@ -573,6 +596,7 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
     return ids
 
 
+@export_to_all
 def expand_buses(pins_nets_buses):
     """
     Take list of pins, nets, and buses and return a list of only pins and nets.
@@ -586,6 +610,7 @@ def expand_buses(pins_nets_buses):
     return pins_nets
 
 
+@export_to_all
 def find_num_copies(**attribs):
     """
     Return the number of copies to make based on the number of attribute values.
@@ -632,6 +657,7 @@ def find_num_copies(**attribs):
         return 0  # If the list if empty.
 
 
+@export_to_all
 def norecurse(f):
     """Decorator that keeps a function from recursively calling itself.
 
@@ -653,6 +679,7 @@ def norecurse(f):
     return func
 
 
+@export_to_all
 class TriggerDict(dict):
     """This dict triggers a function when one of its entries changes."""
 
@@ -671,6 +698,17 @@ class TriggerDict(dict):
         super().__setitem__(k, v)
 
 
+def is_binary_file(filename):
+    """Return true if a file contains binary (non-text) characters."""
+    text_chars = bytearray({7, 8, 9, 10, 12, 13, 27} | set(range(0x20, 0x100)) - {0x7F})
+    try:
+        with open(filename, "rb") as fp:
+            return bool(fp.read(1024).translate(None, text_chars))
+    except (IOError, FileNotFoundError, TypeError):
+        return False
+
+
+@export_to_all
 def find_and_open_file(
     filename, paths=None, ext=None, allow_failure=False, exclude_binary=False, descend=0
 ):
@@ -764,6 +802,7 @@ def find_and_open_file(
         )
 
 
+@export_to_all
 def find_and_read_file(
     filename, paths=None, ext=None, allow_failure=False, exclude_binary=False, descend=0
 ):
@@ -797,6 +836,7 @@ def find_and_read_file(
     return None, None
 
 
+@export_to_all
 @contextmanager
 def opened(f_or_fn, mode):
     """

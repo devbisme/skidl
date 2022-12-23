@@ -58,9 +58,9 @@ skidl.empty_footprint_handler = _empty_footprint_handler
 
 
 def create_output_dir(leaf_dir_name):
-    output_file_root = "schematic_output"
+    output_file_root = "../test_data/schematic_output"
     python_version = ".".join([str(n) for n in sys.version_info[0:3]])
-    output_dir = os.path.join(".", output_file_root, python_version, leaf_dir_name)
+    output_dir = os.path.join(output_file_root, python_version, leaf_dir_name)
     shutil.rmtree(output_dir, ignore_errors=True)
     os.makedirs(output_dir)
     return output_dir

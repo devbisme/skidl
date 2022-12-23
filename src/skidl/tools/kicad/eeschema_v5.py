@@ -21,7 +21,7 @@ from future import standard_library
 
 PIN_LABEL_FONT_SIZE = 50
 from ...schematics.geometry import BBox, Point, Tx, Vector
-from .constants import *
+from .constants import GRID, BLK_INT_PAD, BOX_LABEL_FONT_SIZE
 
 standard_library.install_aliases()
 

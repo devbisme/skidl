@@ -22,8 +22,8 @@ from builtins import open
 
 from future import standard_library
 
-from ..netlist_to_skidl import netlist_to_skidl
-from ..pckg_info import __version__
+from skidl.netlist_to_skidl import netlist_to_skidl
+from skidl.pckg_info import __version__
 
 standard_library.install_aliases()
 

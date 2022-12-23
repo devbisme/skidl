@@ -19,8 +19,6 @@ import sys
 
 from future import standard_library
 
-from .. import circuit, net, part, schlib
-
 standard_library.install_aliases()
 
 # Reference to this module used for insertion of ECAD tool variables.

@@ -25,7 +25,12 @@ from ...logger import active_logger
 from ...net import Net
 from ...part import LIBRARY, Part
 from ...pin import Pin
-from ...utilities import INDEX_SEPARATOR, find_and_open_file, find_and_read_file
+from ...utilities import (
+    INDEX_SEPARATOR,
+    find_and_open_file,
+    find_and_read_file,
+    export_to_all,
+)
 
 standard_library.install_aliases()
 
@@ -43,6 +48,8 @@ except ImportError:
 # that include this module.
 tool_name = "spice"
 lib_suffix = [".lib", ".spice"]
+
+__all__ = ["tool_name", "lib_suffix", "DeviceModel", "XspiceModel", "Parameters"]
 
 
 def _gather_statement(file):
@@ -73,6 +80,7 @@ def _gather_statement(file):
         yield statement.lower().split()
 
 
+@export_to_all
 def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
     """
     Load the .subckt I/O from a SPICE library file.
@@ -210,6 +218,7 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
                     self.add_parts(part)
 
 
+@export_to_all
 def parse_lib_part(self, partial_parse=False):  # pylint: disable=unused-argument
     """
     Create a Part using a part definition from a SPICE library.
@@ -223,6 +232,7 @@ def parse_lib_part(self, partial_parse=False):  # pylint: disable=unused-argumen
 # Classes for device and xspice models.
 
 
+@export_to_all
 class XspiceModel(object):
     """
     Object to hold the parameters for an XSPICE model.
@@ -239,6 +249,7 @@ class XspiceModel(object):
 DeviceModel = XspiceModel
 
 
+@export_to_all
 def gen_netlist(self, **kwargs):
     """
     Return a PySpice Circuit generated from a SKiDL circuit.
@@ -342,6 +353,7 @@ def gen_netlist(self, **kwargs):
     return circuit
 
 
+@export_to_all
 def node(net_pin_part):
     if isinstance(net_pin_part, Net):
         # Replace any special chars in a net name because Spice doesn't like them.
@@ -411,6 +423,7 @@ def _get_kwargs(part, kw):
     return kwargs
 
 
+@export_to_all
 def not_implemented(part, circuit):
     """Unable to add a particular SPICE part to a circuit."""
     active_logger.error(
@@ -418,6 +431,7 @@ def not_implemented(part, circuit):
     )
 
 
+@export_to_all
 def add_part_to_circuit(part, circuit):
     """
     Add a part to a PySpice Circuit object.
@@ -459,6 +473,7 @@ class Parameters(dict):
         return {k: copy(v) for k, v in self}
 
 
+@export_to_all
 def add_subcircuit_to_circuit(part, circuit):
     """
     Add a .SUBCKT part to a PySpice Circuit object.
@@ -484,6 +499,7 @@ def add_subcircuit_to_circuit(part, circuit):
     getattr(circuit, part.pyspice["name"])(*args, **params)
 
 
+@export_to_all
 def add_xspice_to_circuit(part, circuit):
     """
     Add an XSPICE part to a PySpice Circuit object.
@@ -514,6 +530,7 @@ def add_xspice_to_circuit(part, circuit):
     getattr(circuit, part.pyspice["name"])(*args, **kwargs)
 
 
+@export_to_all
 def add_xspice_io(part, io):
     """
     Add XSPICE I/O to the pins of a part.
@@ -544,6 +561,7 @@ def add_xspice_io(part, io):
             part.add_pins(Pin(num=i, name=arg))
 
 
+@export_to_all
 def convert_for_spice(part, spice_part, pin_map):
     """Convert a Part object for use with SPICE.
 

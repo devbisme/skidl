@@ -14,18 +14,16 @@ from __future__ import (  # isort:skip
 )
 
 import os.path
-import re
 import time
-from builtins import dict, int, range, str, zip
-from collections import namedtuple
+from builtins import str
 
 from future import standard_library
 
 from ...logger import active_logger
 from ...pckg_info import __version__
 from ...scriptinfo import get_script_name, scriptinfo
-from ...utilities import *
-from . import constants, v5, v6
+from ...utilities import find_and_open_file, add_quotes, export_to_all
+from . import v5, v6
 
 standard_library.install_aliases()
 
@@ -36,7 +34,10 @@ tool_name = "kicad"
 # lib_suffix = [".kicad_sym", ".lib"]
 lib_suffix = [".lib", ".kicad_sym"]
 
+__all__ = ["tool_name", "lib_suffix"]
 
+
+@export_to_all
 def get_kicad_lib_tbl_dir():
     """Get the path to where the global fp-lib-table file is found."""
 
@@ -55,6 +56,7 @@ def get_kicad_lib_tbl_dir():
     return ""
 
 
+@export_to_all
 def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
     """
     Load the parts from a KiCad schematic library file.
@@ -93,6 +95,7 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
         v5.load_sch_lib(lib, f, filename, lib_search_paths_)
 
 
+@export_to_all
 def parse_lib_part(part, partial_parse=False):
     """
     Create a Part using a part definition from a KiCad schematic library.
@@ -109,6 +112,7 @@ def parse_lib_part(part, partial_parse=False):
         v5.parse_lib_part(part, partial_parse)
 
 
+@export_to_all
 def gen_netlist(circuit):
     """Generate a netlist from a Circuit object.
 
@@ -145,6 +149,7 @@ def gen_netlist(circuit):
     return netlist
 
 
+@export_to_all
 def gen_netlist_comp(part):
     """Generate the netlist text describing a component.
 
@@ -196,6 +201,7 @@ def gen_netlist_comp(part):
     return txt
 
 
+@export_to_all
 def gen_netlist_net(net):
     """Generate the netlist text describing a net.
 
@@ -216,6 +222,7 @@ def gen_netlist_net(net):
     return txt
 
 
+@export_to_all
 def gen_pcb(circuit, pcb_file, fp_libs=None):
     """Create a KiCad PCB file directly from a Circuit object.
 
@@ -243,6 +250,7 @@ def gen_pcb(circuit, pcb_file, fp_libs=None):
         kinet2pcb.kinet2pcb(circuit, pcb_file, fp_libs)
 
 
+@export_to_all
 def gen_xml(circuit):
     """Generate the XML describing a circuit.
 
@@ -281,6 +289,7 @@ def gen_xml(circuit):
     return netlist
 
 
+@export_to_all
 def gen_xml_comp(part):
     """Generate the XML describing a component.
 
@@ -328,6 +337,7 @@ def gen_xml_comp(part):
     return txt
 
 
+@export_to_all
 def gen_xml_net(net):
     code = net.code
     name = net.name
@@ -340,6 +350,7 @@ def gen_xml_net(net):
     return txt
 
 
+@export_to_all
 def gen_svg_comp(part, symtx, net_stubs=None):
     """
     Generate SVG for this component.

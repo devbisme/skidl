@@ -13,19 +13,33 @@ from __future__ import (  # isort:skip
     unicode_literals,
 )
 
+import os
+import re
 from builtins import int, range, zip
+from collections import namedtuple
 
 from future import standard_library
 
 from ...logger import active_logger
 from ...part import LIBRARY
-from ...schematics.geometry import *
-from ...utilities import *
+
+from ...schematics.geometry import (
+    BBox,
+    Point,
+    Vector,
+    tx_rot_90,
+    tx_rot_270,
+    tx_rot_180,
+    tx_rot_0,
+)
+
+from ...utilities import rmv_quotes, find_and_read_file, num_to_chars, export_to_all
 from .constants import HIER_TERM_SIZE, PIN_LABEL_FONT_SIZE
 
 standard_library.install_aliases()
 
 
+@export_to_all
 def load_sch_lib(self, f, filename, lib_search_paths_):
     """
     Load the parts from a KiCad schematic library file.
@@ -141,6 +155,7 @@ def load_sch_lib(self, f, filename, lib_search_paths_):
         part.search_text = "\n".join(search_text_pieces)
 
 
+@export_to_all
 def parse_lib_part(self, partial_parse):
     """
     Create a Part using a part definition from a KiCad schematic library.
@@ -532,6 +547,7 @@ def parse_lib_part(self, partial_parse):
     self.part_defn = None
 
 
+@export_to_all
 def gen_svg_comp(part, symtx, net_stubs=None):
     """
     Generate SVG for this component.
@@ -1156,6 +1172,7 @@ DrawPin = namedtuple(
 )
 
 
+@export_to_all
 def calc_symbol_bbox(part):
     """
     Return the bounding box of the part symbol.
@@ -1337,6 +1354,7 @@ def calc_symbol_bbox(part):
     return unit_bboxes
 
 
+@export_to_all
 def calc_hier_label_bbox(label, dir):
     """Calculate the bounding box for a hierarchical label.
 

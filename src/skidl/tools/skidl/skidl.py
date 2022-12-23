@@ -17,6 +17,8 @@ from builtins import str
 
 from future import standard_library
 
+from ...utilities import export_to_all
+
 standard_library.install_aliases()
 
 
@@ -25,7 +27,10 @@ standard_library.install_aliases()
 tool_name = "skidl"
 lib_suffix = "_sklib.py"
 
+__all__ = ["tool_name", "lib_suffix"]
 
+
+@export_to_all
 def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
     """
     Load the parts from a SKiDL schematic library file.
@@ -74,6 +79,7 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
         raise
 
 
+@export_to_all
 def parse_lib_part(self, partial_parse=False):  # pylint: disable=unused-argument
     """
     Create a Part using a part definition from a SKiDL library.

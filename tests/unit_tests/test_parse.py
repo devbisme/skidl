@@ -5,14 +5,15 @@
 import os.path
 import pytest
 
-from skidl import netlist_to_skidl
+from skidl import netlist_to_skidl, KICAD, lib_search_paths
+from skidl.utilities import find_and_read_file
 
 from .setup_teardown import setup_function, teardown_function
 
 
 def test_parser_1():
-    this_file_dir = os.path.dirname(os.path.abspath(__file__))
-    net_filename = os.path.join(
-        this_file_dir, "..", "test_data", "Arduino_Uno_R3_From_Scratch.net"
+    netlist_to_skidl(
+        find_and_read_file(
+            "Arduino_Uno_R3_From_Scratch.net", paths=lib_search_paths[KICAD]
+        )[0]
     )
-    netlist_to_skidl(net_filename)

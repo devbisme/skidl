@@ -20,11 +20,13 @@ import sexpdata
 from future import standard_library
 
 from ...logger import active_logger
-from ...utilities import *
+
+from ...utilities import num_to_chars, export_to_all
 
 standard_library.install_aliases()
 
 
+@export_to_all
 def load_sch_lib(self, f, filename, lib_search_paths_):
     """
     Load the parts from a KiCad schematic library file.
@@ -117,6 +119,7 @@ def load_sch_lib(self, f, filename, lib_search_paths_):
         )
 
 
+@export_to_all
 def parse_lib_part(self, partial_parse):
     """
     Create a Part using a part definition from a KiCad V6 schematic library.
@@ -300,6 +303,7 @@ def parse_lib_part(self, partial_parse):
     self.part_defn = None
 
 
+@export_to_all
 def gen_svg_comp(part, symtx, net_stubs=None):
     """
     Generate SVG for this component.

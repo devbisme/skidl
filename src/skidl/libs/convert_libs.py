@@ -1,7 +1,7 @@
 import os
 import os.path
 
-from skidl import *
+from skidl import SchLib, KICAD, SKIDL
 
 
 def convert_libs(from_dir, to_dir):
@@ -10,9 +10,13 @@ def convert_libs(from_dir, to_dir):
         print(lib_file)
         basename = os.path.splitext(lib_file)[0]
         lib = SchLib(os.path.join(from_dir, lib_file), tool=KICAD)
-        lib.export(libname=basename, file=os.path.join(to_dir, basename + lib_suffixes[SKIDL]))
+        lib.export(
+            libname=basename, file=os.path.join(to_dir, basename + lib_suffixes[SKIDL])
+        )
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     import skidl.libs
+
     for lib_dir in lib_search_paths[KICAD]:
         convert_libs(lib_dir, skidl.libs.__path__[0])
