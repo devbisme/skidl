@@ -26,6 +26,7 @@ from future import standard_library
 from ..part import Part
 from ..tools.kicad.constants import GRID
 from .geometry import BBox, Point, Segment, Tx, Vector
+from ..utilities import export_to_all
 
 standard_library.install_aliases()
 
@@ -34,6 +35,7 @@ standard_library.install_aliases()
 net_colors = defaultdict(lambda: (randint(0, 200), randint(0, 200), randint(0, 200)))
 
 
+@export_to_all
 def draw_box(bbox, scr, tx, color=(192, 255, 192), thickness=0):
     """Draw a box in the drawing area.
 
@@ -57,6 +59,7 @@ def draw_box(bbox, scr, tx, color=(192, 255, 192), thickness=0):
     pygame.draw.polygon(scr, color, corners, thickness)
 
 
+@export_to_all
 def draw_endpoint(pt, scr, tx, color=(100, 100, 100), dot_radius=10):
     """Draw a line segment endpoint in the drawing area.
 
@@ -85,6 +88,7 @@ def draw_endpoint(pt, scr, tx, color=(100, 100, 100), dot_radius=10):
     pygame.draw.circle(scr, color, (pt.x, pt.y), radius)
 
 
+@export_to_all
 def draw_seg(seg, scr, tx, color=(100, 100, 100), thickness=5, dot_radius=10):
     """Draw a line segment in the drawing area.
 
@@ -116,6 +120,7 @@ def draw_seg(seg, scr, tx, color=(100, 100, 100), thickness=5, dot_radius=10):
     )
 
 
+@export_to_all
 def draw_text(txt, pt, scr, tx, font, color=(100, 100, 100)):
     """Render text in drawing area.
 
@@ -135,6 +140,7 @@ def draw_text(txt, pt, scr, tx, font, color=(100, 100, 100)):
     font.render_to(scr, (pt.x, pt.y), txt, color)
 
 
+@export_to_all
 def draw_part(part, scr, tx, font):
     """Draw part bounding box.
 
@@ -150,6 +156,7 @@ def draw_part(part, scr, tx, font):
     draw_text(part.ref, tx_bbox.ctr, scr, tx, font)
 
 
+@export_to_all
 def draw_net(net, parts, scr, tx, font, color=(0, 0, 0), thickness=2, dot_radius=5):
     """Draw net and connected terminals.
 
@@ -180,6 +187,7 @@ def draw_net(net, parts, scr, tx, font, color=(0, 0, 0), thickness=2, dot_radius
         )
 
 
+@export_to_all
 def draw_force(part, force, scr, tx, font, color=(128, 0, 0)):
     """Draw force vector affecting a part.
 
@@ -198,6 +206,7 @@ def draw_force(part, force, scr, tx, font, color=(128, 0, 0)):
     )
 
 
+@export_to_all
 def draw_placement(parts, nets, scr, tx, font):
     """Draw placement of parts and interconnecting nets.
 
@@ -216,6 +225,7 @@ def draw_placement(parts, nets, scr, tx, font):
     draw_redraw()
 
 
+@export_to_all
 def draw_clear(scr, color=(255, 255, 255)):
     """Clear drawing area.
 
@@ -226,6 +236,7 @@ def draw_clear(scr, color=(255, 255, 255)):
     scr.fill(color)
 
 
+@export_to_all
 def draw_start(bbox):
     """
     Initialize PyGame drawing area.
@@ -284,11 +295,13 @@ def draw_start(bbox):
     return scr, tx, font
 
 
+@export_to_all
 def draw_redraw():
     """Redraw the PyGame display."""
     pygame.display.flip()
 
 
+@export_to_all
 def draw_end():
     """Display drawing and wait for user to close PyGame window."""
 

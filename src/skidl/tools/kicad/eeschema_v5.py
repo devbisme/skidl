@@ -19,9 +19,9 @@ from collections import OrderedDict
 
 from future import standard_library
 
-PIN_LABEL_FONT_SIZE = 50
 from ...schematics.geometry import BBox, Point, Tx, Vector
-from .constants import GRID, BLK_INT_PAD, BOX_LABEL_FONT_SIZE
+from .constants import GRID, BLK_INT_PAD, BOX_LABEL_FONT_SIZE, PIN_LABEL_FONT_SIZE
+from ...utilities import export_to_all
 
 standard_library.install_aliases()
 
@@ -37,6 +37,7 @@ Functions for generating a KiCad EESCHEMA schematic.
 """
 
 
+@export_to_all
 def bbox_to_eeschema(bbox, tx, name=None):
     """Create a bounding box using EESCHEMA graphic lines."""
 
@@ -326,6 +327,7 @@ def calc_pin_dir(pin):
     }[pin_vector]
 
 
+@export_to_all
 def pin_label_to_eeschema(pin, tx):
     """Create EESCHEMA text of net label attached to a pin."""
 
@@ -407,6 +409,7 @@ def create_eeschema_file(
         )
 
 
+@export_to_all
 class Eeschema_V5:
     """Mixin to add EESCHEMA V5 file creation to the Node class."""
 

@@ -18,10 +18,12 @@ from builtins import super
 from future import standard_library
 
 from .logger import active_logger
+from .utilities import export_to_all
 
 standard_library.install_aliases()
 
 
+@export_to_all
 class Network(list):
     def __init__(self, *objs):
         """Create a Network object from a list of pins, nets, and parts."""
@@ -105,6 +107,7 @@ class Network(list):
         return self
 
 
+@export_to_all
 def tee(ntwk):
     """
     Create a network "tee" by returning the first terminal of a Network object.

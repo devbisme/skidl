@@ -18,10 +18,12 @@ from builtins import range
 from future import standard_library
 
 from .logger import active_logger
+from .utilities import export_to_all
 
 standard_library.install_aliases()
 
 
+@export_to_all
 def dflt_circuit_erc(circuit):
     """
     Do an electrical rules check on a circuit.
@@ -45,6 +47,7 @@ def dflt_circuit_erc(circuit):
         piece.ERC()
 
 
+@export_to_all
 def dflt_part_erc(part):
     """
     Do an electrical rules check on a part in the schematic.
@@ -78,6 +81,7 @@ def dflt_part_erc(part):
                 )
 
 
+@export_to_all
 def dflt_net_erc(net):
     """
     Do electrical rules check on a net in the schematic.

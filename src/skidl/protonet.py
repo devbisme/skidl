@@ -22,11 +22,12 @@ from .net import Net
 from .network import Network
 from .pin import Pin
 from .skidlbaseobj import SkidlBaseObject
-from .utilities import expand_buses, flatten
+from .utilities import expand_buses, flatten, export_to_all
 
 standard_library.install_aliases()
 
 
+@export_to_all
 class ProtoNet(SkidlBaseObject):
     def __init__(self, name=None, circuit=None):
         super().__init__()

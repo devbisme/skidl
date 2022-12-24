@@ -21,10 +21,12 @@ from future import standard_library
 from kinparse import parse_netlist
 
 from .part import TEMPLATE
+from .utilities import export_to_all
 
 standard_library.install_aliases()
 
 
+@export_to_all
 def netlist_to_skidl(netlist_src):
 
     tab = " " * 4

@@ -20,9 +20,12 @@ from builtins import str
 
 from future import standard_library
 
+from .utilities import export_to_all
+
 standard_library.install_aliases()
 
 
+@export_to_all
 def scriptinfo():
     """
     Returns a dictionary with information about the running top level Python
@@ -69,11 +72,13 @@ def scriptinfo():
     return scr_dict
 
 
+@export_to_all
 def get_script_name():
     """Return the name of the top-level script."""
     return os.path.splitext(scriptinfo()["name"])[0]
 
 
+@export_to_all
 def get_skidl_trace():
     """
     Return a list containing the source line trace where a SKiDL object was instantiated.

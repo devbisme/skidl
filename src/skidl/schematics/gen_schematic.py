@@ -27,6 +27,7 @@ from ..tools.kicad.v5 import calc_hier_label_bbox, calc_symbol_bbox
 from .geometry import BBox, Point, Tx, Vector
 from .place import Placer
 from .route import Router
+from ..utilities import export_to_all
 
 standard_library.install_aliases()
 
@@ -242,6 +243,7 @@ class NetTerminal(Part):
         # return pin_label_to_eeschema(self.pins[0], tx) + bbox_to_eeschema(self.bbox, self.tx * tx)
 
 
+@export_to_all
 class Node(Placer, Router, Eeschema_V5):
     """Data structure for holding information about a node in the circuit hierarchy."""
 
@@ -535,6 +537,7 @@ class Node(Placer, Router, Eeschema_V5):
         return [pin for pin in net.pins if pin.stub is False and pin.part in self.parts]
 
 
+@export_to_all
 def gen_schematic(
     circuit,
     filepath=".",

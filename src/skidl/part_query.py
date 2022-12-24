@@ -21,9 +21,12 @@ from builtins import open, super
 from future import standard_library
 
 from .logger import active_logger
-from .utilities import to_list
+from .utilities import to_list, export_to_all
 
 standard_library.install_aliases()
+
+__all__ = ["search", "show"]
+
 
 # TODO: Use push-down automata to parse nested parenthetical expression
 #       of AND/OR clauses for use in advanced part searching.
@@ -53,6 +56,7 @@ def parse_search_terms(terms):
     return terms
 
 
+@export_to_all
 def search_parts_iter(terms, tool=None):
     """Return a list of (lib, part) sequences that match a regex term."""
 
@@ -117,6 +121,7 @@ def search_parts_iter(terms, tool=None):
                 yield "PART", lib_file, part, alias
 
 
+@export_to_all
 def search_parts(terms, tool=None):
     """
     Print a list of parts with the regex terms within their name, alias, description or keywords.
@@ -139,6 +144,7 @@ def search_parts(terms, tool=None):
         )
 
 
+@export_to_all
 def show_part(lib, part_name, tool=None):
     """
     Print the I/O pins for a given part in a library.
@@ -278,6 +284,7 @@ class FootprintCache(dict):
 footprint_cache = FootprintCache()
 
 
+@export_to_all
 def search_footprints_iter(terms, tool=None):
     """Return a list of (lib, footprint) sequences that match a regex term."""
 
@@ -361,6 +368,7 @@ def search_footprints_iter(terms, tool=None):
     footprint_cache.valid = True
 
 
+@export_to_all
 def search_footprints(terms, tool=None):
     """
     Print a list of footprints with the regex term within their description/tags.
@@ -392,6 +400,7 @@ def search_footprints(terms, tool=None):
         print("{}: {} ({} - {})".format(lib_file, module_name, descr, tags))
 
 
+@export_to_all
 def show_footprint(lib, module_name, tool=None):
     """
     Print the pads for a given module in a library.

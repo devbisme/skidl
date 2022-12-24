@@ -38,6 +38,7 @@ from .scriptinfo import get_script_name, get_skidl_trace
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import (
     expand_buses,
+    export_to_all,
     flatten,
     num_to_chars,
     opened,
@@ -50,6 +51,10 @@ standard_library.install_aliases()
 HIER_SEP = "."  # Separator for hierarchy labels.
 
 
+__all__ = ["HIER_SEP"]
+
+
+@export_to_all
 class Circuit(SkidlBaseObject):
     """
     Class object that holds the entire netlist of parts and nets.

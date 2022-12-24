@@ -13,11 +13,6 @@ from __future__ import (  # isort:skip
     unicode_literals,
 )
 
-__all__ = [
-    "Placer",
-    "PlacementFailure",
-]
-
 import functools
 import itertools
 import math
@@ -33,8 +28,14 @@ from ..circuit import Circuit
 from ..pin import Pin
 from .debug_draw import draw_end, draw_placement, draw_start
 from .geometry import BBox, Point, Tx, Vector
+from ..utilities import export_to_all
 
 standard_library.install_aliases()
+
+__all__ = [
+    "PlacementFailure",
+]
+
 
 ###################################################################
 #
@@ -1041,6 +1042,7 @@ def place_blocks(connected_parts, floating_parts, children, options):
                 part.tx = part.tx * blk.tx
 
 
+@export_to_all
 class Placer:
     """Mixin to add place function to Node class."""
 

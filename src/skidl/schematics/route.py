@@ -13,11 +13,6 @@ from __future__ import (  # isort:skip
     unicode_literals,
 )
 
-__all__ = [
-    "Router",
-    "RoutingFailure",
-]
-
 import sys
 from builtins import range, super, zip
 from collections import defaultdict
@@ -31,8 +26,14 @@ from ..circuit import Circuit
 from ..part import Part
 from .debug_draw import draw_end, draw_endpoint, draw_part, draw_seg, draw_start
 from .geometry import BBox, Point, Segment, Tx, Vector
+from ..utilities import export_to_all
 
 standard_library.install_aliases()
+
+__all__ = [
+    "RoutingFailure",
+]
+
 
 ###################################################################
 #
@@ -1582,6 +1583,7 @@ class SwitchBox:
                     elif track_nets[end] is net:
                         row = end
 
+                # FIXME: Sometimes (rarely), row is not defined before it's used here.
                 next_track_nets[row] = net
 
             return next_track_nets
@@ -1800,6 +1802,7 @@ def switchbox_router(switchboxes, wires):
             wires[net].extend(segments)
 
 
+@export_to_all
 class Router:
     """Mixin to add routing function to Node class."""
 

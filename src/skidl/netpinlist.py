@@ -23,11 +23,12 @@ from .net import Net
 from .network import Network
 from .pin import Pin
 from .protonet import ProtoNet
-from .utilities import expand_buses, flatten, set_iadd
+from .utilities import expand_buses, flatten, set_iadd, export_to_all
 
 standard_library.install_aliases()
 
 
+@export_to_all
 class NetPinList(list):
     def __iadd__(self, *nets_pins_buses):
         nets_pins_a = expand_buses(self)

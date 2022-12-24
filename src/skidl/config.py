@@ -24,11 +24,12 @@ from .logger import active_logger
 from .part_query import footprint_cache
 from .tools import ALL_TOOLS, KICAD, SKIDL
 from .tools.kicad import get_kicad_lib_tbl_dir
-from .utilities import TriggerDict, merge_dicts
+from .utilities import TriggerDict, merge_dicts, export_to_all
 
 standard_library.install_aliases()
 
 
+@export_to_all
 class Config(dict):
     """Class for handling configuration parameters."""
 
@@ -70,6 +71,7 @@ class Config(dict):
             json.dump(self, cfg_fp, indent=4)
 
 
+@export_to_all
 class SkidlConfig(Config):
     """Config specialized for SKiDL configuration files."""
 

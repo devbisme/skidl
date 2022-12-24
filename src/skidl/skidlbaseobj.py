@@ -22,12 +22,16 @@ from future import standard_library
 
 from .alias import Alias
 from .note import Note
+from .utilities import export_to_all
 
 standard_library.install_aliases()
+
+__all__ = ["OK", "WARNING", "ERROR"]
 
 OK, WARNING, ERROR = list(range(3))
 
 
+@export_to_all
 class SkidlBaseObject(object):
 
     # These are fallback lists so every object will have them to reference.

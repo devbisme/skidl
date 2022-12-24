@@ -18,11 +18,12 @@ from builtins import str, super
 
 from future import standard_library
 
-from .utilities import flatten
+from .utilities import flatten, export_to_all
 
 standard_library.install_aliases()
 
 
+@export_to_all
 class Alias(set):
     """
     Multiple aliases can be added to another object to give it other names.

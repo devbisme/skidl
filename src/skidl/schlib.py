@@ -20,11 +20,19 @@ from future import standard_library
 
 from .alias import Alias
 from .logger import active_logger
-from .utilities import cnvt_to_var_name, filter_list, flatten, list_or_scalar, opened
+from .utilities import (
+    cnvt_to_var_name,
+    filter_list,
+    flatten,
+    list_or_scalar,
+    opened,
+    export_to_all,
+)
 
 standard_library.install_aliases()
 
 
+@export_to_all
 class SchLib(object):
     """
     A class for storing parts from a schematic component library file.

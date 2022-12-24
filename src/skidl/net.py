@@ -26,6 +26,7 @@ from .skidlbaseobj import SkidlBaseObject
 from .utilities import (
     expand_buses,
     expand_indices,
+    export_to_all,
     filter_list,
     find_num_copies,
     flatten,
@@ -37,12 +38,15 @@ from .utilities import (
 
 standard_library.install_aliases()
 
+__all__ = ["NET_PREFIX"]
+
 # Prefix for implicit nets.
 NET_PREFIX = "N$"
 
 Traversal = collections.namedtuple("Traversal", ["nets", "pins"])
 
 
+@export_to_all
 class Net(SkidlBaseObject):
     """
     Lists of connected pins are stored as nets using this class.
@@ -856,6 +860,7 @@ class Net(SkidlBaseObject):
     __nonzero__ = __bool__  # Python 2 compatibility.
 
 
+@export_to_all
 class NCNet(Net):
     """
     Lists of unconnected pins are stored using this Net subclass.

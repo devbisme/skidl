@@ -19,9 +19,14 @@ from collections import Counter
 
 from future import standard_library
 
+from .utilities import export_to_all
+
 standard_library.install_aliases()
 
+__all__ = ["subcircuit"]
 
+
+@export_to_all
 class Group:
     """Class that supports hierarchical grouping of circuit parts and nets."""
 
@@ -42,6 +47,7 @@ class Group:
         self.circuit.deactivate()
 
 
+@export_to_all
 def SubCircuit(f):
     """
     A @SubCircuit decorator is used to create hierarchical circuits.

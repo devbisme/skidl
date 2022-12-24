@@ -27,8 +27,12 @@ from builtins import chr, dict, int, open, range, str, super
 from collections import namedtuple
 from contextlib import contextmanager
 
+__all__ = ["INDEX_SEPARATOR"]
+
+
 """Separator for strings containing multiple indices."""
 INDEX_SEPARATOR = re.compile("[, \t]+")
+
 
 def export_to_all(fn):
     """Add a function to the __all__ list of this module.
@@ -40,11 +44,12 @@ def export_to_all(fn):
         function: The function that was passed in.
     """
     mod = sys.modules[fn.__module__]
-    if hasattr(mod, '__all__'):
+    if hasattr(mod, "__all__"):
         mod.__all__.append(fn.__name__)
     else:
         mod.__all__ = [fn.__name__]
     return fn
+
 
 @export_to_all
 def num_to_chars(num):

@@ -27,6 +27,7 @@ from .skidlbaseobj import SkidlBaseObject
 from .utilities import (
     add_unique_attr,
     expand_indices,
+    export_to_all,
     filter_list,
     find_num_copies,
     flatten,
@@ -38,6 +39,8 @@ from .utilities import (
 )
 
 standard_library.install_aliases()
+
+__all__ = ["NETLIST", "LIBRARY", "TEMPLATE", "PartTmplt"]
 
 
 try:
@@ -103,6 +106,7 @@ class PinNameSearch(object):
         self.part.__setitem__(ids, *pins_nets_buses)
 
 
+@export_to_all
 class Part(SkidlBaseObject):
     """
     A class for storing a definition of a schematic part.
@@ -1231,6 +1235,7 @@ PartTmplt = functools.partial(Part, dest=TEMPLATE)
 ##############################################################################
 
 
+@export_to_all
 class SkidlPart(Part):
     """
     A class for storing a SKiDL definition of a schematic part. It's identical
@@ -1253,6 +1258,7 @@ class SkidlPart(Part):
 ##############################################################################
 
 
+@export_to_all
 class PartUnit(Part):
     """
     Create a PartUnit from a set of pins in a Part object.
@@ -1363,6 +1369,7 @@ class PartUnit(Part):
 ##############################################################################
 
 
+@export_to_all
 def default_empty_footprint_handler(part):
     """Handle the situation of a Part with no footprint when generating netlist/PCB.
 

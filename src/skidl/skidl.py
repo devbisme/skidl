@@ -22,9 +22,30 @@ from .logger import get_script_name, stop_log_file_output
 from .part import default_empty_footprint_handler
 from .pin import Pin
 from .tools import KICAD, SKIDL, lib_suffixes
-from .utilities import norecurse
+from .utilities import norecurse, export_to_all
 
 standard_library.install_aliases()
+
+__all__ = [
+    "skidl_cfg",
+    "lib_search_paths",
+    "footprint_search_paths",
+    "BACKUP_LIB_NAME",
+    "BACKUP_LIB_FILE_NAME",
+    "QUERY_BACKUP_LIB",
+    "ERC",
+    "erc_assert",
+    "generate_netlist",
+    "generate_pcb",
+    "generate_xml",
+    "generate_schematic",
+    "generate_svg",
+    "generate_graph",
+    "reset",
+    "backup_parts",
+    "empty_footprint_handler",
+    "POWER",
+]
 
 try:
     # Set char encoding to UTF-8 in Python 2.
@@ -44,12 +65,14 @@ skidl_cfg = SkidlConfig()
 lib_search_paths = skidl_cfg["lib_search_paths"]
 footprint_search_paths = skidl_cfg["footprint_search_paths"]
 
-# Set default toolset being used with SKiDL.
+
+@export_to_all
 def set_default_tool(tool):
     """Set the ECAD tool that will be used by default."""
     skidl_cfg["default_tool"] = tool
 
 
+@export_to_all
 def get_default_tool():
     return skidl_cfg["default_tool"]
 
@@ -65,12 +88,14 @@ BACKUP_LIB_FILE_NAME = BACKUP_LIB_NAME + lib_suffixes[SKIDL]
 QUERY_BACKUP_LIB = INITIAL_QUERY_BACKUP_LIB = True
 
 
+@export_to_all
 def set_query_backup_lib(val):
     """Set the boolean that controls searching for the backup library."""
     global QUERY_BACKUP_LIB
     QUERY_BACKUP_LIB = val
 
 
+@export_to_all
 def get_query_backup_lib():
     return QUERY_BACKUP_LIB
 
@@ -79,16 +104,19 @@ def get_query_backup_lib():
 backup_lib = None
 
 
+@export_to_all
 def set_backup_lib(lib):
     """Set the backup library."""
     global backup_lib
     backup_lib = lib
 
 
+@export_to_all
 def get_backup_lib():
     return backup_lib
 
 
+@export_to_all
 @norecurse
 def load_backup_lib():
     """Load a backup library that stores the parts used in the circuit."""
@@ -133,6 +161,7 @@ empty_footprint_handler = default_empty_footprint_handler
 POWER = Pin.drives.POWER
 
 
+@export_to_all
 def no_files(circuit=default_circuit):
     """Prevent creation of output files (netlists, ERC, logs) by this Circuit object."""
     circuit.no_files = True

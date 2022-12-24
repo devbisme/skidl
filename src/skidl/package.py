@@ -24,10 +24,12 @@ from .interface import Interface
 from .net import Net
 from .part import NETLIST
 from .protonet import ProtoNet
+from .utilities import export_to_all
 
 standard_library.install_aliases()
 
 
+@export_to_all
 class Package(Interface):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -94,6 +96,7 @@ class Package(Interface):
         return True  # Every object in the Interface that could move was movable.
 
 
+@export_to_all
 def package(subcirc_func):
     """Decorator that creates a package for a subcircuit routine."""
 

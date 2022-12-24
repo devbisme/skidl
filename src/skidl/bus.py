@@ -27,6 +27,7 @@ from .pin import Pin
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import (
     expand_indices,
+    export_to_all,
     filter_list,
     find_num_copies,
     flatten,
@@ -43,6 +44,10 @@ BUS_PREFIX = "B$"
 standard_library.install_aliases()
 
 
+__all__ = ["BUS_PREFIX"]
+
+
+@export_to_all
 class Bus(SkidlBaseObject):
     """
     This class collects one or more nets into a group that can be indexed.

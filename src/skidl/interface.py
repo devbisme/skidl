@@ -26,6 +26,7 @@ from .protonet import ProtoNet
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import (
     expand_indices,
+    export_to_all,
     filter_list,
     from_iadd,
     list_or_scalar,
@@ -36,6 +37,7 @@ from .utilities import (
 standard_library.install_aliases()
 
 
+@export_to_all
 class Interface(dict):
     """
     An Interface bundles a group of nets/buses into a single entity with each

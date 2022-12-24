@@ -17,9 +17,12 @@ from builtins import str, super
 
 from future import standard_library
 
+from .utilities import export_to_all
+
 standard_library.install_aliases()
 
 
+@export_to_all
 class Note(list):
     """Stores one or more strings as notes."""
 

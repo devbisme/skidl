@@ -29,6 +29,7 @@ from .skidlbaseobj import ERROR, OK, WARNING, SkidlBaseObject
 from .utilities import (
     expand_buses,
     expand_indices,
+    export_to_all,
     find_num_copies,
     flatten,
     from_iadd,
@@ -40,6 +41,7 @@ from .utilities import (
 standard_library.install_aliases()
 
 
+@export_to_all
 @total_ordering
 class Pin(SkidlBaseObject):
     """
@@ -711,6 +713,7 @@ class Pin(SkidlBaseObject):
 ##############################################################################
 
 
+@export_to_all
 class PhantomPin(Pin):
     """
     A pin type that exists solely to tie two pinless nets together.

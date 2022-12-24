@@ -16,10 +16,12 @@ from builtins import object, str
 from future import standard_library
 
 from .logger import active_logger
+from .utilities import export_to_all
 
 standard_library.install_aliases()
 
 
+@export_to_all
 class NetClass(object):
     def __init__(self, name, **attribs):
 

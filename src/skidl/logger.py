@@ -23,8 +23,11 @@ from future import standard_library
 
 from .scriptinfo import get_script_name, get_skidl_trace
 from .skidlbaseobj import WARNING
+from .utilities import export_to_all
 
 standard_library.install_aliases()
+
+__all__ = ["rt_logger", "erc_logger", "active_logger"]
 
 
 class CountCalls(object):
@@ -224,6 +227,7 @@ def _create_logger(title, log_msg_id="", log_file_suffix=".log"):
     return logger
 
 
+@export_to_all
 def stop_log_file_output():
     """Stop loggers from creating files containing log messages."""
     rt_logger.stop_file_output()
