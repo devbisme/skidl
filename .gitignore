@@ -40,7 +40,8 @@ htmlcov
 
 # Directories
 docs/
-tests/schematic_output/
+docsrc/sphinx/rst_output/
+tests/test_data/schematic_output/
 **/\.ipynb_checkpoints/
 
 # Mr Developer
