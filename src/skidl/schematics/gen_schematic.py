@@ -196,7 +196,7 @@ class NetTerminal(Part):
         """
 
         # FIXME: Unnecessary jogs in NetTerminal wiring.
-        # TODO: Net labels in other orientations than just to the left.
+        # TODO: Create net labels that point in other orientations than just to the left.
 
         # Create a Part.
         from ..skidl import SKIDL

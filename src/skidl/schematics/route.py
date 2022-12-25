@@ -113,6 +113,7 @@ class TerminalClashException(Exception):
 
 
 # TODO: Define child classes for different types of routing failures.
+# TODO: When RoutingFailure occurs, expand part bboxes, redo placement, and reroute.
 class RoutingFailure(Exception):
     """Exception raised when a net connecting terminals cannot be routed."""
 
