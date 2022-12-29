@@ -1729,80 +1729,6 @@ class SwitchBox:
             draw_end()
 
 
-def create_switchboxes(h_tracks, v_tracks):
-    """Create routing switchboxes from the faces in the horz/vert tracks.
-
-    Args:
-        h_tracks (list): List of horizontal Tracks.
-        v_tracks (list): List of vertical Tracks.
-
-    Returns:
-        list: List of Switchboxes.
-    """
-
-    # Clear any switchboxes associated with faces because we'll be making new ones.
-    for track in h_tracks + v_tracks:
-        for face in track:
-            face.switchboxes.clear()
-
-    # For each horizontal Face, create a switchbox where it is the top face of the box.
-    switchboxes = []
-    for h_track in h_tracks[1:]:
-        for face in h_track:
-            try:
-                # Create a Switchbox with the given Face on top and add it to the list.
-                switchboxes.append(SwitchBox(face))
-            except NoSwitchBox:
-                continue
-
-    # Check the switchboxes for problems.
-    for swbx in switchboxes:
-        swbx.audit()
-
-    # Small switchboxes are more likely to fail routing so try to combine them into larger switchboxes.
-    # Use switchboxes containing nets for routing as seeds for coalescing into larger switchboxes.
-    seeds = [swbx for swbx in switchboxes if swbx.has_nets()]
-
-    # Sort seeds by perimeter so smaller ones are coalesced before larger ones.
-    seeds.sort(key=lambda swbx: swbx.bbox.w + swbx.bbox.h)
-
-    # Coalesce smaller switchboxes into larger ones having more routing area.
-    # The smaller switchboxes are removed from the list of switchboxes.
-    switchboxes = [seed.coalesce(switchboxes) for seed in seeds]
-    switchboxes = [swbx for swbx in switchboxes if swbx]  # Remove None boxes.
-
-    return switchboxes
-
-
-def switchbox_router(switchboxes, wires):
-    """Create detailed wiring between the terminals along the sides of each switchbox.
-
-    Args:
-        switchboxes (list): List of SwitchBox objects to be individually routed.
-        wires (dict): Dictionary of lists of GlobalWires indexed by net names.
-
-    Returns:
-        None
-    """
-
-    # Do detailed routing inside each switchbox.
-    for swbx in switchboxes:
-
-        try:
-            # Try routing switchbox from left-to-right.
-            swbx.route(options=[])
-
-        except RoutingFailure:
-            # Routing failed, so try routing top-to-bottom instead.
-            swbx.flip_xy()
-            swbx.route(options=["allow_routing_failure"])
-            swbx.flip_xy()
-
-        # Add switchbox routes any existing wiring.
-        for net, segments in swbx.segments.items():
-            wires[net].extend(segments)
-
-
 @export_to_all
 class Router:
     """Mixin to add routing function to Node class."""
@@ -2313,6 +2239,80 @@ class Router:
 
         return global_routes
 
+    def create_switchboxes(node, h_tracks, v_tracks):
+        """Create routing switchboxes from the faces in the horz/vert tracks.
+
+        Args:
+            h_tracks (list): List of horizontal Tracks.
+            v_tracks (list): List of vertical Tracks.
+
+        Returns:
+            list: List of Switchboxes.
+        """
+
+        # Clear any switchboxes associated with faces because we'll be making new ones.
+        for track in h_tracks + v_tracks:
+            for face in track:
+                face.switchboxes.clear()
+
+        # For each horizontal Face, create a switchbox where it is the top face of the box.
+        switchboxes = []
+        for h_track in h_tracks[1:]:
+            for face in h_track:
+                try:
+                    # Create a Switchbox with the given Face on top and add it to the list.
+                    switchboxes.append(SwitchBox(face))
+                except NoSwitchBox:
+                    continue
+
+        # Check the switchboxes for problems.
+        for swbx in switchboxes:
+            swbx.audit()
+
+        # Small switchboxes are more likely to fail routing so try to combine them into larger switchboxes.
+        # Use switchboxes containing nets for routing as seeds for coalescing into larger switchboxes.
+        seeds = [swbx for swbx in switchboxes if swbx.has_nets()]
+
+        # Sort seeds by perimeter so smaller ones are coalesced before larger ones.
+        seeds.sort(key=lambda swbx: swbx.bbox.w + swbx.bbox.h)
+
+        # Coalesce smaller switchboxes into larger ones having more routing area.
+        # The smaller switchboxes are removed from the list of switchboxes.
+        switchboxes = [seed.coalesce(switchboxes) for seed in seeds]
+        switchboxes = [swbx for swbx in switchboxes if swbx]  # Remove None boxes.
+
+        return switchboxes
+
+
+    def switchbox_router(node, switchboxes):
+        """Create detailed wiring between the terminals along the sides of each switchbox.
+
+        Args:
+            switchboxes (list): List of SwitchBox objects to be individually routed.
+            wires (dict): Dictionary of lists of GlobalWires indexed by net names.
+
+        Returns:
+            None
+        """
+
+        # Do detailed routing inside each switchbox.
+        # TODO: Switchboxes are independent so could they be routed in parallel?
+        for swbx in switchboxes:
+
+            try:
+                # Try routing switchbox from left-to-right.
+                swbx.route(options=[])
+
+            except RoutingFailure:
+                # Routing failed, so try routing top-to-bottom instead.
+                swbx.flip_xy()
+                swbx.route(options=["allow_routing_failure"])
+                swbx.flip_xy()
+
+            # Add switchbox routes any existing wiring.
+            for net, segments in swbx.segments.items():
+                node.wires[net].extend(segments)
+
     def route(node, tool=None, options=[]):
         # def route(node, options=["draw"]):
         # def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
@@ -2340,6 +2340,7 @@ class Router:
         this_module.__dict__.update(tool_modules[tool].constants.__dict__)
 
         # First, recursively route any children of this node.
+        # TODO: Child nodes are independent so could they be processed in parallel?
         for child in node.children.values():
             child.route()
 
@@ -2385,8 +2386,8 @@ class Router:
         )
 
         # Create detailed wiring using switchbox routing for the global routes.
-        switchboxes = create_switchboxes(h_tracks, v_tracks)
-        switchbox_router(switchboxes, node.wires)
+        switchboxes = node.create_switchboxes(h_tracks, v_tracks)
+        node.switchbox_router(switchboxes)
 
         # Now clean-up the wires and add junctions.
         node.cleanup_wires()
