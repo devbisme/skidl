@@ -61,7 +61,7 @@ def random_placement(parts):
     area = 0
     for part in parts:
         area += part.place_bbox.area
-    side = 3 * math.sqrt(area)  # Multiplier is ad-hoc.
+    side = 3 * math.sqrt(area)  # FIXME: Multiplier is ad-hoc.
 
     # Place parts randomly within area.
     for part in parts:
@@ -712,341 +712,343 @@ def evolve_placement(parts, nets, force_func, speed, scr=None, tx=None, font=Non
     slip_and_slide(parts, nets, scr, tx, font)
 
 
-def group_parts(node, options=[]):
-    """Group parts in the Node that are connected by internal nets
-
-    Args:
-        node (Node): Node with parts.
-        options (list, optional): List of option strings. Defaults to [].
-
-    Returns:
-        list: List of lists of Parts that are connected.
-        list: List of internal nets connecting parts.
-        list: List of Parts that are not connected to anything (floating).
-    """
-
-    if not node.parts:
-        return [], [], []
-
-    # Extract list of nets having at least one pin in the node.
-    internal_nets = node.get_internal_nets()
-
-    # Remove some nets according to options.
-    if "remove_power" in options:
-
-        def is_pwr(net):
-            return (
-                net.netclass == "Power"
-                or "vcc" in net.name.lower()
-                or "gnd" in net.name.lower()
-            )
-
-        internal_nets = [net for net in internal_nets if not is_pwr(net)]
-
-    if "remove_high_fanout" in options:
-        import statistics
-
-        fanouts = [len(net) for net in internal_nets]
-        try:
-            fanout_mean = statistics.mean(fanouts)
-            fanout_stdev = statistics.stdev(fanouts)
-        except statistics.StatisticsError:
-            pass
-        else:
-            fanout_threshold = fanout_mean + 2 * fanout_stdev
-            internal_nets = [
-                net for net in internal_nets if len(net) < fanout_threshold
-            ]
-
-    # Group all the parts that have some interconnection to each other.
-    # Start with groups of parts on each individual net.
-    connected_parts = [
-        set(pin.part for pin in net.pins if pin.part in node.parts)
-        for net in internal_nets
-    ]
-
-    # Now join groups that have parts in common.
-    for i in range(len(connected_parts) - 1):
-        group1 = connected_parts[i]
-        for j in range(i + 1, len(connected_parts)):
-            group2 = connected_parts[j]
-            if group1 & group2:
-                # If part groups intersect, collect union of parts into one group
-                # and empty-out the other.
-                connected_parts[j] = connected_parts[i] | connected_parts[j]
-                connected_parts[i] = set()
-                # No need to check against group1 any more since it has been
-                # unioned into group2 that will be checked later in the loop.
-                break
-
-    # Remove any empty groups that were unioned into other groups.
-    connected_parts = [group for group in connected_parts if group]
-
-    # Find parts that aren't connected to anything.
-    floating_parts = set(node.parts) - set(itertools.chain(*connected_parts))
-
-    return connected_parts, internal_nets, floating_parts
-
-
-speed = 0.25
-speed_mult = 2.0
-
-
-def place_parts(connected_parts, internal_nets, floating_parts, options):
-    """Place individual parts.
-
-    Args:
-        connected_parts (list): List of Part sets connected by nets.
-        internal_nets (list): List of Nets connecting parts.
-        floating_parts (set): Set of Parts not connected by any of the internal nets.
-        options (list): List of strings that enable/disable functions.
-
-    Returns:
-        tuple: Connected and floating parts with placement information.
-    """
-
-    # Place each group of connected parts.
-    for group in connected_parts:
-
-        group = list(group)
-
-        # Add bboxes with surrounding area so parts are not butted against each other.
-        add_placement_bboxes(group)
-
-        # Set anchor and pull pins that determine attractive forces between parts.
-        add_anchor_and_pull_pins(group, internal_nets)
-
-        # Randomly place connected parts.
-        random_placement(group)
-
-        if "draw" in options:
-            # Draw the placement for debug purposes.
-            bbox = BBox()
-            for part in group:
-                tx_bbox = part.place_bbox * part.tx
-                bbox.add(tx_bbox)
-            draw_scr, draw_tx, draw_font = draw_start(bbox)
-        else:
-            draw_scr, draw_tx, draw_font = None, None, None
-
-        # Do force-directed placement of the parts in the group.
-        force_func = functools.partial(total_net_force, parts=group, nets=internal_nets)
-        evolve_placement(
-            group,
-            internal_nets,
-            force_func,
-            speed=speed,
-            scr=draw_scr,
-            tx=draw_tx,
-            font=draw_font,
-        )
-        evolve_placement(
-            group,
-            internal_nets,
-            force_func,
-            speed=speed * speed_mult,
-            scr=draw_scr,
-            tx=draw_tx,
-            font=draw_font,
-        )
-
-        if "draw" in options:
-            draw_end()
-
-        # Placement done so anchor and pull pins for each part are no longer needed.
-        rmv_anchor_and_pull_pins(group)
-
-        # Placement done, so placement bounding boxes for each part are no longer needed.
-        rmv_placement_bboxes(group)
-
-    # Place the floating parts.
-    if floating_parts:
-
-        floating_parts = list(floating_parts)
-
-        # Add bboxes with surrounding area so parts are not butted against each other.
-        add_placement_bboxes(floating_parts)
-
-        # Set anchor and pull pins that determine attractive forces between similar parts.
-        add_anchor_and_pull_pins(floating_parts, internal_nets)
-
-        # Randomly place the floating parts.
-        random_placement(floating_parts)
-
-        if "draw" in options:
-            # Compute the drawing area for the floating parts
-            bbox = BBox()
-            for part in floating_parts:
-                tx_bbox = part.place_bbox * part.tx
-                bbox.add(tx_bbox)
-            draw_scr, draw_tx, draw_font = draw_start(bbox)
-        else:
-            draw_scr, draw_tx, draw_font = None, None, None
-
-        # For non-connected parts, do placement based on their similarity to each other.
-        part_similarity = defaultdict(lambda: defaultdict(lambda: 0))
-        for part in floating_parts:
-            for other_part in floating_parts:
-
-                # Don't compute similarity of a part to itself.
-                if other_part is part:
-                    continue
-
-                # TODO: Get similarity forces right-sized.
-                part_similarity[part][other_part] = part.similarity(other_part) / 10
-                # part_similarity[part][other_part] = 0.1
-
-            # Select the top-most pin in each part as the anchor point for force-directed placement.
-            # tx = part.tx
-            # part.anchor_pin = max(part.anchor_pins, key=lambda pin: (pin.place_pt * tx).y)
-
-        force_func = functools.partial(
-            total_similarity_force, parts=floating_parts, similarity=part_similarity
-        )
-        evolve_placement(
-            floating_parts,
-            [],
-            force_func,
-            speed=speed,
-            scr=draw_scr,
-            tx=draw_tx,
-            font=draw_font,
-        )
-
-        if "draw" in options:
-            draw_end()
-
-        # Placement done so anchor and pull pins for each part are no longer needed.
-        rmv_anchor_and_pull_pins(floating_parts)
-
-        # Placement done, so placement bounding boxes for each part are no longer needed.
-        rmv_placement_bboxes(floating_parts)
-
-    return connected_parts, floating_parts
-
-
-def place_blocks(connected_parts, floating_parts, children, options):
-    """Place blocks of parts and hierarchical sheets.
-
-    Args:
-        connected_parts (list): List of Part sets connected by nets.
-        floating_parts (set): Set of Parts not connected by any of the internal nets.
-        non_sheets (list): Hierarchical set of Parts that are visible.
-        sheets (list): List of hierarchical blocks.
-        options (list): List of strings that enable/disable functions.
-    """
-
-    class PartBlock:
-        def __init__(self, src, bbox, anchor_pt, snap_pt, tag):
-            self.src = src
-            self.place_bbox = (
-                bbox  # FIXME: Is this needed if place_bbox includes room for routing?
-            )
-            self.lbl_bbox = bbox  # Needed for drawing during debug.
-            self.anchor_pt = anchor_pt
-            self.anchor_pin = Pin()
-            self.anchor_pin.place_pt = anchor_pt
-            self.snap_pt = snap_pt
-            self.tx = Tx()
-            self.ref = "REF"
-            self.tag = tag
-
-    part_blocks = []
-    for part_list in [
-        floating_parts,
-    ] + connected_parts:
-        if not part_list:
-            continue
-        snap_pt = None
-        bbox = BBox()
-        for part in part_list:
-            bbox.add(part.lbl_bbox * part.tx)
-            if not snap_pt:
-                snap_pt = get_snap_pt(part)
-        tag = 2 if (part_list is floating_parts) else 1
-        pad = BLK_EXT_PAD
-        bbox = bbox.resize(Vector(pad, pad))
-        blk = PartBlock(part_list, bbox, bbox.ctr, snap_pt, tag)
-        part_blocks.append(blk)
-    for child in children:
-        snap_pt = child.get_snap_pt()
-        if child.flattened:
-            pad = BLK_INT_PAD + BLK_EXT_PAD
-        else:
-            pad = BLK_EXT_PAD
-        bbox = child.calc_bbox().resize(Vector(pad, pad))
-        if snap_pt:
-            blk = PartBlock(child, bbox, bbox.ctr, snap_pt, 3)
-        else:
-            blk = PartBlock(child, bbox, bbox.ctr, bbox.ctr, 4)
-        part_blocks.append(blk)
-
-    # Re-label blocks with sequential tags (i.e., remove gaps).
-    tags = {blk.tag for blk in part_blocks}
-    tag_tbl = {old_tag: new_tag for old_tag, new_tag in zip(tags, range(len(tags)))}
-    for blk in part_blocks:
-        blk.tag = tag_tbl[blk.tag]
-
-    # Tie the blocks together with strong links between blocks with the same tag,
-    # and weaker links between blocks with tags that differ by 1. This ties similar
-    # blocks together into "super blocks" and ties the super blocks into a linear
-    # arrangement (1 -> 2 -> 3 ->...).
-    blk_attr = defaultdict(lambda: defaultdict(lambda: 0))
-    for blk in part_blocks:
-        for other_blk in part_blocks:
-            if blk is other_blk:
-                continue
-            if blk.tag == other_blk.tag:
-                blk_attr[blk][other_blk] = 1
-            elif abs(blk.tag - other_blk.tag) == 1:
-                blk_attr[blk][other_blk] = 0.1
-            else:
-                blk_attr[blk][other_blk] = 0
-
-    # Start off with a random placement of part blocks.
-    random_placement(part_blocks)
-
-    if "draw" in options:
-        # Draw the global and detailed routing for debug purposes.
-        bbox = BBox()
-        for blk in part_blocks:
-            tx_bbox = blk.place_bbox * blk.tx
-            bbox.add(tx_bbox)
-        draw_scr, draw_tx, draw_font = draw_start(bbox)
-    else:
-        draw_scr, draw_tx, draw_font = None, None, None
-
-    # Arrange the part blocks with force-directed placement.
-    force_func = functools.partial(
-        total_similarity_force, parts=part_blocks, similarity=blk_attr
-    )
-    evolve_placement(
-        part_blocks,
-        [],
-        force_func,
-        speed=speed,
-        scr=draw_scr,
-        tx=draw_tx,
-        font=draw_font,
-    )
-
-    if "draw" in options:
-        draw_end()
-
-    # Apply the placement moves to the part blocks.
-    for blk in part_blocks:
-        try:
-            blk.src.tx = blk.tx
-        except AttributeError:
-            for part in blk.src:
-                part.tx = part.tx * blk.tx
-
-
 @export_to_all
 class Placer:
     """Mixin to add place function to Node class."""
 
-    def place(node, tool=None, options=["no_keep_stubs", "remove_power"]):
+    # Speed of part movement during placement.
+    speed = 0.25
+    speed_mult = 2.0
+
+    def group_parts(node, options=[]):
+        """Group parts in the Node that are connected by internal nets
+
+        Args:
+            node (Node): Node with parts.
+            options (list, optional): List of option strings. Defaults to [].
+
+        Returns:
+            list: List of lists of Parts that are connected.
+            list: List of internal nets connecting parts.
+            list: List of Parts that are not connected to anything (floating).
+        """
+
+        if not node.parts:
+            return [], [], []
+
+        # Extract list of nets having at least one pin in the node.
+        internal_nets = node.get_internal_nets()
+
+        # Remove some nets according to options.
+        if "remove_power" in options:
+
+            def is_pwr(net):
+                return (
+                    net.netclass == "Power"
+                    or "vcc" in net.name.lower()
+                    or "gnd" in net.name.lower()
+                )
+
+            internal_nets = [net for net in internal_nets if not is_pwr(net)]
+
+        if "remove_high_fanout" in options:
+            import statistics
+
+            fanouts = [len(net) for net in internal_nets]
+            try:
+                fanout_mean = statistics.mean(fanouts)
+                fanout_stdev = statistics.stdev(fanouts)
+            except statistics.StatisticsError:
+                pass
+            else:
+                fanout_threshold = fanout_mean + 2 * fanout_stdev
+                internal_nets = [
+                    net for net in internal_nets if len(net) < fanout_threshold
+                ]
+
+        # Group all the parts that have some interconnection to each other.
+        # Start with groups of parts on each individual net.
+        connected_parts = [
+            set(pin.part for pin in net.pins if pin.part in node.parts)
+            for net in internal_nets
+        ]
+
+        # Now join groups that have parts in common.
+        for i in range(len(connected_parts) - 1):
+            group1 = connected_parts[i]
+            for j in range(i + 1, len(connected_parts)):
+                group2 = connected_parts[j]
+                if group1 & group2:
+                    # If part groups intersect, collect union of parts into one group
+                    # and empty-out the other.
+                    connected_parts[j] = connected_parts[i] | connected_parts[j]
+                    connected_parts[i] = set()
+                    # No need to check against group1 any more since it has been
+                    # unioned into group2 that will be checked later in the loop.
+                    break
+
+        # Remove any empty groups that were unioned into other groups.
+        connected_parts = [group for group in connected_parts if group]
+
+        # Find parts that aren't connected to anything.
+        floating_parts = set(node.parts) - set(itertools.chain(*connected_parts))
+
+        return connected_parts, internal_nets, floating_parts
+
+
+    def place_parts(node, connected_parts, internal_nets, floating_parts, options):
+        """Place individual parts.
+
+        Args:
+            node (Node): Node with parts.
+            connected_parts (list): List of Part sets connected by nets.
+            internal_nets (list): List of Nets connecting parts.
+            floating_parts (set): Set of Parts not connected by any of the internal nets.
+            options (list): List of strings that enable/disable functions.
+
+        Returns:
+            tuple: Connected and floating parts with placement information.
+        """
+
+        # Place each group of connected parts.
+        for group in connected_parts:
+
+            group = list(group)
+
+            # Add bboxes with surrounding area so parts are not butted against each other.
+            add_placement_bboxes(group)
+
+            # Set anchor and pull pins that determine attractive forces between parts.
+            add_anchor_and_pull_pins(group, internal_nets)
+
+            # Randomly place connected parts.
+            random_placement(group)
+
+            if "draw" in options:
+                # Draw the placement for debug purposes.
+                bbox = BBox()
+                for part in group:
+                    tx_bbox = part.place_bbox * part.tx
+                    bbox.add(tx_bbox)
+                draw_scr, draw_tx, draw_font = draw_start(bbox)
+            else:
+                draw_scr, draw_tx, draw_font = None, None, None
+
+            # Do force-directed placement of the parts in the group.
+            force_func = functools.partial(total_net_force, parts=group, nets=internal_nets)
+            evolve_placement(
+                group,
+                internal_nets,
+                force_func,
+                speed=Placer.speed,
+                scr=draw_scr,
+                tx=draw_tx,
+                font=draw_font,
+            )
+            evolve_placement(
+                group,
+                internal_nets,
+                force_func,
+                speed=Placer.speed * Placer.speed_mult,
+                scr=draw_scr,
+                tx=draw_tx,
+                font=draw_font,
+            )
+
+            if "draw" in options:
+                draw_end()
+
+            # Placement done so anchor and pull pins for each part are no longer needed.
+            rmv_anchor_and_pull_pins(group)
+
+            # Placement done, so placement bounding boxes for each part are no longer needed.
+            rmv_placement_bboxes(group)
+
+        # Place the floating parts.
+        if floating_parts:
+
+            floating_parts = list(floating_parts)
+
+            # Add bboxes with surrounding area so parts are not butted against each other.
+            add_placement_bboxes(floating_parts)
+
+            # Set anchor and pull pins that determine attractive forces between similar parts.
+            add_anchor_and_pull_pins(floating_parts, internal_nets)
+
+            # Randomly place the floating parts.
+            random_placement(floating_parts)
+
+            if "draw" in options:
+                # Compute the drawing area for the floating parts
+                bbox = BBox()
+                for part in floating_parts:
+                    tx_bbox = part.place_bbox * part.tx
+                    bbox.add(tx_bbox)
+                draw_scr, draw_tx, draw_font = draw_start(bbox)
+            else:
+                draw_scr, draw_tx, draw_font = None, None, None
+
+            # For non-connected parts, do placement based on their similarity to each other.
+            part_similarity = defaultdict(lambda: defaultdict(lambda: 0))
+            for part in floating_parts:
+                for other_part in floating_parts:
+
+                    # Don't compute similarity of a part to itself.
+                    if other_part is part:
+                        continue
+
+                    # TODO: Get similarity forces right-sized.
+                    part_similarity[part][other_part] = part.similarity(other_part) / 10
+                    # part_similarity[part][other_part] = 0.1
+
+                # Select the top-most pin in each part as the anchor point for force-directed placement.
+                # tx = part.tx
+                # part.anchor_pin = max(part.anchor_pins, key=lambda pin: (pin.place_pt * tx).y)
+
+            force_func = functools.partial(
+                total_similarity_force, parts=floating_parts, similarity=part_similarity
+            )
+            evolve_placement(
+                floating_parts,
+                [],
+                force_func,
+                speed=Placer.speed,
+                scr=draw_scr,
+                tx=draw_tx,
+                font=draw_font,
+            )
+
+            if "draw" in options:
+                draw_end()
+
+            # Placement done so anchor and pull pins for each part are no longer needed.
+            rmv_anchor_and_pull_pins(floating_parts)
+
+            # Placement done, so placement bounding boxes for each part are no longer needed.
+            rmv_placement_bboxes(floating_parts)
+
+        return connected_parts, floating_parts
+
+
+    def place_blocks(node, connected_parts, floating_parts, children, options):
+        """Place blocks of parts and hierarchical sheets.
+
+        Args:
+            node (Node): Node with parts.
+            connected_parts (list): List of Part sets connected by nets.
+            floating_parts (set): Set of Parts not connected by any of the internal nets.
+            non_sheets (list): Hierarchical set of Parts that are visible.
+            sheets (list): List of hierarchical blocks.
+            options (list): List of strings that enable/disable functions.
+        """
+
+        class PartBlock:
+            def __init__(self, src, bbox, anchor_pt, snap_pt, tag):
+                self.src = src
+                self.place_bbox = (
+                    bbox  # FIXME: Is this needed if place_bbox includes room for routing?
+                )
+                self.lbl_bbox = bbox  # Needed for drawing during debug.
+                self.anchor_pt = anchor_pt
+                self.anchor_pin = Pin()
+                self.anchor_pin.place_pt = anchor_pt
+                self.snap_pt = snap_pt
+                self.tx = Tx()
+                self.ref = "REF"
+                self.tag = tag
+
+        part_blocks = []
+        for part_list in [
+            floating_parts,
+        ] + connected_parts:
+            if not part_list:
+                continue
+            snap_pt = None
+            bbox = BBox()
+            for part in part_list:
+                bbox.add(part.lbl_bbox * part.tx)
+                if not snap_pt:
+                    snap_pt = get_snap_pt(part)
+            tag = 2 if (part_list is floating_parts) else 1
+            pad = BLK_EXT_PAD
+            bbox = bbox.resize(Vector(pad, pad))
+            blk = PartBlock(part_list, bbox, bbox.ctr, snap_pt, tag)
+            part_blocks.append(blk)
+        for child in children:
+            snap_pt = child.get_snap_pt()
+            if child.flattened:
+                pad = BLK_INT_PAD + BLK_EXT_PAD
+            else:
+                pad = BLK_EXT_PAD
+            bbox = child.calc_bbox().resize(Vector(pad, pad))
+            if snap_pt:
+                blk = PartBlock(child, bbox, bbox.ctr, snap_pt, 3)
+            else:
+                blk = PartBlock(child, bbox, bbox.ctr, bbox.ctr, 4)
+            part_blocks.append(blk)
+
+        # Re-label blocks with sequential tags (i.e., remove gaps).
+        tags = {blk.tag for blk in part_blocks}
+        tag_tbl = {old_tag: new_tag for old_tag, new_tag in zip(tags, range(len(tags)))}
+        for blk in part_blocks:
+            blk.tag = tag_tbl[blk.tag]
+
+        # Tie the blocks together with strong links between blocks with the same tag,
+        # and weaker links between blocks with tags that differ by 1. This ties similar
+        # blocks together into "super blocks" and ties the super blocks into a linear
+        # arrangement (1 -> 2 -> 3 ->...).
+        blk_attr = defaultdict(lambda: defaultdict(lambda: 0))
+        for blk in part_blocks:
+            for other_blk in part_blocks:
+                if blk is other_blk:
+                    continue
+                if blk.tag == other_blk.tag:
+                    blk_attr[blk][other_blk] = 1
+                elif abs(blk.tag - other_blk.tag) == 1:
+                    blk_attr[blk][other_blk] = 0.1
+                else:
+                    blk_attr[blk][other_blk] = 0
+
+        # Start off with a random placement of part blocks.
+        random_placement(part_blocks)
+
+        if "draw" in options:
+            # Draw the global and detailed routing for debug purposes.
+            bbox = BBox()
+            for blk in part_blocks:
+                tx_bbox = blk.place_bbox * blk.tx
+                bbox.add(tx_bbox)
+            draw_scr, draw_tx, draw_font = draw_start(bbox)
+        else:
+            draw_scr, draw_tx, draw_font = None, None, None
+
+        # Arrange the part blocks with force-directed placement.
+        force_func = functools.partial(
+            total_similarity_force, parts=part_blocks, similarity=blk_attr
+        )
+        evolve_placement(
+            part_blocks,
+            [],
+            force_func,
+            speed=Placer.speed,
+            scr=draw_scr,
+            tx=draw_tx,
+            font=draw_font,
+        )
+
+        if "draw" in options:
+            draw_end()
+
+        # Apply the placement moves to the part blocks.
+        for blk in part_blocks:
+            try:
+                blk.src.tx = blk.tx
+            except AttributeError:
+                for part in blk.src:
+                    part.tx = part.tx * blk.tx
+
+    def place(node, tool=None, options=["no_keep_stubs",]):
+    # def place(node, tool=None, options=["no_keep_stubs", "remove_power"]):
         # def place(node, options=["draw", "no_keep_stubs", "remove_power"]):
         """Place the parts and children in this node.
 
@@ -1066,18 +1068,19 @@ class Placer:
         this_module.__dict__.update(tool_modules[tool].constants.__dict__)
 
         # First, recursively place children of this node.
+        # TODO: Child nodes are independent, so can they be processed in parallel?
         for child in node.children.values():
             child.place()
 
         # Group parts into those that are connected by explicit nets and
         # those that float freely connected only by stub nets.
-        connected_parts, internal_nets, floating_parts = group_parts(node, options)
+        connected_parts, internal_nets, floating_parts = node.group_parts(options)
 
         # Place node parts.
-        place_parts(connected_parts, internal_nets, floating_parts, options)
+        node.place_parts(connected_parts, internal_nets, floating_parts, options)
 
         # Place blocks of parts in this node.
-        place_blocks(connected_parts, floating_parts, node.children.values(), options)
+        node.place_blocks(connected_parts, floating_parts, node.children.values(), options)
 
         # Calculate the bounding box for the node after placement of parts and children.
         node.calc_bbox()

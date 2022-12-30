@@ -1733,7 +1733,7 @@ class SwitchBox:
 class Router:
     """Mixin to add routing function to Node class."""
 
-    def add_routing_points(self, nets):
+    def add_routing_points(node, nets):
         """Add routing points by extending wires from pins out to the edge of the part bounding box.
 
         Args:
@@ -1763,7 +1763,7 @@ class Router:
         for net in nets:
 
             # Add routing points for all pins on the net that are inside this node.
-            for pin in self.get_internal_pins(net):
+            for pin in node.get_internal_pins(net):
 
                 # Add the point to which the wiring should be extended.
                 add_routing_pt(pin)
@@ -1771,7 +1771,7 @@ class Router:
                 # Add a wire to connect the part pin to the routing point on the bounding box periphery.
                 if pin.route_pt != pin.pt:
                     seg = Segment(pin.pt, pin.route_pt) * pin.part.tx
-                    self.wires[pin.net].append(seg)
+                    node.wires[pin.net].append(seg)
 
     def rmv_routing_points(node):
         """Remove routing points from part pins in node."""
