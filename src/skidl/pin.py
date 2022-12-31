@@ -543,6 +543,16 @@ class Pin(SkidlBaseObject):
             n.merge_names()  # Clean-up the net after removing a pin.
         self.nets = []
 
+    def move(self, net):
+        """Move pin to another net.
+
+        Args:
+            net (Net): Destination net for pin.
+        """
+
+        self.disconnect()
+        net += self
+
     def get_nets(self):
         """Return a list containing the Net objects connected to this pin."""
         return self.nets

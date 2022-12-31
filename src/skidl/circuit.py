@@ -476,11 +476,34 @@ class Circuit(SkidlBaseObject):
             if not part.is_connected():
                 self -= part
 
-    def _merge_net_names(self):
-        """Select a single name for each multi-segment net."""
+    def merge_net_names(self):
+        """Assign same name to all segments of multi-segment nets."""
 
         for net in self.nets:
-            net.merge_names()
+            if len(net.nets) > 1:
+                net.merge_names()
+
+
+    def merge_nets(self):
+        """Merge multi-segment nets into a single net."""
+        
+        merged_nets = set()
+        for net in self.nets:
+            if len(net.nets) > 1 and net not in merged_nets:
+
+                # Select a single name for the net segments.
+                net.merge_names()
+                
+                # Record merged nets so they aren't processed again.
+                merged_nets.update(set(net.nets) - {net})
+
+                # Move all pins to a single segment.
+                for pin in net.pins:
+                    pin.move(net)
+
+        # Remove merged nets from the circuit.
+        self.nets = list(set(self.nets) - merged_nets)
+
 
     def _check_for_empty_footprints(self):
         """Make sure part footprints aren't empty before generating netlist/PCB."""
@@ -494,7 +517,7 @@ class Circuit(SkidlBaseObject):
     def _preprocess(self):
         self.instantiate_packages()
         # self._cull_unconnected_parts()
-        self._merge_net_names()
+        self.merge_nets()
         self._check_for_empty_footprints()
 
     def ERC(self, *args, **kwargs):

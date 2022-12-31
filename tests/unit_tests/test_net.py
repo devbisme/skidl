@@ -43,7 +43,7 @@ def test_net_fixed_name_1():
     net_merged += net_fixed
     for _ in range(5):
         net_merged += Net()
-    default_circuit._merge_net_names()
+    default_circuit.merge_net_names()
     assert net_merged.name == "A"
 
 

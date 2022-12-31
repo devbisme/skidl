@@ -659,11 +659,14 @@ class GlobalWire(list):
         # one or more pins are attached to the same net as the route.
         for i, face in enumerate(self[:]):
             if face.part:
+                # This route face is on a part boundary, so find the terminal with the route's net.
                 for terminal in face.terminals:
-                    if terminal.net is self.net:
+                    if self.net is terminal.net:
+                        # Replace the route face with the terminal on the part.
                         self[i] = terminal
                         break
                 else:
+                    # Route should never touch a part face if there is no terminal with the route's net.
                     raise RuntimeError
 
         # Proceed through all the Faces/Terminals on the GlobalWire, converting

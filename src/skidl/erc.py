@@ -32,12 +32,12 @@ def dflt_circuit_erc(circuit):
     from .net import Net
 
     # Check the nets for errors:
-    #   1. Merge names to get a single name for all multi-segment nets.
+    #   1. Merge all multi-segment nets.
     #   2. Find the set of unique net names.
     #   3. Get the net associated with each name and do an ERC on it.
     # This prevents flagging the same error multiple times by running
     # ERC on different segments of a multi-segment net.
-    circuit._merge_net_names()
+    circuit.merge_net_names()
     net_names = set([net.name for net in circuit.nets])
     for name in net_names:
         Net.get(name, circuit=circuit).ERC()

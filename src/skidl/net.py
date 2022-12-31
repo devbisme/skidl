@@ -415,24 +415,24 @@ class Net(SkidlBaseObject):
         from .pin import PhantomPin, Pin
         from .protonet import ProtoNet
 
-        def merge(net):
+        def join(net):
             """
-            Merge nets by giving them each a pin in common.
+            Join nets by giving them each a pin in common.
 
             Args:
-                net: The net to merge with self.
+                net: The net to join with self.
             """
 
             if isinstance(self, NCNet):
                 active_logger.raise_(
                     ValueError,
-                    "Can't merge with a no-connect net {}!".format(self.name),
+                    "Can't join with a no-connect net {}!".format(self.name),
                 )
 
             if isinstance(net, NCNet):
                 active_logger.raise_(
                     ValueError,
-                    "Can't merge with a no-connect net {}!".format(net.name),
+                    "Can't join with a no-connect net {}!".format(net.name),
                 )
 
             # No need to do anything if merging a net with itself.
@@ -455,14 +455,14 @@ class Net(SkidlBaseObject):
                 self._pins[0].nets.append(net)
                 net._pins.append(self._pins[0])
 
-            # Update the drive of the merged nets. When setting the drive of a
+            # Update the drive of the joined nets. When setting the drive of a
             # net the net drive will be the maximum of its current drive or the
             # new drive. So the following two operations will set each net
             # drive to the same maximum value.
             self.drive = net.drive
             net.drive = self.drive
 
-            # Update the net class of the merged nets. The following two
+            # Update the net class of the joined nets. The following two
             # operations will set each net's class to the same value, or
             # throw an error if they are in different classes.
             self.netclass = net.netclass
@@ -486,7 +486,7 @@ class Net(SkidlBaseObject):
                 pn += self
             elif isinstance(pn, Net):
                 if pn.circuit == self.circuit:
-                    merge(pn)
+                    join(pn)
                 else:
                     active_logger.raise_(
                         ValueError,
@@ -590,7 +590,6 @@ class Net(SkidlBaseObject):
                         ),
                     )
                 if nets[1].is_implicit():
-
                     return nets[0]
                 if nets[0].is_implicit():
                     return nets[1]
