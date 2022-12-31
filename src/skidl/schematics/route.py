@@ -213,6 +213,7 @@ class Terminal:
             if idx is not None:
                 terminal = next_face.terminals[idx]
                 if terminal.net in (None, self.net):
+                    terminal.net = self.net  # Assign net to next terminal.
                     return terminal
 
         # Well, something went wrong...
@@ -654,6 +655,13 @@ class GlobalWire(list):
     def cvt_faces_to_terminals(self):
         """Convert global face-to-face route to switchbox terminal-to-terminal route."""
 
+        if not self:
+            # Global route is empty so do nothing.
+            return
+
+        # Non-empty global routes should always start from a face on a part.
+        assert self[0].part
+
         # All part faces already have terminals created from the part pins. Find all
         # the route faces on part boundaries and convert them to pin terminals if
         # one or more pins are attached to the same net as the route.
@@ -682,11 +690,9 @@ class GlobalWire(list):
                 # Skip if the next element is already a Terminal.
                 continue
 
-            # Convert the next element from a Face to a Terminal. This terminal will
+            # Convert the next element from a Face to a Terminal on this net. This terminal will
             # be the current element on the next iteration.
-            next_terminal = self[i].get_next_terminal(self[i + 1])
-            next_terminal.net = self.net
-            self[i + 1] = next_terminal
+            self[i+1] = self[i].get_next_terminal(self[i + 1])
 
     def draw(self, scr, tx, color=(0, 0, 0), thickness=1, dot_radius=10, options=[]):
         """Draw a global wire from Face-to-Face in the drawing area.
