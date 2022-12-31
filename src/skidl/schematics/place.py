@@ -665,7 +665,8 @@ def slip_and_slide(parts, nets, scr, tx, font):
     mobile_parts = parts[:]  # Move all parts.
 
     moved = True
-    while moved:
+    iterations = 20  # TODO: Ad-hoc from observation on test_generate.py.
+    while moved and iterations:
         moved = False
         random.shuffle(mobile_parts)
         for part in mobile_parts:
@@ -681,6 +682,7 @@ def slip_and_slide(parts, nets, scr, tx, font):
                         best_tx = copy(part.tx)
                         moved = True
             part.tx = best_tx
+        iterations -= 1
         if scr:
             draw_placement(parts, nets, scr, tx, font)
 
