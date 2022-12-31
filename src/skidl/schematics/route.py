@@ -219,13 +219,13 @@ class Terminal:
         # Well, something went wrong...
         raise RoutingFailure
 
-    def draw(self, scr, tx, options=[]):
+    def draw(self, scr, tx, options={}):
         """Draw a Terminal for debugging purposes.
 
         Args:
             scr (PyGame screen): Screen object for PyGame drawing.
             tx (Tx): Transformation matrix from real to screen coords.
-            options (list, optional): List of option strings. Defaults to [].
+            options (dict, optional): Dictionary of options and values. Defaults to {}.
         """
 
         # Don't draw terminal if it isn't on a net. It's just a placeholder.
@@ -615,7 +615,7 @@ class Face(Interval):
             scr (PyGame screen): Screen object for PyGame drawing.
             tx (Tx): Transformation matrix from real to screen coords.
             font (PyGame font): Font for rendering text.
-            options (list, optional): List of option strings. Defaults to [].
+            options (dict, optional): Dictionary of options and values. Defaults to [].
 
         Returns:
             None.
@@ -694,7 +694,7 @@ class GlobalWire(list):
             # be the current element on the next iteration.
             self[i+1] = self[i].get_next_terminal(self[i + 1])
 
-    def draw(self, scr, tx, color=(0, 0, 0), thickness=1, dot_radius=10, options=[]):
+    def draw(self, scr, tx, color=(0, 0, 0), thickness=1, dot_radius=10, options={}):
         """Draw a global wire from Face-to-Face in the drawing area.
 
         Args:
@@ -703,7 +703,7 @@ class GlobalWire(list):
             color (list): Three-element list of RGB integers with range [0, 255].
             thickness (int): Thickness of drawn wire in pixels.
             dot_radius (int): Radius of drawn terminal in pixels.
-            options (list, optional): List of option strings. Defaults to [].
+            options (dict, optional): Dictionary of options and values. Defaults to {}.
 
         Returns:
             None.
@@ -748,8 +748,7 @@ class GlobalRoute(list):
             wire.cvt_faces_to_terminals()
 
     def draw(
-        self, scr, tx, font, color=(0, 0, 0), thickness=1, dot_radius=10, options=[]
-    ):
+        self, scr, tx, font, color=(0, 0, 0), thickness=1, dot_radius=10, options={}):
         """Draw the GlobalWires of this route in the drawing area.
 
         Args:
@@ -759,7 +758,7 @@ class GlobalRoute(list):
             color (list): Three-element list of RGB integers with range [0, 255].
             thickness (int): Thickness of drawn wire in pixels.
             dot_radius (int): Radius of drawn terminal in pixels.
-            options (list, optional): List of option strings. Defaults to [].
+            options (dict, optional): Dictionary of options and values. Defaults to {}.
 
         Returns:
             None.
@@ -887,14 +886,14 @@ class GlobalTrack(list):
                 if first_face.has_overlap(second_face):
                     raise AssertionError
 
-    def draw(self, scr, tx, font, options=[]):
+    def draw(self, scr, tx, font, options={}):
         """Draw the Faces in a track.
 
         Args:
             scr (_type_): _descriptio            scr (PyGame screen): Screen object for PyGame drawing.
             tx (Tx): Transformation matrix from real to screen coords.
             font (PyGame font): Font for rendering text.
-            options (list, optional): List of option strings. Defaults to [].
+            options (dict, optional): Dictionary of options and values. Defaults to {}.
         """
         for face in self:
             face.draw(scr, tx, font, options=options)
@@ -1274,11 +1273,11 @@ class SwitchBox:
                 return True
         return False
 
-    def route(self, options=[]):
+    def route(self, options={}):
         """Route wires between terminals on the switchbox faces.
 
         Args:
-            options (list, optional): Text options affecting operations. Defaults to [].
+            options (dict, optional): Dictionary of options and values. Defaults to {}.
 
         Raises:
             RoutingFailure: Raised if routing could not be completed.
@@ -1677,7 +1676,7 @@ class SwitchBox:
         font=None,
         color=(128, 0, 128),
         thickness=2,
-        options=["draw_switchbox", "draw_routing"],
+        options={"draw_switchbox":1, "draw_routing":1},
     ):
         """Draw a switchbox and its routing for debugging purposes.
 
@@ -1687,7 +1686,7 @@ class SwitchBox:
             font (PyGame font): Font for rendering text.
             color (tuple, optional): Switchbox boundary color. Defaults to (128, 0, 128).
             thickness (int, optional): Switchbox boundary thickness. Defaults to 2.
-            options (list, optional): List of option strings. Defaults to ["draw_switchbox", "draw_routing"].
+            options (dict, optional): Dictionary of options and values. Defaults to {}.
         """
 
         # If the screen object is None, then PyGame drawing is not in progress so set flag
@@ -1928,7 +1927,7 @@ class Router:
         """Draw routing for debugging purposes.
 
         Args:
-            options (list): List of drawing option strings.
+            options (dict, optional): Dictionary of options and values. Defaults to {}.
             bbox: Bounding box of drawing area.
             node (Node): The Node being routed.
             parts (list): List of Parts.
@@ -2322,9 +2321,9 @@ class Router:
             for net, segments in swbx.segments.items():
                 node.wires[net].extend(segments)
 
-    def route(node, tool=None, options=[]):
-        # def route(node, options=["draw"]):
-        # def route(node, options=["draw", "draw_switchbox", "draw_routing"]):
+    def route(node, tool=None, options={}):
+        # def route(node, options={"draw":1}):
+        # def route(node, options={"draw":1, "draw_switchbox":1, "draw_routing":1}):
         """Route the wires between part pins in this node and its children.
 
         Steps:
@@ -2335,9 +2334,7 @@ class Router:
         Args:
             node (Node): Hierarchical node containing the parts to be connected.
             tool (str): Backend tool for schematics.
-            options (list): List of text options to control drawing of placement and
-                routing for debugging purposes. Available options are "draw", "draw_switchbox",
-                "draw_routing", "show_capacities", "draw_all_terminals", "draw_channels".
+            options (dict, optional): Dictionary of options and values. Defaults to {}.
         """
 
         # Inject the constants for the backend tool into this module.

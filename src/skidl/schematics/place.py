@@ -722,12 +722,12 @@ class Placer:
     speed = 0.25
     speed_mult = 2.0
 
-    def group_parts(node, options=[]):
+    def group_parts(node, options={}):
         """Group parts in the Node that are connected by internal nets
 
         Args:
             node (Node): Node with parts.
-            options (list, optional): List of option strings. Defaults to [].
+            options (dict, optional): Dictionary of options and values. Defaults to {}.
 
         Returns:
             list: List of lists of Parts that are connected.
@@ -806,7 +806,7 @@ class Placer:
             connected_parts (list): List of Part sets connected by nets.
             internal_nets (list): List of Nets connecting parts.
             floating_parts (set): Set of Parts not connected by any of the internal nets.
-            options (list): List of strings that enable/disable functions.
+            options (dict): Dict of options and values that enable/disable functions.
 
         Returns:
             tuple: Connected and floating parts with placement information.
@@ -941,7 +941,7 @@ class Placer:
             floating_parts (set): Set of Parts not connected by any of the internal nets.
             non_sheets (list): Hierarchical set of Parts that are visible.
             sheets (list): List of hierarchical blocks.
-            options (list): List of strings that enable/disable functions.
+            options (dict): Dict of options and values that enable/disable functions.
         """
 
         class PartBlock:
@@ -1049,16 +1049,15 @@ class Placer:
                 for part in blk.src:
                     part.tx = part.tx * blk.tx
 
-    def place(node, tool=None, options=["no_keep_stubs",]):
-    # def place(node, tool=None, options=["no_keep_stubs", "remove_power"]):
-        # def place(node, options=["draw", "no_keep_stubs", "remove_power"]):
+    def place(node, tool=None, options={"no_keep_stubs":1,}):
+    # def place(node, tool=None, options={"no_keep_stubs":1, "remove_power":1}):
+        # def place(node, options={"draw":1, "no_keep_stubs":1, "remove_power":1}):
         """Place the parts and children in this node.
 
         Args:
             node (Node): Hierarchical node containing the parts and children to be placed.
             tool (str): Backend tool for schematics.
-            options (list): List of text options to control drawing of placement
-                for debugging purposes. Available options are "draw".
+            options (dict): Dictionary of options and values to control placement.
         """
 
         # Inject the constants for the backend tool into this module.
