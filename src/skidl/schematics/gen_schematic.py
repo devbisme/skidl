@@ -544,14 +544,23 @@ def gen_schematic(
     top_name=get_script_name(),
     title="SKiDL-Generated Schematic",
     flatness=0.0,
+    **options
 ):
-    """Create a schematic file from a Circuit object."""
+    """Create a schematic file from a Circuit object.
+
+    Args:
+        circuit (Circuit): The Circuit object that will have a schematic generated for it.
+        filepath (str, optional): The directory where the schematic files are placed. Defaults to ".".
+        top_name (str, optional): The name for the top of the circuit hierarchy. Defaults to get_script_name().
+        title (str, optional): The title of the schematic. Defaults to "SKiDL-Generated Schematic".
+        flatness (float, optional): Determines how much the hierarchy is flattened in the schematic. Defaults to 0.0 (completely hierarchical).
+    """
 
     preprocess_parts_and_nets(circuit)
 
     with Node(circuit, filepath, top_name, title, flatness) as node:
-        node.place()
-        node.route()
+        node.place(**options)
+        node.route(**options)
         node.to_eeschema()
 
     finalize_parts_and_nets(circuit)

@@ -722,7 +722,7 @@ class Placer:
     speed = 0.25
     speed_mult = 2.0
 
-    def group_parts(node, options={}):
+    def group_parts(node, **options):
         """Group parts in the Node that are connected by internal nets
 
         Args:
@@ -798,7 +798,7 @@ class Placer:
         return connected_parts, internal_nets, floating_parts
 
 
-    def place_parts(node, connected_parts, internal_nets, floating_parts, options):
+    def place_parts(node, connected_parts, internal_nets, floating_parts, **options):
         """Place individual parts.
 
         Args:
@@ -932,7 +932,7 @@ class Placer:
         return connected_parts, floating_parts
 
 
-    def place_blocks(node, connected_parts, floating_parts, children, options):
+    def place_blocks(node, connected_parts, floating_parts, children, **options):
         """Place blocks of parts and hierarchical sheets.
 
         Args:
@@ -1049,9 +1049,7 @@ class Placer:
                 for part in blk.src:
                     part.tx = part.tx * blk.tx
 
-    def place(node, tool=None, options={"no_keep_stubs":1,}):
-    # def place(node, tool=None, options={"no_keep_stubs":1, "remove_power":1}):
-        # def place(node, options={"draw":1, "no_keep_stubs":1, "remove_power":1}):
+    def place(node, tool=None, **options):
         """Place the parts and children in this node.
 
         Args:
@@ -1075,13 +1073,13 @@ class Placer:
 
         # Group parts into those that are connected by explicit nets and
         # those that float freely connected only by stub nets.
-        connected_parts, internal_nets, floating_parts = node.group_parts(options)
+        connected_parts, internal_nets, floating_parts = node.group_parts(**options)
 
         # Place node parts.
-        node.place_parts(connected_parts, internal_nets, floating_parts, options)
+        node.place_parts(connected_parts, internal_nets, floating_parts, **options)
 
         # Place blocks of parts in this node.
-        node.place_blocks(connected_parts, floating_parts, node.children.values(), options)
+        node.place_blocks(connected_parts, floating_parts, node.children.values(), **options)
 
         # Calculate the bounding box for the node after placement of parts and children.
         node.calc_bbox()
