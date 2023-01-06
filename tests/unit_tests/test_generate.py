@@ -18,6 +18,7 @@ from skidl import (
     Group,
     Net,
     Part,
+    PartTmplt,
     SubCircuit,
     generate_graph,
     generate_netlist,
@@ -30,6 +31,12 @@ from skidl import (
 from skidl.schematics.route import RoutingFailure
 
 from .setup_teardown import setup_function, teardown_function
+
+# To view schematic debugging output, use the command:
+#    DEBUG_DRAW=1 pytest ...
+sch_options = {}
+if os.getenv("DEBUG_DRAW"):
+    sch_options.update({"draw_placement":True, "draw":True, "draw_routing":True})
 
 
 def _empty_footprint_handler(part):
@@ -107,7 +114,12 @@ def test_generate_1():
     generate_netlist()
     generate_xml()
     generate_graph()
-    generate_schematic(filepath=create_output_dir("generate_1"), flatness=1.0)
+    generate_schematic(
+        filepath=create_output_dir("generate_1"),
+        flatness=1.0,
+        remove_power=True,
+        **sch_options,
+    )
     generate_pcb()
 
 
@@ -168,7 +180,7 @@ def test_schematic_gen_place():
             name="Q_PNP_CBE",
             footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2",
             dest=TEMPLATE,
-            symtx="V",
+            # symtx="V",
         )
         r = Part(
             "Device.lib", "R", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE
@@ -202,7 +214,9 @@ def test_schematic_gen_place():
             qs[-1].C & Net("O")
 
     test()
-    generate_schematic(filepath=create_output_dir("place"), flatness=0.5)
+    generate_schematic(
+        filepath=create_output_dir("place"), flatness=0.5, remove_power=True, **sch_options
+    )
 
 
 @pytest.mark.xfail(raises=RoutingFailure)
@@ -219,7 +233,9 @@ def test_schematic_gen_simple():
     for q in qs:
         for p, n in zip(q.pins, ns):
             n += p
-    generate_schematic(filepath=create_output_dir("simple"), flatness=1.0)
+    generate_schematic(
+        filepath=create_output_dir("simple"), flatness=1.0, **sch_options
+    )
 
 
 @pytest.mark.xfail(raises=RoutingFailure)
@@ -272,7 +288,7 @@ def test_schematic_gen_units():
         q()
         test()  # This enables a recursion error in test_interface_12 for reasons unknown.
 
-    generate_schematic(filepath=create_output_dir("units"), flatness=1.0)
+    generate_schematic(filepath=create_output_dir("units"), flatness=1.0, **sch_options)
 
 
 @pytest.mark.xfail(raises=RoutingFailure)
@@ -317,7 +333,7 @@ def test_schematic_gen_hier():
             vcc & q1["E"]
             vcc & q2["E"]
 
-    generate_schematic(filepath=create_output_dir("hier"), flatness=0.0)
+    generate_schematic(filepath=create_output_dir("hier"), flatness=0.0, **sch_options)
 
 
 @pytest.mark.xfail(raises=RoutingFailure)
@@ -346,7 +362,7 @@ def test_schematic_hier_connections():
             a & r1 & (q1["c,e"] | q2["c,e"]) & r3 & o
             b & r2 & (q1["b"] | q2["b"])
 
-    generate_schematic(filepath=create_output_dir("hier_connections"), flatness=1.0)
+    generate_schematic(filepath=create_output_dir("hier_connections"), flatness=1.0, **sch_options)
 
 
 @pytest.mark.xfail(raises=RoutingFailure)
@@ -362,7 +378,7 @@ def test_schematic_part_tx():
     q3 = q(symtx="L")
     q4 = q(symtx="H")
     q5 = q(symtx="V")
-    generate_schematic(filepath=create_output_dir("part_tx"), flatness=1.0)
+    generate_schematic(filepath=create_output_dir("part_tx"), flatness=1.0, **sch_options)
 
 
 @pytest.mark.xfail(raises=RoutingFailure)
@@ -388,7 +404,7 @@ def test_svg_1():
     led["A,RK,GK,BK"] += vcc, r, g, b
     Part(lib="MCU_Microchip_PIC10.lib", name="PIC10F200-IMC")
 
-    generate_schematic(filepath=create_output_dir("svg_1"), flatness=1.0)
+    generate_schematic(filepath=create_output_dir("svg_1"), flatness=1.0, **sch_options)
     generate_svg(file_="svg_1")
 
 
@@ -400,7 +416,7 @@ def test_svg_2():
     opamp.uA.p1 += Net("OUT")
     opamp.uB.symtx = "L"
 
-    generate_schematic(filepath=create_output_dir("svg_2"), flatness=1.0)
+    generate_schematic(filepath=create_output_dir("svg_2"), flatness=1.0, **sch_options)
     generate_svg(file_="svg_2")
 
 
@@ -433,7 +449,7 @@ def test_svg_3():
     for part in default_circuit.parts:
         part.validate()
 
-    generate_schematic(filepath=create_output_dir("svg_3"), flatness=1.0)
+    generate_schematic(filepath=create_output_dir("svg_3"), flatness=1.0, **sch_options)
     generate_svg(file_="svg_3")
 
     for part in default_circuit.parts:
@@ -501,7 +517,7 @@ def test_svg_4():
     vcc & q1["E"]
     vcc & q2["E"]
 
-    generate_schematic(filepath=create_output_dir("svg_4"), flatness=1.0)
+    generate_schematic(filepath=create_output_dir("svg_4"), flatness=1.0, **sch_options)
     generate_svg("svg_4")
     generate_netlist()
 
@@ -573,7 +589,7 @@ def test_svg_5():
     uc1.UDM.net.stub = True
     uc1.UDP.net.stub = True
 
-    generate_schematic(filepath=create_output_dir("svg_5"), flatness=1.0)
+    generate_schematic(filepath=create_output_dir("svg_5"), flatness=1.0, **sch_options)
     generate_svg("svg_5")
 
 
@@ -602,7 +618,7 @@ def test_svg_6():
         & vcc
     )
 
-    generate_schematic(filepath=create_output_dir("svg_6"), flatness=1.0)
+    generate_schematic(filepath=create_output_dir("svg_6"), flatness=1.0, **sch_options)
     generate_svg("svg_6")
 
 
@@ -611,7 +627,7 @@ def test_svg_7():
 
     fpga = Part(lib="FPGA_Lattice.lib", name="ICE40HX8K-BG121")
     fpga.uA.symtx = "R"
-    generate_schematic(filepath=create_output_dir("svg_7"), flatness=1.0)
+    generate_schematic(filepath=create_output_dir("svg_7"), flatness=1.0, **sch_options)
     generate_svg(file_="svg_7")
 
 
@@ -796,5 +812,35 @@ def test_svg_8():
 
     ERC()  # Run error checks.
     generate_netlist()  # Generate the netlist.
-    generate_schematic(filepath=create_output_dir("svg_8"), flatness=1.0)
+    generate_schematic(filepath=create_output_dir("svg_8"), flatness=1.0, **sch_options)
     generate_svg("svg_8")
+
+
+@pytest.mark.xfail(raises=RoutingFailure)
+def test_buses_1():
+    ram = PartTmplt("GameteSnapEDA.lib", "MT48LC16M16A2TG-6A_IT:GTR")
+    rams = 3 * ram
+
+    for rama, ramb in zip(rams[:-1], rams[1:]):
+        rama["DQ[15:0]"] += ramb["DQ[15:0]"]
+        rama["A[12:0]"] += ramb["A[12:0]"]
+        rama["BA[1:0]"] += ramb["BA[1:0]"]
+        rama["DQML"] += ramb["DQML"]
+        rama["DQMH"] += ramb["DQMH"]
+        rama["~WE~"] += ramb["~WE~"]
+        rama["~CAS~"] += ramb["~CAS~"]
+        rama["~RAS~"] += ramb["~RAS~"]
+        rama["~CS~"] += ramb["~CS~"]
+        rama["CLK"] += ramb["CLK"]
+        rama["CKE"] += ramb["CKE"]
+
+    gnd = Net("GND")
+    vdd = Net("VDD")
+
+    for rama in rams:
+        vdd += rama["VDD"]
+        gnd += rama["VSS"]
+        vdd += rama["VDDQ"]
+        gnd += rama["VSSQ"]
+
+    generate_schematic(filepath=create_output_dir("buses_1"), **sch_options)
