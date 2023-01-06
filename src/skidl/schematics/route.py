@@ -229,7 +229,7 @@ class Terminal:
         """
 
         # Don't draw terminal if it isn't on a net. It's just a placeholder.
-        if self.net or "draw_all_terminals" in options:
+        if self.net or options.get("draw_all_terminals"):
             draw_endpoint(self.route_pt, scr, tx, color=net_colors[self.net])
 
 
@@ -630,7 +630,7 @@ class Face(Interval):
         for terminal in self.terminals:
             terminal.draw(scr, tx, **options)
 
-        if "show_capacities" in options:
+        if options.get("show_capacities"):
             # Show the wiring capacity at the midpoint of the Face.
             mid_pt = (self.seg.p1 + self.seg.p2) / 2
             draw_text(str(self.capacity), mid_pt, scr, tx, font=font, color=color)
@@ -1366,7 +1366,7 @@ class SwitchBox:
 
             if not tb_cncts:
                 # No possible connections for top and/or bottom.
-                if "allow_routing_failure" in options:
+                if options.get("allow_routing_failure"):
                     return column  # Return empty column.
                 else:
                     raise RoutingFailure
@@ -1383,7 +1383,7 @@ class SwitchBox:
                     # Top & bottom connect to the same track but they're the same net so that's OK.
                     break
             else:
-                if "allow_routing_failure" in options:
+                if options.get("allow_routing_failure"):
                     return column
                 else:
                     raise RoutingFailure
@@ -1635,7 +1635,7 @@ class SwitchBox:
 
         for track_net, right_net in zip(tracks[-1], self.right_nets):
             if track_net is not right_net:
-                if "allow_routing_failure" not in options:
+                if not options.get("allow_routing_failure"):
                     raise RoutingFailure
 
         # Create horizontal wiring segments.
@@ -1699,14 +1699,14 @@ class SwitchBox:
                 self.bbox.resize(Vector(DRAWING_BOX_RESIZE, DRAWING_BOX_RESIZE))
             )
 
-        if "draw_switchbox" in options:
+        if options.get("draw_switchbox"):
             # Draw switchbox boundary.
             self.top_face.draw(scr, tx, font, color, thickness, **options)
             self.bottom_face.draw(scr, tx, font, color, thickness, **options)
             self.left_face.draw(scr, tx, font, color, thickness, **options)
             self.right_face.draw(scr, tx, font, color, thickness, **options)
 
-        if "draw_routing" in options:
+        if options.get("draw_routing"):
             # Draw routed wire segments.
             try:
                 for segments in self.segments.values():
@@ -1715,7 +1715,7 @@ class SwitchBox:
             except AttributeError:
                 pass
 
-        if "draw_channels" in options:
+        if options.get("draw_channels"):
             # Draw routing channels from midpoint of one switchbox face to midpoint of another.
 
             def draw_channel(face1, face2):
@@ -1923,7 +1923,7 @@ class Router:
             for face in track:
                 face.set_capacity()
 
-    def debug_draw(node, bbox, parts, *other_stuff, **options):
+    def routing_debug_draw(node, bbox, parts, *other_stuff, **options):
         """Draw routing for debugging purposes.
 
         Args:
@@ -1934,7 +1934,7 @@ class Router:
             options (dict, optional): Dictionary of options and values. Defaults to {}.
         """
 
-        if "draw" not in options:
+        if not options.get("draw"):
             return
 
         # Initialize drawing area.
@@ -2333,7 +2333,9 @@ class Router:
         Args:
             node (Node): Hierarchical node containing the parts to be connected.
             tool (str): Backend tool for schematics.
-            options (dict, optional): Dictionary of options and values.
+            options (dict, optional): Dictionary of options and values:
+                "allow_routing_failure", "draw", "draw_all_terminals", "show_capacities",
+                "draw_switchbox", "draw_routing", "draw_channels"
         """
 
         # Inject the constants for the backend tool into this module.
@@ -2376,7 +2378,7 @@ class Router:
         node.create_terminals(internal_nets, h_tracks, v_tracks)
 
         # Draw part outlines, routing tracks and terminals.
-        node.debug_draw(routing_bbox, node.parts, h_tracks, v_tracks, **options)
+        node.routing_debug_draw(routing_bbox, node.parts, h_tracks, v_tracks, **options)
 
         # Do global routing of nets internal to the node.
         global_routes = node.global_router(internal_nets)
@@ -2386,7 +2388,7 @@ class Router:
             route.cvt_faces_to_terminals()
 
         # If enabled, draw the global routing for debug purposes.
-        node.debug_draw(
+        node.routing_debug_draw(
             routing_bbox, node.parts, h_tracks, v_tracks, global_routes, **options
         )
 
@@ -2399,7 +2401,7 @@ class Router:
         node.add_junctions()
 
         # If enabled, draw the global and detailed routing for debug purposes.
-        node.debug_draw(routing_bbox, node.parts, global_routes, switchboxes, **options)
+        node.routing_debug_draw(routing_bbox, node.parts, global_routes, switchboxes, **options)
 
         # Remove extended routing points from parts.
         node.rmv_routing_points()
