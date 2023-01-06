@@ -36,7 +36,7 @@ from .setup_teardown import setup_function, teardown_function
 #    DEBUG_DRAW=1 pytest ...
 sch_options = {}
 if os.getenv("DEBUG_DRAW"):
-    sch_options.update({"draw_placement":True, "draw":True, "draw_routing":True})
+    sch_options.update({"draw_placement": True, "draw": True, "draw_routing": True})
 
 
 def _empty_footprint_handler(part):
@@ -215,7 +215,10 @@ def test_schematic_gen_place():
 
     test()
     generate_schematic(
-        filepath=create_output_dir("place"), flatness=0.5, remove_power=True, **sch_options
+        filepath=create_output_dir("place"),
+        flatness=0.5,
+        remove_power=True,
+        **sch_options,
     )
 
 
@@ -362,7 +365,9 @@ def test_schematic_hier_connections():
             a & r1 & (q1["c,e"] | q2["c,e"]) & r3 & o
             b & r2 & (q1["b"] | q2["b"])
 
-    generate_schematic(filepath=create_output_dir("hier_connections"), flatness=1.0, **sch_options)
+    generate_schematic(
+        filepath=create_output_dir("hier_connections"), flatness=1.0, **sch_options
+    )
 
 
 @pytest.mark.xfail(raises=RoutingFailure)
@@ -378,7 +383,9 @@ def test_schematic_part_tx():
     q3 = q(symtx="L")
     q4 = q(symtx="H")
     q5 = q(symtx="V")
-    generate_schematic(filepath=create_output_dir("part_tx"), flatness=1.0, **sch_options)
+    generate_schematic(
+        filepath=create_output_dir("part_tx"), flatness=1.0, **sch_options
+    )
 
 
 @pytest.mark.xfail(raises=RoutingFailure)
