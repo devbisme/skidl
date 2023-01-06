@@ -118,7 +118,7 @@ def test_generate_1():
         filepath=create_output_dir("generate_1"),
         flatness=1.0,
         remove_power=True,
-        **sch_options,
+        **sch_options
     )
     generate_pcb()
 
@@ -218,7 +218,7 @@ def test_schematic_gen_place():
         filepath=create_output_dir("place"),
         flatness=0.5,
         remove_power=True,
-        **sch_options,
+        **sch_options
     )
 
 
