@@ -1689,7 +1689,7 @@ class SwitchBox:
             options (dict, optional): Dictionary of options and values. Defaults to {}.
         """
 
-        # If the screen object is None, then PyGame drawing is not in progress so set flag
+        # If the screen object is not None, then PyGame drawing is enabled so set flag
         # to initialize PyGame.
         do_start_end = not bool(scr)
 
