@@ -26,9 +26,9 @@ from future import standard_library
 
 from ..circuit import Circuit
 from ..pin import Pin
-from .debug_draw import draw_end, draw_placement, draw_start
+from .debug_draw import draw_end, draw_placement, draw_start, draw_force
 from .geometry import BBox, Point, Tx, Vector
-from ..utilities import export_to_all
+from ..utilities import export_to_all, rmv_attr
 
 standard_library.install_aliases()
 
@@ -142,14 +142,10 @@ def add_placement_bboxes(parts):
 def rmv_placement_bboxes(parts):
     """Remove expanded bounding boxes."""
 
-    for part in parts:
-        try:
-            del part.place_bbox
-        except AttributeError:
-            pass
+    rmv_attr(parts, "place_bbox")
 
 
-def add_anchor_and_pull_pins(parts, nets):
+def add_anchor_and_pull_pins(parts, nets, **options):
     """Add positions of anchor and pull pins for attractive net forces between parts.
 
     Args:
@@ -162,14 +158,15 @@ def add_anchor_and_pull_pins(parts, nets):
 
         pin.route_pt = pin.pt  # For drawing of nets during debugging.
         pin.place_pt = Point(pin.pt.x, pin.pt.y)
+        offset = 1 * GRID
         if pin.orientation == "U":
-            pin.place_pt.y = part.place_bbox.min.y
+            pin.place_pt.y = part.lbl_bbox.min.y - offset
         elif pin.orientation == "D":
-            pin.place_pt.y = part.place_bbox.max.y
+            pin.place_pt.y = part.lbl_bbox.max.y + offset
         elif pin.orientation == "L":
-            pin.place_pt.x = part.place_bbox.max.x
+            pin.place_pt.x = part.lbl_bbox.max.x + offset
         elif pin.orientation == "R":
-            pin.place_pt.x = part.place_bbox.min.x
+            pin.place_pt.x = part.lbl_bbox.min.x - offset
         else:
             raise RuntimeError("Unknown pin orientation.")
 
@@ -196,6 +193,28 @@ def add_anchor_and_pull_pins(parts, nets):
                         # be on a part that is in the set of movable parts.
                         pull_pins[net].append(pin)
 
+        if options.get("trim"):
+            # Some nets attach to multiple pins on the same part. Trim the
+            # anchor and pull pins for each net to a single pin for each part.
+
+            # Only leave one randomly-chosen anchor point for a net on each part.
+            for net in anchor_pins.keys():
+                anchor_pins[net] = [random.choice(anchor_pins[net]), ]
+            for net in anchor_pins.keys():
+                assert len(anchor_pins[net]) == 1
+
+            # Only leave one randomly-chosen pulling point for a net on each part.
+            for net, pins in pull_pins.items():
+                part_pins = defaultdict(list)
+                for pin in pins:
+                    part_pins[pin.part].append(pin)
+                pull_pins[net].clear()
+                for prt in part_pins.keys():
+                    pull_pins[net].append(random.choice(part_pins[prt]))
+            for net, pins in pull_pins.items():
+                prts = [pin.part for pin in pins]
+                assert len(prts) == len(set(prts))
+
         # Store the anchor & pulling points in the Part object.
         part.anchor_pins = anchor_pins
         part.pull_pins = pull_pins
@@ -204,7 +223,7 @@ def add_anchor_and_pull_pins(parts, nets):
         try:
             # Set anchor at top-most pin so floating part tops will align.
             anchor_pin = max(part.pins, key=lambda pin: pin.pt.y)
-            anchor_pin.place_pt = anchor_pin.pt
+            add_place_pt(part, anchor_pin)
             part.anchor_pin = anchor_pin
         except ValueError:
             # Set anchor for part with no pins at all.
@@ -220,21 +239,13 @@ def rmv_anchor_and_pull_pins(parts):
     """
 
     for part in parts:
-        for pin in part:
-            try:
-                del pin.route_pt
-                del pin.place_pt
-            except AttributeError:
-                pass
-        try:
-            del part.anchor_pin
-            del part.anchor_pins
-            del part.pull_pins
-        except AttributeError:
-            pass
+        for attr in ("route_pt", "place_pt"):
+            rmv_attr(part.pins, attr)
+    for attr in ("anchor_pin", "anchor_pins", "pull_pins", "force"):
+        rmv_attr(part, attr)
 
 
-def net_force_dist(part, nets):
+def net_force_dist_avg(part, nets, **options):
     """Compute attractive force on a part from all the other parts connected to it.
 
     Args:
@@ -243,204 +254,94 @@ def net_force_dist(part, nets):
 
     Returns:
         Vector: Force upon given part.
-
-    Notes:
-        This force function needs careful adjustment of the speed parameter
-        or else highly-connected parts are moved so quickly they jump over
-        each other in an increasing cascade and actually move farther apart.
     """
+
+    # Notes:
+    #     Computing net force proportional to distance between part pins
+    #     can lead to highly-connected parts moving quickly and jumping over 
+    #     each other because of the total accumulated force. This can lead
+    #     to a cascade where the parts actually start moving farther apart.
+    #
+    #     Limiting the movement of a part to the distance of its closest
+    #     connection keeps the parts from jumping over each
+    #     other, but can cause a problem if there are two or more clusters
+    #     of parts on the same net in that parts in a cluster are attracted
+    #     to each other, but the overall clusters are not attracted to each other.
+    #
+    #     A compromise is to limit the maximum pulling force for each net to
+    #     be no more than the average distance from the anchor point to the pulling points.
+    #     This seems to solve some of the problems of the first two techniques.
 
     anchor_pins = part.anchor_pins
     pull_pins = part.pull_pins
 
-    # Compute the combined force of all the anchor/pulling points on each net.
+    # Compute the total force on the part from all the anchor/pulling points on each net.
     total_force = Vector(0, 0)
 
-    for net in anchor_pins.keys():
-        for anchor_pin in anchor_pins[net]:
-            anchor_pt = anchor_pin.place_pt * anchor_pin.part.tx
-            for pull_pin in pull_pins[net]:
-                pull_pt = pull_pin.place_pt * pull_pin.part.tx
-                dist_vec = pull_pt - anchor_pt
-                # Add force from pulling to anchor point that is proportional to distance.
-                total_force += dist_vec
+    # Parts with a lot of pins can accumulate large net forces that move them very quickly.
+    # Accumulate the number of individual net forces and use that to attenuate
+    # the total force, effectively normalizing the forces between large & small parts.
+    normalizer = 0
 
-    return total_force
-
-
-def net_force_dist_min(part, nets):
-    """Compute attractive force on a part from all the other parts connected to it.
-
-    Args:
-        part (Part): Part affected by forces from other connected parts.
-        nets (list): List of active internal nets connecting parts.
-
-    Returns:
-        Vector: Force upon given part.
-
-    Notes:
-        This force function reduces the movement of a part to the distance of
-        its closest connection. This keeps the parts from jumping over each
-        other, but can cause a problem if there are two or more clusters
-        of parts on the same net in that the attraction between clusters
-        is reduced to the attraction within each cluster and ignores the
-        distance between clusters.
-    """
-
-    anchor_pins = part.anchor_pins
-    pull_pins = part.pull_pins
-
-    # Compute the combined force of all the anchor/pulling points on each net.
-    total_force = Vector(0, 0)
-
-    for net in anchor_pins.keys():
-
-        min_dist = float("inf")
-        for anchor_pin in anchor_pins[net]:
-            anchor_pt = anchor_pin.place_pt * anchor_pin.part.tx
-            for pull_pin in pull_pins[net]:
-                pull_pt = pull_pin.place_pt * pull_pin.part.tx
-                dist_vec = pull_pt - anchor_pt
-                dist = dist_vec.magnitude
-                min_dist = min(dist, min_dist)
-                # Force from pulling to anchor point is proportional to distance.
-                total_force += dist_vec
-
-    if total_force.magnitude > min_dist:
-        total_force *= min_dist / total_force.magnitude
-
-    return total_force
-
-
-def net_force_dist_avg(part, nets):
-    """Compute attractive force on a part from all the other parts connected to it.
-
-    Args:
-        part (Part): Part affected by forces from other connected parts.
-        nets (list): List of active internal nets connecting parts.
-
-    Returns:
-        Vector: Force upon given part.
-
-    Notes:
-        Maximum pulling force for each net can be no more than the average
-        distance from the anchor point to the pulling points.
-        Seems to solve the problems of net_force_dist() and net_force_dist_min().
-    """
-
-    anchor_pins = part.anchor_pins
-    pull_pins = part.pull_pins
-
-    # Compute the combined force of all the anchor/pulling points on each net.
-    total_force = Vector(0, 0)
-
+    # Compute the force for each net attached to the part.
     for net in anchor_pins.keys():
 
         if not anchor_pins[net] or not pull_pins[net]:
             # Skip nets without pulling or anchor points.
             continue
 
+        # Initialize net force and average pin-to-pin distance.
         net_force = Vector(0, 0)
         dist_sum = 0
         dist_cnt = 0
 
+        # Compute the net force acting on each anchor point on the part.
         for anchor_pin in anchor_pins[net]:
+
+            # Compute the anchor point's (x,y).
             anchor_pt = anchor_pin.place_pt * anchor_pin.part.tx
+
+            # Sum the forces from each pulling point on the anchor point.
             for pull_pin in pull_pins[net]:
+
+                # Compute the pulling point's (x,y).
                 pull_pt = pull_pin.place_pt * pull_pin.part.tx
+
+                # Get the distance from the pull pt to the anchor point.
                 dist_vec = pull_pt - anchor_pt
+
+                # Update the values for computing the average distance.
                 dist_sum += dist_vec.magnitude
                 dist_cnt += 1
+
                 # Force from pulling to anchor point is proportional to distance.
                 net_force += dist_vec
 
-        avg_dist = dist_sum / dist_cnt
-        if net_force.magnitude > avg_dist:
-            net_force *= avg_dist / net_force.magnitude
+            if options.get("fanout_attenuation"):
+                # Reduce the influence of high-fanout nets.
+                net_force /= len(pull_pins[net])
 
+        # Attenuate the net force if it's greater than the average distance btw anchor/pull pins.
+        avg_dist = dist_sum / dist_cnt
+        nt_frc_mag = net_force.magnitude
+        if nt_frc_mag > avg_dist:
+            net_force *= avg_dist / nt_frc_mag
+
+        # Accumulate force from this net into the total force on the part.
         total_force += net_force
 
-    return total_force
+        # Increment the normalizer for every net force added to the total force.
+        normalizer += 1
 
-
-def net_force_fanout_1(part, nets):
-    """Compute attractive force on a part from all the other parts connected to it.
-
-    Args:
-        part (Part): Part affected by forces from other connected parts.
-        nets (list): List of active internal nets connecting parts.
-
-    Returns:
-        Vector: Force upon given part.
-
-    Notes:
-        Reduces the force by the cube of the number of pins on a net, thus
-        reducing the influence of high-fanout nets.
-    """
-
-    anchor_pins = part.anchor_pins
-    pull_pins = part.pull_pins
-
-    # Compute the combined force of all the anchor/pulling points on each net.
-    total_force = Vector(0, 0)
-    for net in anchor_pins.keys():
-
-        try:
-            influence_factor = 1 / (len(net.pins) - 1) ** 3
-        except ZeroDivisionError:
-            influence_factor = 1
-
-        for anchor_pin in anchor_pins[net]:
-            anchor_pt = anchor_pin.place_pt * anchor_pin.part.tx
-            for pull_pin in pull_pins[net]:
-                pull_pt = pull_pin.place_pt * pull_pin.part.tx
-                dist_vec = pull_pt - anchor_pt
-                total_force += dist_vec * influence_factor
-
-    return total_force
-
-
-def net_force_fanout_2(part, nets):
-    """Compute attractive force on a part from all the other parts connected to it.
-
-    Args:
-        part (Part): Part affected by forces from other connected parts.
-        nets (list): List of active internal nets connecting parts.
-
-    Returns:
-        Vector: Force upon given part.
-
-    Notes:
-        Any net with more than four pins on it doesn't influence part placement,
-        thus reducing the influence of high-fanout nets. This is not a very
-        good solution.
-    """
-
-    anchor_pins = part.anchor_pins
-    pull_pins = part.pull_pins
-
-    # Compute the combined force of all the anchor/pulling points on each net.
-    total_force = Vector(0, 0)
-    for net in anchor_pins.keys():
-
-        if len(net.pins) > 4:
-            influence_factor = 0
-        else:
-            influence_factor = 1
-
-        for anchor_pin in anchor_pins[net]:
-            anchor_pt = anchor_pin.place_pt * anchor_pin.part.tx
-            for pull_pin in pull_pins[net]:
-                pull_pt = pull_pin.place_pt * pull_pin.part.tx
-                dist_vec = pull_pt - anchor_pt
-                total_force += dist_vec * influence_factor
+    if options.get("normalize"):
+        # Normalize the total force to adjust for parts with a lot of pins.
+        total_force /= normalizer
 
     return total_force
 
 
 # Select the net force method used for the attraction of parts during placement.
-# net_force = net_force_fanout_1
-net_force = net_force_dist_avg
+net_force = functools.partial(net_force_dist_avg, normalize=True)
 
 
 def overlap_force(part, parts):
@@ -502,7 +403,9 @@ def total_net_force(part, parts, nets, alpha):
     Returns:
         Vector: Weighted total of net attractive and overlap repulsion forces.
     """
-    return (1 - alpha) * net_force(part, nets) + alpha * overlap_force(part, parts)
+    nt_frc = net_force(part, nets)
+    part.force = nt_frc
+    return (1 - alpha) * nt_frc + alpha * overlap_force(part, parts)
 
 
 def similarity_force(part, parts, similarity):
@@ -687,21 +590,22 @@ def slip_and_slide(parts, nets, scr, tx, font):
             draw_placement(parts, nets, scr, tx, font)
 
 
-def evolve_placement(parts, nets, force_func, speed, scr=None, tx=None, font=None):
+def evolve_placement(parts, nets, force_func, speeds, scr=None, tx=None, font=None):
     """Evolve part placement looking for optimum using force function.
 
     Args:
         parts (list): List of Parts.
         nets (list): List of nets that interconnect parts.
         force_func (function): Computes the force affecting part positions.
-        speed (float): Amount of part movement per unit of force.
+        speeds (list): List of floating speeds of part movement per unit of force.
         scr (PyGame screen): Screen object for PyGame debug drawing.
         tx (Tx): Transformation matrix from real to screen coords.
         font (PyGame font): Font for rendering text.
     """
 
     # Force-directed placement.
-    push_and_pull(parts, nets, force_func, speed, scr, tx, font)
+    for speed in speeds:
+        push_and_pull(parts, nets, force_func, speed, scr, tx, font)
 
     # Snap parts to grid.
     for part in parts:
@@ -720,7 +624,6 @@ class Placer:
 
     # Speed of part movement during placement.
     speed = 0.25
-    speed_mult = 2.0
 
     def group_parts(node, **options):
         """Group parts in the Node that are connected by internal nets
@@ -742,7 +645,7 @@ class Placer:
         internal_nets = node.get_internal_nets()
 
         # Remove some nets according to options.
-        if "remove_power" in options:
+        if options.get("remove_power"):
 
             def is_pwr(net):
                 return (
@@ -753,7 +656,7 @@ class Placer:
 
             internal_nets = [net for net in internal_nets if not is_pwr(net)]
 
-        if "remove_high_fanout" in options:
+        if options.get("remove_high_fanout"):
             import statistics
 
             fanouts = [len(net) for net in internal_nets]
@@ -826,7 +729,7 @@ class Placer:
             # Randomly place connected parts.
             random_placement(group)
 
-            if "draw" in options:
+            if options.get("draw_placement"):
                 # Draw the placement for debug purposes.
                 bbox = BBox()
                 for part in group:
@@ -839,25 +742,16 @@ class Placer:
             # Do force-directed placement of the parts in the group.
             force_func = functools.partial(total_net_force, parts=group, nets=internal_nets)
             evolve_placement(
-                group,
-                internal_nets,
-                force_func,
-                speed=Placer.speed,
-                scr=draw_scr,
-                tx=draw_tx,
-                font=draw_font,
-            )
-            evolve_placement(
-                group,
-                internal_nets,
-                force_func,
-                speed=Placer.speed * Placer.speed_mult,
-                scr=draw_scr,
-                tx=draw_tx,
-                font=draw_font,
-            )
+                    group,
+                    internal_nets,
+                    force_func,
+                    speeds=(Placer.speed, 1.5*Placer.speed, 2.0*Placer.speed),
+                    scr=draw_scr,
+                    tx=draw_tx,
+                    font=draw_font,
+                )
 
-            if "draw" in options:
+            if options.get("draw_placement"):
                 draw_end()
 
             # Placement done so anchor and pull pins for each part are no longer needed.
@@ -880,7 +774,7 @@ class Placer:
             # Randomly place the floating parts.
             random_placement(floating_parts)
 
-            if "draw" in options:
+            if options.get("draw"):
                 # Compute the drawing area for the floating parts
                 bbox = BBox()
                 for part in floating_parts:
@@ -914,13 +808,13 @@ class Placer:
                 floating_parts,
                 [],
                 force_func,
-                speed=Placer.speed,
+                speeds=(Placer.speed,),
                 scr=draw_scr,
                 tx=draw_tx,
                 font=draw_font,
             )
 
-            if "draw" in options:
+            if options.get("draw"):
                 draw_end()
 
             # Placement done so anchor and pull pins for each part are no longer needed.
@@ -1014,7 +908,7 @@ class Placer:
         # Start off with a random placement of part blocks.
         random_placement(part_blocks)
 
-        if "draw" in options:
+        if options.get("draw"):
             # Draw the global and detailed routing for debug purposes.
             bbox = BBox()
             for blk in part_blocks:
@@ -1032,13 +926,13 @@ class Placer:
             part_blocks,
             [],
             force_func,
-            speed=Placer.speed,
+            speeds=(Placer.speed,),
             scr=draw_scr,
             tx=draw_tx,
             font=draw_font,
         )
 
-        if "draw" in options:
+        if options.get("draw"):
             draw_end()
 
         # Apply the placement moves to the part blocks.
