@@ -154,6 +154,10 @@ def draw_part(part, scr, tx, font):
     draw_box(tx_bbox, scr, tx, color=(180, 255, 180), thickness=0)
     draw_box(tx_bbox, scr, tx, color=(90, 128, 90), thickness=5)
     draw_text(part.ref, tx_bbox.ctr, scr, tx, font)
+    for pin in part:
+        if hasattr(pin, "place_pt"):
+            pt = pin.place_pt * part.tx
+            draw_endpoint(pt, scr, tx, color=(200,0,200), dot_radius=10)
 
 
 @export_to_all
@@ -199,7 +203,7 @@ def draw_force(part, force, scr, tx, font, color=(128, 0, 0)):
         font (PyGame font): Font for rendering text.
         color (tuple, optional): Segment color. Defaults to (0,0,0).
     """
-    force *= 200
+    force *= 1
     anchor = part.place_bbox.ctr * part.tx
     draw_seg(
         Segment(anchor, anchor + force), scr, tx, color=color, thickness=5, dot_radius=5
@@ -220,6 +224,7 @@ def draw_placement(parts, nets, scr, tx, font):
     draw_clear(scr)
     for part in parts:
         draw_part(part, scr, tx, font)
+        draw_force(part, part.force, scr, tx, font)
     for net in nets:
         draw_net(net, parts, scr, tx, font)
     draw_redraw()
@@ -308,10 +313,10 @@ def draw_end():
     # Display drawing.
     draw_redraw()
 
-    # Wait for user to close PyGame window.
+    # Wait for user to press a key or close PyGame window.
     running = True
     while running:
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type in (pygame.QUIT, pygame.KEYDOWN):
                 running = False
     pygame.quit()
