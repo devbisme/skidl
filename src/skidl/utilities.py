@@ -153,20 +153,17 @@ def flatten(nested_list):
 
 def set_attr(objs, attr, value):
     """Set an attribute in a list of objects."""
-    try:
-        for o in objs:
-            setattr(o, attr, value)
-    except TypeError:
-        setattr(obj, attr, value)
+    for o in to_list(objs):
+        setattr(o, attr, value)
 
 
 def rmv_attr(objs, attr):
     """Remove an attribute from a list of objects."""
-    try:
-        for o in objs:
+    for o in to_list(objs):
+        try:
             delattr(o, attr)
-    except TypeError:
-        delattr(obj, attr)
+        except AttributeError:
+            pass
 
 
 @export_to_all
