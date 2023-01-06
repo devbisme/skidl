@@ -193,7 +193,7 @@ def add_anchor_and_pull_pins(parts, nets, **options):
                         # be on a part that is in the set of movable parts.
                         pull_pins[net].append(pin)
 
-        if options.get("trim"):
+        if options.get("trim_anchor_pull_pins"):
             # Some nets attach to multiple pins on the same part. Trim the
             # anchor and pull pins for each net to a single pin for each part.
 
