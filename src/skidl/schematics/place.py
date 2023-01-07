@@ -121,21 +121,30 @@ def adjust_orientations(parts, nets, alpha):
         part.tx = smallest_tx
 
 
-def add_placement_bboxes(parts):
+def add_placement_bboxes(parts, **options):
     """Expand part bounding boxes to include space for subsequent routing."""
 
+    expansion_factor = options.get("expansion_factor", 1.0)
     for part in parts:
+
+        # Placement bbox starts off with the part bbox (including any net labels).
         part.place_bbox = BBox()
         part.place_bbox.add(part.lbl_bbox)
+
+        # Compute the routing area for each side based on the number of pins on each side.
         padding = {"U": 1, "D": 1, "L": 1, "R": 1}  # Min padding of 1 channel per side.
         for pin in part:
             if pin.stub is False and pin.is_connected():
                 padding[pin.orientation] += 1
+
+        # Add padding for routing to the right and upper sides.
         part.place_bbox.add(
-            part.place_bbox.max + Point(padding["L"], padding["D"]) * GRID
+            part.place_bbox.max + (Point(padding["L"], padding["D"]) * GRID * expansion_factor)
         )
+
+        # Add padding for routing to the left and lower sides.
         part.place_bbox.add(
-            part.place_bbox.min - Point(padding["R"], padding["U"]) * GRID
+            part.place_bbox.min - (Point(padding["R"], padding["U"]) * GRID * expansion_factor)
         )
 
 
@@ -241,8 +250,8 @@ def rmv_anchor_and_pull_pins(parts):
     for part in parts:
         for attr in ("route_pt", "place_pt"):
             rmv_attr(part.pins, attr)
-    for attr in ("anchor_pin", "anchor_pins", "pull_pins", "force"):
-        rmv_attr(part, attr)
+    for attr in ("anchor_pin", "anchor_pins", "pull_pins"):
+        rmv_attr(parts, attr)
 
 
 def net_force_dist_avg(part, nets, **options):
@@ -337,6 +346,8 @@ def net_force_dist_avg(part, nets, **options):
         # Normalize the total force to adjust for parts with a lot of pins.
         total_force /= normalizer
 
+    part.force = total_force # For debug_draw purposes only.
+
     return total_force
 
 
@@ -391,7 +402,7 @@ def overlap_force(part, parts):
     return total_force
 
 
-def total_net_force(part, parts, nets, alpha):
+def total_part_force(part, parts, nets, alpha):
     """Compute the total of the net attractive and overlap repulsive forces on a part.
 
     Args:
@@ -403,9 +414,7 @@ def total_net_force(part, parts, nets, alpha):
     Returns:
         Vector: Weighted total of net attractive and overlap repulsion forces.
     """
-    nt_frc = net_force(part, nets)
-    part.force = nt_frc
-    return (1 - alpha) * nt_frc + alpha * overlap_force(part, parts)
+    return (1 - alpha) * net_force(part, nets) + alpha * overlap_force(part, parts)
 
 
 def similarity_force(part, parts, similarity):
@@ -430,6 +439,8 @@ def similarity_force(part, parts, similarity):
         pull_pt = other.anchor_pin.place_pt * other.tx
         # Force from pulling to anchor point is proportional to part similarity and distance.
         total_force += (pull_pt - anchor_pt) * similarity[part][other]
+
+    part.force = total_force # For debug_draw purposes only.
 
     return total_force
 
@@ -721,7 +732,7 @@ class Placer:
             group = list(group)
 
             # Add bboxes with surrounding area so parts are not butted against each other.
-            add_placement_bboxes(group)
+            add_placement_bboxes(group, **options)
 
             # Set anchor and pull pins that determine attractive forces between parts.
             add_anchor_and_pull_pins(group, internal_nets)
@@ -740,7 +751,7 @@ class Placer:
                 draw_scr, draw_tx, draw_font = None, None, None
 
             # Do force-directed placement of the parts in the group.
-            force_func = functools.partial(total_net_force, parts=group, nets=internal_nets)
+            force_func = functools.partial(total_part_force, parts=group, nets=internal_nets)
             evolve_placement(
                     group,
                     internal_nets,
@@ -802,8 +813,7 @@ class Placer:
                 # part.anchor_pin = max(part.anchor_pins, key=lambda pin: (pin.place_pt * tx).y)
 
             force_func = functools.partial(
-                total_similarity_force, parts=floating_parts, similarity=part_similarity
-            )
+                total_similarity_force, parts=floating_parts, similarity=part_similarity)
             evolve_placement(
                 floating_parts,
                 [],

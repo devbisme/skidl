@@ -36,7 +36,7 @@ from .setup_teardown import setup_function, teardown_function
 #    DEBUG_DRAW=1 pytest ...
 sch_options = {}
 if os.getenv("DEBUG_DRAW"):
-    sch_options.update({"draw_placement": True, "draw": True, "draw_routing": True})
+    sch_options.update({"draw_placement": True, "draw_routing": True, "draw": True, "retries": 3})
 
 
 def _empty_footprint_handler(part):

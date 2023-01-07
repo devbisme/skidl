@@ -154,10 +154,14 @@ def draw_part(part, scr, tx, font):
     draw_box(tx_bbox, scr, tx, color=(180, 255, 180), thickness=0)
     draw_box(tx_bbox, scr, tx, color=(90, 128, 90), thickness=5)
     draw_text(part.ref, tx_bbox.ctr, scr, tx, font)
-    for pin in part:
-        if hasattr(pin, "place_pt"):
-            pt = pin.place_pt * part.tx
-            draw_endpoint(pt, scr, tx, color=(200,0,200), dot_radius=10)
+    try:
+        for pin in part:
+            if hasattr(pin, "place_pt"):
+                pt = pin.place_pt * part.tx
+                draw_endpoint(pt, scr, tx, color=(200,0,200), dot_radius=10)
+    except TypeError:
+        # Probably trying to draw a block of parts which has no pins and can't iterate thru them.
+        pass
 
 
 @export_to_all

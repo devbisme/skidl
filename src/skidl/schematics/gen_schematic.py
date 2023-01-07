@@ -26,8 +26,8 @@ from ..tools.kicad.eeschema_v5 import Eeschema_V5, pin_label_to_eeschema
 from ..tools.kicad.v5 import calc_hier_label_bbox, calc_symbol_bbox
 from .geometry import BBox, Point, Tx, Vector
 from .place import Placer
-from .route import Router
-from ..utilities import export_to_all
+from .route import Router, RoutingFailure
+from ..utilities import export_to_all, rmv_attr
 
 standard_library.install_aliases()
 
@@ -270,12 +270,6 @@ class Node(Placer, Router, Eeschema_V5):
 
         if circuit:
             self.add_circuit(circuit)
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, *args):
-        pass
 
     def find_node_with_part(self, part):
         """Find the node that contains the part based on its hierarchy.
@@ -544,6 +538,7 @@ def gen_schematic(
     top_name=get_script_name(),
     title="SKiDL-Generated Schematic",
     flatness=0.0,
+    retries=2,
     **options
 ):
     """Create a schematic file from a Circuit object.
@@ -554,13 +549,43 @@ def gen_schematic(
         top_name (str, optional): The name for the top of the circuit hierarchy. Defaults to get_script_name().
         title (str, optional): The title of the schematic. Defaults to "SKiDL-Generated Schematic".
         flatness (float, optional): Determines how much the hierarchy is flattened in the schematic. Defaults to 0.0 (completely hierarchical).
+        retries (int, optional): Number of times to re-try if routing fails. Defaults to 2.
     """
 
-    preprocess_parts_and_nets(circuit)
+    # Start with default routing area.
+    expansion_factor = 1.0
 
-    with Node(circuit, filepath, top_name, title, flatness) as node:
-        node.place(**options)
-        node.route(**options)
+    # Try to place & route one or more times.
+    for _ in range(retries):
+
+        preprocess_parts_and_nets(circuit)
+
+        node = Node(circuit, filepath, top_name, title, flatness)
+
+        # Place parts.
+        node.place(expansion_factor=expansion_factor, **options)
+
+        try:
+            # Route parts.
+            node.route(**options)
+
+        except RoutingFailure:
+            # Routing failed so expand routing area and try again.
+            expansion_factor *= 1.25
+            continue
+
+        # Generate EESCHEMA code for the schematic.
         node.to_eeschema()
 
-    finalize_parts_and_nets(circuit)
+        # Clean up.
+        finalize_parts_and_nets(circuit)
+
+        for attr in ("force", "bbox", "lbl_bbox", "tx"):
+            rmv_attr(circuit.parts, attr)
+
+        # Place & route was successful if we got here, so exit.
+        return
+
+
+    # Exited the loop without successful routing.
+    raise (RoutingFailure)

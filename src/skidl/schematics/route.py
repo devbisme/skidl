@@ -26,12 +26,12 @@ from ..circuit import Circuit
 from ..part import Part
 from .debug_draw import draw_end, draw_endpoint, draw_part, draw_seg, draw_start
 from .geometry import BBox, Point, Segment, Tx, Vector
-from ..utilities import export_to_all
+from ..utilities import export_to_all, rmv_attr
 
 standard_library.install_aliases()
 
 __all__ = [
-    "RoutingFailure",
+    "RoutingFailure", "GlobalRoutingFailure", "SwitchboxRoutingFailure"
 ]
 
 
@@ -112,11 +112,14 @@ class TerminalClashException(Exception):
     pass
 
 
-# TODO: Define child classes for different types of routing failures.
-# TODO: When RoutingFailure occurs, expand part bboxes, redo placement, and reroute.
 class RoutingFailure(Exception):
-    """Exception raised when a net connecting terminals cannot be routed."""
+    """Exception raised when a net connecting pins cannot be routed."""
+    pass
 
+class GlobalRoutingFailure(RoutingFailure):
+    pass
+
+class SwitchboxRoutingFailure(RoutingFailure):
     pass
 
 
@@ -186,38 +189,38 @@ class Terminal:
                 # next_face is oriented upward or rightward w.r.t. from_face.
                 # Start searching for a terminal from the lowest index
                 # because this is closest to the corner.
-                search_range = range(len(next_face.terminals))
+                search_terminals = next_face.terminals
             elif next_face.end == from_face.track:
                 # next_face is oriented downward or leftward w.r.t. from_face.
                 # Start searching for a terminal from the highest index
                 # because this is closest to the corner.
-                search_range = range(len(next_face.terminals) - 1, -1, -1)
+                search_terminals = next_face.terminals[::-1]
             else:
-                raise RoutingFailure
+                raise GlobalRoutingFailure
         else:
             # The next face must be the parallel face on the other side of the
             # switchbox. With parallel faces, we want to selected a terminal
             # having close to the same position as the given terminal.
             # So if the given terminal is at position i, then search for the
             # next terminal on the other face at positions i, i+1, i-1, i+2, i-2...
-            from_len = len(from_face.terminals)
-            from_idx = from_face.terminals.index(self)
-            search_range = chain(
-                *zip_longest(range(from_idx, -1, -1), range(from_idx + 1, from_len))
-            )
+            coord = self.coord
+            lower_terminals = [t for t in next_face.terminals if t.coord <= coord]
+            lower_terminals.sort(key=lambda t: t.coord, reverse=True)
+            upper_terminals = [t for t in next_face.terminals if t.coord > coord]
+            upper_terminals.sort(key=lambda t: t.coord, reverse=False)
+            search_terminals = chain(*zip_longest(lower_terminals, upper_terminals))
 
         # Use the computed search range to find a terminal on the next face that
         # is not assigned to a net, or is already assigned to the same net as the
         # given terminal.
-        for idx in search_range:
-            if idx is not None:
-                terminal = next_face.terminals[idx]
+        for terminal in search_terminals:
+            if terminal:
                 if terminal.net in (None, self.net):
                     terminal.net = self.net  # Assign net to next terminal.
                     return terminal
 
         # Well, something went wrong...
-        raise RoutingFailure
+        raise GlobalRoutingFailure
 
     def draw(self, scr, tx, **options):
         """Draw a Terminal for debugging purposes.
@@ -1369,7 +1372,7 @@ class SwitchBox:
                 if options.get("allow_routing_failure"):
                     return column  # Return empty column.
                 else:
-                    raise RoutingFailure
+                    raise SwitchboxRoutingFailure
 
             # Test each possible pair of connections to find one that is free of interference.
             for t_cnct, b_cnct in tb_cncts:
@@ -1386,7 +1389,7 @@ class SwitchBox:
                 if options.get("allow_routing_failure"):
                     return column
                 else:
-                    raise RoutingFailure
+                    raise SwitchboxRoutingFailure
 
             if t_cnct is not None:
                 # Connection from track to terminal on top of switchbox.
@@ -1636,7 +1639,7 @@ class SwitchBox:
         for track_net, right_net in zip(tracks[-1], self.right_nets):
             if track_net is not right_net:
                 if not options.get("allow_routing_failure"):
-                    raise RoutingFailure
+                    raise SwitchboxRoutingFailure
 
         # Create horizontal wiring segments.
         # column_coords = [self.left_face.track.coord] + self.column_coords
@@ -1781,15 +1784,16 @@ class Router:
                     seg = Segment(pin.pt, pin.route_pt) * pin.part.tx
                     node.wires[pin.net].append(seg)
 
-    def rmv_routing_points(node):
+    def rmv_stuff(node):
         """Remove routing points from part pins in node."""
 
         for part in node.parts:
-            for pin in part:
-                try:
-                    del pin.route_pt
-                except AttributeError:
-                    pass
+            rmv_attr(part.pins, "route_pt")
+            rmv_attr(part.pins, "face")
+            rmv_attr(part, "left_track")
+            rmv_attr(part, "right_track")
+            rmv_attr(part, "top_track")
+            rmv_attr(part, "bottom_track")
 
     def create_routing_tracks(node, routing_bbox):
         """Create horizontal & vertical global routing tracks."""
@@ -2170,8 +2174,8 @@ class Router:
 
                 if not closest_face:
                     # Exception raised if couldn't find a path from start to stop faces.
-                    raise RoutingFailure(
-                        "Routing failure: {net.name} {net} {start_face.pins}".format(
+                    raise GlobalRoutingFailure(
+                        "Global routing failure: {net.name} {net} {start_face.pins}".format(
                             **locals()
                         )
                     )
@@ -2315,7 +2319,8 @@ class Router:
             except RoutingFailure:
                 # Routing failed, so try routing top-to-bottom instead.
                 swbx.flip_xy()
-                swbx.route(allow_routing_failure=True, **options)
+                # If this fails, then a routing exception will terminate the whole routing process.
+                swbx.route(**options)
                 swbx.flip_xy()
 
             # Add switchbox routes any existing wiring.
@@ -2404,4 +2409,4 @@ class Router:
         node.routing_debug_draw(routing_bbox, node.parts, global_routes, switchboxes, **options)
 
         # Remove extended routing points from parts.
-        node.rmv_routing_points()
+        node.rmv_stuff()
