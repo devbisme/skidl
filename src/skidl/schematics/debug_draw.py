@@ -311,8 +311,8 @@ def draw_redraw():
 
 
 @export_to_all
-def draw_end():
-    """Display drawing and wait for user to close PyGame window."""
+def draw_pause():
+    """Pause drawing and then resume after button press."""
 
     # Display drawing.
     draw_redraw()
@@ -321,6 +321,13 @@ def draw_end():
     running = True
     while running:
         for event in pygame.event.get():
-            if event.type in (pygame.QUIT, pygame.KEYDOWN):
+            if event.type in (pygame.KEYDOWN, pygame.QUIT):
                 running = False
+
+
+@export_to_all
+def draw_end():
+    """Display drawing and wait for user to close PyGame window."""
+
+    draw_pause()
     pygame.quit()
