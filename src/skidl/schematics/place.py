@@ -26,7 +26,7 @@ from future import standard_library
 
 from ..circuit import Circuit
 from ..pin import Pin
-from .debug_draw import draw_end, draw_placement, draw_start, draw_force
+from .debug_draw import draw_end, draw_placement, draw_start, draw_pause
 from .geometry import BBox, Point, Tx, Vector
 from ..utilities import export_to_all, rmv_attr
 
@@ -46,6 +46,8 @@ __all__ = [
 #
 # The positions of each part are set and then the block of parts
 # is arranged with the blocks of the child nodes.
+#
+# TODO: Actually provide an overview...
 #
 ###################################################################
 
@@ -107,18 +109,38 @@ def snap_to_grid(part_or_blk):
     part_or_blk.tx *= snap_tx
 
 
-def adjust_orientations(parts, nets, alpha):
-    for part in parts:
-        smallest_force = float("inf")
-        for i in range(2):
-            for j in range(4):
-                force = total_force(part, parts, nets, alpha)
-                if force.magnitude < smallest_force:
-                    smallest_force = frc.magnitude
-                    smallest_tx = copy(part.tx)
-                part.tx.rot_cw_90()
-            part.tx.flip_x()
-        part.tx = smallest_tx
+def adjust_orientations(parts, nets, **options):
+    """Adjust orientation of parts.
+
+    Args:
+        parts (list): List of Parts to adjust.
+        nets (list): List of Nets connecting Parts.
+
+    Notes:
+        This function doesn't work. Parts are poorly re-oriented.
+    """
+    #TODO: Come back and fix part reorientation.
+
+    return # Return without doing anything.
+
+    shuffled_parts = parts[:]
+    random.shuffle(shuffled_parts)
+    for _ in range(len(shuffled_parts)):
+        for part in shuffled_parts:
+            part.current_force = net_force(part, nets, **options).magnitude
+            smallest_force = float("inf")
+            for i in range(2):
+                for j in range(4):
+                    force = net_force(part, nets, **options)
+                    if force.magnitude < smallest_force:
+                        smallest_force = force.magnitude
+                        smallest_tx = copy(part.tx)
+                    part.tx.rot_cw_90()
+                part.tx.flip_x()
+            part.smallest_force = smallest_force
+            part.smallest_tx = smallest_tx
+        adjust_part = min(shuffled_parts, key=lambda p: p.smallest_force - p.current_force)
+        adjust_part.tx = adjust_part.smallest_tx
 
 
 def add_placement_bboxes(parts, **options):
