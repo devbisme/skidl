@@ -186,6 +186,10 @@ def finalize_parts_and_nets(circuit):
     for part in circuit.parts:
         part.grab_pins()
 
+    # Remove some stuff added to parts during schematic generation process.
+    for attr in ("force", "bbox", "lbl_bbox", "tx"):
+        rmv_attr(circuit.parts, attr)
+
 
 class NetTerminal(Part):
     def __init__(self, net):
@@ -550,6 +554,7 @@ def gen_schematic(
         title (str, optional): The title of the schematic. Defaults to "SKiDL-Generated Schematic".
         flatness (float, optional): Determines how much the hierarchy is flattened in the schematic. Defaults to 0.0 (completely hierarchical).
         retries (int, optional): Number of times to re-try if routing fails. Defaults to 2.
+        options (dict, optional): Dict of options and values, usually for drawing/debugging.
     """
 
     # Start with default routing area.
@@ -571,7 +576,7 @@ def gen_schematic(
 
         except RoutingFailure:
             # Routing failed so expand routing area and try again.
-            expansion_factor *= 1.25
+            expansion_factor *= 1.25 # TODO: Ad-hoc increase of expansion factor.
             continue
 
         # Generate EESCHEMA code for the schematic.
@@ -580,12 +585,8 @@ def gen_schematic(
         # Clean up.
         finalize_parts_and_nets(circuit)
 
-        for attr in ("force", "bbox", "lbl_bbox", "tx"):
-            rmv_attr(circuit.parts, attr)
-
         # Place & route was successful if we got here, so exit.
         return
-
 
     # Exited the loop without successful routing.
     raise (RoutingFailure)
