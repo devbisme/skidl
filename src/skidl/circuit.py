@@ -1000,19 +1000,37 @@ class Circuit(SkidlBaseObject):
         """
 
         import skidl
-
         from .tools import tool_modules
 
         # Reset the counters to clear any warnings/errors from previous run.
         active_logger.error.reset()
         active_logger.warning.reset()
 
+        # Supply a schematic-specific empty footprint handler.
+        save_empty_footprint_handler = skidl.empty_footprint_handler
+
+        def schematic_empty_footprint_handler(part):
+            """Handle the situation of a Part with no footprint when generating a schematic."""
+
+            active_logger.warning(
+                "No footprint for {part}/{ref}.".format(part=part.name, ref=part.ref))
+            
+            # Supply a nonsense footprint just so no complaints are raised when the EESCHEMA code is generated.
+            part.footprint = ":"
+
+        skidl.empty_footprint_handler = schematic_empty_footprint_handler
+
         self._preprocess()
 
-        tool = kwargs.pop("tool", skidl.get_default_tool())
-        tool_modules[tool].gen_schematic(self, **kwargs)
-
         active_logger.report_summary("generating schematic")
+
+        tool = kwargs.pop("tool", skidl.get_default_tool())
+
+        try:
+            tool_modules[tool].gen_schematic(self, **kwargs)
+        finally:
+            skidl.empty_footprint_handler = save_empty_footprint_handler
+
 
     def generate_dot(
         self,
