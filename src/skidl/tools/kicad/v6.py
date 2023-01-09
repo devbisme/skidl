@@ -93,9 +93,14 @@ def load_sch_lib(self, f, filename, lib_search_paths_):
         )
 
         # Get part properties.
-        keywords = properties["ki_keywords"]
-        datasheet = properties["datasheet"]
-        description = properties["ki_description"]
+        if 'ki_keywords' in properties:
+            keywords = properties["ki_keywords"]
+            datasheet = properties["datasheet"]
+            description = properties["ki_description"]
+        else:
+            keywords = ''
+            datasheet = ''
+            description = ''
 
         # Join the various text pieces by newlines so the ^ and $ special characters
         # can be used to detect the start and end of a piece of text during RE searches.
