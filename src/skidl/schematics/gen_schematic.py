@@ -182,6 +182,10 @@ def preprocess_parts_and_nets(circuit):
 def finalize_parts_and_nets(circuit):
     """Restore parts and nets after place & route is done."""
 
+    # Remove any NetTerminals that were added.
+    net_terminals = (p for p in circuit.parts if isinstance(p, NetTerminal))
+    circuit.rmv_parts(*net_terminals)
+            
     # Return pins from the part units to their parent part.
     for part in circuit.parts:
         part.grab_pins()
@@ -318,8 +322,16 @@ class Node(Placer, Router, Eeschema_V5):
                     # Found pins in different nodes, so break and add terminals to nodes below.
                     break
             else:
-                # No need for net terminal because all pins are in the same node.
-                continue
+                if len(net.pins) == 1:
+                    # Single pin on net and not stubbed, so add a terminal to it below.
+                    pass
+                elif not net.is_implicit():
+                    # The net has a user-assigned name, so add a terminal to it below.
+                    pass
+                else:
+                    # No need for net terminal because there are multiple pins 
+                    # and they are all in the same node.
+                    continue
 
             # Add a single terminal to each node that contains one or more pins of the net.
             visited = []
@@ -354,10 +366,17 @@ class Node(Placer, Router, Eeschema_V5):
 
         from ..circuit import HIER_SEP
 
+        # Get list of names of hierarchical levels (in order) leading to this part.
         level_names = part.hierarchy.split(HIER_SEP)
+
+        # Get depth in hierarchy for this part.
         part_level = len(level_names) - 1
         assert part_level >= level
+
+        # Node name is the name assigned to this level of the hierarchy.
         self.name = level_names[level]
+
+        # File name for storing the schematic for this node.
         base_filename = "_".join([self.top_name] + level_names[0 : level + 1]) + ".sch"
         self.sheet_filename = base_filename
 
@@ -372,9 +391,14 @@ class Node(Placer, Router, Eeschema_V5):
                 for p in part.unit.values():
                     self.parts.append(p)
         else:
-            # Add part to child node below the current hierarchical level.
+            # Part is at a level below the current node. Get the child node using
+            # the name of the next level in the hierarchy for this part.
             child_node = self.children[level_names[level + 1]]
+
+            # Attach the child node to this node. (It may have just been created.)
             child_node.parent = self
+
+            # Add part to the child node (or one of its children).
             child_node.add_part(part, level + 1)
 
     def add_terminal(self, net):
@@ -575,8 +599,11 @@ def gen_schematic(
             node.route(**options)
 
         except RoutingFailure:
-            # Routing failed so expand routing area and try again.
+            # Routing failed, so clean up ...
+            finalize_parts_and_nets(circuit)
+            # ... and expand routing area ...
             expansion_factor *= 1.25 # TODO: Ad-hoc increase of expansion factor.
+            # ... and try again.
             continue
 
         # Generate EESCHEMA code for the schematic.
