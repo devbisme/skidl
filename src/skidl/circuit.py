@@ -230,6 +230,7 @@ class Circuit(SkidlBaseObject):
     def rmv_parts(self, *parts):
         """Remove some Part objects from the circuit."""
         for part in parts:
+            part.disconnect()
             if part.is_movable():
                 if part.circuit == self and part in self.parts:
                     self.rmv_hierarchical_name(part.hierarchical_name)
@@ -655,11 +656,11 @@ class Circuit(SkidlBaseObject):
         tool = tool or skidl.get_default_tool()
         netlist = tool_modules[tool].gen_xml(self)
 
-        active_logger.report_summary("generating XML")
-
         if not self.no_files:
             with opened(file_ or (get_script_name() + ".xml"), "w") as f:
                 f.write(netlist)
+
+        active_logger.report_summary("generating XML")
 
         return netlist
 
@@ -992,6 +993,8 @@ class Circuit(SkidlBaseObject):
                 shell=False,
             )
 
+        active_logger.report_summary("generating SVG")
+
         return schematic_json
 
     def generate_schematic(self, **kwargs):
@@ -1022,14 +1025,14 @@ class Circuit(SkidlBaseObject):
 
         self._preprocess()
 
-        active_logger.report_summary("generating schematic")
-
         tool = kwargs.pop("tool", skidl.get_default_tool())
 
         try:
             tool_modules[tool].gen_schematic(self, **kwargs)
         finally:
             skidl.empty_footprint_handler = save_empty_footprint_handler
+
+        active_logger.report_summary("generating schematic")
 
 
     def generate_dot(
@@ -1125,6 +1128,8 @@ class Circuit(SkidlBaseObject):
         if not self.no_files:
             if file_ is not None:
                 dot.save(file_)
+
+        active_logger.report_summary("generating DOT")
 
         return dot
 

@@ -794,6 +794,13 @@ class Part(SkidlBaseObject):
 
         return (p for p in self_pins)  # Return generator expr.
 
+    def disconnect(self):
+        """Disconnect all the part's pins from nets."""
+
+        for pin in self.pins:
+            pin.disconnect()
+
+
     def is_connected(self):
         """
         Return T/F depending upon whether a part is connected in a netlist.
