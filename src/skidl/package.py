@@ -15,6 +15,7 @@ from __future__ import (  # isort:skip
 
 from builtins import super, zip
 from copy import copy
+from deprecation import deprecated
 
 from future import standard_library
 
@@ -97,6 +98,7 @@ class Package(Interface):
 
 
 @export_to_all
+@deprecated(deprecated_in="1.2.0", removed_in="2.0.0", details="Use Interface instead.")
 def package(subcirc_func):
     """Decorator that creates a package for a subcircuit routine."""
 

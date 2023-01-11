@@ -34,6 +34,7 @@ requirements = [
     'enum34; python_version < "3.0"',
     #'PySpice; python_version >= "3.0"',
     "graphviz",
+    "deprecation",
 ]
 
 test_requirements = [
