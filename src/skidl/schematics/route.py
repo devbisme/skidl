@@ -1702,14 +1702,14 @@ class SwitchBox:
                 self.bbox.resize(Vector(DRAWING_BOX_RESIZE, DRAWING_BOX_RESIZE))
             )
 
-        if options.get("draw_switchbox"):
+        if options.get("draw_switchbox_boundary"):
             # Draw switchbox boundary.
             self.top_face.draw(scr, tx, font, color, thickness, **options)
             self.bottom_face.draw(scr, tx, font, color, thickness, **options)
             self.left_face.draw(scr, tx, font, color, thickness, **options)
             self.right_face.draw(scr, tx, font, color, thickness, **options)
 
-        if options.get("draw_routing"):
+        if options.get("draw_switchbox_routing"):
             # Draw routed wire segments.
             try:
                 for segments in self.segments.values():
@@ -1718,7 +1718,7 @@ class SwitchBox:
             except AttributeError:
                 pass
 
-        if options.get("draw_channels"):
+        if options.get("draw_routing_channels"):
             # Draw routing channels from midpoint of one switchbox face to midpoint of another.
 
             def draw_channel(face1, face2):
@@ -1937,9 +1937,6 @@ class Router:
             other_stuff (list): Other stuff with a draw() method.
             options (dict, optional): Dictionary of options and values. Defaults to {}.
         """
-
-        if not options.get("draw"):
-            return
 
         # Initialize drawing area.
         draw_scr, draw_tx, draw_font = draw_start(bbox)
@@ -2383,7 +2380,8 @@ class Router:
         node.create_terminals(internal_nets, h_tracks, v_tracks)
 
         # Draw part outlines, routing tracks and terminals.
-        node.routing_debug_draw(routing_bbox, node.parts, h_tracks, v_tracks, **options)
+        if options.get("draw_routing_channels"):
+            node.routing_debug_draw(routing_bbox, node.parts, h_tracks, v_tracks, **options)
 
         # Do global routing of nets internal to the node.
         global_routes = node.global_router(internal_nets)
@@ -2393,9 +2391,10 @@ class Router:
             route.cvt_faces_to_terminals()
 
         # If enabled, draw the global routing for debug purposes.
-        node.routing_debug_draw(
-            routing_bbox, node.parts, h_tracks, v_tracks, global_routes, **options
-        )
+        if options.get("draw_global_routing"):
+            node.routing_debug_draw(
+                routing_bbox, node.parts, h_tracks, v_tracks, global_routes, **options
+            )
 
         # Create detailed wiring using switchbox routing for the global routes.
         switchboxes = node.create_switchboxes(h_tracks, v_tracks)
@@ -2406,7 +2405,8 @@ class Router:
         node.add_junctions()
 
         # If enabled, draw the global and detailed routing for debug purposes.
-        node.routing_debug_draw(routing_bbox, node.parts, global_routes, switchboxes, **options)
+        if options.get("draw_switchbox_routing"):
+            node.routing_debug_draw(routing_bbox, node.parts, global_routes, switchboxes, **options)
 
         # Remove extended routing points from parts.
         node.rmv_stuff()
