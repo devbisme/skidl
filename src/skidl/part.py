@@ -280,6 +280,8 @@ class Part(SkidlBaseObject):
         # Add any other passed-in attributes to the part.
         for k, v in list(kwargs.items()):
             setattr(self, k, v)
+            if k.capitalize() in self.fields.keys():
+                self.fields[k.capitalize()].value = v
 
         # If any pins were added, make sure they're associated with the part.
         self.associate_pins()
@@ -793,13 +795,6 @@ class Part(SkidlBaseObject):
         self_pins = object.__getattribute__(self, "pins")
 
         return (p for p in self_pins)  # Return generator expr.
-
-    def disconnect(self):
-        """Disconnect all the part's pins from nets."""
-
-        for pin in self.pins:
-            pin.disconnect()
-
 
     def is_connected(self):
         """
