@@ -35,7 +35,7 @@ from .setup_teardown import setup_function, teardown_function
 sch_options = {}
 sch_options.update({"retries": 1})
 sch_options.update({"normalize": True})
-# sch_options.update({"compress": True})
+sch_options.update({"compress_before_place": True})
 # sch_options.update({"trim_anchor_pull_pins": True})
 sch_options.update({"fanout_attenuation": True})
 # sch_options.update({"remove_power": True})

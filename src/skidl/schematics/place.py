@@ -782,7 +782,7 @@ class Placer:
             else:
                 draw_scr, draw_tx, draw_font = None, None, None
 
-            if options.get("compress"):
+            if options.get("compress_before_place"):
                 # Compress all parts together under influence of net forces only (no replusion).
                 def nt_frc(part, parts, nets, alpha, **options):
                     return net_force(part, nets, **options)
@@ -797,7 +797,7 @@ class Placer:
                     group,
                     internal_nets,
                     force_func,
-                    speeds=(0.5*Placer.speed, 1.0*Placer.speed, 2.0*Placer.speed),
+                    speeds=(1.0*Placer.speed, 1.5*Placer.speed, 2.0*Placer.speed),
                     scr=draw_scr,
                     tx=draw_tx,
                     font=draw_font,
@@ -854,6 +854,16 @@ class Placer:
                 # tx = part.tx
                 # part.anchor_pin = max(part.anchor_pins, key=lambda pin: (pin.place_pt * tx).y)
 
+            if options.get("compress_before_place"):
+                # Compress all floating parts together under influence of similarity forces only (no replusion).
+                def sim_frc(part, parts, similarity, alpha, **options):
+                    return similarity_force(part, parts, similarity, **options)
+                sim_frc = functools.partial(sim_frc, parts=floating_parts, similarity=part_similarity)
+                push_and_pull(floating_parts, [], sim_frc, Placer.speed, draw_scr, draw_tx, draw_font, **options)
+                if options.get("draw_placement"):
+                    draw_pause()
+
+            # Do force-directed placement of the parts in the group.
             force_func = functools.partial(
                 total_similarity_force, parts=floating_parts, similarity=part_similarity)
             evolve_placement(
