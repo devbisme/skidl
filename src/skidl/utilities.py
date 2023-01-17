@@ -157,13 +157,14 @@ def set_attr(objs, attr, value):
         setattr(o, attr, value)
 
 
-def rmv_attr(objs, attr):
-    """Remove an attribute from a list of objects."""
+def rmv_attr(objs, attrs):
+    """Remove a list of attributes from a list of objects."""
     for o in to_list(objs):
-        try:
-            delattr(o, attr)
-        except AttributeError:
-            pass
+        for a in to_list(attrs):
+            try:
+                delattr(o, a)
+            except AttributeError:
+                pass
 
 
 @export_to_all
