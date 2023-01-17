@@ -327,31 +327,42 @@ class Part(SkidlBaseObject):
 
         return list_or_scalar(parts)
 
-    def similarity(self, part):
+    def similarity(self, part, **options):
         """Return a measure of how similar two parts are.
 
         Args:
             part (Part): The part to compare to for similarity.
+            options (dict): Dictionary of options and settings affecting similarity computation.
 
         Returns:
             Float value for similarity (larger means more similar).
         """
 
+        def score_pins():
+            pin_score = 0
+            if len(self.pins) == len(part.pins):
+                for p_self, p_other in zip(self.ordered_pins, part.ordered_pins):
+                    if p_self.is_attached(p_other):
+                        pin_score += 1
+            return pin_score
+
         # Every part starts off somewhat similar to another.
         score = 1
 
         if self.description == part.description:
-            score += 1
+            score += 5
         if self.name == part.name:
-            score += 1
+            score += 5
             if self.value == part.value:
-                score += 1
+                score += 2
+            score += score_pins()
         elif self.ref_prefix == part.ref_prefix:
-            score += 1
+            score += 3
             if self.value == part.value:
-                score += 1
+                score += 2
+            score += score_pins()
 
-        return score
+        return score/3
 
     def _find_min_max_pins(self):
         """Return the minimum and maximum pin numbers for the part."""
