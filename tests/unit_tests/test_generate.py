@@ -2,10 +2,12 @@
 
 # The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
 
+import glob
+import inspect
 import os
 import os.path
-import shutil
 import sys
+
 
 import pytest
 
@@ -37,6 +39,7 @@ sch_options.update({"retries": 1})
 sch_options.update({"normalize": True})
 sch_options.update({"compress_before_place": True})
 # sch_options.update({"trim_anchor_pull_pins": True})
+sch_options.update({"rotate_parts": True})
 sch_options.update({"fanout_attenuation": True})
 # sch_options.update({"remove_power": True})
 # sch_options.update({"remove_high_fanout": True})
@@ -48,8 +51,8 @@ if os.getenv("DEBUG_DRAW"):
     sch_options.update({"draw_placement": True})
     # sch_options.update({"draw_all_terminals": True})
     # sch_options.update({"show_capacities": True})
+    sch_options.update({"draw_routing_channels": True})
     sch_options.update({"draw_global_routing": True})
-    # sch_options.update({"draw_routing_channels": True})
     sch_options.update({"draw_switchbox_boundary": True})
     sch_options.update({"draw_switchbox_routing": True})
 
@@ -79,15 +82,18 @@ def _empty_footprint_handler(part):
 skidl.empty_footprint_handler = _empty_footprint_handler
 
 
-def create_output_dir():
-    import inspect
+def create_schematic(flatness=1.0):
     output_file_root = "./test_data/schematic_output"
     python_version = ".".join([str(n) for n in sys.version_info[0:3]])
-    leaf_dir_name = inspect.stack()[1].function
-    output_dir = os.path.join(output_file_root, python_version, leaf_dir_name)
-    shutil.rmtree(output_dir, ignore_errors=True)
-    os.makedirs(output_dir)
-    return output_dir
+    output_dir = os.path.join(output_file_root, python_version)
+    os.makedirs(output_dir, exist_ok=True)
+    # top_name = inspect.stack()[1].function
+    top_name = inspect.stack()[1][3]
+    for f in glob.glob(os.path.join(output_dir, top_name) + "*.sch"):
+        os.remove(f)
+    generate_schematic(
+        filepath=output_dir, top_name=top_name, flatness=flatness, **sch_options
+    )
 
 
 @pytest.mark.xfail(raises=(RoutingFailure, SyntaxError))
@@ -131,11 +137,7 @@ def test_gen_sch_1():
     generate_netlist()
     generate_xml()
     generate_graph()
-    generate_schematic(
-        filepath=create_output_dir(),
-        flatness=1.0,
-        **sch_options
-    )
+    create_schematic(flatness=1.0)
     generate_pcb()
 
 
@@ -230,11 +232,7 @@ def test_gen_sch_place():
             qs[-1].C & Net("O")
 
     test()
-    generate_schematic(
-        filepath=create_output_dir(),
-        flatness=0.5,
-        **sch_options
-    )
+    create_schematic(flatness=0.5)
 
 
 @pytest.mark.xfail(raises=RoutingFailure)
@@ -251,9 +249,7 @@ def test_gen_sch_simple():
     for q in qs:
         for p, n in zip(q.pins, ns):
             n += p
-    generate_schematic(
-        filepath=create_output_dir(), flatness=1.0, **sch_options
-    )
+    create_schematic(flatness=1.0)
 
 
 @pytest.mark.xfail(raises=RoutingFailure)
@@ -306,7 +302,7 @@ def test_gen_sch_units():
         q()
         test()  # This enables a recursion error in test_interface_12 for reasons unknown.
 
-    generate_schematic(filepath=create_output_dir(), flatness=1.0, **sch_options)
+    create_schematic(flatness=1.0)
 
 
 @pytest.mark.xfail(raises=RoutingFailure)
@@ -351,7 +347,7 @@ def test_gen_sch_hier():
             vcc & q1["E"]
             vcc & q2["E"]
 
-    generate_schematic(filepath=create_output_dir(), flatness=0.0, **sch_options)
+    create_schematic(flatness=0.0)
 
 
 @pytest.mark.xfail(raises=RoutingFailure)
@@ -380,9 +376,7 @@ def test_gen_sch_hier_conn():
             a & r1 & (q1["c,e"] | q2["c,e"]) & r3 & o
             b & r2 & (q1["b"] | q2["b"])
 
-    generate_schematic(
-        filepath=create_output_dir(), flatness=1.0, **sch_options
-    )
+    create_schematic(flatness=1.0)
 
 
 @pytest.mark.xfail(raises=RoutingFailure)
@@ -398,9 +392,7 @@ def test_gen_sch_part_tx():
     q3 = q(symtx="L")
     q4 = q(symtx="H")
     q5 = q(symtx="V")
-    generate_schematic(
-        filepath=create_output_dir(), flatness=1.0, **sch_options
-    )
+    create_schematic(flatness=1.0)
 
 
 @pytest.mark.xfail(raises=RoutingFailure)
@@ -426,7 +418,7 @@ def test_gen_svg_1():
     led["A,RK,GK,BK"] += vcc, r, g, b
     Part(lib="MCU_Microchip_PIC10.lib", name="PIC10F200-IMC")
 
-    generate_schematic(filepath=create_output_dir(), flatness=1.0, **sch_options)
+    create_schematic(flatness=1.0)
     generate_svg(file_="svg_1")
 
 
@@ -438,7 +430,7 @@ def test_gen_svg_2():
     opamp.uA.p1 += Net("OUT")
     opamp.uB.symtx = "L"
 
-    generate_schematic(filepath=create_output_dir(), flatness=1.0, **sch_options)
+    create_schematic(flatness=1.0)
     generate_svg(file_="svg_2")
 
 
@@ -471,7 +463,7 @@ def test_gen_svg_3():
     for part in default_circuit.parts:
         part.validate()
 
-    generate_schematic(filepath=create_output_dir(), flatness=1.0, **sch_options)
+    create_schematic(flatness=1.0)
     generate_svg(file_="svg_3")
 
     for part in default_circuit.parts:
@@ -539,7 +531,7 @@ def test_gen_svg_4():
     vcc & q1["E"]
     vcc & q2["E"]
 
-    generate_schematic(filepath=create_output_dir(), flatness=1.0, **sch_options)
+    create_schematic(flatness=1.0)
     generate_svg("svg_4")
     generate_netlist()
 
@@ -611,7 +603,7 @@ def test_gen_svg_5():
     uc1.UDM.net.stub = True
     uc1.UDP.net.stub = True
 
-    generate_schematic(filepath=create_output_dir(), flatness=1.0, **sch_options)
+    create_schematic(flatness=1.0)
     generate_svg("svg_5")
 
 
@@ -640,7 +632,7 @@ def test_gen_svg_6():
         & vcc
     )
 
-    generate_schematic(filepath=create_output_dir(), flatness=1.0, **sch_options)
+    create_schematic(flatness=1.0)
     generate_svg("svg_6")
 
 
@@ -649,7 +641,7 @@ def test_gen_svg_7():
 
     fpga = Part(lib="FPGA_Lattice.lib", name="ICE40HX8K-BG121")
     fpga.uA.symtx = "R"
-    generate_schematic(filepath=create_output_dir(), flatness=1.0, **sch_options)
+    create_schematic(flatness=1.0)
     generate_svg(file_="svg_7")
 
 
@@ -834,7 +826,7 @@ def test_gen_svg_8():
 
     ERC()  # Run error checks.
     generate_netlist()  # Generate the netlist.
-    generate_schematic(filepath=create_output_dir(), flatness=1.0, **sch_options)
+    create_schematic(flatness=1.0)
     generate_svg("svg_8")
 
 
@@ -865,4 +857,4 @@ def test_gen_sch_buses():
         vdd += rama["VDDQ"]
         gnd += rama["VSSQ"]
 
-    generate_schematic(filepath=create_output_dir(), **sch_options)
+    create_schematic()
