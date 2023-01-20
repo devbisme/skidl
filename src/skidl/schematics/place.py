@@ -115,32 +115,100 @@ def adjust_orientations(parts, nets, **options):
     Args:
         parts (list): List of Parts to adjust.
         nets (list): List of Nets connecting Parts.
+        options (dict): Dict of options and values that enable/disable functions.
 
     Notes:
         This function doesn't work. Parts are poorly re-oriented.
     """
     #TODO: Come back and fix part reorientation.
 
-    return # Return without doing anything.
+    def find_best_orientation(part):
+        # Each part has 8 possible orientations. Find the best of the 7 alternatives from the current one.
 
-    shuffled_parts = parts[:]
-    random.shuffle(shuffled_parts)
-    for _ in range(len(shuffled_parts)):
-        for part in shuffled_parts:
-            part.current_force = net_force(part, nets, **options).magnitude
-            smallest_force = float("inf")
-            for i in range(2):
-                for j in range(4):
-                    force = net_force(part, nets, **options)
-                    if force.magnitude < smallest_force:
-                        smallest_force = force.magnitude
-                        smallest_tx = copy(part.tx)
-                    part.tx.rot_cw_90()
-                part.tx.flip_x()
-            part.smallest_force = smallest_force
-            part.smallest_tx = smallest_tx
-        adjust_part = min(shuffled_parts, key=lambda p: p.smallest_force - p.current_force)
-        adjust_part.tx = adjust_part.smallest_tx
+        # Store starting orientation and its cost.
+        part.prev_tx = copy(part.tx)
+        current_cost = net_tension_dist(part, nets, **options)
+
+        # Now find the orientation that has the largest decrease in cost.
+        best_delta_cost = float("inf")
+
+        # Skip cost calculations for the starting orientation.
+        skip_original_tx = True
+
+        # Go through four rotations, then flip the part and go through the rotations again.
+        for i in range(2):
+            for j in range(4):
+
+                if skip_original_tx:
+                    # Skip the starting orientation but set flag to process the others.
+                    skip_original_tx = False
+                    delta_cost = 0
+
+                else:
+                    # Calculate the cost of the current orientation.
+                    delta_cost = net_tension_dist(part, nets, **options) - current_cost
+                    if delta_cost < best_delta_cost:
+                        # Save the largest decrease in cost and the associated orientation.
+                        best_delta_cost = delta_cost
+                        best_tx = copy(part.tx)
+
+                # Proceed to the next rotation.
+                part.tx.rot_cw_90()
+
+            # Flip the part and go through the rotations again.
+            part.tx.flip_x()
+
+        # Save the largest decrease in cost and the associated orientation.
+        part.delta_cost = best_delta_cost
+        part.delta_cost_tx = best_tx
+
+        # Restore the original orientation.
+        part.tx = part.prev_tx
+
+    # Get the list of parts that don't have their orientations locked.
+    movable_parts = [part for part in parts if not part.orientation_locked]
+
+    if not movable_parts:
+        # No movable parts, so exit without doing anything.
+        return
+
+    # Kernighan-Lin algorithm for finding near-optimal part orientations.
+    while True:
+
+        # Find the best part to move and move it until there are no more parts to move.
+        moved_parts = []
+        unmoved_parts = movable_parts[:]
+        while unmoved_parts:
+
+            # Find the best current orientation for each unmoved part.
+            for part in unmoved_parts:
+                find_best_orientation(part)
+
+            # Find the part that has the largest decrease in cost.
+            part_to_move = min(unmoved_parts, key=lambda p: p.delta_cost)
+       
+            # Reorient the part with the Tx that created the largest decrease in cost.
+            part_to_move.tx = part_to_move.delta_cost_tx
+       
+            # Transfer the part from the unmoved to the moved part list.
+            unmoved_parts.remove(part_to_move)
+            moved_parts.append(part_to_move)
+
+        # Find the point at which the cost reaches its lowest point.
+        delta_costs = (part.delta_cost for part in moved_parts)
+        cost_seq = list(itertools.accumulate(delta_costs))
+        min_cost = min(cost_seq)
+        min_index = cost_seq.index(min_cost)
+
+        # Move all the parts after that point back to their starting positions.
+        for part in moved_parts[min_index+1:]:
+            part.tx = part.prev_tx
+
+        # Terminate the search once the cost stops decreasing.
+        if min_cost >= 0:
+            break
+
+    rmv_attr(parts, ("prev_tx", "delta_cost"))
 
 
 def add_placement_bboxes(parts, **options):
@@ -182,6 +250,7 @@ def add_anchor_and_pull_pins(parts, nets, **options):
     Args:
         part (list): List of movable parts.
         nets (list): List of attractive nets between parts.
+        options (dict): Dict of options and values that enable/disable functions.
     """
 
     def add_place_pt(part, pin):
@@ -285,12 +354,100 @@ def rmv_anchor_and_pull_pins(parts):
         rmv_attr(parts, attr)
 
 
+def net_tension_dist(part, nets, **options):
+    """Calculate the tension of the nets trying to rotate/flip the part.
+
+    Args:
+        part (Part): Part affected by forces from other connected parts.
+        nets (list): List of active internal nets connecting parts.
+        options (dict): Dict of options and values that enable/disable functions.
+
+    Returns:
+        float: Total tension on the part.
+    """
+
+    anchor_pins = part.anchor_pins
+    pull_pins = part.pull_pins
+
+    # Compute the force for each net attached to the part.
+    tension = 0.0
+    for net in anchor_pins.keys():
+
+        if not anchor_pins[net] or not pull_pins[net]:
+            # Skip nets without pulling or anchor points.
+            continue
+
+        # Compute the net force acting on each anchor point on the part.
+        for anchor_pin in anchor_pins[net]:
+
+            # Compute the anchor point's (x,y).
+            anchor_pt = anchor_pin.place_pt * anchor_pin.part.tx
+
+            # Find the dist from the anchor point to each pulling point.
+            dists = []
+            for pull_pin in pull_pins[net]:
+
+                # Compute the pulling point's (x,y).
+                pull_pt = pull_pin.place_pt * pull_pin.part.tx
+                dists.append((pull_pt - anchor_pt).magnitude)
+
+            # Only the closest pulling point affects the tension.
+            tension += min(dists)
+
+    return tension
+
+
+def net_force_dist(part, nets, **options):
+    """Compute attractive force on a part from all the other parts connected to it.
+
+    Args:
+        part (Part): Part affected by forces from other connected parts.
+        nets (list): List of active internal nets connecting parts.
+        options (dict): Dict of options and values that enable/disable functions.
+
+    Returns:
+        Vector: Force upon given part.
+    """
+
+    anchor_pins = part.anchor_pins
+    pull_pins = part.pull_pins
+
+    # Compute the total force on the part from all the anchor/pulling points on each net.
+    total_move = Vector(0, 0)
+    normalizer = 0
+
+    # Compute the force for each net attached to the part.
+    for net in anchor_pins.keys():
+
+        if not anchor_pins[net] or not pull_pins[net]:
+            # Skip nets without pulling or anchor points.
+            continue
+
+        # Compute the net force acting on each anchor point on the part.
+        for anchor_pin in anchor_pins[net]:
+
+            # Compute the anchor point's (x,y).
+            anchor_pt = anchor_pin.place_pt * anchor_pin.part.tx
+
+            # Sum the vectors from the anchor point to each pulling point.
+            for pull_pin in pull_pins[net]:
+
+                # Compute the pulling point's (x,y).
+                pull_pt = pull_pin.place_pt * pull_pin.part.tx
+
+                total_move += pull_pt - anchor_pt
+                normalizer += 1
+
+    return total_move / normalizer
+
+
 def net_force_dist_avg(part, nets, **options):
     """Compute attractive force on a part from all the other parts connected to it.
 
     Args:
         part (Part): Part affected by forces from other connected parts.
         nets (list): List of active internal nets connecting parts.
+        options (dict): Dict of options and values that enable/disable functions.
 
     Returns:
         Vector: Force upon given part.
@@ -384,6 +541,7 @@ def net_force_dist_avg(part, nets, **options):
 
 
 # Select the net force method used for the attraction of parts during placement.
+# net_force = net_force_dist
 net_force = net_force_dist_avg
 
 
@@ -393,6 +551,7 @@ def overlap_force(part, parts, **options):
     Args:
         part (Part): Part affected by forces from other overlapping parts.
         parts (list): List of parts to check for overlaps.
+        options (dict): Dict of options and values that enable/disable functions.
 
     Returns:
         Vector: Force upon given part.
@@ -442,6 +601,7 @@ def total_part_force(part, parts, nets, alpha, **options):
         parts (list): List of parts to check for overlaps.
         nets (list): List of nets connecting parts.
         alpha (float): Proportion of the total that is the overlap force (range [0,1]).
+        options (dict): Dict of options and values that enable/disable functions.
 
     Returns:
         Vector: Weighted total of net attractive and overlap repulsion forces.
@@ -456,6 +616,7 @@ def similarity_force(part, parts, similarity, **options):
         part (Part): Part affected by forces from other connected parts.
         parts (list): List of parts to check for overlaps.
         similarity (dict): Similarity score for any pair of parts used as keys.
+        options (dict): Dict of options and values that enable/disable functions.
 
     Returns:
         Vector: Force upon given part.
@@ -485,6 +646,7 @@ def total_similarity_force(part, parts, similarity, alpha, **options):
         parts (list): List of parts to check for overlaps.
         similarity (dict): Similarity score for any pair of parts used as keys.
         alpha (float): Proportion of the total that is the overlap force (range [0,1]).
+        options (dict): Dict of options and values that enable/disable functions.
 
     Returns:
         Vector: Weighted total of net attractive and overlap repulsion forces.
@@ -494,17 +656,64 @@ def total_similarity_force(part, parts, similarity, alpha, **options):
     ) + alpha * overlap_force(part, parts, **options)
 
 
+def compress_parts(parts, nets, scr, tx, font, **options):
+    """Move parts under influence of attracting nets only.
+
+    Args:
+        parts (list): List of Parts.
+        nets (list): List of nets that interconnect parts.
+        scr (PyGame screen): Screen object for PyGame debug drawing.
+        tx (Tx): Transformation matrix from real to screen coords.
+        font (PyGame font): Font for rendering text.
+        options (dict): Dict of options and values that enable/disable functions.
+    """
+
+    if len(parts) <= 1:
+        # No need to do placement if there's less than two parts.
+        return
+
+    # Make list of parts that will be moved.
+    mobile_parts = parts[1:]  # Keep one part stationary as an anchor.
+    parts[0].force = Vector(0,0)
+    # mobile_parts = parts[:]  # Move all parts.
+
+    # TODO: better convergence threshold.
+    all_still = GRID / (1000 * len(mobile_parts))
+
+    # Arrange parts under influence of net attractions.
+    while True:
+        mobility = 0.0
+        random.shuffle(mobile_parts)  # Move parts in random order.
+        for part in mobile_parts:
+            mv_vec = net_force_dist(part, nets, **options)
+            part.force = mv_vec
+            mobility += mv_vec.magnitude
+            mv_tx = Tx(dx=mv_vec.x, dy=mv_vec.y)
+            part.tx = part.tx * mv_tx
+
+        if scr:
+            # Draw current part placement for debugging purposes.
+            draw_placement(parts, nets, scr, tx, font)
+
+        if mobility < all_still:
+            # Parts aren't moving much, so exit.
+            # Be sure to anchor one part or else the drift of the entire group will
+            # prevent this test from ever converging.
+            break
+
+
 def push_and_pull(parts, nets, force_func, speed, scr, tx, font, **options):
     """Move parts under influence of attracting nets and repulsive part overlaps.
 
     Args:
         parts (list): List of Parts.
         nets (list): List of nets that interconnect parts.
-        force_func:
+        force_func: Function for calculating forces between parts.
         speed (float): How fast parts move under the influence of forces.
         scr (PyGame screen): Screen object for PyGame debug drawing.
         tx (Tx): Transformation matrix from real to screen coords.
         font (PyGame font): Font for rendering text.
+        options (dict): Dict of options and values that enable/disable functions.
     """
 
     if len(parts) <= 1:
@@ -555,6 +764,7 @@ def remove_overlaps(parts, nets, scr, tx, font, **options):
         scr (PyGame screen): Screen object for PyGame debug drawing.
         tx (Tx): Transformation matrix from real to screen coords.
         font (PyGame font): Font for rendering text.
+        options (dict): Dict of options and values that enable/disable functions.
     """
 
     if len(parts) <= 1:
@@ -596,6 +806,7 @@ def slip_and_slide(parts, nets, scr, tx, font, **options):
         scr (PyGame screen): Screen object for PyGame debug drawing.
         tx (Tx): Transformation matrix from real to screen coords.
         font (PyGame font): Font for rendering text.
+        options (dict): Dict of options and values that enable/disable functions.
     """
 
     if len(parts) <= 1:
@@ -644,6 +855,7 @@ def evolve_placement(parts, nets, force_func, speeds, scr=None, tx=None, font=No
         scr (PyGame screen): Screen object for PyGame debug drawing.
         tx (Tx): Transformation matrix from real to screen coords.
         font (PyGame font): Font for rendering text.
+        options (dict): Dict of options and values that enable/disable functions.
     """
 
     # Force-directed placement.
@@ -783,13 +995,23 @@ class Placer:
                 draw_scr, draw_tx, draw_font = None, None, None
 
             if options.get("compress_before_place"):
-                # Compress all parts together under influence of net forces only (no replusion).
-                def nt_frc(part, parts, nets, alpha, **options):
-                    return net_force(part, nets, **options)
-                nt_frc = functools.partial(nt_frc, parts=group, nets=internal_nets)
-                push_and_pull(group, internal_nets, nt_frc, 0.5*Placer.speed, draw_scr, draw_tx, draw_font, **options)
-                if options.get("draw_placement"):
-                    draw_pause()
+                compress_parts(group, internal_nets, draw_scr, draw_tx, draw_font, **options)
+
+            if options.get("rotate_parts"):
+
+                force_func = functools.partial(total_part_force, parts=group, nets=internal_nets)
+                evolve_placement(
+                        group,
+                        internal_nets,
+                        force_func,
+                        speeds=(1.0*Placer.speed, ),
+                        scr=draw_scr,
+                        tx=draw_tx,
+                        font=draw_font,
+                        **options
+                    )
+
+                adjust_orientations(group, internal_nets, draw_scr=draw_scr, draw_tx=draw_tx, draw_font=draw_font, **options)
 
             # Do force-directed placement of the parts in the group.
             force_func = functools.partial(total_part_force, parts=group, nets=internal_nets)
@@ -797,15 +1019,12 @@ class Placer:
                     group,
                     internal_nets,
                     force_func,
-                    speeds=(1.0*Placer.speed, 1.5*Placer.speed, 2.0*Placer.speed),
+                    speeds=(1.0*Placer.speed, ),
                     scr=draw_scr,
                     tx=draw_tx,
                     font=draw_font,
-                    **options,
+                    **options
                 )
-
-            if options.get("draw_placement"):
-                draw_end()
 
             # Placement done so anchor and pull pins for each part are no longer needed.
             rmv_anchor_and_pull_pins(group)
@@ -874,7 +1093,7 @@ class Placer:
                 scr=draw_scr,
                 tx=draw_tx,
                 font=draw_font,
-                **options,
+                **options
             )
 
             if options.get("draw_placement"):
@@ -993,7 +1212,7 @@ class Placer:
             scr=draw_scr,
             tx=draw_tx,
             font=draw_font,
-            **options,
+            **options
         )
 
         if options.get("draw_placement"):

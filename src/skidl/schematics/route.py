@@ -2249,12 +2249,13 @@ class Router:
 
         return global_routes
 
-    def create_switchboxes(node, h_tracks, v_tracks):
+    def create_switchboxes(node, h_tracks, v_tracks, **options):
         """Create routing switchboxes from the faces in the horz/vert tracks.
 
         Args:
             h_tracks (list): List of horizontal Tracks.
             v_tracks (list): List of vertical Tracks.
+            options (dict, optional): Dictionary of options and values.
 
         Returns:
             list: List of Switchboxes.
@@ -2398,6 +2399,13 @@ class Router:
 
         # Create detailed wiring using switchbox routing for the global routes.
         switchboxes = node.create_switchboxes(h_tracks, v_tracks)
+
+        # Draw switchboxes and routing channels.
+        if options.get("draw_routing_channels"):
+            node.routing_debug_draw(
+                routing_bbox, node.parts, switchboxes, **options
+            )
+
         node.switchbox_router(switchboxes, **options)
 
         # Now clean-up the wires and add junctions.

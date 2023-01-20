@@ -56,6 +56,9 @@ def preprocess_parts_and_nets(circuit):
             # Initialize transform matrix.
             part_unit.tx = Tx.from_symtx(getattr(part_unit, "symtx", ""))
 
+            # Lock part orientation if it has a lot of pins or symtx was specified.
+            part_unit.orientation_locked = getattr(part_unit, "symtx", False) or len(part_unit.pins) > 6
+
             # Assign pins from the parent part to the part unit.
             part_unit.grab_pins()
 
@@ -191,8 +194,7 @@ def finalize_parts_and_nets(circuit):
         part.grab_pins()
 
     # Remove some stuff added to parts during schematic generation process.
-    for attr in ("force", "bbox", "lbl_bbox", "tx"):
-        rmv_attr(circuit.parts, attr)
+    rmv_attr(circuit.parts, ("force", "bbox", "lbl_bbox", "tx"))
 
 
 class NetTerminal(Part):
@@ -213,6 +215,9 @@ class NetTerminal(Part):
 
         # Set a default transformation matrix for this part.
         self.tx = Tx()
+
+        # Orientation of the NetTerminal can be changed.
+        self.orientation_locked = False
 
         # Add a single pin to the part.
         pin = Pin(num="1", name="~")
