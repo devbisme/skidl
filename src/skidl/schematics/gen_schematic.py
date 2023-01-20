@@ -35,7 +35,7 @@ standard_library.install_aliases()
 Generate a KiCad EESCHEMA schematic from a Circuit object.
 """
 
-# TODO: Handle symio, netio, attributes.
+# TODO: Handle symio attribute.
 
 
 def preprocess_parts_and_nets(circuit):
@@ -159,15 +159,18 @@ def preprocess_parts_and_nets(circuit):
             # Set the active bounding box to the labeled version.
             part_unit.bbox = part_unit.lbl_bbox
 
-    # Pre-process nets.
-    net_stubs = circuit.get_net_nc_stubs()
-    net_stubs = [net for net in net_stubs if not isinstance(net, NCNet)]
-    for net in net_stubs:
-        if (
-            True or net.netclass != "Power"
-        ):  # TODO: figure out what to do with power nets.
-            for pin in net.pins:
-                pin.stub = True
+    def preprocess_nets(nets):
+        """Get nets ready for schematic place-and-route."""
+
+        # Set stub flag on every pin on a stub net.
+        net_stubs = circuit.get_net_nc_stubs()
+        net_stubs = [net for net in net_stubs if not isinstance(net, NCNet)]
+        for net in net_stubs:
+            if (
+                True or net.netclass != "Power"
+            ):  # TODO: figure out what to do with power nets.
+                for pin in net.pins:
+                    pin.stub = True
 
     # Pre-process parts
     for part in circuit.parts:
@@ -180,6 +183,9 @@ def preprocess_parts_and_nets(circuit):
 
         # Compute bounding boxes around parts
         calc_part_bbox(part)
+
+        # Preprocess nets.
+        preprocess_nets(circuit.nets)
 
 
 def finalize_parts_and_nets(circuit):
@@ -216,22 +222,15 @@ class NetTerminal(Part):
         # Set a default transformation matrix for this part.
         self.tx = Tx()
 
-        # Orientation of the NetTerminal can be changed.
-        self.orientation_locked = False
-
         # Add a single pin to the part.
         pin = Pin(num="1", name="~")
         self.add_pins(pin)
-
-        # Connect the pin to the net.
-        pin += net
 
         # Set the pin at point (0,0) and pointing leftward toward the part body
         # (consisting of just the net label for this type of part) so any attached routing
         # will go to the right.
         pin.pt = Point(0, 0)
         pin.orientation = "L"
-        # pin.stub = False
 
         # Calculate the bounding box, but as if the pin were pointed right so
         # the associated label text would go to the left.
@@ -240,6 +239,15 @@ class NetTerminal(Part):
         # Extend the bounding box a bit so any attached routing will come straight in.
         self.bbox.max += Vector(GRID, 0)
         self.lbl_bbox = self.bbox
+
+        # Flip the NetTerminal horizontally if it is an output net (label on the right).
+        netio = getattr(net, "netio", "").lower()
+        self.orientation_locked = bool(netio in ("i", "o"))
+        if getattr(net, "netio", "").lower() == "o":
+            self.tx.flip_x()
+
+        # Connect the pin to the net.
+        pin += net
 
     def to_eeschema(self, tx):
         """Generate the EESCHEMA code for the net terminal.
