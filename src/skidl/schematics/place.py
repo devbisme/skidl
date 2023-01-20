@@ -120,7 +120,6 @@ def adjust_orientations(parts, nets, **options):
     Notes:
         This function doesn't work. Parts are poorly re-oriented.
     """
-    #TODO: Come back and fix part reorientation.
 
     def find_best_orientation(part):
         # Each part has 8 possible orientations. Find the best of the 7 alternatives from the current one.

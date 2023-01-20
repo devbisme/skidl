@@ -399,8 +399,6 @@ def test_gen_sch_part_tx():
 def test_gen_svg_1():
     """Test SVG generation."""
 
-    # TODO: Find out why this test regularly generates a RuntimeError in route.py::cvt_faces_to_terminals.
-
     l1 = Part("Device.lib", "L")
     r1, r2 = Part("Device.lib", "R", dest=TEMPLATE, value="200.0") * 2
     q1 = Part("Device.lib", "Q_NPN_CBE")
