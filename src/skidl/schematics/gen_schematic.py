@@ -236,6 +236,9 @@ class NetTerminal(Part):
         # the associated label text would go to the left.
         self.bbox = calc_hier_label_bbox(net.name, "R")
 
+        # Resize bbox so it's an integer number of GRIDs.
+        self.bbox = self.bbox.snap_resize(GRID)
+
         # Extend the bounding box a bit so any attached routing will come straight in.
         self.bbox.max += Vector(GRID, 0)
         self.lbl_bbox = self.bbox

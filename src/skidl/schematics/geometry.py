@@ -253,6 +253,17 @@ class BBox:
         """Expand/contract the bounding box by applying vector to its corner points."""
         return BBox(self.min - vector, self.max + vector)
 
+    def snap_resize(self, grid_spacing):
+        """Resize bbox so max and min points are on grid.
+
+        Args:
+            grid_spacing (float): Grid spacing.
+        """
+        bbox = self.resize(Point(grid_spacing-1, grid_spacing-1))
+        bbox.min = bbox.min.snap(grid_spacing)
+        bbox.max = bbox.max.snap(grid_spacing)
+        return bbox
+
     @property
     def area(self):
         """Return area of bounding box."""
