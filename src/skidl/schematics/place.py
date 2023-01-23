@@ -195,7 +195,13 @@ def adjust_orientations(parts, nets, **options):
 
         # Find the point at which the cost reaches its lowest point.
         delta_costs = (part.delta_cost for part in moved_parts)
-        cost_seq = list(itertools.accumulate(delta_costs))
+        try:
+            cost_seq = list(itertools.accumulate(delta_costs))
+        except AttributeError:
+            # Python 2.7 doesn't have itertools.accumulate().
+            cost_seq = list(delta_costs)
+            for i in range(1, len(cost_seq)):
+                cost_seq[i] = cost_seq[i-1] + cost_seq[i]
         min_cost = min(cost_seq)
         min_index = cost_seq.index(min_cost)
 

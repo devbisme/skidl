@@ -86,7 +86,15 @@ def create_schematic(flatness=1.0):
     output_file_root = "./test_data/schematic_output"
     python_version = ".".join([str(n) for n in sys.version_info[0:3]])
     output_dir = os.path.join(output_file_root, python_version)
-    os.makedirs(output_dir, exist_ok=True)
+    try:
+        os.makedirs(output_dir, exist_ok=True)
+    except TypeError:
+        # This happens for Python 2.7 which doesn't support the exist_ok keyword arg.
+        try:
+            os.makedirs(output_dir)
+        except os.error:
+            # OK, the directory already exists so just keep going.
+            pass
     # top_name = inspect.stack()[1].function
     top_name = inspect.stack()[1][3]
     for f in glob.glob(os.path.join(output_dir, top_name) + "*.sch"):
