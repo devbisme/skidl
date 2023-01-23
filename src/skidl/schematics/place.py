@@ -41,13 +41,29 @@ __all__ = [
 #
 # OVERVIEW OF AUTOPLACER
 #
-# The input is a Node containing parts and child nodes, each with
-# a bounding box.
+# The input is a Node containing child nodes and parts. The parts in
+# each child node are placed, and then the blocks for each child are
+# placed along with the parts in this node.
 #
-# The positions of each part are set and then the block of parts
-# is arranged with the blocks of the child nodes.
+# The individual parts in a node are separated into groups:
+# 1) multiple groups of parts that are all interconnected by one or
+# more nets, and 2) a single group of parts that are not connected
+# by any explicit nets (i.e., floating parts).
+# 
+# Each group of connected parts are placed using force-directed placement.
+# Each net exerts an attractive force pulling parts together, and
+# any overlap of parts exerts a repulsive force pushing them apart.
+# Initially, the attractive force is dominant but, over time, it is
+# decreased while the repulsive force is increased using a weighting
+# factor. After that, any part overlaps are cleared and the parts
+# are aligned to the routing grid.
 #
-# TODO: Actually provide an overview...
+# Force-directed placement is also used with the floating parts except
+# the non-existent net forces are replaced by a measure of part similarity.
+# This collects similar parts (such as bypass capacitors) together.
+#
+# The child-node blocks are then arranged with the blocks of connected
+# and floating parts to arrive at a total placement for this node.
 #
 ###################################################################
 

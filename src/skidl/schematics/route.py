@@ -39,8 +39,9 @@ __all__ = [
 #
 # OVERVIEW OF SCHEMATIC AUTOROUTER
 #
-# The input is a Node containing parts, each with a bounding box and an
-# assigned (x,y) position.
+# The input is a Node containing child nodes and parts, each with a 
+# bounding box and an assigned (x,y) position. The following operations
+# are done for each child node, and then for the parts within this node.
 #
 # The edges of each part bbox are extended to form tracks that divide the
 # routing area into a set of four-sided, non-overlapping switchboxes. Each
