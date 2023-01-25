@@ -15,7 +15,7 @@ from __future__ import (  # isort:skip
 
 import sys
 from builtins import range, super, zip
-from collections import defaultdict
+from collections import defaultdict, Counter
 from enum import Enum
 from itertools import chain, zip_longest
 from random import choice, randint
@@ -25,7 +25,7 @@ from future import standard_library
 from ..circuit import Circuit
 from ..part import Part
 from .debug_draw import draw_end, draw_endpoint, draw_part, draw_seg, draw_start
-from .geometry import BBox, Point, Segment, Tx, Vector
+from .geometry import BBox, Point, Segment, Tx, Vector, tx_rot_90
 from ..utilities import export_to_all, rmv_attr
 
 standard_library.install_aliases()
@@ -118,9 +118,11 @@ class RoutingFailure(Exception):
     pass
 
 class GlobalRoutingFailure(RoutingFailure):
+    """Failure during global routing phase."""
     pass
 
 class SwitchboxRoutingFailure(RoutingFailure):
+    """Failure during switchbox routing phase."""
     pass
 
 
@@ -135,7 +137,7 @@ class Boundary:
     pass
 
 
-# Boundary object for placing in Faces on the bounding Faces of the Node routing area.
+# Boundary object for placing in the bounding Faces of the Node routing area.
 boundary = Boundary()
 
 
@@ -147,6 +149,12 @@ class Terminal:
             net (Net): Net upon which the Terminal resides.
             face (Face): SwitchBox Face upon which the Terminal resides.
             coord (int): Absolute position along the track the face is in.
+
+        Notes:
+            A terminal exists on a Face and is assigned to a net.
+            The terminal's (x,y) position is determined by the terminal's 
+            absolute coordinate along the track parallel to the face, 
+            and by the Face's absolute coordinate in the orthogonal direction.
         """
 
         self.net = net
@@ -163,7 +171,7 @@ class Terminal:
             return Point(track.coord, self.coord)
 
     def get_next_terminal(self, next_face):
-        """Get the terminal from the next face that lies on the same net as this terminal.
+        """Get the terminal on the next face that lies on the same net as this terminal.
 
         This method assumes the terminal's face and the next face are faces of the
         same switchbox. Hence, they're either parallel and on opposite sides, or they're
@@ -242,8 +250,8 @@ class Interval(object):
         """Define an interval with a beginning and an end.
 
         Args:
-            beg (GlobalTrack): Beginning track that bounds interval.
-            end (GlobalTrack): Ending track that bounds interval.
+            beg (GlobalTrack): Beginning orthogonal track that bounds interval.
+            end (GlobalTrack): Ending orthogonal track that bounds interval.
 
         Note: The beginning and ending Tracks are orthogonal to the Track containing the interval.
         """
@@ -284,7 +292,7 @@ class NetInterval(Interval):
 
         Args:
             net (Net): Net associated with interval.
-            beg (GlobalTrack): Beginning track that bounds interval.
+            beg (GlobalTrack): Beginning orthogonal track that bounds interval.
             end (GlobalTrack): Ending track that bounds interval.
         """
         super().__init__(beg, end)
@@ -345,6 +353,11 @@ class Face(Interval):
             track (GlobalTrack): Horz/vert track the Face is on.
             beg (GlobalTrack): Vert/horz track the Face begins at.
             end (GlobalTrack): Vert/horz track the Face ends at.
+
+        Notes:
+            The beg and end tracks have to be in the same direction
+            (i.e., both vertical or both horizontal) and orthogonal
+            to the track containing the face.
         """
 
         # Initialize the interval beginning and ending defining the Face.
@@ -391,6 +404,7 @@ class Face(Interval):
 
     @property
     def length(self):
+        """Return the length of the face."""
         return self.end.coord - self.beg.coord
 
     @property
@@ -398,18 +412,27 @@ class Face(Interval):
         """Return the bounding box of the 1-D face segment."""
         bbox = BBox()
 
-        # Start off assuming the Face bbox is vertical.
-        bbox.add(Point(self.track.coord, self.beg.coord))
-        bbox.add(Point(self.track.coord, self.end.coord))
-
-        # Rotate the bbox if the Face is actually horizontal.
-        if self.track.orientation == HORZ:
-            bbox = bbox * Tx(a=0, b=1, c=1, d=0)
-
+        if self.track.orientation == VERT:
+            # Face runs vertically, so bbox width is zero.
+            bbox.add(Point(self.track.coord, self.beg.coord))
+            bbox.add(Point(self.track.coord, self.end.coord))
+        else:
+            # Face runs horizontally, so bbox height is zero.
+            bbox.add(Point(self.beg.coord, self.track.coord))
+            bbox.add(Point(self.end.coord, self.track.coord))
+        
         return bbox
 
     def add_terminal(self, net, coord):
-        """Create a Terminal on the Face with a given Net at the absolute coord."""
+        """Create a Terminal on the Face.
+
+        Args:
+            net (Net): The net the terminal is on.
+            coord (int): The absolute coordinate along the track containing the Face.
+
+        Raises:
+            TerminalClashException: 
+        """
 
         if self.part and not net:
             # Don't add non-pin terminals with no net to a Face on a part or boundary.
@@ -437,7 +460,11 @@ class Face(Interval):
         self.terminals.append(Terminal(net, self, coord))
 
     def create_nonpin_terminals(self):
-        """Create non-net terminals along a non-part Face with GRID spacing."""
+        """Create non-net terminals along a non-part Face with GRID spacing.
+        
+        These terminals will be used during global routing of nets from
+        face-to-face and during switchbox routing.
+        """
 
         # Add terminals along a Face. A terminal can be right at the start if the Face
         # starts on a grid point, but there cannot be a terminal at the end
@@ -472,24 +499,6 @@ class Face(Interval):
         """Return True if any Terminal on the Face is attached to a net."""
         return any((terminal.net for terminal in self.terminals))
 
-    def add_adjacency(self, adj_face):
-        """Make two faces adjacent to one another."""
-
-        # Faces on the boundary can never accept wires so they are never
-        # adjacent to any other face.
-        if boundary in self.part or boundary in adj_face.part:
-            return
-
-        # If a face is an edge of a part, then it can never be adjacent to
-        # another face on the same part or else wires might get routed over
-        # the part bounding box.
-        if self.part.intersection(adj_face.part):
-            return
-
-        # OK, no parts in common between the two faces so they can be adjacent.
-        self.adjacent.add(Adjacency(self, adj_face))
-        adj_face.adjacent.add(Adjacency(adj_face, self))
-
     def add_adjacencies(self):
         """Add adjacent faces of the switchbox having this face as the top face."""
 
@@ -500,13 +509,29 @@ class Face(Interval):
             # This face doesn't belong to a valid switchbox.
             return
 
+        def add_adjacency(from_, to):
+            # Faces on the boundary can never accept wires so they are never
+            # adjacent to any other face.
+            if boundary in from_.part or boundary in to.part:
+                return
+
+            # If a face is an edge of a part, then it can never be adjacent to
+            # another face on the *same part* or else wires might get routed over
+            # the part bounding box.
+            if from_.part.intersection(to.part):
+                return
+
+            # OK, no parts in common between the two faces so they can be adjacent.
+            from_.adjacent.add(Adjacency(from_, to))
+            to.adjacent.add(Adjacency(to, from_))
+
         # Add adjacent faces.
-        swbx.top_face.add_adjacency(swbx.bottom_face)
-        swbx.left_face.add_adjacency(swbx.right_face)
-        swbx.left_face.add_adjacency(swbx.top_face)
-        swbx.left_face.add_adjacency(swbx.bottom_face)
-        swbx.right_face.add_adjacency(swbx.top_face)
-        swbx.right_face.add_adjacency(swbx.bottom_face)
+        add_adjacency(swbx.top_face, swbx.bottom_face)
+        add_adjacency(swbx.left_face, swbx.right_face)
+        add_adjacency(swbx.left_face, swbx.top_face)
+        add_adjacency(swbx.left_face, swbx.bottom_face)
+        add_adjacency(swbx.right_face, swbx.top_face)
+        add_adjacency(swbx.right_face, swbx.bottom_face)
 
         # Get rid of the temporary switchbox.
         del swbx
@@ -525,21 +550,16 @@ class Face(Interval):
             return
 
         # Extend the face backward from its beginning and forward from its end.
-        for dir in (0, 1):
-            if dir == 0:
-                # Search for intersecting faces from the face beginning down to 0.
-                start = self.beg
-                search = orthogonal_tracks[start.idx :: -1]
-            else:
-                # Search for intersecting faces from the face end up to max index.
-                start = self.end
-                search = orthogonal_tracks[start.idx :]
+        for start, dir in ((self.beg, -1), (self.end, 1)):
+
+            # Get tracks to extend face towards.
+            search_tracks = orthogonal_tracks[start.idx :: dir]
 
             # The face extension starts off non-blocked by any orthogonal faces.
             blocked = False
 
-            # Search for a face in a track that intersects this extension.
-            for ortho_track in search:
+            # Search for a orthogonal face in a track that intersects this extension.
+            for ortho_track in search_tracks:
                 for ortho_face in ortho_track:
 
                     # Intersection only occurs if the extending face hits the open
@@ -592,16 +612,15 @@ class Face(Interval):
     def seg(self):
         """Return a Segment that coincides with the Face."""
 
-        # Start off assuming it's a vertical face.
-        p1 = Point(self.track.coord, self.beg.coord)
-        p2 = Point(self.track.coord, self.end.coord)
-        seg = Segment(p1, p2)
+        if self.track.orientation == VERT:
+            p1 = Point(self.track.coord, self.beg.coord)
+            p2 = Point(self.track.coord, self.end.coord)
+        else:
+            p1 = Point(self.beg.coord, self.track.coord)
+            p2 = Point(self.end.coord, self.track.coord)
 
-        # If the face is actually horizontal, then rotate the segment.
-        if self.track.orientation == HORZ:
-            seg = seg * Tx(a=0, b=1, c=1, d=0)
+        return Segment(p1, p2)
 
-        return seg
 
     def draw(
         self,
@@ -642,7 +661,7 @@ class Face(Interval):
 
 class GlobalWire(list):
     def __init__(self, net, *args, **kwargs):
-        """Global-routing wire connecting switchbox faces and terminals.
+        """A list connecting switchbox faces and terminals.
 
         Global routes start off as a sequence of switchbox faces that the route
         goes thru. Later, these faces are converted to terminals at fixed positions
@@ -690,13 +709,11 @@ class GlobalWire(list):
             if isinstance(self[i], Face):
                 # Logic error if the current element has not been converted to a Terminal.
                 raise RuntimeError
-            if isinstance(self[i + 1], Terminal):
-                # Skip if the next element is already a Terminal.
-                continue
 
-            # Convert the next element from a Face to a Terminal on this net. This terminal will
-            # be the current element on the next iteration.
-            self[i+1] = self[i].get_next_terminal(self[i + 1])
+            if isinstance(self[i+1], Face):
+                # Convert the next element from a Face to a Terminal on this net. This terminal will
+                # be the current element on the next iteration.
+                self[i+1] = self[i].get_next_terminal(self[i + 1])
 
     def draw(self, scr, tx, color=(0, 0, 0), thickness=1, dot_radius=10, **options):
         """Draw a global wire from Face-to-Face in the drawing area.
@@ -737,7 +754,7 @@ class GlobalWire(list):
 
 class GlobalRoute(list):
     def __init__(self, *args, **kwargs):
-        """A list containing GlobalWires that form an entire routing for a net.
+        """A list containing GlobalWires that form an entire routing of a net.
 
         Args:
             net (Net): The net associated with the wire.
@@ -825,11 +842,7 @@ class GlobalTrack(list):
         return self.idx
 
     def add_split(self, orthogonal_track):
-        """Store the orthogonal track that intersects this one.
-
-        Args:
-            orthogonal_track (GlobalTrack): Track intersecting this one.
-        """
+        """Store the orthogonal track that intersects this one."""
         self.splits.add(orthogonal_track)
 
     def add_face(self, face):
@@ -841,12 +854,12 @@ class GlobalTrack(list):
 
         self.append(face)
 
-        # The added face will also split the orthogonal tracks that define its endpoints.
+        # The orthogonal tracks that bound the added face will split this track.
         self.add_split(face.beg)
         self.add_split(face.end)
 
     def split_faces(self):
-        """Apply split tracks to all the faces in a track."""
+        """Split track faces by any intersecting orthogonal tracks."""
 
         for split in self.splits:
             for face in self[:]:
@@ -856,27 +869,24 @@ class GlobalTrack(list):
                 face.split(split)
 
     def remove_duplicate_faces(self):
-        """Remove duplicate faces having the same endpoints."""
+        """Remove faces from the track having the same endpoints."""
 
-        # Search for pairs of faces with identical endpoints.
-        self_copy = self[:]
-        for i, first_face in enumerate(self_copy[:]):
-            for second_face in self_copy[i + 1 :]:
-                if first_face.coincides_with(second_face):
+        # Create lists of faces having the same endpoints.
+        dup_faces_dict = defaultdict(list)
+        for face in self:
+            key = (face.beg, face.end)
+            dup_faces_dict[key].append(face)
 
-                    # Update the second face with the info from the first face.
-                    second_face.combine(first_face)
-
-                    # Remove the first face since it's redundant.
-                    self.remove(first_face)
-
-                    # Stop searching for dups of the first face because the
-                    # equivalent of that can be done using the second face
-                    # on a later iteration.
-                    break
+        # Remove all but the first face from each list.
+        for dup_faces in dup_faces_dict.values():
+            retained_face = dup_faces[0]
+            for dup_face in dup_faces[1:]:
+                # Add info from duplicate face to the retained face.
+                retained_face.combine(dup_face)
+                self.remove(dup_face)
 
     def add_adjacencies(self):
-        """Add adjacent faces to each face in a track."""
+        """Add adjacent switchbox faces to each face in a track."""
 
         for top_face in self:
             top_face.add_adjacencies()
@@ -905,7 +915,7 @@ class GlobalTrack(list):
 
 class Target:
     def __init__(self, net, row, col):
-        """A point on a switchbox face that wiring has not yet reached.
+        """A point on a switchbox face that switchbox router has not yet reached.
 
         Targets are used to direct the switchbox router towards terminals that
         need to be connected to nets. So wiring will be nudged up/down to
@@ -935,6 +945,10 @@ class Target:
 
 
 class SwitchBox:
+
+    # Indices for faces of the switchbox.
+    TOP, LEFT, BOTTOM, RIGHT = 0, 1, 2, 3
+
     def __init__(self, top_face, left_face=None, bottom_face=None, right_face=None):
         """Routing switchbox.
 
@@ -942,7 +956,7 @@ class SwitchBox:
         It has top, bottom, left and right faces.
 
         Args:
-            top_face (Face): The top face of the switchbox.
+            top_face (Face): The top face of the switchbox (needed to find the other faces).
             bottom_face (Face): The bottom face. Will be calculated if set to None.
             left_face (Face): The left face. Will be calculated if set to None.
             right_face (Face): The right face. Will be calculated if set to None.
@@ -1028,19 +1042,26 @@ class SwitchBox:
             except ValueError:
                 return None
 
-        # Find the coordinates of all the horizontal tracks and then create
-        # a list of nets for each of the left/right faces.
+        # Find the coordinates of all the horizontal routing tracks
         left_coords = [terminal.coord for terminal in self.left_face.terminals]
         right_coords = [terminal.coord for terminal in self.right_face.terminals]
         tb_coords = [self.top_face.track.coord, self.bottom_face.track.coord]
-        self.track_coords = sorted(set(left_coords + right_coords + tb_coords))
+        # Remove duplicate coords.
+        self.track_coords = list(set(left_coords + right_coords + tb_coords))
+
         if len(self.track_coords) == 2:
             # This is a weird case. If the switchbox channel is too narrow to hold
             # a routing track in the middle, then place two pseudo-tracks along the
             # top and bottom faces to allow routing to proceed. The routed wires will
             # end up in the top or bottom faces, but maybe that's OK.
+            # FIXME: Should this be extending with tb_coords?
+            # FIXME: Should we always extend with tb_coords?
             self.track_coords.extend(self.track_coords)
-            self.track_coords.sort()  # Re-sort after adding top/bottom coords.
+
+        # Sort horiz. track coords from bottom to top.
+        self.track_coords = sorted(self.track_coords)
+
+        # Create a list of nets for each of the left/right faces.
         self.left_nets = [
             find_terminal_net(self.left_face.terminals, left_coords, coord)
             for coord in self.track_coords
@@ -1067,15 +1088,13 @@ class SwitchBox:
 
         # Remove any nets that only have a single terminal in the switchbox.
         all_nets = self.left_nets + self.right_nets + self.top_nets + self.bottom_nets
-        for side_nets in (
-            self.left_nets,
-            self.right_nets,
-            self.top_nets,
-            self.bottom_nets,
-        ):
-            for i, net in enumerate(side_nets):
-                if all_nets.count(net) <= 1:
-                    side_nets[i] = None
+        net_counts = Counter(all_nets)
+        single_terminal_nets = [net for net, count in net_counts.items() if count <= 1]
+        if single_terminal_nets:
+            for side_nets in (self.left_nets, self.right_nets, self.top_nets, self.bottom_nets):
+                for i, net in enumerate(side_nets):
+                    if net in single_terminal_nets:
+                        side_nets[i] = None
 
         # Handle special case when a terminal is right on the corner of the switchbox.
         self.move_corner_nets()
@@ -1098,7 +1117,12 @@ class SwitchBox:
     @property
     def face_list(self):
         """Return list of switchbox faces in CCW order, starting from top face."""
-        return [self.top_face, self.left_face, self.bottom_face, self.right_face]
+        flst = [None] * 4
+        flst[self.TOP] = self.top_face
+        flst[self.LEFT] = self.left_face
+        flst[self.BOTTOM] = self.bottom_face
+        flst[self.RIGHT] = self.right_face
+        return flst
 
     def move_corner_nets(self):
         """
@@ -1171,7 +1195,7 @@ class SwitchBox:
         box_lists = [[self], [self], [self], [self]]
 
         # Iteratively search to the top, left, bottom, and right for switchboxes to add.
-        active_directions = {0, 1, 2, 3}
+        active_directions = {self.TOP, self.LEFT, self.BOTTOM, self.RIGHT}
         while active_directions:
 
             # Grow in the shortest dimension so the coalesced switchbox stays "squarish".
@@ -1179,14 +1203,14 @@ class SwitchBox:
             for box_list in box_lists:
                 bbox.add(box_list[0].bbox)
             if bbox.w == bbox.h:
-                # Already sqaure, so grow in any direction.
-                growth_directions = {0, 1, 2, 3}
+                # Already square, so grow in any direction.
+                growth_directions = {self.TOP, self.LEFT, self.BOTTOM, self.RIGHT}
             elif bbox.w < bbox.h:
                 # Taller than wide, so grow left or right.
-                growth_directions = {1, 3}
+                growth_directions = {self.LEFT, self.RIGHT}
             else:
                 # Wider than tall, so grow up or down.
-                growth_directions = {0, 2}
+                growth_directions = {self.TOP, self.BOTTOM}
 
             # Only keep growth directions that are still active.
             growth_directions = growth_directions & active_directions
@@ -1236,7 +1260,8 @@ class SwitchBox:
 
         # Create new faces that bound the coalesced group of switchboxes.
         total_faces = [None, None, None, None]
-        for direction, box_list in enumerate(box_lists):
+        directions = (self.TOP, self.LEFT, self.BOTTOM, self.RIGHT)
+        for direction, box_list in zip(directions, box_lists):
 
             # Create a face that spans all the faces of the boxes along one side.
             face_list = [box.face_list[direction] for box in box_list]
@@ -1263,19 +1288,11 @@ class SwitchBox:
     @property
     def bbox(self):
         """Return bounding box for a switchbox."""
-        bbox = BBox()
-
-        # Only need two orthogonal sides to compute bounding box.
-        bbox.add(self.top_face.bbox)
-        bbox.add(self.left_face.bbox)
-        return bbox
+        return BBox().add(self.top_face.bbox).add(self.left_face.bbox)
 
     def has_nets(self):
         """Return True if switchbox has any terminals on any face with nets attached."""
-        for face in (self.top_face, self.bottom_face, self.left_face, self.right_face):
-            if face.has_nets():
-                return True
-        return False
+        return self.top_face.has_nets() or self.bottom_face.has_nets() or self.left_face.has_nets() or self.right_face.has_nets()
 
     def route(self, **options):
         """Route wires between terminals on the switchbox faces.
@@ -1291,23 +1308,34 @@ class SwitchBox:
         """
 
         if not self.has_nets():
+            # Return what should be an empty dict.
+            assert not self.segments.keys()
             return self.segments
 
         def collect_targets(top_nets, bottom_nets, right_nets):
             """Collect target nets along top, bottom, right faces of switchbox."""
+            
             min_row = 1
             max_row = len(right_nets) - 2
             max_col = len(top_nets)
             targets = []
+
+            # Collect target nets along top and bottom faces of the switchbox.
             for col, (t_net, b_net) in enumerate(zip(top_nets, bottom_nets)):
                 if t_net is not None:
                     targets.append(Target(t_net, max_row, col))
                 if b_net is not None:
                     targets.append(Target(b_net, min_row, col))
+
+            # Collect target nets on the right face of the switchbox.
             for row, r_net in enumerate(right_nets):
                 if r_net is not None:
                     targets.append(Target(r_net, row, max_col))
+
+            # Sort the targets by increasing column order so targets closer to
+            # the left-to-right routing have priority.
             targets.sort()
+
             return targets
 
         def connect_top_btm(track_nets):
@@ -1323,32 +1351,43 @@ class SwitchBox:
                 Args:
                     net (Net): Net to be connected.
                     tracks (list): Nets on tracks
-                    direction (int): Search direction for connection.
+                    direction (int): Search direction for connection (-1: down, +1:up).
 
                 Returns:
                     list: Indices of tracks where the net can connect.
                 """
+        
                 if net:
-                    connections = []
                     if direction < 0:
+                        # Searching down so reverse tracks.
                         tracks = tracks[::-1]
+
+                    connections = []
+
                     try:
+                        # Find closest track with the given net.
                         connections.append(tracks[1:-1].index(net) + 1)
                     except ValueError:
                         pass
+                    
                     try:
+                        # Find closest empty track.
                         connections.append(tracks[1:-1].index(None) + 1)
                     except ValueError:
                         pass
+                    
                     if direction < 0:
+                        # Reverse track indices if searching down.
                         l = len(tracks)
                         connections = [l - 1 - cnct for cnct in connections]
                 else:
+                    # No net so return no connections.
                     connections = [None]
+        
                 return connections
 
             # Stores net intervals connecting top/bottom nets to horizontal tracks.
-            column = []
+            column_intvls = []
 
             # Top/bottom nets for this switchbox column. Horizontal track nets are
             # at indexes 1..-2.
@@ -1358,8 +1397,8 @@ class SwitchBox:
             if t_net and (t_net is b_net):
                 # If top & bottom nets are the same, just create a single net interval
                 # connecting them and that's it.
-                column.append(NetInterval(t_net, 0, len(track_nets) - 1))
-                return column
+                column_intvls.append(NetInterval(t_net, 0, len(track_nets) - 1))
+                return column_intvls
 
             # Find which tracks the top/bottom nets can connect to.
             t_cncts = find_connection(t_net, track_nets, -1)
@@ -1371,7 +1410,7 @@ class SwitchBox:
             if not tb_cncts:
                 # No possible connections for top and/or bottom.
                 if options.get("allow_routing_failure"):
-                    return column  # Return empty column.
+                    return column_intvls  # Return empty column.
                 else:
                     raise SwitchboxRoutingFailure
 
@@ -1388,38 +1427,49 @@ class SwitchBox:
                     break
             else:
                 if options.get("allow_routing_failure"):
-                    return column
+                    return column_intvls
                 else:
                     raise SwitchboxRoutingFailure
 
             if t_cnct is not None:
                 # Connection from track to terminal on top of switchbox.
-                column.append(NetInterval(t_net, t_cnct, len(track_nets) - 1))
+                column_intvls.append(NetInterval(t_net, t_cnct, len(track_nets) - 1))
             if b_cnct is not None:
                 # Connection from terminal on bottom of switchbox to track.
-                column.append(NetInterval(b_net, 0, b_cnct))
+                column_intvls.append(NetInterval(b_net, 0, b_cnct))
 
             # Return connection segments.
-            return column
+            return column_intvls
 
-        def prune_targets(targets, col):
-            return [target for target in targets if target.col > col]
+        def prune_targets(targets, current_col):
+            """Remove targets in columns to the left of the current left-to-right routing column"""
+            return [target for target in targets if target.col > current_col]
 
         def net_search(net, start, track_nets):
+            """Search for the closest points for the net before and after the start point."""
+
+            # Past the end of the list of track nets.
             large_offset = 2 * len(track_nets)
+            
             try:
+                # Find closest occurrence of net going up.
                 up = track_nets[start:-1].index(net)
             except ValueError:
+                # Net not found, so use out-of-bounds index.
                 up = large_offset
+
             try:
+                # Find closest occurrence of net going down.
                 down = track_nets[start:0:-1].index(net)
             except ValueError:
+                # Net not found, so use out-of-bounds index.
                 down = large_offset
+
             return up, down
 
-        def insert_column_nets(track_nets, column):
+        def insert_column_nets(track_nets, column_intvls):
             track_nets = track_nets[:]
-            for intvl in column:
+            for intvl in column_intvls:
                 track_nets[intvl.beg] = intvl.net
                 track_nets[intvl.end] = intvl.net
             return track_nets
@@ -1625,13 +1675,13 @@ class SwitchBox:
                 continue
             track_nets[0] = b_net
             track_nets[-1] = t_net
-            column = connect_top_btm(track_nets)
-            augmented_track_nets = insert_column_nets(track_nets, column)
+            column_intvls = connect_top_btm(track_nets)
+            augmented_track_nets = insert_column_nets(track_nets, column_intvls)
             targets = prune_targets(targets, col)
             augmented_track_nets = insert_target_nets(
                 augmented_track_nets, targets, self.right_nets
             )
-            column = connect_splits(augmented_track_nets, column)
+            column = connect_splits(augmented_track_nets, column_intvls)
             track_nets = extend_tracks(track_nets, column, targets)
             trim_column_intervals(column, tracks[-1], track_nets)
             tracks.append(track_nets)

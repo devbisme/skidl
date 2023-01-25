@@ -221,6 +221,7 @@ class BBox:
                 self.max = self.max.max(obj.max)
             else:
                 raise NotImplementedError
+        return self
 
     def __mul__(self, m):
         return BBox(self.min * m, self.max * m)
