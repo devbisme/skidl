@@ -188,6 +188,7 @@ def adjust_orientations(parts, nets, **options):
         return
 
     # Kernighan-Lin algorithm for finding near-optimal part orientations.
+    # FIXME: Sometimes this doesn't terminate and runs forever.
     while True:
 
         # Find the best part to move and move it until there are no more parts to move.
