@@ -1456,21 +1456,20 @@ class SwitchBox:
 
         def net_search(net, start, track_nets):
             """Search for the closest points for the net before and after the start point."""
-            # FIXME: Use the entire track_nets array.
 
-            # Past the end of the list of track nets.
+            # illegal offset past the end of the list of track nets.
             large_offset = 2 * len(track_nets)
             
             try:
                 # Find closest occurrence of net going up.
-                up = track_nets[start:-1].index(net)
+                up = track_nets[start:].index(net)
             except ValueError:
                 # Net not found, so use out-of-bounds index.
                 up = large_offset
 
             try:
                 # Find closest occurrence of net going down.
-                down = track_nets[start:0:-1].index(net)
+                down = track_nets[start::-1].index(net)
             except ValueError:
                 # Net not found, so use out-of-bounds index.
                 down = large_offset
@@ -1479,8 +1478,6 @@ class SwitchBox:
                 return up
             else:
                 return -down
-
-            return up, down
 
         def insert_target_nets(track_nets, targets, right_nets):
             """Return copy of active track nets with additional prioritized targets from the top, bottom, right faces."""
@@ -1492,7 +1489,8 @@ class SwitchBox:
             # so we can steer the routing as it proceeds rightward.
             active_right_nets = [net if net in track_nets else None for net in right_nets]
 
-            search_nets = track_nets[:]
+            # Strip-off the top/bottom rows where terminals are and routing doesn't go.
+            search_nets = track_nets[1:-1]
 
             for target in targets:
 
@@ -1502,7 +1500,7 @@ class SwitchBox:
                 # placed (prevents multiple insertions of the same target net).
                 # Also ignore targets on the far right face until the last step.
                 if (
-                    target_net not in track_nets
+                    target_net not in track_nets  # TODO: Use search_nets???
                     or target_net in placed_target_nets
                     or target_net in active_right_nets
                 ):
@@ -1517,7 +1515,7 @@ class SwitchBox:
                 else:
                     row_offset = empty_row_offset
                 try:
-                    placed_target_nets[target_row + row_offset] = target_net
+                    placed_target_nets[target_row + row_offset + 1] = target_net
                     search_nets[target_row + row_offset] = target_net
                 except IndexError:
                     # There was no place for this target net
@@ -1663,7 +1661,7 @@ class SwitchBox:
                 if target_row is None:
                     # There is no rightward target, so that means there are two or
                     # more intervals in this column that need to be connected but it
-                    # isn't possible in this column. So extend the net for each interval
+                    # isn't possible to do in this column. So extend the net for each interval
                     # into the next column from the end of each interval where the net
                     # is *not* entering (i.e., create a dogleg).
                     beg_end = (bool(track_nets[beg]), bool(track_nets[end]))
@@ -1677,7 +1675,7 @@ class SwitchBox:
                         # Any other case is a logic error.
                         raise RuntimeError
                 else:
-                    # There is a rightward target, so exit the net from the begin or
+                    # There is a rightward target, so exit the net from the beginning or
                     # end of the interval closest to the track the target is on.
 
                     if target_row > end:
@@ -1687,9 +1685,11 @@ class SwitchBox:
                         # target track is below the interval's start, so bound it to the start.
                         target_row = beg
 
-                    intvl_nets = track_nets[beg-1:end+1+1]
-                    net_row = net_search(net, target_row-(beg-1), intvl_nets) + target_row
-                    open_row = net_search(None, target_row-(beg-1), intvl_nets) + target_row
+                    # Search for the closest track to the target row that is either open
+                    # or occupied by the same target net.
+                    intvl_nets = track_nets[beg:end+1]
+                    net_row = net_search(net, target_row-beg, intvl_nets) + target_row
+                    open_row = net_search(None, target_row-beg, intvl_nets) + target_row
                     net_dist = abs(net_row - target_row)
                     open_dist = abs(open_row - target_row)
                     if net_dist <= open_dist:
@@ -1704,12 +1704,21 @@ class SwitchBox:
             return next_track_nets
 
         def trim_column_intervals(column, track_nets, next_track_nets):
+            """Trim stubs from column intervals."""
+
+            # All nets entering and exiting the column.
             trk_nets = list(enumerate(zip(track_nets, next_track_nets)))
+
             for intvl in column:
+                # Get all the entry/exit track positions having the same net as the interval
+                # and that are within the bounds of the interval.
                 net = intvl.net
                 beg = intvl.beg
                 end = intvl.end
                 trks = [i for (i, nets) in trk_nets if net in nets and beg <= i <= end]
+
+                # Chop off any stubs of the interval that extend past where it could
+                # connect to an entry/exit point of its net. 
                 intvl.beg = min(trks)
                 intvl.end = max(trks)
 
@@ -1720,23 +1729,25 @@ class SwitchBox:
         # Get target nets as routing proceeds from left-to-right.
         targets = collect_targets(self.top_nets, self.bottom_nets, self.right_nets)
 
-        # Store the nets in each column that are in the process of being routed.
+        # Store the nets in each column that are in the process of being routed,
+        # starting with the nets in the left-hand face of the switchbox.
         nets_in_column = [self.left_nets[:]]
 
         # Store routing intervals in each column.
         all_column_intvls = []
 
-        # Active nets for routing starts with the nets on the left-hand face.
-        active_nets = nets_in_column[0]
-
         # Route left-to-right across the columns connecting the top & bottom nets
         # on each column to tracks within the switchbox.
         for col, (t_net, b_net) in enumerate(zip(self.top_nets, self.bottom_nets)):
+
+            # Nets in the previous column become the currently active nets being routed
+            active_nets = nets_in_column[-1][:]
 
             if col == 0 and not t_net and not b_net:
                 # Nothing happens in the first column if there are no top & bottom nets.
                 # Just continue the active nets from the left-hand face to the next column.
                 column_intvls = []
+                next_active_nets = active_nets[:]
 
             else:
                 # Bring any nets on the top & bottom of this column into the list of active nets.
@@ -1762,12 +1773,14 @@ class SwitchBox:
                 # Make vertical connections between tracks in the column having the same net.
                 column_intvls = connect_splits(augmented_active_nets, column_intvls)
 
-                active_nets = extend_tracks(active_nets, column_intvls, targets)
+                # Get the nets that will be active in the next column.
+                next_active_nets = extend_tracks(active_nets, column_intvls, targets)
 
-                trim_column_intervals(column_intvls, nets_in_column[-1], active_nets)
+                # Trim any hanging stubs from vertical routing intervals in the current column.
+                trim_column_intervals(column_intvls, active_nets, next_active_nets)
 
-            # Store the active nets for this column.
-            nets_in_column.append(active_nets)
+            # Store the active nets for the next column.
+            nets_in_column.append(next_active_nets)
 
             # Store the vertical routing intervals for this column.
             all_column_intvls.append(column_intvls)
@@ -1776,41 +1789,43 @@ class SwitchBox:
         # End of switchbox routing loop.
         ########################################
 
-        # After routing from left-to-right, the active track nets should terminate
-        # at the same position as the nets on the right-hand face of the switchbox.
+        # After routing from left-to-right, verify the active track nets coincide
+        # with the positions of the nets on the right-hand face of the switchbox.
         for track_net, right_net in zip(nets_in_column[-1], self.right_nets):
             if track_net is not right_net:
                 if not options.get("allow_routing_failure"):
                     raise SwitchboxRoutingFailure
 
-        # Create horizontal wiring segments.
-        # column_coords = [self.left_face.track.coord] + self.column_coords
+        # Create wiring segments along each horizontal track.
+        # Add left and right faces to coordinates of the vertical columns.
         column_coords = (
             [self.left_face.track.coord]
             + self.column_coords
             + [self.right_face.track.coord]
         )
-        for col_idx, trks in enumerate(nets_in_column):
+        # Proceed column-by-column from left-to-right creating horizontal wires.
+        for col_idx, nets in enumerate(nets_in_column):
             beg_col_coord = column_coords[col_idx]
             end_col_coord = column_coords[col_idx + 1]
-            for trk_idx, net in enumerate(trks[1:-1], start=1):
+            # Create segments for each track (skipping bottom & top faces).
+            for trk_idx, net in enumerate(nets[1:-1], start=1):
                 if net:
+                    # Create a wire segment for the net in this horizontal track of the column.
                     trk_coord = self.track_coords[trk_idx]
                     p1 = Point(beg_col_coord, trk_coord)
                     p2 = Point(end_col_coord, trk_coord)
                     seg = Segment(p1, p2)
                     self.segments[net].append(seg)
 
-        # Create vertical wiring segments.
+        # Create vertical wiring segments for each switchbox column.
         for idx, column in enumerate(all_column_intvls):
+            # Get X coord of this column.
             col_coord = self.column_coords[idx]
+            # Create vertical wire segments for wire interval in the column.
             for intvl in column:
-                beg_trk_coord = self.track_coords[intvl.beg]
-                end_trk_coord = self.track_coords[intvl.end]
-                p1 = Point(col_coord, beg_trk_coord)
-                p2 = Point(col_coord, end_trk_coord)
-                seg = Segment(p1, p2)
-                self.segments[intvl.net].append(seg)
+                p1 = Point(col_coord, self.track_coords[intvl.beg])
+                p2 = Point(col_coord, self.track_coords[intvl.end])
+                self.segments[intvl.net].append(Segment(p1, p2))
 
         return self.segments
 
