@@ -1940,18 +1940,7 @@ class Router:
                 if pin.route_pt != pin.pt:
                     seg = Segment(pin.pt, pin.route_pt) * pin.part.tx
                     node.wires[pin.net].append(seg)
-
-    def rmv_stuff(node):
-        """Remove routing points from part pins in node."""
-
-        for part in node.parts:
-            rmv_attr(part.pins, "route_pt")
-            rmv_attr(part.pins, "face")
-            rmv_attr(part, "left_track")
-            rmv_attr(part, "right_track")
-            rmv_attr(part, "top_track")
-            rmv_attr(part, "bottom_track")
-
+    
     def create_routing_tracks(node, routing_bbox):
         """Create horizontal & vertical global routing tracks."""
 
@@ -2083,149 +2072,6 @@ class Router:
         for track in h_tracks + v_tracks:
             for face in track:
                 face.set_capacity()
-
-    def routing_debug_draw(node, bbox, parts, *other_stuff, **options):
-        """Draw routing for debugging purposes.
-
-        Args:
-            bbox: Bounding box of drawing area.
-            node (Node): The Node being routed.
-            parts (list): List of Parts.
-            other_stuff (list): Other stuff with a draw() method.
-            options (dict, optional): Dictionary of options and values. Defaults to {}.
-        """
-
-        # Initialize drawing area.
-        draw_scr, draw_tx, draw_font = draw_start(bbox)
-
-        # Draw parts.
-        for part in parts:
-            draw_part(part, draw_scr, draw_tx, draw_font)
-
-        # Draw other stuff (global routes, switchbox routes, etc.) that has a draw() method.
-        for stuff in other_stuff:
-            for obj in stuff:
-                obj.draw(draw_scr, draw_tx, draw_font, **options)
-
-        draw_end()
-
-    def cleanup_wires(node):
-        """Try to make wire segments look prettier."""
-
-        def merge_segments(route):
-            """Merge segments in a route that run the same direction and overlap.
-
-            Args:
-                route (List): List of Segment objects.
-
-            Returns:
-                List: List of merged Segments.
-            """
-
-            merged_segs = []
-
-            # Keep only non zero-length segments.
-            route = [seg for seg in route if seg.p1 != seg.p2]
-
-            # Merge overlapping horizontal segments with the same Y coord.
-            horz_segs = [seg for seg in route if seg.p1.y == seg.p2.y]
-
-            horz_segs_v = defaultdict(list)
-            for seg in horz_segs:
-                horz_segs_v[seg.p1.y].append(seg)
-
-            for segs in horz_segs_v.values():
-                for seg in segs:
-                    if seg.p1.x > seg.p2.x:
-                        seg.p1, seg.p2 = seg.p2, seg.p1
-                segs.sort(key=lambda s: s.p1.x)
-                merged_segs.append(segs[0])
-                for seg in segs[1:]:
-                    if seg.p1.x <= merged_segs[-1].p2.x:
-                        merged_segs[-1].p2.x = max(seg.p2.x, merged_segs[-1].p2.x)
-                    else:
-                        merged_segs.append(seg)
-
-            # Merge overlapping vertical segments with the same X coord.
-            vert_segs = [seg for seg in route if seg.p1.x == seg.p2.x]
-
-            vert_segs_h = defaultdict(list)
-            for seg in vert_segs:
-                vert_segs_h[seg.p1.x].append(seg)
-
-            for segs in vert_segs_h.values():
-                for seg in segs:
-                    if seg.p1.y > seg.p2.y:
-                        seg.p1, seg.p2 = seg.p2, seg.p1
-                segs.sort(key=lambda s: s.p1.y)
-                merged_segs.append(segs[0])
-                for seg in segs[1:]:
-                    if seg.p1.y <= merged_segs[-1].p2.y:
-                        merged_segs[-1].p2.y = max(seg.p2.y, merged_segs[-1].p2.y)
-                    else:
-                        merged_segs.append(seg)
-
-            assert len(route) == len(horz_segs) + len(vert_segs)
-
-            return merged_segs
-
-        for net, segments in node.wires.items():
-
-            # Round the wire segment endpoints to integers.
-            segments = [seg.round() for seg in segments]
-
-            # Merge colinear segments.
-            segments = merge_segments(segments)
-
-            # Update the node net's wire with the cleaned version.
-            node.wires[net] = segments
-
-        # TODO: Remove unnecessary wire jogs.
-
-    def add_junctions(node):
-        """Add X & T-junctions where wire segments in the same net meet."""
-
-        def find_junctions(route):
-            """Find junctions where segments of a net intersect.
-
-            Args:
-                route (List): List of Segment objects.
-
-            Returns:
-                List: List of Points, one for each junction.
-
-            Notes:
-                You must run merge_segments() before finding junctions
-                or else the segment endpoints might not be ordered
-                correctly with p1 < p2.
-            """
-
-            # Separate route into vertical and horizontal segments.
-            horz_segs = [seg for seg in route if seg.p1.y == seg.p2.y]
-            vert_segs = [seg for seg in route if seg.p1.x == seg.p2.x]
-
-            junctions = []
-
-            # Check each pair of horz/vert segments for an intersection, except
-            # where they form a right-angle turn.
-            for hseg in horz_segs:
-                y = hseg.p1.y  # Horz seg Y coord.
-                for vseg in vert_segs:
-                    x = vseg.p1.x  # Vert seg X coord.
-                    if (hseg.p1.x < x < hseg.p2.x) and (vseg.p1.y <= y <= vseg.p2.y):
-                        # The vert segment intersects the interior of the horz seg.
-                        junctions.append(Point(x, y))
-                    elif (vseg.p1.y < y < vseg.p2.y) and (hseg.p1.x <= x <= hseg.p2.x):
-                        # The horz segment intersects the interior of the vert seg.
-                        junctions.append(Point(x, y))
-
-            return junctions
-
-        for net, segments in node.wires.items():
-
-            # Add X & T-junctions between segments in the same net.
-            junctions = find_junctions(segments)
-            node.junctions[net].extend(junctions)
 
     def global_router(node, nets):
         """Globally route a list of nets from face to face.
@@ -2451,7 +2297,6 @@ class Router:
 
         return switchboxes
 
-
     def switchbox_router(node, switchboxes, **options):
         """Create detailed wiring between the terminals along the sides of each switchbox.
 
@@ -2481,6 +2326,156 @@ class Router:
             # Add switchbox routes any existing wiring.
             for net, segments in swbx.segments.items():
                 node.wires[net].extend(segments)
+
+    def cleanup_wires(node):
+        """Try to make wire segments look prettier."""
+
+        def merge_segments(route):
+            """Merge segments in a route that run the same direction and overlap.
+
+            Args:
+                route (List): List of Segment objects.
+
+            Returns:
+                List: List of merged Segments.
+            """
+
+            merged_segs = []
+
+            # Keep only non zero-length segments.
+            route = [seg for seg in route if seg.p1 != seg.p2]
+
+            # Merge overlapping horizontal segments with the same Y coord.
+            horz_segs = [seg for seg in route if seg.p1.y == seg.p2.y]
+
+            horz_segs_v = defaultdict(list)
+            for seg in horz_segs:
+                horz_segs_v[seg.p1.y].append(seg)
+
+            for segs in horz_segs_v.values():
+                for seg in segs:
+                    if seg.p1.x > seg.p2.x:
+                        seg.p1, seg.p2 = seg.p2, seg.p1
+                segs.sort(key=lambda s: s.p1.x)
+                merged_segs.append(segs[0])
+                for seg in segs[1:]:
+                    if seg.p1.x <= merged_segs[-1].p2.x:
+                        merged_segs[-1].p2.x = max(seg.p2.x, merged_segs[-1].p2.x)
+                    else:
+                        merged_segs.append(seg)
+
+            # Merge overlapping vertical segments with the same X coord.
+            vert_segs = [seg for seg in route if seg.p1.x == seg.p2.x]
+
+            vert_segs_h = defaultdict(list)
+            for seg in vert_segs:
+                vert_segs_h[seg.p1.x].append(seg)
+
+            for segs in vert_segs_h.values():
+                for seg in segs:
+                    if seg.p1.y > seg.p2.y:
+                        seg.p1, seg.p2 = seg.p2, seg.p1
+                segs.sort(key=lambda s: s.p1.y)
+                merged_segs.append(segs[0])
+                for seg in segs[1:]:
+                    if seg.p1.y <= merged_segs[-1].p2.y:
+                        merged_segs[-1].p2.y = max(seg.p2.y, merged_segs[-1].p2.y)
+                    else:
+                        merged_segs.append(seg)
+
+            assert len(route) == len(horz_segs) + len(vert_segs)
+
+            return merged_segs
+
+        for net, segments in node.wires.items():
+
+            # Round the wire segment endpoints to integers.
+            segments = [seg.round() for seg in segments]
+
+            # Merge colinear segments.
+            segments = merge_segments(segments)
+
+            # Update the node net's wire with the cleaned version.
+            node.wires[net] = segments
+
+        # TODO: Remove unnecessary wire jogs.
+
+    def add_junctions(node):
+        """Add X & T-junctions where wire segments in the same net meet."""
+
+        def find_junctions(route):
+            """Find junctions where segments of a net intersect.
+
+            Args:
+                route (List): List of Segment objects.
+
+            Returns:
+                List: List of Points, one for each junction.
+
+            Notes:
+                You must run merge_segments() before finding junctions
+                or else the segment endpoints might not be ordered
+                correctly with p1 < p2.
+            """
+
+            # Separate route into vertical and horizontal segments.
+            horz_segs = [seg for seg in route if seg.p1.y == seg.p2.y]
+            vert_segs = [seg for seg in route if seg.p1.x == seg.p2.x]
+
+            junctions = []
+
+            # Check each pair of horz/vert segments for an intersection, except
+            # where they form a right-angle turn.
+            for hseg in horz_segs:
+                y = hseg.p1.y  # Horz seg Y coord.
+                for vseg in vert_segs:
+                    x = vseg.p1.x  # Vert seg X coord.
+                    if (hseg.p1.x < x < hseg.p2.x) and (vseg.p1.y <= y <= vseg.p2.y):
+                        # The vert segment intersects the interior of the horz seg.
+                        junctions.append(Point(x, y))
+                    elif (vseg.p1.y < y < vseg.p2.y) and (hseg.p1.x <= x <= hseg.p2.x):
+                        # The horz segment intersects the interior of the vert seg.
+                        junctions.append(Point(x, y))
+
+            return junctions
+
+        for net, segments in node.wires.items():
+
+            # Add X & T-junctions between segments in the same net.
+            junctions = find_junctions(segments)
+            node.junctions[net].extend(junctions)
+
+    def rmv_stuff(node):
+            """Remove attributes added to parts/pins during routing."""
+
+            rmv_attr(node.parts, ("left_track", "right_track", "top_track", "bottom_track"))
+            for part in node.parts:
+                rmv_attr(part.pins, ("route_pt", "face"))
+
+    def routing_debug_draw(node, bbox, parts, *other_stuff, **options):
+        """Draw routing for debugging purposes.
+
+        Args:
+            bbox: Bounding box of drawing area.
+            node (Node): The Node being routed.
+            parts (list): List of Parts.
+            other_stuff (list): Other stuff with a draw() method.
+            options (dict, optional): Dictionary of options and values. Defaults to {}.
+        """
+
+        # Initialize drawing area.
+        draw_scr, draw_tx, draw_font = draw_start(bbox)
+
+        # Draw parts.
+        for part in parts:
+            draw_part(part, draw_scr, draw_tx, draw_font)
+
+        # Draw other stuff (global routes, switchbox routes, etc.) that has a draw() method.
+        for stuff in other_stuff:
+            for obj in stuff:
+                obj.draw(draw_scr, draw_tx, draw_font, **options)
+
+        draw_end()
 
     def route(node, tool=None, **options):
         """Route the wires between part pins in this node and its children.
