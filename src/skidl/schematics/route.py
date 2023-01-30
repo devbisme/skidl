@@ -217,18 +217,21 @@ class Terminal:
             lower_terminals.sort(key=lambda t: t.coord, reverse=True)
             upper_terminals = [t for t in next_face.terminals if t.coord > coord]
             upper_terminals.sort(key=lambda t: t.coord, reverse=False)
-            search_terminals = chain(*zip_longest(lower_terminals, upper_terminals))
+            search_terminals = list(chain(*zip_longest(lower_terminals, upper_terminals)))
+            search_terminals = [t for t in search_terminals if t is not None]
 
-        # Use the computed search range to find a terminal on the next face that
-        # is not assigned to a net, or is already assigned to the same net as the
-        # given terminal.
+        # Search to find a terminal on the same net.
         for terminal in search_terminals:
-            if terminal:
-                if terminal.net in (None, self.net):
-                    terminal.net = self.net  # Assign net to next terminal.
-                    return terminal
+            if terminal.net is self.net:
+                return terminal  # Return found terminal.
 
-        # Well, something went wrong...
+        # No terminal on the same net, so search to find an unassigned terminal.
+        for terminal in search_terminals:
+            if terminal.net is None:
+                terminal.net = self.net  # Assign net to terminal.
+                return terminal  # Return newly-assigned terminal.
+
+        # Well, something went wrong. Should have found *something*!
         raise GlobalRoutingFailure
 
     def draw(self, scr, tx, **options):
@@ -278,6 +281,16 @@ class Interval(object):
     def intersects(self, other):
         """Return True if the intervals overlap (even if only at one point)."""
         return not ((self.beg > other.end) or (self.end < other.beg))
+
+    def interval_intersection(self, other):
+        """Return intersection of two intervals as an interval, otherwise None."""
+        if self.intersects(other):
+            beg = max(self.beg, other.beg)
+            end = min(self.end, other.end)
+            assert beg <= end
+            if beg != end:
+                return Interval(beg, end)
+        return None
 
     def merge(self, other):
         """Return a merged interval if the given intervals intersect, otherwise return None."""
@@ -459,8 +472,55 @@ class Face(Interval):
         # Create a new Terminal and add it to the list of terminals for this face.
         self.terminals.append(Terminal(net, self, coord))
 
+    def trim_repeated_terminals(self):
+        """Remove all but one terminal of each individual net from the face.
+        
+        Notes:
+            A non-part Face with multiple terminals on the same net will lead
+            to multi-path routing.
+        """
+        
+        # Find the intersection of every non-part face in the track with this one.
+        intersections = []
+        for face in self.track:
+            if not face.part:
+                intersection = self.interval_intersection(face)
+                if intersection:
+                    intersections.append(intersection)
+        
+        # Merge any overlapping intersections to create larger ones.
+        for i in range(len(intersections)):
+            for j in range(i+1, len(intersections)):
+                merge = intersections[i].merge(intersections[j])
+                if merge:
+                    intersections[j] = merge
+                    intersections[i] = None
+                    break
+        
+        # Remove None from the list of intersections.
+        intersections = list(set(intersections) - {None})
+
+        # The intersections are now as large as they can be and not associated
+        # with any parts, so there are no terminals associated with part pins.
+        # Look for terminals within an intersection on the same net and
+        # remove all but one of them.
+        for intersection in intersections:
+        
+            # Make a dict with nets and the terminals on each one.
+            net_term_dict = defaultdict(list)
+            for terminal in self.terminals:
+                if intersection.beg.coord <= terminal.coord <= intersection.end.coord:
+                    net_term_dict[terminal.net].append(terminal)
+            net_term_dict[None].clear() # Get rid of terminals not assigned to nets.
+        
+            # For each multi-terminal net, remove all but one terminal.
+            # This terminal must be removed from all faces on the track.
+            for terminals in net_term_dict.values():
+                for terminal in terminals[1:]: # Keep only the 1st terminal.
+                    self.track.remove_terminal(terminal)
+
     def create_nonpin_terminals(self):
-        """Create non-net terminals along a non-part Face with GRID spacing.
+        """Create unassigned terminals along a non-part Face with GRID spacing.
         
         These terminals will be used during global routing of nets from
         face-to-face and during switchbox routing.
@@ -711,7 +771,7 @@ class GlobalWire(list):
                 raise RuntimeError
 
             if isinstance(self[i+1], Face):
-                # Convert the next element from a Face to a Terminal on this net. This terminal will
+                # Convert the next Face element into a Terminal on this net. This terminal will
                 # be the current element on the next iteration.
                 self[i+1] = self[i].get_next_terminal(self[i + 1])
 
@@ -813,13 +873,29 @@ class GlobalTrack(list):
         # This stores the orthogonal tracks that intersect this one.
         self.splits = set()
 
+    def __eq__(self, track):
+        """Used for ordering tracks."""
+        return self.coord == track.coord
+
+    def __ne__(self, track):
+        """Used for ordering tracks."""
+        return self.coord != track.coord
+
     def __lt__(self, track):
         """Used for ordering tracks."""
         return self.coord < track.coord
 
+    def __le__(self, track):
+        """Used for ordering tracks."""
+        return self.coord <= track.coord
+
     def __gt__(self, track):
         """Used for ordering tracks."""
         return self.coord > track.coord
+
+    def __ge__(self, track):
+        """Used for ordering tracks."""
+        return self.coord >= track.coord
 
     def __sub__(self, other):
         """Subtract coords of two tracks."""
@@ -884,6 +960,17 @@ class GlobalTrack(list):
                 # Add info from duplicate face to the retained face.
                 retained_face.combine(dup_face)
                 self.remove(dup_face)
+
+    def remove_terminal(self, terminal):
+        """Remove a terminal from any non-part Faces in the track."""
+
+        coord = terminal.coord
+        # Look for the terminal in all non-part faces on the track.
+        for face in self:
+            if not face.part:
+                for term in face.terminals[:]:
+                    if term.coord == coord:
+                        face.terminals.remove(term)
 
     def add_adjacencies(self):
         """Add adjacent switchbox faces to each face in a track."""
@@ -1284,6 +1371,11 @@ class SwitchBox:
 
         # Return the coalesced switchbox created from the new faces.
         return SwitchBox(*total_faces)
+
+    def trim_repeated_terminals(self):
+        """Trim terminals on each face."""
+        for face in self.face_list:
+            face.trim_repeated_terminals()
 
     @property
     def bbox(self):
@@ -2294,6 +2386,8 @@ class Router:
         # The smaller switchboxes are removed from the list of switchboxes.
         switchboxes = [seed.coalesce(switchboxes) for seed in seeds]
         switchboxes = [swbx for swbx in switchboxes if swbx]  # Remove None boxes.
+        for switchbox in switchboxes:
+            switchbox.trim_repeated_terminals()
 
         return switchboxes
 
