@@ -39,7 +39,7 @@ sch_options.update({"retries": 1})
 sch_options.update({"normalize": True})
 sch_options.update({"compress_before_place": True})
 # sch_options.update({"trim_anchor_pull_pins": True})
-sch_options.update({"rotate_parts": True})
+# sch_options.update({"rotate_parts": True})
 sch_options.update({"fanout_attenuation": True})
 # sch_options.update({"remove_power": True})
 # sch_options.update({"remove_high_fanout": True})
@@ -48,10 +48,10 @@ if os.getenv("DEBUG_DRAW"):
     # These options control debugging output.
     # To view schematic debugging output, use the command:
     #    DEBUG_DRAW=1 pytest ...
-    sch_options.update({"draw_placement": True})
-    # sch_options.update({"draw_all_terminals": True})
+    # sch_options.update({"draw_placement": True})
+    sch_options.update({"draw_all_terminals": True})
     # sch_options.update({"show_capacities": True})
-    sch_options.update({"draw_routing_channels": True})
+    # sch_options.update({"draw_routing_channels": True})
     sch_options.update({"draw_global_routing": True})
     sch_options.update({"draw_switchbox_boundary": True})
     sch_options.update({"draw_switchbox_routing": True})
@@ -147,6 +147,22 @@ def test_gen_sch_1():
     generate_graph()
     create_schematic(flatness=1.0)
     generate_pcb()
+
+
+@pytest.mark.xfail(raises=(RoutingFailure, SyntaxError))
+def test_gen_sch_very_simple():
+    r = Part(
+        "Device.lib", "R", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE
+    )
+    gndt = Part("power", "GND", footprint="TestPoint:TestPoint_Pad_D4.0mm")
+    vcct = Part("power", "VCC", footprint="TestPoint:TestPoint_Pad_D4.0mm")
+
+    gnd = Net("GND")
+    vcc = Net("VCC")
+    gnd & gndt
+    vcc & vcct
+    gnd & r() & vcc
+    create_schematic(flatness=1.0)
 
 
 @pytest.mark.xfail(raises=(RoutingFailure, SyntaxError))
