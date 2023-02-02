@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.tools.kicad.kicad &#8212; SKiDL  documentation</title>
+    <title>skidl.tools.kicad.kicad &#8212; SKiDL 1.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/bizstyle.css" />
     
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad.kicad</a></li> 
       </ul>
@@ -61,18 +61,16 @@
 <span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">os.path</span>
-<span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">range</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">zip</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">str</span>
 
 <span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
 
 <span class="kn">from</span> <span class="nn">...logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
 <span class="kn">from</span> <span class="nn">...pckg_info</span> <span class="kn">import</span> <span class="n">__version__</span>
 <span class="kn">from</span> <span class="nn">...scriptinfo</span> <span class="kn">import</span> <span class="n">get_script_name</span><span class="p">,</span> <span class="n">scriptinfo</span>
-<span class="kn">from</span> <span class="nn">...utilities</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">constants</span><span class="p">,</span> <span class="n">v5</span><span class="p">,</span> <span class="n">v6</span>
+<span class="kn">from</span> <span class="nn">...utilities</span> <span class="kn">import</span> <span class="n">find_and_open_file</span><span class="p">,</span> <span class="n">add_quotes</span><span class="p">,</span> <span class="n">export_to_all</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">v5</span><span class="p">,</span> <span class="n">v6</span>
 
 <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
 
@@ -83,8 +81,11 @@
 <span class="c1"># lib_suffix = [&quot;.kicad_sym&quot;, &quot;.lib&quot;]</span>
 <span class="n">lib_suffix</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;.lib&quot;</span><span class="p">,</span> <span class="s2">&quot;.kicad_sym&quot;</span><span class="p">]</span>
 
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;tool_name&quot;</span><span class="p">,</span> <span class="s2">&quot;lib_suffix&quot;</span><span class="p">]</span>
 
-<div class="viewcode-block" id="get_kicad_lib_tbl_dir"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad.kicad.html#skidl.tools.kicad.kicad.get_kicad_lib_tbl_dir">[docs]</a><span class="k">def</span> <span class="nf">get_kicad_lib_tbl_dir</span><span class="p">():</span>
+
+<div class="viewcode-block" id="get_kicad_lib_tbl_dir"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad.kicad.html#skidl.tools.kicad.kicad.get_kicad_lib_tbl_dir">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">get_kicad_lib_tbl_dir</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;Get the path to where the global fp-lib-table file is found.&quot;&quot;&quot;</span>
 
     <span class="n">paths</span> <span class="o">=</span> <span class="p">(</span>
@@ -102,7 +103,8 @@
     <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="load_sch_lib"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad.kicad.html#skidl.tools.kicad.kicad.load_sch_lib">[docs]</a><span class="k">def</span> <span class="nf">load_sch_lib</span><span class="p">(</span><span class="n">lib</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lib_search_paths_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lib_section</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="load_sch_lib"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad.kicad.html#skidl.tools.kicad.kicad.load_sch_lib">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">load_sch_lib</span><span class="p">(</span><span class="n">lib</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lib_search_paths_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lib_section</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load the parts from a KiCad schematic library file.</span>
 
@@ -140,7 +142,8 @@
         <span class="n">v5</span><span class="o">.</span><span class="n">load_sch_lib</span><span class="p">(</span><span class="n">lib</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">lib_search_paths_</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="parse_lib_part"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad.kicad.html#skidl.tools.kicad.kicad.parse_lib_part">[docs]</a><span class="k">def</span> <span class="nf">parse_lib_part</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">partial_parse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="parse_lib_part"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad.kicad.html#skidl.tools.kicad.kicad.parse_lib_part">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">parse_lib_part</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">partial_parse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create a Part using a part definition from a KiCad schematic library.</span>
 
@@ -156,7 +159,8 @@
         <span class="n">v5</span><span class="o">.</span><span class="n">parse_lib_part</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">partial_parse</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="gen_netlist"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad.kicad.html#skidl.tools.kicad.kicad.gen_netlist">[docs]</a><span class="k">def</span> <span class="nf">gen_netlist</span><span class="p">(</span><span class="n">circuit</span><span class="p">):</span>
+<div class="viewcode-block" id="gen_netlist"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad.kicad.html#skidl.tools.kicad.kicad.gen_netlist">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">gen_netlist</span><span class="p">(</span><span class="n">circuit</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Generate a netlist from a Circuit object.</span>
 
 <span class="sd">    Args:</span>
@@ -192,7 +196,8 @@
     <span class="k">return</span> <span class="n">netlist</span></div>
 
 
-<div class="viewcode-block" id="gen_netlist_comp"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad.kicad.html#skidl.tools.kicad.kicad.gen_netlist_comp">[docs]</a><span class="k">def</span> <span class="nf">gen_netlist_comp</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+<div class="viewcode-block" id="gen_netlist_comp"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad.kicad.html#skidl.tools.kicad.kicad.gen_netlist_comp">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">gen_netlist_comp</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Generate the netlist text describing a component.</span>
 
 <span class="sd">    Args:</span>
@@ -243,7 +248,8 @@
     <span class="k">return</span> <span class="n">txt</span></div>
 
 
-<div class="viewcode-block" id="gen_netlist_net"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad.kicad.html#skidl.tools.kicad.kicad.gen_netlist_net">[docs]</a><span class="k">def</span> <span class="nf">gen_netlist_net</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
+<div class="viewcode-block" id="gen_netlist_net"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad.kicad.html#skidl.tools.kicad.kicad.gen_netlist_net">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">gen_netlist_net</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Generate the netlist text describing a net.</span>
 
 <span class="sd">    Args:</span>
@@ -263,7 +269,8 @@
     <span class="k">return</span> <span class="n">txt</span></div>
 
 
-<div class="viewcode-block" id="gen_pcb"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad.kicad.html#skidl.tools.kicad.kicad.gen_pcb">[docs]</a><span class="k">def</span> <span class="nf">gen_pcb</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">pcb_file</span><span class="p">,</span> <span class="n">fp_libs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="gen_pcb"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad.kicad.html#skidl.tools.kicad.kicad.gen_pcb">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">gen_pcb</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">pcb_file</span><span class="p">,</span> <span class="n">fp_libs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Create a KiCad PCB file directly from a Circuit object.</span>
 
 <span class="sd">    Args:</span>
@@ -290,7 +297,8 @@
         <span class="n">kinet2pcb</span><span class="o">.</span><span class="n">kinet2pcb</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">pcb_file</span><span class="p">,</span> <span class="n">fp_libs</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="gen_xml"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad.kicad.html#skidl.tools.kicad.kicad.gen_xml">[docs]</a><span class="k">def</span> <span class="nf">gen_xml</span><span class="p">(</span><span class="n">circuit</span><span class="p">):</span>
+<div class="viewcode-block" id="gen_xml"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad.kicad.html#skidl.tools.kicad.kicad.gen_xml">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">gen_xml</span><span class="p">(</span><span class="n">circuit</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Generate the XML describing a circuit.</span>
 
 <span class="sd">    Args:</span>
@@ -328,7 +336,8 @@
     <span class="k">return</span> <span class="n">netlist</span></div>
 
 
-<div class="viewcode-block" id="gen_xml_comp"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad.kicad.html#skidl.tools.kicad.kicad.gen_xml_comp">[docs]</a><span class="k">def</span> <span class="nf">gen_xml_comp</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+<div class="viewcode-block" id="gen_xml_comp"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad.kicad.html#skidl.tools.kicad.kicad.gen_xml_comp">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">gen_xml_comp</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Generate the XML describing a component.</span>
 
 <span class="sd">    Args:</span>
@@ -375,7 +384,8 @@
     <span class="k">return</span> <span class="n">txt</span></div>
 
 
-<div class="viewcode-block" id="gen_xml_net"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad.kicad.html#skidl.tools.kicad.kicad.gen_xml_net">[docs]</a><span class="k">def</span> <span class="nf">gen_xml_net</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
+<div class="viewcode-block" id="gen_xml_net"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad.kicad.html#skidl.tools.kicad.kicad.gen_xml_net">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">gen_xml_net</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
     <span class="n">code</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">code</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">name</span>
     <span class="n">txt</span> <span class="o">=</span> <span class="s1">&#39;    &lt;net code=&quot;</span><span class="si">{code}</span><span class="s1">&quot; name=&quot;</span><span class="si">{name}</span><span class="s1">&quot;&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
@@ -387,7 +397,8 @@
     <span class="k">return</span> <span class="n">txt</span></div>
 
 
-<div class="viewcode-block" id="gen_svg_comp"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad.kicad.html#skidl.tools.kicad.kicad.gen_svg_comp">[docs]</a><span class="k">def</span> <span class="nf">gen_svg_comp</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">symtx</span><span class="p">,</span> <span class="n">net_stubs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="gen_svg_comp"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad.kicad.html#skidl.tools.kicad.kicad.gen_svg_comp">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">gen_svg_comp</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">symtx</span><span class="p">,</span> <span class="n">net_stubs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate SVG for this component.</span>
 
@@ -434,13 +445,13 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad.kicad</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2016-2021, Dave Vandenbout.
+        &#169; Copyright 2016-2022, Dave Vandenbout.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
     </div>
   </body>

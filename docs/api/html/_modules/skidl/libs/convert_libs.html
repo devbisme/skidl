@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.libs.convert_libs &#8212; SKiDL  documentation</title>
+    <title>skidl.libs.convert_libs &#8212; SKiDL 1.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css" />
     
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.libs.convert_libs</a></li> 
       </ul>
@@ -48,7 +48,7 @@
 <span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">os.path</span>
 
-<span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">skidl</span> <span class="kn">import</span> <span class="n">SchLib</span><span class="p">,</span> <span class="n">KICAD</span><span class="p">,</span> <span class="n">SKIDL</span>
 
 
 <div class="viewcode-block" id="convert_libs"><a class="viewcode-back" href="../../../rst_output/skidl.libs.convert_libs.html#skidl.libs.convert_libs.convert_libs">[docs]</a><span class="k">def</span> <span class="nf">convert_libs</span><span class="p">(</span><span class="n">from_dir</span><span class="p">,</span> <span class="n">to_dir</span><span class="p">):</span>
@@ -57,10 +57,14 @@
         <span class="nb">print</span><span class="p">(</span><span class="n">lib_file</span><span class="p">)</span>
         <span class="n">basename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">lib_file</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">lib</span> <span class="o">=</span> <span class="n">SchLib</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">from_dir</span><span class="p">,</span> <span class="n">lib_file</span><span class="p">),</span> <span class="n">tool</span><span class="o">=</span><span class="n">KICAD</span><span class="p">)</span>
-        <span class="n">lib</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">libname</span><span class="o">=</span><span class="n">basename</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">to_dir</span><span class="p">,</span> <span class="n">basename</span> <span class="o">+</span> <span class="n">lib_suffixes</span><span class="p">[</span><span class="n">SKIDL</span><span class="p">]))</span></div>
+        <span class="n">lib</span><span class="o">.</span><span class="n">export</span><span class="p">(</span>
+            <span class="n">libname</span><span class="o">=</span><span class="n">basename</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">to_dir</span><span class="p">,</span> <span class="n">basename</span> <span class="o">+</span> <span class="n">lib_suffixes</span><span class="p">[</span><span class="n">SKIDL</span><span class="p">])</span>
+        <span class="p">)</span></div>
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">skidl.libs</span>
+
     <span class="k">for</span> <span class="n">lib_dir</span> <span class="ow">in</span> <span class="n">lib_search_paths</span><span class="p">[</span><span class="n">KICAD</span><span class="p">]:</span>
         <span class="n">convert_libs</span><span class="p">(</span><span class="n">lib_dir</span><span class="p">,</span> <span class="n">skidl</span><span class="o">.</span><span class="n">libs</span><span class="o">.</span><span class="n">__path__</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
@@ -94,13 +98,13 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.libs.convert_libs</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2016-2021, Dave Vandenbout.
+        &#169; Copyright 2016-2022, Dave Vandenbout.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
     </div>
   </body>
