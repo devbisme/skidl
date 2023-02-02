@@ -113,10 +113,16 @@ class Point:
         self.x = x
         self.y = y
 
+    def __hash__(self):
+        """Return has of Point as a tuple of (x,y)."""
+        return hash((self.x, self.y))
+
     def __eq__(self, other):
+        """Return true if (x,y) tuples of self and other are the same."""
         return self.x == other.x and self.y == other.y
 
     def __ne__(self, other):
+        """Return true if (x,y) tuples of self and other differ."""
         return not (self == other)
 
     def __add__(self, pt):
@@ -332,6 +338,36 @@ class Segment:
         """Flip the X-Y coordinates of the segment."""
         self.p1.flip_xy()
         self.p2.flip_xy()
+
+    def contains_pt(self, pt):
+        """Returns True if the point is within the segment."""
+
+        # Quick check if point lies on one of the endpoints.
+        if pt==self.p1 or pt==self.p2:
+            return True
+
+        p1x, p1y = self.p1.x, self.p1.y
+        p2x, p2y = self.p2.x, self.p2.y
+
+        try:
+            # Compute proportion between X coords of segment endpoints.
+            a = (pt.x - p1x) / (p2x - p1x)
+        except ZeroDivisionError:
+            # Vertical segment so check Y of point against Y of segment endpoints.
+            return min(p1y, p2y) <= pt.y <= max(p1y, p2y) and pt.x == p1x
+        if a<0 or a>1:
+            # X of point is outside X-interval of segment.
+            return False
+
+        try:
+            # Compute proportion between Y coords of segment endpoints.
+            b = (pt.y - p1y) / (p2y - p1y)
+        except ZeroDivisionError:
+            # Horizontal segment so check X of point against X of segment endpoints.
+            return 0 <= a <= 1 and pt.y == p1y
+
+        # If point is the same proportion between X and Y endpoint coords, then it is on the line.
+        return abs(a-b) < 1e-5
 
     def intersects(self, other):
         """Return true if the segments intersect."""

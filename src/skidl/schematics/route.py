@@ -16,6 +16,7 @@ from __future__ import (  # isort:skip
 import sys
 from builtins import range, super, zip
 from collections import defaultdict, Counter
+import copy
 from enum import Enum
 from itertools import chain, zip_longest
 from random import choice, randint
@@ -140,6 +141,8 @@ class Boundary:
 # Boundary object for placing in the bounding Faces of the Node routing area.
 boundary = Boundary()
 
+# Absolute coords of all part pins. Used when trimming stub nets.
+pin_pts = set()
 
 class Terminal:
     def __init__(self, net, face, coord):
@@ -448,7 +451,7 @@ class Face(Interval):
         """
 
         if self.part and not net:
-            # Don't add non-pin terminals with no net to a Face on a part or boundary.
+            # Don't add pin terminals with no net to a Face on a part or boundary.
             return
 
         # Search for pre-existing terminal at the same coordinate.
@@ -511,7 +514,8 @@ class Face(Interval):
             for terminal in self.terminals:
                 if intersection.beg.coord <= terminal.coord <= intersection.end.coord:
                     net_term_dict[terminal.net].append(terminal)
-            net_term_dict[None].clear() # Get rid of terminals not assigned to nets.
+            if None in net_term_dict.keys():
+                del net_term_dict[None] # Get rid of terminals not assigned to nets.
         
             # For each multi-terminal net, remove all but one terminal.
             # This terminal must be removed from all faces on the track.
@@ -2004,7 +2008,7 @@ class Router:
             """Add the point for a pin on the boundary of a part."""
 
             bbox = pin.part.lbl_bbox
-            pin.route_pt = Point(pin.pt.x, pin.pt.y)
+            pin.route_pt = copy.copy(pin.pt)
             if pin.orientation == "U":
                 # Pin points up, so extend downward to the bottom of the bounding box.
                 pin.route_pt.y = bbox.min.y
@@ -2024,6 +2028,9 @@ class Router:
 
             # Add routing points for all pins on the net that are inside this node.
             for pin in node.get_internal_pins(net):
+
+                # Store the point where the pin is. (This is used after routing to trim wire stubs.)
+                pin_pts.add(pin.pt * pin.part.tx)
 
                 # Add the point to which the wiring should be extended.
                 add_routing_pt(pin)
@@ -2386,6 +2393,9 @@ class Router:
         # The smaller switchboxes are removed from the list of switchboxes.
         switchboxes = [seed.coalesce(switchboxes) for seed in seeds]
         switchboxes = [swbx for swbx in switchboxes if swbx]  # Remove None boxes.
+
+        # A coalesced switchbox may have non-part faces containing multiple terminals
+        # on the same net. Remove all but one to prevent multi-path routes.
         for switchbox in switchboxes:
             switchbox.trim_repeated_terminals()
 
@@ -2481,6 +2491,31 @@ class Router:
 
             return merged_segs
 
+        def trim_stubs(segments):
+            """Trim segment stubs that have an unconnected endpoint."""
+
+            trimmed_segments = segments[:]
+            keep_going = True
+            while(keep_going):
+                keep_going = False
+                for seg in trimmed_segments[:]:
+                    # Check the endpoints of each segment to see if they are shared
+                    # by any other segments.
+                    for seg_pt in (seg.p1, seg.p2):
+                        if seg_pt not in pin_pts:
+                            # Endpoints on part pins will usually only be on a single
+                            # segment, so only check endpoints not on part pins.
+                            hits = [s.contains_pt(seg_pt) for s in trimmed_segments]
+                            if hits.count(True) <= 1:
+                                # This endpoint is not on any other segment, so the
+                                # segment is a stub and can be removed.
+                                trimmed_segments.remove(seg)
+                                # Removing this segment may make another segment into
+                                # a stub, so keep checking.
+                                keep_going = True
+                                break
+            return trimmed_segments
+
         for net, segments in node.wires.items():
 
             # Round the wire segment endpoints to integers.
@@ -2488,6 +2523,9 @@ class Router:
 
             # Merge colinear segments.
             segments = merge_segments(segments)
+
+            # Trim wire stubs.
+            segments = trim_stubs(segments)
 
             # Update the node net's wire with the cleaned version.
             node.wires[net] = segments
