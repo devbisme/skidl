@@ -83,7 +83,10 @@ def random_placement(parts):
 
     # Place parts randomly within area.
     for part in parts:
-        part.tx.origin = Point(random.random() * side, random.random() * side)
+        pt = Point(random.random() * side, random.random() * side)
+        part.tx.move_to(pt)
+        # The following setter doesn't work in Python 2.7.18.
+        # part.tx.origin = Point(random.random() * side, random.random() * side)
 
 
 def get_snap_pt(part_or_blk):
@@ -1047,6 +1050,9 @@ class Placer:
                     font=draw_font,
                     **options
                 )
+
+            if options.get("draw_placement"):
+                draw_end()
 
             # Placement done so anchor and pull pins for each part are no longer needed.
             rmv_anchor_and_pull_pins(group)

@@ -151,7 +151,7 @@ def preprocess_parts_and_nets(circuit):
                     hlbl_bbox = calc_hier_label_bbox(pin.net.name, pin.orientation)
                     # Move the label bbox to the pin location.
                     tx = Tx()
-                    tx.origin = pin.pt
+                    tx.move_to(pin.pt)
                     hlbl_bbox *= tx
                     # Update the bbox for the labelled part with this pin label.
                     part_unit.lbl_bbox.add(hlbl_bbox)

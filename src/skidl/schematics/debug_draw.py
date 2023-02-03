@@ -13,8 +13,6 @@ from __future__ import (  # isort:skip
     unicode_literals,
 )
 
-# __all__ = ["Router",]
-
 from builtins import range, super, zip
 from collections import defaultdict
 from enum import Enum

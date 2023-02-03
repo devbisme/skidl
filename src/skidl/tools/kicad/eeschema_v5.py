@@ -172,7 +172,7 @@ def wire_to_eeschema(net, wire, tx):
     for segment in wire:
         eeschema.append("Wire Wire Line")
         w = (segment * tx).round()
-        eeschema.append("  " + str(w))
+        eeschema.append("  {} {} {} {}".format(w.p1.x, w.p1.y, w.p2.x, w.p2.y))
     eeschema.append("")  # For blank line at end.
     return "\n".join(eeschema)
 
@@ -180,7 +180,8 @@ def wire_to_eeschema(net, wire, tx):
 def junction_to_eeschema(net, junctions, tx):
     eeschema = []
     for junction in junctions:
-        eeschema.append("Connection ~ {}".format((junction * tx).round()))
+        pt = (junction *tx).round()
+        eeschema.append("Connection ~ {} {}".format(pt.x, pt.y))
     eeschema.append("")  # For blank line at end.
     return "\n".join(eeschema)
 

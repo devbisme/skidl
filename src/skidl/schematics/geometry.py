@@ -1,11 +1,21 @@
 # -*- coding: utf-8 -*-
 
 # The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
+from __future__ import (  # isort:skip
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
+
 
 import math
 from copy import copy
 
+from future import standard_library
+
 from ..utilities import export_to_all
+
 
 __all__ = [
     "Vector",
@@ -69,6 +79,12 @@ class Tx:
             tx *= op_dict[op]
         return tx
 
+    def __repr__(self):
+        return "{self.__class__}({self.a}, {self.b}, {self.c}, {self.d}, {self.dx}, {self.dy})".format(self=self)
+
+    def __str__(self):
+        return "[{self.a}, {self.b}, {self.c}, {self.d}, {self.dx}, {self.dy}]".format(self=self)
+
     def __mul__(self, tx):
         """Return the product of two transformation matrices."""
         return Tx(
@@ -85,9 +101,14 @@ class Tx:
         """Return the (dx, dy) translation as a Point."""
         return Point(self.dx, self.dy)
 
-    @origin.setter
-    def origin(self, pt):
-        """Set the (dx, dy) translation from an (x,y) Point."""
+    # This setter doesn't work in Python 2.7.18.
+    # @origin.setter
+    # def origin(self, pt):
+    #     """Set the (dx, dy) translation from an (x,y) Point."""
+    #     self.dx, self.dy = pt.x, pt.y
+
+    def move_to(self, pt):
+        """Move Tx origin to given point."""
         self.dx, self.dy = pt.x, pt.y
 
     def rot_cw_90(self):
@@ -203,6 +224,9 @@ class Point:
     def __repr__(self):
         return "{self.__class__}({self.x}, {self.y})".format(self=self)
 
+    def __str__(self):
+        return "({}, {})".format(self.x, self.y)
+
 
 Vector = Point
 
@@ -315,6 +339,9 @@ class BBox:
         return "{self.__class__}(Point({self.min}), Point({self.max}))".format(
             self=self
         )
+
+    def __str__(self):
+        return "[{}, {}]".format(self.min, self.max)
 
 
 @export_to_all

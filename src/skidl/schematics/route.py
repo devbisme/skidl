@@ -1760,6 +1760,7 @@ class SwitchBox:
                     # isn't possible to do in this column. So extend the net for each interval
                     # into the next column from the end of each interval where the net
                     # is *not* entering (i.e., create a dogleg).
+                    # FIXME: Needs work to account for true beg & end of interval.
                     beg_end = (bool(track_nets[beg]), bool(track_nets[end]))
                     if beg_end == (True, False):
                         # Net enters on beg track, so extend on end track.
@@ -1767,9 +1768,14 @@ class SwitchBox:
                     elif beg_end == (False, True):
                         # Net enters on end track, so extend on beg track.
                         exit_row = beg
+                    elif beg_end == (True, True):
+                        # Randomly choose an end to extend the net from.
+                        raise RuntimeError
+                        # exit_row = choice((beg, end))
                     else:
                         # Any other case is a logic error.
                         raise RuntimeError
+
                 else:
                     # There is a rightward target, so exit the net from the beginning or
                     # end of the interval closest to the track the target is on.
