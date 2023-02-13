@@ -1271,6 +1271,8 @@ class Placer:
         this_module = sys.modules[__name__]
         this_module.__dict__.update(tool_modules[tool].constants.__dict__)
 
+        random.seed(options.get("seed"))
+
         # First, recursively place children of this node.
         # TODO: Child nodes are independent, so can they be processed in parallel?
         for child in node.children.values():

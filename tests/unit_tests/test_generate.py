@@ -7,6 +7,7 @@ import inspect
 import os
 import os.path
 import sys
+import time
 
 
 import pytest
@@ -35,6 +36,9 @@ from skidl.schematics.route import RoutingFailure
 from .setup_teardown import setup_function, teardown_function
 
 sch_options = {}
+# seed = int(time.time())
+# sch_options.update({"seed": seed})
+# print("Random seed = {}".format(seed))
 sch_options.update({"retries": 1})
 sch_options.update({"normalize": True})
 sch_options.update({"compress_before_place": True})
@@ -49,7 +53,7 @@ if os.getenv("DEBUG_DRAW"):
     # To view schematic debugging output, use the command:
     #    DEBUG_DRAW=1 pytest ...
     # sch_options.update({"draw_placement": True})
-    sch_options.update({"draw_all_terminals": True})
+    # sch_options.update({"draw_all_terminals": True})
     # sch_options.update({"show_capacities": True})
     # sch_options.update({"draw_routing_channels": True})
     sch_options.update({"draw_global_routing": True})
@@ -82,7 +86,7 @@ def _empty_footprint_handler(part):
 skidl.empty_footprint_handler = _empty_footprint_handler
 
 
-def create_schematic(flatness=1.0):
+def create_schematic(repeat=1, flatness=1.0):
     output_file_root = "./test_data/schematic_output"
     python_version = ".".join([str(n) for n in sys.version_info[0:3]])
     output_dir = os.path.join(output_file_root, python_version)
@@ -99,12 +103,18 @@ def create_schematic(flatness=1.0):
     top_name = inspect.stack()[1][3]
     for f in glob.glob(os.path.join(output_dir, top_name) + "*.sch"):
         os.remove(f)
-    generate_schematic(
-        filepath=output_dir, top_name=top_name, flatness=flatness, **sch_options
-    )
+    num_rte_fails = 0
+    for rep in range(repeat):
+        try:
+            generate_schematic(
+                filepath=output_dir, top_name=top_name+"_"+str(rep), flatness=flatness, **sch_options
+            )
+        except RoutingFailure:
+            num_rte_fails += 1
+    if num_rte_fails:
+        raise RoutingFailure
 
-
-@pytest.mark.xfail(raises=(RoutingFailure, SyntaxError))
+@pytest.mark.xfail(raises=(RoutingFailure))
 def test_gen_sch_1():
     q = Part(
         lib="Device.lib",
@@ -146,26 +156,9 @@ def test_gen_sch_1():
     generate_xml()
     generate_graph()
     create_schematic(flatness=1.0)
-    generate_pcb()
 
 
-@pytest.mark.xfail(raises=(RoutingFailure, SyntaxError))
-def test_gen_sch_very_simple():
-    r = Part(
-        "Device.lib", "R", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE
-    )
-    gndt = Part("power", "GND", footprint="TestPoint:TestPoint_Pad_D4.0mm")
-    vcct = Part("power", "VCC", footprint="TestPoint:TestPoint_Pad_D4.0mm")
-
-    gnd = Net("GND")
-    vcc = Net("VCC")
-    gnd & gndt
-    vcc & vcct
-    gnd & r() & vcc
-    create_schematic(flatness=1.0)
-
-
-@pytest.mark.xfail(raises=(RoutingFailure, SyntaxError))
+@pytest.mark.xfail(raises=(SyntaxError))
 def test_gen_pcb_1():
     """Test PCB generation."""
 
@@ -257,6 +250,22 @@ def test_gen_sch_place():
 
     test()
     create_schematic(flatness=0.5)
+
+
+@pytest.mark.xfail(raises=(RoutingFailure))
+def test_gen_sch_very_simple():
+    r = Part(
+        "Device.lib", "R", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE
+    )
+    gndt = Part("power", "GND", footprint="TestPoint:TestPoint_Pad_D4.0mm")
+    vcct = Part("power", "VCC", footprint="TestPoint:TestPoint_Pad_D4.0mm")
+
+    gnd = Net("GND")
+    vcc = Net("VCC")
+    gnd & gndt
+    vcc & vcct
+    gnd & r() & vcc
+    create_schematic(flatness=1.0)
 
 
 @pytest.mark.xfail(raises=RoutingFailure)
