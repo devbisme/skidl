@@ -2051,7 +2051,7 @@ class Router:
                 raise RuntimeError("Unknown pin orientation.")
 
         # Global set of part pin (x,y) points may have stuff from processing previous nodes, so clear it.
-        pin_pts.clear()
+        del pin_pts[:]  # Clear the list. Works for Python 2 and 3.
 
         for net in nets:
 

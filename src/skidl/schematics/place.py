@@ -463,7 +463,11 @@ def net_force_dist(part, nets, **options):
                 total_move += pull_pt - anchor_pt
                 normalizer += 1
 
-    return total_move / normalizer
+    if options.get("normalize"):
+        # Normalize the total force to adjust for parts with a lot of pins.
+        total_force = total_move / normalizer
+
+    return total_force
 
 
 def net_force_dist_avg(part, nets, **options):
@@ -560,8 +564,6 @@ def net_force_dist_avg(part, nets, **options):
         # Normalize the total force to adjust for parts with a lot of pins.
         total_force /= normalizer
 
-    part.force = total_force # For debug_draw purposes only.
-
     return total_force
 
 
@@ -609,7 +611,8 @@ def overlap_force(part, parts, **options):
             mv_lr.y = 0  # Remove up/down component.
             mv_ud.x = 0  # Remove left/right component.
 
-            # Pick the smaller of the left/right and up/down movements.
+            # Pick the smaller of the left/right and up/down movements because that will
+            # cause movement in the direction that will clear the overlap most quickly.
             mv = mv_lr if abs(mv_lr.x) < abs(mv_ud.y) else mv_ud
 
             # Add movement for this part overlap to the total force.
@@ -658,8 +661,6 @@ def similarity_force(part, parts, similarity, **options):
         # Force from pulling to anchor point is proportional to part similarity and distance.
         total_force += (pull_pt - anchor_pt) * similarity[part][other]
 
-    part.force = total_force # For debug_draw purposes only.
-
     return total_force
 
 
@@ -697,24 +698,32 @@ def compress_parts(parts, nets, scr, tx, font, **options):
         # No need to do placement if there's less than two parts.
         return
 
-    # Make list of parts that will be moved.
-    mobile_parts = parts[1:]  # Keep one part stationary as an anchor.
-    parts[0].force = Vector(0,0)
-    # mobile_parts = parts[:]  # Move all parts.
+    # Make list of parts that will be moved, but keep one stationary to act as an anchor.
+    mobile_parts = parts[:]
+    random.shuffle(mobile_parts)
+    mobile_parts[0].force = Vector(0,0)  # For debug drawing purposes.
+    mobile_parts = mobile_parts[1:]
 
+    # Set a threshold for detecting when the parts have stopped moving
+    # to be the average movement of individual parts dropping to less
+    # than a tenth of a grid space.
     # TODO: better convergence threshold.
-    all_still = GRID / (1000 * len(mobile_parts))
+    all_still = GRID / 10 * len(mobile_parts)
 
-    # Arrange parts under influence of net attractions.
+    # Arrange parts under influence of net attractions only.
+    mobility_history = []
     while True:
         mobility = 0.0
         random.shuffle(mobile_parts)  # Move parts in random order.
         for part in mobile_parts:
-            mv_vec = net_force_dist(part, nets, **options)
-            part.force = mv_vec
-            mobility += mv_vec.magnitude
-            mv_tx = Tx(dx=mv_vec.x, dy=mv_vec.y)
-            part.tx = part.tx * mv_tx
+            force = net_force_dist(part, nets, **options)
+            part.force = force  # For debug drawing purposes.
+            mv = force
+            mobility += mv.magnitude
+            mv_tx = Tx(dx=mv.x, dy=mv.y)
+            part.tx *= mv_tx
+
+        mobility_history.append(mobility)
 
         if scr:
             # Draw current part placement for debugging purposes.
@@ -725,6 +734,15 @@ def compress_parts(parts, nets, scr, tx, font, **options):
             # Be sure to anchor one part or else the drift of the entire group will
             # prevent this test from ever converging.
             break
+
+    if options.get("show_mobility"):
+        import matplotlib.pyplot as plt
+        try:
+            mobility_history = [math.log10(m) for m in mobility_history]
+            plt.plot(mobility_history)
+            plt.show()
+        except ValueError:
+            pass
 
 
 def push_and_pull(parts, nets, force_func, speed, scr, tx, font, **options):
@@ -745,39 +763,60 @@ def push_and_pull(parts, nets, force_func, speed, scr, tx, font, **options):
         # No need to do placement if there's less than two parts.
         return
 
-    # Make list of parts that will be moved.
-    # mobile_parts = parts[:-1]  # Keep one part stationary as an anchor.
-    mobile_parts = parts[:]  # Move all parts.
+
+    # Make list of parts that will be moved, but keep one stationary to act as an anchor.
+    mobile_parts = parts[:]
+    random.shuffle(mobile_parts)
+    mobile_parts[0].force = Vector(0,0)  # For debug drawing purposes.
+    mobile_parts = mobile_parts[1:]
+
+    # Set a threshold for detecting when the parts have stopped moving
+    # to be the average movement of individual parts dropping to less
+    # than a tenth of a grid space.
+    # TODO: better convergence threshold.
+    all_still = GRID / 10 * len(mobile_parts)
 
     # Arrange parts under influence of net attractions and part overlaps.
-    prev_mobility = 0  # Stores part mobility from previous iteration.
-    num_iters = round(50 / speed)
-    iter = 0
-    while iter < num_iters:
-        alpha = iter / num_iters  # Attraction/repulsion weighting.
-        mobility = 0  # Stores total part movement this iteration.
-        random.shuffle(mobile_parts)  # Move parts in random order.
-        for part in mobile_parts:
-            force = force_func(part, alpha=alpha, **options)
-            mv_dist = force * speed
-            mobility += mv_dist.magnitude
-            mv_tx = Tx(dx=mv_dist.x, dy=mv_dist.y)
-            part.tx = part.tx * mv_tx
-        if mobility < prev_mobility / 2:
-            # Parts aren't moving much, so make a bigger inc
-            # of iter to decrease alpha which might lead to more
-            # movement as the balance of attractive/repulsive forces
-            # changes. Also keep the previous mobility as a baseline
-            # to compare against instead of updating with the
-            # current low mobility.
-            iter += 4 # FIXME: Ad-hoc.
-        else:
-            # Parts are moving adequately, so proceed normally.
-            iter += 1
-            prev_mobility = mobility
-        if scr:
-            # Draw current part placement for debugging purposes.
-            draw_placement(parts, nets, scr, tx, font)
+    mobility_history = []
+    alpha_schedule = [0.1, 0.2, 0.5, 0.75, 1.0]
+    # alpha_schedule = [0.1, 0.2, 0.3, 0.7, 0.8, 0.9, 1.0]
+    # alpha_schedule = [0.1, 0.3, 0.5, 0.7, 1.0]
+    # alpha_schedule = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+    if not options.get("compress_before_place"):
+        alpha_schedule.insert(0, 0.0)
+    for alpha in alpha_schedule:
+        while True:
+            mobility = 0.0
+            random.shuffle(mobile_parts)  # Move parts in random order.
+            for part in mobile_parts:
+                force = force_func(part, alpha=alpha, **options)
+                part.force = force  # For debug drawing purposes.
+                mv = force * speed
+                mobility += mv.magnitude
+                mv_tx = Tx(dx=mv.x, dy=mv.y)
+                part.tx *= mv_tx
+
+            mobility_history.append(mobility)
+
+            if scr:
+                # Draw current part placement for debugging purposes.
+                draw_placement(parts, nets, scr, tx, font)
+            
+            if mobility <= all_still:
+                # Parts aren't moving much, so exit.
+                # Be sure to anchor one part or else the drift of the entire group will
+                # prevent this test from ever converging.
+                break
+
+    if options.get("show_mobility"):
+        import matplotlib.pyplot as plt
+        try:
+            mobility_history = [math.log10(m) for m in mobility_history]
+            plt.plot(mobility_history)
+            plt.show()
+        except ValueError:
+            pass
+        
 
 
 def remove_overlaps(parts, nets, scr, tx, font, **options):
