@@ -48,6 +48,7 @@ sch_options.update({"fanout_attenuation": True})
 # sch_options.update({"remove_power": True})
 # sch_options.update({"remove_high_fanout": True})
 # sch_options.update({"allow_routing_failure": True})
+sch_options.update({"allow_jumps": True})
 if os.getenv("DEBUG_DRAW"):
     # These options control debugging output.
     # To view schematic debugging output, use the command:

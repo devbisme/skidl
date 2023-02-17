@@ -438,7 +438,7 @@ def net_force_dist(part, nets, **options):
     pull_pins = part.pull_pins
 
     # Compute the total force on the part from all the anchor/pulling points on each net.
-    total_move = Vector(0, 0)
+    total_force = Vector(0, 0)
     normalizer = 0
 
     # Compute the force for each net attached to the part.
@@ -460,12 +460,13 @@ def net_force_dist(part, nets, **options):
                 # Compute the pulling point's (x,y).
                 pull_pt = pull_pin.place_pt * pull_pin.part.tx
 
-                total_move += pull_pt - anchor_pt
+                total_force += pull_pt - anchor_pt
                 normalizer += 1
 
     if options.get("normalize"):
         # Normalize the total force to adjust for parts with a lot of pins.
-        total_force = total_move / normalizer
+        normalizer = normalizer or 1  # Prevent div-by-zero.
+        total_force /= normalizer
 
     return total_force
 
@@ -562,6 +563,7 @@ def net_force_dist_avg(part, nets, **options):
 
     if options.get("normalize"):
         # Normalize the total force to adjust for parts with a lot of pins.
+        normalizer = normalizer or 1  # Prevent div-by-zero.
         total_force /= normalizer
 
     return total_force
@@ -683,7 +685,7 @@ def total_similarity_force(part, parts, similarity, alpha, **options):
 
 
 def compress_parts(parts, nets, scr, tx, font, **options):
-    """Move parts under influence of attracting nets only.
+    """Move parts under influence of attractive nets only.
 
     Args:
         parts (list): List of Parts.
@@ -705,23 +707,28 @@ def compress_parts(parts, nets, scr, tx, font, **options):
     mobile_parts = mobile_parts[1:]
 
     # Set a threshold for detecting when the parts have stopped moving
-    # to be the average movement of individual parts dropping to less
-    # than a tenth of a grid space.
+    # to be the average movement of individual parts dropping to much less
+    # than the length of a grid space.
     # TODO: better convergence threshold.
-    all_still = GRID / 10 * len(mobile_parts)
+    all_still = GRID / 100 * len(mobile_parts)
 
-    # Arrange parts under influence of net attractions only.
+    # Repetitively arrange parts under influence of net attractions only,
+    # thus compressing them tightly together. Stop when part mobility
+    # drops below a threshold.
     mobility_history = []
     while True:
-        mobility = 0.0
+        
         random.shuffle(mobile_parts)  # Move parts in random order.
+
+        # Move each part under the influence of the forces of attached nets.
+        mobility = 0.0
         for part in mobile_parts:
             force = net_force_dist(part, nets, **options)
             part.force = force  # For debug drawing purposes.
             mv = force
             mobility += mv.magnitude
             mv_tx = Tx(dx=mv.x, dy=mv.y)
-            part.tx *= mv_tx
+            part.tx *= mv_tx  # Move part.
 
         mobility_history.append(mobility)
 
@@ -730,10 +737,13 @@ def compress_parts(parts, nets, scr, tx, font, **options):
             draw_placement(parts, nets, scr, tx, font)
 
         if mobility < all_still:
-            # Parts aren't moving much, so exit.
+            # Parts aren't moving much, so exit while loop.
             # Be sure to anchor one part or else the drift of the entire group will
             # prevent this test from ever converging.
             break
+
+    if options.get("draw_placement"):
+        draw_pause()
 
     if options.get("show_mobility"):
         import matplotlib.pyplot as plt
@@ -746,7 +756,7 @@ def compress_parts(parts, nets, scr, tx, font, **options):
 
 
 def push_and_pull(parts, nets, force_func, speed, scr, tx, font, **options):
-    """Move parts under influence of attracting nets and repulsive part overlaps.
+    """Move parts under influence of attractive nets and repulsive part overlaps.
 
     Args:
         parts (list): List of Parts.
@@ -771,30 +781,39 @@ def push_and_pull(parts, nets, force_func, speed, scr, tx, font, **options):
     mobile_parts = mobile_parts[1:]
 
     # Set a threshold for detecting when the parts have stopped moving
-    # to be the average movement of individual parts dropping to less
-    # than a tenth of a grid space.
+    # to be the average movement of individual parts dropping to much less
+    # than the length of a grid space.
     # TODO: better convergence threshold.
     all_still = GRID / 10 * len(mobile_parts)
 
-    # Arrange parts under influence of net attractions and part overlaps.
-    mobility_history = []
-    alpha_schedule = [0.1, 0.2, 0.5, 0.75, 1.0]
+    # Setup the schedule for adjusting the alpha coefficient that weights the
+    # combination of the attractive net forces and the repulsive part overlap forces.
+    # Start at 0 (all attractive) and progress to 1 (all repulsive).
+    # alpha_schedule = [0.1, 0.2, 0.5, 0.75, 1.0]
     # alpha_schedule = [0.1, 0.2, 0.3, 0.7, 0.8, 0.9, 1.0]
     # alpha_schedule = [0.1, 0.3, 0.5, 0.7, 1.0]
-    # alpha_schedule = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+    alpha_schedule = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
     if not options.get("compress_before_place"):
         alpha_schedule.insert(0, 0.0)
+
+    # Arrange parts under influence of net attractions and part overlaps.
+    mobility_history = []
     for alpha in alpha_schedule:
+        
+        # Repetitively arrange parts under influence of net attractions and
+        # part overlap repulsions. Stop when part mobility drops below a threshold.
         while True:
-            mobility = 0.0
+            
             random.shuffle(mobile_parts)  # Move parts in random order.
+
+            mobility = 0.0
             for part in mobile_parts:
                 force = force_func(part, alpha=alpha, **options)
                 part.force = force  # For debug drawing purposes.
                 mv = force * speed
                 mobility += mv.magnitude
                 mv_tx = Tx(dx=mv.x, dy=mv.y)
-                part.tx *= mv_tx
+                part.tx *= mv_tx  # Move part.
 
             mobility_history.append(mobility)
 
@@ -803,10 +822,23 @@ def push_and_pull(parts, nets, force_func, speed, scr, tx, font, **options):
                 draw_placement(parts, nets, scr, tx, font)
             
             if mobility <= all_still:
-                # Parts aren't moving much, so exit.
+                # Parts aren't moving much, so exit while loop.
                 # Be sure to anchor one part or else the drift of the entire group will
                 # prevent this test from ever converging.
                 break
+
+        # After the parts have settled down, calculate the attractive forces only on each part
+        # and move them if it's above a threshold. This allows parts to "jump" to better
+        # positions that they couldn't reach because they were blocked by repulsive forces.
+        # TODO: Don't do this until repulsive forces start to predominate.
+        if options.get("allow_jumps"):
+            for part in mobile_parts:
+                # TODO: Decide which of these functions gives the best results.
+                # mv = net_force_dist(part, nets, **options)  # Fails when placing part blocks.
+                mv = force_func(part, alpha=0, **options)
+                if mv.magnitude > GRID * 5:
+                    mv_tx = Tx(dx=mv.x, dy=mv.y)
+                    part.tx *= mv_tx
 
     if options.get("show_mobility"):
         import matplotlib.pyplot as plt
