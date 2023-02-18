@@ -190,9 +190,13 @@ def adjust_orientations(parts, nets, **options):
         # No movable parts, so exit without doing anything.
         return
 
+    orientation_cost_history = []
+
     # Kernighan-Lin algorithm for finding near-optimal part orientations.
-    # FIXME: Sometimes this doesn't terminate and runs forever.
-    while True:
+    # Because of the way the tension for part alignment is computed based on
+    # the nearest part, it is possible for an infinite loop to occur.
+    # Hence the ad-hoc loop limit.
+    for _ in range(10):
 
         # Find the best part to move and move it until there are no more parts to move.
         moved_parts = []
@@ -229,9 +233,16 @@ def adjust_orientations(parts, nets, **options):
         for part in moved_parts[min_index+1:]:
             part.tx = part.prev_tx
 
+        orientation_cost_history.append(min_cost)
+
         # Terminate the search once the cost stops decreasing.
         if min_cost >= 0:
             break
+
+    if options.get("show_orientation_cost"):
+        import matplotlib.pyplot as plt
+        plt.scatter(range(len(orientation_cost_history)), orientation_cost_history)
+        plt.show()
 
     rmv_attr(parts, ("prev_tx", "delta_cost"))
 
@@ -391,32 +402,27 @@ def net_tension_dist(part, nets, **options):
         float: Total tension on the part.
     """
 
-    anchor_pins = part.anchor_pins
-    pull_pins = part.pull_pins
-
     # Compute the force for each net attached to the part.
     tension = 0.0
-    for net in anchor_pins.keys():
+    for net, anchor_pins in part.anchor_pins.items():
 
-        if not anchor_pins[net] or not pull_pins[net]:
+        pull_pins = part.pull_pins[net]
+
+        if not anchor_pins or not pull_pins:
             # Skip nets without pulling or anchor points.
             continue
 
         # Compute the net force acting on each anchor point on the part.
-        for anchor_pin in anchor_pins[net]:
+        for anchor_pin in anchor_pins:
 
             # Compute the anchor point's (x,y).
             anchor_pt = anchor_pin.place_pt * anchor_pin.part.tx
 
             # Find the dist from the anchor point to each pulling point.
-            dists = []
-            for pull_pin in pull_pins[net]:
+            dists = [(anchor_pt - pp.place_pt * pp.part.tx).magnitude for pp in pull_pins]
 
-                # Compute the pulling point's (x,y).
-                pull_pt = pull_pin.place_pt * pull_pin.part.tx
-                dists.append((pull_pt - anchor_pt).magnitude)
-
-            # Only the closest pulling point affects the tension.
+            # Only the closest pulling point affects the tension since that is
+            # probably the 
             tension += min(dists)
 
     return tension

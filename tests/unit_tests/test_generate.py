@@ -42,18 +42,19 @@ sch_options = {}
 sch_options.update({"retries": 1})
 sch_options.update({"normalize": True})
 sch_options.update({"compress_before_place": True})
+sch_options.update({"allow_jumps": True})
 # sch_options.update({"trim_anchor_pull_pins": True})
-# sch_options.update({"rotate_parts": True})
+sch_options.update({"rotate_parts": True})
 sch_options.update({"fanout_attenuation": True})
 # sch_options.update({"remove_power": True})
 # sch_options.update({"remove_high_fanout": True})
 # sch_options.update({"allow_routing_failure": True})
-sch_options.update({"allow_jumps": True})
+# sch_options.update({"show_mobility": True})
+# sch_options.update({"show_orientation_cost": True})
 if os.getenv("DEBUG_DRAW"):
     # These options control debugging output.
     # To view schematic debugging output, use the command:
     #    DEBUG_DRAW=1 pytest ...
-    # sch_options.update({"show_mobility": True})
     sch_options.update({"draw_placement": True})
     # sch_options.update({"draw_all_terminals": True})
     # sch_options.update({"show_capacities": True})
@@ -653,7 +654,8 @@ def test_gen_svg_6():
         & gndt
         & r()
         & r()
-        & (r(symtx="l") | r(symtx="R"))
+        & (r() | r())
+        # & (r(symtx="l") | r(symtx="R"))
         & r()
         & r()
         & r()
