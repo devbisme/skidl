@@ -21,7 +21,7 @@ from builtins import open, super
 from future import standard_library
 
 from .logger import active_logger
-from .utilities import to_list, export_to_all
+from .utilities import to_list, export_to_all, rmv_quotes, fullmatch
 
 standard_library.install_aliases()
 

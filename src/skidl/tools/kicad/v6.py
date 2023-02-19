@@ -21,7 +21,7 @@ from future import standard_library
 
 from ...logger import active_logger
 
-from ...utilities import num_to_chars, export_to_all
+from ...utilities import num_to_chars, export_to_all, to_list
 
 standard_library.install_aliases()
 
@@ -273,6 +273,7 @@ def parse_lib_part(self, partial_parse):
             pin_name = ""
             pin_number = None
             for item in pin[3:]:
+                item = to_list(item)
                 if item[0].value().lower() == "name":
                     pin_name = item[1]
                 elif item[0].value().lower() == "number":
