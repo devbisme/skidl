@@ -248,7 +248,8 @@ class Terminal:
 
         # Don't draw terminal if it isn't on a net. It's just a placeholder.
         if self.net or options.get("draw_all_terminals"):
-            draw_endpoint(self.route_pt, scr, tx, color=net_colors[self.net])
+            draw_endpoint(self.route_pt, scr, tx, color=(255,0,0))
+            # draw_endpoint(self.route_pt, scr, tx, color=net_colors[self.net])
 
 
 class Interval(object):
@@ -2777,9 +2778,9 @@ class Router:
             switchboxes = node.create_switchboxes(h_tracks, v_tracks)
 
             # Draw switchboxes and routing channels.
-            if options.get("draw_routing_channels"):
+            if options.get("draw_assigned_terminals"):
                 node.routing_debug_draw(
-                    routing_bbox, node.parts, switchboxes, **options
+                    routing_bbox, node.parts, switchboxes, global_routes, **options
                 )
 
             node.switchbox_router(switchboxes, **options)
