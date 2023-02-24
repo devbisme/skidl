@@ -60,9 +60,9 @@ if os.getenv("DEBUG_DRAW"):
     # sch_options.update({"show_capacities": True})
     # sch_options.update({"draw_routing_channels": True})
     # sch_options.update({"draw_global_routing": True})
-    sch_options.update({"draw_assigned_terminals": True})
-    sch_options.update({"draw_switchbox_boundary": True})
-    # sch_options.update({"draw_switchbox_routing": True})
+    # sch_options.update({"draw_assigned_terminals": True})
+    # sch_options.update({"draw_switchbox_boundary": True})
+    sch_options.update({"draw_switchbox_routing": True})
 
 
 def _empty_footprint_handler(part):
