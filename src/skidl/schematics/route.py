@@ -2495,13 +2495,11 @@ class Router:
                         # The segments intersect, but not at their endpoints. Split each segment in two
                         # at the intersection point.
                         horz_segs.remove(hseg)
-                        int_pt = Point(vseg_x, hseg_y)
-                        horz_segs.append(Segment(hseg.p1, int_pt))
-                        horz_segs.append(Segment(int_pt, hseg.p2))
+                        horz_segs.append(Segment(hseg.p1, Point(vseg_x, hseg_y)))
+                        horz_segs.append(Segment(Point(vseg_x, hseg_y), hseg.p2))
                         vert_segs.remove(vseg)
-                        int_pt = Point(vseg_x, hseg_y)
-                        vert_segs.append(Segment(vseg.p1, int_pt))
-                        vert_segs.append(Segment(int_pt, vseg.p2))
+                        vert_segs.append(Segment(vseg.p1, Point(vseg_x, hseg_y)))
+                        vert_segs.append(Segment(Point(vseg_x, hseg_y), vseg.p2))
                         # Break out of the loop and start again using the updated lists of horz & vert segments.
                         break
                 else:
@@ -2564,6 +2562,7 @@ class Router:
         
         def is_pin_pt(pt):
             """Return True if the point is on one of the part pins."""
+            return pt in pin_pts
             return any((pt==pin_pt for pin_pt in pin_pts))
 
         def contains_pt(seg, pt):
@@ -2580,7 +2579,6 @@ class Router:
                 for seg in trimmed_segments[:]:
                     # Check the endpoints of each segment to see if they are shared
                     # by any other segments.
-                    
                     for seg_pt in (seg.p1, seg.p2):
                         if not is_pin_pt(seg_pt):
                             # Endpoints on part pins will usually only be on a single
@@ -2596,8 +2594,17 @@ class Router:
                                 break
             return trimmed_segments
 
-        def remove_jogs(node, segments):
             """Remove jogs in wiring segments."""
+        def remove_jogs(net, segments, wires, net_bboxes, part_bboxes):
+            """Remove jogs in wiring segments.
+
+            Args:
+                net (Net): Net whose wire segments will be modified.
+                segments (list): List of wire segments for the given net.
+                wires (dict): Dict of lists of wire segments indexed by nets.
+                net_bboxes (dict): Dict of BBoxes for wire segments indexed by nets.
+                part_bboxes (list): List of BBoxes for the placed parts.
+            """
 
             def get_touching_segs(seg, ortho_segs):
                 """Return list of orthogonal segments that touch the given segment."""
@@ -2626,6 +2633,49 @@ class Router:
                     ov2 = min(ov2, p2)  # Min of extent maximums.
                 # assert ov1 <= ov2
                 return ov1, ov2
+            
+            def obstructed(segment):
+                """Return true if segment obstructed by parts or segments of other nets."""
+
+                # Obstructed if segment bbox intersects one of the part bboxes.                
+                segment_bbox = BBox(segment.p1, segment.p2)
+                for part_bbox in part_bboxes:
+                    if part_bbox.intersects(segment_bbox):
+                        return True
+                
+                # BBoxes don't intersect if they line up exactly edge-to-edge.
+                # So expand the segment bbox slightly so intersections with bboxes of
+                # other segments will be detected.
+                segment_bbox = segment_bbox.resize(Vector(1,1))
+
+                # Look for an overlay intersection with a segment of another net.
+                for nt, nt_bbox in net_bboxes.items():
+
+                    if nt is net:
+                        # Don't check this segment with other segments of its own net.
+                        continue
+                    
+                    if not segment_bbox.intersects(nt_bbox):
+                        # Don't check this segment against segments of another net whose
+                        # bbox doesn't even intersect this segment.
+                        continue
+                    
+                    # Check for overlay intersectionss between this segment and the
+                    # parallel segments of the other net.
+                    for seg in wires[nt]:
+                        if segment.p1.x == segment.p2.x == seg.p1.x == seg.p2.x:
+                            # Segments are both aligned vertically on the same track X coord.
+                            if segment.p1.y <= seg.p2.y and segment.p2.y >= seg.p1.y:
+                                # Segments overlap so segment is obstructed.
+                                return True
+                        elif segment.p1.y == segment.p2.y == seg.p1.y == seg.p2.y:
+                            # Segments are both aligned horizontally on the same track Y coord.
+                            if segment.p1.x <= seg.p2.x and segment.p2.x >= seg.p1.x:
+                                # Segments overlap so segment is obstructed.
+                                return True
+
+                # No obstructions found, so return False.
+                return False
 
             # Make sure p1 <= p2 for segment endpoints.
             order_seg_points(segments)
@@ -2633,7 +2683,10 @@ class Router:
             # Split segments into horizontal/vertical groups.
             horz_segs, vert_segs = extract_horz_vert_segs(segments)
 
-            # Look for vert segs touching horz segs and vice-versa.
+            # Look for a segment touched by ends of orthogonal segments all pointing in the same direction.
+            # Then slide this segment to the other end of the interval by which the touching segments
+            # overlap. This will reduce or eliminate the jog.
+            stop = True
             for segs, ortho_segs in ((horz_segs, vert_segs), (vert_segs, horz_segs)):
                 for seg in segs:
 
@@ -2644,7 +2697,7 @@ class Router:
                     # Find all orthogonal segments that touch this one.
                     touching_segs = get_touching_segs(seg, ortho_segs)
 
-                    # Find extent of overlap of all touching segments.
+                    # Find extent of overlap of all orthogonal segments.
                     ov1, ov2 = get_overlap(*touching_segs)
 
                     if ov1 >= ov2:
@@ -2653,36 +2706,108 @@ class Router:
 
                     if seg in horz_segs:
                         # Move horz segment vertically to other end of overlap to remove jog.
-                        # TODO: Check for intersection with part bboxes.
-                        # TODO: Check for overlap with segments of other nets.
-                        seg_y = seg.p1.y
+                        test_seg = Segment(seg.p1, seg.p2)
+                        seg_y = test_seg.p1.y
                         if seg_y == ov1:
-                            seg.p1.y = ov2
-                            seg.p2.y = ov2
+                            # Segment is at one end of the overlay, so move it to the other end.
+                            test_seg.p1.y = ov2
+                            test_seg.p2.y = ov2
+                            if not obstructed(test_seg):
+                                # Segment move is not obstructed, so accept it.
+                                seg.p1 = test_seg.p1
+                                seg.p2 = test_seg.p2
+                                # If one segment is moved, maybe more can be moved so don't stop.
+                                stop = False
                         elif seg_y == ov2:
-                            seg.p1.y = ov1
-                            seg.p2.y = ov1
+                            # Segment is at one end of the overlay, so move it to the other end.
+                            test_seg.p1.y = ov1
+                            test_seg.p2.y = ov1
+                            if not obstructed(test_seg):
+                                # Segment move is not obstructed, so accept it.
+                                seg.p1 = test_seg.p1
+                                seg.p2 = test_seg.p2
+                                # If one segment is moved, maybe more can be moved so don't stop.
+                                stop = False
                         else:
-                            # Segment in interior of extent, so it's not a jog. Don't move it.
+                            # Segment in interior of overlay, so it's not a jog. Don't move it.
                             pass
                     else:
                         # Move vert segment horizontally to other end of overlap to remove jog.
-                        # TODO: Check for intersection with part bboxes.
-                        # TODO: Check for overlap with segments of other nets.
+                        test_seg = Segment(seg.p1, seg.p2)
                         seg_x = seg.p1.x
                         if seg_x == ov1:
-                            seg.p1.x = ov2
-                            seg.p2.x = ov2
+                            # Segment is at one end of the overlay, so move it to the other end.
+                            test_seg.p1.x = ov2
+                            test_seg.p2.x = ov2
+                            if not obstructed(test_seg):
+                                # Segment move is not obstructed, so accept it.
+                                seg.p1 = test_seg.p1
+                                seg.p2 = test_seg.p2
+                                # If one segment is moved, maybe more can be moved so don't stop.
+                                stop = False
                         elif seg_x == ov2:
-                            seg.p1.x = ov1
-                            seg.p2.x = ov1
+                            # Segment is at one end of the overlay, so move it to the other end.
+                            test_seg.p1.x = ov1
+                            test_seg.p2.x = ov1
+                            if not obstructed(test_seg):
+                                # Segment move is not obstructed, so accept it.
+                                seg.p1 = test_seg.p1
+                                seg.p2 = test_seg.p2
+                                # If one segment is moved, maybe more can be moved so don't stop.
+                                stop = False
                         else:
-                            # Segment in interior of extent, so it's not a jog. Don't move it.
+                            # Segment in interior of overlay, so it's not a jog. Don't move it.
                             pass
 
-            # Return updated segments. (Not really necessary since they were updated in place.)
+            # Return updated segments. If no segments for this net were updated, then stop is True.
+            return segments, stop
+        
+        def get_corners(segments):
+            """Return dictionary of corner points and associated segments."""
+            corners = dict()
+            horz_segs, vert_segs = extract_horz_vert_segs(segments)
+            for seg in horz_segs + vert_segs:
+                for seg_pt in (seg.p1, seg.p2):
+                    corners[seg_pt].append(seg)
+            corners = {corner:segs for corner, segs in corners.items() if len(segs)==2}
+            corners = {corner:segs for corner, segs in corners.items() if not is_pin_pt(corner)}
+            corners = {corner:segs for corner, segs in corners.items() if segs[0] in horz_segs}
+            corners = {corner:segs for corner, segs in corners.items() if segs[1] in vert_segs}
+
+        def remove_corners(part_bboxes, segments):
+            def part_intersect(seg):
+                seg_bbox = BBox(seg.p1, seg.p2)
+                for part_bbox in part_bboxes:
+                    if part_bbox.intersects(seg_bbox):
+                        return True
+                return False
+
+            horz_segs, vert_segs = extract_horz_vert_segs(segments)
+            for h_seg in horz_segs:
+                h_p1, h_p2 = h_seg.p1, h_seg.p2
+                for v_seg in vert_segs:
+                    v_p1, v_p2 = v_seg.p1, v_seg.p2
+                    for h_p, v_p in product(((h_p1, h_p2), (h_p2, h_p1)), ((v_p1, v_p2), (v_p2, v_p1))):
+                        if h_p[0] == v_p[0] and not is_pin_pt(h_p[0]):
+                            h_p[0].y = v_p[1].y
+                            h_p[1].y = v_p[1].y
+                            v_p[0].x = h_p[1].x
+                            v_p[1].x = h_p[1].x
+                            break
             return segments
 
+        # Get part bounding boxes so parts can be avoided when modifying net segments.
+        part_bboxes = [p.bbox * p.tx for p in node.parts]
+            
+        def segments_bbox(segments):
+            """Return bounding box containing the given list of segments."""
+            seg_pts = list(chain(*((s.p1, s.p2) for s in segments)))
+            return BBox(*seg_pts)
+        
+        # Get dict of bounding boxes for the nets in this node.
+        net_bboxes = {net:segments_bbox(segs) for net, segs in node.wires.items()}
+
+        # Remove jogs in the wire segments of each net.
         for net, segments in node.wires.items():
 
             # Round the wire segment endpoints to integers.
@@ -2706,28 +2831,40 @@ class Router:
             # Merge colinear segments.
             segments = merge_segments(segments)
 
+            while True:
+                # Remove unnecessary wire jogs.
+                segments, stop = remove_jogs(net, segments, node.wires, net_bboxes, part_bboxes)
 
-            # Remove unnecessary wire jogs.
-            segments = remove_jogs(node, segments)
+                # Keep only non zero-length segments.
+                segments = [seg for seg in segments if seg.p1 != seg.p2]
 
-            # Keep only non zero-length segments.
-            segments = [seg for seg in segments if seg.p1 != seg.p2]
+                # Merge segments made colinear by removing jogs.
+                segments = merge_segments(segments)
 
-            # Merge segments made colinear by removing jogs.
-            segments = merge_segments(segments)
+                # Split intersecting segments.
+                segments = split_segments(segments)
 
-            # Split intersecting segments.
-            segments = split_segments(segments)
+                # Keep only non zero-length segments.
+                segments = [seg for seg in segments if seg.p1 != seg.p2]
 
-            # Keep only non zero-length segments.
-            segments = [seg for seg in segments if seg.p1 != seg.p2]
+                # Trim wire stubs caused by removing jogs.
+                segments = trim_stubs(segments)
 
-            # Trim wire stubs caused by removing jogs.
-            segments = trim_stubs(segments)
+                # Merge colinear segments.
+                segments = merge_segments(segments)
 
-            # Merge colinear segments.
-            segments = merge_segments(segments)
+                # Recalculate the net bounding box after modifying its segments.
+                net_bboxes[net] = segments_bbox(segments)
 
+                if stop:
+                    # Break from loop once net segments can no longer be improved.
+                    break
+
+            # segments = [seg for seg in segments if seg.p1 != seg.p2]
+            # segments = split_segments(segments)
+            # segments = [seg for seg in segments if seg.p1 != seg.p2]
+            # segments = remove_corners(node, segments)
+            # segments = merge_segments(segments)
 
             # Update the node net's wire with the cleaned version.
             node.wires[net] = segments

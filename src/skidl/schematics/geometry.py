@@ -134,6 +134,10 @@ class Point:
         self.x = x
         self.y = y
 
+    def __hash__(self):
+        """Return hash of X,Y tuple."""
+        return hash((self.x, self.y))
+
     def __eq__(self, other):
         """Return true if (x,y) tuples of self and other are the same."""
         return (self.x, self.y) == (other.x, other.y)
