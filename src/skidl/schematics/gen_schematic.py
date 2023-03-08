@@ -211,7 +211,6 @@ class NetTerminal(Part):
         the net spans across levels of hierarchical nodes.
         """
 
-        # FIXME: Unnecessary jogs in NetTerminal wiring.
         # TODO: Create net labels that point in other orientations than just to the left.
 
         # Create a Part.

@@ -2594,8 +2594,7 @@ class Router:
                                 break
             return trimmed_segments
 
-            """Remove jogs in wiring segments."""
-        def remove_jogs(net, segments, wires, net_bboxes, part_bboxes):
+        def remove_jogs_old(net, segments, wires, net_bboxes, part_bboxes):
             """Remove jogs in wiring segments.
 
             Args:
@@ -2761,40 +2760,153 @@ class Router:
 
             # Return updated segments. If no segments for this net were updated, then stop is True.
             return segments, stop
-        
-        def get_corners(segments):
-            """Return dictionary of corner points and associated segments."""
-            corners = dict()
-            horz_segs, vert_segs = extract_horz_vert_segs(segments)
-            for seg in horz_segs + vert_segs:
-                for seg_pt in (seg.p1, seg.p2):
-                    corners[seg_pt].append(seg)
-            corners = {corner:segs for corner, segs in corners.items() if len(segs)==2}
-            corners = {corner:segs for corner, segs in corners.items() if not is_pin_pt(corner)}
-            corners = {corner:segs for corner, segs in corners.items() if segs[0] in horz_segs}
-            corners = {corner:segs for corner, segs in corners.items() if segs[1] in vert_segs}
 
-        def remove_corners(part_bboxes, segments):
-            def part_intersect(seg):
-                seg_bbox = BBox(seg.p1, seg.p2)
+        def remove_jogs(net, segments, wires, net_bboxes, part_bboxes):
+            """Remove jogs and staircases in wiring segments.
+
+            Args:
+                net (Net): Net whose wire segments will be modified.
+                segments (list): List of wire segments for the given net.
+                wires (dict): Dict of lists of wire segments indexed by nets.
+                net_bboxes (dict): Dict of BBoxes for wire segments indexed by nets.
+                part_bboxes (list): List of BBoxes for the placed parts.
+            """
+            
+            def obstructed(segment):
+                """Return true if segment obstructed by parts or segments of other nets."""
+
+                # Obstructed if segment bbox intersects one of the part bboxes.                
+                segment_bbox = BBox(segment.p1, segment.p2)
                 for part_bbox in part_bboxes:
-                    if part_bbox.intersects(seg_bbox):
+                    if part_bbox.intersects(segment_bbox):
                         return True
-                return False
+                
+                # BBoxes don't intersect if they line up exactly edge-to-edge.
+                # So expand the segment bbox slightly so intersections with bboxes of
+                # other segments will be detected.
+                segment_bbox = segment_bbox.resize(Vector(2,2))
 
-            horz_segs, vert_segs = extract_horz_vert_segs(segments)
-            for h_seg in horz_segs:
-                h_p1, h_p2 = h_seg.p1, h_seg.p2
-                for v_seg in vert_segs:
-                    v_p1, v_p2 = v_seg.p1, v_seg.p2
-                    for h_p, v_p in product(((h_p1, h_p2), (h_p2, h_p1)), ((v_p1, v_p2), (v_p2, v_p1))):
-                        if h_p[0] == v_p[0] and not is_pin_pt(h_p[0]):
-                            h_p[0].y = v_p[1].y
-                            h_p[1].y = v_p[1].y
-                            v_p[0].x = h_p[1].x
-                            v_p[1].x = h_p[1].x
-                            break
-            return segments
+                # Look for an overlay intersection with a segment of another net.
+                for nt, nt_bbox in net_bboxes.items():
+
+                    if nt is net:
+                        # Don't check this segment with other segments of its own net.
+                        continue
+                    
+                    if not segment_bbox.intersects(nt_bbox):
+                        # Don't check this segment against segments of another net whose
+                        # bbox doesn't even intersect this segment.
+                        continue
+                    
+                    # Check for overlay intersectionss between this segment and the
+                    # parallel segments of the other net.
+                    for seg in wires[nt]:
+                        if segment.p1.x == segment.p2.x == seg.p1.x == seg.p2.x:
+                            # Segments are both aligned vertically on the same track X coord.
+                            if segment.p1.y <= seg.p2.y and segment.p2.y >= seg.p1.y:
+                                # Segments overlap so segment is obstructed.
+                                return True
+                        elif segment.p1.y == segment.p2.y == seg.p1.y == seg.p2.y:
+                            # Segments are both aligned horizontally on the same track Y coord.
+                            if segment.p1.x <= seg.p2.x and segment.p2.x >= seg.p1.x:
+                                # Segments overlap so segment is obstructed.
+                                return True
+
+                # No obstructions found, so return False.
+                return False
+            
+            def get_corners(segments):
+                """Return dictionary of right-angle corner points and lists of associated segments."""
+
+                # For each corner point, the dict entry contains a list of the segments that meet there.
+                corners = defaultdict(list)
+
+                # Process the segments so that any potential right-angle corner has the horizontal
+                # segment followed by the vertical segment.
+                horz_segs, vert_segs = extract_horz_vert_segs(segments)
+                for seg in horz_segs + vert_segs:
+
+                    # Add the segment to the segment list of each end point.
+                    corners[seg.p1].append(seg)
+                    corners[seg.p2].append(seg)
+
+                # Keep only the corner points where two segments meet at right angles at a point not on a part pin.
+                corners = {corner:segs for corner, segs in corners.items() if len(segs)==2 and not is_pin_pt(corner) and segs[0] in horz_segs and segs[1] in vert_segs}
+                return corners
+
+            def get_jogs(segments):
+                """Yield the three segments and starting and end points of a staircase or tophat jog."""
+
+                # Get dict of right-angle corners formed by segments.
+                corners = get_corners(segments)
+
+                # Look for segments with both endpoints on right-angle corners, indicating this segment
+                # is in the middle of a three-segment staircase or tophat jog.
+                for segment in segments:
+                    if segment.p1 in corners and segment.p2 in corners:
+
+                        # Get the three segments in the jog.
+                        jog_segs = set()
+                        jog_segs.add(corners[segment.p1][0])
+                        jog_segs.add(corners[segment.p1][1])
+                        jog_segs.add(corners[segment.p2][0])
+                        jog_segs.add(corners[segment.p2][1])
+                        
+                        # Get the points where the three-segment jog starts and stops.
+                        start_stop_pts = set()
+                        for seg in jog_segs:
+                            start_stop_pts.add(seg.p1)
+                            start_stop_pts.add(seg.p2)
+                        start_stop_pts.discard(segment.p1)
+                        start_stop_pts.discard(segment.p2)
+
+                        # Send the jog that was found.
+                        yield list(jog_segs), list(start_stop_pts)
+
+            # Shuffle segments to vary the order of detected jogs.
+            random.shuffle(segments)
+
+            # Get iterator for jogs.
+            jogs = get_jogs(segments)
+
+            # Search for jogs and break from the loop if a correctable jog is found or we run out of jogs.            
+            while True:
+
+                # Get the segments and start-stop points for the next jog.
+                try:
+                    jog_segs, start_stop_pts = next(jogs)
+                except StopIteration:
+                    # No more jogs and no corrections made, so return segments and stop flag is true.
+                    return segments, True
+                
+                # Get the start-stop points and order them so p1 < p3.
+                p1, p3 = sorted(start_stop_pts)
+
+                # These are the potential routing points for correcting the jog.
+                # Either start at p1 and move vertically and then horizontally to p3, or
+                # move horizontally from p1 and then vertically to p3.
+                p2s = [Point(p1.x, p3.y), Point(p3.x, p1.y)]
+
+                # Shuffle the routing points so the applied correction isn't always the same orientation.
+                random.shuffle(p2s)
+
+                # Check each routing point to see if it leads to a valid routing.
+                for p2 in p2s:
+
+                    # Replace the three-segment jog with these two right-angle segments.
+                    seg1 = Segment(p1, p2)
+                    seg2 = Segment(p2, p3)
+
+                    # Check the new segments to see if they run into parts or segments of other nets.
+                    if not obstructed(seg1) and not obstructed(seg2):
+
+                        # OK, segments are good so replace the old segments in the jog with them.
+                        for seg in jog_segs:
+                            segments.remove(seg)
+                        segments.extend((seg1, seg2))
+
+                        # Return updated segments and set stop flag to false because segments were modified.
+                        return segments, False
 
         # Get part bounding boxes so parts can be avoided when modifying net segments.
         part_bboxes = [p.bbox * p.tx for p in node.parts]
@@ -2807,7 +2919,7 @@ class Router:
         # Get dict of bounding boxes for the nets in this node.
         net_bboxes = {net:segments_bbox(segs) for net, segs in node.wires.items()}
 
-        # Remove jogs in the wire segments of each net.
+        # Do a generalized cleanup of the wire segments of each net.
         for net, segments in node.wires.items():
 
             # Round the wire segment endpoints to integers.
@@ -2828,46 +2940,48 @@ class Router:
             # Trim wire stubs.
             segments = trim_stubs(segments)
 
-            # Merge colinear segments.
-            segments = merge_segments(segments)
+            node.wires[net] = segments
 
-            while True:
-                # Remove unnecessary wire jogs.
-                segments, stop = remove_jogs(net, segments, node.wires, net_bboxes, part_bboxes)
+        # Remove jogs in the wire segments of each net.
+        keep_cleaning = True
+        while keep_cleaning:
+            keep_cleaning = False
 
-                # Keep only non zero-length segments.
-                segments = [seg for seg in segments if seg.p1 != seg.p2]
+            for net, segments in node.wires.items():
+
+                while True:
+                    # Remove unnecessary wire jogs.
+                    segments, stop = remove_jogs(net, segments, node.wires, net_bboxes, part_bboxes)
+
+                    # Keep only non zero-length segments.
+                    segments = [seg for seg in segments if seg.p1 != seg.p2]
+
+                    # Merge segments made colinear by removing jogs.
+                    segments = merge_segments(segments)
+
+                    # Split intersecting segments.
+                    segments = split_segments(segments)
+
+                    # Keep only non zero-length segments.
+                    segments = [seg for seg in segments if seg.p1 != seg.p2]
+
+                    # Trim wire stubs caused by removing jogs.
+                    segments = trim_stubs(segments)
+
+                    if stop:
+                        # Break from loop once net segments can no longer be improved.
+                        break
+
+                    # Recalculate the net bounding box after modifying its segments.
+                    net_bboxes[net] = segments_bbox(segments)
+
+                    keep_cleaning = True
 
                 # Merge segments made colinear by removing jogs.
                 segments = merge_segments(segments)
 
-                # Split intersecting segments.
-                segments = split_segments(segments)
-
-                # Keep only non zero-length segments.
-                segments = [seg for seg in segments if seg.p1 != seg.p2]
-
-                # Trim wire stubs caused by removing jogs.
-                segments = trim_stubs(segments)
-
-                # Merge colinear segments.
-                segments = merge_segments(segments)
-
-                # Recalculate the net bounding box after modifying its segments.
-                net_bboxes[net] = segments_bbox(segments)
-
-                if stop:
-                    # Break from loop once net segments can no longer be improved.
-                    break
-
-            # segments = [seg for seg in segments if seg.p1 != seg.p2]
-            # segments = split_segments(segments)
-            # segments = [seg for seg in segments if seg.p1 != seg.p2]
-            # segments = remove_corners(node, segments)
-            # segments = merge_segments(segments)
-
-            # Update the node net's wire with the cleaned version.
-            node.wires[net] = segments
+                # Update the node net's wire with the cleaned version.
+                node.wires[net] = segments
 
 
     def add_junctions(node):
@@ -2943,7 +3057,7 @@ class Router:
         # Draw wiring.
         for wires in node.wires.values():
             for wire in wires:
-                draw_seg(wire, draw_scr, draw_tx, (255, 0, 255), 1, dot_radius=0)
+                draw_seg(wire, draw_scr, draw_tx, (255, 0, 255), 3, dot_radius=0)
 
         # Draw other stuff (global routes, switchbox routes, etc.) that has a draw() method.
         for stuff in other_stuff:
@@ -2981,7 +3095,7 @@ class Router:
         # First, recursively route any children of this node.
         # TODO: Child nodes are independent so could they be processed in parallel?
         for child in node.children.values():
-            child.route()
+            child.route(tool=tool, **options)
 
         # Exit if no parts to route in this node.
         if not node.parts:
