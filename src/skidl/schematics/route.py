@@ -2461,7 +2461,10 @@ class Router:
             for net, segments in swbx.segments.items():
                 node.wires[net].extend(segments)
 
-    def cleanup_wires(node):
+    split_pts = []
+    mid_seg_pts = []
+
+    def cleanup_wires(node, routing_bbox):
         """Try to make wire segments look prettier."""
 
         def order_seg_points(segments):
@@ -2469,6 +2472,11 @@ class Router:
             for seg in segments:
                 if seg.p2 < seg.p1:
                     seg.p1, seg.p2 = seg.p2, seg.p1
+            
+        def segments_bbox(segments):
+            """Return bounding box containing the given list of segments."""
+            seg_pts = list(chain(*((s.p1, s.p2) for s in segments)))
+            return BBox(*seg_pts)
 
         def extract_horz_vert_segs(segments):
             """Separate segments and return lists of horizontal & vertical segments."""
@@ -2477,42 +2485,66 @@ class Router:
             assert len(horz_segs) + len(vert_segs) == len(segments)
             return horz_segs, vert_segs
 
-        def split_segments(segments):
+        def split_segments(segments, net_pin_pts):
             """Return list of net segments split into the smallest intervals without intersections with other segments."""
 
-            # Preprocess the segments.
+            # Check each horizontal segment against each vertical segment and split each one if they intersect.
+            # (This clunky iteration is used )
             horz_segs, vert_segs = extract_horz_vert_segs(segments)
-            order_seg_points(horz_segs)
-            order_seg_points(vert_segs)
+            i = 0
+            while i < len(horz_segs):
+                hseg = horz_segs[i]
+                hseg_y = hseg.p1.y
+                j = 0
+                while j < len(vert_segs):
+                    vseg = vert_segs[j]
+                    vseg_x = vseg.p1.x
+                    if hseg.p1.x <= vseg_x <= hseg.p2.x and vseg.p1.y <= hseg_y <= vseg.p2.y:
+                        int_pt = Point(vseg_x, hseg_y)
+                        if int_pt != hseg.p1 and int_pt != hseg.p2:
+                            node.split_pts.append(copy.copy(int_pt))
+                            horz_segs.append(Segment(copy.copy(int_pt), copy.copy(hseg.p2)))
+                            hseg.p2 = copy.copy(int_pt)
+                        if int_pt != vseg.p1 and int_pt != vseg.p2:
+                            node.split_pts.append(copy.copy(int_pt))
+                            vert_segs.append(Segment(copy.copy(int_pt), copy.copy(vseg.p2)))
+                            vseg.p2 = copy.copy(int_pt)
+                    j += 1
+                i += 1
 
-            while True:
-                # Look for intersections between horizontal and vertical segments.
-                for hseg, vseg in product(horz_segs, vert_segs):
-                    hseg_y = hseg.p1.y  # Horz seg Y coord.
-                    vseg_x = vseg.p1.x  # Vert seg X coord.
-                    if (((hseg.p1.x < vseg_x < hseg.p2.x) and (vseg.p1.y <= hseg_y <= vseg.p2.y)) or
-                        ((hseg.p1.x <= vseg_x <= hseg.p2.x) and (vseg.p1.y < hseg_y < vseg.p2.y))):
-                        # The segments intersect, but not at their endpoints. Split each segment in two
-                        # at the intersection point.
-                        horz_segs.remove(hseg)
-                        horz_segs.append(Segment(hseg.p1, Point(vseg_x, hseg_y)))
-                        horz_segs.append(Segment(Point(vseg_x, hseg_y), hseg.p2))
-                        vert_segs.remove(vseg)
-                        vert_segs.append(Segment(vseg.p1, Point(vseg_x, hseg_y)))
-                        vert_segs.append(Segment(Point(vseg_x, hseg_y), vseg.p2))
-                        # Break out of the loop and start again using the updated lists of horz & vert segments.
-                        break
-                else:
-                    # No intersections were found, so done. Return updated segments.
-                    return horz_segs + vert_segs
+            i = 0
+            while i < len(horz_segs):
+                hseg = horz_segs[i]
+                hseg_y = hseg.p1.y
+                for pt in net_pin_pts:
+                    if pt.y == hseg_y and hseg.p1.x < pt.x < hseg.p2.x:
+                        node.split_pts.append(copy.copy(pt))
+                        horz_segs.append(Segment(copy.copy(pt), copy.copy(hseg.p2)))
+                        hseg.p2 = copy.copy(pt)
+                i += 1
+
+            j = 0
+            while j < len(vert_segs):
+                vseg = vert_segs[j]
+                vseg_x = vseg.p1.x
+                for pt in net_pin_pts:
+                    if pt.x == vseg_x and vseg.p1.y < pt.y < vseg.p2.y:
+                        node.split_pts.append(copy.copy(pt))
+                        vert_segs.append(Segment(copy.copy(pt), copy.copy(vseg.p2)))
+                        vseg.p2 = copy.copy(pt)
+                j += 1
+
+            return horz_segs + vert_segs
 
         def merge_segments(segments):
             """Return segments after merging those that run the same direction and overlap."""
 
             # Preprocess the segments.
             horz_segs, vert_segs = extract_horz_vert_segs(segments)
-            order_seg_points(horz_segs)
-            order_seg_points(vert_segs)
+            # order_seg_points(horz_segs)
+            # order_seg_points(vert_segs)
+            # horz_segs = [seg for seg in horz_segs if seg.p1 != seg.p2]
+            # vert_segs = [seg for seg in vert_segs if seg.p1 != seg.p2]
 
             merged_segs = []
 
@@ -2562,7 +2594,8 @@ class Router:
         
         def is_pin_pt(pt):
             """Return True if the point is on one of the part pins."""
-            return pt in pin_pts
+            # TODO: Figure out which one of these to use...
+            # return pt in pin_pts
             return any((pt==pin_pt for pin_pt in pin_pts))
 
         def contains_pt(seg, pt):
@@ -2572,27 +2605,29 @@ class Router:
         def trim_stubs(segments):
             """Return segments after removing stubs that have an unconnected endpoint."""
 
-            trimmed_segments = segments[:]
-            keep_going = True
-            while(keep_going):
-                keep_going = False
-                for seg in trimmed_segments[:]:
-                    # Check the endpoints of each segment to see if they are shared
-                    # by any other segments.
-                    for seg_pt in (seg.p1, seg.p2):
-                        if not is_pin_pt(seg_pt):
-                            # Endpoints on part pins will usually only be on a single
-                            # segment, so only check endpoints not on part pins.
-                            hits = [contains_pt(s, seg_pt) for s in trimmed_segments]
-                            if hits.count(True) <= 1:
-                                # This endpoint is not on any other segment, so the
-                                # segment is a stub and can be removed.
-                                trimmed_segments.remove(seg)
-                                # Removing this segment may make another segment into
-                                # a stub, so keep checking.
-                                keep_going = True
-                                break
-            return trimmed_segments
+            def get_stubs(segments):
+                """Return set of stub segments."""
+
+                # For end point, the dict entry contains a list of the segments that meet there.
+                stubs = defaultdict(list)
+
+                # Process the segments looking for points that are on only a single segment.
+                for seg in segments:
+
+                    # Add the segment to the segment list of each end point.
+                    stubs[seg.p1].append(seg)
+                    stubs[seg.p2].append(seg)
+
+                # Keep only the segments with an unconnected endpoint that is not on a part pin.
+                stubs = {segs[0] for endpt, segs in stubs.items() if len(segs)==1 and not is_pin_pt(endpt)}
+                return stubs
+
+            trimmed_segments = set(segments[:])
+            stubs = get_stubs(trimmed_segments)
+            while stubs:
+                trimmed_segments -= stubs
+                stubs = get_stubs(trimmed_segments)
+            return list(trimmed_segments)
 
         def remove_jogs_old(net, segments, wires, net_bboxes, part_bboxes):
             """Remove jogs in wiring segments.
@@ -2845,6 +2880,8 @@ class Router:
                 for segment in segments:
                     if segment.p1 in corners and segment.p2 in corners:
 
+                        node.mid_seg_pts.extend((copy.copy(segment.p1), copy.copy(segment.p2)))
+
                         # Get the three segments in the jog.
                         jog_segs = set()
                         jog_segs.add(corners[segment.p1][0])
@@ -2886,6 +2923,8 @@ class Router:
                 # Either start at p1 and move vertically and then horizontally to p3, or
                 # move horizontally from p1 and then vertically to p3.
                 p2s = [Point(p1.x, p3.y), Point(p3.x, p1.y)]
+                if p2s[0] == p2s[1]:
+                    p2s = p2s[:-1]
 
                 # Shuffle the routing points so the applied correction isn't always the same orientation.
                 random.shuffle(p2s)
@@ -2894,8 +2933,12 @@ class Router:
                 for p2 in p2s:
 
                     # Replace the three-segment jog with these two right-angle segments.
-                    seg1 = Segment(p1, p2)
-                    seg2 = Segment(p2, p3)
+                    seg1 = Segment(copy.copy(p1), copy.copy(p2))
+                    if seg1.p2 < seg1.p1:
+                        seg1.p1, seg1.p2 = seg1.p2, seg1.p1
+                    seg2 = Segment(copy.copy(p2), copy.copy(p3))
+                    if seg2.p2 < seg2.p1:
+                        seg2.p1, seg2.p2 = seg2.p2, seg2.p1
 
                     # Check the new segments to see if they run into parts or segments of other nets.
                     if not obstructed(seg1) and not obstructed(seg2):
@@ -2907,17 +2950,21 @@ class Router:
 
                         # Return updated segments and set stop flag to false because segments were modified.
                         return segments, False
+                    
+        node.split_pts.clear()
+        node.mid_seg_pts.clear()
 
         # Get part bounding boxes so parts can be avoided when modifying net segments.
         part_bboxes = [p.bbox * p.tx for p in node.parts]
-            
-        def segments_bbox(segments):
-            """Return bounding box containing the given list of segments."""
-            seg_pts = list(chain(*((s.p1, s.p2) for s in segments)))
-            return BBox(*seg_pts)
         
         # Get dict of bounding boxes for the nets in this node.
         net_bboxes = {net:segments_bbox(segs) for net, segs in node.wires.items()}
+
+        # Get locations for part pins of each net. (For use when splitting net segments.)
+        net_pin_pts = dict()
+        for net in node.wires.keys():
+            for pins in node.get_internal_pins(net):
+                net_pin_pts[net] = [(pin.pt * pin.part.tx).round() for pin in pins]
 
         # Do a generalized cleanup of the wire segments of each net.
         for net, segments in node.wires.items():
@@ -2928,11 +2975,14 @@ class Router:
             # Keep only non zero-length segments.
             segments = [seg for seg in segments if seg.p1 != seg.p2]
 
+            # Make sure the segment endpoints are in the right order.
+            order_seg_points(segments)
+
             # Merge colinear, overlapping segments. Also removes any duplicated segments.
             segments = merge_segments(segments)
 
             # Split intersecting segments.
-            segments = split_segments(segments)
+            segments = split_segments(segments, net_pin_pts[net])
 
             # Keep only non zero-length segments.
             segments = [seg for seg in segments if seg.p1 != seg.p2]
@@ -2942,6 +2992,7 @@ class Router:
 
             node.wires[net] = segments
 
+
         # Remove jogs in the wire segments of each net.
         keep_cleaning = True
         while keep_cleaning:
@@ -2950,23 +3001,52 @@ class Router:
             for net, segments in node.wires.items():
 
                 while True:
+
+                    print(f"Start cleaning jogs from {net.name}")
+                    node.routing_debug_draw(routing_bbox, node.parts)
+
+                    # Split intersecting segments.
+                    segments = split_segments(segments, net_pin_pts[net])
+                    node.wires[net] = segments
+
+                    print(f"splitting segments of {net.name}")
+                    node.routing_debug_draw(routing_bbox, node.parts)
+
                     # Remove unnecessary wire jogs.
                     segments, stop = remove_jogs(net, segments, node.wires, net_bboxes, part_bboxes)
+                    node.wires[net] = segments
+
+                    print(f"removing jogs of {net.name}")
+                    node.routing_debug_draw(routing_bbox, node.parts)
 
                     # Keep only non zero-length segments.
                     segments = [seg for seg in segments if seg.p1 != seg.p2]
+                    node.wires[net] = segments
 
                     # Merge segments made colinear by removing jogs.
                     segments = merge_segments(segments)
+                    node.wires[net] = segments
+
+                    print(f"merging segments of {net.name}")
+                    node.routing_debug_draw(routing_bbox, node.parts)
 
                     # Split intersecting segments.
-                    segments = split_segments(segments)
+                    segments = split_segments(segments, net_pin_pts[net])
+                    node.wires[net] = segments
+
+                    print(f"splitting segments 2nd time of {net.name}")
+                    node.routing_debug_draw(routing_bbox, node.parts)
 
                     # Keep only non zero-length segments.
                     segments = [seg for seg in segments if seg.p1 != seg.p2]
+                    node.wires[net] = segments
 
                     # Trim wire stubs caused by removing jogs.
                     segments = trim_stubs(segments)
+                    node.wires[net] = segments
+        
+                    print(f"trimming stubs of {net.name}")
+                    node.routing_debug_draw(routing_bbox, node.parts)
 
                     if stop:
                         # Break from loop once net segments can no longer be improved.
@@ -3046,6 +3126,7 @@ class Router:
             other_stuff (list): Other stuff with a draw() method.
             options (dict, optional): Dictionary of options and values. Defaults to {}.
         """
+        return # REMOVE
 
         # Initialize drawing area.
         draw_scr, draw_tx, draw_font = draw_start(bbox)
@@ -3054,10 +3135,20 @@ class Router:
         for part in parts:
             draw_part(part, draw_scr, draw_tx, draw_font)
 
+        for pt in node.mid_seg_pts:
+            draw_endpoint(pt, draw_scr, draw_tx, color=(255, 0, 0), dot_radius=25)
+        node.mid_seg_pts.clear()
+
+        for pt in node.split_pts:
+            draw_endpoint(pt, draw_scr, draw_tx, color=(0,255, 0), dot_radius=20)
+
+        for pt in pin_pts:
+            draw_endpoint(pt, draw_scr, draw_tx, color=(0, 0, 255), dot_radius=15)
+
         # Draw wiring.
         for wires in node.wires.values():
             for wire in wires:
-                draw_seg(wire, draw_scr, draw_tx, (255, 0, 255), 3, dot_radius=0)
+                draw_seg(wire, draw_scr, draw_tx, (255, 0, 255), 3, dot_radius=10)
 
         # Draw other stuff (global routes, switchbox routes, etc.) that has a draw() method.
         for stuff in other_stuff:
@@ -3157,7 +3248,7 @@ class Router:
                 node.routing_debug_draw(routing_bbox, node.parts, global_routes, switchboxes, **options)
 
             # Now clean-up the wires and add junctions.
-            node.cleanup_wires()
+            node.cleanup_wires(routing_bbox)
             node.add_junctions()
 
             # If enabled, draw the global and detailed routing for debug purposes.
