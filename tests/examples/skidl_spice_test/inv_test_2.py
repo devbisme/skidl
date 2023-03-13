@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
+
 # from skidl import SKIDL, SPICE, TEMPLATE, Part, generate_netlist
 from skidl.pyspice import *  # isort:skip
+
 
 def test_inverters():
 
@@ -30,7 +32,7 @@ def test_inverters():
 
     gnd = Net("0")
     vdd = Net("VDD")
-    gnd & V(ref="VIN", dc_value=0.0@u_V)["n, p"] & Net("VIN") & Net("VOUT")
+    gnd & V(ref="VIN", dc_value=0.0 @ u_V)["n, p"] & Net("VIN") & Net("VOUT")
     generate_netlist()
 
     reset()
@@ -47,8 +49,8 @@ def test_inverters():
 
     # Go through the list, attaching the input of each inverter to the output of the previous one.
     for i in range(1, len(invs)):
-        invs[i-1].out & invs[i].a
-        
+        invs[i - 1].out & invs[i].a
+
     # Attach the output of the last inverter to the output net.
     invs[-1].out & Net("A_DELAY")
 

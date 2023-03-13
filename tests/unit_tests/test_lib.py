@@ -3,6 +3,7 @@
 # The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
 
 import os.path
+
 import pytest
 import sexpdata
 

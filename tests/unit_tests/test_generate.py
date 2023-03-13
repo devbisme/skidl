@@ -9,7 +9,6 @@ import os.path
 import sys
 import time
 
-
 import pytest
 
 import skidl
@@ -111,12 +110,16 @@ def create_schematic(repeat=1, flatness=1.0):
     for rep in range(repeat):
         try:
             generate_schematic(
-                filepath=output_dir, top_name=top_name+"_"+str(rep), flatness=flatness, **sch_options
+                filepath=output_dir,
+                top_name=top_name + "_" + str(rep),
+                flatness=flatness,
+                **sch_options
             )
         except RoutingFailure:
             num_rte_fails += 1
     if num_rte_fails:
         raise RoutingFailure
+
 
 @pytest.mark.xfail(raises=(RoutingFailure))
 def test_gen_sch_1():

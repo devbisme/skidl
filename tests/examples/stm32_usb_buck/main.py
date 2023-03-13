@@ -1,8 +1,9 @@
 import os
-from skidl import *
-import stm32_circuit as stm32
-import power_circuits as pc
 
+import power_circuits as pc
+import stm32_circuit as stm32
+
+from skidl import *
 
 # Delete sklib file or we get errors
 for file in os.listdir("."):

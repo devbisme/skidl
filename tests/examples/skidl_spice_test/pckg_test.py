@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
+
 # from skidl import SKIDL, SPICE, TEMPLATE, Part, generate_netlist
 from skidl.pyspice import *  # isort:skip
+
 
 def test_skywater_1():
 
@@ -195,11 +197,8 @@ def test_skywater_1():
 
     circ = generate_netlist()
     print(circ)
-    waveforms = (
-        circ.simulator().transient(step_time=0.01 @ u_ns, end_time=30 @ u_ns)
-    )
+    waveforms = circ.simulator().transient(step_time=0.01 @ u_ns, end_time=30 @ u_ns)
     oscope(waveforms, clk, *cnt)
-
 
 
 if __name__ == "__main__":

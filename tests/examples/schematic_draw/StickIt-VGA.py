@@ -27,11 +27,11 @@ def vga_port(red, grn, blu, hsync, vsync, gnd, logic_lvl=3.3):
     # a resistance of vga_input_impedance.
     R = (logic_lvl - vga_analog_max) * vga_input_impedance / vga_analog_max
     # The basic weight is R * (1 + 1/2 + 1/4 + ... + 1/2**(width-1))
-    r = R * sum([1.0 / 2 ** n for n in range(depth)])
+    r = R * sum([1.0 / 2**n for n in range(depth)])
     # The most significant color bit has a weight of r. The next bit has a weight
     # of 2r. The next bit has a weight of 4r, and so on. The weights are arranged
     # in decreasing order so the least significant weight is at the start of the list.
-    weights = [str(int(r * 2 ** n)) for n in reversed(range(depth))]
+    weights = [str(int(r * 2**n)) for n in reversed(range(depth))]
 
     # Quad resistor packs are used to create weighted sums of the digital
     # signals on the red, green and blue buses. (One resistor in each pack
