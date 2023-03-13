@@ -2581,6 +2581,53 @@ class Router:
 
             return merged_segs
         
+        def break_cycles(segments):
+            """Remove segments to break any cycles of a net's segments."""
+
+            # Create a dict storing set of segments adjacent to each endpoint.
+            adj_segs = defaultdict(set)
+            for seg in segments:
+                # Add segment to set for each endpoint.
+                adj_segs[seg.p1].add(seg)
+                adj_segs[seg.p2].add(seg)
+            
+            # Create a dict storing the list of endpoints adjacent to each endpoint.
+            adj_pts = dict()
+            for pt, segs in adj_segs.items():
+                # Store endpoints of all segments adjacent to endpoint, then remove the endpoint.
+                adj_pts[pt] = list({p for seg in segs for p in (seg.p1, seg.p2)})
+                adj_pts[pt].remove(pt)
+
+            # Start at any endpoint and visit adjacent endpoints until all have been visited.
+            # If an endpoint is seen more than once, then a cycle exists. Remove the segment forming the cycle.
+            visited_pts = [] # List of visited endpoints.
+            frontier_pts = list(adj_pts.keys())[:1]  # Arbitrary starting point.
+            while frontier_pts:
+
+                # Visit a point on the frontier.
+                frontier_pt = frontier_pts.pop()
+                visited_pts.append(frontier_pt)
+
+                # Check each adjacent endpoint for cycles.
+                for adj_pt in adj_pts[frontier_pt][:]:
+                    if adj_pt in visited_pts + frontier_pts:
+                        # This point was already reached by another path so there is a cycle.
+                        # Break it by removing segment between frontier_pt and adj_pt.
+                        loop_seg = (adj_segs[frontier_pt] & adj_segs[adj_pt]).pop()
+                        segments.remove(loop_seg)
+                        adj_segs[frontier_pt].remove(loop_seg)
+                        adj_segs[adj_pt].remove(loop_seg)
+                        adj_pts[frontier_pt].remove(adj_pt)
+                        adj_pts[adj_pt].remove(frontier_pt)
+                    else:
+                        # First time adjacent point has been reached, so add it to frontier.
+                        frontier_pts.append(adj_pt)
+                        # Keep this new frontier point from backtracking to the current frontier point later. 
+                        adj_pts[adj_pt].remove(frontier_pt)
+
+            return segments
+
+        
         def is_pin_pt(pt):
             """Return True if the point is on one of the part pins."""
             return pt in pin_pts
@@ -2959,6 +3006,9 @@ class Router:
 
             # Split intersecting segments.
             segments = split_segments(segments, net_pin_pts[net])
+
+            # Break loops of segments.
+            segments = break_cycles(segments)
 
             # Keep only non zero-length segments.
             segments = [seg for seg in segments if seg.p1 != seg.p2]
