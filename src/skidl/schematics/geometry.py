@@ -16,7 +16,6 @@ from future import standard_library
 
 from ..utilities import export_to_all
 
-
 __all__ = [
     "Vector",
     "tx_rot_0",
@@ -80,10 +79,14 @@ class Tx:
         return tx
 
     def __repr__(self):
-        return "{self.__class__}({self.a}, {self.b}, {self.c}, {self.d}, {self.dx}, {self.dy})".format(self=self)
+        return "{self.__class__}({self.a}, {self.b}, {self.c}, {self.d}, {self.dx}, {self.dy})".format(
+            self=self
+        )
 
     def __str__(self):
-        return "[{self.a}, {self.b}, {self.c}, {self.d}, {self.dx}, {self.dy}]".format(self=self)
+        return "[{self.a}, {self.b}, {self.c}, {self.d}, {self.dx}, {self.dy}]".format(
+            self=self
+        )
 
     def __mul__(self, tx):
         """Return the product of two transformation matrices."""
@@ -294,7 +297,7 @@ class BBox:
         Args:
             grid_spacing (float): Grid spacing.
         """
-        bbox = self.resize(Point(grid_spacing-1, grid_spacing-1))
+        bbox = self.resize(Point(grid_spacing - 1, grid_spacing - 1))
         bbox.min = bbox.min.snap(grid_spacing)
         bbox.max = bbox.max.snap(grid_spacing)
         return bbox

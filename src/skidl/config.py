@@ -24,7 +24,7 @@ from .logger import active_logger
 from .part_query import footprint_cache
 from .tools import ALL_TOOLS, KICAD, SKIDL
 from .tools.kicad import get_kicad_lib_tbl_dir
-from .utilities import TriggerDict, merge_dicts, export_to_all
+from .utilities import TriggerDict, export_to_all, merge_dicts
 
 standard_library.install_aliases()
 

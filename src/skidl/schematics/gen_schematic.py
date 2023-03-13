@@ -24,10 +24,10 @@ from ..scriptinfo import get_script_name
 from ..tools.kicad.constants import GRID
 from ..tools.kicad.eeschema_v5 import Eeschema_V5, pin_label_to_eeschema
 from ..tools.kicad.v5 import calc_hier_label_bbox, calc_symbol_bbox
+from ..utilities import export_to_all, rmv_attr
 from .geometry import BBox, Point, Tx, Vector
 from .place import Placer
 from .route import Router, RoutingFailure
-from ..utilities import export_to_all, rmv_attr
 
 standard_library.install_aliases()
 
@@ -57,7 +57,9 @@ def preprocess_parts_and_nets(circuit):
             part_unit.tx = Tx.from_symtx(getattr(part_unit, "symtx", ""))
 
             # Lock part orientation if it has a lot of pins or symtx was specified.
-            part_unit.orientation_locked = getattr(part_unit, "symtx", False) or len(part_unit.pins) > 6
+            part_unit.orientation_locked = (
+                getattr(part_unit, "symtx", False) or len(part_unit.pins) > 6
+            )
 
             # Assign pins from the parent part to the part unit.
             part_unit.grab_pins()
@@ -194,7 +196,7 @@ def finalize_parts_and_nets(circuit):
     # Remove any NetTerminals that were added.
     net_terminals = (p for p in circuit.parts if isinstance(p, NetTerminal))
     circuit.rmv_parts(*net_terminals)
-            
+
     # Return pins from the part units to their parent part.
     for part in circuit.parts:
         part.grab_pins()
@@ -344,7 +346,7 @@ class Node(Placer, Router, Eeschema_V5):
                     # The net has a user-assigned name, so add a terminal to it below.
                     pass
                 else:
-                    # No need for net terminal because there are multiple pins 
+                    # No need for net terminal because there are multiple pins
                     # and they are all in the same node.
                     continue
 
@@ -617,7 +619,7 @@ def gen_schematic(
             # Routing failed, so clean up ...
             finalize_parts_and_nets(circuit)
             # ... and expand routing area ...
-            expansion_factor *= 1.25 # TODO: Ad-hoc increase of expansion factor.
+            expansion_factor *= 1.25  # TODO: Ad-hoc increase of expansion factor.
             # ... and try again.
             continue
 

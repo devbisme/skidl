@@ -20,8 +20,7 @@ import sexpdata
 from future import standard_library
 
 from ...logger import active_logger
-
-from ...utilities import num_to_chars, export_to_all, to_list
+from ...utilities import export_to_all, num_to_chars, to_list
 
 standard_library.install_aliases()
 

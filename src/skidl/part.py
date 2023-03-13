@@ -362,7 +362,7 @@ class Part(SkidlBaseObject):
                 score += 2
             score += score_pins()
 
-        return score/3
+        return score / 3
 
     def _find_min_max_pins(self):
         """Return the minimum and maximum pin numbers for the part."""
@@ -810,7 +810,6 @@ class Part(SkidlBaseObject):
 
         for pin in self.pins:
             pin.disconnect()
-
 
     def is_connected(self):
         """

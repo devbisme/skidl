@@ -15,8 +15,8 @@ from __future__ import (  # isort:skip
 
 from builtins import super, zip
 from copy import copy
-from deprecation import deprecated
 
+from deprecation import deprecated
 from future import standard_library
 
 from .bus import Bus

@@ -484,17 +484,16 @@ class Circuit(SkidlBaseObject):
             if len(net.nets) > 1:
                 net.merge_names()
 
-
     def merge_nets(self):
         """Merge multi-segment nets into a single net."""
-        
+
         merged_nets = set()
         for net in self.nets:
             if len(net.nets) > 1 and net not in merged_nets:
 
                 # Select a single name for the net segments.
                 net.merge_names()
-                
+
                 # Record merged nets so they aren't processed again.
                 merged_nets.update(set(net.nets) - {net})
 
@@ -504,7 +503,6 @@ class Circuit(SkidlBaseObject):
 
         # Remove merged nets from the circuit.
         self.nets = list(set(self.nets) - merged_nets)
-
 
     def _check_for_empty_footprints(self):
         """Make sure part footprints aren't empty before generating netlist/PCB."""
@@ -1003,6 +1001,7 @@ class Circuit(SkidlBaseObject):
         """
 
         import skidl
+
         from .tools import tool_modules
 
         # Reset the counters to clear any warnings/errors from previous run.
@@ -1016,8 +1015,9 @@ class Circuit(SkidlBaseObject):
             """Handle the situation of a Part with no footprint when generating a schematic."""
 
             active_logger.warning(
-                "No footprint for {part}/{ref}.".format(part=part.name, ref=part.ref))
-            
+                "No footprint for {part}/{ref}.".format(part=part.name, ref=part.ref)
+            )
+
             # Supply a nonsense footprint just so no complaints are raised when the EESCHEMA code is generated.
             part.footprint = ":"
 
@@ -1033,7 +1033,6 @@ class Circuit(SkidlBaseObject):
             skidl.empty_footprint_handler = save_empty_footprint_handler
 
         active_logger.report_summary("generating schematic")
-
 
     def generate_dot(
         self,

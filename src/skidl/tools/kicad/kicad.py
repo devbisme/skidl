@@ -22,7 +22,7 @@ from future import standard_library
 from ...logger import active_logger
 from ...pckg_info import __version__
 from ...scriptinfo import get_script_name, scriptinfo
-from ...utilities import find_and_open_file, add_quotes, export_to_all
+from ...utilities import add_quotes, export_to_all, find_and_open_file
 from . import v5, v6
 
 standard_library.install_aliases()

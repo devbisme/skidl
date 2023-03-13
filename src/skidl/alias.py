@@ -18,7 +18,7 @@ from builtins import str, super
 
 from future import standard_library
 
-from .utilities import flatten, export_to_all
+from .utilities import export_to_all, flatten
 
 standard_library.install_aliases()
 

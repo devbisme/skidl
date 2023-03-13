@@ -22,7 +22,7 @@ from .net import Net
 from .network import Network
 from .pin import Pin
 from .skidlbaseobj import SkidlBaseObject
-from .utilities import expand_buses, flatten, export_to_all
+from .utilities import expand_buses, export_to_all, flatten
 
 standard_library.install_aliases()
 

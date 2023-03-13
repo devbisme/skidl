@@ -22,7 +22,7 @@ from .logger import get_script_name, stop_log_file_output
 from .part import default_empty_footprint_handler
 from .pin import Pin
 from .tools import KICAD, SKIDL, lib_suffixes
-from .utilities import norecurse, export_to_all
+from .utilities import export_to_all, norecurse
 
 standard_library.install_aliases()
 

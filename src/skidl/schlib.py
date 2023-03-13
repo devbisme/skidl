@@ -22,11 +22,11 @@ from .alias import Alias
 from .logger import active_logger
 from .utilities import (
     cnvt_to_var_name,
+    export_to_all,
     filter_list,
     flatten,
     list_or_scalar,
     opened,
-    export_to_all,
 )
 
 standard_library.install_aliases()

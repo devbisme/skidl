@@ -22,18 +22,16 @@ from future import standard_library
 
 from ...logger import active_logger
 from ...part import LIBRARY
-
 from ...schematics.geometry import (
     BBox,
     Point,
     Vector,
-    tx_rot_90,
-    tx_rot_270,
-    tx_rot_180,
     tx_rot_0,
+    tx_rot_90,
+    tx_rot_180,
+    tx_rot_270,
 )
-
-from ...utilities import rmv_quotes, find_and_read_file, num_to_chars, export_to_all
+from ...utilities import export_to_all, find_and_read_file, num_to_chars, rmv_quotes
 from .constants import HIER_TERM_SIZE, PIN_LABEL_FONT_SIZE
 
 standard_library.install_aliases()

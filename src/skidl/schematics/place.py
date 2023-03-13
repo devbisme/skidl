@@ -26,9 +26,9 @@ from future import standard_library
 
 from ..circuit import Circuit
 from ..pin import Pin
-from .debug_draw import draw_end, draw_placement, draw_start, draw_pause
-from .geometry import BBox, Point, Tx, Vector
 from ..utilities import export_to_all, rmv_attr
+from .debug_draw import draw_end, draw_pause, draw_placement, draw_start
+from .geometry import BBox, Point, Tx, Vector
 
 standard_library.install_aliases()
 
@@ -49,7 +49,7 @@ __all__ = [
 # 1) multiple groups of parts that are all interconnected by one or
 # more nets, and 2) a single group of parts that are not connected
 # by any explicit nets (i.e., floating parts).
-# 
+#
 # Each group of connected parts are placed using force-directed placement.
 # Each net exerts an attractive force pulling parts together, and
 # any overlap of parts exerts a repulsive force pushing them apart.
@@ -209,10 +209,10 @@ def adjust_orientations(parts, nets, **options):
 
             # Find the part that has the largest decrease in cost.
             part_to_move = min(unmoved_parts, key=lambda p: p.delta_cost)
-       
+
             # Reorient the part with the Tx that created the largest decrease in cost.
             part_to_move.tx = part_to_move.delta_cost_tx
-       
+
             # Transfer the part from the unmoved to the moved part list.
             unmoved_parts.remove(part_to_move)
             moved_parts.append(part_to_move)
@@ -225,12 +225,12 @@ def adjust_orientations(parts, nets, **options):
             # Python 2.7 doesn't have itertools.accumulate().
             cost_seq = list(delta_costs)
             for i in range(1, len(cost_seq)):
-                cost_seq[i] = cost_seq[i-1] + cost_seq[i]
+                cost_seq[i] = cost_seq[i - 1] + cost_seq[i]
         min_cost = min(cost_seq)
         min_index = cost_seq.index(min_cost)
 
         # Move all the parts after that point back to their starting positions.
-        for part in moved_parts[min_index+1:]:
+        for part in moved_parts[min_index + 1 :]:
             part.tx = part.prev_tx
 
         orientation_cost_history.append(min_cost)
@@ -241,6 +241,7 @@ def adjust_orientations(parts, nets, **options):
 
     if options.get("show_orientation_cost"):
         import matplotlib.pyplot as plt
+
         plt.scatter(range(len(orientation_cost_history)), orientation_cost_history)
         plt.show()
 
@@ -265,12 +266,14 @@ def add_placement_bboxes(parts, **options):
 
         # Add padding for routing to the right and upper sides.
         part.place_bbox.add(
-            part.place_bbox.max + (Point(padding["L"], padding["D"]) * GRID * expansion_factor)
+            part.place_bbox.max
+            + (Point(padding["L"], padding["D"]) * GRID * expansion_factor)
         )
 
         # Add padding for routing to the left and lower sides.
         part.place_bbox.add(
-            part.place_bbox.min - (Point(padding["R"], padding["U"]) * GRID * expansion_factor)
+            part.place_bbox.min
+            - (Point(padding["R"], padding["U"]) * GRID * expansion_factor)
         )
 
 
@@ -335,7 +338,9 @@ def add_anchor_and_pull_pins(parts, nets, **options):
 
             # Only leave one randomly-chosen anchor point for a net on each part.
             for net in anchor_pins.keys():
-                anchor_pins[net] = [random.choice(anchor_pins[net]), ]
+                anchor_pins[net] = [
+                    random.choice(anchor_pins[net]),
+                ]
             for net in anchor_pins.keys():
                 assert len(anchor_pins[net]) == 1
 
@@ -419,10 +424,12 @@ def net_tension_dist(part, nets, **options):
             anchor_pt = anchor_pin.place_pt * anchor_pin.part.tx
 
             # Find the dist from the anchor point to each pulling point.
-            dists = [(anchor_pt - pp.place_pt * pp.part.tx).magnitude for pp in pull_pins]
+            dists = [
+                (anchor_pt - pp.place_pt * pp.part.tx).magnitude for pp in pull_pins
+            ]
 
             # Only the closest pulling point affects the tension since that is
-            # probably the 
+            # probably the
             tension += min(dists)
 
     return tension
@@ -491,7 +498,7 @@ def net_force_dist_avg(part, nets, **options):
 
     # Notes:
     #     Computing net force proportional to distance between part pins
-    #     can lead to highly-connected parts moving quickly and jumping over 
+    #     can lead to highly-connected parts moving quickly and jumping over
     #     each other because of the total accumulated force. This can lead
     #     to a cascade where the parts actually start moving farther apart.
     #
@@ -642,7 +649,9 @@ def total_part_force(part, parts, nets, alpha, **options):
     Returns:
         Vector: Weighted total of net attractive and overlap repulsion forces.
     """
-    return (1 - alpha) * net_force(part, nets, **options) + alpha * overlap_force(part, parts, **options)
+    return (1 - alpha) * net_force(part, nets, **options) + alpha * overlap_force(
+        part, parts, **options
+    )
 
 
 def similarity_force(part, parts, similarity, **options):
@@ -709,7 +718,7 @@ def compress_parts(parts, nets, scr, tx, font, **options):
     # Make list of parts that will be moved, but keep one stationary to act as an anchor.
     mobile_parts = parts[:]
     random.shuffle(mobile_parts)
-    mobile_parts[0].force = Vector(0,0)  # For debug drawing purposes.
+    mobile_parts[0].force = Vector(0, 0)  # For debug drawing purposes.
     mobile_parts = mobile_parts[1:]
 
     # Set a threshold for detecting when the parts have stopped moving
@@ -723,7 +732,7 @@ def compress_parts(parts, nets, scr, tx, font, **options):
     # drops below a threshold.
     mobility_history = []
     while True:
-        
+
         random.shuffle(mobile_parts)  # Move parts in random order.
 
         # Move each part under the influence of the forces of attached nets.
@@ -753,6 +762,7 @@ def compress_parts(parts, nets, scr, tx, font, **options):
 
     if options.get("show_mobility"):
         import matplotlib.pyplot as plt
+
         try:
             mobility_history = [math.log10(m) for m in mobility_history]
             plt.plot(mobility_history)
@@ -779,11 +789,10 @@ def push_and_pull(parts, nets, force_func, speed, scr, tx, font, **options):
         # No need to do placement if there's less than two parts.
         return
 
-
     # Make list of parts that will be moved, but keep one stationary to act as an anchor.
     mobile_parts = parts[:]
     random.shuffle(mobile_parts)
-    mobile_parts[0].force = Vector(0,0)  # For debug drawing purposes.
+    mobile_parts[0].force = Vector(0, 0)  # For debug drawing purposes.
     mobile_parts = mobile_parts[1:]
 
     # Set a threshold for detecting when the parts have stopped moving
@@ -805,11 +814,11 @@ def push_and_pull(parts, nets, force_func, speed, scr, tx, font, **options):
     # Arrange parts under influence of net attractions and part overlaps.
     mobility_history = []
     for alpha in alpha_schedule:
-        
+
         # Repetitively arrange parts under influence of net attractions and
         # part overlap repulsions. Stop when part mobility drops below a threshold.
         while True:
-            
+
             random.shuffle(mobile_parts)  # Move parts in random order.
 
             mobility = 0.0
@@ -826,7 +835,7 @@ def push_and_pull(parts, nets, force_func, speed, scr, tx, font, **options):
             if scr:
                 # Draw current part placement for debugging purposes.
                 draw_placement(parts, nets, scr, tx, font)
-            
+
             if mobility <= all_still:
                 # Parts aren't moving much, so exit while loop.
                 # Be sure to anchor one part or else the drift of the entire group will
@@ -848,13 +857,13 @@ def push_and_pull(parts, nets, force_func, speed, scr, tx, font, **options):
 
     if options.get("show_mobility"):
         import matplotlib.pyplot as plt
+
         try:
             mobility_history = [math.log10(m) for m in mobility_history]
             plt.plot(mobility_history)
             plt.show()
         except ValueError:
             pass
-        
 
 
 def remove_overlaps(parts, nets, scr, tx, font, **options):
@@ -946,7 +955,9 @@ def slip_and_slide(parts, nets, scr, tx, font, **options):
             draw_placement(parts, nets, scr, tx, font)
 
 
-def evolve_placement(parts, nets, force_func, speeds, scr=None, tx=None, font=None, **options):
+def evolve_placement(
+    parts, nets, force_func, speeds, scr=None, tx=None, font=None, **options
+):
     """Evolve part placement looking for optimum using force function.
 
     Args:
@@ -1057,7 +1068,6 @@ class Placer:
 
         return connected_parts, internal_nets, floating_parts
 
-
     def place_parts(node, connected_parts, internal_nets, floating_parts, **options):
         """Place individual parts.
 
@@ -1097,36 +1107,49 @@ class Placer:
                 draw_scr, draw_tx, draw_font = None, None, None
 
             if options.get("compress_before_place"):
-                compress_parts(group, internal_nets, draw_scr, draw_tx, draw_font, **options)
+                compress_parts(
+                    group, internal_nets, draw_scr, draw_tx, draw_font, **options
+                )
 
             if options.get("rotate_parts"):
 
-                force_func = functools.partial(total_part_force, parts=group, nets=internal_nets)
+                force_func = functools.partial(
+                    total_part_force, parts=group, nets=internal_nets
+                )
                 evolve_placement(
-                        group,
-                        internal_nets,
-                        force_func,
-                        speeds=(1.0*Placer.speed, ),
-                        scr=draw_scr,
-                        tx=draw_tx,
-                        font=draw_font,
-                        **options
-                    )
-
-                adjust_orientations(group, internal_nets, draw_scr=draw_scr, draw_tx=draw_tx, draw_font=draw_font, **options)
-
-            # Do force-directed placement of the parts in the group.
-            force_func = functools.partial(total_part_force, parts=group, nets=internal_nets)
-            evolve_placement(
                     group,
                     internal_nets,
                     force_func,
-                    speeds=(1.0*Placer.speed, ),
+                    speeds=(1.0 * Placer.speed,),
                     scr=draw_scr,
                     tx=draw_tx,
                     font=draw_font,
                     **options
                 )
+
+                adjust_orientations(
+                    group,
+                    internal_nets,
+                    draw_scr=draw_scr,
+                    draw_tx=draw_tx,
+                    draw_font=draw_font,
+                    **options
+                )
+
+            # Do force-directed placement of the parts in the group.
+            force_func = functools.partial(
+                total_part_force, parts=group, nets=internal_nets
+            )
+            evolve_placement(
+                group,
+                internal_nets,
+                force_func,
+                speeds=(1.0 * Placer.speed,),
+                scr=draw_scr,
+                tx=draw_tx,
+                font=draw_font,
+                **options
+            )
 
             if options.get("draw_placement"):
                 draw_end()
@@ -1182,14 +1205,27 @@ class Placer:
                 # Compress all floating parts together under influence of similarity forces only (no replusion).
                 def sim_frc(part, parts, similarity, alpha, **options):
                     return similarity_force(part, parts, similarity, **options)
-                sim_frc = functools.partial(sim_frc, parts=floating_parts, similarity=part_similarity)
-                push_and_pull(floating_parts, [], sim_frc, Placer.speed, draw_scr, draw_tx, draw_font, **options)
+
+                sim_frc = functools.partial(
+                    sim_frc, parts=floating_parts, similarity=part_similarity
+                )
+                push_and_pull(
+                    floating_parts,
+                    [],
+                    sim_frc,
+                    Placer.speed,
+                    draw_scr,
+                    draw_tx,
+                    draw_font,
+                    **options
+                )
                 if options.get("draw_placement"):
                     draw_pause()
 
             # Do force-directed placement of the parts in the group.
             force_func = functools.partial(
-                total_similarity_force, parts=floating_parts, similarity=part_similarity)
+                total_similarity_force, parts=floating_parts, similarity=part_similarity
+            )
             evolve_placement(
                 floating_parts,
                 [],
@@ -1212,7 +1248,6 @@ class Placer:
 
         return connected_parts, floating_parts
 
-
     def place_blocks(node, connected_parts, floating_parts, children, **options):
         """Place blocks of parts and hierarchical sheets.
 
@@ -1228,9 +1263,7 @@ class Placer:
         class PartBlock:
             def __init__(self, src, bbox, anchor_pt, snap_pt, tag):
                 self.src = src
-                self.place_bbox = (
-                    bbox  # FIXME: Is this needed if place_bbox includes room for routing?
-                )
+                self.place_bbox = bbox  # FIXME: Is this needed if place_bbox includes room for routing?
                 self.lbl_bbox = bbox  # Needed for drawing during debug.
                 self.anchor_pt = anchor_pt
                 self.anchor_pin = Pin()
@@ -1363,7 +1396,9 @@ class Placer:
         node.place_parts(connected_parts, internal_nets, floating_parts, **options)
 
         # Place blocks of parts in this node.
-        node.place_blocks(connected_parts, floating_parts, node.children.values(), **options)
+        node.place_blocks(
+            connected_parts, floating_parts, node.children.values(), **options
+        )
 
         # Calculate the bounding box for the node after placement of parts and children.
         node.calc_bbox()

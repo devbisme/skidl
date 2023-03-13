@@ -23,8 +23,8 @@ from future import standard_library
 
 from ..part import Part
 from ..tools.kicad.constants import GRID
-from .geometry import BBox, Point, Segment, Tx, Vector
 from ..utilities import export_to_all
+from .geometry import BBox, Point, Segment, Tx, Vector
 
 standard_library.install_aliases()
 
@@ -156,7 +156,7 @@ def draw_part(part, scr, tx, font):
         for pin in part:
             if hasattr(pin, "place_pt"):
                 pt = pin.place_pt * part.tx
-                draw_endpoint(pt, scr, tx, color=(200,0,200), dot_radius=10)
+                draw_endpoint(pt, scr, tx, color=(200, 0, 200), dot_radius=10)
     except TypeError:
         # Probably trying to draw a block of parts which has no pins and can't iterate thru them.
         pass

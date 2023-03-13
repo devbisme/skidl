@@ -1,7 +1,7 @@
 import os
 import os.path
 
-from skidl import SchLib, KICAD, SKIDL
+from skidl import KICAD, SKIDL, SchLib
 
 
 def convert_libs(from_dir, to_dir):

@@ -20,8 +20,8 @@ from collections import OrderedDict
 from future import standard_library
 
 from ...schematics.geometry import BBox, Point, Tx, Vector
-from .constants import GRID, BLK_INT_PAD, BOX_LABEL_FONT_SIZE, PIN_LABEL_FONT_SIZE
 from ...utilities import export_to_all
+from .constants import BLK_INT_PAD, BOX_LABEL_FONT_SIZE, GRID, PIN_LABEL_FONT_SIZE
 
 standard_library.install_aliases()
 
@@ -180,7 +180,7 @@ def wire_to_eeschema(net, wire, tx):
 def junction_to_eeschema(net, junctions, tx):
     eeschema = []
     for junction in junctions:
-        pt = (junction *tx).round()
+        pt = (junction * tx).round()
         eeschema.append("Connection ~ {} {}".format(pt.x, pt.y))
     eeschema.append("")  # For blank line at end.
     return "\n".join(eeschema)
