@@ -54,14 +54,14 @@ if os.getenv("DEBUG_DRAW"):
     # These options control debugging output.
     # To view schematic debugging output, use the command:
     #    DEBUG_DRAW=1 pytest ...
-    # sch_options.update({"draw_placement": True})
+    sch_options.update({"draw_placement": True})
     # sch_options.update({"draw_all_terminals": True})
     # sch_options.update({"show_capacities": True})
     # sch_options.update({"draw_routing_channels": True})
     # sch_options.update({"draw_global_routing": True})
     # sch_options.update({"draw_assigned_terminals": True})
     # sch_options.update({"draw_switchbox_boundary": True})
-    sch_options.update({"draw_switchbox_routing": True})
+    # sch_options.update({"draw_switchbox_routing": True})
 
 
 def _empty_footprint_handler(part):
@@ -254,6 +254,40 @@ def test_gen_sch_place():
             Net("A") & r() & qs[0].B
             qs[-1].E & gnd
             qs[-1].C & Net("O")
+
+    test()
+    create_schematic(flatness=0.5)
+
+
+@pytest.mark.xfail(raises=RoutingFailure)
+def test_gen_sch_place_2():
+    @subcircuit
+    def test():
+        q = Part(
+            lib="Device.lib",
+            name="Q_PNP_CBE",
+            footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2",
+            dest=TEMPLATE,
+            symtx="VV",
+        )
+        r = Part(
+            "Device.lib", "R", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE, symtx="VV"
+        )
+        vcc = Net("VCC", netio="i")
+        gnd = Net("GND", netio="i")
+
+        n = 5
+        qs = []
+        rs = []
+        for i in range(n):
+            qs.append(q())
+            rs.append(r())
+            vcc & rs[-1] & qs[-1]["c,e"]
+            if i:
+                qs[-2].E & qs[-1].B
+        Net("A", netio="i") & r() & qs[0].B
+        qs[-1].E & gnd
+        qs[-1].C & Net("O", netio="o")
 
     test()
     create_schematic(flatness=0.5)

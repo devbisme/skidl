@@ -68,27 +68,6 @@ __all__ = [
 ###################################################################
 
 
-def random_placement(parts):
-    """Randomly place parts within an appropriately-sized area.
-
-    Args:
-        parts (list): List of Parts to place.
-    """
-
-    # Compute appropriate size to hold the parts based on their areas.
-    area = 0
-    for part in parts:
-        area += part.place_bbox.area
-    side = 3 * math.sqrt(area)  # FIXME: Multiplier is ad-hoc.
-
-    # Place parts randomly within area.
-    for part in parts:
-        pt = Point(random.random() * side, random.random() * side)
-        part.tx.move_to(pt)
-        # The following setter doesn't work in Python 2.7.18.
-        # part.tx.origin = Point(random.random() * side, random.random() * side)
-
-
 def get_snap_pt(part_or_blk):
     """Get the point for snapping the Part or PartBlock to the grid.
 
@@ -128,6 +107,181 @@ def snap_to_grid(part_or_blk):
     part_or_blk.tx *= snap_tx
 
 
+def add_placement_bboxes(parts, **options):
+    """Expand part bounding boxes to include space for subsequent routing."""
+
+    expansion_factor = options.get("expansion_factor", 1.0)
+    for part in parts:
+
+        # Placement bbox starts off with the part bbox (including any net labels).
+        part.place_bbox = BBox()
+        part.place_bbox.add(part.lbl_bbox)
+
+        # Compute the routing area for each side based on the number of pins on each side.
+        padding = {"U": 1, "D": 1, "L": 1, "R": 1}  # Min padding of 1 channel per side.
+        for pin in part:
+            if pin.stub is False and pin.is_connected():
+                padding[pin.orientation] += 1
+
+        # Add padding for routing to the right and upper sides.
+        part.place_bbox.add(
+            part.place_bbox.max
+            + (Point(padding["L"], padding["D"]) * GRID * expansion_factor)
+        )
+
+        # Add padding for routing to the left and lower sides.
+        part.place_bbox.add(
+            part.place_bbox.min
+            - (Point(padding["R"], padding["U"]) * GRID * expansion_factor)
+        )
+
+
+def rmv_placement_bboxes(parts):
+    """Remove expanded bounding boxes."""
+
+    rmv_attr(parts, "place_bbox")
+
+
+def add_anchor_pull_pins(parts, nets, **options):
+    """Add positions of anchor and pull pins for attractive net forces between parts.
+
+    Args:
+        part (list): List of movable parts.
+        nets (list): List of attractive nets between parts.
+        options (dict): Dict of options and values that enable/disable functions.
+    """
+
+    def add_place_pt(part, pin):
+        """Add the point for a pin on the placement boundary of a part."""
+
+        pin.route_pt = pin.pt  # For drawing of nets during debugging.
+        pin.place_pt = Point(pin.pt.x, pin.pt.y)
+        offset = 1 * GRID
+        if pin.orientation == "U":
+            pin.place_pt.y = part.lbl_bbox.min.y - offset
+        elif pin.orientation == "D":
+            pin.place_pt.y = part.lbl_bbox.max.y + offset
+        elif pin.orientation == "L":
+            pin.place_pt.x = part.lbl_bbox.max.x + offset
+        elif pin.orientation == "R":
+            pin.place_pt.x = part.lbl_bbox.min.x - offset
+        else:
+            raise RuntimeError("Unknown pin orientation.")
+
+    # Add dicts for anchor and pull pins to each movable part.
+    for part in parts:
+        part.anchor_pins = defaultdict(list)
+        part.pull_pins = defaultdict(list)
+
+    # Assign pins on each net to part anchor and pull pin lists.
+    for net in nets:
+
+        # Get net pins that are on movable parts.
+        pins = {pin for pin in net.pins if pin.part in parts}
+
+        # Get the set of parts with pins on the net.
+        net_parts = {pin.part for pin in pins}
+
+        # Add each pin as an anchor on the part that contains it and
+        # as a pull pin on all the other parts that will be pulled by this part.
+        for pin in pins:
+            pin.part.anchor_pins[net].append(pin)
+            add_place_pt(pin.part, pin)
+            for part in net_parts - {pin.part}:
+                part.pull_pins[net].append(pin)
+
+    # Set part anchor pin for floating parts. (Set but not used in net-connected parts.)
+    for part in parts:
+        try:
+            # Set anchor at top-most pin so floating part tops will align.
+            anchor_pin = max(part.pins, key=lambda pin: pin.pt.y)
+            add_place_pt(part, anchor_pin)
+            part.anchor_pin = anchor_pin
+        except ValueError:
+            # Set anchor for part with no pins at all.
+            part.anchor_pin = Pin()
+            part.anchor_pin.place_pt = part.place_bbox.max
+
+
+def trim_anchor_pull_pins(parts):
+    """Selectively remove anchor and pull pins from Part objects.
+
+    Args:
+        parts (list): List of movable parts.
+    """
+
+    if options.get("trim_anchor_pull_pins"):
+        for part in parts:
+
+            # Some nets attach to multiple pins on the same part. Trim the
+            # anchor and pull pins for each net to a single pin for each part.
+
+            # Only leave one randomly-chosen anchor point for a net on each part.
+            anchor_pins = part.anchor_pins
+            for net in anchor_pins.keys():
+                anchor_pins[net] = [
+                    random.choice(anchor_pins[net]),
+                ]
+            for net in anchor_pins.keys():
+                assert len(anchor_pins[net]) == 1
+
+            # Remove nets that have unusually large number of pulling points.
+            # import statistics
+            # fanouts = [len(pins) for pins in pull_pins.values()]
+            # stdev = statistics.pstdev(fanouts)
+            # avg = statistics.fmean(fanouts)
+            # threshold = avg + 1*stdev
+            # anchor_pins = {net: pins for net, pins in anchor_pins.items() if len(pull_pins[net]) <= threshold}
+            # pull_pins = {net: pins for net, pins in pull_pins.items() if len(pins) <= threshold}
+
+            # # Only leave one randomly-chosen pulling point for a net on each part.
+            # for net, pins in pull_pins.items():
+            #     part_pins = defaultdict(list)
+            #     for pin in pins:
+            #         part_pins[pin.part].append(pin)
+            #     pull_pins[net].clear()
+            #     for prt in part_pins.keys():
+            #         pull_pins[net].append(random.choice(part_pins[prt]))
+            # for net, pins in pull_pins.items():
+            #     prts = [pin.part for pin in pins]
+            #     assert len(prts) == len(set(prts))
+
+
+def rmv_anchor_and_pull_pins(parts):
+    """Remove anchor and pull pin information from Part objects.
+
+    Args:
+        parts (list): List of movable parts.
+    """
+
+    for part in parts:
+        for attr in ("route_pt", "place_pt"):
+            rmv_attr(part.pins, attr)
+    for attr in ("anchor_pin", "anchor_pins", "pull_pins"):
+        rmv_attr(parts, attr)
+
+
+def random_placement(parts):
+    """Randomly place parts within an appropriately-sized area.
+
+    Args:
+        parts (list): List of Parts to place.
+    """
+
+    # Compute appropriate size to hold the parts based on their areas.
+    area = 0
+    for part in parts:
+        area += part.place_bbox.area
+    side = 3 * math.sqrt(area)  # FIXME: Multiplier is ad-hoc.
+
+    # Place parts randomly within area.
+    for part in parts:
+        pt = Point(random.random() * side, random.random() * side)
+        part.tx.move_to(pt)
+        # The following setter doesn't work in Python 2.7.18.
+        # part.tx.origin = Point(random.random() * side, random.random() * side)
+
+
 def adjust_orientations(parts, nets, **options):
     """Adjust orientation of parts.
 
@@ -135,9 +289,6 @@ def adjust_orientations(parts, nets, **options):
         parts (list): List of Parts to adjust.
         nets (list): List of Nets connecting Parts.
         options (dict): Dict of options and values that enable/disable functions.
-
-    Notes:
-        This function doesn't work. Parts are poorly re-oriented.
     """
 
     def find_best_orientation(part):
@@ -145,7 +296,7 @@ def adjust_orientations(parts, nets, **options):
 
         # Store starting orientation and its cost.
         part.prev_tx = copy(part.tx)
-        current_cost = net_tension_dist(part, nets, **options)
+        current_cost = net_tension(part, nets, **options)
 
         # Now find the orientation that has the largest decrease in cost.
         best_delta_cost = float("inf")
@@ -164,7 +315,7 @@ def adjust_orientations(parts, nets, **options):
 
                 else:
                     # Calculate the cost of the current orientation.
-                    delta_cost = net_tension_dist(part, nets, **options) - current_cost
+                    delta_cost = net_tension(part, nets, **options) - current_cost
                     if delta_cost < best_delta_cost:
                         # Save the largest decrease in cost and the associated orientation.
                         best_delta_cost = delta_cost
@@ -248,153 +399,6 @@ def adjust_orientations(parts, nets, **options):
     rmv_attr(parts, ("prev_tx", "delta_cost"))
 
 
-def add_placement_bboxes(parts, **options):
-    """Expand part bounding boxes to include space for subsequent routing."""
-
-    expansion_factor = options.get("expansion_factor", 1.0)
-    for part in parts:
-
-        # Placement bbox starts off with the part bbox (including any net labels).
-        part.place_bbox = BBox()
-        part.place_bbox.add(part.lbl_bbox)
-
-        # Compute the routing area for each side based on the number of pins on each side.
-        padding = {"U": 1, "D": 1, "L": 1, "R": 1}  # Min padding of 1 channel per side.
-        for pin in part:
-            if pin.stub is False and pin.is_connected():
-                padding[pin.orientation] += 1
-
-        # Add padding for routing to the right and upper sides.
-        part.place_bbox.add(
-            part.place_bbox.max
-            + (Point(padding["L"], padding["D"]) * GRID * expansion_factor)
-        )
-
-        # Add padding for routing to the left and lower sides.
-        part.place_bbox.add(
-            part.place_bbox.min
-            - (Point(padding["R"], padding["U"]) * GRID * expansion_factor)
-        )
-
-
-def rmv_placement_bboxes(parts):
-    """Remove expanded bounding boxes."""
-
-    rmv_attr(parts, "place_bbox")
-
-
-def add_anchor_and_pull_pins(parts, nets, **options):
-    """Add positions of anchor and pull pins for attractive net forces between parts.
-
-    Args:
-        part (list): List of movable parts.
-        nets (list): List of attractive nets between parts.
-        options (dict): Dict of options and values that enable/disable functions.
-    """
-
-    def add_place_pt(part, pin):
-        """Add the point for a pin on the placement boundary of a part."""
-
-        pin.route_pt = pin.pt  # For drawing of nets during debugging.
-        pin.place_pt = Point(pin.pt.x, pin.pt.y)
-        offset = 1 * GRID
-        if pin.orientation == "U":
-            pin.place_pt.y = part.lbl_bbox.min.y - offset
-        elif pin.orientation == "D":
-            pin.place_pt.y = part.lbl_bbox.max.y + offset
-        elif pin.orientation == "L":
-            pin.place_pt.x = part.lbl_bbox.max.x + offset
-        elif pin.orientation == "R":
-            pin.place_pt.x = part.lbl_bbox.min.x - offset
-        else:
-            raise RuntimeError("Unknown pin orientation.")
-
-    for part in parts:
-
-        # These store the anchor pins where each net attaches to the given part
-        # and the pulling pins where each net attaches to other parts.
-        anchor_pins = defaultdict(list)
-        pull_pins = defaultdict(list)
-
-        # Find anchor pins on the part and pulling pins on other parts.
-        # TODO: instead of iterating through parts, iterate through pins of nets.
-        for part_pin in part.pins:
-            net = part_pin.net
-            if net in nets:
-                # Only find anchor/pulling points on active internal nets.
-                for pin in net.pins:
-                    if pin.part is part:
-                        # Anchor parts for this net are on the given part.
-                        anchor_pins[net].append(pin)
-                        add_place_pt(part, pin)
-                    elif pin.part in parts:
-                        # Everything else is a pulling point, but it has to
-                        # be on a part that is in the set of movable parts.
-                        pull_pins[net].append(pin)
-
-        if options.get("trim_anchor_pull_pins"):
-            # Some nets attach to multiple pins on the same part. Trim the
-            # anchor and pull pins for each net to a single pin for each part.
-
-            # Only leave one randomly-chosen anchor point for a net on each part.
-            for net in anchor_pins.keys():
-                anchor_pins[net] = [
-                    random.choice(anchor_pins[net]),
-                ]
-            for net in anchor_pins.keys():
-                assert len(anchor_pins[net]) == 1
-
-            # Remove nets that have unusually large number of pulling points.
-            # import statistics
-            # fanouts = [len(pins) for pins in pull_pins.values()]
-            # stdev = statistics.pstdev(fanouts)
-            # avg = statistics.fmean(fanouts)
-            # threshold = avg + 1*stdev
-            # anchor_pins = {net: pins for net, pins in anchor_pins.items() if len(pull_pins[net]) <= threshold}
-            # pull_pins = {net: pins for net, pins in pull_pins.items() if len(pins) <= threshold}
-
-            # # Only leave one randomly-chosen pulling point for a net on each part.
-            # for net, pins in pull_pins.items():
-            #     part_pins = defaultdict(list)
-            #     for pin in pins:
-            #         part_pins[pin.part].append(pin)
-            #     pull_pins[net].clear()
-            #     for prt in part_pins.keys():
-            #         pull_pins[net].append(random.choice(part_pins[prt]))
-            # for net, pins in pull_pins.items():
-            #     prts = [pin.part for pin in pins]
-            #     assert len(prts) == len(set(prts))
-
-        # Store the anchor & pulling points in the Part object.
-        part.anchor_pins = anchor_pins
-        part.pull_pins = pull_pins
-
-        # Part anchor pin for floating parts.
-        try:
-            # Set anchor at top-most pin so floating part tops will align.
-            anchor_pin = max(part.pins, key=lambda pin: pin.pt.y)
-            add_place_pt(part, anchor_pin)
-            part.anchor_pin = anchor_pin
-        except ValueError:
-            # Set anchor for part with no pins at all.
-            part.anchor_pin = Pin()
-            part.anchor_pin.place_pt = part.place_bbox.max
-
-
-def rmv_anchor_and_pull_pins(parts):
-    """Remove anchor and pull pin information from Part objects.
-
-    Args:
-        parts (list): List of movable parts.
-    """
-
-    for part in parts:
-        for attr in ("route_pt", "place_pt"):
-            rmv_attr(part.pins, attr)
-    for attr in ("anchor_pin", "anchor_pins", "pull_pins"):
-        rmv_attr(parts, attr)
-
-
 def net_tension_dist(part, nets, **options):
     """Calculate the tension of the nets trying to rotate/flip the part.
 
@@ -429,10 +433,14 @@ def net_tension_dist(part, nets, **options):
             ]
 
             # Only the closest pulling point affects the tension since that is
-            # probably the
+            # probably where the wire routing will go to.
             tension += min(dists)
 
     return tension
+
+
+# Select the net tension method used for the adjusting the orientation of parts.
+net_tension = net_tension_dist
 
 
 def net_force_dist(part, nets, **options):
@@ -474,6 +482,59 @@ def net_force_dist(part, nets, **options):
                 pull_pt = pull_pin.place_pt * pull_pin.part.tx
 
                 total_force += pull_pt - anchor_pt
+                normalizer += 1
+
+    if options.get("normalize"):
+        # Normalize the total force to adjust for parts with a lot of pins.
+        normalizer = normalizer or 1  # Prevent div-by-zero.
+        total_force /= normalizer
+
+    return total_force
+
+def net_force_inv_dist(part, nets, **options):
+    """Compute attractive force on a part from all the other parts connected to it.
+
+    Args:
+        part (Part): Part affected by forces from other connected parts.
+        nets (list): List of active internal nets connecting parts.
+        options (dict): Dict of options and values that enable/disable functions.
+
+    Returns:
+        Vector: Force upon given part.
+    """
+
+    anchor_pins = part.anchor_pins
+    pull_pins = part.pull_pins
+
+    # Compute the total force on the part from all the anchor/pulling points on each net.
+    total_force = Vector(0, 0)
+    normalizer = 0
+
+    # Compute the force for each net attached to the part.
+    for net in anchor_pins.keys():
+
+        if not anchor_pins[net] or not pull_pins[net]:
+            # Skip nets without pulling or anchor points.
+            continue
+
+        # Compute the net force acting on each anchor point on the part.
+        for anchor_pin in anchor_pins[net]:
+
+            # Compute the anchor point's (x,y).
+            anchor_pt = anchor_pin.place_pt * anchor_pin.part.tx
+
+            # Sum the vectors from the anchor point to each pulling point.
+            for pull_pin in pull_pins[net]:
+
+                # Compute the pulling point's (x,y).
+                pull_pt = pull_pin.place_pt * pull_pin.part.tx
+
+                vec = pull_pt - anchor_pt
+                mag = vec.magnitude
+
+                # total_force += vec.norm
+                total_force += vec.norm / (mag + GRID)
+
                 normalizer += 1
 
     if options.get("normalize"):
@@ -584,6 +645,7 @@ def net_force_dist_avg(part, nets, **options):
 
 # Select the net force method used for the attraction of parts during placement.
 # net_force = net_force_dist
+# net_force = net_force_inv_dist
 net_force = net_force_dist_avg
 
 
@@ -599,10 +661,13 @@ def overlap_force(part, parts, **options):
         Vector: Force upon given part.
     """
 
-    total_force = Vector(0, 0)
-
+    # Bounding box of given part.
     part_bbox = part.place_bbox * part.tx
+
+    # Compute the overlap force of the bbox of this part with every other part.
+    total_force = Vector(0, 0)
     for other_part in set(parts) - {part}:
+
         other_part_bbox = other_part.place_bbox * other_part.tx
 
         # No force unless parts overlap.
@@ -1091,7 +1156,7 @@ class Placer:
             add_placement_bboxes(group, **options)
 
             # Set anchor and pull pins that determine attractive forces between parts.
-            add_anchor_and_pull_pins(group, internal_nets, **options)
+            add_anchor_pull_pins(group, internal_nets, **options)
 
             # Randomly place connected parts.
             random_placement(group)
@@ -1169,7 +1234,7 @@ class Placer:
             add_placement_bboxes(floating_parts)
 
             # Set anchor and pull pins that determine attractive forces between similar parts.
-            add_anchor_and_pull_pins(floating_parts, internal_nets, **options)
+            add_anchor_pull_pins(floating_parts, internal_nets, **options)
 
             # Randomly place the floating parts.
             random_placement(floating_parts)
