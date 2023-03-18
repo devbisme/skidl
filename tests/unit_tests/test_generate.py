@@ -273,9 +273,16 @@ def test_gen_sch_place_2():
         r = Part(
             "Device.lib", "R", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE, symtx="VV"
         )
+        c = Part("Device.lib", "C", value="10pF")
         vcc = Net("VCC", netio="i")
         gnd = Net("GND", netio="i")
+        vcca = Net("VCCA", stub=True)
+        gnda = Net("GNDA", stub=True)
 
+        for _ in range(5):
+            c_ = c()
+            vcca & c_ & gnda
+        
         n = 5
         qs = []
         rs = []
