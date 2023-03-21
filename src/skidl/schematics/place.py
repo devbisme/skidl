@@ -774,22 +774,24 @@ def total_similarity_force(part, parts, similarity, alpha, **options):
         return (1 - alpha) * sim_frc + alpha * ov_frc
 
 
-def compress_parts(parts, nets, force_func, scr, tx, font, **options):
+def compress_parts(parts, nets, force_func, **options):
     """Move parts under influence of attractive nets only.
 
     Args:
         parts (list): List of Parts.
         nets (list): List of nets that interconnect parts.
         force_func: Function for calculating forces between parts.
-        scr (PyGame screen): Screen object for PyGame debug drawing.
-        tx (Tx): Transformation matrix from real to screen coords.
-        font (PyGame font): Font for rendering text.
         options (dict): Dict of options and values that enable/disable functions.
     """
 
     if len(parts) <= 1:
         # No need to do placement if there's less than two parts.
         return
+    
+    # Get PyGame screen, real-to-screen coord Tx matrix, font for debug drawing.
+    scr = options.get("draw_scr")
+    tx = options.get("draw_tx")
+    font = options.get("draw_font")
 
     # Make list of parts that will be moved, but keep one stationary to act as an anchor.
     mobile_parts = parts[:]
@@ -821,11 +823,11 @@ def compress_parts(parts, nets, force_func, scr, tx, font, **options):
             mv_tx = Tx(dx=mv.x, dy=mv.y)
             part.tx *= mv_tx  # Move part.
 
-        mobility_history.append(mobility)
-
         if scr:
             # Draw current part placement for debugging purposes.
             draw_placement(parts, nets, scr, tx, font)
+
+        mobility_history.append(mobility)
 
         if mobility < all_still:
             # Parts aren't moving much, so exit while loop.
@@ -844,7 +846,7 @@ def compress_parts(parts, nets, force_func, scr, tx, font, **options):
             pass
 
 
-def push_and_pull(parts, nets, force_func, speed, scr, tx, font, **options):
+def push_and_pull(parts, nets, force_func, speed, **options):
     """Move parts under influence of attractive nets and repulsive part overlaps.
 
     Args:
@@ -852,15 +854,17 @@ def push_and_pull(parts, nets, force_func, speed, scr, tx, font, **options):
         nets (list): List of nets that interconnect parts.
         force_func: Function for calculating forces between parts.
         speed (float): How fast parts move under the influence of forces.
-        scr (PyGame screen): Screen object for PyGame debug drawing.
-        tx (Tx): Transformation matrix from real to screen coords.
-        font (PyGame font): Font for rendering text.
         options (dict): Dict of options and values that enable/disable functions.
     """
 
     if len(parts) <= 1:
         # No need to do placement if there's less than two parts.
         return
+    
+    # Get PyGame screen, real-to-screen coord Tx matrix, font for debug drawing.
+    scr = options.get("draw_scr")
+    tx = options.get("draw_tx")
+    font = options.get("draw_font")
 
     # Make list of parts that will be moved, but keep one stationary to act as an anchor.
     mobile_parts = parts[:]
@@ -880,8 +884,8 @@ def push_and_pull(parts, nets, force_func, speed, scr, tx, font, **options):
     # alpha_schedule = [0.1, 0.2, 0.5, 0.75, 1.0]
     # alpha_schedule = [0.1, 0.2, 0.3, 0.7, 0.8, 0.9, 1.0]
     # alpha_schedule = [0.1, 0.3, 0.5, 0.7, 1.0]
-    # alpha_schedule = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
-    alpha_schedule = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.2, 0.3, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+    alpha_schedule = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+    # alpha_schedule = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.2, 0.3, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
     if not options.get("compress_before_place"):
         alpha_schedule.insert(0, 0.0)
 
@@ -954,14 +958,11 @@ def push_and_pull(parts, nets, force_func, speed, scr, tx, font, **options):
             pass
 
 
-def align_parts(parts, scr, tx, font, **options):
+def align_parts(parts, **options):
     """Move parts to align their I/O pins with each other and reduce routing jagginess.
 
     Args:
         parts (list): List of Parts.
-        scr (PyGame screen): Screen object for PyGame debug drawing.
-        tx (Tx): Transformation matrix from real to screen coords.
-        font (PyGame font): Font for rendering text.
         options (dict): Dict of options and values that enable/disable functions.
     """
 
@@ -971,6 +972,11 @@ def align_parts(parts, scr, tx, font, **options):
     except AttributeError:
         # Not a set of Parts. Must be PartBlocks. Skip alignment.
         return
+
+    # Get PyGame screen, real-to-screen coord Tx matrix, font for debug drawing.
+    scr = options.get("draw_scr")
+    tx = options.get("draw_tx")
+    font = options.get("draw_font")
 
     for part in mobile_parts:
 
@@ -1006,22 +1012,28 @@ def align_parts(parts, scr, tx, font, **options):
         tx = Tx(dx=best_move.x, dy=best_move.y)
         part.tx *= tx
 
+        if scr:
+            # Draw current part placement for debugging purposes.
+            draw_placement(parts, [], scr, tx, font)
 
-def remove_overlaps(parts, nets, scr, tx, font, **options):
+
+def remove_overlaps(parts, nets, **options):
     """Remove any overlaps using horz/vert grid movements.
 
     Args:
         parts (list): List of Parts.
         nets (list): List of nets that interconnect parts.
-        scr (PyGame screen): Screen object for PyGame debug drawing.
-        tx (Tx): Transformation matrix from real to screen coords.
-        font (PyGame font): Font for rendering text.
         options (dict): Dict of options and values that enable/disable functions.
     """
 
     if len(parts) <= 1:
         # No need to do placement if there's less than two parts.
         return
+
+    # Get PyGame screen, real-to-screen coord Tx matrix, font for debug drawing.
+    scr = options.get("draw_scr")
+    tx = options.get("draw_tx")
+    font = options.get("draw_font")
 
     # Make list of parts that will be moved.
     # mobile_parts = parts[:-1]  # Keep one part stationary as an anchor.
@@ -1049,16 +1061,13 @@ def remove_overlaps(parts, nets, scr, tx, font, **options):
             draw_placement(parts, nets, scr, tx, font)
 
 
-def slip_and_slide(parts, nets, force_func, scr, tx, font, **options):
+def slip_and_slide(parts, nets, force_func, **options):
     """Move parts on horz/vert grid looking for improvements without causing overlaps.
 
     Args:
         parts (list): List of Parts.
         nets (list): List of nets that interconnect parts.
         force_func: Function for calculating forces between parts.
-        scr (PyGame screen): Screen object for PyGame debug drawing.
-        tx (Tx): Transformation matrix from real to screen coords.
-        font (PyGame font): Font for rendering text.
         options (dict): Dict of options and values that enable/disable functions.
     """
 
@@ -1069,6 +1078,11 @@ def slip_and_slide(parts, nets, force_func, scr, tx, font, **options):
     if not nets:
         # No need to do this if there are no nets attracting parts together.
         return
+
+    # Get PyGame screen, real-to-screen coord Tx matrix, font for debug drawing.
+    scr = options.get("draw_scr")
+    tx = options.get("draw_tx")
+    font = options.get("draw_font")
 
     # Make list of parts that will be moved.
     # mobile_parts = parts[:-1]  # Keep one part stationary as an anchor.
@@ -1098,7 +1112,7 @@ def slip_and_slide(parts, nets, force_func, scr, tx, font, **options):
 
 
 def evolve_placement(
-    parts, nets, force_func, speeds, scr=None, tx=None, font=None, **options
+    parts, nets, force_func, speeds, **options
 ):
     """Evolve part placement looking for optimum using force function.
 
@@ -1107,34 +1121,25 @@ def evolve_placement(
         nets (list): List of nets that interconnect parts.
         force_func (function): Computes the force affecting part positions.
         speeds (list): List of floating speeds of part movement per unit of force.
-        scr (PyGame screen): Screen object for PyGame debug drawing.
-        tx (Tx): Transformation matrix from real to screen coords.
-        font (PyGame font): Font for rendering text.
         options (dict): Dict of options and values that enable/disable functions.
     """
 
     # Force-directed placement.
     for speed in speeds:
-        push_and_pull(parts, nets, force_func, speed, scr, tx, font, **options)
+        push_and_pull(parts, nets, force_func, speed, **options)
 
     # Line-up the parts to reduce routing jagginess.
-    if scr:
-        draw_placement(parts, nets, scr, tx, font)
-        draw_pause()
-    align_parts(parts, scr, tx, font, **options)
-    if scr:
-        draw_placement(parts, nets, scr, tx, font)
-        draw_pause()
+    align_parts(parts, **options)
 
     # Snap parts to grid.
     for part in parts:
         snap_to_grid(part)
 
     # Remove part overlaps.
-    remove_overlaps(parts, nets, scr, tx, font, **options)
+    remove_overlaps(parts, nets, **options)
 
     # Look for local improvements.
-    slip_and_slide(parts, nets, force_func, scr, tx, font, **options)
+    slip_and_slide(parts, nets, force_func, **options)
 
 
 @export_to_all
@@ -1245,49 +1250,19 @@ class Placer:
                 tx_bbox = part.place_bbox * part.tx
                 bbox.add(tx_bbox)
             draw_scr, draw_tx, draw_font = draw_start(bbox)
-        else:
-            draw_scr, draw_tx, draw_font = None, None, None
+            options.update({"draw_scr": draw_scr, "draw_tx": draw_tx, "draw_font": draw_font})
 
         if options.get("compress_before_place"):
-            compress_parts(
-                parts, nets, total_part_force, draw_scr, draw_tx, draw_font, **options
-            )
+            compress_parts(parts, nets, total_part_force, **options)
 
         if options.get("rotate_parts"):
 
-            evolve_placement(
-                parts,
-                nets,
-                total_part_force,
-                speeds=(1.0 * Placer.speed,),
-                scr=draw_scr,
-                tx=draw_tx,
-                font=draw_font,
-                **options
-            )
+            evolve_placement(                parts,                nets,                total_part_force,                speeds=(1.0 * Placer.speed,),                **options            )
 
-            adjust_orientations(
-                parts,
-                draw_scr=draw_scr,
-                draw_tx=draw_tx,
-                draw_font=draw_font,
-                **options
-            )
+            adjust_orientations(                parts,                **options            )
 
         # Do force-directed placement of the parts in the parts.
-        evolve_placement(
-            parts,
-            nets,
-            total_part_force,
-            speeds=(1.0 * Placer.speed,),
-            scr=draw_scr,
-            tx=draw_tx,
-            font=draw_font,
-            **options
-        )
-
-        if options.get("draw_placement"):
-            draw_end()
+        evolve_placement( parts, nets, total_part_force, speeds=(1.0 * Placer.speed,), **options )
 
         # Placement done so anchor and pull pins for each part are no longer needed.
         rmv_anchor_and_pull_pins(parts)
@@ -1320,8 +1295,7 @@ class Placer:
                 tx_bbox = part.place_bbox * part.tx
                 bbox.add(tx_bbox)
             draw_scr, draw_tx, draw_font = draw_start(bbox)
-        else:
-            draw_scr, draw_tx, draw_font = None, None, None
+            options.update({"draw_scr": draw_scr, "draw_tx": draw_tx, "draw_font": draw_font})
 
         # For non-connected parts, do placement based on their similarity to each other.
         part_similarity = defaultdict(lambda: defaultdict(lambda: 0))
@@ -1346,26 +1320,10 @@ class Placer:
 
         if options.get("compress_before_place"):
             # Compress all floating parts together under influence of similarity forces only (no replusion).
-            compress_parts(
-                parts, [], force_func, draw_scr, draw_tx, draw_font, **options
-            )
-            if options.get("draw_placement"):
-                draw_pause()
+            compress_parts( parts, [], force_func, **options )
 
         # Do force-directed placement of the parts in the group.
-        evolve_placement(
-            parts,
-            [],
-            force_func,
-            speeds=(Placer.speed,),
-            scr=draw_scr,
-            tx=draw_tx,
-            font=draw_font,
-            **options
-        )
-
-        if options.get("draw_placement"):
-            draw_end()
+        evolve_placement( parts, [], force_func, speeds=(Placer.speed,), **options )
 
         # Placement done so anchor and pull pins for each part are no longer needed.
         rmv_anchor_and_pull_pins(parts)
@@ -1469,24 +1427,11 @@ class Placer:
                 tx_bbox = blk.place_bbox * blk.tx
                 bbox.add(tx_bbox)
             draw_scr, draw_tx, draw_font = draw_start(bbox)
-        else:
-            draw_scr, draw_tx, draw_font = None, None, None
+            options.update({"draw_scr": draw_scr, "draw_tx": draw_tx, "draw_font": draw_font})
 
         # Arrange the part blocks with force-directed placement.
         force_func = functools.partial(total_similarity_force, similarity=blk_attr)
-        evolve_placement(
-            part_blocks,
-            [],
-            force_func,
-            speeds=(Placer.speed,),
-            scr=draw_scr,
-            tx=draw_tx,
-            font=draw_font,
-            **options
-        )
-
-        if options.get("draw_placement"):
-            draw_end()
+        evolve_placement( part_blocks, [], force_func, speeds=(Placer.speed,), **options )
 
         # Apply the placement moves to the part blocks.
         for blk in part_blocks:
@@ -1528,14 +1473,26 @@ class Placer:
         for group in connected_parts:
             node.place_connected_parts(list(group), internal_nets, **options)
 
+        if options.get("draw_placement"):
+            # Pause to look at placement for debugging purposes.
+            draw_pause()
+
         # Place the floating parts that have no connections to anything else.
         if floating_parts:
             node.place_floating_parts(list(floating_parts), **options)
+
+        if options.get("draw_placement"):
+            # Pause to look at placement for debugging purposes.
+            draw_pause()
 
         # Now arrange all the blocks of placed parts and the child nodes within this node.
         node.place_blocks(
             connected_parts, floating_parts, node.children.values(), **options
         )
+
+        if options.get("draw_placement"):
+            # Pause to look at placement for debugging purposes.
+            draw_pause()
 
         # Calculate the bounding box for the node after placement of parts and children.
         node.calc_bbox()
