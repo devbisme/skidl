@@ -41,7 +41,7 @@ sch_options = {}
 sch_options.update({"retries": 1})
 sch_options.update({"normalize": True})
 sch_options.update({"compress_before_place": True})
-sch_options.update({"allow_jumps": True})
+# sch_options.update({"allow_jumps": True})
 # sch_options.update({"trim_anchor_pull_pins": True})
 sch_options.update({"rotate_parts": True})
 sch_options.update({"fanout_attenuation": True})
@@ -162,7 +162,7 @@ def test_gen_sch_1():
     generate_netlist()
     generate_xml()
     generate_graph()
-    create_schematic(flatness=1.0)
+    create_schematic(repeat=1,flatness=1.0)
 
 
 @pytest.mark.xfail(raises=(SyntaxError))

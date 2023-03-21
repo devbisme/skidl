@@ -19,7 +19,7 @@ import math
 import random
 import sys
 from builtins import range, zip
-from collections import defaultdict
+from collections import defaultdict, Counter
 from copy import copy
 
 from future import standard_library
@@ -173,34 +173,41 @@ def add_anchor_pull_pins(parts, nets, **options):
         part.anchor_pins = defaultdict(list)
         part.pull_pins = defaultdict(list)
 
-    # Assign pins on each net to part anchor and pull pin lists.
-    for net in nets:
+    if nets:
+        # If nets exist, then these parts are interconnected so
+        # assign pins on each net to part anchor and pull pin lists.
+        for net in nets:
 
-        # Get net pins that are on movable parts.
-        pins = {pin for pin in net.pins if pin.part in parts}
+            # Get net pins that are on movable parts.
+            pins = {pin for pin in net.pins if pin.part in parts}
 
-        # Get the set of parts with pins on the net.
-        net_parts = {pin.part for pin in pins}
+            # Get the set of parts with pins on the net.
+            net_parts = {pin.part for pin in pins}
 
-        # Add each pin as an anchor on the part that contains it and
-        # as a pull pin on all the other parts that will be pulled by this part.
-        for pin in pins:
-            pin.part.anchor_pins[net].append(pin)
-            add_place_pt(pin.part, pin)
-            for part in net_parts - {pin.part}:
-                part.pull_pins[net].append(pin)
+            # Add each pin as an anchor on the part that contains it and
+            # as a pull pin on all the other parts that will be pulled by this part.
+            for pin in pins:
+                pin.part.anchor_pins[net].append(pin)
+                add_place_pt(pin.part, pin)
+                for part in net_parts - {pin.part}:
+                    part.pull_pins[net].append(pin)
 
-    # Set part anchor pin for floating parts. (Set but not used in net-connected parts.)
-    for part in parts:
-        try:
-            # Set anchor at top-most pin so floating part tops will align.
-            anchor_pin = max(part.pins, key=lambda pin: pin.pt.y)
-            add_place_pt(part, anchor_pin)
-            part.anchor_pin = anchor_pin
-        except ValueError:
-            # Set anchor for part with no pins at all.
-            part.anchor_pin = Pin()
-            part.anchor_pin.place_pt = part.place_bbox.max
+    else:
+        # There are no nets so these parts are floating freely.
+        # Floating parts are all pulled by each other.
+        all_pull_pins = []
+        for part in parts:
+            try:
+                # Set anchor at top-most pin so floating part tops will align.
+                anchor_pull_pin = max(part.pins, key=lambda pin: pin.pt.y)
+                add_place_pt(part, anchor_pull_pin)
+            except ValueError:
+                # Set anchor for part with no pins at all.
+                anchor_pull_pin = Pin()
+                anchor_pull_pin.place_pt = part.place_bbox.max
+            part.anchor_pins["similarity"] = [anchor_pull_pin]
+            part.pull_pins["similarity"] = all_pull_pins
+            all_pull_pins.append(anchor_pull_pin)
 
 
 def trim_anchor_pull_pins(parts):
@@ -257,7 +264,7 @@ def rmv_anchor_and_pull_pins(parts):
     for part in parts:
         for attr in ("route_pt", "place_pt"):
             rmv_attr(part.pins, attr)
-    for attr in ("anchor_pin", "anchor_pins", "pull_pins"):
+    for attr in ("anchor_pins", "pull_pins"):
         rmv_attr(parts, attr)
 
 
@@ -488,6 +495,7 @@ def net_force_dist(part, **options):
 
     return total_force
 
+
 def net_force_inv_dist(part, **options):
     """Compute attractive force on a part from all the other parts connected to it.
 
@@ -697,7 +705,7 @@ def overlap_force(part, parts, **options):
 
 
 def total_part_force(part, parts, alpha, **options):
-    """Compute the total of the net attractive and overlap repulsive forces on a part.
+    """Compute the total of the attractive net and repulsive overlap forces on a part.
 
     Args:
         part (Part): Part affected by forces from other overlapping parts.
@@ -708,17 +716,21 @@ def total_part_force(part, parts, alpha, **options):
     Returns:
         Vector: Weighted total of net attractive and overlap repulsion forces.
     """
-    return (1 - alpha) * net_force(part, **options) + alpha * overlap_force(
-        part, parts, **options
-    )
+    if alpha == 0:
+        return net_force(part, **options)
+    elif alpha == 1:
+        return overlap_force(part, parts, **options)
+    else:
+        nt_frc = net_force(part, **options)
+        ov_frc = overlap_force(part, parts, **options)
+        return (1 - alpha) * nt_frc + alpha * ov_frc
 
 
 def similarity_force(part, parts, similarity, **options):
     """Compute attractive force on a part from all the other parts connected to it.
 
     Args:
-        part (Part): Part affected by forces from other connected parts.
-        parts (list): List of parts to check for overlaps.
+        part (Part): Part affected by similarity forces with other parts.
         similarity (dict): Similarity score for any pair of parts used as keys.
         options (dict): Dict of options and values that enable/disable functions.
 
@@ -726,22 +738,21 @@ def similarity_force(part, parts, similarity, **options):
         Vector: Force upon given part.
     """
 
-    # These store the anchor points where each net attaches to the given part
-    # and the pulling points where each net attaches to other parts.
-    anchor_pt = part.anchor_pin.place_pt * part.tx
+    # Get the single anchor point for similarity forces affecting this part.
+    anchor_pt = part.anchor_pins["similarity"][0].place_pt * part.tx
 
-    # Compute the combined force of all the anchor/pulling points on each net.
+    # Compute the combined force of all the similarity pulling points.
     total_force = Vector(0, 0)
-    for other in set(parts) - {part}:
-        pull_pt = other.anchor_pin.place_pt * other.tx
+    for pull_pin in part.pull_pins["similarity"]:
+        pull_pt = pull_pin.place_pt * pull_pin.part.tx
         # Force from pulling to anchor point is proportional to part similarity and distance.
-        total_force += (pull_pt - anchor_pt) * similarity[part][other]
+        total_force += (pull_pt - anchor_pt) * similarity[part][pull_pin.part]
 
     return total_force
 
 
 def total_similarity_force(part, parts, similarity, alpha, **options):
-    """Compute the total of the net attractive and overlap repulsive forces on a part.
+    """Compute the total of the attractive similarity and repulsive overlap forces on a part.
 
     Args:
         part (Part): Part affected by forces from other overlapping parts.
@@ -753,9 +764,14 @@ def total_similarity_force(part, parts, similarity, alpha, **options):
     Returns:
         Vector: Weighted total of net attractive and overlap repulsion forces.
     """
-    return (1 - alpha) * similarity_force(
-        part, parts, similarity, **options
-    ) + alpha * overlap_force(part, parts, **options)
+    if alpha == 0:
+        return similarity_force(part, parts, similarity, **options)
+    elif alpha == 1:
+        return overlap_force(part, parts, **options)
+    else:
+        sim_frc = similarity_force(part, parts, similarity, **options)
+        ov_frc = overlap_force(part, parts, **options)
+        return (1 - alpha) * sim_frc + alpha * ov_frc
 
 
 def compress_parts(parts, nets, force_func, scr, tx, font, **options):
@@ -864,7 +880,8 @@ def push_and_pull(parts, nets, force_func, speed, scr, tx, font, **options):
     # alpha_schedule = [0.1, 0.2, 0.5, 0.75, 1.0]
     # alpha_schedule = [0.1, 0.2, 0.3, 0.7, 0.8, 0.9, 1.0]
     # alpha_schedule = [0.1, 0.3, 0.5, 0.7, 1.0]
-    alpha_schedule = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+    # alpha_schedule = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+    alpha_schedule = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.2, 0.3, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
     if not options.get("compress_before_place"):
         alpha_schedule.insert(0, 0.0)
 
@@ -912,6 +929,20 @@ def push_and_pull(parts, nets, force_func, speed, scr, tx, font, **options):
                     mv_tx = Tx(dx=mv.x, dy=mv.y)
                     part.tx *= mv_tx
 
+    if options.get("allow_jumps"):
+        for part in mobile_parts:
+            while True:
+                mv = force_func(part, parts, alpha=0, **options)
+                mv_tx = Tx(dx=mv.x, dy=mv.y)
+                part.tx *= mv_tx
+
+                if scr:
+                    # Draw current part placement for debugging purposes.
+                    draw_placement(parts, nets, scr, tx, font)
+
+                if mv.magnitude < GRID:
+                    break
+
     if options.get("show_mobility"):
         import matplotlib.pyplot as plt
 
@@ -921,6 +952,59 @@ def push_and_pull(parts, nets, force_func, speed, scr, tx, font, **options):
             plt.show()
         except ValueError:
             pass
+
+
+def align_parts(parts, scr, tx, font, **options):
+    """Move parts to align their I/O pins with each other and reduce routing jagginess.
+
+    Args:
+        parts (list): List of Parts.
+        scr (PyGame screen): Screen object for PyGame debug drawing.
+        tx (Tx): Transformation matrix from real to screen coords.
+        font (PyGame font): Font for rendering text.
+        options (dict): Dict of options and values that enable/disable functions.
+    """
+
+    try:
+        # Align higher pin-count parts first so smaller parts can align to them later without changes messing it up.
+        mobile_parts = sorted(parts[:], key=lambda prt: -len(prt.pins))
+    except AttributeError:
+        # Not a set of Parts. Must be PartBlocks. Skip alignment.
+        return
+
+    for part in mobile_parts:
+
+        # Collect moves to align each pin connected to pins on other parts.
+        align_moves = []
+        for net, anchor_pins in part.anchor_pins.items():
+            pull_pins = part.pull_pins[net]
+            for pull_pin in pull_pins:
+                pull_pt = pull_pin.place_pt * pull_pin.part.tx
+                for anchor_pin in anchor_pins:
+                    anchor_pt = anchor_pin.place_pt * anchor_pin.part.tx
+                    align_moves.append(pull_pt - anchor_pt)
+
+        if not align_moves:
+            # The part wasn't connected to any other parts, so skip alignment.
+            continue
+
+        # Select the smallest alignment move that occurs most frequently,
+        # meaning it will align the most pins with the least movement.
+        best_moves = Counter(align_moves).most_common(1)
+        best_moves.sort(key=lambda mv: min(abs(mv[0].x), abs(mv[0].y)))
+        best_move = best_moves[0][0]
+
+        # Align either in X or Y direction, whichever requires the smallest movement.
+        if abs(best_move.x) > abs(best_move.y):
+            # Align by moving in Y direction.
+            best_move.x = 0
+        else:
+            # Align by moving in X direction.
+            best_move.y = 0
+
+        # Align the part.
+        tx = Tx(dx=best_move.x, dy=best_move.y)
+        part.tx *= tx
 
 
 def remove_overlaps(parts, nets, scr, tx, font, **options):
@@ -1033,6 +1117,15 @@ def evolve_placement(
     for speed in speeds:
         push_and_pull(parts, nets, force_func, speed, scr, tx, font, **options)
 
+    # Line-up the parts to reduce routing jagginess.
+    if scr:
+        draw_placement(parts, nets, scr, tx, font)
+        draw_pause()
+    align_parts(parts, scr, tx, font, **options)
+    if scr:
+        draw_placement(parts, nets, scr, tx, font)
+        draw_pause()
+
     # Snap parts to grid.
     for part in parts:
         snap_to_grid(part)
@@ -1125,7 +1218,7 @@ class Placer:
         floating_parts = set(node.parts) - set(itertools.chain(*connected_parts))
 
         return connected_parts, internal_nets, floating_parts
-    
+
     def place_connected_parts(node, parts, nets, **options):
         """Place individual parts.
 
@@ -1293,14 +1386,21 @@ class Placer:
             options (dict): Dict of options and values that enable/disable functions.
         """
 
+        block_pull_pins = defaultdict(list)
+
         class PartBlock:
             def __init__(self, src, bbox, anchor_pt, snap_pt, tag):
                 self.src = src
                 self.place_bbox = bbox  # FIXME: Is this needed if place_bbox includes room for routing?
                 self.lbl_bbox = bbox  # Needed for drawing during debug.
-                self.anchor_pt = anchor_pt
-                self.anchor_pin = Pin()
-                self.anchor_pin.place_pt = anchor_pt
+                self.force = Vector(0, 0)  # Need for drawing during debug.
+                anchor_pin = Pin()
+                anchor_pin.part = self
+                anchor_pin.place_pt = anchor_pt
+                self.anchor_pins = dict()
+                self.anchor_pins["similarity"] = [anchor_pin]
+                self.pull_pins = block_pull_pins
+                block_pull_pins["similarity"].append(anchor_pin)
                 self.snap_pt = snap_pt
                 self.tx = Tx()
                 self.ref = "REF"
@@ -1373,9 +1473,7 @@ class Placer:
             draw_scr, draw_tx, draw_font = None, None, None
 
         # Arrange the part blocks with force-directed placement.
-        force_func = functools.partial(
-            total_similarity_force, similarity=blk_attr
-        )
+        force_func = functools.partial(total_similarity_force, similarity=blk_attr)
         evolve_placement(
             part_blocks,
             [],
@@ -1434,7 +1532,7 @@ class Placer:
         if floating_parts:
             node.place_floating_parts(list(floating_parts), **options)
 
-        # Place blocks of parts in this node.
+        # Now arrange all the blocks of placed parts and the child nodes within this node.
         node.place_blocks(
             connected_parts, floating_parts, node.children.values(), **options
         )
