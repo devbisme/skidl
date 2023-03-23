@@ -148,7 +148,7 @@ def draw_part(part, scr, tx, font):
         tx (Tx): Transformation matrix from real to screen coords.
         font (PyGame font): Font for rendering text.
     """
-    tx_bbox = getattr(part, "lbl_bbox", part.place_bbox) * part.tx
+    tx_bbox = getattr(part, "lbl_bbox", getattr(part, "place_bbox", Vector(0,0))) * part.tx
     draw_box(tx_bbox, scr, tx, color=(180, 255, 180), thickness=0)
     draw_box(tx_bbox, scr, tx, color=(90, 128, 90), thickness=5)
     draw_text(part.ref, tx_bbox.ctr, scr, tx, font)
@@ -230,6 +230,38 @@ def draw_placement(parts, nets, scr, tx, font):
     for net in nets:
         draw_net(net, parts, scr, tx, font)
     draw_redraw()
+
+@export_to_all
+def draw_routing(node, bbox, parts, *other_stuff, **options):
+    """Draw routing for debugging purposes.
+
+    Args:
+        node (Node): Hierarchical node.
+        bbox (BBox): Bounding box of drawing area.
+        node (Node): The Node being routed.
+        parts (list): List of Parts.
+        other_stuff (list): Other stuff with a draw() method.
+        options (dict, optional): Dictionary of options and values. Defaults to {}.
+    """
+
+    # Initialize drawing area.
+    draw_scr, draw_tx, draw_font = draw_start(bbox)
+
+    # Draw parts.
+    for part in parts:
+        draw_part(part, draw_scr, draw_tx, draw_font)
+
+    # Draw wiring.
+    for wires in node.wires.values():
+        for wire in wires:
+            draw_seg(wire, draw_scr, draw_tx, (255, 0, 255), 3, dot_radius=10)
+
+    # Draw other stuff (global routes, switchbox routes, etc.) that has a draw() method.
+    for stuff in other_stuff:
+        for obj in stuff:
+            obj.draw(draw_scr, draw_tx, draw_font, **options)
+
+    draw_end()
 
 
 @export_to_all

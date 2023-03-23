@@ -54,14 +54,14 @@ if os.getenv("DEBUG_DRAW"):
     # These options control debugging output.
     # To view schematic debugging output, use the command:
     #    DEBUG_DRAW=1 pytest ...
-    sch_options.update({"draw_placement": True})
+    # sch_options.update({"draw_placement": True})
     # sch_options.update({"draw_all_terminals": True})
     # sch_options.update({"show_capacities": True})
     # sch_options.update({"draw_routing_channels": True})
-    # sch_options.update({"draw_global_routing": True})
+    sch_options.update({"draw_global_routing": True})
     # sch_options.update({"draw_assigned_terminals": True})
-    # sch_options.update({"draw_switchbox_boundary": True})
-    # sch_options.update({"draw_switchbox_routing": True})
+    sch_options.update({"draw_switchbox_boundary": True})
+    sch_options.update({"draw_switchbox_routing": True})
 
 
 def _empty_footprint_handler(part):

@@ -26,7 +26,7 @@ from future import standard_library
 from ..circuit import Circuit
 from ..part import Part
 from ..utilities import export_to_all, rmv_attr
-from .debug_draw import draw_end, draw_endpoint, draw_part, draw_seg, draw_start
+from .debug_draw import draw_end, draw_endpoint, draw_seg, draw_start, draw_routing
 from .geometry import BBox, Point, Segment, Tx, Vector, tx_rot_90
 
 standard_library.install_aliases()
@@ -3163,36 +3163,6 @@ class Router:
         for part in node.parts:
             rmv_attr(part.pins, ("route_pt", "face"))
 
-    def routing_debug_draw(node, bbox, parts, *other_stuff, **options):
-        """Draw routing for debugging purposes.
-
-        Args:
-            bbox: Bounding box of drawing area.
-            node (Node): The Node being routed.
-            parts (list): List of Parts.
-            other_stuff (list): Other stuff with a draw() method.
-            options (dict, optional): Dictionary of options and values. Defaults to {}.
-        """
-
-        # Initialize drawing area.
-        draw_scr, draw_tx, draw_font = draw_start(bbox)
-
-        # Draw parts.
-        for part in parts:
-            draw_part(part, draw_scr, draw_tx, draw_font)
-
-        # Draw wiring.
-        for wires in node.wires.values():
-            for wire in wires:
-                draw_seg(wire, draw_scr, draw_tx, (255, 0, 255), 3, dot_radius=10)
-
-        # Draw other stuff (global routes, switchbox routes, etc.) that has a draw() method.
-        for stuff in other_stuff:
-            for obj in stuff:
-                obj.draw(draw_scr, draw_tx, draw_font, **options)
-
-        draw_end()
-
     def route(node, tool=None, **options):
         """Route the wires between part pins in this node and its children.
 
@@ -3253,8 +3223,8 @@ class Router:
 
             # Draw part outlines, routing tracks and terminals.
             if options.get("draw_routing_channels"):
-                node.routing_debug_draw(
-                    routing_bbox, node.parts, h_tracks, v_tracks, **options
+                draw_routing(
+                    node, routing_bbox, node.parts, h_tracks, v_tracks, **options
                 )
 
             # Do global routing of nets internal to the node.
@@ -3266,7 +3236,8 @@ class Router:
 
             # If enabled, draw the global routing for debug purposes.
             if options.get("draw_global_routing"):
-                node.routing_debug_draw(
+                draw_routing(
+                    node,
                     routing_bbox,
                     node.parts,
                     h_tracks,
@@ -3280,16 +3251,26 @@ class Router:
 
             # Draw switchboxes and routing channels.
             if options.get("draw_assigned_terminals"):
-                node.routing_debug_draw(
-                    routing_bbox, node.parts, switchboxes, global_routes, **options
+                draw_routing(
+                    node,
+                    routing_bbox,
+                    node.parts,
+                    switchboxes,
+                    global_routes,
+                    **options
                 )
 
             node.switchbox_router(switchboxes, **options)
 
             # If enabled, draw the global and detailed routing for debug purposes.
             if options.get("draw_switchbox_routing"):
-                node.routing_debug_draw(
-                    routing_bbox, node.parts, global_routes, switchboxes, **options
+                draw_routing(
+                    node,
+                    routing_bbox,
+                    node.parts,
+                    global_routes,
+                    switchboxes,
+                    **options
                 )
 
             # Now clean-up the wires and add junctions.
@@ -3298,7 +3279,7 @@ class Router:
 
             # If enabled, draw the global and detailed routing for debug purposes.
             if options.get("draw_switchbox_routing"):
-                node.routing_debug_draw(routing_bbox, node.parts, **options)
+                draw_routing(node, routing_bbox, node.parts, **options)
 
             # Remove extended routing points from parts.
             node.rmv_stuff()
