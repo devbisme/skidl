@@ -787,7 +787,7 @@ def compress_parts(parts, nets, force_func, **options):
     if len(parts) <= 1:
         # No need to do placement if there's less than two parts.
         return
-    
+
     # Get PyGame screen, real-to-screen coord Tx matrix, font for debug drawing.
     scr = options.get("draw_scr")
     tx = options.get("draw_tx")
@@ -860,7 +860,7 @@ def push_and_pull(parts, nets, force_func, speed, **options):
     if len(parts) <= 1:
         # No need to do placement if there's less than two parts.
         return
-    
+
     # Get PyGame screen, real-to-screen coord Tx matrix, font for debug drawing.
     scr = options.get("draw_scr")
     tx = options.get("draw_tx")
@@ -1111,9 +1111,7 @@ def slip_and_slide(parts, nets, force_func, **options):
             draw_placement(parts, nets, scr, tx, font)
 
 
-def evolve_placement(
-    parts, nets, force_func, speeds, **options
-):
+def evolve_placement(parts, nets, force_func, speeds, **options):
     """Evolve part placement looking for optimum using force function.
 
     Args:
@@ -1250,19 +1248,25 @@ class Placer:
                 tx_bbox = part.place_bbox * part.tx
                 bbox.add(tx_bbox)
             draw_scr, draw_tx, draw_font = draw_start(bbox)
-            options.update({"draw_scr": draw_scr, "draw_tx": draw_tx, "draw_font": draw_font})
+            options.update(
+                {"draw_scr": draw_scr, "draw_tx": draw_tx, "draw_font": draw_font}
+            )
 
         if options.get("compress_before_place"):
             compress_parts(parts, nets, total_part_force, **options)
 
         if options.get("rotate_parts"):
 
-            evolve_placement(                parts,                nets,                total_part_force,                speeds=(1.0 * Placer.speed,),                **options            )
+            evolve_placement(
+                parts, nets, total_part_force, speeds=(1.0 * Placer.speed,), **options
+            )
 
-            adjust_orientations(                parts,                **options            )
+            adjust_orientations(parts, **options)
 
         # Do force-directed placement of the parts in the parts.
-        evolve_placement( parts, nets, total_part_force, speeds=(1.0 * Placer.speed,), **options )
+        evolve_placement(
+            parts, nets, total_part_force, speeds=(1.0 * Placer.speed,), **options
+        )
 
         # Placement done so anchor and pull pins for each part are no longer needed.
         rmv_anchor_and_pull_pins(parts)
@@ -1295,7 +1299,9 @@ class Placer:
                 tx_bbox = part.place_bbox * part.tx
                 bbox.add(tx_bbox)
             draw_scr, draw_tx, draw_font = draw_start(bbox)
-            options.update({"draw_scr": draw_scr, "draw_tx": draw_tx, "draw_font": draw_font})
+            options.update(
+                {"draw_scr": draw_scr, "draw_tx": draw_tx, "draw_font": draw_font}
+            )
 
         # For non-connected parts, do placement based on their similarity to each other.
         part_similarity = defaultdict(lambda: defaultdict(lambda: 0))
@@ -1320,10 +1326,10 @@ class Placer:
 
         if options.get("compress_before_place"):
             # Compress all floating parts together under influence of similarity forces only (no replusion).
-            compress_parts( parts, [], force_func, **options )
+            compress_parts(parts, [], force_func, **options)
 
         # Do force-directed placement of the parts in the group.
-        evolve_placement( parts, [], force_func, speeds=(Placer.speed,), **options )
+        evolve_placement(parts, [], force_func, speeds=(Placer.speed,), **options)
 
         # Placement done so anchor and pull pins for each part are no longer needed.
         rmv_anchor_and_pull_pins(parts)
@@ -1344,102 +1350,147 @@ class Placer:
             options (dict): Dict of options and values that enable/disable functions.
         """
 
+        # Global dict of pull pins for all blocks as they each pull on each other the same way.
         block_pull_pins = defaultdict(list)
 
+        # Class for movable groups of parts/child nodes.
         class PartBlock:
             def __init__(self, src, bbox, anchor_pt, snap_pt, tag):
-                self.src = src
+
+                self.src = src  # Source for this block.
                 self.place_bbox = bbox  # FIXME: Is this needed if place_bbox includes room for routing?
-                self.lbl_bbox = bbox  # Needed for drawing during debug.
-                self.force = Vector(0, 0)  # Need for drawing during debug.
+
+                # Create anchor pin to which forces are applied to this block.
                 anchor_pin = Pin()
                 anchor_pin.part = self
                 anchor_pin.place_pt = anchor_pt
+
+                # This block has only a single anchor pin, but it needs to be in a list
+                # in a dict so it can be processed by the part placement functions.
                 self.anchor_pins = dict()
                 self.anchor_pins["similarity"] = [anchor_pin]
-                self.pull_pins = block_pull_pins
-                block_pull_pins["similarity"].append(anchor_pin)
-                self.snap_pt = snap_pt
-                self.tx = Tx()
-                self.ref = "REF"
-                self.tag = tag
 
+                # Anchor pin for this block is also a pulling pin for all other blocks.
+                block_pull_pins["similarity"].append(anchor_pin)
+
+                # All blocks have the same set of pulling pins because they all pull each other.
+                self.pull_pins = block_pull_pins
+
+                self.snap_pt = snap_pt  # For snapping to grid.
+                self.tx = Tx()  # For placement.
+                self.ref = "REF"  # Name for block in debug drawing.
+                self.tag = tag  # TODO: what is this for?
+
+        # Create a list of blocks from the groups of interconnected parts and the group of floating parts.
         part_blocks = []
-        for part_list in [
-            floating_parts,
-        ] + connected_parts:
+        for part_list in connected_parts + [floating_parts]:
+
             if not part_list:
+                # No parts in this list for some reason...
                 continue
+
+            # Find snapping point and bounding box for this group of parts.
             snap_pt = None
             bbox = BBox()
             for part in part_list:
                 bbox.add(part.lbl_bbox * part.tx)
                 if not snap_pt:
+                    # Use the first snapping point of a part you can find.
                     snap_pt = get_snap_pt(part)
+
+            # Tag indicates the type of part block.
             tag = 2 if (part_list is floating_parts) else 1
+
+            # pad the bounding box so part blocks don't butt-up against each other.
             pad = BLK_EXT_PAD
             bbox = bbox.resize(Vector(pad, pad))
-            blk = PartBlock(part_list, bbox, bbox.ctr, snap_pt, tag)
-            part_blocks.append(blk)
 
+            # Create the part block and place it on the list.
+            part_blocks.append(PartBlock(part_list, bbox, bbox.ctr, snap_pt, tag))
+
+        # Add part blocks for child nodes.
         for child in children:
+
+            # Calculate bounding box of child node.
+            bbox = child.calc_bbox()
+
+            # Set padding for separating bounding box from others.
             if child.flattened:
+                # This is a flattened node so the parts will be shown.
+                # Set the padding to include a pad between the parts and the
+                # graphical box that contains them, plus the padding around
+                # the outside of the graphical box.
                 pad = BLK_INT_PAD + BLK_EXT_PAD
             else:
+                # This is an unflattened child node showing no parts on the inside
+                # so just pad around the outside of its graphical box.
                 pad = BLK_EXT_PAD
-            bbox = child.calc_bbox().resize(Vector(pad, pad))
-            snap_pt = child.get_snap_pt()
-            if snap_pt:
-                blk = PartBlock(child, bbox, bbox.ctr, snap_pt, 3)
-            else:
-                blk = PartBlock(child, bbox, bbox.ctr, bbox.ctr, 4)
-            part_blocks.append(blk)
+            bbox.resize(Vector(pad, pad))
 
-        # Re-label blocks with sequential tags (i.e., remove gaps).
-        tags = {blk.tag for blk in part_blocks}
-        tag_tbl = {old_tag: new_tag for old_tag, new_tag in zip(tags, range(len(tags)))}
-        for blk in part_blocks:
-            blk.tag = tag_tbl[blk.tag]
+            # Set the grid snapping point and tag for this child node.
+            snap_pt = child.get_snap_pt()
+            tag = 3  # Standard child node.
+            if not snap_pt:
+                # No snap point found, so just use the center of the bounding box.
+                snap_pt = bbox.ctr
+                tag = 4  # A child node with no snapping point.
+
+            # Create the child block and place it on the list.
+            part_blocks.append(PartBlock(child, bbox, bbox.ctr, snap_pt, tag))
+
+        # Get ordered list of all block tags. Use this list to tell if tags are
+        # adjacent since there may be missing tags if a particular type of block
+        # isn't present.
+        tags = sorted({blk.tag for blk in part_blocks})
 
         # Tie the blocks together with strong links between blocks with the same tag,
-        # and weaker links between blocks with tags that differ by 1. This ties similar
+        # and weaker links between blocks with adjacent tags. This ties similar
         # blocks together into "super blocks" and ties the super blocks into a linear
         # arrangement (1 -> 2 -> 3 ->...).
         blk_attr = defaultdict(lambda: defaultdict(lambda: 0))
         for blk in part_blocks:
             for other_blk in part_blocks:
                 if blk is other_blk:
+                    # No attraction between a block and itself.
                     continue
                 if blk.tag == other_blk.tag:
+                    # Large attraction between blocks of same type.
                     blk_attr[blk][other_blk] = 1
-                elif abs(blk.tag - other_blk.tag) == 1:
+                elif abs(tags.index(blk.tag) - tags.index(other_blk.tag)) == 1:
+                    # Some attraction between blocks of adjacent types.
                     blk_attr[blk][other_blk] = 0.1
                 else:
+                    # Otherwise, no attraction between these blocks.
                     blk_attr[blk][other_blk] = 0
 
         # Start off with a random placement of part blocks.
         random_placement(part_blocks)
 
         if options.get("draw_placement"):
-            # Draw the part block placement for debug purposes.
+            # Setup to draw the part block placement for debug purposes.
             bbox = BBox()
             for blk in part_blocks:
                 tx_bbox = blk.place_bbox * blk.tx
                 bbox.add(tx_bbox)
             draw_scr, draw_tx, draw_font = draw_start(bbox)
-            options.update({"draw_scr": draw_scr, "draw_tx": draw_tx, "draw_font": draw_font})
+            options.update(
+                {"draw_scr": draw_scr, "draw_tx": draw_tx, "draw_font": draw_font}
+            )
 
-        # Arrange the part blocks with force-directed placement.
+        # Arrange the part blocks with similarity force-directed placement.
         force_func = functools.partial(total_similarity_force, similarity=blk_attr)
-        evolve_placement( part_blocks, [], force_func, speeds=(Placer.speed,), **options )
+        evolve_placement(part_blocks, [], force_func, speeds=(Placer.speed,), **options)
 
-        # Apply the placement moves to the part blocks.
+        # Apply the placement moves of the part blocks to their underlying sources.
         for blk in part_blocks:
             try:
+                # Update the Tx matrix of the source (usually a child node).
                 blk.src.tx = blk.tx
             except AttributeError:
+                # The source doesn't have a Tx so it must be a collection of parts.
+                # Apply the block placement to the Tx of each part.
                 for part in blk.src:
-                    part.tx = part.tx * blk.tx
+                    part.tx *= blk.tx
 
     def place(node, tool=None, **options):
         """Place the parts and children in this node.
