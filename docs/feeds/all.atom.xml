@@ -1,5 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>SKiDL</title><link href="/skidl/" rel="alternate"></link><link href="/skidl/feeds/all.atom.xml" rel="self"></link><id>/skidl/</id><updated>2021-10-22T00:00:00-04:00</updated><entry><title>New 1.1.0 Release</title><link href="/skidl/one-dot-one-2021-10-22.html" rel="alternate"></link><published>2021-10-22T00:00:00-04:00</published><updated>2021-10-22T00:00:00-04:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2021-10-22:/skidl/one-dot-one-2021-10-22.html</id><summary type="html">&lt;p&gt;It's been nearly half a year since the big 1.0 release.
+<feed xmlns="http://www.w3.org/2005/Atom"><title>SKiDL</title><link href="/skidl/" rel="alternate"></link><link href="/skidl/feeds/all.atom.xml" rel="self"></link><id>/skidl/</id><updated>2023-03-23T00:00:00-04:00</updated><entry><title>SKiDL Meets GPT</title><link href="/skidl/skidl-meets-chatgpt-2023-03-23.html" rel="alternate"></link><published>2023-03-23T00:00:00-04:00</published><updated>2023-03-23T00:00:00-04:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2023-03-23:/skidl/skidl-meets-chatgpt-2023-03-23.html</id><summary type="html">&lt;p&gt;ChatGPT was released late last year, and GPT4 dropped last week.
+These large language models (LLMs) offer some intriguing possibilities.
+I had a Twitter conversation about them with &lt;a href="https://twitter.com/alexandrosM"&gt;@alexandrosM&lt;/a&gt; that started like this:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="images/skidl-meets-chatgpt/gpt_twitter_conv_1.png"&gt;&lt;/p&gt;
+&lt;p&gt;So I described the simplest thing I could think of - a voltage divider - and asked
+ChatGPT to …&lt;/p&gt;</summary><content type="html">&lt;p&gt;ChatGPT was released late last year, and GPT4 dropped last week.
+These large language models (LLMs) offer some intriguing possibilities.
+I had a Twitter conversation about them with &lt;a href="https://twitter.com/alexandrosM"&gt;@alexandrosM&lt;/a&gt; that started like this:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="images/skidl-meets-chatgpt/gpt_twitter_conv_1.png"&gt;&lt;/p&gt;
+&lt;p&gt;So I described the simplest thing I could think of - a voltage divider - and asked
+ChatGPT to design one with some basic specs:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="images/skidl-meets-chatgpt/gpt_twitter_conv_2.png"&gt;&lt;/p&gt;
+&lt;p&gt;Its calculations are correct, so then I asked it to describe the divider circuit using SKiDL:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="images/skidl-meets-chatgpt/gpt_twitter_conv_3.png"&gt;&lt;/p&gt;
+&lt;p&gt;ChatGPT made a number of errors:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;Circuit()&lt;/code&gt; function doesn't take a name string.&lt;/li&gt;
+&lt;li&gt;You can't define resistors just by appending &lt;code&gt;.R()&lt;/code&gt; to a circuit object.&lt;/li&gt;
+&lt;li&gt;There's not a &lt;code&gt;connect()&lt;/code&gt; function for joining pins of parts.&lt;/li&gt;
+&lt;li&gt;It joined the resistors in series with &lt;code&gt;Vin&lt;/code&gt; at the top but failed to connect the bottom resistor to ground.&lt;/li&gt;
+&lt;li&gt;It also took &lt;code&gt;Vout&lt;/code&gt; from the bottom of the divider instead of the junction where the two resistors connect.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;So, overall, not that good but you can see it's &lt;em&gt;trying&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;I was using ChatGPT which is based on GPT3.5, but Alex has access to GPT4 and wanted to try.
+I gave him a very generic description of a relay driver:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="images/skidl-meets-chatgpt/gpt_twitter_conv_4.png"&gt;&lt;/p&gt;
+&lt;p&gt;The output from GPT4 is &lt;em&gt;much&lt;/em&gt; better:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="images/skidl-meets-chatgpt/gpt_twitter_conv_5.jpeg"&gt;&lt;/p&gt;
+&lt;p&gt;There are a number of mistakes, so we asked GPT4 to correct the most glaring:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="images/skidl-meets-chatgpt/gpt_twitter_conv_6.png"&gt;&lt;/p&gt;
+&lt;p&gt;Now the result is a little better:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="images/skidl-meets-chatgpt/gpt_twitter_conv_7.jpeg"&gt;&lt;/p&gt;
+&lt;p&gt;There are still a few errors, mostly about the parts and libraries it is using:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="images/skidl-meets-chatgpt/gpt_twitter_conv_8.png"&gt;&lt;/p&gt;
+&lt;p&gt;Rather than go any further with GPT4, I took its final output, removed the comments, and then added the relay along with aliases to match the pin names that GPT4 used:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;skidl&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Part&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Net&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;generate_schematic&lt;/span&gt;
+
+&lt;span class="c1"&gt;# skidl.libs is an error. Comment it out.&lt;/span&gt;
+&lt;span class="c1"&gt;# from skidl.libs import skidl&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Insert relay G5V-1 in place of Relay_SPDT.&lt;/span&gt;
+&lt;span class="c1"&gt;# relay = Part(&amp;quot;Relay&amp;quot;, &amp;quot;Relay_SPDT&amp;quot;, footprint=&amp;quot;Relay:Relay_SPDT&amp;quot;, value=&amp;quot;&amp;quot;)&lt;/span&gt;
+&lt;span class="n"&gt;relay&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Part&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Relay&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;G5V-1&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;footprint&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Relay:Relay_SPDT&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="c1"&gt;# Alias relay pins with the correct names.&lt;/span&gt;
+&lt;span class="n"&gt;relay&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;aliases&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;A&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;relay&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;aliases&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;K&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;relay&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;aliases&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;NC&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;relay&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;aliases&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;NO&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;relay&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;aliases&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;COM&amp;quot;&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Change transistor library to Transistor_BJT.&lt;/span&gt;
+&lt;span class="c1"&gt;# transistor = Part(&amp;quot;Transistor_NPN&amp;quot;, &amp;quot;TIP120&amp;quot;, footprint=&amp;quot;:&amp;quot;)&lt;/span&gt;
+&lt;span class="n"&gt;transistor&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Part&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Transistor_BJT&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;TIP120&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;footprint&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;:&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;diode&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Part&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Diode&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;1N4007&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;footprint&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;DO-41&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;1N4007&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;mcu_output_pin&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Part&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Device&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;R&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;footprint&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;R_0805&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;1k&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;mcu_output_pin&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;transistor&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;B&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+
+&lt;span class="n"&gt;transistor&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;C&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;relay&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;K&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;diode&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;A&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+
+&lt;span class="n"&gt;diode&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;K&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;relay&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;A&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+
+&lt;span class="n"&gt;gnd&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Net&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;GND&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;transistor&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;E&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;gnd&lt;/span&gt;
+
+&lt;span class="n"&gt;vcc_12v&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Net&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;VCC_12V&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;relay&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;A&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;vcc_12v&lt;/span&gt;
+
+&lt;span class="n"&gt;relay_common&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Net&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;COM&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;relay_no&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Net&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;NO&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;relay_nc&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Net&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;NC&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;relay&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;COM&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;relay_common&lt;/span&gt;
+&lt;span class="n"&gt;relay&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;NO&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;relay_no&lt;/span&gt;
+&lt;span class="n"&gt;relay&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;NC&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;relay_nc&lt;/span&gt;
+
+&lt;span class="c1"&gt;# I added this command to generate a schematic so we can see what GPT created.&lt;/span&gt;
+&lt;span class="n"&gt;generate_schematic&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="n"&gt;retries&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="n"&gt;compress_before_place&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="n"&gt;normalize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="n"&gt;rotate_parts&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="n"&gt;fanout_attenuation&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="n"&gt;draw_placement&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Executing the SKiDL code generated the following schematic (I manually added the blue annotation text.):&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="images/skidl-meets-chatgpt/relay_driver_schematic.png"&gt;&lt;/p&gt;
+&lt;p&gt;It's essentially correct, about what a first-year engineering student would do.
+That may seem underwhelming except:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;In the span of four months, LLMs progressed from a version (ChatGPT) that couldn't design a voltage divider to one (GPT4) that designed a relay driver.&lt;/li&gt;
+&lt;li&gt;There's a lot of electronic design knowledge on the web for training, but examples of using SKiDL are sparse. Even so, GPT4 picked up the basics.&lt;/li&gt;
+&lt;li&gt;The competency of an average first-year engineering student is now available to &lt;em&gt;anyone&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;GPT4 was not specifically trained for designing electronic circuits. This is just one of a myriad of competencies, all of which could be brought to bear on the design process.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;There are many questions to answer just related to designing electronics with LLMs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;How do we efficiently give them information about specific parts and libraries?&lt;/li&gt;
+&lt;li&gt;Can they develop hierarchical designs by generating modules and composing them? (With SKiDL, this would be nearly the same as writing modularized code.)&lt;/li&gt;
+&lt;li&gt;Can they create plans for testing the circuitry once it's built? (Similar to writing software unit tests, something ChatGPT has already done.)&lt;/li&gt;
+&lt;li&gt;Many electronic systems include microcontrollers &amp;amp; FPGAs. Can LLMs write embedded and HDL code to implement specified functions while maintaining compatibility with the hardware they've designed? (LLMs have already shown they can write PC and browser-based software from prompts.)&lt;/li&gt;
+&lt;li&gt;Can they design the mechanical portions of a system, like cases and enclosures? (ChatGPT has been used to write simple OpenSCAD scripts.)&lt;/li&gt;
+&lt;li&gt;In order to satisfy design objectives, can they write constraint-satisfaction equations for SAT solvers or optimizers and integrate the results back into their design?&lt;/li&gt;
+&lt;li&gt;By weaving together the capabilities listed above (plus more), can LLMs become a complete integrated development environment for all phases of engineering design that &lt;a href="https://thenewstack.io/oh-the-places-youll-go-when-you-leave-your-ide/"&gt;you never have to leave&lt;/a&gt;?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Interesting times are ahead! Not just in electronic design, but everything else.&lt;/p&gt;</content><category term="posts"></category></entry><entry><title>New 1.1.0 Release</title><link href="/skidl/one-dot-one-2021-10-22.html" rel="alternate"></link><published>2021-10-22T00:00:00-04:00</published><updated>2021-10-22T00:00:00-04:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2021-10-22:/skidl/one-dot-one-2021-10-22.html</id><summary type="html">&lt;p&gt;It's been nearly half a year since the big 1.0 release.
 This release only has a few user-facing changes:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;A KiCad PCB file can now be created directly using the &lt;code&gt;generate_pcb()&lt;/code&gt; function instead of outputing a netlist that's imported into PCBNEW.&lt;/li&gt;
@@ -124,7 +231,7 @@ to it in the assertion string:&lt;/p&gt;
 
         &lt;span class="c1"&gt;# Drop into the debugger so you can query the circuit&lt;/span&gt;
         &lt;span class="c1"&gt;# and then continue.&lt;/span&gt;
-        &lt;span class="n"&gt;breakpoint&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+        &lt;span class="nb"&gt;breakpoint&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 
         &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="kc"&gt;False&lt;/span&gt;  &lt;span class="c1"&gt;# Return False to trigger the erc_assert().&lt;/span&gt;
 
@@ -144,14 +251,14 @@ to it in the assertion string:&lt;/p&gt;
 &lt;span class="n"&gt;ERC&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;IN2&lt;/span&gt; &lt;span class="n"&gt;fanout&lt;/span&gt; &lt;span class="kr"&gt;of&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;=&lt;/span&gt; &lt;span class="mf"&gt;5.&lt;/span&gt;
-&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;ipython&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;18&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;800&lt;/span&gt;&lt;span class="n"&gt;a83e11624&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;22&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;check_fanout&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kr"&gt;return&lt;/span&gt; &lt;span class="kr"&gt;False&lt;/span&gt;  &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="kr"&gt;Return&lt;/span&gt; &lt;span class="kr"&gt;False&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;trigger&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;erc_assert&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Pdb&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;
-&lt;span class="n"&gt;ERC&lt;/span&gt; &lt;span class="nf"&gt;ERROR&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;check_fanout&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;net2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;FAILED&lt;/span&gt; &lt;span class="kr"&gt;in&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;ipython&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;18&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;800&lt;/span&gt;&lt;span class="n"&gt;a83e11624&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;&lt;span class="mi"&gt;30&lt;/span&gt;&lt;span class="o"&gt;:&amp;lt;&lt;/span&gt;&lt;span class="kr"&gt;module&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;IN2&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;fanout&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kr"&gt;of&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mf"&gt;5.&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;ipython&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;18&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;800&lt;/span&gt;&lt;span class="n"&gt;a83e11624&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;22&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;check_fanout&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kr"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kr"&gt;False&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kr"&gt;Return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kr"&gt;False&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;trigger&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;the&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;erc_assert&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Pdb&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="n"&gt;ERC&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;ERROR&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;check_fanout&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;net2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;FAILED&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kr"&gt;in&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;ipython&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;18&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;800&lt;/span&gt;&lt;span class="n"&gt;a83e11624&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;&lt;span class="mi"&gt;30&lt;/span&gt;&lt;span class="o"&gt;:&amp;lt;&lt;/span&gt;&lt;span class="kr"&gt;module&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
 
-&lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="n"&gt;warnings&lt;/span&gt; &lt;span class="n"&gt;found&lt;/span&gt; &lt;span class="n"&gt;during&lt;/span&gt; &lt;span class="n"&gt;ERC&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
-&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;errors&lt;/span&gt; &lt;span class="n"&gt;found&lt;/span&gt; &lt;span class="n"&gt;during&lt;/span&gt; &lt;span class="n"&gt;ERC&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;warnings&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;found&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;during&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;ERC&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;errors&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;found&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;during&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;ERC&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;You can detect if a subcircuit is being used correctly by embedding calls to
@@ -1787,19 +1894,19 @@ I learned one thing there: air conditioning is pretty good stuff. (We should do 
 &lt;p&gt;Some people think bricklaying would be a great job, kind of like playing Tetris
 all day, except with real blocks.
 But here's what the &lt;em&gt;real&lt;/em&gt; reality is:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nv"&gt;Pick&lt;/span&gt; &lt;span class="nv"&gt;up&lt;/span&gt; &lt;span class="nv"&gt;brick&lt;/span&gt;, &lt;span class="nv"&gt;apply&lt;/span&gt; &lt;span class="nv"&gt;mortar&lt;/span&gt;, &lt;span class="nv"&gt;place&lt;/span&gt;, &lt;span class="nv"&gt;tap&lt;/span&gt; &lt;span class="nv"&gt;down&lt;/span&gt;, &lt;span class="nv"&gt;remove&lt;/span&gt; &lt;span class="nv"&gt;excess&lt;/span&gt; &lt;span class="nv"&gt;mortar&lt;/span&gt;.
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nv"&gt;Pick&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;up&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;brick&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;apply&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;mortar&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;place&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;tap&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;down&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;remove&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;excess&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;mortar&lt;/span&gt;.&lt;span class="w"&gt;&lt;/span&gt;
 
-&lt;span class="nv"&gt;Pick&lt;/span&gt; &lt;span class="nv"&gt;up&lt;/span&gt; &lt;span class="nv"&gt;brick&lt;/span&gt;, &lt;span class="nv"&gt;apply&lt;/span&gt; &lt;span class="nv"&gt;mortar&lt;/span&gt;, &lt;span class="nv"&gt;place&lt;/span&gt;, &lt;span class="nv"&gt;tap&lt;/span&gt; &lt;span class="nv"&gt;down&lt;/span&gt;, &lt;span class="nv"&gt;remove&lt;/span&gt; &lt;span class="nv"&gt;excess&lt;/span&gt; &lt;span class="nv"&gt;mortar&lt;/span&gt;.
+&lt;span class="nv"&gt;Pick&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;up&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;brick&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;apply&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;mortar&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;place&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;tap&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;down&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;remove&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;excess&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;mortar&lt;/span&gt;.&lt;span class="w"&gt;&lt;/span&gt;
 
-&lt;span class="nv"&gt;Pick&lt;/span&gt; &lt;span class="nv"&gt;up&lt;/span&gt; &lt;span class="nv"&gt;brick&lt;/span&gt;, &lt;span class="nv"&gt;apply&lt;/span&gt; &lt;span class="nv"&gt;mortar&lt;/span&gt;, &lt;span class="nv"&gt;place&lt;/span&gt;, &lt;span class="nv"&gt;tap&lt;/span&gt; &lt;span class="nv"&gt;down&lt;/span&gt;, &lt;span class="nv"&gt;remove&lt;/span&gt; &lt;span class="nv"&gt;excess&lt;/span&gt; &lt;span class="nv"&gt;mortar&lt;/span&gt;.
+&lt;span class="nv"&gt;Pick&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;up&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;brick&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;apply&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;mortar&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;place&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;tap&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;down&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;remove&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;excess&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;mortar&lt;/span&gt;.&lt;span class="w"&gt;&lt;/span&gt;
 
-&lt;span class="nv"&gt;Row&lt;/span&gt; &lt;span class="nv"&gt;after&lt;/span&gt; &lt;span class="nv"&gt;row&lt;/span&gt;.
+&lt;span class="nv"&gt;Row&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;after&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;row&lt;/span&gt;.&lt;span class="w"&gt;&lt;/span&gt;
 
-&lt;span class="nv"&gt;Wall&lt;/span&gt; &lt;span class="nv"&gt;after&lt;/span&gt; &lt;span class="nv"&gt;wall&lt;/span&gt;.
+&lt;span class="nv"&gt;Wall&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;after&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;wall&lt;/span&gt;.&lt;span class="w"&gt;&lt;/span&gt;
 
-&lt;span class="nv"&gt;Job&lt;/span&gt; &lt;span class="nv"&gt;after&lt;/span&gt; &lt;span class="nv"&gt;job&lt;/span&gt;.
+&lt;span class="nv"&gt;Job&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;after&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;job&lt;/span&gt;.&lt;span class="w"&gt;&lt;/span&gt;
 
-&lt;span class="k"&gt;Until&lt;/span&gt; &lt;span class="nv"&gt;you&lt;/span&gt; &lt;span class="nv"&gt;die&lt;/span&gt;. &lt;span class="nv"&gt;Of&lt;/span&gt; &lt;span class="nv"&gt;the&lt;/span&gt; &lt;span class="nv"&gt;heat&lt;/span&gt;.
+&lt;span class="k"&gt;Until&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;you&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;die&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Of&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;the&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;heat&lt;/span&gt;.&lt;span class="w"&gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;One day, I graduated and went to work as an electrical engineer.
@@ -1816,19 +1923,19 @@ Here's a section of a schematic showing just the bypass caps for a
 relatively small chip with around a dozen ground pins:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Schematic with bypass capacitors." src="images/dont-replicate-automate/bypass-caps.png"&gt;&lt;/p&gt;
 &lt;p&gt;And here's the design process:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nv"&gt;Click&lt;/span&gt; &lt;span class="nv"&gt;on&lt;/span&gt; &lt;span class="nv"&gt;capacitor&lt;/span&gt; &lt;span class="nv"&gt;symbol&lt;/span&gt;. &lt;span class="nv"&gt;Drag&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="nv"&gt;drop&lt;/span&gt;. &lt;span class="nv"&gt;Attach&lt;/span&gt; &lt;span class="nv"&gt;power&lt;/span&gt;. &lt;span class="nv"&gt;Attach&lt;/span&gt; &lt;span class="nv"&gt;ground&lt;/span&gt;.
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nv"&gt;Click&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;on&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;capacitor&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;symbol&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Drag&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;drop&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Attach&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;power&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Attach&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;ground&lt;/span&gt;.&lt;span class="w"&gt;&lt;/span&gt;
 
-&lt;span class="nv"&gt;Click&lt;/span&gt; &lt;span class="nv"&gt;on&lt;/span&gt; &lt;span class="nv"&gt;capacitor&lt;/span&gt; &lt;span class="nv"&gt;symbol&lt;/span&gt;. &lt;span class="nv"&gt;Drag&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="nv"&gt;drop&lt;/span&gt;. &lt;span class="nv"&gt;Attach&lt;/span&gt; &lt;span class="nv"&gt;power&lt;/span&gt;. &lt;span class="nv"&gt;Attach&lt;/span&gt; &lt;span class="nv"&gt;ground&lt;/span&gt;.
+&lt;span class="nv"&gt;Click&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;on&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;capacitor&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;symbol&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Drag&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;drop&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Attach&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;power&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Attach&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;ground&lt;/span&gt;.&lt;span class="w"&gt;&lt;/span&gt;
 
-&lt;span class="nv"&gt;Click&lt;/span&gt; &lt;span class="nv"&gt;on&lt;/span&gt; &lt;span class="nv"&gt;capacitor&lt;/span&gt; &lt;span class="nv"&gt;symbol&lt;/span&gt;. &lt;span class="nv"&gt;Drag&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="nv"&gt;drop&lt;/span&gt;. &lt;span class="nv"&gt;Attach&lt;/span&gt; &lt;span class="nv"&gt;power&lt;/span&gt;. &lt;span class="nv"&gt;Attach&lt;/span&gt; &lt;span class="nv"&gt;ground&lt;/span&gt;.
+&lt;span class="nv"&gt;Click&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;on&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;capacitor&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;symbol&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Drag&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;drop&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Attach&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;power&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Attach&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;ground&lt;/span&gt;.&lt;span class="w"&gt;&lt;/span&gt;
 
-&lt;span class="nv"&gt;Part&lt;/span&gt; &lt;span class="nv"&gt;after&lt;/span&gt; &lt;span class="nv"&gt;part&lt;/span&gt;.
+&lt;span class="nv"&gt;Part&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;after&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;part&lt;/span&gt;.&lt;span class="w"&gt;&lt;/span&gt;
 
-&lt;span class="nv"&gt;Page&lt;/span&gt; &lt;span class="nv"&gt;after&lt;/span&gt; &lt;span class="nv"&gt;page&lt;/span&gt;.
+&lt;span class="nv"&gt;Page&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;after&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;page&lt;/span&gt;.&lt;span class="w"&gt;&lt;/span&gt;
 
-&lt;span class="nv"&gt;Design&lt;/span&gt; &lt;span class="nv"&gt;after&lt;/span&gt; &lt;span class="nv"&gt;design&lt;/span&gt;.
+&lt;span class="nv"&gt;Design&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;after&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;design&lt;/span&gt;.&lt;span class="w"&gt;&lt;/span&gt;
 
-&lt;span class="k"&gt;Until&lt;/span&gt; &lt;span class="nv"&gt;you&lt;/span&gt; &lt;span class="nv"&gt;die&lt;/span&gt;. &lt;span class="nv"&gt;Of&lt;/span&gt; &lt;span class="nv"&gt;boredom&lt;/span&gt;.
+&lt;span class="k"&gt;Until&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;you&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;die&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Of&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;boredom&lt;/span&gt;.&lt;span class="w"&gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;As I discovered with bricklaying, that's no way to live.
