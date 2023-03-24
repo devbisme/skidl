@@ -1,0 +1,19 @@
+title: New 1.2.0 Release
+date: 2022-12-22
+author: Dave Vandenbout
+slug: one-dot-two
+Status: draft
+
+Well, it's been even longer for the 1.2.0 release: fourteen months!
+But at least there's lots of new stuff:
+
+- Part pins can be sorted and retrieved in order using the new `ordered_pins` property.
+- If you don't explicitly declare a footprint for a `Part` object, one will get loaded from the default footprint in their symbol definition.
+  And if the footprint is still missing, you can define an `empty_footprint_handler` function to address that. (This defaults to a function
+  that logs an error.)
+- The `generate_pcb` function now accepts an optional list of footprint library directories.
+- You can now place URLs in the `lib_search_paths` dictionary to search remote repositories for parts.
+  KiCad V6 symbols are found at `https://gitlab.com/kicad/libraries/kicad-symbols/-/raw/master`
+  and V5 symbols are at `https://raw.githubusercontent.com/KiCad/kicad-symbols/master/`.
+- You can create hierarchy in your designs without function calls by using the new `Group` context.
+- The new `generate_schematic` function creates an editable schematic from a Circuit object. (This only works for KiCad V5 right now.)

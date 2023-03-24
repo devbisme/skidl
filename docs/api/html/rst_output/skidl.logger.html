@@ -5,7 +5,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>skidl.logger module &#8212; SKiDL  documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css" />
@@ -43,12 +44,12 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="module-skidl.logger">
+  <section id="module-skidl.logger">
 <span id="skidl-logger-module"></span><h1>skidl.logger module<a class="headerlink" href="#module-skidl.logger" title="Permalink to this headline">¶</a></h1>
 <p>Logging for generic messages and ERC.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.logger.ActiveLogger">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">skidl.logger.</span></span><span class="sig-name descname"><span class="pre">ActiveLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/logger.html#ActiveLogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.logger.ActiveLogger" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.logger.</span></span><span class="sig-name descname"><span class="pre">ActiveLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/logger.html#ActiveLogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.logger.ActiveLogger" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#skidl.logger.SkidlLogger" title="skidl.logger.SkidlLogger"><code class="xref py py-class docutils literal notranslate"><span class="pre">skidl.logger.SkidlLogger</span></code></a></p>
 <p>Currently-active logger for a given phase of operations.</p>
 <dl class="py method">
@@ -83,8 +84,8 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.logger.CountCalls">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">skidl.logger.</span></span><span class="sig-name descname"><span class="pre">CountCalls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/logger.html#CountCalls"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.logger.CountCalls" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.logger.</span></span><span class="sig-name descname"><span class="pre">CountCalls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/logger.html#CountCalls"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.logger.CountCalls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.10/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Decorator for counting the number of times a function is called.</p>
 <p>This is used for counting errors and warnings passed to logging functions,
 making it easy to track if and how many errors/warnings were issued.</p>
@@ -97,8 +98,8 @@ making it easy to track if and how many errors/warnings were issued.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.logger.SkidlLogFileHandler">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">skidl.logger.</span></span><span class="sig-name descname"><span class="pre">SkidlLogFileHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/logger.html#SkidlLogFileHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.logger.SkidlLogFileHandler" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/logging.handlers.html#logging.FileHandler" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">logging.FileHandler</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.logger.</span></span><span class="sig-name descname"><span class="pre">SkidlLogFileHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/logger.html#SkidlLogFileHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.logger.SkidlLogFileHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.10/library/logging.handlers.html#logging.FileHandler" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">logging.FileHandler</span></code></a></p>
 <p>Logger that outputs messages to a file.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.logger.SkidlLogFileHandler.remove_log_file">
@@ -109,8 +110,8 @@ making it easy to track if and how many errors/warnings were issued.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.logger.SkidlLogger">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">skidl.logger.</span></span><span class="sig-name descname"><span class="pre">SkidlLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/logger.html#SkidlLogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.logger.SkidlLogger" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/logging.html#logging.Logger" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">logging.Logger</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.logger.</span></span><span class="sig-name descname"><span class="pre">SkidlLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/logger.html#SkidlLogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.logger.SkidlLogger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.10/library/logging.html#logging.Logger" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">logging.Logger</span></code></a></p>
 <p>SKiDL logger that can stop output to log files and delete them.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.logger.SkidlLogger.addHandler">
@@ -221,7 +222,7 @@ a true value, e.g.</p>
 <dd><p>Stop loggers from creating files containing log messages.</p>
 </dd></dl>
 
-</div>
+</section>
 
 
             <div class="clearer"></div>
@@ -266,7 +267,7 @@ a true value, e.g.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016-2021, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.1.2.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
     </div>
   </body>
 </html>

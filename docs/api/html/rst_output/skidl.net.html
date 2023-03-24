@@ -5,7 +5,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>skidl.net module &#8212; SKiDL  documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css" />
@@ -43,12 +44,12 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="module-skidl.net">
+  <section id="module-skidl.net">
 <span id="skidl-net-module"></span><h1>skidl.net module<a class="headerlink" href="#module-skidl.net" title="Permalink to this headline">¶</a></h1>
 <p>Handles nets.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.net.NCNet">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">skidl.net.</span></span><span class="sig-name descname"><span class="pre">NCNet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pins_nets_buses</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#NCNet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.NCNet" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.net.</span></span><span class="sig-name descname"><span class="pre">NCNet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pins_nets_buses</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#NCNet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.NCNet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#skidl.net.Net" title="skidl.net.Net"><code class="xref py py-class docutils literal notranslate"><span class="pre">skidl.net.Net</span></code></a></p>
 <p>Lists of unconnected pins are stored using this Net subclass.</p>
 <p>This is a netlist subclass used for storing lists of pins which are
@@ -72,7 +73,7 @@ the object.</p>
 </dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.net.NCNet.drive">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">drive</span></span><a class="headerlink" href="#skidl.net.NCNet.drive" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">drive</span></span><a class="headerlink" href="#skidl.net.NCNet.drive" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the drive strength of this net.</p>
 <p>The drive strength is always NOCONNECT_DRIVE. It can’t be changed.
 The drive strength cannot be deleted.</p>
@@ -88,7 +89,7 @@ The drive strength cannot be deleted.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.net.Net">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">skidl.net.</span></span><span class="sig-name descname"><span class="pre">Net</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pins_nets_buses</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#Net"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.Net" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.net.</span></span><span class="sig-name descname"><span class="pre">Net</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pins_nets_buses</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#Net"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.Net" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject" title="skidl.skidlbaseobj.SkidlBaseObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">skidl.skidlbaseobj.SkidlBaseObject</span></code></a></p>
 <p>Lists of connected pins are stored as nets using this class.</p>
 <dl class="field-list simple">
@@ -172,7 +173,7 @@ lists/tuples of them to be connected to this net.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.net.Net.drive">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">drive</span></span><a class="headerlink" href="#skidl.net.Net.drive" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">drive</span></span><a class="headerlink" href="#skidl.net.Net.drive" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get, set and delete the drive strength of this net.</p>
 <p>The drive strength cannot be set to a value less than its current
 value. So as pins are added to a net, the drive strength reflects the
@@ -181,12 +182,12 @@ maximum drive value of the pins currently on the net.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.net.Net.erc_list">
-<span class="sig-name descname"><span class="pre">erc_list</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[&lt;function</span> <span class="pre">dflt_net_erc&gt;]</span></em><a class="headerlink" href="#skidl.net.Net.erc_list" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">erc_list</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;function</span> <span class="pre">dflt_net_erc&gt;]</span></em><a class="headerlink" href="#skidl.net.Net.erc_list" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.net.Net.fetch">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">fetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#Net.fetch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.Net.fetch" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#Net.fetch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.Net.fetch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the net with the given name from a circuit, or create it if not found.</p>
 </dd></dl>
 
@@ -214,7 +215,7 @@ maximum drive value of the pins currently on the net.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.net.Net.get">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#Net.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.Net.get" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/net.html#Net.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.net.Net.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the net with the given name from a circuit, or return None.</p>
 </dd></dl>
 
@@ -258,7 +259,7 @@ attached to it.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.net.Net.name">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#skidl.net.Net.name" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#skidl.net.Net.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get, set and delete the name of this net.</p>
 <p>When setting the net name, if another net with the same name
 is found, the name for this net is adjusted to make it unique.</p>
@@ -266,7 +267,7 @@ is found, the name for this net is adjusted to make it unique.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.net.Net.netclass">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">netclass</span></span><a class="headerlink" href="#skidl.net.Net.netclass" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">netclass</span></span><a class="headerlink" href="#skidl.net.Net.netclass" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get, set and delete the net class assigned to this net.</p>
 <p>If not net class is set, then reading the net class returns None.</p>
 <p>You can’t overwrite the net class of a net once it’s set.
@@ -287,12 +288,12 @@ existing net class of a net.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.net.Net.valid">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">valid</span></span><a class="headerlink" href="#skidl.net.Net.valid" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">valid</span></span><a class="headerlink" href="#skidl.net.Net.valid" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="skidl.net.Net.width">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">width</span></span><a class="headerlink" href="#skidl.net.Net.width" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">width</span></span><a class="headerlink" href="#skidl.net.Net.width" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return width of a Net, which is always 1.</p>
 </dd></dl>
 
@@ -300,8 +301,8 @@ existing net class of a net.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.net.Traversal">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">skidl.net.</span></span><span class="sig-name descname"><span class="pre">Traversal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pins</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.net.Traversal" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.net.</span></span><span class="sig-name descname"><span class="pre">Traversal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pins</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.net.Traversal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.net.Traversal.nets">
 <span class="sig-name descname"><span class="pre">nets</span></span><a class="headerlink" href="#skidl.net.Traversal.nets" title="Permalink to this definition">¶</a></dt>
@@ -316,7 +317,7 @@ existing net class of a net.</p>
 
 </dd></dl>
 
-</div>
+</section>
 
 
             <div class="clearer"></div>
@@ -361,7 +362,7 @@ existing net class of a net.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016-2021, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.1.2.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
     </div>
   </body>
 </html>
