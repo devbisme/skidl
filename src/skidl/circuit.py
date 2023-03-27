@@ -702,123 +702,123 @@ class Circuit(SkidlBaseObject):
         part_svg = list(part_svg.values())  # Just keep the SVG for the part symbols.
 
         head_svg = [
-            '<svg xmlns="http://www.w3.org/2000/svg"'
-            '     xmlns:xlink="http://www.w3.org/1999/xlink"'
-            '     xmlns:s="https://github.com/nturley/netlistsvg">'
-            "  <s:properties"
-            '    constants="false"'
-            '    splitsAndJoins="false"'
-            '    genericsLaterals="true">'
-            "    <s:layoutEngine"
-            '        org.eclipse.elk.layered.spacing.nodeNodeBetweenLayers="5"'
-            '        org.eclipse.elk.layered.compaction.postCompaction.strategy="4"'
-            '        org.eclipse.elk.spacing.nodeNode= "50"'
-            '        org.eclipse.elk.direction="DOWN"/>'
-            "  </s:properties>"
-            "<style>"
-            "svg {"
-            "  stroke: #000;"
-            "  fill: none;"
-            "  stroke-linejoin: round;"
-            "  stroke-linecap: round;"
-            "}"
-            "text {"
-            "  fill: #000;"
-            "  stroke: none;"
-            "  font-size: 10px;"
-            "  font-weight: bold;"
-            '  font-family: "Courier New", monospace;'
-            "}"
-            ".skidl_text {"
-            "  fill: #999;"
-            "  stroke: none;"
-            "  font-weight: bold;"
-            '  font-family: consolas, "Courier New", monospace;'
-            "}"
-            ".pin_num_text {"
-            "    fill: #840000;"
-            "}"
-            ".pin_name_text {"
-            "    fill: #008484;"
-            "}"
-            ".net_name_text {"
-            "    font-style: italic;"
-            "    fill: #840084;"
-            "}"
-            ".part_text {"
-            "    fill: #840000;"
-            "}"
-            ".part_ref_text {"
-            "    fill: #008484;"
-            "}"
-            ".part_name_text {"
-            "    fill: #008484;"
-            "}"
-            ".pen_fill {"
-            "    fill: #840000;"
-            "}"
-            ".background_fill {"
-            "    fill: #FFFFC2"
-            "}"
-            ".nodelabel {"
-            "  text-anchor: middle;"
-            "}"
-            ".inputPortLabel {"
-            "  text-anchor: end;"
-            "}"
-            ".splitjoinBody {"
-            "  fill: #000;"
-            "}"
-            ".symbol {"
-            "  stroke-linejoin: round;"
-            "  stroke-linecap: round;"
-            "  stroke: #840000;"
-            "}"
-            ".detail {"
-            "  stroke-linejoin: round;"
-            "  stroke-linecap: round;"
-            "  fill: #000;"
-            "}"
-            "</style>"
-            ""
-            "<!-- signal -->"
-            '<g s:type="inputExt" s:width="30" s:height="20" transform="translate(0,0)">'
-            '  <text x="-2" y="12" text-anchor=\'end\' class="$cell_id pin_name_text" s:attribute="ref">input</text>'
-            '  <s:alias val="$_inputExt_"/>'
-            '  <path d="M0,0 V20 H15 L30,10 15,0 Z" class="$cell_id symbol"/>'
-            '  <g s:x="30" s:y="10" s:pid="Y" s:position="right"/>'
-            "</g>"
-            ""
-            '<g s:type="outputExt" s:width="30" s:height="20" transform="translate(0,0)">'
-            '  <text x="32" y="12" class="$cell_id pin_name_text" s:attribute="ref">output</text>'
-            '  <s:alias val="$_outputExt_"/>'
-            '  <path d="M30,0 V20 H15 L0,10 15,0 Z" class="$cell_id symbol"/>'
-            '  <g s:x="0" s:y="10" s:pid="A" s:position="left"/>'
-            "</g>"
-            "<!-- signal -->"
-            ""
-            "<!-- builtin -->"
-            '<g s:type="generic" s:width="30" s:height="40" transform="translate(0,0)">'
-            '  <text x="15" y="-4" class="nodelabel $cell_id" s:attribute="ref">generic</text>'
-            '  <rect width="30" height="40" x="0" y="0" s:generic="body" class="$cell_id"/>'
-            '  <g transform="translate(30,10)"'
-            '     s:x="30" s:y="10" s:pid="out0" s:position="right">'
-            '    <text x="5" y="-4" class="$cell_id">out0</text>'
-            "  </g>"
-            '  <g transform="translate(30,30)"'
-            '     s:x="30" s:y="30" s:pid="out1" s:position="right">'
-            '    <text x="5" y="-4" class="$cell_id">out1</text>'
-            "  </g>"
-            '  <g transform="translate(0,10)"'
-            '     s:x="0" s:y="10" s:pid="in0" s:position="left">'
-            '      <text x="-3" y="-4" class="inputPortLabel $cell_id">in0</text>'
-            "  </g>"
-            '  <g transform="translate(0,30)"'
-            '     s:x="0" s:y="30" s:pid="in1" s:position="left">'
-            '    <text x="-3" y="-4" class="inputPortLabel $cell_id">in1</text>'
-            "  </g>"
-            "</g>"
-            "<!-- builtin -->"
+            '<svg xmlns="http://www.w3.org/2000/svg"',
+            '     xmlns:xlink="http://www.w3.org/1999/xlink"',
+            '     xmlns:s="https://github.com/nturley/netlistsvg">',
+            "  <s:properties",
+            '    constants="false"',
+            '    splitsAndJoins="false"',
+            '    genericsLaterals="true">',
+            "    <s:layoutEngine",
+            '        org.eclipse.elk.layered.spacing.nodeNodeBetweenLayers="5"',
+            '        org.eclipse.elk.layered.compaction.postCompaction.strategy="4"',
+            '        org.eclipse.elk.spacing.nodeNode= "50"',
+            '        org.eclipse.elk.direction="DOWN"/>',
+            "  </s:properties>",
+            "<style>",
+            "svg {",
+            "  stroke: #000;",
+            "  fill: none;",
+            "  stroke-linejoin: round;",
+            "  stroke-linecap: round;",
+            "}",
+            "text {",
+            "  fill: #000;",
+            "  stroke: none;",
+            "  font-size: 10px;",
+            "  font-weight: bold;",
+            '  font-family: "Courier New", monospace;',
+            "}",
+            ".skidl_text {",
+            "  fill: #999;",
+            "  stroke: none;",
+            "  font-weight: bold;",
+            '  font-family: consolas, "Courier New", monospace;',
+            "}",
+            ".pin_num_text {",
+            "    fill: #840000;",
+            "}",
+            ".pin_name_text {",
+            "    fill: #008484;",
+            "}",
+            ".net_name_text {",
+            "    font-style: italic;",
+            "    fill: #840084;",
+            "}",
+            ".part_text {",
+            "    fill: #840000;",
+            "}",
+            ".part_ref_text {",
+            "    fill: #008484;",
+            "}",
+            ".part_name_text {",
+            "    fill: #008484;",
+            "}",
+            ".pen_fill {",
+            "    fill: #840000;",
+            "}",
+            ".background_fill {",
+            "    fill: #FFFFC2",
+            "}",
+            ".nodelabel {",
+            "  text-anchor: middle;",
+            "}",
+            ".inputPortLabel {",
+            "  text-anchor: end;",
+            "}",
+            ".splitjoinBody {",
+            "  fill: #000;",
+            "}",
+            ".symbol {",
+            "  stroke-linejoin: round;",
+            "  stroke-linecap: round;",
+            "  stroke: #840000;",
+            "}",
+            ".detail {",
+            "  stroke-linejoin: round;",
+            "  stroke-linecap: round;",
+            "  fill: #000;",
+            "}",
+            "</style>",
+            "",
+            "<!-- signal -->",
+            '<g s:type="inputExt" s:width="30" s:height="20" transform="translate(0,0)">',
+            '  <text x="-2" y="12" text-anchor=\'end\' class="$cell_id pin_name_text" s:attribute="ref">input</text>',
+            '  <s:alias val="$_inputExt_"/>',
+            '  <path d="M0,0 V20 H15 L30,10 15,0 Z" class="$cell_id symbol"/>',
+            '  <g s:x="30" s:y="10" s:pid="Y" s:position="right"/>',
+            "</g>",
+            "",
+            '<g s:type="outputExt" s:width="30" s:height="20" transform="translate(0,0)">',
+            '  <text x="32" y="12" class="$cell_id pin_name_text" s:attribute="ref">output</text>',
+            '  <s:alias val="$_outputExt_"/>',
+            '  <path d="M30,0 V20 H15 L0,10 15,0 Z" class="$cell_id symbol"/>',
+            '  <g s:x="0" s:y="10" s:pid="A" s:position="left"/>',
+            "</g>",
+            "<!-- signal -->",
+            "",
+            "<!-- builtin -->",
+            '<g s:type="generic" s:width="30" s:height="40" transform="translate(0,0)">',
+            '  <text x="15" y="-4" class="nodelabel $cell_id" s:attribute="ref">generic</text>',
+            '  <rect width="30" height="40" x="0" y="0" s:generic="body" class="$cell_id"/>',
+            '  <g transform="translate(30,10)"',
+            '     s:x="30" s:y="10" s:pid="out0" s:position="right">',
+            '    <text x="5" y="-4" class="$cell_id">out0</text>',
+            "  </g>",
+            '  <g transform="translate(30,30)"',
+            '     s:x="30" s:y="30" s:pid="out1" s:position="right">',
+            '    <text x="5" y="-4" class="$cell_id">out1</text>',
+            "  </g>",
+            '  <g transform="translate(0,10)"',
+            '     s:x="0" s:y="10" s:pid="in0" s:position="left">',
+            '      <text x="-3" y="-4" class="inputPortLabel $cell_id">in0</text>',
+            "  </g>",
+            '  <g transform="translate(0,30)"',
+            '     s:x="0" s:y="30" s:pid="in1" s:position="left">',
+            '    <text x="-3" y="-4" class="inputPortLabel $cell_id">in1</text>',
+            "  </g>",
+            "</g>",
+            "<!-- builtin -->",
         ]
 
         tail_svg = [
