@@ -1678,12 +1678,13 @@ class SwitchBox:
             # Get the nets that have vertical wires in the column.
             column_nets = set(intvl.net for intvl in column)
 
+            # Merge segments of each net in the column.
             for net in column_nets:
 
                 # Extract intervals if the current net has more than one interval.
                 intervals = [intvl for intvl in column if intvl.net is net]
                 if len(intervals) < 2:
-                    # Skip if only a single interval for this net.
+                    # Skip if there's only a single interval for this net.
                     continue
 
                 # Remove the intervals so they can be replaced with joined intervals.
@@ -1691,32 +1692,23 @@ class SwitchBox:
                     column.remove(intvl)
 
                 # Merge the extracted intervals as much as possible.
-                merged = True
-                while merged and len(intervals) > 1:
-                    merged = False
-                    merged_intervals = []
 
-                    # Sort intervals by their beginning coordinates.
-                    intervals.sort(key=lambda intvl: intvl.beg)
+                # Sort intervals by their beginning coordinates.
+                intervals.sort(key=lambda intvl: intvl.beg)
 
-                    # Try merging consecutive pairs of intervals.
-                    for intvl1, intvl2 in zip(intervals[:-1], intervals[1:]):
-                        merged_intvl = intvl1.merge(intvl2)
-                        if merged_intvl:
-                            # Replace separate intervals with merged interval.
-                            merged_intervals.append(merged_intvl)
-                            # Merging happened, so iterate through intervals again
-                            # to find more merges.
-                            merged = True
-                        else:
-                            # Intervals couldn't be merged, so keep both.
-                            merged_intervals.extend((intvl1, intvl2))
+                # Try merging consecutive pairs of intervals.
+                for i in range(len(intervals)-1):
+                    # Try to merge consecutive intervals.
+                    merged_intvl = intervals[i].merge(intervals[i+1])
+                    if merged_intvl:
+                        # Keep only the merged interval and place it so it's compared to the next one.
+                        intervals[i:i+2] = None, merged_intvl
 
-                    # Update list of intervals to include merges and remove duplicates.
-                    intervals = list(set(merged_intervals))
+                # Remove the None entries that are inserted when segments get merged.
+                intervals = [intvl for intvl in intervals if intvl]
 
                 # Place merged intervals back into column.
-                column.extend(set(merged_intervals))
+                column.extend(intervals)
 
             return column
 
@@ -2477,7 +2469,7 @@ class Router:
                 swbx.route(**options)
                 swbx.flip_xy()
 
-            # Add switchbox routes any existing wiring.
+            # Add switchbox routes to existing node wiring.
             for net, segments in swbx.segments.items():
                 node.wires[net].extend(segments)
 
@@ -3156,7 +3148,7 @@ class Router:
             junctions = find_junctions(segments)
             node.junctions[net].extend(junctions)
 
-    def rmv_stuff(node):
+    def rmv_routing_stuff(node):
         """Remove attributes added to parts/pins during routing."""
 
         rmv_attr(node.parts, ("left_track", "right_track", "top_track", "bottom_track"))
@@ -3188,6 +3180,9 @@ class Router:
         this_module.__dict__.update(tool_modules[tool].constants.__dict__)
 
         random.seed(options.get("seed"))
+
+        # Remove any stuff leftover from a previous place & route run.
+        node.rmv_routing_stuff()
 
         # First, recursively route any children of this node.
         # TODO: Child nodes are independent so could they be processed in parallel?
@@ -3281,10 +3276,10 @@ class Router:
             if options.get("draw_switchbox_routing"):
                 draw_routing(node, routing_bbox, node.parts, **options)
 
-            # Remove extended routing points from parts.
-            node.rmv_stuff()
+            # Remove any stuff leftover from this place & route run.
+            node.rmv_routing_stuff()
 
         except RoutingFailure:
-            # Remove extended routing points from parts.
-            node.rmv_stuff()
+            # Remove any stuff leftover from this place & route run.
+            node.rmv_routing_stuff()
             raise RoutingFailure
