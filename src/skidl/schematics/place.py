@@ -68,6 +68,12 @@ __all__ = [
 ###################################################################
 
 
+class PlacementFailure(Exception):
+    """Exception raised when parts or blocks could not be placed."""
+
+    pass
+
+
 def get_snap_pt(part_or_blk):
     """Get the point for snapping the Part or PartBlock to the grid.
 
@@ -134,12 +140,6 @@ def add_placement_bboxes(parts, **options):
             part.place_bbox.min
             - (Point(padding["R"], padding["U"]) * GRID * expansion_factor)
         )
-
-
-def rmv_placement_bboxes(parts):
-    """Remove expanded bounding boxes."""
-
-    rmv_attr(parts, "place_bbox")
 
 
 def add_anchor_pull_pins(parts, nets, **options):
@@ -254,19 +254,9 @@ def trim_anchor_pull_pins(parts):
             #     assert len(prts) == len(set(prts))
 
 
-def rmv_anchor_and_pull_pins(parts):
-    """Remove anchor and pull pin information from Part objects.
-
-    Args:
-        parts (list): List of movable parts.
-    """
-
-    for part in parts:
-        for attr in ("route_pt", "place_pt"):
-            rmv_attr(part.pins, attr)
-    for attr in ("anchor_pins", "pull_pins"):
-        rmv_attr(parts, attr)
-
+# Global storage for bounding box of randomly-placed parts.
+# This is used to determine if part placement is expanding uncontrollably.
+rand_plc_bbox = BBox()
 
 def random_placement(parts):
     """Randomly place parts within an appropriately-sized area.
@@ -287,6 +277,17 @@ def random_placement(parts):
         part.tx.move_to(pt)
         # The following setter doesn't work in Python 2.7.18.
         # part.tx.origin = Point(random.random() * side, random.random() * side)
+        rand_plc_bbox.add(part.place_bbox * part.tx)
+
+def check_placement(parts):
+    """Check current part placement to see if it's expanding too much."""
+    bbox = BBox()
+    for part in parts:
+        bbox.add(part.place_bbox * part.tx)
+    if bbox.area > 10 * rand_plc_bbox.area:
+        raise PlacementFailure
+    if (bbox.ctr - rand_plc_bbox.ctr).magnitude > max(rand_plc_bbox.w, rand_plc_bbox.h):
+        raise PlacementFailure
 
 
 def adjust_orientations(parts, **options):
@@ -823,6 +824,9 @@ def compress_parts(parts, nets, force_func, **options):
             mv_tx = Tx(dx=mv.x, dy=mv.y)
             part.tx *= mv_tx  # Move part.
 
+        # Check placement to see if it's failing and raise an exception.
+        check_placement(parts)
+
         if scr:
             # Draw current part placement for debugging purposes.
             draw_placement(parts, nets, scr, tx, font)
@@ -833,6 +837,10 @@ def compress_parts(parts, nets, force_func, **options):
             # Parts aren't moving much, so exit while loop.
             # Be sure to anchor one part or else the drift of the entire group will
             # prevent this test from ever converging.
+            break
+
+        # Check trend of part mobility and break if it's not going down.
+        if len(mobility_history)>= 5 and mobility >= sum(mobility_history[-5:]) / 5:
             break
 
     if options.get("show_mobility"):
@@ -908,6 +916,9 @@ def push_and_pull(parts, nets, force_func, speed, **options):
                 mv_tx = Tx(dx=mv.x, dy=mv.y)
                 part.tx *= mv_tx  # Move part.
 
+            # Check placement to see if it's failing and raise an exception.
+            check_placement(parts)
+
             mobility_history.append(mobility)
 
             if scr:
@@ -920,32 +931,39 @@ def push_and_pull(parts, nets, force_func, speed, **options):
                 # prevent this test from ever converging.
                 break
 
+            # Check trend of part mobility and break if it's not going down.
+            if len(mobility_history)>= 5 and mobility >= sum(mobility_history[-5:]) / 5:
+                break
+
         # After the parts have settled down, calculate the attractive forces only on each part
         # and move them if it's above a threshold. This allows parts to "jump" to better
         # positions that they couldn't reach because they were blocked by repulsive forces.
         # TODO: Don't do this until repulsive forces start to predominate.
-        if options.get("allow_jumps"):
+        if options.get("allow_jumps") and 0.55 <= alpha <= 0.65:
+            # TODO: compute force in original and new position and move where it is lower.
             for part in mobile_parts:
                 # TODO: Decide which of these functions gives the best results.
                 # mv = net_force_dist(part, nets, **options)  # Fails when placing part blocks.
-                mv = force_func(part, parts, alpha=0, **options)
-                if mv.magnitude > GRID * 5:
-                    mv_tx = Tx(dx=mv.x, dy=mv.y)
-                    part.tx *= mv_tx
+                orig_tx = part.tx
+                move_frc = net_force_dist(part, normalize=True)
+                part.tx *= Tx(dx=move_frc.x, dy=move_frc.y)
+                restore_frc = net_force_dist(part, normalize=True)
+                if restore_frc.magnitude >= move_frc.magnitude:
+                    part.tx = orig_tx
 
-    if options.get("allow_jumps"):
-        for part in mobile_parts:
-            while True:
-                mv = force_func(part, parts, alpha=0, **options)
-                mv_tx = Tx(dx=mv.x, dy=mv.y)
-                part.tx *= mv_tx
+    # if options.get("allow_jumps"):
+    #     for part in mobile_parts:
+    #         while True:
+    #             mv = force_func(part, parts, alpha=0, **options)
+    #             mv_tx = Tx(dx=mv.x, dy=mv.y)
+    #             part.tx *= mv_tx
 
-                if scr:
-                    # Draw current part placement for debugging purposes.
-                    draw_placement(parts, nets, scr, tx, font)
+    #             if scr:
+    #                 # Draw current part placement for debugging purposes.
+    #                 draw_placement(parts, nets, scr, tx, font)
 
-                if mv.magnitude < GRID:
-                    break
+    #             if mv.magnitude < GRID:
+    #                 break
 
     if options.get("show_mobility"):
         import matplotlib.pyplot as plt
@@ -1041,6 +1059,7 @@ def remove_overlaps(parts, nets, **options):
 
     overlaps = True
     while overlaps:
+
         overlaps = False
         random.shuffle(mobile_parts)
         for part in mobile_parts:
@@ -1057,6 +1076,10 @@ def remove_overlaps(parts, nets, **options):
                 elif shove_force.y > 0:
                     shove_tx.dy = GRID
                 part.tx = part.tx * shove_tx
+
+        # Check placement to see if it's failing and raise an exception.
+        check_placement(parts)
+
         if scr:
             draw_placement(parts, nets, scr, tx, font)
 
@@ -1232,6 +1255,10 @@ class Placer:
             options (dict): Dict of options and values that enable/disable functions.
         """
 
+        if not parts:
+            # Abort if nothing to place.
+            return
+
         # Add bboxes with surrounding area so parts are not butted against each other.
         add_placement_bboxes(parts, **options)
 
@@ -1255,24 +1282,26 @@ class Placer:
         if options.get("compress_before_place"):
             compress_parts(parts, nets, total_part_force, **options)
 
-        if options.get("rotate_parts"):
-
-            evolve_placement(
-                parts, nets, total_part_force, speeds=(1.0 * Placer.speed,), **options
-            )
-
-            adjust_orientations(parts, **options)
-
         # Do force-directed placement of the parts in the parts.
         evolve_placement(
             parts, nets, total_part_force, speeds=(1.0 * Placer.speed,), **options
         )
 
-        # Placement done so anchor and pull pins for each part are no longer needed.
-        rmv_anchor_and_pull_pins(parts)
+        if options.get("rotate_parts"):
+            # Adjust part orientations.
+            adjust_orientations(parts, **options)
 
-        # Placement done, so placement bounding boxes for each part are no longer needed.
-        rmv_placement_bboxes(parts)
+            # Re-do placement with new part orientations.
+            evolve_placement(
+                parts, nets, total_part_force, speeds=(1.0 * Placer.speed,), **options
+            )
+
+        if options.get("draw_placement"):
+            # Pause to look at placement for debugging purposes.
+            draw_pause()
+
+        # Placement done so remove placement data that's are no longer needed.
+        node.rmv_placement_stuff()
 
     def place_floating_parts(node, parts, **options):
         """Place individual parts.
@@ -1282,6 +1311,10 @@ class Placer:
             parts (list): List of Parts not connected by explicit nets.
             options (dict): Dict of options and values that enable/disable functions.
         """
+
+        if not parts:
+            # Abort if nothing to place.
+            return
 
         # Add bboxes with surrounding area so parts are not butted against each other.
         add_placement_bboxes(parts)
@@ -1325,17 +1358,18 @@ class Placer:
         )
 
         if options.get("compress_before_place"):
-            # Compress all floating parts together under influence of similarity forces only (no replusion).
+            # Compress all floating parts together under influence of similarity forces only (no repulsion).
             compress_parts(parts, [], force_func, **options)
 
         # Do force-directed placement of the parts in the group.
         evolve_placement(parts, [], force_func, speeds=(Placer.speed,), **options)
 
-        # Placement done so anchor and pull pins for each part are no longer needed.
-        rmv_anchor_and_pull_pins(parts)
+        if options.get("draw_placement"):
+            # Pause to look at placement for debugging purposes.
+            draw_pause()
 
-        # Placement done, so placement bounding boxes for each part are no longer needed.
-        rmv_placement_bboxes(parts)
+        # Placement done so remove placement data that's are no longer needed.
+        node.rmv_placement_stuff()
 
     def place_blocks(node, connected_parts, floating_parts, children, **options):
         """Place blocks of parts and hierarchical sheets.
@@ -1463,6 +1497,10 @@ class Placer:
                     # Otherwise, no attraction between these blocks.
                     blk_attr[blk][other_blk] = 0
 
+        if not part_blocks:
+            # Abort if nothing to place.
+            return
+
         # Start off with a random placement of part blocks.
         random_placement(part_blocks)
 
@@ -1481,6 +1519,10 @@ class Placer:
         force_func = functools.partial(total_similarity_force, similarity=blk_attr)
         evolve_placement(part_blocks, [], force_func, speeds=(Placer.speed,), **options)
 
+        if options.get("draw_placement"):
+            # Pause to look at placement for debugging purposes.
+            draw_pause()
+
         # Apply the placement moves of the part blocks to their underlying sources.
         for blk in part_blocks:
             try:
@@ -1491,6 +1533,16 @@ class Placer:
                 # Apply the block placement to the Tx of each part.
                 for part in blk.src:
                     part.tx *= blk.tx
+
+    def rmv_placement_stuff(node):
+        """Remove data structures added during placement phase."""
+
+        for part in node.parts:
+            for attr in ("route_pt", "place_pt"):
+                rmv_attr(part.pins, attr)
+        for attr in ("place_bbox", "anchor_pins", "pull_pins"):
+            rmv_attr(node.parts, attr)
+
 
     def place(node, tool=None, **options):
         """Place the parts and children in this node.
@@ -1511,42 +1563,39 @@ class Placer:
 
         random.seed(options.get("seed"))
 
-        # First, recursively place children of this node.
-        # TODO: Child nodes are independent, so can they be processed in parallel?
-        for child in node.children.values():
-            child.place(tool=tool, **options)
+        try:
 
-        # Group parts into those that are connected by explicit nets and
-        # those that float freely connected only by stub nets.
-        connected_parts, internal_nets, floating_parts = node.group_parts(**options)
+            # First, recursively place children of this node.
+            # TODO: Child nodes are independent, so can they be processed in parallel?
+            for child in node.children.values():
+                child.place(tool=tool, **options)
 
-        # Place each group of connected parts.
-        for group in connected_parts:
-            node.place_connected_parts(list(group), internal_nets, **options)
+            # Group parts into those that are connected by explicit nets and
+            # those that float freely connected only by stub nets.
+            connected_parts, internal_nets, floating_parts = node.group_parts(**options)
 
-        if options.get("draw_placement"):
-            # Pause to look at placement for debugging purposes.
-            draw_pause()
+            # Place each group of connected parts.
+            for group in connected_parts:
+                node.place_connected_parts(list(group), internal_nets, **options)
 
-        # Place the floating parts that have no connections to anything else.
-        if floating_parts:
+            # Place the floating parts that have no connections to anything else.
             node.place_floating_parts(list(floating_parts), **options)
 
-        if options.get("draw_placement"):
-            # Pause to look at placement for debugging purposes.
-            draw_pause()
+            # Now arrange all the blocks of placed parts and the child nodes within this node.
+            node.place_blocks(
+                connected_parts, floating_parts, node.children.values(), **options
+            )
 
-        # Now arrange all the blocks of placed parts and the child nodes within this node.
-        node.place_blocks(
-            connected_parts, floating_parts, node.children.values(), **options
-        )
+            # Remove any stuff leftover from this place & route run.
+            node.rmv_placement_stuff()
 
-        if options.get("draw_placement"):
-            # Pause to look at placement for debugging purposes.
-            draw_pause()
+            # Calculate the bounding box for the node after placement of parts and children.
+            node.calc_bbox()
 
-        # Calculate the bounding box for the node after placement of parts and children.
-        node.calc_bbox()
+        except PlacementFailure:
+            node.rmv_placement_stuff()
+            raise PlacementFailure
+
 
     def get_snap_pt(node):
         """Get a Point to use for snapping the node to the grid.
