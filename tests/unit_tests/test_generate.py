@@ -4,10 +4,10 @@
 
 import glob
 import inspect
+import itertools
 import os
 import os.path
 import sys
-import time
 
 import pytest
 
@@ -31,6 +31,7 @@ from skidl import (
     subcircuit,
 )
 from skidl.schematics.route import RoutingFailure
+from skidl.schematics.place import PlacementFailure
 
 from .setup_teardown import setup_function, teardown_function
 
@@ -38,13 +39,14 @@ sch_options = {}
 # seed = int(time.time())
 # sch_options.update({"seed": seed})
 # print("Random seed = {}".format(seed))
-sch_options.update({"retries": 1})
+sch_options.update({"retries": 2})
+sch_options.update({"collect_stats": True})
 sch_options.update({"normalize": True})
 sch_options.update({"compress_before_place": True})
-# sch_options.update({"allow_jumps": True})
+sch_options.update({"allow_jumps": True})
 # sch_options.update({"trim_anchor_pull_pins": True})
-sch_options.update({"rotate_parts": True})
-sch_options.update({"fanout_attenuation": True})
+# sch_options.update({"rotate_parts": True})
+# sch_options.update({"fanout_attenuation": True})
 # sch_options.update({"remove_power": True})
 # sch_options.update({"remove_high_fanout": True})
 # sch_options.update({"allow_routing_failure": True})
@@ -54,14 +56,14 @@ if os.getenv("DEBUG_DRAW"):
     # These options control debugging output.
     # To view schematic debugging output, use the command:
     #    DEBUG_DRAW=1 pytest ...
-    # sch_options.update({"draw_placement": True})
+    sch_options.update({"draw_placement": True})
     # sch_options.update({"draw_all_terminals": True})
     # sch_options.update({"show_capacities": True})
     # sch_options.update({"draw_routing_channels": True})
-    sch_options.update({"draw_global_routing": True})
+    # sch_options.update({"draw_global_routing": True})
     # sch_options.update({"draw_assigned_terminals": True})
-    sch_options.update({"draw_switchbox_boundary": True})
-    sch_options.update({"draw_switchbox_routing": True})
+    # sch_options.update({"draw_switchbox_boundary": True})
+    # sch_options.update({"draw_switchbox_routing": True})
 
 
 def _empty_footprint_handler(part):
@@ -89,7 +91,7 @@ def _empty_footprint_handler(part):
 skidl.empty_footprint_handler = _empty_footprint_handler
 
 
-def create_schematic(repeat=1, flatness=1.0):
+def create_schematic(num_trials=1, flatness=1.0, script_stack_level=1, report_failures=True):
     output_file_root = "./test_data/schematic_output"
     python_version = ".".join([str(n) for n in sys.version_info[0:3]])
     output_dir = os.path.join(output_file_root, python_version)
@@ -102,24 +104,99 @@ def create_schematic(repeat=1, flatness=1.0):
         except os.error:
             # OK, the directory already exists so just keep going.
             pass
-    # top_name = inspect.stack()[1].function
-    top_name = inspect.stack()[1][3]
+    # top_name = inspect.stack()[script_stack_level].function
+    top_name = inspect.stack()[script_stack_level][3]
     for f in glob.glob(os.path.join(output_dir, top_name) + "*.sch"):
         os.remove(f)
-    num_rte_fails = 0
-    for rep in range(repeat):
+
+    # Initialize file for holding statistics on schematic place & route.
+    stats_file = os.path.join(output_dir, top_name + ".csv")
+    sch_options["stats_file"] = stats_file
+    try:
+        os.remove(stats_file)
+    except FileNotFoundError:
+        pass
+    with open(stats_file, "w") as fp:
+        # First line shows configuration of P&R options.
+        config = ";".join(["{}={}".format(k,v) for k,v in sch_options.items()])
+        fp.write(config)
+        fp.write("\n")
+        # Add headers for columns of statistics.
+        fp.write("wire length")
+        fp.write("\n")
+    
+    num_fails = 0
+    for trial in range(num_trials):
         try:
             generate_schematic(
                 filepath=output_dir,
-                top_name=top_name + "_" + str(rep),
+                top_name=top_name + "_" + str(trial),
                 flatness=flatness,
                 **sch_options
             )
-        except RoutingFailure:
-            num_rte_fails += 1
-    if num_rte_fails:
-        raise RoutingFailure
+        except (PlacementFailure, RoutingFailure):
+            num_fails += 1
 
+    if num_fails and report_failures:
+        raise RoutingFailure
+    
+    # Return name of P&R stats file.
+    return stats_file
+
+def plot_stats(stats_file):
+    """Plot histogram of wire lengths for a set of place&routes."""
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    df = pd.read_csv(stats_file,skiprows=1)
+    routed = df[df > 0].dropna()                                                                                                    
+    routed.hist(column="wire length", bins=10)
+    route_success = (df>0).mean()[0]  # Fraction of successfully routed results.
+    route_len_mean = routed.mean()[0]
+    route_len_median = routed.median()[0]
+    route_len_stddev = routed.std()[0]
+    plt.xlabel("Total Routed Wire Length")
+    plt.ylabel("Frequency")
+    plt.title("Distribution of Total Routed Wiring Length")
+    plt.annotate("success={:.2f}\nmean={:.0f}\nmedian={:.0f}\nstddev={:.0f}".format(route_success, route_len_mean, route_len_median, route_len_stddev), xy=(0.75, 0.5), xycoords='axes fraction')
+    plt.show()
+
+def summarize_stats(stats_file, stat_headers):
+    """Summarize stats of wire lengths for a set of place&routes."""
+    stat_dict = {}
+    import pandas as pd
+    df = pd.read_csv(stats_file,skiprows=1)
+    routed = df[df > 0].dropna()
+    for hdr in stat_headers:
+        func = getattr(routed, hdr, None)
+        if func:
+            stat = func()[0]
+            stat_dict[hdr] = stat
+        elif hdr == "success":
+            stat = (df>0).mean()[0]
+            stat_dict[hdr] = stat
+    return stat_dict
+
+def search_bool_options(num_trials=1, flatness=1.0, bool_option_keys=[]):
+    """Try combinations of place&route settings and record statistics on wire lengths of place&route results."""
+    option_keys = sorted(set(list(sch_options.keys()) + bool_option_keys))
+    option_keys = [k for k in option_keys if not k.startswith("draw")]
+    num_bool_options = len(bool_option_keys)
+    bool_option_settings = [[False,True]] * num_bool_options
+    bool_option_settings = itertools.product(*bool_option_settings)
+    stat_headers = ["success", "mean", "median", "std"]
+    with open("./test_data/option_test.csv", "w") as fp:
+        fp.write(",".join(option_keys+stat_headers) + "\n")
+        for settings in bool_option_settings:
+            bool_settings_dict = dict(zip(bool_option_keys, settings))
+            sch_options.update(bool_settings_dict)
+            stats_file = create_schematic(num_trials=num_trials, flatness=flatness, script_stack_level=2, report_failures=False)
+            summary = summarize_stats(stats_file, stat_headers)
+            stat_dict = dict()
+            stat_dict.update(sch_options)
+            stat_dict.update(summary)
+            stat_row =  ",".join([str(stat_dict[k]) for k in option_keys + stat_headers])
+            fp.write(stat_row + "\n")
+            fp.flush()
 
 @pytest.mark.xfail(raises=(RoutingFailure))
 def test_gen_sch_1():
@@ -162,7 +239,15 @@ def test_gen_sch_1():
     generate_netlist()
     generate_xml()
     generate_graph()
-    create_schematic(repeat=1,flatness=1.0)
+
+    # For collecting stats on option settings.
+    # sch_options["remove_power"] = False
+    # sch_options["rotate_parts"] = True
+    # search_bool_options(num_trials=10, bool_option_keys=[
+    # "remove_high_fanout", "fanout_attenuation",
+    # "compress_before_place", "allow_jumps", "normalize"])
+
+    create_schematic(num_trials=1,flatness=1.0)
 
 
 @pytest.mark.xfail(raises=(SyntaxError))
