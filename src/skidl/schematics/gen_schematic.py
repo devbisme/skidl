@@ -26,7 +26,7 @@ from ..tools.kicad.eeschema_v5 import Eeschema_V5, pin_label_to_eeschema
 from ..tools.kicad.v5 import calc_hier_label_bbox, calc_symbol_bbox
 from ..utilities import export_to_all, rmv_attr
 from .geometry import BBox, Point, Tx, Vector
-from .place import Placer
+from .place import Placer, PlacementFailure
 from .route import Router, RoutingFailure
 
 standard_library.install_aliases()
@@ -230,7 +230,8 @@ class NetTerminal(Part):
         # Set the pin at point (0,0) and pointing leftward toward the part body
         # (consisting of just the net label for this type of part) so any attached routing
         # will go to the right.
-        pin.pt = Point(0, 0)
+        pin.x, pin.y = 0,0
+        pin.pt = Point(pin.x, pin.y)
         pin.orientation = "L"
 
         # Calculate the bounding box, but as if the pin were pointed right so
@@ -575,6 +576,28 @@ class Node(Placer, Router, Eeschema_V5):
 
         return [pin for pin in net.pins if pin.stub is False and pin.part in self.parts]
 
+    def collect_stats(self, **options):
+        """Return comma-separated string with place & route statistics of a schematic."""
+
+        def get_wire_length(node):
+            """Return the sum of the wire segment lengths between parts in a routed node."""
+            
+            wire_length = 0
+            
+            # Sum wire lengths for child nodes.
+            for child in node.children.values():
+                wire_length += get_wire_length(child)
+
+            # Add the wire lengths between parts in the top node.
+            for wire_segs in node.wires.values():
+                for seg in wire_segs:
+                    len_x = abs(seg.p1.x - seg.p2.x)
+                    len_y = abs(seg.p1.y - seg.p2.y)
+                    wire_length += len_x + len_y
+
+            return wire_length
+
+        return "{}\n".format(get_wire_length(self))
 
 @export_to_all
 def gen_schematic(
@@ -608,12 +631,18 @@ def gen_schematic(
 
         node = Node(circuit, filepath, top_name, title, flatness)
 
-        # Place parts.
-        node.place(expansion_factor=expansion_factor, **options)
-
         try:
+            # Place parts.
+            node.place(expansion_factor=expansion_factor, **options)
+
             # Route parts.
             node.route(**options)
+
+        except PlacementFailure:
+            # Placement failed, so clean up ...
+            finalize_parts_and_nets(circuit)
+            # ... and try again.
+            continue
 
         except RoutingFailure:
             # Routing failed, so clean up ...
@@ -626,11 +655,26 @@ def gen_schematic(
         # Generate EESCHEMA code for the schematic.
         node.to_eeschema()
 
+        # Append place & route statistics for the schematic to a file.
+        if options.get("collect_stats"):
+            stats = node.collect_stats(**options)
+            with open(options["stats_file"], "a") as f:
+                f.write(stats)
+
         # Clean up.
         finalize_parts_and_nets(circuit)
 
         # Place & route was successful if we got here, so exit.
         return
+
+    # Append failed place & route statistics for the schematic to a file.
+    if options.get("collect_stats"):
+        stats = "-1\n"
+        with open(options["stats_file"], "a") as f:
+            f.write(stats)
+
+    # Clean-up after failure.
+    finalize_parts_and_nets(circuit)
 
     # Exited the loop without successful routing.
     raise (RoutingFailure)
