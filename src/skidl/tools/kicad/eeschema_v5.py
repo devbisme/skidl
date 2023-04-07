@@ -145,6 +145,7 @@ def part_to_eeschema(part, tx):
 
     # For debugging: draws a bounding box around a part.
     # eeschema.append(bbox_to_eeschema(part.bbox, tx))
+    # eeschema.append(bbox_to_eeschema(part.place_bbox, tx))
 
     return "\n".join(eeschema)
 
