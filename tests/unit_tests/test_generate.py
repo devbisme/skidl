@@ -37,33 +37,36 @@ from .setup_teardown import setup_function, teardown_function
 
 sch_options = {}
 # seed = int(time.time())
-# sch_options.update({"seed": seed})
+# sch_options["seed"] = seed
 # print("Random seed = {}".format(seed))
-sch_options.update({"retries": 2})
-sch_options.update({"collect_stats": True})
-sch_options.update({"normalize": True})
-sch_options.update({"compress_before_place": True})
-sch_options.update({"allow_jumps": True})
-# sch_options.update({"trim_anchor_pull_pins": True})
-# sch_options.update({"rotate_parts": True})
-# sch_options.update({"fanout_attenuation": True})
-# sch_options.update({"remove_power": True})
-# sch_options.update({"remove_high_fanout": True})
-# sch_options.update({"allow_routing_failure": True})
-# sch_options.update({"show_mobility": True})
-# sch_options.update({"show_orientation_cost": True})
+sch_options["retries"] = 2
+# sch_options["allow_routing_failure"] = True
+# sch_options["collect_stats"] = True
+sch_options["pt_to_pt_mult"] = 50  # TODO: Ad-hoc value.
+sch_options["normalize"] = True
+sch_options["compress_before_place"] = True
+sch_options["allow_jumps"] = True
+# sch_options["align_parts"] = True
+sch_options["slip_and_slide"] = True
+sch_options["rotate_parts"] = True
+# sch_options["trim_anchor_pull_pins"] = True
+# sch_options["fanout_attenuation"] = True
+# sch_options["remove_power"] = True
+# sch_options["remove_high_fanout"] = True
+# sch_options["show_mobility"] = True
+# sch_options["show_orientation_cost"] = True
 if os.getenv("DEBUG_DRAW"):
     # These options control debugging output.
     # To view schematic debugging output, use the command:
     #    DEBUG_DRAW=1 pytest ...
-    sch_options.update({"draw_placement": True})
-    # sch_options.update({"draw_all_terminals": True})
-    # sch_options.update({"show_capacities": True})
-    # sch_options.update({"draw_routing_channels": True})
-    # sch_options.update({"draw_global_routing": True})
-    # sch_options.update({"draw_assigned_terminals": True})
-    # sch_options.update({"draw_switchbox_boundary": True})
-    # sch_options.update({"draw_switchbox_routing": True})
+    sch_options["draw_placement"] = True
+    # sch_options["draw_all_terminals"] = True
+    # sch_options["show_capacities"] = True
+    # sch_options["draw_routing_channels"] = True
+    # sch_options["draw_global_routing"] = True
+    # sch_options["draw_assigned_terminals"] = True
+    # sch_options["draw_switchbox_boundary"] = True
+    # sch_options["draw_switchbox_routing"] = True
 
 
 def _empty_footprint_handler(part):
