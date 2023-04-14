@@ -179,6 +179,10 @@ class Point:
             raise ValueError
         else:
             return self * m
+        
+    def xprod(self, pt):
+        """Cross-product of two 2D vectors returns scalar in Z coord."""
+        return self.x * pt.y - self.y * pt.x
 
     def __neg__(self):
         """Negate both coords."""

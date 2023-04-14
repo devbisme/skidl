@@ -150,21 +150,21 @@ def add_anchor_pull_pins(parts, nets, **options):
         nets (list): List of attractive nets between parts.
         options (dict): Dict of options and values that enable/disable functions.
     """
+    from skidl.schematics.gen_schematic import NetTerminal
 
     def add_place_pt(part, pin):
         """Add the point for a pin on the placement boundary of a part."""
 
         pin.route_pt = pin.pt  # For drawing of nets during debugging.
         pin.place_pt = Point(pin.pt.x, pin.pt.y)
-        offset = 1 * GRID
         if pin.orientation == "U":
-            pin.place_pt.y = part.lbl_bbox.min.y - offset
+            pin.place_pt.y = part.place_bbox.min.y
         elif pin.orientation == "D":
-            pin.place_pt.y = part.lbl_bbox.max.y + offset
+            pin.place_pt.y = part.place_bbox.max.y
         elif pin.orientation == "L":
-            pin.place_pt.x = part.lbl_bbox.max.x + offset
+            pin.place_pt.x = part.place_bbox.max.x
         elif pin.orientation == "R":
-            pin.place_pt.x = part.lbl_bbox.min.x - offset
+            pin.place_pt.x = part.place_bbox.min.x
         else:
             raise RuntimeError("Unknown pin orientation.")
 
@@ -190,7 +190,10 @@ def add_anchor_pull_pins(parts, nets, **options):
                 pin.part.anchor_pins[net].append(pin)
                 add_place_pt(pin.part, pin)
                 for part in net_parts - {pin.part}:
-                    part.pull_pins[net].append(pin)
+                    # NetTerminals are pulled towards connected parts, but
+                    # those parts are not attracted towards NetTerminals.
+                    if not isinstance(pin.part, NetTerminal):
+                        part.pull_pins[net].append(pin)
 
     else:
         # There are no nets so these parts are floating freely.
@@ -445,8 +448,57 @@ def net_tension_dist(part, **options):
     return tension
 
 
+def net_torque_dist(part, **options):
+    """Calculate the torque of the nets trying to rotate/flip the part.
+
+    Args:
+        part (Part): Part affected by forces from other connected parts.
+        options (dict): Dict of options and values that enable/disable functions.
+
+    Returns:
+        float: Total torque on the part.
+    """
+
+    # Part centroid for computing torque.
+    ctr = part.place_bbox.ctr * part.tx
+
+    # Get the force multiplier applied to point-to-point nets.
+    pt_to_pt_mult = options.get("pt_to_pt_mult")
+
+    # Compute the torque for each net attached to the part.
+    torque = 0.0
+    for net, anchor_pins in part.anchor_pins.items():
+
+        pull_pins = part.pull_pins[net]
+
+        if not anchor_pins or not pull_pins:
+            # Skip nets without pulling or anchor points.
+            continue
+
+        pull_pin_pts = [pin.place_pt * pin.part.tx for pin in pull_pins]
+
+        # Multiply the force exerted by point-to-point nets.
+        force_mult = pt_to_pt_mult if len(pull_pin_pts)<=1 else 1
+
+        # Compute the net torque acting on each anchor point on the part.
+        for anchor_pin in anchor_pins:
+
+            # Compute the anchor point's (x,y).
+            anchor_pt = anchor_pin.place_pt * part.tx
+
+            # Compute torque around part center from force between anchor & pull pins.
+            normalize = len(pull_pin_pts)
+            lever_norm = (anchor_pt - ctr).norm
+            for pull_pt in pull_pin_pts:
+                frc_norm = (pull_pt - anchor_pt).norm
+                torque += lever_norm.xprod(frc_norm) * force_mult / normalize
+
+    return abs(torque)
+
+
 # Select the net tension method used for the adjusting the orientation of parts.
 net_tension = net_tension_dist
+# net_tension = net_torque_dist
 
 
 def net_force_dist(part, **options):
@@ -463,6 +515,9 @@ def net_force_dist(part, **options):
     anchor_pins = part.anchor_pins
     pull_pins = part.pull_pins
 
+    # Get the force multiplier applied to point-to-point nets.
+    pt_to_pt_mult = options.get("pt_to_pt_mult")
+
     # Compute the total force on the part from all the anchor/pulling points on each net.
     total_force = Vector(0, 0)
     normalizer = 0
@@ -473,6 +528,9 @@ def net_force_dist(part, **options):
         if not anchor_pins[net] or not pull_pins[net]:
             # Skip nets without pulling or anchor points.
             continue
+
+        # Multiply the force exerted by point-to-point nets.
+        force_mult = pt_to_pt_mult if len(pull_pins[net])<=1 else 1
 
         # Compute the net force acting on each anchor point on the part.
         for anchor_pin in anchor_pins[net]:
@@ -486,7 +544,7 @@ def net_force_dist(part, **options):
                 # Compute the pulling point's (x,y).
                 pull_pt = pull_pin.place_pt * pull_pin.part.tx
 
-                total_force += pull_pt - anchor_pt
+                total_force += (pull_pt - anchor_pt) * force_mult
                 normalizer += 1
 
     if options.get("normalize"):
@@ -511,6 +569,9 @@ def net_force_inv_dist(part, **options):
     anchor_pins = part.anchor_pins
     pull_pins = part.pull_pins
 
+    # Get the force multiplier applied to point-to-point nets.
+    pt_to_pt_mult = options.get("pt_to_pt_mult")
+
     # Compute the total force on the part from all the anchor/pulling points on each net.
     total_force = Vector(0, 0)
     normalizer = 0
@@ -521,6 +582,9 @@ def net_force_inv_dist(part, **options):
         if not anchor_pins[net] or not pull_pins[net]:
             # Skip nets without pulling or anchor points.
             continue
+
+        # Multiply the force exerted by point-to-point nets.
+        force_mult = pt_to_pt_mult if len(pull_pins[net])<=1 else 1
 
         # Compute the net force acting on each anchor point on the part.
         for anchor_pin in anchor_pins[net]:
@@ -534,11 +598,11 @@ def net_force_inv_dist(part, **options):
                 # Compute the pulling point's (x,y).
                 pull_pt = pull_pin.place_pt * pull_pin.part.tx
 
-                vec = pull_pt - anchor_pt
-                mag = vec.magnitude
+                vec = (pull_pt - anchor_pt) * force_mult
+                mag = vec.magnitude or GRID
 
                 # total_force += vec.norm
-                total_force += vec.norm / (mag + GRID)
+                total_force += vec.norm / mag
 
                 normalizer += 1
 
@@ -580,6 +644,9 @@ def net_force_dist_avg(part, **options):
     anchor_pins = part.anchor_pins
     pull_pins = part.pull_pins
 
+    # Get the force multiplier applied to point-to-point nets.
+    pt_to_pt_mult = options.get("pt_to_pt_mult")
+
     # Compute the total force on the part from all the anchor/pulling points on each net.
     total_force = Vector(0, 0)
 
@@ -594,6 +661,9 @@ def net_force_dist_avg(part, **options):
         if not anchor_pins[net] or not pull_pins[net]:
             # Skip nets without pulling or anchor points.
             continue
+
+        # Multiply the force exerted by point-to-point nets.
+        force_mult = pt_to_pt_mult if len(pull_pins[net])<=1 else 1
 
         # Initialize net force and average pin-to-pin distance.
         net_force = Vector(0, 0)
@@ -620,7 +690,7 @@ def net_force_dist_avg(part, **options):
                 dist_cnt += 1
 
                 # Force from pulling to anchor point is proportional to distance.
-                net_force += dist_vec
+                net_force += dist_vec * force_mult
 
             if options.get("fanout_attenuation"):
                 # Reduce the influence of high-fanout nets.
@@ -794,6 +864,22 @@ def compress_parts(parts, nets, force_func, **options):
     tx = options.get("draw_tx")
     font = options.get("draw_font")
 
+    # Find the centroid of all the parts.
+    bbox = BBox()
+    for part in parts:
+        bbox.add(part.place_bbox * part.tx)
+    ctr = bbox.ctr
+
+    # Collapse all the parts to the centroid to speed convergence of the 
+    # force-directed compression that follows.
+    for part in parts:
+        mv = ctr - part.place_bbox.ctr * part.tx
+        part.tx *= Tx(dx=mv.x, dy=mv.y)
+    if scr:
+        # Draw current part placement for debugging purposes.
+        draw_placement(parts, nets, scr, tx, font)
+        draw_pause()
+
     # Make list of parts that will be moved, but keep one stationary to act as an anchor.
     mobile_parts = parts[:]
     random.shuffle(mobile_parts)
@@ -877,6 +963,8 @@ def push_and_pull(parts, nets, force_func, speed, **options):
     # Make list of parts that will be moved, but keep one stationary to act as an anchor.
     mobile_parts = parts[:]
     random.shuffle(mobile_parts)
+    # Using an anchor can distort placement if the anchor is at the periphery
+    # so it's effect takes too long to be felt by all the parts.
     mobile_parts[0].force = Vector(0, 0)  # For debug drawing purposes.
     mobile_parts = mobile_parts[1:]
 
@@ -884,18 +972,13 @@ def push_and_pull(parts, nets, force_func, speed, **options):
     # to be the average movement of individual parts dropping to much less
     # than the length of a grid space.
     # TODO: better convergence threshold.
-    all_still = GRID / 10 * len(mobile_parts)
+    all_still = GRID / 10 * len(parts)
 
     # Setup the schedule for adjusting the alpha coefficient that weights the
     # combination of the attractive net forces and the repulsive part overlap forces.
     # Start at 0 (all attractive) and progress to 1 (all repulsive).
-    # alpha_schedule = [0.1, 0.2, 0.5, 0.75, 1.0]
-    # alpha_schedule = [0.1, 0.2, 0.3, 0.7, 0.8, 0.9, 1.0]
-    # alpha_schedule = [0.1, 0.3, 0.5, 0.7, 1.0]
-    alpha_schedule = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
-    # alpha_schedule = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.2, 0.3, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
-    if not options.get("compress_before_place"):
-        alpha_schedule.insert(0, 0.0)
+    N = 50
+    alpha_schedule = [i * 1/N for i in range(N+1)]
 
     # Arrange parts under influence of net attractions and part overlaps.
     mobility_history = []
@@ -945,9 +1028,9 @@ def push_and_pull(parts, nets, force_func, speed, **options):
                 # TODO: Decide which of these functions gives the best results.
                 # mv = net_force_dist(part, nets, **options)  # Fails when placing part blocks.
                 orig_tx = part.tx
-                move_frc = net_force_dist(part, normalize=True)
+                move_frc = net_force_dist(part, **options)
                 part.tx *= Tx(dx=move_frc.x, dy=move_frc.y)
-                restore_frc = net_force_dist(part, normalize=True)
+                restore_frc = net_force_dist(part, **options)
                 if restore_frc.magnitude >= move_frc.magnitude:
                     part.tx = orig_tx
 
@@ -975,6 +1058,30 @@ def push_and_pull(parts, nets, force_func, speed, **options):
         except ValueError:
             pass
 
+def jump_parts(parts, force_func, speed, **options):
+    """Jump parts to move them over other parts that block them.
+
+    Args:
+        parts (list): List of Parts.
+        force_func: Function for calculating forces between parts.
+        speed (float): How fast parts move under the influence of forces.
+        options (dict): Dict of options and values that enable/disable functions.
+    """
+
+    if not options.get("allow_jumps"):
+        # Abort if jumping parts is disabled.
+        return
+
+    for _ in range(20): # TODO: ad-hoc iteration count.
+        jump_parts = sorted(parts, key=lambda p:force_func(p, parts, alpha=0, **options))
+        while jump_parts:
+            part = jump_parts.pop()
+            N = 20
+            for alpha in (i*1.0/N for i in range(N+1)):
+                mv = force_func(part, parts, alpha=alpha, **options)
+                mv *= speed
+                mv_tx = Tx(dx=mv.x, dy=mv.y)
+                part.tx *= mv_tx
 
 def align_parts(parts, **options):
     """Move parts to align their I/O pins with each other and reduce routing jagginess.
@@ -983,6 +1090,10 @@ def align_parts(parts, **options):
         parts (list): List of Parts.
         options (dict): Dict of options and values that enable/disable functions.
     """
+
+    if not options.get("align_parts"):
+        # Abort if aligning parts is disabled.
+        return
 
     try:
         # Align higher pin-count parts first so smaller parts can align to them later without changes messing it up.
@@ -1094,6 +1205,10 @@ def slip_and_slide(parts, nets, force_func, **options):
         options (dict): Dict of options and values that enable/disable functions.
     """
 
+    if not options.get("slip_and_slide"):
+        # Abort if this is disabled.
+        return
+
     if len(parts) <= 1:
         # No need to do placement if there's less than two parts.
         return
@@ -1134,20 +1249,22 @@ def slip_and_slide(parts, nets, force_func, **options):
             draw_placement(parts, nets, scr, tx, font)
 
 
-def evolve_placement(parts, nets, force_func, speeds, **options):
+def evolve_placement(parts, nets, force_func, speed, **options):
     """Evolve part placement looking for optimum using force function.
 
     Args:
         parts (list): List of Parts.
         nets (list): List of nets that interconnect parts.
         force_func (function): Computes the force affecting part positions.
-        speeds (list): List of floating speeds of part movement per unit of force.
+        speed (float): Speed of part movement per unit of force.
         options (dict): Dict of options and values that enable/disable functions.
     """
 
     # Force-directed placement.
-    for speed in speeds:
-        push_and_pull(parts, nets, force_func, speed, **options)
+    push_and_pull(parts, nets, force_func, speed, **options)
+
+    # Jump parts around to reduce wire length.
+    jump_parts(parts, force_func, speed, **options)
 
     # Line-up the parts to reduce routing jagginess.
     align_parts(parts, **options)
@@ -1284,7 +1401,7 @@ class Placer:
 
         # Do force-directed placement of the parts in the parts.
         evolve_placement(
-            parts, nets, total_part_force, speeds=(1.0 * Placer.speed,), **options
+            parts, nets, total_part_force, speed=Placer.speed, **options
         )
 
         if options.get("rotate_parts"):
@@ -1293,7 +1410,7 @@ class Placer:
 
             # Re-do placement with new part orientations.
             evolve_placement(
-                parts, nets, total_part_force, speeds=(1.0 * Placer.speed,), **options
+                parts, nets, total_part_force, speed=Placer.speed, **options
             )
 
         if options.get("draw_placement"):
@@ -1362,7 +1479,7 @@ class Placer:
             compress_parts(parts, [], force_func, **options)
 
         # Do force-directed placement of the parts in the group.
-        evolve_placement(parts, [], force_func, speeds=(Placer.speed,), **options)
+        evolve_placement(parts, [], force_func, speed=Placer.speed, **options)
 
         if options.get("draw_placement"):
             # Pause to look at placement for debugging purposes.
@@ -1517,7 +1634,7 @@ class Placer:
 
         # Arrange the part blocks with similarity force-directed placement.
         force_func = functools.partial(total_similarity_force, similarity=blk_attr)
-        evolve_placement(part_blocks, [], force_func, speeds=(Placer.speed,), **options)
+        evolve_placement(part_blocks, [], force_func, speed=Placer.speed, **options)
 
         if options.get("draw_placement"):
             # Pause to look at placement for debugging purposes.
@@ -1540,7 +1657,7 @@ class Placer:
         for part in node.parts:
             for attr in ("route_pt", "place_pt"):
                 rmv_attr(part.pins, attr)
-        for attr in ("place_bbox", "anchor_pins", "pull_pins"):
+        for attr in ("anchor_pins", "pull_pins"):
             rmv_attr(node.parts, attr)
 
 
