@@ -52,6 +52,23 @@ def export_to_all(fn):
 
 
 @export_to_all
+def sgn(x):
+    """Return -1,0,1 if x<0, x==0, x>0."""
+    return -1 if x < 0 else (1 if x > 0 else 0)
+
+
+@export_to_all
+def debug_trace(fn, *args, **kwargs):
+    """Decorator to print tracing info when debugging execution."""
+
+    def traced_fn(*args, **kwargs):
+        if kwargs.get("debug_trace"):
+            print("Doing {} ...".format(fn.__name__))
+        return fn(*args, **kwargs)
+    return traced_fn
+
+
+@export_to_all
 def num_to_chars(num):
     """Return a string like 'AB' when given a number like 28."""
     num -= 1
