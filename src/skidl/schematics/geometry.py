@@ -250,20 +250,33 @@ class BBox:
         self.min = Point(inf, inf)
         self.max = Point(-inf, -inf)
         self.add(*pts)
+    
+    def __add__(self, obj):
+        """Return the merged BBox of two BBoxes or a BBox and a Point."""
+        sum_ = BBox()
+        if isinstance(obj, Point):
+            sum_.min = self.min.min(obj)
+            sum_.max = self.max.max(obj)
+        elif isinstance(obj, BBox):
+            sum_.min = self.min.min(obj.min)
+            sum_.max = self.max.max(obj.max)
+        else:
+            raise NotImplementedError
+        return sum_
+    
+    def __iadd__(self, obj):
+        """Update BBox bt adding another Point or BBox"""
+        sum_ = self + obj
+        self.min = sum_.min
+        self.max = sum_.max
+        return self
 
     def add(self, *objs):
         """Update the bounding box size by adding Point/BBox objects."""
         for obj in objs:
-            if isinstance(obj, Point):
-                self.min = self.min.min(obj)
-                self.max = self.max.max(obj)
-            elif isinstance(obj, BBox):
-                self.min = self.min.min(obj.min)
-                self.max = self.max.max(obj.max)
-            else:
-                raise NotImplementedError
+            self +=  obj
         return self
-
+    
     def __mul__(self, m):
         return BBox(self.min * m, self.max * m)
 
