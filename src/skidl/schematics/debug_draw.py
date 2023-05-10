@@ -119,20 +119,22 @@ def draw_seg(seg, scr, tx, color=(100, 100, 100), thickness=5, dot_radius=10):
 
 
 @export_to_all
-def draw_text(txt, pt, scr, tx, font, color=(100, 100, 100)):
+def draw_text(txt, pt, scr, tx, font, color=(100, 100, 100), real=True):
     """Render text in drawing area.
 
     Args:
         txt (str): Text string to be rendered.
-        pt (Point): Real coord for start of rendered text.
+        pt (Point): Real or screen coord for start of rendered text.
         scr (PyGame screen): Screen object for PyGame drawing.
         tx (Tx): Transformation matrix from real to screen coords.
         font (PyGame font): Font for rendering text.
         color (tuple, optional): Segment color. Defaults to (100,100,100).
+        real (Boolean): If true, transform real pt to screen coords. Otherwise, pt is screen coords.
     """
 
-    # Transform text starting point to screen coords.
-    pt = pt * tx
+    # Transform real text starting point to screen coords.
+    if real:
+        pt = pt * tx
 
     # Render text.
     font.render_to(scr, (pt.x, pt.y), txt, color)
