@@ -30,31 +30,35 @@ from skidl import (
     generate_xml,
     subcircuit,
 )
-from skidl.schematics.route import RoutingFailure
+import skidl.schematics.place as schplc
 from skidl.schematics.place import PlacementFailure
+from skidl.schematics.route import RoutingFailure
 
 from .setup_teardown import setup_function, teardown_function
+
+schplc.net_force = schplc.net_force_dist_avg
+schplc.overlap_force = schplc.overlap_force_1
 
 sch_options = {}
 # seed = int(time.time())
 # sch_options["seed"] = seed
 # print("Random seed = {}".format(seed))
 sch_options["retries"] = 2
+sch_options["debug_trace"] = False
 # sch_options["allow_routing_failure"] = True
-# sch_options["collect_stats"] = True
 sch_options["pt_to_pt_mult"] = 10  # TODO: Ad-hoc value.
 sch_options["normalize"] = True
 sch_options["compress_before_place"] = True
-sch_options["allow_jumps"] = True
+# sch_options["allow_jumps"] = True
 # sch_options["align_parts"] = True
-sch_options["slip_and_slide"] = True
+# sch_options["slip_and_slide"] = True
 sch_options["rotate_parts"] = True
 # sch_options["trim_anchor_pull_pins"] = True
 # sch_options["fanout_attenuation"] = True
 # sch_options["remove_power"] = True
 # sch_options["remove_high_fanout"] = True
-# sch_options["show_mobility"] = True
 # sch_options["show_orientation_cost"] = True
+# sch_options["collect_stats"] = True
 if os.getenv("DEBUG_DRAW"):
     # These options control debugging output.
     # To view schematic debugging output, use the command:
@@ -393,14 +397,15 @@ def test_gen_sch_very_simple():
     r = Part(
         "Device.lib", "R", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE
     )
-    gndt = Part("power", "GND", footprint="TestPoint:TestPoint_Pad_D4.0mm")
-    vcct = Part("power", "VCC", footprint="TestPoint:TestPoint_Pad_D4.0mm")
+    # gndt = Part("power", "GND", footprint="TestPoint:TestPoint_Pad_D4.0mm")
+    # vcct = Part("power", "VCC", footprint="TestPoint:TestPoint_Pad_D4.0mm")
 
-    gnd = Net("GND")
-    vcc = Net("VCC")
-    gnd & gndt
-    vcc & vcct
-    gnd & r() & vcc
+    # gnd = Net("GND")
+    # vcc = Net("VCC")
+    # gnd & gndt
+    # vcc & vcct
+    # gnd & r() & vcc
+    r() & r() & r() & r()
     create_schematic(flatness=1.0)
 
 
@@ -418,6 +423,39 @@ def test_gen_sch_simple():
     for q in qs:
         for p, n in zip(q.pins, ns):
             n += p
+    create_schematic(flatness=1.0)
+
+
+@pytest.mark.xfail(raises=(RoutingFailure))
+def test_gen_sch_floating():
+    r = Part(
+        "Device.lib", "R", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE
+    )
+    c = Part(
+        "Device.lib", "C", footprint="Capacitor_SMD:R_0805_2012Metric", dest=TEMPLATE
+    )
+    q = Part(
+        lib="Device.lib",
+        name="Q_PNP_CBE",
+        footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2",
+        dest=TEMPLATE,
+        symtx="V",
+    )
+    # gndt = Part("power", "GND", footprint="TestPoint:TestPoint_Pad_D4.0mm")
+    # vcct = Part("power", "VCC", footprint="TestPoint:TestPoint_Pad_D4.0mm")
+
+    gnd = Net("GND")
+    vcc = Net("VCC")
+    # gnd & gndt
+    # vcc & vcct
+    # gnd & r() & vcc
+    for _ in range(2):
+        with Group("A:"):
+            vcc & r() & q()["B", "E"] & r() & gnd
+            vcc & (c() | c()) & gnd
+            c()
+            r()
+            q()
     create_schematic(flatness=1.0)
 
 
