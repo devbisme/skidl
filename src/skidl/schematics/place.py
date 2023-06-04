@@ -969,6 +969,17 @@ def central_placement(parts, **options):
         part.tx *= Tx(dx=mv.x, dy=mv.y)
 
 
+def define_placement_bbox(parts, **options):
+    """Return a bounding box big enough to hold the parts being placed."""
+
+    # Compute appropriate size to hold the parts based on their areas.
+    area = 0
+    for part in parts:
+        area += part.place_bbox.area
+    side = 3 * math.sqrt(area)  # FIXME: Multiplier is ad-hoc.
+    return BBox(Point(0,0), Point(side, side))
+
+
 @debug_trace
 def random_placement(parts, **options):
     """Randomly place parts within an appropriately-sized area.
@@ -978,17 +989,94 @@ def random_placement(parts, **options):
     """
 
     # Compute appropriate size to hold the parts based on their areas.
-    area = 0
-    for part in parts:
-        area += part.place_bbox.area
-    side = 3 * math.sqrt(area)  # FIXME: Multiplier is ad-hoc.
+    bbox = define_placement_bbox(parts, **options)
 
     # Place parts randomly within area.
     for part in parts:
-        pt = Point(random.random() * side, random.random() * side)
+        pt = Point(random.random() * bbox.w, random.random() * bbox.h)
         part.tx.move_to(pt)
         # The following setter doesn't work in Python 2.7.18.
         # part.tx.origin = Point(random.random() * side, random.random() * side)
+
+@debug_trace
+def optimizer_place(parts, nets, force_func, **options):
+    """Use a cost optimizer to place parts under influence of attractive nets and repulsive part overlaps.
+
+    Args:
+        parts (list): List of Parts.
+        nets (list): List of nets that interconnect parts.
+        force_func: Function for calculating forces between parts.
+        options (dict): Dict of options and values that enable/disable functions.
+
+    Notes:
+        This is too slow even if it produced good results, which it doesn't.
+    """
+
+    if not options.get("use_optimizer"):
+        # Abort if use of optimization algo for of part placement is disabled.
+        return
+
+    if len(parts) <= 1:
+        # No need to do placement if there's less than two parts.
+        return
+
+    def cost(x, *args):
+        # Translate the optimizer coords to part coords.
+        for part, x, y in zip(parts, x[::2], x[1::2]):
+            part.tx.move_to(Point(x*bbox.w, y*bbox.h))
+        # Sum magnitude of force acting on each part. Lower force is better.
+        for part in parts:
+            part.force = force_func(part, parts, scale=scale, alpha=alpha, **options)
+        return sum((part.force.magnitude for part in parts))
+
+    # Get the placement bounding box for part coordinates.
+    bbox = define_placement_bbox(parts)
+    
+    # Get PyGame screen, real-to-screen coord Tx matrix, font for debug drawing.
+    scr = options.get("draw_scr")
+    tx = options.get("draw_tx")
+    font = options.get("draw_font")
+    txt_org = Point(10,10)
+
+    # Set scale factor between attractive net forces and repulsive part overlap forces.
+    scale = scale_net_overlap_forces(parts, **options)
+
+    # Setup the schedule for adjusting the alpha coefficient that weights the
+    # combination of the attractive net forces and the repulsive part overlap forces.
+    # Start at 0 (all attractive) and gradually progress to 1 (all repulsive).
+    N = 10
+    alpha_schedule = [i * 1/N for i in range(N+1)]
+
+    # Part coords for optimization are bounded between 0 and 1.
+    bounds = ((0, 1),) * 2 * len(parts)
+
+    # Step through the alpha sequence from all-attractive to all-repulsive forces.
+    import scipy.optimize
+    import numpy as np
+    for alpha in alpha_schedule:
+
+        if scr:
+            # Draw current part placement for debugging purposes.
+            draw_placement(parts, nets, scr, tx, font)
+            draw_text(f"alpha:{alpha:.2f}", txt_org, scr, tx, font, color=(0, 0, 0), real=False)
+            draw_redraw()
+
+        # Translate the part coords to optimization intervals between 0 and 1.
+        x0 = []
+        for part in parts:
+            x0.extend([part.tx.dx/bbox.w, part.tx.dy/bbox.h])
+        x0 = np.array(x0)
+
+        # Run the optimizer.
+        # scipy.optimize.dual_annealing(cost, bounds)
+        scipy.optimize.shgo(cost, bounds)
+
+    if scr:
+        # Draw current part placement for debugging purposes.
+        draw_placement(parts, nets, scr, tx, font)
+        draw_text(f"alpha:{alpha:.2f}", txt_org, scr, tx, font, color=(0, 0, 0), real=False)
+        draw_redraw()
+
 
 @debug_trace
 def push_and_pull(parts, nets, force_func, speed, **options):
@@ -1001,6 +1089,15 @@ def push_and_pull(parts, nets, force_func, speed, **options):
         speed (float): How fast parts move under the influence of forces.
         options (dict): Dict of options and values that enable/disable functions.
     """
+
+    if not options.get("use_push_pull"):
+        # Abort if push & pull of parts is disabled.
+        return
+
+    def cost(parts):
+        for part in parts:
+            part.force = force_func(part, parts, scale=scale, alpha=alpha, **options)
+        return sum((part.force.magnitude for part in parts))
 
     if len(parts) <= 1:
         # No need to do placement if there's less than two parts.
@@ -1090,7 +1187,7 @@ def push_and_pull(parts, nets, force_func, speed, **options):
             if scr:
                 # Draw current part placement for debugging purposes.
                 draw_placement(parts, nets, scr, tx, font)
-                draw_text(f"alpha:{alpha:.2f}", txt_org, scr, tx, font, color=(0, 0, 0), real=False)
+                draw_text(f"alpha:{alpha:.2f}  cost:{cost(mobile_parts)}", txt_org, scr, tx, font, color=(0, 0, 0), real=False)
                 draw_redraw()
 
             # Check parts to see if they have all settled into position.
@@ -1344,6 +1441,9 @@ def evolve_placement(parts, nets, force_func, speed, **options):
 
     # Force-directed placement.
     push_and_pull(parts, nets, force_func, speed, **options)
+
+    # Use a scipy.optimize algorithm for placement.
+    # optimizer_place(parts, nets, force_func, **options)
 
     # Jump parts around to reduce wire length.
     jump_parts(parts, force_func, speed, **options)
