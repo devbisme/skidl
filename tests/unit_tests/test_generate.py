@@ -36,7 +36,9 @@ from skidl.schematics.route import RoutingFailure
 
 from .setup_teardown import setup_function, teardown_function
 
-schplc.net_force = schplc.net_force_dist_avg
+schplc.net_force = schplc.net_force_dist
+# schplc.net_force = schplc.net_force_dist_avg
+# schplc.net_force = schplc.net_force_bbox
 schplc.overlap_force = schplc.overlap_force_1
 
 sch_options = {}
@@ -53,7 +55,7 @@ sch_options["compress_before_place"] = True
 sch_options["use_push_pull"] = True
 # sch_options["allow_jumps"] = True
 # sch_options["align_parts"] = True
-# sch_options["slip_and_slide"] = True
+sch_options["slip_and_slide"] = True
 sch_options["rotate_parts"] = True
 # sch_options["trim_anchor_pull_pins"] = True
 # sch_options["fanout_attenuation"] = True

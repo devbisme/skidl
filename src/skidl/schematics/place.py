@@ -646,6 +646,8 @@ def net_force_dist_avg(part, **options):
         anchor_pts = [pin.place_pt * pin.part.tx for pin in anchor_pins[net]]
         pull_pts = [pin.place_pt * pin.part.tx for pin in pull_pins[net]]
 
+        pin_normalizer = 0
+
         # Compute the net force acting on each anchor point on the part.
         for anchor_pt in anchor_pts:
 
@@ -662,10 +664,17 @@ def net_force_dist_avg(part, **options):
                 dist_sum += dist_vec.magnitude
                 dist_cnt += 1
 
+                pin_normalizer += 1
+
             if options.get("fanout_attenuation"):
                 # Reduce the influence of high-fanout nets.
                 fanout = len(pull_pins[net])
                 net_force /= fanout**2
+
+        if options.get("normalize"):
+            # Normalize the net force across all the anchor & pull pins.
+            pin_normalizer = pin_normalizer or 1  # Prevent div-by-zero.
+            net_force /= pin_normalizer
 
         # Attenuate the net force if it's greater than the average distance btw anchor/pull pins.
         avg_dist = dist_sum / dist_cnt
@@ -1094,10 +1103,28 @@ def push_and_pull(parts, nets, force_func, speed, **options):
         # Abort if push & pull of parts is disabled.
         return
 
-    def cost(parts):
+    def cost(parts, alpha):
         for part in parts:
             part.force = force_func(part, parts, scale=scale, alpha=alpha, **options)
         return sum((part.force.magnitude for part in parts))
+
+    def part_swapper(parts, **options):
+        parts = set(parts)
+        old_cost = cost(parts, alpha=0)
+        while True:
+            moves = []
+            for part1 in parts:
+                for part2 in parts - {part1}:
+                    part1.tx.dx, part1.tx.dy, part2.tx.dx, part2.tx.dy =  part2.tx.dx, part2.tx.dy, part1.tx.dx, part1.tx.dy
+                    new_cost = cost(parts, alpha=0)
+                    moves.append((part1, part2, new_cost))
+                    part1.tx.dx, part1.tx.dy, part2.tx.dx, part2.tx.dy =  part2.tx.dx, part2.tx.dy, part1.tx.dx, part1.tx.dy
+            best_move = min(moves, key=lambda mv: mv[2])
+            part1, part2, cst = best_move
+            if cst >= old_cost:
+                return
+            part1.tx.dx, part1.tx.dy, part2.tx.dx, part2.tx.dy =  part2.tx.dx, part2.tx.dy, part1.tx.dx, part1.tx.dy
+            old_cost = cst
 
     if len(parts) <= 1:
         # No need to do placement if there's less than two parts.
@@ -1187,7 +1214,7 @@ def push_and_pull(parts, nets, force_func, speed, **options):
             if scr:
                 # Draw current part placement for debugging purposes.
                 draw_placement(parts, nets, scr, tx, font)
-                draw_text(f"alpha:{alpha:.2f}  cost:{cost(mobile_parts)}", txt_org, scr, tx, font, color=(0, 0, 0), real=False)
+                draw_text(f"alpha:{alpha:.2f}  cost:{cost(mobile_parts, alpha)}", txt_org, scr, tx, font, color=(0, 0, 0), real=False)
                 draw_redraw()
 
             # Check parts to see if they have all settled into position.
@@ -1199,6 +1226,8 @@ def push_and_pull(parts, nets, force_func, speed, **options):
                 #     break
             else:
                 # We get here if all parts have stabilized (i.e., they aren't moving very much).
+
+                # part_swapper(parts)
 
                 # Check to see if this is the last alpha in the sequence where only repulsive forces matter.
                 if alpha == alpha_schedule[-1]:
@@ -1395,6 +1424,9 @@ def slip_and_slide(parts, nets, force_func, **options):
         # No need to do this if there are no nets attracting parts together.
         return
 
+    # Set scale factor between attractive net forces and repulsive part overlap forces.
+    scale = scale_net_overlap_forces(parts, **options)
+
     # Get PyGame screen, real-to-screen coord Tx matrix, font for debug drawing.
     scr = options.get("draw_scr")
     tx = options.get("draw_tx")
@@ -1410,12 +1442,12 @@ def slip_and_slide(parts, nets, force_func, **options):
         moved = False
         random.shuffle(mobile_parts)
         for part in mobile_parts:
-            smallest_force = force_func(part, parts, alpha=0, **options).magnitude
+            smallest_force = force_func(part, parts, alpha=0, scale=scale, **options).magnitude
             best_tx = copy(part.tx)
             for dx, dy in ((-GRID, 0), (GRID, 0), (0, -GRID), (0, -GRID)):
                 mv_tx = Tx(dx=dx, dy=dy)
                 part.tx = part.tx * mv_tx
-                force = force_func(part, parts, alpha=0, **options).magnitude
+                force = force_func(part, parts, alpha=0, scale=scale, **options).magnitude
                 if force < smallest_force:
                     if overlap_force(part, parts).magnitude == 0:
                         smallest_force = force
