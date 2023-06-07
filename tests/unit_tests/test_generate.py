@@ -36,10 +36,11 @@ from skidl.schematics.route import RoutingFailure
 
 from .setup_teardown import setup_function, teardown_function
 
-schplc.net_force = schplc.net_force_dist
-# schplc.net_force = schplc.net_force_dist_avg
-# schplc.net_force = schplc.net_force_bbox
-schplc.overlap_force = schplc.overlap_force_1
+# schplc.attractive_force = schplc.net_force_dist
+# schplc.attractive_force = schplc.net_force_dist_avg
+# schplc.attractive_force = schplc.net_force_bbox
+schplc.attractive_force = schplc.net_force_centroid
+schplc.repulsive_force = schplc.overlap_force
 
 sch_options = {}
 # seed = int(time.time())
@@ -50,7 +51,7 @@ sch_options["debug_trace"] = False
 # sch_options["allow_routing_failure"] = True
 sch_options["pt_to_pt_mult"] = 10  # TODO: Ad-hoc value.
 sch_options["normalize"] = True
-sch_options["compress_before_place"] = True
+# sch_options["compress_before_place"] = True
 # sch_options["use_optimizer"] = True
 sch_options["use_push_pull"] = True
 # sch_options["allow_jumps"] = True

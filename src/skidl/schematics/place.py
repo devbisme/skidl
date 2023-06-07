@@ -172,6 +172,7 @@ def add_anchor_pull_pins(parts, nets, **options):
     for part in parts:
         part.anchor_pins = defaultdict(list)
         part.pull_pins = defaultdict(list)
+        part.pin_ctr = dict()
 
     if nets:
         # If nets exist, then these parts are interconnected so
@@ -182,18 +183,25 @@ def add_anchor_pull_pins(parts, nets, **options):
             pins = {pin for pin in net.pins if pin.part in parts}
 
             # Get the set of parts with pins on the net.
-            net_parts = {pin.part for pin in pins}
+            net.parts = {pin.part for pin in pins}
 
             # Add each pin as an anchor on the part that contains it and
             # as a pull pin on all the other parts that will be pulled by this part.
             for pin in pins:
                 pin.part.anchor_pins[net].append(pin)
                 add_place_pt(pin.part, pin)
-                for part in net_parts - {pin.part}:
+                for part in net.parts - {pin.part}:
                     # NetTerminals are pulled towards connected parts, but
                     # those parts are not attracted towards NetTerminals.
                     if not isinstance(pin.part, NetTerminal):
                         part.pull_pins[net].append(pin)
+
+        # For each net, assign the centroid of the part's anchor pins for that net.
+        pt_sum = functools.partial(sum, start=Point(0,0))
+        for net in nets:
+            for part in net.parts:
+                if part.anchor_pins[net]:
+                    part.pin_ctr[net] = pt_sum(pin.place_pt for pin in part.anchor_pins[net]) / len(part.anchor_pins[net])
 
     else:
         # There are no nets so these parts are floating freely.
@@ -763,19 +771,64 @@ def net_force_bbox(part, **options):
     return best_dir
 
 
+@export_to_all
+def net_force_centroid(part, **options):
+    """Compute attractive force on a part from all the other parts connected to it.
+
+    Args:
+        part (Part): Part affected by forces from other connected parts.
+        options (dict): Dict of options and values that enable/disable functions.
+
+    Returns:
+        Vector: Force upon given part.
+    """
+
+    anchor_pins = part.anchor_pins
+    pull_pins = part.pull_pins
+
+    # Compute and sum the forces for all nets attached to the part.
+    total_force = Vector(0, 0)
+    net_normalizer = 0
+    for net in anchor_pins.keys():
+
+        if not anchor_pins[net] or not pull_pins[net]:
+            # Skip nets without pulling or anchor points.
+            continue
+
+        # Function for summing points to find their centroid.
+        pt_sum = functools.partial(sum, start=Point(0,0))
+
+        # Find the centroid for the anchor points.
+        anchor_pts = [pin.place_pt * pin.part.tx for pin in anchor_pins[net]]
+        anchor_ctr = pt_sum(anchor_pts) / len(anchor_pts)
+
+        # Find the centroid for the pulling points.
+        pull_pts = [pin.place_pt * pin.part.tx for pin in pull_pins[net]]
+        pull_ctr = pt_sum(pull_pts) / len(pull_pts)
+
+        # Get the distance between the anchor and pulling point centroids.
+        # We want to make this smaller.
+        total_force += pull_ctr - anchor_ctr
+
+        net_normalizer += 1
+
+    if options.get("normalize"):
+        # Normalize the total force to adjust for parts connected to a lot of nets.
+        net_normalizer = net_normalizer or 1  # Prevent div-by-zero.
+        total_force /= net_normalizer
+
+    return total_force
+
+
 # Select the net force method used for the attraction of parts during placement.
-# net_force = net_force_dist
-# net_force = net_force_dist_avg
-# net_force = net_force_bbox
+# attractive_force = net_force_dist
+# attractive_force = net_force_dist_avg
+# attractive_force = net_force_bbox
+# attractive_force = net_force_centroid
 
 
 @export_to_all
-def overlap_force_0(part, parts, **options):
-    return Vector(0, 0)
-
-
-@export_to_all
-def overlap_force_1(part, parts, **options):
+def overlap_force(part, parts, **options):
     """Compute the repulsive force on a part from overlapping other parts.
 
     Args:
@@ -830,58 +883,25 @@ def overlap_force_1(part, parts, **options):
 
     return total_force
 
-@export_to_all
-def overlap_force_2(part, parts, **options):
-    """Compute the repulsive force on a part from overlapping other parts.
-
-    Args:
-        part (Part): Part affected by forces from other overlapping parts.
-        parts (list): List of parts to check for overlaps.
-        options (dict): Dict of options and values that enable/disable functions.
-
-    Returns:
-        Vector: Force upon given part.
-    """
-
-    # Limit maximum force in X and Y directions.
-    force = overlap_force_1(part, parts, **options)
-    force.x = GRID * sgn(force.x)
-    force.y = GRID * sgn(force.y)
-    return force
-
 
 # Select the overlap force method used for the repulsion of parts during placement.
-# overlap_force = overlap_force_0
-# overlap_force = overlap_force_1
-# overlap_force = overlap_force_2
+repulsive_force = overlap_force
 
 
-def scale_net_overlap_forces(parts, **options):
+def scale_attractive_repulsive_forces(parts, **options):
     """Set scaling between attractive net forces and repulsive part overlap forces."""
 
     # Store original part placement.
     for part in parts:
         part.original_tx = copy(part.tx)
 
-    # net_frc_accum = 0
-    # ov_frc_accum = 0
-    # for _ in range(10):
-    #     random_placement(parts, **options)
-    #     for part in parts:
-    #         net_frc_accum += net_force(part, **options).magnitude
-    #         ov_frc_accum += overlap_force(part, parts, **options).magnitude
-
-    # Gauge attractive forces when they are maximized by random part placement.
+    # Find attractive forces when they are maximized by random part placement.
     random_placement(parts, **options)
-    net_frc_accum = 0
-    for part in parts:
-        net_frc_accum += net_force(part, **options).magnitude
+    attractive_forces_sum = sum(attractive_force(p, **options).magnitude for p in parts)
 
-    # Gauge repulsive forces when they are maximized by compacted part placement.
+    # Find repulsive forces when they are maximized by compacted part placement.
     central_placement(parts, **options)
-    ov_frc_accum = 0
-    for part in parts:
-        ov_frc_accum += overlap_force(part, parts, **options).magnitude
+    repulsive_forces_sum = sum(repulsive_force(p, parts, **options).magnitude for p in parts)
 
     # Restore original part placement.
     for part in parts:
@@ -889,7 +909,7 @@ def scale_net_overlap_forces(parts, **options):
     rmv_attr(parts, ["original_tx"])
 
     # Return scaling factor that makes attractive forces about the same as repulsive forces.
-    return ov_frc_accum / net_frc_accum
+    return repulsive_forces_sum / attractive_forces_sum
 
 
 def total_part_force(part, parts, scale, alpha, **options):
@@ -905,7 +925,7 @@ def total_part_force(part, parts, scale, alpha, **options):
     Returns:
         Vector: Weighted total of net attractive and overlap repulsion forces.
     """
-    force = scale * (1-alpha) * net_force(part, **options) + alpha * overlap_force(part, parts, **options)
+    force = scale * (1-alpha) * attractive_force(part, **options) + alpha * repulsive_force(part, parts, **options)
     part.force = force  # For debug drawing.
     return force
 
@@ -948,7 +968,7 @@ def total_similarity_force(part, parts, similarity, alpha, **options):
     Returns:
         Vector: Weighted total of net attractive and overlap repulsion forces.
     """
-    force = (1-alpha)*similarity_force(part, parts, similarity, **options) + alpha * overlap_force(part, parts, **options)
+    force = (1-alpha)*similarity_force(part, parts, similarity, **options) + alpha * repulsive_force(part, parts, **options)
     part.force = force  # For debug drawing.
     return force
 
@@ -1048,7 +1068,7 @@ def optimizer_place(parts, nets, force_func, **options):
     txt_org = Point(10,10)
 
     # Set scale factor between attractive net forces and repulsive part overlap forces.
-    scale = scale_net_overlap_forces(parts, **options)
+    scale = scale_attractive_repulsive_forces(parts, **options)
 
     # Setup the schedule for adjusting the alpha coefficient that weights the
     # combination of the attractive net forces and the repulsive part overlap forces.
@@ -1103,32 +1123,14 @@ def push_and_pull(parts, nets, force_func, speed, **options):
         # Abort if push & pull of parts is disabled.
         return
 
+    if len(parts) <= 1:
+        # No need to do placement if there's less than two parts.
+        return
+
     def cost(parts, alpha):
         for part in parts:
             part.force = force_func(part, parts, scale=scale, alpha=alpha, **options)
         return sum((part.force.magnitude for part in parts))
-
-    def part_swapper(parts, **options):
-        parts = set(parts)
-        old_cost = cost(parts, alpha=0)
-        while True:
-            moves = []
-            for part1 in parts:
-                for part2 in parts - {part1}:
-                    part1.tx.dx, part1.tx.dy, part2.tx.dx, part2.tx.dy =  part2.tx.dx, part2.tx.dy, part1.tx.dx, part1.tx.dy
-                    new_cost = cost(parts, alpha=0)
-                    moves.append((part1, part2, new_cost))
-                    part1.tx.dx, part1.tx.dy, part2.tx.dx, part2.tx.dy =  part2.tx.dx, part2.tx.dy, part1.tx.dx, part1.tx.dy
-            best_move = min(moves, key=lambda mv: mv[2])
-            part1, part2, cst = best_move
-            if cst >= old_cost:
-                return
-            part1.tx.dx, part1.tx.dy, part2.tx.dx, part2.tx.dy =  part2.tx.dx, part2.tx.dy, part1.tx.dx, part1.tx.dy
-            old_cost = cst
-
-    if len(parts) <= 1:
-        # No need to do placement if there's less than two parts.
-        return
 
     # Get PyGame screen, real-to-screen coord Tx matrix, font for debug drawing.
     scr = options.get("draw_scr")
@@ -1137,111 +1139,61 @@ def push_and_pull(parts, nets, force_func, speed, **options):
     txt_org = Point(10,10)
 
     # Set scale factor between attractive net forces and repulsive part overlap forces.
-    scale = scale_net_overlap_forces(parts, **options)
-
-    use_gradient = options.get("use_gradient")
+    scale = scale_attractive_repulsive_forces(parts, **options)
 
     # Make list of parts that will be moved.
     mobile_parts = parts[:]
 
-    # Set a threshold for detecting when the parts have stopped moving.
-    still = GRID/10 * speed
-
     # Setup the schedule for adjusting the alpha coefficient that weights the
     # combination of the attractive net forces and the repulsive part overlap forces.
     # Start at 0 (all attractive) and gradually progress to 1 (all repulsive).
-    N = 10
+    N = 5
     alpha_schedule = [i * 1/N for i in range(N+1)]
-    # alpha_schedule = [0, 0, 0, 0, 0, 0, 0, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 
-    # Step through the alpha sequence from all-attractive to all-repulsive forces.
+    # Step through the alpha sequence going from all-attractive to all-repulsive forces.
     for alpha in alpha_schedule:
 
-        # Initialize the sum of each part's movements to zero.
-        for part in parts:
-            part.mv_sum = Vector(0, 0)
+        # Clear the average movement vectors of all the parts.
+        for part in mobile_parts:
+            part.mv_avg = Vector(0, 0)
+
+        # Set initial value of coef to 1 to just take initial part movement as the average.
+        mv_avg_coef = 1
 
         # Move parts for this alpha until all the parts have settled into position. 
-        cnt = 0
         while True:
 
-            cnt += 1
-
-            # Compute part movements.
+            # Compute forces exerted on the parts by each other.
             for part in mobile_parts:
-
-                # Compute force between a part and all other parts.
                 part.force = force_func(part, parts, scale=scale, alpha=alpha, **options)
 
-                if use_gradient:
-                    # Calculate how the force changes after a small movement.
-                    original_tx = copy(part.tx)
-                    original_force = copy(part.force)
-                    frc1 = part.force.magnitude
-                    mv = part.force.norm * GRID/50
-                    part.tx *= Tx(dx=mv.x, dy=mv.y)
-                    frc2 = force_func(part, parts, scale=scale, alpha=alpha, **options).magnitude
-                    try:
-                        # Calculate movement to bring force to zero.
-                        grad_frc = (frc1 - frc2) / mv.magnitude
-                        zero_dist = frc1 / grad_frc
-                    except ZeroDivisionError:
-                        # Move a small distance even if the force doesn't change.
-                        zero_dist = GRID/50
-                    part.mv = part.force.norm * zero_dist * speed
-                    # Restore original part position and force.
-                    part.tx = original_tx
-                    part.force = original_force
-                else:                
-                    # Store part movement. Part position will be updated below.
-                    part.mv = part.force * speed
-
-            # Get overall drift movement across all parts. This will be subtracted so the
+            # Get overall drift force across all parts. This will be subtracted so the
             # entire group of parts doesn't just continually drift off in one direction. 
-            drift_mv = sum([part.mv for part in mobile_parts], start=Vector(0,0)) / len(mobile_parts)
+            drift_force = sum([part.force for part in mobile_parts], start=Vector(0,0)) / len(mobile_parts)
 
-            # Apply movements to part positions after subtracting the overall group drift.
+            # Apply movements to part positions after subtracting the overall group drift force.
             for part in mobile_parts:
 
                 # Apply part movement after removing overall drift movement.
-                part.mv -= drift_mv
+                part.force -= drift_force
+                part.mv = part.force * speed
                 part.tx *= Tx(dx=part.mv.x, dy=part.mv.y)
 
-                # Sum movements for each part to figure out when they have stabilized.
-                # Attenuate the effect of previous movements the further they are in the past.
-                part.mv_sum = part.mv_sum * 0.9 + part.mv
+                # Update the average part movement
+                part.mv_avg = (1-mv_avg_coef) * part.mv_avg + mv_avg_coef * part.mv
+
+            # After the first iteration, set the coefficient so averages include past & present part movements.
+            mv_avg_coef = 0.1
 
             if scr:
                 # Draw current part placement for debugging purposes.
                 draw_placement(parts, nets, scr, tx, font)
-                draw_text(f"alpha:{alpha:.2f}  cost:{cost(mobile_parts, alpha)}", txt_org, scr, tx, font, color=(0, 0, 0), real=False)
+                mv_avg = sum(part.mv_avg.magnitude for part in mobile_parts)
+                draw_text(f"alpha:{alpha:3.2f}  cost:{cost(mobile_parts, alpha):6.1f}  move:{mv_avg}", txt_org, scr, tx, font, color=(0, 0, 0), real=False)
                 draw_redraw()
 
-            # Check parts to see if they have all settled into position.
-            for part in mobile_parts:
-                if part.mv.magnitude > still:
-                    break
-                # if part.mv_sum.magnitude/cnt > still:
-                #     # This part is still moving. Break from for loop and stay in while loop.
-                #     break
-            else:
-                # We get here if all parts have stabilized (i.e., they aren't moving very much).
-
-                # part_swapper(parts)
-
-                # Check to see if this is the last alpha in the sequence where only repulsive forces matter.
-                if alpha == alpha_schedule[-1]:
-                    # Check parts for any experiencing non-zero force meaning part overlaps exist.
-                    for part in parts:
-                        if part.force.magnitude:
-                            # Some parts are overlapping, so keep going with the while loop.
-                            break
-                    else:
-                        # Last alpha and no part overlaps so break out of while loop.
-                        break
-                else:
-                    # Parts are not moving and it's not the last alpha, so proceed to the next alpha in the sequence.
-                    break
+            if all(p.mv_avg.magnitude < 0.01*(p.place_bbox.w + p.place_bbox.h) for p in mobile_parts):
+                break
 
 
 @debug_trace
@@ -1385,7 +1337,7 @@ def remove_overlaps(parts, nets, **options):
 
         overlaps = False
         for part in mobile_parts:
-            shove_force = overlap_force(part, parts, **options)
+            shove_force = repulsive_force(part, parts, **options)
             part.mv = Vector(sgn(shove_force.x), sgn(shove_force.y)) * GRID
 
         # Get overall drift movement across all parts.
@@ -1425,7 +1377,7 @@ def slip_and_slide(parts, nets, force_func, **options):
         return
 
     # Set scale factor between attractive net forces and repulsive part overlap forces.
-    scale = scale_net_overlap_forces(parts, **options)
+    scale = scale_attractive_repulsive_forces(parts, **options)
 
     # Get PyGame screen, real-to-screen coord Tx matrix, font for debug drawing.
     scr = options.get("draw_scr")
@@ -1449,7 +1401,7 @@ def slip_and_slide(parts, nets, force_func, **options):
                 part.tx = part.tx * mv_tx
                 force = force_func(part, parts, alpha=0, scale=scale, **options).magnitude
                 if force < smallest_force:
-                    if overlap_force(part, parts).magnitude == 0:
+                    if repulsive_force(part, parts).magnitude == 0:
                         smallest_force = force
                         best_tx = copy(part.tx)
                         moved = True
@@ -1499,8 +1451,8 @@ class Placer:
     """Mixin to add place function to Node class."""
 
     # Speed of part movement during placement.
-    # speed = 0.25
-    speed = 0.10
+    speed = 0.25
+    # speed = 0.10
     # speed = 0.05
     # speed = 0.01 # Poor: push_and_pull() thinks parts have stabilized when they haven't.
 
