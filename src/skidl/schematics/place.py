@@ -168,11 +168,11 @@ def add_anchor_pull_pins(parts, nets, **options):
         else:
             raise RuntimeError("Unknown pin orientation.")
 
-    # Add dicts for anchor and pull pins to each movable part.
+    # Add dicts for anchor/pull pins and pin centroids to each movable part.
     for part in parts:
         part.anchor_pins = defaultdict(list)
         part.pull_pins = defaultdict(list)
-        part.pin_ctr = dict()
+        part.pin_ctrs = dict()
 
     if nets:
         # If nets exist, then these parts are interconnected so
@@ -201,7 +201,7 @@ def add_anchor_pull_pins(parts, nets, **options):
         for net in nets:
             for part in net.parts:
                 if part.anchor_pins[net]:
-                    part.pin_ctr[net] = pt_sum(pin.place_pt for pin in part.anchor_pins[net]) / len(part.anchor_pins[net])
+                    part.pin_ctrs[net] = pt_sum(pin.place_pt for pin in part.anchor_pins[net]) / len(part.anchor_pins[net])
 
     else:
         # There are no nets so these parts are floating freely.
@@ -384,7 +384,7 @@ def adjust_orientations(parts, **options):
         plt.scatter(range(len(orientation_cost_history)), orientation_cost_history)
         plt.show()
 
-    rmv_attr(parts, ("prev_tx", "delta_cost"))
+    rmv_attr(parts, ("prev_tx", "delta_cost", "delta_cost_tx"))
 
     # Return True if one or more iterations were done, indicating part orientations were changed.
     return iter_cnt > 0
@@ -781,35 +781,42 @@ def net_force_centroid(part, **options):
 
     Returns:
         Vector: Force upon given part.
+
+    Note:
+        If a net attaches to multiple pins of a part, then this function uses
+        the centroid of those pins as the point at which the attractive forces
+        is exerted.
     """
 
-    anchor_pins = part.anchor_pins
-    pull_pins = part.pull_pins
+    from skidl.schematics.gen_schematic import NetTerminal
 
     # Compute and sum the forces for all nets attached to the part.
     total_force = Vector(0, 0)
     net_normalizer = 0
-    for net in anchor_pins.keys():
+    for net, anchor_ctr in part.pin_ctrs.items():
 
-        if not anchor_pins[net] or not pull_pins[net]:
-            # Skip nets without pulling or anchor points.
-            continue
+        part_fanout = len(net.parts)
+        force_attenuation = 1.0
+        if part_fanout > 3:
+            force_attenuation = 0.01
 
-        # Function for summing points to find their centroid.
-        pt_sum = functools.partial(sum, start=Point(0,0))
+        # Find the translated centroid for the anchor pins of the net on this part.
+        anchor_ctr *= part.tx
 
-        # Find the centroid for the anchor points.
-        anchor_pts = [pin.place_pt * pin.part.tx for pin in anchor_pins[net]]
-        anchor_ctr = pt_sum(anchor_pts) / len(anchor_pts)
+        # Find the centroid for the pulling points of the other parts connected to this net.
+        for pull_part in net.parts - {part}:
 
-        # Find the centroid for the pulling points.
-        pull_pts = [pin.place_pt * pin.part.tx for pin in pull_pins[net]]
-        pull_ctr = pt_sum(pull_pts) / len(pull_pts)
+            # Skip NetTerminals because they cannot exert forces on other parts.
+            if isinstance(pull_part, NetTerminal):
+                continue
 
-        # Get the distance between the anchor and pulling point centroids.
-        # We want to make this smaller.
-        total_force += pull_ctr - anchor_ctr
+            # Get the translated centroid of the pin pulling from the other part.
+            pull_ctr = pull_part.pin_ctrs[net] * pull_part.tx
 
+            # Add the distance between the anchor and pulling centroids to the total force on the part.
+            total_force += (pull_ctr - anchor_ctr) * force_attenuation
+
+        # Keep track of the number of nets that exert forces in case normalization is needed.
         net_normalizer += 1
 
     if options.get("normalize"):
@@ -888,7 +895,7 @@ def overlap_force(part, parts, **options):
 repulsive_force = overlap_force
 
 
-def scale_attractive_repulsive_forces(parts, **options):
+def scale_attractive_repulsive_forces(parts, force_func, **options):
     """Set scaling between attractive net forces and repulsive part overlap forces."""
 
     # Store original part placement.
@@ -897,11 +904,11 @@ def scale_attractive_repulsive_forces(parts, **options):
 
     # Find attractive forces when they are maximized by random part placement.
     random_placement(parts, **options)
-    attractive_forces_sum = sum(attractive_force(p, **options).magnitude for p in parts)
+    attractive_forces_sum = sum(force_func(p, parts, alpha=0, scale=1, **options).magnitude for p in parts)
 
     # Find repulsive forces when they are maximized by compacted part placement.
     central_placement(parts, **options)
-    repulsive_forces_sum = sum(repulsive_force(p, parts, **options).magnitude for p in parts)
+    repulsive_forces_sum = sum(force_func(p, parts, alpha=1, scale=1, **options).magnitude for p in parts)
 
     # Restore original part placement.
     for part in parts:
@@ -919,7 +926,7 @@ def total_part_force(part, parts, scale, alpha, **options):
         part (Part): Part affected by forces from other overlapping parts.
         parts (list): List of parts to check for overlaps.
         scale (float): Scaling factor for net forces to make them equivalent to overlap forces.
-        alpha (float): Proportion of the total that is the overlap force (range [0,1]).
+        alpha (float): Fraction of the total that is the overlap force (range [0,1]).
         options (dict): Dict of options and values that enable/disable functions.
 
     Returns:
@@ -955,20 +962,21 @@ def similarity_force(part, parts, similarity, **options):
     return total_force
 
 
-def total_similarity_force(part, parts, similarity, alpha, **options):
+def total_similarity_force(part, parts, similarity, scale, alpha, **options):
     """Compute the total of the attractive similarity and repulsive overlap forces on a part.
 
     Args:
         part (Part): Part affected by forces from other overlapping parts.
         parts (list): List of parts to check for overlaps.
         similarity (dict): Similarity score for any pair of parts used as keys.
+        scale (float): Scaling factor for similarity forces to make them equivalent to overlap forces.
         alpha (float): Proportion of the total that is the overlap force (range [0,1]).
         options (dict): Dict of options and values that enable/disable functions.
 
     Returns:
         Vector: Weighted total of net attractive and overlap repulsion forces.
     """
-    force = (1-alpha)*similarity_force(part, parts, similarity, **options) + alpha * repulsive_force(part, parts, **options)
+    force = scale * (1-alpha)*similarity_force(part, parts, similarity, **options) + alpha * repulsive_force(part, parts, **options)
     part.force = force  # For debug drawing.
     return force
 
@@ -1068,7 +1076,7 @@ def optimizer_place(parts, nets, force_func, **options):
     txt_org = Point(10,10)
 
     # Set scale factor between attractive net forces and repulsive part overlap forces.
-    scale = scale_attractive_repulsive_forces(parts, **options)
+    scale = scale_attractive_repulsive_forces(parts, force_func, **options)
 
     # Setup the schedule for adjusting the alpha coefficient that weights the
     # combination of the attractive net forces and the repulsive part overlap forces.
@@ -1139,7 +1147,7 @@ def push_and_pull(parts, nets, force_func, speed, **options):
     txt_org = Point(10,10)
 
     # Set scale factor between attractive net forces and repulsive part overlap forces.
-    scale = scale_attractive_repulsive_forces(parts, **options)
+    scale = scale_attractive_repulsive_forces(parts, force_func, **options)
 
     # Make list of parts that will be moved.
     mobile_parts = parts[:]
@@ -1179,8 +1187,9 @@ def push_and_pull(parts, nets, force_func, speed, **options):
                 part.mv = part.force * speed
                 part.tx *= Tx(dx=part.mv.x, dy=part.mv.y)
 
-                # Update the average part movement
+                # Update the average part movement. First iteration sets average to the current move.
                 part.mv_avg = (1-mv_avg_coef) * part.mv_avg + mv_avg_coef * part.mv
+                # part.mv_avg = (1-mv_avg_coef) * part.mv_avg + part.mv
 
             # After the first iteration, set the coefficient so averages include past & present part movements.
             mv_avg_coef = 0.1
@@ -1192,7 +1201,11 @@ def push_and_pull(parts, nets, force_func, speed, **options):
                 draw_text(f"alpha:{alpha:3.2f}  cost:{cost(mobile_parts, alpha):6.1f}  move:{mv_avg}", txt_org, scr, tx, font, color=(0, 0, 0), real=False)
                 draw_redraw()
 
-            if all(p.mv_avg.magnitude < 0.01*(p.place_bbox.w + p.place_bbox.h) for p in mobile_parts):
+            if alpha == alpha_schedule[-1]:
+                stillness_coef = 0.001
+            else:
+                stillness_coef = 0.01
+            if all(p.mv_avg.magnitude < stillness_coef*(p.place_bbox.w + p.place_bbox.h) for p in mobile_parts):
                 break
 
 
@@ -1377,7 +1390,7 @@ def slip_and_slide(parts, nets, force_func, **options):
         return
 
     # Set scale factor between attractive net forces and repulsive part overlap forces.
-    scale = scale_attractive_repulsive_forces(parts, **options)
+    scale = scale_attractive_repulsive_forces(parts, force_func, **options)
 
     # Get PyGame screen, real-to-screen coord Tx matrix, font for debug drawing.
     scr = options.get("draw_scr")
@@ -1586,9 +1599,6 @@ class Placer:
             # Pause to look at placement for debugging purposes.
             draw_pause()
 
-        # Placement done so remove placement data that's are no longer needed.
-        node.rmv_placement_stuff()
-
     def place_floating_parts(node, parts, **options):
         """Place individual parts.
 
@@ -1653,9 +1663,6 @@ class Placer:
         if options.get("draw_placement"):
             # Pause to look at placement for debugging purposes.
             draw_pause()
-
-        # Placement done so remove placement data that's are no longer needed.
-        node.rmv_placement_stuff()
 
     def place_blocks(node, connected_parts, floating_parts, children, **options):
         """Place blocks of parts and hierarchical sheets.
@@ -1820,14 +1827,30 @@ class Placer:
                 for part in blk.src:
                     part.tx *= blk.tx
 
+    def get_attrs(node):
+        """Return dict of attribute sets for the parts, pins, and nets in a node."""
+        attrs = {"parts":set(), "pins": set(), "nets":set()}
+        for part in node.parts:
+            attrs["parts"].update(set(dir(part)))
+            for pin in part.pins:
+                attrs["pins"].update(set(dir(pin)))
+        for net in node.get_internal_nets():
+            attrs["nets"].update(set(dir(net)))
+        return attrs
+
+    def show_added_attrs(node):
+        """Show attributes that were added to parts, pins, and nets in a node."""
+        current_attrs = node.get_attrs()
+        for key in current_attrs.keys():
+            print("added {} attrs: {}".format(key, current_attrs[key] - node.attrs[key]))
+
     def rmv_placement_stuff(node):
-        """Remove data structures added during placement phase."""
+        """Remove attributes added to parts, pins, and nets of a node during the placement phase."""
 
         for part in node.parts:
-            for attr in ("route_pt", "place_pt"):
-                rmv_attr(part.pins, attr)
-        for attr in ("anchor_pins", "pull_pins", "mv", "force"):
-            rmv_attr(node.parts, attr)
+            rmv_attr(part.pins, ("route_pt", "place_pt"))
+        rmv_attr(node.parts, ("anchor_pins", "pull_pins", "pin_ctrs", "force", "mv", "mv_avg"))
+        rmv_attr(node.get_internal_nets(), ("parts",))
 
 
     def place(node, tool=None, **options):
@@ -1848,6 +1871,9 @@ class Placer:
         this_module.__dict__.update(tool_modules[tool].constants.__dict__)
 
         random.seed(options.get("seed"))
+
+        # Store the starting attributes of the node's parts, pins, and nets.
+        node.attrs = node.get_attrs()
 
         try:
 
@@ -1873,7 +1899,9 @@ class Placer:
             )
 
             # Remove any stuff leftover from this place & route run.
+            # print(f"added part attrs = {new_part_attrs}")
             node.rmv_placement_stuff()
+            node.show_added_attrs()
 
             # Calculate the bounding box for the node after placement of parts and children.
             node.calc_bbox()
