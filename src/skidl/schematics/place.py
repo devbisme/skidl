@@ -790,15 +790,19 @@ def net_force_centroid(part, **options):
 
     from skidl.schematics.gen_schematic import NetTerminal
 
+    fanout_attenuation = options.get("fanout_attenuation")
+
     # Compute and sum the forces for all nets attached to the part.
     total_force = Vector(0, 0)
     net_normalizer = 0
     for net, anchor_ctr in part.pin_ctrs.items():
 
-        part_fanout = len(net.parts)
+        # Massively reduce the forces from "high-fanout" nets.
         force_attenuation = 1.0
-        if part_fanout > 3:
-            force_attenuation = 0.01
+        if fanout_attenuation:
+            part_fanout = len(net.parts)
+            if part_fanout > 3:
+                force_attenuation = 0.01
 
         # Find the translated centroid for the anchor pins of the net on this part.
         anchor_ctr *= part.tx
@@ -1189,7 +1193,6 @@ def push_and_pull(parts, nets, force_func, speed, **options):
 
                 # Update the average part movement. First iteration sets average to the current move.
                 part.mv_avg = (1-mv_avg_coef) * part.mv_avg + mv_avg_coef * part.mv
-                # part.mv_avg = (1-mv_avg_coef) * part.mv_avg + part.mv
 
             # After the first iteration, set the coefficient so averages include past & present part movements.
             mv_avg_coef = 0.1
