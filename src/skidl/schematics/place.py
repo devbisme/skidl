@@ -1124,12 +1124,99 @@ def push_and_pull(parts, nets, force_func, speed, **options):
     """Move parts under influence of attractive nets and repulsive part overlaps.
 
     Args:
-        parts (list): List of Parts.
+        parts (list): List of all Parts.
         nets (list): List of nets that interconnect parts.
         force_func: Function for calculating forces between parts.
         speed (float): How fast parts move under the influence of forces.
         options (dict): Dict of options and values that enable/disable functions.
     """
+
+    net_terminals = [part for part in parts if isinstance(part, NetTerminal)]
+    real_parts = [part for part in parts if not isinstance(part, NetTerminal)]
+
+    def push_and_pull_subrtn(parts, mobile_parts):
+        """Move parts under influence of attractive nets and repulsive part overlaps.
+
+        Args:
+            parts (list): List of all Parts whose position affects placement.
+            mobile_parts (list): List of Parts that can be moved.
+        """
+
+        def cost(parts, alpha):
+            for part in parts:
+                part.force = force_func(part, parts, scale=scale, alpha=alpha, **options)
+            return sum((part.force.magnitude for part in parts))
+
+        # Get PyGame screen, real-to-screen coord Tx matrix, font for debug drawing.
+        scr = options.get("draw_scr")
+        tx = options.get("draw_tx")
+        font = options.get("draw_font")
+        txt_org = Point(10,10)
+
+        # Set scale factor between attractive net forces and repulsive part overlap forces.
+        scale = scale_attractive_repulsive_forces(parts, force_func, **options)
+
+        # Setup the schedule for adjusting the alpha coefficient that weights the
+        # combination of the attractive net forces and the repulsive part overlap forces.
+        # Start at 0 (all attractive) and gradually progress to 1 (all repulsive).
+        N = 5
+        alpha_schedule = [i * 1/N for i in range(N+1)]
+
+        # Step through the alpha sequence going from all-attractive to all-repulsive forces.
+        for alpha in alpha_schedule:
+
+            # Clear the average movement vectors of all the parts.
+            for part in mobile_parts:
+                part.mv_avg = Vector(0, 0)
+
+            # Set initial value of coef to 1 to just take initial part movement as the average.
+            mv_avg_coef = 1
+
+            # Move parts for this alpha until all the parts have settled into position. 
+            while True:
+
+                # Compute forces exerted on the parts by each other.
+                for part in mobile_parts:
+                    part.force = force_func(part, parts, scale=scale, alpha=alpha, **options)
+
+                # Get overall drift force across all parts. This will be subtracted so the
+                # entire group of parts doesn't just continually drift off in one direction. 
+                if rmv_drift:
+                    drift_force = sum([part.force for part in mobile_parts], start=Vector(0,0)) / len(mobile_parts)
+                else:
+                    drift_force = Vector(0, 0)
+
+                # Apply movements to part positions after subtracting the overall group drift force.
+                for part in mobile_parts:
+
+                    # Apply part movement after removing overall drift movement.
+                    part.force -= drift_force
+                    part.mv = part.force * speed
+                    part.tx *= Tx(dx=part.mv.x, dy=part.mv.y)
+
+                    # Update the average part movement. First iteration sets average to the current move.
+                    part.mv_avg = (1-mv_avg_coef) * part.mv_avg + mv_avg_coef * part.mv
+
+                # After the first iteration, set the coefficient so averages include past & present part movements.
+                mv_avg_coef = 0.1
+
+                if scr:
+                    # Draw current part placement for debugging purposes.
+                    draw_placement(parts, nets, scr, tx, font)
+                    mv_avg = sum(part.mv_avg.magnitude for part in mobile_parts)
+                    draw_text(f"alpha:{alpha:3.2f}  cost:{cost(mobile_parts, alpha):6.1f}  move:{mv_avg}", txt_org, scr, tx, font, color=(0, 0, 0), real=False)
+                    draw_redraw()
+
+                # Keep iterating until all the parts are still.
+                if alpha == alpha_schedule[-1]:
+                    # Last iteration uses only repulsive forces, so let it run until no parts overlap.
+                    stillness_coef = 0.001
+                else:
+                    stillness_coef = 0.01
+                if all(p.mv_avg.magnitude < stillness_coef*(p.place_bbox.w + p.place_bbox.h) for p in mobile_parts):
+                    break
+
+    from skidl.schematics.gen_schematic import NetTerminal
 
     if not options.get("use_push_pull"):
         # Abort if push & pull of parts is disabled.
@@ -1139,77 +1226,13 @@ def push_and_pull(parts, nets, force_func, speed, **options):
         # No need to do placement if there's less than two parts.
         return
 
-    def cost(parts, alpha):
-        for part in parts:
-            part.force = force_func(part, parts, scale=scale, alpha=alpha, **options)
-        return sum((part.force.magnitude for part in parts))
+    # Place everything except net labels.
+    rmv_drift = True
+    push_and_pull_subrtn(real_parts, real_parts)
 
-    # Get PyGame screen, real-to-screen coord Tx matrix, font for debug drawing.
-    scr = options.get("draw_scr")
-    tx = options.get("draw_tx")
-    font = options.get("draw_font")
-    txt_org = Point(10,10)
-
-    # Set scale factor between attractive net forces and repulsive part overlap forces.
-    scale = scale_attractive_repulsive_forces(parts, force_func, **options)
-
-    # Make list of parts that will be moved.
-    mobile_parts = parts[:]
-
-    # Setup the schedule for adjusting the alpha coefficient that weights the
-    # combination of the attractive net forces and the repulsive part overlap forces.
-    # Start at 0 (all attractive) and gradually progress to 1 (all repulsive).
-    N = 5
-    alpha_schedule = [i * 1/N for i in range(N+1)]
-
-    # Step through the alpha sequence going from all-attractive to all-repulsive forces.
-    for alpha in alpha_schedule:
-
-        # Clear the average movement vectors of all the parts.
-        for part in mobile_parts:
-            part.mv_avg = Vector(0, 0)
-
-        # Set initial value of coef to 1 to just take initial part movement as the average.
-        mv_avg_coef = 1
-
-        # Move parts for this alpha until all the parts have settled into position. 
-        while True:
-
-            # Compute forces exerted on the parts by each other.
-            for part in mobile_parts:
-                part.force = force_func(part, parts, scale=scale, alpha=alpha, **options)
-
-            # Get overall drift force across all parts. This will be subtracted so the
-            # entire group of parts doesn't just continually drift off in one direction. 
-            drift_force = sum([part.force for part in mobile_parts], start=Vector(0,0)) / len(mobile_parts)
-
-            # Apply movements to part positions after subtracting the overall group drift force.
-            for part in mobile_parts:
-
-                # Apply part movement after removing overall drift movement.
-                part.force -= drift_force
-                part.mv = part.force * speed
-                part.tx *= Tx(dx=part.mv.x, dy=part.mv.y)
-
-                # Update the average part movement. First iteration sets average to the current move.
-                part.mv_avg = (1-mv_avg_coef) * part.mv_avg + mv_avg_coef * part.mv
-
-            # After the first iteration, set the coefficient so averages include past & present part movements.
-            mv_avg_coef = 0.1
-
-            if scr:
-                # Draw current part placement for debugging purposes.
-                draw_placement(parts, nets, scr, tx, font)
-                mv_avg = sum(part.mv_avg.magnitude for part in mobile_parts)
-                draw_text(f"alpha:{alpha:3.2f}  cost:{cost(mobile_parts, alpha):6.1f}  move:{mv_avg}", txt_org, scr, tx, font, color=(0, 0, 0), real=False)
-                draw_redraw()
-
-            if alpha == alpha_schedule[-1]:
-                stillness_coef = 0.001
-            else:
-                stillness_coef = 0.01
-            if all(p.mv_avg.magnitude < stillness_coef*(p.place_bbox.w + p.place_bbox.h) for p in mobile_parts):
-                break
+    # Place net labels after everything else.
+    rmv_drift = False
+    push_and_pull_subrtn(parts, net_terminals)
 
 
 @debug_trace
