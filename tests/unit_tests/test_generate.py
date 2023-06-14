@@ -36,10 +36,10 @@ from skidl.schematics.route import RoutingFailure
 
 from .setup_teardown import setup_function, teardown_function
 
-# schplc.attractive_force = schplc.net_force_dist
+schplc.attractive_force = schplc.net_force_dist
 # schplc.attractive_force = schplc.net_force_dist_avg
 # schplc.attractive_force = schplc.net_force_bbox
-schplc.attractive_force = schplc.net_force_centroid
+# schplc.attractive_force = schplc.net_force_centroid
 schplc.repulsive_force = schplc.overlap_force
 
 sch_options = {}
@@ -49,8 +49,9 @@ sch_options = {}
 sch_options["retries"] = 2
 sch_options["debug_trace"] = False
 # sch_options["allow_routing_failure"] = True
-sch_options["pt_to_pt_mult"] = 10  # TODO: Ad-hoc value.
-sch_options["normalize"] = True
+sch_options["pt_to_pt_mult"] = 1  # TODO: Ad-hoc value.
+# sch_options["pin_normalize"] = True
+# sch_options["net_normalize"] = True
 # sch_options["compress_before_place"] = True
 # sch_options["use_optimizer"] = True
 sch_options["use_push_pull"] = True
@@ -209,6 +210,7 @@ def search_bool_options(num_trials=1, flatness=1.0, bool_option_keys=[]):
             stat_row =  ",".join([str(stat_dict[k]) for k in option_keys + stat_headers])
             fp.write(stat_row + "\n")
             fp.flush()
+
 
 @pytest.mark.xfail(raises=(RoutingFailure))
 def test_gen_sch_1():

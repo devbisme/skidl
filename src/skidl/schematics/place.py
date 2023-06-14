@@ -571,7 +571,7 @@ def net_force_dist(part, **options):
                 # Increment the normalizer for every pull force added to the net force.
                 pin_normalizer += 1
 
-        if options.get("normalize"):
+        if options.get("pin_normalize"):
             # Normalize the net force across all the anchor & pull pins.
             pin_normalizer = pin_normalizer or 1  # Prevent div-by-zero.
             net_force /= pin_normalizer
@@ -583,7 +583,7 @@ def net_force_dist(part, **options):
         # Increment the normalizer for every net force added to the total force.
         net_normalizer += 1
 
-    if options.get("normalize"):
+    if options.get("net_normalize"):
         # Normalize the total force across all the nets.
         net_normalizer = net_normalizer or 1  # Prevent div-by-zero.
         total_force /= net_normalizer
@@ -679,7 +679,7 @@ def net_force_dist_avg(part, **options):
                 fanout = len(pull_pins[net])
                 net_force /= fanout**2
 
-        if options.get("normalize"):
+        if options.get("pin_normalize"):
             # Normalize the net force across all the anchor & pull pins.
             pin_normalizer = pin_normalizer or 1  # Prevent div-by-zero.
             net_force /= pin_normalizer
@@ -697,7 +697,7 @@ def net_force_dist_avg(part, **options):
         # Increment the normalizer for every net force added to the total force.
         net_normalizer += 1
 
-    if options.get("normalize"):
+    if options.get("net_normalize"):
         # Normalize the total force to adjust for parts connected to a lot of nets.
         net_normalizer = net_normalizer or 1  # Prevent div-by-zero.
         total_force /= net_normalizer
@@ -784,7 +784,7 @@ def net_force_centroid(part, **options):
 
     Note:
         If a net attaches to multiple pins of a part, then this function uses
-        the centroid of those pins as the point at which the attractive forces
+        the centroid of those pins as the point at which the attractive force
         is exerted.
     """
 
@@ -807,14 +807,17 @@ def net_force_centroid(part, **options):
         # Find the translated centroid for the anchor pins of the net on this part.
         anchor_ctr *= part.tx
 
-        # Find the centroid for the pulling points of the other parts connected to this net.
-        for pull_part in net.parts - {part}:
+        # Find the set of parts pulling on the given part.
+        pull_parts = [part for part in net.parts - {part} if not isinstance(part, NetTerminal)]
 
-            # Skip NetTerminals because they cannot exert forces on other parts.
-            if isinstance(pull_part, NetTerminal):
-                continue
+        # Skip the rest of the loop if there are no pulling parts.
+        if not pull_parts:
+            continue
 
-            # Get the translated centroid of the pin pulling from the other part.
+        # Sum the forces from the pin centroid of each pulling part on the given part.
+        for pull_part in pull_parts:
+
+            # Get the translated centroid of the pins pulling from the other part.
             pull_ctr = pull_part.pin_ctrs[net] * pull_part.tx
 
             # Add the distance between the anchor and pulling centroids to the total force on the part.
@@ -823,7 +826,7 @@ def net_force_centroid(part, **options):
         # Keep track of the number of nets that exert forces in case normalization is needed.
         net_normalizer += 1
 
-    if options.get("normalize"):
+    if options.get("net_normalize"):
         # Normalize the total force to adjust for parts connected to a lot of nets.
         net_normalizer = net_normalizer or 1  # Prevent div-by-zero.
         total_force /= net_normalizer
@@ -1131,9 +1134,6 @@ def push_and_pull(parts, nets, force_func, speed, **options):
         options (dict): Dict of options and values that enable/disable functions.
     """
 
-    net_terminals = [part for part in parts if isinstance(part, NetTerminal)]
-    real_parts = [part for part in parts if not isinstance(part, NetTerminal)]
-
     def push_and_pull_subrtn(parts, mobile_parts):
         """Move parts under influence of attractive nets and repulsive part overlaps.
 
@@ -1226,11 +1226,15 @@ def push_and_pull(parts, nets, force_func, speed, **options):
         # No need to do placement if there's less than two parts.
         return
 
-    # Place everything except net labels.
+    # Separate the NetTerminals from the other parts.
+    net_terminals = set(part for part in parts if isinstance(part, NetTerminal))
+    real_parts = set(parts) - net_terminals
+
+    # Place everything except the net terminals.
     rmv_drift = True
     push_and_pull_subrtn(real_parts, real_parts)
 
-    # Place net labels after everything else.
+    # Place net terminals after everything else.
     rmv_drift = False
     push_and_pull_subrtn(parts, net_terminals)
 
