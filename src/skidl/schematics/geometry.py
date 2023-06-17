@@ -420,3 +420,25 @@ class Segment:
             return False
 
         return (0 <= t1 <= 1) and (0 <= t2 <= 1)
+    
+    def shadows(self, other):
+        """Return true if two segments overlap each other even if they aren't on the same horiz or vertical track."""
+
+        if self.p1.x == self.p2.x and other.p1.x == other.p2.x:
+            # Horizontal segments. See if their vertical extents overlap.
+            self_min = min(self.p1.y, self.p2.y)
+            self_max = max(self.p1.y, self.p2.y)
+            other_min = min(other.p1.y, other.p2.y)
+            other_max = max(other.p1.y, other.p2.y)
+        elif  self.p1.y == self.p2.y and other.p1.y == other.p2.y:
+            # Verttical segments. See if their horizontal extents overlap.
+            self_min = min(self.p1.x, self.p2.x)
+            self_max = max(self.p1.x, self.p2.x)
+            other_min = min(other.p1.x, other.p2.x)
+            other_max = max(other.p1.x, other.p2.x)
+        else:
+            # Segments aren't horizontal or vertical, so neither can shadow the other.
+            return False
+        
+        # Overlap conditions based on segment endpoints.
+        return other_min < self_max and other_max > self_min 

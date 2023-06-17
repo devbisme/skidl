@@ -28,7 +28,7 @@ from ..circuit import Circuit
 from ..pin import Pin
 from ..utilities import export_to_all, debug_trace, rmv_attr, sgn
 from .debug_draw import draw_text, draw_end, draw_pause, draw_placement, draw_start, draw_redraw
-from .geometry import BBox, Point, Tx, Vector
+from .geometry import BBox, Point, Tx, Vector, Segment
 
 standard_library.install_aliases()
 
@@ -1307,49 +1307,125 @@ def align_parts(parts, **options):
     except AttributeError:
         # Not a set of Parts. Must be PartBlocks. Skip alignment.
         return
+    
+    class BboxSegs:
+        """Class for storing top, bottom, left, and right sides of a Part's bounding box."""
+        pass
+
+    def set_bbox_segs(part):
+        """Store the Part's bbox segments."""
+
+        bbox = part.place_bbox * part.tx
+        part.bbox_segs = BboxSegs()
+        part.bbox_segs.btm = Segment(bbox.ll, bbox.lr)
+        part.bbox_segs.top = Segment(bbox.ul, bbox.ur)
+        part.bbox_segs.lft = Segment(bbox.ll, bbox.ul)
+        part.bbox_segs.rgt = Segment(bbox.lr, bbox.ur)
+
+    def limit(lwr_bnd, move, upr_bnd):
+        """Set a potential movement to zero if it's outside the allowed bounds."""
+        if lwr_bnd < move < upr_bnd :
+            return move
+        return 0
+
+    class Slack:
+        """Class for handling allowable range of movement on each side of a Part."""
+
+        def __init__(self, part1=None, part2=None):
+            if part1==None or part2==None:
+                # No parts, so range of movement is infinite.
+                self.btm = float("-inf")
+                self.top = float("inf")
+                self.lft = float("-inf")
+                self.rgt = float("inf")
+            else:
+                bbox1_segs = part1.bbox_segs
+                bbox2_segs = part2.bbox_segs
+                if bbox1_segs.btm.shadows(bbox2_segs.top):
+                    # Parts overlap horizontally, so compute movements up/down before they touch.
+                    self.btm = min(bbox2_segs.top.p1.y - bbox1_segs.btm.p1.y, 0)
+                    self.top = max(bbox2_segs.btm.p1.y - bbox1_segs.top.p1.y, 0)
+                else:
+                    # Parts don't overlap horizontally, so up/down movements are unconstrained.
+                    self.btm = float("-inf")
+                    self.top = float("inf")
+                if bbox1_segs.lft.shadows(bbox2_segs.rgt):
+                    # Parts overlap vertically, so compute movements left/right before they touch.
+                    self.lft = min(bbox2_segs.rgt.p1.x - bbox1_segs.lft.p1.x, 0)
+                    self.rgt = max(bbox2_segs.lft.p1.x - bbox1_segs.rgt.p1.x, 0)
+                else:
+                    # Parts don't overlap vertically, so left/right movements are unconstrained.
+                    self.lft = float("-inf")
+                    self.rgt = float("inf")
+
+        def combine(self, other):
+            """Combine two Slacks to get a more restrictive Slack."""
+            self.btm = max(self.btm, other.btm)
+            self.top = min(self.top, other.top)
+            self.lft = max(self.lft, other.lft)
+            self.rgt = min(self.rgt, other.rgt)
+
+        def limit(self, move):
+            """Restrict a movement based on the amount of slack the Part has."""
+            return Vector(limit(self.lft, move.x, self.rgt), limit(self.btm, move.y, self.top))
 
     # Get PyGame screen, real-to-screen coord Tx matrix, font for debug drawing.
     scr = options.get("draw_scr")
     tx = options.get("draw_tx")
     font = options.get("draw_font")
+    txt_org = Point(10,10)
 
+    # Set up Part bbox segments for determining allowable ranges of movement to achieve alignment.
     for part in mobile_parts:
+        set_bbox_segs(part)
 
-        # Collect moves to align each pin connected to pins on other parts.
-        align_moves = []
-        for net, anchor_pins in part.anchor_pins.items():
-            pull_pins = part.pull_pins[net]
-            for pull_pin in pull_pins:
-                pull_pt = pull_pin.place_pt * pull_pin.part.tx
-                for anchor_pin in anchor_pins:
-                    anchor_pt = anchor_pin.place_pt * anchor_pin.part.tx
-                    align_moves.append(pull_pt - anchor_pt)
+    for i in range(4): # TODO: Ad-hoc number of iterations.
 
-        if not align_moves:
-            # The part wasn't connected to any other parts, so skip alignment.
-            continue
+        for part in mobile_parts:
 
-        # Select the smallest alignment move that occurs most frequently,
-        # meaning it will align the most pins with the least movement.
-        best_moves = Counter(align_moves).most_common(1)
-        best_moves.sort(key=lambda mv: min(abs(mv[0].x), abs(mv[0].y)))
-        best_move = best_moves[0][0]
+            # Collect moves to align each pin connected to pins on other parts.
+            align_moves = []
+            for net, anchor_pins in part.anchor_pins.items():
+                pull_pins = part.pull_pins[net]
+                for pull_pin in pull_pins:
+                    pull_pt = pull_pin.place_pt * pull_pin.part.tx
+                    for anchor_pin in anchor_pins:
+                        anchor_pt = anchor_pin.place_pt * anchor_pin.part.tx
+                        mv = pull_pt - anchor_pt
+                        if int(abs(mv.x)):
+                            align_moves.append((abs(mv.x), Vector(mv.x, 0)))
+                        if int(abs(mv.y)):
+                            align_moves.append((abs(mv.y), Vector(0, mv.y)))
 
-        # Align either in X or Y direction, whichever requires the smallest movement.
-        if abs(best_move.x) > abs(best_move.y):
-            # Align by moving in Y direction.
-            best_move.x = 0
-        else:
-            # Align by moving in X direction.
-            best_move.y = 0
+            if not align_moves:
+                # The part wasn't connected to any other parts, so skip alignment.
+                continue
 
-        # Align the part.
-        tx = Tx(dx=best_move.x, dy=best_move.y)
-        part.tx *= tx
+            # Select the smallest move that aligns some pins.
+            best_move = min(align_moves, key=lambda m: m[0])[1]
 
-        if scr:
-            # Draw current part placement for debugging purposes.
-            draw_placement(parts, [], scr, tx, font)
+            # Determine slack for movement around part bounding box.
+            slack = Slack()
+            for prt in set(mobile_parts) - {part}:
+                slack.combine(Slack(part, prt))
+
+            # Restrict movement if there isn't enough slack to accommodate it.
+            best_move = slack.limit(best_move)
+
+            # Align the part.
+            part.tx *= Tx(dx=best_move.x, dy=best_move.y)
+
+            # Re-do the Part's bbox segments after the movement.
+            set_bbox_segs(part)
+
+            if scr:
+                # Draw current part placement for debugging purposes.
+                draw_placement(parts, [], scr, tx, font)
+                draw_text(f"align iteration (after move): {i} {part.ref} {best_move}", txt_org, scr, tx, font, color=(0, 0, 0), real=False)
+                draw_redraw()
+
+    # All done. Remove bbox segments that were added to parts.
+    rmv_attr(mobile_parts, "bbox_segs")
 
 
 @debug_trace
