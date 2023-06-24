@@ -183,6 +183,10 @@ class Point:
     def xprod(self, pt):
         """Cross-product of two 2D vectors returns scalar in Z coord."""
         return self.x * pt.y - self.y * pt.x
+    
+    def mask(self, msk):
+        """Multiply the X & Y coords by the elements of msk."""
+        return Point(self.x * msk[0], self.y * msk[1])
 
     def __neg__(self):
         """Negate both coords."""
