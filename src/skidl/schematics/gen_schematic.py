@@ -56,9 +56,13 @@ def preprocess_parts_and_nets(circuit):
             # Initialize transform matrix.
             part_unit.tx = Tx.from_symtx(getattr(part_unit, "symtx", ""))
 
-            # Lock part orientation if it has a lot of pins or symtx was specified.
+            # Lock part orientation if symtx was specified. Also lock parts with a lot of pins
+            # since they're typically drawn the way they're supposed to be oriented.
+            # And also lock single-pin parts because these are usually power/ground and
+            # they shouldn't be flipped around.
+            num_pins = len(part_unit.pins)
             part_unit.orientation_locked = (
-                getattr(part_unit, "symtx", False) or len(part_unit.pins) > 6
+                getattr(part_unit, "symtx", False) or num_pins > 10 or num_pins < 1
             )
 
             # Assign pins from the parent part to the part unit.
