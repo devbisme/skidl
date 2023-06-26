@@ -62,7 +62,7 @@ def preprocess_parts_and_nets(circuit):
             # they shouldn't be flipped around.
             num_pins = len(part_unit.pins)
             part_unit.orientation_locked = (
-                getattr(part_unit, "symtx", False) or num_pins > 10 or num_pins < 1
+                getattr(part_unit, "symtx", False) or num_pins > 10 or num_pins <= 1
             )
 
             # Assign pins from the parent part to the part unit.
