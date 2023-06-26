@@ -1088,6 +1088,17 @@ def total_similarity_force(part, parts, similarity, scale, alpha, **options):
     return force
 
 
+def define_placement_bbox(parts, **options):
+    """Return a bounding box big enough to hold the parts being placed."""
+
+    # Compute appropriate size to hold the parts based on their areas.
+    area = 0
+    for part in parts:
+        area += part.place_bbox.area
+    side = 3 * math.sqrt(area)  # FIXME: Multiplier is ad-hoc.
+    return BBox(Point(0,0), Point(side, side))
+
+
 @debug_trace
 def central_placement(parts, **options):
     """Cluster all part centroids onto a common point.
@@ -1108,17 +1119,6 @@ def central_placement(parts, **options):
     for part in parts:
         mv = ctr - part.place_bbox.ctr * part.tx
         part.tx *= Tx(dx=mv.x, dy=mv.y)
-
-
-def define_placement_bbox(parts, **options):
-    """Return a bounding box big enough to hold the parts being placed."""
-
-    # Compute appropriate size to hold the parts based on their areas.
-    area = 0
-    for part in parts:
-        area += part.place_bbox.area
-    side = 3 * math.sqrt(area)  # FIXME: Multiplier is ad-hoc.
-    return BBox(Point(0,0), Point(side, side))
 
 
 @debug_trace
@@ -1220,167 +1220,123 @@ def optimizer_place(parts, nets, force_func, **options):
 
 
 @debug_trace
-def push_and_pull(parts, nets, force_func, **options):
+def push_and_pull(anchored_parts, mobile_parts, nets, force_func, **options):
     """Move parts under influence of attractive nets and repulsive part overlaps.
 
     Args:
-        parts (list): List of all Parts.
+        anchored_parts (list): Set of immobile Parts whose position affects placement.
+        mobile_parts (list): Set of Parts that can be moved.
         nets (list): List of nets that interconnect parts.
         force_func: Function for calculating forces between parts.
         options (dict): Dict of options and values that enable/disable functions.
     """
 
-    def push_and_pull_subrtn(anchored_parts, mobile_parts):
-        """Move parts under influence of attractive nets and repulsive part overlaps.
-
-        Args:
-            parts (list): List of all Parts whose position affects placement.
-            mobile_parts (list): List of Parts that can be moved.
-        """
-
-        def cost(parts, alpha):
-            """Cost function for use in debugging. Should decrease as parts move."""
-            for part in parts:
-                part.force = force_func(part, parts, scale=scale, alpha=alpha, **options)
-            return sum((part.force.magnitude for part in parts))
-
-        # Get PyGame screen, real-to-screen coord Tx matrix, font for debug drawing.
-        scr = options.get("draw_scr")
-        tx = options.get("draw_tx")
-        font = options.get("draw_font")
-        txt_org = Point(10,10)
-
-        # Create the total set of parts exerting forces on each other.
-        parts = anchored_parts | mobile_parts
-
-        # If there are no anchored parts, then compute the overall drift force
-        # across all the parts. This will be subtracted so the
-        # entire group of parts doesn't just continually drift off in one direction. 
-        # This only needs to be done if ALL parts are mobile (i.e., no anchored parts).
-        rmv_drift = not anchored_parts
-
-        # Set scale factor between attractive net forces and repulsive part overlap forces.
-        scale = scale_attractive_repulsive_forces(parts, force_func, **options)
-
-        # Setup the schedule for adjusting the alpha coefficient that weights the
-        # combination of the attractive net forces and the repulsive part overlap forces.
-        # Start at 0 (all attractive) and gradually progress to 1 (all repulsive).
-        # Also, set parameters for determining when parts are stable and for restricting
-        # movements in the X & Y directions when parts are being aligned.
-        force_schedule = [
-                            (0.8, 0.0, 0.1, False, (1,1)), # Attractive forces only.
-                            (0.25, 0.0, 0.01, False, (1,1)), # Attractive forces only.
-                            # (0.25, 0.2, 0.01, False, (1,1)), # Some repulsive forces.
-                            (0.25, 0.4, 0.1, False, (1,1)), # More repulsive forces.
-                            # (0.25, 0.6, 0.01, False, (1,1)), # More repulsive forces.
-                            (0.25, 0.8, 0.1, False, (1,1)), # More repulsive forces.
-                            # (0.25, 0.7, 0.01, True, (1,0)), # Align parts horiz.
-                            # (0.25, 0.7, 0.01, True, (0,1)), # Align parts vert.
-                            # (0.25, 0.7, 0.01, True, (1,0)), # Align parts horiz.
-                            # (0.25, 0.7, 0.01, True, (0,1)), # Align parts vert.
-                            (0.25, 1.0, 0.01, False, (1,1)), # Remove any part overlaps.
-                            ]
-
-        # Step through the alpha sequence going from all-attractive to all-repulsive forces.
-        for speed, alpha, stability_coef, align_parts, force_mask in force_schedule:
-
-            if align_parts:
-                # Align parts by only using forces between the closest anchor/pull pins.
-                retain_closest_anchor_pull_pins(mobile_parts)
-            else:
-                # For general placement, use forces between all anchor/pull pins.
-                restore_anchor_pull_pins(mobile_parts)
-
-            # Clear the average movement vectors of all the parts.
-            for part in mobile_parts:
-                part.mv_avg = Vector(0, 0)
-
-            # This stores the threshold below which all the parts are assumed to be stabilized.
-            # Since it can never be negative, set it to -1 to indicate it's uninitialized.
-            stable_threshold = -1
-
-            # Move parts for this alpha until they all settle into fixed positions.
-            # Place an iteration limit to prevent an infinite loop.
-            for _ in range(1000): # TODO: Ad-hoc iteration limit.
-
-                # Compute forces exerted on the parts by each other.
-                sum_of_forces = 0
-                for part in mobile_parts:
-                    part.force = force_func(part, parts, scale=scale, alpha=alpha, **options)
-                    # Mask X or Y component of force during part alignment.
-                    part.force = part.force.mask(force_mask)
-                    sum_of_forces += part.force.magnitude
-
-                if rmv_drift:
-                    # Calculate the drift force across all parts and subtract it from each part
-                    # to prevent them from continually drifting in one direction.
-                    drift_force = sum([part.force for part in mobile_parts], start=Vector(0,0)) / len(mobile_parts)
-                    for part in mobile_parts:
-                        part.force -= drift_force
-
-                # Apply movements to part positions.
-                for part in mobile_parts:
-                    part.mv = part.force * speed
-                    part.tx *= Tx(dx=part.mv.x, dy=part.mv.y)
-
-                if scr:
-                    # Draw current part placement for debugging purposes.
-                    draw_placement(parts, nets, scr, tx, font)
-                    draw_text(f"alpha:{alpha:3.2f} iter:{_}  cost:{cost(mobile_parts, alpha):6.1f}  force:{sum_of_forces:.1f} stable:{stable_threshold}", txt_org, scr, tx, font, color=(0, 0, 0), real=False)
-                    draw_redraw()
-
-                # Keep iterating until all the parts are still.
-                if stable_threshold < 0:
-                    # Set the threshold after the first iteration.
-                    stable_threshold = sum_of_forces * stability_coef
-                elif sum_of_forces <= stable_threshold:
-                    # Part positions have stabilized if forces have dropped below threshold.
-                    break
-
-    from skidl.schematics.gen_schematic import NetTerminal
-
     if not options.get("use_push_pull"):
         # Abort if push & pull of parts is disabled.
         return
 
-    if len(parts) <= 1:
-        # No need to do placement if there's less than two parts.
+    if not mobile_parts:
+        # No need to do placement if there's nothing to move.
         return
 
-    # Separate the NetTerminals from the other parts.
-    net_terminals = set(part for part in parts if isinstance(part, NetTerminal))
-    real_parts = set(parts) - net_terminals
+    def cost(parts, alpha):
+        """Cost function for use in debugging. Should decrease as parts move."""
+        for part in parts:
+            part.force = force_func(part, parts, scale=scale, alpha=alpha, **options)
+        return sum((part.force.magnitude for part in parts))
 
-    # Place all parts except the net terminals.
-    push_and_pull_subrtn(anchored_parts=set(), mobile_parts=real_parts)
+    # Get PyGame screen, real-to-screen coord Tx matrix, font for debug drawing.
+    scr = options.get("draw_scr")
+    tx = options.get("draw_tx")
+    font = options.get("draw_font")
+    txt_org = Point(10,10)
 
-    def trim_pull_pins(terminals, ctr):
-        for terminal in terminals:
-            for net, pull_pins in terminal.pull_pins.items():
-                pull_pts = []
-                for pull_pin in pull_pins:
-                    pull_pt = pull_pin.place_pt * pull_pin.part.tx
-                    pull_pts.append(((pull_pt - ctr).magnitude, pull_pin))
-                terminal.pull_pins[net] = [max(pull_pts, key=lambda pt: pt[0])[1]]
+    # Create the total set of parts exerting forces on each other.
+    parts = anchored_parts + mobile_parts
 
-    def move_labels(terminals):
-        for terminal in terminals:
-            pull_pin = list(terminal.pull_pins.values())[0][0]
-            pull_pt = pull_pin.place_pt * pull_pin.part.tx
-            terminal.tx.move_to(pull_pt)
+    # If there are no anchored parts, then compute the overall drift force
+    # across all the parts. This will be subtracted so the
+    # entire group of parts doesn't just continually drift off in one direction. 
+    # This only needs to be done if ALL parts are mobile (i.e., no anchored parts).
+    rmv_drift = not anchored_parts
 
-    # Place net terminals after everything else.
-    ctr = get_enclosing_bbox(real_parts).ctr
-    save_anchor_pull_pins(net_terminals)
-    trim_pull_pins(net_terminals, ctr)
-    orient_net_terminals(net_terminals, ctr)
-    move_labels(net_terminals)
-    terminals = sorted(net_terminals, key=lambda term: (term.pins[0].place_pt * term.tx - ctr).magnitude, reverse=True)
-    anchored_parts = copy(real_parts)
-    for terminal in terminals:
-        push_and_pull_subrtn(anchored_parts=anchored_parts, mobile_parts=set([terminal]))
-        anchored_parts.add(terminal)
-    restore_anchor_pull_pins(net_terminals)
+    # Set scale factor between attractive net forces and repulsive part overlap forces.
+    scale = scale_attractive_repulsive_forces(parts, force_func, **options)
+
+    # Setup the schedule for adjusting the alpha coefficient that weights the
+    # combination of the attractive net forces and the repulsive part overlap forces.
+    # Start at 0 (all attractive) and gradually progress to 1 (all repulsive).
+    # Also, set parameters for determining when parts are stable and for restricting
+    # movements in the X & Y directions when parts are being aligned.
+    force_schedule = [
+                        (0.8, 0.0, 0.1, False, (1,1)), # Attractive forces only.
+                        (0.25, 0.0, 0.01, False, (1,1)), # Attractive forces only.
+                        # (0.25, 0.2, 0.01, False, (1,1)), # Some repulsive forces.
+                        (0.25, 0.4, 0.1, False, (1,1)), # More repulsive forces.
+                        # (0.25, 0.6, 0.01, False, (1,1)), # More repulsive forces.
+                        (0.25, 0.8, 0.1, False, (1,1)), # More repulsive forces.
+                        # (0.25, 0.7, 0.01, True, (1,0)), # Align parts horiz.
+                        # (0.25, 0.7, 0.01, True, (0,1)), # Align parts vert.
+                        # (0.25, 0.7, 0.01, True, (1,0)), # Align parts horiz.
+                        # (0.25, 0.7, 0.01, True, (0,1)), # Align parts vert.
+                        (0.25, 1.0, 0.01, False, (1,1)), # Remove any part overlaps.
+                        ]
+
+    # Step through the alpha sequence going from all-attractive to all-repulsive forces.
+    for speed, alpha, stability_coef, align_parts, force_mask in force_schedule:
+
+        if align_parts:
+            # Align parts by only using forces between the closest anchor/pull pins.
+            retain_closest_anchor_pull_pins(mobile_parts)
+        else:
+            # For general placement, use forces between all anchor/pull pins.
+            restore_anchor_pull_pins(mobile_parts)
+
+        # Clear the average movement vectors of all the parts.
+        for part in mobile_parts:
+            part.mv_avg = Vector(0, 0)
+
+        # This stores the threshold below which all the parts are assumed to be stabilized.
+        # Since it can never be negative, set it to -1 to indicate it's uninitialized.
+        stable_threshold = -1
+
+        # Move parts for this alpha until they all settle into fixed positions.
+        # Place an iteration limit to prevent an infinite loop.
+        for _ in range(1000): # TODO: Ad-hoc iteration limit.
+
+            # Compute forces exerted on the parts by each other.
+            sum_of_forces = 0
+            for part in mobile_parts:
+                part.force = force_func(part, parts, scale=scale, alpha=alpha, **options)
+                # Mask X or Y component of force during part alignment.
+                part.force = part.force.mask(force_mask)
+                sum_of_forces += part.force.magnitude
+
+            if rmv_drift:
+                # Calculate the drift force across all parts and subtract it from each part
+                # to prevent them from continually drifting in one direction.
+                drift_force = sum([part.force for part in mobile_parts], start=Vector(0,0)) / len(mobile_parts)
+                for part in mobile_parts:
+                    part.force -= drift_force
+
+            # Apply movements to part positions.
+            for part in mobile_parts:
+                part.mv = part.force * speed
+                part.tx *= Tx(dx=part.mv.x, dy=part.mv.y)
+
+            if scr:
+                # Draw current part placement for debugging purposes.
+                draw_placement(parts, nets, scr, tx, font)
+                draw_text(f"alpha:{alpha:3.2f} iter:{_}  cost:{cost(mobile_parts, alpha):6.1f}  force:{sum_of_forces:.1f} stable:{stable_threshold}", txt_org, scr, tx, font, color=(0, 0, 0), real=False)
+                draw_redraw()
+
+            # Keep iterating until all the parts are still.
+            if stable_threshold < 0:
+                # Set the threshold after the first iteration.
+                stable_threshold = sum_of_forces * stability_coef
+            elif sum_of_forces <= stable_threshold:
+                # Part positions have stabilized if forces have dropped below threshold.
+                break
 
 
 @debug_trace
@@ -1680,18 +1636,21 @@ def slip_and_slide(parts, nets, force_func, **options):
 
 
 @debug_trace
-def evolve_placement(parts, nets, force_func, **options):
+def evolve_placement(anchored_parts, mobile_parts, nets, force_func, **options):
     """Evolve part placement looking for optimum using force function.
 
     Args:
-        parts (list): List of Parts.
+        anchored_parts (list): Set of immobile Parts whose position affects placement.
+        mobile_parts (list): Set of Parts that can be moved.
         nets (list): List of nets that interconnect parts.
         force_func (function): Computes the force affecting part positions.
         options (dict): Dict of options and values that enable/disable functions.
     """
 
+    parts = anchored_parts + mobile_parts
+
     # Force-directed placement.
-    push_and_pull(parts, nets, force_func, **options)
+    push_and_pull(anchored_parts, mobile_parts, nets, force_func, **options)
 
     # Use a scipy.optimize algorithm for placement.
     # optimizer_place(parts, nets, force_func, **options)
@@ -1827,8 +1786,14 @@ class Placer:
             central_placement(parts, **options)
 
         # Do force-directed placement of the parts in the parts.
+
+        from skidl.schematics.gen_schematic import NetTerminal
+        # Separate the NetTerminals from the other parts.
+        net_terminals = [part for part in parts if isinstance(part, NetTerminal)]
+        real_parts =  [part for part in parts if not isinstance(part, NetTerminal)]
+
         evolve_placement(
-            parts, nets, total_part_force, **options
+            [], real_parts, nets, total_part_force, **options
         )
 
         if options.get("rotate_parts"):
@@ -1837,8 +1802,37 @@ class Placer:
 
                 # Some part orientations were changed, so re-do placement.
                 evolve_placement(
-                    parts, nets, total_part_force, **options
+                    [], real_parts, nets, total_part_force, **options
                 )
+
+        def trim_pull_pins(terminals, ctr):
+            for terminal in terminals:
+                for net, pull_pins in terminal.pull_pins.items():
+                    pull_pts = []
+                    for pull_pin in pull_pins:
+                        pull_pt = pull_pin.place_pt * pull_pin.part.tx
+                        pull_pts.append(((pull_pt - ctr).magnitude, pull_pin))
+                    terminal.pull_pins[net] = [max(pull_pts, key=lambda pt: pt[0])[1]]
+
+        def move_labels(terminals):
+            for terminal in terminals:
+                pull_pin = list(terminal.pull_pins.values())[0][0]
+                pull_pt = pull_pin.place_pt * pull_pin.part.tx
+                terminal.tx.move_to(pull_pt)
+
+        # Place net terminals after everything else.
+        ctr = get_enclosing_bbox(real_parts).ctr
+        save_anchor_pull_pins(net_terminals)
+        trim_pull_pins(net_terminals, ctr)
+        orient_net_terminals(net_terminals, ctr)
+        move_labels(net_terminals)
+        terminals = sorted(net_terminals, key=lambda term: (term.pins[0].place_pt * term.tx - ctr).magnitude, reverse=True)
+        anchored_parts = copy(real_parts)
+        for terminal in terminals:
+            evolve_placement(anchored_parts, [terminal], nets, total_part_force, **options)
+            anchored_parts.append(terminal)
+        restore_anchor_pull_pins(net_terminals)
+
 
         if options.get("draw_placement"):
             # Pause to look at placement for debugging purposes.
@@ -1900,7 +1894,7 @@ class Placer:
             central_placement(parts, **options)
 
         # Do force-directed placement of the parts in the group.
-        evolve_placement(parts, [], force_func, **options)
+        evolve_placement([], parts, [], force_func, **options)
 
         if options.get("draw_placement"):
             # Pause to look at placement for debugging purposes.
@@ -2049,7 +2043,7 @@ class Placer:
 
         # Arrange the part blocks with similarity force-directed placement.
         force_func = functools.partial(total_similarity_force, similarity=blk_attr)
-        evolve_placement(part_blocks, [], force_func, **options)
+        evolve_placement([], part_blocks, [], force_func, **options)
 
         if options.get("draw_placement"):
             # Pause to look at placement for debugging purposes.
