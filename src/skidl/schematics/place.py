@@ -74,6 +74,11 @@ class PlacementFailure(Exception):
     pass
 
 
+def is_net_terminal(part):
+    from skidl.schematics.gen_schematic import NetTerminal
+    return isinstance(part, NetTerminal)
+
+
 def get_snap_pt(part_or_blk):
     """Get the point for snapping the Part or PartBlock to the grid.
 
@@ -154,7 +159,6 @@ def add_anchor_pull_pins(parts, nets, **options):
         nets (list): List of attractive nets between parts.
         options (dict): Dict of options and values that enable/disable functions.
     """
-    from skidl.schematics.gen_schematic import NetTerminal
 
     def add_place_pt(part, pin):
         """Add the point for a pin on the placement boundary of a part."""
@@ -200,7 +204,7 @@ def add_anchor_pull_pins(parts, nets, **options):
                 for part in net.parts - {pin.part}:
                     # NetTerminals are pulled towards connected parts, but
                     # those parts are not attracted towards NetTerminals.
-                    if not isinstance(pin.part, NetTerminal):
+                    if not is_net_terminal(pin.part):
                         part.pull_pins[net].append(pin)
 
         # For each net, assign the centroid of the part's anchor pins for that net.
@@ -320,46 +324,6 @@ def retain_closest_anchor_pull_pins(parts):
             # Replace the original anchor/pull pin lists with single-pin lists.
             part.anchor_pins[net] = [closest[1]]
             part.pull_pins[net] = [closest[2]]
-
-def orient_net_terminals(terminals, ctr):
-    """Adjust orientation of NetTerminals.
-
-    Args:
-        terminals (list): List of NetTerminals.
-        ctr (Point): Center of placement area.
-    """
-
-    for terminal in terminals:
-        
-        # A NetTerminal should be attached to a single pin of a part on a single net.
-        pull_pin = list(terminal.pull_pins.values())[0][0]
-        pull_pt = pull_pin.place_pt * pull_pin.part.tx
-
-        # Get the offset of the terminal from the center of the placement area.
-        offset = pull_pt - ctr
-        x, y = offset.x, offset.y
-
-        # Orient the terminal based on its position w.r.t. the center.
-        terminal.tx = Tx()
-        if abs(x) < abs(y):
-            # Place the terminal vertically if its further up/down than right/left of the center.
-            if y > 0:
-                # Terminal is towards the top, so point the label upward.
-                terminal.tx.rot_cw_90()
-            else:
-                # Terminal is towards the bottom, so point the label downward.
-                terminal.tx.rot_cw_90()
-                terminal.tx.rot_cw_90()
-                terminal.tx.rot_cw_90()
-        else:
-            # Place the terminal horizontally if its further right/left than up/down of the center.
-            # horizontal label.
-            if x > 0:
-                # Terminal is on the right side, so flip the label to the right.
-                terminal.tx.flip_x()
-            else:
-                # Terminal is on the left side, so keep the label pointing to the left.
-                pass
 
 def adjust_orientations(parts, **options):
     """Adjust orientation of parts.
@@ -884,8 +848,6 @@ def net_force_centroid(part, **options):
         is exerted.
     """
 
-    from skidl.schematics.gen_schematic import NetTerminal
-
     fanout_attenuation = options.get("fanout_attenuation")
 
     # Compute and sum the forces for all nets attached to the part.
@@ -904,7 +866,7 @@ def net_force_centroid(part, **options):
         anchor_ctr *= part.tx
 
         # Find the set of parts pulling on the given part.
-        pull_parts = [part for part in net.parts - {part} if not isinstance(part, NetTerminal)]
+        pull_parts = [part for part in net.parts - {part} if not is_net_terminal(part)]
 
         # Skip the rest of the loop if there are no pulling parts.
         if not pull_parts:
@@ -1671,6 +1633,123 @@ def evolve_placement(anchored_parts, mobile_parts, nets, force_func, **options):
     # Look for local improvements.
     slip_and_slide(parts, nets, force_func, **options)
 
+def place_net_terminals(net_terminals, placed_parts, nets, force_func, **options):
+    """Place net terminals around already-placed parts.
+
+    Args:
+        net_terminals (list): List of NetTerminals
+        placed_parts (list): List of placed Parts.
+        nets (list): List of nets that interconnect parts.
+        force_func (function): Computes the force affecting part positions.
+        options (dict): Dict of options and values that enable/disable functions.
+    """
+
+    def trim_pull_pins(terminals, ctr):
+        """NetTerminal will be pulled only by the part pin farthest from the center of the placed parts.
+        
+        Note:
+            The rationale for this is that the farthest pin from the center is less likely to have a lot
+            of wiring that the NetTerminal might interfere with.
+        """
+        for terminal in terminals:
+            for net, pull_pins in terminal.pull_pins.items():
+                pull_pts = []
+                for pull_pin in pull_pins:
+                    pull_pt = pull_pin.place_pt * pull_pin.part.tx
+                    pull_pts.append(((pull_pt - ctr).magnitude, pull_pin))
+                terminal.pull_pins[net] = [max(pull_pts, key=lambda pt: pt[0])[1]]
+
+    def orient(terminals, ctr):
+        """Adjust orientation of NetTerminals.
+
+        Args:
+            terminals (list): List of NetTerminals.
+            ctr (Point): Center of placement area.
+
+        Notes:
+             -45 to  +45 degrees: <----label.
+             +45 to +135 degrees: label--v
+            +135 to -135 degrees: label---->.
+            -135 to  -45 degrees: ^--label. 
+        """
+
+        for terminal in terminals:
+            
+            # A NetTerminal should be attached to a single pin of a part on a single net.
+            pull_pin = list(terminal.pull_pins.values())[0][0]
+            pull_pt = pull_pin.place_pt * pull_pin.part.tx
+
+            # Get the offset of the terminal from the center of the placement area.
+            offset = pull_pt - ctr
+            x, y = offset.x, offset.y
+
+            # Orient the terminal based on its position w.r.t. the center.
+            terminal.tx = Tx()
+            if abs(x) < abs(y):
+                # Place the terminal vertically if its further up/down than right/left of the center.
+                if y > 0:
+                    # Terminal is towards the top, so point the label upward.
+                    terminal.tx.rot_cw_90()
+                else:
+                    # Terminal is towards the bottom, so point the label downward.
+                    terminal.tx.rot_cw_90()
+                    terminal.tx.rot_cw_90()
+                    terminal.tx.rot_cw_90()
+            else:
+                # Place the terminal horizontally if its further right/left than up/down of the center.
+                # horizontal label.
+                if x > 0:
+                    # Terminal is on the right side, so flip the label to the right.
+                    terminal.tx.flip_x()
+                else:
+                    # Terminal is on the left side, so keep the label pointing to the left.
+                    pass
+
+    def move_to_pull_pin(terminals):
+        """Move NetTerminals immediately to their pulling pins."""
+        for terminal in terminals:
+            pull_pin = list(terminal.pull_pins.values())[0][0]
+            pull_pt = pull_pin.place_pt * pull_pin.part.tx
+            terminal.tx.move_to(pull_pt)
+
+    def evolve_outer_to_inner(terminals, placed_parts, ctr):
+        """Evolve placement of NetTerminals starting from outermost from center to innermost."""
+
+        # Sort terminals from outermost to innermost w.r.t. the center.
+        terminals = sorted(net_terminals, key=lambda term: (term.pins[0].place_pt * term.tx - ctr).magnitude, reverse=True)
+
+        # Start off with the previously-placed parts as anchored parts. NetTerminals will be added to this as they are placed.
+        anchored_parts = copy(placed_parts)
+
+        # Grab terminals starting from the outside and work towards the inside until a terminal intersects a previous one.
+        mobile_terminals = []
+        mobile_bboxes = []
+        for terminal in terminals:
+            terminal_bbox = terminal.place_bbox * terminal.tx
+            mobile_terminals.append(terminal)
+            mobile_bboxes.append(terminal_bbox)
+            for bbox in mobile_bboxes[:-1]:
+                if terminal_bbox.intersects(bbox):
+                    # The current NetTerminal intersects one of the previously-selected mobile terminals, so evolve the
+                    # placement of all the mobile terminals except the current one.
+                    evolve_placement(anchored_parts, mobile_terminals[:-1], nets, force_func, **options)
+                    # Anchor the mobile terminals after their placement is done.
+                    anchored_parts.extend(mobile_terminals[:-1])
+                    # Remove the placed terminals, leaving only the current terminal.
+                    mobile_terminals = mobile_terminals[-1:]
+                    mobile_bboxes = mobile_bboxes[-1:]
+        if mobile_terminals:
+            # Evolve placement of any remaining terminals.
+            evolve_placement(anchored_parts, mobile_terminals, nets, total_part_force, **options)
+
+    ctr = get_enclosing_bbox(placed_parts).ctr
+    save_anchor_pull_pins(net_terminals)
+    trim_pull_pins(net_terminals, ctr)
+    orient(net_terminals, ctr)
+    move_to_pull_pin(net_terminals)
+    evolve_outer_to_inner(net_terminals, placed_parts, ctr)
+    restore_anchor_pull_pins(net_terminals)
+
 
 @export_to_all
 class Placer:
@@ -1787,52 +1866,27 @@ class Placer:
 
         # Do force-directed placement of the parts in the parts.
 
-        from skidl.schematics.gen_schematic import NetTerminal
         # Separate the NetTerminals from the other parts.
-        net_terminals = [part for part in parts if isinstance(part, NetTerminal)]
-        real_parts =  [part for part in parts if not isinstance(part, NetTerminal)]
+        net_terminals = [part for part in parts if is_net_terminal(part)]
+        real_parts =  [part for part in parts if not is_net_terminal(part)]
 
+        # Do the first trial placement.
         evolve_placement(
             [], real_parts, nets, total_part_force, **options
         )
 
         if options.get("rotate_parts"):
-            # Adjust part orientations.
-            if adjust_orientations(parts, **options):
+
+            # Adjust part orientations after first trial placement is done.
+            if adjust_orientations(real_parts, **options):
 
                 # Some part orientations were changed, so re-do placement.
                 evolve_placement(
                     [], real_parts, nets, total_part_force, **options
                 )
 
-        def trim_pull_pins(terminals, ctr):
-            for terminal in terminals:
-                for net, pull_pins in terminal.pull_pins.items():
-                    pull_pts = []
-                    for pull_pin in pull_pins:
-                        pull_pt = pull_pin.place_pt * pull_pin.part.tx
-                        pull_pts.append(((pull_pt - ctr).magnitude, pull_pin))
-                    terminal.pull_pins[net] = [max(pull_pts, key=lambda pt: pt[0])[1]]
-
-        def move_labels(terminals):
-            for terminal in terminals:
-                pull_pin = list(terminal.pull_pins.values())[0][0]
-                pull_pt = pull_pin.place_pt * pull_pin.part.tx
-                terminal.tx.move_to(pull_pt)
-
-        # Place net terminals after everything else.
-        ctr = get_enclosing_bbox(real_parts).ctr
-        save_anchor_pull_pins(net_terminals)
-        trim_pull_pins(net_terminals, ctr)
-        orient_net_terminals(net_terminals, ctr)
-        move_labels(net_terminals)
-        terminals = sorted(net_terminals, key=lambda term: (term.pins[0].place_pt * term.tx - ctr).magnitude, reverse=True)
-        anchored_parts = copy(real_parts)
-        for terminal in terminals:
-            evolve_placement(anchored_parts, [terminal], nets, total_part_force, **options)
-            anchored_parts.append(terminal)
-        restore_anchor_pull_pins(net_terminals)
-
+        # Place NetTerminals after all the other parts.
+        place_net_terminals(net_terminals, real_parts, nets, total_part_force, **options)
 
         if options.get("draw_placement"):
             # Pause to look at placement for debugging purposes.
