@@ -150,7 +150,9 @@ def draw_part(part, scr, tx, font):
         tx (Tx): Transformation matrix from real to screen coords.
         font (PyGame font): Font for rendering text.
     """
-    tx_bbox = getattr(part, "lbl_bbox", getattr(part, "place_bbox", Vector(0,0))) * part.tx
+    tx_bbox = (
+        getattr(part, "lbl_bbox", getattr(part, "place_bbox", Vector(0, 0))) * part.tx
+    )
     draw_box(tx_bbox, scr, tx, color=(180, 255, 180), thickness=0)
     draw_box(tx_bbox, scr, tx, color=(90, 128, 90), thickness=5)
     draw_text(part.ref, tx_bbox.ctr, scr, tx, font)
@@ -228,10 +230,11 @@ def draw_placement(parts, nets, scr, tx, font):
     draw_clear(scr)
     for part in parts:
         draw_part(part, scr, tx, font)
-        draw_force(part, getattr(part, "force", Vector(0,0)), scr, tx, font)
+        draw_force(part, getattr(part, "force", Vector(0, 0)), scr, tx, font)
     for net in nets:
         draw_net(net, parts, scr, tx, font)
     draw_redraw()
+
 
 @export_to_all
 def draw_routing(node, bbox, parts, *other_stuff, **options):

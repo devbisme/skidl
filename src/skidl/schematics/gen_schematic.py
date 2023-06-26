@@ -26,7 +26,7 @@ from ..tools.kicad.eeschema_v5 import Eeschema_V5, pin_label_to_eeschema
 from ..tools.kicad.v5 import calc_hier_label_bbox, calc_symbol_bbox
 from ..utilities import export_to_all, rmv_attr
 from .geometry import BBox, Point, Tx, Vector
-from .place import Placer, PlacementFailure
+from .place import PlacementFailure, Placer
 from .route import Router, RoutingFailure
 
 standard_library.install_aliases()
@@ -52,7 +52,6 @@ def preprocess_parts_and_nets(circuit):
 
         # Initialize the units of the part, or the part itself if it has no units.
         for part_unit in units(part):
-
             # Initialize transform matrix.
             part_unit.tx = Tx.from_symtx(getattr(part_unit, "symtx", ""))
 
@@ -91,7 +90,6 @@ def preprocess_parts_and_nets(circuit):
             return "gnd" in net_name.lower()
 
         for part_unit in units(part):
-
             # Don't rotate parts with too many pins.
             if len(part_unit) > dont_rotate_pin_threshold:
                 return
@@ -139,7 +137,6 @@ def preprocess_parts_and_nets(circuit):
         bare_bboxes = calc_symbol_bbox(part)[1:]
 
         for part_unit, bare_bbox in zip(units(part), bare_bboxes):
-
             # Expand the bounding box if it's too small in either dimension.
             resize_wh = Vector(0, 0)
             if bare_bbox.w < 100:
@@ -180,7 +177,6 @@ def preprocess_parts_and_nets(circuit):
 
     # Pre-process parts
     for part in circuit.parts:
-
         # Initialize part attributes used for generating schematics.
         initialize(part)
 
@@ -234,7 +230,7 @@ class NetTerminal(Part):
         # Set the pin at point (0,0) and pointing leftward toward the part body
         # (consisting of just the net label for this type of part) so any attached routing
         # will go to the right.
-        pin.x, pin.y = 0,0
+        pin.x, pin.y = 0, 0
         pin.pt = Point(pin.x, pin.y)
         pin.orientation = "L"
 
@@ -333,7 +329,6 @@ class Node(Placer, Router, Eeschema_V5):
 
         # Add terminals to nodes in the hierarchy for nets that span across nodes.
         for net in circuit.nets:
-
             # Skip nets that are stubbed since there will be no wire to attach to the NetTerminal.
             if getattr(net, "stub", False):
                 continue
@@ -358,7 +353,6 @@ class Node(Placer, Router, Eeschema_V5):
             # Add a single terminal to each node that contains one or more pins of the net.
             visited = []
             for pin in net.pins:
-
                 # A stubbed pin can't be used to add NetTerminal since there is no explicit wire.
                 if pin.stub:
                     continue
@@ -535,7 +529,6 @@ class Node(Placer, Router, Eeschema_V5):
         internal_nets = []
         for part in self.parts:
             for part_pin in part:
-
                 # No explicit wire for pins connected to labeled stub nets.
                 if part_pin.stub:
                     continue
@@ -585,9 +578,9 @@ class Node(Placer, Router, Eeschema_V5):
 
         def get_wire_length(node):
             """Return the sum of the wire segment lengths between parts in a routed node."""
-            
+
             wire_length = 0
-            
+
             # Sum wire lengths for child nodes.
             for child in node.children.values():
                 wire_length += get_wire_length(child)
@@ -602,6 +595,7 @@ class Node(Placer, Router, Eeschema_V5):
             return wire_length
 
         return "{}\n".format(get_wire_length(self))
+
 
 @export_to_all
 def gen_schematic(
@@ -630,7 +624,6 @@ def gen_schematic(
 
     # Try to place & route one or more times.
     for _ in range(retries):
-
         preprocess_parts_and_nets(circuit)
 
         node = Node(circuit, filepath, top_name, title, flatness)

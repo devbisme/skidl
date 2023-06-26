@@ -179,11 +179,11 @@ class Point:
             raise ValueError
         else:
             return self * m
-        
+
     def xprod(self, pt):
         """Cross-product of two 2D vectors returns scalar in Z coord."""
         return self.x * pt.y - self.y * pt.x
-    
+
     def mask(self, msk):
         """Multiply the X & Y coords by the elements of msk."""
         return Point(self.x * msk[0], self.y * msk[1])
@@ -254,7 +254,7 @@ class BBox:
         self.min = Point(inf, inf)
         self.max = Point(-inf, -inf)
         self.add(*pts)
-    
+
     def __add__(self, obj):
         """Return the merged BBox of two BBoxes or a BBox and a Point."""
         sum_ = BBox()
@@ -267,7 +267,7 @@ class BBox:
         else:
             raise NotImplementedError
         return sum_
-    
+
     def __iadd__(self, obj):
         """Update BBox bt adding another Point or BBox"""
         sum_ = self + obj
@@ -278,9 +278,9 @@ class BBox:
     def add(self, *objs):
         """Update the bounding box size by adding Point/BBox objects."""
         for obj in objs:
-            self +=  obj
+            self += obj
         return self
-    
+
     def __mul__(self, m):
         return BBox(self.min * m, self.max * m)
 
@@ -424,7 +424,7 @@ class Segment:
             return False
 
         return (0 <= t1 <= 1) and (0 <= t2 <= 1)
-    
+
     def shadows(self, other):
         """Return true if two segments overlap each other even if they aren't on the same horiz or vertical track."""
 
@@ -434,7 +434,7 @@ class Segment:
             self_max = max(self.p1.y, self.p2.y)
             other_min = min(other.p1.y, other.p2.y)
             other_max = max(other.p1.y, other.p2.y)
-        elif  self.p1.y == self.p2.y and other.p1.y == other.p2.y:
+        elif self.p1.y == self.p2.y and other.p1.y == other.p2.y:
             # Verttical segments. See if their horizontal extents overlap.
             self_min = min(self.p1.x, self.p2.x)
             self_max = max(self.p1.x, self.p2.x)
@@ -443,6 +443,6 @@ class Segment:
         else:
             # Segments aren't horizontal or vertical, so neither can shadow the other.
             return False
-        
+
         # Overlap conditions based on segment endpoints.
-        return other_min < self_max and other_max > self_min 
+        return other_min < self_max and other_max > self_min

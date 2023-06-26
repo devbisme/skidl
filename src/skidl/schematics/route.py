@@ -26,7 +26,7 @@ from future import standard_library
 from ..circuit import Circuit
 from ..part import Part
 from ..utilities import export_to_all, rmv_attr
-from .debug_draw import draw_end, draw_endpoint, draw_seg, draw_start, draw_routing
+from .debug_draw import draw_end, draw_endpoint, draw_routing, draw_seg, draw_start
 from .geometry import BBox, Point, Segment, Tx, Vector, tx_rot_90
 
 standard_library.install_aliases()
@@ -77,6 +77,7 @@ __all__ = ["RoutingFailure", "GlobalRoutingFailure", "SwitchboxRoutingFailure"]
 # as the total wiring for the parts in the Node.
 #
 ###################################################################
+
 
 # Orientations and directions.
 class Orientation(Enum):
@@ -518,7 +519,6 @@ class Face(Interval):
         # Look for terminals within an intersection on the same net and
         # remove all but one of them.
         for intersection in intersections:
-
             # Make a dict with nets and the terminals on each one.
             net_term_dict = defaultdict(list)
             for terminal in self.terminals:
@@ -625,7 +625,6 @@ class Face(Interval):
 
         # Extend the face backward from its beginning and forward from its end.
         for start, dir in ((self.beg, -1), (self.end, 1)):
-
             # Get tracks to extend face towards.
             search_tracks = orthogonal_tracks[start.idx :: dir]
 
@@ -635,11 +634,9 @@ class Face(Interval):
             # Search for a orthogonal face in a track that intersects this extension.
             for ortho_track in search_tracks:
                 for ortho_face in ortho_track:
-
                     # Intersection only occurs if the extending face hits the open
                     # interval of the orthogonal face, not if it touches an endpoint.
                     if ortho_face.beg < self.track < ortho_face.end:
-
                         # OK, this face intersects the extension. It also means the
                         # extending face will block the face just found, so split
                         # each track at the intersection point.
@@ -769,7 +766,6 @@ class GlobalWire(list):
         # Proceed through all the Faces/Terminals on the GlobalWire, converting
         # all the Faces to Terminals.
         for i in range(len(self) - 1):
-
             # The current element on a GlobalWire should always be a Terminal. Use that terminal
             # to convert the next Face on the wire to a Terminal (if it isn't one already).
             if isinstance(self[i], Face):
@@ -1039,7 +1035,6 @@ class Target:
 
 
 class SwitchBox:
-
     # Indices for faces of the switchbox.
     TOP, LEFT, BOTTOM, RIGHT = 0, 1, 2, 3
 
@@ -1296,7 +1291,6 @@ class SwitchBox:
         # Iteratively search to the top, left, bottom, and right for switchboxes to add.
         active_directions = {self.TOP, self.LEFT, self.BOTTOM, self.RIGHT}
         while active_directions:
-
             # Grow in the shortest dimension so the coalesced switchbox stays "squarish".
             bbox = BBox()
             for box_list in box_lists:
@@ -1361,7 +1355,6 @@ class SwitchBox:
         total_faces = [None, None, None, None]
         directions = (self.TOP, self.LEFT, self.BOTTOM, self.RIGHT)
         for direction, box_list in zip(directions, box_lists):
-
             # Create a face that spans all the faces of the boxes along one side.
             face_list = [box.face_list[direction] for box in box_list]
             beg = min([face.beg for face in face_list])
@@ -1604,7 +1597,6 @@ class SwitchBox:
             search_nets = track_nets[1:-1]
 
             for target in targets:
-
                 target_net, target_row = target.net, target.row
 
                 # Skip target nets that aren't currently active or have already been
@@ -1680,7 +1672,6 @@ class SwitchBox:
 
             # Merge segments of each net in the column.
             for net in column_nets:
-
                 # Extract intervals if the current net has more than one interval.
                 intervals = [intvl for intvl in column if intvl.net is net]
                 if len(intervals) < 2:
@@ -1697,12 +1688,12 @@ class SwitchBox:
                 intervals.sort(key=lambda intvl: intvl.beg)
 
                 # Try merging consecutive pairs of intervals.
-                for i in range(len(intervals)-1):
+                for i in range(len(intervals) - 1):
                     # Try to merge consecutive intervals.
-                    merged_intvl = intervals[i].merge(intervals[i+1])
+                    merged_intvl = intervals[i].merge(intervals[i + 1])
                     if merged_intvl:
                         # Keep only the merged interval and place it so it's compared to the next one.
-                        intervals[i:i+2] = None, merged_intvl
+                        intervals[i : i + 2] = None, merged_intvl
 
                 # Remove the None entries that are inserted when segments get merged.
                 intervals = [intvl for intvl in intervals if intvl]
@@ -1737,7 +1728,6 @@ class SwitchBox:
             last_track = len(track_nets) - 1
             column_nets = set([intvl.net for intvl in column])
             for net in column_nets:
-
                 # Get all the vertical intervals for this net in the current column.
                 net_intervals = [i for i in column if i.net is net]
 
@@ -1757,7 +1747,6 @@ class SwitchBox:
                         break
 
                 for i, intvl in enumerate(net_intervals):
-
                     # Sanity check: should never get here if interval goes from top-to-bottom of
                     # column (hence, only one interval) and there is no further terminal for this
                     # net to the right.
@@ -1880,7 +1869,6 @@ class SwitchBox:
         # Route left-to-right across the columns connecting the top & bottom nets
         # on each column to tracks within the switchbox.
         for col, (t_net, b_net) in enumerate(zip(self.top_nets, self.bottom_nets)):
-
             # Nets in the previous column become the currently active nets being routed
             active_nets = nets_in_column[-1][:]
 
@@ -2067,10 +2055,8 @@ class Router:
         del pin_pts[:]  # Clear the list. Works for Python 2 and 3.
 
         for net in nets:
-
             # Add routing points for all pins on the net that are inside this node.
             for pin in node.get_internal_pins(net):
-
                 # Store the point where the pin is. (This is used after routing to trim wire stubs.)
                 pin_pts.append((pin.pt * pin.part.tx).round())
 
@@ -2172,7 +2158,6 @@ class Router:
         # Add terminals to switchbox faces for all part pins on internal nets.
         for net in internal_nets:
             for pin in node.get_internal_pins(net):
-
                 # Find the track (top/bottom/left/right) that the pin is on.
                 part = pin.part
                 pt = pin.route_pt * part.tx
@@ -2274,7 +2259,6 @@ class Router:
 
             # Search through faces until a path is found & returned or a routing exception occurs.
             while True:
-
                 # Set up for finding the closest unvisited face.
                 closest_dist = float("inf")
                 closest_face = None
@@ -2282,7 +2266,6 @@ class Router:
                 # Search for the closest face adjacent to the visited faces.
                 visited_faces.sort(key=lambda f: f.dist_from_start)
                 for visited_face in visited_faces:
-
                     if visited_face.dist_from_start > closest_dist:
                         # Visited face is already further than the current
                         # closest face, so no use continuing search since
@@ -2292,7 +2275,6 @@ class Router:
                     # Get the distances to the faces adjacent to this previously-visited face
                     # and update the closest face if appropriate.
                     for adj in visited_face.adjacent:
-
                         if adj.face in visited_faces:
                             # Don't re-visit faces that have already been visited.
                             continue
@@ -2326,7 +2308,6 @@ class Router:
                 visited_faces.append(closest_face)
 
                 if closest_face in stop_faces:
-
                     # The newest, closest face is actually on the list of stop faces, so the search is done.
                     # Now search back from this face to find the path back to the start face.
                     face_path = [closest_face]
@@ -2362,7 +2343,6 @@ class Router:
         global_routes = []
 
         for net in nets:
-
             # List for storing GlobalWires connecting pins on net.
             global_route = GlobalRoute()
 
@@ -2457,7 +2437,6 @@ class Router:
         # Do detailed routing inside each switchbox.
         # TODO: Switchboxes are independent so could they be routed in parallel?
         for swbx in switchboxes:
-
             try:
                 # Try routing switchbox from left-to-right.
                 swbx.route(**options)
@@ -2622,7 +2601,6 @@ class Router:
             visited_pts = []  # List of visited endpoints.
             frontier_pts = list(adj_pts.keys())[:1]  # Arbitrary starting point.
             while frontier_pts:
-
                 # Visit a point on the frontier.
                 frontier_pt = frontier_pts.pop()
                 visited_pts.append(frontier_pt)
@@ -2665,7 +2643,6 @@ class Router:
 
                 # Process the segments looking for points that are on only a single segment.
                 for seg in segments:
-
                     # Add the segment to the segment list of each end point.
                     stubs[seg.p1].append(seg)
                     stubs[seg.p2].append(seg)
@@ -2740,7 +2717,6 @@ class Router:
 
                 # Look for an overlay intersection with a segment of another net.
                 for nt, nt_bbox in net_bboxes.items():
-
                     if nt is net:
                         # Don't check this segment with other segments of its own net.
                         continue
@@ -2779,7 +2755,6 @@ class Router:
             stop = True
             for segs, ortho_segs in ((horz_segs, vert_segs), (vert_segs, horz_segs)):
                 for seg in segs:
-
                     # Don't move a segment if one of its endpoints connects to a part pin.
                     if is_pin_pt(seg.p1) or is_pin_pt(seg.p2):
                         continue
@@ -2879,7 +2854,6 @@ class Router:
 
                 # Look for an overlay intersection with a segment of another net.
                 for nt, nt_bbox in net_bboxes.items():
-
                     if nt is net:
                         # Don't check this segment with other segments of its own net.
                         continue
@@ -2916,7 +2890,6 @@ class Router:
                 # segment followed by the vertical segment.
                 horz_segs, vert_segs = extract_horz_vert_segs(segments)
                 for seg in horz_segs + vert_segs:
-
                     # Add the segment to the segment list of each end point.
                     corners[seg.p1].append(seg)
                     corners[seg.p2].append(seg)
@@ -2942,7 +2915,6 @@ class Router:
                 # is in the middle of a three-segment staircase or tophat jog.
                 for segment in segments:
                     if segment.p1 in corners and segment.p2 in corners:
-
                         # Get the three segments in the jog.
                         jog_segs = set()
                         jog_segs.add(corners[segment.p1][0])
@@ -2969,7 +2941,6 @@ class Router:
 
             # Search for jogs and break from the loop if a correctable jog is found or we run out of jogs.
             while True:
-
                 # Get the segments and start-stop points for the next jog.
                 try:
                     jog_segs, start_stop_pts = next(jogs)
@@ -2990,7 +2961,6 @@ class Router:
 
                 # Check each routing point to see if it leads to a valid routing.
                 for p2 in p2s:
-
                     # Replace the three-segment jog with these two right-angle segments.
                     new_segs = [
                         Segment(copy.copy(pa), copy.copy(pb))
@@ -3001,7 +2971,6 @@ class Router:
 
                     # Check the new segments to see if they run into parts or segments of other nets.
                     if not any((obstructed(new_seg) for new_seg in new_segs)):
-
                         # OK, segments are good so replace the old segments in the jog with them.
                         for seg in jog_segs:
                             segments.remove(seg)
@@ -3025,7 +2994,6 @@ class Router:
 
         # Do a generalized cleanup of the wire segments of each net.
         for net, segments in node.wires.items():
-
             # Round the wire segment endpoints to integers.
             segments = [seg.round() for seg in segments]
 
@@ -3058,9 +3026,7 @@ class Router:
             keep_cleaning = False
 
             for net, segments in node.wires.items():
-
                 while True:
-
                     # Split intersecting segments.
                     segments = split_segments(segments, net_pin_pts[net])
 
@@ -3143,7 +3109,6 @@ class Router:
             return junctions
 
         for net, segments in node.wires.items():
-
             # Add X & T-junctions between segments in the same net.
             junctions = find_junctions(segments)
             node.junctions[net].extend(junctions)
