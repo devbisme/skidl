@@ -141,6 +141,10 @@ def add_placement_bboxes(parts, **options):
             - (Point(padding["R"], padding["U"]) * GRID * expansion_factor)
         )
 
+def get_enclosing_bbox(parts):
+    """Return bounding box that encloses all the parts."""
+    return BBox().add(*(part.place_bbox * part.tx for part in parts))
+
 
 def add_anchor_pull_pins(parts, nets, **options):
     """Add positions of anchor and pull pins for attractive net forces between parts.
@@ -223,6 +227,23 @@ def add_anchor_pull_pins(parts, nets, **options):
             part.pull_pins["similarity"] = all_pull_pins
             all_pull_pins.append(anchor_pull_pin)
 
+def save_anchor_pull_pins(parts):
+    """Save anchor/pull pins for each part before they are changed."""
+    for part in parts:
+        part.saved_anchor_pins = copy(part.anchor_pins)
+        part.saved_pull_pins = copy(part.pull_pins)
+
+def restore_anchor_pull_pins(parts):
+    """Restore the original anchor/pull pin lists for each Part."""
+
+    for part in parts:
+        if hasattr(part, "saved_anchor_pins"):
+            # Saved pin lists exist, so restore them to the original anchor/pull pin lists.
+            part.anchor_pins = part.saved_anchor_pins
+            part.pull_pins = part.saved_pull_pins
+    
+    # Remove the attributes where the original lists were saved.
+    rmv_attr(parts, ("saved_anchor_pins", "saved_pull_pins"))
 
 def trim_anchor_pull_pins(parts):
     """Selectively remove anchor and pull pins from Part objects.
@@ -267,6 +288,78 @@ def trim_anchor_pull_pins(parts):
             #     prts = [pin.part for pin in pins]
             #     assert len(prts) == len(set(prts))
 
+def retain_closest_anchor_pull_pins(parts):
+    """For each Part, change anchor/pull pins for each net so they contain only the closest pair of pins."""
+    
+    for part in parts:
+        if hasattr(part, "saved_anchor_pins"):
+            # The Part already has set the anchor/pull pins to the closest pair.
+            continue
+
+        # Save the original anchor/pin lists.
+        part.saved_anchor_pins = copy(part.anchor_pins)
+        part.saved_pull_pins = copy(part.pull_pins)
+
+        # Find the closest anchor/pull pins for each net.
+        for net, anchor_pins in part.anchor_pins.items():
+            pull_pins = part.pull_pins[net]
+            if not anchor_pins or not pull_pins:
+                # Abort if this net has no anchor or pull pins.
+                continue
+
+            # Find the closest anchor/pull pins.
+            dists = []
+            for anchor_pin in anchor_pins:
+                anchor_pt = anchor_pin.place_pt * part.tx
+                for pull_pin in pull_pins:
+                    pull_pt = pull_pin.place_pt * pull_pin.part.tx
+                    dist = (pull_pt - anchor_pt).magnitude
+                    dists.append((dist, anchor_pin, pull_pin))
+            closest = min(dists, key=lambda x: x[0])
+
+            # Replace the original anchor/pull pin lists with single-pin lists.
+            part.anchor_pins[net] = [closest[1]]
+            part.pull_pins[net] = [closest[2]]
+
+def orient_net_terminals(terminals, ctr):
+    """Adjust orientation of NetTerminals.
+
+    Args:
+        terminals (list): List of NetTerminals.
+        ctr (Point): Center of placement area.
+    """
+
+    for terminal in terminals:
+        
+        # A NetTerminal should be attached to a single pin of a part on a single net.
+        pull_pin = list(terminal.pull_pins.values())[0][0]
+        pull_pt = pull_pin.place_pt * pull_pin.part.tx
+
+        # Get the offset of the terminal from the center of the placement area.
+        offset = pull_pt - ctr
+        x, y = offset.x, offset.y
+
+        # Orient the terminal based on its position w.r.t. the center.
+        terminal.tx = Tx()
+        if abs(x) < abs(y):
+            # Place the terminal vertically if its further up/down than right/left of the center.
+            if y > 0:
+                # Terminal is towards the top, so point the label upward.
+                terminal.tx.rot_cw_90()
+            else:
+                # Terminal is towards the bottom, so point the label downward.
+                terminal.tx.rot_cw_90()
+                terminal.tx.rot_cw_90()
+                terminal.tx.rot_cw_90()
+        else:
+            # Place the terminal horizontally if its further right/left than up/down of the center.
+            # horizontal label.
+            if x > 0:
+                # Terminal is on the right side, so flip the label to the right.
+                terminal.tx.flip_x()
+            else:
+                # Terminal is on the left side, so keep the label pointing to the left.
+                pass
 
 def adjust_orientations(parts, **options):
     """Adjust orientation of parts.
@@ -1009,10 +1102,7 @@ def central_placement(parts, **options):
         return
 
     # Find the centroid of all the parts.
-    bbox = BBox()
-    for part in parts:
-        bbox.add(part.place_bbox * part.tx)
-    ctr = bbox.ctr
+    ctr = get_enclosing_bbox(parts).ctr
 
     # Collapse all the parts to the centroid.
     for part in parts:
@@ -1140,52 +1230,6 @@ def push_and_pull(parts, nets, force_func, **options):
         options (dict): Dict of options and values that enable/disable functions.
     """
 
-    def retain_closest_anchor_pull_pins(parts):
-        """For each Part, change anchor/pull pins for each net so they contain only the closest pair of pins."""
-        
-        for part in parts:
-            if hasattr(part, "saved_anchor_pins"):
-                # The Part already has set the anchor/pull pins to the closest pair.
-                continue
-
-            # Save the original anchor/pin lists.
-            part.saved_anchor_pins = copy(part.anchor_pins)
-            part.saved_pull_pins = copy(part.pull_pins)
-
-            # Find the closest anchor/pull pins for each net.
-            for net, anchor_pins in part.anchor_pins.items():
-                pull_pins = part.pull_pins[net]
-                if not anchor_pins or not pull_pins:
-                    # Abort if this net has no anchor or pull pins.
-                    continue
-
-                # Find the closest anchor/pull pins.
-                dists = []
-                for anchor_pin in anchor_pins:
-                    anchor_pt = anchor_pin.place_pt * part.tx
-                    for pull_pin in pull_pins:
-                        pull_pt = pull_pin.place_pt * pull_pin.part.tx
-                        dist = (pull_pt - anchor_pt).magnitude
-                        dists.append((dist, anchor_pin, pull_pin))
-                closest = min(dists, key=lambda x: x[0])
-
-                # Replace the original anchor/pull pin lists with single-pin lists.
-                part.anchor_pins[net] = [closest[1]]
-                part.pull_pins[net] = [closest[2]]
-
-    def restore_anchor_pull_pins(parts):
-        """Restore the original anchor/pull pin lists for each Part."""
-
-        for part in parts:
-            if hasattr(part, "saved_anchor_pins"):
-                # Saved pin lists exist, so restore them to the original anchor/pull pin lists.
-                part.anchor_pins = part.saved_anchor_pins
-                part.pull_pins = part.saved_pull_pins
-        
-        # Remove the attributes where the original lists were saved.
-        rmv_attr(parts, ("saved_anchor_pins", "saved_pull_pins"))
-
-
     def push_and_pull_subrtn(anchored_parts, mobile_parts):
         """Move parts under influence of attractive nets and repulsive part overlaps.
 
@@ -1260,12 +1304,12 @@ def push_and_pull(parts, nets, force_func, **options):
             for _ in range(1000): # TODO: Ad-hoc iteration limit.
 
                 # Compute forces exerted on the parts by each other.
-                forces_mag = 0
+                sum_of_forces = 0
                 for part in mobile_parts:
                     part.force = force_func(part, parts, scale=scale, alpha=alpha, **options)
                     # Mask X or Y component of force during part alignment.
                     part.force = part.force.mask(force_mask)
-                    forces_mag += part.force.magnitude
+                    sum_of_forces += part.force.magnitude
 
                 if rmv_drift:
                     # Calculate the drift force across all parts and subtract it from each part
@@ -1282,14 +1326,14 @@ def push_and_pull(parts, nets, force_func, **options):
                 if scr:
                     # Draw current part placement for debugging purposes.
                     draw_placement(parts, nets, scr, tx, font)
-                    draw_text(f"alpha:{alpha:3.2f} iter:{_}  cost:{cost(mobile_parts, alpha):6.1f}  force:{forces_mag}", txt_org, scr, tx, font, color=(0, 0, 0), real=False)
+                    draw_text(f"alpha:{alpha:3.2f} iter:{_}  cost:{cost(mobile_parts, alpha):6.1f}  force:{sum_of_forces:.1f} stable:{stable_threshold}", txt_org, scr, tx, font, color=(0, 0, 0), real=False)
                     draw_redraw()
 
                 # Keep iterating until all the parts are still.
                 if stable_threshold < 0:
                     # Set the threshold after the first iteration.
-                    stable_threshold = forces_mag * stability_coef
-                elif forces_mag <= stable_threshold:
+                    stable_threshold = sum_of_forces * stability_coef
+                elif sum_of_forces <= stable_threshold:
                     # Part positions have stabilized if forces have dropped below threshold.
                     break
 
@@ -1310,8 +1354,33 @@ def push_and_pull(parts, nets, force_func, **options):
     # Place all parts except the net terminals.
     push_and_pull_subrtn(anchored_parts=set(), mobile_parts=real_parts)
 
+    def trim_pull_pins(terminals, ctr):
+        for terminal in terminals:
+            for net, pull_pins in terminal.pull_pins.items():
+                pull_pts = []
+                for pull_pin in pull_pins:
+                    pull_pt = pull_pin.place_pt * pull_pin.part.tx
+                    pull_pts.append(((pull_pt - ctr).magnitude, pull_pin))
+                terminal.pull_pins[net] = [max(pull_pts, key=lambda pt: pt[0])[1]]
+
+    def move_labels(terminals):
+        for terminal in terminals:
+            pull_pin = list(terminal.pull_pins.values())[0][0]
+            pull_pt = pull_pin.place_pt * pull_pin.part.tx
+            terminal.tx.move_to(pull_pt)
+
     # Place net terminals after everything else.
-    push_and_pull_subrtn(anchored_parts=real_parts, mobile_parts=net_terminals)
+    ctr = get_enclosing_bbox(real_parts).ctr
+    save_anchor_pull_pins(net_terminals)
+    trim_pull_pins(net_terminals, ctr)
+    orient_net_terminals(net_terminals, ctr)
+    move_labels(net_terminals)
+    terminals = sorted(net_terminals, key=lambda term: (term.pins[0].place_pt * term.tx - ctr).magnitude, reverse=True)
+    anchored_parts = copy(real_parts)
+    for terminal in terminals:
+        push_and_pull_subrtn(anchored_parts=anchored_parts, mobile_parts=set([terminal]))
+        anchored_parts.add(terminal)
+    restore_anchor_pull_pins(net_terminals)
 
 
 @debug_trace
@@ -1748,10 +1817,7 @@ class Placer:
 
         if options.get("draw_placement"):
             # Draw the placement for debug purposes.
-            bbox = BBox()
-            for part in parts:
-                tx_bbox = part.place_bbox * part.tx
-                bbox.add(tx_bbox)
+            bbox = get_enclosing_bbox(parts)
             draw_scr, draw_tx, draw_font = draw_start(bbox)
             options.update(
                 {"draw_scr": draw_scr, "draw_tx": draw_tx, "draw_font": draw_font}
@@ -1802,10 +1868,7 @@ class Placer:
 
         if options.get("draw_placement"):
             # Compute the drawing area for the floating parts
-            bbox = BBox()
-            for part in parts:
-                tx_bbox = part.place_bbox * part.tx
-                bbox.add(tx_bbox)
+            bbox = get_enclosng_bbox(parts)
             draw_scr, draw_tx, draw_font = draw_start(bbox)
             options.update(
                 {"draw_scr": draw_scr, "draw_tx": draw_tx, "draw_font": draw_font}
@@ -1978,10 +2041,7 @@ class Placer:
 
         if options.get("draw_placement"):
             # Setup to draw the part block placement for debug purposes.
-            bbox = BBox()
-            for blk in part_blocks:
-                tx_bbox = blk.place_bbox * blk.tx
-                bbox.add(tx_bbox)
+            bbox = get_enclosing_bbox(part_blocks)
             draw_scr, draw_tx, draw_font = draw_start(bbox)
             options.update(
                 {"draw_scr": draw_scr, "draw_tx": draw_tx, "draw_font": draw_font}
