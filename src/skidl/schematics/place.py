@@ -1973,7 +1973,7 @@ class Placer:
 
         if options.get("draw_placement"):
             # Compute the drawing area for the floating parts
-            bbox = get_enclosng_bbox(parts)
+            bbox = get_enclosing_bbox(parts)
             draw_scr, draw_tx, draw_font = draw_start(bbox)
             options.update(
                 {"draw_scr": draw_scr, "draw_tx": draw_tx, "draw_font": draw_font}
