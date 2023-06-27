@@ -434,10 +434,9 @@ class Node(Placer, Router, Eeschema_V5):
         bbox = BBox(Point(0, 0), Point(500, 500))
         bbox.add(Point(len("File: " + self.sheet_filename) * self.filename_sz, 0))
         bbox.add(Point(len("Sheet: " + self.name) * self.name_sz, 0))
-        bbox.resize(Vector(100, 100))
 
         # Pad the bounding box for extra spacing when placed.
-        bbox.resize(Vector(100, 100))
+        bbox = bbox.resize(Vector(100, 100))
 
         return bbox
 
@@ -451,7 +450,7 @@ class Node(Placer, Router, Eeschema_V5):
             bbox.add(tx_bbox)
 
         # Pad the bounding box for extra spacing when placed.
-        bbox.resize(Vector(100, 100))
+        bbox = bbox.resize(Vector(100, 100))
 
         return bbox
 

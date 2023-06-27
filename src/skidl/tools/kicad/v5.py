@@ -1336,8 +1336,9 @@ def calc_symbol_bbox(part):
                 )
             )
 
+        # TODO: Maybe we shouldn't do this?
         # Expand bounding box to account for object line thickness.
-        obj_bbox.resize(Vector(round(thickness / 2), round(thickness / 2)))
+        # obj_bbox.resize(Vector(round(thickness / 2), round(thickness / 2)))
 
         # Enter the current object into the SVG for this part.
         unit = getattr(obj, "unit", 0)

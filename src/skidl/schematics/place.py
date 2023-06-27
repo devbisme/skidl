@@ -1248,7 +1248,7 @@ def push_and_pull(anchored_parts, mobile_parts, nets, force_func, **options):
     # Also, set parameters for determining when parts are stable and for restricting
     # movements in the X & Y directions when parts are being aligned.
     force_schedule = [
-        (0.8, 0.0, 0.1, False, (1, 1)),  # Attractive forces only.
+        (0.50, 0.0, 0.1, False, (1, 1)),  # Attractive forces only.
         (0.25, 0.0, 0.01, False, (1, 1)),  # Attractive forces only.
         # (0.25, 0.2, 0.01, False, (1,1)), # Some repulsive forces.
         (0.25, 0.4, 0.1, False, (1, 1)),  # More repulsive forces.
@@ -2095,7 +2095,7 @@ class Placer:
                 # This is an unflattened child node showing no parts on the inside
                 # so just pad around the outside of its graphical box.
                 pad = BLK_EXT_PAD
-            bbox.resize(Vector(pad, pad))
+            bbox = bbox.resize(Vector(pad, pad))
 
             # Set the grid snapping point and tag for this child node.
             snap_pt = child.get_snap_pt()
