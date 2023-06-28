@@ -1336,7 +1336,7 @@ def calc_symbol_bbox(part):
                 )
             )
 
-        # TODO: Maybe we shouldn't do this?
+        # REMOVE: Maybe we shouldn't do this?
         # Expand bounding box to account for object line thickness.
         # obj_bbox.resize(Vector(round(thickness / 2), round(thickness / 2)))
 
