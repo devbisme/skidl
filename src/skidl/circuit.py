@@ -1011,7 +1011,7 @@ class Circuit(SkidlBaseObject):
         # Supply a schematic-specific empty footprint handler.
         save_empty_footprint_handler = skidl.empty_footprint_handler
 
-        def schematic_empty_footprint_handler(part):
+        def _empty_footprint_handler(part):
             """Handle the situation of a Part with no footprint when generating a schematic."""
 
             active_logger.warning(
@@ -1021,7 +1021,10 @@ class Circuit(SkidlBaseObject):
             # Supply a nonsense footprint just so no complaints are raised when the EESCHEMA code is generated.
             part.footprint = ":"
 
-        skidl.empty_footprint_handler = schematic_empty_footprint_handler
+        if kwargs.get("empty_footprint_handler]"):
+            skidl.empty_footprint_handler = kwargs["empty_footprint_handler"]
+        else:
+            skidl.empty_footprint_handler = _empty_footprint_handler
 
         self._preprocess()
 
