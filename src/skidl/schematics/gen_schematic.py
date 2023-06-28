@@ -38,7 +38,7 @@ Generate a KiCad EESCHEMA schematic from a Circuit object.
 # TODO: Handle symio attribute.
 
 
-def preprocess_parts_and_nets(circuit):
+def preprocess_circuit(circuit):
     """Add stuff to parts & nets for doing placement and routing of schematics."""
 
     def units(part):
@@ -162,19 +162,6 @@ def preprocess_parts_and_nets(circuit):
             # Set the active bounding box to the labeled version.
             part_unit.bbox = part_unit.lbl_bbox
 
-    def preprocess_nets(nets):
-        """Get nets ready for schematic place-and-route."""
-
-        # Set stub flag on every pin on a stub net.
-        net_stubs = circuit.get_net_nc_stubs()
-        net_stubs = [net for net in net_stubs if not isinstance(net, NCNet)]
-        for net in net_stubs:
-            if (
-                True or net.netclass != "Power"
-            ):  # TODO: figure out what to do with power nets.
-                for pin in net.pins:
-                    pin.stub = True
-
     # Pre-process parts
     for part in circuit.parts:
         # Initialize part attributes used for generating schematics.
@@ -185,9 +172,6 @@ def preprocess_parts_and_nets(circuit):
 
         # Compute bounding boxes around parts
         calc_part_bbox(part)
-
-        # Preprocess nets.
-        preprocess_nets(circuit.nets)
 
 
 def finalize_parts_and_nets(circuit):
@@ -618,12 +602,16 @@ def gen_schematic(
         options (dict, optional): Dict of options and values, usually for drawing/debugging.
     """
 
+    # Part placement options that should always be turned on.
+    options["use_push_pull"] = True
+    options["rotate_parts"] = True
+
     # Start with default routing area.
     expansion_factor = 1.0
 
     # Try to place & route one or more times.
     for _ in range(retries):
-        preprocess_parts_and_nets(circuit)
+        preprocess_circuit(circuit)
 
         node = Node(circuit, filepath, top_name, title, flatness)
 
