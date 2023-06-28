@@ -106,6 +106,7 @@ class Net(SkidlBaseObject):
         self._pins = []
         self.circuit = None
         self.code = None  # This is the net number used in a KiCad netlist file.
+        self.stub = False  # Net is not a stub for schematic generation.
 
         # Set the net name directly to the passed-in name without any adjustment.
         # The net name will be adjusted when it is added to the circuit which
@@ -476,6 +477,7 @@ class Net(SkidlBaseObject):
                     pin.disconnect()
                 self._pins.append(pin)
                 pin.nets.append(self)
+                pin.stub = self.stub  # Update pin stub net for generating schematics.
             return
 
         self.test_validity()
