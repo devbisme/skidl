@@ -30,36 +30,28 @@ from skidl import (
     generate_xml,
     subcircuit,
 )
-import skidl.schematics.place as schplc
 from skidl.schematics.place import PlacementFailure
 from skidl.schematics.route import RoutingFailure
 
 from .setup_teardown import setup_function, teardown_function
-
-schplc.attractive_force = schplc.net_force_dist
-# schplc.attractive_force = schplc.net_force_dist_avg
-# schplc.attractive_force = schplc.net_force_bbox
-# schplc.attractive_force = schplc.net_force_centroid
-schplc.repulsive_force = schplc.overlap_force
 
 sch_options = {}
 # seed = int(time.time())
 # sch_options["seed"] = seed
 # print("Random seed = {}".format(seed))
 sch_options["retries"] = 2
-sch_options["debug_trace"] = False
 # sch_options["allow_routing_failure"] = True
-sch_options["pt_to_pt_mult"] = 1  # TODO: Ad-hoc value.
+# sch_options["pt_to_pt_mult"] = 1  # TODO: Ad-hoc value.
 # sch_options["pin_normalize"] = True
 # sch_options["net_normalize"] = True
 # sch_options["compress_before_place"] = True
 # sch_options["use_optimizer"] = True
-sch_options["use_push_pull"] = True
+# sch_options["use_push_pull"] = True
 # sch_options["allow_jumps"] = True
 # sch_options["align_parts"] = True
 # sch_options["remove_overlaps"] = True
 # sch_options["slip_and_slide"] = True
-sch_options["rotate_parts"] = True
+# sch_options["rotate_parts"] = True
 # sch_options["trim_anchor_pull_pins"] = True
 # sch_options["fanout_attenuation"] = True
 # sch_options["remove_power"] = True
@@ -78,31 +70,6 @@ if os.getenv("DEBUG_DRAW"):
     # sch_options["draw_assigned_terminals"] = True
     # sch_options["draw_switchbox_boundary"] = True
     # sch_options["draw_switchbox_routing"] = True
-
-
-def _empty_footprint_handler(part):
-    """Function for handling parts with no footprint.
-
-    Args:
-        part (Part): Part with no footprint.
-    """
-    ref_prefix = part.ref_prefix.upper()
-
-    if ref_prefix in ("R", "C", "L") and len(part.pins) == 2:
-        # Resistor, capacitors, inductors default to 0805 SMD footprint.
-        part.footprint = "Resistor_SMD:R_0805_2012Metric"
-
-    elif ref_prefix in ("Q",) and len(part.pins) == 3:
-        # Transistors default to SOT-23 footprint.
-        part.footprint = "Package_TO_SOT_SMD:SOT-23"
-
-    else:
-        # Everything else just gets this ridiculous footprint to avoid raising exceptions.
-        part.footprint = ":"
-
-
-# Install the footprint handler for these tests.
-skidl.empty_footprint_handler = _empty_footprint_handler
 
 
 def create_schematic(num_trials=1, flatness=1.0, script_stack_level=1, report_failures=True):
