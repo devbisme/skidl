@@ -26,7 +26,7 @@ from future import standard_library
 
 from ..circuit import Circuit
 from ..pin import Pin
-from ..utilities import debug_trace, export_to_all, rmv_attr, sgn
+from ..utilities import export_to_all, rmv_attr, sgn
 from .debug_draw import (
     draw_end,
     draw_pause,
@@ -514,7 +514,7 @@ def net_torque_dist(part, **options):
     ctr = part.place_bbox.ctr * part.tx
 
     # Get the force multiplier applied to point-to-point nets.
-    pt_to_pt_mult = options.get("pt_to_pt_mult")
+    pt_to_pt_mult = options.get("pt_to_pt_mult", 1)
 
     # Compute the torque for each net attached to the part.
     torque = 0.0
@@ -596,7 +596,7 @@ def net_force_dist(part, **options):
     pull_pins = part.pull_pins
 
     # Get the force multiplier applied to point-to-point nets.
-    pt_to_pt_mult = options.get("pt_to_pt_mult")
+    pt_to_pt_mult = options.get("pt_to_pt_mult", 1)
 
     # Compute the total force on the part from all the anchor/pulling points on each net.
     total_force = Vector(0, 0)
@@ -689,7 +689,7 @@ def net_force_dist_avg(part, **options):
     pull_pins = part.pull_pins
 
     # Get the force multiplier applied to point-to-point nets.
-    pt_to_pt_mult = options.get("pt_to_pt_mult")
+    pt_to_pt_mult = options.get("pt_to_pt_mult", 1)
 
     # Compute the total force on the part from all the anchor/pulling points on each net.
     total_force = Vector(0, 0)
@@ -893,7 +893,7 @@ def net_force_centroid(part, **options):
 
 
 # Select the net force method used for the attraction of parts during placement.
-# attractive_force = net_force_dist
+attractive_force = net_force_dist
 # attractive_force = net_force_dist_avg
 # attractive_force = net_force_bbox
 # attractive_force = net_force_centroid
@@ -1067,7 +1067,6 @@ def define_placement_bbox(parts, **options):
     return BBox(Point(0, 0), Point(side, side))
 
 
-@debug_trace
 def central_placement(parts, **options):
     """Cluster all part centroids onto a common point.
 
@@ -1089,7 +1088,6 @@ def central_placement(parts, **options):
         part.tx *= Tx(dx=mv.x, dy=mv.y)
 
 
-@debug_trace
 def random_placement(parts, **options):
     """Randomly place parts within an appropriately-sized area.
 
@@ -1108,7 +1106,6 @@ def random_placement(parts, **options):
         # part.tx.origin = Point(random.random() * side, random.random() * side)
 
 
-@debug_trace
 def optimizer_place(parts, nets, force_func, **options):
     """Use a cost optimizer to place parts under influence of attractive nets and repulsive part overlaps.
 
@@ -1198,7 +1195,6 @@ def optimizer_place(parts, nets, force_func, **options):
         draw_redraw()
 
 
-@debug_trace
 def push_and_pull(anchored_parts, mobile_parts, nets, force_func, **options):
     """Move parts under influence of attractive nets and repulsive part overlaps.
 
@@ -1328,7 +1324,6 @@ def push_and_pull(anchored_parts, mobile_parts, nets, force_func, **options):
                 break
 
 
-@debug_trace
 def jump_parts(parts, force_func, **options):
     """Jump parts to move them over other parts that block them.
 
@@ -1386,7 +1381,6 @@ def jump_parts(parts, force_func, **options):
             draw_pause()
 
 
-@debug_trace
 def align_parts(parts, **options):
     """Move parts to align their I/O pins with each other and reduce routing jagginess.
 
@@ -1535,7 +1529,6 @@ def align_parts(parts, **options):
     rmv_attr(mobile_parts, "bbox_segs")
 
 
-@debug_trace
 def remove_overlaps(parts, nets, **options):
     """Remove any overlaps using horz/vert grid movements.
 
@@ -1584,7 +1577,6 @@ def remove_overlaps(parts, nets, **options):
             draw_placement(parts, nets, scr, tx, font)
 
 
-@debug_trace
 def slip_and_slide(parts, nets, force_func, **options):
     """Move parts on horz/vert grid looking for improvements without causing overlaps.
 
@@ -1646,7 +1638,6 @@ def slip_and_slide(parts, nets, force_func, **options):
             draw_placement(parts, nets, scr, tx, font)
 
 
-@debug_trace
 def evolve_placement(anchored_parts, mobile_parts, nets, force_func, **options):
     """Evolve part placement looking for optimum using force function.
 
@@ -2244,7 +2235,7 @@ class Placer:
             # Remove any stuff leftover from this place & route run.
             # print(f"added part attrs = {new_part_attrs}")
             node.rmv_placement_stuff()
-            node.show_added_attrs()
+            # node.show_added_attrs()
 
             # Calculate the bounding box for the node after placement of parts and children.
             node.calc_bbox()
