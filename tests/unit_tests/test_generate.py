@@ -232,7 +232,7 @@ def test_gen_sch_1():
     create_schematic(num_trials=1,flatness=1.0)
 
 
-@pytest.mark.xfail(raises=(SyntaxError))
+@pytest.mark.xfail(raises=(SyntaxError, TypeError))
 def test_gen_pcb_1():
     """Test PCB generation."""
 

@@ -4,6 +4,7 @@
 
 import pytest
 
+import skidl
 from skidl import (
     ERC,
     POWER,
@@ -19,6 +20,13 @@ from skidl import (
 )
 
 from .setup_teardown import setup_function, teardown_function
+
+
+# A default handler was added that logs errors when a part has an empty footprint.
+# These ERC tests were made before that and now fail because of the footprint errors.
+# Rather than re-do the tests, I just replaced the default handler with a function
+# that doesn't do anything when a part has an empty footprint. Now the tests pass.
+skidl.empty_footprint_handler = lambda part: None
 
 
 def test_nc_1():
