@@ -80,6 +80,9 @@ class PlacementFailure(Exception):
 
     pass
 
+# Small functions for summing Points and Vectors.
+pt_sum = lambda pts: sum(pts, Point(0,0))
+force_sum = lambda forces: sum(forces, Vector(0,0))
 
 def is_net_terminal(part):
     from skidl.schematics.gen_schematic import NetTerminal
@@ -215,7 +218,6 @@ def add_anchor_pull_pins(parts, nets, **options):
                         part.pull_pins[net].append(pin)
 
         # For each net, assign the centroid of the part's anchor pins for that net.
-        pt_sum = functools.partial(sum, start=Point(0, 0))
         for net in nets:
             for part in net.parts:
                 if part.anchor_pins[net]:
@@ -861,8 +863,8 @@ def push_and_pull(anchored_parts, mobile_parts, nets, force_func, **options):
             if rmv_drift:
                 # Calculate the drift force across all parts and subtract it from each part
                 # to prevent them from continually drifting in one direction.
-                drift_force = sum(
-                    [part.force for part in mobile_parts], start=Vector(0, 0)
+                drift_force = force_sum(
+                    [part.force for part in mobile_parts]
                 ) / len(mobile_parts)
                 for part in mobile_parts:
                     part.force -= drift_force
@@ -876,7 +878,7 @@ def push_and_pull(anchored_parts, mobile_parts, nets, force_func, **options):
                 # Draw current part placement for debugging purposes.
                 draw_placement(parts, nets, scr, tx, font)
                 draw_text(
-                    f"alpha:{alpha:3.2f} iter:{_}  cost:{cost(mobile_parts, alpha):6.1f}  force:{sum_of_forces:.1f} stable:{stable_threshold}",
+                    "alpha:{alpha:3.2f} iter:{_}  cost:{cost(mobile_parts, alpha):6.1f}  force:{sum_of_forces:.1f} stable:{stable_threshold}".format(locals()),
                     txt_org,
                     scr,
                     tx,
@@ -1023,7 +1025,7 @@ def place_net_terminals(net_terminals, placed_parts, nets, force_func, **options
                         mobile_terminals[:-1],
                         nets,
                         force_func,
-                        **options,
+                        **options
                     )
                     # Anchor the mobile terminals after their placement is done.
                     anchored_parts.extend(mobile_terminals[:-1])
