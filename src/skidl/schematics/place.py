@@ -730,7 +730,7 @@ def define_placement_bbox(parts, **options):
     area = 0
     for part in parts:
         area += part.place_bbox.area
-    side = 3 * math.sqrt(area)  # FIXME: Multiplier is ad-hoc.
+    side = 3 * math.sqrt(area)  # HACK: Multiplier is ad-hoc.
     return BBox(Point(0, 0), Point(side, side))
 
 
@@ -852,7 +852,7 @@ def push_and_pull(anchored_parts, mobile_parts, nets, force_func, **options):
 
         # Move parts for this alpha until they all settle into fixed positions.
         # Place an iteration limit to prevent an infinite loop.
-        for _ in range(1000):  # TODO: Ad-hoc iteration limit.
+        for _ in range(1000):  # HACK: Ad-hoc iteration limit.
             # Compute forces exerted on the parts by each other.
             sum_of_forces = 0
             for part in mobile_parts:
@@ -1257,7 +1257,7 @@ class Placer:
                 if other_part is part:
                     continue
 
-                # TODO: Get similarity forces right-sized.
+                # HACK: Get similarity forces right-sized.
                 part_similarity[part][other_part] = part.similarity(other_part) / 100
                 # part_similarity[part][other_part] = 0.1
 
@@ -1321,7 +1321,7 @@ class Placer:
                 self.snap_pt = snap_pt  # For snapping to grid.
                 self.tx = Tx()  # For placement.
                 self.ref = "REF"  # Name for block in debug drawing.
-                self.tag = tag  # TODO: what is this for?
+                self.tag = tag  # FIXME: what is this for?
 
         # Create a list of blocks from the groups of interconnected parts and the group of floating parts.
         part_blocks = []
