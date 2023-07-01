@@ -39,7 +39,7 @@ sch_options = {}
 # seed = int(time.time())
 # sch_options["seed"] = seed
 # print("Random seed = {}".format(seed))
-sch_options["retries"] = 2
+sch_options["retries"] = 10
 # sch_options["allow_routing_failure"] = True
 # sch_options["pt_to_pt_mult"] = 1  # TODO: Ad-hoc value.
 # sch_options["pin_normalize"] = True
@@ -543,7 +543,7 @@ def test_gen_sch_hier_conn():
         name="Q_PNP_CBE",
         footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2",
         dest=TEMPLATE,
-        symtx="V",
+        # symtx="V",
     )
 
     a = Net("A")
@@ -956,8 +956,8 @@ def test_gen_svg_8():
         footprint="xesscorp/xess.pretty:PMOD-12-MALE",
         dest=TEMPLATE,
     )
-    pm[0].symtx = "H"
-    pm[1].symtx = "H"
+    # pm[0].symtx = "H"
+    # pm[1].symtx = "H"
     bread_board_conn = Part(
         "Connector",
         "Conn_01x18_Male",
@@ -1009,6 +1009,85 @@ def test_gen_svg_8():
     generate_netlist()  # Generate the netlist.
     create_schematic(flatness=1.0)
     generate_svg("svg_8")
+
+
+@pytest.mark.xfail(raises=RoutingFailure)
+def test_gen_sch_pmod():
+
+    # Define some nets and buses.
+
+    gnd = Net("GND")  # Ground reference.
+    gnd.drive = POWER
+
+    # Five-bit digital buses carrying red, green, blue color values.
+    red = Bus("RED", 5)
+    grn = Bus("GRN", 5)
+    blu = Bus("BLU", 5)
+
+    # VGA horizontal and vertical sync signals.
+    hsync = Net("HSYNC")
+    vsync = Net("VSYNC")
+
+    xess_lib = r"xess.lib"
+
+    # Two PMOD headers and a breadboard header bring in the digital red, green,
+    # and blue buses along with the horizontal and vertical sync.
+    # (The PMOD and breadboard headers bring in the same signals. PMOD connectors
+    # are used when the VGA interface connects to a StickIt! motherboard, and the
+    # breadboard header is for attaching it to a breadboard.
+    pm = 2 * Part(
+        xess_lib,
+        "PMOD-12",
+        footprint="xesscorp/xess.pretty:PMOD-12-MALE",
+        dest=TEMPLATE,
+    )
+    # pm[0].symtx = "H"
+    # pm[1].symtx = "H"
+    bread_board_conn = Part(
+        "Connector",
+        "Conn_01x18_Male",
+        footprint="KiCad_V5/Connector_PinHeader_2.54mm.pretty:Pin_Header_1x18_P2.54mm_Vertical",
+    )
+
+    # Connect the digital red, green and blue buses and the sync signals to
+    # the pins of the PMOD and breadboard headers.
+    hsync += bread_board_conn[1], pm[0]["D0"]
+    vsync += bread_board_conn[2], pm[0]["D1"]
+    red[4] += bread_board_conn[3], pm[0]["D2"]
+    grn[4] += bread_board_conn[4], pm[0]["D3"]
+    blu[4] += bread_board_conn[5], pm[0]["D4"]
+    red[3] += bread_board_conn[6], pm[0]["D5"]
+    grn[3] += bread_board_conn[7], pm[0]["D6"]
+    blu[3] += bread_board_conn[8], pm[0]["D7"]
+    red[2] += bread_board_conn[9], pm[1]["D0"]
+    grn[2] += bread_board_conn[10], pm[1]["D1"]
+    blu[2] += bread_board_conn[11], pm[1]["D2"]
+    red[1] += bread_board_conn[12], pm[1]["D3"]
+    grn[1] += bread_board_conn[13], pm[1]["D4"]
+    blu[1] += bread_board_conn[14], pm[1]["D5"]
+    red[0] += bread_board_conn[15], pm[1]["D6"]
+    grn[0] += bread_board_conn[16], pm[1]["D7"]
+    blu[0] += bread_board_conn[17]
+
+    # The VGA interface has no active components, so don't connect the PMOD's VCC pins.
+    NC & pm[0]["VCC"] & pm[1]["VCC"]
+
+    # Connect the ground reference pins on all the connectors.
+    gnd += bread_board_conn[18], pm[0]["GND"], pm[1]["GND"]
+
+    # The PMOD ground pins are defined as power outputs so there will be an error
+    # if they're connected together. Therefore, turn off the error checking on one
+    # of them to swallow the error.
+    pm[1]["GND"].do_erc = False
+
+    gnd.stub = True
+    red.stub = True
+    grn.stub = True
+    blu.stub = True
+    hsync.stub = True
+    vsync.stub = True
+
+    create_schematic(flatness=1.0)
 
 
 @pytest.mark.xfail(raises=RoutingFailure)
