@@ -274,40 +274,48 @@ def adjust_orientations(parts, **options):
         bool: True if one or more part orientations were changed. Otherwise, False.
     """
 
+    # Get PyGame screen, real-to-screen coord Tx matrix, font for debug drawing.
+    scr = options.get("draw_scr")
+    tx = options.get("draw_tx")
+    font = options.get("draw_font")
+
     def find_best_orientation(part):
-        # Each part has 8 possible orientations. Find the best of the 7 alternatives from the current one.
+        """Each part has 8 possible orientations. Find the best of the 7 alternatives from the starting one."""
 
-        # Store starting orientation and its cost.
+        # Store starting orientation.
         part.prev_tx = copy(part.tx)
-        current_cost = net_tension(part, **options)
 
-        # Now find the orientation that has the largest decrease in cost.
-        best_delta_cost = float("inf")
+        # Get centerpoint of part for use when doing rotations/flips.
+        part_ctr = (part.place_bbox * part.tx).ctr
 
-        # Skip cost calculations for the starting orientation.
-        skip_original_tx = True
-
+        # Now find the orientation that has the largest decrease (or smallest increase) in cost.
         # Go through four rotations, then flip the part and go through the rotations again.
+        best_delta_cost = float("inf")
+        calc_starting_cost = True
         for i in range(2):
             for j in range(4):
-                if skip_original_tx:
-                    # Skip the starting orientation but set flag to process the others.
-                    skip_original_tx = False
-                    delta_cost = 0
 
+                if scr:
+                    draw_placement(parts, [], scr, tx, font)
+                
+                if calc_starting_cost:
+                    # Calculate the cost of the starting orientation before any changes in orientation.
+                    starting_cost = net_tension(part, **options)
+                    # Skip the starting orientation but set flag to process the others.
+                    calc_starting_cost = False
                 else:
                     # Calculate the cost of the current orientation.
-                    delta_cost = net_tension(part, **options) - current_cost
+                    delta_cost = net_tension(part, **options) - starting_cost
                     if delta_cost < best_delta_cost:
                         # Save the largest decrease in cost and the associated orientation.
                         best_delta_cost = delta_cost
                         best_tx = copy(part.tx)
 
                 # Proceed to the next rotation.
-                part.tx.rot_cw_90()
+                part.tx = part.tx.move(-part_ctr).rot_90cw().move(part_ctr)
 
             # Flip the part and go through the rotations again.
-            part.tx.flip_x()
+            part.tx = part.tx.move(-part_ctr).flip_x().move(part_ctr)
 
         # Save the largest decrease in cost and the associated orientation.
         part.delta_cost = best_delta_cost
@@ -486,10 +494,6 @@ def net_force_dist(part, **options):
     Returns:
         Vector: Force upon given part.
     """
-
-    #
-    # Various distance-to-force functions.
-    #
 
     # Get the anchor and pull pins for each net connected to this part.
     anchor_pins = part.anchor_pins
@@ -763,9 +767,7 @@ def random_placement(parts, **options):
     # Place parts randomly within area.
     for part in parts:
         pt = Point(random.random() * bbox.w, random.random() * bbox.h)
-        part.tx.move_to(pt)
-        # The following setter doesn't work in Python 2.7.18.
-        # part.tx.origin = Point(random.random() * side, random.random() * side)
+        part.tx = part.tx.move(pt)
 
 
 def push_and_pull(anchored_parts, mobile_parts, nets, force_func, **options):
@@ -878,7 +880,7 @@ def push_and_pull(anchored_parts, mobile_parts, nets, force_func, **options):
                 # Draw current part placement for debugging purposes.
                 draw_placement(parts, nets, scr, tx, font)
                 draw_text(
-                    "alpha:{alpha:3.2f} iter:{_}  cost:{cost(mobile_parts, alpha):6.1f}  force:{sum_of_forces:.1f} stable:{stable_threshold}".format(locals()),
+                    "alpha:{alpha:3.2f} iter:{_} force:{sum_of_forces:.1f} stable:{stable_threshold}".format(**locals()),
                     txt_org,
                     scr,
                     tx,
@@ -891,10 +893,16 @@ def push_and_pull(anchored_parts, mobile_parts, nets, force_func, **options):
             # Keep iterating until all the parts are still.
             if stable_threshold < 0:
                 # Set the threshold after the first iteration.
+                initial_sum_of_forces = sum_of_forces
                 stable_threshold = sum_of_forces * stability_coef
             elif sum_of_forces <= stable_threshold:
                 # Part positions have stabilized if forces have dropped below threshold.
                 break
+            elif sum_of_forces > 10 * initial_sum_of_forces:
+                # If the forces are getting higher, then that usually means the parts are
+                # spreading out. This can happen if speed is too large, so reduce it so
+                # the forces may start to decrease.
+                speed *= 0.50
 
 
 def evolve_placement(anchored_parts, mobile_parts, nets, force_func, **options):
@@ -944,6 +952,29 @@ def place_net_terminals(net_terminals, placed_parts, nets, force_func, **options
                     pull_pts.append(((pull_pt - ctr).magnitude, pull_pin))
                 terminal.pull_pins[net] = [max(pull_pts, key=lambda pt: pt[0])[1]]
 
+    def get_pin_vector(pin):
+        """Calculate pin direction accounting for part transformation matrix."""
+
+        # Copy the part trans. matrix, but remove the translation vector, leaving only scaling/rotation stuff.
+        tx = pin.part.tx
+        tx = Tx(a=tx.a, b=tx.b, c=tx.c, d=tx.d)
+
+        # Use the pin orientation to compute the pin direction vector.
+        pin_vector = {
+            "U": Point(0, 1),
+            "D": Point(0, -1),
+            "L": Point(-1, 0),
+            "R": Point(1, 0),
+        }[pin.orientation]
+
+        # Rotate the direction vector using the part rotation matrix.
+        pin_vector = pin_vector * tx
+
+        # Create an integer tuple from the rotated direction vector.
+        pin_vector = (int(round(pin_vector.x)), int(round(pin_vector.y)))
+
+        return pin_vector
+
     def orient(terminals, ctr):
         """Adjust orientation of NetTerminals.
 
@@ -958,92 +989,121 @@ def place_net_terminals(net_terminals, placed_parts, nets, force_func, **options
             -135 to  -45 degrees: ^--label.
         """
 
-        for terminal in terminals:
-            # A NetTerminal should be attached to a single pin of a part on a single net.
-            pull_pin = list(terminal.pull_pins.values())[0][0]
-            pull_pt = pull_pin.place_pt * pull_pin.part.tx
+        orientation_type = options.get("terminal_orientation", "by_pin")
 
-            # Get the offset of the terminal from the center of the placement area.
-            offset = pull_pt - ctr
-            x, y = offset.x, offset.y
+        if orientation_type == "by_pin":
+            for terminal in terminals:
 
-            # Orient the terminal based on its position w.r.t. the center.
-            terminal.tx = Tx()
-            if abs(x) < abs(y):
-                # Place the terminal vertically if its further up/down than right/left of the center.
-                if y > 0:
-                    # Terminal is towards the top, so point the label upward.
-                    terminal.tx.rot_cw_90()
+                # A NetTerminal should be attached to a single pin of a part on a single net.
+                pull_pin = list(terminal.pull_pins.values())[0][0]
+                pull_pt = pull_pin.place_pt * pull_pin.part.tx
+
+                # Terminal orientation is opposite of the pin it connects to.
+                import skidl.schematics.geometry as geometry
+                terminal.tx = {
+                    (0, 1): geometry.tx_rot_90,
+                    (0, -1): geometry.tx_rot_270,
+                    (-1, 0): geometry.tx_rot_180,
+                    (1, 0): geometry.tx_rot_0,
+                }[get_pin_vector(pull_pin)]
+
+        elif orientation_type == "by_position":
+            for terminal in terminals:
+
+                # A NetTerminal should be attached to a single pin of a part on a single net.
+                pull_pin = list(terminal.pull_pins.values())[0][0]
+                pull_pt = pull_pin.place_pt * pull_pin.part.tx
+
+                # Get the offset of the terminal from the center of the placement area.
+                offset = pull_pt - ctr
+                x, y = offset.x, offset.y
+
+                # Orient the terminal based on its position w.r.t. the center.
+                terminal.tx = Tx()
+                if abs(x) < abs(y):
+                    # Place the terminal vertically if its further up/down than right/left of the center.
+                    if y > 0:
+                        # Terminal is towards the top, so point the label upward.
+                        terminal.tx = Tx().rot_90cw()
+                    else:
+                        # Terminal is towards the bottom, so point the label downward.
+                        terminal.tx = Tx().rot_90cw().rot_90cw().rot_90cw()
                 else:
-                    # Terminal is towards the bottom, so point the label downward.
-                    terminal.tx.rot_cw_90()
-                    terminal.tx.rot_cw_90()
-                    terminal.tx.rot_cw_90()
-            else:
-                # Place the terminal horizontally if its further right/left than up/down of the center.
-                # horizontal label.
-                if x > 0:
-                    # Terminal is on the right side, so flip the label to the right.
-                    terminal.tx.flip_x()
-                else:
-                    # Terminal is on the left side, so keep the label pointing to the left.
-                    pass
+                    # Place the terminal horizontally if its further right/left than up/down of the center.
+                    # horizontal label.
+                    if x > 0:
+                        # Terminal is on the right side, so flip the label to the right.
+                        terminal.tx = Tx().flip_x()
+                    else:
+                        # Terminal is on the left side, so keep the label pointing to the left.
+                        pass
 
     def move_to_pull_pin(terminals):
         """Move NetTerminals immediately to their pulling pins."""
         for terminal in terminals:
+            anchor_pin = list(terminal.anchor_pins.values())[0][0]
+            anchor_pt = anchor_pin.place_pt * anchor_pin.part.tx
             pull_pin = list(terminal.pull_pins.values())[0][0]
             pull_pt = pull_pin.place_pt * pull_pin.part.tx
-            terminal.tx.move_to(pull_pt)
+            terminal.tx = terminal.tx.move(pull_pt - anchor_pt)
 
-    def evolve_outer_to_inner(terminals, placed_parts, ctr):
+    def evolution(net_terminals, placed_parts, ctr):
         """Evolve placement of NetTerminals starting from outermost from center to innermost."""
 
-        # Sort terminals from outermost to innermost w.r.t. the center.
-        terminals = sorted(
-            net_terminals,
-            key=lambda term: (term.pins[0].place_pt * term.tx - ctr).magnitude,
-            reverse=True,
-        )
+        evolution_type = options.get("terminal_evolution", "all_at_once")
 
-        # Start off with the previously-placed parts as anchored parts. NetTerminals will be added to this as they are placed.
-        anchored_parts = copy(placed_parts)
-
-        # Grab terminals starting from the outside and work towards the inside until a terminal intersects a previous one.
-        mobile_terminals = []
-        mobile_bboxes = []
-        for terminal in terminals:
-            terminal_bbox = terminal.place_bbox * terminal.tx
-            mobile_terminals.append(terminal)
-            mobile_bboxes.append(terminal_bbox)
-            for bbox in mobile_bboxes[:-1]:
-                if terminal_bbox.intersects(bbox):
-                    # The current NetTerminal intersects one of the previously-selected mobile terminals, so evolve the
-                    # placement of all the mobile terminals except the current one.
-                    evolve_placement(
-                        anchored_parts,
-                        mobile_terminals[:-1],
-                        nets,
-                        force_func,
-                        **options
-                    )
-                    # Anchor the mobile terminals after their placement is done.
-                    anchored_parts.extend(mobile_terminals[:-1])
-                    # Remove the placed terminals, leaving only the current terminal.
-                    mobile_terminals = mobile_terminals[-1:]
-                    mobile_bboxes = mobile_bboxes[-1:]
-        if mobile_terminals:
-            # Evolve placement of any remaining terminals.
+        if evolution_type == "all_at_once":
             evolve_placement(
-                anchored_parts, mobile_terminals, nets, total_part_force, **options
+                placed_parts, net_terminals, nets, total_part_force, **options
             )
+
+        elif evolution_type == "outer_to_inner":
+            # Start off with the previously-placed parts as anchored parts. NetTerminals will be added to this as they are placed.
+            anchored_parts = copy(placed_parts)
+
+            # Sort terminals from outermost to innermost w.r.t. the center.
+            terminals = sorted(
+                net_terminals,
+                key=lambda term: (term.pins[0].place_pt * term.tx - ctr).magnitude,
+                reverse=True,
+            )
+
+            # Grab terminals starting from the outside and work towards the inside until a terminal intersects a previous one.
+            mobile_terminals = []
+            mobile_bboxes = []
+            for terminal in terminals:
+                terminal_bbox = terminal.place_bbox * terminal.tx
+                mobile_terminals.append(terminal)
+                mobile_bboxes.append(terminal_bbox)
+                for bbox in mobile_bboxes[:-1]:
+                    if terminal_bbox.intersects(bbox):
+                        # The current NetTerminal intersects one of the previously-selected mobile terminals, so evolve the
+                        # placement of all the mobile terminals except the current one.
+                        evolve_placement(
+                            anchored_parts,
+                            mobile_terminals[:-1],
+                            nets,
+                            force_func,
+                            **options
+                        )
+                        # Anchor the mobile terminals after their placement is done.
+                        anchored_parts.extend(mobile_terminals[:-1])
+                        # Remove the placed terminals, leaving only the current terminal.
+                        mobile_terminals = mobile_terminals[-1:]
+                        mobile_bboxes = mobile_bboxes[-1:]
+
+            if mobile_terminals:
+                # Evolve placement of any remaining terminals.
+                evolve_placement(
+                    anchored_parts, mobile_terminals, nets, total_part_force, **options
+                )
 
     ctr = get_enclosing_bbox(placed_parts).ctr
     save_anchor_pull_pins(net_terminals)
     trim_pull_pins(net_terminals, ctr)
     orient(net_terminals, ctr)
     move_to_pull_pin(net_terminals)
-    evolve_outer_to_inner(net_terminals, placed_parts, ctr)
+    evolution(net_terminals, placed_parts, ctr)
     restore_anchor_pull_pins(net_terminals)
 
 

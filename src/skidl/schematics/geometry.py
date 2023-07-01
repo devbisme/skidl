@@ -66,9 +66,7 @@ class Tx:
         op_dict = {
             "H": Tx(a=-1, c=0, b=0, d=1),  # Horizontal flip.
             "V": Tx(a=1, c=0, b=0, d=-1),  # Vertical flip.
-            "L": Tx(
-                a=0, c=-1, b=1, d=0
-            ),  # Rotatate 90 degrees left (counter-clockwise).
+            "L": Tx(a=0, c=-1, b=1, d=0),  # Rotate 90 degrees left (counter-clockwise).
             "R": Tx(a=0, c=1, b=-1, d=0),  # Rotate 90 degrees right (clockwise).
         }
 
@@ -110,17 +108,17 @@ class Tx:
     #     """Set the (dx, dy) translation from an (x,y) Point."""
     #     self.dx, self.dy = pt.x, pt.y
 
-    def move_to(self, pt):
-        """Move Tx origin to given point."""
-        self.dx, self.dy = pt.x, pt.y
+    def move(self, vec):
+        """Return Tx with movement vector applied."""
+        return self * Tx(dx=vec.x, dy=vec.y)
 
-    def rot_cw_90(self):
-        """Rotate transformation 90 clock-wise around (dx, dy)."""
-        self.a, self.b, self.c, self.d = self.b, -self.a, self.d, -self.c
+    def rot_90cw(self):
+        """Return Tx with 90-deg clock-wise rotation around (0, 0)."""
+        return self * Tx(a=0, b=1, c=-1, d=0)
 
     def flip_x(self):
-        """Flip transformation X coords around (dx, dy)."""
-        self.a, self.c = -self.a, -self.c
+        """Return Tx with X coords flipped around (0, 0)."""
+        return self * Tx(a=-1)
 
 
 # Some common rotations.

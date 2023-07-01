@@ -295,7 +295,7 @@ def calc_sheet_tx(bbox):
     A_size = get_A_size(bbox)
     page_bbox = bbox * Tx(d=-1)
     move_to_ctr = A_sizes[A_size].ctr.snap(GRID) - page_bbox.ctr.snap(GRID)
-    move_tx = Tx(d=-1) * Tx(dx=move_to_ctr.x, dy=move_to_ctr.y)
+    move_tx = Tx(d=-1).move(move_to_ctr)
     return move_tx
 
 

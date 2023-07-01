@@ -38,7 +38,7 @@ Generate a KiCad EESCHEMA schematic from a Circuit object.
 # TODO: Handle symio attribute.
 
 
-def preprocess_circuit(circuit):
+def preprocess_circuit(circuit, **options):
     """Add stuff to parts & nets for doing placement and routing of schematics."""
 
     def units(part):
@@ -51,6 +51,7 @@ def preprocess_circuit(circuit):
         """Initialize part or its part units."""
 
         # Initialize the units of the part, or the part itself if it has no units.
+        pin_limit = options.get("orientation_pin_limit", 44)
         for part_unit in units(part):
             # Initialize transform matrix.
             part_unit.tx = Tx.from_symtx(getattr(part_unit, "symtx", ""))
@@ -61,7 +62,7 @@ def preprocess_circuit(circuit):
             # they shouldn't be flipped around.
             num_pins = len(part_unit.pins)
             part_unit.orientation_locked = (
-                getattr(part_unit, "symtx", False) or num_pins > 10 or num_pins <= 1
+                getattr(part_unit, "symtx", False) or not (1 < num_pins <= pin_limit)
             )
 
             # Assign pins from the parent part to the part unit.
@@ -72,7 +73,7 @@ def preprocess_circuit(circuit):
                 pin.pt = Point(pin.x, pin.y)
                 pin.routed = False
 
-    def rotate_power_pins(part, dont_rotate_pin_threshold=10000):
+    def rotate_power_pins(part):
         """Rotate a part based on the direction of its power pins.
 
         This function is to make sure that voltage sources face up and gnd pins
@@ -89,9 +90,11 @@ def preprocess_circuit(circuit):
         def is_gnd(net):
             return "gnd" in net_name.lower()
 
+        dont_rotate_pin_cnt = options.get("dont_rotate_pin_count", 10000)
+
         for part_unit in units(part):
             # Don't rotate parts with too many pins.
-            if len(part_unit) > dont_rotate_pin_threshold:
+            if len(part_unit) > dont_rotate_pin_cnt:
                 return
 
             # Tally what rotation would make each pwr/gnd pin point up or down.
@@ -153,9 +156,7 @@ def preprocess_circuit(circuit):
                     # Find bounding box for net stub label attached to pin.
                     hlbl_bbox = calc_hier_label_bbox(pin.net.name, pin.orientation)
                     # Move the label bbox to the pin location.
-                    tx = Tx()
-                    tx.move_to(pin.pt)
-                    hlbl_bbox *= tx
+                    hlbl_bbox *= Tx().move(pin.pt)
                     # Update the bbox for the labelled part with this pin label.
                     part_unit.lbl_bbox.add(hlbl_bbox)
 
@@ -174,7 +175,7 @@ def preprocess_circuit(circuit):
         calc_part_bbox(part)
 
 
-def finalize_parts_and_nets(circuit):
+def finalize_parts_and_nets(circuit, **options):
     """Restore parts and nets after place & route is done."""
 
     # Remove any NetTerminals that were added.
@@ -233,7 +234,9 @@ class NetTerminal(Part):
         netio = getattr(net, "netio", "").lower()
         self.orientation_locked = bool(netio in ("i", "o"))
         if getattr(net, "netio", "").lower() == "o":
-            self.tx.flip_x()
+            origin = Point(0, 0)
+            term_origin = self.tx.origin
+            self.tx = self.tx.move(origin-term_origin).flip_x().move(term_origin-origin)
 
         # Connect the pin to the net.
         pin += net
@@ -611,7 +614,7 @@ def gen_schematic(
 
     # Try to place & route one or more times.
     for _ in range(retries):
-        preprocess_circuit(circuit)
+        preprocess_circuit(circuit, **options)
 
         node = Node(circuit, filepath, top_name, title, flatness)
 
@@ -624,13 +627,13 @@ def gen_schematic(
 
         except PlacementFailure:
             # Placement failed, so clean up ...
-            finalize_parts_and_nets(circuit)
+            finalize_parts_and_nets(circuit, **options)
             # ... and try again.
             continue
 
         except RoutingFailure:
             # Routing failed, so clean up ...
-            finalize_parts_and_nets(circuit)
+            finalize_parts_and_nets(circuit, **options)
             # ... and expand routing area ...
             expansion_factor *= 1.25  # TODO: Ad-hoc increase of expansion factor.
             # ... and try again.
@@ -646,7 +649,7 @@ def gen_schematic(
                 f.write(stats)
 
         # Clean up.
-        finalize_parts_and_nets(circuit)
+        finalize_parts_and_nets(circuit, **options)
 
         # Place & route was successful if we got here, so exit.
         return
@@ -658,7 +661,7 @@ def gen_schematic(
             f.write(stats)
 
     # Clean-up after failure.
-    finalize_parts_and_nets(circuit)
+    finalize_parts_and_nets(circuit, **options)
 
     # Exited the loop without successful routing.
     raise (RoutingFailure)
