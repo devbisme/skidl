@@ -80,9 +80,11 @@ class PlacementFailure(Exception):
 
     pass
 
+
 # Small functions for summing Points and Vectors.
-pt_sum = lambda pts: sum(pts, Point(0,0))
-force_sum = lambda forces: sum(forces, Vector(0,0))
+pt_sum = lambda pts: sum(pts, Point(0, 0))
+force_sum = lambda forces: sum(forces, Vector(0, 0))
+
 
 def is_net_terminal(part):
     from skidl.schematics.gen_schematic import NetTerminal
@@ -294,10 +296,9 @@ def adjust_orientations(parts, **options):
         calc_starting_cost = True
         for i in range(2):
             for j in range(4):
-
                 if scr:
                     draw_placement(parts, [], scr, tx, font)
-                
+
                 if calc_starting_cost:
                     # Calculate the cost of the starting orientation before any changes in orientation.
                     starting_cost = net_tension(part, **options)
@@ -865,9 +866,9 @@ def push_and_pull(anchored_parts, mobile_parts, nets, force_func, **options):
             if rmv_drift:
                 # Calculate the drift force across all parts and subtract it from each part
                 # to prevent them from continually drifting in one direction.
-                drift_force = force_sum(
-                    [part.force for part in mobile_parts]
-                ) / len(mobile_parts)
+                drift_force = force_sum([part.force for part in mobile_parts]) / len(
+                    mobile_parts
+                )
                 for part in mobile_parts:
                     part.force -= drift_force
 
@@ -880,7 +881,9 @@ def push_and_pull(anchored_parts, mobile_parts, nets, force_func, **options):
                 # Draw current part placement for debugging purposes.
                 draw_placement(parts, nets, scr, tx, font)
                 draw_text(
-                    "alpha:{alpha:3.2f} iter:{_} force:{sum_of_forces:.1f} stable:{stable_threshold}".format(**locals()),
+                    "alpha:{alpha:3.2f} iter:{_} force:{sum_of_forces:.1f} stable:{stable_threshold}".format(
+                        **locals()
+                    ),
                     txt_org,
                     scr,
                     tx,
@@ -993,13 +996,13 @@ def place_net_terminals(net_terminals, placed_parts, nets, force_func, **options
 
         if orientation_type == "by_pin":
             for terminal in terminals:
-
                 # A NetTerminal should be attached to a single pin of a part on a single net.
                 pull_pin = list(terminal.pull_pins.values())[0][0]
                 pull_pt = pull_pin.place_pt * pull_pin.part.tx
 
                 # Terminal orientation is opposite of the pin it connects to.
                 import skidl.schematics.geometry as geometry
+
                 terminal.tx = {
                     (0, 1): geometry.tx_rot_90,
                     (0, -1): geometry.tx_rot_270,
@@ -1009,7 +1012,6 @@ def place_net_terminals(net_terminals, placed_parts, nets, force_func, **options
 
         elif orientation_type == "by_position":
             for terminal in terminals:
-
                 # A NetTerminal should be attached to a single pin of a part on a single net.
                 pull_pin = list(terminal.pull_pins.values())[0][0]
                 pull_pt = pull_pin.place_pt * pull_pin.part.tx

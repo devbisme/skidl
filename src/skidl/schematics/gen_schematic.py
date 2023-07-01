@@ -61,8 +61,8 @@ def preprocess_circuit(circuit, **options):
             # And also lock single-pin parts because these are usually power/ground and
             # they shouldn't be flipped around.
             num_pins = len(part_unit.pins)
-            part_unit.orientation_locked = (
-                getattr(part_unit, "symtx", False) or not (1 < num_pins <= pin_limit)
+            part_unit.orientation_locked = getattr(part_unit, "symtx", False) or not (
+                1 < num_pins <= pin_limit
             )
 
             # Assign pins from the parent part to the part unit.
@@ -236,7 +236,9 @@ class NetTerminal(Part):
         if getattr(net, "netio", "").lower() == "o":
             origin = Point(0, 0)
             term_origin = self.tx.origin
-            self.tx = self.tx.move(origin-term_origin).flip_x().move(term_origin-origin)
+            self.tx = (
+                self.tx.move(origin - term_origin).flip_x().move(term_origin - origin)
+            )
 
         # Connect the pin to the net.
         pin += net
