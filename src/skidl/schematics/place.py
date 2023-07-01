@@ -133,8 +133,8 @@ def snap_to_grid(part_or_blk):
 
 def add_placement_bboxes(parts, **options):
     """Expand part bounding boxes to include space for subsequent routing."""
+    from skidl.schematics.gen_schematic import NetTerminal
 
-    expansion_factor = options.get("expansion_factor", 1.0)
     for part in parts:
         # Placement bbox starts off with the part bbox (including any net labels).
         part.place_bbox = BBox()
@@ -145,6 +145,14 @@ def add_placement_bboxes(parts, **options):
         for pin in part:
             if pin.stub is False and pin.is_connected():
                 padding[pin.orientation] += 1
+
+        # expansion_factor > 1 is used to expand the area for routing around each part,
+        # usually in response to a failed routing phase. But don't expand the routing
+        # around NetTerminals since those are just used to label wires.
+        if isinstance(part, NetTerminal):
+            expansion_factor = 1
+        else:
+            expansion_factor = options.get("expansion_factor", 1.0)
 
         # Add padding for routing to the right and upper sides.
         part.place_bbox.add(
