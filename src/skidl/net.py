@@ -838,6 +838,16 @@ class Net(SkidlBaseObject):
             del n._drive
 
     @property
+    def stub(self):
+        return self._stub
+    
+    @stub.setter
+    def stub(self, val):
+        self._stub = val
+        for pin in self.get_pins():
+            pin.stub = val
+
+    @property
     def valid(self):
         return self._valid
 
