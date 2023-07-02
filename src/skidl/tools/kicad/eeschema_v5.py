@@ -115,7 +115,7 @@ def part_to_eeschema(part, tx):
             str(origin.x + part.draw[n_F0].x),
             str(origin.y + part.draw[n_F0].y),
             part.draw[n_F0].size,
-            "000",
+            "000", # TODO: Refine this to match part def.
             part.draw[n_F0].halign,
             part.draw[n_F0].valign,
         )
@@ -133,7 +133,7 @@ def part_to_eeschema(part, tx):
             str(origin.x + part.draw[n_F2].x),
             str(origin.y + part.draw[n_F2].y),
             part.draw[n_F2].size,
-            "001",
+            "001", # TODO: Refine this to match part def.
             part.draw[n_F2].halign,
             part.draw[n_F2].valign,
         )

@@ -23,6 +23,7 @@ from future import standard_library
 from ...logger import active_logger
 from ...part import LIBRARY
 from ...schematics.geometry import (
+    Tx,
     BBox,
     Point,
     Vector,
@@ -1179,6 +1180,8 @@ def calc_symbol_bbox(part):
         part: Part object for which an SVG symbol will be created.
 
     Returns: List of BBoxes for all units in the part symbol.
+
+    Note: V5 library format: https://www.compuphase.com/electronics/LibraryFileFormats.pdf
     """
 
     def make_pin_dir_tbl(abs_xoff=20):
@@ -1262,10 +1265,87 @@ def calc_symbol_bbox(part):
             unit_bboxes = [BBox() for _ in range(num_units + 1)]
 
         elif isinstance(obj, DrawF0):
-            pass
+            # obj attributes: x y size orientation visibility halign valign
+            # Skip if the object is invisible.
+            if obj.visibility.upper() == "I":
+                continue
+
+            # Calculate length and height of part reference.
+            length = len(obj.ref) * obj.size
+            height = obj.size
+
+            # Create bbox with lower-left point at (0, 0).
+            bbox = BBox(Point(0,0), Point(length, height))
+
+            # Rotate bbox around origin.
+            rot_tx = {"H": Tx(), "V": tx_rot_90}[obj.orientation.upper()]
+            bbox *= rot_tx
+
+            # Horizontally align bbox.
+            halign = obj.halign.upper()
+            if halign == "L":
+                pass
+            elif halign == "R":
+                bbox *= Tx().move(Point(-bbox.w, 0))
+            elif halign == "C":
+                bbox *= Tx().move(Point(-bbox.w/2, 0))
+            else:
+                raise Exception("Inconsistent horizontal alignment: {}".format(halign))
+
+            # Vertically align bbox.
+            valign = obj.valign[:1].upper() # valign is first letter.
+            if valign == "B":
+                pass
+            elif valign == "T":
+                bbox *= Tx().move(Point(0, -bbox.h))
+            elif valign == "C":
+                bbox *= Tx().move(Point(0, -bbox.h/2))
+            else:
+                raise Exception("Inconsistent vertical alignment: {}".format(valign))
+            
+            bbox *= Tx().move(Point(obj.x, obj.y))
+            obj_bbox.add(bbox)
 
         elif isinstance(obj, DrawF1):
-            pass
+            # Skip if the object is invisible.
+            if obj.visibility.upper() == "I":
+                continue
+
+            # Calculate length and height of part reference.
+            length = len(obj.name) * obj.size
+            height = obj.size
+
+            # Create bbox with lower-left point at (0, 0).
+            bbox = BBox(Point(0,0), Point(length, height))
+
+            # Rotate bbox around origin.
+            rot_tx = {"H": Tx(), "V": tx_rot_90}[obj.orientation.upper()]
+            bbox *= rot_tx
+
+            # Horizontally align bbox.
+            halign = obj.halign.upper()
+            if halign == "L":
+                pass
+            elif halign == "R":
+                bbox *= Tx().move(Point(-bbox.w, 0))
+            elif halign == "C":
+                bbox *= Tx().move(Point(-bbox.w/2, 0))
+            else:
+                raise Exception("Inconsistent horizontal alignment: {}".format(halign))
+
+            # Vertically align bbox.
+            valign = obj.valign[:1].upper() # valign is first letter.
+            if valign == "B":
+                pass
+            elif valign == "T":
+                bbox *= Tx().move(Point(0, -bbox.h))
+            elif valign == "C":
+                bbox *= Tx().move(Point(0, -bbox.h/2))
+            else:
+                raise Exception("Inconsistent vertical alignment: {}".format(valign))
+            
+            bbox *= Tx().move(Point(obj.x, obj.y))
+            obj_bbox.add(bbox)
 
         elif isinstance(obj, DrawArc):
             arc = obj
