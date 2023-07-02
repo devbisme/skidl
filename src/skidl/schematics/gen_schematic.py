@@ -635,7 +635,7 @@ def gen_schematic(
             # Routing failed, so clean up ...
             finalize_parts_and_nets(circuit, **options)
             # ... and expand routing area ...
-            expansion_factor *= 1.25  # HACK: Ad-hoc increase of expansion factor.
+            expansion_factor *= 1.5  # HACK: Ad-hoc increase of expansion factor.
             # ... and try again.
             continue
 
