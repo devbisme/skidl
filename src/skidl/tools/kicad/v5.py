@@ -1271,7 +1271,9 @@ def calc_symbol_bbox(part):
                 continue
 
             # Calculate length and height of part reference.
-            length = len(obj.ref) * obj.size
+            # Use ref from the SKiDL part since the ref in the KiCAD part
+            # hasn't been updated from its generic value.
+            length = len(part.ref) * obj.size
             height = obj.size
 
             # Create bbox with lower-left point at (0, 0).
@@ -1311,8 +1313,10 @@ def calc_symbol_bbox(part):
             if obj.visibility.upper() == "I":
                 continue
 
-            # Calculate length and height of part reference.
-            length = len(obj.name) * obj.size
+            # Calculate length and height of part value.
+            # Use value from the SKiDL part since the value in the KiCAD part
+            # hasn't been updated from its generic value.
+            length = len(str(part.value)) * obj.size
             height = obj.size
 
             # Create bbox with lower-left point at (0, 0).

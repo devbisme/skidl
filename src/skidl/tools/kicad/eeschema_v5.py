@@ -121,6 +121,26 @@ def part_to_eeschema(part, tx):
         )
     )
 
+    # Part value.
+    n_F1 = 1
+    for i in range(len(part.draw)):
+        if re.search("^DrawF1", str(part.draw[i])):
+            n_F1 = i
+            break
+    eeschema.append(
+        'F 1 "{}" {} {} {} {} {} {} {}'.format(
+            str(part.value),
+            part.draw[n_F1].orientation,
+            str(origin.x + part.draw[n_F1].x),
+            str(origin.y + part.draw[n_F1].y),
+            part.draw[n_F1].size,
+            "000", # TODO: Refine this to match part def.
+            part.draw[n_F1].halign,
+            part.draw[n_F1].valign,
+        )
+    )
+
+    # Part footprint.
     n_F2 = 2
     for i in range(len(part.draw)):
         if re.search("^DrawF2", str(part.draw[i])):
