@@ -948,105 +948,63 @@ def place_net_terminals(net_terminals, placed_parts, nets, force_func, **options
         options (dict): Dict of options and values that enable/disable functions.
     """
 
-    def trim_pull_pins(terminals, ctr):
-        """NetTerminal will be pulled only by the part pin farthest from the center of the placed parts.
-
-        Note:
-            The rationale for this is that the farthest pin from the center is less likely to have a lot
-            of wiring that the NetTerminal might interfere with.
-        """
-        for terminal in terminals:
-            for net, pull_pins in terminal.pull_pins.items():
-                pull_pts = []
-                for pull_pin in pull_pins:
-                    pull_pt = pull_pin.place_pt * pull_pin.part.tx
-                    pull_pts.append(((pull_pt - ctr).magnitude, pull_pin))
-                terminal.pull_pins[net] = [max(pull_pts, key=lambda pt: pt[0])[1]]
-
-    def get_pin_vector(pin):
-        """Calculate pin direction accounting for part transformation matrix."""
-
-        # Copy the part trans. matrix, but remove the translation vector, leaving only scaling/rotation stuff.
-        tx = pin.part.tx
-        tx = Tx(a=tx.a, b=tx.b, c=tx.c, d=tx.d)
-
-        # Use the pin orientation to compute the pin direction vector.
-        pin_vector = {
-            "U": Point(0, 1),
-            "D": Point(0, -1),
-            "L": Point(-1, 0),
-            "R": Point(1, 0),
-        }[pin.orientation]
-
-        # Rotate the direction vector using the part rotation matrix.
-        pin_vector = pin_vector * tx
-
-        # Create an integer tuple from the rotated direction vector.
-        pin_vector = (int(round(pin_vector.x)), int(round(pin_vector.y)))
-
-        return pin_vector
-
-    def orient(terminals, ctr):
-        """Adjust orientation of NetTerminals.
+    def trim_pull_pins(terminals, bbox):
+        """Trim pullpins of NetTerminals to the part pins closest to an edge of the bounding box of placed parts.
 
         Args:
             terminals (list): List of NetTerminals.
-            ctr (Point): Center of placement area.
+            bbox (BBox): Bounding box of already-placed parts.
 
-        Notes:
-             -45 to  +45 degrees: <----label.
-             +45 to +135 degrees: label--v
-            +135 to -135 degrees: label---->.
-            -135 to  -45 degrees: ^--label.
+        Note:
+            The rationale for this is that pin closest to an edge of the bounding box will be easier to access.
         """
 
-        orientation_type = options.get("terminal_orientation", "by_pin")
+        for terminal in terminals:
+            for net, pull_pins in terminal.pull_pins.items():
+                insets = []
+                for pull_pin in pull_pins:
+                    pull_pt = pull_pin.place_pt * pull_pin.part.tx
 
-        if orientation_type == "by_pin":
-            for terminal in terminals:
-                # A NetTerminal should be attached to a single pin of a part on a single net.
-                pull_pin = list(terminal.pull_pins.values())[0][0]
-                pull_pt = pull_pin.place_pt * pull_pin.part.tx
+                    # Get the inset of the terminal pulling pin from each side of the placement area.
+                    # Left side.
+                    insets.append((abs(pull_pt.x - bbox.ll.x), pull_pin))
+                    # Right side.
+                    insets.append((abs(pull_pt.x - bbox.lr.x), pull_pin))
+                    # Top side.
+                    insets.append((abs(pull_pt.y - bbox.ul.y), pull_pin))
+                    # Bottom side.
+                    insets.append((abs(pull_pt.y - bbox.ll.y), pull_pin))
 
-                # Terminal orientation is opposite of the pin it connects to.
-                import skidl.schematics.geometry as geometry
+                # Retain only the pulling pin closest to an edge of the bounding box (i.e., minimum inset).
+                terminal.pull_pins[net] = [min(insets, key=lambda off: off[0])[1]]
 
-                terminal.tx = {
-                    (0, 1): geometry.tx_rot_90,
-                    (0, -1): geometry.tx_rot_270,
-                    (-1, 0): geometry.tx_rot_180,
-                    (1, 0): geometry.tx_rot_0,
-                }[get_pin_vector(pull_pin)]
+    def orient(terminals, bbox):
+        """Set orientation of NetTerminals to point away from closest bounding box edge.
 
-        elif orientation_type == "by_position":
-            for terminal in terminals:
-                # A NetTerminal should be attached to a single pin of a part on a single net.
-                pull_pin = list(terminal.pull_pins.values())[0][0]
-                pull_pt = pull_pin.place_pt * pull_pin.part.tx
+        Args:
+            terminals (list): List of NetTerminals.
+            bbox (BBox): Bounding box of already-placed parts.
+        """
 
-                # Get the offset of the terminal from the center of the placement area.
-                offset = pull_pt - ctr
-                x, y = offset.x, offset.y
+        for terminal in terminals:
+            # A NetTerminal should already be trimmed so it is attached to a single pin of a part on a single net.
+            pull_pin = list(terminal.pull_pins.values())[0][0]
+            pull_pt = pull_pin.place_pt * pull_pin.part.tx
 
-                # Orient the terminal based on its position w.r.t. the center.
-                terminal.tx = Tx()
-                if abs(x) < abs(y):
-                    # Place the terminal vertically if its further up/down than right/left of the center.
-                    if y > 0:
-                        # Terminal is towards the top, so point the label upward.
-                        terminal.tx = Tx().rot_90cw()
-                    else:
-                        # Terminal is towards the bottom, so point the label downward.
-                        terminal.tx = Tx().rot_90cw().rot_90cw().rot_90cw()
-                else:
-                    # Place the terminal horizontally if its further right/left than up/down of the center.
-                    # horizontal label.
-                    if x > 0:
-                        # Terminal is on the right side, so flip the label to the right.
-                        terminal.tx = Tx().flip_x()
-                    else:
-                        # Terminal is on the left side, so keep the label pointing to the left.
-                        pass
+            # Get the inset of the terminal pulling pin from each side of the placement area
+            # and the Tx() that should be applied if the terminal is placed on that side.
+            insets = []
+            # Left side, so terminal label juts out to the left.
+            insets.append((abs(pull_pt.x - bbox.ll.x), Tx()))
+            # Right side, so terminal label flipped to jut out to the right.
+            insets.append((abs(pull_pt.x - bbox.lr.x), Tx().flip_x()))
+            # Top side, so terminal label rotated by 270 to jut out to the top.
+            insets.append((abs(pull_pt.y - bbox.ul.y), Tx().rot_90cw().rot_90cw().rot_90cw()))
+            # Bottom side. so terminal label rotated 90 to jut out to the bottom.
+            insets.append((abs(pull_pt.y - bbox.ll.y), Tx().rot_90cw()))
+
+            # Apply the Tx() for the side the terminal is closest to.
+            terminal.tx = min(insets, key=lambda inset: inset[0])[1]
 
     def move_to_pull_pin(terminals):
         """Move NetTerminals immediately to their pulling pins."""
@@ -1057,10 +1015,10 @@ def place_net_terminals(net_terminals, placed_parts, nets, force_func, **options
             pull_pt = pull_pin.place_pt * pull_pin.part.tx
             terminal.tx = terminal.tx.move(pull_pt - anchor_pt)
 
-    def evolution(net_terminals, placed_parts, ctr):
+    def evolution(net_terminals, placed_parts, bbox):
         """Evolve placement of NetTerminals starting from outermost from center to innermost."""
 
-        evolution_type = options.get("terminal_evolution", "all_at_once")
+        evolution_type = options.get("terminal_evolution", "outer_to_inner")
 
         if evolution_type == "all_at_once":
             evolve_placement(
@@ -1072,9 +1030,18 @@ def place_net_terminals(net_terminals, placed_parts, nets, force_func, **options
             anchored_parts = copy(placed_parts)
 
             # Sort terminals from outermost to innermost w.r.t. the center.
+            def dist_to_bbox_edge(term):
+                pt = term.pins[0].place_pt * term.tx
+                return min((
+                    abs(pt.x - bbox.ll.x),
+                    abs(pt.x - bbox.lr.x),
+                    abs(pt.y - bbox.ll.y),
+                    abs(pt.y - bbox.ul.y))
+                )
+
             terminals = sorted(
                 net_terminals,
-                key=lambda term: (term.pins[0].place_pt * term.tx - ctr).magnitude,
+                key=lambda term: dist_to_bbox_edge(term),
                 reverse=True,
             )
 
@@ -1108,12 +1075,12 @@ def place_net_terminals(net_terminals, placed_parts, nets, force_func, **options
                     anchored_parts, mobile_terminals, nets, total_part_force, **options
                 )
 
-    ctr = get_enclosing_bbox(placed_parts).ctr
+    bbox = get_enclosing_bbox(placed_parts)
     save_anchor_pull_pins(net_terminals)
-    trim_pull_pins(net_terminals, ctr)
-    orient(net_terminals, ctr)
+    trim_pull_pins(net_terminals, bbox)
+    orient(net_terminals, bbox)
     move_to_pull_pin(net_terminals)
-    evolution(net_terminals, placed_parts, ctr)
+    evolution(net_terminals, placed_parts, bbox)
     restore_anchor_pull_pins(net_terminals)
 
 
