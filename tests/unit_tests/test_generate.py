@@ -39,7 +39,7 @@ sch_options = {}
 # seed = int(time.time())
 # sch_options["seed"] = seed
 # print("Random seed = {}".format(seed))
-sch_options["retries"] = 10
+sch_options["retries"] = 3
 # sch_options["allow_routing_failure"] = True
 # sch_options["pt_to_pt_mult"] = 1  # HACK: Ad-hoc value.
 # sch_options["pin_normalize"] = True
@@ -188,6 +188,7 @@ def test_gen_sch_1():
         footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2",
         dest=TEMPLATE,
         symtx="V",
+        value="",
     )
     r = Part(
         "Device.lib", "R", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE
