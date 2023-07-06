@@ -608,6 +608,8 @@ def gen_schematic(
     # Part placement options that should always be turned on.
     options["use_push_pull"] = True
     options["rotate_parts"] = True
+    options["pt_to_pt_mult"] = 5  # HACK: Ad-hoc value.
+    options["pin_normalize"] = True
 
     # Start with default routing area.
     expansion_factor = 1.0

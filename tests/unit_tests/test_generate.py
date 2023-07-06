@@ -188,7 +188,7 @@ def test_gen_sch_1():
         footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2",
         dest=TEMPLATE,
         symtx="V",
-        value="",
+        value="Q_NPN_CBE",
     )
     r = Part(
         "Device.lib", "R", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE
