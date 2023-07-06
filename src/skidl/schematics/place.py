@@ -587,8 +587,49 @@ def overlap_force(part, parts, **options):
         Vector: Force upon given part.
     """
 
-    def rand_offset():
-        return Point(random.random() - 0.5, random.random() - 0.5)
+    # Bounding box of given part.
+    part_bbox = part.place_bbox * part.tx
+
+    # Compute the overlap force of the bbox of this part with every other part.
+    total_force = Vector(0, 0)
+    for other_part in set(parts) - {part}:
+        other_part_bbox = other_part.place_bbox * other_part.tx
+
+        # No force unless parts overlap.
+        if part_bbox.intersects(other_part_bbox):
+            # Compute the movement needed to separate the bboxes in left/right/up/down directions.
+            # Add some small random offset to break symmetry when parts exactly overlay each other.
+            # Move right edge of part to the left of other part's left edge, etc...
+            moves = []
+            rnd = Vector(random.random()-0.5, random.random()-0.5)
+            for edges, dir in ((("ll", "lr"), Vector(1,0)), (("ul", "ll"), Vector(0,1))):
+                move = (getattr(other_part_bbox, edges[0]) - getattr(part_bbox, edges[1]) - rnd) * dir
+                moves.append([move.magnitude, move])
+                # Flip edges...
+                move = (getattr(other_part_bbox, edges[1]) - getattr(part_bbox, edges[0]) - rnd) * dir
+                moves.append([move.magnitude, move])
+
+            # Select the smallest move that separates the parts.
+            move = min(moves, key=lambda m: m[0])
+
+            # Add the move to the total force on the part.
+            total_force += move[1]
+                
+    return total_force
+
+
+@export_to_all
+def overlap_force_rand(part, parts, **options):
+    """Compute the repulsive force on a part from overlapping other parts.
+
+    Args:
+        part (Part): Part affected by forces from other overlapping parts.
+        parts (list): List of parts to check for overlaps.
+        options (dict): Dict of options and values that enable/disable functions.
+
+    Returns:
+        Vector: Force upon given part.
+    """
 
     # Bounding box of given part.
     part_bbox = part.place_bbox * part.tx
@@ -603,34 +644,33 @@ def overlap_force(part, parts, **options):
             # Compute the movement needed to clear the bboxes in left/right/up/down directions.
             # Add some small random offset to break symmetry when parts exactly overlay each other.
             # Move right edge of part to the left of other part's left edge.
-            mv_left = other_part_bbox.ll - part_bbox.lr + rand_offset()
-            # Move left edge of part to the right of other part's right edge.
-            mv_right = other_part_bbox.lr - part_bbox.ll + rand_offset()
-            # Move bottom edge of part above other part's upper edge.
-            mv_up = other_part_bbox.ul - part_bbox.ll + rand_offset()
-            # Move upper edge of part below other part's bottom edge.
-            mv_down = other_part_bbox.ll - part_bbox.ul + rand_offset()
-
-            # Find the minimal movements in the left/right and up/down directions.
-            mv_lr = mv_left if abs(mv_left.x) < abs(mv_right.x) else mv_right
-            mv_ud = mv_up if abs(mv_up.y) < abs(mv_down.y) else mv_down
-
-            # Remove any orthogonal component of the left/right and up/down movements.
-            mv_lr.y = 0  # Remove up/down component.
-            mv_ud.x = 0  # Remove left/right component.
-
-            # Pick the smaller of the left/right and up/down movements because that will
-            # cause movement in the direction that will clear the overlap most quickly.
-            mv = mv_lr if abs(mv_lr.x) < abs(mv_ud.y) else mv_ud
-
-            # Add movement for this part overlap to the total force.
-            total_force += mv
-
+            moves = []
+            rnd = Vector(random.random()-0.5, random.random()-0.5)
+            for edges, dir in ((("ll", "lr"), Vector(1,0)), (("lr", "ll"), Vector(1,0)),
+                          (("ul", "ll"), Vector(0,1)), (("ll", "ul"), Vector(0,1))):
+                move = (getattr(other_part_bbox, edges[0]) - getattr(part_bbox, edges[1]) - rnd) * dir
+                moves.append([move.magnitude, move])
+            accum = 0
+            for move in moves:
+                accum += move[0]
+            for move in moves:
+                move[0] = accum - move[0]
+            new_accum = 0
+            for move in moves:
+                move[0] += new_accum
+                new_accum = move[0]
+            select = new_accum * random.random()
+            for move in moves:
+                if move[0] >= select:
+                    total_force += move[1]
+                    break
+                
     return total_force
 
 
 # Select the overlap force method used for the repulsion of parts during placement.
 repulsive_force = overlap_force
+# repulsive_force = overlap_force_rand
 
 
 def scale_attractive_repulsive_forces(parts, force_func, **options):

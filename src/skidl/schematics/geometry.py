@@ -169,6 +169,8 @@ class Point:
             return Point(
                 self.x * m.a + self.y * m.c + m.dx, self.x * m.b + self.y * m.d + m.dy
             )
+        elif isinstance(m, Point):
+            return Point(self.x * m.x, self.y * m.y)
         else:
             return Point(m * self.x, m * self.y)
 
