@@ -94,4 +94,54 @@ But I'm sure the community (even as small as it is) will provide enough feedback
 (depending upon how much energy I and other volunteers have).
 
 
+# SKiDL Now Supports Schematic Generation (from ChatGPT)
+
+Status: Draft
+Author: Dave Vandenbout
+Tags: Schematics
+Summary: You can now generate schematics from your SKiDL code, allowing you to visualize the circuitry.
+
+When I presented SKiDL at KiCon in 2019, I frequently received a question afterward: "Can it output schematics?" Initially, this question disappointed me because SKiDL was designed to eliminate the need for schematics. However, I realized that providing schematics could aid in the adoption of SKiDL by allowing users to visualize their code-generated circuits.
+
+At first, I hesitated to tackle this task as I knew it would be challenging. It required intelligent placement of part symbols and proper routing of wires, all while ensuring the resulting schematics were aesthetically pleasing. The amount of work involved with no guarantee of positive results made me postpone the implementation in 2019, 2020, and 2021. However, someone else came to the rescue! Shane Mattner, before starting a new job, developed an initial version of schematic generation between August and October. His code was capable of creating hierarchical schematics, as demonstrated by the examples below:
+
+- STM32 top-level schematic by Shane Mattner
+- STM32 microcontroller schematic by Shane Mattner
+- STM32 power circuit schematic by Shane Mattner
+
+Although Shane's code had some limitations, such as arbitrary part selection and limited routing capabilities, it was able to generate KiCad-compatible schematics. Given this gift and Shane's departure to pursue other endeavors, I decided to take the project forward. I estimated a couple of months of refactoring would be sufficient to prepare it for a general release. However, I soon discovered that I had underestimated the complexity of the task.
+
+Initially, I focused on implementing basic geometric primitives like transformation matrices, points, vectors, and bounding boxes. This allowed me to rewrite sections of the code using these new constructs. I also began separating the KiCad-specific code from the generic schematic-generation code. To manage the hierarchy of the schematics, I introduced a `Node` object that stored schematic parts at different levels and their corresponding child nodes. Additionally, I added a `flatten` parameter to control how the hierarchy was expressed in the schematic, either as linked subsheets or as blocks of circuitry within the parent sheet.
+
+By the end of 2021, I had reached a significant milestone. Shane's examples served as valuable test cases, enabling me to verify that my code produced the same results. However, as 2022 began, I realized that a more robust routing solution was necessary. I divided the routing process into several phases, each executed on every node of the circuit hierarchy:
+
+1. Generation of coarse routing cells between schematic parts within each node.
+2. Global routing of nets between part symbol pins through the coarse cells.
+3. Assignment of global nets to fixed terminals on the periphery of each routing cell.
+4. Detailed switchbox routing of nets between the terminals of each routing cell.
+5. Concatenation of detailed switchbox routes for each net to create a complete end-to-end wire.
+
+In late May, I shifted my focus to developing the code for placing schematic parts. This effort was also divided into several phases, progressing from the leaf nodes to the top node of the hierarchy:
+
+1. Expanding the bounding box of each part in a node to accommodate wire routing after placement.
+2. Grouping parts within each node into sets of explicitly-connected parts, floating parts without explicit connections (e.g., bypass capacitors), and part blocks consisting of subsheets or flattened blocks from lower-level nodes.
+3. Force-directed placement of connected parts, considering attractive forces from interconnecting nets and repulsive forces due to part overlaps.
+4. Force-directed placement of floating parts, considering attractive forces based on part similarity and repulsive forces due to part overlaps.
+5. Force-directed placement of blocks of connected and floating parts, along with subsheets of flattened blocks from lower-level nodes.
+
+By early October, I integrated the placement and routing phases and began addressing issues, refactoring code, and documenting various aspects. Finally, multi-unit parts were supported. Although I had hoped to release a new version of SKiDL with schematic generation by the end of 2022, that deadline passed without any fanfare.
+
+Throughout January 2023, in addition to bug fixing and refactoring, I introduced a few new features to enhance the resulting schematics:
+
+1. An initial compression step was implemented during placement, leveraging attractive net forces to bring connected parts closer together as a starting point for the main placement routine.
+2. Kernighan-Lin optimization was added after placement to improve part orientations (rotation, horizontal/vertical flipping), followed by another round of force-directed placement for further refinement.
+3. If the router failed to complete the wiring of parts, the part bounding boxes were expanded toincrease the routing area, and another round of placement and routing would be performed.
+
+From February to mid-March, I focused on local optimizations to eliminate stubs, jogs, and cycles from the generated schematic wiring. I also introduced a "part jumper" feature to the placement code, which attempted to improve the layout by jumping parts over each other, reducing wire crossings and lengths. Of course, I continued to address bugs, refactor the code, and improve documentation during this period.
+
+In mid-March, I came to the realization that further efforts to beautify the wire routes were leading to diminishing returns. Instead, I decided to concentrate on improving the part placement, as a well-placed circuit is crucial for optimal routing. I explored various changes to the placement algorithm, but most of them were ultimately rejected. I retained the most promising approaches that yielded the best results and simplified the code by removing unnecessary complexity. Finally, at the end of June, I decided to call it a day and deemed this the best version I could deliver for now. I fixed a few remaining bugs (which, unsurprisingly, uncovered a few more), merged the changes into the `master` branch, and released it as version 1.2.0 of SKiDL.
+
+Although the generated schematics are not perfect and fall short of my initial expectations in terms of quality, they are still a significant improvement over the previous state. I wish I had released it sooner, as user feedback could have helped guide the development process. However, I am confident that even the small SKiDL community will provide valuable feedback, which will drive further improvements—depending, of course, on the energy and dedication of myself and other volunteers.
+
+The journey of adding schematic generation to SKiDL has been challenging, but it has also been a rewarding experience. I am grateful for Shane Mattner's initial contribution, as well as the support and encouragement from the SKiDL community. With each iteration, SKiDL continues to evolve and become a more powerful tool for circuit design and simulation. I look forward to the future and the possibilities it holds for SKiDL's growth and development.
 
