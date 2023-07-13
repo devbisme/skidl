@@ -5,7 +5,7 @@ Tags: schematics
 Summary: You can finally generate schematics from your SKiDL code.
 
 
-The most frequently-asked question after [my talk about SKiDL at KiCon in 2019]()  
+The most frequently-asked question after [my talk about SKiDL at KiCon in 2019](https://www.youtube.com/watch?v=WErQYI2A36M)  
 was "Can it output schematics?"
 Quite disappointing since the whole point of SKiDL is to avoid schematics!
 But people want what they want, and maybe outputting schematics
@@ -15,11 +15,11 @@ But I didn't want to write the code for this because I knew it was *hard!*
 Hard not just in the sense that it would have to intelligently place part symbols and route
 wires between them, but hard because the final result had to be *aesthetically pleasing*.
 (People are ~~anal~~ exceedingly picky about their schematics!)
-So it might take a ton of work and then everyone says it's shit.
+So even after a ton of work, everyone might say it's shit.
 
 So 2019 passed and I didn't work on it.
 And not in 2020, either.
-And 2021 looks like it was going to be a bust *until somebody else did it for me!*
+And 2021 looked like it was going to be a bust *until somebody else did it for me!*
 In August, [Shane Mattner](https://github.com/shanemmattner) released an initial version
 that could convert SKiDL code into a KiCad schematic.
 By the time he stopped to pursue a new job, his code was able to create hierarchical
@@ -34,17 +34,17 @@ schematics like this:
 There were a number of limitations with this initial version:
 * The first part was arbitrarily selected as the anchor in each schematic page,
   and then the rest of the parts were arranged around that.
-* Only simple connections between parts could be routed.
+* Only simple connections between parts were routed.
 * Multi-unit parts weren't handled.
 * Etc...
  
 But these were incidental to the main point:
 *the code could actually create KiCad-compatible schematics!*
 
-Having been handed this gift, and since Shane was on to bigger things,
-it was up to me to push forward with it.
+Since Shane was on to bigger things, it was up to me to push forward with it.
+I couldn't just ignore it.
 A couple of months of refactoring and it would be ready for a general release.
-How hard could that be, right?
+How hard could it be, right?
 
 Well, let's see how that turned out...
 
@@ -62,8 +62,8 @@ Next, since SKiDL is intended to serve as a front-end for multiple EDA packages,
 I started to separate the KiCad-specific pieces of the code from the generic
 schematic-generation pieces.
 This partitioning also makes it easier to support the various versions of KiCad.
-(The schematic generation code development started when KiCad5 was the current version,
-but now it's KiCad7.)
+(The schematic generation code development started when KiCad 5 was the current version,
+but now it's KiCad 7.)
 
 For handling hierarchy,
 the original code parsed information stored in SKiDL `Part` objects.
@@ -373,10 +373,14 @@ out the rest to simplify the code.
 I fixed a few more bugs (which, of course, revealed some more bugs), merged it all into the
 `master` branch, and released it as version 1.2.0 of SKiDL.
 
+Just so I have at least one example in this post that shows a good schematics, there's this:
+
+![Good schematic with bus routing.](../images/schematic-generation/bus-routing.png)
+
 At this point, it's better than what we had (which was nothing), but the quality of the schematics
 still needs improvement.
 I wish I'd not held it so long and released portions of it sooner so others could have helped
 focus the development.
 But I'm sure the community (even as small as it is) will provide enough feedback to drive further improvements
 (depending upon how much energy I and other volunteers have).
-I know I've already got a few enhancements to put on the Github issues list.
+I know I've already got a few enhancements to put on the Github issues list...
