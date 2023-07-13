@@ -1172,12 +1172,14 @@ DrawPin = namedtuple(
 
 
 @export_to_all
-def calc_symbol_bbox(part):
+def calc_symbol_bbox(part, **options):
     """
     Return the bounding box of the part symbol.
 
     Args:
         part: Part object for which an SVG symbol will be created.
+        options (dict): Various options to control bounding box calculation:
+            graphics_only (boolean): If true, compute bbox of graphics (no text).
 
     Returns: List of BBoxes for all units in the part symbol.
 
@@ -1264,7 +1266,7 @@ def calc_symbol_bbox(part):
             num_units = def_.num_units
             unit_bboxes = [BBox() for _ in range(num_units + 1)]
 
-        elif isinstance(obj, DrawF0):
+        elif isinstance(obj, DrawF0) and not options.get("graphics_only", False):
             # obj attributes: x y size orientation visibility halign valign
             # Skip if the object is invisible.
             if obj.visibility.upper() == "I":
@@ -1308,7 +1310,7 @@ def calc_symbol_bbox(part):
             bbox *= Tx().move(Point(obj.x, obj.y))
             obj_bbox.add(bbox)
 
-        elif isinstance(obj, DrawF1):
+        elif isinstance(obj, DrawF1) and not options.get("graphics_only", False):
             # Skip if the object is invisible.
             if obj.visibility.upper() == "I":
                 continue
@@ -1391,7 +1393,7 @@ def calc_symbol_bbox(part):
             obj_bbox.add(start)
             obj_bbox.add(end)
 
-        elif isinstance(obj, DrawText):
+        elif isinstance(obj, DrawText) and not options.get("graphics_only", False):
             pass
 
         elif isinstance(obj, DrawPin):
