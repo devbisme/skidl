@@ -39,9 +39,12 @@ htmlcov
 *.mo
 
 # Directories
-docs/
 docsrc/sphinx/rst_output/
 tests/test_data/schematic_output/
+tests/examples/arduino_uno_r3_from_scratch/
+tests/examples/*/*.sch
+tests/examples/*/*.sch-bak
+tests/examples/*/*.pro
 **/\.ipynb_checkpoints/
 
 # Mr Developer

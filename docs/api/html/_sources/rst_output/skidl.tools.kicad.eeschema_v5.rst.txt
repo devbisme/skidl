@@ -1,0 +1,7 @@
+skidl.tools.kicad.eeschema\_v5 module
+=====================================
+
+.. automodule:: skidl.tools.kicad.eeschema_v5
+   :members:
+   :undoc-members:
+   :show-inheritance:

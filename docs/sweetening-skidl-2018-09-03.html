@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>SKiDL &mdash; Sweetening SKiDL</title>
+		<meta charset="utf-8" />
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="stylesheet" type="text/css" href="/skidl/theme/css/style.css" />
+		<link rel='stylesheet' id='oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald&#038;ver=3.3.2' type='text/css' media='all' />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Oswald&family=Roboto+Condensed&display=swap" rel="stylesheet">
+		<!-- <style type="text/css">
+			body.custom-background { background-color: #f5f5f5; }
+		</style> -->
+		<link rel="alternate" type="application/atom+xml"
+			title="SKiDL — Flux Atom"
+			href="/skidl/" />
+		<!--[if lte IE 8]><script src="/skidl/theme/js/html5shiv.js"></script><![endif]-->
+</head>
+
+<body class="home blog custom-background " >
+	<div id="container">
+		<div id="header">
+				<h1 id="site-title"><a href="/skidl"><img src="/skidl/images/banner.png" width="100%"></a></h1>
+				<!-- <h1 id="site-title"><a href="/skidl">SKiDL</a></h1> -->
+		</div><!-- /#banner -->
+
+		<div id="menu">
+			<div class="menu-navigation-container">
+				<ul id="menu-navigation" class="menu">
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/devbisme/skidl">Github</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/devbisme/skidl/discussions">Forum</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/skidl/category/posts.html">Blog</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/skidl/api/html/index.html">API</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/skidl/">Home</a></li>
+
+				</ul>
+			</div> <!--/#menu-navigation-container-->
+		</div><!-- /#menu -->
+
+		<div class="page-title">
+		</div>
+
+		<div id="contents">
+
+<div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<span class="date"><a href="/skidl/sweetening-skidl-2018-09-03.html">Mon 03 September 2018</a></span>
+		/
+		<span class="byline"><a href="/skidl/author/dave-vandenbout.html">Dave Vandenbout</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/skidl/sweetening-skidl-2018-09-03.html" title="Permalink to Sweetening SKiDL" rel="bookmark">Sweetening SKiDL</a>
+		</h2>
+		<div class="entry-content">
+			<p>I've added a bit of syntactic sugar to SKiDL over the past few months:</p>
+<ul>
+<li><a href="#series-parallel-and-tee-network-constructors">Series, Parallel, and Tee Network Constructors</a></li>
+<li><a href="#bussed-part-pins">Bussed Part Pins</a></li>
+<li><a href="#accessing-part-pins-as-attributes">Accessing Part Pins as Attributes</a></li>
+</ul>
+<p>It doesn't change what SKiDL does, but does make it easier to do it.</p>
+<h3 id="series-parallel-and-tee-network-constructors">Series, Parallel, and Tee Network Constructors</h3>
+<p>Last year, I had a <a href="https://github.com/devbisme/skidl/issues/26">discussion</a> with
+<a href="https://github.com/kasbah">kasbah</a> on the SKiDL Github about his suggestion
+to overload the <code>&gt;&gt;</code> operator to wire two-pin parts in series.
+A lot of good ideas came out of that,
+but in the end we thought it had limited use and dropped it.</p>
+<p>Fast forward to a few months ago when I was working on a project to use genetic algorithms
+for optimizing a power supply.
+One of the tasks was to programmatically create series and parallel combinations
+of two-pin components.
+By looking at the connection of two-pin components in serial or parallel as the
+creation of a two-pin <em>network</em>, a concise syntax arose to create circuits much
+more complicated than simple series connections.</p>
+<p>To support this idea in SKiDL, I overloaded the bitwise AND (<code>&amp;</code>) and OR (<code>|</code>) operators
+to connect two-pin components in <em>series or parallel</em>, respectively.
+For example, here is a network of four series resistors using the standard
+SKiDL syntax:</p>
+<div class="highlight"><pre><span></span><code><span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">r3</span><span class="p">,</span> <span class="n">r4</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span>
+<span class="n">r1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">r2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">r2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">r3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">r3</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">r4</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div>
+
+<p>This is the same thing using the new <code>&amp;</code> operator:</p>
+<div class="highlight"><pre><span></span><code><span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">r3</span><span class="p">,</span> <span class="n">r4</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span>
+<span class="n">ser_ntwk</span> <span class="o">=</span> <span class="n">r1</span> <span class="o">&amp;</span> <span class="n">r2</span> <span class="o">&amp;</span> <span class="n">r3</span> <span class="o">&amp;</span> <span class="n">r4</span>
+</code></pre></div>
+
+<p><img alt="Serial Network" src="images/sweetening-skidl/ser_ntwk.png"></p>
+<p>Here are four resistors wired in parallel:</p>
+<div class="highlight"><pre><span></span><code><span class="n">par_ntwk</span> <span class="o">=</span> <span class="n">r1</span> <span class="o">|</span> <span class="n">r2</span> <span class="o">|</span> <span class="n">r3</span> <span class="o">|</span> <span class="n">r4</span>
+</code></pre></div>
+
+<p><img alt="Parallel Network" src="images/sweetening-skidl/par_ntwk.png"></p>
+<p>Or you can do something like placing pairs of resistors in series and then paralleling
+those combinations like this:</p>
+<div class="highlight"><pre><span></span><code><span class="n">combo_ntwk</span> <span class="o">=</span> <span class="p">(</span><span class="n">r1</span> <span class="o">&amp;</span> <span class="n">r2</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">r3</span> <span class="o">&amp;</span> <span class="n">r4</span><span class="p">)</span>
+</code></pre></div>
+
+<p><img alt="Parallel+Serial Network" src="images/sweetening-skidl/combo_ntwk.png"></p>
+<p>In addition to connecting parts, the <code>&amp;</code> and <code>|</code> operators also work with nets.
+This lets you apply inputs and extract outputs by attaching nets to nodes in the network.
+To illustrate, here's a simple resistor network that divides an input voltage
+to generate an output voltage:</p>
+<div class="highlight"><pre><span></span><code><span class="n">vin</span><span class="p">,</span> <span class="n">vout</span><span class="p">,</span> <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;VI&#39;</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;VO&#39;</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
+<span class="n">vdiv_ntwk</span> <span class="o">=</span> <span class="n">vin</span> <span class="o">&amp;</span> <span class="n">r1</span> <span class="o">&amp;</span> <span class="n">vout</span> <span class="o">&amp;</span> <span class="n">r2</span> <span class="o">&amp;</span> <span class="n">gnd</span>
+</code></pre></div>
+
+<p><img alt="Voltage-Divider Network" src="images/sweetening-skidl/vdiv_ntwk.png"></p>
+<p>You could do the same thing using a single pin instead of a net.
+Here's the voltage divider attached directly to a pin of a microcontroller:</p>
+<div class="highlight"><pre><span></span><code><span class="n">pic10</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;MCU_Microchip_PIC10&#39;</span><span class="p">,</span> <span class="s1">&#39;PIC10F320-IP&#39;</span><span class="p">)</span>
+<span class="n">pin_ntwk</span> <span class="o">=</span> <span class="n">vin</span> <span class="o">&amp;</span> <span class="n">r1</span> <span class="o">&amp;</span> <span class="n">pic10</span><span class="p">[</span><span class="s1">&#39;RA3&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">r2</span> <span class="o">&amp;</span> <span class="n">gnd</span>
+</code></pre></div>
+
+<p><img alt="Voltage-Divider Network for Microcontroller" src="images/sweetening-skidl/micro_ntwk.png"></p>
+<p>The examples above work with <em>non-polarized</em> components, but what about <em>polarized</em> parts
+like diodes and electrolytic capacitors? For those, you have to specify the 
+pins <em>explicitly</em> with the first pin connected to the preceding part and the
+second pin to the following part like so:</p>
+<div class="highlight"><pre><span></span><code><span class="n">vcc</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;VCC&#39;</span><span class="p">)</span>
+<span class="n">d1</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">)</span>
+<span class="n">polar_ntwk</span> <span class="o">=</span> <span class="n">vcc</span> <span class="o">&amp;</span> <span class="n">r1</span> <span class="o">&amp;</span> <span class="n">d1</span><span class="p">[</span><span class="s1">&#39;A,K&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">gnd</span>  <span class="c1"># Diode anode connected to resistor and cathode to ground.</span>
+</code></pre></div>
+
+<p><img alt="Polar network" src="images/sweetening-skidl/polar_ntwk.png"></p>
+<p>Explicitly listing the pins also lets you use multi-pin parts with networks.
+For example, here's an NPN-transistor amplifier built using two networks:
+one for the carrying the amplified current through the load resistor and
+the transistor's collector and emitter, 
+and another for applying the input to the base.</p>
+<div class="highlight"><pre><span></span><code><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;INPUT&#39;</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;OUTPUT&#39;</span><span class="p">)</span>
+<span class="n">q1</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;Q_NPN_ECB&#39;</span><span class="p">)</span>
+<span class="n">ntwk_ce</span> <span class="o">=</span> <span class="n">vcc</span> <span class="o">&amp;</span> <span class="n">r1</span> <span class="o">&amp;</span> <span class="n">outp</span> <span class="o">&amp;</span> <span class="n">q1</span><span class="p">[</span><span class="s1">&#39;C,E&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">gnd</span>  <span class="c1"># Connect net outp to the junction of the resistor and transistor collector.</span>
+<span class="n">ntwk_b</span> <span class="o">=</span> <span class="n">inp</span> <span class="o">&amp;</span> <span class="n">r2</span> <span class="o">&amp;</span> <span class="n">q1</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">]</span>  <span class="c1"># Connect net inp to the resistor driving the transistor base.</span>
+</code></pre></div>
+
+<p><img alt="Transistor Amplifier" src="images/sweetening-skidl/trans_ntwk.png"></p>
+<p>Not all networks are composed of parts in series or parallel.
+For example, here's a <a href="https://www.eeweb.com/tools/pi-match"><em>Pi matching network</em></a>:</p>
+<p><img alt="Pi Matching Network" src="images/sweetening-skidl/pi_ntwk.png"></p>
+<p>This could be described using the <code>tee()</code> function like so:</p>
+<div class="highlight"><pre><span></span><code><span class="n">inp</span><span class="p">,</span> <span class="n">outp</span><span class="p">,</span> <span class="n">gnd</span> <span class="o">=</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;INPUT&#39;</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;OUTPUT&#39;</span><span class="p">),</span> <span class="n">Net</span><span class="p">(</span><span class="s1">&#39;GND&#39;</span><span class="p">)</span>
+<span class="n">l1</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">)</span>
+<span class="n">c1</span><span class="p">,</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="n">pi_ntwk</span> <span class="o">=</span> <span class="n">inp</span> <span class="o">&amp;</span> <span class="n">tee</span><span class="p">(</span><span class="n">c1</span> <span class="o">&amp;</span> <span class="n">gnd</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">l1</span> <span class="o">&amp;</span> <span class="n">tee</span><span class="p">(</span><span class="n">c2</span> <span class="o">&amp;</span> <span class="n">gnd</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">outp</span>
+</code></pre></div>
+
+<p>The <code>tee</code> function takes any network as its argument and returns the first node of
+that network to be connected into the higher-level network.
+The network passed to <code>tee</code> can be arbitrarily complex, including any
+combination of parts, <code>&amp;</code>'s, <code>|</code>'s, and <code>tee</code>'s.</p>
+<h3 id="bussed-part-pins">Bussed Part Pins</h3>
+<p>Some parts have sequentially-numbered sets of pins, such as a RAM's address and data buses.
+Previously, you had to explicitly list these pins to make connections like this:</p>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; databus = Bus(&#39;DATA&#39;, 8)
+&gt;&gt;&gt; ram = Part(&#39;Memory_RAM&#39;,&#39;AS6C1616&#39;)
+&gt;&gt;&gt; ram[&#39;DQ7,DQ6,DQ5,DQ4,DQ3,DQ2,DQ1,DQ0&#39;] += databus[7:0]
+&gt;&gt;&gt; databus
+DATA:
+        DATA0: Pin U1/29/DQ0/BIDIRECTIONAL
+        DATA1: Pin U1/31/DQ1/BIDIRECTIONAL
+        DATA2: Pin U1/33/DQ2/BIDIRECTIONAL
+        DATA3: Pin U1/35/DQ3/BIDIRECTIONAL
+        DATA4: Pin U1/38/DQ4/BIDIRECTIONAL
+        DATA5: Pin U1/40/DQ5/BIDIRECTIONAL
+        DATA6: Pin U1/42/DQ6/BIDIRECTIONAL
+        DATA7: Pin U1/44/DQ7/BIDIRECTIONAL
+</code></pre></div>
+
+<p>This is functional but tedious for large buses, so I introduced a
+more compact notation to do the same thing:</p>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; ram[&#39;DQ[7:0]&#39;] += databus[7:0]
+&gt;&gt;&gt; databus
+DATA:
+        DATA0: Pin U1/29/DQ0/BIDIRECTIONAL
+        DATA1: Pin U1/31/DQ1/BIDIRECTIONAL
+        DATA2: Pin U1/33/DQ2/BIDIRECTIONAL
+        DATA3: Pin U1/35/DQ3/BIDIRECTIONAL
+        DATA4: Pin U1/38/DQ4/BIDIRECTIONAL
+        DATA5: Pin U1/40/DQ5/BIDIRECTIONAL
+        DATA6: Pin U1/42/DQ6/BIDIRECTIONAL
+        DATA7: Pin U1/44/DQ7/BIDIRECTIONAL
+</code></pre></div>
+
+<h3 id="accessing-part-pins-as-attributes">Accessing Part Pins as Attributes</h3>
+<p>The standard syntax for accessing a part pin uses array index notation like this:</p>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; ram[&#39;DQ0&#39;] += databus[0]
+</code></pre></div>
+
+<p>In order to slim this down, part pins can now also be referenced using their
+names as attributes:</p>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; ram.DQ0 += databus[0]
+</code></pre></div>
+
+<p>Note that this works as long as the pin name is a legal attribute name (i.e., it begins
+with an alpha character and contains only alphanumeric characters and the underscore).
+If it's not, you'll have to use array indexing.</p>
+<p>You can also use attribute references with pin <em>numbers</em> by prefixing the number
+with <code>p</code>:</p>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; r = Part(&quot;Device&quot;, &#39;R&#39;)
+&gt;&gt;&gt; r
+
+ R (): Resistor
+    Pin R1/1/~/PASSIVE
+    Pin R1/2/~/PASSIVE
+
+&gt;&gt;&gt; vcc = Net(&#39;VCC&#39;)
+&gt;&gt;&gt; r.p1 += vcc
+&gt;&gt;&gt; vcc
+VCC: Pin R1/1/~/PASSIVE
+</code></pre></div>
+		</div> <!--/#entry-content-->
+	</div> <!--/#main-->
+</div>  <!--/#post-->
+
+		</div>
+
+		<div id="footer">
+			<p> </p>
+		</div><!-- /#footer -->
+	</div><!-- /#container -->
+	<div style="display:none"></div>
+</body>
+</html>

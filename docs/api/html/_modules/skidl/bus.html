@@ -1,0 +1,545 @@
+
+
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>skidl.bus &#8212; SKiDL 1.2.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css" />
+    
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../../"><img src="../../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.bus</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for skidl.bus</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Handles buses.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># isort:skip</span>
+    <span class="n">absolute_import</span><span class="p">,</span>
+    <span class="n">division</span><span class="p">,</span>
+    <span class="n">print_function</span><span class="p">,</span>
+    <span class="n">unicode_literals</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">builtins</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">range</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">super</span>
+
+<span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
+
+<span class="kn">from</span> <span class="nn">.alias</span> <span class="kn">import</span> <span class="n">Alias</span>
+<span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
+<span class="kn">from</span> <span class="nn">.net</span> <span class="kn">import</span> <span class="n">NET_PREFIX</span><span class="p">,</span> <span class="n">Net</span>
+<span class="kn">from</span> <span class="nn">.netpinlist</span> <span class="kn">import</span> <span class="n">NetPinList</span>
+<span class="kn">from</span> <span class="nn">.pin</span> <span class="kn">import</span> <span class="n">Pin</span>
+<span class="kn">from</span> <span class="nn">.skidlbaseobj</span> <span class="kn">import</span> <span class="n">SkidlBaseObject</span>
+<span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">expand_indices</span><span class="p">,</span>
+    <span class="n">export_to_all</span><span class="p">,</span>
+    <span class="n">filter_list</span><span class="p">,</span>
+    <span class="n">find_num_copies</span><span class="p">,</span>
+    <span class="n">flatten</span><span class="p">,</span>
+    <span class="n">from_iadd</span><span class="p">,</span>
+    <span class="n">get_unique_name</span><span class="p">,</span>
+    <span class="n">list_or_scalar</span><span class="p">,</span>
+    <span class="n">rmv_iadd</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Prefix for implicit buses.</span>
+<span class="n">BUS_PREFIX</span> <span class="o">=</span> <span class="s2">&quot;B$&quot;</span>
+
+
+<span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;BUS_PREFIX&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="Bus"><a class="viewcode-back" href="../../rst_output/skidl.bus.html#skidl.bus.Bus">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">class</span> <span class="nc">Bus</span><span class="p">(</span><span class="n">SkidlBaseObject</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class collects one or more nets into a group that can be indexed.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name: A string with the name of the bus.</span>
+<span class="sd">        args: A list of ints, pins, nets, buses to attach to the net.</span>
+
+<span class="sd">    Keyword Args:</span>
+<span class="sd">        attribs: A dictionary of attributes and values to attach to</span>
+<span class="sd">            the Net object.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        ::</span>
+
+<span class="sd">            n = Net()</span>
+<span class="sd">            led1 = Part(&quot;Device&quot;, &#39;LED&#39;)</span>
+<span class="sd">            b = Bus(&#39;B&#39;, 8, n, led1[&#39;K&#39;])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Bus.get"><a class="viewcode-back" href="../../rst_output/skidl.bus.html#skidl.bus.Bus.get">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">circuit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the bus with the given name from a circuit, or return None.&quot;&quot;&quot;</span>
+
+        <span class="n">circuit</span> <span class="o">=</span> <span class="n">circuit</span> <span class="ow">or</span> <span class="n">default_circuit</span>
+
+        <span class="n">search_params</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;aliases&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+            <span class="c1"># (&#39;name&#39;, &#39;&#39;.join((&#39;.*&#39;,name,&#39;.*&#39;)), False),</span>
+            <span class="c1"># (&#39;aliases&#39;, Alias(&#39;&#39;.join((&#39;.*&#39;,name,&#39;.*&#39;))), False)</span>
+        <span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">attr</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">do_str_match</span> <span class="ow">in</span> <span class="n">search_params</span><span class="p">:</span>
+            <span class="n">buses</span> <span class="o">=</span> <span class="n">filter_list</span><span class="p">(</span>
+                <span class="n">circuit</span><span class="o">.</span><span class="n">buses</span><span class="p">,</span> <span class="n">do_str_match</span><span class="o">=</span><span class="n">do_str_match</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="n">attr</span><span class="p">:</span> <span class="n">name</span><span class="p">}</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">buses</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">list_or_scalar</span><span class="p">(</span><span class="n">buses</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="Bus.fetch"><a class="viewcode-back" href="../../rst_output/skidl.bus.html#skidl.bus.Bus.fetch">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the bus with the given name from a circuit, or create it if not found.&quot;&quot;&quot;</span>
+
+        <span class="n">circuit</span> <span class="o">=</span> <span class="n">attribs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;circuit&quot;</span><span class="p">,</span> <span class="n">default_circuit</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">circuit</span><span class="o">=</span><span class="n">circuit</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">cls</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="c1"># Define the member storing the nets so it&#39;s present, but it starts empty.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nets</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># For Bus objects, the circuit object the bus is a member of is passed</span>
+        <span class="c1"># in with all the other attributes. If a circuit object isn&#39;t provided,</span>
+        <span class="c1"># then the default circuit object is added to the attributes.</span>
+        <span class="n">attribs</span><span class="p">[</span><span class="s2">&quot;circuit&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">attribs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;circuit&quot;</span><span class="p">,</span> <span class="n">default_circuit</span><span class="p">)</span>
+
+        <span class="c1"># Scan through the kwargs and args to see if there is a name for this bus.</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">attribs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># The first string found will be the bus name.</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">args</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">(</span><span class="n">basestring</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">)))][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="c1"># Remove the name from the list of things to be added to the bus.</span>
+                <span class="n">args</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+                <span class="n">args</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                <span class="c1"># args = [a for a in args if a != name]</span>
+            <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                <span class="c1"># No explicit bus name found, so generate an implicit one.</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Attach additional attributes to the bus. (The Circuit object also gets</span>
+        <span class="c1"># set here.)</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">attribs</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+
+        <span class="c1"># The bus name is set after the circuit is assigned so the name can be</span>
+        <span class="c1"># checked against the other bus names already in that circuit.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+
+        <span class="c1"># Add the bus to the circuit.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">circuit</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Make sure bus isn&#39;t seen as part of circuit.</span>
+        <span class="n">attribs</span><span class="p">[</span><span class="s2">&quot;circuit&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="bp">self</span>  <span class="c1"># Add bus to circuit (also sets self.circuit).</span>
+
+        <span class="c1"># Build the bus from net widths, existing nets, nets of pins, other buses.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Bus.extend"><a class="viewcode-back" href="../../rst_output/skidl.bus.html#skidl.bus.Bus.extend">[docs]</a>    <span class="k">def</span> <span class="nf">extend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">objects</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extend bus by appending objects to the end (MSB).&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">),</span> <span class="n">objects</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Bus.insert"><a class="viewcode-back" href="../../rst_output/skidl.bus.html#skidl.bus.Bus.insert">[docs]</a>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="o">*</span><span class="n">objects</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Insert objects into bus starting at indexed position.&quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">flatten</span><span class="p">(</span><span class="n">objects</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="c1"># Add a number of new nets to the bus.</span>
+                <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">Net</span><span class="p">())</span>
+                <span class="n">index</span> <span class="o">+=</span> <span class="n">obj</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Net</span><span class="p">):</span>
+                <span class="c1"># Add an existing net to the bus.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
+                <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Pin</span><span class="p">):</span>
+                <span class="c1"># Add a pin to the bus.</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="c1"># Add the pin&#39;s net to the bus.</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">get_nets</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                    <span class="c1"># OK, the pin wasn&#39;t already connected to a net,</span>
+                    <span class="c1"># so create a new net, add it to the bus, and</span>
+                    <span class="c1"># connect the pin to it.</span>
+                    <span class="n">n</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>
+                    <span class="n">n</span> <span class="o">+=</span> <span class="n">obj</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+                <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Bus</span><span class="p">):</span>
+                <span class="c1"># Add an existing bus to this bus.</span>
+                <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">nets</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+                <span class="n">index</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
+                    <span class="ne">ValueError</span><span class="p">,</span>
+                    <span class="s2">&quot;Adding illegal type of object (</span><span class="si">{}</span><span class="s2">) to Bus </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+                    <span class="p">),</span>
+                <span class="p">)</span>
+
+        <span class="c1"># Assign names to all the unnamed nets in the bus.</span>
+        <span class="c1"># Separate index from bus name if name ends with number.</span>
+        <span class="n">sep</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">net</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">net</span><span class="o">.</span><span class="n">is_implicit</span><span class="p">():</span>
+                <span class="c1"># Net names are the bus name with the index appended.</span>
+                <span class="n">net</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="n">sep</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Bus.get_nets"><a class="viewcode-back" href="../../rst_output/skidl.bus.html#skidl.bus.Bus.get_nets">[docs]</a>    <span class="k">def</span> <span class="nf">get_nets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the list of nets contained in this bus.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">to_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Bus.get_pins"><a class="viewcode-back" href="../../rst_output/skidl.bus.html#skidl.bus.Bus.get_pins">[docs]</a>    <span class="k">def</span> <span class="nf">get_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;It&#39;s an error to get the list of pins attached to all bus lines.&quot;&quot;&quot;</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span><span class="s2">&quot;Can&#39;t get the list of pins on a bus!&quot;</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">pins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_pins</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Bus.copy"><a class="viewcode-back" href="../../rst_output/skidl.bus.html#skidl.bus.Bus.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_copies</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Make zero or more copies of this bus.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            num_copies: Number of copies to make of this bus.</span>
+
+<span class="sd">        Keyword Args:</span>
+<span class="sd">            attribs: Name/value pairs for setting attributes for the copy.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A list of Bus copies or a Bus if num_copies==1.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            Exception if the requested number of copies is a non-integer or negative.</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">            An instance of a bus can be copied just by calling it like so::</span>
+
+<span class="sd">                b = Bus(&#39;A&#39;, 8)  # Create a bus.</span>
+<span class="sd">                b_copy = b(2)   # Get two copies of the bus.</span>
+
+<span class="sd">            You can also use the multiplication operator to make copies::</span>
+
+<span class="sd">                b = 10 * Bus(&#39;A&#39;, 8)  # Create an array of buses.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># If the number of copies is None, then a single copy will be made</span>
+        <span class="c1"># and returned as a scalar (not a list). Otherwise, the number of</span>
+        <span class="c1"># copies will be set by the num_copies parameter or the number of</span>
+        <span class="c1"># values supplied for each part attribute.</span>
+        <span class="n">num_copies_attribs</span> <span class="o">=</span> <span class="n">find_num_copies</span><span class="p">(</span><span class="o">**</span><span class="n">attribs</span><span class="p">)</span>
+        <span class="n">return_list</span> <span class="o">=</span> <span class="p">(</span><span class="n">num_copies</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">num_copies_attribs</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">num_copies</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">num_copies</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_copies_attribs</span><span class="p">)</span>
+
+        <span class="c1"># Check that a valid number of copies is requested.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">num_copies</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
+                <span class="ne">ValueError</span><span class="p">,</span>
+                <span class="s2">&quot;Can&#39;t make a non-integer number (</span><span class="si">{}</span><span class="s2">) of copies of a bus!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">num_copies</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">num_copies</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
+                <span class="ne">ValueError</span><span class="p">,</span>
+                <span class="s2">&quot;Can&#39;t make a negative number (</span><span class="si">{}</span><span class="s2">) of copies of a bus!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">num_copies</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="n">copies</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_copies</span><span class="p">):</span>
+
+            <span class="n">cpy</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+
+            <span class="c1"># Attach additional attributes to the bus.</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">attribs</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                        <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
+                            <span class="ne">ValueError</span><span class="p">,</span>
+                            <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> copies of bus </span><span class="si">{}</span><span class="s2"> were requested, but too few elements in attribute </span><span class="si">{}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                                <span class="n">num_copies</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">k</span>
+                            <span class="p">),</span>
+                        <span class="p">)</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="n">cpy</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+
+            <span class="n">copies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cpy</span><span class="p">)</span>
+
+        <span class="c1"># Return a list of the copies made or just a single copy.</span>
+        <span class="k">if</span> <span class="n">return_list</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">copies</span>
+        <span class="k">return</span> <span class="n">copies</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+
+    <span class="c1"># Make copies with the multiplication operator or by calling the object.</span>
+    <span class="fm">__call__</span> <span class="o">=</span> <span class="n">copy</span>
+
+    <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_copies</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">num_copies</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">num_copies</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">num_copies</span><span class="o">=</span><span class="n">num_copies</span><span class="p">)</span>
+
+    <span class="fm">__rmul__</span> <span class="o">=</span> <span class="fm">__mul__</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">ids</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a bus made up of the nets at the given indices.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ids: A list of indices of bus lines. These can be individual</span>
+<span class="sd">                numbers, net names, nested lists, or slices.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A bus if the indices are valid, otherwise None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Use the indices to get the nets from the bus.</span>
+        <span class="n">nets</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ident</span> <span class="ow">in</span> <span class="n">expand_indices</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="o">*</span><span class="n">ids</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ident</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="n">nets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">[</span><span class="n">ident</span><span class="p">])</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ident</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
+                <span class="n">nets</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">filter_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">ident</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
+                    <span class="ne">TypeError</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t index bus with a </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">ident</span><span class="p">))</span>
+                <span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nets</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># No nets were selected from the bus, so return None.</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nets</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># Just one net selected, so return the Net object.</span>
+            <span class="k">return</span> <span class="n">nets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Multiple nets selected, so return them as a NetPinList list.</span>
+        <span class="k">return</span> <span class="n">NetPinList</span><span class="p">(</span><span class="n">nets</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">pins_nets_buses</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        You can&#39;t assign to bus lines. You must use the += operator.</span>
+
+<span class="sd">        This method is a work-around that allows the use of the += for making</span>
+<span class="sd">        connections to bus lines while prohibiting direct assignment. Python</span>
+<span class="sd">        processes something like my_bus[7:0] += 8 * Pin() as follows::</span>
+
+<span class="sd">            1. Bus.__getitem__ is called with &#39;7:0&#39; as the index. This</span>
+<span class="sd">               returns a NetPinList of eight nets from my_bus.</span>
+<span class="sd">            2. The NetPinList.__iadd__ method is passed the NetPinList and</span>
+<span class="sd">               the thing to connect to the it (eight pins in this case). This</span>
+<span class="sd">               method makes the actual connection to the part pin or pins. Then</span>
+<span class="sd">               it creates an iadd_flag attribute in the object it returns.</span>
+<span class="sd">            3. Finally, Bus.__setitem__ is called. If the iadd_flag attribute</span>
+<span class="sd">               is true in the passed argument, then __setitem__ was entered</span>
+<span class="sd">               as part of processing the += operator. If there is no</span>
+<span class="sd">               iadd_flag attribute, then __setitem__ was entered as a result</span>
+<span class="sd">               of using a direct assignment, which is not allowed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># If the iadd_flag is set, then it&#39;s OK that we got</span>
+        <span class="c1"># here and don&#39;t issue an error. Also, delete the flag.</span>
+        <span class="k">if</span> <span class="n">from_iadd</span><span class="p">(</span><span class="n">pins_nets_buses</span><span class="p">):</span>
+            <span class="n">rmv_iadd</span><span class="p">(</span><span class="n">pins_nets_buses</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="c1"># No iadd_flag or it wasn&#39;t set. This means a direct assignment</span>
+        <span class="c1"># was made to the pin, which is not allowed.</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t assign to a bus! Use the += operator.&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return an iterator for stepping thru individual lines of the bus.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)))</span>  <span class="c1"># Return generator expr.</span>
+
+<div class="viewcode-block" id="Bus.is_movable"><a class="viewcode-back" href="../../rst_output/skidl.bus.html#skidl.bus.Bus.is_movable">[docs]</a>    <span class="k">def</span> <span class="nf">is_movable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return true if the bus is movable to another circuit.</span>
+
+<span class="sd">        A bus  is movable if all the nets in it are movable.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">n</span><span class="o">.</span><span class="n">is_movable</span><span class="p">():</span>
+                <span class="c1"># One net not movable means the entire Bus is not movable.</span>
+                <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">True</span>  <span class="c1"># All the nets were movable.</span></div>
+
+<div class="viewcode-block" id="Bus.is_implicit"><a class="viewcode-back" href="../../rst_output/skidl.bus.html#skidl.bus.Bus.is_implicit">[docs]</a>    <span class="k">def</span> <span class="nf">is_implicit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return true if the bus name is implicit.&quot;&quot;&quot;</span>
+
+        <span class="n">prefix_re</span> <span class="o">=</span> <span class="s2">&quot;(</span><span class="si">{}</span><span class="s2">|</span><span class="si">{}</span><span class="s2">)+&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">NET_PREFIX</span><span class="p">),</span> <span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">BUS_PREFIX</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">prefix_re</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Bus.connect"><a class="viewcode-back" href="../../rst_output/skidl.bus.html#skidl.bus.Bus.connect">[docs]</a>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">pins_nets_buses</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the bus after connecting one or more nets, pins, or buses.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            pins_nets_buses: One or more Pin, Net or Bus objects or</span>
+<span class="sd">                lists/tuples of them.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The updated bus with the new connections.</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">            You can connect nets or pins to a bus like so::</span>
+
+<span class="sd">                p = Pin()       # Create a pin.</span>
+<span class="sd">                n = Net()       # Create a net.</span>
+<span class="sd">                b = Bus(&#39;B&#39;, 2) # Create a two-wire bus.</span>
+<span class="sd">                b += p,n        # Connect pin and net to B[0] and B[1].</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">nets</span> <span class="o">=</span> <span class="n">NetPinList</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">)</span>
+        <span class="n">nets</span> <span class="o">+=</span> <span class="n">pins_nets_buses</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+    <span class="fm">__iadd__</span> <span class="o">=</span> <span class="n">connect</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get, set and delete the name of the bus.</span>
+
+<span class="sd">        When setting the bus name, if another bus with the same name</span>
+<span class="sd">        is found, the name for this bus is adjusted to make it unique.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Bus</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">name</span>
+
+    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="c1"># Remove the existing name so it doesn&#39;t cause a collision if the</span>
+        <span class="c1"># object is renamed with its existing name.</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+
+        <span class="c1"># Now name the object with the given name or some variation</span>
+        <span class="c1"># of it that doesn&#39;t collide with anything else in the list.</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Bus</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">fset</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">get_unique_name</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">buses</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">BUS_PREFIX</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="nd">@name</span><span class="o">.</span><span class="n">deleter</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete the bus name.&quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Bus</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">fdel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of the nets in this bus as a string.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;:</span><span class="se">\n\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">n</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">])</span>
+
+    <span class="fm">__repr__</span> <span class="o">=</span> <span class="fm">__str__</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the number of nets in this bus.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return width of a Bus, which is the same as using the len() operator.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Any valid Bus is True&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="n">__nonzero__</span> <span class="o">=</span> <span class="fm">__bool__</span>  <span class="c1"># Python 2 compatibility.</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.bus</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016-2023, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    </div>
+  </body>
+</html>

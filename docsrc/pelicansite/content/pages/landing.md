@@ -53,8 +53,9 @@ create a finished circuit board.
 - [Going Really Deep](#going-really-deep)
   - [Circuit Objects](#circuit-objects)
 - [Generating a Schematic](#generating-a-schematic)
-  - [DOT Graphs](#dot-graphs)
   - [SVG Schematics](#svg-schematics)
+  - [KiCad Schematics](#kicad-schematics)
+  - [DOT Graphs](#dot-graphs)
 - [Converting Existing Designs to SKiDL](#converting-existing-designs-to-skidl)
 - [SPICE Simulations](#spice-simulations)
 
@@ -72,8 +73,8 @@ First, let's look at a "normal" design flow in [KiCad](https://kicad-pcb.org):
 
 ![Schematic-based PCB design flow](images/schematic-process-flow.png)
 
-Here, you start off in a *schematic editor* (for KiCad, that's EESCHEMA) and
-draw a schematic. From that, EESCHEMA generates
+Here, you start off in a *schematic editor* (for KiCad, that's Eeschema) and
+draw a schematic. From that, Eeschema generates
 a *netlist file* that lists what components are used and how their pins are interconnected.
 Then you'll use a *PCB layout tool* (like KiCad's PCBNEW) to arrange the part footprints
 and draw the wire traces that connect the pins as specified in the netlist.
@@ -614,6 +615,11 @@ This outputs a `.kicad_pcb` file that you can open in PCBNEW without
 having to import the netlist.
 (Note that you will need to have KiCad installed since `generate_pcb` uses its 
 `pcbnew` Python library to create the PCB.)
+
+The `generate_pcb()` function accepts the following optional arguments:
+
+* `pcb_file`: Either a file object that can be written to, or a string containing a file name, or `None`.
+* `fp_libs`: List of paths to directories containing footprint libraries.
 
 
 # Going Deeper
@@ -2227,12 +2233,12 @@ Here are a few things you can't do (and will get warned about):
 
 # Generating a Schematic
 
-Although SKiDL lets you avoid the tedious drawing of a schematic, some will
+Although SKiDL lets you avoid the tedious drawing of a schematic, some
 still want to see a graphical depiction of their circuit.
 To support this, SKiDL can show the interconnection of parts as:
 
 * a [static schematic in SVG](#svg-schematics),
-* an [editable KiCad schematic](#kicad-schematics) (currently only V5),
+* an [editable KiCad schematic](#kicad-schematics) (currently only V5 is supported),
 * or a [directed graph](#dot-graphs) using the [graphviz DOT language](https://graphviz.org/doc/info/lang.html).
 
 The following circuit will be used to illustrate each alternative:
@@ -2377,6 +2383,31 @@ And this is the result:
 ![And_GATE schematic with transistor orientations and stubs,](images/symtx_examples.svg)
 
 ## KiCad Schematics
+
+To generate a schematic file that can be opened with KiCad Eeschema, just append the following to the end of the script:
+
+```py
+generate_schematic()
+```
+
+This will drop an Eeschema file called `and_top.sch` into the same directory as the `and.py` file.
+
+![KiCad 5 Eeschema AND_GATE schematic.](images/and_gate_4.png)
+
+Right now, this file can only be opened using KiCad version 5.
+(If you're using a more recent version of KiCad, then there are some
+[Docker files for running different versions of KiCad](https://github.com/devbisme/docker_kicad) without affecting your current setup.)
+
+The `generate_schematic()` function accepts these parameters:
+
+* `filepath` (`str`, optional): The directory where the schematic files are placed. Defaults to ".".
+* `top_name` (`str`, optional): The name for the top of the circuit hierarchy. Defaults to `get_script_name()`.
+* `title` (`str`, optional): The title in the title box of the schematic. Defaults to "SKiDL-Generated Schematic".
+* `flatness` (`float`, optional): Determines how much the hierarchy is flattened in the schematic. Defaults to 0.0 (completely hierarchical).
+* `retries` (`int`, optional): Number of times to re-try if routing fails. Defaults to 2.
+
+In addition, the `generate_schematic()` function supports the `symtx` and `netio` attributes discussed 
+in the [section on generating SVG](#svg-schematics).
 
 ## DOT Graphs
 

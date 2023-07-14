@@ -1,0 +1,312 @@
+
+
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>skidl.schematics.debug_draw module &#8212; SKiDL 1.2.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../"><img src="../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.schematics.debug_draw module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-skidl.schematics.debug_draw">
+<span id="skidl-schematics-debug-draw-module"></span><h1>skidl.schematics.debug_draw module<a class="headerlink" href="#module-skidl.schematics.debug_draw" title="Permalink to this heading">¶</a></h1>
+<p>Drawing routines used for debugging place &amp; route.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.schematics.debug_draw.draw_box">
+<span class="sig-prename descclassname"><span class="pre">skidl.schematics.debug_draw.</span></span><span class="sig-name descname"><span class="pre">draw_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(192,</span> <span class="pre">255,</span> <span class="pre">192)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thickness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/debug_draw.html#draw_box"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.debug_draw.draw_box" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw a box in the drawing area.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bbox</strong> (<a class="reference internal" href="skidl.schematics.geometry.html#skidl.schematics.geometry.BBox" title="skidl.schematics.geometry.BBox"><em>BBox</em></a>) – Bounding box for the box.</p></li>
+<li><p><strong>scr</strong> (<em>PyGame screen</em>) – Screen object for PyGame drawing.</p></li>
+<li><p><strong>tx</strong> (<a class="reference internal" href="skidl.schematics.geometry.html#skidl.schematics.geometry.Tx" title="skidl.schematics.geometry.Tx"><em>Tx</em></a>) – Transformation matrix from real to screen coords.</p></li>
+<li><p><strong>color</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em>, </em><em>optional</em>) – Box color. Defaults to (192, 255, 192).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.schematics.debug_draw.draw_clear">
+<span class="sig-prename descclassname"><span class="pre">skidl.schematics.debug_draw.</span></span><span class="sig-name descname"><span class="pre">draw_clear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(255,</span> <span class="pre">255,</span> <span class="pre">255)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/debug_draw.html#draw_clear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.debug_draw.draw_clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear drawing area.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scr</strong> (<em>PyGame screen</em>) – Screen object to be cleared.</p></li>
+<li><p><strong>color</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em>, </em><em>optional</em>) – Background color. Defaults to (255, 255, 255).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.schematics.debug_draw.draw_end">
+<span class="sig-prename descclassname"><span class="pre">skidl.schematics.debug_draw.</span></span><span class="sig-name descname"><span class="pre">draw_end</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/debug_draw.html#draw_end"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.debug_draw.draw_end" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display drawing and wait for user to close PyGame window.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.schematics.debug_draw.draw_endpoint">
+<span class="sig-prename descclassname"><span class="pre">skidl.schematics.debug_draw.</span></span><span class="sig-name descname"><span class="pre">draw_endpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(100,</span> <span class="pre">100,</span> <span class="pre">100)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dot_radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/debug_draw.html#draw_endpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.debug_draw.draw_endpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw a line segment endpoint in the drawing area.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pt</strong> (<a class="reference internal" href="skidl.schematics.geometry.html#skidl.schematics.geometry.Point" title="skidl.schematics.geometry.Point"><em>Point</em></a>) – A point with (x,y) coords.</p></li>
+<li><p><strong>scr</strong> (<em>PyGame screen</em>) – Screen object for PyGame drawing.</p></li>
+<li><p><strong>tx</strong> (<a class="reference internal" href="skidl.schematics.geometry.html#skidl.schematics.geometry.Tx" title="skidl.schematics.geometry.Tx"><em>Tx</em></a>) – Transformation matrix from real to screen coords.</p></li>
+<li><p><strong>color</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em>, </em><em>optional</em>) – Segment color. Defaults to (192, 255, 192).</p></li>
+<li><p><strong>dot_Radius</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – Endpoint dot radius. Defaults to 3.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.schematics.debug_draw.draw_force">
+<span class="sig-prename descclassname"><span class="pre">skidl.schematics.debug_draw.</span></span><span class="sig-name descname"><span class="pre">draw_force</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">part</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(128,</span> <span class="pre">0,</span> <span class="pre">0)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/debug_draw.html#draw_force"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.debug_draw.draw_force" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw force vector affecting a part.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>part</strong> (<a class="reference internal" href="skidl.part.html#skidl.part.Part" title="skidl.part.Part"><em>Part</em></a>) – The part affected by the force.</p></li>
+<li><p><strong>force</strong> (<em>Vector</em>) – The force vector.</p></li>
+<li><p><strong>scr</strong> (<em>PyGame screen</em>) – Screen object for PyGame drawing.</p></li>
+<li><p><strong>tx</strong> (<a class="reference internal" href="skidl.schematics.geometry.html#skidl.schematics.geometry.Tx" title="skidl.schematics.geometry.Tx"><em>Tx</em></a>) – Transformation matrix from real to screen coords.</p></li>
+<li><p><strong>font</strong> (<em>PyGame font</em>) – Font for rendering text.</p></li>
+<li><p><strong>color</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em>, </em><em>optional</em>) – Segment color. Defaults to (0,0,0).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.schematics.debug_draw.draw_net">
+<span class="sig-prename descclassname"><span class="pre">skidl.schematics.debug_draw.</span></span><span class="sig-name descname"><span class="pre">draw_net</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">net</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thickness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dot_radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/debug_draw.html#draw_net"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.debug_draw.draw_net" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw net and connected terminals.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>net</strong> (<a class="reference internal" href="skidl.net.html#skidl.net.Net" title="skidl.net.Net"><em>Net</em></a>) – Net of conmnected terminals.</p></li>
+<li><p><strong>parts</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – List of parts to which net will be drawn.</p></li>
+<li><p><strong>scr</strong> (<em>PyGame screen</em>) – Screen object for PyGame drawing.</p></li>
+<li><p><strong>tx</strong> (<a class="reference internal" href="skidl.schematics.geometry.html#skidl.schematics.geometry.Tx" title="skidl.schematics.geometry.Tx"><em>Tx</em></a>) – Transformation matrix from real to screen coords.</p></li>
+<li><p><strong>font</strong> (<em>PyGame font</em>) – Font for rendering text.</p></li>
+<li><p><strong>color</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em>, </em><em>optional</em>) – Segment color. Defaults to (0,0,0).</p></li>
+<li><p><strong>thickness</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – Thickness of net line. Defaults to 2.</p></li>
+<li><p><strong>dot_radius</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – Radius of terminals on net. Defaults to 5.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.schematics.debug_draw.draw_part">
+<span class="sig-prename descclassname"><span class="pre">skidl.schematics.debug_draw.</span></span><span class="sig-name descname"><span class="pre">draw_part</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">part</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/debug_draw.html#draw_part"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.debug_draw.draw_part" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw part bounding box.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>part</strong> (<a class="reference internal" href="skidl.part.html#skidl.part.Part" title="skidl.part.Part"><em>Part</em></a>) – Part to draw.</p></li>
+<li><p><strong>scr</strong> (<em>PyGame screen</em>) – Screen object for PyGame drawing.</p></li>
+<li><p><strong>tx</strong> (<a class="reference internal" href="skidl.schematics.geometry.html#skidl.schematics.geometry.Tx" title="skidl.schematics.geometry.Tx"><em>Tx</em></a>) – Transformation matrix from real to screen coords.</p></li>
+<li><p><strong>font</strong> (<em>PyGame font</em>) – Font for rendering text.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.schematics.debug_draw.draw_pause">
+<span class="sig-prename descclassname"><span class="pre">skidl.schematics.debug_draw.</span></span><span class="sig-name descname"><span class="pre">draw_pause</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/debug_draw.html#draw_pause"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.debug_draw.draw_pause" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pause drawing and then resume after button press.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.schematics.debug_draw.draw_placement">
+<span class="sig-prename descclassname"><span class="pre">skidl.schematics.debug_draw.</span></span><span class="sig-name descname"><span class="pre">draw_placement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/debug_draw.html#draw_placement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.debug_draw.draw_placement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw placement of parts and interconnecting nets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parts</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – List of Part objects.</p></li>
+<li><p><strong>nets</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – List of Net objects.</p></li>
+<li><p><strong>scr</strong> (<em>PyGame screen</em>) – Screen object for PyGame drawing.</p></li>
+<li><p><strong>tx</strong> (<a class="reference internal" href="skidl.schematics.geometry.html#skidl.schematics.geometry.Tx" title="skidl.schematics.geometry.Tx"><em>Tx</em></a>) – Transformation matrix from real to screen coords.</p></li>
+<li><p><strong>font</strong> (<em>PyGame font</em>) – Font for rendering text.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.schematics.debug_draw.draw_redraw">
+<span class="sig-prename descclassname"><span class="pre">skidl.schematics.debug_draw.</span></span><span class="sig-name descname"><span class="pre">draw_redraw</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/debug_draw.html#draw_redraw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.debug_draw.draw_redraw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Redraw the PyGame display.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.schematics.debug_draw.draw_routing">
+<span class="sig-prename descclassname"><span class="pre">skidl.schematics.debug_draw.</span></span><span class="sig-name descname"><span class="pre">draw_routing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parts</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">other_stuff</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/debug_draw.html#draw_routing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.debug_draw.draw_routing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw routing for debugging purposes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node</strong> (<a class="reference internal" href="skidl.schematics.gen_schematic.html#skidl.schematics.gen_schematic.Node" title="skidl.schematics.gen_schematic.Node"><em>Node</em></a>) – Hierarchical node.</p></li>
+<li><p><strong>bbox</strong> (<a class="reference internal" href="skidl.schematics.geometry.html#skidl.schematics.geometry.BBox" title="skidl.schematics.geometry.BBox"><em>BBox</em></a>) – Bounding box of drawing area.</p></li>
+<li><p><strong>node</strong> – The Node being routed.</p></li>
+<li><p><strong>parts</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – List of Parts.</p></li>
+<li><p><strong>other_stuff</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – Other stuff with a draw() method.</p></li>
+<li><p><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>, </em><em>optional</em>) – Dictionary of options and values. Defaults to {}.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.schematics.debug_draw.draw_seg">
+<span class="sig-prename descclassname"><span class="pre">skidl.schematics.debug_draw.</span></span><span class="sig-name descname"><span class="pre">draw_seg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(100,</span> <span class="pre">100,</span> <span class="pre">100)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thickness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dot_radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/debug_draw.html#draw_seg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.debug_draw.draw_seg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw a line segment in the drawing area.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seg</strong> (<a class="reference internal" href="skidl.schematics.geometry.html#skidl.schematics.geometry.Segment" title="skidl.schematics.geometry.Segment"><em>Segment</em></a><em>, </em><em>Interval</em><em>, </em><em>NetInterval</em>) – An object with two endpoints.</p></li>
+<li><p><strong>scr</strong> (<em>PyGame screen</em>) – Screen object for PyGame drawing.</p></li>
+<li><p><strong>tx</strong> (<a class="reference internal" href="skidl.schematics.geometry.html#skidl.schematics.geometry.Tx" title="skidl.schematics.geometry.Tx"><em>Tx</em></a>) – Transformation matrix from real to screen coords.</p></li>
+<li><p><strong>color</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em>, </em><em>optional</em>) – Segment color. Defaults to (192, 255, 192).</p></li>
+<li><p><strong>seg_thickness</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – Segment line thickness. Defaults to 5.</p></li>
+<li><p><strong>dot_Radius</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>, </em><em>optional</em>) – Endpoint dot radius. Defaults to 3.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.schematics.debug_draw.draw_start">
+<span class="sig-prename descclassname"><span class="pre">skidl.schematics.debug_draw.</span></span><span class="sig-name descname"><span class="pre">draw_start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/debug_draw.html#draw_start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.debug_draw.draw_start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize PyGame drawing area.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>bbox</strong> – Bounding box of object to be drawn.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>PyGame screen that is drawn upon.
+tx: Matrix to transform from real coords to screen coords.
+font: PyGame font for rendering text.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>scr</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.schematics.debug_draw.draw_text">
+<span class="sig-prename descclassname"><span class="pre">skidl.schematics.debug_draw.</span></span><span class="sig-name descname"><span class="pre">draw_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">txt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(100,</span> <span class="pre">100,</span> <span class="pre">100)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">real</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/debug_draw.html#draw_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.debug_draw.draw_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render text in drawing area.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>txt</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Text string to be rendered.</p></li>
+<li><p><strong>pt</strong> (<a class="reference internal" href="skidl.schematics.geometry.html#skidl.schematics.geometry.Point" title="skidl.schematics.geometry.Point"><em>Point</em></a>) – Real or screen coord for start of rendered text.</p></li>
+<li><p><strong>scr</strong> (<em>PyGame screen</em>) – Screen object for PyGame drawing.</p></li>
+<li><p><strong>tx</strong> (<a class="reference internal" href="skidl.schematics.geometry.html#skidl.schematics.geometry.Tx" title="skidl.schematics.geometry.Tx"><em>Tx</em></a>) – Transformation matrix from real to screen coords.</p></li>
+<li><p><strong>font</strong> (<em>PyGame font</em>) – Font for rendering text.</p></li>
+<li><p><strong>color</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#tuple" title="(in Python v3.10)"><em>tuple</em></a><em>, </em><em>optional</em>) – Segment color. Defaults to (100,100,100).</p></li>
+<li><p><strong>real</strong> (<em>Boolean</em>) – If true, transform real pt to screen coords. Otherwise, pt is screen coords.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/rst_output/skidl.schematics.debug_draw.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.schematics.debug_draw module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016-2023, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    </div>
+  </body>
+</html>

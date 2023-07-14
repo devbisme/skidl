@@ -1,0 +1,18 @@
+title: New 1.2.0 Release
+date: 2023-07-14
+author: Dave Vandenbout
+slug: one-dot-two
+
+It's been nearly *two years* since the last release.
+The 1.2.0 release has these user-facing changes:
+
+- Something that has been requested for years: SKiDL can now [generate an editable schematic](generating-editable-schematics-2023-07-14.html)
+  from a `Circuit` object. (Currently only works for KiCad V5.)
+- The `Group` object allows you to create hierarchy without using function calls.
+- `generate_pcb` now takes an optional list of footprint library directories.
+- If not explicitly declared, `Part` objects will load the default footprint from their symbol definition.
+- You can specify an  `empty_footprint_handler()` that logs errors for parts missing footprints by default but can be overridden by the user.
+- Symbol libraries can now be searched on remote repositories by placing the URL in the `lib_search_paths` dictionary.
+  KiCad V6 symbols are found at `https://gitlab.com/kicad/libraries/kicad-symbols/-/raw/master`
+  and V5 symbols are at `https://raw.githubusercontent.com/KiCad/kicad-symbols/master/`.
+- `Part` pins can now be sorted and retrieved in order using the `ordered_pins` property.

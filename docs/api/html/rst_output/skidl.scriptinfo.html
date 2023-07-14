@@ -1,0 +1,129 @@
+
+
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>skidl.scriptinfo module &#8212; SKiDL 1.2.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../"><img src="../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.scriptinfo module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-skidl.scriptinfo">
+<span id="skidl-scriptinfo-module"></span><h1>skidl.scriptinfo module<a class="headerlink" href="#module-skidl.scriptinfo" title="Permalink to this heading">¶</a></h1>
+<p>Routines for getting information about a script.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.scriptinfo.get_script_name">
+<span class="sig-prename descclassname"><span class="pre">skidl.scriptinfo.</span></span><span class="sig-name descname"><span class="pre">get_script_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/scriptinfo.html#get_script_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.scriptinfo.get_script_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the name of the top-level script.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.scriptinfo.get_skidl_trace">
+<span class="sig-prename descclassname"><span class="pre">skidl.scriptinfo.</span></span><span class="sig-name descname"><span class="pre">get_skidl_trace</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/scriptinfo.html#get_skidl_trace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.scriptinfo.get_skidl_trace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list containing the source line trace where a SKiDL object was instantiated.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.scriptinfo.scriptinfo">
+<span class="sig-prename descclassname"><span class="pre">skidl.scriptinfo.</span></span><span class="sig-name descname"><span class="pre">scriptinfo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/scriptinfo.html#scriptinfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.scriptinfo.scriptinfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary with information about the running top level Python
+script:
+—————————————————————————
+dir:    directory containing script or compiled executable
+name:   name of script or executable
+source: name of source code file
+—————————————————————————
+<cite>name</cite> and <cite>source</cite> are identical if and only if running interpreted code.
+When running code compiled by <cite>py2exe</cite> or <cite>cx_freeze</cite>, <cite>source</cite> contains
+the name of the originating Python script.
+If compiled by PyInstaller, <cite>source</cite> contains no meaningful information.</p>
+<p>Downloaded from:
+<a class="reference external" href="http://code.activestate.com/recipes/579018-python-determine-name-and-directory-of-the-top-lev/">http://code.activestate.com/recipes/579018-python-determine-name-and-directory-of-the-top-lev/</a></p>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/rst_output/skidl.scriptinfo.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.scriptinfo module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016-2023, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    </div>
+  </body>
+</html>

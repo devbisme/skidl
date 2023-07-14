@@ -1,0 +1,7 @@
+skidl.schematics.geometry module
+================================
+
+.. automodule:: skidl.schematics.geometry
+   :members:
+   :undoc-members:
+   :show-inheritance:

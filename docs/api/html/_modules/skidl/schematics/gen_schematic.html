@@ -1,0 +1,759 @@
+
+
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>skidl.schematics.gen_schematic &#8212; SKiDL 1.2.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css" />
+    
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../../../"><img src="../../../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.schematics.gen_schematic</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for skidl.schematics.gen_schematic</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.</span>
+
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># isort:skip</span>
+    <span class="n">absolute_import</span><span class="p">,</span>
+    <span class="n">division</span><span class="p">,</span>
+    <span class="n">print_function</span><span class="p">,</span>
+    <span class="n">unicode_literals</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">range</span><span class="p">,</span> <span class="nb">super</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">defaultdict</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+
+<span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
+
+<span class="kn">from</span> <span class="nn">..net</span> <span class="kn">import</span> <span class="n">NCNet</span>
+<span class="kn">from</span> <span class="nn">..part</span> <span class="kn">import</span> <span class="n">Part</span>
+<span class="kn">from</span> <span class="nn">..pin</span> <span class="kn">import</span> <span class="n">Pin</span>
+<span class="kn">from</span> <span class="nn">..scriptinfo</span> <span class="kn">import</span> <span class="n">get_script_name</span>
+<span class="kn">from</span> <span class="nn">..tools.kicad.constants</span> <span class="kn">import</span> <span class="n">GRID</span>
+<span class="kn">from</span> <span class="nn">..tools.kicad.eeschema_v5</span> <span class="kn">import</span> <span class="n">Eeschema_V5</span><span class="p">,</span> <span class="n">pin_label_to_eeschema</span>
+<span class="kn">from</span> <span class="nn">..tools.kicad.v5</span> <span class="kn">import</span> <span class="n">calc_hier_label_bbox</span><span class="p">,</span> <span class="n">calc_symbol_bbox</span>
+<span class="kn">from</span> <span class="nn">..utilities</span> <span class="kn">import</span> <span class="n">export_to_all</span><span class="p">,</span> <span class="n">rmv_attr</span>
+<span class="kn">from</span> <span class="nn">.geometry</span> <span class="kn">import</span> <span class="n">BBox</span><span class="p">,</span> <span class="n">Point</span><span class="p">,</span> <span class="n">Tx</span><span class="p">,</span> <span class="n">Vector</span>
+<span class="kn">from</span> <span class="nn">.place</span> <span class="kn">import</span> <span class="n">PlacementFailure</span><span class="p">,</span> <span class="n">Placer</span>
+<span class="kn">from</span> <span class="nn">.route</span> <span class="kn">import</span> <span class="n">Router</span><span class="p">,</span> <span class="n">RoutingFailure</span>
+
+<span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Generate a KiCad EESCHEMA schematic from a Circuit object.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># TODO: Handle symio attribute.</span>
+
+
+<span class="k">def</span> <span class="nf">preprocess_circuit</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add stuff to parts &amp; nets for doing placement and routing of schematics.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">units</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">part</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">part</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize part or its part units.&quot;&quot;&quot;</span>
+
+        <span class="c1"># Initialize the units of the part, or the part itself if it has no units.</span>
+        <span class="n">pin_limit</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;orientation_pin_limit&quot;</span><span class="p">,</span> <span class="mi">44</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">part_unit</span> <span class="ow">in</span> <span class="n">units</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+            <span class="c1"># Initialize transform matrix.</span>
+            <span class="n">part_unit</span><span class="o">.</span><span class="n">tx</span> <span class="o">=</span> <span class="n">Tx</span><span class="o">.</span><span class="n">from_symtx</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">part_unit</span><span class="p">,</span> <span class="s2">&quot;symtx&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+
+            <span class="c1"># Lock part orientation if symtx was specified. Also lock parts with a lot of pins</span>
+            <span class="c1"># since they&#39;re typically drawn the way they&#39;re supposed to be oriented.</span>
+            <span class="c1"># And also lock single-pin parts because these are usually power/ground and</span>
+            <span class="c1"># they shouldn&#39;t be flipped around.</span>
+            <span class="n">num_pins</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">part_unit</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span>
+            <span class="n">part_unit</span><span class="o">.</span><span class="n">orientation_locked</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part_unit</span><span class="p">,</span> <span class="s2">&quot;symtx&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="p">(</span>
+                <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">num_pins</span> <span class="o">&lt;=</span> <span class="n">pin_limit</span>
+            <span class="p">)</span>
+
+            <span class="c1"># Assign pins from the parent part to the part unit.</span>
+            <span class="n">part_unit</span><span class="o">.</span><span class="n">grab_pins</span><span class="p">()</span>
+
+            <span class="c1"># Initialize pin attributes used for generating schematics.</span>
+            <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part_unit</span><span class="p">:</span>
+                <span class="n">pin</span><span class="o">.</span><span class="n">pt</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pin</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+                <span class="n">pin</span><span class="o">.</span><span class="n">routed</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">rotate_power_pins</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Rotate a part based on the direction of its power pins.</span>
+
+<span class="sd">        This function is to make sure that voltage sources face up and gnd pins</span>
+<span class="sd">        face down.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Don&#39;t rotate parts that are already explicitly rotated/flipped.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;symtx&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
+            <span class="k">return</span>
+
+        <span class="k">def</span> <span class="nf">is_pwr</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">net_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;+&quot;</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">is_gnd</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s2">&quot;gnd&quot;</span> <span class="ow">in</span> <span class="n">net_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+        <span class="n">dont_rotate_pin_cnt</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dont_rotate_pin_count&quot;</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">part_unit</span> <span class="ow">in</span> <span class="n">units</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+            <span class="c1"># Don&#39;t rotate parts with too many pins.</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">part_unit</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">dont_rotate_pin_cnt</span><span class="p">:</span>
+                <span class="k">return</span>
+
+            <span class="c1"># Tally what rotation would make each pwr/gnd pin point up or down.</span>
+            <span class="n">rotation_tally</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part_unit</span><span class="p">:</span>
+                <span class="n">net_name</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">is_gnd</span><span class="p">(</span><span class="n">net_name</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;U&quot;</span><span class="p">:</span>
+                        <span class="n">rotation_tally</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;D&quot;</span><span class="p">:</span>
+                        <span class="n">rotation_tally</span><span class="p">[</span><span class="mi">180</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span>
+                        <span class="n">rotation_tally</span><span class="p">[</span><span class="mi">90</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;R&quot;</span><span class="p">:</span>
+                        <span class="n">rotation_tally</span><span class="p">[</span><span class="mi">270</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">elif</span> <span class="n">is_pwr</span><span class="p">(</span><span class="n">net_name</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;D&quot;</span><span class="p">:</span>
+                        <span class="n">rotation_tally</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;U&quot;</span><span class="p">:</span>
+                        <span class="n">rotation_tally</span><span class="p">[</span><span class="mi">180</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span>
+                        <span class="n">rotation_tally</span><span class="p">[</span><span class="mi">270</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;R&quot;</span><span class="p">:</span>
+                        <span class="n">rotation_tally</span><span class="p">[</span><span class="mi">90</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="c1"># Rotate the part unit in the direction with the most tallies.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">rotation</span> <span class="o">=</span> <span class="n">rotation_tally</span><span class="o">.</span><span class="n">most_common</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Rotate part unit 90-degrees clockwise until the desired rotation is reached.</span>
+                <span class="n">tx_cw_90</span> <span class="o">=</span> <span class="n">Tx</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># 90-degree trans. matrix.</span>
+                <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">rotation</span> <span class="o">/</span> <span class="mi">90</span><span class="p">))):</span>
+                    <span class="n">part_unit</span><span class="o">.</span><span class="n">tx</span> <span class="o">=</span> <span class="n">part_unit</span><span class="o">.</span><span class="n">tx</span> <span class="o">*</span> <span class="n">tx_cw_90</span>
+
+    <span class="k">def</span> <span class="nf">calc_part_bbox</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate the labeled bounding boxes and store it in the part.&quot;&quot;&quot;</span>
+
+        <span class="c1"># Find part/unit bounding boxes excluding any net labels on pins.</span>
+        <span class="c1"># TODO: part.lbl_bbox could be substituted for part.bbox.</span>
+        <span class="c1"># TODO: Part ref and value should be updated before calculating bounding box.</span>
+        <span class="n">bare_bboxes</span> <span class="o">=</span> <span class="n">calc_symbol_bbox</span><span class="p">(</span><span class="n">part</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span>
+
+        <span class="k">for</span> <span class="n">part_unit</span><span class="p">,</span> <span class="n">bare_bbox</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">units</span><span class="p">(</span><span class="n">part</span><span class="p">),</span> <span class="n">bare_bboxes</span><span class="p">):</span>
+            <span class="c1"># Expand the bounding box if it&#39;s too small in either dimension.</span>
+            <span class="n">resize_wh</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">bare_bbox</span><span class="o">.</span><span class="n">w</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">:</span>
+                <span class="n">resize_wh</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span> <span class="o">-</span> <span class="n">bare_bbox</span><span class="o">.</span><span class="n">w</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="k">if</span> <span class="n">bare_bbox</span><span class="o">.</span><span class="n">h</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">:</span>
+                <span class="n">resize_wh</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span> <span class="o">-</span> <span class="n">bare_bbox</span><span class="o">.</span><span class="n">h</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="n">bare_bbox</span> <span class="o">=</span> <span class="n">bare_bbox</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">resize_wh</span><span class="p">)</span>
+
+            <span class="c1"># Find expanded bounding box that includes any hier labels attached to pins.</span>
+            <span class="n">part_unit</span><span class="o">.</span><span class="n">lbl_bbox</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">()</span>
+            <span class="n">part_unit</span><span class="o">.</span><span class="n">lbl_bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bare_bbox</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part_unit</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">stub</span><span class="p">:</span>
+                    <span class="c1"># Find bounding box for net stub label attached to pin.</span>
+                    <span class="n">hlbl_bbox</span> <span class="o">=</span> <span class="n">calc_hier_label_bbox</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span><span class="p">)</span>
+                    <span class="c1"># Move the label bbox to the pin location.</span>
+                    <span class="n">hlbl_bbox</span> <span class="o">*=</span> <span class="n">Tx</span><span class="p">()</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">pt</span><span class="p">)</span>
+                    <span class="c1"># Update the bbox for the labelled part with this pin label.</span>
+                    <span class="n">part_unit</span><span class="o">.</span><span class="n">lbl_bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">hlbl_bbox</span><span class="p">)</span>
+
+            <span class="c1"># Set the active bounding box to the labeled version.</span>
+            <span class="n">part_unit</span><span class="o">.</span><span class="n">bbox</span> <span class="o">=</span> <span class="n">part_unit</span><span class="o">.</span><span class="n">lbl_bbox</span>
+
+    <span class="c1"># Pre-process parts</span>
+    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
+        <span class="c1"># Initialize part attributes used for generating schematics.</span>
+        <span class="n">initialize</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
+
+        <span class="c1"># Rotate parts.  Power pins should face up. GND pins should face down.</span>
+        <span class="n">rotate_power_pins</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
+
+        <span class="c1"># Compute bounding boxes around parts</span>
+        <span class="n">calc_part_bbox</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">finalize_parts_and_nets</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Restore parts and nets after place &amp; route is done.&quot;&quot;&quot;</span>
+
+    <span class="c1"># Remove any NetTerminals that were added.</span>
+    <span class="n">net_terminals</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">parts</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">NetTerminal</span><span class="p">))</span>
+    <span class="n">circuit</span><span class="o">.</span><span class="n">rmv_parts</span><span class="p">(</span><span class="o">*</span><span class="n">net_terminals</span><span class="p">)</span>
+
+    <span class="c1"># Return pins from the part units to their parent part.</span>
+    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
+        <span class="n">part</span><span class="o">.</span><span class="n">grab_pins</span><span class="p">()</span>
+
+    <span class="c1"># Remove some stuff added to parts during schematic generation process.</span>
+    <span class="n">rmv_attr</span><span class="p">(</span><span class="n">circuit</span><span class="o">.</span><span class="n">parts</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;force&quot;</span><span class="p">,</span> <span class="s2">&quot;bbox&quot;</span><span class="p">,</span> <span class="s2">&quot;lbl_bbox&quot;</span><span class="p">,</span> <span class="s2">&quot;tx&quot;</span><span class="p">))</span>
+
+
+<span class="k">class</span> <span class="nc">NetTerminal</span><span class="p">(</span><span class="n">Part</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">net</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Specialized Part with a single pin attached to a net.</span>
+
+<span class="sd">        This is intended for attaching to nets to label them, typically when</span>
+<span class="sd">        the net spans across levels of hierarchical nodes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Create a Part.</span>
+        <span class="kn">from</span> <span class="nn">..skidl</span> <span class="kn">import</span> <span class="n">SKIDL</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;NT&quot;</span><span class="p">,</span> <span class="n">ref_prefix</span><span class="o">=</span><span class="s2">&quot;NT&quot;</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="n">SKIDL</span><span class="p">)</span>
+
+        <span class="c1"># Set a default transformation matrix for this part.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tx</span> <span class="o">=</span> <span class="n">Tx</span><span class="p">()</span>
+
+        <span class="c1"># Add a single pin to the part.</span>
+        <span class="n">pin</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;~&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_pins</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span>
+
+        <span class="c1"># Set the pin at point (0,0) and pointing leftward toward the part body</span>
+        <span class="c1"># (consisting of just the net label for this type of part) so any attached routing</span>
+        <span class="c1"># will go to the right.</span>
+        <span class="n">pin</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pin</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="n">pin</span><span class="o">.</span><span class="n">pt</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pin</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">pin</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="s2">&quot;L&quot;</span>
+
+        <span class="c1"># Calculate the bounding box, but as if the pin were pointed right so</span>
+        <span class="c1"># the associated label text would go to the left.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span> <span class="o">=</span> <span class="n">calc_hier_label_bbox</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;R&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Resize bbox so it&#39;s an integer number of GRIDs.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span><span class="o">.</span><span class="n">snap_resize</span><span class="p">(</span><span class="n">GRID</span><span class="p">)</span>
+
+        <span class="c1"># Extend the bounding box a bit so any attached routing will come straight in.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span><span class="o">.</span><span class="n">max</span> <span class="o">+=</span> <span class="n">Vector</span><span class="p">(</span><span class="n">GRID</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lbl_bbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span>
+
+        <span class="c1"># Flip the NetTerminal horizontally if it is an output net (label on the right).</span>
+        <span class="n">netio</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;netio&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">orientation_locked</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">netio</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;netio&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;o&quot;</span><span class="p">:</span>
+            <span class="n">origin</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">term_origin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tx</span><span class="o">.</span><span class="n">origin</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tx</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tx</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">origin</span> <span class="o">-</span> <span class="n">term_origin</span><span class="p">)</span><span class="o">.</span><span class="n">flip_x</span><span class="p">()</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">term_origin</span> <span class="o">-</span> <span class="n">origin</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Connect the pin to the net.</span>
+        <span class="n">pin</span> <span class="o">+=</span> <span class="n">net</span>
+
+    <span class="k">def</span> <span class="nf">to_eeschema</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tx</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate the EESCHEMA code for the net terminal.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            tx (Tx): Transformation matrix for the node containing this net terminal.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: EESCHEMA code string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">stub</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="s2">&quot;R&quot;</span>
+        <span class="k">return</span> <span class="n">pin_label_to_eeschema</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">tx</span><span class="p">)</span>
+        <span class="c1"># return pin_label_to_eeschema(self.pins[0], tx) + bbox_to_eeschema(self.bbox, self.tx * tx)</span>
+
+
+<div class="viewcode-block" id="Node"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.gen_schematic.html#skidl.schematics.gen_schematic.Node">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">class</span> <span class="nc">Node</span><span class="p">(</span><span class="n">Placer</span><span class="p">,</span> <span class="n">Router</span><span class="p">,</span> <span class="n">Eeschema_V5</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Data structure for holding information about a node in the circuit hierarchy.&quot;&quot;&quot;</span>
+
+    <span class="n">filename_sz</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="n">name_sz</span> <span class="o">=</span> <span class="mi">40</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">circuit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filepath</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">top_name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">flatness</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span>
+            <span class="k">lambda</span><span class="p">:</span> <span class="n">Node</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">top_name</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">flatness</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filepath</span> <span class="o">=</span> <span class="n">filepath</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">top_name</span> <span class="o">=</span> <span class="n">top_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sheet_name</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sheet_filename</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">title</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flatness</span> <span class="o">=</span> <span class="n">flatness</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flattened</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wires</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">junctions</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tx</span> <span class="o">=</span> <span class="n">Tx</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">circuit</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_circuit</span><span class="p">(</span><span class="n">circuit</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Node.find_node_with_part"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.gen_schematic.html#skidl.schematics.gen_schematic.Node.find_node_with_part">[docs]</a>    <span class="k">def</span> <span class="nf">find_node_with_part</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">part</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Find the node that contains the part based on its hierarchy.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            part (Part): The part being searched for in the node hierarchy.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Node: The Node object containing the part.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="kn">from</span> <span class="nn">..circuit</span> <span class="kn">import</span> <span class="n">HIER_SEP</span>
+
+        <span class="n">level_names</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">hierarchy</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">HIER_SEP</span><span class="p">)</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="k">for</span> <span class="n">lvl_nm</span> <span class="ow">in</span> <span class="n">level_names</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">lvl_nm</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">parts</span>
+        <span class="k">return</span> <span class="n">node</span></div>
+
+<div class="viewcode-block" id="Node.add_circuit"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.gen_schematic.html#skidl.schematics.gen_schematic.Node.add_circuit">[docs]</a>    <span class="k">def</span> <span class="nf">add_circuit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">circuit</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add parts in circuit to node and its children.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            circuit (Circuit): Circuit object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Build the circuit node hierarchy by adding the parts.</span>
+        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_part</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
+
+        <span class="c1"># Add terminals to nodes in the hierarchy for nets that span across nodes.</span>
+        <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">nets</span><span class="p">:</span>
+            <span class="c1"># Skip nets that are stubbed since there will be no wire to attach to the NetTerminal.</span>
+            <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Search for pins in different nodes.</span>
+            <span class="k">for</span> <span class="n">pin1</span><span class="p">,</span> <span class="n">pin2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">pins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">net</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+                <span class="k">if</span> <span class="n">pin1</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">hierarchy</span> <span class="o">!=</span> <span class="n">pin2</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">hierarchy</span><span class="p">:</span>
+                    <span class="c1"># Found pins in different nodes, so break and add terminals to nodes below.</span>
+                    <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="c1"># Single pin on net and not stubbed, so add a terminal to it below.</span>
+                    <span class="k">pass</span>
+                <span class="k">elif</span> <span class="ow">not</span> <span class="n">net</span><span class="o">.</span><span class="n">is_implicit</span><span class="p">():</span>
+                    <span class="c1"># The net has a user-assigned name, so add a terminal to it below.</span>
+                    <span class="k">pass</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># No need for net terminal because there are multiple pins</span>
+                    <span class="c1"># and they are all in the same node.</span>
+                    <span class="k">continue</span>
+
+            <span class="c1"># Add a single terminal to each node that contains one or more pins of the net.</span>
+            <span class="n">visited</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
+                <span class="c1"># A stubbed pin can&#39;t be used to add NetTerminal since there is no explicit wire.</span>
+                <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">stub</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="n">part</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">part</span>
+
+                <span class="k">if</span> <span class="n">part</span><span class="o">.</span><span class="n">hierarchy</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                    <span class="c1"># Already added a terminal to this node, so don&#39;t add another.</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># Add NetTerminal to the node with this part/pin.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">find_node_with_part</span><span class="p">(</span><span class="n">part</span><span class="p">)</span><span class="o">.</span><span class="n">add_terminal</span><span class="p">(</span><span class="n">net</span><span class="p">)</span>
+
+                <span class="c1"># Record that this hierarchical node was visited.</span>
+                <span class="n">visited</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">hierarchy</span><span class="p">)</span>
+
+        <span class="c1"># Flatten the hierarchy as specified by the flatness parameter.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">flatness</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Node.add_part"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.gen_schematic.html#skidl.schematics.gen_schematic.Node.add_part">[docs]</a>    <span class="k">def</span> <span class="nf">add_part</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">part</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a part to the node at the appropriate level of the hierarchy.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            part (Part): Part to be added to this node or one of its children.</span>
+<span class="sd">            level (int, optional): The current level (depth) of the node in the hierarchy. Defaults to 0.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="kn">from</span> <span class="nn">..circuit</span> <span class="kn">import</span> <span class="n">HIER_SEP</span>
+
+        <span class="c1"># Get list of names of hierarchical levels (in order) leading to this part.</span>
+        <span class="n">level_names</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">hierarchy</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">HIER_SEP</span><span class="p">)</span>
+
+        <span class="c1"># Get depth in hierarchy for this part.</span>
+        <span class="n">part_level</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">level_names</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">assert</span> <span class="n">part_level</span> <span class="o">&gt;=</span> <span class="n">level</span>
+
+        <span class="c1"># Node name is the name assigned to this level of the hierarchy.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">level_names</span><span class="p">[</span><span class="n">level</span><span class="p">]</span>
+
+        <span class="c1"># File name for storing the schematic for this node.</span>
+        <span class="n">base_filename</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">top_name</span><span class="p">]</span> <span class="o">+</span> <span class="n">level_names</span><span class="p">[</span><span class="mi">0</span> <span class="p">:</span> <span class="n">level</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;.sch&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sheet_filename</span> <span class="o">=</span> <span class="n">base_filename</span>
+
+        <span class="k">if</span> <span class="n">part_level</span> <span class="o">==</span> <span class="n">level</span><span class="p">:</span>
+            <span class="c1"># Add part to node at this level in the hierarchy.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">part</span><span class="o">.</span><span class="n">unit</span><span class="p">:</span>
+                <span class="c1"># Monolithic part so just add it to the node.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Multi-unit part so add each unit to the node.</span>
+                <span class="c1"># FIXME: Some part units might be split into other nodes.</span>
+                <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Part is at a level below the current node. Get the child node using</span>
+            <span class="c1"># the name of the next level in the hierarchy for this part.</span>
+            <span class="n">child_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">level_names</span><span class="p">[</span><span class="n">level</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]]</span>
+
+            <span class="c1"># Attach the child node to this node. (It may have just been created.)</span>
+            <span class="n">child_node</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span>
+
+            <span class="c1"># Add part to the child node (or one of its children).</span>
+            <span class="n">child_node</span><span class="o">.</span><span class="n">add_part</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">level</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Node.add_terminal"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.gen_schematic.html#skidl.schematics.gen_schematic.Node.add_terminal">[docs]</a>    <span class="k">def</span> <span class="nf">add_terminal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">net</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a terminal for this net to the node.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            net (Net): The net to be added to this node.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="kn">from</span> <span class="nn">..circuit</span> <span class="kn">import</span> <span class="n">HIER_SEP</span>
+
+        <span class="n">nt</span> <span class="o">=</span> <span class="n">NetTerminal</span><span class="p">(</span><span class="n">net</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nt</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Node.external_bbox"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.gen_schematic.html#skidl.schematics.gen_schematic.Node.external_bbox">[docs]</a>    <span class="k">def</span> <span class="nf">external_bbox</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the bounding box of a hierarchical sheet as seen by its parent node.&quot;&quot;&quot;</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">500</span><span class="p">))</span>
+        <span class="n">bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="s2">&quot;File: &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">sheet_filename</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename_sz</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="n">bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="s2">&quot;Sheet: &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">name_sz</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+        <span class="c1"># Pad the bounding box for extra spacing when placed.</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="n">bbox</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">bbox</span></div>
+
+<div class="viewcode-block" id="Node.internal_bbox"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.gen_schematic.html#skidl.schematics.gen_schematic.Node.internal_bbox">[docs]</a>    <span class="k">def</span> <span class="nf">internal_bbox</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the bounding box for the circuitry contained within this node.&quot;&quot;&quot;</span>
+
+        <span class="c1"># The bounding box is determined by the arrangement of the node&#39;s parts and child nodes.</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">chain</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+            <span class="n">tx_bbox</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">bbox</span> <span class="o">*</span> <span class="n">obj</span><span class="o">.</span><span class="n">tx</span>
+            <span class="n">bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tx_bbox</span><span class="p">)</span>
+
+        <span class="c1"># Pad the bounding box for extra spacing when placed.</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="n">bbox</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">bbox</span></div>
+
+<div class="viewcode-block" id="Node.calc_bbox"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.gen_schematic.html#skidl.schematics.gen_schematic.Node.calc_bbox">[docs]</a>    <span class="k">def</span> <span class="nf">calc_bbox</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the bounding box for the node in the circuit hierarchy.&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">flattened</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internal_bbox</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Use hierarchical bounding box if node has not been flattened.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">external_bbox</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span></div>
+
+<div class="viewcode-block" id="Node.flatten"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.gen_schematic.html#skidl.schematics.gen_schematic.Node.flatten">[docs]</a>    <span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flatness</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Flatten node hierarchy according to flatness parameter.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            flatness (float, optional): Degree of hierarchical flattening (0=completely hierarchical, 1=totally flat). Defaults to 0.0.</span>
+
+<span class="sd">        Create hierarchical sheets for the node and its child nodes. Complexity (or size) of a node</span>
+<span class="sd">        and its children is the total number of part pins they contain. The sum of all the child sizes</span>
+<span class="sd">        multiplied by the flatness is the number of part pins that can be shown on the schematic</span>
+<span class="sd">        page before hierarchy is used. The instances of each type of child are flattened and placed</span>
+<span class="sd">        directly in the sheet as long as the sum of their sizes is below the slack. Otherwise, the</span>
+<span class="sd">        children are included using hierarchical sheets. The children are handled in order of</span>
+<span class="sd">        increasing size so small children are more likely to be flattened while large, complicated</span>
+<span class="sd">        children are included using hierarchical sheets.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Create sheets and compute complexity for any circuitry in hierarchical child nodes.</span>
+        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">child</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">flatness</span><span class="p">)</span>
+
+        <span class="c1"># Complexity of the parts directly instantiated at this hierarchical level.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">complexity</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="p">)</span> <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="p">))</span>
+
+        <span class="c1"># Sum the child complexities and use it to compute the number of pins that can be</span>
+        <span class="c1"># shown before hierarchical sheets are used.</span>
+        <span class="n">child_complexity</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">((</span><span class="n">child</span><span class="o">.</span><span class="n">complexity</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+        <span class="n">slack</span> <span class="o">=</span> <span class="n">child_complexity</span> <span class="o">*</span> <span class="n">flatness</span>
+
+        <span class="c1"># Group the children according to what types of modules they are by removing trailing instance ids.</span>
+        <span class="n">child_types</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">child_id</span><span class="p">,</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">child_types</span><span class="p">[</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\d+$&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">child_id</span><span class="p">)]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+
+        <span class="c1"># Compute the total size of each type of children.</span>
+        <span class="n">child_type_sizes</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">child_type</span><span class="p">,</span> <span class="n">children</span> <span class="ow">in</span> <span class="n">child_types</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">child_type_sizes</span><span class="p">[</span><span class="n">child_type</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">((</span><span class="n">child</span><span class="o">.</span><span class="n">complexity</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span><span class="p">))</span>
+
+        <span class="c1"># Sort the groups from smallest total size to largest.</span>
+        <span class="n">sorted_child_type_sizes</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+            <span class="n">child_type_sizes</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Flatten each instance in a group until the slack is used up.</span>
+        <span class="k">for</span> <span class="n">child_type</span><span class="p">,</span> <span class="n">child_type_size</span> <span class="ow">in</span> <span class="n">sorted_child_type_sizes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">child_type_size</span> <span class="o">&lt;=</span> <span class="n">slack</span><span class="p">:</span>
+                <span class="c1"># Include the circuitry of each child instance directly in the sheet.</span>
+                <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">child_types</span><span class="p">[</span><span class="n">child_type</span><span class="p">]:</span>
+                    <span class="n">child</span><span class="o">.</span><span class="n">flattened</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="c1"># Reduce the slack by the sum of the child sizes.</span>
+                <span class="n">slack</span> <span class="o">-=</span> <span class="n">child_type_size</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Not enough slack left. Add these children as hierarchical sheets.</span>
+                <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">child_types</span><span class="p">[</span><span class="n">child_type</span><span class="p">]:</span>
+                    <span class="n">child</span><span class="o">.</span><span class="n">flattened</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="Node.get_internal_nets"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.gen_schematic.html#skidl.schematics.gen_schematic.Node.get_internal_nets">[docs]</a>    <span class="k">def</span> <span class="nf">get_internal_nets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of nets that have at least one pin on a part in this node.&quot;&quot;&quot;</span>
+
+        <span class="n">processed_nets</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">internal_nets</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">part_pin</span> <span class="ow">in</span> <span class="n">part</span><span class="p">:</span>
+                <span class="c1"># No explicit wire for pins connected to labeled stub nets.</span>
+                <span class="k">if</span> <span class="n">part_pin</span><span class="o">.</span><span class="n">stub</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># No explicit wires if the pin is not connected to anything.</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">part_pin</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
+                    <span class="k">continue</span>
+
+                <span class="n">net</span> <span class="o">=</span> <span class="n">part_pin</span><span class="o">.</span><span class="n">net</span>
+
+                <span class="c1"># Skip nets that have already been processed.</span>
+                <span class="k">if</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">processed_nets</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="n">processed_nets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">net</span><span class="p">)</span>
+
+                <span class="c1"># Skip stubbed nets.</span>
+                <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># Add net to collection if at least one pin is on one of the parts of the node.</span>
+                <span class="k">for</span> <span class="n">net_pin</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">net_pin</span><span class="o">.</span><span class="n">part</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
+                        <span class="n">internal_nets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">net</span><span class="p">)</span>
+                        <span class="k">break</span>
+
+        <span class="k">return</span> <span class="n">internal_nets</span></div>
+
+<div class="viewcode-block" id="Node.get_internal_pins"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.gen_schematic.html#skidl.schematics.gen_schematic.Node.get_internal_pins">[docs]</a>    <span class="k">def</span> <span class="nf">get_internal_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">net</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the pins on the net that are on parts in the node.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            net (Net): The net whose pins are being examined.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list: List of pins on the net that are on parts in this node.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Skip pins on stubbed nets.</span>
+        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="n">pin</span> <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">pins</span> <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">stub</span> <span class="ow">is</span> <span class="kc">False</span> <span class="ow">and</span> <span class="n">pin</span><span class="o">.</span><span class="n">part</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Node.collect_stats"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.gen_schematic.html#skidl.schematics.gen_schematic.Node.collect_stats">[docs]</a>    <span class="k">def</span> <span class="nf">collect_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return comma-separated string with place &amp; route statistics of a schematic.&quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">get_wire_length</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;Return the sum of the wire segment lengths between parts in a routed node.&quot;&quot;&quot;</span>
+
+            <span class="n">wire_length</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="c1"># Sum wire lengths for child nodes.</span>
+            <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="n">wire_length</span> <span class="o">+=</span> <span class="n">get_wire_length</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+
+            <span class="c1"># Add the wire lengths between parts in the top node.</span>
+            <span class="k">for</span> <span class="n">wire_segs</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">wires</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="k">for</span> <span class="n">seg</span> <span class="ow">in</span> <span class="n">wire_segs</span><span class="p">:</span>
+                    <span class="n">len_x</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">seg</span><span class="o">.</span><span class="n">p1</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">seg</span><span class="o">.</span><span class="n">p2</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+                    <span class="n">len_y</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">seg</span><span class="o">.</span><span class="n">p1</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">seg</span><span class="o">.</span><span class="n">p2</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+                    <span class="n">wire_length</span> <span class="o">+=</span> <span class="n">len_x</span> <span class="o">+</span> <span class="n">len_y</span>
+
+            <span class="k">return</span> <span class="n">wire_length</span>
+
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">get_wire_length</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="gen_schematic"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.gen_schematic.html#skidl.schematics.gen_schematic.gen_schematic">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">gen_schematic</span><span class="p">(</span>
+    <span class="n">circuit</span><span class="p">,</span>
+    <span class="n">filepath</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span>
+    <span class="n">top_name</span><span class="o">=</span><span class="n">get_script_name</span><span class="p">(),</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;SKiDL-Generated Schematic&quot;</span><span class="p">,</span>
+    <span class="n">flatness</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">retries</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">options</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a schematic file from a Circuit object.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        circuit (Circuit): The Circuit object that will have a schematic generated for it.</span>
+<span class="sd">        filepath (str, optional): The directory where the schematic files are placed. Defaults to &quot;.&quot;.</span>
+<span class="sd">        top_name (str, optional): The name for the top of the circuit hierarchy. Defaults to get_script_name().</span>
+<span class="sd">        title (str, optional): The title of the schematic. Defaults to &quot;SKiDL-Generated Schematic&quot;.</span>
+<span class="sd">        flatness (float, optional): Determines how much the hierarchy is flattened in the schematic. Defaults to 0.0 (completely hierarchical).</span>
+<span class="sd">        retries (int, optional): Number of times to re-try if routing fails. Defaults to 2.</span>
+<span class="sd">        options (dict, optional): Dict of options and values, usually for drawing/debugging.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Part placement options that should always be turned on.</span>
+    <span class="n">options</span><span class="p">[</span><span class="s2">&quot;use_push_pull&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">options</span><span class="p">[</span><span class="s2">&quot;rotate_parts&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">options</span><span class="p">[</span><span class="s2">&quot;pt_to_pt_mult&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># HACK: Ad-hoc value.</span>
+    <span class="n">options</span><span class="p">[</span><span class="s2">&quot;pin_normalize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="c1"># Start with default routing area.</span>
+    <span class="n">expansion_factor</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+    <span class="c1"># Try to place &amp; route one or more times.</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">retries</span><span class="p">):</span>
+        <span class="n">preprocess_circuit</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+
+        <span class="n">node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">top_name</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">flatness</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Place parts.</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">place</span><span class="p">(</span><span class="n">expansion_factor</span><span class="o">=</span><span class="n">expansion_factor</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+
+            <span class="c1"># Route parts.</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="o">**</span><span class="n">options</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="n">PlacementFailure</span><span class="p">:</span>
+            <span class="c1"># Placement failed, so clean up ...</span>
+            <span class="n">finalize_parts_and_nets</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+            <span class="c1"># ... and try again.</span>
+            <span class="k">continue</span>
+
+        <span class="k">except</span> <span class="n">RoutingFailure</span><span class="p">:</span>
+            <span class="c1"># Routing failed, so clean up ...</span>
+            <span class="n">finalize_parts_and_nets</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+            <span class="c1"># ... and expand routing area ...</span>
+            <span class="n">expansion_factor</span> <span class="o">*=</span> <span class="mf">1.5</span>  <span class="c1"># HACK: Ad-hoc increase of expansion factor.</span>
+            <span class="c1"># ... and try again.</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># Generate EESCHEMA code for the schematic.</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">to_eeschema</span><span class="p">()</span>
+
+        <span class="c1"># Append place &amp; route statistics for the schematic to a file.</span>
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;collect_stats&quot;</span><span class="p">):</span>
+            <span class="n">stats</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">collect_stats</span><span class="p">(</span><span class="o">**</span><span class="n">options</span><span class="p">)</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;stats_file&quot;</span><span class="p">],</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span>
+
+        <span class="c1"># Clean up.</span>
+        <span class="n">finalize_parts_and_nets</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+
+        <span class="c1"># Place &amp; route was successful if we got here, so exit.</span>
+        <span class="k">return</span>
+
+    <span class="c1"># Append failed place &amp; route statistics for the schematic to a file.</span>
+    <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;collect_stats&quot;</span><span class="p">):</span>
+        <span class="n">stats</span> <span class="o">=</span> <span class="s2">&quot;-1</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;stats_file&quot;</span><span class="p">],</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span>
+
+    <span class="c1"># Clean-up after failure.</span>
+    <span class="n">finalize_parts_and_nets</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+
+    <span class="c1"># Exited the loop without successful routing.</span>
+    <span class="k">raise</span> <span class="p">(</span><span class="n">RoutingFailure</span><span class="p">)</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.schematics.gen_schematic</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016-2023, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,286 @@
+
+
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>skidl.skidlbaseobj &#8212; SKiDL 1.2.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css" />
+    
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../../"><img src="../../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.skidlbaseobj</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for skidl.skidlbaseobj</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Base object for Circuit, Interface, Package, Part, Net, Bus, Pin objects.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># isort:skip</span>
+    <span class="n">absolute_import</span><span class="p">,</span>
+    <span class="n">division</span><span class="p">,</span>
+    <span class="n">print_function</span><span class="p">,</span>
+    <span class="n">unicode_literals</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">object</span><span class="p">,</span> <span class="nb">range</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">super</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+
+<span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
+
+<span class="kn">from</span> <span class="nn">.alias</span> <span class="kn">import</span> <span class="n">Alias</span>
+<span class="kn">from</span> <span class="nn">.note</span> <span class="kn">import</span> <span class="n">Note</span>
+<span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="n">export_to_all</span>
+
+<span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;OK&quot;</span><span class="p">,</span> <span class="s2">&quot;WARNING&quot;</span><span class="p">,</span> <span class="s2">&quot;ERROR&quot;</span><span class="p">]</span>
+
+<span class="n">OK</span><span class="p">,</span> <span class="n">WARNING</span><span class="p">,</span> <span class="n">ERROR</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+
+
+<div class="viewcode-block" id="SkidlBaseObject"><a class="viewcode-back" href="../../rst_output/skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">class</span> <span class="nc">SkidlBaseObject</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="c1"># These are fallback lists so every object will have them to reference.</span>
+    <span class="n">erc_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="n">erc_assertion_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fields</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Don&#39;t use super()!! It leads to long run times on Python 2.7.</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="s2">&quot;fields&quot;</span><span class="p">)[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span>
+
+    <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;fields&quot;</span> <span class="ow">or</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+
+    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nm</span><span class="p">):</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>  <span class="c1"># Remove any pre-existing name.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">aliases</span> <span class="o">+=</span> <span class="n">nm</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">nm</span>
+
+    <span class="nd">@name</span><span class="o">.</span><span class="n">deleter</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">aliases</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_aliases</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Alias</span><span class="p">([])</span>  <span class="c1"># No aliases, so just return an empty list.</span>
+
+    <span class="nd">@aliases</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_or_list</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">name_or_list</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_aliases</span> <span class="o">=</span> <span class="n">Alias</span><span class="p">(</span><span class="n">name_or_list</span><span class="p">)</span>
+
+    <span class="nd">@aliases</span><span class="o">.</span><span class="n">deleter</span>
+    <span class="k">def</span> <span class="nf">aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_aliases</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">notes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_notes</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Note</span><span class="p">([])</span>  <span class="c1"># No notes, so just return empty list.</span>
+
+    <span class="nd">@notes</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">notes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text_or_notes</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">text_or_notes</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_notes</span> <span class="o">=</span> <span class="n">Note</span><span class="p">(</span><span class="n">text_or_notes</span><span class="p">)</span>
+
+    <span class="nd">@notes</span><span class="o">.</span><span class="n">deleter</span>
+    <span class="k">def</span> <span class="nf">notes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_notes</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+<div class="viewcode-block" id="SkidlBaseObject.copy"><a class="viewcode-back" href="../../rst_output/skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cpy</span> <span class="o">=</span> <span class="n">SkidlBaseObject</span><span class="p">()</span>
+        <span class="n">cpy</span><span class="o">.</span><span class="n">fields</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cpy</span><span class="o">.</span><span class="n">aliases</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">aliases</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cpy</span><span class="o">.</span><span class="n">notes</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">notes</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">return</span> <span class="n">cpy</span></div>
+
+<div class="viewcode-block" id="SkidlBaseObject.ERC"><a class="viewcode-back" href="../../rst_output/skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject.ERC">[docs]</a>    <span class="k">def</span> <span class="nf">ERC</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Run ERC on this object.&quot;&quot;&quot;</span>
+
+        <span class="c1"># Run ERC functions.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_exec_erc_functions</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># Run ERC assertions.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_eval_erc_assertions</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="SkidlBaseObject.add_erc_function"><a class="viewcode-back" href="../../rst_output/skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject.add_erc_function">[docs]</a>    <span class="k">def</span> <span class="nf">add_erc_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add an ERC function to a class or class instance.&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">erc_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">func</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SkidlBaseObject.add_erc_assertion"><a class="viewcode-back" href="../../rst_output/skidl.skidlbaseobj.html#skidl.skidlbaseobj.SkidlBaseObject.add_erc_assertion">[docs]</a>    <span class="k">def</span> <span class="nf">add_erc_assertion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">assertion</span><span class="p">,</span> <span class="n">fail_msg</span><span class="o">=</span><span class="s2">&quot;FAILED&quot;</span><span class="p">,</span> <span class="n">severity</span><span class="o">=</span><span class="n">ERROR</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add an ERC assertion to a class or class instance.&quot;&quot;&quot;</span>
+
+        <span class="c1"># Tuple for storing assertion code object with its global &amp; local dicts.</span>
+        <span class="n">EvalTuple</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span>
+            <span class="s2">&quot;EvalTuple&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;stmnt fail_msg severity filename lineno function globals locals&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">assertion_frame</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">lineno</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">erc_assertion_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">EvalTuple</span><span class="p">(</span>
+                <span class="n">assertion</span><span class="p">,</span>
+                <span class="n">fail_msg</span><span class="p">,</span>
+                <span class="n">severity</span><span class="p">,</span>
+                <span class="n">filename</span><span class="p">,</span>
+                <span class="n">lineno</span><span class="p">,</span>
+                <span class="n">function</span><span class="p">,</span>
+                <span class="n">assertion_frame</span><span class="o">.</span><span class="n">f_globals</span><span class="p">,</span>
+                <span class="n">assertion_frame</span><span class="o">.</span><span class="n">f_locals</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_eval_erc_assertions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Evaluate assertions for this object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
+
+        <span class="k">def</span> <span class="nf">erc_report</span><span class="p">(</span><span class="n">evtpl</span><span class="p">):</span>
+            <span class="n">log_msg</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{evtpl.stmnt}</span><span class="s2"> </span><span class="si">{evtpl.fail_msg}</span><span class="s2"> in </span><span class="si">{evtpl.filename}</span><span class="s2">:</span><span class="si">{evtpl.lineno}</span><span class="s2">:</span><span class="si">{evtpl.function}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">evtpl</span><span class="o">=</span><span class="n">evtpl</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">evtpl</span><span class="o">.</span><span class="n">severity</span> <span class="o">==</span> <span class="n">ERROR</span><span class="p">:</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">log_msg</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">evtpl</span><span class="o">.</span><span class="n">severity</span> <span class="o">==</span> <span class="n">WARNING</span><span class="p">:</span>
+                <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">log_msg</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">evtpl</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">erc_assertion_list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">eval</span><span class="p">(</span><span class="n">evtpl</span><span class="o">.</span><span class="n">stmnt</span><span class="p">,</span> <span class="n">evtpl</span><span class="o">.</span><span class="n">globals</span><span class="p">,</span> <span class="n">evtpl</span><span class="o">.</span><span class="n">locals</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="n">erc_report</span><span class="p">(</span><span class="n">evtpl</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_exec_erc_functions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Execute ERC functions on a class instance.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            args, kwargs: Arbitary argument lists to pass to the functions</span>
+<span class="sd">                that are executed. (All functions get the same arguments.)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Execute any instance functions for this particular instance.</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">erc_list</span><span class="p">:</span>
+            <span class="n">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.skidlbaseobj</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016-2023, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    </div>
+  </body>
+</html>

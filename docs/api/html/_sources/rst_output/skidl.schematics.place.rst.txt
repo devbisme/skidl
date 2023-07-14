@@ -1,0 +1,7 @@
+skidl.schematics.place module
+=============================
+
+.. automodule:: skidl.schematics.place
+   :members:
+   :undoc-members:
+   :show-inheritance:

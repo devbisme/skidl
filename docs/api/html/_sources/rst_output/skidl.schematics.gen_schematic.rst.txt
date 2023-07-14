@@ -1,0 +1,7 @@
+skidl.schematics.gen\_schematic module
+======================================
+
+.. automodule:: skidl.schematics.gen_schematic
+   :members:
+   :undoc-members:
+   :show-inheritance:

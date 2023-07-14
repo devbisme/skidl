@@ -1,0 +1,183 @@
+
+
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>skidl.part_query module &#8212; SKiDL 1.2.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../"><img src="../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.part_query module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-skidl.part_query">
+<span id="skidl-part-query-module"></span><h1>skidl.part_query module<a class="headerlink" href="#module-skidl.part_query" title="Permalink to this heading">¶</a></h1>
+<p>Functions for finding/displaying parts and footprints.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.part_query.search">
+<span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">terms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.part_query.search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print a list of parts with the regex terms within their name, alias, description or keywords.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.part_query.search_footprints">
+<span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">search_footprints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">terms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#search_footprints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.search_footprints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print a list of footprints with the regex term within their description/tags.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.part_query.search_footprints_iter">
+<span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">search_footprints_iter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">terms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#search_footprints_iter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.search_footprints_iter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of (lib, footprint) sequences that match a regex term.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.part_query.search_parts">
+<span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">search_parts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">terms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#search_parts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.search_parts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print a list of parts with the regex terms within their name, alias, description or keywords.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.part_query.search_parts_iter">
+<span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">search_parts_iter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">terms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#search_parts_iter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.search_parts_iter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of (lib, part) sequences that match a regex term.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.part_query.show">
+<span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">part_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.part_query.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the I/O pins for a given part in a library.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lib</strong> – Either a SchLib object or the name of a library.</p></li>
+<li><p><strong>part_name</strong> – The name of the part in the library.</p></li>
+<li><p><strong>tool</strong> – The ECAD tool format for the library.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A Part object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.part_query.show_footprint">
+<span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">show_footprint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#show_footprint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.show_footprint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the pads for a given module in a library.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lib</strong> – The name of a library.</p></li>
+<li><p><strong>module_name</strong> – The name of the footprint in the library.</p></li>
+<li><p><strong>tool</strong> – The ECAD tool format for the library.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A Part object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.part_query.show_part">
+<span class="sig-prename descclassname"><span class="pre">skidl.part_query.</span></span><span class="sig-name descname"><span class="pre">show_part</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">part_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/part_query.html#show_part"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.part_query.show_part" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the I/O pins for a given part in a library.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lib</strong> – Either a SchLib object or the name of a library.</p></li>
+<li><p><strong>part_name</strong> – The name of the part in the library.</p></li>
+<li><p><strong>tool</strong> – The ECAD tool format for the library.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A Part object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/rst_output/skidl.part_query.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.part_query module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016-2023, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    </div>
+  </body>
+</html>

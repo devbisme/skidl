@@ -1,0 +1,458 @@
+
+
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>skidl.schematics.debug_draw &#8212; SKiDL 1.2.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css" />
+    
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../../../"><img src="../../../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.schematics.debug_draw</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for skidl.schematics.debug_draw</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># The MIT License (MIT) - Copyright (c) 2022 Dave Vandenbout.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Drawing routines used for debugging place &amp; route.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># isort:skip</span>
+    <span class="n">absolute_import</span><span class="p">,</span>
+    <span class="n">division</span><span class="p">,</span>
+    <span class="n">print_function</span><span class="p">,</span>
+    <span class="n">unicode_literals</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">range</span><span class="p">,</span> <span class="nb">super</span><span class="p">,</span> <span class="nb">zip</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span><span class="p">,</span> <span class="n">zip_longest</span>
+<span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">choice</span><span class="p">,</span> <span class="n">randint</span>
+
+<span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
+
+<span class="kn">from</span> <span class="nn">..part</span> <span class="kn">import</span> <span class="n">Part</span>
+<span class="kn">from</span> <span class="nn">..tools.kicad.constants</span> <span class="kn">import</span> <span class="n">GRID</span>
+<span class="kn">from</span> <span class="nn">..utilities</span> <span class="kn">import</span> <span class="n">export_to_all</span>
+<span class="kn">from</span> <span class="nn">.geometry</span> <span class="kn">import</span> <span class="n">BBox</span><span class="p">,</span> <span class="n">Point</span><span class="p">,</span> <span class="n">Segment</span><span class="p">,</span> <span class="n">Tx</span><span class="p">,</span> <span class="n">Vector</span>
+
+<span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
+
+
+<span class="c1"># Dictionary for storing colors to visually distinguish routed nets.</span>
+<span class="n">net_colors</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="p">(</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">)))</span>
+
+
+<div class="viewcode-block" id="draw_box"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_box">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">draw_box</span><span class="p">(</span><span class="n">bbox</span><span class="p">,</span> <span class="n">scr</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">192</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">192</span><span class="p">),</span> <span class="n">thickness</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw a box in the drawing area.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        bbox (BBox): Bounding box for the box.</span>
+<span class="sd">        scr (PyGame screen): Screen object for PyGame drawing.</span>
+<span class="sd">        tx (Tx): Transformation matrix from real to screen coords.</span>
+<span class="sd">        color (tuple, optional): Box color. Defaults to (192, 255, 192).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">bbox</span> <span class="o">=</span> <span class="n">bbox</span> <span class="o">*</span> <span class="n">tx</span>
+    <span class="n">corners</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="n">bbox</span><span class="o">.</span><span class="n">min</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">min</span><span class="o">.</span><span class="n">y</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">bbox</span><span class="o">.</span><span class="n">min</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">max</span><span class="o">.</span><span class="n">y</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">bbox</span><span class="o">.</span><span class="n">max</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">max</span><span class="o">.</span><span class="n">y</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">bbox</span><span class="o">.</span><span class="n">max</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">min</span><span class="o">.</span><span class="n">y</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">polygon</span><span class="p">(</span><span class="n">scr</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">corners</span><span class="p">,</span> <span class="n">thickness</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="draw_endpoint"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_endpoint">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">draw_endpoint</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="n">scr</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">dot_radius</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw a line segment endpoint in the drawing area.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pt (Point): A point with (x,y) coords.</span>
+<span class="sd">        scr (PyGame screen): Screen object for PyGame drawing.</span>
+<span class="sd">        tx (Tx): Transformation matrix from real to screen coords.</span>
+<span class="sd">        color (tuple, optional): Segment color. Defaults to (192, 255, 192).</span>
+<span class="sd">        dot_Radius (int, optional): Endpoint dot radius. Defaults to 3.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">pt</span> <span class="o">=</span> <span class="n">pt</span> <span class="o">*</span> <span class="n">tx</span>  <span class="c1"># Convert to drawing coords.</span>
+
+    <span class="c1"># Draw diamond for terminal.</span>
+    <span class="n">sz</span> <span class="o">=</span> <span class="n">dot_radius</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">tx</span><span class="o">.</span><span class="n">a</span>  <span class="c1"># Scale for drawing coords.</span>
+    <span class="n">corners</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">sz</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">sz</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">y</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">sz</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">sz</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">y</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">polygon</span><span class="p">(</span><span class="n">scr</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">corners</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># Draw dot for terminal.</span>
+    <span class="n">radius</span> <span class="o">=</span> <span class="n">dot_radius</span> <span class="o">*</span> <span class="n">tx</span><span class="o">.</span><span class="n">a</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">scr</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">y</span><span class="p">),</span> <span class="n">radius</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="draw_seg"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_seg">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">draw_seg</span><span class="p">(</span><span class="n">seg</span><span class="p">,</span> <span class="n">scr</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">thickness</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">dot_radius</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw a line segment in the drawing area.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        seg (Segment, Interval, NetInterval): An object with two endpoints.</span>
+<span class="sd">        scr (PyGame screen): Screen object for PyGame drawing.</span>
+<span class="sd">        tx (Tx): Transformation matrix from real to screen coords.</span>
+<span class="sd">        color (tuple, optional): Segment color. Defaults to (192, 255, 192).</span>
+<span class="sd">        seg_thickness (int, optional): Segment line thickness. Defaults to 5.</span>
+<span class="sd">        dot_Radius (int, optional): Endpoint dot radius. Defaults to 3.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Use net color if object has a net. Otherwise use input color.</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">net_colors</span><span class="p">[</span><span class="n">seg</span><span class="o">.</span><span class="n">net</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="c1"># draw endpoints.</span>
+    <span class="n">draw_endpoint</span><span class="p">(</span><span class="n">seg</span><span class="o">.</span><span class="n">p1</span><span class="p">,</span> <span class="n">scr</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">dot_radius</span><span class="o">=</span><span class="n">dot_radius</span><span class="p">)</span>
+    <span class="n">draw_endpoint</span><span class="p">(</span><span class="n">seg</span><span class="o">.</span><span class="n">p2</span><span class="p">,</span> <span class="n">scr</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">dot_radius</span><span class="o">=</span><span class="n">dot_radius</span><span class="p">)</span>
+
+    <span class="c1"># Transform segment coords to screen coords.</span>
+    <span class="n">seg</span> <span class="o">=</span> <span class="n">seg</span> <span class="o">*</span> <span class="n">tx</span>
+
+    <span class="c1"># Draw segment.</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">(</span>
+        <span class="n">scr</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="p">(</span><span class="n">seg</span><span class="o">.</span><span class="n">p1</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">seg</span><span class="o">.</span><span class="n">p1</span><span class="o">.</span><span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="n">seg</span><span class="o">.</span><span class="n">p2</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">seg</span><span class="o">.</span><span class="n">p2</span><span class="o">.</span><span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">thickness</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="draw_text"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_text">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">draw_text</span><span class="p">(</span><span class="n">txt</span><span class="p">,</span> <span class="n">pt</span><span class="p">,</span> <span class="n">scr</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">font</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Render text in drawing area.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        txt (str): Text string to be rendered.</span>
+<span class="sd">        pt (Point): Real or screen coord for start of rendered text.</span>
+<span class="sd">        scr (PyGame screen): Screen object for PyGame drawing.</span>
+<span class="sd">        tx (Tx): Transformation matrix from real to screen coords.</span>
+<span class="sd">        font (PyGame font): Font for rendering text.</span>
+<span class="sd">        color (tuple, optional): Segment color. Defaults to (100,100,100).</span>
+<span class="sd">        real (Boolean): If true, transform real pt to screen coords. Otherwise, pt is screen coords.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Transform real text starting point to screen coords.</span>
+    <span class="k">if</span> <span class="n">real</span><span class="p">:</span>
+        <span class="n">pt</span> <span class="o">=</span> <span class="n">pt</span> <span class="o">*</span> <span class="n">tx</span>
+
+    <span class="c1"># Render text.</span>
+    <span class="n">font</span><span class="o">.</span><span class="n">render_to</span><span class="p">(</span><span class="n">scr</span><span class="p">,</span> <span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">y</span><span class="p">),</span> <span class="n">txt</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="draw_part"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_part">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">draw_part</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">scr</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">font</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw part bounding box.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        part (Part): Part to draw.</span>
+<span class="sd">        scr (PyGame screen): Screen object for PyGame drawing.</span>
+<span class="sd">        tx (Tx): Transformation matrix from real to screen coords.</span>
+<span class="sd">        font (PyGame font): Font for rendering text.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tx_bbox</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;lbl_bbox&quot;</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;place_bbox&quot;</span><span class="p">,</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span> <span class="o">*</span> <span class="n">part</span><span class="o">.</span><span class="n">tx</span>
+    <span class="p">)</span>
+    <span class="n">draw_box</span><span class="p">(</span><span class="n">tx_bbox</span><span class="p">,</span> <span class="n">scr</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">180</span><span class="p">),</span> <span class="n">thickness</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">draw_box</span><span class="p">(</span><span class="n">tx_bbox</span><span class="p">,</span> <span class="n">scr</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">90</span><span class="p">),</span> <span class="n">thickness</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">draw_text</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">ref</span><span class="p">,</span> <span class="n">tx_bbox</span><span class="o">.</span><span class="n">ctr</span><span class="p">,</span> <span class="n">scr</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">font</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="s2">&quot;place_pt&quot;</span><span class="p">):</span>
+                <span class="n">pt</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">place_pt</span> <span class="o">*</span> <span class="n">part</span><span class="o">.</span><span class="n">tx</span>
+                <span class="n">draw_endpoint</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="n">scr</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="n">dot_radius</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="c1"># Probably trying to draw a block of parts which has no pins and can&#39;t iterate thru them.</span>
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="draw_net"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_net">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">draw_net</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">parts</span><span class="p">,</span> <span class="n">scr</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">font</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">thickness</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dot_radius</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw net and connected terminals.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        net (Net): Net of conmnected terminals.</span>
+<span class="sd">        parts (list): List of parts to which net will be drawn.</span>
+<span class="sd">        scr (PyGame screen): Screen object for PyGame drawing.</span>
+<span class="sd">        tx (Tx): Transformation matrix from real to screen coords.</span>
+<span class="sd">        font (PyGame font): Font for rendering text.</span>
+<span class="sd">        color (tuple, optional): Segment color. Defaults to (0,0,0).</span>
+<span class="sd">        thickness (int, optional): Thickness of net line. Defaults to 2.</span>
+<span class="sd">        dot_radius (int, optional): Radius of terminals on net. Defaults to 5.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pts</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
+        <span class="n">part</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">part</span>
+        <span class="k">if</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">:</span>
+            <span class="n">pt</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">route_pt</span> <span class="o">*</span> <span class="n">part</span><span class="o">.</span><span class="n">tx</span>
+            <span class="n">pts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">pt1</span><span class="p">,</span> <span class="n">pt2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pts</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">pts</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+        <span class="n">draw_seg</span><span class="p">(</span>
+            <span class="n">Segment</span><span class="p">(</span><span class="n">pt1</span><span class="p">,</span> <span class="n">pt2</span><span class="p">),</span>
+            <span class="n">scr</span><span class="p">,</span>
+            <span class="n">tx</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span>
+            <span class="n">thickness</span><span class="o">=</span><span class="n">thickness</span><span class="p">,</span>
+            <span class="n">dot_radius</span><span class="o">=</span><span class="n">dot_radius</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="draw_force"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_force">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">draw_force</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">force</span><span class="p">,</span> <span class="n">scr</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">font</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw force vector affecting a part.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        part (Part): The part affected by the force.</span>
+<span class="sd">        force (Vector): The force vector.</span>
+<span class="sd">        scr (PyGame screen): Screen object for PyGame drawing.</span>
+<span class="sd">        tx (Tx): Transformation matrix from real to screen coords.</span>
+<span class="sd">        font (PyGame font): Font for rendering text.</span>
+<span class="sd">        color (tuple, optional): Segment color. Defaults to (0,0,0).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">force</span> <span class="o">*=</span> <span class="mi">1</span>
+    <span class="n">anchor</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">place_bbox</span><span class="o">.</span><span class="n">ctr</span> <span class="o">*</span> <span class="n">part</span><span class="o">.</span><span class="n">tx</span>
+    <span class="n">draw_seg</span><span class="p">(</span>
+        <span class="n">Segment</span><span class="p">(</span><span class="n">anchor</span><span class="p">,</span> <span class="n">anchor</span> <span class="o">+</span> <span class="n">force</span><span class="p">),</span> <span class="n">scr</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">thickness</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">dot_radius</span><span class="o">=</span><span class="mi">5</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="draw_placement"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_placement">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">draw_placement</span><span class="p">(</span><span class="n">parts</span><span class="p">,</span> <span class="n">nets</span><span class="p">,</span> <span class="n">scr</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">font</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw placement of parts and interconnecting nets.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        parts (list): List of Part objects.</span>
+<span class="sd">        nets (list): List of Net objects.</span>
+<span class="sd">        scr (PyGame screen): Screen object for PyGame drawing.</span>
+<span class="sd">        tx (Tx): Transformation matrix from real to screen coords.</span>
+<span class="sd">        font (PyGame font): Font for rendering text.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">draw_clear</span><span class="p">(</span><span class="n">scr</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">:</span>
+        <span class="n">draw_part</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">scr</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">font</span><span class="p">)</span>
+        <span class="n">draw_force</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;force&quot;</span><span class="p">,</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="n">scr</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">font</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">nets</span><span class="p">:</span>
+        <span class="n">draw_net</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">parts</span><span class="p">,</span> <span class="n">scr</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">font</span><span class="p">)</span>
+    <span class="n">draw_redraw</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="draw_routing"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_routing">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">draw_routing</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">parts</span><span class="p">,</span> <span class="o">*</span><span class="n">other_stuff</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw routing for debugging purposes.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        node (Node): Hierarchical node.</span>
+<span class="sd">        bbox (BBox): Bounding box of drawing area.</span>
+<span class="sd">        node (Node): The Node being routed.</span>
+<span class="sd">        parts (list): List of Parts.</span>
+<span class="sd">        other_stuff (list): Other stuff with a draw() method.</span>
+<span class="sd">        options (dict, optional): Dictionary of options and values. Defaults to {}.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Initialize drawing area.</span>
+    <span class="n">draw_scr</span><span class="p">,</span> <span class="n">draw_tx</span><span class="p">,</span> <span class="n">draw_font</span> <span class="o">=</span> <span class="n">draw_start</span><span class="p">(</span><span class="n">bbox</span><span class="p">)</span>
+
+    <span class="c1"># Draw parts.</span>
+    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">:</span>
+        <span class="n">draw_part</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">draw_scr</span><span class="p">,</span> <span class="n">draw_tx</span><span class="p">,</span> <span class="n">draw_font</span><span class="p">)</span>
+
+    <span class="c1"># Draw wiring.</span>
+    <span class="k">for</span> <span class="n">wires</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">wires</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">wire</span> <span class="ow">in</span> <span class="n">wires</span><span class="p">:</span>
+            <span class="n">draw_seg</span><span class="p">(</span><span class="n">wire</span><span class="p">,</span> <span class="n">draw_scr</span><span class="p">,</span> <span class="n">draw_tx</span><span class="p">,</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">3</span><span class="p">,</span> <span class="n">dot_radius</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+    <span class="c1"># Draw other stuff (global routes, switchbox routes, etc.) that has a draw() method.</span>
+    <span class="k">for</span> <span class="n">stuff</span> <span class="ow">in</span> <span class="n">other_stuff</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">stuff</span><span class="p">:</span>
+            <span class="n">obj</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">draw_scr</span><span class="p">,</span> <span class="n">draw_tx</span><span class="p">,</span> <span class="n">draw_font</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+
+    <span class="n">draw_end</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="draw_clear"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_clear">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">draw_clear</span><span class="p">(</span><span class="n">scr</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">)):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Clear drawing area.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        scr (PyGame screen): Screen object to be cleared.</span>
+<span class="sd">        color (tuple, optional): Background color. Defaults to (255, 255, 255).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">scr</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">color</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="draw_start"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_start">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">draw_start</span><span class="p">(</span><span class="n">bbox</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initialize PyGame drawing area.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        bbox: Bounding box of object to be drawn.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        scr: PyGame screen that is drawn upon.</span>
+<span class="sd">        tx: Matrix to transform from real coords to screen coords.</span>
+<span class="sd">        font: PyGame font for rendering text.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Only import pygame if drawing is being done to avoid the startup message.</span>
+    <span class="kn">import</span> <span class="nn">pygame</span>
+    <span class="kn">import</span> <span class="nn">pygame.freetype</span>
+
+    <span class="c1"># Make pygame module available to other functions.</span>
+    <span class="nb">globals</span><span class="p">()[</span><span class="s2">&quot;pygame&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pygame</span>
+
+    <span class="c1"># Screen drawing area.</span>
+    <span class="n">scr_bbox</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">1500</span><span class="p">))</span>
+
+    <span class="c1"># Place a blank region around the object by expanding it&#39;s bounding box.</span>
+    <span class="n">border</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">bbox</span><span class="o">.</span><span class="n">w</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">h</span><span class="p">)</span> <span class="o">/</span> <span class="mi">20</span>
+    <span class="n">bbox</span> <span class="o">=</span> <span class="n">bbox</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="n">border</span><span class="p">,</span> <span class="n">border</span><span class="p">))</span>
+    <span class="n">bbox</span> <span class="o">=</span> <span class="n">bbox</span><span class="o">.</span><span class="n">round</span><span class="p">()</span>
+
+    <span class="c1"># Compute the scaling from real to screen coords.</span>
+    <span class="n">scale</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">scr_bbox</span><span class="o">.</span><span class="n">w</span> <span class="o">/</span> <span class="n">bbox</span><span class="o">.</span><span class="n">w</span><span class="p">,</span> <span class="n">scr_bbox</span><span class="o">.</span><span class="n">h</span> <span class="o">/</span> <span class="n">bbox</span><span class="o">.</span><span class="n">h</span><span class="p">)</span>
+    <span class="n">scale_tx</span> <span class="o">=</span> <span class="n">Tx</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="n">scale</span><span class="p">)</span>
+
+    <span class="c1"># Flip the Y coord.</span>
+    <span class="n">flip_tx</span> <span class="o">=</span> <span class="n">Tx</span><span class="p">(</span><span class="n">d</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Compute the translation of the object center to the drawing area center</span>
+    <span class="n">new_bbox</span> <span class="o">=</span> <span class="n">bbox</span> <span class="o">*</span> <span class="n">scale_tx</span> <span class="o">*</span> <span class="n">flip_tx</span>  <span class="c1"># Object bbox transformed to screen coords.</span>
+    <span class="n">move</span> <span class="o">=</span> <span class="n">scr_bbox</span><span class="o">.</span><span class="n">ctr</span> <span class="o">-</span> <span class="n">new_bbox</span><span class="o">.</span><span class="n">ctr</span>  <span class="c1"># Vector to move object ctr to drawing ctr.</span>
+    <span class="n">move_tx</span> <span class="o">=</span> <span class="n">Tx</span><span class="p">(</span><span class="n">dx</span><span class="o">=</span><span class="n">move</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">dy</span><span class="o">=</span><span class="n">move</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+
+    <span class="c1"># The final transformation matrix will scale the object&#39;s real coords,</span>
+    <span class="c1"># flip the Y coord, and then move the object to the center of the drawing area.</span>
+    <span class="n">tx</span> <span class="o">=</span> <span class="n">scale_tx</span> <span class="o">*</span> <span class="n">flip_tx</span> <span class="o">*</span> <span class="n">move_tx</span>
+
+    <span class="c1"># Initialize drawing area.</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+    <span class="n">scr</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="n">scr_bbox</span><span class="o">.</span><span class="n">w</span><span class="p">,</span> <span class="n">scr_bbox</span><span class="o">.</span><span class="n">h</span><span class="p">))</span>
+
+    <span class="c1"># Set font for text rendering.</span>
+    <span class="n">font</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">freetype</span><span class="o">.</span><span class="n">SysFont</span><span class="p">(</span><span class="s2">&quot;consolas&quot;</span><span class="p">,</span> <span class="mi">24</span><span class="p">)</span>
+
+    <span class="c1"># Clear drawing area.</span>
+    <span class="n">draw_clear</span><span class="p">(</span><span class="n">scr</span><span class="p">)</span>
+
+    <span class="c1"># Return drawing screen, transformation matrix, and font.</span>
+    <span class="k">return</span> <span class="n">scr</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">font</span></div>
+
+
+<div class="viewcode-block" id="draw_redraw"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_redraw">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">draw_redraw</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Redraw the PyGame display.&quot;&quot;&quot;</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="draw_pause"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_pause">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">draw_pause</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Pause drawing and then resume after button press.&quot;&quot;&quot;</span>
+
+    <span class="c1"># Display drawing.</span>
+    <span class="n">draw_redraw</span><span class="p">()</span>
+
+    <span class="c1"># Wait for user to press a key or close PyGame window.</span>
+    <span class="n">running</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">while</span> <span class="n">running</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">pygame</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">KEYDOWN</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">QUIT</span><span class="p">):</span>
+                <span class="n">running</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="draw_end"><a class="viewcode-back" href="../../../rst_output/skidl.schematics.debug_draw.html#skidl.schematics.debug_draw.draw_end">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">draw_end</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Display drawing and wait for user to close PyGame window.&quot;&quot;&quot;</span>
+
+    <span class="n">draw_pause</span><span class="p">()</span>
+    <span class="n">pygame</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.schematics.debug_draw</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016-2023, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    </div>
+  </body>
+</html>
