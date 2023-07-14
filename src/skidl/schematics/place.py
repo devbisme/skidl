@@ -284,11 +284,6 @@ def adjust_orientations(parts, **options):
         bool: True if one or more part orientations were changed. Otherwise, False.
     """
 
-    # Get PyGame screen, real-to-screen coord Tx matrix, font for debug drawing.
-    scr = options.get("draw_scr")
-    tx = options.get("draw_tx")
-    font = options.get("draw_font")
-
     def find_best_orientation(part):
         """Each part has 8 possible orientations. Find the best of the 7 alternatives from the starting one."""
 
@@ -304,8 +299,6 @@ def adjust_orientations(parts, **options):
         calc_starting_cost = True
         for i in range(2):
             for j in range(4):
-                if scr:
-                    draw_placement(parts, [], scr, tx, font)
 
                 if calc_starting_cost:
                     # Calculate the cost of the starting orientation before any changes in orientation.
@@ -340,8 +333,6 @@ def adjust_orientations(parts, **options):
         # No movable parts, so exit without doing anything.
         return
 
-    orientation_cost_history = []
-
     # Kernighan-Lin algorithm for finding near-optimal part orientations.
     # Because of the way the tension for part alignment is computed based on
     # the nearest part, it is possible for an infinite loop to occur.
@@ -368,9 +359,7 @@ def adjust_orientations(parts, **options):
         # Find the point at which the cost reaches its lowest point.
         # delta_cost at location i is the change in cost *before* part i is moved.
         # Start with cost change of zero before any parts are moved.
-        delta_costs = [
-            0,
-        ]  # Start with delta cost for null move.
+        delta_costs = [0,]
         delta_costs.extend((part.delta_cost for part in moved_parts))
         try:
             cost_seq = list(itertools.accumulate(delta_costs))
@@ -386,17 +375,9 @@ def adjust_orientations(parts, **options):
         for part in moved_parts[min_index:]:
             part.tx = part.prev_tx
 
-        orientation_cost_history.append(min_cost)
-
         # Terminate the search if no part orientations were changed.
         if min_index == 0:
             break
-
-    if options.get("show_orientation_cost"):
-        import matplotlib.pyplot as plt
-
-        plt.scatter(range(len(orientation_cost_history)), orientation_cost_history)
-        plt.show()
 
     rmv_attr(parts, ("prev_tx", "delta_cost", "delta_cost_tx"))
 
@@ -880,6 +861,8 @@ def push_and_pull(anchored_parts, mobile_parts, nets, force_func, **options):
         # (0.25, 0.7, 0.01, True, (0,1)), # Align parts vert.
         (0.25, 1.0, 0.01, False, (1, 1)),  # Remove any part overlaps.
     ]
+    # N = 7
+    # force_schedule = [(0.50, i/N, 0.01, False, (1,1)) for i in range(N+1)]
 
     # Step through the alpha sequence going from all-attractive to all-repulsive forces.
     for speed, alpha, stability_coef, align_parts, force_mask in force_schedule:
@@ -889,10 +872,6 @@ def push_and_pull(anchored_parts, mobile_parts, nets, force_func, **options):
         else:
             # For general placement, use forces between all anchor/pull pins.
             restore_anchor_pull_pins(mobile_parts)
-
-        # Clear the average movement vectors of all the parts.
-        for part in mobile_parts:
-            part.mv_avg = Vector(0, 0)
 
         # This stores the threshold below which all the parts are assumed to be stabilized.
         # Since it can never be negative, set it to -1 to indicate it's uninitialized.
@@ -925,22 +904,6 @@ def push_and_pull(anchored_parts, mobile_parts, nets, force_func, **options):
                 part.mv = part.force * speed
                 part.tx *= Tx(dx=part.mv.x, dy=part.mv.y)
 
-            if scr:
-                # Draw current part placement for debugging purposes.
-                draw_placement(parts, nets, scr, tx, font)
-                draw_text(
-                    "alpha:{alpha:3.2f} iter:{_} force:{sum_of_forces:.1f} stable:{stable_threshold}".format(
-                        **locals()
-                    ),
-                    txt_org,
-                    scr,
-                    tx,
-                    font,
-                    color=(0, 0, 0),
-                    real=False,
-                )
-                draw_redraw()
-
             # Keep iterating until all the parts are still.
             if stable_threshold < 0:
                 # Set the threshold after the first iteration.
@@ -954,6 +917,22 @@ def push_and_pull(anchored_parts, mobile_parts, nets, force_func, **options):
                 # spreading out. This can happen if speed is too large, so reduce it so
                 # the forces may start to decrease.
                 speed *= 0.50
+
+        if scr:
+            # Draw current part placement for debugging purposes.
+            draw_placement(parts, nets, scr, tx, font)
+            draw_text(
+                "alpha:{alpha:3.2f} iter:{_} force:{sum_of_forces:.1f} stable:{stable_threshold}".format(
+                    **locals()
+                ),
+                txt_org,
+                scr,
+                tx,
+                font,
+                color=(0, 0, 0),
+                real=False,
+            )
+            draw_redraw()
 
 
 def evolve_placement(anchored_parts, mobile_parts, nets, force_func, **options):
@@ -1058,7 +1037,7 @@ def place_net_terminals(net_terminals, placed_parts, nets, force_func, **options
     def evolution(net_terminals, placed_parts, bbox):
         """Evolve placement of NetTerminals starting from outermost from center to innermost."""
 
-        evolution_type = options.get("terminal_evolution", "outer_to_inner")
+        evolution_type = options.get("terminal_evolution", "all_at_once")
 
         if evolution_type == "all_at_once":
             evolve_placement(
@@ -1478,7 +1457,7 @@ class Placer:
             rmv_attr(part.pins, ("route_pt", "place_pt"))
         rmv_attr(
             node.parts,
-            ("anchor_pins", "pull_pins", "pin_ctrs", "force", "mv", "mv_avg"),
+            ("anchor_pins", "pull_pins", "pin_ctrs", "force", "mv"),
         )
         rmv_attr(node.get_internal_nets(), ("parts",))
 

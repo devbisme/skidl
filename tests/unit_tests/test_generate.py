@@ -56,7 +56,6 @@ sch_options["retries"] = 3
 # sch_options["fanout_attenuation"] = True
 # sch_options["remove_power"] = True
 # sch_options["remove_high_fanout"] = True
-# sch_options["show_orientation_cost"] = True
 # sch_options["collect_stats"] = True
 if os.getenv("DEBUG_DRAW"):
     # These options control debugging output.
@@ -370,18 +369,22 @@ def test_gen_sch_place_2():
 
 @pytest.mark.xfail(raises=(RoutingFailure))
 def test_gen_sch_very_simple():
-    r = Part(
-        "Device.lib", "R", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE
+    q = Part(
+        lib="Device.lib",
+        name="Q_PNP_CBE",
+        footprint="Package_TO_SOT_SMD:SOT-223-3_TabPin2",
+        dest=TEMPLATE,
+        value="",
+        # value="Q_NPN_CBE",
     )
-    # gndt = Part("power", "GND", footprint="TestPoint:TestPoint_Pad_D4.0mm")
-    # vcct = Part("power", "VCC", footprint="TestPoint:TestPoint_Pad_D4.0mm")
+    r = Part(
+        "Device.lib", "R", value="", footprint="Resistor_SMD:R_0805_2012Metric", dest=TEMPLATE
+    )
+    gndt = Part("power", "GND", footprint="TestPoint:TestPoint_Pad_D4.0mm", dest=TEMPLATE)
+    # vcct = Part("power", "VCC", footprint="TestPoint:TestPoint_Pad_D4.0mm", dest=TEMPLATE)
 
-    # gnd = Net("GND")
-    # vcc = Net("VCC")
-    # gnd & gndt
-    # vcc & vcct
-    # gnd & r() & vcc
-    r() & r() & r() & r()
+    q1 = q()
+    (r() | r()) & q1["B,E"] & r()  & gndt()
     create_schematic(flatness=1.0)
 
 
