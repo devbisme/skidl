@@ -39,7 +39,7 @@ create a finished circuit board.
   - [Hierarchy](#hierarchy)
     - [Subcircuits](#subcircuits)
     - [Packages](#packages)
-  - [Groups](#groups)
+    - [Groups](#groups)
   - [Interfaces](#interfaces)
   - [Libraries](#libraries)
   - [Doodads](#doodads)
@@ -1617,7 +1617,7 @@ divider.ratio = 0.5
 generate_netlist(file_=sys.stdout)
 ```
 
-## Groups
+### Groups
 
 If you want to inject some hierarchy in your design but don't want
 to bother with creating and calling a function, then *groups* are for you!
