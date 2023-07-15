@@ -2,17 +2,18 @@
 
 <!doctype html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.bus &#8212; SKiDL  documentation</title>
+    <title>skidl.bus &#8212; SKiDL 1.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css" />
     
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -33,7 +34,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.bus</a></li> 
       </ul>
@@ -60,18 +61,29 @@
     <span class="n">unicode_literals</span><span class="p">,</span>
 <span class="p">)</span>
 
+<span class="kn">import</span> <span class="nn">builtins</span>
+<span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">range</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">super</span>
 
 <span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
 
 <span class="kn">from</span> <span class="nn">.alias</span> <span class="kn">import</span> <span class="n">Alias</span>
-<span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
 <span class="kn">from</span> <span class="nn">.net</span> <span class="kn">import</span> <span class="n">NET_PREFIX</span><span class="p">,</span> <span class="n">Net</span>
 <span class="kn">from</span> <span class="nn">.netpinlist</span> <span class="kn">import</span> <span class="n">NetPinList</span>
 <span class="kn">from</span> <span class="nn">.pin</span> <span class="kn">import</span> <span class="n">Pin</span>
 <span class="kn">from</span> <span class="nn">.skidlbaseobj</span> <span class="kn">import</span> <span class="n">SkidlBaseObject</span>
-<span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">expand_indices</span><span class="p">,</span>
+    <span class="n">export_to_all</span><span class="p">,</span>
+    <span class="n">filter_list</span><span class="p">,</span>
+    <span class="n">find_num_copies</span><span class="p">,</span>
+    <span class="n">flatten</span><span class="p">,</span>
+    <span class="n">from_iadd</span><span class="p">,</span>
+    <span class="n">get_unique_name</span><span class="p">,</span>
+    <span class="n">list_or_scalar</span><span class="p">,</span>
+    <span class="n">rmv_iadd</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="c1"># Prefix for implicit buses.</span>
 <span class="n">BUS_PREFIX</span> <span class="o">=</span> <span class="s2">&quot;B$&quot;</span>
@@ -80,8 +92,12 @@
 <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
 
 
-<div class="viewcode-block" id="Bus"><a class="viewcode-back" href="../../rst_output/skidl.bus.html#skidl.bus.Bus">[docs]</a><span class="k">class</span> <span class="nc">Bus</span><span class="p">(</span><span class="n">SkidlBaseObject</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;BUS_PREFIX&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="Bus"><a class="viewcode-back" href="../../rst_output/skidl.bus.html#skidl.bus.Bus">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">class</span> <span class="nc">Bus</span><span class="p">(</span><span class="n">SkidlBaseObject</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class collects one or more nets into a group that can be indexed.</span>
 
 <span class="sd">    Args:</span>
@@ -102,10 +118,9 @@
 
 <div class="viewcode-block" id="Bus.get"><a class="viewcode-back" href="../../rst_output/skidl.bus.html#skidl.bus.Bus.get">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">circuit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get the bus with the given name from a circuit, or return None.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the bus with the given name from a circuit, or return None.&quot;&quot;&quot;</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">circuit</span><span class="p">:</span>
-            <span class="n">circuit</span> <span class="o">=</span> <span class="n">builtins</span><span class="o">.</span><span class="n">default_circuit</span>
+        <span class="n">circuit</span> <span class="o">=</span> <span class="n">circuit</span> <span class="ow">or</span> <span class="n">default_circuit</span>
 
         <span class="n">search_params</span> <span class="o">=</span> <span class="p">(</span>
             <span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
@@ -125,9 +140,9 @@
 
 <div class="viewcode-block" id="Bus.fetch"><a class="viewcode-back" href="../../rst_output/skidl.bus.html#skidl.bus.Bus.fetch">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get the bus with the given name from a circuit, or create it if not found.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the bus with the given name from a circuit, or create it if not found.&quot;&quot;&quot;</span>
 
-        <span class="n">circuit</span> <span class="o">=</span> <span class="n">attribs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;circuit&quot;</span><span class="p">,</span> <span class="n">builtins</span><span class="o">.</span><span class="n">default_circuit</span><span class="p">)</span>
+        <span class="n">circuit</span> <span class="o">=</span> <span class="n">attribs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;circuit&quot;</span><span class="p">,</span> <span class="n">default_circuit</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">circuit</span><span class="o">=</span><span class="n">circuit</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">cls</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
@@ -173,11 +188,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Bus.extend"><a class="viewcode-back" href="../../rst_output/skidl.bus.html#skidl.bus.Bus.extend">[docs]</a>    <span class="k">def</span> <span class="nf">extend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">objects</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Extend bus by appending objects to the end (MSB).&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extend bus by appending objects to the end (MSB).&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">),</span> <span class="n">objects</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Bus.insert"><a class="viewcode-back" href="../../rst_output/skidl.bus.html#skidl.bus.Bus.insert">[docs]</a>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="o">*</span><span class="n">objects</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Insert objects into bus starting at indexed position.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Insert objects into bus starting at indexed position.&quot;&quot;&quot;</span>
 
         <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">flatten</span><span class="p">(</span><span class="n">objects</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
@@ -224,15 +239,19 @@
                 <span class="n">net</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="n">sep</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Bus.get_nets"><a class="viewcode-back" href="../../rst_output/skidl.bus.html#skidl.bus.Bus.get_nets">[docs]</a>    <span class="k">def</span> <span class="nf">get_nets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return the list of nets contained in this bus.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the list of nets contained in this bus.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">to_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Bus.get_pins"><a class="viewcode-back" href="../../rst_output/skidl.bus.html#skidl.bus.Bus.get_pins">[docs]</a>    <span class="k">def</span> <span class="nf">get_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;It&#39;s an error to get the list of pins attached to all bus lines.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;It&#39;s an error to get the list of pins attached to all bus lines.&quot;&quot;&quot;</span>
         <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span><span class="s2">&quot;Can&#39;t get the list of pins on a bus!&quot;</span><span class="p">)</span></div>
 
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">pins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_pins</span><span class="p">()</span>
+
 <div class="viewcode-block" id="Bus.copy"><a class="viewcode-back" href="../../rst_output/skidl.bus.html#skidl.bus.Bus.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_copies</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Make zero or more copies of this bus.</span>
 
 <span class="sd">        Args:</span>
@@ -320,7 +339,7 @@
     <span class="fm">__rmul__</span> <span class="o">=</span> <span class="fm">__mul__</span>
 
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">ids</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a bus made up of the nets at the given indices.</span>
 
 <span class="sd">        Args:</span>
@@ -355,7 +374,7 @@
         <span class="k">return</span> <span class="n">NetPinList</span><span class="p">(</span><span class="n">nets</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">pins_nets_buses</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        You can&#39;t assign to bus lines. You must use the += operator.</span>
 
 <span class="sd">        This method is a work-around that allows the use of the += for making</span>
@@ -386,13 +405,13 @@
         <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t assign to a bus! Use the += operator.&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return an iterator for stepping thru individual lines of the bus.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)))</span>  <span class="c1"># Return generator expr.</span>
 
 <div class="viewcode-block" id="Bus.is_movable"><a class="viewcode-back" href="../../rst_output/skidl.bus.html#skidl.bus.Bus.is_movable">[docs]</a>    <span class="k">def</span> <span class="nf">is_movable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return true if the bus is movable to another circuit.</span>
 
 <span class="sd">        A bus  is movable if all the nets in it are movable.</span>
@@ -404,13 +423,13 @@
         <span class="k">return</span> <span class="kc">True</span>  <span class="c1"># All the nets were movable.</span></div>
 
 <div class="viewcode-block" id="Bus.is_implicit"><a class="viewcode-back" href="../../rst_output/skidl.bus.html#skidl.bus.Bus.is_implicit">[docs]</a>    <span class="k">def</span> <span class="nf">is_implicit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return true if the bus name is implicit.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return true if the bus name is implicit.&quot;&quot;&quot;</span>
 
         <span class="n">prefix_re</span> <span class="o">=</span> <span class="s2">&quot;(</span><span class="si">{}</span><span class="s2">|</span><span class="si">{}</span><span class="s2">)+&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">NET_PREFIX</span><span class="p">),</span> <span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">BUS_PREFIX</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">prefix_re</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Bus.connect"><a class="viewcode-back" href="../../rst_output/skidl.bus.html#skidl.bus.Bus.connect">[docs]</a>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">pins_nets_buses</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the bus after connecting one or more nets, pins, or buses.</span>
 
 <span class="sd">        Args:</span>
@@ -437,46 +456,48 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get, set and delete the name of the bus.</span>
 
 <span class="sd">        When setting the bus name, if another bus with the same name</span>
 <span class="sd">        is found, the name for this bus is adjusted to make it unique.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Bus</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">name</span>
 
     <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="c1"># Remove the existing name so it doesn&#39;t cause a collision if the</span>
         <span class="c1"># object is renamed with its existing name.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
 
         <span class="c1"># Now name the object with the given name or some variation</span>
         <span class="c1"># of it that doesn&#39;t collide with anything else in the list.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">get_unique_name</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">buses</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">BUS_PREFIX</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Bus</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">fset</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">get_unique_name</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">buses</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">BUS_PREFIX</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="p">)</span>
 
     <span class="nd">@name</span><span class="o">.</span><span class="n">deleter</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Delete the bus name.&quot;&quot;&quot;</span>
-        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete the bus name.&quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Bus</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">fdel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return a list of the nets in this bus as a string.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of the nets in this bus as a string.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;:</span><span class="se">\n\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">n</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">])</span>
 
     <span class="fm">__repr__</span> <span class="o">=</span> <span class="fm">__str__</span>
 
     <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return the number of nets in this bus.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the number of nets in this bus.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return width of a Bus, which is the same as using the len() operator.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return width of a Bus, which is the same as using the len() operator.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Any valid Bus is True&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Any valid Bus is True&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="kc">True</span>
 
     <span class="n">__nonzero__</span> <span class="o">=</span> <span class="fm">__bool__</span>  <span class="c1"># Python 2 compatibility.</span></div>
@@ -497,7 +518,7 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -511,14 +532,14 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.bus</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2016-2021, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+        &#169; Copyright 2016-2023, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>
 </html>

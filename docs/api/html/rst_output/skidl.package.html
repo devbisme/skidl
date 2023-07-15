@@ -2,18 +2,19 @@
 
 <!doctype html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>skidl.package module &#8212; SKiDL  documentation</title>
+    <title>skidl.package module &#8212; SKiDL 1.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css" />
     
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -34,7 +35,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.package module</a></li> 
       </ul>
     </div>  
@@ -45,12 +46,12 @@
           <div class="body" role="main">
             
   <section id="module-skidl.package">
-<span id="skidl-package-module"></span><h1>skidl.package module<a class="headerlink" href="#module-skidl.package" title="Permalink to this headline">¶</a></h1>
+<span id="skidl-package-module"></span><h1>skidl.package module<a class="headerlink" href="#module-skidl.package" title="Permalink to this heading">¶</a></h1>
 <p>Package a subcircuit so it can be used like a Part.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.package.Package">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.package.</span></span><span class="sig-name descname"><span class="pre">Package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/package.html#Package"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.package.Package" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="skidl.interface.html#skidl.interface.Interface" title="skidl.interface.Interface"><code class="xref py py-class docutils literal notranslate"><span class="pre">skidl.interface.Interface</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="skidl.interface.html#skidl.interface.Interface" title="skidl.interface.Interface"><code class="xref py py-class docutils literal notranslate"><span class="pre">Interface</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.package.Package.is_movable">
 <span class="sig-name descname"><span class="pre">is_movable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/package.html#Package.is_movable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.package.Package.is_movable" title="Permalink to this definition">¶</a></dt>
@@ -62,6 +63,9 @@
 <dt class="sig sig-object py" id="skidl.package.package">
 <span class="sig-prename descclassname"><span class="pre">skidl.package.</span></span><span class="sig-name descname"><span class="pre">package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subcirc_func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/package.html#package"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.package.package" title="Permalink to this definition">¶</a></dt>
 <dd><p>Decorator that creates a package for a subcircuit routine.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 1.2.0: </span>This will be removed in 2.0.0. Use Interface instead.</p>
+</div>
 </dd></dl>
 
 </section>
@@ -89,7 +93,7 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -103,13 +107,13 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.package module</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2016-2021, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+        &#169; Copyright 2016-2023, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>
 </html>

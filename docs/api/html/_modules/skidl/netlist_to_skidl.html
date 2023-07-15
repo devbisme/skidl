@@ -2,17 +2,18 @@
 
 <!doctype html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.netlist_to_skidl &#8212; SKiDL  documentation</title>
+    <title>skidl.netlist_to_skidl &#8212; SKiDL 1.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css" />
     
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -33,7 +34,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.netlist_to_skidl</a></li> 
       </ul>
@@ -68,25 +69,27 @@
 <span class="kn">from</span> <span class="nn">kinparse</span> <span class="kn">import</span> <span class="n">parse_netlist</span>
 
 <span class="kn">from</span> <span class="nn">.part</span> <span class="kn">import</span> <span class="n">TEMPLATE</span>
+<span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="n">export_to_all</span>
 
 <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
 
 
-<div class="viewcode-block" id="netlist_to_skidl"><a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.netlist_to_skidl">[docs]</a><span class="k">def</span> <span class="nf">netlist_to_skidl</span><span class="p">(</span><span class="n">netlist_src</span><span class="p">):</span>
+<div class="viewcode-block" id="netlist_to_skidl"><a class="viewcode-back" href="../../rst_output/skidl.netlist_to_skidl.html#skidl.netlist_to_skidl.netlist_to_skidl">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">netlist_to_skidl</span><span class="p">(</span><span class="n">netlist_src</span><span class="p">):</span>
 
     <span class="n">tab</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">4</span>
 
     <span class="k">def</span> <span class="nf">legalize</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Make a string into a legal python variable name.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Make a string into a legal python variable name.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;[^a-zA-Z0-9_]&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">comp_key</span><span class="p">(</span><span class="n">comp</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Create an ID key from component&#39;s major characteristics.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create an ID key from component&#39;s major characteristics.&quot;&quot;&quot;</span>
         <span class="n">chars</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span><span class="n">comp</span><span class="o">.</span><span class="n">lib</span><span class="p">,</span> <span class="n">comp</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">comp</span><span class="o">.</span><span class="n">footprint</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">)]</span>
         <span class="k">return</span> <span class="n">legalize</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">chars</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">template_comp_to_skidl</span><span class="p">(</span><span class="n">template_comp</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Instantiate a component that will be used as a template.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Instantiate a component that will be used as a template.&quot;&quot;&quot;</span>
         <span class="n">ltab</span> <span class="o">=</span> <span class="n">tab</span>
 
         <span class="c1"># Instantiate component template.</span>
@@ -108,7 +111,7 @@
         <span class="k">return</span> <span class="n">tmpl</span>
 
     <span class="k">def</span> <span class="nf">comp_to_skidl</span><span class="p">(</span><span class="n">comp</span><span class="p">,</span> <span class="n">template_comps</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Instantiate components using the component templates.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Instantiate components using the component templates.&quot;&quot;&quot;</span>
         <span class="n">ltab</span> <span class="o">=</span> <span class="n">tab</span>
 
         <span class="c1"># Use the component key to get the template that matches this component.</span>
@@ -140,7 +143,7 @@
         <span class="k">return</span> <span class="n">inst</span>
 
     <span class="k">def</span> <span class="nf">net_to_skidl</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Instantiate the nets between components.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Instantiate the nets between components.&quot;&quot;&quot;</span>
 
         <span class="c1"># Build a list of component pins attached to the net.</span>
         <span class="n">pins</span> <span class="o">=</span> <span class="p">[]</span>
@@ -156,7 +159,7 @@
         <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{ltab}</span><span class="s2">Net(&#39;</span><span class="si">{net.name}</span><span class="s2">&#39;).connect(</span><span class="si">{pins}</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
 
     <span class="k">def</span> <span class="nf">_netlist_to_skidl</span><span class="p">(</span><span class="n">ntlst</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Convert a netlist into a skidl script.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert a netlist into a skidl script.&quot;&quot;&quot;</span>
 
         <span class="c1"># Sequence of operations:</span>
         <span class="c1">#   1. Create a template for each component having a given library, part name and footprint.</span>
@@ -227,7 +230,7 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -241,14 +244,14 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.netlist_to_skidl</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2016-2021, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+        &#169; Copyright 2016-2023, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>
 </html>

@@ -5,12 +5,12 @@ import sys
 
 import setuptools
 
-__version__ = "1.1.0"
+__version__ = "1.2.0"
 __author__ = "Dave Vandenbout"
 __email__ = "devb@xess.com"
 
 if "sdist" in sys.argv[1:]:
-    with open("skidl/pckg_info.py", "w") as f:
+    with open("src/skidl/pckg_info.py", "w") as f:
         for name in ["__version__", "__author__", "__email__"]:
             f.write('{} = "{}"\n'.format(name, locals()[name]))
 
@@ -28,11 +28,13 @@ with open("HISTORY.rst") as history_file:
 
 requirements = [
     "future >= 0.15.0",
+    "sexpdata == 1.0.0",
     "kinparse >= 0.1.0",
-    "kinet2pcb",
+    "kinet2pcb >= 1.1.0",
     'enum34; python_version < "3.0"',
     #'PySpice; python_version >= "3.0"',
     "graphviz",
+    "deprecation",
 ]
 
 test_requirements = [
@@ -53,14 +55,16 @@ setup(
         "Changelog": "https://github.com/devbisme/skidl/blob/master/HISTORY.rst",
         "Tracker": "https://github.com/devbisme/skidl/issues",
     },
-    #    packages=['skidl',],
-    packages=setuptools.find_packages(exclude=["tests"]),
+    # packages=['skidl',],
+    # packages=setuptools.find_packages(),
+    packages=setuptools.find_packages(where="src"),
     entry_points={
-        "console_scripts": ["netlist_to_skidl = skidl.netlist_to_skidl_main:main"]
+        "console_scripts": [
+            "netlist_to_skidl = skidl.scripts.netlist_to_skidl_main:main"
+        ]
     },
-    package_dir={"skidl": "skidl"},
-    include_package_data=True,
-    package_data={"skidl": ["*.gif", "*.png"]},
+    package_dir={"": "src"},
+    include_package_data=False,
     scripts=[],
     install_requires=requirements,
     license="MIT",

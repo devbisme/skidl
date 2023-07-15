@@ -2,18 +2,19 @@
 
 <!doctype html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>skidl.skidl module &#8212; SKiDL  documentation</title>
+    <title>skidl.skidl module &#8212; SKiDL 1.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css" />
     
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -34,7 +35,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.skidl module</a></li> 
       </ul>
     </div>  
@@ -45,29 +46,147 @@
           <div class="body" role="main">
             
   <section id="module-skidl.skidl">
-<span id="skidl-skidl-module"></span><h1>skidl.skidl module<a class="headerlink" href="#module-skidl.skidl" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="skidl.skidl.SkidlCfg">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">SkidlCfg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">dirs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/skidl.html#SkidlCfg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.skidl.SkidlCfg" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
-<p>Class for holding SKiDL configuration.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="skidl.skidl.SkidlCfg.CFG_FILE_NAME">
-<span class="sig-name descname"><span class="pre">CFG_FILE_NAME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'.skidlcfg'</span></em><a class="headerlink" href="#skidl.skidl.SkidlCfg.CFG_FILE_NAME" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="skidl.skidl.SkidlCfg.load">
-<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">dirs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/skidl.html#SkidlCfg.load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.skidl.SkidlCfg.load" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load SKiDL configuration from JSON files in given dirs.</p>
+<span id="skidl-skidl-module"></span><h1>skidl.skidl module<a class="headerlink" href="#module-skidl.skidl" title="Permalink to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.skidl.ERC">
+<span class="sig-prename descclassname"><span class="pre">skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">ERC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.ERC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run class-wide and local ERC functions on this circuit.</p>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="skidl.skidl.SkidlCfg.store">
-<span class="sig-name descname"><span class="pre">store</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/skidl.html#SkidlCfg.store"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.skidl.SkidlCfg.store" title="Permalink to this definition">¶</a></dt>
-<dd><p>Store SKiDL configuration as JSON in directory as .skidlcfg file.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.skidl.backup_parts">
+<span class="sig-prename descclassname"><span class="pre">skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">backup_parts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.backup_parts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves parts in circuit as a SKiDL library in a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file</strong> – Either a file object that can be written to, or a string
+containing a file name, or None. If None, a standard library
+file will be used.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Nothing.</p>
+</dd>
+</dl>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.skidl.empty_footprint_handler">
+<span class="sig-prename descclassname"><span class="pre">skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">empty_footprint_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">part</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.empty_footprint_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handle the situation of a Part with no footprint when generating netlist/PCB.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>part</strong> (<a class="reference internal" href="skidl.part.html#skidl.part.Part" title="skidl.part.Part"><em>Part</em></a>) – The part with no footprint.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By default, this function logs an error message if the footprint is missing.
+Override this function if you want to try and set some default footprint
+for particular types of parts (such as using an 0805 footprint for a resistor).</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.skidl.erc_assert">
+<span class="sig-prename descclassname"><span class="pre">skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">erc_assert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">assertion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fail_msg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'FAILED'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">severity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.erc_assert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an ERC assertion to a class or class instance.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.skidl.generate_graph">
+<span class="sig-prename descclassname"><span class="pre">skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">generate_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">engine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'neato'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rankdir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'LR'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">part_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rectangle'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'point'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">splines</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_anon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_nets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['GND']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_parts_ref</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.generate_graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a graphviz graph as graphviz object and can also write it to a file/stream.
+When used in ipython the graphviz object will drawn as an SVG in the output.</p>
+<p>See <a class="reference external" href="https://graphviz.readthedocs.io/en/stable/">https://graphviz.readthedocs.io/en/stable/</a> and <a class="reference external" href="http://graphviz.org/doc/info/attrs.html">http://graphviz.org/doc/info/attrs.html</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> – A string containing a file name, or None.</p></li>
+<li><p><strong>engine</strong> – See graphviz documentation</p></li>
+<li><p><strong>rankdir</strong> – See graphviz documentation</p></li>
+<li><p><strong>part_shape</strong> – Shape of the part nodes</p></li>
+<li><p><strong>net_shape</strong> – Shape of the net nodes</p></li>
+<li><p><strong>splines</strong> – Style for the edges, try ‘ortho’ for a schematic like feel</p></li>
+<li><p><strong>show_values</strong> – Show values as external labels on part nodes</p></li>
+<li><p><strong>show_anon</strong> – Show anonymous net names</p></li>
+<li><p><strong>split_nets</strong> – splits up the plot for the given list of net names</p></li>
+<li><p><strong>split_parts_ref</strong> – splits up the plot for all pins for the given list of part refs</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>graphviz.Digraph</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.skidl.generate_netlist">
+<span class="sig-prename descclassname"><span class="pre">skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">generate_netlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.generate_netlist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a netlist and also write it to a file/stream.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> – Either a file object that can be written to, or a string
+containing a file name, or None.</p></li>
+<li><p><strong>tool</strong> – The EDA tool the netlist will be generated for.</p></li>
+<li><p><strong>do_backup</strong> – If true, create a library with all the parts in the circuit.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A netlist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.skidl.generate_pcb">
+<span class="sig-prename descclassname"><span class="pre">skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">generate_pcb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.generate_pcb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a PCB file from the circuit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> – Either a file object that can be written to, or a string
+containing a file name, or None.</p></li>
+<li><p><strong>tool</strong> – The EDA tool the netlist will be generated for.</p></li>
+<li><p><strong>do_backup</strong> – If true, create a library with all the parts in the circuit.</p></li>
+<li><p><strong>fp_libs</strong> – List of directories containing footprint libraries.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.skidl.generate_schematic">
+<span class="sig-prename descclassname"><span class="pre">skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">generate_schematic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.generate_schematic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a schematic from a Circuit.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.skidl.generate_svg">
+<span class="sig-prename descclassname"><span class="pre">skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">generate_svg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.generate_svg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an SVG file displaying the circuit schematic and
+return the dictionary that can be displayed by netlistsvg.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.skidl.generate_xml">
+<span class="sig-prename descclassname"><span class="pre">skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">generate_xml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.generate_xml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return netlist as an XML string and also write it to a file/stream.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> – Either a file object that can be written to, or a string
+containing a file name, or None.</p></li>
+<li><p><strong>tool</strong> – Backend tool such as KICAD.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A string containing the netlist.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -81,25 +200,20 @@
 <dd></dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="skidl.skidl.get_kicad_lib_tbl_dir">
-<span class="sig-prename descclassname"><span class="pre">skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">get_kicad_lib_tbl_dir</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/skidl.html#get_kicad_lib_tbl_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.skidl.get_kicad_lib_tbl_dir" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the path to where the global fp-lib-table file is found.</p>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="skidl.skidl.get_query_backup_lib">
 <span class="sig-prename descclassname"><span class="pre">skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">get_query_backup_lib</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/skidl.html#get_query_backup_lib"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.skidl.get_query_backup_lib" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="skidl.skidl.invalidate_footprint_cache">
-<span class="sig-prename descclassname"><span class="pre">skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">invalidate_footprint_cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/skidl.html#invalidate_footprint_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.skidl.invalidate_footprint_cache" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.skidl.no_files">
 <span class="sig-prename descclassname"><span class="pre">skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">no_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">circuit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">default_circuit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/skidl.html#no_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.skidl.no_files" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prevent creation of output files (netlists, ERC, logs) by this Circuit object.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.skidl.reset">
+<span class="sig-prename descclassname"><span class="pre">skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#skidl.skidl.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear any circuitry and cached part libraries and start over.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -145,7 +259,7 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -159,13 +273,13 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.skidl module</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2016-2021, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+        &#169; Copyright 2016-2023, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>
 </html>

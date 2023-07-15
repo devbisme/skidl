@@ -1,112 +1,330 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>SKiDL</title><link href="/skidl/" rel="alternate"></link><link href="/skidl/feeds/all.atom.xml" rel="self"></link><id>/skidl/</id><updated>2023-03-23T00:00:00-04:00</updated><entry><title>SKiDL Meets GPT</title><link href="/skidl/skidl-meets-chatgpt-2023-03-23.html" rel="alternate"></link><published>2023-03-23T00:00:00-04:00</published><updated>2023-03-23T00:00:00-04:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2023-03-23:/skidl/skidl-meets-chatgpt-2023-03-23.html</id><summary type="html">&lt;p&gt;ChatGPT was released late last year, and GPT4 dropped last week.
-These large language models (LLMs) offer some intriguing possibilities.
-I had a Twitter conversation about them with &lt;a href="https://twitter.com/alexandrosM"&gt;@alexandrosM&lt;/a&gt; that started like this:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="" src="images/skidl-meets-chatgpt/gpt_twitter_conv_1.png"&gt;&lt;/p&gt;
-&lt;p&gt;So I described the simplest thing I could think of - a voltage divider - and asked
-ChatGPT to …&lt;/p&gt;</summary><content type="html">&lt;p&gt;ChatGPT was released late last year, and GPT4 dropped last week.
-These large language models (LLMs) offer some intriguing possibilities.
-I had a Twitter conversation about them with &lt;a href="https://twitter.com/alexandrosM"&gt;@alexandrosM&lt;/a&gt; that started like this:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="" src="images/skidl-meets-chatgpt/gpt_twitter_conv_1.png"&gt;&lt;/p&gt;
-&lt;p&gt;So I described the simplest thing I could think of - a voltage divider - and asked
-ChatGPT to design one with some basic specs:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="" src="images/skidl-meets-chatgpt/gpt_twitter_conv_2.png"&gt;&lt;/p&gt;
-&lt;p&gt;Its calculations are correct, so then I asked it to describe the divider circuit using SKiDL:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="" src="images/skidl-meets-chatgpt/gpt_twitter_conv_3.png"&gt;&lt;/p&gt;
-&lt;p&gt;ChatGPT made a number of errors:&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>SKiDL</title><link href="/skidl/" rel="alternate"></link><link href="/skidl/feeds/all.atom.xml" rel="self"></link><id>/skidl/</id><updated>2023-07-14T00:00:00-04:00</updated><entry><title>SKiDL Has Schematics!</title><link href="/skidl/generating-editable-schematics-2023-07-14.html" rel="alternate"></link><published>2023-07-14T00:00:00-04:00</published><updated>2023-07-14T00:00:00-04:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2023-07-14:/skidl/generating-editable-schematics-2023-07-14.html</id><summary type="html">&lt;p&gt;You can finally generate editable schematics from your SKiDL code.&lt;/p&gt;</summary><content type="html">&lt;p&gt;The most frequently-asked question after &lt;a href="https://www.youtube.com/watch?v=WErQYI2A36M"&gt;my talk about SKiDL at KiCon in 2019&lt;/a&gt;&lt;br&gt;
+was "Can it output schematics?"
+Quite disappointing since the whole point of SKiDL is to avoid schematics!
+But people want what they want, and maybe outputting schematics
+would help with the adoption of SKiDL if people could see what their code was generating.&lt;/p&gt;
+&lt;p&gt;But I didn't want to write the code for this because I knew it was &lt;em&gt;hard!&lt;/em&gt;
+Hard not just in the sense that it would have to intelligently place part symbols and route
+wires between them, but hard because the final result had to be &lt;em&gt;aesthetically pleasing&lt;/em&gt;.
+(People are ~~anal~~ exceedingly picky about their schematics!)
+So even after a ton of work, everyone might say it's shit.&lt;/p&gt;
+&lt;p&gt;So 2019 passed and I didn't work on it.
+And not in 2020, either.
+And 2021 looked like it was going to be a bust &lt;em&gt;until somebody else did it for me!&lt;/em&gt;
+In August, &lt;a href="https://github.com/shanemmattner"&gt;Shane Mattner&lt;/a&gt; released an initial version
+that could convert SKiDL code into a KiCad schematic.
+By the time he stopped to pursue a new job, his code was able to create hierarchical
+schematics like this:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="STM32 top-level schematic by Shane Mattner." src="images/schematic-generation/mattner-stm32-top.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="STM32 microcontroller schematic by Shane Mattner." src="images/schematic-generation/mattner-stm32-uc.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="STM32 power circuit schematic by Shane Mattner." src="images/schematic-generation/mattner-stm32-pwr.png"&gt;&lt;/p&gt;
+&lt;p&gt;There were a number of limitations with this initial version:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;The &lt;code&gt;Circuit()&lt;/code&gt; function doesn't take a name string.&lt;/li&gt;
-&lt;li&gt;You can't define resistors just by appending &lt;code&gt;.R()&lt;/code&gt; to a circuit object.&lt;/li&gt;
-&lt;li&gt;There's not a &lt;code&gt;connect()&lt;/code&gt; function for joining pins of parts.&lt;/li&gt;
-&lt;li&gt;It joined the resistors in series with &lt;code&gt;Vin&lt;/code&gt; at the top but failed to connect the bottom resistor to ground.&lt;/li&gt;
-&lt;li&gt;It also took &lt;code&gt;Vout&lt;/code&gt; from the bottom of the divider instead of the junction where the two resistors connect.&lt;/li&gt;
+&lt;li&gt;The first part was arbitrarily selected as the anchor in each schematic page,
+  and then the rest of the parts were arranged around that.&lt;/li&gt;
+&lt;li&gt;Only simple connections between parts were routed.&lt;/li&gt;
+&lt;li&gt;Multi-unit parts weren't handled.&lt;/li&gt;
+&lt;li&gt;Etc...&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;So, overall, not that good but you can see it's &lt;em&gt;trying&lt;/em&gt;.&lt;/p&gt;
-&lt;p&gt;I was using ChatGPT which is based on GPT3.5, but Alex has access to GPT4 and wanted to try.
-I gave him a very generic description of a relay driver:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="" src="images/skidl-meets-chatgpt/gpt_twitter_conv_4.png"&gt;&lt;/p&gt;
-&lt;p&gt;The output from GPT4 is &lt;em&gt;much&lt;/em&gt; better:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="" src="images/skidl-meets-chatgpt/gpt_twitter_conv_5.jpeg"&gt;&lt;/p&gt;
-&lt;p&gt;There are a number of mistakes, so we asked GPT4 to correct the most glaring:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="" src="images/skidl-meets-chatgpt/gpt_twitter_conv_6.png"&gt;&lt;/p&gt;
-&lt;p&gt;Now the result is a little better:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="" src="images/skidl-meets-chatgpt/gpt_twitter_conv_7.jpeg"&gt;&lt;/p&gt;
-&lt;p&gt;There are still a few errors, mostly about the parts and libraries it is using:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="" src="images/skidl-meets-chatgpt/gpt_twitter_conv_8.png"&gt;&lt;/p&gt;
-&lt;p&gt;Rather than go any further with GPT4, I took its final output, removed the comments, and then added the relay along with aliases to match the pin names that GPT4 used:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;skidl&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Part&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Net&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;generate_schematic&lt;/span&gt;
-
-&lt;span class="c1"&gt;# skidl.libs is an error. Comment it out.&lt;/span&gt;
-&lt;span class="c1"&gt;# from skidl.libs import skidl&lt;/span&gt;
-
-&lt;span class="c1"&gt;# Insert relay G5V-1 in place of Relay_SPDT.&lt;/span&gt;
-&lt;span class="c1"&gt;# relay = Part(&amp;quot;Relay&amp;quot;, &amp;quot;Relay_SPDT&amp;quot;, footprint=&amp;quot;Relay:Relay_SPDT&amp;quot;, value=&amp;quot;&amp;quot;)&lt;/span&gt;
-&lt;span class="n"&gt;relay&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Part&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Relay&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;G5V-1&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;footprint&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Relay:Relay_SPDT&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="c1"&gt;# Alias relay pins with the correct names.&lt;/span&gt;
-&lt;span class="n"&gt;relay&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;aliases&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;A&amp;quot;&lt;/span&gt;
-&lt;span class="n"&gt;relay&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;aliases&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;K&amp;quot;&lt;/span&gt;
-&lt;span class="n"&gt;relay&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;aliases&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;NC&amp;quot;&lt;/span&gt;
-&lt;span class="n"&gt;relay&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;aliases&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;NO&amp;quot;&lt;/span&gt;
-&lt;span class="n"&gt;relay&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;aliases&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;COM&amp;quot;&lt;/span&gt;
-
-&lt;span class="c1"&gt;# Change transistor library to Transistor_BJT.&lt;/span&gt;
-&lt;span class="c1"&gt;# transistor = Part(&amp;quot;Transistor_NPN&amp;quot;, &amp;quot;TIP120&amp;quot;, footprint=&amp;quot;:&amp;quot;)&lt;/span&gt;
-&lt;span class="n"&gt;transistor&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Part&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Transistor_BJT&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;TIP120&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;footprint&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;:&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-
-&lt;span class="n"&gt;diode&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Part&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Diode&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;1N4007&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;footprint&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;DO-41&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;1N4007&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-
-&lt;span class="n"&gt;mcu_output_pin&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Part&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Device&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;R&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;footprint&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;R_0805&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;1k&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="n"&gt;mcu_output_pin&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;transistor&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;B&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
-
-&lt;span class="n"&gt;transistor&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;C&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;relay&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;K&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;diode&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;A&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
-
-&lt;span class="n"&gt;diode&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;K&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;relay&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;A&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
-
-&lt;span class="n"&gt;gnd&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Net&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;GND&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="n"&gt;transistor&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;E&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;gnd&lt;/span&gt;
-
-&lt;span class="n"&gt;vcc_12v&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Net&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;VCC_12V&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="n"&gt;relay&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;A&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;vcc_12v&lt;/span&gt;
-
-&lt;span class="n"&gt;relay_common&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Net&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;COM&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="n"&gt;relay_no&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Net&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;NO&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="n"&gt;relay_nc&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Net&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;NC&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="n"&gt;relay&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;COM&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;relay_common&lt;/span&gt;
-&lt;span class="n"&gt;relay&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;NO&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;relay_no&lt;/span&gt;
-&lt;span class="n"&gt;relay&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;NC&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;relay_nc&lt;/span&gt;
-
-&lt;span class="c1"&gt;# I added this command to generate a schematic so we can see what GPT created.&lt;/span&gt;
-&lt;span class="n"&gt;generate_schematic&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
-    &lt;span class="n"&gt;retries&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="n"&gt;compress_before_place&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="n"&gt;normalize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="n"&gt;rotate_parts&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="n"&gt;fanout_attenuation&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="n"&gt;draw_placement&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;Executing the SKiDL code generated the following schematic (I manually added the blue annotation text.):&lt;/p&gt;
-&lt;p&gt;&lt;img alt="" src="images/skidl-meets-chatgpt/relay_driver_schematic.png"&gt;&lt;/p&gt;
-&lt;p&gt;It's essentially correct, about what a first-year engineering student would do.
-That may seem underwhelming except:&lt;/p&gt;
+&lt;p&gt;But these were incidental to the main point:
+&lt;em&gt;the code could actually create KiCad-compatible schematics!&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Since Shane was on to bigger things, it was up to me to push forward with it.
+I couldn't just ignore it.
+A couple of months of refactoring and it would be ready for a general release.
+How hard could it be, right?&lt;/p&gt;
+&lt;p&gt;Well, let's see how that turned out...&lt;/p&gt;
+&lt;h2 id="nov-dec-2021-refactoring"&gt;Nov - Dec, 2021: Refactoring&lt;/h2&gt;
+&lt;p&gt;I started with basic housekeeping by implementing some geometric primitives
+like transformation matrices, points, vectors, bounding boxes, etc.
+I used these to rewrite pieces of the code that were handling part placement
+and wiring with ad-hoc calculations.
+I probably could have pulled in an existing Python package to do this, but
+many of those have dropped support for Python 2 and I was still supporting that
+so...&lt;/p&gt;
+&lt;p&gt;Next, since SKiDL is intended to serve as a front-end for multiple EDA packages,
+I started to separate the KiCad-specific pieces of the code from the generic
+schematic-generation pieces.
+This partitioning also makes it easier to support the various versions of KiCad.
+(The schematic generation code development started when KiCad 5 was the current version,
+but now it's KiCad 7.)&lt;/p&gt;
+&lt;p&gt;For handling hierarchy,
+the original code parsed information stored in SKiDL &lt;code&gt;Part&lt;/code&gt; objects.
+I decided to make an explicit tree-like &lt;code&gt;Node&lt;/code&gt; object that stores the schematic parts
+at each level of the hierarchy while maintaining links to child nodes at lower levels.
+This made it easier to manipulate entire sheets of the schematic such as the
+bounding box, placement, or how the hierarchy was expressed, either as linked subsheets
+or as blocks of circuitry within the parent sheet.&lt;/p&gt;
+&lt;p&gt;While no new features were added during this phase, I made extensive modifications
+to the original code.
+It was a big help to have Shane's test examples so I could verify my code was
+producing the same results as his.&lt;/p&gt;
+&lt;h2 id="jan-may-2022-routing"&gt;Jan - May, 2022: Routing&lt;/h2&gt;
+&lt;p&gt;As 2022 began, it became clear that the existing routing code was too limited.
+It could handle simple point-to-point wires, but failed on anything more
+complicated.
+For example, the routing shown below is for a connection I added between
+pins &lt;code&gt;PA15&lt;/code&gt;, &lt;code&gt;PB15&lt;/code&gt;, and &lt;code&gt;PC2&lt;/code&gt; of the STM32 microcontroller:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="An example of poor routing." src="images/schematic-generation/mattner-poor-routing.png"&gt;&lt;/p&gt;
+&lt;p&gt;The wires fail to avoid the net stub labels on pins &lt;code&gt;PB6&lt;/code&gt; and &lt;code&gt;PB7&lt;/code&gt; and
+then actually cross over the STM32 symbol.&lt;/p&gt;
+&lt;p&gt;Note that the wire between parts &lt;code&gt;R6&lt;/code&gt; and &lt;code&gt;D1&lt;/code&gt; has no such problems because the
+placement code tries to align pins so they can be connected by
+a straight wire.
+But, most often, that isn't possible.&lt;/p&gt;
+&lt;p&gt;So I decided to implement a more robust routing solution
+that runs through the following phases on each node of the circuit hierarchy:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Generation of coarse routing cells between the parts in each node.&lt;/li&gt;
+&lt;li&gt;Global routing of nets between part symbol pins through the coarse cells.&lt;/li&gt;
+&lt;li&gt;Assignment of global routes to fixed terminals on the periphery of each routing cell.&lt;/li&gt;
+&lt;li&gt;Detailed switchbox routing of nets between the terminals of each routing cell.&lt;/li&gt;
+&lt;li&gt;Concatenation of detailed switchbox routes for each net to create a complete end-to-end wire.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The figure below depicts the results of running these phases on a particular node:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Results of each phase of routing." src="images/schematic-generation/routing-phase-results.png"&gt;&lt;/p&gt;
+&lt;p&gt;Horizontal and vertical edges are extended from each corner of a part's bounding box
+(the green rectangles) to form an irregular matrix of coarse routing cells.
+Note that there are a lot of cells even for a node with few parts, and some of them can
+be quite small in one or both dimensions.&lt;/p&gt;
+&lt;p&gt;The edges of each cell are labeled with the number of global routes that can pass through them, as
+determined by the length of the edge and the spacing allowed between wire traces
+(KiCad has a default schematic wiring grid of 50).
+The edge count is reduced for each global route that passes through it, and no route is allowed
+through once the count reaches zero.
+This prevents the formation of an unroutable mess by keeping too many routes from using the same cell.&lt;/p&gt;
+&lt;p&gt;Each global route starts from an edge of a cell containing a pin of a net.
+The route segments fan out from this edge to the other edges of the cell that have non-zero edge counts.
+The endpoint of each segment is labeled with the
+&lt;a href="https://algodaily.com/lessons/what-is-the-manhattan-distance"&gt;Manhattan distance&lt;/a&gt;
+from the center of the source edge to the center of the destination edge and
+is then placed into a priority queue.
+The segment with the smallest endpoint distance is selected from the queue and the fan-out process
+is repeated with each added segment labeled with the sum of the selected segment and the length 
+of the new segment.
+In this way, the search spreads preferentially from the segment closest to the starting edge.
+When the search encounters an edge containing another pin of the net, then a global route
+with minimal total length has been found.
+If there are more pins on the net that have yet to be connected, then the search begins fanning out
+from the edge of the just-found pin (with a starting distance of zero) as well as the remaining edges
+in the priority queue.&lt;/p&gt;
+&lt;p&gt;If there are multiple nets, then they are globally routed in order of their lengths with the 
+shortest nets first.
+I reasoned that shorter nets where the pins are closer together would have fewer options for
+routing connections than longer nets.&lt;/p&gt;
+&lt;p&gt;Once all global routes are selected, the ends of each route segment have to be assigned to terminals
+on the wiring grid along the edges of the cells.
+You can see the final global route for a net as the thin, black edges connecting the brown
+terminal points in the figure above.&lt;/p&gt;
+&lt;p&gt;Once the terminal points for each net are assigned to the edges of each cell,
+a &lt;a href="https://doi.org/10.1016/0167-9260(85)90029-X"&gt;Greedy switchbox router.&lt;/a&gt; is used to create the
+detailed routing within each cell.
+This is simple for the single net in the figure above, but gets much more
+complicated as multiple nets criss-cross each cell.&lt;/p&gt;
+&lt;p&gt;Finally, all the detailed routes in each cell are concatenated to form complete routes
+for each net (the brown edges in the figure above).&lt;/p&gt;
+&lt;p&gt;The fully-routed schematic for this example is shown below:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Fully-routed schematic." src="images/schematic-generation/fully-routed-schematic.png"&gt;&lt;/p&gt;
+&lt;p&gt;Near the end of the router development, I noticed a problem: some of the 
+switchbox cells were tiny and difficult to route because they weren't wide enough for even a single wire.
+So I added a phase to &lt;em&gt;coalesce&lt;/em&gt; smaller switchboxes into larger ones by circulating around
+their N, W, S, and E edges, merging with surrounding cells until a part bounding box
+or the routing boundary were encountered.
+I also removed any switchboxes without global routes since they didn't need detailed routing.
+The result of applying this procedure is shown below:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Coalesced switchboxes." src="images/schematic-generation/coalesced-switchboxes.png"&gt;&lt;/p&gt;
+&lt;h2 id="june-august-2022-placement"&gt;June - August, 2022: Placement&lt;/h2&gt;
+&lt;p&gt;With the router working, I began to develop the code for placing schematic parts.
+I partitioned the placer into several phases that proceeded from the bottom-most leaf node
+up to the top node of the hierarchy:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Expansion of part bounding boxes to allow room for routing.&lt;/li&gt;
+&lt;li&gt;Grouping of node parts into those that are connected and floating.&lt;/li&gt;
+&lt;li&gt;Force-directed placement of the parts within each group into blocks.&lt;/li&gt;
+&lt;li&gt;Arranging the blocks to create the overall placement for the node.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The innermost bounding box for a part includes the pins and any additional graphic elements.
+Some of the pins may be attached to &lt;em&gt;stub nets&lt;/em&gt;, so labels for the net names are attached to the
+respective pins, thus expanding the part bounding box some more. Finally, the box is expanded further
+on each side depending upon how many pins are connected to non-stub nets. For example,
+if a part had ten pins connected to non-stub nets on its left side, then the left side of the
+bounding box would be pushed out by five wire trace widths to allow some room for routing to
+those pins.
+(The number of trace widths to allocate for a number of pins is an ad-hoc parameter I selected,
+but 0.5 seems to work, more or less.)
+After all this, even if the part bounding boxes were abutted to each other, there would still
+be no overlaps of the parts, their pins, or stub net labels while still leaving room for routing.&lt;/p&gt;
+&lt;p&gt;A part within a node can be considered to be &lt;em&gt;connected&lt;/em&gt; if it has an explicit wire to another part,
+or &lt;em&gt;floating&lt;/em&gt; if it's pins only attach to stub nets (such as a bypass capacitor attached to Vdd and ground).
+A &lt;em&gt;connected group&lt;/em&gt; is just a bunch of connected parts where there a path between any two parts through
+some intervening parts and/or nets.
+There can be multiple connected groups within a node's parts (or even none at all).
+A &lt;em&gt;floating group&lt;/em&gt; is just a collection of all the floating parts, and there can only
+be one such group (or none at all).&lt;/p&gt;
+&lt;p&gt;The parts in either group are moved using
+&lt;a href="https://www.wikiwand.com/en/Force-directed_graph_drawing"&gt;force-directed placement&lt;/a&gt;
+where attractive forces pull the parts together while repulsive forces push them apart.
+For a connected group, the attractive forces are exerted by the nets that connect them and
+the repulsive forces result from any overlap of their bounding boxes.
+The floating group is the same except, since there are no connecting nets, the attractive
+force is based upon the similarity of the parts (e.g., part types and values).&lt;/p&gt;
+&lt;p&gt;There are many ways to compute an attractive force from a net connecting two pins, but the
+most obvious is to use the vector between the two pins and multiply it by some scaling factor.
+For a pin that connects to multiple pins on other parts, then the forces are calculated individually
+and summed together.
+The total force on a part is then the summation of the forces on each of its pins.
+A floating part with no net connections use a variant of this by having pseudo-nets from its
+attachment point to all the attachment points on the other
+floating parts along with weights that are proportional to the similarity between the parts.&lt;/p&gt;
+&lt;p&gt;Repulsive forces arise when the bounding boxes of parts overlap.
+The force between two overlapping parts is proportional to and in the same direction as
+the smallest movement in the X or Y direction that would remove the overlap.
+If a part overlaps more than one other part, then the individual repulsive forces are summed.&lt;/p&gt;
+&lt;p&gt;During placement, the movement of each part is influenced by the weighted sum of its attractive
+and repulsive forces as follows:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;total_force = (1-alpha) * attractive_force + alpha * repulsive_force&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;At the start of placement, &lt;code&gt;alpha = 0&lt;/code&gt; and the attractive forces pull all the parts together
+so the interconnecting nets are short and there are many overlaps.
+Then &lt;code&gt;alpha&lt;/code&gt; is incrementally increased, causing the part overlaps to decrease while the
+net lengths increase.
+Finally when &lt;code&gt;alpha = 1&lt;/code&gt;, all the forces are repulsive and the parts should be non-overlapping
+while the nets should still be somewhat short.
+An animation of this part placement evolution is shown below:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Evolution of part placement." src="images/schematic-generation/placement-evolution.gif"&gt;&lt;/p&gt;
+&lt;p&gt;After the placement evolution completes, the final phase is to &lt;em&gt;nudge&lt;/em&gt; the parts so their pins
+align with the wiring grid.&lt;/p&gt;
+&lt;p&gt;Once all the parts within the connected and floating part groups are placed,
+each block of parts is arranged using the same attractive/repulsive force scheme.
+In this case, since there are no interconnecting nets, the attractive force is based upon a 
+measure of similarity between the blocks while overlap of the blocks generates the
+repulsive force.
+A result of placing blocks this way is shown below.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Result of block placement." src="images/schematic-generation/block-placement.png"&gt;&lt;/p&gt;
+&lt;p&gt;Quite frankly, the block placement doesn't look great.
+But it was time to move on...&lt;/p&gt;
+&lt;h2 id="september-december-2022-integration"&gt;September - December, 2022: Integration&lt;/h2&gt;
+&lt;p&gt;At this point, I &lt;em&gt;thought&lt;/em&gt; I was ready to release the schematic generation code by year's end.&lt;/p&gt;
+&lt;p&gt;My first task was to integrate the placement and routing phases, which wasn't too difficult.&lt;/p&gt;
+&lt;p&gt;Then the KiCad EESCHEMA file had to be generated from the placed and routed circuit, which
+exposed a problem.
+When all this started at the end of 2021, KiCad version 5 was the current release and
+the code reflected that.
+Now, KiCad 6 was the current release with KiCad 7 on the near horizon, but the
+schematic generation code was still oriented toward KiCad 5.
+And my KiCad software had been updated to version 6 and no longer worked with my code.
+I tried installing side-by-side versions of 5 and 6, but it never worked very smoothly.
+So I created a set of
+&lt;a href="https://github.com/devbisme/docker_kicad"&gt;Docker files for running KiCad versions 5, 6 and 7&lt;/a&gt;.
+Then I could proceed with development using version 5 with the plan to
+upgrade to support 6 and 7 later.&lt;/p&gt;
+&lt;p&gt;Once I was able to view KiCad 5 schematics again, I noticed a new problem:
+the router concatenates wire segments from each switchbox to create complete routes for
+each net, but this led to a large EESCHEMA file with wires built from many pieces.
+To fix this, I added code to merge colinear wire segments.
+I also added the placement of wire junctions to make connections more readily visible.&lt;/p&gt;
+&lt;p&gt;Several features were also added during this period.
+The much-delayed multi-unit part support was finally built so
+parts like opamps and resistor arrays could be used.
+I also made it possible to override the automatic orientation of parts during placement
+by manually applying horizontal/vertical flips and rotations using the &lt;code&gt;symtx&lt;/code&gt; attribute.&lt;/p&gt;
+&lt;p&gt;As always, a large amount of refactoring, bug fixing, and documentation was being done.
+A major problem I noticed was that the global router sometimes generated odd routes that didn't look
+close to optimal (or even good).
+So I refactored and simplified the global router to get better results.&lt;/p&gt;
+&lt;p&gt;Despite these efforts, the deadline for release by the end of the year passed without fanfare.&lt;/p&gt;
+&lt;h2 id="january-2023-back-to-placement"&gt;January, 2023: Back to Placement&lt;/h2&gt;
+&lt;p&gt;As I entered the new year &amp;ndash; again! &amp;ndash; my attention returned to the part placer.&lt;/p&gt;
+&lt;p&gt;I added a &lt;code&gt;retries&lt;/code&gt; option for the number of times the place and route phases would run
+until a valid solution was found.
+After each iteration, the bounding box dimensions for the parts were multiplied by an 
+ad-hoc factor of 1.25 to increase the area for routing.&lt;/p&gt;
+&lt;p&gt;To reduce the time to find a placement, the initial part positions were compressed into a smaller area
+so the parts would have to move less during the evolution phase of the placement.
+This didn't really do much either for runtime performance or the quality of results.&lt;/p&gt;
+&lt;p&gt;Next, I changed the code to increase the similarity of floating parts attached to the same stub net
+so they'd be more strongly attracted to each other and improve the appearance of the placement.&lt;/p&gt;
+&lt;p&gt;I modified the code that orients the parts during placement to use the
+&lt;a href="https://www.wikiwand.com/en/Kernighan%E2%80%93Lin_algorithm"&gt;Kernighan-Lin algorithm&lt;/a&gt;.
+In addition, the orientations are only optimized after an initial part placement that
+indicates where the parts are likely to go.
+Then the placement is done again with the new part orientations since those might lead to improvements.&lt;/p&gt;
+&lt;p&gt;In order to manually orient net labels, I added support for the &lt;code&gt;netio&lt;/code&gt; attribute of &lt;code&gt;Net&lt;/code&gt; objects.
+By setting this to &lt;code&gt;input&lt;/code&gt; or &lt;code&gt;output&lt;/code&gt;, the net label will point outward to the left or right, respectively,
+since input nets typically come in from the left and output nets exit on the right.&lt;/p&gt;
+&lt;h2 id="february-march-2023-routing-beautifier"&gt;February - March, 2023: Routing Beautifier&lt;/h2&gt;
+&lt;p&gt;Despite the changes in the placement phase, the schematic wiring still showed obvious imperfections:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Schematic wiring jogs." src="images/schematic-generation/wire_jogs.png"&gt;&lt;/p&gt;
+&lt;p&gt;I built some routing "beautifiers" to perform the following local optimizations:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;In the span of four months, LLMs progressed from a version (ChatGPT) that couldn't design a voltage divider to one (GPT4) that designed a relay driver.&lt;/li&gt;
-&lt;li&gt;There's a lot of electronic design knowledge on the web for training, but examples of using SKiDL are sparse. Even so, GPT4 picked up the basics.&lt;/li&gt;
-&lt;li&gt;The competency of an average first-year engineering student is now available to &lt;em&gt;anyone&lt;/em&gt;.&lt;/li&gt;
-&lt;li&gt;GPT4 was not specifically trained for designing electronic circuits. This is just one of a myriad of competencies, all of which could be brought to bear on the design process.&lt;/li&gt;
+&lt;li&gt;Trim multiple terminals on the same net from non-part switchbox faces of switchboxes so cycles can't form.&lt;/li&gt;
+&lt;li&gt;Remove any remaining cycles by deleting wire segments.&lt;/li&gt;
+&lt;li&gt;Replace stubs with straight segments.&lt;/li&gt;
+&lt;li&gt;Replace doglegs with L-shaped segments.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;There are many questions to answer just related to designing electronics with LLMs:&lt;/p&gt;
+&lt;h2 id="march-june-2023-back-to-placement-again"&gt;March - June, 2023: Back to Placement, Again&lt;/h2&gt;
+&lt;p&gt;The routing beautifiers helped, but not completely because you can't route your way out of a bad placement.
+So it was back to work on the placement routines with the following changes:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;How do we efficiently give them information about specific parts and libraries?&lt;/li&gt;
-&lt;li&gt;Can they develop hierarchical designs by generating modules and composing them? (With SKiDL, this would be nearly the same as writing modularized code.)&lt;/li&gt;
-&lt;li&gt;Can they create plans for testing the circuitry once it's built? (Similar to writing software unit tests, something ChatGPT has already done.)&lt;/li&gt;
-&lt;li&gt;Many electronic systems include microcontrollers &amp;amp; FPGAs. Can LLMs write embedded and HDL code to implement specified functions while maintaining compatibility with the hardware they've designed? (LLMs have already shown they can write PC and browser-based software from prompts.)&lt;/li&gt;
-&lt;li&gt;Can they design the mechanical portions of a system, like cases and enclosures? (ChatGPT has been used to write simple OpenSCAD scripts.)&lt;/li&gt;
-&lt;li&gt;In order to satisfy design objectives, can they write constraint-satisfaction equations for SAT solvers or optimizers and integrate the results back into their design?&lt;/li&gt;
-&lt;li&gt;By weaving together the capabilities listed above (plus more), can LLMs become a complete integrated development environment for all phases of engineering design that &lt;a href="https://thenewstack.io/oh-the-places-youll-go-when-you-leave-your-ide/"&gt;you never have to leave&lt;/a&gt;?&lt;/li&gt;
+&lt;li&gt;I added a couple of functions after the part evolution stage to let parts jump over and align
+  with each other. ❌&lt;/li&gt;
+&lt;li&gt;I added some code to enable/disable various placement options and gather statistics on total wire
+  length to get objective assessments on which options were useful. ✅&lt;/li&gt;
+&lt;li&gt;To optimize part orientations, I tried a force function that computes the torque rather than the tension
+  on a part from the attractive net forces. ❌&lt;/li&gt;
+&lt;li&gt;A multiplier was applied to the force of a direct point-to-point net (i.e., no fanout) in order to
+  "encourage" the connected parts to move together. ✅&lt;/li&gt;
+&lt;li&gt;I tried various schedules for increasing &lt;code&gt;alpha&lt;/code&gt; from 0 to 1 along with a variety of techniques
+  to determine when the parts had stabilized before moving to the next step of the schedule. ✅&lt;/li&gt;
+&lt;li&gt;If no part orientations were changed, then the second placement run was skipped. ✅&lt;/li&gt;
+&lt;li&gt;Rather than force-directed placement, I tried several multivariable optimizers from the
+  &lt;code&gt;scipy.optimize&lt;/code&gt; package. ❌&lt;/li&gt;
+&lt;li&gt;For multi-pin nets, I tried using pin centroids to calculate attractive forces rather than summing
+  pin-to-pin forces. ❌&lt;/li&gt;
+&lt;li&gt;Net labels would disturb the placement of actual parts if they were placed simultaneously,
+  so I separated them and placed the net labels only after the part positions were set. ✅&lt;/li&gt;
+&lt;li&gt;I forced part alignment by restricting part movements to either the X or Y direction during
+  portions of the evolution phase. ❌&lt;/li&gt;
+&lt;li&gt;I locked the orientation of single-pin parts.
+  This prevented things like power and ground symbols from pointing the wrong direction.
+  (If someone needs a one-pin part oriented a certain way, they can always use the &lt;code&gt;symtx&lt;/code&gt; attribute.) ✅&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Interesting times are ahead! Not just in electronic design, but everything else.&lt;/p&gt;</content><category term="posts"></category></entry><entry><title>New 1.1.0 Release</title><link href="/skidl/one-dot-one-2021-10-22.html" rel="alternate"></link><published>2021-10-22T00:00:00-04:00</published><updated>2021-10-22T00:00:00-04:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2021-10-22:/skidl/one-dot-one-2021-10-22.html</id><summary type="html">&lt;p&gt;It's been nearly half a year since the big 1.0 release.
+&lt;p&gt;(✅ = accepted: better results, ❌ = rejected: worse results)&lt;/p&gt;
+&lt;h2 id="july-2023-thats-all-folks"&gt;July, 2023: That's All, Folks!&lt;/h2&gt;
+&lt;p&gt;Finally, I called "time" and decided this was the best I could do for now.
+I kept the most promising avenues that were generating the best results and stripped
+out the rest to simplify the code.
+(But they're still in Github. Github never forgets.)
+I fixed a few more bugs (which, of course, revealed some more bugs), merged it all into the
+&lt;code&gt;master&lt;/code&gt; branch, and released it as version 1.2.0 of SKiDL.&lt;/p&gt;
+&lt;p&gt;Just so I have at least one example in this post that shows a good schematics, there's this:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Good schematic with bus routing." src="images/schematic-generation/bus-routing.png"&gt;&lt;/p&gt;
+&lt;p&gt;At this point, it's better than what we had (which was nothing), but the quality of the schematics
+still needs improvement.
+I wish I'd not held it so long and released portions of it sooner so others could have helped
+focus the development.
+But I'm sure the community (even as small as it is) will provide enough feedback to drive further improvements
+(depending upon how much energy I and other volunteers have).
+I know I've already got a few enhancements to put on the Github issues list...&lt;/p&gt;</content><category term="posts"></category><category term="schematics"></category></entry><entry><title>New 1.2.0 Release</title><link href="/skidl/one-dot-two-2023-07-14.html" rel="alternate"></link><published>2023-07-14T00:00:00-04:00</published><updated>2023-07-14T00:00:00-04:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2023-07-14:/skidl/one-dot-two-2023-07-14.html</id><summary type="html">&lt;p&gt;It's been nearly &lt;em&gt;two years&lt;/em&gt; since the last release.
+The 1.2.0 release has these user-facing changes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Something that has been requested for years: SKiDL can now &lt;a href="generating-editable-schematics-2023-07-14.html"&gt;generate an editable schematic&lt;/a&gt;
+  from a &lt;code&gt;Circuit&lt;/code&gt; object. (Currently only works for KiCad V5.)&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;Group&lt;/code&gt; object allows you to create hierarchy …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;It's been nearly &lt;em&gt;two years&lt;/em&gt; since the last release.
+The 1.2.0 release has these user-facing changes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Something that has been requested for years: SKiDL can now &lt;a href="generating-editable-schematics-2023-07-14.html"&gt;generate an editable schematic&lt;/a&gt;
+  from a &lt;code&gt;Circuit&lt;/code&gt; object. (Currently only works for KiCad V5.)&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;Group&lt;/code&gt; object allows you to create hierarchy without using function calls.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;generate_pcb&lt;/code&gt; now takes an optional list of footprint library directories.&lt;/li&gt;
+&lt;li&gt;If not explicitly declared, &lt;code&gt;Part&lt;/code&gt; objects will load the default footprint from their symbol definition.&lt;/li&gt;
+&lt;li&gt;You can specify an  &lt;code&gt;empty_footprint_handler()&lt;/code&gt; that logs errors for parts missing footprints by default but can be overridden by the user.&lt;/li&gt;
+&lt;li&gt;Symbol libraries can now be searched on remote repositories by placing the URL in the &lt;code&gt;lib_search_paths&lt;/code&gt; dictionary.
+  KiCad V6 symbols are found at &lt;code&gt;https://gitlab.com/kicad/libraries/kicad-symbols/-/raw/master&lt;/code&gt;
+  and V5 symbols are at &lt;code&gt;https://raw.githubusercontent.com/KiCad/kicad-symbols/master/&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Part&lt;/code&gt; pins can now be sorted and retrieved in order using the &lt;code&gt;ordered_pins&lt;/code&gt; property.&lt;/li&gt;
+&lt;/ul&gt;</content><category term="posts"></category></entry><entry><title>New 1.1.0 Release</title><link href="/skidl/one-dot-one-2021-10-22.html" rel="alternate"></link><published>2021-10-22T00:00:00-04:00</published><updated>2021-10-22T00:00:00-04:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2021-10-22:/skidl/one-dot-one-2021-10-22.html</id><summary type="html">&lt;p&gt;It's been nearly half a year since the big 1.0 release.
 This release only has a few user-facing changes:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;A KiCad PCB file can now be created directly using the &lt;code&gt;generate_pcb()&lt;/code&gt; function instead of outputing a netlist that's imported into PCBNEW.&lt;/li&gt;
@@ -251,14 +469,14 @@ to it in the assertion string:&lt;/p&gt;
 &lt;span class="n"&gt;ERC&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;IN2&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;fanout&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kr"&gt;of&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mf"&gt;5.&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
-&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;ipython&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;18&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;800&lt;/span&gt;&lt;span class="n"&gt;a83e11624&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;22&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;check_fanout&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
-&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kr"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kr"&gt;False&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kr"&gt;Return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kr"&gt;False&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;trigger&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;the&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;erc_assert&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Pdb&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
-&lt;span class="n"&gt;ERC&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;ERROR&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;check_fanout&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;net2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;FAILED&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kr"&gt;in&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;ipython&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;18&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;800&lt;/span&gt;&lt;span class="n"&gt;a83e11624&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;&lt;span class="mi"&gt;30&lt;/span&gt;&lt;span class="o"&gt;:&amp;lt;&lt;/span&gt;&lt;span class="kr"&gt;module&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;IN2&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;fanout&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kr"&gt;of&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mf"&gt;5.&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;ipython&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;18&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;800&lt;/span&gt;&lt;span class="n"&gt;a83e11624&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;22&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;check_fanout&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kr"&gt;return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kr"&gt;False&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kr"&gt;Return&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kr"&gt;False&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;trigger&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;the&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;erc_assert&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Pdb&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;
+&lt;span class="n"&gt;ERC&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;ERROR&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;check_fanout&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;net2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;FAILED&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kr"&gt;in&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;ipython&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;18&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;800&lt;/span&gt;&lt;span class="n"&gt;a83e11624&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;:&lt;/span&gt;&lt;span class="mi"&gt;30&lt;/span&gt;&lt;span class="o"&gt;:&amp;lt;&lt;/span&gt;&lt;span class="kr"&gt;module&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
 
-&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;warnings&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;found&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;during&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;ERC&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
-&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;errors&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;found&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;during&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;ERC&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;warnings&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;found&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;during&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;ERC&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;errors&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;found&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;during&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;ERC&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;You can detect if a subcircuit is being used correctly by embedding calls to
@@ -349,7 +567,7 @@ If you have questions or problems, please ask on the
 raise an &lt;a href="https://github.com/devbisme/skidl/issues"&gt;issue&lt;/a&gt;. &lt;/p&gt;</content><category term="posts"></category></entry><entry><title>Good Things Come In Packages!</title><link href="/skidl/package-decorator-2020-05-27.html" rel="alternate"></link><published>2020-05-27T00:00:00-04:00</published><updated>2020-05-27T00:00:00-04:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2020-05-27:/skidl/package-decorator-2020-05-27.html</id><summary type="html">&lt;p&gt;Up to now, SKiDL supported hierarchy by applying the &lt;code&gt;@subcircuit&lt;/code&gt; decorator to a Python function:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nd"&gt;@subcircuit&lt;/span&gt;
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;analog_average&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;in1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;in2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;avg&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;Output the average of the two inputs.&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;Output the average of the two inputs.&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
 
     &lt;span class="c1"&gt;# Create two 1K resistors.&lt;/span&gt;
     &lt;span class="n"&gt;r1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;r2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;Part&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Device&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;R&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;1K&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;dest&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;TEMPLATE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -357,7 +575,7 @@ raise an &lt;a href="https://github.com/devbisme/skidl/issues"&gt;issue&lt;/a&gt
     &lt;span class="c1"&gt;# Each input connects thru a resistor to the …&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</summary><content type="html">&lt;p&gt;Up to now, SKiDL supported hierarchy by applying the &lt;code&gt;@subcircuit&lt;/code&gt; decorator to a Python function:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nd"&gt;@subcircuit&lt;/span&gt;
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;analog_average&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;in1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;in2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;avg&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;Output the average of the two inputs.&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;Output the average of the two inputs.&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
 
     &lt;span class="c1"&gt;# Create two 1K resistors.&lt;/span&gt;
     &lt;span class="n"&gt;r1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;r2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;Part&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Device&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;R&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;1K&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;dest&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;TEMPLATE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -404,7 +622,7 @@ But you can't do the same thing with a subcircuit function without making change
 code because of the syntactic differences in how connections are made:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nd"&gt;@subcircuit&lt;/span&gt;
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;analog_average&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;in1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;in2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;avg&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;Output the average of the two inputs.&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;Output the average of the two inputs.&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
 
     &lt;span class="n"&gt;r1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;r2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;num_copies&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="c1"&gt;# Create two copies of the resistor part.&lt;/span&gt;
     &lt;span class="n"&gt;r1&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;in1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;avg&lt;/span&gt;
@@ -811,7 +1029,7 @@ You can also add or change the directories that are searched for part libraries 
 &lt;p&gt;It may happen that you change some part libraries or add more footprint files while &lt;code&gt;zyc&lt;/code&gt; is
 running. If so, you'll want to refresh the part and footprint caches (3). &lt;/p&gt;
 &lt;p&gt;If you want to try &lt;code&gt;zyc&lt;/code&gt;, you can install it from the Github repo:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;% pip install git+https://github.com/devbisme/skidl
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;%&lt;span class="w"&gt; &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;git+https://github.com/devbisme/skidl
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;To run it, just enter &lt;code&gt;zyc&lt;/code&gt; at the command line.&lt;/p&gt;</content><category term="posts"></category></entry><entry><title>SKiDL at KiCon 2019</title><link href="/skidl/skidl-kicon-2019-2019-06-12.html" rel="alternate"></link><published>2019-06-12T00:00:00-04:00</published><updated>2019-06-12T00:00:00-04:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2019-06-12:/skidl/skidl-kicon-2019-2019-06-12.html</id><summary type="html">&lt;p&gt;At the recent &lt;a href="https://kicad-kicon.com/"&gt;KiCon 2019&lt;/a&gt;, I gave a &lt;a href="https://www.youtube.com/watch?v=WErQYI2A36M"&gt;talk&lt;/a&gt;
@@ -1558,7 +1776,7 @@ is exported by the Eeschema schematic editor using the &lt;code&gt;Tools =&amp;g
 menu command.
 The netlist file is called &lt;code&gt;Arduino_Uno_R3_From_Scratch.net&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Step #2 - converting the Arduino netlist into a SKiDL script - is even easier:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;netlist_to_skidl -i Arduino_Uno_R3_From_Scratch.net&lt;span class="sb"&gt;`&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;netlist_to_skidl&lt;span class="w"&gt; &lt;/span&gt;-i&lt;span class="w"&gt; &lt;/span&gt;Arduino_Uno_R3_From_Scratch.net&lt;span class="sb"&gt;`&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;That's it!
@@ -1667,7 +1885,7 @@ here's what I came up with:&lt;/p&gt;
 
 &lt;p&gt;Saving my skidl script in a file called &lt;code&gt;led_clock.py&lt;/code&gt;, I generated a netlist
 with the command:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ python led_clock.py
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;python&lt;span class="w"&gt; &lt;/span&gt;led_clock.py
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;This stored the netlist into a file called &lt;code&gt;led_clock.net&lt;/code&gt;. 
@@ -1724,7 +1942,7 @@ The script shown below does that as follows:&lt;/p&gt;
 
 &lt;span class="nd"&gt;@SubCircuit&lt;/span&gt;
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;vga_port&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;red&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;grn&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;blu&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;hsync&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;vsync&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;gnd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;logic_lvl&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mf"&gt;3.3&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;Generate analog RGB VGA port driven by red, grn, blu digital color buses.&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;Generate analog RGB VGA port driven by red, grn, blu digital color buses.&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
 
     &lt;span class="c1"&gt;# Determine the color depth by finding the max width of the digital color buses.&lt;/span&gt;
     &lt;span class="c1"&gt;# (Note that the color buses don&amp;#39;t have to be the same width.)&lt;/span&gt;
@@ -1894,19 +2112,19 @@ I learned one thing there: air conditioning is pretty good stuff. (We should do 
 &lt;p&gt;Some people think bricklaying would be a great job, kind of like playing Tetris
 all day, except with real blocks.
 But here's what the &lt;em&gt;real&lt;/em&gt; reality is:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nv"&gt;Pick&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;up&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;brick&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;apply&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;mortar&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;place&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;tap&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;down&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;remove&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;excess&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;mortar&lt;/span&gt;.&lt;span class="w"&gt;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nv"&gt;Pick&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;up&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;brick&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;apply&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;mortar&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;place&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;tap&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;down&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;remove&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;excess&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;mortar&lt;/span&gt;.
 
-&lt;span class="nv"&gt;Pick&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;up&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;brick&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;apply&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;mortar&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;place&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;tap&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;down&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;remove&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;excess&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;mortar&lt;/span&gt;.&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="nv"&gt;Pick&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;up&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;brick&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;apply&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;mortar&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;place&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;tap&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;down&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;remove&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;excess&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;mortar&lt;/span&gt;.
 
-&lt;span class="nv"&gt;Pick&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;up&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;brick&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;apply&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;mortar&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;place&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;tap&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;down&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;remove&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;excess&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;mortar&lt;/span&gt;.&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="nv"&gt;Pick&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;up&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;brick&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;apply&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;mortar&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;place&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;tap&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;down&lt;/span&gt;,&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;remove&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;excess&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;mortar&lt;/span&gt;.
 
-&lt;span class="nv"&gt;Row&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;after&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;row&lt;/span&gt;.&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="nv"&gt;Row&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;after&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;row&lt;/span&gt;.
 
-&lt;span class="nv"&gt;Wall&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;after&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;wall&lt;/span&gt;.&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="nv"&gt;Wall&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;after&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;wall&lt;/span&gt;.
 
-&lt;span class="nv"&gt;Job&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;after&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;job&lt;/span&gt;.&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="nv"&gt;Job&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;after&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;job&lt;/span&gt;.
 
-&lt;span class="k"&gt;Until&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;you&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;die&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Of&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;the&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;heat&lt;/span&gt;.&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="k"&gt;Until&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;you&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;die&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Of&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;the&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;heat&lt;/span&gt;.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;One day, I graduated and went to work as an electrical engineer.
@@ -1923,19 +2141,19 @@ Here's a section of a schematic showing just the bypass caps for a
 relatively small chip with around a dozen ground pins:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Schematic with bypass capacitors." src="images/dont-replicate-automate/bypass-caps.png"&gt;&lt;/p&gt;
 &lt;p&gt;And here's the design process:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nv"&gt;Click&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;on&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;capacitor&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;symbol&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Drag&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;drop&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Attach&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;power&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Attach&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;ground&lt;/span&gt;.&lt;span class="w"&gt;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nv"&gt;Click&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;on&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;capacitor&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;symbol&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Drag&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;drop&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Attach&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;power&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Attach&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;ground&lt;/span&gt;.
 
-&lt;span class="nv"&gt;Click&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;on&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;capacitor&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;symbol&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Drag&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;drop&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Attach&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;power&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Attach&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;ground&lt;/span&gt;.&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="nv"&gt;Click&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;on&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;capacitor&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;symbol&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Drag&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;drop&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Attach&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;power&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Attach&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;ground&lt;/span&gt;.
 
-&lt;span class="nv"&gt;Click&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;on&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;capacitor&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;symbol&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Drag&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;drop&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Attach&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;power&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Attach&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;ground&lt;/span&gt;.&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="nv"&gt;Click&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;on&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;capacitor&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;symbol&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Drag&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;drop&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Attach&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;power&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Attach&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;ground&lt;/span&gt;.
 
-&lt;span class="nv"&gt;Part&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;after&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;part&lt;/span&gt;.&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="nv"&gt;Part&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;after&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;part&lt;/span&gt;.
 
-&lt;span class="nv"&gt;Page&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;after&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;page&lt;/span&gt;.&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="nv"&gt;Page&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;after&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;page&lt;/span&gt;.
 
-&lt;span class="nv"&gt;Design&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;after&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;design&lt;/span&gt;.&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="nv"&gt;Design&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;after&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;design&lt;/span&gt;.
 
-&lt;span class="k"&gt;Until&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;you&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;die&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Of&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;boredom&lt;/span&gt;.&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="k"&gt;Until&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;you&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;die&lt;/span&gt;.&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Of&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;boredom&lt;/span&gt;.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;As I discovered with bricklaying, that's no way to live.
@@ -2004,7 +2222,7 @@ Let's encapsulate the bypass cap instantiation loop in one:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;skidl&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;
 
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;add_bypass_caps&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;chip&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;vdd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;gnd&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="sd"&gt;&amp;#39;&amp;#39;&amp;#39;Add bypass capacitors between vdd and gnd to a chip, one for each ground pin.&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="sd"&gt;&amp;#39;&amp;#39;&amp;#39;Add bypass capacitors between vdd and gnd to a chip, one for each ground pin.&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
     &lt;span class="n"&gt;num_gnd_pins&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;chip&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;GND&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
     &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;_&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;num_gnd_pins&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
         &lt;span class="n"&gt;bypcap&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Part&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Device&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;C&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;0.1uF&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;footprint&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Capacitors_SMD:C_0603&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -2024,14 +2242,14 @@ when I first instantiate the chip:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;skidl&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;
 
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;add_bypass_caps&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;chip&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;vdd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;gnd&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="sd"&gt;&amp;#39;&amp;#39;&amp;#39;Add bypass capacitors between vdd and gnd to a chip, one for each ground pin.&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="sd"&gt;&amp;#39;&amp;#39;&amp;#39;Add bypass capacitors between vdd and gnd to a chip, one for each ground pin.&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
     &lt;span class="n"&gt;num_gnd_pins&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;chip&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;GND&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
     &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;_&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;num_gnd_pins&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
         &lt;span class="n"&gt;bypcap&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Part&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Device&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;C&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;0.1uF&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;footprint&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Capacitors_SMD:C_0603&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
         &lt;span class="n"&gt;bypcap&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;vdd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;gnd&lt;/span&gt;
 
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;PartWithBypassCaps&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Part&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="sd"&gt;&amp;#39;&amp;#39;&amp;#39;A subclass of Part that adds bypass caps to the part that&amp;#39;s created.&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="sd"&gt;&amp;#39;&amp;#39;&amp;#39;A subclass of Part that adds bypass caps to the part that&amp;#39;s created.&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
     &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="fm"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;vdd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;gnd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;kwargs&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
         &lt;span class="n"&gt;Part&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="fm"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;kwargs&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="c1"&gt;# Normal part creation.&lt;/span&gt;
         &lt;span class="n"&gt;add_bypass_caps&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;vdd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;gnd&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;       &lt;span class="c1"&gt;# Add bypass caps.&lt;/span&gt;
@@ -2065,7 +2283,7 @@ of components appears in many circuits.
 Here's what a SKiDL subcircuit for the crystal circuit looks like:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nd"&gt;@SubCircuit&lt;/span&gt;
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;osc&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;osc1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;osc2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;gnd&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="sd"&gt;&amp;#39;&amp;#39;&amp;#39;Attach a crystal and two caps to the osc1 and osc2 nets.&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="sd"&gt;&amp;#39;&amp;#39;&amp;#39;Attach a crystal and two caps to the osc1 and osc2 nets.&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
     &lt;span class="n"&gt;xtal&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Part&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;xess_lib&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;XTAL4&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;footprint&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;XESS:32x25-4&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# Instantiate the crystal from the library.&lt;/span&gt;
     &lt;span class="n"&gt;xtal&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;gnd&lt;/span&gt;                   &lt;span class="c1"&gt;# Connect the crystal ground pins.&lt;/span&gt;
     &lt;span class="n"&gt;xtal&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;osc1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;osc2&lt;/span&gt;            &lt;span class="c1"&gt;# Connect the crystal pins to the oscillator nets.&lt;/span&gt;
@@ -2097,7 +2315,7 @@ ground net, &lt;code&gt;gnd&lt;/code&gt;).&lt;/p&gt;
 parts as parameters to the function:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nd"&gt;@SubCircuit&lt;/span&gt;
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;osc&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;osc1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;osc2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;gnd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;crystal&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;cap&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="sd"&gt;&amp;#39;&amp;#39;&amp;#39;Attach a crystal and two caps to the osc1 and osc2 nets.&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="sd"&gt;&amp;#39;&amp;#39;&amp;#39;Attach a crystal and two caps to the osc1 and osc2 nets.&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
     &lt;span class="n"&gt;xtal&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;crystal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;                  &lt;span class="c1"&gt;# Instantiate the crystal from the template.&lt;/span&gt;
     &lt;span class="n"&gt;xtal&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;gnd&lt;/span&gt;                  &lt;span class="c1"&gt;# Connect the crystal ground pins.&lt;/span&gt;
     &lt;span class="n"&gt;xtal&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;osc1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;osc2&lt;/span&gt;           &lt;span class="c1"&gt;# Connect the crystal pins to the oscillator nets.&lt;/span&gt;
@@ -2117,7 +2335,7 @@ But many crystals only have two terminals.
 You can handle that in the subcircuit function as follows:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nd"&gt;@SubCircuit&lt;/span&gt;
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;osc&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;osc1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;osc2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;gnd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;crystal&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;cap&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="sd"&gt;&amp;#39;&amp;#39;&amp;#39;Attach a crystal and two caps to the osc1 and osc2 nets.&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="sd"&gt;&amp;#39;&amp;#39;&amp;#39;Attach a crystal and two caps to the osc1 and osc2 nets.&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
     &lt;span class="n"&gt;xtal&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;crystal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;                  &lt;span class="c1"&gt;# Instantiate the crystal from the template.&lt;/span&gt;
     &lt;span class="n"&gt;num_xtal_pins&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;xtal&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;.*&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;    &lt;span class="c1"&gt;# Get the number of pins on the crystal.&lt;/span&gt;
     &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;num_xtal_pins&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;             &lt;span class="c1"&gt;# This handles a 4-pin crystal...&lt;/span&gt;
@@ -2145,7 +2363,7 @@ Python default parameters come to the rescue!&lt;/p&gt;
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;osc&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;osc1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;osc2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;gnd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; 
         &lt;span class="n"&gt;crystal&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Part&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Device&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Crystal&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;footprint&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Crystal:Crystal_HC49-U_Vertical&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;dest&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;TEMPLATE&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; 
         &lt;span class="n"&gt;cap&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Part&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Device&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;C&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;10pf&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;footprint&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Capacitors_SMD:C_0603&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;dest&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;TEMPLATE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="sd"&gt;&amp;#39;&amp;#39;&amp;#39;Attach a crystal and two caps to the osc1 and osc2 nets.&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="sd"&gt;&amp;#39;&amp;#39;&amp;#39;Attach a crystal and two caps to the osc1 and osc2 nets.&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
     &lt;span class="n"&gt;xtal&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;crystal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;                  &lt;span class="c1"&gt;# Instantiate the crystal from the template.&lt;/span&gt;
     &lt;span class="n"&gt;num_xtal_pins&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;xtal&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;.*&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;    &lt;span class="c1"&gt;# Get the number of pins on the crystal.&lt;/span&gt;
     &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;num_xtal_pins&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;             &lt;span class="c1"&gt;# This handles a 4-pin crystal...&lt;/span&gt;
@@ -2169,7 +2387,7 @@ Python default parameters come to the rescue!&lt;/p&gt;
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;osc&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;osc1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;osc2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;gnd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; 
         &lt;span class="n"&gt;crystal&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Part&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Device&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Crystal&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;footprint&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Crystal:Crystal_HC49-U_Vertical&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;dest&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;TEMPLATE&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; 
         &lt;span class="n"&gt;cap&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Part&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Device&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;C&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;10pf&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;footprint&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Capacitors_SMD:C_0603&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;dest&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;TEMPLATE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="sd"&gt;&amp;#39;&amp;#39;&amp;#39;Attach a crystal and two caps to the osc1 and osc2 nets.&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="sd"&gt;&amp;#39;&amp;#39;&amp;#39;Attach a crystal and two caps to the osc1 and osc2 nets.&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
     &lt;span class="n"&gt;xtal&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;crystal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;                  &lt;span class="c1"&gt;# Instantiate the crystal from the template.&lt;/span&gt;
     &lt;span class="n"&gt;num_xtal_pins&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;xtal&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;.*&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;    &lt;span class="c1"&gt;# Get the number of pins on the crystal.&lt;/span&gt;
     &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;num_xtal_pins&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;             &lt;span class="c1"&gt;# This handles a 4-pin crystal...&lt;/span&gt;
@@ -2588,7 +2806,7 @@ Unconnected pins and conflicting drivers are the usual culprits it finds.&lt;/p&
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Once the Python file is complete, the netlist is created by running the command:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;python intfc_brd.py
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;python&lt;span class="w"&gt; &lt;/span&gt;intfc_brd.py
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Python will execute the script and generate the following warnings:&lt;/p&gt;

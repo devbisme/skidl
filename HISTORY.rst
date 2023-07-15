@@ -3,12 +3,26 @@
 History
 -------
 
+1.2.0 (2023-07-14)
+______________________
+
+- Added ability to generate an editable schematic from a Circuit object. (Currently only works for KiCad V5.)
+- Added Group object for creating hierarchy without using function calls.
+- `generate_pcb` now takes an optional list of footprint library directories.
+- If not explicitly declared, `Part` objects will load the default footprint from their symbol definition.
+- Added `empty_footprint_handler()` for parts without footprints that logs errors by default but can be overriden by the user.
+- Symbol libraries can now be searched on remote repositories by placing the URL in the `lib_search_paths` dictionary.
+  KiCad V6 symbols are found at `https://gitlab.com/kicad/libraries/kicad-symbols/-/raw/master`
+  and V5 symbols are at `https://raw.githubusercontent.com/KiCad/kicad-symbols/master/`.
+- `Part` pins can now be sorted and retrieved in order using the `ordered_pins` property.
+
+
 1.1.0 (2021-10-22)
 ______________________
 
 - Added `generate_pcb()` function to create a PCB file directly from
   a `Circuit` object. (Currently only works for KiCad.)
-- Added `PartTmplt` shortcut which creates a Part template using dest=TEMPLATE implicitly.
+- Added `PartTmplt` shortcut which creates a Part template using `dest=TEMPLATE` implicitly.
 
 1.0.0 (2021-05-09)
 ______________________

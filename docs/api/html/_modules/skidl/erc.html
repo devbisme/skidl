@@ -2,17 +2,18 @@
 
 <!doctype html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.erc &#8212; SKiDL  documentation</title>
+    <title>skidl.erc &#8212; SKiDL 1.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css" />
     
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -33,7 +34,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.erc</a></li> 
       </ul>
@@ -65,24 +66,26 @@
 <span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
 
 <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
+<span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="n">export_to_all</span>
 
 <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
 
 
-<div class="viewcode-block" id="dflt_circuit_erc"><a class="viewcode-back" href="../../rst_output/skidl.erc.html#skidl.erc.dflt_circuit_erc">[docs]</a><span class="k">def</span> <span class="nf">dflt_circuit_erc</span><span class="p">(</span><span class="n">circuit</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="dflt_circuit_erc"><a class="viewcode-back" href="../../rst_output/skidl.erc.html#skidl.erc.dflt_circuit_erc">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">dflt_circuit_erc</span><span class="p">(</span><span class="n">circuit</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Do an electrical rules check on a circuit.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="kn">from</span> <span class="nn">.net</span> <span class="kn">import</span> <span class="n">Net</span>
 
     <span class="c1"># Check the nets for errors:</span>
-    <span class="c1">#   1. Merge names to get a single name for all multi-segment nets.</span>
+    <span class="c1">#   1. Merge all multi-segment nets.</span>
     <span class="c1">#   2. Find the set of unique net names.</span>
     <span class="c1">#   3. Get the net associated with each name and do an ERC on it.</span>
     <span class="c1"># This prevents flagging the same error multiple times by running</span>
     <span class="c1"># ERC on different segments of a multi-segment net.</span>
-    <span class="n">circuit</span><span class="o">.</span><span class="n">_merge_net_names</span><span class="p">()</span>
+    <span class="n">circuit</span><span class="o">.</span><span class="n">merge_net_names</span><span class="p">()</span>
     <span class="n">net_names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">net</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">nets</span><span class="p">])</span>
     <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">net_names</span><span class="p">:</span>
         <span class="n">Net</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">circuit</span><span class="o">=</span><span class="n">circuit</span><span class="p">)</span><span class="o">.</span><span class="n">ERC</span><span class="p">()</span>
@@ -92,8 +95,9 @@
         <span class="n">piece</span><span class="o">.</span><span class="n">ERC</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="dflt_part_erc"><a class="viewcode-back" href="../../rst_output/skidl.erc.html#skidl.erc.dflt_part_erc">[docs]</a><span class="k">def</span> <span class="nf">dflt_part_erc</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="dflt_part_erc"><a class="viewcode-back" href="../../rst_output/skidl.erc.html#skidl.erc.dflt_part_erc">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">dflt_part_erc</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Do an electrical rules check on a part in the schematic.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -125,8 +129,9 @@
                 <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="dflt_net_erc"><a class="viewcode-back" href="../../rst_output/skidl.erc.html#skidl.erc.dflt_net_erc">[docs]</a><span class="k">def</span> <span class="nf">dflt_net_erc</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="dflt_net_erc"><a class="viewcode-back" href="../../rst_output/skidl.erc.html#skidl.erc.dflt_net_erc">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">dflt_net_erc</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Do electrical rules check on a net in the schematic.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -139,7 +144,7 @@
         <span class="k">return</span>
 
     <span class="c1"># Check the number of pins attached to the net.</span>
-    <span class="n">pins</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">get_pins</span><span class="p">()</span>
+    <span class="n">pins</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">pins</span>
     <span class="n">num_pins</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pins</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">num_pins</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">active_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;No pins attached to net </span><span class="si">{n}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
@@ -187,7 +192,7 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -201,14 +206,14 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.erc</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2016-2021, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+        &#169; Copyright 2016-2023, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>
 </html>

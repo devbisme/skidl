@@ -1,0 +1,19 @@
+skidl.schematics package
+========================
+
+.. automodule:: skidl.schematics
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   skidl.schematics.debug_draw
+   skidl.schematics.gen_schematic
+   skidl.schematics.geometry
+   skidl.schematics.place
+   skidl.schematics.route

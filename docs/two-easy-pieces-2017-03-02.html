@@ -92,7 +92,7 @@ here's what I came up with:</p>
 
 <p>Saving my skidl script in a file called <code>led_clock.py</code>, I generated a netlist
 with the command:</p>
-<div class="highlight"><pre><span></span><code>$ python led_clock.py
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>python<span class="w"> </span>led_clock.py
 </code></pre></div>
 
 <p>This stored the netlist into a file called <code>led_clock.net</code>. 
@@ -149,7 +149,7 @@ The script shown below does that as follows:</p>
 
 <span class="nd">@SubCircuit</span>
 <span class="k">def</span> <span class="nf">vga_port</span><span class="p">(</span><span class="n">red</span><span class="p">,</span> <span class="n">grn</span><span class="p">,</span> <span class="n">blu</span><span class="p">,</span> <span class="n">hsync</span><span class="p">,</span> <span class="n">vsync</span><span class="p">,</span> <span class="n">gnd</span><span class="p">,</span> <span class="n">logic_lvl</span><span class="o">=</span><span class="mf">3.3</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Generate analog RGB VGA port driven by red, grn, blu digital color buses.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate analog RGB VGA port driven by red, grn, blu digital color buses.&quot;&quot;&quot;</span>
 
     <span class="c1"># Determine the color depth by finding the max width of the digital color buses.</span>
     <span class="c1"># (Note that the color buses don&#39;t have to be the same width.)</span>

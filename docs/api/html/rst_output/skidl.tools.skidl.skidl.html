@@ -2,18 +2,19 @@
 
 <!doctype html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>skidl.tools.skidl.skidl module &#8212; SKiDL  documentation</title>
+    <title>skidl.tools.skidl.skidl module &#8212; SKiDL 1.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css" />
     
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -34,7 +35,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.skidl.skidl module</a></li> 
       </ul>
     </div>  
@@ -45,14 +46,14 @@
           <div class="body" role="main">
             
   <section id="module-skidl.tools.skidl.skidl">
-<span id="skidl-tools-skidl-skidl-module"></span><h1>skidl.tools.skidl.skidl module<a class="headerlink" href="#module-skidl.tools.skidl.skidl" title="Permalink to this headline">¶</a></h1>
+<span id="skidl-tools-skidl-skidl-module"></span><h1>skidl.tools.skidl.skidl module<a class="headerlink" href="#module-skidl.tools.skidl.skidl" title="Permalink to this heading">¶</a></h1>
 <p>Handler for reading SKiDL libraries and generating netlists.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.tools.skidl.skidl.load_sch_lib">
 <span class="sig-prename descclassname"><span class="pre">skidl.tools.skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">load_sch_lib</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib_search_paths_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib_section</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/skidl/skidl.html#load_sch_lib"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.skidl.skidl.load_sch_lib" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load the parts from a SKiDL schematic library file.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>filename</strong> – The name of the SKiDL schematic library file.</p>
 </dd>
 </dl>
@@ -60,7 +61,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.tools.skidl.skidl.parse_lib_part">
-<span class="sig-prename descclassname"><span class="pre">skidl.tools.skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">parse_lib_part</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_name_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/skidl/skidl.html#parse_lib_part"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.skidl.skidl.parse_lib_part" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">skidl.tools.skidl.skidl.</span></span><span class="sig-name descname"><span class="pre">parse_lib_part</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partial_parse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/tools/skidl/skidl.html#parse_lib_part"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.tools.skidl.skidl.parse_lib_part" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a Part using a part definition from a SKiDL library.</p>
 </dd></dl>
 
@@ -89,7 +90,7 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -103,13 +104,13 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.skidl.skidl module</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2016-2021, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+        &#169; Copyright 2016-2023, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>
 </html>

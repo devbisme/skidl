@@ -2,18 +2,19 @@
 
 <!doctype html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>skidl package &#8212; SKiDL  documentation</title>
+    <title>skidl package &#8212; SKiDL 1.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css" />
     
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -34,7 +35,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl package</a></li> 
       </ul>
     </div>  
@@ -45,7 +46,7 @@
           <div class="body" role="main">
             
   <section id="module-skidl">
-<span id="skidl-package"></span><h1>skidl package<a class="headerlink" href="#module-skidl" title="Permalink to this headline">¶</a></h1>
+<span id="skidl-package"></span><h1>skidl package<a class="headerlink" href="#module-skidl" title="Permalink to this heading">¶</a></h1>
 <p>SKiDL: A Python-Based Schematic Design Language</p>
 <p>This module extends Python with the ability to design electronic
 circuits. It provides classes for working with:</p>
@@ -61,12 +62,30 @@ imported into a PCB layout tool or Spice simulator.
 The script can also
 check the resulting circuitry for electrical rule violations.</p>
 <section id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="skidl.libs.html">skidl.libs package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="skidl.libs.html#submodules">Submodules</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="skidl.libs.convert_libs.html">skidl.libs.convert_libs module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="skidl.schematics.html">skidl.schematics package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="skidl.schematics.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="skidl.schematics.debug_draw.html">skidl.schematics.debug_draw module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.schematics.gen_schematic.html">skidl.schematics.gen_schematic module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.schematics.geometry.html">skidl.schematics.geometry module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.schematics.place.html">skidl.schematics.place module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="skidl.schematics.route.html">skidl.schematics.route module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="skidl.scripts.html">skidl.scripts namespace</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="skidl.scripts.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="skidl.scripts.netlist_to_skidl_main.html">skidl.scripts.netlist_to_skidl_main module</a></li>
 </ul>
 </li>
 </ul>
@@ -93,22 +112,21 @@ check the resulting circuitry for electrical rule violations.</p>
 </div>
 </section>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="skidl.alias.html">skidl.alias module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="skidl.arrange.html">skidl.arrange module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="skidl.bus.html">skidl.bus module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="skidl.circuit.html">skidl.circuit module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="skidl.common.html">skidl.common module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="skidl.coord.html">skidl.coord module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="skidl.config.html">skidl.config module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="skidl.erc.html">skidl.erc module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="skidl.group.html">skidl.group module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="skidl.interface.html">skidl.interface module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="skidl.logger.html">skidl.logger module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="skidl.net.html">skidl.net module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="skidl.netclass.html">skidl.netclass module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="skidl.netlist_to_skidl.html">skidl.netlist_to_skidl module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="skidl.netlist_to_skidl_main.html">skidl.netlist_to_skidl_main module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="skidl.netpinlist.html">skidl.netpinlist module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="skidl.network.html">skidl.network module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="skidl.note.html">skidl.note module</a></li>
@@ -163,7 +181,7 @@ check the resulting circuitry for electrical rule violations.</p>
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -177,13 +195,13 @@ check the resulting circuitry for electrical rule violations.</p>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl package</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2016-2021, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+        &#169; Copyright 2016-2023, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>
 </html>

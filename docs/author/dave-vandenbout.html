@@ -45,21 +45,37 @@
 		<div id="contents">
 <div class="post type-post status-publish format-standard hentry category-general" id="post">
 	<div class="entry-meta">
-		<span class="date"><a href="/skidl/skidl-meets-chatgpt-2023-03-23.html">Thu 23 March 2023</a></span>
+		<span class="date"><a href="/skidl/generating-editable-schematics-2023-07-14.html">Fri 14 July 2023</a></span>
 		/
 		<span class="byline"><a href="/skidl/author/dave-vandenbout.html">Dave Vandenbout</a></span>
 	</div> <!-- /#entry-meta -->
 	<div class="main">
 		<h2 class="entry-title">
-			<a href="/skidl/skidl-meets-chatgpt-2023-03-23.html" title="Permalink to SKiDL Meets GPT" rel="bookmark">SKiDL Meets GPT</a>
+			<a href="/skidl/generating-editable-schematics-2023-07-14.html" title="Permalink to SKiDL Has Schematics!" rel="bookmark">SKiDL Has Schematics!</a>
 		</h2>
 		<div class="entry-content">
-			<p>ChatGPT was released late last year, and GPT4 dropped last week.
-These large language models (LLMs) offer some intriguing possibilities.
-I had a Twitter conversation about them with <a href="https://twitter.com/alexandrosM">@alexandrosM</a> that started like this:</p>
-<p><img alt="" src="images/skidl-meets-chatgpt/gpt_twitter_conv_1.png"></p>
-<p>So I described the simplest thing I could think of - a voltage divider - and asked
-ChatGPT to …</p>
+			<p>You can finally generate editable schematics from your SKiDL code.</p>
+		</div> <!--/#entry-content-->
+    		<span class="tag-links"><strong>Tagged</strong>
+ <a href="/skidl/tag/schematics.html" rel="tag">schematics</a>    		</span>
+	</div> <!--/#main-->
+</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
+	<div class="entry-meta">
+		<span class="date"><a href="/skidl/one-dot-two-2023-07-14.html">Fri 14 July 2023</a></span>
+		/
+		<span class="byline"><a href="/skidl/author/dave-vandenbout.html">Dave Vandenbout</a></span>
+	</div> <!-- /#entry-meta -->
+	<div class="main">
+		<h2 class="entry-title">
+			<a href="/skidl/one-dot-two-2023-07-14.html" title="Permalink to New 1.2.0 Release" rel="bookmark">New 1.2.0 Release</a>
+		</h2>
+		<div class="entry-content">
+			<p>It's been nearly <em>two years</em> since the last release.
+The 1.2.0 release has these user-facing changes:</p>
+<ul>
+<li>Something that has been requested for years: SKiDL can now <a href="generating-editable-schematics-2023-07-14.html">generate an editable schematic</a>
+  from a <code>Circuit</code> object. (Currently only works for KiCad V5.)</li>
+<li>The <code>Group</code> object allows you to create hierarchy …</li></ul>
 		</div> <!--/#entry-content-->
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
@@ -132,7 +148,7 @@ And as with <code>lint</code>, you get a whole bunch of warnings that don't matt
 			<p>Up to now, SKiDL supported hierarchy by applying the <code>@subcircuit</code> decorator to a Python function:</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@subcircuit</span>
 <span class="k">def</span> <span class="nf">analog_average</span><span class="p">(</span><span class="n">in1</span><span class="p">,</span> <span class="n">in2</span><span class="p">,</span> <span class="n">avg</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Output the average of the two inputs.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Output the average of the two inputs.&quot;&quot;&quot;</span>
 
     <span class="c1"># Create two 1K resistors.</span>
     <span class="n">r1</span><span class="p">,</span> <span class="n">r2</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;1K&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
@@ -213,25 +229,6 @@ as a requirement.
 That's likely to cause problems for some people when they try to install
 it with <code>pip</code>.</p>
 <p>So …</p>
-		</div> <!--/#entry-content-->
-	</div> <!--/#main-->
-</div>  <!--/#post--><div class="post type-post status-publish format-standard hentry category-general" id="post">
-	<div class="entry-meta">
-		<span class="date"><a href="/skidl/Release_0_0_27-2019-12-16.html">Mon 16 December 2019</a></span>
-		/
-		<span class="byline"><a href="/skidl/author/dave-vandenbout.html">Dave Vandenbout</a></span>
-	</div> <!-- /#entry-meta -->
-	<div class="main">
-		<h2 class="entry-title">
-			<a href="/skidl/Release_0_0_27-2019-12-16.html" title="Permalink to Version 0.0.27 Released!" rel="bookmark">Version 0.0.27 Released!</a>
-		</h2>
-		<div class="entry-content">
-			<p>It's been almost eleven months since I released a new version of SKiDL
-(not counting updates to the Github repo).
-So here's a new one: version 0.0.27.
-You can install it using pip just like all the other releases.</p>
-<p>Check out the changes in this version <a href="https://github.com/devbisme/skidl/blob/master/HISTORY.rst">here</a>.
-I …</p>
 		</div> <!--/#entry-content-->
 	</div> <!--/#main-->
 </div>  <!--/#post--><div class="navigation">

@@ -57,7 +57,7 @@
 			<p>Up to now, SKiDL supported hierarchy by applying the <code>@subcircuit</code> decorator to a Python function:</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@subcircuit</span>
 <span class="k">def</span> <span class="nf">analog_average</span><span class="p">(</span><span class="n">in1</span><span class="p">,</span> <span class="n">in2</span><span class="p">,</span> <span class="n">avg</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Output the average of the two inputs.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Output the average of the two inputs.&quot;&quot;&quot;</span>
 
     <span class="c1"># Create two 1K resistors.</span>
     <span class="n">r1</span><span class="p">,</span> <span class="n">r2</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">Part</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;1K&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">TEMPLATE</span><span class="p">)</span>
@@ -104,7 +104,7 @@ But you can't do the same thing with a subcircuit function without making change
 code because of the syntactic differences in how connections are made:</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@subcircuit</span>
 <span class="k">def</span> <span class="nf">analog_average</span><span class="p">(</span><span class="n">in1</span><span class="p">,</span> <span class="n">in2</span><span class="p">,</span> <span class="n">avg</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Output the average of the two inputs.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Output the average of the two inputs.&quot;&quot;&quot;</span>
 
     <span class="n">r1</span><span class="p">,</span> <span class="n">r2</span> <span class="o">=</span> <span class="n">r</span><span class="p">(</span><span class="n">num_copies</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># Create two copies of the resistor part.</span>
     <span class="n">r1</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">in1</span><span class="p">,</span> <span class="n">avg</span>

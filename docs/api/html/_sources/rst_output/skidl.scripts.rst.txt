@@ -1,0 +1,12 @@
+skidl.scripts namespace
+=======================
+
+.. py:module:: skidl.scripts
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   skidl.scripts.netlist_to_skidl_main

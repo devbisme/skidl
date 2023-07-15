@@ -2,17 +2,18 @@
 
 <!doctype html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.net &#8212; SKiDL  documentation</title>
+    <title>skidl.net &#8212; SKiDL 1.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css" />
     
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -33,7 +34,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.net</a></li> 
       </ul>
@@ -61,6 +62,7 @@
 <span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">range</span><span class="p">,</span> <span class="nb">super</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">copy</span><span class="p">,</span> <span class="n">deepcopy</span>
 
@@ -69,9 +71,22 @@
 <span class="kn">from</span> <span class="nn">.erc</span> <span class="kn">import</span> <span class="n">dflt_net_erc</span>
 <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
 <span class="kn">from</span> <span class="nn">.skidlbaseobj</span> <span class="kn">import</span> <span class="n">SkidlBaseObject</span>
-<span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">expand_buses</span><span class="p">,</span>
+    <span class="n">expand_indices</span><span class="p">,</span>
+    <span class="n">export_to_all</span><span class="p">,</span>
+    <span class="n">filter_list</span><span class="p">,</span>
+    <span class="n">find_num_copies</span><span class="p">,</span>
+    <span class="n">flatten</span><span class="p">,</span>
+    <span class="n">from_iadd</span><span class="p">,</span>
+    <span class="n">get_unique_name</span><span class="p">,</span>
+    <span class="n">rmv_iadd</span><span class="p">,</span>
+    <span class="n">set_iadd</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;NET_PREFIX&quot;</span><span class="p">]</span>
 
 <span class="c1"># Prefix for implicit nets.</span>
 <span class="n">NET_PREFIX</span> <span class="o">=</span> <span class="s2">&quot;N$&quot;</span>
@@ -79,8 +94,9 @@
 <span class="n">Traversal</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;Traversal&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;nets&quot;</span><span class="p">,</span> <span class="s2">&quot;pins&quot;</span><span class="p">])</span>
 
 
-<div class="viewcode-block" id="Net"><a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net">[docs]</a><span class="k">class</span> <span class="nc">Net</span><span class="p">(</span><span class="n">SkidlBaseObject</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Net"><a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">class</span> <span class="nc">Net</span><span class="p">(</span><span class="n">SkidlBaseObject</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Lists of connected pins are stored as nets using this class.</span>
 
 <span class="sd">    Args:</span>
@@ -100,12 +116,11 @@
 
 <div class="viewcode-block" id="Net.get"><a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.get">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">circuit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get the net with the given name from a circuit, or return None.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the net with the given name from a circuit, or return None.&quot;&quot;&quot;</span>
 
         <span class="kn">from</span> <span class="nn">.alias</span> <span class="kn">import</span> <span class="n">Alias</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">circuit</span><span class="p">:</span>
-            <span class="n">circuit</span> <span class="o">=</span> <span class="n">default_circuit</span>
+        <span class="n">circuit</span> <span class="o">=</span> <span class="n">circuit</span> <span class="ow">or</span> <span class="n">default_circuit</span>
 
         <span class="n">search_params</span> <span class="o">=</span> <span class="p">((</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;aliases&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span>
 
@@ -123,7 +138,7 @@
 
 <div class="viewcode-block" id="Net.fetch"><a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.fetch">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get the net with the given name from a circuit, or create it if not found.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the net with the given name from a circuit, or create it if not found.&quot;&quot;&quot;</span>
 
         <span class="n">circuit</span> <span class="o">=</span> <span class="n">attribs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;circuit&quot;</span><span class="p">,</span> <span class="n">default_circuit</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">circuit</span><span class="o">=</span><span class="n">circuit</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">cls</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">)</span></div>
@@ -136,9 +151,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_valid</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># Make net valid before doing anything else.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">do_erc</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_drive</span> <span class="o">=</span> <span class="n">Pin</span><span class="o">.</span><span class="n">drives</span><span class="o">.</span><span class="n">NONE</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pins</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pins</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">circuit</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">code</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># This is the net number used in a KiCad netlist file.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stub</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># Net is not a stub for schematic generation.</span>
 
         <span class="c1"># Set the net name directly to the passed-in name without any adjustment.</span>
         <span class="c1"># The net name will be adjusted when it is added to the circuit which</span>
@@ -158,7 +174,7 @@
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_traverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return all the nets and pins attached to this net, including itself.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return all the nets and pins attached to this net, including itself.&quot;&quot;&quot;</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">traversal</span>  <span class="c1"># Return pre-existing traversal.</span>
@@ -171,21 +187,21 @@
         <span class="n">prev_nets</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="bp">self</span><span class="p">])</span>
         <span class="n">nets</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="bp">self</span><span class="p">])</span>
         <span class="n">prev_pins</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([])</span>
-        <span class="n">pins</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span>
+        <span class="n">pins</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_pins</span><span class="p">)</span>
         <span class="k">while</span> <span class="n">pins</span> <span class="o">!=</span> <span class="n">prev_pins</span><span class="p">:</span>
 
             <span class="c1"># Add the nets attached to any unvisited pins.</span>
             <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">pins</span> <span class="o">-</span> <span class="n">prev_pins</span><span class="p">:</span>
                 <span class="c1"># No use visiting a pin that is not connected to a net.</span>
                 <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
-                    <span class="n">nets</span> <span class="o">|=</span> <span class="nb">set</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">get_nets</span><span class="p">())</span>
+                    <span class="n">nets</span> <span class="o">|=</span> <span class="nb">set</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">nets</span><span class="p">)</span>
 
             <span class="c1"># Update the set of previously visited pins.</span>
             <span class="n">prev_pins</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">pins</span><span class="p">)</span>
 
             <span class="c1"># Add the pins attached to any unvisited nets.</span>
             <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">nets</span> <span class="o">-</span> <span class="n">prev_nets</span><span class="p">:</span>
-                <span class="n">pins</span> <span class="o">|=</span> <span class="nb">set</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span>
+                <span class="n">pins</span> <span class="o">|=</span> <span class="nb">set</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">_pins</span><span class="p">)</span>
 
             <span class="c1"># Update the set of previously visited nets.</span>
             <span class="n">prev_nets</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">nets</span><span class="p">)</span>
@@ -203,19 +219,27 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">traversal</span>
 
 <div class="viewcode-block" id="Net.get_pins"><a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.get_pins">[docs]</a>    <span class="k">def</span> <span class="nf">get_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return a list of pins attached to this net.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of pins attached to this net.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test_validity</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_traverse</span><span class="p">()</span><span class="o">.</span><span class="n">pins</span></div>
 
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">pins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_pins</span><span class="p">()</span>
+
 <div class="viewcode-block" id="Net.get_nets"><a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.get_nets">[docs]</a>    <span class="k">def</span> <span class="nf">get_nets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return a list of nets attached to this net, including this net.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of nets attached to this net, including this net.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test_validity</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_traverse</span><span class="p">()</span><span class="o">.</span><span class="n">nets</span></div>
 
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">nets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_nets</span><span class="p">()</span>
+
 <div class="viewcode-block" id="Net.is_attached"><a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.is_attached">[docs]</a>    <span class="k">def</span> <span class="nf">is_attached</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin_net_bus</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return true if the pin, net or bus is attached to this one.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return true if the pin, net or bus is attached to this one.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pin_net_bus</span><span class="p">,</span> <span class="n">Net</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">pin_net_bus</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_nets</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">pin_net_bus</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pin_net_bus</span><span class="p">,</span> <span class="n">Pin</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">pin_net_bus</span><span class="o">.</span><span class="n">is_attached</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pin_net_bus</span><span class="p">,</span> <span class="n">Bus</span><span class="p">):</span>
@@ -228,7 +252,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="Net.is_movable"><a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.is_movable">[docs]</a>    <span class="k">def</span> <span class="nf">is_movable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return true if the net is movable to another circuit.</span>
 
 <span class="sd">        A net is movable if it&#39;s not part of a Circuit or if there are no pins</span>
@@ -237,10 +261,10 @@
 
         <span class="kn">from</span> <span class="nn">.circuit</span> <span class="kn">import</span> <span class="n">Circuit</span>
 
-        <span class="k">return</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">circuit</span><span class="p">,</span> <span class="n">Circuit</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">pins</span></div>
+        <span class="k">return</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">circuit</span><span class="p">,</span> <span class="n">Circuit</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pins</span></div>
 
 <div class="viewcode-block" id="Net.copy"><a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_copies</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">circuit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Make zero or more copies of this net.</span>
 
 <span class="sd">        Args:</span>
@@ -299,7 +323,7 @@
         <span class="c1"># because what happens if a pin is connected to the copy? Then we have</span>
         <span class="c1"># to search for all the other copies to add the pin to those.</span>
         <span class="c1"># And what&#39;s the value of that?</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pins</span><span class="p">:</span>
             <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                 <span class="ne">ValueError</span><span class="p">,</span>
                 <span class="s2">&quot;Can&#39;t make copies of a net that already has &quot;</span> <span class="s2">&quot;pins attached to it!&quot;</span><span class="p">,</span>
@@ -350,7 +374,7 @@
     <span class="fm">__rmul__</span> <span class="o">=</span> <span class="fm">__mul__</span>
 
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">ids</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the net if the indices resolve to a single index of 0.</span>
 
 <span class="sd">        Args:</span>
@@ -372,7 +396,7 @@
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="o">*</span><span class="n">pins_nets_buses</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        You can&#39;t assign to Nets. You must use the += operator.</span>
 
 <span class="sd">        This method is a work-around that allows the use of the += for making</span>
@@ -403,14 +427,14 @@
         <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t assign to a Net! Use the += operator.&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return an iterator for stepping through the net.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># You can only iterate a Net one time.</span>
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># Return generator expr.</span>
 
 <div class="viewcode-block" id="Net.is_implicit"><a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.is_implicit">[docs]</a>    <span class="k">def</span> <span class="nf">is_implicit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return true if the net name is implicit.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return true if the net name is implicit.&quot;&quot;&quot;</span>
 
         <span class="kn">from</span> <span class="nn">.bus</span> <span class="kn">import</span> <span class="n">BUS_PREFIX</span>
 
@@ -419,7 +443,7 @@
         <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">prefix_re</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Net.connect"><a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.connect">[docs]</a>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">pins_nets_buses</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the net after connecting other pins, nets, and buses to it.</span>
 
 <span class="sd">        Args:</span>
@@ -440,24 +464,24 @@
         <span class="kn">from</span> <span class="nn">.pin</span> <span class="kn">import</span> <span class="n">PhantomPin</span><span class="p">,</span> <span class="n">Pin</span>
         <span class="kn">from</span> <span class="nn">.protonet</span> <span class="kn">import</span> <span class="n">ProtoNet</span>
 
-        <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
-            <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Merge nets by giving them each a pin in common.</span>
+        <span class="k">def</span> <span class="nf">join</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Join nets by giving them each a pin in common.</span>
 
 <span class="sd">            Args:</span>
-<span class="sd">                net: The net to merge with self.</span>
+<span class="sd">                net: The net to join with self.</span>
 <span class="sd">            &quot;&quot;&quot;</span>
 
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">NCNet</span><span class="p">):</span>
                 <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                     <span class="ne">ValueError</span><span class="p">,</span>
-                    <span class="s2">&quot;Can&#39;t merge with a no-connect net </span><span class="si">{}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">),</span>
+                    <span class="s2">&quot;Can&#39;t join with a no-connect net </span><span class="si">{}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">),</span>
                 <span class="p">)</span>
 
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">NCNet</span><span class="p">):</span>
                 <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                     <span class="ne">ValueError</span><span class="p">,</span>
-                    <span class="s2">&quot;Can&#39;t merge with a no-connect net </span><span class="si">{}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">),</span>
+                    <span class="s2">&quot;Can&#39;t join with a no-connect net </span><span class="si">{}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">),</span>
                 <span class="p">)</span>
 
             <span class="c1"># No need to do anything if merging a net with itself.</span>
@@ -465,42 +489,43 @@
                 <span class="k">return</span>
 
             <span class="c1"># If this net has pins, just attach the other net to one of them.</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">nets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">net</span><span class="p">)</span>
-                <span class="n">net</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pins</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_pins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">nets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">net</span><span class="p">)</span>
+                <span class="n">net</span><span class="o">.</span><span class="n">_pins</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_pins</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
             <span class="c1"># If the other net has pins, attach this net to a pin on the other net.</span>
-            <span class="k">elif</span> <span class="n">net</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
-                <span class="n">net</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">nets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">elif</span> <span class="n">net</span><span class="o">.</span><span class="n">_pins</span><span class="p">:</span>
+                <span class="n">net</span><span class="o">.</span><span class="n">_pins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">nets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_pins</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">_pins</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
             <span class="c1"># If neither net has any pins, then attach a phantom pin to one net</span>
             <span class="c1"># and then connect the nets together.</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">p</span> <span class="o">=</span> <span class="n">PhantomPin</span><span class="p">()</span>
                 <span class="n">connect_pin</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">nets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">net</span><span class="p">)</span>
-                <span class="n">net</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_pins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">nets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">net</span><span class="p">)</span>
+                <span class="n">net</span><span class="o">.</span><span class="n">_pins</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_pins</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
-            <span class="c1"># Update the drive of the merged nets. When setting the drive of a</span>
+            <span class="c1"># Update the drive of the joined nets. When setting the drive of a</span>
             <span class="c1"># net the net drive will be the maximum of its current drive or the</span>
             <span class="c1"># new drive. So the following two operations will set each net</span>
             <span class="c1"># drive to the same maximum value.</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">drive</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">drive</span>
             <span class="n">net</span><span class="o">.</span><span class="n">drive</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">drive</span>
 
-            <span class="c1"># Update the net class of the merged nets. The following two</span>
+            <span class="c1"># Update the net class of the joined nets. The following two</span>
             <span class="c1"># operations will set each net&#39;s class to the same value, or</span>
             <span class="c1"># throw an error if they are in different classes.</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">netclass</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">netclass</span>
             <span class="n">net</span><span class="o">.</span><span class="n">netclass</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">netclass</span>
 
         <span class="k">def</span> <span class="nf">connect_pin</span><span class="p">(</span><span class="n">pin</span><span class="p">):</span>
-            <span class="sd">&quot;&quot;&quot;Connect a pin to this net.&quot;&quot;&quot;</span>
-            <span class="k">if</span> <span class="n">pin</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;Connect a pin to this net.&quot;&quot;&quot;</span>
+            <span class="k">if</span> <span class="n">pin</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pins</span><span class="p">:</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">pin</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
                     <span class="c1"># Remove the pin from the no-connect net if it is attached to it.</span>
                     <span class="n">pin</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_pins</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span>
                 <span class="n">pin</span><span class="o">.</span><span class="n">nets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+                <span class="n">pin</span><span class="o">.</span><span class="n">stub</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stub</span>  <span class="c1"># Update pin stub net for generating schematics.</span>
             <span class="k">return</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">test_validity</span><span class="p">()</span>
@@ -511,7 +536,7 @@
                 <span class="n">pn</span> <span class="o">+=</span> <span class="bp">self</span>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pn</span><span class="p">,</span> <span class="n">Net</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">pn</span><span class="o">.</span><span class="n">circuit</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">circuit</span><span class="p">:</span>
-                    <span class="n">merge</span><span class="p">(</span><span class="n">pn</span><span class="p">)</span>
+                    <span class="n">join</span><span class="p">(</span><span class="n">pn</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
                         <span class="ne">ValueError</span><span class="p">,</span>
@@ -570,9 +595,9 @@
     <span class="fm">__iadd__</span> <span class="o">=</span> <span class="n">connect</span>
 
 <div class="viewcode-block" id="Net.disconnect"><a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.disconnect">[docs]</a>    <span class="k">def</span> <span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Remove the pin from this net but not any other nets it&#39;s attached to.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove the pin from this net but not any other nets it&#39;s attached to.&quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pins</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
             <span class="k">return</span>  <span class="c1"># Pin wasn&#39;t in the list, so abort.</span>
 
@@ -584,10 +609,10 @@
             <span class="k">pass</span>  <span class="c1"># No traversal to delete.</span></div>
 
 <div class="viewcode-block" id="Net.merge_names"><a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.merge_names">[docs]</a>    <span class="k">def</span> <span class="nf">merge_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;For multi-segment nets, select a common name for all the segments.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;For multi-segment nets, select a common name for all the segments.&quot;&quot;&quot;</span>
 
         <span class="k">def</span> <span class="nf">select_name</span><span class="p">(</span><span class="n">nets</span><span class="p">):</span>
-            <span class="sd">&quot;&quot;&quot;Return the net with the best name among a list of nets.&quot;&quot;&quot;</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;Return the net with the best name among a list of nets.&quot;&quot;&quot;</span>
 
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nets</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">return</span> <span class="kc">None</span>  <span class="c1"># No nets, return None.</span>
@@ -615,7 +640,6 @@
                         <span class="p">),</span>
                     <span class="p">)</span>
                 <span class="k">if</span> <span class="n">nets</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">is_implicit</span><span class="p">():</span>
-
                     <span class="k">return</span> <span class="n">nets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
                 <span class="k">if</span> <span class="n">nets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">is_implicit</span><span class="p">():</span>
                     <span class="k">return</span> <span class="n">nets</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
@@ -636,7 +660,7 @@
             <span class="p">)</span>
 
         <span class="c1"># Assign the same name to all the nets that are connected to this net.</span>
-        <span class="n">nets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_nets</span><span class="p">()</span>
+        <span class="n">nets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span>
         <span class="n">selected_name</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">select_name</span><span class="p">(</span><span class="n">nets</span><span class="p">),</span> <span class="s2">&quot;name&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">nets</span><span class="p">:</span>
             <span class="c1"># Assign the name directly to each net. Using the name property</span>
@@ -644,7 +668,7 @@
             <span class="n">net</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">selected_name</span>  <span class="c1"># pylint: disable=protected-access</span></div>
 
 <div class="viewcode-block" id="Net.create_network"><a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.create_network">[docs]</a>    <span class="k">def</span> <span class="nf">create_network</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Create a network from a single net.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a network from a single net.&quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
 
         <span class="n">ntwk</span> <span class="o">=</span> <span class="n">Network</span><span class="p">()</span>
@@ -652,31 +676,31 @@
         <span class="k">return</span> <span class="n">ntwk</span></div>
 
     <span class="k">def</span> <span class="fm">__and__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Attach a net and another part/pin/net in serial.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Attach a net and another part/pin/net in serial.&quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
 
         <span class="k">return</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">obj</span>
 
     <span class="k">def</span> <span class="fm">__rand__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Attach a net and another part/pin/net in serial.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Attach a net and another part/pin/net in serial.&quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
 
         <span class="k">return</span> <span class="n">obj</span> <span class="o">&amp;</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Attach a net and another part/pin/net in parallel.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Attach a net and another part/pin/net in parallel.&quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
 
         <span class="k">return</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">|</span> <span class="n">obj</span>
 
     <span class="k">def</span> <span class="fm">__ror__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Attach a net and another part/pin/net in parallel.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Attach a net and another part/pin/net in parallel.&quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
 
         <span class="k">return</span> <span class="n">obj</span> <span class="o">|</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Net.generate_netlist_net"><a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.generate_netlist_net">[docs]</a>    <span class="k">def</span> <span class="nf">generate_netlist_net</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate the net information for inclusion in a netlist.</span>
 
 <span class="sd">        Args:</span>
@@ -685,28 +709,20 @@
 
         <span class="kn">import</span> <span class="nn">skidl</span>
 
-        <span class="k">if</span> <span class="n">tool</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">tool</span> <span class="o">=</span> <span class="n">skidl</span><span class="o">.</span><span class="n">get_default_tool</span><span class="p">()</span>
+        <span class="kn">from</span> <span class="nn">.tools</span> <span class="kn">import</span> <span class="n">tool_modules</span>
+
+        <span class="n">tool</span> <span class="o">=</span> <span class="n">tool</span> <span class="ow">or</span> <span class="n">skidl</span><span class="o">.</span><span class="n">get_default_tool</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">test_validity</span><span class="p">()</span>
 
         <span class="c1"># Don&#39;t add anything to the netlist if no pins are on this net.</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_pins</span><span class="p">():</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
             <span class="k">return</span>
 
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">gen_func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_gen_netlist_net_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tool</span><span class="p">))</span>
-            <span class="k">return</span> <span class="n">gen_func</span><span class="p">()</span>
-        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
-                <span class="ne">ValueError</span><span class="p">,</span>
-                <span class="s2">&quot;Can&#39;t generate netlist in an unknown ECAD tool format (</span><span class="si">{}</span><span class="s2">).&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">tool</span>
-                <span class="p">),</span>
-            <span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">tool_modules</span><span class="p">[</span><span class="n">tool</span><span class="p">]</span><span class="o">.</span><span class="n">gen_netlist_net</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Net.generate_xml_net"><a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.generate_xml_net">[docs]</a>    <span class="k">def</span> <span class="nf">generate_xml_net</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate the net information for inclusion in an XML file.</span>
 
 <span class="sd">        Args:</span>
@@ -715,28 +731,22 @@
 
         <span class="kn">import</span> <span class="nn">skidl</span>
 
-        <span class="k">if</span> <span class="n">tool</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">tool</span> <span class="o">=</span> <span class="n">skidl</span><span class="o">.</span><span class="n">get_default_tool</span><span class="p">()</span>
+        <span class="kn">from</span> <span class="nn">.tools</span> <span class="kn">import</span> <span class="n">tool_modules</span>
+
+        <span class="n">tool</span> <span class="o">=</span> <span class="n">tool</span> <span class="ow">or</span> <span class="n">skidl</span><span class="o">.</span><span class="n">get_default_tool</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">test_validity</span><span class="p">()</span>
 
         <span class="c1"># Don&#39;t add anything to the XML if no pins are on this net.</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_pins</span><span class="p">():</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
             <span class="k">return</span>
 
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">gen_func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_gen_xml_net_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tool</span><span class="p">))</span>
-            <span class="k">return</span> <span class="n">gen_func</span><span class="p">()</span>
-        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-            <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
-                <span class="ne">ValueError</span><span class="p">,</span>
-                <span class="s2">&quot;Can&#39;t generate XML in an unknown ECAD tool format (</span><span class="si">{}</span><span class="s2">).&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tool</span><span class="p">),</span>
-            <span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">tool_modules</span><span class="p">[</span><span class="n">tool</span><span class="p">]</span><span class="o">.</span><span class="n">gen_xml_net</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return a list of the pins on this net as a string.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of the pins on this net as a string.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test_validity</span><span class="p">()</span>
-        <span class="n">pins</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_pins</span><span class="p">()</span>
+        <span class="n">pins</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pins</span>
         <span class="k">return</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">pins</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="nb">str</span><span class="p">)])</span>
         <span class="p">)</span>
@@ -744,28 +754,24 @@
     <span class="fm">__repr__</span> <span class="o">=</span> <span class="fm">__str__</span>
 
     <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return the number of pins attached to this net.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the number of pins attached to this net.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test_validity</span><span class="p">()</span>
-        <span class="n">pins</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_pins</span><span class="p">()</span>
-        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">pins</span><span class="p">)</span>
-
-<div class="viewcode-block" id="Net.replace_spec_chars_in_name"><a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.Net.replace_spec_chars_in_name">[docs]</a>    <span class="k">def</span> <span class="nf">replace_spec_chars_in_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\W&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return width of a Net, which is always 1.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return width of a Net, which is always 1.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="mi">1</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get, set and delete the name of this net.</span>
 
 <span class="sd">        When setting the net name, if another net with the same name</span>
 <span class="sd">        is found, the name for this net is adjusted to make it unique.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Net</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">name</span>
 
     <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
@@ -773,20 +779,22 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">test_validity</span><span class="p">()</span>
         <span class="c1"># Remove the existing name so it doesn&#39;t cause a collision if the</span>
         <span class="c1"># object is renamed with its existing name.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
 
         <span class="c1"># Now name the object with the given name or some variation</span>
         <span class="c1"># of it that doesn&#39;t collide with anything else in the list.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">get_unique_name</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">nets</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">NET_PREFIX</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Net</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">fset</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">get_unique_name</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">circuit</span><span class="o">.</span><span class="n">nets</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">NET_PREFIX</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="p">)</span>
 
     <span class="nd">@name</span><span class="o">.</span><span class="n">deleter</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test_validity</span><span class="p">()</span>
-        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Net</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">fdel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">netclass</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get, set and delete the net class assigned to this net.</span>
 
 <span class="sd">        If not net class is set, then reading the net class returns None.</span>
@@ -815,7 +823,7 @@
         <span class="c1"># A net class can only be assigned if there is no existing net class</span>
         <span class="c1"># or if the existing net class matches the net class parameter (in</span>
         <span class="c1"># which case this is redundant).</span>
-        <span class="n">nets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_nets</span><span class="p">()</span>  <span class="c1"># Get all interconnected subnets.</span>
+        <span class="n">nets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span>  <span class="c1"># Get all interconnected subnets.</span>
         <span class="n">netclasses</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="nb">getattr</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="s2">&quot;_netclass&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nets</span><span class="p">])</span>
         <span class="n">netclasses</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">netclasses</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -840,7 +848,7 @@
     <span class="nd">@netclass</span><span class="o">.</span><span class="n">deleter</span>
     <span class="k">def</span> <span class="nf">netclass</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test_validity</span><span class="p">()</span>
-        <span class="n">nets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_nets</span><span class="p">()</span>  <span class="c1"># Get all interconnected subnets.</span>
+        <span class="n">nets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span>  <span class="c1"># Get all interconnected subnets.</span>
         <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nets</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_netclass</span>
@@ -849,7 +857,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get, set and delete the drive strength of this net.</span>
 
 <span class="sd">        The drive strength cannot be set to a value less than its current</span>
@@ -857,14 +865,14 @@
 <span class="sd">        maximum drive value of the pins currently on the net.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test_validity</span><span class="p">()</span>
-        <span class="n">nets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_nets</span><span class="p">()</span>  <span class="c1"># Get all interconnected subnets.</span>
+        <span class="n">nets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span>  <span class="c1"># Get all interconnected subnets.</span>
         <span class="n">max_drive</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">nets</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="n">n</span><span class="o">.</span><span class="n">_drive</span><span class="p">)</span><span class="o">.</span><span class="n">_drive</span>
         <span class="k">return</span> <span class="n">max_drive</span>
 
     <span class="nd">@drive</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">drive</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test_validity</span><span class="p">()</span>
-        <span class="n">nets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_nets</span><span class="p">()</span>  <span class="c1"># Get all interconnected subnets.</span>
+        <span class="n">nets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span>  <span class="c1"># Get all interconnected subnets.</span>
         <span class="n">max_drive</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">nets</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="n">n</span><span class="o">.</span><span class="n">_drive</span><span class="p">)</span><span class="o">.</span><span class="n">_drive</span>
         <span class="n">max_drive</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">drive</span><span class="p">,</span> <span class="n">max_drive</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nets</span><span class="p">:</span>
@@ -873,9 +881,19 @@
     <span class="nd">@drive</span><span class="o">.</span><span class="n">deleter</span>
     <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">test_validity</span><span class="p">()</span>
-        <span class="n">nets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_nets</span><span class="p">()</span>  <span class="c1"># Get all interconnected subnets.</span>
+        <span class="n">nets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span>  <span class="c1"># Get all interconnected subnets.</span>
         <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nets</span><span class="p">:</span>
             <span class="k">del</span> <span class="n">n</span><span class="o">.</span><span class="n">_drive</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">stub</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span>
+    
+    <span class="nd">@stub</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">stub</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stub</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_pins</span><span class="p">():</span>
+            <span class="n">pin</span><span class="o">.</span><span class="n">stub</span> <span class="o">=</span> <span class="n">val</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">valid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -895,14 +913,15 @@
         <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Any valid Net is True&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Any valid Net is True&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="kc">True</span>
 
     <span class="n">__nonzero__</span> <span class="o">=</span> <span class="fm">__bool__</span>  <span class="c1"># Python 2 compatibility.</span></div>
 
 
-<div class="viewcode-block" id="NCNet"><a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.NCNet">[docs]</a><span class="k">class</span> <span class="nc">NCNet</span><span class="p">(</span><span class="n">Net</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="NCNet"><a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.NCNet">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">class</span> <span class="nc">NCNet</span><span class="p">(</span><span class="n">Net</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Lists of unconnected pins are stored using this Net subclass.</span>
 
 <span class="sd">    This is a netlist subclass used for storing lists of pins which are</span>
@@ -930,7 +949,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">do_erc</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># No need to do ERC on no-connect nets.</span>
 
 <div class="viewcode-block" id="NCNet.generate_netlist_net"><a class="viewcode-back" href="../../rst_output/skidl.net.html#skidl.net.NCNet.generate_netlist_net">[docs]</a>    <span class="k">def</span> <span class="nf">generate_netlist_net</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;NO_CONNECT nets don&#39;t generate anything for netlists.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;NO_CONNECT nets don&#39;t generate anything for netlists.&quot;&quot;&quot;</span>
 
         <span class="kn">import</span> <span class="nn">skidl</span>
 
@@ -941,7 +960,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the drive strength of this net.</span>
 
 <span class="sd">        The drive strength is always NOCONNECT_DRIVE. It can&#39;t be changed.</span>
@@ -965,7 +984,7 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -979,14 +998,14 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.net</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2016-2021, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+        &#169; Copyright 2016-2023, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>
 </html>

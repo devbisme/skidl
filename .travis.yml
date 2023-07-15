@@ -22,6 +22,11 @@ matrix:
       env: TOXENV=py38
       install: pip install tox
       script: tox
+    - python: 3.9
+      name: "Test Python 3.9"
+      env: TOXENV=py39
+      install: pip install tox
+      script: tox
     - python: pypy3
       name: "Test PyPy3"
       env: TOXENV=pypy3

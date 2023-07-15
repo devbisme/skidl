@@ -1,0 +1,339 @@
+
+
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>skidl.schematics.geometry module &#8212; SKiDL 1.2.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../"><img src="../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.schematics.geometry module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-skidl.schematics.geometry">
+<span id="skidl-schematics-geometry-module"></span><h1>skidl.schematics.geometry module<a class="headerlink" href="#module-skidl.schematics.geometry" title="Permalink to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.BBox">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.schematics.geometry.</span></span><span class="sig-name descname"><span class="pre">BBox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">pts</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/geometry.html#BBox"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.geometry.BBox" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.10/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.BBox.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">objs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/geometry.html#BBox.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.geometry.BBox.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the bounding box size by adding Point/BBox objects.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.BBox.area">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">area</span></span><a class="headerlink" href="#skidl.schematics.geometry.BBox.area" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return area of bounding box.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.BBox.ctr">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ctr</span></span><a class="headerlink" href="#skidl.schematics.geometry.BBox.ctr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return center point of bounding box.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.BBox.h">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">h</span></span><a class="headerlink" href="#skidl.schematics.geometry.BBox.h" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the bounding box height.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.BBox.intersection">
+<span class="sig-name descname"><span class="pre">intersection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/geometry.html#BBox.intersection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.geometry.BBox.intersection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the bounding box of the intersection between the two bounding boxes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.BBox.intersects">
+<span class="sig-name descname"><span class="pre">intersects</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/geometry.html#BBox.intersects"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.geometry.BBox.intersects" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if the two bounding boxes intersect.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.BBox.is_inside">
+<span class="sig-name descname"><span class="pre">is_inside</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pt</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/geometry.html#BBox.is_inside"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.geometry.BBox.is_inside" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if point is inside bounding box.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.BBox.ll">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ll</span></span><a class="headerlink" href="#skidl.schematics.geometry.BBox.ll" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return lower-left point of bounding box.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.BBox.lr">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lr</span></span><a class="headerlink" href="#skidl.schematics.geometry.BBox.lr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return lower-right point of bounding box.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.BBox.resize">
+<span class="sig-name descname"><span class="pre">resize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vector</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/geometry.html#BBox.resize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.geometry.BBox.resize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Expand/contract the bounding box by applying vector to its corner points.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.BBox.round">
+<span class="sig-name descname"><span class="pre">round</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/geometry.html#BBox.round"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.geometry.BBox.round" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.BBox.snap_resize">
+<span class="sig-name descname"><span class="pre">snap_resize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid_spacing</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/geometry.html#BBox.snap_resize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.geometry.BBox.snap_resize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resize bbox so max and min points are on grid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>grid_spacing</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Grid spacing.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.BBox.ul">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ul</span></span><a class="headerlink" href="#skidl.schematics.geometry.BBox.ul" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return upper-left point of bounding box.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.BBox.ur">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ur</span></span><a class="headerlink" href="#skidl.schematics.geometry.BBox.ur" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return upper-right point of bounding box.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.BBox.w">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">w</span></span><a class="headerlink" href="#skidl.schematics.geometry.BBox.w" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the bounding box width.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.Point">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.schematics.geometry.</span></span><span class="sig-name descname"><span class="pre">Point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/geometry.html#Point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.geometry.Point" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.10/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.Point.flip_xy">
+<span class="sig-name descname"><span class="pre">flip_xy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/geometry.html#Point.flip_xy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.geometry.Point.flip_xy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flip X-Y coordinates of point.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.Point.magnitude">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">magnitude</span></span><a class="headerlink" href="#skidl.schematics.geometry.Point.magnitude" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the distance of the point from the origin.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.Point.mask">
+<span class="sig-name descname"><span class="pre">mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msk</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/geometry.html#Point.mask"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.geometry.Point.mask" title="Permalink to this definition">¶</a></dt>
+<dd><p>Multiply the X &amp; Y coords by the elements of msk.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.Point.max">
+<span class="sig-name descname"><span class="pre">max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pt</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/geometry.html#Point.max"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.geometry.Point.max" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a Point with coords that are the max x,y of both points.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.Point.min">
+<span class="sig-name descname"><span class="pre">min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pt</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/geometry.html#Point.min"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.geometry.Point.min" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a Point with coords that are the min x,y of both points.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.Point.norm">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">norm</span></span><a class="headerlink" href="#skidl.schematics.geometry.Point.norm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a unit vector pointing from the origin to the point.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.Point.round">
+<span class="sig-name descname"><span class="pre">round</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/geometry.html#Point.round"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.geometry.Point.round" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.Point.snap">
+<span class="sig-name descname"><span class="pre">snap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid_spacing</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/geometry.html#Point.snap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.geometry.Point.snap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Snap point x,y coords to the given grid spacing.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.Point.xprod">
+<span class="sig-name descname"><span class="pre">xprod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pt</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/geometry.html#Point.xprod"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.geometry.Point.xprod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cross-product of two 2D vectors returns scalar in Z coord.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.Segment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.schematics.geometry.</span></span><span class="sig-name descname"><span class="pre">Segment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/geometry.html#Segment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.geometry.Segment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.10/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.Segment.flip_xy">
+<span class="sig-name descname"><span class="pre">flip_xy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/geometry.html#Segment.flip_xy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.geometry.Segment.flip_xy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flip the X-Y coordinates of the segment.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.Segment.intersects">
+<span class="sig-name descname"><span class="pre">intersects</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/geometry.html#Segment.intersects"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.geometry.Segment.intersects" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return true if the segments intersect.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.Segment.round">
+<span class="sig-name descname"><span class="pre">round</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/geometry.html#Segment.round"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.geometry.Segment.round" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.Segment.shadows">
+<span class="sig-name descname"><span class="pre">shadows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/geometry.html#Segment.shadows"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.geometry.Segment.shadows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return true if two segments overlap each other even if they aren’t on the same horiz or vertical track.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.Tx">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.schematics.geometry.</span></span><span class="sig-name descname"><span class="pre">Tx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/geometry.html#Tx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.geometry.Tx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.10/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.Tx.flip_x">
+<span class="sig-name descname"><span class="pre">flip_x</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/geometry.html#Tx.flip_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.geometry.Tx.flip_x" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return Tx with X coords flipped around (0, 0).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.Tx.from_symtx">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_symtx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symtx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/geometry.html#Tx.from_symtx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.geometry.Tx.from_symtx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a Tx() object that implements the “HVLR” geometric operation sequence.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>symtx</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – A string of H, V, L, R operations that are applied in sequence left-to-right.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A transformation matrix that implements the sequence of geometric operations.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#skidl.schematics.geometry.Tx" title="skidl.schematics.geometry.Tx">Tx</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.Tx.move">
+<span class="sig-name descname"><span class="pre">move</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vec</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/geometry.html#Tx.move"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.geometry.Tx.move" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return Tx with movement vector applied.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.Tx.origin">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">origin</span></span><a class="headerlink" href="#skidl.schematics.geometry.Tx.origin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the (dx, dy) translation as a Point.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.Tx.rot_90cw">
+<span class="sig-name descname"><span class="pre">rot_90cw</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schematics/geometry.html#Tx.rot_90cw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schematics.geometry.Tx.rot_90cw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return Tx with 90-deg clock-wise rotation around (0, 0).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="skidl.schematics.geometry.Vector">
+<span class="sig-prename descclassname"><span class="pre">skidl.schematics.geometry.</span></span><span class="sig-name descname"><span class="pre">Vector</span></span><a class="headerlink" href="#skidl.schematics.geometry.Vector" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#skidl.schematics.geometry.Point" title="skidl.schematics.geometry.Point"><code class="xref py py-class docutils literal notranslate"><span class="pre">Point</span></code></a></p>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/rst_output/skidl.schematics.geometry.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.schematics.geometry module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016-2023, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    </div>
+  </body>
+</html>

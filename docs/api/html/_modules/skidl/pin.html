@@ -2,17 +2,18 @@
 
 <!doctype html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.pin &#8212; SKiDL  documentation</title>
+    <title>skidl.pin &#8212; SKiDL 1.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css" />
     
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -33,7 +34,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.pin</a></li> 
       </ul>
@@ -60,24 +61,38 @@
     <span class="n">unicode_literals</span><span class="p">,</span>
 <span class="p">)</span>
 
+<span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">range</span><span class="p">,</span> <span class="nb">super</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">copy</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">IntEnum</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">total_ordering</span>
 
 <span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
 
-<span class="kn">from</span> <span class="nn">.alias</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
 <span class="kn">from</span> <span class="nn">.skidlbaseobj</span> <span class="kn">import</span> <span class="n">ERROR</span><span class="p">,</span> <span class="n">OK</span><span class="p">,</span> <span class="n">WARNING</span><span class="p">,</span> <span class="n">SkidlBaseObject</span>
-<span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">expand_buses</span><span class="p">,</span>
+    <span class="n">expand_indices</span><span class="p">,</span>
+    <span class="n">export_to_all</span><span class="p">,</span>
+    <span class="n">find_num_copies</span><span class="p">,</span>
+    <span class="n">flatten</span><span class="p">,</span>
+    <span class="n">from_iadd</span><span class="p">,</span>
+    <span class="n">rmv_iadd</span><span class="p">,</span>
+    <span class="n">set_iadd</span><span class="p">,</span>
+    <span class="n">to_list</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
 
 
-<div class="viewcode-block" id="Pin"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin">[docs]</a><span class="k">class</span> <span class="nc">Pin</span><span class="p">(</span><span class="n">SkidlBaseObject</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Pin"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin">[docs]</a><span class="nd">@export_to_all</span>
+<span class="nd">@total_ordering</span>
+<span class="k">class</span> <span class="nc">Pin</span><span class="p">(</span><span class="n">SkidlBaseObject</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class for storing data about pins for a part.</span>
 
 <span class="sd">    Args:</span>
@@ -88,6 +103,7 @@
 <span class="sd">        part: Link to the Part object this pin belongs to.</span>
 <span class="sd">        func: Pin function such as PinType.types.INPUT.</span>
 <span class="sd">        do_erc: When false, the pin is not checked for ERC violations.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Various types of pins.</span>
@@ -112,7 +128,7 @@
 
 <div class="viewcode-block" id="Pin.add_type"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.add_type">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">add_type</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">pin_types</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add new pin type identifiers to the list of pin types.</span>
 
 <span class="sd">        Args:</span>
@@ -249,15 +265,60 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">part</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stub</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">do_erc</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span>  <span class="c1"># Pin function defaults to unspecified.</span>
+
+        <span class="c1"># Set pin number as a random integer so that calling Pin() multiple</span>
+        <span class="c1"># times will give pins that are distinct according to __eq__.</span>
+        <span class="c1"># This pin number gets overridden if the num is set in attribs.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">100000</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span><span class="p">)</span>
 
         <span class="c1"># Attach additional attributes to the pin.</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">attribs</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">_normalize_num</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Normalize pin numbers into a tuple for comparison purposes.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: Tuple consisting of BGA row identifier and numeric column.</span>
+<span class="sd">                If it&#39;s not a BGA pin, then the tuple contains just a single number.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Split the pin number into an initial alpha BGA row followed by column number.</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(\D*)(.*)&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num</span><span class="p">))</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+
+        <span class="c1"># Uppercase the BGA row. This has no effect if it&#39;s not a BGA.</span>
+        <span class="n">n</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+
+        <span class="c1"># Convert the column number (or just the single pin number) to an integer if possible.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">n</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="c1"># return the pin number tuple.</span>
+        <span class="k">return</span> <span class="n">n</span>
+
+    <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="bp">NotImplemented</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">part</span> <span class="o">!=</span> <span class="n">o</span><span class="o">.</span><span class="n">part</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Comparing pins on different parts not supported.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_normalize_num</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">o</span><span class="o">.</span><span class="n">_normalize_num</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="bp">NotImplemented</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">part</span> <span class="o">==</span> <span class="n">o</span><span class="o">.</span><span class="n">part</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_normalize_num</span><span class="p">()</span> <span class="o">==</span> <span class="n">o</span><span class="o">.</span><span class="n">_normalize_num</span><span class="p">()</span>
+
+    <span class="c1"># Defining an __eq__ method will make Pins unhashable unless we</span>
+    <span class="c1"># explicitly define a hash method.</span>
+    <span class="fm">__hash__</span> <span class="o">=</span> <span class="n">SkidlBaseObject</span><span class="o">.</span><span class="fm">__hash__</span>
+
 <div class="viewcode-block" id="Pin.copy"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_copies</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return copy or list of copies of a pin including any net connection.</span>
 
 <span class="sd">        Args:</span>
@@ -307,16 +368,16 @@
             <span class="c1"># The copy is not on a net, yet.</span>
             <span class="n">cpy</span><span class="o">.</span><span class="n">nets</span> <span class="o">=</span> <span class="p">[]</span>
 
+            <span class="c1"># Attach additional attributes to the pin.</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">attribs</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="n">cpy</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+
             <span class="c1"># Connect the new pin to the same net as the original.</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">cpy</span>
 
             <span class="c1"># Copy the aliases for the pin if it has them.</span>
             <span class="n">cpy</span><span class="o">.</span><span class="n">aliases</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aliases</span>
-
-            <span class="c1"># Attach additional attributes to the pin.</span>
-            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">attribs</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
-                <span class="nb">setattr</span><span class="p">(</span><span class="n">cpy</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
 
             <span class="n">copies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cpy</span><span class="p">)</span>
 
@@ -336,7 +397,7 @@
     <span class="fm">__rmul__</span> <span class="o">=</span> <span class="fm">__mul__</span>
 
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">ids</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the pin if the indices resolve to a single index of 0.</span>
 
 <span class="sd">        Args:</span>
@@ -358,7 +419,7 @@
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="o">*</span><span class="n">pins_nets_buses</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        You can&#39;t assign to Pins. You must use the += operator.</span>
 
 <span class="sd">        This method is a work-around that allows the use of the += for making</span>
@@ -389,14 +450,14 @@
         <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t assign to a Net! Use the += operator.&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return an iterator for stepping through the pin.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># You can only iterate a Pin one time.</span>
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># Return generator expr.</span>
 
 <div class="viewcode-block" id="Pin.is_connected"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.is_connected">[docs]</a>    <span class="k">def</span> <span class="nf">is_connected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return true if a pin is connected to a net (but not a no-connect net).&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return true if a pin is connected to a net (but not a no-connect net).&quot;&quot;&quot;</span>
 
         <span class="kn">from</span> <span class="nn">.net</span> <span class="kn">import</span> <span class="n">NCNet</span><span class="p">,</span> <span class="n">Net</span>
 
@@ -430,7 +491,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="Pin.is_attached"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.is_attached">[docs]</a>    <span class="k">def</span> <span class="nf">is_attached</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pin_net_bus</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return true if this pin is attached to the given pin, net or bus.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return true if this pin is attached to the given pin, net or bus.&quot;&quot;&quot;</span>
 
         <span class="kn">from</span> <span class="nn">.net</span> <span class="kn">import</span> <span class="n">Net</span>
         <span class="kn">from</span> <span class="nn">.pin</span> <span class="kn">import</span> <span class="n">Pin</span>
@@ -454,7 +515,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="Pin.split_name"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.split_name">[docs]</a>    <span class="k">def</span> <span class="nf">split_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delimiters</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Use chars in divider to split a pin name and add substrings to aliases.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Use chars in divider to split a pin name and add substrings to aliases.&quot;&quot;&quot;</span>
 
         <span class="c1"># Split pin name and add subnames as aliases.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">aliases</span> <span class="o">+=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;[&quot;</span> <span class="o">+</span> <span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">delimiters</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;]&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
@@ -463,7 +524,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">aliases</span><span class="o">.</span><span class="n">clean</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Pin.connect"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.connect">[docs]</a>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">pins_nets_buses</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the pin after connecting it to one or more nets or pins.</span>
 
 <span class="sd">        Args:</span>
@@ -522,7 +583,7 @@
     <span class="fm">__iadd__</span> <span class="o">=</span> <span class="n">connect</span>
 
 <div class="viewcode-block" id="Pin.disconnect"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.disconnect">[docs]</a>    <span class="k">def</span> <span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Disconnect this pin from all nets.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Disconnect this pin from all nets.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">:</span>
@@ -530,16 +591,30 @@
             <span class="n">n</span><span class="o">.</span><span class="n">merge_names</span><span class="p">()</span>  <span class="c1"># Clean-up the net after removing a pin.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nets</span> <span class="o">=</span> <span class="p">[]</span></div>
 
+<div class="viewcode-block" id="Pin.move"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.move">[docs]</a>    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">net</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Move pin to another net.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            net (Net): Destination net for pin.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+        <span class="n">net</span> <span class="o">+=</span> <span class="bp">self</span></div>
+
 <div class="viewcode-block" id="Pin.get_nets"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.get_nets">[docs]</a>    <span class="k">def</span> <span class="nf">get_nets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return a list containing the Net objects connected to this pin.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list containing the Net objects connected to this pin.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span></div>
 
 <div class="viewcode-block" id="Pin.get_pins"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.get_pins">[docs]</a>    <span class="k">def</span> <span class="nf">get_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return a list containing this pin.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list containing this pin.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">to_list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">pins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_pins</span><span class="p">()</span>
+
 <div class="viewcode-block" id="Pin.create_network"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.create_network">[docs]</a>    <span class="k">def</span> <span class="nf">create_network</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Create a network from a single pin.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a network from a single pin.&quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
 
         <span class="n">ntwk</span> <span class="o">=</span> <span class="n">Network</span><span class="p">()</span>
@@ -547,31 +622,31 @@
         <span class="k">return</span> <span class="n">ntwk</span></div>
 
     <span class="k">def</span> <span class="fm">__and__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Attach a pin and another part/pin/net in serial.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Attach a pin and another part/pin/net in serial.&quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
 
         <span class="k">return</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">obj</span>
 
     <span class="k">def</span> <span class="fm">__rand__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Attach a pin and another part/pin/net in serial.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Attach a pin and another part/pin/net in serial.&quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
 
         <span class="k">return</span> <span class="n">obj</span> <span class="o">&amp;</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Attach a pin and another part/pin/net in parallel.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Attach a pin and another part/pin/net in parallel.&quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
 
         <span class="k">return</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">|</span> <span class="n">obj</span>
 
     <span class="k">def</span> <span class="fm">__ror__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Attach a pin and another part/pin/net in parallel.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Attach a pin and another part/pin/net in parallel.&quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
 
         <span class="k">return</span> <span class="n">obj</span> <span class="o">|</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Pin.chk_conflict"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.chk_conflict">[docs]</a>    <span class="k">def</span> <span class="nf">chk_conflict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other_pin</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Check for electrical rule conflicts between this pin and another.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check for electrical rule conflicts between this pin and another.&quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_erc</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">other_pin</span><span class="o">.</span><span class="n">do_erc</span><span class="p">:</span>
             <span class="k">return</span>
@@ -601,7 +676,7 @@
             <span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Pin.erc_desc"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.erc_desc">[docs]</a>    <span class="k">def</span> <span class="nf">erc_desc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return a string describing this pin for ERC.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a string describing this pin for ERC.&quot;&quot;&quot;</span>
         <span class="n">desc</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{func}</span><span class="s2"> pin </span><span class="si">{num}</span><span class="s2">/</span><span class="si">{name}</span><span class="s2"> of </span><span class="si">{part}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="n">part</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">erc_desc</span><span class="p">(),</span>
             <span class="n">num</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num</span><span class="p">,</span>
@@ -619,7 +694,7 @@
         <span class="k">return</span> <span class="n">num</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">func</span></div>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return a description of this pin as a string.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a description of this pin as a string.&quot;&quot;&quot;</span>
         <span class="n">ref</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">part</span><span class="p">,</span> <span class="s2">&quot;ref&quot;</span><span class="p">,</span> <span class="s2">&quot;???&quot;</span><span class="p">)</span>
         <span class="n">num</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_pin_info</span><span class="p">()</span>
         <span class="k">return</span> <span class="s2">&quot;Pin </span><span class="si">{ref}</span><span class="s2">/</span><span class="si">{num}</span><span class="s2">/</span><span class="si">{names}</span><span class="s2">/</span><span class="si">{func}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
@@ -627,7 +702,7 @@
     <span class="fm">__repr__</span> <span class="o">=</span> <span class="fm">__str__</span>
 
 <div class="viewcode-block" id="Pin.export"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.export">[docs]</a>    <span class="k">def</span> <span class="nf">export</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return a string to recreate a Pin object.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a string to recreate a Pin object.&quot;&quot;&quot;</span>
         <span class="n">attribs</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;num&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;func&quot;</span><span class="p">,</span> <span class="s2">&quot;do_erc&quot;</span><span class="p">]:</span>
             <span class="n">v</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -644,19 +719,19 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">net</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return one of the nets the pin is connected to.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return one of the nets the pin is connected to.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">return</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return width of a Pin, which is always 1.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return width of a Pin, which is always 1.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="mi">1</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get, set and delete the drive strength of this pin.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
@@ -678,16 +753,16 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">ref</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return the reference of the part the pin belongs to.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the reference of the part the pin belongs to.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">ref</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">circuit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return the circuit of the part the pin belongs to.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the circuit of the part the pin belongs to.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">circuit</span>
 
     <span class="k">def</span> <span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Any valid Pin is True.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Any valid Pin is True.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="kc">True</span>
 
     <span class="n">__nonzero__</span> <span class="o">=</span> <span class="fm">__bool__</span>  <span class="c1"># Python 2 compatibility.</span></div>
@@ -696,8 +771,9 @@
 <span class="c1">##############################################################################</span>
 
 
-<div class="viewcode-block" id="PhantomPin"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.PhantomPin">[docs]</a><span class="k">class</span> <span class="nc">PhantomPin</span><span class="p">(</span><span class="n">Pin</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="PhantomPin"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.PhantomPin">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">class</span> <span class="nc">PhantomPin</span><span class="p">(</span><span class="n">Pin</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A pin type that exists solely to tie two pinless nets together.</span>
 <span class="sd">    It will not participate in generating any netlists.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -707,51 +783,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">nets</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">part</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">do_erc</span> <span class="o">=</span> <span class="kc">False</span></div>
-
-
-<span class="c1">##############################################################################</span>
-
-
-<div class="viewcode-block" id="PinList"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.PinList">[docs]</a><span class="k">class</span> <span class="nc">PinList</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A list of Pin objects that&#39;s meant to look something like a Pin to a Part.</span>
-<span class="sd">    This is used for vector I/O of XSPICE parts.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">part</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="c1"># The list needs the following attributes to behave like a Pin.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="n">num</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">part</span> <span class="o">=</span> <span class="n">part</span>
-
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get a Pin from the list. Add Pin objects to the list if they don&#39;t exist.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">Pin</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="n">j</span><span class="p">,</span> <span class="n">part</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">part</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)])</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-
-<div class="viewcode-block" id="PinList.copy"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.PinList.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return a copy of a PinList for use when a Part is copied.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">cpy</span> <span class="o">=</span> <span class="n">PinList</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">part</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-            <span class="n">cpy</span> <span class="o">+=</span> <span class="n">pin</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">cpy</span></div>
-
-<div class="viewcode-block" id="PinList.disconnect"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.PinList.disconnect">[docs]</a>    <span class="k">def</span> <span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Disconnect all the pins in the list.&quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-            <span class="n">pin</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span></div>
-
-<div class="viewcode-block" id="PinList.is_connected"><a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.PinList.is_connected">[docs]</a>    <span class="k">def</span> <span class="nf">is_connected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
-                <span class="k">return</span> <span class="kc">True</span>
-        <span class="k">return</span> <span class="kc">False</span></div></div>
 
 
 <span class="c1">##############################################################################</span>
@@ -843,7 +874,7 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -857,14 +888,14 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.pin</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2016-2021, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+        &#169; Copyright 2016-2023, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>
 </html>

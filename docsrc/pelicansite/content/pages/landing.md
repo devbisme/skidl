@@ -39,6 +39,7 @@ create a finished circuit board.
   - [Hierarchy](#hierarchy)
     - [Subcircuits](#subcircuits)
     - [Packages](#packages)
+  - [Groups](#groups)
   - [Interfaces](#interfaces)
   - [Libraries](#libraries)
   - [Doodads](#doodads)
@@ -47,12 +48,14 @@ create a finished circuit board.
     - [Pin, Net, Bus Equivalencies](#pin-net-bus-equivalencies)
     - [Selectively Supressing ERC Messages](#selectively-supressing-erc-messages)
     - [Customizable ERC Using `erc_assert()`](#customizable-erc-using-erc_assert)
+    - [Handling Empty Footprints](#handling-empty-footprints)
     - [Tags](#tags)
 - [Going Really Deep](#going-really-deep)
   - [Circuit Objects](#circuit-objects)
 - [Generating a Schematic](#generating-a-schematic)
-  - [DOT Graphs](#dot-graphs)
   - [SVG Schematics](#svg-schematics)
+  - [KiCad Schematics](#kicad-schematics)
+  - [DOT Graphs](#dot-graphs)
 - [Converting Existing Designs to SKiDL](#converting-existing-designs-to-skidl)
 - [SPICE Simulations](#spice-simulations)
 
@@ -70,8 +73,8 @@ First, let's look at a "normal" design flow in [KiCad](https://kicad-pcb.org):
 
 ![Schematic-based PCB design flow](images/schematic-process-flow.png)
 
-Here, you start off in a *schematic editor* (for KiCad, that's EESCHEMA) and
-draw a schematic. From that, EESCHEMA generates
+Here, you start off in a *schematic editor* (for KiCad, that's Eeschema) and
+draw a schematic. From that, Eeschema generates
 a *netlist file* that lists what components are used and how their pins are interconnected.
 Then you'll use a *PCB layout tool* (like KiCad's PCBNEW) to arrange the part footprints
 and draw the wire traces that connect the pins as specified in the netlist.
@@ -280,7 +283,7 @@ Amplifier_Operational.lib: NE5534 (Single Low-Noise Operational Amplifiers, DIP-
 Amplifier_Operational.lib: LM201 (Single Low-Noise Operational Amplifiers, DIP-8/SOIC-8)
 ```
 
-You can also use the `|` character to find parts that contain at least one of a set
+You may also use the `|` character to find parts that contain at least one of a set
 of choices:
 
 ```terminal
@@ -334,7 +337,7 @@ command raises an error:
 ERROR: Unable to find part lm38 in library linear.
 ```
 
-In addition to searching for parts, you can also search for footprints using the
+In addition to searching for parts, you may also search for footprints using the
 `search_footprints` command. It works similarly to the `search` command:
 
 ```terminal
@@ -362,7 +365,7 @@ You instantiate a part using its name and the library that contains it:
 >>> resistor = Part('Device','R')
 ```
 
-You can customize the resistor by setting its `value` attribute:
+You may customize the resistor by setting its `value` attribute:
 
 ```terminal
 >>> resistor.value = '1K' 
@@ -419,7 +422,7 @@ that would be confusing.
 
 The `ref`, `value`, and `footprint` attributes are necessary when generating
 a final netlist for your circuit.
-Since a part is stored in a Python object, you can add any
+Since a part is stored in a Python object, you may add any
 other attributes you want using `setattr()`.
 But if you want those attributes to be passed on within the netlist, then you
 should probably add them as [part fields](#Part-Fields).
@@ -510,7 +513,7 @@ of numbers. Check out [this section](#accessing-part-pins) for how to do that.
 
 ## Checking for Errors
 
-Once the parts are wired together, you can do simple electrical rules checking
+Once the parts are wired together, you may do simple electrical rules checking
 like this:
 
 ```terminal
@@ -601,7 +604,7 @@ You can also generate the netlist in XML format:
 This is useful in a KiCad environment where the XML file is used as the
 input to BOM-generation tools.
 
-If you're designing with KiCad and want to skip some steps, you can go 
+If you're designing with KiCad and want to skip some steps, you may go 
 directly to a PCB like this:
 
 ```terminal
@@ -612,6 +615,11 @@ This outputs a `.kicad_pcb` file that you can open in PCBNEW without
 having to import the netlist.
 (Note that you will need to have KiCad installed since `generate_pcb` uses its 
 `pcbnew` Python library to create the PCB.)
+
+The `generate_pcb()` function accepts the following optional arguments:
+
+* `pcb_file`: Either a file object that can be written to, or a string containing a file name, or `None`.
+* `fp_libs`: List of paths to directories containing footprint libraries.
 
 
 # Going Deeper
@@ -655,7 +663,7 @@ which will be opened and scanned for a part with the
 name `some_part_name`. If the file is not found or it doesn't contain
 the requested part, then the process will be repeated using KiCad's default
 library directory.
-(You can change SKiDL's library search by changing the list of directories
+(You may change SKiDL's library search by changing the list of directories
 stored in the `skidl.lib_search_paths_kicad` list.)
 
 You're not restricted to using only the current directory or the KiCad default
@@ -666,7 +674,7 @@ using a full file name:
 my_part = Part('C:/my_libs/my_great_parts.lib', 'my_super_regulator')
 ```
 
-You're also not restricted to getting an exact match on the part name: you can
+You're also not restricted to getting an exact match on the part name: you may
 use a *regular expression* instead. For example, this will find a part
 with "358" anywhere in a part name or alias:
 
@@ -692,7 +700,7 @@ anon_bus = Bus(4)            # Four-bit bus with an automatically-assigned name.
 As with parts, SKiDL will alter the name you assign if it collides with another net or bus
 having the same name.
 
-You can also create a bus by combining existing nets, buses, or the pins of parts
+You may also create a bus by combining existing nets, buses, or the pins of parts
 in any combination:
 
 ```py
@@ -714,7 +722,7 @@ bus.insert(4, Bus('I', 3))  # Insert 3-bit bus before bus line bus[4].
 bus.extend(5, Pin(), Net()) # Extend bus with another 5-bit bus, a pin, and a net.
 ```
 
-And finally, you can create a `Pin` object although you'll probably never do this
+And finally, you may create a `Pin` object although you'll probably never do this
 unless you're building a `Part` object from scratch:
 
 ```terminal
@@ -797,7 +805,7 @@ doesn't actually get included in the netlist for the circuitry:
 
 ### Accessing Part Pins
 
-You can access the pins on a part or the individual nets of a bus
+You may access the pins on a part or the individual nets of a bus
 using numbers, slices, strings, and regular expressions, either singly or in any combination.
 
 Suppose you have a PIC10 processor in a six-pin package:
@@ -857,7 +865,7 @@ The reason for doing this is that most electronics designers are used to
 the bounds on a slice including both endpoints. Perhaps it is a mistake to
 do it this way. We'll see...)
 
-In addition to the bracket notation, you can also get a single pin using an attribute name
+In addition to the bracket notation, you may also get a single pin using an attribute name
 that begins with a '`p`' followed by the pin number:
 
 ```terminal
@@ -906,7 +914,7 @@ SKiDL lets you access these pins using a slice-like notation in a string like so
 [Pin U2/29/DQ0/BIDIRECTIONAL, Pin U2/31/DQ1/BIDIRECTIONAL, Pin U2/33/DQ2/BIDIRECTIONAL]
 ```
 
-Or you can access the pins in the reverse order:
+Or you may access the pins in the reverse order:
 
 ```terminal
 >>> ram = Part('memory', 'sram_512ko')
@@ -950,7 +958,7 @@ and you'll have to use an odd-looking expression, but here's how it's done:
 >>> pic10['.*\/AN1\/.*] += Net('analog1)  # I told you the expression was strange!
 ```
 
-Since you can access pins by number or by name using strings or regular expressions, it's worth
+Since you may access pins by number or by name using strings or regular expressions, it's worth
 discussing how SKiDL decides which one to select.
 When given a pin index, SKiDL stops searching and returns the matching pins as soon as
 one of the following conditions succeeds:
@@ -994,6 +1002,15 @@ Or do the same thing using a `Part` object as an iterator:
 ```py
 for p in pic10:
   <do something with p>
+```
+
+It's possible that `get_pins` will not generate the part's pins in order of increasing pin number.
+If that's needed, then use the `ordered_pins` property to get the
+pin numbers of all the part's pins in ascending order:
+
+```py
+for num in pic10.ordered_pins:
+  < do something with pic10[num]>
 ```
 
 
@@ -1102,7 +1119,7 @@ As a first example, let's connect a net to a pin on a part:
 IO_NET: Pin U5/1/GP0/BIDIRECTIONAL
 ```
 
-You can do the same operation in reverse by connecting the part pin to the net
+You may do the same operation in reverse by connecting the part pin to the net
 with the same result:
 
 ```terminal
@@ -1113,7 +1130,7 @@ with the same result:
 IO_NET_1: Pin U6/1/GP0/BIDIRECTIONAL
 ```
 
-You can also connect a pin directly to another pin.
+You may also connect a pin directly to another pin.
 In this case, an *implicit net* will be created between the pins that you can
 access using the `net` attribute of either part pin:
 
@@ -1134,7 +1151,7 @@ You can connect multiple pins, all at once:
 N$1: Pin U7/1/GP0/BIDIRECTIONAL, Pin U7/2/VSS/POWER-IN, Pin U7/3/GP1/BIDIRECTIONAL, Pin U7/6/GP3/INPUT
 ```
 
-Or you can do it incrementally:
+Or you may do it incrementally:
 
 ```terminal
 >>> pic10 = Part('MCU_Microchip_PIC10', 'pic10f220-iot') 
@@ -1327,7 +1344,7 @@ Each resistor could be assigned to a unit as follows:
     Pin RN1/3/R2.2/PASSIVE
 ```
 
-Once the units are defined, you can use them just like any part:
+Once the units are defined, you may use them just like any part:
 
 ```terminal
 >>> rn.unit['A'][1,4] += Net(), Net()  # Connect resistor A to two nets.
@@ -1409,7 +1426,7 @@ as a part attribute:
 
 ## Hierarchy
 
-SKiDL supports two equivalent implementations of hierarchy: [*subcircuits*](#subcircuits) and [*packages*](#packages).
+SKiDL supports several types of hierarchy: [*subcircuits*](#subcircuits), [*packages*](#packages), and [*Groups*](#groups).
 
 ### Subcircuits
 
@@ -1600,6 +1617,37 @@ divider.ratio = 0.5
 generate_netlist(file_=sys.stdout)
 ```
 
+## Groups
+
+If you want to inject some hierarchy in your design but don't want
+to bother with creating and calling a function, then *groups* are for you!
+Just place parts within a `Group` context and they will appear at the
+appropriate level of the hierarchy:
+
+```py
+from skidl import *
+
+r = Part("Device", "R")
+
+with Group("A"):
+    c = Part("Device", "C")
+
+    with Group("B"):
+        l = Part("Device", "L")
+
+for part in default_circuit.parts:
+    print(f"{part.ref} {part.hierarchy}")
+```
+
+The output shows the components are arranged in a nested hierarchy that
+reflects the nesting of the `Group` contexts:
+
+```text
+R1 top
+C1 top.A0
+L1 top.A0.B0
+```
+
 
 ## Interfaces
 
@@ -1651,7 +1699,7 @@ Currently, SKiDL supports the library formats for the following ECAD tools:
 * `KICAD`: KiCad schematic part libraries.
 * `SKIDL`: Schematic parts stored as SKiDL/Python modules.
 
-You can set the default library format you want to use in your SKiDL script like so:
+You may set the default library format you want to use in your SKiDL script like so:
 
 ```py
 set_default_tool(KICAD)  # KiCad is the default library format.
@@ -1664,6 +1712,15 @@ You can select the directories where SKiDL looks for parts or footprints using t
 ```py
 lib_search_paths[SKIDL] = ['.', '..', 'C:\\temp']
 lib_search_paths[KICAD].append('C:\\my\\kicad\\libs')
+```
+
+You may also access libraries stored in online repositories just by placing their
+URL in the list of libraries.
+(KiCad V6 symbols are found at `https://gitlab.com/kicad/libraries/kicad-symbols/-/raw/master`
+and V5 symbols are at `https://raw.githubusercontent.com/KiCad/kicad-symbols/master/`.)
+
+```py
+lib_search_paths[KICAD].append('https://gitlab.com/kicad/libraries/kicad-symbols/-/raw/master')
 ```
 
 You can convert a KiCad library into the SKiDL format by exporting it:
@@ -1679,7 +1736,7 @@ else:
 diode = Part(skidl_lib, 'D')                   # Instantiate a diode from the SKiDL library.
 ```
 
-You can make ad-hoc libraries just by creating a SchLib object and adding
+You may make ad-hoc libraries just by creating a SchLib object and adding
 Part objects to it:
 
 ```py
@@ -1701,36 +1758,36 @@ add it to the circuit netlist.
 Then set the part attributes and create and add pins to the part.
 Here are the most common attributes you'll want to set:
 
-Attribute   | Meaning
-------------|------------------
-name        | A string containing the name of the part, e.g. 'LM35' for a temperature sensor.
-ref_prefix  | A string containing the prefix for this part's references, e.g. 'U' for ICs.
-description | A string describing the part, e.g. 'temperature sensor'.
-keywords    | A string containing keywords about the part, e.g. 'sensor temperature IC'.
+| Attribute   | Meaning                                                                         |
+| ----------- | ------------------------------------------------------------------------------- |
+| name        | A string containing the name of the part, e.g. 'LM35' for a temperature sensor. |
+| ref_prefix  | A string containing the prefix for this part's references, e.g. 'U' for ICs.    |
+| description | A string describing the part, e.g. 'temperature sensor'.                        |
+| keywords    | A string containing keywords about the part, e.g. 'sensor temperature IC'.      |
 
 When creating a pin, these are the attributes you'll want to set:
 
-Attribute | Meaning
-----------|------------------
-num       | A string or integer containing the pin number, e.g. 5 or 'A13'.
-name      | A string containing the name of the pin, e.g. 'CS'.
-func      | An identifier for the function of the pin.
+| Attribute | Meaning                                                         |
+| --------- | --------------------------------------------------------------- |
+| num       | A string or integer containing the pin number, e.g. 5 or 'A13'. |
+| name      | A string containing the name of the pin, e.g. 'CS'.             |
+| func      | An identifier for the function of the pin.                      |
 
 The pin function identifiers are as follows:
  
-Identifier    | Pin Function
---------------|-----------------
-Pin.INPUT     | Input pin.
-Pin.OUTPUT    | Output pin.
-Pin.BIDIR     | Bidirectional in/out pin.
-Pin.TRISTATE  | Output pin that goes into a high-impedance state when disabled.
-Pin.PASSIVE   | Pin on a passive component (like a resistor).
-Pin.UNSPEC    | Pin with an unspecified function.
-Pin.PWRIN     | Power input pin (either voltage supply or ground).
-Pin.PWROUT    | Power output pin (like the output of a voltage regulator).
-Pin.OPENCOLL  | Open-collector pin (pulls to ground but not to positive rail).
-Pin.OPENEMIT  | Open-emitter pin (pulls to positive rail but not to ground).
-Pin.NOCONNECT | A pin that should be left unconnected.
+| Identifier    | Pin Function                                                    |
+| ------------- | --------------------------------------------------------------- |
+| Pin.INPUT     | Input pin.                                                      |
+| Pin.OUTPUT    | Output pin.                                                     |
+| Pin.BIDIR     | Bidirectional in/out pin.                                       |
+| Pin.TRISTATE  | Output pin that goes into a high-impedance state when disabled. |
+| Pin.PASSIVE   | Pin on a passive component (like a resistor).                   |
+| Pin.UNSPEC    | Pin with an unspecified function.                               |
+| Pin.PWRIN     | Power input pin (either voltage supply or ground).              |
+| Pin.PWROUT    | Power output pin (like the output of a voltage regulator).      |
+| Pin.OPENCOLL  | Open-collector pin (pulls to ground but not to positive rail).  |
+| Pin.OPENEMIT  | Open-emitter pin (pulls to positive rail but not to ground).    |
+| Pin.NOCONNECT | A pin that should be left unconnected.                          |
 
 SKiDL will also create a library of all the parts used in your design whenever
 you use the `generate_netlist()` function.
@@ -1783,7 +1840,7 @@ ERC WARNING: Unconnected pin: INPUT pin 6/GP3 of PIC10F220-IOT/U1.
 
 In fact, if you have a part with many pins that are not going to be used,
 you can start off by attaching all the pins to the `NC` net.
-After that, you can attach the pins you're using to normal nets and they
+After that, you may attach the pins you're using to normal nets and they
 will be removed from the `NC` net:
 
 ```py
@@ -1840,7 +1897,7 @@ For any net you create that supplies power to devices in your circuit,
 you should probably set its `drive` attribute to `POWER`.
 This is equivalent to attaching power flags to nets in some ECAD packages like KiCad.
 
-You can also set the `drive` attribute of part pins to override their default drive level.
+You may also set the `drive` attribute of part pins to override their default drive level.
 This can be useful when you are using an output pin of a part to power
 another part.
 
@@ -1999,6 +2056,46 @@ are even attached to the `net1` or `net2` nets, yet.
 The `erc_assert` function just places the statements to be checked into a queue
 that gets evaluated when `ERC()` is run.
 
+### Handling Empty Footprints
+
+When you're creating a new design, it's common to get an error during netlist generation about parts
+that are missing footprints.
+(Although, parts will try to use the footprint specified in their library definition, if available.)
+You can use [zyc](#zyc-a-gui-search-tool) to find appropriate footprints one-by-one, but sometimes you just want an
+automatic method to assign footprints that are *close enough*.
+This can be done using the `empty_footprint_handler` function that gets called for any
+component found missing its footprint.
+For example, the following function assigns an 0805 footprint to any two-pin RLC component lacking
+a footprint:
+
+```python
+def my_empty_footprint_handler(part):
+    """Function for handling parts with no footprint.
+
+    Args:
+        part (Part): Part with no footprint.
+    """
+    ref_prefix = part.ref_prefix.upper()
+
+    if ref_prefix in ("R", "C", "L") and len(part.pins) == 2:
+        # Resistors, capacitors, inductors default to 0805 SMD footprint.
+        part.footprint = "Resistor_SMD:R_0805_2012Metric"
+
+    else:
+        # Everything else just gets this ridiculous footprint to avoid raising exceptions.
+        part.footprint = ":"
+```
+
+Then, install the custom footprint handler anywhere before the `generate_netlist` function is called,
+like so:
+
+```python
+# Install the footprint handler for these tests.
+import skidl
+skidl.empty_footprint_handler = my_empty_footprint_handler
+```
+
+
 ### Tags
 
 If you don't assign part references (e.g., `R1`), SKiDL will do it automatically.
@@ -2046,7 +2143,7 @@ But you can create other `Circuit` objects:
 >>> my_circuit = Circuit()
 ```
 
-and then you can create parts, nets and buses and add them to your new circuit:
+and then you may create parts, nets and buses and add them to your new circuit:
 
 ```terminal
 >>> my_circuit += Part("Device",'R')  # Add a resistor to the circuit.
@@ -2058,7 +2155,7 @@ In addition to the `+=` operator, you can also use the methods `add_parts`, `add
 (There's also the much less-used `-=` operator for removing parts, nets or buses
 from a circuit along with the `rmv_parts`, `rmv_nets`, and `rmv_buses` methods.)
 
-You can also place parts, nets, and buses directly into a `Circuit` object
+You may also place parts, nets, and buses directly into a `Circuit` object
 by using the `circuit` parameter of the object constructors:
 
 ```terminal
@@ -2112,7 +2209,7 @@ with my_circuit:
     multi_vdiv(3, input_net, output_net)
 ```
 
-You can do all the same operations on a `Circuit` object that are supported on the 
+You may do all the same operations on a `Circuit` object that are supported on the 
 default circuit, such as:
 
 ```py
@@ -2136,18 +2233,19 @@ Here are a few things you can't do (and will get warned about):
 
 # Generating a Schematic
 
-Although SKiDL lets you avoid the tedious drawing of a schematic, some will
+Although SKiDL lets you avoid the tedious drawing of a schematic, some
 still want to see a graphical depiction of their circuit.
-To this end, SKiDL can show the interconnection of parts as
-a directed graph using [1)](#dot-graphs) the
-[graphviz DOT language](https://graphviz.org/doc/info/lang.html)
-or [2)](#svg-schematics) as a more traditional schematic using SVG.
+To support this, SKiDL can show the interconnection of parts as:
 
-The following circuit will be used to illustrate both methods:
+* a [static schematic in SVG](#svg-schematics),
+* an [editable KiCad schematic](#kicad-schematics) (currently only V5 is supported),
+* or a [directed graph](#dot-graphs) using the [graphviz DOT language](https://graphviz.org/doc/info/lang.html).
+
+The following circuit will be used to illustrate each alternative:
 
 ![TTL AND Gate](https://raw.githubusercontent.com/nturley/netlistsvg/master/doc/and.svg?sanitize=true)
 
-The SKiDL script for this circuit is:
+A SKiDL script for this circuit is:
 
 ```py
 from skidl import *
@@ -2174,32 +2272,6 @@ vcc += q1["E"], q2["E"], vcct
 gnd += gndt
 ```
 
-## DOT Graphs
-
-**Note: Viewing DOT files requires that you install
-[graphviz](https://www.graphviz.org/download/) on your system.**
-
-To generate a DOT file for the circuit, just append the following to the end of the script:
-
-```py
-generate_dot(file_='and_gate.dot')
-```
-
-After running the script to generate the `and_gate.dot` file, you can transform it into
-a bitmap file using the command:
-
-```bash
-$ dot -Tpng -Kneato -O and_gate.dot
-```
-
-The resulting `and_gate.dot.png` file looks like this:
-
-![AND_GATE graph.](images/and_gate.dot.png)
-
-This graph might serve as a sanity-check for a small circuit,
-but you can imagine what it would look like if it included
-microcontrollers or FPGAs with hundreds of pins!
-
 ## SVG Schematics
 
 **Note: Generating SVG schematics requires that you install a pre-release version of
@@ -2209,7 +2281,7 @@ microcontrollers or FPGAs with hundreds of pins!
 npm install https://github.com/nturley/netlistsvg
 ```
 
-You can create a more conventional schematic as an SVG file by appending the
+You may create a schematic as an SVG file by appending the
 following to the end of the script:
 
 ```py
@@ -2264,12 +2336,12 @@ orientation of a part using the `symtx` attribute.
 A string assigned to `symtx` is processed from left to right with each character
 specifying one of the following operations upon the symbol:
 
-symtx     | Operation
-----------|------------------
-H         | Flip symbol horizontally (left to right).
-V         | Flip symbol vertically (top to bottom).
-R         | Rotate symbol 90$\degree$ to the left (counter clockwise).
-L         | Rotate symbol 90$\degree$ to the right (clockwise).
+| symtx | Operation                                                  |
+| ----- | ---------------------------------------------------------- |
+| H     | Flip symbol horizontally (left to right).                  |
+| V     | Flip symbol vertically (top to bottom).                    |
+| R     | Rotate symbol 90$\degree$ to the left (counter clockwise). |
+| L     | Rotate symbol 90$\degree$ to the right (clockwise).        |
 
 To illustrate, the following would flip transistor `q1` horizontally
 and then rotate it 90$\degree$ clockwise:
@@ -2278,7 +2350,7 @@ and then rotate it 90$\degree$ clockwise:
 q1.symtx = "HR"  # Flip horizontally and then rotate right by 90 degrees.
 ```
 
-You can also set a net or bus attribute to choose whether it is fully drawn or replaced by
+You may also set a net or bus attribute to choose whether it is fully drawn or replaced by
 a named *stub* at each connection point:
 
 ```py
@@ -2310,13 +2382,65 @@ And this is the result:
 
 ![And_GATE schematic with transistor orientations and stubs,](images/symtx_examples.svg)
 
+## KiCad Schematics
+
+To generate a schematic file that can be opened with KiCad Eeschema, just append the following to the end of the script:
+
+```py
+generate_schematic()
+```
+
+This will drop an Eeschema file called `and_top.sch` into the same directory as the `and.py` file.
+
+![KiCad 5 Eeschema AND_GATE schematic.](images/and_gate_4.png)
+
+Right now, this file can only be opened using KiCad version 5.
+(If you're using a more recent version of KiCad, then there are some
+[Docker files for running different versions of KiCad](https://github.com/devbisme/docker_kicad) without affecting your current setup.)
+
+The `generate_schematic()` function accepts these parameters:
+
+* `filepath` (`str`, optional): The directory where the schematic files are placed. Defaults to ".".
+* `top_name` (`str`, optional): The name for the top of the circuit hierarchy. Defaults to `get_script_name()`.
+* `title` (`str`, optional): The title in the title box of the schematic. Defaults to "SKiDL-Generated Schematic".
+* `flatness` (`float`, optional): Determines how much the hierarchy is flattened in the schematic. Defaults to 0.0 (completely hierarchical).
+* `retries` (`int`, optional): Number of times to re-try if routing fails. Defaults to 2.
+
+In addition, the `generate_schematic()` function supports the `symtx` and `netio` attributes discussed 
+in the [section on generating SVG](#svg-schematics).
+
+## DOT Graphs
+
+**Note: Viewing DOT files requires that you install
+[graphviz](https://www.graphviz.org/download/) on your system.**
+
+To generate a DOT file for the circuit, just append the following to the end of the script:
+
+```py
+generate_dot(file_='and_gate.dot')
+```
+
+After running the script to generate the `and_gate.dot` file, you may transform it into
+a bitmap file using the command:
+
+```bash
+$ dot -Tpng -Kneato -O and_gate.dot
+```
+
+The resulting `and_gate.dot.png` file looks like this:
+
+![AND_GATE graph.](images/and_gate.dot.png)
+
+This graph might serve as a sanity-check for a small circuit,
+but you can imagine what it would look like if it included
+microcontrollers or FPGAs with hundreds of pins!
 
 
 # Converting Existing Designs to SKiDL
 
 **Currently, this feature is only available for KiCad designs.**
 
-You can convert an existing schematic-based design to SKiDL like this:
+You may convert an existing schematic-based design to SKiDL like this:
 
 1. Generate a netlist file for your design using whatever procedure your ECAD
    system provides. For this discussion, call the netlist file `my_design.net`.
@@ -2328,7 +2452,7 @@ You can convert an existing schematic-based design to SKiDL like this:
     ```
 
 That's it! You can execute the `my_design.py` script and it will regenerate the
-netlist. Or you can use the script as a subcircuit in a larger design.
+netlist. Or you may use the script as a subcircuit in a larger design.
 Or do anything else that a SKiDL-based design supports.
 
 

@@ -2,17 +2,18 @@
 
 <!doctype html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.tools.spice.spice &#8212; SKiDL  documentation</title>
+    <title>skidl.tools.spice.spice &#8212; SKiDL 1.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/bizstyle.css" />
     
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../../_static/doctools.js"></script>
     <script src="../../../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -33,7 +34,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.spice.spice</a></li> 
       </ul>
@@ -61,18 +62,27 @@
 <span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">os.path</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">object</span><span class="p">,</span> <span class="nb">range</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">zip</span>
 
 <span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
 
-<span class="kn">from</span> <span class="nn">...common</span> <span class="kn">import</span> <span class="n">USING_PYTHON2</span>
+<span class="kn">from</span> <span class="nn">...alias</span> <span class="kn">import</span> <span class="n">Alias</span>
 <span class="kn">from</span> <span class="nn">...logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
 <span class="kn">from</span> <span class="nn">...net</span> <span class="kn">import</span> <span class="n">Net</span>
-<span class="kn">from</span> <span class="nn">...part</span> <span class="kn">import</span> <span class="n">Part</span>
-<span class="kn">from</span> <span class="nn">...pin</span> <span class="kn">import</span> <span class="n">Pin</span><span class="p">,</span> <span class="n">PinList</span>
-<span class="kn">from</span> <span class="nn">...utilities</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">...part</span> <span class="kn">import</span> <span class="n">LIBRARY</span><span class="p">,</span> <span class="n">Part</span>
+<span class="kn">from</span> <span class="nn">...pin</span> <span class="kn">import</span> <span class="n">Pin</span>
+<span class="kn">from</span> <span class="nn">...utilities</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">INDEX_SEPARATOR</span><span class="p">,</span>
+    <span class="n">export_to_all</span><span class="p">,</span>
+    <span class="n">find_and_open_file</span><span class="p">,</span>
+    <span class="n">find_and_read_file</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;tool_name&quot;</span><span class="p">,</span> <span class="s2">&quot;lib_suffix&quot;</span><span class="p">,</span> <span class="s2">&quot;DeviceModel&quot;</span><span class="p">,</span> <span class="s2">&quot;XspiceModel&quot;</span><span class="p">,</span> <span class="s2">&quot;Parameters&quot;</span><span class="p">]</span>
 
 
 <span class="c1"># PySpice may not be installed, particularly under Python 2.</span>
@@ -91,7 +101,7 @@
 
 
 <span class="k">def</span> <span class="nf">_gather_statement</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Return list of words in a complete statement read from a SPICE file.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return list of words in a complete statement read from a SPICE file.&quot;&quot;&quot;</span>
 
     <span class="n">statement</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>  <span class="c1"># Holds complete SPICE statement consisting of one or more lines.</span>
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
@@ -118,8 +128,9 @@
         <span class="k">yield</span> <span class="n">statement</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
 
 
-<div class="viewcode-block" id="load_sch_lib"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.spice.spice.html#skidl.tools.spice.spice.load_sch_lib">[docs]</a><span class="k">def</span> <span class="nf">load_sch_lib</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lib_search_paths_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lib_section</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="load_sch_lib"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.spice.spice.html#skidl.tools.spice.spice.load_sch_lib">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">load_sch_lib</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lib_search_paths_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lib_section</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load the .subckt I/O from a SPICE library file.</span>
 
 <span class="sd">    Args:</span>
@@ -127,8 +138,6 @@
 <span class="sd">        lib_search_paths_ : List of directories to search for the file.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="kn">from</span> <span class="nn">...part</span> <span class="kn">import</span> <span class="n">Part</span>
-    <span class="kn">from</span> <span class="nn">...pin</span> <span class="kn">import</span> <span class="n">Pin</span>
     <span class="kn">from</span> <span class="nn">...skidl</span> <span class="kn">import</span> <span class="n">lib_suffixes</span>
     <span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">SPICE</span>
 
@@ -137,14 +146,13 @@
         <span class="n">spice_lib_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="c1"># A file name was given, so find the absolute file path in the search paths.</span>
-        <span class="n">fp</span><span class="p">,</span> <span class="n">spice_lib_path</span> <span class="o">=</span> <span class="n">find_and_open_file</span><span class="p">(</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">spice_lib_path</span> <span class="o">=</span> <span class="n">find_and_open_file</span><span class="p">(</span>
             <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
             <span class="n">paths</span><span class="o">=</span><span class="n">lib_search_paths_</span><span class="p">,</span>
             <span class="n">ext</span><span class="o">=</span><span class="n">lib_suffixes</span><span class="p">[</span><span class="n">SPICE</span><span class="p">],</span>
             <span class="n">exclude_binary</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="n">descend</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="n">fp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># Close the file pointer. We just need the path to the file.</span>
 
     <span class="c1"># Read the Spice library from the given path.</span>
     <span class="n">spice_lib</span> <span class="o">=</span> <span class="n">SpiceLibrary</span><span class="p">(</span>
@@ -198,7 +206,7 @@
                     <span class="k">else</span><span class="p">:</span>
                         <span class="c1"># Now find a symbol file for the part to assign names to the pins.</span>
                         <span class="c1"># First, check for LTSpice symbol file.</span>
-                        <span class="n">sym_file</span><span class="p">,</span> <span class="n">sym_file_path</span> <span class="o">=</span> <span class="n">find_and_open_file</span><span class="p">(</span>
+                        <span class="n">sym_file</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">find_and_read_file</span><span class="p">(</span>
                             <span class="n">part</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
                             <span class="n">lib_search_paths_</span><span class="p">,</span>
                             <span class="s2">&quot;.asy&quot;</span><span class="p">,</span>
@@ -209,7 +217,7 @@
                         <span class="k">if</span> <span class="n">sym_file</span><span class="p">:</span>
                             <span class="n">pin_names</span> <span class="o">=</span> <span class="p">[]</span>
                             <span class="n">pin_indices</span> <span class="o">=</span> <span class="p">[]</span>
-                            <span class="k">for</span> <span class="n">sym_line</span> <span class="ow">in</span> <span class="n">sym_file</span><span class="p">:</span>
+                            <span class="k">for</span> <span class="n">sym_line</span> <span class="ow">in</span> <span class="n">sym_file</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">):</span>
                                 <span class="k">if</span> <span class="ow">not</span> <span class="n">sym_line</span><span class="p">:</span>
                                     <span class="k">continue</span>
                                 <span class="k">if</span> <span class="n">sym_line</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;pinattr pinname&quot;</span><span class="p">):</span>
@@ -218,7 +226,6 @@
                                     <span class="n">pin_indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sym_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">])</span>
                                 <span class="k">elif</span> <span class="n">sym_line</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;symattr description&quot;</span><span class="p">):</span>
                                     <span class="n">part</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sym_line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">:])</span>
-                            <span class="n">sym_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
                             <span class="c1"># Pin names and indices should be matched by the order they</span>
                             <span class="c1"># appeared in the symbol file. Each index should match the</span>
@@ -227,7 +234,7 @@
                                 <span class="n">part</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
                         <span class="k">else</span><span class="p">:</span>
                             <span class="c1"># No LTSpice symbol file, so check for PSPICE symbol file.</span>
-                            <span class="n">sym_file</span><span class="p">,</span> <span class="n">sym_file_path</span> <span class="o">=</span> <span class="n">find_and_open_file</span><span class="p">(</span>
+                            <span class="n">sym_file</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">find_and_read_file</span><span class="p">(</span>
                                 <span class="n">filename</span><span class="p">,</span>
                                 <span class="n">lib_search_paths_</span><span class="p">,</span>
                                 <span class="s2">&quot;.slb&quot;</span><span class="p">,</span>
@@ -238,7 +245,7 @@
                             <span class="k">if</span> <span class="n">sym_file</span><span class="p">:</span>
                                 <span class="n">pin_names</span> <span class="o">=</span> <span class="p">[]</span>
                                 <span class="n">active</span> <span class="o">=</span> <span class="kc">False</span>
-                                <span class="k">for</span> <span class="n">sym_line</span> <span class="ow">in</span> <span class="n">sym_file</span><span class="p">:</span>
+                                <span class="k">for</span> <span class="n">sym_line</span> <span class="ow">in</span> <span class="n">sym_file</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">):</span>
                                     <span class="n">sym_line</span> <span class="o">=</span> <span class="n">sym_line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
                                     <span class="k">if</span> <span class="ow">not</span> <span class="n">sym_line</span><span class="p">:</span>
                                         <span class="k">continue</span>
@@ -250,7 +257,6 @@
                                             <span class="n">pin_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line_parts</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span>
                                         <span class="k">elif</span> <span class="n">line_parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;d&quot;</span><span class="p">:</span>
                                             <span class="n">part</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">line_parts</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
-                                <span class="n">sym_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
                                 <span class="n">pin_indices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pin_names</span><span class="p">)))</span>
                                 <span class="k">for</span> <span class="n">pin</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">pins</span><span class="p">,</span> <span class="n">pin_names</span><span class="p">):</span>
@@ -260,8 +266,9 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">add_parts</span><span class="p">(</span><span class="n">part</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="parse_lib_part"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.spice.spice.html#skidl.tools.spice.spice.parse_lib_part">[docs]</a><span class="k">def</span> <span class="nf">parse_lib_part</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_name_only</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>  <span class="c1"># pylint: disable=unused-argument</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="parse_lib_part"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.spice.spice.html#skidl.tools.spice.spice.parse_lib_part">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">parse_lib_part</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">partial_parse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>  <span class="c1"># pylint: disable=unused-argument</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create a Part using a part definition from a SPICE library.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -273,8 +280,9 @@
 <span class="c1"># Classes for device and xspice models.</span>
 
 
-<div class="viewcode-block" id="XspiceModel"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.spice.spice.html#skidl.tools.spice.spice.XspiceModel">[docs]</a><span class="k">class</span> <span class="nc">XspiceModel</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="XspiceModel"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.spice.spice.html#skidl.tools.spice.spice.XspiceModel">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">class</span> <span class="nc">XspiceModel</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Object to hold the parameters for an XSPICE model.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -289,8 +297,9 @@
 <span class="n">DeviceModel</span> <span class="o">=</span> <span class="n">XspiceModel</span>
 
 
-<div class="viewcode-block" id="gen_netlist"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.spice.spice.html#skidl.tools.spice.spice.gen_netlist">[docs]</a><span class="k">def</span> <span class="nf">gen_netlist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="gen_netlist"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.spice.spice.html#skidl.tools.spice.spice.gen_netlist">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">gen_netlist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return a PySpice Circuit generated from a SKiDL circuit.</span>
 
 <span class="sd">    Args:</span>
@@ -300,15 +309,13 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="kn">from</span> <span class="nn">...skidl</span> <span class="kn">import</span> <span class="n">lib_search_paths</span>
+    <span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">SPICE</span>
 
-    <span class="k">if</span> <span class="n">USING_PYTHON2</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">None</span>
-
-    <span class="c1"># Replace any special chars in all net names because Spice won&#39;t like them.</span>
-    <span class="c1"># Don&#39;t use self.get_nets() because that only returns a single net from a</span>
-    <span class="c1"># group of attached nets so the other nets won&#39;t get renamed.</span>
-    <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nets</span><span class="p">:</span>
-        <span class="n">net</span><span class="o">.</span><span class="n">replace_spec_chars_in_name</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">major</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">active_logger</span><span class="o">.</span><span class="n">raise_</span><span class="p">(</span>
+            <span class="ne">NotImplementedError</span><span class="p">,</span>
+            <span class="s2">&quot;PySpice does not support Python 2, so a SPICE netlist cannot be generated.&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
 
     <span class="c1"># Create an empty PySpice circuit.</span>
     <span class="n">title</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>  <span class="c1"># Get title and remove it from kwargs.</span>
@@ -394,11 +401,14 @@
     <span class="k">return</span> <span class="n">circuit</span></div>
 
 
-<div class="viewcode-block" id="node"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.spice.spice.html#skidl.tools.spice.spice.node">[docs]</a><span class="k">def</span> <span class="nf">node</span><span class="p">(</span><span class="n">net_pin_part</span><span class="p">):</span>
+<div class="viewcode-block" id="node"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.spice.spice.html#skidl.tools.spice.spice.node">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">node</span><span class="p">(</span><span class="n">net_pin_part</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">net_pin_part</span><span class="p">,</span> <span class="n">Net</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">net_pin_part</span><span class="o">.</span><span class="n">name</span>
+        <span class="c1"># Replace any special chars in a net name because Spice doesn&#39;t like them.</span>
+        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\W&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="n">net_pin_part</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">net_pin_part</span><span class="p">,</span> <span class="n">Pin</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">net_pin_part</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">name</span>
+        <span class="c1"># Replace any special chars in a net name because Spice doesn&#39;t like them.</span>
+        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\W&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="n">net_pin_part</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">net_pin_part</span><span class="p">,</span> <span class="n">Part</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">net_pin_part</span><span class="o">.</span><span class="n">ref</span></div>
 
@@ -415,14 +425,14 @@
 
 
 <span class="k">def</span> <span class="nf">_get_spice_ref</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Return a SPICE reference ID for the part.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a SPICE reference ID for the part.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">part</span><span class="o">.</span><span class="n">ref</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">ref_prefix</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">part</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">ref_prefix</span><span class="p">)</span> <span class="p">:]</span>
     <span class="k">return</span> <span class="n">part</span><span class="o">.</span><span class="n">ref</span>
 
 
 <span class="k">def</span> <span class="nf">_get_kwargs</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">kw</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Return a dict of keyword arguments to PySpice element constructor.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a dict of keyword arguments to PySpice element constructor.&quot;&quot;&quot;</span>
     <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">param_name</span> <span class="ow">in</span> <span class="n">kw</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -461,15 +471,17 @@
     <span class="k">return</span> <span class="n">kwargs</span>
 
 
-<div class="viewcode-block" id="not_implemented"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.spice.spice.html#skidl.tools.spice.spice.not_implemented">[docs]</a><span class="k">def</span> <span class="nf">not_implemented</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">circuit</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Unable to add a particular SPICE part to a circuit.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="not_implemented"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.spice.spice.html#skidl.tools.spice.spice.not_implemented">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">not_implemented</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">circuit</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Unable to add a particular SPICE part to a circuit.&quot;&quot;&quot;</span>
     <span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
         <span class="s2">&quot;Function not implemented for </span><span class="si">{}</span><span class="s2"> - </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">part</span><span class="o">.</span><span class="n">ref</span><span class="p">)</span>
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="add_part_to_circuit"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.spice.spice.html#skidl.tools.spice.spice.add_part_to_circuit">[docs]</a><span class="k">def</span> <span class="nf">add_part_to_circuit</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">circuit</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="add_part_to_circuit"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.spice.spice.html#skidl.tools.spice.spice.add_part_to_circuit">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">add_part_to_circuit</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">circuit</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Add a part to a PySpice Circuit object.</span>
 
 <span class="sd">    Args:</span>
@@ -495,12 +507,12 @@
 
 
 <span class="k">def</span> <span class="nf">_get_net_names</span><span class="p">(</span><span class="n">part</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Return a list of net names attached to the pins of a part.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a list of net names attached to the pins of a part.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">node</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span> <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">pins</span> <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">is_connected</span><span class="p">()]</span>
 
 
 <div class="viewcode-block" id="Parameters"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.spice.spice.html#skidl.tools.spice.spice.Parameters">[docs]</a><span class="k">class</span> <span class="nc">Parameters</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Class for holding Spice subcircuit parameters.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class for holding Spice subcircuit parameters.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
@@ -509,8 +521,9 @@
         <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">copy</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">}</span></div>
 
 
-<div class="viewcode-block" id="add_subcircuit_to_circuit"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.spice.spice.html#skidl.tools.spice.spice.add_subcircuit_to_circuit">[docs]</a><span class="k">def</span> <span class="nf">add_subcircuit_to_circuit</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">circuit</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="add_subcircuit_to_circuit"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.spice.spice.html#skidl.tools.spice.spice.add_subcircuit_to_circuit">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">add_subcircuit_to_circuit</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">circuit</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Add a .SUBCKT part to a PySpice Circuit object.</span>
 
 <span class="sd">    Args:</span>
@@ -534,8 +547,9 @@
     <span class="nb">getattr</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">part</span><span class="o">.</span><span class="n">pyspice</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="add_xspice_to_circuit"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.spice.spice.html#skidl.tools.spice.spice.add_xspice_to_circuit">[docs]</a><span class="k">def</span> <span class="nf">add_xspice_to_circuit</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">circuit</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="add_xspice_to_circuit"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.spice.spice.html#skidl.tools.spice.spice.add_xspice_to_circuit">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">add_xspice_to_circuit</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">circuit</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Add an XSPICE part to a PySpice Circuit object.</span>
 
 <span class="sd">    Args:</span>
@@ -551,7 +565,7 @@
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">Pin</span><span class="p">):</span>
             <span class="c1"># Add a non-vector pin. Use _xspice_node() in case pin is unconnected.</span>
             <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_xspice_node</span><span class="p">(</span><span class="n">pin</span><span class="p">))</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">PinList</span><span class="p">):</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">XspicePinList</span><span class="p">):</span>
             <span class="c1"># Add pins from a pin vector.</span>
             <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;[&quot;</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">node</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pin</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;]&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -562,6 +576,138 @@
 
     <span class="c1"># Add the part to the PySpice circuit.</span>
     <span class="nb">getattr</span><span class="p">(</span><span class="n">circuit</span><span class="p">,</span> <span class="n">part</span><span class="o">.</span><span class="n">pyspice</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="add_xspice_io"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.spice.spice.html#skidl.tools.spice.spice.add_xspice_io">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">add_xspice_io</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">io</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add XSPICE I/O to the pins of a part.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">io</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="c1"># Change a string into a list with a single string element.</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">io</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
+        <span class="n">io</span> <span class="o">=</span> <span class="p">[</span><span class="n">io</span><span class="p">]</span>
+
+    <span class="c1"># Join all the pin name arguments into a comma-separated string and then split them into a list.</span>
+    <span class="n">ios</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">INDEX_SEPARATOR</span><span class="p">,</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">io</span><span class="p">))</span>
+
+    <span class="c1"># Add a pin to the part for each pin name.</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">arg</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ios</span><span class="p">):</span>
+        <span class="n">arg</span> <span class="o">=</span> <span class="n">arg</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>  <span class="c1"># Strip any spaces that may have been between pin names.</span>
+
+        <span class="c1"># If [pin_name] or pin_name[], then add a PinList to the part. Don&#39;t use</span>
+        <span class="c1"># part.add_pins() because it will flatten the PinList and add nothing since</span>
+        <span class="c1"># the PinList is empty.</span>
+        <span class="k">if</span> <span class="n">arg</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">arg</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;[]&quot;</span><span class="p">:</span>
+            <span class="n">part</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">XspicePinList</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">arg</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">part</span><span class="o">=</span><span class="n">part</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">arg</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span> <span class="o">==</span> <span class="s2">&quot;[]&quot;</span><span class="p">:</span>
+            <span class="n">part</span><span class="o">.</span><span class="n">pins</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">XspicePinList</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">arg</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">part</span><span class="o">=</span><span class="n">part</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Add a simple, non-vector pin.</span>
+            <span class="n">part</span><span class="o">.</span><span class="n">add_pins</span><span class="p">(</span><span class="n">Pin</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">arg</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="convert_for_spice"><a class="viewcode-back" href="../../../../rst_output/skidl.tools.spice.spice.html#skidl.tools.spice.spice.convert_for_spice">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">convert_for_spice</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">spice_part</span><span class="p">,</span> <span class="n">pin_map</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert a Part object for use with SPICE.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        part: SKiDL Part object that will be converted for use as a SPICE component.</span>
+<span class="sd">        spice_part (Part): The type of SPICE Part to be converted to.</span>
+<span class="sd">        pin_map (dict): Dict with pin numbers/names of part as keys and num/names of spice_part pins as replacement values.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Give the part access to the PySpice information from the SPICE part.</span>
+    <span class="n">part</span><span class="o">.</span><span class="n">pyspice</span> <span class="o">=</span> <span class="n">spice_part</span><span class="o">.</span><span class="n">pyspice</span>
+
+    <span class="c1"># Give the part the additional aliases from the SPICE part.</span>
+    <span class="n">part</span><span class="o">.</span><span class="n">aliases</span> <span class="o">+=</span> <span class="n">spice_part</span><span class="o">.</span><span class="n">aliases</span>
+
+    <span class="c1"># Look-up pin names/numbers to create a mapping between actual Pin objects.</span>
+    <span class="n">pin_map</span> <span class="o">=</span> <span class="p">[[</span><span class="n">part</span><span class="p">[</span><span class="n">dst</span><span class="p">],</span> <span class="n">spice_part</span><span class="p">[</span><span class="n">src</span><span class="p">]]</span> <span class="k">for</span> <span class="n">dst</span><span class="p">,</span> <span class="n">src</span> <span class="ow">in</span> <span class="n">pin_map</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+
+    <span class="c1"># Pull some info from the SPICE part pins into the part pins.</span>
+    <span class="k">for</span> <span class="n">dst_pin</span><span class="p">,</span> <span class="n">src_pin</span> <span class="ow">in</span> <span class="n">pin_map</span><span class="p">:</span>
+        <span class="n">dst_pin</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="n">src_pin</span><span class="o">.</span><span class="n">num</span>
+        <span class="n">dst_pin</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">src_pin</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">dst_pin</span><span class="o">.</span><span class="n">aliases</span> <span class="o">+=</span> <span class="n">src_pin</span><span class="o">.</span><span class="n">aliases</span></div>
+
+
+<span class="k">class</span> <span class="nc">XspicePinList</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A list of Pin objects that&#39;s meant to look something like a Pin to a Part.</span>
+<span class="sd">    This is used for vector I/O of XSPICE parts.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">part</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="c1"># The list needs the following attributes to behave like a Pin.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">aliases</span> <span class="o">=</span> <span class="n">Alias</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="n">num</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">part</span> <span class="o">=</span> <span class="n">part</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get a Pin from the list. Add Pin objects to the list if they don&#39;t exist.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__len__</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">l</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">Pin</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="n">j</span><span class="p">,</span> <span class="n">part</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">part</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)])</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__len__</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">tmp</span> <span class="o">=</span> <span class="p">[</span><span class="n">Pin</span><span class="p">()]</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">tmp</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__iter__</span><span class="p">())</span>  <span class="c1"># Return generator expr.</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__len__</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">l</span> <span class="ow">or</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a copy of a PinList for use when a Part is copied.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            attribs(dict): Attributes to apply to copied part pins.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cpy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">part</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">cpy</span> <span class="o">+=</span> <span class="n">pin</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="o">**</span><span class="n">attribs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cpy</span>
+
+    <span class="k">def</span> <span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Disconnect all the pins in the list.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">pin</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">is_connected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+
+    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nm</span><span class="p">):</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>  <span class="c1"># Remove any pre-existing name.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">aliases</span> <span class="o">+=</span> <span class="n">nm</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">nm</span>
+
+    <span class="nd">@name</span><span class="o">.</span><span class="n">deleter</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">aliases</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
 </pre></div>
 
             <div class="clearer"></div>
@@ -579,7 +725,7 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -593,14 +739,14 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.tools.spice.spice</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2016-2021, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+        &#169; Copyright 2016-2023, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>
 </html>

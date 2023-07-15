@@ -2,17 +2,18 @@
 
 <!doctype html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.note &#8212; SKiDL  documentation</title>
+    <title>skidl.note &#8212; SKiDL 1.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css" />
     
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -33,7 +34,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.note</a></li> 
       </ul>
@@ -64,14 +65,17 @@
 
 <span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
 
+<span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="n">export_to_all</span>
+
 <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
 
 
-<div class="viewcode-block" id="Note"><a class="viewcode-back" href="../../rst_output/skidl.note.html#skidl.note.Note">[docs]</a><span class="k">class</span> <span class="nc">Note</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Stores one or more strings as notes.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Note"><a class="viewcode-back" href="../../rst_output/skidl.note.html#skidl.note.Note">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">class</span> <span class="nc">Note</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Stores one or more strings as notes.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">notes</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Create a note.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a note.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            notes: Either a string or an iterable containing multiple strings.</span>
@@ -83,7 +87,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="fm">__iadd__</span><span class="p">(</span><span class="o">*</span><span class="n">notes</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">notes</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add new notes to a Note object.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add new notes to a Note object.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            notes: Either a string or an iterable containing multiple strings.</span>
@@ -99,7 +103,7 @@
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return notes as a concatenated set of strings.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return notes as a concatenated set of strings.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            A string made up of the concatenated notes in the object joined by newlines.</span>
@@ -122,7 +126,7 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -136,14 +140,14 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.note</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2016-2021, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+        &#169; Copyright 2016-2023, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>
 </html>

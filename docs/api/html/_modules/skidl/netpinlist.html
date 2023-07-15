@@ -2,17 +2,18 @@
 
 <!doctype html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.netpinlist &#8212; SKiDL  documentation</title>
+    <title>skidl.netpinlist &#8212; SKiDL 1.2.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css" />
     
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -33,7 +34,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.netpinlist</a></li> 
       </ul>
@@ -70,14 +71,13 @@
 <span class="kn">from</span> <span class="nn">.network</span> <span class="kn">import</span> <span class="n">Network</span>
 <span class="kn">from</span> <span class="nn">.pin</span> <span class="kn">import</span> <span class="n">Pin</span>
 <span class="kn">from</span> <span class="nn">.protonet</span> <span class="kn">import</span> <span class="n">ProtoNet</span>
-
-<span class="c1"># from .skidlbaseobj import SkidlBaseObject</span>
-<span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="n">expand_buses</span><span class="p">,</span> <span class="n">export_to_all</span><span class="p">,</span> <span class="n">flatten</span><span class="p">,</span> <span class="n">set_iadd</span>
 
 <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
 
 
-<div class="viewcode-block" id="NetPinList"><a class="viewcode-back" href="../../rst_output/skidl.netpinlist.html#skidl.netpinlist.NetPinList">[docs]</a><span class="k">class</span> <span class="nc">NetPinList</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
+<div class="viewcode-block" id="NetPinList"><a class="viewcode-back" href="../../rst_output/skidl.netpinlist.html#skidl.netpinlist.NetPinList">[docs]</a><span class="nd">@export_to_all</span>
+<span class="k">class</span> <span class="nc">NetPinList</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">nets_pins_buses</span><span class="p">):</span>
         <span class="n">nets_pins_a</span> <span class="o">=</span> <span class="n">expand_buses</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">len_a</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nets_pins_a</span><span class="p">)</span>
@@ -142,37 +142,37 @@
         <span class="k">return</span> <span class="bp">self</span>
 
 <div class="viewcode-block" id="NetPinList.create_network"><a class="viewcode-back" href="../../rst_output/skidl.netpinlist.html#skidl.netpinlist.NetPinList.create_network">[docs]</a>    <span class="k">def</span> <span class="nf">create_network</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Create a network from a list of pins and nets.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a network from a list of pins and nets.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="n">Network</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="p">)</span>  <span class="c1"># An error will occur if list has more than 2 items.</span></div>
 
     <span class="k">def</span> <span class="fm">__and__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Attach a NetPinList and another part/pin/net in serial.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Attach a NetPinList and another part/pin/net in serial.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">obj</span>
 
     <span class="k">def</span> <span class="fm">__rand__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Attach a NetPinList and another part/pin/net in serial.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Attach a NetPinList and another part/pin/net in serial.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="n">obj</span> <span class="o">&amp;</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Attach a NetPinList and another part/pin/net in parallel.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Attach a NetPinList and another part/pin/net in parallel.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">|</span> <span class="n">obj</span>
 
     <span class="k">def</span> <span class="fm">__ror__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Attach a NetPinList and another part/pin/net in parallel.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Attach a NetPinList and another part/pin/net in parallel.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="n">obj</span> <span class="o">|</span> <span class="n">Network</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return the number of individual pins/nets in this interface.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the number of individual pins/nets in this interface.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">expand_buses</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">circuit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get the circuit the pins/nets are members of.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the circuit the pins/nets are members of.&quot;&quot;&quot;</span>
         <span class="n">cct</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">pn</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
             <span class="n">cct</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pn</span><span class="o">.</span><span class="n">circuit</span><span class="p">)</span>
@@ -185,7 +185,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return width, which is the same as using the len() operator.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return width, which is the same as using the len() operator.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="c1"># Setting/clearing the do_erc flag for the list sets/clears the do_erc flags of the pins/nets in the list.</span>
@@ -249,7 +249,7 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -263,14 +263,14 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.netpinlist</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2016-2021, Dave Vandenbout.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+        &#169; Copyright 2016-2023, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
     </div>
   </body>
 </html>
