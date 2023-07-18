@@ -51,6 +51,12 @@ def export_to_all(fn):
     return fn
 
 
+class Rgx(str):
+    """A string but the class makes it recognizable as as a regular expression."""
+    def __init__(self, s):
+        str.__init__(s)
+
+
 @export_to_all
 def sgn(x):
     """Return -1,0,1 if x<0, x==0, x>0."""
@@ -126,7 +132,7 @@ def to_list(x):
     """
     Return x if it is already a list, or return a list containing x if x is a scalar.
     """
-    if isinstance(x, (list, tuple)):
+    if isinstance(x, (list, tuple, set)):
         return x  # Already a list, so just return it.
     return [x]  # Wasn't a list, so make it into one.
 
@@ -422,52 +428,57 @@ def filter_list(lst, **criteria):
         for k, v in list(criteria.items()):
 
             try:
-                attr_val = getattr(item, k)
+                attr_val = to_list(getattr(item, k))
             except AttributeError:
                 # If the attribute doesn't exist, then that's a non-match.
                 break
 
-            if isinstance(v, (int, basestring)):
-                # Check integer or string attributes.
-
-                if isinstance(attr_val, (list, tuple, set)):
-                    # If the attribute value from the item is a list or tuple,
-                    # loop through the list of attribute values. If at least one
-                    # value matches the current criterium, then break from the
-                    # criteria loop and extract this item.
-                    for val in attr_val:
-                        if compare_func(
-                            str(v),
-                            str(val),
-                            flags=re.IGNORECASE | re.MULTILINE | re.DOTALL,
-                        ):
-                            # One of the list of values matched, so break from this
-                            # loop and do not execute the break in the
-                            # loop's else clause.
-                            break
-                    else:
-                        # If we got here, then none of the values in the attribute
-                        # list matched the current criterium. Therefore, break current_level
-                        # of the criteria loop and don't add this list item to
-                        # the extract list.
-                        break
-                else:
-                    # If the attribute value from the item in the list is a scalar,
-                    # see if the value matches the current criterium. If it doesn't,
-                    # then break from the criteria loop and don't extract this item.
-                    if not compare_func(
+            if isinstance(v, Rgx):
+                # Loop through the list of attribute values. If at least one
+                # value matches the current criterium, then break from the
+                # criteria loop and extract this item.
+                for val in attr_val:
+                    # This is an Rgx, so use fullmatch().
+                    if fullmatch(
                         str(v),
-                        str(attr_val),
+                        str(val),
                         flags=re.IGNORECASE | re.MULTILINE | re.DOTALL,
                     ):
+                        # One of the list of values matched, so break from this
+                        # loop and do not execute the break in the
+                        # loop's else clause.
                         break
+                else:
+                    # If we got here, then none of the values in the attribute
+                    # list matched the current criterium. Therefore, break current_level
+                    # of the criteria loop and don't add this list item to
+                    # the extract list.
+                    break
+
+            elif isinstance(v, (int, basestring)):
+                # Loop through the list of attribute values. If at least one
+                # value matches the current criterium, then break from the
+                # criteria loop and extract this item.
+                for val in attr_val:
+                    if compare_func(
+                        str(v),
+                        str(val),
+                        flags=re.IGNORECASE | re.MULTILINE | re.DOTALL,
+                    ):
+                        # One of the list of values matched, so break from this
+                        # loop and do not execute the break in the
+                        # loop's else clause.
+                        break
+                else:
+                    # If we got here, then none of the values in the attribute
+                    # list matched the current criterium. Therefore, break current_level
+                    # of the criteria loop and don't add this list item to
+                    # the extract list.
+                    break
 
             else:
                 # Check non-integer, non-string attributes.
-                if isinstance(attr_val, (list, tuple)):
-                    if v not in attr_val:
-                        break
-                elif v != attr_val:
+                if v not in attr_val:
                     break
 
         else:
@@ -600,6 +611,13 @@ def expand_indices(slice_min, slice_max, match_regex, *indices):
             ids.extend(expand_slice(indx))
         elif isinstance(indx, int):
             ids.append(indx)
+        elif isinstance(indx, Rgx):
+            # Rgx might contain multiple indices with a separator.
+            for id in re.split(INDEX_SEPARATOR, indx):
+                # If the id is a valid bus expression, then the exploded bus lines
+                # are added to the list of ids. If not, the original id is
+                # added to the list.
+                ids.extend((Rgx(i) for i in explode(id.strip())))
         elif isinstance(indx, basestring):
             # String might contain multiple indices with a separator.
             for id in re.split(INDEX_SEPARATOR, indx):

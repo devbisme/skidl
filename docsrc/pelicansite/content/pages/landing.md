@@ -942,7 +942,8 @@ then the subnames for each pin can be assigned as aliases:
 >>> pic10.AN1 += Net('analog2')        # Or access the alias thru an attribute.
 ```
 
-You can also split the pin names when you create the part:
+You can also split the pin names when you create the part by supplying a string
+of delimiter characters:
 
 ```terminal
 >>> pic10 = Part('MCU_Microchip_PIC10', 'pic10f220-iot', pin_splitters='/')
@@ -955,8 +956,17 @@ and you'll have to use an odd-looking expression, but here's how it's done:
 ```terminal
 >>> pic10[3].name = 'GP1/AN1/ICSPCLK'
 >>> pic10.match_pin_regex = True          # Enable regular expression matching.
->>> pic10['.*\/AN1\/.*] += Net('analog1)  # I told you the expression was strange!
+>>> pic10['.*/AN1/.*'] += Net('analog1')   # I told you the expression was strange!
 ```
+
+You can avoid explicitly enabling regular expression matching by just creating the expression as
+an `Rgx` like this:
+
+```terminal
+>>> pic10[3].name = 'GP1/AN1/ICSPCLK'
+>>> pic10[Rgx('.*/AN1/.*')] += Net('analog1')  # No need to manually enable regular expression matching!
+``````
+
 
 Since you may access pins by number or by name using strings or regular expressions, it's worth
 discussing how SKiDL decides which one to select.

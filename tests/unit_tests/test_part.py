@@ -5,7 +5,7 @@
 from builtins import super
 
 from skidl import ERC, Net, Part, PartTmplt, erc_logger, generate_netlist
-from skidl.utilities import to_list
+from skidl.utilities import to_list, Rgx
 
 from .setup_teardown import setup_function, teardown_function
 
@@ -67,10 +67,14 @@ def test_part_unit_4():
     mem.match_pin_regex = False
     assert mem[".*"] == None
     assert mem.A[".*"] == None
+    assert len(mem[Rgx(".*")]) == len(mem[:])
+    assert len(mem.A[Rgx(".*")]) == 16
     # Wildcard pin matching ON globally.
     mem.match_pin_regex = True
     assert len(mem[".*"]) != 0
     assert len(mem.A[".*"]) == 16
+    assert len(mem[Rgx(".*")]) == len(mem[:])
+    assert len(mem.A[Rgx(".*")]) == 16
     # Wildcard matching OFF for part unit, but ON globally.
     mem.A.match_pin_regex = False
     assert len(mem[".*"]) != 0
@@ -97,11 +101,17 @@ def test_index_slicing_1():
     mcu.match_pin_regex = False
     assert len(mcu["FMC_D[0:15]"]) == 16
     assert len(mcu["FMC_D[15:0]"]) == 16
+    assert len(mcu[Rgx("FMC_D[0:15]")]) == 16
+    assert len(mcu[Rgx("FMC_D[15:0]")]) == 16
     mcu.match_pin_regex = True
     assert len(mcu[r".*\(FMC_D[0:15]\).*"]) == 16
     assert len(mcu[r".*\(FMC_D[15:0]\).*"]) == 16
     assert len(mcu[r".*FMC_D[0:15]\).*"]) == 16
     assert len(mcu[r".*FMC_D[15:0]\).*"]) == 16
+    assert len(mcu[Rgx(r".*\(FMC_D[0:15]\).*")]) == 16
+    assert len(mcu[Rgx(r".*\(FMC_D[15:0]\).*")]) == 16
+    assert len(mcu[Rgx(r".*FMC_D[0:15]\).*")]) == 16
+    assert len(mcu[Rgx(r".*FMC_D[15:0]\).*")]) == 16
 
 
 def test_index_slicing_2():
@@ -111,8 +121,13 @@ def test_index_slicing_2():
     assert len(mem["DQ[15:0]"]) == 16
     assert len(mem["A[0:15]"]) == 13
     assert len(mem["BA[0:15]"]) == 2
+    assert len(mem[Rgx("DQ[0:15]")]) == 16
+    assert len(mem[Rgx("DQ[15:0]")]) == 16
+    assert len(mem[Rgx("A[0:15]")]) == 13
+    assert len(mem[Rgx("BA[0:15]")]) == 2
     mem.match_pin_regex = True
     assert len(mem["^A[0:15]"]) == 13
+    assert len(mem[Rgx("^A[0:15]")]) == 13
 
 
 def test_index_slicing_3():
@@ -122,8 +137,13 @@ def test_index_slicing_3():
     assert len(mem["DQ[15:0]"]) == 16
     assert len(mem["A[0:15]"]) == 13
     assert len(mem["BA[0:15]"]) == 2
+    assert len(mem[Rgx("DQ[0:15]")]) == 16
+    assert len(mem[Rgx("DQ[15:0]")]) == 16
+    assert len(mem[Rgx("A[0:15]")]) == 13
+    assert len(mem[Rgx("BA[0:15]")]) == 2
     mem.match_pin_regex = True
     assert len(mem["^A[0:15]"]) == 13
+    assert len(mem[Rgx("^A[0:15]")]) == 13
 
 
 def test_string_indices_1():

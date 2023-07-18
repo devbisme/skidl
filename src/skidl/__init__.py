@@ -75,5 +75,6 @@ from .skidl import (
     set_query_backup_lib,
 )
 from .tools import KICAD, SKIDL, SPICE, node
+from .utilities import Rgx
 
 standard_library.install_aliases()

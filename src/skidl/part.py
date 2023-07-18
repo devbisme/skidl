@@ -36,6 +36,7 @@ from .utilities import (
     list_or_scalar,
     rmv_iadd,
     to_list,
+    Rgx,
 )
 
 standard_library.install_aliases()
@@ -675,8 +676,7 @@ class Part(SkidlBaseObject):
         # If no pin identifiers were given, then use a wildcard that will
         # select all pins.
         if not pin_ids:
-            pin_ids = [".*"]
-            match_regex = True
+            pin_ids = [Rgx(".*")]
 
         # Determine the minimum and maximum pin ids if they don't already exist.
         if "min_pin" not in dir(self) or "max_pin" not in dir(self):
