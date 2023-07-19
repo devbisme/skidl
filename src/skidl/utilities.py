@@ -23,6 +23,8 @@ import os.path
 import re
 import sys
 import traceback
+import urllib.parse
+import urllib.request
 from builtins import chr, dict, int, open, range, str, super
 from collections import namedtuple
 from contextlib import contextmanager
@@ -52,7 +54,8 @@ def export_to_all(fn):
 
 
 class Rgx(str):
-    """A string but the class makes it recognizable as as a regular expression."""
+    """Same as a string but the class makes it recognizable as as a regular expression."""
+
     def __init__(self, s):
         str.__init__(s)
 
@@ -71,6 +74,7 @@ def debug_trace(fn, *args, **kwargs):
         if kwargs.get("debug_trace"):
             print("Doing {} ...".format(fn.__name__))
         return fn(*args, **kwargs)
+
     return traced_fn
 
 
@@ -319,7 +323,6 @@ def get_unique_name(lst, attrib, prefix, initial=None):
     # If the initial name is None, then create a name based on the prefix
     # and the smallest unused number that's available for that prefix.
     if not name:
-
         # Do a binary search for a unique name formed from the prefix + number.
         n = 1  # Starting number to append to the prefix.
         while True:
@@ -426,7 +429,6 @@ def filter_list(lst, **criteria):
         # Break current_level of the criteria loop and don't add the item to the extract
         # list if *any* of the item's attributes *does not* match.
         for k, v in list(criteria.items()):
-
             try:
                 attr_val = to_list(getattr(item, k))
             except AttributeError:
@@ -766,9 +768,6 @@ def find_and_open_file(
     Returns:
         File pointer and file name or None, None if file could not be opened.
     """
-
-    import urllib.parse
-    import urllib.request
 
     from .logger import active_logger
 
