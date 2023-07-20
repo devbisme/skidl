@@ -27,6 +27,7 @@ from .utilities import (
     flatten,
     list_or_scalar,
     opened,
+    norecurse,
 )
 
 standard_library.install_aliases()
@@ -62,8 +63,7 @@ class SchLib(object):
 
         from .tools import tool_modules
 
-        if tool is None:
-            tool = skidl.get_default_tool()
+        tool = tool or skidl.config.tool
 
         # Library starts off empty of parts.
         self.parts = []
@@ -137,14 +137,13 @@ class SchLib(object):
             A list of Parts that match all the criteria.
         """
 
-        from .skidl import get_query_backup_lib, load_backup_lib
+        import skidl
 
         parts = filter_list(self.parts, **criteria)
-        if not parts and use_backup_lib and get_query_backup_lib():
-            # if not parts and use_backup_lib and skidl.QUERY_BACKUP_LIB:
+        if not parts and use_backup_lib and skidl.config.query_backup_lib:
             try:
-                backup_lib_ = load_backup_lib()
-                parts = backup_lib_.get_parts(use_backup_lib=False, **criteria)
+                backup_lib = load_backup_lib()
+                parts = backup_lib.get_parts(use_backup_lib=False, **criteria)
             except AttributeError:
                 pass
         return parts
@@ -259,3 +258,24 @@ class SchLib(object):
         Return number of parts in library.
         """
         return len(self.parts)
+
+
+@export_to_all
+@norecurse
+def load_backup_lib():
+    """Load a backup library that stores the parts used in the circuit."""
+
+    from . import skidl
+
+    # Don't keep reloading the backup library once it's loaded.
+    if not skidl.config.backup_lib:
+        try:
+            # The backup library is a SKiDL lib stored as a Python module.
+            exec(open(skidl.config.backup_lib_file_name).read())
+            # Copy the backup library in the local storage to the global storage.
+            skidl.config.backup_lib = locals()[skidl.config.backup_lib_name]
+
+        except (FileNotFoundError, ImportError, NameError, IOError):
+            pass
+
+    return skidl.config.backup_lib

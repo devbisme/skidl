@@ -5,7 +5,6 @@
 import os
 
 from skidl import *
-from skidl.skidl import INITIAL_QUERY_BACKUP_LIB
 from skidl.tools import ALL_TOOLS
 
 this_file_dir = os.path.dirname(os.path.abspath(__file__))
@@ -34,8 +33,8 @@ def setup_function(f):
     )
     lib_search_paths[SPICE].append(skywater_lib_dir)
 
-    set_default_tool(KICAD)
-    set_query_backup_lib(INITIAL_QUERY_BACKUP_LIB)
+    skidl.config.tool = KICAD
+    skidl.config.query_backup_lib = True
 
 
 def teardown_function(f):

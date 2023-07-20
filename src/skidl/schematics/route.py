@@ -3140,7 +3140,7 @@ class Router:
         import skidl
         from skidl.tools import tool_modules
 
-        tool = tool or skidl.get_default_tool()
+        tool = tool or skidl.config.tool
         this_module = sys.modules[__name__]
         this_module.__dict__.update(tool_modules[tool].constants.__dict__)
 

@@ -167,8 +167,7 @@ class Part(SkidlBaseObject):
 
         super().__init__()
 
-        if tool is None:
-            tool = skidl.get_default_tool()
+        tool = tool or skidl.config.tool
 
         # Setup some part attributes that might be overwritten later on.
         self.do_erc = True  # Allow part to be included in ERC.
@@ -191,7 +190,7 @@ class Part(SkidlBaseObject):
                 try:
                     lib = SchLib(filename=libname, tool=tool)
                 except FileNotFoundError as e:
-                    if skidl.get_query_backup_lib():
+                    if skidl.config.query_backup_lib:
                         active_logger.warning(
                             'Could not load KiCad schematic library "{}", falling back to backup library.'.format(
                                 libname
@@ -1015,7 +1014,7 @@ class Part(SkidlBaseObject):
 
         from .tools import tool_modules
 
-        tool = tool or skidl.get_default_tool()
+        tool = tool or skidl.config.tool
 
         # Create part value as a string so including it in netlist isn't a problem.
         self.value_str = self._value_to_str()
@@ -1034,7 +1033,7 @@ class Part(SkidlBaseObject):
 
         from .tools import tool_modules
 
-        tool = tool or skidl.get_default_tool()
+        tool = tool or skidl.config.tool
 
         # Create part value as a string so including it in XML isn't a problem.
         self.value_str = self._value_to_str()
@@ -1050,7 +1049,7 @@ class Part(SkidlBaseObject):
 
         from .tools import tool_modules
 
-        tool = tool or skidl.get_default_tool()
+        tool = tool or skidl.config.tool
 
         return tool_modules[tool].gen_svg_comp(self, symtx=symtx, net_stubs=net_stubs)
 

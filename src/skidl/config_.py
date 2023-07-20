@@ -22,7 +22,8 @@ from future import standard_library
 
 from .logger import active_logger
 from .part_query import footprint_cache
-from .tools import ALL_TOOLS, KICAD, SKIDL
+from .scriptinfo import get_script_name
+from .tools import ALL_TOOLS, KICAD, SKIDL, lib_suffixes
 from .tools.kicad import get_kicad_lib_tbl_dir
 from .utilities import TriggerDict, export_to_all, merge_dicts
 
@@ -37,6 +38,18 @@ class Config(dict):
         super().__init__()
         self.cfg_file_name = cfg_file_name
         self.load(*dirs)
+
+    def __getattr__(self, key):
+        """Get the value of a Config attribute or else from the Config dictionary."""
+        try:
+            return self[key]
+        except KeyError:
+            raise AttributeError
+        
+    def __setattr__(self, key, value):
+        """Set the value of both a Config attribute and a Config dictionary entry."""
+        self.__dict__[key] = value
+        self[key] = value
 
     def merge(self, merge_dct):
         """Recurse through both dicts and updates keys."""
@@ -78,6 +91,10 @@ class SkidlConfig(Config):
     def __init__(self):
         super().__init__(".skidlcfg", "/etc", "~", ".")
 
+        # If no configuration files were found, set default backend/tool.
+        if "tool" not in self:
+            self.tool = KICAD
+
         # If no configuration files were found, set some default lib search paths.
         if "lib_search_paths" not in self:
 
@@ -97,6 +114,16 @@ class SkidlConfig(Config):
                 os.path.dirname(os.path.abspath(__file__)), "libs"
             )
             self["lib_search_paths"][SKIDL].append(default_skidl_libs)
+
+        # If no configuration files were found, set base name of default backup part library.
+        if "backup_lib_name" not in self:
+            self.backup_lib_name = get_script_name() + "_lib"
+        if "backup_lib_file_name" not in self:
+            self.backup_lib_file_name = self.backup_lib_name + lib_suffixes[SKIDL]
+        if "query_backup_lib" not in self:
+            self.query_backup_lib = True
+        if "backup_lib" not in self:
+            self.backup_lib = None
 
         # If no configuration files were found, set some default footprint search paths.
         if "footprint_search_paths" not in self:

@@ -65,8 +65,7 @@ def search_parts_iter(terms, tool=None):
 
     from .schlib import SchLib
 
-    if tool is None:
-        tool = skidl.get_default_tool()
+    tool = tool or skidl.config.tool
 
     terms = parse_search_terms(terms)
 
@@ -162,8 +161,8 @@ def show_part(lib, part_name, tool=None):
 
     from .part import TEMPLATE, Part
 
-    if tool is None:
-        tool = skidl.get_default_tool()
+    tool = tool or skidl.config.tool
+
     try:
         return Part(lib, re.escape(part_name), tool=tool, dest=TEMPLATE)
     except Exception:
@@ -290,8 +289,7 @@ def search_footprints_iter(terms, tool=None):
 
     import skidl
 
-    if tool is None:
-        tool = skidl.get_default_tool()
+    tool = tool or skidl.config.tool
 
     terms = parse_search_terms(terms)
 
@@ -416,8 +414,7 @@ def show_footprint(lib, module_name, tool=None):
 
     import skidl
 
-    if tool is None:
-        tool = skidl.get_default_tool()
+    tool = tool or skidl.config.tool
 
     os.environ["KISYSMOD"] = os.pathsep.join(skidl.footprint_search_paths[tool])
     return pym.Module.from_library(lib, module_name)

@@ -663,7 +663,7 @@ class Net(SkidlBaseObject):
 
         from .tools import tool_modules
 
-        tool = tool or skidl.get_default_tool()
+        tool = tool or skidl.config.tool
 
         self.test_validity()
 
@@ -685,7 +685,7 @@ class Net(SkidlBaseObject):
 
         from .tools import tool_modules
 
-        tool = tool or skidl.get_default_tool()
+        tool = tool or skidl.config.tool
 
         self.test_validity()
 
@@ -902,12 +902,6 @@ class NCNet(Net):
 
     def generate_netlist_net(self, tool=None):
         """NO_CONNECT nets don't generate anything for netlists."""
-
-        import skidl
-
-        if tool is None:
-            tool = skidl.get_default_tool()
-
         return ""
 
     @property

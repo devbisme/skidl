@@ -49,11 +49,12 @@ from .part_query import (
     show_part,
 )
 from .pin import Pin
-from .schlib import SchLib
+from .schlib import SchLib, load_backup_lib
 from .skidl import (
     ERC,
     POWER,
     backup_parts,
+    config,
     empty_footprint_handler,
     erc_assert,
     footprint_search_paths,
@@ -63,16 +64,10 @@ from .skidl import (
     generate_schematic,
     generate_svg,
     generate_xml,
-    get_backup_lib,
-    get_default_tool,
-    get_query_backup_lib,
     lib_search_paths,
-    load_backup_lib,
     no_files,
     reset,
-    set_backup_lib,
     set_default_tool,
-    set_query_backup_lib,
 )
 from .tools import KICAD, SKIDL, SPICE, node
 from .utilities import Rgx

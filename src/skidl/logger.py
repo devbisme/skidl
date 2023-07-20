@@ -228,10 +228,11 @@ def _create_logger(title, log_msg_id="", log_file_suffix=".log"):
 
 
 @export_to_all
-def stop_log_file_output():
-    """Stop loggers from creating files containing log messages."""
-    rt_logger.stop_file_output()
-    erc_logger.stop_file_output()
+def stop_log_file_output(stop=True):
+    """Permanently stop loggers from creating files containing log messages."""
+    if stop:
+        rt_logger.stop_file_output()
+        erc_logger.stop_file_output()
 
 
 ###############################################################################

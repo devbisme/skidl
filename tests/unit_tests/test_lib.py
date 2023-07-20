@@ -7,6 +7,7 @@ import os.path
 import pytest
 import sexpdata
 
+import skidl
 from skidl import (
     KICAD,
     SKIDL,
@@ -18,7 +19,6 @@ from skidl import (
     generate_netlist,
     lib_search_paths,
     set_default_tool,
-    set_query_backup_lib,
 )
 from skidl.tools import ALL_TOOLS
 from skidl.utilities import find_and_read_file
@@ -29,9 +29,9 @@ from .setup_teardown import setup_function, teardown_function
 def test_missing_lib():
     # Sometimes, loading a part from a non-existent library doesn't throw an
     # exception until the second time it's tried. This detects that error.
-    set_query_backup_lib(
-        False
-    )  # Don't allow searching backup lib that might exist from previous tests.
+    
+    # Don't allow searching backup lib that might exist from previous tests.
+    skidl.config.query_backup_lib=False
     with pytest.raises(FileNotFoundError):
         a = Part("crap", "R")
     with pytest.raises(FileNotFoundError):
@@ -82,7 +82,7 @@ def test_backup_1():
     a & b & c  # Connect device to keep them from being culled.
     generate_netlist(do_backup=True)  # This creates the backup parts library.
     default_circuit.reset()
-    set_query_backup_lib(True)  # FIXME: this is already True by default!
+    skidl.config.query_backup_lib = True  # FIXME: this is already True by default!
     a = Part("crap", "R", footprint="null")
     b = Part("crap", "C", footprint="null")
     generate_netlist()
@@ -108,7 +108,7 @@ def test_lib_1():
     assert len(lib_kicad) == len(lib_skidl)
     SchLib.reset()
     set_default_tool(SKIDL)
-    set_query_backup_lib(False)
+    skidl.config.query_backup_lib = False
     a = Part("Device", "R")
     assert a.tool == SKIDL
     b = Part("Device", "L")
@@ -125,7 +125,7 @@ def test_non_existing_lib_cannot_be_loaded():
 
 def test_part_from_non_existing_lib_cannot_be_instantiated():
     for tool in ALL_TOOLS:
-        with pytest.raises(ValueError):
+        with pytest.raises(FileNotFoundError):
             part = Part("non-existing", "P", tool=tool)
 
 

@@ -28,7 +28,7 @@ from .bus import Bus
 from .common import builtins
 from .erc import dflt_circuit_erc
 from .group import Group
-from .logger import active_logger, erc_logger
+from .logger import active_logger, erc_logger, stop_log_file_output
 from .net import NCNet, Net
 from .part import Part, PartUnit
 from .pckg_info import __version__
@@ -85,18 +85,24 @@ class Circuit(SkidlBaseObject):
     def reset(self, init=False):
         """Clear any circuitry and cached part libraries and start over."""
 
+        try:
+            from . import skidl
+            config = skidl.config
+        except ImportError:
+            # For Python 2. Always gotta be different...
+            from .skidl import config
+
         # Clear circuitry.
         self.mini_reset(init)
 
         # Also clear any cached libraries.
         SchLib.reset()
-        global backup_lib
-        backup_lib = None
+        
+        # Clear out any old backup lib so the new one will get reloaded when it's needed.
+        config.backup_lib = None
 
     def mini_reset(self, init=False):
         """Clear any circuitry but don't erase any loaded part libraries."""
-
-        # Group.reset()
 
         self.group_name_cntr = Counter()
 
@@ -568,7 +574,7 @@ class Circuit(SkidlBaseObject):
         #     Get EDA tool the netlist will be generated for.
         #     Get file the netlist will be stored in (if any).
         #     Get flag controlling the generation of a backup library.
-        tool = kwargs.pop("tool", skidl.get_default_tool())
+        tool = kwargs.pop("tool", skidl.config.tool)
         file_ = kwargs.pop("file_", None)
         do_backup = kwargs.pop("do_backup", True)
 
@@ -582,8 +588,8 @@ class Circuit(SkidlBaseObject):
 
         if do_backup:
             self.backup_parts()  # Create a new backup lib for the circuit parts.
-            global backup_lib  # Clear out any old backup lib so the new one
-            backup_lib = None  #   will get reloaded when it's needed.
+            # Clear out any old backup lib so the new one will get reloaded when it's needed.
+            skidl.config.backup_lib = None
 
         return netlist
 
@@ -615,7 +621,7 @@ class Circuit(SkidlBaseObject):
         #     Get file the netlist will be stored in (if any).
         #     Get flag controlling the generation of a backup library.
         #     Get list of footprint libraries.
-        tool = kwargs.pop("tool", skidl.get_default_tool())
+        tool = kwargs.pop("tool", skidl.config.tool)
         file_ = kwargs.pop("file_", None)
         do_backup = kwargs.pop("do_backup", True)
         fp_libs = kwargs.pop("fp_libs", None)
@@ -623,8 +629,8 @@ class Circuit(SkidlBaseObject):
         if not self.no_files:
             if do_backup:
                 self.backup_parts()  # Create a new backup lib for the circuit parts.
-                global backup_lib  # Clear out any old backup lib so the new one
-                backup_lib = None  #   will get reloaded when it's needed.
+                # Clear out any old backup lib so the new one will get reloaded when it's needed.
+                skidl.config.backup_lib = None
             tool_modules[tool].gen_pcb(self, file_, fp_libs=fp_libs)
 
         active_logger.report_summary("creating PCB")
@@ -651,7 +657,7 @@ class Circuit(SkidlBaseObject):
 
         self._preprocess()
 
-        tool = tool or skidl.get_default_tool()
+        tool = tool or skidl.config.tool
         netlist = tool_modules[tool].gen_xml(self)
 
         if not self.no_files:
@@ -1028,7 +1034,7 @@ class Circuit(SkidlBaseObject):
 
         self._preprocess()
 
-        tool = kwargs.pop("tool", skidl.get_default_tool())
+        tool = kwargs.pop("tool", skidl.config.tool)
 
         try:
             tool_modules[tool].gen_schematic(self, **kwargs)
@@ -1162,7 +1168,17 @@ class Circuit(SkidlBaseObject):
         for p in self.parts:
             lib += p
 
-        if not file_:
-            file_ = skidl.BACKUP_LIB_FILE_NAME
+        file_ = file_ or skidl.config.backup_lib_file_name
 
-        lib.export(libname=skidl.BACKUP_LIB_NAME, file_=file_)
+        lib.export(libname=skidl.config.backup_lib_name, file_=file_)
+
+    @property
+    def no_files(self):
+        """Prevent creation of output files (netlists, ERC, logs) by this Circuit object."""
+        return self._no_files
+
+    @no_files.setter
+    def no_files(self, stop):
+        """Don't output any files if stop is True."""
+        self._no_files = stop
+        stop_log_file_output(stop)
