@@ -2,12 +2,13 @@
 
 # The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
 
+from skidl.schematics.gen_schematic import gen_schematic
+
 from .kicad import (
     gen_netlist,
     gen_netlist_comp,
     gen_netlist_net,
     gen_pcb,
-    gen_schematic,
     gen_svg_comp,
     gen_xml,
     gen_xml_comp,

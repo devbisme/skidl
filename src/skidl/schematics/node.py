@@ -21,7 +21,7 @@ from ..net import NCNet
 from ..part import Part
 from ..pin import Pin
 from ..tools.kicad.constants import GRID
-from ..tools.kicad.eeschema_v5 import Eeschema_V5, pin_label_to_eeschema
+from ..tools.kicad.to_eeschema import Eeschema_V5, pin_label_to_eeschema
 from ..utilities import export_to_all, rmv_attr
 from .geometry import BBox, Point, Tx, Vector
 from .place import PlacementFailure, Placer

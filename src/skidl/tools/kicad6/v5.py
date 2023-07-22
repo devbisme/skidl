@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
+# The MIT License (MIT) - Copyright (c) 2016-2022 Dave Vandenbout.
 
 """
-Handler for reading Kicad libraries and generating netlists.
+Functions for handling KiCad 5 files.
 """
 
 from __future__ import (  # isort:skip
@@ -13,20 +13,13 @@ from __future__ import (  # isort:skip
     unicode_literals,
 )
 
-import os.path
-import time
-from builtins import range, str
 import os
 import re
 from builtins import int, range, zip
-from collections import Counter, namedtuple
+from collections import namedtuple
 
 from future import standard_library
 
-from ...logger import active_logger
-from ...pckg_info import __version__
-from ...scriptinfo import get_script_name, scriptinfo
-from ...utilities import add_quotes, export_to_all, find_and_open_file, rmv_attr
 from ...logger import active_logger
 from ...part import LIBRARY
 from ...schematics.geometry import (
@@ -41,76 +34,21 @@ from ...schematics.geometry import (
 )
 from ...utilities import export_to_all, find_and_read_file, num_to_chars, rmv_quotes
 from .constants import HIER_TERM_SIZE, PIN_LABEL_FONT_SIZE
-from ...schematics.geometry import BBox, Point, Tx, Vector
-from ...schematics.place import PlacementFailure
-from ...schematics.route import RoutingFailure
-from ...schematics.node import Node
-from ...schematics.net_terminal import NetTerminal
 
 standard_library.install_aliases()
 
 
-# These aren't used here, but they are used in modules
-# that include this module.
-tool_name = "kicad"
-lib_suffix = [".lib"]
-
-__all__ = ["tool_name", "lib_suffix"]
-
-
 @export_to_all
-def get_kicad_lib_tbl_dir():
-    """Get the path to where the global fp-lib-table file is found."""
-
-    paths = (
-        "$HOME/.config/kicad",
-        "~/.config/kicad",
-        "%APPDATA%/kicad",
-        "$HOME/Library/Preferences/kicad",
-        "~/Library/Preferences/kicad",
-    )
-
-    for path in paths:
-        path = os.path.normpath(os.path.expanduser(os.path.expandvars(path)))
-        if os.path.lexists(path):
-            return path
-    return ""
-
-
-@export_to_all
-def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
+def load_sch_lib(self, f, filename, lib_search_paths_):
     """
     Load the parts from a KiCad schematic library file.
 
     Args:
-        lib (SchLib): SKiDL library object.
-        filename (str): The name of the KiCad schematic library file.
-        lib_search_paths_ (list): List of paths with KiCad symbol libraries.
-        lib_section: Only used for SPICE simulations.
+        filename: The name of the KiCad schematic library file.
     """
 
-    from ...skidl import lib_suffixes
     from ...part import Part
     from .. import KICAD
-
-    # Try to open the file using allowable suffixes for the versions of KiCAD.
-    suffixes = lib_suffixes[KICAD]
-    base, suffix = os.path.splitext(filename)
-    if suffix:
-        # If an explicit file extension was given, use it instead of tool lib default extensions.
-        suffixes = [suffix]
-    for suffix in suffixes:
-        # Allow file open failure so multiple suffixes can be tried without error messages.
-        f, _ = find_and_open_file(
-            filename, lib_search_paths_, suffix, allow_failure=True
-        )
-        if f:
-            # Break from the loop once a library file is successfully opened.
-            break
-    if not f:
-        raise FileNotFoundError(
-            "Unable to open KiCad Schematic Library File {}".format(filename)
-        )
 
     lib_txt = f.read()
     try:
@@ -154,7 +92,7 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
         # and not to a schematic netlist.
         # Also, add null attributes in case a DCM file is not
         # available for this part.
-        lib.add_parts(
+        self.add_parts(
             Part(
                 part_defn=part_defn,
                 tool=KICAD,
@@ -199,7 +137,7 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
                     part_desc["datasheet"] = " ".join(line.split()[1:])
                 elif line.startswith("$ENDCMP"):
                     # Part description complete, so store it in the part(s) with matching name.
-                    for part in lib.get_parts_quick(part_desc["name"]):
+                    for part in self.get_parts_quick(part_desc["name"]):
                         part.description = part_desc.get("description", "")
                         part.keywords = part_desc.get("keywords", "")
                         part.datasheet = part_desc.get("datasheet", "")
@@ -208,44 +146,12 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
                     pass
 
     # Create text string to be used when searching for parts.
-    for part in lib.parts:
+    for part in self.parts:
         search_text_pieces = [part.filename, part.description, part.keywords]
         search_text_pieces.extend(part.aliases)  # aliases also includes part name.
         # Join the various text pieces by newlines so the ^ and $ special characters
         # can be used to detect the start and end of a piece of text during RE searches.
         part.search_text = "\n".join(search_text_pieces)
-
-
-DrawDef = namedtuple(
-    "DrawDef",
-    "name ref zero name_offset show_nums show_names num_units lock_units power_symbol",
-)
-
-DrawF0 = namedtuple("DrawF0", "ref x y size orientation visibility halign valign")
-
-DrawF1 = namedtuple(
-    "DrawF1", "name x y size orientation visibility halign valign fieldname"
-)
-
-DrawArc = namedtuple(
-    "DrawArc",
-    "cx cy radius start_angle end_angle unit dmg thickness fill startx starty endx endy",
-)
-
-DrawCircle = namedtuple("DrawCircle", "cx cy radius unit dmg thickness fill")
-
-DrawPoly = namedtuple("DrawPoly", "point_count unit dmg thickness points fill")
-
-DrawRect = namedtuple("DrawRect", "x1 y1 x2 y2 unit dmg thickness fill")
-
-DrawText = namedtuple(
-    "DrawText", "angle x y size hidden unit dmg text italic bold halign valign"
-)
-
-DrawPin = namedtuple(
-    "DrawPin",
-    "name num x y length orientation num_size name_size unit dmg electrical_type shape",
-)
 
 
 @export_to_all
@@ -638,244 +544,6 @@ def parse_lib_part(self, partial_parse):
     # Part definition has been parsed, so clear it out. This prevents a
     # part from being parsed more than once.
     self.part_defn = None
-
-
-@export_to_all
-def gen_netlist(circuit):
-    """Generate a netlist from a Circuit object.
-
-    Args:
-        circuit (Circuit): Circuit object.
-
-    Returns:
-        str: String containing netlist text.
-    """
-    from .. import KICAD
-
-    scr_dict = scriptinfo()
-    src_file = os.path.join(scr_dict["dir"], scr_dict["source"])
-    date = time.strftime("%m/%d/%Y %I:%M %p")
-    tool = "SKiDL (" + __version__ + ")"
-    template = (
-        "(export (version D)\n"
-        + "  (design\n"
-        + '    (source "{src_file}")\n'
-        + '    (date "{date}")\n'
-        + '    (tool "{tool}"))\n'
-    )
-    netlist = template.format(**locals())
-    netlist += "  (components"
-    for p in sorted(circuit.parts, key=lambda p: str(p.ref)):
-        netlist += "\n" + p.generate_netlist_component(KICAD)
-    netlist += ")\n"
-    netlist += "  (nets"
-    sorted_nets = sorted(circuit.get_nets(), key=lambda n: str(n.name))
-    for code, n in enumerate(sorted_nets, 1):
-        n.code = code
-        netlist += "\n" + n.generate_netlist_net(KICAD)
-    netlist += ")\n)\n"
-    return netlist
-
-
-@export_to_all
-def gen_netlist_comp(part):
-    """Generate the netlist text describing a component.
-
-    Args:
-        part (Part): Part object.
-
-    Returns:
-        str: String containing component netlist description.
-    """
-
-    from ...circuit import HIER_SEP
-
-    ref = add_quotes(part.ref)
-
-    value = add_quotes(part.value_str)
-
-    footprint = getattr(part, "footprint", "")
-    footprint = add_quotes(footprint)
-
-    lib_filename = getattr(getattr(part, "lib", ""), "filename", "NO_LIB")
-    part_name = add_quotes(part.name)
-
-    # Embed the hierarchy along with a random integer into the sheetpath for each component.
-    # This enables hierarchical selection in pcbnew.
-    hierarchy = add_quotes("/" + part.hierarchical_name.replace(HIER_SEP, "/"))
-    tstamps = hierarchy
-
-    fields = ""
-    for fld_name, fld_value in part.fields.items():
-        fld_value = add_quotes(fld_value)
-        if fld_value:
-            fld_name = add_quotes(fld_name)
-            fields += "\n        (field (name {fld_name}) {fld_value})".format(
-                **locals()
-            )
-    if fields:
-        fields = "      (fields" + fields
-        fields += ")\n"
-
-    template = (
-        "    (comp (ref {ref})\n"
-        + "      (value {value})\n"
-        + "      (footprint {footprint})\n"
-        + "{fields}"
-        + "      (libsource (lib {lib_filename}) (part {part_name}))\n"
-        + "      (sheetpath (names {hierarchy}) (tstamps {tstamps})))"
-    )
-    txt = template.format(**locals())
-    return txt
-
-
-@export_to_all
-def gen_netlist_net(net):
-    """Generate the netlist text describing a net.
-
-    Args:
-        part (Net): Net object.
-
-    Returns:
-        str: String containing net netlist description.
-    """
-    code = add_quotes(net.code)
-    name = add_quotes(net.name)
-    txt = "    (net (code {code}) (name {name})".format(**locals())
-    for p in sorted(net.pins, key=str):
-        part_ref = add_quotes(p.part.ref)
-        pin_num = add_quotes(p.num)
-        txt += "\n      (node (ref {part_ref}) (pin {pin_num}))".format(**locals())
-    txt += ")"
-    return txt
-
-
-@export_to_all
-def gen_pcb(circuit, pcb_file, fp_libs=None):
-    """Create a KiCad PCB file directly from a Circuit object.
-
-    Args:
-        circuit (Circuit): Circuit object.
-        pcb_file: Either a file object that can be written to, or a string
-            containing a file name, or None.
-        fp_libs: List of directories containing footprint libraries.
-    Returns:
-        None.
-    """
-
-    # Keep the import in here so it doesn't get triggered unless this is used
-    # so it eases some problems with tox testing.
-    # It requires pcbnew module which may not be present or may be for the
-    # wrong Python version (2 vs. 3).
-    try:
-        import kinet2pcb  # For creating KiCad PCB directly from Circuit object.
-    except ImportError:
-        active_logger.warning(
-            "kinet2pcb module is missing. Can't generate a KiCad PCB without it."
-        )
-    else:
-        pcb_file = pcb_file or (get_script_name() + ".kicad_pcb")
-        kinet2pcb.kinet2pcb(circuit, pcb_file, fp_libs)
-
-
-@export_to_all
-def gen_xml(circuit):
-    """Generate the XML describing a circuit.
-
-    Args:
-        circuit (Circuit): Circuit object.
-
-    Returns:
-        str: String containing the XML for the circuit.
-    """
-    from .. import KICAD
-
-    scr_dict = scriptinfo()
-    src_file = os.path.join(scr_dict["dir"], scr_dict["source"])
-    date = time.strftime("%m/%d/%Y %I:%M %p")
-    tool = "SKiDL (" + __version__ + ")"
-    template = (
-        '<?xml version="1.0" encoding="UTF-8"?>\n'
-        + '<export version="D">\n'
-        + "  <design>\n"
-        + "    <source>{src_file}</source>\n"
-        + "    <date>{date}</date>\n"
-        + "    <tool>{tool}</tool>\n"
-        + "  </design>\n"
-    )
-    netlist = template.format(**locals())
-    netlist += "  <components>"
-    for p in circuit.parts:
-        netlist += "\n" + p.generate_xml_component(KICAD)
-    netlist += "\n  </components>\n"
-    netlist += "  <nets>"
-    for code, n in enumerate(circuit.get_nets()):
-        n.code = code
-        netlist += "\n" + n.generate_xml_net(KICAD)
-    netlist += "\n  </nets>\n"
-    netlist += "</export>\n"
-    return netlist
-
-
-@export_to_all
-def gen_xml_comp(part):
-    """Generate the XML describing a component.
-
-    Args:
-        part (Part): Part object.
-
-    Returns:
-        str: String containing the XML for the part.
-    """
-    ref = part.ref
-    value = part.value_str
-
-    try:
-        footprint = part.footprint
-    except AttributeError:
-        active_logger.error(
-            "No footprint for {part}/{ref}.".format(part=part.name, ref=ref)
-        )
-        footprint = "No Footprint"
-
-    lib_filename = getattr(getattr(part, "lib", ""), "filename", "NO_LIB")
-    part_name = add_quotes(part.name)
-
-    fields = ""
-    for fld_name, fld_value in part.fields.items():
-        fld_value = add_quotes(fld_value)
-        if fld_value:
-            fld_name = add_quotes(fld_name)
-            fields += "\n        (field (name {fld_name}) {fld_value})".format(
-                **locals()
-            )
-    if fields:
-        fields = "      <fields>" + fields
-        fields += "\n      </fields>\n"
-
-    template = (
-        '    <comp ref="{ref}">\n'
-        + "      <value>{value}</value>\n"
-        + "      <footprint>{footprint}</footprint>\n"
-        + "{fields}"
-        + '      <libsource lib="{lib_filename}" part="{part_name}"/>\n'
-        + "    </comp>"
-    )
-    txt = template.format(**locals())
-    return txt
-
-
-@export_to_all
-def gen_xml_net(net):
-    code = net.code
-    name = net.name
-    txt = '    <net code="{code}" name="{name}">'.format(**locals())
-    for p in net.pins:
-        part_ref = p.part.ref
-        pin_num = p.num
-        txt += '\n      <node ref="{part_ref}" pin="{pin_num}"/>'.format(**locals())
-    txt += "\n    </net>"
-    return txt
 
 
 @export_to_all
@@ -1469,6 +1137,40 @@ def gen_svg_comp(part, symtx, net_stubs=None):
     return "\n".join(svg)
 
 
+# Named tuples for part KiCad V5 DRAW primitives.
+
+# DrawDef = namedtuple(
+#     "DrawDef",
+#     "name ref zero name_offset show_nums show_names num_units lock_units power_symbol",
+# )
+
+# DrawF0 = namedtuple("DrawF0", "ref x y size orientation visibility halign valign")
+
+# DrawF1 = namedtuple(
+#     "DrawF1", "name x y size orientation visibility halign valign fieldname"
+# )
+
+# DrawArc = namedtuple(
+#     "DrawArc",
+#     "cx cy radius start_angle end_angle unit dmg thickness fill startx starty endx endy",
+# )
+
+# DrawCircle = namedtuple("DrawCircle", "cx cy radius unit dmg thickness fill")
+
+# DrawPoly = namedtuple("DrawPoly", "point_count unit dmg thickness points fill")
+
+# DrawRect = namedtuple("DrawRect", "x1 y1 x2 y2 unit dmg thickness fill")
+
+# DrawText = namedtuple(
+#     "DrawText", "angle x y size hidden unit dmg text italic bold halign valign"
+# )
+
+# DrawPin = namedtuple(
+#     "DrawPin",
+#     "name num x y length orientation num_size name_size unit dmg electrical_type shape",
+# )
+
+
 @export_to_all
 def calc_symbol_bbox(part, **options):
     """
@@ -1483,8 +1185,6 @@ def calc_symbol_bbox(part, **options):
 
     Note: V5 library format: https://www.compuphase.com/electronics/LibraryFileFormats.pdf
     """
-
-    # Named tuples for part KiCad V5 DRAW primitives.
 
     def make_pin_dir_tbl(abs_xoff=20):
 
@@ -1770,248 +1470,3 @@ def calc_hier_label_bbox(label, dir):
     bbox *= lbl_tx[dir]
 
     return bbox
-
-
-"""
-Generate a KiCad EESCHEMA schematic from a Circuit object.
-"""
-
-# TODO: Handle symio attribute.
-
-
-def preprocess_circuit(circuit, **options):
-    """Add stuff to parts & nets for doing placement and routing of schematics."""
-
-    def units(part):
-        if len(part.unit) == 0:
-            return [part]
-        else:
-            return part.unit.values()
-
-    def initialize(part):
-        """Initialize part or its part units."""
-
-        # Initialize the units of the part, or the part itself if it has no units.
-        pin_limit = options.get("orientation_pin_limit", 44)
-        for part_unit in units(part):
-            # Initialize transform matrix.
-            part_unit.tx = Tx.from_symtx(getattr(part_unit, "symtx", ""))
-
-            # Lock part orientation if symtx was specified. Also lock parts with a lot of pins
-            # since they're typically drawn the way they're supposed to be oriented.
-            # And also lock single-pin parts because these are usually power/ground and
-            # they shouldn't be flipped around.
-            num_pins = len(part_unit.pins)
-            part_unit.orientation_locked = getattr(part_unit, "symtx", False) or not (
-                1 < num_pins <= pin_limit
-            )
-
-            # Assign pins from the parent part to the part unit.
-            part_unit.grab_pins()
-
-            # Initialize pin attributes used for generating schematics.
-            for pin in part_unit:
-                pin.pt = Point(pin.x, pin.y)
-                pin.routed = False
-
-    def rotate_power_pins(part):
-        """Rotate a part based on the direction of its power pins.
-
-        This function is to make sure that voltage sources face up and gnd pins
-        face down.
-        """
-
-        # Don't rotate parts that are already explicitly rotated/flipped.
-        if not getattr(part, "symtx", ""):
-            return
-
-        def is_pwr(net):
-            return net_name.startswith("+")
-
-        def is_gnd(net):
-            return "gnd" in net_name.lower()
-
-        dont_rotate_pin_cnt = options.get("dont_rotate_pin_count", 10000)
-
-        for part_unit in units(part):
-            # Don't rotate parts with too many pins.
-            if len(part_unit) > dont_rotate_pin_cnt:
-                return
-
-            # Tally what rotation would make each pwr/gnd pin point up or down.
-            rotation_tally = Counter()
-            for pin in part_unit:
-                net_name = getattr(pin.net, "name", "").lower()
-                if is_gnd(net_name):
-                    if pin.orientation == "U":
-                        rotation_tally[0] += 1
-                    if pin.orientation == "D":
-                        rotation_tally[180] += 1
-                    if pin.orientation == "L":
-                        rotation_tally[90] += 1
-                    if pin.orientation == "R":
-                        rotation_tally[270] += 1
-                elif is_pwr(net_name):
-                    if pin.orientation == "D":
-                        rotation_tally[0] += 1
-                    if pin.orientation == "U":
-                        rotation_tally[180] += 1
-                    if pin.orientation == "L":
-                        rotation_tally[270] += 1
-                    if pin.orientation == "R":
-                        rotation_tally[90] += 1
-
-            # Rotate the part unit in the direction with the most tallies.
-            try:
-                rotation = rotation_tally.most_common()[0][0]
-            except IndexError:
-                pass
-            else:
-                # Rotate part unit 90-degrees clockwise until the desired rotation is reached.
-                tx_cw_90 = Tx(a=0, b=-1, c=1, d=0)  # 90-degree trans. matrix.
-                for _ in range(int(round(rotation / 90))):
-                    part_unit.tx = part_unit.tx * tx_cw_90
-
-    def calc_part_bbox(part):
-        """Calculate the labeled bounding boxes and store it in the part."""
-
-        # Find part/unit bounding boxes excluding any net labels on pins.
-        # TODO: part.lbl_bbox could be substituted for part.bbox.
-        # TODO: Part ref and value should be updated before calculating bounding box.
-        bare_bboxes = calc_symbol_bbox(part)[1:]
-
-        for part_unit, bare_bbox in zip(units(part), bare_bboxes):
-            # Expand the bounding box if it's too small in either dimension.
-            resize_wh = Vector(0, 0)
-            if bare_bbox.w < 100:
-                resize_wh.x = (100 - bare_bbox.w) / 2
-            if bare_bbox.h < 100:
-                resize_wh.y = (100 - bare_bbox.h) / 2
-            bare_bbox = bare_bbox.resize(resize_wh)
-
-            # Find expanded bounding box that includes any hier labels attached to pins.
-            part_unit.lbl_bbox = BBox()
-            part_unit.lbl_bbox.add(bare_bbox)
-            for pin in part_unit:
-                if pin.stub:
-                    # Find bounding box for net stub label attached to pin.
-                    hlbl_bbox = calc_hier_label_bbox(pin.net.name, pin.orientation)
-                    # Move the label bbox to the pin location.
-                    hlbl_bbox *= Tx().move(pin.pt)
-                    # Update the bbox for the labelled part with this pin label.
-                    part_unit.lbl_bbox.add(hlbl_bbox)
-
-            # Set the active bounding box to the labeled version.
-            part_unit.bbox = part_unit.lbl_bbox
-
-    # Pre-process parts
-    for part in circuit.parts:
-        # Initialize part attributes used for generating schematics.
-        initialize(part)
-
-        # Rotate parts.  Power pins should face up. GND pins should face down.
-        rotate_power_pins(part)
-
-        # Compute bounding boxes around parts
-        calc_part_bbox(part)
-
-
-def finalize_parts_and_nets(circuit, **options):
-    """Restore parts and nets after place & route is done."""
-
-    # Remove any NetTerminals that were added.
-    net_terminals = (p for p in circuit.parts if isinstance(p, NetTerminal))
-    circuit.rmv_parts(*net_terminals)
-
-    # Return pins from the part units to their parent part.
-    for part in circuit.parts:
-        part.grab_pins()
-
-    # Remove some stuff added to parts during schematic generation process.
-    rmv_attr(circuit.parts, ("force", "bbox", "lbl_bbox", "tx"))
-
-
-@export_to_all
-def gen_schematic(
-    circuit,
-    filepath=".",
-    top_name=get_script_name(),
-    title="SKiDL-Generated Schematic",
-    flatness=0.0,
-    retries=2,
-    **options
-):
-    """Create a schematic file from a Circuit object.
-
-    Args:
-        circuit (Circuit): The Circuit object that will have a schematic generated for it.
-        filepath (str, optional): The directory where the schematic files are placed. Defaults to ".".
-        top_name (str, optional): The name for the top of the circuit hierarchy. Defaults to get_script_name().
-        title (str, optional): The title of the schematic. Defaults to "SKiDL-Generated Schematic".
-        flatness (float, optional): Determines how much the hierarchy is flattened in the schematic. Defaults to 0.0 (completely hierarchical).
-        retries (int, optional): Number of times to re-try if routing fails. Defaults to 2.
-        options (dict, optional): Dict of options and values, usually for drawing/debugging.
-    """
-
-    # Part placement options that should always be turned on.
-    options["use_push_pull"] = True
-    options["rotate_parts"] = True
-    options["pt_to_pt_mult"] = 5  # HACK: Ad-hoc value.
-    options["pin_normalize"] = True
-
-    # Start with default routing area.
-    expansion_factor = 1.0
-
-    # Try to place & route one or more times.
-    for _ in range(retries):
-        preprocess_circuit(circuit, **options)
-
-        node = Node(circuit, filepath, top_name, title, flatness)
-
-        try:
-            # Place parts.
-            node.place(expansion_factor=expansion_factor, **options)
-
-            # Route parts.
-            node.route(**options)
-
-        except PlacementFailure:
-            # Placement failed, so clean up ...
-            finalize_parts_and_nets(circuit, **options)
-            # ... and try again.
-            continue
-
-        except RoutingFailure:
-            # Routing failed, so clean up ...
-            finalize_parts_and_nets(circuit, **options)
-            # ... and expand routing area ...
-            expansion_factor *= 1.5  # HACK: Ad-hoc increase of expansion factor.
-            # ... and try again.
-            continue
-
-        # Generate EESCHEMA code for the schematic.
-        node.to_eeschema()
-
-        # Append place & route statistics for the schematic to a file.
-        if options.get("collect_stats"):
-            stats = node.collect_stats(**options)
-            with open(options["stats_file"], "a") as f:
-                f.write(stats)
-
-        # Clean up.
-        finalize_parts_and_nets(circuit, **options)
-
-        # Place & route was successful if we got here, so exit.
-        return
-
-    # Append failed place & route statistics for the schematic to a file.
-    if options.get("collect_stats"):
-        stats = "-1\n"
-        with open(options["stats_file"], "a") as f:
-            f.write(stats)
-
-    # Clean-up after failure.
-    finalize_parts_and_nets(circuit, **options)
-
-    # Exited the loop without successful routing.
-    raise (RoutingFailure)
