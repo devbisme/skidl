@@ -23,6 +23,7 @@ import os.path
 import re
 import sys
 import traceback
+import urllib.parse
 from builtins import chr, dict, int, open, range, str, super
 from collections import namedtuple
 from contextlib import contextmanager
@@ -728,6 +729,10 @@ def is_binary_file(filename):
         return False
 
 
+def is_url(s: str) -> bool:
+    return urllib.parse.urlparse(s).scheme in {"http", "https"}
+
+
 @export_to_all
 def find_and_open_file(
     filename, paths=None, ext=None, allow_failure=False, exclude_binary=False, descend=0
@@ -749,13 +754,9 @@ def find_and_open_file(
         File pointer and file name or None, None if file could not be opened.
     """
 
-    import urllib.parse
     import urllib.request
 
     from .logger import active_logger
-
-    def is_url(s):
-        return bool(urllib.parse.urlparse(s).scheme)
 
     if is_url(filename):
         # This is a URL. Use the URL path as the search path except for
