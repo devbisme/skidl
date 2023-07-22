@@ -87,7 +87,7 @@ force_sum = lambda forces: sum(forces, Vector(0, 0))
 
 
 def is_net_terminal(part):
-    from skidl.schematics.gen_schematic import NetTerminal
+    from skidl.schematics.net_terminal import NetTerminal
 
     return isinstance(part, NetTerminal)
 
@@ -133,7 +133,7 @@ def snap_to_grid(part_or_blk):
 
 def add_placement_bboxes(parts, **options):
     """Expand part bounding boxes to include space for subsequent routing."""
-    from skidl.schematics.gen_schematic import NetTerminal
+    from skidl.schematics.net_terminal import NetTerminal
 
     for part in parts:
         # Placement bbox starts off with the part bbox (including any net labels).
