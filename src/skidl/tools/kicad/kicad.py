@@ -46,6 +46,7 @@ from ...schematics.place import PlacementFailure
 from ...schematics.route import RoutingFailure
 from ...schematics.node import Node
 from ...schematics.net_terminal import NetTerminal
+from .to_eeschema import node_to_eeschema
 
 standard_library.install_aliases()
 
@@ -1992,7 +1993,7 @@ def gen_schematic(
             continue
 
         # Generate EESCHEMA code for the schematic.
-        node.to_eeschema()
+        node_to_eeschema(node)
 
         # Append place & route statistics for the schematic to a file.
         if options.get("collect_stats"):

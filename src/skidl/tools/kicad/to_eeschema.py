@@ -33,7 +33,6 @@ Functions for generating a KiCad EESCHEMA schematic.
 """
 
 
-@export_to_all
 def bbox_to_eeschema(bbox, tx, name=None):
     """Create a bounding box using EESCHEMA graphic lines."""
 
@@ -179,13 +178,6 @@ def part_to_eeschema(part, tx):
     # eeschema.append(bbox_to_eeschema(part.place_bbox, tx))
 
     return "\n".join(eeschema)
-
-
-# Add method for generating EESCHEMA code to Part object.
-# FIXME: There's got to be a better way...
-# from ...part import Part
-
-# setattr(Part, "to_eeschema", part_to_eeschema)
 
 
 def wire_to_eeschema(net, wire, tx):
@@ -443,96 +435,92 @@ def create_eeschema_file(
 
 
 @export_to_all
-class Eeschema_V5:
-    """Mixin to add EESCHEMA V5 file creation to the Node class."""
+def node_to_eeschema(node, sheet_tx=Tx()):
+    """Convert node circuitry to an EESCHEMA sheet.
 
-    def to_eeschema(self, sheet_tx=Tx()):
-        """Convert node circuitry to an EESCHEMA sheet.
+    Args:
+        sheet_tx (Tx, optional): Scaling/translation matrix for sheet. Defaults to Tx().
 
-        Args:
-            sheet_tx (Tx, optional): Scaling/translation matrix for sheet. Defaults to Tx().
+    Returns:
+        str: EESCHEMA text for the node circuitry.
+    """
 
-        Returns:
-            str: EESCHEMA text for the node circuitry.
-        """
+    from ...circuit import HIER_SEP
 
-        from ...circuit import HIER_SEP
+    # List to hold all the EESCHEMA code for this node.
+    eeschema_code = []
 
-        # List to hold all the EESCHEMA code for this node.
-        eeschema_code = []
+    if node.flattened:
+        # Create the transformation matrix for the placement of the parts in the node.
+        tx = node.tx * sheet_tx
+    else:
+        # Unflattened nodes are placed in their own sheet, so compute
+        # their bounding box as if they *were* flattened and use that to
+        # find the transformation matrix for an appropriately-sized sheet.
+        flattened_bbox = node.internal_bbox()
+        tx = calc_sheet_tx(flattened_bbox)
 
-        if self.flattened:
-            # Create the transformation matrix for the placement of the parts in the node.
-            tx = self.tx * sheet_tx
+    # Generate EESCHEMA code for each child of this node.
+    for child in node.children.values():
+        eeschema_code.append(node_to_eeschema(child, tx))
+
+    # Generate EESCHEMA code for each part in the node.
+    for part in node.parts:
+        if isinstance(part, NetTerminal):
+            eeschema_code.append(net_to_eeschema(part, tx=tx))
         else:
-            # Unflattened nodes are placed in their own sheet, so compute
-            # their bounding box as if they *were* flattened and use that to
-            # find the transformation matrix for an appropriately-sized sheet.
-            flattened_bbox = self.internal_bbox()
-            tx = calc_sheet_tx(flattened_bbox)
+            eeschema_code.append(part_to_eeschema(part, tx=tx))
 
-        # Generate EESCHEMA code for each child of this node.
-        for child in self.children.values():
-            eeschema_code.append(child.to_eeschema(tx))
+    # Generate EESCHEMA wiring code between the parts in the node.
+    for net, wire in node.wires.items():
+        wire_code = wire_to_eeschema(net, wire, tx=tx)
+        eeschema_code.append(wire_code)
+    for net, junctions in node.junctions.items():
+        junction_code = junction_to_eeschema(net, junctions, tx=tx)
+        eeschema_code.append(junction_code)
 
-        # Generate EESCHEMA code for each part in the node.
-        # TODO: Separate NetTerminals from Parts.
-        for part in self.parts:
-            if isinstance(part, NetTerminal):
-                eeschema_code.append(net_to_eeschema(part, tx=tx))
-            else:
-                eeschema_code.append(part_to_eeschema(part, tx=tx))
+    # Generate power connections for the each part in the node.
+    for part in node.parts:
+        stub_code = power_part_to_eeschema(part, tx=tx)
+        if len(stub_code) != 0:
+            eeschema_code.append(stub_code)
 
-        # Generate EESCHEMA wiring code between the parts in the node.
-        for net, wire in self.wires.items():
-            wire_code = wire_to_eeschema(net, wire, tx=tx)
-            eeschema_code.append(wire_code)
-        for net, junctions in self.junctions.items():
-            junction_code = junction_to_eeschema(net, junctions, tx=tx)
-            eeschema_code.append(junction_code)
+    # Generate pin labels for stubbed nets on each part in the node.
+    for part in node.parts:
+        for pin in part:
+            pin_label_code = pin_label_to_eeschema(pin, tx=tx)
+            eeschema_code.append(pin_label_code)
 
-        # Generate power connections for the each part in the node.
-        for part in self.parts:
-            stub_code = power_part_to_eeschema(part, tx=tx)
-            if len(stub_code) != 0:
-                eeschema_code.append(stub_code)
+    # Join EESCHEMA code into one big string.
+    eeschema_code = "\n".join(eeschema_code)
 
-        # Generate pin labels for stubbed nets on each part in the node.
-        for part in self.parts:
-            for pin in part:
-                pin_label_code = pin_label_to_eeschema(pin, tx=tx)
-                eeschema_code.append(pin_label_code)
+    # If this node was flattened, then return the EESCHEMA code and surrounding box
+    # for inclusion in the parent node.
+    if node.flattened:
 
-        # Join EESCHEMA code into one big string.
-        eeschema_code = "\n".join(eeschema_code)
+        # Generate the graphic box that surrounds the flattened hierarchical block of this node.
+        block_name = node.name.split(HIER_SEP)[-1]
+        pad = Vector(BLK_INT_PAD, BLK_INT_PAD)
+        bbox_code = bbox_to_eeschema(node.bbox.resize(pad), tx, block_name)
 
-        # If this node was flattened, then return the EESCHEMA code and surrounding box
-        # for inclusion in the parent node.
-        if self.flattened:
+        return "\n".join((eeschema_code, bbox_code))
 
-            # Generate the graphic box that surrounds the flattened hierarchical block of this node.
-            block_name = self.name.split(HIER_SEP)[-1]
-            pad = Vector(BLK_INT_PAD, BLK_INT_PAD)
-            bbox_code = bbox_to_eeschema(self.bbox.resize(pad), tx, block_name)
+    # Create a hierarchical sheet file for storing this unflattened node.
+    A_size = get_A_size(flattened_bbox)
+    filepath = os.path.join(node.filepath, node.sheet_filename)
+    create_eeschema_file(filepath, eeschema_code, title=node.title, A_size=A_size)
 
-            return "\n".join((eeschema_code, bbox_code))
-
-        # Create a hierarchical sheet file for storing this unflattened node.
-        A_size = get_A_size(flattened_bbox)
-        filepath = os.path.join(self.filepath, self.sheet_filename)
-        create_eeschema_file(filepath, eeschema_code, title=self.title, A_size=A_size)
-
-        # Create the hierarchical sheet for insertion into the calling node sheet.
-        bbox = (self.bbox * self.tx * sheet_tx).round()
-        time_hex = hex(int(time.time()))[2:]
-        return "\n".join(
-            (
-                "$Sheet",
-                "S {} {} {} {}".format(bbox.ll.x, bbox.ll.y, bbox.w, bbox.h),
-                "U {}".format(time_hex),
-                'F0 "{}" {}'.format(self.name, self.name_sz),
-                'F1 "{}" {}'.format(self.sheet_filename, self.filename_sz),
-                "$EndSheet",
-                "",
-            )
+    # Create the hierarchical sheet for insertion into the calling node sheet.
+    bbox = (node.bbox * node.tx * sheet_tx).round()
+    time_hex = hex(int(time.time()))[2:]
+    return "\n".join(
+        (
+            "$Sheet",
+            "S {} {} {} {}".format(bbox.ll.x, bbox.ll.y, bbox.w, bbox.h),
+            "U {}".format(time_hex),
+            'F0 "{}" {}'.format(node.name, node.name_sz),
+            'F1 "{}" {}'.format(node.sheet_filename, node.filename_sz),
+            "$EndSheet",
+            "",
         )
+    )

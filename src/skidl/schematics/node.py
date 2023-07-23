@@ -16,7 +16,6 @@ from itertools import chain
 
 from future import standard_library
 
-from ..tools.kicad.to_eeschema import Eeschema_V5
 from ..utilities import export_to_all, rmv_attr
 from .geometry import BBox, Point, Tx, Vector
 from .place import Placer
@@ -31,7 +30,7 @@ Node class for storing circuit hierarchy.
 
 
 @export_to_all
-class Node(Placer, Router, Eeschema_V5):
+class Node(Placer, Router):
     """Data structure for holding information about a node in the circuit hierarchy."""
 
     filename_sz = 20
