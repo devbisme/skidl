@@ -2,7 +2,11 @@
 
 # The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
 
+from . import constants
+from .to_eeschema import *
 from .kicad import (
+    calc_symbol_bbox,
+    calc_hier_label_bbox,
     gen_netlist,
     gen_netlist_comp,
     gen_netlist_net,

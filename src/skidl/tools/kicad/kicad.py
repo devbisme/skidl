@@ -1953,6 +1953,8 @@ def gen_schematic(
         options (dict, optional): Dict of options and values, usually for drawing/debugging.
     """
 
+    from skidl.tools import tool_modules, KICAD
+
     # Part placement options that should always be turned on.
     options["use_push_pull"] = True
     options["rotate_parts"] = True
@@ -1966,7 +1968,7 @@ def gen_schematic(
     for _ in range(retries):
         preprocess_circuit(circuit, **options)
 
-        node = Node(circuit, filepath, top_name, title, flatness)
+        node = Node(circuit, tool_modules[KICAD], filepath, top_name, title, flatness)
 
         try:
             # Place parts.

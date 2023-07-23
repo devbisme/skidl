@@ -16,7 +16,7 @@ from itertools import chain
 
 from future import standard_library
 
-from ..tools.kicad.to_eeschema import Eeschema_V5, pin_label_to_eeschema
+from ..tools.kicad.to_eeschema import Eeschema_V5
 from ..utilities import export_to_all, rmv_attr
 from .geometry import BBox, Point, Tx, Vector
 from .place import Placer
@@ -37,10 +37,10 @@ class Node(Placer, Router, Eeschema_V5):
     filename_sz = 20
     name_sz = 40
 
-    def __init__(self, circuit=None, filepath=".", top_name="", title="", flatness=0.0):
+    def __init__(self, circuit=None, tool_module=None, filepath=".", top_name="", title="", flatness=0.0):
         self.parent = None
         self.children = defaultdict(
-            lambda: Node(None, filepath, top_name, title, flatness)
+            lambda: Node(None, tool_module, filepath, top_name, title, flatness)
         )
         self.filepath = filepath
         self.top_name = top_name
@@ -49,6 +49,7 @@ class Node(Placer, Router, Eeschema_V5):
         self.title = title
         self.flatness = flatness
         self.flattened = False
+        self.tool_module = tool_module # Backend tool.
         self.parts = []
         self.wires = defaultdict(list)
         self.junctions = defaultdict(list)
@@ -188,7 +189,7 @@ class Node(Placer, Router, Eeschema_V5):
         from ..circuit import HIER_SEP
         from .net_terminal import NetTerminal
 
-        nt = NetTerminal(net)
+        nt = NetTerminal(net, self.tool_module)
         self.parts.append(nt)
 
     def external_bbox(self):

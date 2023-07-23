@@ -17,7 +17,6 @@ from future import standard_library
 
 from ..part import Part
 from ..pin import Pin
-from ..tools.kicad.constants import GRID
 from ..utilities import export_to_all
 from .geometry import Point, Tx, Vector
 
@@ -29,14 +28,12 @@ Net_Terminal class for handling net labels.
 
 @export_to_all
 class NetTerminal(Part):
-    def __init__(self, net):
+    def __init__(self, net, tool_module):
         """Specialized Part with a single pin attached to a net.
 
         This is intended for attaching to nets to label them, typically when
         the net spans across levels of hierarchical nodes.
         """
-
-        from ..tools.kicad.kicad import calc_hier_label_bbox
 
         # Create a Part.
         from ..skidl import SKIDL
@@ -50,6 +47,9 @@ class NetTerminal(Part):
         pin = Pin(num="1", name="~")
         self.add_pins(pin)
 
+        # Connect the pin to the net.
+        pin += net
+
         # Set the pin at point (0,0) and pointing leftward toward the part body
         # (consisting of just the net label for this type of part) so any attached routing
         # will go to the right.
@@ -59,13 +59,13 @@ class NetTerminal(Part):
 
         # Calculate the bounding box, but as if the pin were pointed right so
         # the associated label text would go to the left.
-        self.bbox = calc_hier_label_bbox(net.name, "R")
+        self.bbox = tool_module.calc_hier_label_bbox(net.name, "R")
 
         # Resize bbox so it's an integer number of GRIDs.
-        self.bbox = self.bbox.snap_resize(GRID)
+        self.bbox = self.bbox.snap_resize(tool_module.constants.GRID)
 
         # Extend the bounding box a bit so any attached routing will come straight in.
-        self.bbox.max += Vector(GRID, 0)
+        self.bbox.max += Vector(tool_module.constants.GRID, 0)
         self.lbl_bbox = self.bbox
 
         # Flip the NetTerminal horizontally if it is an output net (label on the right).
@@ -77,6 +77,3 @@ class NetTerminal(Part):
             self.tx = (
                 self.tx.move(origin - term_origin).flip_x().move(term_origin - origin)
             )
-
-        # Connect the pin to the net.
-        pin += net
