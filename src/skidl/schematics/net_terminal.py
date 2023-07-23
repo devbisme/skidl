@@ -11,17 +11,14 @@ from __future__ import (  # isort:skip
 )
 
 import re
-from builtins import range, super
-from collections import Counter, defaultdict
-from itertools import chain
+from builtins import super
 
 from future import standard_library
 
 from ..part import Part
 from ..pin import Pin
 from ..tools.kicad.constants import GRID
-from ..tools.kicad.to_eeschema import pin_label_to_eeschema
-from ..utilities import export_to_all, rmv_attr
+from ..utilities import export_to_all
 from .geometry import Point, Tx, Vector
 
 standard_library.install_aliases()
@@ -83,17 +80,3 @@ class NetTerminal(Part):
 
         # Connect the pin to the net.
         pin += net
-
-    def to_eeschema(self, tx):
-        """Generate the EESCHEMA code for the net terminal.
-
-        Args:
-            tx (Tx): Transformation matrix for the node containing this net terminal.
-
-        Returns:
-            str: EESCHEMA code string.
-        """
-        self.pins[0].stub = True
-        self.pins[0].orientation = "R"
-        return pin_label_to_eeschema(self.pins[0], tx)
-        # return pin_label_to_eeschema(self.pins[0], tx) + bbox_to_eeschema(self.bbox, self.tx * tx)

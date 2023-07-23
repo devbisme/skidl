@@ -20,6 +20,7 @@ from collections import OrderedDict
 from future import standard_library
 
 from ...schematics.geometry import BBox, Point, Tx, Vector
+from ...schematics.net_terminal import NetTerminal
 from ...utilities import export_to_all
 from .constants import BLK_INT_PAD, BOX_LABEL_FONT_SIZE, GRID, PIN_LABEL_FONT_SIZE
 
@@ -69,6 +70,21 @@ def bbox_to_eeschema(bbox, tx, name=None):
     graphic_box.append("")  # For blank line at end.
 
     return "\n".join(graphic_box)
+
+
+def net_to_eeschema(self, tx):
+    """Generate the EESCHEMA code for the net terminal.
+
+    Args:
+        tx (Tx): Transformation matrix for the node containing this net terminal.
+
+    Returns:
+        str: EESCHEMA code string.
+    """
+    self.pins[0].stub = True
+    self.pins[0].orientation = "R"
+    return pin_label_to_eeschema(self.pins[0], tx)
+    # return pin_label_to_eeschema(self.pins[0], tx) + bbox_to_eeschema(self.bbox, self.tx * tx)
 
 
 def part_to_eeschema(part, tx):
@@ -167,9 +183,9 @@ def part_to_eeschema(part, tx):
 
 # Add method for generating EESCHEMA code to Part object.
 # FIXME: There's got to be a better way...
-from ...part import Part
+# from ...part import Part
 
-setattr(Part, "to_eeschema", part_to_eeschema)
+# setattr(Part, "to_eeschema", part_to_eeschema)
 
 
 def wire_to_eeschema(net, wire, tx):
@@ -460,9 +476,12 @@ class Eeschema_V5:
             eeschema_code.append(child.to_eeschema(tx))
 
         # Generate EESCHEMA code for each part in the node.
+        # TODO: Separate NetTerminals from Parts.
         for part in self.parts:
-            part_code = part.to_eeschema(tx=tx)
-            eeschema_code.append(part_code)
+            if isinstance(part, NetTerminal):
+                eeschema_code.append(net_to_eeschema(part, tx=tx))
+            else:
+                eeschema_code.append(part_to_eeschema(part, tx=tx))
 
         # Generate EESCHEMA wiring code between the parts in the node.
         for net, wire in self.wires.items():
