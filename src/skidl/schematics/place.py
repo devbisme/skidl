@@ -24,9 +24,8 @@ from copy import copy
 
 from future import standard_library
 
-from ..circuit import Circuit
-from ..pin import Pin
-from ..utilities import export_to_all, rmv_attr, sgn
+from skidl import Pin
+from skidl.utilities import export_to_all, rmv_attr, sgn
 from .debug_draw import (
     draw_end,
     draw_pause,

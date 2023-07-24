@@ -21,9 +21,9 @@ from random import choice, randint
 
 from future import standard_library
 
-from ..part import Part
-from ..tools.kicad.constants import GRID
-from ..utilities import export_to_all
+from skidl import Part
+from skidl.tools.kicad.constants import GRID
+from skidl.utilities import export_to_all
 from .geometry import BBox, Point, Segment, Tx, Vector
 
 standard_library.install_aliases()

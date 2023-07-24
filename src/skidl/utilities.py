@@ -26,10 +26,9 @@ import traceback
 import urllib.parse
 import urllib.request
 from builtins import chr, dict, int, open, range, str, super
-from collections import namedtuple
 from contextlib import contextmanager
 
-__all__ = ["INDEX_SEPARATOR"]
+__all__ = ["INDEX_SEPARATOR", "export_to_all"]
 
 
 """Separator for strings containing multiple indices."""
@@ -53,6 +52,7 @@ def export_to_all(fn):
     return fn
 
 
+@export_to_all
 class Rgx(str):
     """Same as a string but the class makes it recognizable as as a regular expression."""
 
@@ -178,12 +178,14 @@ def flatten(nested_list):
     return lst
 
 
+@export_to_all
 def set_attr(objs, attr, value):
     """Set an attribute in a list of objects."""
     for o in to_list(objs):
         setattr(o, attr, value)
 
 
+@export_to_all
 def rmv_attr(objs, attrs):
     """Remove a list of attributes from a list of objects."""
     for o in to_list(objs):
@@ -738,6 +740,7 @@ class TriggerDict(dict):
         super().__setitem__(k, v)
 
 
+@export_to_all
 def is_binary_file(filename):
     """Return true if a file contains binary (non-text) characters."""
     text_chars = bytearray({7, 8, 9, 10, 12, 13, 27} | set(range(0x20, 0x100)) - {0x7F})

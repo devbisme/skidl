@@ -23,13 +23,12 @@ from collections import Counter, namedtuple
 
 from future import standard_library
 
-from ...logger import active_logger
-from ...pckg_info import __version__
-from ...scriptinfo import get_script_name, scriptinfo
-from ...utilities import add_quotes, export_to_all, find_and_open_file, rmv_attr
-from ...logger import active_logger
-from ...part import LIBRARY
-from ...schematics.geometry import (
+from skidl.pckg_info import __version__
+from skidl.scriptinfo import get_script_name, scriptinfo
+from skidl.utilities import add_quotes, export_to_all, find_and_open_file, rmv_attr
+from skidl.logger import active_logger
+from skidl.part import LIBRARY
+from skidl.schematics.geometry import (
     Tx,
     BBox,
     Point,
@@ -39,13 +38,13 @@ from ...schematics.geometry import (
     tx_rot_180,
     tx_rot_270,
 )
-from ...utilities import export_to_all, find_and_read_file, num_to_chars, rmv_quotes
+from skidl.utilities import export_to_all, find_and_read_file, num_to_chars, rmv_quotes
 from .constants import HIER_TERM_SIZE, PIN_LABEL_FONT_SIZE
-from ...schematics.geometry import BBox, Point, Tx, Vector
-from ...schematics.place import PlacementFailure
-from ...schematics.route import RoutingFailure
-from ...schematics.node import Node
-from ...schematics.net_terminal import NetTerminal
+from skidl.schematics.geometry import BBox, Point, Tx, Vector
+from skidl.schematics.place import PlacementFailure
+from skidl.schematics.route import RoutingFailure
+from skidl.schematics.node import Node
+from skidl.schematics.net_terminal import NetTerminal
 from .to_eeschema import node_to_eeschema
 
 standard_library.install_aliases()
@@ -90,9 +89,7 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
         lib_section: Only used for SPICE simulations.
     """
 
-    from ...skidl import lib_suffixes
-    from ...part import Part
-    from .. import KICAD
+    from skidl import lib_suffixes, Part, KICAD
 
     # Try to open the file using allowable suffixes for the versions of KiCAD.
     suffixes = lib_suffixes[KICAD]
@@ -264,7 +261,7 @@ def parse_lib_part(self, partial_parse):
             will be parsed if the part is actually used.
     """
 
-    from ...pin import Pin
+    from skidl import Pin
 
     _DEF_KEYS = [
         "name",
@@ -651,7 +648,7 @@ def gen_netlist(circuit):
     Returns:
         str: String containing netlist text.
     """
-    from .. import KICAD
+    from skidl import KICAD
 
     scr_dict = scriptinfo()
     src_file = os.path.join(scr_dict["dir"], scr_dict["source"])
@@ -689,7 +686,7 @@ def gen_netlist_comp(part):
         str: String containing component netlist description.
     """
 
-    from ...circuit import HIER_SEP
+    from skidl.circuit import HIER_SEP
 
     ref = add_quotes(part.ref)
 
@@ -789,7 +786,7 @@ def gen_xml(circuit):
     Returns:
         str: String containing the XML for the circuit.
     """
-    from .. import KICAD
+    from skidl import KICAD
 
     scr_dict = scriptinfo()
     src_file = os.path.join(scr_dict["dir"], scr_dict["source"])

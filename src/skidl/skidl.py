@@ -19,8 +19,7 @@ from .common import builtins
 from .config_ import SkidlConfig
 from .part import default_empty_footprint_handler
 from .pin import Pin
-from .tools import KICAD, SKIDL, lib_suffixes
-from .utilities import export_to_all, norecurse
+from .utilities import export_to_all
 
 standard_library.install_aliases()
 

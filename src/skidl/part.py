@@ -161,9 +161,8 @@ class Part(SkidlBaseObject):
     ):
 
         import skidl
-
-        from .schlib import SchLib
-        from .tools import SKIDL, add_xspice_io
+        from skidl import SchLib, SKIDL
+        from skidl.tools.spice import add_xspice_io
 
         super().__init__()
 
@@ -438,7 +437,7 @@ class Part(SkidlBaseObject):
         from .circuit import Circuit
         from .part import NETLIST
         from .pin import Pin
-        from .tools import add_xspice_io
+        from .tools.spice import add_xspice_io
 
         # If the number of copies is None, then a single copy will be made
         # and returned as a scalar (not a list). Otherwise, the number of

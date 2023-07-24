@@ -69,7 +69,7 @@ from .skidl import (
     reset,
     set_default_tool,
 )
-from .tools import KICAD, SKIDL, SPICE, node
+from .tools import KICAD, SKIDL, SPICE, lib_suffixes
 from .utilities import Rgx
 
 standard_library.install_aliases()

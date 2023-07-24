@@ -14,7 +14,7 @@ from __future__ import (  # isort:skip
 )
 
 import re
-from builtins import str, super
+from builtins import super
 
 from future import standard_library
 

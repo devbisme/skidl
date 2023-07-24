@@ -66,8 +66,7 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
         filename: The name of the KiCad schematic library file.
     """
 
-    from ...skidl import lib_suffixes
-    from .. import KICAD
+    from skidl import lib_suffixes, KICAD
 
     # Try to open the file using allowable suffixes for the versions of KiCAD.
     suffixes = lib_suffixes[KICAD]

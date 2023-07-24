@@ -19,9 +19,9 @@ from collections import OrderedDict
 
 from future import standard_library
 
-from ...schematics.geometry import BBox, Point, Tx, Vector
-from ...schematics.net_terminal import NetTerminal
-from ...utilities import export_to_all
+from skidl.schematics.geometry import BBox, Point, Tx, Vector
+from skidl.schematics.net_terminal import NetTerminal
+from skidl.utilities import export_to_all
 from .constants import BLK_INT_PAD, BOX_LABEL_FONT_SIZE, GRID, PIN_LABEL_FONT_SIZE
 
 standard_library.install_aliases()
@@ -445,7 +445,7 @@ def node_to_eeschema(node, sheet_tx=Tx()):
         str: EESCHEMA text for the node circuitry.
     """
 
-    from ...circuit import HIER_SEP
+    from skidl import HIER_SEP
 
     # List to hold all the EESCHEMA code for this node.
     eeschema_code = []

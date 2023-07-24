@@ -23,9 +23,8 @@ from itertools import chain, product, zip_longest
 
 from future import standard_library
 
-from ..circuit import Circuit
-from ..part import Part
-from ..utilities import export_to_all, rmv_attr
+from skidl import Part
+from skidl.utilities import export_to_all, rmv_attr
 from .debug_draw import draw_end, draw_endpoint, draw_routing, draw_seg, draw_start
 from .geometry import BBox, Point, Segment, Tx, Vector, tx_rot_90
 

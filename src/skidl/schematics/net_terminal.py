@@ -15,9 +15,8 @@ from builtins import super
 
 from future import standard_library
 
-from ..part import Part
-from ..pin import Pin
-from ..utilities import export_to_all
+from skidl import Part, Pin
+from skidl.utilities import export_to_all
 from .geometry import Point, Tx, Vector
 
 standard_library.install_aliases()
@@ -36,7 +35,7 @@ class NetTerminal(Part):
         """
 
         # Create a Part.
-        from ..skidl import SKIDL
+        from skidl import SKIDL
 
         super().__init__(name="NT", ref_prefix="NT", tool=SKIDL)
 

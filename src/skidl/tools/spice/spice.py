@@ -20,12 +20,9 @@ from builtins import dict, int, object, range, str, zip
 
 from future import standard_library
 
-from ...alias import Alias
-from ...logger import active_logger
-from ...net import Net
-from ...part import LIBRARY, Part
-from ...pin import Pin
-from ...utilities import (
+from skidl import Alias, Net, LIBRARY, Part, Pin
+from skidl.logger import active_logger
+from skidl.utilities import (
     INDEX_SEPARATOR,
     export_to_all,
     find_and_open_file,
@@ -90,8 +87,7 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
         lib_search_paths_ : List of directories to search for the file.
     """
 
-    from ...skidl import lib_suffixes
-    from .. import SPICE
+    from skidl import lib_suffixes, SPICE
 
     if os.path.isdir(filename):
         # A directory was given, so just use that.
@@ -260,8 +256,7 @@ def gen_netlist(self, **kwargs):
             containing SPICE models.
     """
 
-    from ...skidl import lib_search_paths
-    from .. import SPICE
+    from skidl import lib_search_paths, SPICE
 
     if sys.version_info.major == 2:
         active_logger.raise_(
@@ -490,7 +485,7 @@ def add_subcircuit_to_circuit(part, circuit):
     args.extend(_get_net_names(part))
 
     # Add the part to the PySpice circuit.
-    from ...pyspice import Parameters
+    from skidl.pyspice import Parameters
 
     params = {}
     for k, v in part.__dict__.items():

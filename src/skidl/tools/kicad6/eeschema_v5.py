@@ -19,8 +19,8 @@ from collections import OrderedDict
 
 from future import standard_library
 
-from ...schematics.geometry import BBox, Point, Tx, Vector
-from ...utilities import export_to_all
+from skidl.schematics.geometry import BBox, Point, Tx, Vector
+from skidl.utilities import export_to_all
 from .constants import BLK_INT_PAD, BOX_LABEL_FONT_SIZE, GRID, PIN_LABEL_FONT_SIZE
 
 standard_library.install_aliases()
@@ -172,7 +172,7 @@ def part_to_eeschema(part, tx):
 
 # Add method for generating EESCHEMA code to Part object.
 # FIXME: There's got to be a better way...
-from ...part import Part
+from skidl import Part
 
 setattr(Part, "to_eeschema", part_to_eeschema)
 
@@ -445,7 +445,7 @@ class Eeschema_V5:
             str: EESCHEMA text for the node circuitry.
         """
 
-        from ...circuit import HIER_SEP
+        from skidl.circuit import HIER_SEP
 
         # List to hold all the EESCHEMA code for this node.
         eeschema_code = []
