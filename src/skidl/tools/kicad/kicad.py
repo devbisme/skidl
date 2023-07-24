@@ -46,6 +46,7 @@ from skidl.schematics.route import RoutingFailure
 from skidl.schematics.node import Node
 from skidl.schematics.net_terminal import NetTerminal
 from .to_eeschema import node_to_eeschema
+from .draw_objs import *
 
 standard_library.install_aliases()
 
@@ -212,38 +213,6 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
         # Join the various text pieces by newlines so the ^ and $ special characters
         # can be used to detect the start and end of a piece of text during RE searches.
         part.search_text = "\n".join(search_text_pieces)
-
-
-DrawDef = namedtuple(
-    "DrawDef",
-    "name ref zero name_offset show_nums show_names num_units lock_units power_symbol",
-)
-
-DrawF0 = namedtuple("DrawF0", "ref x y size orientation visibility halign valign")
-
-DrawF1 = namedtuple(
-    "DrawF1", "name x y size orientation visibility halign valign fieldname"
-)
-
-DrawArc = namedtuple(
-    "DrawArc",
-    "cx cy radius start_angle end_angle unit dmg thickness fill startx starty endx endy",
-)
-
-DrawCircle = namedtuple("DrawCircle", "cx cy radius unit dmg thickness fill")
-
-DrawPoly = namedtuple("DrawPoly", "point_count unit dmg thickness points fill")
-
-DrawRect = namedtuple("DrawRect", "x1 y1 x2 y2 unit dmg thickness fill")
-
-DrawText = namedtuple(
-    "DrawText", "angle x y size hidden unit dmg text italic bold halign valign"
-)
-
-DrawPin = namedtuple(
-    "DrawPin",
-    "name num x y length orientation num_size name_size unit dmg electrical_type shape",
-)
 
 
 @export_to_all

@@ -4,12 +4,10 @@
 
 from . import constants
 from .to_eeschema import *
+from .gen_netlist import gen_netlist, gen_netlist_comp, gen_netlist_net
 from .kicad import (
     calc_symbol_bbox,
     calc_hier_label_bbox,
-    gen_netlist,
-    gen_netlist_comp,
-    gen_netlist_net,
     gen_pcb,
     gen_schematic,
     gen_svg_comp,
