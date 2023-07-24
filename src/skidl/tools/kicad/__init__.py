@@ -4,16 +4,14 @@
 
 from . import constants
 from .to_eeschema import *
-from .gen_netlist import gen_netlist, gen_netlist_comp, gen_netlist_net
+from .gen_netlist import gen_netlist
+from .gen_xml import gen_xml
 from .kicad import (
     calc_symbol_bbox,
     calc_hier_label_bbox,
     gen_pcb,
     gen_schematic,
     gen_svg_comp,
-    gen_xml,
-    gen_xml_comp,
-    gen_xml_net,
     get_kicad_lib_tbl_dir,
     lib_suffix,
     load_sch_lib,

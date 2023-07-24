@@ -996,49 +996,6 @@ class Part(SkidlBaseObject):
         )
         return list(fields - non_fields)
 
-    def _value_to_str(self):
-        """Return value of part as a string."""
-        value = getattr(self, "value", getattr(self, "name", self.ref_prefix))
-        return str(value)
-
-    def generate_netlist_component(self, tool=None):
-        """
-        Generate the part information for inclusion in a netlist.
-
-        Args:
-            tool: The format for the netlist file (e.g., KICAD).
-        """
-
-        import skidl
-
-        from .tools import tool_modules
-
-        tool = tool or skidl.config.tool
-
-        # Create part value as a string so including it in netlist isn't a problem.
-        self.value_str = self._value_to_str()
-
-        return tool_modules[tool].gen_netlist_comp(self)
-
-    def generate_xml_component(self, tool=None):
-        """
-        Generate the part information for inclusion in an XML file.
-
-        Args:
-            tool: The format for the XML file (e.g., KICAD).
-        """
-
-        import skidl
-
-        from .tools import tool_modules
-
-        tool = tool or skidl.config.tool
-
-        # Create part value as a string so including it in XML isn't a problem.
-        self.value_str = self._value_to_str()
-
-        return tool_modules[tool].gen_xml_comp(self)
-
     def generate_svg_component(self, symtx="", tool=None, net_stubs=None):
         """
         Generate the SVG for displaying a part in an SVG schematic.
@@ -1196,6 +1153,11 @@ class Part(SkidlBaseObject):
     def value(self):
         """Delete the part value."""
         del self._value
+
+    def value_to_str(self):
+        """Return value of part as a string."""
+        value = getattr(self, "value", getattr(self, "name", self.ref_prefix))
+        return str(value)
 
     @property
     def foot(self):
