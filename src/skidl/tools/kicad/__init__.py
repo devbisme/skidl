@@ -7,9 +7,9 @@ from .bboxes import calc_symbol_bbox, calc_hier_label_bbox
 from .gen_schematic import *
 from .gen_svg import *
 from .gen_netlist import gen_netlist
+from .gen_pcb import gen_pcb
 from .gen_xml import gen_xml
 from .kicad import (
-    gen_pcb,
     get_kicad_lib_tbl_dir,
     lib_suffix,
     load_sch_lib,
