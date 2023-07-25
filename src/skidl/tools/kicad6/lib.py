@@ -3,7 +3,7 @@
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
 """
-Parsing of Kicad 5 libraries.
+Parsing of Kicad libraries.
 """
 
 from __future__ import (  # isort:skip
@@ -93,13 +93,14 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
         # File contents were already decoded.
         pass
 
+    # Convert S-expression library into a list of symbols.
     lib_list = sexpdata.loads(lib_txt)
 
     # Skip over the 'kicad_symbol_lib' label and extract symbols into a dictionary with
     # symbol names as keys. Use an ordered dictionary to keep parts in the same order as
     # they appeared in the library file because in KiCad V6 library symbols can "extend"
     # previous symbols which should be processed before those that extend them.
-    parts = OrderedDict(
+    symbols = OrderedDict(
         [
             (item[1], item[2:])
             for item in lib_list[1:]
@@ -107,8 +108,8 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
         ]
     )
 
-    # Create Part objects for each part in library.
-    for part_name, part_defn in parts.items():
+    # Create Part objects for each symbol in the library.
+    for part_name, part_defn in symbols.items():
         properties = {}
 
         # See if this symbol extends a previous parent symbol.
@@ -160,7 +161,6 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
                 datasheet=datasheet,
                 description=description,
                 search_text=search_text,
-                tool_version="kicad_v6",
             )
         )
 

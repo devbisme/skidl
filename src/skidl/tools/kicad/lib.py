@@ -141,7 +141,6 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
                 datasheet="",
                 description="",
                 search_text="",
-                tool_version="kicad",
             )
         )
 

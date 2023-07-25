@@ -128,7 +128,6 @@ class Part(SkidlBaseObject):
         ref: A specific part reference to be assigned.
         tag: A specific tag to tie the part to its footprint in the PCB.
         pin_splitters: String of characters that split long pin names into shorter aliases.
-        tool_version: Select between KiCad V5 and V6.
 
     Keyword Args:
         kwargs: Name/value pairs for setting attributes for the part.
@@ -156,7 +155,6 @@ class Part(SkidlBaseObject):
         ref=None,
         tag=None,
         pin_splitters=None,
-        tool_version=None,
         **kwargs
     ):
 
@@ -218,12 +216,6 @@ class Part(SkidlBaseObject):
         # a netlist, then parse the entire part definition.
         elif part_defn:
             self.part_defn = part_defn
-
-            # If given, set the tool version before parsing the part definition.
-            # At this time, this is done to support differences between KiCad V5 and V6.
-            if tool_version:
-                self.tool_version = tool_version
-
             self.parse(partial_parse=(dest != NETLIST))
 
         # If the part is destined for a SKiDL library, then it will be defined

@@ -3,7 +3,7 @@
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
 """
-Generate KiCad 5 XML.
+Generate KiCad XML.
 """
 
 from __future__ import (  # isort:skip
