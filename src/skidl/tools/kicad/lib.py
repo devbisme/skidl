@@ -3,7 +3,7 @@
 # The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
 
 """
-Handler for reading Kicad libraries and generating netlists.
+Parsing of Kicad 5 libraries.
 """
 
 from __future__ import (  # isort:skip
@@ -14,49 +14,24 @@ from __future__ import (  # isort:skip
 )
 
 import os.path
-import time
-from builtins import range, str
+from builtins import range
 import os
 import re
 from builtins import int, range, zip
-from collections import Counter, namedtuple
 
 from future import standard_library
 
-from skidl.pckg_info import __version__
-from skidl.scriptinfo import get_script_name, scriptinfo
-from skidl.utilities import add_quotes, export_to_all, find_and_open_file, rmv_attr
 from skidl.logger import active_logger
 from skidl.part import LIBRARY
-from skidl.schematics.geometry import (
-    Tx,
-    BBox,
-    Point,
-    Vector,
-    tx_rot_0,
-    tx_rot_90,
-    tx_rot_180,
-    tx_rot_270,
-)
-from skidl.utilities import export_to_all, find_and_read_file, num_to_chars, rmv_quotes
-from .constants import HIER_TERM_SIZE, PIN_LABEL_FONT_SIZE
-from skidl.schematics.geometry import BBox, Point, Tx, Vector
-from skidl.schematics.place import PlacementFailure
-from skidl.schematics.route import RoutingFailure
-from skidl.schematics.node import Node
-from skidl.schematics.net_terminal import NetTerminal
-from .gen_schematic import node_to_eeschema
+from skidl.utilities import export_to_all, find_and_read_file, find_and_open_file, num_to_chars, rmv_quotes
 from .draw_objs import *
 
 standard_library.install_aliases()
 
+__all__ = ["lib_suffix"]
 
-# These aren't used here, but they are used in modules
-# that include this module.
-tool_name = "kicad"
+
 lib_suffix = [".lib"]
-
-__all__ = ["tool_name", "lib_suffix"]
 
 
 @export_to_all
@@ -216,7 +191,7 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
 
 
 @export_to_all
-def parse_lib_part(self, partial_parse):
+def parse_lib_part(part, partial_parse):
     """
     Create a Part using a part definition from a KiCad schematic library.
 
@@ -359,12 +334,12 @@ def parse_lib_part(self, partial_parse):
         return v  # Unable to convert to number. Return string.
 
     # Return if there's nothing to do (i.e., part has already been parsed).
-    if not self.part_defn:
+    if not part.part_defn:
         return
 
-    self.aliases = []  # Part aliases.
-    self.fplist = []  # Footprint list.
-    self.draw = []  # Drawing commands for symbol, including pins.
+    part.aliases = []  # Part aliases.
+    part.fplist = []  # Footprint list.
+    part.draw = []  # Drawing commands for symbol, including pins.
 
     building_fplist = False  # True when working on footprint list in defn.
     building_draw = False  # True when gathering part drawing from defn.
@@ -378,7 +353,7 @@ def parse_lib_part(self, partial_parse):
     srch = re.compile(srch)
 
     # Go through the part definition line-by-line.
-    for line in self.part_defn:
+    for line in part.part_defn:
 
         # Split the line into words.
         line = line.replace("\n", "")
@@ -398,27 +373,27 @@ def parse_lib_part(self, partial_parse):
 
         # Create a dictionary of part definition keywords and values.
         if line[0] == "DEF":
-            self.definition = dict(list(zip(_DEF_KEYS, values)))
-            self.name = self.definition["name"]
+            part.definition = dict(list(zip(_DEF_KEYS, values)))
+            part.name = part.definition["name"]
 
             # To handle libraries quickly, just get the name and
             # aliases and parse the rest of the part definition later.
             if partial_parse:
-                if self.aliases:
+                if part.aliases:
                     # Name found, aliases already found so we're done.
                     return
                 # Name found so scan defn to see if aliases are present.
                 # (The majority of parts don't have aliases.)
-                for ln in self.part_defn:
+                for ln in part.part_defn:
                     if re.match(r"^\s*ALIAS\s", ln):
                         # Found aliases, so store them.
-                        self.aliases = re.findall(srch, ln)[1:]
+                        part.aliases = re.findall(srch, ln)[1:]
                         return
                 return
 
             # Add DEF field to list of things to draw.
             values = [numberize(v) for v in values]
-            self.draw.append(DrawDef(*values))
+            part.draw.append(DrawDef(*values))
 
         # End the parsing of the part definition.
         elif line[0] == "ENDDEF":
@@ -428,10 +403,10 @@ def parse_lib_part(self, partial_parse):
         elif line[0] == "F0":
             field_dict = dict(list(zip(_F0_KEYS, values)))
             # Add the field name and its value as an attribute to the part.
-            self.fields["F0"] = field_dict["reference"]
+            part.fields["F0"] = field_dict["reference"]
             # Add F0 field to list of things to draw.
             values = [numberize(v) for v in values]
-            self.draw.append(DrawF0(*values))
+            part.draw.append(DrawF0(*values))
 
         # Create a dictionary of the other part field keywords and values.
         elif line[0][0] == "F":
@@ -442,15 +417,15 @@ def parse_lib_part(self, partial_parse):
             # If no field name at end of line, use the field identifier F1, F2, ...
             field_dict["fieldname"] = field_dict["fieldname"] or line[0]
             # Add the field name and its value as an attribute to the part.
-            self.fields[field_dict["fieldname"]] = field_dict["name"]
+            part.fields[field_dict["fieldname"]] = field_dict["name"]
             # Add F1 field to list of things to draw.
             if line[0] == "F1":
                 values = [numberize(v) for v in values]
-                self.draw.append(DrawF1(*values))
+                part.draw.append(DrawF1(*values))
 
         # Create a list of part aliases.
         elif line[0] == "ALIAS":
-            self.aliases = line[1:]
+            part.aliases = line[1:]
 
         # Start the list of part footprints.
         elif line[0] == "$FPLIST":
@@ -472,7 +447,7 @@ def parse_lib_part(self, partial_parse):
         else:
             # If the footprint list is being built, then add this line to it.
             if building_fplist:
-                self.fplist.append(
+                part.fplist.append(
                     line[0].strip().rstrip()
                 )  # Remove begin & end whitespace.
 
@@ -484,11 +459,11 @@ def parse_lib_part(self, partial_parse):
 
                 # Gather arcs.
                 if line[0] == "A":
-                    self.draw.append(DrawArc(*values))
+                    part.draw.append(DrawArc(*values))
 
                 # Gather circles.
                 elif line[0] == "C":
-                    self.draw.append(DrawCircle(*values))
+                    part.draw.append(DrawCircle(*values))
 
                 # Gather polygons.
                 elif line[0] == "P":
@@ -499,15 +474,15 @@ def parse_lib_part(self, partial_parse):
                         values += [line[-1]]
                     else:
                         values += [""]
-                    self.draw.append(DrawPoly(*values))
+                    part.draw.append(DrawPoly(*values))
 
                 # Gather rectangles.
                 elif line[0] == "S":
-                    self.draw.append(DrawRect(*values))
+                    part.draw.append(DrawRect(*values))
 
                 # Gather text.
                 elif line[0] == "T":
-                    self.draw.append(DrawText(*values))
+                    part.draw.append(DrawText(*values))
 
                 # Gather the pin symbols. This is what we really want since
                 # this defines the names, numbers and attributes of the
@@ -524,7 +499,7 @@ def parse_lib_part(self, partial_parse):
                     except KeyError:
                         # No, this pin number is unique (so far), so store it
                         # using the pin number as the dict key.
-                        self.draw.append(pin)
+                        part.draw.append(pin)
                         pins[pin.num] = pin
                     else:
                         # Uh, oh: Repeated pin number! Check to see if the
@@ -535,33 +510,33 @@ def parse_lib_part(self, partial_parse):
                         ):
                             active_logger.warning(
                                 "Non-identical pins with the same number ({}) in symbol drawing {}".format(
-                                    pin.num, self.name
+                                    pin.num, part.name
                                 )
                             )
 
                 # Found something unknown in the drawing section.
                 else:
                     msg = "Found something strange in {} symbol drawing: {}.".format(
-                        self.name, line
+                        part.name, line
                     )
                     active_logger.warning(msg)
 
             # Found something unknown outside the footprint list or drawing section.
             else:
                 msg = "Found something strange in {} symbol definition: {}.".format(
-                    self.name, line
+                    part.name, line
                 )
                 active_logger.warning(msg)
 
     # Define some shortcuts to part information.
-    self.num_units = int(self.definition["unit_count"])  # # of units within the part.
-    self.name = self.definition["name"]  # Part name (e.g., 'LM324').
-    self.ref_prefix = self.definition["reference"]  # Part ref prefix (e.g., 'R').
+    part.num_units = int(part.definition["unit_count"])  # # of units within the part.
+    part.name = part.definition["name"]  # Part name (e.g., 'LM324').
+    part.ref_prefix = part.definition["reference"]  # Part ref prefix (e.g., 'R').
 
     # Clear the part reference field directly. Don't use the setter function
     # since it will try to generate and assign a unique part reference if
     # passed a value of None.
-    self._ref = None
+    part._ref = None
 
     # Make a Pin object from the information in the KiCad pin data fields.
     def kicad_pin_to_pin(kicad_pin):
@@ -592,16 +567,16 @@ def parse_lib_part(self, partial_parse):
 
         return p
 
-    self.pins = [kicad_pin_to_pin(p) for p in pins.values()]
+    part.pins = [kicad_pin_to_pin(p) for p in pins.values()]
 
     # Make sure all the pins have a valid reference to this part.
-    self.associate_pins()
+    part.associate_pins()
 
     # Create part units if there are more than 1.
-    if self.num_units > 1:
-        for i in range(1, self.num_units + 1):
-            self.make_unit("u" + num_to_chars(i), unit=i)
+    if part.num_units > 1:
+        for i in range(1, part.num_units + 1):
+            part.make_unit("u" + num_to_chars(i), unit=i)
 
     # Part definition has been parsed, so clear it out. This prevents a
     # part from being parsed more than once.
-    self.part_defn = None
+    part.part_defn = None

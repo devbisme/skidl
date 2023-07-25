@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# The MIT License (MIT) - Copyright (c) 2016-2022 Dave Vandenbout.
+# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
 
 """
-Functions for handling KiCad 6 files.
+Parsing of Kicad 5 libraries.
 """
 
 from __future__ import (  # isort:skip
@@ -13,29 +13,76 @@ from __future__ import (  # isort:skip
     unicode_literals,
 )
 
+import os.path
 from builtins import int
 from collections import OrderedDict
 
 import sexpdata
+
 from future import standard_library
 
-from ...logger import active_logger
-from ...utilities import export_to_all, num_to_chars, to_list
+from skidl.part import LIBRARY
+from skidl.utilities import export_to_all, find_and_open_file, num_to_chars, to_list
 
 standard_library.install_aliases()
 
+__all__ = ["lib_suffix"]
+
+
+lib_suffix = [".kicad_sym"]
+
 
 @export_to_all
-def load_sch_lib(self, f, filename, lib_search_paths_):
+def get_kicad_lib_tbl_dir():
+    """Get the path to where the global fp-lib-table file is found."""
+
+    paths = (
+        "$HOME/.config/kicad",
+        "~/.config/kicad",
+        "%APPDATA%/kicad",
+        "$HOME/Library/Preferences/kicad",
+        "~/Library/Preferences/kicad",
+    )
+
+    for path in paths:
+        path = os.path.normpath(os.path.expanduser(os.path.expandvars(path)))
+        if os.path.lexists(path):
+            return path
+    return ""
+
+
+@export_to_all
+def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
     """
     Load the parts from a KiCad schematic library file.
 
     Args:
-        filename: The name of the KiCad schematic library file.
+        lib (SchLib): SKiDL library object.
+        filename (str): The name of the KiCad schematic library file.
+        lib_search_paths_ (list): List of paths with KiCad symbol libraries.
+        lib_section: Only used for SPICE simulations.
     """
 
-    from ...part import LIBRARY, Part
-    from .. import KICAD
+    from skidl import lib_suffixes, Part, KICAD6
+
+    # Try to open the file using allowable suffixes for the versions of KiCAD.
+    suffixes = lib_suffixes[KICAD6]
+    base, suffix = os.path.splitext(filename)
+    if suffix:
+        # If an explicit file extension was given, use it instead of tool lib default extensions.
+        suffixes = [suffix]
+    for suffix in suffixes:
+        # Allow file open failure so multiple suffixes can be tried without error messages.
+        f, _ = find_and_open_file(
+            filename, lib_search_paths_, suffix, allow_failure=True
+        )
+        if f:
+            # Break from the loop once a library file is successfully opened.
+            break
+    if not f:
+        raise FileNotFoundError(
+            "Unable to open KiCad Schematic Library File {}".format(filename)
+        )
 
     # Parse the library and return a nested list of library parts.
     lib_txt = f.read()
@@ -68,7 +115,7 @@ def load_sch_lib(self, f, filename, lib_search_paths_):
         for item in part_defn:
             if item[0].value().lower() == "extends":
                 # Get the properties from the parent symbol.
-                parent_part = self[item[1]]
+                parent_part = lib[item[1]]
                 if parent_part.part_defn:
                     properties.update(
                         {
@@ -101,10 +148,10 @@ def load_sch_lib(self, f, filename, lib_search_paths_):
         search_text = "\n".join([filename, part_name, description, keywords])
 
         # Create a Part object and add it to the library object.
-        self.add_parts(
+        lib.add_parts(
             Part(
                 part_defn=part_defn,
-                tool=KICAD,
+                tool=KICAD6,
                 dest=LIBRARY,
                 filename=filename,
                 name=part_name,
@@ -119,7 +166,7 @@ def load_sch_lib(self, f, filename, lib_search_paths_):
 
 
 @export_to_all
-def parse_lib_part(self, partial_parse):
+def parse_lib_part(part, partial_parse):
     """
     Create a Part using a part definition from a KiCad V6 schematic library.
 
@@ -138,23 +185,23 @@ def parse_lib_part(self, partial_parse):
     from ...pin import Pin
 
     # Return if there's nothing to do (i.e., part has already been parsed).
-    if not self.part_defn:
+    if not part.part_defn:
         return
 
     # If a part def already exists, the name has already been set, so exit.
     if partial_parse:
         return
 
-    self.aliases = []  # Part aliases.
-    self.fplist = []  # Footprint list.
-    self.draw = []  # Drawing commands for symbol, including pins.
+    part.aliases = []  # Part aliases.
+    part.fplist = []  # Footprint list.
+    part.draw = []  # Drawing commands for symbol, including pins.
 
-    for item in self.part_defn:
+    for item in part.part_defn:
         if item[0].value().lower() == "extends":
             # Populate this part (child) from another part (parent) it is extended from.
 
             # Make a copy of the parent part from the library.
-            parent_part = self.lib[item[1]].copy(dest=TEMPLATE)
+            parent_part = part.lib[item[1]].copy(dest=TEMPLATE)
 
             # Remove parent attributes that we don't want to overwrite in the child.
             parent_part_dict = parent_part.__dict__
@@ -173,27 +220,27 @@ def parse_lib_part(self, partial_parse):
                     pass
 
             # Overwrite child with the parent part.
-            self.__dict__.update(parent_part_dict)
+            part.__dict__.update(parent_part_dict)
 
             # Make sure all the pins have a valid reference to the child.
-            self.associate_pins()
+            part.associate_pins()
 
             # Copy part units so all the pin and part references stay valid.
-            self.copy_units(parent_part)
+            part.copy_units(parent_part)
 
             # Perform some operations on the child part.
-            for item in self.part_defn:
+            for item in part.part_defn:
                 cmd = item[0].value().lower()
                 if cmd == "del":
-                    self.rmv_pins(item[1])
+                    part.rmv_pins(item[1])
                 elif cmd == "swap":
-                    self.swap_pins(item[1], item[2])
+                    part.swap_pins(item[1], item[2])
                 elif cmd == "renum":
-                    self.renumber_pin(item[1], item[2])
+                    part.renumber_pin(item[1], item[2])
                 elif cmd == "rename":
-                    self.rename_pin(item[1], item[2])
+                    part.rename_pin(item[1], item[2])
                 elif cmd == "property_del":
-                    del self.fields[item[1]]
+                    del part.fields[item[1]]
                 elif cmd == "alternate":
                     pass
 
@@ -202,18 +249,18 @@ def parse_lib_part(self, partial_parse):
     # Populate part fields from symbol properties.
     properties = {
         item[1]: item[2:]
-        for item in self.part_defn
+        for item in part.part_defn
         if item[0].value().lower() == "property"
     }
     for name, data in properties.items():
         value = data[0]
         for item in data[1:]:
             if item[0].value().lower() == "id":
-                self.fields["F" + str(item[1])] = value
+                part.fields["F" + str(item[1])] = value
                 break
-        self.fields[name] = value
+        part.fields[name] = value
 
-    self.ref_prefix = self.fields["F0"]  # Part ref prefix (e.g., 'R').
+    part.ref_prefix = part.fields["F0"]  # Part ref prefix (e.g., 'R').
 
     # Association between KiCad and SKiDL pin types.
     pin_io_type_translation = {
@@ -234,10 +281,10 @@ def parse_lib_part(self, partial_parse):
     # 'symbol' marking the start of the entire part definition.
     units = {
         item[1]: item[2:]
-        for item in self.part_defn[1:]
+        for item in part.part_defn[1:]
         if item[0].value().lower() == "symbol"
     }
-    self.num_units = len(units)
+    part.num_units = len(units)
 
     # Get pins and assign them to each unit as well as the entire part.
     unit_nums = []  # Stores unit numbers for units with pins.
@@ -246,7 +293,7 @@ def parse_lib_part(self, partial_parse):
         # Extract the part name, unit number, and conversion flag.
         unit_name_pieces = unit_name.split("_")  # unit name follows 'symbol'
         symbol_name = "_".join(unit_name_pieces[:-2])
-        assert symbol_name == self.name
+        assert symbol_name == part.name
         unit_num = int(unit_name_pieces[-2])
         conversion_flag = int(unit_name_pieces[-1])
 
@@ -280,40 +327,25 @@ def parse_lib_part(self, partial_parse):
 
             # Add the pins that were found to the total part. Include the unit identifier
             # in the pin so we can find it later when the part unit is created.
-            self.add_pins(
+            part.add_pins(
                 Pin(name=pin_name, num=pin_number, func=pin_func, unit=unit_num)
             )
 
     # Clear the part reference field directly. Don't use the setter function
     # since it will try to generate and assign a unique part reference if
     # passed a value of None.
-    self._ref = None
+    part._ref = None
 
     # Make sure all the pins have a valid reference to this part.
-    self.associate_pins()
+    part.associate_pins()
 
     # Create the units now that all the part pins have been added.
     if len(unit_nums) > 1:
         for unit_num in unit_nums:
             unit_label = "u" + num_to_chars(unit_num)
-            self.make_unit(unit_label, unit=unit_num)
+            part.make_unit(unit_label, unit=unit_num)
 
     # Part definition has been parsed, so clear it out. This prevents a
     # part from being parsed more than once.
-    self.part_defn = None
+    part.part_defn = None
 
-
-@export_to_all
-def gen_svg_comp(part, symtx, net_stubs=None):
-    """
-    Generate SVG for this component.
-
-    Args:
-        part: Part object for which an SVG symbol will be created.
-        net_stubs: List of Net objects whose names will be connected to
-            part symbol pins as connection stubs.
-        symtx: String such as "HR" that indicates symbol mirroring/rotation.
-
-    Returns: SVG for the part symbol.
-    """
-    raise NotImplementedError

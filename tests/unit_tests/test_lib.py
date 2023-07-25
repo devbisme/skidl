@@ -10,6 +10,7 @@ import sexpdata
 import skidl
 from skidl import (
     KICAD,
+    KICAD6,
     SKIDL,
     TEMPLATE,
     Part,
@@ -142,9 +143,9 @@ def test_lib_kicad_v5():
 
 def test_lib_kicad_v6_1():
     lib_name = "Device.kicad_sym"
-    lib_v6 = SchLib(lib_name)
+    lib_v6 = SchLib(lib_name, tool=KICAD6)
     v6_part_names = [part.name for part in lib_v6.parts]
-    sexp, _ = find_and_read_file(lib_name, paths=lib_search_paths[KICAD])
+    sexp, _ = find_and_read_file(lib_name, paths=lib_search_paths[KICAD6])
     nested_list = sexpdata.loads(sexp)
     parts = {
         item[1]: item[2:]
@@ -159,9 +160,9 @@ def test_lib_kicad_v6_1():
 
 def test_lib_kicad_v6_2():
     lib_name = "4xxx.kicad_sym"
-    lib_v6 = SchLib(lib_name)
+    lib_v6 = SchLib(lib_name, tool=KICAD6)
     v6_part_names = [part.name for part in lib_v6.parts]
-    sexp, _ = find_and_read_file(lib_name, paths=lib_search_paths[KICAD])
+    sexp, _ = find_and_read_file(lib_name, paths=lib_search_paths[KICAD6])
     nested_list = sexpdata.loads(sexp)
     parts = {
         item[1]: item[2:]
@@ -183,4 +184,4 @@ def test_lib_kicad5_repository():
 def test_lib_kicad6_repository():
     repo_url = "https://gitlab.com/kicad/libraries/kicad-symbols/-/raw/master"
     lib_search_paths[KICAD] = [repo_url]
-    lib_4xxx = SchLib("4xxx.kicad_sym")
+    lib_4xxx = SchLib("4xxx.kicad_sym", tool=KICAD6)
