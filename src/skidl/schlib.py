@@ -235,12 +235,12 @@ class SchLib(object):
             return s
 
         from skidl import SKIDL
-        import skidl.tools
+        from skidl.tools import lib_suffixes
 
         if tool is None:
             tool = SKIDL
 
-        file_ = file_ or (libname + skidl.tools.lib_suffixes[tool])
+        file_ = file_ or (libname + lib_suffixes[tool])
 
         export_str = "from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE\n\n"
         export_str += "SKIDL_lib_version = '0.0.1'\n\n"

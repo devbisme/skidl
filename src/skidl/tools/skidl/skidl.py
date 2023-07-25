@@ -38,7 +38,8 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
         filename: The name of the SKiDL schematic library file.
     """
 
-    from skidl import lib_suffixes, SchLib, SKIDL
+    from skidl import SchLib, SKIDL
+    from skidl.tools import lib_suffixes
     from skidl.logger import active_logger
     from skidl.utilities import find_and_read_file
 

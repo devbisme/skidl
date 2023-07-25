@@ -2,6 +2,7 @@ import os
 import os.path
 
 from skidl import KICAD, SKIDL, SchLib
+from skidl.tools import lib_suffixes
 
 
 def convert_libs(from_dir, to_dir):

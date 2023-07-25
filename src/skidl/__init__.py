@@ -69,7 +69,6 @@ from .skidl import (
     reset,
     set_default_tool,
 )
-from .tools import lib_suffixes
 from .utilities import Rgx
 
 standard_library.install_aliases()

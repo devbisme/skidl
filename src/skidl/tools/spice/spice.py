@@ -86,7 +86,8 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
         lib_search_paths_ : List of directories to search for the file.
     """
 
-    from skidl import lib_suffixes, SPICE
+    from skidl import SPICE
+    from skidl.tools import lib_suffixes
 
     if os.path.isdir(filename):
         # A directory was given, so just use that.
