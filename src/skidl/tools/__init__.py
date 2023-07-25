@@ -49,13 +49,13 @@ for module_name in os.listdir(directory):
 
     # Get some info from the imported module.
     try:
-        tool_name = getattr(mod, "tool_name")
         lib_suffix = getattr(mod, "lib_suffix")
     except AttributeError:
-        # Don't process files without a tool name. They're probably support files.
+        # Don't process files without a library suffix. They're probably support files.
         continue
 
     # Add tool module to dict.
+    tool_name = module_name
     tool_modules[tool_name] = mod
 
     ALL_TOOLS.append(tool_name)

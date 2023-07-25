@@ -1059,7 +1059,7 @@ class Part(SkidlBaseObject):
             spice_part (Part): The type of SPICE Part to be converted to.
             pin_map (dict): Dict with pin numbers/names of self as keys and num/names of spice_part pins as replacement values.
         """
-        from .tools import convert_for_spice
+        from .tools.spice import convert_for_spice
 
         convert_for_spice(self, spice_part, pin_map)
 

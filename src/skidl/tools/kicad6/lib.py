@@ -108,7 +108,6 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
 
     # Create Part objects for each part in library.
     for part_name, part_defn in parts.items():
-
         properties = {}
 
         # See if this symbol extends a previous parent symbol.
@@ -289,7 +288,6 @@ def parse_lib_part(part, partial_parse):
     # Get pins and assign them to each unit as well as the entire part.
     unit_nums = []  # Stores unit numbers for units with pins.
     for unit_name, unit_data in units.items():
-
         # Extract the part name, unit number, and conversion flag.
         unit_name_pieces = unit_name.split("_")  # unit name follows 'symbol'
         symbol_name = "_".join(unit_name_pieces[:-2])
@@ -311,7 +309,6 @@ def parse_lib_part(part, partial_parse):
 
         # Process the pins for the current unit.
         for pin in unit_pins:
-
             # Pin electrical type immediately follows the "pin" tag.
             pin_func = pin_io_type_translation[pin[1].value().lower()]
 
@@ -348,4 +345,3 @@ def parse_lib_part(part, partial_parse):
     # Part definition has been parsed, so clear it out. This prevents a
     # part from being parsed more than once.
     part.part_defn = None
-

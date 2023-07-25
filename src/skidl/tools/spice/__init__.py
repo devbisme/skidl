@@ -17,5 +17,4 @@ from .spice import (
     node,
     not_implemented,
     parse_lib_part,
-    tool_name,
 )

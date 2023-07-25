@@ -31,7 +31,7 @@ from skidl.utilities import (
 
 standard_library.install_aliases()
 
-__all__ = ["tool_name", "lib_suffix", "DeviceModel", "XspiceModel", "Parameters"]
+__all__ = ["lib_suffix", "DeviceModel", "XspiceModel", "Parameters"]
 
 
 # PySpice may not be installed, particularly under Python 2.
@@ -45,7 +45,6 @@ except ImportError:
 
 # These aren't used here, but they are used in modules
 # that include this module.
-tool_name = "spice"
 lib_suffix = [".lib", ".spice"]
 
 

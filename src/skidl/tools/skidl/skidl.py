@@ -3,7 +3,7 @@
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
 """
-Handler for reading SKiDL libraries and generating netlists.
+Handler for reading SKiDL libraries.
 """
 
 from __future__ import (  # isort:skip
@@ -24,10 +24,9 @@ standard_library.install_aliases()
 
 # These aren't used here, but they are used in modules
 # that include this module.
-tool_name = "skidl"
 lib_suffix = "_sklib.py"
 
-__all__ = ["tool_name", "lib_suffix"]
+__all__ = ["lib_suffix"]
 
 
 @export_to_all
