@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
+# The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
 import pytest
 
@@ -11,10 +11,8 @@ except ModuleNotFoundError:
     # are not being run anyway. So just eat the exception.
     pass
 
+from skidl import SKIDL, SPICE, KICAD
 from skidl.pyspice import (
-    KICAD,
-    SKIDL,
-    SPICE,
     TEMPLATE,
     Parameters,
     Part,

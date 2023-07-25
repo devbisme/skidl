@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
+# The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
 """
 Import this file to reconfigure SKiDL for doing SPICE simulations.
@@ -29,7 +29,6 @@ from .skidl import (
     reset,
     set_default_tool,
 )
-from .tools import KICAD, SKIDL, SPICE
 from .tools.spice import Parameters, XspiceModel, node
 
 standard_library.install_aliases()
@@ -45,6 +44,7 @@ except ImportError:
     )
 
 else:
+    from skidl import SKIDL, SPICE
     from .libs.pyspice_sklib import *
 
     _splib = SchLib("pyspice", tool=SKIDL)  # Read-in the SPICE part library.

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
+# The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
 """
 Object for for handling series and parallel networks of two-pin parts, nets, and pins.

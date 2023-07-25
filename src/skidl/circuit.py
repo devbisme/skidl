@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
+# The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
 """
 Handles complete circuits made of parts and nets.
@@ -1157,7 +1157,7 @@ class Circuit(SkidlBaseObject):
         """
 
         from . import skidl
-        from .tools import SKIDL
+        from skidl import SKIDL
 
         if self.no_files:
             return

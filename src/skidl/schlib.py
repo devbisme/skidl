@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
+# The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
 """
 Handles schematic libraries for various ECAD tools.
@@ -234,9 +234,8 @@ class SchLib(object):
             s = re.sub(r"(Pin\()", r"\n            \1", s)
             return s
 
+        from skidl import SKIDL
         import skidl.tools
-
-        from .tools import SKIDL
 
         if tool is None:
             tool = SKIDL

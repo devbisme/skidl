@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
+# The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
 """
 Handles configuration parameters stored in a JSON file.
@@ -23,7 +23,7 @@ from future import standard_library
 from .logger import active_logger
 from .part_query import footprint_cache
 from .scriptinfo import get_script_name
-from .tools import ALL_TOOLS, KICAD, SKIDL, lib_suffixes
+from .tools import ALL_TOOLS, lib_suffixes
 from .tools.kicad import get_kicad_lib_tbl_dir
 from .utilities import TriggerDict, export_to_all, merge_dicts
 
@@ -89,6 +89,8 @@ class SkidlConfig(Config):
     """Config specialized for SKiDL configuration files."""
 
     def __init__(self):
+        from skidl import SKIDL, KICAD
+
         super().__init__(".skidlcfg", "/etc", "~", ".")
 
         # If no configuration files were found, set default backend/tool.

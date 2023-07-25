@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
+# The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
 """
 Handles parts.
@@ -1226,7 +1226,7 @@ class SkidlPart(Part):
     def __init__(
         self, lib=None, name=None, dest=TEMPLATE, tool=None, connections=None, **attribs
     ):
-        from .tools import SKIDL
+        from skidl import SKIDL
 
         tool = tool or SKIDL
         super().__init__(lib, name, dest, tool, connections, attribs)

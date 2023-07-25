@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
+# The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
 """
 This package contains the handler functions for various EDA tools.
@@ -20,9 +20,6 @@ import sys
 from future import standard_library
 
 standard_library.install_aliases()
-
-# Reference to this module used for insertion of ECAD tool variables.
-this_module = sys.modules[__name__]
 
 # List of all supported ECAD tools.
 ALL_TOOLS = []
@@ -65,7 +62,7 @@ for module_name in os.listdir(directory):
 
     # Create a variable with an uppercase name that stores the tool name,
     # so variable KICAD will store "kicad".
-    setattr(this_module, tool_name.upper(), tool_name)
+    setattr(sys.modules["skidl"], tool_name.upper(), tool_name)
 
     # Store library file suffix for this tool.
     lib_suffixes[tool_name] = lib_suffix

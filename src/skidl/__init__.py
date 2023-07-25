@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# The MIT License (MIT) - Copyright (c) 2016-2021 Dave Vandenbout.
+# The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
 """SKiDL: A Python-Based Schematic Design Language
 
@@ -69,7 +69,7 @@ from .skidl import (
     reset,
     set_default_tool,
 )
-from .tools import KICAD, KICAD6, SKIDL, SPICE, lib_suffixes
+from .tools import lib_suffixes
 from .utilities import Rgx
 
 standard_library.install_aliases()
