@@ -181,8 +181,7 @@ def parse_lib_part(part, partial_parse):
     # https://docs.google.com/document/d/1lyL_8FWZRouMkwqLiIt84rd2Htg4v1vz8_2MzRKHRkc/edit
     # https://gitlab.com/kicad/code/kicad/-/blob/master/eeschema/sch_plugins/kicad/sch_sexpr_parser.cpp
 
-    from ...part import TEMPLATE
-    from ...pin import Pin
+    from skidl import TEMPLATE, Pin
 
     # Return if there's nothing to do (i.e., part has already been parsed).
     if not part.part_defn:

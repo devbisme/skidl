@@ -32,6 +32,7 @@ def test_missing_lib():
     # exception until the second time it's tried. This detects that error.
     
     # Don't allow searching backup lib that might exist from previous tests.
+    SchLib.reset()
     skidl.config.query_backup_lib=False
     with pytest.raises(FileNotFoundError):
         a = Part("crap", "R")
@@ -40,15 +41,18 @@ def test_missing_lib():
 
 
 def test_lib_import_1():
+    SchLib.reset()
     lib = SchLib("xess.lib")
     assert len(lib) > 0
 
 
 def test_lib_import_2():
+    SchLib.reset()
     lib = SchLib("Device")
 
 
 def test_lib_export_1():
+    SchLib.reset()
     lib = SchLib("Device")
     lib.export("my_device", tool=SKIDL)
     my_lib = SchLib("my_device", tool=SKIDL)
@@ -56,6 +60,7 @@ def test_lib_export_1():
 
 
 def test_lib_creation_1():
+    SchLib.reset()
     lib = SchLib()
     prt1 = SkidlPart(name="Q", dest=TEMPLATE)
     lib += prt1
@@ -77,6 +82,7 @@ def test_lib_creation_1():
 
 
 def test_backup_1():
+    SchLib.reset()
     a = Part("Device", "R", footprint="null")
     b = Part("Device", "C", footprint="null")
     c = Part("Device", "L", footprint="null")
@@ -90,6 +96,7 @@ def test_backup_1():
 
 
 def test_backup_2():
+    SchLib.reset()
     a = Part("Device", "R", footprint="null")
     b = Part("Device", "C", footprint="null")
     c = Part("Device", "L", footprint="null")
@@ -102,6 +109,7 @@ def test_backup_2():
 
 
 def test_lib_1():
+    SchLib.reset()
     lib_kicad = SchLib("Device")
     lib_kicad.export("Device")
     SchLib.reset()
@@ -119,18 +127,21 @@ def test_lib_1():
 
 
 def test_non_existing_lib_cannot_be_loaded():
+    SchLib.reset()
     for tool in ALL_TOOLS:
         with pytest.raises(FileNotFoundError):
             lib = SchLib("non-existing", tool=tool)
 
 
 def test_part_from_non_existing_lib_cannot_be_instantiated():
+    SchLib.reset()
     for tool in ALL_TOOLS:
         with pytest.raises(FileNotFoundError):
             part = Part("non-existing", "P", tool=tool)
 
 
 def test_lib_kicad_v5():
+    SchLib.reset()
     lib_name = "Device.lib"
     lib_v5 = SchLib(lib_name)
     v5_part_names = [part.name for part in lib_v5.parts]
@@ -142,6 +153,7 @@ def test_lib_kicad_v5():
 
 
 def test_lib_kicad_v6_1():
+    SchLib.reset()
     lib_name = "Device.kicad_sym"
     lib_v6 = SchLib(lib_name, tool=KICAD6)
     v6_part_names = [part.name for part in lib_v6.parts]
@@ -159,6 +171,7 @@ def test_lib_kicad_v6_1():
 
 
 def test_lib_kicad_v6_2():
+    SchLib.reset()
     lib_name = "4xxx.kicad_sym"
     lib_v6 = SchLib(lib_name, tool=KICAD6)
     v6_part_names = [part.name for part in lib_v6.parts]
@@ -176,12 +189,18 @@ def test_lib_kicad_v6_2():
 
 
 def test_lib_kicad5_repository():
+    SchLib.reset()
+    lib_name = "4xxx.lib"
     repo_url = "https://raw.githubusercontent.com/KiCad/kicad-symbols/master/"
     lib_search_paths[KICAD] = [repo_url]
-    lib_4xxx = SchLib("4xxx.lib")
+    lib_4xxx = SchLib(lib_name, tool=KICAD)
+    print("# of parts in {} = {}".format(lib_name, len(lib_4xxx.parts)))
 
 
 def test_lib_kicad6_repository():
+    SchLib.reset()
+    lib_name = "4xxx.kicad_sym"
     repo_url = "https://gitlab.com/kicad/libraries/kicad-symbols/-/raw/master"
-    lib_search_paths[KICAD] = [repo_url]
-    lib_4xxx = SchLib("4xxx.kicad_sym", tool=KICAD6)
+    lib_search_paths[KICAD6] = [repo_url]
+    lib_4xxx = SchLib(lib_name, tool=KICAD6)
+    print("# of parts in {} = {}".format(lib_name, len(lib_4xxx.parts)))
