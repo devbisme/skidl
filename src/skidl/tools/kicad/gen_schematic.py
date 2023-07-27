@@ -712,7 +712,8 @@ def gen_schematic(
         options (dict, optional): Dict of options and values, usually for drawing/debugging.
     """
 
-    from skidl.tools import tool_modules, KICAD
+    from skidl import KICAD
+    from skidl.tools import tool_modules
     from skidl.schematics.node import Node
 
     # Part placement options that should always be turned on.
