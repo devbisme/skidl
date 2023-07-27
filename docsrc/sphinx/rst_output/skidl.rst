@@ -27,7 +27,7 @@ Submodules
    skidl.bus
    skidl.circuit
    skidl.common
-   skidl.config
+   skidl.config_
    skidl.erc
    skidl.group
    skidl.interface

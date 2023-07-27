@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.circuit &#8212; SKiDL 1.2.0 documentation</title>
+    <title>skidl.circuit &#8212; SKiDL 1.2.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css" />
     
@@ -34,7 +34,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.circuit</a></li> 
       </ul>
@@ -76,7 +76,7 @@
 <span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="n">builtins</span>
 <span class="kn">from</span> <span class="nn">.erc</span> <span class="kn">import</span> <span class="n">dflt_circuit_erc</span>
 <span class="kn">from</span> <span class="nn">.group</span> <span class="kn">import</span> <span class="n">Group</span>
-<span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span><span class="p">,</span> <span class="n">erc_logger</span>
+<span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span><span class="p">,</span> <span class="n">erc_logger</span><span class="p">,</span> <span class="n">stop_log_file_output</span>
 <span class="kn">from</span> <span class="nn">.net</span> <span class="kn">import</span> <span class="n">NCNet</span><span class="p">,</span> <span class="n">Net</span>
 <span class="kn">from</span> <span class="nn">.part</span> <span class="kn">import</span> <span class="n">Part</span><span class="p">,</span> <span class="n">PartUnit</span>
 <span class="kn">from</span> <span class="nn">.pckg_info</span> <span class="kn">import</span> <span class="n">__version__</span>
@@ -133,18 +133,24 @@
 <div class="viewcode-block" id="Circuit.reset"><a class="viewcode-back" href="../../rst_output/skidl.circuit.html#skidl.circuit.Circuit.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Clear any circuitry and cached part libraries and start over.&quot;&quot;&quot;</span>
 
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">skidl</span>
+            <span class="n">config</span> <span class="o">=</span> <span class="n">skidl</span><span class="o">.</span><span class="n">config</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="c1"># For Python 2. Always gotta be different...</span>
+            <span class="kn">from</span> <span class="nn">.skidl</span> <span class="kn">import</span> <span class="n">config</span>
+
         <span class="c1"># Clear circuitry.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mini_reset</span><span class="p">(</span><span class="n">init</span><span class="p">)</span>
 
         <span class="c1"># Also clear any cached libraries.</span>
         <span class="n">SchLib</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-        <span class="k">global</span> <span class="n">backup_lib</span>
-        <span class="n">backup_lib</span> <span class="o">=</span> <span class="kc">None</span></div>
+        
+        <span class="c1"># Clear out any old backup lib so the new one will get reloaded when it&#39;s needed.</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">backup_lib</span> <span class="o">=</span> <span class="kc">None</span></div>
 
 <div class="viewcode-block" id="Circuit.mini_reset"><a class="viewcode-back" href="../../rst_output/skidl.circuit.html#skidl.circuit.Circuit.mini_reset">[docs]</a>    <span class="k">def</span> <span class="nf">mini_reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Clear any circuitry but don&#39;t erase any loaded part libraries.&quot;&quot;&quot;</span>
-
-        <span class="c1"># Group.reset()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">group_name_cntr</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
 
@@ -616,7 +622,7 @@
         <span class="c1">#     Get EDA tool the netlist will be generated for.</span>
         <span class="c1">#     Get file the netlist will be stored in (if any).</span>
         <span class="c1">#     Get flag controlling the generation of a backup library.</span>
-        <span class="n">tool</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;tool&quot;</span><span class="p">,</span> <span class="n">skidl</span><span class="o">.</span><span class="n">get_default_tool</span><span class="p">())</span>
+        <span class="n">tool</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;tool&quot;</span><span class="p">,</span> <span class="n">skidl</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">tool</span><span class="p">)</span>
         <span class="n">file_</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;file_&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">do_backup</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;do_backup&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
@@ -630,8 +636,8 @@
 
         <span class="k">if</span> <span class="n">do_backup</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">backup_parts</span><span class="p">()</span>  <span class="c1"># Create a new backup lib for the circuit parts.</span>
-            <span class="k">global</span> <span class="n">backup_lib</span>  <span class="c1"># Clear out any old backup lib so the new one</span>
-            <span class="n">backup_lib</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1">#   will get reloaded when it&#39;s needed.</span>
+            <span class="c1"># Clear out any old backup lib so the new one will get reloaded when it&#39;s needed.</span>
+            <span class="n">skidl</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">backup_lib</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="k">return</span> <span class="n">netlist</span></div>
 
@@ -663,7 +669,7 @@
         <span class="c1">#     Get file the netlist will be stored in (if any).</span>
         <span class="c1">#     Get flag controlling the generation of a backup library.</span>
         <span class="c1">#     Get list of footprint libraries.</span>
-        <span class="n">tool</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;tool&quot;</span><span class="p">,</span> <span class="n">skidl</span><span class="o">.</span><span class="n">get_default_tool</span><span class="p">())</span>
+        <span class="n">tool</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;tool&quot;</span><span class="p">,</span> <span class="n">skidl</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">tool</span><span class="p">)</span>
         <span class="n">file_</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;file_&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">do_backup</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;do_backup&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
         <span class="n">fp_libs</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;fp_libs&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -671,8 +677,8 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">no_files</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">do_backup</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">backup_parts</span><span class="p">()</span>  <span class="c1"># Create a new backup lib for the circuit parts.</span>
-                <span class="k">global</span> <span class="n">backup_lib</span>  <span class="c1"># Clear out any old backup lib so the new one</span>
-                <span class="n">backup_lib</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1">#   will get reloaded when it&#39;s needed.</span>
+                <span class="c1"># Clear out any old backup lib so the new one will get reloaded when it&#39;s needed.</span>
+                <span class="n">skidl</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">backup_lib</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="n">tool_modules</span><span class="p">[</span><span class="n">tool</span><span class="p">]</span><span class="o">.</span><span class="n">gen_pcb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_</span><span class="p">,</span> <span class="n">fp_libs</span><span class="o">=</span><span class="n">fp_libs</span><span class="p">)</span>
 
         <span class="n">active_logger</span><span class="o">.</span><span class="n">report_summary</span><span class="p">(</span><span class="s2">&quot;creating PCB&quot;</span><span class="p">)</span></div>
@@ -699,7 +705,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">()</span>
 
-        <span class="n">tool</span> <span class="o">=</span> <span class="n">tool</span> <span class="ow">or</span> <span class="n">skidl</span><span class="o">.</span><span class="n">get_default_tool</span><span class="p">()</span>
+        <span class="n">tool</span> <span class="o">=</span> <span class="n">tool</span> <span class="ow">or</span> <span class="n">skidl</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">tool</span>
         <span class="n">netlist</span> <span class="o">=</span> <span class="n">tool_modules</span><span class="p">[</span><span class="n">tool</span><span class="p">]</span><span class="o">.</span><span class="n">gen_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">no_files</span><span class="p">:</span>
@@ -1076,7 +1082,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">()</span>
 
-        <span class="n">tool</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;tool&quot;</span><span class="p">,</span> <span class="n">skidl</span><span class="o">.</span><span class="n">get_default_tool</span><span class="p">())</span>
+        <span class="n">tool</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;tool&quot;</span><span class="p">,</span> <span class="n">skidl</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">tool</span><span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="n">tool_modules</span><span class="p">[</span><span class="n">tool</span><span class="p">]</span><span class="o">.</span><span class="n">gen_schematic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -1210,10 +1216,20 @@
         <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
             <span class="n">lib</span> <span class="o">+=</span> <span class="n">p</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">file_</span><span class="p">:</span>
-            <span class="n">file_</span> <span class="o">=</span> <span class="n">skidl</span><span class="o">.</span><span class="n">BACKUP_LIB_FILE_NAME</span>
+        <span class="n">file_</span> <span class="o">=</span> <span class="n">file_</span> <span class="ow">or</span> <span class="n">skidl</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">backup_lib_file_name</span>
 
-        <span class="n">lib</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">libname</span><span class="o">=</span><span class="n">skidl</span><span class="o">.</span><span class="n">BACKUP_LIB_NAME</span><span class="p">,</span> <span class="n">file_</span><span class="o">=</span><span class="n">file_</span><span class="p">)</span></div></div>
+        <span class="n">lib</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">libname</span><span class="o">=</span><span class="n">skidl</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">backup_lib_name</span><span class="p">,</span> <span class="n">file_</span><span class="o">=</span><span class="n">file_</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">no_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Prevent creation of output files (netlists, ERC, logs) by this Circuit object.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_no_files</span>
+
+    <span class="nd">@no_files</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">no_files</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stop</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Don&#39;t output any files if stop is True.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_no_files</span> <span class="o">=</span> <span class="n">stop</span>
+        <span class="n">stop_log_file_output</span><span class="p">(</span><span class="n">stop</span><span class="p">)</span></div>
 </pre></div>
 
             <div class="clearer"></div>
@@ -1245,7 +1261,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.circuit</a></li> 
       </ul>

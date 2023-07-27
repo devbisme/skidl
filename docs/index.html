@@ -817,7 +817,8 @@ then the subnames for each pin can be assigned as aliases:</p>
 <span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nv">pic10</span>.<span class="nv">AN1</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nv">Net</span><span class="ss">(</span><span class="s1">&#39;analog2&#39;</span><span class="ss">)</span><span class="w">        </span>#<span class="w"> </span><span class="nv">Or</span><span class="w"> </span><span class="nv">access</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">alias</span><span class="w"> </span><span class="nv">thru</span><span class="w"> </span><span class="nv">an</span><span class="w"> </span><span class="nv">attribute</span>.
 </code></pre></div>
 
-<p>You can also split the pin names when you create the part:</p>
+<p>You can also split the pin names when you create the part by supplying a string
+of delimiter characters:</p>
 <div class="highlight"><pre><span></span><code>&gt;&gt;&gt; pic10 = Part(&#39;MCU_Microchip_PIC10&#39;, &#39;pic10f220-iot&#39;, pin_splitters=&#39;/&#39;)
 </code></pre></div>
 
@@ -826,29 +827,38 @@ You'll have to enable regular expression matching for a particular part (it's of
 and you'll have to use an odd-looking expression, but here's how it's done:</p>
 <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">pic10</span><span class="p">[</span><span class="mh">3</span><span class="p">].</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">&#39;</span><span class="n">GP1</span><span class="o">/</span><span class="n">AN1</span><span class="o">/</span><span class="n">ICSPCLK</span><span class="p">&#39;</span>
 <span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">pic10</span><span class="p">.</span><span class="n">match_pin_regex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">True</span><span class="w">          </span><span class="p">#</span><span class="w"> </span><span class="n">Enable</span><span class="w"> </span><span class="n">regular</span><span class="w"> </span><span class="n">expression</span><span class="w"> </span><span class="n">matching</span><span class="p">.</span>
-<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">pic10</span><span class="p">[&#39;.</span><span class="o">*</span><span class="n">\/AN1\/.*]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">Net</span><span class="p">(&#39;</span><span class="n">analog1</span><span class="p">)</span><span class="w">  </span><span class="p">#</span><span class="w"> </span><span class="n">I</span><span class="w"> </span><span class="n">told</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">expression</span><span class="w"> </span><span class="n">was</span><span class="w"> </span><span class="n">strange</span><span class="o">!</span>
+<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">pic10</span><span class="p">[&#39;.</span><span class="o">*/</span><span class="n">AN1</span><span class="o">/</span><span class="p">.</span><span class="o">*</span><span class="p">&#39;]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">Net</span><span class="p">(&#39;</span><span class="n">analog1</span><span class="p">&#39;)</span><span class="w">   </span><span class="p">#</span><span class="w"> </span><span class="n">I</span><span class="w"> </span><span class="n">told</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">expression</span><span class="w"> </span><span class="n">was</span><span class="w"> </span><span class="n">strange</span><span class="o">!</span>
 </code></pre></div>
 
-<p>Since you may access pins by number or by name using strings or regular expressions, it's worth
-discussing how SKiDL decides which one to select.
-When given a pin index, SKiDL stops searching and returns the matching pins as soon as
-one of the following conditions succeeds:</p>
-<ol>
-<li>One or more pin numbers match the index.</li>
-<li>One or more pin aliases match the index using standard string matching.</li>
-<li>One or more pin names match the index using standard string matching.</li>
-<li>One or more pin aliases match the index using regular expression matching.</li>
-<li>One or more pin names match the index using regular expression matching.</li>
-</ol>
-<p>Since SKiDL prioritizes pin number matches over name matches,
-what happens when you use a name that is the same as the number of another pin?
-For example, a memory chip in a BGA would have pin numbers <code>A1</code>, <code>A2</code>, <code>A3</code>, ... but might
-also have address pins named <code>A1</code>, <code>A2</code>, <code>A3</code>, ... .
-In order to specifically target either pin numbers or names,
-SKiDL provides the <code>p</code> and <code>n</code> part attributes:</p>
-<div class="highlight"><pre><span></span><code><span class="n">ram</span><span class="p">[</span><span class="s1">&#39;A1, A2, A3&#39;</span><span class="p">]</span>    <span class="c1"># Selects pin numbers A1, A2 and A3 if the part is a BGA.</span>
-<span class="n">ram</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;A1, A2, A3&#39;</span><span class="p">]</span>  <span class="c1"># Use the p attribute to specifically select pin numbers A1, A2 and A3.</span>
-<span class="n">ram</span><span class="o">.</span><span class="n">n</span><span class="p">[</span><span class="s1">&#39;A1, A2, A3&#39;</span><span class="p">]</span>  <span class="c1"># Use the n attribute to specifically select pin names A1, A2 and A3.</span>
+<p>You can avoid explicitly enabling regular expression matching by just creating the expression as
+an <code>Rgx</code> like this:</p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">pic10</span><span class="err">[</span><span class="mi">3</span><span class="err">]</span><span class="p">.</span><span class="k">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;GP1/AN1/ICSPCLK&#39;</span>
+<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">pic10</span><span class="err">[</span><span class="n">Rgx</span><span class="p">(</span><span class="s1">&#39;.*/AN1/.*&#39;</span><span class="p">)</span><span class="err">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">Net</span><span class="p">(</span><span class="s1">&#39;analog1&#39;</span><span class="p">)</span><span class="w">  </span><span class="c1"># No need to manually enable regular expression matching!</span>
+<span class="n n-Quoted">`</span><span class="n n-Quoted n-Quoted-Escape">````</span><span class="n n-Quoted">`</span>
+
+
+<span class="n">Since</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">may</span><span class="w"> </span><span class="n">access</span><span class="w"> </span><span class="n">pins</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="k">number</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="k">name</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">strings</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">regular</span><span class="w"> </span><span class="n">expressions</span><span class="p">,</span><span class="w"> </span><span class="n">it</span><span class="s1">&#39;s worth</span>
+<span class="s1">discussing how SKiDL decides which one to select.</span>
+<span class="s1">When given a pin index, SKiDL stops searching and returns the matching pins as soon as</span>
+<span class="s1">one of the following conditions succeeds:</span>
+
+<span class="s1">1. One or more pin numbers match the index.</span>
+<span class="s1">2. One or more pin aliases match the index using standard string matching.</span>
+<span class="s1">3. One or more pin names match the index using standard string matching.</span>
+<span class="s1">4. One or more pin aliases match the index using regular expression matching.</span>
+<span class="s1">5. One or more pin names match the index using regular expression matching.</span>
+
+<span class="s1">Since SKiDL prioritizes pin number matches over name matches,</span>
+<span class="s1">what happens when you use a name that is the same as the number of another pin?</span>
+<span class="s1">For example, a memory chip in a BGA would have pin numbers `A1`, `A2`, `A3`, ... but might</span>
+<span class="s1">also have address pins named `A1`, `A2`, `A3`, ... .</span>
+<span class="s1">In order to specifically target either pin numbers or names,</span>
+<span class="s1">SKiDL provides the `p` and `n` part attributes:</span>
+
+<span class="s1">```py</span>
+<span class="s1">ram[&#39;</span><span class="n">A1</span><span class="p">,</span><span class="w"> </span><span class="n">A2</span><span class="p">,</span><span class="w"> </span><span class="n">A3</span><span class="s1">&#39;]    # Selects pin numbers A1, A2 and A3 if the part is a BGA.</span>
+<span class="s1">ram.p[&#39;</span><span class="n">A1</span><span class="p">,</span><span class="w"> </span><span class="n">A2</span><span class="p">,</span><span class="w"> </span><span class="n">A3</span><span class="s1">&#39;]  # Use the p attribute to specifically select pin numbers A1, A2 and A3.</span>
+<span class="s1">ram.n[&#39;</span><span class="n">A1</span><span class="p">,</span><span class="w"> </span><span class="n">A2</span><span class="p">,</span><span class="w"> </span><span class="n">A3</span><span class="s1">&#39;]  # Use the n attribute to specifically select pin names A1, A2 and A3.</span>
 </code></pre></div>
 
 <p><code>Part</code> objects also provide the <code>get_pins()</code> function which can select pins in even more ways.

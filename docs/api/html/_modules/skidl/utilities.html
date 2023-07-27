@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.utilities &#8212; SKiDL 1.2.0 documentation</title>
+    <title>skidl.utilities &#8212; SKiDL 1.2.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css" />
     
@@ -34,7 +34,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.utilities</a></li> 
       </ul>
@@ -71,6 +71,8 @@
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">traceback</span>
+<span class="kn">import</span> <span class="nn">urllib.parse</span>
+<span class="kn">import</span> <span class="nn">urllib.request</span>
 <span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">chr</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">open</span><span class="p">,</span> <span class="nb">range</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">super</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
@@ -99,6 +101,13 @@
     <span class="k">return</span> <span class="n">fn</span>
 
 
+<span class="k">class</span> <span class="nc">Rgx</span><span class="p">(</span><span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Same as a string but the class makes it recognizable as as a regular expression.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+        <span class="nb">str</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+
 <div class="viewcode-block" id="sgn"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.sgn">[docs]</a><span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">sgn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return -1,0,1 if x&lt;0, x==0, x&gt;0.&quot;&quot;&quot;</span>
@@ -113,6 +122,7 @@
         <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;debug_trace&quot;</span><span class="p">):</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Doing </span><span class="si">{}</span><span class="s2"> ...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
     <span class="k">return</span> <span class="n">traced_fn</span></div>
 
 
@@ -174,7 +184,7 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return x if it is already a list, or return a list containing x if x is a scalar.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="nb">set</span><span class="p">)):</span>
         <span class="k">return</span> <span class="n">x</span>  <span class="c1"># Already a list, so just return it.</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>  <span class="c1"># Wasn&#39;t a list, so make it into one.</span></div>
 
@@ -361,7 +371,6 @@
     <span class="c1"># If the initial name is None, then create a name based on the prefix</span>
     <span class="c1"># and the smallest unused number that&#39;s available for that prefix.</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="p">:</span>
-
         <span class="c1"># Do a binary search for a unique name formed from the prefix + number.</span>
         <span class="n">n</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Starting number to append to the prefix.</span>
         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
@@ -468,54 +477,58 @@
         <span class="c1"># Break current_level of the criteria loop and don&#39;t add the item to the extract</span>
         <span class="c1"># list if *any* of the item&#39;s attributes *does not* match.</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">criteria</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
-
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">attr_val</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+                <span class="n">attr_val</span> <span class="o">=</span> <span class="n">to_list</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
             <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
                 <span class="c1"># If the attribute doesn&#39;t exist, then that&#39;s a non-match.</span>
                 <span class="k">break</span>
 
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">basestring</span><span class="p">)):</span>
-                <span class="c1"># Check integer or string attributes.</span>
-
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attr_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="nb">set</span><span class="p">)):</span>
-                    <span class="c1"># If the attribute value from the item is a list or tuple,</span>
-                    <span class="c1"># loop through the list of attribute values. If at least one</span>
-                    <span class="c1"># value matches the current criterium, then break from the</span>
-                    <span class="c1"># criteria loop and extract this item.</span>
-                    <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">attr_val</span><span class="p">:</span>
-                        <span class="k">if</span> <span class="n">compare_func</span><span class="p">(</span>
-                            <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">),</span>
-                            <span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">),</span>
-                            <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">,</span>
-                        <span class="p">):</span>
-                            <span class="c1"># One of the list of values matched, so break from this</span>
-                            <span class="c1"># loop and do not execute the break in the</span>
-                            <span class="c1"># loop&#39;s else clause.</span>
-                            <span class="k">break</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="c1"># If we got here, then none of the values in the attribute</span>
-                        <span class="c1"># list matched the current criterium. Therefore, break current_level</span>
-                        <span class="c1"># of the criteria loop and don&#39;t add this list item to</span>
-                        <span class="c1"># the extract list.</span>
-                        <span class="k">break</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="c1"># If the attribute value from the item in the list is a scalar,</span>
-                    <span class="c1"># see if the value matches the current criterium. If it doesn&#39;t,</span>
-                    <span class="c1"># then break from the criteria loop and don&#39;t extract this item.</span>
-                    <span class="k">if</span> <span class="ow">not</span> <span class="n">compare_func</span><span class="p">(</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">Rgx</span><span class="p">):</span>
+                <span class="c1"># Loop through the list of attribute values. If at least one</span>
+                <span class="c1"># value matches the current criterium, then break from the</span>
+                <span class="c1"># criteria loop and extract this item.</span>
+                <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">attr_val</span><span class="p">:</span>
+                    <span class="c1"># This is an Rgx, so use fullmatch().</span>
+                    <span class="k">if</span> <span class="n">fullmatch</span><span class="p">(</span>
                         <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">),</span>
-                        <span class="nb">str</span><span class="p">(</span><span class="n">attr_val</span><span class="p">),</span>
+                        <span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">),</span>
                         <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">,</span>
                     <span class="p">):</span>
+                        <span class="c1"># One of the list of values matched, so break from this</span>
+                        <span class="c1"># loop and do not execute the break in the</span>
+                        <span class="c1"># loop&#39;s else clause.</span>
                         <span class="k">break</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># If we got here, then none of the values in the attribute</span>
+                    <span class="c1"># list matched the current criterium. Therefore, break current_level</span>
+                    <span class="c1"># of the criteria loop and don&#39;t add this list item to</span>
+                    <span class="c1"># the extract list.</span>
+                    <span class="k">break</span>
+
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">basestring</span><span class="p">)):</span>
+                <span class="c1"># Loop through the list of attribute values. If at least one</span>
+                <span class="c1"># value matches the current criterium, then break from the</span>
+                <span class="c1"># criteria loop and extract this item.</span>
+                <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">attr_val</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">compare_func</span><span class="p">(</span>
+                        <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">),</span>
+                        <span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">),</span>
+                        <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">,</span>
+                    <span class="p">):</span>
+                        <span class="c1"># One of the list of values matched, so break from this</span>
+                        <span class="c1"># loop and do not execute the break in the</span>
+                        <span class="c1"># loop&#39;s else clause.</span>
+                        <span class="k">break</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># If we got here, then none of the values in the attribute</span>
+                    <span class="c1"># list matched the current criterium. Therefore, break current_level</span>
+                    <span class="c1"># of the criteria loop and don&#39;t add this list item to</span>
+                    <span class="c1"># the extract list.</span>
+                    <span class="k">break</span>
 
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># Check non-integer, non-string attributes.</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attr_val</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
-                    <span class="k">if</span> <span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">attr_val</span><span class="p">:</span>
-                        <span class="k">break</span>
-                <span class="k">elif</span> <span class="n">v</span> <span class="o">!=</span> <span class="n">attr_val</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">attr_val</span><span class="p">:</span>
                     <span class="k">break</span>
 
         <span class="k">else</span><span class="p">:</span>
@@ -648,6 +661,13 @@
             <span class="n">ids</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">expand_slice</span><span class="p">(</span><span class="n">indx</span><span class="p">))</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">indx</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
             <span class="n">ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">indx</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">indx</span><span class="p">,</span> <span class="n">Rgx</span><span class="p">):</span>
+            <span class="c1"># Rgx might contain multiple indices with a separator.</span>
+            <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">INDEX_SEPARATOR</span><span class="p">,</span> <span class="n">indx</span><span class="p">):</span>
+                <span class="c1"># If the id is a valid bus expression, then the exploded bus lines</span>
+                <span class="c1"># are added to the list of ids. If not, the original id is</span>
+                <span class="c1"># added to the list.</span>
+                <span class="n">ids</span><span class="o">.</span><span class="n">extend</span><span class="p">((</span><span class="n">Rgx</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">explode</span><span class="p">(</span><span class="nb">id</span><span class="o">.</span><span class="n">strip</span><span class="p">())))</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">indx</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
             <span class="c1"># String might contain multiple indices with a separator.</span>
             <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">INDEX_SEPARATOR</span><span class="p">,</span> <span class="n">indx</span><span class="p">):</span>
@@ -776,6 +796,10 @@
         <span class="k">return</span> <span class="kc">False</span>
 
 
+<span class="k">def</span> <span class="nf">is_url</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urlparse</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">scheme</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;http&quot;</span><span class="p">,</span> <span class="s2">&quot;https&quot;</span><span class="p">}</span>
+
+
 <div class="viewcode-block" id="find_and_open_file"><a class="viewcode-back" href="../../rst_output/skidl.utilities.html#skidl.utilities.find_and_open_file">[docs]</a><span class="nd">@export_to_all</span>
 <span class="k">def</span> <span class="nf">find_and_open_file</span><span class="p">(</span>
     <span class="n">filename</span><span class="p">,</span> <span class="n">paths</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_failure</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">exclude_binary</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">descend</span><span class="o">=</span><span class="mi">0</span>
@@ -797,13 +821,7 @@
 <span class="sd">        File pointer and file name or None, None if file could not be opened.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="kn">import</span> <span class="nn">urllib.parse</span>
-    <span class="kn">import</span> <span class="nn">urllib.request</span>
-
     <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
-
-    <span class="k">def</span> <span class="nf">is_url</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urlparse</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">scheme</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">is_url</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
         <span class="c1"># This is a URL. Use the URL path as the search path except for</span>
@@ -964,7 +982,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.utilities</a></li> 
       </ul>

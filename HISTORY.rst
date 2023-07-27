@@ -3,10 +3,10 @@
 History
 -------
 
-1.3.0 (2023-XX-DD)
-______________________
 
-- Added `Rgx` class for tagging pin IDs that are meant to be used as regular expressions.
+1.2.1 (2023-07-26)
+______________________
+- `is_url` function fixed to solve problems with `search` and loading libraries.
 
 
 1.2.0 (2023-07-14)
